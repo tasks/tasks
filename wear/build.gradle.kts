@@ -17,13 +17,28 @@ android {
         versionName = "1.0"
     }
 
+    signingConfigs {
+        create("release") {
+            val tasksKeyAlias: String? by project
+            val tasksStoreFile: String? by project
+            val tasksStorePassword: String? by project
+            val tasksKeyPassword: String? by project
+
+            keyAlias = tasksKeyAlias
+            storeFile = file(tasksStoreFile ?: "none")
+            storePassword = tasksStorePassword
+            keyPassword = tasksKeyPassword
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {

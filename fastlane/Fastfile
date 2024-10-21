@@ -44,7 +44,7 @@ platform :android do
   desc "Bundle"
   lane :bundle do
         gradle(
-            task: "bundleGoogleplayRelease",
+            task: "app:bundleGoogleplayRelease wear:bundleRelease",
             properties: {
                 "tasksKeyAlias": ENV["KEY_ALIAS"],
                 "tasksStoreFile": ENV["KEY_PATH"],
