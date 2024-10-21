@@ -25,4 +25,6 @@
     <string name="today_lowercase">tänään</string>
     <string name="yest">Eilen</string>
     <string name="yesterday_abbrev_lowercase">eilen</string>
+    <string name="show_unstarted">Näytä aloittamattomat</string>
+    <string name="show_completed">Näytä valmiit</string>
 </resources>

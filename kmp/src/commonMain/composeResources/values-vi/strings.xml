@@ -25,4 +25,6 @@
     <string name="yesterday_lowercase">hôm qua</string>
     <string name="today">Hôm nay</string>
     <string name="today_lowercase">hôm nay</string>
+    <string name="show_unstarted">Hiện mục chưa bắt đầu</string>
+    <string name="show_completed">Hiện mục đã hoàn thành</string>
 </resources>

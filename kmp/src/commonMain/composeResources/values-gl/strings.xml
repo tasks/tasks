@@ -25,4 +25,6 @@
     <string name="yesterday_lowercase">onte</string>
     <string name="today">Hoxe</string>
     <string name="today_lowercase">hoxe</string>
+    <string name="show_unstarted">Amosar sen comezar</string>
+    <string name="show_completed">Amosar finalizadas</string>
 </resources>

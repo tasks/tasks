@@ -25,4 +25,6 @@
     <string name="yesterday_lowercase">어제</string>
     <string name="today">오늘</string>
     <string name="today_lowercase">오늘</string>
+    <string name="show_unstarted">시작하지 않은 할일 표시</string>
+    <string name="show_completed">완료한 할일 표시</string>
 </resources>

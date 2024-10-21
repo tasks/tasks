@@ -29,4 +29,6 @@
     <string name="today">Bugün</string>
     <string name="today_lowercase">bugün</string>
     <string name="add_task">Görev ekle</string>
+    <string name="show_unstarted">Başlamayanları göster</string>
+    <string name="show_completed">Tamamlananları göster</string>
 </resources>

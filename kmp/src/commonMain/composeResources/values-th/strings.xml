@@ -24,4 +24,6 @@
     <string name="today">วันนี้</string>
     <string name="today_lowercase">วันนี้</string>
     <string name="yesterday_lowercase">เมื่อวานนี้</string>
+    <string name="show_unstarted">แสดงสิ่งที่ไม่ได้เริ่มต้น</string>
+    <string name="show_completed">การแสดงเสร็จสมบูรณ์</string>
 </resources>

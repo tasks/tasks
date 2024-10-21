@@ -16,4 +16,5 @@
     <string name="yesterday">Včera</string>
     <string name="today">Dnes</string>
     <string name="tmrw">Zajtra</string>
+    <string name="show_completed">Zobraziť dokončené</string>
 </resources>

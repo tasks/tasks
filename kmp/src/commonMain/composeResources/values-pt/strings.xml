@@ -25,4 +25,6 @@
     <string name="yesterday_lowercase">ontem</string>
     <string name="today">Hoje</string>
     <string name="today_lowercase">hoje</string>
+    <string name="show_unstarted">Mostrar não iniciadas</string>
+    <string name="show_completed">Mostrar terminadas</string>
 </resources>

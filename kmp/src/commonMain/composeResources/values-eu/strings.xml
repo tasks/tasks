@@ -25,4 +25,6 @@
     <string name="yest">Atzo</string>
     <string name="yesterday_abbrev_lowercase">atzo</string>
     <string name="yesterday">Atzo</string>
+    <string name="show_unstarted">Erakutsi hasi gabeak</string>
+    <string name="show_completed">Erakutsi burututakoak</string>
 </resources>

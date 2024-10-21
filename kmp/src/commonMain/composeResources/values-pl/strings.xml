@@ -25,4 +25,6 @@
     <string name="yesterday_lowercase">wczoraj</string>
     <string name="today">Dzisiaj</string>
     <string name="today_lowercase">dzisiaj</string>
+    <string name="show_completed">Pokaż ukończone</string>
+    <string name="show_unstarted">Pokaż nierozpoczęte</string>
 </resources>

@@ -25,4 +25,6 @@
     <string name="yesterday_lowercase">hieraŭ</string>
     <string name="today">Hodiaŭ</string>
     <string name="today_lowercase">hodiaŭ</string>
+    <string name="show_unstarted">Vidigi nekomencitajn</string>
+    <string name="show_completed">Vidigi finitajn</string>
 </resources>
