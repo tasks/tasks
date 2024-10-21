@@ -38,6 +38,20 @@ android {
         compose = true
     }
 
+    signingConfigs {
+        create("release") {
+            val tasksKeyAlias: String? by project
+            val tasksStoreFile: String? by project
+            val tasksStorePassword: String? by project
+            val tasksKeyPassword: String? by project
+
+            keyAlias = tasksKeyAlias
+            storeFile = file(tasksStoreFile ?: "none")
+            storePassword = tasksStorePassword
+            keyPassword = tasksKeyPassword
+        }
+    }
+
     tasks.register("testClasses")
 }
 
