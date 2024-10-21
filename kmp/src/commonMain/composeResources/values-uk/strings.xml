@@ -29,4 +29,6 @@
     <string name="today">Сьогодні</string>
     <string name="today_lowercase">сьогодні</string>
     <string name="add_task">Додати завдання</string>
+    <string name="show_unstarted">Показати непочаті</string>
+    <string name="show_completed">Показати завершені</string>
 </resources>

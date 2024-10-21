@@ -28,4 +28,6 @@
     <string name="search_no_results">Sense resultats</string>
     <string name="subscription_required_description">Desbloqueja tota la funcionalitat des de $1 USD/any</string>
     <string name="filter_snoozed">Posposada</string>
+    <string name="show_unstarted">Mostra les no iniciades</string>
+    <string name="show_completed">Mostra completades</string>
 </resources>

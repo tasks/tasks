@@ -15,4 +15,5 @@
     <string name="yest">دیروز</string>
     <string name="yesterday">فردا بعد از ظهر</string>
     <string name="today">امروز</string>
+    <string name="show_completed">نمایش انجام شده ها</string>
 </resources>

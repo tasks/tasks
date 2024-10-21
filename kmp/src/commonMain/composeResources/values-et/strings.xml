@@ -27,4 +27,6 @@
     <string name="yesterday_lowercase">eile</string>
     <string name="drawer_places">Asukohad</string>
     <string name="drawer_local_lists">Seadme loendid</string>
+    <string name="show_unstarted">Näita alustamata</string>
+    <string name="show_completed">Näita lõpetatuid</string>
 </resources>

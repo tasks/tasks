@@ -29,4 +29,6 @@
     <string name="requires_pro_subscription">Pro funkció</string>
     <string name="subscription_required_description">Csupán 1$/év az összes funkcióért</string>
     <string name="add_task">Feladat létrehozása</string>
+    <string name="show_unstarted">El nem kezdettek mutatása</string>
+    <string name="show_completed">Elvégzettek megjelenítése</string>
 </resources>

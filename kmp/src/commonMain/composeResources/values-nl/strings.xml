@@ -29,4 +29,6 @@
     <string name="requires_pro_subscription">Pro-functie</string>
     <string name="subscription_required_description">Ontgrendel alle functies voor maar $1 USD/jaar</string>
     <string name="add_task">Taak toevoegen</string>
+    <string name="show_unstarted">Niet-gestarte tonen</string>
+    <string name="show_completed">Voltooide tonen</string>
 </resources>

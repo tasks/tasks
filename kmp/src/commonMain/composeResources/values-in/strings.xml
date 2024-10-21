@@ -25,4 +25,6 @@
     <string name="yesterday_lowercase">kemarin</string>
     <string name="today">Hari ini</string>
     <string name="today_lowercase">hari ini</string>
+    <string name="show_unstarted">Tampilkan yang belum dimulai</string>
+    <string name="show_completed">Tampilkan selesai</string>
 </resources>

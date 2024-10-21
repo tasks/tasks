@@ -28,4 +28,6 @@
     <string name="search_no_results">Žádné výsledky</string>
     <string name="requires_pro_subscription">Vyžaduje PRO předplatné</string>
     <string name="subscription_required_description">Odemkněte všechny funkce za pouhých $1 USD ročně</string>
+    <string name="show_completed">Zobrazit dokončené</string>
+    <string name="show_unstarted">Zobrazit nezahájené</string>
 </resources>

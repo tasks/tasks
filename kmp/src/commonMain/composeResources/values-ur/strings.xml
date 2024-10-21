@@ -22,4 +22,6 @@
     <string name="yesterday_lowercase">گزشتہ کل</string>
     <string name="today">آج</string>
     <string name="today_lowercase">آج</string>
+    <string name="show_unstarted">غیر شروع دکھائیں</string>
+    <string name="show_completed">مکمل ہو چکے دکھائیں</string>
 </resources>

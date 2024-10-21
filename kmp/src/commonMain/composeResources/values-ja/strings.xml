@@ -25,4 +25,6 @@
     <string name="yesterday_lowercase">昨日</string>
     <string name="today">今日</string>
     <string name="today_lowercase">今日</string>
+    <string name="show_unstarted">着手前のタスクを表示</string>
+    <string name="show_completed">完了したタスクを表示</string>
 </resources>

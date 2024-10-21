@@ -28,4 +28,6 @@
     <string name="yesterday_lowercase">jučer</string>
     <string name="today">Danas</string>
     <string name="today_lowercase">danas</string>
+    <string name="show_unstarted">Pokaži nezapočete</string>
+    <string name="show_completed">Pokaži obavljene</string>
 </resources>

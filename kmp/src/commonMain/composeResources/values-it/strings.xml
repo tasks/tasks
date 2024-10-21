@@ -29,4 +29,6 @@
     <string name="requires_pro_subscription">Funzione premium</string>
     <string name="subscription_required_description">Sblocca tutte le funzionalità con $1 USD/anno</string>
     <string name="add_task">Aggiungi attività</string>
+    <string name="show_unstarted">Mostra non iniziate</string>
+    <string name="show_completed">Mostra completate</string>
 </resources>

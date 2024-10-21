@@ -24,4 +24,6 @@
     <string name="yesterday_lowercase">أمس</string>
     <string name="today">اليوم</string>
     <string name="today_lowercase">اليوم</string>
+    <string name="show_unstarted">إظهار الغير مبدوء</string>
+    <string name="show_completed">إظهار المهام المكتملة</string>
 </resources>

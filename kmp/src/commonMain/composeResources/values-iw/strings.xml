@@ -24,4 +24,6 @@
     <string name="yesterday_lowercase">אתמול</string>
     <string name="today">היום</string>
     <string name="today_lowercase">היום</string>
+    <string name="show_unstarted">הצג לא התחיל</string>
+    <string name="show_completed">הצגת משימות שבוצעו</string>
 </resources>

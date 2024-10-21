@@ -28,4 +28,6 @@
     <string name="today">Heute</string>
     <string name="today_lowercase">heute</string>
     <string name="subscription_required_description">Schalten Sie alle Funktionen für nur 1 USD/Jahr frei</string>
+    <string name="show_unstarted">Nicht gestartete anzeigen</string>
+    <string name="show_completed">Erledigte anzeigen</string>
 </resources>

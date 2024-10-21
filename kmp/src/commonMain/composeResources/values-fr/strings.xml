@@ -29,4 +29,6 @@
     <string name="today">Aujourd\'hui</string>
     <string name="today_lowercase">aujourd\'hui</string>
     <string name="add_task">Ajouter une tâche</string>
+    <string name="show_unstarted">Afficher les tâches à venir</string>
+    <string name="show_completed">Afficher les tâches terminées</string>
 </resources>

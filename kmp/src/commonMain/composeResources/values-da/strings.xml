@@ -28,4 +28,6 @@
     <string name="yesterday_lowercase">i går</string>
     <string name="today">I dag</string>
     <string name="today_lowercase">i dag</string>
+    <string name="show_unstarted">Vis ikke startet</string>
+    <string name="show_completed">Vis udførte</string>
 </resources>

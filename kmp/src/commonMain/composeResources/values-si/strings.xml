@@ -24,4 +24,6 @@
     <string name="yesterday">ඊයේ</string>
     <string name="today">අද</string>
     <string name="today_lowercase">අද</string>
+    <string name="show_unstarted">ආරම්භ නොවූ ඒවා පෙන්වන්න</string>
+    <string name="show_completed">සම්පුර්ණ කරන ලද</string>
 </resources>
