@@ -13,6 +13,8 @@ class Firebase @Inject constructor() {
 
     fun addTask(source: String) {}
 
+    fun completeTask(source: String) {}
+
     val subscribeCooldown = false
     val moreOptionsBadge = false
     val moreOptionsSolid = false
