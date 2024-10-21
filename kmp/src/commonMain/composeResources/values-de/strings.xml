@@ -30,4 +30,5 @@
     <string name="subscription_required_description">Schalten Sie alle Funktionen für nur 1 USD/Jahr frei</string>
     <string name="show_unstarted">Nicht gestartete anzeigen</string>
     <string name="show_completed">Erledigte anzeigen</string>
+    <string name="add_task">Aufgabe hinzufügen</string>
 </resources>
