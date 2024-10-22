@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "org.tasks"
-        versionCode = libs.versions.versionCode.get().toInt()
+        versionCode = libs.versions.versionCode.get().toInt() + 1
         versionName = libs.versions.versionName.get()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         minSdk = 30

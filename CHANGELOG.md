@@ -1,3 +1,20 @@
+### 14.0 (2024-10-21)
+
+* Android Wear support (Google Play only)
+* Update translations
+  * Brazilian Portuguese - Nicolas Suzuki, pogoyar888
+  * Bulgarian - @StoyanDimitrov
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Dutch - Luna, @fvbommel
+  * French - @FlorianLeChat
+  * German - @p-rogalski
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Spanish - gallegonovato
+  * Swedish - @bittin
+  * Turkish - @oersen
+  * Ukrainian - @IhorHordiichuk
+
 ### 13.11.2 (2024-09-29)
 
 * Target Android 14
