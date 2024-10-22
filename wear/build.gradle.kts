@@ -7,14 +7,14 @@ plugins {
 
 android {
     namespace = "org.tasks"
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "org.tasks"
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.versionName.get()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
         minSdk = 30
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
     }
 
     signingConfigs {

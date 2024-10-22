@@ -1,4 +1,6 @@
 [versions]
+versionCode = "131107"
+versionName = "13.11.2"
 agp = "8.7.1"
 android-compileSdk = "34"
 android-minSdk = "24"
