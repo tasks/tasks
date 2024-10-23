@@ -8,31 +8,43 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
@@ -45,10 +57,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.Constants.HALF_KEYLINE
 import org.tasks.compose.Constants.KEYLINE_FIRST
-import org.tasks.compose.PurchaseText.PurchaseText
+import org.tasks.compose.PurchaseText.SubscriptionScreen
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
 
@@ -59,7 +72,7 @@ object PurchaseText {
         val title: Int,
         val icon: Int,
         val description: Int,
-        val tint: Boolean = true
+        val tint: Boolean = true,
     )
 
     private val featureList = listOf(
@@ -121,52 +134,92 @@ object PurchaseText {
         )
     )
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun PurchaseText(
+    fun SubscriptionScreen(
         nameYourPrice: MutableState<Boolean> = mutableStateOf(false),
         sliderPosition: MutableState<Float> = mutableStateOf(0f),
         github: Boolean = false,
-        solidButton: Boolean = false,
-        badge: Boolean = false,
-        onDisplayed: () -> Unit = {},
-        subscribe: (Int, Boolean) -> Unit
+        hideText: Boolean,
+        subscribe: (Int, Boolean) -> Unit,
+        onBack: () -> Unit,
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
-                .background(color = colorResource(R.color.content_background)),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            GreetingText(R.string.upgrade_blurb_1)
-            GreetingText(R.string.upgrade_blurb_2)
-            Spacer(Modifier.height(KEYLINE_FIRST))
-            val pagerState = remember {
-                PagerState(maxPage = (featureList.size - 1).coerceAtLeast(0))
-            }
-            Pager(
-                state = pagerState,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-            ) {
-                PagerItem(featureList[page], nameYourPrice.value && page == 0)
-            }
-            if (github) {
-                SponsorButton()
-            } else {
-                GooglePlayButtons(
-                    nameYourPrice = nameYourPrice,
-                    sliderPosition = sliderPosition,
-                    pagerState = pagerState,
-                    subscribe = subscribe,
-                    solidButton = solidButton,
-                    badge = badge,
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(
+                            text = stringResource(R.string.upgrade_to_pro),
+                            color = MaterialTheme.colorScheme.onSurface,
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = onBack) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                                contentDescription = null
+                            )
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.background
+                    )
                 )
+            },
+        ) { paddingValues ->
+            Column(
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .background(color = colorResource(R.color.content_background)),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                if (!hideText) {
+                    GreetingText(R.string.upgrade_blurb_1)
+                    GreetingText(R.string.upgrade_blurb_2)
+                }
+                Spacer(Modifier.height(KEYLINE_FIRST))
+                val pagerState = rememberPagerState {
+                    featureList.size
+                }
+                HorizontalPager(
+                    state = pagerState // Optional: to control the pager's state
+                ) { index ->
+                    val item = featureList[index]
+                    PagerItem(item, nameYourPrice.value && index == 0)
+                }
+                Row(
+                    Modifier
+                        .wrapContentHeight()
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally)
+                        .padding(bottom = 8.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    repeat(pagerState.pageCount) { iteration ->
+                        val color = if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
+                        Box(
+                            modifier = Modifier
+                                .padding(2.dp)
+                                .clip(CircleShape)
+                                .background(color)
+                                .size(16.dp)
+                        )
+                    }
+                }
+                if (github) {
+                    SponsorButton()
+                } else {
+                    GooglePlayButtons(
+                        nameYourPrice = nameYourPrice,
+                        sliderPosition = sliderPosition,
+                        pagerState = pagerState,
+                        subscribe = subscribe,
+                    )
+                }
             }
-        }
-        LaunchedEffect(key1 = Unit) {
-            onDisplayed()
         }
     }
 
@@ -212,47 +265,35 @@ object PurchaseText {
         sliderPosition: MutableState<Float>,
         pagerState: PagerState,
         subscribe: (Int, Boolean) -> Unit,
-        solidButton: Boolean,
-        badge: Boolean,
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Divider(color = MaterialTheme.colorScheme.onSurface, thickness = 0.25.dp)
-            Spacer(Modifier.height(KEYLINE_FIRST))
+            HorizontalDivider(modifier = Modifier.padding(vertical = KEYLINE_FIRST))
             if (nameYourPrice.value) {
                 NameYourPrice(sliderPosition, subscribe)
             } else {
                 TasksAccount(subscribe)
             }
             Spacer(Modifier.height(KEYLINE_FIRST))
+            val scope = rememberCoroutineScope()
             OutlinedButton(
                 onClick = {
                     nameYourPrice.value = !nameYourPrice.value
-                    pagerState.currentPage = 0
+                    scope.launch {
+                        pagerState.animateScrollToPage(0)
+                    }
                 },
                 colors = ButtonDefaults.textButtonColors(
-                    containerColor = if (solidButton)
-                        MaterialTheme.colorScheme.primary
-                    else
-                        Color.Transparent
+                    containerColor = Color.Transparent
                 )
             ) {
-                BadgedBox(badge = {
-                    if (!nameYourPrice.value && badge) {
-                        Badge()
-                    }
-                }) {
-                    Text(
-                        text = stringResource(R.string.more_options),
-                        color = if (solidButton)
-                            MaterialTheme.colorScheme.onSecondary
-                        else
-                            MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                }
+                Text(
+                    text = stringResource(R.string.more_options),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.bodyLarge
+                )
             }
             Text(
                 text = stringResource(R.string.pro_free_trial),
@@ -269,56 +310,54 @@ object PurchaseText {
     @Composable
     fun PagerItem(
         feature: CarouselItem,
-        disabled: Boolean = false
+        disabled: Boolean = false,
     ) {
-        Column {
-            Box(
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center,
+        ) {
+            Column(
                 modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(.5f),
+                    .width(250.dp)
+                    .height(150.dp)
+                    .padding(HALF_KEYLINE),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(
+                Image(
+                    painter = painterResource(feature.icon),
+                    contentDescription = null,
+                    modifier = Modifier.requiredSize(72.dp),
+                    alignment = Alignment.Center,
+                    colorFilter = if (feature.tint) {
+                        ColorFilter.tint(colorResource(R.color.icon_tint_with_alpha))
+                    } else {
+                        null
+                    }
+                )
+                Text(
+                    text = stringResource(feature.title),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(HALF_KEYLINE),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Image(
-                        painter = painterResource(feature.icon),
-                        contentDescription = null,
-                        modifier = Modifier.requiredSize(72.dp),
-                        alignment = Alignment.Center,
-                        colorFilter = if (feature.tint) {
-                            ColorFilter.tint(colorResource(R.color.icon_tint_with_alpha))
-                        } else {
-                            null
-                        }
-                    )
-                    Text(
-                        text = stringResource(feature.title),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(0.dp, 4.dp),
-                        color = MaterialTheme.colorScheme.onBackground,
-                        style = TextStyle(
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 14.sp,
-                            letterSpacing = 0.25.sp
-                        ),
-                        textAlign = TextAlign.Center
-                    )
-                    Text(
-                        text = stringResource(if (disabled) R.string.account_not_included else feature.description),
-                        modifier = Modifier.fillMaxWidth(),
-                        color = if (disabled) Color.Red else MaterialTheme.colorScheme.onBackground,
-                        style = TextStyle(
-                            fontWeight = if (disabled) FontWeight.Bold else FontWeight.Normal,
-                            fontSize = 12.sp,
-                            letterSpacing = 0.4.sp
-                        ),
-                        textAlign = TextAlign.Center,
-                    )
-                }
+                        .padding(0.dp, 4.dp),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp,
+                        letterSpacing = 0.25.sp
+                    ),
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    text = stringResource(if (disabled) R.string.account_not_included else feature.description),
+                    modifier = Modifier.fillMaxWidth(),
+                    color = if (disabled) Color.Red else MaterialTheme.colorScheme.onBackground,
+                    style = TextStyle(
+                        fontWeight = if (disabled) FontWeight.Bold else FontWeight.Normal,
+                        fontSize = 12.sp,
+                        letterSpacing = 0.4.sp
+                    ),
+                    textAlign = TextAlign.Center,
+                )
             }
         }
     }
@@ -355,7 +394,7 @@ object PurchaseText {
         price: Int,
         monthly: Boolean = false,
         popperText: String = "",
-        onClick: (Int, Boolean) -> Unit
+        onClick: (Int, Boolean) -> Unit,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Button(
@@ -434,24 +473,23 @@ object PurchaseText {
 @Composable
 private fun PurchaseDialogPreview() {
     TasksTheme {
-        PurchaseText { _, _ -> }
+        SubscriptionScreen(
+            hideText = false,
+            subscribe = { _, _ -> },
+            onBack = {},
+        )
     }
 }
 
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
-private fun PurchaseDialogPreviewSolid() {
+private fun PurchaseDialogPreviewNoText() {
     TasksTheme {
-        PurchaseText(solidButton = true) { _, _ -> }
-    }
-}
-
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
-@Composable
-private fun PurchaseDialogPreviewBadge() {
-    TasksTheme {
-        PurchaseText(badge = true) { _, _ -> }
+        SubscriptionScreen(
+            hideText = true,
+            subscribe = { _, _ -> },
+            onBack = {},
+        )
     }
 }

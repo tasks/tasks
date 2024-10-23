@@ -22,7 +22,6 @@ class Firebase @Inject constructor(
         @param:ApplicationContext val context: Context,
         private val preferences: Preferences
 ) {
-
     private var crashlytics: FirebaseCrashlytics? = null
     private var analytics: FirebaseAnalytics? = null
     private var remoteConfig: FirebaseRemoteConfig? = null
@@ -76,11 +75,8 @@ class Firebase @Inject constructor(
         get() = installCooldown
                 || preferences.lastSubscribeRequest + days("subscribe_cooldown", 30L) > currentTimeMillis()
 
-    val moreOptionsBadge: Boolean
-        get() = remoteConfig?.getBoolean("more_options_badge") ?: false
-
-    val moreOptionsSolid: Boolean
-        get() = remoteConfig?.getBoolean("more_options_solid") ?: false
+    val subGroupA: Boolean
+        get() = remoteConfig?.getBoolean("sub_group_a") ?: false
 
     private fun days(key: String, default: Long): Long =
             TimeUnit.DAYS.toMillis(remoteConfig?.getLong(key) ?: default)

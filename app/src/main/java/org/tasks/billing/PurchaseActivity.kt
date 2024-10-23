@@ -4,17 +4,18 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.analytics.Firebase
-import org.tasks.compose.PurchaseText.PurchaseText
+import org.tasks.compose.PurchaseText.SubscriptionScreen
 import org.tasks.extensions.Context.toast
 import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksTheme
@@ -56,16 +57,19 @@ class PurchaseActivity : AppCompatActivity(), OnPurchasesUpdated {
 
         setContent {
             TasksTheme {
-                Dialog(onDismissRequest = { finish() }) {
-                    PurchaseText(
-                        nameYourPrice = nameYourPrice,
-                        sliderPosition = sliderPosition,
-                        github = github,
-                        solidButton = firebase.moreOptionsSolid,
-                        badge = firebase.moreOptionsBadge,
-                        onDisplayed = { firebase.logEvent(R.string.event_showed_purchase_dialog) },
-                        subscribe = this::purchase,
-                    )
+                BackHandler {
+                    finish()
+                }
+                SubscriptionScreen(
+                    nameYourPrice = nameYourPrice,
+                    sliderPosition = sliderPosition,
+                    github = github,
+                    hideText = firebase.subGroupA,
+                    subscribe = this::purchase,
+                    onBack = { finish() },
+                )
+                LaunchedEffect(key1 = Unit) {
+                    firebase.logEvent(R.string.event_showed_purchase_dialog)
                 }
             }
         }

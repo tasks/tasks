@@ -302,7 +302,7 @@
 
     <activity
         android:name=".billing.PurchaseActivity"
-        android:theme="@style/TranslucentDialog" />
+        android:theme="@style/Tasks" />
 
     <!-- ======================================================= Receivers = -->
 
