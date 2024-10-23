@@ -6,6 +6,7 @@ import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.tasks.GrpcProto.LastUpdate
@@ -24,6 +25,7 @@ class WearRefresherImpl(
     init {
         phoneDataLayerAppHelper
             .connectedAndInstalledNodes
+            .catch { Timber.e(it) }
             .onEach { nodes ->
                 Timber.d("Connected nodes: ${nodes.joinToString()}")
                 watchConnected = nodes.isNotEmpty()
