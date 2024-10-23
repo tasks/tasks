@@ -16,6 +16,5 @@ class Firebase @Inject constructor() {
     fun completeTask(source: String) {}
 
     val subscribeCooldown = false
-    val moreOptionsBadge = false
-    val moreOptionsSolid = false
+    val subGroupA = false
 }
