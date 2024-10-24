@@ -711,4 +711,7 @@
     <string name="repeats_weekly_on">Toista</string>
     <string name="sort_descending">Laskeva</string>
     <string name="sort_grouping">Ryhmittele</string>
+    <string name="customize_drawer_summary">Vedä ja pudota valikon kohteita järjestääksesi ne uudelleen</string>
+    <string name="swipe_to_snooze_description">Torkutusaika</string>
+    <string name="swipe_to_snooze_title">Pyyhkäise sivulle torkuttaaksesi</string>
 </resources>
