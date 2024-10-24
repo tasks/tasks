@@ -31,4 +31,6 @@
     <string name="add_task">Add task</string>
     <string name="show_unstarted">Show unstarted</string>
     <string name="show_completed">Show completed</string>
+    <string name="wear_install_app">Install on phone</string>
+    <string name="wear_unknown_error">Unknown error</string>
 </resources>
