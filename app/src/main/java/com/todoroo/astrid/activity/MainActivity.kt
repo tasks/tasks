@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -146,8 +147,14 @@ class MainActivity : AppCompatActivity() {
                             context.findActivity()?.recreate()
                         }
                         val scope = rememberCoroutineScope()
+                        val bottomSearchBar = atLeastR()
                         TaskListDrawer(
-                            bottomSearchBar = atLeastR(),
+                            arrangement = when {
+                                state.menuQuery.isBlank() -> Arrangement.Top
+                                bottomSearchBar -> Arrangement.Bottom
+                                else -> Arrangement.Top
+                            },
+                            bottomSearchBar = bottomSearchBar,
                             filters = if (state.menuQuery.isNotEmpty()) state.searchItems else state.drawerItems,
                             onClick = {
                                 when (it) {

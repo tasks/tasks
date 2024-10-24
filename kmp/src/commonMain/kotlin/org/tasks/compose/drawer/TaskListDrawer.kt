@@ -69,6 +69,7 @@ import kotlin.math.roundToInt
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskListDrawer(
+    arrangement: Arrangement.Vertical,
     bottomSearchBar: Boolean,
     filters: ImmutableList<DrawerItem>,
     onClick: (DrawerItem) -> Unit,
@@ -136,7 +137,7 @@ fun TaskListDrawer(
                 ) else
                     48.dp
             ),
-            verticalArrangement = if (bottomSearchBar) Arrangement.Bottom else Arrangement.Top,
+            verticalArrangement = arrangement,
         ) {
             items(items = filters, key = { it.key() }) {
                 when (it) {

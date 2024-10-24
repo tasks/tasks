@@ -1,6 +1,7 @@
 package org.tasks.previews
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.collections.immutable.persistentListOf
@@ -18,6 +19,7 @@ import org.tasks.themes.TasksTheme
 fun MenuPreview() {
     TasksTheme {
         TaskListDrawer(
+            arrangement = Arrangement.Top,
             searchBar = {
                 MenuSearchBar(
                     begForMoney = true,
