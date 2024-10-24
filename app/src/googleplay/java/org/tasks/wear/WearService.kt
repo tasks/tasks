@@ -26,6 +26,7 @@ import org.tasks.filters.FilterProvider
 import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.getIcon
+import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.HeaderFormatter
@@ -75,7 +76,7 @@ class WearService(
                                 GrpcProto.UiItem.newBuilder()
                                     .setId(item.value)
                                     .setType(ListItemType.Header)
-                                    .setTitle(headerFormatter.headerString(item.value))
+                                    .setTitle(headerFormatter.headerString(item.value, style = DateStyle.MEDIUM))
                                     .setCollapsed(collapsed.contains(item.value))
                                     .build()
 

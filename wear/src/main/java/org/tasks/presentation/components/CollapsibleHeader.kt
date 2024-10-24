@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Text
 
@@ -18,6 +19,8 @@ fun CollapsibleHeader(
     ) {
         Text(
             text = title,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
         )
         Spacer(modifier = Modifier.width(4.dp))
         Chevron(collapsed = collapsed)
