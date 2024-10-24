@@ -162,8 +162,8 @@ class MainActivity : ComponentActivity() {
                                 onComplete = { id, completed ->
                                     taskListViewModel.completeTask(id, completed)
                                 },
-                                openTask = { navController.navigate("task_edit/$it") },
-                                addTask = {},
+                                openTask = { navController.navigate("task_edit?id=$it") },
+                                addTask = { navController.navigate("task_edit")},
                                 openMenu = { navController.navigate("menu") },
                                 openSettings = { navController.navigate("settings") },
                                 toggleSubtasks = { id, collapsed ->
@@ -172,13 +172,17 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(
-                            route = "task_edit/{taskId}",
+                            route = "task_edit?id={taskId}",
                             arguments = listOf(
-                                navArgument("taskId") { type = NavType.StringType }
+                                navArgument("taskId") {
+                                    type = NavType.StringType
+                                    nullable = true
+                                    defaultValue = null
+                                }
                             )
                         ) {
                             val taskId = it.arguments?.getString("taskId")
-                            WearApp(taskId ?: "invalid id")
+                            WearApp()
                         }
                         composable(
                             route = "menu",
@@ -216,7 +220,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun WearApp(greetingName: String) {
+fun WearApp() {
     TasksTheme {
         Box(
             modifier = Modifier
@@ -225,23 +229,23 @@ fun WearApp(greetingName: String) {
             contentAlignment = Alignment.Center
         ) {
             TimeText()
-            Greeting(greetingName = greetingName)
+            Greeting()
         }
     }
 }
 
 @Composable
-fun Greeting(greetingName: String) {
+fun Greeting() {
     Text(
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center,
         color = MaterialTheme.colors.primary,
-        text = "id=$greetingName"
+        text = "Coming soon!"
     )
 }
 
 @Preview(device = WearDevices.SMALL_ROUND, showSystemUi = true)
 @Composable
 fun DefaultPreview() {
-    WearApp("Preview Android")
+    WearApp()
 }
