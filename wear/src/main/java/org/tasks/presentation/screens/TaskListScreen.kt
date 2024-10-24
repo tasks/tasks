@@ -73,7 +73,7 @@ fun TaskListScreen(
             }
             items(
                 items = uiItems,
-                key = { item -> "${item.type}_${item.id}" },
+                key = { item -> "${item.type}_${item.id}_${item.completed}" },
             ) { item ->
                 if (item == null) {
                     EmptyCard()
