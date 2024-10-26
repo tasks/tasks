@@ -76,7 +76,7 @@
     <string name="TEA_title_hint">Tasknomo</string>
     <string name="SSD_sort_my_order">Propra ordo</string>
     <string name="action_open">Malfermi</string>
-    <string name="action_call">Altelefoni</string>
+    <string name="action_call">Telefoni</string>
     <string name="TAd_actionEditTask">Redakti</string>
     <string name="TLA_menu_settings">Agordoj</string>
     <string name="TLA_menu_search">Serĉi</string>
@@ -487,7 +487,7 @@
     <string name="alarm_before_start">%s antaŭ komenco</string>
     <string name="caldav_server_type">Speco de servilo</string>
     <string name="hint_customize_edit_title">Tro da informo?</string>
-    <string name="sort_list">Per listo</string>
+    <string name="sort_list">Laŭ listo</string>
     <string name="persistent_notifications">Daŭraj sciigoj</string>
     <string name="invite_declined">Malakceptis inviton</string>
     <string name="notification_disable_battery_optimizations_description">Optimumigoj de baterio povus prokrastigi sciigojn</string>
