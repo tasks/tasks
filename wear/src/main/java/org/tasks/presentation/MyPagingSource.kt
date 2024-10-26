@@ -6,6 +6,7 @@ import androidx.paging.PagingSource.LoadParams.Append
 import androidx.paging.PagingSource.LoadParams.Prepend
 import androidx.paging.PagingSource.LoadParams.Refresh
 import androidx.paging.PagingState
+import timber.log.Timber
 
 private const val INITIAL_ITEM_COUNT = -1
 
@@ -32,7 +33,7 @@ class MyPagingSource<T : Any>(
                     nextPosToLoad
                 }
             val prevKey = if (offset <= 0 || data.isEmpty()) null else offset
-            return LoadResult.Page(
+            LoadResult.Page(
                 data = data,
                 prevKey = prevKey,
                 nextKey = nextKey,
@@ -40,6 +41,7 @@ class MyPagingSource<T : Any>(
                 itemsAfter = maxOf(0, itemCount - nextPosToLoad)
             )
         } catch (e: Exception) {
+            Timber.e(e)
             LoadResult.Error(e)
         }
     }

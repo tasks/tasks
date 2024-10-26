@@ -24,6 +24,7 @@ import org.tasks.GrpcProto.UiItem
 import org.tasks.WearServiceGrpcKt
 import org.tasks.extensions.wearDataLayerRegistry
 import org.tasks.presentation.MyPagingSource
+import timber.log.Timber
 
 @OptIn(ExperimentalHorologistApi::class)
 class TaskListViewModel(
@@ -33,7 +34,9 @@ class TaskListViewModel(
     val uiItems: Flow<PagingData<UiItem>> = Pager(
         config = PagingConfig(pageSize = 20),
         pagingSourceFactory = {
+            Timber.d("Creating new paging source")
             MyPagingSource { position, limit ->
+                Timber.d("Fetching $limit @ $position")
                 wearService
                     .getTasks(
                         GrpcProto
@@ -44,6 +47,9 @@ class TaskListViewModel(
                             .build()
                     )
                     .let { Pair(it.totalItems, it.itemsList) }
+                    .also {
+                        Timber.d("Fetched ${it.second.size} items [position=$position limit=$limit totalItems=${it.first}]")
+                    }
             }
                 .also { pagingSource = it }
         }
@@ -72,27 +78,39 @@ class TaskListViewModel(
     }
 
     fun toggleGroup(value: Long, setCollapsed: Boolean) = viewModelScope.launch {
-        wearService.toggleGroup(
-            ToggleGroupRequest.newBuilder()
-                .setValue(value)
-                .setCollapsed(setCollapsed)
-                .build()
-        )
-        invalidate()
+        try {
+            wearService.toggleGroup(
+                ToggleGroupRequest.newBuilder()
+                    .setValue(value)
+                    .setCollapsed(setCollapsed)
+                    .build()
+            )
+            invalidate()
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
     }
 
     fun completeTask(id: Long, completed: Boolean) = viewModelScope.launch {
-        wearService.completeTask(
-            CompleteTaskRequest.newBuilder().setId(id).setCompleted(completed).build()
-        )
-        invalidate()
+        try {
+            wearService.completeTask(
+                CompleteTaskRequest.newBuilder().setId(id).setCompleted(completed).build()
+            )
+            invalidate()
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
     }
 
     fun toggleSubtasks(id: Long, collapsed: Boolean) = viewModelScope.launch {
-        wearService.toggleSubtasks(
-            ToggleGroupRequest.newBuilder().setValue(id).setCollapsed(collapsed).build()
-        )
-        invalidate()
+        try {
+            wearService.toggleSubtasks(
+                ToggleGroupRequest.newBuilder().setValue(id).setCollapsed(collapsed).build()
+            )
+            invalidate()
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
     }
 
     private fun invalidate() {
