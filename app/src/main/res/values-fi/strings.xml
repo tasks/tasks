@@ -104,7 +104,7 @@
     <string name="gtasks_GLA_errorIOAuth">Valitettavasti meillä on yhteysongelmia Google palvelimiin.  Ole hyvä ja yritä myöhemmin uudestaa.</string>
     <string name="gtasks_GPr_header">Google tehtävät</string>
     <string name="gtasks_error_accountNotFound">Tiliä %s ei löydy – kirjaudu ulos ja kirjaudu uudelleen Google Tehtävien asetuksiin.</string>
-    <string name="premium_record_audio">Tallenna muistiinpano</string>
+    <string name="premium_record_audio">Nauhoita äänimuistio</string>
     <string name="ring_once">Soi kerran</string>
     <string name="ring_five_times">Soi viisi kertaa</string>
     <string name="ring_nonstop">Soi jatkuvasti</string>
@@ -147,7 +147,7 @@
     </plurals>
     <plurals name="repeat_hours">
         <item quantity="one">tunti</item>
-        <item quantity="other">tuntia</item>
+        <item quantity="other">tunti</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d tunti</item>
@@ -155,7 +155,7 @@
     </plurals>
     <plurals name="repeat_days">
         <item quantity="one">päivä</item>
-        <item quantity="other">päivää</item>
+        <item quantity="other">päivä</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d päivä</item>
@@ -163,7 +163,7 @@
     </plurals>
     <plurals name="repeat_weeks">
         <item quantity="one">viikko</item>
-        <item quantity="other">viikot</item>
+        <item quantity="other">viiko</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d viikko</item>
@@ -179,7 +179,7 @@
     </plurals>
     <plurals name="repeat_years">
         <item quantity="one">vuosi</item>
-        <item quantity="other">vuodet</item>
+        <item quantity="other">vuosi</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d vuosi</item>
@@ -714,4 +714,11 @@
     <string name="customize_drawer_summary">Vedä ja pudota valikon kohteita järjestääksesi ne uudelleen</string>
     <string name="swipe_to_snooze_description">Torkutusaika</string>
     <string name="swipe_to_snooze_title">Pyyhkäise sivulle torkuttaaksesi</string>
+    <string name="clear_completed_tasks_count">%s poistetaan</string>
+    <string name="donate_today">Lahjoita tänään</string>
+    <string name="donate_maybe_later">Ehkä myöhemmin</string>
+    <string name="swipe_to_snooze_time_15_minutes">15 minuutin jälkeen</string>
+    <string name="swipe_to_snooze_time_30_minutes">30 minuutin jälkeen</string>
+    <string name="swipe_to_snooze_time_1_hour">Tunnin jälkeen</string>
+    <string name="swipe_to_snooze_time_24_hours">24 tunnin jälkeen</string>
 </resources>
