@@ -9,10 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.CheckBox
-import androidx.compose.material.icons.outlined.CheckBoxOutlineBlank
 import androidx.compose.material.icons.outlined.Menu
-import androidx.compose.material.icons.outlined.Repeat
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
@@ -40,7 +36,7 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnStat
 import com.google.android.horologist.compose.paging.items
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.GrpcProto
-import org.tasks.kmp.org.tasks.themes.ColorProvider
+import org.tasks.presentation.components.Checkbox
 import org.tasks.presentation.components.CollapsibleHeader
 import org.tasks.presentation.components.EmptyCard
 import org.tasks.presentation.components.TaskCard
@@ -120,26 +116,14 @@ fun TaskListScreen(
                                     subtasksCollapsed = item.collapsed,
                                     numSubtasks = item.numSubtasks,
                                     icon = {
-                                        Button(
-                                            onClick = { onComplete(item.id, !item.completed) },
-                                            colors = ButtonDefaults.iconButtonColors(),
-                                        ) {
-                                            Icon(
-                                                imageVector = when {
-                                                    item.completed -> Icons.Outlined.CheckBox
-                                                    item.repeating -> Icons.Outlined.Repeat
-                                                    else -> Icons.Outlined.CheckBoxOutlineBlank
-                                                },
-                                                tint = Color(
-                                                    ColorProvider.priorityColor(
-                                                        item.priority,
-                                                        isDarkMode = true,
-                                                        desaturate = true
-                                                    )
-                                                ),
-                                                contentDescription = null,
-                                            )
-                                        }
+                                        Checkbox(
+                                            completed = item.completed,
+                                            repeating = item.repeating,
+                                            priority = item.priority,
+                                            toggleComplete = {
+                                                onComplete(item.id, !item.completed)
+                                            }
+                                        )
                                     },
                                     onClick = { openTask(item.id) },
                                     toggleSubtasks = { toggleSubtasks(item.id, !item.collapsed) },
