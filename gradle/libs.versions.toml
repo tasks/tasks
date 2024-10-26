@@ -19,7 +19,7 @@ dashclock-api = "2.0.0"
 dav4jvm = "2.2.1"
 desugar_jdk_libs = "2.1.2"
 etebase = "2.3.2"
-firebase = "33.1.2"
+firebase = "33.5.1"
 firebase-crashlytics-gradle = "3.0.2"
 flipper = "0.262.0"
 fragment-ktx = "1.8.3"
@@ -123,6 +123,9 @@ facebook-flipper = { module = "com.facebook.flipper:flipper", version.ref = "fli
 facebook-flipper-network = { module = "com.facebook.flipper:flipper-network-plugin", version.ref = "flipper" }
 facebook-soloader = { module = "com.facebook.soloader:soloader", version.ref = "soloader" }
 firebase = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
+firebase-config-ktx = { module = "com.google.firebase:firebase-config-ktx" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebase-crashlytics-gradle" }
 google-oauth2 = { module = "com.google.auth:google-auth-library-oauth2-http", version.ref = "google-oauth2" }
 google-api-drive = { module = "com.google.apis:google-api-services-drive", version.ref = "google-api-drive" }

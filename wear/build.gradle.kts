@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlin.compose.compiler)
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -68,6 +70,11 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material.icons.extended)
+    implementation(platform(libs.firebase))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics) {
+        exclude("com.google.android.gms", "play-services-ads-identifier")
+    }
     implementation(libs.wear.compose.material)
     implementation(libs.wear.compose.foundation)
     implementation(libs.wear.compose.navigation)

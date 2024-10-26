@@ -20,6 +20,18 @@
             android:name="com.google.android.wearable.standalone"
             android:value="false" />
 
+        <meta-data
+            android:name="google_analytics_adid_collection_enabled"
+            android:value="false" />
+
+        <meta-data
+            android:name="google_analytics_ssaid_collection_enabled"
+            android:value="false" />
+
+        <meta-data
+            android:name="google_analytics_default_allow_ad_personalization_signals"
+            android:value="false" />
+
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true"

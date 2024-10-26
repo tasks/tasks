@@ -251,11 +251,11 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
 
     googleplayImplementation(platform(libs.firebase))
-    googleplayImplementation("com.google.firebase:firebase-crashlytics")
-    googleplayImplementation("com.google.firebase:firebase-analytics") {
+    googleplayImplementation(libs.firebase.crashlytics)
+    googleplayImplementation(libs.firebase.analytics) {
         exclude("com.google.android.gms", "play-services-ads-identifier")
     }
-    googleplayImplementation("com.google.firebase:firebase-config-ktx")
+    googleplayImplementation(libs.firebase.config.ktx)
     googleplayImplementation(libs.play.services.location)
     googleplayImplementation(libs.play.services.maps)
     googleplayImplementation(libs.play.billing.ktx)
