@@ -52,6 +52,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.stringResource
@@ -189,7 +190,9 @@ internal fun FilterItem(
         Text(
             text = item.title,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(1f).padding(end = 8.dp),
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
         )
         if (item.shareCount > 0) {
             Icon(
@@ -202,7 +205,6 @@ internal fun FilterItem(
             )
         }
         Box(
-            modifier = Modifier.width(48.dp),
             contentAlignment = Alignment.CenterEnd,
         ) {
             if (item.count > 0) {

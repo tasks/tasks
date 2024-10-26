@@ -34,6 +34,7 @@ fun MenuPreview() {
                     title = "My Tasks",
                     icon = TasksIcons.ALL_INBOX,
                     filter = FilterImpl(),
+                    count = 100
                 ),
                 DrawerItem.Header(
                     title = "Filters",
@@ -47,6 +48,12 @@ fun MenuPreview() {
                         NavigationDrawerSubheader.SubheaderType.PREFERENCE,
                         "",
                     ),
+                ),
+                DrawerItem.Filter(
+                    title = "A really really really really really really really really really really really really really long title",
+                    icon = TasksIcons.CLOUD,
+                    filter = FilterImpl(),
+                    count = 123456,
                 )
             ),
             onClick = {},
