@@ -1,7 +1,6 @@
 package org.tasks.presentation
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -13,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.tasks.extensions.wearDataLayerRegistry
+import timber.log.Timber
 
 @OptIn(ExperimentalHorologistApi::class)
 class MainActivityViewModel(
@@ -20,7 +20,7 @@ class MainActivityViewModel(
 ) : AndroidViewModel(application) {
     fun installOnNode(nodeId: String?) = viewModelScope.launch {
         if (nodeId == null) {
-            Log.d("MainActivityViewModel", "Missing nodeId")
+            Timber.d("Missing nodeId")
         } else {
             helper.installOnNode(nodeId)
         }
@@ -73,7 +73,7 @@ class MainActivityViewModel(
                     )
                 },
             ).also {
-                Log.d("MainActivityViewModel", "Loaded: $it")
+                Timber.d("Loaded: $it")
             }
         }
     }

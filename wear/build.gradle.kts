@@ -51,6 +51,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     tasks.register("testClasses")
@@ -79,6 +80,7 @@ dependencies {
     implementation(libs.horologist.datalayer.watch)
     implementation(libs.horologist.datalayer.core)
     implementation(libs.horologist.datalayer.grpc)
+    implementation(libs.timber)
     androidTestImplementation(platform(libs.androidx.compose))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
