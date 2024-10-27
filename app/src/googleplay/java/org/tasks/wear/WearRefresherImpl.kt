@@ -29,6 +29,7 @@ class WearRefresherImpl(
             .onEach { nodes ->
                 Timber.d("Connected nodes: ${nodes.joinToString()}")
                 watchConnected = nodes.isNotEmpty()
+                lastUpdate.update()
             }
             .launchIn(scope)
     }
@@ -39,11 +40,11 @@ class WearRefresherImpl(
 
     override suspend fun refresh() {
         if (watchConnected) {
-            lastUpdate.updateData {
-                it.copy {
-                    now = System.currentTimeMillis()
-                }
-            }
+            lastUpdate.update()
         }
     }
+}
+
+private suspend fun DataStore<LastUpdate>.update() {
+    updateData { it.copy { now = System.currentTimeMillis() } }
 }

@@ -12,14 +12,11 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -34,7 +31,6 @@ import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.android.horologist.compose.layout.AppScaffold
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
@@ -42,6 +38,9 @@ import org.tasks.presentation.screens.MenuScreen
 import org.tasks.presentation.screens.MenuViewModel
 import org.tasks.presentation.screens.SettingsScreen
 import org.tasks.presentation.screens.SettingsViewModel
+import org.tasks.presentation.screens.TaskEditScreen
+import org.tasks.presentation.screens.TaskEditViewModel
+import org.tasks.presentation.screens.TaskEditViewModelFactory
 import org.tasks.presentation.screens.TaskListScreen
 import org.tasks.presentation.screens.TaskListViewModel
 import org.tasks.presentation.theme.TasksTheme
@@ -162,8 +161,8 @@ class MainActivity : ComponentActivity() {
                                 onComplete = { id, completed ->
                                     taskListViewModel.completeTask(id, completed)
                                 },
-                                openTask = { navController.navigate("task_edit?id=$it") },
-                                addTask = { navController.navigate("task_edit")},
+                                openTask = { navController.navigate("task_edit?taskId=$it") },
+                                addTask = { navController.navigate("task_edit?taskId=0")},
                                 openMenu = { navController.navigate("menu") },
                                 openSettings = { navController.navigate("settings") },
                                 toggleSubtasks = { id, collapsed ->
@@ -172,17 +171,28 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(
-                            route = "task_edit?id={taskId}",
+                            route = "task_edit?taskId={taskId}",
                             arguments = listOf(
                                 navArgument("taskId") {
-                                    type = NavType.StringType
-                                    nullable = true
-                                    defaultValue = null
+                                    type = NavType.LongType
                                 }
                             )
-                        ) {
-                            val taskId = it.arguments?.getString("taskId")
-                            WearApp()
+                        ) { navBackStackEntry ->
+                            val taskId = navBackStackEntry.arguments?.getLong("taskId") ?: 0
+                            val context = LocalContext.current
+                            val viewModel: TaskEditViewModel = viewModel(
+                                viewModelStoreOwner = navBackStackEntry,
+                                factory = TaskEditViewModelFactory(
+                                    applicationContext = context.applicationContext,
+                                    taskId = taskId,
+                                )
+                            )
+                            val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
+                            TaskEditScreen(
+                                uiState = uiState,
+                                setTitle = { viewModel.setTitle(it) },
+                                save = { viewModel.save { navController.popBackStack() } },
+                            )
                         }
                         composable(
                             route = "menu",
@@ -217,35 +227,4 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-
-@Composable
-fun WearApp() {
-    TasksTheme {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.background),
-            contentAlignment = Alignment.Center
-        ) {
-            TimeText()
-            Greeting()
-        }
-    }
-}
-
-@Composable
-fun Greeting() {
-    Text(
-        modifier = Modifier.fillMaxWidth(),
-        textAlign = TextAlign.Center,
-        color = MaterialTheme.colors.primary,
-        text = "Coming soon!"
-    )
-}
-
-@Preview(device = WearDevices.SMALL_ROUND, showSystemUi = true)
-@Composable
-fun DefaultPreview() {
-    WearApp()
 }

@@ -188,6 +188,7 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 wear-compose-foundation = { group = "androidx.wear.compose", name = "compose-foundation", version.ref = "wearCompose" }
 wear-compose-material = { group = "androidx.wear.compose", name = "compose-material", version.ref = "wearCompose" }
 wear-compose-navigation = { group = "androidx.wear.compose", name = "compose-navigation", version.ref = "wearCompose" }
+wear-input = { group = "androidx.wear", name = "wear-input", version = "1.2.0-alpha02" }
 wear-tooling-preview = { group = "androidx.wear", name = "wear-tooling-preview", version = "1.0.0" }
 
 protobuf-protoc-gen-grpc-java = { module = "io.grpc:protoc-gen-grpc-java", version.ref = "grpc" }

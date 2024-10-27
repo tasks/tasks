@@ -3,14 +3,17 @@ package org.tasks.wear
 import androidx.datastore.core.DataStore
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCompleter
+import com.todoroo.astrid.service.TaskCreator
 import kotlinx.coroutines.flow.firstOrNull
 import org.tasks.GrpcProto
 import org.tasks.GrpcProto.CompleteTaskRequest
 import org.tasks.GrpcProto.CompleteTaskResponse
 import org.tasks.GrpcProto.GetListsResponse
+import org.tasks.GrpcProto.GetTaskResponse
 import org.tasks.GrpcProto.GetTasksRequest
 import org.tasks.GrpcProto.ListItem
 import org.tasks.GrpcProto.ListItemType
+import org.tasks.GrpcProto.SaveTaskResponse
 import org.tasks.GrpcProto.Tasks
 import org.tasks.GrpcProto.ToggleGroupRequest
 import org.tasks.GrpcProto.ToggleGroupResponse
@@ -46,6 +49,7 @@ class WearService(
     private val inventory: Inventory,
     private val colorProvider: ColorProvider,
     private val defaultFilterProvider: DefaultFilterProvider,
+    private val taskCreator: TaskCreator,
 ) : WearServiceGrpcKt.WearServiceCoroutineImplBase() {
     override suspend fun getTasks(request: GetTasksRequest): Tasks {
         val position = request.position
@@ -179,6 +183,38 @@ class WearService(
                     }
             )
             .build()
+    }
+
+    override suspend fun getTask(request: GrpcProto.GetTaskRequest): GetTaskResponse {
+        Timber.d("getTask($request)")
+        val task = taskDao.fetch(request.taskId)
+            ?: throw IllegalArgumentException()
+        return GetTaskResponse.newBuilder()
+            .setTitle(task.title ?: "")
+            .setCompleted(task.isCompleted)
+            .setPriority(task.priority)
+            .setRepeating(task.isRecurring)
+            .build()
+    }
+
+    override suspend fun saveTask(request: GrpcProto.SaveTaskRequest): SaveTaskResponse {
+        Timber.d("saveTask($request)")
+        if (request.taskId == 0L) {
+            taskCreator
+                .basicQuickAddTask(request.title)
+                .apply {
+                }
+                .let { taskDao.save(it) }
+        } else {
+            taskDao.fetch(request.taskId)?.let { task ->
+                taskDao.save(
+                    task.copy(
+                        title = request.title,
+                    )
+                )
+            }
+        }
+        return SaveTaskResponse.newBuilder().build()
     }
 
     private fun getColor(filter: Filter): Int {

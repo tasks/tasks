@@ -96,49 +96,55 @@ fun TaskListScreen(
                         modifier = Modifier.padding(top = 16.dp)
                     )
                 }
-            }
-            items(
-                items = uiItems,
-                key = { item -> "${item.type}_${item.id}_${item.completed}" },
-            ) { item ->
-                if (item == null) {
-                    EmptyCard()
-                } else {
-                    when (item.type) {
-                        GrpcProto.ListItemType.Item ->
-                            Row {
-                                if (item.indent > 0) {
-                                    Spacer(modifier = Modifier.width(20.dp * item.indent))
+            } else {
+                items(
+                    items = uiItems,
+                    key = { item -> "${item.type}_${item.id}_${item.completed}" },
+                ) { item ->
+                    if (item == null) {
+                        EmptyCard()
+                    } else {
+                        when (item.type) {
+                            GrpcProto.ListItemType.Item ->
+                                Row {
+                                    if (item.indent > 0) {
+                                        Spacer(modifier = Modifier.width(20.dp * item.indent))
+                                    }
+                                    TaskCard(
+                                        text = item.title,
+                                        hidden = item.hidden,
+                                        subtasksCollapsed = item.collapsed,
+                                        numSubtasks = item.numSubtasks,
+                                        icon = {
+                                            Checkbox(
+                                                completed = item.completed,
+                                                repeating = item.repeating,
+                                                priority = item.priority,
+                                                toggleComplete = {
+                                                    onComplete(item.id, !item.completed)
+                                                }
+                                            )
+                                        },
+                                        onClick = { openTask(item.id) },
+                                        toggleSubtasks = {
+                                            toggleSubtasks(
+                                                item.id,
+                                                !item.collapsed
+                                            )
+                                        },
+                                    )
                                 }
-                                TaskCard(
-                                    text = item.title,
-                                    hidden = item.hidden,
-                                    subtasksCollapsed = item.collapsed,
-                                    numSubtasks = item.numSubtasks,
-                                    icon = {
-                                        Checkbox(
-                                            completed = item.completed,
-                                            repeating = item.repeating,
-                                            priority = item.priority,
-                                            toggleComplete = {
-                                                onComplete(item.id, !item.completed)
-                                            }
-                                        )
-                                    },
-                                    onClick = { openTask(item.id) },
-                                    toggleSubtasks = { toggleSubtasks(item.id, !item.collapsed) },
+
+                            GrpcProto.ListItemType.Header ->
+                                CollapsibleHeader(
+                                    title = item.title,
+                                    collapsed = item.collapsed,
+                                    onClick = { toggleGroup(item.id, !item.collapsed) },
                                 )
+
+                            else -> {
+                                throw IllegalStateException("Unknown item type: ${item.type}")
                             }
-
-                        GrpcProto.ListItemType.Header ->
-                            CollapsibleHeader(
-                                title = item.title,
-                                collapsed = item.collapsed,
-                                onClick = { toggleGroup(item.id, !item.collapsed) },
-                            )
-
-                        else -> {
-                            throw IllegalStateException("Unknown item type: ${item.type}")
                         }
                     }
                 }

@@ -8,6 +8,7 @@ import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.grpc.server.BaseGrpcDataService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCompleter
+import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.GrpcProto.Settings
 import org.tasks.WearServiceGrpcKt
@@ -34,6 +35,7 @@ class WearDataService : BaseGrpcDataService<WearServiceGrpcKt.WearServiceCorouti
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var colorProvider: ColorProvider
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
+    @Inject lateinit var taskCreator: TaskCreator
 
     override val registry: WearDataLayerRegistry by lazy {
         applicationContext.wearDataLayerRegistry(lifecycleScope)
@@ -55,6 +57,7 @@ class WearDataService : BaseGrpcDataService<WearServiceGrpcKt.WearServiceCorouti
             inventory = inventory,
             colorProvider = colorProvider,
             defaultFilterProvider = defaultFilterProvider,
+            taskCreator = taskCreator,
         )
     }
 }

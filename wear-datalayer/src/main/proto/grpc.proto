@@ -77,6 +77,22 @@ message GetListsResponse {
   repeated ListItem items = 2;
 }
 
+message GetTaskRequest {
+  uint64 taskId = 1;
+}
+message GetTaskResponse {
+  string title = 1;
+  bool completed = 2;
+  bool repeating = 3;
+  uint32 priority = 4;
+}
+
+message SaveTaskRequest {
+  uint64 taskId = 1;
+  string title = 2;
+}
+message SaveTaskResponse {}
+
 service WearService {
   rpc getTasks(GetTasksRequest) returns (Tasks);
   rpc completeTask(CompleteTaskRequest) returns (CompleteTaskResponse);
@@ -84,4 +100,6 @@ service WearService {
   rpc updateSettings(UpdateSettingsRequest) returns (Settings);
   rpc toggleSubtasks(ToggleGroupRequest) returns (ToggleGroupResponse);
   rpc getLists(GetListsRequest) returns (GetListsResponse);
+  rpc getTask(GetTaskRequest) returns (GetTaskResponse);
+  rpc saveTask(SaveTaskRequest) returns (SaveTaskResponse);
 }
