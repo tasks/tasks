@@ -30,4 +30,5 @@
     <string name="today_lowercase">今天</string>
     <string name="show_unstarted">顯示未開始項</string>
     <string name="show_completed">顯示已完成</string>
+    <string name="add_task">增加任務</string>
 </resources>
