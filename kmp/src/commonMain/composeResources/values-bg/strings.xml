@@ -31,4 +31,6 @@
     <string name="add_task">Добавяне на задача</string>
     <string name="show_completed">Завършени</string>
     <string name="show_unstarted">Незапочнати</string>
+    <string name="wear_unknown_error">Неочаквана грешка</string>
+    <string name="wear_install_app">Инсталиране на телефон</string>
 </resources>
