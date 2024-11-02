@@ -90,6 +90,7 @@ message GetTaskResponse {
 message SaveTaskRequest {
   uint64 taskId = 1;
   string title = 2;
+  bool completed = 3;
 }
 message SaveTaskResponse {}
 

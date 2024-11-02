@@ -56,7 +56,6 @@ class TaskEditViewModel(
                         priority = task.priority,
                     )
                 }
-
             }
         }
     }
@@ -66,6 +65,8 @@ class TaskEditViewModel(
         wearService.saveTask(
             GrpcProto.SaveTaskRequest.newBuilder()
                 .setTitle(state.title)
+                .setTaskId(taskId)
+                .setCompleted(state.completed)
                 .build()
         )
         onComplete()
@@ -73,6 +74,10 @@ class TaskEditViewModel(
 
     fun setTitle(title: String) {
         _uiState.update { it.copy(title = title) }
+    }
+
+    fun setCompleted(completed: Boolean) {
+        _uiState.update { it.copy(completed = completed) }
     }
 }
 

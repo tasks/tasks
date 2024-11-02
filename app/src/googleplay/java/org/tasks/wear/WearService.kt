@@ -203,6 +203,9 @@ class WearService(
             taskCreator
                 .basicQuickAddTask(request.title)
                 .apply {
+                    if (request.completed) {
+                        completionDate = System.currentTimeMillis()
+                    }
                 }
                 .let { taskDao.save(it) }
         } else {
@@ -210,6 +213,11 @@ class WearService(
                 taskDao.save(
                     task.copy(
                         title = request.title,
+                        completionDate = when {
+                            !request.completed -> 0
+                            task.isCompleted -> task.completionDate
+                            else -> System.currentTimeMillis()
+                        },
                     )
                 )
             }

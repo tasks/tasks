@@ -191,6 +191,7 @@ class MainActivity : ComponentActivity() {
                             TaskEditScreen(
                                 uiState = uiState,
                                 setTitle = { viewModel.setTitle(it) },
+                                toggleCompleted = { viewModel.setCompleted(!uiState.completed) },
                                 save = { viewModel.save { navController.popBackStack() } },
                             )
                         }

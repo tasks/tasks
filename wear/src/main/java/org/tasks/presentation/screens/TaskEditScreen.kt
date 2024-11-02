@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.app.RemoteInput
 import android.content.Intent
 import android.view.inputmethod.EditorInfo
+import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -36,6 +37,7 @@ import org.tasks.presentation.components.Checkbox
 fun TaskEditScreen(
     uiState: UiState,
     setTitle: (String) -> Unit,
+    toggleCompleted: () -> Unit,
     save: () -> Unit,
 ) {
     if (uiState.loading) {
@@ -49,7 +51,7 @@ fun TaskEditScreen(
         val columnState = rememberResponsiveColumnState(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         )
-        val keyboardInputRequest = rememberLauncherForActivityResult(
+        val keyboardInputRequest: ManagedActivityResultLauncher<Intent, ActivityResult> = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
             if (result.resultCode == RESULT_OK) {
@@ -79,7 +81,7 @@ fun TaskEditScreen(
                                 completed = uiState.completed,
                                 repeating = uiState.repeating,
                                 priority = uiState.priority,
-                                toggleComplete = {},
+                                toggleComplete = toggleCompleted,
                             )
                         },
                         content = {
@@ -88,7 +90,7 @@ fun TaskEditScreen(
                                 modifier = Modifier.padding(vertical = 4.dp),
                             )
                         },
-                        onClick = {},
+                        onClick = { keyboardInputRequest.openKeyboard() },
                     )
                 }
                 item {
@@ -104,20 +106,24 @@ fun TaskEditScreen(
         }
         LaunchedEffect(Unit) {
             if (uiState.isNew) {
-                val intent: Intent = RemoteInputIntentHelper.createActionRemoteInputIntent()
-                val remoteInputs: List<RemoteInput> = listOf(
-                    RemoteInput
-                        .Builder("input")
-                        .setLabel("Enter title")
-                        .setAllowFreeFormInput(true)
-                        .wearableExtender {
-                            setInputActionType(EditorInfo.IME_ACTION_DONE)
-                        }
-                        .build()
-                )
-                RemoteInputIntentHelper.putRemoteInputsExtra(intent, remoteInputs)
-                keyboardInputRequest.launch(intent)
+                keyboardInputRequest.openKeyboard()
             }
         }
     }
+}
+
+private fun ManagedActivityResultLauncher<Intent, ActivityResult>.openKeyboard() {
+    val intent: Intent = RemoteInputIntentHelper.createActionRemoteInputIntent()
+    val remoteInputs: List<RemoteInput> = listOf(
+        RemoteInput
+            .Builder("input")
+            .setLabel("Enter title")
+            .setAllowFreeFormInput(true)
+            .wearableExtender {
+                setInputActionType(EditorInfo.IME_ACTION_DONE)
+            }
+            .build()
+    )
+    RemoteInputIntentHelper.putRemoteInputsExtra(intent, remoteInputs)
+    launch(intent)
 }
