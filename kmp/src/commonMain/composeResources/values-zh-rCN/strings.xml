@@ -31,4 +31,6 @@
     <string name="add_task">添加任务</string>
     <string name="show_unstarted">显示未开始项目</string>
     <string name="show_completed">显示已完成任务</string>
+    <string name="wear_install_app">在手机上安装</string>
+    <string name="wear_unknown_error">未知错误</string>
 </resources>
