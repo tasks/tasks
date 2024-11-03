@@ -40,7 +40,25 @@ fun TaskEditScreen(
     toggleCompleted: () -> Unit,
     save: () -> Unit,
 ) {
-    if (uiState.loading) {
+    val keyboardInputRequest: ManagedActivityResultLauncher<Intent, ActivityResult> = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result: ActivityResult ->
+        if (result.resultCode == RESULT_OK) {
+            val text =
+                result
+                    .data
+                    ?.let { RemoteInput.getResultsFromIntent(it) }
+                    ?.getCharSequence("input")
+                    ?: return@rememberLauncherForActivityResult
+            setTitle(text.toString())
+        }
+    }
+    LaunchedEffect(uiState.taskId) {
+        if (uiState.taskId == 0L) {
+            keyboardInputRequest.openKeyboard()
+        }
+    }
+    if (uiState.taskId == 0L) {
         Box(
             modifier = Modifier.fillMaxRectangle(),
             contentAlignment = Alignment.Center,
@@ -51,19 +69,6 @@ fun TaskEditScreen(
         val columnState = rememberResponsiveColumnState(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         )
-        val keyboardInputRequest: ManagedActivityResultLauncher<Intent, ActivityResult> = rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.StartActivityForResult()
-        ) { result: ActivityResult ->
-            if (result.resultCode == RESULT_OK) {
-                val text =
-                    result
-                        .data
-                        ?.let { RemoteInput.getResultsFromIntent(it) }
-                        ?.getCharSequence("input")
-                        ?: return@rememberLauncherForActivityResult
-                setTitle(text.toString())
-            }
-        }
         ScreenScaffold(
             scrollState = columnState,
         ) {
@@ -102,11 +107,6 @@ fun TaskEditScreen(
                         Text("Save")
                     }
                 }
-            }
-        }
-        LaunchedEffect(Unit) {
-            if (uiState.isNew) {
-                keyboardInputRequest.openKeyboard()
             }
         }
     }

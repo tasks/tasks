@@ -92,7 +92,9 @@ message SaveTaskRequest {
   string title = 2;
   bool completed = 3;
 }
-message SaveTaskResponse {}
+message SaveTaskResponse {
+  uint64 taskId = 1;
+}
 
 service WearService {
   rpc getTasks(GetTasksRequest) returns (Tasks);

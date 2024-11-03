@@ -200,14 +200,14 @@ class WearService(
     override suspend fun saveTask(request: GrpcProto.SaveTaskRequest): SaveTaskResponse {
         Timber.d("saveTask($request)")
         if (request.taskId == 0L) {
-            taskCreator
-                .basicQuickAddTask(request.title)
-                .apply {
-                    if (request.completed) {
-                        completionDate = System.currentTimeMillis()
-                    }
-                }
-                .let { taskDao.save(it) }
+            val filter = defaultFilterProvider.getFilterFromPreference(
+                settings.data.firstOrNull()?.filter?.takeIf { it.isNotBlank() }
+            )
+            val task = taskCreator.basicQuickAddTask(
+                title = request.title,
+                filter = filter,
+            )
+            return SaveTaskResponse.newBuilder().setTaskId(task.id).build()
         } else {
             taskDao.fetch(request.taskId)?.let { task ->
                 taskDao.save(
@@ -221,8 +221,8 @@ class WearService(
                     )
                 )
             }
+            return SaveTaskResponse.newBuilder().setTaskId(request.taskId).build()
         }
-        return SaveTaskResponse.newBuilder().build()
     }
 
     private fun getColor(filter: Filter): Int {

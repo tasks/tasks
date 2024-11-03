@@ -17,8 +17,7 @@ import org.tasks.extensions.wearDataLayerRegistry
 import timber.log.Timber
 
 data class UiState(
-    val isNew: Boolean,
-    val loading: Boolean = !isNew,
+    val taskId: Long = 0,
     val completed: Boolean = false,
     val repeating: Boolean = false,
     val priority: Int = 0,
@@ -30,7 +29,7 @@ class TaskEditViewModel(
     applicationContext: Context,
     private val taskId: Long,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(UiState(isNew = taskId == 0L))
+    private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
     private val registry = applicationContext.wearDataLayerRegistry(viewModelScope)
 
@@ -44,20 +43,33 @@ class TaskEditViewModel(
     init {
         if (taskId > 0) {
             viewModelScope.launch {
-                val task = wearService
-                    .getTask(GrpcProto.GetTaskRequest.newBuilder().setTaskId(taskId).build())
-                Timber.d("Received $task")
-                _uiState.update {
-                    it.copy(
-                        loading = false,
-                        completed = task.completed,
-                        title = task.title,
-                        repeating = task.repeating,
-                        priority = task.priority,
-                    )
-                }
+                fetchTask(taskId)
             }
         }
+    }
+
+    private fun fetchTask(taskId: Long) = viewModelScope.launch {
+        val task = wearService
+            .getTask(GrpcProto.GetTaskRequest.newBuilder().setTaskId(taskId).build())
+        Timber.d("Received $task")
+        _uiState.update {
+            it.copy(
+                taskId = taskId,
+                completed = task.completed,
+                title = task.title,
+                repeating = task.repeating,
+                priority = task.priority,
+            )
+        }
+    }
+
+    fun createTask() = viewModelScope.launch {
+        val response = wearService.saveTask(
+            GrpcProto.SaveTaskRequest.newBuilder()
+                .setTitle(uiState.value.title)
+                .build()
+        )
+        fetchTask(response.taskId)
     }
 
     fun save(onComplete: () -> Unit) = viewModelScope.launch {
@@ -74,6 +86,9 @@ class TaskEditViewModel(
 
     fun setTitle(title: String) {
         _uiState.update { it.copy(title = title) }
+        if (uiState.value.taskId == 0L) {
+            createTask()
+        }
     }
 
     fun setCompleted(completed: Boolean) {
