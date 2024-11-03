@@ -1,5 +1,6 @@
 package org.tasks.wear
 
+import android.text.format.DateFormat
 import androidx.datastore.core.DataStore
 import androidx.lifecycle.lifecycleScope
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -58,6 +59,7 @@ class WearDataService : BaseGrpcDataService<WearServiceGrpcKt.WearServiceCorouti
             colorProvider = colorProvider,
             defaultFilterProvider = defaultFilterProvider,
             taskCreator = taskCreator,
+            is24HourTime = DateFormat.is24HourFormat(applicationContext),
         )
     }
 }

@@ -1,6 +1,7 @@
 package org.tasks.wear
 
 import androidx.datastore.core.DataStore
+import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
@@ -30,12 +31,16 @@ import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.getIcon
 import org.tasks.kmp.org.tasks.time.DateStyle
+import org.tasks.kmp.org.tasks.time.getRelativeDateTime
+import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.UiItem
 import org.tasks.themes.ColorProvider
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 import timber.log.Timber
 
 class WearService(
@@ -50,6 +55,7 @@ class WearService(
     private val colorProvider: ColorProvider,
     private val defaultFilterProvider: DefaultFilterProvider,
     private val taskCreator: TaskCreator,
+    private val is24HourTime: Boolean,
 ) : WearServiceGrpcKt.WearServiceCoroutineImplBase() {
     override suspend fun getTasks(request: GetTasksRequest): Tasks {
         val position = request.position
@@ -84,7 +90,23 @@ class WearService(
                                     .setCollapsed(collapsed.contains(item.value))
                                     .build()
 
-                            is UiItem.Task ->
+                            is UiItem.Task -> {
+                                val timestamp = if (preferences.groupMode == SORT_DUE &&
+                                    (item.task.sortGroup
+                                        ?: 0) >= currentTimeMillis().startOfDay()
+                                ) {
+                                    item.task.takeIf { it.hasDueTime() }?.let {
+                                        getTimeString(item.task.dueDate, is24HourTime)
+                                    }
+                                } else if (item.task.hasDueDate()) {
+                                    getRelativeDateTime(
+                                        item.task.dueDate,
+                                        is24HourTime,
+                                    )
+                                } else {
+                                    null
+                                }
+
                                 GrpcProto.UiItem.newBuilder()
                                     .setType(ListItemType.Item)
                                     .setId(item.task.id)
@@ -98,9 +120,13 @@ class WearService(
                                         if (item.task.title != null) {
                                             setTitle(item.task.title)
                                         }
+                                        if (timestamp != null) {
+                                            setTimestamp(timestamp)
+                                        }
                                     }
                                     .setRepeating(item.task.task.isRecurring)
                                     .build()
+                            }
                         }
                     }
             )

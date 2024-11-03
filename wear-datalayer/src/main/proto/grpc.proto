@@ -21,6 +21,7 @@ message UiItem {
   bool hidden = 8;
   uint32 indent = 9;
   uint32 numSubtasks = 10;
+  optional string timestamp = 11;
 }
 
 message Tasks {

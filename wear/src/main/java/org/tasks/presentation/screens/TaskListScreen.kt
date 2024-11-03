@@ -112,6 +112,7 @@ fun TaskListScreen(
                                     }
                                     TaskCard(
                                         text = item.title,
+                                        timestamp = item.timestamp,
                                         hidden = item.hidden,
                                         subtasksCollapsed = item.collapsed,
                                         numSubtasks = item.numSubtasks,

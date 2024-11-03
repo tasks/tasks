@@ -58,7 +58,7 @@ fun TaskEditScreen(
             keyboardInputRequest.openKeyboard()
         }
     }
-    if (uiState.taskId == 0L) {
+    if (!uiState.loaded) {
         Box(
             modifier = Modifier.fillMaxRectangle(),
             contentAlignment = Alignment.Center,

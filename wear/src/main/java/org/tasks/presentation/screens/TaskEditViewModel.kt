@@ -17,6 +17,7 @@ import org.tasks.extensions.wearDataLayerRegistry
 import timber.log.Timber
 
 data class UiState(
+    val loaded: Boolean = false,
     val taskId: Long = 0,
     val completed: Boolean = false,
     val repeating: Boolean = false,
@@ -27,9 +28,9 @@ data class UiState(
 @OptIn(ExperimentalHorologistApi::class)
 class TaskEditViewModel(
     applicationContext: Context,
-    private val taskId: Long,
+    taskId: Long,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(UiState())
+    private val _uiState = MutableStateFlow(UiState(taskId = taskId))
     val uiState = _uiState.asStateFlow()
     private val registry = applicationContext.wearDataLayerRegistry(viewModelScope)
 
@@ -54,6 +55,7 @@ class TaskEditViewModel(
         Timber.d("Received $task")
         _uiState.update {
             it.copy(
+                loaded = true,
                 taskId = taskId,
                 completed = task.completed,
                 title = task.title,
@@ -77,7 +79,7 @@ class TaskEditViewModel(
         wearService.saveTask(
             GrpcProto.SaveTaskRequest.newBuilder()
                 .setTitle(state.title)
-                .setTaskId(taskId)
+                .setTaskId(state.taskId)
                 .setCompleted(state.completed)
                 .build()
         )
