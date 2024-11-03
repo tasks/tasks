@@ -31,4 +31,6 @@
     <string name="add_task">Додати завдання</string>
     <string name="show_unstarted">Показати непочаті</string>
     <string name="show_completed">Показати завершені</string>
+    <string name="wear_install_app">Установити на телефон</string>
+    <string name="wear_unknown_error">Невідома помилка</string>
 </resources>
