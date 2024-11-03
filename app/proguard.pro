@@ -57,3 +57,5 @@
 
 # material icons
 -keep class androidx.compose.material.icons.outlined.** { *; }
+
+-keepclassmembers class * extends com.google.protobuf.GeneratedMessageLite { <fields>; }
