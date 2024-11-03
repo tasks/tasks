@@ -31,4 +31,6 @@
     <string name="add_task">Taak toevoegen</string>
     <string name="show_unstarted">Niet-gestarte tonen</string>
     <string name="show_completed">Voltooide tonen</string>
+    <string name="wear_unknown_error">Onbekende fout</string>
+    <string name="wear_install_app">Installeer op telefoon</string>
 </resources>
