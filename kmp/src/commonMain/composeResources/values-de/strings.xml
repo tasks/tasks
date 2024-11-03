@@ -31,4 +31,6 @@
     <string name="show_unstarted">Nicht gestartete anzeigen</string>
     <string name="show_completed">Erledigte anzeigen</string>
     <string name="add_task">Aufgabe hinzufügen</string>
+    <string name="wear_unknown_error">Unbekannter Fehler</string>
+    <string name="wear_install_app">Auf dem Telefon installieren</string>
 </resources>
