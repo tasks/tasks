@@ -1,4 +1,4 @@
-### 14.0 (2024-11-02)
+### 14.0 (2024-11-03)
 
 * WearOS support (Google Play only)
 * Move drawer items to top unless searching
