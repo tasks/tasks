@@ -31,4 +31,6 @@
     <string name="add_task">Feladat létrehozása</string>
     <string name="show_unstarted">El nem kezdettek mutatása</string>
     <string name="show_completed">Elvégzettek megjelenítése</string>
+    <string name="wear_install_app">A telefonra telepíteni</string>
+    <string name="wear_unknown_error">Ismeretlen hiba</string>
 </resources>
