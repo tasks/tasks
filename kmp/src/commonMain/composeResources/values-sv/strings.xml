@@ -31,4 +31,6 @@
     <string name="add_task">Lägg till uppgift</string>
     <string name="show_unstarted">Visa inte påbörjade</string>
     <string name="show_completed">Visa slutförda</string>
+    <string name="wear_install_app">Installera på telefon</string>
+    <string name="wear_unknown_error">Okänt fel</string>
 </resources>
