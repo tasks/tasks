@@ -1,6 +1,6 @@
-### 14.0 (2024-11-03)
+### 14.0 (2024-11-05)
 
-* WearOS support (Google Play only)
+* Wear OS support (Google Play only)
 * Move drawer items to top unless searching
 * Fix drawer item layout issues
 * Update translations
@@ -10,7 +10,7 @@
   * Chinese (Traditional) - hugoalh
   * Dutch - Luna, @fvbommel
   * French - @FlorianLeChat
-  * German - @p-rogalski
+  * German - @p-rogalski, @franconian
   * Hungarian - Kaci
   * Italian - @ppasserini
   * Spanish - gallegonovato

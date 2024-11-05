@@ -1,4 +1,4 @@
-* Android Wear support (Google Play only)
+* Wear OS support (Google Play only)
 * Move drawer items to top unless searching
 * Fix drawer item layout issues
 * Update translations
