@@ -31,4 +31,6 @@
     <string name="add_task">Aggiungi attività</string>
     <string name="show_unstarted">Mostra non iniziate</string>
     <string name="show_completed">Mostra completate</string>
+    <string name="wear_install_app">Installare sul telefono</string>
+    <string name="wear_unknown_error">Errore sconosciuto</string>
 </resources>
