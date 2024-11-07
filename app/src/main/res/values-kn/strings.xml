@@ -24,4 +24,12 @@
     <string name="keep_editing">ಸಂಪಾದನೆ ಮಾಡುತ್ತಲೇ ಇರಿ</string>
     <string name="discard_confirmation">ನಿಮ್ಮ ಬದಲಾವಣೆಗಳನ್ನು ನೀವು ತ್ಯಜಿಸಲು ಖಚಿತವಾಗಿರುವಿರಾ\?</string>
     <string name="read_permission_label">ಕಾರ್ಯಗಳ ಅನುಮತಿ</string>
+    <string name="TLA_no_items">ಇಲ್ಲಿ ಯಾವುದೇ ಕಾರ್ಯಗಳಿಲ್ಲ.</string>
+    <string name="TAd_actionEditTask">ತಿದ್ದು</string>
+    <string name="action_open">ತೆರೆ</string>
+    <string name="SSD_sort_start">ಪ್ರಾರಂಭ ದೆನಂಕದಿಂದ</string>
+    <string name="TLA_menu_settings">ಸೆಟ್ಟಿಂಗ್</string>
+    <string name="TLA_menu_search">ಹುಡುಕು</string>
+    <string name="action_call">ಕರೆ</string>
+    <string name="SSD_sort_my_order">ನನ್ನ ಅನುಕ್ರಮ</string>
 </resources>
