@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="search">ಹುಡುಕು</string>
+    <string name="search_no_results">ಯಾವುದೇ ಫಲಿತಾಂಶವಿಲ್ಲ</string>
+    <string name="requires_pro_subscription">ಪ್ರೋ ವೈಶಿಷ್ಟ್ಯ</string>
+</resources>
