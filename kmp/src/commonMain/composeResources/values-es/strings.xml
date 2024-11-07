@@ -31,4 +31,6 @@
     <string name="add_task">Añadir tarea</string>
     <string name="show_unstarted">Mostrar sin comenzar</string>
     <string name="show_completed">Mostrar completadas</string>
+    <string name="wear_install_app">Instalar en el teléfono</string>
+    <string name="wear_unknown_error">Error desconocido</string>
 </resources>
