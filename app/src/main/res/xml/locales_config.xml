@@ -3,6 +3,7 @@
     <locale android:name="af-rZA" />
     <locale android:name="ar" />
     <locale android:name="ast" />
+<!--    <locale android:name="az" /> no translations yet -->
     <locale android:name="be" />
     <locale android:name="bg-rBG" />
     <locale android:name="bn-rBD" />
@@ -36,10 +37,13 @@
     <locale android:name="krl" />
     <locale android:name="lt" />
     <locale android:name="ml" />
+    <locale android:name="mr" />
+    <locale android:name="my" />
     <locale android:name="nb" />
     <locale android:name="nl" />
     <locale android:name="or" />
     <locale android:name="pl" />
+<!--    <locale android:name="ps" /> no translations yet -->
     <locale android:name="pt" />
     <locale android:name="pt-rBR" />
     <locale android:name="ro" />
