@@ -89,6 +89,9 @@ dependencies {
     implementation(libs.horologist.datalayer.core)
     implementation(libs.horologist.datalayer.grpc)
     implementation(libs.timber)
+
+    implementation(libs.wear.tiles.proto) // https://nvd.nist.gov/vuln/detail/CVE-2024-7254
+
     androidTestImplementation(platform(libs.androidx.compose))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
