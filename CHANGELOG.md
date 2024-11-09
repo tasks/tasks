@@ -1,3 +1,14 @@
+### 14.0.1 (2024-11-09)
+
+* Fix widget crash
+* Update translations
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Kannada - @historicattle
+  * Marathi - @historicattle
+  * Spanish - gallegonovato
+  * Swedish - @bittin
+
 ### 14.0 (2024-11-05)
 
 * Wear OS support (Google Play only)

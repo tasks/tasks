@@ -1,0 +1,2 @@
+* Fix widget crash
+* Update translations
