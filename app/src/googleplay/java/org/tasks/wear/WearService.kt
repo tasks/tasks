@@ -233,6 +233,7 @@ class WearService(
                 title = request.title,
                 filter = filter,
             )
+            firebase.addTask("wearable")
             return SaveTaskResponse.newBuilder().setTaskId(task.id).build()
         } else {
             taskDao.fetch(request.taskId)?.let { task ->

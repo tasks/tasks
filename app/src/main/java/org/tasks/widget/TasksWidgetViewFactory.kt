@@ -29,6 +29,7 @@ import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.markdown.Markdown
+import org.tasks.tasklist.AdapterSection
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.headerColor
@@ -88,22 +89,31 @@ internal class TasksWidgetViewFactory(
 
     override fun getCount() = tasks.size
 
-    override fun getViewAt(position: Int): RemoteViews? =
-        if (tasks.isHeader(position)) buildHeader(position) else buildUpdate(position)
+    override fun getViewAt(position: Int): RemoteViews? = tasks.let {
+        when {
+            it.isHeader(position) -> buildHeader(it.getSection(position))
+            position < it.size -> buildUpdate(it.getItem(position))
+            else -> null
+        }
+    }
 
     override fun getLoadingView(): RemoteViews = newRemoteView()
 
     override fun getViewTypeCount(): Int = 2
 
-    override fun getItemId(position: Int) =
-        if (tasks.isHeader(position)) tasks.getSection(position).value else getTask(position).id
+    override fun getItemId(position: Int) = tasks.let {
+        when {
+            it.isHeader(position) -> it.getSection(position).value
+            position < it.size -> it.getItem(position).id
+            else -> 0
+        }
+    }
 
     override fun hasStableIds(): Boolean = true
 
     private fun newRemoteView() = RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_row)
 
-    private fun buildHeader(position: Int): RemoteViews {
-        val section = tasks.getSection(position)
+    private fun buildHeader(section: AdapterSection): RemoteViews {
         val sortGroup = section.value
         val header: String? = if (filter.supportsSorting()) {
             headerFormatter.headerStringBlocking(
@@ -147,9 +157,8 @@ internal class TasksWidgetViewFactory(
         }
     }
 
-    private fun buildUpdate(position: Int): RemoteViews? {
+    private fun buildUpdate(taskContainer: TaskContainer): RemoteViews? {
         return try {
-            val taskContainer = getTask(position)
             val task = taskContainer.task
             val textColorTitle = when {
                 task.isHidden -> onSurfaceVariant
@@ -261,8 +270,6 @@ internal class TasksWidgetViewFactory(
             null
         }
     }
-
-    private fun getTask(position: Int): TaskContainer = tasks.getItem(position)
 
     private suspend fun getQuery(filter: Filter): List<String> {
         subtasksHelper.applySubtasksToWidgetFilter(filter, widgetPreferences)
