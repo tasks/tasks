@@ -2,3 +2,4 @@
 
 dependency-tree-diff deps_googleplay.txt <( ./gradlew :app:dependencies --no-configuration-cache --configuration googleplayReleaseRuntimeClasspath < /dev/null ) > deps_googleplay.txt
 dependency-tree-diff deps_fdroid.txt <( ./gradlew :app:dependencies --no-configuration-cache --configuration genericReleaseRuntimeClasspath < /dev/null ) > deps_fdroid.txt
+dependency-tree-diff deps_wear.txt <( ./gradlew :wear:dependencies --no-configuration-cache --configuration releaseRuntimeClasspath < /dev/null ) > deps_wear.txt
