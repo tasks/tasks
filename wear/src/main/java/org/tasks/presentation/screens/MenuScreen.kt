@@ -1,7 +1,9 @@
 package org.tasks.presentation.screens
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -40,6 +42,9 @@ fun MenuScreen(
             modifier = Modifier.fillMaxSize(),
             columnState = columnState,
         ) {
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
             items(
                 items = items,
                 key = { item -> "${item.type}_${item.id}" },

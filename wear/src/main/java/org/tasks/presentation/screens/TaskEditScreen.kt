@@ -39,6 +39,7 @@ fun TaskEditScreen(
     setTitle: (String) -> Unit,
     toggleCompleted: () -> Unit,
     save: () -> Unit,
+    back: () -> Unit,
 ) {
     val keyboardInputRequest: ManagedActivityResultLauncher<Intent, ActivityResult> = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
@@ -51,6 +52,8 @@ fun TaskEditScreen(
                     ?.getCharSequence("input")
                     ?: return@rememberLauncherForActivityResult
             setTitle(text.toString())
+        } else if (uiState.taskId == 0L) {
+            back()
         }
     }
     LaunchedEffect(uiState.taskId) {
