@@ -1,6 +1,8 @@
-### 14.0.1 (2024-11-09)
+### 14.0.1 (2024-11-10)
 
 * Fix widget crash
+* Fix EteSync sync failure [#3092](https://github.com/tasks/tasks/issues/3092)
+* Minor Wear OS improvements
 * Update translations
   * Hungarian - Kaci
   * Italian - @ppasserini

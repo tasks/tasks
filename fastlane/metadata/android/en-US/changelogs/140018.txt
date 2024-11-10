@@ -1,0 +1,4 @@
+* Fix widget crash
+* Fix EteSync sync failure
+* Minor Wear OS improvements
+* Update translations
