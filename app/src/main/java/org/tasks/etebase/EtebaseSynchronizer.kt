@@ -10,7 +10,6 @@ import com.etebase.client.exceptions.PermissionDeniedException
 import com.etebase.client.exceptions.ServerErrorException
 import com.etebase.client.exceptions.TemporaryServerErrorException
 import com.etebase.client.exceptions.UnauthorizedException
-import org.tasks.data.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import net.fortuna.ical4j.model.property.ProdId
@@ -22,9 +21,10 @@ import org.tasks.billing.Inventory
 import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
+import org.tasks.data.UUIDHelper
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.dao.CaldavDao
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
@@ -83,7 +83,7 @@ class EtebaseSynchronizer @Inject constructor(
             val uid = collection.uid
             var calendar = caldavDao.getCalendarByUrl(account.uuid!!, uid)
             val meta = collection.meta
-            val color = meta.color?.let { Color.parseColor(it) } ?: 0
+            val color = meta.color?.takeIf { it.isNotBlank() }?.let { Color.parseColor(it) } ?: 0
             if (calendar == null) {
                 calendar = CaldavCalendar(
                     name = meta.name,
