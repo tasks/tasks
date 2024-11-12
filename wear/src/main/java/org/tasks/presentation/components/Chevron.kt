@@ -14,7 +14,7 @@ import androidx.wear.compose.material.MaterialTheme
 @Composable
 fun Chevron(collapsed: Boolean) {
     val rotation by animateFloatAsState(
-        targetValue = if (collapsed) 0f else 180f,
+        targetValue = if (collapsed) 270f else 180f,
         animationSpec = tween(250),
         label = "arrow rotation",
     )
