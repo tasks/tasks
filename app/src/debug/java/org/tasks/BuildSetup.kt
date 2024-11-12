@@ -14,6 +14,7 @@ import com.facebook.soloader.SoLoader
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastQ
 import leakcanary.AppWatcher
+import org.tasks.logging.FileLogger
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -21,10 +22,11 @@ import javax.inject.Inject
 
 class BuildSetup @Inject constructor(
         private val context: Application,
-        private val preferences: Preferences) {
-
+        private val preferences: Preferences
+) {
     fun setup() {
         Timber.plant(DebugTree())
+        Timber.plant(FileLogger(context))
         SoLoader.init(context, false)
         if (preferences.getBoolean(R.string.p_leakcanary, false)) {
             AppWatcher.manualInstall(context)
