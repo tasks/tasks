@@ -10,6 +10,7 @@ import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
+import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.db.Database
 import org.tasks.data.entity.Task
@@ -32,6 +33,7 @@ class TaskCompleter @Inject internal constructor(
     private val caldavDao: CaldavDao,
     private val gCalHelper: GCalHelper,
     private val workManager: WorkManager,
+    private val alarmDao: AlarmDao,
 ) {
     suspend fun setComplete(taskId: Long, completed: Boolean = true) =
             taskDao
@@ -70,6 +72,7 @@ class TaskCompleter @Inject internal constructor(
         val completed = completionDate > 0
         val modified = currentTimeMillis()
         database.withTransaction {
+            alarmDao.deleteSnoozed(tasks.map { it.id })
             tasks
                 .map {
                     it.copy(
