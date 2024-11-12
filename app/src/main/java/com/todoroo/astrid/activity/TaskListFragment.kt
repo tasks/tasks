@@ -96,11 +96,9 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.db.Database
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
-import org.tasks.data.entity.Tag
 import org.tasks.data.entity.Task
 import org.tasks.data.listSettingsClass
 import org.tasks.data.open
-import org.tasks.data.sql.Join
 import org.tasks.data.sql.QueryTemplate
 import org.tasks.data.withTransaction
 import org.tasks.databinding.FragmentTaskListBinding
@@ -841,7 +839,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                 preferences,
                                 FilterImpl(
                                     sql = QueryTemplate()
-                                        .join(Join.left(Tag.TABLE, Tag.TASK.eq(Task.ID)))
                                         .where(Task.ID.`in`(it))
                                         .toString()
                                 )
