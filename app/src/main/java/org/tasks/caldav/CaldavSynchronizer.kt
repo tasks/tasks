@@ -161,7 +161,6 @@ class CaldavSynchronizer @Inject constructor(
             caldavDao.update(account)
         }
         val urls = resources.map { it.href.toString() }.toHashSet()
-        Timber.d("Found calendars: %s", urls)
         for (calendar in caldavDao.findDeletedCalendars(account.uuid!!, ArrayList(urls))) {
             taskDeleter.delete(calendar)
         }
@@ -239,7 +238,7 @@ class CaldavSynchronizer @Inject constructor(
         val httpUrl = resource.href
         val remoteCtag = resource.ctag
         if (caldavCalendar.ctag?.equals(remoteCtag) == true) {
-            Timber.d("%s up to date", caldavCalendar.name)
+            Timber.d("up to date: $caldavCalendar")
             return
         }
         Timber.d("updating $caldavCalendar")

@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
+import org.tasks.data.Redacted
 import org.tasks.data.db.Table
 
 @Serializable
@@ -19,6 +20,7 @@ data class UserActivity(
     var id: Long? = null,
     @ColumnInfo(name = "remoteId")
     var remoteId: String? = Task.NO_UUID,
+    @Redacted
     @ColumnInfo(name = "message")
     var message: String? = "",
     @ColumnInfo(name = "picture")

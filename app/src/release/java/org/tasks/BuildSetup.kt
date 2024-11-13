@@ -9,10 +9,11 @@ import javax.inject.Inject
 
 class BuildSetup @Inject constructor(
     private val context: Application,
+    private val fileLogger: FileLogger,
 ) {
     fun setup() {
         Timber.plant(ErrorReportingTree())
-        Timber.plant(FileLogger(context))
+        Timber.plant(fileLogger)
     }
 
     private class ErrorReportingTree : Timber.Tree() {

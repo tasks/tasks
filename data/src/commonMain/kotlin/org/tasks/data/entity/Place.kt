@@ -10,6 +10,7 @@ import kotlinx.serialization.Transient
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
 import org.tasks.data.NO_ORDER
+import org.tasks.data.Redacted
 import org.tasks.data.UUIDHelper
 import org.tasks.data.db.Table
 import org.tasks.formatCoordinates
@@ -30,16 +31,22 @@ data class Place(
     val id: Long = 0,
     @ColumnInfo(name = "uid")
     val uid: String? = UUIDHelper.newUUID(),
+    @Redacted
     @ColumnInfo(name = "name")
     val name: String? = null,
+    @Redacted
     @ColumnInfo(name = "address")
     val address: String? = null,
+    @Redacted
     @ColumnInfo(name = "phone")
     val phone: String? = null,
+    @Redacted
     @ColumnInfo(name = "url")
     val url: String? = null,
+    @Redacted
     @ColumnInfo(name = "latitude")
     val latitude: Double = 0.0,
+    @Redacted
     @ColumnInfo(name = "longitude")
     val longitude: Double = 0.0,
     @ColumnInfo(name = "place_color")

@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import org.tasks.data.Redacted
 
 @Entity(
     tableName = "principals",
@@ -22,8 +23,8 @@ data class Principal(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
     val account: Long,
     val href: String,
-    var email: String? = null,
-    @ColumnInfo(name = "display_name") var displayName: String? = null
+    @Redacted var email: String? = null,
+    @Redacted @ColumnInfo(name = "display_name") var displayName: String? = null
 ) {
     val name: String
         get() = displayName

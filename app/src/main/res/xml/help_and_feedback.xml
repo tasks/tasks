@@ -30,6 +30,11 @@
         android:title="@string/contact_developer"
         app:icon="@drawable/ic_outline_email_24px" />
 
+    <Preference
+        android:key="@string/send_application_logs"
+        android:title="@string/send_application_logs"
+        app:icon="@drawable/ic_outline_attachment_24px" />
+
   </PreferenceCategory>
 
   <PreferenceCategory

@@ -8,6 +8,7 @@ import kotlinx.serialization.Transient
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
 import org.tasks.data.NO_ORDER
+import org.tasks.data.Redacted
 
 @Serializable
 @CommonParcelize
@@ -17,6 +18,7 @@ data class Filter(
     @ColumnInfo(name = "_id")
     @Transient
     val id: Long = 0,
+    @Redacted
     @ColumnInfo(name = "title")
     val title: String? = null,
     @ColumnInfo(name = "sql")

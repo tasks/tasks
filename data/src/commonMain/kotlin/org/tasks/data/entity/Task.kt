@@ -15,6 +15,7 @@ import kotlinx.serialization.json.JsonNames
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
 import org.tasks.CommonRawValue
+import org.tasks.data.Redacted
 import org.tasks.data.UUIDHelper
 import org.tasks.data.db.Table
 import org.tasks.data.sql.Field
@@ -34,6 +35,7 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
     @ColumnInfo(name = "_id")
     @Transient
     var id: Long = NO_ID,
+    @Redacted
     @ColumnInfo(name = "title")
     var title: String? = null,
     @ColumnInfo(name = "importance")
@@ -50,6 +52,7 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
     var completionDate: Long = 0L,
     @ColumnInfo(name = "deleted")
     var deletionDate: Long = 0L,
+    @Redacted
     @ColumnInfo(name = "notes")
     var notes: String? = null,
     @ColumnInfo(name = "estimatedSeconds")

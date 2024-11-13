@@ -17,16 +17,16 @@ import leakcanary.AppWatcher
 import org.tasks.logging.FileLogger
 import org.tasks.preferences.Preferences
 import timber.log.Timber
-import timber.log.Timber.DebugTree
 import javax.inject.Inject
 
 class BuildSetup @Inject constructor(
-        private val context: Application,
-        private val preferences: Preferences
+    private val context: Application,
+    private val preferences: Preferences,
+    private val fileLogger: FileLogger,
 ) {
     fun setup() {
-        Timber.plant(DebugTree())
-        Timber.plant(FileLogger(context))
+        Timber.plant(Timber.DebugTree())
+        Timber.plant(fileLogger)
         SoLoader.init(context, false)
         if (preferences.getBoolean(R.string.p_leakcanary, false)) {
             AppWatcher.manualInstall(context)

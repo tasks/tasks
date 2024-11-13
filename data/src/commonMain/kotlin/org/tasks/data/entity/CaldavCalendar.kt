@@ -8,6 +8,7 @@ import kotlinx.serialization.Transient
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
 import org.tasks.data.NO_ORDER
+import org.tasks.data.Redacted
 import org.tasks.data.db.Table
 
 @Serializable
@@ -19,9 +20,11 @@ data class CaldavCalendar(
     @ColumnInfo(name = "cdl_id") var id: Long = 0,
     @ColumnInfo(name = "cdl_account") val account: String? = Task.NO_UUID,
     @ColumnInfo(name = "cdl_uuid") var uuid: String? = Task.NO_UUID,
+    @Redacted
     @ColumnInfo(name = "cdl_name") var name: String? = "",
     @ColumnInfo(name = "cdl_color") var color: Int = 0,
     @ColumnInfo(name = "cdl_ctag") var ctag: String? = null,
+    @Redacted
     @ColumnInfo(name = "cdl_url") var url: String? = "",
     @ColumnInfo(name = "cdl_icon") val icon: String? = null,
     @ColumnInfo(name = "cdl_order") val order: Int = NO_ORDER,

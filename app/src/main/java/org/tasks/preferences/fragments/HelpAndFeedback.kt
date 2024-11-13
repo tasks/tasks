@@ -3,14 +3,19 @@ package org.tasks.preferences.fragments
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.core.content.FileProvider
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.lifecycleScope
+import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.injection.InjectingPreferenceFragment
+import org.tasks.logging.FileLogger
 import javax.inject.Inject
 
 private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
@@ -19,6 +24,7 @@ private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
 class HelpAndFeedback : InjectingPreferenceFragment() {
 
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var fileLogger: FileLogger
 
     override fun getPreferenceXml() = R.xml.help_and_feedback
 
@@ -44,6 +50,26 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
                     .putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback")
                     .putExtra(Intent.EXTRA_TEXT, device.debugInfo)
                 startActivity(intent)
+                false
+            }
+
+        findPreference(R.string.send_application_logs)
+            .setOnPreferenceClickListener {
+                lifecycleScope.launch {
+                    val file = FileProvider.getUriForFile(
+                        requireContext(),
+                        Constants.FILE_PROVIDER_AUTHORITY,
+                        fileLogger.getZipFile()
+                    )
+                    val intent = Intent(Intent.ACTION_SEND)
+                        .setType("message/rfc822")
+                        .putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.support_email)))
+                        .putExtra(Intent.EXTRA_SUBJECT, "Tasks logs")
+                        .putExtra(Intent.EXTRA_TEXT, device.debugInfo)
+                        .putExtra(Intent.EXTRA_STREAM, file)
+                        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    startActivity(intent)
+                }
                 false
             }
 

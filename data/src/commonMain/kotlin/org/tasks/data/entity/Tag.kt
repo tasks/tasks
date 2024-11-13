@@ -6,6 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import org.tasks.data.Redacted
 import org.tasks.data.db.Table
 
 @Serializable
@@ -28,6 +29,7 @@ data class Tag(
     @ColumnInfo(name = "task", index = true)
     @Transient
     val task: Long = 0,
+    @Redacted
     @ColumnInfo(name = "name")
     val name: String? = null,
     @ColumnInfo(name = "tag_uid")

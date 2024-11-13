@@ -320,6 +320,7 @@ File %1$s contained %2$s.\n\n
   <string name="source_code">Source code</string>
   <string name="translations">Contribute translations</string>
   <string name="contact_developer">Contact developer</string>
+  <string name="send_application_logs">Send application logs</string>
   <string name="rate_tasks">Rate Tasks</string>
   <string name="quiet_hours_summary">No reminders during quiet hours</string>
   <string name="TLA_menu_donate">Donate</string>

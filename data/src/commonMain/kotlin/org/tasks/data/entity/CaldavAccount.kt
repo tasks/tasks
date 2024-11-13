@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
+import org.tasks.data.Redacted
 import org.tasks.data.db.Table
 import java.net.HttpURLConnection
 
@@ -20,12 +21,16 @@ data class CaldavAccount(
     val id: Long = 0,
     @ColumnInfo(name = "cda_uuid")
     val uuid: String? = Task.NO_UUID,
+    @Redacted
     @ColumnInfo(name = "cda_name")
     var name: String? = "",
+    @Redacted
     @ColumnInfo(name = "cda_url")
     var url: String? = "",
+    @Redacted
     @ColumnInfo(name = "cda_username")
     var username: String? = "",
+    @Redacted
     @ColumnInfo(name = "cda_password")
     @Transient
     var password: String? = "",
@@ -70,9 +75,6 @@ data class CaldavAccount(
     fun isLoggedOut() = error?.startsWith(ERROR_UNAUTHORIZED) == true
 
     fun isPaymentRequired() = error.isPaymentRequired()
-    override fun toString(): String {
-        return "CaldavAccount(id=$id, uuid=$uuid, name=$name, url=$url, username=$username, error=$error, accountType=$accountType, isCollapsed=$isCollapsed, serverType=$serverType)"
-    }
 
     val hasError: Boolean
         get() = !error.isNullOrBlank()

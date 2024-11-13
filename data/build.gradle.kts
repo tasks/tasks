@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.redacted)
 }
 
 kotlin {
@@ -66,6 +67,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+}
+
+redacted {
+    redactedAnnotation = "org/tasks/data/Redacted"
+    enabled = gradle.startParameter.taskNames.any { it.contains("Release") }
 }
 
 dependencies {

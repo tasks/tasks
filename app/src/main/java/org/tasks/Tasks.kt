@@ -1,5 +1,6 @@
 package org.tasks
 
+import android.app.ActivityManager
 import android.app.Application
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -13,6 +14,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.coroutineScope
 import androidx.work.Configuration
 import com.mikepenz.iconics.Iconics
+import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.service.Upgrader
 import dagger.Lazy
 import dagger.hilt.android.HiltAndroidApp
@@ -85,6 +87,11 @@ class Tasks : Application(), Configuration.Provider {
         val lastVersion = preferences.lastSetVersion
         val currentVersion = BuildConfig.VERSION_CODE
         Timber.i("Astrid Startup. %s => %s", lastVersion, currentVersion)
+        if (AndroidUtilities.atLeastR()) {
+            val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            val exitReasons = activityManager.getHistoricalProcessExitReasons(null, 0, 5)
+            Timber.i(exitReasons.joinToString("\n"))
+        }
 
         // invoke upgrade service
         if (lastVersion != currentVersion) {

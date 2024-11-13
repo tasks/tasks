@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
+import org.tasks.data.Redacted
 import org.tasks.data.UUIDHelper
 
 @Serializable
@@ -19,6 +20,7 @@ data class TaskAttachment(
     val id: Long? = null,
     @ColumnInfo(name = "file_uuid")
     val remoteId: String = UUIDHelper.newUUID(),
+    @Redacted
     @ColumnInfo(name = "filename")
     val name: String,
     @ColumnInfo(name = "uri")

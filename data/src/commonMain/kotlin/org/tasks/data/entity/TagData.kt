@@ -8,6 +8,7 @@ import kotlinx.serialization.Transient
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
 import org.tasks.data.NO_ORDER
+import org.tasks.data.Redacted
 import org.tasks.data.UUIDHelper
 
 @CommonParcelize
@@ -20,6 +21,7 @@ data class TagData(
     val id: Long? = null,
     @ColumnInfo(name = "remoteId")
     val remoteId: String? = UUIDHelper.newUUID(),
+    @Redacted
     @ColumnInfo(name = "name")
     val name: String? = "",
     @ColumnInfo(name = "color")
