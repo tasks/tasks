@@ -30,4 +30,7 @@
     <string name="today_lowercase">danas</string>
     <string name="show_unstarted">Pokaži nezapočete</string>
     <string name="show_completed">Pokaži obavljene</string>
+    <string name="wear_install_app">Instaliraj na mobitel</string>
+    <string name="wear_unknown_error">Nepoznata greška</string>
+    <string name="add_task">Dodaj zadatak</string>
 </resources>
