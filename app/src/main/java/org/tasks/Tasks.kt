@@ -13,8 +13,6 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.coroutineScope
 import androidx.work.Configuration
 import com.mikepenz.iconics.Iconics
-import org.tasks.icons.OutlinedGoogleMaterial
-import org.tasks.icons.OutlinedGoogleMaterial2
 import com.todoroo.astrid.service.Upgrader
 import dagger.Lazy
 import dagger.hilt.android.HiltAndroidApp
@@ -24,7 +22,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavSynchronizer
-import org.tasks.files.FileHelper
+import org.tasks.icons.OutlinedGoogleMaterial
+import org.tasks.icons.OutlinedGoogleMaterial2
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
@@ -108,7 +107,6 @@ class Tasks : Application(), Configuration.Provider {
         }
         OpenTaskContentObserver.registerObserver(context, contentObserver.get())
         geofenceApi.get().registerAll()
-        FileHelper.delete(context, preferences.cacheDirectory)
         appWidgetManager.get().reconfigureWidgets()
         CaldavSynchronizer.registerFactories()
     }

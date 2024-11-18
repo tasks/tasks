@@ -430,15 +430,6 @@ class Preferences @JvmOverloads constructor(
         return if (file.isDirectory || file.mkdirs()) file else null
     }
 
-    val cacheDirectory: Uri
-        get() {
-            var cacheDir = context.externalCacheDir
-            if (cacheDir == null) {
-                cacheDir = context.cacheDir
-            }
-            return DocumentFile.fromFile(cacheDir!!).uri
-        }
-
     private fun hasWritePermission(context: Context, uri: Uri): Boolean =
             (PackageManager.PERMISSION_GRANTED
                     == context.checkUriPermission(

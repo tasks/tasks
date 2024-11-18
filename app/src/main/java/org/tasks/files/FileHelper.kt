@@ -144,7 +144,7 @@ object FileHelper {
         val mimeType = getMimeType(context, uri)
         val intent = Intent(Intent.ACTION_VIEW)
         if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
-            uri = copyToUri(context, Uri.fromFile(context.externalCacheDir), uri)
+            uri = copyToUri(context, Uri.fromFile(context.cacheDir), uri)
         }
         val share = FileProvider.getUriForFile(context, Constants.FILE_PROVIDER_AUTHORITY, File(uri.path))
         intent.setDataAndType(share, mimeType)

@@ -13,22 +13,15 @@ import androidx.core.content.FileProvider;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.files.FileHelper;
-import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
 import java.io.File;
 import java.io.IOException;
 
-import javax.inject.Inject;
-
-import dagger.hilt.android.AndroidEntryPoint;
-
-@AndroidEntryPoint
 public class CameraActivity extends AppCompatActivity {
 
   private static final int REQUEST_CODE_CAMERA = 75;
   private static final String EXTRA_URI = "extra_output";
-  @Inject Preferences preferences;
 
   private Uri uri;
 
@@ -44,7 +37,7 @@ public class CameraActivity extends AppCompatActivity {
         uri =
             FileHelper.newFile(
                 this,
-                preferences.getCacheDirectory(),
+                Uri.fromFile(getCacheDir()),
                 "image/jpeg",
                 new DateTime().toString("yyyyMMddHHmm"),
                 ".jpeg");

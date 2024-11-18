@@ -3,9 +3,6 @@
     <external-path
         name="external"
         path="." />
-    <external-cache-path
-        name="external_cache"
-        path="." />
     <cache-path
       name="internal_cache"
       path="." />
