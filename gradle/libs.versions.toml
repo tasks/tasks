@@ -89,7 +89,7 @@ androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-ru
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
-androidx-paging-compose = { module = "androidx.paging:paging-compose", version = "3.3.2" }
+androidx-paging-compose = { module = "androidx.paging:paging-compose", version = "3.3.4" }
 androidx-preference = { module = "androidx.preference:preference", version.ref = "preference" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 androidx-room = { module = "androidx.room:room-runtime", version.ref = "room" }
