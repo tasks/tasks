@@ -6,20 +6,27 @@ on:
 permissions:
   contents: read
 
+env:
+  FASTLANE: ${{ secrets.FASTLANE }}
+
 jobs:
-  check:
-    uses: ./.github/workflows/bundle.yml
   bundle:
+    uses: ./.github/workflows/bundle.yml
+    secrets: inherit
+  deploy:
     runs-on: ubuntu-latest
     needs: [ bundle ]
     steps:
-      - name: Decode secrets
-        run: |
-          echo ${{ secrets.FASTLANE }} > "${RUNNER_TEMP}"/fastlane.json
-          ln -s "${RUNNER_TEMP}"/fastlane.json .
       - uses: actions/checkout@v4
+      - name: Fastlane key
+        run: |
+          echo "$FASTLANE" > ./fastlane.json
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: release
+          path: .
       - name: Deploy
         run: bundle exec fastlane deploy

@@ -11,3 +11,4 @@ Thumbs.db
 /captures/
 /fastlane/report.xml
 /compose-metrics/
+.DS_Store

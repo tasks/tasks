@@ -1,1 +1,0 @@
-Privat, werbefreie Aufgabenlisten! Optionale Synchronisierung mit Google Tasks, CalDAV oder EteSync!

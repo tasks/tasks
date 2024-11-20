@@ -1,3 +1,15 @@
+### 14.1 (2024-11-20)
+
+* Add 'Help & Feedback > Send application logs'
+* Delete snoozed reminders when completing tasks
+* Fix duplicated tasks when using 'Share' [#2404](https://github.com/tasks/tasks/issues/2404)
+* Don't show sync indicator on startup when sync is not used
+* Update translations
+  * Bosnian - @hasak
+  * Brazilian Portuguese - kowih83264
+  * Croatian - @milotype
+  * German - min7-i
+
 ### 14.0.1 (2024-11-10)
 
 * Fix widget crash

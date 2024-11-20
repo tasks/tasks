@@ -1,0 +1,5 @@
+* Add 'Help & Feedback > Send application logs'
+* Delete snoozed reminders when completing tasks
+* Fix duplicated tasks when using 'Share'
+* Don't show sync indicator on startup when sync is not used
+* Update translations
