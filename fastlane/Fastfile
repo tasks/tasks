@@ -30,10 +30,18 @@ platform :android do
     # You can also use other beta testing services here
   end
 
-  desc "Deploy a new version to the Google Play"
+  desc "Deploy to internal track"
   lane :deploy do
-    gradle(task: "clean assembleRelease")
-    upload_to_play_store
+      upload_to_play_store(
+        aab: "app/build/outputs/bundle/googleplayRelease/app-googleplay-release.aab",
+        mapping: "app/build/outputs/mapping/googleplayRelease/mapping.txt",
+        track: "internal",
+      )
+      upload_to_play_store(
+        aab: "wear/build/outputs/bundle/release/wear-release.aab",
+        mapping: "wear/build/outputs/mapping/release/mapping.txt",
+        track: "wear:internal",
+      )
   end
 
   desc "Lint"

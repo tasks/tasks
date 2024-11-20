@@ -1,2 +1,2 @@
-json_key_file("~/.android/api-4793482975234229192-818053-e423e10743e2.json")
+json_key_file("fastlane.json")
 package_name("org.tasks")

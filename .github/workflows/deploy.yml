@@ -1,0 +1,25 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    uses: ./.github/workflows/bundle.yml
+  bundle:
+    runs-on: ubuntu-latest
+    needs: [ bundle ]
+    steps:
+      - name: Decode secrets
+        run: |
+          echo ${{ secrets.FASTLANE }} > "${RUNNER_TEMP}"/fastlane.json
+          ln -s "${RUNNER_TEMP}"/fastlane.json .
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Deploy
+        run: bundle exec fastlane deploy
