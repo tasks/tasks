@@ -1,2 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="display_name">Prikazano ime</string>
+    <string name="read_permission_label">Odobrenja Zadataka</string>
+    <string name="discard_confirmation">Stvarno odbaci izmjene?</string>
+    <string name="keep_editing">Nastavi uređivati</string>
+    <string name="DLG_delete_this_task_question">Izbriši ovaj zadatak?</string>
+    <string name="DLG_hour_minutes">Vrijeme (sati:minute)</string>
+    <string name="DLG_undo">Vrati</string>
+    <string name="WID_dateButtonUnset">Klikni za postavljanje</string>
+    <string name="TLA_no_items">Ovdje nema zadataka.</string>
+    <string name="TLA_menu_sort">Poredaj</string>
+    <string name="TLA_menu_search">Traži</string>
+    <string name="TAd_actionEditTask">Izmijeni</string>
+    <string name="action_call">Nazovi</string>
+    <string name="action_open">Otvori</string>
+    <string name="SSD_sort_my_order">Moj redoslijed</string>
+    <string name="astrid_sort_order">Astridov ručni redoslijed</string>
+    <string name="SSD_sort_auto">Pametni redoslijed</string>
+    <string name="SSD_sort_alpha">Po naslovu</string>
+    <string name="SSD_sort_start">Po datumu početka</string>
+    <string name="SSD_sort_importance">Po bitnosti</string>
+    <string name="SSD_sort_modified">Po zadnjoj izmjeni</string>
+    <string name="sort_list">Po listi</string>
+    <string name="sort_completed">Po vremenu završetka</string>
+    <string name="TEA_title_hint">Naziv zadatka</string>
+    <string name="TEA_importance_label">Bitnost</string>
+    <string name="TEA_note_label">Opis</string>
+    <string name="TEA_estimatedDuration_label">Koliko će trajati?</string>
+    <string name="save">Spremi</string>
+    <string name="TEA_timer_est">Oko %s</string>
+    <string name="TEA_timer_elap">Prošlo %s</string>
+    <string name="TEA_add_subtask">Dodaj podzadatak</string>
+</resources>
