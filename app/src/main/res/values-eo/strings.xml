@@ -289,7 +289,7 @@
     <string name="TEA_timer_controls">Tempumilo</string>
     <string name="new_list">Krei novan liston</string>
     <string name="new_tag">Krei novan etikedon</string>
-    <string name="repeat_snackbar">%1$s tempe replanis al %2$s</string>
+    <string name="repeat_snackbar">%1$s replanis por %2$s</string>
     <plurals name="repeat_n_years">
         <item quantity="one">%d jaro</item>
         <item quantity="other">%d jaroj</item>
