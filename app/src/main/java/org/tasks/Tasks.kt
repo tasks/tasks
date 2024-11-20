@@ -33,6 +33,7 @@ import org.tasks.opentasks.OpenTaskContentObserver
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.RefreshReceiver
 import org.tasks.scheduling.NotificationSchedulerIntentService
+import org.tasks.sync.SyncAdapters
 import org.tasks.themes.ThemeBase
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.widget.AppWidgetManager
@@ -54,6 +55,7 @@ class Tasks : Application(), Configuration.Provider {
     @Inject lateinit var appWidgetManager: Lazy<AppWidgetManager>
     @Inject lateinit var workerFactory: HiltWorkerFactory
     @Inject lateinit var contentObserver: Lazy<OpenTaskContentObserver>
+    @Inject lateinit var syncAdapters: Lazy<SyncAdapters>
 
     override fun onCreate() {
         super.onCreate()
@@ -68,9 +70,7 @@ class Tasks : Application(), Configuration.Provider {
                 override fun onResume(owner: LifecycleOwner) {
                     localBroadcastManager.broadcastRefresh()
                     if (currentTimeMillis() - preferences.lastSync > TimeUnit.MINUTES.toMillis(5)) {
-                        owner.lifecycle.coroutineScope.launch {
-                            workManager.get().sync(true)
-                        }
+                        syncAdapters.get().sync(true)
                     }
                 }
 
