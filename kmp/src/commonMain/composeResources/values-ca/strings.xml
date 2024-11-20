@@ -30,4 +30,7 @@
     <string name="filter_snoozed">Posposada</string>
     <string name="show_unstarted">Mostra les no iniciades</string>
     <string name="show_completed">Mostra completades</string>
+    <string name="wear_install_app">Instal·la al telèfon</string>
+    <string name="wear_unknown_error">Error desconegut</string>
+    <string name="add_task">Afegeix una tasca</string>
 </resources>
