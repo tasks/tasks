@@ -6,10 +6,7 @@
     <string name="backup_BAc_export">Fazer backup agora</string>
     <string name="export_toast">Feito backup de %1$s para %2$s.</string>
     <string name="import_summary_title">Resumo da restauração</string>
-    <string name="import_summary_message">Arquivo %1$s continha %2$s.\n\n
-%3$s importadas,\n
-%4$s já existiam\n
-%5$s tinham erros\n</string>
+    <string name="import_summary_message">Arquivo %1$s continha %2$s.\n\n %3$s importadas,\n %4$s já existiam\n %5$s tinham erros\n</string>
     <string name="import_progress_read">Lendo tarefa %d…</string>
     <string name="read_permission_label">Permissões do Tasks</string>
     <string name="discard_confirmation">Você tem certeza que deseja descartar suas mudanças?</string>
