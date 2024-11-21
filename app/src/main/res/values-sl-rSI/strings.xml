@@ -7,10 +7,7 @@
     <string name="backup_BAc_export">Izvozi opravke</string>
     <string name="export_toast">Varnostna kopija za %1$s shranjena v %2$s.</string>
     <string name="import_summary_title">Povzetek obnove</string>
-    <string name="import_summary_message">Datoteka %1$s je vsebovala %2$s.\n\n
-%3$s uvožen,\n
-%4$s že obstaja\n
-%5$s imel napake\n</string>
+    <string name="import_summary_message">Datoteka %1$s je vsebovala %2$s.\n\n %3$s uvožen,\n %4$s že obstaja\n %5$s imel napake\n</string>
     <string name="import_progress_read">Berem opravek %d…</string>
     <string name="read_permission_label">Dovoljenje Opravkom</string>
     <string name="DLG_delete_this_task_question">Zbrišem ta opravek?</string>
