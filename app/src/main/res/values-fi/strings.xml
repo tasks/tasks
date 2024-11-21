@@ -7,10 +7,7 @@
     <string name="backup_BAc_export">Varmuuskopiointi nyt</string>
     <string name="export_toast">Varmuuskopioitu %1$s - %2$s.</string>
     <string name="import_summary_title">Palauta yhteenveto</string>
-    <string name="import_summary_message">Tiedosto %1$s sisälsi %2$s.\n\n
-%3$s tuotu,\n
-%4$s jo olemassa\n
-%5$s virheitä\n</string>
+    <string name="import_summary_message">Tiedosto %1$s sisälsi %2$s.\n\n %3$s tuotu,\n %4$s jo olemassa\n %5$s virheitä\n</string>
     <string name="import_progress_read">Luetaan tehtävää %d…</string>
     <string name="read_permission_label">Tasks käyttöoikeus</string>
     <string name="discard_confirmation">Oletko varma että haluat hylätä muutokset?</string>
