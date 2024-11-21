@@ -7,7 +7,7 @@
     <string name="backup_BAc_export">立即备份</string>
     <string name="export_toast">已将 %1$s 备份至 %2$s。</string>
     <string name="import_summary_title">还原摘要</string>
-    <string name="import_summary_message">文件 %1$s 包含 %2$s 个任务。\n\n %3$s 个已导入,\n %4$s 个已存在\n %5$s 个存在错误\n</string>
+    <string name="import_summary_message">文件 %1$s 包含 %2$s 个任务。\n\n %3$s 个已导入,\n %4$s 个已存在\n %5$s 个存在错误</string>
     <string name="import_progress_read">正在读取任务 %d…</string>
     <string name="read_permission_label">Tasks 权限</string>
     <string name="discard_confirmation">确定要放弃你的修改吗？</string>
@@ -721,4 +721,5 @@
     <string name="donate_maybe_later">也许以后</string>
     <string name="donate_nag">考虑用捐赠显示您的支持！</string>
     <string name="donate_today">现在捐赠</string>
+    <string name="send_application_logs">发送程序日志</string>
 </resources>
