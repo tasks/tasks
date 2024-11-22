@@ -7,7 +7,7 @@
     <string name="backup_BAc_export">Mentés most</string>
     <string name="export_toast">%1$s lementve ide: %2$s.</string>
     <string name="import_summary_title">Visszaállítás összesítése</string>
-    <string name="import_summary_message">A(z) %1$s file %2$s-t tartalmazott.\n\n %3$s importálva,\n %4$s már létezett\n %5$s hibás\n</string>
+    <string name="import_summary_message">A(z) %1$s file %2$s-t tartalmazott.\n\n %3$s importálva,\n %4$s már létezett\n %5$s hibás</string>
     <string name="import_progress_read">%d feladat felolvasása…</string>
     <string name="read_permission_label">Tasks Engedélyek</string>
     <string name="discard_confirmation">Biztosan el akarja vetni a változtatásokat?</string>
