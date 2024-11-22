@@ -4,6 +4,7 @@ package org.tasks.compose
  * Simple Swipe-to-delete implementation
  */
 
+import androidx.compose.animation.core.exponentialDecay
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -46,7 +47,7 @@ object SwipeOut {
                 LocalConfiguration.current.screenWidthDp.dp.roundToPx().toFloat()
             }
 
-        val dragState = remember {
+        val dragState: AnchoredDraggableState<Anchors> = remember {
             AnchoredDraggableState(
                 initialValue = Anchors.Center,
                 anchors = DraggableAnchors {
@@ -56,7 +57,8 @@ object SwipeOut {
                 },
                 positionalThreshold = { _ -> screenWidthPx/3 },
                 velocityThreshold = { 100f },
-                animationSpec = tween()
+                snapAnimationSpec = tween(),
+                decayAnimationSpec = exponentialDecay()
             )
         }
 
@@ -83,7 +85,7 @@ object SwipeOut {
                         )
                     }
                     .background(colorResource(id = R.color.content_background)) // MUST BE AFTER .offset modifier (?!?!)
-                    .anchoredDraggable(dragState, Orientation.Horizontal, reverseDirection = false)
+                    .anchoredDraggable(state = dragState, orientation = Orientation.Horizontal)
             ) {
                 content()
             }

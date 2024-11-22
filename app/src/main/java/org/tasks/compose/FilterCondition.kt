@@ -163,7 +163,7 @@ object FilterCondition {
             ) {
                 itemsIndexed(
                     items = items,
-                    key = { _, item -> item.id }
+                    key = { _, item -> item.id + item.type }
                 ) { index, criterion ->
                     if (index == 0) {
                         FilterConditionRow(criterion, false, getIcon, onClick)
