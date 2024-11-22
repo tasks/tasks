@@ -131,12 +131,7 @@
     <string name="astrid_sort_order_summary">Omogući Astridov način ručnog razvrstavanja za „Moji zadaci”, „Danas” i oznake. Ovaj način razvrstavanja zamijenit će „Moj poredak” u budućoj novoj verziji</string>
     <string name="WID_dateButtonUnset">Pritisni za postavljanje</string>
     <string name="DLG_hour_minutes">Vrijeme (sati: minute)</string>
-    <string name="import_summary_message">Datoteka %1$s je sadržala %2$s.
-\n
-\n %3$s uvezena,
-\n %4$s već postoje
-\n %5$s s greškama
-\n</string>
+    <string name="import_summary_message">Datoteka %1$s je sadržala %2$s. \n \n %3$s uvezena, \n %4$s već postoje \n %5$s s greškama</string>
     <string name="when_overdue">Kad prekorači rok</string>
     <string name="when_due">Kad rok dospije</string>
     <string name="SSD_sort_start">Po datumu početka</string>
@@ -759,4 +754,5 @@
     <string name="donate_nag">Podrži projekt donacijom!</string>
     <string name="donate_today">Doniraj danas</string>
     <string name="donate_maybe_later">Možda kasnije</string>
+    <string name="send_application_logs">Šalji zapisnike aplikacije</string>
 </resources>
