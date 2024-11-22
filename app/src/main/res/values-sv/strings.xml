@@ -7,7 +7,7 @@
     <string name="backup_BAc_export">Säkerhetskopiera nu</string>
     <string name="export_toast">Säkerhetskopierade %1$s till %2$s.</string>
     <string name="import_summary_title">Återställ summering</string>
-    <string name="import_summary_message">Filen %1$s innehöll %2$s.\n\n %3$s importerade,\n %4$s existerar redan\n %5$s hade fel\n</string>
+    <string name="import_summary_message">Filen %1$s innehöll %2$s.\n\n %3$s importerade,\n %4$s existerar redan\n %5$s hade fel</string>
     <string name="import_progress_read">Läser uppgift %d…</string>
     <string name="read_permission_label">Tasks Tillstånd</string>
     <string name="discard_confirmation">Är du säker på att du inte vill spara dina ändringar?</string>
@@ -635,7 +635,7 @@
     <string name="always_display_full_date">Visa hela datumet</string>
     <string name="start_date">Startdatum</string>
     <string name="TEA_add_subtask">Lägg till deluppgift</string>
-    <string name="sort_created">Efter skapandetillfälle</string>
+    <string name="sort_created">Efter skapandetid</string>
     <string name="SSD_sort_start">Efter startdatum</string>
     <string name="astrid_sort_order">Astrid manuell sortering</string>
     <string name="display_name">Visa namnet</string>
@@ -696,7 +696,7 @@
     <string name="sort_sorting">Sortering</string>
     <string name="sort_grouping">Gruppering</string>
     <string name="sort_ascending">Stigande</string>
-    <string name="sort_descending">Nedåtgående</string>
+    <string name="sort_descending">Fallande</string>
     <string name="sort_completed">Efter färdigställd tid</string>
     <string name="microsoft_selection_description">Synkronisera med ditt personliga Microsoft-konto</string>
     <string name="repeats_every">Upprepas varje</string>
@@ -732,4 +732,5 @@
     <string name="swipe_to_snooze_time_1_hour">efter 1 timme</string>
     <string name="swipe_to_snooze_time_24_hours">efter 24 timmar</string>
     <string name="customize_drawer">Anpassa låda</string>
+    <string name="send_application_logs">Skicka applikationsloggar</string>
 </resources>
