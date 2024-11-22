@@ -7,12 +7,7 @@
     <string name="backup_BAc_export">Nu een backup maken</string>
     <string name="export_toast">%1$s naar %2$s gebackupt.</string>
     <string name="import_summary_title">Hersteloverzicht</string>
-    <string name="import_summary_message">Bestand %1$s bevat %2$s.
-\n
-\n %3$s geïmporteerd,
-\n %4$s bestaan al
-\n %5$s bevatten fouten
-\n</string>
+    <string name="import_summary_message">Bestand %1$s bevat %2$s.\n\n%3$s geïmporteerd,\n%4$s bestaan al\n%5$s bevatten fouten</string>
     <string name="import_progress_read">Taak %d lezen…</string>
     <string name="read_permission_label">App-recht Taken</string>
     <string name="discard_confirmation">Afbreken en wijzigingen negeren\?</string>
@@ -737,4 +732,5 @@
     <string name="swipe_to_snooze_time_15_minutes">na 15 minuten</string>
     <string name="show_edit_screen_without_unlock_summary">Laat gebruik van Snelle Bewerkingstegel toe zonder ontgrendeling toestel</string>
     <string name="swipe_to_snooze_time_immediately">Onmiddellijk</string>
+    <string name="send_application_logs">Stuur applicatielogboeken</string>
 </resources>
