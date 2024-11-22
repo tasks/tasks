@@ -759,4 +759,5 @@
     <string name="show_edit_screen_without_unlock">Afficher l\'écran d\'édition sans déverrouillage</string>
     <string name="show_edit_screen_without_unlock_summary">Permet d\'utiliser la fenêtre des réglages rapides sans déverrouiller l\'appareil</string>
     <string name="customize_drawer_summary">Glisser-déposer pour réorganiser les éléments du menu</string>
+    <string name="send_application_logs">Envoyer les journaux de l\'application</string>
 </resources>
