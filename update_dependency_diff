@@ -1,10 +1,11 @@
 #!/bin/bash
 
 VERSION="1.2.1"
-JAR="${RUNNER_TEMP:-/tmp}/dependency-tree-diff.jar"
+TMP="${RUNNER_TEMP:-/tmp}"
+JAR="${TMP}/dependency-tree-diff.jar"
 MD5="f3b743fde958bc67c76e75c52b54fca5"
 
-wget --timestamping -q "https://github.com/JakeWharton/dependency-tree-diff/releases/download/$VERSION/dependency-tree-diff.jar" -O "$JAR"
+wget --timestamping --quiet --show-progress "https://github.com/JakeWharton/dependency-tree-diff/releases/download/$VERSION/dependency-tree-diff.jar" -P "$TMP"
 
 if [ "$(md5sum "$JAR" | cut -d' ' -f1)" != "$MD5" ]; then
     echo "Error: MD5 checksum verification failed"
@@ -15,6 +16,8 @@ update_deps() {
     local output_file=$1
     local gradle_config=$2
     local gradle_project=$3
+
+    echo "Updating $gradle_project:$gradle_config"
 
     java -jar "$JAR" "$output_file" <( ./gradlew $gradle_project:dependencies \
         --no-configuration-cache \
