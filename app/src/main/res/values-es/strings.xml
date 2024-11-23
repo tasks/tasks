@@ -759,4 +759,5 @@
     <string name="donate_nag">¡Considera mostrar tu apoyo con una donación!</string>
     <string name="donate_today">Donar ahora</string>
     <string name="donate_maybe_later">Quizas mas tarde</string>
+    <string name="send_application_logs">Enviar registros de aplicaciones</string>
 </resources>
