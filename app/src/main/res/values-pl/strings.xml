@@ -422,7 +422,7 @@
     <string name="subtasks_multilevel_google_task">Wielopoziomowe podzadania nie są obsługiwane przez Google Tasks</string>
     <string name="enter_tag_name">Wprowadź nazwę tagu</string>
     <string name="create_new_tag">Stwórz \"%s\"</string>
-    <string name="display_name">Imię</string>
+    <string name="display_name">Nazwa wyświetlana</string>
     <string name="this_feature_requires_a_subscription">Ta funkcja wymaga subskrypcji</string>
     <string name="choose_synchronization_service">Wybierz platformę</string>
     <string name="google_tasks_selection_description">Podstawowy serwis, synchronizujący dane z Twoim kontem Google</string>
