@@ -676,7 +676,7 @@
 +|    |    |    \--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.8.6 (c)
 +|    |    +--- com.google.android.horologist:horologist-annotations:0.6.20
 +|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.0.21 (*)
-+|    |    +--- com.google.android.gms:play-services-wearable:18.2.0
++|    |    +--- com.google.android.gms:play-services-wearable:18.2.0 -> 19.0.0
 +|    |    |    +--- androidx.core:core:1.0.0 -> 1.13.1 (*)
 +|    |    |    +--- com.google.android.gms:play-services-base:18.5.0
 +|    |    |    |    +--- androidx.collection:collection:1.0.0 -> 1.4.4 (*)
@@ -752,7 +752,7 @@
 +|    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
 +|    |         |    \--- androidx.concurrent:concurrent-futures:1.2.0 (c)
 +|    |         +--- com.google.android.gms:play-services-basement:17.0.0 -> 18.4.0 (*)
-+|    |         +--- com.google.android.gms:play-services-wearable:17.1.0 -> 18.2.0 (*)
++|    |         +--- com.google.android.gms:play-services-wearable:17.1.0 -> 19.0.0 (*)
 +|    |         +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.21 (*)
 +|    |         \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
@@ -935,7 +935,7 @@
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.0.21 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.0.21 (*)
-++--- com.google.android.gms:play-services-wearable:18.2.0 (*)
+++--- com.google.android.gms:play-services-wearable:19.0.0 (*)
 ++--- androidx.paging:paging-compose:3.3.4
 +|    \--- androidx.paging:paging-compose-android:3.3.4
 +|         +--- androidx.compose.foundation:foundation:1.5.0 -> 1.7.5 (*)
@@ -1633,7 +1633,7 @@
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.21 (*)
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
 +|    +--- com.google.android.horologist:horologist-annotations:0.6.20 (*)
-+|    \--- com.google.android.gms:play-services-wearable:18.2.0 (*)
++|    \--- com.google.android.gms:play-services-wearable:18.2.0 -> 19.0.0 (*)
 ++--- com.google.android.horologist:horologist-datalayer:0.6.20 (*)
 ++--- com.google.android.horologist:horologist-datalayer-grpc:0.6.20
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.0.21 (*)
@@ -1646,7 +1646,7 @@
 +|    +--- com.google.android.horologist:horologist-datalayer:0.6.20 (*)
 +|    +--- io.grpc:grpc-protobuf-lite:1.66.0 -> 1.68.0 (*)
 +|    +--- io.grpc:grpc-kotlin-stub:1.4.1 (*)
-+|    \--- com.google.android.gms:play-services-wearable:18.2.0 (*)
++|    \--- com.google.android.gms:play-services-wearable:18.2.0 -> 19.0.0 (*)
 ++--- com.jakewharton.timber:timber:5.0.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.21 -> 2.0.21 (*)
 +|    \--- org.jetbrains:annotations:20.1.0 -> 23.0.0
