@@ -7,12 +7,7 @@
     <string name="backup_BAc_export">Esegui backup</string>
     <string name="export_toast">Backup di %1$s su %2$s eseguito.</string>
     <string name="import_summary_title">Riepilogo del ripristino</string>
-    <string name="import_summary_message">Il file %1$s contiene %2$s.
-\n
-\n %3$s importate
-\n %4$s già esistenti
-\n %5$s con errori
-\n</string>
+    <string name="import_summary_message">Il file %1$s contiene %2$s. \n \n %3$s importate, \n %4$s già esistenti \n %5$s con errori</string>
     <string name="import_progress_read">Lettura attività %d…</string>
     <string name="read_permission_label">Permessi di Tasks</string>
     <string name="discard_confirmation">Vuoi davvero annullare tutte le modifiche\?</string>
@@ -759,5 +754,5 @@
     <string name="show_edit_screen_without_unlock_summary">Consente l\'uso delle impostazioni rapide senza sbloccare il dispositivo</string>
     <string name="swipe_to_snooze_description">Posticipa</string>
     <string name="swipe_to_snooze_time_description">Una notifica annullata sarà posticipata e ricreata %s</string>
-    <string name="send_application_logs">Inviare i log dell\'applicazione</string>
+    <string name="send_application_logs">Invia i log dell\'applicazione</string>
 </resources>
