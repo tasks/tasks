@@ -141,7 +141,7 @@ horologist-datalayer-phone = { group = "com.google.android.horologist", name = "
 horologist-datalayer-watch = { group = "com.google.android.horologist", name = "horologist-datalayer-watch", version.ref = "horologist" }
 jchronic = { module = "com.rubiconproject.oss:jchronic", version.ref = "jchronic" }
 junit = { module = "junit:junit", version.ref = "junit-junit" }
-kermit = { module = "co.touchlab:kermit", version = "2.0.4" }
+kermit = { module = "co.touchlab:kermit", version = "2.0.5" }
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
