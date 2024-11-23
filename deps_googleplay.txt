@@ -775,7 +775,7 @@
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.0.21 (*)
 ++--- project :kmp
-+|    +--- androidx.compose.ui:ui-tooling-preview-android:1.7.2 -> 1.7.5
++|    +--- androidx.compose.ui:ui-tooling-preview-android:1.7.5
 +|    |    +--- androidx.annotation:annotation:1.2.0 -> 1.8.1 (*)
 +|    |    +--- androidx.compose.runtime:runtime:1.7.5
 +|    |    |    \--- androidx.compose.runtime:runtime-android:1.7.5
