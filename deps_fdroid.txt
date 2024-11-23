@@ -1066,7 +1066,7 @@
 +|         +--- com.google.http-client:google-http-client-gson:1.45.0 (*)
 +|         +--- com.google.guava:guava:33.1.0-jre -> 33.3.1-android (*)
 +|         \--- com.google.http-client:google-http-client:1.45.0 (*)
-++--- com.google.apis:google-api-services-drive:v3-rev20240914-2.0.0
+++--- com.google.apis:google-api-services-drive:v3-rev20241027-2.0.0
 +|    \--- com.google.api-client:google-api-client:2.7.0 (*)
 ++--- com.google.auth:google-auth-library-oauth2-http:1.30.0 (*)
 ++--- androidx.work:work-runtime-ktx:2.8.1
