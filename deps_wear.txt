@@ -953,7 +953,7 @@
 ++--- androidx.compose.ui:ui-tooling-preview -> 1.7.5
 +|    \--- androidx.compose.ui:ui-tooling-preview-android:1.7.5 (*)
 ++--- androidx.compose.material:material-icons-extended -> 1.7.5 (*)
-++--- com.google.firebase:firebase-bom:33.5.1
+++--- com.google.firebase:firebase-bom:33.6.0
 +|    +--- com.google.firebase:firebase-analytics:22.1.2 (c)
 +|    +--- com.google.firebase:firebase-crashlytics:19.2.1 (c)
 +|    +--- com.google.firebase:firebase-common:21.0.0 (c)

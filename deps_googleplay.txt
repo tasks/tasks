@@ -221,7 +221,7 @@
 +|              +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6 (c)
 +|              +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.6 (c)
 +|              \--- androidx.lifecycle:lifecycle-common-java8:2.8.6 (c)
-++--- com.google.firebase:firebase-bom:33.5.1
+++--- com.google.firebase:firebase-bom:33.6.0
 +|    +--- com.google.firebase:firebase-analytics:22.1.2 (c)
 +|    +--- com.google.firebase:firebase-config-ktx:22.0.1 (c)
 +|    +--- com.google.firebase:firebase-crashlytics:19.2.1 (c)
