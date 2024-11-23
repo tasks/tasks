@@ -4,7 +4,7 @@ VERSION="1.2.1"
 JAR="${RUNNER_TEMP:-/tmp}/dependency-tree-diff.jar"
 MD5="f3b743fde958bc67c76e75c52b54fca5"
 
-wget -q "https://github.com/JakeWharton/dependency-tree-diff/releases/download/$VERSION/dependency-tree-diff.jar" -O "$JAR"
+wget --timestamping -q "https://github.com/JakeWharton/dependency-tree-diff/releases/download/$VERSION/dependency-tree-diff.jar" -O "$JAR"
 
 if [ "$(md5sum "$JAR" | cut -d' ' -f1)" != "$MD5" ]; then
     echo "Error: MD5 checksum verification failed"
