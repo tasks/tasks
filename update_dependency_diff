@@ -1,5 +1,27 @@
 #!/bin/bash
 
-dependency-tree-diff deps_googleplay.txt <( ./gradlew :app:dependencies --no-configuration-cache --configuration googleplayReleaseRuntimeClasspath < /dev/null ) > deps_googleplay.txt
-dependency-tree-diff deps_fdroid.txt <( ./gradlew :app:dependencies --no-configuration-cache --configuration genericReleaseRuntimeClasspath < /dev/null ) > deps_fdroid.txt
-dependency-tree-diff deps_wear.txt <( ./gradlew :wear:dependencies --no-configuration-cache --configuration releaseRuntimeClasspath < /dev/null ) > deps_wear.txt
+VERSION="1.2.1"
+JAR="${RUNNER_TEMP:-/tmp}/dependency-tree-diff.jar"
+MD5="f3b743fde958bc67c76e75c52b54fca5"
+
+wget -q "https://github.com/JakeWharton/dependency-tree-diff/releases/download/$VERSION/dependency-tree-diff.jar" -O "$JAR"
+
+if [ "$(md5sum "$JAR" | cut -d' ' -f1)" != "$MD5" ]; then
+    echo "Error: MD5 checksum verification failed"
+    exit 1
+fi
+
+update_deps() {
+    local output_file=$1
+    local gradle_config=$2
+    local gradle_project=$3
+
+    java -jar "$JAR" "$output_file" <( ./gradlew $gradle_project:dependencies \
+        --no-configuration-cache \
+        --configuration "$gradle_config" \
+        < /dev/null ) > "$output_file"
+}
+
+update_deps deps_googleplay.txt googleplayReleaseRuntimeClasspath :app
+update_deps deps_fdroid.txt genericReleaseRuntimeClasspath :app
+update_deps deps_wear.txt releaseRuntimeClasspath :wear

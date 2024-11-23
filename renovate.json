@@ -11,5 +11,10 @@
       ],
       "groupName": "kotlin"
     }
-  ]
+  ],
+  "postUpgradeTasks": {
+    "commands": ["./update_dependency_diff"],
+    "fileFilters": ["deps_*.txt"],
+    "executionMode": "update"
+  }
 }
