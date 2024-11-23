@@ -1,0 +1,46 @@
+name: Update Dependency Diff
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'gradle/libs.versions.toml'
+  pull_request:
+    paths:
+      - 'gradle/libs.versions.toml'
+  workflow_dispatch:
+
+jobs:
+  update-deps:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+            ref: ${{ github.head_ref }}
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
+
+      - name: Update dependency diffs
+        run: ./update_dependency_diff
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add deps_*.txt
+          git diff --staged --quiet || git commit -m "Update dependency diffs"
+          git push
