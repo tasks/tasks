@@ -233,7 +233,7 @@
     <string name="translations">Vertalingen toevoegen</string>
     <string name="contact_developer">Contact met ontwikkelaar</string>
     <string name="rate_tasks">Tasks waarderen</string>
-    <string name="quiet_hours_summary">Geen herinneringen tijdens stille uren</string>
+    <string name="quiet_hours_summary">Geen herinneringen tijdens rusttijd</string>
     <string name="TLA_menu_donate">Donaties</string>
     <string name="add_reminder">Herinnering toevoegen</string>
     <string name="add_location">Locatie toevoegen</string>
@@ -733,4 +733,5 @@
     <string name="show_edit_screen_without_unlock_summary">Laat gebruik van Snelle Bewerkingstegel toe zonder ontgrendeling toestel</string>
     <string name="swipe_to_snooze_time_immediately">Onmiddellijk</string>
     <string name="send_application_logs">Stuur applicatielogboeken</string>
+    <string name="quiet_hours_in_effect">Rusttijd staat aan</string>
 </resources>
