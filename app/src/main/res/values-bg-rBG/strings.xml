@@ -738,4 +738,5 @@
     <string name="donate_today">Даряване днес</string>
     <string name="donate_maybe_later">Може би после</string>
     <string name="send_application_logs">Изпращане на дневника</string>
+    <string name="quiet_hours_in_effect">В момента е време за тишина</string>
 </resources>
