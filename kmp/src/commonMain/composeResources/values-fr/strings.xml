@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Rechercher</string>
-    <string name="subscribe">S\'abonner</string>
+    <string name="subscribe">S'abonner</string>
     <string name="search_no_results">Aucun résultat</string>
     <string name="requires_pro_subscription">Fonctionnalité Pro</string>
     <string name="subscription_required_description">Débloquer toutes les fonctionnalités pour $1 USD/an</string>
@@ -10,7 +10,7 @@
     <string name="filter_notifications">Notifications</string>
     <string name="filter_snoozed">Répété</string>
     <string name="filter_timer">Tâches minutées</string>
-    <string name="filter_today">Aujourd\'hui</string>
+    <string name="filter_today">Aujourd'hui</string>
     <string name="default_list">Liste par défaut</string>
     <string name="help_and_feedback">Aide et remarques</string>
     <string name="settings">Paramètres</string>
@@ -26,8 +26,8 @@
     <string name="tomorrow_lowercase">demain</string>
     <string name="yesterday">Hier</string>
     <string name="yesterday_lowercase">hier</string>
-    <string name="today">Aujourd\'hui</string>
-    <string name="today_lowercase">aujourd\'hui</string>
+    <string name="today">Aujourd'hui</string>
+    <string name="today_lowercase">aujourd'hui</string>
     <string name="add_task">Ajouter une tâche</string>
     <string name="show_unstarted">Afficher les tâches à venir</string>
     <string name="show_completed">Afficher les tâches terminées</string>
