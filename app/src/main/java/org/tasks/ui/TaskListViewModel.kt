@@ -66,6 +66,7 @@ class TaskListViewModel @Inject constructor(
         val begForSubscription: Boolean = false,
         val warnNotificationsDisabled: Boolean = false,
         val syncOngoing: Boolean = false,
+        val warnQuietHoursEnabled: Boolean = false,
         val collapsed: Set<Long> = setOf(SectionedDataSource.HEADER_COMPLETED),
     )
 
@@ -197,9 +198,12 @@ class TaskListViewModel @Inject constructor(
     }
 
     fun updateBannerState() {
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(Dispatchers.IO) {
             _state.update {
-                it.copy(warnNotificationsDisabled = preferences.warnNotificationsDisabled)
+                it.copy(
+                    warnNotificationsDisabled = preferences.warnNotificationsDisabled,
+                    warnQuietHoursEnabled = preferences.isCurrentlyQuietHours && preferences.warnQuietHoursDisabled,
+                )
             }
 
             if (!inventory.hasPro && !firebase.subscribeCooldown) {
@@ -207,6 +211,13 @@ class TaskListViewModel @Inject constructor(
                     it.copy(begForSubscription = true)
                 }
             }
+        }
+    }
+
+    fun dismissQuietHoursBanner() = viewModelScope.launch(Dispatchers.IO) {
+        preferences.warnQuietHoursDisabled = false
+        _state.update {
+            it.copy(warnQuietHoursEnabled = false)
         }
     }
 

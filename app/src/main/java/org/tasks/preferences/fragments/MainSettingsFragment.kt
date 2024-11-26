@@ -144,6 +144,7 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         super.onResume()
 
         updateBackupWarning()
+        updateQuietHoursWarning()
         updateWidgetVisibility()
     }
 
@@ -194,6 +195,12 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
                         || viewModel.staleLocalBackup
                         || viewModel.staleRemoteBackup)
         (findPreference(R.string.backup_BPr_header) as IconPreference).iconVisible = backupWarning
+    }
+
+    private fun updateQuietHoursWarning() {
+        val pref = findPreference(R.string.notifications) as IconPreference
+        setupErrorIcon(pref, hasError = false, hasWarning = preferences.isCurrentlyQuietHours)
+        pref.iconVisible = preferences.isCurrentlyQuietHours
     }
 
     private fun setup(account: CaldavAccount, pref: IconPreference) {

@@ -72,6 +72,9 @@ class AlarmService @Inject constructor(
     ): Long {
         if (preferences.isCurrentlyQuietHours) {
             return preferences.adjustForQuietHours(currentTimeMillis())
+        } else {
+            // reset quiet hours warning if not currently quiet hours
+            preferences.warnQuietHoursDisabled = true
         }
         val (overdue, _) = getAlarms()
         overdue

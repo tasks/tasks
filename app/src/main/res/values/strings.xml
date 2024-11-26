@@ -306,6 +306,7 @@ File %1$s contained %2$s.\n\n
   <string name="sound">Sound</string>
   <string name="vibrations">Vibrations</string>
   <string name="quiet_hours">Quiet hours</string>
+  <string name="quiet_hours_in_effect">Quiet hours are in effect</string>
   <string name="attachment_directory">Attachment folder</string>
   <string name="backup_directory">Backup folder</string>
   <string name="google_drive_backup">Google Drive backup</string>

@@ -158,12 +158,23 @@ class Notifications : InjectingPreferenceFragment() {
         super.onResume()
 
         checkBatteryOptimizations()
+        updateQuietHoursWarning()
     }
 
     private fun checkBatteryOptimizations() {
         val powerManager = requireContext().getSystemService(POWER_SERVICE) as PowerManager
         findPreference(R.string.disable_battery_optimizations).isVisible =
             !powerManager.isIgnoringBatteryOptimizations(getString(R.string.app_package))
+    }
+
+    private fun updateQuietHoursWarning() {
+        val pref = findPreference(R.string.p_rmd_enable_quiet)
+        if (preferences.isCurrentlyQuietHours) {
+            pref.setIcon(R.drawable.ic_outline_error_outline_24px)
+            tintIcons(pref, requireContext().getColor(org.tasks.kmp.R.color.orange_500))
+        } else {
+            pref.icon = null
+        }
     }
 
     override fun onDestroy() {

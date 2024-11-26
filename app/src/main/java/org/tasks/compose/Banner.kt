@@ -54,6 +54,24 @@ fun SubscriptionNagBanner(
     )
 }
 
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun QuietHoursBanner(
+    visible: Boolean,
+    showSettings: () -> Unit,
+    dismiss: () -> Unit,
+) {
+    AnimatedBanner(
+        visible = visible,
+        title = stringResource(R.string.quiet_hours_in_effect),
+        body = stringResource(R.string.quiet_hours_summary),
+        dismissText = stringResource(id = R.string.dismiss),
+        onDismiss = dismiss,
+        action = stringResource(id = R.string.TLA_menu_settings),
+        onAction = showSettings,
+    )
+}
+
 @ExperimentalAnimationApi
 @Composable
 fun BeastModeBanner(
@@ -94,4 +112,12 @@ private fun BeastModePreview() = TasksTheme {
 @Composable
 private fun SubscriptionNagPreview() = TasksTheme {
     SubscriptionNagBanner(visible = true, subscribe = {}, dismiss = {})
+}
+
+@ExperimentalAnimationApi
+@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun QuietHoursPreview() = TasksTheme {
+    QuietHoursBanner(visible = true, showSettings = {}, dismiss = {})
 }
