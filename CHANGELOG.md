@@ -1,3 +1,23 @@
+### 14.1.1 (2024-11-26)
+
+* Show warning when quiet hours are in effect
+* Fix escape character in some localizations [#3046](https://github.com/tasks/tasks/issues/3046)
+* Fix comment delete button color [#3102](https://github.com/tasks/tasks/issues/3102)
+* Update translations
+  * Bosnian - @hasak
+  * Bulgarian - @StoyanDimitrov
+  * Catalan - raulmagdalena
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Croatian - @milotype
+  * Dutch - @fvbommel
+  * Esperanto - Don Zouras
+  * French - @FlorianLeChat
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Polish - @rom4nik
+  * Spanish - gallegonovato
+  * Swedish - Nick Wick
+
 ### 14.1 (2024-11-20)
 
 * Add 'Help & Feedback > Send application logs'
