@@ -49,7 +49,7 @@ class PurchaseActivity : AppCompatActivity(), OnPurchasesUpdated {
         theme.applyToContext(this)
 
         if (savedInstanceState == null) {
-            nameYourPrice.value = intent?.extras?.getBoolean(EXTRA_NAME_YOUR_PRICE) ?: false
+            nameYourPrice.value = intent?.extras?.getBoolean(EXTRA_NAME_YOUR_PRICE) ?: firebase.nameYourPrice
         } else {
             nameYourPrice.value = savedInstanceState.getBoolean(EXTRA_NAME_YOUR_PRICE)
             sliderPosition.value = savedInstanceState.getFloat(EXTRA_PRICE)
@@ -64,7 +64,6 @@ class PurchaseActivity : AppCompatActivity(), OnPurchasesUpdated {
                     nameYourPrice = nameYourPrice,
                     sliderPosition = sliderPosition,
                     github = github,
-                    hideText = firebase.subGroupA,
                     subscribe = this::purchase,
                     onBack = { finish() },
                 )

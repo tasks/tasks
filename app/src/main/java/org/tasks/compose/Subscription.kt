@@ -41,6 +41,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -140,7 +141,6 @@ object PurchaseText {
         nameYourPrice: MutableState<Boolean> = mutableStateOf(false),
         sliderPosition: MutableState<Float> = mutableStateOf(0f),
         github: Boolean = false,
-        hideText: Boolean,
         subscribe: (Int, Boolean) -> Unit,
         onBack: () -> Unit,
     ) {
@@ -176,10 +176,8 @@ object PurchaseText {
                     .background(color = colorResource(R.color.content_background)),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                if (!hideText) {
-                    GreetingText(R.string.upgrade_blurb_1)
-                    GreetingText(R.string.upgrade_blurb_2)
-                }
+                GreetingText(R.string.upgrade_blurb_1)
+                GreetingText(R.string.upgrade_blurb_2)
                 Spacer(Modifier.height(KEYLINE_FIRST))
                 val pagerState = rememberPagerState {
                     featureList.size
@@ -474,7 +472,6 @@ object PurchaseText {
 private fun PurchaseDialogPreview() {
     TasksTheme {
         SubscriptionScreen(
-            hideText = false,
             subscribe = { _, _ -> },
             onBack = {},
         )
@@ -484,10 +481,10 @@ private fun PurchaseDialogPreview() {
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
-private fun PurchaseDialogPreviewNoText() {
+private fun NameYourPricePreview() {
     TasksTheme {
         SubscriptionScreen(
-            hideText = true,
+            nameYourPrice = remember { mutableStateOf(true) },
             subscribe = { _, _ -> },
             onBack = {},
         )

@@ -75,8 +75,8 @@ class Firebase @Inject constructor(
         get() = installCooldown
                 || preferences.lastSubscribeRequest + days("subscribe_cooldown", 30L) > currentTimeMillis()
 
-    val subGroupA: Boolean
-        get() = remoteConfig?.getBoolean("sub_group_a") ?: false
+    val nameYourPrice: Boolean
+        get() = remoteConfig?.getBoolean("name_your_price") ?: false
 
     private fun days(key: String, default: Long): Long =
             TimeUnit.DAYS.toMillis(remoteConfig?.getLong(key) ?: default)
