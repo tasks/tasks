@@ -755,4 +755,5 @@
     <string name="swipe_to_snooze_description">Posticipa</string>
     <string name="swipe_to_snooze_time_description">Una notifica annullata sarà posticipata e ricreata %s</string>
     <string name="send_application_logs">Invia i log dell\'applicazione</string>
+    <string name="quiet_hours_in_effect">Ore di quiete attive</string>
 </resources>
