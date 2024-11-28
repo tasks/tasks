@@ -767,4 +767,6 @@
     <string name="swipe_to_snooze_time_1_hour">за 1 годину</string>
     <string name="swipe_to_snooze_time_24_hours">за 24 години</string>
     <string name="show_edit_screen_without_unlock_summary">Дозволяє використовувати плитку швидких налаштувань без розблокування пристрою</string>
+    <string name="quiet_hours_in_effect">Активовано тихі години</string>
+    <string name="send_application_logs">Надіслати логи застосунку</string>
 </resources>
