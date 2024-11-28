@@ -566,7 +566,7 @@
 +|    |    \--- javax.annotation:javax.annotation-api:1.3.2
 +|    +--- io.grpc:grpc-protobuf-lite:1.68.1
 +|    |    +--- io.grpc:grpc-api:1.68.1 (*)
-+|    |    +--- com.google.protobuf:protobuf-javalite:3.25.5 -> 4.28.3
++|    |    +--- com.google.protobuf:protobuf-javalite:3.25.5 -> 4.29.0
 +|    |    +--- com.google.code.findbugs:jsr305:3.0.2
 +|    |    \--- com.google.guava:guava:33.2.1-android -> 33.2.1-jre (*)
 +|    +--- io.grpc:grpc-android:1.68.1
@@ -740,8 +740,8 @@
 +|    |    |         +--- androidx.datastore:datastore-core:1.1.1 (c)
 +|    |    |         \--- androidx.datastore:datastore-core-okio:1.1.1 (c)
 +|    |    +--- androidx.datastore:datastore:1.1.1 (*)
-+|    |    +--- com.google.protobuf:protobuf-kotlin-lite:4.28.0 -> 4.28.3
-+|    |    |    +--- com.google.protobuf:protobuf-javalite:4.28.3
++|    |    +--- com.google.protobuf:protobuf-kotlin-lite:4.28.0 -> 4.29.0
++|    |    |    +--- com.google.protobuf:protobuf-javalite:4.29.0
 +|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.0 -> 2.0.21 (*)
 +|    |    \--- androidx.wear:wear-remote-interactions:1.1.0-beta01
 +|    |         +--- androidx.annotation:annotation:1.1.0 -> 1.8.2 (*)
@@ -757,7 +757,7 @@
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.21 (*)
 +|    |         \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
 +|    +--- androidx.datastore:datastore-preferences:1.1.1 (*)
-+|    \--- com.google.protobuf:protobuf-kotlin-lite:4.28.3 (*)
++|    \--- com.google.protobuf:protobuf-kotlin-lite:4.29.0 (*)
 ++--- project :kmp
 +|    +--- androidx.compose.ui:ui-tooling-preview-android:1.7.5
 +|    |    +--- androidx.annotation:annotation:1.2.0 -> 1.8.2 (*)
