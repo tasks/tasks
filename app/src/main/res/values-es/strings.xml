@@ -760,4 +760,5 @@
     <string name="donate_today">Donar ahora</string>
     <string name="donate_maybe_later">Quizas mas tarde</string>
     <string name="send_application_logs">Enviar registros de aplicaciones</string>
+    <string name="quiet_hours_in_effect">Es el momento de descansar</string>
 </resources>
