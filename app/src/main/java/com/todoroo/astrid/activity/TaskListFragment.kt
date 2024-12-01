@@ -28,7 +28,9 @@ import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
@@ -86,6 +88,7 @@ import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
+import org.tasks.compose.AlarmsDisabledBanner
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.compose.NotificationsDisabledBanner
@@ -107,7 +110,6 @@ import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.PriorityPicker.Companion.newPriorityPicker
 import org.tasks.dialogs.SortSettingsActivity
-import org.tasks.extensions.Context.canScheduleExactAlarms
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.extensions.Context.openAppNotificationSettings
 import org.tasks.extensions.Context.openReminderSettings
@@ -376,21 +378,24 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 } else {
                     null
                 }
-                val showNotificationBanner = state.warnNotificationsDisabled &&
-                        (!hasRemindersPermission || notificationPermissions?.status is PermissionStatus.Denied)
-                val showSubscriptionNag = !showNotificationBanner && state.begForSubscription
-                val showQuietHoursWarning = !showNotificationBanner && !showSubscriptionNag && state.warnQuietHoursEnabled
+                val showNotificationBanner = state.warnNotificationsDisabled && notificationPermissions?.status is PermissionStatus.Denied
+                val showAlarmsBanner = !showNotificationBanner && state.warnNotificationsDisabled && !hasRemindersPermission
+                val showSubscriptionNag = !showNotificationBanner && !showAlarmsBanner && state.begForSubscription
+                val showQuietHoursWarning = !showNotificationBanner && !showAlarmsBanner && !showSubscriptionNag && state.warnQuietHoursEnabled
                 NotificationsDisabledBanner(
                     visible = showNotificationBanner,
                     settings = {
-                        if (!context.canScheduleExactAlarms()) {
-                            context.openReminderSettings()
-                        } else if (notificationPermissions?.status?.shouldShowRationale == true) {
+                        if (notificationPermissions?.status?.shouldShowRationale == true) {
                             context.openAppNotificationSettings()
                         } else {
                             notificationPermissions?.launchPermissionRequest()
                         }
                     },
+                    dismiss = { listViewModel.dismissNotificationBanner() },
+                )
+                AlarmsDisabledBanner(
+                    visible = showAlarmsBanner,
+                    settings = { context.openReminderSettings() },
                     dismiss = { listViewModel.dismissNotificationBanner() },
                 )
                 SubscriptionNagBanner(

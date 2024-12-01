@@ -28,6 +28,25 @@ fun NotificationsDisabledBanner(
     )
 }
 
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun AlarmsDisabledBanner(
+    visible: Boolean,
+    settings: () -> Unit,
+    dismiss: () -> Unit,
+) {
+    AnimatedBanner(
+        visible = visible,
+        title = stringResource(id = R.string.enable_alarms),
+        body = stringResource(id = R.string.enable_alarms_description),
+        dismissText = stringResource(id = R.string.dismiss),
+        onDismiss = dismiss,
+        action = stringResource(id = R.string.TLA_menu_settings),
+        onAction = settings,
+    )
+
+}
+
 @ExperimentalAnimationApi
 @Composable
 fun SubscriptionNagBanner(

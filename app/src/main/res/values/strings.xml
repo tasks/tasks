@@ -731,6 +731,8 @@ File %1$s contained %2$s.\n\n
   <string name="hint_customize_edit_body">You can customize this screen by rearranging or removing fields</string>
   <string name="enable_reminders">Enable reminders</string>
   <string name="enable_reminders_description">Reminders are disabled in Android Settings</string>
+  <string name="enable_alarms">Get notified at the right time</string>
+  <string name="enable_alarms_description">To make sure you\'re notified at the right time, grant permission to set alarms and reminders in Settings</string>
   <string name="sign_in">Sign in</string>
   <string name="consent_agree">Agree</string>
   <string name="consent_deny">Not now</string>
