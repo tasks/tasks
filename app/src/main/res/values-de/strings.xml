@@ -736,4 +736,6 @@
     <string name="swipe_to_snooze_description">Schlummerzeit</string>
     <string name="show_edit_screen_without_unlock">Bearbeitungsbildschirm ohne Entsperren anzeigen</string>
     <string name="swipe_to_snooze_time_description">Eine gelöschte Benachrichtigung wird pausiert und erstellt %s neu</string>
+    <string name="quiet_hours_in_effect">Ruhezeit aktiviert</string>
+    <string name="send_application_logs">Anwendungsprotokolle senden</string>
 </resources>
