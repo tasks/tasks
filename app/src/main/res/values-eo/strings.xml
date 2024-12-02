@@ -604,7 +604,6 @@
     <string name="invalid_backup_file">Nevalida savkopio</string>
     <string name="davx5_selection_description">Sinkronigi viajn taskojn kun la DAVx⁵ programeto</string>
     <string name="navigation_drawer">Naviga tirkesto</string>
-    <string name="hide_check_button">Kaŝi elektobutonon</string>
     <string name="filter_any_due_date">Ajna limdato</string>
     <string name="filter_high_priority">Grava</string>
     <string name="filter_medium_priority">Meza prioritato</string>

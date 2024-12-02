@@ -501,7 +501,6 @@
     <string name="compact">Compatto</string>
     <string name="settings_default">Predefinito</string>
     <string name="widget_id">ID widget: %d</string>
-    <string name="hide_check_button">Nascondi casella di selezione</string>
     <string name="opacity_footer">Opacità piè di pagina</string>
     <string name="opacity_row">Opacità riga</string>
     <string name="opacity_header">Opacità intestazione</string>

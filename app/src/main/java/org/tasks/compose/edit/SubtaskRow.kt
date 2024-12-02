@@ -70,10 +70,10 @@ fun SubtaskRow(
                 id = org.tasks.R.drawable.ic_subdirectory_arrow_right_black_24dp,
                 modifier = Modifier
                     .padding(
-                        start = 16.dp,
-                        top = 20.dp,
-                        end = 20.dp,
-                        bottom = 20.dp
+                        start = 4.dp,
+                        top = 8.dp,
+                        end = 8.dp,
+                        bottom = 8.dp
                     )
                     .alpha(ContentAlpha.medium),
             )

@@ -475,7 +475,6 @@
     <string name="calendar_event_created">Calendario de eventos creado para %s</string>
     <string name="share">Compartir</string>
     <string name="select_all">Seleccionar todo</string>
-    <string name="hide_check_button">Ocultar botón de verificación</string>
     <string name="compact">Compacto</string>
     <string name="settings_default">Predefinido</string>
     <string name="widget_id">Widget ID: %d</string>

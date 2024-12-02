@@ -454,7 +454,6 @@
     <string name="calendar_event_created">Kalender-item aangemaakt voor %s</string>
     <string name="share">Taken delen</string>
     <string name="select_all">Alles selecteren</string>
-    <string name="hide_check_button">Selectievakje verbergen</string>
     <string name="compact">Compact</string>
     <string name="settings_default">Standaardwaarde</string>
     <string name="widget_id">Widget ID: %d</string>

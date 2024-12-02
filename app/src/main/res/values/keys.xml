@@ -393,7 +393,6 @@
   <string name="p_auto_dismiss_datetime_edit_screen">auto_dismiss_datetime_edit_screen</string>
   <string name="p_auto_dismiss_datetime_list_screen">auto_dismiss_datetime_list_screen</string>
   <string name="p_auto_dismiss_datetime_widget">auto_dismiss_datetime_widget</string>
-  <string name="p_hide_check_button">Hide check button</string>
   <string name="p_show_whats_new">show_whats_new</string>
   <string name="p_just_updated">just_updated</string>
   <string name="p_last_review_request">last_review_request</string>

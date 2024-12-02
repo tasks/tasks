@@ -396,7 +396,6 @@
     <string name="open_map">Abrir mapa</string>
     <string name="choose_new_location">Escolher nova localização</string>
     <string name="widget_id">ID do widget: %d</string>
-    <string name="hide_check_button">Ocultar botão de verificação</string>
     <string name="share">Compartilhar</string>
     <string name="select_all">Selecionar todos</string>
     <string name="calendar_event_created">Evento de calendário criado para %s</string>

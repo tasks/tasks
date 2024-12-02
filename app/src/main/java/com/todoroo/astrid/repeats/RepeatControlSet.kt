@@ -26,7 +26,6 @@ import org.tasks.filters.GtasksFilter
 import org.tasks.repeats.BasicRecurrenceDialog
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.repeats.RepeatRuleToString
-import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
@@ -86,38 +85,36 @@ class RepeatControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                TasksTheme {
-                    RepeatRow(
-                        recurrence = viewModel.recurrence.collectAsStateWithLifecycle().value?.let {
-                            repeatRuleToString.toString(it)
-                        },
-                        repeatAfterCompletion = viewModel.repeatAfterCompletion.collectAsStateWithLifecycle().value,
-                        onClick = {
-                            lifecycleScope.launch {
-                                val accountType = viewModel.selectedList.value
-                                    .let {
-                                        when (it) {
-                                            is CaldavFilter -> it.account
-                                            is GtasksFilter -> it.account
-                                            else -> null
-                                        }
+                RepeatRow(
+                    recurrence = viewModel.recurrence.collectAsStateWithLifecycle().value?.let {
+                        repeatRuleToString.toString(it)
+                    },
+                    repeatAfterCompletion = viewModel.repeatAfterCompletion.collectAsStateWithLifecycle().value,
+                    onClick = {
+                        lifecycleScope.launch {
+                            val accountType = viewModel.selectedList.value
+                                .let {
+                                    when (it) {
+                                        is CaldavFilter -> it.account
+                                        is GtasksFilter -> it.account
+                                        else -> null
                                     }
-                                    ?.let { caldavDao.getAccountByUuid(it) }
-                                    ?.accountType
-                                    ?: CaldavAccount.TYPE_LOCAL
-                                BasicRecurrenceDialog.newBasicRecurrenceDialog(
-                                    target = this@RepeatControlSet,
-                                    rc = REQUEST_RECURRENCE,
-                                    rrule = viewModel.recurrence.value,
-                                    dueDate = viewModel.dueDate.value,
-                                    accountType = accountType,
-                                )
-                                    .show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
-                            }
-                        },
-                        onRepeatFromChanged = { viewModel.repeatAfterCompletion.value = it }
-                    )
-                }
+                                }
+                                ?.let { caldavDao.getAccountByUuid(it) }
+                                ?.accountType
+                                ?: CaldavAccount.TYPE_LOCAL
+                            BasicRecurrenceDialog.newBasicRecurrenceDialog(
+                                target = this@RepeatControlSet,
+                                rc = REQUEST_RECURRENCE,
+                                rrule = viewModel.recurrence.value,
+                                dueDate = viewModel.dueDate.value,
+                                accountType = accountType,
+                            )
+                                .show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
+                        }
+                    },
+                    onRepeatFromChanged = { viewModel.repeatAfterCompletion.value = it }
+                )
             }
         }
 

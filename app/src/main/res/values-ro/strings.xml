@@ -534,7 +534,6 @@
     <string name="custom_filter_criteria">Criterii de filtrare</string>
     <string name="settings_default">Implicit</string>
     <string name="widget_id">ID-ul aplicației: %d</string>
-    <string name="hide_check_button">Ascunde butonul de verificare</string>
     <string name="share">Distribuie</string>
     <string name="select_all">Selectează toate</string>
     <string name="calendar_event_created">Eveniment calendaristic creat pentru %s</string>

@@ -23,7 +23,6 @@ import org.tasks.data.entity.Task
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.kmp.org.tasks.time.getTimeString
-import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.TaskEditControlFragment
@@ -90,15 +89,13 @@ class TimerControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                TasksTheme {
-                    TimerRow(
-                        started = viewModel.timerStarted.collectAsStateWithLifecycle().value,
-                        estimated = viewModel.estimatedSeconds.collectAsStateWithLifecycle().value,
-                        elapsed = viewModel.elapsedSeconds.collectAsStateWithLifecycle().value,
-                        timerClicked = this@TimerControlSet::timerClicked,
-                        onClick = this@TimerControlSet::onRowClick,
-                    )
-                }
+                TimerRow(
+                    started = viewModel.timerStarted.collectAsStateWithLifecycle().value,
+                    estimated = viewModel.estimatedSeconds.collectAsStateWithLifecycle().value,
+                    elapsed = viewModel.elapsedSeconds.collectAsStateWithLifecycle().value,
+                    timerClicked = this@TimerControlSet::timerClicked,
+                    onClick = this@TimerControlSet::onRowClick,
+                )
             }
         }
 

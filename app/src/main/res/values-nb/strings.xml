@@ -461,7 +461,6 @@
     <string name="widget_show_dividers">Vis inndelere</string>
     <string name="filter_overdue">Forsinket</string>
     <string name="custom_filter_criteria">Filterkriterium</string>
-    <string name="hide_check_button">Skjul bekreftelsesknapp</string>
     <string name="calendar_event_created">Kalenderhendelse opprettet for %s</string>
     <string name="auto_dismiss_datetime_summary">Lukk datovelger etter å ha valgt dato eller tid</string>
     <string name="auto_dismiss_datetime_widget_summary">Lukk automatisk når valgt fra miniprogram</string>

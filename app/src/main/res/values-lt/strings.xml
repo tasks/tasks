@@ -530,7 +530,6 @@
     <string name="display_name">Rodomas pavadinimas</string>
     <string name="date_picker_multiple">Keleta</string>
     <string name="compact">Kompaktiška</string>
-    <string name="hide_check_button">Slėpti žymėjimo mygtuką</string>
     <string name="navigation_drawer">Navigacijos parankinės juosta</string>
     <string name="foreground_location">Vietos nustatymas</string>
     <string name="background_location">Foninis vietos nustatymas</string>

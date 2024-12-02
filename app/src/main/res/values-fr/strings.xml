@@ -475,7 +475,6 @@
     <string name="calendar_event_created">Évènement de calendrier créé pour %s</string>
     <string name="share">Partager</string>
     <string name="select_all">Tout sélectionner</string>
-    <string name="hide_check_button">Masquer le bouton de vérification</string>
     <string name="compact">Compacte</string>
     <string name="settings_default">Par défaut</string>
     <string name="widget_id">Identifiant du widget : %d</string>

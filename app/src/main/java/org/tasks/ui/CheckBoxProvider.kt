@@ -4,9 +4,9 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
-import org.tasks.data.entity.Task
 import dagger.hilt.android.qualifiers.ActivityContext
 import org.tasks.R
+import org.tasks.data.entity.Task
 import org.tasks.themes.ColorProvider
 import javax.inject.Inject
 
@@ -24,7 +24,9 @@ class CheckBoxProvider @Inject constructor(
     }
 
     companion object {
-        fun Task.getCheckboxRes() = when {
+        fun Task.getCheckboxRes() = getCheckboxRes(isCompleted, isRecurring)
+
+        fun getCheckboxRes(isCompleted: Boolean, isRecurring: Boolean) = when {
             isCompleted -> R.drawable.ic_outline_check_box_24px
             isRecurring -> R.drawable.ic_outline_repeat_24px
             else -> R.drawable.ic_outline_check_box_outline_blank_24px

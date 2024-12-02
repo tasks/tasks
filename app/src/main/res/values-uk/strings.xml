@@ -477,7 +477,6 @@
     <string name="disable_battery_optimizations">Вимкнути оптимізацію енергоспоживання</string>
     <string name="notification_troubleshooting_summary">Натисніть тут, якщо маєте проблеми з повідомленнями</string>
     <string name="troubleshooting">Розв\'язання проблем</string>
-    <string name="hide_check_button">Сховати кнопку для галочки</string>
     <string name="sort_created">За часом створення</string>
     <string name="copied_to_clipboard">%s скопійовано в буфер обміну</string>
     <string name="app_password_save">Використовуйте ці дані для налаштування стороннього застосунку. Вони надають повний доступ до вашого облікового запису Tasks.org, не записуйте їх та нікому не повідомляйте!</string>

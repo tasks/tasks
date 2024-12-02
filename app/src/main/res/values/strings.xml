@@ -581,7 +581,6 @@ File %1$s contained %2$s.\n\n
   <string name="calendar_event_created">Calendar event created for %s</string>
   <string name="select_all">Select all</string>
   <string name="share">Share</string>
-  <string name="hide_check_button">Hide check button</string>
   <string name="widget_id">Widget ID: %d</string>
   <string name="settings_default">Default</string>
   <string name="compact">Compact</string>

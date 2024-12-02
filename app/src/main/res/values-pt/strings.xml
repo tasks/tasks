@@ -436,7 +436,6 @@
     <string name="settings_default">Predefinição</string>
     <string name="widget_show_menu">Mostrar menu</string>
     <string name="widget_id">ID do widget: %d</string>
-    <string name="hide_check_button">Ocultar botão de verificado</string>
     <string name="share">Partilhar</string>
     <string name="select_all">Selecionar todos</string>
     <string name="calendar_event_created">Evento de calendário criado para %s</string>

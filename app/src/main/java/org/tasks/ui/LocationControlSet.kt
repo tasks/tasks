@@ -29,7 +29,6 @@ import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.PermissionChecker.backgroundPermissions
 import org.tasks.preferences.Preferences
-import org.tasks.themes.TasksTheme
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -85,27 +84,25 @@ class LocationControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                TasksTheme {
-                    val hasPermissions =
-                        rememberMultiplePermissionsState(permissions = backgroundPermissions())
-                            .allPermissionsGranted
-                    LocationRow(
-                        location = viewModel.selectedLocation.collectAsStateWithLifecycle().value,
-                        hasPermissions = hasPermissions,
-                        onClick = this@LocationControlSet::onRowClick,
-                        openGeofenceOptions = {
-                            if (hasPermissions) {
-                                showGeofenceOptions()
-                            } else {
-                                newLocationPermissionDialog(
-                                    this@LocationControlSet,
-                                    REQUEST_LOCATION_PERMISSIONS
-                                )
-                                    .show(parentFragmentManager, FRAG_TAG_REQUEST_LOCATION)
-                            }
+                val hasPermissions =
+                    rememberMultiplePermissionsState(permissions = backgroundPermissions())
+                        .allPermissionsGranted
+                LocationRow(
+                    location = viewModel.selectedLocation.collectAsStateWithLifecycle().value,
+                    hasPermissions = hasPermissions,
+                    onClick = this@LocationControlSet::onRowClick,
+                    openGeofenceOptions = {
+                        if (hasPermissions) {
+                            showGeofenceOptions()
+                        } else {
+                            newLocationPermissionDialog(
+                                this@LocationControlSet,
+                                REQUEST_LOCATION_PERMISSIONS
+                            )
+                                .show(parentFragmentManager, FRAG_TAG_REQUEST_LOCATION)
                         }
-                    )
-                }
+                    }
+                )
             }
         }
 

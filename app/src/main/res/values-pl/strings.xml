@@ -468,7 +468,6 @@
     <string name="compact">Kompaktowy</string>
     <string name="settings_default">Domyślny</string>
     <string name="widget_id">Identyfikator widżetu: %d</string>
-    <string name="hide_check_button">Ukryj przycisk wyboru</string>
     <string name="share">Udostępnij</string>
     <string name="select_all">Zaznacz wszystko</string>
     <string name="calendar_event_created">Wydarzenie kalendarzowe utworzone dla %s</string>

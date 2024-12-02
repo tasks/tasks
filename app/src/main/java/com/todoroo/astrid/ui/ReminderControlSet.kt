@@ -31,7 +31,6 @@ import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.extensions.Context.openReminderSettings
 import org.tasks.scheduling.NotificationSchedulerIntentService
-import org.tasks.themes.TasksTheme
 import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
 
@@ -76,57 +75,55 @@ class ReminderControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                TasksTheme {
-                    val ringMode by remember { this@ReminderControlSet.ringMode }
-                    val hasReminderPermissions by rememberReminderPermissionState()
-                    val notificationPermissions = if (AndroidUtilities.atLeastTiramisu()) {
-                        rememberPermissionState(
-                            Manifest.permission.POST_NOTIFICATIONS,
-                            onPermissionResult = { success ->
-                                if (success) {
-                                    NotificationSchedulerIntentService.enqueueWork(context)
-                                }
+                val ringMode by remember { this@ReminderControlSet.ringMode }
+                val hasReminderPermissions by rememberReminderPermissionState()
+                val notificationPermissions = if (AndroidUtilities.atLeastTiramisu()) {
+                    rememberPermissionState(
+                        Manifest.permission.POST_NOTIFICATIONS,
+                        onPermissionResult = { success ->
+                            if (success) {
+                                NotificationSchedulerIntentService.enqueueWork(context)
                             }
-                        )
-                    } else {
-                        null
-                    }
-                    val pickDateAndTime =
-                        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                            if (result.resultCode != RESULT_OK) return@rememberLauncherForActivityResult
-                            val data = result.data ?: return@rememberLauncherForActivityResult
-                            val timestamp =
-                                data.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
-                            val replace: Alarm? = data.getParcelableExtra(EXTRA_REPLACE)
-                            replace?.let { viewModel.removeAlarm(it) }
-                            viewModel.addAlarm(Alarm(time = timestamp, type = TYPE_DATE_TIME))
-                        }
-                    AlarmRow(
-                        alarms = viewModel.selectedAlarms.collectAsStateWithLifecycle().value,
-                        hasNotificationPermissions = hasReminderPermissions &&
-                                (notificationPermissions == null || notificationPermissions.status == PermissionStatus.Granted),
-                        fixNotificationPermissions = {
-                            if (hasReminderPermissions) {
-                                notificationPermissions?.launchPermissionRequest()
-                            } else {
-                                context.openReminderSettings()
-                            }
-                        },
-                        ringMode = ringMode,
-                        addAlarm = viewModel::addAlarm,
-                        openRingType = this@ReminderControlSet::onClickRingType,
-                        deleteAlarm = viewModel::removeAlarm,
-                        pickDateAndTime = { replace ->
-                            val timestamp = replace?.takeIf { it.type == TYPE_DATE_TIME }?.time
-                                ?: DateTimeUtils.newDateTime().noon().millis
-                            pickDateAndTime.launch(
-                                Intent(activity, DateAndTimePickerActivity::class.java)
-                                    .putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, timestamp)
-                                    .putExtra(EXTRA_REPLACE, replace)
-                            )
                         }
                     )
+                } else {
+                    null
                 }
+                val pickDateAndTime =
+                    rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                        if (result.resultCode != RESULT_OK) return@rememberLauncherForActivityResult
+                        val data = result.data ?: return@rememberLauncherForActivityResult
+                        val timestamp =
+                            data.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
+                        val replace: Alarm? = data.getParcelableExtra(EXTRA_REPLACE)
+                        replace?.let { viewModel.removeAlarm(it) }
+                        viewModel.addAlarm(Alarm(time = timestamp, type = TYPE_DATE_TIME))
+                    }
+                AlarmRow(
+                    alarms = viewModel.selectedAlarms.collectAsStateWithLifecycle().value,
+                    hasNotificationPermissions = hasReminderPermissions &&
+                            (notificationPermissions == null || notificationPermissions.status == PermissionStatus.Granted),
+                    fixNotificationPermissions = {
+                        if (hasReminderPermissions) {
+                            notificationPermissions?.launchPermissionRequest()
+                        } else {
+                            context.openReminderSettings()
+                        }
+                    },
+                    ringMode = ringMode,
+                    addAlarm = viewModel::addAlarm,
+                    openRingType = this@ReminderControlSet::onClickRingType,
+                    deleteAlarm = viewModel::removeAlarm,
+                    pickDateAndTime = { replace ->
+                        val timestamp = replace?.takeIf { it.type == TYPE_DATE_TIME }?.time
+                            ?: DateTimeUtils.newDateTime().noon().millis
+                        pickDateAndTime.launch(
+                            Intent(activity, DateAndTimePickerActivity::class.java)
+                                .putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, timestamp)
+                                .putExtra(EXTRA_REPLACE, replace)
+                        )
+                    }
+                )
             }
         }
 

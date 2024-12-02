@@ -449,7 +449,6 @@
     <string name="share">分享</string>
     <string name="select_all">选中全部</string>
     <string name="calendar_event_created">已为 %s 创建日历事件</string>
-    <string name="hide_check_button">隐藏检查按钮</string>
     <string name="compact">紧凑</string>
     <string name="settings_default">默认</string>
     <string name="widget_id">部件ID：%d</string>

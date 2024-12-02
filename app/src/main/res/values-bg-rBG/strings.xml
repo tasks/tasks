@@ -593,7 +593,6 @@
     <string name="desaturate_colors_summary_on">При тъмите теми цветовете ще бъдат с намалена наситеност</string>
     <string name="sort_created_group">Създадена %s</string>
     <string name="desaturate_colors_summary_off">При тъмите теми цветовете няма да бъдат променяни</string>
-    <string name="hide_check_button">Скриване на бутона за отмятане</string>
     <string name="sort_modified_group">Променена %s</string>
     <string name="github_sponsor">Дарител</string>
     <string name="tasks_org_account_required">Необходим е профил в Tasks.org</string>

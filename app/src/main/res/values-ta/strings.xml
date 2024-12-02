@@ -161,7 +161,6 @@
     <string name="compact">கச்சிதமான</string>
     <string name="settings_default">இயல்புநிலை</string>
     <string name="widget_id">விட்ஜெட் ஐடி: %d</string>
-    <string name="hide_check_button">சோதனை பொத்தானை மறைக்க</string>
     <string name="share">பகிர்</string>
     <string name="select_all">அனைத்தையும் தெரிவுசெய்</string>
     <string name="calendar_event_created">%s க்கு காலண்டர் நிகழ்வு உருவாக்கப்பட்டது</string>

@@ -25,7 +25,6 @@ import org.tasks.data.entity.TaskAttachment
 import org.tasks.dialogs.AddAttachmentDialog
 import org.tasks.files.FileHelper
 import org.tasks.preferences.Preferences
-import org.tasks.themes.TasksTheme
 import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
 
@@ -48,22 +47,20 @@ class FilesControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                TasksTheme {
-                    AttachmentRow(
-                        attachments = viewModel.selectedAttachments.collectAsStateWithLifecycle().value,
-                        openAttachment = {
-                            FileHelper.startActionView(
-                                requireActivity(),
-                                if (Strings.isNullOrEmpty(it.uri)) null else Uri.parse(it.uri)
-                            )
-                        },
-                        deleteAttachment = this@FilesControlSet::deleteAttachment,
-                        addAttachment = {
-                            AddAttachmentDialog.newAddAttachmentDialog(this@FilesControlSet)
-                                .show(parentFragmentManager, FRAG_TAG_ADD_ATTACHMENT_DIALOG)
-                        },
-                    )
-                }
+                AttachmentRow(
+                    attachments = viewModel.selectedAttachments.collectAsStateWithLifecycle().value,
+                    openAttachment = {
+                        FileHelper.startActionView(
+                            requireActivity(),
+                            if (Strings.isNullOrEmpty(it.uri)) null else Uri.parse(it.uri)
+                        )
+                    },
+                    deleteAttachment = this@FilesControlSet::deleteAttachment,
+                    addAttachment = {
+                        AddAttachmentDialog.newAddAttachmentDialog(this@FilesControlSet)
+                            .show(parentFragmentManager, FRAG_TAG_ADD_ATTACHMENT_DIALOG)
+                    },
+                )
             }
         }
 

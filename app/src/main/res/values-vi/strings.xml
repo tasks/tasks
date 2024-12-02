@@ -175,7 +175,6 @@
     <string name="compact">Nhỏ gọn</string>
     <string name="settings_default">Mặc định</string>
     <string name="widget_id">ID tiện ích: %d</string>
-    <string name="hide_check_button">Ẩn nút hoàn thành</string>
     <string name="share">Chia sẻ</string>
     <string name="select_all">Chọn tất cả</string>
     <string name="calendar_event_created">Đã tạo sự kiện trong lịch cho %s</string>

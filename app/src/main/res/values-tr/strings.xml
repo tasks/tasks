@@ -457,7 +457,6 @@
     <string name="chip_appearance_text_only">Yalnızca metin</string>
     <string name="chip_appearance_text_and_icon">Metin ve simge</string>
     <string name="menu_discard_changes">Değişiklikleri göz ardı et</string>
-    <string name="hide_check_button">Denetim düğmesini gizle</string>
     <string name="share">Paylaş</string>
     <string name="select_all">Tümünü seç</string>
     <string name="compact">Sıkı</string>

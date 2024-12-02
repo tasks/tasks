@@ -461,7 +461,6 @@
     <string name="calendar_event_created">Kalendereintrag für %s erstellt</string>
     <string name="select_all">Alles auswählen</string>
     <string name="share">Teilen</string>
-    <string name="hide_check_button">Erledigt-Schaltfläche ausblenden</string>
     <string name="widget_show_dividers">Trennlinien anzeigen</string>
     <string name="opacity_footer">Deckkraft der Fußzeile</string>
     <string name="opacity_row">Deckkraft der Zeilen</string>

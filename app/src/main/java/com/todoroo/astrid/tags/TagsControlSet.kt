@@ -29,16 +29,14 @@ class TagsControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                TasksTheme {
-                    TagsRow(
-                        tags = viewModel.selectedTags.collectAsStateWithLifecycle().value,
-                        colorProvider = { chipProvider.getColor(it) },
-                        onClick = this@TagsControlSet::onRowClick,
-                        onClear = { tag ->
-                            viewModel.selectedTags.update { ArrayList(it.minus(tag)) }
-                        },
-                    )
-                }
+                TagsRow(
+                    tags = viewModel.selectedTags.collectAsStateWithLifecycle().value,
+                    colorProvider = { chipProvider.getColor(it) },
+                    onClick = this@TagsControlSet::onRowClick,
+                    onClear = { tag ->
+                        viewModel.selectedTags.update { ArrayList(it.minus(tag)) }
+                    },
+                )
             }
         }
 

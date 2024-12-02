@@ -376,7 +376,6 @@
         <item quantity="one">minuto</item>
         <item quantity="other">minutos</item>
     </plurals>
-    <string name="hide_check_button">Agochar botón de marcar</string>
     <string name="settings_default">Predefinido</string>
     <string name="price_per_year">$%s/ano</string>
     <string name="migrate_count">Mover %s a Tasks.org</string>

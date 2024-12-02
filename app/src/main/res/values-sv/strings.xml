@@ -548,7 +548,6 @@
     <string name="filter_overdue">Försenad</string>
     <string name="custom_filter_criteria">Filterkriterier</string>
     <string name="widget_id">Widget-ID: %d</string>
-    <string name="hide_check_button">Dölj kontrollknappen</string>
     <string name="calendar_event_created">Kalenderhändelse skapad för %s</string>
     <string name="auto_dismiss_datetime_summary">Stänga datum- och tidsväljare efter att ha valt ett datum eller en tid</string>
     <string name="auto_dismiss_datetime_widget_summary">Stäng automatiskt vid val från uppgiftslistan</string>

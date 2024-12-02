@@ -18,12 +18,31 @@ fun CheckBox(
     modifier: Modifier = Modifier,
     desaturate: Boolean,
 ) {
+    CheckBox(
+        isCompleted = task.isCompleted,
+        isRecurring = task.isRecurring,
+        priority = task.priority,
+        onCompleteClick = onCompleteClick,
+        modifier = modifier,
+        desaturate = desaturate,
+    )
+}
+
+@Composable
+fun CheckBox(
+    isCompleted: Boolean,
+    isRecurring: Boolean,
+    priority: Int,
+    onCompleteClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    desaturate: Boolean,
+) {
     IconButton(onClick = onCompleteClick, modifier = modifier) {
         Icon(
-            painter = painterResource(id = task.getCheckboxRes()),
+            painter = painterResource(id = getCheckboxRes(isCompleted, isRecurring)),
             tint = Color(
                 priorityColor(
-                    priority = task.priority,
+                    priority = priority,
                     isDarkMode = isSystemInDarkTheme(),
                     desaturate = desaturate,
                 )

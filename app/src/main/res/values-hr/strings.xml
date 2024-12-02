@@ -535,7 +535,6 @@
     <string name="compact">Kompaktno</string>
     <string name="settings_default">Standardno</string>
     <string name="widget_id">Widget ID: %d</string>
-    <string name="hide_check_button">Sakrij potvrdni gumb</string>
     <string name="share">Dijeli</string>
     <string name="select_all">Odaberi sve</string>
     <string name="calendar_event_created">Kalendarski događaj stvoren za %s</string>

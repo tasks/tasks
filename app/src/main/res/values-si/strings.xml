@@ -151,7 +151,6 @@
     <string name="custom_filter_and">සහ</string>
     <string name="custom_filter_criteria">පෙරහන් නිර්ණායක</string>
     <string name="settings_default">පෙරනිමිය</string>
-    <string name="hide_check_button">පිරික්සුම් බොත්තම සඟවන්න</string>
     <string name="share">බෙදාගන්න</string>
     <string name="select_all">සියල්ල තෝරන්න</string>
     <string name="auto_dismiss_datetime_summary">දිනයක් හෝ වේලාවක් තේරීමෙන් පසු දිනය, වේලාව තෝරනය වසා දමන්න</string>

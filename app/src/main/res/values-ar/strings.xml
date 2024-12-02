@@ -609,7 +609,6 @@
     <string name="custom_filter_criteria">معايير التصفية</string>
     <string name="settings_default">افتراضي</string>
     <string name="widget_id">معرف ويدجت: %d</string>
-    <string name="hide_check_button">إخفاء مربع الاختيار</string>
     <string name="calendar_event_created">تم إنشاء حدث التقويم ل%s</string>
     <string name="auto_dismiss_datetime_summary">إغلاق منتقي التاريخ والوقت بعد تحديد التاريخ أو الوقت</string>
     <string name="auto_dismiss_datetime_widget_summary">الغلق التلقائي عند الانتقاء من ويدجت</string>

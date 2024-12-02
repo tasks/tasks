@@ -456,7 +456,6 @@
     <string name="no_date">Datarik ez</string>
     <string name="auto_dismiss_datetime_summary">Itxi data/ordu hautatzailea behin data eta ordua hautatuta</string>
     <string name="auto_dismiss_datetime">Automatikoki itxi data/ordu hautatzailea</string>
-    <string name="hide_check_button">Ezkutatu egiaztaketa botoia</string>
     <string name="share">Partekatu</string>
     <string name="select_all">Hautatu denak</string>
     <string name="calendar_event_created">%s gertaera sortu da egutegian</string>

@@ -478,7 +478,6 @@
     <string name="custom_filter_and">그리고</string>
     <string name="custom_filter_criteria">필터 조건</string>
     <string name="widget_id">위젯 ID: %d</string>
-    <string name="hide_check_button">체크 버튼 숨기기</string>
     <string name="auto_dismiss_datetime_summary">날짜나 시간을 선택한 후에 일시 선택상자 닫기</string>
     <string name="auto_dismiss_datetime_widget_summary">위젯에서 선택시 닫기</string>
     <string name="auto_dismiss_datetime_widget">위젯</string>

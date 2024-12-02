@@ -536,7 +536,6 @@
     <string name="compact">ข้อตกลง</string>
     <string name="settings_default">ค่าเริ่มต้น</string>
     <string name="widget_id">รหัสวิดเจ็ต: %d</string>
-    <string name="hide_check_button">ซ่อนปุ่มตรวจสอบ</string>
     <string name="share">ใช้ร่วมกัน</string>
     <string name="select_all">เลือกทั้งหมด</string>
     <string name="calendar_event_created">เหตุการณ์ในปฏิทินที่สร้างสําหรับ %s</string>

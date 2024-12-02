@@ -25,7 +25,6 @@ import org.tasks.preferences.Preferences
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.themes.ColorProvider
-import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
@@ -55,39 +54,37 @@ class SubtaskControlSet : TaskEditControlFragment() {
         (parent as ComposeView).apply {
             listViewModel = ViewModelProvider(requireParentFragment())[TaskListViewModel::class.java]
             setContent {
-                TasksTheme {
-                    SubtaskRow(
-                        originalFilter = viewModel.originalList,
-                        filter = viewModel.selectedList.collectAsStateWithLifecycle().value,
-                        hasParent = viewModel.hasParent,
-                        desaturate = preferences.desaturateDarkMode,
-                        existingSubtasks = if (viewModel.isNew) {
-                            TasksResults.Results(SectionedDataSource())
-                        } else {
-                            listViewModel.state.collectAsStateWithLifecycle().value.tasks
-                        },
-                        newSubtasks = viewModel.newSubtasks.collectAsStateWithLifecycle().value,
-                        openSubtask = this@SubtaskControlSet::openSubtask,
-                        completeExistingSubtask = this@SubtaskControlSet::complete,
-                        toggleSubtask = this@SubtaskControlSet::toggleSubtask,
-                        addSubtask = this@SubtaskControlSet::addSubtask,
-                        completeNewSubtask = {
-                            viewModel.newSubtasks.value =
-                                ArrayList(viewModel.newSubtasks.value).apply {
-                                    val modified = it.copy(
-                                        completionDate = if (it.isCompleted) 0 else currentTimeMillis()
-                                    )
-                                    set(indexOf(it), modified)
-                                }
-                        },
-                        deleteSubtask = {
-                            viewModel.newSubtasks.value =
-                                ArrayList(viewModel.newSubtasks.value).apply {
-                                    remove(it)
-                                }
-                        }
-                    )
-                }
+                SubtaskRow(
+                    originalFilter = viewModel.originalList,
+                    filter = viewModel.selectedList.collectAsStateWithLifecycle().value,
+                    hasParent = viewModel.hasParent,
+                    desaturate = preferences.desaturateDarkMode,
+                    existingSubtasks = if (viewModel.isNew) {
+                        TasksResults.Results(SectionedDataSource())
+                    } else {
+                        listViewModel.state.collectAsStateWithLifecycle().value.tasks
+                    },
+                    newSubtasks = viewModel.newSubtasks.collectAsStateWithLifecycle().value,
+                    openSubtask = this@SubtaskControlSet::openSubtask,
+                    completeExistingSubtask = this@SubtaskControlSet::complete,
+                    toggleSubtask = this@SubtaskControlSet::toggleSubtask,
+                    addSubtask = this@SubtaskControlSet::addSubtask,
+                    completeNewSubtask = {
+                        viewModel.newSubtasks.value =
+                            ArrayList(viewModel.newSubtasks.value).apply {
+                                val modified = it.copy(
+                                    completionDate = if (it.isCompleted) 0 else currentTimeMillis()
+                                )
+                                set(indexOf(it), modified)
+                            }
+                    },
+                    deleteSubtask = {
+                        viewModel.newSubtasks.value =
+                            ArrayList(viewModel.newSubtasks.value).apply {
+                                remove(it)
+                            }
+                    }
+                )
             }
         }
 

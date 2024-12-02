@@ -102,11 +102,12 @@ class TaskEditViewModel @Inject constructor(
 
     val isNew = task.isNew
 
+    var showBeastModeHint = MutableStateFlow(!preferences.shownBeastModeHint)
     var creationDate: Long = task.creationDate
     var modificationDate: Long = task.modificationDate
     var completionDate: Long = task.completionDate
     var title: String? = task.title
-    var completed: Boolean = task.isCompleted
+    var completed = MutableStateFlow(task.isCompleted)
     var priority = MutableStateFlow(task.priority)
     var description: String? = task.notes.stripCarriageReturns()
     val recurrence = MutableStateFlow(task.recurrence)
@@ -217,7 +218,7 @@ class TaskEditViewModel @Inject constructor(
 
     fun hasChanges(): Boolean =
         (task.title != title || (isNew && title?.isNotBlank() == true)) ||
-                task.isCompleted != completed ||
+                task.isCompleted != completed.value ||
                 task.dueDate != dueDate.value ||
                 task.priority != priority.value ||
                 if (task.notes.isNullOrBlank()) {
@@ -399,10 +400,10 @@ class TaskEditViewModel @Inject constructor(
                 .let { taskAttachmentDao.insert(it) }
         }
 
-        if (task.isCompleted != completed) {
-            taskCompleter.setComplete(task, completed)
+        if (task.isCompleted != completed.value) {
+            taskCompleter.setComplete(task, completed.value)
             if (task.isCompleted) {
-                firebase?.completeTask("edit_screen")
+                firebase?.completeTask("edit_screen_v2")
             }
         }
 
@@ -501,6 +502,12 @@ class TaskEditViewModel @Inject constructor(
                 userActivityDao.createNew(userActivity)
             }
         }
+    }
+
+    fun hideBeastModeHint(click: Boolean) {
+        showBeastModeHint.value = false
+        preferences.shownBeastModeHint = true
+        firebase?.logEvent(R.string.event_banner_beast, R.string.param_click to click)
     }
 
     init {

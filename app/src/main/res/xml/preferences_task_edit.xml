@@ -26,11 +26,6 @@
 
     <SwitchPreferenceCompat
         android:defaultValue="false"
-        android:key="@string/p_hide_check_button"
-        android:title="@string/hide_check_button" />
-
-    <SwitchPreferenceCompat
-        android:defaultValue="false"
         android:key="@string/p_show_task_edit_comments"
         android:title="@string/EPr_show_task_edit_comments"
         app:singleLineTitle="false" />

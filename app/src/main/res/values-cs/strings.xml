@@ -515,7 +515,6 @@
     <string name="custom_filter_criteria">Podmínky filtru</string>
     <string name="compact">Kompaktní</string>
     <string name="settings_default">Výchozí</string>
-    <string name="hide_check_button">Skrýt zaškrtávací políčko</string>
     <string name="share">Sdílet</string>
     <string name="select_all">Vybrat vše</string>
     <string name="calendar_event_created">Událost v kalendáři vytvořena pro %s</string>

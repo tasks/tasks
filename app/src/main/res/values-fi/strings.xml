@@ -437,7 +437,6 @@
     <string name="add_tags">Lisää tunniste</string>
     <string name="filter_any_due_date">Mikä tahansa määräpäivä</string>
     <string name="settings_default">Oletusarvo</string>
-    <string name="hide_check_button">Piilota valinta painike</string>
     <string name="share">Jaa</string>
     <string name="select_all">Valitse kaikki</string>
     <string name="widget_show_menu">Näytä valikko</string>

@@ -18,7 +18,6 @@ import org.tasks.calendars.CalendarProvider
 import org.tasks.compose.edit.CalendarRow
 import org.tasks.extensions.Context.toast
 import org.tasks.preferences.PermissionChecker
-import org.tasks.themes.TasksTheme
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -45,34 +44,32 @@ class CalendarControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                TasksTheme {
-                    CalendarRow(
-                        eventUri = viewModel.eventUri.collectAsStateWithLifecycle().value,
-                        selectedCalendar = viewModel.selectedCalendar.collectAsStateWithLifecycle().value?.let {
-                            calendarProvider.getCalendar(it)?.name
-                        },
-                        onClick = {
-                            if (viewModel.eventUri.value.isNullOrBlank()) {
-                                CalendarPicker
-                                    .newCalendarPicker(
-                                        requireParentFragment(),
-                                        TaskEditFragment.REQUEST_CODE_PICK_CALENDAR,
-                                        viewModel.selectedCalendar.value,
-                                    )
-                                    .show(
-                                        requireParentFragment().parentFragmentManager,
-                                        TaskEditFragment.FRAG_TAG_CALENDAR_PICKER
-                                    )
-                            } else {
-                                openCalendarEvent()
-                            }
-                        },
-                        clear = {
-                            viewModel.selectedCalendar.value = null
-                            viewModel.eventUri.value = null
+                CalendarRow(
+                    eventUri = viewModel.eventUri.collectAsStateWithLifecycle().value,
+                    selectedCalendar = viewModel.selectedCalendar.collectAsStateWithLifecycle().value?.let {
+                        calendarProvider.getCalendar(it)?.name
+                    },
+                    onClick = {
+                        if (viewModel.eventUri.value.isNullOrBlank()) {
+                            CalendarPicker
+                                .newCalendarPicker(
+                                    requireParentFragment(),
+                                    TaskEditFragment.REQUEST_CODE_PICK_CALENDAR,
+                                    viewModel.selectedCalendar.value,
+                                )
+                                .show(
+                                    requireParentFragment().parentFragmentManager,
+                                    TaskEditFragment.FRAG_TAG_CALENDAR_PICKER
+                                )
+                        } else {
+                            openCalendarEvent()
                         }
-                    )
-                }
+                    },
+                    clear = {
+                        viewModel.selectedCalendar.value = null
+                        viewModel.eventUri.value = null
+                    }
+                )
             }
         }
 

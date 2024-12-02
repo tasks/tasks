@@ -1,48 +1,44 @@
-/*
- * Copyright (c) 2012 Todoroo Inc
- *
- * See the file "LICENSE" for the full license governing this code.
- */
 package com.todoroo.astrid.activity
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import androidx.activity.addCallback
+import androidx.activity.compose.BackHandler
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.appcompat.widget.Toolbar
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Divider
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.Clear
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Save
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidViewBinding
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.os.BundleCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastOreoMR1
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.files.FilesControlSet
@@ -75,8 +71,8 @@ import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
-import org.tasks.databinding.FragmentTaskEditBinding
 import org.tasks.databinding.TaskEditCalendarBinding
+import org.tasks.databinding.TaskEditCommentBarBinding
 import org.tasks.databinding.TaskEditFilesBinding
 import org.tasks.databinding.TaskEditLocationBinding
 import org.tasks.databinding.TaskEditRemindersBinding
@@ -106,6 +102,7 @@ import org.tasks.notifications.NotificationManager
 import org.tasks.play.PlayServices
 import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksTheme
+import org.tasks.themes.Theme
 import org.tasks.ui.CalendarControlSet
 import org.tasks.ui.ChipProvider
 import org.tasks.ui.LocationControlSet
@@ -116,10 +113,9 @@ import org.tasks.ui.TaskEditViewModel
 import org.tasks.ui.TaskEditViewModel.Companion.stripCarriageReturns
 import java.util.Locale
 import javax.inject.Inject
-import kotlin.math.abs
 
 @AndroidEntryPoint
-class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
+class TaskEditFragment : Fragment() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var userActivityDao: UserActivityDao
     @Inject lateinit var notificationManager: NotificationManager
@@ -134,9 +130,9 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var locale: Locale
     @Inject lateinit var chipProvider: ChipProvider
     @Inject lateinit var playServices: PlayServices
+    @Inject lateinit var theme: Theme
 
-    val editViewModel: TaskEditViewModel by viewModels()
-    lateinit var binding: FragmentTaskEditBinding
+    private val editViewModel: TaskEditViewModel by viewModels()
     private var showKeyboard = false
     private val beastMode =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -149,165 +145,140 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     val task: Task?
         get() = BundleCompat.getParcelable(requireArguments(), EXTRA_TASK, Task::class.java)
 
+    @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        requireActivity().onBackPressedDispatcher.addCallback(owner = viewLifecycleOwner) {
-            if (preferences.backButtonSavesTask()) {
-                lifecycleScope.launch {
-                    save()
-                }
-            } else {
-                discardButtonClick()
-            }
-        }
         if (atLeastOreoMR1()) {
             activity?.setShowWhenLocked(preferences.showEditScreenWithoutUnlock)
         }
-
-        binding = FragmentTaskEditBinding.inflate(inflater)
-        val view: View = binding.root
         val model = editViewModel.task
-        val toolbar = binding.toolbar
-        toolbar.navigationIcon = AppCompatResources.getDrawable(
-            context,
-            if (editViewModel.isReadOnly)
-                R.drawable.ic_outline_arrow_back_24px
-            else
-                R.drawable.ic_outline_save_24px
-        )
-        toolbar.setNavigationOnClickListener {
-            lifecycleScope.launch {
-                save()
-            }
-        }
-        val backButtonSavesTask = preferences.backButtonSavesTask()
-        toolbar.setNavigationContentDescription(
-            when {
-                editViewModel.isReadOnly -> R.string.back
-                backButtonSavesTask -> R.string.discard
-                else -> R.string.save
-            }
-        )
-        toolbar.inflateMenu(R.menu.menu_task_edit_fragment)
-        val menu = toolbar.menu
-        val delete = menu.findItem(R.id.menu_delete)
-        delete.isVisible = !model.isNew && editViewModel.isWritable
-        delete.setShowAsAction(
-                if (backButtonSavesTask) MenuItem.SHOW_AS_ACTION_NEVER else MenuItem.SHOW_AS_ACTION_IF_ROOM)
-        val discard = menu.findItem(R.id.menu_discard)
-        discard.isVisible = backButtonSavesTask && editViewModel.isWritable
-        discard.setShowAsAction(
-                if (model.isNew) MenuItem.SHOW_AS_ACTION_IF_ROOM else MenuItem.SHOW_AS_ACTION_NEVER)
-        if (savedInstanceState == null) {
-            showKeyboard = model.isNew && isNullOrEmpty(model.title)
-        }
-        val params = binding.appbarlayout.layoutParams as CoordinatorLayout.LayoutParams
-        params.behavior = AppBarLayout.Behavior()
-        val behavior = params.behavior as AppBarLayout.Behavior?
-        behavior!!.setDragCallback(object : DragCallback() {
-            override fun canDrag(appBarLayout: AppBarLayout): Boolean {
-                return false
-            }
-        })
-        toolbar.setOnMenuItemClickListener(this)
-        val title = binding.title
-        val textWatcher = markdownProvider.markdown(preferences.linkify).textWatcher(title)
-        title.addTextChangedListener(
-            onTextChanged = { _, _, _, _ ->
-                editViewModel.title = title.text.toString().trim { it <= ' ' }
-            },
-            afterTextChanged = {
-                textWatcher?.invoke(it)
-            }
-        )
-        title.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                lifecycleScope.launch {
-                    save()
-                }
-                true
-            } else false
-        }
-        title.setText(model.title)
-        title.setHorizontallyScrolling(false)
-        title.maxLines = 5
-        if (editViewModel.isReadOnly) {
-            title.isFocusable = false
-            title.isFocusableInTouchMode = false
-            title.isCursorVisible = false
-        }
-        if (
-            model.isNew ||
-            preferences.getBoolean(R.string.p_hide_check_button, false) ||
-            editViewModel.isReadOnly
-        ) {
-            binding.fab.visibility = View.INVISIBLE
-        } else if (editViewModel.completed) {
-            title.paintFlags = title.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            binding.fab.setImageResource(R.drawable.ic_outline_check_box_outline_blank_24px)
-        }
-        binding.fab.setOnClickListener {
-            if (editViewModel.completed) {
-                editViewModel.completed = false
-                title.paintFlags = title.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-                binding.fab.setImageResource(R.drawable.ic_outline_check_box_24px)
-            } else {
-                editViewModel.completed = true
-                lifecycleScope.launch {
-                    save()
-                }
-            }
-        }
-        binding.appbarlayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-            if (verticalOffset == 0) {
-                title.visibility = View.VISIBLE
-                binding.collapsingtoolbarlayout.isTitleEnabled = false
-            } else if (abs(verticalOffset) < appBarLayout.totalScrollRange) {
-                title.visibility = View.INVISIBLE
-                binding.collapsingtoolbarlayout.title = title.text
-                binding.collapsingtoolbarlayout.isTitleEnabled = true
-            }
-        }
         if (!model.isNew) {
             lifecycleScope.launch {
                 notificationManager.cancel(model.id)
             }
-            if (preferences.linkify) {
-                linkify.linkify(title)
-            }
         }
-        binding.composeView.setContent {
-            TasksTheme {
-                Column(modifier = Modifier.gesturesDisabled(editViewModel.isReadOnly)) {
-                    taskEditControlSetFragmentManager.displayOrder.forEachIndexed { index, tag ->
-                        if (index < taskEditControlSetFragmentManager.visibleSize) {
-                            // TODO: remove ui-viewbinding library when these are all migrated
-                            when (taskEditControlSetFragmentManager.controlSetFragments[tag]) {
-                                TAG_DUE_DATE -> DueDateRow()
-                                TAG_PRIORITY -> PriorityRow()
-                                TAG_DESCRIPTION -> DescriptionRow()
-                                TAG_LIST -> ListRow()
-                                TAG_CREATION -> CreationRow()
-                                CalendarControlSet.TAG -> AndroidViewBinding(TaskEditCalendarBinding::inflate)
-                                StartDateControlSet.TAG -> AndroidViewBinding(
-                                    TaskEditStartDateBinding::inflate
-                                )
-                                ReminderControlSet.TAG -> AndroidViewBinding(
-                                    TaskEditRemindersBinding::inflate
-                                )
-                                LocationControlSet.TAG -> AndroidViewBinding(TaskEditLocationBinding::inflate)
-                                FilesControlSet.TAG -> AndroidViewBinding(TaskEditFilesBinding::inflate)
-                                TimerControlSet.TAG -> AndroidViewBinding(TaskEditTimerBinding::inflate)
-                                TagsControlSet.TAG -> AndroidViewBinding(TaskEditTagsBinding::inflate)
-                                RepeatControlSet.TAG -> AndroidViewBinding(TaskEditRepeatBinding::inflate)
-                                SubtaskControlSet.TAG -> AndroidViewBinding(TaskEditSubtasksBinding::inflate)
-                                else -> throw IllegalArgumentException("Unknown row: $tag")
-                            }
-                            Divider(modifier = Modifier.fillMaxWidth())
+        if (savedInstanceState == null) {
+            showKeyboard = model.isNew && isNullOrEmpty(model.title)
+        }
+        val backButtonSavesTask = preferences.backButtonSavesTask()
+        val view = ComposeView(context).apply {
+            setContent {
+                BackHandler {
+                    if (backButtonSavesTask) {
+                        lifecycleScope.launch {
+                            save()
                         }
+                    } else {
+                        discardButtonClick()
                     }
-                    if (preferences.getBoolean(R.string.p_show_task_edit_comments, false)) {
-                        Comments()
+                }
+                TasksTheme(theme = theme.themeBase.index,) {
+                    Scaffold(
+                        topBar = {
+                            TopAppBar(
+                                navigationIcon = {
+                                    IconButton(
+                                        onClick = {
+                                            when {
+                                                editViewModel.isReadOnly -> activity?.onBackPressed()
+                                                backButtonSavesTask -> discardButtonClick()
+                                                else -> lifecycleScope.launch { save() }
+                                            }
+                                        }
+                                    ) {
+                                        Icon(
+                                            imageVector = when {
+                                                editViewModel.isReadOnly -> Icons.AutoMirrored.Outlined.ArrowBack
+                                                backButtonSavesTask -> Icons.Outlined.Clear
+                                                else -> Icons.Outlined.Save
+                                            },
+                                            contentDescription = when {
+                                                editViewModel.isReadOnly -> stringResource(R.string.back)
+                                                backButtonSavesTask -> stringResource(R.string.discard)
+                                                else -> stringResource(R.string.save)
+                                            }
+                                        )
+                                    }
+                                },
+                                title = {},
+                                actions = {
+                                    if (backButtonSavesTask && editViewModel.isWritable) {
+                                        IconButton(onClick = { discardButtonClick() }) {
+                                            Icon(
+                                                imageVector = Icons.Outlined.Clear,
+                                                contentDescription = stringResource(R.string.menu_discard_changes),
+                                            )
+                                        }
+                                    }
+                                    if (!editViewModel.isNew && editViewModel.isWritable) {
+                                        IconButton(onClick = { deleteButtonClick() }) {
+                                            Icon(
+                                                imageVector = Icons.Outlined.Delete,
+                                                contentDescription = stringResource(R.string.delete_task),
+                                            )
+                                        }
+                                    }
+                                },
+                            )
+                        },
+                        bottomBar = {
+                            if (preferences.getBoolean(R.string.p_show_task_edit_comments, false)) {
+                                AndroidViewBinding(TaskEditCommentBarBinding::inflate)
+                            }
+                        },
+                    ) { paddingValues ->
+                        Column(
+                            modifier = Modifier
+                                .gesturesDisabled(editViewModel.isReadOnly)
+                                .padding(paddingValues)
+                                .fillMaxSize()
+                                .verticalScroll(rememberScrollState()),
+                        ) {
+                            TitleRow(requestFocus = showKeyboard)
+                            HorizontalDivider()
+                            taskEditControlSetFragmentManager.displayOrder.forEachIndexed { index, tag ->
+                                if (index < taskEditControlSetFragmentManager.visibleSize) {
+                                    // TODO: remove ui-viewbinding library when these are all migrated
+                                    when (taskEditControlSetFragmentManager.controlSetFragments[tag]) {
+                                        TAG_DUE_DATE -> DueDateRow()
+                                        TAG_PRIORITY -> PriorityRow()
+                                        TAG_DESCRIPTION -> DescriptionRow()
+                                        TAG_LIST -> ListRow()
+                                        TAG_CREATION -> CreationRow()
+                                        CalendarControlSet.TAG -> AndroidViewBinding(TaskEditCalendarBinding::inflate)
+                                        StartDateControlSet.TAG -> AndroidViewBinding(
+                                            TaskEditStartDateBinding::inflate
+                                        )
+                                        ReminderControlSet.TAG -> AndroidViewBinding(
+                                            TaskEditRemindersBinding::inflate
+                                        )
+                                        LocationControlSet.TAG -> AndroidViewBinding(TaskEditLocationBinding::inflate)
+                                        FilesControlSet.TAG -> AndroidViewBinding(TaskEditFilesBinding::inflate)
+                                        TimerControlSet.TAG -> AndroidViewBinding(TaskEditTimerBinding::inflate)
+                                        TagsControlSet.TAG -> AndroidViewBinding(TaskEditTagsBinding::inflate)
+                                        RepeatControlSet.TAG -> AndroidViewBinding(TaskEditRepeatBinding::inflate)
+                                        SubtaskControlSet.TAG -> AndroidViewBinding(TaskEditSubtasksBinding::inflate)
+                                        else -> throw IllegalArgumentException("Unknown row: $tag")
+                                    }
+                                    HorizontalDivider()
+                                }
+                            }
+                            if (preferences.getBoolean(R.string.p_show_task_edit_comments, false)) {
+                                Comments()
+                            }
+                            val showBeastModeHint = editViewModel.showBeastModeHint.collectAsStateWithLifecycle().value
+                            val context = LocalContext.current
+                            BeastModeBanner(
+                                showBeastModeHint,
+                                showSettings = {
+                                    editViewModel.hideBeastModeHint(click = true)
+                                    beastMode.launch(Intent(context, BeastModePreferences::class.java))
+                                },
+                                dismiss = {
+                                    editViewModel.hideBeastModeHint(click = false)
+                                }
+                            )
+                        }
                     }
                 }
             }
@@ -337,61 +308,14 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         }
     }
 
-    @OptIn(ExperimentalAnimationApi::class)
-    private fun showBeastModeHint() {
-        binding.banner.setContent {
-            var visible by rememberSaveable { mutableStateOf(true) }
-            val context = LocalContext.current
-            TasksTheme {
-                BeastModeBanner(
-                    visible,
-                    showSettings = {
-                        visible = false
-                        preferences.shownBeastModeHint = true
-                        beastMode.launch(Intent(context, BeastModePreferences::class.java))
-                        firebase.logEvent(R.string.event_banner_beast, R.string.param_click to true)
-                    },
-                    dismiss = {
-                        visible = false
-                        preferences.shownBeastModeHint = true
-                        firebase.logEvent(R.string.event_banner_beast, R.string.param_click to false)
-                    }
-                )
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (showKeyboard) {
-            binding.title.requestFocus()
-            val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(binding.title, InputMethodManager.SHOW_IMPLICIT)
-        }
-        if (!preferences.shownBeastModeHint) {
-            showBeastModeHint()
-        }
-    }
-
-    override fun onMenuItemClick(item: MenuItem): Boolean {
-        activity?.hideKeyboard()
-        if (item.itemId == R.id.menu_delete) {
-            deleteButtonClick()
-            return true
-        } else if (item.itemId == R.id.menu_discard) {
-            discardButtonClick()
-            return true
-        }
-        return false
-    }
-
     suspend fun save(remove: Boolean = true) {
         editViewModel.save(remove)
         activity?.let { playServices.requestReview(it) }
     }
 
     private fun discardButtonClick() {
-       if (editViewModel.hasChanges()) {
+        activity?.hideKeyboard()
+        if (editViewModel.hasChanges()) {
            dialogBuilder
                    .newDialog(R.string.discard_confirmation)
                    .setPositiveButton(R.string.keep_editing, null)
@@ -403,6 +327,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     }
 
     private fun deleteButtonClick() {
+        activity?.hideKeyboard()
         dialogBuilder
                 .newDialog(R.string.DLG_delete_this_task_question)
                 .setPositiveButton(R.string.ok) { _, _ -> delete() }
@@ -433,6 +358,38 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    @Composable
+    private fun TitleRow(
+        requestFocus: Boolean,
+    ) {
+        val isComplete = editViewModel.completed.collectAsStateWithLifecycle().value
+        val recurrence = editViewModel.recurrence.collectAsStateWithLifecycle().value
+        val isRecurring = remember(recurrence) {
+            !recurrence.isNullOrBlank()
+        }
+        org.tasks.compose.edit.TitleRow(
+            text = editViewModel.title,
+            onChanged = { text -> editViewModel.title = text.toString().trim { it <= ' ' } },
+            linkify = if (preferences.linkify) linkify else null,
+            markdownProvider = markdownProvider,
+            desaturate = remember { preferences.desaturateDarkMode },
+            isCompleted = isComplete,
+            isRecurring = isRecurring,
+            priority = editViewModel.priority.collectAsStateWithLifecycle().value,
+            onComplete = {
+                if (isComplete) {
+                    editViewModel.completed.value = false
+                } else {
+                    editViewModel.completed.value = true
+                    lifecycleScope.launch {
+                        save()
+                    }
+                }
+            },
+            requestFocus = requestFocus,
+        )
     }
 
     @Composable

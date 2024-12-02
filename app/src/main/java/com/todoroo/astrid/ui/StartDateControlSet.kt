@@ -23,7 +23,6 @@ import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.preferences.Preferences
-import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.withMillisOfDay
 import org.tasks.ui.TaskEditControlFragment
@@ -49,42 +48,40 @@ class StartDateControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?) =
         (parent as ComposeView).apply {
             setContent {
-                TasksTheme {
-                    val selectedDay = vm.selectedDay.collectAsStateWithLifecycle().value
-                    val selectedTime = vm.selectedTime.collectAsStateWithLifecycle().value
-                    StartDateRow(
-                        startDate = viewModel.startDate.collectAsStateWithLifecycle().value,
-                        selectedDay = selectedDay,
-                        selectedTime = selectedTime,
-                        hasDueDate = viewModel.dueDate.collectAsStateWithLifecycle().value > 0,
-                        printDate = {
-                            runBlocking {
-                                getRelativeDateTime(
-                                    selectedDay + selectedTime,
-                                    requireContext().is24HourFormat,
-                                    DateStyle.FULL,
-                                    alwaysDisplayFullDate = preferences.alwaysDisplayFullDate
-                                )
-                            }
-                        },
-                        onClick = {
-                            val fragmentManager = parentFragmentManager
-                            if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
-                                StartDatePicker.newDateTimePicker(
-                                    this@StartDateControlSet,
-                                    REQUEST_START_DATE,
-                                    vm.selectedDay.value,
-                                    vm.selectedTime.value,
-                                    preferences.getBoolean(
-                                        R.string.p_auto_dismiss_datetime_edit_screen,
-                                        false
-                                    )
-                                )
-                                    .show(fragmentManager, FRAG_TAG_DATE_PICKER)
-                            }
+                val selectedDay = vm.selectedDay.collectAsStateWithLifecycle().value
+                val selectedTime = vm.selectedTime.collectAsStateWithLifecycle().value
+                StartDateRow(
+                    startDate = viewModel.startDate.collectAsStateWithLifecycle().value,
+                    selectedDay = selectedDay,
+                    selectedTime = selectedTime,
+                    hasDueDate = viewModel.dueDate.collectAsStateWithLifecycle().value > 0,
+                    printDate = {
+                        runBlocking {
+                            getRelativeDateTime(
+                                selectedDay + selectedTime,
+                                requireContext().is24HourFormat,
+                                DateStyle.FULL,
+                                alwaysDisplayFullDate = preferences.alwaysDisplayFullDate
+                            )
                         }
-                    )
-                }
+                    },
+                    onClick = {
+                        val fragmentManager = parentFragmentManager
+                        if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
+                            StartDatePicker.newDateTimePicker(
+                                this@StartDateControlSet,
+                                REQUEST_START_DATE,
+                                vm.selectedDay.value,
+                                vm.selectedTime.value,
+                                preferences.getBoolean(
+                                    R.string.p_auto_dismiss_datetime_edit_screen,
+                                    false
+                                )
+                            )
+                                .show(fragmentManager, FRAG_TAG_DATE_PICKER)
+                        }
+                    }
+                )
             }
         }
 

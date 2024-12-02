@@ -331,7 +331,6 @@
     <string name="custom_filter_criteria">編輯器標準</string>
     <string name="compact">小</string>
     <string name="settings_default">預設</string>
-    <string name="hide_check_button">隱藏勾選鈕</string>
     <string name="share">分享</string>
     <string name="select_all">選擇全部</string>
     <string name="auto_dismiss_datetime_summary">選擇日期或時間後關閉日期時間選擇器</string>

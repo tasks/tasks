@@ -524,7 +524,6 @@
     <string name="auto_dismiss_datetime_list_summary">タスクリストから選択時に自動で閉じる</string>
     <string name="auto_dismiss_datetime_widget_summary">ウィジェットから選択時に自動で閉じる</string>
     <string name="auto_dismiss_datetime_summary">日付または時刻を選択したあとに日時選択画面を閉じる</string>
-    <string name="hide_check_button">チェックボタンを非表示</string>
     <string name="widget_id">ウィジェット ID: %d</string>
     <string name="filter_overdue">遅延</string>
     <string name="filter_any_due_date">締切あり</string>
