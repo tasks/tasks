@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.composeView.setContent {
             if (viewModel.drawerOpen.collectAsStateWithLifecycle().value) {
-                TasksTheme {
+                TasksTheme(theme = theme.themeBase.index) {
                     val sheetState = rememberModalBottomSheetState(
                         skipPartiallyExpanded = true,
                         confirmValueChange = { true },

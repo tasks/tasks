@@ -14,17 +14,19 @@ import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.ResourceResolver
 import org.tasks.tasklist.TaskViewHolder.ViewHolderCallbacks
+import org.tasks.themes.Theme
 import org.tasks.ui.CheckBoxProvider
 import org.tasks.ui.ChipProvider
 import javax.inject.Inject
 
 class ViewHolderFactory @Inject constructor(
-        @param:ActivityContext private val context: Context,
-        private val preferences: Preferences,
-        private val chipProvider: ChipProvider,
-        private val checkBoxProvider: CheckBoxProvider,
-        private val linkify: Linkify,
-        private val headerFormatter: HeaderFormatter,
+    @param:ActivityContext private val context: Context,
+    private val preferences: Preferences,
+    private val chipProvider: ChipProvider,
+    private val checkBoxProvider: CheckBoxProvider,
+    private val linkify: Linkify,
+    private val headerFormatter: HeaderFormatter,
+    private val theme: Theme,
 ) {
     private val textColorSecondary: Int = ResourceResolver.getData(context, android.R.attr.textColorSecondary)
     private val textColorOverdue: Int = context.getColor(R.color.overdue)
@@ -47,21 +49,22 @@ class ViewHolderFactory @Inject constructor(
 
     fun newViewHolder(parent: ViewGroup?, callbacks: ViewHolderCallbacks) =
             TaskViewHolder(
-                    context as Activity,
-                    TaskAdapterRowBinding.inflate(LayoutInflater.from(context), parent, false),
-                    preferences,
-                    fontSize,
-                    chipProvider,
-                    checkBoxProvider,
-                    textColorOverdue,
-                    textColorSecondary,
-                    callbacks,
-                    metrics,
-                    background,
-                    selectedColor,
-                    rowPaddingDp,
-                    rowPaddingPx,
-                    linkify,
-                    markdown
+                context as Activity,
+                TaskAdapterRowBinding.inflate(LayoutInflater.from(context), parent, false),
+                preferences,
+                fontSize,
+                chipProvider,
+                checkBoxProvider,
+                textColorOverdue,
+                textColorSecondary,
+                callbacks,
+                metrics,
+                background,
+                selectedColor,
+                rowPaddingDp,
+                rowPaddingPx,
+                linkify,
+                markdown,
+                theme = theme,
             )
 }

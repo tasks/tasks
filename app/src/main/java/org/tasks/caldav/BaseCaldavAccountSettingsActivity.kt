@@ -24,7 +24,6 @@ import at.bitfire.dav4jvm.exception.HttpException
 import com.franmontiel.persistentcookiejar.persistence.CookiePersistor
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskDeleter
 import kotlinx.coroutines.launch
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -34,9 +33,10 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.compose.ServerSelector
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_UNKNOWN
-import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.Task
 import org.tasks.databinding.ActivityCaldavAccountSettingsBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
@@ -138,7 +138,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         )
         binding.password.setOnFocusChangeListener { _, hasFocus -> onPasswordFocused(hasFocus) }
         binding.serverSelector.setContent {
-            TasksTheme {
+            TasksTheme(theme = tasksTheme.themeBase.index) {
                 var selected by rememberSaveable { serverType }
                 ServerSelector(selected) {
                     serverType.value = it

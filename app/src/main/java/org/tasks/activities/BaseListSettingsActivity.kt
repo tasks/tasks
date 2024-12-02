@@ -63,7 +63,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), To
             setOnClickListener { showThemePicker() }
         }
         findViewById<ComposeView>(R.id.icon).setContent {
-            TasksTheme {
+            TasksTheme(theme = tasksTheme.themeBase.index) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {

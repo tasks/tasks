@@ -8,7 +8,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.tasks.themes.TasksTheme
 
 class AlertDialogBuilder internal constructor(private val context: Context) {
     private val builder: AlertDialog.Builder
@@ -72,9 +71,7 @@ class AlertDialogBuilder internal constructor(private val context: Context) {
         builder.setView(ComposeView(context)
             .apply {
                 setContent {
-                    TasksTheme {
-                        content()
-                    }
+                    content()
                 }
             }
         )

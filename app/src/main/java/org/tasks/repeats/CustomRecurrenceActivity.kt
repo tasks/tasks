@@ -10,15 +10,19 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.compose.pickers.CustomRecurrence
 import org.tasks.themes.TasksTheme
+import org.tasks.themes.Theme
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CustomRecurrenceActivity : FragmentActivity() {
+    @Inject lateinit var theme: Theme
+
     val viewModel: CustomRecurrenceViewModel by viewModels()
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         setContent {
-            TasksTheme {
+            TasksTheme(theme = theme.themeBase.index) {
                 CustomRecurrence(
                     state = viewModel.state.collectAsStateWithLifecycle().value,
                     save = {

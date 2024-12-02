@@ -143,6 +143,7 @@ import org.tasks.tasklist.TasksResults
 import org.tasks.tasklist.ViewHolderFactory
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.TasksTheme
+import org.tasks.themes.Theme
 import org.tasks.themes.ThemeColor
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.TaskEditEvent
@@ -185,6 +186,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var taskEditEventBus: TaskEditEventBus
     @Inject lateinit var database: Database
     @Inject lateinit var markdown: MarkdownProvider
+    @Inject lateinit var theme: Theme
 
     private val listViewModel: TaskListViewModel by viewModels()
     private val mainViewModel: MainActivityViewModel by activityViewModels()
@@ -363,7 +365,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         binding.banner.setContent {
             val context = LocalContext.current
             val state = listViewModel.state.collectAsStateWithLifecycle().value
-            TasksTheme {
+            TasksTheme(theme = theme.themeBase.index) {
                 val hasRemindersPermission by rememberReminderPermissionState()
                 val notificationPermissions = if (AndroidUtilities.atLeastTiramisu()) {
                     rememberPermissionState(

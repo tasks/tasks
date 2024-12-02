@@ -56,7 +56,7 @@ class PurchaseActivity : AppCompatActivity(), OnPurchasesUpdated {
         }
 
         setContent {
-            TasksTheme {
+            TasksTheme(theme = theme.themeBase.index) {
                 BackHandler {
                     finish()
                 }

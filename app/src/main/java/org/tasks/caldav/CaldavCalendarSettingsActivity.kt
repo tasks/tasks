@@ -53,7 +53,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
         caldavCalendar?.takeIf { it.id > 0 }?.let {
             findViewById<ComposeView>(R.id.people).setContent {
-                TasksTheme {
+                TasksTheme(theme = tasksTheme.themeBase.index) {
                     val principals = principalDao.getPrincipals(it.id).collectAsStateWithLifecycle(initialValue = emptyList()).value
                     PrincipalList(
                         principals = principals,
@@ -66,7 +66,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
             findViewById<ComposeView>(R.id.fab)
                 .apply { isVisible = true }
                 .setContent {
-                    TasksTheme {
+                    TasksTheme(theme = tasksTheme.themeBase.index) {
                         val openDialog = rememberSaveable { mutableStateOf(false) }
                         ShareInviteDialog(
                             openDialog,

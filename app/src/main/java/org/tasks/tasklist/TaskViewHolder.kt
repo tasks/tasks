@@ -41,6 +41,7 @@ import org.tasks.markdown.Markdown
 import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
+import org.tasks.themes.Theme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
 import org.tasks.ui.CheckBoxProvider
@@ -64,7 +65,8 @@ class TaskViewHolder internal constructor(
     private val rowPaddingDp: Int,
     private val rowPaddingPx: Int,
     private val linkify: Linkify,
-    private val markdown: Markdown
+    private val markdown: Markdown,
+    private val theme: Theme,
 ) : RecyclerView.ViewHolder(binding.root) {
     private val row: ViewGroup = binding.row
     private val dueDate: TextView = binding.dueDate.apply {
@@ -255,7 +257,7 @@ class TaskViewHolder internal constructor(
         val toggleSubtasks = { task: Long, collapsed: Boolean -> callback.toggleSubtasks(task, collapsed) }
         val onClick = { it: Filter -> callback.onClick(it) }
         chipGroup.setContent {
-            TasksTheme {
+            TasksTheme(theme = theme.themeBase.index) {
                 ChipGroup(
                     modifier = Modifier.padding(
                         end = 16.dp,

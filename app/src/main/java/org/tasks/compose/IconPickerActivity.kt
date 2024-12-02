@@ -28,17 +28,19 @@ import org.tasks.billing.PurchaseActivity.Companion.EXTRA_NAME_YOUR_PRICE
 import org.tasks.compose.pickers.IconPicker
 import org.tasks.compose.pickers.IconPickerViewModel
 import org.tasks.themes.TasksTheme
+import org.tasks.themes.Theme
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class IconPickerActivity : AppCompatActivity() {
     @Inject lateinit var inventory: Inventory
+    @Inject lateinit var theme: Theme
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            TasksTheme {
+            TasksTheme(theme = theme.themeBase.index) {
                 var hasPro by remember { mutableStateOf(false) }
                 LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
                     hasPro = inventory.hasPro

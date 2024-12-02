@@ -62,9 +62,13 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.SystemBars
 import org.tasks.themes.TasksTheme
+import org.tasks.themes.Theme
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SortSettingsActivity : ComponentActivity() {
+
+    @Inject lateinit var theme: Theme
 
     private val viewModel: SortSettingsViewModel by viewModels()
 
@@ -74,7 +78,7 @@ class SortSettingsActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         setContent {
-            TasksTheme {
+            TasksTheme(theme = theme.themeBase.index) {
                 val scrimColor = if (isSystemInDarkTheme())
                     Color(0x52454545)
                 else

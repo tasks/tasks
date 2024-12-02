@@ -9,12 +9,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.openUri
+import org.tasks.themes.TasksTheme
+import org.tasks.themes.Theme
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddAccountDialog : DialogFragment() {
 
     @Inject lateinit var dialogBuilder: DialogBuilder
+    @Inject lateinit var theme: Theme
 
     private val hasTasksAccount: Boolean
         get() = arguments?.getBoolean(EXTRA_HAS_TASKS_ACCOUNT) ?: false
@@ -34,10 +37,12 @@ class AddAccountDialog : DialogFragment() {
             .newDialog()
             .setTitle(R.string.choose_synchronization_service)
             .setContent {
-                org.tasks.compose.AddAccountDialog(
-                    hasTasksAccount = hasTasksAccount,
-                    selected = this::selected
-                )
+                TasksTheme(theme = theme.themeBase.index) {
+                    org.tasks.compose.AddAccountDialog(
+                        hasTasksAccount = hasTasksAccount,
+                        selected = this::selected
+                    )
+                }
             }
             .setNeutralButton(R.string.help) { _, _ -> activity?.openUri(R.string.help_url_sync) }
             .setNegativeButton(R.string.cancel, null)

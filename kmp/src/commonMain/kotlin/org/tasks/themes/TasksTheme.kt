@@ -13,9 +13,28 @@ import androidx.compose.ui.graphics.luminance
 const val BLUE = -14575885
 const val WHITE = -1
 
-
 @Composable
 fun ColorScheme.isDark() = this.background.luminance() <= 0.5
+
+private val lightColorScheme = lightColorScheme(
+    surface = Color.White,
+    background = Color.White,
+)
+
+private val darkColorScheme = darkColorScheme(
+    surface = Color(0xFF202124),
+    background = Color(0xFF202124),
+)
+
+private val blackColorScheme = darkColorScheme.copy(
+    background = Color.Black,
+    surface = Color.Black,
+)
+
+private val wallpaperScheme = darkColorScheme.copy(
+    background = Color.Transparent,
+    surface = Color(0x99000000),
+)
 
 @Composable
 fun TasksTheme(
@@ -24,14 +43,11 @@ fun TasksTheme(
     content: @Composable () -> Unit,
 ) {
     val colorScheme = when (theme) {
-        0 -> lightColorScheme()
-        1 -> darkColorScheme(
-            surface = Color.Black,
-            background = Color.Black,
-        )
-
-        2, 3 -> darkColorScheme()
-        else -> if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
+        0 -> lightColorScheme
+        1 -> blackColorScheme
+        2 -> darkColorScheme
+        3 -> wallpaperScheme
+        else -> if (isSystemInDarkTheme()) darkColorScheme else lightColorScheme
     }
     val colorOnPrimary = remember(primary) {
         if (calculateContrast(WHITE, primary) < 3) {

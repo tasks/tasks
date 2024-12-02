@@ -30,7 +30,14 @@ import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import net.openid.appauth.*
+import net.openid.appauth.AuthState
+import net.openid.appauth.AuthorizationException
+import net.openid.appauth.AuthorizationRequest
+import net.openid.appauth.AuthorizationServiceConfiguration
+import net.openid.appauth.ClientSecretBasic
+import net.openid.appauth.RegistrationRequest
+import net.openid.appauth.RegistrationResponse
+import net.openid.appauth.ResponseTypeValues
 import org.tasks.R
 import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
@@ -42,7 +49,7 @@ import org.tasks.compose.SignInDialog
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
-import org.tasks.themes.ThemeColor
+import org.tasks.themes.Theme
 import timber.log.Timber
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutorService
@@ -61,7 +68,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class SignInActivity : ComponentActivity() {
-    @Inject lateinit var themeColor: ThemeColor
+    @Inject lateinit var theme: Theme
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var firebase: Firebase
@@ -98,7 +105,7 @@ class SignInActivity : ComponentActivity() {
             var selectedPlatform by rememberSaveable {
                 mutableStateOf(autoSelect)
             }
-            TasksTheme {
+            TasksTheme(theme = theme.themeBase.index) {
                 selectedPlatform
                     ?.let {
                         Dialog(onDismissRequest = { finish() }) {
@@ -349,7 +356,7 @@ class SignInActivity : ComponentActivity() {
             Timber.i("Warming up browser instance for auth request")
             mAuthIntent.set(authService.createCustomTabsIntent(
                     mAuthRequest.get().toUri(),
-                    themeColor.primaryColor
+                    theme.themeColor.primaryColor
             ))
             mAuthIntentLatch.countDown()
         }
