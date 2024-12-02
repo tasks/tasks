@@ -7,7 +7,7 @@
     <string name="backup_BAc_export">Varmuuskopiointi nyt</string>
     <string name="export_toast">Varmuuskopioitu %1$s - %2$s.</string>
     <string name="import_summary_title">Palauta yhteenveto</string>
-    <string name="import_summary_message">Tiedosto %1$s sisälsi %2$s.\n\n %3$s tuotu,\n %4$s jo olemassa\n %5$s virheitä\n</string>
+    <string name="import_summary_message">Tiedosto %1$s sisälsi %2$s.\n\n %3$s tuotu,\n %4$s jo olemassa\n %5$s virhettä</string>
     <string name="import_progress_read">Luetaan tehtävää %d…</string>
     <string name="read_permission_label">Tasks käyttöoikeus</string>
     <string name="discard_confirmation">Oletko varma että haluat hylätä muutokset?</string>
@@ -160,7 +160,7 @@
     </plurals>
     <plurals name="repeat_weeks">
         <item quantity="one">viikko</item>
-        <item quantity="other">viiko</item>
+        <item quantity="other">viikko</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d viikko</item>
@@ -311,7 +311,7 @@
     <string name="repeats_weekly">Viikoittain</string>
     <string name="repeats_monthly">Kuukausittain</string>
     <string name="repeats_yearly">vuosittain</string>
-    <string name="repeats_plural">Toista joko %s</string>
+    <string name="repeats_plural">Toista joka %s</string>
     <string name="repeats_plural_on">Toista joka %1$s - %2$s</string>
     <string name="repeats_plural_until">Toista joka %1$s kunnes %2$s</string>
     <string name="repeats_plural_number_of_times">Toista joka %1$s, tapahtuu %2$d %3$s</string>
@@ -717,4 +717,20 @@
     <string name="swipe_to_snooze_time_30_minutes">30 minuutin jälkeen</string>
     <string name="swipe_to_snooze_time_1_hour">Tunnin jälkeen</string>
     <string name="swipe_to_snooze_time_24_hours">24 tunnin jälkeen</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">tapahtuma</item>
+        <item quantity="other">tapahtumat</item>
+    </plurals>
+    <string name="show_edit_screen_without_unlock">Näytä muokkaa näyttöä ilman lukituksen avaamista</string>
+    <string name="theme_dynamic">Dynaaminen</string>
+    <string name="donate_nag">Harkitse tuen osoittamista lahjoituksella!</string>
+    <string name="sign_in_to_tasks_disclosure">Sähköpostiosoitteesi ja käyttäjä-ID:si lähetetään säilytettäväksi Tasks.org:iin. Näitä tietoja käytetään tunnistautumiseen ja tärkeiden palveluun liittyvien ilmoitusten toimittamiseen. Tietoja ei jaeta kenenkään kanssa.</string>
+    <string name="show_edit_screen_without_unlock_summary">Aktivoi pika-asetusten käyttö ilman laitteen lukituksen avaamista</string>
+    <string name="sort_not_available">Ei käytettävissä tunnisteiden, suodattimien tai paikkojen kanssa</string>
+    <string name="customize_drawer">Muokkaa vetolaatikkoa</string>
+    <string name="quiet_hours_in_effect">Hiljaiset tunnit käytössä</string>
+    <string name="send_application_logs">Lähetä sovelluksen lokitiedot</string>
+    <string name="sort_completion_group">Valmis %s</string>
+    <string name="swipe_to_snooze_time_description">Kuitattu ilmoitus torkutetaan ja luodaan uudelleen %s</string>
+    <string name="swipe_to_snooze_time_immediately">välittömästi</string>
 </resources>
