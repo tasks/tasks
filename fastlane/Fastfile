@@ -35,18 +35,16 @@ platform :android do
       upload_to_play_store(
         aab: "app/build/outputs/bundle/googleplayRelease/app-googleplay-release.aab",
         mapping: "app/build/outputs/mapping/googleplayRelease/mapping.txt",
-        track: "internal",
+        track: "beta",
         skip_upload_metadata: true,
-        skip_upload_changelogs: true,
         skip_upload_images: true,
         skip_upload_screenshots: true,
       )
       upload_to_play_store(
         aab: "wear/build/outputs/bundle/release/wear-release.aab",
         mapping: "wear/build/outputs/mapping/release/mapping.txt",
-        track: "wear:internal",
+        track: "wear:beta",
         skip_upload_metadata: true,
-        skip_upload_changelogs: true,
         skip_upload_images: true,
         skip_upload_screenshots: true,
       )
