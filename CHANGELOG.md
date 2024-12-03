@@ -1,6 +1,7 @@
 ### 14.2.1 (2024-02-03)
 
-* Fix labels when customizing edit screen order
+* Fix save button when 'Back button saves task' is enabled [#3149](https://github.com/tasks/tasks/issues/3149)
+* Fix customizing edit screen order screen
 
 ### 14.2 (2024-12-02)
 
