@@ -184,12 +184,7 @@
     <string name="TLA_menu_sort">Ordigi</string>
     <string name="keep_editing">Plu redakti</string>
     <string name="discard_confirmation">Ĉu vi certas ke vi volas nuligi viajn ŝanĝojn\?</string>
-    <string name="import_summary_message">Dosiero %1$s enhavis %2$s.
-\n
-\n%3$s importitaj,
-\n%4$s jam ekzistas
-\n%5$s havis erarojn
-\n</string>
+    <string name="import_summary_message">Dosiero %1$s enhavis %2$s.\n\n%3$s importitaj,\n%4$s jam ekzistas\n%5$s havis erarojn</string>
     <string name="export_toast">Savkopiis %1$s al %2$s.</string>
     <string name="backup_BAc_import">Importi savkopion</string>
     <string name="backup_BAc_export">Savkopii tuj</string>
@@ -590,7 +585,7 @@
     <string name="opacity_row">Vica travideblo</string>
     <string name="url">URL</string>
     <string name="list">Listo</string>
-    <string name="repeats_single_number_of_times">Ripetiĝas %1$s, okazas %2$d%3$s</string>
+    <string name="repeats_single_number_of_times">Ripetiĝas %1$s, okazas %2$d %3$s</string>
     <string name="repeats_single_on_until">Ripetiĝas %1$s je %2$s, finiĝos %3$s</string>
     <string name="upgrade_to_pro">Altgradigi al profesia</string>
     <string name="requires_pro_subscription">Postulas pagan abonon</string>
@@ -736,4 +731,6 @@
     <string name="donate_maybe_later">Eble poste</string>
     <string name="customize_drawer">Adapti tirkeston</string>
     <string name="customize_drawer_summary">Ŝovu kaj demetu por rearanĝi menuerojn</string>
+    <string name="quiet_hours_in_effect">Senperturbaj horoj aktivas</string>
+    <string name="send_application_logs">Sendi protokoladon</string>
 </resources>
