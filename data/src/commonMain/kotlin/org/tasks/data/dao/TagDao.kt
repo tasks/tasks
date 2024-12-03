@@ -36,11 +36,11 @@ abstract class TagDao(private val database: Database) {
     @Delete
     abstract suspend fun delete(tags: List<Tag>)
 
-    open suspend fun applyTags(task: Task, tagDataDao: TagDataDao, current: List<TagData>) {
+    open suspend fun applyTags(task: Task, tagDataDao: TagDataDao, current: Collection<TagData>) {
         database.withTransaction {
             val taskId = task.id
             val existing = HashSet(tagDataDao.getTagDataForTask(taskId))
-            val selected = HashSet<TagData>(current)
+            val selected = current.toMutableSet()
             val added = selected subtract existing
             val removed = existing subtract selected
             deleteTags(taskId, removed.map { td -> td.remoteId!! })

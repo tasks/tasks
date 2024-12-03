@@ -53,6 +53,8 @@ import coil.decode.VideoFrameDecoder
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import com.todoroo.andlib.utility.AndroidUtilities
+import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.persistentSetOf
 import org.tasks.R
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
@@ -65,7 +67,7 @@ private val SIZE = 128.dp
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun AttachmentRow(
-    attachments: List<TaskAttachment>,
+    attachments: ImmutableSet<TaskAttachment>,
     openAttachment: (TaskAttachment) -> Unit,
     deleteAttachment: (TaskAttachment) -> Unit,
     addAttachment: () -> Unit,
@@ -260,7 +262,7 @@ fun BoxScope.DeleteAttachment(
 fun NoAttachments() {
     TasksTheme {
         AttachmentRow(
-            attachments = emptyList(),
+            attachments = persistentSetOf(),
             openAttachment = {},
             deleteAttachment = {},
             addAttachment = {},
@@ -274,7 +276,7 @@ fun NoAttachments() {
 fun AttachmentPreview() {
     TasksTheme {
         AttachmentRow(
-            attachments = listOf(
+            attachments = persistentSetOf(
                 TaskAttachment(
                     uri = "file://attachment.txt",
                     name = "attachment.txt",

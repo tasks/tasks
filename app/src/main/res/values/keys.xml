@@ -258,6 +258,7 @@
     <item>@string/TEA_ctrl_hide_section_pref</item>
   </string-array>
 
+  <string name="TEA_ctrl_title">TEA_ctrl_title</string>
   <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>
   <string name="TEA_ctrl_repeat_pref">TEA_ctrl_repeat_pref</string>
   <string name="TEA_ctrl_importance_pref">TEA_ctrl_importance_pref</string>

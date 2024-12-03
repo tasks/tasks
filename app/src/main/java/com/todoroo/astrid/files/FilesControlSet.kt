@@ -15,7 +15,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings
@@ -34,7 +33,7 @@ class FilesControlSet : TaskEditControlFragment() {
     @Inject lateinit var preferences: Preferences
     
     override fun createView(savedInstanceState: Bundle?) {
-        val task = viewModel.task
+        val task = viewModel.viewState.value.task
         if (savedInstanceState == null) {
             if (task.hasTransitory(TaskAttachment.KEY)) {
                 for (uri in (task.getTransitory<ArrayList<Uri>>(TaskAttachment.KEY))!!) {
@@ -47,15 +46,16 @@ class FilesControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
+                val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
                 AttachmentRow(
-                    attachments = viewModel.selectedAttachments.collectAsStateWithLifecycle().value,
+                    attachments = viewState.attachments,
                     openAttachment = {
                         FileHelper.startActionView(
                             requireActivity(),
                             if (Strings.isNullOrEmpty(it.uri)) null else Uri.parse(it.uri)
                         )
                     },
-                    deleteAttachment = this@FilesControlSet::deleteAttachment,
+                    deleteAttachment = { viewModel.setAttachments(viewState.attachments - it) },
                     addAttachment = {
                         AddAttachmentDialog.newAddAttachmentDialog(this@FilesControlSet)
                             .show(parentFragmentManager, FRAG_TAG_ADD_ATTACHMENT_DIALOG)
@@ -90,12 +90,6 @@ class FilesControlSet : TaskEditControlFragment() {
         }
     }
 
-    private fun deleteAttachment(attachment: TaskAttachment) {
-        viewModel.selectedAttachments.update {
-            it.minus(attachment)
-        }
-    }
-
     private fun copyToAttachmentDirectory(input: Uri?) {
         newAttachment(FileHelper.copyToUri(requireContext(), preferences.attachmentsDirectory!!, input!!))
     }
@@ -107,11 +101,9 @@ class FilesControlSet : TaskEditControlFragment() {
         )
         lifecycleScope.launch {
             taskAttachmentDao.insert(attachment)
-            viewModel.selectedAttachments.update {
-                it.plus(
-                    taskAttachmentDao.getAttachment(attachment.remoteId) ?: return@launch
-                )
-            }
+            viewModel.setAttachments(
+                viewModel.viewState.value.attachments +
+                        (taskAttachmentDao.getAttachment(attachment.remoteId) ?: return@launch))
         }
     }
 

@@ -7,19 +7,33 @@ import androidx.core.net.toUri
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.todoroo.astrid.activity.BeastModePreferences
 import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.gcal.GCalHelper
+import com.todoroo.astrid.repeats.RepeatControlSet
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskDeleter
 import com.todoroo.astrid.service.TaskMover
+import com.todoroo.astrid.tags.TagsControlSet
+import com.todoroo.astrid.timers.TimerControlSet
 import com.todoroo.astrid.timers.TimerPlugin
+import com.todoroo.astrid.ui.ReminderControlSet
+import com.todoroo.astrid.ui.StartDateControlSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.persistentSetOf
+import kotlinx.collections.immutable.toPersistentList
+import kotlinx.collections.immutable.toPersistentSet
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -94,30 +108,105 @@ class TaskEditViewModel @Inject constructor(
     private val alarmDao: AlarmDao,
     private val taskAttachmentDao: TaskAttachmentDao,
 ) : ViewModel() {
+    data class ViewState(
+        val task: Task,
+        val displayOrder: ImmutableList<Int>,
+        val showBeastModeHint: Boolean,
+        val showComments: Boolean,
+        val showKeyboard: Boolean,
+        val backButtonSavesTask: Boolean,
+        val isReadOnly: Boolean,
+        val linkify: Boolean,
+        val list: CaldavFilter,
+        val location: Location?,
+        val tags: ImmutableSet<TagData>,
+        val calendar: String?,
+        val attachments: ImmutableSet<TaskAttachment> = persistentSetOf(),
+        val alarms: ImmutableSet<Alarm>,
+        val newSubtasks: ImmutableList<Task> = persistentListOf(),
+    ) {
+        val isNew: Boolean
+            get() = task.isNew
+
+        val hasParent: Boolean
+            get() = task.parent > 0
+
+        val isCompleted: Boolean
+            get() = task.completionDate > 0
+    }
+
     private val resources = context.resources
     private var cleared = false
 
-    val task: Task = savedStateHandle[TaskEditFragment.EXTRA_TASK]!!
+    private val task: Task = savedStateHandle.get<Task>(TaskEditFragment.EXTRA_TASK)
+        ?.let { it.copy(notes = it.notes?.stripCarriageReturns()) }
+        ?: throw IllegalArgumentException("task is null")
 
-    val isNew = task.isNew
+    private var _originalState: ViewState
+    val originalState: ViewState
+        get() = _originalState
 
-    var showBeastModeHint = MutableStateFlow(!preferences.shownBeastModeHint)
-    var creationDate: Long = task.creationDate
-    var modificationDate: Long = task.modificationDate
-    var completionDate: Long = task.completionDate
-    var title: String? = task.title
-    var completed = MutableStateFlow(task.isCompleted)
-    var priority = MutableStateFlow(task.priority)
-    var description: String? = task.notes.stripCarriageReturns()
-    val recurrence = MutableStateFlow(task.recurrence)
-    val repeatAfterCompletion = MutableStateFlow(task.repeatAfterCompletion())
+    private val _viewState = MutableStateFlow(
+        ViewState(
+            task = task,
+            showBeastModeHint = !preferences.shownBeastModeHint,
+            showComments = preferences.getBoolean(R.string.p_show_task_edit_comments, false),
+            showKeyboard = task.isNew && task.title.isNullOrBlank(),
+            backButtonSavesTask = preferences.backButtonSavesTask(),
+            isReadOnly = task.readOnly,
+            linkify = preferences.linkify,
+            list = savedStateHandle[TaskEditFragment.EXTRA_LIST]!!,
+            location = savedStateHandle[TaskEditFragment.EXTRA_LOCATION],
+            tags = savedStateHandle.get<ArrayList<TagData>>(TaskEditFragment.EXTRA_TAGS)
+                ?.toPersistentSet()
+                ?: persistentSetOf(),
+            calendar = if (task.isNew && permissionChecker.canAccessCalendars()) {
+                preferences.defaultCalendar
+            } else {
+                null
+            },
+            displayOrder = TASK_EDIT_CONTROL_SET_FRAGMENTS
+                .associateBy(context::getString) { it }
+                .let { controlSetStrings ->
+                    BeastModePreferences
+                        .constructOrderedControlList(preferences, context)
+                        .let { items ->
+                            items
+                                .subList(
+                                    0,
+                                    items.indexOf(context.getString(R.string.TEA_ctrl_hide_section_pref))
+                                )
+                                .also { it.add(0, context.getString(R.string.TEA_ctrl_title)) }
+                        }
+                        .mapNotNull { controlSetStrings[it] }
+                        .toPersistentList()
+                },
+            alarms = if (task.isNew) {
+                ArrayList<Alarm>().apply {
+                    if (task.isNotifyAtStart) {
+                        add(whenStarted(0))
+                    }
+                    if (task.isNotifyAtDeadline) {
+                        add(whenDue(0))
+                    }
+                    if (task.isNotifyAfterDeadline) {
+                        add(whenOverdue(0))
+                    }
+                    if (task.randomReminder > 0) {
+                        add(Alarm(time = task.randomReminder, type = Alarm.TYPE_RANDOM))
+                    }
+                }
+            } else {
+                savedStateHandle[TaskEditFragment.EXTRA_ALARMS]!!
+            }.toPersistentSet(),
+        )
+    )
+    val viewState: StateFlow<ViewState> = _viewState
+
     var eventUri = MutableStateFlow(task.calendarURI)
     val timerStarted = MutableStateFlow(task.timerStart)
     val estimatedSeconds = MutableStateFlow(task.estimatedSeconds)
     val elapsedSeconds = MutableStateFlow(task.elapsedSeconds)
-    var newSubtasks = MutableStateFlow(emptyList<Task>())
-    val hasParent: Boolean
-        get() = task.parent > 0
 
     val dueDate = MutableStateFlow(task.dueDate)
 
@@ -131,10 +220,14 @@ class TaskEditViewModel @Inject constructor(
         if (addedDueDate) {
             val reminderFlags = preferences.defaultReminders
             if (reminderFlags.isFlagSet(Task.NOTIFY_AT_DEADLINE)) {
-                selectedAlarms.value = selectedAlarms.value.plusAlarm(whenDue(task.id))
+                _viewState.update { state ->
+                    state.copy(alarms = state.alarms.plusAlarm(whenDue(task.id)))
+                }
             }
             if (reminderFlags.isFlagSet(Task.NOTIFY_AFTER_DEADLINE)) {
-                selectedAlarms.value = selectedAlarms.value.plusAlarm(whenOverdue(task.id))
+                _viewState.update { state ->
+                    state.copy(alarms = state.alarms.plusAlarm(whenOverdue(task.id)))
+                }
             }
         }
     }
@@ -150,50 +243,11 @@ class TaskEditViewModel @Inject constructor(
             else -> value.startOfDay()
         }
         if (addedStartDate && preferences.defaultReminders.isFlagSet(Task.NOTIFY_AT_START)) {
-            selectedAlarms.value = selectedAlarms.value.plusAlarm(whenStarted(task.id))
-        }
-    }
-
-    private var originalCalendar: String? = if (isNew && permissionChecker.canAccessCalendars()) {
-        preferences.defaultCalendar
-    } else {
-        null
-    }
-    var selectedCalendar = MutableStateFlow(originalCalendar)
-
-    val originalList: CaldavFilter = savedStateHandle[TaskEditFragment.EXTRA_LIST]!!
-    var selectedList = MutableStateFlow(originalList)
-
-    private var originalLocation: Location? = savedStateHandle[TaskEditFragment.EXTRA_LOCATION]
-    var selectedLocation = MutableStateFlow(originalLocation)
-
-    private val originalTags: List<TagData> =
-        savedStateHandle.get<ArrayList<TagData>>(TaskEditFragment.EXTRA_TAGS) ?: emptyList()
-    val selectedTags = MutableStateFlow(ArrayList(originalTags))
-
-    private lateinit var originalAttachments: List<TaskAttachment>
-    val selectedAttachments = MutableStateFlow(emptyList<TaskAttachment>())
-
-    private val originalAlarms: List<Alarm> = if (isNew) {
-        ArrayList<Alarm>().apply {
-            if (task.isNotifyAtStart) {
-                add(whenStarted(0))
-            }
-            if (task.isNotifyAtDeadline) {
-                add(whenDue(0))
-            }
-            if (task.isNotifyAfterDeadline) {
-                add(whenOverdue(0))
-            }
-            if (task.randomReminder > 0) {
-                add(Alarm(time = task.randomReminder, type = Alarm.TYPE_RANDOM))
+            _viewState.update { state ->
+                state.copy(alarms = state.alarms.plusAlarm(whenStarted(task.id)))
             }
         }
-    } else {
-        savedStateHandle[TaskEditFragment.EXTRA_ALARMS]!!
     }
-
-    var selectedAlarms = MutableStateFlow(originalAlarms)
 
     var ringNonstop: Boolean = task.isNotifyModeNonstop
         set(value) {
@@ -211,28 +265,12 @@ class TaskEditViewModel @Inject constructor(
             }
         }
 
-    val isReadOnly = task.readOnly
-
-    val isWritable = !isReadOnly
-
-    fun hasChanges(): Boolean =
-        (task.title != title || (isNew && title?.isNotBlank() == true)) ||
-                task.isCompleted != completed.value ||
+    fun hasChanges(): Boolean {
+        val viewState = _viewState.value
+        return originalState != viewState ||
+                (viewState.isNew && viewState.task.title?.isNotBlank() == true) || // text shared to tasks
                 task.dueDate != dueDate.value ||
-                task.priority != priority.value ||
-                if (task.notes.isNullOrBlank()) {
-                    !description.isNullOrBlank()
-                } else {
-                    task.notes != description
-                } ||
                 task.hideUntil != startDate.value ||
-                if (task.recurrence.isNullOrBlank()) {
-                    !recurrence.value.isNullOrBlank()
-                } else {
-                    task.recurrence != recurrence.value
-                } ||
-                task.repeatAfterCompletion() != repeatAfterCompletion.value ||
-                originalCalendar != selectedCalendar.value ||
                 if (task.calendarURI.isNullOrBlank()) {
                     !eventUri.value.isNullOrBlank()
                 } else {
@@ -240,58 +278,49 @@ class TaskEditViewModel @Inject constructor(
                 } ||
                 task.elapsedSeconds != elapsedSeconds.value ||
                 task.estimatedSeconds != estimatedSeconds.value ||
-                originalList != selectedList.value ||
-                originalLocation != selectedLocation.value ||
-                originalTags.toHashSet() != selectedTags.value.toHashSet() ||
-                (::originalAttachments.isInitialized &&
-                        originalAttachments.toHashSet() != selectedAttachments.value.toHashSet()) ||
-                newSubtasks.value.isNotEmpty() ||
                 getRingFlags() != when {
-                    task.isNotifyModeFive -> NOTIFY_MODE_FIVE
-                    task.isNotifyModeNonstop -> NOTIFY_MODE_NONSTOP
-                    else -> 0
-                } ||
-                originalAlarms.toHashSet() != selectedAlarms.value.toHashSet()
+            task.isNotifyModeFive -> NOTIFY_MODE_FIVE
+            task.isNotifyModeNonstop -> NOTIFY_MODE_NONSTOP
+            else -> 0
+        }
+    }
 
     @MainThread
     suspend fun save(remove: Boolean = true): Boolean = withContext(NonCancellable) {
         if (cleared) {
             return@withContext false
         }
-        if (!hasChanges() || isReadOnly) {
+        if (!hasChanges() || viewState.value.isReadOnly) {
             discard(remove)
             return@withContext false
         }
         clear(remove)
-        task.title = if (title.isNullOrBlank()) resources.getString(R.string.no_title) else title
+        val viewState = _viewState.value
+        val isNew = viewState.isNew
+        task.title = if (viewState.task.title.isNullOrBlank()) resources.getString(R.string.no_title) else viewState.task.title
         task.dueDate = dueDate.value
-        task.priority = priority.value
-        task.notes = description
+        task.priority = viewState.task.priority
+        task.notes = viewState.task.notes
         task.hideUntil = startDate.value
-        task.recurrence = recurrence.value
-        task.repeatFrom = if (repeatAfterCompletion.value) {
-            Task.RepeatFrom.COMPLETION_DATE
-        } else {
-            Task.RepeatFrom.DUE_DATE
-        }
+        task.recurrence = viewState.task.recurrence
+        task.repeatFrom = viewState.task.repeatFrom
         task.elapsedSeconds = elapsedSeconds.value
         task.estimatedSeconds = estimatedSeconds.value
         task.ringFlags = getRingFlags()
 
         applyCalendarChanges()
-
         if (isNew) {
             taskDao.createNew(task)
         }
-
-        if ((isNew && selectedLocation.value != null) || originalLocation != selectedLocation.value) {
-            originalLocation?.let { location ->
+        val selectedLocation = _viewState.value.location
+        if ((isNew && selectedLocation != null) || originalState.location != selectedLocation) {
+            originalState.location?.let { location ->
                 if (location.geofence.id > 0) {
                     locationDao.delete(location.geofence)
                     geofenceApi.update(location.place)
                 }
             }
-            selectedLocation.value?.let { location ->
+            selectedLocation?.let { location ->
                 val place = location.place
                 locationDao.insert(
                     location.geofence.copy(
@@ -305,36 +334,45 @@ class TaskEditViewModel @Inject constructor(
             task.putTransitory(FORCE_MICROSOFT_SYNC, true)
             task.modificationDate = currentTimeMillis()
         }
-
-        if ((isNew && selectedTags.value.isNotEmpty()) || originalTags.toHashSet() != selectedTags.value.toHashSet()) {
-            tagDao.applyTags(task, tagDataDao, selectedTags.value)
+        val selectedTags = _viewState.value.tags
+        if ((isNew && selectedTags.isNotEmpty()) || originalState.tags.toHashSet() != selectedTags.toHashSet()) {
+            tagDao.applyTags(task, tagDataDao, selectedTags)
+            task.putTransitory(FORCE_CALDAV_SYNC, true)
             task.modificationDate = currentTimeMillis()
         }
 
         if (!task.hasStartDate()) {
-            selectedAlarms.value = selectedAlarms.value.filterNot { a -> a.type == TYPE_REL_START }
+            _viewState.update { state ->
+                state.copy(
+                    alarms = state.alarms.filterNot { it.type == TYPE_REL_START }.toPersistentSet()
+                )
+            }
         }
         if (!task.hasDueDate()) {
-            selectedAlarms.value = selectedAlarms.value.filterNot { a -> a.type == TYPE_REL_END }
+            _viewState.update { state ->
+                state.copy(
+                    alarms = state.alarms.filterNot { it.type == TYPE_REL_END }.toPersistentSet()
+                )
+            }
         }
 
         if (
-            selectedAlarms.value.toHashSet() != originalAlarms.toHashSet() ||
-            (isNew && selectedAlarms.value.isNotEmpty())
+            (isNew && _viewState.value.alarms.isNotEmpty()) ||
+            originalState.alarms != _viewState.value.alarms
         ) {
-            alarmService.synchronizeAlarms(task.id, selectedAlarms.value.toMutableSet())
+            alarmService.synchronizeAlarms(task.id, _viewState.value.alarms.toMutableSet())
             task.putTransitory(FORCE_CALDAV_SYNC, true)
             task.modificationDate = currentTimeMillis()
         }
 
         taskDao.save(task, null)
-
-        if (isNew || originalList != selectedList.value) {
+        val selectedList = _viewState.value.list
+        if (isNew || originalState.list != selectedList) {
             task.parent = 0
-            taskMover.move(listOf(task.id), selectedList.value)
+            taskMover.move(listOf(task.id), selectedList)
         }
 
-        for (subtask in newSubtasks.value) {
+        for (subtask in viewState.newSubtasks) {
             if (Strings.isNullOrEmpty(subtask.title)) {
                 continue
             }
@@ -344,7 +382,7 @@ class TaskEditViewModel @Inject constructor(
             taskDao.createNew(subtask)
             alarmDao.insert(subtask.getDefaultAlarms())
             firebase?.addTask("subtasks")
-            val filter = selectedList.value
+            val filter = selectedList
             when {
                 filter.isGoogleTasks -> {
                     val googleTask = CaldavTask(
@@ -363,7 +401,7 @@ class TaskEditViewModel @Inject constructor(
                 else -> {
                     val caldavTask = CaldavTask(
                         task = subtask.id,
-                        calendar = filter.uuid,
+                        calendar = selectedList.uuid,
                     )
                     subtask.parent = task.id
                     caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.id)
@@ -377,16 +415,13 @@ class TaskEditViewModel @Inject constructor(
             }
         }
 
-        if (
-            this@TaskEditViewModel::originalAttachments.isInitialized &&
-            selectedAttachments.value.toHashSet() != originalAttachments.toHashSet()
-        ) {
-            originalAttachments
-                .minus(selectedAttachments.value.toSet())
+        if (originalState.attachments != _viewState.value.attachments) {
+            originalState.attachments
+                .minus(_viewState.value.attachments)
                 .map { it.remoteId }
                 .let { taskAttachmentDao.delete(task.id, it) }
-            selectedAttachments.value
-                .minus(originalAttachments.toSet())
+            _viewState.value.attachments
+                .minus(originalState.attachments)
                 .map {
                     Attachment(
                         task = task.id,
@@ -397,9 +432,9 @@ class TaskEditViewModel @Inject constructor(
                 .let { taskAttachmentDao.insert(it) }
         }
 
-        if (task.isCompleted != completed.value) {
-            taskCompleter.setComplete(task, completed.value)
-            if (task.isCompleted) {
+        if (task.isCompleted != _viewState.value.isCompleted) {
+            taskCompleter.setComplete(task, _viewState.value.isCompleted)
+            if (_viewState.value.isCompleted) {
                 firebase?.completeTask("edit_screen_v2")
             }
         }
@@ -424,7 +459,7 @@ class TaskEditViewModel @Inject constructor(
         if (!task.hasDueDate()) {
             return
         }
-        selectedCalendar.value?.let {
+        _viewState.value.calendar?.let {
             try {
                 task.calendarURI = gCalHelper.createTaskEvent(task, it)?.toString()
             } catch (e: Exception) {
@@ -445,11 +480,11 @@ class TaskEditViewModel @Inject constructor(
     }
 
     suspend fun discard(remove: Boolean = true) {
-        if (isNew) {
+        if (_viewState.value.isNew) {
             timerPlugin.stopTimer(task)
-            originalAttachments.plus(selectedAttachments.value).toSet().takeIf { it.isNotEmpty() }
-                ?.onEach { FileHelper.delete(context, it.uri.toUri()) }
-                ?.let { taskAttachmentDao.delete(it.toList()) }
+            (originalState.attachments + _viewState.value.attachments)
+                .onEach { attachment -> FileHelper.delete(context, attachment.uri.toUri()) }
+                .let { taskAttachmentDao.delete(it.toList()) }
         }
         clear(remove)
     }
@@ -474,14 +509,14 @@ class TaskEditViewModel @Inject constructor(
     }
 
     fun removeAlarm(alarm: Alarm) {
-        selectedAlarms.update { it.minus(alarm) }
+        _viewState.update { state ->
+            state.copy(alarms = state.alarms.minus(alarm).toPersistentSet())
+        }
     }
 
     fun addAlarm(alarm: Alarm) {
-        with (selectedAlarms) {
-            if (value.none { it.same(alarm) }) {
-                value = value.plus(alarm)
-            }
+        _viewState.update { state ->
+            state.copy(alarms = state.alarms.plusAlarm(alarm))
         }
     }
 
@@ -502,26 +537,126 @@ class TaskEditViewModel @Inject constructor(
     }
 
     fun hideBeastModeHint(click: Boolean) {
-        showBeastModeHint.value = false
+        _viewState.update {
+            it.copy(showBeastModeHint = false)
+        }
         preferences.shownBeastModeHint = true
         firebase?.logEvent(R.string.event_banner_beast, R.string.param_click to click)
     }
 
+    fun setPriority(priority: Int) {
+        _viewState.update { state -> state.copy(task = state.task.copy(priority = priority)) }
+    }
+
+    fun setTitle(title: String) {
+        _viewState.update { state -> state.copy(task = state.task.copy(title = title)) }
+    }
+
+    fun setRecurrence(recurrence: String?) {
+        _viewState.update { state ->
+            state.copy(
+                task = state.task.copy(
+                    recurrence = recurrence,
+                    dueDate = if (recurrence?.isNotBlank() == true && task.dueDate == 0L) {
+                        currentTimeMillis().startOfDay()
+                    } else {
+                        task.dueDate
+                    }
+                )
+            )
+        }
+    }
+
+    fun setDescription(description: String) {
+        _viewState.update { state -> state.copy(task = state.task.copy(notes = description)) }
+    }
+
+    fun setList(list: CaldavFilter) {
+        _viewState.update { it.copy(list = list) }
+    }
+
+    fun setTags(tags: Set<TagData>) {
+        _viewState.update { it.copy(tags = tags.toPersistentSet()) }
+    }
+
+    fun setLocation(location: Location?) {
+        _viewState.update { it.copy(location = location) }
+    }
+
+    fun setCalendar(calendar: String?) {
+        _viewState.update { it.copy(calendar = calendar) }
+    }
+
+    fun setAttachments(attachments: Set<TaskAttachment>) {
+        _viewState.update { it.copy(attachments = attachments.toPersistentSet()) }
+    }
+
+    fun setSubtasks(subtasks: List<Task>) {
+        _viewState.update { it.copy(newSubtasks = subtasks.toPersistentList()) }
+    }
+
+    fun setComplete(completed: Boolean) {
+        _viewState.update { state ->
+            state.copy(
+                task = task.copy(
+                    completionDate = when {
+                        !completed -> 0
+                        task.isCompleted -> task.completionDate
+                        else -> currentTimeMillis()
+                    }
+                )
+            )
+        }
+    }
+
+    fun setRepeatFrom(repeatFrom: @Task.RepeatFrom Int) {
+        _viewState.update { state ->
+            state.copy(task = state.task.copy(repeatFrom = repeatFrom))
+        }
+    }
+
     init {
+        _originalState = _viewState.value.copy()
         viewModelScope.launch {
-            taskAttachmentDao.getAttachments(task.id).let { attachments ->
-                selectedAttachments.update { attachments }
-                originalAttachments = attachments
+            taskAttachmentDao.getAttachments(task.id).toPersistentSet().let { attachments ->
+                _originalState = _originalState.copy(attachments = attachments)
+                _viewState.value = _viewState.value.copy(attachments = attachments)
             }
         }
     }
 
     companion object {
+        // one spark tasks for windows adds these
         fun String?.stripCarriageReturns(): String? = this?.replace("\\r\\n?".toRegex(), "\n")
 
         private fun Int.isFlagSet(flag: Int): Boolean = this and flag > 0
 
-        private fun List<Alarm>.plusAlarm(alarm: Alarm): List<Alarm> =
-            if (any { it.same(alarm) }) this else this + alarm
+        private fun ImmutableSet<Alarm>.plusAlarm(alarm: Alarm): ImmutableSet<Alarm> =
+            if (any { it.same(alarm) }) this else this.plus(alarm).toPersistentSet()
+
+        val TAG_TITLE = R.string.TEA_ctrl_title
+        val TAG_DESCRIPTION = R.string.TEA_ctrl_notes_pref
+        val TAG_CREATION = R.string.TEA_ctrl_creation_date
+        val TAG_LIST = R.string.TEA_ctrl_google_task_list
+        val TAG_PRIORITY = R.string.TEA_ctrl_importance_pref
+        val TAG_DUE_DATE = R.string.TEA_ctrl_when_pref
+
+        val TASK_EDIT_CONTROL_SET_FRAGMENTS = intArrayOf(
+            TAG_TITLE,
+            TAG_DUE_DATE,
+            TimerControlSet.TAG,
+            TAG_DESCRIPTION,
+            CalendarControlSet.TAG,
+            TAG_PRIORITY,
+            StartDateControlSet.TAG,
+            ReminderControlSet.TAG,
+            LocationControlSet.TAG,
+            FilesControlSet.TAG,
+            TagsControlSet.TAG,
+            RepeatControlSet.TAG,
+            TAG_CREATION,
+            TAG_LIST,
+            SubtaskControlSet.TAG
+        )
     }
 }

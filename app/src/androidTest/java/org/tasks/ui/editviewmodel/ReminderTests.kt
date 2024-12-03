@@ -39,7 +39,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
 
         assertEquals(
             listOf(Alarm(type = Alarm.TYPE_REL_START)),
-            viewModel.selectedAlarms.value
+            viewModel.viewState.value.alarms
         )
     }
 
@@ -56,7 +56,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
 
         assertEquals(
             listOf(Alarm(type = Alarm.TYPE_REL_END)),
-            viewModel.selectedAlarms.value
+            viewModel.viewState.value.alarms
         )
     }
 
@@ -73,7 +73,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
 
         assertEquals(
             listOf(whenOverdue(0)),
-            viewModel.selectedAlarms.value
+            viewModel.viewState.value.alarms
         )
     }
 

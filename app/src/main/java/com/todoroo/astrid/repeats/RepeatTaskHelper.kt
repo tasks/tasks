@@ -16,6 +16,7 @@ import org.tasks.data.createDueDate
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.Task
+import org.tasks.data.entity.Task.RepeatFrom
 import org.tasks.data.setRecurrence
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.repeats.RecurrenceUtils.newRecur
@@ -39,7 +40,7 @@ class RepeatTaskHelper @Inject constructor(
         if (recurrence.isNullOrBlank()) {
             return
         }
-        val repeatAfterCompletion = task.repeatAfterCompletion()
+        val repeatAfterCompletion = task.repeatFrom == RepeatFrom.COMPLETION_DATE
         val newDueDate: Long
         val rrule: Recur
         val count: Int

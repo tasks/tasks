@@ -7,6 +7,7 @@ import android.os.Parcelable
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
+import androidx.core.content.IntentCompat
 import androidx.core.util.Pair
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -37,60 +38,58 @@ class LocationControlSet : TaskEditControlFragment() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var permissionChecker: PermissionChecker
 
-    private fun setLocation(location: Location?) {
-        viewModel.selectedLocation.value = location
-    }
-
-    private fun onRowClick() {
-        val location = viewModel.selectedLocation.value
-        if (location == null) {
-            chooseLocation()
-        } else {
-            val options: MutableList<Pair<Int, () -> Unit>> = ArrayList()
-            options.add(Pair.create(R.string.open_map) { location.open(activity) })
-            if (!isNullOrEmpty(location.phone)) {
-                options.add(Pair.create(R.string.action_call) { call() })
-            }
-            if (!isNullOrEmpty(location.url)) {
-                options.add(Pair.create(R.string.visit_website) { openWebsite() })
-            }
-            options.add(Pair.create(R.string.choose_new_location) { chooseLocation() })
-            options.add(Pair.create(R.string.delete) { setLocation(null) })
-            val items = options.map { requireContext().getString(it.first!!) }
-            dialogBuilder
-                    .newDialog(location.displayName)
-                    .setItems(items) { _, which: Int ->
-                        options[which].second!!()
-                    }
-                    .show()
-        }
+    private fun showGeofenceOptions() {
+        val dialog = GeofenceDialog.newGeofenceDialog(viewModel.viewState.value.location)
+        dialog.setTargetFragment(this, REQUEST_GEOFENCE_DETAILS)
+        dialog.show(parentFragmentManager, FRAG_TAG_LOCATION_DIALOG)
     }
 
     private fun chooseLocation() {
         val intent = Intent(activity, LocationPickerActivity::class.java)
-        viewModel.selectedLocation.value?.let {
+        viewModel.viewState.value.location?.let {
             intent.putExtra(LocationPickerActivity.EXTRA_PLACE, it.place as Parcelable)
         }
         startActivityForResult(intent, REQUEST_LOCATION_REMINDER)
-    }
-
-    private fun showGeofenceOptions() {
-        val dialog = GeofenceDialog.newGeofenceDialog(viewModel.selectedLocation.value)
-        dialog.setTargetFragment(this, REQUEST_GEOFENCE_DETAILS)
-        dialog.show(parentFragmentManager, FRAG_TAG_LOCATION_DIALOG)
     }
 
     @OptIn(ExperimentalPermissionsApi::class)
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
+                val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
                 val hasPermissions =
                     rememberMultiplePermissionsState(permissions = backgroundPermissions())
                         .allPermissionsGranted
                 LocationRow(
-                    location = viewModel.selectedLocation.collectAsStateWithLifecycle().value,
+                    location = viewState.location,
                     hasPermissions = hasPermissions,
-                    onClick = this@LocationControlSet::onRowClick,
+                    onClick = {
+                        viewState.location
+                            ?.let { location ->
+                                val options: MutableList<Pair<Int, () -> Unit>> = ArrayList()
+                                options.add(Pair.create(R.string.open_map) { location.open(activity) })
+                                if (!isNullOrEmpty(location.phone)) {
+                                    options.add(Pair.create(R.string.action_call) { call() })
+                                }
+                                if (!isNullOrEmpty(location.url)) {
+                                    options.add(Pair.create(R.string.visit_website) { openWebsite() })
+                                }
+                                options.add(Pair.create(R.string.choose_new_location) { chooseLocation() })
+                                options.add(Pair.create(R.string.delete) {
+                                    viewModel.setLocation(
+                                        null
+                                    )
+                                })
+                                val items = options.map { requireContext().getString(it.first!!) }
+                                dialogBuilder
+                                    .newDialog(location.displayName)
+                                    .setItems(items) { _, which: Int ->
+                                        options[which].second!!()
+                                    }
+                                    .show()
+                            }
+                            ?: chooseLocation()
+                    },
                     openGeofenceOptions = {
                         if (hasPermissions) {
                             showGeofenceOptions()
@@ -109,11 +108,11 @@ class LocationControlSet : TaskEditControlFragment() {
     override fun controlId() = TAG
 
     private fun openWebsite() {
-        viewModel.selectedLocation.value?.let { context?.openUri(it.url) }
+        viewModel.viewState.value.location?.let { context?.openUri(it.url) }
     }
 
     private fun call() {
-        viewModel.selectedLocation.value?.let {
+        viewModel.viewState.value.location?.let {
             startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + it.phone)))
         }
     }
@@ -126,7 +125,7 @@ class LocationControlSet : TaskEditControlFragment() {
         } else if (requestCode == REQUEST_LOCATION_REMINDER) {
             if (resultCode == Activity.RESULT_OK) {
                 val place: Place = data!!.getParcelableExtra(LocationPickerActivity.EXTRA_PLACE)!!
-                val location = viewModel.selectedLocation.value
+                val location = viewModel.viewState.value.location
                 val geofence = if (location == null) {
                     createGeofence(place.uid, preferences)
                 } else {
@@ -137,14 +136,25 @@ class LocationControlSet : TaskEditControlFragment() {
                             isDeparture = existing.isDeparture,
                     )
                 }
-                setLocation(Location(geofence, place))
+                viewModel.setLocation(Location(geofence, place))
             }
         } else if (requestCode == REQUEST_GEOFENCE_DETAILS) {
             if (resultCode == Activity.RESULT_OK) {
-                setLocation(Location(
-                        data?.getParcelableExtra(GeofenceDialog.EXTRA_GEOFENCE) ?: return,
-                        viewModel.selectedLocation.value?.place ?: return
-                ))
+                val geofence = data
+                    ?.let {
+                        IntentCompat.getParcelableExtra(
+                            it,
+                            GeofenceDialog.EXTRA_GEOFENCE,
+                            Geofence::class.java
+                        )
+                    }
+                    ?: return
+                viewModel.setLocation(
+                    Location(
+                        geofence,
+                        viewModel.viewState.value.location?.place ?: return
+                    )
+                )
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

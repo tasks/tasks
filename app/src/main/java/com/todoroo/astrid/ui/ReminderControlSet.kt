@@ -99,8 +99,9 @@ class ReminderControlSet : TaskEditControlFragment() {
                         replace?.let { viewModel.removeAlarm(it) }
                         viewModel.addAlarm(Alarm(time = timestamp, type = TYPE_DATE_TIME))
                     }
+                val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
                 AlarmRow(
-                    alarms = viewModel.selectedAlarms.collectAsStateWithLifecycle().value,
+                    alarms = viewState.alarms,
                     hasNotificationPermissions = hasReminderPermissions &&
                             (notificationPermissions == null || notificationPermissions.status == PermissionStatus.Granted),
                     fixNotificationPermissions = {

@@ -36,7 +36,11 @@ class StartDateControlSet : TaskEditControlFragment() {
 
     override fun createView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            vm.init(viewModel.dueDate.value, viewModel.startDate.value, viewModel.isNew)
+            vm.init(
+                dueDate = viewModel.dueDate.value,
+                startDate = viewModel.startDate.value,
+                isNew = viewModel.viewState.value.isNew
+            )
         }
         lifecycleScope.launchWhenResumed {
             viewModel.dueDate.collect {

@@ -17,7 +17,6 @@ import android.widget.LinearLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -71,7 +70,7 @@ class CommentBarFragment : Fragment() {
         commentField.maxLines = Int.MAX_VALUE
         if (
             preferences.getBoolean(R.string.p_show_task_edit_comments, false) &&
-            viewModel.isWritable
+            !viewModel.viewState.value.isReadOnly
         ) {
             commentBar.visibility = View.VISIBLE
         }

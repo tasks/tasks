@@ -1,12 +1,12 @@
 package org.tasks.ui.editviewmodel
 
-import org.tasks.data.entity.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.tasks.data.entity.Task
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker.newTask
 
@@ -33,7 +33,7 @@ class TaskEditViewModelTest : BaseTaskEditViewModelTest() {
     fun dontSaveTaskTwice() = runBlocking {
         setup(newTask())
 
-        viewModel.priority.value = Task.Priority.HIGH
+        viewModel.setPriority(Task.Priority.HIGH)
 
         assertTrue(save())
 

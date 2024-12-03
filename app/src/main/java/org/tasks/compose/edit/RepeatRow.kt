@@ -28,21 +28,22 @@ import androidx.compose.ui.unit.dp
 import org.tasks.R
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
+import org.tasks.data.entity.Task
 import org.tasks.themes.TasksTheme
 
 @Composable
 fun RepeatRow(
     recurrence: String?,
-    repeatAfterCompletion: Boolean,
+    @Task.RepeatFrom repeatFrom: Int,
     onClick: () -> Unit,
-    onRepeatFromChanged: (Boolean) -> Unit,
+    onRepeatFromChanged: (@Task.RepeatFrom Int) -> Unit,
 ) {
     TaskEditRow(
         iconRes = R.drawable.ic_outline_repeat_24px,
         content = {
             Repeat(
                 recurrence = recurrence,
-                repeatFromCompletion = repeatAfterCompletion,
+                repeatFrom = repeatFrom,
                 onRepeatFromChanged = onRepeatFromChanged,
             )
         },
@@ -53,8 +54,8 @@ fun RepeatRow(
 @Composable
 fun Repeat(
     recurrence: String?,
-    repeatFromCompletion: Boolean,
-    onRepeatFromChanged: (Boolean) -> Unit,
+    repeatFrom: @Task.RepeatFrom Int,
+    onRepeatFromChanged: (@Task.RepeatFrom Int) -> Unit,
 ) {
     Column {
         Spacer(modifier = Modifier.height(20.dp))
@@ -77,10 +78,10 @@ fun Repeat(
                 var expanded by remember { mutableStateOf(false) }
                 Text(
                     text = stringResource(
-                        id = if (repeatFromCompletion)
-                            R.string.repeat_type_completion
-                        else
-                            R.string.repeat_type_due
+                        id = when (repeatFrom) {
+                            Task.RepeatFrom.COMPLETION_DATE -> R.string.repeat_type_completion
+                            else -> R.string.repeat_type_due
+                        }
                     ),
                     style = MaterialTheme.typography.bodyLarge.copy(
                         textDecoration = TextDecoration.Underline,
@@ -92,7 +93,7 @@ fun Repeat(
                     DropdownMenuItem(
                         onClick = {
                             expanded = false
-                            onRepeatFromChanged(false)
+                            onRepeatFromChanged(Task.RepeatFrom.DUE_DATE)
                         },
                         text = {
                             Text(
@@ -104,7 +105,7 @@ fun Repeat(
                     DropdownMenuItem(
                         onClick = {
                             expanded = false
-                            onRepeatFromChanged(true)
+                            onRepeatFromChanged(Task.RepeatFrom.COMPLETION_DATE)
                         },
                         text = {
                             Text(
@@ -128,7 +129,7 @@ fun RepeatPreview() {
     TasksTheme {
         RepeatRow(
             recurrence = "Repeats weekly on Mon, Tue, Wed, Thu, Fri",
-            repeatAfterCompletion = false,
+            repeatFrom = Task.RepeatFrom.DUE_DATE,
             onClick = {},
             onRepeatFromChanged = {},
         )
@@ -143,7 +144,7 @@ fun NoRepeatPreview() {
     TasksTheme {
         RepeatRow(
             recurrence = null,
-            repeatAfterCompletion = false,
+            repeatFrom = Task.RepeatFrom.DUE_DATE,
             onClick = {},
             onRepeatFromChanged = {},
         )

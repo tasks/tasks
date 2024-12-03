@@ -7,6 +7,7 @@ import android.provider.CalendarContract
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast.LENGTH_SHORT
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.todoroo.astrid.activity.TaskEditFragment
@@ -37,17 +38,18 @@ class CalendarControlSet : TaskEditControlFragment() {
             }
         }
         if (!canAccessCalendars) {
-            viewModel.selectedCalendar.value = null
+            viewModel.setCalendar(null)
         }
     }
 
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
+                val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
                 CalendarRow(
                     eventUri = viewModel.eventUri.collectAsStateWithLifecycle().value,
-                    selectedCalendar = viewModel.selectedCalendar.collectAsStateWithLifecycle().value?.let {
-                        calendarProvider.getCalendar(it)?.name
+                    selectedCalendar = remember (viewState.calendar) {
+                        calendarProvider.getCalendar(viewState.calendar)?.name
                     },
                     onClick = {
                         if (viewModel.eventUri.value.isNullOrBlank()) {
@@ -55,7 +57,7 @@ class CalendarControlSet : TaskEditControlFragment() {
                                 .newCalendarPicker(
                                     requireParentFragment(),
                                     TaskEditFragment.REQUEST_CODE_PICK_CALENDAR,
-                                    viewModel.selectedCalendar.value,
+                                    viewState.calendar,
                                 )
                                 .show(
                                     requireParentFragment().parentFragmentManager,
@@ -66,7 +68,7 @@ class CalendarControlSet : TaskEditControlFragment() {
                         }
                     },
                     clear = {
-                        viewModel.selectedCalendar.value = null
+                        viewModel.setCalendar(null)
                         viewModel.eventUri.value = null
                     }
                 )

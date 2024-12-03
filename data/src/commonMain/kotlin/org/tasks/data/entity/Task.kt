@@ -113,8 +113,6 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
     /** Checks whether this due date has a due time or only a date  */
     fun hasDueTime(): Boolean = hasDueTime(dueDate)
 
-    fun repeatAfterCompletion(): Boolean = repeatFrom == RepeatFrom.COMPLETION_DATE
-
     fun setDueDateAdjustingHideUntil(newDueDate: Long) {
         if (dueDate > 0) {
             if (hideUntil > 0) {
@@ -283,6 +281,7 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
         }
     }
 
+    @Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.TYPE)
     @Retention(AnnotationRetention.SOURCE)
     @IntDef(RepeatFrom.DUE_DATE, RepeatFrom.COMPLETION_DATE)
     annotation class RepeatFrom {

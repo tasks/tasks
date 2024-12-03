@@ -7,6 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.persistentSetOf
 import org.tasks.R
 import org.tasks.compose.Chip
 import org.tasks.compose.ChipGroup
@@ -19,7 +21,7 @@ import org.tasks.themes.TasksTheme
 
 @Composable
 fun TagsRow(
-    tags: List<TagData>,
+    tags: ImmutableSet<TagData>,
     colorProvider: (Int) -> Int,
     onClick: () -> Unit,
     onClear: (TagData) -> Unit,
@@ -56,7 +58,7 @@ fun TagsRow(
 fun NoTags() {
     TasksTheme {
         TagsRow(
-            tags = emptyList(),
+            tags = persistentSetOf(),
             colorProvider = { 0 },
             onClick = {},
             onClear = {},
@@ -70,7 +72,7 @@ fun NoTags() {
 fun SingleTag() {
     TasksTheme {
         TagsRow(
-            tags = listOf(
+            tags = persistentSetOf(
                 TagData(
                     name = "Home",
                     icon = "home",
@@ -89,7 +91,7 @@ fun SingleTag() {
 fun BunchOfTags() {
     TasksTheme {
         TagsRow(
-            tags = listOf(
+            tags = persistentSetOf(
                 TagData(name = "One"),
                 TagData(name = "Two"),
                 TagData(name = "Three"),
@@ -108,7 +110,7 @@ fun BunchOfTags() {
 fun TagWithReallyLongName() {
     TasksTheme {
         TagsRow(
-            tags = listOf(
+            tags = persistentSetOf(
                 TagData(
                     name = "This is a tag with a really really long name",
                     icon = "home",

@@ -46,6 +46,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.res.ResourcesCompat
 import com.todoroo.astrid.ui.ReminderControlSetViewModel.ViewState
+import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.coroutines.android.awaitFrame
 import org.tasks.R
 import org.tasks.data.entity.Alarm
@@ -485,7 +487,7 @@ fun BodyText(modifier: Modifier = Modifier, text: String) {
 @Composable
 fun AddAlarmDialog(
     viewState: ViewState,
-    existingAlarms: List<Alarm>,
+    existingAlarms: ImmutableSet<Alarm>,
     addAlarm: (Alarm) -> Unit,
     addRandom: () -> Unit,
     addCustom: () -> Unit,
@@ -637,7 +639,7 @@ fun AddReminderDialog() =
     TasksTheme {
         AddAlarmDialog(
             viewState = ViewState(showAddAlarm = true),
-            existingAlarms = emptyList(),
+            existingAlarms = persistentSetOf(),
             addAlarm = {},
             addRandom = {},
             addCustom = {},

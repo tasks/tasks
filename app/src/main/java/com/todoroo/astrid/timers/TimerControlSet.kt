@@ -104,7 +104,7 @@ class TimerControlSet : TaskEditControlFragment() {
     private fun timerActive() = viewModel.timerStarted.value > 0
 
     private suspend fun stopTimer(): Task {
-        val model = viewModel.task
+        val model = viewModel.viewState.value.task
         timerPlugin.stopTimer(model)
         val elapsedTime = DateUtils.formatElapsedTime(model.elapsedSeconds.toLong())
         viewModel.addComment(String.format(
@@ -119,7 +119,7 @@ class TimerControlSet : TaskEditControlFragment() {
     }
 
     private suspend fun startTimer(): Task {
-        val model = viewModel.task
+        val model = viewModel.viewState.value.task
         timerPlugin.startTimer(model)
         viewModel.addComment(String.format(
             "%s %s",

@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.todoroo.astrid.ui.ReminderControlSetViewModel
+import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.persistentSetOf
 import org.tasks.R
 import org.tasks.compose.AddAlarmDialog
 import org.tasks.compose.AddReminderDialog
@@ -38,7 +40,7 @@ fun AlarmRow(
     vm: ReminderControlSetViewModel = viewModel(),
     hasNotificationPermissions: Boolean,
     fixNotificationPermissions: () -> Unit,
-    alarms: List<Alarm>,
+    alarms: ImmutableSet<Alarm>,
     ringMode: Int,
     addAlarm: (Alarm) -> Unit,
     deleteAlarm: (Alarm) -> Unit,
@@ -119,7 +121,7 @@ fun AlarmRow(
 
 @Composable
 fun Alarms(
-    alarms: List<Alarm>,
+    alarms: ImmutableSet<Alarm>,
     ringMode: Int,
     replaceAlarm: (Alarm) -> Unit,
     addAlarm: () -> Unit,
@@ -194,7 +196,7 @@ private fun AlarmRow(
 fun NoAlarms() {
     TasksTheme {
         AlarmRow(
-            alarms = emptyList(),
+            alarms = persistentSetOf(),
             ringMode = 0,
             addAlarm = {},
             deleteAlarm = {},
@@ -212,7 +214,7 @@ fun NoAlarms() {
 fun PermissionDenied() {
     TasksTheme {
         AlarmRow(
-            alarms = emptyList(),
+            alarms = persistentSetOf(),
             ringMode = 0,
             addAlarm = {},
             deleteAlarm = {},

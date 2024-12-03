@@ -19,14 +19,11 @@ import net.fortuna.ical4j.model.WeekDay
 import org.tasks.R
 import org.tasks.compose.edit.RepeatRow
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.CaldavAccount
-import org.tasks.filters.CaldavFilter
 import org.tasks.repeats.BasicRecurrenceDialog
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import org.tasks.time.startOfDay
 import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
 
@@ -39,10 +36,7 @@ class RepeatControlSet : TaskEditControlFragment() {
         if (requestCode == REQUEST_RECURRENCE) {
             if (resultCode == RESULT_OK) {
                 val result = data?.getStringExtra(BasicRecurrenceDialog.EXTRA_RRULE)
-                viewModel.recurrence.value = result
-                if (result?.isNotBlank() == true && viewModel.dueDate.value == 0L) {
-                    viewModel.setDueDate(currentTimeMillis().startOfDay())
-                }
+                viewModel.setRecurrence(result)
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -50,7 +44,8 @@ class RepeatControlSet : TaskEditControlFragment() {
     }
 
     private fun onDueDateChanged() {
-        viewModel.recurrence.value?.takeIf { it.isNotBlank() }?.let { recurrence ->
+        // TODO: move to view model
+        viewModel.viewState.value.task.recurrence?.takeIf { it.isNotBlank() }?.let { recurrence ->
             val recur = newRecur(recurrence)
             if (recur.frequency == Recur.Frequency.MONTHLY && recur.dayList.isNotEmpty()) {
                 val weekdayNum = recur.dayList[0]
@@ -67,7 +62,7 @@ class RepeatControlSet : TaskEditControlFragment() {
                     it.clear()
                     it.add(WeekDay(dateTime.weekDay, num))
                 }
-                viewModel.recurrence.value = recur.toString()
+                viewModel.setRecurrence(recur.toString())
             }
         }
     }
@@ -83,31 +78,22 @@ class RepeatControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
+                val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
                 RepeatRow(
-                    recurrence = viewModel.recurrence.collectAsStateWithLifecycle().value?.let {
-                        repeatRuleToString.toString(it)
-                    },
-                    repeatAfterCompletion = viewModel.repeatAfterCompletion.collectAsStateWithLifecycle().value,
+                    recurrence = viewState.task.recurrence?.let { repeatRuleToString.toString(it) },
+                    repeatFrom = viewState.task.repeatFrom,
                     onClick = {
-                        val accountType = viewModel.selectedList.value
-                            .let {
-                                when (it) {
-                                    is CaldavFilter -> it.account
-                                    else -> null
-                                }
-                            }
-                            ?.accountType
-                            ?: CaldavAccount.TYPE_LOCAL
+                        val accountType = viewState.list.account.accountType
                         BasicRecurrenceDialog.newBasicRecurrenceDialog(
                             target = this@RepeatControlSet,
                             rc = REQUEST_RECURRENCE,
-                            rrule = viewModel.recurrence.value,
+                            rrule = viewState.task.recurrence,
                             dueDate = viewModel.dueDate.value,
                             accountType = accountType,
                         )
                             .show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
                     },
-                    onRepeatFromChanged = { viewModel.repeatAfterCompletion.value = it }
+                    onRepeatFromChanged = { viewModel.setRepeatFrom(it) }
                 )
             }
         }

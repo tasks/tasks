@@ -43,7 +43,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
     private val mainViewModel: MainActivityViewModel by activityViewModels()
 
     override fun createView(savedInstanceState: Bundle?) {
-        viewModel.task.takeIf { it.id > 0 }?.let {
+        viewModel.viewState.value.task.takeIf { it.id > 0 }?.let {
             listViewModel.setFilter(SubtaskFilter(it.id))
         }
     }
@@ -52,45 +52,43 @@ class SubtaskControlSet : TaskEditControlFragment() {
         (parent as ComposeView).apply {
             listViewModel = ViewModelProvider(requireParentFragment())[TaskListViewModel::class.java]
             setContent {
+                val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
                 SubtaskRow(
-                    originalFilter = viewModel.originalList,
-                    filter = viewModel.selectedList.collectAsStateWithLifecycle().value,
-                    hasParent = viewModel.hasParent,
-                    existingSubtasks = if (viewModel.isNew) {
+                    originalFilter = viewModel.originalState.list,
+                    filter = viewState.list,
+                    hasParent = viewState.hasParent,
+                    existingSubtasks = if (viewModel.viewState.collectAsStateWithLifecycle().value.isNew) {
                         TasksResults.Results(SectionedDataSource())
                     } else {
                         listViewModel.state.collectAsStateWithLifecycle().value.tasks
                     },
-                    newSubtasks = viewModel.newSubtasks.collectAsStateWithLifecycle().value,
+                    newSubtasks = viewState.newSubtasks,
                     openSubtask = this@SubtaskControlSet::openSubtask,
                     completeExistingSubtask = this@SubtaskControlSet::complete,
                     toggleSubtask = this@SubtaskControlSet::toggleSubtask,
-                    addSubtask = this@SubtaskControlSet::addSubtask,
+                    addSubtask = {
+                        lifecycleScope.launch {
+                            viewModel.setSubtasks(
+                                viewState.newSubtasks.plus(taskCreator.createWithValues(""))
+                            )
+                        }
+                    },
                     completeNewSubtask = {
-                        viewModel.newSubtasks.value =
-                            ArrayList(viewModel.newSubtasks.value).apply {
+                        viewModel.setSubtasks(
+                            viewState.newSubtasks.toMutableList().apply {
                                 val modified = it.copy(
                                     completionDate = if (it.isCompleted) 0 else currentTimeMillis()
                                 )
                                 set(indexOf(it), modified)
                             }
+                        )
                     },
-                    deleteSubtask = {
-                        viewModel.newSubtasks.value =
-                            ArrayList(viewModel.newSubtasks.value).apply {
-                                remove(it)
-                            }
-                    }
+                    deleteSubtask = { viewModel.setSubtasks(viewState.newSubtasks - it) },
                 )
             }
         }
 
     override fun controlId() = TAG
-
-    private fun addSubtask() = lifecycleScope.launch {
-        val task = taskCreator.createWithValues("")
-        viewModel.newSubtasks.value = viewModel.newSubtasks.value.plus(task)
-    }
 
     private fun openSubtask(task: Task) = lifecycleScope.launch {
         mainViewModel.setTask(task)
