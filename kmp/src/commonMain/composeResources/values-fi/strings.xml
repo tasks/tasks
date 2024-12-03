@@ -27,4 +27,10 @@
     <string name="yesterday_abbrev_lowercase">eilen</string>
     <string name="show_unstarted">Näytä aloittamattomat</string>
     <string name="show_completed">Näytä valmiit</string>
+    <string name="wear_unknown_error">Tuntematon virhe</string>
+    <string name="requires_pro_subscription">Ammattilainen ominaisuus</string>
+    <string name="subscription_required_description">Avaa kaikkien ominaisuuksien lukitus jopa 1 $ USD/vuosi</string>
+    <string name="add_task">Lisää tehtävä</string>
+    <string name="search_no_results">Ei tuloksia</string>
+    <string name="wear_install_app">Asenna puhelimeen</string>
 </resources>
