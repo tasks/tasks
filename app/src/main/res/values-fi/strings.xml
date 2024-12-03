@@ -222,7 +222,7 @@
     <string name="enabled">Sallittu</string>
     <string name="font_size">Kirjasimen koko</string>
     <string name="row_spacing">Rivinväli</string>
-    <string name="customize_edit_screen">Saadä muokkaus -näkymää</string>
+    <string name="customize_edit_screen">Saadä muokkausnäkymää</string>
     <string name="source_code">Lähdekoodi</string>
     <string name="translations">Osallistu kääntämiseen</string>
     <string name="contact_developer">Ota yhteyttä kehittäjään</string>
@@ -301,9 +301,9 @@
     <string name="repeats_from">Toista alkaen</string>
     <string name="repeats_single">Toista %s</string>
     <string name="repeats_single_on">Toista %1$s - %2$s</string>
-    <string name="repeats_single_until">Toista %1$s kunnes %2$s</string>
+    <string name="repeats_single_until">Toistaa %1$s, päättyy %2$s</string>
     <string name="repeats_single_number_of_times">Toista %1$s, tapahtuu %2$d %3$s</string>
-    <string name="repeats_single_on_until">Toista %1$s - %2$s kunnes %3$s</string>
+    <string name="repeats_single_on_until">Toistuu %1$s %2$s:ssa, päättyy %3$s</string>
     <string name="repeats_single_on_number_of_times">Toista %1$s - %2$s, tapahtuu %3$d %4$s</string>
     <string name="repeats_minutely">minuuteittain</string>
     <string name="repeats_hourly">tunneittain</string>
@@ -313,9 +313,9 @@
     <string name="repeats_yearly">vuosittain</string>
     <string name="repeats_plural">Toista joka %s</string>
     <string name="repeats_plural_on">Toista joka %1$s - %2$s</string>
-    <string name="repeats_plural_until">Toista joka %1$s kunnes %2$s</string>
+    <string name="repeats_plural_until">Toistaa joka %1$s, päättyy %2$s</string>
     <string name="repeats_plural_number_of_times">Toista joka %1$s, tapahtuu %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Toista joka %1$s - %2$s kunnes %3$s</string>
+    <string name="repeats_plural_on_until">Toistaa joka %1$s %2$s:ssa, päättyy %3$s</string>
     <string name="repeats_plural_on_number_of_times">Toista joka %1$s - %2$s, tapahtuu %3$d %4$s</string>
     <string name="dont_add_to_calendar">Älä lisää kalenteriin</string>
     <string name="default_calendar">Oletus kalenteri</string>
@@ -343,7 +343,7 @@
     <string name="chip_appearance_text_only">Vain teksti</string>
     <string name="chip_appearance_text_and_icon">Teksti ja pikkukuvake</string>
     <string name="desaturate_colors_summary_off">Värejä ei muuteta tummiin teemoihin</string>
-    <string name="desaturate_colors_summary_on">Värien kirkkautta vähennetään tummissa teemoissa</string>
+    <string name="desaturate_colors_summary_on">Tummissa teemoissa värit ovat tyydyttymättömiä</string>
     <string name="chip_appearance">Lappujen sisältö</string>
     <string name="chips">Lisätietolaput</string>
     <string name="back">Takaisin</string>
@@ -680,7 +680,7 @@
     <string name="bottom">Alhaalla</string>
     <string name="completed">Valmiit</string>
     <string name="snackbar_task_completed">Tehtävä suoritettu</string>
-    <string name="hint_customize_edit_title">Liian paljon tietoa\?</string>
+    <string name="hint_customize_edit_title">Liikaa tietoa?</string>
     <string name="hint_customize_edit_body">Voit muokata tätä näkymää uudelleenjärjestelemällä tai poistamalla kenttiä</string>
     <string name="enable_reminders">Salli muistutukset</string>
     <string name="dismiss">Hylkää</string>
@@ -704,7 +704,7 @@
     <string name="repeat_monthly_on_day_number">Kuukausittain %1d päivä</string>
     <string name="repeats_ends">Loppuu</string>
     <string name="repeats_on">Päällä</string>
-    <string name="repeats_weekly_on">Toista</string>
+    <string name="repeats_weekly_on">Toistaa</string>
     <string name="sort_descending">Laskeva</string>
     <string name="sort_grouping">Ryhmittele</string>
     <string name="customize_drawer_summary">Vedä ja pudota valikon kohteita järjestääksesi ne uudelleen</string>
@@ -733,4 +733,6 @@
     <string name="sort_completion_group">Valmis %s</string>
     <string name="swipe_to_snooze_time_description">Kuitattu ilmoitus torkutetaan ja luodaan uudelleen %s</string>
     <string name="swipe_to_snooze_time_immediately">välittömästi</string>
+    <string name="enable_alarms">Saat ilmoituksen oikeaan aikaan</string>
+    <string name="enable_alarms_description">Varmista, että saat ilmoituksen oikeaan aikaan, myöntämällä lupa asettaa hälytyksiä ja muistutuksia Asetuksissa</string>
 </resources>
