@@ -260,7 +260,6 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         }
         criteria.clear()
         criteria.addAll(newList)
-        //criteria = criteria.toMutableStateList()
     }
 
     @Composable
@@ -284,6 +283,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                         items = criteria,
                         onDelete = { index -> onDelete(index) },
                         doSwap = { from, to -> onMove(from, to) },
+                        onComplete = { updateList() },
                         onClick = { id -> editCriterionType.value = id }
                     )
                 }

@@ -45,7 +45,8 @@ class DragDropState internal constructor(
     val state: LazyListState,
     private val scope: CoroutineScope,
     private val confirmDrag: (Int) -> Boolean,
-    private val onSwap: (Int, Int) -> Unit
+    private val complete: () -> Unit,
+    private val swap: (Int, Int) -> Unit,
 ) {
     /* primary ID of the item being dragged */
     var draggedItemIndex by mutableStateOf<Int?>(null)
@@ -85,13 +86,13 @@ class DragDropState internal constructor(
         draggingElementOffset = 0
         draggingElementSize = -1
         overscrollJob?.cancel()
+        complete()
     }
 
     fun onDrag(offset: Offset) {
 
         draggedDistance += offset.y
 
-        //if (draggedDistance != 0f) {
         if (draggedItemIndex != null) {
             assert(draggingElementSize >= 0) { "FATAL: Invalid dragging element" }
 
@@ -111,7 +112,7 @@ class DragDropState internal constructor(
                     else itemAtOffset(endOffset - 0.1f * draggingElementSize)
 
                 if (hovered != null) {
-                    scope.launch { onSwap(draggedIndex, hovered.index) }
+                    scope.launch { swap(draggedIndex, hovered.index) }
                     draggedItemIndex = hovered.index
                 }
 
@@ -138,13 +139,15 @@ class DragDropState internal constructor(
 fun rememberDragDropState(
     lazyListState: LazyListState,
     confirmDrag: (Int) -> Boolean = { true },
-    onSwap: (Int, Int) -> Unit
+    completeDragDrop: () -> Unit,
+    doSwap: (Int, Int) -> Unit
 ): DragDropState {
     val scope = rememberCoroutineScope()
     val state = remember(lazyListState) {
         DragDropState(
             state = lazyListState,
-            onSwap = onSwap,
+            swap = doSwap,
+            complete = completeDragDrop,
             scope = scope,
             confirmDrag = confirmDrag
         )
