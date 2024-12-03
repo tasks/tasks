@@ -122,9 +122,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         updateList()
 
         this.setContent {
-            TasksTheme {
-                activityContent()
-            }
+            TasksTheme { ActivityContent() }
         }
     }
 
@@ -222,13 +220,13 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     private fun help() = openUri(R.string.url_filters)
 
     private fun updateList() = lifecycleScope.launch {
-        val newList: MutableList<CriterionInstance> = emptyList<CriterionInstance>().toMutableStateList()
+        val newList = emptyList<CriterionInstance>().toMutableList()
         var max = 0
         var last = -1
         val sql = StringBuilder(Query.select(Field.COUNT).from(Task.TABLE).toString())
                 .append(" WHERE ")
-        newList.addAll(criteria)
-        for (instance in newList) {
+
+        for (instance in criteria) {
             when (instance.type) {
                 CriterionInstance.TYPE_ADD -> sql.append("OR ")
                 CriterionInstance.TYPE_SUBTRACT -> sql.append("AND NOT ")
@@ -254,6 +252,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 last = instance.end
                 max = max(max, last)
             }
+            newList.add(instance)
         }
         for (instance in newList) {
             instance.max = max
@@ -263,7 +262,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     }
 
     @Composable
-    private fun activityContent ()
+    private fun ActivityContent ()
     {
         TasksTheme {
             Box(  // to layout FAB over the main content
@@ -318,8 +317,6 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                             }
                             if (criterionInstance.type != type) {
                                 criterionInstance.type = type
-                                //criteria.removeAt(index)  // remove - add pair triggers the item recomposition
-                                //criteria.add(index, criterionInstance)
                                 updateList()
                             }
                             editCriterionType.value = null
