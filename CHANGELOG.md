@@ -1,3 +1,7 @@
+### 14.2.1 (2024-02-03)
+
+* Fix labels when customizing edit screen order
+
 ### 14.2 (2024-12-02)
 
 * Updated edit screen task title
