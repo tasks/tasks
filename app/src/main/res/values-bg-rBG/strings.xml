@@ -7,12 +7,7 @@
     <string name="backup_BAc_export">Създаване на резервно копие</string>
     <string name="export_toast">Създадено е резервно копие %1$s на %2$s.</string>
     <string name="import_summary_title">Резюме на възстановяването</string>
-    <string name="import_summary_message">Файлът %1$s съдържа %2$s.
-\n
-\n%3$s внесени,
-\n%4$s съществуващи
-\n%5$s с грешка
-\n</string>
+    <string name="import_summary_message">Файлът %1$s съдържа %2$s. \n \n%3$s внесени, \n%4$s съществуващи \n%5$s с грешка</string>
     <string name="import_progress_read">Прочитане на задача %d…</string>
     <string name="read_permission_label">Разрешения за Tasks</string>
     <string name="discard_confirmation">Сигурни ли сте, че желаете да отхвърлите промените\?</string>
@@ -738,4 +733,6 @@
     <string name="donate_maybe_later">Може би после</string>
     <string name="send_application_logs">Изпращане на дневника</string>
     <string name="quiet_hours_in_effect">В момента е време за тишина</string>
+    <string name="enable_alarms">Получавайте напомнянията навреме</string>
+    <string name="enable_alarms_description">За да бъдете сигурни, че ще получите напомняне в точното време дайте разрешение за задаване на будилници и напомняния в настройките</string>
 </resources>
