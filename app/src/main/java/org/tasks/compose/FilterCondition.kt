@@ -123,6 +123,7 @@ object FilterCondition {
         items: SnapshotStateList<CriterionInstance>,
         onDelete: (Int) -> Unit,
         doSwap: (Int, Int) -> Unit,
+        onComplete: () -> Unit,
         onClick: (String) -> Unit
     ) {
 
@@ -139,7 +140,8 @@ object FilterCondition {
         val listState = rememberLazyListState()
         val dragDropState = rememberDragDropState(
             lazyListState = listState,
-            confirmDrag = { index -> index != 0 }
+            confirmDrag = { index -> index != 0 },
+            completeDragDrop = onComplete,
         ) { fromIndex, toIndex ->
             if (fromIndex != 0 && toIndex != 0) doSwap(fromIndex, toIndex)
         }
