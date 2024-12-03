@@ -177,46 +177,40 @@ class TaskEditFragment : Fragment() {
                         topBar = {
                             TopAppBar(
                                 navigationIcon = {
-                                    IconButton(
-                                        onClick = {
-                                            when {
-                                                editViewModel.isReadOnly -> activity?.onBackPressed()
-                                                backButtonSavesTask -> discardButtonClick()
-                                                else -> lifecycleScope.launch { save() }
-                                            }
+                                    if (editViewModel.isReadOnly) {
+                                        IconButton(onClick = { activity?.onBackPressed() }) {
+                                            Icon(
+                                                imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                                                contentDescription = stringResource(R.string.back)
+                                            )
                                         }
-                                    ) {
-                                        Icon(
-                                            imageVector = when {
-                                                editViewModel.isReadOnly -> Icons.AutoMirrored.Outlined.ArrowBack
-                                                backButtonSavesTask -> Icons.Outlined.Clear
-                                                else -> Icons.Outlined.Save
-                                            },
-                                            contentDescription = when {
-                                                editViewModel.isReadOnly -> stringResource(R.string.back)
-                                                backButtonSavesTask -> stringResource(R.string.discard)
-                                                else -> stringResource(R.string.save)
-                                            }
-                                        )
+                                    } else {
+                                        IconButton(onClick = { lifecycleScope.launch { save() } }) {
+                                            Icon(
+                                                imageVector = Icons.Outlined.Save,
+                                                contentDescription = stringResource(R.string.save)
+                                            )
+                                        }
                                     }
                                 },
                                 title = {},
                                 actions = {
-                                    if (backButtonSavesTask && editViewModel.isWritable) {
-                                        IconButton(onClick = { discardButtonClick() }) {
-                                            Icon(
-                                                imageVector = Icons.Outlined.Clear,
-                                                contentDescription = stringResource(R.string.menu_discard_changes),
-                                            )
-                                        }
+                                    if (!editViewModel.isWritable) {
+                                        return@TopAppBar
                                     }
-                                    if (!editViewModel.isNew && editViewModel.isWritable) {
+                                    if (!editViewModel.isNew) {
                                         IconButton(onClick = { deleteButtonClick() }) {
                                             Icon(
                                                 imageVector = Icons.Outlined.Delete,
                                                 contentDescription = stringResource(R.string.delete_task),
                                             )
                                         }
+                                    }
+                                    IconButton(onClick = { discardButtonClick() }) {
+                                        Icon(
+                                            imageVector = Icons.Outlined.Clear,
+                                            contentDescription = stringResource(R.string.menu_discard_changes),
+                                        )
                                     }
                                 },
                             )
