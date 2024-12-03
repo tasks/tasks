@@ -222,11 +222,13 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     private fun help() = openUri(R.string.url_filters)
 
     private fun updateList() = lifecycleScope.launch {
+        val newList: MutableList<CriterionInstance> = emptyList<CriterionInstance>().toMutableStateList()
         var max = 0
         var last = -1
         val sql = StringBuilder(Query.select(Field.COUNT).from(Task.TABLE).toString())
                 .append(" WHERE ")
-        for (instance in criteria) {
+        newList.addAll(criteria)
+        for (instance in newList) {
             when (instance.type) {
                 CriterionInstance.TYPE_ADD -> sql.append("OR ")
                 CriterionInstance.TYPE_SUBTRACT -> sql.append("AND NOT ")
@@ -253,9 +255,12 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 max = max(max, last)
             }
         }
-        for (instance in criteria) {
+        for (instance in newList) {
             instance.max = max
         }
+        criteria.clear()
+        criteria.addAll(newList)
+        //criteria = criteria.toMutableStateList()
     }
 
     @Composable
@@ -313,8 +318,8 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                             }
                             if (criterionInstance.type != type) {
                                 criterionInstance.type = type
-                                criteria.removeAt(index)  // remove - add pair triggers the item recomposition
-                                criteria.add(index, criterionInstance)
+                                //criteria.removeAt(index)  // remove - add pair triggers the item recomposition
+                                //criteria.add(index, criterionInstance)
                                 updateList()
                             }
                             editCriterionType.value = null

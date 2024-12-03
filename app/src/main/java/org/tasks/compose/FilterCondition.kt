@@ -163,7 +163,7 @@ object FilterCondition {
             ) {
                 itemsIndexed(
                     items = items,
-                    key = { _, item -> item.id + item.type }
+                    key = { _, item -> item.id + " " + item.type + " " + item.end}
                 ) { index, criterion ->
                     if (index == 0) {
                         FilterConditionRow(criterion, false, getIcon, onClick)
@@ -236,7 +236,7 @@ object FilterCondition {
                         ?: Locale.getDefault()
                 }
                 Text(
-                    text = locale.formatNumber(criterion.max),
+                    text = locale.formatNumber(criterion.end),
                     modifier = Modifier.padding(end = Constants.KEYLINE_FIRST),
                     color = Color.Gray,
                     fontSize = 14.sp,
