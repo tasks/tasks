@@ -227,17 +227,35 @@
     <item>@string/due_date</item>
     <item>@string/TEA_control_repeat</item>
     <item>@string/TEA_control_importance</item>
-    <item>@string/TEA_control_location</item>
-    <item>@string/tags</item>
     <item>@string/lists</item>
+    <item>@string/tags</item>
     <item>@string/subtasks</item>
     <item>@string/TEA_control_reminders</item>
-    <item>@string/TEA_control_files</item>
     <item>@string/TEA_control_notes</item>
+    <item>@string/TEA_control_location</item>
+    <item>@string/TEA_control_files</item>
     <item>@string/TEA_control_gcal</item>
     <item>@string/TEA_control_timer</item>
     <item>@string/TEA_creation_date</item>
     <item>@string/TEA_control_hidden_section</item>
+  </string-array>
+
+  <string-array name="TEA_control_sets_prefs">
+    <item>@string/TEA_ctrl_hide_until_pref</item>
+    <item>@string/TEA_ctrl_when_pref</item>
+    <item>@string/TEA_ctrl_repeat_pref</item>
+    <item>@string/TEA_ctrl_importance_pref</item>
+    <item>@string/TEA_ctrl_google_task_list</item>
+    <item>@string/TEA_ctrl_lists_pref</item>
+    <item>@string/TEA_ctrl_subtask_pref</item>
+    <item>@string/TEA_ctrl_reminders_pref</item>
+    <item>@string/TEA_ctrl_notes_pref</item>
+    <item>@string/TEA_ctrl_locations_pref</item>
+    <item>@string/TEA_ctrl_files_pref</item>
+    <item>@string/TEA_ctrl_gcal</item>
+    <item>@string/TEA_ctrl_timer_pref</item>
+    <item>@string/TEA_ctrl_creation_date</item>
+    <item>@string/TEA_ctrl_hide_section_pref</item>
   </string-array>
 
   <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>
@@ -268,24 +286,6 @@
   <string name="p_group_mode">group_mode</string>
   <string name="p_completed_mode">completed_mode</string>
   <string name="p_subtask_mode">subtask_mode</string>
-
-  <string-array name="TEA_control_sets_prefs">
-    <item>@string/TEA_ctrl_hide_until_pref</item>
-    <item>@string/TEA_ctrl_when_pref</item>
-    <item>@string/TEA_ctrl_repeat_pref</item>
-    <item>@string/TEA_ctrl_importance_pref</item>
-    <item>@string/TEA_ctrl_google_task_list</item>
-    <item>@string/TEA_ctrl_lists_pref</item>
-    <item>@string/TEA_ctrl_subtask_pref</item>
-    <item>@string/TEA_ctrl_reminders_pref</item>
-    <item>@string/TEA_ctrl_notes_pref</item>
-    <item>@string/TEA_ctrl_locations_pref</item>
-    <item>@string/TEA_ctrl_files_pref</item>
-    <item>@string/TEA_ctrl_gcal</item>
-    <item>@string/TEA_ctrl_timer_pref</item>
-    <item>@string/TEA_ctrl_creation_date</item>
-    <item>@string/TEA_ctrl_hide_section_pref</item>
-  </string-array>
 
   <string-array name="base_theme_names">
     <item>@string/theme_light</item>
