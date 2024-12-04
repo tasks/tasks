@@ -43,7 +43,7 @@ platform :android do
       upload_to_play_store(
         aab: "wear/build/outputs/bundle/release/wear-release.aab",
         mapping: "wear/build/outputs/mapping/release/mapping.txt",
-        track: "wear:beta",
+        track: "wear:internal", # don't need to hold up reviews
         skip_upload_metadata: true,
         skip_upload_images: true,
         skip_upload_screenshots: true,
