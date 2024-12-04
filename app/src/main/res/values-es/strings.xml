@@ -760,4 +760,6 @@
     <string name="donate_maybe_later">Quizas mas tarde</string>
     <string name="send_application_logs">Enviar registros de aplicaciones</string>
     <string name="quiet_hours_in_effect">Es el momento de descansar</string>
+    <string name="enable_alarms_description">Para asegurarse de recibir notificaciones en el momento adecuado, otorgue permiso para configurar alarmas y recordatorios en Configuración</string>
+    <string name="enable_alarms">Recibe notificaciones en el momento adecuado</string>
 </resources>
