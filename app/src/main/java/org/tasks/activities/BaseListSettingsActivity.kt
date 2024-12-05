@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
@@ -40,7 +41,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
     @Inject lateinit var colorProvider: ColorProvider
     protected abstract val defaultIcon: String
     protected var selectedColor = 0
-    protected var selectedIcon = mutableStateOf("") //MutableStateFlow<String?>(null)
+    protected var selectedIcon = mutableStateOf<String?>(null)
 
     protected val textState = mutableStateOf("")
     protected val errorState = mutableStateOf("")
@@ -146,7 +147,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
                     selectColor = { showThemePicker() },
                     clearColor = { clearColor() })
                 SelectIconRow(
-                    icon = selectedIcon,
+                    icon = selectedIcon.value ?: defaultIcon,
                     selectIcon = { showIconPicker() })
                 extensionContent()
 
