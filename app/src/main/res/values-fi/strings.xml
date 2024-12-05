@@ -144,7 +144,7 @@
     </plurals>
     <plurals name="repeat_hours">
         <item quantity="one">tunti</item>
-        <item quantity="other">tunti</item>
+        <item quantity="other">tuntia</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d tunti</item>
@@ -152,7 +152,7 @@
     </plurals>
     <plurals name="repeat_days">
         <item quantity="one">päivä</item>
-        <item quantity="other">päivä</item>
+        <item quantity="other">päivää</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d päivä</item>
@@ -160,7 +160,7 @@
     </plurals>
     <plurals name="repeat_weeks">
         <item quantity="one">viikko</item>
-        <item quantity="other">viikko</item>
+        <item quantity="other">viikkoa</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d viikko</item>
@@ -176,7 +176,7 @@
     </plurals>
     <plurals name="repeat_years">
         <item quantity="one">vuosi</item>
-        <item quantity="other">vuosi</item>
+        <item quantity="other">vuotta</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d vuosi</item>
@@ -387,7 +387,7 @@
     <string name="cannot_access_account">Tiliin ei päästä käsiksi</string>
     <string name="logout">Kirjaudu ulos</string>
     <string name="this_feature_requires_a_subscription">Tämä ominaisuus vaatii tilauksen</string>
-    <string name="requires_pro_subscription">Edellyttää Pro-version tilauksen</string>
+    <string name="requires_pro_subscription">Edellyttää ammattilaistilauksen</string>
     <string name="license_summary">Tasks on vapaa avoimen ohjelmakoodin ohjelmisto lisensöity GNU General Public License v3.0 -lisenssillä</string>
     <string name="about">Tietoja sovelluksesta</string>
     <string name="button_unsubscribe">Peruuta tilaus</string>
