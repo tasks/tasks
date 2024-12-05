@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
@@ -46,7 +45,6 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
     protected val textState = mutableStateOf("")
     protected val errorState = mutableStateOf("")
     protected val colorState = mutableStateOf(Color.Unspecified)
-    protected val iconState = mutableIntStateOf(R.drawable.ic_outline_not_interested_24px)
     protected val showProgress = mutableStateOf(false)
     protected val promptDelete = mutableStateOf(false)
     protected val promptDiscard = mutableStateOf(false)
