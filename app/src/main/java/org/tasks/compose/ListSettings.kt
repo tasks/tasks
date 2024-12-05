@@ -89,7 +89,7 @@ private fun PromptActionPreview() {
 private fun IconSelectPreview () {
     TasksTheme {
         ListSettings.SelectIconRow(
-            icon = remember { mutableStateOf(TasksIcons.FILTER_LIST) },
+            icon = TasksIcons.FILTER_LIST,
             selectIcon = {}
         )
     }
@@ -277,13 +277,13 @@ object ListSettings {
         )
 
     @Composable
-    fun SelectIconRow(icon: State<String>, selectIcon: () -> Unit) =
+    fun SelectIconRow(icon: String, selectIcon: () -> Unit) =
         SettingRow(
             modifier = Modifier.clickable(onClick =  selectIcon),
             left = {
                 IconButton(onClick = selectIcon) {
                     TasksIcon(
-                        label = icon.value,
+                        label = icon,
                         tint = colorResource(R.color.icon_tint_with_alpha)
                     )
                 }

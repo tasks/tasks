@@ -30,7 +30,7 @@ class OpenTasksListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                         optionButton = { },
                     )
                     ProgressBar(showProgress)
-                    SelectIconRow(icon = selectedIcon) { showIconPicker() }
+                    SelectIconRow(icon = selectedIcon.value?: defaultIcon) { showIconPicker() }
                 }
                 Toaster(state = snackbar)
             }

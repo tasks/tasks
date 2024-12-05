@@ -40,9 +40,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
     @Inject lateinit var colorProvider: ColorProvider
     protected abstract val defaultIcon: String
     protected var selectedColor = 0
-    protected var selectedIcon = MutableStateFlow<String?>(null)
-
-    protected abstract val defaultIcon: Int
+    protected var selectedIcon = mutableStateOf<String?>(null)
 
     protected val textState = mutableStateOf("")
     protected val errorState = mutableStateOf("")
@@ -94,7 +92,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
     }
 
     val launcher = registerForIconPickerResult { selected ->
-        selectedIcon.update { selected }
+        selectedIcon.value = selected
     }
 
     fun showIconPicker() {
@@ -148,7 +146,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
                     selectColor = { showThemePicker() },
                     clearColor = { clearColor() })
                 SelectIconRow(
-                    icon = selectedIcon,
+                    icon = selectedIcon.value ?: defaultIcon,
                     selectIcon = { showIconPicker() })
                 extensionContent()
 
