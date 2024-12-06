@@ -221,17 +221,17 @@
 +|              +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7 (c)
 +|              +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.7 (c)
 +|              \--- androidx.lifecycle:lifecycle-common-java8:2.8.7 (c)
-++--- com.google.firebase:firebase-bom:33.6.0
+++--- com.google.firebase:firebase-bom:33.7.0
 +|    +--- com.google.firebase:firebase-analytics:22.1.2 (c)
 +|    +--- com.google.firebase:firebase-config-ktx:22.0.1 (c)
-+|    +--- com.google.firebase:firebase-crashlytics:19.2.1 (c)
++|    +--- com.google.firebase:firebase-crashlytics:19.3.0 (c)
 +|    +--- com.google.firebase:firebase-config:22.0.1 (c)
 +|    +--- com.google.firebase:firebase-common:21.0.0 (c)
 +|    +--- com.google.firebase:firebase-common-ktx:21.0.0 (c)
 +|    +--- com.google.firebase:firebase-installations:18.0.0 (c)
 +|    \--- com.google.firebase:firebase-encoders:17.0.0 (c)
-++--- com.google.firebase:firebase-crashlytics -> 19.2.1
-+|    +--- com.google.firebase:firebase-sessions:2.0.6
+++--- com.google.firebase:firebase-crashlytics -> 19.3.0
++|    +--- com.google.firebase:firebase-sessions:2.0.7
 +|    |    +--- com.google.firebase:firebase-common:21.0.0
 +|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4 -> 1.8.1
 +|    |    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1 (*)
