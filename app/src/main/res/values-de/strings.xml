@@ -6,12 +6,7 @@
     <string name="backup_BAc_export">Jetzt sichern</string>
     <string name="export_toast">%1$s nach %2$s gesichert.</string>
     <string name="import_summary_title">Zusammenfassung wiederherstellen</string>
-    <string name="import_summary_message">Aufgaben in %1$s: %2$s.
-\n
-\n %3$s importiert
-\n %4$s bereits vorhanden (übersprungen)
-\n %5$s fehlerhaft
-\n</string>
+    <string name="import_summary_message">Datei %1$s enthält: %2$s.\n\n %3$s importiert,\n %4$s bereits vorhanden\n %5$s fehlerhaft</string>
     <string name="import_progress_read">Aufgabe %d wird gelesen …</string>
     <string name="read_permission_label">Tasks-Zugriffsrechte</string>
     <string name="discard_confirmation">Änderungen wirklich verwerfen?</string>
