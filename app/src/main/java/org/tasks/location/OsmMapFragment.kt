@@ -2,6 +2,7 @@ package org.tasks.location
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -51,6 +52,8 @@ class OsmMapFragment @Inject constructor(
         }
         callback.onMapReady(this)
     }
+
+    override fun getView(): View = map
 
     override val mapPosition: MapPosition
         get() {
