@@ -53,8 +53,6 @@ class OsmMapFragment @Inject constructor(
         callback.onMapReady(this)
     }
 
-    override fun getView(): View = map
-
     override val mapPosition: MapPosition
         get() {
             val center = map.mapCenter
