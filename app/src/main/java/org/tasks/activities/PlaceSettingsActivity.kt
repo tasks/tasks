@@ -96,7 +96,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
 
         setContent {
             TasksTheme {
-                baseSettingsContent() {
+                baseSettingsContent {
                     Row(
                         modifier = Modifier
                             .requiredHeight(56.dp)
@@ -136,6 +136,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
                         factory = { ctx ->
                             viewHolder = LinearLayout(ctx).apply {
                                 layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+                                id = R.id.map
                             }
                             map.init(
                                 this@PlaceSettingsActivity,
@@ -145,7 +146,6 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
                             )
                             viewHolder
                         },
-                        update = { updateGeofenceCircle(sliderPos.floatValue) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .requiredHeight(300.dp)
