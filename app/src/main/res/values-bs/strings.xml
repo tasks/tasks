@@ -32,4 +32,27 @@
     <string name="TEA_timer_elap">Prošlo %s</string>
     <string name="TEA_add_subtask">Dodaj podzadatak</string>
     <string name="always_display_full_date">Prikaži puni datum</string>
+    <string name="EPr_reset_preferences_warning">Preference će se resetovati na uobičajene vrijednosti</string>
+    <string name="EPr_delete_task_data">Ižbriši podatke zadatka</string>
+    <string name="EPr_delete_task_data_warning">Svi zadaci će se trajno izbrisati</string>
+    <string name="EPr_manage_delete_completed_gcal">Izbriši kalendarske događaje za završene zadatke</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Da li stvarno želiš izbrisati sve događaje za završene zadatke?</string>
+    <string name="EPr_manage_delete_gcal_status">Izbrisano %d kalendarskih događaja!</string>
+    <string name="EPr_manage_delete_all_gcal_message">Da li stvarno želiš izbrisati sve svoje događaje za zadatke?</string>
+    <string name="task_defaults">Uobičajene postavke zadatka</string>
+    <string name="EPr_default_importance_title">Uobičajeni prioritet</string>
+    <string name="EPr_manage_delete_all_gcal">Izbriši sve kalendarske događaje za zadatke</string>
+    <string name="default_start_date">Uobičajeni datum početka</string>
+    <string name="EPr_default_reminders_title">Uobičajeni podsjetnici</string>
+    <string name="EPr_default_location_reminder_title">Uobičajeni podsjetnici lokacija</string>
+    <string name="default_location">Uobičajena lokacija</string>
+    <string name="priority_high">Visoki</string>
+    <string name="priority_medium">Srednji</string>
+    <string name="priority_low">Niski</string>
+    <string name="day_after_tomorrow">Preksutra</string>
+    <string name="next_week">Slijedeće sedmice</string>
+    <string name="no_reminders">Nema podsjetnika</string>
+    <string name="BFE_Active">Moji zadaci</string>
+    <string name="BFE_Recent">Nedavno promijenjeni</string>
+    <string name="EPr_default_reminders_mode_title">Uobičajena vrsta zvona/vibracije</string>
 </resources>
