@@ -118,7 +118,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
                         value = sliderPos.floatValue,
                         valueRange = (MIN_RADIUS.toFloat()..MAX_RADIUS.toFloat()),
                         steps = (MAX_RADIUS - MIN_RADIUS) / STEP - 1,
-                        onValueChange = { sliderPos.floatValue = it },
+                        onValueChange = { sliderPos.floatValue = it; updateGeofenceCircle(sliderPos.floatValue) },
                         colors = SliderDefaults.colors(
                             thumbColor = MaterialTheme.colorScheme.secondary,
                             activeTrackColor = MaterialTheme.colorScheme.secondary,
