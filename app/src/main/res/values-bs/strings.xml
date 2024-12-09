@@ -55,4 +55,6 @@
     <string name="BFE_Active">Moji zadaci</string>
     <string name="BFE_Recent">Nedavno promijenjeni</string>
     <string name="EPr_default_reminders_mode_title">Uobičajena vrsta zvona/vibracije</string>
+    <string name="CFC_list_name">Na listi…</string>
+    <string name="gtasks_GTA_clear_completed">Izbriši završene</string>
 </resources>
