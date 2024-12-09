@@ -116,52 +116,6 @@ private fun FabPreview () {
     }
 }
 
-private fun CriterionTypeSelectPreview () {
-    TasksTheme {
-        FilterCondition.SelectCriterionType(
-            title = "Select criterion type",
-            selected = 1,
-            types = listOf("AND", "OR", "NOT"),
-            onCancel = { /*TODO*/ }) {
-        }
-    }
-}
-
-@Composable
-@Preview (showBackground = true)
-private fun InputTextPreview () {
-    TasksTheme {
-        FilterCondition.InputTextOption(title = "Task name contains...", onCancel = { /*TODO*/ }
-        ) {
-
-        }
-    }
-}
-
-@Composable
-@Preview (showBackground = true)
-private fun SwipeOutDecorationPreview () {
-    TasksTheme {
-        Box(modifier = Modifier
-            .height(56.dp)
-            .fillMaxWidth()) {
-            FilterCondition.SwipeOutDecoration()
-        }
-    }
-}
-
-@Composable
-@Preview (showBackground = true)
-private fun FabPreview () {
-    TasksTheme {
-        FilterCondition.NewCriterionFAB(
-            isExtended = remember { mutableStateOf(true) }
-        ) {
-
-        }
-    }
-}
-
 object FilterCondition {
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
@@ -284,7 +238,7 @@ object FilterCondition {
                         ?: Locale.getDefault()
                 }
                 Text(
-                    text = locale.formatNumber(criterion.end),
+                    text = locale.formatNumber(criterion.max),
                     modifier = Modifier.padding(end = Constants.KEYLINE_FIRST),
                     color = Color.Gray,
                     fontSize = 14.sp,

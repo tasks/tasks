@@ -42,8 +42,6 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
     protected var selectedColor = 0
     protected var selectedIcon = mutableStateOf<String?>(null)
 
-    protected abstract val defaultIcon: Int
-
     protected val textState = mutableStateOf("")
     protected val errorState = mutableStateOf("")
     protected val colorState = mutableStateOf(Color.Unspecified)

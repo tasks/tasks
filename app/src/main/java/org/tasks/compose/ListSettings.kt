@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
@@ -302,14 +303,22 @@ object ListSettings {
         right: @Composable (() -> Unit)? = null,
         modifier: Modifier = Modifier
     ) {
-        Row(
-            modifier = modifier.requiredHeight(56.dp),
-            verticalAlignment = Alignment.CenterVertically
-        )
-        {
-            left()
-            center()
-            right?.invoke(this)
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
+            Box (modifier = Modifier.size(56.dp), contentAlignment = Alignment.Center) {
+                left()
+            }
+            Box (
+                modifier = Modifier
+                    .height(56.dp)
+                    .weight(1f), contentAlignment = Alignment.CenterStart
+            ) {
+                center()
+            }
+            right?.let {
+                Box (modifier = Modifier.size(56.dp), contentAlignment = Alignment.Center) {
+                    it.invoke()
+                }
+            }
         }
     }
 
