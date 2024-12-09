@@ -238,7 +238,7 @@ object FilterCondition {
                         ?: Locale.getDefault()
                 }
                 Text(
-                    text = locale.formatNumber(criterion.max),
+                    text = locale.formatNumber(criterion.end),
                     modifier = Modifier.padding(end = Constants.KEYLINE_FIRST),
                     color = Color.Gray,
                     fontSize = 14.sp,

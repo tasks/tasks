@@ -308,10 +308,10 @@ object ListSettings {
             Box (modifier = Modifier.size(56.dp), contentAlignment = Alignment.Center) {
                 left()
             }
-            Box(
+            Box (
                 modifier = Modifier
-                    .height(56.dp)
-                    .weight(1f), contentAlignment = Alignment.CenterStart
+                .height(56.dp)
+                .weight(1f), contentAlignment = Alignment.CenterStart
             ) {
                 center()
             }
