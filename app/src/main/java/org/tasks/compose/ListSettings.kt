@@ -150,7 +150,9 @@ object ListSettings {
 
     @Composable
     fun ProgressBar(showProgress: State<Boolean>) {
-        Box(modifier = Modifier.fillMaxWidth().requiredHeight(3.dp))
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .requiredHeight(3.dp))
         {
             if (showProgress.value) {
                 LinearProgressIndicator(
@@ -237,7 +239,6 @@ object ListSettings {
                 IconButton(onClick = { selectColor() }) {
                     if (color.value == Color.Unspecified) {
                         Icon(
-                            modifier = Modifier.padding(Constants.KEYLINE_FIRST),
                             imageVector = ImageVector.vectorResource(R.drawable.ic_outline_not_interested_24px),
                             tint = colorResource(R.color.icon_tint_with_alpha),
                             contentDescription = null
@@ -307,7 +308,7 @@ object ListSettings {
             Box (modifier = Modifier.size(56.dp), contentAlignment = Alignment.Center) {
                 left()
             }
-            Box (
+            Box(
                 modifier = Modifier
                     .height(56.dp)
                     .weight(1f), contentAlignment = Alignment.CenterStart
