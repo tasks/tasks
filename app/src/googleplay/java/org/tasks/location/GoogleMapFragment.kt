@@ -2,6 +2,7 @@ package org.tasks.location
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -23,14 +24,18 @@ class GoogleMapFragment @Inject constructor(
     private var map: GoogleMap? = null
     private var circle: Circle? = null
 
-    override fun init(activity: AppCompatActivity, callback: MapFragmentCallback, dark: Boolean) {
+    override fun init(activity: AppCompatActivity, callback: MapFragmentCallback, dark: Boolean, parent: ViewGroup?) {
         this.callback = callback
         this.dark = dark
         val fragmentManager = activity.supportFragmentManager
         var mapFragment = fragmentManager.findFragmentByTag(FRAG_TAG_MAP) as SupportMapFragment?
         if (mapFragment == null) {
             mapFragment = SupportMapFragment()
-            fragmentManager.beginTransaction().replace(R.id.map, mapFragment).commit()
+            if (parent == null) {
+                fragmentManager.beginTransaction().replace(R.id.map, mapFragment).commit()
+            } else {
+                fragmentManager.beginTransaction().add(parent, mapFragment, null).commit()
+            }
         }
         mapFragment.getMapAsync(this)
     }

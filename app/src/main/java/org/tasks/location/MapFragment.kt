@@ -1,10 +1,11 @@
 package org.tasks.location
 
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import org.tasks.data.entity.Place
 
 interface MapFragment {
-    fun init(activity: AppCompatActivity, callback: MapFragmentCallback, dark: Boolean)
+    fun init(activity: AppCompatActivity, callback: MapFragmentCallback, dark: Boolean, parent: ViewGroup? = null)
 
     val mapPosition: MapPosition?
 
