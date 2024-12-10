@@ -413,7 +413,7 @@
     <string name="shortcut_pick_time">Välj en tid</string>
     <string name="no_time">Ingen tid</string>
     <string name="no_date">Inget datum</string>
-    <string name="chip_appearance_icon_only">Ikon endast</string>
+    <string name="chip_appearance_icon_only">Endast Ikon</string>
     <string name="chip_appearance_text_only">Text endast</string>
     <string name="chip_appearance_text_and_icon">Text och ikon</string>
     <string name="place_settings">Plats inställningar</string>
@@ -732,4 +732,7 @@
     <string name="swipe_to_snooze_time_24_hours">efter 24 timmar</string>
     <string name="customize_drawer">Anpassa låda</string>
     <string name="send_application_logs">Skicka applikationsloggar</string>
+    <string name="quiet_hours_in_effect">Tysta timmar är i kraft</string>
+    <string name="enable_alarms">Få besked vid rätt tidpunkt</string>
+    <string name="enable_alarms_description">För att se till att du aviseras vid rätt tidpunkt, ge tillstånd att ställa in larm och påminnelser i Inställningar</string>
 </resources>
