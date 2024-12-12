@@ -811,33 +811,37 @@
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 (*)
 +|    +--- project :data
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 (*)
-+|    |    +--- androidx.room:room-runtime:2.7.0-alpha11
-+|    |    |    \--- androidx.room:room-runtime-android:2.7.0-alpha11
++|    |    +--- androidx.room:room-runtime:2.7.0-alpha12
++|    |    |    \--- androidx.room:room-runtime-android:2.7.0-alpha12
 +|    |    |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|    |    |         +--- androidx.annotation:annotation-experimental:1.4.1 (*)
 +|    |    |         +--- androidx.arch.core:core-runtime:2.2.0 (*)
 +|    |    |         +--- androidx.collection:collection:1.4.2 -> 1.4.4 (*)
-+|    |    |         +--- androidx.room:room-common:2.7.0-alpha11
-+|    |    |         |    \--- androidx.room:room-common-jvm:2.7.0-alpha11
++|    |    |         +--- androidx.room:room-common:2.7.0-alpha12
++|    |    |         |    \--- androidx.room:room-common-jvm:2.7.0-alpha12
 +|    |    |         |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
-+|    |    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.21 (*)
-+|    |    |         |         \--- androidx.room:room-runtime:2.7.0-alpha11 (c)
-+|    |    |         +--- androidx.sqlite:sqlite:2.5.0-alpha11
-+|    |    |         |    \--- androidx.sqlite:sqlite-android:2.5.0-alpha11
++|    |    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.0.21 (*)
++|    |    |         |         +--- androidx.room:room-runtime:2.7.0-alpha12 (c)
++|    |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.21 (c)
++|    |    |         +--- androidx.sqlite:sqlite:2.5.0-alpha12
++|    |    |         |    \--- androidx.sqlite:sqlite-android:2.5.0-alpha12
 +|    |    |         |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
-+|    |    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.21 (*)
-+|    |    |         |         \--- androidx.sqlite:sqlite-framework:2.5.0-alpha11 (c)
-+|    |    |         +--- androidx.sqlite:sqlite-framework:2.5.0-alpha11
-+|    |    |         |    \--- androidx.sqlite:sqlite-framework-android:2.5.0-alpha11
++|    |    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.0.21 (*)
++|    |    |         |         +--- androidx.sqlite:sqlite-framework:2.5.0-alpha12 (c)
++|    |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.21 (c)
++|    |    |         +--- androidx.sqlite:sqlite-framework:2.5.0-alpha12
++|    |    |         |    \--- androidx.sqlite:sqlite-framework-android:2.5.0-alpha12
 +|    |    |         |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
-+|    |    |         |         +--- androidx.sqlite:sqlite:2.5.0-alpha11 (*)
-+|    |    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.21 (*)
-+|    |    |         |         \--- androidx.sqlite:sqlite:2.5.0-alpha11 (c)
-+|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.21 (*)
++|    |    |         |         +--- androidx.sqlite:sqlite:2.5.0-alpha12 (*)
++|    |    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.0.21 (*)
++|    |    |         |         +--- androidx.sqlite:sqlite:2.5.0-alpha12 (c)
++|    |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.21 (c)
++|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.0.21 (*)
 +|    |    |         +--- org.jetbrains.kotlinx:atomicfu:0.17.0 -> 0.23.2 (*)
 +|    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.8.1 (*)
 +|    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
-+|    |    |         \--- androidx.room:room-common:2.7.0-alpha11 (c)
++|    |    |         +--- androidx.room:room-common:2.7.0-alpha12 (c)
++|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.21 (c)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.6.1
 +|    |    |    \--- org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.6.1
 +|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.0.21 (*)
