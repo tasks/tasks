@@ -20,11 +20,13 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'gradle'
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
+
       - name: Lint checks
         run: bundle exec fastlane lint
+
       - name: Archive lint reports
         uses: actions/upload-artifact@v4
         if: ${{ always() }}
@@ -47,7 +49,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'gradle'
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
 
       - name: Enable KVM
         run: |
