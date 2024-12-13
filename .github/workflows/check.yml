@@ -15,6 +15,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
