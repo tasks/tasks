@@ -754,4 +754,7 @@
     <string name="donate_today">Doniraj danas</string>
     <string name="donate_maybe_later">Možda kasnije</string>
     <string name="send_application_logs">Šalji zapisnike aplikacije</string>
+    <string name="quiet_hours_in_effect">Vrijeme neobavještavanja aktivirano</string>
+    <string name="enable_alarms_description">Za pravovremeno dobivanje obavijesti dozvoli postavljanje alarma i podsjetnika u postavkama Dobij obavijest pravovremeno</string>
+    <string name="enable_alarms">Dobij obavijest pravovremeno</string>
 </resources>
