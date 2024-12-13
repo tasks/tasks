@@ -246,7 +246,6 @@ dependencies {
     implementation(libs.coil.svg)
     implementation(libs.coil.gif)
 
-    implementation(libs.accompanist.flowlayout)
     implementation(libs.accompanist.permissions)
 
     googleplayImplementation(platform(libs.firebase))
