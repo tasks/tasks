@@ -248,7 +248,6 @@ dependencies {
 
     implementation(libs.accompanist.flowlayout)
     implementation(libs.accompanist.permissions)
-    implementation(libs.accompanist.systemuicontroller)
 
     googleplayImplementation(platform(libs.firebase))
     googleplayImplementation(libs.firebase.crashlytics)

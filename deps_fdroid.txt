@@ -1363,13 +1363,8 @@
 +|    +--- androidx.compose.ui:ui-util:1.7.0 -> 1.7.6 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 -> 1.8.1 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.22 -> 2.0.21 (*)
-++--- com.google.accompanist:accompanist-permissions:0.36.0
-+|    +--- androidx.activity:activity-compose:1.9.0 -> 1.9.3 (*)
-+|    +--- androidx.compose.foundation:foundation:1.7.0 -> 1.7.6 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 -> 1.8.1 (*)
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.22 -> 2.0.21 (*)
-+\--- com.google.accompanist:accompanist-systemuicontroller:0.36.0
-+     +--- androidx.core:core-ktx:1.8.0 -> 1.13.1 (*)
-+     +--- androidx.compose.ui:ui:1.7.0 -> 1.7.6 (*)
++\--- com.google.accompanist:accompanist-permissions:0.36.0
++     +--- androidx.activity:activity-compose:1.9.0 -> 1.9.3 (*)
++     +--- androidx.compose.foundation:foundation:1.7.0 -> 1.7.6 (*)
 +     +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 -> 1.8.1 (*)
 +     \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.22 -> 2.0.21 (*)

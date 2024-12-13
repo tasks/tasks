@@ -7,6 +7,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -53,14 +55,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.todoroo.astrid.core.SortHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.compose.SystemBars
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import javax.inject.Inject
@@ -75,19 +74,13 @@ class SortSettingsActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
+        enableEdgeToEdge()
         setContent {
             TasksTheme(theme = theme.themeBase.index) {
                 val scrimColor = if (isSystemInDarkTheme())
                     Color(0x52454545)
                 else
                     MaterialTheme.colorScheme.onSurface.copy(.5f)
-                // edge-to-edge potentially fixed in material3 v1.2.0
-                SystemBars(
-                    statusBarColor = scrimColor,
-                    navigationBarColor = MaterialTheme.colorScheme.surface,
-                )
                 val state = viewModel.state.collectAsStateWithLifecycle().value
                 val mainSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
                 val scope = rememberCoroutineScope()
@@ -96,6 +89,7 @@ class SortSettingsActivity : ComponentActivity() {
                 var showCompletedPicker by remember { mutableStateOf(false) }
                 var showSubtaskPicker by remember { mutableStateOf(false) }
                 ModalBottomSheet(
+                    modifier = Modifier.statusBarsPadding(),
                     onDismissRequest = {
                         val forceReload = viewModel.forceReload
                         val changedGroup = viewModel.changedGroup
@@ -113,28 +107,34 @@ class SortSettingsActivity : ComponentActivity() {
                     scrimColor = scrimColor,
                     shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
                     content = {
-                        BottomSheetContent(
-                            groupMode = state.groupMode,
-                            sortMode = state.sortMode,
-                            completedMode = state.completedMode,
-                            subtaskMode = state.subtaskMode,
-                            sortAscending = state.sortAscending,
-                            groupAscending = state.groupAscending,
-                            completedAscending = state.completedAscending,
-                            subtaskAscending = state.subtaskAscending,
-                            manualSort = state.manualSort && manualEnabled,
-                            astridSort = state.astridSort && astridEnabled,
-                            completedAtBottom = state.completedAtBottom,
-                            setSortAscending = { viewModel.setSortAscending(it) },
-                            setGroupAscending = { viewModel.setGroupAscending(it) },
-                            setCompletedAscending = { viewModel.setCompletedAscending(it) },
-                            setSubtaskAscending = { viewModel.setSubtaskAscending(it) },
-                            setCompletedAtBottom = { viewModel.setCompletedAtBottom(it) },
-                            clickGroupMode = { showGroupPicker = true },
-                            clickSortMode = { showSortPicker = true },
-                            clickCompletedMode = { showCompletedPicker = true },
-                            clickSubtaskMode = { showSubtaskPicker = true },
-                        )
+                        Column(
+                            modifier = Modifier
+                                .verticalScroll(rememberScrollState())
+                                .fillMaxWidth()
+                        ) {
+                            BottomSheetContent(
+                                groupMode = state.groupMode,
+                                sortMode = state.sortMode,
+                                completedMode = state.completedMode,
+                                subtaskMode = state.subtaskMode,
+                                sortAscending = state.sortAscending,
+                                groupAscending = state.groupAscending,
+                                completedAscending = state.completedAscending,
+                                subtaskAscending = state.subtaskAscending,
+                                manualSort = state.manualSort && manualEnabled,
+                                astridSort = state.astridSort && astridEnabled,
+                                completedAtBottom = state.completedAtBottom,
+                                setSortAscending = { viewModel.setSortAscending(it) },
+                                setGroupAscending = { viewModel.setGroupAscending(it) },
+                                setCompletedAscending = { viewModel.setCompletedAscending(it) },
+                                setSubtaskAscending = { viewModel.setSubtaskAscending(it) },
+                                setCompletedAtBottom = { viewModel.setCompletedAtBottom(it) },
+                                clickGroupMode = { showGroupPicker = true },
+                                clickSortMode = { showSortPicker = true },
+                                clickCompletedMode = { showCompletedPicker = true },
+                                clickSubtaskMode = { showSubtaskPicker = true },
+                            )
+                        }
                     }
                 )
                 if (showGroupPicker) {
