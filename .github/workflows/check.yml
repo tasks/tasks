@@ -23,7 +23,7 @@ jobs:
           java-version: '17'
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Lint checks
         run: bundle exec fastlane lint
@@ -52,7 +52,7 @@ jobs:
           java-version: '17'
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Enable KVM
         run: |
