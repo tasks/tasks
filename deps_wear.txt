@@ -976,18 +976,18 @@
 +|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.0.21 (*)
 ++--- com.google.android.gms:play-services-wearable:19.0.0 (*)
-++--- androidx.paging:paging-compose:3.3.4
-+|    \--- androidx.paging:paging-compose-android:3.3.4
+++--- androidx.paging:paging-compose:3.3.5
++|    \--- androidx.paging:paging-compose-android:3.3.5
 +|         +--- androidx.compose.foundation:foundation:1.5.0 -> 1.7.6 (*)
 +|         +--- androidx.compose.runtime:runtime:1.5.0 -> 1.7.6 (*)
-+|         +--- androidx.paging:paging-common:3.3.4
-+|         |    \--- androidx.paging:paging-common-android:3.3.4
++|         +--- androidx.paging:paging-common:3.3.5
++|         |    \--- androidx.paging:paging-common-android:3.3.5
 +|         |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|         |         +--- androidx.arch.core:core-common:2.2.0 (*)
 +|         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.21 (*)
 +|         |         \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.21 (*)
-+|         \--- androidx.paging:paging-common:3.3.4 (c)
++|         \--- androidx.paging:paging-common:3.3.5 (c)
 ++--- androidx.compose.ui:ui -> 1.7.6 (*)
 ++--- androidx.compose.ui:ui-graphics -> 1.7.6 (*)
 ++--- androidx.compose.ui:ui-tooling-preview -> 1.7.6
@@ -1342,7 +1342,7 @@
 +|    +--- androidx.wear.compose:compose-material:1.4.0 (*)
 +|    +--- androidx.wear.compose:compose-foundation:1.4.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-runtime-compose:2.8.7 (*)
-+|    +--- androidx.paging:paging-compose:3.3.4 (*)
++|    +--- androidx.paging:paging-compose:3.3.4 -> 3.3.5 (*)
 +|    +--- androidx.wear:wear:1.3.0
 +|    |    +--- androidx.annotation:annotation:1.2.0 -> 1.9.1 (*)
 +|    |    +--- androidx.core:core:1.6.0 -> 1.13.1 (*)
