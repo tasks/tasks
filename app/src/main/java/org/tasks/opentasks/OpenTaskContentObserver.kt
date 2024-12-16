@@ -8,15 +8,19 @@ import android.net.Uri
 import android.os.Handler
 import android.os.HandlerThread
 import dagger.hilt.android.qualifiers.ApplicationContext
-import org.dmfs.tasks.contract.TaskContract.*
+import org.dmfs.tasks.contract.TaskContract.Properties
+import org.dmfs.tasks.contract.TaskContract.TaskLists
+import org.dmfs.tasks.contract.TaskContract.Tasks
 import org.tasks.R
+import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import timber.log.Timber
 import javax.inject.Inject
 
 class OpenTaskContentObserver @Inject constructor(
-        @ApplicationContext context: Context,
-        private val syncAdapters: SyncAdapters,
+    @ApplicationContext context: Context,
+    private val syncAdapters: SyncAdapters,
+    private val preferences: Preferences,
 ) : ContentObserver(getHandler()), SyncStatusObserver {
 
     val authority = context.getString(R.string.opentasks_authority)
@@ -24,14 +28,23 @@ class OpenTaskContentObserver @Inject constructor(
     override fun onChange(selfChange: Boolean) = onChange(selfChange, null)
 
     override fun onChange(selfChange: Boolean, uri: Uri?) {
-        if (selfChange || uri == null) {
-            Timber.d("Ignoring onChange(selfChange = $selfChange, uri = $uri)")
-            return
-        } else {
-            Timber.v("onChange($selfChange, $uri)")
-        }
+        when {
+            selfChange || uri == null ->
+                Timber.v("Ignoring onChange selfChange=$selfChange uri=$uri")
 
-        syncAdapters.syncOpenTasks()
+            uri.getQueryParameter("caller_is_syncadapter")?.toBoolean() == true-> {
+                Timber.d("onChange uri=$uri")
+                syncAdapters.sync(immediate = true)
+            }
+
+            preferences.isSyncOngoing ->
+                Timber.v("Ignoring onChange uri=$uri sync in progress")
+
+            else -> {
+                Timber.d("onChange uri=$uri")
+                syncAdapters.sync(immediate = true)
+            }
+        }
     }
 
     override fun onStatusChanged(which: Int) {

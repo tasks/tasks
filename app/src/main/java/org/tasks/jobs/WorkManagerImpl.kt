@@ -101,7 +101,7 @@ class WorkManagerImpl(
             builder.setInitialDelay(1, TimeUnit.MINUTES)
         }
         val append = getSyncJob().any { it.state == WorkInfo.State.RUNNING }
-        Timber.d("sync: immediate=$immediate, append=$append)")
+        Timber.d("sync immediate=$immediate append=$append")
         enqueue(workManager.beginUniqueWork(
                 TAG_SYNC,
                 if (append) APPEND_OR_REPLACE else REPLACE,

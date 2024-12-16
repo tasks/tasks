@@ -14,7 +14,7 @@ abstract class BaseWorker(
 ) : Worker(context, workerParams) {
 
     override fun doWork(): Result {
-        Timber.d("%s.doWork()", javaClass.simpleName)
+        Timber.d("${javaClass.simpleName} $id $inputData")
         return try {
             runBlocking {
                 run()
