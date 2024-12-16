@@ -2,10 +2,13 @@ package org.tasks
 
 import android.app.ActivityManager
 import android.app.Application
+import android.app.ApplicationExitInfo
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.JobIntentService
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -14,13 +17,14 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.coroutineScope
 import androidx.work.Configuration
 import com.mikepenz.iconics.Iconics
-import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastR
 import com.todoroo.astrid.service.Upgrader
 import dagger.Lazy
 import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavSynchronizer
@@ -57,6 +61,8 @@ class Tasks : Application(), Configuration.Provider {
     @Inject lateinit var contentObserver: Lazy<OpenTaskContentObserver>
     @Inject lateinit var syncAdapters: Lazy<SyncAdapters>
 
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
     override fun onCreate() {
         super.onCreate()
         buildSetup.setup()
@@ -68,6 +74,7 @@ class Tasks : Application(), Configuration.Provider {
         ProcessLifecycleOwner.get().lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
+                    Timber.d("Application.onResume")
                     localBroadcastManager.broadcastRefresh()
                     if (currentTimeMillis() - preferences.lastSync > TimeUnit.MINUTES.toMillis(5)) {
                         syncAdapters.get().sync(true)
@@ -75,6 +82,7 @@ class Tasks : Application(), Configuration.Provider {
                 }
 
                 override fun onPause(owner: LifecycleOwner) {
+                    Timber.d("Application.onPause")
                     owner.lifecycle.coroutineScope.launch {
                         workManager.get().startEnqueuedSync()
                     }
@@ -87,20 +95,24 @@ class Tasks : Application(), Configuration.Provider {
         val lastVersion = preferences.lastSetVersion
         val currentVersion = BuildConfig.VERSION_CODE
         Timber.i("Astrid Startup. %s => %s", lastVersion, currentVersion)
-        if (AndroidUtilities.atLeastR()) {
-            val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-            val exitReasons = activityManager.getHistoricalProcessExitReasons(null, 0, 5)
-            Timber.i(exitReasons.joinToString("\n"))
+        if (atLeastR()) {
+            scope.launch {
+                val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+                val exitReasons = activityManager.getHistoricalProcessExitReasons(null, 0, 1)
+                logExitReasons(exitReasons)
+            }
         }
 
         // invoke upgrade service
         if (lastVersion != currentVersion) {
             upgrader.get().upgrade(lastVersion, currentVersion)
-            preferences.setDefaults()
+            scope.launch {
+                preferences.setDefaults()
+            }
         }
     }
 
-    private fun backgroundWork() = CoroutineScope(Dispatchers.Default).launch {
+    private fun backgroundWork() = scope.launch {
         Iconics.registerFont(OutlinedGoogleMaterial)
         Iconics.registerFont(OutlinedGoogleMaterial2)
         inventory.updateTasksAccount()
@@ -145,4 +157,38 @@ class Tasks : Application(), Configuration.Provider {
         @Suppress("KotlinConstantConditions")
         const val IS_GENERIC = BuildConfig.FLAVOR == "generic"
     }
+}
+
+@RequiresApi(Build.VERSION_CODES.R)
+private fun logExitReasons(exitReasons: List<ApplicationExitInfo>) {
+    exitReasons.forEach { info ->
+        Timber.i("""
+            Exit reason: ${info.reason.toReasonString()}
+            Description: ${info.description}
+            Timestamp: ${info.timestamp}
+            Process: ${info.processName}
+            PSS: ${info.pss}
+            RSS: ${info.rss}
+            Importance: ${info.importance}
+            Status: ${info.status}
+            Trace: ${info.traceInputStream?.bufferedReader()?.readText()}
+        """.trimIndent())
+    }
+}
+
+private fun Int.toReasonString() = when (this) {
+    ApplicationExitInfo.REASON_ANR -> "ANR"
+    ApplicationExitInfo.REASON_CRASH -> "CRASH"
+    ApplicationExitInfo.REASON_CRASH_NATIVE -> "NATIVE_CRASH"
+    ApplicationExitInfo.REASON_DEPENDENCY_DIED -> "DEPENDENCY_DIED"
+    ApplicationExitInfo.REASON_EXCESSIVE_RESOURCE_USAGE -> "EXCESSIVE_RESOURCE_USAGE"
+    ApplicationExitInfo.REASON_EXIT_SELF -> "EXIT_SELF"
+    ApplicationExitInfo.REASON_INITIALIZATION_FAILURE -> "INITIALIZATION_FAILURE"
+    ApplicationExitInfo.REASON_LOW_MEMORY -> "LOW_MEMORY"
+    ApplicationExitInfo.REASON_OTHER -> "OTHER"
+    ApplicationExitInfo.REASON_PERMISSION_CHANGE -> "PERMISSION_CHANGE"
+    ApplicationExitInfo.REASON_SIGNALED -> "SIGNALED"
+    ApplicationExitInfo.REASON_USER_REQUESTED -> "USER_REQUESTED"
+    ApplicationExitInfo.REASON_USER_STOPPED -> "USER_STOPPED"
+    else -> "UNKNOWN($this)"
 }
