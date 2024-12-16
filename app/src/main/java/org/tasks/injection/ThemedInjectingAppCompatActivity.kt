@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 abstract class ThemedInjectingAppCompatActivity protected constructor() : AppCompatActivity() {
     @Inject lateinit var tasksTheme: Theme
-    @Inject protected lateinit var themeColor: ThemeColor
+    @Inject lateinit var themeColor: ThemeColor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
