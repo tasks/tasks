@@ -1,56 +1,60 @@
 package org.tasks.activities
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.EditText
-import android.widget.FrameLayout
-import androidx.core.widget.addTextChangedListener
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Help
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.toMutableStateList
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButtonToggleGroup
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import org.tasks.data.sql.Field
-import org.tasks.data.sql.Query
-import org.tasks.data.sql.UnaryCriterion
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.BooleanCriterion
-import org.tasks.filters.CustomFilter
 import com.todoroo.astrid.api.CustomFilterCriterion
 import com.todoroo.astrid.api.MultipleSelectCriterion
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.api.TextInputCriterion
 import com.todoroo.astrid.core.CriterionInstance
-import com.todoroo.astrid.core.CustomFilterAdapter
-import com.todoroo.astrid.core.CustomFilterItemTouchHelper
-import org.tasks.data.db.Database
-import org.tasks.data.entity.Task
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings
-import org.tasks.data.entity.Filter
-import org.tasks.data.dao.FilterDao
+import org.tasks.compose.DeleteButton
+import org.tasks.compose.FilterCondition.FilterCondition
+import org.tasks.compose.FilterCondition.InputTextOption
+import org.tasks.compose.FilterCondition.NewCriterionFAB
+import org.tasks.compose.FilterCondition.SelectCriterionType
+import org.tasks.compose.FilterCondition.SelectFromList
 import org.tasks.data.NO_ORDER
+import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.db.Database
+import org.tasks.data.entity.Filter
+import org.tasks.data.entity.Task
 import org.tasks.data.rawQuery
-import org.tasks.databinding.FilterSettingsActivityBinding
+import org.tasks.data.sql.Field
+import org.tasks.data.sql.Query
+import org.tasks.data.sql.UnaryCriterion
 import org.tasks.db.QueryUtils
-import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.extensions.Context.openUri
-import org.tasks.extensions.hideKeyboard
+import org.tasks.filters.CustomFilter
 import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.filters.mapToSerializedString
 import org.tasks.themes.TasksIcons
+import org.tasks.themes.TasksTheme
 import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.max
@@ -63,23 +67,23 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var filterCriteriaProvider: FilterCriteriaProvider
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
-    private lateinit var name: TextInputEditText
-    private lateinit var nameLayout: TextInputLayout
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var fab: ExtendedFloatingActionButton
-    
+
     private var filter: CustomFilter? = null
-    private lateinit var adapter: CustomFilterAdapter
-    private var criteria: MutableList<CriterionInstance> = ArrayList()
     override val defaultIcon = TasksIcons.FILTER_LIST
+
+    private var criteria: SnapshotStateList<CriterionInstance> = emptyList<CriterionInstance>().toMutableStateList()
+    private val fabExtended = mutableStateOf(false)
+    private val editCriterionType: MutableState<String?> = mutableStateOf(null)
+    private val newCriterionTypes: MutableState<List<CustomFilterCriterion>?> = mutableStateOf(null)
+    private val newCriterionOptions: MutableState<CriterionInstance?> = mutableStateOf(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         filter = intent.getParcelableExtra(TOKEN_FILTER)
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null && filter != null) {
             selectedColor = filter!!.tint
-            selectedIcon.update { filter!!.icon }
-            name.setText(filter!!.title)
+            selectedIcon.value =  filter!!.icon ?: defaultIcon
+            textState.value = filter!!.title ?: ""
         }
         when {
             savedInstanceState != null -> lifecycleScope.launch {
@@ -93,36 +97,33 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 setCriteria(filterCriteriaProvider.fromString(filter!!.criterion))
             }
             intent.hasExtra(EXTRA_CRITERIA) -> lifecycleScope.launch {
-                name.setText(intent.getStringExtra(EXTRA_TITLE))
+                textState.value = intent.getStringExtra(EXTRA_TITLE) ?: ""
                 setCriteria(
                     filterCriteriaProvider.fromString(intent.getStringExtra(EXTRA_CRITERIA)!!)
                 )
             }
             else -> setCriteria(universe())
         }
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        ItemTouchHelper(
-                CustomFilterItemTouchHelper(this, this::onMove, this::onDelete, this::updateList))
-                .attachToRecyclerView(recyclerView)
-        if (isNew) {
-            toolbar.inflateMenu(R.menu.menu_help)
-        }
+
         updateTheme()
-    }
+
+    } /* end onCreate */
 
     private fun universe() = listOf(CriterionInstance().apply {
         criterion = filterCriteriaProvider.startingUniverse
         type = CriterionInstance.TYPE_UNIVERSE
     })
 
-    private fun setCriteria(criteria: List<CriterionInstance>) {
-        this.criteria = criteria
+    private fun setCriteria(criteriaList: List<CriterionInstance>) {
+        criteria = criteriaList
                 .ifEmpty { universe() }
-                .toMutableList()
-        adapter = CustomFilterAdapter(criteria, locale) { replaceId: String -> onClick(replaceId) }
-        recyclerView.adapter = adapter
-        fab.isExtended = isNew || adapter.itemCount <= 1
+                .toMutableStateList()
+        fabExtended.value = isNew || criteria.size <= 1
         updateList()
+
+        this.setContent {
+            TasksTheme { ActivityContent() }
+        }
     }
 
     private fun onDelete(index: Int) {
@@ -133,95 +134,13 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     private fun onMove(from: Int, to: Int) {
         val criterion = criteria.removeAt(from)
         criteria.add(to, criterion)
-        adapter.notifyItemMoved(from, to)
     }
 
-    private fun onClick(replaceId: String) {
-        val criterionInstance = criteria.find { it.id == replaceId }!!
-        val view = layoutInflater.inflate(R.layout.dialog_custom_filter_row_edit, recyclerView, false)
-        val group: MaterialButtonToggleGroup = view.findViewById(R.id.button_toggle)
-        val selected = getSelected(criterionInstance)
-        group.check(selected)
-        dialogBuilder
-                .newDialog(criterionInstance.titleFromCriterion)
-                .setView(view)
-                .setNegativeButton(R.string.cancel, null)
-                .setPositiveButton(R.string.ok) { _, _ ->
-                    criterionInstance.type = getType(group.checkedButtonId)
-                    updateList()
-                }
-                .setNeutralButton(R.string.help) { _, _ -> help() }
-                .show()
-    }
-
-    private fun getSelected(instance: CriterionInstance): Int =
-        when (instance.type) {
-            CriterionInstance.TYPE_ADD -> R.id.button_or
-            CriterionInstance.TYPE_SUBTRACT -> R.id.button_not
-            else -> R.id.button_and
-        }
-
-    private fun getType(selected: Int): Int =
-        when (selected) {
-            R.id.button_or -> CriterionInstance.TYPE_ADD
-            R.id.button_not -> CriterionInstance.TYPE_SUBTRACT
-            else -> CriterionInstance.TYPE_INTERSECT
-        }
-
-    private fun addCriteria() {
-        hideKeyboard()
-        fab.shrink()
+    private fun newCriterion() {
+        fabExtended.value = false // a.k.a. fab.shrink()
         lifecycleScope.launch {
-            val all = filterCriteriaProvider.all()
-            val names = all.map(CustomFilterCriterion::getName)
-            dialogBuilder.newDialog()
-                    .setItems(names) { dialog: DialogInterface, which: Int ->
-                        val instance = CriterionInstance()
-                        instance.criterion = all[which]
-                        showOptionsFor(instance) {
-                            criteria.add(instance)
-                            updateList()
-                        }
-                        dialog.dismiss()
-                    }
-                    .show()
+            newCriterionTypes.value = filterCriteriaProvider.all()
         }
-    }
-
-    /** Show options menu for the given criterioninstance  */
-    private fun showOptionsFor(item: CriterionInstance, onComplete: Runnable?) {
-        if (item.criterion is BooleanCriterion) {
-            onComplete?.run()
-            return
-        }
-        val dialog = dialogBuilder.newDialog(item.criterion.name)
-        if (item.criterion is MultipleSelectCriterion) {
-            val multiSelectCriterion = item.criterion as MultipleSelectCriterion
-            val titles = multiSelectCriterion.entryTitles
-            val listener = DialogInterface.OnClickListener { _: DialogInterface?, which: Int ->
-                item.selectedIndex = which
-                onComplete?.run()
-            }
-            dialog.setItems(titles, listener)
-        } else if (item.criterion is TextInputCriterion) {
-            val textInCriterion = item.criterion as TextInputCriterion
-            val frameLayout = FrameLayout(this)
-            frameLayout.setPadding(10, 0, 10, 0)
-            val editText = EditText(this)
-            editText.setText(item.selectedText)
-            editText.hint = textInCriterion.hint
-            frameLayout.addView(
-                    editText,
-                    FrameLayout.LayoutParams(
-                            FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT))
-            dialog
-                    .setView(frameLayout)
-                    .setPositiveButton(R.string.ok) { _, _ ->
-                        item.selectedText = editText.text.toString()
-                        onComplete?.run()
-                    }
-        }
-        dialog.show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -232,15 +151,16 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     override val isNew: Boolean
         get() = filter == null
 
-    override val toolbarTitle: String?
-        get() = if (isNew) getString(R.string.FLA_new_filter) else filter!!.title
+    override val toolbarTitle: String
+        get() = if (isNew) getString(R.string.FLA_new_filter) else filter?.title ?: ""
 
     override suspend fun save() {
         val newName = newName
         if (Strings.isNullOrEmpty(newName)) {
-            nameLayout.error = getString(R.string.name_cannot_be_empty)
+            errorState.value = getString(R.string.name_cannot_be_empty)
             return
         }
+
         if (hasChanges()) {
             var f = Filter(
                 id = filter?.id ?: 0L,
@@ -272,7 +192,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     }
 
     private val newName: String
-        get() = name.text.toString().trim { it <= ' ' }
+        get() = textState.value.trim { it <= ' ' }
 
     override fun hasChanges(): Boolean {
         return if (isNew) {
@@ -287,22 +207,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     }
 
     override fun finish() {
-        hideKeyboard(name)
         super.finish()
-    }
-
-    override fun bind() = FilterSettingsActivityBinding.inflate(layoutInflater).let {
-        name = it.name.apply {
-            addTextChangedListener(
-                onTextChanged = { _, _, _, _ -> nameLayout.error = null }
-            )
-        }
-        nameLayout = it.nameLayout
-        recyclerView = it.recyclerView
-        fab = it.fab.apply {
-            setOnClickListener { addCriteria() }
-        }
-        it.root
     }
 
     override suspend fun delete() {
@@ -312,21 +217,15 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         finish()
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean =
-        if (item.itemId == R.id.menu_help) {
-            help()
-            true
-        } else {
-            super.onMenuItemClick(item)
-        }
-
     private fun help() = openUri(R.string.url_filters)
 
     private fun updateList() = lifecycleScope.launch {
+        val newList = emptyList<CriterionInstance>().toMutableList()
         var max = 0
         var last = -1
         val sql = StringBuilder(Query.select(Field.COUNT).from(Task.TABLE).toString())
                 .append(" WHERE ")
+
         for (instance in criteria) {
             when (instance.type) {
                 CriterionInstance.TYPE_ADD -> sql.append("OR ")
@@ -353,12 +252,138 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 last = instance.end
                 max = max(max, last)
             }
+            newList.add(instance)
         }
-        for (instance in criteria) {
+        for (instance in newList) {
             instance.max = max
         }
-        adapter.submitList(criteria)
+        criteria.clear()
+        criteria.addAll(newList)
     }
+
+    @Composable
+    private fun ActivityContent ()
+    {
+        TasksTheme {
+            Box(  // to layout FAB over the main content
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.TopStart
+            ) {
+                baseSettingsContent(
+                    optionButton = {
+                        if (isNew) {
+                            IconButton(onClick = { help() }) {
+                                Icon(imageVector = Icons.Outlined.Help, contentDescription = "")
+                            }
+                        } else DeleteButton{ promptDelete() }
+                    }
+                ) {
+                    FilterCondition(
+                        items = criteria,
+                        onDelete = { index -> onDelete(index) },
+                        doSwap = { from, to -> onMove(from, to) },
+                        onComplete = { updateList() },
+                        onClick = { id -> editCriterionType.value = id }
+                    )
+                }
+
+                NewCriterionFAB(fabExtended) { newCriterion() }
+
+                /** edit given criterion type (AND|OR|NOT) **/
+                editCriterionType.value?.let { itemId ->
+                    val index = criteria.indexOfFirst { it.id == itemId }
+                    assert(index >= 0)
+                    val criterionInstance = criteria[index]
+                    if (criterionInstance.type != CriterionInstance.TYPE_UNIVERSE) {
+                        SelectCriterionType(
+                            title = criterionInstance.titleFromCriterion,
+                            selected = when (criterionInstance.type) {
+                                CriterionInstance.TYPE_INTERSECT -> 0
+                                CriterionInstance.TYPE_ADD -> 1
+                                else -> 2
+                            },
+                            types = listOf(
+                                stringResource(R.string.custom_filter_and),
+                                stringResource(R.string.custom_filter_or),
+                                stringResource(R.string.custom_filter_not)
+                            ),
+                            help = { help() },
+                            onCancel = { editCriterionType.value = null }
+                        ) { selected ->
+                            val type = when (selected) {
+                                0 -> CriterionInstance.TYPE_INTERSECT
+                                1 -> CriterionInstance.TYPE_ADD
+                                else -> CriterionInstance.TYPE_SUBTRACT
+                            }
+                            if (criterionInstance.type != type) {
+                                criterionInstance.type = type
+                                updateList()
+                            }
+                            editCriterionType.value = null
+                        }
+                    }
+                } /* end (AND|OR|NOT) dialog */
+
+                /** dialog to select new criterion category **/
+                newCriterionTypes.value?.let  { list ->
+                    SelectFromList(
+                        names = list.map(CustomFilterCriterion::getName),
+                        onCancel = { newCriterionTypes.value = null },
+                        onSelected = { which ->
+                            val instance = CriterionInstance()
+                            instance.criterion = list[which]
+                            newCriterionTypes.value = null
+                            if (instance.criterion is BooleanCriterion) {
+                                criteria.add(instance)
+                                updateList()
+                            } else
+                                newCriterionOptions.value = instance
+                        }
+                    )
+                } /* end dialog  */
+
+                /** Show options menu for the given CriterionInstance  */
+                newCriterionOptions.value?.let { instance ->
+
+                    when (instance.criterion) {
+                        is MultipleSelectCriterion -> {
+                            val multiSelectCriterion = instance.criterion as MultipleSelectCriterion
+                            val list = multiSelectCriterion.entryTitles.toList()
+                            SelectFromList(
+                                names = list,
+                                title = instance.criterion.name,
+                                onCancel = { newCriterionOptions.value = null },
+                                onSelected = { which ->
+                                    instance.selectedIndex = which
+                                    criteria.add(instance)
+                                    updateList()
+                                    newCriterionOptions.value = null
+                                }
+                            )
+                        }
+
+                        is TextInputCriterion -> {
+                            val textInCriterion = instance.criterion as TextInputCriterion
+                            InputTextOption (
+                                title = textInCriterion.name,
+                                onCancel = { newCriterionOptions.value = null },
+                                onDone = { text ->
+                                    text.trim().takeIf{ it != "" }?. let { text ->
+                                        instance.selectedText = text
+                                        criteria.add(instance)
+                                        updateList()
+                                    }
+                                    newCriterionOptions.value = null
+                                }
+                            )
+                        }
+
+                        else -> assert(false) { "Unexpected Criterion type" }
+                    }
+                } /* end given criteria options dialog */
+            }
+        }
+    } /* activityContent */
 
     companion object {
         const val TOKEN_FILTER = "token_filter"

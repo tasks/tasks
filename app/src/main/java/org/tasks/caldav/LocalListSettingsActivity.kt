@@ -1,21 +1,32 @@
 package org.tasks.caldav
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
+import org.tasks.compose.DeleteButton
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.dao.CaldavDao
+import org.tasks.themes.TasksTheme
 
 @AndroidEntryPoint
 class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        toolbar.menu.findItem(R.id.delete)?.isVisible =
-                runBlocking { caldavDao.getCalendarsByAccount(CaldavDao.LOCAL).size > 1 }
+        val canDelete = runBlocking { caldavDao.getCalendarsByAccount(CaldavDao.LOCAL).size > 1 }
+
+        setContent {
+            TasksTheme {
+                baseCaldavSettingsContent (
+                    optionButton = { if (!isNew && canDelete) DeleteButton { promptDelete() } }
+                )
+            }
+        }
     }
 
     override suspend fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) =

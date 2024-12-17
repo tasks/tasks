@@ -2,6 +2,7 @@ package org.tasks.location
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -31,7 +32,7 @@ class OsmMapFragment @Inject constructor(
     private var locationOverlay: MyLocationNewOverlay? = null
     private var circle: Polygon? = null
 
-    override fun init(activity: AppCompatActivity, callback: MapFragmentCallback, dark: Boolean) {
+    override fun init(activity: AppCompatActivity, callback: MapFragmentCallback, dark: Boolean, parent: ViewGroup?) {
         this.callback = callback
         Configuration.getInstance()
                 .load(activity, PreferenceManager.getDefaultSharedPreferences(activity))
@@ -46,7 +47,8 @@ class OsmMapFragment @Inject constructor(
             val copyright = CopyrightOverlay(activity)
             copyright.setTextColor(ContextCompat.getColor(activity, R.color.text_primary))
             overlays.add(copyright)
-            activity.findViewById<ViewGroup>(R.id.map).addView(this)
+            if (parent != null) parent.addView(this)
+            else activity.findViewById<ViewGroup>(R.id.map).addView(this)
         }
         callback.onMapReady(this)
     }

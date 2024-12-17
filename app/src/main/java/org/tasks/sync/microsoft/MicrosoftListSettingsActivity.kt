@@ -3,6 +3,7 @@ package org.tasks.sync.microsoft
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.activity.MainActivity
@@ -12,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.themes.TasksTheme
 
 @AndroidEntryPoint
 class MicrosoftListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
@@ -43,6 +45,12 @@ class MicrosoftListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                         finish()
                     }
                 }
+        }
+
+        setContent {
+            TasksTheme {
+                baseCaldavSettingsContent()
+            }
         }
     }
 

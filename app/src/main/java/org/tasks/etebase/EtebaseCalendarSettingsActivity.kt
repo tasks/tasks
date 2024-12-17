@@ -1,11 +1,13 @@
 package org.tasks.etebase
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.themes.TasksTheme
 
 @AndroidEntryPoint
 class EtebaseCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
@@ -19,6 +21,12 @@ class EtebaseCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         createCalendarViewModel.observe(this, this::createSuccessful, this::requestFailed)
         deleteCalendarViewModel.observe(this, this::onDeleted, this::requestFailed)
         updateCalendarViewModel.observe(this, { updateCalendar() }, this::requestFailed)
+
+        setContent {
+            TasksTheme {
+                baseCaldavSettingsContent()
+            }
+        }
     }
 
     override suspend fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) =
