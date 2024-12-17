@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.tasks.R
-import org.tasks.Tasks
+import org.tasks.TasksApplication
 import org.tasks.compose.components.AnimatedBanner
 import org.tasks.themes.TasksTheme
 
@@ -57,14 +57,14 @@ fun SubscriptionNagBanner(
     AnimatedBanner(
         visible = visible,
         title = stringResource(id = R.string.enjoying_tasks),
-        body = stringResource(id = if (Tasks.IS_GENERIC) {
+        body = stringResource(id = if (TasksApplication.IS_GENERIC) {
             R.string.donate_nag
         } else {
             R.string.support_development_subscribe
         }),
         dismissText = stringResource(id = R.string.donate_maybe_later),
         onDismiss = dismiss,
-        action = stringResource(id = if (Tasks.IS_GENERIC) {
+        action = stringResource(id = if (TasksApplication.IS_GENERIC) {
             R.string.donate_today
         } else {
             R.string.button_subscribe

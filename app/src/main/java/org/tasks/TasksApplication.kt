@@ -46,7 +46,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltAndroidApp
-class Tasks : Application(), Configuration.Provider {
+class TasksApplication : Application(), Configuration.Provider {
 
     @Inject @ApplicationContext lateinit var context: Context
     @Inject lateinit var preferences: Preferences

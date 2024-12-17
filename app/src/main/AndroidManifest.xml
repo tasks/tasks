@@ -155,7 +155,7 @@
     android:icon="@mipmap/ic_launcher_blue"
     android:label="@string/app_name"
     android:manageSpaceActivity="org.tasks.preferences.ManageSpaceActivity"
-    android:name=".Tasks"
+    android:name=".TasksApplication"
     android:roundIcon="@mipmap/ic_launcher_blue"
     android:supportsRtl="true"
     android:theme="@style/Tasks"

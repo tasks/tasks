@@ -11,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
 import org.tasks.R
-import org.tasks.Tasks.Companion.IS_GENERIC
+import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.injection.InjectingPreferenceFragment

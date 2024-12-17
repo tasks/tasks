@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
-import org.tasks.Tasks.Companion.IS_GENERIC
+import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.billing.Inventory
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.data.NO_COUNT

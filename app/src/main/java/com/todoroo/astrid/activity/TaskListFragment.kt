@@ -28,9 +28,7 @@ import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
@@ -80,7 +78,7 @@ import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
-import org.tasks.Tasks
+import org.tasks.TasksApplication
 import org.tasks.activities.FilterSettingsActivity
 import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.activities.PlaceSettingsActivity
@@ -404,7 +402,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     visible = showSubscriptionNag,
                     subscribe = {
                         listViewModel.dismissPurchaseBanner(clickedPurchase = true)
-                        if (Tasks.IS_GOOGLE_PLAY) {
+                        if (TasksApplication.IS_GOOGLE_PLAY) {
                             context.startActivity(Intent(context, PurchaseActivity::class.java))
                         } else {
                             preferences.lastSubscribeRequest = currentTimeMillis()

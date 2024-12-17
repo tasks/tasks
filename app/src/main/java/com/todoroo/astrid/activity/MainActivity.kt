@@ -44,7 +44,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.R
-import org.tasks.Tasks
+import org.tasks.TasksApplication
 import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
@@ -249,7 +249,7 @@ class MainActivity : AppCompatActivity() {
                                         viewModel.closeDrawer()
                                         when (it) {
                                             DrawerAction.PURCHASE ->
-                                                if (Tasks.IS_GENERIC)
+                                                if (TasksApplication.IS_GENERIC)
                                                     context.openUri(R.string.url_donate)
                                                 else
                                                     context.startActivity(

@@ -39,7 +39,7 @@ import net.openid.appauth.RegistrationRequest
 import net.openid.appauth.RegistrationResponse
 import net.openid.appauth.ResponseTypeValues
 import org.tasks.R
-import org.tasks.Tasks.Companion.IS_GENERIC
+import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
