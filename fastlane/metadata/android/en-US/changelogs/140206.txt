@@ -1,0 +1,3 @@
+* Fix long running sync indicators
+* @hady-exc: Migrate list setting screens to Compose
+* Update translations
