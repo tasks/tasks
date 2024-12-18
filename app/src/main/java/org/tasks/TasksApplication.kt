@@ -130,7 +130,8 @@ class TasksApplication : Application(), Configuration.Provider {
         CaldavSynchronizer.registerFactories()
     }
 
-    override fun getWorkManagerConfiguration(): Configuration = Configuration.Builder()
+    override val workManagerConfiguration: Configuration
+        get() = Configuration.Builder()
             .setWorkerFactory(workerFactory)
             .setMinimumLoggingLevel(if (BuildConfig.DEBUG) Log.DEBUG else Log.INFO)
             .build()
