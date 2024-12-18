@@ -5,7 +5,6 @@
   <dimen name="keyline_first">16dp</dimen>
   <dimen name="keyline_second">32dp</dimen>
   <dimen name="keyline_content_inset">56dp</dimen>
-  <dimen name="bottom_sheet_corners">12dp</dimen>
   <dimen name="task_list_footer_height">88dp</dimen>
 
   <dimen name="task_edit_text_size">16sp</dimen>
@@ -20,9 +19,6 @@
 
   <dimen name="widget_padding_compact">6dp</dimen>
   <dimen name="widget_padding">12dp</dimen>
-  <dimen name="widget_height_default">48dp</dimen>
-  <dimen name="widget_height_compact">36dp</dimen>
-  <dimen name="widget_height_none">24dp</dimen>
 
   <dimen name="sku_details_row_text_size">14sp</dimen>
 

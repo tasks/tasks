@@ -96,7 +96,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
 
         setContent {
             TasksTheme {
-                baseSettingsContent {
+                BaseSettingsContent {
                     Row(
                         modifier = Modifier
                             .requiredHeight(56.dp)
@@ -158,7 +158,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
 
     override fun hasChanges() = textState.value != place.displayName
                     || selectedColor != place.color
-                    || selectedIcon.value != place.icon
+                    || selectedIcon.value != (place.icon ?: TasksIcons.PLACE)
 
     override suspend fun save() {
         val newName: String = textState.value

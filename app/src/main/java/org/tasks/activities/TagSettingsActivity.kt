@@ -49,7 +49,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
 
         setContent {
             TasksTheme {
-                baseSettingsContent()
+                BaseSettingsContent()
             }
         }
         updateTheme()
@@ -120,7 +120,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
             selectedColor >= 0 || selectedIcon.value?.isBlank() == false || !isNullOrEmpty(newName)
         } else {
             selectedColor != (tagData.color ?: 0)
-                    || selectedIcon.value != tagData.icon
+                    || selectedIcon.value != (tagData.icon ?: TasksIcons.LABEL)
                     || newName != tagData.name
         }
     }

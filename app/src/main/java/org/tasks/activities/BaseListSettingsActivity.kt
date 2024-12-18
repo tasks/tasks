@@ -18,13 +18,13 @@ import org.tasks.compose.Constants
 import org.tasks.compose.DeleteButton
 import org.tasks.compose.IconPickerActivity.Companion.launchIconPicker
 import org.tasks.compose.IconPickerActivity.Companion.registerForIconPickerResult
-import org.tasks.compose.ListSettings.ProgressBar
-import org.tasks.compose.ListSettings.SettingsSurface
-import org.tasks.compose.ListSettings.TitleInput
-import org.tasks.compose.ListSettings.Toolbar
-import org.tasks.compose.ListSettings.PromptAction
-import org.tasks.compose.ListSettings.SelectColorRow
-import org.tasks.compose.ListSettings.SelectIconRow
+import org.tasks.compose.settings.ProgressBar
+import org.tasks.compose.settings.PromptAction
+import org.tasks.compose.settings.SelectColorRow
+import org.tasks.compose.settings.SelectIconRow
+import org.tasks.compose.settings.SettingsSurface
+import org.tasks.compose.settings.TitleInput
+import org.tasks.compose.settings.Toolbar
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
@@ -122,7 +122,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
 
     /** Standard @Compose view content for descendants. Caller must wrap it to TasksTheme{} */
     @Composable
-    protected fun baseSettingsContent(
+    protected fun BaseSettingsContent(
         title: String = toolbarTitle ?: "",
         requestKeyboard: Boolean = isNew,
         optionButton: @Composable () -> Unit = { if (!isNew) DeleteButton { promptDelete() } },
@@ -166,7 +166,6 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
     companion object {
         private const val EXTRA_SELECTED_THEME = "extra_selected_theme"
         private const val EXTRA_SELECTED_ICON = "extra_selected_icon"
-        private const val FRAG_TAG_ICON_PICKER = "frag_tag_icon_picker"
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
     }
 }

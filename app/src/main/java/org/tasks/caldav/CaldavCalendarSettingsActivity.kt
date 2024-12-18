@@ -6,6 +6,8 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.PersonAdd
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -16,7 +18,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -67,7 +68,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         setContent {
             TasksTheme {
                 Box(contentAlignment = Alignment.TopStart) {// Box to layout FAB over main content
-                    baseCaldavSettingsContent {
+                    BaseCaldavSettingsContent {
                         caldavCalendar?.takeIf { it.id > 0 }?.let { calendar->
                             val principals = principalDao.getPrincipals(calendar.id).collectAsStateWithLifecycle(initialValue = emptyList()).value
                             PrincipalList(
@@ -137,7 +138,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                             containerColor = MaterialTheme.colorScheme.secondary
                         ) {
                             Icon(
-                                painter = painterResource(R.drawable.ic_outline_person_add_24),
+                                imageVector = Icons.Outlined.PersonAdd,
                                 contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onSecondary,
                             )

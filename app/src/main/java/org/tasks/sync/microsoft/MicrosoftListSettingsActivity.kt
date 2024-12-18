@@ -8,11 +8,11 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import org.tasks.filters.CaldavFilter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.filters.CaldavFilter
 import org.tasks.themes.TasksTheme
 
 @AndroidEntryPoint
@@ -49,7 +49,7 @@ class MicrosoftListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
         setContent {
             TasksTheme {
-                baseCaldavSettingsContent()
+                BaseCaldavSettingsContent()
             }
         }
     }

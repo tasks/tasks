@@ -33,16 +33,11 @@
   <color name="snackbar_action_color">#f4b400</color>
   <color name="snackbar_background">@color/grey_800</color>
 
-  <!-- deprecated -->
-  <color name="reminder_background">#262626</color>
-
   <!-- Day colors -->
 
   <color name="window_background">@color/md_background_light</color>
   <color name="content_background">@color/md_background_light</color>
   <color name="dialog_background">@color/md_background_light</color>
-  <color name="widget_text_follow_system">@color/black_87</color>
-  <color name="widget_secondary_text_follow_system">@color/black_60</color>
   <color name="widget_background_follow_system">@color/md_background_light</color>
   <color name="icon_tint">@color/icon_tint_light</color>
   <color name="icon_tint_with_alpha">@color/icon_tint_light_alpha</color>

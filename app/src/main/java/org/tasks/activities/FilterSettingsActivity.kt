@@ -6,10 +6,10 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Help
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -269,7 +269,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.TopStart
             ) {
-                baseSettingsContent(
+                BaseSettingsContent(
                     optionButton = {
                         if (isNew) {
                             IconButton(onClick = { help() }) {

@@ -24,7 +24,7 @@ class EtebaseCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
         setContent {
             TasksTheme {
-                baseCaldavSettingsContent()
+                BaseCaldavSettingsContent()
             }
         }
     }

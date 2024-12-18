@@ -17,7 +17,7 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.BaseListSettingsActivity
 import org.tasks.compose.DeleteButton
-import org.tasks.compose.ListSettings.Toaster
+import org.tasks.compose.settings.Toaster
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
@@ -162,7 +162,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
 
     private fun colorChanged(): Boolean = selectedColor != caldavCalendar!!.color
 
-    private fun iconChanged(): Boolean = selectedIcon.value != caldavCalendar!!.icon
+    private fun iconChanged(): Boolean = selectedIcon.value != (caldavCalendar!!.icon ?: TasksIcons.LIST)
 
     private val newName: String
         get() = textState.value.trim { it <= ' '}
@@ -198,11 +198,11 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
     }
 
     @Composable
-    fun baseCaldavSettingsContent (
+    fun BaseCaldavSettingsContent (
         optionButton: @Composable () -> Unit = { if (!isNew) DeleteButton { promptDelete() } },
         extensionContent: @Composable ColumnScope.() -> Unit = {}
     ) {
-        baseSettingsContent (
+        BaseSettingsContent (
             optionButton = optionButton,
             extensionContent = extensionContent
         )

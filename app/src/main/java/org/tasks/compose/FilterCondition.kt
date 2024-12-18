@@ -62,8 +62,8 @@ import androidx.compose.ui.window.Dialog
 import androidx.core.os.ConfigurationCompat
 import com.todoroo.astrid.core.CriterionInstance
 import org.tasks.R
-import org.tasks.compose.ListSettings.SettingRow
 import org.tasks.compose.SwipeOut.SwipeOut
+import org.tasks.kmp.org.tasks.compose.settings.SettingRow
 import org.tasks.extensions.formatNumber
 import org.tasks.themes.TasksTheme
 import java.util.Locale

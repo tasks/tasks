@@ -18,7 +18,7 @@ import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.compose.ListSettings.Toaster
+import org.tasks.compose.settings.Toaster
 import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
@@ -70,7 +70,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
 
         setContent {
             TasksTheme {
-                baseSettingsContent()
+                BaseSettingsContent()
                 Toaster(state = snackbar)
             }
         }
@@ -162,7 +162,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
 
     private fun colorChanged() = selectedColor != gtasksList.color
 
-    private fun iconChanged() = selectedIcon.value != gtasksList.icon
+    private fun iconChanged() = selectedIcon.value != (gtasksList.icon ?: TasksIcons.LIST)
 
     private fun nameChanged() = newName != gtasksList.name
 

@@ -177,13 +177,6 @@
     <item name="android:elevation" tools:ignore="NewApi">@dimen/elevation_refresh_indicator</item>
   </style>
 
-  <style name="OutlineButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-    <item name="android:textColor">@color/button_accent_text</item>
-    <item name="backgroundTint">@color/button_accent_background</item>
-    <item name="rippleColor">@color/button_accent_ripple</item>
-    <item name="strokeColor">@color/button_selected_accent_stroke</item>
-  </style>
-
   <style name="AlertButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Flush">
     <item name="android:textColor">?attr/colorSecondary</item>
   </style>

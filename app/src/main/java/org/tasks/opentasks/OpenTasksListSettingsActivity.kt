@@ -6,11 +6,11 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.compose.ListSettings.ProgressBar
-import org.tasks.compose.ListSettings.Toaster
-import org.tasks.compose.ListSettings.SettingsSurface
-import org.tasks.compose.ListSettings.Toolbar
-import org.tasks.compose.ListSettings.SelectIconRow
+import org.tasks.compose.settings.ProgressBar
+import org.tasks.compose.settings.SelectIconRow
+import org.tasks.compose.settings.SettingsSurface
+import org.tasks.compose.settings.Toaster
+import org.tasks.compose.settings.Toolbar
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.themes.TasksTheme

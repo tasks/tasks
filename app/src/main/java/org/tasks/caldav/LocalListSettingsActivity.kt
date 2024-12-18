@@ -4,11 +4,10 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
-import org.tasks.R
 import org.tasks.compose.DeleteButton
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.dao.CaldavDao
 import org.tasks.themes.TasksTheme
 
 @AndroidEntryPoint
@@ -22,7 +21,7 @@ class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
         setContent {
             TasksTheme {
-                baseCaldavSettingsContent (
+                BaseCaldavSettingsContent (
                     optionButton = { if (!isNew && canDelete) DeleteButton { promptDelete() } }
                 )
             }
