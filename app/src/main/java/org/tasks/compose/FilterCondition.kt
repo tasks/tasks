@@ -39,11 +39,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -61,10 +59,11 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.core.os.ConfigurationCompat
 import com.todoroo.astrid.core.CriterionInstance
+import kotlinx.collections.immutable.ImmutableList
 import org.tasks.R
 import org.tasks.compose.SwipeOut.SwipeOut
-import org.tasks.kmp.org.tasks.compose.settings.SettingRow
 import org.tasks.extensions.formatNumber
+import org.tasks.kmp.org.tasks.compose.settings.SettingRow
 import org.tasks.themes.TasksTheme
 import java.util.Locale
 
@@ -109,7 +108,7 @@ private fun SwipeOutDecorationPreview () {
 private fun FabPreview () {
     TasksTheme {
         FilterCondition.NewCriterionFAB(
-            isExtended = remember { mutableStateOf(true) }
+            isExtended = true
         ) {
 
         }
@@ -120,13 +119,11 @@ object FilterCondition {
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     fun FilterCondition(
-        items: SnapshotStateList<CriterionInstance>,
+        items: ImmutableList<CriterionInstance>,
         onDelete: (Int) -> Unit,
         doSwap: (Int, Int) -> Unit,
-        onComplete: () -> Unit,
         onClick: (String) -> Unit
     ) {
-
         val getIcon: (CriterionInstance) -> Int = { criterion ->
             when (criterion.type) {
                 CriterionInstance.TYPE_ADD -> R.drawable.ic_call_split_24px
@@ -141,9 +138,9 @@ object FilterCondition {
         val dragDropState = rememberDragDropState(
             lazyListState = listState,
             confirmDrag = { index -> index != 0 },
-            completeDragDrop = onComplete,
+            completeDragDrop = {},
         ) { fromIndex, toIndex ->
-            if (fromIndex != 0 && toIndex != 0) doSwap(fromIndex, toIndex)
+            if (fromIndex != toIndex) doSwap(fromIndex, toIndex)
         }
 
         Row {
@@ -282,10 +279,9 @@ object FilterCondition {
 
     @Composable
     fun NewCriterionFAB(
-        isExtended: MutableState<Boolean>,
+        isExtended: Boolean,
         onClick: () -> Unit
     ) {
-
         Box( // lays out over main content as a space to layout FAB
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.BottomEnd
@@ -297,17 +293,15 @@ object FilterCondition {
                 containerColor = MaterialTheme.colorScheme.secondary,
                 contentColor = Color.White,
             ) {
-                val extended = isExtended.value
-
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Outlined.Add,
                         contentDescription = "New Criteria",
                         modifier = Modifier.padding(
-                            start = if (extended) 16.dp else 0.dp
+                            start = if (isExtended) 16.dp else 0.dp
                         )
                     )
-                    if (extended)
+                    if (isExtended)
                         Text(
                             text = LocalContext.current.getString(R.string.CFA_button_add),
                             modifier = Modifier.padding(end = 16.dp)
