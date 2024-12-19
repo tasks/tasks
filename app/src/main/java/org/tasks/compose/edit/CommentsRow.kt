@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import org.tasks.R
@@ -57,7 +58,9 @@ fun Comment(
 ) {
     Row(verticalAlignment = Alignment.Top) {
         Column(
-            modifier = Modifier.weight(1f).padding(top = 8.dp),
+            modifier = Modifier
+                .weight(1f)
+                .padding(top = 8.dp),
         ) {
             comment.message?.let {
                 // TODO: linkify text
@@ -70,7 +73,9 @@ fun Comment(
                 AsyncImage(
                     model = it,
                     contentDescription = null,
-                    modifier = Modifier.clickable { openImage(it) }.size(100.dp)
+                    modifier = Modifier
+                        .clickable { openImage(it) }
+                        .size(100.dp)
                 )
             }
             Text(
@@ -79,11 +84,8 @@ fun Comment(
                 color = MaterialTheme.colorScheme.onSurface,
             )
         }
-        DeleteButton(
-            onClick = {
-                // TODO: add confirmation dialog
-                deleteComment(comment)
-            }
-        )
+        DeleteButton(stringResource(R.string.delete_comment)) {
+            deleteComment(comment)
+        }
     }
 }

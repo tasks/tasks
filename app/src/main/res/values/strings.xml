@@ -262,6 +262,7 @@ File %1$s contained %2$s.\n\n
   <string name="new_tag">Create new tag</string>
   <string name="new_list">Create new list</string>
   <string name="delete_tag_confirmation">Delete %s?</string>
+  <string name="delete_comment">comment</string>
   <string name="TPl_notification">Timers Active for %s!</string>
   <string name="TEA_timer_controls">Timer</string>
   <string name="TEA_timer_comment_started">started this task:</string>

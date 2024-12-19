@@ -1,30 +1,16 @@
 package org.tasks.activities
 
 import android.os.Bundle
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import org.tasks.R
-import org.tasks.compose.Constants
 import org.tasks.compose.DeleteButton
 import org.tasks.compose.IconPickerActivity.Companion.launchIconPicker
 import org.tasks.compose.IconPickerActivity.Companion.registerForIconPickerResult
-import org.tasks.compose.settings.ProgressBar
-import org.tasks.compose.settings.PromptAction
-import org.tasks.compose.settings.SelectColorRow
-import org.tasks.compose.settings.SelectIconRow
-import org.tasks.compose.settings.SettingsSurface
-import org.tasks.compose.settings.TitleInput
-import org.tasks.compose.settings.Toolbar
+import org.tasks.compose.settings.BaseSettingsContent
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
@@ -125,42 +111,33 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
     protected fun BaseSettingsContent(
         title: String = toolbarTitle ?: "",
         requestKeyboard: Boolean = isNew,
-        optionButton: @Composable () -> Unit = { if (!isNew) DeleteButton { promptDelete() } },
+        optionButton: @Composable () -> Unit = {
+            if (!isNew) DeleteButton(toolbarTitle ?: "") { promptDelete() }
+        },
         extensionContent: @Composable ColumnScope.() -> Unit = {}
     ) {
-        SettingsSurface {
-            Toolbar(
-                title = title,
-                save = { lifecycleScope.launch { save() } },
-                optionButton = optionButton
-            )
-            ProgressBar(showProgress)
-            TitleInput(
-                text = textState, error = errorState, requestKeyboard = requestKeyboard,
-                modifier = Modifier.padding(horizontal = Constants.KEYLINE_FIRST)
-            )
-            Column(modifier = Modifier.fillMaxWidth()) {
-                SelectColorRow(
-                    color = colorState,
-                    selectColor = { showThemePicker() },
-                    clearColor = { clearColor() })
-                SelectIconRow(
-                    icon = selectedIcon.value ?: defaultIcon,
-                    selectIcon = { showIconPicker() })
-                extensionContent()
-
-                PromptAction(
-                    showDialog = promptDelete,
-                    title = stringResource(id = R.string.delete_tag_confirmation, title),
-                    onAction = { lifecycleScope.launch { delete() } }
-                )
-                PromptAction(
-                    showDialog = promptDiscard,
-                    title = stringResource(id = R.string.discard_changes),
-                    onAction = { lifecycleScope.launch { finish() } }
-                )
-            }
-        }
+        BaseSettingsContent(
+            title = title,
+            color = colorState.value,
+            icon = selectedIcon.value ?: defaultIcon,
+            text = textState.value,
+            error = errorState.value,
+            requestKeyboard = requestKeyboard,
+            promptDiscard = promptDiscard.value,
+            showProgress = showProgress.value,
+            dismissDiscardPrompt = { promptDiscard.value = false },
+            setText = {
+                textState.value = it
+                errorState.value = ""
+            },
+            save = { lifecycleScope.launch { save() } },
+            pickColor = { showThemePicker() },
+            clearColor = { clearColor() },
+            pickIcon = { showIconPicker() },
+            discard = { finish() },
+            optionButton = optionButton,
+            extensionContent = extensionContent,
+        )
     }
 
     companion object {

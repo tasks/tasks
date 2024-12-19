@@ -12,9 +12,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,12 +26,12 @@ import org.tasks.kmp.org.tasks.compose.settings.SettingRow
 import org.tasks.themes.TasksTheme
 
 @Composable
-fun SelectColorRow(color: State<Color>, selectColor: () -> Unit, clearColor: () -> Unit) =
+fun SelectColorRow(color: Color, selectColor: () -> Unit, clearColor: () -> Unit) =
     SettingRow(
         modifier = Modifier.clickable(onClick =  selectColor),
         left = {
             IconButton(onClick = { selectColor() }) {
-                if (color.value == Color.Unspecified) {
+                if (color == Color.Unspecified) {
                     Icon(
                         imageVector = Icons.Outlined.NotInterested,
                         tint = colorResource(R.color.icon_tint_with_alpha),
@@ -47,7 +44,7 @@ fun SelectColorRow(color: State<Color>, selectColor: () -> Unit, clearColor: () 
                         contentAlignment = Alignment.Center
                     ) {
                         Canvas(modifier = Modifier.size(24.dp)) {
-                            drawCircle(color = color.value)
+                            drawCircle(color = color)
                             drawCircle(color = borderColor, style = Stroke(width = 4.0f)
                             )
                         }
@@ -62,7 +59,7 @@ fun SelectColorRow(color: State<Color>, selectColor: () -> Unit, clearColor: () 
             )
         },
         right = {
-            if (color.value != Color.Unspecified) {
+            if (color != Color.Unspecified) {
                 IconButton(onClick = clearColor) {
                     Icon(
                         imageVector = Icons.Outlined.Clear,
@@ -78,7 +75,7 @@ fun SelectColorRow(color: State<Color>, selectColor: () -> Unit, clearColor: () 
 private fun ColorSelectPreview () {
     TasksTheme {
         SelectColorRow(
-            color = remember { mutableStateOf(Color.Red) },
+            color = Color.Red,
             selectColor = {},
             clearColor = {}
         )

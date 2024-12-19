@@ -12,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -32,9 +31,10 @@ import org.tasks.R
 
 @Composable
 fun TitleInput(
-    text: MutableState<String>,
-    error: MutableState<String>,
+    text: String,
+    error: String,
     requestKeyboard: Boolean,
+    setText: (String) -> Unit,
     modifier: Modifier = Modifier,
     label: String = stringResource(R.string.display_name),
     errorState: Color = MaterialTheme.colorScheme.secondary,
@@ -45,12 +45,12 @@ fun TitleInput(
     val requester = remember { FocusRequester() }
     val focused = remember { mutableStateOf(false) }
     val labelColor = when {
-        (error.value != "") -> errorState
+        (error != "") -> errorState
         (focused.value) -> activeState
         else -> inactiveState
     }
     val dividerColor = if (focused.value) errorState else labelColor
-    val labelText = if (error.value != "") error.value else label
+    val labelText = if (error != "") error else label
 
     Row (modifier = modifier)
     {
@@ -65,15 +65,12 @@ fun TitleInput(
             )
 
             BasicTextField(
-                value = text.value,
+                value = text,
                 textStyle = TextStyle(
                     fontSize = LocalTextStyle.current.fontSize,
                     color = LocalContentColor.current
                 ),
-                onValueChange = {
-                    text.value = it
-                    if (error.value != "") error.value = ""
-                },
+                onValueChange = { setText(it) },
                 cursorBrush = SolidColor(errorState), // SolidColor(LocalContentColor.current),
                 modifier = Modifier
                     .fillMaxWidth()

@@ -184,7 +184,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                             IconButton(onClick = { help() }) {
                                 Icon(imageVector = Icons.Outlined.Help, contentDescription = "")
                             }
-                        } else DeleteButton{ promptDelete() }
+                        } else DeleteButton(filter?.title ?: ""){ promptDelete() }
                     }
                 ) {
                     FilterCondition(

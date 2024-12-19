@@ -4,9 +4,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import org.tasks.R
 import org.tasks.compose.Constants
@@ -14,12 +11,12 @@ import org.tasks.themes.TasksTheme
 
 @Composable
 fun PromptAction(
-    showDialog: MutableState<Boolean>,
+    showDialog: Boolean,
     title: String,
     onAction: () -> Unit,
-    onCancel: () -> Unit = { showDialog.value = false }
+    onCancel: () -> Unit,
 ) {
-    if (showDialog.value) {
+    if (showDialog) {
         AlertDialog(
             onDismissRequest = onCancel,
             title = { Text(title, style = MaterialTheme.typography.headlineSmall) },
@@ -34,8 +31,10 @@ fun PromptAction(
 private fun PromptActionPreview() {
     TasksTheme {
         PromptAction(
-            showDialog = remember { mutableStateOf(true) },
+            showDialog = true,
             title = "Delete list?",
-            onAction = { /*TODO*/ })
+            onAction = { /*TODO*/ },
+            onCancel = {},
+        )
     }
 }

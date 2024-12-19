@@ -73,7 +73,7 @@ private fun TitleBarPreview() {
         Toolbar(
             title = "Toolbar title",
             save = { /*TODO*/ },
-            optionButton = { DeleteButton {} }
+            optionButton = { DeleteButton("test") {} }
         )
     }
 }

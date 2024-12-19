@@ -199,7 +199,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
 
     @Composable
     fun BaseCaldavSettingsContent (
-        optionButton: @Composable () -> Unit = { if (!isNew) DeleteButton { promptDelete() } },
+        optionButton: @Composable () -> Unit = { if (!isNew) DeleteButton(caldavCalendar?.name ?: "") { promptDelete() } },
         extensionContent: @Composable ColumnScope.() -> Unit = {}
     ) {
         BaseSettingsContent (
