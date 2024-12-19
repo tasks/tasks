@@ -8,11 +8,7 @@
     <string name="notifications">Sciigoj</string>
     <string name="widget_show_menu">Vidigi menuon</string>
     <string name="widget_show_settings">Vidigi agordojn</string>
-    <string name="yesterday_lowercase">hieraŭ</string>
-    <string name="yesterday">Hieraŭ</string>
-    <string name="tomorrow_lowercase">morgaŭ</string>
     <string name="tomorrow">Morgaŭ</string>
-    <string name="today_lowercase">hodiaŭ</string>
     <string name="today">Hodiaŭ</string>
     <plurals name="Ntasks">
         <item quantity="one">1 tasko</item>
@@ -265,10 +261,6 @@
     <string name="vibrations">Vibradoj</string>
     <string name="silent">Silenta</string>
     <string name="widget_show_title">Vidigi titolon</string>
-    <string name="yesterday_abbrev_lowercase">hieraŭ</string>
-    <string name="yest">hieraŭ</string>
-    <string name="tomorrow_abbrev_lowercase">morgaŭ</string>
-    <string name="tmrw">morgaŭ</string>
     <string name="next_saturday">Sekva sab</string>
     <string name="next_friday">Sekva ven</string>
     <string name="next_wednesday">Sekva mer</string>
@@ -504,7 +496,6 @@
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks elparolos tasknomojn dum memorigi</string>
     <string name="attachment_directory">Dosierujo de Aldonaĵoj</string>
     <string name="contact_developer">Kontakti programiston</string>
-    <string name="TLA_menu_donate">Donaci</string>
     <string name="subtasks_multilevel_google_task">Multnivelaj subtaskoj ne estas subtenataj per Google Tasks</string>
     <string name="third_party_licenses">Licencoj de ekstera liveranto</string>
     <string name="expand_subtasks">Etendi subtaskojn</string>
@@ -518,7 +509,6 @@
     <string name="location_departed">Foriris je %s</string>
     <string name="choose_a_location">Elekti lokon</string>
     <string name="open_map">Malfermi mapon</string>
-    <string name="create_new_tag">Krei \"%s\"</string>
     <string name="choose_synchronization_service">Elekti platformon</string>
     <string name="hide_unused_tags">Kaŝi neuzatajn etikedojn</string>
     <string name="more_notification_settings_summary">Vokosono, vibrado, kaj aliaj</string>

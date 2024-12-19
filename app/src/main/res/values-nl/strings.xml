@@ -211,9 +211,6 @@
     </plurals>
     <string name="today">Vandaag</string>
     <string name="tomorrow">Morgen</string>
-    <string name="yesterday">Gisteren</string>
-    <string name="tmrw">Morgen</string>
-    <string name="yest">Gister</string>
     <string name="widget_show_checkboxes">Selectievakjes tonen</string>
     <string name="widget_show_header">Koptekst tonen</string>
     <string name="widget_show_settings">Instellingen tonen</string>
@@ -234,7 +231,6 @@
     <string name="contact_developer">Contact met ontwikkelaar</string>
     <string name="rate_tasks">Tasks waarderen</string>
     <string name="quiet_hours_summary">Geen herinneringen tijdens rusttijd</string>
-    <string name="TLA_menu_donate">Donaties</string>
     <string name="add_reminder">Herinnering toevoegen</string>
     <string name="add_location">Locatie toevoegen</string>
     <string name="remove">Verwijderen</string>
@@ -405,7 +401,6 @@
     <string name="subtasks">Subtaken</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ondersteunt geen subtaken op meerdere niveaus</string>
     <string name="enter_tag_name">Label kiezen</string>
-    <string name="create_new_tag">\"%s\" aanmaken</string>
     <string name="display_name">Weergavenaam</string>
     <string name="this_feature_requires_a_subscription">Voor deze functie is een abonnement vereist</string>
     <string name="choose_synchronization_service">Een platform kiezen</string>
@@ -498,9 +493,6 @@
     <string name="action_new_task">Nieuwe taak</string>
     <string name="sort_created_group">Gemaakt %s</string>
     <string name="sort_modified_group">Bewerkt %s</string>
-    <string name="yesterday_lowercase">gisteren</string>
-    <string name="tomorrow_lowercase">morgen</string>
-    <string name="today_lowercase">vandaag</string>
     <string name="astrid_sort_order_summary">Pas Astrid\'s handmatige sorteermodus toe op \'Mijn taken\', \'Vandaag\', en Labels. Deze modus wordt in een komende versie vervangen door \'Mijn volgorde\'</string>
     <string name="astrid_sort_order">Astrid\'s handmatig sorteren</string>
     <string name="on_launch">Bij het starten</string>
@@ -589,8 +581,6 @@
     <string name="CFC_startBefore_text">Begindatum: \?</string>
     <string name="sort_due_group">Vervalt %s</string>
     <string name="sort_start_group">Begin %s</string>
-    <string name="yesterday_abbrev_lowercase">gister</string>
-    <string name="tomorrow_abbrev_lowercase">morgen</string>
     <string name="tasks_org_description">Taken synchroniseren met Tasks.org</string>
     <string name="account_not_included">Niet inbegrepen bij \"Bepaal je eigen prijs\" abonnementen</string>
     <string name="tasks_org_account">Tasks.org account</string>

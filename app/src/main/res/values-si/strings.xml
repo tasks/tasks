@@ -226,12 +226,6 @@
     <string name="decsync_selection_description">ගොනු මත පදනම් වූ සමමුහුර්තකරණය</string>
     <string name="tasks_org_description">Tasks.org සමඟ ඔබේ කාර්යයන් සමමුහුර්ත කරන්න</string>
     <string name="widget_show_checkboxes">පිරික්සුම් කොටු පෙන්වන්න</string>
-    <string name="yesterday_abbrev_lowercase">ඊයේ</string>
-    <string name="yest">ඊයේ</string>
-    <string name="tomorrow_abbrev_lowercase">හෙට</string>
-    <string name="tmrw">හෙට</string>
-    <string name="yesterday_lowercase">ඊයේ</string>
-    <string name="yesterday">ඊයේ</string>
     <string name="next_saturday">ඊළඟ සෙනසුරාදා</string>
     <string name="next_friday">ඊළඟ සිකුරාදා</string>
     <string name="next_thursday">ඊළඟ බ්‍රහස්පතින්දා</string>
@@ -239,9 +233,7 @@
     <string name="next_tuesday">ඊළඟ අඟහරුවාදා</string>
     <string name="next_monday">ඊළඟ සඳුදා</string>
     <string name="next_sunday">ඊළඟ ඉරිදා</string>
-    <string name="tomorrow_lowercase">හෙට</string>
     <string name="tomorrow">හෙට</string>
-    <string name="today_lowercase">අද</string>
     <string name="today">අද</string>
     <plurals name="Ntasks">
         <item quantity="one">කාර්යය 1</item>
@@ -490,7 +482,6 @@
     <string name="cancel">අවලංගු කරන්න</string>
     <string name="ok">හරි</string>
     <string name="choose_synchronization_service">සේවාවක් තෝරන්න</string>
-    <string name="create_new_tag">\"%s\" සාදන්න</string>
     <string name="enter_tag_name">ටැගයේ නම ඇතුළත් කරන්න</string>
     <string name="subtasks_multilevel_google_task">Google Tasks විසින් බහු මට්ටමේ උප කාර්යයන් සඳහා සහාය නොදක්වයි</string>
     <string name="collapse_subtasks">උප කාර්යයන් හකුළුවන්න</string>
@@ -602,7 +593,6 @@
     <string name="remove">ඉවත් කරන්න</string>
     <string name="add_location">ස්ථානය එක් කරන්න</string>
     <string name="add_reminder">මතක් කිරීමක් එක් කරන්න</string>
-    <string name="TLA_menu_donate">පරිත්‍යාග කරන්න</string>
     <string name="quiet_hours_summary">නිහඬ කාලය තුළ මතක් කිරීම් නොමැත</string>
     <string name="rate_tasks">Tasks අගයන්න</string>
     <string name="contact_developer">සංවර්ධකයා අමතන්න</string>

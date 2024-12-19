@@ -148,9 +148,6 @@
     </plurals>
     <string name="today">Hoxe</string>
     <string name="tomorrow">Mañá</string>
-    <string name="yesterday">Onte</string>
-    <string name="tmrw">Mañá</string>
-    <string name="yest">Onte</string>
     <string name="widget_show_checkboxes">Amosar caisiñas de verificación</string>
     <string name="widget_show_header">Amosar encabezado</string>
     <string name="widget_show_settings">Amosar configuracións</string>
@@ -171,7 +168,6 @@
     <string name="contact_developer">Contactar co desenvolvedor</string>
     <string name="rate_tasks">Valorar Tasks</string>
     <string name="quiet_hours_summary">Sen avisos en horario silencioso</string>
-    <string name="TLA_menu_donate">Doar</string>
     <string name="add_reminder">Engadir recordatorio</string>
     <string name="remove">Borrar</string>
     <string name="randomly">Ao chou</string>
@@ -240,7 +236,6 @@
     <string name="upgrade_to_pro">Anovar a pro</string>
     <string name="password_required">Precísase contrasinal</string>
     <string name="icon">Icona</string>
-    <string name="today_lowercase">hoxe</string>
     <string name="documentation">Documentación</string>
     <string name="filter_medium_priority">Prioridade intermedia</string>
     <string name="filter_no_priority">Sen prioridade</string>
@@ -323,7 +318,6 @@
         <item quantity="one">tempo</item>
         <item quantity="other">tempos</item>
     </plurals>
-    <string name="tomorrow_lowercase">mañá</string>
     <string name="next_tuesday">Próx Mar</string>
     <string name="next_wednesday">Próx Mér</string>
     <string name="add_location">Engadir posición</string>
@@ -388,9 +382,6 @@
     <string name="caldav_server_type">Tipo de servidor</string>
     <string name="next_sunday">Próx Dom</string>
     <string name="now">Agora</string>
-    <string name="yesterday_lowercase">onte</string>
-    <string name="tomorrow_abbrev_lowercase">mañá</string>
-    <string name="yesterday_abbrev_lowercase">onte</string>
     <string name="header_spacing">Espazado</string>
     <string name="subtasks">Subtarefas</string>
     <string name="menu_discard_changes">Descartar mudanzas</string>
@@ -404,7 +395,6 @@
     <string name="requires_pro_subscription">Precísase dunha suscrición pro</string>
     <string name="this_feature_requires_a_subscription">Esta característica necesita dunha suscrición</string>
     <string name="enter_tag_name">Introduce nome de etiqueta</string>
-    <string name="create_new_tag">Crear \"%s\"</string>
     <string name="show_advanced_settings">Amosar configuración avanzada</string>
     <string name="preferences_look_and_feel">Estilo e apariencia</string>
     <string name="preferences_advanced">Avanzada</string>

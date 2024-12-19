@@ -113,9 +113,5 @@
     </plurals>
     <string name="today">Danes</string>
     <string name="tomorrow">Jutri</string>
-    <string name="yesterday">Včeraj</string>
-    <string name="tmrw">Jutr</string>
-    <string name="yest">Včer</string>
-    <string name="TLA_menu_donate">Donirajte</string>
     <string name="email">E-pošta</string>
 </resources>

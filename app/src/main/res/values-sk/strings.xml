@@ -218,9 +218,6 @@
     </plurals>
     <string name="today">Dnes</string>
     <string name="tomorrow">Zajtra</string>
-    <string name="yesterday">Včera</string>
-    <string name="tmrw">Zajtra</string>
-    <string name="yest">Včera</string>
     <string name="widget_show_checkboxes">Ukázať zaškrtávacie políčka </string>
     <string name="widget_show_header">Ukázať záhlavia </string>
     <string name="widget_show_settings">Ukázať nastavenia</string>
@@ -242,7 +239,6 @@
     <string name="contact_developer">Spojiť sa s vývojárom</string>
     <string name="rate_tasks">Ohodnotiť Úlohy</string>
     <string name="quiet_hours_summary">Žiadne upozornenia počas obdobia ticha</string>
-    <string name="TLA_menu_donate">Darovať</string>
     <string name="add_reminder">Pridať pripomienku</string>
     <string name="add_location">Pridaj polohu</string>
     <string name="remove">Odstrániť</string>

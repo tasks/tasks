@@ -227,9 +227,6 @@
     </plurals>
     <string name="today">Oggi</string>
     <string name="tomorrow">Domani</string>
-    <string name="yesterday">Ieri</string>
-    <string name="tmrw">Domani</string>
-    <string name="yest">Ieri</string>
     <string name="widget_show_checkboxes">Mostra le caselle di selezione</string>
     <string name="widget_show_header">Mostra intestazione</string>
     <string name="widget_show_settings">Mostra impostazioni</string>
@@ -251,7 +248,6 @@
     <string name="contact_developer">Contatta lo sviluppatore</string>
     <string name="rate_tasks">Valuta Tasks</string>
     <string name="quiet_hours_summary">Nessuna notifica durante le ore di quiete</string>
-    <string name="TLA_menu_donate">Dona</string>
     <string name="add_reminder">Aggiungi promemoria</string>
     <string name="add_location">Aggiungi posizione</string>
     <string name="remove">Elimina</string>
@@ -457,7 +453,6 @@
         <item quantity="many">%d attività secondarie</item>
         <item quantity="other">%d attività secondarie</item>
     </plurals>
-    <string name="create_new_tag">Crea «%s»</string>
     <string name="subtasks_multilevel_google_task">Google Tasks non supporta attività secondarie su più livelli</string>
     <string name="expand_subtasks">Espandi attività secondarie</string>
     <string name="google_tasks_add_to_top">Nuove attività in cima alla lista</string>
@@ -492,9 +487,6 @@
     <string name="widget_due_date_below_title">Sotto il titolo</string>
     <string name="widget_due_date_after_title">Dopo il titolo</string>
     <string name="widget_open_list">Apri lista</string>
-    <string name="yesterday_lowercase">ieri</string>
-    <string name="tomorrow_lowercase">domani</string>
-    <string name="today_lowercase">oggi</string>
     <string name="CFC_list_name">Nella lista…</string>
     <string name="astrid_sort_order_summary">Abilita la modalità di ordinamento manuale di Astrid per \"Attività personali\", \"Oggi\" ed etichette. Questa modalità di ordinamento verrà sostituita da \"Ordine personalizzato\" in un futuro aggiornamento</string>
     <string name="custom_filter_criteria">Criteri del filtro</string>
@@ -602,8 +594,6 @@
     <string name="sign_in_to_tasks">Accedi a Tasks.org</string>
     <string name="copied_to_clipboard">%s copiato</string>
     <string name="local_lists">Liste locali</string>
-    <string name="tomorrow_abbrev_lowercase">domani</string>
-    <string name="yesterday_abbrev_lowercase">ieri</string>
     <string name="account_not_included">Non incluso negli abbonamenti con prezzo a scelta</string>
     <string name="tasks_org_account">Account Tasks.org</string>
     <string name="subscription">Abbonamento</string>

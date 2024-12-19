@@ -279,9 +279,7 @@ File %1$s contained %2$s.\n\n
   </plurals>
   <string name="now">Now</string>
   <string name="today">Today</string>
-  <string name="today_lowercase">today</string>
   <string name="tomorrow">Tomorrow</string>
-  <string name="tomorrow_lowercase">tomorrow</string>
   <string name="next_sunday">Next Sun</string>
   <string name="next_monday">Next Mon</string>
   <string name="next_tuesday">Next Tue</string>
@@ -290,11 +288,6 @@ File %1$s contained %2$s.\n\n
   <string name="next_friday">Next Fri</string>
   <string name="next_saturday">Next Sat</string>
   <string name="yesterday">Yesterday</string>
-  <string name="yesterday_lowercase">yesterday</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="tomorrow_abbrev_lowercase">tmrw</string>
-  <string name="yest">Yest</string>
-  <string name="yesterday_abbrev_lowercase">yest</string>
   <string name="widget_show_checkboxes">Show checkboxes</string>
   <string name="widget_show_header">Show header</string>
   <string name="widget_show_settings">Show settings</string>
@@ -324,7 +317,6 @@ File %1$s contained %2$s.\n\n
   <string name="send_application_logs">Send application logs</string>
   <string name="rate_tasks">Rate Tasks</string>
   <string name="quiet_hours_summary">No reminders during quiet hours</string>
-  <string name="TLA_menu_donate">Donate</string>
   <string name="add_reminder">Add reminder</string>
   <string name="add_location">Add location</string>
   <string name="remove">Remove</string>
@@ -527,7 +519,6 @@ File %1$s contained %2$s.\n\n
   <string name="collapse_subtasks">Collapse subtasks</string>
   <string name="subtasks_multilevel_google_task">Multi-level subtasks not supported by Google Tasks</string>
   <string name="enter_tag_name">Enter tag name</string>
-  <string name="create_new_tag">Create \"%s\"</string>
   <string name="choose_synchronization_service">Select a platform</string>
   <string name="tasks_org_description">Synchronize your tasks with Tasks.org</string>
   <string name="google_tasks_selection_description">Basic service that synchronizes with your Google account</string>

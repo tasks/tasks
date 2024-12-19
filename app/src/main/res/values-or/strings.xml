@@ -69,17 +69,12 @@
     </plurals>
     <string name="now">ଏବେ</string>
     <string name="today">ଆଜି</string>
-    <string name="today_lowercase">ଆଜି</string>
-    <string name="tomorrow_lowercase">ଆସନ୍ତାକାଲି</string>
-    <string name="yesterday">ଗତକାଲି</string>
-    <string name="yesterday_lowercase">ଗତକାଲି</string>
     <string name="next_sunday">ଆସନ୍ତା ରଵି</string>
     <string name="next_tuesday">ଆସନ୍ତା ମଙ୍ଗଳ</string>
     <string name="next_wednesday">ଆସନ୍ତା ବୁଧ</string>
     <string name="next_thursday">ଆସନ୍ତା ଗୁରୁ</string>
     <string name="next_friday">ଆସନ୍ତା ଶୁକ୍ର</string>
     <string name="widget_show_dividers">ଵିଭାଜକ ଦେଖାଅ</string>
-    <string name="TLA_menu_donate">ଦାନ କରନ୍ତୁ</string>
     <string name="date_shortcut_morning">ସକାଳ</string>
     <string name="date_shortcut_afternoon">ଅପରାହ୍ଣ</string>
     <string name="date_shortcut_evening">ସଞ୍ଜ</string>

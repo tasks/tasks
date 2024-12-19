@@ -205,9 +205,6 @@
     </plurals>
     <string name="today">Tänään</string>
     <string name="tomorrow">Huomenna</string>
-    <string name="yesterday">Eilen</string>
-    <string name="tmrw">Huomenna</string>
-    <string name="yest">Eilen</string>
     <string name="widget_show_checkboxes">Näytä valintaruudut</string>
     <string name="widget_show_header">Näytä otsikot</string>
     <string name="widget_show_settings">Näytä asetukset</string>
@@ -228,7 +225,6 @@
     <string name="contact_developer">Ota yhteyttä kehittäjään</string>
     <string name="rate_tasks">Arvostele Tasks</string>
     <string name="quiet_hours_summary">Ei ilmoituksia hiljaisena aikana</string>
-    <string name="TLA_menu_donate">Lahjoita</string>
     <string name="add_reminder">Lisää muistutus</string>
     <string name="remove">Poista</string>
     <string name="randomly">Satunnaisesti</string>
@@ -358,7 +354,6 @@
     <string name="etesync_selection_description">End-to-end-salattu synkronointi</string>
     <string name="caldav_selection_description">Avoimiin verkkostandardeihin pohjautuva synkronointi</string>
     <string name="choose_synchronization_service">Valitse alusta</string>
-    <string name="create_new_tag">Luo \"%s\"</string>
     <string name="enter_tag_name">Anna tunnisteen nimi</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ei tue monitasoisia alitehtäviä</string>
     <string name="collapse_subtasks">Pienennä alitehtävät</string>
@@ -496,9 +491,6 @@
     <string name="opacity_header">Ylätunnisteen läpinäkyvyys</string>
     <string name="sort_modified_group">Muutettu %s</string>
     <string name="sort_created_group">Luotu %s</string>
-    <string name="yesterday_lowercase">eilen</string>
-    <string name="tomorrow_lowercase">huomenna</string>
-    <string name="today_lowercase">tänään</string>
     <string name="lists">Listat</string>
     <string name="open_last_viewed_list">Avaa viimeksi katsottu lista</string>
     <string name="on_launch">Käynnistettäessä</string>
@@ -605,8 +597,6 @@
     <string name="show_unstarted">Näytä aloittamattomat</string>
     <string name="header_spacing">Välit</string>
     <string name="widget_show_title">Näytä otsikko</string>
-    <string name="yesterday_abbrev_lowercase">eilen</string>
-    <string name="tomorrow_abbrev_lowercase">huomenna</string>
     <string name="next_saturday">Seuraava la</string>
     <string name="next_thursday">Seuraava to</string>
     <string name="next_wednesday">Seuraava ke</string>

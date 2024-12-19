@@ -207,9 +207,6 @@
     </plurals>
     <string name="today">Hoje</string>
     <string name="tomorrow">Amanhã</string>
-    <string name="yesterday">Ontem</string>
-    <string name="tmrw">Amanhã</string>
-    <string name="yest">Ontem</string>
     <string name="widget_show_checkboxes">Mostrar caixas de verificação</string>
     <string name="widget_show_header">Mostrar cabeçalho</string>
     <string name="widget_show_settings">Mostrar configurações</string>
@@ -230,7 +227,6 @@
     <string name="contact_developer">Contactar o programador</string>
     <string name="rate_tasks">Avaliar o Tasks</string>
     <string name="quiet_hours_summary">Sem lembretes nas horas de silêncio</string>
-    <string name="TLA_menu_donate">Fazer um donativo</string>
     <string name="add_reminder">Adicionar lembrete</string>
     <string name="remove">Remover</string>
     <string name="randomly">Aleatoriamente</string>
@@ -330,9 +326,6 @@
     <string name="action_call">Ligar</string>
     <string name="action_open">Abrir</string>
     <string name="TEA_timer_est">Duração %s</string>
-    <string name="yesterday_lowercase">ontem</string>
-    <string name="tomorrow_lowercase">amanhã</string>
-    <string name="today_lowercase">hoje</string>
     <string name="button_unsubscribe">Cancelar subscrição</string>
     <string name="icon">Ícone</string>
     <string name="google_tasks_add_to_top">Novas tarefas no topo</string>
@@ -483,7 +476,6 @@
     <string name="choose_synchronization_service">Selecione uma plataforma</string>
     <string name="this_feature_requires_a_subscription">Este recurso necessita de uma subscrição</string>
     <string name="display_name">Mostrar nome</string>
-    <string name="create_new_tag">Criar \"%s\"</string>
     <string name="enter_tag_name">Digite o nome da etiqueta</string>
     <string name="subtasks_multilevel_google_task">As subtarefas em vários níveis não são suportadas pelo Google Tasks</string>
     <string name="subtasks">Subtarefas</string>
@@ -626,8 +618,6 @@
     <string name="filter_criteria_unstarted">Não iniciada</string>
     <string name="show_unstarted">Mostrar não iniciadas</string>
     <string name="widget_show_title">Mostrar título</string>
-    <string name="yesterday_abbrev_lowercase">ontem</string>
-    <string name="tomorrow_abbrev_lowercase">amanhã</string>
     <string name="next_saturday">Próximo sábado</string>
     <string name="next_friday">Próxima 6ª-feira</string>
     <string name="next_thursday">Próxima 5ª-feira</string>

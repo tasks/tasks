@@ -225,9 +225,6 @@
     </plurals>
     <string name="today">Hoje</string>
     <string name="tomorrow">Amanhã</string>
-    <string name="yesterday">Ontem</string>
-    <string name="tmrw">Amanhã</string>
-    <string name="yest">Ontem</string>
     <string name="widget_show_checkboxes">Mostrar caixas de seleção</string>
     <string name="widget_show_header">Mostrar cabeçalho</string>
     <string name="widget_show_settings">Mostrar configurações</string>
@@ -249,7 +246,6 @@
     <string name="contact_developer">Contate o desenvolvedor</string>
     <string name="rate_tasks">Avalie o Tasks</string>
     <string name="quiet_hours_summary">Sem lembretes nas horas de silêncio</string>
-    <string name="TLA_menu_donate">Doar</string>
     <string name="add_reminder">Adicionar lembrete</string>
     <string name="add_location">Adicionar localização</string>
     <string name="remove">Remover</string>
@@ -443,7 +439,6 @@
     <string name="caldav_selection_description">Sincronização usando protocolos padrões e livres da Internet</string>
     <string name="google_tasks_selection_description">Serviço básico que sincroniza com a sua conta Google</string>
     <string name="choose_synchronization_service">Selecione uma plataforma</string>
-    <string name="create_new_tag">Criar \"%s\"</string>
     <string name="enter_tag_name">Adicione nome da etiqueta</string>
     <string name="subtasks_multilevel_google_task">Subtarefas em vários níveis não são suportadas pelo Google Tarefas</string>
     <string name="collapse_subtasks">Recolher sub-tarefas</string>
@@ -478,9 +473,6 @@
     <string name="subtasks">Sub-tarefas</string>
     <string name="widget_show_dividers">Mostrar divisórias</string>
     <string name="widget_show_menu">Mostrar menu</string>
-    <string name="yesterday_lowercase">ontem</string>
-    <string name="tomorrow_lowercase">amanhã</string>
-    <string name="today_lowercase">hoje</string>
     <plurals name="subtask_count">
         <item quantity="one">%d sub-tarefa</item>
         <item quantity="many">%d sub-tarefas</item>
@@ -633,8 +625,6 @@
     <string name="follow_reddit">r/tasks (reddit)</string>
     <string name="header_spacing">Espaçamento</string>
     <string name="widget_show_title">Mostrar título</string>
-    <string name="yesterday_abbrev_lowercase">Ontem</string>
-    <string name="tomorrow_abbrev_lowercase">Amanhã</string>
     <string name="next_saturday">Próximo sábado</string>
     <string name="next_friday">Próxima sexta</string>
     <string name="next_thursday">Próxima quinta</string>

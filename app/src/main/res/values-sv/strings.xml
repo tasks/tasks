@@ -142,9 +142,6 @@
     </plurals>
     <string name="today">Idag</string>
     <string name="tomorrow">Imorgon</string>
-    <string name="yesterday">Igår</string>
-    <string name="tmrw">Imorgon</string>
-    <string name="yest">Igår</string>
     <string name="widget_show_checkboxes">Visa kryssrutor</string>
     <string name="widget_show_header">Visa rubrik</string>
     <string name="widget_show_settings">Visa ikon för inställningar</string>
@@ -164,7 +161,6 @@
     <string name="contact_developer">Kontakta utvecklaren</string>
     <string name="rate_tasks">Betygsätt Tasks</string>
     <string name="quiet_hours_summary">Inga påminnelser under tysta timmar</string>
-    <string name="TLA_menu_donate">Donera</string>
     <string name="add_reminder">Lägg till en påminnelse</string>
     <string name="remove">Ta bort</string>
     <string name="randomly">Slumpmässigt</string>
@@ -427,7 +423,6 @@
     <string name="documentation">Dokumentation</string>
     <string name="preferences_advanced">Avancerat</string>
     <string name="show_advanced_settings">Visa avancerade inställningar</string>
-    <string name="create_new_tag">Skapa \"%s\"</string>
     <string name="action_new_task">Ny uppgift</string>
     <string name="help_and_feedback">Hjälp &amp; återkoppling</string>
     <string name="widget_due_date_hidden">Dold</string>
@@ -435,9 +430,6 @@
     <string name="date_shortcut_tomorrow_night">Imorgon natt</string>
     <string name="date_shortcut_tomorrow_evening">Imorgon kväll</string>
     <string name="widget_show_menu">Visa meny</string>
-    <string name="yesterday_lowercase">igår</string>
-    <string name="tomorrow_lowercase">imorgon</string>
-    <string name="today_lowercase">idag</string>
     <string name="CFC_list_name">I lista…</string>
     <string name="email">E-post</string>
     <string name="upgrade_blurb_2">Jag har ägnat tusentals timmar på Tasks och jag publicerar all källkod fritt på nätet. För att stöda mitt arbete kräver vissa funktioner ett abonnemang</string>
@@ -606,8 +598,6 @@
     <string name="repeat_monthly_fifth_week">femte</string>
     <string name="widget_show_dividers">Visa avdelare</string>
     <string name="widget_show_title">Visa titel</string>
-    <string name="yesterday_abbrev_lowercase">igår</string>
-    <string name="tomorrow_abbrev_lowercase">imorgon</string>
     <string name="next_saturday">Nästa lördag</string>
     <string name="next_friday">Nästa fre</string>
     <string name="next_thursday">Nästa tors</string>

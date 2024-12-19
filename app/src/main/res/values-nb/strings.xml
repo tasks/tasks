@@ -104,7 +104,6 @@
     </plurals>
     <string name="today">I dag</string>
     <string name="tomorrow">I morgen</string>
-    <string name="yesterday">I går</string>
     <string name="widget_show_checkboxes">Vis avkryssingsbokser</string>
     <string name="widget_show_settings">Vis innstillinger</string>
     <string name="notifications"> Varsler</string>
@@ -257,8 +256,6 @@
     <string name="delete_tag_confirmation">Slett %s\?</string>
     <string name="TEA_timer_comment_stopped">stoppet arbeid med dette gjøremålet:</string>
     <string name="voice_command_added_task">La til gjøremål</string>
-    <string name="tmrw">Imrgn</string>
-    <string name="yest">Igår</string>
     <string name="widget_show_header">Vis hode</string>
     <string name="silent">Stille</string>
     <string name="sound">Lyd</string>
@@ -272,7 +269,6 @@
     <string name="customize_edit_screen">Tilpass redigeringsskjerm</string>
     <string name="translations">Hjelp til i oversettelsen</string>
     <string name="quiet_hours_summary">Ingen påminnelser i stilletid</string>
-    <string name="TLA_menu_donate">Doner</string>
     <string name="add_reminder">Legg til påminnelse</string>
     <string name="add_location">Legg til sted</string>
     <string name="remove">Fjern</string>
@@ -410,7 +406,6 @@
     <string name="subtasks">Gjøremålssteg</string>
     <string name="subtasks_multilevel_google_task">Gjøremålssteg med flere nivåer støttes ikke av Google Tasks</string>
     <string name="enter_tag_name">Skriv inn etikettnavn</string>
-    <string name="create_new_tag">Opprett «%s»</string>
     <string name="display_name">Visningsnavn</string>
     <string name="this_feature_requires_a_subscription">Denne funksjonen krever abonnement</string>
     <string name="choose_synchronization_service">Velg en plattform</string>
@@ -499,9 +494,6 @@
     <string name="got_it">Skjønner!</string>
     <string name="sort_modified_group">Endret %s</string>
     <string name="sort_created_group">Opprettet %s</string>
-    <string name="yesterday_lowercase">i går</string>
-    <string name="tomorrow_lowercase">i morgen</string>
-    <string name="today_lowercase">i dag</string>
     <string name="reset_sort_order">Tilbakestill sorteringsrekkefølge</string>
     <string name="lists">Lister</string>
     <string name="on_launch">Ved oppstart</string>
@@ -588,8 +580,6 @@
     <string name="subscription">Abonnement</string>
     <string name="filter_criteria_unstarted">Ikke startet</string>
     <string name="show_unstarted">Vis ustartede</string>
-    <string name="yesterday_abbrev_lowercase">igår</string>
-    <string name="tomorrow_abbrev_lowercase">imrgn</string>
     <string name="filter_any_start_date">Vilkårlig startdato</string>
     <string name="no_start_date">Ingen startdato</string>
     <string name="CFC_startBefore_name">Start innen …</string>

@@ -113,10 +113,6 @@
     <string name="voice_command_added_task">Η εργασία προστέθηκε</string>
     <string name="today">Σήμερα</string>
     <string name="tomorrow">Αύριο</string>
-    <string name="yesterday">Χθές</string>
-    <string name="tmrw">Αύριο</string>
-    <string name="yest">Χθές</string>
-    <string name="TLA_menu_donate">Δωρεά</string>
     <string name="remove">Αφαίρεση</string>
     <string name="add_location">Προσθήκη τοποθεσίας</string>
     <string name="add_reminder">Προσθήκη υπενθύμισης</string>

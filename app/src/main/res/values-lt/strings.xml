@@ -237,9 +237,6 @@
     </plurals>
     <string name="today">Šiandien</string>
     <string name="tomorrow">Rytoj</string>
-    <string name="yesterday">Vakar</string>
-    <string name="tmrw">Rytoj</string>
-    <string name="yest">Vakar</string>
     <string name="widget_show_checkboxes">Rodyti žymimus kvadratėlius</string>
     <string name="widget_show_header">Rodyti antraštę</string>
     <string name="widget_show_settings">Rodyti nustatymus</string>
@@ -261,7 +258,6 @@
     <string name="contact_developer">Susisiekti su kūrėju</string>
     <string name="rate_tasks">Įvertinti Tasks</string>
     <string name="quiet_hours_summary">Tylos valandomis - be priminimų</string>
-    <string name="TLA_menu_donate">Paaukoti</string>
     <string name="add_reminder">Pridėti priminimą</string>
     <string name="add_location">Pridėti vietą</string>
     <string name="remove">Išmesti</string>
@@ -412,8 +408,6 @@
     <string name="invalid_backup_file">Blogas atsarginės kopijos failas</string>
     <string name="google_tasks_add_to_top">Naujos užduotys viršuje</string>
     <string name="email">El. paštas</string>
-    <string name="yesterday_abbrev_lowercase">vakar</string>
-    <string name="tomorrow_abbrev_lowercase">ryt</string>
     <string name="SSD_sort_start">Pagal pradžios datą</string>
     <string name="filter_any_start_date">Bet kokia pradžios data</string>
     <string name="filter_criteria_unstarted">Nepradėtos</string>
@@ -458,9 +452,6 @@
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="subscription">Prenumerata</string>
     <string name="repeat_monthly_fifth_week">penktą</string>
-    <string name="yesterday_lowercase">vakar</string>
-    <string name="tomorrow_lowercase">rytoj</string>
-    <string name="today_lowercase">šiandien</string>
     <string name="widget_due_date_hidden">Paslėpta</string>
     <string name="settings_default">Numatyta</string>
     <string name="share">Dalintis</string>
@@ -658,7 +649,6 @@
     <string name="caldav_selection_description">Sinchronizacija paremta atviro interneto standartais</string>
     <string name="tasks_org_description">Sinchronizuoti užduotis su Tasks.org</string>
     <string name="choose_synchronization_service">Pasirinkti platformą</string>
-    <string name="create_new_tag">Sukurti „%s“</string>
     <string name="enter_tag_name">Įvesti etiketės pavadinimą</string>
     <string name="subtasks_multilevel_google_task">„Google Tasks“ nepalaiko kelių lygių antrinių užduočių</string>
     <string name="collapse_subtasks">Sutraukti antrines užduotis</string>

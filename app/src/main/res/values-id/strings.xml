@@ -156,9 +156,6 @@
     </plurals>
     <string name="today">Hari ini</string>
     <string name="tomorrow">Besok</string>
-    <string name="yesterday">Kemarin</string>
-    <string name="tmrw">Bsk</string>
-    <string name="yest">Kmrn</string>
     <string name="widget_show_checkboxes">Tampilkan kotak centang</string>
     <string name="widget_show_header">Tampilkan tajuk</string>
     <string name="widget_show_settings">Tampilkan pengaturan</string>
@@ -176,7 +173,6 @@
     <string name="source_code">Kode sumber</string>
     <string name="translations">Kontribusi terjemahan</string>
     <string name="contact_developer">Hubungi pengembang</string>
-    <string name="TLA_menu_donate">Donasi</string>
     <string name="add_reminder">Tambah pengingat</string>
     <string name="add_location">Tambah lokasi</string>
     <string name="remove">Hapus</string>
@@ -334,7 +330,6 @@
     <string name="expand_subtasks">Lebarkan subtugas</string>
     <string name="subtasks_multilevel_google_task">Subtugas level-ganda tidak didukung oleh Google Tasks</string>
     <string name="enter_tag_name">Masukkan nama tag</string>
-    <string name="create_new_tag">Buat \"%s\"</string>
     <string name="this_feature_requires_a_subscription">Fitur ini membutuhkan Anda berlangganan versi pro</string>
     <string name="choose_synchronization_service">Pilih sebuah platform</string>
     <string name="google_tasks_selection_description">Layanan standar yang disinkronkan dengan akun Google Anda</string>
@@ -399,9 +394,6 @@
     <string name="sound">Suara</string>
     <string name="silent">Diamkan</string>
     <string name="widget_show_menu">Tampilkan menu</string>
-    <string name="yesterday_lowercase">kemarin</string>
-    <string name="tomorrow_lowercase">besok</string>
-    <string name="today_lowercase">hari ini</string>
     <string name="voice_command_added_task">Menambahkan tugas</string>
     <string name="CFC_dueBefore_name">Jatuh tempo pada…</string>
     <string name="no_due_date">Tidak ada tanggal jatuh tempo</string>
@@ -554,8 +546,6 @@
     <string name="date_shortcut_must_come_after">%1$s harus datang setelah %2$s</string>
     <string name="geofence_radius">Radius</string>
     <string name="widget_show_dividers">Tunjukan Batas Waktu</string>
-    <string name="yesterday_abbrev_lowercase">kmrn</string>
-    <string name="tomorrow_abbrev_lowercase">bsk</string>
     <string name="TEA_timer_comment_spent">Waktu terpakai:</string>
     <string name="TEA_timer_controls">Pencatat Waktu</string>
     <string name="TPl_notification">Pencatat Waktu Aktif untuk %s!</string>

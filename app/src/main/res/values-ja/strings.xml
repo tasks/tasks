@@ -219,9 +219,6 @@
     </plurals>
     <string name="today">今日</string>
     <string name="tomorrow">明日</string>
-    <string name="yesterday">昨日</string>
-    <string name="tmrw">明日</string>
-    <string name="yest">昨日</string>
     <string name="widget_show_checkboxes">チェックボックスを表示</string>
     <string name="widget_show_header">ヘッダーを表示</string>
     <string name="widget_show_settings">設定を表示</string>
@@ -243,7 +240,6 @@
     <string name="contact_developer">開発者に連絡</string>
     <string name="rate_tasks">Tasks を評価</string>
     <string name="quiet_hours_summary">おやすみモードの間はリマインダーを停止します</string>
-    <string name="TLA_menu_donate">寄付</string>
     <string name="add_reminder">リマインダーを追加</string>
     <string name="add_location">場所を追加</string>
     <string name="remove">削除</string>
@@ -426,9 +422,6 @@
     <string name="date_shortcut_tomorrow_evening">明日の夕方</string>
     <string name="widget_show_menu">メニューを表示</string>
     <string name="widget_show_title">タイトルを表示</string>
-    <string name="yesterday_abbrev_lowercase">昨日</string>
-    <string name="tomorrow_abbrev_lowercase">明日</string>
-    <string name="yesterday_lowercase">昨日</string>
     <string name="next_saturday">次の土曜日</string>
     <string name="next_friday">次の金曜日</string>
     <string name="next_thursday">次の木曜日</string>
@@ -436,8 +429,6 @@
     <string name="next_tuesday">次の火曜日</string>
     <string name="next_monday">次の月曜日</string>
     <string name="next_sunday">次の日曜日</string>
-    <string name="tomorrow_lowercase">明日</string>
-    <string name="today_lowercase">今日</string>
     <string name="repeat_type_completion_capitalized">完了日</string>
     <plurals name="list_count">
         <item quantity="other">リスト %d 件</item>
@@ -574,7 +565,6 @@
     <string name="customize_edit_screen_summary">フィールドの並び替えや削除</string>
     <string name="widget_due_date_below_title">タイトルの下</string>
     <string name="widget_due_date_after_title">タイトルの後ろ</string>
-    <string name="create_new_tag">\"%s\" を作成</string>
     <string name="etesync_account_description">EteSync.com またはセルフホストサーバーのアカウントが必要です</string>
     <string name="documentation">ドキュメント</string>
     <string name="color_wheel">カラーホイール</string>

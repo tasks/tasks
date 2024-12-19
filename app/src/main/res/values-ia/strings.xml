@@ -16,12 +16,10 @@
     <string name="DLG_hour_minutes">Tempore (horas : minutas)</string>
     <string name="cancel">Cancellar</string>
     <string name="ok">OK</string>
-    <string name="TLA_menu_donate">Facer un donation</string>
     <string name="date_and_time">Data e hora</string>
     <string name="help">Adjuta</string>
     <string name="help_and_feedback">Adjuta e commentarios</string>
     <string name="notifications">Notificationes</string>
-    <string name="today_lowercase">hodie</string>
     <string name="pick_a_date_and_time">Seliger un data e hora</string>
     <string name="privacy_policy">Politica de confidentialitate</string>
     <string name="filter_today_only">Solmente hodie</string>

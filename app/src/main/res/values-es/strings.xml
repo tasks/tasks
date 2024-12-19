@@ -231,9 +231,6 @@
     </plurals>
     <string name="today">Hoy</string>
     <string name="tomorrow">Mañana</string>
-    <string name="yesterday">Ayer</string>
-    <string name="tmrw">Mñna</string>
-    <string name="yest">Ayer</string>
     <string name="widget_show_checkboxes">Mostrar casillas de verificación</string>
     <string name="widget_show_header">Mostrar cabecera</string>
     <string name="widget_show_settings">Mostrar configuración</string>
@@ -255,7 +252,6 @@
     <string name="contact_developer">Contactar con el desarrollador </string>
     <string name="rate_tasks">Valorar Tasks</string>
     <string name="quiet_hours_summary">Sin avisos en horario silencioso</string>
-    <string name="TLA_menu_donate">Haz una donación</string>
     <string name="add_reminder">Añadir recordatorio</string>
     <string name="add_location">Añadir ubicación</string>
     <string name="remove">Eliminar</string>
@@ -426,7 +422,6 @@
     <string name="subtasks">Subtareas</string>
     <string name="subtasks_multilevel_google_task">Subtareas multinivel no compatibles con Google Tasks</string>
     <string name="enter_tag_name">Introduzca el nombre de la etiqueta</string>
-    <string name="create_new_tag">Crear «%s»</string>
     <string name="display_name">Mostrar el nombre</string>
     <string name="this_feature_requires_a_subscription">Esta característica requiere una suscripción</string>
     <string name="choose_synchronization_service">Seleccione una plataforma</string>
@@ -517,9 +512,6 @@
     <string name="enjoying_tasks">¿Disfruta Tasks\?</string>
     <string name="whats_new">Qué hay de nuevo</string>
     <string name="action_new_task">Nueva tarea</string>
-    <string name="yesterday_lowercase">ayer</string>
-    <string name="tomorrow_lowercase">mañana</string>
-    <string name="today_lowercase">hoy</string>
     <string name="sort_modified_group">Modificado %s</string>
     <string name="sort_created_group">Creado %s</string>
     <string name="open_last_viewed_list">Última lista vista abierta</string>
@@ -612,8 +604,6 @@
     <string name="sort_due_group">Previsto %s</string>
     <string name="sort_start_group">Inicio %s</string>
     <string name="tasks_org_description">Sincronice sus tareas con Tasks.org</string>
-    <string name="yesterday_abbrev_lowercase">ayer</string>
-    <string name="tomorrow_abbrev_lowercase">mañana</string>
     <string name="account_not_included">No incluido con las suscripciones de precio flexible</string>
     <string name="tasks_org_account">Cuenta de Tasks.org</string>
     <string name="subscription">Suscripción</string>

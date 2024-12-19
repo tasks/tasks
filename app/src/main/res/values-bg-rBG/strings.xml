@@ -217,9 +217,6 @@
     </plurals>
     <string name="today">Днес</string>
     <string name="tomorrow">Утре</string>
-    <string name="yesterday">Вчера</string>
-    <string name="tmrw">Утре</string>
-    <string name="yest">Вчера</string>
     <string name="widget_show_checkboxes">Отметки</string>
     <string name="widget_show_header">Заглавка</string>
     <string name="widget_show_settings">Настройки</string>
@@ -241,7 +238,6 @@
     <string name="contact_developer">Връзка с разработчика</string>
     <string name="rate_tasks">Оценете Tasks</string>
     <string name="quiet_hours_summary">Без напомняния по време на тихите часове</string>
-    <string name="TLA_menu_donate">Дарение</string>
     <string name="add_reminder">Добавяне на напомняне</string>
     <string name="add_location">Добавяне на място</string>
     <string name="remove">Премахване</string>
@@ -406,11 +402,8 @@
     <string name="more_settings">Повече настройки</string>
     <string name="help_and_feedback">Помощ и обратна връзка</string>
     <string name="theme_system_default">Спрямо системата</string>
-    <string name="today_lowercase">днес</string>
-    <string name="yesterday_lowercase">вчера</string>
     <string name="default_location">Място по подразбиране</string>
     <string name="enter_tag_name">Въведете име на етикета</string>
-    <string name="create_new_tag">Добавяне на „%s“</string>
     <string name="add_tags">Добавяне на етикети</string>
     <string name="error_adding_account">Грешка: %s</string>
     <string name="place_settings">Настройки на местата</string>
@@ -452,8 +445,6 @@
     <string name="widget_show_dividers">Разделители</string>
     <string name="widget_show_menu">Меню</string>
     <string name="widget_show_title">Заглавие</string>
-    <string name="yesterday_abbrev_lowercase">вчера</string>
-    <string name="tomorrow_abbrev_lowercase">утре</string>
     <string name="next_saturday">Следващата събота</string>
     <string name="next_friday">Следващият петък</string>
     <string name="next_thursday">Следващият четвъртък</string>
@@ -461,7 +452,6 @@
     <string name="next_tuesday">Следващият вторник</string>
     <string name="next_monday">Следващият понеделник</string>
     <string name="next_sunday">Следващата неделя</string>
-    <string name="tomorrow_lowercase">утре</string>
     <string name="repeat_type_completion_capitalized">Дата на завършване</string>
     <plurals name="list_count">
         <item quantity="one">%d списък</item>

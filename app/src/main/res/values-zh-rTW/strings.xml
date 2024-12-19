@@ -120,9 +120,6 @@
     </plurals>
     <string name="today">今天</string>
     <string name="tomorrow">明天</string>
-    <string name="yesterday">昨天</string>
-    <string name="tmrw">明天</string>
-    <string name="yest">昨天</string>
     <string name="widget_show_checkboxes">顯示核取方塊</string>
     <string name="widget_show_header">顯示標頭</string>
     <string name="widget_show_settings">顯示設定</string>
@@ -135,7 +132,6 @@
     <string name="row_spacing">行距</string>
     <string name="translations">貢獻翻譯</string>
     <string name="rate_tasks">為 Tasks 評分</string>
-    <string name="TLA_menu_donate">贊助</string>
     <string name="tags">標籤</string>
     <string name="filters">過濾</string>
     <string name="date_shortcut_tomorrow_morning">明天早上</string>
@@ -243,9 +239,6 @@
     <string name="silent">靜音</string>
     <string name="widget_show_dividers">顯示分隔線</string>
     <string name="widget_show_menu">顯示清單</string>
-    <string name="yesterday_lowercase">昨天</string>
-    <string name="tomorrow_lowercase">明天</string>
-    <string name="today_lowercase">今天</string>
     <string name="voice_command_added_task">已新增的任務</string>
     <string name="delete_tag_confirmation">要刪除 %s 嗎 \?</string>
     <string name="repeat_snackbar">%1$s 重新安排至 %2$s</string>
@@ -361,7 +354,6 @@
     <string name="preferences_look_and_feel">外觀</string>
     <string name="tasks_org_description">使用 Task.org 同步您的工作</string>
     <string name="choose_synchronization_service">選擇一個平臺</string>
-    <string name="create_new_tag">建立 \"%s\"</string>
     <string name="enter_tag_name">輸入標籤名稱</string>
     <string name="collapse_subtasks">收起次工作</string>
     <string name="expand_subtasks">展開副工作</string>
@@ -464,8 +456,6 @@
     <string name="filter_criteria_unstarted">尚未開始</string>
     <string name="show_unstarted">顯示未開始項</string>
     <string name="widget_show_title">顯示標題</string>
-    <string name="yesterday_abbrev_lowercase">昨天</string>
-    <string name="tomorrow_abbrev_lowercase">明天</string>
     <plurals name="list_count">
         <item quantity="other">%d 個清單</item>
     </plurals>

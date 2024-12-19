@@ -202,7 +202,6 @@
     <string name="caldav_selection_description">திறந்த இணைய தரங்களின் அடிப்படையில் ஒத்திசைவு</string>
     <string name="google_tasks_selection_description">உங்கள் Google கணக்குடன் ஒத்திசைக்கும் அடிப்படை சேவை</string>
     <string name="choose_synchronization_service">ஒரு தளத்தைத் தேர்ந்தெடுக்கவும்</string>
-    <string name="create_new_tag">\"%s\" ஐ உருவாக்கவும்</string>
     <string name="enter_tag_name">குறிச்சொல் பெயரை உள்ளிடவும்</string>
     <string name="subtasks_multilevel_google_task">கூகிள் பணிகளால் பல நிலை துணை பணிகள் ஆதரிக்கப்படவில்லை</string>
     <string name="collapse_subtasks">துணை பணிகளைச் சுருக்கவும்</string>
@@ -365,7 +364,6 @@
     <string name="remove">அகற்று</string>
     <string name="add_location">இருப்பிடத்தைச் சேர்க்கவும்</string>
     <string name="add_reminder">நினைவூட்டலைச் சேர்க்கவும்</string>
-    <string name="TLA_menu_donate">நன்கொடை</string>
     <string name="quiet_hours_summary">அமைதியான நேரங்களில் நினைவூட்டல்கள் இல்லை</string>
     <string name="rate_tasks">விகித பணிகள்</string>
     <string name="contact_developer">டெவலப்பரைத் தொடர்பு கொள்ளுங்கள்</string>
@@ -390,13 +388,7 @@
     <string name="widget_show_settings">அமைப்புகளைக் காட்டு</string>
     <string name="widget_show_header">தலைப்பைக் காட்டு</string>
     <string name="widget_show_checkboxes">தேர்வுப்பெட்டிகளைக் காட்டு</string>
-    <string name="yest">நேற்று</string>
-    <string name="tmrw">நாளை</string>
-    <string name="yesterday_lowercase">நேற்று</string>
-    <string name="yesterday">நேற்று</string>
-    <string name="tomorrow_lowercase">நாளை</string>
     <string name="tomorrow">நாளை</string>
-    <string name="today_lowercase">இன்று</string>
     <string name="today">இன்று</string>
     <plurals name="Ntasks">
         <item quantity="one">1 பணி</item>

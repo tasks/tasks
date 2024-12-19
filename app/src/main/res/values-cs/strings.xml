@@ -126,9 +126,6 @@
     </plurals>
     <string name="today">Dnes</string>
     <string name="tomorrow">Zítra</string>
-    <string name="yesterday">Včera</string>
-    <string name="tmrw">Zítra</string>
-    <string name="yest">Včera</string>
     <string name="widget_show_checkboxes">Zobrazovat zaškrtávací políčka</string>
     <string name="widget_show_header">Zobrazit záhlaví</string>
     <string name="widget_show_settings">Zobrazit nastavení</string>
@@ -146,7 +143,6 @@
     <string name="contact_developer">Kontaktujte vývojáře</string>
     <string name="rate_tasks">Ohodnotit Tasks</string>
     <string name="quiet_hours_summary">Žádné připomínky v období nerušení</string>
-    <string name="TLA_menu_donate">Darovat</string>
     <string name="remove">Odstranit</string>
     <string name="randomly">Náhodně</string>
     <string name="tags">Štítky</string>
@@ -412,7 +408,6 @@
     <string name="collapse_subtasks">Sbalit podúkoly</string>
     <string name="subtasks_multilevel_google_task">Úkoly Google nepodporují víceúrovňové podúkoly</string>
     <string name="enter_tag_name">Zadejte název štítku</string>
-    <string name="create_new_tag">Vytvořit „%s“</string>
     <string name="choose_synchronization_service">Zvolte službu</string>
     <string name="google_tasks_selection_description">Jednoduchá služba zajišťující synchronizaci s vaším Google účtem</string>
     <string name="caldav_selection_description">Synchronizace založená na otevřených internetových standardech</string>
@@ -461,9 +456,6 @@
     <string name="opacity_footer">Průhlednost zápatí</string>
     <string name="opacity_row">Průhlednost řádku</string>
     <string name="opacity_header">Průhlednost záhlaví</string>
-    <string name="yesterday_lowercase">včera</string>
-    <string name="tomorrow_lowercase">zítra</string>
-    <string name="today_lowercase">dnes</string>
     <string name="widget_id">Widget ID: %d</string>
     <string name="auto_dismiss_datetime_widget_summary">Automaticky zavřít při výběru z widgetu</string>
     <string name="auto_dismiss_datetime_widget">Widget</string>
@@ -532,8 +524,6 @@
     <string name="always_display_full_date">Zobrazit celé datum</string>
     <string name="no_app_found">Nenalezena žádná vhodná aplikace</string>
     <string name="widget_show_title">Zobrazit název</string>
-    <string name="yesterday_abbrev_lowercase">včera</string>
-    <string name="tomorrow_abbrev_lowercase">zítra</string>
     <string name="default_location">Výchozí místo</string>
     <string name="default_due_date">Výchozí termín</string>
     <string name="repeat_type_completion_capitalized">Okamžik dokončení</string>

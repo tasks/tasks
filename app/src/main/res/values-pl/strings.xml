@@ -227,9 +227,6 @@
     </plurals>
     <string name="today">Dzisiaj</string>
     <string name="tomorrow">Jutro</string>
-    <string name="yesterday">Wczoraj</string>
-    <string name="tmrw">Jutro</string>
-    <string name="yest">Wczoraj</string>
     <string name="widget_show_checkboxes">Pokaż pola wyboru</string>
     <string name="widget_show_header">Pokaż nagłówek</string>
     <string name="widget_show_settings">Pokaż ustawienia</string>
@@ -251,7 +248,6 @@
     <string name="contact_developer">Skontaktuj się z twórcą</string>
     <string name="rate_tasks">Oceń Tasks</string>
     <string name="quiet_hours_summary">Brak przypomnień w czasie wyciszenia</string>
-    <string name="TLA_menu_donate">Wesprzyj</string>
     <string name="add_reminder">Dodaj przypomnienie</string>
     <string name="add_location">Dodaj lokalizację</string>
     <string name="remove">Usuń</string>
@@ -421,7 +417,6 @@
     <string name="subtasks">Podzadania</string>
     <string name="subtasks_multilevel_google_task">Wielopoziomowe podzadania nie są obsługiwane przez Google Tasks</string>
     <string name="enter_tag_name">Wprowadź nazwę tagu</string>
-    <string name="create_new_tag">Stwórz \"%s\"</string>
     <string name="display_name">Nazwa wyświetlana</string>
     <string name="this_feature_requires_a_subscription">Ta funkcja wymaga subskrypcji</string>
     <string name="choose_synchronization_service">Wybierz platformę</string>
@@ -514,9 +509,6 @@
     <string name="sort_modified_group">Zmienione %s</string>
     <string name="sort_created_group">Stworzone %s</string>
     <string name="action_new_task">Nowe zadanie</string>
-    <string name="yesterday_lowercase">wczoraj</string>
-    <string name="tomorrow_lowercase">jutro</string>
-    <string name="today_lowercase">dzisiaj</string>
     <string name="permission_read_tasks">Pełny dostęp do bazy danych Tasks</string>
     <string name="reset_sort_order">Resetuj porządek sortowania</string>
     <string name="lists">Listy</string>
@@ -600,8 +592,6 @@
     <string name="tasks_org_description">Synchronizowanie zadań z Tasks.org</string>
     <string name="filter_criteria_unstarted">Nierozpoczęte</string>
     <string name="show_unstarted">Pokaż nierozpoczęte</string>
-    <string name="yesterday_abbrev_lowercase">wczoraj</string>
-    <string name="tomorrow_abbrev_lowercase">jutro</string>
     <string name="filter_any_start_date">Dowolna data rozpoczęcia</string>
     <string name="no_start_date">Bez daty rozpoczęcia</string>
     <string name="CFC_startBefore_name">Początek przed…</string>

@@ -64,7 +64,6 @@
     </plurals>
     <string name="today">I dag</string>
     <string name="tomorrow">I morgen</string>
-    <string name="yesterday">I går</string>
     <string name="source_code">Kildekode</string>
     <string name="repeats_single_on_until">Gentages %1$s hver %2$s indtil %3$s</string>
     <string name="repeats_single_on">Gentages %1$s hver %2$s</string>
@@ -163,7 +162,6 @@
     <string name="caldav_selection_description">Synkronisering baseret på åbne internetstandarder</string>
     <string name="google_tasks_selection_description">Basistjeneste, som synkroniserer med din Google-konto</string>
     <string name="choose_synchronization_service">Vælg tjeneste</string>
-    <string name="create_new_tag">Opret “%s”</string>
     <string name="enter_tag_name">Indtast tag</string>
     <string name="subtasks_multilevel_google_task">Flere niveauer af underopgaver understøttes ikke af Google Tasks</string>
     <string name="collapse_subtasks">Skjul underopgaver</string>
@@ -320,7 +318,6 @@
     <string name="remove">Fjern</string>
     <string name="add_location">Tilføj sted</string>
     <string name="add_reminder">Tilføj påmindelse</string>
-    <string name="TLA_menu_donate">Donér</string>
     <string name="rate_tasks">Anmeld Tasks</string>
     <string name="contact_developer">Kontakt udvikleren</string>
     <string name="translations">Bidrag med oversættelser</string>
@@ -341,9 +338,6 @@
     <string name="widget_show_menu">Vis menu</string>
     <string name="widget_show_settings">Vis indstillinger</string>
     <string name="widget_show_checkboxes">Vis afkrydsningsfelter</string>
-    <string name="yest">I går</string>
-    <string name="tmrw">I morgen</string>
-    <string name="yesterday_lowercase">i går</string>
     <string name="sort_created_group">Oprettet %s</string>
     <string name="disable_battery_optimizations">Deaktiver strømsparetilstand</string>
     <string name="wearable_notifications_summary">Vis notifikationer på din wearable-enhed</string>
@@ -356,8 +350,6 @@
     <string name="repeats_plural_on_until">Gentages %2$s hver %1$s indtil %3$s</string>
     <string name="repeats_plural_on">Gentages %2$s hver %1$s</string>
     <string name="repeats_single_on_number_of_times">Gentages %1$s hver %2$s, stopper efter %3$d %4$s</string>
-    <string name="tomorrow_lowercase">i morgen</string>
-    <string name="today_lowercase">i dag</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks vil læse opgavetitlen højt ved påmindelser</string>
     <string name="EPr_voiceRemindersEnabled_title">Talte påmindelser</string>
     <string name="EPr_voiceInputEnabled_title">Tale-input</string>
@@ -624,8 +616,6 @@
     <string name="show_unstarted">Vis ikke startet</string>
     <string name="header_spacing">Afstand</string>
     <string name="widget_show_title">Vis titel</string>
-    <string name="yesterday_abbrev_lowercase">yest</string>
-    <string name="tomorrow_abbrev_lowercase">tmrw</string>
     <string name="next_saturday">Næste lørdag</string>
     <string name="next_friday">Næste Fri</string>
     <string name="next_thursday">Næste Thu</string>

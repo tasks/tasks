@@ -210,9 +210,6 @@
     </plurals>
     <string name="today">Heute</string>
     <string name="tomorrow">Morgen</string>
-    <string name="yesterday">Gestern</string>
-    <string name="tmrw">Morgen</string>
-    <string name="yest">Gestern</string>
     <string name="widget_show_checkboxes">Checkboxen anzeigen</string>
     <string name="widget_show_header">Kopfleiste anzeigen</string>
     <string name="widget_show_settings">Einstellungen anzeigen</string>
@@ -234,7 +231,6 @@
     <string name="contact_developer">Entwickler kontaktieren</string>
     <string name="rate_tasks">Bewerten Sie Tasks</string>
     <string name="quiet_hours_summary">Keine Erinnerungen während der Ruhezeit</string>
-    <string name="TLA_menu_donate">Spenden</string>
     <string name="add_reminder">Erinnerung hinzufügen</string>
     <string name="add_location">Ort hinzufügen</string>
     <string name="remove">Entfernen</string>
@@ -411,7 +407,6 @@
     <string name="help_and_feedback">Hilfe und Rückmeldung</string>
     <string name="theme_system_default">Systemstandard</string>
     <string name="enter_tag_name">Schlagwort eingeben</string>
-    <string name="create_new_tag">„%s“ erstellen</string>
     <string name="choose_synchronization_service">Einen Dienst wählen</string>
     <string name="google_tasks_selection_description">Basisdienst zur Synchronisation mit Ihrem Google-Konto</string>
     <string name="caldav_selection_description">Synchronisation basierend auf offenen Internetstandards</string>
@@ -498,9 +493,6 @@
     <string name="got_it">Verstanden!</string>
     <string name="action_new_task">Neue Aufgabe</string>
     <string name="support_development_subscribe">Schalten Sie zusätzliche Funktionen frei und unterstützen Sie quelloffene Software</string>
-    <string name="yesterday_lowercase">gestern</string>
-    <string name="tomorrow_lowercase">morgen</string>
-    <string name="today_lowercase">heute</string>
     <string name="astrid_sort_order_summary">Astrids manuelle Sortiermethode für „Meine Aufgaben“, „Heute“ und Schlagwörter aktivieren. Diese Sortiermethode wird in einer zukünftigen Version „Meine Sortierung“ ersetzen</string>
     <string name="open_last_viewed_list">Zuletzt betrachtete Liste öffnen</string>
     <string name="lists">Listen</string>
@@ -595,8 +587,6 @@
     <string name="default_start_date">Standard Startdatum</string>
     <string name="start_date">Starttermin</string>
     <string name="SSD_sort_start">Nach Startdatum</string>
-    <string name="tomorrow_abbrev_lowercase">morgen</string>
-    <string name="yesterday_abbrev_lowercase">gestern</string>
     <string name="open_source">Quelloffen</string>
     <string name="issue_tracker">Fehlerverwaltungssystem</string>
     <string name="support">Support</string>

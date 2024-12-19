@@ -248,9 +248,6 @@
     </plurals>
     <string name="today">היום</string>
     <string name="tomorrow">מחר</string>
-    <string name="yesterday">אתמול</string>
-    <string name="tmrw">מחר</string>
-    <string name="yest">אתמול</string>
     <string name="widget_show_checkboxes">הצג תיבות סימון</string>
     <string name="widget_show_header">הצג כותרת</string>
     <string name="widget_show_settings">הצג הגדרות</string>
@@ -272,7 +269,6 @@
     <string name="contact_developer">צור קשר</string>
     <string name="rate_tasks">דרג אפליקציה</string>
     <string name="quiet_hours_summary">ללא התראות בשעות השקטות</string>
-    <string name="TLA_menu_donate">לתרומה</string>
     <string name="add_reminder">הוסף תזכורת</string>
     <string name="add_location">הוסף מיקום</string>
     <string name="remove">הסר</string>
@@ -435,7 +431,6 @@
     <string name="more_settings">יותר הגדרות</string>
     <string name="preferences_advanced">מתקדם</string>
     <string name="preferences_look_and_feel">מראה ותחושה</string>
-    <string name="create_new_tag">לייצור \"%s\"</string>
     <string name="whats_new">מה חדש</string>
     <plurals name="subtask_count">
         <item quantity="one">תת־משימה אחת</item>
@@ -498,9 +493,6 @@
     <string name="opacity_row">אטימות שורה</string>
     <string name="date_shortcut_tomorrow_night">מחר בלילה</string>
     <string name="date_shortcut_tomorrow_evening">מחר בערב</string>
-    <string name="yesterday_lowercase">אתמול</string>
-    <string name="tomorrow_lowercase">מחר</string>
-    <string name="today_lowercase">היום</string>
     <string name="CFC_list_name">ברשימה…</string>
     <string name="display_name">שם תצוגה</string>
     <string name="lists">רשימות</string>
@@ -619,7 +611,6 @@
     <string name="default_due_date">ברירת מחדל לתאריך יעד</string>
     <string name="start_date">תאריך התחלה</string>
     <string name="email">דוא״ל</string>
-    <string name="yesterday_abbrev_lowercase">כן</string>
     <string name="filter_criteria_unstarted">לא התחיל</string>
     <string name="markdown_description">הפוך סימון לזמין בתיבה כותרת ותיאור</string>
     <string name="markdown">סימון כלפי מטה</string>
@@ -665,7 +656,6 @@
     <string name="map_theme">נושא המפה</string>
     <string name="show_unstarted">הצג לא התחיל</string>
     <string name="widget_show_title">הצג כותרת</string>
-    <string name="tomorrow_abbrev_lowercase">מחר</string>
     <string name="next_saturday">בשבת הבאה</string>
     <string name="next_friday">יום שישי הבא</string>
     <string name="next_thursday">ה\' הבא</string>

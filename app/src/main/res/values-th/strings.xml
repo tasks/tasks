@@ -33,7 +33,6 @@
     <string name="rmd_NoA_snooze">หลับ..</string>
     <string name="today">วันนี้</string>
     <string name="tomorrow">พรุ่งนี้</string>
-    <string name="yesterday">เมื่อวาน</string>
     <string name="repeat_option_custom">กำหนดเอง…</string>
     <string name="delete_tag_confirmation">ลบ %s หรือไม่\?</string>
     <string name="markdown_description">เปิดใช้งานการทําเครื่องหมายในชื่อและคําอธิบาย</string>
@@ -174,7 +173,6 @@
     <string name="google_tasks_selection_description">บริการพื้นฐานที่ซิงโครไนซ์กับบัญชี Google ของคุณ</string>
     <string name="tasks_org_description">ซิงโครไนซ์งานของคุณกับ Tasks.org</string>
     <string name="choose_synchronization_service">เลือกแพลตฟอร์ม</string>
-    <string name="create_new_tag">สร้าง \"%s\"</string>
     <string name="enter_tag_name">ป้อนชื่อแท็ก</string>
     <string name="subtasks_multilevel_google_task">งานย่อยหลายระดับไม่ได้รับการสนับสนุนโดย Google Tasks</string>
     <string name="collapse_subtasks">ยุบงานย่อย</string>
@@ -350,7 +348,6 @@
     <string name="remove">ลบ</string>
     <string name="add_location">เพิ่มตําแหน่งที่ตั้ง</string>
     <string name="add_reminder">เพิ่มตัวเตือน</string>
-    <string name="TLA_menu_donate">บริจาค</string>
     <string name="quiet_hours_summary">ไม่มีการเตือนในช่วงเวลาที่เงียบสงบ</string>
     <string name="rate_tasks">จัดอันดับงาน</string>
     <string name="contact_developer">ติดต่อนักพัฒนาซอฟต์แวร์</string>
@@ -377,11 +374,6 @@
     <string name="widget_show_settings">แสดงการตั้งค่า</string>
     <string name="widget_show_header">แสดงหัวข้อ</string>
     <string name="widget_show_checkboxes">แสดงช่องทำเครื่องหมาย</string>
-    <string name="yesterday_abbrev_lowercase">yest ประมาณว่าใช่</string>
-    <string name="yest">ใช่</string>
-    <string name="tomorrow_abbrev_lowercase">tmrw (ทมเมอร์ว)</string>
-    <string name="tmrw">Tmrw (ทริมร์ว)</string>
-    <string name="yesterday_lowercase">เมื่อวานนี้</string>
     <string name="next_saturday">เสาร์หน้า</string>
     <string name="next_friday">ศุกร์ถัดไป</string>
     <string name="next_thursday">พฤ. ถัดไป</string>
@@ -389,8 +381,6 @@
     <string name="next_tuesday">อังคารหน้า</string>
     <string name="next_monday">ม.ถัดไป</string>
     <string name="next_sunday">อาทิตย์หน้า</string>
-    <string name="tomorrow_lowercase">พรุ่งนี้</string>
-    <string name="today_lowercase">วันนี้</string>
     <plurals name="Ntasks">
         <item quantity="other">%d งาน</item>
     </plurals>

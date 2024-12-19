@@ -218,9 +218,6 @@
     </plurals>
     <string name="today">Gaur</string>
     <string name="tomorrow">Bihar</string>
-    <string name="yesterday">Atzo</string>
-    <string name="tmrw">Bihar</string>
-    <string name="yest">Atzo</string>
     <string name="widget_show_checkboxes">Erakutsi markaketa-koadroak</string>
     <string name="widget_show_header">Erakutsi goiburua</string>
     <string name="widget_show_settings">Erakutsi ezarpenak</string>
@@ -242,7 +239,6 @@
     <string name="contact_developer">Jarri garatzailearekin kontaktuan</string>
     <string name="rate_tasks">Baloratu Tasks</string>
     <string name="quiet_hours_summary">Oroigarririk ez isilune orduetan</string>
-    <string name="TLA_menu_donate">Egin dohaintza</string>
     <string name="add_reminder">Gehitu oroigarria</string>
     <string name="add_location">Gehitu kokalekua</string>
     <string name="remove">Kendu</string>
@@ -410,7 +406,6 @@
     <string name="subtasks">Azpi-zereginak</string>
     <string name="subtasks_multilevel_google_task">Google Tasks-ek ez ditu hainbat mailako azpi-zereginak onartzen</string>
     <string name="enter_tag_name">Idatzi etiketaren izena</string>
-    <string name="create_new_tag">Sortu \"%s\"</string>
     <string name="display_name">Erakutsi izena</string>
     <string name="this_feature_requires_a_subscription">Ezaugarri honek harpidetza eskatzen du</string>
     <string name="choose_synchronization_service">Hautatu plataforma</string>
@@ -503,9 +498,6 @@
     <string name="action_new_task">Zeregin berria</string>
     <string name="sort_modified_group">Aldaketa %s</string>
     <string name="sort_created_group">Sorrera %s</string>
-    <string name="yesterday_lowercase">atzo</string>
-    <string name="tomorrow_lowercase">bihar</string>
-    <string name="today_lowercase">gaur</string>
     <string name="lists">Zerrendak</string>
     <string name="open_last_viewed_list">Ireki ikusitako azkenen zerrenda</string>
     <string name="on_launch">Abioan</string>
@@ -587,8 +579,6 @@
     <string name="show_unstarted">Erakutsi hasi gabeak</string>
     <string name="filter_criteria_unstarted">Hasi gabea</string>
     <string name="widget_show_title">Erakutsi izenburua</string>
-    <string name="yesterday_abbrev_lowercase">atzo</string>
-    <string name="tomorrow_abbrev_lowercase">bihar</string>
     <plurals name="list_count">
         <item quantity="one">Zerrenda %d</item>
         <item quantity="other">%d zerrenda</item>

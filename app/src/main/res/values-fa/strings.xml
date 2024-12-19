@@ -135,9 +135,6 @@
     </plurals>
     <string name="today">امروز</string>
     <string name="tomorrow">فردا</string>
-    <string name="yesterday">فردا بعد از ظهر</string>
-    <string name="tmrw">فردا</string>
-    <string name="yest">دیروز</string>
     <string name="widget_show_checkboxes">نمایش محل تیک</string>
     <string name="widget_show_header">نمایش سربرگ</string>
     <string name="widget_show_settings">نمایش تنظیمات</string>
@@ -157,7 +154,6 @@
     <string name="contact_developer">تماس با توسعه دهنده</string>
     <string name="rate_tasks">ارزیابی وظیفه</string>
     <string name="quiet_hours_summary">بدون یادآور در ساعات سکوت</string>
-    <string name="TLA_menu_donate">کمک مالی</string>
     <string name="add_reminder">اضافه کردن یادآورد</string>
     <string name="remove">حذف</string>
     <string name="randomly">به طور تصادفی</string>

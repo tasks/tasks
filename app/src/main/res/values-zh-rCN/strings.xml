@@ -202,9 +202,6 @@
     </plurals>
     <string name="today">今天</string>
     <string name="tomorrow">明天</string>
-    <string name="yesterday">昨天</string>
-    <string name="tmrw">明天</string>
-    <string name="yest">昨天</string>
     <string name="widget_show_checkboxes">显示复选框</string>
     <string name="widget_show_header">显示标题</string>
     <string name="widget_show_settings">显示设置</string>
@@ -225,7 +222,6 @@
     <string name="contact_developer">联系开发者</string>
     <string name="rate_tasks">给 Tasks 打分</string>
     <string name="quiet_hours_summary">静音期间不提醒</string>
-    <string name="TLA_menu_donate">捐赠</string>
     <string name="add_reminder">添加提醒</string>
     <string name="remove">移除</string>
     <string name="randomly">随机</string>
@@ -400,7 +396,6 @@
     <string name="subtasks">子任务</string>
     <string name="subtasks_multilevel_google_task">Google Tasks 不支持多层级子任务</string>
     <string name="enter_tag_name">输入标签名称</string>
-    <string name="create_new_tag">创建 \"%s\"</string>
     <string name="display_name">显示名称</string>
     <string name="this_feature_requires_a_subscription">该功能需要订阅</string>
     <string name="choose_synchronization_service">选择平台</string>
@@ -493,9 +488,6 @@
     <string name="action_new_task">新任务</string>
     <string name="sort_modified_group">%s修改</string>
     <string name="sort_created_group">%s创建</string>
-    <string name="yesterday_lowercase">昨天</string>
-    <string name="tomorrow_lowercase">明天</string>
-    <string name="today_lowercase">今日</string>
     <string name="lists">列表</string>
     <string name="open_last_viewed_list">打开上次查看的列表</string>
     <string name="on_launch">启动时</string>
@@ -584,8 +576,6 @@
     <string name="sort_due_group">%s截止</string>
     <string name="sort_start_group">%s开始</string>
     <string name="tasks_org_description">使用 Tasks.org 同步您的任务</string>
-    <string name="yesterday_abbrev_lowercase">昨天</string>
-    <string name="tomorrow_abbrev_lowercase">明天</string>
     <string name="account_not_included">不包含于“您愿意支付多少费用”订阅</string>
     <string name="tasks_org_account">Tasks.org 账户</string>
     <string name="subscription">订阅</string>

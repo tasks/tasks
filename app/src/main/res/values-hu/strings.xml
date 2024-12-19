@@ -212,9 +212,6 @@
     </plurals>
     <string name="today">Ma</string>
     <string name="tomorrow">Holnap</string>
-    <string name="yesterday">Tegnap</string>
-    <string name="tmrw">Holn</string>
-    <string name="yest">Tegn</string>
     <string name="widget_show_checkboxes">Jelölőnégyzetek megjelenítése</string>
     <string name="widget_show_header">Fejléc megjelenítése</string>
     <string name="widget_show_settings">Beállítások megjelenítése</string>
@@ -236,7 +233,6 @@
     <string name="contact_developer">Kapcsolatfelvétel a fejlesztővel</string>
     <string name="rate_tasks">A Tasks értékelése</string>
     <string name="quiet_hours_summary">Emlékeztetők mellőzése csendes órák alatt</string>
-    <string name="TLA_menu_donate">Adakozás</string>
     <string name="add_reminder">Emlékeztető hozzáadása</string>
     <string name="add_location">Hely hozzáadása</string>
     <string name="remove">Eltávolítás</string>
@@ -405,7 +401,6 @@
     <string name="subtasks">Részfeladatok</string>
     <string name="subtasks_multilevel_google_task">A Google Tasks nem támogatja a többszintű részfeladatokat</string>
     <string name="enter_tag_name">Címke neve</string>
-    <string name="create_new_tag">\"%s\" létrehozása</string>
     <string name="display_name">Megjelenített név</string>
     <string name="this_feature_requires_a_subscription">Ez a funkció csak előfizetéssel vehető igénybe</string>
     <string name="choose_synchronization_service">Platform választása</string>
@@ -498,9 +493,6 @@
     <string name="action_new_task">Új feladat</string>
     <string name="sort_modified_group">%s módosítva</string>
     <string name="sort_created_group">%s létrehozva</string>
-    <string name="yesterday_lowercase">tegnap</string>
-    <string name="tomorrow_lowercase">holnap</string>
-    <string name="today_lowercase">ma</string>
     <string name="lists">Listák</string>
     <string name="open_last_viewed_list">Utoljára használt lista megnyitása</string>
     <string name="on_launch">Indításkor</string>
@@ -587,8 +579,6 @@
     <string name="subscription">Előfizetés</string>
     <string name="filter_criteria_unstarted">El nem kezdett</string>
     <string name="show_unstarted">El nem kezdettek mutatása</string>
-    <string name="yesterday_abbrev_lowercase">tgnp</string>
-    <string name="tomorrow_abbrev_lowercase">hlnp</string>
     <string name="filter_any_start_date">Tetszőleges kezdő dátum</string>
     <string name="no_start_date">Nincs kezdő dátum</string>
     <string name="CFC_startBefore_name">Kezdés…</string>

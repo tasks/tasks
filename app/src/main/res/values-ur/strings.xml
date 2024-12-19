@@ -234,11 +234,7 @@
         <item quantity="one">%d ٹاسک</item>
         <item quantity="other">%d ٹاسکس</item>
     </plurals>
-    <string name="yesterday_lowercase">گزشتہ کل</string>
-    <string name="yesterday">گزشتہ کل</string>
-    <string name="tomorrow_lowercase">آنے والا کل</string>
     <string name="tomorrow">آنے والا کل</string>
-    <string name="today_lowercase">آج</string>
     <string name="today">آج</string>
     <plurals name="Ntasks">
         <item quantity="one">ایک ٹاسک</item>
@@ -275,7 +271,6 @@
     <string name="remove">ختم کریں</string>
     <string name="add_location">لوکیشن لگائیں</string>
     <string name="add_reminder">ہاد دہانی لگائیں</string>
-    <string name="TLA_menu_donate">عطیہ کریں</string>
     <string name="quiet_hours_summary">خاموش گھنٹوں کے دوران کوئی یاد دہانی نہیں</string>
     <string name="rate_tasks">ٹاسکس کو ریٹ کریں</string>
     <string name="contact_developer">ڈیویلپر سے رابطہ</string>
@@ -302,10 +297,6 @@
     <string name="widget_show_settings">سیٹنگز دکھائیں</string>
     <string name="widget_show_header">ہیڈر دکھائیں</string>
     <string name="widget_show_checkboxes">چیک باکس دکھائیں</string>
-    <string name="yest">گزشتہ کل</string>
-    <string name="yesterday_abbrev_lowercase">گزشتہ کل</string>
-    <string name="tomorrow_abbrev_lowercase">کل</string>
-    <string name="tmrw">کل</string>
     <string name="pick_from_storage">اسٹوریج سے اٹھائیں</string>
     <string name="pick_from_gallery">گیلری سے اٹھائیں</string>
     <string name="take_a_picture">تصویر لیں</string>
@@ -479,7 +470,6 @@
     <string name="google_tasks_selection_description">بنیادی سروس جو آپ کے گوگل اکاؤنٹ کے ساتھ سنکرونائز ہوتی</string>
     <string name="tasks_org_description">اپنے ٹاسکس کو Tasks.org کے ساتھ سنکرونائز کریں</string>
     <string name="choose_synchronization_service">پلیٹ فارم منتخب کریں</string>
-    <string name="create_new_tag">\"%s\" بنائیں</string>
     <string name="enter_tag_name">ٹیگ کا نام درج کریں</string>
     <string name="missing_permissions">حذف شدہ اجازتیں</string>
 </resources>

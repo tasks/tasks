@@ -225,7 +225,6 @@
     <string name="google_tasks_selection_description">Dịch vụ cơ bản đồng bộ hoá với tài khoản Google của bạn</string>
     <string name="tasks_org_description">Đồng bộ hoá các công việc của bạn bằng Tasks.org</string>
     <string name="choose_synchronization_service">Chọn nền tảng</string>
-    <string name="create_new_tag">Tạo \"%s\"</string>
     <string name="enter_tag_name">Nhập tên thẻ</string>
     <string name="subtasks_multilevel_google_task">Các công việc con có nhiều cấp không được Google Tasks hỗ trợ</string>
     <string name="collapse_subtasks">Thu gọn các công việc con</string>
@@ -410,7 +409,6 @@
     <string name="remove">Xoá</string>
     <string name="add_location">Thêm vị trí</string>
     <string name="add_reminder">Thêm lời nhắc</string>
-    <string name="TLA_menu_donate">Quyên góp</string>
     <string name="quiet_hours_summary">Không có lời nhắc trong giờ im lặng</string>
     <string name="rate_tasks">Đánh giá Tasks</string>
     <string name="contact_developer">Liên hệ với nhà phát triển</string>
@@ -437,12 +435,6 @@
     <string name="widget_show_settings">Hiện cài đặt</string>
     <string name="widget_show_header">Hiện tiêu đề</string>
     <string name="widget_show_checkboxes">Hiện hộp đánh dấu</string>
-    <string name="yesterday_abbrev_lowercase">h.qua</string>
-    <string name="yest">H.qua</string>
-    <string name="tomorrow_abbrev_lowercase">n.mai</string>
-    <string name="tmrw">N.mai</string>
-    <string name="yesterday_lowercase">hôm qua</string>
-    <string name="yesterday">Hôm qua</string>
     <string name="next_saturday">Thứ Bảy tuần sau</string>
     <string name="next_friday">Thứ Sáu tuần sau</string>
     <string name="next_thursday">Thứ Năm tuần sau</string>
@@ -450,9 +442,7 @@
     <string name="next_tuesday">Thứ Ba tuần sau</string>
     <string name="next_monday">Thứ Hai tuần sau</string>
     <string name="next_sunday">Chủ Nhật tuần sau</string>
-    <string name="tomorrow_lowercase">ngày mai</string>
     <string name="tomorrow">Ngày mai</string>
-    <string name="today_lowercase">hôm nay</string>
     <string name="today">Hôm nay</string>
     <plurals name="Ntasks">
         <item quantity="other">%d công việc</item>

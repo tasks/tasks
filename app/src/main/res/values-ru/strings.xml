@@ -233,9 +233,6 @@
     </plurals>
     <string name="today">Сегодня</string>
     <string name="tomorrow">Завтра</string>
-    <string name="yesterday">Вчера</string>
-    <string name="tmrw">Завтра</string>
-    <string name="yest">Вчера</string>
     <string name="widget_show_checkboxes">Показать флажки</string>
     <string name="widget_show_header">Показать заголовок</string>
     <string name="widget_show_settings">Показать настройки</string>
@@ -257,7 +254,6 @@
     <string name="contact_developer">Связь с разработчиком</string>
     <string name="rate_tasks">Оцените Tasks</string>
     <string name="quiet_hours_summary">Выкл. напоминания в тихие часы</string>
-    <string name="TLA_menu_donate">Поддержать разработку</string>
     <string name="add_reminder">Добавить напоминание</string>
     <string name="add_location">Добавить место</string>
     <string name="remove">Удалить</string>
@@ -427,7 +423,6 @@
     <string name="collapse_subtasks">Свернуть подзадачи</string>
     <string name="subtasks_multilevel_google_task">Многоуровневые подзадачи не поддерживаются Google Tasks</string>
     <string name="enter_tag_name">Введите имя тега</string>
-    <string name="create_new_tag">Создать \"%s\"</string>
     <string name="display_name">Отображаемое название</string>
     <string name="this_feature_requires_a_subscription">Эта функция требует подписки</string>
     <string name="choose_synchronization_service">Выберите платформу</string>
@@ -520,9 +515,6 @@
     <string name="action_new_task">Новая задача</string>
     <string name="sort_modified_group">Модифицировано %s</string>
     <string name="sort_created_group">Создано %s</string>
-    <string name="yesterday_lowercase">вчера</string>
-    <string name="tomorrow_lowercase">завтра</string>
-    <string name="today_lowercase">сегодня</string>
     <string name="permission_read_tasks">Полный доступ к базе данных Tasks</string>
     <string name="reset_sort_order">Сбросить порядок сортировки</string>
     <string name="lists">Списки</string>
@@ -614,8 +606,6 @@
     <string name="sort_due_group">Завершение %s</string>
     <string name="sort_start_group">Начало %s</string>
     <string name="tasks_org_description">Синхронизировать задачи с Tasks.org</string>
-    <string name="yesterday_abbrev_lowercase">вчера</string>
-    <string name="tomorrow_abbrev_lowercase">завтра</string>
     <string name="account_not_included">Не включено в подписку \'Назовите свою цену\'</string>
     <string name="tasks_org_account">Аккаунт Tasks.org</string>
     <string name="subscription">Подписка</string>

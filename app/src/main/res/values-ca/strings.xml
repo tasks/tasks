@@ -79,7 +79,6 @@
     </plurals>
     <string name="today">Avui</string>
     <string name="tomorrow">Demà</string>
-    <string name="yesterday">Ahir</string>
     <string name="source_code">Codi font</string>
     <string name="translations">Contribuir traduccions</string>
     <string name="contact_developer">Contacta amb el desenvolupador</string>
@@ -294,7 +293,6 @@
     <string name="repeat_type_due">data de venciment</string>
     <string name="repeat_type_completion">data de finalització</string>
     <string name="TEA_creation_date">Data de creació</string>
-    <string name="tomorrow_abbrev_lowercase">demà</string>
     <string name="new_list">Crea una nova llista</string>
     <string name="voice_create_prompt">Parlar per crear una tasca</string>
     <string name="widget_show_header">Mostra la capçalera</string>
@@ -305,17 +303,13 @@
         <item quantity="other">aparicions</item>
     </plurals>
     <string name="voice_command_added_task">Tasca afegida</string>
-    <string name="tomorrow_lowercase">demà</string>
     <string name="next_sunday">Proper diumenge</string>
     <string name="next_monday">Proper dll</string>
     <string name="next_friday">Proper dv</string>
     <string name="widget_show_checkboxes">Mostra les caselles</string>
-    <string name="today_lowercase">avui</string>
     <string name="next_thursday">Proper dj</string>
     <string name="EPr_voiceInputEnabled_title">Entrada de veu</string>
     <string name="EPr_voiceRemindersEnabled_title">Recordatori de veu</string>
-    <string name="yesterday_lowercase">ahir</string>
-    <string name="tmrw">Demà</string>
     <string name="new_tag">Crea una nova etiqueta</string>
     <string name="delete_tag_confirmation">Esborra %s?</string>
     <string name="next_saturday">Proper ds</string>
@@ -356,7 +350,6 @@
     <string name="google_tasks_add_to_top">Noves tasques a sobre</string>
     <string name="start_of_week">Inici de la setmana</string>
     <string name="help">Ajuda</string>
-    <string name="yest">Ahir</string>
     <string name="silent">Silenci</string>
     <string name="vibrations">Vibracions</string>
     <string name="list">Llista</string>
@@ -397,7 +390,6 @@
     <string name="swipe_to_snooze_time_24_hours">després de 24 hores</string>
     <string name="swipe_to_snooze_time_immediately">immediatament</string>
     <string name="next_tuesday">Proper dm</string>
-    <string name="yesterday_abbrev_lowercase">ahir</string>
     <string name="sound">So</string>
     <string name="rate_tasks">Valora Tasks</string>
     <string name="tags">Etiquetes</string>
@@ -427,7 +419,6 @@
     <string name="swipe_to_snooze_title">Llisca per posposar</string>
     <string name="error_adding_account">Error: %s</string>
     <string name="add_reminder">Afegeix un recordatori</string>
-    <string name="TLA_menu_donate">Donatiu</string>
     <string name="google_drive_backup">Còpia de seguretat a Google Drive</string>
     <string name="pick_a_date_and_time">Escull una data i hora</string>
     <string name="when_overdue">En cas d\'haver-se retardat</string>

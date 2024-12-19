@@ -122,9 +122,6 @@
     </plurals>
     <string name="today">Täna</string>
     <string name="tomorrow">Homme</string>
-    <string name="yesterday">Eile</string>
-    <string name="tmrw">Homme</string>
-    <string name="yest">Eile</string>
     <string name="widget_show_checkboxes">Näita märkekaste</string>
     <string name="widget_show_header">Näita päist</string>
     <string name="widget_show_settings">Näita seadeid</string>
@@ -144,7 +141,6 @@
     <string name="source_code">Lähtekood</string>
     <string name="translations">Aita tõlkida</string>
     <string name="contact_developer">Võta ühendust arendajaga</string>
-    <string name="TLA_menu_donate">Anneta</string>
     <string name="add_reminder">Lisa meeldetuletus</string>
     <string name="add_location">Lisa asukoht</string>
     <string name="remove">Eemalda</string>
@@ -252,7 +248,6 @@
     <string name="sort_sorting">Sorteerimine</string>
     <string name="default_random_reminder_daily">Igal päeval</string>
     <string name="default_random_reminder_weekly">Igal nädalal</string>
-    <string name="today_lowercase">täna</string>
     <string name="next_monday">Järgmine E</string>
     <string name="next_tuesday">Järgmine T</string>
     <string name="next_thursday">Järgmine N</string>
@@ -343,8 +338,6 @@
     <string name="remove_user">Eemaldan kasutaja?</string>
     <string name="list_members">Nimekirja liikmed</string>
     <string name="invite_declined">Kutsest keelduti</string>
-    <string name="yesterday_abbrev_lowercase">eile</string>
-    <string name="tomorrow_abbrev_lowercase">hom.</string>
     <string name="subtasks">Alamülesanne</string>
     <string name="widget_show_menu">Kuva menüü</string>
     <string name="widget_show_title">Kuva pealkirja</string>
@@ -430,7 +423,6 @@
     <string name="CFC_startBefore_name">Alustada enne…</string>
     <string name="CFC_list_name">Nimekirjas…</string>
     <string name="persistent_notifications_description">Püsiteavitusi ei saa eemaldada</string>
-    <string name="yesterday_lowercase">eile</string>
     <string name="default_random_reminder_hourly">Igas tunnis</string>
     <string name="next_sunday">Järgmine P</string>
     <string name="next_saturday">Järgmine L</string>
@@ -477,7 +469,6 @@
     <string name="TEA_creation_date">Loomise kuupäev</string>
     <string name="use_locale_default">Kasuta vaikelokaati</string>
     <string name="default_random_reminder_bi_weekly">Igal teisel nädalal</string>
-    <string name="tomorrow_lowercase">homme</string>
     <string name="next_friday">Järgmine R</string>
     <string name="header_spacing">Reavahe</string>
     <string name="swipe_to_snooze_time_immediately">kohe</string>
@@ -508,7 +499,6 @@
         <item quantity="other">%d minutit</item>
     </plurals>
     <string name="display_name">Kuvatav nimi</string>
-    <string name="create_new_tag">Loo \"%s\"</string>
     <string name="show_advanced_settings"></string>
     <string name="hide_unused_tags">Peida kasutamata sildid</string>
     <string name="third_party_licenses">Kolmandate osapoolte litsentsid</string>

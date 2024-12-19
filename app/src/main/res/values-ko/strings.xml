@@ -217,9 +217,6 @@
     </plurals>
     <string name="today">오늘</string>
     <string name="tomorrow">내일</string>
-    <string name="yesterday">어제</string>
-    <string name="tmrw">내일</string>
-    <string name="yest">어제</string>
     <string name="widget_show_checkboxes">체크박스 표시</string>
     <string name="widget_show_header">헤더 표시</string>
     <string name="widget_show_settings">설정버튼 표시</string>
@@ -240,7 +237,6 @@
     <string name="contact_developer">개발자에게 연락</string>
     <string name="rate_tasks">Tasks 평가하기</string>
     <string name="quiet_hours_summary">무음 시간에는 알람 없음</string>
-    <string name="TLA_menu_donate">기부하기</string>
     <string name="add_reminder">알람 추가</string>
     <string name="add_location">위치 추가</string>
     <string name="remove">지우기</string>
@@ -407,7 +403,6 @@
     <string name="subtasks">하위할일</string>
     <string name="subtasks_multilevel_google_task">Google Tasks는 다단계 하위할일을 지원하지 않습니다</string>
     <string name="enter_tag_name">태그 이름 입력</string>
-    <string name="create_new_tag">\"%s\" 생성</string>
     <string name="this_feature_requires_a_subscription">이 기능을 사용하려면 구독해야 합니다</string>
     <string name="choose_synchronization_service">플랫폼 선택</string>
     <string name="google_tasks_selection_description">기본 서비스는 구글 계정과 동기화합니다</string>
@@ -499,9 +494,6 @@
     <string name="widget_show_dividers">할일 구분선 표시</string>
     <string name="widget_show_menu">메뉴 표시</string>
     <string name="sort_created">생성일시 기준</string>
-    <string name="yesterday_lowercase">어제</string>
-    <string name="tomorrow_lowercase">내일</string>
-    <string name="today_lowercase">오늘</string>
     <string name="default_recurrence">기본 반복</string>
     <string name="CFC_list_name">목록…</string>
     <string name="default_location">기본 위치</string>
@@ -567,8 +559,6 @@
     <string name="default_start_date">기본 시작일</string>
     <string name="start_date">시작일</string>
     <string name="SSD_sort_start">시작일 기준</string>
-    <string name="yesterday_abbrev_lowercase">어제</string>
-    <string name="tomorrow_abbrev_lowercase">내일</string>
     <string name="filter_any_start_date">시작일 있음</string>
     <string name="no_start_date">시작일 없음</string>
     <string name="CFC_startBefore_name">시작일…</string>

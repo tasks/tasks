@@ -41,10 +41,8 @@
     <string name="location_remind_arrival">Podsjeti pri dolasku</string>
     <string name="display_name">Prikaži ime</string>
     <string name="DLG_delete_this_task_question">Ovaj zadatak izbrisati\?</string>
-    <string name="create_new_tag">Stvori „%s”</string>
     <string name="new_tag">Stvori oznaku</string>
     <string name="new_list">Stvori popis</string>
-    <string name="TLA_menu_donate">Doniraj</string>
     <string name="help_and_feedback">Pomoć i povratne informacije</string>
     <string name="action_new_task">Novi zadatak</string>
     <string name="add_tags">Dodaj oznake</string>
@@ -98,12 +96,7 @@
     <string name="shortcut_pick_time">Odaberi vrijeme</string>
     <string name="next_month">Sljedeći mjesec</string>
     <string name="next_week">Sljedeći tjedan</string>
-    <string name="yesterday">Jučer</string>
-    <string name="yesterday_lowercase">jučer</string>
-    <string name="yest">Jučer</string>
-    <string name="tmrw">Sutra</string>
     <string name="today">Danas</string>
-    <string name="today_lowercase">danas</string>
     <string name="no_due_date">Bez datuma roka</string>
     <string name="repeat_option_custom">Prilagođeno…</string>
     <string name="repeat_option_every_year">Svake godine</string>
@@ -141,10 +134,7 @@
     <string name="font_size">Veličina fonta</string>
     <string name="enabled">Omogućeno</string>
     <string name="subtasks">Podzadaci</string>
-    <string name="yesterday_abbrev_lowercase">jučer</string>
-    <string name="tomorrow_lowercase">sutra</string>
     <string name="tomorrow">Sutra</string>
-    <string name="tomorrow_abbrev_lowercase">sutra</string>
     <string name="email">E-pošta</string>
     <string name="local_lists">Popisi na uređaju</string>
     <string name="help">Pomoć</string>

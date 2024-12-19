@@ -90,9 +90,6 @@
     </plurals>
     <string name="today">اليوم</string>
     <string name="tomorrow">غدًا</string>
-    <string name="yesterday">أمس</string>
-    <string name="tmrw">غدًا</string>
-    <string name="yest">أمس</string>
     <string name="widget_show_checkboxes">إظهار مربعات التعليم</string>
     <string name="widget_show_header">إظهار الرأس</string>
     <string name="widget_show_settings">إظهار الإعدادات</string>
@@ -109,7 +106,6 @@
     <string name="contact_developer">تواصل مع المطور</string>
     <string name="rate_tasks">قيّم تاسكس</string>
     <string name="quiet_hours_summary">لا منبهات أثناء أوقات الراحة</string>
-    <string name="TLA_menu_donate">تبرع</string>
     <string name="add_reminder">أضف منبه</string>
     <string name="remove">حذف</string>
     <string name="randomly">عشوائياً</string>
@@ -178,9 +174,6 @@
     <string name="help">مساعدة</string>
     <string name="start_of_week">بداية أسبوع</string>
     <string name="take_a_picture">التقط صورة</string>
-    <string name="yesterday_lowercase">أمس</string>
-    <string name="tomorrow_lowercase">الغد</string>
-    <string name="today_lowercase">اليوم</string>
     <string name="repeat_option_every_year">سنويًّا</string>
     <string name="repeat_option_every_month">شهريًّا</string>
     <string name="repeat_option_every_week">أسبوعيًّا</string>
@@ -261,8 +254,6 @@
     <string name="date_shortcut_hour">لساعة</string>
     <string name="geofence_radius">نصف القطر</string>
     <string name="backup_directory">مجلّد النّسخ الاحتياطيّة</string>
-    <string name="yesterday_abbrev_lowercase">البارحة</string>
-    <string name="tomorrow_abbrev_lowercase">غدًا</string>
     <string name="delete_tag_confirmation">احذف %s؟</string>
     <string name="repeat_option_does_not_repeat">بدون تكرار</string>
     <string name="ring_nonstop">الرنّ بدون توقّف</string>
@@ -328,7 +319,6 @@
     <string name="documentation">التوثيق</string>
     <string name="preferences_advanced">متقدم</string>
     <string name="choose_synchronization_service">اختر منصّة</string>
-    <string name="create_new_tag">أنشأ \"%s\"</string>
     <string name="filter">تصفية</string>
     <string name="move">نقل</string>
     <string name="subtasks">مهام فرعيّة</string>

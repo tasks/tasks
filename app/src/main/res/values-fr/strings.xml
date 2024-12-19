@@ -219,9 +219,6 @@
     </plurals>
     <string name="today">Aujourd\'hui</string>
     <string name="tomorrow">Demain</string>
-    <string name="yesterday">Hier</string>
-    <string name="tmrw">Demain</string>
-    <string name="yest">Hier</string>
     <string name="widget_show_checkboxes">Afficher les cases à cocher</string>
     <string name="widget_show_header">Afficher l\'en-tête</string>
     <string name="widget_show_settings">Afficher les paramètres</string>
@@ -241,7 +238,6 @@
     <string name="contact_developer">Contacter le développeur</string>
     <string name="rate_tasks">Évaluer Tasks</string>
     <string name="quiet_hours_summary">Aucun rappel durant les heures de repos</string>
-    <string name="TLA_menu_donate">Faire un don</string>
     <string name="add_reminder">Ajouter un rappel</string>
     <string name="add_location">Ajouter un emplacement</string>
     <string name="remove">Retirer</string>
@@ -426,7 +422,6 @@
     <string name="subtasks">Sous-tâches</string>
     <string name="subtasks_multilevel_google_task">Les sous-tâches multi-niveaux ne sont pas prises en charge par « Google Tasks »</string>
     <string name="enter_tag_name">Saisir le nom de l\'étiquette</string>
-    <string name="create_new_tag">Créer « %s »</string>
     <string name="display_name">Afficher le nom</string>
     <string name="this_feature_requires_a_subscription">Cette fonctionnalité nécessite un abonnement</string>
     <string name="choose_synchronization_service">Sélectionner une plate-forme</string>
@@ -517,9 +512,6 @@
     <string name="enjoying_tasks">Appréciez-vous Tasks \?</string>
     <string name="whats_new">Nouveautés</string>
     <string name="action_new_task">Nouvelle tâche</string>
-    <string name="yesterday_lowercase">hier</string>
-    <string name="tomorrow_lowercase">demain</string>
-    <string name="today_lowercase">aujourd\'hui</string>
     <string name="sort_modified_group">Modifié %s</string>
     <string name="sort_created_group">Créé %s</string>
     <string name="open_last_viewed_list">Ouvrir la dernière liste consultée</string>
@@ -609,11 +601,9 @@
     <string name="filter_any_start_date">N\'importe quelle date de début</string>
     <string name="CFC_startBefore_name">Débute par…</string>
     <string name="CFC_startBefore_text">Débute par : \?</string>
-    <string name="tomorrow_abbrev_lowercase">demain</string>
     <string name="sort_due_group">Fin %s</string>
     <string name="sort_start_group">Début %s</string>
     <string name="tasks_org_description">Synchronisez vos tâches avec Tasks.org</string>
-    <string name="yesterday_abbrev_lowercase">hier</string>
     <string name="account_not_included">Non inclus avec les abonnements « Donnez votre prix »</string>
     <string name="tasks_org_account">Compte « Tasks.org »</string>
     <string name="subscription">Abonnement</string>

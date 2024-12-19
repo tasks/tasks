@@ -233,9 +233,6 @@
     </plurals>
     <string name="today">Сьогодні</string>
     <string name="tomorrow">Завтра</string>
-    <string name="yesterday">Вчора</string>
-    <string name="tmrw">Звтр</string>
-    <string name="yest">Вчр</string>
     <string name="widget_show_checkboxes">Показати кнопки для галочок</string>
     <string name="widget_show_header">Показати заголовок</string>
     <string name="widget_show_settings">Показати налаштування</string>
@@ -257,7 +254,6 @@
     <string name="contact_developer">Зв\'язатися з розробником</string>
     <string name="rate_tasks">Оцінити Tasks</string>
     <string name="quiet_hours_summary">Без нагадувань під час тихих годин</string>
-    <string name="TLA_menu_donate">Допомогти</string>
     <string name="add_reminder">Додати нагадування</string>
     <string name="add_location">Додати місце</string>
     <string name="remove">Вилучити</string>
@@ -441,7 +437,6 @@
     <string name="caldav_selection_description">Синхронізація на основі стандартів відкритого інтернету</string>
     <string name="google_tasks_selection_description">Базовий сервіс, що синхронізується з вашим обліковим записом Google</string>
     <string name="choose_synchronization_service">Обрати платформу</string>
-    <string name="create_new_tag">Створити \"%s\"</string>
     <string name="enter_tag_name">Введіть назву мітки</string>
     <string name="subtasks_multilevel_google_task">Багаторівневі підзавдання не підтримуються Google Tasks</string>
     <string name="collapse_subtasks">Згорнути підзавдання</string>
@@ -587,9 +582,6 @@
     <string name="header_spacing">Інтервал</string>
     <string name="widget_show_dividers">Показати розділювачі</string>
     <string name="widget_show_menu">Показати меню</string>
-    <string name="yesterday_lowercase">вчора</string>
-    <string name="tomorrow_lowercase">завтра</string>
-    <string name="today_lowercase">сьогодні</string>
     <string name="repeat_type_completion_capitalized">Дата завершення</string>
     <plurals name="list_count">
         <item quantity="one">%d список</item>
@@ -613,8 +605,6 @@
     <string name="sort_due_group">Завершення %s</string>
     <string name="sort_start_group">Початок %s</string>
     <string name="tasks_org_description">Синхронізувати ваші завдання з Tasks.org</string>
-    <string name="yesterday_abbrev_lowercase">вчора</string>
-    <string name="tomorrow_abbrev_lowercase">завтра</string>
     <string name="account_not_included">Не входить до передплати \"Назвіть свою ціну\"</string>
     <string name="tasks_org_account">Обліковий запис Tasks.org</string>
     <string name="subscription">Підписка</string>

@@ -7,14 +7,10 @@
     <string name="custom_filter_or">SAU</string>
     <string name="filters">Filtre</string>
     <string name="email">E-mail</string>
-    <string name="tomorrow_abbrev_lowercase">mâine</string>
     <string name="picker_mode_calendar">Calendar</string>
     <string name="compact">Compact</string>
     <string name="accent">Accent</string>
-    <string name="yesterday_abbrev_lowercase">ieri</string>
-    <string name="yest">Ieri</string>
     <string name="TEA_timer_est">Estim. %s</string>
-    <string name="tmrw">mâine</string>
     <string name="TEA_control_gcal">Calendar</string>
     <string name="export_toast">Salvat %1$s în %2$s.</string>
     <string name="actfm_picture_clear">Șterge poza</string>
@@ -239,7 +235,6 @@
     <string name="remove">Elimină</string>
     <string name="add_location">Adaugă locația</string>
     <string name="add_reminder">Adaugă un memento</string>
-    <string name="TLA_menu_donate">Donează</string>
     <string name="quiet_hours_summary">Nu există memento-uri în timpul orelor de liniște</string>
     <string name="rate_tasks">Evaluează Tasks (sarcini)</string>
     <string name="contact_developer">Contactează dezvoltatorul</string>
@@ -266,8 +261,6 @@
     <string name="widget_show_settings">Afișează setările</string>
     <string name="widget_show_header">Afișați antetul</string>
     <string name="widget_show_checkboxes">Afișează casetele de selectare</string>
-    <string name="yesterday_lowercase">ieri</string>
-    <string name="yesterday">Ieri</string>
     <string name="next_saturday">Sâmbăta viitoare</string>
     <string name="next_friday">Vinerea viitoare</string>
     <string name="next_thursday">Joia viitoare</string>
@@ -275,9 +268,7 @@
     <string name="next_tuesday">Marțea viitoare</string>
     <string name="next_monday">Lunea viitoare</string>
     <string name="next_sunday">Următoarea duminică</string>
-    <string name="tomorrow_lowercase">mâine</string>
     <string name="tomorrow">Mâine</string>
-    <string name="today_lowercase">azi</string>
     <string name="today">Azi</string>
     <plurals name="Ntasks">
         <item quantity="one">1 sarcină</item>
@@ -586,7 +577,6 @@
     <string name="google_tasks_selection_description">Serviciu de bază care se sincronizează cu contul Google</string>
     <string name="tasks_org_description">Sincronizează-ți sarcinile cu Tasks.org</string>
     <string name="choose_synchronization_service">Selectează o platformă</string>
-    <string name="create_new_tag">Crează \"%s\"</string>
     <string name="enter_tag_name">Introdu numele etichetei</string>
     <string name="subtasks_multilevel_google_task">Sub-sarcinile pe mai multe niveluri nu sunt acceptate de Google Tasks</string>
     <string name="collapse_subtasks">Restrânge sub-sarcinile</string>
