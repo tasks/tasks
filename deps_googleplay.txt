@@ -1541,7 +1541,7 @@
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.21 -> 2.1.0 (*)
 +|    \--- org.jetbrains:annotations:20.1.0 -> 23.0.0
 ++--- com.google.android.apps.dashclock:dashclock-api:2.0.0
-++--- com.github.twofortyfouram:android-plugin-api-for-locale:1.0.2
+++--- com.twofortyfouram:android-plugin-api-for-locale:1.0.4
 ++--- com.rubiconproject.oss:jchronic:0.2.6
 ++--- me.leolin:ShortcutBadger:1.1.22
 ++--- com.google.apis:google-api-services-tasks:v1-rev20240630-2.0.0
