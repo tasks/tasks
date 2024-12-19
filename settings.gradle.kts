@@ -33,7 +33,6 @@ dependencyResolutionManagement {
                 includeModule("com.github.bitfireAT", "dav4jvm")
                 includeModule("com.github.tasks.opentasks", "opentasks-provider")
                 includeModule("com.github.QuadFlask", "colorpicker")
-                includeModule("com.github.twofortyfouram", "android-plugin-api-for-locale")
                 includeModule("com.github.franmontiel", "PersistentCookieJar")
             }
         }
