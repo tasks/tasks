@@ -40,7 +40,7 @@ kotlinx-coroutines = "1.10.0"
 leakcanary = "2.14"
 lib-recur = "0.11.4"
 lifecycle = "2.8.7"
-locale = "1.0.2"
+locale = "1.0.4"
 make-it-easy = "4.0.1"
 markwon = "4.6.2"
 material = "1.12.0"
@@ -148,7 +148,7 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version 
 kotlinx-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.8" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.3" }
 leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
-locale = { module = "com.github.twofortyfouram:android-plugin-api-for-locale", version.ref = "locale" }
+locale = { module = "com.twofortyfouram:android-plugin-api-for-locale", version.ref = "locale" }
 make-it-easy = { module = "com.natpryce:make-it-easy", version.ref = "make-it-easy" }
 markwon = { module = "io.noties.markwon:core", version.ref = "markwon" }
 markwon-editor = { module = "io.noties.markwon:editor", version.ref = "markwon" }

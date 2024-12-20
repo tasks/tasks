@@ -28,13 +28,12 @@ dependencyResolutionManagement {
         maven {
             url = uri("https://jitpack.io")
             content {
-                includeGroup("com.github.tasks")
                 includeModule("com.github.bitfireAT", "cert4android")
                 includeModule("com.github.bitfireAT", "dav4jvm")
-                includeModule("com.github.tasks.opentasks", "opentasks-provider")
-                includeModule("com.github.QuadFlask", "colorpicker")
-                includeModule("com.github.twofortyfouram", "android-plugin-api-for-locale")
                 includeModule("com.github.franmontiel", "PersistentCookieJar")
+                includeModule("com.github.QuadFlask", "colorpicker")
+                includeModule("com.github.tasks", "ical4android")
+                includeModule("com.github.tasks.opentasks", "opentasks-provider")
             }
         }
     }
