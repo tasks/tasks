@@ -43,7 +43,7 @@ import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivity.Companion.EXTRA_GITHUB
+import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_GITHUB
 import org.tasks.compose.ConsentDialog
 import org.tasks.compose.SignInDialog
 import org.tasks.dialogs.DialogBuilder

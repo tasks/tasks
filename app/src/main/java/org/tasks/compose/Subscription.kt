@@ -39,9 +39,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -138,9 +135,11 @@ object PurchaseText {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun SubscriptionScreen(
-        nameYourPrice: MutableState<Boolean> = mutableStateOf(false),
-        sliderPosition: MutableState<Float> = mutableStateOf(0f),
+        nameYourPrice: Boolean,
+        sliderPosition: Float,
         github: Boolean = false,
+        setPrice: (Float) -> Unit,
+        setNameYourPrice: (Boolean) -> Unit,
         subscribe: (Int, Boolean) -> Unit,
         onBack: () -> Unit,
     ) {
@@ -186,7 +185,7 @@ object PurchaseText {
                     state = pagerState // Optional: to control the pager's state
                 ) { index ->
                     val item = featureList[index]
-                    PagerItem(item, nameYourPrice.value && index == 0)
+                    PagerItem(item, nameYourPrice && index == 0)
                 }
                 Row(
                     Modifier
@@ -214,6 +213,8 @@ object PurchaseText {
                         nameYourPrice = nameYourPrice,
                         sliderPosition = sliderPosition,
                         pagerState = pagerState,
+                        setNameYourPrice = setNameYourPrice,
+                        setPrice = setPrice,
                         subscribe = subscribe,
                     )
                 }
@@ -259,9 +260,11 @@ object PurchaseText {
 
     @Composable
     fun GooglePlayButtons(
-        nameYourPrice: MutableState<Boolean>,
-        sliderPosition: MutableState<Float>,
+        nameYourPrice: Boolean,
+        sliderPosition: Float,
         pagerState: PagerState,
+        setNameYourPrice: (Boolean) -> Unit,
+        setPrice: (Float) -> Unit,
         subscribe: (Int, Boolean) -> Unit,
     ) {
         Column(
@@ -269,8 +272,12 @@ object PurchaseText {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             HorizontalDivider(modifier = Modifier.padding(vertical = KEYLINE_FIRST))
-            if (nameYourPrice.value) {
-                NameYourPrice(sliderPosition, subscribe)
+            if (nameYourPrice) {
+                NameYourPrice(
+                    sliderPosition = sliderPosition,
+                    setPrice = setPrice,
+                    subscribe = subscribe,
+                )
             } else {
                 TasksAccount(subscribe)
             }
@@ -278,7 +285,7 @@ object PurchaseText {
             val scope = rememberCoroutineScope()
             OutlinedButton(
                 onClick = {
-                    nameYourPrice.value = !nameYourPrice.value
+                    setNameYourPrice(!nameYourPrice)
                     scope.launch {
                         pagerState.animateScrollToPage(0)
                     }
@@ -419,7 +426,11 @@ object PurchaseText {
     }
 
     @Composable
-    fun NameYourPrice(sliderPosition: MutableState<Float>, subscribe: (Int, Boolean) -> Unit) {
+    fun NameYourPrice(
+        sliderPosition: Float,
+        setPrice: (Float) -> Unit,
+        subscribe: (Int, Boolean) -> Unit,
+    ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -427,8 +438,8 @@ object PurchaseText {
             Row(Modifier.fillMaxWidth()) {
                 Slider(
                     modifier = Modifier.padding(KEYLINE_FIRST, 0.dp, KEYLINE_FIRST, HALF_KEYLINE),
-                    value = sliderPosition.value,
-                    onValueChange = { sliderPosition.value = it },
+                    value = sliderPosition,
+                    onValueChange = { setPrice(it) },
                     valueRange = 1f..25f,
                     steps = 25,
                     colors = SliderDefaults.colors(
@@ -445,17 +456,17 @@ object PurchaseText {
                 horizontalArrangement = Arrangement.Center
             ) {
                 PurchaseButton(
-                    price = sliderPosition.value.toInt(),
-                    popperText = if (sliderPosition.value.toInt() >= 7)
+                    price = sliderPosition.toInt(),
+                    popperText = if (sliderPosition.toInt() >= 7)
                         "${stringResource(R.string.above_average, 16)} $POPPER"
                     else
                         "",
                     onClick = subscribe
                 )
-                if (sliderPosition.value.toInt() < 3) {
+                if (sliderPosition.toInt() < 3) {
                     Spacer(Modifier.width(KEYLINE_FIRST))
                     PurchaseButton(
-                        price = sliderPosition.value.toInt(),
+                        price = sliderPosition.toInt(),
                         monthly = true,
                         popperText = "${stringResource(R.string.above_average)} $POPPER",
                         onClick = subscribe
@@ -474,6 +485,10 @@ private fun PurchaseDialogPreview() {
         SubscriptionScreen(
             subscribe = { _, _ -> },
             onBack = {},
+            nameYourPrice = false,
+            sliderPosition = 1f,
+            setPrice = {},
+            setNameYourPrice = {},
         )
     }
 }
@@ -484,9 +499,12 @@ private fun PurchaseDialogPreview() {
 private fun NameYourPricePreview() {
     TasksTheme {
         SubscriptionScreen(
-            nameYourPrice = remember { mutableStateOf(true) },
             subscribe = { _, _ -> },
             onBack = {},
+            nameYourPrice = true,
+            sliderPosition = 4f,
+            setPrice = {},
+            setNameYourPrice = {},
         )
     }
 }
