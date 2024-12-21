@@ -102,6 +102,10 @@ class PurchaseActivityViewModel @Inject constructor(
         _viewState.update {  it.copy(nameYourPrice = nameYourPrice) }
     }
 
+    fun dismissError() {
+        _viewState.update { it.copy(error = null) }
+    }
+
     companion object {
         const val EXTRA_GITHUB = "extra_github"
         const val EXTRA_NAME_YOUR_PRICE = "extra_name_your_price"

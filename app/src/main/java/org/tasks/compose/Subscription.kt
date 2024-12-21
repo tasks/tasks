@@ -35,10 +35,13 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -138,6 +141,7 @@ object PurchaseText {
         nameYourPrice: Boolean,
         sliderPosition: Float,
         github: Boolean = false,
+        snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
         setPrice: (Float) -> Unit,
         setNameYourPrice: (Boolean) -> Unit,
         subscribe: (Int, Boolean) -> Unit,
@@ -166,6 +170,7 @@ object PurchaseText {
                     )
                 )
             },
+            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         ) { paddingValues ->
             Column(
                 modifier = Modifier

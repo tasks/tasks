@@ -4,10 +4,15 @@ import android.os.Bundle
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
+import org.tasks.R
 import org.tasks.compose.PurchaseText.SubscriptionScreen
 import org.tasks.extensions.Context.findActivity
 import org.tasks.themes.TasksTheme
@@ -31,6 +36,7 @@ class PurchaseActivity : AppCompatActivity(), OnPurchasesUpdated {
                 val viewModel: PurchaseActivityViewModel = viewModel()
                 val state = viewModel.viewState.collectAsStateWithLifecycle().value
                 val context = LocalContext.current
+                val snackbarHostState = remember { SnackbarHostState() }
                 SubscriptionScreen(
                     nameYourPrice = state.nameYourPrice,
                     sliderPosition = state.price,
@@ -41,7 +47,18 @@ class PurchaseActivity : AppCompatActivity(), OnPurchasesUpdated {
                     setPrice = { viewModel.setPrice(it) },
                     setNameYourPrice = { viewModel.setNameYourPrice(it) },
                     onBack = { finish() },
+                    snackbarHostState = snackbarHostState,
                 )
+                LaunchedEffect(state.error) {
+                    if (state.error?.isNotBlank() == true) {
+                        snackbarHostState.showSnackbar(
+                            message = state.error,
+                            actionLabel = context.getString(R.string.dismiss),
+                            duration = SnackbarDuration.Long,
+                        )
+                        viewModel.dismissError()
+                    }
+                }
             }
         }
     }
