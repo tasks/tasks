@@ -21,6 +21,7 @@ class BillingClientImpl(
     ) {}
 
     override suspend fun acknowledge(purchase: Purchase) {}
+    override suspend fun getSkus(skus: List<String>): List<Sku> = emptyList()
 
     override suspend fun consume(sku: String) {}
 
