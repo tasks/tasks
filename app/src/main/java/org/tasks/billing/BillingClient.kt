@@ -12,4 +12,5 @@ interface BillingClient {
         oldPurchase: Purchase? = null
     )
     suspend fun acknowledge(purchase: Purchase)
+    suspend fun getSkus(skus: List<String>): List<Sku>
 }

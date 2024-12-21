@@ -24,6 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
 import org.tasks.BuildConfig
 import org.tasks.analytics.Firebase
 import org.tasks.jobs.WorkManager
@@ -45,6 +46,29 @@ class BillingClientImpl(
             .build()
     private var connected = false
     private var onPurchasesUpdated: OnPurchasesUpdated? = null
+
+    override suspend fun getSkus(skus: List<String>): List<Sku> =
+        executeServiceRequest {
+            val skuDetailsResult = withContext(Dispatchers.IO) {
+                billingClient.querySkuDetails(
+                    SkuDetailsParams
+                        .newBuilder()
+                        .setType(SkuType.SUBS)
+                        .setSkusList(skus)
+                        .build()
+                )
+            }
+            skuDetailsResult.billingResult.let {
+                if (!it.success) {
+                    throw IllegalStateException(it.responseCodeString)
+                }
+            }
+            val json = Json { ignoreUnknownKeys = true }
+            skuDetailsResult
+                .skuDetailsList
+                ?.map { json.decodeFromString<Sku>(it.originalJson) }
+                ?: emptyList()
+        }
 
     override suspend fun queryPurchases(throwError: Boolean) = try {
         executeServiceRequest {
@@ -174,11 +198,11 @@ class BillingClientImpl(
             )
         }
 
-    private suspend fun executeServiceRequest(runnable: suspend () -> Unit) {
+    private suspend fun <T> executeServiceRequest(runnable: suspend () -> T): T {
         if (!connected) {
             connect()
         }
-        runnable()
+        return runnable()
     }
 
     override suspend fun consume(sku: String) {

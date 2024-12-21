@@ -33,6 +33,7 @@ class PurchaseActivityViewModel @Inject constructor(
         val price: Float = -1f,
         val subscription: Purchase? = null,
         val error: String? = null,
+        val skus: List<Sku> = emptyList(),
     )
 
     private val purchaseReceiver = object : BroadcastReceiver() {
@@ -72,6 +73,19 @@ class PurchaseActivityViewModel @Inject constructor(
                     it.copy(error = e.message)
                 }
             }
+            try {
+                val skus =
+                    (1..25).map { it.toSku(false) }
+                    .plus((1..3).map { it.toSku(true) })
+                    .plus(30.toSku(false))
+                _viewState.update {
+                    it.copy(skus = billingClient.getSkus(skus))
+                }
+            } catch (e: Exception) {
+                _viewState.update {
+                    it.copy(error = e.message)
+                }
+            }
         }
 
         firebase.logEvent(R.string.event_showed_purchase_dialog)
@@ -83,7 +97,7 @@ class PurchaseActivityViewModel @Inject constructor(
     }
 
     fun purchase(activity: Activity, price: Int, monthly: Boolean) = viewModelScope.launch {
-        val newSku = String.format(Locale.US, "%s_%02d", if (monthly) "monthly" else "annual", price)
+        val newSku = price.toSku(monthly)
         try {
             billingClient.initiatePurchaseFlow(
                 activity,
@@ -109,5 +123,8 @@ class PurchaseActivityViewModel @Inject constructor(
     companion object {
         const val EXTRA_GITHUB = "extra_github"
         const val EXTRA_NAME_YOUR_PRICE = "extra_name_your_price"
+
+        fun Int.toSku(monthly: Boolean) =
+            String.format(Locale.US, "%s_%02d", if (monthly) "monthly" else "annual", this)
     }
 }

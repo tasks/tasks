@@ -60,6 +60,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import org.tasks.R
+import org.tasks.billing.Sku
 import org.tasks.compose.Constants.HALF_KEYLINE
 import org.tasks.compose.Constants.KEYLINE_FIRST
 import org.tasks.compose.PurchaseText.SubscriptionScreen
@@ -145,6 +146,7 @@ object PurchaseText {
         setPrice: (Float) -> Unit,
         setNameYourPrice: (Boolean) -> Unit,
         subscribe: (Int, Boolean) -> Unit,
+        skus: List<Sku>,
         onBack: () -> Unit,
     ) {
         Scaffold(
@@ -221,6 +223,7 @@ object PurchaseText {
                         setNameYourPrice = setNameYourPrice,
                         setPrice = setPrice,
                         subscribe = subscribe,
+                        skus = skus,
                     )
                 }
             }
@@ -271,6 +274,7 @@ object PurchaseText {
         setNameYourPrice: (Boolean) -> Unit,
         setPrice: (Float) -> Unit,
         subscribe: (Int, Boolean) -> Unit,
+        skus: List<Sku>,
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -282,9 +286,13 @@ object PurchaseText {
                     sliderPosition = sliderPosition,
                     setPrice = setPrice,
                     subscribe = subscribe,
+                    skus = skus,
                 )
             } else {
-                TasksAccount(subscribe)
+                TasksAccount(
+                    skus = skus,
+                    subscribe = subscribe
+                )
             }
             Spacer(Modifier.height(KEYLINE_FIRST))
             val scope = rememberCoroutineScope()
@@ -373,7 +381,10 @@ object PurchaseText {
     }
 
     @Composable
-    fun TasksAccount(subscribe: (Int, Boolean) -> Unit) {
+    fun TasksAccount(
+        skus: List<Sku>,
+        subscribe: (Int, Boolean) -> Unit,
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -385,15 +396,19 @@ object PurchaseText {
                 horizontalArrangement = Arrangement.Center
             ) {
                 PurchaseButton(
-                    price = 30,
+                    price = remember(skus) {
+                        skus.find { it.productId == "annual_30" }?.price ?: "$30"
+                    },
                     popperText = "${stringResource(R.string.save_percent, 16)} $POPPER",
-                    onClick = subscribe
+                    onClick = { subscribe(30, false) },
                 )
                 Spacer(Modifier.width(KEYLINE_FIRST))
                 PurchaseButton(
-                    price = 3,
+                    price = remember (skus) {
+                        skus.find { it.productId == "monthly_03" }?.price ?: "$3"
+                    },
                     monthly = true,
-                    onClick = subscribe
+                    onClick = { subscribe(3, true) },
                 )
             }
         }
@@ -401,21 +416,21 @@ object PurchaseText {
 
     @Composable
     fun PurchaseButton(
-        price: Int,
+        price: String,
         monthly: Boolean = false,
         popperText: String = "",
-        onClick: (Int, Boolean) -> Unit,
+        onClick: () -> Unit,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Button(
-                onClick = { onClick(price, monthly) },
+                onClick = { onClick() },
                 colors = ButtonDefaults.textButtonColors(
                     containerColor = MaterialTheme.colorScheme.secondary
                 )
             ) {
                 Text(
                     text = stringResource(
-                        if (monthly) R.string.price_per_month else R.string.price_per_year,
+                        if (monthly) R.string.price_per_month_with_currency else R.string.price_per_year_with_currency,
                         price
                     ),
                     color = MaterialTheme.colorScheme.onSecondary,
@@ -435,6 +450,7 @@ object PurchaseText {
         sliderPosition: Float,
         setPrice: (Float) -> Unit,
         subscribe: (Int, Boolean) -> Unit,
+        skus: List<Sku>,
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -460,21 +476,32 @@ object PurchaseText {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
+                val price = sliderPosition.toInt()
                 PurchaseButton(
-                    price = sliderPosition.toInt(),
+                    price = remember (skus, price) {
+                        skus
+                            .find { it.productId == "annual_${price.toString().padStart(2, '0')}" }
+                            ?.price
+                            ?: "$$price"
+                    },
                     popperText = if (sliderPosition.toInt() >= 7)
                         "${stringResource(R.string.above_average, 16)} $POPPER"
                     else
                         "",
-                    onClick = subscribe
+                    onClick = { subscribe(sliderPosition.toInt(), false) },
                 )
                 if (sliderPosition.toInt() < 3) {
                     Spacer(Modifier.width(KEYLINE_FIRST))
                     PurchaseButton(
-                        price = sliderPosition.toInt(),
+                        price = remember (skus, price) {
+                            skus
+                                .find { it.productId == "monthly_${price.toString().padStart(2, '0')}" }
+                                ?.price
+                                ?: "$$price"
+                        },
                         monthly = true,
                         popperText = "${stringResource(R.string.above_average)} $POPPER",
-                        onClick = subscribe
+                        onClick = { subscribe(price, true) },
                     )
                 }
             }
@@ -494,6 +521,7 @@ private fun PurchaseDialogPreview() {
             sliderPosition = 1f,
             setPrice = {},
             setNameYourPrice = {},
+            skus = emptyList(),
         )
     }
 }
@@ -510,6 +538,7 @@ private fun NameYourPricePreview() {
             sliderPosition = 4f,
             setPrice = {},
             setNameYourPrice = {},
+            skus = emptyList(),
         )
     }
 }

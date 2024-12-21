@@ -47,6 +47,7 @@ class PurchaseActivity : AppCompatActivity(), OnPurchasesUpdated {
                     setPrice = { viewModel.setPrice(it) },
                     setNameYourPrice = { viewModel.setNameYourPrice(it) },
                     onBack = { finish() },
+                    skus = state.skus,
                     snackbarHostState = snackbarHostState,
                 )
                 LaunchedEffect(state.error) {
