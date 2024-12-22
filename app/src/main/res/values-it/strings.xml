@@ -745,4 +745,10 @@
     <string name="swipe_to_snooze_time_description">Una notifica annullata sarà posticipata e ricreata %s</string>
     <string name="send_application_logs">Invia i log dell\'applicazione</string>
     <string name="quiet_hours_in_effect">Ore di quiete attive</string>
+    <string name="yesterday">Ieri</string>
+    <string name="delete_comment">commento</string>
+    <string name="price_per_month_with_currency">%s/mese</string>
+    <string name="price_per_year_with_currency">%s/anno</string>
+    <string name="enable_alarms_description">Per essere avvisati alla scadenza, concedere il permesso di impostare allarmi e promemoria in Impostazioni</string>
+    <string name="enable_alarms">Ricevi notifica alla scadenza</string>
 </resources>
