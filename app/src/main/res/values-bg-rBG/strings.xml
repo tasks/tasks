@@ -725,4 +725,8 @@
     <string name="quiet_hours_in_effect">В момента е време за тишина</string>
     <string name="enable_alarms">Получавайте напомнянията навреме</string>
     <string name="enable_alarms_description">За да бъдете сигурни, че ще получите напомняне в точното време дайте разрешение за задаване на будилници и напомняния в настройките</string>
+    <string name="price_per_year_with_currency">%s/година</string>
+    <string name="delete_comment">коментар</string>
+    <string name="price_per_month_with_currency">%s/месец</string>
+    <string name="yesterday">Вчера</string>
 </resources>
