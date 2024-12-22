@@ -714,4 +714,8 @@
     <string name="quiet_hours_in_effect">静音时段生效中</string>
     <string name="enable_alarms">在正确的时间收到通知</string>
     <string name="enable_alarms_description">确保你在正确的时间收到通知，在设置中授予设置闹铃和提醒的权限</string>
+    <string name="yesterday">昨天</string>
+    <string name="delete_comment">注释</string>
+    <string name="price_per_month_with_currency">每月%s</string>
+    <string name="price_per_year_with_currency">每年%s</string>
 </resources>
