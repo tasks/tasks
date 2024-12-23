@@ -3,8 +3,6 @@ package org.tasks.caldav
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.PersonAdd
@@ -16,8 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -37,12 +35,15 @@ import org.tasks.data.entity.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.themes.TasksTheme
+import org.tasks.themes.ThemeAccent
+import org.tasks.themes.colorOn
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
     @Inject lateinit var principalDao: PrincipalDao
+    @Inject lateinit var accent: ThemeAccent
 
     private val viewModel: CaldavCalendarViewModel by viewModels()
 
@@ -67,83 +68,79 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
         setContent {
             TasksTheme {
-                Box(contentAlignment = Alignment.TopStart) {// Box to layout FAB over main content
-                    BaseCaldavSettingsContent {
-                        caldavCalendar?.takeIf { it.id > 0 }?.let { calendar->
-                            val principals = principalDao.getPrincipals(calendar.id).collectAsStateWithLifecycle(initialValue = emptyList()).value
-                            PrincipalList(
-                                principals = principals,
-                                onRemove = if (canRemovePrincipals) { { onRemove(it) } } else null,
-                            )
-                        }
-                        if (principalsList.value.isNotEmpty())
-                            PrincipalList(
-                                principalsList.value,
-                                onRemove = if (canRemovePrincipals) ::onRemove else null
-                            )
-                    }
-
-                    removeDialog.value?.let { principal ->
-                        AlertDialog(
-                            onDismissRequest = { removeDialog.value = null },
-                            confirmButton = {
-                                Constants.TextButton(text = R.string.ok) {
-                                    removePrincipal(principal)
-                                    removeDialog.value = null
+                BaseCaldavSettingsContent(
+                    fab = {
+                        if (caldavAccount.canShare && (isNew || caldavCalendar?.access == ACCESS_OWNER)) {
+                            val openDialog = rememberSaveable { mutableStateOf(false) }
+                            ShareInviteDialog(
+                                openDialog,
+                                email = caldavAccount.serverType != SERVER_OWNCLOUD
+                            ) { input ->
+                                lifecycleScope.launch {
+                                    share(input)
+                                    openDialog.value = false
                                 }
-                            },
-                            dismissButton = {
-                                Constants.TextButton(text = R.string.cancel) {
-                                    removeDialog.value = null
-                                }
-                            },
-                            title = {
-                                Text(
-                                    stringResource(id = R.string.remove_user),
-                                    style = MaterialTheme.typography.headlineSmall
-                                )
-                            },
-                            text = {
-                                Text(
-                                    text = stringResource(
-                                        R.string.remove_user_confirmation,
-                                        principal.name,
-                                        caldavCalendar?.name ?: ""
-                                    ),
-                                    style = MaterialTheme.typography.bodyMedium
+                            }
+                            val accentColor = Color(accent.accentColor)
+                            FloatingActionButton(
+                                onClick = { openDialog.value = true },
+                                modifier = Modifier.padding(Constants.KEYLINE_FIRST),
+                                containerColor = Color(accent.accentColor)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.PersonAdd,
+                                    contentDescription = null,
+                                    tint = colorOn(accentColor),
                                 )
                             }
+                        }
+                    },
+                ) {
+                    caldavCalendar?.takeIf { it.id > 0 }?.let { calendar->
+                        val principals = principalDao.getPrincipals(calendar.id).collectAsStateWithLifecycle(initialValue = emptyList()).value
+                        PrincipalList(
+                            principals = principals,
+                            onRemove = if (canRemovePrincipals) { { onRemove(it) } } else null,
                         )
                     }
-
+                    if (principalsList.value.isNotEmpty())
+                        PrincipalList(
+                            principalsList.value,
+                            onRemove = if (canRemovePrincipals) ::onRemove else null
+                        )
                 }
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.BottomEnd
-                ) {
-                    if (caldavAccount.canShare && (isNew || caldavCalendar?.access == ACCESS_OWNER)) {
-                        val openDialog = rememberSaveable { mutableStateOf(false) }
-                        ShareInviteDialog(
-                            openDialog,
-                            email = caldavAccount.serverType != SERVER_OWNCLOUD
-                        ) { input ->
-                            lifecycleScope.launch {
-                                share(input)
-                                openDialog.value = false
+
+                removeDialog.value?.let { principal ->
+                    AlertDialog(
+                        onDismissRequest = { removeDialog.value = null },
+                        confirmButton = {
+                            Constants.TextButton(text = R.string.ok) {
+                                removePrincipal(principal)
+                                removeDialog.value = null
                             }
-                        }
-                        FloatingActionButton(
-                            onClick = { openDialog.value = true },
-                            modifier = Modifier.padding(Constants.KEYLINE_FIRST),
-                            containerColor = MaterialTheme.colorScheme.secondary
-                        ) {
-                            Icon(
-                                imageVector = Icons.Outlined.PersonAdd,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onSecondary,
+                        },
+                        dismissButton = {
+                            Constants.TextButton(text = R.string.cancel) {
+                                removeDialog.value = null
+                            }
+                        },
+                        title = {
+                            Text(
+                                stringResource(id = R.string.remove_user),
+                                style = MaterialTheme.typography.headlineSmall
+                            )
+                        },
+                        text = {
+                            Text(
+                                text = stringResource(
+                                    R.string.remove_user_confirmation,
+                                    principal.name,
+                                    caldavCalendar?.name ?: ""
+                                ),
+                                style = MaterialTheme.typography.bodyMedium
                             )
                         }
-                    }
+                    )
                 }
             }
         }

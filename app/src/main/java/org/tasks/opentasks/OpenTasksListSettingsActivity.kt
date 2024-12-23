@@ -2,15 +2,14 @@ package org.tasks.opentasks
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.compose.settings.ProgressBar
+import org.tasks.compose.settings.ListSettingsScaffold
 import org.tasks.compose.settings.SelectIconRow
-import org.tasks.compose.settings.SettingsSurface
 import org.tasks.compose.settings.Toaster
-import org.tasks.compose.settings.Toolbar
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.themes.TasksTheme
@@ -23,13 +22,18 @@ class OpenTasksListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
         setContent {
             TasksTheme {
-                SettingsSurface {
-                    Toolbar(
-                        title = toolbarTitle,
-                        save = { lifecycleScope.launch { save() } },
-                        optionButton = { },
-                    )
-                    ProgressBar(showProgress.value)
+                ListSettingsScaffold(
+                    title = toolbarTitle,
+                    theme = if (colorState.value == Color.Unspecified)
+                        Color(tasksTheme.themeColor.primaryColor)
+                    else
+                        colorState.value,
+                    promptDiscard = promptDiscard.value,
+                    showProgress = showProgress.value,
+                    dismissDiscardPrompt = { promptDiscard.value = false },
+                    save = { lifecycleScope.launch { save() } },
+                    discard = { finish() },
+                ) {
                     SelectIconRow(icon = selectedIcon.value?: defaultIcon) { showIconPicker() }
                 }
                 Toaster(state = snackbar)

@@ -158,7 +158,6 @@ object ListSettingsComposables {
                             imageVector = Icons.Outlined.Clear,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.alpha(ICON_ALPHA)
                         )
                     }
                 }

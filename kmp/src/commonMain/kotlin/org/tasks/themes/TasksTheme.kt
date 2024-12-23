@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.graphics.toArgb
 
 const val BLUE = -14575885
 const val WHITE = -1
@@ -37,6 +38,21 @@ private val wallpaperScheme = darkColorScheme.copy(
 )
 
 @Composable
+fun colorOn(color: Color) = colorOn(color.toArgb())
+
+@Composable
+fun colorOn(color: Int) =
+    remember (color) {
+        if (color == 0) {
+            Color.White
+        } else if (calculateContrast(WHITE, color) < 3) {
+            Color.Black
+        } else {
+            Color.White
+        }
+    }
+
+@Composable
 fun TasksTheme(
     theme: Int = 5,
     primary: Int = BLUE,
@@ -49,13 +65,7 @@ fun TasksTheme(
         3 -> wallpaperScheme
         else -> if (isSystemInDarkTheme()) darkColorScheme else lightColorScheme
     }
-    val colorOnPrimary = remember(primary) {
-        if (calculateContrast(WHITE, primary) < 3) {
-            Color.Black
-        } else {
-            Color.White
-        }
-    }
+    val colorOnPrimary = colorOn(primary)
     MaterialTheme(
         colorScheme = colorScheme.copy(
             primary = Color(primary),

@@ -1,6 +1,7 @@
 package org.tasks.activities
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -11,18 +12,20 @@ import org.tasks.compose.DeleteButton
 import org.tasks.compose.IconPickerActivity.Companion.launchIconPicker
 import org.tasks.compose.IconPickerActivity.Companion.registerForIconPickerResult
 import org.tasks.compose.settings.BaseSettingsContent
+import org.tasks.compose.settings.ListSettingsScaffold
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.extensions.addBackPressedCallback
-import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.themes.ColorProvider
+import org.tasks.themes.Theme
 import org.tasks.themes.ThemeColor
 import javax.inject.Inject
 
 
-abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), ColorPalettePicker.ColorPickedCallback, ColorWheelPicker.ColorPickedCallback {
+abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicker.ColorPickedCallback, ColorWheelPicker.ColorPickedCallback {
+    @Inject lateinit var tasksTheme: Theme
     @Inject lateinit var colorProvider: ColorProvider
     protected abstract val defaultIcon: String
     protected var selectedColor = 0
@@ -94,7 +97,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
     protected fun updateTheme() {
 
         val themeColor: ThemeColor =
-            if (selectedColor == 0) this.themeColor
+            if (selectedColor == 0) tasksTheme.themeColor
             else colorProvider.getThemeColor(selectedColor, true)
 
         colorState.value =
@@ -114,30 +117,39 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
         optionButton: @Composable () -> Unit = {
             if (!isNew) DeleteButton(toolbarTitle ?: "") { delete() }
         },
-        extensionContent: @Composable ColumnScope.() -> Unit = {}
+        extensionContent: @Composable ColumnScope.() -> Unit = {},
+        fab: @Composable () -> Unit = {},
     ) {
-        BaseSettingsContent(
+        ListSettingsScaffold(
             title = title,
-            color = colorState.value,
-            icon = selectedIcon.value ?: defaultIcon,
-            text = textState.value,
-            error = errorState.value,
-            requestKeyboard = requestKeyboard,
+            theme = if (colorState.value == Color.Unspecified)
+                Color(tasksTheme.themeColor.primaryColor)
+            else
+                colorState.value,
             promptDiscard = promptDiscard.value,
             showProgress = showProgress.value,
             dismissDiscardPrompt = { promptDiscard.value = false },
-            setText = {
-                textState.value = it
-                errorState.value = ""
-            },
             save = { lifecycleScope.launch { save() } },
-            pickColor = { showThemePicker() },
-            clearColor = { clearColor() },
-            pickIcon = { showIconPicker() },
             discard = { finish() },
-            optionButton = optionButton,
-            extensionContent = extensionContent,
-        )
+            actions = optionButton,
+            fab = fab,
+        ) {
+            BaseSettingsContent(
+                color = colorState.value,
+                icon = selectedIcon.value ?: defaultIcon,
+                text = textState.value,
+                error = errorState.value,
+                requestKeyboard = requestKeyboard,
+                setText = {
+                    textState.value = it
+                    errorState.value = ""
+                },
+                pickColor = { showThemePicker() },
+                clearColor = { clearColor() },
+                pickIcon = { showIconPicker() },
+                extensionContent = extensionContent,
+            )
+        }
     }
 
     companion object {
