@@ -1,15 +1,19 @@
-### 14.2.2 (2024-12-21)
+### 14.2.2 (2024-12-23)
 
 * Fix long running sync indicators [#3045](https://github.com/tasks/tasks/issues/3045)
+* "Add to home screen" shortcut in list settings
+  * Shortcuts use list icon and color
 * @hady-exc: Migrate list setting screens to Compose [#3163](https://github.com/tasks/tasks/pull/3163)
 * Update translations
   * Bosnian - @hasak
   * Bulgarian - @StoyanDimitrov
+  * Chinese (Simplified) - 大王叫我来巡山
   * Croatian - @milotype
   * Esperanto - Don Zouras
   * Finnish - @pHamala, @Ricky-Tigg
   * German - @p-rogalski, @franconian, @Atalanttore
   * Hungarian - Kaci
+  * Italian - @ppasserini
   * Korean - Sunjae Choi
   * Spanish - gallegonovato
   * Swedish - Nick Wick
