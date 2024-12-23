@@ -22,6 +22,7 @@ import org.tasks.compose.settings.Toaster
 import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.filters.Filter
 import org.tasks.filters.GtasksFilter
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
@@ -78,8 +79,8 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         updateTheme()
     }
 
-    override val isNew: Boolean
-        get() = isNewList
+    override val filter: Filter?
+        get() = if (isNewList) null else GtasksFilter(gtasksList)
 
     override val toolbarTitle: String
         get() = if (isNew) getString(R.string.new_list) else gtasksList.name!!
@@ -129,10 +130,6 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
                 finish()
             }
         }
-    }
-
-    override fun finish() {
-        super.finish()
     }
 
     override fun promptDelete() {

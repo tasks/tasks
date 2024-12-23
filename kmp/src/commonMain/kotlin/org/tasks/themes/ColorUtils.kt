@@ -1,8 +1,18 @@
 package org.tasks.themes
 
+import androidx.compose.ui.graphics.Color
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
+
+fun contentColorFor(backgroundColor: Int): Color =
+    if (backgroundColor == 0) {
+        Color.White
+    } else if (calculateContrast(WHITE, backgroundColor) < 3) {
+        Color.Black
+    } else {
+        Color.White
+    }
 
 fun calculateContrast(foreground: Int, background: Int): Double {
     var foreground = foreground

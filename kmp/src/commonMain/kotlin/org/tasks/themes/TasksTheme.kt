@@ -41,16 +41,7 @@ private val wallpaperScheme = darkColorScheme.copy(
 fun colorOn(color: Color) = colorOn(color.toArgb())
 
 @Composable
-fun colorOn(color: Int) =
-    remember (color) {
-        if (color == 0) {
-            Color.White
-        } else if (calculateContrast(WHITE, color) < 3) {
-            Color.Black
-        } else {
-            Color.White
-        }
-    }
+fun colorOn(color: Int) = remember (color) { contentColorFor(color) }
 
 @Composable
 fun TasksTheme(

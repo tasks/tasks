@@ -34,6 +34,7 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Place
 import org.tasks.data.mapPosition
 import org.tasks.extensions.formatNumber
+import org.tasks.filters.Filter
 import org.tasks.filters.PlaceFilter
 import org.tasks.location.MapFragment
 import org.tasks.preferences.Preferences
@@ -108,8 +109,8 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
                         Text(stringResource(id = R.string.geofence_radius))
                         Row(horizontalArrangement = Arrangement.End) {
                             Text(getString(
-                                    R.string.location_radius_meters,
-                                    locale.formatNumber(sliderPos.floatValue.roundToInt()
+                                R.string.location_radius_meters,
+                                locale.formatNumber(sliderPos.floatValue.roundToInt()
                                 )))
                         }
                     }
@@ -183,8 +184,8 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
         finish()
     }
 
-    override val isNew: Boolean
-        get() = false
+    override val filter: Filter
+        get() = PlaceFilter(place)
 
     override val toolbarTitle: String
         get() = place.address ?: place.displayName

@@ -3,9 +3,12 @@ package org.tasks.compose.settings
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Save
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import org.tasks.R
 import org.tasks.extensions.Context.findActivity
 import org.tasks.themes.colorOn
@@ -37,7 +41,7 @@ fun ListSettingsScaffold(
     discard: () -> Unit,
     actions: @Composable () -> Unit = {},
     fab: @Composable () -> Unit = {},
-    content: @Composable () -> Unit,
+    content: @Composable ColumnScope.() -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -63,7 +67,11 @@ fun ListSettingsScaffold(
                         actionIconContentColor = contentColor,
                     ),
                     title = {
-                        Text(text = title)
+                        Text(
+                            text = title,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
                     },
                     navigationIcon = {
                         IconButton(
@@ -84,7 +92,11 @@ fun ListSettingsScaffold(
         },
         floatingActionButton = { fab() },
     ) { paddingValues ->
-        Box(modifier = Modifier.padding(paddingValues)) {
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues)
+            .verticalScroll(rememberScrollState()),
+        ) {
             content()
         }
         PromptAction(

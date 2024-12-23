@@ -18,6 +18,7 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.TagData
+import org.tasks.filters.Filter
 import org.tasks.filters.TagFilter
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
@@ -55,8 +56,8 @@ class TagSettingsActivity : BaseListSettingsActivity() {
         updateTheme()
     }
 
-    override val isNew: Boolean
-        get() = isNewTag
+    override val filter: Filter?
+        get() = if (isNewTag) null else TagFilter(tagData)
 
     override val toolbarTitle: String
         get() = if (isNew) getString(R.string.new_tag) else tagData.name!!

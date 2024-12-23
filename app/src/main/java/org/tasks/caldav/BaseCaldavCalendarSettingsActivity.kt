@@ -23,6 +23,7 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.filters.CaldavFilter
+import org.tasks.filters.Filter
 import org.tasks.themes.TasksIcons
 import org.tasks.ui.DisplayableException
 import java.net.ConnectException
@@ -58,8 +59,8 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         updateTheme()
     }
 
-    override val isNew: Boolean
-        get() = caldavCalendar == null
+    override val filter: Filter?
+        get() = caldavCalendar?.let { CaldavFilter(it) }
 
     override val toolbarTitle: String
         get() = if (isNew) getString(R.string.new_list) else caldavCalendar!!.name ?: ""

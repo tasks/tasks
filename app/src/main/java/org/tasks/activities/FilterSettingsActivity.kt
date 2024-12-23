@@ -67,7 +67,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     private val newCriterionTypes: MutableState<List<CustomFilterCriterion>?> = mutableStateOf(null)
     private val newCriterionOptions: MutableState<CriterionInstance?> = mutableStateOf(null)
 
-    private val filter: CustomFilter?
+    override val filter: CustomFilter?
         get() = viewModel.viewState.value.filter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,9 +99,6 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             newCriterionTypes.value = filterCriteriaProvider.all()
         }
     }
-
-    override val isNew: Boolean
-        get() = viewModel.viewState.value.filter == null
 
     override val toolbarTitle: String
         get() = if (isNew) getString(R.string.FLA_new_filter) else viewModel.viewState.value.filter?.title ?: ""
