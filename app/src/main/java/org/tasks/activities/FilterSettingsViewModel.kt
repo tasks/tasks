@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.activities.FilterSettingsActivity.Companion.EXTRA_CRITERIA
 import org.tasks.activities.FilterSettingsActivity.Companion.TOKEN_FILTER
+import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.data.db.Database
 import org.tasks.data.entity.Task
@@ -32,7 +33,8 @@ import kotlin.math.max
 class FilterSettingsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val filterCriteriaProvider: FilterCriteriaProvider,
-    private val database: Database
+    private val database: Database,
+    private val filterDao: FilterDao,
 ) : ViewModel() {
     data class ViewState(
         val filter: CustomFilter? = null,
@@ -153,5 +155,10 @@ class FilterSettingsViewModel @Inject constructor(
                 set(index, criterionInstance)
             }
         )
+    }
+
+    fun delete(onCompleted: () -> Unit) = viewModelScope.launch {
+        _viewState.value.filter?.id?.let { filterDao.delete(it) }
+        onCompleted()
     }
 }

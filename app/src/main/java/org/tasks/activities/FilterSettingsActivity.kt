@@ -161,10 +161,11 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     }
 
     override suspend fun delete() {
-        filterDao.delete(filter!!.id)
-        setResult(
+        viewModel.delete {
+            setResult(
                 Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED).putExtra(TOKEN_FILTER, filter))
-        finish()
+            finish()
+        }
     }
 
     private fun help() = openUri(R.string.url_filters)
@@ -184,7 +185,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                             IconButton(onClick = { help() }) {
                                 Icon(imageVector = Icons.Outlined.Help, contentDescription = "")
                             }
-                        } else DeleteButton(filter?.title ?: ""){ promptDelete() }
+                        } else DeleteButton(filter?.title ?: ""){ delete() }
                     }
                 ) {
                     FilterCondition(

@@ -22,7 +22,7 @@ class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         setContent {
             TasksTheme {
                 BaseCaldavSettingsContent (
-                    optionButton = { if (!isNew && canDelete) DeleteButton(caldavCalendar?.name ?: "") { promptDelete() } }
+                    optionButton = { if (!isNew && canDelete) DeleteButton(caldavCalendar?.name ?: "") { delete() } }
                 )
             }
         }

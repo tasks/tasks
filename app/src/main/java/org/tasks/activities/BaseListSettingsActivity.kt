@@ -112,7 +112,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
         title: String = toolbarTitle ?: "",
         requestKeyboard: Boolean = isNew,
         optionButton: @Composable () -> Unit = {
-            if (!isNew) DeleteButton(toolbarTitle ?: "") { promptDelete() }
+            if (!isNew) DeleteButton(toolbarTitle ?: "") { delete() }
         },
         extensionContent: @Composable ColumnScope.() -> Unit = {}
     ) {
