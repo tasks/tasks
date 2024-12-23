@@ -155,9 +155,9 @@ object FilterCondition {
         Row {
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .height(56.dp * items.size)
                     .doDrag(dragDropState),
-                userScrollEnabled = true,
+                userScrollEnabled = false,
                 state = listState
             ) {
                 itemsIndexed(

@@ -5,8 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Help
 import androidx.compose.material3.Icon
@@ -16,8 +14,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -171,122 +167,118 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     private fun ActivityContent ()
     {
         TasksTheme {
-            Box(  // to layout FAB over the main content
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.TopStart
-            ) {
-                val viewState by viewModel.viewState.collectAsStateWithLifecycle()
-                BaseSettingsContent(
-                    optionButton = {
-                        if (isNew) {
-                            IconButton(onClick = { help() }) {
-                                Icon(imageVector = Icons.Outlined.Help, contentDescription = "")
-                            }
-                        } else DeleteButton(filter?.title ?: ""){ delete() }
-                    }
-                ) {
-                    FilterCondition(
-                        items = viewState.criteria,
-                        onDelete = { index -> onDelete(index) },
-                        doSwap = { from, to -> viewModel.move(from, to) },
-                        onClick = { id -> editCriterionType.value = id }
-                    )
+            val viewState by viewModel.viewState.collectAsStateWithLifecycle()
+            BaseSettingsContent(
+                optionButton = {
+                    if (isNew) {
+                        IconButton(onClick = { help() }) {
+                            Icon(imageVector = Icons.Outlined.Help, contentDescription = "")
+                        }
+                    } else DeleteButton(filter?.title ?: ""){ delete() }
+                },
+                fab = {
+                    NewCriterionFAB(viewState.fabExtended) { newCriterion() }
                 }
-
-                NewCriterionFAB(viewState.fabExtended) { newCriterion() }
-
-                /** edit given criterion type (AND|OR|NOT) **/
-                editCriterionType.value?.let { itemId ->
-                    val index = viewState.criteria.indexOfFirst { it.id == itemId }
-                    assert(index >= 0)
-                    val criterionInstance = remember (index) {
-                        CriterionInstance(viewState.criteria[index])
-                    }
-                    if (criterionInstance.type != CriterionInstance.TYPE_UNIVERSE) {
-                        SelectCriterionType(
-                            title = criterionInstance.titleFromCriterion,
-                            selected = when (criterionInstance.type) {
-                                CriterionInstance.TYPE_INTERSECT -> 0
-                                CriterionInstance.TYPE_ADD -> 1
-                                else -> 2
-                            },
-                            types = listOf(
-                                stringResource(R.string.custom_filter_and),
-                                stringResource(R.string.custom_filter_or),
-                                stringResource(R.string.custom_filter_not)
-                            ),
-                            help = { help() },
-                            onCancel = { editCriterionType.value = null }
-                        ) { selected ->
-                            val type = when (selected) {
-                                0 -> CriterionInstance.TYPE_INTERSECT
-                                1 -> CriterionInstance.TYPE_ADD
-                                else -> CriterionInstance.TYPE_SUBTRACT
-                            }
-                            if (criterionInstance.type != type) {
-                                criterionInstance.type = type
-                                viewModel.setCriterion(index, criterionInstance)
-                            }
-                            editCriterionType.value = null
-                        }
-                    }
-                } /* end (AND|OR|NOT) dialog */
-
-                /** dialog to select new criterion category **/
-                newCriterionTypes.value?.let  { list ->
-                    SelectFromList(
-                        names = list.map(CustomFilterCriterion::getName),
-                        onCancel = { newCriterionTypes.value = null },
-                        onSelected = { which ->
-                            val instance = CriterionInstance()
-                            instance.criterion = list[which]
-                            newCriterionTypes.value = null
-                            if (instance.criterion is BooleanCriterion) {
-                                viewModel.addCriteria(instance)
-                            } else
-                                newCriterionOptions.value = instance
-                        }
-                    )
-                } /* end dialog  */
-
-                /** Show options menu for the given CriterionInstance  */
-                newCriterionOptions.value?.let { instance ->
-
-                    when (instance.criterion) {
-                        is MultipleSelectCriterion -> {
-                            val multiSelectCriterion = instance.criterion as MultipleSelectCriterion
-                            val list = multiSelectCriterion.entryTitles.toList()
-                            SelectFromList(
-                                names = list,
-                                title = instance.criterion.name,
-                                onCancel = { newCriterionOptions.value = null },
-                                onSelected = { which ->
-                                    instance.selectedIndex = which
-                                    viewModel.addCriteria(instance)
-                                    newCriterionOptions.value = null
-                                }
-                            )
-                        }
-
-                        is TextInputCriterion -> {
-                            val textInCriterion = instance.criterion as TextInputCriterion
-                            InputTextOption (
-                                title = textInCriterion.name,
-                                onCancel = { newCriterionOptions.value = null },
-                                onDone = { text ->
-                                    text.trim().takeIf{ it != "" }?. let { text ->
-                                        instance.selectedText = text
-                                        viewModel.addCriteria(instance)
-                                    }
-                                    newCriterionOptions.value = null
-                                }
-                            )
-                        }
-
-                        else -> assert(false) { "Unexpected Criterion type" }
-                    }
-                } /* end given criteria options dialog */
+            ) {
+                FilterCondition(
+                    items = viewState.criteria,
+                    onDelete = { index -> onDelete(index) },
+                    doSwap = { from, to -> viewModel.move(from, to) },
+                    onClick = { id -> editCriterionType.value = id }
+                )
             }
+
+            /** edit given criterion type (AND|OR|NOT) **/
+            editCriterionType.value?.let { itemId ->
+                val index = viewState.criteria.indexOfFirst { it.id == itemId }
+                assert(index >= 0)
+                val criterionInstance = remember (index) {
+                    CriterionInstance(viewState.criteria[index])
+                }
+                if (criterionInstance.type != CriterionInstance.TYPE_UNIVERSE) {
+                    SelectCriterionType(
+                        title = criterionInstance.titleFromCriterion,
+                        selected = when (criterionInstance.type) {
+                            CriterionInstance.TYPE_INTERSECT -> 0
+                            CriterionInstance.TYPE_ADD -> 1
+                            else -> 2
+                        },
+                        types = listOf(
+                            stringResource(R.string.custom_filter_and),
+                            stringResource(R.string.custom_filter_or),
+                            stringResource(R.string.custom_filter_not)
+                        ),
+                        help = { help() },
+                        onCancel = { editCriterionType.value = null }
+                    ) { selected ->
+                        val type = when (selected) {
+                            0 -> CriterionInstance.TYPE_INTERSECT
+                            1 -> CriterionInstance.TYPE_ADD
+                            else -> CriterionInstance.TYPE_SUBTRACT
+                        }
+                        if (criterionInstance.type != type) {
+                            criterionInstance.type = type
+                            viewModel.setCriterion(index, criterionInstance)
+                        }
+                        editCriterionType.value = null
+                    }
+                }
+            } /* end (AND|OR|NOT) dialog */
+
+            /** dialog to select new criterion category **/
+            newCriterionTypes.value?.let  { list ->
+                SelectFromList(
+                    names = list.map(CustomFilterCriterion::getName),
+                    onCancel = { newCriterionTypes.value = null },
+                    onSelected = { which ->
+                        val instance = CriterionInstance()
+                        instance.criterion = list[which]
+                        newCriterionTypes.value = null
+                        if (instance.criterion is BooleanCriterion) {
+                            viewModel.addCriteria(instance)
+                        } else
+                            newCriterionOptions.value = instance
+                    }
+                )
+            } /* end dialog  */
+
+            /** Show options menu for the given CriterionInstance  */
+            newCriterionOptions.value?.let { instance ->
+
+                when (instance.criterion) {
+                    is MultipleSelectCriterion -> {
+                        val multiSelectCriterion = instance.criterion as MultipleSelectCriterion
+                        val list = multiSelectCriterion.entryTitles.toList()
+                        SelectFromList(
+                            names = list,
+                            title = instance.criterion.name,
+                            onCancel = { newCriterionOptions.value = null },
+                            onSelected = { which ->
+                                instance.selectedIndex = which
+                                viewModel.addCriteria(instance)
+                                newCriterionOptions.value = null
+                            }
+                        )
+                    }
+
+                    is TextInputCriterion -> {
+                        val textInCriterion = instance.criterion as TextInputCriterion
+                        InputTextOption (
+                            title = textInCriterion.name,
+                            onCancel = { newCriterionOptions.value = null },
+                            onDone = { text ->
+                                text.trim().takeIf{ it != "" }?. let { text ->
+                                    instance.selectedText = text
+                                    viewModel.addCriteria(instance)
+                                }
+                                newCriterionOptions.value = null
+                            }
+                        )
+                    }
+
+                    else -> assert(false) { "Unexpected Criterion type" }
+                }
+            } /* end given criteria options dialog */
         }
     } /* activityContent */
 
