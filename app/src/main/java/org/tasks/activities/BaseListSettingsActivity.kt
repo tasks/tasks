@@ -193,12 +193,17 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
                 .setIcon(
                     selectedIcon.value
                         ?.let { icon ->
-                            createShortcutIcon(
-                                context = this,
-                                backgroundColor = iconColor,
-                                icon = icon,
-                                iconColor = contentColorFor(iconColor.toArgb()),
-                            )
+                            try {
+                                createShortcutIcon(
+                                    context = this,
+                                    backgroundColor = iconColor,
+                                    icon = icon,
+                                    iconColor = contentColorFor(iconColor.toArgb()),
+                                )
+                            } catch (e: Exception) {
+                                firebase.reportException(e)
+                                null
+                            }
                         }
                         ?: createShortcutIcon(
                             this,
