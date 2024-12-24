@@ -2,6 +2,14 @@ This icon library is used by the widget
 
 Generated with https://github.com/Nek-12/MaterialSymbolsToFont
 
+
+icon metadata pulled from https://fonts.google.com/metadata/icons
+`jq -c . < kmp/src/commonMain/composeResources/files/icons.json | sponge kmp/src/commonMain/composeResources/files/icons.json`
+
+```
+npm install -g fantasticon
+```
+
 ```
 Fill? (y/n): n
 Mode? (outlined/rounded/sharp): outlined
