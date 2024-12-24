@@ -9,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.compose.settings.AddShortcutToHomeRow
+import org.tasks.compose.settings.AddWidgetToHomeRow
 import org.tasks.compose.settings.ListSettingsScaffold
 import org.tasks.compose.settings.SelectIconRow
 import org.tasks.compose.settings.Toaster
@@ -39,6 +40,7 @@ class OpenTasksListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                 ) {
                     SelectIconRow(icon = viewState.icon ?: defaultIcon) { showIconPicker() }
                     AddShortcutToHomeRow(onClick = { createShortcut() })
+                    AddWidgetToHomeRow(onClick = { createWidget() })
                 }
                 Toaster(state = snackbar)
             }

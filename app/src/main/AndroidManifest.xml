@@ -323,6 +323,14 @@
           android:resource="@xml/samsung_scrollable_flex_window_widget_meta_info"/>
     </receiver>
 
+    <receiver
+        android:name=".widget.RequestPinWidgetReceiver"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="org.tasks.CONFIGURE_WIDGET" />
+      </intent-filter>
+    </receiver>
+
     <!-- ======================================================== Services = -->
 
     <service

@@ -1,10 +1,14 @@
 package org.tasks.activities
 
 import android.app.PendingIntent
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +25,7 @@ import androidx.lifecycle.lifecycleScope
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
+import com.todoroo.andlib.utility.AndroidUtilities
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.analytics.Firebase
@@ -43,6 +48,10 @@ import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
 import org.tasks.themes.ThemeColor
 import org.tasks.themes.contentColorFor
+import org.tasks.widget.RequestPinWidgetReceiver
+import org.tasks.widget.RequestPinWidgetReceiver.Companion.EXTRA_COLOR
+import org.tasks.widget.RequestPinWidgetReceiver.Companion.EXTRA_FILTER
+import org.tasks.widget.TasksWidget
 import javax.inject.Inject
 
 
@@ -164,6 +173,7 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
                 clearColor = { clearColor() },
                 pickIcon = { showIconPicker() },
                 addShortcutToHome = { createShortcut() },
+                addWidgetToHome = { createWidget() },
                 extensionContent = extensionContent,
             )
         }
@@ -218,6 +228,28 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
             )
 
             firebase.logEvent(R.string.event_create_shortcut, R.string.param_type to "settings_activity")
+        }
+    }
+
+    protected fun createWidget() {
+        val appWidgetManager = getSystemService(AppWidgetManager::class.java)
+        if (AndroidUtilities.atLeastOreo() && appWidgetManager.isRequestPinAppWidgetSupported) {
+            val provider = ComponentName(this, TasksWidget::class.java)
+            val configIntent = Intent(this, RequestPinWidgetReceiver::class.java).apply {
+                action = RequestPinWidgetReceiver.ACTION_CONFIGURE_WIDGET
+                filter?.let {
+                    putExtra(EXTRA_FILTER, defaultFilterProvider.getFilterPreferenceValue(it))
+                }
+                putExtra(EXTRA_COLOR, baseViewModel.color)
+            }
+            val successCallback = PendingIntent.getBroadcast(
+                this,
+                0,
+                configIntent,
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
+            )
+            appWidgetManager.requestPinAppWidget(provider, null, successCallback)
+            firebase.logEvent(R.string.event_create_widget, R.string.param_type to "settings_activity")
         }
     }
 

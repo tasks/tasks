@@ -425,6 +425,7 @@
   <string name="event_complete_task">complete_task</string>
   <string name="event_request_review">request_review</string>
   <string name="event_create_shortcut">create_shortcut</string>
+  <string name="event_create_widget">create_widget</string>
   <string name="param_type">type</string>
   <string name="p_map_theme">map_theme</string>
   <string name="p_picker_mode_date">picker_mode_date</string>
