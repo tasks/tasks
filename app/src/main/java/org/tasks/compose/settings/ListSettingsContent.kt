@@ -19,7 +19,7 @@ fun ColumnScope.ListSettingsContent(
     pickColor: () -> Unit,
     clearColor: () -> Unit,
     pickIcon: () -> Unit,
-    addToHome: () -> Unit,
+    addShortcutToHome: () -> Unit,
     extensionContent: @Composable ColumnScope.() -> Unit,
 ) {
     TitleInput(
@@ -40,8 +40,8 @@ fun ColumnScope.ListSettingsContent(
     )
     if (!isNew) {
         // TODO: support this for new filters too
-        AddToHomeRow(
-            onClick = { addToHome() },
+        AddShortcutToHomeRow(
+            onClick = { addShortcutToHome() },
         )
     }
     extensionContent()

@@ -163,7 +163,7 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
                 pickColor = { showThemePicker() },
                 clearColor = { clearColor() },
                 pickIcon = { showIconPicker() },
-                addToHome = { createShortcut() },
+                addShortcutToHome = { createShortcut() },
                 extensionContent = extensionContent,
             )
         }

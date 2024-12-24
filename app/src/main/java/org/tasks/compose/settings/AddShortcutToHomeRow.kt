@@ -25,7 +25,7 @@ import org.tasks.kmp.org.tasks.compose.settings.SettingRow
 import org.tasks.themes.TasksTheme
 
 @Composable
-fun AddToHomeRow(onClick: () -> Unit) {
+fun AddShortcutToHomeRow(onClick: () -> Unit) {
     val context = LocalContext.current
     val isRequestPinShortcutSupported = LocalInspectionMode.current || remember {
         ShortcutManagerCompat.isRequestPinShortcutSupported(context)
@@ -47,7 +47,7 @@ fun AddToHomeRow(onClick: () -> Unit) {
             },
             center = {
                 Text(
-                    text = stringResource(R.string.add_to_home_screen),
+                    text = stringResource(R.string.add_shortcut_to_home_screen),
                     modifier = Modifier.padding(start = Constants.KEYLINE_FIRST)
                 )
             }
@@ -59,6 +59,6 @@ fun AddToHomeRow(onClick: () -> Unit) {
 @Preview(showBackground = true)
 private fun AddToHomePreview() {
     TasksTheme {
-        AddToHomeRow(onClick = {})
+        AddShortcutToHomeRow(onClick = {})
     }
 }
