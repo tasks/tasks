@@ -232,19 +232,18 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
     }
 
     protected fun createWidget() {
+        val filter = filter ?: return
         val appWidgetManager = getSystemService(AppWidgetManager::class.java)
         if (AndroidUtilities.atLeastOreo() && appWidgetManager.isRequestPinAppWidgetSupported) {
             val provider = ComponentName(this, TasksWidget::class.java)
             val configIntent = Intent(this, RequestPinWidgetReceiver::class.java).apply {
                 action = RequestPinWidgetReceiver.ACTION_CONFIGURE_WIDGET
-                filter?.let {
-                    putExtra(EXTRA_FILTER, defaultFilterProvider.getFilterPreferenceValue(it))
-                }
+                putExtra(EXTRA_FILTER, defaultFilterProvider.getFilterPreferenceValue(filter))
                 putExtra(EXTRA_COLOR, baseViewModel.color)
             }
             val successCallback = PendingIntent.getBroadcast(
                 this,
-                0,
+                filter.hashCode(),
                 configIntent,
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
             )
