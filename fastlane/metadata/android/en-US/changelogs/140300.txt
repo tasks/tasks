@@ -1,0 +1,6 @@
+* "Add widget to home screen" shortcut in list settings
+* "Add shortcut to home screen" shortcut in list settings
+  * Shortcuts use list icon and color
+* Fix long running sync indicators
+* @hady-exc: Migrate list setting screens to Compose
+* Update translations

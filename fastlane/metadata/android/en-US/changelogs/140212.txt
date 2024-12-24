@@ -1,5 +1,0 @@
-* Fix long running sync indicators
-* "Add to home screen" shortcut in list settings
-  * Shortcuts use list icon and color
-* @hady-exc: Migrate list setting screens to Compose
-* Update translations
