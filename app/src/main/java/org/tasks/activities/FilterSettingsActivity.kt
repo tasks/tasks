@@ -70,13 +70,11 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             filter?.let {
-                selectedColor = it.tint
-                selectedIcon.value =  it.icon
-                textState.value = it.title ?: ""
+                baseViewModel.setColor(it.tint)
+                baseViewModel.setIcon(it.icon)
+                baseViewModel.setTitle(it.title ?: "")
             }
-        }
-        if (savedInstanceState != null) {
-            intent.getStringExtra(EXTRA_TITLE)?.let { textState.value = it }
+            intent.getStringExtra(EXTRA_TITLE)?.let { baseViewModel.setTitle(it) }
         }
         updateTheme()
 
@@ -102,7 +100,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     override suspend fun save() {
         val newName = newName
         if (Strings.isNullOrEmpty(newName)) {
-            errorState.value = getString(R.string.name_cannot_be_empty)
+            baseViewModel.setError(getString(R.string.name_cannot_be_empty))
             return
         }
 
@@ -111,8 +109,8 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             var f = Filter(
                 id = filter?.id ?: 0L,
                 title = newName,
-                color = selectedColor,
-                icon = selectedIcon.value,
+                color = baseViewModel.color,
+                icon = baseViewModel.icon,
                 values = criteria.values,
                 criterion = CriterionInstance.serialize(criteria),
                 sql = criteria.sql,
@@ -138,16 +136,17 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     }
 
     private val newName: String
-        get() = textState.value.trim { it <= ' ' }
+        get() = baseViewModel.title.trim { it <= ' ' }
 
     override fun hasChanges(): Boolean {
+        val viewState = baseViewModel.viewState.value
         val criteria = viewModel.viewState.value.criteria
         return if (isNew) {
             (!Strings.isNullOrEmpty(newName)
-                    || selectedColor != 0 || selectedIcon.value?.isBlank() == false || criteria.size > 1)
+                    || viewState.color != 0 || viewState.icon?.isBlank() == false || criteria.size > 1)
         } else newName != filter!!.title
-                || selectedColor != filter!!.tint
-                || selectedIcon.value != filter!!.icon
+                || viewState.color != filter!!.tint
+                || viewState.icon != filter!!.icon
                 || CriterionInstance.serialize(criteria) != filter!!.criterion!!.trim()
                 || criteria.values != filter!!.valuesForNewTasks
                 || criteria.sql != filter!!.sql

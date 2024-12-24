@@ -83,9 +83,9 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            textState.value = place.displayName
-            selectedColor = place.color
-            selectedIcon.value = place.icon ?: defaultIcon
+            baseViewModel.setTitle(place.displayName)
+            baseViewModel.setColor(place.color)
+            baseViewModel.setIcon(place.icon ?: defaultIcon)
         }
 
         sliderPos.floatValue = (place.radius / STEP * STEP).toFloat()
@@ -157,22 +157,22 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
         }
     }
 
-    override fun hasChanges() = textState.value != place.displayName
-                    || selectedColor != place.color
-                    || selectedIcon.value != (place.icon ?: TasksIcons.PLACE)
+    override fun hasChanges() = baseViewModel.title != place.displayName
+                    || baseViewModel.color != place.color
+                    || baseViewModel.icon != (place.icon ?: TasksIcons.PLACE)
 
     override suspend fun save() {
-        val newName: String = textState.value
+        val newName: String = baseViewModel.title
 
         if (isNullOrEmpty(newName)) {
-            errorState.value = getString(R.string.name_cannot_be_empty)
+            baseViewModel.setError(getString(R.string.name_cannot_be_empty))
             return
         }
 
         place = place.copy(
             name = newName,
-            color = selectedColor,
-            icon = selectedIcon.value,
+            color = baseViewModel.color,
+            icon = baseViewModel.icon,
             radius = sliderPos.floatValue.roundToInt(),
         )
         locationDao.update(place)

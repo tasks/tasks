@@ -53,11 +53,11 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
                 }
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            selectedColor = gtasksList.color
-            selectedIcon.value = gtasksList.icon ?: defaultIcon
+            baseViewModel.setColor(gtasksList.color)
+            baseViewModel.setIcon(gtasksList.icon ?: defaultIcon)
         }
 
-        if (!isNewList) textState.value = gtasksList.name!!
+        if (!isNewList) baseViewModel.setTitle(gtasksList.name!!)
 
         if (createListViewModel.inProgress
                 || renameListViewModel.inProgress
@@ -86,14 +86,14 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         get() = if (isNew) getString(R.string.new_list) else gtasksList.name!!
 
     private fun showProgressIndicator() {
-        showProgress.value = true
+        baseViewModel.showProgress(true)
     }
 
     private fun hideProgressIndicator() {
-        showProgress.value = false
+        baseViewModel.showProgress(false)
     }
 
-    private fun requestInProgress() = showProgress.value
+    private fun requestInProgress() = baseViewModel.viewState.value.showProgress
 
     override suspend fun save() {
         if (requestInProgress()) {
@@ -101,7 +101,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         }
         val newName = newName
         if (isNullOrEmpty(newName)) {
-            errorState.value = getString(R.string.name_cannot_be_empty)
+            baseViewModel.setError(getString(R.string.name_cannot_be_empty))
             return
         }
         when {
@@ -115,10 +115,10 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
             }
             else -> {
                 if (colorChanged() || iconChanged()) {
-                    gtasksList.color = selectedColor
+                    gtasksList.color = baseViewModel.color
                     googleTaskListDao.insertOrReplace(
                         gtasksList.copy(
-                            icon = selectedIcon.value
+                            icon = baseViewModel.icon
                         )
                     )
                     localBroadcastManager.broadcastRefresh()
@@ -150,16 +150,16 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     }
 
     private val newName: String
-        get() = textState.value.trim { it <= ' ' }
+        get() = baseViewModel.title.trim { it <= ' ' }
 
     override fun hasChanges(): Boolean =
         if (isNewList) {
-            selectedColor >= 0 || !isNullOrEmpty(newName)
+            baseViewModel.color != 0 || !isNullOrEmpty(newName)
         } else colorChanged() || nameChanged() || iconChanged()
 
-    private fun colorChanged() = selectedColor != gtasksList.color
+    private fun colorChanged() = baseViewModel.color != gtasksList.color
 
-    private fun iconChanged() = selectedIcon.value != (gtasksList.icon ?: TasksIcons.LIST)
+    private fun iconChanged() = baseViewModel.icon != (gtasksList.icon ?: TasksIcons.LIST)
 
     private fun nameChanged() = newName != gtasksList.name
 
@@ -167,8 +167,8 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         val result = gtasksList.copy(
             uuid = taskList.id,
             name = taskList.title,
-            color = selectedColor,
-            icon = selectedIcon.value,
+            color = baseViewModel.color,
+            icon = baseViewModel.icon,
         )
         val id = googleTaskListDao.insertOrReplace(result)
 
@@ -193,8 +193,8 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     private suspend fun onListRenamed(taskList: TaskList) {
         val result = gtasksList.copy(
             name = taskList.title,
-            color = selectedColor,
-            icon = selectedIcon.value,
+            color = baseViewModel.color,
+            icon = baseViewModel.icon,
         )
         googleTaskListDao.insertOrReplace(result)
 

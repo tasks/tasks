@@ -53,7 +53,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.inFlight.observe(this) { showProgress.value = it }
+        viewModel.inFlight.observe(this) { baseViewModel.showProgress(it) }
 
         viewModel.error.observe(this) { throwable ->
             throwable?.let {
@@ -163,7 +163,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
     }
 
     override suspend fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) {
-        caldavCalendar = viewModel.createCalendar(caldavAccount, name, color, selectedIcon.value)
+        caldavCalendar = viewModel.createCalendar(caldavAccount, name, color, baseViewModel.icon)
     }
 
     override suspend fun updateNameAndColor(
@@ -172,7 +172,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         name: String,
         color: Int
     ) {
-        viewModel.updateCalendar(account, calendar, name, color, selectedIcon.value)
+        viewModel.updateCalendar(account, calendar, name, color, baseViewModel.icon)
     }
 
     override suspend fun deleteCalendar(

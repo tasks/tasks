@@ -6,16 +6,17 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.IconCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.utils.colorInt
@@ -51,37 +52,18 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var firebase: Firebase
 
-    protected abstract val defaultIcon: String
-    protected var selectedColor = 0
-    protected var selectedIcon = mutableStateOf<String?>(null)
+    protected val baseViewModel: BaseListSettingsViewModel by viewModels()
 
-    protected val textState = mutableStateOf("")
-    protected val errorState = mutableStateOf("")
-    protected val colorState = mutableStateOf(Color.Unspecified)
-    protected val showProgress = mutableStateOf(false)
-    protected val promptDelete = mutableStateOf(false)
-    protected val promptDiscard = mutableStateOf(false)
+    protected abstract val defaultIcon: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /* defaultIcon is initialized in the descendant's constructor so it can not be used
-           in constructor of the base class. So valid initial value for iconState is set here  */
-        selectedIcon.value = defaultIcon
+        baseViewModel.setIcon(defaultIcon)
 
-        if (savedInstanceState != null) {
-            selectedColor = savedInstanceState.getInt(EXTRA_SELECTED_THEME)
-            selectedIcon.value = savedInstanceState.getString(EXTRA_SELECTED_ICON) ?: defaultIcon
-        }
         addBackPressedCallback {
             discard()
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(EXTRA_SELECTED_THEME, selectedColor)
-        outState.putString(EXTRA_SELECTED_ICON, selectedIcon.value)
     }
 
     protected abstract fun hasChanges(): Boolean
@@ -93,8 +75,11 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
     protected abstract val toolbarTitle: String?
     protected abstract suspend fun delete()
     protected open fun discard() {
-        if (hasChanges())  promptDiscard.value = true
-        else finish()
+        if (hasChanges()) {
+            baseViewModel.promptDiscard(true)
+        } else {
+            finish()
+        }
     }
 
     protected fun clearColor() {
@@ -102,34 +87,36 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
     }
 
     protected fun showThemePicker() {
-        newColorPalette(null, 0, selectedColor, Palette.COLORS)
+        newColorPalette(null, 0, baseViewModel.color, Palette.COLORS)
                 .show(supportFragmentManager, FRAG_TAG_COLOR_PICKER)
     }
 
     val launcher = registerForIconPickerResult { selected ->
-        selectedIcon.value = selected
+        baseViewModel.setIcon(selected)
     }
 
     fun showIconPicker() {
-        launcher.launchIconPicker(this, selectedIcon.value)
+        launcher.launchIconPicker(this, baseViewModel.icon)
     }
 
     override fun onColorPicked(color: Int) {
-        selectedColor = color
+        baseViewModel.setColor(color)
         updateTheme()
     }
 
-    protected open fun promptDelete() { promptDelete.value = true }
+    protected open fun promptDelete() { baseViewModel.promptDelete(true) }
 
     protected fun updateTheme() {
 
+        val selectedColor = baseViewModel.color
         val themeColor: ThemeColor =
             if (selectedColor == 0) tasksTheme.themeColor
             else colorProvider.getThemeColor(selectedColor, true)
 
-        colorState.value =
+        baseViewModel.setColorState(
             if (selectedColor == 0) Color.Unspecified
             else Color((colorProvider.getThemeColor(selectedColor, true)).primaryColor)
+        )
 
         //iconState.intValue = (getIconResId(selectedIcon) ?: getIconResId(defaultIcon))!!
 
@@ -147,30 +134,31 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
         fab: @Composable () -> Unit = {},
         extensionContent: @Composable ColumnScope.() -> Unit = {},
     ) {
+        val viewState = baseViewModel.viewState.collectAsStateWithLifecycle().value
         ListSettingsScaffold(
             title = title,
-            theme = if (colorState.value == Color.Unspecified)
+            theme = if (viewState.colorState == Color.Unspecified)
                 Color(tasksTheme.themeColor.primaryColor)
             else
-                colorState.value,
-            promptDiscard = promptDiscard.value,
-            showProgress = showProgress.value,
-            dismissDiscardPrompt = { promptDiscard.value = false },
+                viewState.colorState,
+            promptDiscard = viewState.promptDiscard,
+            showProgress = viewState.showProgress,
+            dismissDiscardPrompt = { baseViewModel.promptDiscard(false) },
             save = { lifecycleScope.launch { save() } },
             discard = { finish() },
             actions = optionButton,
             fab = fab,
         ) {
             ListSettingsContent(
-                color = colorState.value,
-                icon = selectedIcon.value ?: defaultIcon,
-                text = textState.value,
-                error = errorState.value,
+                color = viewState.colorState,
+                icon = viewState.icon ?: defaultIcon,
+                text = viewState.title,
+                error = viewState.error,
                 requestKeyboard = requestKeyboard,
                 isNew = isNew,
                 setText = {
-                    textState.value = it
-                    errorState.value = ""
+                    baseViewModel.setTitle(it)
+                    baseViewModel.setError("")
                 },
                 pickColor = { showThemePicker() },
                 clearColor = { clearColor() },
@@ -184,14 +172,14 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
     protected fun createShortcut() {
         filter?.let {
             val filterId = defaultFilterProvider.getFilterPreferenceValue(it)
-            val iconColor = if (colorState.value == Color.Unspecified)
+            val iconColor = if (baseViewModel.colorState == Color.Unspecified)
                 Color(tasksTheme.themeColor.primaryColor)
             else
-                colorState.value
+                baseViewModel.colorState
             val shortcutInfo = ShortcutInfoCompat.Builder(this, UUIDHelper.newUUID())
-                .setShortLabel(title)
+                .setShortLabel(baseViewModel.title)
                 .setIcon(
-                    selectedIcon.value
+                    baseViewModel.icon
                         ?.let { icon ->
                             try {
                                 createShortcutIcon(
@@ -234,8 +222,6 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
     }
 
     companion object {
-        private const val EXTRA_SELECTED_THEME = "extra_selected_theme"
-        private const val EXTRA_SELECTED_ICON = "extra_selected_icon"
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
 
         fun createShortcutIcon(context: Context, backgroundColor: Color): IconCompat {
