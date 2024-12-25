@@ -720,4 +720,8 @@
     <string name="quiet_hours_in_effect">Tysta timmar är i kraft</string>
     <string name="enable_alarms">Få besked vid rätt tidpunkt</string>
     <string name="enable_alarms_description">För att se till att du aviseras vid rätt tidpunkt, ge tillstånd att ställa in larm och påminnelser i Inställningar</string>
+    <string name="delete_comment">kommentar</string>
+    <string name="price_per_year_with_currency">%s/år</string>
+    <string name="price_per_month_with_currency">%s/månad</string>
+    <string name="yesterday">Igår</string>
 </resources>
