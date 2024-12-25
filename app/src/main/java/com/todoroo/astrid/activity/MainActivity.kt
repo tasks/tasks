@@ -347,6 +347,14 @@ class MainActivity : AppCompatActivity() {
                                 binding.master.visibility = View.GONE
                             }
                         }
+                } else if (task == existingTef.task) {
+                    transaction
+                        .runOnCommit {
+                            if (isSinglePaneLayout) {
+                                binding.detail.visibility = View.VISIBLE
+                                binding.master.visibility = View.GONE
+                            }
+                        }
                 }
                 defaultFilterProvider.setLastViewedFilter(newFilter)
                 theme
