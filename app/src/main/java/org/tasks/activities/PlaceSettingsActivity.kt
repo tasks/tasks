@@ -91,8 +91,6 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
 
         sliderPos.floatValue = (place.radius / STEP * STEP).toFloat()
 
-        updateTheme()
-
         setContent {
             TasksTheme {
                 BaseSettingsContent {

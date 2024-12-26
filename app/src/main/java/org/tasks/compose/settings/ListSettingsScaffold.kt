@@ -33,7 +33,7 @@ import org.tasks.themes.colorOn
 @Composable
 fun ListSettingsScaffold(
     title: String,
-    theme: Color,
+    color: Color,
     promptDiscard: Boolean,
     showProgress: Boolean,
     dismissDiscardPrompt: () -> Unit,
@@ -47,8 +47,8 @@ fun ListSettingsScaffold(
         topBar = {
             Column {
                 val context = LocalContext.current
-                val contentColor = colorOn(theme)
-                LaunchedEffect(theme, contentColor, context) {
+                val contentColor = colorOn(color)
+                LaunchedEffect(contentColor, context) {
                     val systemBarStyle = if (contentColor == Color.White) {
                         SystemBarStyle.dark(0)
                     } else {
@@ -61,7 +61,7 @@ fun ListSettingsScaffold(
                 }
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = theme,
+                        containerColor = color,
                         navigationIconContentColor = contentColor,
                         titleContentColor = contentColor,
                         actionIconContentColor = contentColor,

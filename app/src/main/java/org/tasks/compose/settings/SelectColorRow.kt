@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,12 +27,12 @@ import org.tasks.kmp.org.tasks.compose.settings.SettingRow
 import org.tasks.themes.TasksTheme
 
 @Composable
-fun SelectColorRow(color: Color, selectColor: () -> Unit, clearColor: () -> Unit) =
+fun SelectColorRow(color: Int, selectColor: () -> Unit, clearColor: () -> Unit) =
     SettingRow(
         modifier = Modifier.clickable(onClick =  selectColor),
         left = {
             IconButton(onClick = { selectColor() }) {
-                if (color == Color.Unspecified) {
+                if (color == 0) {
                     Icon(
                         imageVector = Icons.Outlined.NotInterested,
                         tint = colorResource(R.color.icon_tint_with_alpha),
@@ -44,7 +45,7 @@ fun SelectColorRow(color: Color, selectColor: () -> Unit, clearColor: () -> Unit
                         contentAlignment = Alignment.Center
                     ) {
                         Canvas(modifier = Modifier.size(24.dp)) {
-                            drawCircle(color = color)
+                            drawCircle(color = Color(color))
                             drawCircle(color = borderColor, style = Stroke(width = 4.0f)
                             )
                         }
@@ -59,7 +60,7 @@ fun SelectColorRow(color: Color, selectColor: () -> Unit, clearColor: () -> Unit
             )
         },
         right = {
-            if (color != Color.Unspecified) {
+            if (color != 0) {
                 IconButton(onClick = clearColor) {
                     Icon(
                         imageVector = Icons.Outlined.Clear,
@@ -75,7 +76,7 @@ fun SelectColorRow(color: Color, selectColor: () -> Unit, clearColor: () -> Unit
 private fun ColorSelectPreview () {
     TasksTheme {
         SelectColorRow(
-            color = Color.Red,
+            color = Color.Red.toArgb(),
             selectColor = {},
             clearColor = {}
         )

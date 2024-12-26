@@ -1,6 +1,5 @@
 package org.tasks.activities
 
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -10,7 +9,6 @@ class BaseListSettingsViewModel : ViewModel() {
     data class ViewState(
         val title: String = "",
         val error: String = "",
-        val colorState: Color = Color.Unspecified,
         val showProgress: Boolean = false,
         val promptDelete: Boolean = false,
         val promptDiscard: Boolean = false,
@@ -27,7 +25,9 @@ class BaseListSettingsViewModel : ViewModel() {
     }
 
     fun setColor(color: Int) {
-        _viewState.update { it.copy(color = color) }
+        _viewState.update {
+            it.copy(color = color)
+        }
     }
 
     fun setIcon(icon: String) {
@@ -50,10 +50,6 @@ class BaseListSettingsViewModel : ViewModel() {
         _viewState.update { it.copy(promptDelete = promptDelete) }
     }
 
-    fun setColorState(colorState: Color) {
-        _viewState.update { it.copy(colorState = colorState) }
-    }
-
     val title: String
         get() = _viewState.value.title
 
@@ -62,7 +58,4 @@ class BaseListSettingsViewModel : ViewModel() {
 
     val color: Int
         get() = _viewState.value.color
-
-    val colorState: Color
-        get() = _viewState.value.colorState
 }

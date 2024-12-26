@@ -56,7 +56,6 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
                 baseViewModel.setIcon(caldavCalendar?.icon ?: defaultIcon)
             }
         }
-        updateTheme()
     }
 
     override val filter: Filter?

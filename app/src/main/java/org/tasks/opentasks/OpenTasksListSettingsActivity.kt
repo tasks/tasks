@@ -2,6 +2,7 @@ package org.tasks.opentasks
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -26,12 +27,10 @@ class OpenTasksListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         setContent {
             TasksTheme {
                 val viewState = baseViewModel.viewState.collectAsStateWithLifecycle().value
+                val color = if (viewState.color == 0) MaterialTheme.colorScheme.primary else Color(viewState.color)
                 ListSettingsScaffold(
                     title = toolbarTitle,
-                    theme = if (viewState.colorState == Color.Unspecified)
-                        Color(tasksTheme.themeColor.primaryColor)
-                    else
-                        viewState.colorState,
+                    color = color,
                     promptDiscard = viewState.promptDiscard,
                     showProgress = viewState.showProgress,
                     dismissDiscardPrompt = { baseViewModel.promptDiscard(false) },
@@ -39,7 +38,7 @@ class OpenTasksListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                     discard = { finish() },
                 ) {
                     SelectIconRow(icon = viewState.icon ?: defaultIcon) { showIconPicker() }
-                    AddShortcutToHomeRow(onClick = { createShortcut() })
+                    AddShortcutToHomeRow(onClick = { createShortcut(color) })
                     AddWidgetToHomeRow(onClick = { createWidget() })
                 }
                 Toaster(state = snackbar)

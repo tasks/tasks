@@ -85,7 +85,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                             FloatingActionButton(
                                 onClick = { openDialog.value = true },
                                 modifier = Modifier.padding(Constants.KEYLINE_FIRST),
-                                containerColor = Color(accent.accentColor)
+                                containerColor = accentColor
                             ) {
                                 Icon(
                                     imageVector = Icons.Outlined.PersonAdd,

@@ -13,6 +13,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -44,9 +45,7 @@ import org.tasks.filters.Filter
 import org.tasks.icons.OutlinedGoogleMaterial
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.DefaultFilterProvider
-import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
-import org.tasks.themes.ThemeColor
 import org.tasks.themes.contentColorFor
 import org.tasks.widget.RequestPinWidgetReceiver
 import org.tasks.widget.RequestPinWidgetReceiver.Companion.EXTRA_COLOR
@@ -57,7 +56,6 @@ import javax.inject.Inject
 
 abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicker.ColorPickedCallback, ColorWheelPicker.ColorPickedCallback {
     @Inject lateinit var tasksTheme: Theme
-    @Inject lateinit var colorProvider: ColorProvider
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var firebase: Firebase
 
@@ -91,16 +89,12 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
         }
     }
 
-    protected fun clearColor() {
-        onColorPicked(0)
-    }
-
-    protected fun showThemePicker() {
+    private fun showThemePicker() {
         newColorPalette(null, 0, baseViewModel.color, Palette.COLORS)
                 .show(supportFragmentManager, FRAG_TAG_COLOR_PICKER)
     }
 
-    val launcher = registerForIconPickerResult { selected ->
+    private val launcher = registerForIconPickerResult { selected ->
         baseViewModel.setIcon(selected)
     }
 
@@ -110,27 +104,9 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
 
     override fun onColorPicked(color: Int) {
         baseViewModel.setColor(color)
-        updateTheme()
     }
 
     protected open fun promptDelete() { baseViewModel.promptDelete(true) }
-
-    protected fun updateTheme() {
-
-        val selectedColor = baseViewModel.color
-        val themeColor: ThemeColor =
-            if (selectedColor == 0) tasksTheme.themeColor
-            else colorProvider.getThemeColor(selectedColor, true)
-
-        baseViewModel.setColorState(
-            if (selectedColor == 0) Color.Unspecified
-            else Color((colorProvider.getThemeColor(selectedColor, true)).primaryColor)
-        )
-
-        //iconState.intValue = (getIconResId(selectedIcon) ?: getIconResId(defaultIcon))!!
-
-        themeColor.applyToNavigationBar(this)
-    }
 
     /** Standard @Compose view content for descendants. Caller must wrap it to TasksTheme{} */
     @Composable
@@ -144,12 +120,10 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
         extensionContent: @Composable ColumnScope.() -> Unit = {},
     ) {
         val viewState = baseViewModel.viewState.collectAsStateWithLifecycle().value
+        val color = if (viewState.color == 0) MaterialTheme.colorScheme.primary else Color(viewState.color)
         ListSettingsScaffold(
             title = title,
-            theme = if (viewState.colorState == Color.Unspecified)
-                Color(tasksTheme.themeColor.primaryColor)
-            else
-                viewState.colorState,
+            color = color,
             promptDiscard = viewState.promptDiscard,
             showProgress = viewState.showProgress,
             dismissDiscardPrompt = { baseViewModel.promptDiscard(false) },
@@ -159,7 +133,7 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
             fab = fab,
         ) {
             ListSettingsContent(
-                color = viewState.colorState,
+                color = viewState.color,
                 icon = viewState.icon ?: defaultIcon,
                 text = viewState.title,
                 error = viewState.error,
@@ -170,22 +144,18 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
                     baseViewModel.setError("")
                 },
                 pickColor = { showThemePicker() },
-                clearColor = { clearColor() },
+                clearColor = { onColorPicked(0) },
                 pickIcon = { showIconPicker() },
-                addShortcutToHome = { createShortcut() },
+                addShortcutToHome = { createShortcut(color) },
                 addWidgetToHome = { createWidget() },
                 extensionContent = extensionContent,
             )
         }
     }
 
-    protected fun createShortcut() {
+    protected fun createShortcut(color: Color) {
         filter?.let {
             val filterId = defaultFilterProvider.getFilterPreferenceValue(it)
-            val iconColor = if (baseViewModel.colorState == Color.Unspecified)
-                Color(tasksTheme.themeColor.primaryColor)
-            else
-                baseViewModel.colorState
             val shortcutInfo = ShortcutInfoCompat.Builder(this, UUIDHelper.newUUID())
                 .setShortLabel(baseViewModel.title)
                 .setIcon(
@@ -194,19 +164,16 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
                             try {
                                 createShortcutIcon(
                                     context = this,
-                                    backgroundColor = iconColor,
+                                    backgroundColor = color,
                                     icon = icon,
-                                    iconColor = contentColorFor(iconColor.toArgb()),
+                                    iconColor = contentColorFor(color.toArgb()),
                                 )
                             } catch (e: Exception) {
                                 firebase.reportException(e)
                                 null
                             }
                         }
-                        ?: createShortcutIcon(
-                            this,
-                            backgroundColor = iconColor
-                        )
+                        ?: createShortcutIcon(this, backgroundColor = color)
                 )
                 .setIntent(TaskIntents.getTaskListByIdIntent(this, filterId))
                 .build()

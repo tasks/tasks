@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
+import org.tasks.kmp.org.tasks.themes.ColorProvider.saturated
 
 const val BLUE = -14575885
 const val WHITE = -1
@@ -56,12 +57,16 @@ fun TasksTheme(
         3 -> wallpaperScheme
         else -> if (isSystemInDarkTheme()) darkColorScheme else lightColorScheme
     }
-    val colorOnPrimary = colorOn(primary)
+    val desaturated = if (isSystemInDarkTheme()) {
+        saturated[primary] ?: primary
+    } else {
+        primary
+    }
+    val colorOnPrimary = colorOn(desaturated)
     MaterialTheme(
         colorScheme = colorScheme.copy(
-            primary = Color(primary),
+            primary = Color(desaturated),
             onPrimary = colorOnPrimary,
-            secondary = Color.Red,      // Hady: Sorry for this hack, I believe the regular solution is planned
         ),
     ) {
         content()

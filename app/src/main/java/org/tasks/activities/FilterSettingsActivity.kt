@@ -76,7 +76,6 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             }
             intent.getStringExtra(EXTRA_TITLE)?.let { baseViewModel.setTitle(it) }
         }
-        updateTheme()
 
         setContent {
             TasksTheme { ActivityContent() }

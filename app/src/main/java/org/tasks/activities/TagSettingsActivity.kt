@@ -53,7 +53,6 @@ class TagSettingsActivity : BaseListSettingsActivity() {
                 BaseSettingsContent()
             }
         }
-        updateTheme()
     }
 
     override val filter: Filter?

@@ -75,8 +75,6 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
                 Toaster(state = snackbar)
             }
         }
-
-        updateTheme()
     }
 
     override val filter: Filter?
