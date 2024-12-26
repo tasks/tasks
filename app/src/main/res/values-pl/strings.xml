@@ -601,9 +601,7 @@
     <string name="subscription">Subskrypcja</string>
     <string name="account_not_included">Nie obejmuje subskrypcji \"Podaj swoją cenę\"</string>
     <string name="widget_show_title">Pokaż tytuł</string>
-    <string name="map_theme_use_app_theme">Użyj motywu aplikacji</string>
     <string name="tasks_org_account_required">Wymagane konto Tasks.org</string>
-    <string name="map_theme">Motyw mapy</string>
     <string name="privacy">Prywatność</string>
     <string name="social">Media społecznościowe</string>
     <string name="follow_twitter">Obserwuj @tasks_org</string>

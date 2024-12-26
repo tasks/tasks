@@ -583,9 +583,7 @@
     <string name="default_start_date">Alapértelmezett kezdő dátum</string>
     <string name="SSD_sort_start">Kezdés dátuma szerint</string>
     <string name="widget_show_title">Cím megjelenítése</string>
-    <string name="map_theme_use_app_theme">Alkalmazás témájának használata</string>
     <string name="tasks_org_account_required">Tasks.org fiók szükséges</string>
-    <string name="map_theme">Térkép téma</string>
     <string name="privacy">Adatvédelem</string>
     <string name="open_source">Nyílt forráskódú</string>
     <string name="issue_tracker">Hibakövető</string>

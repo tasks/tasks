@@ -589,8 +589,6 @@
     <string name="support">Support</string>
     <string name="social">Sozial</string>
     <string name="follow_twitter">Folgen Sie @tasks_org</string>
-    <string name="map_theme">Kartendesign</string>
-    <string name="map_theme_use_app_theme">Anwendungsthema nutzen</string>
     <string name="tasks_org_account_required">Tasks.org-Konto erforderlich</string>
     <string name="invite_awaiting_response">Einladung wartet auf Antwort</string>
     <string name="remove_user_confirmation">%1$s wird keinen Zugriff mehr auf %2$s haben</string>

@@ -465,7 +465,6 @@
     <string name="preferences_advanced">Išplėstiniai</string>
     <string name="show_advanced_settings">Rodyti išplėstinius nustatymus</string>
     <string name="widget_open_list">Atidaryti sąrašą</string>
-    <string name="map_theme">Žemėlapio tema</string>
     <string name="start_date">Pradžios data</string>
     <string name="SSD_sort_my_order">Mano užsakymas</string>
     <string name="upgrade_desktop_access">Darbalaukio prieiga</string>
@@ -487,7 +486,6 @@
     <string name="astrid_sort_order">Astrid rankinis rūšiavimas</string>
     <string name="cancel">Atšaukti</string>
     <string name="ok">Patvirtinti</string>
-    <string name="map_theme_use_app_theme">Naudoti programėlės temą</string>
     <string name="list_members">Sąrašo nariai</string>
     <string name="remove_user">Pašalinti vartotoją\?</string>
     <string name="remove_user_confirmation">%1$s nebeturės prieigos prie %2$s</string>

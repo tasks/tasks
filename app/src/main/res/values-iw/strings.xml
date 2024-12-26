@@ -635,7 +635,6 @@
     <string name="remove_user_confirmation">%1$s לא תהיה עוד גישה אל %2$s</string>
     <string name="remove_user">האם להסיר משתמש\?</string>
     <string name="list_members">פרט חברים</string>
-    <string name="map_theme_use_app_theme">שימוש בערכת נושא של אפליקציה</string>
     <string name="account_not_included">לא כלול במנויי \'תן שם למחיר שלך\'</string>
     <string name="tasks_org_account_required">Tasks.org נדרש חשבון</string>
     <string name="tasks_org_account">חשבון Tasks.org</string>
@@ -650,7 +649,6 @@
     <string name="sort_start_group">התחל %s</string>
     <string name="tasks_org_description">סנכרן את המשימות שלך עם Tasks.org</string>
     <string name="subscription">מנוי</string>
-    <string name="map_theme">נושא המפה</string>
     <string name="show_unstarted">הצג לא התחיל</string>
     <string name="widget_show_title">הצג כותרת</string>
     <string name="next_saturday">בשבת הבאה</string>

@@ -505,7 +505,6 @@
     <string name="email">電子郵件</string>
     <string name="repeats_from">重複開始</string>
     <string name="list">清單</string>
-    <string name="map_theme">地圖主題</string>
     <string name="opacity_row">行列透明度</string>
     <string name="next_saturday">下週六</string>
     <string name="next_friday">下週五</string>
@@ -651,7 +650,6 @@
     <string name="list_members">清單成員</string>
     <string name="invite_invalid">邀請無效</string>
     <string name="picker_mode_date">日期選擇模式</string>
-    <string name="map_theme_use_app_theme">使用應用程式主題</string>
     <string name="picker_mode_text">文字</string>
     <string name="upgrade_tasks_org_account_description">與 Tasks.org 同步，並與其他用戶協作</string>
     <string name="upgrade_more_customization">更多自訂</string>

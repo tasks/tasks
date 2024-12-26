@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="github_sponsor">අනුග්‍රාහකයා</string>
-    <string name="map_theme_use_app_theme">යෙදුම් තේමාව භාවිතා කරන්න</string>
     <string name="picker_mode_date">දින තේරීම් ආකාරය</string>
     <string name="invite_invalid">ආරාධනය අවලංගුයි</string>
     <string name="share_list">ලැයිස්තුව බෙදාගන්න</string>
@@ -36,7 +35,6 @@
     <string name="widget_due_date_below_title">මාතෘකාවට පහළින්</string>
     <string name="widget_due_date_after_title">මාතෘකාවෙන් පසු</string>
     <string name="widget_settings">විජට් සැකසුම්</string>
-    <string name="map_theme">සිතියම් තේමාව</string>
     <string name="default_recurrence">පෙරනිමි පුනරාවර්තනය</string>
     <string name="back_button_saves_task">පසුපස බොත්තම මඟින් කාර්යය සුරකිනු ඇත</string>
     <string name="geofence_radius">අරය</string>

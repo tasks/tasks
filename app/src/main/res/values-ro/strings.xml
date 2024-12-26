@@ -39,7 +39,6 @@
     <string name="remove_user_confirmation">%1$s nu va mai avea acces la %2$s</string>
     <string name="remove_user">Elimini utilizatorul\?</string>
     <string name="list_members">Lista membrilor</string>
-    <string name="map_theme_use_app_theme">Utilizează tema aplicației</string>
     <string name="account_not_included">Nu este inclus în abonamentele \'Spune prețul\'</string>
     <string name="tasks_org_account_required">Cont Tasks.org necesar</string>
     <string name="tasks_org_account">Cont Tasks.org</string>
@@ -175,7 +174,6 @@
     <string name="launcher_icon">Pictograma lansatorului</string>
     <string name="icon">Pictogramă</string>
     <string name="color">Culoare</string>
-    <string name="map_theme">Tema hărții</string>
     <string name="theme">Temă</string>
     <string name="opacity_footer">Opacitatea subsolului de pagină</string>
     <string name="opacity_row">Opacitatea rândului</string>

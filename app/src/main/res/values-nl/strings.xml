@@ -583,8 +583,6 @@
     <string name="tasks_org_account">Tasks.org account</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Titel tonen</string>
-    <string name="map_theme">Landkaart thema</string>
-    <string name="map_theme_use_app_theme">App thema</string>
     <string name="tasks_org_account_required">Een Tasks.org account vereist</string>
     <string name="support">Ondersteuning</string>
     <string name="privacy">Privacy</string>

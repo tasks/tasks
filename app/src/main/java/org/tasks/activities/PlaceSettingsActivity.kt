@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -90,9 +91,6 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
 
         sliderPos.floatValue = (place.radius / STEP * STEP).toFloat()
 
-        val dark = preferences.mapTheme == 2
-                || preferences.mapTheme == 0 && tasksTheme.themeBase.isDarkTheme(this)
-
         updateTheme()
 
         setContent {
@@ -132,7 +130,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
                             disabledInactiveTickColor = colorResource(id = R.color.text_tertiary)
                         )
                     )
-
+                    val dark = isSystemInDarkTheme()
                     AndroidView(
                         factory = { ctx ->
                             viewHolder = LinearLayout(ctx).apply {

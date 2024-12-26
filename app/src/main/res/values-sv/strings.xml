@@ -463,7 +463,6 @@
     <string name="remove_user_confirmation">%1$s kommer inte längre att ha tillgång till %2$s</string>
     <string name="remove_user">Ta bort användaren\?</string>
     <string name="list_members">Förteckning över medlemmar</string>
-    <string name="map_theme_use_app_theme">Använd app-tema</string>
     <string name="account_not_included">Ingår inte i abonnemangen \"Ange ditt pris\"</string>
     <string name="tasks_org_account_required">Tasks.org-konto krävs</string>
     <string name="app_password_delete_confirmation">Alla appar som använder detta lösenord kommer att loggas ut</string>
@@ -577,7 +576,6 @@
     <string name="widget_due_date_below_title">Under titeln</string>
     <string name="widget_due_date_after_title">Efter titeln</string>
     <string name="theme_system_default">Systemets standardinställning</string>
-    <string name="map_theme">Tema för kartor</string>
     <string name="opacity_footer">Opacitet för sidfot</string>
     <string name="opacity_row">Radens opacitet</string>
     <string name="opacity_header">Opacitet för rubriken</string>

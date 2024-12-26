@@ -554,7 +554,6 @@
     <string name="background_location_permission_required">Tasks coleta dados de localização para permitir lembretes baseados em localização, mesmo quando o aplicativo está fechado ou não estiver sendo usado.</string>
     <string name="subscription">Assinatura</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
-    <string name="map_theme">Tema do mapa</string>
     <string name="default_recurrence">Recorrência padrão</string>
     <string name="default_tags">Etiquetas padrões</string>
     <string name="no_app_found">Nenhum aplicativo pode atender a esta solicitação</string>
@@ -585,7 +584,6 @@
     <string name="remove_user_confirmation">%1$s não terá mais acesso a %2$s</string>
     <string name="remove_user">Remover usuário\?</string>
     <string name="list_members">Lista de membros</string>
-    <string name="map_theme_use_app_theme">Usar tema do aplicativo</string>
     <string name="account_not_included">Não incluído nas assinaturas de \'Dê o seu preço\'</string>
     <string name="tasks_org_account_required">É necessária uma conta em Tasks.org</string>
     <string name="tasks_org_account">Conta do Tasks.org</string>

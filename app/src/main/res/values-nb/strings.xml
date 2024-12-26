@@ -588,9 +588,7 @@
     <string name="sort_due_group">Frist %s</string>
     <string name="tasks_org_account">Tasks.org-konto</string>
     <string name="widget_show_title">Vis tittel</string>
-    <string name="map_theme_use_app_theme">Bruk programdrakt</string>
     <string name="tasks_org_account_required">Tasks.org-konto kreves</string>
-    <string name="map_theme">Kartdrakt</string>
     <string name="list_members">Liste over medlemmer</string>
     <string name="social">Sosialt</string>
     <string name="remove_user_confirmation">%1$s vil ikke lenger ha tilgang til %2$s</string>

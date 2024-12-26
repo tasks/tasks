@@ -83,7 +83,6 @@
     <string name="remove_user_confirmation">%1$s sẽ không còn quyền truy cập vào %2$s nữa</string>
     <string name="remove_user">Xoá người dùng\?</string>
     <string name="list_members">Liệt kê các thành viên</string>
-    <string name="map_theme_use_app_theme">Sử dụng chủ đề ứng dụng</string>
     <string name="account_not_included">Không được bao gồm với các gói đăng ký \'Đặt giá của bạn\'</string>
     <string name="tasks_org_account_required">Yêu cầu tài khoản Tasks.org</string>
     <string name="tasks_org_account">Tài khoản Tasks.org</string>
@@ -345,7 +344,6 @@
     <string name="accent">Màu nổi bật</string>
     <string name="icon">Biểu tượng</string>
     <string name="color">Màu</string>
-    <string name="map_theme">Chủ đề của bản đồ</string>
     <string name="theme">Chủ đề</string>
     <string name="opacity_footer">Độ mờ của chân trang</string>
     <string name="opacity_row">Độ mờ của hàng</string>

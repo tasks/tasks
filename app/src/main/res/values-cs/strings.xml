@@ -528,7 +528,6 @@
     <string name="email">E-mail</string>
     <string name="location_arrived">Příchod v %s</string>
     <string name="subscription">Předplatné</string>
-    <string name="map_theme">Vzhled mapy</string>
     <string name="next_saturday">Příští sobota</string>
     <string name="next_friday">Příští pátek</string>
     <string name="next_thursday">Příští čtvrtek</string>
@@ -563,7 +562,6 @@
     <string name="chip_appearance">Vzhled známek</string>
     <string name="chips">Známky</string>
     <string name="your_subscription_expired">Platnost vašeho předplatného skončila. Pokud chcete službu dále využívat, obnovte ho.</string>
-    <string name="map_theme_use_app_theme">Stejný vzhled jako aplikace</string>
     <string name="account_not_included">Nezahrnuto v předplatném typu „Zaplaťte kolik chcete“</string>
     <string name="tasks_org_account_required">Je vyžadován účet na Tasks.org</string>
     <string name="tasks_org_account">Účet na Tasks.org</string>

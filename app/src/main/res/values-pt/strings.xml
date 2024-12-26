@@ -559,7 +559,6 @@
     <string name="remove_user_confirmation">%1$s deixará de ter acesso a %2$s</string>
     <string name="remove_user">Remover utilizador\?</string>
     <string name="list_members">Lista de membros</string>
-    <string name="map_theme_use_app_theme">Usar tema da aplicação</string>
     <string name="account_not_included">Não incluído nas subscrições de \'Dê o seu preço\'</string>
     <string name="tasks_org_account_required">É necessária uma conta no Tasks.org</string>
     <string name="tasks_org_account">Conta Tasks.org</string>
@@ -609,7 +608,6 @@
     <string name="tasks_org_description">Sincronize as suas tarefas com o Tasks.org</string>
     <string name="subscription">Subscrição</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
-    <string name="map_theme">Tema do mapa</string>
     <string name="default_recurrence">Recorrência predefinida</string>
     <string name="no_app_found">Nenhuma aplicação pode manipular este pedido</string>
     <string name="filter_criteria_unstarted">Não iniciada</string>

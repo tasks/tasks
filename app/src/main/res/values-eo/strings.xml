@@ -596,7 +596,6 @@
     <string name="automatic_backups">Aŭtomata savkopio</string>
     <string name="android_auto_backup">Savkopia Servo de Android</string>
     <string name="last_backup">Lasta savkopio: %s</string>
-    <string name="map_theme">Mapa etoso</string>
     <string name="TPl_notification">Tempumiloj Aktivaj por %s!</string>
     <string name="alarm_before_due">%s antaŭ limdato</string>
     <string name="no_app_found">Neniu programeto povis pritrakti ĉi tiun peton</string>
@@ -628,7 +627,6 @@
     <string name="remove_user_confirmation">%1$s ne plu povos atingi %2$s</string>
     <string name="share_list">Komunigi liston</string>
     <string name="not_signed_in">Ne ensalutinte</string>
-    <string name="map_theme_use_app_theme">Uzi etoson de programeto</string>
     <string name="widget_id">Fenestraĵa ID: %d</string>
     <string name="sort_start_group">Komenci %s</string>
     <string name="open_last_viewed_list">Malfermi liston de laste rigardita</string>

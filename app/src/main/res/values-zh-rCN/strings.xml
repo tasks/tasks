@@ -577,9 +577,7 @@
     <string name="tasks_org_account">Tasks.org 账户</string>
     <string name="subscription">订阅</string>
     <string name="widget_show_title">显示标题</string>
-    <string name="map_theme_use_app_theme">使用应用主题</string>
     <string name="tasks_org_account_required">需要 Tasks.org 账户</string>
-    <string name="map_theme">地图主题</string>
     <string name="privacy">隐私</string>
     <string name="open_source">开源</string>
     <string name="issue_tracker">问题跟踪器</string>

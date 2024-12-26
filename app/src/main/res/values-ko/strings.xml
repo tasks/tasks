@@ -592,7 +592,6 @@
     <string name="share_list">목록 공유</string>
     <string name="remove_user_confirmation">%1$s는 이제 %2$s에 접근할 수 없습니다</string>
     <string name="remove_user">사용자를 삭제할까요\?</string>
-    <string name="map_theme_use_app_theme">앱 테마 사용</string>
     <string name="tasks_org_account_required">Tasks.org 계정 필요</string>
     <string name="tasks_org_account">Tasks.org 계정</string>
     <string name="copied_to_clipboard">클립보드로 %s 건 복사</string>
@@ -616,7 +615,6 @@
     <string name="decsync_selection_description">파일 기반 동기화</string>
     <string name="tasks_org_description">Tasks.org에 할일 동기화</string>
     <string name="subscription">구독</string>
-    <string name="map_theme">지도 테마</string>
     <string name="filter_criteria_unstarted">시작하지 않음</string>
     <string name="widget_show_title">제목 표시</string>
     <string name="next_saturday">다음 토요일</string>

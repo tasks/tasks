@@ -405,7 +405,6 @@
     <string name="account">Conta</string>
     <string name="custom_filter_has_subtask">Ten subtarefas</string>
     <string name="tasks_org_account_required">Precísase de conta en Tasks.org</string>
-    <string name="map_theme_use_app_theme">Empregar estilo de aplicativo</string>
     <string name="remove_user">Borrar usuario\?</string>
     <string name="share_list">Compartir lista</string>
     <string name="invite_invalid">Convite non válido</string>
@@ -478,7 +477,6 @@
     <string name="url_required">Precísase a URL</string>
     <string name="opacity_row">Opacidade da fila</string>
     <string name="opacity_footer">Opacidade do rodapé</string>
-    <string name="map_theme">Estilo de mapa</string>
     <string name="launcher_icon">Icona de escritorio</string>
     <string name="theme_system_default">Predefinido do sistema</string>
     <string name="repeats_single_number_of_times">Repetir %1$s, ocorre que %2$d %3$s</string>

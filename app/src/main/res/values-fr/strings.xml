@@ -605,8 +605,6 @@
     <string name="tasks_org_account">Compte « Tasks.org »</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Afficher le titre</string>
-    <string name="map_theme">Thème de la carte</string>
-    <string name="map_theme_use_app_theme">Utiliser le thème de l’application</string>
     <string name="tasks_org_account_required">Compte « Tasks.org » requis</string>
     <string name="privacy">Confidentialité</string>
     <string name="open_source">Code source ouvert</string>

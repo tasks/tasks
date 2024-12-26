@@ -605,9 +605,7 @@
     <string name="tasks_org_account">Cuenta de Tasks.org</string>
     <string name="subscription">Suscripción</string>
     <string name="widget_show_title">Mostrar título</string>
-    <string name="map_theme_use_app_theme">Utilizar el tema de la aplicación</string>
     <string name="tasks_org_account_required">Se requiere una cuenta de Tasks.org</string>
-    <string name="map_theme">Tema del mapa</string>
     <string name="privacy">Privacidad</string>
     <string name="open_source">Código abierto</string>
     <string name="issue_tracker">Seguimiento de problemas</string>

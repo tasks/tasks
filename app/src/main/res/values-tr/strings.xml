@@ -588,9 +588,7 @@
     <string name="tasks_org_account">Tasks.org hesabı</string>
     <string name="subscription">Abonelik</string>
     <string name="widget_show_title">Başlığı göster</string>
-    <string name="map_theme_use_app_theme">Uygulama gövdesi kullan</string>
     <string name="tasks_org_account_required">Tasks.org hesabı gerekli</string>
-    <string name="map_theme">Harita gövdesi</string>
     <string name="privacy">Gizlilik</string>
     <string name="open_source">Açık kaynak</string>
     <string name="issue_tracker">Sorun izleyicisi</string>

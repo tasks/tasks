@@ -586,7 +586,6 @@
     <string name="remove_user_confirmation">%1$s har ikke længere adgang til %2$s</string>
     <string name="remove_user">Fjern bruger\?</string>
     <string name="list_members">Liste over medlemmer</string>
-    <string name="map_theme_use_app_theme">Brug app-tema</string>
     <string name="tasks_org_account_required">Tasks.org konto kræves</string>
     <string name="privacy">Privatliv</string>
     <string name="open_source">Åben kildekode</string>
@@ -606,7 +605,6 @@
     <string name="tasks_org_description">Synkroniser dine opgaver med Tasks.org</string>
     <string name="background_location_permission_required">Opgaver indsamler placeringsdata for at muliggøre placeringsbaserede påmindelser, selv når appen er lukket eller ikke er i brug.</string>
     <string name="subscription">Abonnement</string>
-    <string name="map_theme">Korttema</string>
     <string name="default_recurrence">Standard gentagelse</string>
     <string name="default_tags">Standard-tags</string>
     <string name="filter_criteria_unstarted">Ikke påbegyndt</string>

@@ -586,9 +586,7 @@
     <string name="CFC_startBefore_text">Hasiera: \?</string>
     <string name="default_due_date">Lehenetsitako epemuga data</string>
     <string name="default_start_date">Lehenetsitako hasiera data</string>
-    <string name="map_theme_use_app_theme">Aplikazioaren gaia erabili</string>
     <string name="tasks_org_account_required">Tasks.org kontua behar da</string>
-    <string name="map_theme">Maparen gaia</string>
     <string name="privacy">Pribatutasuna</string>
     <string name="open_source">Kode irekia</string>
     <string name="issue_tracker">Gorabeheren arakatzailea</string>

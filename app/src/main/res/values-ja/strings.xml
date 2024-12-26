@@ -415,7 +415,6 @@
     <string name="opacity_row">行の透明度</string>
     <string name="opacity_footer">フッターの透明度</string>
     <string name="opacity_header">ヘッダーの透明度</string>
-    <string name="map_theme">地図のテーマ</string>
     <string name="default_tags">デフォルトのタグ</string>
     <string name="menu_discard_changes">変更を破棄</string>
     <string name="date_shortcut_tomorrow_night">明日の夜</string>
@@ -584,7 +583,6 @@
     <string name="tasks_org_account_required">Tasks.org のアカウントが必要です</string>
     <string name="account_not_included">「価格はあなた次第」でのサブスクリプションには含まれていません</string>
     <string name="list_members">リストメンバー</string>
-    <string name="map_theme_use_app_theme">アプリのテーマを使用</string>
     <string name="picker_mode_text">文字</string>
     <string name="picker_mode_time">時間選択の方法</string>
     <string name="remove_user_confirmation">%1$s は %2$s にアクセスできなくなります</string>

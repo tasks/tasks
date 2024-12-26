@@ -125,8 +125,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
         toolbar.setOnMenuItemClickListener(this)
         val themeColor = theme.themeColor
         themeColor.applyToNavigationBar(this)
-        val dark = preferences.mapTheme == 2
-                || preferences.mapTheme == 0 && theme.themeBase.isDarkTheme(this)
+        val dark = theme.themeBase.isDarkTheme(this)
         map.init(this, this, dark)
         val params = appBarLayout.layoutParams as CoordinatorLayout.LayoutParams
         val behavior = AppBarLayout.Behavior()

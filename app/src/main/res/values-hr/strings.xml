@@ -183,7 +183,6 @@
     <string name="remove_user_confirmation">%1$s više neće moći pristup na %2$s</string>
     <string name="remove_user">Ukloniti korisnika\?</string>
     <string name="list_members">Članovi popisa</string>
-    <string name="map_theme_use_app_theme">Koristi temu programa</string>
     <string name="account_not_included">Nije uključeno s pretplatama „Odredi tvoju cijenu”</string>
     <string name="tasks_org_account_required">Tasks.org račun je obavezan</string>
     <string name="tasks_org_account">Tasks.org račun</string>
@@ -352,7 +351,6 @@
     <string name="accent">Isticanje</string>
     <string name="icon">Ikona</string>
     <string name="color">Boja</string>
-    <string name="map_theme">Tema karte</string>
     <string name="theme">Tema</string>
     <string name="opacity_footer">Neprozirnost podnožja</string>
     <string name="opacity_row">Neprozirnost redaka</string>

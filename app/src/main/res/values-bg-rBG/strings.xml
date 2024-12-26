@@ -528,7 +528,6 @@
     <string name="local_lists">Местни списъци</string>
     <string name="background_location_permission_required">Tasks събира данни за местоположението, за да прави напомняния на тази основа, дори и когато приложението е затворено или не се използва.</string>
     <string name="when_started">При започване</string>
-    <string name="map_theme">Тема на картата</string>
     <string name="wearable_notifications_summary">Показване на известия на носимото устройство</string>
     <string name="color_wheel">Цветно колело</string>
     <string name="notification_troubleshooting_summary">Докоснете тук, ако имате проблеми с известията</string>
@@ -654,7 +653,6 @@
     <string name="hint_customize_edit_body">Можете да настроите екрана като подреждате или премахвате полета</string>
     <string name="account_not_included">Не е включено в абонамента „Посочете своя цена“</string>
     <string name="upgrade_desktop_access_description">Синхронизиране с клиенти като Outlook и Apple Reminders</string>
-    <string name="map_theme_use_app_theme">С темата на приложението</string>
     <string name="app_password_enter_description">Дайте име на паролата (по избор)</string>
     <string name="android_auto_backup_device_summary">Трябва да изберете услуга за резервни копия в настройките на устройството. Не всички устройства предлагат такава услуга.</string>
     <string name="copied_to_clipboard">%s копирано в междинната памет</string>

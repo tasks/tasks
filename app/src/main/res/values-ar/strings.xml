@@ -486,7 +486,6 @@
     <string name="picker_mode_time">وضع منتقي الوقت</string>
     <string name="picker_mode_date">وضع منتقي التاريخ</string>
     <string name="remove_user_confirmation">%1$s لا يملك حق الوصول ل%2$s</string>
-    <string name="map_theme_use_app_theme">استخدم ثيم التطبيق</string>
     <string name="account_not_included">غير مشمول في اشتراكات \"ضع سعرك\"</string>
     <string name="app_password_save">استخدم بيانات الاعتماد هذه لتكوين تطبيق تابع لجهة خارجية. يمنحون حق الوصول الكامل إلى حساب Tasks.org الخاص بك ، ولا تكتبها بالاسفل أو تشاركها مع أي شخص!</string>
     <string name="app_passwords_more_info">قم بمزامنة المهام والتقويمات الخاصة بك مع تطبيقات سطح المكتب والأجهزة المحمولة التابعة لجهات خارجية. اضغط هنا لمزيد من المعلومات</string>
@@ -549,7 +548,6 @@
     <string name="clear_completed_tasks_confirmation">أزل المهام المتممة؟</string>
     <string name="hardware_support_required">مطلوب دعم الأجهزة</string>
     <string name="restart_required">أعد تشغيل التطبيق ليأخذ هذا التغيير تأثيره</string>
-    <string name="map_theme">قالب الخارطة</string>
     <string name="opacity_footer">عتمة التذييل</string>
     <string name="opacity_header">عتمة العنوان</string>
     <string name="opacity_row">عتمة الصف</string>

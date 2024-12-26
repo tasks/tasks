@@ -569,9 +569,7 @@
     <string name="default_start_date">Tanggal mulai bawaan</string>
     <string name="always_display_full_date">Tampilkan tanggal penuh</string>
     <string name="widget_show_title">Tampilkan judul</string>
-    <string name="map_theme_use_app_theme">Gunakan Tema Aplikasi</string>
     <string name="tasks_org_account_required">Akun Tasks.org Dibutuhkan</string>
-    <string name="map_theme">Tema Peta</string>
     <string name="privacy">Privasi</string>
     <string name="open_source">Sumber Terbuka</string>
     <string name="issue_tracker">Pelacak isu</string>

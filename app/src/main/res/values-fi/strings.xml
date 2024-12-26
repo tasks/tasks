@@ -528,7 +528,6 @@
     <string name="remove_user_confirmation">%1$s ei enää pääse %2$s:een</string>
     <string name="remove_user">Poista käyttäjä\?</string>
     <string name="list_members">Luettelo jäsenistä</string>
-    <string name="map_theme_use_app_theme">Käytä sovelluksen teemaa</string>
     <string name="account_not_included">Ei sisälly \"Nimeä hintasi\" -tilauksiin</string>
     <string name="tasks_org_account_required">Tarvitaan Tasks.org-tili</string>
     <string name="tasks_org_account">Tasks.org-tili</string>
@@ -586,7 +585,6 @@
     <string name="subscription">Tilaus</string>
     <string name="caldav_home_set_not_found">Kotijoukkoa ei löytynyt</string>
     <string name="repeat_monthly_fifth_week">viides</string>
-    <string name="map_theme">Kartta-teema</string>
     <string name="default_recurrence">Oletusarvoinen toistuvuus</string>
     <string name="default_tags">Oletustunnisteet</string>
     <string name="no_app_found">Yksikään sovellus ei pysty käsittelemään tätä pyyntöä</string>
