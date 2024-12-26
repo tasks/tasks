@@ -399,8 +399,6 @@
     <string name="preferences_look_and_feel">Estilo e apariencia</string>
     <string name="preferences_advanced">Avanzada</string>
     <string name="places">Lugares</string>
-    <string name="desaturate_colors_summary_on">As cores desaturaranse nos estilos escuros</string>
-    <string name="desaturate_colors_summary_off">As cores non se desaturan nos estilos escuros</string>
     <string name="place_settings">Configuración de posición</string>
     <string name="hide_unused_tags">Agochar etiquetas sen usar</string>
     <string name="hide_unused_places">Agochar lugares sen usar</string>

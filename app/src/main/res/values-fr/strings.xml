@@ -450,9 +450,6 @@
     <string name="back">Retour</string>
     <string name="chips">Étiquettes</string>
     <string name="chip_appearance">Apparence de l\'étiquette</string>
-    <string name="desaturate_colors">Désaturer les couleurs</string>
-    <string name="desaturate_colors_summary_on">Les couleurs seront désaturées dans les thèmes sombres</string>
-    <string name="desaturate_colors_summary_off">Les couleurs ne seront pas désaturées dans les thèmes sombres</string>
     <string name="places">Lieux</string>
     <string name="place_settings">Paramètres de lieu</string>
     <string name="navigation_drawer">Tiroir de navigation</string>

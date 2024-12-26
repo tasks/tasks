@@ -136,9 +136,6 @@
     <string name="navigation_drawer">Navigationsmenu</string>
     <string name="place_settings">Indstillinger for steder</string>
     <string name="places">Steder</string>
-    <string name="desaturate_colors_summary_off">Farverne bliver ikke afmættede i mørke temaer</string>
-    <string name="desaturate_colors_summary_on">Farverne bliver afmættede i mørke temaer</string>
-    <string name="desaturate_colors">Afmættede farver</string>
     <string name="chip_appearance">Boble-udseende</string>
     <string name="chips">Bobler</string>
     <string name="back">Tilbage</string>

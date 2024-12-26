@@ -34,7 +34,7 @@ class Notifier @Inject constructor(
     private val voiceOutputAssistant: VoiceOutputAssistant,
     private val preferences: Preferences) {
 
-    private val colorProvider: ColorProvider = ColorProvider(context, preferences)
+    private val colorProvider: ColorProvider = ColorProvider(context)
 
     suspend fun triggerFilterNotification(filter: Filter) {
         val tasks = taskDao.fetchFiltered(filter)
@@ -66,7 +66,7 @@ class Notifier @Inject constructor(
                 .setAutoCancel(true)
                 .setWhen(currentTimeMillis())
                 .setShowWhen(true)
-                .setColor(colorProvider.getPriorityColor(maxPriority, true))
+                .setColor(colorProvider.getPriorityColor(maxPriority))
                 .setGroupSummary(true)
                 .setGroup(filter.title)
                 .setStyle(style)

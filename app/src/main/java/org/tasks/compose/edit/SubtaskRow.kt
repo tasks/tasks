@@ -54,7 +54,6 @@ fun SubtaskRow(
     originalFilter: Filter?,
     filter: Filter?,
     hasParent: Boolean,
-    desaturate: Boolean,
     existingSubtasks: TasksResults,
     newSubtasks: List<Task>,
     openSubtask: (Task) -> Unit,
@@ -100,7 +99,6 @@ fun SubtaskRow(
                             .forEach { task ->
                             ExistingSubtaskRow(
                                 task = task,
-                                desaturate = desaturate,
                                 indent = if (filter !is GtasksFilter) task.indent else 0,
                                 onRowClick = { openSubtask(task.task) },
                                 onCompleteClick = {
@@ -116,7 +114,6 @@ fun SubtaskRow(
                     newSubtasks.forEach { subtask ->
                         NewSubtaskRow(
                             subtask = subtask,
-                            desaturate = desaturate,
                             addSubtask = addSubtask,
                             onComplete = completeNewSubtask,
                             onDelete = deleteSubtask,
@@ -138,7 +135,6 @@ fun SubtaskRow(
 @Composable
 fun NewSubtaskRow(
     subtask: Task,
-    desaturate: Boolean,
     addSubtask: () -> Unit,
     onComplete: (Task) -> Unit,
     onDelete: (Task) -> Unit,
@@ -148,7 +144,6 @@ fun NewSubtaskRow(
             task = subtask,
             onCompleteClick = { onComplete(subtask) },
             modifier = Modifier.align(Alignment.Top),
-            desaturate = desaturate,
         )
         var text by remember(subtask.remoteId) { mutableStateOf(subtask.title ?: "") }
         val focusRequester = remember { FocusRequester() }
@@ -194,7 +189,6 @@ fun NewSubtaskRow(
 @Composable
 fun ExistingSubtaskRow(
     task: TaskContainer, indent: Int,
-    desaturate: Boolean,
     onRowClick: () -> Unit,
     onCompleteClick: () -> Unit,
     onToggleSubtaskClick: () -> Unit,
@@ -209,7 +203,6 @@ fun ExistingSubtaskRow(
         CheckBox(
             task = task.task,
             onCompleteClick = onCompleteClick,
-            desaturate = desaturate,
             modifier = Modifier.align(Alignment.Top),
         )
         Text(
@@ -244,7 +237,6 @@ fun NoSubtasks() {
             originalFilter = null,
             filter = null,
             hasParent = false,
-            desaturate = true,
             existingSubtasks = TasksResults.Results(SectionedDataSource()),
             newSubtasks = emptyList(),
             openSubtask = {},
@@ -266,7 +258,6 @@ fun SubtasksPreview() {
             originalFilter = null,
             filter = null,
             hasParent = false,
-            desaturate = true,
             existingSubtasks = TasksResults.Results(
                 SectionedDataSource(
                     tasks = listOf(

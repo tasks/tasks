@@ -451,9 +451,6 @@
     <string name="back">Назад</string>
     <string name="chips">Индикаторы</string>
     <string name="chip_appearance">Внешний вид индикаторов</string>
-    <string name="desaturate_colors">Уменьшить насыщенность цветов</string>
-    <string name="desaturate_colors_summary_on">Цвета будут менее насыщенными в темных темах</string>
-    <string name="desaturate_colors_summary_off">Цвета не будут менее насыщенными в темных темах</string>
     <string name="shortcut_pick_time">Выбрать время</string>
     <string name="no_time">Без времени</string>
     <string name="no_date">Без даты</string>

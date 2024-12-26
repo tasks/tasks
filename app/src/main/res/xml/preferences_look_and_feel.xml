@@ -19,13 +19,6 @@
     android:key="@string/p_theme_launcher"
     android:title="@string/launcher_icon" />
 
-  <SwitchPreferenceCompat
-    android:defaultValue="true"
-    android:key="@string/p_desaturate_colors"
-    android:title="@string/desaturate_colors"
-    android:summaryOn="@string/desaturate_colors_summary_on"
-    android:summaryOff="@string/desaturate_colors_summary_off" />
-
   <ListPreference
     android:defaultValue="0"
     android:key="@string/p_map_theme"

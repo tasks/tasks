@@ -177,9 +177,6 @@
     <string name="hide_unused_tags">பயன்படுத்தப்படாத குறிச்சொற்களை மறைக்கவும்</string>
     <string name="place_settings">அமைப்புகளை வைக்கவும்</string>
     <string name="places">இடங்கள்</string>
-    <string name="desaturate_colors_summary_off">இருண்ட கருப்பொருள்களில் நிறங்கள் அழிக்கப்படாது</string>
-    <string name="desaturate_colors_summary_on">இருண்ட கருப்பொருள்களில் நிறங்கள் தேய்மானம் செய்யப்படும்</string>
-    <string name="desaturate_colors">தேய்மான நிறங்கள்</string>
     <string name="chip_appearance">சிப் தோற்றம்</string>
     <string name="back">மீண்டும்</string>
     <string name="upgrade_blurb_2">நான் பணிகளில் ஆயிரக்கணக்கான மணிநேரங்களை செலவிட்டேன், மேலும் மூலக் குறியீடு அனைத்தையும் ஆன்லைனில் இலவசமாக வெளியிடுகிறேன். எனது பணியை ஆதரிக்க சில அம்சங்களுக்கு சந்தா தேவை</string>

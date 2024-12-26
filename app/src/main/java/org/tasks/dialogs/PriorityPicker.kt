@@ -28,12 +28,10 @@ class PriorityPicker : DialogFragment() {
 
     companion object {
         const val EXTRA_TASKS = "extra_tasks"
-        const val EXTRA_DESATURATE = "extra_desaturatee"
 
-        fun newPriorityPicker(desaturateColors: Boolean, tasks: List<Task>): PriorityPicker {
+        fun newPriorityPicker(tasks: List<Task>): PriorityPicker {
             val bundle = Bundle()
             bundle.putLongArray(EXTRA_TASKS, tasks.map { it.id }.toLongArray())
-            bundle.putBoolean(EXTRA_DESATURATE, desaturateColors)
             val fragment = PriorityPicker()
             fragment.arguments = bundle
             return fragment
@@ -48,8 +46,7 @@ class PriorityPicker : DialogFragment() {
             val inflater = fragmentActivity.layoutInflater
             val binding = DialogPriorityPickerBinding.inflate(inflater, null, false)
             binding.priorityRow.setContent { Priority(selected = priorityPickerViewModel.priority.collectAsStateWithLifecycle().value,
-                onClick = { priorityPickerViewModel.setPriority( it ) }, desaturate = savedInstanceState?.getBoolean(
-                EXTRA_DESATURATE) ?: false) }
+                onClick = { priorityPickerViewModel.setPriority( it ) }) }
             val builder = AlertDialog.Builder(fragmentActivity)
                 .setTitle(R.string.change_priority)
                 .setView(binding.root)

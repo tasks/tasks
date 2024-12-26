@@ -647,10 +647,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private fun setupRefresh(layout: SwipeRefreshLayout) {
         layout.setOnRefreshListener(this)
         layout.setColorSchemeColors(
-                colorProvider.getPriorityColor(0, true),
-                colorProvider.getPriorityColor(1, true),
-                colorProvider.getPriorityColor(2, true),
-                colorProvider.getPriorityColor(3, true))
+                colorProvider.getPriorityColor(0),
+                colorProvider.getPriorityColor(1),
+                colorProvider.getPriorityColor(2),
+                colorProvider.getPriorityColor(3))
     }
 
     override fun onResume() {
@@ -810,7 +810,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         .filterNot { it.readOnly }
                         .takeIf { it.isNotEmpty() }
                         ?.let {
-                            newPriorityPicker(preferences.getBoolean(R.string.p_desaturate_colors, false), it)
+                            newPriorityPicker(it)
                                 .show(parentFragmentManager, FRAG_TAG_PRIORITY_PICKER)
                         }
                 }

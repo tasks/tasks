@@ -69,13 +69,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
             false
         }
 
-        findPreference(R.string.p_desaturate_colors).setOnPreferenceChangeListener { _, _ ->
-            if (context?.isNightMode == true) {
-                activity?.recreate()
-            }
-            true
-        }
-
         val defaultList = findPreference(R.string.p_default_open_filter)
         val filter = defaultFilterProvider.getDefaultOpenFilter()
         defaultList.summary = filter.title

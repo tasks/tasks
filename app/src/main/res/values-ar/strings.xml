@@ -116,7 +116,6 @@
     <string name="opacity">التعتيم</string>
     <string name="settings_localization">تخصيص اللغة و الجهة</string>
     <string name="backup_BAc_export">نسخ احتياطي الآن</string>
-    <string name="desaturate_colors">ألوان غير مشبعة</string>
     <string name="accent">اللون الثانوي</string>
     <string name="theme_system_default">افتراضيات النظام</string>
     <string name="theme_day_night">صباحي/مسائي</string>
@@ -146,8 +145,6 @@
     <string name="widget_open_list">فتح قائمة</string>
     <string name="open_last_viewed_list">فتح آخر قائمة تم عرضها</string>
     <string name="on_launch">عند فتح التطبيق</string>
-    <string name="desaturate_colors_summary_off">ستكون الألوان مشبعة في المظهر الداكن</string>
-    <string name="desaturate_colors_summary_on">ستكون الألوان غير مشبعة في المظهر الداكن</string>
     <string name="default_list">القائمة الافتراضية</string>
     <string name="google_tasks_add_to_top">اضف المهام الجديدة لاعلى القائمة</string>
     <string name="add_account">أضف حساب</string>

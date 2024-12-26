@@ -199,9 +199,6 @@
     <string name="navigation_drawer">Ngăn điều hướng</string>
     <string name="place_settings">Cài đặt địa điểm</string>
     <string name="places">Địa điểm</string>
-    <string name="desaturate_colors_summary_off">Màu sắc sẽ không được khử bão hoà ở các chủ đề tối</string>
-    <string name="desaturate_colors_summary_on">Màu sắc sẽ được khử bão hoà ở các chủ đề tối</string>
-    <string name="desaturate_colors">Khử bão hoà màu sắc</string>
     <string name="chip_appearance">Ngoại hình nhãn</string>
     <string name="chips">Nhãn</string>
     <string name="back">Quay lại</string>

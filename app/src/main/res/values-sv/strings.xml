@@ -549,12 +549,9 @@
     <string name="auto_dismiss_datetime_list_summary">Stäng automatiskt vid val från uppgiftslistan</string>
     <string name="auto_dismiss_datetime_list">Uppgiftslista</string>
     <string name="auto_dismiss_datetime">Automatisk stängning av datum- och tidsväljare</string>
-    <string name="desaturate_colors_summary_on">Färgerna kommer att avmattas i mörka teman</string>
     <string name="hide_unused_places">Dölj oanvända platser</string>
     <string name="hide_unused_tags">Dölj oanvända taggar</string>
     <string name="navigation_drawer">Navigeringslåda</string>
-    <string name="desaturate_colors_summary_off">Färger avmattas inte i mörka teman</string>
-    <string name="desaturate_colors">Avmatta färger</string>
     <string name="chip_appearance">Utseende av flis</string>
     <string name="chips">Pommes frites</string>
     <string name="upgrade_blurb_1">Hej! Jag heter Alex. Jag är den oberoende utvecklaren bakom Tasks</string>

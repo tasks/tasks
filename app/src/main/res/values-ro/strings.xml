@@ -547,9 +547,6 @@
     <string name="navigation_drawer">Sertar de navigare</string>
     <string name="place_settings">Setări de locație</string>
     <string name="places">Locuri</string>
-    <string name="desaturate_colors_summary_off">Culorile nu vor fi desaturate în temele întunecate</string>
-    <string name="desaturate_colors_summary_on">Culorile vor fi desaturate în temele întunecate</string>
-    <string name="desaturate_colors">Desaturare culori</string>
     <string name="chip_appearance">Aspect fragmentat</string>
     <string name="chips">Fragmente</string>
     <string name="back">Înapoi</string>

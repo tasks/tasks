@@ -447,9 +447,6 @@
     <string name="navigation_drawer">Postranní nabídka</string>
     <string name="place_settings">Nastavení místa</string>
     <string name="places">Místa</string>
-    <string name="desaturate_colors_summary_off">Barvy nebudou jemnější u tmavých motivů vzhledu</string>
-    <string name="desaturate_colors_summary_on">Barvy budou jemnější u tmavých motivů vzhledu</string>
-    <string name="desaturate_colors">Zjemnit barvy</string>
     <string name="action_new_task">Nový úkol</string>
     <string name="caldav_home_set_not_found">Domovská sada nenalezena</string>
     <string name="list_separator_with_space">", "</string>

@@ -341,7 +341,6 @@
     <string name="chip_appearance_text_only">僅文字</string>
     <string name="hide_unused_places">隱藏未使用地點</string>
     <string name="hide_unused_tags">隱藏未使用標籤</string>
-    <string name="desaturate_colors_summary_off">暗色主題中顏色將不飽和</string>
     <string name="color_wheel">色輪</string>
     <string name="invalid_username_or_password">無效的使用者名稱或密碼</string>
     <string name="more_notification_settings_summary">鈴聲、震動、與更多</string>
@@ -578,7 +577,6 @@
     <string name="picker_mode_clock">時鐘</string>
     <string name="upgrade_more_customization_description">解鎖所有主題、顏色和圖示</string>
     <string name="back">返回</string>
-    <string name="desaturate_colors_summary_on">在深色主題中將減淡顏色</string>
     <string name="place_settings">位置設定</string>
     <string name="places">地點</string>
     <string name="pro_dashclock_extension">Dashclock 擴充</string>
@@ -634,7 +632,6 @@
     <string name="google_tasks_selection_description">基本服務，與您的 Google 帳戶同步</string>
     <string name="etesync_selection_description">端對端加密同步</string>
     <string name="upgrade_blurb_1">嗨！我的名字是 Alex。我是 Tasks 背後的獨立開發者</string>
-    <string name="desaturate_colors">減淡顏色</string>
     <string name="calendar_event_created">建立行事曆事件於 %s</string>
     <string name="widget_id">小工具 ID：%d</string>
     <string name="permission_read_tasks">完全存取 Tasks 資料庫</string>

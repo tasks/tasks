@@ -412,9 +412,6 @@
     <string name="navigation_drawer">Menu de navegação</string>
     <string name="place_settings">Configuração de lugares</string>
     <string name="places">Locais</string>
-    <string name="desaturate_colors_summary_off">Cores não serão dessaturadas em temas escuros</string>
-    <string name="desaturate_colors_summary_on">Cores serão dessaturadas em temas escuros</string>
-    <string name="desaturate_colors">Dessaturar cores</string>
     <string name="chip_appearance">Aparência da Pastilha</string>
     <string name="chips">Pastilha</string>
     <string name="back">Voltar</string>

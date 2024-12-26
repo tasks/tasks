@@ -567,7 +567,6 @@
     <string name="ok">Добре</string>
     <string name="chips">Индикатори в списъка</string>
     <string name="chip_appearance">Външен вид на индикаторите в списъка</string>
-    <string name="desaturate_colors">Намаляване на наситеността на цветовете</string>
     <string name="filter_any_due_date">Всяка крайна дата</string>
     <string name="android_auto_backup">Услуга за резервни копия на Android</string>
     <string name="device_settings">Настройки на устройството</string>
@@ -575,9 +574,7 @@
     <string name="sort_start_group">Започната %s</string>
     <string name="sort_due_group">Завършена %s</string>
     <string name="on_launch">При стартиране</string>
-    <string name="desaturate_colors_summary_on">При тъмите теми цветовете ще бъдат с намалена наситеност</string>
     <string name="sort_created_group">Създадена %s</string>
-    <string name="desaturate_colors_summary_off">При тъмите теми цветовете няма да бъдат променяни</string>
     <string name="sort_modified_group">Променена %s</string>
     <string name="github_sponsor">Дарител</string>
     <string name="tasks_org_account_required">Необходим е профил в Tasks.org</string>

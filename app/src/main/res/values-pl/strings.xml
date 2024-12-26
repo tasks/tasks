@@ -445,9 +445,6 @@
     <string name="back">Wstecz</string>
     <string name="chips">Chipy</string>
     <string name="chip_appearance">Wygląd chipów</string>
-    <string name="desaturate_colors">Desaturuj kolory</string>
-    <string name="desaturate_colors_summary_on">Kolory będą desaturowane w ciemnych motywach</string>
-    <string name="desaturate_colors_summary_off">Kolory nie będą desaturowane w ciemnych motywach</string>
     <string name="shortcut_pick_time">Wybierz czas</string>
     <string name="no_time">Brak czasu</string>
     <string name="no_date">Brak daty</string>

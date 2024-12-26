@@ -58,7 +58,6 @@ class SubtaskControlSet : TaskEditControlFragment() {
                     originalFilter = viewModel.originalList,
                     filter = viewModel.selectedList.collectAsStateWithLifecycle().value,
                     hasParent = viewModel.hasParent,
-                    desaturate = preferences.desaturateDarkMode,
                     existingSubtasks = if (viewModel.isNew) {
                         TasksResults.Results(SectionedDataSource())
                     } else {

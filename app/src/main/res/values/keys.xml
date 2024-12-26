@@ -389,7 +389,6 @@
   <string name="p_place_chips">chips_place</string>
   <string name="p_list_chips">chips_list</string>
   <string name="p_tag_chips">chips_tag</string>
-  <string name="p_desaturate_colors">desaturate_colors</string>
   <string name="p_auto_dismiss_datetime_edit_screen">auto_dismiss_datetime_edit_screen</string>
   <string name="p_auto_dismiss_datetime_list_screen">auto_dismiss_datetime_list_screen</string>
   <string name="p_auto_dismiss_datetime_widget">auto_dismiss_datetime_widget</string>

@@ -23,8 +23,6 @@
     <string name="calendar_event_created">%s සඳහා දින දර්ශන සිදුවීම නිර්මාණය කරන ලදි</string>
     <string name="auto_dismiss_datetime_widget">විජට්</string>
     <string name="auto_dismiss_datetime_edit">කාර්ය සංස්කරණය</string>
-    <string name="desaturate_colors_summary_off">අඳුරු තේමාවන් වලදී වර්ණ අසංතෘප්ත නොවේ</string>
-    <string name="desaturate_colors">අවිනිශ්චිත වර්ණ</string>
     <string name="chip_appearance">චිප් පෙනුම</string>
     <string name="TEA_timer_est">කාලය %s</string>
     <plurals name="list_count">
@@ -631,7 +629,6 @@
     <string name="foreground_location">පෙරබිම ස්ථානය</string>
     <string name="navigation_drawer">මෙනුව</string>
     <string name="place_settings">ස්ථාන සැකසුම්</string>
-    <string name="desaturate_colors_summary_on">අඳුරු තේමාවන් වලදී වර්ණ අසංතෘප්ත වේ</string>
     <string name="repeat_snackbar">%1$s, %2$s සඳහා නැවත සකස් කරන ලදි</string>
     <string name="CFC_importance_text">අවම වශයෙන් ප්‍රමුඛතාවය \?</string>
     <string name="chat_libera">ලිබරා චැට් හි #කාර්යයන් හා සම්බන්ධ වන්න</string>

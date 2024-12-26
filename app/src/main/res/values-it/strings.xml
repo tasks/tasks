@@ -395,7 +395,6 @@
     <string name="display_name">Nome visualizzato</string>
     <string name="TEA_add_subtask">Aggiungi attività secondaria</string>
     <string name="SSD_sort_my_order">Personalizzato</string>
-    <string name="desaturate_colors">Riduci saturazione colori</string>
     <string name="share">Condividi</string>
     <string name="select_all">Seleziona tutto</string>
     <string name="calendar_event_created">Creato evento nel calendario per %s</string>
@@ -412,8 +411,6 @@
     <string name="navigation_drawer">Menù laterale</string>
     <string name="place_settings">Impostazioni luogo</string>
     <string name="places">Luoghi</string>
-    <string name="desaturate_colors_summary_on">I colori perderanno saturazione nei temi scuri</string>
-    <string name="desaturate_colors_summary_off">I colori non perderanno saturazione nei temi scuri</string>
     <string name="back">Indietro</string>
     <string name="upgrade_blurb_2">Ho dedicato a Tasks migliaia di ore di lavoro, pubblicando tutto il codice sorgente online, gratuitamente. Per supportare il mio lavoro alcune funzioni richiedono un abbonamento</string>
     <string name="upgrade_blurb_1">Ciao! Mi chiamo Alex. Sono lo sviluppatore indipendente di Tasks</string>

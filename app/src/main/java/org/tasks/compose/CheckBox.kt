@@ -16,7 +16,6 @@ fun CheckBox(
     task: Task,
     onCompleteClick: () -> Unit,
     modifier: Modifier = Modifier,
-    desaturate: Boolean,
 ) {
     CheckBox(
         isCompleted = task.isCompleted,
@@ -24,7 +23,6 @@ fun CheckBox(
         priority = task.priority,
         onCompleteClick = onCompleteClick,
         modifier = modifier,
-        desaturate = desaturate,
     )
 }
 
@@ -35,7 +33,6 @@ fun CheckBox(
     priority: Int,
     onCompleteClick: () -> Unit,
     modifier: Modifier = Modifier,
-    desaturate: Boolean,
 ) {
     IconButton(onClick = onCompleteClick, modifier = modifier) {
         Icon(
@@ -44,7 +41,6 @@ fun CheckBox(
                 priorityColor(
                     priority = priority,
                     isDarkMode = isSystemInDarkTheme(),
-                    desaturate = desaturate,
                 )
             ),
             contentDescription = null,

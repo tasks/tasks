@@ -338,8 +338,6 @@
     <string name="chip_appearance_icon_only">Vain pikkukuvake</string>
     <string name="chip_appearance_text_only">Vain teksti</string>
     <string name="chip_appearance_text_and_icon">Teksti ja pikkukuvake</string>
-    <string name="desaturate_colors_summary_off">Värejä ei muuteta tummiin teemoihin</string>
-    <string name="desaturate_colors_summary_on">Tummissa teemoissa värit ovat tyydyttymättömiä</string>
     <string name="chip_appearance">Lappujen sisältö</string>
     <string name="chips">Lisätietolaput</string>
     <string name="back">Takaisin</string>
@@ -448,7 +446,6 @@
     <string name="custom_filter_criteria">Suodin kriteerit</string>
     <string name="auto_dismiss_datetime_list">Tehtävä lista</string>
     <string name="navigation_drawer">Navigointi valikko</string>
-    <string name="desaturate_colors">Himmennä värit</string>
     <string name="show_advanced_settings">Näytä lisäasetukset</string>
     <string name="google_tasks_selection_description">Perus palvelu joka synkronoi sinun Google tilisi kanssa</string>
     <string name="opacity_footer">Alatunnisteen läpinäkyvyys</string>

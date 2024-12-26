@@ -629,9 +629,6 @@
     <string name="share_list">Komunigi liston</string>
     <string name="not_signed_in">Ne ensalutinte</string>
     <string name="map_theme_use_app_theme">Uzi etoson de programeto</string>
-    <string name="desaturate_colors">Malsaturi kolorojn</string>
-    <string name="desaturate_colors_summary_on">Koloroj malsaturiĝos en malhela etoso</string>
-    <string name="desaturate_colors_summary_off">Koloroj ne malsaturiĝos en malhela etoso</string>
     <string name="widget_id">Fenestraĵa ID: %d</string>
     <string name="sort_start_group">Komenci %s</string>
     <string name="open_last_viewed_list">Malfermi liston de laste rigardita</string>

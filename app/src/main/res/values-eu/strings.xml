@@ -434,9 +434,6 @@
     <string name="back">Atzera</string>
     <string name="chips">Txipak</string>
     <string name="chip_appearance">Txip itxura</string>
-    <string name="desaturate_colors">Desasetu koloreak</string>
-    <string name="desaturate_colors_summary_on">Koloreak desasetuko dira azal ilunetan</string>
-    <string name="desaturate_colors_summary_off">Koloreak ez dira desasetuko azal ilunetan</string>
     <string name="places">Tokiak</string>
     <string name="place_settings">Toki-ezarpenak</string>
     <string name="navigation_drawer">Nabigazio tiradera</string>

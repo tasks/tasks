@@ -625,9 +625,6 @@
     <string name="auto_dismiss_datetime_edit_summary">Automatiškai uždaryti renkantis iš užduoties redagavimo</string>
     <string name="auto_dismiss_datetime_edit">Užduoties redagavimas</string>
     <string name="color_wheel">Spalvos pasirinkimo ratas</string>
-    <string name="desaturate_colors_summary_on">Tamsiose temose spalvos bus nublankę</string>
-    <string name="desaturate_colors_summary_off">Tamsiose temose spalvos nebus nublankę</string>
-    <string name="desaturate_colors">Blankios spalvos</string>
     <string name="chip_appearance">Skrituliuko išvaizda</string>
     <string name="chips">Skrituliukai</string>
     <string name="widget_id">Valdiklio ID: %d</string>

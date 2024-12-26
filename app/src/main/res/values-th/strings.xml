@@ -143,9 +143,6 @@
     <string name="filter_high_priority">ลําดับความสําคัญสูง</string>
     <string name="add_tags">เพิ่มแท็ก</string>
     <string name="places">สถานที่</string>
-    <string name="desaturate_colors_summary_off">สีจะไม่ถูก desaturated ในธีมสีเข้ม</string>
-    <string name="desaturate_colors_summary_on">สีจะถูก desaturated ในธีมสีเข้ม</string>
-    <string name="desaturate_colors">สีที่อิ่มตัว</string>
     <string name="chip_appearance">ลักษณะชิป</string>
     <string name="chips">เศษ</string>
     <string name="back">กลับ</string>

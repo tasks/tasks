@@ -431,9 +431,6 @@
     <string name="back">Zurück</string>
     <string name="chips">Marken</string>
     <string name="chip_appearance">Aussehen der Marken</string>
-    <string name="desaturate_colors">Entsättigte Farben</string>
-    <string name="desaturate_colors_summary_on">Farben werden bei dunklen Designs entsättigt</string>
-    <string name="desaturate_colors_summary_off">Farben werden bei dunklen Designs nicht entsättigt</string>
     <string name="places">Orte</string>
     <string name="place_settings">Ortseinstellungen</string>
     <string name="navigation_drawer">Navigationsmenü</string>

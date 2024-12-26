@@ -450,9 +450,6 @@
     <string name="back">Volver</string>
     <string name="chips">Distintivos</string>
     <string name="chip_appearance">Apariencia de los distintivos</string>
-    <string name="desaturate_colors">Colores desaturados</string>
-    <string name="desaturate_colors_summary_on">Los colores serán desaturados en temas oscuros</string>
-    <string name="desaturate_colors_summary_off">Los colores no se desaturarán en los temas oscuros</string>
     <string name="places">Lugares</string>
     <string name="place_settings">Ajustes de lugar</string>
     <string name="navigation_drawer">Cajón de navegación</string>

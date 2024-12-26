@@ -417,9 +417,6 @@
     <string name="preferences_look_and_feel">Зовнішній вигляд</string>
     <string name="preferences_advanced">Розширені</string>
     <string name="show_advanced_settings">Показати розширені налаштування</string>
-    <string name="desaturate_colors">Зменшити насиченість</string>
-    <string name="desaturate_colors_summary_off">Кольори не будуть ненасиченими в темних темах</string>
-    <string name="desaturate_colors_summary_on">Кольори будуть ненасиченими в темних темах</string>
     <string name="theme_system_default">За системними налаштуваннями</string>
     <plurals name="subtask_count">
         <item quantity="one">%d підзавдання</item>

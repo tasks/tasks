@@ -446,9 +446,6 @@
     <string name="navigation_drawer">Gaveta de navegação</string>
     <string name="place_settings">Configuração de locais</string>
     <string name="places">Locais</string>
-    <string name="desaturate_colors_summary_off">As cores não serão dessaturadas em temas escuros</string>
-    <string name="desaturate_colors_summary_on">As cores serão dessaturadas em temas escuros</string>
-    <string name="desaturate_colors">Dessaturar cores</string>
     <string name="chip_appearance">Aparência da ficha</string>
     <string name="chips">Fichas</string>
     <string name="back">Voltar</string>

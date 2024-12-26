@@ -508,7 +508,6 @@
     <string name="caldav_selection_description">オープンインターネット標準による同期</string>
     <string name="etesync_selection_description">エンドツーエンド暗号化による同期</string>
     <string name="microsoft_selection_description">個人用 Microsoftアカウントと同期する</string>
-    <string name="desaturate_colors_summary_off">ダークテーマの使用時に彩度は下がりません</string>
     <string name="chip_appearance_text_and_icon">文字とアイコン</string>
     <string name="chip_appearance_text_only">文字のみ</string>
     <string name="shortcut_pick_time">時間を選択</string>
@@ -569,7 +568,6 @@
     <string name="documentation">ドキュメント</string>
     <string name="color_wheel">カラーホイール</string>
     <string name="more_notification_settings_summary">通知音、バイブレーションなど</string>
-    <string name="desaturate_colors">彩度を下げる</string>
     <string name="wearable_notifications_summary">ウェアラブルデバイスに通知を表示する</string>
     <string name="auto_dismiss_datetime_list">タスクリスト</string>
     <string name="backup_location_warning">警告: Tasks を削除すると %s にあるファイルも削除されます。ファイルの削除を回避するには、別の場所を指定してください。</string>
@@ -645,7 +643,6 @@
     <string name="above_average">平均以上</string>
     <string name="filter_any_start_date">着手日時あり</string>
     <string name="chip_appearance">チップの外観</string>
-    <string name="desaturate_colors_summary_on">ダークテーマの使用時に彩度が下がります</string>
     <string name="sort_modified_group">変更: %s</string>
     <string name="sort_start_group">着手: %s</string>
     <string name="sort_due_group">締切: %s</string>

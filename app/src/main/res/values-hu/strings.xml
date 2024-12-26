@@ -429,9 +429,6 @@
     <string name="back">Vissza</string>
     <string name="chips">Jelölő</string>
     <string name="chip_appearance">Jelölő kinézete</string>
-    <string name="desaturate_colors">Fakó színek</string>
-    <string name="desaturate_colors_summary_on">Sötét téma esetén fakóbbak a színek</string>
-    <string name="desaturate_colors_summary_off">Sötét téma esetén élénk színek</string>
     <string name="places">Helyek</string>
     <string name="place_settings">Hely beállítások</string>
     <string name="hide_unused_tags">Használaton kívüli címkék elrejtése</string>

@@ -144,9 +144,6 @@
     <string name="hide_unused_places">Sakrij nekorištena mjesta</string>
     <string name="place_settings">Postavke mjesta</string>
     <string name="places">Mjesta</string>
-    <string name="desaturate_colors_summary_off">Boje neće biti nezasićene u tamnim temama</string>
-    <string name="desaturate_colors_summary_on">Boje će biti nezasićene u tamnim temama</string>
-    <string name="desaturate_colors">Nezasićene boje</string>
     <string name="color_wheel">Krug boja</string>
     <string name="chip_appearance_icon_only">Samo ikona</string>
     <string name="chip_appearance_text_only">Samo tekst</string>

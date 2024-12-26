@@ -429,9 +429,6 @@
     <string name="back">Terug</string>
     <string name="chips">Vormgeving</string>
     <string name="chip_appearance">Uiterlijk van chip</string>
-    <string name="desaturate_colors">Minder verzadigde kleuren</string>
-    <string name="desaturate_colors_summary_on">Minder verzadigde kleuren in donkere thema\'s</string>
-    <string name="desaturate_colors_summary_off">Niet minder verzadigde kleuren in donkere thema\'s</string>
     <string name="places">Locaties</string>
     <string name="place_settings">Locatie instellen</string>
     <string name="navigation_drawer">Menu</string>

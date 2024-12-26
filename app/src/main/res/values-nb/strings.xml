@@ -463,9 +463,6 @@
     <string name="hide_unused_places">Skjul ubrukte steder</string>
     <string name="hide_unused_tags">Skjul ubrukte etiketter</string>
     <string name="navigation_drawer">Navigasjonsskuff</string>
-    <string name="desaturate_colors_summary_off">Farger vil ikke miste metning i mørke drakter</string>
-    <string name="desaturate_colors_summary_on">Farger vil miste metning i mørke drakter</string>
-    <string name="desaturate_colors">Gi farger mindre metning</string>
     <string name="chip_appearance">Flisutseende</string>
     <string name="chips">Flis</string>
     <string name="upgrade_blurb_2">Jeg har brukt tusenvis av timer på å jobbe med Tasks, og jeg offentliggjør all kildekoden på nettet gratis. For å støtte mitt arbeid krever noen funksjoner et abonnement</string>

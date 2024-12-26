@@ -368,7 +368,6 @@ class TaskEditFragment : Fragment() {
             onChanged = { text -> editViewModel.title = text.toString().trim { it <= ' ' } },
             linkify = if (preferences.linkify) linkify else null,
             markdownProvider = markdownProvider,
-            desaturate = remember { preferences.desaturateDarkMode },
             isCompleted = isComplete,
             isRecurring = isRecurring,
             priority = editViewModel.priority.collectAsStateWithLifecycle().value,
@@ -426,7 +425,6 @@ class TaskEditFragment : Fragment() {
         PriorityRow(
             priority = editViewModel.priority.collectAsStateWithLifecycle().value,
             onChangePriority = { editViewModel.priority.value = it },
-            desaturate = preferences.desaturateDarkMode,
         )
     }
 

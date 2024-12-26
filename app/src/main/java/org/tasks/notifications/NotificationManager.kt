@@ -15,7 +15,6 @@ import org.tasks.R
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.NotificationDao
 import org.tasks.data.dao.TaskDao
-import org.tasks.data.displayName
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Notification
 import org.tasks.filters.NotificationsFilter
@@ -52,7 +51,7 @@ class NotificationManager @Inject constructor(
     val currentInterruptionFilter: Int
         get() = notificationManager.currentInterruptionFilter
 
-    private val colorProvider = ColorProvider(context, preferences)
+    private val colorProvider = ColorProvider(context)
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
 
     @SuppressLint("CheckResult")
@@ -262,7 +261,7 @@ class NotificationManager @Inject constructor(
                 .setShowWhen(true)
                 .setSmallIcon(R.drawable.ic_done_all_white_24dp)
                 .setStyle(style)
-                .setColor(colorProvider.getPriorityColor(maxPriority, true))
+                .setColor(colorProvider.getPriorityColor(maxPriority))
                 .setOnlyAlertOnce(false)
                 .setContentIntent(
                         PendingIntent.getActivity(
@@ -316,7 +315,7 @@ class NotificationManager @Inject constructor(
         val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setContentTitle(taskTitle)
-                .setColor(colorProvider.getPriorityColor(task.priority, true))
+                .setColor(colorProvider.getPriorityColor(task.priority))
                 .setSmallIcon(R.drawable.ic_check_white_24dp)
                 .setWhen(`when`)
                 .setOnlyAlertOnce(false)

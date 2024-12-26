@@ -536,9 +536,6 @@
     <string name="sort_modified_group">%s נערך</string>
     <string name="sort_created_group">%s נוצר</string>
     <string name="davx5_selection_description">סנכרון המשימות שלך עם היישומון DAVx⁵</string>
-    <string name="desaturate_colors_summary_on">הצבעים יאפירו בערכות צבע כהות</string>
-    <string name="desaturate_colors_summary_off">הצבעים לא יאפירו בערכות צבע כהות</string>
-    <string name="desaturate_colors">האפרת צבעים</string>
     <string name="chip_appearance">מראה הצ׳יפ</string>
     <string name="chips">צ׳יפים</string>
     <string name="account">חשבון</string>

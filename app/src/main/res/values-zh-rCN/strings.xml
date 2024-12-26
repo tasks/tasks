@@ -424,9 +424,6 @@
     <string name="back">返回</string>
     <string name="chips">纸片</string>
     <string name="chip_appearance">纸片外观</string>
-    <string name="desaturate_colors">降低颜色饱和度</string>
-    <string name="desaturate_colors_summary_on">在深色主题下，降低颜色饱和度</string>
-    <string name="desaturate_colors_summary_off">在深色主题下，不降低颜色饱和度</string>
     <string name="places">地点</string>
     <string name="place_settings">地点设置</string>
     <string name="navigation_drawer">导航抽屉</string>

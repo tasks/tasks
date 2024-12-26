@@ -548,9 +548,6 @@ File %1$s contained %2$s.\n\n
   <string name="back">Back</string>
   <string name="chips">Chips</string>
   <string name="chip_appearance">Chip appearance</string>
-  <string name="desaturate_colors">Desaturate colors</string>
-  <string name="desaturate_colors_summary_on">Colors will be desaturated in dark themes</string>
-  <string name="desaturate_colors_summary_off">Colors will not be desaturated in dark themes</string>
   <string name="places">Places</string>
   <string name="place_settings">Place settings</string>
   <string name="navigation_drawer">Navigation drawer</string>

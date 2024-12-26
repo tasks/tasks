@@ -425,9 +425,6 @@
     <string name="place_settings">장소 설정</string>
     <string name="places">장소</string>
     <string name="upgrade_blurb_1">안녕하세요! Tasks의 1인 개발자 알렉스입니다</string>
-    <string name="desaturate_colors_summary_on">다크 테마 사용 시 채도를 낮춥니다</string>
-    <string name="desaturate_colors_summary_off">다크 테마 사용 시 채도를 낮추지 않습니다</string>
-    <string name="desaturate_colors">저채도 색상</string>
     <string name="chip_appearance">칩 모양</string>
     <string name="chips">칩</string>
     <string name="upgrade_blurb_2">저는 Tasks 개발에 엄청나게 많은 시간을 쏟고 있으며, 모든 소스코드를 웹에 무상으로 공개하고 있습니다. 저의 작업을 후원하기 위해 일부 기능은 구독이 필요합니다</string>

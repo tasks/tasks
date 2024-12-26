@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -36,7 +35,6 @@ import org.tasks.themes.TasksTheme
 fun PriorityRow(
     priority: Int,
     onChangePriority: (Int) -> Unit,
-    desaturate: Boolean,
 ) {
     TaskEditRow(
         iconRes = R.drawable.ic_outline_flag_24px,
@@ -44,7 +42,6 @@ fun PriorityRow(
             PriorityLabeled(
                 selected = priority,
                 onClick = { onChangePriority(it) },
-                desaturate = desaturate,
             )
         },
     )
@@ -54,7 +51,6 @@ fun PriorityRow(
 fun Priority(
     selected: Int,
     onClick: (Int) -> Unit = {},
-    desaturate: Boolean,
 ) {
     Row(horizontalArrangement = Arrangement.SpaceBetween) {
         for (i in Task.Priority.NONE downTo Task.Priority.HIGH) {
@@ -62,7 +58,6 @@ fun Priority(
                 priority = i,
                 selected = selected,
                 onClick = onClick,
-                desaturate = desaturate,
             )
         }
     }
@@ -72,7 +67,6 @@ fun Priority(
 fun PriorityLabeled(
     selected: Int,
     onClick: (Int) -> Unit = {},
-    desaturate: Boolean,
 ) {
     Row(
         modifier = Modifier
@@ -90,23 +84,20 @@ fun PriorityLabeled(
             color = MaterialTheme.colorScheme.onSurface,
         )
         Spacer(modifier = Modifier.weight(1f))
-        Priority(selected = selected, onClick = onClick, desaturate = desaturate)
+        Priority(selected = selected, onClick = onClick)
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RowScope.PriorityButton(
     @Task.Priority priority: Int,
     selected: Int,
-    desaturate: Boolean,
     onClick: (Int) -> Unit,
 ) {
     val color = Color(
         priorityColor(
             priority = priority,
             isDarkMode = isSystemInDarkTheme(),
-            desaturate = desaturate,
         )
     )
     CompositionLocalProvider(
@@ -135,7 +126,6 @@ fun PriorityPreview() {
         PriorityRow(
             priority = Task.Priority.MEDIUM,
             onChangePriority = {},
-            desaturate = true,
         )
     }
 }
@@ -148,7 +138,6 @@ fun PriorityPreviewNoDesaturate() {
         PriorityRow(
             priority = Task.Priority.MEDIUM,
             onChangePriority = {},
-            desaturate = false,
         )
     }
 }
@@ -161,7 +150,6 @@ fun PriorityNarrowWidth() {
         PriorityRow(
             priority = Task.Priority.MEDIUM,
             onChangePriority = {},
-            desaturate = false,
         )
     }
 }

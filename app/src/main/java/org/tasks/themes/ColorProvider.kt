@@ -11,14 +11,12 @@ import javax.inject.Inject
 
 class ColorProvider @Inject constructor(
     @param:ApplicationContext private val context: Context,
-    preferences: Preferences
 ) {
 
     private val isDark = context.resources.getBoolean(R.bool.is_dark)
-    private val desaturate = preferences.desaturateDarkMode
 
     private fun getColor(@ColorInt color: Int, adjust: Boolean) =
-            if (adjust && isDark && desaturate) {
+            if (adjust && isDark) {
                 saturated[color] ?: color
             } else {
                 color
@@ -27,13 +25,12 @@ class ColorProvider @Inject constructor(
     fun getThemeColor(@ColorInt color: Int, adjust: Boolean = true) =
             ThemeColor(context, color, getColor(color, adjust))
 
-    fun getPriorityColor(priority: Int, adjust: Boolean = true) = priorityColor(
+    fun getPriorityColor(priority: Int) = priorityColor(
         priority = priority,
         isDarkMode = isDark,
-        desaturate = adjust && desaturate,
     )
 
-    fun getThemeAccent(index: Int) = ThemeAccent(context, if (isDark && desaturate) {
+    fun getThemeAccent(index: Int) = ThemeAccent(context, if (isDark) {
         ThemeAccent.ACCENTS_DESATURATED[index]
     } else {
         ThemeAccent.ACCENTS[index]

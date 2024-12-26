@@ -434,9 +434,6 @@
     <string name="back">Geri</string>
     <string name="chips">Yongalar</string>
     <string name="chip_appearance">Yonga görünümü</string>
-    <string name="desaturate_colors">Renkleri solgunlaştır</string>
-    <string name="desaturate_colors_summary_on">Renkler karanlık gövdelerde solgunlaştırılacak</string>
-    <string name="desaturate_colors_summary_off">Renkler karanlık gövdelerde solgunlaştırılmayacak</string>
     <string name="places">Yerler</string>
     <string name="place_settings">Yer ayarları</string>
     <string name="navigation_drawer">Gezinim çekmecesi</string>

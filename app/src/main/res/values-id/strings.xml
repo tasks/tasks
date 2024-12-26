@@ -517,9 +517,6 @@
     <string name="hide_unused_places">Sembunyikan tempat yang tidak digunakan</string>
     <string name="place_settings">Pengaturan tempat</string>
     <string name="places">Tempat</string>
-    <string name="desaturate_colors_summary_off">Warna tidak akan dikurangi/desaturasi dalam tema gelap</string>
-    <string name="desaturate_colors_summary_on">Warna akan dikurangi/desaturasi dalam tema gelap</string>
-    <string name="desaturate_colors">Pengurangan/desaturasi warna</string>
     <string name="chips">Chip</string>
     <string name="color_wheel">Roda warna</string>
     <string name="wearable_notifications_summary">Tampilkan notifikasi pada alat wearable Anda</string>
