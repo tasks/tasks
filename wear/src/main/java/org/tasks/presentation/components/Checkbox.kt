@@ -29,7 +29,7 @@ fun Checkbox(
                 else -> Icons.Outlined.CheckBoxOutlineBlank
             },
             tint = Color(
-                ColorProvider.priorityColor(priority, isDarkMode = true, desaturate = true)
+                ColorProvider.priorityColor(priority, isDarkMode = true)
             ),
             contentDescription = null,
         )
