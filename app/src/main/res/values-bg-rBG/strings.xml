@@ -724,4 +724,6 @@
     <string name="delete_comment">коментар</string>
     <string name="price_per_month_with_currency">%s/месец</string>
     <string name="yesterday">Вчера</string>
+    <string name="add_shortcut_to_home_screen">Добавяне към началния екран</string>
+    <string name="add_widget_to_home_screen">Добавяне на приспособление</string>
 </resources>
