@@ -720,4 +720,10 @@
     <string name="send_application_logs">Anwendungsprotokolle senden</string>
     <string name="enable_alarms">Rechtzeitig benachrichtigt werden</string>
     <string name="enable_alarms_description">Um rechtzeitig benachrichtigt zu werden, musst du in den Einstellungen die Berechtigung erteilen, dass Alarme und Erinnerungen eingerichtet werden dürfen</string>
+    <string name="price_per_month_with_currency">%s/Monat</string>
+    <string name="price_per_year_with_currency">%s/Jahr</string>
+    <string name="add_widget_to_home_screen">Widget zum Startbildschirm hinzufügen</string>
+    <string name="delete_comment">Kommentar</string>
+    <string name="yesterday">Gestern</string>
+    <string name="add_shortcut_to_home_screen">Verknüpfung zum Startbildschirm hinzufügen</string>
 </resources>
