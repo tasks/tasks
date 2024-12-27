@@ -227,8 +227,6 @@ dependencies {
     implementation(libs.colorpicker)
     implementation(libs.appauth)
     implementation(libs.osmdroid)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.moshi)
     implementation(libs.androidx.recyclerview)
 
     implementation(platform(libs.androidx.compose))
@@ -245,6 +243,10 @@ dependencies {
     implementation(libs.coil.video)
     implementation(libs.coil.svg)
     implementation(libs.coil.gif)
+
+    implementation(libs.ktor)
+    implementation(libs.ktor.content.negotiation)
+    implementation(libs.ktor.serialization)
 
     implementation(libs.accompanist.permissions)
 

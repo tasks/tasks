@@ -106,7 +106,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         hideProgressIndicator()
         when (t) {
             is HttpException -> showSnackbar(t.message)
-            is retrofit2.HttpException -> showSnackbar(t.message() ?: "HTTP ${t.code()}")
+            is org.tasks.http.HttpException -> showSnackbar(t.message ?: "HTTP ${t.code}")
             is DisplayableException -> showSnackbar(t.resId)
             is ConnectException -> showSnackbar(R.string.network_error)
             else -> showSnackbar(R.string.error_adding_account, t.message!!)

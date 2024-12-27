@@ -2,8 +2,8 @@ package org.tasks
 
 import android.content.Context
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
-import com.squareup.moshi.Moshi
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.Json
 import org.tasks.caldav.applyRemote
 import org.tasks.caldav.iCalendar.Companion.reminders
 import org.tasks.data.entity.Alarm
@@ -20,6 +20,8 @@ import java.util.Locale
 import java.util.TimeZone
 
 object TestUtilities {
+    private val json = Json { ignoreUnknownKeys = true }
+
     fun withTZ(id: String, runnable: suspend () -> Unit) =
         withTZ(TimeZone.getTimeZone(id), runnable)
 
@@ -90,7 +92,7 @@ object TestUtilities {
     }
 
     private fun mstodoFromFile(path: String): Tasks.Task =
-        Moshi.Builder().build().adapter(Tasks::class.java).fromJson(readFile(path))!!.value.first()
+        json.decodeFromString<Tasks>(readFile(path)).value.first()
 
     fun readFile(path: String): String {
         val uri = javaClass.classLoader?.getResource(path)?.toURI()

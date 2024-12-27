@@ -1,51 +1,63 @@
 package org.tasks.sync.microsoft
 
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
-import retrofit2.Response
-import retrofit2.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.delete
+import io.ktor.client.request.get
+import io.ktor.client.request.patch
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 
-interface MicrosoftService {
-    @GET("/v1.0/me/todo/lists")
-    suspend fun getLists(): Response<TaskLists>
+class MicrosoftService(
+    private val client: HttpClient
+) {
+    private val baseUrl: String = "https://graph.microsoft.com/v1.0/me/todo"
 
-    @GET
-    suspend fun paginateLists(@Url nextPage: String): Response<TaskLists>
+    suspend fun getLists(): TaskLists = client.get("$baseUrl/lists").body()
 
-    @POST("/v1.0/me/todo/lists")
-    suspend fun createList(@Body body: RequestBody): Response<TaskLists.TaskList>
+    suspend fun paginateLists(nextPage: String): TaskLists = client.get(nextPage).body()
 
-    @PATCH("/v1.0/me/todo/lists/{listId}")
-    suspend fun updateList(
-        @Path("listId") listId: String,
-        @Body body: RequestBody
-    ): Response<TaskLists.TaskList>
+    suspend fun createList(body: TaskLists.TaskList): TaskLists.TaskList =
+        client
+            .post("$baseUrl/lists") {
+                contentType(ContentType.Application.Json)
+                setBody(body)
+            }
+            .body()
 
-    @DELETE("/v1.0/me/todo/lists/{listId}")
-    suspend fun deleteList(@Path("listId") listId: String): Response<ResponseBody>
+    suspend fun updateList(listId: String, body: TaskLists.TaskList): TaskLists.TaskList =
+        client
+            .patch("$baseUrl/lists/$listId") {
+                contentType(ContentType.Application.Json)
+                setBody(body)
+            }
+            .body()
 
-    @GET("/v1.0/me/todo/lists/{listId}/tasks/delta")
-    suspend fun getTasks(@Path("listId") listId: String): Response<Tasks>
+    suspend fun deleteList(listId: String) = client.delete("$baseUrl/lists/$listId")
 
-    @GET
-    suspend fun paginateTasks(@Url nextPage: String): Response<Tasks>
+    suspend fun getTasks(listId: String): Tasks =
+        client.get("$baseUrl/lists/$listId/tasks/delta").body()
 
-    @POST("/v1.0/me/todo/lists/{listId}/tasks")
-    suspend fun createTask(
-        @Path("listId") listId: String,
-        @Body body: RequestBody
-    ): Response<Tasks.Task>
+    suspend fun paginateTasks(nextPage: String): Tasks = client.get(nextPage).body()
 
-    @PATCH("/v1.0/me/todo/lists/{listId}/tasks/{taskId}")
-    suspend fun updateTask(
-        @Path("listId") listId: String,
-        @Path("taskId") taskId: String,
-        @Body body: RequestBody
-    ): Response<Tasks.Task>
+    suspend fun createTask(listId: String, body: Tasks.Task): Tasks.Task =
+        client
+            .post("$baseUrl/lists/$listId/tasks") {
+                contentType(ContentType.Application.Json)
+                setBody(body)
+            }
+            .body()
 
-    @DELETE("/v1.0/me/todo/lists/{listId}/tasks/{taskId}")
-    suspend fun deleteTask(
-        @Path("listId") listId: String,
-        @Path("taskId") taskId: String
-    ): Response<ResponseBody>
+    suspend fun updateTask(listId: String, taskId: String, body: Tasks.Task): Tasks.Task =
+        client
+            .patch("$baseUrl/lists/$listId/tasks/$taskId") {
+                contentType(ContentType.Application.Json)
+                setBody(body)
+            }
+            .body()
+
+    suspend fun deleteTask(listId: String, taskId: String) =
+        client.delete("$baseUrl/lists/$listId/tasks/$taskId")
 }

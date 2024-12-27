@@ -28,15 +28,16 @@
 +|              |    \--- androidx.lifecycle:lifecycle-common-jvm:2.8.7
 +|              |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.0 (*)
 +|              |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|              |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1
-+|              |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.1
++|              |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0
++|              |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0
 +|              |         |         +--- org.jetbrains:annotations:23.0.0
-+|              |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.8.1
-+|              |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1 (c)
-+|              |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.1 (c)
-+|              |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1 (c)
-+|              |         |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1 (c)
-+|              |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.1.0 (*)
++|              |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.9.0
++|              |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0 (c)
++|              |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0 (c)
++|              |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (c)
++|              |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.9.0 (c)
++|              |         |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.9.0 (c)
++|              |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.1.0 (*)
 +|              |         +--- androidx.lifecycle:lifecycle-common-java8:2.8.7 (c)
 +|              |         +--- androidx.lifecycle:lifecycle-livedata:2.8.7 (c)
 +|              |         +--- androidx.lifecycle:lifecycle-livedata-core:2.8.7 (c)
@@ -63,10 +64,10 @@
 +|              |    |         \--- androidx.tracing:tracing-ktx:1.2.0 (c)
 +|              |    \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|              +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|              +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.8.1
-+|              |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1 (*)
-+|              |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.8.1 (*)
-+|              |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.1.0 (*)
++|              +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.9.0
++|              |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|              |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.9.0 (*)
++|              |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.1.0 (*)
 +|              +--- androidx.lifecycle:lifecycle-common:2.8.7 (c)
 +|              +--- androidx.lifecycle:lifecycle-livedata:2.8.7 (c)
 +|              +--- androidx.lifecycle:lifecycle-livedata-core:2.8.7 (c)
@@ -90,13 +91,13 @@
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 (*)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.0
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1 -> 1.8.1 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1 -> 1.9.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-runtime-ktx:2.6.1 -> 2.8.7
 +|    |    \--- androidx.lifecycle:lifecycle-runtime-ktx-android:2.8.7
 +|    |         +--- androidx.annotation:annotation:1.8.0 -> 1.9.0 (*)
 +|    |         +--- androidx.lifecycle:lifecycle-runtime:2.8.7 (*)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.8.1 (*)
++|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.9.0 (*)
 +|    |         +--- androidx.lifecycle:lifecycle-common:2.8.7 (c)
 +|    |         +--- androidx.lifecycle:lifecycle-livedata:2.8.7 (c)
 +|    |         +--- androidx.lifecycle:lifecycle-livedata-core:2.8.7 (c)
@@ -151,7 +152,7 @@
 +|    |    |    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.7 (c)
 +|    |    |    \--- androidx.lifecycle:lifecycle-common-java8:2.8.7 (c)
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
++|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-common:2.8.7 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata-core:2.8.7 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.8.7 (c)
@@ -206,8 +207,8 @@
 +|         \--- androidx.lifecycle:lifecycle-viewmodel-android:2.8.7
 +|              +--- androidx.annotation:annotation:1.8.0 -> 1.9.0 (*)
 +|              +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|              +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.8.1 (*)
-+|              +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
++|              +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.9.0 (*)
++|              +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
 +|              +--- androidx.lifecycle:lifecycle-common:2.8.7 (c)
 +|              +--- androidx.lifecycle:lifecycle-livedata:2.8.7 (c)
 +|              +--- androidx.lifecycle:lifecycle-livedata-core:2.8.7 (c)
@@ -234,9 +235,9 @@
 ++--- com.google.firebase:firebase-crashlytics -> 19.3.0
 +|    +--- com.google.firebase:firebase-sessions:2.0.7
 +|    |    +--- com.google.firebase:firebase-common:21.0.0
-+|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4 -> 1.8.1
-+|    |    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1 (*)
-+|    |    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.8.1 (*)
++|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4 -> 1.9.0
++|    |    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|    |    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.9.0 (*)
 +|    |    |    |    +--- com.google.android.gms:play-services-tasks:16.0.1 -> 18.2.0
 +|    |    |    |    |    \--- com.google.android.gms:play-services-basement:18.4.0
 +|    |    |    |    |         +--- androidx.collection:collection:1.0.0 -> 1.4.4 (*)
@@ -277,7 +278,7 @@
 +|    |    |    |    |              |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.10 -> 2.1.0 (*)
 +|    |    |    |    |              |    |    |    \--- androidx.savedstate:savedstate-ktx:1.2.1 (c)
 +|    |    |    |    |              |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |    |    |    |              |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.8.1 (*)
++|    |    |    |    |              |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.9.0 (*)
 +|    |    |    |    |              |    |    +--- androidx.lifecycle:lifecycle-common:2.8.7 (c)
 +|    |    |    |    |              |    |    +--- androidx.lifecycle:lifecycle-livedata:2.8.7 (c)
 +|    |    |    |    |              |    |    +--- androidx.lifecycle:lifecycle-livedata-core:2.8.7 (c)
@@ -322,7 +323,7 @@
 +|    |    |    |    |              |         \--- androidx.collection:collection:1.1.0 -> 1.4.4 (*)
 +|    |    |    |    |              +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
 +|    |    |    |    |              \--- androidx.fragment:fragment-ktx:1.8.5 (c)
-+|    |    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.1.0 (*)
++|    |    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.1.0 (*)
 +|    |    |    +--- com.google.firebase:firebase-components:18.0.0
 +|    |    |    |    +--- com.google.firebase:firebase-annotations:16.2.0
 +|    |    |    |    |    \--- javax.inject:javax.inject:1
@@ -390,7 +391,7 @@
 +|    |    |         |         |         |    \--- org.jetbrains.kotlin:kotlin-android-extensions-runtime:2.1.0
 +|    |    |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 (*)
 +|    |    |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
++|    |    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
 +|    |    |         |         |         +--- androidx.datastore:datastore:1.1.1 (c)
 +|    |    |         |         |         +--- androidx.datastore:datastore-core-okio:1.1.1 (c)
 +|    |    |         |         |         +--- androidx.datastore:datastore-preferences:1.1.1 (c)
@@ -402,14 +403,14 @@
 +|    |    |         |         |         |    \--- com.squareup.okio:okio-jvm:3.9.0
 +|    |    |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.1.0 (*)
 +|    |    |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
++|    |    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
 +|    |    |         |         |         +--- androidx.datastore:datastore:1.1.1 (c)
 +|    |    |         |         |         +--- androidx.datastore:datastore-core:1.1.1 (c)
 +|    |    |         |         |         +--- androidx.datastore:datastore-preferences:1.1.1 (c)
 +|    |    |         |         |         \--- androidx.datastore:datastore-preferences-core:1.1.1 (c)
 +|    |    |         |         +--- com.squareup.okio:okio:3.4.0 -> 3.9.0 (*)
 +|    |    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |    |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
++|    |    |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
 +|    |    |         |         +--- androidx.datastore:datastore-core:1.1.1 (c)
 +|    |    |         |         +--- androidx.datastore:datastore-core-okio:1.1.1 (c)
 +|    |    |         |         +--- androidx.datastore:datastore-preferences:1.1.1 (c)
@@ -425,7 +426,7 @@
 +|    |    |         |         +--- androidx.datastore:datastore-core-okio:1.1.1 (c)
 +|    |    |         |         \--- androidx.datastore:datastore-preferences:1.1.1 (c)
 +|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
++|    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
 +|    |    |         +--- androidx.datastore:datastore:1.1.1 (c)
 +|    |    |         +--- androidx.datastore:datastore-preferences-core:1.1.1 (c)
 +|    |    |         +--- androidx.datastore:datastore-core:1.1.1 (c)
@@ -475,7 +476,7 @@
 +|    |    |    |    +--- androidx.annotation:annotation:1.6.0 -> 1.9.0 (*)
 +|    |    |    |    +--- androidx.core:core-ktx:1.8.0 -> 1.13.1 (*)
 +|    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.21 -> 2.1.0 (*)
-+|    |    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1 -> 1.8.1 (*)
++|    |    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1 -> 1.9.0 (*)
 +|    |    |    |    \--- androidx.privacysandbox.ads:ads-adservices-java:1.0.0-beta05 (c)
 +|    |    |    +--- androidx.privacysandbox.ads:ads-adservices-java:1.0.0-beta05
 +|    |    |    |    +--- androidx.annotation:annotation:1.2.0 -> 1.9.0 (*)
@@ -487,7 +488,7 @@
 +|    |    |    |    |    \--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
 +|    |    |    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.21 -> 2.1.0 (*)
-+|    |    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1 -> 1.8.1 (*)
++|    |    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1 -> 1.9.0 (*)
 +|    |    |    |    \--- androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05 (c)
 +|    |    |    +--- com.google.android.gms:play-services-base:18.5.0
 +|    |    |    |    +--- androidx.collection:collection:1.0.0 -> 1.4.4 (*)
@@ -551,8 +552,8 @@
 +|    +--- com.google.android.gms:play-services-basement:18.4.0 (*)
 +|    +--- com.google.android.gms:play-services-tasks:18.2.0 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.0 -> 2.1.0 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.8.1 (*)
-+|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.9.0 (*)
++|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
 ++--- com.google.android.gms:play-services-maps:19.0.0
 +|    +--- androidx.fragment:fragment:1.0.0 -> 1.8.5 (*)
 +|    +--- com.google.android.gms:play-services-base:18.5.0 (*)
@@ -569,7 +570,7 @@
 +|    |    +--- com.google.android.gms:play-services-location:19.0.0 -> 21.3.0 (*)
 +|    |    \--- com.google.android.gms:play-services-tasks:18.1.0 -> 18.2.0 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.0 -> 2.1.0 (*)
-+|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0 -> 1.8.1 (*)
++|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0 -> 1.9.0 (*)
 ++--- com.google.android.play:review-ktx:2.0.2
 +|    +--- androidx.core:core:1.1.0 -> 1.13.1 (*)
 +|    +--- androidx.fragment:fragment:1.1.0 -> 1.8.5 (*)
@@ -580,8 +581,8 @@
 +|    |    +--- com.google.android.gms:play-services-tasks:18.2.0 (*)
 +|    |    \--- com.google.android.play:core-common:2.0.4
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72 -> 2.1.0 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0 -> 1.8.1 (*)
-+|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0 -> 1.8.1 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0 -> 1.9.0 (*)
++|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0 -> 1.9.0 (*)
 ++--- com.google.android.gms:play-services-oss-licenses:17.1.0
 +|    +--- androidx.appcompat:appcompat:1.0.0 -> 1.7.0
 +|    |    +--- androidx.activity:activity:1.7.0 -> 1.9.3 (*)
@@ -634,15 +635,15 @@
 +|    +--- com.google.android.gms:play-services-basement:18.4.0 (*)
 +|    \--- com.google.android.gms:play-services-tasks:18.2.0 (*)
 ++--- com.google.android.horologist:horologist-datalayer-phone:0.6.22
-+|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1 -> 1.9.0 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1 -> 1.9.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-runtime-ktx:2.8.7 (*)
 +|    +--- androidx.wear:wear-remote-interactions:1.1.0-rc01
 +|    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.0 (*)
 +|    |    +--- androidx.concurrent:concurrent-futures-ktx:1.1.0
 +|    |    |    +--- androidx.concurrent:concurrent-futures:1.1.0 (*)
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.71 -> 2.1.0 (*)
-+|    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4 -> 1.8.1 (*)
++|    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4 -> 1.9.0 (*)
 +|    |    +--- com.google.android.gms:play-services-basement:17.0.0 -> 18.4.0 (*)
 +|    |    +--- com.google.android.gms:play-services-wearable:17.1.0 -> 19.0.0
 +|    |    |    +--- androidx.core:core:1.0.0 -> 1.13.1 (*)
@@ -651,7 +652,7 @@
 +|    |    |    \--- com.google.android.gms:play-services-tasks:18.2.0 (*)
 +|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
++|    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
 +|    +--- com.google.android.horologist:horologist-annotations:0.6.22
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.1.0 (*)
 +|    +--- com.google.android.horologist:horologist-datalayer:0.6.22
@@ -694,8 +695,8 @@
 +|    |    |    +--- androidx.compose.animation:animation-android:1.7.5 -> 1.7.6 (c)
 +|    |    |    +--- androidx.compose.foundation:foundation-layout-android:1.7.5 -> 1.7.6 (c)
 +|    |    |    \--- androidx.compose.animation:animation-core-android:1.7.5 -> 1.7.6 (c)
-+|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1 (*)
-+|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1 (*)
++|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1 -> 1.9.0 (*)
++|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1 -> 1.9.0 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-runtime-ktx:2.8.7 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-service:2.8.7 (*)
 +|    |    +--- com.google.android.horologist:horologist-annotations:0.6.22 (*)
@@ -710,9 +711,9 @@
 +|    +--- com.google.android.gms:play-services-wearable:19.0.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.1.0 (*)
 ++--- com.google.android.horologist:horologist-datalayer-grpc:0.6.22
-+|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1 -> 1.9.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-service:2.8.7 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1 -> 1.9.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-runtime-ktx:2.8.7 (*)
 +|    +--- androidx.wear:wear-remote-interactions:1.1.0-rc01 (*)
 +|    +--- com.google.android.horologist:horologist-annotations:0.6.22 (*)
@@ -724,7 +725,7 @@
 +|    |    \--- com.google.guava:guava:33.3.1-android (*)
 +|    +--- io.grpc:grpc-kotlin-stub:1.4.1
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.0 -> 2.1.0 (*)
-+|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.3 -> 1.8.1 (*)
++|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.3 -> 1.9.0 (*)
 +|    |    +--- io.grpc:grpc-stub:1.57.2
 +|    |    |    +--- io.grpc:grpc-api:1.57.2 -> 1.69.0 (*)
 +|    |    |    \--- com.google.guava:guava:32.0.1-android -> 33.3.1-android (*)
@@ -792,8 +793,8 @@
 +|    |         +--- org.jetbrains.kotlinx:atomicfu:0.17.0 -> 0.23.2
 +|    |         |    \--- org.jetbrains.kotlinx:atomicfu-jvm:0.23.2
 +|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:{prefer 1.9.21} -> 2.1.0 (*)
-+|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.8.1 (*)
-+|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
++|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.9.0 (*)
++|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
 +|    |         +--- androidx.room:room-common:2.7.0-alpha12 (c)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (c)
 +|    |         \--- androidx.room:room-ktx:2.7.0-alpha12 (c)
@@ -806,7 +807,9 @@
 +|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 (c)
 +|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.7.3 (c)
 +|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3 (c)
-+|    |         |    \--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.7.3 (c)
++|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json-io:1.7.3 (c)
++|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.7.3 (c)
++|    |         |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-io-jvm:1.7.3 (c)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.20 -> 2.1.0 (*)
 +|    |         \--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3
 +|    |              \--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.7.3
@@ -827,8 +830,8 @@
 +|    |    |         +--- androidx.annotation:annotation-experimental:1.4.1 (*)
 +|    |    |         +--- androidx.collection:collection:1.4.4 (*)
 +|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.8.1 (*)
-+|    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
++|    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.9.0 (*)
++|    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
 +|    |    |         +--- androidx.compose.runtime:runtime-livedata:1.7.6 (c)
 +|    |    |         \--- androidx.compose.runtime:runtime-saveable:1.7.6 (c)
 +|    |    +--- androidx.compose.ui:ui:1.7.6 (c)
@@ -855,7 +858,7 @@
 +|    |         |    +--- org.jetbrains.kotlin:kotlin-stdlib-common:1.9.24 -> 2.1.0
 +|    |         |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 (*)
 +|    |         |    +--- org.jetbrains.kotlinx:atomicfu:0.23.2 (*)
-+|    |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.8.1 (*)
++|    |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.9.0 (*)
 +|    |         +--- org.jetbrains.compose.foundation:foundation:1.7.1
 +|    |         |    +--- androidx.compose.foundation:foundation:1.7.5 -> 1.7.6
 +|    |         |    |    \--- androidx.compose.foundation:foundation-android:1.7.6
@@ -881,7 +884,7 @@
 +|    |         |    |         |         |         |         |    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1 -> 2.8.7
 +|    |         |    |         |         |         |         |    |    +--- androidx.lifecycle:lifecycle-viewmodel:2.8.7 (*)
 +|    |         |    |         |         |         |         |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |         |    |         |         |         |         |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.8.1 (*)
++|    |         |    |         |         |         |         |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.9.0 (*)
 +|    |         |    |         |         |         |         |    |    +--- androidx.lifecycle:lifecycle-common:2.8.7 (c)
 +|    |         |    |         |         |         |         |    |    +--- androidx.lifecycle:lifecycle-livedata:2.8.7 (c)
 +|    |         |    |         |         |         |         |    |    +--- androidx.lifecycle:lifecycle-livedata-core:2.8.7 (c)
@@ -993,7 +996,7 @@
 +|    |         |    |         |         |         |         |         +--- androidx.core:core:1.7.0 -> 1.13.1 (*)
 +|    |         |    |         |         |         |         |         +--- androidx.emoji2:emoji2:1.2.0 -> 1.3.0 (*)
 +|    |         |    |         |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |         |    |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
++|    |         |    |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
 +|    |         |    |         |         |         |         |         +--- androidx.compose.ui:ui:1.7.6 (c)
 +|    |         |    |         |         |         |         |         +--- androidx.compose.ui:ui-geometry:1.7.6 (c)
 +|    |         |    |         |         |         |         |         +--- androidx.compose.ui:ui-graphics:1.7.6 (c)
@@ -1032,8 +1035,8 @@
 +|    |         |    |         |         |         |         +--- androidx.profileinstaller:profileinstaller:1.3.1 -> 1.4.0 (*)
 +|    |         |    |         |         |         |         +--- androidx.savedstate:savedstate-ktx:1.2.1 (*)
 +|    |         |    |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |         |    |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.8.1 (*)
-+|    |         |    |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
++|    |         |    |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.9.0 (*)
++|    |         |    |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
 +|    |         |    |         |         |         |         +--- androidx.compose.ui:ui-geometry:1.7.6 (c)
 +|    |         |    |         |         |         |         +--- androidx.compose.ui:ui-graphics:1.7.6 (c)
 +|    |         |    |         |         |         |         +--- androidx.compose.ui:ui-text:1.7.6 (c)
@@ -1046,7 +1049,7 @@
 +|    |         |    |         |         |         +--- androidx.compose.ui:ui-unit:1.7.6 (*)
 +|    |         |    |         |         |         +--- androidx.compose.ui:ui-util:1.7.6 (*)
 +|    |         |    |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |         |    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
++|    |         |    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
 +|    |         |    |         |         |         \--- androidx.compose.animation:animation:1.7.6 (c)
 +|    |         |    |         |         +--- androidx.compose.foundation:foundation-layout:1.7.6
 +|    |         |    |         |         |    \--- androidx.compose.foundation:foundation-layout-android:1.7.6
@@ -1090,14 +1093,14 @@
 +|    |         |    |    |    |    |    +--- androidx.lifecycle:lifecycle-common:2.8.5 -> 2.8.7 (*)
 +|    |         |    |    |    |    |    +--- org.jetbrains.compose.annotation-internal:annotation:1.6.11 -> 1.7.1 (*)
 +|    |         |    |    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.1.0 (*)
-+|    |         |    |    |    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.8.1 (*)
++|    |         |    |    |    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.9.0 (*)
 +|    |         |    |    |    |    +--- org.jetbrains.androidx.lifecycle:lifecycle-runtime:2.8.4
 +|    |         |    |    |    |    |    +--- androidx.arch.core:core-common:2.2.0 (*)
 +|    |         |    |    |    |    |    +--- androidx.lifecycle:lifecycle-runtime:2.8.5 -> 2.8.7 (*)
 +|    |         |    |    |    |    |    +--- org.jetbrains.androidx.lifecycle:lifecycle-common:2.8.4 (*)
 +|    |         |    |    |    |    |    +--- org.jetbrains.compose.annotation-internal:annotation:1.6.11 -> 1.7.1 (*)
 +|    |         |    |    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.1.0 (*)
-+|    |         |    |    |    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.8.1 (*)
++|    |         |    |    |    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.9.0 (*)
 +|    |         |    |    |    |    +--- org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.8.4
 +|    |         |    |    |    |    |    +--- androidx.lifecycle:lifecycle-runtime-compose:2.8.5 -> 2.8.7 (*)
 +|    |         |    |    |    |    |    +--- org.jetbrains.androidx.lifecycle:lifecycle-common:2.8.4 (*)
@@ -1109,7 +1112,7 @@
 +|    |         |    |    |    |    |    +--- androidx.lifecycle:lifecycle-viewmodel:2.8.5 -> 2.8.7 (*)
 +|    |         |    |    |    |    |    +--- org.jetbrains.compose.annotation-internal:annotation:1.6.11 -> 1.7.1 (*)
 +|    |         |    |    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.1.0 (*)
-+|    |         |    |    |    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.8.1 (*)
++|    |         |    |    |    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.9.0 (*)
 +|    |         |    |    |    |    +--- org.jetbrains.compose.annotation-internal:annotation:1.7.1 (*)
 +|    |         |    |    |    |    +--- org.jetbrains.compose.collection-internal:collection:1.7.1 (*)
 +|    |         |    |    |    |    +--- org.jetbrains.compose.runtime:runtime:1.7.1 (*)
@@ -1144,14 +1147,14 @@
 +|    |         |    |    |    |    |    +--- org.jetbrains.compose.ui:ui-unit:1.7.1 (*)
 +|    |         |    |    |    |    |    +--- org.jetbrains.compose.ui:ui-util:1.7.1 (*)
 +|    |         |    |    |    |    |    +--- org.jetbrains.kotlinx:atomicfu:0.23.2 (*)
-+|    |         |    |    |    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.8.1 (*)
++|    |         |    |    |    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.9.0 (*)
 +|    |         |    |    |    |    +--- org.jetbrains.compose.ui:ui-unit:1.7.1 (*)
 +|    |         |    |    |    |    +--- org.jetbrains.compose.ui:ui-util:1.7.1 (*)
 +|    |         |    |    |    |    +--- org.jetbrains.kotlinx:atomicfu:0.23.2 (*)
-+|    |         |    |    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.8.1 (*)
++|    |         |    |    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.9.0 (*)
 +|    |         |    |    |    +--- org.jetbrains.compose.ui:ui-unit:1.7.1 (*)
 +|    |         |    |    |    +--- org.jetbrains.compose.ui:ui-util:1.7.1 (*)
-+|    |         |    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.8.1 (*)
++|    |         |    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.9.0 (*)
 +|    |         |    |    +--- org.jetbrains.compose.collection-internal:collection:1.7.1 (*)
 +|    |         |    |    +--- org.jetbrains.compose.foundation:foundation-layout:1.7.1
 +|    |         |    |    |    +--- androidx.compose.foundation:foundation-layout:1.7.5 -> 1.7.6 (*)
@@ -1171,7 +1174,7 @@
 +|    |         |    +--- org.jetbrains.compose.ui:ui:1.7.1 (*)
 +|    |         |    +--- org.jetbrains.compose.ui:ui-text:1.7.1 (*)
 +|    |         |    \--- org.jetbrains.compose.ui:ui-util:1.7.1 (*)
-+|    |         \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.8.1 (*)
++|    |         \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.9.0 (*)
 +|    +--- org.jetbrains.compose.foundation:foundation:1.7.1 (*)
 +|    +--- org.jetbrains.compose.material3:material3:1.7.1
 +|    |    +--- androidx.compose.material3:material3:1.3.1
@@ -1315,7 +1318,7 @@
 +|    |    |    +--- com.damnhandy:handy-uri-templates:2.1.8
 +|    |    |    |    \--- joda-time:joda-time:2.10.2
 +|    |    |    \--- com.google.re2j:re2j:1.6
-+|    |    +--- org.slf4j:slf4j-api:1.7.36 -> 2.0.3
++|    |    +--- org.slf4j:slf4j-api:1.7.36 -> 2.0.16
 +|    |    +--- commons-codec:commons-codec:1.15 -> 1.17.0
 +|    |    +--- org.apache.commons:commons-lang3:3.12.0
 +|    |    +--- org.apache.commons:commons-collections4:4.4
@@ -1325,7 +1328,7 @@
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.21 -> 2.1.0 (*)
 +|    +--- commons-io:commons-io:2.6
 +|    +--- org.slf4j:slf4j-jdk14:2.0.3
-+|    |    \--- org.slf4j:slf4j-api:2.0.3
++|    |    \--- org.slf4j:slf4j-api:2.0.3 -> 2.0.16
 +|    \--- androidx.core:core-ktx:1.9.0 -> 1.13.1 (*)
 ++--- com.github.bitfireAT:cert4android:7814052
 +|    +--- androidx.databinding:databinding-common:7.2.0 -> 8.7.3
@@ -1350,7 +1353,7 @@
 +|    |    +--- androidx.lifecycle:lifecycle-livedata:2.8.7 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.8.7 (*)
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.1 (*)
++|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-common:2.8.7 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata:2.8.7 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata-core:2.8.7 (c)
@@ -1456,7 +1459,7 @@
 +|    |    |    +--- androidx.room:room-common:2.7.0-alpha12 (*)
 +|    |    |    +--- androidx.room:room-runtime:2.7.0-alpha12 (*)
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.1.0 (*)
-+|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.8.1 (*)
++|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.9.0 (*)
 +|    |    |    +--- androidx.room:room-common:2.7.0-alpha12 (c)
 +|    |    |    +--- androidx.room:room-runtime:2.7.0-alpha12 (c)
 +|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (c)
@@ -1467,7 +1470,7 @@
 +|    |    |    \--- androidx.tracing:tracing:1.2.0 (c)
 +|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.1.0 (*)
-+|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.8.1 (*)
++|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.9.0 (*)
 +|    |    +--- androidx.work:work-runtime-ktx:2.10.0 (c)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (c)
 +|    \--- com.google.dagger:hilt-android:2.49 -> 2.54 (*)
@@ -1531,7 +1534,7 @@
 +|    |    +--- androidx.core:core:1.1.0 -> 1.13.1 (*)
 +|    |    +--- androidx.window:window:1.0.0
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.6.0 -> 2.1.0 (*)
-+|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2 -> 1.8.1 (*)
++|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2 -> 1.9.0 (*)
 +|    |    |    +--- androidx.annotation:annotation:1.2.0 -> 1.9.0 (*)
 +|    |    |    +--- androidx.collection:collection:1.1.0 -> 1.4.4 (*)
 +|    |    |    \--- androidx.core:core:1.3.2 -> 1.13.1 (*)
@@ -1593,12 +1596,6 @@
 +|         +--- androidx.annotation:annotation:1.1.0 -> 1.9.0 (*)
 +|         \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 ++--- org.osmdroid:osmdroid-android:6.1.20
-++--- com.squareup.retrofit2:retrofit:2.9.0
-+|    \--- com.squareup.okhttp3:okhttp:3.14.9 -> 4.12.0 (*)
-++--- com.squareup.retrofit2:converter-moshi:2.9.0
-+|    +--- com.squareup.retrofit2:retrofit:2.9.0 (*)
-+|    \--- com.squareup.moshi:moshi:1.8.0
-+|         \--- com.squareup.okio:okio:1.16.0 -> 3.9.0 (*)
 ++--- androidx.recyclerview:recyclerview:1.3.2 (*)
 ++--- androidx.compose:compose-bom:2024.11.00 (*)
 ++--- androidx.compose.ui:ui -> 1.7.6 (*)
@@ -1651,7 +1648,7 @@
 +|    |    +--- androidx.core:core-ktx:1.12.0 -> 1.13.1 (*)
 +|    |    +--- com.google.accompanist:accompanist-drawablepainter:0.32.0
 +|    |    |    +--- androidx.compose.ui:ui:1.5.0 -> 1.7.6 (*)
-+|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 -> 1.8.1 (*)
++|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 -> 1.9.0 (*)
 +|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0 -> 2.1.0 (*)
 +|    |    +--- io.coil-kt:coil-base:2.7.0
 +|    |    |    +--- androidx.annotation:annotation:1.7.1 -> 1.9.0 (*)
@@ -1662,7 +1659,7 @@
 +|    |    |    |    \--- androidx.annotation:annotation:1.2.0 -> 1.9.0 (*)
 +|    |    |    +--- androidx.profileinstaller:profileinstaller:1.3.1 -> 1.4.0 (*)
 +|    |    |    +--- androidx.lifecycle:lifecycle-runtime:2.7.0 -> 2.8.7 (*)
-+|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1 (*)
++|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1 -> 1.9.0 (*)
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.1.0 (*)
 +|    |    |    +--- com.squareup.okhttp3:okhttp:4.12.0 (*)
 +|    |    |    \--- com.squareup.okio:okio:3.9.0 (*)
@@ -1686,8 +1683,106 @@
 +|    +--- androidx.vectordrawable:vectordrawable-animated:1.1.0 (*)
 +|    +--- io.coil-kt:coil-base:2.7.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.1.0 (*)
+++--- io.ktor:ktor-client-android:3.0.3
++|    \--- io.ktor:ktor-client-android-jvm:3.0.3
++|         +--- org.slf4j:slf4j-api:2.0.16
++|         +--- io.ktor:ktor-client-core:3.0.3
++|         |    \--- io.ktor:ktor-client-core-jvm:3.0.3
++|         |         +--- org.slf4j:slf4j-api:2.0.16
++|         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         |         +--- io.ktor:ktor-http:3.0.3
++|         |         |    \--- io.ktor:ktor-http-jvm:3.0.3
++|         |         |         +--- org.slf4j:slf4j-api:2.0.16
++|         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         |         |         +--- io.ktor:ktor-utils:3.0.3
++|         |         |         |    \--- io.ktor:ktor-utils-jvm:3.0.3
++|         |         |         |         +--- org.slf4j:slf4j-api:2.0.16
++|         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         |         |         |         +--- io.ktor:ktor-io:3.0.3
++|         |         |         |         |    \--- io.ktor:ktor-io-jvm:3.0.3
++|         |         |         |         |         +--- org.slf4j:slf4j-api:2.0.16
++|         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-io-core:0.5.4
++|         |         |         |         |         |    \--- org.jetbrains.kotlinx:kotlinx-io-core-jvm:0.5.4
++|         |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-io-bytestring:0.5.4
++|         |         |         |         |         |         |    \--- org.jetbrains.kotlinx:kotlinx-io-bytestring-jvm:0.5.4
++|         |         |         |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.1.0 (*)
++|         |         |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.1.0 (*)
++|         |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
++|         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 (*)
++|         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
++|         |         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 (*)
++|         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
++|         |         +--- io.ktor:ktor-events:3.0.3
++|         |         |    \--- io.ktor:ktor-events-jvm:3.0.3
++|         |         |         +--- org.slf4j:slf4j-api:2.0.16
++|         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         |         |         +--- io.ktor:ktor-http:3.0.3 (*)
++|         |         |         +--- io.ktor:ktor-utils:3.0.3 (*)
++|         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
++|         |         +--- io.ktor:ktor-websocket-serialization:3.0.3
++|         |         |    \--- io.ktor:ktor-websocket-serialization-jvm:3.0.3
++|         |         |         +--- org.slf4j:slf4j-api:2.0.16
++|         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         |         |         +--- io.ktor:ktor-http:3.0.3 (*)
++|         |         |         +--- io.ktor:ktor-serialization:3.0.3
++|         |         |         |    \--- io.ktor:ktor-serialization-jvm:3.0.3
++|         |         |         |         +--- org.slf4j:slf4j-api:2.0.16
++|         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         |         |         |         +--- io.ktor:ktor-http:3.0.3 (*)
++|         |         |         |         +--- io.ktor:ktor-websockets:3.0.3
++|         |         |         |         |    \--- io.ktor:ktor-websockets-jvm:3.0.3
++|         |         |         |         |         +--- org.slf4j:slf4j-api:2.0.16
++|         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         |         |         |         |         +--- io.ktor:ktor-http:3.0.3 (*)
++|         |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
++|         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
++|         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
++|         |         +--- io.ktor:ktor-sse:3.0.3
++|         |         |    \--- io.ktor:ktor-sse-jvm:3.0.3
++|         |         |         +--- org.slf4j:slf4j-api:2.0.16
++|         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         |         |         +--- io.ktor:ktor-http:3.0.3 (*)
++|         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
++|         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
++|         |         \--- org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.9.0
++|         |              +--- org.slf4j:slf4j-api:1.7.32 -> 2.0.16
++|         |              +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         |              +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.9.0 (*)
++|         |              \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.1.0 (*)
++|         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
+++--- io.ktor:ktor-client-content-negotiation:3.0.3
++|    \--- io.ktor:ktor-client-content-negotiation-jvm:3.0.3
++|         +--- org.slf4j:slf4j-api:2.0.16
++|         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         +--- io.ktor:ktor-client-core:3.0.3 (*)
++|         +--- io.ktor:ktor-serialization:3.0.3 (*)
++|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
+++--- io.ktor:ktor-serialization-kotlinx-json:3.0.3
++|    \--- io.ktor:ktor-serialization-kotlinx-json-jvm:3.0.3
++|         +--- org.slf4j:slf4j-api:2.0.16
++|         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         +--- io.ktor:ktor-http:3.0.3 (*)
++|         +--- io.ktor:ktor-serialization-kotlinx:3.0.3
++|         |    \--- io.ktor:ktor-serialization-kotlinx-jvm:3.0.3
++|         |         +--- org.slf4j:slf4j-api:2.0.16
++|         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         |         +--- io.ktor:ktor-http:3.0.3 (*)
++|         |         +--- io.ktor:ktor-serialization:3.0.3 (*)
++|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 (*)
++|         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
++|         +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3 (*)
++|         +--- org.jetbrains.kotlinx:kotlinx-serialization-json-io:1.7.3
++|         |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-io-jvm:1.7.3
++|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.7.3 (*)
++|         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.20 -> 2.1.0 (*)
++|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 (*)
++|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3 (*)
++|         |         \--- org.jetbrains.kotlinx:kotlinx-io-core:0.4.0 -> 0.5.4 (*)
++|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
 +\--- com.google.accompanist:accompanist-permissions:0.37.0
 +     +--- androidx.activity:activity-compose:1.9.0 -> 1.9.3 (*)
 +     +--- androidx.compose.foundation:foundation:1.7.0 -> 1.7.6 (*)
-+     +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 -> 1.8.1 (*)
++     +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 -> 1.9.0 (*)
 +     \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.20 -> 2.1.0 (*)

@@ -1,14 +1,17 @@
 package org.tasks.sync.microsoft
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Tasks(
     val value: List<Task>,
-    @field:Json(name = "@odata.nextLink") val nextPage: String?,
-    @field:Json(name = "@odata.deltaLink") val nextDelta: String?,
+    @SerialName("@odata.nextLink") val nextPage: String? = null,
+    @SerialName("@odata.deltaLink") val nextDelta: String? = null,
 ) {
+    @Serializable
     data class Task(
-        @field:Json(name = "@odata.etag") val etag: String? = null,
+        @SerialName("@odata.etag") val etag: String? = null,
         val id: String? = null,
         val title: String? = null,
         val body: Body? = null,
@@ -22,13 +25,15 @@ data class Tasks(
         val dueDateTime: DateTime? = null,
         val linkedResources: List<LinkedResource>? = null,
         val recurrence: Recurrence? = null,
-        @field:Json(name = "@removed") val removed: Removed? = null,
+        @SerialName("@removed") val removed: Removed? = null,
     ) {
+        @Serializable
         data class Body(
             val content: String,
             val contentType: String,
         )
 
+        @Serializable
         data class LinkedResource(
             val applicationName: String,
             val displayName: String,
@@ -36,19 +41,23 @@ data class Tasks(
             val id: String,
         )
 
+        @Serializable
         data class Removed(
             val reason: String,
         )
 
+        @Serializable
         data class DateTime(
             val dateTime: String,
             val timeZone: String,
         )
 
+        @Serializable
         data class Recurrence(
             val pattern: Pattern,
         )
 
+        @Serializable
         data class Pattern(
             val type: RecurrenceType,
             val interval: Int,

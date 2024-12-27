@@ -1,8 +1,8 @@
 package org.tasks.sync.microsoft
 
+import io.ktor.client.call.body
+import io.ktor.client.statement.HttpResponse
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import retrofit2.Response
 
 @Serializable
 data class Error(
@@ -15,7 +15,6 @@ data class Error(
     )
 
     companion object {
-        fun <T> Response<T>.toMicrosoftError()
-            = errorBody()?.string()?.let { Json.decodeFromString<Error>(it) }
+        suspend fun HttpResponse.toMicrosoftError() = body<Error>()
     }
 }

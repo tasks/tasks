@@ -4,10 +4,18 @@ import android.content.Context
 import at.bitfire.cert4android.CustomCertManager
 import at.bitfire.dav4jvm.BasicDigestAuthHandler
 import dagger.hilt.android.qualifiers.ApplicationContext
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.android.Android
+import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.cookies.HttpCookies
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.request.header
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
 import net.openid.appauth.AuthState
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.internal.tls.OkHostnameVerifier
 import org.tasks.DebugNetworkInterceptor
@@ -18,8 +26,6 @@ import org.tasks.preferences.Preferences
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sync.microsoft.MicrosoftService
 import org.tasks.sync.microsoft.requestTokenRefresh
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
 import javax.net.ssl.SSLContext
 
@@ -92,25 +98,33 @@ class HttpClientFactory @Inject constructor(
         if (!authState.isAuthorized) {
             throw RuntimeException("Needs authentication")
         }
-        val client = newClient(cookieKey = account.username) {
-            it.addInterceptor { chain ->
-                chain.proceed(
-                    chain.request().newBuilder()
-                        .header("Authorization", "Bearer ${authState.accessToken}")
-                        .build()
+        val client = HttpClient(Android) {
+            expectSuccess = true
+
+            install(ContentNegotiation) {
+                json(
+                    Json {
+                        ignoreUnknownKeys = true
+                    }
                 )
             }
-        }
-        val retrofit = Retrofit.Builder()
-            .baseUrl(URL_MICROSOFT)
-            .addConverterFactory(MoshiConverterFactory.create())
-            .client(client)
-            .build()
-        return retrofit.create(MicrosoftService::class.java)
-    }
 
-    companion object {
-        const val URL_MICROSOFT = "https://graph.microsoft.com"
-        val MEDIA_TYPE_JSON = "application/json".toMediaType()
+            defaultRequest {
+                header("Authorization", "Bearer ${authState.accessToken}")
+            }
+
+            install(HttpTimeout) {
+                requestTimeoutMillis = 30_000
+            }
+
+            install(HttpCookies) {
+                storage = AndroidCookieStorage(context = context, key = account.username)
+            }
+
+            install(HttpErrorHandler)
+        }
+        return MicrosoftService(
+            client = client
+        )
     }
 }
