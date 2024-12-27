@@ -718,4 +718,6 @@
     <string name="swipe_to_snooze_time_immediately">Onmiddellijk</string>
     <string name="send_application_logs">Stuur applicatielogboeken</string>
     <string name="quiet_hours_in_effect">Rusttijd staat aan</string>
+    <string name="add_widget_to_home_screen">Widget aan startscherm toevoegen</string>
+    <string name="add_shortcut_to_home_screen">Snelkoppeling aan startscherm toevoegen</string>
 </resources>
