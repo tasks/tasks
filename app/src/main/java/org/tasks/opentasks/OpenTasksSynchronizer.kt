@@ -179,7 +179,8 @@ class OpenTasksSynchronizer @Inject constructor(
                 .takeIf { it.isNotEmpty() }
                 ?.let {
                     Timber.d("DELETED $it")
-                    taskDeleter.delete(caldavDao.getTasksByRemoteId(calendar, it.toList()))
+                    val tasks = caldavDao.getTasksByRemoteId(calendar, it.toList())
+                    taskDeleter.delete(tasks.map { it.task })
                 }
     }
 

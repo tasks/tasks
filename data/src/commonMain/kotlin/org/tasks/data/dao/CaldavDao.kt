@@ -243,17 +243,17 @@ SELECT EXISTS(SELECT 1
     @Query("SELECT cd_remote_id FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0 AND cd_last_sync > 0")
     abstract suspend fun getRemoteIds(calendar: String): List<String>
 
-    suspend fun getTasksByRemoteId(calendar: String, remoteIds: List<String>): List<Long> =
+    suspend fun getTasksByRemoteId(calendar: String, remoteIds: List<String>): List<CaldavTask> =
             remoteIds.chunkedMap { getTasksByRemoteIdInternal(calendar, it) }
 
-    @Query("SELECT cd_task FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_remote_id IN (:remoteIds)")
-    internal abstract suspend fun getTasksByRemoteIdInternal(calendar: String, remoteIds: List<String>): List<Long>
+    @Query("SELECT * FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_remote_id IN (:remoteIds)")
+    internal abstract suspend fun getTasksByRemoteIdInternal(calendar: String, remoteIds: List<String>): List<CaldavTask>
 
-    suspend fun getTasks(calendar: String, objects: List<String>): List<Long> =
+    suspend fun getTasks(calendar: String, objects: List<String>): List<CaldavTask> =
             objects.chunkedMap { getTasksInternal(calendar, it) }
 
-    @Query("SELECT cd_task FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_object IN (:objects)")
-    internal abstract suspend fun getTasksInternal(calendar: String, objects: List<String>): List<Long>
+    @Query("SELECT * FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_object IN (:objects)")
+    internal abstract suspend fun getTasksInternal(calendar: String, objects: List<String>): List<CaldavTask>
 
     @Query("SELECT * FROM caldav_lists WHERE cdl_account = :account AND cdl_url NOT IN (:urls)")
     abstract suspend fun findDeletedCalendars(account: String, urls: List<String>): List<CaldavCalendar>

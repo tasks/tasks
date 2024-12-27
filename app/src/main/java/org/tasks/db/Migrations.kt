@@ -6,6 +6,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.execSQL
 import androidx.sqlite.use
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.caldav.FileStorage
 import org.tasks.data.NO_ORDER
@@ -466,7 +467,9 @@ object Migrations {
                             ?: continue
                         val `object` = it.getTextOrNull(2) ?: continue
                         val data = it.getTextOrNull(3) ?: continue
-                        fileStorage.write(File(file, `object`), data)
+                        runBlocking {
+                            fileStorage.write(File(file, `object`), data)
+                        }
                     }
                 }
             connection.execSQL("ALTER TABLE `caldav_tasks` RENAME TO `caldav_tasks-temp`")

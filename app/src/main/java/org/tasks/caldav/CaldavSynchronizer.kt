@@ -25,6 +25,7 @@ import at.bitfire.ical4android.ICalendar.Companion.prodId
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.runBlocking
 import net.fortuna.ical4j.model.property.ProdId
 import okhttp3.Headers
 import okhttp3.HttpUrl
@@ -291,7 +292,9 @@ class CaldavSynchronizer @Inject constructor(
                 .takeIf { it.isNotEmpty() }
                 ?.let {
                     Timber.d("DELETED $it")
-                    taskDeleter.delete(caldavDao.getTasks(caldavCalendar.uuid!!, it.toList()))
+                    val tasks = caldavDao.getTasks(caldavCalendar.uuid!!, it.toList())
+                    vtodoCache.delete(caldavCalendar, tasks)
+                    taskDeleter.delete(tasks.map { it.task })
                 }
         caldavCalendar.ctag = remoteCtag
         Timber.d("UPDATE %s", caldavCalendar)
@@ -369,7 +372,9 @@ class CaldavSynchronizer @Inject constructor(
                     fromResponse(it)?.eTag?.takeIf(String::isNotBlank)?.let { etag ->
                         caldavTask.etag = etag
                     }
-                    vtodoCache.putVtodo(calendar, caldavTask, String(data))
+                    runBlocking {
+                        vtodoCache.putVtodo(calendar, caldavTask, String(data))
+                    }
                 }
             }
         } catch (e: HttpException) {

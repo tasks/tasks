@@ -2,6 +2,8 @@ package org.tasks.caldav
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 
@@ -18,9 +20,11 @@ class FileStorage @Inject constructor(
             null
         }
 
-    fun read(file: File?): String? = file?.takeIf { it.exists() }?.readText()
+    suspend fun read(file: File?): String? = withContext(Dispatchers.IO) {
+        file?.takeIf { it.exists() }?.readText()
+    }
 
-    fun write(file: File, data: String?) {
+    suspend fun write(file: File, data: String?) = withContext(Dispatchers.IO) {
         if (data.isNullOrBlank()) {
             file.delete()
         } else {
