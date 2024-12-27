@@ -76,10 +76,10 @@ class TaskDeleter @Inject constructor(
         localBroadcastManager.broadcastRefreshList()
     }
 
-    suspend fun delete(list: CaldavAccount) {
-        vtodoCache.delete(list)
+    suspend fun delete(account: CaldavAccount) {
+        vtodoCache.delete(account)
         database.withTransaction {
-            val tasks = deletionDao.delete(list)
+            val tasks = deletionDao.delete(account)
             delete(tasks)
         }
         localBroadcastManager.broadcastRefreshList()
