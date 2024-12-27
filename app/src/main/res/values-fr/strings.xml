@@ -745,4 +745,6 @@
     <string name="customize_drawer_summary">Glisser-déposer pour réorganiser les éléments du menu</string>
     <string name="send_application_logs">Envoyer les journaux de l\'application</string>
     <string name="quiet_hours_in_effect">Les heures de tranquillité sont en vigueur</string>
+    <string name="add_widget_to_home_screen">Ajouter le widget à l\'écran d\'accueil</string>
+    <string name="add_shortcut_to_home_screen">Ajouter le raccourci à l\'écran d\'accueil</string>
 </resources>
