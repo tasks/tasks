@@ -713,4 +713,6 @@
     <string name="delete_comment">注释</string>
     <string name="price_per_month_with_currency">每月%s</string>
     <string name="price_per_year_with_currency">每年%s</string>
+    <string name="add_widget_to_home_screen">添加小部件到主屏幕</string>
+    <string name="add_shortcut_to_home_screen">添加快捷方式到主屏幕</string>
 </resources>
