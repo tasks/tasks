@@ -6,7 +6,6 @@ import com.google.api.client.util.DateTime
 import com.google.api.services.tasks.model.Task
 import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.Tasks
-import org.tasks.filters.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.gtasks.GtasksListService
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities
@@ -30,6 +29,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.filters.GtasksFilter
 import org.tasks.googleapis.InvokerFactory
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.PermissionChecker
@@ -408,8 +408,8 @@ class GoogleTaskSynchronizer @Inject constructor(
             }
         }
 
-        fun mergeDates(remoteDueDate: Long, local: org.tasks.data.entity.Task?) {
-            if (remoteDueDate > 0 && local!!.hasDueTime()) {
+        fun mergeDates(remoteDueDate: Long, local: org.tasks.data.entity.Task) {
+            if (remoteDueDate > 0 && local.hasDueTime()) {
                 val oldDate = newDateTime(local.dueDate)
                 val newDate = newDateTime(remoteDueDate)
                         .withHourOfDay(oldDate.hourOfDay)
@@ -418,7 +418,7 @@ class GoogleTaskSynchronizer @Inject constructor(
                 local.setDueDateAdjustingHideUntil(
                         createDueDate(org.tasks.data.entity.Task.URGENCY_SPECIFIC_DAY_TIME, newDate.millis))
             } else {
-                local!!.setDueDateAdjustingHideUntil(remoteDueDate)
+                local.setDueDateAdjustingHideUntil(remoteDueDate)
             }
         }
 
