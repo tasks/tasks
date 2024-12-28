@@ -47,6 +47,7 @@ import org.tasks.data.entity.Alarm.Companion.whenStarted
 import org.tasks.data.entity.Attachment
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.FORCE_CALDAV_SYNC
+import org.tasks.data.entity.FORCE_MICROSOFT_SYNC
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.NOTIFY_MODE_FIVE
@@ -303,6 +304,7 @@ class TaskEditViewModel @Inject constructor(
                 geofenceApi.update(place)
             }
             task.putTransitory(FORCE_CALDAV_SYNC, true)
+            task.putTransitory(FORCE_MICROSOFT_SYNC, true)
             task.modificationDate = currentTimeMillis()
         }
 

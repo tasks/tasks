@@ -209,6 +209,24 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
                 && order == original.order
     }
 
+    fun microsoftUpToDate(original: Task?): Boolean {
+        if (this === original) {
+            return true
+        }
+        return if (original == null) {
+            false
+        } else title == original.title
+                && priority == original.priority
+                && dueDate == original.dueDate
+                && completionDate == original.completionDate
+                && deletionDate == original.deletionDate
+                && notes == original.notes
+                && recurrence == original.recurrence
+    }
+
+    val isSaved: Boolean
+        get() = id != NO_ID
+
     @Synchronized
     fun suppressSync() {
         putTransitory(SUPPRESS_SYNC, true)

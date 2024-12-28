@@ -104,6 +104,7 @@ data class Tasks(
             val displayName: String,
             val createdDateTime: String,
             val isChecked: Boolean,
+            val checkedDateTime: String? = null,
         )
 
         enum class Importance {

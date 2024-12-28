@@ -1,0 +1,37 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#Collection(microsoft.graph.todoTask)",
+  "@odata.deltaLink": "https://graph.microsoft.com/v1.0/me/todo/lists/AQMkADAwATNiZmYAZC04OABiMC0xZDlkLTAwAi0wMAoALgAAA8dKmrSa60tBjeiKoPukmoQBAEkTxp6Wx2BEtV1vFJWK7bIAAAIBEgAAAA==/tasks/delta?$deltatoken=l7WI41swwioT5csv4k99nsI1g9edRWmhEdD3bNOZ7-rc46AMZg2MtbDgi16FTUf1hytpwqSoQPivt3HosbzK8NGe2b80hqMvQytfL_dKubI.QhlhA0l59_5SfjuT4sFgtaW-eNwTl9S-gU61XOXMX9w",
+  "value": [
+    {
+      "@odata.etag": "W/\"SRPGnpbHYES1XW8UlYrtsgAHuEeQXA==\"",
+      "importance": "normal",
+      "isReminderOn": false,
+      "status": "notStarted",
+      "title": "Task with subtasks",
+      "createdDateTime": "2024-12-28T08:44:02.0198785Z",
+      "lastModifiedDateTime": "2024-12-28T09:22:34.6256622Z",
+      "hasAttachments": false,
+      "categories": [],
+      "id": "AQMkADAwATNiZmYAZC04OABiMC0xZDlkLTAwAi0wMAoARgAAA8dKmrSa60tBjeiKoPukmoQHAEkTxp6Wx2BEtV1vFJWK7bIAAAIBEgAAAEkTxp6Wx2BEtV1vFJWK7bIAB7gay5sAAAA=",
+      "body": {
+        "content": "\r\n",
+        "contentType": "text"
+      },
+      "checklistItems": [
+        {
+          "displayName": "Step 1",
+          "createdDateTime": "2024-12-28T08:44:10.5803039Z",
+          "isChecked": false,
+          "id": "e3709a6d-98ef-43ce-9548-ac195ba052f3"
+        },
+        {
+          "displayName": "Step 2",
+          "createdDateTime": "2024-12-28T08:44:16.2330419Z",
+          "checkedDateTime": "2024-12-28T09:22:34.5800728Z",
+          "isChecked": true,
+          "id": "88741356-5b0c-4822-896f-047f3a977449"
+        }
+      ]
+    }
+  ]
+}

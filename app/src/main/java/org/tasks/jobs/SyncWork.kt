@@ -22,18 +22,20 @@ import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavSynchronizer
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
+import org.tasks.data.OpenTaskDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskListDao
-import org.tasks.data.OpenTaskDao
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.etebase.EtebaseSynchronizer
 import org.tasks.extensions.Context.hasNetworkConnectivity
 import org.tasks.gtasks.GoogleTaskSynchronizer
 import org.tasks.injection.BaseWorker
 import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.preferences.Preferences
+import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 @HiltWorker
@@ -48,6 +50,7 @@ class SyncWork @AssistedInject constructor(
     private val etebaseSynchronizer: Lazy<EtebaseSynchronizer>,
     private val googleTaskSynchronizer: Lazy<GoogleTaskSynchronizer>,
     private val openTasksSynchronizer: Lazy<OpenTasksSynchronizer>,
+    private val microsoftSynchronizer: Lazy<MicrosoftSynchronizer>,
     private val googleTaskListDao: GoogleTaskListDao,
     private val openTaskDao: OpenTaskDao,
     private val inventory: Inventory
@@ -136,6 +139,7 @@ class SyncWork @AssistedInject constructor(
                     TYPE_ETEBASE -> etebaseSynchronizer.get().sync(it)
                     TYPE_TASKS,
                     TYPE_CALDAV -> caldavSynchronizer.get().sync(it)
+                    TYPE_MICROSOFT -> microsoftSynchronizer.get().sync(it)
                 }
             }
         }
@@ -145,7 +149,7 @@ class SyncWork @AssistedInject constructor(
         googleTaskListDao.getAccounts()
 
     private suspend fun getCaldavAccounts() =
-            caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE)
+            caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_MICROSOFT)
 
     companion object {
         private val LOCK = Any()
