@@ -746,4 +746,6 @@
     <string name="price_per_year_with_currency">%s/anno</string>
     <string name="enable_alarms_description">Per essere avvisati alla scadenza, concedere il permesso di impostare allarmi e promemoria in Impostazioni</string>
     <string name="enable_alarms">Ricevi notifica alla scadenza</string>
+    <string name="add_shortcut_to_home_screen">Aggiungi collegamento sulla Home</string>
+    <string name="add_widget_to_home_screen">Aggiungi widget sulla Home</string>
 </resources>
