@@ -27,7 +27,7 @@ private const val MAX_TIME = 9999999999999
 abstract class TaskDao(private val database: Database) {
 
     @Query("""
-SELECT MIN(min_value)
+SELECT COALESCE(MIN(min_value), $MAX_TIME)
 FROM (
   SELECT
       MIN(
