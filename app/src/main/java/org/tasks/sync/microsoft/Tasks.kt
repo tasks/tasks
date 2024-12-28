@@ -32,7 +32,7 @@ data class Tasks(
     ) {
         @Serializable
         data class Body(
-            val content: String,
+            @Redacted val content: String,
             val contentType: String,
         )
 

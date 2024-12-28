@@ -1,12 +1,12 @@
 package org.tasks.sync.microsoft
 
 import com.natpryce.makeiteasy.MakeItEasy
-import org.tasks.data.entity.Task
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.TestUtilities
 import org.tasks.TestUtilities.withTZ
+import org.tasks.data.entity.Task
 import org.tasks.makers.TaskMaker
 import org.tasks.time.DateTime
 
@@ -21,6 +21,12 @@ class ConvertFromMicrosoftTests {
     fun useNullForBlankBody() {
         val (local, _) = TestUtilities.mstodo("microsoft/basic_task.txt")
         Assert.assertNull(local.notes)
+    }
+
+    @Test
+    fun parseDescription() {
+        val (local, _) = TestUtilities.mstodo("microsoft/task_with_description.json")
+        assertEquals("Hello world\r\n", local.notes)
     }
 
     @Test

@@ -1,0 +1,26 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#Collection(microsoft.graph.todoTask)",
+  "@odata.nextLink": "https://graph.microsoft.com/v1.0/me/todo/lists/AQMkADAwATNiZmYAZC04OABiMC0xZDlkLTAwAi0wMAoALgAAA8dKmrSa60tBjeiKoPukmoQBAEkTxp6Wx2BEtV1vFJWK7bIAAAIBEgAAAA==/tasks/delta?$skiptoken=l7WI41swwioT5csv4k99noMOR2XnZZ5Wc8frjx-RT_TDDIyp_vJ65WUQiySHwZx4_QMi1lzQHbtnr5GuFbJF5QDu-zXP7TmoSNt7BhiISOE.Ls-yF3bzjZWbbpBGCOTb28JLYsg97EbWUhoh9JBfoCw",
+  "value": [
+    {
+      "@odata.etag": "W/\"SRPGnpbHYES1XW8UlYrtsgAHuEeOlg==\"",
+      "importance": "normal",
+      "isReminderOn": false,
+      "status": "completed",
+      "title": "Test with description",
+      "createdDateTime": "2024-12-28T08:03:47.7475279Z",
+      "lastModifiedDateTime": "2024-12-28T08:34:49.375729Z",
+      "hasAttachments": false,
+      "categories": [],
+      "id": "AQMkADAwATNiZmYAZC04OABiMC0xZDlkLTAwAi0wMAoARgAAA8dKmrSa60tBjeiKoPukmoQHAEkTxp6Wx2BEtV1vFJWK7bIAAAIBEgAAAEkTxp6Wx2BEtV1vFJWK7bIAB7gay5oAAAA=",
+      "body": {
+        "content": "Hello world\r\n",
+        "contentType": "text"
+      },
+      "completedDateTime": {
+        "dateTime": "2024-12-28T06:00:00.0000000",
+        "timeZone": "UTC"
+      }
+    }
+  ]
+}
