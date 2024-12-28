@@ -26,6 +26,8 @@ data class Tasks(
         val dueDateTime: DateTime? = null,
         val linkedResources: List<LinkedResource>? = null,
         val recurrence: Recurrence? = null,
+        val reminderDateTime: DateTime? = null,
+        val checklistItems: List<ChecklistItem>? = null,
         @SerialName("@removed") val removed: Removed? = null,
     ) {
         @Serializable
@@ -95,6 +97,14 @@ data class Tasks(
             friday,
             saturday,
         }
+
+        @Serializable
+        data class ChecklistItem(
+            val id: String,
+            val displayName: String,
+            val createdDateTime: String,
+            val isChecked: Boolean,
+        )
 
         enum class Importance {
             low,

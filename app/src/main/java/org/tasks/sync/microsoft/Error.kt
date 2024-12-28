@@ -15,6 +15,10 @@ data class Error(
     )
 
     companion object {
-        suspend fun HttpResponse.toMicrosoftError() = body<Error>()
+        suspend fun HttpResponse.toMicrosoftError(): Error? = try {
+            body<Error>()
+        } catch (_: Exception) {
+            null
+        }
     }
 }

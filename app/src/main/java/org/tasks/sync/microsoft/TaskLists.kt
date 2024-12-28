@@ -9,7 +9,7 @@ import org.tasks.data.entity.CaldavCalendar
 data class TaskLists(
     @SerialName("@odata.context") val context: String,
     val value: List<TaskList>,
-    @SerialName("@odata.nextLink") val nextPage: String?,
+    @SerialName("@odata.nextLink") val nextPage: String? = null,
 ) {
     @Serializable
     data class TaskList(

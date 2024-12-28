@@ -1,0 +1,43 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#Collection(todoTask)",
+  "@odata.deltaLink": "https://graph.microsoft.com/v1.0/me/todo/lists/AQMkADAwATNiZmYAZC04OABiMC0xZDlkLTAwAi0wMAoALgAAA8dKmrSa60tBjeiKoPukmoQBAEkTxp6Wx2BEtV1vFJWK7bIAAAIBEgAAAA==/tasks/delta?$deltatoken=l7WI41swwioT5csv4k99nvA6Vw_JoxmsCI684Nwl-4ciS2_UHNuV2sSv4_GUGLu08H56FKa7bq_dusmAUGzg0npiBEHMJiTtGq4Tydf9hKM.uyzmw12DAcVivLt2W2wnOpvqSqoOwLQK4lxe_EG5Tzo",
+  "value": [
+    {
+      "@odata.type": "#microsoft.graph.todoTask",
+      "@odata.etag": "W/\"SRPGnpbHYES1XW8UlYrtsgAGhj1xBA==\"",
+      "importance": "normal",
+      "isReminderOn": false,
+      "status": "notStarted",
+      "title": "Test with subtasks",
+      "createdDateTime": "2023-09-18T04:43:02.7761097Z",
+      "lastModifiedDateTime": "2023-09-18T04:43:12.7208067Z",
+      "hasAttachments": false,
+      "categories": [],
+      "id": "AQMkADAwATNiZmYAZC04OABiMC0xZDlkLTAwAi0wMAoARgAAA8dKmrSa60tBjeiKoPukmoQHAEkTxp6Wx2BEtV1vFJWK7bIAAAIBEgAAAEkTxp6Wx2BEtV1vFJWK7bIABoYcWyYAAAA=",
+      "body": {
+        "content": "",
+        "contentType": "text"
+      },
+      "checklistItems": [
+        {
+          "displayName": "A",
+          "createdDateTime": "2023-09-18T04:43:10.1170114Z",
+          "isChecked": false,
+          "id": "426d6b9f-6cb0-4642-b9ed-b12a17fa0730"
+        },
+        {
+          "displayName": "B",
+          "createdDateTime": "2023-09-18T04:43:10.6820549Z",
+          "isChecked": false,
+          "id": "774adbcb-5e89-4e1a-896d-6b18f898d6e0"
+        },
+        {
+          "displayName": "C",
+          "createdDateTime": "2023-09-18T04:43:12.6585325Z",
+          "isChecked": false,
+          "id": "ecde7824-1e4a-42b2-b3a8-aea7504d316e"
+        }
+      ]
+    }
+  ]
+}

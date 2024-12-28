@@ -61,24 +61,24 @@ class ConvertFromMicrosoftTests {
 
     @Test
     fun parseCompletionDate() {
-        val (local, _) = TestUtilities.mstodo("microsoft/completed_task.txt")
         withTZ("America/Chicago") {
+            val (local, _) = TestUtilities.mstodo("microsoft/completed_task.txt")
             assertEquals(DateTime(2022, 9, 18, 0, 0).millis, local.completionDate)
         }
     }
 
     @Test
     fun parseDueDate() {
-        val (local, _) = TestUtilities.mstodo("microsoft/basic_task_with_due_date.txt")
         withTZ("America/Chicago") {
+            val (local, _) = TestUtilities.mstodo("microsoft/basic_task_with_due_date.txt")
             assertEquals(DateTime(2023, 7, 19, 0, 0).millis, local.dueDate)
         }
     }
 
     @Test
     fun parseCreationDate() {
-        val (local, _) = TestUtilities.mstodo("microsoft/basic_task_with_due_date.txt")
         withTZ("America/Chicago") {
+            val (local, _) = TestUtilities.mstodo("microsoft/basic_task_with_due_date.txt")
             assertEquals(
                 DateTime(2023, 7, 19, 23, 20, 56, 9).millis,
                 local.creationDate
@@ -88,8 +88,8 @@ class ConvertFromMicrosoftTests {
 
     @Test
     fun parseModificationDate() {
-        val (local, _) = TestUtilities.mstodo("microsoft/basic_task_with_due_date.txt")
         withTZ("America/Chicago") {
+            val (local, _) = TestUtilities.mstodo("microsoft/basic_task_with_due_date.txt")
             assertEquals(
                 DateTime(2023, 7, 19, 23, 21, 6, 269).millis,
                 local.modificationDate

@@ -139,8 +139,8 @@ class ConvertToMicrosoftTests {
                 with(DUE_TIME, DateTime(2023, 7, 21, 13, 30))
             )
                 .toRemote()
-            assertEquals("2023-07-21T05:00:00.0000000", remote.dueDateTime?.dateTime)
-            assertEquals("UTC", remote.dueDateTime?.timeZone)
+            assertEquals("2023-07-21T00:00:00.0000000", remote.dueDateTime?.dateTime)
+            assertEquals("America/Chicago", remote.dueDateTime?.timeZone)
         }
     }
 

@@ -1,0 +1,27 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#Collection(todoTask)",
+  "@odata.deltaLink": "https://graph.microsoft.com/v1.0/me/todo/lists/AQMkADAwATNiZmYAZC04OABiMC0xZDlkLTAwAi0wMAoALgAAA8dKmrSa60tBjeiKoPukmoQBAEkTxp6Wx2BEtV1vFJWK7bIAAAIBEgAAAA==/tasks/delta?$deltatoken=l7WI41swwioT5csv4k99ngHvnDU_spnidrOYzb78--8L_CvTDIAkbXl6MuXT-elfKFgB_iu9jwMdUnbCSooCAPAbUSRcpefYeIuTrt_20ZA.4hYl5mAJ-NfssRdizzms-3tZN2OLFUtndPb1x3Ca9Ak",
+  "value": [
+    {
+      "@odata.type": "#microsoft.graph.todoTask",
+      "@odata.etag": "W/\"SRPGnpbHYES1XW8UlYrtsgAGX5rVEA==\"",
+      "importance": "normal",
+      "isReminderOn": true,
+      "status": "notStarted",
+      "title": "Test",
+      "createdDateTime": "2023-07-22T04:58:52.9064041Z",
+      "lastModifiedDateTime": "2023-07-22T04:58:52.9358461Z",
+      "hasAttachments": false,
+      "categories": [],
+      "id": "AQMkADAwATNiZmYAZC04OABiMC0xZDlkLTAwAi0wMAoARgAAA8dKmrSa60tBjeiKoPukmoQHAEkTxp6Wx2BEtV1vFJWK7bIAAAIBEgAAAEkTxp6Wx2BEtV1vFJWK7bIABl95iCgAAAA=",
+      "body": {
+        "content": "",
+        "contentType": "text"
+      },
+      "reminderDateTime": {
+        "dateTime": "2023-07-22T14:00:00.0000000",
+        "timeZone": "UTC"
+      }
+    }
+  ]
+}
