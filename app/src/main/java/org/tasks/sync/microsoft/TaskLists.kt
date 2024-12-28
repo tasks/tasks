@@ -2,6 +2,7 @@ package org.tasks.sync.microsoft
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.tasks.data.Redacted
 import org.tasks.data.entity.CaldavCalendar
 
 @Serializable
@@ -13,7 +14,7 @@ data class TaskLists(
     @Serializable
     data class TaskList(
         @SerialName("@odata.etag") val etag: String? = null,
-        val displayName: String? = null,
+        @Redacted val displayName: String? = null,
         val isOwner: Boolean? = null,
         val isShared: Boolean? = null,
         val wellknownListName: String? = null,

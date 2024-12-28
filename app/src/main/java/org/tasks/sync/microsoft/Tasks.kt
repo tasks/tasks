@@ -2,6 +2,7 @@ package org.tasks.sync.microsoft
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.tasks.data.Redacted
 
 @Serializable
 data class Tasks(
@@ -13,7 +14,7 @@ data class Tasks(
     data class Task(
         @SerialName("@odata.etag") val etag: String? = null,
         val id: String? = null,
-        val title: String? = null,
+        @Redacted val title: String? = null,
         val body: Body? = null,
         val importance: Importance = Importance.low,
         val status: Status = Status.notStarted,
