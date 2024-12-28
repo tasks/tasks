@@ -1752,6 +1752,13 @@
 +|         |              \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.1.0 (*)
 +|         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
+++--- io.ktor:ktor-client-logging:3.0.3
++|    \--- io.ktor:ktor-client-logging-jvm:3.0.3
++|         +--- org.slf4j:slf4j-api:2.0.16
++|         +--- org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.9.0 (*)
++|         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
++|         +--- io.ktor:ktor-client-core:3.0.3 (*)
++|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
 ++--- io.ktor:ktor-client-content-negotiation:3.0.3
 +|    \--- io.ktor:ktor-client-content-negotiation-jvm:3.0.3
 +|         +--- org.slf4j:slf4j-api:2.0.16

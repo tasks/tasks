@@ -245,6 +245,7 @@ dependencies {
     implementation(libs.coil.gif)
 
     implementation(libs.ktor)
+    implementation(libs.ktor.client.logging)
     implementation(libs.ktor.content.negotiation)
     implementation(libs.ktor.serialization)
 
