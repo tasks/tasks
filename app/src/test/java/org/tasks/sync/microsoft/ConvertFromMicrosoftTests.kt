@@ -13,13 +13,13 @@ import org.tasks.time.DateTime
 class ConvertFromMicrosoftTests {
     @Test
     fun titleFromRemote() {
-        val (local, _) = TestUtilities.mstodo("microsoft/basic_task.txt")
+        val (local, _) = TestUtilities.mstodo("microsoft/basic_task.json")
         assertEquals("Basic task", local.title)
     }
 
     @Test
     fun useNullForBlankBody() {
-        val (local, _) = TestUtilities.mstodo("microsoft/basic_task.txt")
+        val (local, _) = TestUtilities.mstodo("microsoft/basic_task.json")
         Assert.assertNull(local.notes)
     }
 
@@ -32,7 +32,7 @@ class ConvertFromMicrosoftTests {
     @Test
     fun keepPriority() {
         val (local, _) = TestUtilities.mstodo(
-            "microsoft/basic_task.txt",
+            "microsoft/basic_task.json",
             task = TaskMaker.newTask(MakeItEasy.with(TaskMaker.PRIORITY, Task.Priority.MEDIUM)),
             defaultPriority = Task.Priority.LOW
         )
@@ -42,7 +42,7 @@ class ConvertFromMicrosoftTests {
     @Test
     fun useDefaultPriority() {
         val (local, _) = TestUtilities.mstodo(
-            "microsoft/basic_task.txt",
+            "microsoft/basic_task.json",
             task = TaskMaker.newTask(MakeItEasy.with(TaskMaker.PRIORITY, Task.Priority.HIGH)),
             defaultPriority = Task.Priority.LOW
         )
@@ -52,7 +52,7 @@ class ConvertFromMicrosoftTests {
     @Test
     fun noPriorityWhenDefaultIsHigh() {
         val (local, _) = TestUtilities.mstodo(
-            "microsoft/basic_task.txt",
+            "microsoft/basic_task.json",
             task = TaskMaker.newTask(MakeItEasy.with(TaskMaker.PRIORITY, Task.Priority.HIGH)),
             defaultPriority = Task.Priority.HIGH
         )
@@ -61,14 +61,14 @@ class ConvertFromMicrosoftTests {
 
     @Test
     fun noCompletionDate() {
-        val (local, _) = TestUtilities.mstodo("microsoft/basic_task.txt")
+        val (local, _) = TestUtilities.mstodo("microsoft/basic_task.json")
         assertEquals(0, local.completionDate)
     }
 
     @Test
     fun parseCompletionDate() {
         withTZ("America/Chicago") {
-            val (local, _) = TestUtilities.mstodo("microsoft/completed_task.txt")
+            val (local, _) = TestUtilities.mstodo("microsoft/completed_task.json")
             assertEquals(DateTime(2022, 9, 18, 0, 0).millis, local.completionDate)
         }
     }
@@ -76,7 +76,7 @@ class ConvertFromMicrosoftTests {
     @Test
     fun parseDueDate() {
         withTZ("America/Chicago") {
-            val (local, _) = TestUtilities.mstodo("microsoft/basic_task_with_due_date.txt")
+            val (local, _) = TestUtilities.mstodo("microsoft/basic_task_with_due_date.json")
             assertEquals(DateTime(2023, 7, 19, 0, 0).millis, local.dueDate)
         }
     }
@@ -84,7 +84,7 @@ class ConvertFromMicrosoftTests {
     @Test
     fun parseCreationDate() {
         withTZ("America/Chicago") {
-            val (local, _) = TestUtilities.mstodo("microsoft/basic_task_with_due_date.txt")
+            val (local, _) = TestUtilities.mstodo("microsoft/basic_task_with_due_date.json")
             assertEquals(
                 DateTime(2023, 7, 19, 23, 20, 56, 9).millis,
                 local.creationDate
@@ -95,7 +95,7 @@ class ConvertFromMicrosoftTests {
     @Test
     fun parseModificationDate() {
         withTZ("America/Chicago") {
-            val (local, _) = TestUtilities.mstodo("microsoft/basic_task_with_due_date.txt")
+            val (local, _) = TestUtilities.mstodo("microsoft/basic_task_with_due_date.json")
             assertEquals(
                 DateTime(2023, 7, 19, 23, 21, 6, 269).millis,
                 local.modificationDate
@@ -106,7 +106,7 @@ class ConvertFromMicrosoftTests {
     @Test
     fun parseDailyRecurrence() {
         withTZ("America/Chicago") {
-            val (local, _) = TestUtilities.mstodo("microsoft/repeat_daily.txt")
+            val (local, _) = TestUtilities.mstodo("microsoft/repeat_daily.json")
             assertEquals("FREQ=DAILY", local.recurrence)
         }
     }
@@ -114,7 +114,7 @@ class ConvertFromMicrosoftTests {
     @Test
     fun parseWeekdayRecurrence() {
         withTZ("America/Chicago") {
-            val (local, _) = TestUtilities.mstodo("microsoft/repeat_weekdays.txt")
+            val (local, _) = TestUtilities.mstodo("microsoft/repeat_weekdays.json")
             assertEquals("FREQ=WEEKLY;INTERVAL=2;BYDAY=MO,TU,WE,TH,FR", local.recurrence)
         }
     }
@@ -122,7 +122,7 @@ class ConvertFromMicrosoftTests {
     @Test
     fun parseAbsoluteMonthlyRecurrence() {
         withTZ("America/Chicago") {
-            val (local, _) = TestUtilities.mstodo("microsoft/repeat_monthly.txt")
+            val (local, _) = TestUtilities.mstodo("microsoft/repeat_monthly.json")
             assertEquals("FREQ=MONTHLY", local.recurrence)
         }
     }
@@ -130,7 +130,7 @@ class ConvertFromMicrosoftTests {
     @Test
     fun parseAbsoluteYearlyRecurrence() {
         withTZ("America/Chicago") {
-            val (local, _) = TestUtilities.mstodo("microsoft/repeat_yearly.txt")
+            val (local, _) = TestUtilities.mstodo("microsoft/repeat_yearly.json")
             assertEquals("FREQ=YEARLY", local.recurrence)
         }
     }
