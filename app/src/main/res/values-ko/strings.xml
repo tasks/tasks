@@ -7,12 +7,7 @@
     <string name="backup_BAc_export">지금 백업하기</string>
     <string name="export_toast">%1$s 를 %2$s 로 백업함.</string>
     <string name="import_summary_title">간편 복원</string>
-    <string name="import_summary_message">파일 %1$s: %2$s 개의 할일 포함.
-\n
-\n %3$s 개 가져오기 성공,
-\n %4$s 개 이미 존재,
-\n %5$s 개 에러 발생
-\n</string>
+    <string name="import_summary_message">파일 %1$s: %2$s 개의 할일 포함.\n\n %3$s 개 가져오기 성공,\n %4$s 개 이미 존재,\n %5$s 개 에러 발생</string>
     <string name="import_progress_read">할일 %d 읽는 중…</string>
     <string name="read_permission_label">Tasks 권한</string>
     <string name="discard_confirmation">변경 사항을 폐기할까요\?</string>
@@ -322,7 +317,7 @@
     <string name="repeats_single">%s 반복</string>
     <string name="repeats_single_on">%1$s %2$s에 반복</string>
     <string name="repeats_single_until">%2$s에 끝날 때까지 %1$s 반복</string>
-    <string name="repeats_single_number_of_times">%1$s마다 %2$d %3$s 반복</string>
+    <string name="repeats_single_number_of_times">%1$s 주기로 %2$d %3$s 더 반복</string>
     <string name="repeats_single_on_until">%3$s에 끝날 때까지 %1$s %2$s에 반복</string>
     <string name="repeats_single_on_number_of_times">%1$s 마다 %2$s에 %3$d %4$s 동안 반복</string>
     <string name="repeats_minutely">매분</string>
@@ -539,7 +534,7 @@
     <string name="follow_reddit">r/tasks 구독</string>
     <string name="no_google_play_subscription">적합한 구글 플레이 구독을 찾을 수 없습니다</string>
     <string name="insufficient_sponsorship">적합한 깃허브 후원 자격을 찾을 수 없습니다</string>
-    <string name="insufficient_subscription">부족한 구독 단계. 서비스를 재개하려면 구독을 업그레이드하세요.</string>
+    <string name="insufficient_subscription">구독 수준이 적합하지 않습니다. 서비스를 재개하려면 구독을 업그레이드하세요.</string>
     <string name="custom_filter_is_subtask">하위할일</string>
     <string name="custom_filter_has_subtask">하위할일 있음</string>
     <string name="date_picker_multiple">각각 다양</string>
@@ -717,4 +712,9 @@
     <string name="enable_alarms">제때 알람 받기</string>
     <string name="enable_alarms_description">놓치지 않고 제때 알람을 받으려면, \"설정\"에서 알람 설정 권한을 부여해주세요</string>
     <string name="theme_dynamic">동적</string>
+    <string name="price_per_month_with_currency">%s/월</string>
+    <string name="price_per_year_with_currency">%s/년</string>
+    <string name="add_widget_to_home_screen">홈스크린에 위젯 추가</string>
+    <string name="yesterday">어제</string>
+    <string name="add_shortcut_to_home_screen">홈화면에 바로가기 추가</string>
 </resources>
