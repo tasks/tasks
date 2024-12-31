@@ -85,20 +85,22 @@ class NotificationManager @Inject constructor(
                     notify = false,
                     nonStop = false,
                     fiveTimes = false,
-                    newNotifications = emptyList())
+                    newNotifications = emptyList(),
+                )
             createNotifications(
-                    notifications,
+                    notifications = notifications,
                     alert = false,
                     nonstop = false,
                     fiveTimes = false,
-                    useGroupKey = true)
+            )
         } else {
             createNotifications(
-                    notifications,
+                    notifications = notifications,
                     alert = false,
                     nonstop = false,
                     fiveTimes = false,
-                    useGroupKey = false)
+                    useGroupKey = false,
+                )
             cancelSummaryNotification()
         }
     }
@@ -113,38 +115,45 @@ class NotificationManager @Inject constructor(
         val totalCount = existingNotifications.size + newNotifications.size
         when {
             totalCount == 0 -> cancelSummaryNotification()
-            totalCount == 1 -> {
-                val notifications = existingNotifications + newNotifications
-                createNotifications(notifications, alert, nonstop, fiveTimes, false)
-                cancelSummaryNotification()
-            }
             preferences.bundleNotifications() -> {
                 updateSummary(
                         notify = false,
                         nonStop = false,
                         fiveTimes = false,
-                        newNotifications = emptyList())
+                        newNotifications = emptyList(),
+                )
                 if (existingNotifications.size == 1) {
                     createNotifications(
-                            existingNotifications,
+                            notifications = existingNotifications,
                             alert = false,
                             nonstop = false,
                             fiveTimes = false,
-                            useGroupKey = true)
+                    )
                 }
                 if (newNotifications.size == 1) {
-                    createNotifications(newNotifications, alert, nonstop, fiveTimes, true)
+                    createNotifications(
+                        notifications = newNotifications,
+                        alert = alert,
+                        nonstop = nonstop,
+                        fiveTimes = fiveTimes,
+                    )
                 } else {
                     createNotifications(
-                            newNotifications,
+                            notifications = newNotifications,
                             alert = false,
                             nonstop = false,
                             fiveTimes = false,
-                            useGroupKey = true)
+                        )
                     updateSummary(alert, nonstop, fiveTimes, newNotifications)
                 }
             }
-            else -> createNotifications(newNotifications, alert, nonstop, fiveTimes, false)
+            else -> createNotifications(
+                notifications = newNotifications,
+                alert = alert,
+                nonstop = nonstop,
+                fiveTimes = fiveTimes,
+                useGroupKey = false,
+            )
         }
         localBroadcastManager.broadcastRefresh()
     }
@@ -154,7 +163,7 @@ class NotificationManager @Inject constructor(
         alert: Boolean,
         nonstop: Boolean,
         fiveTimes: Boolean,
-        useGroupKey: Boolean
+        useGroupKey: Boolean = true,
     ) {
         if (permissionChecker.canNotify()) {
             preferences.warnNotificationsDisabled = true
@@ -162,6 +171,11 @@ class NotificationManager @Inject constructor(
             Timber.w("Notifications disabled")
             return
         }
+        if (notifications.isEmpty()) {
+            Timber.d("No notifications to post")
+            return
+        }
+        Timber.d("Posting notifications alert=$alert nonstop=$nonstop fiveTimes=$fiveTimes useGroupKey=$useGroupKey\n${notifications.joinToString("\n")}")
         var alert = alert
         for (notification in notifications) {
             val builder = getTaskNotification(notification)
@@ -186,7 +200,8 @@ class NotificationManager @Inject constructor(
             builder: NotificationCompat.Builder,
             alert: Boolean,
             nonstop: Boolean,
-            fiveTimes: Boolean) {
+            fiveTimes: Boolean,
+    ) {
         if (preUpsideDownCake()) {
             builder.setLocalOnly(!preferences.getBoolean(R.string.p_wearable_notifications, true))
         }
@@ -232,13 +247,18 @@ class NotificationManager @Inject constructor(
     }
 
     private suspend fun updateSummary(
-            notify: Boolean, nonStop: Boolean, fiveTimes: Boolean, newNotifications: List<Notification>) {
+            notify: Boolean,
+            nonStop: Boolean,
+            fiveTimes: Boolean,
+            newNotifications: List<Notification>,
+    ) {
         val tasks = taskDao.activeNotifications()
         val taskCount = tasks.size
         if (taskCount == 0) {
             cancelSummaryNotification()
             return
         }
+        Timber.d("Updating summary taskCount=$taskCount notify=$notify nonStop=$nonStop fiveTimes=$fiveTimes newNotifications=$newNotifications")
         val taskIds = tasks.map { it.id }
         var maxPriority = 3
         val summaryTitle = context.resources.getQuantityString(R.plurals.task_count, taskCount, taskCount)
@@ -434,6 +454,7 @@ class NotificationManager @Inject constructor(
     }
 
     private fun cancelSummaryNotification() {
+        Timber.d("Cancelling summary notification")
         notificationManager.cancel(SUMMARY_NOTIFICATION_ID)
     }
 
