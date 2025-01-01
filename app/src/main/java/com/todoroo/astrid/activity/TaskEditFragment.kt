@@ -111,6 +111,7 @@ import org.tasks.ui.TaskEditEvent
 import org.tasks.ui.TaskEditEventBus
 import org.tasks.ui.TaskEditViewModel
 import org.tasks.ui.TaskEditViewModel.Companion.stripCarriageReturns
+import org.tasks.utility.copyToClipboard
 import java.util.Locale
 import javax.inject.Inject
 
@@ -455,7 +456,7 @@ class TaskEditFragment : Fragment() {
     }
 
     @Composable
-    fun CreationRow() {
+    private fun CreationRow() {
         InfoRow(
             creationDate = editViewModel.creationDate,
             modificationDate = editViewModel.modificationDate,
@@ -465,12 +466,15 @@ class TaskEditFragment : Fragment() {
     }
 
     @Composable
-    fun Comments() {
+    private fun Comments() {
         CommentsRow(
             comments = userActivityDao
                 .watchComments(editViewModel.task.uuid)
                 .collectAsStateWithLifecycle(emptyList())
                 .value,
+            copyCommentToClipboard = {
+                copyToClipboard(requireContext(), R.string.comment, it)
+            },
             deleteComment = {
                 lifecycleScope.launch {
                     userActivityDao.delete(it)
