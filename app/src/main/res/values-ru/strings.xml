@@ -619,7 +619,6 @@
     <string name="upgrade_open_source_description">Ваша подписка поддерживает непрерывное развитие</string>
     <string name="upgrade_desktop_access_description">Синхронизация со сторонними клиентами, такими как Outlook и Apple Reminders</string>
     <string name="upgrade_tasks_org_account_description">Синхронизируйтесь с Tasks.org и сотрудничайте с другими пользователями</string>
-    <string name="upgrade_google_tasks">Синхронизировать несколько аккаунтов</string>
     <string name="upgrade_more_customization_description">Разблокировать все темы, цвета и иконки</string>
     <string name="upgrade_more_customization">Больше настроек</string>
     <string name="pro_free_trial">Новые подписчики получают 7-дневный бесплатный пробный период. Отмена возможна в любое время</string>

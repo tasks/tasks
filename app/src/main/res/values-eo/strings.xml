@@ -641,7 +641,6 @@
     <string name="migrating_tasks">Transmetas taskojn</string>
     <string name="app_password_last_access">Laste uzata: %s</string>
     <string name="tasks_org_account_required">Bezonas konton de Tasks.org</string>
-    <string name="upgrade_google_tasks">Sinkronigi plurajn kontojn</string>
     <string name="app_password">Pasvorto de programeto</string>
     <string name="app_passwords">Pasvortoj de programeto</string>
     <string name="app_passwords_more_info">Sinkronigi viajn taskojn kaj kalendarojn kun labortablaj kaj poŝtelefonaj programoj de ekstera liveranto. Tuŝetu ĉi tien por pli da informo</string>

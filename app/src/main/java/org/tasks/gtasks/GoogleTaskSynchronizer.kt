@@ -19,7 +19,6 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
-import org.tasks.billing.Inventory
 import org.tasks.data.*
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
@@ -60,7 +59,6 @@ class GoogleTaskSynchronizer @Inject constructor(
     private val permissionChecker: PermissionChecker,
     private val googleAccountManager: GoogleAccountManager,
     private val localBroadcastManager: LocalBroadcastManager,
-    private val inventory: Inventory,
     private val taskDeleter: TaskDeleter,
     private val invokers: InvokerFactory,
     private val alarmDao: AlarmDao,
@@ -68,11 +66,7 @@ class GoogleTaskSynchronizer @Inject constructor(
     suspend fun sync(account: CaldavAccount, i: Int) {
         Timber.d("%s: start sync", account)
         try {
-            if (i == 0 || inventory.hasPro) {
-                synchronize(account)
-            } else {
-                account.error = CaldavAccount.ERROR_PAYMENT_REQUIRED
-            }
+            synchronize(account)
         } catch (e: SocketTimeoutException) {
             Timber.e(e)
             account.error = e.message

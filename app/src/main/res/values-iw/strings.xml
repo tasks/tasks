@@ -616,7 +616,6 @@
     <string name="upgrade_desktop_access_description">סינכרון עם לקוחות צד שלישי כגון תזכורות Outlook ו- Apple</string>
     <string name="upgrade_desktop_access">גישה לשולחן העבודה</string>
     <string name="upgrade_tasks_org_account_description">סינכרון עם Tasks.org ושיתוף פעולה עם משתמשים אחרים</string>
-    <string name="upgrade_google_tasks">סינכרון חשבונות מרובים</string>
     <string name="upgrade_more_customization_description">ביטול נעילה של כל ערכות הנושא, הצבעים והסמלים</string>
     <string name="upgrade_more_customization">התאמה אישית נוספת</string>
     <string name="pro_free_trial">מנויים חדשים מקבלים תקופת ניסיון ללא תשלום למשך 7 ימים. ביטול בכל עת</string>

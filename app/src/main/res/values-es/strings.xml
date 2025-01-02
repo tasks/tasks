@@ -631,7 +631,6 @@
     <string name="upgrade_desktop_access_description">Sincronización con clientes de terceros como Outlook y Apple Reminders</string>
     <string name="upgrade_desktop_access">Acceso al escritorio</string>
     <string name="upgrade_tasks_org_account_description">Sincronizar con Tasks.org y colaborar con otros usuarios</string>
-    <string name="upgrade_google_tasks">Sincronizar varias cuentas</string>
     <string name="upgrade_more_customization_description">Desbloquea todos los temas, colores e iconos</string>
     <string name="upgrade_more_customization">Más personalización</string>
     <string name="pro_free_trial">Los suscriptores nuevos reciben una prueba gratuita de 7 días, cancelable en cualquier momento</string>

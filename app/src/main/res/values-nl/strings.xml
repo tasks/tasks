@@ -611,7 +611,6 @@
     <string name="upgrade_desktop_access_description">Met toepassingen van derden als Outlook en Apple Herinneringen synchroniseren</string>
     <string name="upgrade_desktop_access">Desktop-toegang</string>
     <string name="upgrade_tasks_org_account_description">Synchroniseren met Tasks.org en samenwerken met andere gebruikers</string>
-    <string name="upgrade_google_tasks">Meerdere accounts synchroniseren</string>
     <string name="pro_free_trial">Nieuwe abonnees krijgen een gratis proefperiode van 7 dagen. Annuleren kan op elk moment</string>
     <string name="next_saturday">Volgende zaterdag</string>
     <string name="next_friday">Volgende vrijdag</string>

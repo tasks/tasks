@@ -605,7 +605,6 @@
     <string name="upgrade_desktop_access_description">Synchronisierung mit Drittanbieter-Clients wie Outlook und Apple Reminders</string>
     <string name="upgrade_desktop_access">Zugriff zur Arbeitoberfläche</string>
     <string name="upgrade_tasks_org_account_description">Synchronisiere mit Tasks.org und arbeite mit anderen Benutzern zusammen</string>
-    <string name="upgrade_google_tasks">Synchronisiere mehrere Konten</string>
     <string name="upgrade_more_customization_description">Schalte alle Themen, Farben und Symbole frei</string>
     <string name="upgrade_more_customization">Mehr Anpassungsmöglichkeiten</string>
     <string name="pro_free_trial">Neue Abonnenten erhalten eine 7-tägige kostenlose Testversion. Jederzeit abbrechen</string>

@@ -21,7 +21,6 @@
     <string name="upgrade_desktop_access_description">Sincronizare cu clienți terți, cum ar fi Outlook și Apple Reminders</string>
     <string name="upgrade_desktop_access">Acces la desktop</string>
     <string name="upgrade_tasks_org_account_description">Sincronizează cu Tasks.org și colaborează cu alți utilizatori</string>
-    <string name="upgrade_google_tasks">Sincronizarea mai multor conturi</string>
     <string name="upgrade_more_customization_description">Deblochează toate temele, culorile și pictogramele</string>
     <string name="upgrade_more_customization">Mai multă personalizare</string>
     <string name="pro_free_trial">Noii abonați beneficiază de o perioadă de încercare gratuită de 7 zile. Anulare în orice moment</string>

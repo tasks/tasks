@@ -63,7 +63,6 @@
     <string name="upgrade_desktop_access_description">Đồng bộ bằng các ứng dụng khách bên thứ ba như Outlook và Apple Reminders</string>
     <string name="upgrade_desktop_access">Truy cập từ máy tính</string>
     <string name="upgrade_tasks_org_account_description">Đồng bộ bằng Tasks.org và hợp tác với những người dùng khác</string>
-    <string name="upgrade_google_tasks">Đồng bộ hoá nhiều tài khoản</string>
     <string name="upgrade_more_customization_description">Mở khoá tất cả chủ đề, màu sắc, và biểu tượng</string>
     <string name="upgrade_more_customization">Nhiều tuỳ biến hơn</string>
     <string name="pro_free_trial">Những người đăng ký mới sẽ nhận khoảng thời gian dùng thử 7 ngày miễn phí. Huỷ vào bất kỳ lúc nào</string>

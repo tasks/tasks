@@ -609,7 +609,6 @@
     <string name="upgrade_desktop_access_description">Szinkronizálás harmadik fél megoldásaival, mint az Outlook vagy az Apple Emlékeztetők</string>
     <string name="upgrade_desktop_access">Desktop hozzáférés</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org szinkronizáció és együttműködés más felhasználókkal</string>
-    <string name="upgrade_google_tasks">Több fiók szinkronizálása</string>
     <string name="upgrade_more_customization_description">Az összes téma, szín és ikon feloldása</string>
     <string name="upgrade_more_customization">Még nagyobb testreszabhatóság</string>
     <string name="pro_free_trial">Az új előfizetők 7 napos ingyenes kipróbálási lehetőséget kapnak. Az előfizetés bármikor lemondható</string>

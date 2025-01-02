@@ -586,7 +586,6 @@
     <string name="picker_mode_time">時間選択の方法</string>
     <string name="remove_user_confirmation">%1$s は %2$s にアクセスできなくなります</string>
     <string name="invite_awaiting_response">応答待ちの招待</string>
-    <string name="upgrade_google_tasks">複数のアカウントを同期可能</string>
     <string name="enable_reminders">リマインダーを有効にする</string>
     <string name="decsync_selection_description">ファイルベースによる同期</string>
     <string name="filter_no_priority">優先度 なし</string>

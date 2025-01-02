@@ -444,7 +444,6 @@
     <string name="upgrade_desktop_access_description">Synkronisera med tredjepartsklienter som Outlook och Apple Reminders</string>
     <string name="upgrade_desktop_access">Tillgång till skrivbordet</string>
     <string name="upgrade_tasks_org_account_description">Synkronisera med Tasks.org och samarbeta med andra användare</string>
-    <string name="upgrade_google_tasks">Synkronisera flera konton</string>
     <string name="upgrade_more_customization_description">Lås upp alla teman, färger och ikoner</string>
     <string name="upgrade_more_customization">Mer anpassning</string>
     <string name="pro_free_trial">Nya prenumeranter får en gratis provperiod på 7 dagar. Avbryt när som helst</string>

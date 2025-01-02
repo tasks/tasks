@@ -590,7 +590,6 @@
     <string name="upgrade_desktop_access_description">Sinkronkan dengan klien pihak-ketiga seperti Outlook dan Apple Reminders</string>
     <string name="upgrade_desktop_access">Akses dekstop</string>
     <string name="upgrade_tasks_org_account_description">Sinkronkan dengan Tasks.org dan kolaborasi dengan pengguna lain</string>
-    <string name="upgrade_google_tasks">Sinkronisasikan berbagai akun secara bersamaan</string>
     <string name="upgrade_more_customization_description">Buka semua tema, warna, dan ikon</string>
     <string name="upgrade_more_customization">Lebih banyak kostumisasi</string>
     <string name="pro_free_trial">Pelanggan baru menerima percobaan aplikasi gratis selama 7-hari. Batalkan kapan saja</string>

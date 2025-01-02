@@ -686,7 +686,6 @@ File %1$s contained %2$s.\n\n
   <string name="pro_free_trial">New subscribers receive a 7-day free trial. Cancel at any time</string>
   <string name="upgrade_more_customization">More customization</string>
   <string name="upgrade_more_customization_description">Unlock all themes, colors, and icons</string>
-  <string name="upgrade_google_tasks">Synchronize multiple accounts</string>
   <string name="upgrade_tasks_org_account_description">Sync with Tasks.org and collaborate with other users</string>
   <string name="upgrade_desktop_access">Desktop access</string>
   <string name="upgrade_desktop_access_description">Sync with third-party clients like Outlook and Apple Reminders</string>

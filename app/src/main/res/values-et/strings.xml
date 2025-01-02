@@ -506,7 +506,6 @@
     <string name="not_signed_in">Ei ole sisse logitud</string>
     <string name="app_password_last_access">Viimati kasutatud: %s</string>
     <string name="invite_awaiting_response">Kutse ootab vastust</string>
-    <string name="upgrade_google_tasks">Süngi mitu kontot</string>
     <string name="completion_sound">Esita lõpetamise heli</string>
     <string name="widget_id">Vidina ID: %d</string>
     <string name="current_subscription">Pregune tellimus:%s</string>

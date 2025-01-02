@@ -13,10 +13,8 @@ import io.ktor.http.isSuccess
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.tasks.LocalBroadcastManager
-import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
-import org.tasks.billing.Inventory
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDao
@@ -55,7 +53,6 @@ class MicrosoftSynchronizer @Inject constructor(
     private val taskDao: TaskDao,
     private val localBroadcastManager: LocalBroadcastManager,
     private val taskDeleter: TaskDeleter,
-    private val inventory: Inventory,
     private val firebase: Firebase,
     private val taskCreator: TaskCreator,
     private val httpClientFactory: HttpClientFactory,
@@ -67,10 +64,6 @@ class MicrosoftSynchronizer @Inject constructor(
     suspend fun sync(account: CaldavAccount) {
         Thread.currentThread().contextClassLoader = context.classLoader
 
-        if (!inventory.hasPro) {
-            setError(account, context.getString(R.string.requires_pro_subscription))
-            return
-        }
         if (isNullOrEmpty(account.password)) {
             setError(account, ERROR_UNAUTHORIZED)
             return

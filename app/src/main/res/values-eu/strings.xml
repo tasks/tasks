@@ -609,7 +609,6 @@
     <string name="upgrade_desktop_access_description">Outlook eta Apple Reminders bezalako hirugarrenen bezeroekin sinkronizatu</string>
     <string name="upgrade_desktop_access">Mahaigaineko sarbidea</string>
     <string name="upgrade_tasks_org_account_description">Sinkronizatu Tasks.org-ekin eta lankidetu beste erabiltzaile batzuekin</string>
-    <string name="upgrade_google_tasks">Hainbat kontu sinkronizatu</string>
     <string name="upgrade_more_customization_description">Desblokeatu gai, kolore eta ikono guztiak</string>
     <string name="upgrade_more_customization">Pertsonalizazio gehiago</string>
     <string name="pro_free_trial">Harpidedun berriek 7 eguneko doako proba jasotzen dute. Ezeztatu edozein unetan</string>

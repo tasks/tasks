@@ -40,7 +40,6 @@
     <string name="more_options">ตัวเลือกเพิ่มเติม</string>
     <string name="upgrade_desktop_access">การเข้าถึงเดสก์ท็อป</string>
     <string name="upgrade_tasks_org_account_description">ซิงค์กับ Tasks.org และทํางานร่วมกับผู้ใช้รายอื่น</string>
-    <string name="upgrade_google_tasks">ประสานหลายบัญชี</string>
     <string name="picker_mode_text">ข้อความ</string>
     <string name="picker_mode_clock">นาฬิกา</string>
     <string name="picker_mode_calendar">ปฏิทิน</string>

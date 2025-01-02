@@ -603,7 +603,6 @@
     <string name="upgrade_desktop_access_description">与 Outlook 和 Apple Reminders 等第三方客户端同步</string>
     <string name="upgrade_desktop_access">桌面访问</string>
     <string name="upgrade_tasks_org_account_description">与 Tasks.org 同步并与其他用户协作</string>
-    <string name="upgrade_google_tasks">同步多个账户</string>
     <string name="upgrade_more_customization_description">解锁所有主题、颜色和图标</string>
     <string name="upgrade_more_customization">更多自定义</string>
     <string name="pro_free_trial">新订户将获得 7 天的免费试用期。可随时取消订阅</string>

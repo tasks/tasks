@@ -100,12 +100,6 @@ object PurchaseText {
             R.string.upgrade_desktop_access_description
         ),
         CarouselItem(
-            R.string.gtasks_GPr_header,
-            R.drawable.ic_google,
-            R.string.upgrade_google_tasks,
-            false
-        ),
-        CarouselItem(
             R.string.davx5,
             R.drawable.ic_davx5_icon_green_bg,
             R.string.davx5_selection_description,

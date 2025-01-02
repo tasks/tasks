@@ -606,7 +606,6 @@
     <string name="upgrade_desktop_access_description">Synkronisere med tredjepartsklienter som Outlook og Apple-påminnelser</string>
     <string name="upgrade_desktop_access">Tilgang til skrivebordet</string>
     <string name="upgrade_tasks_org_account_description">Synkronisere med Tasks.org og samarbeide med andre brukere</string>
-    <string name="upgrade_google_tasks">Synkronisere flere kontoer</string>
     <string name="upgrade_more_customization_description">Lås opp alle temaer, farger og ikoner</string>
     <string name="upgrade_more_customization">Mer tilpasning</string>
     <string name="pro_free_trial">Nye abonnenter får en 7-dagers gratis prøveperiode. Avbryt når som helst</string>
