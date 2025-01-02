@@ -627,8 +627,6 @@
     <string name="picker_mode_time">Mode sélecteur de temps</string>
     <string name="picker_mode_date">Mode sélecteur de date</string>
     <string name="more_options">Plus d’options</string>
-    <string name="upgrade_automation_description">Extensions pour « Tasker », « Automate » et « Locale »</string>
-    <string name="upgrade_automation">Automatisation</string>
     <string name="upgrade_open_source_description">Votre abonnement soutient le développement continu</string>
     <string name="upgrade_desktop_access_description">Synchronisez avec des clients tiers comme « Outlook » et « Apple Reminders »</string>
     <string name="upgrade_desktop_access">Accès au bureau</string>

@@ -602,8 +602,6 @@
     <string name="markdown_description">Aktiver Markdown i tittel og beskrivelse</string>
     <string name="markdown">Markdown</string>
     <string name="more_options">Flere innstillinger</string>
-    <string name="upgrade_automation_description">Plugins for Tasker, Automate og Locale</string>
-    <string name="upgrade_automation">automatisering</string>
     <string name="upgrade_open_source_description">Abonnementet støtter fortsatt utvikling</string>
     <string name="upgrade_desktop_access_description">Synkronisere med tredjepartsklienter som Outlook og Apple-påminnelser</string>
     <string name="upgrade_desktop_access">Tilgang til skrivebordet</string>

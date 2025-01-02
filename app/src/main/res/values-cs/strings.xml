@@ -617,8 +617,6 @@
     <string name="markdown_description">Zapnout Markdown v nadpisu a popisu</string>
     <string name="markdown">Značkovací jazyk</string>
     <string name="more_options">Další volby</string>
-    <string name="upgrade_automation_description">Zásuvné moduly pro Tasker, Automate a Locale</string>
-    <string name="upgrade_automation">Automatizace</string>
     <string name="upgrade_open_source_description">Vaše předplatné podporuje pokračování vývoje</string>
     <string name="upgrade_desktop_access_description">Synchronizujte klienty třetích stran jako Outlook a Apple Remminders</string>
     <string name="upgrade_desktop_access">Přístup z počítače</string>

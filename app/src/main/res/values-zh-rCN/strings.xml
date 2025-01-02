@@ -599,8 +599,6 @@
     <string name="picker_mode_time">时间选择器模式</string>
     <string name="picker_mode_date">日期选择器模式</string>
     <string name="more_options">更多选项</string>
-    <string name="upgrade_automation_description">Tasker、Automate 和本地化插件</string>
-    <string name="upgrade_automation">自动化</string>
     <string name="upgrade_open_source_description">你的订阅支持持续开发</string>
     <string name="upgrade_desktop_access_description">与 Outlook 和 Apple Reminders 等第三方客户端同步</string>
     <string name="upgrade_desktop_access">桌面访问</string>

@@ -54,7 +54,6 @@ class Debug : InjectingPreferenceFragment() {
         }
 
         setupIap(R.string.debug_themes, Inventory.SKU_THEMES)
-        setupIap(R.string.debug_tasker, Inventory.SKU_TASKER)
 
         findPreference(R.string.debug_crash_app).setOnPreferenceClickListener {
             throw RuntimeException("Crashed app from debug preferences")

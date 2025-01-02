@@ -47,9 +47,6 @@
     android:key="@string/debug_themes"/>
 
   <Preference
-    android:key="@string/debug_tasker"/>
-
-  <Preference
     android:key="@string/debug_clear_hints"
     android:title="@string/debug_clear_hints" />
 

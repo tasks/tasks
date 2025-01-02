@@ -586,8 +586,6 @@
     <string name="email">Surel</string>
     <string name="share_list">Bagikan daftar</string>
     <string name="more_options">Opsi lebih banyak</string>
-    <string name="upgrade_automation_description">Plugin untuk Tasker, Automate, and Locale</string>
-    <string name="upgrade_automation">Automasi</string>
     <string name="upgrade_open_source_description">Langganan Anda mendukung kelanjutan pengembangan aplikasi ini</string>
     <string name="upgrade_desktop_access_description">Sinkronkan dengan klien pihak-ketiga seperti Outlook dan Apple Reminders</string>
     <string name="upgrade_desktop_access">Akses dekstop</string>

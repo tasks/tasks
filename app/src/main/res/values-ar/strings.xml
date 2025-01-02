@@ -473,8 +473,6 @@
     <string name="CFC_dueBefore_name">تستحق في…</string>
     <string name="EPr_cal_end_or_start_at_due_time">وقت حدث التقويم</string>
     <string name="markdown">ماركداون</string>
-    <string name="upgrade_automation_description">الإضافات ل Tasker و Automate و Locale</string>
-    <string name="upgrade_automation">تشغيل آلي</string>
     <string name="upgrade_desktop_access_description">قم بالمزامنة مع برامج الجهات الخارجية مثل Outlook و Apple Reminders</string>
     <string name="upgrade_desktop_access">الوصول إلى سطح المكتب</string>
     <string name="upgrade_tasks_org_account_description">قم بالمزامنة مع Tasks.org وتعاون مع مستخدمين آخرين</string>

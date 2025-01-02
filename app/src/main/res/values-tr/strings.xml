@@ -605,8 +605,6 @@
     <string name="email">E-posta</string>
     <string name="share_list">Listeyi paylaş</string>
     <string name="more_options">Daha çok seçenek</string>
-    <string name="upgrade_automation_description">Tasker, Automate ve Locale için eklentiler</string>
-    <string name="upgrade_automation">Otomasyon</string>
     <string name="upgrade_open_source_description">Aboneliğiniz geliştirmenin sürekliliğini destekler</string>
     <string name="upgrade_desktop_access_description">Outlook ve Apple Anımsatıcılar gibi üçüncü taraf istemcilerle eşzamanlama</string>
     <string name="upgrade_more_customization_description">Tüm gövdeler, renkler ve simgeler kullanılabilir</string>

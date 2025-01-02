@@ -605,8 +605,6 @@
     <string name="markdown_description">Markdown gaitu izenburuan eta deskribapenean</string>
     <string name="markdown">Markdown</string>
     <string name="more_options">Aukera gehiago</string>
-    <string name="upgrade_automation_description">Tasker, Automate eta Localerako pluginak</string>
-    <string name="upgrade_automation">Automatizazioa</string>
     <string name="upgrade_open_source_description">Harpidetzak etengabeko garapenaren alde egiten du</string>
     <string name="upgrade_desktop_access_description">Outlook eta Apple Reminders bezalako hirugarrenen bezeroekin sinkronizatu</string>
     <string name="upgrade_desktop_access">Mahaigaineko sarbidea</string>

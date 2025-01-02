@@ -59,8 +59,6 @@
     <string name="actfm_picture_clear">Xoá ảnh</string>
     <string name="markdown">Markdown</string>
     <string name="more_options">Nhiều tuỳ chọn hơn</string>
-    <string name="upgrade_automation_description">Plugin cho Tasker, Automate, và Locale</string>
-    <string name="upgrade_automation">Tự động hoá</string>
     <string name="upgrade_open_source_description">Việc đăng ký của bạn hỗ trợ cho sự phát triển được tiếp tục</string>
     <string name="upgrade_desktop_access_description">Đồng bộ bằng các ứng dụng khách bên thứ ba như Outlook và Apple Reminders</string>
     <string name="upgrade_desktop_access">Truy cập từ máy tính</string>

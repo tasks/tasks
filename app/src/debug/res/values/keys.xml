@@ -9,7 +9,6 @@
   <string name="debug_purchase">Purchase %s</string>
   <string name="debug_consume">Consume %s</string>
   <string name="debug_themes">debug_themes</string>
-  <string name="debug_tasker">debug_tasker</string>
   <string name="debug_reset_ssl">Reset SSL certificates</string>
   <string name="debug_crash_app">Crash app now</string>
   <string name="debug_main_queries">Crash on violation</string>

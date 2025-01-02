@@ -612,8 +612,6 @@
     <string name="markdown_description">הפוך סימון לזמין בתיבה כותרת ותיאור</string>
     <string name="markdown">סימון כלפי מטה</string>
     <string name="more_options">אפשרויות נוספות</string>
-    <string name="upgrade_automation_description">תוספים עבור טסקר, אוטומציה ואזור</string>
-    <string name="upgrade_automation">אוטומציה</string>
     <string name="upgrade_open_source_description">המנוי שלך תומך בהמשך הפיתוח</string>
     <string name="upgrade_desktop_access_description">סינכרון עם לקוחות צד שלישי כגון תזכורות Outlook ו- Apple</string>
     <string name="upgrade_desktop_access">גישה לשולחן העבודה</string>

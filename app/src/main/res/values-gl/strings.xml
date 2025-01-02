@@ -293,7 +293,6 @@
     <string name="manage_subscription">Cambiar a suscrición</string>
     <string name="button_unsubscribe">Cancelar a suscrición</string>
     <string name="about">Sobre de</string>
-    <string name="upgrade_automation">Automatización</string>
     <plurals name="list_count">
         <item quantity="one">%d lista</item>
         <item quantity="other">%d listas</item>
@@ -540,7 +539,6 @@
     <string name="picker_mode_clock">Reloxo</string>
     <string name="picker_mode_text">Texto</string>
     <string name="upgrade_desktop_access_description">Sincronizar con clientes de terceiros como Outlook e Appler Reminders</string>
-    <string name="upgrade_automation_description">Engadidos de Tasker, Automate, e Locale</string>
     <string name="bottom">Abaixo</string>
     <string name="completed">Finalizada</string>
     <string name="completed_tasks_at_bottom">Mover as tarefas finalizadas ao fondo</string>

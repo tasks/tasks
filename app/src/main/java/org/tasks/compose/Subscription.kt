@@ -128,12 +128,6 @@ object PurchaseText {
             R.string.decsync_selection_description,
             false
         ),
-        CarouselItem(
-            R.string.upgrade_automation,
-            R.drawable.ic_tasker,
-            R.string.upgrade_automation_description,
-            false,
-        )
     )
 
     @OptIn(ExperimentalMaterial3Api::class)

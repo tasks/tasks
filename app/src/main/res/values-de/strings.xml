@@ -601,8 +601,6 @@
     <string name="email">E-Mail</string>
     <string name="share_list">Listen teilen</string>
     <string name="more_options">Weitere Optionen</string>
-    <string name="upgrade_automation_description">Erweiterungen für Tasker, Automate und Locale</string>
-    <string name="upgrade_automation">Automatisierung</string>
     <string name="upgrade_open_source_description">Dein Abonnement unterstützt die Weiterentwicklung</string>
     <string name="upgrade_desktop_access_description">Synchronisierung mit Drittanbieter-Clients wie Outlook und Apple Reminders</string>
     <string name="upgrade_desktop_access">Zugriff zur Arbeitoberfläche</string>

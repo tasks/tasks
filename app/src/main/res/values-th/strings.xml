@@ -38,8 +38,6 @@
     <string name="markdown_description">เปิดใช้งานการทําเครื่องหมายในชื่อและคําอธิบาย</string>
     <string name="markdown">มาร์กดาวน์</string>
     <string name="more_options">ตัวเลือกเพิ่มเติม</string>
-    <string name="upgrade_automation_description">ปลั๊กอินสําหรับตัวทํางาน</string>
-    <string name="upgrade_automation">ระบบอัตโนมัติ</string>
     <string name="upgrade_desktop_access">การเข้าถึงเดสก์ท็อป</string>
     <string name="upgrade_tasks_org_account_description">ซิงค์กับ Tasks.org และทํางานร่วมกับผู้ใช้รายอื่น</string>
     <string name="upgrade_google_tasks">ประสานหลายบัญชี</string>

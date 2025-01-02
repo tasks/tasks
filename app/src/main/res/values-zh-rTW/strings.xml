@@ -609,7 +609,6 @@
     <string name="chips">顯示元件</string>
     <string name="chip_appearance">元件外觀</string>
     <string name="upgrade_open_source_description">你的訂閱支援持續開發</string>
-    <string name="upgrade_automation">自動化</string>
     <string name="upgrade_desktop_access_description">與 Outlook 和 Apple 提醒等第三方客戶端同步</string>
     <string name="navigation_drawer">導覽側邊欄</string>
     <string name="top">頂部</string>
@@ -672,7 +671,6 @@
     <string name="sign_in">登入</string>
     <string name="alarm_before_start">開始前 %s</string>
     <string name="enable_reminders_description">在 Android 設定中禁用提醒</string>
-    <string name="upgrade_automation_description">Tasker、Automate 和 Locale 的外掛程式</string>
     <string name="consent_deny">現在不要</string>
     <string name="consent_agree">同意</string>
     <string name="enable_reminders">啟用提醒</string>

@@ -607,8 +607,6 @@
     <string name="upgrade_more_customization">Meer maatwerk</string>
     <string name="upgrade_more_customization_description">Alle thema\'s, kleuren en pictogrammen ontgrendelen</string>
     <string name="more_options">Meer opties</string>
-    <string name="upgrade_automation_description">Plugins voor Tasker, Automate en Locale</string>
-    <string name="upgrade_automation">Automate</string>
     <string name="upgrade_open_source_description">Jouw abonnement ondersteunt verdere ontwikkeling</string>
     <string name="upgrade_desktop_access_description">Met toepassingen van derden als Outlook en Apple Herinneringen synchroniseren</string>
     <string name="upgrade_desktop_access">Desktop-toegang</string>

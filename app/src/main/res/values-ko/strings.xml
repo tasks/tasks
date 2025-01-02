@@ -564,8 +564,6 @@
     <string name="markdown_description">제목과 설명에 마크다운 방식 가능</string>
     <string name="markdown">마크 다운</string>
     <string name="more_options">더 많은 옵션</string>
-    <string name="upgrade_automation_description">Tasker, Automate, Locale용 플러그인</string>
-    <string name="upgrade_automation">자동화</string>
     <string name="upgrade_open_source_description">구독하시면 지속적인 개발을 지원합니다</string>
     <string name="upgrade_desktop_access_description">Outlook, Apple Reminders 등 타사 클라이언트와 동기화</string>
     <string name="upgrade_desktop_access">데스크탑 접속</string>

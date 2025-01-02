@@ -459,7 +459,6 @@
     <string name="hide_unused_places">使われていない場所を隠す</string>
     <string name="place_settings">場所の設定</string>
     <string name="places">場所</string>
-    <string name="upgrade_automation_description">Tasker、AutomateとLocaleのプラグイン</string>
     <string name="local_lists">ローカルリスト</string>
     <string name="sort_created_group">作成: %s</string>
     <string name="app_password_created_at">作成: %s</string>
@@ -618,7 +617,6 @@
     <string name="invite">招待</string>
     <string name="invite_invalid">招待が無効</string>
     <string name="upgrade_desktop_access_description">Outlook や Apple Reminders などのサードパーティクライアントと同期可能</string>
-    <string name="upgrade_automation">自動化</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org と同期し、他のユーザーと共同作業が可能</string>
     <string name="upgrade_desktop_access">デスクトップアクセス</string>
     <string name="upgrade_open_source_description">あなたの支援が継続的な開発を支えます</string>

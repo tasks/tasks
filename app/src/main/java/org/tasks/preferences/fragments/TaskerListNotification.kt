@@ -1,11 +1,8 @@
 package org.tasks.preferences.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.billing.Inventory
-import org.tasks.billing.PurchaseActivity
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.filters.Filter
@@ -19,7 +16,6 @@ class TaskerListNotification : InjectingPreferenceFragment() {
 
     companion object {
         const val EXTRA_FILTER = "extra_filter"
-        private const val REQUEST_SUBSCRIPTION = 10125
 
         fun newTaskerListNotification(filter: String?): TaskerListNotification {
             val fragment = TaskerListNotification()
@@ -31,7 +27,6 @@ class TaskerListNotification : InjectingPreferenceFragment() {
     }
 
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
-    @Inject lateinit var inventory: Inventory
 
     lateinit var filter: Filter
     var cancelled: Boolean = false
@@ -57,23 +52,6 @@ class TaskerListNotification : InjectingPreferenceFragment() {
                 selectedFilter = filter,
             )
             false
-        }
-
-        if (!inventory.purchasedTasker()) {
-            startActivityForResult(
-                Intent(context, PurchaseActivity::class.java),
-                REQUEST_SUBSCRIPTION
-            )
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_SUBSCRIPTION -> if (!inventory.purchasedTasker()) {
-                cancelled = true
-                requireActivity().finish()
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 

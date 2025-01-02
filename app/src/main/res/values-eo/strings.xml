@@ -446,7 +446,6 @@
     <string name="location_arrived">Alvenis je %s</string>
     <string name="disable_battery_optimizations">Malŝalti optimumigojn</string>
     <string name="invite">Inviti</string>
-    <string name="upgrade_automation">Aŭtomatigo</string>
     <plurals name="reminder_days">
         <item quantity="one">Tago</item>
         <item quantity="other">Tagoj</item>
@@ -687,7 +686,6 @@
     <string name="picker_mode_time">Tempelektila reĝimo</string>
     <string name="upgrade_more_customization_description">Malŝlosi ĉiujn etosojn, kolorojn, kaj piktogramojn</string>
     <string name="upgrade_desktop_access">Aliri per labortablo</string>
-    <string name="upgrade_automation_description">Kromprogramo por Tasker, Automate, kaj Locale</string>
     <string name="app_bar_position">Pozicio de programa stango</string>
     <string name="account_not_included">Ne inkluzivite per \'Elekti propran prezon\' abonoj</string>
     <string name="upgrade_desktop_access_description">Sinkronigi kun klientoj de ekstera liveranto kiel Outlook kaj Apple Reminders</string>

@@ -470,8 +470,6 @@
     <string name="upgrade_desktop_access">Darbalaukio prieiga</string>
     <string name="upgrade_desktop_access_description">Sinchronizuokite su trečiųjų šalių klientais, tokiais kaip Outlook ir Apple Reminders</string>
     <string name="upgrade_open_source_description">Jūsų prenumerata palaiko tolesnį kūrimą</string>
-    <string name="upgrade_automation">Automatizacija</string>
-    <string name="upgrade_automation_description">Tasker, Automate ir Locale papildiniai</string>
     <string name="more_options">Daugiau pasirinkimų</string>
     <string name="markdown">Markdown</string>
     <string name="markdown_description">Įgalinti Markdown pavadinime ir aprašyme</string>

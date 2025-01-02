@@ -59,8 +59,6 @@
     <string name="action_call">අමතන්න</string>
     <string name="display_name">ප්‍රදර්ශන නාමය</string>
     <string name="actfm_picture_clear">පින්තූරය ඉවත් කරන්න</string>
-    <string name="upgrade_automation_description">Tasker, Automate සහ Locale සඳහා ප්ලගීන (plugins)</string>
-    <string name="upgrade_automation">ස්වයංක්‍රීයකරණය</string>
     <string name="upgrade_open_source_description">ඔබේ දායකත්වය අඛණ්ඩ සංවර්ධනයට සහාය වේ</string>
     <string name="upgrade_desktop_access_description">Outlook සහ Apple Reminders වැනි තෙවන පාර්ශවීය සේවාදායකයින් සමඟ සමමුහුර්ත කරන්න</string>
     <string name="upgrade_desktop_access">ඩෙස්ක්ටොප් ප්‍රවේශය</string>

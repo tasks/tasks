@@ -691,8 +691,6 @@ File %1$s contained %2$s.\n\n
   <string name="upgrade_desktop_access">Desktop access</string>
   <string name="upgrade_desktop_access_description">Sync with third-party clients like Outlook and Apple Reminders</string>
   <string name="upgrade_open_source_description">Your subscription supports continued development</string>
-  <string name="upgrade_automation">Automation</string>
-  <string name="upgrade_automation_description">Plugins for Tasker, Automate, and Locale</string>
   <string name="more_options">More options</string>
   <string name="markdown">Markdown</string>
   <string name="markdown_description">Enable Markdown in title and description</string>

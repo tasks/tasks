@@ -522,7 +522,6 @@
     <string name="SSD_sort_start">Por data inicial</string>
     <string name="cancel">Cancelar</string>
     <string name="ok">OK</string>
-    <string name="upgrade_automation_description">Complementos para Tasker, Automate e Locale</string>
     <string name="current_subscription">Assinatura atual: %s</string>
     <string name="price_per_month">US$ %s/por mês</string>
     <string name="price_per_year">US$ %s/por ano</string>
@@ -562,7 +561,6 @@
     <string name="default_start_date">Data de início padrão</string>
     <string name="always_display_full_date">Mostrar data completa</string>
     <string name="more_options">Mais opções</string>
-    <string name="upgrade_automation">Automação</string>
     <string name="upgrade_open_source_description">Sua assinatura ajuda a continuar o desenvolvimento</string>
     <string name="upgrade_desktop_access_description">Sincronização com clientes de terceiros, como Outlook e Apple Reminders</string>
     <string name="upgrade_desktop_access">Acesso para a versão Desktop</string>

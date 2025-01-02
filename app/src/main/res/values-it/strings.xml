@@ -619,8 +619,6 @@
     <string name="issue_tracker">Segnalazione problemi</string>
     <string name="social">Social</string>
     <string name="follow_twitter">Segui @tasks_org</string>
-    <string name="upgrade_automation_description">Estensioni per Tasker, Automate e Locale</string>
-    <string name="upgrade_automation">Automazione</string>
     <string name="upgrade_open_source_description">Il tuo abbonamento supporta lo sviluppo continuo</string>
     <string name="upgrade_desktop_access_description">Sincronizza con client di terze parti come Outlook e Apple Reminders</string>
     <string name="upgrade_desktop_access">Accesso desktop</string>

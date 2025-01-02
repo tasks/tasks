@@ -605,8 +605,6 @@
     <string name="picker_mode_time">Időválasztó mód</string>
     <string name="picker_mode_date">Dátumválasztó mód</string>
     <string name="more_options">Több opció</string>
-    <string name="upgrade_automation_description">Tasker, Automate és Locate beépülő modulok</string>
-    <string name="upgrade_automation">Automatizálás</string>
     <string name="upgrade_open_source_description">Az előfizetéseddel a folyamatos fejlesztést támogatod</string>
     <string name="upgrade_desktop_access_description">Szinkronizálás harmadik fél megoldásaival, mint az Outlook vagy az Apple Emlékeztetők</string>
     <string name="upgrade_desktop_access">Desktop hozzáférés</string>

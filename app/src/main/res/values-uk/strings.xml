@@ -630,8 +630,6 @@
     <string name="picker_mode_time">Режим вибору часу</string>
     <string name="picker_mode_date">Режим вибору дати</string>
     <string name="more_options">Додаткові параметри</string>
-    <string name="upgrade_automation_description">Плагіни для Tasker, Automate і Locale</string>
-    <string name="upgrade_automation">Автоматизація</string>
     <string name="upgrade_open_source_description">Ваша передплата підтримує постійний розвиток</string>
     <string name="upgrade_desktop_access_description">Синхронізація зі сторонніми клієнтами, наприклад Outlook і Apple Нагадування</string>
     <string name="upgrade_desktop_access">Доступ до комп\'ютера</string>

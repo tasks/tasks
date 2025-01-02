@@ -611,8 +611,6 @@
     <string name="markdown_description">Włącz Markdown w tytule i opisie</string>
     <string name="markdown">Markdown</string>
     <string name="more_options">Więcej opcji</string>
-    <string name="upgrade_automation_description">Wtyczki do Tasker, Automate i Locale</string>
-    <string name="upgrade_automation">Automatyzacja</string>
     <string name="upgrade_open_source_description">Twoja subskrypcja wspiera dalszy rozwój aplikacji</string>
     <string name="upgrade_desktop_access_description">Synchronizacja z aplikacjami innych firm, takimi jak Outlook i Apple Reminders</string>
     <string name="upgrade_desktop_access">Dostęp z aplikacji desktopowych</string>

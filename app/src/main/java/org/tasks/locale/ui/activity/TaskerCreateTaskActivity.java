@@ -11,7 +11,6 @@ import net.dinglisch.android.tasker.TaskerPlugin;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
-import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
 import org.tasks.databinding.ActivityTaskerCreateBinding;
 import org.tasks.extensions.Context;
@@ -25,7 +24,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
 
-  @Inject Inventory inventory;
   @Inject LocalBroadcastManager localBroadcastManager;
 
   private ActivityTaskerCreateBinding binding;
@@ -50,10 +48,6 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
       previousBundle = savedInstanceState.getParcelable(TaskCreationBundle.EXTRA_BUNDLE);
       TaskCreationBundle bundle = new TaskCreationBundle(previousBundle);
       binding.title.setText(bundle.getTitle());
-    }
-
-    if (!inventory.purchasedTasker()) {
-      showPurchaseDialog();
     }
   }
 
@@ -113,11 +107,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   }
 
   private void save() {
-    if (!inventory.purchasedTasker()) {
-      showPurchaseDialog();
-    } else {
-      finish();
-    }
+    finish();
   }
 
   private void discardButtonClick() {
