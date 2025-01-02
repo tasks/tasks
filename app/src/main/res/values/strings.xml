@@ -728,4 +728,7 @@ File %1$s contained %2$s.\n\n
   <string name="sort_not_available">Not available for tags, filters, or places</string>
   <string name="add_shortcut_to_home_screen">Add shortcut to home screen</string>
   <string name="add_widget_to_home_screen">Add widget to home screen</string>
+  <string name="cost_free">Cost: Free</string>
+  <string name="cost_money">Cost: $</string>
+  <string name="cost_more_money">Cost: $$$</string>
 </resources>

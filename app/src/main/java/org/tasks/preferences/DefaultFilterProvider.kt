@@ -1,6 +1,5 @@
 package org.tasks.preferences
 
-import org.tasks.filters.CustomFilter
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -16,6 +15,7 @@ import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import org.tasks.data.getLocalList
 import org.tasks.filters.CaldavFilter
+import org.tasks.filters.CustomFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.GtasksFilter
 import org.tasks.filters.MyTasksFilter
@@ -177,6 +177,7 @@ class DefaultFilterProvider @Inject constructor(
         } else {
             val googleTask = googleTaskDao.getByTaskId(task.id)
             val caldavTask = caldavDao.getTask(task.id)
+            val caldavAccount = caldavDao.getAccountForTask(task.id)
             if (googleTask != null) {
                 val googleTaskList = googleTaskListDao.getByRemoteId(googleTask.calendar!!)
                 if (googleTaskList != null) {

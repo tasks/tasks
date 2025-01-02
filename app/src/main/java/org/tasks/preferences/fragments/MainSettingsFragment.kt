@@ -172,7 +172,10 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
 
     private fun addAccount(): Boolean {
         lifecycleScope.launch {
-            newAccountDialog(hasTasksAccount = viewModel.tasksAccount() != null)
+            newAccountDialog(
+                hasTasksAccount = viewModel.tasksAccount() != null,
+                hasPro = inventory.hasPro,
+            )
                 .show(parentFragmentManager, FRAG_TAG_ADD_ACCOUNT)
         }
         return false

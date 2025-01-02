@@ -22,6 +22,9 @@ class AddAccountDialog : DialogFragment() {
     private val hasTasksAccount: Boolean
         get() = arguments?.getBoolean(EXTRA_HAS_TASKS_ACCOUNT) ?: false
 
+    private val hasPro: Boolean
+        get() = arguments?.getBoolean(EXTRA_HAS_PRO) ?: false
+
     enum class Platform {
         TASKS_ORG,
         GOOGLE_TASKS,
@@ -40,6 +43,7 @@ class AddAccountDialog : DialogFragment() {
                 TasksTheme(theme = theme.themeBase.index) {
                     org.tasks.compose.AddAccountDialog(
                         hasTasksAccount = hasTasksAccount,
+                        hasPro = hasPro,
                         selected = this::selected
                     )
                 }
@@ -58,10 +62,17 @@ class AddAccountDialog : DialogFragment() {
         const val ADD_ACCOUNT = "add_account"
         const val EXTRA_SELECTED = "selected"
         private const val EXTRA_HAS_TASKS_ACCOUNT = "extra_has_tasks_account"
+        private const val EXTRA_HAS_PRO = "extra_has_pro"
 
-        fun newAccountDialog(hasTasksAccount: Boolean) =
+        fun newAccountDialog(
+            hasTasksAccount: Boolean,
+            hasPro: Boolean,
+        ) =
             AddAccountDialog().apply {
-                arguments = bundleOf(EXTRA_HAS_TASKS_ACCOUNT to hasTasksAccount)
+                arguments = bundleOf(
+                    EXTRA_HAS_TASKS_ACCOUNT to hasTasksAccount,
+                    EXTRA_HAS_PRO to hasPro,
+                )
             }
     }
 }

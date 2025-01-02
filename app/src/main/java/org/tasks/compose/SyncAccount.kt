@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun SyncAccount(
     @StringRes title: Int,
+    @StringRes cost: Int? = null,
     @StringRes description: Int,
     @DrawableRes icon: Int,
     tint: Color? = null,
@@ -46,6 +47,13 @@ fun SyncAccount(
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface,
             )
+            cost?.let {
+                Text(
+                    text = stringResource(id = it),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
             Text(
                 text = stringResource(id = description),
                 style = MaterialTheme.typography.bodyMedium,
