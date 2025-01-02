@@ -1,3 +1,19 @@
+### 14.3.1 (2025-01-02)
+
+* Fix edit screen disappearing on rotation
+* Fix notification bundling issue
+* Fix scrolling in custom filter settings
+* Remove map theme and desaturation options
+* Update translations
+  * Bulgarian - @StoyanDimitrov
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * German - @p-rogalski
+  * Italian - @ppasserini
+  * Korean - Sunjae Choi
+  * Swedish - @bittin
+
 ### 14.3 (2024-12-24)
 
 * "Add widget to home screen" shortcut in list settings
