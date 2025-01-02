@@ -1,12 +1,12 @@
 package org.tasks.sync.microsoft
 
-import org.tasks.data.entity.Task
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
 import net.fortuna.ical4j.model.WeekDayList
 import org.tasks.data.createDueDate
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.TagData
+import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils
 import org.tasks.sync.microsoft.Tasks.Task.RecurrenceDayOfWeek
 import org.tasks.sync.microsoft.Tasks.Task.RecurrenceType
@@ -22,6 +22,22 @@ object MicrosoftConverter {
     private const val TYPE_TEXT = "text"
     private const val DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS0000"
     private const val DATE_TIME_UTC_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS0000'Z'"
+
+    fun Task.applySubtask(
+        index: Int,
+        parent: Long,
+        checklistItem: Tasks.Task.ChecklistItem,
+    ) {
+        this.parent = parent
+        order = index.toLong()
+        title = checklistItem.displayName
+        completionDate = if (checklistItem.isChecked) {
+            checklistItem.checkedDateTime?.parseDateTime() ?: System.currentTimeMillis()
+        } else {
+            0L
+        }
+        creationDate = checklistItem.createdDateTime.parseDateTime()
+    }
 
     fun Task.applyRemote(
         remote: Tasks.Task,
@@ -84,7 +100,10 @@ object MicrosoftConverter {
         // sync files
     }
 
-    fun Task.toRemote(caldavTask: CaldavTask, tags: List<TagData>): Tasks.Task {
+    fun Task.toRemote(
+        caldavTask: CaldavTask,
+        tags: List<TagData>,
+    ): Tasks.Task {
         return Tasks.Task(
             id = caldavTask.remoteId,
             title = title,
@@ -168,13 +187,25 @@ object MicrosoftConverter {
                 }
             } else {
                 null
-            }
-            // subtasks to checklist
+            },
 //            isReminderOn =
             // reminders
             // files
         )
     }
+
+    fun Task.toChecklistItem(id: String?) =
+        Tasks.Task.ChecklistItem(
+            id = id,
+            displayName = title ?: "",
+            createdDateTime = DateTime(creationDate).toUTC().toString(DATE_TIME_UTC_FORMAT),
+            isChecked = isCompleted,
+            checkedDateTime = if (isCompleted) {
+                DateTime(completionDate).toUTC().toString(DATE_TIME_UTC_FORMAT)
+            } else {
+                null
+            },
+        )
 
     private fun String?.parseDateTime(): Long =
         this

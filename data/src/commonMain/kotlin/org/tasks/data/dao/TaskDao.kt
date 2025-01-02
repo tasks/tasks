@@ -88,7 +88,8 @@ FROM (
         WHERE caldav_tasks.cd_calendar = :calendar
           AND cd_deleted = 0
           AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_last_sync = 0)
-        ORDER BY created""")
+        ORDER BY created
+    """)
     abstract suspend fun getCaldavTasksToPush(calendar: String): List<Task>
 
     // --- SQL clause generators

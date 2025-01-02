@@ -23,6 +23,7 @@ import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.sync.SyncAdapters
+import timber.log.Timber
 import javax.inject.Inject
 
 class TaskDao @Inject constructor(
@@ -98,12 +99,14 @@ class TaskDao @Inject constructor(
     suspend fun save(task: Task) = save(task, fetch(task.id))
 
     suspend fun save(tasks: List<Task>, originals: List<Task>) {
+        Timber.d("Saving $tasks")
         taskDao.updateInternal(tasks)
         tasks.forEach { task -> afterUpdate(task, originals.find { it.id == task.id }) }
     }
 
     suspend fun save(task: Task, original: Task?) {
         if (taskDao.update(task, original)) {
+            Timber.d("Saved $task")
             afterUpdate(task, original)
             workManager.triggerNotifications()
             workManager.scheduleRefresh()

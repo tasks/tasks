@@ -1,5 +1,7 @@
 package org.tasks.sync.microsoft
 
+import kotlinx.serialization.EncodeDefault
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.tasks.data.Redacted
@@ -11,13 +13,13 @@ data class Tasks(
     @SerialName("@odata.deltaLink") val nextDelta: String? = null,
 ) {
     @Serializable
-    data class Task(
+    data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
         @SerialName("@odata.etag") val etag: String? = null,
         val id: String? = null,
         @Redacted val title: String? = null,
         val body: Body? = null,
-        val importance: Importance = Importance.low,
-        val status: Status = Status.notStarted,
+        @EncodeDefault val importance: Importance = Importance.low,
+        @EncodeDefault val status: Status = Status.notStarted,
         val categories: List<String>? = null,
         val isReminderOn: Boolean = false,
         val createdDateTime: String? = null,
@@ -100,9 +102,9 @@ data class Tasks(
 
         @Serializable
         data class ChecklistItem(
-            val id: String,
+            val id: String? = null,
             val displayName: String,
-            val createdDateTime: String,
+            val createdDateTime: String? = null,
             val isChecked: Boolean,
             val checkedDateTime: String? = null,
         )

@@ -31,9 +31,12 @@ import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.http.HttpClientFactory
+import org.tasks.http.NotFoundException
 import org.tasks.preferences.Preferences
 import org.tasks.sync.microsoft.Error.Companion.toMicrosoftError
 import org.tasks.sync.microsoft.MicrosoftConverter.applyRemote
+import org.tasks.sync.microsoft.MicrosoftConverter.applySubtask
+import org.tasks.sync.microsoft.MicrosoftConverter.toChecklistItem
 import org.tasks.sync.microsoft.MicrosoftConverter.toRemote
 import timber.log.Timber
 import java.io.IOException
@@ -151,12 +154,8 @@ class MicrosoftSynchronizer @Inject constructor(
         for (task in caldavDao.getMoved(local.uuid!!)) {
             deleteRemoteResource(microsoft, local, task)
         }
-        for (task in taskDao.getCaldavTasksToPush(local.uuid!!)) {
-            try {
-                pushTask(local, task, microsoft)
-            } catch (e: IOException) {
-                Timber.e(e)
-            }
+        for (task in taskDao.getCaldavTasksToPush(local.uuid!!).sortedBy { it.parent }) {
+            pushTask(local, task, microsoft)
         }
     }
 
@@ -166,13 +165,40 @@ class MicrosoftSynchronizer @Inject constructor(
         task: CaldavTask,
     ): Boolean {
         val listId = list.uuid
+        val parentId = task.remoteParent
         val taskId = task.remoteId
         val success = when {
             task.lastSync == 0L -> true
             listId.isNullOrBlank() -> false
             taskId.isNullOrBlank() -> false
+            parentId.isNullOrBlank() -> {
+                try {
+                    microsoft.deleteTask(listId, taskId)
+                } catch (e: NotFoundException) {
+                    Timber.w(e, "task=$task")
+                } catch (e: org.tasks.http.HttpException) {
+                    when (e.code) {
+                        400 -> Timber.w(e, "task=$task")
+                        else -> {
+                            throw e
+                        }
+                    }
+                }
+                true
+            }
             else -> {
-                microsoft.deleteTask(listId, taskId)
+                try {
+                    microsoft.deleteChecklistItem(listId, parentId, taskId)
+                } catch (e: NotFoundException) {
+                    Timber.w(e, "task=$task")
+                } catch (e: org.tasks.http.HttpException) {
+                    when (e.code) {
+                        400 -> Timber.w(e, "task=$task")
+                        else -> {
+                            throw e
+                        }
+                    }
+                }
                 true
             }
         }
@@ -190,14 +216,19 @@ class MicrosoftSynchronizer @Inject constructor(
     ) {
         val caldavTask = caldavDao.getTask(task.id) ?: return
         if (task.isDeleted) {
+            Timber.d("Deleting $task")
             if (deleteRemoteResource(microsoft, list, caldavTask)) {
                 taskDeleter.delete(taskDao.getChildren(task.id) + task.id)
             }
             return
         }
-        val remoteTask = task.toRemote(caldavTask, tagDataDao.getTagDataForTask(task.id))
-        try {
-            val result: Tasks.Task = if (caldavTask.lastSync == 0L) {
+        val isNew = caldavTask.lastSync == 0L
+        if (task.parent == 0L) {
+            val remoteTask = task.toRemote(
+                caldavTask = caldavTask,
+                tags = tagDataDao.getTagDataForTask(task.id),
+            )
+            val result: Tasks.Task = if (isNew) {
                 Timber.d("Uploading new task: $task")
                 microsoft.createTask(list.uuid!!, remoteTask)
             } else {
@@ -208,18 +239,24 @@ class MicrosoftSynchronizer @Inject constructor(
             caldavTask.obj = "${result.id}.json"
             caldavTask.lastSync = task.modificationDate
             vtodoCache.putVtodo(list, caldavTask, json.encodeToString(result))
-            caldavDao.update(caldavTask)
-        } catch (e: HttpException) {
-            if (e.code == 404) {
-                Timber.d("404, deleting $task")
-                vtodoCache.delete(list, caldavTask)
-                taskDeleter.delete(taskDao.getChildren(task.id) + task.id)
+        } else {
+            val caldavParent = caldavDao.getTask(task.parent)?.remoteId ?: return
+            val remoteTask = task.toChecklistItem(caldavTask.remoteId)
+            val result: Tasks.Task.ChecklistItem = if (isNew) {
+                Timber.d("Uploading new checklist item: $task")
+                microsoft.createChecklistItem(list.uuid!!, caldavParent, remoteTask)
             } else {
-                Timber.e(e)
+                Timber.d("Updating existing checklist item: $task")
+                microsoft.updateChecklistItem(list.uuid!!, caldavParent, remoteTask)
             }
-        } catch (e: Exception) {
-            Timber.e(e)
+            caldavTask.remoteId = result.id
+            caldavTask.remoteParent = caldavParent
+            caldavTask.obj = "${result.id}.json"
+            caldavTask.lastSync = task.modificationDate
+            vtodoCache.putVtodo(list, caldavTask, json.encodeToString(result))
         }
+
+        caldavDao.update(caldavTask)
     }
 
     private suspend fun deltaSync(
@@ -235,8 +272,9 @@ class MicrosoftSynchronizer @Inject constructor(
                 updateTask(list, remote)
             } else {
                 val caldavTasks = caldavDao.getTasksByRemoteId(list.uuid!!, listOf(remote.id!!))
+                val taskIds = caldavTasks.map { it.task }.flatMap { taskDao.getChildren(it) + it }
+                Timber.d("Deleting $remote, taskIds=$taskIds")
                 vtodoCache.delete(list, caldavTasks)
-                val taskIds = caldavTasks.map { it.id }.flatMap { taskDao.getChildren(it) + it }
                 taskDeleter.delete(taskIds)
             }
         }
@@ -354,30 +392,88 @@ class MicrosoftSynchronizer @Inject constructor(
                     obj = "${remote.id}.json"
                 )
         val dirty = existing != null && task.modificationDate > existing.lastSync
+        if (dirty) {
+            // TODO: merge with vtodo cached value, similar to iCalendarMerge.kt
+            Timber.w("Ignoring update for dirty taskId=${task.id} remote=$remote")
+            return
+        }
         task.applyRemote(remote, preferences.defaultPriority)
-        val existingSubtasks: List<CaldavTask> = taskDao.getChildren(task.id).let { caldavDao.getTasks(it) }
-        val remoteSubtaskIds = remote.checklistItems?.map { it.id } ?: emptyList()
-        existingSubtasks
-            .filter { it.remoteId?.isNotBlank() == true && !remoteSubtaskIds.contains(it.remoteId) }
-            .let { taskDeleter.delete(it.map { it.task }) }
         task.suppressSync()
         task.suppressRefresh()
         taskDao.save(task)
         vtodoCache.putVtodo(list, caldavTask, json.encodeToString(remote))
         tagDao.applyTags(task, tagDataDao, getTags(remote.categories ?: emptyList()))
-        remote.checklistItems?.forEach {
-            // TODO: handle checklist items
+        remote.checklistItems?.let {
+            syncChecklist(
+                list = list,
+                parentId = task.id,
+                parentRemoteId = caldavTask.remoteId!!,
+                checklistItems = it,
+            )
         }
         caldavTask.etag = remote.etag
-        if (!dirty) {
-            caldavTask.lastSync = task.modificationDate
-        }
+        caldavTask.lastSync = task.modificationDate
         if (caldavTask.id == Task.NO_ID) {
             caldavDao.insert(caldavTask)
             Timber.d("NEW $caldavTask")
         } else {
             caldavDao.update(caldavTask)
             Timber.d("UPDATE $caldavTask")
+        }
+    }
+
+    private suspend fun syncChecklist(
+        list: CaldavCalendar,
+        parentId: Long,
+        parentRemoteId: String,
+        checklistItems: List<Tasks.Task.ChecklistItem>,
+    ) {
+        val existingSubtasks: List<CaldavTask> = taskDao.getChildren(parentId).let { caldavDao.getTasks(it) }
+        val remoteSubtaskIds = checklistItems.map { it.id }
+        existingSubtasks
+            .filter { it.remoteId?.isNotBlank() == true && !remoteSubtaskIds.contains(it.remoteId) }
+            .let { taskDeleter.delete(it.map { it.task }) }
+        checklistItems.forEachIndexed { index, item ->
+            val existing = caldavDao.getTaskByRemoteId(list.uuid!!, item.id!!)
+            val task = existing?.task?.let { taskDao.fetch(it) }
+                ?: taskCreator.createWithValues("").apply {
+                    taskDao.createNew(this)
+                }
+            val caldavTask =
+                existing
+                    ?.copy(task = task.id)
+                    ?: CaldavTask(
+                        task = task.id,
+                        calendar = list.uuid,
+                        remoteId = item.id,
+                        remoteParent = parentRemoteId,
+                        obj = "${item.id}.json"
+                    )
+            val dirty = existing != null && task.modificationDate > existing.lastSync
+            if (dirty) {
+                // TODO: merge with vtodo cached value, similar to iCalendarMerge.kt
+                task.order = index.toLong()
+                task.parent = parentId
+            } else {
+                task.applySubtask(
+                    index = index,
+                    parent = parentId,
+                    checklistItem = item,
+                )
+            }
+            task.suppressSync()
+            task.suppressRefresh()
+            taskDao.save(task)
+            if (!dirty) {
+                caldavTask.lastSync = task.modificationDate
+            }
+            if (caldavTask.id == Task.NO_ID) {
+                caldavDao.insert(caldavTask)
+                Timber.d("NEW $caldavTask")
+            } else {
+                caldavDao.update(caldavTask)
+                Timber.d("UPDATE $caldavTask")
+            }
         }
     }
 
