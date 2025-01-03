@@ -21,10 +21,9 @@ import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
-import org.tasks.data.dao.CaldavDao
-import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.gtasks.GoogleAccountManager
 import org.tasks.preferences.ActivityPermissionRequestor
@@ -42,7 +41,6 @@ class GtasksLoginActivity : AppCompatActivity() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var googleAccountManager: GoogleAccountManager
     @Inject lateinit var caldavDao: CaldavDao
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var permissionRequestor: ActivityPermissionRequestor
     @Inject lateinit var firebase: Firebase
 
@@ -92,7 +90,7 @@ class GtasksLoginActivity : AppCompatActivity() {
                                     caldavDao.update(
                                         account.copy(error = "")
                                     )
-                                    googleTaskListDao.resetLastSync(accountName)
+                                    caldavDao.resetLastSync(accountName)
                                 }
                             }
                             setResult(Activity.RESULT_OK)

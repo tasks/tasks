@@ -24,7 +24,7 @@ import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.dao.GoogleTaskListDao
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
@@ -51,7 +51,6 @@ class SyncWork @AssistedInject constructor(
     private val googleTaskSynchronizer: Lazy<GoogleTaskSynchronizer>,
     private val openTasksSynchronizer: Lazy<OpenTasksSynchronizer>,
     private val microsoftSynchronizer: Lazy<MicrosoftSynchronizer>,
-    private val googleTaskListDao: GoogleTaskListDao,
     private val openTaskDao: OpenTaskDao,
     private val inventory: Inventory
 ) : BaseWorker(context, workerParams, firebase) {
@@ -146,7 +145,7 @@ class SyncWork @AssistedInject constructor(
     }
 
     private suspend fun getGoogleAccounts() =
-        googleTaskListDao.getAccounts()
+        caldavDao.getAccounts(CaldavAccount.TYPE_GOOGLE_TASKS)
 
     private suspend fun getCaldavAccounts() =
             caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_MICROSOFT)

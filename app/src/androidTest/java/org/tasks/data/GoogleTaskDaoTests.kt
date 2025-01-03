@@ -11,7 +11,6 @@ import org.junit.Before
 import org.junit.Test
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
-import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavCalendar
@@ -29,7 +28,6 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class GoogleTaskDaoTests : InjectingTestCase() {
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var caldavDao: CaldavDao

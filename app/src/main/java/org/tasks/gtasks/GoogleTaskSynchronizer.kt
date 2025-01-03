@@ -23,7 +23,6 @@ import org.tasks.data.*
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
-import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
@@ -47,7 +46,6 @@ import kotlin.math.max
 
 class GoogleTaskSynchronizer @Inject constructor(
     @param:ApplicationContext private val context: Context,
-    private val googleTaskListDao: GoogleTaskListDao,
     private val caldavDao: CaldavDao,
     private val gtasksListService: GtasksListService,
     private val preferences: Preferences,
@@ -124,13 +122,13 @@ class GoogleTaskSynchronizer @Inject constructor(
         gtasksListService.updateLists(account, gtaskLists)
         val defaultRemoteList = defaultFilterProvider.defaultList
         if (defaultRemoteList is GtasksFilter) {
-            val list = googleTaskListDao.getByRemoteId(defaultRemoteList.remoteId)
+            val list = caldavDao.getCalendarByUuid(defaultRemoteList.remoteId)
             if (list == null) {
                 preferences.setString(R.string.p_default_list, null)
             }
         }
         pushLocalChanges(account, gtasksInvoker)
-        for (list in googleTaskListDao.getByRemoteId(gtaskLists.map { it.id })) {
+        for (list in caldavDao.getCalendarsByAccount(account.uuid!!)) {
             if (isNullOrEmpty(list.uuid)) {
                 firebase.reportException(RuntimeException("Empty remote id"))
                 continue
@@ -355,7 +353,7 @@ class GoogleTaskSynchronizer @Inject constructor(
                 write(task, googleTask)
             }
         }
-        googleTaskListDao.insertOrReplace(
+        caldavDao.insertOrReplace(
             list.copy(
                 lastSync = lastSyncDate
             )

@@ -21,7 +21,6 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.GoogleTaskDao
-import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.NotificationDao
 import org.tasks.data.dao.TagDao
@@ -96,10 +95,6 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun getGoogleTaskListDao(db: Database): GoogleTaskListDao = db.googleTaskListDao()
-
-    @Provides
-    @Singleton
     fun getCaldavDao(db: Database): CaldavDao = db.caldavDao()
 
     @Provides
@@ -154,7 +149,6 @@ class ApplicationModule {
     fun providesFilterProvider(
         filterDao: FilterDao,
         tagDataDao: TagDataDao,
-        googleTaskListDao: GoogleTaskListDao,
         caldavDao: CaldavDao,
         drawerConfiguration: DrawerConfiguration,
         locationDao: LocationDao,
@@ -163,7 +157,6 @@ class ApplicationModule {
     ) = FilterProvider(
         filterDao = filterDao,
         tagDataDao = tagDataDao,
-        googleTaskListDao = googleTaskListDao,
         caldavDao = caldavDao,
         configuration = drawerConfiguration,
         locationDao = locationDao,

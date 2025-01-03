@@ -89,9 +89,6 @@ abstract class GoogleTaskDao(private val database: Database) {
     @Query("SELECT * FROM caldav_tasks WHERE cd_task = :taskId")
     abstract suspend fun getAllByTaskId(taskId: Long): List<CaldavTask>
 
-    @Query("SELECT DISTINCT cd_calendar FROM caldav_tasks WHERE cd_deleted = 0 AND cd_task IN (:tasks)")
-    abstract suspend fun getLists(tasks: List<Long>): List<String>
-
     @Query("SELECT IFNULL(MAX(`order`), -1) + 1 FROM tasks INNER JOIN caldav_tasks ON cd_task = tasks._id WHERE cd_calendar = :listId AND parent = :parent")
     abstract suspend fun getBottom(listId: String, parent: Long): Long
 

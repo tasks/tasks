@@ -29,7 +29,6 @@ import org.tasks.R
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.FilterDao
-import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.listSettingsClass
@@ -50,7 +49,6 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var tagDataDao: TagDataDao
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var filterDao: FilterDao
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var locationDao: LocationDao

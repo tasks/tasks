@@ -8,13 +8,13 @@ package com.todoroo.astrid.gtasks
 import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.service.TaskDeleter
 import org.tasks.LocalBroadcastManager
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.dao.GoogleTaskListDao
 import javax.inject.Inject
 
 class GtasksListService @Inject constructor(
-    private val googleTaskListDao: GoogleTaskListDao,
+    private val caldavDao: CaldavDao,
     private val taskDeleter: TaskDeleter,
     private val localBroadcastManager: LocalBroadcastManager,
 ) {
@@ -25,7 +25,7 @@ class GtasksListService @Inject constructor(
      * @param remoteLists remote information about your lists
      */
     suspend fun updateLists(account: CaldavAccount, remoteLists: List<TaskList>) {
-        val lists = googleTaskListDao.getLists(account.uuid!!)
+        val lists = caldavDao.getCalendarsByAccount(account.uuid!!)
         val previousLists: MutableSet<Long> = HashSet()
         for (list in lists) {
             previousLists.add(list.id)
@@ -47,13 +47,13 @@ class GtasksListService @Inject constructor(
                 )
             }
             local.name = remote.title
-            googleTaskListDao.insertOrReplace(local)
+            caldavDao.insertOrReplace(local)
             previousLists.remove(local.id)
         }
 
         // check for lists that aren't on remote server
         for (listId in previousLists) {
-            taskDeleter.delete(googleTaskListDao.getById(listId)!!)
+            taskDeleter.delete(caldavDao.getCalendarById(listId)!!)
         }
         localBroadcastManager.broadcastRefreshList()
     }

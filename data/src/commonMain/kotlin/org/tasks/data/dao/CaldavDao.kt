@@ -3,6 +3,7 @@ package org.tasks.data.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
@@ -267,8 +268,12 @@ SELECT EXISTS(SELECT 1
             + " WHERE cdl_account = cda_uuid")
     abstract suspend fun getAccountForTask(task: Long): CaldavAccount?
 
-    @Query("SELECT DISTINCT cd_calendar FROM caldav_tasks WHERE cd_deleted = 0 AND cd_task IN (:tasks)")
-    abstract suspend fun getCalendars(tasks: List<Long>): List<String>
+    @Query("""
+        SELECT DISTINCT * FROM caldav_lists
+            INNER JOIN caldav_tasks ON cdl_uuid = cd_calendar
+        WHERE cd_deleted = 0 AND cd_task IN (:tasks)
+    """)
+    abstract suspend fun getCalendars(tasks: List<Long>): List<CaldavCalendar>
 
     @Query("""
 SELECT caldav_lists.*, COUNT(DISTINCT(tasks._id)) AS count, COUNT(DISTINCT(principal_access.id)) AS principals
@@ -280,9 +285,7 @@ FROM caldav_lists
                             tasks.hideUntil < :now AND 
                             cd_deleted = 0
          LEFT JOIN principal_access ON caldav_lists.cdl_id = principal_access.list
-         LEFT JOIN caldav_accounts ON caldav_accounts.cda_uuid = caldav_lists.cdl_account
 WHERE caldav_lists.cdl_account = :uuid
-AND caldav_accounts.cda_account_type != $TYPE_GOOGLE_TASKS 
 GROUP BY caldav_lists.cdl_uuid
     """)
     abstract suspend fun getCaldavFilters(uuid: String, now: Long = currentTimeMillis()): List<CaldavFilters>
@@ -383,6 +386,12 @@ ORDER BY primary_sort
 
     @Query("UPDATE tasks SET `order` = :order WHERE _id = :id")
     abstract suspend fun setTaskOrder(id: Long, order: Long?)
+
+    @Query("UPDATE caldav_lists SET cdl_last_sync = 0 WHERE cdl_account = :account")
+    abstract suspend fun resetLastSync(account: String)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun insertOrReplace(googleTaskList: CaldavCalendar): Long
 
     companion object {
         const val LOCAL = "local"

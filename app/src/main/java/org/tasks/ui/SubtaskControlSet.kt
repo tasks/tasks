@@ -18,7 +18,6 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.compose.edit.SubtaskRow
-import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.entity.Task
 import org.tasks.filters.SubtaskFilter
 import org.tasks.preferences.Preferences
@@ -32,7 +31,6 @@ import javax.inject.Inject
 class SubtaskControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var taskCompleter: TaskCompleter
-    @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var taskCreator: TaskCreator
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var checkBoxProvider: CheckBoxProvider

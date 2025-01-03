@@ -5,7 +5,6 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
-import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.db.DbUtils.dbchunk
 import org.tasks.data.entity.CaldavAccount
@@ -24,7 +23,6 @@ class TaskMover @Inject constructor(
     private val taskDao: TaskDao,
     private val caldavDao: CaldavDao,
     private val googleTaskDao: GoogleTaskDao,
-    private val googleTaskListDao: GoogleTaskListDao,
     private val preferences: Preferences,
     private val localBroadcastManager: LocalBroadcastManager,
     private val syncAdapters: SyncAdapters,
@@ -33,14 +31,13 @@ class TaskMover @Inject constructor(
 
     suspend fun getSingleFilter(tasks: List<Long>): Filter? {
         val caldavCalendars = caldavDao.getCalendars(tasks)
-        val googleTaskLists = googleTaskDao.getLists(tasks)
-        if (caldavCalendars.isEmpty()) {
-            if (googleTaskLists.size == 1) {
-                return googleTaskListDao.getByRemoteId(googleTaskLists[0])?.let { GtasksFilter(it) }
-            }
-        } else if (googleTaskLists.isEmpty()) {
-            if (caldavCalendars.size == 1) {
-                return caldavDao.getCalendar(caldavCalendars[0])?.let { CaldavFilter(it) }
+        if (caldavCalendars.size == 1) {
+            val list = caldavCalendars.first()
+            val account = list.account?.let { caldavDao.getAccountByUuid(it) }
+            return when (account?.accountType) {
+                null -> null
+                CaldavAccount.TYPE_GOOGLE_TASKS -> GtasksFilter(list)
+                else -> CaldavFilter(list)
             }
         }
         return null

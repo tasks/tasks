@@ -19,7 +19,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.compose.settings.Toaster
-import org.tasks.data.dao.GoogleTaskListDao
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.filters.Filter
@@ -31,7 +31,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
+    @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
@@ -114,7 +114,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
             else -> {
                 if (colorChanged() || iconChanged()) {
                     gtasksList.color = baseViewModel.color
-                    googleTaskListDao.insertOrReplace(
+                    caldavDao.insertOrReplace(
                         gtasksList.copy(
                             icon = baseViewModel.icon
                         )
@@ -168,7 +168,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
             color = baseViewModel.color,
             icon = baseViewModel.icon,
         )
-        val id = googleTaskListDao.insertOrReplace(result)
+        val id = caldavDao.insertOrReplace(result)
 
         setResult(
             Activity.RESULT_OK,
@@ -194,7 +194,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
             color = baseViewModel.color,
             icon = baseViewModel.icon,
         )
-        googleTaskListDao.insertOrReplace(result)
+        caldavDao.insertOrReplace(result)
 
         setResult(
                 Activity.RESULT_OK,

@@ -9,7 +9,6 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.GoogleTaskDao
-import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.NotificationDao
 import org.tasks.data.dao.PrincipalDao
@@ -75,7 +74,6 @@ abstract class Database : RoomDatabase() {
     abstract fun tagDao(): TagDao
     abstract fun googleTaskDao(): GoogleTaskDao
     abstract fun filterDao(): FilterDao
-    abstract fun googleTaskListDao(): GoogleTaskListDao
     abstract fun taskDao(): TaskDao
     abstract fun caldavDao(): CaldavDao
     abstract fun deletionDao(): DeletionDao

@@ -13,10 +13,10 @@ import org.tasks.Strings
 import org.tasks.activities.FilterSettingsActivity.Companion.sql
 import org.tasks.data.GoogleTask
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Filter
 import org.tasks.data.entity.Tag
@@ -35,7 +35,6 @@ import javax.inject.Inject
 class FilterCriteriaProvider @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val tagDataDao: TagDataDao,
-    private val googleTaskListDao: GoogleTaskListDao,
     private val caldavDao: CaldavDao
 ) {
     private val r = context.resources
@@ -120,7 +119,7 @@ class FilterCriteriaProvider @Inject constructor(
             add(dueDateFilter)
             add(priorityFilter)
             add(taskTitleContainsFilter)
-            if (googleTaskListDao.getAccounts().isNotEmpty()) {
+            if (caldavDao.getAccounts(CaldavAccount.TYPE_GOOGLE_TASKS).isNotEmpty()) {
                 add(gtasksFilterCriteria())
             }
             add(caldavFilterCriteria())

@@ -22,7 +22,6 @@ import org.tasks.data.Location
 import org.tasks.data.convertPictureUri
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.FilterDao
-import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
@@ -49,7 +48,6 @@ class Upgrader @Inject constructor(
     private val tagDao: TagDao,
     private val filterDao: FilterDao,
     private val defaultFilterProvider: DefaultFilterProvider,
-    private val googleTaskListDao: GoogleTaskListDao,
     private val userActivityDao: UserActivityDao,
     private val taskAttachmentDao: TaskAttachmentDao,
     private val caldavDao: CaldavDao,
@@ -270,7 +268,7 @@ class Upgrader @Inject constructor(
         if (isNullOrEmpty(defaultGoogleTaskList)) {
             // TODO: look up default list
         } else {
-            val googleTaskList = googleTaskListDao.getByRemoteId(defaultGoogleTaskList!!)
+            val googleTaskList = caldavDao.getCalendarByUuid(defaultGoogleTaskList!!)
             if (googleTaskList != null) {
                 defaultFilterProvider.defaultList = GtasksFilter(googleTaskList)
             }
