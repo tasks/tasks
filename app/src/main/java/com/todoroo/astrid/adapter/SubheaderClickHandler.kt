@@ -18,7 +18,6 @@ import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_PLACE
 import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_TAGS
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.CALDAV
-import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.PREFERENCE
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.TASKS
 import org.tasks.location.LocationPickerActivity
@@ -38,7 +37,6 @@ class SubheaderClickHandler @Inject constructor(
             val collapsed = !subheader.isCollapsed
             when (subheader.subheaderType) {
                 PREFERENCE -> tasksPreferences.set(booleanPreferencesKey(subheader.id), collapsed)
-                GOOGLE_TASKS,
                 CALDAV,
                 TASKS -> caldavDao.setCollapsed(subheader.id, collapsed)
             }
@@ -67,7 +65,6 @@ class SubheaderClickHandler @Inject constructor(
                 (activity as AppCompatActivity).lifecycleScope.launch {
                     val account = caldavDao.getAccount(subheader.id.toLong()) ?: return@launch
                     when (subheader.subheaderType) {
-                        NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS,
                         NavigationDrawerSubheader.SubheaderType.CALDAV,
                         NavigationDrawerSubheader.SubheaderType.TASKS ->
                             activity.startActivityForResult(

@@ -33,8 +33,8 @@ import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.getIcon
-import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.DefaultFilterProvider
+import org.tasks.preferences.TasksPreferences
 import org.tasks.themes.ColorProvider
 import timber.log.Timber
 import javax.inject.Inject
@@ -197,7 +197,6 @@ class MainActivityViewModel @Inject constructor(
                 tasksPreferences.set(booleanPreferencesKey(subheader.id), collapsed)
                 localBroadcastManager.broadcastRefreshList()
             }
-            NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS,
             NavigationDrawerSubheader.SubheaderType.CALDAV,
             NavigationDrawerSubheader.SubheaderType.TASKS -> {
                 caldavDao.setCollapsed(subheader.id, collapsed)

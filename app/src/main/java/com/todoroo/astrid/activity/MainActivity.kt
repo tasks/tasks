@@ -205,19 +205,6 @@ class MainActivity : AppCompatActivity() {
                                             val account =
                                                 caldavDao.getAccount(it.header.id.toLong()) ?: return@launch
                                             when (it.header.subheaderType) {
-                                                NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS ->
-                                                    startActivityForResult(
-                                                        Intent(
-                                                            this@MainActivity,
-                                                            GoogleTaskListSettingsActivity::class.java
-                                                        )
-                                                            .putExtra(
-                                                                EXTRA_CALDAV_ACCOUNT,
-                                                                account
-                                                            ),
-                                                        REQUEST_NEW_LIST
-                                                    )
-
                                                 NavigationDrawerSubheader.SubheaderType.CALDAV,
                                                 NavigationDrawerSubheader.SubheaderType.TASKS ->
                                                     startActivityForResult(

@@ -221,7 +221,6 @@ class FilterProvider(
                 collapsed,
                 when {
                     account.isTasksOrg -> SubheaderType.TASKS
-                    account.isGoogleTasks -> SubheaderType.GOOGLE_TASKS
                     else -> SubheaderType.CALDAV
                 },
                 account.id.toString(),

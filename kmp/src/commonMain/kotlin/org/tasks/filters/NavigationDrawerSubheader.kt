@@ -16,7 +16,6 @@ data class NavigationDrawerSubheader(
 
     enum class SubheaderType {
         PREFERENCE,
-        GOOGLE_TASKS,
         CALDAV,
         TASKS,
     }

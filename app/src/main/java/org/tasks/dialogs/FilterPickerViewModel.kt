@@ -80,7 +80,6 @@ class FilterPickerViewModel @Inject constructor(
         when (subheader.subheaderType) {
             NavigationDrawerSubheader.SubheaderType.PREFERENCE ->
                 tasksPreferences.set(booleanPreferencesKey(subheader.id), collapsed)
-            NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS,
             NavigationDrawerSubheader.SubheaderType.CALDAV,
             NavigationDrawerSubheader.SubheaderType.TASKS ->
                 caldavDao.setCollapsed(subheader.id, collapsed)
