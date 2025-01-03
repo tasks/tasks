@@ -9,9 +9,7 @@ fun Filter.getIcon(inventory: Inventory): String? {
     }
     return when (this) {
         is TagFilter -> TasksIcons.LABEL
-        is GtasksFilter,
         is CaldavFilter -> TasksIcons.LIST
-
         is CustomFilter -> TasksIcons.FILTER_LIST
         is PlaceFilter -> TasksIcons.PLACE
         else -> icon

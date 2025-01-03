@@ -376,7 +376,6 @@
     <string name="gtasks_GLA_authenticating">Autentificare…</string>
     <string name="gtasks_GTA_clear_completed">Eliminare finalizată</string>
     <string name="CFC_list_name">În lista…</string>
-    <string name="CFC_gtasks_list_name">În lista GTasks…</string>
     <string name="CFC_gtasks_list_text">În listă: \?</string>
     <string name="gcal_completed_title">%s (finalizat)</string>
     <string name="calendar_event_not_found">Evenimentul din calendar nu a fost găsit</string>

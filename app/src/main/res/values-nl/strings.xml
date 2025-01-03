@@ -102,7 +102,6 @@
     <string name="calendar_event_not_found">Kalender-item niet gevonden</string>
     <string name="gcal_completed_title">%s (voltooid)</string>
     <string name="CFC_gtasks_list_text">In de lijst: \?</string>
-    <string name="CFC_gtasks_list_name">In de GTasks lijst…</string>
     <string name="gtasks_GTA_clear_completed">Voltooide taken wissen</string>
     <string name="gtasks_GLA_authenticating">Verifiëren…</string>
     <string name="gtasks_GLA_errorIOAuth">Sorry, er zijn problemen met de communicatie met Google-servers. Probeer het later nog eens.</string>

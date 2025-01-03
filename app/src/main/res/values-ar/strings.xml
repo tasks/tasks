@@ -567,7 +567,6 @@
     <string name="persistent_notifications_description">الإشعارات المستمرة لا يمكن محوها</string>
     <string name="rmd_EPr_rmd_time_desc">اشعارات لمهام بدون وقت استحقاق ستظهر عند %s</string>
     <string name="gtasks_GLA_authenticating">قيد المصادقة…</string>
-    <string name="CFC_gtasks_list_name">في قوائم مهام كوكل…</string>
     <string name="no_due_date">بدون تاريخ استحقاق</string>
     <string name="EPr_default_location_reminder_title">مذكرات الموقع الافتراضية</string>
     <string name="default_due_date">وقت الاستحقاق الافتراضي</string>

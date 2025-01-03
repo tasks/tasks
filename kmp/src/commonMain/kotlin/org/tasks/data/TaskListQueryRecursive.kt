@@ -1,7 +1,5 @@
 package org.tasks.data
 
-import org.tasks.filters.CaldavFilter
-import org.tasks.filters.GtasksFilter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.core.SortHelper
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
@@ -14,6 +12,7 @@ import org.tasks.data.sql.Field.Companion.field
 import org.tasks.data.sql.Join
 import org.tasks.data.sql.Query
 import org.tasks.data.sql.QueryTemplate
+import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.preferences.QueryPreferences
 
@@ -48,25 +47,23 @@ internal object TaskListQueryRecursive {
     ): MutableList<String> {
         val parentQuery = when (filter) {
             is CaldavFilter -> newCaldavQuery(filter.uuid)
-            is GtasksFilter -> newCaldavQuery(filter.list.uuid!!)
             else -> PermaSql.replacePlaceholdersForQuery(filter.sql!!)
         }
         val manualSort = preferences.isManualSort
         val groupPreference = preferences.groupMode
         val groupMode = when {
-            (filter is GtasksFilter || filter is CaldavFilter) &&
-                    (manualSort || groupPreference == SortHelper.SORT_LIST) -> SortHelper.GROUP_NONE
+            filter is CaldavFilter && (manualSort || groupPreference == SortHelper.SORT_LIST) ->
+                SortHelper.GROUP_NONE
             else -> groupPreference
         }
         val sortMode = when {
-            manualSort && filter is GtasksFilter -> SortHelper.SORT_GTASKS
-            manualSort && filter is CaldavFilter -> SortHelper.SORT_CALDAV
-            else -> preferences.sortMode
+            !manualSort || filter !is CaldavFilter -> preferences.sortMode
+            filter.isGoogleTasks -> SortHelper.SORT_GTASKS
+            else -> SortHelper.SORT_CALDAV
         }
         val subtaskPreference = preferences.subtaskMode
         val subtaskMode = when {
-            manualSort && filter is GtasksFilter -> SortHelper.SORT_GTASKS
-            manualSort && filter is CaldavFilter -> SortHelper.SORT_CALDAV
+            sortMode == SortHelper.SORT_GTASKS || sortMode == SortHelper.SORT_CALDAV -> sortMode
             subtaskPreference == SortHelper.SORT_MANUAL -> SortHelper.SORT_CALDAV
             else -> subtaskPreference
         }

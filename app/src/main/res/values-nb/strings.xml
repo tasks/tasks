@@ -198,7 +198,6 @@
     <string name="CFC_tag_contains_name">Etikettnavn inneholder…</string>
     <string name="CFC_tag_contains_text">Etikettnavn inneholder: \?</string>
     <string name="calendar_event_not_found">Fant ikke kalenderhendelsen</string>
-    <string name="CFC_gtasks_list_name">I GTasks-listen…</string>
     <string name="gtasks_GLA_authenticating">Identitetsbekrefter…</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_error_accountNotFound">Kontoen %s ble ikke funnet. Logg ut og inn igjen fra Google Tasks-innstillingene.</string>

@@ -1,19 +1,16 @@
 package com.todoroo.astrid.service
 
-import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.db.DbUtils.dbchunk
-import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import org.tasks.data.getLocalList
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
-import org.tasks.filters.GtasksFilter
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -31,16 +28,13 @@ class TaskMover @Inject constructor(
 
     suspend fun getSingleFilter(tasks: List<Long>): Filter? {
         val caldavCalendars = caldavDao.getCalendars(tasks)
-        if (caldavCalendars.size == 1) {
+        return if (caldavCalendars.size == 1) {
             val list = caldavCalendars.first()
             val account = list.account?.let { caldavDao.getAccountByUuid(it) }
-            return when (account?.accountType) {
-                null -> null
-                CaldavAccount.TYPE_GOOGLE_TASKS -> GtasksFilter(list)
-                else -> CaldavFilter(list)
-            }
+            account?.let { CaldavFilter(calendar = list, account = it) }
+        } else {
+            null
         }
-        return null
     }
 
     suspend fun move(task: Long, list: Long) {
@@ -48,14 +42,11 @@ class TaskMover @Inject constructor(
         val account = calendar.account?.let { caldavDao.getAccountByUuid(it) } ?: return
         move(
             ids = listOf(task),
-            selectedList = if (account.accountType == CaldavAccount.TYPE_GOOGLE_TASKS)
-                GtasksFilter(calendar)
-            else
-                CaldavFilter(calendar)
+            selectedList = CaldavFilter(calendar = calendar, account = account),
         )
     }
 
-    suspend fun move(ids: List<Long>, selectedList: Filter) {
+    suspend fun move(ids: List<Long>, selectedList: CaldavFilter) {
         val tasks = ids
             .dbchunk()
             .flatMap { taskDao.getChildren(it) }
@@ -64,7 +55,7 @@ class TaskMover @Inject constructor(
         val taskIds = tasks.map { it.id }
         taskDao.setParent(0, ids.intersect(taskIds.toSet()).toList())
         tasks.forEach { performMove(it, selectedList) }
-        if (selectedList is CaldavFilter) {
+        if (selectedList.isIcalendar) {
             caldavDao.updateParents(selectedList.uuid)
         }
         taskIds.dbchunk().forEach {
@@ -76,10 +67,11 @@ class TaskMover @Inject constructor(
 
     suspend fun migrateLocalTasks() {
         val list = caldavDao.getLocalList()
-        move(taskDao.getLocalTasks(), CaldavFilter(list))
+        val account = list.account?.let { caldavDao.getAccountByUuid(it) } ?: return
+        move(taskDao.getLocalTasks(), CaldavFilter(calendar = list, account = account))
     }
 
-    private suspend fun performMove(task: Task, selectedList: Filter) {
+    private suspend fun performMove(task: Task, selectedList: CaldavFilter) {
         googleTaskDao.getByTaskId(task.id)?.let {
             moveGoogleTask(task, it, selectedList)
             return
@@ -91,16 +83,16 @@ class TaskMover @Inject constructor(
         moveLocalTask(task, selectedList)
     }
 
-    private suspend fun moveGoogleTask(task: Task, googleTask: CaldavTask, selected: Filter) {
-        if (selected is GtasksFilter && googleTask.calendar == selected.remoteId) {
+    private suspend fun moveGoogleTask(task: Task, googleTask: CaldavTask, selected: CaldavFilter) {
+        if (googleTask.calendar == selected.uuid) {
             return
         }
         val id = task.id
         val children = taskDao.getChildren(id)
         caldavDao.markDeleted(children + id, currentTimeMillis())
-        when(selected) {
-            is GtasksFilter -> {
-                val listId = selected.remoteId
+        when {
+            selected.isGoogleTasks -> {
+                val listId = selected.uuid
                 googleTaskDao.insertAndShift(
                     task = task,
                     caldavTask = CaldavTask(
@@ -120,7 +112,7 @@ class TaskMover @Inject constructor(
                         }
                         ?.let { googleTaskDao.insert(it) }
             }
-            is CaldavFilter -> {
+            else -> {
                 val listId = selected.uuid
                 val newParent = CaldavTask(
                     task = id,
@@ -136,13 +128,11 @@ class TaskMover @Inject constructor(
                     newChild
                 }.let { caldavDao.insert(it) }
             }
-            else -> require(!BuildConfig.DEBUG)
         }
     }
 
-    private suspend fun moveCaldavTask(task: Task, caldavTask: CaldavTask, selected: Filter) {
-        if (selected is CaldavFilter
-                && caldavTask.calendar == selected.uuid) {
+    private suspend fun moveCaldavTask(task: Task, caldavTask: CaldavTask, selected: CaldavFilter) {
+        if (caldavTask.calendar == selected.uuid) {
             return
         }
         val id = task.id
@@ -154,8 +144,9 @@ class TaskMover @Inject constructor(
             toDelete.addAll(childIds)
         }
         caldavDao.markDeleted(toDelete, currentTimeMillis())
-        when (selected) {
-            is CaldavFilter -> {
+        when {
+            selected.isGoogleTasks -> moveToGoogleTasks(id, childIds, selected)
+            else -> {
                 val from = caldavDao.getCalendar(caldavTask.calendar!!)
                 val id1 = caldavTask.task
                 val listId = selected.uuid
@@ -181,15 +172,13 @@ class TaskMover @Inject constructor(
                         }
                         ?.let { caldavDao.insert(it) }
             }
-            is GtasksFilter -> moveToGoogleTasks(id, childIds, selected)
-            else -> require(!BuildConfig.DEBUG)
         }
     }
 
-    private suspend fun moveLocalTask(task: Task, selected: Filter) {
-        when (selected) {
-            is GtasksFilter -> moveToGoogleTasks(task.id, taskDao.getChildren(task.id), selected)
-            is CaldavFilter -> {
+    private suspend fun moveLocalTask(task: Task, selected: CaldavFilter) {
+        when {
+            selected.isGoogleTasks -> moveToGoogleTasks(task.id, taskDao.getChildren(task.id), selected)
+            else -> {
                 val id = task.id
                 val listId = selected.uuid
                 val tasks: MutableMap<Long, CaldavTask> = HashMap()
@@ -210,14 +199,16 @@ class TaskMover @Inject constructor(
                 caldavDao.insert(task, root, preferences.addTasksToTop())
                 caldavDao.insert(tasks.values)
             }
-            else -> require(!BuildConfig.DEBUG)
         }
     }
 
-    private suspend fun moveToGoogleTasks(id: Long, children: List<Long>, filter: GtasksFilter) {
+    private suspend fun moveToGoogleTasks(id: Long, children: List<Long>, filter: CaldavFilter) {
+        if (!filter.isGoogleTasks) {
+            return
+        }
         val task = taskDao.fetch(id) ?: return
         taskDao.setParent(id, children)
-        val listId = filter.remoteId
+        val listId = filter.uuid
         googleTaskDao.insertAndShift(
             task,
             CaldavTask(

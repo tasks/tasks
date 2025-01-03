@@ -97,7 +97,6 @@
     <string name="calendar_event_not_found">找不到日历事件</string>
     <string name="gcal_completed_title">%s (已完成)</string>
     <string name="CFC_gtasks_list_text">列表内容：?</string>
-    <string name="CFC_gtasks_list_name">在 GTasks 列表中…</string>
     <string name="gtasks_GTA_clear_completed">清除已完成项</string>
     <string name="gtasks_GLA_authenticating">正在认证…</string>
     <string name="gtasks_GLA_errorIOAuth">对不起，我们在与 Google 服务器通讯时遇到了问题。请稍后再尝试。</string>

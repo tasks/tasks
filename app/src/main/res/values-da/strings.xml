@@ -79,7 +79,6 @@
     <string name="quiet_hours">Hviletid</string>
     <string name="widget_show_header">Vis topbjælke</string>
     <string name="voice_command_added_task">Tilføjede en opgave</string>
-    <string name="CFC_gtasks_list_name">På Google Huskelisten…</string>
     <string name="gtasks_error_accountNotFound">Konto %s ikke fundet. Log venligst ud og log ind igen fra Google Huskeliste-indstillingerne.</string>
     <string name="EPr_show_task_edit_comments">Vis kommentarer i opgaveredigering</string>
     <string name="EPr_fullTask_title">Vis hele opgavetitlen</string>

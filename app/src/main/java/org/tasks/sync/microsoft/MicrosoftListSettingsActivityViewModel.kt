@@ -32,7 +32,7 @@ class MicrosoftListSettingsActivityViewModel @Inject constructor(
     private val _viewState = MutableStateFlow(ViewState())
     val viewState = _viewState.asStateFlow()
 
-    private val account: CaldavAccount =
+    val account: CaldavAccount =
         savedStateHandle[BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT]!!
 
     val list: CaldavCalendar? =

@@ -467,7 +467,6 @@
     <string name="gtasks_GLA_authenticating">กําลังรับรองความถูกต้อง…</string>
     <string name="gtasks_GTA_clear_completed">ล้างเสร็จสมบูรณ์</string>
     <string name="CFC_list_name">ในรายการ…</string>
-    <string name="CFC_gtasks_list_name">ในรายการ GTasks…</string>
     <string name="CFC_gtasks_list_text">ในรายการ: \?</string>
     <string name="calendar_event_not_found">ไม่พบเหตุการณ์ในปฏิทิน</string>
     <string name="gcal_TEA_error">เกิดข้อผิดพลาดในการเพิ่มงานในปฏิทิน!</string>

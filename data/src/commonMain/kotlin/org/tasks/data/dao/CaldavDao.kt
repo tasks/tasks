@@ -15,7 +15,6 @@ import org.tasks.data.db.Database
 import org.tasks.data.db.DbUtils.dbchunk
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
@@ -56,7 +55,7 @@ abstract class CaldavDao(private val database: Database) {
     abstract suspend fun getAccount(type: Int, username: String): CaldavAccount?
 
     @Query("SELECT * FROM caldav_accounts WHERE cda_id = :id")
-    abstract suspend fun getAccount(id: String): CaldavAccount?
+    abstract suspend fun getAccount(id: Long): CaldavAccount?
 
     @Query("SELECT * FROM caldav_accounts WHERE cda_id = :id")
     abstract fun watchAccount(id: Long): Flow<CaldavAccount?>
@@ -214,16 +213,7 @@ SELECT EXISTS(SELECT 1
             + "AND cd_deleted = 0")
     abstract suspend fun getCaldavTasksToPush(calendar: String): List<CaldavTaskContainer>
 
-    @Query("SELECT * FROM caldav_lists " +
-            "INNER JOIN caldav_accounts ON caldav_lists.cdl_account = caldav_accounts.cda_uuid " +
-            "WHERE caldav_accounts.cda_account_type = $TYPE_GOOGLE_TASKS " +
-            "ORDER BY cdl_name COLLATE NOCASE")
-    abstract suspend fun getGoogleTaskLists(): List<CaldavCalendar>
-
-    @Query("SELECT * FROM caldav_lists " +
-            "INNER JOIN caldav_accounts ON caldav_lists.cdl_account = caldav_accounts.cda_uuid " +
-            "WHERE caldav_accounts.cda_account_type != $TYPE_GOOGLE_TASKS " +
-            "ORDER BY cdl_name COLLATE NOCASE")
+    @Query("SELECT * FROM caldav_lists ORDER BY cdl_name COLLATE NOCASE")
     abstract suspend fun getCalendars(): List<CaldavCalendar>
 
     @Query("""

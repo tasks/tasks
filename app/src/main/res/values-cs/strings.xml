@@ -88,7 +88,6 @@
     <string name="gcal_TEA_showCalendar_label">Otevřít událost v kalendáři</string>
     <string name="gcal_completed_title">%s (dokončeno)</string>
     <string name="CFC_gtasks_list_text">V seznamu: ?</string>
-    <string name="CFC_gtasks_list_name">V seznamu Google úkolů…</string>
     <string name="gtasks_GTA_clear_completed">Smazat dokončené</string>
     <string name="gtasks_GLA_authenticating">Ověřuje se…</string>
     <string name="gtasks_GLA_errorIOAuth">Nastal problém při komunikaci se servery Google. Zkuste to prosím později.</string>

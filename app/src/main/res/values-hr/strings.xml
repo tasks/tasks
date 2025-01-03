@@ -443,7 +443,6 @@
     <string name="gtasks_GLA_authenticating">Autentifikacija …</string>
     <string name="gtasks_GTA_clear_completed">Izbriši obavljene</string>
     <string name="CFC_list_name">U popisu …</string>
-    <string name="CFC_gtasks_list_name">U GTasks popisu …</string>
     <string name="CFC_gtasks_list_text">U popisu: \?</string>
     <string name="gcal_completed_title">%s (obavljeno)</string>
     <string name="calendar_event_not_found">Kalendarski događaj nije pronađen</string>

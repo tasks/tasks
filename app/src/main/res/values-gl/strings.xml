@@ -104,7 +104,6 @@
     <string name="calendar_event_not_found">Evento de calendario non atopado</string>
     <string name="gcal_completed_title">%s (finalizado)</string>
     <string name="CFC_gtasks_list_text">Na lista: \?</string>
-    <string name="CFC_gtasks_list_name">Na lista GTasks…</string>
     <string name="gtasks_GTA_clear_completed">Limpar as finalizadas</string>
     <string name="gtasks_GLA_authenticating">Autenticando…</string>
     <string name="gtasks_GLA_errorIOAuth">Houbo un problema ao comunicarse cos servidores de Google. Inténtao máis tarde.</string>

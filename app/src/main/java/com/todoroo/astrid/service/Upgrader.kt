@@ -32,7 +32,7 @@ import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Filter
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
-import org.tasks.filters.GtasksFilter
+import org.tasks.filters.CaldavFilter
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -270,7 +270,10 @@ class Upgrader @Inject constructor(
         } else {
             val googleTaskList = caldavDao.getCalendarByUuid(defaultGoogleTaskList!!)
             if (googleTaskList != null) {
-                defaultFilterProvider.defaultList = GtasksFilter(googleTaskList)
+                caldavDao.getAccountByUuid(googleTaskList.account!!)?.let {
+                    defaultFilterProvider.defaultList =
+                        CaldavFilter(calendar = googleTaskList, account = it)
+                }
             }
         }
     }

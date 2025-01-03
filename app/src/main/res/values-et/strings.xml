@@ -90,7 +90,6 @@
     <string name="calendar_event_not_found">Kalendri sündmust ei leitud</string>
     <string name="gcal_completed_title">%s (valmis)</string>
     <string name="CFC_gtasks_list_text">Nimekirjas: \?</string>
-    <string name="CFC_gtasks_list_name">GTasks nimekirjas…</string>
     <string name="gtasks_GTA_clear_completed">Eemalda lõpetatud</string>
     <string name="gtasks_GLA_authenticating">Autentimine…</string>
     <string name="gtasks_GPr_header">Google Tasks</string>

@@ -103,7 +103,6 @@
     <string name="calendar_event_not_found">달력 일정이 발견되지 않음</string>
     <string name="gcal_completed_title">%s (완료)</string>
     <string name="CFC_gtasks_list_text">목록에: ?</string>
-    <string name="CFC_gtasks_list_name">GTasks 목록에…</string>
     <string name="gtasks_GTA_clear_completed">완료한 할일 지우기</string>
     <string name="gtasks_GLA_authenticating">인증 중…</string>
     <string name="gtasks_GLA_errorIOAuth">죄송합니다, 구글 서버와 통신하는 데 문제가 있습니다. 잠시 후 다시 시도하세요.</string>

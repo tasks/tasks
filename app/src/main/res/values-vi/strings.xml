@@ -541,7 +541,6 @@
     <string name="gtasks_GLA_authenticating">Đang xác thực…</string>
     <string name="gtasks_GTA_clear_completed">Xoá công việc đã hoàn thành</string>
     <string name="CFC_list_name">Trong danh sách…</string>
-    <string name="CFC_gtasks_list_name">Trong danh sách GTasks…</string>
     <string name="CFC_gtasks_list_text">Trong danh sách: \?</string>
     <string name="gcal_completed_title">%s (đã hoàn thành)</string>
     <string name="calendar_event_not_found">Không tìm thấy sự kiện trong lịch</string>

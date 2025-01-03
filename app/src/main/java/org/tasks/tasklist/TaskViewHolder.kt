@@ -32,7 +32,6 @@ import org.tasks.dialogs.Linkify
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
-import org.tasks.filters.GtasksFilter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
@@ -250,7 +249,6 @@ class TaskViewHolder internal constructor(
         val list = task.caldav
         val tagsString = task.tagsString
         val isSubtask = task.hasParent()
-        val isGoogleTask = task.isGoogleTask
         val appearance = preferences.getIntegerFromString(R.string.p_chip_appearance, 0)
         val showText = appearance != 2
         val showIcon = appearance != 1
@@ -296,13 +294,10 @@ class TaskViewHolder internal constructor(
                         !isSubtask &&
                         !sortByList &&
                         preferences.showListChip &&
-                        filter !is CaldavFilter &&
-                        filter !is GtasksFilter
+                        filter !is CaldavFilter
                     ) {
-                        remember(list, isGoogleTask) {
-                            chipProvider.lists
-                                .getCaldavList(list)
-                                ?.let { if (isGoogleTask) GtasksFilter(it) else CaldavFilter(it) }
+                        remember(list) {
+                            chipProvider.lists.getCaldavList(list)
                         }?.let {
                             FilterChip(
                                 filter = it,

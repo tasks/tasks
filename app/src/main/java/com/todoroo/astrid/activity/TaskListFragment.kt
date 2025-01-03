@@ -80,7 +80,6 @@ import org.tasks.R
 import org.tasks.ShortcutManager
 import org.tasks.TasksApplication
 import org.tasks.activities.FilterSettingsActivity
-import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.activities.PlaceSettingsActivity
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
@@ -121,7 +120,6 @@ import org.tasks.filters.CaldavFilter
 import org.tasks.filters.CustomFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterImpl
-import org.tasks.filters.GtasksFilter
 import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
@@ -462,7 +460,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         when (filter) {
             is CaldavFilter -> R.menu.menu_caldav_list_fragment
             is CustomFilter -> R.menu.menu_custom_filter
-            is GtasksFilter -> R.menu.menu_gtasks_list_fragment
             is TagFilter -> R.menu.menu_tag_view_fragment
             is PlaceFilter -> R.menu.menu_location_list_fragment
             else -> null
@@ -571,15 +568,12 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_caldav_list_fragment -> {
-                val calendar = (filter as CaldavFilter).calendar
-                lifecycleScope.launch {
-                    val account = caldavDao.getAccountByUuid(calendar.account!!)
-                    listSettingsRequest.launch(
-                        Intent(activity, account!!.listSettingsClass())
-                            .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, account)
-                            .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, calendar)
-                    )
-                }
+                val filter = filter as? CaldavFilter ?: return false
+                listSettingsRequest.launch(
+                    Intent(activity, filter.account.listSettingsClass())
+                        .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, filter.account)
+                        .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, filter.calendar)
+                )
                 true
             }
             R.id.menu_location_settings -> {
@@ -587,13 +581,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 listSettingsRequest.launch(
                     Intent(activity, PlaceSettingsActivity::class.java)
                             .putExtra(PlaceSettingsActivity.EXTRA_PLACE, place as Parcelable)
-                )
-                true
-            }
-            R.id.menu_gtasks_list_settings -> {
-                listSettingsRequest.launch(
-                    Intent(activity, GoogleTaskListSettingsActivity::class.java)
-                            .putExtra(GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, (filter as GtasksFilter).list)
                 )
                 true
             }

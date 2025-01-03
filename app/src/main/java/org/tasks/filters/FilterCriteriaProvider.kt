@@ -11,12 +11,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.activities.FilterSettingsActivity.Companion.sql
-import org.tasks.data.GoogleTask
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.data.entity.Alarm
-import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Filter
 import org.tasks.data.entity.Tag
@@ -87,7 +85,6 @@ class FilterCriteriaProvider @Inject constructor(
         IDENTIFIER_IMPORTANCE -> priorityFilter
         IDENTIFIER_STARTDATE -> startDateFilter
         IDENTIFIER_DUEDATE -> dueDateFilter
-        IDENTIFIER_GTASKS -> gtasksFilterCriteria()
         IDENTIFIER_CALDAV -> caldavFilterCriteria()
         IDENTIFIER_TAG_IS -> tagFilter()
         IDENTIFIER_TAG_CONTAINS -> tagNameContainsFilter
@@ -119,9 +116,6 @@ class FilterCriteriaProvider @Inject constructor(
             add(dueDateFilter)
             add(priorityFilter)
             add(taskTitleContainsFilter)
-            if (caldavDao.getAccounts(CaldavAccount.TYPE_GOOGLE_TASKS).isNotEmpty()) {
-                add(gtasksFilterCriteria())
-            }
             add(caldavFilterCriteria())
             add(recurringFilter)
             add(completedFilter)
@@ -335,34 +329,6 @@ class FilterCriteriaProvider @Inject constructor(
                 "",
                 r.getString(R.string.CFC_title_contains_name))
 
-    private suspend fun gtasksFilterCriteria(): CustomFilterCriterion {
-        val lists = caldavDao.getGoogleTaskLists()
-        val listNames = arrayOfNulls<String>(lists.size)
-        val listIds = arrayOfNulls<String>(lists.size)
-        for (i in lists.indices) {
-            listNames[i] = lists[i].name
-            listIds[i] = lists[i].uuid
-        }
-        val values: MutableMap<String, Any> = HashMap()
-        values[GoogleTask.KEY] = "?"
-        return MultipleSelectCriterion(
-                IDENTIFIER_GTASKS,
-                context.getString(R.string.CFC_gtasks_list_text),
-                select(CaldavTask.TASK)
-                        .from(CaldavTask.TABLE)
-                        .join(inner(Task.TABLE, CaldavTask.TASK.eq(Task.ID)))
-                        .where(
-                                and(
-                                        activeAndVisible(),
-                                        CaldavTask.DELETED.eq(0),
-                                        CaldavTask.CALENDAR.eq("?")))
-                        .toString(),
-                values,
-                listNames,
-                listIds,
-                context.getString(R.string.CFC_gtasks_list_name))
-    }
-
     private suspend fun caldavFilterCriteria(): CustomFilterCriterion {
         val calendars = caldavDao.getCalendars()
         val names = arrayOfNulls<String>(calendars.size)
@@ -397,7 +363,6 @@ class FilterCriteriaProvider @Inject constructor(
         private const val IDENTIFIER_IMPORTANCE = "importance"
         private const val IDENTIFIER_STARTDATE = "startDate"
         private const val IDENTIFIER_DUEDATE = "dueDate"
-        private const val IDENTIFIER_GTASKS = "gtaskslist"
         private const val IDENTIFIER_CALDAV = "caldavlist"
         private const val IDENTIFIER_TAG_IS = "tag_is"
         private const val IDENTIFIER_TAG_CONTAINS = "tag_contains"

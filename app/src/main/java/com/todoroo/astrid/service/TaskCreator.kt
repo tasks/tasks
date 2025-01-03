@@ -33,7 +33,6 @@ import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_NONE
 import org.tasks.data.entity.Task.Companion.IMPORTANCE
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
-import org.tasks.filters.GtasksFilter
 import org.tasks.filters.mapFromSerializedString
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -88,25 +87,27 @@ class TaskCreator @Inject constructor(
             )
         } else {
             val remoteList = defaultFilterProvider.getDefaultList()
-            if (remoteList is GtasksFilter) {
-                googleTaskDao.insertAndShift(
-                    task,
-                    CaldavTask(
-                        task = task.id,
-                        calendar = remoteList.remoteId,
-                        remoteId = null
-                    ),
-                    addToTop
-                )
-            } else if (remoteList is CaldavFilter) {
-                caldavDao.insert(
-                    task,
-                    CaldavTask(
-                        task = task.id,
-                        calendar = remoteList.uuid,
-                    ),
-                    addToTop
-                )
+            if (remoteList is CaldavFilter) {
+                if (remoteList.isGoogleTasks) {
+                    googleTaskDao.insertAndShift(
+                        task,
+                        CaldavTask(
+                            task = task.id,
+                            calendar = remoteList.uuid,
+                            remoteId = null
+                        ),
+                        addToTop
+                    )
+                } else {
+                    caldavDao.insert(
+                        task,
+                        CaldavTask(
+                            task = task.id,
+                            calendar = remoteList.uuid,
+                        ),
+                        addToTop
+                    )
+                }
             }
         }
         if (task.hasTransitory(Place.KEY)) {

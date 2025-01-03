@@ -78,7 +78,6 @@
     <string name="gcal_TEA_showCalendar_label">Odpri dogodek v koledarju</string>
     <string name="gcal_completed_title">%s (končani)</string>
     <string name="CFC_gtasks_list_text">V seznamu: ?</string>
-    <string name="CFC_gtasks_list_name">Na GNaloge seznamu…</string>
     <string name="gtasks_GTA_clear_completed">Zbriši dokončano</string>
     <string name="gtasks_GLA_authenticating">Avtentikacija v teku …</string>
     <string name="gtasks_GLA_errorIOAuth">Žal smo imeli težave pri povezovanju z Google strežniki. Prosimo, poskusite ponovno kasneje.</string>

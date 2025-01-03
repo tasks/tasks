@@ -18,10 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.adapter.FilterViewHolder
 import com.todoroo.astrid.adapter.NavigationDrawerAdapter
-import org.tasks.filters.CaldavFilter
-import org.tasks.filters.CustomFilter
-import org.tasks.filters.GtasksFilter
-import org.tasks.filters.TagFilter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
@@ -33,10 +29,13 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.listSettingsClass
 import org.tasks.databinding.ActivityTagOrganizerBinding
+import org.tasks.filters.CaldavFilter
+import org.tasks.filters.CustomFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterListItem
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.PlaceFilter
+import org.tasks.filters.TagFilter
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
@@ -103,18 +102,11 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
 
     private fun onClick(item: FilterListItem?) {
         when (item) {
-            is GtasksFilter ->
-                Intent(this, GoogleTaskListSettingsActivity::class.java)
-                        .putExtra(GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, item.list)
-                        .apply(this::startActivity)
             is CaldavFilter ->
-                lifecycleScope.launch {
-                    caldavDao.getAccountByUuid(item.account)?.let {
-                        Intent(this@NavigationDrawerCustomization, it.listSettingsClass())
-                                .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, item.calendar)
-                                .apply { startActivity(this) }
-                    }
-                }
+                Intent(this@NavigationDrawerCustomization, item.account.listSettingsClass())
+                        .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, item.calendar)
+                        .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, item.account)
+                        .apply { startActivity(this) }
             is CustomFilter ->
                 Intent(this, FilterSettingsActivity::class.java)
                         .putExtra(FilterSettingsActivity.TOKEN_FILTER, item)
@@ -178,11 +170,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
             if (sourceFilter::class.java != targetFilter::class.java) {
                 return false
             }
-            if (sourceFilter is GtasksFilter && targetFilter is GtasksFilter) {
-                if (sourceFilter.account != targetFilter.account) {
-                    return false
-                }
-            } else if (sourceFilter is CaldavFilter && targetFilter is CaldavFilter) {
+            if (sourceFilter is CaldavFilter && targetFilter is CaldavFilter) {
                 if (sourceFilter.account != targetFilter.account) {
                     return false
                 }
@@ -227,7 +215,6 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
 
         private fun getPredicate(item: FilterListItem): (FilterListItem) -> Boolean = { f ->
             item::class.java == f::class.java && when (item) {
-                is GtasksFilter -> item.account == (f as GtasksFilter).account
                 is CaldavFilter -> item.account == (f as CaldavFilter).account
                 else -> true
             }
@@ -235,7 +222,6 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
 
         private suspend fun setOrder(order: Int, filter: Filter) {
             when (filter) {
-                is GtasksFilter -> caldavDao.setOrder(filter.list.id, order)
                 is CaldavFilter -> caldavDao.setOrder(filter.calendar.id, order)
                 is TagFilter -> tagDataDao.setOrder(filter.tagData.id!!, order)
                 is CustomFilter -> filterDao.setOrder(filter.id, order)

@@ -3,6 +3,8 @@ package org.tasks.filters
 import org.tasks.CommonParcelize
 import org.tasks.data.NO_COUNT
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
@@ -13,11 +15,14 @@ import org.tasks.data.sql.QueryTemplate
 @CommonParcelize
 data class CaldavFilter(
     val calendar: CaldavCalendar,
+    val account: CaldavAccount,
     val principals: Int = 0,
     override val count: Int = NO_COUNT,
 ) : Filter {
+
     override val title: String?
         get() = calendar.name
+
     override val sql: String
         get() = QueryTemplate()
             .join(left(CaldavTask.TABLE, Task.ID.eq(CaldavTask.TASK)))
@@ -29,6 +34,7 @@ data class CaldavFilter(
                 )
             )
             .toString()
+
     override val valuesForNewTasks: String
         get() = mapToSerializedString(mapOf(CaldavTask.KEY to calendar.uuid!!))
 
@@ -43,8 +49,6 @@ data class CaldavFilter(
 
     val uuid: String
         get() = calendar.uuid!!
-    val account: String
-        get() = calendar.account!!
 
     override val isReadOnly: Boolean
         get() = calendar.access == CaldavCalendar.ACCESS_READ_ONLY
@@ -53,5 +57,13 @@ data class CaldavFilter(
 
     override fun areItemsTheSame(other: FilterListItem): Boolean {
         return other is CaldavFilter && calendar.id == other.calendar.id
+    }
+
+    val isGoogleTasks by lazy {
+        account.accountType == TYPE_GOOGLE_TASKS
+    }
+
+    val isIcalendar by lazy {
+        account.accountType != TYPE_GOOGLE_TASKS
     }
 }

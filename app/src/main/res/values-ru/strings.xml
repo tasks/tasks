@@ -108,7 +108,6 @@
     <string name="calendar_event_not_found">Событие календаря не найдено</string>
     <string name="gcal_completed_title">%s (выполнено)</string>
     <string name="CFC_gtasks_list_text">В списке: \?</string>
-    <string name="CFC_gtasks_list_name">В списке GTasks…</string>
     <string name="gtasks_GTA_clear_completed">Удалить завершенные</string>
     <string name="gtasks_GLA_authenticating">Аутентификация…</string>
     <string name="gtasks_GLA_errorIOAuth">При обращении к серверам Google возникли проблемы. Пожалуйста, попробуйте позже.</string>

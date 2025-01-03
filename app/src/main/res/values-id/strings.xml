@@ -78,7 +78,6 @@
     <string name="calendar_event_not_found">Acara kalender tidak ditemukan</string>
     <string name="gcal_completed_title">%s (selesai)</string>
     <string name="CFC_gtasks_list_text">Dalam Daftar: \?</string>
-    <string name="CFC_gtasks_list_name">Dalam Daftar GTasks…</string>
     <string name="gtasks_GLA_authenticating">Mengotentikasi…</string>
     <string name="gtasks_GLA_errorIOAuth">Maaf, terjadi kesalahan komunikasi dengan server Google. Silakan coba lagi nanti.</string>
     <string name="gtasks_GPr_header">Google Tasks</string>

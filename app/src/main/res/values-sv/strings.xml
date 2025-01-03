@@ -98,7 +98,6 @@
     <string name="calendar_event_not_found">Kalenderhändelsen hittades inte</string>
     <string name="gcal_completed_title">%s (slutförd)</string>
     <string name="CFC_gtasks_list_text">I listan: ?</string>
-    <string name="CFC_gtasks_list_name">I lista på Google Uppgifter…</string>
     <string name="gtasks_GTA_clear_completed">Rensa slutförda</string>
     <string name="gtasks_GLA_authenticating">Autentiserar…</string>
     <string name="gtasks_GLA_errorIOAuth">Tyvärr, vi hade problem med att kommunicera med Googles servrar. Vänligen försök igen senare.</string>

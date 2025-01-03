@@ -59,7 +59,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
     }
 
     override val filter: Filter?
-        get() = caldavCalendar?.let { CaldavFilter(it) }
+        get() = caldavCalendar?.let { CaldavFilter(calendar = it, account = caldavAccount) }
 
     override val toolbarTitle: String
         get() = if (isNew) getString(R.string.new_list) else caldavCalendar!!.name ?: ""
@@ -134,7 +134,11 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         caldavDao.insert(caldavCalendar)
         setResult(
                 Activity.RESULT_OK,
-                Intent().putExtra(MainActivity.OPEN_FILTER, CaldavFilter(caldavCalendar)))
+                Intent().putExtra(
+                    MainActivity.OPEN_FILTER,
+                    CaldavFilter(calendar = caldavCalendar, account = caldavAccount)
+                )
+        )
         finish()
     }
 
@@ -148,7 +152,11 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         setResult(
                 Activity.RESULT_OK,
                 Intent(TaskListFragment.ACTION_RELOAD)
-                        .putExtra(MainActivity.OPEN_FILTER, CaldavFilter(result)))
+                        .putExtra(
+                            MainActivity.OPEN_FILTER,
+                            CaldavFilter(calendar = result, account = caldavAccount)
+                        )
+        )
         finish()
     }
 

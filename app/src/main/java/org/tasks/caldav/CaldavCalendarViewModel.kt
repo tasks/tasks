@@ -50,7 +50,10 @@ class CaldavCalendarViewModel @Inject constructor(
                 caldavDao.insert(this)
             }
             if (!ignoreFinish) {
-                finish.value = Intent().putExtra(MainActivity.OPEN_FILTER, CaldavFilter(calendar))
+                finish.value = Intent().putExtra(
+                    MainActivity.OPEN_FILTER,
+                    CaldavFilter(calendar = calendar, account = caldavAccount)
+                )
             }
             calendar
         }
@@ -73,7 +76,10 @@ class CaldavCalendarViewModel @Inject constructor(
             )
             caldavDao.update(result)
             finish.value = Intent(TaskListFragment.ACTION_RELOAD)
-                .putExtra(MainActivity.OPEN_FILTER, CaldavFilter(result))
+                .putExtra(
+                    MainActivity.OPEN_FILTER,
+                    CaldavFilter(calendar = result, account = account)
+                )
         }
 
     suspend fun deleteCalendar(account: CaldavAccount, calendar: CaldavCalendar) =

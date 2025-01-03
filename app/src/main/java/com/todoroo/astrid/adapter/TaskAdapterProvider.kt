@@ -17,7 +17,6 @@ import org.tasks.data.entity.TaskListMetadata
 import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
-import org.tasks.filters.GtasksFilter
 import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.TagFilter
 import org.tasks.filters.TodayFilter
@@ -47,9 +46,11 @@ class TaskAdapterProvider @Inject constructor(
             }
         }
         if (filter.supportsManualSort() && preferences.isManualSort) {
-            when (filter) {
-                is GtasksFilter -> return GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
-                is CaldavFilter -> return CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
+            if (filter is CaldavFilter) {
+                when {
+                    filter.isGoogleTasks -> return GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
+                    filter.isIcalendar -> return CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
+                }
             }
         }
         return TaskAdapter(preferences.addTasksToTop(), googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)

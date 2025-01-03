@@ -113,7 +113,6 @@
     <string name="calendar_event_not_found">Kalendoriaus įvykis nerastas</string>
     <string name="gcal_completed_title">%s (užbaigta)</string>
     <string name="CFC_gtasks_list_text">Yra sąraše ?</string>
-    <string name="CFC_gtasks_list_name">Yra GTasks sąraše…</string>
     <string name="gtasks_GTA_clear_completed">Išvalyti užbaigtas</string>
     <string name="gtasks_GLA_authenticating">Autorizuojama…</string>
     <string name="gtasks_GLA_errorIOAuth">Atsiprašome, turime bėdų susisiekiant su Google serveriais. Prašome pabandyti vėliau.</string>

@@ -40,10 +40,11 @@ import org.tasks.compose.SubtaskChip
 import org.tasks.compose.TaskEditIcon
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.TaskContainer
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.Task
 import org.tasks.data.isHidden
-import org.tasks.filters.Filter
-import org.tasks.filters.GtasksFilter
+import org.tasks.filters.CaldavFilter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.tasklist.UiItem
@@ -51,8 +52,8 @@ import org.tasks.themes.TasksTheme
 
 @Composable
 fun SubtaskRow(
-    originalFilter: Filter?,
-    filter: Filter?,
+    originalFilter: CaldavFilter,
+    filter: CaldavFilter,
     hasParent: Boolean,
     existingSubtasks: TasksResults,
     newSubtasks: List<Task>,
@@ -81,9 +82,9 @@ fun SubtaskRow(
             Column {
                 val isGoogleTaskChild =
                     hasParent &&
-                            filter is GtasksFilter &&
-                            originalFilter is GtasksFilter &&
-                            originalFilter.remoteId == filter.remoteId
+                            filter.isGoogleTasks &&
+                            originalFilter.isGoogleTasks &&
+                            originalFilter.uuid == filter.uuid
                 if (isGoogleTaskChild) {
                     DisabledText(
                         text = stringResource(id = org.tasks.R.string.subtasks_multilevel_google_task),
@@ -99,7 +100,7 @@ fun SubtaskRow(
                             .forEach { task ->
                             ExistingSubtaskRow(
                                 task = task,
-                                indent = if (filter !is GtasksFilter) task.indent else 0,
+                                indent = if (filter.isIcalendar) task.indent else 0,
                                 onRowClick = { openSubtask(task.task) },
                                 onCompleteClick = {
                                     completeExistingSubtask(
@@ -234,8 +235,8 @@ fun ExistingSubtaskRow(
 fun NoSubtasks() {
     TasksTheme {
         SubtaskRow(
-            originalFilter = null,
-            filter = null,
+            originalFilter = CaldavFilter(CaldavCalendar(), CaldavAccount()),
+            filter = CaldavFilter(CaldavCalendar(), CaldavAccount()),
             hasParent = false,
             existingSubtasks = TasksResults.Results(SectionedDataSource()),
             newSubtasks = emptyList(),
@@ -255,8 +256,8 @@ fun NoSubtasks() {
 fun SubtasksPreview() {
     TasksTheme {
         SubtaskRow(
-            originalFilter = null,
-            filter = null,
+            originalFilter = CaldavFilter(CaldavCalendar(), CaldavAccount()),
+            filter = CaldavFilter(CaldavCalendar(), CaldavAccount()),
             hasParent = false,
             existingSubtasks = TasksResults.Results(
                 SectionedDataSource(

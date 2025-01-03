@@ -102,7 +102,6 @@
     <string name="calendar_event_not_found">Zdarzenie kalendarza nie odnazlezione</string>
     <string name="gcal_completed_title">%s (ukończono)</string>
     <string name="CFC_gtasks_list_text">Na liście: ?</string>
-    <string name="CFC_gtasks_list_name">Na liście GTasks…</string>
     <string name="gtasks_GTA_clear_completed">Wyczyść zakończone</string>
     <string name="gtasks_GLA_authenticating">Uwierzytelnianie…</string>
     <string name="gtasks_GLA_errorIOAuth">Przepraszamy, mieliśmy problem z porozumieniem się z serwerami Google. Prosimy spróbować ponownie.</string>

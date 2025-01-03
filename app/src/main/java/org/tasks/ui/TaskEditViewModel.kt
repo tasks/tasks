@@ -59,8 +59,6 @@ import org.tasks.data.setPicture
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.files.FileHelper
 import org.tasks.filters.CaldavFilter
-import org.tasks.filters.Filter
-import org.tasks.filters.GtasksFilter
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
@@ -163,7 +161,7 @@ class TaskEditViewModel @Inject constructor(
     }
     var selectedCalendar = MutableStateFlow(originalCalendar)
 
-    val originalList: Filter = savedStateHandle[TaskEditFragment.EXTRA_LIST]!!
+    val originalList: CaldavFilter = savedStateHandle[TaskEditFragment.EXTRA_LIST]!!
     var selectedList = MutableStateFlow(originalList)
 
     private var originalLocation: Location? = savedStateHandle[TaskEditFragment.EXTRA_LOCATION]
@@ -346,11 +344,12 @@ class TaskEditViewModel @Inject constructor(
             taskDao.createNew(subtask)
             alarmDao.insert(subtask.getDefaultAlarms())
             firebase?.addTask("subtasks")
-            when (val filter = selectedList.value) {
-                is GtasksFilter -> {
+            val filter = selectedList.value
+            when {
+                filter.isGoogleTasks -> {
                     val googleTask = CaldavTask(
                         task = subtask.id,
-                        calendar = filter.remoteId,
+                        calendar = filter.uuid,
                         remoteId = null,
                     )
                     subtask.parent = task.id
@@ -361,7 +360,7 @@ class TaskEditViewModel @Inject constructor(
                         top = if (isNew) false else preferences.addTasksToTop()
                     )
                 }
-                is CaldavFilter -> {
+                else -> {
                     val caldavTask = CaldavTask(
                         task = subtask.id,
                         calendar = filter.uuid,
@@ -374,10 +373,6 @@ class TaskEditViewModel @Inject constructor(
                         caldavTask = caldavTask,
                         addToTop = if (isNew) false else preferences.addTasksToTop()
                     )
-                }
-                else -> {
-                    subtask.parent = task.id
-                    taskDao.save(subtask)
                 }
             }
         }

@@ -3,6 +3,7 @@ package org.tasks.data
 import android.app.Activity
 import android.content.Context
 import org.tasks.R
+import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavCalendarSettingsActivity
@@ -56,6 +57,7 @@ fun CaldavAccount.listSettingsClass(): Class<out Activity> = when(accountType) {
     CaldavAccount.TYPE_OPENTASKS -> OpenTasksListSettingsActivity::class.java
     CaldavAccount.TYPE_ETEBASE -> EtebaseCalendarSettingsActivity::class.java
     CaldavAccount.TYPE_MICROSOFT -> MicrosoftListSettingsActivity::class.java
+    CaldavAccount.TYPE_GOOGLE_TASKS -> GoogleTaskListSettingsActivity::class.java
     else -> CaldavCalendarSettingsActivity::class.java
 }
 

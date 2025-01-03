@@ -123,7 +123,6 @@
     <string name="gtasks_GLA_authenticating">تصدیق ہو رہی…</string>
     <string name="gtasks_GTA_clear_completed">کلئیر مکمل ہو گیا</string>
     <string name="CFC_list_name">لسٹ میں…</string>
-    <string name="CFC_gtasks_list_name">جی ٹاسک لسٹ میں…</string>
     <string name="CFC_gtasks_list_text">لسٹ میں:?</string>
     <string name="gcal_completed_title">%s مکمل ہو گیا</string>
     <string name="calendar_event_not_found">کیلنڈر ایونٹ نہیں مل سکا</string>

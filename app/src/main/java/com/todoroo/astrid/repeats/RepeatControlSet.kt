@@ -14,7 +14,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
 import org.tasks.R
@@ -22,7 +21,6 @@ import org.tasks.compose.edit.RepeatRow
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.filters.CaldavFilter
-import org.tasks.filters.GtasksFilter
 import org.tasks.repeats.BasicRecurrenceDialog
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.repeats.RepeatRuleToString
@@ -91,27 +89,23 @@ class RepeatControlSet : TaskEditControlFragment() {
                     },
                     repeatAfterCompletion = viewModel.repeatAfterCompletion.collectAsStateWithLifecycle().value,
                     onClick = {
-                        lifecycleScope.launch {
-                            val accountType = viewModel.selectedList.value
-                                .let {
-                                    when (it) {
-                                        is CaldavFilter -> it.account
-                                        is GtasksFilter -> it.account
-                                        else -> null
-                                    }
+                        val accountType = viewModel.selectedList.value
+                            .let {
+                                when (it) {
+                                    is CaldavFilter -> it.account
+                                    else -> null
                                 }
-                                ?.let { caldavDao.getAccountByUuid(it) }
-                                ?.accountType
-                                ?: CaldavAccount.TYPE_LOCAL
-                            BasicRecurrenceDialog.newBasicRecurrenceDialog(
-                                target = this@RepeatControlSet,
-                                rc = REQUEST_RECURRENCE,
-                                rrule = viewModel.recurrence.value,
-                                dueDate = viewModel.dueDate.value,
-                                accountType = accountType,
-                            )
-                                .show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
-                        }
+                            }
+                            ?.accountType
+                            ?: CaldavAccount.TYPE_LOCAL
+                        BasicRecurrenceDialog.newBasicRecurrenceDialog(
+                            target = this@RepeatControlSet,
+                            rc = REQUEST_RECURRENCE,
+                            rrule = viewModel.recurrence.value,
+                            dueDate = viewModel.dueDate.value,
+                            accountType = accountType,
+                        )
+                            .show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
                     },
                     onRepeatFromChanged = { viewModel.repeatAfterCompletion.value = it }
                 )

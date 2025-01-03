@@ -105,7 +105,6 @@
     <string name="calendar_event_not_found">Évènement de calendrier introuvable</string>
     <string name="gcal_completed_title">%s (complété)</string>
     <string name="CFC_gtasks_list_text">Dans la liste : \?</string>
-    <string name="CFC_gtasks_list_name">Dans la liste GTasks…</string>
     <string name="gtasks_GTA_clear_completed">Effacer les tâches terminées</string>
     <string name="gtasks_GLA_authenticating">Authentification en cours…</string>
     <string name="gtasks_GLA_errorIOAuth">Désolé, une erreur de communication avec les serveurs de Google s\'est produite. Veuillez réessayer ultérieurement.</string>

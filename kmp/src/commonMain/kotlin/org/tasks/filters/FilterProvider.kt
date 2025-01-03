@@ -11,7 +11,6 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.setupLocalAccount
@@ -233,17 +232,12 @@ class FilterProvider(
             .plus(caldavDao
                 .getCaldavFilters(account.uuid!!)
                 .map {
-                    when (account.accountType) {
-                        TYPE_GOOGLE_TASKS -> GtasksFilter(
-                            list = it.caldavCalendar,
-                            count = it.count,
-                        )
-                        else -> CaldavFilter(
-                            calendar = it.caldavCalendar,
-                            principals = it.principals,
-                            count = it.count,
-                        )
-                    }
+                    CaldavFilter(
+                        calendar = it.caldavCalendar,
+                        account = account,
+                        principals = it.principals,
+                        count = it.count,
+                    )
                 }
                 .sort())
     }

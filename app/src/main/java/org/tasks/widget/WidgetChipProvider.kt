@@ -16,7 +16,6 @@ import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.extensions.setColorFilter
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
-import org.tasks.filters.GtasksFilter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import org.tasks.filters.getIcon
@@ -79,15 +78,18 @@ class WidgetChipProvider @Inject constructor(
     }
 
     fun getListChip(filter: Filter, task: TaskContainer): RemoteViews? {
-        return task.caldav
-                ?.takeIf { filter !is CaldavFilter && filter !is GtasksFilter }
+        return if (filter is CaldavFilter) {
+            null
+        } else {
+            task.caldav
                 ?.let { chipListCache.getCaldavList(it) }
                 ?.let {
                     newChip(
-                        filter = if (task.isGoogleTask) GtasksFilter(it) else CaldavFilter(it),
+                        filter = it,
                         defaultIcon = R.drawable.ic_list_24px
                     )
                 }
+        }
     }
 
     fun getPlaceChip(filter: Filter, task: TaskContainer): RemoteViews? {

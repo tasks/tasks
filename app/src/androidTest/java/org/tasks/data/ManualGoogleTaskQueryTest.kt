@@ -1,7 +1,6 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import org.tasks.filters.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -13,7 +12,9 @@ import org.tasks.R
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.filters.CaldavFilter
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
@@ -33,7 +34,7 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
-    private lateinit var filter: GtasksFilter
+    private lateinit var filter: CaldavFilter
 
     @Before
     override fun setUp() {
@@ -45,7 +46,7 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
             caldavDao.insert(CaldavAccount())
             caldavDao.insert(calendar)
         }
-        filter = GtasksFilter(calendar)
+        filter = CaldavFilter(calendar, account = CaldavAccount(accountType = TYPE_GOOGLE_TASKS))
     }
 
     @Test
@@ -101,7 +102,7 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
             with(ORDER, order),
             with(PARENT, parent),
         ))
-        googleTaskDao.insert(newCaldavTask(with(CALENDAR, filter.list.uuid), with(TASK, id)))
+        googleTaskDao.insert(newCaldavTask(with(CALENDAR, filter.uuid), with(TASK, id)))
     }
 
     private suspend fun query(): List<TaskContainer> = taskDao.fetchTasks {

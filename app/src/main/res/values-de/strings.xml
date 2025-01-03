@@ -102,7 +102,6 @@
     <string name="calendar_event_not_found">Kalendereintrag nicht gefunden</string>
     <string name="gcal_completed_title">%s (abgeschlossen)</string>
     <string name="CFC_gtasks_list_text">In der Liste: ?</string>
-    <string name="CFC_gtasks_list_name">In GTasks-Liste …</string>
     <string name="gtasks_GTA_clear_completed">Erledigte Aufgaben entfernen</string>
     <string name="gtasks_GLA_authenticating">Authentifizierung…</string>
     <string name="gtasks_GLA_errorIOAuth">Leider ist während der Kommunikation mit den Google-Servern ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.</string>

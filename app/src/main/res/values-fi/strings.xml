@@ -95,7 +95,6 @@
     <string name="calendar_event_not_found">Kalenteritapahtumaa ei löydy</string>
     <string name="gcal_completed_title">%s (valmistunut)</string>
     <string name="CFC_gtasks_list_text">Listalla: ?</string>
-    <string name="CFC_gtasks_list_name">Gtask lista…</string>
     <string name="gtasks_GTA_clear_completed">Poista valmiit</string>
     <string name="gtasks_GLA_authenticating">Todennetaan…</string>
     <string name="gtasks_GLA_errorIOAuth">Valitettavasti meillä on yhteysongelmia Google palvelimiin.  Ole hyvä ja yritä myöhemmin uudestaa.</string>

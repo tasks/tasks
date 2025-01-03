@@ -18,12 +18,14 @@ import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
+import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_CALENDAR
 import org.tasks.compose.settings.Toaster
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
-import org.tasks.filters.GtasksFilter
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
 import timber.log.Timber
@@ -35,6 +37,12 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
+    private val account: CaldavAccount
+        get() = intent.getParcelableExtra(EXTRA_CALDAV_ACCOUNT)!!
+
+    private val list: CaldavCalendar?
+        get() = intent.getParcelableExtra(EXTRA_CALDAV_CALENDAR)
+
     private var isNewList = false
     private lateinit var gtasksList: CaldavCalendar
     private val createListViewModel: CreateListViewModel by viewModels()
@@ -45,12 +53,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     val snackbar = SnackbarHostState()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        gtasksList = intent.getParcelableExtra(EXTRA_STORE_DATA)
-                ?: CaldavCalendar(
-                    account = intent.getParcelableExtra<CaldavAccount>(EXTRA_ACCOUNT)!!.username
-                ).apply {
-                    isNewList = true
-                }
+        gtasksList = list ?: CaldavCalendar(account = account.username).apply { isNewList = true }
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             baseViewModel.setColor(gtasksList.color)
@@ -78,7 +81,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     }
 
     override val filter: Filter?
-        get() = if (isNewList) null else GtasksFilter(gtasksList)
+        get() = if (isNewList) null else CaldavFilter(calendar = gtasksList, account = account)
 
     override val toolbarTitle: String
         get() = if (isNew) getString(R.string.new_list) else gtasksList.name!!
@@ -123,7 +126,11 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
                     setResult(
                             Activity.RESULT_OK,
                             Intent(TaskListFragment.ACTION_RELOAD)
-                                    .putExtra(MainActivity.OPEN_FILTER, GtasksFilter(gtasksList)))
+                                    .putExtra(
+                                        MainActivity.OPEN_FILTER,
+                                        CaldavFilter(calendar = gtasksList, account = account)
+                                    )
+                    )
                 }
                 finish()
             }
@@ -172,7 +179,11 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
 
         setResult(
             Activity.RESULT_OK,
-            Intent().putExtra(MainActivity.OPEN_FILTER, GtasksFilter(result.copy(id = id))))
+            Intent().putExtra(
+                MainActivity.OPEN_FILTER,
+                CaldavFilter(calendar = result.copy(id = id), account = account)
+            )
+        )
         finish()
     }
 
@@ -199,7 +210,11 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         setResult(
                 Activity.RESULT_OK,
                 Intent(TaskListFragment.ACTION_RELOAD)
-                    .putExtra(MainActivity.OPEN_FILTER, GtasksFilter(result)))
+                    .putExtra(
+                        MainActivity.OPEN_FILTER,
+                        CaldavFilter(calendar = result, account = account)
+                    )
+        )
         finish()
     }
 
@@ -209,10 +224,5 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         lifecycleScope.launch { snackbar.showSnackbar(getString(R.string.gtasks_GLA_errorIOAuth)) }
         //toast(R.string.gtasks_GLA_errorIOAuth)
         return
-    }
-
-    companion object {
-        const val EXTRA_ACCOUNT = "extra_account"
-        const val EXTRA_STORE_DATA = "extra_store_data"
     }
 }

@@ -2,9 +2,7 @@ package com.todoroo.astrid.adapter
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
-import org.tasks.filters.CaldavFilter
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskMover
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -15,11 +13,15 @@ import org.junit.Before
 import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.dao.CaldavDao
-import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.Task
+import org.tasks.filters.CaldavFilter
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
@@ -45,7 +47,10 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
 
     private lateinit var adapter: CaldavManualSortTaskAdapter
     private val tasks = ArrayList<TaskContainer>()
-    private val filter = CaldavFilter(CaldavCalendar(name = "calendar", uuid = "1234"))
+    private val filter = CaldavFilter(
+        calendar = CaldavCalendar(name = "calendar", uuid = "1234"),
+        account = CaldavAccount(accountType = TYPE_CALDAV)
+    )
     private val dataSource = object : TaskAdapterDataSource {
         override fun getItem(position: Int) = tasks[position]
 

@@ -7,9 +7,8 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
-import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.activities.TagSettingsActivity
-import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
+import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.listSettingsClass
 import org.tasks.dialogs.NewFilterDialog
@@ -22,9 +21,9 @@ import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.CALDAV
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.PREFERENCE
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.TASKS
-import org.tasks.preferences.TasksPreferences
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.MainPreferences
+import org.tasks.preferences.TasksPreferences
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -66,26 +65,14 @@ class SubheaderClickHandler @Inject constructor(
                 )
             REQUEST_NEW_LIST -> {
                 (activity as AppCompatActivity).lifecycleScope.launch {
-                    val account = caldavDao.getAccount(subheader.id) ?: return@launch
+                    val account = caldavDao.getAccount(subheader.id.toLong()) ?: return@launch
                     when (subheader.subheaderType) {
-                        NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS ->
-                            activity.startActivityForResult(
-                                Intent(activity, GoogleTaskListSettingsActivity::class.java)
-                                    .putExtra(
-                                        GoogleTaskListSettingsActivity.EXTRA_ACCOUNT,
-                                        account
-                                    ),
-                                REQUEST_NEW_LIST
-                            )
-
+                        NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS,
                         NavigationDrawerSubheader.SubheaderType.CALDAV,
                         NavigationDrawerSubheader.SubheaderType.TASKS ->
                             activity.startActivityForResult(
                                 Intent(activity, account.listSettingsClass())
-                                    .putExtra(
-                                        BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT,
-                                        account
-                                    ),
+                                    .putExtra(EXTRA_CALDAV_ACCOUNT, account),
                                 REQUEST_NEW_LIST
                             )
 

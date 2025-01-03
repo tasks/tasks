@@ -27,7 +27,6 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.date.DateTimeUtils.newDateTime
-import org.tasks.filters.GtasksFilter
 import org.tasks.googleapis.InvokerFactory
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.PermissionChecker
@@ -121,8 +120,8 @@ class GoogleTaskSynchronizer @Inject constructor(
         } while (!isNullOrEmpty(nextPageToken))
         gtasksListService.updateLists(account, gtaskLists)
         val defaultRemoteList = defaultFilterProvider.defaultList
-        if (defaultRemoteList is GtasksFilter) {
-            val list = caldavDao.getCalendarByUuid(defaultRemoteList.remoteId)
+        if (defaultRemoteList.isGoogleTasks) {
+            val list = caldavDao.getCalendarByUuid(defaultRemoteList.uuid)
             if (list == null) {
                 preferences.setString(R.string.p_default_list, null)
             }
@@ -194,7 +193,7 @@ class GoogleTaskSynchronizer @Inject constructor(
         var newlyCreated = false
         val remoteId: String?
         val defaultRemoteList = defaultFilterProvider.defaultList
-        var listId = if (defaultRemoteList is GtasksFilter) defaultRemoteList.remoteId else DEFAULT_LIST
+        var listId = if (defaultRemoteList.isGoogleTasks) defaultRemoteList.uuid else DEFAULT_LIST
         if (isNullOrEmpty(gtasksMetadata.remoteId)) { // Create case
             gtasksMetadata.calendar?.takeIf { it.isNotBlank() }?.let {
                 listId = it

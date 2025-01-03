@@ -113,7 +113,6 @@
     <string name="calendar_event_not_found">カレンダーイベントが見つかりません</string>
     <string name="gcal_completed_title">%s (完了)</string>
     <string name="CFC_gtasks_list_text">リストに含む: \?</string>
-    <string name="CFC_gtasks_list_name">GTasks リストに…</string>
     <string name="gtasks_GTA_clear_completed">完了したタスクをクリア</string>
     <string name="gtasks_GLA_authenticating">認証中…</string>
     <string name="gtasks_GLA_errorIOAuth">すみません、Google のサーバーとの通信で問題が発生しました。しばらくしてからもう一度お試しください。</string>

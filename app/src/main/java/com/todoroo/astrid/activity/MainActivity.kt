@@ -51,6 +51,7 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
+import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.compose.drawer.DrawerAction
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.drawer.MenuSearchBar
@@ -200,9 +201,9 @@ class MainActivity : AppCompatActivity() {
                                                 REQUEST_NEW_LIST
                                             )
 
-                                        REQUEST_NEW_LIST -> lifecycleScope.launch {
+                                        REQUEST_NEW_LIST -> {
                                             val account =
-                                                caldavDao.getAccount(it.header.id) ?: return@launch
+                                                caldavDao.getAccount(it.header.id.toLong()) ?: return@launch
                                             when (it.header.subheaderType) {
                                                 NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS ->
                                                     startActivityForResult(
@@ -211,7 +212,7 @@ class MainActivity : AppCompatActivity() {
                                                             GoogleTaskListSettingsActivity::class.java
                                                         )
                                                             .putExtra(
-                                                                GoogleTaskListSettingsActivity.EXTRA_ACCOUNT,
+                                                                EXTRA_CALDAV_ACCOUNT,
                                                                 account
                                                             ),
                                                         REQUEST_NEW_LIST
@@ -225,7 +226,7 @@ class MainActivity : AppCompatActivity() {
                                                             account.listSettingsClass()
                                                         )
                                                             .putExtra(
-                                                                BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT,
+                                                                EXTRA_CALDAV_ACCOUNT,
                                                                 account
                                                             ),
                                                         REQUEST_NEW_LIST

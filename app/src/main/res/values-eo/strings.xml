@@ -132,7 +132,6 @@
     <string name="rmd_EPr_defaultRemind_title">Hazardaj memorigiloj</string>
     <string name="rmd_EPr_rmd_time_title">Memorigo-tempo</string>
     <string name="CFC_list_name">En listo…</string>
-    <string name="CFC_gtasks_list_name">En GTasks Listo…</string>
     <string name="CFC_gtasks_list_text">En Listo: \?</string>
     <string name="calendar_event_not_found">Kalendara evento ne trovita</string>
     <string name="gcal_TEA_showCalendar_label">Malfermi Kalendara Evento</string>

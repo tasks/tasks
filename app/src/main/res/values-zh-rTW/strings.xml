@@ -77,7 +77,6 @@
     <string name="gcal_TEA_showCalendar_label">打開行事曆事項</string>
     <string name="gcal_completed_title">%s （已完成）</string>
     <string name="CFC_gtasks_list_text">列表內容: ?</string>
-    <string name="CFC_gtasks_list_name">在Google任務工作列表中…</string>
     <string name="gtasks_GTA_clear_completed">清除已完成項</string>
     <string name="gtasks_GLA_authenticating">正在認證…</string>
     <string name="gtasks_GLA_errorIOAuth">對不起，我們在與Google 服務器通訊時遇到了問題。請稍後再嘗試。</string>
