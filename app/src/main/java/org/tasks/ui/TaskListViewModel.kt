@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.compose.throttleLatest
@@ -206,7 +207,7 @@ class TaskListViewModel @Inject constructor(
                 )
             }
 
-            if (!inventory.hasPro && !firebase.subscribeCooldown) {
+            if ((IS_GENERIC || !inventory.hasPro) && !firebase.subscribeCooldown) {
                 _state.update {
                     it.copy(begForSubscription = true)
                 }
