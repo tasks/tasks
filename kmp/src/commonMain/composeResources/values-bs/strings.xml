@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Traži</string>
+    <string name="filter_my_tasks">Moji zadaci</string>
+    <string name="filter_recently_modified">Nedavno promijenjeni</string>
+    <string name="settings">Postavke</string>
 </resources>
