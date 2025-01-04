@@ -734,4 +734,11 @@
     <string name="swipe_to_snooze_time_24_hours">po 24 hodinách</string>
     <string name="swipe_to_snooze_title">Přejetím prstu odložíte</string>
     <string name="swipe_to_snooze_description">Čas odložení</string>
+    <string name="yesterday">Včera</string>
+    <string name="send_application_logs">Poslat záznamy problémů</string>
+    <string name="quiet_hours_in_effect">Režim nerušit je zapnutý</string>
+    <string name="delete_comment">komentář</string>
+    <string name="price_per_month_with_currency">%s měsíčně</string>
+    <string name="price_per_year_with_currency">%s ročně</string>
+    <string name="enable_alarms">Dostaňte upozornění včas</string>
 </resources>
