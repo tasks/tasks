@@ -14,7 +14,13 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 
@@ -27,9 +33,14 @@ fun SearchBar(
     onCloseClicked: () -> Unit,
     onSearchClicked: (String) -> Unit,
 ) {
+    var canFocus by remember { mutableStateOf(false) }
     OutlinedTextField(
         shape = MaterialTheme.shapes.medium,
-        modifier = modifier.height(56.dp),
+        modifier = modifier
+            .height(56.dp)
+            .focusProperties {
+                this.canFocus = canFocus
+            },
         value = text,
         onValueChange = {
             onTextChange(it)
@@ -76,4 +87,7 @@ fun SearchBar(
             cursorColor = MaterialTheme.colorScheme.onSurface,
         ),
     )
+    LaunchedEffect(Unit) {
+        canFocus = true
+    }
 }
