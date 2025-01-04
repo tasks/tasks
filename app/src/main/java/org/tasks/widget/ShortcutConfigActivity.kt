@@ -125,7 +125,9 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
         ShortcutManagerCompat.requestPinShortcut(
             this,
             ShortcutInfoCompat.Builder(this, UUIDHelper.newUUID())
-                .setShortLabel(getShortcutName())
+                .setShortLabel(
+                    getShortcutName().takeIf { it.isNotBlank() } ?: getString(R.string.app_name)
+                )
                 .setIntent(TaskIntents.getTaskListByIdIntent(this, filterId))
                 .setIcon(IconCompat.createWithResource(this, ThemeColor.ICONS[themeIndex]))
                 .build(),

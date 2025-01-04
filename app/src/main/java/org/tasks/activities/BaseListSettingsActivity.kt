@@ -154,10 +154,10 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
     }
 
     protected fun createShortcut(color: Color) {
-        filter?.let {
-            val filterId = defaultFilterProvider.getFilterPreferenceValue(it)
+        filter?.let { f ->
+            val filterId = defaultFilterProvider.getFilterPreferenceValue(f)
             val shortcutInfo = ShortcutInfoCompat.Builder(this, UUIDHelper.newUUID())
-                .setShortLabel(baseViewModel.title)
+                .setShortLabel(baseViewModel.title.takeIf { it.isNotBlank() } ?: getString(R.string.app_name))
                 .setIcon(
                     baseViewModel.icon
                         ?.let { icon ->
