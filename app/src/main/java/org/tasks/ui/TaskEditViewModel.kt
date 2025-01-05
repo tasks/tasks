@@ -139,7 +139,7 @@ class TaskEditViewModel @Inject constructor(
     private var cleared = false
 
     private val task: Task = savedStateHandle.get<Task>(TaskEditFragment.EXTRA_TASK)
-        ?.let { it.copy(notes = it.notes?.stripCarriageReturns()) }
+        ?.apply { notes = notes?.stripCarriageReturns() } // copying here broke tests 🙄
         ?: throw IllegalArgumentException("task is null")
 
     private var _originalState: ViewState

@@ -4,6 +4,7 @@ import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.service.TaskCreator.Companion.setDefaultReminders
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -38,7 +39,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
         setup(task)
 
         assertEquals(
-            listOf(Alarm(type = Alarm.TYPE_REL_START)),
+            persistentSetOf(Alarm(type = Alarm.TYPE_REL_START)),
             viewModel.viewState.value.alarms
         )
     }
@@ -55,7 +56,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
         setup(task)
 
         assertEquals(
-            listOf(Alarm(type = Alarm.TYPE_REL_END)),
+            persistentSetOf(Alarm(type = Alarm.TYPE_REL_END)),
             viewModel.viewState.value.alarms
         )
     }
@@ -72,7 +73,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
         setup(task)
 
         assertEquals(
-            listOf(whenOverdue(0)),
+            persistentSetOf(whenOverdue(0)),
             viewModel.viewState.value.alarms
         )
     }
