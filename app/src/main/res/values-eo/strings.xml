@@ -714,4 +714,12 @@
     <string name="customize_drawer_summary">Ŝovu kaj demetu por rearanĝi menuerojn</string>
     <string name="quiet_hours_in_effect">Senperturbaj horoj aktivas</string>
     <string name="send_application_logs">Sendi protokoladon</string>
+    <string name="delete_comment">komento</string>
+    <string name="yesterday">Hieraŭ</string>
+    <string name="enable_alarms_description">Por certigi ke vi sciiĝos je la ĝusta horo, permesu agordi alarmojn kaj memorigilojn per Agordoj</string>
+    <string name="price_per_month_with_currency">%s/monato</string>
+    <string name="price_per_year_with_currency">%s/jaro</string>
+    <string name="enable_alarms">Sciiĝu je la ĝusta horo</string>
+    <string name="add_shortcut_to_home_screen">Aldoni ŝparvojon al hejmekrano</string>
+    <string name="add_widget_to_home_screen">Aldoni fenestraĵon al hejmekrano</string>
 </resources>
