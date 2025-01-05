@@ -18,7 +18,6 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.filters.CaldavFilter
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.jobs.WorkManager
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
 import org.tasks.makers.CaldavTaskMaker.REMOTE_PARENT
@@ -32,10 +31,8 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class TaskMoverTest : InjectingTestCase() {
-    @Inject lateinit var taskDaoAsync: TaskDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var googleTaskDao: GoogleTaskDao
-    @Inject lateinit var workManager: WorkManager
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskMover: TaskMover
 
@@ -138,9 +135,9 @@ class TaskMoverTest : InjectingTestCase() {
         createSubtask(2, 1)
         googleTaskDao.insert(newCaldavTask(with(TASK, 1), with(CALENDAR, "1")))
         googleTaskDao.insert(newCaldavTask(with(TASK, 2), with(CALENDAR, "1")))
-        moveToCaldavList("1", 1)
+        moveToCaldavList("2", 1)
         val task = caldavDao.getTask(2)
-        assertEquals("1", task!!.calendar)
+        assertEquals("2", task!!.calendar)
         assertEquals(1L, taskDao.fetch(2)?.parent)
     }
 
@@ -187,7 +184,7 @@ class TaskMoverTest : InjectingTestCase() {
                                 with(TASK, 3L),
                                 with(CALENDAR, "1"),
                                 with(REMOTE_PARENT, "b"))))
-        moveToGoogleTasks("1", 1)
+        moveToGoogleTasks("2", 1)
         val task = taskDao.fetch(3L)
         assertEquals(1L, task?.parent)
     }

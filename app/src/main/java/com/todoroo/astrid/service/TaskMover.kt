@@ -133,6 +133,7 @@ class TaskMover @Inject constructor(
 
     private suspend fun moveCaldavTask(task: Task, caldavTask: CaldavTask, selected: CaldavFilter) {
         if (caldavTask.calendar == selected.uuid) {
+            // TODO: make sure its the same account
             return
         }
         val id = task.id
@@ -204,6 +205,7 @@ class TaskMover @Inject constructor(
 
     private suspend fun moveToGoogleTasks(id: Long, children: List<Long>, filter: CaldavFilter) {
         if (!filter.isGoogleTasks) {
+            // TODO: make sure its the same account
             return
         }
         val task = taskDao.fetch(id) ?: return
