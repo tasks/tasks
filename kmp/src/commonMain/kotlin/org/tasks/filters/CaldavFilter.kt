@@ -5,6 +5,7 @@ import org.tasks.data.NO_COUNT
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
@@ -53,17 +54,17 @@ data class CaldavFilter(
     override val isReadOnly: Boolean
         get() = calendar.access == CaldavCalendar.ACCESS_READ_ONLY
 
+    // Microsoft Graph API doesn't support order
+    // https://techcommunity.microsoft.com/idea/microsoft365developerplatform/to-do-graphapi-to-include-orderdatetime-field---custom-ordering-of-to-do-tasks-t/3298392#M940
     override fun supportsManualSort() = true
 
     override fun areItemsTheSame(other: FilterListItem): Boolean {
         return other is CaldavFilter && calendar.id == other.calendar.id
     }
 
-    val isGoogleTasks by lazy {
-        account.accountType == TYPE_GOOGLE_TASKS
-    }
+    val isGoogleTasks: Boolean
+        get() = account.accountType == TYPE_GOOGLE_TASKS
 
-    val isIcalendar by lazy {
-        account.accountType != TYPE_GOOGLE_TASKS
-    }
+    val isIcalendar: Boolean
+        get() = account.accountType !in listOf(TYPE_GOOGLE_TASKS, TYPE_MICROSOFT)
 }

@@ -426,7 +426,7 @@ class MicrosoftSynchronizer @Inject constructor(
         existingSubtasks
             .filter { it.remoteId?.isNotBlank() == true && !remoteSubtaskIds.contains(it.remoteId) }
             .let { taskDeleter.delete(it.map { it.task }) }
-        checklistItems.forEachIndexed { index, item ->
+        checklistItems.forEach { item ->
             val existing = caldavDao.getTaskByRemoteId(list.uuid!!, item.id!!)
             val task = existing?.task?.let { taskDao.fetch(it) }
                 ?: taskCreator.createWithValues("").apply {
@@ -445,11 +445,9 @@ class MicrosoftSynchronizer @Inject constructor(
             val dirty = existing != null && task.modificationDate > existing.lastSync
             if (dirty) {
                 // TODO: merge with vtodo cached value, similar to iCalendarMerge.kt
-                task.order = index.toLong()
                 task.parent = parentId
             } else {
                 task.applySubtask(
-                    index = index,
                     parent = parentId,
                     checklistItem = item,
                 )

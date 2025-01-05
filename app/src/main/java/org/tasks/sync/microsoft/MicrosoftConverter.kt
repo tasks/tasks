@@ -24,12 +24,10 @@ object MicrosoftConverter {
     private const val DATE_TIME_UTC_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS0000'Z'"
 
     fun Task.applySubtask(
-        index: Int,
         parent: Long,
         checklistItem: Tasks.Task.ChecklistItem,
     ) {
         this.parent = parent
-        order = index.toLong()
         title = checklistItem.displayName
         completionDate = if (checklistItem.isChecked) {
             checklistItem.checkedDateTime?.parseDateTime() ?: System.currentTimeMillis()
@@ -95,7 +93,6 @@ object MicrosoftConverter {
                 .build()
                 .toString()
         }
-        // checklist to subtasks
         // sync reminders
         // sync files
     }

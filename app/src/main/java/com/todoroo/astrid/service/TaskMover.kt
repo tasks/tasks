@@ -55,7 +55,7 @@ class TaskMover @Inject constructor(
         val taskIds = tasks.map { it.id }
         taskDao.setParent(0, ids.intersect(taskIds.toSet()).toList())
         tasks.forEach { performMove(it, selectedList) }
-        if (selectedList.isIcalendar) {
+        if (!selectedList.isGoogleTasks) {
             caldavDao.updateParents(selectedList.uuid)
         }
         taskIds.dbchunk().forEach {
