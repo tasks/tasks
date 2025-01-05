@@ -435,4 +435,5 @@
   <string name="p_completed_tasks_at_bottom">completed_tasks_at_bottom</string>
   <string name="p_shown_beast_mode_hint">shown_beast_mode_hint</string>
   <string name="p_last_sync">last_sync_time</string>
+  <string name="p_microsoft_sync">microsoft_sync</string>
 </resources>

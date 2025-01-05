@@ -9,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.openUri
+import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import javax.inject.Inject
@@ -18,6 +19,7 @@ class AddAccountDialog : DialogFragment() {
 
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var theme: Theme
+    @Inject lateinit var preferences: Preferences
 
     private val hasTasksAccount: Boolean
         get() = arguments?.getBoolean(EXTRA_HAS_TASKS_ACCOUNT) ?: false
@@ -43,6 +45,7 @@ class AddAccountDialog : DialogFragment() {
                 TasksTheme(theme = theme.themeBase.index) {
                     org.tasks.compose.AddAccountDialog(
                         hasTasksAccount = hasTasksAccount,
+                        enableMicrosoftSync = preferences.getBoolean(R.string.p_microsoft_sync, false),
                         hasPro = hasPro,
                         selected = this::selected
                     )

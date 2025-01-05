@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.sync.AddAccountDialog.Platform
 import org.tasks.themes.TasksTheme
@@ -17,6 +16,7 @@ import org.tasks.themes.TasksTheme
 fun AddAccountDialog(
     hasTasksAccount: Boolean,
     hasPro: Boolean,
+    enableMicrosoftSync: Boolean = true,
     selected: (Platform) -> Unit,
 ) {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
@@ -36,7 +36,7 @@ fun AddAccountDialog(
             icon = R.drawable.ic_google,
             onClick = { selected(Platform.GOOGLE_TASKS) }
         )
-        if (BuildConfig.DEBUG) {
+        if (enableMicrosoftSync) {
             SyncAccount(
                 title = R.string.microsoft,
                 cost = if (hasPro) null else R.string.cost_free,
