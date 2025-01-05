@@ -1,0 +1,9 @@
+* Microsoft To Do support
+  * This feature is in early access, USE AT YOUR OWN RISK
+  * Enable under 'Advanced' settings
+* Subscription changes
+  * Multiple Google Task accounts are now free to use
+  * Tasker plugins are now free to use
+* Fix crash on empty shortcut labels
+* Fix missing settings button on Android 10 and below
+* Update translations
