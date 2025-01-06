@@ -66,7 +66,7 @@ fun Comment(
             modifier = Modifier
                 .weight(1f)
                 .padding(top = 8.dp)
-                .pointerInput(Unit) {
+                .pointerInput(comment) {
                     detectTapGestures(onLongPress = {
                         comment.message?.let(copyCommentToClipboard)
                     })
