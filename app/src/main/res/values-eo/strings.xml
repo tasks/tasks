@@ -722,4 +722,7 @@
     <string name="enable_alarms">Sciiĝu je la ĝusta horo</string>
     <string name="add_shortcut_to_home_screen">Aldoni ŝparvojon al hejmekrano</string>
     <string name="add_widget_to_home_screen">Aldoni fenestraĵon al hejmekrano</string>
+    <string name="cost_free">Kosto: Senpaga</string>
+    <string name="cost_more_money">Kosto: $$$</string>
+    <string name="cost_money">Kosto: $</string>
 </resources>
