@@ -15,6 +15,7 @@
   * Czech - @AtmosphericIgnition
   * Esperanto - Don Zouras
   * Italian - @ppasserini
+  * Swedish - @Ziron
 
 ### 14.3.1 (2025-01-02)
 
