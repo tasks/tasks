@@ -324,6 +324,7 @@ class TaskEditFragment : Fragment() {
                 }
             },
             requestFocus = requestFocus,
+            multiline = viewState.multilineTitle,
         )
     }
 

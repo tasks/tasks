@@ -577,6 +577,9 @@ class Preferences @JvmOverloads constructor(
     val linkify: Boolean
         get() = getBoolean(R.string.p_linkify_task_edit, false)
 
+    val multilineTitle: Boolean
+        get() = getBoolean(R.string.p_multiline_title, false)
+
     companion object {
         private fun getSharedPreferencesName(context: Context): String =
                 context.packageName + "_preferences"

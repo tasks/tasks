@@ -3,6 +3,7 @@
 * Microsoft To Do support [#2011](https://github.com/tasks/tasks/issues/2011)
   * This feature is in early access, USE AT YOUR OWN RISK
   * Enable under 'Advanced' settings
+* Add configuration option for new lines in titles
 * Subscription changes
   * Multiple Google Task accounts are now free to use
   * Tasker plugins are now free to use

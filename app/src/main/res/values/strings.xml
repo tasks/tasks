@@ -730,4 +730,7 @@ File %1$s contained %2$s.\n\n
   <string name="cost_free">Cost: Free</string>
   <string name="cost_money">Cost: $</string>
   <string name="cost_more_money">Cost: $$$</string>
+  <string name="multiline_title">Allow multiline titles</string>
+  <string name="multiline_title_on">Press Enter key to add line breaks</string>
+  <string name="multiline_title_off">Press Done to close keyboard</string>
 </resources>

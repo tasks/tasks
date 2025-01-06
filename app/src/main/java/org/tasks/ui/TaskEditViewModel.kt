@@ -124,6 +124,7 @@ class TaskEditViewModel @Inject constructor(
         val attachments: ImmutableSet<TaskAttachment> = persistentSetOf(),
         val alarms: ImmutableSet<Alarm>,
         val newSubtasks: ImmutableList<Task> = persistentListOf(),
+        val multilineTitle: Boolean,
     ) {
         val isNew: Boolean
             get() = task.isNew
@@ -199,6 +200,7 @@ class TaskEditViewModel @Inject constructor(
             } else {
                 savedStateHandle[TaskEditFragment.EXTRA_ALARMS]!!
             }.toPersistentSet(),
+            multilineTitle = preferences.multilineTitle,
         )
     )
     val viewState: StateFlow<ViewState> = _viewState

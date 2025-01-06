@@ -35,6 +35,7 @@ fun DescriptionRow(
                     onChanged = onChanged,
                     linkify = linkify,
                     markdownProvider = markdownProvider,
+                    multiline = true,
                 )
                 Spacer(modifier = Modifier.height(11.dp))
             }
