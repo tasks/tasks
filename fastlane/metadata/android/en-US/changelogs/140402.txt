@@ -2,6 +2,7 @@
   * This feature is in early access, USE AT YOUR OWN RISK
   * Enable under 'Advanced' settings
 * Add configuration option for new lines in titles
+* @TonSilver - Copy comments to clipboard with long press
 * Subscription changes
   * Multiple Google Task accounts are now free to use
   * Tasker plugins are now free to use

@@ -1,15 +1,19 @@
-### 14.4 (2025-01-05)
+### 14.4 (2025-01-06)
 
 * Microsoft To Do support [#2011](https://github.com/tasks/tasks/issues/2011)
   * This feature is in early access, USE AT YOUR OWN RISK
   * Enable under 'Advanced' settings
 * Add configuration option for new lines in titles
+* @TonSilver - Copy comments to clipboard with long press
 * Subscription changes
   * Multiple Google Task accounts are now free to use
   * Tasker plugins are now free to use
 * Fix crash on empty shortcut labels
 * Fix missing settings button on Android 10 and below
 * Update translations
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Czech - @AtmosphericIgnition
+  * Esperanto - Don Zouras
   * Italian - @ppasserini
 
 ### 14.3.1 (2025-01-02)
