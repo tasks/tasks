@@ -58,7 +58,8 @@ fun EditTextView(
                     onTextChanged = { text, _, _, _ -> onChanged(text) },
                     afterTextChanged = { editable -> textWatcher?.invoke(editable) }
                 )
-
+                maxLines = Int.MAX_VALUE
+                isSingleLine = false
                 if (multiline) {
                     // Multiline configuration
                     setRawInputType(
@@ -67,8 +68,6 @@ fun EditTextView(
                                 InputType.TYPE_TEXT_FLAG_MULTI_LINE or
                                 InputType.TYPE_TEXT_FLAG_AUTO_CORRECT
                     )
-                    isSingleLine = false
-                    maxLines = Int.MAX_VALUE
                     imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
                 } else {
                     // Single line with Done button
@@ -77,8 +76,6 @@ fun EditTextView(
                                 InputType.TYPE_TEXT_FLAG_CAP_SENTENCES or
                                 InputType.TYPE_TEXT_FLAG_AUTO_CORRECT
                     )
-                    isSingleLine = true
-                    maxLines = 1
                     imeOptions = EditorInfo.IME_ACTION_DONE or EditorInfo.IME_FLAG_NO_EXTRACT_UI
                     setImeActionLabel(context.getString(android.R.string.ok), EditorInfo.IME_ACTION_DONE)
                     setOnEditorActionListener { _, actionId, _ ->
