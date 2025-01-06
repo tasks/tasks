@@ -2,6 +2,7 @@ package org.tasks.compose.edit
 
 import android.net.Uri
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -25,6 +27,7 @@ import org.tasks.kmp.org.tasks.time.getFullDateTime
 @Composable
 fun CommentsRow(
     comments: List<UserActivity>,
+    copyCommentToClipboard: (String) -> Unit,
     deleteComment: (UserActivity) -> Unit,
     openImage: (Uri) -> Unit,
 ) {
@@ -41,6 +44,7 @@ fun CommentsRow(
                 comments.forEach {
                     Comment(
                         comment = it,
+                        copyCommentToClipboard = copyCommentToClipboard,
                         deleteComment = deleteComment,
                         openImage = openImage,
                     )
@@ -53,6 +57,7 @@ fun CommentsRow(
 @Composable
 fun Comment(
     comment: UserActivity,
+    copyCommentToClipboard: (String) -> Unit,
     deleteComment: (UserActivity) -> Unit,
     openImage: (Uri) -> Unit,
 ) {
@@ -60,7 +65,12 @@ fun Comment(
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(top = 8.dp),
+                .padding(top = 8.dp)
+                .pointerInput(Unit) {
+                    detectTapGestures(onLongPress = {
+                        comment.message?.let(copyCommentToClipboard)
+                    })
+                },
         ) {
             comment.message?.let {
                 // TODO: linkify text

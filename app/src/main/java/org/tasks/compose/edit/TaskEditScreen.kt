@@ -33,6 +33,7 @@ import org.tasks.extensions.Context.findActivity
 import org.tasks.files.FileHelper
 import org.tasks.themes.TasksTheme
 import org.tasks.ui.TaskEditViewModel
+import org.tasks.utility.copyToClipboard
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
@@ -113,6 +114,9 @@ fun TaskEditScreen(
                 val context = LocalContext.current
                 CommentsRow(
                     comments = comments,
+                    copyCommentToClipboard = {
+                        copyToClipboard(context, R.string.comment, it)
+                    },
                     deleteComment = deleteComment,
                     openImage = {
                         val activity = context.findActivity() ?: return@CommentsRow

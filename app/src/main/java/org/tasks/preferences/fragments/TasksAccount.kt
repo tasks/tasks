@@ -1,16 +1,12 @@
 package org.tasks.preferences.fragments
 
 import android.content.BroadcastReceiver
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast.LENGTH_SHORT
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -36,6 +32,7 @@ import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDay
 import org.tasks.preferences.IconPreference
 import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_TASKS_ORG
+import org.tasks.utility.copyToClipboard
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -128,11 +125,10 @@ class TasksAccount : BaseAccountPreference() {
     private fun setupTextField(v: View, layout: Int, labelRes: Int, value: String?) {
         with(v.findViewById<TextInputLayout>(layout)) {
             editText?.setText(value)
-            setEndIconOnClickListener {
-                val label = getString(labelRes)
-                getSystemService(requireContext(), ClipboardManager::class.java)
-                        ?.setPrimaryClip(ClipData.newPlainText(label, value))
-                context?.toast(R.string.copied_to_clipboard, label, duration = LENGTH_SHORT)
+            if (value != null) {
+                setEndIconOnClickListener {
+                    copyToClipboard(requireContext(), labelRes, value)
+                }
             }
         }
     }
