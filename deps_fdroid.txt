@@ -267,20 +267,20 @@
 +|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.6.1
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.6.1
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.1.0 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3
-+|    |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.7.3
-+|    |         +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.7.3
-+|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 (c)
-+|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.7.3 (c)
-+|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3 (c)
-+|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json-io:1.7.3 (c)
-+|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.7.3 (c)
-+|    |         |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-io-jvm:1.7.3 (c)
-+|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.20 -> 2.1.0 (*)
-+|    |         \--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3
-+|    |              \--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.7.3
-+|    |                   +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.7.3 (*)
-+|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.20 -> 2.1.0 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0
++|    |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.8.0
++|    |         +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.8.0
++|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.0 (c)
++|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.8.0 (c)
++|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0 (c)
++|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json-io:1.8.0 (c)
++|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.8.0 (c)
++|    |         |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-io-jvm:1.8.0 (c)
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 (*)
++|    |         \--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.0
++|    |              \--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.8.0
++|    |                   +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.8.0 (*)
++|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 (*)
 +|    +--- co.touchlab:kermit:2.0.5
 +|    |    \--- co.touchlab:kermit-android:2.0.5
 +|    |         +--- co.touchlab:kermit-core:2.0.5
@@ -860,7 +860,7 @@
 +|    +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.8
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.8
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.1.0 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.1.0 (*)
 ++--- project :icons
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 (*)
@@ -1161,7 +1161,7 @@
 +|    \--- io.noties.markwon:core:4.6.2 (*)
 ++--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0 (*)
 ++--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.8 (*)
-++--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3 (*)
+++--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0 (*)
 ++--- com.squareup.okhttp3:okhttp:4.12.0 (*)
 ++--- com.github.franmontiel:PersistentCookieJar:1.0.1
 +|    \--- com.squareup.okhttp3:okhttp:3.1.2 -> 4.12.0 (*)
@@ -1401,9 +1401,9 @@
 +|         |         |         |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.1.0 (*)
 +|         |         |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.1.0 (*)
 +|         |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
-+|         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 (*)
++|         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 -> 1.8.0 (*)
 +|         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
-+|         |         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 (*)
++|         |         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 -> 1.8.0 (*)
 +|         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
 +|         |         +--- io.ktor:ktor-events:3.0.3
 +|         |         |    \--- io.ktor:ktor-events-jvm:3.0.3
@@ -1469,15 +1469,15 @@
 +|         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 (*)
 +|         |         +--- io.ktor:ktor-http:3.0.3 (*)
 +|         |         +--- io.ktor:ktor-serialization:3.0.3 (*)
-+|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 (*)
++|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 -> 1.8.0 (*)
 +|         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
-+|         +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3 (*)
-+|         +--- org.jetbrains.kotlinx:kotlinx-serialization-json-io:1.7.3
-+|         |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-io-jvm:1.7.3
-+|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.7.3 (*)
-+|         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.20 -> 2.1.0 (*)
-+|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 (*)
-+|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3 (*)
++|         +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3 -> 1.8.0 (*)
++|         +--- org.jetbrains.kotlinx:kotlinx-serialization-json-io:1.7.3 -> 1.8.0
++|         |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-io-jvm:1.8.0
++|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.8.0 (*)
++|         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 (*)
++|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.0 (*)
++|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0 (*)
 +|         |         \--- org.jetbrains.kotlinx:kotlinx-io-core:0.4.0 -> 0.5.4 (*)
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.0 (*)
 +\--- com.google.accompanist:accompanist-permissions:0.37.0
