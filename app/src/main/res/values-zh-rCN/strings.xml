@@ -337,7 +337,7 @@
     <string name="network_error">无法连接</string>
     <string name="upgrade_to_pro">升级至专业版</string>
     <string name="refresh_purchases">刷新购买</string>
-    <string name="button_subscribe">订购</string>
+    <string name="button_subscribe">订阅</string>
     <string name="about">关于</string>
     <string name="license_summary">Tasks 是遵循 GNU 通用公共许可证 v3.0 的自由开源软件</string>
     <string name="pro_dashclock_extension">Dashclock 扩展</string>
@@ -531,7 +531,7 @@
     <string name="authorization_cancelled">授权被取消</string>
     <string name="sign_in_with_google">使用 Google 登录</string>
     <string name="github_sponsor">赞助者</string>
-    <string name="authentication_required">需要认证</string>
+    <string name="authentication_required">需要身份验证</string>
     <string name="migrate_count">移动 %s 到 Tasks.org</string>
     <string name="migrating_tasks">正在迁移任务</string>
     <string name="migrate">迁移</string>
@@ -604,7 +604,7 @@
     <string name="upgrade_tasks_org_account_description">与 Tasks.org 同步并与其他用户协作</string>
     <string name="upgrade_more_customization_description">解锁所有主题、颜色和图标</string>
     <string name="upgrade_more_customization">更多自定义</string>
-    <string name="pro_free_trial">新订户将获得 7 天的免费试用期。可随时取消订阅</string>
+    <string name="pro_free_trial">新订阅者可获得 7 天免费试用。随时取消</string>
     <string name="next_saturday">下周六</string>
     <string name="next_friday">下周五</string>
     <string name="next_thursday">下周四</string>
@@ -714,4 +714,8 @@
     <string name="cost_more_money">费用：$$$</string>
     <string name="cost_free">费用：无</string>
     <string name="cost_money">费用：$</string>
+    <string name="multiline_title_off">按完成关闭键盘</string>
+    <string name="comment">注释</string>
+    <string name="multiline_title">允许多行标题</string>
+    <string name="multiline_title_on">按 Enter 键添加换行符</string>
 </resources>
