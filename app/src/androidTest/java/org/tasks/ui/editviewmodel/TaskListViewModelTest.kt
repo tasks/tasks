@@ -38,7 +38,7 @@ class TaskListViewModelTest : InjectingTestCase() {
     override fun setUp() {
         super.setUp()
         viewModel = TaskListViewModel(
-            context = context,
+            applicationContext = context,
             preferences = preferences,
             taskDao = taskDao,
             deletionDao = deletionDao,

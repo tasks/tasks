@@ -1,6 +1,5 @@
 package org.tasks.ui
 
-import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -32,12 +31,14 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
 import org.tasks.data.fetchTasks
 import org.tasks.db.QueryUtils
+import org.tasks.extensions.Context.canScheduleExactAlarms
 import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.EmptyFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterImpl
 import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.SearchFilter
+import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.tasklist.SectionedDataSource
@@ -45,10 +46,16 @@ import org.tasks.tasklist.TasksResults
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
+sealed interface Banner {
+    data object NotificationsDisabled : Banner
+    data object AlarmsDisabled : Banner
+    data object QuietHoursEnabled : Banner
+    data object BegForMoney : Banner
+}
+
 @HiltViewModel
-@SuppressLint("StaticFieldLeak")
 class TaskListViewModel @Inject constructor(
-    @ApplicationContext context: Context,
+    @ApplicationContext private val applicationContext: Context,
     private val preferences: Preferences,
     private val taskDao: TaskDao,
     private val taskDeleter: TaskDeleter,
@@ -56,19 +63,17 @@ class TaskListViewModel @Inject constructor(
     private val localBroadcastManager: LocalBroadcastManager,
     private val inventory: Inventory,
     private val firebase: Firebase,
+    private val permissionChecker: PermissionChecker,
 ) : ViewModel() {
-
 
     data class State(
         val filter: Filter = EmptyFilter(),
         val now: Long = currentTimeMillis(),
         val searchQuery: String? = null,
         val tasks: TasksResults = TasksResults.Loading,
-        val begForSubscription: Boolean = false,
-        val warnNotificationsDisabled: Boolean = false,
         val syncOngoing: Boolean = false,
-        val warnQuietHoursEnabled: Boolean = false,
         val collapsed: Set<Long> = setOf(SectionedDataSource.HEADER_COMPLETED),
+        val banner: Banner? = null
     )
 
     private val _state = MutableStateFlow(State())
@@ -97,23 +102,6 @@ class TaskListViewModel @Inject constructor(
                 syncOngoing = preferences.isSyncOngoing,
             )
         }
-    }
-
-    fun dismissNotificationBanner(
-        fix: Boolean = false,
-    ) {
-        _state.update {
-            it.copy(warnNotificationsDisabled = false)
-        }
-        preferences.warnNotificationsDisabled = fix
-    }
-
-    fun dismissPurchaseBanner(clickedPurchase: Boolean) {
-        _state.update {
-            it.copy(begForSubscription = false)
-        }
-        preferences.lastSubscribeRequest = currentTimeMillis()
-        firebase.logEvent(R.string.event_banner_sub, R.string.param_click to clickedPurchase)
     }
 
     suspend fun getTasksToClear(): List<Long> {
@@ -150,7 +138,7 @@ class TaskListViewModel @Inject constructor(
                 val filter = when {
                     it.searchQuery == null -> it.filter
                     it.searchQuery.isBlank() -> MyTasksFilter.create()
-                    else -> context.createSearchQuery(it.searchQuery)
+                    else -> applicationContext.createSearchQuery(it.searchQuery)
                 }
                 taskDao.fetchTasks { getQuery(preferences, filter) }
             }
@@ -200,26 +188,36 @@ class TaskListViewModel @Inject constructor(
 
     fun updateBannerState() {
         viewModelScope.launch(Dispatchers.IO) {
-            _state.update {
-                it.copy(
-                    warnNotificationsDisabled = preferences.warnNotificationsDisabled,
-                    warnQuietHoursEnabled = preferences.isCurrentlyQuietHours && preferences.warnQuietHoursDisabled,
-                )
+            val banner = when {
+                preferences.warnNotificationsDisabled && !permissionChecker.hasNotificationPermission() ->
+                    Banner.NotificationsDisabled
+                preferences.warnAlarmsDisabled && !applicationContext.canScheduleExactAlarms() ->
+                    Banner.AlarmsDisabled
+                (IS_GENERIC || !inventory.hasPro) && !firebase.subscribeCooldown ->
+                    Banner.BegForMoney
+                preferences.isCurrentlyQuietHours && preferences.warnQuietHoursDisabled ->
+                    Banner.QuietHoursEnabled
+                else -> null
             }
-
-            if ((IS_GENERIC || !inventory.hasPro) && !firebase.subscribeCooldown) {
-                _state.update {
-                    it.copy(begForSubscription = true)
-                }
+            _state.update {
+                it.copy(banner = banner)
             }
         }
     }
 
-    fun dismissQuietHoursBanner() = viewModelScope.launch(Dispatchers.IO) {
-        preferences.warnQuietHoursDisabled = false
-        _state.update {
-            it.copy(warnQuietHoursEnabled = false)
+    fun dismissBanner(tookAction: Boolean = false) {
+        when (state.value.banner) {
+            Banner.NotificationsDisabled ->preferences.warnNotificationsDisabled = tookAction
+            Banner.AlarmsDisabled -> preferences.warnAlarmsDisabled = false
+            Banner.QuietHoursEnabled -> preferences.warnQuietHoursDisabled = false
+            Banner.BegForMoney -> {
+                preferences.lastSubscribeRequest = currentTimeMillis()
+                firebase.logEvent(R.string.event_banner_sub, R.string.param_click to tookAction)
+            }
+            else -> {}
         }
+
+        updateBannerState()
     }
 
     companion object {

@@ -42,9 +42,13 @@ public class PermissionChecker {
     return checkPermissions(backgroundPermissions().toArray(new String[0]));
   }
 
+  public boolean hasNotificationPermission() {
+    return !atLeastTiramisu() || checkPermissions(permission.POST_NOTIFICATIONS);
+  }
+
   public boolean canNotify() {
       return org.tasks.extensions.Context.INSTANCE.canScheduleExactAlarms(context)
-            && (!atLeastTiramisu() || checkPermissions(permission.POST_NOTIFICATIONS));
+            && hasNotificationPermission();
   }
 
   private boolean checkPermissions(String... permissions) {

@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalAnimationApi::class)
+
 package org.tasks.compose.components
 
 import androidx.compose.animation.AnimatedVisibility
@@ -19,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-@ExperimentalAnimationApi
 @Composable
 fun AnimatedBanner(
     visible: Boolean,
@@ -30,8 +31,32 @@ fun AnimatedBanner(
     action: String,
     onAction: () -> Unit,
 ) {
-    AnimatedBanner(
+    AnimatedVisibility(
         visible = visible,
+        enter = expandVertically(),
+        exit = shrinkVertically(),
+    ) {
+        Banner(
+            title = title,
+            body = body,
+            dismissText = dismissText,
+            onDismiss = onDismiss,
+            action = action,
+            onAction = onAction,
+        )
+    }
+}
+
+@Composable
+fun Banner(
+    title: String,
+    body: String,
+    dismissText: String? = null,
+    onDismiss: () -> Unit,
+    action: String,
+    onAction: () -> Unit,
+) {
+    Banner(
         content = {
             Text(
                 text = title,
@@ -58,31 +83,24 @@ fun AnimatedBanner(
 
 @ExperimentalAnimationApi
 @Composable
-private fun AnimatedBanner(
-    visible: Boolean,
+private fun Banner(
     content: @Composable () -> Unit,
     buttons: @Composable () -> Unit,
 ) {
-    AnimatedVisibility(
-        visible = visible,
-        enter = expandVertically(),
-        exit = shrinkVertically(),
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
     ) {
-        Card(
+        Spacer(modifier = Modifier.height(16.dp))
+        content()
+        Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+                .padding(vertical = 8.dp, horizontal = 16.dp)
+                .align(Alignment.End),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Spacer(modifier = Modifier.height(16.dp))
-            content()
-            Row(
-                modifier = Modifier
-                    .padding(vertical = 8.dp, horizontal = 16.dp)
-                    .align(Alignment.End),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                buttons()
-            }
+            buttons()
         }
     }
 }

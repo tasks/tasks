@@ -27,8 +27,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.runtime.getValue
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.ui.platform.LocalContext
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
@@ -49,7 +50,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import com.google.android.material.appbar.AppBarLayout
@@ -91,7 +91,6 @@ import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPicker
 import org.tasks.compose.NotificationsDisabledBanner
 import org.tasks.compose.QuietHoursBanner
 import org.tasks.compose.SubscriptionNagBanner
-import org.tasks.compose.rememberReminderPermissionState
 import org.tasks.data.TaskContainer
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDataDao
@@ -142,6 +141,7 @@ import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import org.tasks.themes.ThemeColor
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.ui.Banner
 import org.tasks.ui.TaskEditEvent
 import org.tasks.ui.TaskEditEventBus
 import org.tasks.ui.TaskListEvent
@@ -269,7 +269,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    @OptIn(ExperimentalAnimationApi::class, ExperimentalPermissionsApi::class)
+    @OptIn(ExperimentalPermissionsApi::class)
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         requireActivity().onBackPressedDispatcher.addCallback(owner = viewLifecycleOwner) {
@@ -362,65 +362,84 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             val context = LocalContext.current
             val state = listViewModel.state.collectAsStateWithLifecycle().value
             TasksTheme(theme = theme.themeBase.index) {
-                val hasRemindersPermission by rememberReminderPermissionState()
                 val notificationPermissions = if (AndroidUtilities.atLeastTiramisu()) {
                     rememberPermissionState(
                         Manifest.permission.POST_NOTIFICATIONS,
                         onPermissionResult = { success ->
                             if (success) {
                                 NotificationSchedulerIntentService.enqueueWork(context)
-                                listViewModel.dismissNotificationBanner(fix = true)
+                                listViewModel.dismissBanner(tookAction = true)
                             }
                         }
                     )
                 } else {
                     null
                 }
-                val showNotificationBanner = state.warnNotificationsDisabled && notificationPermissions?.status is PermissionStatus.Denied
-                val showAlarmsBanner = !showNotificationBanner && state.warnNotificationsDisabled && !hasRemindersPermission
-                val showSubscriptionNag = !showNotificationBanner && !showAlarmsBanner && state.begForSubscription
-                val showQuietHoursWarning = !showNotificationBanner && !showAlarmsBanner && !showSubscriptionNag && state.warnQuietHoursEnabled
-                NotificationsDisabledBanner(
-                    visible = showNotificationBanner,
-                    settings = {
-                        if (notificationPermissions?.status?.shouldShowRationale == true) {
-                            context.openAppNotificationSettings()
-                        } else {
-                            notificationPermissions?.launchPermissionRequest()
-                        }
-                    },
-                    dismiss = { listViewModel.dismissNotificationBanner() },
-                )
-                AlarmsDisabledBanner(
-                    visible = showAlarmsBanner,
-                    settings = { context.openReminderSettings() },
-                    dismiss = { listViewModel.dismissNotificationBanner() },
-                )
-                SubscriptionNagBanner(
-                    visible = showSubscriptionNag,
-                    subscribe = {
-                        listViewModel.dismissPurchaseBanner(clickedPurchase = true)
-                        if (TasksApplication.IS_GOOGLE_PLAY) {
-                            context.startActivity(Intent(context, PurchaseActivity::class.java))
-                        } else {
-                            preferences.lastSubscribeRequest = currentTimeMillis()
-                            context.openUri(R.string.url_donate)
-                        }
-                    },
-                    dismiss = {
-                        listViewModel.dismissPurchaseBanner(clickedPurchase = false)
-                    },
-                )
-                QuietHoursBanner(
-                    visible = showQuietHoursWarning,
-                    showSettings = {
-                        listViewModel.dismissQuietHoursBanner()
-                        context.startActivity(Intent(context, MainPreferences::class.java))
-                    },
-                    dismiss = {
-                        listViewModel.dismissQuietHoursBanner()
+
+                AnimatedVisibility(
+                    visible = state.banner != null,
+                    enter = expandVertically(),
+                    exit = shrinkVertically(),
+                ) {
+                    when (state.banner) {
+                        is Banner.NotificationsDisabled ->
+                            NotificationsDisabledBanner(
+                                settings = {
+                                    if (notificationPermissions?.status?.shouldShowRationale == true) {
+                                        context.openAppNotificationSettings()
+                                    } else {
+                                        notificationPermissions?.launchPermissionRequest()
+                                    }
+                                },
+                                dismiss = { listViewModel.dismissBanner() },
+                            )
+
+                        Banner.AlarmsDisabled ->
+                            AlarmsDisabledBanner(
+                                settings = { context.openReminderSettings() },
+                                dismiss = { listViewModel.dismissBanner() },
+                            )
+
+                        Banner.BegForMoney ->
+                            SubscriptionNagBanner(
+                                subscribe = {
+                                    listViewModel.dismissBanner(tookAction = true)
+                                    if (TasksApplication.IS_GOOGLE_PLAY) {
+                                        context.startActivity(
+                                            Intent(
+                                                context,
+                                                PurchaseActivity::class.java
+                                            )
+                                        )
+                                    } else {
+                                        preferences.lastSubscribeRequest = currentTimeMillis()
+                                        context.openUri(R.string.url_donate)
+                                    }
+                                },
+                                dismiss = {
+                                    listViewModel.dismissBanner()
+                                },
+                            )
+
+                        Banner.QuietHoursEnabled ->
+                            QuietHoursBanner(
+                                showSettings = {
+                                    listViewModel.dismissBanner()
+                                    context.startActivity(
+                                        Intent(
+                                            context,
+                                            MainPreferences::class.java
+                                        )
+                                    )
+                                },
+                                dismiss = {
+                                    listViewModel.dismissBanner()
+                                }
+                            )
+
+                        null -> {}
                     }
-                )
+                }
             }
         }
         return binding.root

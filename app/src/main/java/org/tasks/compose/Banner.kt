@@ -1,24 +1,21 @@
 package org.tasks.compose
 
 import android.content.res.Configuration
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.tasks.R
 import org.tasks.TasksApplication
 import org.tasks.compose.components.AnimatedBanner
+import org.tasks.compose.components.Banner
 import org.tasks.themes.TasksTheme
 
-@ExperimentalAnimationApi
 @Composable
 fun NotificationsDisabledBanner(
-    visible: Boolean,
     settings: () -> Unit,
     dismiss: () -> Unit,
 ) {
-    AnimatedBanner(
-        visible = visible,
+    Banner(
         title = stringResource(id = R.string.enable_reminders),
         body = stringResource(id = R.string.enable_reminders_description),
         dismissText = stringResource(id = R.string.dismiss),
@@ -28,15 +25,12 @@ fun NotificationsDisabledBanner(
     )
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AlarmsDisabledBanner(
-    visible: Boolean,
     settings: () -> Unit,
     dismiss: () -> Unit,
 ) {
-    AnimatedBanner(
-        visible = visible,
+    Banner(
         title = stringResource(id = R.string.enable_alarms),
         body = stringResource(id = R.string.enable_alarms_description),
         dismissText = stringResource(id = R.string.dismiss),
@@ -47,15 +41,12 @@ fun AlarmsDisabledBanner(
 
 }
 
-@ExperimentalAnimationApi
 @Composable
 fun SubscriptionNagBanner(
-    visible: Boolean,
     subscribe: () -> Unit,
     dismiss: () -> Unit,
 ) {
-    AnimatedBanner(
-        visible = visible,
+    Banner(
         title = stringResource(id = R.string.enjoying_tasks),
         body = stringResource(id = if (TasksApplication.IS_GENERIC) {
             R.string.donate_nag
@@ -73,15 +64,12 @@ fun SubscriptionNagBanner(
     )
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun QuietHoursBanner(
-    visible: Boolean,
     showSettings: () -> Unit,
     dismiss: () -> Unit,
 ) {
-    AnimatedBanner(
-        visible = visible,
+    Banner(
         title = stringResource(R.string.quiet_hours_in_effect),
         body = stringResource(R.string.quiet_hours_summary),
         dismissText = stringResource(id = R.string.dismiss),
@@ -91,7 +79,6 @@ fun QuietHoursBanner(
     )
 }
 
-@ExperimentalAnimationApi
 @Composable
 fun BeastModeBanner(
     visible: Boolean,
@@ -109,15 +96,13 @@ fun BeastModeBanner(
     )
 }
 
-@ExperimentalAnimationApi
 @Preview(showBackground = true)
 @Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun NotificationsDisabledPreview() = TasksTheme {
-    NotificationsDisabledBanner(visible = true, settings = {}, dismiss = {})
+    NotificationsDisabledBanner(settings = {}, dismiss = {})
 }
 
-@ExperimentalAnimationApi
 @Preview(showBackground = true)
 @Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -125,18 +110,16 @@ private fun BeastModePreview() = TasksTheme {
     BeastModeBanner(visible = true, showSettings = {}, dismiss = {})
 }
 
-@ExperimentalAnimationApi
 @Preview(showBackground = true)
 @Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun SubscriptionNagPreview() = TasksTheme {
-    SubscriptionNagBanner(visible = true, subscribe = {}, dismiss = {})
+    SubscriptionNagBanner(subscribe = {}, dismiss = {})
 }
 
-@ExperimentalAnimationApi
 @Preview(showBackground = true)
 @Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun QuietHoursPreview() = TasksTheme {
-    QuietHoursBanner(visible = true, showSettings = {}, dismiss = {})
+    QuietHoursBanner(showSettings = {}, dismiss = {})
 }
