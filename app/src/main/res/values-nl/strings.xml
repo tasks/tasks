@@ -716,4 +716,17 @@
     <string name="quiet_hours_in_effect">Rusttijd staat aan</string>
     <string name="add_widget_to_home_screen">Widget aan startscherm toevoegen</string>
     <string name="add_shortcut_to_home_screen">Snelkoppeling aan startscherm toevoegen</string>
+    <string name="multiline_title_off">Druk op Klaar om het toetsenbord te sluiten</string>
+    <string name="yesterday">Gisteren</string>
+    <string name="cost_free">Kosten: gratis</string>
+    <string name="cost_money">Kosten: €</string>
+    <string name="cost_more_money">Kosten: €€€</string>
+    <string name="delete_comment">commentaar</string>
+    <string name="price_per_month_with_currency">%s per maand</string>
+    <string name="enable_alarms_description">Om zeker te zijn dat je meldingen op het juiste moment komen, geef toestemming voor \"Wekkers en herinneringen\" in Instellingen</string>
+    <string name="comment">Commentaar</string>
+    <string name="multiline_title">Meerregelige titels toestaan</string>
+    <string name="price_per_year_with_currency">%s per jaar</string>
+    <string name="enable_alarms">Krijg meldingen op het juiste moment</string>
+    <string name="multiline_title_on">Druk Enter om regelafbrekingen toe te voegen</string>
 </resources>
