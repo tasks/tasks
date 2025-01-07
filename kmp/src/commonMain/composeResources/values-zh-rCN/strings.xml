@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">搜索</string>
-    <string name="subscribe">订购</string>
+    <string name="subscribe">订阅</string>
     <string name="search_no_results">无结果</string>
     <string name="requires_pro_subscription">专业版功能</string>
     <string name="subscription_required_description">最低每年 1 美元解锁所有功能</string>
@@ -13,7 +13,7 @@
     <string name="filter_recently_modified">最近修改过的</string>
     <string name="default_list">默认列表</string>
     <string name="drawer_local_lists">本地列表</string>
-    <string name="help_and_feedback">帮助&amp;反馈</string>
+    <string name="help_and_feedback">帮助和反馈</string>
     <string name="settings">设置</string>
     <string name="drawer_filters">过滤器</string>
     <string name="drawer_tags">标签</string>
@@ -27,7 +27,7 @@
     <string name="yesterday">昨天</string>
     <string name="yesterday_lowercase">昨天</string>
     <string name="today">今天</string>
-    <string name="today_lowercase">今日</string>
+    <string name="today_lowercase">今天</string>
     <string name="add_task">添加任务</string>
     <string name="show_unstarted">显示未开始项目</string>
     <string name="show_completed">显示已完成任务</string>
