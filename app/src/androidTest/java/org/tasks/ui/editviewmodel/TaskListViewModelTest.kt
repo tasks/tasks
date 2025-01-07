@@ -17,6 +17,7 @@ import org.tasks.data.entity.Task
 import org.tasks.filters.MyTasksFilter
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
+import org.tasks.preferences.PermissivePermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.TaskListViewModel
@@ -46,6 +47,7 @@ class TaskListViewModelTest : InjectingTestCase() {
             localBroadcastManager = localBroadcastManager,
             inventory = inventory,
             firebase = firebase,
+            permissionChecker = PermissivePermissionChecker(context),
         )
         viewModel.setFilter(runBlocking { MyTasksFilter.create() })
     }
