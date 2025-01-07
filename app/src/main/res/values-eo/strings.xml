@@ -725,4 +725,8 @@
     <string name="cost_free">Kosto: Senpaga</string>
     <string name="cost_more_money">Kosto: $$$</string>
     <string name="cost_money">Kosto: $</string>
+    <string name="comment">Komento</string>
+    <string name="multiline_title_off">Premu Finite por fermi klavaron</string>
+    <string name="multiline_title">Permesi pluliniajn titolojn</string>
+    <string name="multiline_title_on">Premu enen-klavo por aldoni linisaltojn</string>
 </resources>
