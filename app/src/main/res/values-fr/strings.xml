@@ -743,4 +743,8 @@
     <string name="quiet_hours_in_effect">Les heures de tranquillité sont en vigueur</string>
     <string name="add_widget_to_home_screen">Ajouter le widget à l\'écran d\'accueil</string>
     <string name="add_shortcut_to_home_screen">Ajouter le raccourci à l\'écran d\'accueil</string>
+    <string name="multiline_title">Permettre des titres sur plusieurs lignes</string>
+    <string name="multiline_title_on">Appuyer sur la touche Entrée pour ajouter des sauts de ligne</string>
+    <string name="multiline_title_off">Appuyer sur Terminé pour fermer le clavier</string>
+    <string name="comment">Commentaire</string>
 </resources>
