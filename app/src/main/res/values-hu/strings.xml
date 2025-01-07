@@ -716,4 +716,17 @@
     <string name="swipe_to_snooze_time_description">Egy törölt értesítés annyi idő múlva lesz újra megjelenítve: %s</string>
     <string name="customize_drawer_summary">A menüelemek húzással történő átrendezése</string>
     <string name="show_edit_screen_without_unlock_summary">Gyorsbeállítások ikon engedélyezése a telefon feloldása nélkül</string>
+    <string name="cost_free">Ár: ingyenes</string>
+    <string name="cost_money">Ár: $</string>
+    <string name="cost_more_money">Ár: $$$</string>
+    <string name="multiline_title">Többsoros címek engedélyezése</string>
+    <string name="multiline_title_on">Sortöréshez nyomd meg az Enter-t</string>
+    <string name="multiline_title_off">Nyomd meg a Done-t a billentyűzet bezárásához</string>
+    <string name="delete_comment">megjegyzés</string>
+    <string name="comment">Megjegyzés</string>
+    <string name="yesterday">Tegnap</string>
+    <string name="price_per_month_with_currency">%s/hónap</string>
+    <string name="price_per_year_with_currency">%s/év</string>
+    <string name="add_shortcut_to_home_screen">Parancsikon kirakása a kezdőképernyőre</string>
+    <string name="add_widget_to_home_screen">Widget kirakása a kezdőképernyőre</string>
 </resources>
