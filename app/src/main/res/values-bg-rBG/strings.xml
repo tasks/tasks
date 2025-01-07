@@ -722,4 +722,11 @@
     <string name="yesterday">Вчера</string>
     <string name="add_shortcut_to_home_screen">Добавяне към началния екран</string>
     <string name="add_widget_to_home_screen">Добавяне на приспособление</string>
+    <string name="multiline_title_off">Натиснете Готово, за да зятворите клавиатурата</string>
+    <string name="comment">Коментар</string>
+    <string name="multiline_title">Многоредови заглавия</string>
+    <string name="cost_more_money">Цена: $$$</string>
+    <string name="cost_money">Цена: $</string>
+    <string name="cost_free">Цена: безплатно</string>
+    <string name="multiline_title_on">Натиснете Enter, за да въведете нови редове</string>
 </resources>
