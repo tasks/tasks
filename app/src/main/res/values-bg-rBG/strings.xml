@@ -729,4 +729,9 @@
     <string name="cost_money">Цена: $</string>
     <string name="cost_free">Цена: безплатно</string>
     <string name="multiline_title_on">Натиснете Enter, за да въведете нови редове</string>
+    <string name="sync_warning_google_tasks_title">Относно синхронизацията с Google Task</string>
+    <string name="button_learn_more">Научете повече</string>
+    <string name="sync_warning_google_tasks">Не всички подробности от задачата се синхронизират с Google Tasks</string>
+    <string name="sync_warning_microsoft_title">Относно синхронизацията с Microsoft To Do</string>
+    <string name="sync_warning_microsoft">Не всички подробности от задачата се синхронизират с Microsoft To Do.</string>
 </resources>
