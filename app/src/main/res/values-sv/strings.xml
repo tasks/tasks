@@ -728,4 +728,5 @@
     <string name="multiline_title">Tillåt flerradsrubriker</string>
     <string name="multiline_title_on">Tryck Enter för att lägga till radbrytningar</string>
     <string name="add_widget_to_home_screen">Lägg till widget på hemskärm</string>
+    <string name="comment">Kommentar</string>
 </resources>
