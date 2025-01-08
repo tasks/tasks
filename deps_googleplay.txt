@@ -1547,8 +1547,8 @@
 ++--- com.twofortyfouram:android-plugin-api-for-locale:1.0.4
 ++--- com.rubiconproject.oss:jchronic:0.2.6
 ++--- me.leolin:ShortcutBadger:1.1.22
-++--- com.google.apis:google-api-services-tasks:v1-rev20240630-2.0.0
-+|    \--- com.google.api-client:google-api-client:2.6.0 -> 2.7.0
+++--- com.google.apis:google-api-services-tasks:v1-rev20250105-2.0.0
++|    \--- com.google.api-client:google-api-client:2.7.0
 +|         +--- commons-codec:commons-codec:1.17.0
 +|         +--- com.google.oauth-client:google-oauth-client:1.36.0
 +|         |    +--- com.google.http-client:google-http-client:1.43.3 -> 1.45.2
