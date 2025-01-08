@@ -43,6 +43,8 @@
   <string name="url_translations">https://tasks.org/translations</string>
   <string name="url_notifications">https://tasks.org/notifications</string>
   <string name="url_troubleshoot_intents">https://tasks.org/intents</string>
+  <string name="url_google_tasks">https://tasks.org/docs/sync_google_tasks</string>
+  <string name="url_microsoft">https://tasks.org/docs/sync_microsoft</string>
 
   <string name="p_date_shortcut_morning">date_shortcut_morning</string>
   <string name="p_date_shortcut_afternoon">date_shortcut_afternoon</string>
@@ -409,6 +411,8 @@
   <string name="p_warn_notifications_disabled">warn_notifications_disabled</string>
   <string name="p_warn_alarms_disabled">warn_alarms_disabled</string>
   <string name="p_warn_quiet_hours_enabled">warn_quiet_hours_enabled</string>
+  <string name="p_warn_microsoft">warn_microsoft</string>
+  <string name="p_warn_google_tasks">warn_google_Tasks</string>
 
   <string name="event_showed_purchase_dialog">showed_purchase_dialog</string>
   <string name="event_purchase_result">billing_flow_result</string>

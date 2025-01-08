@@ -91,6 +91,8 @@ import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPicker
 import org.tasks.compose.NotificationsDisabledBanner
 import org.tasks.compose.QuietHoursBanner
 import org.tasks.compose.SubscriptionNagBanner
+import org.tasks.compose.SyncWarningGoogleTasks
+import org.tasks.compose.SyncWarningMicrosoft
 import org.tasks.data.TaskContainer
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDataDao
@@ -416,9 +418,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                         context.openUri(R.string.url_donate)
                                     }
                                 },
-                                dismiss = {
-                                    listViewModel.dismissBanner()
-                                },
+                                dismiss = { listViewModel.dismissBanner() },
                             )
 
                         Banner.QuietHoursEnabled ->
@@ -432,9 +432,19 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                         )
                                     )
                                 },
-                                dismiss = {
-                                    listViewModel.dismissBanner()
-                                }
+                                dismiss = { listViewModel.dismissBanner() },
+                            )
+
+                        Banner.WarnGoogleTasks ->
+                            SyncWarningGoogleTasks(
+                                moreInfo = { context.openUri(R.string.url_google_tasks) },
+                                dismiss = { listViewModel.dismissBanner() },
+                            )
+
+                        Banner.WarnMicrosoft ->
+                            SyncWarningMicrosoft(
+                                moreInfo = { context.openUri(R.string.url_microsoft) },
+                                dismiss = { listViewModel.dismissBanner() },
                             )
 
                         null -> {}

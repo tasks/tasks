@@ -11,6 +11,7 @@ import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
@@ -34,6 +35,7 @@ class TaskListViewModelTest : InjectingTestCase() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var caldavDao: CaldavDao
 
     @Before
     override fun setUp() {
@@ -48,6 +50,7 @@ class TaskListViewModelTest : InjectingTestCase() {
             inventory = inventory,
             firebase = firebase,
             permissionChecker = PermissivePermissionChecker(context),
+            caldavDao = caldavDao,
         )
         viewModel.setFilter(runBlocking { MyTasksFilter.create() })
     }

@@ -570,6 +570,14 @@ class Preferences @JvmOverloads constructor(
         get() = getBoolean(R.string.p_warn_quiet_hours_enabled, true)
         set(value) = setBoolean(R.string.p_warn_quiet_hours_enabled, value)
 
+    var warnMicrosoft: Boolean
+        get() = getBoolean(R.string.p_warn_microsoft, true)
+        set(value) = setBoolean(R.string.p_warn_microsoft, value)
+
+    var warnGoogleTasks: Boolean
+        get() = getBoolean(R.string.p_warn_google_tasks, true)
+        set(value) = setBoolean(R.string.p_warn_google_tasks, value)
+
     var lastSubscribeRequest: Long
         get() = getLong(R.string.p_last_subscribe_request, 0L)
         set(value) = setLong(R.string.p_last_subscribe_request, value)

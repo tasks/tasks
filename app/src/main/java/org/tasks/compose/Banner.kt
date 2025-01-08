@@ -80,6 +80,36 @@ fun QuietHoursBanner(
 }
 
 @Composable
+fun SyncWarningGoogleTasks(
+    moreInfo: () -> Unit,
+    dismiss: () -> Unit,
+) {
+    Banner(
+        title = stringResource(R.string.sync_warning_google_tasks_title),
+        body = stringResource(R.string.sync_warning_google_tasks),
+        dismissText = stringResource(id = R.string.dismiss),
+        onDismiss = dismiss,
+        action = stringResource(id = R.string.button_learn_more),
+        onAction = moreInfo,
+    )
+}
+
+@Composable
+fun SyncWarningMicrosoft(
+    moreInfo: () -> Unit,
+    dismiss: () -> Unit,
+) {
+    Banner(
+        title = stringResource(R.string.sync_warning_microsoft_title),
+        body = stringResource(R.string.sync_warning_microsoft),
+        dismissText = stringResource(id = R.string.dismiss),
+        onDismiss = dismiss,
+        action = stringResource(id = R.string.button_learn_more),
+        onAction = moreInfo,
+    )
+}
+
+@Composable
 fun BeastModeBanner(
     visible: Boolean,
     showSettings: () -> Unit,
@@ -122,4 +152,18 @@ private fun SubscriptionNagPreview() = TasksTheme {
 @Composable
 private fun QuietHoursPreview() = TasksTheme {
     QuietHoursBanner(showSettings = {}, dismiss = {})
+}
+
+@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun MicrosoftWarningPreview() = TasksTheme {
+    SyncWarningMicrosoft(moreInfo = {}, dismiss = {})
+}
+
+@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun GoogleTasksWarningPreview() = TasksTheme {
+    SyncWarningGoogleTasks(moreInfo = {}, dismiss = {})
 }

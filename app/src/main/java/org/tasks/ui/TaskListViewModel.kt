@@ -26,6 +26,7 @@ import org.tasks.billing.Inventory
 import org.tasks.compose.throttleLatest
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
@@ -51,6 +52,8 @@ sealed interface Banner {
     data object AlarmsDisabled : Banner
     data object QuietHoursEnabled : Banner
     data object BegForMoney : Banner
+    data object WarnMicrosoft : Banner
+    data object WarnGoogleTasks : Banner
 }
 
 @HiltViewModel
@@ -64,6 +67,7 @@ class TaskListViewModel @Inject constructor(
     private val inventory: Inventory,
     private val firebase: Firebase,
     private val permissionChecker: PermissionChecker,
+    private val caldavDao: CaldavDao,
 ) : ViewModel() {
 
     data class State(
@@ -188,6 +192,7 @@ class TaskListViewModel @Inject constructor(
 
     fun updateBannerState() {
         viewModelScope.launch(Dispatchers.IO) {
+            val accounts = caldavDao.getAccounts()
             val banner = when {
                 preferences.warnNotificationsDisabled && !permissionChecker.hasNotificationPermission() ->
                     Banner.NotificationsDisabled
@@ -197,6 +202,10 @@ class TaskListViewModel @Inject constructor(
                     Banner.BegForMoney
                 preferences.isCurrentlyQuietHours && preferences.warnQuietHoursDisabled ->
                     Banner.QuietHoursEnabled
+                accounts.any { it.isMicrosoft } && preferences.warnMicrosoft ->
+                    Banner.WarnMicrosoft
+                accounts.any { it.isGoogleTasks } && preferences.warnGoogleTasks ->
+                    Banner.WarnGoogleTasks
                 else -> null
             }
             _state.update {
@@ -207,14 +216,16 @@ class TaskListViewModel @Inject constructor(
 
     fun dismissBanner(tookAction: Boolean = false) {
         when (state.value.banner) {
-            Banner.NotificationsDisabled ->preferences.warnNotificationsDisabled = tookAction
+            Banner.NotificationsDisabled -> preferences.warnNotificationsDisabled = tookAction
             Banner.AlarmsDisabled -> preferences.warnAlarmsDisabled = false
             Banner.QuietHoursEnabled -> preferences.warnQuietHoursDisabled = false
             Banner.BegForMoney -> {
                 preferences.lastSubscribeRequest = currentTimeMillis()
                 firebase.logEvent(R.string.event_banner_sub, R.string.param_click to tookAction)
             }
-            else -> {}
+            Banner.WarnGoogleTasks -> preferences.warnGoogleTasks = false
+            Banner.WarnMicrosoft -> preferences.warnMicrosoft = false
+            null -> {}
         }
 
         updateBannerState()

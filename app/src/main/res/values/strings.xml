@@ -734,4 +734,9 @@ File %1$s contained %2$s.\n\n
   <string name="multiline_title">Allow multiline titles</string>
   <string name="multiline_title_on">Press Enter key to add line breaks</string>
   <string name="multiline_title_off">Press Done to close keyboard</string>
+  <string name="sync_warning_microsoft_title">About Microsoft To Do sync</string>
+  <string name="sync_warning_microsoft">Not all task details sync with Microsoft To Do.</string>
+  <string name="sync_warning_google_tasks_title">About Google Task sync</string>
+  <string name="sync_warning_google_tasks">Not all task details sync with Google Tasks</string>
+  <string name="button_learn_more">Learn more</string>
 </resources>

@@ -6,7 +6,7 @@
     android:defaultValue="false"
     android:key="@string/p_microsoft_sync"
     android:title="Microsoft To Do Sync"
-    android:summary="Early access feature. USE AT YOUR OWN RISK" />
+    android:summary="Early access feature, please report any bugs!" />
 
   <SwitchPreferenceCompat
     android:defaultValue="false"
