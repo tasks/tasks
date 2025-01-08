@@ -744,4 +744,11 @@
     <string name="enable_alarms">Ricevi notifica alla scadenza</string>
     <string name="add_shortcut_to_home_screen">Aggiungi collegamento sulla Home</string>
     <string name="add_widget_to_home_screen">Aggiungi widget sulla Home</string>
+    <string name="comment">Commento</string>
+    <string name="cost_free">Costo: gratuito</string>
+    <string name="multiline_title">Consentire titoli multilinea</string>
+    <string name="multiline_title_on">Premi enter per aggiungere una interruzioni di riga</string>
+    <string name="multiline_title_off">Premi Fatto per chiudere la tastiera</string>
+    <string name="cost_more_money">Costo: $$$</string>
+    <string name="cost_money">Costo: $</string>
 </resources>
