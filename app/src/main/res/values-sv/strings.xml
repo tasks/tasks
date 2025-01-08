@@ -729,4 +729,9 @@
     <string name="multiline_title_on">Tryck Enter för att lägga till radbrytningar</string>
     <string name="add_widget_to_home_screen">Lägg till widget på hemskärm</string>
     <string name="comment">Kommentar</string>
+    <string name="sync_warning_google_tasks_title">Om Google Task synkronisering</string>
+    <string name="button_learn_more">Läs mer</string>
+    <string name="sync_warning_microsoft_title">Om Microsoft To Do-synkronisering</string>
+    <string name="sync_warning_microsoft">Alla uppgiftsdetaljer synkroniseras inte med Microsoft To Do.</string>
+    <string name="sync_warning_google_tasks">Alla uppgiftsdetaljer synkroniseras inte med Google Tasks</string>
 </resources>
