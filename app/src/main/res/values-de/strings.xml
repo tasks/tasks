@@ -528,7 +528,7 @@
     <string name="android_auto_backup_device_summary">Sie müssen sich auch über Ihre Geräteeinstellungen für den Sicherungsdienst anmelden. Nicht alle Geräte bieten einen Sicherungsdienst.</string>
     <string name="follow_reddit">Beitritt zu r/tasks</string>
     <string name="current_subscription">Aktuelles Abonnement: %s</string>
-    <string name="insufficient_subscription">Unzureichende Abonnementstufe. Bitte aktualisieren Sie Ihr Abonnement, um den Dienst wieder aufzunehmen.</string>
+    <string name="insufficient_subscription">Unzureichende Abonnementstufe. Bitte aktualisiere dein Abonnement, um fortzufahren.</string>
     <string name="your_subscription_expired">Ihr Abonnement ist abgelaufen. Abonnieren Sie jetzt, um den Dienst fortzusetzen.</string>
     <string name="background_location_permission_required">Tasks sammelt Standortdaten, um standortbezogene Erinnerungen zu ermöglichen, auch wenn die Anwendung geschlossen ist oder nicht verwendet wird.</string>
     <string name="repeat_monthly_fifth_week">fünften</string>
@@ -580,7 +580,7 @@
     <string name="CFC_startBefore_name">Beginnt am…</string>
     <string name="CFC_startBefore_text">Beginnt: \?</string>
     <string name="default_due_date">Standard-Fälligkeitsdatum</string>
-    <string name="default_start_date">Standard Startdatum</string>
+    <string name="default_start_date">Standard-Startdatum</string>
     <string name="start_date">Starttermin</string>
     <string name="SSD_sort_start">Nach Startdatum</string>
     <string name="open_source">Quelloffen</string>
@@ -624,7 +624,7 @@
     <string name="chat_libera">Nehmen Sie an #tasks auf Libera Chat teil</string>
     <string name="now">Jetzt</string>
     <string name="when_started">Wenn begonnen</string>
-    <string name="completion_sound">Abschlusston abspielen</string>
+    <string name="completion_sound">Ton bei Erledigung abspielen</string>
     <string name="app_bar_position">Position der Appbar</string>
     <string name="top">Oben</string>
     <string name="bottom">Unten</string>
@@ -683,8 +683,8 @@
     <string name="sort_completed">Nach Erledigungszeit</string>
     <string name="sort_not_available">Nicht verfügbar für Tags, Filter oder Orte</string>
     <plurals name="repeat_occurrence">
-        <item quantity="one">Vorkommen</item>
-        <item quantity="other">Vorkommen</item>
+        <item quantity="one">Wiederholung</item>
+        <item quantity="other">Wiederholungen</item>
     </plurals>
     <string name="repeats_custom_recurrence">Benutzerdefinierte Wiederholung</string>
     <string name="repeats_after">Nach</string>
@@ -711,7 +711,7 @@
     <string name="swipe_to_snooze_title">Zum Schlummern wischen</string>
     <string name="swipe_to_snooze_description">Schlummerzeit</string>
     <string name="show_edit_screen_without_unlock">Bearbeitungsbildschirm ohne Entsperren anzeigen</string>
-    <string name="swipe_to_snooze_time_description">Eine gelöschte Benachrichtigung wird pausiert und erstellt %s neu</string>
+    <string name="swipe_to_snooze_time_description">Eine gelöschte Benachrichtigung wird pausiert und %s wiederholt</string>
     <string name="quiet_hours_in_effect">Ruhezeit aktiviert</string>
     <string name="send_application_logs">Anwendungsprotokolle senden</string>
     <string name="enable_alarms">Rechtzeitig benachrichtigt werden</string>
@@ -728,4 +728,10 @@
     <string name="cost_free">Kosten: keine</string>
     <string name="multiline_title">Mehrzeilige Titel zulassen</string>
     <string name="multiline_title_on">Eingabetaste drücken, um Zeilenumbrüche einzufügen</string>
+    <string name="comment">Kommentar</string>
+    <string name="sync_warning_google_tasks_title">Über die Synchronisierung mit „Google Tasks“</string>
+    <string name="sync_warning_google_tasks">Nicht alle Aufgabendetails können mit Google Tasks synchronisiert werden.</string>
+    <string name="button_learn_more">Mehr erfahren</string>
+    <string name="sync_warning_microsoft">Nicht alle Aufgabendetails können mit Microsoft To Do synchronisiert werden.</string>
+    <string name="sync_warning_microsoft_title">Über die Synchronisierung mit „Microsoft To Do“</string>
 </resources>
