@@ -718,4 +718,9 @@
     <string name="comment">注释</string>
     <string name="multiline_title">允许多行标题</string>
     <string name="multiline_title_on">按 Enter 键添加换行符</string>
+    <string name="sync_warning_microsoft">不是所有任务详情都与 Microsoft To Do 同步。</string>
+    <string name="sync_warning_microsoft_title">关于 Microsoft To Do 同步</string>
+    <string name="sync_warning_google_tasks_title">关于 Google Task 同步</string>
+    <string name="sync_warning_google_tasks">不是所有任务详情都和 Google Tasks 同步</string>
+    <string name="button_learn_more">了解更多</string>
 </resources>
