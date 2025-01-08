@@ -1,5 +1,5 @@
 * Microsoft To Do support
-  * This feature is in early access, USE AT YOUR OWN RISK
+  * This feature is in early access, please report any bugs!
   * Enable under 'Advanced' settings
 * Add configuration option for new lines in titles
 * @TonSilver - Copy comments to clipboard with long press

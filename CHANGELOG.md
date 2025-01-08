@@ -1,7 +1,7 @@
-### 14.4 (2025-01-06)
+### 14.4 (2025-01-08)
 
 * Microsoft To Do support [#2011](https://github.com/tasks/tasks/issues/2011)
-  * This feature is in early access, USE AT YOUR OWN RISK
+  * This feature is in early access, please report any bugs!
   * Enable under 'Advanced' settings
 * Add configuration option for new lines in titles
 * @TonSilver - Copy comments to clipboard with long press
@@ -11,9 +11,13 @@
 * Fix crash on empty shortcut labels
 * Fix missing settings button on Android 10 and below
 * Update translations
-  * Chinese (Simplified) - 大王叫我来巡山
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山, Sketch6580
   * Czech - @AtmosphericIgnition
+  * Dutch - @fvbommel
   * Esperanto - Don Zouras
+  * German - @franconian
+  * Hungarian - Kaci
   * Italian - @ppasserini
   * Swedish - @Ziron
 
