@@ -9,7 +9,7 @@
     <string name="filter_today">Heute</string>
     <string name="filter_recently_modified">Kürzlich bearbeitet</string>
     <string name="default_list">Standardliste</string>
-    <string name="help_and_feedback">Hilfe und Rückmeldung</string>
+    <string name="help_and_feedback">Hilfe &amp; Rückmeldung</string>
     <string name="settings">Einstellungen</string>
     <string name="drawer_filters">Filter</string>
     <string name="drawer_tags">Schlagwörter</string>
@@ -17,20 +17,20 @@
     <string name="drawer_local_lists">Lokale Listen</string>
     <string name="search_no_results">Keine Ergebnisse</string>
     <string name="requires_pro_subscription">Pro-Funktion</string>
-    <string name="tmrw">Morgen</string>
-    <string name="tomorrow_abbrev_lowercase">morgen</string>
+    <string name="tmrw">Mrg</string>
+    <string name="tomorrow_abbrev_lowercase">mrg</string>
     <string name="tomorrow">Morgen</string>
     <string name="tomorrow_lowercase">morgen</string>
-    <string name="yest">Gestern</string>
-    <string name="yesterday_abbrev_lowercase">gestern</string>
+    <string name="yest">Gest</string>
+    <string name="yesterday_abbrev_lowercase">gest</string>
     <string name="yesterday">Gestern</string>
     <string name="yesterday_lowercase">gestern</string>
     <string name="today">Heute</string>
     <string name="today_lowercase">heute</string>
-    <string name="subscription_required_description">Schalten Sie alle Funktionen für nur 1 USD/Jahr frei</string>
+    <string name="subscription_required_description">Schalte alle Funktionen für nur 1 USD/Jahr frei</string>
     <string name="show_unstarted">Nicht gestartete anzeigen</string>
     <string name="show_completed">Erledigte anzeigen</string>
     <string name="add_task">Aufgabe hinzufügen</string>
     <string name="wear_unknown_error">Unbekannter Fehler</string>
-    <string name="wear_install_app">Auf dem Telefon installieren</string>
+    <string name="wear_install_app">Auf dem Handy installieren</string>
 </resources>
