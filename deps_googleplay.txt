@@ -1426,14 +1426,14 @@
 ++--- org.dmfs:lib-recur:0.11.4
 +|    \--- org.dmfs:rfc5545-datetime:0.2.4
 ++--- org.dmfs:jems:1.33
-++--- com.google.dagger:hilt-android:2.54
-+|    +--- com.google.dagger:dagger:2.54
+++--- com.google.dagger:hilt-android:2.55
++|    +--- com.google.dagger:dagger:2.55
 +|    |    +--- jakarta.inject:jakarta.inject-api:2.0.1
 +|    |    +--- javax.inject:javax.inject:1
 +|    |    \--- org.jspecify:jspecify:1.0.0
-+|    +--- com.google.dagger:dagger-lint-aar:2.54
-+|    +--- com.google.dagger:hilt-core:2.54
-+|    |    +--- com.google.dagger:dagger:2.54 (*)
++|    +--- com.google.dagger:dagger-lint-aar:2.55
++|    +--- com.google.dagger:hilt-core:2.55
++|    |    +--- com.google.dagger:dagger:2.55 (*)
 +|    |    \--- javax.inject:javax.inject:1
 +|    +--- androidx.activity:activity:1.5.1 -> 1.9.3 (*)
 +|    +--- androidx.annotation:annotation:1.3.0 -> 1.9.0 (*)
@@ -1448,7 +1448,7 @@
 ++--- androidx.hilt:hilt-work:1.2.0
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.9.0 (*)
 +|    +--- androidx.hilt:hilt-common:1.2.0
-+|    |    \--- com.google.dagger:hilt-core:2.49 -> 2.54 (*)
++|    |    \--- com.google.dagger:hilt-core:2.49 -> 2.55 (*)
 +|    +--- androidx.work:work-runtime:2.3.4 -> 2.10.0
 +|    |    +--- androidx.annotation:annotation-experimental:1.4.1 (*)
 +|    |    +--- androidx.concurrent:concurrent-futures-ktx:1.1.0 (*)
@@ -1473,7 +1473,7 @@
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.9.0 (*)
 +|    |    +--- androidx.work:work-runtime-ktx:2.10.0 (c)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (c)
-+|    \--- com.google.dagger:hilt-android:2.49 -> 2.54 (*)
++|    \--- com.google.dagger:hilt-android:2.49 -> 2.55 (*)
 ++--- androidx.datastore:datastore-preferences:1.1.1 (*)
 ++--- androidx.fragment:fragment-ktx:1.8.5
 +|    +--- androidx.activity:activity-ktx:1.8.1 -> 1.9.3 (*)
