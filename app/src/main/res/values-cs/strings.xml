@@ -7,7 +7,7 @@
     <string name="backup_BAc_export">Provést zálohu</string>
     <string name="export_toast">Zálohovány %1$s do %2$s.</string>
     <string name="import_summary_title">Souhrn obnovy</string>
-    <string name="import_summary_message">Soubor %1$s obsahuje %2$s.\n\n %3$s importováno,\n %4$s již existuje\n %5$s je chybných\n</string>
+    <string name="import_summary_message">Soubor %1$s obsahoval %2$s.\n\n%3$s importováno\n%4$s již existovalo\n%5$s obsahovalo chyby</string>
     <string name="import_progress_read">Načítání úkolu %d…</string>
     <string name="read_permission_label">Oprávnění pro Tasks</string>
     <string name="DLG_delete_this_task_question">Smazat tento úkol?</string>
@@ -741,4 +741,19 @@
     <string name="price_per_month_with_currency">%s měsíčně</string>
     <string name="price_per_year_with_currency">%s ročně</string>
     <string name="enable_alarms">Dostaňte upozornění včas</string>
+    <string name="comment">Komentář</string>
+    <string name="cost_free">Cena: Zdarma</string>
+    <string name="cost_money">Cena: $</string>
+    <string name="sync_warning_microsoft_title">O synchronizaci Microsoft To Do</string>
+    <string name="sync_warning_google_tasks">Ne všechny podrobnosti připomínek se synchronizují s Google Tasks</string>
+    <string name="enable_alarms_description">Chcete-li být informováni v čas, udělte v Nastavení oprávnění k nastavení budíků a připomenutí</string>
+    <string name="sync_warning_microsoft">Ne všechny podrobnosti připomínek se synchronizují s Microsoft To Do.</string>
+    <string name="sync_warning_google_tasks_title">O synchronizaci připomínek Google</string>
+    <string name="button_learn_more">Zjistit více</string>
+    <string name="add_shortcut_to_home_screen">Přidat zkratku na domovskou obrazovku</string>
+    <string name="add_widget_to_home_screen">Přidat widget na domovskou obrazovku</string>
+    <string name="cost_more_money">Cena: $$$</string>
+    <string name="multiline_title">Povolit víceřádkové názvy</string>
+    <string name="multiline_title_on">Stisknutím Enter přidáte konce řádků</string>
+    <string name="multiline_title_off">Klávesnici zavřete stisknutím tlačítka Hotovo</string>
 </resources>
