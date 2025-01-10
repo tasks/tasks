@@ -30,4 +30,7 @@
     <string name="subscription_required_description">Odemkněte všechny funkce za pouhých $1 USD ročně</string>
     <string name="show_completed">Zobrazit dokončené</string>
     <string name="show_unstarted">Zobrazit nezahájené</string>
+    <string name="wear_install_app">Instalovat na telefon</string>
+    <string name="wear_unknown_error">Neznámá chyba</string>
+    <string name="add_task">Přidat připomínku</string>
 </resources>
