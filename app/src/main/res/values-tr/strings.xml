@@ -717,4 +717,26 @@
     <string name="donate_today">Bugün bağış yapın</string>
     <string name="donate_maybe_later">Belki daha sonra</string>
     <string name="donate_nag">Desteğinizi bağış yaparak göstermeyi düşünün!</string>
+    <string name="comment">Yorum</string>
+    <string name="cost_free">Ücret: Ücretsiz</string>
+    <string name="cost_money">Ücret: $</string>
+    <string name="delete_comment">yorum</string>
+    <string name="yesterday">Dün</string>
+    <string name="quiet_hours_in_effect">Sessiz saatler etkin</string>
+    <string name="sync_warning_microsoft_title">Microsoft To Do eşzamanlayıcı hakkında</string>
+    <string name="sync_warning_microsoft">Tüm görev ayrıntıları Microsoft To Do ile eşzamanlanmaz.</string>
+    <string name="sync_warning_google_tasks_title">Google Görevler eşzamanlayıcıyla ilgili</string>
+    <string name="button_learn_more">Daha çoğunu öğren</string>
+    <string name="sync_warning_google_tasks">Tüm görev ayrıntıları Google Görevler ile eşzamanlanmaz</string>
+    <string name="price_per_month_with_currency">%s/ay</string>
+    <string name="price_per_year_with_currency">%s/yıl</string>
+    <string name="enable_alarms">Doğru zamanda bildirim al</string>
+    <string name="enable_alarms_description">Doğru zamanda bildirim aldığınızdan emin olmak için, alarm ve anımsatıcı kurmak için Ayarlar\'da izin verin</string>
+    <string name="add_shortcut_to_home_screen">Ana ekrana kısayol ekle</string>
+    <string name="add_widget_to_home_screen">Ana ekrana parçacık ekle</string>
+    <string name="send_application_logs">Uygulama günlüklerini gönder</string>
+    <string name="cost_more_money">Ücret: $$$</string>
+    <string name="multiline_title">Çok satırlı başlıklara izin ver</string>
+    <string name="multiline_title_on">Satır eklemek için Enter tuşuna bas</string>
+    <string name="multiline_title_off">Klavyeyi kapatmak için Bitti\'ye bas</string>
 </resources>
