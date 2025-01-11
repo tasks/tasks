@@ -85,6 +85,7 @@ class FilterCriteriaProvider @Inject constructor(
         IDENTIFIER_IMPORTANCE -> priorityFilter
         IDENTIFIER_STARTDATE -> startDateFilter
         IDENTIFIER_DUEDATE -> dueDateFilter
+        IDENTIFIER_GTASKS,
         IDENTIFIER_CALDAV -> caldavFilterCriteria()
         IDENTIFIER_TAG_IS -> tagFilter()
         IDENTIFIER_TAG_CONTAINS -> tagNameContainsFilter
@@ -363,6 +364,7 @@ class FilterCriteriaProvider @Inject constructor(
         private const val IDENTIFIER_IMPORTANCE = "importance"
         private const val IDENTIFIER_STARTDATE = "startDate"
         private const val IDENTIFIER_DUEDATE = "dueDate"
+        private const val IDENTIFIER_GTASKS = "gtaskslist"
         private const val IDENTIFIER_CALDAV = "caldavlist"
         private const val IDENTIFIER_TAG_IS = "tag_is"
         private const val IDENTIFIER_TAG_CONTAINS = "tag_contains"
