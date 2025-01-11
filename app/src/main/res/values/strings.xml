@@ -518,6 +518,7 @@ File %1$s contained %2$s.\n\n
   <string name="expand_subtasks">Expand subtasks</string>
   <string name="collapse_subtasks">Collapse subtasks</string>
   <string name="subtasks_multilevel_google_task">Multi-level subtasks not supported by Google Tasks</string>
+  <string name="subtasks_multilevel_microsoft">Multi-level subtasks not supported by Microsoft To Do</string>
   <string name="enter_tag_name">Enter tag name</string>
   <string name="choose_synchronization_service">Select a platform</string>
   <string name="tasks_org_description">Synchronize your tasks with Tasks.org</string>

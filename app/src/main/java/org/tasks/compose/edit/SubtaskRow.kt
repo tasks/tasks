@@ -80,15 +80,21 @@ fun SubtaskRow(
         },
         content = {
             Column {
-                val isGoogleTaskChild =
+                val subtasksDisabled =
                     hasParent &&
-                            filter.isGoogleTasks &&
-                            originalFilter.isGoogleTasks &&
+                            !filter.isIcalendar &&
+                            !originalFilter.isIcalendar &&
                             originalFilter.uuid == filter.uuid
-                if (isGoogleTaskChild) {
+                if (subtasksDisabled) {
                     DisabledText(
-                        text = stringResource(id = org.tasks.R.string.subtasks_multilevel_google_task),
-                        modifier = Modifier.padding(top = 20.dp, bottom = 20.dp, end = 16.dp)
+                        text = stringResource(
+                            id = if (filter.isGoogleTasks) {
+                                org.tasks.R.string.subtasks_multilevel_google_task
+                            } else {
+                                org.tasks.R.string.subtasks_multilevel_microsoft
+                            }
+                        ),
+                        modifier = Modifier.padding(start = 12.dp, top = 20.dp, bottom = 20.dp, end = 16.dp)
                     )
                 } else {
                     Spacer(modifier = Modifier.height(height = 8.dp))
