@@ -31,4 +31,6 @@
     <string name="add_task">Görev ekle</string>
     <string name="show_unstarted">Başlamayanları göster</string>
     <string name="show_completed">Tamamlananları göster</string>
+    <string name="wear_install_app">Telefona kur</string>
+    <string name="wear_unknown_error">Bilinmeyen hata</string>
 </resources>
