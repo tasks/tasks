@@ -437,13 +437,19 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
                         Banner.WarnGoogleTasks ->
                             SyncWarningGoogleTasks(
-                                moreInfo = { context.openUri(R.string.url_google_tasks) },
+                                moreInfo = {
+                                    listViewModel.dismissBanner()
+                                    context.openUri(R.string.url_google_tasks)
+                                },
                                 dismiss = { listViewModel.dismissBanner() },
                             )
 
                         Banner.WarnMicrosoft ->
                             SyncWarningMicrosoft(
-                                moreInfo = { context.openUri(R.string.url_microsoft) },
+                                moreInfo = {
+                                    listViewModel.dismissBanner()
+                                    context.openUri(R.string.url_microsoft)
+                                },
                                 dismiss = { listViewModel.dismissBanner() },
                             )
 

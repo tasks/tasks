@@ -65,6 +65,9 @@ class Debug : InjectingPreferenceFragment() {
             preferences.lastSubscribeRequest = 0L
             preferences.lastReviewRequest = 0L
             preferences.shownBeastModeHint = false
+            preferences.warnMicrosoft = true
+            preferences.warnGoogleTasks = true
+            preferences.warnQuietHoursDisabled = true
             true
         }
     }
