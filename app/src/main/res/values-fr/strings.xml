@@ -747,4 +747,18 @@
     <string name="multiline_title_on">Appuyer sur la touche Entrée pour ajouter des sauts de ligne</string>
     <string name="multiline_title_off">Appuyer sur Terminé pour fermer le clavier</string>
     <string name="comment">Commentaire</string>
+    <string name="delete_comment">commentaire</string>
+    <string name="yesterday">Hier</string>
+    <string name="sync_warning_microsoft">Tous les détails des tâches ne sont pas synchronisés avec Microsoft To Do.</string>
+    <string name="price_per_month_with_currency">%s/mois</string>
+    <string name="price_per_year_with_currency">%s/an</string>
+    <string name="sync_warning_microsoft_title">À propos de la synchronisation Microsoft To Do</string>
+    <string name="sync_warning_google_tasks_title">À propos de la synchronisation Google Tasks</string>
+    <string name="sync_warning_google_tasks">Tous les détails des tâches ne sont pas synchronisés avec Google Tasks</string>
+    <string name="button_learn_more">Voir plus</string>
+    <string name="enable_alarms">Sois notifié au bon moment</string>
+    <string name="enable_alarms_description">Pour être sûr d\'être notifié au bon moment, autorisez la permission d\'ajouter des alarmes et des rappels dans Paramètres</string>
+    <string name="cost_free">Coût : gratuit</string>
+    <string name="cost_money">Coût : $</string>
+    <string name="cost_more_money">Coût : $$$</string>
 </resources>
