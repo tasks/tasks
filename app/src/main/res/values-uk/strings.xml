@@ -749,4 +749,7 @@
     <string name="show_edit_screen_without_unlock_summary">Дозволяє використовувати плитку швидких налаштувань без розблокування пристрою</string>
     <string name="quiet_hours_in_effect">Активовано тихі години</string>
     <string name="send_application_logs">Надіслати логи застосунку</string>
+    <string name="delete_comment">коментар</string>
+    <string name="comment">Коментар</string>
+    <string name="yesterday">Учора</string>
 </resources>
