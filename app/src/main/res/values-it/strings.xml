@@ -746,9 +746,14 @@
     <string name="add_widget_to_home_screen">Aggiungi widget sulla Home</string>
     <string name="comment">Commento</string>
     <string name="cost_free">Costo: gratuito</string>
-    <string name="multiline_title">Consentire titoli multilinea</string>
+    <string name="multiline_title">Consentire titoli su più linee</string>
     <string name="multiline_title_on">Premi enter per aggiungere una interruzioni di riga</string>
     <string name="multiline_title_off">Premi Fatto per chiudere la tastiera</string>
     <string name="cost_more_money">Costo: $$$</string>
     <string name="cost_money">Costo: $</string>
+    <string name="sync_warning_google_tasks">Non tutti i dettagli delle attività si sincronizzano con Google Tasks</string>
+    <string name="button_learn_more">Per saperne di più</string>
+    <string name="sync_warning_microsoft_title">Informazioni su Microsoft To Do sync</string>
+    <string name="sync_warning_microsoft">Non tutti i dettagli delle attività si sincronizzano con Microsoft To Do.</string>
+    <string name="sync_warning_google_tasks_title">Informazioni su Google Task sync</string>
 </resources>
