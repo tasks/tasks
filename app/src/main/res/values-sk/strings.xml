@@ -16,7 +16,7 @@
     <string name="DLG_hour_minutes">Čas (hodiny : minúty)</string>
     <string name="DLG_undo">Späť</string>
     <string name="WID_dateButtonUnset">Kliknúť pre nastavenie</string>
-    <string name="TLA_no_items">Nemáte tu žiadne úlohy</string>
+    <string name="TLA_no_items">Nemáte tu žiadne úlohy.</string>
     <string name="TLA_menu_sort">Triediť</string>
     <string name="TLA_menu_search">Hľadať</string>
     <string name="TLA_menu_settings">Nastavenia</string>
@@ -68,7 +68,7 @@
     <string name="EPr_delete_task_data_warning">Všetky úlohy budú trvalo odstránené </string>
     <string name="EPr_manage_delete_completed_gcal">Zmazať dokončené úlohy z kalendára</string>
     <string name="EPr_manage_delete_completed_gcal_message">Naozaj chceš odstrániť všetky svoje dokončené úlohy z kalendára?</string>
-    <string name="EPr_manage_delete_gcal_status">Zmazané %d udalosti kalendára</string>
+    <string name="EPr_manage_delete_gcal_status">Zmazaných %d udalostí v kalendári!</string>
     <string name="EPr_manage_delete_all_gcal">Zmazať všetky úlohy z kalendára</string>
     <string name="EPr_manage_delete_all_gcal_message">Naozaj chceš zmazať všetky svoje udalosti úloh?</string>
     <string name="task_defaults">Predvoľby úloh</string>
@@ -140,23 +140,28 @@
     <string name="repeat_option_custom">Vlastné…</string>
     <plurals name="task_count">
         <item quantity="one">%d úloha</item>
+        <item quantity="few">%d úlohy</item>
         <item quantity="other">%d úloh</item>
     </plurals>
     <plurals name="repeat_times">
-        <item quantity="one">čas</item>
+        <item quantity="one">raz</item>
+        <item quantity="few">krát</item>
         <item quantity="other">krát</item>
     </plurals>
     <plurals name="repeat_minutes">
         <item quantity="one">minúta</item>
+        <item quantity="few">minúty</item>
         <item quantity="other">minút</item>
     </plurals>
     <plurals name="repeat_n_minutes">
-        <item quantity="one">%d minút</item>
-        <item quantity="other">%d minút </item>
+        <item quantity="one">%d minúta</item>
+        <item quantity="few">%d minúty</item>
+        <item quantity="other">%d minút</item>
     </plurals>
     <plurals name="repeat_hours">
         <item quantity="one">hodina</item>
-        <item quantity="other">hodiny</item>
+        <item quantity="few">hodiny</item>
+        <item quantity="other">hodín</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d hodinu</item>
@@ -690,10 +695,54 @@
     <string name="filter_today_only">Iba dnešné</string>
     <string name="app_password">Heslo aplikácie</string>
     <string name="google_play_subscribers">Predplatitelia Google Play</string>
-    <string name="sign_in_with_google">Prihlásenie pomocou Google</string>
+    <string name="sign_in_with_google">Prihlásenie účtom Google</string>
     <string name="app_bar_position">Umiestnenie lišty aplikácie</string>
     <string name="app_bar_collapse">Zbaliť lišty aplikácie</string>
     <string name="sign_in_to_tasks_disclosure">Vaša e-mailová adresa a ID účtu bude prenesená a uložená do Tasks.org. Tieto informácie sa použijú na overenie a pre poskytovanie dôležitých oznámení súvisiacich so službami. Tieto informácie nebudú s nikým zdieľané.</string>
     <string name="app_passwords">Heslá aplikácie</string>
     <string name="app_passwords_more_info">Synchronizujte svoje úlohy a kalendáre s desktopovými a mobilnými aplikáciami tretích strán. Pre viac informácii kliknite sem</string>
+    <string name="invite_invalid">Neplatná pozvánka</string>
+    <string name="picker_mode_clock">Hodiny</string>
+    <string name="caldav_server_unknown">Neznámy</string>
+    <string name="consent_agree">Súhlasím</string>
+    <string name="sort_sorting">Triedenie</string>
+    <string name="add_shortcut_to_home_screen">Pridať skratku na domovskú obrazovku</string>
+    <string name="cost_free">Cena: Zdarma</string>
+    <string name="multiline_title">Povoliť názvy na viac riadkov</string>
+    <string name="multiline_title_on">Stlačením Enter pridáte konce riadkov</string>
+    <string name="enable_reminders_description">Pripomienky sú zakázané v nastaveniach systému Android</string>
+    <string name="invite">Pozvať</string>
+    <string name="sign_in">Prihlásiť sa</string>
+    <string name="enable_reminders">Povoliť pripomienky</string>
+    <string name="consent_deny">Teraz nie</string>
+    <string name="hint_customize_edit_body">Túto obrazovku si môžete prispôsobiť preskupením alebo odobraním polí</string>
+    <string name="add_widget_to_home_screen">Pridať widget na domovskú obrazovku</string>
+    <string name="multiline_title_off">Klávesnicu zavriete stlačením tlačidla Hotovo</string>
+    <string name="remove_user_confirmation">%1$s už nebude mať prístup k %2$s</string>
+    <string name="invite_awaiting_response">Pozvánka čaká na odpoveď</string>
+    <string name="invite_declined">Pozvánka bola odmietnutá</string>
+    <string name="upgrade_tasks_org_account_description">Synchronizujte s Tasks.org a spolupracujte s ostatnými používateľmi</string>
+    <string name="picker_mode_text">Text</string>
+    <string name="remove_user">Odobrať používateľa?</string>
+    <string name="picker_mode_date">Režim výberu dátumu</string>
+    <string name="picker_mode_time">Režim výberu času</string>
+    <string name="picker_mode_calendar">Kalendár</string>
+    <string name="pro_free_trial">Noví predplatitelia dostanú 7 dní na bezplatné otestovanie. Predplatné je možné kedykoľvek zrušiť</string>
+    <string name="upgrade_more_customization">Ďalšie prispôsobenie</string>
+    <string name="upgrade_more_customization_description">Odomknúť všetky motívy, farby a ikony</string>
+    <string name="dismiss">Odmietnuť</string>
+    <string name="enable_alarms">Dostaňte upozornenia včas</string>
+    <string name="sort_grouping">Zoskupovanie</string>
+    <string name="sync_warning_microsoft_title">O synchronizácii Microsoft To Do</string>
+    <string name="sync_warning_microsoft">Nie všetky podrobnosti pripomienok sa synchronizujú s Microsoft To Do.</string>
+    <string name="sync_warning_google_tasks_title">O synchronizácií pripomienok Google</string>
+    <string name="sync_warning_google_tasks">Nie všetky podrobnosti pripomienok sa synchronizujú s Google Tasks</string>
+    <string name="caldav_server_other">Ďalšie</string>
+    <string name="caldav_server_type">Typ servera</string>
+    <string name="enable_alarms_description">Ak chcete byť informovaný včas, udeľte v nastaveniach oprávnenia k nastaveniu budíka a pripomienok</string>
+    <string name="share_list">Zdieľať zoznam</string>
+    <string name="hint_customize_edit_title">Príliš veľa informácií?</string>
+    <string name="sort_ascending">Vzostupne</string>
+    <string name="sort_descending">Zostupne</string>
+    <string name="sort_not_available">Nie je k dispozícií pre štítky, filtre a miesta</string>
 </resources>
