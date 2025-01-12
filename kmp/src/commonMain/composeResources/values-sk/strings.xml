@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Hľadať</string>
-    <string name="subscribe">Prihlásiť sa</string>
-    <string name="filter_my_tasks">Moje Úlohy</string>
+    <string name="subscribe">Predplatiť</string>
+    <string name="filter_my_tasks">Moje úlohy</string>
     <string name="filter_notifications">Oznámenia</string>
-    <string name="filter_timer">Naplánované Úlohy</string>
+    <string name="filter_timer">Úlohy s termínom</string>
     <string name="filter_today">Dnes</string>
     <string name="filter_recently_modified">Naposledy upravené</string>
     <string name="default_list">Predvolený zoznam</string>
