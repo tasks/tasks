@@ -8,15 +8,15 @@
     <string name="export_toast">Zálohovaný %1$s do %2$s.</string>
     <string name="import_summary_title">Obnoviť zhrnutie</string>
     <string name="import_summary_message">Súbor %1$s obsahoval %2$s.\n\n %3$s importovaných,\n %4$s už existuje\n%5$s je chybných</string>
-    <string name="import_progress_read">Čítanie úloh %d…</string>
-    <string name="read_permission_label">Povolenia Úloh</string>
-    <string name="discard_confirmation">Naozaj chceš zmazať zmeny?</string>
+    <string name="import_progress_read">Načítavam úlohu %d…</string>
+    <string name="read_permission_label">Povolenia pre Tasks</string>
+    <string name="discard_confirmation">Naozaj chcete zahodiť vykonané zmeny?</string>
     <string name="keep_editing">Pokračuj v úpravách</string>
-    <string name="DLG_delete_this_task_question">Zmazať túto úlohu?</string>
+    <string name="DLG_delete_this_task_question">Odstrániť túto úlohu?</string>
     <string name="DLG_hour_minutes">Čas (hodiny : minúty)</string>
     <string name="DLG_undo">Späť</string>
     <string name="WID_dateButtonUnset">Kliknúť pre nastavenie</string>
-    <string name="TLA_no_items">Nemáte tu žiadne úlohy.</string>
+    <string name="TLA_no_items">Nie sú tu žiadne úlohy.</string>
     <string name="TLA_menu_sort">Triediť</string>
     <string name="TLA_menu_search">Hľadať</string>
     <string name="TLA_menu_settings">Nastavenia</string>
@@ -35,7 +35,7 @@
     <string name="no_date">Bez dátumu</string>
     <string name="TEA_note_label">Popis</string>
     <string name="TEA_estimatedDuration_label">Ako dlho to bude trvať?</string>
-    <string name="TEA_elapsedDuration_label">Ako dlho už pracujete na úlohe</string>
+    <string name="TEA_elapsedDuration_label">Už strávený čas</string>
     <string name="save">Uložiť</string>
     <string name="TEA_timer_est">Spolu %s</string>
     <string name="TEA_timer_elap">Uplynulo %s</string>
@@ -62,20 +62,20 @@
     <string name="EPr_cal_end_or_start_at_due_time">Čas udalosti kalendára</string>
     <string name="EPr_cal_end_at_due_time">Ukončiť udalosť kalendára v danom čase</string>
     <string name="EPr_cal_start_at_due_time">Začať udalosti  kalendár v danom čase</string>
-    <string name="EPr_reset_preferences">Vlastnosti znovu nastavenia</string>
+    <string name="EPr_reset_preferences">Obnoviť nastavenia</string>
     <string name="EPr_reset_preferences_warning">Nastavenia budú obnovené na predvolené</string>
     <string name="EPr_delete_task_data">Zmazať údaje úlohy</string>
     <string name="EPr_delete_task_data_warning">Všetky úlohy budú trvalo odstránené </string>
     <string name="EPr_manage_delete_completed_gcal">Zmazať dokončené úlohy z kalendára</string>
-    <string name="EPr_manage_delete_completed_gcal_message">Naozaj chceš odstrániť všetky svoje dokončené úlohy z kalendára?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Naozaj chcete odstrániť všetky svoje dokončené úlohy z kalendára?</string>
     <string name="EPr_manage_delete_gcal_status">Zmazaných %d udalostí v kalendári!</string>
     <string name="EPr_manage_delete_all_gcal">Zmazať všetky úlohy z kalendára</string>
-    <string name="EPr_manage_delete_all_gcal_message">Naozaj chceš zmazať všetky svoje udalosti úloh?</string>
+    <string name="EPr_manage_delete_all_gcal_message">Naozaj chcete zmazať všetky svoje udalosti úloh?</string>
     <string name="task_defaults">Predvoľby úloh</string>
     <string name="EPr_default_importance_title">Predvolená dôležitosť</string>
     <string name="EPr_default_reminders_title">Predvolené pripomienky</string>
-    <string name="EPr_default_location_reminder_title">Východzie upozornenia podľa polohy</string>
-    <string name="EPr_default_reminders_mode_title">Východzie vyzváňanie/vybrovanie</string>
+    <string name="EPr_default_location_reminder_title">Predvolené upozornenia podľa polohy</string>
+    <string name="EPr_default_reminders_mode_title">Predvolené vyzváňanie/vibrovanie</string>
     <string name="priority_high">Vysoká</string>
     <string name="priority_medium">Stredná</string>
     <string name="priority_low">Nízka</string>
@@ -85,7 +85,7 @@
     <string name="default_location_reminder_on_arrival">Pri príchode</string>
     <string name="default_location_reminder_on_departure">Pri odchode</string>
     <string name="default_location_reminder_on_arrival_or_departure">Pri príchode aj pri odchode</string>
-    <string name="BFE_Active">Moje Úlohy</string>
+    <string name="BFE_Active">Moje úlohy</string>
     <string name="BFE_Recent">Naposledy upravené</string>
     <string name="custom_filter_or">alebo</string>
     <string name="custom_filter_not">nie</string>
@@ -103,16 +103,16 @@
     <string name="CFC_tag_contains_text">Názov štítka obsahuje: ?</string>
     <string name="CFC_title_contains_name">Názov obsahuje…</string>
     <string name="CFC_title_contains_text">Zoznam obsahuje: ?</string>
-    <string name="gcal_TEA_error">Chyba pridania úlohy do kalendára!</string>
+    <string name="gcal_TEA_error">Chyba pri pridávaní úlohy do kalendára!</string>
     <string name="gcal_TEA_showCalendar_label">Otvoriť udalosť kalendára</string>
     <string name="calendar_event_not_found">Udalosť kalendára nenájdená</string>
     <string name="gcal_completed_title">%s (dokončené)</string>
     <string name="CFC_gtasks_list_text">V zozname: ?</string>
     <string name="gtasks_GTA_clear_completed">Vymazať dokončené</string>
     <string name="gtasks_GLA_authenticating">Overovanie…</string>
-    <string name="gtasks_GLA_errorIOAuth">Prepáč, nastal problém v komunikácii s Google serverom. Prosím, skús to znovu neskôr.</string>
+    <string name="gtasks_GLA_errorIOAuth">Prepáčte, nastal problém v komunikácii s Google serverom. Prosím, skúste to znovu neskôr.</string>
     <string name="gtasks_GPr_header">Úlohy Google</string>
-    <string name="gtasks_error_accountNotFound">Účet %s sa nenašiel—prosím, odhlás sa a znovu prihlás v nastaveniach Úlohy Google.</string>
+    <string name="gtasks_error_accountNotFound">Účet %s sa nenašiel – prosím, odhláste sa a znovu prihláste v nastaveniach Úlohy Google.</string>
     <string name="premium_record_audio">Nahrať poznámku</string>
     <string name="ring_once">Zvoniť raz</string>
     <string name="ring_five_times">Zvoniť päť krát</string>
@@ -120,8 +120,8 @@
     <string name="rmd_NoA_done">Dokončené</string>
     <string name="rmd_NoA_snooze">Odložiť</string>
     <string name="snooze_all">Uspi všetko</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Čas ticha sa začal</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Čas ticha sa skončil</string>
+    <string name="rmd_EPr_quiet_hours_start_title">Čas ticha sa začne</string>
+    <string name="rmd_EPr_quiet_hours_end_title">Čas ticha skončí</string>
     <string name="rmd_EPr_rmd_time_title">Čas pripomienky</string>
     <string name="rmd_EPr_rmd_time_desc">Oznámenia úloh bez času dokončenia sa objavia %s</string>
     <string name="persistent_notifications">Trvalé upozornenia </string>
@@ -165,39 +165,48 @@
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d hodinu</item>
+        <item quantity="few">%d hodiny</item>
         <item quantity="other">%d hodín</item>
     </plurals>
     <plurals name="repeat_days">
         <item quantity="one">deň</item>
+        <item quantity="few">dni</item>
         <item quantity="other">dní</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d deň</item>
+        <item quantity="few">%d dni</item>
         <item quantity="other">%d dní</item>
     </plurals>
     <plurals name="repeat_weeks">
         <item quantity="one">týždeň</item>
-        <item quantity="other">týždne</item>
+        <item quantity="few">týždne</item>
+        <item quantity="other">týždňov</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d týždeň</item>
+        <item quantity="few">%d týždne</item>
         <item quantity="other">%d týždňov</item>
     </plurals>
     <plurals name="repeat_months">
         <item quantity="one">mesiac</item>
-        <item quantity="other">o dva mesiace</item>
+        <item quantity="few">mesiace</item>
+        <item quantity="other">mesiacov</item>
     </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d mesiac</item>
-        <item quantity="other">%d mesiace</item>
+        <item quantity="few">%d mesiace</item>
+        <item quantity="other">%d mesiacov</item>
     </plurals>
     <plurals name="repeat_years">
         <item quantity="one">rok</item>
+        <item quantity="few">roky</item>
         <item quantity="other">rokov</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d rok</item>
-        <item quantity="other">%d roky</item>
+        <item quantity="few">%d roky</item>
+        <item quantity="other">%d rokov</item>
     </plurals>
     <string name="repeat_type_due">termín</string>
     <string name="repeat_type_completion">deň dokončenia</string>
@@ -213,12 +222,13 @@
     <string name="voice_create_prompt">Nadiktujte úlohu</string>
     <string name="EPr_voiceInputEnabled_title">Hlasový vstup</string>
     <string name="EPr_voiceRemindersEnabled_title">Hlasové pripomienky</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Úlohy vyslovia názov úlohy počas pripomineky</string>
+    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks budú pri pripomienke nahlas čítať názov úlohy</string>
     <string name="delete_task">Zmazať úlohu</string>
     <string name="voice_command_added_task">Pridaná úloha</string>
     <plurals name="Ntasks">
         <item quantity="one">1 úloha</item>
-        <item quantity="other">%d úlohy</item>
+        <item quantity="few">%d úlohy</item>
+        <item quantity="other">%d úloh</item>
     </plurals>
     <string name="today">Dnes</string>
     <string name="tomorrow">Zajtra</string>
@@ -276,7 +286,7 @@
     <string name="pick_from_gallery">Vybrať z galérie</string>
     <string name="pick_from_storage">Vybrať z uložených</string>
     <string name="privacy_policy">Ochrana súkromia</string>
-    <string name="send_anonymous_statistics">Pomôž zlepšiť Úlohy</string>
+    <string name="send_anonymous_statistics">Pomôžte vylepšiť Tasks</string>
     <string name="send_anonymous_statistics_summary">Zasielať anonymné štatistiky používania a správy o zlyhaní aplikácie pre zlepšenia Úloh. Žiadne osobné údaje nebudú zhromažďované.</string>
     <string name="tag_already_exists">Štítok už jestvuje</string>
     <string name="name_cannot_be_empty">Názov nesmie ostať prázdny </string>
@@ -302,7 +312,7 @@
     <string name="restart_required">Reštartujte aplikáciu, aby sa zmena prejavila</string>
     <string name="restart_now">Reštartovať teraz</string>
     <string name="restart_later">Neskôr</string>
-    <string name="settings_localization">Určovanie polohy</string>
+    <string name="settings_localization">Preklad</string>
     <string name="led_notification">LED oznámenia</string>
     <string name="hardware_support_required">Vyžaduje sa podpora zariadenia</string>
     <string name="widget_settings">Widget - nastavenia</string>
@@ -311,11 +321,11 @@
     <string name="clear_completed_tasks_confirmation">Vymazať dokončené úlohy?</string>
     <string name="copy_multiple_tasks_confirmation">%s skopírovaných</string>
     <string name="delete_multiple_tasks_confirmation">%s zmazaných</string>
-    <string name="delete_selected_tasks">Zmaž vybrané úlohy</string>
+    <string name="delete_selected_tasks">Vymazať vybrané úlohy?</string>
     <string name="copy_selected_tasks">Kopírovať vybrané úlohy?</string>
     <string name="date_and_time">Dátum a čas</string>
     <string name="start_of_week">Začiatok týždňa</string>
-    <string name="use_locale_default">Použi miestne východzie nastavenia</string>
+    <string name="use_locale_default">Použi miestne predvolené nastavenia</string>
     <string name="add_account">Pridať účet</string>
     <string name="user">Užívateľ</string>
     <string name="password">Heslo</string>
@@ -343,16 +353,16 @@
     <string name="repeats_plural_on_until">Opakuje sa každý %1$s v %2$s, až do %3$s</string>
     <string name="repeats_plural_on_number_of_times">Opakovanie každý %1$s v %2$s, sa vyskytuje %3$d %4$s</string>
     <string name="dont_add_to_calendar">Nepridávať do kalendára </string>
-    <string name="default_calendar">Východzí kalendár</string>
+    <string name="default_calendar">Predvolený kalendár</string>
     <string name="badges_description">Zobraziť počet úloh na pri ikone Tasks. Niektoré spúšťače túto funkciu nepodporujú.</string>
-    <string name="bundle_notifications_summary">Zlúčiť viaceré upozornenia do jedného</string>
+    <string name="bundle_notifications_summary">Zlúčiť viaceré upozornenia do jednoho</string>
     <string name="repeat_monthly_every_day_of_nth_week">každý %1$s %2$s</string>
     <string name="repeat_monthly_first_week">prvý</string>
     <string name="repeat_monthly_second_week">druhý</string>
     <string name="repeat_monthly_third_week">tretí</string>
     <string name="repeat_monthly_fourth_week">štvrtý</string>
     <string name="repeat_monthly_last_week">posledný</string>
-    <string name="tasker_create_task">Vytvor úlohu</string>
+    <string name="tasker_create_task">Vytvoriť úlohu</string>
     <string name="tasker_list_notification">Zoznam upozornení</string>
     <string name="help">Pomoc</string>
     <string name="caldav_home_set_not_found">Nastavenie Domov nenájdené</string>
@@ -746,5 +756,5 @@
     <string name="sort_descending">Zostupne</string>
     <string name="sort_not_available">Nie je k dispozícií pre štítky, filtre a miesta</string>
     <string name="help_and_feedback">Pomoc a spätná väzba</string>
-    <string name="subtasks_multilevel_microsoft">Podúlohy s viacerými úrovňami úloh Microsoft To Do nepodporuje</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do nepodporujú viacúrovňové podúlohy</string>
 </resources>
