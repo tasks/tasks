@@ -7,12 +7,7 @@
     <string name="backup_BAc_export">Создать резервную копию сейчас</string>
     <string name="export_toast">Сохранено %1$s в %2$s.</string>
     <string name="import_summary_title">Восстановить сводку</string>
-    <string name="import_summary_message">Файл %1$s содержал %2$s.
-\n
-\n %3$s импортировано,
-\n %4$s уже существовуют,
-\n %5$s с ошибками
-\n</string>
+    <string name="import_summary_message">Файл %1$s содержал %2$s.\n\n %3$s импортировано,\n%4$s уже существовуют,\n%5$s с ошибками</string>
     <string name="import_progress_read">Чтение задачи %d…</string>
     <string name="read_permission_label">Разрешения Tasks</string>
     <string name="discard_confirmation">Отменить сделанные изменения\?</string>
@@ -752,7 +747,7 @@
     <string name="button_learn_more">Узнать больше</string>
     <string name="enable_alarms">Получайте напоминания вовремя</string>
     <string name="swipe_to_snooze_title">Смахните, чтобы отложить</string>
-    <string name="swipe_to_snooze_description">Время</string>
+    <string name="swipe_to_snooze_description">Длительность паузы</string>
     <string name="enable_alarms_description">Чтобы получать оповещения в нужное время, разрешите приложению устанавливать будильники и напоминания в Настройках</string>
     <string name="add_shortcut_to_home_screen">Добавить ярлык на домашний экран</string>
     <string name="add_widget_to_home_screen">Добавить виджет на домашний экран</string>
@@ -760,4 +755,11 @@
     <string name="cost_more_money">Цена: $$$</string>
     <string name="multiline_title_on">Нажмите Enter чтобы перейти на новую строку</string>
     <string name="multiline_title_off">Нажмите Done, чтобы закрыть клавиатуру</string>
+    <string name="donate_nag">Выразите свою поддержку с помощью пожертвования!</string>
+    <string name="theme_dynamic">Динамическая</string>
+    <string name="subtasks_multilevel_microsoft">Многоуровневые подзадачи не поддерживаются Microsoft To Do</string>
+    <string name="donate_today">Пожертвовать сегодня</string>
+    <string name="quiet_hours_in_effect">Режим тишины включен</string>
+    <string name="swipe_to_snooze_time_description">Удаленное уведомлеие будет отложено и появится снова %s</string>
+    <string name="show_edit_screen_without_unlock">Показывать панель редактирования на заблокированном экране</string>
 </resources>
