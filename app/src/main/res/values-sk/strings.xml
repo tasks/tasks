@@ -745,4 +745,6 @@
     <string name="sort_ascending">Vzostupne</string>
     <string name="sort_descending">Zostupne</string>
     <string name="sort_not_available">Nie je k dispozícií pre štítky, filtre a miesta</string>
+    <string name="help_and_feedback">Pomoc a spätná väzba</string>
+    <string name="subtasks_multilevel_microsoft">Podúlohy s viacerými úrovňami úloh Microsoft To Do nepodporuje</string>
 </resources>
