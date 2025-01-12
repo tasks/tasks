@@ -1,11 +1,11 @@
 * Microsoft To Do support
   * This feature is in early access, please report any bugs!
   * Enable under 'Advanced' settings
-* Add configuration option for new lines in titles
+* Add option for new lines in titles
 * @TonSilver - Copy comments to clipboard with long press
+* @jheld - Attempt to fix F-Droid build with colorpicker fork
 * Subscription changes
-  * Multiple Google Task accounts are now free to use
-  * Tasker plugins are now free to use
+  * Multiple Google Task accounts now free to use
+  * Tasker plugins now free to use
 * Fix crash on empty shortcut labels
 * Fix missing settings button on Android 10 and below
-* Update translations

@@ -1,10 +1,11 @@
-### 14.4 (2025-01-08)
+### 14.4.1 (2025-01-11)
 
 * Microsoft To Do support [#2011](https://github.com/tasks/tasks/issues/2011)
   * This feature is in early access, please report any bugs!
   * Enable under 'Advanced' settings
 * Add configuration option for new lines in titles
-* @TonSilver - Copy comments to clipboard with long press
+* @TonSilver - Copy comments to clipboard with long press [#3212](https://github.com/tasks/tasks/pull/3212)
+* @jheld - Attempt to fix F-Droid build with colorpicker fork [#2028](https://github.com/tasks/tasks/issues/2028)
 * Subscription changes
   * Multiple Google Task accounts are now free to use
   * Tasker plugins are now free to use
@@ -16,10 +17,13 @@
   * Czech - @AtmosphericIgnition
   * Dutch - @fvbommel
   * Esperanto - Don Zouras
-  * German - @franconian
+  * French - @FlorianLeChat, @lfavole
+  * German - @franconian, Colorful Rhino
   * Hungarian - Kaci
   * Italian - @ppasserini
-  * Swedish - @Ziron
+  * Slovak - @jose1711
+  * Swedish - @Ziron, @bittin
+  * Turkish - @emintufan
 
 ### 14.3.1 (2025-01-02)
 
