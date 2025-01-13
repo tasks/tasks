@@ -734,4 +734,5 @@
     <string name="button_learn_more">Mehr erfahren</string>
     <string name="sync_warning_microsoft">Nicht alle Aufgabendetails können mit Microsoft To Do synchronisiert werden.</string>
     <string name="sync_warning_microsoft_title">Über die Synchronisierung mit „Microsoft To Do“</string>
+    <string name="subtasks_multilevel_microsoft">Mehrstufige Teilaufgaben werden von Microsoft To Do nicht unterstützt</string>
 </resources>
