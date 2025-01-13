@@ -333,9 +333,9 @@
     <string name="repeats_from">Повторять от</string>
     <string name="repeats_single">Повторять %s</string>
     <string name="repeats_single_on">Повторять %1$s в %2$s</string>
-    <string name="repeats_single_until">Повторять %1$s до %2$s</string>
+    <string name="repeats_single_until">Повторять %1$s, завершение %2$s</string>
     <string name="repeats_single_number_of_times">Повторять %1$s, %2$d %3$s</string>
-    <string name="repeats_single_on_until">Повторять %1$s в %2$s до %3$s</string>
+    <string name="repeats_single_on_until">Повторять %1$s в %2$s, завершение %3$s</string>
     <string name="repeats_single_on_number_of_times">Повторять %1$s в %2$s, %3$d %4$s</string>
     <string name="repeats_minutely">ежеминутно</string>
     <string name="repeats_hourly">ежечасно</string>
@@ -345,10 +345,10 @@
     <string name="repeats_yearly">ежегодно</string>
     <string name="repeats_plural">Повторять каждые %s</string>
     <string name="repeats_plural_on">Повторять каждые %1$s в %2$s</string>
-    <string name="repeats_plural_until">Повторять каждые %1$s до %2$s</string>
+    <string name="repeats_plural_until">Повторяется каждые %1$s до %2$s</string>
     <string name="repeats_plural_number_of_times">Повторять каждые %1$s, %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Повторять каждые %1$s в %2$s до %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Повторять каждые %1$s в %2$s, %3$d %4$s</string>
+    <string name="repeats_plural_on_until">Повторяется каждые %1$s в %2$s до %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Повторяется каждые %1$s в %2$s, %3$d %4$s</string>
     <string name="dont_add_to_calendar">Не добавлять в календарь</string>
     <string name="default_calendar">Календарь по умолчанию</string>
     <string name="badges_description">Отображать количество задач на иконке приложения. Не все лаунчеры это поддерживают.</string>
@@ -610,7 +610,7 @@
     <string name="email">Эл. почта</string>
     <string name="remove_user_confirmation">%1$s больше не будет иметь доступа к %2$s</string>
     <string name="more_options">Дополнительные параметры</string>
-    <string name="upgrade_open_source_description">Ваша подписка поддерживает непрерывное развитие</string>
+    <string name="upgrade_open_source_description">Ваша подписка поддерживает продолжающуюся разработку</string>
     <string name="upgrade_desktop_access_description">Синхронизация со сторонними клиентами, такими как Outlook и Apple Reminders</string>
     <string name="upgrade_tasks_org_account_description">Синхронизируйтесь с Tasks.org и сотрудничайте с другими пользователями</string>
     <string name="upgrade_more_customization_description">Разблокировать все темы, цвета и иконки</string>
@@ -739,8 +739,8 @@
     <string name="swipe_to_snooze_time_30_minutes">через 30 минут</string>
     <string name="delete_comment">комментарий</string>
     <string name="change_priority">Изменить приоритет</string>
-    <string name="price_per_year_with_currency">%s в год</string>
-    <string name="price_per_month_with_currency">%s в месяц</string>
+    <string name="price_per_year_with_currency">%s/год</string>
+    <string name="price_per_month_with_currency">%s/месяц</string>
     <string name="sync_warning_microsoft_title">О синхронизации с Microsoft To Do</string>
     <string name="sync_warning_microsoft">Не все подробности задачи синхронизируются с Microsoft To Do.</string>
     <string name="sync_warning_google_tasks_title">О синхронизации с Google Task</string>
@@ -759,7 +759,9 @@
     <string name="theme_dynamic">Динамическая</string>
     <string name="subtasks_multilevel_microsoft">Многоуровневые подзадачи не поддерживаются Microsoft To Do</string>
     <string name="donate_today">Пожертвовать сегодня</string>
-    <string name="quiet_hours_in_effect">Режим тишины включен</string>
-    <string name="swipe_to_snooze_time_description">Удаленное уведомлеие будет отложено и появится снова %s</string>
+    <string name="quiet_hours_in_effect">Режим тихих часов включен</string>
+    <string name="swipe_to_snooze_time_description">Удаленное уведомление будет отложено и появится снова %s</string>
     <string name="show_edit_screen_without_unlock">Показывать панель редактирования на заблокированном экране</string>
+    <string name="show_edit_screen_without_unlock_summary">Разрешает использовать панель Быстрых Настроек без разблокирования устройства</string>
+    <string name="clear_completed_tasks_count">%s будут удалены</string>
 </resources>
