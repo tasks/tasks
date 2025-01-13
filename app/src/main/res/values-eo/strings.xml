@@ -734,4 +734,5 @@
     <string name="sync_warning_google_tasks_title">Pri sinkronigado de Google</string>
     <string name="sync_warning_microsoft">Iuj detaloj de tasko ne sinkronigos per Microsoft To Do.</string>
     <string name="button_learn_more">Lerni Plu</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do ne subtenas plurnivelajn subtaskojn</string>
 </resources>
