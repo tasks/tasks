@@ -729,4 +729,10 @@
     <string name="price_per_year_with_currency">%s per jaar</string>
     <string name="enable_alarms">Krijg meldingen op het juiste moment</string>
     <string name="multiline_title_on">Druk Enter om regelafbrekingen toe te voegen</string>
+    <string name="sync_warning_google_tasks">Niet alle taak-details synchroniseren met Google Tasks</string>
+    <string name="sync_warning_microsoft">Niet alle taak-details synchroniseren met Microsoft To Do.</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do ondersteunt geen subtaken op meerdere niveaus</string>
+    <string name="sync_warning_google_tasks_title">Over synchronisatie met Google Tasks</string>
+    <string name="button_learn_more">Meer informatie</string>
+    <string name="sync_warning_microsoft_title">Over synchronisatie met Microsoft To Do</string>
 </resources>
