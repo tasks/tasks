@@ -56,7 +56,7 @@ class PurchaseActivityViewModel @Inject constructor(
 
     private val _viewState = MutableStateFlow(
         ViewState(
-            nameYourPrice = savedStateHandle.get<Boolean>(EXTRA_NAME_YOUR_PRICE) ?: firebase.nameYourPrice,
+            nameYourPrice = savedStateHandle.get<Boolean>(EXTRA_NAME_YOUR_PRICE) ?: true,
             isGithub = savedStateHandle.get<Boolean>(EXTRA_GITHUB) ?: false,
         )
     )
@@ -113,7 +113,7 @@ class PurchaseActivityViewModel @Inject constructor(
     }
 
     fun setNameYourPrice(nameYourPrice: Boolean) {
-        _viewState.update {  it.copy(nameYourPrice = nameYourPrice) }
+        _viewState.update { it.copy(nameYourPrice = nameYourPrice) }
     }
 
     fun dismissError() {

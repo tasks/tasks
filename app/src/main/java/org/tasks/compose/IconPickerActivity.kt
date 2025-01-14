@@ -24,7 +24,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
 import org.tasks.compose.pickers.IconPicker
 import org.tasks.compose.pickers.IconPickerViewModel
 import org.tasks.themes.TasksTheme
@@ -67,10 +66,7 @@ class IconPickerActivity : AppCompatActivity() {
                         },
                         hasPro = hasPro,
                         subscribe = {
-                            startActivity(
-                                Intent(this, PurchaseActivity::class.java)
-                                    .putExtra(EXTRA_NAME_YOUR_PRICE, true)
-                            )
+                            startActivity(Intent(this, PurchaseActivity::class.java))
                         },
                     )
                 }
@@ -80,7 +76,6 @@ class IconPickerActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_SELECTED = "extra_selected"
-        const val EXTRA_ICON = "extra_icon"
 
         fun ComponentActivity.registerForIconPickerResult(callback: (String) -> Unit): ActivityResultLauncher<Intent> {
             return registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {

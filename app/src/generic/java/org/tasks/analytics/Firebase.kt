@@ -24,8 +24,6 @@ class Firebase @Inject constructor(
         get() = installCooldown
                 || preferences.lastSubscribeRequest + days(28L) > currentTimeMillis()
 
-    val nameYourPrice = false
-
     private val installCooldown: Boolean
         get() = preferences.installDate + days(7L) > currentTimeMillis()
 
