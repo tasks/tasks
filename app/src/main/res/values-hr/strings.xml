@@ -738,4 +738,23 @@
     <string name="quiet_hours_in_effect">Vrijeme neobavještavanja aktivirano</string>
     <string name="enable_alarms_description">Za pravovremeno dobivanje obavijesti dozvoli postavljanje alarma i podsjetnika u postavkama Dobij obavijest pravovremeno</string>
     <string name="enable_alarms">Dobij obavijest pravovremeno</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do ne podržava višerazinske podzadatke</string>
+    <string name="cost_money">Cijena: $</string>
+    <string name="cost_more_money">Cijena: $$$</string>
+    <string name="multiline_title">Dozvoli višeredne naslove</string>
+    <string name="multiline_title_on">Pritisni tipku Enter za dodavanje prijeloma retka</string>
+    <string name="multiline_title_off">Pritisni „Gotovo” za zatvaranje tipkovnice</string>
+    <string name="sync_warning_microsoft_title">O sinkronizaciji s Microsoft To Do</string>
+    <string name="sync_warning_google_tasks_title">O sinkronizaciji s Google Tasks</string>
+    <string name="button_learn_more">Saznaj više</string>
+    <string name="sync_warning_google_tasks">S Google Tasks se ne sinkroniziraju se svi detalji zadataka.</string>
+    <string name="delete_comment">komentar</string>
+    <string name="cost_free">Cijena: besplatno</string>
+    <string name="sync_warning_microsoft">S Microsoft To Do se ne sinkroniziraju se svi detalji zadataka.</string>
+    <string name="yesterday">Jučer</string>
+    <string name="price_per_month_with_currency">%s/mjesec</string>
+    <string name="price_per_year_with_currency">%s/godina</string>
+    <string name="add_shortcut_to_home_screen">Dodaj prečac na početni ekran</string>
+    <string name="add_widget_to_home_screen">Dodaj widget na početni ekran</string>
+    <string name="comment">Komentar</string>
 </resources>
