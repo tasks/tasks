@@ -782,56 +782,80 @@
 +|    |    +--- org.jetbrains.compose.ui:ui:1.7.1 (*)
 +|    |    \--- org.jetbrains.compose.ui:ui-graphics:1.7.1 (*)
 +|    +--- org.jetbrains.compose.runtime:runtime:1.7.1 (*)
-+|    +--- androidx.datastore:datastore-preferences:1.1.1
-+|    |    \--- androidx.datastore:datastore-preferences-android:1.1.1
-+|    |         +--- androidx.datastore:datastore:1.1.1
-+|    |         |    \--- androidx.datastore:datastore-android:1.1.1
++|    +--- androidx.datastore:datastore-preferences:1.1.2
++|    |    \--- androidx.datastore:datastore-preferences-android:1.1.2
++|    |         +--- androidx.datastore:datastore:1.1.2
++|    |         |    \--- androidx.datastore:datastore-android:1.1.2
 +|    |         |         +--- androidx.annotation:annotation:1.2.0 -> 1.8.1 (*)
-+|    |         |         +--- androidx.datastore:datastore-core:1.1.1
-+|    |         |         |    \--- androidx.datastore:datastore-core-android:1.1.1
++|    |         |         +--- androidx.datastore:datastore-core:1.1.2
++|    |         |         |    \--- androidx.datastore:datastore-core-android:1.1.2
 +|    |         |         |         +--- androidx.annotation:annotation:1.7.0 -> 1.8.1 (*)
 +|    |         |         |         +--- org.jetbrains.kotlin:kotlin-parcelize-runtime:1.9.22 -> 2.1.0 (*)
 +|    |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
 +|    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
-+|    |         |         |         +--- androidx.datastore:datastore:1.1.1 (c)
-+|    |         |         |         +--- androidx.datastore:datastore-core-okio:1.1.1 (c)
-+|    |         |         |         +--- androidx.datastore:datastore-preferences:1.1.1 (c)
-+|    |         |         |         \--- androidx.datastore:datastore-preferences-core:1.1.1 (c)
-+|    |         |         +--- androidx.datastore:datastore-core-okio:1.1.1
-+|    |         |         |    \--- androidx.datastore:datastore-core-okio-jvm:1.1.1
-+|    |         |         |         +--- androidx.datastore:datastore-core:1.1.1 (*)
++|    |         |         |         +--- androidx.datastore:datastore:1.1.2 (c)
++|    |         |         |         +--- androidx.datastore:datastore-core-okio:1.1.2 (c)
++|    |         |         |         +--- androidx.datastore:datastore-preferences:1.1.2 (c)
++|    |         |         |         +--- androidx.datastore:datastore-preferences-core:1.1.2 (c)
++|    |         |         |         +--- androidx.datastore:datastore-preferences-external-protobuf:1.1.2 (c)
++|    |         |         |         \--- androidx.datastore:datastore-preferences-proto:1.1.2 (c)
++|    |         |         +--- androidx.datastore:datastore-core-okio:1.1.2
++|    |         |         |    \--- androidx.datastore:datastore-core-okio-jvm:1.1.2
++|    |         |         |         +--- androidx.datastore:datastore-core:1.1.2 (*)
 +|    |         |         |         +--- com.squareup.okio:okio:3.4.0 -> 3.9.0
 +|    |         |         |         |    \--- com.squareup.okio:okio-jvm:3.9.0
 +|    |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.1.0 (*)
 +|    |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
 +|    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
-+|    |         |         |         +--- androidx.datastore:datastore:1.1.1 (c)
-+|    |         |         |         +--- androidx.datastore:datastore-core:1.1.1 (c)
-+|    |         |         |         +--- androidx.datastore:datastore-preferences:1.1.1 (c)
-+|    |         |         |         \--- androidx.datastore:datastore-preferences-core:1.1.1 (c)
++|    |         |         |         +--- androidx.datastore:datastore:1.1.2 (c)
++|    |         |         |         +--- androidx.datastore:datastore-core:1.1.2 (c)
++|    |         |         |         +--- androidx.datastore:datastore-preferences:1.1.2 (c)
++|    |         |         |         +--- androidx.datastore:datastore-preferences-core:1.1.2 (c)
++|    |         |         |         +--- androidx.datastore:datastore-preferences-external-protobuf:1.1.2 (c)
++|    |         |         |         \--- androidx.datastore:datastore-preferences-proto:1.1.2 (c)
 +|    |         |         +--- com.squareup.okio:okio:3.4.0 -> 3.9.0 (*)
 +|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
 +|    |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
-+|    |         |         +--- androidx.datastore:datastore-core:1.1.1 (c)
-+|    |         |         +--- androidx.datastore:datastore-core-okio:1.1.1 (c)
-+|    |         |         +--- androidx.datastore:datastore-preferences:1.1.1 (c)
-+|    |         |         \--- androidx.datastore:datastore-preferences-core:1.1.1 (c)
-+|    |         +--- androidx.datastore:datastore-preferences-core:1.1.1
-+|    |         |    \--- androidx.datastore:datastore-preferences-core-jvm:1.1.1
-+|    |         |         +--- androidx.datastore:datastore-core:1.1.1 (*)
-+|    |         |         +--- androidx.datastore:datastore-core-okio:1.1.1 (*)
++|    |         |         +--- androidx.datastore:datastore-core:1.1.2 (c)
++|    |         |         +--- androidx.datastore:datastore-core-okio:1.1.2 (c)
++|    |         |         +--- androidx.datastore:datastore-preferences:1.1.2 (c)
++|    |         |         +--- androidx.datastore:datastore-preferences-core:1.1.2 (c)
++|    |         |         +--- androidx.datastore:datastore-preferences-proto:1.1.2 (c)
++|    |         |         \--- androidx.datastore:datastore-preferences-external-protobuf:1.1.2 (c)
++|    |         +--- androidx.datastore:datastore-preferences-core:1.1.2
++|    |         |    \--- androidx.datastore:datastore-preferences-core-jvm:1.1.2
++|    |         |         +--- androidx.datastore:datastore-core:1.1.2 (*)
++|    |         |         +--- androidx.datastore:datastore-core-okio:1.1.2 (*)
++|    |         |         +--- androidx.datastore:datastore-preferences-proto:1.1.2
++|    |         |         |    +--- androidx.datastore:datastore-preferences-external-protobuf:1.1.2
++|    |         |         |    |    +--- androidx.datastore:datastore:1.1.2 (c)
++|    |         |         |    |    +--- androidx.datastore:datastore-core:1.1.2 (c)
++|    |         |         |    |    +--- androidx.datastore:datastore-core-okio:1.1.2 (c)
++|    |         |         |    |    +--- androidx.datastore:datastore-preferences:1.1.2 (c)
++|    |         |         |    |    +--- androidx.datastore:datastore-preferences-core:1.1.2 (c)
++|    |         |         |    |    \--- androidx.datastore:datastore-preferences-proto:1.1.2 (c)
++|    |         |         |    +--- androidx.datastore:datastore:1.1.2 (c)
++|    |         |         |    +--- androidx.datastore:datastore-core:1.1.2 (c)
++|    |         |         |    +--- androidx.datastore:datastore-core-okio:1.1.2 (c)
++|    |         |         |    +--- androidx.datastore:datastore-preferences:1.1.2 (c)
++|    |         |         |    +--- androidx.datastore:datastore-preferences-core:1.1.2 (c)
++|    |         |         |    \--- androidx.datastore:datastore-preferences-external-protobuf:1.1.2 (c)
 +|    |         |         +--- com.squareup.okio:okio:3.4.0 -> 3.9.0 (*)
 +|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
-+|    |         |         +--- androidx.datastore:datastore:1.1.1 (c)
-+|    |         |         +--- androidx.datastore:datastore-core:1.1.1 (c)
-+|    |         |         +--- androidx.datastore:datastore-core-okio:1.1.1 (c)
-+|    |         |         \--- androidx.datastore:datastore-preferences:1.1.1 (c)
++|    |         |         +--- androidx.datastore:datastore:1.1.2 (c)
++|    |         |         +--- androidx.datastore:datastore-core:1.1.2 (c)
++|    |         |         +--- androidx.datastore:datastore-core-okio:1.1.2 (c)
++|    |         |         +--- androidx.datastore:datastore-preferences:1.1.2 (c)
++|    |         |         +--- androidx.datastore:datastore-preferences-proto:1.1.2 (c)
++|    |         |         \--- androidx.datastore:datastore-preferences-external-protobuf:1.1.2 (c)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (*)
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.9.0 (*)
-+|    |         +--- androidx.datastore:datastore:1.1.1 (c)
-+|    |         +--- androidx.datastore:datastore-preferences-core:1.1.1 (c)
-+|    |         +--- androidx.datastore:datastore-core:1.1.1 (c)
-+|    |         \--- androidx.datastore:datastore-core-okio:1.1.1 (c)
++|    |         +--- androidx.datastore:datastore:1.1.2 (c)
++|    |         +--- androidx.datastore:datastore-preferences-core:1.1.2 (c)
++|    |         +--- androidx.datastore:datastore-core:1.1.2 (c)
++|    |         +--- androidx.datastore:datastore-core-okio:1.1.2 (c)
++|    |         +--- androidx.datastore:datastore-preferences-proto:1.1.2 (c)
++|    |         \--- androidx.datastore:datastore-preferences-external-protobuf:1.1.2 (c)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7
 +|    |    \--- androidx.lifecycle:lifecycle-viewmodel-compose-android:2.8.7
 +|    |         +--- androidx.annotation:annotation:1.8.0 -> 1.8.1 (*)
@@ -1125,7 +1149,7 @@
 +|    |    +--- androidx.work:work-runtime-ktx:2.10.0 (c)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (c)
 +|    \--- com.google.dagger:hilt-android:2.49 -> 2.55 (*)
-++--- androidx.datastore:datastore-preferences:1.1.1 (*)
+++--- androidx.datastore:datastore-preferences:1.1.2 (*)
 ++--- androidx.fragment:fragment-ktx:1.8.5
 +|    +--- androidx.activity:activity-ktx:1.8.1 -> 1.9.3 (*)
 +|    +--- androidx.collection:collection-ktx:1.1.0 -> 1.4.4 (*)

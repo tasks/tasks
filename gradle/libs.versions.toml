@@ -76,7 +76,7 @@ androidx-compose = { module = "androidx.compose:compose-bom", version.ref = "com
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version = "1.0.1" }
-androidx-datastore = { module = "androidx.datastore:datastore-preferences", version = "1.1.1" }
+androidx-datastore = { module = "androidx.datastore:datastore-preferences", version = "1.1.2" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment-ktx" }
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt" }
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hilt" }
