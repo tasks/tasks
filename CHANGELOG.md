@@ -1,3 +1,20 @@
+### 14.4.2 (2025-01-16)
+
+* Fix crash on missing account
+* Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580
+  * Croatian - @milotype
+  * Dutch - @fvbommel
+  * Esperanto - Don Zouras
+  * French - @FlorianLeChat, @CennoxX
+  * German - @franconian
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Russian - @hady-exc
+  * Slovak - @jose1711
+  * Ukrainian - @IhorHordiichuk
+
 ### 14.4.1 (2025-01-11)
 
 * Microsoft To Do support [#2011](https://github.com/tasks/tasks/issues/2011)

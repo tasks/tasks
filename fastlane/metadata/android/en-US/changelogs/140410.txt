@@ -1,0 +1,2 @@
+* Fix crash on missing account
+* Update translations
