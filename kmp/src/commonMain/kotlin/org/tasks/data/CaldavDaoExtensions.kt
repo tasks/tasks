@@ -21,12 +21,13 @@ suspend fun CaldavDao.getLocalList() = mutex.withLock {
     getLocalList(getLocalAccount())
 }
 
-private suspend fun CaldavDao.getLocalAccount() = getAccountByUuid(CaldavDao.LOCAL) ?: CaldavAccount(
-    accountType = CaldavAccount.TYPE_LOCAL,
-    uuid = CaldavDao.LOCAL,
-).let {
-    it.copy(id = insert(it))
-}
+suspend fun CaldavDao.getLocalAccount() =
+    getAccountByUuid(CaldavDao.LOCAL)
+        ?: CaldavAccount(
+            accountType = CaldavAccount.TYPE_LOCAL,
+            uuid = CaldavDao.LOCAL,
+        )
+            .let { it.copy(id = insert(it)) }
 
 private suspend fun CaldavDao.getLocalList(account: CaldavAccount): CaldavCalendar =
     getCalendarsByAccount(account.uuid!!).getOrNull(0)

@@ -11,6 +11,7 @@ import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
+import org.tasks.data.getLocalAccount
 import org.tasks.data.getLocalList
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.CustomFilter
@@ -85,8 +86,13 @@ class DefaultFilterProvider @Inject constructor(
         val filter = caldavDao
             .getCalendars()
             .filterNot { it.access == ACCESS_READ_ONLY }
-            .getOrElse(0) { caldavDao.getLocalList() }
-            .let { CaldavFilter(calendar = it, account = caldavDao.getAccountByUuid(it.account!!)!!) }
+            .getOrNull(0)
+            ?.let { list ->
+                list.account
+                    ?.let { caldavDao.getAccountByUuid(it) }
+                    ?.let { account -> CaldavFilter(calendar = list, account = account) }
+            }
+            ?: CaldavFilter(calendar = caldavDao.getLocalList(), account = caldavDao.getLocalAccount())
         defaultList = filter
         return filter
     }
