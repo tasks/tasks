@@ -7,12 +7,7 @@
     <string name="backup_BAc_export">Створити резервну копію зараз</string>
     <string name="export_toast">Збережено %1$s в %2$s.</string>
     <string name="import_summary_title">Відновити підсумок</string>
-    <string name="import_summary_message">Файл %1$s містив %2$s.
-\n
-\n %3$s імпортовано,
-\n %4$s вже існувало,
-\n %5$s з помилками
-\n</string>
+    <string name="import_summary_message">Файл %1$s містив %2$s. \n \n %3$s імпортовано, \n %4$s вже існувало, \n %5$s з помилками</string>
     <string name="import_progress_read">Читання завдання %d…</string>
     <string name="read_permission_label">Дозволи Tasks</string>
     <string name="discard_confirmation">Дійсно хочете скасувати ваші зміни?</string>
@@ -752,4 +747,22 @@
     <string name="delete_comment">коментар</string>
     <string name="comment">Коментар</string>
     <string name="yesterday">Учора</string>
+    <string name="subtasks_multilevel_microsoft">Багаторівневі підзавдання, які не підтримуються Microsoft To Do</string>
+    <string name="cost_free">Вартість: Безплатно</string>
+    <string name="cost_more_money">Вартість: $$$</string>
+    <string name="multiline_title">Дозволити багаторядкові заголовки</string>
+    <string name="multiline_title_on">Натисніть Enter, щоб перенести рядок</string>
+    <string name="multiline_title_off">Натисніть Готово, щоб закрити клавіатуру</string>
+    <string name="sync_warning_microsoft">Не всі відомості про завдання синхронізуються з Microsoft To Do.</string>
+    <string name="sync_warning_google_tasks_title">Про синхронізацію з Google Task</string>
+    <string name="sync_warning_microsoft_title">Про синхронізацію з Microsoft To Do</string>
+    <string name="sync_warning_google_tasks">Не всі відомості про завдання синхронізуються з Google Tasks</string>
+    <string name="price_per_year_with_currency">%s/рік</string>
+    <string name="button_learn_more">Докладніше</string>
+    <string name="enable_alarms">Отримуйте сповіщення в потрібний час</string>
+    <string name="enable_alarms_description">Щоб бути впевненим, що ви отримаєте сповіщення в потрібний час, надайте дозвіл на встановлення будильників і нагадувань у Налаштуваннях</string>
+    <string name="price_per_month_with_currency">%s/місяць</string>
+    <string name="add_shortcut_to_home_screen">Додати ярлик на домашній екран</string>
+    <string name="add_widget_to_home_screen">Додати віджет на домашній екран</string>
+    <string name="cost_money">Вартість: $</string>
 </resources>
