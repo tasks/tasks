@@ -403,7 +403,7 @@
     <string name="collapse_subtasks">Alt görevleri gizle</string>
     <string name="TEA_add_subtask">Alt görev ekle</string>
     <string name="subtasks">Alt görevler</string>
-    <string name="subtasks_multilevel_google_task">Google Görevler, çoklu düzey alt görevleri desteklemez</string>
+    <string name="subtasks_multilevel_google_task">Google Görevler, çok düzeyli alt görevleri desteklemez</string>
     <string name="enter_tag_name">Etiket adı girin</string>
     <string name="display_name">Gösterim adı</string>
     <string name="this_feature_requires_a_subscription">Bu özellik abonelik gerektiriyor</string>
@@ -739,4 +739,5 @@
     <string name="multiline_title">Çok satırlı başlıklara izin ver</string>
     <string name="multiline_title_on">Satır eklemek için Enter tuşuna bas</string>
     <string name="multiline_title_off">Klavyeyi kapatmak için Bitti\'ye bas</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do, çok düzeyli alt görevleri desteklemez</string>
 </resources>
