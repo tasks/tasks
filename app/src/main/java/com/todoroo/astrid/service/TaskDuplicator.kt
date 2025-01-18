@@ -11,7 +11,6 @@ import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskAttachmentDao
 import org.tasks.data.db.DbUtils.dbchunk
-import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Attachment
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Geofence
@@ -110,7 +109,7 @@ class TaskDuplicator @Inject constructor(
         }
         val alarms = alarmDao.getAlarms(task.id)
         if (alarms.isNotEmpty()) {
-            alarmDao.insert(alarms.map { Alarm(task = clone.id, time = it.time, type = it.type) })
+            alarmDao.insert(alarms.map { it.copy(id = 0, task = clone.id) })
         }
         gcalHelper.createTaskEventIfEnabled(clone)
         taskDao.save(clone, null) // TODO: delete me
