@@ -677,6 +677,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onResume() {
         super.onResume()
+        listViewModel.invalidate()
         localBroadcastManager.registerTaskCompletedReceiver(repeatConfirmationReceiver)
     }
 
