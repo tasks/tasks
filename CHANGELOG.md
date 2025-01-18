@@ -1,3 +1,14 @@
+### 14.4.3 (2025-01-18)
+
+* Preserve reminder recurrence when copying tasks
+* Refresh task list after changing settings
+* Fix missing chips for local lists
+* Fix changes being lost when completing task from edit screen
+* Update translations
+  * German - @franconian
+  * Turkish - @emintufan
+  * Ukrainian - @IhorHordiichuk
+
 ### 14.4.2 (2025-01-16)
 
 * Fix crash on missing account
