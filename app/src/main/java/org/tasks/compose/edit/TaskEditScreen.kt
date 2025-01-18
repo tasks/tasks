@@ -1,7 +1,6 @@
 package org.tasks.compose.edit
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -35,7 +34,7 @@ import org.tasks.themes.TasksTheme
 import org.tasks.ui.TaskEditViewModel
 import org.tasks.utility.copyToClipboard
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskEditScreen(
     viewState: TaskEditViewModel.ViewState,

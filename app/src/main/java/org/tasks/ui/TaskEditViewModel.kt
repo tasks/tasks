@@ -600,7 +600,7 @@ class TaskEditViewModel @Inject constructor(
     fun setComplete(completed: Boolean) {
         _viewState.update { state ->
             state.copy(
-                task = task.copy(
+                task = state.task.copy(
                     completionDate = when {
                         !completed -> 0
                         task.isCompleted -> task.completionDate
