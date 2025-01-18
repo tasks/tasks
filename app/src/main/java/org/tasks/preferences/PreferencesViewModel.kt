@@ -17,6 +17,7 @@ import org.tasks.R
 import org.tasks.backup.BackupConstants
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.googleapis.InvokerFactory
 import org.tasks.gtasks.GoogleAccountManager
@@ -37,7 +38,7 @@ class PreferencesViewModel @Inject constructor(
     val lastDriveBackup = MutableLiveData<Long?>()
     val lastAndroidBackup = MutableLiveData<Long>()
     val caldavAccounts: Flow<List<CaldavAccount>>
-        get() = caldavDao.watchAccounts()
+        get() = caldavDao.watchAccounts(exclude = listOf(TYPE_LOCAL))
 
     private fun isStale(timestamp: Long?) =
             timestamp != null

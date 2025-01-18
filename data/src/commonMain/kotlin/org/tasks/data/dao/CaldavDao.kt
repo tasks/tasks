@@ -63,13 +63,13 @@ abstract class CaldavDao(private val database: Database) {
     @Query("""
 SELECT *
 FROM caldav_accounts
-WHERE cda_account_type != $TYPE_LOCAL
+WHERE cda_account_type NOT IN (:exclude)
 ORDER BY CASE cda_account_type
              WHEN $TYPE_TASKS THEN 0
              ELSE 1
              END, UPPER(cda_name)
     """)
-    abstract fun watchAccounts(): Flow<List<CaldavAccount>>
+    abstract fun watchAccounts(exclude: List<Int> = emptyList()): Flow<List<CaldavAccount>>
 
     @Query("""
 SELECT *
