@@ -249,7 +249,7 @@
     <string name="geofence_radius">Virtuala periferio</string>
     <string name="pick_a_date_and_time">Elekti daton kaj horon</string>
     <string name="add_location">Aldoni lokon</string>
-    <string name="add_reminder">Aldoni memorigilon</string>
+    <string name="add_reminder">Memorigi</string>
     <string name="source_code">Fontkodo</string>
     <string name="row_spacing">Intervica spaco</string>
     <string name="header_spacing">Interspaco</string>
@@ -360,7 +360,7 @@
     <string name="show_advanced_settings">Vidigi altnivelajn agordojn</string>
     <string name="help_and_feedback">Helpo k pritakso</string>
     <string name="button_unsubscribe">Nuligi abonon</string>
-    <string name="ring_once">Sonori unufoje</string>
+    <string name="ring_once">Soni unufoje</string>
     <string name="default_location_reminder_on_arrival">Post alveno</string>
     <string name="CFC_importance_text">Prioritato almenaŭ estas ?</string>
     <string name="generate_new_password">Generi novan pasvorton</string>
@@ -435,11 +435,11 @@
     <string name="account">Konto</string>
     <string name="social">Sociaj Komunikiloj</string>
     <string name="more_options">Pli da opcioj</string>
-    <string name="ring_nonstop">Sonori daŭre</string>
+    <string name="ring_nonstop">Soni daŭre</string>
     <string name="EPr_show_task_edit_comments">Vidigi komentojn en taskredaktilo</string>
     <string name="EPr_cal_end_at_due_time">Finigi kalendarajn eventoj ĉe limtempo</string>
     <string name="EPr_cal_start_at_due_time">Komencu kalendarajn eventoj ĉe limtempo</string>
-    <string name="ring_five_times">Sonori kvinfoje</string>
+    <string name="ring_five_times">Soni kvinfoje</string>
     <string name="repeat_type_completion_capitalized">Plenumiga dato</string>
     <string name="visit_website">Viziti retejon</string>
     <string name="location_arrived">Alvenis je %s</string>
