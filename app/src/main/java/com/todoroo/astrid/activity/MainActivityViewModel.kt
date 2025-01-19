@@ -16,6 +16,8 @@ import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -23,6 +25,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.billing.Inventory
 import org.tasks.compose.drawer.DrawerItem
+import org.tasks.compose.throttleLatest
 import org.tasks.data.NO_COUNT
 import org.tasks.data.count
 import org.tasks.data.dao.CaldavDao
@@ -36,6 +39,7 @@ import org.tasks.filters.getIcon
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.TasksPreferences
 import org.tasks.themes.ColorProvider
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -63,6 +67,7 @@ class MainActivityViewModel @Inject constructor(
 
     private val _drawerOpen = MutableStateFlow(false)
     val drawerOpen = _drawerOpen.asStateFlow()
+    private val _updateFilters = MutableStateFlow(0L)
 
     private val _state = MutableStateFlow(
         State(
@@ -80,7 +85,7 @@ class MainActivityViewModel @Inject constructor(
         override fun onReceive(context: Context?, intent: Intent?) {
             when (intent?.action) {
                 LocalBroadcastManager.REFRESH,
-                LocalBroadcastManager.REFRESH_LIST -> updateFilters()
+                LocalBroadcastManager.REFRESH_LIST -> _updateFilters.update { currentTimeMillis() }
             }
         }
     }
@@ -117,14 +122,17 @@ class MainActivityViewModel @Inject constructor(
 
     init {
         localBroadcastManager.registerRefreshListReceiver(refreshReceiver)
-        updateFilters()
+        _updateFilters
+            .throttleLatest(1000)
+            .onEach { updateFilters() }
+            .launchIn(viewModelScope)
     }
 
     override fun onCleared() {
         localBroadcastManager.unregisterReceiver(refreshReceiver)
     }
 
-    fun updateFilters() = viewModelScope.launch(Dispatchers.Default) {
+    private fun updateFilters() = viewModelScope.launch(Dispatchers.IO) {
         val selected = state.value.filter
         filterProvider
             .drawerItems()
