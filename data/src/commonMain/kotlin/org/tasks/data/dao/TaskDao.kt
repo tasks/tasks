@@ -3,8 +3,9 @@ package org.tasks.data.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.RawQuery
+import androidx.room.RoomRawQuery
 import androidx.room.Update
-import androidx.room.execSQL
 import co.touchlab.kermit.Logger
 import org.tasks.IS_DEBUG
 import org.tasks.data.TaskContainer
@@ -14,11 +15,8 @@ import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Task
-import org.tasks.data.getTasks
-import org.tasks.data.rawQuery
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.Functions
-import org.tasks.data.withTransaction
 import org.tasks.time.DateTimeUtils2
 
 private const val MAX_TIME = 9999999999999
@@ -110,26 +108,27 @@ FROM (
             + "WHERE completed > 0 AND calendarUri IS NOT NULL AND calendarUri != ''")
     abstract suspend fun clearCompletedCalendarEvents(): Int
 
-    open suspend fun fetchTasks(callback: suspend () -> List<String>): List<TaskContainer> =
-        database.withTransaction {
-            val start = if (IS_DEBUG) DateTimeUtils2.currentTimeMillis() else 0
-            val queries = callback()
-            val last = queries.size - 1
-            for (i in 0 until last) {
-                execSQL(queries[i])
-            }
-            val result = usePrepared(queries[last]) { it.getTasks() }
-            Logger.v("TaskDao") {
-                "${DateTimeUtils2.currentTimeMillis() - start}ms: ${queries.joinToString(";\n")}"
-            }
-            result
-        }
+    suspend fun fetchTasks(query: String): List<TaskContainer> {
+        val start = DateTimeUtils2.currentTimeMillis()
+        val result = fetchRaw(RoomRawQuery(query))
+        val end = DateTimeUtils2.currentTimeMillis()
+        Logger.v("TaskDao") { "${end - start}ms: ${query.replace(Regex("\\s+"), " ").trim()}" }
+        return result
+    }
 
-    suspend fun fetchTasks(query: String): List<TaskContainer> =
-        database.rawQuery(query) { it.getTasks() }
+    @RawQuery
+    internal abstract suspend fun fetchRaw(query: RoomRawQuery): List<TaskContainer>
 
-    suspend fun countRaw(query: String): Int =
-        database.rawQuery(query) { if (it.step()) it.getInt(0) else 0 }
+    suspend fun count(query: String): Int {
+        val start = DateTimeUtils2.currentTimeMillis()
+        val result = countRaw(RoomRawQuery(query))
+        val end = DateTimeUtils2.currentTimeMillis()
+        Logger.v("TaskDao") { "${end - start}ms: ${query.replace(Regex("\\s+"), " ").trim()}" }
+        return result
+    }
+
+    @RawQuery
+    internal abstract suspend fun countRaw(query: RoomRawQuery): Int
 
     suspend fun touch(ids: List<Long>, now: Long = DateTimeUtils2.currentTimeMillis()) =
         ids.eachChunk { internalTouch(it, now) }
