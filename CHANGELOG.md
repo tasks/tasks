@@ -1,3 +1,7 @@
+### 14.4.4 (2024-01-19)
+
+* Fix list pickers [#3269](https://github.com/tasks/tasks/issues/3269)
+
 ### 14.4.3 (2025-01-18)
 
 * Preserve reminder recurrence when copying tasks
