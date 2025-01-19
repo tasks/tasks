@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
-import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
+import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
 import org.tasks.data.UUIDHelper
 import org.tasks.databinding.ActivityWidgetShortcutLayoutBinding
 import org.tasks.dialogs.ColorPalettePicker
@@ -38,7 +38,7 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
 
     private var selectedFilter: Filter? = null
     private var selectedTheme = 0
-    private val listPickerResult = registerForListPickerResult {
+    private val listPickerResult = registerForFilterPickerResult {
         if (selectedFilter != null && selectedFilter!!.title == getShortcutName()) {
             shortcutName.text = null
         }

@@ -121,7 +121,17 @@ class FilterSelectionActivity : AppCompatActivity() {
             }
         }
 
-        fun ComponentActivity.registerForListPickerResult(callback: (Filter) -> Unit): ActivityResultLauncher<Intent> {
+        fun Fragment.registerForFilterPickerResult(callback: (Filter) -> Unit): ActivityResultLauncher<Intent> {
+            return registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                it.data?.let { intent ->
+                    IntentCompat
+                        .getParcelableExtra(intent, EXTRA_FILTER, Filter::class.java)
+                        ?.let(callback)
+                }
+            }
+        }
+
+        fun ComponentActivity.registerForFilterPickerResult(callback: (Filter) -> Unit): ActivityResultLauncher<Intent> {
             return registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 it.data?.let { intent ->
                     IntentCompat

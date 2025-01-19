@@ -4,7 +4,7 @@ import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
-import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
+import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
 import org.tasks.filters.Filter
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.bundle.ListNotificationBundle
@@ -30,7 +30,7 @@ class TaskerListNotification : InjectingPreferenceFragment() {
 
     lateinit var filter: Filter
     var cancelled: Boolean = false
-    private val listPickerLauncher = registerForListPickerResult {
+    private val listPickerLauncher = registerForFilterPickerResult {
         filter = it
         refreshPreferences()
     }

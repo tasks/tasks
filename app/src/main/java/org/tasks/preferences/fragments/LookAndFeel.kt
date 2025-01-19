@@ -18,14 +18,13 @@ import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
-import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
+import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter
 import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.dialogs.ThemePickerDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
-import org.tasks.extensions.Context.isNightMode
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.LocalePickerDialog
 import org.tasks.preferences.DefaultFilterProvider
@@ -51,7 +50,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var locale: Locale
 
-    private val listPickerLauncher = registerForListPickerResult {
+    private val listPickerLauncher = registerForFilterPickerResult {
         defaultFilterProvider.setDefaultOpenFilter(it)
         findPreference(R.string.p_default_open_filter).summary = it.title
         localBroadcastManager.broadcastRefresh()

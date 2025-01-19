@@ -16,7 +16,6 @@ import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
-import org.tasks.data.displayName
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.TagData

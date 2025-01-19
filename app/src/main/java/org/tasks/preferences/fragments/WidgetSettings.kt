@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
-import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
+import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
@@ -64,7 +64,7 @@ class WidgetSettings : InjectingPreferenceFragment() {
 
     private lateinit var widgetPreferences: WidgetPreferences
     private var appWidgetId = 0
-    private val listPickerLauncher = registerForListPickerResult {
+    private val listPickerLauncher = registerForFilterPickerResult {
         widgetPreferences.setFilter(defaultFilterProvider.getFilterPreferenceValue(it))
         updateFilter()
     }

@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
-import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
+import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
 import org.tasks.extensions.Context.getResourceUri
 import org.tasks.extensions.Context.openChannelNotificationSettings
@@ -42,7 +42,7 @@ class Notifications : InjectingPreferenceFragment() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var voiceOutputAssistant: VoiceOutputAssistant
 
-    private val listPickerLauncher = registerForListPickerResult {
+    private val listPickerLauncher = registerForFilterPickerResult {
         defaultFilterProvider.setBadgeFilter(it)
         findPreference(R.string.p_badge_list).summary = it.title
         localBroadcastManager.broadcastRefresh()
