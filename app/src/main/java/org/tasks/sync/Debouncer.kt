@@ -7,16 +7,12 @@ class Debouncer(private val tag: String, private val block: suspend (Boolean) ->
     private var count = 0
 
     suspend fun sync(immediate: Boolean) {
-        if (immediate) {
-            block(true)
+        val thisCount = ++count
+        delay(1000)
+        if (thisCount == count) {
+            block(immediate)
         } else {
-            val thisCount = ++count
-            delay(1000)
-            if (thisCount == count) {
-                block(false)
-            } else {
-                Timber.v("debouncing $tag")
-            }
+            Timber.v("debouncing $tag")
         }
     }
 }
