@@ -808,6 +808,7 @@
 +|    |         |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.0 (*)
 +|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.1.0 (*)
 +|    |         |         +--- androidx.sqlite:sqlite-framework:2.5.0-alpha12 (c)
++|    |         |         +--- androidx.sqlite:sqlite-bundled:2.5.0-alpha12 (c)
 +|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (c)
 +|    |         +--- androidx.sqlite:sqlite-framework:2.5.0-alpha12
 +|    |         |    \--- androidx.sqlite:sqlite-framework-android:2.5.0-alpha12
@@ -815,6 +816,7 @@
 +|    |         |         +--- androidx.sqlite:sqlite:2.5.0-alpha12 (*)
 +|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.1.0 (*)
 +|    |         |         +--- androidx.sqlite:sqlite:2.5.0-alpha12 (c)
++|    |         |         +--- androidx.sqlite:sqlite-bundled:2.5.0-alpha12 (c)
 +|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (c)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.1.0 (*)
 +|    |         +--- org.jetbrains.kotlinx:atomicfu:0.17.0 -> 0.23.2
@@ -1521,6 +1523,13 @@
 ++--- androidx.lifecycle:lifecycle-runtime-compose:2.8.7 (*)
 ++--- androidx.lifecycle:lifecycle-viewmodel:2.8.7 (*)
 ++--- androidx.room:room-runtime:2.7.0-alpha12 (*)
+++--- androidx.sqlite:sqlite-bundled:2.5.0-alpha12
++|    \--- androidx.sqlite:sqlite-bundled-android:2.5.0-alpha12
++|         +--- androidx.sqlite:sqlite:2.5.0-alpha12 (*)
++|         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.1.0 (*)
++|         +--- androidx.sqlite:sqlite:2.5.0-alpha12 (c)
++|         +--- androidx.sqlite:sqlite-framework:2.5.0-alpha12 (c)
++|         \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.0 (c)
 ++--- androidx.appcompat:appcompat:1.7.0 (*)
 ++--- com.mikepenz:iconics-core:5.5.0-b01 (*)
 ++--- io.noties.markwon:core:4.6.2
