@@ -105,7 +105,7 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
         googleTaskDao.insert(newCaldavTask(with(CALENDAR, filter.uuid), with(TASK, id)))
     }
 
-    private suspend fun query(): List<TaskContainer> = taskDao.fetchTasks {
+    private suspend fun query(): List<TaskContainer> = taskDao.fetchTasks(
         TaskListQuery.getQuery(preferences, filter)
-    }
+    )
 }
