@@ -2,6 +2,7 @@ package org.tasks.injection
 
 import android.content.Context
 import androidx.room.Room
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +26,7 @@ class TestModule {
     @Singleton
     fun getDatabase(@ApplicationContext context: Context): Database {
         return Room.inMemoryDatabaseBuilder(context, Database::class.java)
+                .setDriver(BundledSQLiteDriver())
                 .fallbackToDestructiveMigration(dropAllTables = true)
                 .build()
     }
