@@ -17,20 +17,11 @@ import org.tasks.preferences.QueryPreferences
 internal object TaskListQueryRecursive {
     private val RECURSIVE = Table("recursive_tasks")
     private val RECURSIVE_TASK = field("$RECURSIVE.task")
-    private val FIELDS =
-            TaskListQuery.FIELDS.plus(listOf(
-                    field("group_concat(distinct(tag_uid))").`as`("tags"),
-                    field("indent"),
-                    field("sort_group"),
-                    field("children"),
-                    field("primary_sort"),
-                    field("secondary_sort"),
-                    field("parent_complete"),
-            )).toTypedArray()
     private val SUBTASK_QUERY =
             QueryTemplate()
-                    .join(Join.inner(RECURSIVE, Task.PARENT.eq(RECURSIVE_TASK)))
-                    .where(activeAndVisible())
+                .join(Join.inner(RECURSIVE, Task.PARENT.eq(RECURSIVE_TASK)))
+                .where(activeAndVisible())
+                .toString()
 
     // TODO: switch to datastore, reading from preferences is expensive (30+ ms)
     fun getRecursiveQuery(
@@ -117,7 +108,13 @@ internal object TaskListQueryRecursive {
                     recursive_tasks.sort_group AS sort_group
                 FROM tasks
                 $SUBTASK_QUERY
-                ORDER BY parent_complete, indent DESC, subtask_complete, completion_sort ${if (preferences.completedAscending) "" else "DESC"}, ${SortHelper.orderForGroupTypeRecursive(groupMode, groupAscending)}, ${SortHelper.orderForSortTypeRecursive(sortMode, sortAscending, subtaskMode, subtaskAscending)}
+                ORDER BY
+                    parent_complete,
+                    indent DESC,
+                    subtask_complete,
+                    completion_sort ${if (preferences.completedAscending) "" else "DESC"},
+                    ${SortHelper.orderForGroupTypeRecursive(groupMode, groupAscending)},
+                    ${SortHelper.orderForSortTypeRecursive(sortMode, sortAscending, subtaskMode, subtaskAscending)}
             ),
             numbered_tasks AS (
                 SELECT task, ROW_NUMBER() OVER () AS sequence
@@ -135,13 +132,22 @@ internal object TaskListQueryRecursive {
                 WHERE parent > 0
             )
             SELECT
-                ${FIELDS.joinToString(", ") { it.toStringInSelect() }}   
+                ${TaskListQuery.FIELDS.joinToString(",\n") { it.toStringInSelect() }},
+                group_concat(distinct(tag_uid)) AS tags,
+                indent,
+                sort_group,
+                children,
+                primary_sort,
+                secondary_sort,
+                parent_complete
             FROM tasks
                 INNER JOIN numbered_tasks ON tasks._id = numbered_tasks.task
                 INNER JOIN max_indent ON tasks._id = max_indent.task
                 INNER JOIN recursive_tasks ON recursive_tasks.task = tasks._id
                 LEFT JOIN child_counts ON child_counts.parent = tasks._id
-                ${PermaSql.replacePlaceholdersForQuery("${TaskListQuery.JOINS} WHERE recursive_tasks.hidden = 0")}
+                ${TaskListQuery.JOINS}
+            WHERE
+                recursive_tasks.hidden = 0
                 AND recursive_tasks.indent = max_indent
                 GROUP BY tasks._id
                 ORDER BY sequence
