@@ -213,7 +213,7 @@
     <string name="TEA_timer_comment_started">attività iniziata:</string>
     <string name="TEA_timer_comment_stopped">attività terminata:</string>
     <string name="TEA_timer_comment_spent">Tempo speso:</string>
-    <string name="voice_create_prompt">Dettami il nome dell\'attività</string>
+    <string name="voice_create_prompt">Detta il nome dell\'attività</string>
     <string name="EPr_voiceInputEnabled_title">Voce</string>
     <string name="EPr_voiceRemindersEnabled_title">Promemoria vocali</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks pronuncerà il nome dell\'attività durante i promemoria</string>
@@ -746,15 +746,15 @@
     <string name="add_widget_to_home_screen">Aggiungi widget sulla Home</string>
     <string name="comment">Commento</string>
     <string name="cost_free">Costo: gratuito</string>
-    <string name="multiline_title">Consentire titoli su più linee</string>
-    <string name="multiline_title_on">Premi enter per aggiungere una interruzioni di riga</string>
-    <string name="multiline_title_off">Premi Fatto per chiudere la tastiera</string>
+    <string name="multiline_title">Consenti titoli su più linee</string>
+    <string name="multiline_title_on">Premi invio per aggiungere una interruzioni di riga</string>
+    <string name="multiline_title_off">Premi il segno di spunta per chiudere la tastiera</string>
     <string name="cost_more_money">Costo: $$$</string>
     <string name="cost_money">Costo: $</string>
-    <string name="sync_warning_google_tasks">Non tutti i dettagli delle attività si sincronizzano con Google Tasks</string>
-    <string name="button_learn_more">Per saperne di più</string>
+    <string name="sync_warning_google_tasks">Non tutti i dettagli delle attività saranno sincronizzati con Google Tasks</string>
+    <string name="button_learn_more">Approfondisci</string>
     <string name="sync_warning_microsoft_title">Informazioni su Microsoft To Do sync</string>
-    <string name="sync_warning_microsoft">Non tutti i dettagli delle attività si sincronizzano con Microsoft To Do.</string>
+    <string name="sync_warning_microsoft">Non tutti i dettagli delle attività saranno sincronizzati con Microsoft To Do.</string>
     <string name="sync_warning_google_tasks_title">Informazioni su Google Task sync</string>
     <string name="subtasks_multilevel_microsoft">Attività secondarie multi-livello non supportate da Microsoft To Do</string>
 </resources>
