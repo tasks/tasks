@@ -1,0 +1,3 @@
+* Database performance improvements
+* DAVx5 sync performance improvements
+* Update translations
