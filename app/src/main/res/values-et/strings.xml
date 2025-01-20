@@ -522,4 +522,5 @@
         <item quantity="one">%d ülesanne</item>
         <item quantity="other">%d ülesannet</item>
     </plurals>
+    <string name="yesterday">Eile</string>
 </resources>
