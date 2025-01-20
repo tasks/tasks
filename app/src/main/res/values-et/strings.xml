@@ -180,7 +180,7 @@
     <string name="url_invalid_scheme">Peab algama nii http(s)://</string>
     <string name="no_title">(Pealkirjata)</string>
     <string name="back_button_saves_task">Tagasi nupp salvestab ülesande</string>
-    <string name="default_list">Vaikimisi nimekiri</string>
+    <string name="default_list">Vaikimisi loend</string>
     <string name="filter">Filter</string>
     <string name="opacity">Läbipaistvus</string>
     <string name="theme">Teema</string>
@@ -497,7 +497,7 @@
         <item quantity="other">%d minutit</item>
     </plurals>
     <string name="display_name">Kuvatav nimi</string>
-    <string name="show_advanced_settings"></string>
+    <string name="show_advanced_settings"/>
     <string name="hide_unused_tags">Peida kasutamata sildid</string>
     <string name="third_party_licenses">Kolmandate osapoolte litsentsid</string>
     <string name="name_your_price">Ütle oma hind</string>
