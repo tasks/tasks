@@ -56,7 +56,7 @@
     <string name="EPr_delete_task_data">Kustuta ülesande andmed</string>
     <string name="EPr_delete_task_data_warning">Kõik ülesanded kustutatakse jäädavalt</string>
     <string name="EPr_manage_delete_completed_gcal_message">Kas sa tõesti soovid kustutada kõigi lõpetatud ülesannete sündmused\?</string>
-    <string name="EPr_manage_delete_gcal_status">Kalendrist kustutati %d sündmust!</string>
+    <string name="EPr_manage_delete_gcal_status">Kustutasime kalendrist %d sündmust!</string>
     <string name="task_defaults">Ülesande vaikeväärtused</string>
     <string name="EPr_default_importance_title">Vaikimisi tähtsus</string>
     <string name="EPr_default_reminders_title">Vaikimisi meeldetuletused</string>
@@ -77,7 +77,7 @@
     <string name="custom_filter_and">samuti</string>
     <string name="CFA_button_add">Lisa kriteerium</string>
     <string name="next_month">Järgmisel kuul</string>
-    <string name="CFC_importance_text">Tähtsus vähemalt \?</string>
+    <string name="CFC_importance_text">Tähtsus vähemalt ?</string>
     <string name="CFC_importance_name">Tähtsus…</string>
     <string name="CFC_tag_text">Silt: \?</string>
     <string name="CFC_tag_name">Silt…</string>
@@ -159,12 +159,12 @@
     <string name="date_shortcut_tomorrow_afternoon">Homme pärastlõunal</string>
     <string name="discard_changes">Loobud muudatustest\?</string>
     <string name="discard">Loobu</string>
-    <string name="tag_settings">Sildi seaded</string>
+    <string name="tag_settings">Siltide seadistused</string>
     <string name="list_settings">Nimekirja seaded</string>
     <string name="delete">Kustuta</string>
     <string name="copy">Kopeeri</string>
     <string name="move">Liiguta</string>
-    <string name="filter_settings">Filtri seaded</string>
+    <string name="filter_settings">Filtrite seadistused</string>
     <string name="show_completed">Näita lõpetatuid</string>
     <string name="add_attachment">Lisa fail</string>
     <string name="take_a_picture">Tee pilt</string>
@@ -217,7 +217,7 @@
     <string name="repeat_monthly_last_week">viimane</string>
     <string name="tasker_create_task">Loo ülesanne</string>
     <string name="help">Abiinfo</string>
-    <string name="network_error">Ühendumine ebaõnnestus</string>
+    <string name="network_error">Ühendumine ei õnnestunud</string>
     <string name="button_subscribe">Telli</string>
     <string name="about">Info</string>
     <string name="pro_dashclock_extension">Dashclock laiendused</string>
@@ -245,7 +245,7 @@
     <string name="upgrade_more_customization">Rohkem kohandusi</string>
     <string name="more_options">Rohkem valikuid</string>
     <string name="sort_sorting">Sorteerimine</string>
-    <string name="default_random_reminder_daily">Igal päeval</string>
+    <string name="default_random_reminder_daily">Iga päev</string>
     <string name="default_random_reminder_weekly">Igal nädalal</string>
     <string name="next_monday">Järgmine E</string>
     <string name="next_tuesday">Järgmine T</string>
@@ -418,10 +418,10 @@
     <string name="dismiss">Loobu</string>
     <string name="caldav_server_other">Muu</string>
     <string name="customize_drawer">Kohanda menüüriba</string>
-    <string name="CFC_startBefore_name">Alustada enne…</string>
+    <string name="CFC_startBefore_name">Algusajaks…</string>
     <string name="CFC_list_name">Nimekirjas…</string>
     <string name="persistent_notifications_description">Püsiteavitusi ei saa eemaldada</string>
-    <string name="default_random_reminder_hourly">Igas tunnis</string>
+    <string name="default_random_reminder_hourly">Kord tunnis</string>
     <string name="next_sunday">Järgmine P</string>
     <string name="next_saturday">Järgmine L</string>
     <string name="settings_localization">Kohalikustamine</string>
@@ -430,7 +430,7 @@
     <string name="privacy">Privaatsus</string>
     <string name="TEA_add_subtask">Lisa alamülesanne</string>
     <string name="sort_list">Nimekirja alusel</string>
-    <string name="due_time"/>
+    <string name="due_time">Tähtaeg</string>
     <string name="filter_today_only">Ainult täna</string>
     <string name="filter_no_priority">Prioriteedita</string>
     <string name="filter_criteria_unstarted">Alustamata</string>
@@ -489,7 +489,7 @@
     <string name="save_percent">Salvesta %d%%</string>
     <string name="repeats_from">Kordub alates</string>
     <string name="generate_new_password">Loo uus salasõna</string>
-    <string name="snoozed_until">Edasi lükatud kuni %s</string>
+    <string name="snoozed_until">Edasilükatud kuni %s</string>
     <string name="default_due_date">Vaikimisi tähtaeg</string>
     <string name="no_due_date">Tähtaeg puudub</string>
     <plurals name="repeat_n_minutes">
@@ -497,7 +497,7 @@
         <item quantity="other">%d minutit</item>
     </plurals>
     <string name="display_name">Kuvatav nimi</string>
-    <string name="show_advanced_settings"/>
+    <string name="show_advanced_settings">Näita üksikasjalikke seadistusi</string>
     <string name="hide_unused_tags">Peida kasutamata sildid</string>
     <string name="third_party_licenses">Kolmandate osapoolte litsentsid</string>
     <string name="name_your_price">Ütle oma hind</string>
@@ -512,7 +512,7 @@
     <string name="sort_created">Loomisaja alusel</string>
     <string name="EPr_default_reminders_mode_title">Vaikimisi helina/värina tüüp</string>
     <string name="EPr_fullTask_title">Kuva terve ülesande pealkiri</string>
-    <string name="swipe_to_snooze_title">Libista edasilükkamiseks</string>
+    <string name="swipe_to_snooze_title">Edasilükkamiseks viipa</string>
     <string name="swipe_to_snooze_time_15_minutes">15 minuti pärast</string>
     <string name="swipe_to_snooze_time_30_minutes">30 minuti pärast</string>
     <string name="swipe_to_snooze_time_1_hour">1 tunni pärast</string>
@@ -523,4 +523,29 @@
         <item quantity="other">%d ülesannet</item>
     </plurals>
     <string name="yesterday">Eile</string>
+    <string name="export_toast">%1$s kuni %2$s on varundatud.</string>
+    <string name="filter_any_start_date">Igal algusajal</string>
+    <string name="gtasks_error_accountNotFound">„%s“ kasutajakontot ei leidu - palun Google Tasksi seadistustest välja ja uuesti sisse.</string>
+    <string name="CFC_dueBefore_text">Tähtajaks: ?</string>
+    <string name="TPl_notification">Ajastamine on „%s“ jaoks aktiivne!</string>
+    <string name="import_progress_read">Loeme ülesannet %d…</string>
+    <string name="import_summary_message">%1$s fail sisdaldas%2$s.\n\n %3$s imporditud,\n %4$s on juba olemas,\n %5$s oli vigadega</string>
+    <string name="actfm_picture_clear">Eemalda pilt</string>
+    <string name="customize_drawer_summary">Menüükirjeid saad muuta lohistades</string>
+    <string name="TEA_control_timer">Ajastamise haldus</string>
+    <string name="EPr_manage_delete_completed_gcal">Kustuta täidetud ülesannete kalendrikirjed</string>
+    <string name="EPr_manage_delete_all_gcal_message">Kas sa tõesti soovid kustutada kõikide ülesannete kalendrisse märgitud sündmused?</string>
+    <string name="CFC_dueBefore_name">Tähtajaks…</string>
+    <string name="CFC_startBefore_text">Algusajaks: ?</string>
+    <string name="gtasks_GLA_errorIOAuth">Vabandust, Google\'i serveri ühendusega on probleeme. Palun proovi hiljem uuesti.</string>
+    <string name="rmd_EPr_rmd_time_desc">Ilma tähtajata ülesannete teavitused on nähtavad %s</string>
+    <string name="FLA_search_filter">Vasteks „%s“</string>
+    <string name="day_before_due">Päev enne tähtaega</string>
+    <string name="week_before_due">Nädal enne tähtaega</string>
+    <string name="sort_completed">Valmissaamise alusel</string>
+    <string name="swipe_to_snooze_time_description">Eemaldatud teavitus on edasilükatud ja luuakse uuesti %s</string>
+    <string name="swipe_to_snooze_description">Edasilükkamise aeg</string>
+    <string name="tasker_list_notification">Teavituste loend</string>
+    <string name="more_notification_settings_summary">Helinad, teavitused ja muud</string>
+    <string name="EPr_manage_delete_all_gcal">Kustuta kõikide ülesannete kalendrikirjed</string>
 </resources>
