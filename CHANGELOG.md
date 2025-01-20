@@ -1,3 +1,10 @@
+### 14.4.5 (2024-01-19)
+
+* Database performance improvements
+* DAVx5 sync performance improvements
+* Update translations
+  * Esperanto - Don Zouras
+
 ### 14.4.4 (2024-01-19)
 
 * Fix list pickers [#3269](https://github.com/tasks/tasks/issues/3269)
