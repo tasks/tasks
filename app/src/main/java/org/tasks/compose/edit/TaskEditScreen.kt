@@ -22,14 +22,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.viewinterop.AndroidViewBinding
+import androidx.fragment.compose.AndroidFragment
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.gesturesDisabled
 import org.tasks.R
 import org.tasks.compose.BeastModeBanner
 import org.tasks.data.entity.UserActivity
-import org.tasks.databinding.TaskEditCommentBarBinding
 import org.tasks.extensions.Context.findActivity
 import org.tasks.files.FileHelper
+import org.tasks.fragments.CommentBarFragment
 import org.tasks.themes.TasksTheme
 import org.tasks.ui.TaskEditViewModel
 import org.tasks.utility.copyToClipboard
@@ -94,7 +94,7 @@ fun TaskEditScreen(
         },
         bottomBar = {
             if (viewState.showComments && !viewState.isReadOnly) {
-                AndroidViewBinding(TaskEditCommentBarBinding::inflate)
+                AndroidFragment<CommentBarFragment>()
             }
         },
     ) { paddingValues ->

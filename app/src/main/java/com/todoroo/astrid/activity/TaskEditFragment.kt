@@ -13,12 +13,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.viewinterop.AndroidViewBinding
 import androidx.core.os.BundleCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.fragment.compose.AndroidFragment
+import androidx.fragment.compose.content
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastOreoMR1
@@ -49,15 +49,6 @@ import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
-import org.tasks.databinding.TaskEditCalendarBinding
-import org.tasks.databinding.TaskEditFilesBinding
-import org.tasks.databinding.TaskEditLocationBinding
-import org.tasks.databinding.TaskEditRemindersBinding
-import org.tasks.databinding.TaskEditRepeatBinding
-import org.tasks.databinding.TaskEditStartDateBinding
-import org.tasks.databinding.TaskEditSubtasksBinding
-import org.tasks.databinding.TaskEditTagsBinding
-import org.tasks.databinding.TaskEditTimerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DialogBuilder
@@ -116,115 +107,109 @@ class TaskEditFragment : Fragment() {
         get() = BundleCompat.getParcelable(requireArguments(), EXTRA_TASK, Task::class.java)
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        if (atLeastOreoMR1()) {
-            activity?.setShowWhenLocked(preferences.showEditScreenWithoutUnlock)
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ) = content {
+        LaunchedEffect(Unit) {
+            if (atLeastOreoMR1()) {
+                activity?.setShowWhenLocked(preferences.showEditScreenWithoutUnlock)
+            }
         }
-        val view = ComposeView(requireActivity()).apply {
-            setContent {
-                TasksTheme(theme = theme.themeBase.index,) {
-                    val viewState = editViewModel.viewState.collectAsStateWithLifecycle().value
-                    BackHandler {
-                        if (viewState.backButtonSavesTask) {
-                            lifecycleScope.launch {
-                                save()
+        TasksTheme(theme = theme.themeBase.index,) {
+            val viewState = editViewModel.viewState.collectAsStateWithLifecycle().value
+            BackHandler {
+                if (viewState.backButtonSavesTask) {
+                    lifecycleScope.launch {
+                        save()
+                    }
+                } else {
+                    discardButtonClick()
+                }
+            }
+            LaunchedEffect(viewState.isNew) {
+                if (!viewState.isNew) {
+                    notificationManager.cancel(viewState.task.id)
+                }
+            }
+            TaskEditScreen(
+                viewState = viewState,
+                comments = userActivityDao
+                    .watchComments(viewState.task.uuid)
+                    .collectAsStateWithLifecycle(emptyList())
+                    .value,
+                save = { lifecycleScope.launch { save() } },
+                discard = { discardButtonClick() },
+                onBackPressed = { activity?.onBackPressed() },
+                delete = { deleteButtonClick() },
+                openBeastModeSettings = {
+                    editViewModel.hideBeastModeHint(click = true)
+                    beastMode.launch(Intent(context, BeastModePreferences::class.java))
+                },
+                dismissBeastMode = { editViewModel.hideBeastModeHint(click = false) },
+                deleteComment = {
+                    lifecycleScope.launch {
+                        userActivityDao.delete(it)
+                    }
+                },
+            ) { tag ->
+                val context = LocalContext.current
+                when (tag) {
+                    TAG_TITLE ->
+                        TitleRow(
+                            viewState = viewState,
+                            requestFocus = viewState.showKeyboard,
+                        )
+
+                    TAG_DUE_DATE -> DueDateRow()
+                    TAG_PRIORITY ->
+                        PriorityRow(
+                            priority = viewState.task.priority,
+                            onChangePriority = { editViewModel.setPriority(it) },
+                        )
+
+                    TAG_DESCRIPTION ->
+                        DescriptionRow(
+                            text = viewState.task.notes,
+                            onChanged = { text -> editViewModel.setDescription(text.toString().trim { it <= ' ' }) },
+                            linkify = if (viewState.linkify) linkify else null,
+                            markdownProvider = markdownProvider,
+                        )
+
+                    TAG_LIST ->
+                        ListRow(
+                            list = viewState.list,
+                            colorProvider = { chipProvider.getColor(it) },
+                            onClick = {
+                                listPickerLauncher.launch(
+                                    context = context,
+                                    selectedFilter = viewState.list,
+                                    listsOnly = true
+                                )
                             }
-                        } else {
-                            discardButtonClick()
-                        }
-                    }
-                    LaunchedEffect(viewState.isNew) {
-                        if (!viewState.isNew) {
-                            notificationManager.cancel(viewState.task.id)
-                        }
-                    }
-                    TaskEditScreen(
-                        viewState = viewState,
-                        comments = userActivityDao
-                            .watchComments(viewState.task.uuid)
-                            .collectAsStateWithLifecycle(emptyList())
-                            .value,
-                        save = { lifecycleScope.launch { save() } },
-                        discard = { discardButtonClick() },
-                        onBackPressed = { activity?.onBackPressed() },
-                        delete = { deleteButtonClick() },
-                        openBeastModeSettings = {
-                            editViewModel.hideBeastModeHint(click = true)
-                            beastMode.launch(Intent(context, BeastModePreferences::class.java))
-                        },
-                        dismissBeastMode = { editViewModel.hideBeastModeHint(click = false) },
-                        deleteComment = {
-                            lifecycleScope.launch {
-                                userActivityDao.delete(it)
-                            }
-                        },
-                    ) { tag ->
-                        // TODO: remove ui-viewbinding library when these are all migrated
-                        when (tag) {
-                            TAG_TITLE ->
-                                TitleRow(
-                                    viewState = viewState,
-                                    requestFocus = viewState.showKeyboard,
-                                )
+                        )
 
-                            TAG_DUE_DATE -> DueDateRow()
-                            TAG_PRIORITY ->
-                                PriorityRow(
-                                    priority = viewState.task.priority,
-                                    onChangePriority = { editViewModel.setPriority(it) },
-                                )
+                    TAG_CREATION ->
+                        InfoRow(
+                            creationDate = viewState.task.creationDate,
+                            modificationDate = viewState.task.modificationDate,
+                            completionDate = viewState.task.completionDate,
+                            locale = locale,
+                        )
 
-                            TAG_DESCRIPTION ->
-                                DescriptionRow(
-                                    text = viewState.task.notes,
-                                    onChanged = { text -> editViewModel.setDescription(text.toString().trim { it <= ' ' }) },
-                                    linkify = if (viewState.linkify) linkify else null,
-                                    markdownProvider = markdownProvider,
-                                )
-
-                            TAG_LIST ->
-                                ListRow(
-                                    list = viewState.list,
-                                    colorProvider = { chipProvider.getColor(it) },
-                                    onClick = {
-                                        listPickerLauncher.launch(
-                                            context = context,
-                                            selectedFilter = viewState.list,
-                                            listsOnly = true
-                                        )
-                                    }
-                                )
-
-                            TAG_CREATION ->
-                                InfoRow(
-                                    creationDate = viewState.task.creationDate,
-                                    modificationDate = viewState.task.modificationDate,
-                                    completionDate = viewState.task.completionDate,
-                                    locale = locale,
-                                )
-
-                            CalendarControlSet.TAG -> AndroidViewBinding(TaskEditCalendarBinding::inflate)
-                            StartDateControlSet.TAG -> AndroidViewBinding(
-                                TaskEditStartDateBinding::inflate
-                            )
-
-                            ReminderControlSet.TAG -> AndroidViewBinding(
-                                TaskEditRemindersBinding::inflate
-                            )
-
-                            LocationControlSet.TAG -> AndroidViewBinding(TaskEditLocationBinding::inflate)
-                            FilesControlSet.TAG -> AndroidViewBinding(TaskEditFilesBinding::inflate)
-                            TimerControlSet.TAG -> AndroidViewBinding(TaskEditTimerBinding::inflate)
-                            TagsControlSet.TAG -> AndroidViewBinding(TaskEditTagsBinding::inflate)
-                            RepeatControlSet.TAG -> AndroidViewBinding(TaskEditRepeatBinding::inflate)
-                            SubtaskControlSet.TAG -> AndroidViewBinding(TaskEditSubtasksBinding::inflate)
-                            else -> throw IllegalArgumentException("Unknown row: $tag")
-                        }
-                    }
+                    CalendarControlSet.TAG -> AndroidFragment<CalendarControlSet>()
+                    StartDateControlSet.TAG -> AndroidFragment<StartDateControlSet>()
+                    ReminderControlSet.TAG -> AndroidFragment<ReminderControlSet>()
+                    LocationControlSet.TAG -> AndroidFragment<LocationControlSet>()
+                    FilesControlSet.TAG -> AndroidFragment<FilesControlSet>()
+                    TimerControlSet.TAG -> AndroidFragment<TimerControlSet>()
+                    TagsControlSet.TAG -> AndroidFragment<TagsControlSet>()
+                    RepeatControlSet.TAG -> AndroidFragment<RepeatControlSet>()
+                    SubtaskControlSet.TAG -> AndroidFragment<SubtaskControlSet>()
+                    else -> throw IllegalArgumentException("Unknown row: $tag")
                 }
             }
         }
-        return view
     }
 
     override fun onDestroyView() {

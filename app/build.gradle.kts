@@ -179,7 +179,7 @@ dependencies {
     implementation(libs.androidx.hilt.work)
 
     implementation(libs.androidx.datastore)
-    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.fragment.compose)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel)
@@ -238,7 +238,6 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation("androidx.compose.ui:ui-viewbinding")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation(libs.coil.compose)
     implementation(libs.coil.video)
