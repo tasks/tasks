@@ -86,4 +86,27 @@
     <string name="import_summary_message">Fajl %1$s je sadržao %2$s.\n\n%3$s uvezeno,\n%4$s već postoje\n%5$s s greškama</string>
     <string name="import_progress_read">Učitavanje zadatka %d…</string>
     <string name="TLA_menu_settings">Postavke</string>
+    <string name="start_date">Datum početka</string>
+    <string name="day_before_due">Dan prije roka</string>
+    <string name="TEA_control_gcal">Kalendar</string>
+    <string name="TEA_control_importance">Prioritet</string>
+    <string name="TEA_control_location">Lokacija</string>
+    <string name="TEA_control_notes">Opis</string>
+    <string name="TEA_control_files">Fajlovi</string>
+    <string name="TEA_control_reminders">Podsjetnici</string>
+    <string name="TEA_control_timer">Kontrole tajmera</string>
+    <string name="TEA_control_hidden_section">----Uvijek sakrij----</string>
+    <string name="TEA_creation_date">Datum kreiranja</string>
+    <string name="none">Ništa</string>
+    <string name="CFC_dueBefore_text">Rok do: ?</string>
+    <string name="CFC_dueBefore_name">Rok do…</string>
+    <string name="CFC_startBefore_text">Početak do: ?</string>
+    <string name="CFC_startBefore_name">Početak do…</string>
+    <string name="no_due_date">Bez datuma roka</string>
+    <string name="no_start_date">Bez datuma početka</string>
+    <string name="filter_any_start_date">Bilo koji datum početka</string>
+    <string name="next_month">Sljedeći mjesec</string>
+    <string name="CFC_importance_name">Prioritet…</string>
+    <string name="week_before_due">Sedmica prije roka</string>
+    <string name="TEA_control_repeat">Ponovi</string>
 </resources>
