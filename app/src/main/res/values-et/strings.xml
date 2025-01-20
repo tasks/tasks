@@ -177,7 +177,7 @@
     <string name="password_required">Parool on nõutud</string>
     <string name="url_required">URL on nõutud</string>
     <string name="url_host_name_required">Hostinimi on nõutud</string>
-    <string name="url_invalid_scheme">Peab algama nii http(s)://</string>
+    <string name="url_invalid_scheme">Peab algama kujul http(s)://</string>
     <string name="no_title">(Pealkirjata)</string>
     <string name="back_button_saves_task">Tagasi nupp salvestab ülesande</string>
     <string name="default_list">Vaikimisi loend</string>
