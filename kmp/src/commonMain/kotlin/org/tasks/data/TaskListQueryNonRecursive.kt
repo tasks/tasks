@@ -29,7 +29,7 @@ internal object TaskListQueryNonRecursive {
             field("tasks.completed > 0").`as`("parentComplete")
         )).toTypedArray()
 
-    fun getNonRecursiveQuery(filter: Filter, preferences: QueryPreferences): String {
+    fun getNonRecursiveQuery(filter: Filter, preferences: QueryPreferences): MutableList<String> {
         val joinedQuery = JOINS + if (filter is AstridOrderingFilter) filter.getSqlQuery() else filter.sql!!
         val sortMode = preferences.sortMode
         val groupMode = preferences.groupMode
@@ -52,9 +52,10 @@ internal object TaskListQueryNonRecursive {
             else ->
                 "$query GROUP BY ${Task.ID}"
         }
-        return Query.select(*FIELDS.plus(sortGroup))
-            .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(groupedQuery))
-            .from(Task.TABLE)
-            .toString()
+        return mutableListOf(
+                Query.select(*FIELDS.plus(sortGroup))
+                        .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(groupedQuery))
+                        .from(Task.TABLE)
+                        .toString())
     }
 }

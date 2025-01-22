@@ -2,23 +2,23 @@ package org.tasks.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
+import org.tasks.data.entity.Task
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavTask
-import org.tasks.data.entity.Task
 
 data class TaskContainer(
     @Embedded val task: Task,
     @Embedded val caldavTask: CaldavTask? = null,
     @Embedded val location: Location? = null,
     val accountType: Int = CaldavAccount.TYPE_LOCAL,
-    @ColumnInfo(name = "parent_complete") val parentComplete: Boolean = false,
+    val parentComplete: Boolean = false,
     @ColumnInfo(name = "tags") val tagsString: String? = null,
     val children: Int = 0,
-    @ColumnInfo(name = "sort_group") val sortGroup: Long? = null,
-    @ColumnInfo(name = "primary_sort") val primarySort: Long = 0,
-    @ColumnInfo(name = "secondary_sort") val secondarySort: Long = 0,
+    val sortGroup: Long? = null,
+    val primarySort: Long = 0,
+    val secondarySort: Long = 0,
     var indent: Int = 0,
     var targetIndent: Int = 0,
 ){

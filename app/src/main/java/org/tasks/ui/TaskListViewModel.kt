@@ -144,7 +144,7 @@ class TaskListViewModel @Inject constructor(
                     it.searchQuery.isBlank() -> MyTasksFilter.create()
                     else -> applicationContext.createSearchQuery(it.searchQuery)
                 }
-                taskDao.fetchTasks(getQuery(preferences, filter))
+                taskDao.fetchTasks { getQuery(preferences, filter) }
             }
             .onEach { tasks ->
                 _state.update {

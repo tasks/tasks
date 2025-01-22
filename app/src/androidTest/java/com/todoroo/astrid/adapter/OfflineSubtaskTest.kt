@@ -84,6 +84,6 @@ class OfflineSubtaskTest : InjectingTestCase() {
     }
 
     private fun query() = runBlocking {
-        tasks.addAll(taskDao.fetchTasks(getQuery(preferences, filter)))
+        tasks.addAll(taskDao.fetchTasks { getQuery(preferences, filter) })
     }
 }
