@@ -1,9 +1,14 @@
-### 14.4.5 (2024-01-19)
+### 14.4.5 (2024-01-22)
 
-* Database performance improvements
+* Performance improvements
 * DAVx5 sync performance improvements
 * Update translations
+  * Bosnian - @hasak
   * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt, @dermezl
+  * Italian - @ppasserini
+  * Nepali - @sagunkhatri
+
 
 ### 14.4.4 (2024-01-19)
 
