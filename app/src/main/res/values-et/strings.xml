@@ -548,4 +548,52 @@
     <string name="tasker_list_notification">Teavituste loend</string>
     <string name="more_notification_settings_summary">Helinad, teavitused ja muud</string>
     <string name="EPr_manage_delete_all_gcal">Kustuta kõikide ülesannete kalendrikirjed</string>
+    <string name="comment">Kommentaar</string>
+    <string name="TEA_timer_comment_started">alustas selle ülesande täitmist:</string>
+    <string name="EPr_voiceRemindersEnabled_desc_enabled">Meeldetuletamise ajal ütlevad ülesanded oma nime</string>
+    <string name="customize_edit_screen_summary">Eemalda väljad või muuda nende järjekorda</string>
+    <string name="rate_tasks">Hinda rakendust Tasks</string>
+    <string name="date_shortcut_must_come_before">%1$s peab olema enne %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s peab olema peale %2$s</string>
+    <string name="send_anonymous_statistics_summary">Tasksi parandamiseks saada meile anonüümset kasutusstatistikat ja võimalikke vigade logisid. Isiklikke andmeid me ei kogu.</string>
+    <string name="delete_tag_confirmation">Kas kustutame %s?</string>
+    <string name="TEA_timer_comment_stopped">lõpetas selle ülesande täitmise:</string>
+    <string name="voice_create_prompt">Ülesande lisamiseks räägi</string>
+    <plurals name="list_count">
+        <item quantity="one">%d loend</item>
+        <item quantity="other">%d loendit</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%d päev</item>
+        <item quantity="other">%d päeva</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%d nädal</item>
+        <item quantity="other">%d nädalat</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%d kuu</item>
+        <item quantity="other">%d kuud</item>
+    </plurals>
+    <string name="when_started">Kui on alustatud</string>
+    <string name="quiet_hours_in_effect">Vaiksed tunnid on kasutusel</string>
+    <string name="send_application_logs">Saada rakenduste logid</string>
+    <string name="delete_comment">kommentaar</string>
+    <string name="button_learn_more">Loe lisaks</string>
+    <plurals name="subtask_count">
+        <item quantity="one">%d alamülesanne</item>
+        <item quantity="other">%d alamülesannet</item>
+    </plurals>
+    <string name="repeat_snackbar">%1$s uus ajastus on nüüd %2$s</string>
+    <string name="repeat_type_due">tähtaeg</string>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%d tund</item>
+        <item quantity="other">%d tundi</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%d aasta</item>
+        <item quantity="other">%d aastat</item>
+    </plurals>
+    <string name="send_anonymous_statistics">Paranda rakendust Tasks</string>
+    <string name="no_app_found">Rakendus ei osanud selle päringuga midagi ette võtta</string>
 </resources>
