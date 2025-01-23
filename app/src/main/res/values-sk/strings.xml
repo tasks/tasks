@@ -123,7 +123,7 @@
     <string name="rmd_EPr_quiet_hours_start_title">Čas ticha sa začne</string>
     <string name="rmd_EPr_quiet_hours_end_title">Čas ticha skončí</string>
     <string name="rmd_EPr_rmd_time_title">Čas pripomienky</string>
-    <string name="rmd_EPr_rmd_time_desc">Oznámenia úloh bez času dokončenia sa objavia %s</string>
+    <string name="rmd_EPr_rmd_time_desc">Oznámenia úloh bez času dokončenia sa objavia o %s</string>
     <string name="persistent_notifications">Trvalé upozornenia </string>
     <string name="persistent_notifications_description">Trvalé upozornenia nemôžu byť skryté</string>
     <string name="rmd_EPr_defaultRemind_title">Náhodné pripomienky</string>
@@ -592,7 +592,7 @@
     <string name="donate_today">Prispejte dnes</string>
     <string name="donate_maybe_later">Možno neskôr</string>
     <string name="sort_modified_group">Zmenené %s</string>
-    <string name="open_last_viewed_list">Otvoriť posledný prezeraný zoznam</string>
+    <string name="open_last_viewed_list">Otvoriť posledný zobr. zoznam</string>
     <string name="android_auto_backup">Android služba zálohovania</string>
     <string name="last_backup_never">nikdy</string>
     <string name="device_settings">Nastavenia zariadenia</string>
@@ -626,8 +626,8 @@
     <string name="more_options">Ďalšie možnosti</string>
     <string name="tasks_org_account_required">Vyžaduje sa účet na Tasks.org</string>
     <string name="upgrade_blurb_2">Prácou na Tasks som strávil tisíce hodín a bez nároku na odmenu zverejňujem všetok zdrojový kód online. Za účelom podpory mojej práce niektoré funkcie aplikácie vyžadujú predplatné</string>
-    <string name="auto_dismiss_datetime_list_summary">Automaticky zavierať pri výbere zo zoznamu úloh</string>
-    <string name="auto_dismiss_datetime_summary">Zavrieť výber dátumu a času po zvolení dátumu alebo času</string>
+    <string name="auto_dismiss_datetime_list_summary">Automaticky zatvoriť pri výbere zo zoznamu úloh</string>
+    <string name="auto_dismiss_datetime_summary">Zatvoriť výber dátumu a času po zvolení dátumu alebo času</string>
     <string name="snackbar_task_completed">Úloha bola dokončená</string>
     <string name="authorization_cancelled">Autorizácia bola zrušená</string>
     <string name="settings_default">Predvolený</string>
@@ -663,9 +663,9 @@
     <string name="tasks_org_account">Účet na Tasks.org</string>
     <string name="upgrade_desktop_access">Prístup z počítača</string>
     <string name="upgrade_blurb_1">Ahoj! Volám sa Alex a som nezávislý vývojár aplikácie Tasks</string>
-    <string name="auto_dismiss_datetime_widget_summary">Automaticky zavrieť pri výbere z widgetu</string>
+    <string name="auto_dismiss_datetime_widget_summary">Automaticky zatvoriť pri výbere z widgetu</string>
     <string name="filter_after_today">Kedykoľvek po dnešku</string>
-    <string name="auto_dismiss_datetime">Automaticky zavierať výber dátumu a času</string>
+    <string name="auto_dismiss_datetime">Automaticky zatvoriť výber dátumu a času</string>
     <string name="chip_appearance_icon_only">Iba ikona</string>
     <string name="auto_dismiss_datetime_list">Zoznam úloh</string>
     <string name="alarm_before_start">%s pred začiatkom</string>
@@ -683,7 +683,7 @@
     <string name="chip_appearance_text_only">Iba text</string>
     <string name="filter_any_due_date">Ľubovoľný termín</string>
     <string name="filter_eisenhower_box_1">Naliehavé a dôležité</string>
-    <string name="auto_dismiss_datetime_edit_summary">Automaticky zavrieť pri výbere v editore úloh</string>
+    <string name="auto_dismiss_datetime_edit_summary">Automaticky zatvoriť pri výbere v editore úloh</string>
     <string name="filter_low_priority">Nízka dôležitosť</string>
     <string name="support">Podpora</string>
     <string name="sign_in_with_github">Prihlásenie pomocou GitHubu</string>
