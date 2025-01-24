@@ -3,6 +3,8 @@ package org.tasks.data.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.RawQuery
+import androidx.room.RoomRawQuery
 import androidx.room.Update
 import androidx.room.execSQL
 import co.touchlab.kermit.Logger
@@ -14,8 +16,6 @@ import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Task
-import org.tasks.data.getTasks
-import org.tasks.data.rawQuery
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.Functions
 import org.tasks.data.withTransaction
@@ -118,18 +118,22 @@ FROM (
             for (i in 0 until last) {
                 execSQL(queries[i])
             }
-            val result = usePrepared(queries[last]) { it.getTasks() }
+            val result = fetchTasks(queries[last])
             Logger.v("TaskDao") {
                 "${DateTimeUtils2.currentTimeMillis() - start}ms: ${queries.joinToString(";\n")}"
             }
             result
         }
 
-    suspend fun fetchTasks(query: String): List<TaskContainer> =
-        database.rawQuery(query) { it.getTasks() }
+    suspend fun fetchTasks(query: String): List<TaskContainer> = fetchRaw(RoomRawQuery(query))
 
-    suspend fun countRaw(query: String): Int =
-        database.rawQuery(query) { if (it.step()) it.getInt(0) else 0 }
+    @RawQuery
+    internal abstract suspend fun fetchRaw(query: RoomRawQuery): List<TaskContainer>
+
+    suspend fun countRaw(query: String): Int = countRaw(RoomRawQuery(query))
+
+    @RawQuery
+    internal abstract suspend fun countRaw(query: RoomRawQuery): Int
 
     suspend fun touch(ids: List<Long>, now: Long = DateTimeUtils2.currentTimeMillis()) =
         ids.eachChunk { internalTouch(it, now) }
