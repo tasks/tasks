@@ -7,12 +7,7 @@
     <string name="backup_BAc_export">Sikkerhedskopiér nu</string>
     <string name="export_toast">Sikkerhedskopierede %1$s til %2$s.</string>
     <string name="import_summary_title">Gendan opsummering</string>
-    <string name="import_summary_message">Filen %1$s indeholdt %2$s.
-\n
-\n%3$s importeret,
-\n%4$s findes allerede
-\n%5$s indeholdt fejl
-\n</string>
+    <string name="import_summary_message">Filen %1$s indeholdt %2$s. \n \n%3$s importeret, \n%4$s findes allerede \n%5$s indeholdt fejl</string>
     <string name="import_progress_read">Indlæser opgave %d…</string>
     <string name="read_permission_label">Tasks Tilladelse</string>
     <string name="DLG_delete_this_task_question">Slet denne opgave?</string>
@@ -65,7 +60,7 @@
     <string name="today">I dag</string>
     <string name="tomorrow">I morgen</string>
     <string name="source_code">Kildekode</string>
-    <string name="repeats_single_on_until">Gentages %1$s hver %2$s indtil %3$s</string>
+    <string name="repeats_single_on_until">Gentages %1$s hver %2$s, ender på %3$s</string>
     <string name="repeats_single_on">Gentages %1$s hver %2$s</string>
     <string name="opacity_header">Topbjælkens ugennemsigtighed</string>
     <string name="back_button_saves_task">Tilbage-knappen gemmer opgaven</string>
@@ -214,7 +209,7 @@
     <string name="dont_add_to_calendar">Føj ikke til kalender</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeats_plural_number_of_times">Gentages hver %1$s, stopper efter %2$d %3$s</string>
-    <string name="repeats_plural_until">Gentages hver %1$s indtil %2$s</string>
+    <string name="repeats_plural_until">Gentages hver %1$s, ender på %2$s</string>
     <string name="repeats_plural">Gentages hver %s</string>
     <string name="repeats_yearly">årligt</string>
     <string name="repeats_monthly">månedligt</string>
@@ -223,7 +218,7 @@
     <string name="repeats_hourly">hver time</string>
     <string name="repeats_minutely">hvert minut</string>
     <string name="repeats_single_number_of_times">Gentages %1$s, stopper efter %2$d %3$s</string>
-    <string name="repeats_single_until">Gentages %1$s indtil %2$s</string>
+    <string name="repeats_single_until">Gentages %1$s, ender på %2$s</string>
     <string name="repeats_single">Gentages %s</string>
     <string name="repeats_from">Gentages fra</string>
     <string name="list">Liste</string>
@@ -306,9 +301,9 @@
     <string name="filters">Filtre</string>
     <string name="tags">Tags</string>
     <string name="location_radius_meters">%s m</string>
-    <string name="geofence_radius">Radius</string>
-    <string name="when_overdue">Når fristen er overskredet</string>
-    <string name="when_due">Når der er frist</string>
+    <string name="geofence_radius">Geo-afgrænsningens radius</string>
+    <string name="when_overdue">Når forfalden</string>
+    <string name="when_due">Ved forfald</string>
     <string name="pick_a_date_and_time">Vælg dato og tidspunkt</string>
     <string name="randomly">Tilfældigt</string>
     <string name="remove">Fjern</string>
@@ -343,7 +338,7 @@
     <string name="manage_subscription">Administrer abonnement</string>
     <string name="repeat_monthly_every_day_of_nth_week">hver %1$s i %2$s</string>
     <string name="repeats_plural_on_number_of_times">Gentages %2$s hver %1$s, stopper efter %3$d %4$s</string>
-    <string name="repeats_plural_on_until">Gentages %2$s hver %1$s indtil %3$s</string>
+    <string name="repeats_plural_on_until">Gentages hver %1$s på %2$s, ender på %3$s</string>
     <string name="repeats_plural_on">Gentages %2$s hver %1$s</string>
     <string name="repeats_single_on_number_of_times">Gentages %1$s hver %2$s, stopper efter %3$d %4$s</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks vil læse opgavetitlen højt ved påmindelser</string>
@@ -630,7 +625,7 @@
     <string name="app_bar_position">App meny position</string>
     <string name="top">Top</string>
     <string name="bottom">Bund</string>
-    <string name="when_started">Hvornår startede</string>
+    <string name="when_started">Ved start</string>
     <plurals name="reminder_minutes">
         <item quantity="one">Minut</item>
         <item quantity="other">Minuter</item>
@@ -690,4 +685,54 @@
     <string name="swipe_to_snooze_time_15_minutes">efter 15 minutter</string>
     <string name="swipe_to_snooze_time_30_minutes">efter 30 minutter</string>
     <string name="swipe_to_snooze_time_description">En ryddet meddelelse udsættes og genoprettes %s</string>
+    <string name="show_edit_screen_without_unlock_summary">Gør det muligt at bruge flisen Hurtigindstillinger uden at låse enheden op</string>
+    <string name="donate_today">Donér i dag</string>
+    <string name="donate_maybe_later">Måske senere</string>
+    <string name="add_shortcut_to_home_screen">Tilføj genvej til startskærmen</string>
+    <string name="sort_descending">Faldende</string>
+    <string name="comment">Kommentar</string>
+    <string name="change_priority">Ændr prioritet</string>
+    <string name="repeats_after">Efter</string>
+    <string name="repeats_ends">Slutter</string>
+    <string name="multiline_title_off">Tryk på Færdig for at lukke tastaturet</string>
+    <string name="sort_grouping">Gruppering</string>
+    <string name="repeats_on">På</string>
+    <string name="clear_completed_tasks_count">%s vil blive slettet</string>
+    <string name="repeats_never">Aldrig</string>
+    <string name="sort_ascending">Stigende</string>
+    <string name="sign_in_to_tasks_disclosure">Din e-mailadresse og dit konto-id vil blive overført og gemt af Tasks.org. Disse oplysninger vil blive brugt til godkendelse og til at give dig vigtige servicerelaterede meddelelser. Disse oplysninger vil ikke blive delt med nogen.</string>
+    <string name="theme_dynamic">Dynamisk</string>
+    <string name="subtasks_multilevel_microsoft">Underopgaver på flere niveauer understøttes ikke af Microsoft To Do</string>
+    <string name="donate_nag">Overvej at vise din støtte med en donation!</string>
+    <string name="price_per_month_with_currency">%s/måned</string>
+    <string name="price_per_year_with_currency">%s/år</string>
+    <string name="add_widget_to_home_screen">Tilføj widget til startskærmen</string>
+    <string name="cost_free">Pris: Gratis</string>
+    <string name="cost_money">Pris: $</string>
+    <string name="cost_more_money">Pris: $$$</string>
+    <string name="multiline_title">Tillad titler med flere linjer</string>
+    <string name="multiline_title_on">Tryk på Enter-tasten for at tilføje linjeskift</string>
+    <string name="sync_warning_microsoft_title">Om Microsoft To Do-synkronisering</string>
+    <string name="sync_warning_google_tasks_title">Om Google Task-synkronisering</string>
+    <string name="delete_comment">kommentar</string>
+    <string name="repeats_every">Gentages hver</string>
+    <string name="repeats_weekly_on">Gentages</string>
+    <string name="sort_not_available">Ikke tilgængelig for tags, filtre eller steder</string>
+    <string name="quiet_hours_in_effect">Stille timer er gældende</string>
+    <string name="repeats_custom_recurrence">Brugerdefineret gentagelse</string>
+    <string name="yesterday">I går</string>
+    <string name="send_application_logs">Send applikationslogfiler</string>
+    <string name="sync_warning_microsoft">Ikke alle opgavedetaljer synkroniseres med Microsoft To Do.</string>
+    <string name="sync_warning_google_tasks">Ikke alle opgavedetaljer synkroniseres med Google Tasks</string>
+    <string name="button_learn_more">Få mere at vide</string>
+    <string name="sort_sorting">Sortering</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Månedligt på den %1$s %2$s</string>
+    <string name="repeat_monthly_on_day_number">Månedligt på dag %1d</string>
+    <string name="enable_alarms">Få en notifikation på det rigtige tidspunkt</string>
+    <string name="enable_alarms_description">For at sikre, at du får en notifikation på det rigtige tidspunkt, skal du give tilladelse til at indstille alarmer og påmindelser i Indstillinger</string>
+    <string name="show_edit_screen_without_unlock">Vis redigeringsskærm uden oplåsning</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">forekomst</item>
+        <item quantity="other">forekomster</item>
+    </plurals>
 </resources>
