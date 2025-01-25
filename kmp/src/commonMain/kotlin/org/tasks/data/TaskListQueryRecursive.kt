@@ -25,11 +25,11 @@ internal object TaskListQueryRecursive {
                         Query.select(field("group_concat(distinct(tag_uid))")).from(Tag.TABLE).where(
                         Task.ID.eq(Tag.TASK))} GROUP BY ${Tag.TASK})").`as`("tags"),
                     field("indent"),
-                    field("sort_group").`as`("sortGroup"),
+                    field("sort_group"),
                     field("children"),
-                    field("primary_sort").`as`("primarySort"),
-                    field("secondary_sort").`as`("secondarySort"),
-                    field("parent_complete").`as`("parentComplete"),
+                    field("primary_sort"),
+                    field("secondary_sort"),
+                    field("parent_complete"),
             )).toTypedArray()
     private val JOINS = """
         ${Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK))}
