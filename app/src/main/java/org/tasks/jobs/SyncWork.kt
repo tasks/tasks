@@ -37,6 +37,7 @@ import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.preferences.Preferences
 import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import timber.log.Timber
 
 @HiltWorker
 class SyncWork @AssistedInject constructor(
@@ -56,9 +57,11 @@ class SyncWork @AssistedInject constructor(
 ) : BaseWorker(context, workerParams, firebase) {
 
     override suspend fun run(): Result {
+        Timber.d("Starting...")
         if (isBackground) {
             ContextCompat.getSystemService(context, ConnectivityManager::class.java)?.apply {
                 if (restrictBackgroundStatus == ConnectivityManagerCompat.RESTRICT_BACKGROUND_STATUS_ENABLED) {
+                    Timber.w("Background restrictions enabled, skipping sync")
                     return Result.failure()
                 }
             }
@@ -66,6 +69,7 @@ class SyncWork @AssistedInject constructor(
 
         synchronized(LOCK) {
             if (preferences.getBoolean(syncStatus, false)) {
+                Timber.e("Sync ongoing")
                 return Result.retry()
             }
             preferences.setBoolean(syncStatus, true)
@@ -103,12 +107,13 @@ class SyncWork @AssistedInject constructor(
         if (openTaskDao.shouldSync()) {
             openTasksSynchronizer.get().sync()
 
-            if (isImmediate && hasNetworkConnectivity) {
+            if (isImmediate) {
                 AccountManager
                     .get(context)
                     .accounts
                     .filter { OpenTaskDao.SUPPORTED_TYPES.contains(it.type) }
                     .forEach {
+                        Timber.d("Requesting sync for $it")
                         ContentResolver.requestSync(
                             it,
                             openTaskDao.authority,
@@ -124,9 +129,9 @@ class SyncWork @AssistedInject constructor(
 
     private suspend fun googleTaskJobs(): List<Deferred<Unit>> = coroutineScope {
         getGoogleAccounts()
-            .mapIndexed { i, account ->
+            .map { account ->
                 async(Dispatchers.IO) {
-                    googleTaskSynchronizer.get().sync(account, i)
+                    googleTaskSynchronizer.get().sync(account)
                 }
             }
     }

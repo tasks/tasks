@@ -53,7 +53,9 @@ class Firebase @Inject constructor(
         logEvent(R.string.event_complete_task, R.string.param_type to source)
 
     fun logEvent(@StringRes event: Int, vararg p: Pair<Int, Any>) {
-        analytics?.logEvent(context.getString(event), Bundle().apply {
+        val eventName = context.getString(event)
+        Timber.d("$eventName -> $p")
+        analytics?.logEvent(eventName, Bundle().apply {
             p.forEach {
                 val key = context.getString(it.first)
                 when (it.second::class) {

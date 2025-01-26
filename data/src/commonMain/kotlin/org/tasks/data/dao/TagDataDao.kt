@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import org.tasks.data.NO_ORDER
 import org.tasks.data.TagFilters
@@ -84,34 +85,38 @@ abstract class TagDataDao(private val database: Database) {
         tasks: List<Task>,
         partiallySelected: List<TagData>,
         selected: List<TagData>
-    ): List<Long> = database.withTransaction {
-        val modified = HashSet<Long>()
-        val keep = partiallySelected.plus(selected).map { it.remoteId!! }
-        for (sublist in tasks.chunked(DbUtils.MAX_SQLITE_ARGS - keep.size)) {
-            val tags = tagsToDelete(sublist.map(Task::id), keep)
-            deleteTags(tags)
-            modified.addAll(tags.map(Tag::task))
-        }
-        for (task in tasks) {
-            val added = selected subtract getTagDataForTask(task.id)
-            if (added.isNotEmpty()) {
-                modified.add(task.id)
-                insert(
-                    added.map {
-                        Tag(
-                            task = task.id,
-                            taskUid = task.uuid,
-                            name = it.name,
-                            tagUid = it.remoteId
-                        )
-                    }
-                )
+    ): List<Long> {
+        Logger.d("TagDataDao") { "applyTags tasks=$tasks partiallySelected=$partiallySelected selected=$selected" }
+        return database.withTransaction {
+            val modified = HashSet<Long>()
+            val keep = partiallySelected.plus(selected).map { it.remoteId!! }
+            for (sublist in tasks.chunked(DbUtils.MAX_SQLITE_ARGS - keep.size)) {
+                val tags = tagsToDelete(sublist.map(Task::id), keep)
+                deleteTags(tags)
+                modified.addAll(tags.map(Tag::task))
             }
+            for (task in tasks) {
+                val added = selected subtract getTagDataForTask(task.id)
+                if (added.isNotEmpty()) {
+                    modified.add(task.id)
+                    insert(
+                        added.map {
+                            Tag(
+                                task = task.id,
+                                taskUid = task.uuid,
+                                name = it.name,
+                                tagUid = it.remoteId
+                            )
+                        }
+                    )
+                }
+            }
+            ArrayList(modified)
         }
-        ArrayList(modified)
     }
 
     suspend fun delete(tagData: TagData) {
+        Logger.d("TagDataDao") { "deleting $tagData" }
         database.withTransaction {
             deleteTags(tagData.remoteId!!)
             deleteTagData(tagData)

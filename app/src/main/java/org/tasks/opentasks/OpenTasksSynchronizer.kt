@@ -44,6 +44,7 @@ class OpenTasksSynchronizer @Inject constructor(
     private val inventory: Inventory) {
 
     suspend fun sync() {
+        Timber.d("Starting OpenTasks sync...")
         val lists = openTaskDao.getListsByAccount().filterActive(caldavDao)
         lists.keys
             .filter { caldavDao.getAccountByUuid(it) == null }
@@ -70,6 +71,7 @@ class OpenTasksSynchronizer @Inject constructor(
         caldavDao.getAccounts(CaldavAccount.TYPE_OPENTASKS).forEach { account ->
             val entries = lists[account.uuid!!]
             if (entries == null) {
+                Timber.d("Removing $account")
                 taskDeleter.delete(account)
             } else if (!inventory.hasPro) {
                 setError(account, context.getString(R.string.requires_pro_subscription))
@@ -86,10 +88,14 @@ class OpenTasksSynchronizer @Inject constructor(
     }
 
     private suspend fun sync(account: CaldavAccount, lists: List<CaldavCalendar>) {
+        Timber.d("Synchronizing $account")
         val uuid = account.uuid!!
         caldavDao
                 .findDeletedCalendars(uuid, lists.mapNotNull { it.url })
-                .forEach { taskDeleter.delete(it) }
+                .forEach {
+                    Timber.d("Deleting $it")
+                    taskDeleter.delete(it)
+                }
         lists.forEach {
             val calendar = toLocalCalendar(it)
             if (calendar.access != CaldavCalendar.ACCESS_READ_ONLY) {
@@ -130,11 +136,19 @@ class OpenTasksSynchronizer @Inject constructor(
         val (deleted, updated) = taskDao
             .getCaldavTasksToPush(calendar.uuid!!)
             .partition { it.isDeleted }
-
-        (moved + deleted.map(Task::id).let { caldavDao.getTasks(it) })
+        if (moved.isEmpty() && deleted.isEmpty() && updated.isEmpty()) {
+            return
+        }
+        Timber.d("Pushing changes: updated=${updated.size} moved=${moved.size} deleted=${deleted.size}")
+        (moved + deleted.map(Task::id)
+            .let { caldavDao.getTasks(it) })
             .mapNotNull { it.remoteId }
-            .map { openTaskDao.delete(listId, it) }
-            .let { openTaskDao.batch(it) }
+            .takeIf { it.isNotEmpty() }
+            ?.map { openTaskDao.delete(listId, it) }
+            ?.let {
+                Timber.d("Deleting ${it.size} from content provider")
+                openTaskDao.batch(it)
+            }
         caldavDao.delete(moved)
         taskDeleter.delete(deleted.map { it.id })
 

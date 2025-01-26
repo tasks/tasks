@@ -71,6 +71,7 @@ class TaskCompleter @Inject internal constructor(
         tasks.forEach { notificationManager.cancel(it.id) }
         val completed = completionDate > 0
         val modified = currentTimeMillis()
+        Timber.d("Completing $tasks")
         database.withTransaction {
             alarmDao.deleteSnoozed(tasks.map { it.id })
             tasks

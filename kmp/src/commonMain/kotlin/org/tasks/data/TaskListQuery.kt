@@ -56,6 +56,6 @@ object TaskListQuery {
                 getRecursiveQuery(filter, preferences)
 
             else -> getNonRecursiveQuery(filter, preferences)
-        }.also { Logger.v { "Building query took ${currentTimeMillis() - start}ms" } }
+        }.also { Logger.v("TaskListQuery") { "Building query took ${currentTimeMillis() - start}ms" } }
     }
 }

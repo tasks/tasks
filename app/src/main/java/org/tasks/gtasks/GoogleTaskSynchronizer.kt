@@ -60,7 +60,7 @@ class GoogleTaskSynchronizer @Inject constructor(
     private val invokers: InvokerFactory,
     private val alarmDao: AlarmDao,
 ) {
-    suspend fun sync(account: CaldavAccount, i: Int) {
+    suspend fun sync(account: CaldavAccount) {
         Timber.d("%s: start sync", account)
         try {
             synchronize(account)

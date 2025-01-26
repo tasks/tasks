@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import org.tasks.data.PrincipalWithAccess
 import org.tasks.data.db.Database
@@ -35,8 +36,11 @@ WHERE list = :list
     @Delete
     abstract suspend fun delete(access: PrincipalAccess)
 
-    suspend fun getAll(): List<PrincipalWithAccess> = database.withTransaction {
-        getAllInternal()
+    suspend fun getAll(): List<PrincipalWithAccess> {
+        Logger.d("PrincipalDao") { "getAll" }
+        return database.withTransaction {
+            getAllInternal()
+        }
     }
 
     @Query("SELECT * FROM principal_access")

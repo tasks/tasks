@@ -46,6 +46,7 @@ class EtebaseSynchronizer @Inject constructor(
     }
 
     suspend fun sync(account: CaldavAccount) {
+        Timber.d("Synchronizing $account")
         Thread.currentThread().contextClassLoader = context.classLoader
 
         if (!inventory.hasPro) {

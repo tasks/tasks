@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import co.touchlab.kermit.Logger
 import org.tasks.data.db.Database
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavTask
@@ -20,6 +21,7 @@ abstract class GoogleTaskDao(private val database: Database) {
     abstract suspend fun insert(tasks: Iterable<CaldavTask>)
 
     suspend fun insertAndShift(task: Task, caldavTask: CaldavTask, top: Boolean) {
+        Logger.d("GoogleTaskDao") { "insertAndShift task=$task caldavTask=$caldavTask top=$top" }
         database.withTransaction {
             if (top) {
                 task.order = 0
@@ -45,6 +47,7 @@ abstract class GoogleTaskDao(private val database: Database) {
     internal abstract suspend fun shiftUp(listId: String, parent: Long, position: Long)
 
     suspend fun move(task: Task, list: String, newParent: Long, newPosition: Long) {
+        Logger.d("GoogleTaskDao") { "move task=$task list=$list newParent=$newParent newPosition=$newPosition" }
         database.withTransaction {
             val previousParent = task.parent
             val previousPosition = task.order!!
@@ -166,6 +169,7 @@ WHERE cd_remote_id = :id
     abstract suspend fun updatePosition(id: String, parent: String?, position: String)
 
     suspend fun reposition(caldavDao: CaldavDao, listId: String) {
+        Logger.d("GoogleTaskDao") { "reposition listId=$listId" }
         database.withTransaction {
             caldavDao.updateParents(listId)
             val orderedTasks = getByRemoteOrder(listId)

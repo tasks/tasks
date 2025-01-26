@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import co.touchlab.kermit.Logger
 import org.tasks.data.db.Database
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
@@ -37,6 +38,7 @@ abstract class TagDao(private val database: Database) {
     abstract suspend fun delete(tags: List<Tag>)
 
     open suspend fun applyTags(task: Task, tagDataDao: TagDataDao, current: Collection<TagData>) {
+        Logger.d("TagDao") { "applyTags task=$task current=$current" }
         database.withTransaction {
             val taskId = task.id
             val existing = HashSet(tagDataDao.getTagDataForTask(taskId))

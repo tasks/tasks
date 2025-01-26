@@ -21,6 +21,7 @@ import org.tasks.files.FileHelper
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
 import org.tasks.sync.SyncAdapters
+import timber.log.Timber
 import javax.inject.Inject
 
 class TaskDeleter @Inject constructor(
@@ -46,6 +47,7 @@ class TaskDeleter @Inject constructor(
             .let { taskDao.fetch(it.toList()) }
             .filterNot { it.readOnly }
             .map { it.id }
+        Timber.d("markDeleted $ids")
         database.withTransaction {
             deletionDao.markDeleted(ids)
             cleanup(ids)
@@ -60,6 +62,7 @@ class TaskDeleter @Inject constructor(
     suspend fun delete(task: Long) = delete(listOf(task))
 
     suspend fun delete(tasks: List<Long>) {
+        Timber.d("Deleting $tasks")
         database.withTransaction {
             deletionDao.delete(tasks)
             cleanup(tasks)
@@ -69,6 +72,7 @@ class TaskDeleter @Inject constructor(
 
     suspend fun delete(list: CaldavCalendar) {
         vtodoCache.delete(list)
+        Timber.d("Deleting $list")
         database.withTransaction {
             val tasks = deletionDao.delete(list)
             delete(tasks)
@@ -78,6 +82,7 @@ class TaskDeleter @Inject constructor(
 
     suspend fun delete(account: CaldavAccount) {
         vtodoCache.delete(account)
+        Timber.d("Deleting $account")
         database.withTransaction {
             val tasks = deletionDao.delete(account)
             delete(tasks)

@@ -10,7 +10,6 @@ import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.call.body
 import io.ktor.http.isSuccess
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.tasks.LocalBroadcastManager
 import org.tasks.Strings.isNullOrEmpty
@@ -62,6 +61,7 @@ class MicrosoftSynchronizer @Inject constructor(
     private val vtodoCache: VtodoCache,
 ) {
     suspend fun sync(account: CaldavAccount) {
+        Timber.d("Synchronizing $account")
         Thread.currentThread().contextClassLoader = context.classLoader
 
         if (isNullOrEmpty(account.password)) {

@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import org.tasks.data.CaldavFilters
 import org.tasks.data.CaldavTaskContainer
@@ -101,8 +102,9 @@ ORDER BY CASE cda_account_type
     @Update
     abstract suspend fun update(caldavCalendar: CaldavCalendar)
 
-    suspend fun insert(task: Task, caldavTask: CaldavTask, addToTop: Boolean): Long =
-        database.withTransaction {
+    suspend fun insert(task: Task, caldavTask: CaldavTask, addToTop: Boolean): Long {
+        Logger.d("CaldavDao") { "insert task=$task caldavTask=$caldavTask addToTop=$addToTop)" }
+        return database.withTransaction {
             if (task.order != null) {
                 return@withTransaction insert(caldavTask)
             }
@@ -119,6 +121,7 @@ ORDER BY CASE cda_account_type
             update(task)
             id
         }
+    }
 
     @Query("""
 SELECT MIN(IFNULL(`order`, (created - $APPLE_EPOCH) / 1000))
@@ -312,6 +315,7 @@ GROUP BY caldav_lists.cdl_uuid
         newParent: Long,
         newPosition: Long?,
     ) {
+        Logger.d("CaldavDao") { "move task=$task previousParent=$previousParent newParent=$newParent newPosition=$newPosition" }
         database.withTransaction {
             val previousPosition = task.caldavSortOrder
             if (newPosition != null) {
@@ -329,6 +333,7 @@ GROUP BY caldav_lists.cdl_uuid
     }
 
     suspend fun shiftDown(calendar: String, parent: Long, from: Long, to: Long? = null) {
+        Logger.d("CaldavDao") { "shiftDown calendar=$calendar parent=$parent from=$from to=$to" }
         database.withTransaction {
             val updated = ArrayList<Task>()
             val tasks = getTasksToShift(calendar, parent, from, to)
