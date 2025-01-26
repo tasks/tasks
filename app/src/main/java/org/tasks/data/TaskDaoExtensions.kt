@@ -31,13 +31,7 @@ suspend fun TaskDao.fetchFiltered(queryTemplate: String): List<Task> {
     return tasks.map(TaskContainer::task)
 }
 
-suspend fun TaskDao.count(filter: Filter): Int {
-    val query = getQuery(filter.sql!!, Field.COUNT)
-    val start = if (BuildConfig.DEBUG) currentTimeMillis() else 0
-    val count = countRaw(query)
-    Timber.v("%sms: %s", currentTimeMillis() - start, query)
-    return count
-}
+suspend fun TaskDao.count(filter: Filter): Int = count(getQuery(filter.sql!!, Field.COUNT))
 
 private fun getQuery(queryTemplate: String, vararg fields: Field): String =
     Query.select(*fields)

@@ -129,7 +129,13 @@ FROM (
     @RawQuery
     internal abstract suspend fun fetchRaw(query: RoomRawQuery): List<TaskContainer>
 
-    suspend fun countRaw(query: String): Int = countRaw(RoomRawQuery(query))
+    suspend fun count(query: String): Int {
+        val start = DateTimeUtils2.currentTimeMillis()
+        val result = countRaw(RoomRawQuery(query))
+        val end = DateTimeUtils2.currentTimeMillis()
+        Logger.v("TaskDao") { "${end - start}ms: ${query.replace(Regex("\\s+"), " ").trim()}" }
+        return result
+    }
 
     @RawQuery
     internal abstract suspend fun countRaw(query: RoomRawQuery): Int

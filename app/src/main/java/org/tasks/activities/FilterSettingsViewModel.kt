@@ -16,10 +16,9 @@ import kotlinx.coroutines.launch
 import org.tasks.activities.FilterSettingsActivity.Companion.EXTRA_CRITERIA
 import org.tasks.activities.FilterSettingsActivity.Companion.TOKEN_FILTER
 import org.tasks.data.dao.FilterDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
-import org.tasks.data.db.Database
 import org.tasks.data.entity.Task
-import org.tasks.data.rawQuery
 import org.tasks.data.sql.Field
 import org.tasks.data.sql.Query
 import org.tasks.data.sql.UnaryCriterion
@@ -33,8 +32,8 @@ import kotlin.math.max
 class FilterSettingsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val filterCriteriaProvider: FilterCriteriaProvider,
-    private val database: Database,
     private val filterDao: FilterDao,
+    private val taskDao: TaskDao,
 ) : ViewModel() {
     data class ViewState(
         val filter: CustomFilter? = null,
@@ -127,13 +126,11 @@ class FilterSettingsViewModel @Inject constructor(
                 sql.append(Task.ID).append(" IN (").append(subSql).append(")")
             }
             val sqlString = QueryUtils.showHiddenAndCompleted(sql.toString())
-            database.rawQuery(sqlString) { cursor ->
-                cursor.step()
-                instance.start = if (last == -1) cursor.getInt(0) else last
-                instance.end = cursor.getInt(0)
-                last = instance.end
-                max = max(max, last)
-            }
+            val count = taskDao.count(sqlString)
+            instance.start = if (last == -1) count else last
+            instance.end = count
+            last = instance.end
+            max = max(max, last)
             newList.add(instance)
         }
         for (instance in newList) {

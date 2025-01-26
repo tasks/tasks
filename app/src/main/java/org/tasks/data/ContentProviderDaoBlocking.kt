@@ -2,6 +2,7 @@ package org.tasks.data
 
 import android.database.Cursor
 import android.database.MatrixCursor
+import androidx.room.useReaderConnection
 import androidx.sqlite.SQLiteStatement
 import kotlinx.coroutines.runBlocking
 import org.tasks.data.dao.Astrid2ContentProviderDao
@@ -37,7 +38,11 @@ class ContentProviderDaoBlocking @Inject constructor(
         )
     }
 
-    fun rawQuery(query: String): Cursor = runBlocking { database.rawQuery(query) { it.toCursor() } }
+    fun rawQuery(query: String): Cursor = runBlocking {
+        database.useReaderConnection { transactor ->
+            transactor.usePrepared(query) { it.toCursor() }
+        }
+    }
 }
 
 private fun SQLiteStatement.toCursor(): Cursor {
