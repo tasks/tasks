@@ -350,7 +350,7 @@
     <string name="about">Über</string>
     <string name="license_summary">Tasks ist freie, quelloffene Software, die unter der GNU General Public License v3.0 lizenziert ist</string>
     <string name="pro_dashclock_extension">Dashclock-Erweiterung</string>
-    <string name="requires_pro_subscription">Pro-Freischaltung benötigt</string>
+    <string name="requires_pro_subscription">Pro-Abo benötigt</string>
     <string name="logout">Abmelden</string>
     <string name="logout_warning">Dies wird alle Daten dieses Kontos von diesem Gerät löschen</string>
     <string name="cannot_access_account">Zugriff auf Konto fehlgeschlagen</string>
