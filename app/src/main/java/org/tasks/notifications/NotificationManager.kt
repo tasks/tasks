@@ -137,7 +137,7 @@ class NotificationManager @Inject constructor(
                         nonstop = nonstop,
                         fiveTimes = fiveTimes,
                     )
-                } else {
+                } else if (newNotifications.size > 1) {
                     createNotifications(
                             notifications = newNotifications,
                             alert = false,
