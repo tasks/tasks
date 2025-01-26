@@ -223,7 +223,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
     }
 
     private fun move(from: Int, to: Int, indent: Int = 0) = runBlocking {
-        tasks.addAll(taskDao.fetchTasks { getQuery(preferences, filter) })
+        tasks.addAll(taskDao.fetchTasks(getQuery(preferences, filter)))
         val adjustedTo = if (from < to) to + 1 else to // match DragAndDropRecyclerAdapter behavior
         adapter.moved(from, adjustedTo, indent)
     }

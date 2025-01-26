@@ -1,5 +1,6 @@
 package org.tasks.data
 
+import co.touchlab.kermit.Logger
 import org.tasks.data.TaskListQueryNonRecursive.getNonRecursiveQuery
 import org.tasks.data.TaskListQueryRecursive.getRecursiveQuery
 import org.tasks.data.entity.CaldavAccount
@@ -14,6 +15,7 @@ import org.tasks.data.sql.Join
 import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.Filter
 import org.tasks.preferences.QueryPreferences
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 object TaskListQuery {
     private const val CALDAV_METADATA_JOIN = "for_caldav"
@@ -41,13 +43,19 @@ object TaskListQuery {
     fun getQuery(
         preferences: QueryPreferences,
         filter: Filter,
-    ): MutableList<String> = when {
-        filter.supportsManualSort() && preferences.isManualSort ->
-            getRecursiveQuery(filter, preferences)
-        filter is AstridOrderingFilter && preferences.isAstridSort ->
-            getNonRecursiveQuery(filter, preferences)
-        filter.supportsSorting() ->
-            getRecursiveQuery(filter, preferences)
-        else -> getNonRecursiveQuery(filter, preferences)
+    ): MutableList<String> {
+        val start = currentTimeMillis()
+        return when {
+            filter.supportsManualSort() && preferences.isManualSort ->
+                getRecursiveQuery(filter, preferences)
+
+            filter is AstridOrderingFilter && preferences.isAstridSort ->
+                getNonRecursiveQuery(filter, preferences)
+
+            filter.supportsSorting() ->
+                getRecursiveQuery(filter, preferences)
+
+            else -> getNonRecursiveQuery(filter, preferences)
+        }.also { Logger.v { "Building query took ${currentTimeMillis() - start}ms" } }
     }
 }

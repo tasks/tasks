@@ -12,9 +12,7 @@ import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 
 suspend fun TaskDao.fetchTasks(preferences: QueryPreferences, filter: Filter): List<TaskContainer> =
-    fetchTasks {
-        TaskListQuery.getQuery(preferences, filter)
-    }
+    fetchTasks(TaskListQuery.getQuery(preferences, filter))
 
 internal suspend fun TaskDao.setCollapsed(preferences: QueryPreferences, filter: Filter, collapsed: Boolean) {
     fetchTasks(preferences, filter)

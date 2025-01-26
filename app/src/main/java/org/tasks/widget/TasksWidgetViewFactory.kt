@@ -70,7 +70,7 @@ internal class TasksWidgetViewFactory(
         runBlocking {
             val collapsed = widgetPreferences.collapsed
             tasks = SectionedDataSource(
-                taskDao.fetchTasks { getQuery(filter) },
+                taskDao.fetchTasks(getQuery(filter)),
                 disableGroups,
                 settings.groupMode,
                 widgetPreferences.subtaskMode,

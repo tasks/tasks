@@ -75,9 +75,9 @@ class RecursiveLoopTest : InjectingTestCase() {
         assertEquals(grandchild, tasks[2].id)
     }
 
-    private suspend fun getTasks() = taskDao.fetchTasks {
+    private suspend fun getTasks() = taskDao.fetchTasks(
         getQuery(preferences, TodayFilter.create())
-    }
+    )
 
     private suspend fun addTask(vararg properties: PropertyValue<in Task?, *>): Long {
         val task = newTask(*properties)

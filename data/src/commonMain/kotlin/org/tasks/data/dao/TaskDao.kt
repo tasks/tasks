@@ -110,10 +110,9 @@ FROM (
             + "WHERE completed > 0 AND calendarUri IS NOT NULL AND calendarUri != ''")
     abstract suspend fun clearCompletedCalendarEvents(): Int
 
-    open suspend fun fetchTasks(callback: suspend () -> List<String>): List<TaskContainer> =
+    open suspend fun fetchTasks(queries: List<String>): List<TaskContainer> =
         database.withTransaction {
             val start = if (IS_DEBUG) DateTimeUtils2.currentTimeMillis() else 0
-            val queries = callback()
             val last = queries.size - 1
             for (i in 0 until last) {
                 execSQL(queries[i])
