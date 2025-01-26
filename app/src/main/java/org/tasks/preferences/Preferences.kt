@@ -252,6 +252,7 @@ class Preferences @JvmOverloads constructor(
     }
 
     fun setString(key: String?, newValue: String?) {
+        Timber.d("Setting $key -> ${newValue?.let { if (BuildConfig.DEBUG) it else if (it.isBlank()) "" else "<redacted>" }}")
         val editor = prefs.edit()
         editor.putString(key, newValue)
         editor.apply()
@@ -261,6 +262,7 @@ class Preferences @JvmOverloads constructor(
         setStringSet(context.getString(key), newValue)
 
     fun setStringSet(key: String, newValue: Set<String>) {
+        Timber.d("Setting $key -> ${newValue.size} items")
         val editor = prefs.edit()
         editor.putStringSet(key, newValue)
         editor.apply()
@@ -274,7 +276,9 @@ class Preferences @JvmOverloads constructor(
 
     fun setStringFromInteger(keyResource: Int, newValue: Int) {
         val editor = prefs.edit()
-        editor.putString(context.getString(keyResource), newValue.toString())
+        val key = context.getString(keyResource)
+        Timber.d("Setting $key -> $newValue")
+        editor.putString(key, newValue.toString())
         editor.apply()
     }
 
@@ -293,6 +297,7 @@ class Preferences @JvmOverloads constructor(
     }
 
     fun setBoolean(key: String?, value: Boolean) {
+        Timber.d("Setting $key -> $value")
         val editor = prefs.edit()
         editor.putBoolean(key, value)
         editor.apply()
@@ -308,6 +313,7 @@ class Preferences @JvmOverloads constructor(
     }
 
     fun setInt(key: String?, value: Int) {
+        Timber.d("Setting $key -> $value")
         val editor = prefs.edit()
         editor.putInt(key, value)
         editor.apply()
@@ -323,12 +329,14 @@ class Preferences @JvmOverloads constructor(
     }
 
     fun setLong(key: String?, value: Long) {
+        Timber.d("Setting $key -> $value")
         val editor = prefs.edit()
         editor.putLong(key, value)
         editor.apply()
     }
 
     fun clear(key: String?) {
+        Timber.d("Clearing $key")
         val editor = prefs.edit()
         editor.remove(key)
         editor.apply()
