@@ -126,7 +126,7 @@
     <string name="default_random_reminder_weekly">wöchentlich</string>
     <string name="default_random_reminder_bi_weekly">vierzehntägig</string>
     <string name="repeat_option_does_not_repeat">Wiederholt sich nicht</string>
-    <string name="repeat_option_every_day">Jeden Tag</string>
+    <string name="repeat_option_every_day">Täglich</string>
     <string name="repeat_option_every_week">Jede Woche</string>
     <string name="repeat_option_every_month">Jeden Monat</string>
     <string name="repeat_option_every_year">Jedes Jahr</string>
@@ -393,8 +393,8 @@
     <string name="SSD_sort_my_order">Eigene Sortierung</string>
     <string name="always_display_full_date">Datum ganz anzeigen</string>
     <plurals name="subtask_count">
-        <item quantity="one">%d Teilaufgabe</item>
-        <item quantity="other">%d Teilaufgaben</item>
+        <item quantity="one">%d Unteraufgabe</item>
+        <item quantity="other">%d Unteraufgaben</item>
     </plurals>
     <string name="expand_subtasks">Teilaufgaben ausklappen</string>
     <string name="collapse_subtasks">Teilaufgaben einklappen</string>
@@ -403,7 +403,7 @@
     <string name="subtasks_multilevel_google_task">Mehrstufige Teilaufgaben werden von Google Tasks nicht unterstützt</string>
     <string name="display_name">Anzeigename</string>
     <string name="this_feature_requires_a_subscription">Diese Funktion benötigt ein Abonnement</string>
-    <string name="help_and_feedback">Hilfe und Rückmeldung</string>
+    <string name="help_and_feedback">Hilfe &amp; Rückmeldung</string>
     <string name="theme_system_default">Systemstandard</string>
     <string name="enter_tag_name">Schlagwort eingeben</string>
     <string name="choose_synchronization_service">Einen Dienst wählen</string>
@@ -709,7 +709,7 @@
     <string name="customize_drawer">Drawer anpassen</string>
     <string name="customize_drawer_summary">Per Drag &amp; Drop können Menüelemente neu angeordnet werden</string>
     <string name="swipe_to_snooze_title">Zum Schlummern wischen</string>
-    <string name="swipe_to_snooze_description">Schlummerzeit</string>
+    <string name="swipe_to_snooze_description">Schlummerdauer</string>
     <string name="show_edit_screen_without_unlock">Bearbeitungsbildschirm ohne Entsperren anzeigen</string>
     <string name="swipe_to_snooze_time_description">Eine gelöschte Benachrichtigung wird pausiert und %s wiederholt</string>
     <string name="quiet_hours_in_effect">Ruhezeit aktiviert</string>
