@@ -681,7 +681,7 @@
     <string name="sort_ascending">Aufsteigend</string>
     <string name="sort_descending">Absteigend</string>
     <string name="sort_completed">Nach Erledigungszeit</string>
-    <string name="sort_not_available">Nicht auf Tags, Filter oder Orte anwendbar</string>
+    <string name="sort_not_available">Nicht auf Schlagwörter, Filter oder Orte anwendbar</string>
     <plurals name="repeat_occurrence">
         <item quantity="one">Wiederholung</item>
         <item quantity="other">Wiederholungen</item>
