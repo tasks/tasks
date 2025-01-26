@@ -21,7 +21,6 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.openTaskType
 import org.tasks.data.entity.CaldavCalendar
-import timber.log.Timber
 import java.util.UUID
 import javax.inject.Inject
 
@@ -101,30 +100,6 @@ open class OpenTaskDao @Inject constructor(
                     .build()
 
 
-    suspend fun getId(listId: Long, uid: String?): Long? =
-            uid
-                    ?.takeIf { it.isNotBlank() }
-                    ?.let {
-                        withContext(Dispatchers.IO) {
-                            cr.query(
-                                    tasks,
-                                    arrayOf(Tasks._ID),
-                                    "${Tasks.LIST_ID} = $listId AND ${Tasks._UID} = '$uid'",
-                                    null,
-                                    null)?.use {
-                                if (it.moveToFirst()) {
-                                    it.getLong(Tasks._ID)
-                                } else {
-                                    null
-                                }
-                            }
-                        }
-                    }
-                    ?: uid?.let {
-                        Timber.e("No task with uid=$it")
-                        null
-                    }
-
     suspend fun batch(operations: List<ContentProviderOperation>) = withContext(Dispatchers.IO) {
         operations.chunked(OPENTASK_BATCH_LIMIT).forEach {
             cr.applyBatch(authority, ArrayList(it))
@@ -149,7 +124,7 @@ open class OpenTaskDao @Inject constructor(
     companion object {
         private const val OPENTASK_BATCH_LIMIT = 499
         const val ACCOUNT_TYPE_DAVX5 = "bitfire.at.davdroid"
-        const val ACCOUNT_TYPE_DAVX5_MANAGED = "com.davdroid"
+        private const val ACCOUNT_TYPE_DAVX5_MANAGED = "com.davdroid"
         private const val ACCOUNT_TYPE_ETESYNC = "com.etesync.syncadapter"
         private const val ACCOUNT_TYPE_DECSYNC = "org.decsync.tasks"
         val SUPPORTED_TYPES = setOf(
