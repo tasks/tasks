@@ -734,4 +734,5 @@
     <string name="sync_warning_microsoft_title">Om Microsoft To Do-synkronisering</string>
     <string name="sync_warning_microsoft">Alla uppgiftsdetaljer synkroniseras inte med Microsoft To Do.</string>
     <string name="sync_warning_google_tasks">Alla uppgiftsdetaljer synkroniseras inte med Google Tasks</string>
+    <string name="subtasks_multilevel_microsoft">Underuppgifter på flera nivåer stöds inte av Microsoft To Do</string>
 </resources>
