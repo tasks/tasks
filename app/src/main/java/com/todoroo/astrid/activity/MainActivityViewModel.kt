@@ -16,8 +16,11 @@ import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -122,7 +125,13 @@ class MainActivityViewModel @Inject constructor(
 
     init {
         localBroadcastManager.registerRefreshListReceiver(refreshReceiver)
+
         _updateFilters
+            .onStart { updateFilters() }
+            .combine(_drawerOpen) { timestamp, drawerOpen ->
+                if (drawerOpen) timestamp else null
+            }
+            .filterNotNull()
             .throttleLatest(1000)
             .onEach { updateFilters() }
             .launchIn(viewModelScope)
