@@ -102,7 +102,7 @@
     <string name="calendar_event_not_found">Kalendereintrag nicht gefunden</string>
     <string name="gcal_completed_title">%s (abgeschlossen)</string>
     <string name="CFC_gtasks_list_text">In der Liste: ?</string>
-    <string name="gtasks_GTA_clear_completed">Erledigte Aufgaben entfernen</string>
+    <string name="gtasks_GTA_clear_completed">Erledigte entfernen</string>
     <string name="gtasks_GLA_authenticating">Authentifizierung…</string>
     <string name="gtasks_GLA_errorIOAuth">Leider ist während der Kommunikation mit den Google-Servern ein Problem aufgetreten. Bitte versuche es später erneut.</string>
     <string name="gtasks_error_accountNotFound">Konto %s nicht gefunden. Bitte abmelden und erneut über die Einstellungen von Google Tasks anmelden.</string>
@@ -117,8 +117,8 @@
     <string name="rmd_EPr_quiet_hours_end_title">Ende der Ruhezeit</string>
     <string name="rmd_EPr_rmd_time_title">Erinnerungszeit</string>
     <string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Uhrzeit werden um %s angezeigt</string>
-    <string name="persistent_notifications">Hartnäckige Benachrichtigungen</string>
-    <string name="persistent_notifications_description">Hartnäckige Benachrichtigungen können nicht einfach gelöscht werden</string>
+    <string name="persistent_notifications">Dauerhafte Benachrichtigungen</string>
+    <string name="persistent_notifications_description">Dauerhafte Benachrichtigungen können nicht gelöscht werden</string>
     <string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
     <string name="default_random_reminder_disabled">deaktiviert</string>
     <string name="default_random_reminder_hourly">stündlich</string>
@@ -602,7 +602,7 @@
     <string name="more_options">Weitere Optionen</string>
     <string name="upgrade_open_source_description">Dein Abonnement unterstützt die Weiterentwicklung</string>
     <string name="upgrade_desktop_access_description">Mit Drittanbieter-Apps wie Outlook und Apple-Erinnerungen synchronisieren</string>
-    <string name="upgrade_desktop_access">PC-Zugriff</string>
+    <string name="upgrade_desktop_access">Desktop-Zugriff</string>
     <string name="upgrade_tasks_org_account_description">Mit Tasks.org synchronisieren und mit anderen zusammenarbeiten</string>
     <string name="upgrade_more_customization_description">Schalte alle Themen, Farben und Symbole frei</string>
     <string name="upgrade_more_customization">Mehr Anpassungsmöglichkeiten</string>
@@ -707,7 +707,7 @@
     <string name="donate_maybe_later">Vielleicht später</string>
     <string name="show_edit_screen_without_unlock_summary">Ermöglicht die Verwendung der Kachel „Schnelleinstellungen“, ohne das Gerät zu entsperren</string>
     <string name="customize_drawer">Drawer anpassen</string>
-    <string name="customize_drawer_summary">Per Drag &amp; Drop können Menüelemente neu angeordnet werden</string>
+    <string name="customize_drawer_summary">Menüelemente können per Drag &amp; Drop neu angeordnet werden</string>
     <string name="swipe_to_snooze_title">Zum Schlummern wischen</string>
     <string name="swipe_to_snooze_description">Schlummerdauer</string>
     <string name="show_edit_screen_without_unlock">Bearbeitungsbildschirm ohne Entsperren anzeigen</string>
