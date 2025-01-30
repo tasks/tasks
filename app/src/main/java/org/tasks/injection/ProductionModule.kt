@@ -2,11 +2,16 @@ package org.tasks.injection
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.SQLiteConnection
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import androidx.sqlite.execSQL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.Dispatchers
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.caldav.FileStorage
@@ -36,6 +41,15 @@ internal class ProductionModule {
             context = context,
             name = databaseFile.absolutePath
         )
+            .setDriver(BundledSQLiteDriver())
+            .setQueryCoroutineContext(Dispatchers.IO)
+            .addCallback(object : RoomDatabase.Callback() {
+                override fun onOpen(connection: SQLiteConnection) {
+                    super.onOpen(connection)
+
+                    connection.execSQL("PRAGMA busy_timeout = 30000")
+                }
+            })
             .addMigrations(*Migrations.migrations(context, fileStorage))
         if (!BuildConfig.DEBUG || !preferences.getBoolean(R.string.p_crash_main_queries, false)) {
             builder.allowMainThreadQueries()
