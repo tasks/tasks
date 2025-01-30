@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteException
 import androidx.room.migration.Migration
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.execSQL
-import androidx.sqlite.use
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.caldav.FileStorage
