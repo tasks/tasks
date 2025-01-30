@@ -24,10 +24,7 @@ object TaskListQuery {
             field("$CALDAV_METADATA_JOIN.cd_deleted").eq(0))
     val JOINS = """
         ${Join.left(CaldavTask.TABLE.`as`(CALDAV_METADATA_JOIN), JOIN_CALDAV)}
-        ${
-        Join.left(
-        CaldavCalendar.TABLE, field("$CALDAV_METADATA_JOIN.cd_calendar").eq(
-            CaldavCalendar.UUID))}
+        ${Join.left(CaldavCalendar.TABLE, field("$CALDAV_METADATA_JOIN.cd_calendar").eq(CaldavCalendar.UUID))}
         ${Join.left(CaldavAccount.TABLE, CaldavCalendar.ACCOUNT.eq(CaldavAccount.UUID))}
         ${Join.left(Geofence.TABLE, Geofence.TASK.eq(Task.ID))}
         ${Join.left(Place.TABLE, Place.UID.eq(Geofence.PLACE))}
@@ -43,7 +40,7 @@ object TaskListQuery {
     fun getQuery(
         preferences: QueryPreferences,
         filter: Filter,
-    ): MutableList<String> {
+    ): String {
         val start = currentTimeMillis()
         return when {
             filter.supportsManualSort() && preferences.isManualSort ->

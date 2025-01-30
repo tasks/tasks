@@ -144,8 +144,7 @@ class TaskDao @Inject constructor(
 
     internal suspend fun insert(task: Task): Long = taskDao.insert(task)
 
-    internal suspend fun fetchTasks(queries: List<String>): List<TaskContainer> =
-            taskDao.fetchTasks(queries)
+    internal suspend fun fetchTasks(query: String): List<TaskContainer> = taskDao.fetchTasks(query)
 
     internal suspend fun getAll(): List<Task> = taskDao.getAll()
 

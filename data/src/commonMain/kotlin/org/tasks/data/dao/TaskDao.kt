@@ -6,7 +6,6 @@ import androidx.room.Query
 import androidx.room.RawQuery
 import androidx.room.RoomRawQuery
 import androidx.room.Update
-import androidx.room.execSQL
 import co.touchlab.kermit.Logger
 import org.tasks.IS_DEBUG
 import org.tasks.data.TaskContainer
@@ -18,7 +17,6 @@ import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.Functions
-import org.tasks.data.withTransaction
 import org.tasks.time.DateTimeUtils2
 
 private const val MAX_TIME = 9999999999999
@@ -110,21 +108,13 @@ FROM (
             + "WHERE completed > 0 AND calendarUri IS NOT NULL AND calendarUri != ''")
     abstract suspend fun clearCompletedCalendarEvents(): Int
 
-    open suspend fun fetchTasks(queries: List<String>): List<TaskContainer> =
-        database.withTransaction {
-            val start = if (IS_DEBUG) DateTimeUtils2.currentTimeMillis() else 0
-            val last = queries.size - 1
-            for (i in 0 until last) {
-                execSQL(queries[i])
-            }
-            val result = fetchTasks(queries[last])
-            Logger.v("TaskDao") {
-                "${DateTimeUtils2.currentTimeMillis() - start}ms: ${queries.joinToString(";\n")}"
-            }
-            result
-        }
-
-    suspend fun fetchTasks(query: String): List<TaskContainer> = fetchRaw(RoomRawQuery(query))
+    suspend fun fetchTasks(query: String): List<TaskContainer> {
+        val start = DateTimeUtils2.currentTimeMillis()
+        val result = fetchRaw(RoomRawQuery(query))
+        val end = DateTimeUtils2.currentTimeMillis()
+        Logger.v("TaskDao") { "${end - start}ms: ${query.replace(Regex("\\s+"), " ").trim()}" }
+        return result
+    }
 
     @RawQuery
     internal abstract suspend fun fetchRaw(query: RoomRawQuery): List<TaskContainer>

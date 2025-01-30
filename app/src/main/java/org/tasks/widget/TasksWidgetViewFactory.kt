@@ -271,7 +271,7 @@ internal class TasksWidgetViewFactory(
         }
     }
 
-    private suspend fun getQuery(filter: Filter): List<String> {
+    private suspend fun getQuery(filter: Filter): String {
         subtasksHelper.applySubtasksToWidgetFilter(filter, widgetPreferences)
         return getQuery(widgetPreferences, filter)
     }
