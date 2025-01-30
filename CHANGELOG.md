@@ -1,14 +1,16 @@
-### 14.4.6 (2024-01-26)
+### 14.4.6 (2024-01-29)
 
+* Database performance improvements
 * Additional debug logging
 * Update translations
   * Danish - ERYpTION
   * Estonian - Priit Jõerüüt
-  * German - @franconian, Colorful Rhino
+  * German - @franconian, Colorful Rhino, @Kachelkaiser
   * Italian - @ppasserini
   * Korean - Sunjae Choi
   * Nepali - Sagun Khatri
   * Slovak - @jose1711
+  * Swedish - Nick Wick
 
 ### 14.4.5 (2024-01-22)
 
