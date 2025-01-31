@@ -51,7 +51,7 @@ class SectionedDataSource(
 
     override fun get(index: Int) =
         sections[index]
-            ?.let { UiItem.Header(it.value) }
+            ?.let { UiItem.Header(it.value, it.collapsed) }
             ?: UiItem.Task(getItem(index))
 
     override fun isEmpty() = size == 0

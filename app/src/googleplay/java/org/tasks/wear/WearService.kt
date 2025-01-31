@@ -87,7 +87,7 @@ class WearService(
                                     .setId(item.value)
                                     .setType(ListItemType.Header)
                                     .setTitle(headerFormatter.headerString(item.value, style = DateStyle.MEDIUM))
-                                    .setCollapsed(collapsed.contains(item.value))
+                                    .setCollapsed(item.collapsed)
                                     .build()
 
                             is UiItem.Task -> {
