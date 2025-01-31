@@ -4,15 +4,14 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import co.touchlab.kermit.Logger
-import org.tasks.data.db.Database
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
-import org.tasks.data.withTransaction
 
 @Dao
-abstract class TagDao(private val database: Database) {
+abstract class TagDao {
     @Query("UPDATE tags SET name = :name WHERE tag_uid = :tagUid")
     abstract suspend fun rename(tagUid: String, name: String)
 
@@ -37,17 +36,16 @@ abstract class TagDao(private val database: Database) {
     @Delete
     abstract suspend fun delete(tags: List<Tag>)
 
+    @Transaction
     open suspend fun applyTags(task: Task, tagDataDao: TagDataDao, current: Collection<TagData>) {
         Logger.d("TagDao") { "applyTags task=$task current=$current" }
-        database.withTransaction {
-            val taskId = task.id
-            val existing = HashSet(tagDataDao.getTagDataForTask(taskId))
-            val selected = current.toMutableSet()
-            val added = selected subtract existing
-            val removed = existing subtract selected
-            deleteTags(taskId, removed.map { td -> td.remoteId!! })
-            insert(task, added)
-        }
+        val taskId = task.id
+        val existing = HashSet(tagDataDao.getTagDataForTask(taskId))
+        val selected = current.toMutableSet()
+        val added = selected subtract existing
+        val removed = existing subtract selected
+        deleteTags(taskId, removed.map { td -> td.remoteId!! })
+        insert(task, added)
     }
 
     suspend fun insert(task: Task, tags: Collection<TagData>) {

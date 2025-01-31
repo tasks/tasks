@@ -4,19 +4,17 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
-import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import org.tasks.data.PrincipalWithAccess
-import org.tasks.data.db.Database
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.Principal
 import org.tasks.data.entity.PrincipalAccess
-import org.tasks.data.withTransaction
 
 @Dao
-abstract class PrincipalDao(private val database: Database) {
+abstract class PrincipalDao {
     @Insert
     abstract suspend fun insert(principal: Principal): Long
 
@@ -36,15 +34,9 @@ WHERE list = :list
     @Delete
     abstract suspend fun delete(access: PrincipalAccess)
 
-    suspend fun getAll(): List<PrincipalWithAccess> {
-        Logger.d("PrincipalDao") { "getAll" }
-        return database.withTransaction {
-            getAllInternal()
-        }
-    }
-
+    @Transaction
     @Query("SELECT * FROM principal_access")
-    internal abstract suspend fun getAllInternal(): List<PrincipalWithAccess>
+    abstract suspend fun getAll(): List<PrincipalWithAccess>
 
     suspend fun getOrCreatePrincipal(account: CaldavAccount, href: String, displayName: String? = null) =
         findPrincipal(account.id, href)

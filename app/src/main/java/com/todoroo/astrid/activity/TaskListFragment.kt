@@ -103,7 +103,6 @@ import org.tasks.data.entity.Task
 import org.tasks.data.listSettingsClass
 import org.tasks.data.open
 import org.tasks.data.sql.QueryTemplate
-import org.tasks.data.withTransaction
 import org.tasks.databinding.FragmentTaskListBinding
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
@@ -1058,10 +1057,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     (intent.getSerializableExtra(EXTRAS_TASK_ID) as? ArrayList<Long>)
                         ?.let {
                             Timber.d("Repeating tasks: $it")
-                            // hack to wait for task save transaction to complete
-                            database.withTransaction {
-                                taskDao.fetch(it)
-                            }
+                            taskDao.fetch(it)
                         }
                         ?.filterNot { it.readOnly }
                         ?.takeIf { it.isNotEmpty() }

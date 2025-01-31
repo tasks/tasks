@@ -6,6 +6,7 @@ import androidx.room.RoomDatabase
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.Astrid2ContentProviderDao
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.CompletionDao
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.GoogleTaskDao
@@ -80,6 +81,7 @@ abstract class Database : RoomDatabase() {
     abstract fun contentProviderDao(): Astrid2ContentProviderDao
     abstract fun upgraderDao(): UpgraderDao
     abstract fun principalDao(): PrincipalDao
+    abstract fun completionDao(): CompletionDao
 
     /** @return human-readable database name for debugging
      */

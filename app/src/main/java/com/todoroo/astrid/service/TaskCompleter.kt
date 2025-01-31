@@ -8,13 +8,12 @@ import android.media.RingtoneManager
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatTaskHelper
+import com.todoroo.astrid.repeats.RepeatTaskHelper.Companion.computePreviousDueDate
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.db.Database
+import org.tasks.data.dao.CompletionDao
 import org.tasks.data.entity.Task
-import org.tasks.data.withTransaction
 import org.tasks.jobs.WorkManager
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
@@ -24,7 +23,6 @@ import javax.inject.Inject
 
 class TaskCompleter @Inject internal constructor(
     @ApplicationContext private val context: Context,
-    private val database: Database,
     private val taskDao: TaskDao,
     private val preferences: Preferences,
     private val notificationManager: NotificationManager,
@@ -33,7 +31,7 @@ class TaskCompleter @Inject internal constructor(
     private val caldavDao: CaldavDao,
     private val gCalHelper: GCalHelper,
     private val workManager: WorkManager,
-    private val alarmDao: AlarmDao,
+    private val completionDao: CompletionDao,
 ) {
     suspend fun setComplete(taskId: Long, completed: Boolean = true) =
             taskDao
@@ -56,10 +54,10 @@ class TaskCompleter @Inject internal constructor(
             .filterNotNull()
             .filter { it.isCompleted != completionDate > 0 }
             .filterNot { it.readOnly }
-            .let {
-                setComplete(it, completionDate)
+            .let { tasks ->
+                setComplete(tasks, completionDate)
                 if (completed && !item.isRecurring) {
-                    localBroadcastManager.broadcastTaskCompleted(ArrayList(it.map(Task::id)))
+                    localBroadcastManager.broadcastTaskCompleted(tasks.map { it.id })
                 }
             }
     }
@@ -70,27 +68,24 @@ class TaskCompleter @Inject internal constructor(
         }
         tasks.forEach { notificationManager.cancel(it.id) }
         val completed = completionDate > 0
-        val modified = currentTimeMillis()
+        val repeated = ArrayList<Task>()
         Timber.d("Completing $tasks")
-        database.withTransaction {
-            alarmDao.deleteSnoozed(tasks.map { it.id })
-            tasks
-                .map {
-                    it.copy(
-                        completionDate = completionDate,
-                        modificationDate = modified,
-                    )
+        completionDao.complete(
+            tasks = tasks,
+            completionDate = completionDate,
+            afterSave = { updated ->
+                updated.forEach { saved ->
+                    val original = tasks.find { it.id == saved.id }
+                    taskDao.afterUpdate(saved, original)
                 }
-                .also { completed ->
-                    completed.subList(0, completed.lastIndex).forEach { it.suppressRefresh() }
-                    taskDao.save(completed, tasks)
-                }
-                .forEach { task ->
+                updated.forEach { task ->
                     if (completed && task.isRecurring) {
                         gCalHelper.updateEvent(task)
 
                         if (caldavDao.getAccountForTask(task.id)?.isSuppressRepeatingTasks != true) {
-                            repeatTaskHelper.handleRepeat(task)
+                            if (repeatTaskHelper.handleRepeat(task)) {
+                                repeated.add(task)
+                            }
                             if (task.completionDate == 0L) {
                                 // un-complete children
                                 setComplete(task, false)
@@ -98,9 +93,16 @@ class TaskCompleter @Inject internal constructor(
                         }
                     }
                 }
-        }
+            }
+        )
+        localBroadcastManager.broadcastRefresh()
         workManager.triggerNotifications()
         workManager.scheduleRefresh()
+        repeated.lastOrNull()?.let { task ->
+            val oldDueDate = tasks.find { it.id == task.id }?.dueDate?.takeIf { it > 0 }
+                ?: computePreviousDueDate(task)
+            localBroadcastManager.broadcastTaskCompleted(arrayListOf(task.id), oldDueDate)
+        }
         if (completed && notificationManager.currentInterruptionFilter == INTERRUPTION_FILTER_ALL) {
             preferences
                 .completionSound

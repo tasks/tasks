@@ -98,22 +98,19 @@ class TaskDao @Inject constructor(
      */
     suspend fun save(task: Task) = save(task, fetch(task.id))
 
-    suspend fun save(tasks: List<Task>, originals: List<Task>) {
-        Timber.d("Saving $tasks")
-        taskDao.updateInternal(tasks)
-        tasks.forEach { task -> afterUpdate(task, originals.find { it.id == task.id }) }
-    }
-
     suspend fun save(task: Task, original: Task?) {
         if (taskDao.update(task, original)) {
             Timber.d("Saved $task")
             afterUpdate(task, original)
+            if (!task.isSuppressRefresh()) {
+                localBroadcastManager.broadcastRefresh()
+            }
             workManager.triggerNotifications()
             workManager.scheduleRefresh()
         }
     }
 
-    private suspend fun afterUpdate(task: Task, original: Task?) {
+    suspend fun afterUpdate(task: Task, original: Task?) {
         val completionDateModified = task.completionDate != (original?.completionDate ?: 0)
         val deletionDateModified = task.deletionDate != (original?.deletionDate ?: 0)
         val justCompleted = completionDateModified && task.isCompleted
@@ -130,9 +127,6 @@ class TaskDao @Inject constructor(
         }
         if (completionDateModified || deletionDateModified) {
             geofenceApi.update(task.id)
-        }
-        if (!task.isSuppressRefresh()) {
-            localBroadcastManager.broadcastRefresh()
         }
         syncAdapters.sync(task, original)
     }

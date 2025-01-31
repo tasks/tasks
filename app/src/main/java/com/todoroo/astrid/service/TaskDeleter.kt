@@ -10,23 +10,19 @@ import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.UserActivityDao
-import org.tasks.data.db.Database
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.Task
 import org.tasks.data.pictureUri
-import org.tasks.data.withTransaction
 import org.tasks.files.FileHelper
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
 import org.tasks.sync.SyncAdapters
-import timber.log.Timber
 import javax.inject.Inject
 
 class TaskDeleter @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val database: Database,
     private val deletionDao: DeletionDao,
     private val taskDao: TaskDao,
     private val localBroadcastManager: LocalBroadcastManager,
@@ -47,11 +43,10 @@ class TaskDeleter @Inject constructor(
             .let { taskDao.fetch(it.toList()) }
             .filterNot { it.readOnly }
             .map { it.id }
-        Timber.d("markDeleted $ids")
-        database.withTransaction {
-            deletionDao.markDeleted(ids)
-            cleanup(ids)
-        }
+        deletionDao.markDeleted(
+            ids = ids,
+            cleanup = { cleanup(it) }
+        )
         syncAdapters.sync()
         localBroadcastManager.broadcastRefresh()
         taskDao.fetch(ids)
@@ -62,31 +57,28 @@ class TaskDeleter @Inject constructor(
     suspend fun delete(task: Long) = delete(listOf(task))
 
     suspend fun delete(tasks: List<Long>) {
-        Timber.d("Deleting $tasks")
-        database.withTransaction {
-            deletionDao.delete(tasks)
-            cleanup(tasks)
-        }
+        deletionDao.delete(
+            ids = tasks,
+            cleanup = { cleanup(it) }
+        )
         localBroadcastManager.broadcastRefresh()
     }
 
     suspend fun delete(list: CaldavCalendar) {
         vtodoCache.delete(list)
-        Timber.d("Deleting $list")
-        database.withTransaction {
-            val tasks = deletionDao.delete(list)
-            delete(tasks)
-        }
+        deletionDao.delete(
+            caldavCalendar = list,
+            cleanup = { cleanup(it) }
+        )
         localBroadcastManager.broadcastRefreshList()
     }
 
     suspend fun delete(account: CaldavAccount) {
         vtodoCache.delete(account)
-        Timber.d("Deleting $account")
-        database.withTransaction {
-            val tasks = deletionDao.delete(account)
-            delete(tasks)
-        }
+        deletionDao.delete(
+            caldavAccount = account,
+            cleanup = { cleanup(it) }
+        )
         localBroadcastManager.broadcastRefreshList()
     }
 

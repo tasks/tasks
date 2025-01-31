@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.google.common.collect.Lists
 import com.todoroo.astrid.api.AstridApiConstants
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.widget.AppWidgetManager
@@ -56,17 +55,9 @@ class LocalBroadcastManager @Inject constructor(
         localBroadcastManager.sendBroadcast(Intent(REFRESH_PREFERENCES))
     }
 
-    fun broadcastTaskCompleted(id: Long, oldDueDate: Long) {
-        broadcastTaskCompleted(Lists.newArrayList(id), oldDueDate)
-    }
-
-    fun broadcastTaskCompleted(id: ArrayList<Long>) {
-        broadcastTaskCompleted(id, 0)
-    }
-
-    private fun broadcastTaskCompleted(id: ArrayList<Long>, oldDueDate: Long) {
+    fun broadcastTaskCompleted(id: List<Long>, oldDueDate: Long = 0L) {
         val intent = Intent(TASK_COMPLETED)
-        intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, id)
+        intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, ArrayList(id))
         intent.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, oldDueDate)
         localBroadcastManager.sendBroadcast(intent)
     }

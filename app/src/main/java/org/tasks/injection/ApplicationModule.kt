@@ -15,6 +15,7 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
+import org.tasks.compose.drawer.DrawerConfiguration
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.Astrid2ContentProviderDao
 import org.tasks.data.dao.CaldavDao
@@ -30,13 +31,12 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.TaskListMetadataDao
 import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.db.Database
+import org.tasks.filters.FilterProvider
 import org.tasks.filters.PreferenceDrawerConfiguration
 import org.tasks.jobs.WorkManager
 import org.tasks.kmp.createDataStore
-import org.tasks.compose.drawer.DrawerConfiguration
-import org.tasks.filters.FilterProvider
-import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.TasksPreferences
 import java.util.Locale
 import javax.inject.Singleton
 
@@ -116,6 +116,10 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun getPrincipalDao(db: Database) = db.principalDao()
+
+    @Provides
+    @Singleton
+    fun getCompletionDao(db: Database) = db.completionDao()
 
     @Provides
     fun getBillingClient(

@@ -11,7 +11,6 @@ import com.todoroo.astrid.gcal.GCalHelper
 import net.fortuna.ical4j.model.Date
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
-import org.tasks.LocalBroadcastManager
 import org.tasks.data.createDueDate
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
@@ -33,12 +32,11 @@ class RepeatTaskHelper @Inject constructor(
         private val gcalHelper: GCalHelper,
         private val alarmService: AlarmService,
         private val taskDao: TaskDao,
-        private val localBroadcastManager: LocalBroadcastManager,
 ) {
-    suspend fun handleRepeat(task: Task) {
+    suspend fun handleRepeat(task: Task): Boolean {
         val recurrence = task.recurrence
         if (recurrence.isNullOrBlank()) {
-            return
+            return false
         }
         val repeatAfterCompletion = task.repeatFrom == RepeatFrom.COMPLETION_DATE
         val newDueDate: Long
@@ -48,17 +46,15 @@ class RepeatTaskHelper @Inject constructor(
             rrule = initRRule(recurrence)
             count = rrule.count
             if (count == 1) {
-                broadcastCompletion(task)
-                return
+                return true
             }
             newDueDate = computeNextDueDate(task, recurrence, repeatAfterCompletion)
             if (newDueDate == -1L) {
-                broadcastCompletion(task)
-                return
+                return true
             }
         } catch (e: ParseException) {
             Timber.e(e)
-            return
+            return false
         }
         if (count > 1) {
             rrule.count = count - 1
@@ -70,18 +66,9 @@ class RepeatTaskHelper @Inject constructor(
         task.setDueDateAdjustingHideUntil(newDueDate)
         gcalHelper.rescheduleRepeatingTask(task)
         taskDao.save(task)
-        val previousDueDate =
-                oldDueDate
-                        .takeIf { it > 0 }
-                        ?: (newDueDate - (computeNextDueDate(task, recurrence, repeatAfterCompletion) - newDueDate))
+        val previousDueDate = oldDueDate.takeIf { it > 0 } ?: computePreviousDueDate(task)
         rescheduleAlarms(task.id, previousDueDate, newDueDate)
-        broadcastCompletion(task, previousDueDate)
-    }
-
-    private fun broadcastCompletion(task: Task, oldDueDate: Long = 0L) {
-        if (!task.isSuppressRefresh()) {
-            localBroadcastManager.broadcastTaskCompleted(task.id, oldDueDate)
-        }
+        return true
     }
 
     suspend fun undoRepeat(task: Task, oldDueDate: Long) {
@@ -130,6 +117,9 @@ class RepeatTaskHelper @Inject constructor(
 
     companion object {
         private val weekdayCompare = Comparator { object1: WeekDay, object2: WeekDay -> WeekDay.getCalendarDay(object1) - WeekDay.getCalendarDay(object2) }
+
+        fun computePreviousDueDate(task: Task): Long =
+            task.dueDate - (computeNextDueDate(task, task.recurrence!!, task.repeatFrom == RepeatFrom.COMPLETION_DATE) - task.dueDate)
 
         /** Compute next due date  */
         @Throws(ParseException::class)

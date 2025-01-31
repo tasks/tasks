@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +13,6 @@ import org.tasks.data.CaldavFilters
 import org.tasks.data.CaldavTaskContainer
 import org.tasks.data.NO_ORDER
 import org.tasks.data.TaskContainer
-import org.tasks.data.db.Database
 import org.tasks.data.db.DbUtils.dbchunk
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.entity.CaldavAccount
@@ -22,13 +22,12 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
-import org.tasks.data.withTransaction
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 const val APPLE_EPOCH = 978307200000L // 1/1/2001 GMT
 
 @Dao
-abstract class CaldavDao(private val database: Database) {
+abstract class CaldavDao {
     @Query("SELECT COUNT(*) FROM caldav_lists WHERE cdl_account = :account")
     abstract suspend fun listCount(account: String): Int
 
@@ -104,23 +103,21 @@ ORDER BY CASE cda_account_type
 
     suspend fun insert(task: Task, caldavTask: CaldavTask, addToTop: Boolean): Long {
         Logger.d("CaldavDao") { "insert task=$task caldavTask=$caldavTask addToTop=$addToTop)" }
-        return database.withTransaction {
-            if (task.order != null) {
-                return@withTransaction insert(caldavTask)
-            }
-            if (addToTop) {
-                task.order = findFirstTask(caldavTask.calendar!!, task.parent)
-                    ?.takeIf { task.creationDate.toAppleEpoch() >= it }
-                    ?.minus(1)
-            } else {
-                task.order = findLastTask(caldavTask.calendar!!, task.parent)
-                    ?.takeIf { task.creationDate.toAppleEpoch() <= it }
-                    ?.plus(1)
-            }
-            val id = insert(caldavTask)
-            update(task)
-            id
+        if (task.order != null) {
+            return insert(caldavTask)
         }
+        if (addToTop) {
+            task.order = findFirstTask(caldavTask.calendar!!, task.parent)
+                ?.takeIf { task.creationDate.toAppleEpoch() >= it }
+                ?.minus(1)
+        } else {
+            task.order = findLastTask(caldavTask.calendar!!, task.parent)
+                ?.takeIf { task.creationDate.toAppleEpoch() <= it }
+                ?.plus(1)
+        }
+        val id = insert(caldavTask)
+        update(task)
+        return id
     }
 
     @Query("""
@@ -309,51 +306,49 @@ GROUP BY caldav_lists.cdl_uuid
             + "WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task WHERE cd_deleted = 0 AND cd_calendar = :calendar)")
     abstract suspend fun updateParents(calendar: String)
 
-    suspend fun move(
+    @Transaction
+    open suspend fun move(
         task: TaskContainer,
         previousParent: Long,
         newParent: Long,
         newPosition: Long?,
     ) {
         Logger.d("CaldavDao") { "move task=$task previousParent=$previousParent newParent=$newParent newPosition=$newPosition" }
-        database.withTransaction {
-            val previousPosition = task.caldavSortOrder
-            if (newPosition != null) {
-                if (newParent == previousParent && newPosition < previousPosition) {
-                    shiftDown(task.caldav!!, newParent, newPosition, previousPosition)
-                } else {
-                    val list =
-                        newParent.takeIf { it > 0 }?.let { getTask(it)?.calendar } ?: task.caldav!!
-                    shiftDown(list, newParent, newPosition)
-                }
+        val previousPosition = task.caldavSortOrder
+        if (newPosition != null) {
+            if (newParent == previousParent && newPosition < previousPosition) {
+                shiftDown(task.caldav!!, newParent, newPosition, previousPosition)
+            } else {
+                val list =
+                    newParent.takeIf { it > 0 }?.let { getTask(it)?.calendar } ?: task.caldav!!
+                shiftDown(list, newParent, newPosition)
             }
-            task.task.order = newPosition
-            setTaskOrder(task.id, newPosition)
         }
+        task.task.order = newPosition
+        setTaskOrder(task.id, newPosition)
     }
 
-    suspend fun shiftDown(calendar: String, parent: Long, from: Long, to: Long? = null) {
+    @Transaction
+    open suspend fun shiftDown(calendar: String, parent: Long, from: Long, to: Long? = null) {
         Logger.d("CaldavDao") { "shiftDown calendar=$calendar parent=$parent from=$from to=$to" }
-        database.withTransaction {
-            val updated = ArrayList<Task>()
-            val tasks = getTasksToShift(calendar, parent, from, to)
-            for (i in tasks.indices) {
-                val task = tasks[i]
-                val current = from + i
-                if (task.sortOrder == current) {
-                    val task = task.task
-                    task.order = current + 1
-                    updated.add(task)
-                } else if (task.sortOrder > current) {
-                    break
-                }
+        val updated = ArrayList<Task>()
+        val tasks = getTasksToShift(calendar, parent, from, to)
+        for (i in tasks.indices) {
+            val task = tasks[i]
+            val current = from + i
+            if (task.sortOrder == current) {
+                val task = task.task
+                task.order = current + 1
+                updated.add(task)
+            } else if (task.sortOrder > current) {
+                break
             }
-            updateTasks(updated)
-            updated
-                .map(Task::id)
-                .dbchunk()
-                .forEach { touchInternal(it) }
         }
+        updateTasks(updated)
+        updated
+            .map(Task::id)
+            .dbchunk()
+            .forEach { touchInternal(it) }
     }
 
     @Query("UPDATE tasks SET modified = :modificationTime WHERE _id in (:ids)")
