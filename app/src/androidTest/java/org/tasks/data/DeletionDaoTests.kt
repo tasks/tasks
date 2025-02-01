@@ -33,19 +33,19 @@ class DeletionDaoTests : InjectingTestCase() {
 
     @Test
     fun deleting1000DoesntCrash() = runBlocking {
-        deletionDao.delete((1L..1000L).toList())
+        deletionDao.delete((1L..1000L).toList(), {})
     }
 
     @Test
     fun marking998ForDeletionDoesntCrash() = runBlocking {
-        deletionDao.markDeleted(1L..1000L)
+        deletionDao.markDeleted(1L..1000L, {})
     }
 
     @Test
     fun markDeletedUpdatesModificationTime() = runBlocking {
         var task = newTask(with(CREATION_TIME, DateTime().minusMinutes(1)))
         taskDao.createNew(task)
-        deletionDao.markDeleted(listOf(task.id))
+        deletionDao.markDeleted(listOf(task.id), {})
         task = taskDao.fetch(task.id)!!
         assertTrue(task.modificationDate > task.creationDate)
         assertTrue(task.modificationDate < currentTimeMillis())
@@ -55,7 +55,7 @@ class DeletionDaoTests : InjectingTestCase() {
     fun markDeletedUpdatesDeletionTime() = runBlocking {
         var task = newTask(with(CREATION_TIME, DateTime().minusMinutes(1)))
         taskDao.createNew(task)
-        deletionDao.markDeleted(listOf(task.id))
+        deletionDao.markDeleted(listOf(task.id), {})
         task = taskDao.fetch(task.id)!!
         assertTrue(task.deletionDate > task.creationDate)
         assertTrue(task.deletionDate < currentTimeMillis())

@@ -23,7 +23,6 @@ abstract class RepeatTests {
             mock(GCalHelper::class.java),
             alarmService,
             mock(TaskDao::class.java),
-            mock(LocalBroadcastManager::class.java),
     )
 
     @Before
