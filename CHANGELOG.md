@@ -1,4 +1,11 @@
-### 14.4.6 (2024-01-29)
+### 14.4.7 (202%-02-01)
+
+* Database improvements
+* Update translations
+  * Estonian - Priit Jõerüüt
+  * German - @Kachelkaiser
+
+### 14.4.6 (2025-01-29)
 
 * Database performance improvements
 * Additional debug logging
@@ -12,7 +19,7 @@
   * Slovak - @jose1711
   * Swedish - Nick Wick
 
-### 14.4.5 (2024-01-22)
+### 14.4.5 (2025-01-22)
 
 * Performance improvements
 * DAVx5 sync performance improvements
@@ -24,7 +31,7 @@
   * Nepali - @sagunkhatri
 
 
-### 14.4.4 (2024-01-19)
+### 14.4.4 (2025-01-19)
 
 * Fix list pickers [#3269](https://github.com/tasks/tasks/issues/3269)
 
