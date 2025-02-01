@@ -393,8 +393,8 @@
     <string name="SSD_sort_my_order">Eigene Sortierung</string>
     <string name="always_display_full_date">Datum ganz anzeigen</string>
     <plurals name="subtask_count">
-        <item quantity="one">%d Unteraufgabe</item>
-        <item quantity="other">%d Unteraufgaben</item>
+        <item quantity="one">%d Teilaufgabe</item>
+        <item quantity="other">%d Teilaufgaben</item>
     </plurals>
     <string name="expand_subtasks">Teilaufgaben ausklappen</string>
     <string name="collapse_subtasks">Teilaufgaben einklappen</string>
@@ -536,7 +536,7 @@
     <string name="price_per_year">%s $/Jahr</string>
     <string name="save_percent">%d %% sparen</string>
     <string name="no_google_play_subscription">Kein qualifiziertes Google Play-Abo gefunden</string>
-    <string name="insufficient_sponsorship">Keine qualifizierte GitHub-Patenschaft gefunden</string>
+    <string name="insufficient_sponsorship">Keine qualifiziertes GitHub-Sponsoring gefunden</string>
     <string name="decsync_selection_description">Dateibasierte Synchronisierung</string>
     <plurals name="list_count">
         <item quantity="one">%d Liste</item>
@@ -549,8 +549,8 @@
     <string name="github_sponsor">Pate</string>
     <string name="authentication_required">Authentifizierung erforderlich</string>
     <string name="sign_in_with_github">Mit GitHub anmelden</string>
-    <string name="github_sponsors">GitHub-Paten</string>
-    <string name="google_play_subscribers">Goole Play-Abonnementen</string>
+    <string name="github_sponsors">GitHub-Sponsoren</string>
+    <string name="google_play_subscribers">Goole Play-Abonnement</string>
     <string name="not_signed_in">Nicht angemeldet</string>
     <string name="authorization_cancelled">Autorisierung abgebrochen</string>
     <string name="sign_in_with_google">Mit Google anmelden</string>
