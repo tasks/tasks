@@ -620,10 +620,6 @@
     <string name="astrid_sort_order">Astrid manuell sortering</string>
     <string name="display_name">Visa namnet</string>
     <string name="now">Nu</string>
-    <string name="app_bar_position">Appfältets position</string>
-    <string name="app_bar_collapse">Fäll in appfält</string>
-    <string name="top">Överst</string>
-    <string name="bottom">Nederst</string>
     <string name="completed">Slutförd</string>
     <string name="when_started">Vid start</string>
     <string name="completion_sound">Spela färdigställande ljud</string>

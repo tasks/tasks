@@ -646,11 +646,7 @@
     <string name="now">Maintenant</string>
     <string name="when_started">Lorsqu\'il est démarré</string>
     <string name="completion_sound">Jouer le son d\'achèvement</string>
-    <string name="top">Haut</string>
-    <string name="app_bar_position">Position de la barre de l’application</string>
-    <string name="bottom">Bas</string>
     <string name="completed">Terminé</string>
-    <string name="app_bar_collapse">Réduire les barres d\'applications</string>
     <string name="snackbar_task_completed">Tâche terminée</string>
     <string name="completed_tasks_at_bottom">Déplacer les tâches terminées vers le bas</string>
     <string name="snackbar_tasks_completed">%d tâches terminées</string>

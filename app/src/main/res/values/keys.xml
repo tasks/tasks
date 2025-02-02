@@ -434,8 +434,6 @@
   <string name="p_picker_mode_date">picker_mode_date</string>
   <string name="p_picker_mode_time">picker_mode_time</string>
   <string name="p_markdown">markdown</string>
-  <string name="p_app_bar_position">app_bar_position</string>
-  <string name="p_app_bar_collapse">app_bar_collapse</string>
   <string name="p_completed_tasks_at_bottom">completed_tasks_at_bottom</string>
   <string name="p_shown_beast_mode_hint">shown_beast_mode_hint</string>
   <string name="p_last_sync">last_sync_time</string>

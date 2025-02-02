@@ -640,7 +640,6 @@
     <string name="next_monday">Następny poniedziałek</string>
     <string name="next_sunday">Następna niedziela</string>
     <string name="completed">Zakończone</string>
-    <string name="app_bar_collapse">Zwiń pasek aplikacji</string>
     <string name="caldav_server_unknown">Nieznane</string>
     <plurals name="reminder_week">
         <item quantity="one">Tydzień</item>
@@ -667,7 +666,6 @@
     <string name="now">Teraz</string>
     <string name="custom_filter_has_reminder">Ma przypomnienie</string>
     <string name="snoozed_until">Uśpione do %s</string>
-    <string name="bottom">Dół</string>
     <string name="completed_tasks_at_bottom">Przenieś zakończone zadania na dół</string>
     <plurals name="reminder_hours">
         <item quantity="one">Godzina</item>
@@ -676,8 +674,6 @@
         <item quantity="other">Godzin</item>
     </plurals>
     <string name="randomly_every">Losowo co %s</string>
-    <string name="app_bar_position">Pozycja paska aplikacji</string>
-    <string name="top">Góra</string>
     <string name="custom_notification">Własne powiadomienie</string>
     <string name="snackbar_task_completed">Zadanie zakończone</string>
     <string name="snackbar_tasks_completed">%d zadań zakończonych</string>

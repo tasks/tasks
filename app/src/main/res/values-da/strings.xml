@@ -622,9 +622,6 @@
     <string name="now">Nu</string>
     <string name="cancel">Annuller</string>
     <string name="ok">OK</string>
-    <string name="app_bar_position">App meny position</string>
-    <string name="top">Top</string>
-    <string name="bottom">Bund</string>
     <string name="when_started">Ved start</string>
     <plurals name="reminder_minutes">
         <item quantity="one">Minut</item>
@@ -642,7 +639,6 @@
     <string name="custom_filter_has_reminder">Har påmindelse</string>
     <string name="completion_sound">Afspil færdiggørelseslyd</string>
     <string name="customize_edit_screen_summary">Omarranger eller fjern felter</string>
-    <string name="app_bar_collapse">Skjul appbjælker</string>
     <string name="completed">Færdiggjort</string>
     <string name="completed_tasks_at_bottom">Flyt afsluttede opgaver til bunden</string>
     <string name="caldav_server_unknown">Ukendt</string>

@@ -543,8 +543,6 @@
     <string name="picker_mode_calendar">Kalendaro</string>
     <string name="pro_free_trial">Novaj abonantoj ricevas provperiodon de 7 tagoj. Iam ajn nuligi ĝin</string>
     <string name="upgrade_more_customization">Pli da adapto</string>
-    <string name="top">Supro</string>
-    <string name="bottom">Malsupro</string>
     <string name="caldav_server_unknown">Nekonata</string>
     <string name="caldav_server_other">Alia</string>
     <string name="enable_reminders">Ŝalti memorigojn</string>
@@ -684,7 +682,6 @@
     <string name="picker_mode_time">Tempelektila reĝimo</string>
     <string name="upgrade_more_customization_description">Malŝlosi ĉiujn etosojn, kolorojn, kaj piktogramojn</string>
     <string name="upgrade_desktop_access">Aliri per labortablo</string>
-    <string name="app_bar_position">Pozicio de programa stango</string>
     <string name="account_not_included">Ne inkluzivite per \'Elekti propran prezon\' abonoj</string>
     <string name="upgrade_desktop_access_description">Sinkronigi kun klientoj de ekstera liveranto kiel Outlook kaj Apple Reminders</string>
     <string name="pro_dashclock_extension">Dashclock kromprogramo</string>
@@ -693,7 +690,6 @@
     <string name="auto_dismiss_datetime_edit">Redakti taskon</string>
     <string name="markdown">Simpla Marklingo</string>
     <string name="markdown_description">Ebligi simplan markadon en titolo kaj priskribo</string>
-    <string name="app_bar_collapse">Maletendi apbreton</string>
     <string name="chips">Elementoj</string>
     <string name="chip_appearance">Aspekto de elemento</string>
     <string name="theme_dynamic">Dinamika</string>

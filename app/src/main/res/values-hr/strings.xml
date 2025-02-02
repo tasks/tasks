@@ -641,11 +641,7 @@
     <string name="now">Sada</string>
     <string name="when_started">Kad se pokrene</string>
     <string name="completion_sound">Odsviraj zvuk obavljanja</string>
-    <string name="app_bar_position">Mjesto programske trake</string>
-    <string name="top">Gore</string>
-    <string name="bottom">Dolje</string>
     <string name="completed">Obavljeno</string>
-    <string name="app_bar_collapse">Sklopi programske trake</string>
     <string name="snackbar_task_completed">Zadatak obavljen</string>
     <string name="completed_tasks_at_bottom">Premjesti obavljene zadatke na kraj</string>
     <string name="snackbar_tasks_completed">%d zadaci obavljeni</string>

@@ -612,11 +612,7 @@
     <string name="now">Bây giờ</string>
     <string name="when_started">Khi bắt đầu</string>
     <string name="completion_sound">Phát âm thanh hoàn tất</string>
-    <string name="bottom">Dưới</string>
-    <string name="app_bar_position">Vị trí thanh ứng dụng</string>
-    <string name="top">Trên</string>
     <string name="completed">Hoàn tất</string>
-    <string name="app_bar_collapse">Thu gọn thanh ứng dụng</string>
     <string name="custom_filter_has_reminder">Có lời nhắc</string>
     <string name="snoozed_until">Đã đặt báo lại cho đến %s</string>
     <string name="snackbar_task_completed">Công việc đã hoàn tất</string>

@@ -672,11 +672,7 @@
     <string name="completion_sound">Přehrát zvuk dokončení</string>
     <string name="caldav_server_unknown">Neznámý</string>
     <string name="caldav_server_other">Další</string>
-    <string name="app_bar_position">Umístění lišty aplikace</string>
-    <string name="bottom">Spodní</string>
     <string name="snackbar_task_completed">Úkol splněn</string>
-    <string name="app_bar_collapse">Sbalit lišty aplikací</string>
-    <string name="top">Horní</string>
     <string name="completed">Splněný</string>
     <string name="completed_tasks_at_bottom">Přesunout splněné úkoly naspod</string>
     <string name="snackbar_tasks_completed">%d úkolů splněno</string>

@@ -625,10 +625,6 @@
     <string name="now">Jetzt</string>
     <string name="when_started">Wenn begonnen</string>
     <string name="completion_sound">Ton bei Erledigung abspielen</string>
-    <string name="app_bar_position">Position der App-Leiste</string>
-    <string name="top">Oben</string>
-    <string name="bottom">Unten</string>
-    <string name="app_bar_collapse">App-Leiste automatisch einklappen</string>
     <string name="completed">Abgeschlossen</string>
     <string name="snackbar_task_completed">Aufgabe abgeschlossen</string>
     <string name="completed_tasks_at_bottom">Erledigte Aufgaben nach unten verschieben</string>

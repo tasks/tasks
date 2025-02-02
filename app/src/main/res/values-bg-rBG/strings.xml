@@ -602,7 +602,6 @@
     <string name="github_sponsors">Дарители от GitHub</string>
     <string name="sign_in_to_tasks">Вход в Tasks.org</string>
     <string name="markdown_description">Markdown в заглавията и описанията</string>
-    <string name="bottom">Долу</string>
     <string name="completed_tasks_at_bottom">Преместване на завършените задачи отдолу</string>
     <string name="caldav_server_unknown">Неизвестен</string>
     <string name="caldav_server_other">Друг</string>
@@ -614,7 +613,6 @@
     <string name="remove_user_confirmation">%1$s вече няма да има достъп до %2$s</string>
     <string name="upgrade_more_customization">Повече настройки</string>
     <string name="completion_sound">Възпроизвеждане на звук при завършване</string>
-    <string name="top">Горе</string>
     <string name="custom_notification">Потребителско известие</string>
     <string name="snoozed_until">Отложено до %s</string>
     <string name="caldav_server_type">Вид на сървъра</string>
@@ -629,9 +627,7 @@
     <string name="upgrade_more_customization_description">Отключване на всички теми, цветове и пиктограми</string>
     <string name="snackbar_task_completed">Задачата е завършена</string>
     <string name="share_list">Споделяне на списък</string>
-    <string name="app_bar_collapse">Свиване на лентата на приложението</string>
     <string name="insufficient_sponsorship">Не е намерен подходящо спонсорство в GitHub</string>
-    <string name="app_bar_position">Разположение на лентата на приложението</string>
     <string name="alarm_before_start">%s преди началото</string>
     <string name="completed">Завършена</string>
     <string name="customize_edit_screen_summary">Подреждане или премахване на полета</string>

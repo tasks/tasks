@@ -613,10 +613,7 @@
     <string name="when_started">Ketika dimulai</string>
     <string name="completed">Selesai</string>
     <string name="custom_filter_has_reminder">Berpengingat</string>
-    <string name="bottom">Bawah</string>
-    <string name="app_bar_position">Posisi bar aplikasi</string>
     <string name="completion_sound">Mainkan suara selesai</string>
-    <string name="top">Atas</string>
     <string name="caldav_server_unknown">Tidak diketahui</string>
     <string name="caldav_server_other">Lainnya</string>
     <string name="caldav_server_type">Tipe server</string>

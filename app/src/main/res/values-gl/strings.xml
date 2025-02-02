@@ -445,7 +445,6 @@
     <string name="device_settings">Configuracións de dispositivo</string>
     <string name="migrating_tasks">Migrando as tarefas</string>
     <string name="tasks_org_account">Conta en Tasks.org</string>
-    <string name="top">Arriba</string>
     <string name="multi_select_reschedule">Reprogramar</string>
     <string name="SSD_sort_my_order">O meu pedido</string>
     <string name="TEA_control_location">Posición</string>
@@ -538,7 +537,6 @@
     <string name="picker_mode_clock">Reloxo</string>
     <string name="picker_mode_text">Texto</string>
     <string name="upgrade_desktop_access_description">Sincronizar con clientes de terceiros como Outlook e Appler Reminders</string>
-    <string name="bottom">Abaixo</string>
     <string name="completed">Finalizada</string>
     <string name="completed_tasks_at_bottom">Mover as tarefas finalizadas ao fondo</string>
     <string name="snoozed_until">Posposta ata %s</string>

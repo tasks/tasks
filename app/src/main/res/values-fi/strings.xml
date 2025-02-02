@@ -623,14 +623,12 @@
     <string name="when_started">Kun aloitettu</string>
     <string name="now">Nyt</string>
     <string name="cancel">Peruuta</string>
-    <string name="top">Ylhäällä</string>
     <string name="custom_filter_has_reminder">Sisältää muistutuksen</string>
     <string name="randomly_every">Satunnaisesti joka %s</string>
     <plurals name="reminder_minutes">
         <item quantity="one">Minuutti</item>
         <item quantity="other">Minuuttia</item>
     </plurals>
-    <string name="app_bar_position">Sovelluspalkin sijainti</string>
     <plurals name="reminder_hours">
         <item quantity="one">Tunti</item>
         <item quantity="other">Tuntia</item>
@@ -658,7 +656,6 @@
     <string name="snackbar_tasks_completed">%d tehtävää suoritettu</string>
     <string name="custom_notification">Mukautettu ilmoitus</string>
     <string name="snoozed_until">Torkuta %s</string>
-    <string name="bottom">Alhaalla</string>
     <string name="completed">Valmiit</string>
     <string name="snackbar_task_completed">Tehtävä suoritettu</string>
     <string name="hint_customize_edit_title">Liikaa tietoa?</string>
@@ -667,7 +664,6 @@
     <string name="dismiss">Hylkää</string>
     <string name="customize_edit_screen_summary">Uudelleenjärjestä tai poista kenttiä</string>
     <string name="enable_reminders_description">Muistutukset on poistettu käytöstä Androidin asetuksista</string>
-    <string name="app_bar_collapse">Piilota sovelluspalkki</string>
     <string name="alarm_after_start">%s aloituksen jälkeen</string>
     <string name="alarm_before_start">%s ennen aloitusta</string>
     <string name="alarm_after_due">%s määräajan jälkeen</string>

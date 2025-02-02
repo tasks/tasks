@@ -153,11 +153,6 @@
     <item>1</item>
   </string-array>
 
-  <string-array name="app_bar_position">
-    <item>@string/top</item>
-    <item>@string/bottom</item>
-  </string-array>
-
   <string-array name="caldav_servers">
     <item>@string/caldav_server_mailbox_org</item>
     <item>@string/caldav_server_nextcloud</item>

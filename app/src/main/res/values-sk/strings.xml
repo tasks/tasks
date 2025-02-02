@@ -613,7 +613,6 @@
     <string name="sign_in_to_tasks">Prihlásiť sa do Tasks.org</string>
     <string name="account_not_included">Nezahrnuté v predplatnom type „Zaplaťte koľko chcete“</string>
     <string name="markdown_description">Zapnúť Markdown v nadpise a popise</string>
-    <string name="top">Horný</string>
     <string name="completed_tasks_at_bottom">Presunúť dokončené úlohy nadol</string>
     <string name="snackbar_tasks_completed">%d úloh bolo dokončených</string>
     <string name="cost_money">Cena: $</string>
@@ -634,7 +633,6 @@
     <string name="alarm_after_start">%s po začiatku</string>
     <string name="completed">Dokončené</string>
     <string name="upgrade_open_source_description">Vaše predplatné podporí ďalší vývoj aplikácie</string>
-    <string name="bottom">Spodný</string>
     <string name="back">Späť</string>
     <string name="upgrade_desktop_access_description">Synchronizujte s aplikáciami tretích strán ako napr. Outlook alebo Apple Reminders</string>
     <string name="navigation_drawer">Postranná ponuka</string>
@@ -706,8 +704,6 @@
     <string name="app_password">Heslo aplikácie</string>
     <string name="google_play_subscribers">Predplatitelia Google Play</string>
     <string name="sign_in_with_google">Prihlásenie účtom Google</string>
-    <string name="app_bar_position">Umiestnenie lišty aplikácie</string>
-    <string name="app_bar_collapse">Zbaliť lišty aplikácie</string>
     <string name="sign_in_to_tasks_disclosure">Vaša e-mailová adresa a ID účtu bude prenesená a uložená do Tasks.org. Tieto informácie sa použijú na overenie a pre poskytovanie dôležitých oznámení súvisiacich so službami. Tieto informácie nebudú s nikým zdieľané.</string>
     <string name="app_passwords">Heslá aplikácie</string>
     <string name="app_passwords_more_info">Synchronizujte svoje úlohy a kalendáre s desktopovými a mobilnými aplikáciami tretích strán. Pre viac informácii kliknite sem</string>

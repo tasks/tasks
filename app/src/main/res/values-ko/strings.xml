@@ -625,13 +625,10 @@
     <string name="sign_in">로그인</string>
     <string name="rmd_time_description">상태바 알림에 마감 시한이 없는 할일 보이기</string>
     <string name="microsoft_selection_description">마이크로소프트 계정과 동기화</string>
-    <string name="app_bar_collapse">앱 바메뉴 접기</string>
-    <string name="top">상단</string>
     <string name="enable_reminders">알람 활성화</string>
     <string name="hint_customize_edit_body">필드 순서를 변경하거나 삭제하실 수 있습니다</string>
     <string name="sign_in_to_tasks_disclosure">이메일 주소와 계정 ID가 Tasks.org으로 전송되어 보관됩니다. 이 정보는 계정 인증과 서비스 관련 중요 공지를 전달하기 위해 쓰이며, 다른 누구와도 공유하지 않습니다.</string>
     <string name="completion_sound">완료 효과음 재생</string>
-    <string name="bottom">하단</string>
     <string name="alarm_before_start">시작 %s 전</string>
     <string name="alarm_before_due">마감 %s 전</string>
     <string name="completed_tasks_at_bottom">완료한 할일을 하단으로 이동</string>
@@ -650,7 +647,6 @@
     <string name="sort_completion_group">%s 완료</string>
     <string name="dismiss">닫기</string>
     <string name="hint_customize_edit_title">정보가 너무 많은가요\?</string>
-    <string name="app_bar_position">앱 바메뉴 위치</string>
     <string name="completed">완료</string>
     <string name="snackbar_task_completed">할일 완료</string>
     <string name="enable_reminders_description">안드로이드 설정에 알람이 비활성화 되어있습니다</string>

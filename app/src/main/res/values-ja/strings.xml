@@ -531,8 +531,6 @@
     <string name="more_options">さらなるオプション</string>
     <string name="markdown_description">タイトル欄と説明欄でマークダウン記法を有効にします</string>
     <string name="completion_sound">完了時に音を鳴らす</string>
-    <string name="app_bar_position">アプリケーションバーの位置</string>
-    <string name="app_bar_collapse">アプリケーションバーを折りたたむ</string>
     <string name="snackbar_task_completed">タスク完了</string>
     <string name="completed_tasks_at_bottom">完了したタスクを一番下に移動</string>
     <string name="alarm_before_due">締切 %s 前</string>
@@ -651,7 +649,6 @@
     <string name="settings_default">デフォルト</string>
     <string name="custom_filter_criteria">フィルター条件</string>
     <string name="filter_after_today">今日以降</string>
-    <string name="top">上部</string>
     <string name="foreground_location">フォアグラウンド時の位置情報</string>
     <string name="enable_reminders_description">Android の設定によりリマインダーは無効になっています</string>
     <string name="caldav_server_unknown">不明</string>
@@ -662,7 +659,6 @@
     <string name="filter_today_only">今日のみ</string>
     <string name="social">ソーシャルサービス</string>
     <string name="filter_low_priority">優先度 低</string>
-    <string name="bottom">下部</string>
     <string name="android_auto_backup_device_summary">デバイス設定からバックアップサービスの使用を許可する必要があります。すべてのデバイスがバックアップサービスを提供しているわけではありません。</string>
     <string name="dismiss">閉じる</string>
     <string name="notification_troubleshooting_summary">通知に問題がある場合はこちらをタップ</string>

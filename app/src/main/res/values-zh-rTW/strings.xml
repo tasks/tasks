@@ -569,7 +569,6 @@
     <string name="repeats_never">永不</string>
     <string name="name_your_price">自行設定價格</string>
     <string name="completed_tasks_at_bottom">將已完成的任務移至底部</string>
-    <string name="app_bar_position">應用程式列位置</string>
     <string name="repeat_monthly_on_the_nth_weekday">每月於 %1$s %2$s</string>
     <string name="background_location_permission_required">Tasks 收集位置資料以啟用基於位置的提醒，即使應用程式關閉或未使用。</string>
     <string name="picker_mode_clock">時鐘</string>
@@ -610,7 +609,6 @@
     <string name="upgrade_open_source_description">你的訂閱支援持續開發</string>
     <string name="upgrade_desktop_access_description">與 Outlook 和 Apple 提醒等第三方客戶端同步</string>
     <string name="navigation_drawer">導覽側邊欄</string>
-    <string name="top">頂部</string>
     <string name="sort_not_available">不支援標籤、篩選或地點</string>
     <string name="microsoft_selection_description">與您的個人 Microsoft 帳戶同步</string>
     <string name="sort_start_group">開始 %s</string>
@@ -643,7 +641,6 @@
     <string name="account_not_included">並不包含「隨意價格」訂閱</string>
     <string name="alarm_after_due">到期後 %s</string>
     <string name="pro_free_trial">新訂閱者享有 7 天免費試用。隨時取消</string>
-    <string name="bottom">底部</string>
     <string name="list_members">清單成員</string>
     <string name="invite_invalid">邀請無效</string>
     <string name="picker_mode_date">日期選擇模式</string>
@@ -662,7 +659,6 @@
     <string name="backups_ignore_warnings_summary">如果你不需要備份或有自己的備份解決方案，請忽略備份警告</string>
     <string name="upgrade_desktop_access">桌面訪問</string>
     <string name="completed">已完成</string>
-    <string name="app_bar_collapse">折疊應用程式列</string>
     <string name="caldav_server_unknown">未知</string>
     <string name="hint_customize_edit_title">資訊過多嗎？</string>
     <string name="snoozed_until">延後至 %s</string>

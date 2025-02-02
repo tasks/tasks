@@ -644,9 +644,7 @@
         <item quantity="one">දිනය</item>
         <item quantity="other">දින</item>
     </plurals>
-    <string name="app_bar_collapse">යෙදුම් තීරු හකුළන්න</string>
     <string name="customize_edit_screen_summary">ක්ෂේත්‍ර නැවත සැකසීම හෝ ඉවත් කිරීම</string>
-    <string name="app_bar_position">යෙදුම් තීරුවේ පිහිටීම</string>
     <string name="TEA_creation_date">නිර්මාණය කළ දිනය</string>
     <string name="snackbar_tasks_completed">කාර්යයන් %d සම්පූර්ණ කර ඇත</string>
     <plurals name="reminder_minutes">

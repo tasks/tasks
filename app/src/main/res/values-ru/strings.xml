@@ -643,10 +643,6 @@
     <string name="now">Сейчас</string>
     <string name="when_started">После начала</string>
     <string name="completion_sound">Воспроизводить звук завершения</string>
-    <string name="app_bar_position">Расположение панели приложения</string>
-    <string name="top">Вверху</string>
-    <string name="bottom">Внизу</string>
-    <string name="app_bar_collapse">Свернуть панели приложения</string>
     <string name="completed">Завершено</string>
     <string name="snackbar_task_completed">Задача выполнена</string>
     <string name="completed_tasks_at_bottom">Переместить выполненные задачи вниз</string>

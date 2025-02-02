@@ -628,12 +628,8 @@
     <string name="chat_libera">Libera Chat\'te #tasks kanalına katıl</string>
     <string name="now">Şimdi</string>
     <string name="when_started">Başladığında</string>
-    <string name="top">Üst</string>
-    <string name="bottom">Alt</string>
-    <string name="app_bar_position">Uygulama çubuğu konumu</string>
     <string name="completion_sound">Tamamlandığında ses çal</string>
     <string name="completed">Tamamlandı</string>
-    <string name="app_bar_collapse">Uygulama çubuklarını daralt</string>
     <string name="snackbar_task_completed">Görev tamamlandı</string>
     <string name="completed_tasks_at_bottom">Tamamlanan görevleri alta taşı</string>
     <string name="snackbar_tasks_completed">%d görev tamamlandı</string>

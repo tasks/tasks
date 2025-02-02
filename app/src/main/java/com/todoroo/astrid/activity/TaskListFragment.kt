@@ -14,7 +14,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.speech.RecognizerIntent
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -32,12 +31,9 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
 import androidx.core.content.IntentCompat
-import androidx.core.view.forEach
 import androidx.core.view.isVisible
-import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -53,7 +49,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.andlib.utility.AndroidUtilities
@@ -334,26 +329,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 binding.bottomAppBar.performShow()
             }
         }
-        val toolbar = if (preferences.isTopAppBar) {
-            binding.bottomAppBar.isVisible = false
-            with (binding.fab) {
-                layoutParams = (layoutParams as CoordinatorLayout.LayoutParams).apply {
-                    setMargins(resources.getDimensionPixelSize(R.dimen.keyline_first))
-                    anchorId = View.NO_ID
-                    gravity = Gravity.BOTTOM or Gravity.END
-                }
-            }
-            binding.toolbar.setNavigationIcon(R.drawable.ic_outline_menu_24px)
-            binding.toolbar
-        } else {
+        val toolbar = run {
             themeColor.apply(binding.bottomAppBar)
             binding.bottomAppBar.isVisible = true
             binding.toolbar.navigationIcon = null
             binding.bottomAppBar
-        }
-        if (!preferences.getBoolean(R.string.p_app_bar_collapse, true)) {
-            binding.bottomAppBar.hideOnScroll = false
-            (binding.toolbar.layoutParams as AppBarLayout.LayoutParams).scrollFlags = 0
         }
         toolbar.setOnMenuItemClickListener(this)
         toolbar.setNavigationOnClickListener {
@@ -770,9 +750,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     override fun onMenuItemActionExpand(item: MenuItem): Boolean {
         search.setOnQueryTextListener(this)
         listViewModel.setSearchQuery("")
-        if (preferences.isTopAppBar) {
-            binding.toolbar.menu.forEach { it.isVisible = false }
-        }
         return true
     }
 
@@ -780,9 +757,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         search.setOnQueryTextListener(null)
         listViewModel.setFilter(filter)
         listViewModel.setSearchQuery(null)
-        if (preferences.isTopAppBar) {
-            setupMenu(binding.toolbar)
-        }
         return true
     }
 

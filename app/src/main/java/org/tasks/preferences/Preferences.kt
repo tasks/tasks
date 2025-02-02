@@ -556,9 +556,6 @@ class Preferences @JvmOverloads constructor(
     val markdown: Boolean
         get() = getBoolean(R.string.p_markdown, false)
 
-    val isTopAppBar: Boolean
-        get() = getIntegerFromString(R.string.p_app_bar_position, 1) == 0
-
     var lastReviewRequest: Long
         get() = getLong(R.string.p_last_review_request, 0L)
         set(value) = setLong(R.string.p_last_review_request, value)

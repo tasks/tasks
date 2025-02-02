@@ -644,11 +644,7 @@
     <string name="now">Зараз</string>
     <string name="when_started">Після запуску</string>
     <string name="completion_sound">Відтворювати звук завершення</string>
-    <string name="bottom">Унизу</string>
-    <string name="top">Угорі</string>
-    <string name="app_bar_position">Розташування панелі застосунку</string>
     <string name="completed">Виконано</string>
-    <string name="app_bar_collapse">Згорнути панелі застосунку</string>
     <string name="snackbar_task_completed">Завдання виконано</string>
     <string name="completed_tasks_at_bottom">Перемістити виконані завдання вниз</string>
     <string name="alarm_before_start">%s до початку</string>

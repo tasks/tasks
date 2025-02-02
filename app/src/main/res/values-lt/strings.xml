@@ -656,7 +656,6 @@
     <string name="default_reminder">Numatytas priminimas</string>
     <string name="randomly_every">Atsitiktinai kas %s</string>
     <string name="completed">Įvykdyta</string>
-    <string name="top">Viršuje</string>
     <string name="sign_in_to_tasks_disclosure">Jūsų el. pašto adresas ir paskyros ID bus perduodami ir saugomi Tasks.org. Ši informacija bus naudojama autentiškumui patvirtinti ir svarbiems su paslaugomis susijusiems pranešimams teikti. Ši informacija nebus niekam perduodama.</string>
     <string name="dismiss">Atsisakyti</string>
     <string name="consent_agree">Sutinku</string>
@@ -666,9 +665,6 @@
         <item quantity="few">Dienos</item>
         <item quantity="other">Dienų</item>
     </plurals>
-    <string name="app_bar_position">Programėlės juostos padėtis</string>
-    <string name="app_bar_collapse">Sutraukti programėlės juostas</string>
-    <string name="bottom">Apačioje</string>
     <plurals name="reminder_minutes">
         <item quantity="one">Minutė</item>
         <item quantity="few">Minutės</item>

@@ -640,11 +640,8 @@
     <string name="chat_libera">#tasks (Libera Chat)</string>
     <string name="now">Agora</string>
     <string name="completed_tasks_at_bottom">Mover tarefas concluídas para baixo</string>
-    <string name="app_bar_collapse">Recolher barras do aplicativo</string>
     <string name="completed">Concluída</string>
     <string name="completion_sound">Reproduzir som de conclusão</string>
-    <string name="app_bar_position">Posição da barra de aplicativos</string>
-    <string name="top">Superior</string>
     <plurals name="reminder_minutes">
         <item quantity="one">Minuto</item>
         <item quantity="many">Minutos</item>
@@ -667,7 +664,6 @@
     </plurals>
     <string name="when_started">Quando começar</string>
     <string name="custom_filter_has_reminder">Tem lembrete</string>
-    <string name="bottom">Inferior</string>
     <string name="snoozed_until">Adiado até %s</string>
     <string name="custom_notification">Notificação personalizada</string>
     <string name="snackbar_task_completed">Tarefa completa</string>

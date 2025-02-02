@@ -624,11 +624,7 @@
     <string name="now">Most</string>
     <string name="when_started">A kezdetekor</string>
     <string name="completion_sound">Hang lejátszása készre állításkor</string>
-    <string name="app_bar_position">Kezelősáv helyzete</string>
-    <string name="top">Felül</string>
     <string name="completed">Elvégzett</string>
-    <string name="app_bar_collapse">Kezelősáv összecsukása</string>
-    <string name="bottom">Alul</string>
     <string name="snackbar_task_completed">Feladat elvégezve</string>
     <string name="completed_tasks_at_bottom">Az elvégzett feladatok kerüljenek alulra</string>
     <string name="snackbar_tasks_completed">%d feladat elvégezve</string>

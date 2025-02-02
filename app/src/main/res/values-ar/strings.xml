@@ -699,15 +699,12 @@
     <string name="sign_in_to_tasks_disclosure">سيتم إرسال عنوان البريد الإلكتروني ومعرف الحساب الخاصان بك وتخزينهما من قبل Tasks.org. هذه المعلومات سيتم استخدامها من أجل المصادقة ومن أجل تزويدك بالإعلانات المهمة المتعلقة بالخدمة. لن يتم مشاركة هذه المعلومات مع أحد</string>
     <string name="default_reminder">تذكير افتراضي</string>
     <string name="rmd_time_description">أظهر الإشعارات من أجل المهام بدون أوقات محددة</string>
-    <string name="app_bar_collapse">تصغير أشرطة التطبيق</string>
     <string name="completed">مكتمل</string>
     <string name="snackbar_task_completed">اكتملت المهمة</string>
     <string name="customize_edit_screen_summary">أعد ترتيب أو أزل الحقول</string>
     <string name="randomly_every">عشوائياً كل %s</string>
     <string name="sort_completion_group">إكمال %s</string>
     <string name="custom_filter_has_reminder">لديه تذكير</string>
-    <string name="bottom">أسفل</string>
-    <string name="app_bar_position">موقع شريط التطبيق</string>
     <string name="alarm_after_start">%s بعد البدئ</string>
     <string name="alarm_before_due">%s حتى موعد الإنتهاء</string>
     <string name="completed_tasks_at_bottom">انقل المهام المكتملة إلى الأسفل</string>
