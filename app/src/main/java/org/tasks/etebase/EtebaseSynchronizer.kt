@@ -135,6 +135,7 @@ class EtebaseSynchronizer @Inject constructor(
         }
         Timber.d("UPDATE %s", caldavCalendar)
         caldavDao.update(caldavCalendar)
+        Timber.d("Updating parents for ${caldavCalendar.uuid}")
         caldavDao.updateParents(caldavCalendar.uuid!!)
         localBroadcastManager.broadcastRefresh()
     }

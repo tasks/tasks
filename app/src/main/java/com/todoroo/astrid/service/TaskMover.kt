@@ -14,6 +14,7 @@ import org.tasks.filters.Filter
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import timber.log.Timber
 import javax.inject.Inject
 
 class TaskMover @Inject constructor(
@@ -56,6 +57,7 @@ class TaskMover @Inject constructor(
         taskDao.setParent(0, ids.intersect(taskIds.toSet()).toList())
         tasks.forEach { performMove(it, selectedList) }
         if (!selectedList.isGoogleTasks) {
+            Timber.d("Updating parents for ${selectedList.uuid}")
             caldavDao.updateParents(selectedList.uuid)
         }
         taskIds.dbchunk().forEach {

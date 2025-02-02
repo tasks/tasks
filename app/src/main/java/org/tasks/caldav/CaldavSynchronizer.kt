@@ -300,6 +300,7 @@ class CaldavSynchronizer @Inject constructor(
         caldavCalendar.ctag = remoteCtag
         Timber.d("UPDATE %s", caldavCalendar)
         caldavDao.update(caldavCalendar)
+        Timber.d("Updating parents for ${caldavCalendar.uuid}")
         caldavDao.updateParents(caldavCalendar.uuid!!)
         localBroadcastManager.broadcastRefresh()
     }

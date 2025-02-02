@@ -38,6 +38,7 @@ import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.widget.AppWidgetManager
 import org.tasks.widget.WidgetPreferences
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
@@ -85,7 +86,10 @@ class Upgrader @Inject constructor(
                 taskMover.migrateLocalTasks()
             }
             run(from, V9_7) { caldavDao.resetOrders() }
-            run(from, V9_7_3) { caldavDao.updateParents() }
+            run(from, V9_7_3) {
+                Timber.d("Updating parents")
+                caldavDao.updateParents()
+            }
             run(from, V10_0_2) {
                 filterDao.getFilters()
                         .filter { it.dirtyHack.trim() == "WHERE" }
@@ -110,6 +114,7 @@ class Upgrader @Inject constructor(
                 setInstallDetails(from)
             }
             run(from, Upgrade_13_2.VERSION) {
+                Timber.d("Updating parents")
                 caldavDao.updateParents()
                 upgrade_13_2.get().rebuildFilters()
             }
@@ -205,6 +210,7 @@ class Upgrader @Inject constructor(
             }
         }
         caldavDao.update(updated)
+        Timber.d("Updating parents")
         caldavDao.updateParents()
     }
 

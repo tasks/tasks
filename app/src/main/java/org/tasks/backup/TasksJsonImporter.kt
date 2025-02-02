@@ -305,6 +305,7 @@ class TasksJsonImporter @Inject constructor(
                 }
                 result.importCount++
             }
+            Timber.d("Updating parents")
             caldavDao.updateParents()
             val ignoreKeys = ignorePrefs.map { context.getString(it) }
             backupContainer

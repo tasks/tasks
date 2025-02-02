@@ -280,30 +280,60 @@ GROUP BY caldav_lists.cdl_uuid
     """)
     abstract suspend fun getCaldavFilters(uuid: String, now: Long = currentTimeMillis()): List<CaldavFilters>
 
-    @Query("UPDATE tasks SET parent = IFNULL(("
-            + " SELECT p.cd_task FROM caldav_tasks AS p"
-            + "  INNER JOIN caldav_tasks ON caldav_tasks.cd_task = tasks._id"
-            + "  WHERE p.cd_remote_id = caldav_tasks.cd_remote_parent"
-            + "    AND p.cd_calendar = caldav_tasks.cd_calendar"
-            + "    AND p.cd_deleted = 0"
-            + "    AND caldav_tasks.cd_remote_parent IS NOT NULL"
-            + "    AND caldav_tasks.cd_remote_parent != ''"
-            + "), 0)"
-            + "WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task WHERE cd_deleted = 0)")
+    @Query("""
+        WITH parent_map AS (
+            SELECT
+                c.cd_task AS task_id,
+                p.cd_task AS parent_id
+            FROM caldav_tasks AS c
+            INNER JOIN caldav_tasks AS p
+                ON p.cd_remote_id = c.cd_remote_parent
+                AND p.cd_calendar = c.cd_calendar
+                AND p.cd_deleted = 0
+            WHERE c.cd_deleted = 0
+                AND c.cd_remote_parent IS NOT NULL
+                AND c.cd_remote_parent != ''
+        )
+        UPDATE tasks
+        SET parent = IFNULL(
+            (SELECT parent_id FROM parent_map WHERE task_id = tasks._id),
+            0
+        )
+        WHERE _id IN (
+            SELECT cd_task
+            FROM caldav_tasks
+            WHERE cd_deleted = 0
+        )
+    """)
     abstract suspend fun updateParents()
 
-    @Query("UPDATE tasks SET parent = IFNULL(("
-            + " SELECT p.cd_task FROM caldav_tasks AS p"
-            + "  INNER JOIN caldav_tasks "
-            + "    ON caldav_tasks.cd_task = tasks._id"
-            + "    AND caldav_tasks.cd_calendar = :calendar"
-            + "  WHERE p.cd_remote_id = caldav_tasks.cd_remote_parent"
-            + "    AND p.cd_calendar = caldav_tasks.cd_calendar"
-            + "    AND p.cd_deleted = 0"
-            + "    AND caldav_tasks.cd_remote_parent IS NOT NULL"
-            + "    AND caldav_tasks.cd_remote_parent != ''"
-            + "), 0)"
-            + "WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task WHERE cd_deleted = 0 AND cd_calendar = :calendar)")
+    @Query("""
+        WITH parent_map AS (
+            SELECT
+                c.cd_task AS task_id,
+                p.cd_task AS parent_id
+            FROM caldav_tasks AS c
+            INNER JOIN caldav_tasks AS p
+                ON p.cd_remote_id = c.cd_remote_parent
+                AND p.cd_calendar = c.cd_calendar
+                AND p.cd_deleted = 0
+            WHERE c.cd_calendar = :calendar
+                AND c.cd_deleted = 0
+                AND c.cd_remote_parent IS NOT NULL
+                AND c.cd_remote_parent != ''
+        )
+        UPDATE tasks
+        SET parent = IFNULL(
+            (SELECT parent_id FROM parent_map WHERE task_id = tasks._id),
+            0
+        )
+        WHERE _id IN (
+            SELECT cd_task
+            FROM caldav_tasks
+            WHERE cd_deleted = 0
+                AND cd_calendar = :calendar
+        )
+    """)
     abstract suspend fun updateParents(calendar: String)
 
     @Transaction

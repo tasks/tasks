@@ -182,6 +182,7 @@ class OpenTasksSynchronizer @Inject constructor(
         calendar.ctag = ctag
         Timber.d("UPDATE $calendar")
         caldavDao.update(calendar)
+        Timber.d("Updating parents for ${calendar.uuid}")
         caldavDao.updateParents(calendar.uuid!!)
         localBroadcastManager.broadcastRefresh()
     }
