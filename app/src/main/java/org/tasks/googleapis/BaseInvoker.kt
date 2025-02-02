@@ -26,7 +26,7 @@ abstract class BaseInvoker(
     private suspend fun <T> execute(request: AbstractGoogleJsonClientRequest<T>, retry: Boolean): T? =
             withContext(Dispatchers.IO) {
                 credentialsAdapter.checkToken()
-                Timber.d("%s request: %s", caller, request)
+                Timber.d(caller)
                 val response: T? = try {
                     if (preferences.isFlipperEnabled) {
                         val start = currentTimeMillis()
@@ -47,7 +47,7 @@ abstract class BaseInvoker(
                         throw e
                     }
                 }
-                Timber.d("%s response: %s", caller, prettyPrint(response))
+                Timber.d("%s -> %s", caller, if (BuildConfig.DEBUG) prettyPrint(response) else "<redacted>")
                 response
             }
 
@@ -62,15 +62,11 @@ abstract class BaseInvoker(
     }
 
     private val caller: String
-        get() {
-            if (BuildConfig.DEBUG) {
-                try {
-                    return Thread.currentThread().stackTrace[4].methodName
-                } catch (e: Exception) {
-                    Timber.e(e)
-                }
-            }
-            return ""
+        get() = try {
+            Thread.currentThread().stackTrace[4].methodName
+        } catch (e: Exception) {
+            Timber.e(e)
+            ""
         }
 
     companion object {
