@@ -1,3 +1,9 @@
+### 14.4.8 (2024-02-02)
+
+* Database improvements
+* Update translations
+  * German - Colorful Rhino, @Kachelkaiser
+
 ### 14.4.7 (202%-02-01)
 
 * Database improvements
