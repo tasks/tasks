@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.tasks.LocalBroadcastManager
+import org.tasks.compose.throttleLatest
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.CaldavAccount
@@ -45,6 +46,7 @@ class ChipListCache @Inject internal constructor(
     }
 
     private fun updateTags(updated: List<TagData>) {
+        Timber.d("Updating tags")
         tagDatas.clear()
         for (update in updated) {
             tagDatas[update.remoteId] = TagFilter(update)
@@ -57,12 +59,16 @@ class ChipListCache @Inject internal constructor(
     fun getTag(tag: String?): TagFilter? = tagDatas[tag]
 
     init {
-        caldavDao
-            .watchAccounts()
-            .combine(caldavDao.subscribeToCalendars()) { accounts, calendars ->
-                updateCaldavCalendars(accounts, calendars)
-            }
+        combine(caldavDao.watchAccounts(), caldavDao.subscribeToCalendars()) { accounts, calendars ->
+            accounts to calendars
+        }
+            .throttleLatest(1000)
+            .onEach { (accounts, calendars) -> updateCaldavCalendars(accounts, calendars) }
             .launchIn(scope)
-        tagDataDao.subscribeToTags().onEach { updateTags(it) }.launchIn(scope)
+        tagDataDao
+            .subscribeToTags()
+            .throttleLatest(1000)
+            .onEach { updateTags(it) }
+            .launchIn(scope)
     }
 }
