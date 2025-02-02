@@ -536,7 +536,7 @@
     <string name="price_per_year">%s $/Jahr</string>
     <string name="save_percent">%d %% sparen</string>
     <string name="no_google_play_subscription">Kein qualifiziertes Google Play-Abo gefunden</string>
-    <string name="insufficient_sponsorship">Keine qualifiziertes GitHub-Sponsoring gefunden</string>
+    <string name="insufficient_sponsorship">Kein qualifiziertes GitHub-Sponsoring gefunden</string>
     <string name="decsync_selection_description">Dateibasierte Synchronisierung</string>
     <plurals name="list_count">
         <item quantity="one">%d Liste</item>
