@@ -550,7 +550,7 @@
     <string name="authentication_required">Authentifizierung erforderlich</string>
     <string name="sign_in_with_github">Mit GitHub anmelden</string>
     <string name="github_sponsors">GitHub-Sponsoren</string>
-    <string name="google_play_subscribers">Goole Play-Abonnement</string>
+    <string name="google_play_subscribers">Google Play-Abonnementen</string>
     <string name="not_signed_in">Nicht angemeldet</string>
     <string name="authorization_cancelled">Autorisierung abgebrochen</string>
     <string name="sign_in_with_google">Mit Google anmelden</string>
