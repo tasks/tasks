@@ -6,6 +6,7 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import androidx.sqlite.execSQL
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastR
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,20 +38,13 @@ internal class ProductionModule {
         fileStorage: FileStorage,
     ): Database {
         val databaseFile = context.getDatabasePath(Database.NAME)
-        val builder = Room.databaseBuilder<Database>(
-            context = context,
-            name = databaseFile.absolutePath
-        )
-            .setDriver(BundledSQLiteDriver())
-            .setQueryCoroutineContext(Dispatchers.IO)
-            .addCallback(object : RoomDatabase.Callback() {
-                override fun onOpen(connection: SQLiteConnection) {
-                    super.onOpen(connection)
-
-                    connection.execSQL("PRAGMA busy_timeout = 30000")
-                }
-            })
+        val builder = Room
+            .databaseBuilder<Database>(
+                context = context,
+                name = databaseFile.absolutePath
+            )
             .addMigrations(*Migrations.migrations(context, fileStorage))
+            .setDriver()
         if (!BuildConfig.DEBUG || !preferences.getBoolean(R.string.p_crash_main_queries, false)) {
             builder.allowMainThreadQueries()
         }
@@ -72,3 +66,20 @@ internal class ProductionModule {
         openTaskDao: OpenTaskDao,
     ): WorkManager = WorkManagerImpl(context, preferences, caldavDao, openTaskDao)
 }
+
+fun <T : RoomDatabase> RoomDatabase.Builder<T>.setDriver() =
+    if (atLeastR()) {
+        this
+    } else {
+        // need bundled sqlite for window functions
+        this
+            .setDriver(BundledSQLiteDriver())
+            .setQueryCoroutineContext(Dispatchers.IO)
+            .addCallback(object : RoomDatabase.Callback() {
+                override fun onOpen(connection: SQLiteConnection) {
+                    super.onOpen(connection)
+
+                    connection.execSQL("PRAGMA busy_timeout = 60000")
+                }
+            })
+    }

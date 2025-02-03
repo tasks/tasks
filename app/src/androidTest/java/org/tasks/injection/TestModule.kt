@@ -2,7 +2,6 @@ package org.tasks.injection
 
 import android.content.Context
 import androidx.room.Room
-import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,12 +23,12 @@ import javax.inject.Singleton
 class TestModule {
     @Provides
     @Singleton
-    fun getDatabase(@ApplicationContext context: Context): Database {
-        return Room.inMemoryDatabaseBuilder(context, Database::class.java)
-                .setDriver(BundledSQLiteDriver())
-                .fallbackToDestructiveMigration(dropAllTables = true)
-                .build()
-    }
+    fun getDatabase(@ApplicationContext context: Context): Database =
+        Room
+            .inMemoryDatabaseBuilder(context, Database::class.java)
+            .fallbackToDestructiveMigration(dropAllTables = true)
+            .setDriver()
+            .build()
 
     @Provides
     fun getPermissionChecker(@ApplicationContext context: Context): PermissionChecker {
