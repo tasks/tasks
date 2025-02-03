@@ -63,7 +63,7 @@ abstract class BaseInvoker(
 
     private val caller: String
         get() = try {
-            Thread.currentThread().stackTrace[4].methodName
+            Thread.currentThread().stackTrace[12].methodName
         } catch (e: Exception) {
             Timber.e(e)
             ""

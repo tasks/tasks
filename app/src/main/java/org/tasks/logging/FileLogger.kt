@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.tasks.BuildConfig
 import org.tasks.logging.LogFormatter.Companion.LINE_SEPARATOR
 import timber.log.Timber
 import java.io.File
@@ -48,7 +49,7 @@ class FileLogger @Inject constructor(
     }
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        if (priority < Log.DEBUG) {
+        if (!BuildConfig.DEBUG && priority < Log.DEBUG) {
             return
         }
         val threadId = Process.myTid()
