@@ -25,6 +25,7 @@ import org.tasks.jobs.WorkManagerImpl
 import org.tasks.location.AndroidLocationManager
 import org.tasks.location.LocationManager
 import org.tasks.preferences.Preferences
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -69,7 +70,14 @@ internal class ProductionModule {
 
 fun <T : RoomDatabase> RoomDatabase.Builder<T>.setDriver() =
     if (atLeastR()) {
-        this
+        if (BuildConfig.DEBUG) {
+            setQueryCallback(
+                queryCallback = { sql, args -> Timber.tag("SQL").d("[sql=${sql.replace(Regex("\\s+"), " ").trim()}] [args=$args]") },
+                executor = { it.run() },
+            )
+        } else {
+            this
+        }
     } else {
         // need bundled sqlite for window functions
         this
