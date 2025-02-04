@@ -1,11 +1,11 @@
-### 14.4.8 (2024-02-03)
+### 14.4.8 (2025-02-03)
 
 * Database improvements
 * Update translations
   * German - Colorful Rhino, @Kachelkaiser
   * Nepali - Sagun Khatri
 
-### 14.4.7 (202%-02-01)
+### 14.4.7 (2025-02-01)
 
 * Database improvements
 * Update translations
