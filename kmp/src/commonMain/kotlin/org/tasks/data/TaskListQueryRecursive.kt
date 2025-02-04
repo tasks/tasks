@@ -117,24 +117,19 @@ internal object TaskListQueryRecursive {
             ),
             max_indent AS (
                 SELECT
-                    task,
-                    MAX(recursive_tasks.indent) OVER (PARTITION BY task) AS max_indent
-                FROM recursive_tasks
-            ),
-            numbered_tasks AS (
-                SELECT
-                    recursive_tasks.task,
-                    max_indent,
+                    *,
+                    MAX(recursive_tasks.indent) OVER (PARTITION BY task) AS max_indent,
                     ROW_NUMBER() OVER () AS sequence
                 FROM recursive_tasks
-                INNER JOIN max_indent ON max_indent.task = recursive_tasks.task
-                WHERE recursive_tasks.indent = max_indent
             ),
             child_counts AS (
-                SELECT DISTINCT(parent),
-                COUNT(*) OVER (PARTITION BY parent) AS children
-                FROM recursive_tasks
-                WHERE parent > 0
+                SELECT parent,
+                COUNT(*) AS children
+                FROM max_indent
+                WHERE
+                    parent > 0
+                    AND indent = max_indent
+                GROUP BY parent
             )
             SELECT
                 ${TaskListQuery.FIELDS.joinToString(",\n") { it.toStringInSelect() }},
@@ -146,14 +141,13 @@ internal object TaskListQueryRecursive {
                 secondary_sort,
                 parent_complete
             FROM tasks
-                INNER JOIN recursive_tasks ON recursive_tasks.task = tasks._id
-                INNER JOIN numbered_tasks ON tasks._id = numbered_tasks.task
+                INNER JOIN max_indent
+                    ON tasks._id = max_indent.task
+                    AND indent = max_indent
+                    AND hidden = 0
                 LEFT JOIN child_counts ON child_counts.parent = tasks._id
                 LEFT JOIN tags ON tags.task = tasks._id
                 ${TaskListQuery.JOINS}
-            WHERE
-                recursive_tasks.hidden = 0
-                AND recursive_tasks.indent = max_indent
             GROUP BY tasks._id
             ORDER BY sequence
         """.trimIndent()
