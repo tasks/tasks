@@ -6,9 +6,7 @@ import com.google.api.services.tasks.Tasks
 import com.google.api.services.tasks.model.Task
 import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.TaskLists
-import org.tasks.DebugNetworkInterceptor
 import org.tasks.googleapis.BaseInvoker
-import org.tasks.preferences.Preferences
 import java.io.IOException
 
 /**
@@ -19,9 +17,7 @@ import java.io.IOException
  */
 class GtasksInvoker(
         credentials: HttpCredentialsAdapter,
-        preferences: Preferences,
-        interceptor: DebugNetworkInterceptor
-) : BaseInvoker(credentials, preferences, interceptor) {
+) : BaseInvoker(credentials) {
     private val service =
             Tasks.Builder(NetHttpTransport(), GsonFactory(), credentials)
                     .setApplicationName(APP_NAME)

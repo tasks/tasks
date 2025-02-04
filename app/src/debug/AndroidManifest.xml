@@ -7,10 +7,6 @@
       android:networkSecurityConfig="@xml/network_security_config"
       tools:ignore="GoogleAppIndexingWarning">
 
-    <activity
-      android:exported="true"
-      android:name="com.facebook.flipper.android.diagnostics.FlipperDiagnosticActivity"/>
-
   </application>
 
 </manifest>

@@ -194,9 +194,6 @@ dependencies {
     implementation(libs.markwon.tables)
     implementation(libs.markwon.tasklist)
 
-    debugImplementation(libs.facebook.flipper)
-    debugImplementation(libs.facebook.flipper.network)
-    debugImplementation(libs.facebook.soloader)
     debugImplementation(libs.leakcanary)
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation(libs.kotlin.reflect)

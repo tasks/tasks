@@ -4,7 +4,6 @@
   <string name="debug_strict_mode_thread">Strict mode - Thread</string>
   <string name="debug_strict_mode_vm">Strict mode - VM</string>
   <string name="debug_leakcanary">LeakCanary</string>
-  <string name="debug_flipper">Flipper</string>
   <string name="debug_pro">Unlock pro</string>
   <string name="debug_purchase">Purchase %s</string>
   <string name="debug_consume">Consume %s</string>

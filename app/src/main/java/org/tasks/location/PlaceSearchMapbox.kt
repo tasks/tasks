@@ -11,18 +11,14 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.tasks.DebugNetworkInterceptor
 import org.tasks.R
 import org.tasks.data.entity.Place
 import org.tasks.location.GeocoderMapbox.Companion.toPlace
-import org.tasks.preferences.Preferences
 import java.io.IOException
 import javax.inject.Inject
 
 class PlaceSearchMapbox @Inject constructor(
         @ApplicationContext context: Context,
-        private val preferences: Preferences,
-        private val interceptor: DebugNetworkInterceptor,
 ) : PlaceSearch {
     val token = context.getString(R.string.mapbox_key)
 
@@ -35,9 +31,6 @@ class PlaceSearchMapbox @Inject constructor(
     override suspend fun search(query: String, bias: MapPosition?): List<PlaceSearchResult> =
             withContext(Dispatchers.IO) {
                 val builder = OkHttpClient().newBuilder()
-                if (preferences.isFlipperEnabled) {
-                    interceptor.apply(builder)
-                }
                 val proximity = bias?.let {
                     "&proximity=${bias.longitude},${bias.latitude}"
                 }

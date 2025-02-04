@@ -10,19 +10,15 @@ import com.google.api.services.drive.model.File
 import com.todoroo.astrid.gtasks.api.HttpCredentialsAdapter
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException
 import dagger.hilt.android.qualifiers.ApplicationContext
-import org.tasks.DebugNetworkInterceptor
 import org.tasks.backup.BackupConstants
 import org.tasks.files.FileHelper
 import org.tasks.googleapis.BaseInvoker
-import org.tasks.preferences.Preferences
 import java.io.IOException
 
 class DriveInvoker(
         @param:ApplicationContext private val context: Context,
-        preferences: Preferences,
         credentialsAdapter: HttpCredentialsAdapter,
-        interceptor: DebugNetworkInterceptor
-) : BaseInvoker(credentialsAdapter, preferences, interceptor) {
+) : BaseInvoker(credentialsAdapter) {
     private val service =
             Drive.Builder(NetHttpTransport(), GsonFactory(), credentialsAdapter)
                     .setApplicationName(APP_NAME)

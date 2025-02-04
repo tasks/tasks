@@ -370,7 +370,6 @@
   <string name="p_strict_mode_vm">strict_mode_vm</string>
   <string name="p_strict_mode_thread">strict_mode_thread</string>
   <string name="p_leakcanary">p_leakcanary</string>
-  <string name="p_flipper">p_flipper</string>
   <string name="p_debug_pro">debug_pro</string>
   <string name="p_crash_main_queries">debug_crash_main_queries</string>
   <string name="p_sync_ongoing">sync_ongoing</string>

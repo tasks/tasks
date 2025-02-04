@@ -23,11 +23,9 @@ import net.openid.appauth.AuthState
 import okhttp3.OkHttpClient
 import okhttp3.internal.tls.OkHostnameVerifier
 import org.tasks.BuildConfig
-import org.tasks.DebugNetworkInterceptor
 import org.tasks.caldav.TasksCookieJar
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.extensions.Context.cookiePersistor
-import org.tasks.preferences.Preferences
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sync.microsoft.MicrosoftService
 import org.tasks.sync.microsoft.requestTokenRefresh
@@ -37,8 +35,6 @@ import javax.net.ssl.SSLContext
 
 class HttpClientFactory @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val preferences: Preferences,
-    private val interceptor: DebugNetworkInterceptor,
     private val encryption: KeyStoreEncryption,
 ) {
     suspend fun newClient(foreground: Boolean) = newClient(
@@ -85,9 +81,6 @@ class HttpClientFactory @Inject constructor(
 
         block(builder)
 
-        if (preferences.isFlipperEnabled) {
-            interceptor.apply(builder)
-        }
         return builder.build()
     }
 

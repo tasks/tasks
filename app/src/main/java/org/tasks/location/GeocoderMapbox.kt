@@ -12,26 +12,19 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.tasks.DebugNetworkInterceptor
 import org.tasks.R
 import org.tasks.data.entity.Place
-import org.tasks.preferences.Preferences
 import java.io.IOException
 import javax.inject.Inject
 
 class GeocoderMapbox @Inject constructor(
         @ApplicationContext context: Context,
-        private val preferences: Preferences,
-        private val interceptor: DebugNetworkInterceptor,
 ) : Geocoder {
     private val token = context.getString(R.string.mapbox_key)
 
     override suspend fun reverseGeocode(mapPosition: MapPosition): Place? =
             withContext(Dispatchers.IO) {
                 val builder = OkHttpClient().newBuilder()
-                if (preferences.isFlipperEnabled) {
-                    interceptor.apply(builder)
-                }
                 val client = builder.build()
                 val url = "https://api.mapbox.com/geocoding/v5/mapbox.places/${mapPosition.longitude},${mapPosition.latitude}.json?access_token=$token"
                 val response = client.newCall(Request.Builder().get().url(url).build()).execute()

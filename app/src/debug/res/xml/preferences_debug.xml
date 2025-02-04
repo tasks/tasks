@@ -8,11 +8,6 @@
 
   <SwitchPreferenceCompat
     android:defaultValue="false"
-    android:key="@string/p_flipper"
-    android:title="@string/debug_flipper"/>
-
-  <SwitchPreferenceCompat
-    android:defaultValue="false"
     android:key="@string/p_strict_mode_vm"
     android:title="@string/debug_strict_mode_vm"/>
 

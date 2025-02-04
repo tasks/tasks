@@ -30,7 +30,6 @@ class Debug : InjectingPreferenceFragment() {
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         for (pref in listOf(
             R.string.p_leakcanary,
-            R.string.p_flipper,
             R.string.p_strict_mode_vm,
             R.string.p_strict_mode_thread,
             R.string.p_crash_main_queries
