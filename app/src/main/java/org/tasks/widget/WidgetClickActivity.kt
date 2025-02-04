@@ -14,8 +14,10 @@ import org.tasks.analytics.Firebase
 import org.tasks.data.entity.Task
 import org.tasks.dialogs.BaseDateTimePicker.OnDismissHandler
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
+import org.tasks.filters.Filter
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.Preferences
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,6 +37,8 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
         }
         when (action) {
             COMPLETE_TASK -> {
+                val task = task
+                Timber.tag("$action task=$task")
                 lifecycleScope.launch(NonCancellable) {
                     taskCompleter.setComplete(task, !task.isCompleted)
                     firebase.completeTask("widget")
@@ -42,20 +46,24 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                 finish()
             }
             EDIT_TASK -> {
-                startActivity(
-                        TaskIntents.getEditTaskIntent(
-                                this,
-                                intent.getParcelableExtra(EXTRA_FILTER),
-                                intent.getParcelableExtra(EXTRA_TASK)))
+                val filter = intent.getParcelableExtra<Filter?>(EXTRA_FILTER)
+                val task = task
+                Timber.tag("$action task=$task filter=$filter")
+                startActivity(TaskIntents.getEditTaskIntent(this, filter, task))
                 finish()
             }
             TOGGLE_SUBTASKS -> {
+                val task = task
+                val collapsed = intent.getBooleanExtra(EXTRA_COLLAPSED, false)
+                Timber.d("$action collapsed=$collapsed task=$task")
                 lifecycleScope.launch(NonCancellable) {
-                    taskDao.setCollapsed(task.id, intent.getBooleanExtra(EXTRA_COLLAPSED, false))
+                    taskDao.setCollapsed(task.id, collapsed)
                 }
                 finish()
             }
             RESCHEDULE_TASK -> {
+                val task = task
+                Timber.d("$action task=$task")
                 val fragmentManager = supportFragmentManager
                 if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_TIME_PICKER) == null) {
                     newDateTimePicker(
@@ -65,14 +73,14 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                 }
             }
             TOGGLE_GROUP -> {
-                val widgetPreferences = WidgetPreferences(
-                        applicationContext,
-                        preferences,
-                        intent.getIntExtra(EXTRA_WIDGET, -1)
-                )
-                val collapsed = widgetPreferences.collapsed.toMutableSet()
+                val widgetId = intent.getIntExtra(EXTRA_WIDGET, -1)
                 val group = intent.getLongExtra(EXTRA_GROUP, -1)
-                if (intent.getBooleanExtra(EXTRA_COLLAPSED, false)) {
+                val setCollapsed = intent.getBooleanExtra(EXTRA_COLLAPSED, false)
+                Timber.d("$action widgetId=$widgetId group=$group collapsed=$setCollapsed")
+                val widgetPreferences =
+                    WidgetPreferences(applicationContext, preferences, widgetId)
+                val collapsed = widgetPreferences.collapsed.toMutableSet()
+                if (setCollapsed) {
                     collapsed.add(group)
                 } else {
                     collapsed.remove(group)
@@ -80,6 +88,9 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                 widgetPreferences.collapsed = collapsed
                 localBroadcastManager.broadcastRefresh()
                 finish()
+            }
+            else -> {
+                Timber.e("Unknown action $action")
             }
         }
     }
