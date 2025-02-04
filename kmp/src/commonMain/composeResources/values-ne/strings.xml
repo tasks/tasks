@@ -3,4 +3,8 @@
     <string name="today">आज</string>
     <string name="tomorrow">भोलि</string>
     <string name="yesterday">हिजो</string>
+    <string name="settings">सेटिङहरू</string>
+    <string name="search">खोज्नुहोस्</string>
+    <string name="filter_my_tasks">मेरा कार्यहरू</string>
+    <string name="filter_today">आज</string>
 </resources>
