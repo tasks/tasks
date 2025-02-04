@@ -10,6 +10,8 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.preUpsideDownCake
 import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.dao.LocationDao
@@ -65,12 +67,20 @@ class NotificationManager @Inject constructor(
 
     @SuppressLint("CheckResult")
     suspend fun cancel(ids: Iterable<Long>) {
-        for (id in ids) {
-            notificationManager.cancel(id.toInt())
+        coroutineScope {
+            launch {
+                for (id in ids) {
+                    notificationManager.cancel(id.toInt())
+                }
+            }
         }
         queue.remove(ids)
         notificationDao.deleteAll(ids.toList())
-        notifyTasks(emptyList(), alert = false, nonstop = false, fiveTimes = false)
+        coroutineScope {
+            launch {
+                notifyTasks(emptyList(), alert = false, nonstop = false, fiveTimes = false)
+            }
+        }
     }
 
     suspend fun restoreNotifications(cancelExisting: Boolean) {

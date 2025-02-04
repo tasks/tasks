@@ -2,7 +2,10 @@ package com.todoroo.astrid.service
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
@@ -83,8 +86,11 @@ class TaskDeleter @Inject constructor(
     }
 
     private suspend fun cleanup(tasks: List<Long>) {
+        if (tasks.isEmpty()) {
+            return
+        }
+        notificationManager.cancel(tasks)
         tasks.forEach { task ->
-            notificationManager.cancel(task)
             locationDao.getGeofencesForTask(task).forEach {
                 locationDao.delete(it)
                 geofenceApi.update(it.place!!)
@@ -94,7 +100,11 @@ class TaskDeleter @Inject constructor(
                 userActivityDao.delete(it)
             }
         }
-        notificationManager.updateTimerNotification()
-        deletionDao.purgeDeleted()
+        coroutineScope {
+            launch(Dispatchers.IO) {
+                notificationManager.updateTimerNotification()
+                deletionDao.purgeDeleted()
+            }
+        }
     }
 }
