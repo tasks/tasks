@@ -248,7 +248,6 @@ class TaskViewHolder internal constructor(
         val place = task.location?.place
         val list = task.caldav
         val tagsString = task.tagsString
-        val isSubtask = task.hasParent()
         val appearance = preferences.getIntegerFromString(R.string.p_chip_appearance, 0)
         val showText = appearance != 2
         val showIcon = appearance != 1
@@ -291,7 +290,7 @@ class TaskViewHolder internal constructor(
                     }
 
                     if (
-                        !isSubtask &&
+                        indent == 0 &&
                         !sortByList &&
                         preferences.showListChip &&
                         filter !is CaldavFilter
