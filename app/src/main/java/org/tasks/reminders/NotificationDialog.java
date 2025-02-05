@@ -54,7 +54,8 @@ public class NotificationDialog extends DialogFragment {
                   break;
               }
             })
-        .setNegativeButton(R.string.cancel, null)
+        .setNegativeButton(R.string.cancel, (dialogInterface, i) -> handler.dismiss()
+        )
         .show();
   }
 
