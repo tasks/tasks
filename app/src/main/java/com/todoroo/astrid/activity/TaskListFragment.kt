@@ -73,7 +73,6 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -278,13 +277,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         requireActivity().onBackPressedDispatcher.addCallback(owner = viewLifecycleOwner) {
             if (search.isActionViewExpanded) {
                 search.collapseActionView()
-            } else {
-                requireActivity().finish()
-                if (!preferences.getBoolean(R.string.p_open_last_viewed_list, true)) {
-                    runBlocking {
-                        mainViewModel.resetFilter()
-                    }
-                }
             }
         }
         binding = FragmentTaskListBinding.inflate(inflater, container, false)
@@ -1103,7 +1095,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         const val ACTION_DELETED = "action_deleted"
         private const val EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids"
         private const val VOICE_RECOGNITION_REQUEST_CODE = 1234
-        private const val EXTRA_FILTER = "extra_filter"
+        const val EXTRA_FILTER = "extra_filter"
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"
         private const val FRAG_TAG_PRIORITY_PICKER = "frag_tag_priority_picker"
         private const val REQUEST_TAG_TASKS = 10106

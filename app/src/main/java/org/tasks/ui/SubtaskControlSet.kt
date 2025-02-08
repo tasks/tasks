@@ -53,8 +53,9 @@ class SubtaskControlSet : TaskEditControlFragment() {
             listViewModel = ViewModelProvider(requireParentFragment())[TaskListViewModel::class.java]
             setContent {
                 val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
+                val originalState = viewModel.originalState.collectAsStateWithLifecycle().value
                 SubtaskRow(
-                    originalFilter = viewModel.originalState.list,
+                    originalFilter = originalState.list,
                     filter = viewState.list,
                     hasParent = viewState.hasParent,
                     existingSubtasks = if (viewModel.viewState.collectAsStateWithLifecycle().value.isNew) {

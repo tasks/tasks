@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
@@ -18,7 +17,6 @@ abstract class TaskEditControlFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val composeView = ComposeView(requireActivity())
-        composeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
         viewModel = ViewModelProvider(requireParentFragment())[TaskEditViewModel::class.java]
         bind(composeView)
         createView(savedInstanceState)

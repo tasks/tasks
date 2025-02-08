@@ -154,6 +154,7 @@ dependencies {
     implementation(projects.data)
     implementation(projects.kmp)
     implementation(projects.icons)
+    implementation(libs.androidx.adaptive.navigation.android)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.bitfire.dav4jvm) {
         exclude(group = "junit")
@@ -205,6 +206,7 @@ dependencies {
     implementation(libs.persistent.cookiejar)
     implementation(libs.material)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material3.adaptive)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.preference)

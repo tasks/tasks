@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.compose.BackHandler
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,10 +43,7 @@ import org.tasks.compose.edit.ListRow
 import org.tasks.compose.edit.PriorityRow
 import org.tasks.compose.edit.TaskEditScreen
 import org.tasks.compose.edit.TitleRow
-import org.tasks.data.Location
 import org.tasks.data.dao.UserActivityDao
-import org.tasks.data.entity.Alarm
-import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.DateTimePicker
@@ -55,7 +51,6 @@ import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.extensions.hideKeyboard
-import org.tasks.filters.Filter
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.markdown.MarkdownProvider
@@ -118,15 +113,6 @@ class TaskEditFragment : Fragment() {
         }
         TasksTheme(theme = theme.themeBase.index,) {
             val viewState = editViewModel.viewState.collectAsStateWithLifecycle().value
-            BackHandler {
-                if (viewState.backButtonSavesTask) {
-                    lifecycleScope.launch {
-                        save()
-                    }
-                } else {
-                    discardButtonClick()
-                }
-            }
             LaunchedEffect(viewState.isNew) {
                 if (!viewState.isNew) {
                     notificationManager.cancel(viewState.task.id)
@@ -140,7 +126,15 @@ class TaskEditFragment : Fragment() {
                     .value,
                 save = { lifecycleScope.launch { save() } },
                 discard = { discardButtonClick() },
-                onBackPressed = { activity?.onBackPressed() },
+                onBackPressed = {
+                    if (viewState.backButtonSavesTask) {
+                        lifecycleScope.launch {
+                            save()
+                        }
+                    } else {
+                        discardButtonClick()
+                    }
+                },
                 delete = { deleteButtonClick() },
                 openBeastModeSettings = {
                     editViewModel.hideBeastModeHint(click = true)
@@ -351,10 +345,6 @@ class TaskEditFragment : Fragment() {
 
     companion object {
         const val EXTRA_TASK = "extra_task"
-        const val EXTRA_LIST = "extra_list"
-        const val EXTRA_LOCATION = "extra_location"
-        const val EXTRA_TAGS = "extra_tags"
-        const val EXTRA_ALARMS = "extra_alarms"
 
         const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
         private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
@@ -367,24 +357,6 @@ class TaskEditFragment : Fragment() {
             } else {
                 newDateTime(this).endOfDay().isBeforeNow
             }
-
-        fun newTaskEditFragment(
-            task: Task,
-            list: Filter,
-            location: Location?,
-            tags: ArrayList<TagData>,
-            alarms: ArrayList<Alarm>,
-        ): TaskEditFragment {
-            val taskEditFragment = TaskEditFragment()
-            val arguments = Bundle()
-            arguments.putParcelable(EXTRA_TASK, task)
-            arguments.putParcelable(EXTRA_LIST, list)
-            arguments.putParcelable(EXTRA_LOCATION, location)
-            arguments.putParcelableArrayList(EXTRA_TAGS, tags)
-            arguments.putParcelableArrayList(EXTRA_ALARMS, alarms)
-            taskEditFragment.arguments = arguments
-            return taskEditFragment
-        }
 
         fun Modifier.gesturesDisabled(disabled: Boolean = true) =
             if (disabled) {

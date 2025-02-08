@@ -59,6 +59,8 @@ import org.tasks.data.entity.Alarm.Companion.whenDue
 import org.tasks.data.entity.Alarm.Companion.whenOverdue
 import org.tasks.data.entity.Alarm.Companion.whenStarted
 import org.tasks.data.entity.Attachment
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.FORCE_CALDAV_SYNC
 import org.tasks.data.entity.FORCE_MICROSOFT_SYNC
@@ -69,11 +71,13 @@ import org.tasks.data.entity.Task.Companion.NOTIFY_MODE_NONSTOP
 import org.tasks.data.entity.Task.Companion.hasDueTime
 import org.tasks.data.entity.TaskAttachment
 import org.tasks.data.entity.UserActivity
+import org.tasks.data.getLocation
 import org.tasks.data.setPicture
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.files.FileHelper
 import org.tasks.filters.CaldavFilter
 import org.tasks.location.GeofenceApi
+import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -107,6 +111,7 @@ class TaskEditViewModel @Inject constructor(
     private val userActivityDao: UserActivityDao,
     private val alarmDao: AlarmDao,
     private val taskAttachmentDao: TaskAttachmentDao,
+    private val defaultFilterProvider: DefaultFilterProvider,
 ) : ViewModel() {
     data class ViewState(
         val task: Task,
@@ -143,11 +148,7 @@ class TaskEditViewModel @Inject constructor(
         ?.apply { notes = notes?.stripCarriageReturns() } // copying here broke tests 🙄
         ?: throw IllegalArgumentException("task is null")
 
-    private var _originalState: ViewState
-    val originalState: ViewState
-        get() = _originalState
-
-    private val _viewState = MutableStateFlow(
+    private val _originalState = MutableStateFlow(
         ViewState(
             task = task,
             showBeastModeHint = !preferences.shownBeastModeHint,
@@ -156,11 +157,6 @@ class TaskEditViewModel @Inject constructor(
             backButtonSavesTask = preferences.backButtonSavesTask(),
             isReadOnly = task.readOnly,
             linkify = preferences.linkify,
-            list = savedStateHandle[TaskEditFragment.EXTRA_LIST]!!,
-            location = savedStateHandle[TaskEditFragment.EXTRA_LOCATION],
-            tags = savedStateHandle.get<ArrayList<TagData>>(TaskEditFragment.EXTRA_TAGS)
-                ?.toPersistentSet()
-                ?: persistentSetOf(),
             calendar = if (task.isNew && permissionChecker.canAccessCalendars()) {
                 preferences.defaultCalendar
             } else {
@@ -198,11 +194,17 @@ class TaskEditViewModel @Inject constructor(
                     }
                 }
             } else {
-                savedStateHandle[TaskEditFragment.EXTRA_ALARMS]!!
+                emptyList()
             }.toPersistentSet(),
             multilineTitle = preferences.multilineTitle,
+            location = null,
+            tags = persistentSetOf(),
+            list = CaldavFilter(calendar = CaldavCalendar(), account = CaldavAccount()),
         )
     )
+    val originalState: StateFlow<ViewState> = _originalState
+
+    private val _viewState = MutableStateFlow(originalState.value)
     val viewState: StateFlow<ViewState> = _viewState
 
     var eventUri = MutableStateFlow(task.calendarURI)
@@ -269,7 +271,7 @@ class TaskEditViewModel @Inject constructor(
 
     fun hasChanges(): Boolean {
         val viewState = _viewState.value
-        return originalState != viewState ||
+        return originalState.value != viewState ||
                 (viewState.isNew && viewState.task.title?.isNotBlank() == true) || // text shared to tasks
                 task.dueDate != dueDate.value ||
                 task.hideUntil != startDate.value ||
@@ -315,8 +317,8 @@ class TaskEditViewModel @Inject constructor(
             taskDao.createNew(task)
         }
         val selectedLocation = _viewState.value.location
-        if ((isNew && selectedLocation != null) || originalState.location != selectedLocation) {
-            originalState.location?.let { location ->
+        if ((isNew && selectedLocation != null) || originalState.value.location != selectedLocation) {
+            originalState.value.location?.let { location ->
                 if (location.geofence.id > 0) {
                     locationDao.delete(location.geofence)
                     geofenceApi.update(location.place)
@@ -337,7 +339,7 @@ class TaskEditViewModel @Inject constructor(
             task.modificationDate = currentTimeMillis()
         }
         val selectedTags = _viewState.value.tags
-        if ((isNew && selectedTags.isNotEmpty()) || originalState.tags.toHashSet() != selectedTags.toHashSet()) {
+        if ((isNew && selectedTags.isNotEmpty()) || originalState.value.tags.toHashSet() != selectedTags.toHashSet()) {
             tagDao.applyTags(task, tagDataDao, selectedTags)
             task.putTransitory(FORCE_CALDAV_SYNC, true)
             task.modificationDate = currentTimeMillis()
@@ -360,7 +362,7 @@ class TaskEditViewModel @Inject constructor(
 
         if (
             (isNew && _viewState.value.alarms.isNotEmpty()) ||
-            originalState.alarms != _viewState.value.alarms
+            originalState.value.alarms != _viewState.value.alarms
         ) {
             alarmService.synchronizeAlarms(task.id, _viewState.value.alarms.toMutableSet())
             task.putTransitory(FORCE_CALDAV_SYNC, true)
@@ -369,7 +371,7 @@ class TaskEditViewModel @Inject constructor(
 
         taskDao.save(task, null)
         val selectedList = _viewState.value.list
-        if (isNew || originalState.list != selectedList) {
+        if (isNew || originalState.value.list != selectedList) {
             task.parent = 0
             taskMover.move(listOf(task.id), selectedList)
         }
@@ -417,13 +419,13 @@ class TaskEditViewModel @Inject constructor(
             }
         }
 
-        if (originalState.attachments != _viewState.value.attachments) {
-            originalState.attachments
+        if (originalState.value.attachments != _viewState.value.attachments) {
+            originalState.value.attachments
                 .minus(_viewState.value.attachments)
                 .map { it.remoteId }
                 .let { taskAttachmentDao.delete(task.id, it) }
             _viewState.value.attachments
-                .minus(originalState.attachments)
+                .minus(originalState.value.attachments)
                 .map {
                     Attachment(
                         task = task.id,
@@ -484,7 +486,7 @@ class TaskEditViewModel @Inject constructor(
     suspend fun discard(remove: Boolean = true) {
         if (_viewState.value.isNew) {
             timerPlugin.stopTimer(task)
-            (originalState.attachments + _viewState.value.attachments)
+            (originalState.value.attachments + _viewState.value.attachments)
                 .onEach { attachment -> FileHelper.delete(context, attachment.uri.toUri()) }
                 .let { taskAttachmentDao.delete(it.toList()) }
         }
@@ -618,11 +620,36 @@ class TaskEditViewModel @Inject constructor(
     }
 
     init {
-        _originalState = _viewState.value.copy()
         viewModelScope.launch {
             taskAttachmentDao.getAttachments(task.id).toPersistentSet().let { attachments ->
-                _originalState = _originalState.copy(attachments = attachments)
-                _viewState.value = _viewState.value.copy(attachments = attachments)
+                _originalState.update { it.copy(attachments = attachments) }
+                _viewState.update { it.copy(attachments = attachments) }
+            }
+        }
+        if (!task.isNew) {
+            viewModelScope.launch {
+                alarmDao.getAlarms(task.id).toPersistentSet().let { alarms ->
+                    _originalState.update { it.copy(alarms = alarms) }
+                    _viewState.update { it.copy(alarms = alarms) }
+                }
+            }
+        }
+        viewModelScope.launch {
+            defaultFilterProvider.getList(task).let { list ->
+                _originalState.update { it.copy(list = list) }
+                _viewState.update { it.copy(list = list) }
+            }
+        }
+        viewModelScope.launch {
+            locationDao.getLocation(task, preferences)?.let { location ->
+                _originalState.update { it.copy(location = location) }
+                _viewState.update { it.copy(location = location) }
+            }
+        }
+        viewModelScope.launch {
+            tagDataDao.getTags(task).toPersistentSet().let { tags ->
+                _originalState.update { it.copy(tags = tags) }
+                _viewState.update { it.copy(tags = tags) }
             }
         }
     }

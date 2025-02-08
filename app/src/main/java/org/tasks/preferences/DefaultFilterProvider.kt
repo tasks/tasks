@@ -163,8 +163,8 @@ class DefaultFilterProvider @Inject constructor(
         }
     }
 
-    suspend fun getList(task: Task): Filter {
-        var originalList: Filter? = null
+    suspend fun getList(task: Task): CaldavFilter {
+        var originalList: CaldavFilter? = null
         if (task.isNew) {
             if (task.hasTransitory(GoogleTask.KEY)) {
                 val listId = task.getTransitory<String>(GoogleTask.KEY)!!

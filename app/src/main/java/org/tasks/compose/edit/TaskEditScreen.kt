@@ -1,6 +1,7 @@
 package org.tasks.compose.edit
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -50,6 +51,9 @@ fun TaskEditScreen(
     deleteComment: (UserActivity) -> Unit,
     content: @Composable (Int) -> Unit,
 ) {
+    BackHandler {
+        onBackPressed()
+    }
     Scaffold(
         topBar = {
             TopAppBar(

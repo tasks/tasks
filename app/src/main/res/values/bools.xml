@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <bool name="two_pane_layout">false</bool>
   <bool name="default_bundle_notifications">true</bool>
   <bool name="is_dark">false</bool>
   <bool name="light_status_bar">true</bool>

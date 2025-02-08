@@ -8,46 +8,65 @@ package com.todoroo.astrid.activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import androidx.activity.SystemBarStyle
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
+import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.material3.adaptive.layout.HingePolicy
+import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
+import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
+import androidx.compose.material3.adaptive.layout.PaneAdaptedValue
+import androidx.compose.material3.adaptive.layout.ThreePaneScaffoldRole
+import androidx.compose.material3.adaptive.layout.calculatePaneScaffoldDirective
+import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.key
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.core.content.IntentCompat.getParcelableExtra
+import androidx.fragment.compose.AndroidFragment
+import androidx.fragment.compose.rememberFragmentState
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastR
-import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
+import com.todoroo.astrid.activity.TaskEditFragment.Companion.EXTRA_TASK
+import com.todoroo.astrid.activity.TaskListFragment.Companion.EXTRA_FILTER
 import com.todoroo.astrid.adapter.SubheaderClickHandler
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.TasksApplication
@@ -66,9 +85,7 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
-import org.tasks.data.getLocation
 import org.tasks.data.listSettingsClass
-import org.tasks.databinding.TaskListActivityBinding
 import org.tasks.dialogs.NewFilterDialog
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.extensions.Context.findActivity
@@ -91,12 +108,12 @@ import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
-import org.tasks.ui.EmptyTaskEditFragment.Companion.newEmptyTaskEditFragment
 import org.tasks.ui.MainActivityEvent
 import org.tasks.ui.MainActivityEventBus
 import timber.log.Timber
 import javax.inject.Inject
 
+@OptIn(ExperimentalMaterial3AdaptiveApi::class, ExperimentalSharedTransitionApi::class)
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     @Inject lateinit var preferences: Preferences
@@ -117,7 +134,6 @@ class MainActivity : AppCompatActivity() {
     private var currentNightMode = 0
     private var currentPro = false
     private var actionMode: ActionMode? = null
-    private lateinit var binding: TaskListActivityBinding
 
     /** @see android.app.Activity.onCreate
      */
@@ -127,10 +143,6 @@ class MainActivity : AppCompatActivity() {
         theme.applyTheme(this)
         currentNightMode = nightMode
         currentPro = inventory.hasPro
-        binding = TaskListActivityBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        logIntent("onCreate")
-        handleIntent()
 
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.auto(
@@ -143,9 +155,112 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        binding.composeView.setContent {
-            if (viewModel.drawerOpen.collectAsStateWithLifecycle().value) {
-                TasksTheme(theme = theme.themeBase.index) {
+        setContent {
+            TasksTheme(theme = theme.themeBase.index) {
+                val configuration = LocalConfiguration.current
+                val screenWidth = configuration.screenWidthDp.dp
+                val navigator = rememberListDetailPaneScaffoldNavigator(
+                    calculatePaneScaffoldDirective(
+                        windowAdaptiveInfo = currentWindowAdaptiveInfo(),
+                        verticalHingePolicy = HingePolicy.AlwaysAvoid,
+                    ).copy(
+                        horizontalPartitionSpacerSize = 0.dp,
+                        verticalPartitionSpacerSize = 0.dp,
+                        defaultPanePreferredWidth = screenWidth / 2,
+                    ),
+
+                )
+                val state = viewModel.state.collectAsStateWithLifecycle().value
+                val isDetailVisible =
+                    navigator.scaffoldValue[ListDetailPaneScaffoldRole.Detail] == PaneAdaptedValue.Expanded
+                val scope = rememberCoroutineScope()
+
+                LaunchedEffect(state.task) {
+                    if (state.task == null) {
+                        if (intent.finishAffinity) {
+                            finishAffinity()
+                        } else {
+                            if (intent.removeTask && intent.broughtToFront) {
+                                moveTaskToBack(true)
+                            }
+                            hideKeyboard()
+                            navigator.navigateTo(pane = ThreePaneScaffoldRole.Secondary)
+                        }
+                    } else {
+                        navigator.navigateTo(pane = ThreePaneScaffoldRole.Primary)
+                    }
+                }
+
+                BackHandler(enabled = navigator.canNavigateBack() && state.task == null) {
+                    if (intent.finishAffinity) {
+                        finishAffinity()
+                    } else if (isDetailVisible) {
+                        scope.launch {
+                            navigator.navigateBack()
+                        }
+                    } else {
+                        finish()
+                        if (!preferences.getBoolean(R.string.p_open_last_viewed_list, true)) {
+                            runBlocking {
+                                viewModel.resetFilter()
+                            }
+                        }
+                    }
+                }
+                val taskListState = key (state.filter) {
+                    rememberFragmentState()
+                }
+                val taskEditState = key (state.task) {
+                    rememberFragmentState()
+                }
+                LaunchedEffect(state.filter, state.task) {
+                    clearUi()
+                }
+                ListDetailPaneScaffold(
+                    directive = navigator.scaffoldDirective,
+                    value = navigator.scaffoldValue,
+                    listPane = {
+                        AndroidFragment<TaskListFragment>(
+                            fragmentState = taskListState,
+                            arguments = remember (state.filter) {
+                                Bundle()
+                                    .apply { putParcelable(EXTRA_FILTER, state.filter) }
+                            },
+                            modifier = Modifier.fillMaxSize(),
+                        )
+                    },
+                    detailPane = {
+                        if (state.task == null) {
+                            if (isDetailVisible) {
+                                Box(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentAlignment = Alignment.Center,
+                                ) {
+                                    Icon(
+                                        painter = painterResource(org.tasks.kmp.R.drawable.ic_launcher_no_shadow_foreground),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(192.dp),
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    )
+                                }
+                            }
+                        } else {
+                            AndroidFragment<TaskEditFragment>(
+                                fragmentState = taskEditState,
+                                arguments = remember(state.task) {
+                                    Bundle()
+                                        .apply { putParcelable(EXTRA_TASK, state.task) }
+                                },
+                                modifier = Modifier.fillMaxSize(),
+                                onUpdate = {
+                                    Timber.d("On updated")
+                                }
+                            )
+                        }
+                    },
+                )
+
+                if (viewModel.drawerOpen.collectAsStateWithLifecycle().value) {
                     val sheetState = rememberModalBottomSheetState(
                         skipPartiallyExpanded = true,
                         confirmValueChange = { true },
@@ -164,7 +279,6 @@ class MainActivity : AppCompatActivity() {
                             )
                         },
                     ) {
-                        val state = viewModel.state.collectAsStateWithLifecycle().value
                         val context = LocalContext.current
                         val settingsRequest = rememberLauncherForActivityResult(
                             ActivityResultContracts.StartActivityForResult()
@@ -227,10 +341,12 @@ class MainActivity : AppCompatActivity() {
 
                                         REQUEST_NEW_LIST -> {
                                             val account =
-                                                caldavDao.getAccount(it.header.id.toLong()) ?: return@launch
+                                                caldavDao.getAccount(it.header.id.toLong())
+                                                    ?: return@launch
                                             when (it.header.subheaderType) {
                                                 NavigationDrawerSubheader.SubheaderType.CALDAV,
-                                                NavigationDrawerSubheader.SubheaderType.TASKS ->
+                                                NavigationDrawerSubheader.SubheaderType.TASKS,
+                                                    ->
                                                     startActivityForResult(
                                                         Intent(
                                                             this@MainActivity,
@@ -297,6 +413,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        logIntent("onCreate")
+        handleIntent()
 
         eventBus
             .onEach(this::process)
@@ -307,77 +425,6 @@ class MainActivity : AppCompatActivity() {
                 updateSystemBars(viewModel.state.value.filter)
             }
         }
-
-        viewModel
-            .state
-            .flowWithLifecycle(lifecycle)
-            .map { it.filter to it.task }
-            .distinctUntilChanged()
-            .onEach { (newFilter, task) ->
-                Timber.d("filter: $newFilter task: $task")
-                val existingTlf =
-                    supportFragmentManager.findFragmentByTag(FRAG_TAG_TASK_LIST) as TaskListFragment?
-                val existingFilter = existingTlf?.getFilter()
-                val tlf = if (
-                    existingFilter != null
-                    && existingFilter.areItemsTheSame(newFilter)
-                    && existingFilter == newFilter
-                // && check if manual sort changed
-                ) {
-                    existingTlf
-                } else {
-                    clearUi()
-                    TaskListFragment.newTaskListFragment(newFilter)
-                }
-                val existingTef =
-                    supportFragmentManager.findFragmentByTag(FRAG_TAG_TASK_EDIT) as TaskEditFragment?
-                val transaction = supportFragmentManager.beginTransaction()
-                if (task == null) {
-                    if (intent.finishAffinity) {
-                        finishAffinity()
-                    } else if (existingTef != null) {
-                        if (intent.removeTask && intent.broughtToFront) {
-                            moveTaskToBack(true)
-                        }
-                        hideKeyboard()
-                        transaction
-                            .replace(R.id.detail, newEmptyTaskEditFragment())
-                            .runOnCommit {
-                                if (isSinglePaneLayout) {
-                                    binding.master.visibility = View.VISIBLE
-                                    binding.detail.visibility = View.GONE
-                                }
-                            }
-                    }
-                } else if (task != existingTef?.task) {
-                    existingTef?.save(remove = false)
-                    transaction
-                        .replace(R.id.detail, newTaskEditFragment(task), FRAG_TAG_TASK_EDIT)
-                        .runOnCommit {
-                            if (isSinglePaneLayout) {
-                                binding.detail.visibility = View.VISIBLE
-                                binding.master.visibility = View.GONE
-                            }
-                        }
-                } else if (task == existingTef.task) {
-                    transaction
-                        .runOnCommit {
-                            if (isSinglePaneLayout) {
-                                binding.detail.visibility = View.VISIBLE
-                                binding.master.visibility = View.GONE
-                            }
-                        }
-                }
-                defaultFilterProvider.setLastViewedFilter(newFilter)
-                theme
-                    .withThemeColor(getFilterColor(newFilter))
-                    .applyToContext(this) // must happen before committing fragment
-                transaction
-                    .replace(R.id.master, tlf, FRAG_TAG_TASK_LIST)
-                    .runOnCommit { updateSystemBars(newFilter) }
-                    .commit()
-            }
-            .launchIn(lifecycleScope)
     }
 
     private fun process(event: MainActivityEvent) = when (event) {
@@ -493,30 +540,6 @@ class MainActivity : AppCompatActivity() {
             preferences.setBoolean(R.string.p_just_updated, false)
         }
     }
-
-    private suspend fun newTaskEditFragment(task: Task): TaskEditFragment {
-        AndroidUtilities.assertMainThread()
-        clearUi()
-        return coroutineScope {
-            withContext(Dispatchers.Default) {
-                val freshTask = async { if (task.isNew) task else taskDao.fetch(task.id) ?: task }
-                val list = async { defaultFilterProvider.getList(task) }
-                val location = async { locationDao.getLocation(task, preferences) }
-                val tags = async { tagDataDao.getTags(task) }
-                val alarms = async { alarmDao.getAlarms(task) }
-                newTaskEditFragment(
-                    freshTask.await(),
-                    list.await(),
-                    location.await(),
-                    tags.await(),
-                    alarms.await(),
-                )
-            }
-        }
-    }
-
-    private val isSinglePaneLayout: Boolean
-        get() = !resources.getBoolean(R.bool.two_pane_layout)
 
     override fun onSupportActionModeStarted(mode: ActionMode) {
         super.onSupportActionModeStarted(mode)

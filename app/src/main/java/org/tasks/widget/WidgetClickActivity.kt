@@ -3,6 +3,7 @@ package org.tasks.widget
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.todoroo.astrid.activity.MainActivity.Companion.FINISH_AFFINITY
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCompleter
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,7 +50,11 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                 val filter = intent.getParcelableExtra<Filter?>(EXTRA_FILTER)
                 val task = task
                 Timber.tag("$action task=$task filter=$filter")
-                startActivity(TaskIntents.getEditTaskIntent(this, filter, task))
+                startActivity(
+                    TaskIntents
+                        .getEditTaskIntent(this, filter, task)
+                        .putExtra(FINISH_AFFINITY, true)
+                )
                 finish()
             }
             TOGGLE_SUBTASKS -> {

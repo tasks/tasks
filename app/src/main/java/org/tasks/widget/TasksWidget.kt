@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.RemoteViews
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
+import com.todoroo.astrid.activity.MainActivity.Companion.FINISH_AFFINITY
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
@@ -190,6 +191,7 @@ class TasksWidget : AppWidgetProvider() {
 
     private fun getNewTaskIntent(context: Context, filter: Filter, widgetId: Int): PendingIntent {
         val intent = TaskIntents.getNewTaskIntent(context, filter, "widget")
+            .putExtra(FINISH_AFFINITY, true)
         intent.action = "new_task"
         return PendingIntent.getActivity(
             context,
