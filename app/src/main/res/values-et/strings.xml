@@ -663,8 +663,6 @@
     <string name="add_widget_to_home_screen">Lisa vidin avalehele</string>
     <string name="account_not_included">Ei sisaldu „Paku oma hind“ taseme tellimustes</string>
     <string name="pro_free_trial">Uued tellijad võivad kasutada 7-päevast tasuta testperioodi, mida on võimalik igal ajahetkel katkestada</string>
-    <string name="app_bar_position">Rakenduste riba asukoht</string>
-    <string name="app_bar_collapse">Peida rakenduste riba</string>
     <string name="sign_in_to_tasks">Logi sisse teenusesse Tasks.org</string>
     <string name="filter_eisenhower_box_2">Tähtis ja mittekiire</string>
     <string name="migrate_count">Teisalda %s teenusesse Tasks.org</string>
@@ -700,7 +698,6 @@
     <string name="upgrade_more_customization_description">Muuda kõik kujundused, värvid ja ikoonid saadavaks</string>
     <string name="android_auto_backup_device_summary">Sa pead varukoopiateenusega nutiseadme seadistustes liituma. Kõikides nutiseadmetes sellist võimalust pole.</string>
     <string name="insufficient_sponsorship">Ühtegi sobivat GitHubi sponsorlust ei leidunud</string>
-    <string name="bottom">All</string>
     <string name="enable_alarms_description">Tagamaks, et alati saad õigel ajal teavitusi, palun luba nutiseadme seadistustest äratuste ja meeldetuletuste kasutamine</string>
     <string name="alarm_after_start">%s peale alustamise tähtaega</string>
     <string name="snackbar_tasks_completed">%d ülesannet on lõpetatud</string>
@@ -725,7 +722,6 @@
     <string name="backup_location_warning">HOIATUS: Tasks rakenduse eemaldamisel kustutatakse ka kõik „%s“ asuukohas leiduvad failid. Kui soovid, et Android sinu faile ei kustutaks, siis palun vali muu asukoht.</string>
     <string name="remove_user_confirmation">Kasutajal %1$s ei saa enam olema ligipääsu siia: %2$s</string>
     <string name="upgrade_desktop_access">Ligipääs töölauafunktsionaalsusele</string>
-    <string name="top">Ülal</string>
     <string name="completed_tasks_at_bottom">Nihuta lõpetatud ülesanded alla</string>
     <string name="hint_customize_edit_body">Sa võid seda vaadet kohendada väljade ümbertõstmise ja eemaldamise teel</string>
     <string name="enable_alarms">Taga õigeaegsed teavitused</string>
