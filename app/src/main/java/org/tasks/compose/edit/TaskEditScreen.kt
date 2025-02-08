@@ -3,6 +3,8 @@ package org.tasks.compose.edit
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -94,7 +96,11 @@ fun TaskEditScreen(
         },
         bottomBar = {
             if (viewState.showComments && !viewState.isReadOnly) {
-                AndroidFragment<CommentBarFragment>()
+                AndroidFragment<CommentBarFragment>(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .navigationBarsPadding()
+                )
             }
         },
     ) { paddingValues ->

@@ -27,7 +27,6 @@ import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.files.ImageHelper
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
-import org.tasks.themes.ThemeColor
 import org.tasks.ui.TaskEditViewModel
 import javax.inject.Inject
 
@@ -37,8 +36,7 @@ class CommentBarFragment : Fragment() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var device: Device
     @Inject lateinit var preferences: Preferences
-    @Inject lateinit var themeColor: ThemeColor
-    
+
     private lateinit var commentButton: View
     private lateinit var commentField: EditText
     private lateinit var pictureButton: ImageView
@@ -74,7 +72,6 @@ class CommentBarFragment : Fragment() {
         ) {
             commentBar.visibility = View.VISIBLE
         }
-        commentBar.setBackgroundColor(themeColor.primaryColor)
         resetPictureButton()
     }
 
