@@ -14,6 +14,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.speech.RecognizerIntent
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -33,7 +34,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.app.ShareCompat
 import androidx.core.content.IntentCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -125,6 +129,7 @@ import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.Device
 import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.ResourceResolver.getData
 import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.sync.SyncAdapters
 import org.tasks.tags.TagPickerActivity
@@ -283,6 +288,20 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
         }
         binding = FragmentTaskListBinding.inflate(inflater, container, false)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { view, windowInsets ->
+            val actionBarHeight = TypedValue.complexToDimensionPixelSize(
+                getData(requireContext(), android.R.attr.actionBarSize),
+                resources.displayMetrics
+            )
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val params = view.layoutParams
+            params.height = actionBarHeight + insets.top
+            view.layoutParams = params
+            view.updatePadding(top = insets.top)
+            windowInsets
+        }
+
         filter = getFilter()
         val swipeRefreshLayout: SwipeRefreshLayout
         val emptyRefreshLayout: SwipeRefreshLayout

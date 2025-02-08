@@ -6,19 +6,25 @@
 package com.todoroo.astrid.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.IntentCompat.getParcelableExtra
 import androidx.lifecycle.Lifecycle
@@ -45,12 +51,10 @@ import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.TasksApplication
-import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.compose.drawer.DrawerAction
 import org.tasks.compose.drawer.DrawerItem
@@ -128,6 +132,17 @@ class MainActivity : AppCompatActivity() {
         logIntent("onCreate")
         handleIntent()
 
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.auto(
+                lightScrim = Color.TRANSPARENT,
+                darkScrim = Color.TRANSPARENT
+            ),
+            navigationBarStyle = SystemBarStyle.auto(
+                lightScrim = Color.TRANSPARENT,
+                darkScrim = Color.TRANSPARENT
+            )
+        )
+
         binding.composeView.setContent {
             if (viewModel.drawerOpen.collectAsStateWithLifecycle().value) {
                 TasksTheme(theme = theme.themeBase.index) {
@@ -136,9 +151,18 @@ class MainActivity : AppCompatActivity() {
                         confirmValueChange = { true },
                     )
                     ModalBottomSheet(
+                        modifier = Modifier.statusBarsPadding(),
                         sheetState = sheetState,
                         containerColor = MaterialTheme.colorScheme.surface,
                         onDismissRequest = { viewModel.closeDrawer() },
+                        contentWindowInsets = {
+                            WindowInsets(
+                                left = 0,
+                                top = 0,
+                                right = 0,
+                                bottom = 0
+                            )
+                        },
                     ) {
                         val state = viewModel.state.collectAsStateWithLifecycle().value
                         val context = LocalContext.current
@@ -443,7 +467,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateSystemBars(filter: Filter) {
         with (getFilterColor(filter)) {
-            applyToNavigationBar(this@MainActivity)
             applyTaskDescription(this@MainActivity, filter.title ?: getString(R.string.app_name))
         }
     }
