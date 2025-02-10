@@ -480,7 +480,7 @@
     <string name="add_tags">Schlagwörter hinzufügen</string>
     <string name="filter_no_tags">Keine Schlagwörter</string>
     <string name="filter_any_due_date">Beliebiges Fälligkeitsdatum</string>
-    <string name="enjoying_tasks">Gefällt Ihnen Tasks\?</string>
+    <string name="enjoying_tasks">Dir gefällt Tasks?</string>
     <string name="whats_new">Was gibt\'s Neues</string>
     <string name="filter_eisenhower_box_4">Unwichtig und nicht dringend</string>
     <string name="filter_eisenhower_box_3">Unwichtig und dringend</string>
@@ -550,7 +550,7 @@
     <string name="authentication_required">Authentifizierung erforderlich</string>
     <string name="sign_in_with_github">Mit GitHub anmelden</string>
     <string name="github_sponsors">GitHub-Sponsoren</string>
-    <string name="google_play_subscribers">Google Play-Abonnementen</string>
+    <string name="google_play_subscribers">Google Play-Abonnenten</string>
     <string name="not_signed_in">Nicht angemeldet</string>
     <string name="authorization_cancelled">Autorisierung abgebrochen</string>
     <string name="sign_in_with_google">Mit Google anmelden</string>
