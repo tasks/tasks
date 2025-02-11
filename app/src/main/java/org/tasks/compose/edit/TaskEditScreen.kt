@@ -30,7 +30,6 @@ import com.todoroo.astrid.activity.TaskEditFragment.Companion.gesturesDisabled
 import org.tasks.R
 import org.tasks.compose.BeastModeBanner
 import org.tasks.data.entity.UserActivity
-import org.tasks.extensions.Context.findActivity
 import org.tasks.files.FileHelper
 import org.tasks.fragments.CommentBarFragment
 import org.tasks.themes.TasksTheme
@@ -123,14 +122,9 @@ fun TaskEditScreen(
                 val context = LocalContext.current
                 CommentsRow(
                     comments = comments,
-                    copyCommentToClipboard = {
-                        copyToClipboard(context, R.string.comment, it)
-                    },
+                    copyCommentToClipboard = { copyToClipboard(context, R.string.comment, it) },
                     deleteComment = deleteComment,
-                    openImage = {
-                        val activity = context.findActivity() ?: return@CommentsRow
-                        FileHelper.startActionView(activity, it)
-                    }
+                    openImage = { FileHelper.startActionView(context, it) },
                 )
             }
             BeastModeBanner(

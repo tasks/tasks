@@ -17,12 +17,15 @@ import com.google.common.collect.Iterables
 import com.google.common.io.ByteStreams
 import com.google.common.io.Files
 import com.todoroo.astrid.utility.Constants
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.extensions.Context.safeStartActivity
 import timber.log.Timber
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
+import java.io.InputStream
 import java.util.*
 
 object FileHelper {
@@ -30,9 +33,18 @@ object FileHelper {
         activity: Activity?,
         initial: Uri?,
         allowMultiple: Boolean = false,
+        persistPermissions: Boolean = false,
         vararg mimeTypes: String?,
     ): Intent =
             Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                if (persistPermissions) {
+                    addFlags(
+                        Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+                                or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                                or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                or Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
+                    )
+                }
                 putExtra("android.content.extra.SHOW_ADVANCED", true)
                 putExtra("android.content.extra.FANCY", true)
                 putExtra("android.content.extra.SHOW_FILESIZE", true)
@@ -130,6 +142,24 @@ object FileHelper {
             Files.getFileExtension(getFilename(context, uri)!!)
     }
 
+    suspend fun fileExists(context: Context, uri: Uri): Boolean = withContext(Dispatchers.IO) {
+        when (uri.scheme) {
+            ContentResolver.SCHEME_FILE -> {
+                File(uri.path!!).exists()
+            }
+            ContentResolver.SCHEME_CONTENT -> {
+                try {
+                    val documentFile = DocumentFile.fromSingleUri(context, uri)
+                    documentFile?.exists() == true && documentFile.length() > 0
+                } catch (e: Exception) {
+                    Timber.e(e)
+                    false
+                }
+            }
+            else -> false
+        }
+    }
+
     fun getMimeType(context: Context, uri: Uri): String? {
         val mimeType = context.contentResolver.getType(uri)
         if (!isNullOrEmpty(mimeType)) {
@@ -139,28 +169,33 @@ object FileHelper {
         return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
     }
 
-    fun startActionView(context: Activity, uri: Uri?) {
+    fun startActionView(context: Context, uri: Uri?) {
         var uri = uri ?: return
         val mimeType = getMimeType(context, uri)
         val intent = Intent(Intent.ACTION_VIEW)
         if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
-            uri = copyToUri(context, Uri.fromFile(context.cacheDir), uri)
+            intent.setDataAndType(uri, mimeType)
+        } else {
+            val share = FileProvider.getUriForFile(context, Constants.FILE_PROVIDER_AUTHORITY, File(uri.path))
+            intent.setDataAndType(share, mimeType)
         }
-        val share = FileProvider.getUriForFile(context, Constants.FILE_PROVIDER_AUTHORITY, File(uri.path))
-        intent.setDataAndType(share, mimeType)
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         context.safeStartActivity(intent)
     }
 
     @JvmStatic
     @Throws(IOException::class)
-    fun newFile(
-            context: Context, destination: Uri, mimeType: String?, baseName: String, extension: String?): Uri {
+    suspend fun newFile(
+            context: Context, destination: Uri, mimeType: String?, baseName: String, extension: String?): Uri  = withContext(Dispatchers.IO) {
         val filename = getNonCollidingFileName(context, destination, baseName, extension)
-        return when (destination.scheme) {
+        when (destination.scheme) {
             "content" -> {
                 val tree = DocumentFile.fromTreeUri(context, destination)
-                val f1 = tree!!.createFile(mimeType!!, filename)
+                    ?: throw IOException("Failed to access directory: $destination")
+                if (!tree.canWrite()) {
+                    throw IOException("No write permission for directory: $destination")
+                }
+                val f1 = tree.createFile(mimeType ?: "application/octet-stream", filename)
                         ?: throw FileNotFoundException("Failed to create $filename")
                 f1.uri
             }
@@ -171,15 +206,16 @@ object FileHelper {
                 }
                 val f2 = File(dir.absolutePath + File.separator + filename)
                 if (f2.createNewFile()) {
-                    return Uri.fromFile(f2)
+                    Uri.fromFile(f2)
+                } else {
+                    throw FileNotFoundException("Failed to create $filename")
                 }
-                throw FileNotFoundException("Failed to create $filename")
             }
             else -> throw IllegalArgumentException("Unknown URI scheme: " + destination.scheme)
         }
     }
 
-    fun copyToUri(context: Context, destination: Uri, input: Uri): Uri {
+    suspend fun copyToUri(context: Context, destination: Uri, input: Uri): Uri {
         val filename = getFilename(context, input)
         val basename = Files.getNameWithoutExtension(filename!!)
         try {
@@ -197,7 +233,53 @@ object FileHelper {
         }
     }
 
-    fun copyStream(context: Context, input: Uri?, output: Uri?) {
+    suspend fun isInTree(context: Context, treeUri: Uri, documentUri: Uri): Boolean = withContext(Dispatchers.IO) {
+        if (treeUri.authority != documentUri.authority) {
+            return@withContext false
+        }
+
+        try {
+            val tree = DocumentFile.fromTreeUri(context, treeUri)
+                ?: return@withContext false
+
+            val documentFile = DocumentFile.fromSingleUri(context, documentUri)
+                ?: return@withContext false
+
+            val name = documentFile.name ?: return@withContext false
+            val treeFile = tree.findFile(name) ?: return@withContext false
+            val contentResolver = context.contentResolver
+            contentResolver.openInputStream(documentUri)?.use { input1 ->
+                contentResolver.openInputStream(treeFile.uri)?.use { input2 ->
+                    compareStreams(input1, input2)
+                }
+            } ?: false
+        } catch (e: Exception) {
+            Timber.e(e)
+            false
+        }
+    }
+
+    private fun compareStreams(input1: InputStream, input2: InputStream): Boolean {
+        val buffer1 = ByteArray(8192)
+        val buffer2 = ByteArray(8192)
+
+        while (true) {
+            val count1 = input1.read(buffer1)
+            val count2 = input2.read(buffer2)
+
+            if (count1 != count2) {
+                return false
+            }
+            if (count1 == -1) {
+                return true
+            }
+            if (!buffer1.contentEquals(buffer2)) {
+                return false
+            }
+        }
+    }
+
+    suspend fun copyStream(context: Context, input: Uri?, output: Uri?) = withContext(Dispatchers.IO) {
         val contentResolver = context.contentResolver
         try {
             val inputStream = contentResolver.openInputStream(input!!)

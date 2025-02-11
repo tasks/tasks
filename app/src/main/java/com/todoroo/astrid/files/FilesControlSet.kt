@@ -22,9 +22,11 @@ import org.tasks.compose.edit.AttachmentRow
 import org.tasks.data.dao.TaskAttachmentDao
 import org.tasks.data.entity.TaskAttachment
 import org.tasks.dialogs.AddAttachmentDialog
+import org.tasks.extensions.Context.takePersistableUriPermission
 import org.tasks.files.FileHelper
 import org.tasks.preferences.Preferences
 import org.tasks.ui.TaskEditControlFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -50,13 +52,18 @@ class FilesControlSet : TaskEditControlFragment() {
                 AttachmentRow(
                     attachments = viewState.attachments,
                     openAttachment = {
+                        Timber.d("Clicked open $it")
                         FileHelper.startActionView(
-                            requireActivity(),
+                            context,
                             if (Strings.isNullOrEmpty(it.uri)) null else Uri.parse(it.uri)
                         )
                     },
-                    deleteAttachment = { viewModel.setAttachments(viewState.attachments - it) },
+                    deleteAttachment = {
+                        Timber.d("Clicked delete $it")
+                        viewModel.setAttachments(viewState.attachments - it)
+                    },
                     addAttachment = {
+                        Timber.d("Add attachment clicked")
                         AddAttachmentDialog.newAddAttachmentDialog(this@FilesControlSet)
                             .show(parentFragmentManager, FRAG_TAG_ADD_ATTACHMENT_DIALOG)
                     },
@@ -69,20 +76,26 @@ class FilesControlSet : TaskEditControlFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == AddAttachmentDialog.REQUEST_CAMERA || requestCode == AddAttachmentDialog.REQUEST_AUDIO) {
             if (resultCode == Activity.RESULT_OK) {
-                val uri = data!!.data
-                copyToAttachmentDirectory(uri)
-                FileHelper.delete(requireContext(), uri)
+                lifecycleScope.launch {
+                    val uri = data!!.data
+                    copyToAttachmentDirectory(uri)
+                    FileHelper.delete(requireContext(), uri)
+                }
             }
         } else if (requestCode == AddAttachmentDialog.REQUEST_STORAGE || requestCode == AddAttachmentDialog.REQUEST_GALLERY) {
             if (resultCode == Activity.RESULT_OK) {
-                val clip = data!!.clipData
-                if (clip != null) {
-                    for (i in 0 until clip.itemCount) {
-                        val item = clip.getItemAt(i)
-                        copyToAttachmentDirectory(item.uri)
+                lifecycleScope.launch {
+                    val clip = data!!.clipData
+                    if (clip != null) {
+                        for (i in 0 until clip.itemCount) {
+                            val item = clip.getItemAt(i)
+                            requireContext().takePersistableUriPermission(item.uri)
+                            copyToAttachmentDirectory(item.uri)
+                        }
+                    } else {
+                        requireContext().takePersistableUriPermission(data.data!!)
+                        copyToAttachmentDirectory(data.data)
                     }
-                } else {
-                    copyToAttachmentDirectory(data.data)
                 }
             }
         } else {
@@ -90,8 +103,17 @@ class FilesControlSet : TaskEditControlFragment() {
         }
     }
 
-    private fun copyToAttachmentDirectory(input: Uri?) {
-        newAttachment(FileHelper.copyToUri(requireContext(), preferences.attachmentsDirectory!!, input!!))
+    private suspend fun copyToAttachmentDirectory(input: Uri?) {
+        val destination = preferences.attachmentsDirectory ?: return
+        newAttachment(
+            if (FileHelper.isInTree(requireContext(), destination, input!!)) {
+                Timber.d("$input already exists in $destination")
+                input
+            } else {
+                Timber.d("Copying $input to $destination")
+                FileHelper.copyToUri(requireContext(), destination, input)
+            }
+        )
     }
 
     private fun newAttachment(output: Uri) {

@@ -12,6 +12,7 @@ import org.tasks.R
 import org.tasks.dialogs.ExportTasksDialog
 import org.tasks.dialogs.ImportTasksDialog
 import org.tasks.drive.DriveLoginActivity
+import org.tasks.extensions.Context.takePersistableUriPermission
 import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
 import org.tasks.injection.InjectingPreferenceFragment
@@ -176,11 +177,7 @@ class Backups : InjectingPreferenceFragment() {
         if (requestCode == REQUEST_CODE_BACKUP_DIR) {
             if (resultCode == RESULT_OK && data != null) {
                 val uri = data.data!!
-                context?.contentResolver
-                    ?.takePersistableUriPermission(
-                        uri,
-                        Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                    )
+                context?.takePersistableUriPermission(uri)
                 preferences.setUri(R.string.p_backup_dir, uri)
                 updateBackupDirectory()
                 viewModel.updateLocalBackup()

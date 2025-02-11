@@ -13,6 +13,7 @@ import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.db.Database
 import org.tasks.etebase.EtebaseLocalCache
+import org.tasks.extensions.Context.takePersistableUriPermission
 import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
 import org.tasks.injection.InjectingPreferenceFragment
@@ -73,11 +74,7 @@ class Advanced : InjectingPreferenceFragment() {
         if (requestCode == REQUEST_CODE_FILES_DIR) {
             if (resultCode == Activity.RESULT_OK) {
                 val uri = data!!.data!!
-                requireContext().contentResolver
-                    .takePersistableUriPermission(
-                        uri,
-                        Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                    )
+                requireContext().takePersistableUriPermission(uri)
                 preferences.setUri(R.string.p_attachment_dir, uri)
                 updateAttachmentDirectory()
             }

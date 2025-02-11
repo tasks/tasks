@@ -6,12 +6,12 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.analytics.Firebase
+import org.tasks.data.entity.Task
 import org.tasks.data.entity.TaskAttachment
 import org.tasks.files.FileHelper
 import org.tasks.intents.TaskIntents
@@ -87,17 +87,17 @@ class ShareLinkActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun copyAttachment(intent: Intent): ArrayList<Uri> =
+    private suspend fun copyAttachment(intent: Intent): ArrayList<Uri> =
         intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
             ?.let { copyAttachments(listOf(it)) }
             ?: arrayListOf()
 
-    private fun copyMultipleAttachments(intent: Intent): ArrayList<Uri> =
+    private suspend fun copyMultipleAttachments(intent: Intent): ArrayList<Uri> =
         intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
             ?.let { copyAttachments(it) }
             ?: arrayListOf()
 
-    private fun copyAttachments(uris: List<Uri>) =
+    private suspend fun copyAttachments(uris: List<Uri>) =
         uris
             .filter {
                 it.scheme == ContentResolver.SCHEME_CONTENT

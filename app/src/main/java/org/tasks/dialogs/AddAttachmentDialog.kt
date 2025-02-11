@@ -72,6 +72,7 @@ class AddAttachmentDialog : DialogFragment() {
                     activity = activity,
                     initial = null,
                     allowMultiple = true,
+                    persistPermissions = true,
                 ),
                 REQUEST_STORAGE
         )

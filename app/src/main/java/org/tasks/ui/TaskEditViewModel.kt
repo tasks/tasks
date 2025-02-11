@@ -524,7 +524,7 @@ class TaskEditViewModel @Inject constructor(
         }
     }
 
-    fun addComment(message: String?, picture: Uri?) {
+    fun addComment(message: String?, picture: Uri?) = viewModelScope.launch(NonCancellable) {
         val userActivity = UserActivity()
         if (picture != null) {
             val output = FileHelper.copyToUri(context, preferences.attachmentsDirectory!!, picture)
@@ -533,11 +533,7 @@ class TaskEditViewModel @Inject constructor(
         userActivity.message = message
         userActivity.targetId = task.uuid
         userActivity.created = currentTimeMillis()
-        viewModelScope.launch {
-            withContext(NonCancellable) {
-                userActivityDao.createNew(userActivity)
-            }
-        }
+        userActivityDao.createNew(userActivity)
     }
 
     fun hideBeastModeHint(click: Boolean) {
@@ -621,10 +617,14 @@ class TaskEditViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            taskAttachmentDao.getAttachments(task.id).toPersistentSet().let { attachments ->
-                _originalState.update { it.copy(attachments = attachments) }
-                _viewState.update { it.copy(attachments = attachments) }
-            }
+            taskAttachmentDao
+                .getAttachments(task.id)
+                .filter { FileHelper.fileExists(context, Uri.parse(it.uri)) }
+                .toPersistentSet()
+                .let { attachments ->
+                    _originalState.update { it.copy(attachments = attachments) }
+                    _viewState.update { it.copy(attachments = attachments) }
+                }
         }
         if (!task.isNew) {
             viewModelScope.launch {
