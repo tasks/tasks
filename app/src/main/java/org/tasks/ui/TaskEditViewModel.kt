@@ -106,7 +106,6 @@ class TaskEditViewModel @Inject constructor(
     private val taskCompleter: TaskCompleter,
     private val alarmService: AlarmService,
     private val taskListEvents: TaskListEventBus,
-    private val mainActivityEvents: MainActivityEventBus,
     private val firebase: Firebase? = null,
     private val userActivityDao: UserActivityDao,
     private val alarmDao: AlarmDao,
@@ -290,15 +289,15 @@ class TaskEditViewModel @Inject constructor(
     }
 
     @MainThread
-    suspend fun save(remove: Boolean = true): Boolean = withContext(NonCancellable) {
+    suspend fun save(): Boolean = withContext(NonCancellable) {
         if (cleared) {
             return@withContext false
         }
         if (!hasChanges() || viewState.value.isReadOnly) {
-            discard(remove)
+            discard()
             return@withContext false
         }
-        clear(remove)
+        clear()
         val viewState = _viewState.value
         val isNew = viewState.isNew
         task.title = if (viewState.task.title.isNullOrBlank()) resources.getString(R.string.no_title) else viewState.task.title
@@ -483,31 +482,28 @@ class TaskEditViewModel @Inject constructor(
         discard()
     }
 
-    suspend fun discard(remove: Boolean = true) {
+    suspend fun discard() {
         if (_viewState.value.isNew) {
             timerPlugin.stopTimer(task)
             (originalState.value.attachments + _viewState.value.attachments)
                 .onEach { attachment -> FileHelper.delete(context, attachment.uri.toUri()) }
                 .let { taskAttachmentDao.delete(it.toList()) }
         }
-        clear(remove)
+        clear()
     }
 
     @MainThread
-    suspend fun clear(remove: Boolean = true) {
+    fun clear() {
         if (cleared) {
             return
         }
         cleared = true
-        if (remove) {
-            mainActivityEvents.emit(MainActivityEvent.ClearTaskEditFragment)
-        }
     }
 
     override fun onCleared() {
         if (!cleared) {
             runBlocking {
-                save(remove = false)
+                save()
             }
         }
     }

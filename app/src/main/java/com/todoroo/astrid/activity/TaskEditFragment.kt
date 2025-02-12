@@ -15,6 +15,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.os.BundleCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.fragment.compose.AndroidFragment
 import androidx.fragment.compose.content
@@ -90,6 +91,7 @@ class TaskEditFragment : Fragment() {
     @Inject lateinit var theme: Theme
 
     private val editViewModel: TaskEditViewModel by viewModels()
+    private val mainViewModel: MainActivityViewModel by activityViewModels()
     private val beastMode =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             activity?.recreate()
@@ -229,7 +231,10 @@ class TaskEditFragment : Fragment() {
     }
 
     suspend fun save(remove: Boolean = true) {
-        editViewModel.save(remove)
+        editViewModel.save()
+        if (remove) {
+            mainViewModel.setTask(null)
+        }
         activity?.let { playServices.requestReview(it) }
     }
 
@@ -257,10 +262,12 @@ class TaskEditFragment : Fragment() {
 
     private fun discard() = lifecycleScope.launch {
         editViewModel.discard()
+        mainViewModel.setTask(null)
     }
 
     private fun delete() = lifecycleScope.launch {
         editViewModel.delete()
+        mainViewModel.setTask(null)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

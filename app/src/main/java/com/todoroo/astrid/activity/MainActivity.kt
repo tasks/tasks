@@ -17,7 +17,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
-import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
@@ -63,8 +62,6 @@ import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
@@ -108,12 +105,10 @@ import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
-import org.tasks.ui.MainActivityEvent
-import org.tasks.ui.MainActivityEventBus
 import timber.log.Timber
 import javax.inject.Inject
 
-@OptIn(ExperimentalMaterial3AdaptiveApi::class, ExperimentalSharedTransitionApi::class)
+@OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     @Inject lateinit var preferences: Preferences
@@ -126,7 +121,6 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var alarmDao: AlarmDao
-    @Inject lateinit var eventBus: MainActivityEventBus
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var caldavDao: CaldavDao
 
@@ -171,6 +165,8 @@ class MainActivity : AppCompatActivity() {
 
                 )
                 val state = viewModel.state.collectAsStateWithLifecycle().value
+                val isListVisible =
+                    navigator.scaffoldValue[ListDetailPaneScaffoldRole.List] == PaneAdaptedValue.Expanded
                 val isDetailVisible =
                     navigator.scaffoldValue[ListDetailPaneScaffoldRole.Detail] == PaneAdaptedValue.Expanded
                 val scope = rememberCoroutineScope()
@@ -191,10 +187,10 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                BackHandler(enabled = navigator.canNavigateBack() && state.task == null) {
+                BackHandler(enabled = state.task == null) {
                     if (intent.finishAffinity) {
                         finishAffinity()
-                    } else if (isDetailVisible) {
+                    } else if (isDetailVisible && navigator.canNavigateBack()) {
                         scope.launch {
                             navigator.navigateBack()
                         }
@@ -207,19 +203,18 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-                val taskListState = key (state.filter) {
-                    rememberFragmentState()
-                }
-                val taskEditState = key (state.task) {
-                    rememberFragmentState()
-                }
                 LaunchedEffect(state.filter, state.task) {
-                    clearUi()
+                    actionMode?.finish()
+                    actionMode = null
+                    viewModel.closeDrawer()
                 }
                 ListDetailPaneScaffold(
                     directive = navigator.scaffoldDirective,
                     value = navigator.scaffoldValue,
                     listPane = {
+                        val taskListState = key (state.filter) {
+                            rememberFragmentState()
+                        }
                         AndroidFragment<TaskListFragment>(
                             fragmentState = taskListState,
                             arguments = remember (state.filter) {
@@ -231,7 +226,7 @@ class MainActivity : AppCompatActivity() {
                     },
                     detailPane = {
                         if (state.task == null) {
-                            if (isDetailVisible) {
+                            if (isListVisible && isDetailVisible) {
                                 Box(
                                     modifier = Modifier.fillMaxSize(),
                                     contentAlignment = Alignment.Center,
@@ -245,6 +240,9 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }
                         } else {
+                            val taskEditState = key (state.task) {
+                                rememberFragmentState()
+                            }
                             AndroidFragment<TaskEditFragment>(
                                 fragmentState = taskEditState,
                                 arguments = remember(state.task) {
@@ -416,20 +414,11 @@ class MainActivity : AppCompatActivity() {
         logIntent("onCreate")
         handleIntent()
 
-        eventBus
-            .onEach(this::process)
-            .launchIn(lifecycleScope)
-
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 updateSystemBars(viewModel.state.value.filter)
             }
         }
-    }
-
-    private fun process(event: MainActivityEvent) = when (event) {
-        is MainActivityEvent.ClearTaskEditFragment ->
-            viewModel.setTask(null)
     }
 
     @Deprecated("Deprecated in Java")
@@ -458,12 +447,6 @@ class MainActivity : AppCompatActivity() {
         setIntent(intent)
         logIntent("onNewIntent")
         handleIntent()
-    }
-
-    private fun clearUi() {
-        actionMode?.finish()
-        actionMode = null
-        viewModel.closeDrawer()
     }
 
     private suspend fun getTaskToLoad(filter: Filter?): Task? = when {
@@ -555,9 +538,7 @@ class MainActivity : AppCompatActivity() {
         const val OPEN_TASK = "open_new_task" // $NON-NLS-1$
         const val REMOVE_TASK = "remove_task"
         const val FINISH_AFFINITY = "finish_affinity"
-        private const val FRAG_TAG_TASK_LIST = "frag_tag_task_list"
         private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
-        private const val FRAG_TAG_TASK_EDIT = "frag_tag_task_edit"
         private const val FLAG_FROM_HISTORY
                 = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
 
