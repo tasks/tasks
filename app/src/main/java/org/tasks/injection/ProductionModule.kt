@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.SQLiteConnection
+import androidx.sqlite.SQLiteDriver
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import androidx.sqlite.execSQL
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastR
@@ -79,15 +80,16 @@ fun <T : RoomDatabase> RoomDatabase.Builder<T>.setDriver() =
             this
         }
     } else {
-        // need bundled sqlite for window functions
+        val driver = BundledSQLiteDriver() // need bundled sqlite for window functions
         this
-            .setDriver(BundledSQLiteDriver())
-            .setQueryCoroutineContext(Dispatchers.IO)
-            .addCallback(object : RoomDatabase.Callback() {
-                override fun onOpen(connection: SQLiteConnection) {
-                    super.onOpen(connection)
-
-                    connection.execSQL("PRAGMA busy_timeout = 60000")
+            .setDriver(
+                object : SQLiteDriver by driver {
+                    override fun open(fileName: String): SQLiteConnection {
+                        return driver.open(fileName).also {
+                            it.execSQL("PRAGMA busy_timeout = 60000")
+                        }
+                    }
                 }
-            })
+            )
+            .setQueryCoroutineContext(Dispatchers.IO)
     }
