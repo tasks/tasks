@@ -63,7 +63,7 @@ work = "2.10.0"
 androidx-test = "1.6.1"
 androidx-test-runner = "1.6.2"
 xpp3 = "1.1.6"
-wearCompose = "1.4.0"
+wearCompose = "1.4.1"
 
 [libraries]
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
