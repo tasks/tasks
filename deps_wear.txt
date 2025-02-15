@@ -866,8 +866,8 @@
 +|    |    |         +--- org.jspecify:jspecify:1.0.0
 +|    |    |         +--- androidx.room:room-common:2.7.0-beta01 (c)
 +|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 (c)
-+|    |    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.6.1
-+|    |    |    \--- org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.6.1
++|    |    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.6.2
++|    |    |    \--- org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.6.2
 +|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.1.10 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0
 +|    |    |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.8.0
@@ -999,7 +999,7 @@
 +|    |         +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.8.7 (c)
 +|    |         \--- androidx.lifecycle:lifecycle-process:2.8.7 (c)
 +|    +--- co.touchlab:kermit:2.0.5 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.6.1 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.6.2 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.8
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.8
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.1.10 (*)
