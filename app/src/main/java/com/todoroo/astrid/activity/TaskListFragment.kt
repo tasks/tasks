@@ -20,7 +20,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
+import androidx.activity.compose.BackHandler
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -274,11 +274,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @OptIn(ExperimentalPermissionsApi::class)
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        requireActivity().onBackPressedDispatcher.addCallback(owner = viewLifecycleOwner) {
-            if (search.isActionViewExpanded) {
-                search.collapseActionView()
-            }
-        }
         binding = FragmentTaskListBinding.inflate(inflater, container, false)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { view, windowInsets ->
@@ -355,7 +350,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         binding.banner.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
         binding.banner.setContent {
             val context = LocalContext.current
+            val mainActivityState = mainViewModel.state.collectAsStateWithLifecycle().value
             val state = listViewModel.state.collectAsStateWithLifecycle().value
+            BackHandler(enabled = state.searchQuery != null && mainActivityState.task == null) {
+                Timber.d("onBackPressed")
+                if (search.isActionViewExpanded) {
+                    search.collapseActionView()
+                }
+            }
             TasksTheme(theme = theme.themeBase.index) {
                 val notificationPermissions = if (AndroidUtilities.atLeastTiramisu()) {
                     rememberPermissionState(

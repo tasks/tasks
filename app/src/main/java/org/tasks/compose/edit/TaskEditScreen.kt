@@ -35,6 +35,7 @@ import org.tasks.fragments.CommentBarFragment
 import org.tasks.themes.TasksTheme
 import org.tasks.ui.TaskEditViewModel
 import org.tasks.utility.copyToClipboard
+import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,6 +52,7 @@ fun TaskEditScreen(
     content: @Composable (Int) -> Unit,
 ) {
     BackHandler {
+        Timber.d("onBackPressed")
         onBackPressed()
     }
     Scaffold(

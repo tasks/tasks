@@ -188,6 +188,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 BackHandler(enabled = state.task == null) {
+                    Timber.d("onBackPressed")
                     if (intent.finishAffinity) {
                         finishAffinity()
                     } else if (isDetailVisible && navigator.canNavigateBack()) {
@@ -212,17 +213,16 @@ class MainActivity : AppCompatActivity() {
                     directive = navigator.scaffoldDirective,
                     value = navigator.scaffoldValue,
                     listPane = {
-                        val taskListState = key (state.filter) {
-                            rememberFragmentState()
+                        key (state.filter) {
+                            AndroidFragment<TaskListFragment>(
+                                fragmentState = rememberFragmentState(),
+                                arguments = remember(state.filter) {
+                                    Bundle()
+                                        .apply { putParcelable(EXTRA_FILTER, state.filter) }
+                                },
+                                modifier = Modifier.fillMaxSize(),
+                            )
                         }
-                        AndroidFragment<TaskListFragment>(
-                            fragmentState = taskListState,
-                            arguments = remember (state.filter) {
-                                Bundle()
-                                    .apply { putParcelable(EXTRA_FILTER, state.filter) }
-                            },
-                            modifier = Modifier.fillMaxSize(),
-                        )
                     },
                     detailPane = {
                         if (state.task == null) {
@@ -240,20 +240,16 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }
                         } else {
-                            val taskEditState = key (state.task) {
-                                rememberFragmentState()
+                            key (state.task) {
+                                AndroidFragment<TaskEditFragment>(
+                                    fragmentState = rememberFragmentState(),
+                                    arguments = remember(state.task) {
+                                        Bundle()
+                                            .apply { putParcelable(EXTRA_TASK, state.task) }
+                                    },
+                                    modifier = Modifier.fillMaxSize(),
+                                )
                             }
-                            AndroidFragment<TaskEditFragment>(
-                                fragmentState = taskEditState,
-                                arguments = remember(state.task) {
-                                    Bundle()
-                                        .apply { putParcelable(EXTRA_TASK, state.task) }
-                                },
-                                modifier = Modifier.fillMaxSize(),
-                                onUpdate = {
-                                    Timber.d("On updated")
-                                }
-                            )
                         }
                     },
                 )
