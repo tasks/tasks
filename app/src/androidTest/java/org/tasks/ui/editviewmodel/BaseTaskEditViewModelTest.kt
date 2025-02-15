@@ -3,9 +3,7 @@ package org.tasks.ui.editviewmodel
 import androidx.lifecycle.SavedStateHandle
 import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.alarms.AlarmService
-import org.tasks.data.db.Database
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskDeleter
@@ -19,7 +17,8 @@ import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.UserActivityDao
-import org.tasks.data.getLocation
+import org.tasks.data.db.Database
+import org.tasks.data.entity.Task
 import org.tasks.injection.InjectingTestCase
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.DefaultFilterProvider
@@ -53,10 +52,6 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
             context,
             SavedStateHandle().apply {
                 set(TaskEditFragment.EXTRA_TASK, task)
-                set(TaskEditFragment.EXTRA_LIST, defaultFilterProvider.getList(task))
-                set(TaskEditFragment.EXTRA_LOCATION, locationDao.getLocation(task, preferences))
-                set(TaskEditFragment.EXTRA_TAGS, tagDataDao.getTags(task))
-                set(TaskEditFragment.EXTRA_ALARMS, alarmDao.getAlarms(task))
             },
             taskDao,
             taskDeleter,
@@ -75,10 +70,10 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
             taskCompleter,
             alarmService,
             MutableSharedFlow(),
-            MutableSharedFlow(),
             userActivityDao = userActivityDao,
             taskAttachmentDao = db.taskAttachmentDao(),
             alarmDao = db.alarmDao(),
+            defaultFilterProvider = defaultFilterProvider,
         )
     }
 
