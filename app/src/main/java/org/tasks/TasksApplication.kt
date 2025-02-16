@@ -66,6 +66,11 @@ class TasksApplication : Application(), Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
         buildSetup.setup()
+        val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            Timber.e(throwable, "Uncaught exception in thread $thread")
+            defaultExceptionHandler?.uncaughtException(thread, throwable) ?: throw throwable
+        }
         upgrade()
         preferences.isSyncOngoing = false
         ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode()
