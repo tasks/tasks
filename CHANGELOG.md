@@ -1,3 +1,20 @@
+### 14.5 (2025-02-16)
+
+* Improve support for foldables
+* Improve edge-to-edge support
+* Remove options for top app bar and disabling collapsing app bar
+  * Some features are being removed in order to make development easier for the
+    upcoming desktop app. The features may return again in a future release.
+* Save backup files and attachments to Nextcloud [#1289](https://github.com/tasks/tasks/issues/1289)
+* Dismiss notification dialog when pressing cancel [#2116](https://github.com/tasks/tasks/issues/2116)
+* Fix missing list chips for subtasks in custom filters
+* Fix for database timeouts
+* Update translations
+  * Estonian - Priit Jõerüüt
+  * German - Colorful Rhino
+  * Slovak - @jose1711
+  * Ukrainian - @IhorHordiichuk
+
 ### 14.4.8 (2025-02-04)
 
 * Performance improvements

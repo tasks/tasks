@@ -1,0 +1,10 @@
+* Improve support for foldables
+* Improve edge-to-edge support
+* Remove options for top app bar and disabling collapsing app bar
+  * Some features are being removed in order to make development easier for the
+    upcoming desktop app. The features may return again in a future release.
+* Save backup files and attachments to Nextcloud
+* Dismiss notification dialog when pressing cancel
+* Fix missing list chips for subtasks in custom filters
+* Fix for database timeouts
+* Update translations
