@@ -32,6 +32,7 @@ import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.collections.immutable.toPersistentSet
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -126,7 +127,7 @@ class TaskEditViewModel @Inject constructor(
         val tags: ImmutableSet<TagData>,
         val calendar: String?,
         val attachments: ImmutableSet<TaskAttachment> = persistentSetOf(),
-        val alarms: ImmutableSet<Alarm>,
+        val alarms: ImmutableSet<Alarm> = persistentSetOf(),
         val newSubtasks: ImmutableList<Task> = persistentListOf(),
         val multilineTitle: Boolean,
     ) {
@@ -177,24 +178,6 @@ class TaskEditViewModel @Inject constructor(
                         .mapNotNull { controlSetStrings[it] }
                         .toPersistentList()
                 },
-            alarms = if (task.isNew) {
-                ArrayList<Alarm>().apply {
-                    if (task.isNotifyAtStart) {
-                        add(whenStarted(0))
-                    }
-                    if (task.isNotifyAtDeadline) {
-                        add(whenDue(0))
-                    }
-                    if (task.isNotifyAfterDeadline) {
-                        add(whenOverdue(0))
-                    }
-                    if (task.randomReminder > 0) {
-                        add(Alarm(time = task.randomReminder, type = Alarm.TYPE_RANDOM))
-                    }
-                }
-            } else {
-                emptyList()
-            }.toPersistentSet(),
             multilineTitle = preferences.multilineTitle,
             location = null,
             tags = persistentSetOf(),
@@ -613,39 +596,52 @@ class TaskEditViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            taskAttachmentDao
-                .getAttachments(task.id)
-                .filter { FileHelper.fileExists(context, Uri.parse(it.uri)) }
-                .toPersistentSet()
-                .let { attachments ->
-                    _originalState.update { it.copy(attachments = attachments) }
-                    _viewState.update { it.copy(attachments = attachments) }
-                }
-        }
-        if (!task.isNew) {
-            viewModelScope.launch {
-                alarmDao.getAlarms(task.id).toPersistentSet().let { alarms ->
-                    _originalState.update { it.copy(alarms = alarms) }
-                    _viewState.update { it.copy(alarms = alarms) }
-                }
+            val attachments = async {
+                taskAttachmentDao
+                    .getAttachments(task.id)
+                    .filter { FileHelper.fileExists(context, Uri.parse(it.uri)) }
+                    .toPersistentSet()
             }
-        }
-        viewModelScope.launch {
-            defaultFilterProvider.getList(task).let { list ->
-                _originalState.update { it.copy(list = list) }
-                _viewState.update { it.copy(list = list) }
+            val alarms = async {
+                if (task.isNew) {
+                    ArrayList<Alarm>().apply {
+                        if (task.isNotifyAtStart) {
+                            add(whenStarted(0))
+                        }
+                        if (task.isNotifyAtDeadline) {
+                            add(whenDue(0))
+                        }
+                        if (task.isNotifyAfterDeadline) {
+                            add(whenOverdue(0))
+                        }
+                        if (task.randomReminder > 0) {
+                            add(Alarm(time = task.randomReminder, type = Alarm.TYPE_RANDOM))
+                        }
+                    }
+                } else {
+                    alarmDao.getAlarms(task.id)
+                }.toPersistentSet()
             }
-        }
-        viewModelScope.launch {
-            locationDao.getLocation(task, preferences)?.let { location ->
-                _originalState.update { it.copy(location = location) }
-                _viewState.update { it.copy(location = location) }
+            val list = async { defaultFilterProvider.getList(task) }
+            val location = async { locationDao.getLocation(task, preferences) }
+            val tags = async { tagDataDao.getTags(task).toPersistentSet() }
+            _originalState.update {
+                it.copy(
+                    attachments = attachments.await(),
+                    alarms = alarms.await(),
+                    list = list.await(),
+                    location = location.await(),
+                    tags = tags.await(),
+                )
             }
-        }
-        viewModelScope.launch {
-            tagDataDao.getTags(task).toPersistentSet().let { tags ->
-                _originalState.update { it.copy(tags = tags) }
-                _viewState.update { it.copy(tags = tags) }
+            _viewState.update {
+                it.copy(
+                    attachments = originalState.value.attachments,
+                    alarms = originalState.value.alarms,
+                    list = originalState.value.list,
+                    location = originalState.value.location,
+                    tags = originalState.value.tags,
+                )
             }
         }
     }
