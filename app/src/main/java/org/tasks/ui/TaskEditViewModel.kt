@@ -127,7 +127,7 @@ class TaskEditViewModel @Inject constructor(
         val tags: ImmutableSet<TagData>,
         val calendar: String?,
         val attachments: ImmutableSet<TaskAttachment> = persistentSetOf(),
-        val alarms: ImmutableSet<Alarm> = persistentSetOf(),
+        val alarms: ImmutableSet<Alarm>,
         val newSubtasks: ImmutableList<Task> = persistentListOf(),
         val multilineTitle: Boolean,
     ) {
@@ -178,6 +178,24 @@ class TaskEditViewModel @Inject constructor(
                         .mapNotNull { controlSetStrings[it] }
                         .toPersistentList()
                 },
+            alarms = if (task.isNew) {
+                ArrayList<Alarm>().apply {
+                    if (task.isNotifyAtStart) {
+                        add(whenStarted(0))
+                    }
+                    if (task.isNotifyAtDeadline) {
+                        add(whenDue(0))
+                    }
+                    if (task.isNotifyAfterDeadline) {
+                        add(whenOverdue(0))
+                    }
+                    if (task.randomReminder > 0) {
+                        add(Alarm(time = task.randomReminder, type = Alarm.TYPE_RANDOM))
+                    }
+                }
+            } else {
+                emptyList()
+            }.toPersistentSet(),
             multilineTitle = preferences.multilineTitle,
             location = null,
             tags = persistentSetOf(),
@@ -604,20 +622,7 @@ class TaskEditViewModel @Inject constructor(
             }
             val alarms = async {
                 if (task.isNew) {
-                    ArrayList<Alarm>().apply {
-                        if (task.isNotifyAtStart) {
-                            add(whenStarted(0))
-                        }
-                        if (task.isNotifyAtDeadline) {
-                            add(whenDue(0))
-                        }
-                        if (task.isNotifyAfterDeadline) {
-                            add(whenOverdue(0))
-                        }
-                        if (task.randomReminder > 0) {
-                            add(Alarm(time = task.randomReminder, type = Alarm.TYPE_RANDOM))
-                        }
-                    }
+                    originalState.value.alarms
                 } else {
                     alarmDao.getAlarms(task.id)
                 }.toPersistentSet()
