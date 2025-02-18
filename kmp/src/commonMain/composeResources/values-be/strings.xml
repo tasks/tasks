@@ -2,4 +2,35 @@
 <resources>
     <string name="search">Пошук</string>
     <string name="settings">Налады</string>
+    <string name="requires_pro_subscription">Функцыя Pro</string>
+    <string name="subscription_required_description">Разблакуйце ўсе функцыі ўсяго за 1 даляр на год</string>
+    <string name="filter_my_tasks">Мае заданні</string>
+    <string name="filter_notifications">Апавяшчэнні</string>
+    <string name="filter_snoozed">Адкладзеныя</string>
+    <string name="filter_timer">Заданні з таймерам</string>
+    <string name="filter_today">Сёння</string>
+    <string name="filter_recently_modified">Нядаўна змененыя</string>
+    <string name="default_list">Спіс па ўмаўчанні</string>
+    <string name="help_and_feedback">Даведка і зваротная сувязь</string>
+    <string name="drawer_filters">Фільтры</string>
+    <string name="drawer_tags">Тэгі</string>
+    <string name="drawer_places">Месцы</string>
+    <string name="drawer_local_lists">Лакальныя спісы</string>
+    <string name="tmrw">Зўтр</string>
+    <string name="tomorrow_abbrev_lowercase">зўтр</string>
+    <string name="tomorrow">Заўтра</string>
+    <string name="tomorrow_lowercase">заўтра</string>
+    <string name="yest">Учр</string>
+    <string name="yesterday_abbrev_lowercase">учр</string>
+    <string name="yesterday">Учора</string>
+    <string name="yesterday_lowercase">учора</string>
+    <string name="today">Сёння</string>
+    <string name="today_lowercase">сёння</string>
+    <string name="wear_install_app">Усталяваць на тэлефон</string>
+    <string name="wear_unknown_error">Невядомая памылка</string>
+    <string name="subscribe">Падпісацца</string>
+    <string name="add_task">Дадаць заданне</string>
+    <string name="show_unstarted">Паказаць непачатыя</string>
+    <string name="show_completed">Паказаць завершаныя</string>
+    <string name="search_no_results">Не знойдзена</string>
 </resources>
