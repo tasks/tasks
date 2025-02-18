@@ -89,8 +89,6 @@ class SubtaskControlSet : TaskEditControlFragment() {
             }
         }
 
-    override fun controlId() = TAG
-
     private fun openSubtask(task: Task) = lifecycleScope.launch {
         mainViewModel.setTask(task)
     }

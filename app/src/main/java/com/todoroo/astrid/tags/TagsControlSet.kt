@@ -42,8 +42,6 @@ class TagsControlSet : TaskEditControlFragment() {
             }
         }
 
-    override fun controlId() = TAG
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_TAG_PICKER_ACTIVITY) {
             if (resultCode == Activity.RESULT_OK && data != null) {

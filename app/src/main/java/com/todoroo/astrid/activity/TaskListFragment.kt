@@ -6,7 +6,6 @@
 package com.todoroo.astrid.activity
 
 import android.Manifest
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -143,8 +142,6 @@ import org.tasks.themes.Theme
 import org.tasks.themes.ThemeColor
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.Banner
-import org.tasks.ui.TaskEditEvent
-import org.tasks.ui.TaskEditEventBus
 import org.tasks.ui.TaskListEvent
 import org.tasks.ui.TaskListEventBus
 import org.tasks.ui.TaskListViewModel
@@ -181,7 +178,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var repeatTaskHelper: RepeatTaskHelper
     @Inject lateinit var taskListEventBus: TaskListEventBus
-    @Inject lateinit var taskEditEventBus: TaskEditEventBus
     @Inject lateinit var database: Database
     @Inject lateinit var markdown: MarkdownProvider
     @Inject lateinit var theme: Theme
@@ -717,16 +713,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
     }
 
-    private suspend fun onTaskDelete(task: Task) {
-        taskEditEventBus.emit(TaskEditEvent.Discard(task.id))
-        timerPlugin.stopTimer(task)
-        taskAdapter.onTaskDeleted(task)
-        loadTaskListContent()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            VOICE_RECOGNITION_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) {
+            VOICE_RECOGNITION_REQUEST_CODE -> if (resultCode == RESULT_OK) {
                 lifecycleScope.launch {
                     val match: List<String>? = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     if (!match.isNullOrEmpty() && match[0].isNotEmpty()) {
@@ -961,7 +950,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         val result = withContext(NonCancellable) {
             listViewModel.markDeleted(tasks)
         }
-        result.forEach { onTaskDelete(it) }
+        result.forEach {
+            timerPlugin.stopTimer(it)
+            taskAdapter.onTaskDeleted(it)
+        }
+        loadTaskListContent()
+        if (tasks.contains(mainViewModel.state.value.task?.id)) {
+            mainViewModel.setTask(null)
+        }
         makeSnackbar(R.string.delete_multiple_tasks_confirmation, result.size.toString())?.show()
     }
 

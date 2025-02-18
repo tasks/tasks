@@ -89,8 +89,6 @@ class StartDateControlSet : TaskEditControlFragment() {
             }
         }
 
-    override fun controlId() = TAG
-
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_START_DATE) {

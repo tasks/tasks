@@ -43,17 +43,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.IntentCompat.getParcelableExtra
 import androidx.fragment.compose.AndroidFragment
 import androidx.fragment.compose.rememberFragmentState
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastR
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.EXTRA_TASK
 import com.todoroo.astrid.activity.TaskListFragment.Companion.EXTRA_FILTER
@@ -151,7 +148,6 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             TasksTheme(theme = theme.themeBase.index) {
-                val configuration = LocalConfiguration.current
                 val navigator = rememberListDetailPaneScaffoldNavigator(
                     calculatePaneScaffoldDirective(
                         windowAdaptiveInfo = currentWindowAdaptiveInfo(),

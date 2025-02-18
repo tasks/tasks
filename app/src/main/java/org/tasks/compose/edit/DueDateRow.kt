@@ -11,13 +11,47 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
+import org.tasks.data.entity.Task
+import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.kmp.org.tasks.time.DateStyle
+import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.themes.TasksTheme
 
 @Composable
 fun DueDateRow(
+    dueDate: Long,
+    is24HourFormat: Boolean,
+    alwaysDisplayFullDate: Boolean,
+    onClick: () -> Unit,
+) {
+    DueDateRow(
+        dueDate = if (dueDate == 0L) {
+            null
+        } else {
+            runBlocking {
+                getRelativeDateTime(
+                    dueDate,
+                    is24HourFormat,
+                    DateStyle.FULL,
+                    alwaysDisplayFullDate = alwaysDisplayFullDate
+                )
+            }
+        },
+        overdue = if (Task.hasDueTime(dueDate)) {
+            newDateTime(dueDate).isBeforeNow
+        } else {
+            newDateTime(dueDate).endOfDay().isBeforeNow
+        },
+        onClick = onClick,
+    )
+}
+
+@Composable
+private fun DueDateRow(
     dueDate: String?,
     overdue: Boolean,
     onClick: () -> Unit,

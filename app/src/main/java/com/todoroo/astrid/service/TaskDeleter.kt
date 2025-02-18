@@ -36,7 +36,6 @@ class TaskDeleter @Inject constructor(
     private val userActivityDao: UserActivityDao,
     private val locationDao: LocationDao,
 ) {
-
     suspend fun markDeleted(item: Task) = markDeleted(listOf(item.id))
 
     suspend fun markDeleted(taskIds: List<Long>): List<Task> = withContext(NonCancellable) {
@@ -107,4 +106,6 @@ class TaskDeleter @Inject constructor(
             }
         }
     }
+
+    fun isDeleted(task: Long): Boolean = deletionDao.isDeleted(task)
 }

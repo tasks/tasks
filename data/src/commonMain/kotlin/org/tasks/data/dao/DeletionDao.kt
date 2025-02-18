@@ -104,4 +104,14 @@ WHERE recurring = 1
         }
         deleteCaldavAccount(caldavAccount)
     }
+
+    @Query("""
+        SELECT CASE
+            WHEN deleted > 0 THEN 1
+            ELSE 0
+        END
+        FROM tasks
+        WHERE _id = :task
+    """)
+    abstract fun isDeleted(task: Long): Boolean
 }

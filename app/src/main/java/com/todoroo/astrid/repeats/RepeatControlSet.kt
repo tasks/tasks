@@ -98,8 +98,6 @@ class RepeatControlSet : TaskEditControlFragment() {
             }
         }
 
-    override fun controlId() = TAG
-
     companion object {
         val TAG = R.string.TEA_ctrl_repeat_pref
         private const val FRAG_TAG_BASIC_RECURRENCE = "frag_tag_basic_recurrence"

@@ -26,6 +26,4 @@ abstract class TaskEditControlFragment : Fragment() {
     abstract fun bind(parent: ViewGroup?): View
 
     protected open fun createView(savedInstanceState: Bundle?) {}
-
-    abstract fun controlId(): Int
 }

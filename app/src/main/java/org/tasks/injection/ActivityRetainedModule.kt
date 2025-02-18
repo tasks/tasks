@@ -7,7 +7,6 @@ import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import org.tasks.ui.TaskEditEventBus
 import org.tasks.ui.TaskListEventBus
 
 @Module
@@ -16,10 +15,6 @@ class ActivityRetainedModule {
     @Provides
     @ActivityRetainedScoped
     fun getTaskListBus(): TaskListEventBus = makeFlow()
-
-    @Provides
-    @ActivityRetainedScoped
-    fun getTaskEditBus(): TaskEditEventBus = makeFlow()
 
     private fun <T> makeFlow() = MutableSharedFlow<T>(
         extraBufferCapacity = 1,

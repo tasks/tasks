@@ -75,8 +75,6 @@ class CalendarControlSet : TaskEditControlFragment() {
             }
         }
 
-    override fun controlId() = TAG
-
     private fun openCalendarEvent() {
         val cr = activity.contentResolver
         val uri = Uri.parse(viewModel.eventUri.value)

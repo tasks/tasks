@@ -99,8 +99,6 @@ class TimerControlSet : TaskEditControlFragment() {
             }
         }
 
-    override fun controlId() = TAG
-
     private fun timerActive() = viewModel.timerStarted.value > 0
 
     private suspend fun stopTimer(): Task {

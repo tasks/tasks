@@ -25,9 +25,7 @@ import com.todoroo.astrid.ui.ReminderControlSet
 import com.todoroo.astrid.ui.StartDateControlSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableSet
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.collections.immutable.toPersistentSet
@@ -77,6 +75,7 @@ import org.tasks.data.setPicture
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.files.FileHelper
 import org.tasks.filters.CaldavFilter
+import org.tasks.kmp.org.tasks.taskedit.TaskEditViewState
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.PermissionChecker
@@ -113,33 +112,6 @@ class TaskEditViewModel @Inject constructor(
     private val taskAttachmentDao: TaskAttachmentDao,
     private val defaultFilterProvider: DefaultFilterProvider,
 ) : ViewModel() {
-    data class ViewState(
-        val task: Task,
-        val displayOrder: ImmutableList<Int>,
-        val showBeastModeHint: Boolean,
-        val showComments: Boolean,
-        val showKeyboard: Boolean,
-        val backButtonSavesTask: Boolean,
-        val isReadOnly: Boolean,
-        val linkify: Boolean,
-        val list: CaldavFilter,
-        val location: Location?,
-        val tags: ImmutableSet<TagData>,
-        val calendar: String?,
-        val attachments: ImmutableSet<TaskAttachment> = persistentSetOf(),
-        val alarms: ImmutableSet<Alarm>,
-        val newSubtasks: ImmutableList<Task> = persistentListOf(),
-        val multilineTitle: Boolean,
-    ) {
-        val isNew: Boolean
-            get() = task.isNew
-
-        val hasParent: Boolean
-            get() = task.parent > 0
-
-        val isCompleted: Boolean
-            get() = task.completionDate > 0
-    }
 
     private val resources = context.resources
     private var cleared = false
@@ -149,7 +121,7 @@ class TaskEditViewModel @Inject constructor(
         ?: throw IllegalArgumentException("task is null")
 
     private val _originalState = MutableStateFlow(
-        ViewState(
+        TaskEditViewState(
             task = task,
             showBeastModeHint = !preferences.shownBeastModeHint,
             showComments = preferences.getBoolean(R.string.p_show_task_edit_comments, false),
@@ -157,6 +129,8 @@ class TaskEditViewModel @Inject constructor(
             backButtonSavesTask = preferences.backButtonSavesTask(),
             isReadOnly = task.readOnly,
             linkify = preferences.linkify,
+            alwaysDisplayFullDate = preferences.alwaysDisplayFullDate,
+            showEditScreenWithoutUnlock = preferences.showEditScreenWithoutUnlock,
             calendar = if (task.isNew && permissionChecker.canAccessCalendars()) {
                 preferences.defaultCalendar
             } else {
@@ -202,10 +176,10 @@ class TaskEditViewModel @Inject constructor(
             list = CaldavFilter(calendar = CaldavCalendar(), account = CaldavAccount()),
         )
     )
-    val originalState: StateFlow<ViewState> = _originalState
+    val originalState: StateFlow<TaskEditViewState> = _originalState
 
     private val _viewState = MutableStateFlow(originalState.value)
-    val viewState: StateFlow<ViewState> = _viewState
+    val viewState: StateFlow<TaskEditViewState> = _viewState
 
     var eventUri = MutableStateFlow(task.calendarURI)
     val timerStarted = MutableStateFlow(task.timerStart)
@@ -295,6 +269,10 @@ class TaskEditViewModel @Inject constructor(
             return@withContext false
         }
         if (!hasChanges() || viewState.value.isReadOnly) {
+            discard()
+            return@withContext false
+        }
+        if (!task.isNew && taskDeleter.isDeleted(task.id)) {
             discard()
             return@withContext false
         }

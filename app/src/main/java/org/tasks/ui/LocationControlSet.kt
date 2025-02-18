@@ -105,8 +105,6 @@ class LocationControlSet : TaskEditControlFragment() {
             }
         }
 
-    override fun controlId() = TAG
-
     private fun openWebsite() {
         viewModel.viewState.value.location?.let { context?.openUri(it.url) }
     }
