@@ -7,12 +7,7 @@
     <string name="backup_BAc_export">今すぐバックアップ</string>
     <string name="export_toast">%1$s を %2$s にバックアップしました。</string>
     <string name="import_summary_title">復元の概要</string>
-    <string name="import_summary_message">ファイル %1$s の%2$s中
-\n
-\n %3$sをインポート
-\n %4$sがすでに存在
-\n %5$sが失敗
-\n</string>
+    <string name="import_summary_message">ファイル %1$s の%2$s中\n\n %3$sをインポート\n %4$sがすでに存在\n %5$sが失敗</string>
     <string name="import_progress_read">タスク %d を読み込み中…</string>
     <string name="read_permission_label">Tasks へのアクセス</string>
     <string name="discard_confirmation">本当に変更を破棄しますか？</string>
@@ -685,4 +680,16 @@
     <string name="repeats_after">回数</string>
     <string name="repeat_monthly_on_the_nth_weekday">毎月 %1$s %2$s</string>
     <string name="change_priority">優先度を変更</string>
+    <string name="customize_drawer_summary">ドラッグ&amp;ドロップしてメニューを並び替え</string>
+    <string name="quiet_hours_in_effect">お休みモードが有効です</string>
+    <string name="delete_comment">コメント</string>
+    <string name="swipe_to_snooze_title">スワイプしてスヌーズ</string>
+    <string name="swipe_to_snooze_time_30_minutes">30分後</string>
+    <string name="swipe_to_snooze_time_15_minutes">15分後</string>
+    <string name="swipe_to_snooze_time_description">クリアされた通知は%sにスヌーズ及び再通知されます</string>
+    <string name="swipe_to_snooze_time_immediately">今すぐ</string>
+    <string name="swipe_to_snooze_description">スヌーズ間隔</string>
+    <string name="swipe_to_snooze_time_24_hours">24時間後</string>
+    <string name="swipe_to_snooze_time_1_hour">1時間後</string>
+    <string name="comment">コメント</string>
 </resources>
