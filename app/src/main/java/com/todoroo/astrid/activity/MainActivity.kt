@@ -152,7 +152,6 @@ class MainActivity : AppCompatActivity() {
         setContent {
             TasksTheme(theme = theme.themeBase.index) {
                 val configuration = LocalConfiguration.current
-                val screenWidth = configuration.screenWidthDp.dp
                 val navigator = rememberListDetailPaneScaffoldNavigator(
                     calculatePaneScaffoldDirective(
                         windowAdaptiveInfo = currentWindowAdaptiveInfo(),
@@ -160,7 +159,6 @@ class MainActivity : AppCompatActivity() {
                     ).copy(
                         horizontalPartitionSpacerSize = 0.dp,
                         verticalPartitionSpacerSize = 0.dp,
-                        defaultPanePreferredWidth = screenWidth / 2,
                     ),
 
                 )
