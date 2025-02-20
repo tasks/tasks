@@ -692,4 +692,10 @@
     <string name="swipe_to_snooze_time_24_hours">24時間後</string>
     <string name="swipe_to_snooze_time_1_hour">1時間後</string>
     <string name="comment">コメント</string>
+    <string name="multiline_title">複数行のタイトルを許可</string>
+    <string name="multiline_title_on">エンターキーを押して改行を追加する</string>
+    <string name="show_edit_screen_without_unlock">ロック時に編集画面を表示</string>
+    <string name="send_application_logs">アプリケーションのログを送信</string>
+    <string name="show_edit_screen_without_unlock_summary">デバイスのロックを解除せずにクイック設定タイルを利用可能に</string>
+    <string name="multiline_title_off">完了を押してキーボードをしまう</string>
 </resources>
