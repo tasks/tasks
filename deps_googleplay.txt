@@ -582,7 +582,8 @@
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.0 -> 2.1.10 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.10.1 (*)
 +|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.10.1 (*)
-++--- com.google.android.gms:play-services-maps:19.0.0
+++--- com.google.android.gms:play-services-maps:19.1.0
++|    +--- androidx.collection:collection:1.0.0 -> 1.4.4 (*)
 +|    +--- androidx.fragment:fragment:1.0.0 -> 1.8.6 (*)
 +|    +--- com.google.android.gms:play-services-base:18.5.0 (*)
 +|    +--- com.google.android.gms:play-services-basement:18.4.0 -> 18.5.0 (*)
