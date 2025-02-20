@@ -1571,7 +1571,7 @@
 +|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0 (*)
 +|         |         \--- org.jetbrains.kotlinx:kotlinx-io-core:0.4.0 -> 0.6.0 (*)
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 (*)
-+\--- com.google.accompanist:accompanist-permissions:0.37.0
++\--- com.google.accompanist:accompanist-permissions:0.37.1
 +     +--- androidx.activity:activity-compose:1.9.0 -> 1.10.0 (*)
 +     +--- androidx.compose.foundation:foundation:1.7.0 -> 1.7.8 (*)
 +     +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 -> 1.10.1 (*)
