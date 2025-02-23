@@ -380,7 +380,6 @@
     <string name="location_radius_meters">%s m</string>
     <string name="filters">Filters</string>
     <string name="filter">Filter</string>
-    <string name="accent">Accent</string>
     <string name="button_unsubscribe">Abonnement opzeggen</string>
     <string name="name_your_price">Bepaal je eigen prijs</string>
     <string name="restart_later">Later</string>

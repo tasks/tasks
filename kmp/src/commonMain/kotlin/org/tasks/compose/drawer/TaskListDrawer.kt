@@ -12,11 +12,14 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -50,6 +53,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
@@ -58,12 +62,16 @@ import org.tasks.compose.components.Chevron
 import org.tasks.compose.components.SearchBar
 import org.tasks.compose.components.TasksIcon
 import org.tasks.kmp.formatNumber
+import org.tasks.kmp.org.tasks.compose.rememberImeState
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.help_and_feedback
 import tasks.kmp.generated.resources.search
 import tasks.kmp.generated.resources.settings
 import tasks.kmp.generated.resources.subscribe
 import kotlin.math.roundToInt
+
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+private val SEARCH_BAR_BOTTOM_PADDING = androidx.compose.material3.OutlinedTextFieldTopPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -90,16 +98,17 @@ fun TaskListDrawer(
         bottomBar = {
             if (bottomSearchBar) {
                 BottomAppBar(
-                    modifier = Modifier.layout { measurable, constraints ->
-                        val placeable = measurable.measure(constraints)
-                        bottomAppBarScrollBehavior.state.heightOffsetLimit =
-                            -placeable.height.toFloat()
-                        val height =
-                            placeable.height + bottomAppBarScrollBehavior.state.heightOffset
-                        layout(placeable.width, height.roundToInt().coerceAtLeast(0)) {
-                            placeable.place(0, 0)
-                        }
-                    },
+                    modifier = Modifier
+                        .layout { measurable, constraints ->
+                            val placeable = measurable.measure(constraints)
+                            bottomAppBarScrollBehavior.state.heightOffsetLimit =
+                                -placeable.height.toFloat()
+                            val height =
+                                placeable.height + bottomAppBarScrollBehavior.state.heightOffset
+                            layout(placeable.width, height.roundToInt().coerceAtLeast(0)) {
+                                placeable.place(0, 0)
+                            }
+                        },
                     containerColor = MaterialTheme.colorScheme.surface,
                     scrollBehavior = bottomAppBarScrollBehavior
                 ) {
@@ -122,10 +131,14 @@ fun TaskListDrawer(
                 )
             }
         }
-    ) { paddingValues ->
+    ) { contentPadding ->
+        val keyboardOpen = rememberImeState().value
         LazyColumn(
-            modifier = Modifier.fillMaxSize().imePadding(),
-            contentPadding = paddingValues,
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = if (keyboardOpen)
+                contentPadding
+            else
+                WindowInsets.systemBars.asPaddingValues(),
             verticalArrangement = arrangement,
         ) {
             items(items = filters, key = { it.key() }) {
@@ -275,6 +288,7 @@ fun RowScope.MenuSearchBar(
     query: String,
     onQueryChange: (String) -> Unit,
 ) {
+    val density = LocalDensity.current
     var hasFocus by remember { mutableStateOf(false) }
     SearchBar(
         modifier = Modifier
@@ -282,7 +296,7 @@ fun RowScope.MenuSearchBar(
             .padding(
                 start = 8.dp,
                 end = if (hasFocus) 8.dp else 0.dp,
-                bottom = 4.dp
+                bottom = with(density) { SEARCH_BAR_BOTTOM_PADDING.toDp() }
             )
             .weight(1f)
             .animateContentSize(

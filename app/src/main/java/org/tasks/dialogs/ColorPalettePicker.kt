@@ -75,7 +75,6 @@ class ColorPalettePicker : DialogFragment() {
         palette = requireArguments().getSerializable(EXTRA_PALETTE) as Palette
         colors = when (palette) {
             Palette.COLORS -> colorProvider.getThemeColors()
-            Palette.ACCENTS -> colorProvider.getAccentColors()
             Palette.LAUNCHERS -> ThemeColor.LAUNCHER_COLORS.map { color ->
                 ThemeColor(context, requireContext().getColor(color))
             }

@@ -14,7 +14,6 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import org.tasks.activities.DateAndTimePickerActivity
 import org.tasks.dialogs.MyTimePickerDialog
-import org.tasks.themes.ThemeAccent
 import org.tasks.time.DateTime
 import javax.inject.Inject
 
@@ -22,14 +21,12 @@ import javax.inject.Inject
 class SnoozeActivity : AppCompatActivity(), SnoozeCallback, DialogInterface.OnCancelListener {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var alarmService: AlarmService
-    @Inject lateinit var themeAccent: ThemeAccent
 
     private val taskIds: MutableList<Long> = ArrayList()
     private var pickingDateTime = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        themeAccent.applyStyle(theme)
         val intent = intent
         if (intent.hasExtra(EXTRA_TASK_ID)) {
             taskIds.add(intent.getLongExtra(EXTRA_TASK_ID, -1L))

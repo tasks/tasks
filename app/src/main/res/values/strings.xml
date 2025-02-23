@@ -385,7 +385,6 @@ File %1$s contained %2$s.\n\n
   <string name="theme">Theme</string>
   <string name="color">Color</string>
   <string name="icon">Icon</string>
-  <string name="accent">Accent</string>
   <string name="launcher_icon">Launcher icon</string>
   <string name="theme_black">Black</string>
   <string name="theme_light">Light</string>

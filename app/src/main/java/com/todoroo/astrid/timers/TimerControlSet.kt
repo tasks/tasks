@@ -22,7 +22,6 @@ import org.tasks.data.entity.Task
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.kmp.org.tasks.time.getTimeString
-import org.tasks.themes.Theme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
@@ -36,7 +35,6 @@ import javax.inject.Inject
 class TimerControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
-    @Inject lateinit var theme: Theme
     @Inject lateinit var timerPlugin: TimerPlugin
     
     private lateinit var estimated: TimeDurationControlSet
@@ -81,8 +79,8 @@ class TimerControlSet : TaskEditControlFragment() {
     override fun Content() {
         LaunchedEffect(Unit) {
             dialogView = activity.layoutInflater.inflate(R.layout.control_set_timers_dialog, null)
-            estimated = TimeDurationControlSet(activity, dialogView, R.id.estimatedDuration, theme)
-            elapsed = TimeDurationControlSet(activity, dialogView, R.id.elapsedDuration, theme)
+            estimated = TimeDurationControlSet(activity, dialogView, R.id.estimatedDuration)
+            elapsed = TimeDurationControlSet(activity, dialogView, R.id.elapsedDuration)
             estimated.setTimeDuration(viewModel.estimatedSeconds.value)
             elapsed.setTimeDuration(viewModel.elapsedSeconds.value)
         }

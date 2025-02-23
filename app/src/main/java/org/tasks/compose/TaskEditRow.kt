@@ -37,7 +37,7 @@ fun TaskEditRow(
             enabled = onClick != null,
             onClick = { onClick?.invoke() }
         )
-        .background(MaterialTheme.colorScheme.surface),
+        .background(MaterialTheme.colorScheme.background),
     ) {
         icon()
         content()

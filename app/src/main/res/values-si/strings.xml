@@ -394,7 +394,6 @@
     <string name="repeats_single">පුනරාවර්තනය %s</string>
     <string name="repeats_from">පුනරාවර්තනය වනුයේ</string>
     <string name="bundle_notifications">බහු දැනුම්දීම්</string>
-    <string name="accent">දෙවන වර්ණය</string>
     <string name="date_shortcut_must_come_after">%1$s, %2$s ට පසුව පැමිණිය යුතුය</string>
     <string name="date_shortcut_must_come_before">%2$s පෙර %1$s පැමිණිය යුතුය</string>
     <string name="rmd_EPr_quiet_hours_end_title">නිහඬ කාලය අවසානය</string>

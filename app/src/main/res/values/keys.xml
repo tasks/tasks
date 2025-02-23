@@ -317,7 +317,6 @@
   <string name="tasker_locale">Tasker/Locale</string>
   <string name="p_theme">theme_style</string>
   <string name="p_theme_color">theme_color</string>
-  <string name="p_theme_accent">theme_accent</string>
   <string name="p_theme_launcher">theme_launcher</string>
   <string name="p_language">language</string>
   <string name="p_led_notification">led_notificatiWCAon</string>

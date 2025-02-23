@@ -207,7 +207,9 @@
       android:taskAffinity=""
       android:theme="@style/TranslucentDialog"/>
 
-    <activity android:name=".location.LocationPickerActivity"/>
+    <activity
+        android:name=".location.LocationPickerActivity"
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
 
     <activity
       android:exported="true"

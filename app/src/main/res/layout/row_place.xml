@@ -42,7 +42,7 @@
     android:gravity="start|top"
     android:maxLines="2"
     android:textAlignment="viewStart"
-    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
 
   <TextView
     android:id="@+id/address"
@@ -56,7 +56,7 @@
     android:ellipsize="end"
     android:maxLines="2"
     android:visibility="gone"
-    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
+    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
 
 
 </RelativeLayout>

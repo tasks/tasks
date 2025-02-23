@@ -9,7 +9,6 @@
     <string name="email">E-mail</string>
     <string name="picker_mode_calendar">Calendar</string>
     <string name="compact">Compact</string>
-    <string name="accent">Accent</string>
     <string name="TEA_timer_est">Estim. %s</string>
     <string name="TEA_control_gcal">Calendar</string>
     <string name="export_toast">Salvat %1$s în %2$s.</string>

@@ -280,7 +280,6 @@
     <string name="opacity">불투명도</string>
     <string name="theme">테마</string>
     <string name="color">색상</string>
-    <string name="accent">강조</string>
     <string name="launcher_icon">런처 아이콘</string>
     <string name="theme_black">검정</string>
     <string name="theme_light">밝게</string>

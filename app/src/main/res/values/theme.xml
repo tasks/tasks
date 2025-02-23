@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="DayNight" parent="Theme.MaterialComponents.Light.NoActionBar" />
+  <style name="DayNight" parent="Theme.Material3.Light.NoActionBar" />
 
-  <style name="DayNightDialog" parent="Theme.MaterialComponents.Light.Dialog" />
+  <style name="DayNightDialog" parent="Theme.Material3.Light.Dialog" />
 
-  <style name="DayNightAlert" parent="ThemeOverlay.MaterialComponents.Dialog.Alert" />
+  <style name="DayNightAlert" parent="ThemeOverlay.Material3.Dialog.Alert" />
 
   <style name="TasksBase" parent="DayNight">
     <item name="android:windowBackground">@color/window_background</item>
     <item name="android:colorBackground">@color/content_background</item>
+    <item name="background">@color/window_background</item>
+    <item name="colorSurface">@color/content_background</item>
     <item name="windowActionModeOverlay">true</item>
     <item name="actionModeStyle">@style/ActionModeStyle</item>
     <item name="actionBarTheme">@style/ActionModeTheme</item>
@@ -24,8 +26,6 @@
     <item name="android:textColorSecondary">@color/text_secondary</item>
     <item name="android:textColorTertiary">@color/text_tertiary</item>
     <item name="horizontal_divider_visibility">2</item> <!-- View.GONE -->
-    <item name="materialTimePickerTheme">@style/ClockTheme</item>
-    <item name="materialCalendarTheme">@style/CalendarTheme</item>
     <item name="textInputStyle">@style/OutlinedBox</item>
   </style>
 
@@ -48,12 +48,16 @@
   <style name="ThemeBlack" parent="Tasks">
     <item name="android:windowBackground">@android:color/black</item>
     <item name="android:colorBackground">@android:color/black</item>
+    <item name="background">@android:color/black</item>
+    <item name="colorSurface">@android:color/black</item>
     <item name="horizontal_divider_visibility">0</item> <!-- View.VISIBLE -->
   </style>
 
   <style name="Wallpaper" parent="Tasks">
-    <item name="android:windowBackground">@color/black_38</item>
+    <item name="android:windowBackground">@color/black_60</item>
     <item name="android:colorBackground">@color/black_60</item>
+    <item name="background">@color/black_60</item>
+    <item name="colorSurface">@color/black_60</item>
     <item name="android:windowShowWallpaper">true</item>
   </style>
 

@@ -29,7 +29,6 @@ import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.LocalePickerDialog
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
-import org.tasks.themes.ThemeAccent
 import org.tasks.themes.ThemeBase
 import org.tasks.themes.ThemeBase.DEFAULT_BASE_THEME
 import org.tasks.themes.ThemeBase.EXTRA_THEME_OVERRIDE
@@ -43,7 +42,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
 
     @Inject lateinit var themeBase: ThemeBase
     @Inject lateinit var themeColor: ThemeColor
-    @Inject lateinit var themeAccent: ThemeAccent
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
@@ -101,12 +99,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
             themeColor.pickerColor,
             ColorPickerAdapter.Palette.COLORS,
             REQUEST_COLOR_PICKER
-        )
-        setupColorPreference(
-            R.string.p_theme_accent,
-            themeAccent.pickerColor,
-            ColorPickerAdapter.Palette.ACCENTS,
-            REQUEST_ACCENT_PICKER
         )
         updateLauncherPreference()
     }
@@ -170,15 +162,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
                     }
                 }
             }
-            REQUEST_ACCENT_PICKER -> {
-                if (resultCode == RESULT_OK) {
-                    val index = data!!.getIntExtra(ColorPalettePicker.EXTRA_SELECTED, 0)
-                    if (preferences.getInt(R.string.p_theme_accent, -1) != index) {
-                        preferences.setInt(R.string.p_theme_accent, index)
-                        recreate()
-                    }
-                }
-            }
             REQUEST_LAUNCHER_PICKER -> {
                 if (resultCode == RESULT_OK) {
                     val index = data!!.getIntExtra(ColorPalettePicker.EXTRA_SELECTED, 0)
@@ -233,7 +216,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
     companion object {
         private const val REQUEST_THEME_PICKER = 10001
         private const val REQUEST_COLOR_PICKER = 10002
-        private const val REQUEST_ACCENT_PICKER = 10003
         private const val REQUEST_LAUNCHER_PICKER = 10004
         private const val REQUEST_LOCALE = 10006
         private const val REQUEST_PURCHASE = 10007

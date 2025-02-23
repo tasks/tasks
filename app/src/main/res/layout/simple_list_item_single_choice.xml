@@ -26,4 +26,4 @@
   android:drawablePadding="@dimen/keyline_second"
   android:gravity="center_vertical"
   android:textSize="18sp"
-  android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+  android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>

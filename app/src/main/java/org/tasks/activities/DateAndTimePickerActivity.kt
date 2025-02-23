@@ -12,14 +12,12 @@ import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
 import org.tasks.dialogs.MyTimePickerDialog.Companion.timeInputMode
 import org.tasks.preferences.Preferences
-import org.tasks.themes.ThemeAccent
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class DateAndTimePickerActivity : AppCompatActivity() {
-    @Inject lateinit var themeAccent: ThemeAccent
     @Inject lateinit var preferences: Preferences
 
     private var initial: DateTime? = null
@@ -33,7 +31,6 @@ class DateAndTimePickerActivity : AppCompatActivity() {
                 ?.getLong(EXTRA_DATE_SELECTED)
                 ?.takeIf { it > 0 }
                 ?.let { DateTime(it, DateTime.UTC) }
-        themeAccent.applyStyle(theme)
         if (dateSelected != null) {
             showTimePicker()
         } else {

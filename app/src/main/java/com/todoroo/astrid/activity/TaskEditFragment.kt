@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -23,7 +25,6 @@ import org.tasks.data.dao.UserActivityDao
 import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
-import org.tasks.extensions.hideKeyboard
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.notifications.NotificationManager
 import org.tasks.play.PlayServices
@@ -63,6 +64,9 @@ class TaskEditFragment : Fragment() {
                 }
             }
             val context = LocalContext.current
+            val keyboard = LocalSoftwareKeyboardController.current
+            val scope = rememberCoroutineScope()
+
             TaskEditScreen(
                 editViewModel = editViewModel,
                 viewState = viewState,
@@ -70,9 +74,12 @@ class TaskEditFragment : Fragment() {
                     .watchComments(viewState.task.uuid)
                     .collectAsStateWithLifecycle(emptyList())
                     .value,
-                save = { lifecycleScope.launch { save() } },
+                save = {
+                    keyboard?.hide()
+                    lifecycleScope.launch { save() }
+                },
                 discard = {
-                    activity?.hideKeyboard()
+                    keyboard?.hide()
                     if (editViewModel.hasChanges()) {
                         dialogBuilder
                             .newDialog(R.string.discard_confirmation)
@@ -84,7 +91,7 @@ class TaskEditFragment : Fragment() {
                     }
                 },
                 delete = {
-                    activity?.hideKeyboard()
+                    keyboard?.hide()
                     dialogBuilder
                         .newDialog(R.string.DLG_delete_this_task_question)
                         .setPositiveButton(R.string.ok) { _, _ ->

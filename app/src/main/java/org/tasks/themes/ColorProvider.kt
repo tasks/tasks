@@ -6,7 +6,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.kmp.org.tasks.themes.ColorProvider.priorityColor
 import org.tasks.kmp.org.tasks.themes.ColorProvider.saturated
-import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
 class ColorProvider @Inject constructor(
@@ -30,17 +29,9 @@ class ColorProvider @Inject constructor(
         isDarkMode = isDark,
     )
 
-    fun getThemeAccent(index: Int) = ThemeAccent(context, if (isDark) {
-        ThemeAccent.ACCENTS_DESATURATED[index]
-    } else {
-        ThemeAccent.ACCENTS[index]
-    })
-
     fun getThemeColors(adjust: Boolean = true) = ThemeColor.COLORS.map { c ->
         getThemeColor(context.getColor(c), adjust)
     }
 
     fun getWidgetColors() = getThemeColors(false)
-
-    fun getAccentColors() = ThemeAccent.ACCENTS.indices.map(this@ColorProvider::getThemeAccent)
 }

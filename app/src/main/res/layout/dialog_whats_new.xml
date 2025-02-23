@@ -30,7 +30,7 @@
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/dismiss_button"
-          style="@style/Widget.MaterialComponents.Button.TextButton"
+          style="@style/Widget.Material3.Button.TextButton"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/keyline_first"

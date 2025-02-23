@@ -16,7 +16,7 @@
           android:layout_alignParentTop="true" />
 
         <com.google.android.material.button.MaterialButton
-          style="@style/Widget.MaterialComponents.Button.TextButton"
+          style="@style/Widget.Material3.Button.TextButton"
           android:textColor="?attr/colorAccent"
           android:id="@+id/ok_button"
           android:text="@string/ok"
@@ -26,7 +26,7 @@
           android:layout_alignParentEnd="true" />
 
         <com.google.android.material.button.MaterialButton
-          style="@style/Widget.MaterialComponents.Button.TextButton"
+          style="@style/Widget.Material3.Button.TextButton"
           android:textColor="?attr/colorAccent"
           android:layout_below="@id/divider"
           android:id="@+id/cancel_button"

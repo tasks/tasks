@@ -35,7 +35,6 @@ import org.tasks.data.entity.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.themes.TasksTheme
-import org.tasks.themes.ThemeAccent
 import org.tasks.themes.colorOn
 import javax.inject.Inject
 
@@ -43,7 +42,6 @@ import javax.inject.Inject
 class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
     @Inject lateinit var principalDao: PrincipalDao
-    @Inject lateinit var accent: ThemeAccent
 
     private val viewModel: CaldavCalendarViewModel by viewModels()
 
@@ -81,16 +79,15 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                                     openDialog.value = false
                                 }
                             }
-                            val accentColor = Color(accent.accentColor)
                             FloatingActionButton(
                                 onClick = { openDialog.value = true },
                                 modifier = Modifier.padding(Constants.KEYLINE_FIRST),
-                                containerColor = accentColor
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onPrimary,
                             ) {
                                 Icon(
                                     imageVector = Icons.Outlined.PersonAdd,
                                     contentDescription = null,
-                                    tint = colorOn(accentColor),
                                 )
                             }
                         }

@@ -24,7 +24,7 @@
         android:layout_gravity="top"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/content_background"
+        android:background="?attr/background"
         android:theme="@style/ToolbarTheme"
         app:hideOnScroll="true"
         app:layout_scrollFlags="scroll|enterAlways"
@@ -36,7 +36,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/banner"
@@ -71,22 +71,21 @@
 
   <com.google.android.material.bottomappbar.BottomAppBar
       android:id="@+id/bottomAppBar"
-      style="@style/Widget.MaterialComponents.BottomAppBar"
+      style="@style/Widget.Material3.BottomAppBar"
+      android:theme="@style/ToolbarTheme"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
-      android:theme="?attr/overlay_theme"
-      app:popupTheme="@style/popup_overlay"
       app:hideOnScroll="true"
-      app:navigationIcon="@drawable/ic_outline_menu_24px" />
+      app:navigationIcon="@drawable/ic_outline_menu_24px"/>
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/fab"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:contentDescription="@string/action_create_new_task"
-      app:backgroundTint="?attr/colorAccent"
       app:layout_anchor="@id/bottomAppBar"
-      app:srcCompat="@drawable/ic_outline_add_24px" />
+      app:layout_anchorGravity="top|end"
+      app:srcCompat="@drawable/ic_outline_add_24px"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

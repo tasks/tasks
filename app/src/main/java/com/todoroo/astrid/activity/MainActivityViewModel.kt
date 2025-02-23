@@ -69,7 +69,6 @@ class MainActivityViewModel @Inject constructor(
     )
 
     private val _drawerOpen = MutableStateFlow(false)
-    val drawerOpen = _drawerOpen.asStateFlow()
     private val _updateFilters = MutableStateFlow(0L)
 
     private val _state = MutableStateFlow(

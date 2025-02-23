@@ -268,7 +268,6 @@
     <string name="opacity">不透明度</string>
     <string name="theme">主题</string>
     <string name="color">颜色</string>
-    <string name="accent">强调色</string>
     <string name="launcher_icon">启动器图标</string>
     <string name="theme_black">黑色</string>
     <string name="theme_light">亮色</string>

@@ -401,7 +401,6 @@
     <string name="vibrations">Vibrations</string>
     <string name="location_radius_meters">%s m</string>
     <string name="tags">Étiquettes</string>
-    <string name="accent">Couleur d\'accentuation</string>
     <string name="badges">Badges</string>
     <string name="list_separator_with_space">", "</string>
     <string name="version_string">Version %s</string>

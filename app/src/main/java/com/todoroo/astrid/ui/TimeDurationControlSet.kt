@@ -11,9 +11,13 @@ import android.view.View
 import android.widget.TextView
 import com.todoroo.astrid.ui.NNumberPickerDialog.OnNNumberPickedListener
 import org.tasks.R
-import org.tasks.themes.Theme
 
-class TimeDurationControlSet(private val context: Context, view: View, timeButtonId: Int, private val theme: Theme) : OnNNumberPickedListener, View.OnClickListener {
+class TimeDurationControlSet(
+    private val context: Context,
+    view: View,
+    timeButtonId: Int,
+) : OnNNumberPickedListener,
+    View.OnClickListener {
     private val timeButton: TextView = view.findViewById(timeButtonId)
     var timeDurationInSeconds = 0
         private set
@@ -64,7 +68,6 @@ class TimeDurationControlSet(private val context: Context, view: View, timeButto
         if (initialValues != null) {
             dialog!!.setInitialValues(initialValues)
         }
-        theme.applyToContext(dialog!!.context)
         dialog!!.show()
     }
 

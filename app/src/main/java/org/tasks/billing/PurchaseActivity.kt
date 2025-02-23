@@ -26,8 +26,6 @@ class PurchaseActivity : AppCompatActivity(), OnPurchasesUpdated {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        theme.applyToContext(this)
-
         setContent {
             TasksTheme(theme = theme.themeBase.index) {
                 BackHandler {

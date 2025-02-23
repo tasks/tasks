@@ -18,7 +18,6 @@ import com.todoroo.andlib.utility.AndroidUtilities.preS
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
-import org.tasks.themes.ThemeAccent
 import org.tasks.themes.ThemeBase
 import org.tasks.themes.ThemeBase.EXTRA_THEME_OVERRIDE
 import javax.inject.Inject
@@ -48,7 +47,6 @@ class ThemePickerDialog : DialogFragment() {
 
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var dialogBuilder: DialogBuilder
-    @Inject lateinit var accent: ThemeAccent
     @Inject lateinit var themeBase: ThemeBase
 
     var adapter: ArrayAdapter<String>? = null

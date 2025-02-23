@@ -5,8 +5,6 @@ import static org.tasks.themes.ColorUtilsKt.calculateContrast;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.os.Build.VERSION_CODES;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -15,8 +13,6 @@ import android.view.View;
 import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
 import androidx.core.os.ParcelCompat;
-
-import com.google.android.material.bottomappbar.BottomAppBar;
 
 import org.tasks.R;
 import org.tasks.dialogs.ColorPalettePicker.Pickable;
@@ -209,10 +205,6 @@ public class ThemeColor implements Pickable {
         : flag & ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
   }
 
-  void applyStyle(Resources.Theme theme) {
-    theme.applyStyle(isDark ? R.style.BlackToolbarTheme : R.style.WhiteToolbarTheme, true);
-  }
-
   @Override
   public int getPickerColor() {
     return colorPrimary;
@@ -246,10 +238,6 @@ public class ThemeColor implements Pickable {
 
   public boolean isDark() {
     return isDark;
-  }
-
-  public void apply(BottomAppBar bottomAppBar) {
-    bottomAppBar.setBackgroundTint(ColorStateList.valueOf(getPrimaryColor()));
   }
 
   @Override

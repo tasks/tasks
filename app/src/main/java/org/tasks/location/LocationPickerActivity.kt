@@ -2,11 +2,13 @@ package org.tasks.location
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -89,7 +91,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        theme.applyTheme(this)
+        enableEdgeToEdge()
         window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         val binding = ActivityLocationPickerBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -123,8 +125,6 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
         search = menu.findItem(R.id.menu_search)
         search.setOnActionExpandListener(this)
         toolbar.setOnMenuItemClickListener(this)
-        val themeColor = theme.themeColor
-        themeColor.applyToNavigationBar(this)
         val dark = theme.themeBase.isDarkTheme(this)
         map.init(this, this, dark)
         val params = appBarLayout.layoutParams as CoordinatorLayout.LayoutParams
@@ -164,7 +164,11 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = if (search.isActionViewExpanded) searchAdapter else recentsAdapter
 
-        binding.currentLocation.setOnClickListener { currentLocation() }
+        with (binding.currentLocation) {
+            setOnClickListener { currentLocation() }
+            backgroundTintList = ColorStateList.valueOf(theme.themeColor.primaryColor)
+            imageTintList = ColorStateList.valueOf(theme.themeColor.colorOnPrimary)
+        }
         binding.selectThisLocation.setOnClickListener { selectLocation() }
     }
 

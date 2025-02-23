@@ -596,7 +596,6 @@
     <string name="alarm_before_due">%s antaŭ limdato</string>
     <string name="no_app_found">Neniu programeto povis pritrakti ĉi tiun peton</string>
     <string name="launcher_icon">Lanĉila piktogramo</string>
-    <string name="accent">Akcento</string>
     <string name="caldav_home_set_not_found">Ne trovis hejman aron</string>
     <string name="refresh_purchases">Reŝargi aĉetojn</string>
     <string name="background_location_permission_required">Tasks kolektas lokan datumon por ebligi lok-bazitajn memorigilojn, eĉ kiam la programeto estas fermita aŭ ne uzata.</string>

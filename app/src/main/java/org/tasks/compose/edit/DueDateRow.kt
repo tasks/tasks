@@ -46,7 +46,7 @@ fun DueDateRow(
         } else {
             newDateTime(dueDate).endOfDay().isBeforeNow
         },
-        onClick = onClick,
+        onClick = { onClick() },
     )
 }
 

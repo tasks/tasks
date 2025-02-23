@@ -1,18 +1,29 @@
 <resources>
-  <style name="DayNight" parent="Theme.MaterialComponents.NoActionBar"/>
+  <style name="DayNight" parent="Theme.Material3.Dark.NoActionBar"/>
 
-  <style name="DayNightDialog" parent="Theme.MaterialComponents.Dialog"/>
+  <style name="DayNightDialog" parent="Theme.Material3.Dark.Dialog"/>
 
-  <style name="DayNightAlert" parent="ThemeOverlay.MaterialComponents.Dialog.Alert"/>
+  <style name="DayNightAlert" parent="ThemeOverlay.Material3.Dialog.Alert"/>
 
-  <style name="popup_overlay" parent="ThemeOverlay.MaterialComponents"/>
-
-  <style name="ToolbarTheme" parent="@style/ThemeOverlay.MaterialComponents.Dark">
+  <style name="ToolbarTheme" parent="ThemeOverlay.Material3.Dark">
     <item name="toolbarNavigationButtonStyle">@style/WhiteNavigation</item>
-    <item name="iconTint">@color/text_primary</item>
+    <item name="iconTint">?attr/colorOnSurface</item>
     <item name="android:actionOverflowButtonStyle">@style/WhiteOverflow</item>
     <item name="android:editTextColor">@color/text_primary</item>
     <item name="android:textColorHint">@color/text_secondary</item>
   </style>
 
+  <!-- Location picker -->
+
+  <style name="popup_overlay" parent="ThemeOverlay.MaterialComponents.Dark"/>
+
+  <style name="LegacyToolbarTheme" parent="ThemeOverlay.MaterialComponents.Dark">
+    <item name="toolbarNavigationButtonStyle">@style/WhiteNavigation</item>
+    <item name="iconTint">?attr/colorOnSurface</item>
+    <item name="android:actionOverflowButtonStyle">@style/WhiteOverflow</item>
+    <item name="android:editTextColor">@color/text_primary</item>
+    <item name="android:textColorHint">@color/text_secondary</item>
+  </style>
+
+  <!-- -->
 </resources>

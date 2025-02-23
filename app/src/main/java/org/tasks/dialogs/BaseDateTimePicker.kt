@@ -10,10 +10,15 @@ import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.FrameLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.kmp.org.tasks.time.getTimeString
@@ -66,9 +71,17 @@ abstract class BaseDateTimePicker : BottomSheetDialogFragment() {
             dialog
                 .findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
                 ?.let { bottomSheet ->
-                    with (BottomSheetBehavior.from(bottomSheet)) {
-                        state = BottomSheetBehavior.STATE_EXPANDED
-                        skipCollapsed = true
+                    val behavior = BottomSheetBehavior.from(bottomSheet)
+                    behavior.skipCollapsed = true
+
+                    val insets = ViewCompat.getRootWindowInsets(requireActivity().window.decorView)
+                    if (insets?.isVisible(WindowInsetsCompat.Type.ime()) == true) {
+                        lifecycleScope.launch {
+                            delay(100)
+                            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                        }
+                    } else {
+                        behavior.state = BottomSheetBehavior.STATE_EXPANDED
                     }
                 }
 

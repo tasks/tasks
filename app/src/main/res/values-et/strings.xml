@@ -425,7 +425,6 @@
     <string name="next_sunday">Järgmine P</string>
     <string name="next_saturday">Järgmine L</string>
     <string name="settings_localization">Kohalikustamine</string>
-    <string name="accent">Rõhuvärv</string>
     <string name="custom_filter_has_reminder">Meeldetuletusega</string>
     <string name="privacy">Privaatsus</string>
     <string name="TEA_add_subtask">Lisa alamülesanne</string>

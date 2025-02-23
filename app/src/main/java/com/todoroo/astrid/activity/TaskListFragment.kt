@@ -6,10 +6,12 @@
 package com.todoroo.astrid.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Parcelable
 import android.speech.RecognizerIntent
@@ -19,6 +21,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.activity.compose.BackHandler
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
@@ -35,7 +38,6 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.app.ShareCompat
 import androidx.core.content.IntentCompat
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
@@ -273,45 +275,35 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         onClickMenu = onClick
     }
 
+    @SuppressLint("PrivateResource")
     fun applyInsets(windowInsets: PaddingValues) {
         val density = resources.displayMetrics.density
-        val actionBarHeight = TypedValue.complexToDimensionPixelSize(
-            getData(requireContext(), android.R.attr.actionBarSize),
-            resources.displayMetrics
-        )
+        val topInset = (windowInsets.calculateTopPadding().value * density).toInt()
+        val bottomInset = (windowInsets.calculateBottomPadding().value * density).toInt()
+        if (topInset == 0 && bottomInset == 0) {
+            Timber.d("$this: Ignoring insets")
+            return
+        } else {
+            Timber.d("$this: applying insets")
+        }
         with(binding.toolbar) {
-            val topInset = (windowInsets.calculateTopPadding().value * density).toInt()
+            val actionBarHeight = TypedValue.complexToDimensionPixelSize(
+                getData(requireContext(), android.R.attr.actionBarSize),
+                resources.displayMetrics
+            )
             val params = layoutParams
             params.height = actionBarHeight + topInset
             layoutParams = params
             updatePadding(top = topInset)
         }
-        with(binding.bottomAppBar) {
-            val bottomInset = (windowInsets.calculateBottomPadding().value * density).toInt()
-            val params = layoutParams
-            params.height = actionBarHeight + bottomInset
-            layoutParams = params
-            updatePadding(bottom = bottomInset)
-        }
+        binding.bottomAppBar.updatePadding(bottom = bottomInset)
+        (binding.fab.layoutParams as MarginLayoutParams).bottomMargin = bottomInset / 2
     }
 
     @OptIn(ExperimentalPermissionsApi::class)
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentTaskListBinding.inflate(inflater, container, false)
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { view, windowInsets ->
-            val actionBarHeight = TypedValue.complexToDimensionPixelSize(
-                getData(requireContext(), android.R.attr.actionBarSize),
-                resources.displayMetrics
-            )
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            val params = view.layoutParams
-            params.height = actionBarHeight + insets.top
-            view.layoutParams = params
-            view.updatePadding(top = insets.top)
-            windowInsets
-        }
 
         filter = getFilter()
         val swipeRefreshLayout: SwipeRefreshLayout
@@ -354,21 +346,25 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         setupRefresh(swipeRefreshLayout)
         setupRefresh(emptyRefreshLayout)
         binding.toolbar.title = filter.title
+        binding.toolbar.setTitleTextAppearance(requireContext(), com.google.android.material.R.style.TextAppearance_Material3_HeadlineSmall)
+        binding.toolbar.setTitleTextColor(themeColor.primaryColor)
         binding.appbarlayout.addOnOffsetChangedListener { _, verticalOffset ->
             if (verticalOffset == 0 && binding.bottomAppBar.isScrolledDown) {
                 binding.bottomAppBar.performShow()
             }
         }
-        val toolbar = run {
-            themeColor.apply(binding.bottomAppBar)
-            binding.bottomAppBar
+        with (binding.fab) {
+            backgroundTintList = ColorStateList.valueOf(themeColor.primaryColor)
+            imageTintList = ColorStateList.valueOf(themeColor.colorOnPrimary)
         }
-        toolbar.setOnMenuItemClickListener(this)
-        toolbar.setNavigationOnClickListener {
-            activity?.hideKeyboard()
-            onClickMenu()
+        with (binding.bottomAppBar) {
+            setOnMenuItemClickListener(this@TaskListFragment)
+            setNavigationOnClickListener {
+                activity?.hideKeyboard()
+                onClickMenu()
+            }
+            setupMenu(this)
         }
-        setupMenu(toolbar)
         binding.banner.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
         binding.banner.setContent {
             val context = LocalContext.current
@@ -475,6 +471,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 }
             }
         }
+        ViewCompat.requestApplyInsets(binding.toolbar)
         return binding.root
     }
 
@@ -705,11 +702,17 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private fun makeSnackbar(text: String): Snackbar? = activity?.let {
         Snackbar.make(binding.taskListCoordinator, text, 4000)
                 .setAnchorView(R.id.fab)
-                .setTextColor(it.getColor(R.color.snackbar_text_color))
-                .setActionTextColor(it.getColor(R.color.snackbar_action_color))
-                .apply {
-                    view.setBackgroundColor(it.getColor(R.color.snackbar_background))
-                }
+                .setBackgroundTint(it.getColor(R.color.dialog_background))
+                .setTextColor(it.getColor(R.color.text_primary))
+                .setActionTextColor(themeColor.primaryColor)
+            .apply {
+                val offset = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    16f,
+                    context.resources.displayMetrics
+                )
+                view.translationY = -offset
+            }
     }
 
     override fun onPause() {
@@ -1123,13 +1126,5 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"
         private const val FRAG_TAG_PRIORITY_PICKER = "frag_tag_priority_picker"
         private const val REQUEST_TAG_TASKS = 10106
-
-        fun newTaskListFragment(filter: Filter): TaskListFragment {
-            val fragment = TaskListFragment()
-            val bundle = Bundle()
-            bundle.putParcelable(EXTRA_FILTER, filter)
-            fragment.arguments = bundle
-            return fragment
-        }
     }
 }

@@ -265,7 +265,6 @@
     <string name="opacity">Läpinäkyvyys</string>
     <string name="theme">Teema</string>
     <string name="color">Väri</string>
-    <string name="accent">Sävy</string>
     <string name="theme_black">Musta</string>
     <string name="theme_light">Vaalea</string>
     <string name="theme_dark">Tumma</string>

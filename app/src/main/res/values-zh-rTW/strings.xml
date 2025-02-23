@@ -143,7 +143,6 @@
     <string name="opacity">透明度</string>
     <string name="theme">主題</string>
     <string name="color">色彩</string>
-    <string name="accent">強調色</string>
     <string name="language">語言</string>
     <string name="restart_required">重新啟動 Tasks以使變更生效</string>
     <string name="restart_now">馬上重新啟動</string>

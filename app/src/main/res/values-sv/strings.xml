@@ -300,7 +300,6 @@
     <string name="url_host_name_required">Värddatornamn krävs</string>
     <string name="url_invalid_scheme">Måste börja med http(s)://</string>
     <string name="filter">Filter</string>
-    <string name="accent">Accent</string>
     <string name="launcher_icon">Hemskärmsikon</string>
     <string name="widget_header_settings">Överskriftsinställningar</string>
     <string name="widget_row_settings">Radinställningar</string>

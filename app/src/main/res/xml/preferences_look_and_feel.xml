@@ -12,10 +12,6 @@
     android:title="@string/color" />
 
   <Preference
-    android:key="@string/p_theme_accent"
-    android:title="@string/accent" />
-
-  <Preference
     android:key="@string/p_theme_launcher"
     android:title="@string/launcher_icon" />
 

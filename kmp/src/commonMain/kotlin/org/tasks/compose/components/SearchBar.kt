@@ -24,6 +24,8 @@ import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 
+val SEARCH_BAR_HEIGHT = 56.dp
+
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier,
@@ -37,7 +39,7 @@ fun SearchBar(
     OutlinedTextField(
         shape = MaterialTheme.shapes.medium,
         modifier = modifier
-            .height(56.dp)
+            .height(SEARCH_BAR_HEIGHT)
             .focusProperties {
                 this.canFocus = canFocus
             },
