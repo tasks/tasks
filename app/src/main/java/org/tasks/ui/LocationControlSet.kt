@@ -4,9 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Parcelable
-import android.view.View
-import android.view.ViewGroup
-import androidx.compose.ui.platform.ComposeView
+import androidx.compose.runtime.Composable
 import androidx.core.content.IntentCompat
 import androidx.core.util.Pair
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -53,57 +51,55 @@ class LocationControlSet : TaskEditControlFragment() {
     }
 
     @OptIn(ExperimentalPermissionsApi::class)
-    override fun bind(parent: ViewGroup?): View =
-        (parent as ComposeView).apply {
-            setContent {
-                val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
-                val hasPermissions =
-                    rememberMultiplePermissionsState(permissions = backgroundPermissions())
-                        .allPermissionsGranted
-                LocationRow(
-                    location = viewState.location,
-                    hasPermissions = hasPermissions,
-                    onClick = {
-                        viewState.location
-                            ?.let { location ->
-                                val options: MutableList<Pair<Int, () -> Unit>> = ArrayList()
-                                options.add(Pair.create(R.string.open_map) { location.open(activity) })
-                                if (!isNullOrEmpty(location.phone)) {
-                                    options.add(Pair.create(R.string.action_call) { call() })
-                                }
-                                if (!isNullOrEmpty(location.url)) {
-                                    options.add(Pair.create(R.string.visit_website) { openWebsite() })
-                                }
-                                options.add(Pair.create(R.string.choose_new_location) { chooseLocation() })
-                                options.add(Pair.create(R.string.delete) {
-                                    viewModel.setLocation(
-                                        null
-                                    )
-                                })
-                                val items = options.map { requireContext().getString(it.first!!) }
-                                dialogBuilder
-                                    .newDialog(location.displayName)
-                                    .setItems(items) { _, which: Int ->
-                                        options[which].second!!()
-                                    }
-                                    .show()
-                            }
-                            ?: chooseLocation()
-                    },
-                    openGeofenceOptions = {
-                        if (hasPermissions) {
-                            showGeofenceOptions()
-                        } else {
-                            newLocationPermissionDialog(
-                                this@LocationControlSet,
-                                REQUEST_LOCATION_PERMISSIONS
-                            )
-                                .show(parentFragmentManager, FRAG_TAG_REQUEST_LOCATION)
+    @Composable
+    override fun Content() {
+        val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
+        val hasPermissions =
+            rememberMultiplePermissionsState(permissions = backgroundPermissions())
+                .allPermissionsGranted
+        LocationRow(
+            location = viewState.location,
+            hasPermissions = hasPermissions,
+            onClick = {
+                viewState.location
+                    ?.let { location ->
+                        val options: MutableList<Pair<Int, () -> Unit>> = ArrayList()
+                        options.add(Pair.create(R.string.open_map) { location.open(activity) })
+                        if (!isNullOrEmpty(location.phone)) {
+                            options.add(Pair.create(R.string.action_call) { call() })
                         }
+                        if (!isNullOrEmpty(location.url)) {
+                            options.add(Pair.create(R.string.visit_website) { openWebsite() })
+                        }
+                        options.add(Pair.create(R.string.choose_new_location) { chooseLocation() })
+                        options.add(Pair.create(R.string.delete) {
+                            viewModel.setLocation(
+                                null
+                            )
+                        })
+                        val items = options.map { requireContext().getString(it.first!!) }
+                        dialogBuilder
+                            .newDialog(location.displayName)
+                            .setItems(items) { _, which: Int ->
+                                options[which].second!!()
+                            }
+                            .show()
                     }
-                )
+                    ?: chooseLocation()
+            },
+            openGeofenceOptions = {
+                if (hasPermissions) {
+                    showGeofenceOptions()
+                } else {
+                    newLocationPermissionDialog(
+                        this@LocationControlSet,
+                        REQUEST_LOCATION_PERMISSIONS
+                    )
+                        .show(parentFragmentManager, FRAG_TAG_REQUEST_LOCATION)
+                }
             }
-        }
+        )
+    }
 
     private fun openWebsite() {
         viewModel.viewState.value.location?.let { context?.openUri(it.url) }

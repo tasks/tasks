@@ -1,12 +1,10 @@
 package org.tasks.ui
 
 import android.app.Activity
-import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import androidx.compose.ui.platform.ComposeView
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.activity.MainActivityViewModel
@@ -39,55 +37,51 @@ class SubtaskControlSet : TaskEditControlFragment() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var firebase: Firebase
 
-    private lateinit var listViewModel: TaskListViewModel
     private val mainViewModel: MainActivityViewModel by activityViewModels()
 
-    override fun createView(savedInstanceState: Bundle?) {
-        viewModel.viewState.value.task.takeIf { it.id > 0 }?.let {
-            listViewModel.setFilter(SubtaskFilter(it.id))
-        }
-    }
-
-    override fun bind(parent: ViewGroup?): View =
-        (parent as ComposeView).apply {
-            listViewModel = ViewModelProvider(requireParentFragment())[TaskListViewModel::class.java]
-            setContent {
-                val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
-                val originalState = viewModel.originalState.collectAsStateWithLifecycle().value
-                SubtaskRow(
-                    originalFilter = originalState.list,
-                    filter = viewState.list,
-                    hasParent = viewState.hasParent,
-                    existingSubtasks = if (viewModel.viewState.collectAsStateWithLifecycle().value.isNew) {
-                        TasksResults.Results(SectionedDataSource())
-                    } else {
-                        listViewModel.state.collectAsStateWithLifecycle().value.tasks
-                    },
-                    newSubtasks = viewState.newSubtasks,
-                    openSubtask = this@SubtaskControlSet::openSubtask,
-                    completeExistingSubtask = this@SubtaskControlSet::complete,
-                    toggleSubtask = this@SubtaskControlSet::toggleSubtask,
-                    addSubtask = {
-                        lifecycleScope.launch {
-                            viewModel.setSubtasks(
-                                viewState.newSubtasks.plus(taskCreator.createWithValues(""))
-                            )
-                        }
-                    },
-                    completeNewSubtask = {
-                        viewModel.setSubtasks(
-                            viewState.newSubtasks.toMutableList().apply {
-                                val modified = it.copy(
-                                    completionDate = if (it.isCompleted) 0 else currentTimeMillis()
-                                )
-                                set(indexOf(it), modified)
-                            }
-                        )
-                    },
-                    deleteSubtask = { viewModel.setSubtasks(viewState.newSubtasks - it) },
-                )
+    @Composable
+    override fun Content() {
+        val listViewModel: TaskListViewModel = hiltViewModel()
+        val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
+        LaunchedEffect(viewState.task) {
+            if (viewState.task.id > 0) {
+                listViewModel.setFilter(SubtaskFilter(viewState.task.id))
             }
         }
+        val originalState = viewModel.originalState.collectAsStateWithLifecycle().value
+        SubtaskRow(
+            originalFilter = originalState.list,
+            filter = viewState.list,
+            hasParent = viewState.hasParent,
+            existingSubtasks = if (viewModel.viewState.collectAsStateWithLifecycle().value.isNew) {
+                TasksResults.Results(SectionedDataSource())
+            } else {
+                listViewModel.state.collectAsStateWithLifecycle().value.tasks
+            },
+            newSubtasks = viewState.newSubtasks,
+            openSubtask = this@SubtaskControlSet::openSubtask,
+            completeExistingSubtask = this@SubtaskControlSet::complete,
+            toggleSubtask = this@SubtaskControlSet::toggleSubtask,
+            addSubtask = {
+                lifecycleScope.launch {
+                    viewModel.setSubtasks(
+                        viewState.newSubtasks.plus(taskCreator.createWithValues(""))
+                    )
+                }
+            },
+            completeNewSubtask = {
+                viewModel.setSubtasks(
+                    viewState.newSubtasks.toMutableList().apply {
+                        val modified = it.copy(
+                            completionDate = if (it.isCompleted) 0 else currentTimeMillis()
+                        )
+                        set(indexOf(it), modified)
+                    }
+                )
+            },
+            deleteSubtask = { viewModel.setSubtasks(viewState.newSubtasks - it) },
+        )
+    }
 
     private fun openSubtask(task: Task) = lifecycleScope.launch {
         mainViewModel.setTask(task)

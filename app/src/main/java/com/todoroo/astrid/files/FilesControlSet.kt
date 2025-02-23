@@ -8,10 +8,9 @@ package com.todoroo.astrid.files
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import androidx.compose.ui.platform.ComposeView
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,43 +32,38 @@ import javax.inject.Inject
 class FilesControlSet : TaskEditControlFragment() {
     @Inject lateinit var taskAttachmentDao: TaskAttachmentDao
     @Inject lateinit var preferences: Preferences
-    
-    override fun createView(savedInstanceState: Bundle?) {
-        val task = viewModel.viewState.value.task
-        if (savedInstanceState == null) {
-            if (task.hasTransitory(TaskAttachment.KEY)) {
-                for (uri in (task.getTransitory<ArrayList<Uri>>(TaskAttachment.KEY))!!) {
+
+    @Composable
+    override fun Content() {
+        val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
+        LaunchedEffect(Unit) {
+            if (viewState.task.hasTransitory(TaskAttachment.KEY)) {
+                for (uri in (viewState.task.getTransitory<ArrayList<Uri>>(TaskAttachment.KEY))!!) {
                     newAttachment(uri)
                 }
             }
         }
-    }
-
-    override fun bind(parent: ViewGroup?): View =
-        (parent as ComposeView).apply {
-            setContent {
-                val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
-                AttachmentRow(
-                    attachments = viewState.attachments,
-                    openAttachment = {
-                        Timber.d("Clicked open $it")
-                        FileHelper.startActionView(
-                            context,
-                            if (Strings.isNullOrEmpty(it.uri)) null else Uri.parse(it.uri)
-                        )
-                    },
-                    deleteAttachment = {
-                        Timber.d("Clicked delete $it")
-                        viewModel.setAttachments(viewState.attachments - it)
-                    },
-                    addAttachment = {
-                        Timber.d("Add attachment clicked")
-                        AddAttachmentDialog.newAddAttachmentDialog(this@FilesControlSet)
-                            .show(parentFragmentManager, FRAG_TAG_ADD_ATTACHMENT_DIALOG)
-                    },
+        val context = LocalContext.current
+        AttachmentRow(
+            attachments = viewState.attachments,
+            openAttachment = {
+                Timber.d("Clicked open $it")
+                FileHelper.startActionView(
+                    context,
+                    if (Strings.isNullOrEmpty(it.uri)) null else Uri.parse(it.uri)
                 )
-            }
-        }
+            },
+            deleteAttachment = {
+                Timber.d("Clicked delete $it")
+                viewModel.setAttachments(viewState.attachments - it)
+            },
+            addAttachment = {
+                Timber.d("Add attachment clicked")
+                AddAttachmentDialog.newAddAttachmentDialog(this@FilesControlSet)
+                    .show(parentFragmentManager, FRAG_TAG_ADD_ATTACHMENT_DIALOG)
+            },
+        )
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == AddAttachmentDialog.REQUEST_CAMERA || requestCode == AddAttachmentDialog.REQUEST_AUDIO) {

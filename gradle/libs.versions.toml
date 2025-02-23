@@ -78,6 +78,7 @@ androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscree
 androidx-datastore = { module = "androidx.datastore:datastore-preferences", version = "1.1.2" }
 androidx-fragment-compose = { module = "androidx.fragment:fragment-compose", version = "1.8.6" }
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt" }
+androidx-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt" }
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hilt" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junit" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime", version.ref = "lifecycle" }

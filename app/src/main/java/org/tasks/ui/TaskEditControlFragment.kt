@@ -2,11 +2,11 @@ package org.tasks.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.platform.ComposeView
+import androidx.compose.runtime.Composable
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.compose.content
+import androidx.hilt.navigation.compose.hiltViewModel
 
 abstract class TaskEditControlFragment : Fragment() {
     lateinit var viewModel: TaskEditViewModel
@@ -15,15 +15,11 @@ abstract class TaskEditControlFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val composeView = ComposeView(requireActivity())
-        viewModel = ViewModelProvider(requireParentFragment())[TaskEditViewModel::class.java]
-        bind(composeView)
-        createView(savedInstanceState)
-        return composeView
+    ) = content {
+        viewModel = hiltViewModel<TaskEditViewModel>(viewModelStoreOwner = requireParentFragment())
+        Content()
     }
 
-    abstract fun bind(parent: ViewGroup?): View
-
-    protected open fun createView(savedInstanceState: Bundle?) {}
+    @Composable
+    abstract fun Content()
 }

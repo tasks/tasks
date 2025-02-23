@@ -591,7 +591,7 @@ class TaskEditViewModel @Inject constructor(
     }
 
     init {
-        viewModelScope.launch {
+        runBlocking {
             val attachments = async {
                 taskAttachmentDao
                     .getAttachments(task.id)

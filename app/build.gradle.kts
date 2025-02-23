@@ -177,6 +177,7 @@ dependencies {
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)
     ksp(libs.androidx.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation)
     implementation(libs.androidx.hilt.work)
 
     implementation(libs.androidx.datastore)

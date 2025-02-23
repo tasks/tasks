@@ -7,12 +7,9 @@ package com.todoroo.astrid.repeats
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import androidx.compose.ui.platform.ComposeView
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
@@ -67,36 +64,30 @@ class RepeatControlSet : TaskEditControlFragment() {
         }
     }
 
-    override fun createView(savedInstanceState: Bundle?) {
-        lifecycleScope.launchWhenResumed {
-            viewModel.dueDate.collect {
-                onDueDateChanged()
-            }
+    @Composable
+    override fun Content() {
+        val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
+        val dueDate = viewModel.dueDate.collectAsStateWithLifecycle().value
+        LaunchedEffect(dueDate) {
+            onDueDateChanged()
         }
-    }
-
-    override fun bind(parent: ViewGroup?): View =
-        (parent as ComposeView).apply {
-            setContent {
-                val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
-                RepeatRow(
-                    recurrence = viewState.task.recurrence?.let { repeatRuleToString.toString(it) },
-                    repeatFrom = viewState.task.repeatFrom,
-                    onClick = {
-                        val accountType = viewState.list.account.accountType
-                        BasicRecurrenceDialog.newBasicRecurrenceDialog(
-                            target = this@RepeatControlSet,
-                            rc = REQUEST_RECURRENCE,
-                            rrule = viewState.task.recurrence,
-                            dueDate = viewModel.dueDate.value,
-                            accountType = accountType,
-                        )
-                            .show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
-                    },
-                    onRepeatFromChanged = { viewModel.setRepeatFrom(it) }
+        RepeatRow(
+            recurrence = viewState.task.recurrence?.let { repeatRuleToString.toString(it) },
+            repeatFrom = viewState.task.repeatFrom,
+            onClick = {
+                val accountType = viewState.list.account.accountType
+                BasicRecurrenceDialog.newBasicRecurrenceDialog(
+                    target = this@RepeatControlSet,
+                    rc = REQUEST_RECURRENCE,
+                    rrule = viewState.task.recurrence,
+                    dueDate = dueDate,
+                    accountType = accountType,
                 )
-            }
-        }
+                    .show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
+            },
+            onRepeatFromChanged = { viewModel.setRepeatFrom(it) }
+        )
+    }
 
     companion object {
         val TAG = R.string.TEA_ctrl_repeat_pref

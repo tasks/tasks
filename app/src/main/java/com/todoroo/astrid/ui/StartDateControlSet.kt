@@ -3,12 +3,10 @@ package com.todoroo.astrid.ui
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.ViewGroup
-import androidx.compose.ui.platform.ComposeView
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
@@ -34,60 +32,55 @@ class StartDateControlSet : TaskEditControlFragment() {
 
     private val vm: StartDateViewModel by viewModels()
 
-    override fun createView(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
+    @Composable
+    override fun Content() {
+        LaunchedEffect(Unit) {
             vm.init(
                 dueDate = viewModel.dueDate.value,
                 startDate = viewModel.startDate.value,
                 isNew = viewModel.viewState.value.isNew
             )
         }
-        lifecycleScope.launchWhenResumed {
-            viewModel.dueDate.collect {
-                applySelected()
+        val dueDate = viewModel.dueDate.collectAsStateWithLifecycle().value
+        val selectedDay = vm.selectedDay.collectAsStateWithLifecycle().value
+        val selectedTime = vm.selectedTime.collectAsStateWithLifecycle().value
+        StartDateRow(
+            startDate = viewModel.startDate.collectAsStateWithLifecycle().value,
+            selectedDay = selectedDay,
+            selectedTime = selectedTime,
+            hasDueDate = dueDate > 0,
+            printDate = {
+                runBlocking {
+                    getRelativeDateTime(
+                        selectedDay + selectedTime,
+                        requireContext().is24HourFormat,
+                        DateStyle.FULL,
+                        alwaysDisplayFullDate = preferences.alwaysDisplayFullDate
+                    )
+                }
+            },
+            onClick = {
+                val fragmentManager = parentFragmentManager
+                if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
+                    StartDatePicker.newDateTimePicker(
+                        this@StartDateControlSet,
+                        REQUEST_START_DATE,
+                        vm.selectedDay.value,
+                        vm.selectedTime.value,
+                        preferences.getBoolean(
+                            R.string.p_auto_dismiss_datetime_edit_screen,
+                            false
+                        )
+                    )
+                        .show(fragmentManager, FRAG_TAG_DATE_PICKER)
+                }
             }
+        )
+
+        LaunchedEffect(dueDate) {
+            applySelected()
         }
     }
-
-    override fun bind(parent: ViewGroup?) =
-        (parent as ComposeView).apply {
-            setContent {
-                val selectedDay = vm.selectedDay.collectAsStateWithLifecycle().value
-                val selectedTime = vm.selectedTime.collectAsStateWithLifecycle().value
-                StartDateRow(
-                    startDate = viewModel.startDate.collectAsStateWithLifecycle().value,
-                    selectedDay = selectedDay,
-                    selectedTime = selectedTime,
-                    hasDueDate = viewModel.dueDate.collectAsStateWithLifecycle().value > 0,
-                    printDate = {
-                        runBlocking {
-                            getRelativeDateTime(
-                                selectedDay + selectedTime,
-                                requireContext().is24HourFormat,
-                                DateStyle.FULL,
-                                alwaysDisplayFullDate = preferences.alwaysDisplayFullDate
-                            )
-                        }
-                    },
-                    onClick = {
-                        val fragmentManager = parentFragmentManager
-                        if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
-                            StartDatePicker.newDateTimePicker(
-                                this@StartDateControlSet,
-                                REQUEST_START_DATE,
-                                vm.selectedDay.value,
-                                vm.selectedTime.value,
-                                preferences.getBoolean(
-                                    R.string.p_auto_dismiss_datetime_edit_screen,
-                                    false
-                                )
-                            )
-                                .show(fragmentManager, FRAG_TAG_DATE_PICKER)
-                        }
-                    }
-                )
-            }
-        }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

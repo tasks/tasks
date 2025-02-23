@@ -2,9 +2,7 @@ package com.todoroo.astrid.tags
 
 import android.app.Activity
 import android.content.Intent
-import android.view.View
-import android.view.ViewGroup
-import androidx.compose.ui.platform.ComposeView
+import androidx.compose.runtime.Composable
 import androidx.core.content.IntentCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,25 +20,23 @@ import javax.inject.Inject
 class TagsControlSet : TaskEditControlFragment() {
     @Inject lateinit var chipProvider: ChipProvider
     
-    private fun onRowClick() {
-    }
-
-    override fun bind(parent: ViewGroup?): View =
-        (parent as ComposeView).apply {
-            setContent {
-                val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
-                TagsRow(
-                    tags = viewState.tags,
-                    colorProvider = { chipProvider.getColor(it) },
-                    onClick = {
-                        val intent = Intent(context, TagPickerActivity::class.java)
-                        intent.putParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED, ArrayList(viewState.tags))
-                        startActivityForResult(intent, REQUEST_TAG_PICKER_ACTIVITY)
-                    },
-                    onClear = { viewModel.setTags(viewState.tags.minus(it)) },
+    @Composable
+    override fun Content() {
+        val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
+        TagsRow(
+            tags = viewState.tags,
+            colorProvider = { chipProvider.getColor(it) },
+            onClick = {
+                val intent = Intent(context, TagPickerActivity::class.java)
+                intent.putParcelableArrayListExtra(
+                    TagPickerActivity.EXTRA_SELECTED,
+                    ArrayList(viewState.tags)
                 )
-            }
-        }
+                startActivityForResult(intent, REQUEST_TAG_PICKER_ACTIVITY)
+            },
+            onClear = { viewModel.setTags(viewState.tags.minus(it)) },
+        )
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_TAG_PICKER_ACTIVITY) {
