@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.PixelFormat
 import android.view.LayoutInflater
-import org.tasks.R
 import javax.inject.Inject
 
 class Theme @Inject constructor(
@@ -12,15 +11,12 @@ class Theme @Inject constructor(
     val themeColor: ThemeColor,
     private val themeAccent: ThemeAccent
 ) {
-    fun withThemeColor(themeColor: ThemeColor) = Theme(themeBase, themeColor, themeAccent)
-
     fun getLayoutInflater(context: Context) =
         wrap(context).getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     fun applyThemeAndStatusBarColor(activity: Activity) {
         applyTheme(activity)
         themeColor.applyToNavigationBar(activity)
-        themeColor.applyTaskDescription(activity, activity.getString(R.string.app_name))
     }
 
     fun applyTheme(activity: Activity) {

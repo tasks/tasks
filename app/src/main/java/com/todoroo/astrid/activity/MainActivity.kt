@@ -407,12 +407,6 @@ class MainActivity : AppCompatActivity() {
         }
         logIntent("onCreate")
         handleIntent()
-
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                updateSystemBars(viewModel.state.value.filter)
-            }
-        }
     }
 
     @Deprecated("Deprecated in Java")
@@ -488,18 +482,6 @@ class MainActivity : AppCompatActivity() {
             viewModel.setFilter(filter = filter, task = task)
         }
     }
-
-    private fun updateSystemBars(filter: Filter) {
-        with (getFilterColor(filter)) {
-            applyTaskDescription(this@MainActivity, filter.title ?: getString(R.string.app_name))
-        }
-    }
-
-    private fun getFilterColor(filter: Filter) =
-        if (filter.tint != 0)
-            colorProvider.getThemeColor(filter.tint, true)
-        else
-            theme.themeColor
 
     override fun onResume() {
         super.onResume()

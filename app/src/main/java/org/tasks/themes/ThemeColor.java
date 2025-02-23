@@ -4,7 +4,6 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static org.tasks.themes.ColorUtilsKt.calculateContrast;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -212,11 +211,6 @@ public class ThemeColor implements Pickable {
 
   void applyStyle(Resources.Theme theme) {
     theme.applyStyle(isDark ? R.style.BlackToolbarTheme : R.style.WhiteToolbarTheme, true);
-  }
-
-  public void applyTaskDescription(Activity activity, String description) {
-    activity.setTaskDescription(
-        new ActivityManager.TaskDescription(description, null, getPrimaryColor()));
   }
 
   @Override
