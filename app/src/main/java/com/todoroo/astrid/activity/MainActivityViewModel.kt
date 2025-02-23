@@ -119,8 +119,11 @@ class MainActivityViewModel @Inject constructor(
         _state.update { it.copy(menuQuery = "") }
     }
 
-    fun openDrawer() {
-        _drawerOpen.update { true }
+    fun setDrawerState(opened: Boolean) {
+        _drawerOpen.update { opened }
+        if (!opened) {
+            _state.update { it.copy(menuQuery = "") }
+        }
     }
 
     init {

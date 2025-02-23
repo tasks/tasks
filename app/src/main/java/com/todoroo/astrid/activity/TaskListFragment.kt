@@ -29,6 +29,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.app.ShareCompat
@@ -190,6 +191,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private lateinit var search: MenuItem
     private var mode: ActionMode? = null
     lateinit var themeColor: ThemeColor
+    private var onClickMenu: () -> Unit = {}
     private lateinit var binding: FragmentTaskListBinding
     private val listPickerLauncher = registerForListPickerResult {
         val selected = taskAdapter.getSelected()
@@ -267,6 +269,32 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
+    fun setNavigationClickListener(onClick: () -> Unit) {
+        onClickMenu = onClick
+    }
+
+    fun applyInsets(windowInsets: PaddingValues) {
+        val density = resources.displayMetrics.density
+        val actionBarHeight = TypedValue.complexToDimensionPixelSize(
+            getData(requireContext(), android.R.attr.actionBarSize),
+            resources.displayMetrics
+        )
+        with(binding.toolbar) {
+            val topInset = (windowInsets.calculateTopPadding().value * density).toInt()
+            val params = layoutParams
+            params.height = actionBarHeight + topInset
+            layoutParams = params
+            updatePadding(top = topInset)
+        }
+        with(binding.bottomAppBar) {
+            val bottomInset = (windowInsets.calculateBottomPadding().value * density).toInt()
+            val params = layoutParams
+            params.height = actionBarHeight + bottomInset
+            layoutParams = params
+            updatePadding(bottom = bottomInset)
+        }
+    }
+
     @OptIn(ExperimentalPermissionsApi::class)
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -333,14 +361,12 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
         val toolbar = run {
             themeColor.apply(binding.bottomAppBar)
-            binding.bottomAppBar.isVisible = true
-            binding.toolbar.navigationIcon = null
             binding.bottomAppBar
         }
         toolbar.setOnMenuItemClickListener(this)
         toolbar.setNavigationOnClickListener {
             activity?.hideKeyboard()
-            mainViewModel.openDrawer()
+            onClickMenu()
         }
         setupMenu(toolbar)
         binding.banner.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)

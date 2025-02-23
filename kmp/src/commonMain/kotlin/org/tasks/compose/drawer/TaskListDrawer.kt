@@ -12,12 +12,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.mandatorySystemGestures
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -82,6 +80,7 @@ fun TaskListDrawer(
     val topAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
         modifier = Modifier
+            .imePadding()
             .nestedScroll(
                 if (bottomSearchBar)
                     bottomAppBarScrollBehavior.nestedScrollConnection
@@ -123,33 +122,20 @@ fun TaskListDrawer(
                 )
             }
         }
-    ) { contentPadding ->
+    ) { paddingValues ->
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
-            contentPadding = PaddingValues(
-                top = if (bottomSearchBar) 0.dp else contentPadding.calculateTopPadding(),
-                bottom = if (bottomSearchBar)
-                    maxOf(
-                    WindowInsets.mandatorySystemGestures
-                        .asPaddingValues()
-                        .calculateBottomPadding(),
-                    contentPadding.calculateBottomPadding()
-                ) else
-                    48.dp
-            ),
+            modifier = Modifier.fillMaxSize().imePadding(),
+            contentPadding = paddingValues,
             verticalArrangement = arrangement,
         ) {
             items(items = filters, key = { it.key() }) {
                 when (it) {
                     is DrawerItem.Filter -> FilterItem(
-//                        modifier = Modifier.animateItemPlacement(),
                         item = it,
                         onClick = { onClick(it) }
                     )
 
                     is DrawerItem.Header -> HeaderItem(
-//                        modifier = Modifier.animateItemPlacement(),
                         item = it,
                         canAdd = it.canAdd,
                         toggleCollapsed = { onClick(it) },
