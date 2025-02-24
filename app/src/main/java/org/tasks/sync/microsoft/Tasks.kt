@@ -41,7 +41,7 @@ data class Tasks(
         @Serializable
         data class LinkedResource(
             val applicationName: String,
-            val displayName: String,
+            val displayName: String?,
             val externalId: String,
             val id: String,
         )
