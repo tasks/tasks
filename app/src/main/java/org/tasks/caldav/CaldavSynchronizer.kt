@@ -76,13 +76,9 @@ import org.tasks.data.entity.PrincipalAccess
 import org.tasks.data.entity.Task
 import timber.log.Timber
 import java.io.IOException
-import java.net.ConnectException
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
 import javax.inject.Inject
-import javax.net.ssl.SSLException
 
 class CaldavSynchronizer @Inject constructor(
     @param:ApplicationContext private val context: Context,
@@ -115,35 +111,24 @@ class CaldavSynchronizer @Inject constructor(
         }
         try {
             synchronize(account)
-        } catch (e: SocketTimeoutException) {
-            setError(account, e.message)
-        } catch (e: SSLException) {
-            setError(account, e.message)
-        } catch (e: ConnectException) {
-            setError(account, e.message)
-        } catch (e: UnknownHostException) {
-            setError(account, e.message)
-        } catch (e: UnauthorizedException) {
-            setError(account, e.message)
-        } catch (e: ServiceUnavailableException) {
-            setError(account, e.message)
-        } catch (e: KeyManagementException) {
-            setError(account, e.message)
-        } catch (e: NoSuchAlgorithmException) {
-            setError(account, e.message)
         } catch (e: IOException) {
-            setError(account, e.message)
+            setError(account, e)
+        } catch (e: UnauthorizedException) {
+            setError(account, e)
+        } catch (e: ServiceUnavailableException) {
+            setError(account, e)
+        } catch (e: KeyManagementException) {
+            setError(account, e)
+        } catch (e: NoSuchAlgorithmException) {
+            setError(account, e)
         } catch (e: HttpException) {
-            val message = when(e.code) {
-                402, in 500..599 -> e.message
-                else -> {
-                    firebase.reportException(e)
-                    e.message
-                }
+            when(e.code) {
+                402, in 500..599 -> {}
+                else -> { firebase.reportException(e) }
             }
-            setError(account, message)
+            setError(account, e)
         } catch (e: Exception) {
-            setError(account, e.message)
+            setError(account, e)
             firebase.reportException(e)
         }
     }
@@ -219,9 +204,14 @@ class CaldavSynchronizer @Inject constructor(
         else -> SERVER_UNKNOWN
     }
 
+    private suspend fun setError(account: CaldavAccount, throwable: Throwable) {
+        Timber.e(throwable, "$account: ${throwable.message}")
+        setError(account, throwable.message)
+    }
+
     private suspend fun setError(account: CaldavAccount, message: String?) {
         if (!message.isNullOrBlank()) {
-            Timber.e("${account.name}: $message")
+            Timber.e("$account: $message")
         }
         account.error = message
         caldavDao.update(account)
