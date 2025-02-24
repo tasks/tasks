@@ -709,4 +709,11 @@
     <string name="price_per_month_with_currency">%s/月</string>
     <string name="price_per_year_with_currency">%s/年</string>
     <string name="donate_nag">寄付によるサポートをご検討ください！</string>
+    <string name="sync_warning_microsoft">すべてのタスクの詳細が Microsoft To Do と同期されるわけではありません。</string>
+    <string name="button_learn_more">詳細を見る</string>
+    <string name="enable_alarms">適切なタイミングで通知を受け取る</string>
+    <string name="sync_warning_microsoft_title">Microsoft To Do の同期について</string>
+    <string name="sync_warning_google_tasks">すべてのタスクの詳細が Google Tasks と同期されるわけではありません</string>
+    <string name="sync_warning_google_tasks_title">Google Tasks の同期について</string>
+    <string name="enable_alarms_description">適切なタイミングで通知を受け取るために、設定でアラームとリマインダーを許可してください</string>
 </resources>
