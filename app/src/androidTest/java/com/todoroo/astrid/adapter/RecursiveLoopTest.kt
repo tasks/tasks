@@ -8,7 +8,6 @@ import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.data.entity.Task
@@ -35,7 +34,6 @@ class RecursiveLoopTest : InjectingTestCase() {
     }
 
     @Test
-    @Ignore("infinite loop")
     fun handleSelfLoop() = runBlocking {
         addTask(with(DUE_DATE, newDateTime()), with(PARENT, 1L))
 
@@ -46,7 +44,6 @@ class RecursiveLoopTest : InjectingTestCase() {
     }
 
     @Test
-    @Ignore("infinite loop")
     fun handleSingleLevelLoop() = runBlocking {
         val parent = addTask(with(DUE_DATE, newDateTime()))
         val child = addTask(with(PARENT, parent))
@@ -60,7 +57,6 @@ class RecursiveLoopTest : InjectingTestCase() {
     }
 
     @Test
-    @Ignore("infinite loop")
     fun handleMultiLevelLoop() = runBlocking {
         val parent = addTask(with(DUE_DATE, newDateTime()))
         val child = addTask(with(PARENT, parent))

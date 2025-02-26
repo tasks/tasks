@@ -17,11 +17,6 @@ import org.tasks.preferences.QueryPreferences
 internal object TaskListQueryRecursive {
     private val RECURSIVE = Table("recursive_tasks")
     private val RECURSIVE_TASK = field("$RECURSIVE.task")
-    private val SUBTASK_QUERY =
-            QueryTemplate()
-                .join(Join.inner(RECURSIVE, Task.PARENT.eq(RECURSIVE_TASK)))
-                .where(activeAndVisible())
-                .toString()
 
     fun getRecursiveQuery(
         filter: Filter,
@@ -78,7 +73,8 @@ internal object TaskListQueryRecursive {
                     ${SortHelper.orderSelectForSortTypeRecursive(groupMode, true)} AS primary_group,
                     ${SortHelper.orderSelectForSortTypeRecursive(sortMode, false)} AS primary_sort,
                     NULL as secondary_sort,
-                    ${SortHelper.getSortGroup(groupMode)} AS sort_group
+                    ${SortHelper.getSortGroup(groupMode)} AS sort_group,
+                    '/' || tasks._id || '/' as recursive_path
                 FROM tasks
                 ${
                     if (groupMode == SortHelper.SORT_LIST) {
@@ -104,9 +100,13 @@ internal object TaskListQueryRecursive {
                     recursive_tasks.primary_group AS primary_group,
                     recursive_tasks.primary_sort AS primary_sort,
                     ${SortHelper.orderSelectForSortTypeRecursive(subtaskMode, false)} AS secondary_sort,
-                    recursive_tasks.sort_group AS sort_group
+                    recursive_tasks.sort_group AS sort_group,
+                    recursive_tasks.recursive_path || tasks._id || '/' AS recursive_path
                 FROM tasks
-                $SUBTASK_QUERY
+                INNER JOIN recursive_tasks ON tasks.parent = recursive_tasks.task
+                WHERE
+                    ${activeAndVisible()}
+                    AND recursive_tasks.recursive_path NOT LIKE '%/' || tasks._id || '/%'
                 ORDER BY
                     parent_complete,
                     indent DESC,
