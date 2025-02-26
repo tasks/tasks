@@ -106,7 +106,7 @@ internal object TaskListQueryRecursive {
                 INNER JOIN recursive_tasks ON tasks.parent = recursive_tasks.task
                 WHERE
                     ${activeAndVisible()}
-                    AND recursive_tasks.recursive_path NOT LIKE '%/' || tasks._id || '/%'
+                    AND (indent = 0 OR recursive_tasks.recursive_path NOT LIKE '%/' || tasks._id || '/%')
                 ORDER BY
                     parent_complete,
                     indent DESC,
