@@ -296,7 +296,7 @@ GROUP BY caldav_lists.cdl_uuid
         )
         UPDATE tasks
         SET parent = IFNULL(
-            (SELECT parent_id FROM parent_map WHERE task_id = tasks._id),
+            (SELECT parent_id FROM parent_map WHERE task_id = tasks._id AND tasks._id != parent_id),
             0
         )
         WHERE _id IN (

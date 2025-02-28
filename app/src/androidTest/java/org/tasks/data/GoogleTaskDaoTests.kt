@@ -184,6 +184,21 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     }
 
     @Test
+    fun ignoreSelfParent() = runBlocking {
+        insert(
+            newCaldavTask(
+                with(TASK, 1),
+                with(REMOTE_ID, "123"),
+                with(REMOTE_PARENT, "123")
+            )
+        )
+
+        caldavDao.updateParents()
+
+        assertEquals(0, taskDao.fetch(1)!!.parent)
+    }
+
+    @Test
     fun updateParents() = runBlocking {
         insert(newCaldavTask(with(TASK, 1), with(REMOTE_ID, "123")))
         insert(newCaldavTask(with(TASK, 2), with(REMOTE_PARENT, "123")))
