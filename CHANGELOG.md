@@ -1,5 +1,7 @@
-### 14.5 (2025-02-16)
+### 14.5 (2025-03-01)
 
+* Material 3 - work in progress
+* Side navigation drawer
 * Improve support for foldables
 * Improve edge-to-edge support
 * Remove options for top app bar and disabling collapsing app bar
@@ -10,8 +12,11 @@
 * Fix missing list chips for subtasks in custom filters
 * Fix for database timeouts
 * Update translations
+  * Belarusian - @fobo66
   * Estonian - Priit Jõerüüt
   * German - Colorful Rhino
+  * Japanese - M_Haruki
+  * Nahuatl - Benjamin Bruce
   * Slovak - @jose1711
   * Ukrainian - @IhorHordiichuk
 
