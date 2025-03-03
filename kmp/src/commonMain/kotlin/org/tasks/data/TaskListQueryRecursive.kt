@@ -7,7 +7,6 @@ import org.tasks.data.db.Table
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion
-import org.tasks.data.sql.Field.Companion.field
 import org.tasks.data.sql.Join
 import org.tasks.data.sql.QueryTemplate
 import org.tasks.filters.CaldavFilter
@@ -16,7 +15,6 @@ import org.tasks.preferences.QueryPreferences
 
 internal object TaskListQueryRecursive {
     private val RECURSIVE = Table("recursive_tasks")
-    private val RECURSIVE_TASK = field("$RECURSIVE.task")
 
     fun getRecursiveQuery(
         filter: Filter,
@@ -63,7 +61,6 @@ internal object TaskListQueryRecursive {
                 SELECT 
                     tasks._id AS task,
                     $parentCompleted AS parent_complete,
-                    0 AS subtask_complete,
                     $completionSort AS completion_sort,
                     0 AS parent,
                     tasks.collapsed AS collapsed,
@@ -89,13 +86,15 @@ internal object TaskListQueryRecursive {
                 $parentQuery
                 UNION ALL SELECT
                     tasks._id AS task,
-                    recursive_tasks.parent_complete AS parent_complete,
-                    $parentCompleted AS subtask_complete,
+                    $parentCompleted AS parent_complete,
                     $completionSort AS completion_sort,
                     recursive_tasks.task AS parent,
                     tasks.collapsed AS collapsed,
                     CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END AS hidden,
-                    recursive_tasks.indent+1 AS indent,
+                    CASE 
+                        WHEN $parentCompleted AND recursive_tasks.parent_complete = 0 THEN 0
+                        ELSE recursive_tasks.indent + 1 
+                    END AS indent,
                     UPPER(tasks.title) AS sort_title,
                     recursive_tasks.primary_group AS primary_group,
                     recursive_tasks.primary_sort AS primary_sort,
@@ -110,7 +109,6 @@ internal object TaskListQueryRecursive {
                 ORDER BY
                     parent_complete,
                     indent DESC,
-                    subtask_complete,
                     completion_sort ${if (preferences.completedAscending) "" else "DESC"},
                     ${SortHelper.orderForGroupTypeRecursive(groupMode, groupAscending)},
                     ${SortHelper.orderForSortTypeRecursive(sortMode, sortAscending, subtaskMode, subtaskAscending)}
@@ -129,6 +127,7 @@ internal object TaskListQueryRecursive {
                 WHERE
                     parent > 0
                     AND indent = max_indent
+                    AND indent > 0
                 GROUP BY parent
             )
             SELECT
