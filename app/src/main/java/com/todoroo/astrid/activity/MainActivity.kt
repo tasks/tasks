@@ -20,12 +20,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
@@ -381,13 +383,16 @@ class MainActivity : AppCompatActivity() {
                             listPane = {
                                 key (state.filter) {
                                     val fragment = remember { mutableStateOf<TaskListFragment?>(null) }
+                                    val keyboardOpen = rememberImeState()
                                     AndroidFragment<TaskListFragment>(
                                         fragmentState = rememberFragmentState(),
                                         arguments = remember(state.filter) {
                                             Bundle()
                                                 .apply { putParcelable(EXTRA_FILTER, state.filter) }
                                         },
-                                        modifier = Modifier.fillMaxSize(),
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .imePadding(),
                                     ) { tlf ->
                                         fragment.value = tlf
                                         tlf.applyInsets(windowInsets.value)
@@ -395,8 +400,16 @@ class MainActivity : AppCompatActivity() {
                                             scope.launch { drawerState.open() }
                                         }
                                     }
-                                    LaunchedEffect(fragment, windowInsets) {
-                                        fragment.value?.applyInsets(windowInsets.value)
+                                    LaunchedEffect(fragment, windowInsets, keyboardOpen.value) {
+                                        fragment.value?.applyInsets(
+                                            if (keyboardOpen.value) {
+                                                PaddingValues(
+                                                    top = windowInsets.value.calculateTopPadding(),
+                                                )
+                                            } else {
+                                                windowInsets.value
+                                            }
+                                        )
                                     }
                                 }
                             },

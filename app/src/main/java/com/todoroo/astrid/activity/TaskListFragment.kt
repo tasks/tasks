@@ -55,7 +55,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.adapter.TaskAdapter
@@ -280,12 +279,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         val density = resources.displayMetrics.density
         val topInset = (windowInsets.calculateTopPadding().value * density).toInt()
         val bottomInset = (windowInsets.calculateBottomPadding().value * density).toInt()
-        if (topInset == 0 && bottomInset == 0) {
-            Timber.d("$this: Ignoring insets")
-            return
-        } else {
-            Timber.d("$this: applying insets")
-        }
         with(binding.toolbar) {
             val actionBarHeight = TypedValue.complexToDimensionPixelSize(
                 getData(requireContext(), android.R.attr.actionBarSize),
@@ -515,9 +508,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }?.let {
             appBar.inflateMenu(it)
         }
-        if (appBar is BottomAppBar) {
-            menu.removeItem(R.id.menu_search)
-        }
         val hidden = menu.findItem(R.id.menu_show_unstarted)
         val completed = menu.findItem(R.id.menu_show_completed)
         if (!taskAdapter.supportsHiddenTasks() || !filter.supportsHiddenTasks()) {
@@ -539,12 +529,23 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             menu.findItem(R.id.menu_expand_subtasks).isVisible = false
         }
         menu.findItem(R.id.menu_voice_add).isVisible = device.voiceInputAvailable() && filter.isWritable
-        search = binding.toolbar.menu.findItem(R.id.menu_search).setOnActionExpandListener(this)
+        search = binding.toolbar.menu.findItem(R.id.menu_search).apply {
+            setOnActionExpandListener(this@TaskListFragment)
+            isVisible = false
+        }
         menu.findItem(R.id.menu_clear_completed).isVisible = filter.isWritable
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
+        Timber.d("onMenuItemClick($item)")
         return when (item.itemId) {
+            R.id.menu_search -> {
+                if (!search.isActionViewExpanded) {
+                    search.isVisible = true
+                    search.expandActionView()
+                }
+                true
+            }
             R.id.menu_voice_add -> {
                 safeStartActivityForResult(
                         Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
@@ -785,6 +786,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+        search.isVisible = false
         search.setOnQueryTextListener(null)
         listViewModel.setFilter(filter)
         listViewModel.setSearchQuery(null)
