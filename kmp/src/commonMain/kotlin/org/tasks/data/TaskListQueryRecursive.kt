@@ -120,14 +120,27 @@ internal object TaskListQueryRecursive {
                     ROW_NUMBER() OVER () AS sequence
                 FROM recursive_tasks
             ),
-            child_counts AS (
-                SELECT parent,
-                COUNT(*) AS children
-                FROM max_indent
-                WHERE
-                    parent > 0
-                    AND indent = max_indent
-                    AND indent > 0
+            descendants_recursive AS (
+                SELECT
+                    parent,
+                    task as descendant,
+                    parent_complete as completed
+                FROM recursive_tasks
+                WHERE parent > 0
+                UNION ALL
+                SELECT
+                    d.parent,
+                    r.task as descendant,
+                    r.parent_complete as completed
+                FROM recursive_tasks r
+                    JOIN descendants_recursive d ON r.parent = d.descendant
+            ),
+            descendants AS (
+                SELECT
+                    parent,
+                    COUNT(DISTINCT CASE WHEN completed > 0 THEN descendant ELSE NULL END) as completed_children,
+                    COUNT(DISTINCT CASE WHEN completed = 0 THEN descendant ELSE NULL END) as uncompleted_children
+                FROM descendants_recursive
                 GROUP BY parent
             )
             SELECT
@@ -135,7 +148,10 @@ internal object TaskListQueryRecursive {
                 group_concat(distinct(tag_uid)) AS tags,
                 indent,
                 sort_group,
-                children,
+                CASE
+                    WHEN parent_complete > 0 THEN completed_children
+                    ELSE uncompleted_children
+                END as children,
                 primary_sort,
                 secondary_sort,
                 parent_complete
@@ -144,7 +160,7 @@ internal object TaskListQueryRecursive {
                     ON tasks._id = max_indent.task
                     AND indent = max_indent
                     AND hidden = 0
-                LEFT JOIN child_counts ON child_counts.parent = tasks._id
+                LEFT JOIN descendants ON descendants.parent = tasks._id
                 LEFT JOIN tags ON tags.task = tasks._id
                 ${TaskListQuery.JOINS}
             GROUP BY tasks._id
