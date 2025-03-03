@@ -1,6 +1,7 @@
 package org.tasks.themes;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
+import static org.tasks.kmp.org.tasks.themes.ColorProvider.WHITE;
 import static org.tasks.themes.ColorUtilsKt.calculateContrast;
 
 import android.app.Activity;
@@ -69,7 +70,6 @@ public class ThemeColor implements Pickable {
 
   public static final int[] COLORS =
       new int[] {
-              org.tasks.kmp.R.color.grey_900,
               org.tasks.kmp.R.color.tomato,
               org.tasks.kmp.R.color.red_500,
               org.tasks.kmp.R.color.deep_orange_500,
@@ -168,12 +168,12 @@ public class ThemeColor implements Pickable {
     }
     colorPrimary = color;
 
-    double contrast = calculateContrast(TasksThemeKt.WHITE, colorPrimary);
+    double contrast = calculateContrast(WHITE, colorPrimary);
     isDark = contrast < 3;
     if (isDark) {
       colorOnPrimary = context.getColor(R.color.black_87);
     } else {
-      colorOnPrimary = TasksThemeKt.WHITE;
+      colorOnPrimary = WHITE;
     }
   }
 

@@ -12,6 +12,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,13 +25,22 @@ import androidx.compose.ui.unit.dp
 import org.tasks.R
 import org.tasks.compose.Constants
 import org.tasks.kmp.org.tasks.compose.settings.SettingRow
+import org.tasks.themes.ColorProvider
 import org.tasks.themes.TasksTheme
 
 @Composable
-fun SelectColorRow(color: Int, selectColor: () -> Unit, clearColor: () -> Unit) =
+fun SelectColorRow(
+    color: Int,
+    selectColor: () -> Unit,
+    clearColor: () -> Unit
+) =
     SettingRow(
         modifier = Modifier.clickable(onClick =  selectColor),
         left = {
+            val context = LocalContext.current
+            val adjusted = remember(color) {
+                ColorProvider(context).getThemeColor(color).primaryColor
+            }
             IconButton(onClick = { selectColor() }) {
                 if (color == 0) {
                     Icon(
@@ -45,9 +55,8 @@ fun SelectColorRow(color: Int, selectColor: () -> Unit, clearColor: () -> Unit) 
                         contentAlignment = Alignment.Center
                     ) {
                         Canvas(modifier = Modifier.size(24.dp)) {
-                            drawCircle(color = Color(color))
-                            drawCircle(color = borderColor, style = Stroke(width = 4.0f)
-                            )
+                            drawCircle(color = Color(adjusted))
+                            drawCircle(color = borderColor, style = Stroke(width = 4.0f))
                         }
                     }
                 }

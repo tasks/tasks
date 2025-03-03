@@ -7,8 +7,9 @@ object ColorProvider {
     private const val RED_500 = -769226
     private const val AMBER_500 = -16121
     private const val GREY_500 = -6381922
-    private const val WHITE = -1
-    private const val BLACK = -16777216
+    private const val GREY_900 = -14606047
+    const val WHITE = -1
+    const val BLACK = -16777216
 
     val saturated: Map<Int, Int> = hashMapOf(
         // 2014 material design palette
@@ -31,7 +32,7 @@ object ColorProvider {
         -43230 to -30107, // deep orange
 //                -8825528 to -6190977, // brown
         GREY_500 to -2039584, // grey
-        WHITE to BLACK,
+        GREY_900 to WHITE, // GREY_900 removed from palette
 
         // 2019 google calendar
         -2818048 to -3397335, // tomato
