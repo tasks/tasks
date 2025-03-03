@@ -199,14 +199,8 @@ class MainActivity : AppCompatActivity() {
                             ) {
                                 val context = LocalContext.current
                                 val scope = rememberCoroutineScope()
-                                val bottomSearchBar = atLeastR()
                                 TaskListDrawer(
-                                    arrangement = when {
-                                        state.menuQuery.isBlank() -> Arrangement.Top
-                                        bottomSearchBar -> Arrangement.Bottom
-                                        else -> Arrangement.Top
-                                    },
-                                    bottomSearchBar = bottomSearchBar,
+                                    arrangement = if (state.menuQuery.isBlank()) Arrangement.Top else Arrangement.Bottom,
                                     filters = if (state.menuQuery.isNotEmpty()) state.searchItems else state.drawerItems,
                                     onClick = {
                                         when (it) {

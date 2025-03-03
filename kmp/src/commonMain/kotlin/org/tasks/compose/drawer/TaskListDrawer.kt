@@ -39,8 +39,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -75,7 +73,6 @@ private val SEARCH_BAR_BOTTOM_PADDING = androidx.compose.material3.OutlinedTextF
 @Composable
 fun TaskListDrawer(
     arrangement: Arrangement.Vertical,
-    bottomSearchBar: Boolean,
     filters: ImmutableList<DrawerItem>,
     onClick: (DrawerItem) -> Unit,
     onAddClick: (DrawerItem.Header) -> Unit,
@@ -83,52 +80,29 @@ fun TaskListDrawer(
     searchBar: @Composable RowScope.() -> Unit,
 ) {
     val bottomAppBarScrollBehavior = BottomAppBarDefaults.exitAlwaysScrollBehavior()
-    val topAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
         modifier = Modifier
             .imePadding()
-            .nestedScroll(
-                if (bottomSearchBar)
-                    bottomAppBarScrollBehavior.nestedScrollConnection
-                else
-                    topAppBarScrollBehavior.nestedScrollConnection
-            ),
+            .nestedScroll(bottomAppBarScrollBehavior.nestedScrollConnection),
         bottomBar = {
-            if (bottomSearchBar) {
-                BottomAppBar(
-                    modifier = Modifier
-                        .layout { measurable, constraints ->
-                            val placeable = measurable.measure(constraints)
-                            bottomAppBarScrollBehavior.state.heightOffsetLimit =
-                                -placeable.height.toFloat()
-                            val height =
-                                placeable.height + bottomAppBarScrollBehavior.state.heightOffset
-                            layout(placeable.width, height.roundToInt().coerceAtLeast(0)) {
-                                placeable.place(0, 0)
-                            }
-                        },
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    scrollBehavior = bottomAppBarScrollBehavior
-                ) {
-                    searchBar()
-                }
+            BottomAppBar(
+                modifier = Modifier
+                    .layout { measurable, constraints ->
+                        val placeable = measurable.measure(constraints)
+                        bottomAppBarScrollBehavior.state.heightOffsetLimit =
+                            -placeable.height.toFloat()
+                        val height =
+                            placeable.height + bottomAppBarScrollBehavior.state.heightOffset
+                        layout(placeable.width, height.roundToInt().coerceAtLeast(0)) {
+                            placeable.place(0, 0)
+                        }
+                    },
+                containerColor = MaterialTheme.colorScheme.surface,
+                scrollBehavior = bottomAppBarScrollBehavior
+            ) {
+                searchBar()
             }
         },
-        topBar = {
-            if (!bottomSearchBar) {
-                TopAppBar(
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.surface,
-                    ),
-                    scrollBehavior = topAppBarScrollBehavior,
-                    title = {
-                        Row {
-                            searchBar()
-                        }
-                    }
-                )
-            }
-        }
     ) { contentPadding ->
         val keyboardOpen = rememberImeState().value
         LazyColumn(

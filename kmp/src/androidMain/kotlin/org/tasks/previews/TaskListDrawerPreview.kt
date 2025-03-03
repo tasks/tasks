@@ -28,7 +28,6 @@ fun MenuPreview() {
                     onQueryChange = {}
                 )
             },
-            bottomSearchBar = true,
             filters = persistentListOf(
                 DrawerItem.Filter(
                     title = "My Tasks",
