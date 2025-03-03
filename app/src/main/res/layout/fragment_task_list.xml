@@ -28,7 +28,6 @@
         android:theme="@style/ToolbarTheme"
         app:hideOnScroll="true"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:menu="@menu/menu_task_list_fragment_top"
         tools:ignore="UnusedAttribute" />
   </com.google.android.material.appbar.AppBarLayout>
 

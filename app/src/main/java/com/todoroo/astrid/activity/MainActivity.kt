@@ -11,10 +11,8 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.BackHandler
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
@@ -200,12 +198,6 @@ class MainActivity : AppCompatActivity() {
                                 windowInsets = WindowInsets(0, 0, 0, 0),
                             ) {
                                 val context = LocalContext.current
-                                val settingsRequest = rememberLauncherForActivityResult(
-                                    ActivityResultContracts.StartActivityForResult()
-                                ) {
-                                    // Activity.recreate caused window inset problems
-                                    restartActivity()
-                                }
                                 val scope = rememberCoroutineScope()
                                 val bottomSearchBar = atLeastR()
                                 TaskListDrawer(
@@ -307,14 +299,6 @@ class MainActivity : AppCompatActivity() {
                                                                         PurchaseActivity::class.java
                                                                     )
                                                                 )
-
-                                                        DrawerAction.SETTINGS ->
-                                                            settingsRequest.launch(
-                                                                Intent(
-                                                                    context,
-                                                                    MainPreferences::class.java
-                                                                )
-                                                            )
 
                                                         DrawerAction.HELP_AND_FEEDBACK ->
                                                             context.startActivity(
@@ -557,7 +541,7 @@ class MainActivity : AppCompatActivity() {
         actionMode = mode
     }
 
-    private fun restartActivity() {
+    fun restartActivity() {
         finish()
         startActivity(
             Intent(this, MainActivity::class.java),

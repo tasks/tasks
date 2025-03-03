@@ -29,7 +29,6 @@ import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.AttachMoney
 import androidx.compose.material.icons.outlined.PeopleOutline
 import androidx.compose.material.icons.outlined.PermIdentity
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.SyncProblem
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.BottomAppBarDefaults
@@ -66,7 +65,6 @@ import org.tasks.kmp.org.tasks.compose.rememberImeState
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.help_and_feedback
 import tasks.kmp.generated.resources.search
-import tasks.kmp.generated.resources.settings
 import tasks.kmp.generated.resources.subscribe
 import kotlin.math.roundToInt
 
@@ -327,13 +325,6 @@ fun RowScope.MenuSearchBar(
             Icon(
                 imageVector = Icons.AutoMirrored.Outlined.HelpOutline,
                 contentDescription = stringResource(Res.string.help_and_feedback),
-                tint = MaterialTheme.colorScheme.onSurface,
-            )
-        }
-        IconButton(onClick = { onDrawerAction(DrawerAction.SETTINGS) }) {
-            Icon(
-                imageVector = Icons.Outlined.Settings,
-                contentDescription = stringResource(Res.string.settings),
                 tint = MaterialTheme.colorScheme.onSurface,
             )
         }

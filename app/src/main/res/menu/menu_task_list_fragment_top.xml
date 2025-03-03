@@ -8,5 +8,10 @@
     android:icon="@drawable/ic_outline_search_24px"
     android:title="@string/TLA_menu_search"
     app:actionViewClass="androidx.appcompat.widget.SearchView"
-    app:showAsAction="ifRoom|collapseActionView"/>
+    app:showAsAction="never|collapseActionView"/>
+
+  <item
+    android:id="@+id/menu_settings"
+    android:title="@string/app_settings"
+    app:showAsAction="never" />
 </menu>

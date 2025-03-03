@@ -26,6 +26,7 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -201,6 +202,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
         finishActionMode()
     }
+    private val settingsLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        (activity as? MainActivity)?.restartActivity()
+    }
 
     private val sortRequest =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -356,8 +360,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 activity?.hideKeyboard()
                 onClickMenu()
             }
-            setupMenu(this)
         }
+        setupToolbarMenu()
+        setupBottomAppBarMenu()
         binding.banner.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
         binding.banner.setContent {
             val context = LocalContext.current
@@ -492,13 +497,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         taskAdapter.setDataSource(adapter)
     }
 
-    private fun setupMenu(appBar: Toolbar) {
-        val menu = appBar.menu
+    private fun setupToolbarMenu() {
+        val toolbar = binding.toolbar
+        toolbar.setOnMenuItemClickListener(this)
+        toolbar.overflowIcon = getDrawable(requireContext(), R.drawable.ic_outline_settings_24px)
+        val menu = toolbar.menu
         menu.clear()
-        if (filter is PlaceFilter) {
-            appBar.inflateMenu(R.menu.menu_location_actions)
-        }
-        appBar.inflateMenu(R.menu.menu_task_list_fragment_bottom)
+        toolbar.inflateMenu(R.menu.menu_task_list_fragment_top)
         when (filter) {
             is CaldavFilter -> R.menu.menu_caldav_list_fragment
             is CustomFilter -> R.menu.menu_custom_filter
@@ -506,8 +511,22 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             is PlaceFilter -> R.menu.menu_location_list_fragment
             else -> null
         }?.let {
-            appBar.inflateMenu(it)
+            toolbar.inflateMenu(it)
         }
+        search = binding.toolbar.menu.findItem(R.id.menu_search).apply {
+            setOnActionExpandListener(this@TaskListFragment)
+            isVisible = false
+        }
+    }
+
+    private fun setupBottomAppBarMenu() {
+        val appBar = binding.bottomAppBar
+        val menu = appBar.menu
+        menu.clear()
+        if (filter is PlaceFilter) {
+            appBar.inflateMenu(R.menu.menu_location_actions)
+        }
+        appBar.inflateMenu(R.menu.menu_task_list_fragment_bottom)
         val hidden = menu.findItem(R.id.menu_show_unstarted)
         val completed = menu.findItem(R.id.menu_show_completed)
         if (!taskAdapter.supportsHiddenTasks() || !filter.supportsHiddenTasks()) {
@@ -529,16 +548,16 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             menu.findItem(R.id.menu_expand_subtasks).isVisible = false
         }
         menu.findItem(R.id.menu_voice_add).isVisible = device.voiceInputAvailable() && filter.isWritable
-        search = binding.toolbar.menu.findItem(R.id.menu_search).apply {
-            setOnActionExpandListener(this@TaskListFragment)
-            isVisible = false
-        }
         menu.findItem(R.id.menu_clear_completed).isVisible = filter.isWritable
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         Timber.d("onMenuItemClick($item)")
         return when (item.itemId) {
+            R.id.menu_settings -> {
+                settingsLauncher.launch(Intent(context, MainPreferences::class.java))
+                true
+            }
             R.id.menu_search -> {
                 if (!search.isActionViewExpanded) {
                     search.isVisible = true
