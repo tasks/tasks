@@ -1,7 +1,9 @@
 package org.tasks.compose.drawer
 
+import androidx.compose.runtime.Stable
 import org.tasks.filters.NavigationDrawerSubheader
 
+@Stable
 sealed interface DrawerItem {
     data class Filter(
         val title: String,

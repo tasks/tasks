@@ -58,6 +58,24 @@ unstable class SortHelper {
   unstable val ORDER_LIST: Order
   <runtime stability> = Unstable
 }
+stable class Filter {
+  stable val title: String
+  stable val icon: String?
+  stable val color: Int
+  stable val count: Int
+  stable val shareCount: Int
+  stable val selected: Boolean
+  runtime val filter: Filter
+  <runtime stability> = Stable
+}
+stable class Header {
+  stable val title: String
+  stable val collapsed: Boolean
+  stable val hasError: Boolean
+  stable val canAdd: Boolean
+  stable val header: NavigationDrawerSubheader
+  <runtime stability> = Stable
+}
 stable class ViewState {
   stable val icons: ImmutableMap<String, ImmutableList<Icon>>
   stable val query: String
@@ -101,10 +119,6 @@ unstable class TaskListQueryNonRecursive {
 }
 unstable class TaskListQueryRecursive {
   unstable val RECURSIVE: Table
-  unstable val RECURSIVE_TASK: Field
-  unstable val FIELDS: Array<Field>
-  stable val JOINS: String
-  unstable val SUBTASK_QUERY: QueryTemplate
   <runtime stability> = Unstable
 }
 unstable class QueryUtils {
@@ -113,11 +127,23 @@ unstable class QueryUtils {
   unstable val ORDER: Pattern
   <runtime stability> = Unstable
 }
+stable class AlphanumComparator {
+  stable val getTitle: Function1<T, String?>
+  <runtime stability> = Stable
+}
 unstable class CaldavFilter {
   unstable val calendar: CaldavCalendar
+  unstable val account: CaldavAccount
   stable val principals: Int
   stable val count: Int
   <runtime stability> = Unstable
+}
+unstable class CustomFilter {
+  unstable val filter: Filter
+  <runtime stability> = Unstable
+}
+stable class DebugFilters {
+  <runtime stability> = Stable
 }
 stable class EmptyFilter {
   stable val sql: String?
@@ -132,9 +158,14 @@ stable class FilterImpl {
   stable val tint: Int
   <runtime stability> = Stable
 }
-unstable class GtasksFilter {
-  unstable val list: CaldavCalendar
-  stable val count: Int
+unstable class FilterProvider {
+  unstable val filterDao: FilterDao
+  unstable val tagDataDao: TagDataDao
+  unstable val caldavDao: CaldavDao
+  runtime val configuration: DrawerConfiguration
+  unstable val locationDao: LocationDao
+  unstable val taskDao: TaskDao
+  unstable val tasksPreferences: TasksPreferences
   <runtime stability> = Unstable
 }
 unstable class MyTasksFilter {
@@ -147,10 +178,19 @@ stable class NavigationDrawerSubheader {
   stable val error: Boolean
   stable val isCollapsed: Boolean
   stable val subheaderType: SubheaderType
-  stable val id: Long
+  stable val id: String
   stable val addIntentRc: Int
   stable val itemType: Type
   <runtime stability> = Stable
+}
+stable class NotificationsFilter {
+  stable val title: String
+  <runtime stability> = Stable
+}
+unstable class PlaceFilter {
+  unstable val place: Place
+  stable val count: Int
+  <runtime stability> = Unstable
 }
 stable class RecentlyModifiedFilter {
   stable val title: String
@@ -161,10 +201,54 @@ stable class SearchFilter {
   stable val query: String
   <runtime stability> = Stable
 }
+stable class SnoozedFilter {
+  stable val title: String
+  <runtime stability> = Stable
+}
+stable class SubtaskFilter {
+  stable val parent: Long
+  stable val title: String
+  stable val sql: String
+  <runtime stability> = Stable
+}
 unstable class TagFilter {
   unstable val tagData: TagData
   stable val count: Int
   stable var filterOverride: String?
+  <runtime stability> = Unstable
+}
+stable class TimerFilter {
+  stable val title: String
+  <runtime stability> = Stable
+}
+unstable class TodayFilter {
+  stable val title: String
+  stable var filterOverride: String?
+  <runtime stability> = Unstable
+}
+unstable class TasksPreferences {
+  unstable val dataStore: DataStore<Preferences>
+  <runtime stability> = Unstable
+}
+unstable class TaskEditViewState {
+  unstable val task: Task
+  stable val displayOrder: ImmutableList<Int>
+  stable val showBeastModeHint: Boolean
+  stable val showComments: Boolean
+  stable val showKeyboard: Boolean
+  stable val backButtonSavesTask: Boolean
+  stable val isReadOnly: Boolean
+  stable val linkify: Boolean
+  stable val alwaysDisplayFullDate: Boolean
+  stable val showEditScreenWithoutUnlock: Boolean
+  unstable val list: CaldavFilter
+  unstable val location: Location?
+  unstable val tags: ImmutableSet<TagData>
+  stable val calendar: String?
+  unstable val attachments: ImmutableSet<TaskAttachment>
+  unstable val alarms: ImmutableSet<Alarm>
+  unstable val newSubtasks: ImmutableList<Task>
+  stable val multilineTitle: Boolean
   <runtime stability> = Unstable
 }
 unstable class AdapterSection {
@@ -192,6 +276,7 @@ unstable class Results {
 }
 stable class Header {
   stable val value: Long
+  stable val collapsed: Boolean
   <runtime stability> = Stable
 }
 unstable class Task {
@@ -199,5 +284,41 @@ unstable class Task {
   <runtime stability> = Unstable
 }
 stable class UiItem {
+  <runtime stability> = Stable
+}
+unstable class ColorProvider {
+  stable val BLUE_500: Int
+  stable val RED_500: Int
+  stable val AMBER_500: Int
+  stable val GREY_500: Int
+  stable val GREY_900: Int
+  stable val WHITE: Int
+  stable val BLACK: Int
+  unstable val saturated: Map<Int, Int>
+  <runtime stability> = Unstable
+}
+stable class TasksIcons {
+  stable val LABEL: String
+  stable val FILTER_LIST: String
+  stable val CLOUD: String
+  stable val ALL_INBOX: String
+  stable val LABEL_OFF: String
+  stable val HISTORY: String
+  stable val TODAY: String
+  stable val LIST: String
+  stable val PLACE: String
+  stable val CLOUD_OFF: String
+  stable val CLEAR: String
+  stable val ADD: String
+  stable val EDIT: String
+  stable val DELETE: String
+  stable val NOTIFICATIONS: String
+  stable val PENDING_ACTIONS: String
+  stable val KEYBOARD_ARROW_UP: String
+  stable val KEYBOARD_ARROW_DOWN: String
+  stable val SNOOZE: String
+  stable val TIMER: String
+  stable val BLOCK: String
+  stable val EVENT: String
   <runtime stability> = Stable
 }

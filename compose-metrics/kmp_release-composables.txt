@@ -1,14 +1,30 @@
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MenuPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SearchBarPreviewPlaceholder()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SearchBarPreviewSearching()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun FilterPickerPreview()
+fun rememberImeState()
+restartable skippable scheme("[0, [0]]") fun TouchSlopMultiplier(
+  stable multiplier: Float = @static 3.0f
+  stable content: Function2<Composer, Int, Unit>
+)
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AnimatedBanner(
   stable visible: Boolean
   stable title: String
   stable body: String
-  stable dismissText: String
+  stable dismissText: String? = @static null
   stable onDismiss: Function0<Unit>
   stable action: String
   stable onAction: Function0<Unit>
 )
-restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable]]") fun AnimatedBanner(
-  stable visible: Boolean
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Banner(
+  stable title: String
+  stable body: String
+  stable dismissText: String? = @static null
+  stable onDismiss: Function0<Unit>
+  stable action: String
+  stable onAction: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable]]") fun Banner(
   stable content: Function2<Composer, Int, Unit>
   stable buttons: Function2<Composer, Int, Unit>
 )
@@ -19,6 +35,11 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun BannerTex
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Chevron(
   stable collapsed: Boolean
 )
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TasksIcon(
+  stable modifier: Modifier? = @static Companion
+  stable label: String?
+  stable tint: Color = @dynamic MaterialTheme.<get-colorScheme>($composer, MaterialTheme.$stable).onSurface
+)
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SearchBar(
   stable modifier: Modifier? = @static Companion
   stable text: String
@@ -27,15 +48,51 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SearchBar
   stable onCloseClicked: Function0<Unit>
   stable onSearchClicked: Function1<String, Unit>
 )
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun TaskListDrawer(
+  stable arrangement: Vertical
+  stable filters: ImmutableList<DrawerItem>
+  stable onClick: Function1<DrawerItem, Unit>
+  stable onAddClick: Function1<Header, Unit>
+  stable onErrorClick: Function0<Unit>
+  stable searchBar: @[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun FilterItem(
+  stable modifier: Modifier? = @static Companion
+  stable item: Filter
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun HeaderItem(
+  stable modifier: Modifier? = @static Companion
+  stable item: Header
+  stable canAdd: Boolean
+  stable toggleCollapsed: Function0<Unit>
+  stable onAddClick: Function0<Unit>
+  stable onErrorClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun MenuRow(
+  stable modifier: Modifier? = @static Companion
+  stable padding: PaddingValues? = @static PaddingValues(
+  horizontal   =   16  .  dp
+)
+  stable onClick: Function0<Unit>
+  stable content: @[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MenuSearchBar(
+  stable <this>: RowScope
+  stable begForMoney: Boolean
+  stable onDrawerAction: Function1<DrawerAction, Unit>
+  stable query: String
+  stable onQueryChange: Function1<String, Unit>
+)
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CheckableIconRow(
-  stable icon: ImageVector
+  stable icon: String?
   stable tint: Color
   stable text: String
   stable selected: Boolean
   stable onClick: Function0<Unit>
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun CheckableIconRow(
-  stable icon: ImageVector
+  stable icon: String?
   stable tint: Color
   stable selected: Boolean
   stable onClick: Function0<Unit>
@@ -54,24 +111,32 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun IconPicke
   stable onQueryChange: Function1<String, Unit>
   stable onSelected: Function1<Icon, Unit>
   stable toggleCollapsed: Function2<String, Boolean, Unit>
+  stable hasPro: Boolean
+  stable subscribe: Function0<Unit>
 )
-restartable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun SearchableFilterPicker(
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun SearchableFilterPicker(
   unstable filters: List<FilterListItem>
   stable query: String
   stable onQueryChange: Function1<String, Unit>
   selected: Filter?
   stable onClick: Function1<FilterListItem, Unit>
-  stable getIcon: Function3<Filter, Composer, Int, ImageVector>
+  stable getIcon: Function3<Filter, Composer, Int, String?>
   stable getColor: Function1<Filter, Int>
 )
-fun isDark(
-  stable <this>: ColorScheme
-): Boolean
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable]]") fun SettingRow(
+  stable left: Function2<Composer, Int, Unit>
+  stable center: Function2<Composer, Int, Unit>
+  stable right: Function2<Composer, Int, Unit>? = @static null
+  stable modifier: Modifier? = @static Companion
+)
+fun colorOn(
+  stable color: Color
+): Color
+fun colorOn(
+  stable color: Int
+): Color
 restartable skippable scheme("[0, [0]]") fun TasksTheme(
   stable theme: Int = @static 5
   stable primary: Int = @static -14575885
   stable content: Function2<Composer, Int, Unit>
 )
-restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SearchBarPreviewPlaceholder()
-restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SearchBarPreviewSearching()
-restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun FilterPickerPreview()
