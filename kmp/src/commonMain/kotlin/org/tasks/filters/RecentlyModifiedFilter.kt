@@ -16,7 +16,7 @@ import tasks.kmp.generated.resources.filter_recently_modified
 @CommonParcelize
 data class RecentlyModifiedFilter(
     override val title: String,
-) : Filter {
+) : Filter() {
     override val icon: String
         get() = TasksIcons.HISTORY
 

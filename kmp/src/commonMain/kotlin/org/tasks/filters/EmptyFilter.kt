@@ -6,6 +6,6 @@ import org.tasks.CommonParcelize
 class EmptyFilter(
     override val sql: String? = "WHERE 0",
     override val title: String? = null
-) : Filter {
+) : Filter() {
     override fun areItemsTheSame(other: FilterListItem): Boolean = false
 }

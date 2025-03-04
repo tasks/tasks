@@ -15,7 +15,7 @@ data class TagFilter(
     val tagData: TagData,
     override val count: Int = NO_COUNT,
     override var filterOverride: String? = null,
-) : AstridOrderingFilter {
+) : AstridOrderingFilter() {
     override val title: String?
         get() = tagData.name
     override val sql: String

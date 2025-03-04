@@ -65,8 +65,7 @@ stable class Filter {
   stable val count: Int
   stable val shareCount: Int
   stable val selected: Boolean
-  runtime val filter: Filter
-  <runtime stability> = Stable
+  stable val filter: Filter
 }
 stable class Header {
   stable val title: String
@@ -74,7 +73,8 @@ stable class Header {
   stable val hasError: Boolean
   stable val canAdd: Boolean
   stable val header: NavigationDrawerSubheader
-  <runtime stability> = Stable
+}
+stable class DrawerItem {
 }
 stable class ViewState {
   stable val icons: ImmutableMap<String, ImmutableList<Icon>>
@@ -131,16 +131,19 @@ stable class AlphanumComparator {
   stable val getTitle: Function1<T, String?>
   <runtime stability> = Stable
 }
-unstable class CaldavFilter {
+stable class AstridOrderingFilter {
+  <runtime stability> = Stable
+}
+stable class CaldavFilter {
   unstable val calendar: CaldavCalendar
   unstable val account: CaldavAccount
   stable val principals: Int
   stable val count: Int
-  <runtime stability> = Unstable
+  <runtime stability> = Stable
 }
-unstable class CustomFilter {
+stable class CustomFilter {
   unstable val filter: Filter
-  <runtime stability> = Unstable
+  <runtime stability> = Stable
 }
 stable class DebugFilters {
   <runtime stability> = Stable
@@ -149,6 +152,8 @@ stable class EmptyFilter {
   stable val sql: String?
   stable val title: String?
   <runtime stability> = Stable
+}
+stable class Filter {
 }
 stable class FilterImpl {
   stable val title: String?
@@ -168,10 +173,10 @@ unstable class FilterProvider {
   unstable val tasksPreferences: TasksPreferences
   <runtime stability> = Unstable
 }
-unstable class MyTasksFilter {
+stable class MyTasksFilter {
   stable val title: String
   stable var filterOverride: String?
-  <runtime stability> = Unstable
+  <runtime stability> = Stable
 }
 stable class NavigationDrawerSubheader {
   stable val title: String?
@@ -187,10 +192,10 @@ stable class NotificationsFilter {
   stable val title: String
   <runtime stability> = Stable
 }
-unstable class PlaceFilter {
+stable class PlaceFilter {
   unstable val place: Place
   stable val count: Int
-  <runtime stability> = Unstable
+  <runtime stability> = Stable
 }
 stable class RecentlyModifiedFilter {
   stable val title: String
@@ -211,20 +216,20 @@ stable class SubtaskFilter {
   stable val sql: String
   <runtime stability> = Stable
 }
-unstable class TagFilter {
+stable class TagFilter {
   unstable val tagData: TagData
   stable val count: Int
   stable var filterOverride: String?
-  <runtime stability> = Unstable
+  <runtime stability> = Stable
 }
 stable class TimerFilter {
   stable val title: String
   <runtime stability> = Stable
 }
-unstable class TodayFilter {
+stable class TodayFilter {
   stable val title: String
   stable var filterOverride: String?
-  <runtime stability> = Unstable
+  <runtime stability> = Stable
 }
 unstable class TasksPreferences {
   unstable val dataStore: DataStore<Preferences>
@@ -241,7 +246,7 @@ unstable class TaskEditViewState {
   stable val linkify: Boolean
   stable val alwaysDisplayFullDate: Boolean
   stable val showEditScreenWithoutUnlock: Boolean
-  unstable val list: CaldavFilter
+  stable val list: CaldavFilter
   unstable val location: Location?
   unstable val tags: ImmutableSet<TagData>
   stable val calendar: String?
@@ -273,6 +278,9 @@ stable class Loading {
 unstable class Results {
   unstable val tasks: SectionedDataSource
   <runtime stability> = Unstable
+}
+stable class TasksResults {
+  <runtime stability> = Stable
 }
 stable class Header {
   stable val value: Long

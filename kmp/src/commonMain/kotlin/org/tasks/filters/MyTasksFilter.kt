@@ -14,7 +14,7 @@ import tasks.kmp.generated.resources.filter_my_tasks
 data class MyTasksFilter(
     override val title: String,
     override var filterOverride: String? = null,
-) : AstridOrderingFilter {
+) : AstridOrderingFilter() {
     override val icon: String
         get() = TasksIcons.ALL_INBOX
     override val sql: String

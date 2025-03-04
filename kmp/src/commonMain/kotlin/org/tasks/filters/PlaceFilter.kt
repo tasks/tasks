@@ -16,7 +16,7 @@ import org.tasks.themes.TasksIcons
 data class PlaceFilter(
     val place: Place,
     override val count: Int = NO_COUNT,
-) : Filter {
+) : Filter() {
     override val valuesForNewTasks: String
         get() = mapToSerializedString(mapOf(Place.KEY to place.uid!!))
     override val sql: String

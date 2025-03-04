@@ -19,7 +19,7 @@ data class CaldavFilter(
     val account: CaldavAccount,
     val principals: Int = 0,
     override val count: Int = NO_COUNT,
-) : Filter {
+) : Filter() {
 
     override val title: String?
         get() = calendar.name

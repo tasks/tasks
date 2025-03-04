@@ -1,33 +1,35 @@
 package org.tasks.filters
 
+import androidx.compose.runtime.Stable
 import org.tasks.CommonParcelable
 import org.tasks.data.NO_COUNT
 import org.tasks.data.NO_ORDER
 
-interface Filter : FilterListItem, CommonParcelable {
-    val valuesForNewTasks: String?
+@Stable
+abstract class Filter : FilterListItem, CommonParcelable {
+    open val valuesForNewTasks: String?
         get() = null
-    val sql: String?
-    val icon: String?
+    abstract val sql: String?
+    open val icon: String?
         get() = null
-    val title: String?
-    val tint: Int
+    abstract val title: String?
+    open val tint: Int
         get() = 0
     @Deprecated("Remove this")
-    val count: Int
+    open val count: Int
         get() = NO_COUNT
-    val order: Int
+    open val order: Int
         get() = NO_ORDER
     override val itemType: FilterListItem.Type
         get() = FilterListItem.Type.ITEM
-    val isReadOnly: Boolean
+    open val isReadOnly: Boolean
         get() = false
     val isWritable: Boolean
         get() = !isReadOnly
 
-    fun supportsManualSort(): Boolean = false
-    fun supportsHiddenTasks(): Boolean = true
-    fun supportsSubtasks(): Boolean = true
-    fun supportsSorting(): Boolean = true
-    fun disableHeaders(): Boolean = !supportsSorting()
+    open fun supportsManualSort(): Boolean = false
+    open fun supportsHiddenTasks(): Boolean = true
+    open fun supportsSubtasks(): Boolean = true
+    open fun supportsSorting(): Boolean = true
+    open fun disableHeaders(): Boolean = !supportsSorting()
 }

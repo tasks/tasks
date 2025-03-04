@@ -124,7 +124,7 @@ unstable class MainActivity {
 }
 unstable class State {
   stable val begForMoney: Boolean
-  unstable val filter: Filter
+  stable val filter: Filter
   unstable val task: Task?
   stable val drawerItems: ImmutableList<DrawerItem>
   stable val searchItems: ImmutableList<DrawerItem>
@@ -197,7 +197,7 @@ unstable class TaskListFragment {
   unstable val mainViewModel$delegate: Lazy<MainActivityViewModel>
   unstable var taskAdapter: TaskAdapter
   unstable var recyclerAdapter: DragAndDropRecyclerAdapter?
-  unstable var filter: Filter
+  stable var filter: Filter
   unstable var search: MenuItem
   unstable var mode: ActionMode?
   unstable var themeColor: ThemeColor
@@ -211,7 +211,7 @@ unstable class TaskListFragment {
 }
 unstable class AstridTaskAdapter {
   unstable val list: TaskListMetadata
-  unstable val filter: AstridOrderingFilter
+  stable val filter: AstridOrderingFilter
   unstable val updater: SubtasksFilterUpdater
   unstable val taskDao: TaskDao
   unstable val localBroadcastManager: LocalBroadcastManager
@@ -234,7 +234,7 @@ unstable class FilterViewHolder {
   unstable val shareIndicator: ImageView
   unstable val icon: MutableStateFlow<String?>
   unstable val color: MutableStateFlow<Int>
-  unstable var filter: Filter
+  stable var filter: Filter
   <runtime stability> = Unstable
 }
 stable class GoogleTaskManualSortAdapter {
@@ -677,7 +677,7 @@ unstable class FilterSettingsActivity {
   <runtime stability> = Unstable
 }
 unstable class ViewState {
-  runtime val filter: CustomFilter?
+  stable val filter: CustomFilter?
   stable val fabExtended: Boolean
   unstable val criteria: ImmutableList<CriterionInstance>
   <runtime stability> = Unstable
@@ -2175,7 +2175,7 @@ unstable class TaskListPreferences {
 }
 unstable class TaskerListNotification {
   unstable var defaultFilterProvider: DefaultFilterProvider
-  unstable var filter: Filter
+  stable var filter: Filter
   stable var cancelled: Boolean
   unstable val listPickerLauncher: ActivityResultLauncher<Intent>
   <runtime stability> = Unstable
@@ -2774,6 +2774,9 @@ stable class CalendarEventCreated {
   stable val uri: String
   <runtime stability> = Stable
 }
+stable class TaskListEvent {
+  <runtime stability> = Stable
+}
 stable class NotificationsDisabled {
   <runtime stability> = Stable
 }
@@ -2792,14 +2795,17 @@ stable class WarnMicrosoft {
 stable class WarnGoogleTasks {
   <runtime stability> = Stable
 }
+stable class Banner {
+  <runtime stability> = Stable
+}
 unstable class State {
-  unstable val filter: Filter
+  stable val filter: Filter
   stable val now: Long
   stable val searchQuery: String?
-  unstable val tasks: TasksResults
+  runtime val tasks: TasksResults
   stable val syncOngoing: Boolean
   unstable val collapsed: Set<Long>
-  runtime val banner: Banner?
+  stable val banner: Banner?
   <runtime stability> = Unstable
 }
 unstable class TaskListViewModel {
@@ -2842,7 +2848,7 @@ unstable class ShortcutConfigActivity {
   unstable var shortcutName: TextInputEditText
   unstable var colorIcon: TextView
   unstable var clear: View
-  unstable var selectedFilter: Filter?
+  stable var selectedFilter: Filter?
   stable var selectedTheme: Int
   unstable val listPickerResult: ActivityResultLauncher<Intent>
   <runtime stability> = Unstable
@@ -2867,7 +2873,7 @@ unstable class TasksWidgetAdapter {
 unstable class TasksWidgetViewFactory {
   unstable val subtasksHelper: SubtasksHelper
   unstable val widgetPreferences: WidgetPreferences
-  unstable val filter: Filter
+  stable val filter: Filter
   unstable val context: Context
   stable val widgetId: Int
   unstable val taskDao: TaskDao

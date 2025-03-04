@@ -15,7 +15,7 @@ import tasks.kmp.generated.resources.filter_today
 data class TodayFilter(
     override val title: String,
     override var filterOverride: String? = null,
-) : AstridOrderingFilter {
+) : AstridOrderingFilter() {
     override val sql: String
         get() = QueryTemplate()
             .where(

@@ -4,7 +4,8 @@ import androidx.compose.runtime.Stable
 import org.tasks.filters.NavigationDrawerSubheader
 
 @Stable
-sealed interface DrawerItem {
+sealed class DrawerItem {
+    @Stable
     data class Filter(
         val title: String,
         val icon: String?,
@@ -13,21 +14,24 @@ sealed interface DrawerItem {
         val shareCount: Int = 0,
         val selected: Boolean = false,
         val filter: org.tasks.filters.Filter,
-    ) : DrawerItem {
+    ) : DrawerItem() {
         override fun key(): String {
             return "filter_${hashCode()}"
         }
     }
+
+    @Stable
     data class Header(
         val title: String,
         val collapsed: Boolean,
         val hasError: Boolean,
         val canAdd: Boolean,
         val header: NavigationDrawerSubheader,
-    ) : DrawerItem {
+    ) : DrawerItem() {
         override fun key(): String {
             return "header_${header.subheaderType}_${header.id}"
         }
     }
-    fun key(): String
+
+    abstract fun key(): String
 }

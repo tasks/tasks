@@ -47,13 +47,13 @@ import org.tasks.tasklist.TasksResults
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
-sealed interface Banner {
-    data object NotificationsDisabled : Banner
-    data object AlarmsDisabled : Banner
-    data object QuietHoursEnabled : Banner
-    data object BegForMoney : Banner
-    data object WarnMicrosoft : Banner
-    data object WarnGoogleTasks : Banner
+sealed class Banner {
+    data object NotificationsDisabled : Banner()
+    data object AlarmsDisabled : Banner()
+    data object QuietHoursEnabled : Banner()
+    data object BegForMoney : Banner()
+    data object WarnMicrosoft : Banner()
+    data object WarnGoogleTasks : Banner()
 }
 
 @HiltViewModel

@@ -118,7 +118,7 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compo
   unstable filters: List<FilterListItem>
   stable query: String
   stable onQueryChange: Function1<String, Unit>
-  selected: Filter?
+  stable selected: Filter?
   stable onClick: Function1<FilterListItem, Unit>
   stable getIcon: Function3<Filter, Composer, Int, String?>
   stable getColor: Function1<Filter, Int>

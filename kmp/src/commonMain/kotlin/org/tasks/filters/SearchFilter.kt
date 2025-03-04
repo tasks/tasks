@@ -17,7 +17,7 @@ import org.tasks.data.sql.QueryTemplate
 data class SearchFilter(
     override val title: String,
     val query: String,
-) : Filter {
+) : Filter() {
     override val sql: String
         get() {
             val matcher = "%$query%"

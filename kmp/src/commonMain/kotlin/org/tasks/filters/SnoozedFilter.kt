@@ -16,7 +16,7 @@ import tasks.kmp.generated.resources.filter_snoozed
 @CommonParcelize
 data class SnoozedFilter(
     override val title: String,
-) : Filter {
+) : Filter() {
     override val icon: String
         get() = TasksIcons.SNOOZE
 

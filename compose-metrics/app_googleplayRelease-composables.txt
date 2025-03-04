@@ -363,7 +363,7 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compo
   stable content: Function3<@[ParameterName(name = 'isDragging')] Boolean, Composer, Int, Unit>
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun FilterChip(
-  unstable filter: Filter
+  stable filter: Filter
   stable defaultIcon: String
   stable showText: Boolean
   stable showIcon: Boolean
@@ -740,7 +740,7 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun InfoRow(
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun InfoPreview()
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ListRow(
-  unstable list: Filter?
+  stable list: Filter?
   stable colorProvider: Function1<Int, Int>
   stable onClick: Function0<Unit>
 )
@@ -832,10 +832,10 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NoStartDa
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun FutureStartDate()
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PastStartDate()
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SubtaskRow(
-  originalFilter: CaldavFilter
-  filter: CaldavFilter
+  stable originalFilter: CaldavFilter
+  stable filter: CaldavFilter
   stable hasParent: Boolean
-  unstable existingSubtasks: TasksResults
+  existingSubtasks: TasksResults
   unstable newSubtasks: List<Task>
   stable openSubtask: Function1<Task, Unit>
   stable completeExistingSubtask: Function2<Task, Boolean, Unit>

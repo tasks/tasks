@@ -10,7 +10,7 @@ import org.tasks.data.sql.QueryTemplate
 @CommonParcelize
 data class SubtaskFilter(
     private val parent: Long,
-) : Filter {
+) : Filter() {
     @CommonIgnoredOnParcel
     override val title: String = "subtasks"
 

@@ -6,7 +6,7 @@ import org.tasks.themes.TasksIcons
 @CommonParcelize
 data class CustomFilter(
     val filter: org.tasks.data.entity.Filter,
-) : Filter {
+) : Filter() {
     override val title: String?
         get() = filter.title
     override val sql: String

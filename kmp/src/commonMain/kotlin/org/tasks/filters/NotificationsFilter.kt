@@ -13,7 +13,7 @@ import tasks.kmp.generated.resources.filter_notifications
 @CommonParcelize
 data class NotificationsFilter(
     override val title: String,
-) : Filter {
+) : Filter() {
     override val icon: String
         get() = TasksIcons.NOTIFICATIONS
 

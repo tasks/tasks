@@ -10,7 +10,7 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.filter_timer
 
 @CommonParcelize
-data class TimerFilter(override val title: String) : Filter {
+data class TimerFilter(override val title: String) : Filter() {
     override val icon
         get() = TasksIcons.TIMER
 
