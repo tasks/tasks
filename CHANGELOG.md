@@ -1,4 +1,4 @@
-### 14.5 (2025-03-01)
+### 14.5 (2025-03-04)
 
 * Material 3 - work in progress
 * Side navigation drawer
@@ -9,8 +9,11 @@
     upcoming desktop app. The features may return again in a future release.
 * Save backup files and attachments to Nextcloud [#1289](https://github.com/tasks/tasks/issues/1289)
 * Dismiss notification dialog when pressing cancel [#2116](https://github.com/tasks/tasks/issues/2116)
+* Performance improvements
+* Fix Microsoft To Do sync failure
 * Fix missing list chips for subtasks in custom filters
 * Fix for database timeouts
+* Fix infinite subtask recursion
 * Update translations
   * Belarusian - @fobo66
   * Estonian - Priit Jõerüüt

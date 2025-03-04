@@ -5,6 +5,9 @@
 * Remove options for top app bar and disabling collapsing app bar
 * Save backup files and attachments to Nextcloud
 * Dismiss notification dialog when pressing cancel
+* Performance improvements
+* Fix Microsoft To Do sync failure
 * Fix missing list chips for subtasks in custom filters
 * Fix for database timeouts
+* Fix infinite subtask recursion
 * Update translations
