@@ -730,4 +730,5 @@
     <string name="upgrade_open_source_description">Sinu tellimus aitab toetada arendustöö jätkamist</string>
     <string name="background_location">Asukoht tagaplaanil</string>
     <string name="alarm_after_due">%s peale lõpptähtaega</string>
+    <string name="app_settings">Rakenduse seadistused</string>
 </resources>
