@@ -730,4 +730,5 @@
     <string name="sync_warning_google_tasks_title">Over synchronisatie met Google Tasks</string>
     <string name="button_learn_more">Meer informatie</string>
     <string name="sync_warning_microsoft_title">Over synchronisatie met Microsoft To Do</string>
+    <string name="app_settings">App-instellingen</string>
 </resources>
