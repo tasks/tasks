@@ -583,7 +583,7 @@
     <string name="tasks_org_description">Sinkronigi viajn taskojn kun Tasks.org</string>
     <string name="caldav_selection_description">Sinkronigo bazite el malfermaj interretaj normoj</string>
     <string name="invalid_backup_file">Nevalida savkopio</string>
-    <string name="davx5_selection_description">Sinkronigi viajn taskojn kun la DAVx⁵ programeto</string>
+    <string name="davx5_selection_description">Sinkronigi viajn taskojn kun la DAVx⁵ aplikaĵo</string>
     <string name="navigation_drawer">Naviga tirkesto</string>
     <string name="filter_any_due_date">Ajna limdato</string>
     <string name="filter_high_priority">Grava</string>
@@ -594,11 +594,11 @@
     <string name="last_backup">Lasta savkopio: %s</string>
     <string name="TPl_notification">Tempumiloj Aktivaj por %s!</string>
     <string name="alarm_before_due">%s antaŭ limdato</string>
-    <string name="no_app_found">Neniu programeto povis pritrakti ĉi tiun peton</string>
+    <string name="no_app_found">Neniu aplikaĵo povis pritrakti ĉi tiun peton</string>
     <string name="launcher_icon">Lanĉila piktogramo</string>
     <string name="caldav_home_set_not_found">Ne trovis hejman aron</string>
     <string name="refresh_purchases">Reŝargi aĉetojn</string>
-    <string name="background_location_permission_required">Tasks kolektas lokan datumon por ebligi lok-bazitajn memorigilojn, eĉ kiam la programeto estas fermita aŭ ne uzata.</string>
+    <string name="background_location_permission_required">Tasks kolektas lokan datumon por ebligi lok-bazitajn memorigilojn, eĉ kiam la aplikaĵo estas fermita aŭ ne uzata.</string>
     <string name="dismiss">Fermi</string>
     <string name="completed">Finite</string>
     <string name="completed_tasks_at_bottom">Movi finitajn taskojn al malsupro</string>
@@ -637,10 +637,10 @@
     <string name="migrating_tasks">Transmetas taskojn</string>
     <string name="app_password_last_access">Laste uzata: %s</string>
     <string name="tasks_org_account_required">Bezonas konton de Tasks.org</string>
-    <string name="app_password">Pasvorto de programeto</string>
-    <string name="app_passwords">Pasvortoj de programeto</string>
+    <string name="app_password">Pasvorto de aplikaĵo</string>
+    <string name="app_passwords">Pasvortoj de aplikaĵoj</string>
     <string name="app_passwords_more_info">Sinkronigi viajn taskojn kaj kalendarojn kun labortablaj kaj poŝtelefonaj programoj de ekstera liveranto. Tuŝetu ĉi tien por pli da informo</string>
-    <string name="app_password_delete_confirmation">Ajna programeto uzante ĉi tiun pasvorton elsalutiĝos</string>
+    <string name="app_password_delete_confirmation">Ajna aplikaĵo, uzante ĉi tiun pasvorton, elsalutiĝos</string>
     <string name="badges">Signoj</string>
     <string name="sort_completion_group">Finita: %s</string>
     <string name="wearable_notifications_summary">Vidigi sciigojn per via portebla aparato</string>
@@ -676,7 +676,7 @@
     <string name="date_picker_multiple">Pluraj</string>
     <string name="your_subscription_expired">Via abono finiĝis. Abonu tuj por reaktivigi servon.</string>
     <string name="upgrade_tasks_org_account_description">Sinkronigi kun Tasks.org kaj kunlabori kun aliaj uzantoj</string>
-    <string name="app_password_save">Uzu ĉi tiujn identigilojn por agordi programeton de ekstera liveranto. Ili permesas tutan atingorajton al via Tasks.org konto. Ne skribi ilin aŭ konigi ilin al iu ajn!</string>
+    <string name="app_password_save">Uzu ĉi tiujn identigilojn por agordi aplikaĵon de ekstera liveranto. Ili permesas tutan atingorajton al via Tasks.org konto. Ne skribi ilin aŭ konigi ilin al iu ajn!</string>
     <string name="picker_mode_date">Datelektila reĝimo</string>
     <string name="picker_mode_time">Tempelektila reĝimo</string>
     <string name="upgrade_more_customization_description">Malŝlosi ĉiujn etosojn, kolorojn, kaj piktogramojn</string>
@@ -730,4 +730,5 @@
     <string name="sync_warning_microsoft">Iuj detaloj de tasko ne sinkronigos per Microsoft To Do.</string>
     <string name="button_learn_more">Lerni Plu</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do ne subtenas plurnivelajn subtaskojn</string>
+    <string name="app_settings">Agordoj de Aplikaĵo</string>
 </resources>
