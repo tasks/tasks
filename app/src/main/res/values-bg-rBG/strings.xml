@@ -730,4 +730,5 @@
     <string name="sync_warning_microsoft_title">Относно синхронизацията с Microsoft To Do</string>
     <string name="sync_warning_microsoft">Не всички подробности от задачата се синхронизират с Microsoft To Do.</string>
     <string name="subtasks_multilevel_microsoft">Вложени задачи не се поддържат от Microsoft To Do</string>
+    <string name="app_settings">Настройки на приложението</string>
 </resources>
