@@ -719,4 +719,5 @@
     <string name="sync_warning_google_tasks">不是所有任务详情都和 Google Tasks 同步</string>
     <string name="button_learn_more">了解更多</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do 不支持多层级子任务</string>
+    <string name="app_settings">应用设置</string>
 </resources>
