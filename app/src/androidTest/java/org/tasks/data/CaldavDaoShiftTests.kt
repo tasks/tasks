@@ -3,7 +3,6 @@ package org.tasks.data
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -13,14 +12,12 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavTask
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskContainerMaker
 import org.tasks.makers.TaskContainerMaker.CREATED
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class CaldavDaoShiftTests : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao

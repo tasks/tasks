@@ -2,7 +2,6 @@ package org.tasks.caldav
 
 import org.tasks.data.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
@@ -11,10 +10,8 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.dao.PrincipalDao
-import org.tasks.injection.ProductionModule
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class SharingOwncloudTest : CaldavTest() {
 

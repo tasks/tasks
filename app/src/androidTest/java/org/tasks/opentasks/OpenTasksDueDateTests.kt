@@ -3,12 +3,10 @@ package org.tasks.opentasks
 import com.natpryce.makeiteasy.MakeItEasy.with
 import org.tasks.data.entity.Task
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.TestUtilities.withTZ
-import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TaskMaker
@@ -16,7 +14,6 @@ import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
 import java.util.*
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class OpenTasksDueDateTests : OpenTasksTest() {
 

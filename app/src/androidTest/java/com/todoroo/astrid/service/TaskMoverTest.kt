@@ -3,7 +3,6 @@ package com.todoroo.astrid.service
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -17,7 +16,6 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.filters.CaldavFilter
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
 import org.tasks.makers.CaldavTaskMaker.REMOTE_PARENT
@@ -28,7 +26,6 @@ import org.tasks.makers.TaskMaker.PARENT
 import org.tasks.makers.TaskMaker.newTask
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class TaskMoverTest : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao

@@ -1,7 +1,6 @@
 package com.todoroo.astrid.alarms
 
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -12,13 +11,11 @@ import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Notification
 import org.tasks.data.entity.Task
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class AlarmJobServiceTest : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao

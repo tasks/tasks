@@ -2,7 +2,6 @@ package org.tasks.ui.editviewmodel
 
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -17,14 +16,12 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
 import org.tasks.filters.MyTasksFilter
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.preferences.PermissivePermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.TaskListViewModel
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class TaskListViewModelTest : InjectingTestCase() {
     private lateinit var viewModel: TaskListViewModel

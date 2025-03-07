@@ -5,7 +5,6 @@ import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskMover
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -22,7 +21,6 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.Task
 import org.tasks.filters.CaldavFilter
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.TASK
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
@@ -31,7 +29,6 @@ import org.tasks.makers.TaskMaker.newTask
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao

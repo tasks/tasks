@@ -2,7 +2,6 @@ package org.tasks.opentasks
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -23,7 +22,6 @@ import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
-import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
@@ -36,7 +34,6 @@ import org.tasks.time.DateTime
 import java.util.TimeZone
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class OpenTasksPropertiesTests : OpenTasksTest() {
 

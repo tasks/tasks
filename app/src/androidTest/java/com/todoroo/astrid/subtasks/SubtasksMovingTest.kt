@@ -2,14 +2,11 @@ package com.todoroo.astrid.subtasks
 
 import org.tasks.data.entity.Task
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.tasks.data.entity.TaskListMetadata
-import org.tasks.injection.ProductionModule
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class SubtasksMovingTest : SubtasksTestCase() {
     private lateinit var A: Task

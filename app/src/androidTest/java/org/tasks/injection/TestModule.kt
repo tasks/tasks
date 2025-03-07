@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
 import org.mockito.Mockito.mock
 import org.tasks.TestUtilities
 import org.tasks.data.db.Database
@@ -19,7 +19,10 @@ import org.tasks.preferences.Preferences
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [ProductionModule::class]
+)
 class TestModule {
     @Provides
     @Singleton

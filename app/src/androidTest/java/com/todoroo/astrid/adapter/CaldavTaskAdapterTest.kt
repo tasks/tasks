@@ -5,7 +5,6 @@ import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskMover
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before
@@ -16,12 +15,10 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.entity.CaldavTask
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskContainerMaker.PARENT
 import org.tasks.makers.TaskContainerMaker.newTaskContainer
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class CaldavTaskAdapterTest : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao

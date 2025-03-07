@@ -5,7 +5,6 @@ import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskMover
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -18,13 +17,11 @@ import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.entity.Task
 import org.tasks.filters.MyTasksFilter
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker.PARENT
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class OfflineSubtaskTest : InjectingTestCase() {
     @Inject lateinit var googleTaskDao: GoogleTaskDao

@@ -8,7 +8,6 @@ import org.tasks.data.entity.Task.Companion.DUE_DATE
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL
 import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -16,12 +15,10 @@ import org.tasks.R
 import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.data.createDueDate
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class TaskCreatorTest : InjectingTestCase() {
     @Inject lateinit var preferences: Preferences

@@ -1,21 +1,18 @@
 package org.tasks.repeats
 
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.Freeze
 import org.tasks.TestUtilities.withTZ
 import org.tasks.analytics.Firebase
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.time.DateTime
 import java.text.ParseException
 import java.util.Locale
 import java.util.TimeZone
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class RepeatRuleToStringTest : InjectingTestCase() {
     @Inject lateinit var firebase: Firebase

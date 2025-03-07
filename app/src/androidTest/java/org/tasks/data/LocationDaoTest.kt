@@ -3,7 +3,6 @@ package org.tasks.data
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -21,7 +20,6 @@ import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
 import org.tasks.makers.TaskMaker.DELETION_TIME
 import org.tasks.makers.TaskMaker.DUE_TIME
@@ -31,7 +29,6 @@ import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class LocationDaoTest : InjectingTestCase() {
     @Inject lateinit var locationDao: LocationDao

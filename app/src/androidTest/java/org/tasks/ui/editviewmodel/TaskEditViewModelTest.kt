@@ -1,16 +1,13 @@
 package org.tasks.ui.editviewmodel
 
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.data.entity.Task
-import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker.newTask
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class TaskEditViewModelTest : BaseTaskEditViewModelTest() {
     @Test

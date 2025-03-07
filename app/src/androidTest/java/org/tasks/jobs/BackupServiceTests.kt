@@ -10,7 +10,6 @@ import androidx.test.InstrumentationRegistry
 import com.todoroo.astrid.dao.TaskDao
 import org.tasks.data.entity.Task
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -22,13 +21,11 @@ import org.tasks.backup.BackupConstants.BACKUP_CLEANUP_MATCHER
 import org.tasks.backup.TasksJsonExporter
 import org.tasks.backup.TasksJsonExporter.ExportType
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.preferences.Preferences
 import java.io.File
 import java.io.IOException
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class BackupServiceTests : InjectingTestCase() {
     @Inject lateinit var jsonExporter: TasksJsonExporter

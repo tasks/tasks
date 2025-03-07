@@ -3,7 +3,6 @@ package org.tasks.ui.editviewmodel
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.service.TaskCreator.Companion.setDefaultReminders
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -17,14 +16,12 @@ import org.tasks.data.entity.Alarm.Companion.whenDue
 import org.tasks.data.entity.Alarm.Companion.whenOverdue
 import org.tasks.data.entity.Alarm.Companion.whenStarted
 import org.tasks.data.entity.Task
-import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker.DUE_TIME
 import org.tasks.makers.TaskMaker.START_DATE
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class ReminderTests : BaseTaskEditViewModelTest() {
     @Test

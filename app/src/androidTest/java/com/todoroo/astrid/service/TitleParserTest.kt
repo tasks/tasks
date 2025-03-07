@@ -8,7 +8,6 @@ package com.todoroo.astrid.service
 import org.tasks.data.entity.Task
 import com.todoroo.astrid.utility.TitleParser
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import net.fortuna.ical4j.model.Recur.Frequency.*
 import org.junit.Assert.*
@@ -19,13 +18,11 @@ import org.tasks.R
 import org.tasks.data.dao.TagDataDao
 import org.tasks.date.DateTimeUtils
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.preferences.Preferences
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import java.util.*
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class TitleParserTest : InjectingTestCase() {
     @Inject lateinit var tagDataDao: TagDataDao

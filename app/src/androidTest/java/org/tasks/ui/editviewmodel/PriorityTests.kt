@@ -2,14 +2,11 @@ package org.tasks.ui.editviewmodel
 
 import com.natpryce.makeiteasy.MakeItEasy
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert
 import org.junit.Test
 import org.tasks.data.entity.Task
-import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class PriorityTests : BaseTaskEditViewModelTest() {
     @Test

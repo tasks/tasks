@@ -4,7 +4,6 @@ package com.todoroo.astrid.service
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -16,7 +15,6 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.Task
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
 import org.tasks.makers.CaldavTaskMaker.TASK
@@ -29,7 +27,6 @@ import org.tasks.opentasks.TestOpenTaskDao
 import org.tasks.time.DateTime
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class Upgrade_11_3_Test : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao

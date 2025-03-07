@@ -1,7 +1,6 @@
 package org.tasks.billing
 
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -9,11 +8,9 @@ import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.dao.CaldavDao
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
-@UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class InventoryTest : InjectingTestCase() {
 
