@@ -32,4 +32,20 @@
     <string name="TLA_menu_search">ಹುಡುಕು</string>
     <string name="action_call">ಕರೆ</string>
     <string name="SSD_sort_my_order">ನನ್ನ ಅನುಕ್ರಮ</string>
+    <string name="SSD_sort_modified">ಕೊನೆಯದಾಗಿ ಮಾರ್ಪಡಿಸಿದ್ದರಿಂದ</string>
+    <string name="SSD_sort_auto">ಸ್ಮಾರ್ಟ್ ವಿಂಗಡಣೆ</string>
+    <string name="SSD_sort_importance">ಆದ್ಯತೆಯಿಂದ</string>
+    <string name="SSD_sort_due">ಕೊನೆಯ ದಿನಾಂಕದಿಂದ</string>
+    <string name="TLA_menu_sort">ವಿಂಗಡಿಸು</string>
+    <string name="app_settings">ಆಪ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+    <string name="sort_created">ಸೃಷ್ಟಿ ಸಮಯದಿಂದ</string>
+    <string name="customize_drawer">ಡ್ರಾಯರ್ ಅನ್ನು ಕಸ್ಟಮೈಸ್ ಮಾಡಿ</string>
+    <string name="customize_drawer_summary">ಮೆನು ಐಟಂಗಳನ್ನು ಮರುಜೋಡಿಸಲು ಎಳೆದು ಬಿಡಿ</string>
+    <string name="SSD_sort_alpha">ಶೀರ್ಷಿಕೆಯಿಂದ</string>
+    <string name="astrid_sort_order">ಆಸ್ಟ್ರಿಡ್ ಹಸ್ತಚಾಲಿತ ವಿಂಗಡಣೆ</string>
+    <string name="astrid_sort_order_summary">ಆಸ್ಟ್ರಿಡ್‌ನ ಹಸ್ತಚಾಲಿತ ವಿಂಗಡಣೆ ಮೋಡ್ ಅನ್ನು \'ನನ್ನ ಕಾರ್ಯಗಳು\', \'ಇಂದು\' ಮತ್ತು ಟ್ಯಾಗ್‌ಗಳಿಗೆ ಸಕ್ರಿಯಗೊಳಿಸಿ. ಈ ವಿಂಗಡಣೆ ಮೋಡ್ ಭವಿಷ್ಯದ ನವೀಕರಣದಲ್ಲಿ \'ನನ್ನ ಕ್ರಮ\'ದಿಂದ ಬದಲಾಯಿಸಲಾಗುತ್ತದೆ</string>
+    <string name="FLA_new_filter">ಹೊಸ ಫಿಲ್ಟರ್ ರಚಿಸಿ</string>
+    <string name="sort_list">ಪಟ್ಟಿಯಿಂದ</string>
+    <string name="FLA_search_filter">\'%s\' ಗೆ ಹೊಂದಿಕೆ</string>
+    <string name="sort_completed">ಪೂರ್ಣಗೊಂಡ ಸಮಯದಿಂದ</string>
 </resources>
