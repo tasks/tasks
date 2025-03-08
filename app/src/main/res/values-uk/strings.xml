@@ -760,4 +760,5 @@
     <string name="add_shortcut_to_home_screen">Додати ярлик на домашній екран</string>
     <string name="add_widget_to_home_screen">Додати віджет на домашній екран</string>
     <string name="cost_money">Вартість: $</string>
+    <string name="app_settings">Налаштування застосунку</string>
 </resources>
