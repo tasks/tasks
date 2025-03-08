@@ -1,3 +1,16 @@
+### 14.5.1 (2025-03-07)
+
+* Fix performance issue when opening search
+* Update translation
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Dutch - @fvbommel
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - Colorful Rhino
+  * Italian - @ppasserini
+  * Kannada - Abilash S
+  * Persian - @mamad-zahiri
+
 ### 14.5 (2025-03-04)
 
 * Material 3 - work in progress

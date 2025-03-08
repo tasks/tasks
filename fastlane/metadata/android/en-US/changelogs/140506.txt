@@ -1,0 +1,2 @@
+* Fix performance issue when opening search
+* Update translation
