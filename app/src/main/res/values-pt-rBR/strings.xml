@@ -6,7 +6,7 @@
     <string name="backup_BAc_export">Fazer backup agora</string>
     <string name="export_toast">Feito backup de %1$s para %2$s.</string>
     <string name="import_summary_title">Resumo da restauração</string>
-    <string name="import_summary_message">Arquivo %1$s continha %2$s.\n\n %3$s importadas,\n %4$s já existiam\n %5$s tinham erros\n</string>
+    <string name="import_summary_message">O arquivo %1$s continha %2$s. \n \n %3$s importadas, \n %4$s já existiam, \n %5$s tinham erros</string>
     <string name="import_progress_read">Lendo tarefa %d…</string>
     <string name="read_permission_label">Permissões do Tasks</string>
     <string name="discard_confirmation">Você tem certeza que deseja descartar suas mudanças?</string>
@@ -405,11 +405,11 @@
     <string name="chip_appearance_icon_only">Somente o ícone</string>
     <string name="chip_appearance_text_only">Somente o texto</string>
     <string name="chip_appearance_text_and_icon">Texto e ícone</string>
-    <string name="hide_unused_places">Ocultar locais não usados</string>
+    <string name="hide_unused_places">Ocultar lugares não utilizados</string>
     <string name="hide_unused_tags">Ocultar etiquetas não usadas</string>
     <string name="navigation_drawer">Menu de navegação</string>
     <string name="place_settings">Configuração de lugares</string>
-    <string name="places">Locais</string>
+    <string name="places">Lugares</string>
     <string name="chip_appearance">Aparência da Pastilha</string>
     <string name="chips">Pastilha</string>
     <string name="back">Voltar</string>
@@ -695,7 +695,7 @@
         <item quantity="many">ocorrências</item>
         <item quantity="other">ocorrências</item>
     </plurals>
-    <string name="sort_not_available">Não disponível por etiquetas, filtros, ou locais</string>
+    <string name="sort_not_available">Não disponível por etiquetas, filtros, ou lugares</string>
     <string name="repeat_monthly_on_day_number">Mensalmente no dia %1d</string>
     <string name="change_priority">Mudar prioridade</string>
     <string name="sort_list">Por lista</string>
@@ -729,4 +729,28 @@
     <string name="donate_nag">Considere mostrar seu apoio com uma doação!</string>
     <string name="donate_maybe_later">Talvez mais tarde</string>
     <string name="donate_today">Faça sua doação hoje</string>
+    <string name="comment">Comentário</string>
+    <string name="cost_money">Custo: $</string>
+    <string name="app_settings">Configurações do aplicativo</string>
+    <string name="cost_more_money">Custo: $$$</string>
+    <string name="cost_free">Custo: Grátis</string>
+    <string name="subtasks_multilevel_microsoft">Subtarefas multinível não suportadas pelo Microsoft To Do</string>
+    <string name="enable_alarms_description">Para garantir que você seja notificado no momento certo, conceda permissão para definir alarmes e lembretes em Configurações</string>
+    <string name="multiline_title_on">Pressione a tecla Enter para adicionar quebras de linha</string>
+    <string name="sync_warning_microsoft">Nem todos os detalhes das tarefas são sincronizados com o Microsoft To Do.</string>
+    <string name="delete_comment">comentário</string>
+    <string name="quiet_hours_in_effect">Horário de silêncio em vigor</string>
+    <string name="price_per_year_with_currency">%s/anual</string>
+    <string name="price_per_month_with_currency">%s/mensal</string>
+    <string name="button_learn_more">Saber mais</string>
+    <string name="sync_warning_google_tasks_title">Sobre a sincronização do Google Task</string>
+    <string name="sync_warning_google_tasks">Nem todos os detalhes das tarefas são sincronizados com o Google Tasks</string>
+    <string name="yesterday">Ontem</string>
+    <string name="enable_alarms">Seja notificado na hora certa</string>
+    <string name="add_shortcut_to_home_screen">Adicionar atalho à tela inicial</string>
+    <string name="add_widget_to_home_screen">Adicionar widget à tela inicial</string>
+    <string name="multiline_title">Permitir títulos com múltiplas linhas</string>
+    <string name="multiline_title_off">Pressione Concluir para fechar o teclado</string>
+    <string name="sync_warning_microsoft_title">Sobre a sincronização do Microsoft To Do</string>
+    <string name="send_application_logs">Enviar registros do aplicativo</string>
 </resources>
