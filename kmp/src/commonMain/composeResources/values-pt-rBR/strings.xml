@@ -16,14 +16,14 @@
     <string name="settings">Configurações</string>
     <string name="drawer_filters">Filtros</string>
     <string name="drawer_tags">Etiquetas</string>
-    <string name="drawer_places">Locais</string>
+    <string name="drawer_places">Lugares</string>
     <string name="drawer_local_lists">Listas locais</string>
     <string name="tmrw">Amanhã</string>
-    <string name="tomorrow_abbrev_lowercase">Amanhã</string>
+    <string name="tomorrow_abbrev_lowercase">amanhã</string>
     <string name="tomorrow">Amanhã</string>
     <string name="tomorrow_lowercase">amanhã</string>
     <string name="yest">Ontem</string>
-    <string name="yesterday_abbrev_lowercase">Ontem</string>
+    <string name="yesterday_abbrev_lowercase">ontem</string>
     <string name="yesterday">Ontem</string>
     <string name="yesterday_lowercase">ontem</string>
     <string name="today">Hoje</string>
