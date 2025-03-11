@@ -1,0 +1,4 @@
+* Fix performance issue when opening search
+* Fix Microsoft To Do authentication crash
+* Fix crash on task list screen
+* Update translation

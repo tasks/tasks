@@ -1,15 +1,21 @@
-### 14.5.1 (2025-03-07)
+### 14.5.1 (2025-03-11)
 
 * Fix performance issue when opening search
+* Fix Microsoft To Do authentication crash
+* Fix crash on task list screen
 * Update translation
+  * Brazilian Portuguese - dedakir923
+  * Bulgarian - 109247019824
   * Chinese (Simplified) - 大王叫我来巡山
   * Dutch - @fvbommel
+  * Esperanto - Don Zouras
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
   * German - Colorful Rhino
   * Italian - @ppasserini
   * Kannada - Abilash S
   * Persian - @mamad-zahiri
+  * Ukrainian - @IhorHordiichuk
 
 ### 14.5 (2025-03-04)
 
