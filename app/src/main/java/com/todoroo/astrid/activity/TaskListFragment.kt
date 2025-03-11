@@ -195,6 +195,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     lateinit var themeColor: ThemeColor
     private var onClickMenu: () -> Unit = {}
     private lateinit var binding: FragmentTaskListBinding
+    private var windowInsets: PaddingValues? = null
     private val listPickerLauncher = registerForListPickerResult {
         val selected = taskAdapter.getSelected()
         lifecycleScope.launch {
@@ -280,6 +281,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     @SuppressLint("PrivateResource")
     fun applyInsets(windowInsets: PaddingValues) {
+        if (this::binding.isInitialized) {
+            applyInsetsInternal(windowInsets)
+        } else {
+            this.windowInsets = windowInsets
+        }
+    }
+
+    private fun applyInsetsInternal(windowInsets: PaddingValues) {
         val density = resources.displayMetrics.density
         val topInset = (windowInsets.calculateTopPadding().value * density).toInt()
         val bottomInset = (windowInsets.calculateBottomPadding().value * density).toInt()
@@ -301,7 +310,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentTaskListBinding.inflate(inflater, container, false)
-
+        windowInsets?.let { applyInsetsInternal(it) }
         filter = getFilter()
         val swipeRefreshLayout: SwipeRefreshLayout
         val emptyRefreshLayout: SwipeRefreshLayout
