@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.lifecycleScope
-import org.tasks.data.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,10 +34,12 @@ import org.json.JSONObject
 import org.tasks.R
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
+import org.tasks.data.UUIDHelper
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
-import org.tasks.data.dao.CaldavDao
 import org.tasks.http.HttpClientFactory
+import org.tasks.preferences.fragments.TasksAccountViewModel.Companion.getStringOrNull
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sync.microsoft.requestTokenExchange
 import javax.inject.Inject
@@ -136,7 +137,7 @@ class MicrosoftAuthenticationActivity : ComponentActivity() {
             )
             .execute()
         val response = userInfo.body?.string() ?: return@withContext null
-        JSONObject(response).getString("email")
+        JSONObject(response).getStringOrNull("email")
     }
 
     private fun error(message: String) {
