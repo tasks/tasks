@@ -730,4 +730,5 @@
     <string name="sync_warning_google_tasks">A Google Task nem képes a feladatok összes részletének szinkronizálására</string>
     <string name="button_learn_more">Tudj meg többet</string>
     <string name="subtasks_multilevel_microsoft">A Microsoft To Do nem támogatja a többszintű részfeladatokat</string>
+    <string name="app_settings">Alkalmazás beállításai</string>
 </resources>
