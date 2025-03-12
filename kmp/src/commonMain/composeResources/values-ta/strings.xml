@@ -23,4 +23,14 @@
     <string name="today_lowercase">இன்று</string>
     <string name="show_unstarted">தொடங்காதவற்றை காட்டு</string>
     <string name="show_completed">நிகழ்ச்சி முடிந்தது</string>
+    <string name="search_no_results">முடிவுகள் இல்லை</string>
+    <string name="requires_pro_subscription">சார்பு நற்பொருத்தம்</string>
+    <string name="subscription_required_description">வருடத்திற்கு US 1 அமெரிக்க டாலர் வரை அனைத்து அம்சங்களையும் திறக்கவும்</string>
+    <string name="filter_snoozed">உறக்கநிலை</string>
+    <string name="wear_install_app">தொலைபேசியில் நிறுவவும்</string>
+    <string name="wear_unknown_error">தெரியாத பிழை</string>
+    <string name="add_task">பணியைச் சேர்க்கவும்</string>
+    <string name="drawer_local_lists">உள்ளக பட்டியல்கள்</string>
+    <string name="tomorrow_abbrev_lowercase">டி.எம்.ஆர்.டபிள்யூ</string>
+    <string name="yesterday_abbrev_lowercase">உள்ளது</string>
 </resources>
