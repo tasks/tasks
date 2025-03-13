@@ -730,4 +730,5 @@
         <item quantity="one">forekomst</item>
         <item quantity="other">forekomster</item>
     </plurals>
+    <string name="app_settings">App indstillinger</string>
 </resources>
