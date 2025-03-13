@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -51,6 +53,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
@@ -80,6 +83,7 @@ fun TaskListDrawer(
     searchBar: @Composable RowScope.() -> Unit,
 ) {
     val bottomAppBarScrollBehavior = BottomAppBarDefaults.exitAlwaysScrollBehavior()
+    var bottomBarHeight by remember { mutableStateOf(0.dp) }
     Scaffold(
         modifier = Modifier
             .imePadding()
@@ -93,6 +97,7 @@ fun TaskListDrawer(
                             -placeable.height.toFloat()
                         val height =
                             placeable.height + bottomAppBarScrollBehavior.state.heightOffset
+                        bottomBarHeight = height.toDp()
                         layout(placeable.width, height.roundToInt().coerceAtLeast(0)) {
                             placeable.place(0, 0)
                         }
@@ -107,10 +112,23 @@ fun TaskListDrawer(
         val keyboardOpen = rememberImeState().value
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = if (keyboardOpen)
+            contentPadding = if (keyboardOpen) {
                 contentPadding
-            else
-                WindowInsets.systemBars.asPaddingValues(),
+            } else {
+                val systemBarPadding = WindowInsets.systemBars.asPaddingValues()
+                val direction = LocalLayoutDirection.current
+                remember(contentPadding, systemBarPadding, bottomBarHeight) {
+                    PaddingValues(
+                        start = contentPadding.calculateStartPadding(direction),
+                        top = contentPadding.calculateTopPadding(),
+                        end = contentPadding.calculateEndPadding(direction),
+                        bottom = maxOf(
+                            systemBarPadding.calculateBottomPadding(),
+                            contentPadding.calculateBottomPadding() + bottomBarHeight
+                        )
+                    )
+                }
+            },
             verticalArrangement = arrangement,
         ) {
             items(items = filters, key = { it.key() }) {
