@@ -19,7 +19,7 @@
     <string name="requires_pro_subscription">Pro-funktion</string>
     <string name="subscription_required_description">Lås op for alle funktioner for så lidt som $1 USD/år</string>
     <string name="tmrw">I morgen</string>
-    <string name="tomorrow_abbrev_lowercase">tmrw</string>
+    <string name="tomorrow_abbrev_lowercase">imrgn</string>
     <string name="tomorrow">I morgen</string>
     <string name="tomorrow_lowercase">i morgen</string>
     <string name="yest">I går</string>
