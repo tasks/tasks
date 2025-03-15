@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.edit.Priority
 import org.tasks.data.entity.Task
-import org.tasks.databinding.DialogDateTimePickerBinding
 import org.tasks.databinding.DialogPriorityPickerBinding
 import javax.inject.Inject
 
@@ -39,7 +38,6 @@ class PriorityPicker : DialogFragment() {
         }
     }
 
-    lateinit var binding: DialogDateTimePickerBinding
     private val priorityPickerViewModel: PriorityPickerViewModel by viewModels()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

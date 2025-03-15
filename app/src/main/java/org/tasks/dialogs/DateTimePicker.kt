@@ -5,38 +5,48 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isGone
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.fragment.app.Fragment
+import androidx.fragment.compose.content
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import org.tasks.R
+import org.tasks.compose.pickers.DatePickerShortcuts
+import org.tasks.compose.pickers.DueDateShortcuts
+import org.tasks.compose.pickers.TimePickerDialog
+import org.tasks.compose.pickers.TimeShortcuts
 import org.tasks.data.createDueDate
 import org.tasks.data.entity.Task
-import org.tasks.databinding.DialogDateTimePickerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
-import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
+import org.tasks.dialogs.MyTimePickerDialog.Companion.timeInputMode
 import org.tasks.extensions.Context.is24HourFormat
-import org.tasks.kmp.org.tasks.time.getRelativeDay
-import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.notifications.NotificationManager
+import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTime
 import org.tasks.time.millisOfDay
 import org.tasks.time.startOfDay
-import org.tasks.time.withMillisOfDay
-import java.util.Calendar.FRIDAY
-import java.util.Calendar.MONDAY
-import java.util.Calendar.SATURDAY
-import java.util.Calendar.SUNDAY
-import java.util.Calendar.THURSDAY
-import java.util.Calendar.TUESDAY
-import java.util.Calendar.WEDNESDAY
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -46,19 +56,9 @@ class DateTimePicker : BaseDateTimePicker() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var notificationManager: NotificationManager
 
-    lateinit var binding: DialogDateTimePickerBinding
-    private var customDate = NO_DAY
-    private var customTime = NO_TIME
-    private var selectedDay = NO_DAY
-    private var selectedTime = NO_TIME
+    private var selectedDay by mutableLongStateOf(NO_DAY)
+    private var selectedTime by mutableIntStateOf(NO_TIME)
     private val today = newDateTime().startOfDay()
-    private val tomorrow = today.plusDays(1)
-    private val nextWeek = today.plusDays(7)
-    override val calendarView get() = binding.calendarView
-    override val morningButton get() = binding.shortcuts.morningButton
-    override val afternoonButton get() = binding.shortcuts.afternoonButton
-    override val eveningButton get() = binding.shortcuts.eveningButton
-    override val nightButton get() = binding.shortcuts.nightButton
 
     companion object {
         const val EXTRA_DAY = "extra_day"
@@ -66,16 +66,14 @@ class DateTimePicker : BaseDateTimePicker() {
         const val EXTRA_TASKS = "extra_tasks"
         const val EXTRA_TIMESTAMP = "extra_timestamp"
         const val EXTRA_HIDE_NO_DATE = "extra_hide_no_date"
-        private const val REQUEST_TIME = 10101
-        private const val FRAG_TAG_TIME_PICKER = "frag_tag_time_picker"
-        private const val NO_DAY = 0L
-        private const val NO_TIME = 0
-        private const val MULTIPLE_DAYS = -1L
-        private const val MULTIPLE_TIMES = -1
+        const val NO_DAY = 0L
+        const val NO_TIME = 0
+        const val MULTIPLE_DAYS = -1L
+        const val MULTIPLE_TIMES = -1
 
         fun newDateTimePicker(
-                autoClose: Boolean,
-                vararg tasks: Task
+            autoClose: Boolean,
+            vararg tasks: Task,
         ): DateTimePicker {
             val fragment = DateTimePicker()
             val dueDates = tasks.map { it.dueDate.startOfDay() }.toSet()
@@ -91,11 +89,11 @@ class DateTimePicker : BaseDateTimePicker() {
         }
 
         fun newDateTimePicker(
-                target: Fragment,
-                rc: Int,
-                current: Long,
-                autoClose: Boolean,
-                hideNoDate: Boolean,
+            target: Fragment,
+            rc: Int,
+            current: Long,
+            autoClose: Boolean,
+            hideNoDate: Boolean,
         ): DateTimePicker {
             val fragment = DateTimePicker()
             fragment.arguments = Bundle().apply {
@@ -109,124 +107,115 @@ class DateTimePicker : BaseDateTimePicker() {
         }
     }
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View {
-        binding = DialogDateTimePickerBinding.inflate(theme.getLayoutInflater(requireContext()))
-        setupShortcutsAndCalendar()
-        with (binding.shortcuts) {
-            nextWeekButton.text =
-                getString(
-                    when (newDateTime().plusWeeks(1).dayOfWeek) {
-                        SUNDAY -> R.string.next_sunday
-                        MONDAY -> R.string.next_monday
-                        TUESDAY -> R.string.next_tuesday
-                        WEDNESDAY -> R.string.next_wednesday
-                        THURSDAY -> R.string.next_thursday
-                        FRIDAY -> R.string.next_friday
-                        SATURDAY -> R.string.next_saturday
-                        else -> throw IllegalArgumentException()
-                    }
-                )
-            noDateButton.isGone = requireArguments().getBoolean(EXTRA_HIDE_NO_DATE, false)
-            noDateButton.setOnClickListener { clearDate() }
-            noTime.setOnClickListener { clearTime() }
-            todayButton.setOnClickListener { setToday() }
-            tomorrowButton.setOnClickListener { setTomorrow() }
-            nextWeekButton.setOnClickListener { setNextWeek() }
-            morningButton.setOnClickListener { setMorning() }
-            afternoonButton.setOnClickListener { setAfternoon() }
-            eveningButton.setOnClickListener { setEvening() }
-            nightButton.setOnClickListener { setNight() }
-            currentDateSelection.setOnClickListener { currentDate() }
-            currentTimeSelection.setOnClickListener { currentTime() }
-            pickTimeButton.setOnClickListener { pickTime() }
-        }
-        binding.calendarView.setOnDateChangeListener { _, y, m, d ->
-            returnDate(day = DateTime(y, m + 1, d).millis)
-            refreshButtons()
-        }
-        selectedDay = savedInstanceState?.getLong(EXTRA_DAY) ?: requireArguments().getLong(EXTRA_DAY)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        selectedDay =
+            savedInstanceState?.getLong(EXTRA_DAY) ?: requireArguments().getLong(EXTRA_DAY)
         selectedTime =
-                savedInstanceState?.getInt(EXTRA_TIME)
-                        ?: requireArguments().getInt(EXTRA_TIME)
-                                .takeIf { it == MULTIPLE_TIMES || Task.hasDueTime(it.toLong()) }
-                                ?: NO_TIME
-
-        return binding.root
+            savedInstanceState?.getInt(EXTRA_TIME)
+                ?: requireArguments().getInt(EXTRA_TIME)
+                    .takeIf { it == MULTIPLE_TIMES || Task.hasDueTime(it.toLong()) }
+                        ?: NO_TIME
     }
 
-    override fun refreshButtons() {
-        when (selectedDay) {
-            0L -> binding.shortcuts.dateGroup.check(R.id.no_date_button)
-            today.millis -> binding.shortcuts.dateGroup.check(R.id.today_button)
-            tomorrow.millis -> binding.shortcuts.dateGroup.check(R.id.tomorrow_button)
-            nextWeek.millis -> binding.shortcuts.dateGroup.check(R.id.next_week_button)
-            else -> {
-                customDate = selectedDay
-                binding.shortcuts.dateGroup.check(R.id.current_date_selection)
-                binding.shortcuts.currentDateSelection.visibility = View.VISIBLE
-                binding.shortcuts.currentDateSelection.text = if (customDate == MULTIPLE_DAYS) {
-                    requireContext().getString(R.string.date_picker_multiple)
-                } else {
-                    runBlocking {
-                        getRelativeDay(selectedDay)
+    @OptIn(ExperimentalMaterial3Api::class)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ) = content {
+        TasksTheme(theme = theme.themeBase.index) {
+            val sheetState = rememberModalBottomSheetState(
+                skipPartiallyExpanded = true,
+            )
+            ModalBottomSheet(
+                sheetState = sheetState,
+                onDismissRequest = {
+                    onDismissHandler?.onDismiss() ?: dismiss()
+                },
+                containerColor = MaterialTheme.colorScheme.surface,
+            ) {
+                val state = rememberDatePickerState()
+                Column(
+                    modifier = Modifier.verticalScroll(rememberScrollState())
+                ) {
+                    DatePicker(
+                        state = state,
+                        showModeToggle = false,
+                        title = {},
+                        headline = {
+                            DatePickerShortcuts(
+                                timeShortcuts = {
+                                    var showTimePicker by rememberSaveable { mutableStateOf(false) }
+                                    if (showTimePicker) {
+                                        val time = if (selectedTime == MULTIPLE_TIMES
+                                            || !Task.hasDueTime(today.withMillisOfDay(selectedTime).millis)
+                                        ) {
+                                            today.noon().millisOfDay
+                                        } else {
+                                            selectedTime
+                                        }
+                                        TimePickerDialog(
+                                            millisOfDay = time,
+                                            is24Hour = remember { requireContext().is24HourFormat },
+                                            textInput = remember { preferences.timeInputMode == 1 },
+                                            selected = { returnSelectedTime(it + 1000) },
+                                            dismiss = { showTimePicker = false },
+                                        )
+                                    }
+                                    TimeShortcuts(
+                                        day = 0,
+                                        selected = selectedTime,
+                                        morning = remember { preferences.dateShortcutMorning + 1000 },
+                                        afternoon = remember { preferences.dateShortcutAfternoon + 1000 },
+                                        evening = remember { preferences.dateShortcutEvening + 1000 },
+                                        night = remember { preferences.dateShortcutNight + 1000 },
+                                        selectedMillisOfDay = { returnSelectedTime(it) },
+                                        pickTime = { showTimePicker = true },
+                                        clearTime = { returnDate(time = 0) },
+                                    )
+                                },
+                                dateShortcuts = {
+                                    DueDateShortcuts(
+                                        today = today.millis,
+                                        tomorrow = remember { today.plusDays(1).millis },
+                                        nextWeek = remember { today.plusDays(7).millis },
+                                        selected = selectedDay,
+                                        showNoDate = remember {
+                                            !requireArguments().getBoolean(
+                                                EXTRA_HIDE_NO_DATE,
+                                                false
+                                            )
+                                        },
+                                        selectedDay = { returnDate(it.startOfDay()) },
+                                        clearDate = { returnDate(day = 0, time = 0) },
+                                    )
+                                },
+                            )
+                        },
+                        colors = DatePickerDefaults.colors(
+                            containerColor = MaterialTheme.colorScheme.surface,
+                        ),
+                    )
+                }
+                LaunchedEffect(selectedDay) {
+                    if (selectedDay > 0) {
+                        state.selectedDateMillis = selectedDay + (DateTime(selectedDay).offset)
+                    } else {
+                        state.selectedDateMillis = null
+                    }
+                }
+                LaunchedEffect(state.selectedDateMillis) {
+                    if (state.selectedDateMillis == selectedDay + (DateTime(selectedDay).offset)) {
+                        return@LaunchedEffect
+                    }
+                    state.selectedDateMillis?.let {
+                        returnDate(day = it - DateTime(it).offset)
                     }
                 }
             }
         }
-        if (selectedTime == MULTIPLE_TIMES || Task.hasDueTime(selectedTime.toLong())) {
-            when (selectedTime) {
-                morning -> binding.shortcuts.timeGroup.check(R.id.morning_button)
-                afternoon -> binding.shortcuts.timeGroup.check(R.id.afternoon_button)
-                evening -> binding.shortcuts.timeGroup.check(R.id.evening_button)
-                night -> binding.shortcuts.timeGroup.check(R.id.night_button)
-                else -> {
-                    customTime = selectedTime
-                    binding.shortcuts.timeGroup.check(R.id.current_time_selection)
-                    binding.shortcuts.currentTimeSelection.visibility = View.VISIBLE
-                    binding.shortcuts.currentTimeSelection.text =
-                        if (customTime == MULTIPLE_TIMES) {
-                            requireContext().getString(R.string.date_picker_multiple)
-                        } else {
-                            getTimeString(
-                                today.millis.withMillisOfDay(selectedTime),
-                                requireContext().is24HourFormat
-                            )
-                        }
-                }
-            }
-        } else {
-            binding.shortcuts.timeGroup.check(R.id.no_time)
-        }
-        if (selectedDay > 0) {
-            binding.calendarView.setDate(selectedDay, true, true)
-        }
-    }
-
-    private fun clearDate() = returnDate(day = 0, time = 0)
-    private fun clearTime() = returnDate(time = 0)
-    private fun setToday() = returnDate(day = today.startOfDay().millis)
-    private fun setTomorrow() = returnDate(day = tomorrow.startOfDay().millis)
-    private fun setNextWeek() = returnDate(day = nextWeek.startOfDay().millis)
-    private fun setMorning() = returnSelectedTime(morning)
-    private fun setAfternoon() = returnSelectedTime(afternoon)
-    private fun setEvening() = returnSelectedTime(evening)
-    private fun setNight() = returnSelectedTime(night)
-    private fun currentDate() = returnDate(day = customDate)
-    private fun currentTime() = returnSelectedTime(customTime)
-
-    private fun pickTime() {
-        val time = if (selectedTime == MULTIPLE_TIMES
-                || !Task.hasDueTime(today.withMillisOfDay(selectedTime).millis)) {
-            today.noon().millisOfDay
-        } else {
-            selectedTime
-        }
-        newTimePicker(this, REQUEST_TIME, today.withMillisOfDay(time).millis)
-                .show(parentFragmentManager, FRAG_TAG_TIME_PICKER)
     }
 
     private fun returnSelectedTime(millisOfDay: Int) {
@@ -244,8 +233,6 @@ class DateTimePicker : BaseDateTimePicker() {
         selectedTime = time
         if (closeAutomatically()) {
             sendSelected()
-        } else {
-            refreshButtons()
         }
     }
 
@@ -254,43 +241,49 @@ class DateTimePicker : BaseDateTimePicker() {
 
     override fun sendSelected() {
         if (selectedDay != arguments?.getLong(EXTRA_DAY)
-                || selectedTime != arguments?.getInt(EXTRA_TIME)) {
+            || selectedTime != arguments?.getInt(EXTRA_TIME)
+        ) {
             if (taskIds.isEmpty()) {
                 val intent = Intent()
-                intent.putExtra(EXTRA_TIMESTAMP, when {
-                    selectedDay == NO_DAY -> 0
-                    selectedTime == NO_TIME -> selectedDay
-                    else -> selectedDay.toDateTime().withMillisOfDay(selectedTime).millis
-                })
+                intent.putExtra(
+                    EXTRA_TIMESTAMP, when {
+                        selectedDay == NO_DAY -> 0
+                        selectedTime == NO_TIME -> selectedDay
+                        else -> selectedDay.toDateTime().withMillisOfDay(selectedTime).millis
+                    }
+                )
                 targetFragment?.onActivityResult(targetRequestCode, RESULT_OK, intent)
             } else {
                 lifecycleScope.launch(NonCancellable) {
                     taskDao
-                            .fetch(taskIds.toList())
-                            .forEach {
-                                val day = if (selectedDay == MULTIPLE_DAYS) {
-                                    if (it.hasDueDate()) it.dueDate else today.millis
-                                } else {
-                                    selectedDay
-                                }
-                                val time = if (selectedTime == MULTIPLE_TIMES) {
-                                    if (it.hasDueTime()) it.dueDate.millisOfDay else NO_TIME
-                                } else {
-                                    selectedTime
-                                }
-                                it.setDueDateAdjustingHideUntil(when {
+                        .fetch(taskIds.toList())
+                        .forEach {
+                            val day = if (selectedDay == MULTIPLE_DAYS) {
+                                if (it.hasDueDate()) it.dueDate else today.millis
+                            } else {
+                                selectedDay
+                            }
+                            val time = if (selectedTime == MULTIPLE_TIMES) {
+                                if (it.hasDueTime()) it.dueDate.millisOfDay else NO_TIME
+                            } else {
+                                selectedTime
+                            }
+                            it.setDueDateAdjustingHideUntil(
+                                when {
                                     day == NO_DAY -> 0L
                                     time == NO_TIME -> createDueDate(
-                                            Task.URGENCY_SPECIFIC_DAY,
-                                            day
+                                        Task.URGENCY_SPECIFIC_DAY,
+                                        day
                                     )
+
                                     else -> createDueDate(
-                                            Task.URGENCY_SPECIFIC_DAY_TIME,
-                                            day.toDateTime().withMillisOfDay(time).millis
+                                        Task.URGENCY_SPECIFIC_DAY_TIME,
+                                        day.toDateTime().withMillisOfDay(time).millis
                                     )
-                                })
-                                taskDao.save(it)
-                            }
+                                }
+                            )
+                            taskDao.save(it)
+                        }
                 }
             }
         }
@@ -302,18 +295,5 @@ class DateTimePicker : BaseDateTimePicker() {
 
         outState.putLong(EXTRA_DAY, selectedDay)
         outState.putInt(EXTRA_TIME, selectedTime)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_TIME) {
-            if (resultCode == RESULT_OK) {
-                val timestamp = data!!.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, today.millis)
-                returnSelectedTime(newDateTime(timestamp).millisOfDay + 1000)
-            } else {
-                refreshButtons()
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
     }
 }

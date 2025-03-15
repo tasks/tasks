@@ -98,20 +98,6 @@
     <item name="android:textColor">@color/text_primary</item>
   </style>
 
-  <style name="DateTimeShortcuts" parent="Widget.Material3.Button.TextButton">
-    <item name="android:textColor">@color/button_accent_text</item>
-    <item name="android:textAppearance">@style/TextAppearance.Material3.BodyMedium</item>
-    <item name="android:paddingTop">@dimen/quarter_keyline_first</item>
-    <item name="android:paddingBottom">@dimen/quarter_keyline_first</item>
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="iconPadding">@dimen/keyline_first</item>
-    <item name="iconTint">@color/button_accent_text</item>
-    <item name="android:gravity">start|center_vertical</item>
-    <item name="backgroundTint">@android:color/transparent</item>
-    <item name="rippleColor">?attr/colorSecondary</item>
-  </style>
-
   <!--=============================================== MainActivity == -->
 
   <style name="BaseHorizontalDivider">
