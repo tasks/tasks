@@ -1,0 +1,5 @@
+* Fix items hidden under menu search bar
+* Attempt to fix layout on some foldables
+* Fix checking for tasks.org account
+* Slightly reduce donation nagging frequency
+* Update translations

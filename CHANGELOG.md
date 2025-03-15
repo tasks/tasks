@@ -1,3 +1,17 @@
+### 14.5.2 (2025-03-15)
+
+* Fix items hidden under menu search bar [#3406](https://github.com/tasks/tasks/issues/3406)
+* Attempt to fix layout on some foldables
+* Fix checking for tasks.org account [#3397](https://github.com/tasks/tasks/issues/3397)
+* Slightly reduce donation nagging frequency [#3397](https://github.com/tasks/tasks/issues/3397)
+* Update translations
+  * Danish - Øjvind Fritjof Arnfred
+  * Hungarian - Kaci
+  * Malayalam - Clouds Liberty
+  * Russian - @GREAT-DNG
+  * Swedish - @bittin
+  * Tamil - @TamilNeram
+
 ### 14.5.1 (2025-03-11)
 
 * Fix performance issue when opening search
