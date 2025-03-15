@@ -1,12 +1,14 @@
 package org.tasks.billing
 
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.injection.InjectingTestCase
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
@@ -20,6 +22,24 @@ class InventoryTest : InjectingTestCase() {
     @Inject lateinit var caldavDao: CaldavDao
 
     lateinit var inventory: Inventory
+
+    @Test
+    fun hasTasksAccount() = runBlocking {
+        caldavDao.insert(CaldavAccount(accountType = CaldavAccount.TYPE_TASKS, url = "https://caldav.tasks.org/calendars/"))
+        initInventory()
+        inventory.updateTasksAccount()
+
+        assertTrue(inventory.hasTasksAccount)
+    }
+
+    @Test
+    fun hasTasksAccountWithCaldav() = runBlocking {
+        caldavDao.insert(CaldavAccount(accountType = CaldavAccount.TYPE_CALDAV, url = "https://caldav.tasks.org/calendars/"))
+        initInventory()
+        inventory.updateTasksAccount()
+
+        assertTrue(inventory.hasTasksAccount)
+    }
 
     @Test
     fun monthlyIsPro() {
@@ -69,13 +89,17 @@ class InventoryTest : InjectingTestCase() {
                 }
                 .map(::Purchase)
         preferences.setPurchases(asPurchases)
+        initInventory()
+    }
+
+    private fun initInventory() {
         runOnMainSync {
             inventory = Inventory(
-                    context,
-                    preferences,
-                    signatureVerifier,
-                    localBroadcastManager,
-                    caldavDao
+                context,
+                preferences,
+                signatureVerifier,
+                localBroadcastManager,
+                caldavDao
             )
         }
     }
