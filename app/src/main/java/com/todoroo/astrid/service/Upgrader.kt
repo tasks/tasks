@@ -40,6 +40,7 @@ import org.tasks.widget.AppWidgetManager
 import org.tasks.widget.WidgetPreferences
 import timber.log.Timber
 import java.io.File
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class Upgrader @Inject constructor(
@@ -125,7 +126,7 @@ class Upgrader @Inject constructor(
         } else {
             setInstallDetails(to)
         }
-        preferences.lastSubscribeRequest = 0L
+        preferences.lastSubscribeRequest -= TimeUnit.DAYS.toMillis(7)
         preferences.setCurrentVersion(to)
     }
 
