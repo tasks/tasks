@@ -36,7 +36,6 @@ import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
-import androidx.compose.material3.adaptive.layout.HingePolicy
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
 import androidx.compose.material3.adaptive.layout.PaneAdaptedValue
@@ -61,7 +60,6 @@ import androidx.fragment.compose.AndroidFragment
 import androidx.fragment.compose.rememberFragmentState
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.andlib.utility.AndroidUtilities.atLeastR
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.EXTRA_TASK
 import com.todoroo.astrid.activity.TaskListFragment.Companion.EXTRA_FILTER
 import com.todoroo.astrid.adapter.SubheaderClickHandler
@@ -177,7 +175,6 @@ class MainActivity : AppCompatActivity() {
                 val navigator = rememberListDetailPaneScaffoldNavigator(
                     calculatePaneScaffoldDirective(
                         windowAdaptiveInfo = currentWindowAdaptiveInfo(),
-                        verticalHingePolicy = HingePolicy.AlwaysAvoid,
                     ).copy(
                         horizontalPartitionSpacerSize = 0.dp,
                         verticalPartitionSpacerSize = 0.dp,
