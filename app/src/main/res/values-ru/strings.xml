@@ -759,4 +759,5 @@
     <string name="show_edit_screen_without_unlock">Показывать панель редактирования на заблокированном экране</string>
     <string name="show_edit_screen_without_unlock_summary">Разрешает использовать панель Быстрых Настроек без разблокирования устройства</string>
     <string name="clear_completed_tasks_count">%s будут удалены</string>
+    <string name="app_settings">Настройки приложения</string>
 </resources>
