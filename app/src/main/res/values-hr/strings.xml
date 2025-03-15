@@ -319,8 +319,6 @@
     <string name="password">Lozinka</string>
     <string name="user">Korisnik</string>
     <string name="add_account">Dodaj račun</string>
-    <string name="use_locale_default">Koristi standard jezičnog područja</string>
-    <string name="start_of_week">Početak tjedna</string>
     <string name="copy_selected_tasks">Kopirati odabrane zadatke\?</string>
     <string name="delete_selected_tasks">Izbrisati odabrane zadatke\?</string>
     <string name="copy_multiple_tasks_confirmation">%s kopirano</string>

@@ -322,8 +322,6 @@
     <string name="delete_selected_tasks">Smazat vybrané úkoly\?</string>
     <string name="copy_selected_tasks">Zkopírovat vybrané úkoly\?</string>
     <string name="date_and_time">Datum a čas</string>
-    <string name="start_of_week">Začátek týdne</string>
-    <string name="use_locale_default">Použít výchozí nastavení pro váš jazyk</string>
     <string name="add_account">Přidat účet</string>
     <string name="user">Uživatel</string>
     <string name="password">Heslo</string>

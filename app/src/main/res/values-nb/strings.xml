@@ -328,8 +328,6 @@
     <string name="delete_selected_tasks">Slett valgte gjøremål\?</string>
     <string name="copy_selected_tasks">Kopier valgte gjøremål\?</string>
     <string name="date_and_time">Dato og tid</string>
-    <string name="start_of_week">Ukestart</string>
-    <string name="use_locale_default">Bruk forvalgt lokalitet</string>
     <string name="add_account">Legg til konto</string>
     <string name="user">Bruker</string>
     <string name="password">Passord</string>

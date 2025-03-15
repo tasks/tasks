@@ -30,7 +30,6 @@
     </plurals>
     <string name="astrid_sort_order_summary">\'මගේ කාර්යයන්\', \'අද\' සහ ටැග් සඳහා Astrid හි අතින් වර්ග කිරීමේ මාදිලිය සක්‍රීය කරන්න. මෙම වර්ග කිරීමේ මාදිලිය අනාගත යාවත්කාලීනයකදී \'මාගේ පිලිවෙල\' මගින් ප්‍රතිස්ථාපනය වනු ඇත</string>
     <string name="error_adding_account">දෝෂය: %s</string>
-    <string name="use_locale_default">ස්ථාන පෙරනිමිය භාවිතා කරන්න</string>
     <string name="widget_due_date_hidden">සඟවන්න</string>
     <string name="widget_due_date_below_title">මාතෘකාවට පහළින්</string>
     <string name="widget_due_date_after_title">මාතෘකාවෙන් පසු</string>
@@ -168,7 +167,6 @@
     <string name="password">මුරපදය</string>
     <string name="user">පරිශීලක</string>
     <string name="add_account">ගිණුම එක් කරන්න</string>
-    <string name="start_of_week">සතියේ ආරම්භය</string>
     <string name="date_and_time">දිනය සහ වේලාව</string>
     <string name="copy_selected_tasks">තෝරාගත් කාර්යයන් පිටපත් කරන්නද\?</string>
     <string name="delete_selected_tasks">තෝරාගත් කාර්යයන් මකාදමන්න ද\?</string>

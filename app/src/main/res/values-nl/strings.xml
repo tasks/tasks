@@ -298,8 +298,6 @@
     <string name="delete_selected_tasks">Geselecteerde taken wissen\?</string>
     <string name="copy_selected_tasks">Geselecteerde taken kopiëren\?</string>
     <string name="date_and_time">Datum en tijd</string>
-    <string name="start_of_week">Begin van de week</string>
-    <string name="use_locale_default">Gebruik locale standaard</string>
     <string name="add_account">Account toevoegen</string>
     <string name="user">Gebruiker</string>
     <string name="password">Wachtwoord</string>

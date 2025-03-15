@@ -415,8 +415,6 @@ File %1$s contained %2$s.\n\n
   <string name="delete_selected_tasks">Delete selected tasks?</string>
   <string name="copy_selected_tasks">Copy selected tasks?</string>
   <string name="date_and_time">Date and time</string>
-  <string name="start_of_week">Start of week</string>
-  <string name="use_locale_default">Use locale default</string>
   <string name="add_account">Add account</string>
   <string name="user">User</string>
   <string name="password">Password</string>

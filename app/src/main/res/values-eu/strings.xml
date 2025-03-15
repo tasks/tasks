@@ -310,8 +310,6 @@
     <string name="delete_selected_tasks">Ezabatu hautatutako zereginak\?</string>
     <string name="copy_selected_tasks">Kopiatu hautatutako zereginak\?</string>
     <string name="date_and_time">Data eta ordua</string>
-    <string name="start_of_week">Astearen hasiera</string>
-    <string name="use_locale_default">Erabili hizkuntzak lehenetsitakoa</string>
     <string name="add_account">Gehitu kontua</string>
     <string name="user">Erabiltzailea</string>
     <string name="password">Pasahitza</string>

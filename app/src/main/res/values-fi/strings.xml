@@ -286,8 +286,6 @@
     <string name="delete_selected_tasks">Poistetaanko valitut tehtävät?</string>
     <string name="copy_selected_tasks">Kopioi valitut tehtävät?</string>
     <string name="date_and_time">Päivä ja aika</string>
-    <string name="start_of_week">Viikon alku</string>
-    <string name="use_locale_default">Käytä paikallista oletusta</string>
     <string name="notification_disable_battery_optimizations_description">Akun optimointi voi viivästyttää ilmoituksia</string>
     <string name="bundle_notifications">Niputa ilmoitukset</string>
     <string name="badges">Merkit</string>

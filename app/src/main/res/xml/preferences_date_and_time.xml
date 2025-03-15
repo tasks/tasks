@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:key="@string/preference_screen">
 
-    <ListPreference
-      android:defaultValue="0"
-      android:entryValues="@array/day_of_week_values"
-      android:key="@string/p_start_of_week"
-      android:title="@string/start_of_week" />
-
     <SwitchPreferenceCompat
       android:defaultValue="false"
       android:key="@string/p_always_display_full_date"

@@ -197,7 +197,6 @@
     <string name="password">Pasvorto</string>
     <string name="user">Uzanto</string>
     <string name="add_account">Aldoni konton</string>
-    <string name="start_of_week">Komenco de semajno</string>
     <string name="date_and_time">Dato kaj tempo</string>
     <string name="copy_selected_tasks">Ĉu kopii elektitajn taskojn\?</string>
     <string name="delete_selected_tasks">Ĉu forigi elektitajn taskojn\?</string>
@@ -558,7 +557,6 @@
     <string name="repeats_single_until">Ripetiĝas %1$s, finiĝos %2$s</string>
     <string name="got_it">Komprenite!</string>
     <string name="backups_ignore_warnings_summary">Ignori avertojn pri savkopioj se vi ne bezonas savkopiojn aŭ jam havas propran savkopian solvon</string>
-    <string name="use_locale_default">Uzi defaŭlton de lokaĵaro</string>
     <string name="error_adding_account">Eraro: %s</string>
     <string name="logout_warning">Ĉiu de la datumo de ĉi tiu konto foriĝos el via aparato</string>
     <string name="location_permission_required_location">Por trovi vian aktualan lokon bezonas permesoj pri loko</string>

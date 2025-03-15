@@ -320,8 +320,6 @@
     <string name="delete_selected_tasks">Видалити вибрані завдання?</string>
     <string name="copy_selected_tasks">Копіювати вибрані завдання?</string>
     <string name="date_and_time">Дата й час</string>
-    <string name="start_of_week">Початок тижня</string>
-    <string name="use_locale_default">Типово для локалі</string>
     <string name="add_account">Додати обліковий запис</string>
     <string name="user">Користувач</string>
     <string name="password">Пароль</string>

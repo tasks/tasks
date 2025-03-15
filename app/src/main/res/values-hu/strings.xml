@@ -303,8 +303,6 @@
     <string name="delete_selected_tasks">Kiválasztott feladatok törlése?</string>
     <string name="copy_selected_tasks">Kiválasztott feladatok másolása?</string>
     <string name="date_and_time">Dátum és időpont</string>
-    <string name="start_of_week">Hét kezdőnapja</string>
-    <string name="use_locale_default">Beállított nyelv alapján</string>
     <string name="add_account">Felhasználói fiók hozzáadása</string>
     <string name="user">Felhasználónév</string>
     <string name="password">Jelszó</string>

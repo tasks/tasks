@@ -134,10 +134,6 @@ abstract class BaseDateTimePicker : BottomSheetDialogFragment() {
         afternoonButton.text = getTimeString(now.withMillisOfDay(afternoon), is24HourFormat)
         eveningButton.text = getTimeString(now.withMillisOfDay(evening), is24HourFormat)
         nightButton.text = getTimeString(now.withMillisOfDay(night), is24HourFormat)
-        val firstDayOfWeek = preferences.firstDayOfWeek
-        if (firstDayOfWeek in 1..7) {
-            calendarView.firstDayOfWeek = firstDayOfWeek
-        }
     }
 
     protected abstract val calendarView: CalendarView

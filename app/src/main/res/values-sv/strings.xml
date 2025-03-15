@@ -308,8 +308,6 @@
     <string name="delete_selected_tasks">Ta bort valda uppgifter\?</string>
     <string name="copy_selected_tasks">Kopiera valda uppgifter\?</string>
     <string name="date_and_time">Datum och tid</string>
-    <string name="start_of_week">Början på veckan</string>
-    <string name="use_locale_default">Använd lokala inställningar</string>
     <string name="add_account">Lägg till konto</string>
     <string name="user">Användare</string>
     <string name="password">Lösenord</string>

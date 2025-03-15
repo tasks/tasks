@@ -318,8 +318,6 @@
     <string name="delete_selected_tasks">Eliminare le attività selezionate\?</string>
     <string name="copy_selected_tasks">Copio le attività selezionate\?</string>
     <string name="date_and_time">Data e ora</string>
-    <string name="start_of_week">Inizio della settimana</string>
-    <string name="use_locale_default">Usa il valore predefinito della lingua corrente</string>
     <string name="add_account">Aggiungi account</string>
     <string name="user">Utente</string>
     <string name="notification_disable_battery_optimizations_description">L\'ottimizzazione della batteria può ritardare le notifiche</string>

@@ -168,7 +168,6 @@
     <string name="visit_website">زر الموقع</string>
     <string name="action_new_task">مهمة جديدة</string>
     <string name="help">مساعدة</string>
-    <string name="start_of_week">بداية أسبوع</string>
     <string name="take_a_picture">التقط صورة</string>
     <string name="repeat_option_every_year">سنويًّا</string>
     <string name="repeat_option_every_month">شهريًّا</string>
@@ -540,7 +539,6 @@
     <string name="repeats_single_on">أعده %1$s عند %2$s</string>
     <string name="repeats_single">أعده %s</string>
     <string name="bundle_notifications">حزمة الاشعارات</string>
-    <string name="use_locale_default">استخدم الإعدادات المحلية الافتراضية</string>
     <string name="clear_completed_tasks_confirmation">أزل المهام المتممة؟</string>
     <string name="hardware_support_required">مطلوب دعم الأجهزة</string>
     <string name="restart_required">أعد تشغيل التطبيق ليأخذ هذا التغيير تأثيره</string>

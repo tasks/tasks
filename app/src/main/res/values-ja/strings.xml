@@ -305,8 +305,6 @@
     <string name="delete_selected_tasks">選択したタスクを削除しますか？</string>
     <string name="copy_selected_tasks">選択したタスクをコピーしますか？</string>
     <string name="date_and_time">日付と時刻</string>
-    <string name="start_of_week">週の始まり</string>
-    <string name="use_locale_default">ロケールのデフォルトを使用する</string>
     <string name="add_account">アカウントを追加</string>
     <string name="user">ユーザー</string>
     <string name="password">パスワード</string>

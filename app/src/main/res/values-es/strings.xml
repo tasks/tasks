@@ -321,8 +321,6 @@
     <string name="delete_selected_tasks">¿Borrar tareas seleccionadas?</string>
     <string name="copy_selected_tasks">¿Copiar tareas seleccionadas?</string>
     <string name="date_and_time">Fecha y hora</string>
-    <string name="start_of_week">Inicio de semana</string>
-    <string name="use_locale_default">Usar configuración regional</string>
     <string name="add_account">Añadir cuenta</string>
     <string name="user">Usuario</string>
     <string name="password">Contraseña</string>

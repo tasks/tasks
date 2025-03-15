@@ -364,7 +364,6 @@
   <string name="p_default_recurrence_from">default_recurrence_from</string>
 
   <string name="debug">Debug</string>
-  <string name="p_start_of_week">start_of_week</string>
   <string name="p_bundle_notifications">bundle_notifications</string>
   <string name="p_strict_mode_vm">strict_mode_vm</string>
   <string name="p_strict_mode_thread">strict_mode_thread</string>

@@ -347,7 +347,6 @@
     <string name="choose_new_location">Escollir una nova ubicació</string>
     <string name="location_permission_required_location">Es necessiten els permisos de ubicació per trobar la teva ubicació actual</string>
     <string name="google_tasks_add_to_top">Noves tasques a sobre</string>
-    <string name="start_of_week">Inici de la setmana</string>
     <string name="help">Ajuda</string>
     <string name="silent">Silenci</string>
     <string name="vibrations">Vibracions</string>

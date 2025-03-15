@@ -309,8 +309,6 @@
     <string name="delete_selected_tasks">Изтриване на избраните задачи?</string>
     <string name="copy_selected_tasks">Копиране на избраните задачи?</string>
     <string name="date_and_time">Дата и час</string>
-    <string name="start_of_week">Начало на седмицата</string>
-    <string name="use_locale_default">По подразбиране от езика</string>
     <string name="add_account">Добавяне на профил</string>
     <string name="user">Потребител</string>
     <string name="password">Парола</string>

@@ -240,8 +240,6 @@
     <string name="delete_selected_tasks">Hapus tugas yang dipilih\?</string>
     <string name="copy_selected_tasks">Salin tugas yang dipilih\?</string>
     <string name="date_and_time">Tanggal dan waktu</string>
-    <string name="start_of_week">Awal minggu</string>
-    <string name="use_locale_default">Gunakan bahasa bawaan</string>
     <string name="add_account">Tambah akun</string>
     <string name="user">Pengguna</string>
     <string name="password">Kata sandi</string>

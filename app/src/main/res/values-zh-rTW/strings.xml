@@ -412,8 +412,6 @@
     <string name="password">密碼</string>
     <string name="user">使用者名稱</string>
     <string name="add_account">新增帳號</string>
-    <string name="use_locale_default">使用當地預設</string>
-    <string name="start_of_week">一週之始</string>
     <string name="date_and_time">日期與時間</string>
     <string name="copy_selected_tasks">複製選擇的工作？</string>
     <string name="delete_selected_tasks">刪除所選工作？</string>
