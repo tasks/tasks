@@ -2,4 +2,35 @@
 <resources>
     <string name="search">തിരയുക</string>
     <string name="settings">ക്രമീകരണങ്ങൾ</string>
+    <string name="search_no_results">തിരഞ്ഞ ഫലങ്ങളൊന്നുമില്ല</string>
+    <string name="requires_pro_subscription">പ്രോ സവിശേഷത</string>
+    <string name="filter_snoozed">തല്ക്കാലം മാറ്റി നിർത്തി</string>
+    <string name="drawer_places">സ്ഥലങ്ങൾ</string>
+    <string name="filter_my_tasks">എന്റെ ജോലികൾ</string>
+    <string name="subscription_required_description">"പ്രതിവർഷം $1 ൽ  എല്ലാ സവിശേഷതകളും അൺലോക്ക് ചെയ്യുക."</string>
+    <string name="filter_notifications">അറിയിപ്പുകൾ</string>
+    <string name="filter_timer">സമയബന്ധിതമായ ജോലികൾ</string>
+    <string name="today_lowercase">ഇന്ന്</string>
+    <string name="filter_today">ഇന്ന്</string>
+    <string name="filter_recently_modified">അടുത്തിടെ മാറ്റം വരുത്തിയത്</string>
+    <string name="help_and_feedback">സംശയവും അഭിപ്രായവും</string>
+    <string name="tomorrow_lowercase">നാളെ.</string>
+    <string name="drawer_filters">തിരഞ്ഞെടുക്കുക</string>
+    <string name="tomorrow">നാളെ</string>
+    <string name="drawer_tags">ടാഗ്</string>
+    <string name="drawer_local_lists">ലോക്കൽ ലിസ്റ്റുകൾ</string>
+    <string name="yesterday">ഇന്നലെ.</string>
+    <string name="today">ഇന്ന്</string>
+    <string name="yesterday_abbrev_lowercase">ഇന്നലെ</string>
+    <string name="yesterday_lowercase">innale</string>
+    <string name="tmrw">നാളെ</string>
+    <string name="tomorrow_abbrev_lowercase">നാളെ</string>
+    <string name="yest">ഇന്നലെ</string>
+    <string name="wear_install_app">ഫോണിൽ ഇൻസ്റ്റാൾ ചെയ്യുക</string>
+    <string name="wear_unknown_error">അജ്ഞാത പിശക്</string>
+    <string name="subscribe">അംഗമാകുക</string>
+    <string name="add_task">ജോലി ചേർക്കുക</string>
+    <string name="default_list">സ്വമേധയാ ഉള്ള പട്ടിക</string>
+    <string name="show_unstarted">സ്റ്റാർ ചെയ്യാത്തവ കാണിക്കുക</string>
+    <string name="show_completed">കഴിഞ്ഞവ കാണുക</string>
 </resources>
