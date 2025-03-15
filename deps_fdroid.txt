@@ -3,9 +3,9 @@
 +|         \--- androidx.annotation:annotation-jvm:1.9.1
 +|              \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.1.10
 +|                   +--- org.jetbrains:annotations:13.0 -> 23.0.0
-+|                   +--- org.jetbrains.kotlin:kotlin-stdlib-common:2.1.10 (c)
 +|                   +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 2.1.10 (c)
-+|                   \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 2.1.10 (c)
++|                   +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 2.1.10 (c)
++|                   \--- org.jetbrains.kotlin:kotlin-stdlib-common:2.1.10 (c)
 ++--- androidx.databinding:databinding-common:8.9.0
 ++--- androidx.databinding:databinding-runtime:8.9.0
 +|    +--- androidx.collection:collection:1.0.0 -> 1.4.4
@@ -966,12 +966,12 @@
 +|         |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0 -> 2.1.10 (*)
 +|         |    \--- androidx.startup:startup-runtime:1.1.1 (*)
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.1.10 (*)
-++--- androidx.compose.material3.adaptive:adaptive-navigation-android:1.0.0
+++--- androidx.compose.material3.adaptive:adaptive-navigation-android:1.1.0
 +|    +--- androidx.activity:activity-compose:1.8.2 -> 1.10.1 (*)
-+|    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
-+|    +--- androidx.annotation:annotation-experimental:1.4.0 -> 1.4.1 (*)
++|    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
++|    +--- androidx.annotation:annotation-experimental:1.4.1 (*)
 +|    +--- androidx.compose.foundation:foundation:1.6.5 -> 1.7.8 (*)
-+|    +--- androidx.compose.material3.adaptive:adaptive-layout:1.0.0 -> 1.1.0
++|    +--- androidx.compose.material3.adaptive:adaptive-layout:1.1.0
 +|    |    \--- androidx.compose.material3.adaptive:adaptive-layout-android:1.1.0
 +|    |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|    |         +--- androidx.annotation:annotation-experimental:1.4.1 (*)
@@ -1013,10 +1013,10 @@
 +|    |         +--- androidx.compose.material3.adaptive:adaptive:1.1.0 (c)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.10 (c)
 +|    +--- androidx.compose.ui:ui-util:1.6.5 -> 1.7.8 (*)
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.10 (*)
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22 -> 2.1.10 (*)
-+|    +--- androidx.compose.material3.adaptive:adaptive-layout:1.0.0 -> 1.1.0 (c)
-+|    \--- androidx.compose.material3.adaptive:adaptive:1.0.0 -> 1.1.0 (c)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.1.10 (*)
++|    +--- androidx.compose.material3.adaptive:adaptive-layout:1.1.0 (c)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.10 (c)
++|    \--- androidx.compose.material3.adaptive:adaptive:1.1.0 (c)
 ++--- com.github.bitfireAT:dav4jvm:2.2.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20 -> 2.1.10 (*)
 +|    +--- org.apache.commons:commons-lang3:3.8.1 -> 3.12.0
@@ -1394,7 +1394,7 @@
 +|    +--- androidx.compose.material3.adaptive:adaptive:1.0.0 -> 1.1.0 (c)
 +|    +--- androidx.compose.material3.adaptive:adaptive-layout:1.0.0 -> 1.1.0 (c)
 +|    +--- androidx.compose.material3.adaptive:adaptive-layout-android:1.0.0 -> 1.1.0 (c)
-+|    +--- androidx.compose.material3.adaptive:adaptive-navigation-android:1.0.0 (c)
++|    +--- androidx.compose.material3.adaptive:adaptive-navigation-android:1.0.0 -> 1.1.0 (c)
 +|    +--- androidx.compose.runtime:runtime:1.7.8 (c)
 +|    +--- androidx.compose.runtime:runtime-livedata:1.7.8 (c)
 +|    +--- androidx.compose.ui:ui:1.7.8 (c)
