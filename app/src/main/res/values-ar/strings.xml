@@ -773,4 +773,15 @@
     <string name="clear_completed_tasks_count">سيتم حذف %s</string>
     <string name="repeats_ends">ينتهي عند</string>
     <string name="repeats_never">أبدا</string>
+    <string name="app_settings">إعدادات التطبيق</string>
+    <string name="show_edit_screen_without_unlock">إظهار شاشة التعديل بدون فتح القفل</string>
+    <string name="customize_drawer">تخصيص الدرج</string>
+    <string name="customize_drawer_summary">اسحب وأفلِت لإعادة ترتيب عناصر القائمة</string>
+    <string name="quiet_hours_in_effect">ساعات الهدوء سارية المفعول</string>
+    <string name="delete_comment">تعليق</string>
+    <string name="swipe_to_snooze_description">وقت الغفوة</string>
+    <string name="swipe_to_snooze_time_description">سيتم تأجيل الإشعار الذي تم مسحه وإعادة إنشائه %s</string>
+    <string name="yesterday">الأمس</string>
+    <string name="comment">التعليق</string>
+    <string name="send_application_logs">إرسال سجلات التطبيق</string>
 </resources>
