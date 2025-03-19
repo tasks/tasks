@@ -16,6 +16,9 @@ abstract class BaseDateTimePicker : DialogFragment() {
     }
 
     protected var onDismissHandler: OnDismissHandler? = null
+    protected val autoclose by lazy {
+        arguments?.getBoolean(EXTRA_AUTO_CLOSE) ?: false
+    }
 
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)
@@ -32,8 +35,6 @@ abstract class BaseDateTimePicker : DialogFragment() {
     }
 
     override fun onCancel(dialog: DialogInterface) = sendSelected()
-
-    protected fun closeAutomatically(): Boolean = arguments?.getBoolean(EXTRA_AUTO_CLOSE) ?: false
 
     protected abstract fun sendSelected()
 
