@@ -710,4 +710,24 @@
     <string name="repeats_weekly_on">Se repetă la</string>
     <string name="sort_descending">Descrescător</string>
     <string name="sort_grouping">Grupare</string>
+    <string name="send_application_logs">Trimite jurnalele aplicației</string>
+    <string name="show_edit_screen_without_unlock">Afișează ecranul de editare fără deblocare</string>
+    <string name="app_settings">Setările aplicației</string>
+    <string name="swipe_to_snooze_time_description">O notificare eliminată va fi amânată și recreată %s</string>
+    <string name="swipe_to_snooze_time_15_minutes">după 15 minute</string>
+    <string name="swipe_to_snooze_time_30_minutes">după 30 de minute</string>
+    <string name="swipe_to_snooze_time_1_hour">după o oră</string>
+    <string name="show_edit_screen_without_unlock_summary">Permite utilizarea dalelor setărilor rapide fără a debloca dispozitivul</string>
+    <string name="theme_dynamic">Dinamic</string>
+    <string name="customize_drawer">Personalizează sertarul</string>
+    <string name="customize_drawer_summary">Trage și plasează pentru a rearanja elementele din meniu</string>
+    <string name="swipe_to_snooze_title">Glisează pentru a amâna</string>
+    <string name="swipe_to_snooze_description">Timp de amânare</string>
+    <string name="swipe_to_snooze_time_immediately">imediat</string>
+    <string name="swipe_to_snooze_time_24_hours">după 24 de ore</string>
+    <string name="yesterday">Ieri</string>
+    <string name="delete_comment">comentariu</string>
+    <string name="clear_completed_tasks_count">%s va fi șters</string>
+    <string name="comment">Comentariu</string>
+    <string name="quiet_hours_in_effect">Orele liniștite sunt activate</string>
 </resources>
