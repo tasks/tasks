@@ -1,3 +1,9 @@
+### 14.5.3 (2025-03-20)
+
+* Updated date and time pickers to Material 3
+* Remove 'Start of week' preference
+  * This feature can't be supported with Material 3 calendars
+
 ### 14.5.2 (2025-03-15)
 
 * Fix items hidden under menu search bar [#3406](https://github.com/tasks/tasks/issues/3406)

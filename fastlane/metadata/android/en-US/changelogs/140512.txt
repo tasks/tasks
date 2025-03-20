@@ -1,0 +1,3 @@
+* Updated date and time pickers to Material 3
+* Remove 'Start of week' preference
+  * This feature can't be supported with Material 3 calendars
