@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.TasksApplication
 import org.tasks.compose.components.AnimatedBanner
@@ -110,6 +111,21 @@ fun SyncWarningMicrosoft(
 }
 
 @Composable
+fun AppUpdatedBanner(
+    whatsNew: () -> Unit,
+    dismiss: () -> Unit,
+) {
+    Banner(
+        title = stringResource(id = R.string.banner_app_updated_title),
+        body = stringResource(id = R.string.banner_app_updated_description, BuildConfig.VERSION_NAME),
+        dismissText = stringResource(id = R.string.dismiss),
+        onDismiss = dismiss,
+        action = stringResource(id = R.string.whats_new),
+        onAction = whatsNew
+    )
+}
+
+@Composable
 fun BeastModeBanner(
     visible: Boolean,
     showSettings: () -> Unit,
@@ -166,4 +182,11 @@ private fun MicrosoftWarningPreview() = TasksTheme {
 @Composable
 private fun GoogleTasksWarningPreview() = TasksTheme {
     SyncWarningGoogleTasks(moreInfo = {}, dismiss = {})
+}
+
+@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun AppUpdatedBannerPreview() = TasksTheme {
+    AppUpdatedBanner(whatsNew = {}, dismiss = {})
 }

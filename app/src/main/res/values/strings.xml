@@ -508,6 +508,8 @@ File %1$s contained %2$s.\n\n
   <string name="open_map">Open map</string>
   <string name="choose_new_location">Choose new location</string>
   <string name="third_party_licenses">Third-party licenses</string>
+  <string name="banner_app_updated_title">App updated</string>
+  <string name="banner_app_updated_description">Tasks was just updated to %s. Would you like to see the release notes?</string>
   <string name="whats_new">What\'s New</string>
   <string name="version_string">Version %s</string>
   <string name="invalid_backup_file">Invalid backup file</string>

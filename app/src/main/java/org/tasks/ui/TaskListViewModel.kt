@@ -54,6 +54,7 @@ sealed class Banner {
     data object BegForMoney : Banner()
     data object WarnMicrosoft : Banner()
     data object WarnGoogleTasks : Banner()
+    data object AppUpdated : Banner()
 }
 
 @HiltViewModel
@@ -194,6 +195,8 @@ class TaskListViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val accounts = caldavDao.getAccounts()
             val banner = when {
+                preferences.getBoolean(R.string.p_just_updated, false) ->
+                    Banner.AppUpdated
                 preferences.warnNotificationsDisabled && !permissionChecker.hasNotificationPermission() ->
                     Banner.NotificationsDisabled
                 preferences.warnAlarmsDisabled && !applicationContext.canScheduleExactAlarms() ->
@@ -225,6 +228,7 @@ class TaskListViewModel @Inject constructor(
             }
             Banner.WarnGoogleTasks -> preferences.warnGoogleTasks = false
             Banner.WarnMicrosoft -> preferences.warnMicrosoft = false
+            Banner.AppUpdated -> preferences.setBoolean(R.string.p_just_updated, false)
             null -> {}
         }
 

@@ -67,6 +67,7 @@ class Debug : InjectingPreferenceFragment() {
             preferences.warnMicrosoft = true
             preferences.warnGoogleTasks = true
             preferences.warnQuietHoursDisabled = true
+            preferences.setBoolean(R.string.p_just_updated, true)
             true
         }
     }

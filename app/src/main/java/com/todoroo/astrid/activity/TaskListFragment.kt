@@ -87,6 +87,7 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.compose.AlarmsDisabledBanner
+import org.tasks.compose.AppUpdatedBanner
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.compose.NotificationsDisabledBanner
@@ -108,6 +109,7 @@ import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.PriorityPicker.Companion.newPriorityPicker
 import org.tasks.dialogs.SortSettingsActivity
+import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.extensions.Context.openAppNotificationSettings
 import org.tasks.extensions.Context.openReminderSettings
@@ -469,6 +471,18 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                 moreInfo = {
                                     listViewModel.dismissBanner()
                                     context.openUri(R.string.url_microsoft)
+                                },
+                                dismiss = { listViewModel.dismissBanner() },
+                            )
+
+                        Banner.AppUpdated ->
+                            AppUpdatedBanner(
+                                whatsNew = {
+                                    val fragmentManager = parentFragmentManager
+                                    if (fragmentManager.findFragmentByTag(FRAG_TAG_WHATS_NEW) == null) {
+                                        WhatsNewDialog().show(parentFragmentManager, FRAG_TAG_WHATS_NEW)
+                                    }
+                                    listViewModel.dismissBanner()
                                 },
                                 dismiss = { listViewModel.dismissBanner() },
                             )
@@ -1155,6 +1169,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         const val EXTRA_FILTER = "extra_filter"
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"
         private const val FRAG_TAG_PRIORITY_PICKER = "frag_tag_priority_picker"
+        private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
         private const val REQUEST_TAG_TASKS = 10106
     }
 }

@@ -88,7 +88,6 @@ import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
 import org.tasks.data.listSettingsClass
 import org.tasks.dialogs.NewFilterDialog
-import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.extensions.Context.nightMode
 import org.tasks.extensions.Context.openUri
 import org.tasks.filters.Filter
@@ -516,15 +515,6 @@ class MainActivity : AppCompatActivity() {
             restartActivity()
             return
         }
-        if (preferences.getBoolean(R.string.p_just_updated, false)) {
-            if (preferences.getBoolean(R.string.p_show_whats_new, true)) {
-                val fragmentManager = supportFragmentManager
-                if (fragmentManager.findFragmentByTag(FRAG_TAG_WHATS_NEW) == null) {
-                    WhatsNewDialog().show(fragmentManager, FRAG_TAG_WHATS_NEW)
-                }
-            }
-            preferences.setBoolean(R.string.p_just_updated, false)
-        }
     }
 
     override fun onSupportActionModeStarted(mode: ActionMode) {
@@ -552,7 +542,6 @@ class MainActivity : AppCompatActivity() {
         const val OPEN_TASK = "open_new_task" // $NON-NLS-1$
         const val REMOVE_TASK = "remove_task"
         const val FINISH_AFFINITY = "finish_affinity"
-        private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
         private const val FLAG_FROM_HISTORY
                 = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
 
