@@ -362,6 +362,8 @@
     <string name="password">پاسورڈ</string>
     <string name="user">صارف</string>
     <string name="add_account">اکاؤنٹ داخل کریں</string>
+    <string name="use_locale_default">لوکل ڈیفالٹ استعمال کریں</string>
+    <string name="start_of_week">ہفتے کا آغاز</string>
     <string name="date_and_time">وقت اور تاریخ</string>
     <string name="copy_selected_tasks">منتخب ٹاسکس کاپی کریں؟</string>
     <string name="delete_selected_tasks">منتخب ٹاسکس ڈٰیلیٹ کریں؟</string>

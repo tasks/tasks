@@ -328,6 +328,8 @@
     <string name="delete_selected_tasks">Ištrinti pažymėtas užduotis?</string>
     <string name="copy_selected_tasks">Nukopijuoti pažymėtas užduotis?</string>
     <string name="date_and_time">Data ir laikas</string>
+    <string name="start_of_week">Savaitės pradžia</string>
+    <string name="use_locale_default">Naudoti numatytą vietovę</string>
     <string name="add_account">Pridėti paskyrą</string>
     <string name="user">Vartotojas</string>
     <string name="password">Slaptažodis</string>

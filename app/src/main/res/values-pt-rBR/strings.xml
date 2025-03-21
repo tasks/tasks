@@ -316,6 +316,8 @@
     <string name="delete_selected_tasks">Excluir tarefas selecionadas?</string>
     <string name="copy_selected_tasks">Copiar tarefas selecionadas?</string>
     <string name="date_and_time">Hora e data</string>
+    <string name="start_of_week">Início da semana</string>
+    <string name="use_locale_default">Usar o idioma padrão</string>
     <string name="add_account">Adicionar conta</string>
     <string name="user">Usuário</string>
     <string name="password">Senha</string>

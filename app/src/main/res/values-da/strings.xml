@@ -230,6 +230,8 @@
     <string name="password">Kodeord</string>
     <string name="user">Bruger</string>
     <string name="add_account">Tilføj konto</string>
+    <string name="use_locale_default">Brug systemindstilling</string>
+    <string name="start_of_week">Ugen begynder</string>
     <string name="date_and_time">Dato og tidspunkt</string>
     <string name="delete_selected_tasks">Slet de markerede opgaver\?</string>
     <string name="copy_selected_tasks">Kopiér de markerede opgaver\?</string>

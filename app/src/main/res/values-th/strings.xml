@@ -253,6 +253,8 @@
     <string name="password">รหัสผ่าน</string>
     <string name="user">ผู้ใช้</string>
     <string name="add_account">เพิ่มบัญชี</string>
+    <string name="use_locale_default">ใช้ค่าเริ่มต้นของสถานที่</string>
+    <string name="start_of_week">ต้นสัปดาห์</string>
     <string name="date_and_time">วันที่และเวลา</string>
     <string name="copy_selected_tasks">คัดลอกงานที่เลือกหรือไม่\?</string>
     <string name="delete_selected_tasks">ลบงานที่เลือก\?</string>

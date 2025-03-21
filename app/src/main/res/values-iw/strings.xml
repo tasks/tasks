@@ -340,6 +340,8 @@
     <string name="delete_selected_tasks">למחוק משימות?</string>
     <string name="copy_selected_tasks">להעתיק משימות?</string>
     <string name="date_and_time">תאריך וושעה</string>
+    <string name="start_of_week">תחילת השבוע</string>
+    <string name="use_locale_default">השתמש באזור גיאוגרפי ברירת מחדל</string>
     <string name="add_account">הוסף חשבון</string>
     <string name="user">משתמש</string>
     <string name="password">סיסמא</string>
