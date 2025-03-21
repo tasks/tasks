@@ -443,11 +443,6 @@
     <string name="upgrade_more_customization_description">Lås upp alla teman, färger och ikoner</string>
     <string name="upgrade_more_customization">Mer anpassning</string>
     <string name="pro_free_trial">Nya prenumeranter får en gratis provperiod på 7 dagar. Avbryt när som helst</string>
-    <string name="picker_mode_text">Text</string>
-    <string name="picker_mode_clock">Klocka</string>
-    <string name="picker_mode_calendar">Kalender</string>
-    <string name="picker_mode_time">Tidsväljarläge</string>
-    <string name="picker_mode_date">Datumväljarläge</string>
     <string name="invite_invalid">Inbjudan ogiltig</string>
     <string name="invite_awaiting_response">Inbjudan väntar på svar</string>
     <string name="invite_declined">Inbjudan avfärdad</string>

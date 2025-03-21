@@ -561,11 +561,6 @@
     <string name="upgrade_more_customization_description">Låse alle temaer, farver og ikoner op</string>
     <string name="upgrade_more_customization">Mere tilpasning</string>
     <string name="pro_free_trial">Nye abonnenter får en gratis prøveperiode på 7 dage. Du kan til enhver tid annullere</string>
-    <string name="picker_mode_text">Tekst</string>
-    <string name="picker_mode_clock">Ur</string>
-    <string name="picker_mode_calendar">kalender</string>
-    <string name="picker_mode_time">Time picker-tilstand</string>
-    <string name="picker_mode_date">Tilstand for datovælger</string>
     <string name="invite_invalid">Invitere ugyldig</string>
     <string name="invite_awaiting_response">Invitation afventer svar</string>
     <string name="invite_declined">Invitation afvist</string>

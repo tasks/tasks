@@ -7,7 +7,6 @@
     <string name="custom_filter_or">SAU</string>
     <string name="filters">Filtre</string>
     <string name="email">E-mail</string>
-    <string name="picker_mode_calendar">Calendar</string>
     <string name="compact">Compact</string>
     <string name="TEA_timer_est">Estim. %s</string>
     <string name="TEA_control_gcal">Calendar</string>
@@ -23,10 +22,6 @@
     <string name="upgrade_more_customization_description">Deblochează toate temele, culorile și pictogramele</string>
     <string name="upgrade_more_customization">Mai multă personalizare</string>
     <string name="pro_free_trial">Noii abonați beneficiază de o perioadă de încercare gratuită de 7 zile. Anulare în orice moment</string>
-    <string name="picker_mode_text">Text</string>
-    <string name="picker_mode_clock">Ceas</string>
-    <string name="picker_mode_time">Modul de selectare a timpului</string>
-    <string name="picker_mode_date">Modul de selectare a datei</string>
     <string name="invite_invalid">Invitație nevalabilă</string>
     <string name="invite_awaiting_response">Invitație în așteptarea răspunsului</string>
     <string name="invite_declined">Invitație refuzată</string>

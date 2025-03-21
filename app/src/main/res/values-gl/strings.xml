@@ -369,7 +369,6 @@
     <string name="price_per_year">$%s/ano</string>
     <string name="migrate_count">Mover %s a Tasks.org</string>
     <string name="list_members">Lista de participantes</string>
-    <string name="picker_mode_date">Modo de selección de data</string>
     <string name="caldav_server_unknown">Descoñecido</string>
     <string name="caldav_server_other">Outro</string>
     <string name="more_options">Máis opcións</string>
@@ -529,10 +528,6 @@
     <string name="invite">Convidar</string>
     <string name="invite_declined">Convite rexeitado</string>
     <string name="invite_awaiting_response">Convite en agarda</string>
-    <string name="picker_mode_time">Modo de selección de hora</string>
-    <string name="picker_mode_calendar">Calendario</string>
-    <string name="picker_mode_clock">Reloxo</string>
-    <string name="picker_mode_text">Texto</string>
     <string name="upgrade_desktop_access_description">Sincronizar con clientes de terceiros como Outlook e Appler Reminders</string>
     <string name="completed">Finalizada</string>
     <string name="completed_tasks_at_bottom">Mover as tarefas finalizadas ao fondo</string>

@@ -127,16 +127,6 @@
     <item>2</item>
   </string-array>
 
-  <string-array name="date_picker_modes">
-    <item>@string/picker_mode_calendar</item>
-    <item>@string/picker_mode_text</item>
-  </string-array>
-
-  <string-array name="time_picker_modes">
-    <item>@string/picker_mode_clock</item>
-    <item>@string/picker_mode_text</item>
-  </string-array>
-
   <string-array name="two_values">
     <item>0</item>
     <item>1</item>

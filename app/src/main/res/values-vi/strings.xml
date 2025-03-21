@@ -66,11 +66,6 @@
     <string name="upgrade_more_customization_description">Mở khoá tất cả chủ đề, màu sắc, và biểu tượng</string>
     <string name="upgrade_more_customization">Nhiều tuỳ biến hơn</string>
     <string name="pro_free_trial">Những người đăng ký mới sẽ nhận khoảng thời gian dùng thử 7 ngày miễn phí. Huỷ vào bất kỳ lúc nào</string>
-    <string name="picker_mode_text">Văn bản</string>
-    <string name="picker_mode_clock">Đồng hồ</string>
-    <string name="picker_mode_calendar">Lịch</string>
-    <string name="picker_mode_time">Chế độ trình chọn thời gian</string>
-    <string name="picker_mode_date">Chế độ trình chọn ngày</string>
     <string name="invite_invalid">Lời mời không hợp lệ</string>
     <string name="invite">Lời mời</string>
     <string name="invite_awaiting_response">Lời mời đang chờ phản hồi</string>

@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Keyboard
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material3.BasicAlertDialog
+import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -42,7 +43,8 @@ import org.tasks.R
 fun TimePickerDialog(
     millisOfDay: Int,
     is24Hour: Boolean,
-    textInput: Boolean,
+    initialDisplayMode: DisplayMode,
+    setDisplayMode: (DisplayMode) -> Unit,
     selected: (Int) -> Unit,
     dismiss: () -> Unit,
 ) {
@@ -51,7 +53,7 @@ fun TimePickerDialog(
         initialMinute = (millisOfDay / (60_000)) % 60,
         is24Hour = is24Hour
     )
-    var showingTextInput by remember { mutableStateOf(textInput) }
+    var displayMode by remember { mutableStateOf(initialDisplayMode) }
     val layoutType = with(LocalConfiguration.current) {
         if (screenHeightDp < screenWidthDp) {
             TimePickerLayoutType.Horizontal
@@ -80,7 +82,7 @@ fun TimePickerDialog(
                         .weight(1f, fill = false),
                     contentAlignment = Alignment.Center,
                 ) {
-                    if (showingTextInput) {
+                    if (displayMode == DisplayMode.Input) {
                         TimeInput(
                             state = state,
                             colors = TimePickerDefaults.colors(
@@ -108,10 +110,17 @@ fun TimePickerDialog(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         IconButton(
-                            onClick = { showingTextInput = !showingTextInput },
+                            onClick = {
+                                displayMode = if (displayMode == DisplayMode.Input) {
+                                    DisplayMode.Picker
+                                } else {
+                                    DisplayMode.Input
+                                }
+                                setDisplayMode(displayMode)
+                            },
                         ) {
                             Icon(
-                                imageVector = if (showingTextInput) {
+                                imageVector = if (displayMode == DisplayMode.Input) {
                                     Icons.Outlined.Schedule
                                 } else {
                                     Icons.Outlined.Keyboard

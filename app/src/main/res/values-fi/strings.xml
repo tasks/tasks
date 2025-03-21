@@ -508,11 +508,6 @@
     <string name="upgrade_more_customization_description">Avaa kaikki teemat, värit ja kuvakkeet</string>
     <string name="upgrade_more_customization">Lisää räätälöintiä</string>
     <string name="pro_free_trial">Uudet tilaajat saavat 7 päivän ilmaisen kokeilujakson. Peruuta milloin tahansa</string>
-    <string name="picker_mode_text">Teksti</string>
-    <string name="picker_mode_clock">Kello</string>
-    <string name="picker_mode_calendar">kalenteri</string>
-    <string name="picker_mode_time">Ajanottotila</string>
-    <string name="picker_mode_date">Päivämäärän poimintatila</string>
     <string name="invite_invalid">Kutsu on mitätön</string>
     <string name="invite_awaiting_response">Kutsu odottaa vastausta</string>
     <string name="invite_declined">Kutsu hylätty</string>

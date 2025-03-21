@@ -9,6 +9,8 @@ import android.content.pm.PackageManager
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Binder
+import androidx.compose.material3.DisplayMode
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
@@ -587,6 +589,22 @@ class Preferences @JvmOverloads constructor(
 
     val multilineTitle: Boolean
         get() = getBoolean(R.string.p_multiline_title, false)
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    var calendarDisplayMode: DisplayMode
+        get() = if (getIntegerFromString(R.string.p_picker_mode_date, 0) == 1)
+            DisplayMode.Input else DisplayMode.Picker
+        set(mode) {
+            setStringFromInteger(R.string.p_picker_mode_date, if (mode == DisplayMode.Input) 1 else 0)
+        }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    var timeDisplayMode: DisplayMode
+        get() = if (getIntegerFromString(R.string.p_picker_mode_time, 0) == 1)
+            DisplayMode.Input else DisplayMode.Picker
+        set(mode) {
+            setStringFromInteger(R.string.p_picker_mode_time, if (mode == DisplayMode.Input) 1 else 0)
+        }
 
     companion object {
         private fun getSharedPreferencesName(context: Context): String =

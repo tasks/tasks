@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="github_sponsor">අනුග්‍රාහකයා</string>
-    <string name="picker_mode_date">දින තේරීම් ආකාරය</string>
     <string name="invite_invalid">ආරාධනය අවලංගුයි</string>
     <string name="share_list">ලැයිස්තුව බෙදාගන්න</string>
     <string name="issue_tracker">දෝෂ සෙවීම</string>
@@ -65,9 +64,6 @@
     <string name="upgrade_more_customization_description">සියලුම තේමාවන්, වර්ණ සහ අයිකන අගුළු ඇරීම</string>
     <string name="upgrade_more_customization">තවත් අභිරුචිකරණය</string>
     <string name="pro_free_trial">නව ග්‍රාහකයින්ට දින 7 ක නොමිලේ අත්හදා බැලීම් කාලයක් ලැබේ. ඕනෑම වේලාවක අවලංගු කරන්න</string>
-    <string name="picker_mode_text">පෙළ</string>
-    <string name="picker_mode_clock">ඔරලෝසුව</string>
-    <string name="picker_mode_calendar">දින දර්ශනය</string>
     <string name="invite_declined">ආරාධනය ප්‍රතික්ෂේප විය</string>
     <string name="invite">ආරාධනා කරන්න</string>
     <string name="email">විද්යුත් තැපෑල</string>
@@ -610,7 +606,6 @@
     <string name="repeats_single_on">%1$s, %2$s පුනරාවර්තනය වේ</string>
     <string name="markdown_description">මාතෘකාව සහ විස්තරය තුළ ලකුණු කිරීම සක්‍රිය කරන්න</string>
     <string name="markdown">ලකුණු කිරීම</string>
-    <string name="picker_mode_time">කාලය තෝරාගැනීම් මාදිලිය</string>
     <string name="invite_awaiting_response">ප්‍රතිචාරයක් බලාපොරොත්තුවෙන් ඇති ආරාධන</string>
     <string name="list_members">සාමාජික ලැයිස්තුව</string>
     <string name="migrating_tasks">සංක්‍රමණික කාර්යයන්</string>

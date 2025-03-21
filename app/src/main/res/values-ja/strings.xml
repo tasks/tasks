@@ -484,7 +484,6 @@
     <string name="authentication_required">認証が必要です</string>
     <string name="share_list">リストを共有</string>
     <string name="markdown">マークダウン</string>
-    <string name="picker_mode_date">日付選択の方法</string>
     <string name="auto_dismiss_datetime_widget">ウィジェット</string>
     <string name="lists">リスト</string>
     <string name="migrating_tasks">タスクを移行する</string>
@@ -571,8 +570,6 @@
     <string name="tasks_org_account_required">Tasks.org のアカウントが必要です</string>
     <string name="account_not_included">「価格はあなた次第」でのサブスクリプションには含まれていません</string>
     <string name="list_members">リストメンバー</string>
-    <string name="picker_mode_text">文字</string>
-    <string name="picker_mode_time">時間選択の方法</string>
     <string name="remove_user_confirmation">%1$s は %2$s にアクセスできなくなります</string>
     <string name="invite_awaiting_response">応答待ちの招待</string>
     <string name="enable_reminders">リマインダーを有効にする</string>
@@ -616,8 +613,6 @@
     <string name="troubleshooting">トラブルシューティング</string>
     <string name="app_passwords_more_info">タスクやカレンダーをサードパーティ製のデスクトップアプリやモバイルアプリと同期します。詳しくはここをタップ</string>
     <string name="support">サポート</string>
-    <string name="picker_mode_clock">時計</string>
-    <string name="picker_mode_calendar">カレンダー</string>
     <string name="permission_read_tasks">Tasks データベースへの完全なアクセス</string>
     <string name="auto_dismiss_datetime">日時選択画面を自動で閉じる</string>
     <string name="chip_appearance_icon_only">アイコンのみ</string>

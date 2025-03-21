@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -76,6 +77,8 @@ fun CustomRecurrence(
     setOccurrences: (Int) -> Unit,
     toggleDay: (DayOfWeek) -> Unit,
     setMonthSelection: (Int) -> Unit,
+    calendarDisplayMode: DisplayMode,
+    setDisplayMode: (DisplayMode) -> Unit,
 ) {
     BackHandler {
         save()
@@ -185,6 +188,8 @@ fun CustomRecurrence(
                         setEndDate = setEndDate,
                         setSelection = setSelectedEndType,
                         setOccurrences = setOccurrences,
+                        calendarDisplayMode = calendarDisplayMode,
+                        setDisplayMode = setDisplayMode,
                     )
                 }
             }
@@ -319,11 +324,14 @@ private fun MonthlyPicker(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun EndsPicker(
     selection: Int,
     endDate: Long,
     endOccurrences: Int,
+    calendarDisplayMode: DisplayMode,
+    setDisplayMode: (DisplayMode) -> Unit,
     setOccurrences: (Int) -> Unit,
     setEndDate: (Long) -> Unit,
     setSelection: (Int) -> Unit,
@@ -352,7 +360,12 @@ private fun EndsPicker(
         if (showDatePicker) {
             DatePickerDialog(
                 initialDate = endDate,
-                selected = { setEndDate(it) },
+                displayMode = calendarDisplayMode,
+                setDisplayMode = setDisplayMode,
+                selected = {
+                    setEndDate(it)
+                    showDatePicker = false
+                },
                 dismiss = { showDatePicker = false },
             )
         }
@@ -414,6 +427,7 @@ private val Recur.Frequency.plural: Int
         else -> throw RuntimeException()
     }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -430,10 +444,13 @@ fun WeeklyPreview() {
             setOccurrences = {},
             toggleDay = {},
             setMonthSelection = {},
+            calendarDisplayMode = DisplayMode.Picker,
+            setDisplayMode = {},
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -450,10 +467,13 @@ fun MonthlyPreview() {
             setOccurrences = {},
             toggleDay = {},
             setMonthSelection = {},
+            calendarDisplayMode = DisplayMode.Picker,
+            setDisplayMode = {},
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -470,10 +490,13 @@ fun MinutelyPreview() {
             setOccurrences = {},
             toggleDay = {},
             setMonthSelection = {},
+            calendarDisplayMode = DisplayMode.Picker,
+            setDisplayMode = {},
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -490,10 +513,13 @@ fun HourlyPreview() {
             setOccurrences = {},
             toggleDay = {},
             setMonthSelection = {},
+            calendarDisplayMode = DisplayMode.Picker,
+            setDisplayMode = {},
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -510,10 +536,13 @@ fun DailyPreview() {
             setOccurrences = {},
             toggleDay = {},
             setMonthSelection = {},
+            calendarDisplayMode = DisplayMode.Picker,
+            setDisplayMode = {},
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -530,6 +559,8 @@ fun YearlyPreview() {
             setOccurrences = {},
             toggleDay = {},
             setMonthSelection = {},
+            calendarDisplayMode = DisplayMode.Picker,
+            setDisplayMode = {},
         )
     }
 }

@@ -13,10 +13,16 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CalendarMonth
+import androidx.compose.material.icons.outlined.Keyboard
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerState
+import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
@@ -36,6 +42,7 @@ fun DatePickerBottomSheet(
     showButtons: Boolean,
     dismiss: () -> Unit,
     accept: () -> Unit,
+    setDisplayMode: (DisplayMode) -> Unit,
     dateShortcuts: @Composable ColumnScope.() -> Unit,
     timeShortcuts: @Composable ColumnScope.() -> Unit,
     state: DatePickerState,
@@ -88,6 +95,26 @@ fun DatePickerBottomSheet(
                         horizontalArrangement = Arrangement.End,
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
+                        IconButton(
+                            onClick = {
+                                state.displayMode = if (state.displayMode == DisplayMode.Input) {
+                                    DisplayMode.Picker
+                                } else {
+                                    DisplayMode.Input
+                                }
+                                setDisplayMode(state.displayMode)
+                            },
+                        ) {
+                            Icon(
+                                imageVector = if (state.displayMode == DisplayMode.Input) {
+                                    Icons.Outlined.CalendarMonth
+                                } else {
+                                    Icons.Outlined.Keyboard
+                                },
+                                contentDescription = null
+                            )
+                        }
+                        Spacer(modifier = Modifier.weight(1f))
                         TextButton(
                             onClick = { dismiss() }
                         ) {

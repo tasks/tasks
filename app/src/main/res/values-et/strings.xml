@@ -269,7 +269,6 @@
     <string name="chat_libera">Liitu kanaliga #tasks Libera Chat\'is</string>
     <string name="above_average">Üle keskmise</string>
     <string name="app_password_created_at">Loodud: %s</string>
-    <string name="picker_mode_calendar">Kalender</string>
     <string name="premium_record_audio">Salvesta audiomärge</string>
     <string name="consent_agree">Nõustun</string>
     <string name="default_location">Vaikeasukoht</string>
@@ -380,7 +379,6 @@
     <string name="sort_start_group">Algusaeg %s</string>
     <string name="github_sponsor">Sponsor</string>
     <string name="custom_filter_has_subtask">Alamülesannetega</string>
-    <string name="picker_mode_text">Tekst</string>
     <string name="snackbar_task_completed">Ülesanne lõpetatud</string>
     <string name="sort_grouping">Grupeerimine</string>
     <string name="sort_ascending">Kasvavalt</string>
@@ -397,7 +395,6 @@
     <string name="follow_reddit">Liitu grupiga r/tasks</string>
     <string name="support">Tugi</string>
     <string name="tasks_org_account">Tasks.org konto</string>
-    <string name="picker_mode_clock">Kell</string>
     <string name="invite_invalid">Vigane kutse</string>
     <string name="completed">Lõpetatud</string>
     <string name="enable_reminders">Luba meeldetuletused</string>
@@ -722,8 +719,6 @@
     <string name="completed_tasks_at_bottom">Nihuta lõpetatud ülesanded alla</string>
     <string name="hint_customize_edit_body">Sa võid seda vaadet kohendada väljade ümbertõstmise ja eemaldamise teel</string>
     <string name="enable_alarms">Taga õigeaegsed teavitused</string>
-    <string name="picker_mode_date">Kuupäevavalija vaade</string>
-    <string name="picker_mode_time">Kellaajavalija vaade</string>
     <string name="foreground_location">Asukoht esiplaanil</string>
     <string name="upgrade_open_source_description">Sinu tellimus aitab toetada arendustöö jätkamist</string>
     <string name="background_location">Asukoht tagaplaanil</string>

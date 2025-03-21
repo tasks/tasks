@@ -567,12 +567,7 @@
     <string name="upgrade_more_customization_description">모든 테마, 색상, 아이콘 사용</string>
     <string name="upgrade_more_customization">더 다양한 맞춤설정</string>
     <string name="pro_free_trial">새 구독자는 7일간 무료 체험이 가능합니다. 언제라도 취소할 수 있습니다</string>
-    <string name="picker_mode_text">글자</string>
     <string name="app_passwords_more_info">타사 데스크탑 및 모바일 앱으로 할일과 달력을 동기화합니다. 자세한 정보는 여기를 탭하세요</string>
-    <string name="picker_mode_clock">시계</string>
-    <string name="picker_mode_calendar">달력</string>
-    <string name="picker_mode_time">시간 선택상자 모드</string>
-    <string name="picker_mode_date">날짜 선택상자 모드</string>
     <string name="invite_invalid">유효하지 않은 초대</string>
     <string name="invite_awaiting_response">응답 대기중인 초대</string>
     <string name="invite_declined">초대 거절</string>

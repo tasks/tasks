@@ -426,10 +426,7 @@
     <string name="astrid_sort_order_summary">Използвайте режима за ръчно сортиране на Astrid за „Моите задачи“, „Днес“ и етикетите. Този режим на сортиране ще бъде заменен с „Моя подредба“ в бъдещо издание</string>
     <string name="astrid_sort_order">Ръчно сортиране на Astrid</string>
     <string name="SSD_sort_my_order">Моя подредба</string>
-    <string name="picker_mode_clock">Часовник</string>
     <string name="invite">Покана</string>
-    <string name="picker_mode_calendar">Календар</string>
-    <string name="picker_mode_text">Текст</string>
     <string name="markdown">Markdown</string>
     <string name="license_summary">Tasks е софтуер с отворен код, лицензиран под GNU General Public License v3.0</string>
     <string name="this_feature_requires_a_subscription">Тази възможност изисква абонамент</string>
@@ -546,7 +543,6 @@
     <string name="randomly_every">Произволно на всеки %s</string>
     <string name="multi_select_reschedule">Пренасрочване</string>
     <string name="auto_dismiss_datetime">Автоматично затваряне след избор на дата и час</string>
-    <string name="picker_mode_time">Режим на избор на час</string>
     <string name="more_options">Допълнителни настройки</string>
     <string name="auto_dismiss_datetime_list_summary">Затваряне след избор от списъка със задачи</string>
     <string name="shortcut_pick_time">Час по избор</string>
@@ -589,7 +585,6 @@
     <string name="invite_declined">Поканата е отхвърлена</string>
     <string name="invite_awaiting_response">Поканата очаква орговор</string>
     <string name="invite_invalid">Поканата е недейсвителна</string>
-    <string name="picker_mode_date">Режим избор на дата</string>
     <string name="app_passwords">Пароли на приложениятя</string>
     <string name="current_subscription">Текущ абонамент: %s</string>
     <string name="price_per_year">$%s/година</string>

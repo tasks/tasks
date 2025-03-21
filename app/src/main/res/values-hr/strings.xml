@@ -167,11 +167,6 @@
     <string name="upgrade_more_customization_description">Otključaj sve teme, boje i ikone</string>
     <string name="upgrade_more_customization">Više prilagođavanja</string>
     <string name="pro_free_trial">Novi pretplatnici dobivaju 7-dnevno besplatno probno razdoblje. Otkaži bilo kada</string>
-    <string name="picker_mode_text">Tekst</string>
-    <string name="picker_mode_clock">Sat</string>
-    <string name="picker_mode_calendar">Kalendar</string>
-    <string name="picker_mode_time">Modus birača vremena</string>
-    <string name="picker_mode_date">Modus birača datuma</string>
     <string name="invite_invalid">Poziv nevaljan</string>
     <string name="invite_awaiting_response">Poziv čeka odgovor</string>
     <string name="invite_declined">Poziv odbijen</string>

@@ -366,7 +366,6 @@
     <string name="gtasks_GLA_errorIOAuth">Bedaŭrinde ni spertis problemon dum komuniki kun serviloj de Google. Bonvolu repeni poste.</string>
     <string name="persistent_notifications_description">Daŭraj sciigoj ne povas esti forigitaj</string>
     <string name="action_new_task">Nova tasko</string>
-    <string name="picker_mode_text">Teksto</string>
     <string name="alarm_after_start">%s post komenco</string>
     <string name="astrid_sort_order_summary">Por ebligi manan ordigon de Astrid por \'Miaj Taskoj\', \'Hodiaŭ\', kaj etikedoj. Ĉi tiu maniero de ordigi estos anstataŭigita per \'Mia ordigo\' per estonta ĝisdatigo</string>
     <string name="EPr_default_location_reminder_title">Defaŭltaj lokaj memorigiloj</string>
@@ -415,7 +414,6 @@
     <string name="sign_in_with_google">Ensaluti per Google</string>
     <string name="sign_in_with_github">Ensaluti per GitHub</string>
     <string name="invite_invalid">Nevalida invito</string>
-    <string name="picker_mode_clock">Horloĝo</string>
     <string name="consent_agree">Konsenti</string>
     <string name="consent_deny">Ne nun</string>
     <string name="sort_sorting">Ordigo</string>
@@ -539,7 +537,6 @@
     <string name="tasks_org_account">Tasks.org konto</string>
     <string name="remove_user">Forigi uzanton?</string>
     <string name="invite_awaiting_response">Invito atendas respondon</string>
-    <string name="picker_mode_calendar">Kalendaro</string>
     <string name="pro_free_trial">Novaj abonantoj ricevas provperiodon de 7 tagoj. Iam ajn nuligi ĝin</string>
     <string name="upgrade_more_customization">Pli da adapto</string>
     <string name="caldav_server_unknown">Nekonata</string>
@@ -675,8 +672,6 @@
     <string name="your_subscription_expired">Via abono finiĝis. Abonu tuj por reaktivigi servon.</string>
     <string name="upgrade_tasks_org_account_description">Sinkronigi kun Tasks.org kaj kunlabori kun aliaj uzantoj</string>
     <string name="app_password_save">Uzu ĉi tiujn identigilojn por agordi aplikaĵon de ekstera liveranto. Ili permesas tutan atingorajton al via Tasks.org konto. Ne skribi ilin aŭ konigi ilin al iu ajn!</string>
-    <string name="picker_mode_date">Datelektila reĝimo</string>
-    <string name="picker_mode_time">Tempelektila reĝimo</string>
     <string name="upgrade_more_customization_description">Malŝlosi ĉiujn etosojn, kolorojn, kaj piktogramojn</string>
     <string name="upgrade_desktop_access">Aliri per labortablo</string>
     <string name="account_not_included">Ne inkluzivite per \'Elekti propran prezon\' abonoj</string>

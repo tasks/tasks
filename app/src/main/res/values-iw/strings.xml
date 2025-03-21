@@ -615,11 +615,6 @@
     <string name="upgrade_more_customization_description">ביטול נעילה של כל ערכות הנושא, הצבעים והסמלים</string>
     <string name="upgrade_more_customization">התאמה אישית נוספת</string>
     <string name="pro_free_trial">מנויים חדשים מקבלים תקופת ניסיון ללא תשלום למשך 7 ימים. ביטול בכל עת</string>
-    <string name="picker_mode_text">טקסט</string>
-    <string name="picker_mode_clock">שָׁעוֹן</string>
-    <string name="picker_mode_calendar">לוח שנה</string>
-    <string name="picker_mode_time">מצב בורר זמן</string>
-    <string name="picker_mode_date">מצב בוחר תאריכים</string>
     <string name="invite_invalid">הזמנה לא חוקית</string>
     <string name="invite_awaiting_response">הזמן תגובה ממתינה</string>
     <string name="invite_declined">ההזמנה נדחתה</string>

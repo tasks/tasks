@@ -620,11 +620,6 @@
     <string name="upgrade_more_customization_description">Odemknout všechny vzhledy, barvy a ikony</string>
     <string name="upgrade_more_customization">Další přizpůsobení</string>
     <string name="pro_free_trial">Noví předplatitelé dostanou 7 dnů na vyzkoušení zdarma. Předplatné je možné kdykoli zrušit</string>
-    <string name="picker_mode_text">Text</string>
-    <string name="picker_mode_clock">Hodiny</string>
-    <string name="picker_mode_calendar">Kalendář</string>
-    <string name="picker_mode_time">Režim výběru času</string>
-    <string name="picker_mode_date">Režim výběru data</string>
     <string name="invite_invalid">Neplatné pozvání</string>
     <string name="invite_awaiting_response">Pozvání čeká na odpověď</string>
     <string name="invite_declined">Pozvání odmítnuto</string>

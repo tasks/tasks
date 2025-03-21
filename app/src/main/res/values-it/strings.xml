@@ -594,11 +594,6 @@
     <string name="CFC_startBefore_name">Inizia…</string>
     <string name="app_passwords">Password delle app</string>
     <string name="widget_show_title">Mostra titolo</string>
-    <string name="picker_mode_time">Modalità selettore ora</string>
-    <string name="picker_mode_date">Modalità selettore data</string>
-    <string name="picker_mode_calendar">Calendario</string>
-    <string name="picker_mode_clock">Orologio</string>
-    <string name="picker_mode_text">Testuale</string>
     <string name="share_list">Condividi lista</string>
     <string name="remove_user_confirmation">%1$s non avrà più accesso a %2$s</string>
     <string name="remove_user">Vuoi rimuovere l\'utente\?</string>

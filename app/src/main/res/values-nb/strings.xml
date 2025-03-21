@@ -605,11 +605,6 @@
     <string name="upgrade_more_customization_description">Lås opp alle temaer, farger og ikoner</string>
     <string name="upgrade_more_customization">Mer tilpasning</string>
     <string name="pro_free_trial">Nye abonnenter får en 7-dagers gratis prøveperiode. Avbryt når som helst</string>
-    <string name="picker_mode_text">Tekst</string>
-    <string name="picker_mode_clock">klokke</string>
-    <string name="picker_mode_calendar">Kalender</string>
-    <string name="picker_mode_time">Modus for tidsvelger</string>
-    <string name="picker_mode_date">Datovelgermodus</string>
     <string name="invite_invalid">Invitasjon ugyldig</string>
     <string name="invite_awaiting_response">Inviter venter på svar</string>
     <string name="invite_declined">Invitasjon avslått</string>

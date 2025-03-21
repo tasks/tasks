@@ -109,8 +109,6 @@
     <string name="open_source">ଖୋଲା ଉତ୍ସ</string>
     <string name="invite">ନିମନ୍ତ୍ରଣ ପଠାଇବା</string>
     <string name="invite_invalid">ନିମନ୍ତ୍ରଣ ଅମାନ୍ୟ ଅଟେ</string>
-    <string name="picker_mode_calendar">କ୍ୟାଲେଣ୍ଡର</string>
-    <string name="picker_mode_clock">ଘଡ଼ି</string>
     <string name="widget_show_title">ଆଖ୍ୟା ଦେଖାଅ</string>
     <string name="SSD_sort_my_order">ମୋର କ୍ରମ</string>
     <string name="SSD_sort_start">ଆରମ୍ଭ ତାରିଖ ଅନୁଯାୟୀ</string>

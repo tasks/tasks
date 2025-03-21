@@ -2,16 +2,22 @@ package org.tasks.activities
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.timepicker.MaterialTimePicker
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import dagger.hilt.android.AndroidEntryPoint
-import org.tasks.dialogs.MyDatePickerDialog.Companion.dateInputMode
-import org.tasks.dialogs.MyDatePickerDialog.Companion.newDatePicker
-import org.tasks.dialogs.MyTimePickerDialog
-import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
-import org.tasks.dialogs.MyTimePickerDialog.Companion.timeInputMode
+import org.tasks.compose.pickers.DatePickerDialog
+import org.tasks.compose.pickers.TimePickerDialog
+import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.preferences.Preferences
+import org.tasks.themes.TasksTheme
+import org.tasks.themes.Theme
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
@@ -19,89 +25,64 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DateAndTimePickerActivity : AppCompatActivity() {
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var theme: Theme
 
-    private var initial: DateTime? = null
-    private var dateSelected: DateTime? = null
-
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initial = DateTime(intent.getLongExtra(EXTRA_TIMESTAMP, currentTimeMillis()))
-        dateSelected =
-            savedInstanceState
-                ?.getLong(EXTRA_DATE_SELECTED)
-                ?.takeIf { it > 0 }
-                ?.let { DateTime(it, DateTime.UTC) }
-        if (dateSelected != null) {
-            showTimePicker()
-        } else {
-            showDatePicker(initial ?: DateTime())
-        }
-    }
-
-    private fun showDatePicker(date: DateTime) {
-        dateSelected = null
-        val picker =
-            supportFragmentManager
-                .findFragmentByTag(FRAG_TAG_DATE_PICKER) as? MaterialDatePicker<Long>
-                ?: newDatePicker(date.millis, preferences.dateInputMode).apply {
-                    show(supportFragmentManager, FRAG_TAG_DATE_PICKER)
+        setContent {
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
+            ) {
+                var dateSelected by rememberSaveable {
+                    mutableLongStateOf(intent.getLongExtra(EXTRA_TIMESTAMP, currentTimeMillis()))
                 }
-        picker.apply {
-            addOnPositiveButtonClickListener {
-                dateSelected = DateTime(selection!!, DateTime.UTC)
-                showTimePicker()
-            }
-            addOnCancelListener { finish() }
-            addOnNegativeButtonClickListener { finish() }
-        }
-    }
-
-    private fun showTimePicker() {
-        val fragmentManager = supportFragmentManager
-        val picker =
-            fragmentManager
-                .findFragmentByTag(FRAG_TAG_TIME_PICKER) as? MaterialTimePicker
-                ?: newTimePicker(
-                    this,
-                    DateTime(dateSelected!!.year, dateSelected!!.monthOfYear, dateSelected!!.dayOfMonth)
-                        .withMillisOfDay(initial!!.millisOfDay).millis,
-                    preferences.timeInputMode
-                ).apply { show(fragmentManager, FRAG_TAG_TIME_PICKER) }
-        picker.apply {
-            addOnCancelListener {
-                dateSelected?.let {  showDatePicker(it) } ?: finish()
-            }
-            addOnNegativeButtonClickListener {
-                dateSelected?.let { showDatePicker(it) } ?: finish()
-            }
-            addOnPositiveButtonClickListener {
-                val data = Intent()
-                data.putExtras(intent)
-                data.putExtra(
-                    MyTimePickerDialog.EXTRA_TIMESTAMP,
-                    DateTime(
-                        dateSelected!!.year,
-                        dateSelected!!.monthOfYear,
-                        dateSelected!!.dayOfMonth,
-                        hour,
-                        minute
-                    ).millis
-                )
-                setResult(RESULT_OK, data)
-                finish()
+                var showTimePicker by rememberSaveable { mutableStateOf(false) }
+                if (showTimePicker) {
+                    TimePickerDialog(
+                        millisOfDay = 0,
+                        is24Hour = is24HourFormat,
+                        initialDisplayMode = remember { preferences.timeDisplayMode },
+                        setDisplayMode = { preferences.timeDisplayMode = it },
+                        selected = {
+                            val data = Intent()
+                            data.putExtras(intent)
+                            data.putExtra(
+                                EXTRA_TIMESTAMP,
+                                DateTime(dateSelected).withMillisOfDay(it).millis
+                            )
+                            setResult(RESULT_OK, data)
+                            finish()
+                        },
+                        dismiss = { showTimePicker = false },
+                    )
+                } else {
+                    DatePickerDialog(
+                        initialDate = remember {
+                            intent.getLongExtra(
+                                EXTRA_TIMESTAMP,
+                                currentTimeMillis()
+                            )
+                        },
+                        displayMode = remember { preferences.calendarDisplayMode },
+                        setDisplayMode = {
+                            preferences.calendarDisplayMode = it
+                        },
+                        selected = {
+                            dateSelected = it
+                            showTimePicker = true
+                        },
+                        dismiss = {
+                            finish()
+                        },
+                    )
+                }
             }
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        dateSelected?.let { outState.putLong(EXTRA_DATE_SELECTED, it.millis) }
     }
 
     companion object {
         const val EXTRA_TIMESTAMP = "extra_timestamp"
-        private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
-        private const val FRAG_TAG_TIME_PICKER = "frag_tag_time_picker"
-        private const val EXTRA_DATE_SELECTED = "extra_date_selected"
     }
 }

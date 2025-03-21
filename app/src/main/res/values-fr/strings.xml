@@ -617,11 +617,6 @@
     <string name="invite">Inviter</string>
     <string name="email">Courriel</string>
     <string name="share_list">Partager la liste</string>
-    <string name="picker_mode_text">Texte</string>
-    <string name="picker_mode_clock">Horloge</string>
-    <string name="picker_mode_calendar">Calendrier</string>
-    <string name="picker_mode_time">Mode sélecteur de temps</string>
-    <string name="picker_mode_date">Mode sélecteur de date</string>
     <string name="more_options">Plus d’options</string>
     <string name="upgrade_open_source_description">Votre abonnement soutient le développement continu</string>
     <string name="upgrade_desktop_access_description">Synchronisez avec des clients tiers comme « Outlook » et « Apple Reminders »</string>

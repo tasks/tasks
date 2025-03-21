@@ -608,11 +608,6 @@
     <string name="upgrade_more_customization_description">Desblokeatu gai, kolore eta ikono guztiak</string>
     <string name="upgrade_more_customization">Pertsonalizazio gehiago</string>
     <string name="pro_free_trial">Harpidedun berriek 7 eguneko doako proba jasotzen dute. Ezeztatu edozein unetan</string>
-    <string name="picker_mode_text">Testua</string>
-    <string name="picker_mode_clock">Erlojua</string>
-    <string name="picker_mode_calendar">Egutegia</string>
-    <string name="picker_mode_time">Denbora hautatzeko modua</string>
-    <string name="picker_mode_date">Data hautatzeko modua</string>
     <string name="next_saturday">Hurrengo larunbata</string>
     <string name="next_friday">Hurrengo ostirala</string>
     <string name="next_thursday">Hurrengo osteguna</string>

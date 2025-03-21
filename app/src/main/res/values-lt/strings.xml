@@ -488,9 +488,6 @@
     <string name="invite_declined">Kvietimas atmestas</string>
     <string name="invite_awaiting_response">Kvietimas laukia atsakymo</string>
     <string name="invite_invalid">Kvietimas negalioja</string>
-    <string name="picker_mode_calendar">Kalendorius</string>
-    <string name="picker_mode_clock">Laikrodis</string>
-    <string name="picker_mode_text">Tekstas</string>
     <string name="pro_free_trial">Naujiems prenumeratoriams suteikiamas 7 dienų nemokamas bandomasis laikotarpis. Atšaukite bet kuriuo metu</string>
     <string name="upgrade_more_customization">Daugiau tinkinimo</string>
     <string name="upgrade_tasks_org_account_description">Sinchronizuokite su Tasks.org ir bendradarbiaukite su kitais naudotojais</string>
@@ -597,8 +594,6 @@
     <string name="automatic_backups">Automatinės atsarginės kopijos</string>
     <string name="permission_read_tasks">Pilna prieiga prie Tasks duomenų bazės</string>
     <string name="reset_sort_order">Iš naujo nustatyti rūšiavimo tvarką</string>
-    <string name="picker_mode_time">Laiko rinkiklio režimas</string>
-    <string name="picker_mode_date">Datos rinkiklio režimas</string>
     <string name="local_lists">Vietiniai sąrašai</string>
     <string name="open_last_viewed_list">Atidaryti paskutinį peržiūrėtą sąrašą</string>
     <string name="on_launch">Paleidžiant</string>

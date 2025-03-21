@@ -608,11 +608,6 @@
     <string name="upgrade_tasks_org_account_description">Tasks.org ile eşzamanla ve diğer kullanıcılarla ortak çalış</string>
     <string name="upgrade_more_customization">Daha çok özelleştirme</string>
     <string name="pro_free_trial">Yeni aboneler 7 günlük sınama süresi kazanır. İstendiğinde iptal edilir</string>
-    <string name="picker_mode_text">Metin</string>
-    <string name="picker_mode_clock">Saat</string>
-    <string name="picker_mode_calendar">Takvim</string>
-    <string name="picker_mode_time">Zaman seçici kipi</string>
-    <string name="picker_mode_date">Tarih seçici kipi</string>
     <string name="next_friday">Sonraki Cma</string>
     <string name="next_saturday">Sonraki Cts</string>
     <string name="next_thursday">Sonraki Per</string>

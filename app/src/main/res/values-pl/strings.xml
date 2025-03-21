@@ -614,11 +614,6 @@
     <string name="upgrade_more_customization_description">Odblokuj wszystkie motywy, kolory oraz ikony</string>
     <string name="upgrade_more_customization">Więcej możliwości konfiguracji</string>
     <string name="pro_free_trial">Nowi subskrybenci otrzymują 7-dniowy, darmowy okres próbny. Można anulować w dowolnym momencie</string>
-    <string name="picker_mode_text">Tekst</string>
-    <string name="picker_mode_clock">Zegar</string>
-    <string name="picker_mode_calendar">Kalendarz</string>
-    <string name="picker_mode_time">Tryb Time picker</string>
-    <string name="picker_mode_date">Tryb selektora dat</string>
     <string name="invite_invalid">Zaproszenie nieważne</string>
     <string name="invite_awaiting_response">Zaproszenie oczekuje na odpowiedź</string>
     <string name="invite_declined">Zaproszenie odrzucone</string>

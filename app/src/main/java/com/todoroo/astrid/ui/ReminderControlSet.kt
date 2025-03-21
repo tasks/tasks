@@ -27,7 +27,6 @@ import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
-import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.extensions.Context.openReminderSettings
 import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.ui.TaskEditControlFragment
@@ -75,7 +74,7 @@ class ReminderControlSet : TaskEditControlFragment() {
                 if (result.resultCode != RESULT_OK) return@rememberLauncherForActivityResult
                 val data = result.data ?: return@rememberLauncherForActivityResult
                 val timestamp =
-                    data.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
+                    data.getLongExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, 0L)
                 val replace: Alarm? = data.getParcelableExtra(EXTRA_REPLACE)
                 replace?.let { viewModel.removeAlarm(it) }
                 viewModel.addAlarm(Alarm(time = timestamp, type = TYPE_DATE_TIME))

@@ -615,11 +615,6 @@
     <string name="invite">Запросити</string>
     <string name="email">Е-пошта</string>
     <string name="share_list">Поділитися списком</string>
-    <string name="picker_mode_text">Текст</string>
-    <string name="picker_mode_clock">Годинник</string>
-    <string name="picker_mode_calendar">Календар</string>
-    <string name="picker_mode_time">Режим вибору часу</string>
-    <string name="picker_mode_date">Режим вибору дати</string>
     <string name="more_options">Додаткові параметри</string>
     <string name="upgrade_open_source_description">Ваша передплата підтримує постійний розвиток</string>
     <string name="upgrade_desktop_access_description">Синхронізація зі сторонніми клієнтами, наприклад Outlook і Apple Нагадування</string>

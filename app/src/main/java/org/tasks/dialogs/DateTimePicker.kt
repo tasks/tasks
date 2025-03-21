@@ -31,7 +31,6 @@ import org.tasks.data.createDueDate
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
-import org.tasks.dialogs.MyTimePickerDialog.Companion.timeInputMode
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.notifications.NotificationManager
 import org.tasks.themes.TasksTheme
@@ -117,10 +116,13 @@ class DateTimePicker : BaseDateTimePicker() {
         savedInstanceState: Bundle?,
     ) = content {
         TasksTheme(theme = theme.themeBase.index) {
-            val state = rememberDatePickerState()
+            val state = rememberDatePickerState(
+                initialDisplayMode = remember { preferences.calendarDisplayMode },
+            )
             DatePickerBottomSheet(
                 state = state,
                 showButtons = !autoclose,
+                setDisplayMode = { preferences.calendarDisplayMode = it },
                 dismiss = { onDismissHandler?.onDismiss() ?: dismiss() },
                 accept = { sendSelected() },
                 dateShortcuts = {
@@ -160,7 +162,8 @@ class DateTimePicker : BaseDateTimePicker() {
                         TimePickerDialog(
                             millisOfDay = time,
                             is24Hour = remember { requireContext().is24HourFormat },
-                            textInput = remember { preferences.timeInputMode == 1 },
+                            initialDisplayMode = remember { preferences.timeDisplayMode },
+                            setDisplayMode = { preferences.timeDisplayMode = it },
                             selected = { returnSelectedTime(it + 1000) },
                             dismiss = { showTimePicker = false },
                         )

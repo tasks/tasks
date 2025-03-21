@@ -539,11 +539,6 @@
     <string name="upgrade_more_customization_description">Desbloqueie todos os temas, cores e ícones</string>
     <string name="upgrade_more_customization">Mais personalizações</string>
     <string name="pro_free_trial">Os novos subscritores recebem 7 dias de teste grátis. Cancele a qualquer momento</string>
-    <string name="picker_mode_text">Texto</string>
-    <string name="picker_mode_clock">Relógio</string>
-    <string name="picker_mode_calendar">Calendário</string>
-    <string name="picker_mode_time">Modo de escolher hora</string>
-    <string name="picker_mode_date">Modo de escolher data</string>
     <string name="invite_invalid">Convite inválido</string>
     <string name="invite_awaiting_response">Convite a aguardar resposta</string>
     <string name="invite_declined">Convite cancelado</string>

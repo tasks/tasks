@@ -568,7 +568,6 @@
     <string name="completed_tasks_at_bottom">將已完成的任務移至底部</string>
     <string name="repeat_monthly_on_the_nth_weekday">每月於 %1$s %2$s</string>
     <string name="background_location_permission_required">Tasks 收集位置資料以啟用基於位置的提醒，即使應用程式關閉或未使用。</string>
-    <string name="picker_mode_clock">時鐘</string>
     <string name="upgrade_more_customization_description">解鎖所有主題、顏色和圖示</string>
     <string name="back">返回</string>
     <string name="place_settings">位置設定</string>
@@ -576,7 +575,6 @@
     <string name="pro_dashclock_extension">Dashclock 擴充</string>
     <string name="auto_dismiss_datetime_edit_summary">選擇任務編輯時自動關閉</string>
     <string name="remove_user_confirmation">%1$s 將不再存取 %2$s 的資料庫</string>
-    <string name="picker_mode_time">時間選取器模式</string>
     <string name="snackbar_task_completed">任務已完成</string>
     <string name="sort_created_group">建立於 %s</string>
     <string name="invite_declined">邀請已拒絕</string>
@@ -589,7 +587,6 @@
     <string name="above_average">高於平均</string>
     <string name="dismiss">關閉</string>
     <string name="custom_notification">自訂通知</string>
-    <string name="picker_mode_calendar">行事曆</string>
     <string name="custom_filter_has_reminder">有提醒</string>
     <string name="no_google_play_subscription">沒有符合資格的 Google Play 訂閱</string>
     <string name="follow_reddit">加入 r/tasks</string>
@@ -640,8 +637,6 @@
     <string name="pro_free_trial">新訂閱者享有 7 天免費試用。隨時取消</string>
     <string name="list_members">清單成員</string>
     <string name="invite_invalid">邀請無效</string>
-    <string name="picker_mode_date">日期選擇模式</string>
-    <string name="picker_mode_text">文字</string>
     <string name="upgrade_tasks_org_account_description">與 Tasks.org 同步，並與其他用戶協作</string>
     <string name="upgrade_more_customization">更多自訂</string>
     <string name="local_lists">本機清單</string>

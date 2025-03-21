@@ -613,11 +613,6 @@
     <string name="upgrade_more_customization_description">Разблокировать все темы, цвета и иконки</string>
     <string name="upgrade_more_customization">Больше настроек</string>
     <string name="pro_free_trial">Новые подписчики получают 7-дневный бесплатный пробный период. Отмена возможна в любое время</string>
-    <string name="picker_mode_text">Текст</string>
-    <string name="picker_mode_clock">Часы</string>
-    <string name="picker_mode_calendar">Календарь</string>
-    <string name="picker_mode_time">Режим выбора времени</string>
-    <string name="picker_mode_date">Режим выбора даты</string>
     <string name="invite_invalid">Приглашение недействительно</string>
     <string name="invite_awaiting_response">Приглашение в ожидании ответа</string>
     <string name="invite_declined">Приглашение отклонено</string>

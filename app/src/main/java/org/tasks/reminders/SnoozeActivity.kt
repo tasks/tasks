@@ -13,7 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import org.tasks.activities.DateAndTimePickerActivity
-import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.time.DateTime
 import javax.inject.Inject
 
@@ -81,7 +80,7 @@ class SnoozeActivity : AppCompatActivity(), SnoozeCallback, DialogInterface.OnCa
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_DATE_TIME) {
             if (resultCode == Activity.RESULT_OK && data != null) {
-                val timestamp = data.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
+                val timestamp = data.getLongExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, 0L)
                 snoozeForTime(DateTime(timestamp))
             } else {
                 finish()

@@ -705,7 +705,6 @@
     <string name="app_passwords">Heslá aplikácie</string>
     <string name="app_passwords_more_info">Synchronizujte svoje úlohy a kalendáre s desktopovými a mobilnými aplikáciami tretích strán. Pre viac informácii kliknite sem</string>
     <string name="invite_invalid">Neplatná pozvánka</string>
-    <string name="picker_mode_clock">Hodiny</string>
     <string name="caldav_server_unknown">Neznámy</string>
     <string name="consent_agree">Súhlasím</string>
     <string name="sort_sorting">Triedenie</string>
@@ -725,11 +724,7 @@
     <string name="invite_awaiting_response">Pozvánka čaká na odpoveď</string>
     <string name="invite_declined">Pozvánka bola odmietnutá</string>
     <string name="upgrade_tasks_org_account_description">Synchronizujte s Tasks.org a spolupracujte s ostatnými používateľmi</string>
-    <string name="picker_mode_text">Text</string>
     <string name="remove_user">Odobrať používateľa?</string>
-    <string name="picker_mode_date">Režim výberu dátumu</string>
-    <string name="picker_mode_time">Režim výberu času</string>
-    <string name="picker_mode_calendar">Kalendár</string>
     <string name="pro_free_trial">Noví predplatitelia dostanú 7 dní na bezplatné otestovanie. Predplatné je možné kedykoľvek zrušiť</string>
     <string name="upgrade_more_customization">Ďalšie prispôsobenie</string>
     <string name="upgrade_more_customization_description">Odomknúť všetky motívy, farby a ikony</string>
