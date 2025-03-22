@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="actfm_picture_clear">Limpar imagem</string>
+    <string name="actfm_picture_clear">Remover imagem</string>
     <string name="TVA_add_comment">Comentar…</string>
     <string name="backup_BAc_import">Importar backup</string>
     <string name="backup_BAc_export">Fazer backup agora</string>
@@ -83,7 +83,7 @@
     <string name="default_location_reminder_on_arrival_or_departure">Ao chegar e ao sair</string>
     <string name="BFE_Active">Minhas tarefas</string>
     <string name="BFE_Recent">Modificadas recentemente</string>
-    <string name="CFA_button_add">Adicionar Critério</string>
+    <string name="CFA_button_add">Adicionar critério</string>
     <string name="CFC_dueBefore_text">Vencimento: ?</string>
     <string name="CFC_dueBefore_name">Vencimento…</string>
     <string name="no_due_date">Sem data de vencimento</string>
@@ -209,7 +209,7 @@
     <string name="TPl_notification">Temporizador ativado para %s!</string>
     <string name="TEA_timer_controls">Temporizador</string>
     <string name="TEA_timer_comment_started">iniciou essa tarefa:</string>
-    <string name="TEA_timer_comment_stopped">parou esta tarefa:</string>
+    <string name="TEA_timer_comment_stopped">deixou de fazer essa tarefa:</string>
     <string name="TEA_timer_comment_spent">Tempo gasto:</string>
     <string name="voice_create_prompt">Fale para criar uma tarefa</string>
     <string name="EPr_voiceInputEnabled_title">Entrada de voz</string>
@@ -277,15 +277,15 @@
     <string name="take_a_picture">Tirar uma foto</string>
     <string name="pick_from_gallery">Selecionar da galeria</string>
     <string name="pick_from_storage">Selecionar do armazenamento</string>
-    <string name="privacy_policy">Política de privacidade</string>
+    <string name="privacy_policy">Política de Privacidade</string>
     <string name="send_anonymous_statistics">Ajude a melhorar o Tasks</string>
     <string name="send_anonymous_statistics_summary">Enviar estatísticas de uso e relatórios de falha anonimamente para ajudar a melhorar o Tasks. Nenhuma informação pessoal será coletada.</string>
     <string name="tag_already_exists">Etiqueta já existe</string>
     <string name="name_cannot_be_empty">Nome não pode ser vazio</string>
     <string name="username_required">Nome de usuário necessário</string>
     <string name="password_required">Senha necessária</string>
-    <string name="url_required">URL requerida</string>
-    <string name="url_host_name_required">Nome do host necessário</string>
+    <string name="url_required">É necessário o URL</string>
+    <string name="url_host_name_required">É necessário o nome do Host</string>
     <string name="url_invalid_scheme">Deve iniciar com http(s)://</string>
     <string name="no_title">(Sem título)</string>
     <string name="back_button_saves_task">Botão \'voltar\' salva a tarefa</string>
@@ -360,7 +360,7 @@
     <string name="upgrade_to_pro">Comprar assinatura</string>
     <string name="manage_subscription">Modificar assinatura</string>
     <string name="refresh_purchases">Atualizar compras</string>
-    <string name="button_subscribe">Subscrever</string>
+    <string name="button_subscribe">Assinar</string>
     <string name="about">Sobre</string>
     <string name="license_summary">O Tasks é um software livre e de código aberto, licenciado sob a GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Extensão Dashclock</string>
@@ -387,7 +387,7 @@
     <string name="location_permission_required_location">Permissão de Localização é necessária para encontrar sua localização atual</string>
     <string name="open_map">Abrir mapa</string>
     <string name="choose_new_location">Escolher nova localização</string>
-    <string name="widget_id">ID do widget: %d</string>
+    <string name="widget_id">Código do Widget: %d</string>
     <string name="share">Compartilhar</string>
     <string name="select_all">Selecionar todos</string>
     <string name="calendar_event_created">Evento de calendário criado para %s</string>
@@ -397,7 +397,7 @@
     <string name="auto_dismiss_datetime_list_summary">Fechar automaticamente ao selecionar na lista de tarefas</string>
     <string name="auto_dismiss_datetime_list">Lista de tarefas</string>
     <string name="auto_dismiss_datetime">Fechar automaticamente o seletor de data e hora</string>
-    <string name="shortcut_pick_time">Escolher horário</string>
+    <string name="shortcut_pick_time">Escolha um horário</string>
     <string name="no_time">Sem horário</string>
     <string name="no_date">Sem data</string>
     <string name="chip_appearance_icon_only">Somente o ícone</string>
@@ -413,15 +413,15 @@
     <string name="back">Voltar</string>
     <string name="upgrade_blurb_2">Eu investi centenas de horas trabalhando no Tasks, e eu publico todo o código-fonte online de graça. Para apoiar meu trabalho, algumas funcionalidades precisam de um plano de assinatura</string>
     <string name="upgrade_blurb_1">Olá! Meu nome é Alex e eu sou o desenvolvedor independente por trás do Tasks</string>
-    <string name="color_wheel">Roda de cores</string>
+    <string name="color_wheel">Círculo de cores</string>
     <string name="invalid_username_or_password">Nome de usuário ou senha inválido</string>
     <string name="more_notification_settings_summary">Sons, vibrações e mais</string>
     <string name="more_settings">Mais configurações</string>
     <string name="disable_battery_optimizations">Desativar \'Otimização da Bateria\'</string>
     <string name="notification_troubleshooting_summary">Toque aqui se você está tendo problemas com as notificações</string>
     <string name="troubleshooting">Soluções de problemas</string>
-    <string name="wearable_notifications_summary">Mostrar notificações no seu weareable</string>
-    <string name="wearable_notifications">Notificações em dispositivos weareables</string>
+    <string name="wearable_notifications_summary">Mostrar notificações no seu Weareable</string>
+    <string name="wearable_notifications">Notificações em dispositivos Weareables</string>
     <string name="documentation">Documentação</string>
     <string name="preferences_advanced">Avançado</string>
     <string name="preferences_look_and_feel">Interface e experiência do usuário</string>
@@ -431,7 +431,7 @@
     <string name="etesync_selection_description">Sincronização criptografada de ponta a ponta</string>
     <string name="caldav_selection_description">Sincronização usando protocolos padrões e livres da Internet</string>
     <string name="google_tasks_selection_description">Serviço básico que sincroniza com a sua conta Google</string>
-    <string name="choose_synchronization_service">Selecione uma plataforma</string>
+    <string name="choose_synchronization_service">Escolha uma plataforma</string>
     <string name="enter_tag_name">Adicione nome da etiqueta</string>
     <string name="subtasks_multilevel_google_task">Subtarefas em vários níveis não são suportadas pelo Google Tarefas</string>
     <string name="collapse_subtasks">Recolher sub-tarefas</string>
@@ -443,7 +443,7 @@
     <string name="whats_new">Novidades</string>
     <string name="third_party_licenses">Licenças de Terceiros</string>
     <string name="action_new_task">Nova tarefa</string>
-    <string name="this_feature_requires_a_subscription">Esse recurso requer uma assinatura</string>
+    <string name="this_feature_requires_a_subscription">Essa função requer uma assinatura</string>
     <string name="button_unsubscribe">Cancelar assinatura</string>
     <string name="help_and_feedback">Ajuda &amp; feedback</string>
     <string name="list_separator_with_space">", "</string>
@@ -510,7 +510,7 @@
     <string name="custom_filter_criteria">Critério do filtro</string>
     <string name="compact">Compacto</string>
     <string name="settings_default">Padrão</string>
-    <string name="auto_dismiss_datetime_widget_summary">Fechar automaticamente ao selecionar o widget</string>
+    <string name="auto_dismiss_datetime_widget_summary">Fechar automaticamente ao selecionar o Widget</string>
     <string name="auto_dismiss_datetime_widget">Widget</string>
     <string name="davx5_selection_description">Sincronize suas tarefas com o aplicativo DAVx⁵</string>
     <string name="email">E-mail</string>
@@ -559,7 +559,7 @@
     <string name="more_options">Mais opções</string>
     <string name="upgrade_open_source_description">Sua assinatura ajuda a continuar o desenvolvimento</string>
     <string name="upgrade_desktop_access_description">Sincronização com clientes de terceiros, como Outlook e Apple Reminders</string>
-    <string name="upgrade_desktop_access">Acesso para a versão Desktop</string>
+    <string name="upgrade_desktop_access">Acesso para a versão Desktop (computador)</string>
     <string name="upgrade_tasks_org_account_description">Sincronize com Tasks.org e colabore com outros usuários</string>
     <string name="upgrade_more_customization_description">Desbloqueie todos os temas, cores e ícones</string>
     <string name="upgrade_more_customization">Mais customização</string>
@@ -601,9 +601,9 @@
     <string name="authorization_cancelled">Autorização cancelada</string>
     <string name="privacy">Privacidade</string>
     <string name="open_source">Código aberto</string>
-    <string name="issue_tracker">Rastreador de problemas</string>
+    <string name="issue_tracker">Publicações de relatórios</string>
     <string name="support">Suporte</string>
-    <string name="social">Social</string>
+    <string name="social">Mídias sociais</string>
     <string name="follow_twitter">\@tasks_org (𝕏)</string>
     <string name="follow_reddit">r/tasks (reddit)</string>
     <string name="header_spacing">Espaçamento</string>
@@ -633,7 +633,7 @@
     <string name="now">Agora</string>
     <string name="completed_tasks_at_bottom">Mover tarefas concluídas para baixo</string>
     <string name="completed">Concluída</string>
-    <string name="completion_sound">Reproduzir som de conclusão</string>
+    <string name="completion_sound">Reproduzir som após conclusão</string>
     <plurals name="reminder_minutes">
         <item quantity="one">Minuto</item>
         <item quantity="many">Minutos</item>
@@ -679,7 +679,7 @@
     <string name="sign_in_to_tasks_disclosure">Seu endereço de e-mail e seu ID da conta serão transmitidos e armazenados pelo Tasks.org. Estas informações serão usadas para autenticação e para fornecer-lhe anúncios importantes relacionados ao serviço. Estas informações não serão compartilhadas com ninguém.</string>
     <string name="enable_reminders">Ativar lembretes</string>
     <string name="microsoft_selection_description">Sincronize com sua conta pessoal da Microsoft</string>
-    <string name="enable_reminders_description">Os lembretes estão desabilitados nas Configurações do Android</string>
+    <string name="enable_reminders_description">Os lembretes estão desabilitados nas configurações do Android</string>
     <string name="TEA_creation_date">Data de criação</string>
     <string name="sign_in">Fazer login</string>
     <string name="repeats_custom_recurrence">Recorrência personalizada</string>
@@ -723,27 +723,29 @@
     <string name="donate_maybe_later">Talvez mais tarde</string>
     <string name="donate_today">Faça sua doação hoje</string>
     <string name="comment">Comentário</string>
-    <string name="cost_money">Custo: $</string>
+    <string name="cost_money">Preço: $</string>
     <string name="app_settings">Configurações do aplicativo</string>
-    <string name="cost_more_money">Custo: $$$</string>
-    <string name="cost_free">Custo: Grátis</string>
+    <string name="cost_more_money">Preço: $$$</string>
+    <string name="cost_free">Preço: Grátis</string>
     <string name="subtasks_multilevel_microsoft">Subtarefas multinível não suportadas pelo Microsoft To Do</string>
-    <string name="enable_alarms_description">Para garantir que você seja notificado no momento certo, conceda permissão para definir alarmes e lembretes em Configurações</string>
-    <string name="multiline_title_on">Pressione a tecla Enter para adicionar quebras de linha</string>
+    <string name="enable_alarms_description">Para garantir que você seja notificado no momento certo, conceda permissão para definir alarmes e lembretes em \'Configurações\'</string>
+    <string name="multiline_title_on">Pressione a tecla \'Enter\' para adicionar quebras de linha</string>
     <string name="sync_warning_microsoft">Nem todos os detalhes das tarefas são sincronizados com o Microsoft To Do.</string>
     <string name="delete_comment">comentário</string>
     <string name="quiet_hours_in_effect">Horário de silêncio em vigor</string>
     <string name="price_per_year_with_currency">%s/anual</string>
     <string name="price_per_month_with_currency">%s/mensal</string>
-    <string name="button_learn_more">Saber mais</string>
-    <string name="sync_warning_google_tasks_title">Sobre a sincronização do Google Task</string>
-    <string name="sync_warning_google_tasks">Nem todos os detalhes das tarefas são sincronizados com o Google Tasks</string>
+    <string name="button_learn_more">Saiba mais</string>
+    <string name="sync_warning_google_tasks_title">Sobre a sincronização do Google Tarefas</string>
+    <string name="sync_warning_google_tasks">Nem todos os detalhes das tarefas são sincronizados com o Google Tarefas</string>
     <string name="yesterday">Ontem</string>
     <string name="enable_alarms">Seja notificado na hora certa</string>
     <string name="add_shortcut_to_home_screen">Adicionar atalho à tela inicial</string>
-    <string name="add_widget_to_home_screen">Adicionar widget à tela inicial</string>
+    <string name="add_widget_to_home_screen">Adicionar Widget à tela inicial</string>
     <string name="multiline_title">Permitir títulos com múltiplas linhas</string>
-    <string name="multiline_title_off">Pressione Concluir para fechar o teclado</string>
+    <string name="multiline_title_off">Pressione \'Concluir\' para fechar o teclado</string>
     <string name="sync_warning_microsoft_title">Sobre a sincronização do Microsoft To Do</string>
     <string name="send_application_logs">Enviar registros do aplicativo</string>
+    <string name="banner_app_updated_title">Aplicativo atualizado</string>
+    <string name="banner_app_updated_description">As tarefas acabaram de ser atualizadas para %s. Gostaria de ver as notas de atualização?</string>
 </resources>
