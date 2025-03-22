@@ -43,7 +43,8 @@ class CustomRecurrenceActivity : FragmentActivity() {
                     toggleDay = { viewModel.toggleDay(it) },
                     setMonthSelection = { viewModel.setMonthSelection(it) },
                     calendarDisplayMode = remember { preferences.calendarDisplayMode },
-                    setDisplayMode = { preferences.calendarDisplayMode = it }
+                    setDisplayMode = { preferences.calendarDisplayMode = it },
+                    firstDayOfWeek = remember { preferences.firstDayOfWeek },
                 )
             }
         }
