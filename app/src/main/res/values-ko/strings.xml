@@ -302,6 +302,8 @@
     <string name="delete_selected_tasks">선택한 할일을 삭제할까요?</string>
     <string name="copy_selected_tasks">선택한 할일을 복사할까요?</string>
     <string name="date_and_time">날짜와 시간</string>
+    <string name="start_of_week">한 주의 시작</string>
+    <string name="use_locale_default">기본으로 설정된 언어 사용하기</string>
     <string name="add_account">계정 추가</string>
     <string name="user">사용자</string>
     <string name="password">비밀번호</string>

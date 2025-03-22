@@ -134,6 +134,8 @@
     <string name="password">Parolă</string>
     <string name="user">Utilizator</string>
     <string name="add_account">Adaugă un cont</string>
+    <string name="use_locale_default">Utilizează valoarea implicită a configurației locale</string>
+    <string name="start_of_week">Începutul săptămânii</string>
     <string name="date_and_time">Data și ora</string>
     <string name="copy_selected_tasks">Copiezi sarcinile selectate\?</string>
     <string name="delete_selected_tasks">Ștergi sarcinile selectate\?</string>

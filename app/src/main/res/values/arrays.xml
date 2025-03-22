@@ -101,6 +101,17 @@
     <item>1</item>
   </string-array>
 
+  <string-array name="day_of_week_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+    <item>6</item>
+    <item>7</item>
+  </string-array>
+
   <string-array name="EPr_default_location_reminder">
     <item>@string/no_reminders</item>
     <item>@string/default_location_reminder_on_arrival</item>

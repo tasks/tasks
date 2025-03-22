@@ -304,6 +304,8 @@
     <string name="password">Mật khẩu</string>
     <string name="user">Người dùng</string>
     <string name="add_account">Thêm tài khoản</string>
+    <string name="use_locale_default">Sử dụng mặc định ngôn ngữ</string>
+    <string name="start_of_week">Đầu tuần</string>
     <string name="date_and_time">Ngày và thời gian</string>
     <string name="copy_selected_tasks">Sao chép các công việc đã chọn\?</string>
     <string name="delete_selected_tasks">Xoá các công việc đã chọn\?</string>

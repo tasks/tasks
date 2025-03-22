@@ -203,6 +203,7 @@
     <string name="delete_selected_tasks">Kas kustutame valitud ülesanded?</string>
     <string name="copy_selected_tasks">Kas kopeerime valitud ülesanded?</string>
     <string name="date_and_time">Kuupäev ja kellaaeg</string>
+    <string name="start_of_week">Nädala algus</string>
     <string name="add_account">Lisa konto</string>
     <string name="user">Kasutaja</string>
     <string name="password">Salasõna</string>
@@ -460,6 +461,7 @@
     <string name="app_password">Rakenduse salasõna</string>
     <string name="follow_twitter">Jälgi @tasks_org</string>
     <string name="TEA_creation_date">Loomise kuupäev</string>
+    <string name="use_locale_default">Kasuta vaikelokaati</string>
     <string name="default_random_reminder_bi_weekly">Igal teisel nädalal</string>
     <string name="next_friday">Järgmine R</string>
     <string name="header_spacing">Reavahe</string>

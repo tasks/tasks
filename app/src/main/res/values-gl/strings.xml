@@ -239,6 +239,7 @@
     <string name="filter_no_priority">Sen prioridade</string>
     <string name="repeat_type_due">data de fin</string>
     <string name="geofence_radius">Radio</string>
+    <string name="use_locale_default">Usar predefinido do sistema</string>
     <string name="add_account">Engadir conta</string>
     <string name="error_adding_account">Erro: %s</string>
     <string name="repeats_yearly">por ano</string>
@@ -265,6 +266,7 @@
     <string name="opacity_header">Opacidade da cabeceira</string>
     <string name="widget_due_date_after_title">Despois do título</string>
     <string name="widget_due_date_below_title">Por debaixo do título</string>
+    <string name="start_of_week">Comezo da semana</string>
     <string name="notification_disable_battery_optimizations_description">Os optimizadores da batería poden retrasar as notificacións</string>
     <string name="badges">Contadores</string>
     <string name="list">Lista</string>

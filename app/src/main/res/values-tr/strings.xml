@@ -309,6 +309,8 @@
     <string name="delete_selected_tasks">Seçili görevleri sil?</string>
     <string name="copy_selected_tasks">Seçili görevleri kopyala?</string>
     <string name="date_and_time">Tarih ve zaman</string>
+    <string name="start_of_week">Hafta başlangıcı</string>
+    <string name="use_locale_default">Yerel öntanımlısını kullan</string>
     <string name="add_account">Hesap ekle</string>
     <string name="user">Kullanıcı</string>
     <string name="password">Parola</string>

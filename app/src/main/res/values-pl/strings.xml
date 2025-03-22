@@ -318,6 +318,8 @@
     <string name="delete_selected_tasks">Usunąć zaznaczone zadania?</string>
     <string name="copy_selected_tasks">Skopiować zaznaczone zadania?</string>
     <string name="date_and_time">Data i czas</string>
+    <string name="start_of_week">Początek tygodnia</string>
+    <string name="use_locale_default">Użyj domyślnych</string>
     <string name="add_account">Dodaj konto</string>
     <string name="user">Użytkownik</string>
     <string name="password">Hasło</string>

@@ -79,6 +79,7 @@ fun CustomRecurrence(
     setMonthSelection: (Int) -> Unit,
     calendarDisplayMode: DisplayMode,
     setDisplayMode: (DisplayMode) -> Unit,
+    firstDayOfWeek: Int,
 ) {
     BackHandler {
         save()
@@ -190,6 +191,7 @@ fun CustomRecurrence(
                         setOccurrences = setOccurrences,
                         calendarDisplayMode = calendarDisplayMode,
                         setDisplayMode = setDisplayMode,
+                        firstDayOfWeek = firstDayOfWeek,
                     )
                 }
             }
@@ -330,6 +332,7 @@ private fun EndsPicker(
     selection: Int,
     endDate: Long,
     endOccurrences: Int,
+    firstDayOfWeek: Int,
     calendarDisplayMode: DisplayMode,
     setDisplayMode: (DisplayMode) -> Unit,
     setOccurrences: (Int) -> Unit,
@@ -361,6 +364,7 @@ private fun EndsPicker(
             DatePickerDialog(
                 initialDate = endDate,
                 displayMode = calendarDisplayMode,
+                firstDayOfWeek = firstDayOfWeek,
                 setDisplayMode = setDisplayMode,
                 selected = {
                     setEndDate(it)
@@ -446,6 +450,7 @@ fun WeeklyPreview() {
             setMonthSelection = {},
             calendarDisplayMode = DisplayMode.Picker,
             setDisplayMode = {},
+            firstDayOfWeek = 0,
         )
     }
 }
@@ -469,6 +474,7 @@ fun MonthlyPreview() {
             setMonthSelection = {},
             calendarDisplayMode = DisplayMode.Picker,
             setDisplayMode = {},
+            firstDayOfWeek = 0,
         )
     }
 }
@@ -492,6 +498,7 @@ fun MinutelyPreview() {
             setMonthSelection = {},
             calendarDisplayMode = DisplayMode.Picker,
             setDisplayMode = {},
+            firstDayOfWeek = 0,
         )
     }
 }
@@ -515,6 +522,7 @@ fun HourlyPreview() {
             setMonthSelection = {},
             calendarDisplayMode = DisplayMode.Picker,
             setDisplayMode = {},
+            firstDayOfWeek = 0,
         )
     }
 }
@@ -538,6 +546,7 @@ fun DailyPreview() {
             setMonthSelection = {},
             calendarDisplayMode = DisplayMode.Picker,
             setDisplayMode = {},
+            firstDayOfWeek = 0,
         )
     }
 }
@@ -561,6 +570,7 @@ fun YearlyPreview() {
             setMonthSelection = {},
             calendarDisplayMode = DisplayMode.Picker,
             setDisplayMode = {},
+            firstDayOfWeek = 0,
         )
     }
 }

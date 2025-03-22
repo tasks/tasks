@@ -287,6 +287,8 @@
     <string name="delete_selected_tasks">Eliminar as tarefas selecionadas\?</string>
     <string name="copy_selected_tasks">Copiar as tarefas selecionadas?</string>
     <string name="date_and_time">Data e hora</string>
+    <string name="start_of_week">Início da semana</string>
+    <string name="use_locale_default">Usar o idioma predefinido</string>
     <string name="notification_disable_battery_optimizations_description">As otimizações da bateria podem atrasar as notificações</string>
     <string name="bundle_notifications">Agrupar notificações</string>
     <string name="list">Lista</string>

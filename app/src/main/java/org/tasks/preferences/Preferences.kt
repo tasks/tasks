@@ -172,6 +172,12 @@ class Preferences @JvmOverloads constructor(
     val defaultCalendar: String?
         get() = getStringValue(R.string.gcal_p_default)
 
+    val firstDayOfWeek: Int
+        get() {
+            val firstDayOfWeek = getIntegerFromString(R.string.p_start_of_week, 0)
+            return if (firstDayOfWeek < 1 || firstDayOfWeek > 7) 0 else firstDayOfWeek
+        }
+
     val showEditScreenWithoutUnlock: Boolean
         get() = getBoolean(R.string.p_show_edit_screen_without_unlock, false)
 

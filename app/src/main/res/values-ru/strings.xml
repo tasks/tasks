@@ -320,6 +320,8 @@
     <string name="delete_selected_tasks">Удалить выделенную(-ые) задачу(-и)?</string>
     <string name="copy_selected_tasks">Скопировать выделенные задачи?</string>
     <string name="date_and_time">Дата и время</string>
+    <string name="start_of_week">Начало недели</string>
+    <string name="use_locale_default">Как в системе</string>
     <string name="add_account">Добавить учётную запись</string>
     <string name="user">Пользователь</string>
     <string name="password">Пароль</string>

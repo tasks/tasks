@@ -299,6 +299,8 @@
     <string name="delete_selected_tasks">Ausgewählte Aufgaben löschen?</string>
     <string name="copy_selected_tasks">Ausgewählte Aufgaben kopieren?</string>
     <string name="date_and_time">Datum und Uhrzeit</string>
+    <string name="start_of_week">Beginn der Woche</string>
+    <string name="use_locale_default">Aus Systemeinstellungen</string>
     <string name="add_account">Konto hinzufügen</string>
     <string name="user">Benutzer</string>
     <string name="password">Passwort</string>

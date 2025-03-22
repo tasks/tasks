@@ -66,6 +66,7 @@ class DateAndTimePickerActivity : AppCompatActivity() {
                             )
                         },
                         displayMode = remember { preferences.calendarDisplayMode },
+                        firstDayOfWeek = remember { preferences.firstDayOfWeek },
                         setDisplayMode = {
                             preferences.calendarDisplayMode = it
                         },

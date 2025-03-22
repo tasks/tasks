@@ -275,6 +275,8 @@
     <string name="password">கடவுச்சொல்</string>
     <string name="user">பயனர்</string>
     <string name="add_account">கணக்கு சேர்க்க</string>
+    <string name="use_locale_default">இருப்பிட இயல்புநிலையைப் பயன்படுத்தவும்</string>
+    <string name="start_of_week">வாரத்தின் ஆரம்பம்</string>
     <string name="date_and_time">தேதி மற்றும் நேரம்</string>
     <string name="copy_selected_tasks">தேர்ந்தெடுக்கப்பட்ட பணிகளை நகலெடுக்கவா\?</string>
     <string name="delete_selected_tasks">தேர்ந்தெடுக்கப்பட்ட பணிகளை நீக்கவா\?</string>

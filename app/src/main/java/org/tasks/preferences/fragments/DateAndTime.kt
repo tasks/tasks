@@ -32,10 +32,16 @@ class DateAndTime : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     override fun getPreferenceXml() = R.xml.preferences_date_and_time
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
+        val startOfWeekPreference: ListPreference = getStartOfWeekPreference()
+        startOfWeekPreference.entries = getWeekdayEntries()
+        startOfWeekPreference.onPreferenceChangeListener = this
+
         initializeTimePreference(getMorningPreference(), REQUEST_MORNING)
         initializeTimePreference(getAfternoonPreference(), REQUEST_AFTERNOON)
         initializeTimePreference(getEveningPreference(), REQUEST_EVENING)
         initializeTimePreference(getNightPreference(), REQUEST_NIGHT)
+
+        updateStartOfWeek(preferences.getStringValue(R.string.p_start_of_week)!!)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -71,32 +77,36 @@ class DateAndTime : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     }
 
     override fun onPreferenceChange(preference: Preference, newValue: Any?): Boolean {
-        val millisOfDay = newValue as Int
-        if (preference == getMorningPreference()) {
-            if (millisOfDay >= getAfternoonPreference().millisOfDay) {
-                mustComeBefore(R.string.date_shortcut_morning, R.string.date_shortcut_afternoon)
-                return false
-            }
-        } else if (preference == getAfternoonPreference()) {
-            if (millisOfDay <= getMorningPreference().millisOfDay) {
-                mustComeAfter(R.string.date_shortcut_afternoon, R.string.date_shortcut_morning)
-                return false
-            } else if (millisOfDay >= getEveningPreference().millisOfDay) {
-                mustComeBefore(R.string.date_shortcut_afternoon, R.string.date_shortcut_evening)
-                return false
-            }
-        } else if (preference == getEveningPreference()) {
-            if (millisOfDay <= getAfternoonPreference().millisOfDay) {
-                mustComeAfter(R.string.date_shortcut_evening, R.string.date_shortcut_afternoon)
-                return false
-            } else if (millisOfDay >= getNightPreference().millisOfDay) {
-                mustComeBefore(R.string.date_shortcut_evening, R.string.date_shortcut_night)
-                return false
-            }
-        } else if (preference == getNightPreference()) {
-            if (millisOfDay <= getEveningPreference().millisOfDay) {
-                mustComeAfter(R.string.date_shortcut_night, R.string.date_shortcut_evening)
-                return false
+        if (preference == getStartOfWeekPreference()) {
+            updateStartOfWeek(newValue.toString())
+        } else {
+            val millisOfDay = newValue as Int
+            if (preference == getMorningPreference()) {
+                if (millisOfDay >= getAfternoonPreference().millisOfDay) {
+                    mustComeBefore(R.string.date_shortcut_morning, R.string.date_shortcut_afternoon)
+                    return false
+                }
+            } else if (preference == getAfternoonPreference()) {
+                if (millisOfDay <= getMorningPreference().millisOfDay) {
+                    mustComeAfter(R.string.date_shortcut_afternoon, R.string.date_shortcut_morning)
+                    return false
+                } else if (millisOfDay >= getEveningPreference().millisOfDay) {
+                    mustComeBefore(R.string.date_shortcut_afternoon, R.string.date_shortcut_evening)
+                    return false
+                }
+            } else if (preference == getEveningPreference()) {
+                if (millisOfDay <= getAfternoonPreference().millisOfDay) {
+                    mustComeAfter(R.string.date_shortcut_evening, R.string.date_shortcut_afternoon)
+                    return false
+                } else if (millisOfDay >= getNightPreference().millisOfDay) {
+                    mustComeBefore(R.string.date_shortcut_evening, R.string.date_shortcut_night)
+                    return false
+                }
+            } else if (preference == getNightPreference()) {
+                if (millisOfDay <= getEveningPreference().millisOfDay) {
+                    mustComeAfter(R.string.date_shortcut_night, R.string.date_shortcut_evening)
+                    return false
+                }
             }
         }
         return true
@@ -113,6 +123,19 @@ class DateAndTime : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     private fun invalidSetting(errorResId: Int, settingResId: Int, relativeResId: Int) =
         context?.toast(errorResId, getString(settingResId), getString(relativeResId))
 
+    private fun updateStartOfWeek(value: String) {
+        val preference = getStartOfWeekPreference()
+        val index = preference.findIndexOfValue(value)
+        val summary: String? = getWeekdayEntries()[index]
+        preference.summary = summary
+    }
+
+    private fun getStartOfWeekPreference(): ListPreference =
+            findPreference(R.string.p_start_of_week) as ListPreference
+
+    private fun getWeekdayDisplayName(dayOfWeek: DayOfWeek): String =
+            dayOfWeek.getDisplayName(TextStyle.FULL, locale)
+
     private fun getMorningPreference(): TimePreference =
             getTimePreference(R.string.p_date_shortcut_morning)
 
@@ -127,4 +150,15 @@ class DateAndTime : InjectingPreferenceFragment(), Preference.OnPreferenceChange
 
     private fun getTimePreference(resId: Int): TimePreference =
             findPreference(resId) as TimePreference
+
+    private fun getWeekdayEntries(): Array<String?> = arrayOf(
+        getString(R.string.use_locale_default),
+        getWeekdayDisplayName(DayOfWeek.SUNDAY),
+        getWeekdayDisplayName(DayOfWeek.MONDAY),
+        getWeekdayDisplayName(DayOfWeek.TUESDAY),
+        getWeekdayDisplayName(DayOfWeek.WEDNESDAY),
+        getWeekdayDisplayName(DayOfWeek.THURSDAY),
+        getWeekdayDisplayName(DayOfWeek.FRIDAY),
+        getWeekdayDisplayName(DayOfWeek.SATURDAY)
+    )
 }
