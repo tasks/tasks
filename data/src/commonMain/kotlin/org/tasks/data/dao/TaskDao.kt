@@ -94,6 +94,9 @@ FROM (
     @Query("SELECT * FROM tasks")
     abstract suspend fun getAll(): List<Task>
 
+    @Query("SELECT _id FROM tasks")
+    abstract suspend fun getAllTaskIds(): List<Long>
+
     @Query("SELECT calendarUri FROM tasks " + "WHERE calendarUri IS NOT NULL AND calendarUri != ''")
     abstract suspend fun getAllCalendarEvents(): List<String>
 

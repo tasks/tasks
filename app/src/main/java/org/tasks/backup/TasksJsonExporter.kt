@@ -8,14 +8,12 @@ import android.net.Uri
 import android.os.Handler
 import com.google.common.io.Files
 import com.todoroo.andlib.utility.DialogUtilities
-import kotlinx.serialization.encodeToString
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
-import kotlinx.serialization.json.encodeToJsonElement
 import org.tasks.BuildConfig
 import org.tasks.R
-import org.tasks.backup.BackupContainer.TaskBackup
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.*
 import org.tasks.data.dao.AlarmDao
@@ -28,7 +26,6 @@ import org.tasks.data.dao.TaskAttachmentDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.TaskListMetadataDao
 import org.tasks.data.dao.UserActivityDao
-import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
@@ -39,8 +36,9 @@ import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.io.OutputStream
-import java.io.OutputStreamWriter
+import java.io.Writer
 import java.nio.charset.Charset
+import java.util.Set
 import javax.inject.Inject
 
 class TasksJsonExporter @Inject constructor(
@@ -57,8 +55,7 @@ class TasksJsonExporter @Inject constructor(
     private val workManager: WorkManager,
     private val taskListMetadataDao: TaskListMetadataDao,
     private val vtodoCache: VtodoCache,
-    ) {
-
+) {
     private var context: Context? = null
     private var exportCount = 0
     private var progressDialog: ProgressDialog? = null
@@ -84,7 +81,7 @@ class TasksJsonExporter @Inject constructor(
     private suspend fun runBackup(exportType: ExportType) {
         try {
             val filename = getFileName(exportType)
-            val tasks = taskDao.getAll()
+            val tasks = taskDao.getAllTaskIds()
             val file = File(String.format("%s/%s", context!!.filesDir, BackupConstants.INTERNAL_BACKUP))
             file.delete()
             file.createNewFile()
@@ -117,53 +114,50 @@ class TasksJsonExporter @Inject constructor(
     }
 
     @Throws(IOException::class)
-    private suspend fun doTasksExport(os: OutputStream?, tasks: List<Task>) {
-        val taskBackups: MutableList<TaskBackup> = ArrayList()
-        for (task in tasks) {
-            setProgress(taskBackups.size, tasks.size)
-            val taskId = task.id
-            val caldavTasks = caldavDao.getTasks(taskId)
-            taskBackups.add(
-                    TaskBackup(
-                        task = task,
-                        alarms = alarmDao.getAlarms(taskId),
-                        geofences = locationDao.getGeofencesForTask(taskId),
-                        tags = tagDao.getTagsForTask(taskId),
-                        comments = userActivityDao.getComments(taskId),
-                        attachments = taskAttachmentDao.getAttachmentsForTask(taskId),
-                        caldavTasks = caldavTasks,
-                        vtodo = vtodoCache.getVtodo(caldavTasks.firstOrNull { !it.isDeleted() })
-                    )
-            )
+    private suspend fun doTasksExport(os: OutputStream?, taskIds: List<Long>) = withContext(Dispatchers.IO) {
+        val writer = os!!.bufferedWriter()
+        with (JsonWriter(writer)) {
+            write("{")
+            write("version", BuildConfig.VERSION_CODE)
+            write("timestamp", currentTimeMillis())
+            write("\"data\":{")
+            write("\"tasks\":[")
+            taskIds.forEachIndexed { index, id ->
+                setProgress(index, taskIds.size)
+                write("{")
+                write("task", taskDao.fetch(id)!!)
+                write("alarms", alarmDao.getAlarms(id))
+                write("geofences", locationDao.getGeofencesForTask(id))
+                write("tags", tagDao.getTagsForTask(id))
+                write("comments", userActivityDao.getComments(id))
+                write("attachments", taskAttachmentDao.getAttachmentsForTask(id))
+                val caldavTasks = caldavDao.getTasks(id)
+                vtodoCache
+                    .getVtodo(caldavTasks.firstOrNull { !it.isDeleted() })
+                    ?.let { write("vtodo", it) }
+                write("caldavTasks", caldavTasks, lastItem = true)
+                write("}")
+                if (index < taskIds.size - 1) write(",")
+            }
+            write("],")
+            write("places", locationDao.getPlaces())
+            write("tags", tagDataDao.getAll())
+            write("filters", filterDao.getFilters())
+            write("caldavAccounts", caldavDao.getAccounts())
+            write("caldavCalendars", caldavDao.getCalendars())
+            write("taskListMetadata", taskListMetadataDao.getAll())
+            write("taskAttachments", taskAttachmentDao.getAttachments())
+            write("intPrefs", preferences.getPrefs(Integer::class.java))
+            write("longPrefs", preferences.getPrefs(java.lang.Long::class.java))
+            write("stringPrefs", preferences.getPrefs(String::class.java))
+            write("boolPrefs", preferences.getPrefs(java.lang.Boolean::class.java))
+            write("setPrefs", preferences.getPrefs(Set::class.java) as Map<String, Set<String>>, lastItem = true)
+            write("}")
+            write("}")
         }
-        val data = JsonObject(
-            mapOf(
-                "version" to JsonPrimitive(BuildConfig.VERSION_CODE),
-                "timestamp" to JsonPrimitive(currentTimeMillis()),
-                "data" to Json.encodeToJsonElement(
-                    BackupContainer(
-                        taskBackups,
-                        locationDao.getPlaces(),
-                        tagDataDao.getAll(),
-                        filterDao.getFilters(),
-                        caldavDao.getAccounts(),
-                        caldavDao.getCalendars(),
-                        taskListMetadataDao.getAll(),
-                        taskAttachmentDao.getAttachments(),
-                        preferences.getPrefs(Integer::class.java),
-                        preferences.getPrefs(java.lang.Long::class.java),
-                        preferences.getPrefs(String::class.java),
-                        preferences.getPrefs(java.lang.Boolean::class.java),
-                        preferences.getPrefs(java.util.Set::class.java) as Map<String, java.util.Set<String>>,
-                    )
-                )
-            )
-        )
-        val out = OutputStreamWriter(os, UTF_8)
-        val json = if (BuildConfig.DEBUG) Json { prettyPrint = true } else Json
-        out.write(json.encodeToString(data))
-        out.close()
-        exportCount = taskBackups.size
+        writer.close()
+        os.close()
+        exportCount = taskIds.size
     }
 
     private fun onFinishExport(outputFile: String) = post {
@@ -193,5 +187,12 @@ class TasksJsonExporter @Inject constructor(
         private const val EXTENSION = ".json"
         private val dateForExport: String
             get() = newDateTime().toString("yyyyMMdd'T'HHmm")
+
+        class JsonWriter(val writer: Writer, val json: Json = Json) {
+            fun write(data: String) = writer.write(data)
+
+            inline fun <reified T> write(key: String, value: @Serializable T, lastItem: Boolean = false) where T : Any =
+                writer.write("\"$key\":${json.encodeToString(value)}${if (lastItem) "" else ","}")
+        }
     }
 }
