@@ -37,7 +37,6 @@ import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import java.io.Writer
-import java.nio.charset.Charset
 import java.util.Set
 import javax.inject.Inject
 
@@ -182,7 +181,6 @@ class TasksJsonExporter @Inject constructor(
     }
 
     companion object {
-        val UTF_8: Charset = Charset.forName("UTF-8")
         private const val MIME = "application/json"
         private const val EXTENSION = ".json"
         private val dateForExport: String
