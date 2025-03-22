@@ -713,4 +713,6 @@
     <string name="button_learn_more">了解更多</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do 不支持多层级子任务</string>
     <string name="app_settings">应用设置</string>
+    <string name="banner_app_updated_description">Tasks 刚刚更新至 %s。是否要查看更新说明？</string>
+    <string name="banner_app_updated_title">应用已更新</string>
 </resources>
