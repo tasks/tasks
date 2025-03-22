@@ -504,7 +504,7 @@
     <string name="show_edit_screen_without_unlock">திறக்காமல் திருத்து திரை காண்பி</string>
     <string name="default_tags">இயல்புநிலை குறிச்சொற்கள்</string>
     <string name="repeats_ends">முனைகள்</string>
-    <string name="repeats_plural_on_number_of_times">%2$s இல் ஒவ்வொரு %1$s ஐ மீண்டும் நிகழ்கிறது, %3$d %4 $ s ஏற்படுகிறது</string>
+    <string name="repeats_plural_on_number_of_times">%2$s இல் ஒவ்வொரு %1$s ஐ மீண்டும் நிகழ்கிறது, %3$d %4$s ஏற்படுகிறது</string>
     <string name="rmd_time_description">பணிகளுக்கான அறிவிப்புகளைக் காட்டுங்கள்</string>
     <string name="default_location">இயல்புநிலை இடம்</string>
     <string name="tasks_org_description">உங்கள் பணிகளை டாச்கள்.org உடன் ஒத்திசைக்கவும்</string>
@@ -551,7 +551,7 @@
     <string name="quiet_hours_in_effect">அமைதியான நேரம் நடைமுறையில் உள்ளது</string>
     <string name="show_edit_screen_without_unlock_summary">சாதனத்தைத் திறக்காமல் விரைவான அமைப்புகள் ஓடு பயன்படுத்த உதவுகிறது</string>
     <string name="header_spacing">இடைவெளி</string>
-    <string name="repeats_single_on_number_of_times">%2$s இல் %1$s, %3$d %4 $ s ஏற்படுகிறது</string>
+    <string name="repeats_single_on_number_of_times">%2$s இல் %1$s, %3$d %4$s ஏற்படுகிறது</string>
     <string name="microsoft_selection_description">உங்கள் தனிப்பட்ட நுண்மென் கணக்குடன் ஒத்திசைக்கவும்</string>
     <string name="davx5_selection_description">உங்கள் பணிகளை DAVX⁵ பயன்பாட்டுடன் ஒத்திசைக்கவும்</string>
     <string name="navigation_drawer">வழிசெலுத்தல் டிராயர்</string>
@@ -623,7 +623,7 @@
     <string name="auto_dismiss_datetime_list_summary">பணி பட்டியலிலிருந்து எடுக்கும்போது ஆட்டோக்ளோச்</string>
     <string name="auto_dismiss_datetime_edit_summary">பணி திருத்தத்திலிருந்து எடுக்கும்போது ஆட்டோக்ளோச்</string>
     <string name="default_due_date">இயல்புநிலை காரணமாக தேதி</string>
-    <string name="import_summary_message">கோப்பு %1$s %2$s ஐக் கொண்டுள்ளது.\n\n %3$s இறக்குமதி செய்யப்பட்டன,\n %4 $ கள் ஏற்கனவே உள்ளன\n %5 $ s பிழைகள் இருந்தன</string>
+    <string name="import_summary_message">கோப்பு %1$s %2$s ஐக் கொண்டுள்ளது.\n\n %3$s இறக்குமதி செய்யப்பட்டன,\n %4$s கள் ஏற்கனவே உள்ளன\n %5$s பிழைகள் இருந்தன</string>
     <string name="repeats_every">ஒவ்வொன்றும் மீண்டும்</string>
     <string name="repeats_never">ஒருபோதும்</string>
     <string name="price_per_year_with_currency">%s/ஆண்டு</string>
@@ -646,8 +646,6 @@
     <string name="invite_invalid">செல்லாது என்று அழைக்கவும்</string>
     <string name="github_sponsor">ஒப்புரவாளர்</string>
     <string name="migrate">இடம்பெயர்வு</string>
-    <string name="picker_mode_clock">கடிகை</string>
-    <string name="picker_mode_text">உரை</string>
     <string name="completed">முடிந்தது</string>
     <string name="snackbar_task_completed">பணி முடிந்தது</string>
     <string name="custom_notification">தனிப்பயன் notification</string>
@@ -673,7 +671,6 @@
     <string name="app_password">பயன்பாட்டு கடவுச்சொல்</string>
     <string name="sign_in_with_github">கிதுபுடன் உள்நுழைக</string>
     <string name="migrating_tasks">இடம்பெயரும் பணிகள்</string>
-    <string name="picker_mode_calendar">நாட்காட்டி</string>
     <string name="issue_tracker">வெளியீடு டிராக்கர்</string>
     <string name="app_password_save">மூன்றாம் தரப்பு பயன்பாட்டை உள்ளமைக்க இந்த நற்சான்றிதழ்களைப் பயன்படுத்தவும். அவர்கள் உங்கள் டாச்க்ச்.org கணக்கிற்கு முழுமையான அணுகலை வழங்குகிறார்கள், அவற்றை எழுத வேண்டாம் அல்லது யாருடனும் பகிர்ந்து கொள்ள வேண்டாம்!</string>
     <string name="dismiss">தள்ளுபடி</string>
@@ -689,7 +686,6 @@
     <string name="alarm_before_start">தொடங்குவதற்கு முன் %s</string>
     <string name="alarm_after_start">தொடக்கத்திற்குப் பிறகு %s</string>
     <string name="sort_not_available">குறிச்சொற்கள், வடிப்பான்கள் அல்லது இடங்களுக்கு கிடைக்கவில்லை</string>
-    <string name="picker_mode_date">தேதி பிக்கர் பயன்முறை</string>
     <string name="authorization_cancelled">ஏற்பு ரத்து செய்யப்பட்டது</string>
     <string name="not_signed_in">உள்நுழையவில்லை</string>
     <string name="above_average">சராசரிக்கு மேல்</string>
@@ -710,7 +706,6 @@
     <string name="account_not_included">\'உங்கள் விலை பெயர்\' சந்தாக்களுடன் சேர்க்கப்படவில்லை</string>
     <string name="remove_user_confirmation">%1$s இனி %2$s அணுகல் இருக்காது</string>
     <string name="invite_declined">அழைப்பு மறுக்கப்பட்டது</string>
-    <string name="picker_mode_time">நேர பிக்கர் பயன்முறை</string>
     <string name="pro_free_trial">புதிய சந்தாதாரர்கள் 7 நாள் இலவச சோதனையைப் பெறுகிறார்கள். எந்த நேரத்திலும் ரத்துசெய்</string>
     <string name="upgrade_desktop_access_description">அவுட்லுக் மற்றும் ஆப்பிள் நினைவூட்டல்கள் போன்ற மூன்றாம் தரப்பு வாடிக்கையாளர்களுடன் ஒத்திசைக்கவும்</string>
     <string name="more_options">மேலும் விருப்பங்கள்</string>
