@@ -1,0 +1,9 @@
+* Updated remaining date and time pickers to Material 3
+* Open date picker to currently selected month
+* Replaced upgrade pop-up with a banner
+* @hady-exc: Fix date picker time zone issues
+* Fix date time picker font scaling issues
+* Fix save task on keyboard done
+* Fix applying date time when dismissing date time pickers
+* Fix 3 button navigation bar padding in landscape mode
+* Fix out of memory errors in backup import/export

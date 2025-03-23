@@ -1,3 +1,30 @@
+### 14.5.4 (2025-03-23)
+
+* Updated remaining date and time pickers to Material 3
+  * App will remember if you change calendar or clock to text input
+  * Text input now supported on start and due date pickers
+  * Remove calendar and clock mode settings
+* Open date picker to currently selected month
+* Replaced upgrade pop-up with a banner [#1429](https://github.com/tasks/tasks/issues/1429)
+* @hady-exc: Fix date picker time zone issues [#3248](https://github.com/tasks/tasks/pull/3248)
+* Fix date time picker font scaling issues [#3437](https://github.com/tasks/tasks/issues/3437)
+* Fix save task on keyboard done [#3288](https://github.com/tasks/tasks/issues/3288)
+* Fix applying date time when dismissing date time pickers
+* Fix 3 button navigation bar padding in landscape mode
+* Fix out of memory errors in backup import/export
+* Update translations
+  * Brazilian Portuguese - dedakir923
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580
+  * Dutch - @fvbommel
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @franconian
+  * Italian - @ppasserini
+  * Romanian - @ygorigor
+  * Tamil - @TamilNeram
+  * Turkish - @emintufan
+
 ### 14.5.3 (2025-03-20)
 
 * Updated date and time pickers to Material 3
