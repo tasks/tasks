@@ -724,4 +724,6 @@
     <string name="button_learn_more">Meer informatie</string>
     <string name="sync_warning_microsoft_title">Over synchronisatie met Microsoft To Do</string>
     <string name="app_settings">App-instellingen</string>
+    <string name="banner_app_updated_title">App geüpdatet</string>
+    <string name="banner_app_updated_description">Tasks is zojuist geüpdatet naar %s. Wil je de release-opmerkingen zien?</string>
 </resources>
