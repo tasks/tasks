@@ -217,7 +217,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             if (result.resultCode == RESULT_OK) {
                 result.data?.let { data ->
                     if (data.getBooleanExtra(SortSettingsActivity.EXTRA_FORCE_RELOAD, false)) {
-                        activity?.recreate()
+                        (activity as? MainActivity)?.restartActivity()
                     }
                     if (data.getBooleanExtra(SortSettingsActivity.EXTRA_CHANGED_GROUP, false)) {
                         listViewModel.clearCollapsed()

@@ -39,6 +39,7 @@ import androidx.fragment.compose.AndroidFragment
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastOreoMR1
 import com.todoroo.astrid.activity.BeastModePreferences
+import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.repeats.RepeatControlSet
 import com.todoroo.astrid.tags.TagsControlSet
@@ -287,7 +288,7 @@ fun TaskEditScreen(
             val beastMode = rememberLauncherForActivityResult(
                 contract = ActivityResultContracts.StartActivityForResult()
             ) {
-                context.findActivity()?.recreate()
+                (context.findActivity() as? MainActivity)?.restartActivity()
             }
             BeastModeBanner(
                 visible = viewState.showBeastModeHint,
