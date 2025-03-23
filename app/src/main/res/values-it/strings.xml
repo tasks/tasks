@@ -746,4 +746,6 @@
     <string name="sync_warning_google_tasks_title">Informazioni su Google Task sync</string>
     <string name="subtasks_multilevel_microsoft">Attività secondarie multilivello non supportate da Microsoft To Do</string>
     <string name="app_settings">Impostazioni app</string>
+    <string name="banner_app_updated_title">App aggiornata</string>
+    <string name="banner_app_updated_description">Tasks è stata aggiornata a %s. Vuoi vedere le note di rilascio?</string>
 </resources>
