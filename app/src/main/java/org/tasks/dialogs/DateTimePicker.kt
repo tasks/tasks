@@ -167,6 +167,7 @@ class DateTimePicker : BaseDateTimePicker() {
             )
             LaunchedEffect(selectedDay) {
                 if (selectedDay > 0) {
+                    datePickerState.displayedMonthMillis = selectedDay
                     datePickerState.selectedDateMillis = selectedDay + (DateTime(selectedDay).offset)
                 } else {
                     datePickerState.selectedDateMillis = null
