@@ -95,7 +95,7 @@ class StartDatePicker : BaseDateTimePicker() {
                 state = state,
                 showButtons = !autoclose,
                 setDisplayMode = { preferences.calendarDisplayMode = it },
-                dismiss = { onDismissHandler?.onDismiss() ?: dismiss() },
+                cancel = { onDismissHandler?.onDismiss() ?: dismiss() },
                 accept = { sendSelected() },
                 dateShortcuts = {
                     StartDateShortcuts(

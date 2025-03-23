@@ -29,7 +29,6 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,7 +41,7 @@ import org.tasks.R
 fun DatePickerBottomSheet(
     sheetState: SheetState,
     showButtons: Boolean,
-    dismiss: () -> Unit,
+    cancel: () -> Unit,
     accept: () -> Unit,
     setDisplayMode: (DisplayMode) -> Unit,
     dateShortcuts: @Composable ColumnScope.() -> Unit,
@@ -52,7 +51,7 @@ fun DatePickerBottomSheet(
     ModalBottomSheet(
         modifier = Modifier.statusBarsPadding(),
         sheetState = sheetState,
-        onDismissRequest = { dismiss() },
+        onDismissRequest = { accept() },
         containerColor = MaterialTheme.colorScheme.surface,
     ) {
         Box(
@@ -116,7 +115,7 @@ fun DatePickerBottomSheet(
                         }
                         Spacer(modifier = Modifier.weight(1f))
                         TextButton(
-                            onClick = { dismiss() }
+                            onClick = { cancel() }
                         ) {
                             Text(stringResource(R.string.cancel))
                         }
