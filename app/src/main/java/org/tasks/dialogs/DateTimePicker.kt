@@ -6,8 +6,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.material3.DatePickerState
+import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberTimePickerState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -16,6 +22,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewFontScale
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.fragment.app.Fragment
 import androidx.fragment.compose.content
 import androidx.lifecycle.lifecycleScope
@@ -23,6 +33,7 @@ import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.tasks.compose.pickers.DatePickerBottomSheet
 import org.tasks.compose.pickers.DueDateShortcuts
 import org.tasks.compose.pickers.TimePickerDialog
@@ -31,12 +42,19 @@ import org.tasks.data.createDueDate
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
+import org.tasks.dialogs.DateTimePicker.Companion.MULTIPLE_TIMES
+import org.tasks.dialogs.DateTimePicker.Companion.NO_TIME
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.notifications.NotificationManager
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTime
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.millisOfDay
+import org.tasks.time.noon
+import org.tasks.time.plusDays
 import org.tasks.time.startOfDay
+import org.tasks.time.withMillisOfDay
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -116,83 +134,49 @@ class DateTimePicker : BaseDateTimePicker() {
         savedInstanceState: Bundle?,
     ) = content {
         TasksTheme(theme = theme.themeBase.index) {
-            val state = rememberDatePickerState(
+            val datePickerState = rememberDatePickerState(
                 initialDisplayMode = remember { preferences.calendarDisplayMode },
             )
-            DatePickerBottomSheet(
-                state = state,
+            DueDatePicker(
+                sheetState = rememberModalBottomSheetState(
+                    skipPartiallyExpanded = true
+                ),
+                datePickerState = datePickerState,
+                initialTimeDisplayMode = remember { preferences.timeDisplayMode },
+                selectedDay = selectedDay,
+                selectedTime = selectedTime,
                 showButtons = !autoclose,
-                setDisplayMode = { preferences.calendarDisplayMode = it },
-                dismiss = { onDismissHandler?.onDismiss() ?: dismiss() },
-                accept = { sendSelected() },
-                dateShortcuts = {
-                    DueDateShortcuts(
-                        today = today.millis,
-                        tomorrow = remember { today.plusDays(1).millis },
-                        nextWeek = remember { today.plusDays(7).millis },
-                        selected = selectedDay,
-                        showNoDate = remember {
-                            !requireArguments().getBoolean(
-                                EXTRA_HIDE_NO_DATE,
-                                false
-                            )
-                        },
-                        selectedDay = { returnDate(it.startOfDay()) },
-                        clearDate = { returnDate(day = 0, time = 0) },
+                showNoDate =  remember {
+                    !requireArguments().getBoolean(
+                        EXTRA_HIDE_NO_DATE,
+                        false
                     )
                 },
-                timeShortcuts = {
-                    var showTimePicker by rememberSaveable {
-                        mutableStateOf(
-                            false
-                        )
-                    }
-                    if (showTimePicker) {
-                        val time = if (selectedTime == MULTIPLE_TIMES
-                            || !Task.hasDueTime(
-                                today.withMillisOfDay(
-                                    selectedTime
-                                ).millis
-                            )
-                        ) {
-                            today.noon().millisOfDay
-                        } else {
-                            selectedTime
-                        }
-                        TimePickerDialog(
-                            millisOfDay = time,
-                            is24Hour = remember { requireContext().is24HourFormat },
-                            initialDisplayMode = remember { preferences.timeDisplayMode },
-                            setDisplayMode = { preferences.timeDisplayMode = it },
-                            selected = { returnSelectedTime(it + 1000) },
-                            dismiss = { showTimePicker = false },
-                        )
-                    }
-                    TimeShortcuts(
-                        day = 0,
-                        selected = selectedTime,
-                        morning = remember { preferences.dateShortcutMorning + 1000 },
-                        afternoon = remember { preferences.dateShortcutAfternoon + 1000 },
-                        evening = remember { preferences.dateShortcutEvening + 1000 },
-                        night = remember { preferences.dateShortcutNight + 1000 },
-                        selectedMillisOfDay = { returnSelectedTime(it) },
-                        pickTime = { showTimePicker = true },
-                        clearTime = { returnDate(time = 0) },
-                    )
-                }
+                setDateDisplayMode = { preferences.calendarDisplayMode = it },
+                setTimeDisplayMode = { preferences.timeDisplayMode = it },
+                dismiss = { onDismissHandler?.onDismiss() ?: dismiss() },
+                accept = { sendSelected() },
+                setDateTime = { day, time -> returnDate(day, time) },
+                setTime = { returnSelectedTime(it) },
+                is24Hour = remember { requireContext().is24HourFormat },
+                today = today.millis,
+                morning = remember { preferences.dateShortcutMorning + 1000 },
+                afternoon = remember { preferences.dateShortcutAfternoon + 1000 },
+                evening = remember { preferences.dateShortcutEvening + 1000 },
+                night = remember { preferences.dateShortcutNight + 1000 },
             )
             LaunchedEffect(selectedDay) {
                 if (selectedDay > 0) {
-                    state.selectedDateMillis = selectedDay + (DateTime(selectedDay).offset)
+                    datePickerState.selectedDateMillis = selectedDay + (DateTime(selectedDay).offset)
                 } else {
-                    state.selectedDateMillis = null
+                    datePickerState.selectedDateMillis = null
                 }
             }
-            LaunchedEffect(state.selectedDateMillis) {
-                if (state.selectedDateMillis == selectedDay + (DateTime(selectedDay).offset)) {
+            LaunchedEffect(datePickerState.selectedDateMillis) {
+                if (datePickerState.selectedDateMillis == selectedDay + (DateTime(selectedDay).offset)) {
                     return@LaunchedEffect
                 }
-                state.selectedDateMillis?.let {
+                datePickerState.selectedDateMillis?.let {
                     returnDate(day = it - DateTime(it).offset)
                 }
             }
@@ -201,6 +185,7 @@ class DateTimePicker : BaseDateTimePicker() {
 
     private fun returnSelectedTime(millisOfDay: Int) {
         val day = when {
+            millisOfDay == NO_TIME -> selectedDay
             selectedDay == MULTIPLE_DAYS -> MULTIPLE_DAYS
             selectedDay > 0 -> selectedDay
             today.withMillisOfDay(millisOfDay).isAfterNow -> today.millis
@@ -276,5 +261,142 @@ class DateTimePicker : BaseDateTimePicker() {
 
         outState.putLong(EXTRA_DAY, selectedDay)
         outState.putInt(EXTRA_TIME, selectedTime)
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DueDatePicker(
+    sheetState: SheetState,
+    datePickerState: DatePickerState,
+    initialTimeDisplayMode: DisplayMode,
+    selectedDay: Long,
+    selectedTime: Int,
+    today: Long,
+    morning: Int,
+    afternoon: Int,
+    evening: Int,
+    night: Int,
+    is24Hour: Boolean,
+    showButtons: Boolean,
+    showNoDate: Boolean,
+    setDateDisplayMode: (DisplayMode) -> Unit,
+    setTimeDisplayMode: (DisplayMode) -> Unit,
+    dismiss: () -> Unit,
+    accept: () -> Unit,
+    setDateTime: (Long, Int) -> Unit,
+    setTime: (Int) -> Unit,
+) {
+    DatePickerBottomSheet(
+        sheetState = sheetState,
+        state = datePickerState,
+        showButtons = showButtons,
+        setDisplayMode = setDateDisplayMode,
+        dismiss = dismiss,
+        accept = accept,
+        dateShortcuts = {
+            DueDateShortcuts(
+                today = today,
+                tomorrow = remember { today.plusDays(1) },
+                nextWeek = remember { today.plusDays(7) },
+                selected = selectedDay,
+                showNoDate = showNoDate,
+                selectedDay = { setDateTime(it.startOfDay(), selectedTime) },
+                clearDate = { setDateTime(0, 0) },
+            )
+        },
+        timeShortcuts = {
+            var showTimePicker by rememberSaveable {
+                mutableStateOf(
+                    false
+                )
+            }
+            if (showTimePicker) {
+                val time = if (selectedTime == MULTIPLE_TIMES
+                    || !Task.hasDueTime(
+                        today.withMillisOfDay(
+                            selectedTime
+                        )
+                    )
+                ) {
+                    today.noon().millisOfDay
+                } else {
+                    selectedTime
+                }
+                TimePickerDialog(
+                    state = rememberTimePickerState(
+                        initialHour = time / (60 * 60_000),
+                        initialMinute = (time / (60_000)) % 60,
+                        is24Hour = is24Hour,
+                    ),
+                    initialDisplayMode = initialTimeDisplayMode,
+                    setDisplayMode = setTimeDisplayMode,
+                    selected = { setTime(it + 1000) },
+                    dismiss = { showTimePicker = false },
+                )
+            }
+            TimeShortcuts(
+                day = 0,
+                selected = selectedTime,
+                morning = morning,
+                afternoon = afternoon,
+                evening = evening,
+                night = night,
+                selectedMillisOfDay = { setTime(it) },
+                pickTime = { showTimePicker = true },
+                clearTime = { setTime(NO_TIME) },
+            )
+        }
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@PreviewLightDark
+@PreviewFontScale
+@PreviewScreenSizes
+@Preview(
+    locale = "es",
+    fontScale = 2f
+)
+@Preview(
+    locale = "es",
+)
+@Preview(
+    locale = "de",
+    fontScale = 2f
+)
+@Preview(
+    locale = "de",
+)
+@Composable
+fun DueDatePickerPreview() {
+    TasksTheme {
+        val today = currentTimeMillis().startOfDay()
+        val sheetState = rememberModalBottomSheetState(
+            skipPartiallyExpanded = true
+        ).apply {
+            runBlocking { show() }
+        }
+        DueDatePicker(
+            sheetState = sheetState,
+            datePickerState = rememberDatePickerState(),
+            initialTimeDisplayMode = DisplayMode.Input,
+            selectedDay = 0,
+            selectedTime = 0,
+            today = today,
+            morning = TimeUnit.HOURS.toMillis(9).toInt(),
+            afternoon = TimeUnit.HOURS.toMillis(13).toInt(),
+            evening = TimeUnit.HOURS.toMillis(17).toInt(),
+            night = TimeUnit.HOURS.toMillis(20).toInt(),
+            is24Hour = true,
+            showButtons = true,
+            showNoDate = true,
+            setDateDisplayMode = {},
+            setTimeDisplayMode = {},
+            dismiss = {},
+            accept = {},
+            setDateTime = { _, _ -> },
+            setTime = {},
+        )
     }
 }

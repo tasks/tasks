@@ -24,7 +24,7 @@ import androidx.compose.material3.TimeInput
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TimePickerDefaults
 import androidx.compose.material3.TimePickerLayoutType
-import androidx.compose.material3.rememberTimePickerState
+import androidx.compose.material3.TimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,18 +41,12 @@ import org.tasks.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TimePickerDialog(
-    millisOfDay: Int,
-    is24Hour: Boolean,
+    state: TimePickerState,
     initialDisplayMode: DisplayMode,
     setDisplayMode: (DisplayMode) -> Unit,
     selected: (Int) -> Unit,
     dismiss: () -> Unit,
 ) {
-    val state = rememberTimePickerState(
-        initialHour = millisOfDay / (60 * 60_000),
-        initialMinute = (millisOfDay / (60_000)) % 60,
-        is24Hour = is24Hour
-    )
     var displayMode by remember { mutableStateOf(initialDisplayMode) }
     val layoutType = with(LocalConfiguration.current) {
         if (screenHeightDp < screenWidthDp) {

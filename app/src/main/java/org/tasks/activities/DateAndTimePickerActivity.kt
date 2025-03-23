@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -41,8 +42,11 @@ class DateAndTimePickerActivity : AppCompatActivity() {
                 var showTimePicker by rememberSaveable { mutableStateOf(false) }
                 if (showTimePicker) {
                     TimePickerDialog(
-                        millisOfDay = 0,
-                        is24Hour = is24HourFormat,
+                        state = rememberTimePickerState(
+                            initialHour = 0,
+                            initialMinute = 0,
+                            is24Hour = is24HourFormat
+                        ),
                         initialDisplayMode = remember { preferences.timeDisplayMode },
                         setDisplayMode = { preferences.timeDisplayMode = it },
                         selected = {

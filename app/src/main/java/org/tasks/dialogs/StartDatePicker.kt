@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -87,6 +89,9 @@ class StartDatePicker : BaseDateTimePicker() {
                 initialDisplayMode = remember { preferences.calendarDisplayMode },
             )
             DatePickerBottomSheet(
+                sheetState = rememberModalBottomSheetState(
+                    skipPartiallyExpanded = true
+                ),
                 state = state,
                 showButtons = !autoclose,
                 setDisplayMode = { preferences.calendarDisplayMode = it },
@@ -112,8 +117,11 @@ class StartDatePicker : BaseDateTimePicker() {
                             selectedTime
                         }
                         TimePickerDialog(
-                            millisOfDay = time,
-                            is24Hour = remember { requireContext().is24HourFormat },
+                            state = rememberTimePickerState(
+                                initialHour = time / (60 * 60_000),
+                                initialMinute = (time / (60_000)) % 60,
+                                is24Hour = requireContext().is24HourFormat
+                            ),
                             initialDisplayMode = remember { preferences.timeDisplayMode },
                             setDisplayMode = { preferences.timeDisplayMode = it },
                             selected = { returnSelectedTime(it + 1000) },

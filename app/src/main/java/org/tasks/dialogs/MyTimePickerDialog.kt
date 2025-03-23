@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.remember
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -39,8 +40,11 @@ class MyTimePickerDialog : DialogFragment() {
             primary = theme.themeColor.primaryColor,
         ) {
             TimePickerDialog(
-                millisOfDay = remember { initial.millisOfDay },
-                is24Hour = remember { requireContext().is24HourFormat },
+                state = rememberTimePickerState(
+                    initialHour = initial.millisOfDay / (60 * 60_000),
+                    initialMinute = (initial.millisOfDay / (60_000)) % 60,
+                    is24Hour = requireContext().is24HourFormat
+                ),
                 initialDisplayMode = remember { preferences.timeDisplayMode },
                 setDisplayMode = { preferences.timeDisplayMode = it },
                 selected = {

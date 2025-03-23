@@ -25,6 +25,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -39,6 +40,7 @@ import org.tasks.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DatePickerBottomSheet(
+    sheetState: SheetState,
     showButtons: Boolean,
     dismiss: () -> Unit,
     accept: () -> Unit,
@@ -49,9 +51,7 @@ fun DatePickerBottomSheet(
 ) {
     ModalBottomSheet(
         modifier = Modifier.statusBarsPadding(),
-        sheetState = rememberModalBottomSheetState(
-            skipPartiallyExpanded = true,
-        ),
+        sheetState = sheetState,
         onDismissRequest = { dismiss() },
         containerColor = MaterialTheme.colorScheme.surface,
     ) {
