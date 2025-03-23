@@ -724,4 +724,6 @@
     <string name="background_location">Asukoht tagaplaanil</string>
     <string name="alarm_after_due">%s peale lõpptähtaega</string>
     <string name="app_settings">Rakenduse seadistused</string>
+    <string name="banner_app_updated_description">Rakendus on uuendatud versioonini %s. Kas sa sooviksid lugeda, mis on siin hiljuti muutunud?</string>
+    <string name="banner_app_updated_title">Rakendus on uuendatud</string>
 </resources>
