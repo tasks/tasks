@@ -724,4 +724,6 @@
     <string name="sync_warning_microsoft_title">Über die Synchronisierung mit „Microsoft To Do“</string>
     <string name="subtasks_multilevel_microsoft">Mehrstufige Teilaufgaben werden von Microsoft To Do nicht unterstützt</string>
     <string name="app_settings">App-Einstellungen</string>
+    <string name="banner_app_updated_title">App aktualisiert</string>
+    <string name="banner_app_updated_description">Tasks wurde gerade auf %s aktualisiert. Möchtest du dir die Änderungsnotizen ansehen?</string>
 </resources>
