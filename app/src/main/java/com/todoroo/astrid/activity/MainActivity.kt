@@ -485,16 +485,13 @@ class MainActivity : AppCompatActivity() {
     private fun logIntent(caller: String) {
         if (BuildConfig.DEBUG) {
             Timber.d("""
-                $caller            
-                **********
-                broughtToFront: ${intent.broughtToFront}
-                isFromHistory: ${intent.isFromHistory}
-                flags: ${intent.flagsToString}
-                OPEN_FILTER: ${getParcelableExtra(intent, OPEN_FILTER, Filter::class.java)?.let { "${it.title}: $it" }}
-                LOAD_FILTER: ${intent.getStringExtra(LOAD_FILTER)}
-                OPEN_TASK: ${getParcelableExtra(intent, OPEN_TASK, Task::class.java)}
-                CREATE_TASK: ${intent.hasExtra(CREATE_TASK)}
-                **********""".trimIndent()
+                |$caller
+                |**********
+                |broughtToFront: ${intent.broughtToFront}
+                |isFromHistory: ${intent.isFromHistory}
+                |flags: ${intent.flagsToString}
+                ${intent?.extras?.keySet()?.joinToString("\n") { "|$it: ${intent.extras?.get(it)}" } ?: "|NO EXTRAS"}
+                |**********""".trimMargin()
             )
         }
     }
