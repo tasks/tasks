@@ -230,12 +230,12 @@ class WidgetPreferences(
     }
 
     override var sortMode: Int
-        get() = getInt(R.string.p_widget_sort, SortHelper.SORT_AUTO)
+        get() = getInt(R.string.p_widget_sort, SortHelper.SORT_DUE)
         set(sortMode) {
             setInt(R.string.p_widget_sort, sortMode)
         }
     override var groupMode: Int
-        get() = getInt(R.string.p_widget_group, SortHelper.GROUP_NONE)
+        get() = getInt(R.string.p_widget_group, SortHelper.SORT_DUE)
         set(groupMode) {
             setInt(R.string.p_widget_group, groupMode)
         }

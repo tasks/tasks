@@ -354,11 +354,11 @@ class Preferences @JvmOverloads constructor(
         set(value) = setLong(R.string.p_install_date, value)
 
     override var sortMode: Int
-        get() = getInt(R.string.p_sort_mode, SortHelper.SORT_AUTO)
+        get() = getInt(R.string.p_sort_mode, SortHelper.SORT_DUE)
         set(value) { setInt(R.string.p_sort_mode, value) }
 
     override var groupMode: Int
-        get() = getInt(R.string.p_group_mode, SortHelper.GROUP_NONE)
+        get() = getInt(R.string.p_group_mode, SortHelper.SORT_DUE)
         set(value) { setInt(R.string.p_group_mode, value) }
 
     override var completedMode: Int
