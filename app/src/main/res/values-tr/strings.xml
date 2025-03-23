@@ -7,12 +7,7 @@
     <string name="backup_BAc_export">Şimdi yedekle</string>
     <string name="export_toast">%1$s şuraya yedeklendi: %2$s.</string>
     <string name="import_summary_title">Geri Alma Özeti</string>
-    <string name="import_summary_message">%1$s dosyası %2$s içeriyor.
-\n
-\n %3$s içe aktarıldı,
-\n %4$s zaten var,
-\n %5$s hata var
-\n</string>
+    <string name="import_summary_message">%1$s dosyası %2$s içeriyor. \n \n %3$s içe aktarıldı,\n %4$s zaten var,\n %5$s hata var.</string>
     <string name="import_progress_read">%d görev okunuyor…</string>
     <string name="read_permission_label">Tasks İzni</string>
     <string name="discard_confirmation">Değişikliklerinizi gözden çıkarmak istediğinize emin misiniz?</string>
@@ -728,4 +723,7 @@
     <string name="multiline_title_on">Satır eklemek için Enter tuşuna bas</string>
     <string name="multiline_title_off">Klavyeyi kapatmak için Bitti\'ye bas</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do, çok düzeyli alt görevleri desteklemez</string>
+    <string name="app_settings">Uygulama ayarları</string>
+    <string name="banner_app_updated_description">Tasks %s sürümüne güncellendi. Dağıtım notlarını görmek ister misiniz?</string>
+    <string name="banner_app_updated_title">Uygulama güncellendi</string>
 </resources>
