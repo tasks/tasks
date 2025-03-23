@@ -39,6 +39,7 @@ fun EditTextView(
     strikethrough: Boolean = false,
     requestFocus: Boolean = false,
     multiline: Boolean = false,
+    onDone: () -> Unit = {},
 ) {
     val context = LocalContext.current
     var shouldRequestFocus by remember { mutableStateOf(false) }
@@ -83,6 +84,7 @@ fun EditTextView(
                             clearFocus()
                             val imm = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                             imm.hideSoftInputFromWindow(windowToken, 0)
+                            onDone()
                             true
                         } else {
                             false

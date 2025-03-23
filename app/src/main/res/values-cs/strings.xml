@@ -743,5 +743,4 @@
     <string name="cost_more_money">Cena: $$$</string>
     <string name="multiline_title">Povolit víceřádkové názvy</string>
     <string name="multiline_title_on">Stisknutím Enter přidáte konce řádků</string>
-    <string name="multiline_title_off">Klávesnici zavřete stisknutím tlačítka Hotovo</string>
 </resources>

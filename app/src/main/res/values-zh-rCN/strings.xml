@@ -702,7 +702,6 @@
     <string name="cost_more_money">费用：$$$</string>
     <string name="cost_free">费用：无</string>
     <string name="cost_money">费用：$</string>
-    <string name="multiline_title_off">按完成关闭键盘</string>
     <string name="comment">注释</string>
     <string name="multiline_title">允许多行标题</string>
     <string name="multiline_title_on">按 Enter 键添加换行符</string>

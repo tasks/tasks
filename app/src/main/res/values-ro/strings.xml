@@ -731,7 +731,6 @@
     <string name="comment">Comentariu</string>
     <string name="quiet_hours_in_effect">Orele liniștite sunt activate</string>
     <string name="cost_free">Preț: Gratuit</string>
-    <string name="multiline_title_off">Apasă Finalizare pentru a închide tastatura</string>
     <string name="price_per_month_with_currency">%s/lună</string>
     <string name="price_per_year_with_currency">%s/an</string>
     <string name="add_widget_to_home_screen">Adaugă widget pe ecranul de pornire</string>

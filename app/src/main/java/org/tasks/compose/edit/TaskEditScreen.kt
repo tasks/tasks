@@ -206,6 +206,11 @@ fun TaskEditScreen(
                             },
                             requestFocus = viewState.showKeyboard,
                             multiline = viewState.multilineTitle,
+                            save = {
+                                scope.launch {
+                                    save()
+                                }
+                            },
                         )
                     }
 

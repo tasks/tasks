@@ -689,7 +689,6 @@
     <string name="show_edit_screen_without_unlock">ロック時に編集画面を表示</string>
     <string name="send_application_logs">アプリケーションのログを送信</string>
     <string name="show_edit_screen_without_unlock_summary">デバイスのロックを解除せずにクイック設定タイルを利用可能に</string>
-    <string name="multiline_title_off">完了を押してキーボードをしまう</string>
     <string name="add_shortcut_to_home_screen">ホーム画面にショートカットを追加</string>
     <string name="add_widget_to_home_screen">ホーム画面にウィジェットを追加</string>
     <string name="theme_dynamic">ダイナミック</string>

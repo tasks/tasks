@@ -709,7 +709,6 @@
     <string name="cost_more_money">Ár: $$$</string>
     <string name="multiline_title">Többsoros címek engedélyezése</string>
     <string name="multiline_title_on">Sortöréshez nyomd meg az Enter-t</string>
-    <string name="multiline_title_off">Nyomd meg a Done-t a billentyűzet bezárásához</string>
     <string name="delete_comment">megjegyzés</string>
     <string name="comment">Megjegyzés</string>
     <string name="yesterday">Tegnap</string>

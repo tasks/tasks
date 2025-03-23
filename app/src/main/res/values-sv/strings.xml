@@ -711,7 +711,6 @@
     <string name="cost_free">Pris: Gratis</string>
     <string name="cost_money">Pris: $</string>
     <string name="cost_more_money">Pris: $$$</string>
-    <string name="multiline_title_off">Tryck Färdig för att stänga skärmtangentbordet</string>
     <string name="add_shortcut_to_home_screen">Lägg till genväg på hemskärm</string>
     <string name="multiline_title">Tillåt flerradsrubriker</string>
     <string name="multiline_title_on">Tryck Enter för att lägga till radbrytningar</string>

@@ -719,7 +719,6 @@
     <string name="consent_deny">Teraz nie</string>
     <string name="hint_customize_edit_body">Túto obrazovku si môžete prispôsobiť preskupením alebo odobraním polí</string>
     <string name="add_widget_to_home_screen">Pridať widget na domovskú obrazovku</string>
-    <string name="multiline_title_off">Klávesnicu zavriete stlačením tlačidla Hotovo</string>
     <string name="remove_user_confirmation">%1$s už nebude mať prístup k %2$s</string>
     <string name="invite_awaiting_response">Pozvánka čaká na odpoveď</string>
     <string name="invite_declined">Pozvánka bola odmietnutá</string>

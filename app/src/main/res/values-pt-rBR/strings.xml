@@ -743,7 +743,6 @@
     <string name="add_shortcut_to_home_screen">Adicionar atalho à tela inicial</string>
     <string name="add_widget_to_home_screen">Adicionar Widget à tela inicial</string>
     <string name="multiline_title">Permitir títulos com múltiplas linhas</string>
-    <string name="multiline_title_off">Pressione \'Concluir\' para fechar o teclado</string>
     <string name="sync_warning_microsoft_title">Sobre a sincronização do Microsoft To Do</string>
     <string name="send_application_logs">Enviar registros do aplicativo</string>
     <string name="banner_app_updated_title">Aplicativo atualizado</string>

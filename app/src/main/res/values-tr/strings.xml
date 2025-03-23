@@ -721,7 +721,6 @@
     <string name="cost_more_money">Ücret: $$$</string>
     <string name="multiline_title">Çok satırlı başlıklara izin ver</string>
     <string name="multiline_title_on">Satır eklemek için Enter tuşuna bas</string>
-    <string name="multiline_title_off">Klavyeyi kapatmak için Bitti\'ye bas</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do, çok düzeyli alt görevleri desteklemez</string>
     <string name="app_settings">Uygulama ayarları</string>
     <string name="banner_app_updated_description">Tasks %s sürümüne güncellendi. Dağıtım notlarını görmek ister misiniz?</string>

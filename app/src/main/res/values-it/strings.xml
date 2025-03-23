@@ -736,7 +736,6 @@
     <string name="cost_free">Costo: gratuito</string>
     <string name="multiline_title">Consenti titoli su più linee</string>
     <string name="multiline_title_on">Premi invio per aggiungere una interruzioni di riga</string>
-    <string name="multiline_title_off">Premi il segno di spunta per chiudere la tastiera</string>
     <string name="cost_more_money">Costo: $$$</string>
     <string name="cost_money">Costo: $</string>
     <string name="sync_warning_google_tasks">Non tutti i dettagli delle attività saranno sincronizzati con Google Tasks</string>

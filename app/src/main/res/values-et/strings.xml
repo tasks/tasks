@@ -591,7 +591,6 @@
     <string name="send_anonymous_statistics">Paranda rakendust Tasks</string>
     <string name="no_app_found">Rakendus ei osanud selle päringuga midagi ette võtta</string>
     <string name="this_feature_requires_a_subscription">See funktsionaalsus eeldab tellimuse olemasolu</string>
-    <string name="multiline_title_off">Klahvistiku sulgemiseks vajuta nuppu „Valmis“</string>
     <string name="repeats_single">Kordub %s</string>
     <string name="repeats_weekly_on">Kordub</string>
     <string name="repeats_on">Kordub</string>

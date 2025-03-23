@@ -740,7 +740,6 @@
     <string name="cost_more_money">Вартість: $$$</string>
     <string name="multiline_title">Дозволити багаторядкові заголовки</string>
     <string name="multiline_title_on">Натисніть Enter, щоб перенести рядок</string>
-    <string name="multiline_title_off">Натисніть Готово, щоб закрити клавіатуру</string>
     <string name="sync_warning_microsoft">Не всі відомості про завдання синхронізуються з Microsoft To Do.</string>
     <string name="sync_warning_google_tasks_title">Про синхронізацію з Google Task</string>
     <string name="sync_warning_microsoft_title">Про синхронізацію з Microsoft To Do</string>

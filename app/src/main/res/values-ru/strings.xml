@@ -742,7 +742,6 @@
     <string name="cost_money">Цена: $</string>
     <string name="cost_more_money">Цена: $$$</string>
     <string name="multiline_title_on">Нажмите Enter чтобы перейти на новую строку</string>
-    <string name="multiline_title_off">Нажмите Done, чтобы закрыть клавиатуру</string>
     <string name="donate_nag">Выразите свою поддержку с помощью пожертвования!</string>
     <string name="theme_dynamic">Динамическая</string>
     <string name="subtasks_multilevel_microsoft">Многоуровневые подзадачи не поддерживаются Microsoft To Do</string>

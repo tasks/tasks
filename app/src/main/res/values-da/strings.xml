@@ -682,7 +682,6 @@
     <string name="change_priority">Ændr prioritet</string>
     <string name="repeats_after">Efter</string>
     <string name="repeats_ends">Slutter</string>
-    <string name="multiline_title_off">Tryk på Færdig for at lukke tastaturet</string>
     <string name="sort_grouping">Gruppering</string>
     <string name="repeats_on">På</string>
     <string name="clear_completed_tasks_count">%s vil blive slettet</string>

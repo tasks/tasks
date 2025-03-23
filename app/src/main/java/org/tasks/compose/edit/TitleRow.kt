@@ -31,6 +31,7 @@ fun TitleRow(
     onComplete: () -> Unit,
     requestFocus: Boolean,
     multiline: Boolean,
+    save: () -> Unit,
 ) {
     TaskEditRow(
         icon = {
@@ -57,6 +58,7 @@ fun TitleRow(
                     strikethrough = isCompleted,
                     requestFocus = requestFocus,
                     multiline = multiline,
+                    onDone = save,
                 )
                 Spacer(modifier = Modifier.height(11.dp))
             }
@@ -81,6 +83,7 @@ fun EmptyTitlePreview() {
             onComplete = {},
             requestFocus = false,
             multiline = false,
+            save = {},
         )
     }
 }
@@ -106,6 +109,7 @@ fun TitlePreview() {
             onComplete = {},
             requestFocus = false,
             multiline = false,
+            save = {},
         )
     }
 }
