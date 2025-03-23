@@ -21,6 +21,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LAYOUT_DIRECTION_LTR
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.activity.compose.BackHandler
 import androidx.activity.result.contract.ActivityResultContracts
@@ -34,8 +35,10 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.core.app.ShareCompat
 import androidx.core.content.IntentCompat
 import androidx.core.view.ViewCompat
@@ -292,8 +295,15 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     private fun applyInsetsInternal(windowInsets: PaddingValues) {
         val density = resources.displayMetrics.density
+        val viewLayoutDir = view?.layoutDirection ?: resources.configuration.layoutDirection
+        val composeLayoutDirection =
+            if (viewLayoutDir == View.LAYOUT_DIRECTION_RTL) LayoutDirection.Rtl else LayoutDirection.Ltr
         val topInset = (windowInsets.calculateTopPadding().value * density).toInt()
         val bottomInset = (windowInsets.calculateBottomPadding().value * density).toInt()
+        val (startInset, endInset) =
+            (windowInsets.calculateStartPadding(composeLayoutDirection).value * density).toInt().let {
+            if (viewLayoutDir == LAYOUT_DIRECTION_LTR) it to 0 else 0 to it
+        }
         with(binding.toolbar) {
             val actionBarHeight = TypedValue.complexToDimensionPixelSize(
                 getData(requireContext(), android.R.attr.actionBarSize),
@@ -304,6 +314,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             layoutParams = params
             updatePadding(top = topInset)
         }
+        binding.taskListCoordinator.updatePadding(
+            left = startInset,
+            right = endInset,
+        )
         binding.bottomAppBar.updatePadding(bottom = bottomInset)
         (binding.fab.layoutParams as MarginLayoutParams).bottomMargin = bottomInset / 2
     }
