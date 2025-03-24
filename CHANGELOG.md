@@ -1,4 +1,4 @@
-### 14.5.4 (2025-03-23)
+### 14.5.4 (2025-03-24)
 
 * Updated remaining date and time pickers to Material 3
   * App will remember if you change calendar or clock to text input
@@ -20,6 +20,7 @@
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
   * German - @franconian
+  * Hungarian - Kaci
   * Italian - @ppasserini
   * Romanian - @ygorigor
   * Tamil - @TamilNeram
