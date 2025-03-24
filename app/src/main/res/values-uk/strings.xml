@@ -753,4 +753,7 @@
     <string name="add_widget_to_home_screen">Додати віджет на домашній екран</string>
     <string name="cost_money">Вартість: $</string>
     <string name="app_settings">Налаштування застосунку</string>
+    <string name="banner_app_updated_title">Застосунок оновлено</string>
+    <string name="banner_app_updated_description">Tasks щойно оновлено до %s. Переглянете примітки до випуску?</string>
+    <string name="multiline_title_off">Натисніть готово, щоб зберегти завдання</string>
 </resources>
