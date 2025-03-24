@@ -725,4 +725,5 @@
     <string name="app_settings">Rakenduse seadistused</string>
     <string name="banner_app_updated_description">Rakendus on uuendatud versioonini %s. Kas sa sooviksid lugeda, mis on siin hiljuti muutunud?</string>
     <string name="banner_app_updated_title">Rakendus on uuendatud</string>
+    <string name="multiline_title_off">Ülesande salvestamiseks vajuta nuppu „Valmis“</string>
 </resources>
