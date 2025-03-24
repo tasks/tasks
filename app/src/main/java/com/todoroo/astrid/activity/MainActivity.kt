@@ -90,6 +90,9 @@ import org.tasks.data.listSettingsClass
 import org.tasks.dialogs.NewFilterDialog
 import org.tasks.extensions.Context.nightMode
 import org.tasks.extensions.Context.openUri
+import org.tasks.extensions.broughtToFront
+import org.tasks.extensions.flagsToString
+import org.tasks.extensions.isFromHistory
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_LIST
@@ -508,10 +511,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        Timber.d("onResume")
         if (currentNightMode != nightMode || currentPro != inventory.hasPro) {
             restartActivity()
             return
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Timber.d("onPause")
     }
 
     override fun onSupportActionModeStarted(mode: ActionMode) {
@@ -539,8 +548,6 @@ class MainActivity : AppCompatActivity() {
         const val OPEN_TASK = "open_new_task" // $NON-NLS-1$
         const val REMOVE_TASK = "remove_task"
         const val FINISH_AFFINITY = "finish_affinity"
-        private const val FLAG_FROM_HISTORY
-                = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
 
         val Intent.getFilter: Filter?
             get() = if (isFromHistory) {
@@ -581,17 +588,5 @@ class MainActivity : AppCompatActivity() {
                     it
                 }
             }
-
-        val Intent.isFromHistory: Boolean
-            get() = flags and FLAG_FROM_HISTORY == FLAG_FROM_HISTORY
-
-        val Intent.broughtToFront: Boolean
-            get() = flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT > 0
-
-        val Intent.flagsToString
-            get() = Intent::class.java.declaredFields
-                .filter { it.name.startsWith("FLAG_") }
-                .filter { flags or it.getInt(null) == flags }
-                .joinToString(" | ") { it.name }
     }
 }
