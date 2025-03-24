@@ -725,4 +725,5 @@
     <string name="app_settings">Настройки на приложението</string>
     <string name="banner_app_updated_description">Приложението Tasks е обновено до издание %s. Ще прегледате ли бележките към изданието?</string>
     <string name="banner_app_updated_title">Приложението е обновено</string>
+    <string name="multiline_title_off">Докоснете „Готово“ за запазване на задачата</string>
 </resources>
