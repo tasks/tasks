@@ -714,4 +714,5 @@
     <string name="app_settings">应用设置</string>
     <string name="banner_app_updated_description">Tasks 刚刚更新至 %s。是否要查看更新说明？</string>
     <string name="banner_app_updated_title">应用已更新</string>
+    <string name="multiline_title_off">按完成保存任务</string>
 </resources>
