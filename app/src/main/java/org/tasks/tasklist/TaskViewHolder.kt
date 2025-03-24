@@ -272,7 +272,8 @@ class TaskViewHolder internal constructor(
                     if (
                         isHidden &&
                         remember { preferences.showStartDateChip } &&
-                        startDate != task.dueDate
+                        startDate != task.dueDate &&
+                        startDate != task.dueDate.startOfDay()
                     ) {
                         StartDateChip(
                             sortGroup = sortGroup,
