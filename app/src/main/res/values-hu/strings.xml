@@ -723,4 +723,6 @@
     <string name="button_learn_more">Tudj meg többet</string>
     <string name="subtasks_multilevel_microsoft">A Microsoft To Do nem támogatja a többszintű részfeladatokat</string>
     <string name="app_settings">Alkalmazás beállításai</string>
+    <string name="banner_app_updated_title">Alkalmazás frissítve</string>
+    <string name="banner_app_updated_description">A Tasks frissítve lett a(z) %s verzióra. Szeretné látni a változások listáját?</string>
 </resources>
