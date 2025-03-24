@@ -747,4 +747,5 @@
     <string name="send_application_logs">Enviar registros do aplicativo</string>
     <string name="banner_app_updated_title">Aplicativo atualizado</string>
     <string name="banner_app_updated_description">As tarefas acabaram de ser atualizadas para %s. Gostaria de ver as notas de atualização?</string>
+    <string name="multiline_title_off">Pressione \'Concluir\' para salvar a tarefa</string>
 </resources>
