@@ -6,6 +6,7 @@ import androidx.annotation.ColorRes
 import com.google.common.collect.ImmutableListMultimap
 import com.google.common.collect.ListMultimap
 import com.google.common.collect.Multimaps
+import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.dao.TaskDao
 import dagger.Lazy
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -121,6 +122,18 @@ class Upgrader @Inject constructor(
             }
             run(from, Upgrade_13_11.VERSION) {
                 upgrade_13_11.get().migrateIcons()
+            }
+            run(from, V14_5_4) {
+                // save existing default widget sorting
+                for (widgetId in widgetManager.widgetIds) {
+                    val widgetPreferences = WidgetPreferences(context, preferences, widgetId)
+                    if (preferences.getInt(context.getString(R.string.p_widget_group) + widgetId, -1) == -1) {
+                        widgetPreferences.groupMode = SortHelper.GROUP_NONE
+                    }
+                    if (preferences.getInt(context.getString(R.string.p_widget_sort) + widgetId, -1) == -1) {
+                        widgetPreferences.sortMode = SortHelper.SORT_AUTO
+                    }
+                }
             }
             preferences.setBoolean(R.string.p_just_updated, true)
         } else {
@@ -382,6 +395,7 @@ class Upgrader @Inject constructor(
         const val V12_4 = 120400
         const val V12_6 = 120601
         const val V12_8 = 120800
+        const val V14_5_4 = 140516
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {
