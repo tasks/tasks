@@ -269,7 +269,11 @@ class TaskViewHolder internal constructor(
                             onClick = { toggleSubtasks(id, !collapsed) }
                         )
                     }
-                    if (isHidden && remember { preferences.showStartDateChip }) {
+                    if (
+                        isHidden &&
+                        remember { preferences.showStartDateChip } &&
+                        startDate != task.dueDate
+                    ) {
                         StartDateChip(
                             sortGroup = sortGroup,
                             startDate = startDate,
