@@ -81,8 +81,8 @@
     <string name="custom_filter_not">INTE</string>
     <string name="custom_filter_and">OCH</string>
     <string name="CFA_button_add">Lägg till kriterium</string>
-    <string name="CFC_dueBefore_text">Förfaller av: \?</string>
-    <string name="CFC_dueBefore_name">Förfaller av…</string>
+    <string name="CFC_dueBefore_text">Förfaller vid: ?</string>
+    <string name="CFC_dueBefore_name">Förfaller vid…</string>
     <string name="no_due_date">Inget förfallodatum</string>
     <string name="next_month">Nästa månad</string>
     <string name="CFC_importance_text">Prioritet åtminstone ?</string>
@@ -115,8 +115,8 @@
     <string name="rmd_EPr_rmd_time_desc">Aviseringar för uppgifter utan sluttid visas vid %s</string>
     <string name="persistent_notifications">Beständiga aviseringar</string>
     <string name="persistent_notifications_description">Beständiga aviseringar kan inte rensas</string>
-    <string name="rmd_EPr_defaultRemind_title">Tillfälliga påminnelser</string>
-    <string name="default_random_reminder_disabled">inaktiverad</string>
+    <string name="rmd_EPr_defaultRemind_title">Slumpmässiga påminnelser</string>
+    <string name="default_random_reminder_disabled">Inaktiverad</string>
     <string name="default_random_reminder_hourly">varje timme</string>
     <string name="default_random_reminder_daily">varje dag</string>
     <string name="default_random_reminder_weekly">varje vecka</string>
@@ -343,7 +343,7 @@
     <string name="repeat_monthly_every_day_of_nth_week">varje %1$s %2$s</string>
     <string name="repeat_monthly_first_week">första</string>
     <string name="repeat_monthly_second_week">andra</string>
-    <string name="repeat_monthly_third_week">Tredje</string>
+    <string name="repeat_monthly_third_week">tredje</string>
     <string name="repeat_monthly_fourth_week">fjärde</string>
     <string name="repeat_monthly_last_week">sista</string>
     <string name="tasker_create_task">Skapa uppgift</string>
@@ -362,7 +362,7 @@
     <string name="logout">Logga ut</string>
     <string name="logout_warning">Alla data för det här kontot tas bort från enheten</string>
     <string name="cannot_access_account">Kan inte komma åt kontot</string>
-    <string name="reinitialize_account">Initiera</string>
+    <string name="reinitialize_account">Ominitiera</string>
     <string name="action_create_new_task">Skapa ny uppgift</string>
     <string name="show_description">Visa beskrivning</string>
     <string name="show_full_description">Visa fullständig beskrivning</string>
@@ -388,7 +388,7 @@
     <string name="icon">Ikon</string>
     <string name="button_unsubscribe">Avbryt abonnemang</string>
     <string name="name_your_price">Namnge ditt pris</string>
-    <string name="SSD_sort_my_order">Min ordning</string>
+    <string name="SSD_sort_my_order">Min sortering</string>
     <string name="error_adding_account">Fel: %s</string>
     <string name="lists">Listor</string>
     <string name="sort_modified_group">Ändrad %s</string>
@@ -408,7 +408,7 @@
     <string name="chip_appearance_icon_only">Endast Ikon</string>
     <string name="chip_appearance_text_only">Text endast</string>
     <string name="chip_appearance_text_and_icon">Text och ikon</string>
-    <string name="place_settings">Plats inställningar</string>
+    <string name="place_settings">Platsinställningar</string>
     <string name="places">Platser</string>
     <string name="back">Tillbaka</string>
     <string name="color_wheel">Färghjul</string>
@@ -529,8 +529,8 @@
     <string name="widget_id">Widget-ID: %d</string>
     <string name="calendar_event_created">Kalenderhändelse skapad för %s</string>
     <string name="auto_dismiss_datetime_summary">Stänga datum- och tidsväljare efter att ha valt ett datum eller en tid</string>
-    <string name="auto_dismiss_datetime_widget_summary">Stäng automatiskt vid val från uppgiftslistan</string>
-    <string name="auto_dismiss_datetime_widget">Gränssnittskomponent</string>
+    <string name="auto_dismiss_datetime_widget_summary">Stäng automatiskt vid val från widget</string>
+    <string name="auto_dismiss_datetime_widget">Widget</string>
     <string name="auto_dismiss_datetime_edit_summary">Stäng automatiskt vid val från uppgiftslistan</string>
     <string name="auto_dismiss_datetime_edit">Uppgiftsredigering</string>
     <string name="auto_dismiss_datetime_list_summary">Stäng automatiskt vid val från uppgiftslistan</string>
@@ -581,12 +581,12 @@
     <string name="repeat_monthly_fifth_week">femte</string>
     <string name="widget_show_dividers">Visa avdelare</string>
     <string name="widget_show_title">Visa titel</string>
-    <string name="next_saturday">Nästa lördag</string>
+    <string name="next_saturday">Nästa lör</string>
     <string name="next_friday">Nästa fre</string>
     <string name="next_thursday">Nästa tors</string>
     <string name="next_wednesday">Nästa ons</string>
     <string name="next_tuesday">Nästa tis</string>
-    <string name="next_monday">Nästa måndag</string>
+    <string name="next_monday">Nästa mån</string>
     <string name="next_sunday">Nästa sön</string>
     <string name="repeat_type_completion_capitalized">Slutdatum</string>
     <plurals name="list_count">
@@ -599,8 +599,8 @@
     </plurals>
     <string name="filter_any_start_date">Vilket startdatum som helst</string>
     <string name="no_start_date">Inget startdatum</string>
-    <string name="CFC_startBefore_name">Börja med…</string>
-    <string name="CFC_startBefore_text">Börja med: \?</string>
+    <string name="CFC_startBefore_name">Börjar vid…</string>
+    <string name="CFC_startBefore_text">Börjar vid: ?</string>
     <string name="default_location">Standardplats</string>
     <string name="default_due_date">Standard förfallodatum</string>
     <string name="default_start_date">Standard startdatum</string>
@@ -722,5 +722,7 @@
     <string name="sync_warning_microsoft">Alla uppgiftsdetaljer synkroniseras inte med Microsoft To Do.</string>
     <string name="sync_warning_google_tasks">Alla uppgiftsdetaljer synkroniseras inte med Google Tasks</string>
     <string name="subtasks_multilevel_microsoft">Underuppgifter på flera nivåer stöds inte av Microsoft To Do</string>
-    <string name="app_settings">App inställningar</string>
+    <string name="app_settings">Appinställningar</string>
+    <string name="banner_app_updated_title">App uppdaterad</string>
+    <string name="banner_app_updated_description">Tasks uppdaterades just till %s. Vill du se versionsnyheterna?</string>
 </resources>
