@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
+import androidx.preference.SwitchPreferenceCompat
+import com.google.android.material.color.DynamicColors
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
@@ -89,6 +91,14 @@ class LookAndFeel : InjectingPreferenceFragment() {
         }
 
         openUrl(R.string.translations, R.string.url_translations)
+        val themeColor = findPreference(R.string.p_theme_color)
+        val dynamicColor = findPreference(R.string.p_dynamic_color) as SwitchPreferenceCompat
+        themeColor.isVisible = !dynamicColor.isChecked
+        dynamicColor.setOnPreferenceChangeListener { _, newValue ->
+            themeColor.isVisible = !(newValue as Boolean)
+            true
+        }
+        requires(DynamicColors.isDynamicColorAvailable(), R.string.p_dynamic_color)
     }
 
     override fun onResume() {
@@ -101,6 +111,19 @@ class LookAndFeel : InjectingPreferenceFragment() {
             REQUEST_COLOR_PICKER
         )
         updateLauncherPreference()
+
+        if (DynamicColors.isDynamicColorAvailable()) {
+            (findPreference(R.string.p_dynamic_color) as SwitchPreferenceCompat).apply {
+                if (inventory.hasPro) {
+                    summary = null
+                    isEnabled = true
+                } else {
+                    summary = getString(R.string.requires_pro_subscription)
+                    isEnabled = false
+                    isChecked = false
+                }
+            }
+        }
     }
 
     private fun updateLauncherPreference() {

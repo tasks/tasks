@@ -549,6 +549,9 @@ class Preferences @JvmOverloads constructor(
     val defaultThemeColor: Int
         get() = getInt(R.string.p_theme_color, BLUE_500)
 
+    val dynamicColor: Boolean
+        get() = getBoolean(R.string.p_dynamic_color, false)
+
     val markdown: Boolean
         get() = getBoolean(R.string.p_markdown, false)
 

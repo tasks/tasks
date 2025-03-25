@@ -7,6 +7,11 @@
     android:key="@string/p_theme"
     android:title="@string/theme" />
 
+  <SwitchPreferenceCompat
+    android:defaultValue="false"
+    android:key="@string/p_dynamic_color"
+    android:title="@string/theme_dynamic" />
+
   <Preference
     android:key="@string/p_theme_color"
     android:title="@string/color" />

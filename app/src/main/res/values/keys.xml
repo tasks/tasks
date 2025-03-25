@@ -436,4 +436,5 @@
   <string name="p_last_sync">last_sync_time</string>
   <string name="p_microsoft_sync">microsoft_sync</string>
   <string name="p_multiline_title">multiline_title</string>
+  <string name="p_dynamic_color">dynamic_color</string>
 </resources>
