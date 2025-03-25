@@ -315,9 +315,9 @@
     <string name="repeats_from">繰り返し開始</string>
     <string name="repeats_single">%s 繰り返し</string>
     <string name="repeats_single_on">%1$s を %2$s に繰り返し</string>
-    <string name="repeats_single_until">%1$s を %2$s まで繰り返し</string>
+    <string name="repeats_single_until">%1$s を繰り返し、%2$s に終了</string>
     <string name="repeats_single_number_of_times">%1$s を %2$d %3$s に繰り返し</string>
-    <string name="repeats_single_on_until">%1$s を %2$s に %3$s まで繰り返し</string>
+    <string name="repeats_single_on_until">%2$s に %1$s を繰り返し、%3$s に終了</string>
     <string name="repeats_single_on_number_of_times">%1$s を %2$s に %3$d %4$s 繰り返し</string>
     <string name="repeats_minutely">…分ごとに</string>
     <string name="repeats_hourly">…時間ごとに</string>
@@ -329,7 +329,7 @@
     <string name="repeats_plural_on">%1$s ごとに %2$s に繰り返し</string>
     <string name="repeats_plural_until">%1$s ごとに %2$s まで繰り返し</string>
     <string name="repeats_plural_number_of_times">%1$s ごとに %2$d %3$s 繰り返し</string>
-    <string name="repeats_plural_on_until">%1$s ごとに %2$s に %3$s まで繰り返し</string>
+    <string name="repeats_plural_on_until">毎%1$sの%2$sに繰り返し、%3$sに終了</string>
     <string name="repeats_plural_on_number_of_times">%1$s を %2$s に %3$d %4$s 繰り返し</string>
     <string name="dont_add_to_calendar">カレンダーに追加しない</string>
     <string name="default_calendar">デフォルトのカレンダー</string>
@@ -707,4 +707,11 @@
     <string name="sync_warning_google_tasks">すべてのタスクの詳細が Google Tasks と同期されるわけではありません</string>
     <string name="sync_warning_google_tasks_title">Google Tasks の同期について</string>
     <string name="enable_alarms_description">適切なタイミングで通知を受け取るために、設定でアラームとリマインダーを許可してください</string>
+    <string name="yesterday">昨日</string>
+    <string name="app_settings">アプリ設定</string>
+    <string name="banner_app_updated_title">アプリが更新されました</string>
+    <string name="banner_app_updated_description">Tasks が %s に更新されました。リリース ノートを表示しますか?</string>
+    <string name="cost_money">費用: $</string>
+    <string name="multiline_title_off">タスクを保存するには「完了」を押してください</string>
+    <string name="cost_free">料金: 無料</string>
 </resources>
