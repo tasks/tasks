@@ -747,4 +747,5 @@
     <string name="app_settings">Impostazioni app</string>
     <string name="banner_app_updated_title">App aggiornata</string>
     <string name="banner_app_updated_description">Tasks è stata aggiornata a %s. Vuoi vedere le note di rilascio?</string>
+    <string name="multiline_title_off">Premi Fatto per salvare l\'attività</string>
 </resources>
