@@ -27,7 +27,10 @@ class CustomRecurrenceActivity : FragmentActivity() {
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         setContent {
-            TasksTheme(theme = theme.themeBase.index) {
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
+            ) {
                 CustomRecurrence(
                     state = viewModel.state.collectAsStateWithLifecycle().value,
                     save = {

@@ -138,7 +138,10 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         )
         binding.password.setOnFocusChangeListener { _, hasFocus -> onPasswordFocused(hasFocus) }
         binding.serverSelector.setContent {
-            TasksTheme(theme = tasksTheme.themeBase.index) {
+            TasksTheme(
+                theme = tasksTheme.themeBase.index,
+                primary = tasksTheme.themeColor.primaryColor,
+            ) {
                 var selected by rememberSaveable { serverType }
                 ServerSelector(selected) {
                     serverType.value = it

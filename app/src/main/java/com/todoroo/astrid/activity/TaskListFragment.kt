@@ -399,7 +399,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     search.collapseActionView()
                 }
             }
-            TasksTheme(theme = theme.themeBase.index) {
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
+            ) {
                 val notificationPermissions = if (AndroidUtilities.atLeastTiramisu()) {
                     rememberPermissionState(
                         Manifest.permission.POST_NOTIFICATIONS,

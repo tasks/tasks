@@ -39,7 +39,10 @@ class IconPickerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            TasksTheme(theme = theme.themeBase.index) {
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
+            ) {
                 var hasPro by remember { mutableStateOf(false) }
                 LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
                     hasPro = inventory.hasPro

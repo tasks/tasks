@@ -133,7 +133,10 @@ class DateTimePicker : BaseDateTimePicker() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ) = content {
-        TasksTheme(theme = theme.themeBase.index) {
+        TasksTheme(
+            theme = theme.themeBase.index,
+            primary = theme.themeColor.primaryColor,
+        ) {
             val datePickerState = rememberDatePickerState(
                 initialDisplayMode = remember { preferences.calendarDisplayMode },
             )

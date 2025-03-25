@@ -254,7 +254,10 @@ class TaskViewHolder internal constructor(
         val toggleSubtasks = { task: Long, collapsed: Boolean -> callback.toggleSubtasks(task, collapsed) }
         val onClick = { it: Filter -> callback.onClick(it) }
         chipGroup.setContent {
-            TasksTheme(theme = theme.themeBase.index) {
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
+            ) {
                 ChipGroup(
                     modifier = Modifier.padding(
                         end = 16.dp,

@@ -27,7 +27,10 @@ class PurchaseActivity : AppCompatActivity(), OnPurchasesUpdated {
         super.onCreate(savedInstanceState)
 
         setContent {
-            TasksTheme(theme = theme.themeBase.index) {
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
+            ) {
                 BackHandler {
                     finish()
                 }

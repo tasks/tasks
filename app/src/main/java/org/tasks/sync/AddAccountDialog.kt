@@ -42,7 +42,10 @@ class AddAccountDialog : DialogFragment() {
             .newDialog()
             .setTitle(R.string.choose_synchronization_service)
             .setContent {
-                TasksTheme(theme = theme.themeBase.index) {
+                TasksTheme(
+                    theme = theme.themeBase.index,
+                    primary = theme.themeColor.primaryColor,
+                ) {
                     org.tasks.compose.AddAccountDialog(
                         hasTasksAccount = hasTasksAccount,
                         enableMicrosoftSync = preferences.getBoolean(R.string.p_microsoft_sync, false),

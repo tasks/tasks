@@ -83,7 +83,10 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
         viewModel.search("")
 
         setContent {
-            TasksTheme(theme = theme.themeBase.index) {
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
+            ) {
                 TagPicker(
                     viewModel,
                     onBackClicked = { handleBackPressed() },

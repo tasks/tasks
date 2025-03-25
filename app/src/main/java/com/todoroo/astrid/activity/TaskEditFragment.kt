@@ -56,7 +56,10 @@ class TaskEditFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ) = content {
-        TasksTheme(theme = theme.themeBase.index,) {
+        TasksTheme(
+            theme = theme.themeBase.index,
+            primary = theme.themeColor.primaryColor,
+        ) {
             val viewState = editViewModel.viewState.collectAsStateWithLifecycle().value
             LaunchedEffect(viewState.isNew) {
                 if (!viewState.isNew) {

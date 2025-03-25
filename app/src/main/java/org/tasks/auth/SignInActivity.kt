@@ -106,7 +106,10 @@ class SignInActivity : ComponentActivity() {
             var selectedPlatform by rememberSaveable {
                 mutableStateOf(autoSelect)
             }
-            TasksTheme(theme = theme.themeBase.index) {
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
+            ) {
                 selectedPlatform
                     ?.let {
                         Dialog(onDismissRequest = { finish() }) {

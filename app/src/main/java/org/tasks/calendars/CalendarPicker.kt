@@ -22,7 +22,10 @@ class CalendarPicker : DialogFragment() {
         return dialogBuilder
             .newDialog()
             .setContent {
-                TasksTheme(theme = theme.themeBase.index) {
+                TasksTheme(
+                    theme = theme.themeBase.index,
+                    primary = theme.themeColor.primaryColor,
+                ) {
                     CalendarPicker(
                         selected = arguments?.getString(EXTRA_SELECTED),
                         onSelected = {

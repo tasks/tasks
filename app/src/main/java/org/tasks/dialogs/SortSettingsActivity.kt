@@ -76,7 +76,10 @@ class SortSettingsActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TasksTheme(theme = theme.themeBase.index) {
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
+            ) {
                 val scrimColor = if (isSystemInDarkTheme())
                     Color(0x52454545)
                 else

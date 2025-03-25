@@ -155,7 +155,10 @@ class MainActivity : AppCompatActivity() {
         )
 
         setContent {
-            TasksTheme(theme = theme.themeBase.index) {
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
+            ) {
                 val drawerState = rememberDrawerState(
                     initialValue = DrawerValue.Closed,
                     confirmStateChange = {
