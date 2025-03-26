@@ -688,7 +688,7 @@
 +|    +--- com.google.android.horologist:horologist-annotations:0.6.23
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.1.10 (*)
 +|    +--- com.google.android.horologist:horologist-datalayer:0.6.23
-+|    |    +--- androidx.compose:compose-bom:2025.02.00 -> 2025.03.00
++|    |    +--- androidx.compose:compose-bom:2025.02.00 -> 2025.03.01
 +|    |    |    +--- androidx.compose.animation:animation:1.7.8 (c)
 +|    |    |    +--- androidx.compose.animation:animation-core:1.7.8 (c)
 +|    |    |    +--- androidx.compose.foundation:foundation:1.7.8 (c)
@@ -1737,7 +1737,7 @@
 +|         \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 ++--- org.osmdroid:osmdroid-android:6.1.20
 ++--- androidx.recyclerview:recyclerview:1.4.0 (*)
-++--- androidx.compose:compose-bom:2025.03.00 (*)
+++--- androidx.compose:compose-bom:2025.03.01 (*)
 ++--- androidx.compose.ui:ui -> 1.7.8 (*)
 ++--- androidx.compose.foundation:foundation -> 1.7.8 (*)
 ++--- androidx.compose.material:material -> 1.7.8
