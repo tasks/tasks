@@ -3,14 +3,6 @@
 <svg width="100%" height="100%" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(0.998973,0,0,0.998973,0.0246591,0.0352273)">
         <path d="M-0.292,-0.292L48.276,-0.276L48.187,48.187L-0.169,48.169L-0.292,-0.292Z" style="fill:rgb(33,150,243);fill-rule:nonzero;"/>
-        <clipPath id="_clip1">
-            <path d="M-0.292,-0.292L48.276,-0.276L48.187,48.187L-0.169,48.169L-0.292,-0.292Z" clip-rule="nonzero"/>
-        </clipPath>
-        <g clip-path="url(#_clip1)">
-            <g transform="matrix(1.00103,0,0,1.00103,0.976344,3.96885)">
-                <path d="M18,32.34L9.66,24L6.83,26.83L39.389,59.389L62.937,34.937L39.17,11.17L18,32.34Z" style="fill-opacity:0.15;fill-rule:nonzero;"/>
-            </g>
-        </g>
     </g>
     <g transform="matrix(1,0,0,1,-1,2)">
         <path d="M18,32.34L9.66,24L6.83,26.83L18,38L42,14L39.17,11.17L18,32.34Z" style="fill:white;fill-rule:nonzero;"/>
