@@ -507,7 +507,7 @@
     <string name="cancel">Abbrechen</string>
     <string name="ok">OK</string>
     <string name="header_spacing">Abstände</string>
-    <string name="default_tags">Standardsschlagwörter</string>
+    <string name="default_tags">Standardschlagwörter</string>
     <string name="custom_filter_is_subtask">Ist eine Unteraufgabe</string>
     <string name="custom_filter_has_subtask">Hat Unteraufgaben</string>
     <string name="date_picker_multiple">Mehrfach</string>
@@ -571,7 +571,7 @@
     <string name="no_start_date">Kein Startdatum</string>
     <string name="CFC_startBefore_name">Beginnt am…</string>
     <string name="CFC_startBefore_text">Beginnt: \?</string>
-    <string name="default_due_date">Standard-Fälligkeitsdatum</string>
+    <string name="default_due_date">Standard-Fälligkeitszeitpunkt</string>
     <string name="default_start_date">Standard-Startdatum</string>
     <string name="start_date">Starttermin</string>
     <string name="SSD_sort_start">Nach Startdatum</string>
@@ -720,4 +720,5 @@
     <string name="app_settings">App-Einstellungen</string>
     <string name="banner_app_updated_title">App aktualisiert</string>
     <string name="banner_app_updated_description">Tasks wurde gerade auf %s aktualisiert. Möchtest du dir die Änderungsnotizen ansehen?</string>
+    <string name="multiline_title_off">Erledigt drücken, um Aufgabe zu speichern</string>
 </resources>
