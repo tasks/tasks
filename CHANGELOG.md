@@ -1,3 +1,16 @@
+### 14.6 (2025-03-25)
+
+* Add dynamic theme color - requires pro subscription
+* Update translation
+  * Brazilian Portuguese - dedakir923
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580
+  * Estonian - Priit Jõerüüt
+  * Italian - @ppasserini
+  * Japanese - YuzuMikan
+  * Swedish - @Ziron
+  * Ukrainian - @IhorHordiichuk
+
 ### 14.5.4 (2025-03-24)
 
 * Updated remaining date and time pickers to Material 3
