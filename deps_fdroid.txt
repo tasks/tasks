@@ -1384,7 +1384,7 @@
 +|         \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 ++--- org.osmdroid:osmdroid-android:6.1.20
 ++--- androidx.recyclerview:recyclerview:1.4.0 (*)
-++--- androidx.compose:compose-bom:2025.03.00
+++--- androidx.compose:compose-bom:2025.03.01
 +|    +--- androidx.compose.animation:animation:1.7.8 (c)
 +|    +--- androidx.compose.animation:animation-core:1.7.8 (c)
 +|    +--- androidx.compose.foundation:foundation:1.7.8 (c)
