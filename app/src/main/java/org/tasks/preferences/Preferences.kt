@@ -145,12 +145,6 @@ class Preferences @JvmOverloads constructor(
             return defaultCalendar != null && defaultCalendar != "-1" && defaultCalendar != "0"
         }
 
-    val ringtone: Uri?
-        get() = getRingtone(
-            R.string.p_rmd_ringtone,
-            RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        )
-
     val completionSound: Uri?
         get() = getRingtone(
             R.string.p_completion_ringtone,
@@ -438,18 +432,6 @@ class Preferences @JvmOverloads constructor(
                     Binder.getCallingPid(),
                     Binder.getCallingUid(),
                     Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION))
-
-    val notificationDefaults: Int
-        get() {
-            var result = 0
-            if (getBoolean(R.string.p_rmd_vibrate, true)) {
-                result = result or NotificationCompat.DEFAULT_VIBRATE
-            }
-            if (getBoolean(R.string.p_led_notification, true)) {
-                result = result or NotificationCompat.DEFAULT_LIGHTS
-            }
-            return result
-        }
 
     fun remove(resId: Int) {
         val editor = prefs.edit()

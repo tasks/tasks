@@ -243,8 +243,6 @@
     <string name="widget_row_settings">Rækkeindstillinger</string>
     <string name="widget_header_settings">Topbjælkeindstillinger</string>
     <string name="widget_settings">Widget-indstillinger</string>
-    <string name="hardware_support_required">Skal understøttes af hardware</string>
-    <string name="led_notification">LED-påmindelse</string>
     <string name="settings_localization">Oversættelse</string>
     <string name="restart_later">Senere</string>
     <string name="restart_now">Genstart nu</string>
@@ -318,9 +316,6 @@
     <string name="google_drive_backup">Google Drive-backup</string>
     <string name="backup_directory">Mappe til sikkerhedskopi</string>
     <string name="attachment_directory">Mappe til vedhæftede filer</string>
-    <string name="vibrations">Vibrér</string>
-    <string name="sound">Lyd</string>
-    <string name="silent">Lydløs</string>
     <string name="notifications">Notifikationer</string>
     <string name="widget_show_dividers">Vis afgrænsninger</string>
     <string name="widget_show_menu">Vis menu</string>

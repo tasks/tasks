@@ -159,7 +159,6 @@
     <string name="widget_show_header">Tampilkan tajuk</string>
     <string name="widget_show_settings">Tampilkan pengaturan</string>
     <string name="notifications">Notifikasi</string>
-    <string name="vibrations">Getar</string>
     <string name="attachment_directory">Direktori isi lampiran</string>
     <string name="backup_directory">Direktori cadangan</string>
     <string name="google_drive_backup">Cadangan Google Drive</string>
@@ -229,8 +228,6 @@
     <string name="restart_now">Mulai ulang sekarang</string>
     <string name="restart_later">Nanti</string>
     <string name="settings_localization">Pelokalan bahasa</string>
-    <string name="led_notification">Notifikasi LED</string>
-    <string name="hardware_support_required">Dukungan perangkat keras diperlukan</string>
     <string name="widget_settings">Pengaturan wisaya</string>
     <string name="widget_header_settings">Pengaturan tajuk</string>
     <string name="widget_row_settings">Pengaturan baris</string>
@@ -387,8 +384,6 @@
     <string name="rate_tasks">Nilai Tasks</string>
     <string name="header_spacing">Jarak spasi</string>
     <string name="quiet_hours">Jam Tenang</string>
-    <string name="sound">Suara</string>
-    <string name="silent">Diamkan</string>
     <string name="widget_show_menu">Tampilkan menu</string>
     <string name="voice_command_added_task">Menambahkan tugas</string>
     <string name="CFC_dueBefore_name">Jatuh tempo pada…</string>

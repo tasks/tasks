@@ -230,9 +230,6 @@
     <string name="widget_show_header">Mostra intestazione</string>
     <string name="widget_show_settings">Mostra impostazioni</string>
     <string name="notifications">Notifiche</string>
-    <string name="silent">Silenzioso</string>
-    <string name="sound">Suono</string>
-    <string name="vibrations">Vibrazioni</string>
     <string name="quiet_hours">Ore di quiete</string>
     <string name="attachment_directory">Cartella degli allegati</string>
     <string name="backup_directory">Cartella di backup</string>
@@ -307,8 +304,6 @@
     <string name="restart_now">Riavvia ora</string>
     <string name="restart_later">Dopo</string>
     <string name="settings_localization">Localizzazione</string>
-    <string name="led_notification">LED di notifica</string>
-    <string name="hardware_support_required">È richiesto il supporto hardware</string>
     <string name="widget_settings">Impostazioni widget</string>
     <string name="widget_header_settings">Impostazioni intestazione</string>
     <string name="widget_row_settings">Impostazioni riga</string>

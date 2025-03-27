@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat.InterruptionFilter
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.preUpsideDownCake
 import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -214,16 +213,6 @@ class NotificationManager @Inject constructor(
     ) {
         if (preUpsideDownCake()) {
             builder.setLocalOnly(!preferences.getBoolean(R.string.p_wearable_notifications, true))
-        }
-        if (AndroidUtilities.preOreo()) {
-            if (alert) {
-                builder
-                        .setSound(preferences.ringtone)
-                        .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setDefaults(preferences.notificationDefaults)
-            } else {
-                builder.setDefaults(0).setTicker(null)
-            }
         }
         val notification = builder.build()
         var ringTimes = if (fiveTimes) 5 else 1

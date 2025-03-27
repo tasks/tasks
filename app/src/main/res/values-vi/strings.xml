@@ -317,8 +317,6 @@
     <string name="widget_row_settings">Cài đặt hàng</string>
     <string name="widget_header_settings">Cài đặt tiêu đề</string>
     <string name="widget_settings">Cài đặt tiện ích</string>
-    <string name="hardware_support_required">Yêu cầu sự hỗ trợ của phần cứng</string>
-    <string name="led_notification">Thông báo LED</string>
     <string name="settings_localization">Ngôn ngữ</string>
     <string name="restart_later">Để sau</string>
     <string name="restart_now">Khởi động lại ngay</string>
@@ -409,9 +407,6 @@
     <string name="backup_directory">Thư mục sao lưu</string>
     <string name="attachment_directory">Thư mục tệp đính kèm</string>
     <string name="quiet_hours">Giờ im lặng</string>
-    <string name="vibrations">Rung</string>
-    <string name="sound">Âm thanh</string>
-    <string name="silent">Im lặng</string>
     <string name="notifications">Thông báo</string>
     <string name="widget_show_dividers">Hiện đường chia tách</string>
     <string name="widget_show_menu">Hiện menu</string>

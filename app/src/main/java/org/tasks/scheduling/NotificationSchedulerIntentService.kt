@@ -1,11 +1,8 @@
 package org.tasks.scheduling
 
-import android.annotation.TargetApi
 import android.app.NotificationChannel
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.preS
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -31,28 +28,25 @@ class NotificationSchedulerIntentService : InjectingJobIntentService() {
     }
 
     private fun createNotificationChannels() {
-        if (AndroidUtilities.atLeastOreo()) {
-            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
+        notificationManager.createNotificationChannel(
+                createNotificationChannel(NotificationManager.NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications, true))
+        notificationManager.createNotificationChannel(
+                createNotificationChannel(NotificationManager.NOTIFICATION_CHANNEL_TASKER, R.string.tasker_locale, true))
+        notificationManager.createNotificationChannel(
+                createNotificationChannel(
+                        NotificationManager.NOTIFICATION_CHANNEL_TIMERS, R.string.TEA_timer_controls, true))
+        if (preS()) {
             notificationManager.createNotificationChannel(
-                    createNotificationChannel(NotificationManager.NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications, true))
-            notificationManager.createNotificationChannel(
-                    createNotificationChannel(NotificationManager.NOTIFICATION_CHANNEL_TASKER, R.string.tasker_locale, true))
-            notificationManager.createNotificationChannel(
-                    createNotificationChannel(
-                            NotificationManager.NOTIFICATION_CHANNEL_TIMERS, R.string.TEA_timer_controls, true))
-            if (preS()) {
-                notificationManager.createNotificationChannel(
-                    createNotificationChannel(
-                        NotificationManager.NOTIFICATION_CHANNEL_MISCELLANEOUS,
-                        R.string.miscellaneous,
-                        false
-                    )
+                createNotificationChannel(
+                    NotificationManager.NOTIFICATION_CHANNEL_MISCELLANEOUS,
+                    R.string.miscellaneous,
+                    false
                 )
-            }
+            )
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(
             channelId: String, nameResId: Int, alert: Boolean): NotificationChannel {
         val channelName = context.getString(nameResId)

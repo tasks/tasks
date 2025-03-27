@@ -288,8 +288,6 @@
     <string name="widget_row_settings">வரிசை அமைப்புகள்</string>
     <string name="widget_header_settings">தலைப்பு அமைப்புகள்</string>
     <string name="widget_settings">விட்ஜெட் அமைப்புகள்</string>
-    <string name="hardware_support_required">வன்பொருள் ஆதரவு தேவை</string>
-    <string name="led_notification">LED அறிவிப்பு</string>
     <string name="settings_localization">உள்ளூர்மயமாக்கல்</string>
     <string name="restart_later">பின்னர்</string>
     <string name="restart_now">இப்போது மறுதொடக்கம் செய்யுங்கள்</string>
@@ -372,9 +370,6 @@
     <string name="backup_directory">காப்பு கோப்புறை</string>
     <string name="attachment_directory">இணைப்பு கோப்புறை</string>
     <string name="quiet_hours">அமைதியான நேரம்</string>
-    <string name="vibrations">அதிர்வுகள்</string>
-    <string name="sound">ஒலி</string>
-    <string name="silent">அமைதியாக</string>
     <string name="notifications">அறிவிப்புகள்</string>
     <string name="widget_show_dividers">வகுப்புகளைக் காட்டு</string>
     <string name="widget_show_menu">மெனுவைக் காட்டு</string>

@@ -1,6 +1,5 @@
 package org.tasks.preferences;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastQ;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastTiramisu;
 import static java.util.Arrays.asList;
@@ -28,10 +27,6 @@ public class PermissionChecker {
 
   public boolean canAccessCalendars() {
     return checkPermissions(permission.READ_CALENDAR, permission.WRITE_CALENDAR);
-  }
-
-  public boolean canAccessAccounts() {
-    return atLeastOreo() || checkPermissions(permission.GET_ACCOUNTS);
   }
 
   public boolean canAccessForegroundLocation() {

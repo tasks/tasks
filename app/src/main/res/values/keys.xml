@@ -85,11 +85,7 @@
     <item>1440</item>
   </string-array>
 
-  <!-- whether to vibrate phone when reminder fires -->
-  <string name="p_rmd_vibrate">notif_vibrate</string>
-
   <!-- ringtone to use for notifications -->
-  <string name="p_rmd_ringtone">notification_ringtone</string>
   <string name="p_completion_ringtone">completion_ringtone</string>
 
   <!-- default random reminder setting (in hours) -->
@@ -319,7 +315,6 @@
   <string name="p_theme_color">theme_color</string>
   <string name="p_theme_launcher">theme_launcher</string>
   <string name="p_language">language</string>
-  <string name="p_led_notification">led_notificatiWCAon</string>
 
   <string name="p_widget_filter">widget-id-</string>
   <string name="p_widget_theme">widget-theme-v2-</string>
