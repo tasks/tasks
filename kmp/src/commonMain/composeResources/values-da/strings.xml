@@ -10,7 +10,7 @@
     <string name="filter_recently_modified">Senest ændrede</string>
     <string name="default_list">Standardliste</string>
     <string name="drawer_tags">Tags</string>
-    <string name="help_and_feedback">Hjælp &amp; feedback</string>
+    <string name="help_and_feedback">Hjælp og feedback</string>
     <string name="settings">Indstillinger</string>
     <string name="drawer_filters">Filtre</string>
     <string name="drawer_places">Steder</string>
@@ -28,8 +28,8 @@
     <string name="yesterday_lowercase">i går</string>
     <string name="today">I dag</string>
     <string name="today_lowercase">i dag</string>
-    <string name="show_unstarted">Vis ikke startet</string>
-    <string name="show_completed">Vis udførte</string>
+    <string name="show_unstarted">Vis ikke-startet</string>
+    <string name="show_completed">Vis fuldførte</string>
     <string name="wear_unknown_error">Ukendt fejl</string>
     <string name="wear_install_app">Installer på telefon</string>
     <string name="add_task">Tilføj opgave</string>
