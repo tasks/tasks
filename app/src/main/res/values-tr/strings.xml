@@ -720,4 +720,5 @@
     <string name="app_settings">Uygulama ayarları</string>
     <string name="banner_app_updated_description">Tasks %s sürümüne güncellendi. Dağıtım notlarını görmek ister misiniz?</string>
     <string name="banner_app_updated_title">Uygulama güncellendi</string>
+    <string name="multiline_title_off">Tamamlandıya basarak görevi kaydet</string>
 </resources>
