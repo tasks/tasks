@@ -718,4 +718,7 @@
     <string name="button_learn_more">Lerni Plu</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do ne subtenas plurnivelajn subtaskojn</string>
     <string name="app_settings">Agordoj de Aplikaĵo</string>
+    <string name="multiline_title_off">Premu Finite por konservi taskon</string>
+    <string name="banner_app_updated_title">Ĝisdatigo de Aplikaĵo</string>
+    <string name="banner_app_updated_description">Tasks estis ĝisdatigita al %s. Ĉu vi deziras legi la eldonajn notojn?</string>
 </resources>
