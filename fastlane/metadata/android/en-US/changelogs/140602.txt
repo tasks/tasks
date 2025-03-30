@@ -1,0 +1,3 @@
+* Restore default sort mode for existing installs
+* Fix grouping by due date descending
+* Remove shadow from launcher icons
