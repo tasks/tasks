@@ -150,6 +150,14 @@ class SectionedDataSource(
                             sections.add(AdapterSection(i, header, 0, isCollapsed))
                         }
                     }
+                    groupMode == SortHelper.SORT_START -> {
+                        if (
+                            previous == 0L && header != 0L ||
+                            header != previous.startOfDay()
+                        ) {
+                            sections.add(AdapterSection(i, header, 0, isCollapsed))
+                        }
+                    }
                     else -> if (previous > 0 && header != previous.startOfDay()) {
                         sections.add(AdapterSection(i, header, 0, isCollapsed))
                     }
