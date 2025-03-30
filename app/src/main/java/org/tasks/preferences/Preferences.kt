@@ -489,7 +489,7 @@ class Preferences @JvmOverloads constructor(
         set(value) { setBoolean(R.string.p_sort_ascending, value) }
 
     override var groupAscending: Boolean
-        get() = getBoolean(R.string.p_group_ascending, false)
+        get() = getBoolean(R.string.p_group_ascending, true)
         set(value) { setBoolean(R.string.p_group_ascending, value) }
 
     override var completedAscending: Boolean

@@ -135,6 +135,16 @@ class Upgrader @Inject constructor(
                     }
                 }
             }
+            run(from, V14_6_1) {
+                if (preferences.installVersion < V14_5_4) {
+                    if (preferences.getInt(R.string.p_sort_mode, -1) == -1) {
+                        preferences.sortMode = SortHelper.SORT_AUTO
+                    }
+                    if (preferences.getInt(R.string.p_group_mode, -2) == -2) {
+                        preferences.groupMode = SortHelper.GROUP_NONE
+                    }
+                }
+            }
             preferences.setBoolean(R.string.p_just_updated, true)
         } else {
             setInstallDetails(to)
@@ -396,6 +406,7 @@ class Upgrader @Inject constructor(
         const val V12_6 = 120601
         const val V12_8 = 120800
         const val V14_5_4 = 140516
+        const val V14_6_1 = 140602
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {

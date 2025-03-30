@@ -1,3 +1,9 @@
+### 14.6.1 (2025-03-30)
+
+* Restore default sort mode for existing installs
+* Fix grouping by due date descending
+* Remove shadow from launcher icons
+
 ### 14.6 (2025-03-25)
 
 * Add dynamic theme color - requires pro subscription

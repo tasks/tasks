@@ -141,9 +141,9 @@ class SectionedDataSource(
                             sections.add(AdapterSection(i, header, 0, isCollapsed))
                         }
                     groupMode == SortHelper.SORT_DUE -> {
-                        val previousOverdue = previous < startOfToday
+                        val previousOverdue = previous in 1..<startOfToday
                         val currentOverdue = header == HEADER_OVERDUE
-                        if (previous > 0 &&
+                        if (
                             ((currentOverdue != previousOverdue) ||
                                     (!currentOverdue && header != previous.startOfDay()))
                         ) {
