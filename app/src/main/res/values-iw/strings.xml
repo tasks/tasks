@@ -122,7 +122,7 @@
     <string name="snooze_all">נדנד על כולם</string>
     <string name="rmd_EPr_quiet_hours_start_title">תחילת שעות השקט</string>
     <string name="rmd_EPr_quiet_hours_end_title">סיום שעות השקט</string>
-    <string name="rmd_EPr_rmd_time_title">תזכורת ברירת מחדל</string>
+    <string name="rmd_EPr_rmd_time_title">זמן תזכורת</string>
     <string name="rmd_EPr_rmd_time_desc">התראות משימות ללא מועד יעד תגענה ב-%s</string>
     <string name="persistent_notifications">הודעות תמידיות</string>
     <string name="persistent_notifications_description">הודעות תמידיות לא יכולות להימחק ע\"י החלקה</string>
@@ -549,8 +549,8 @@
     <string name="default_tags">תגיות בררת מחדל</string>
     <string name="repeat_type_completion_capitalized">תאריך השלמה</string>
     <string name="default_location">מיקום בררת מחדל</string>
-    <string name="cancel">ביטול</string>
-    <string name="ok">אישור</string>
+    <string name="cancel">בטל</string>
+    <string name="ok">בסדר</string>
     <string name="insufficient_subscription">רמת המינוי אינה מספיקה. נא לשדרג את המינוי כדי להמשיך את השירות.</string>
     <string name="background_location_permission_required">משימות אוספות נתוני מיקום כדי לאפשר תזכורות מבוססות מיקום, גם כאשר האפליקציה סגורה או לא בשימוש.</string>
     <string name="follow_reddit">הצטרף ל- r/משימות</string>
@@ -647,4 +647,12 @@
     <string name="CFC_startBefore_text">התחל על ידי: \?</string>
     <string name="default_start_date">תאריך התחלה המוגדר כברירת מחדל</string>
     <string name="SSD_sort_start">לפי תאריך התחלה</string>
+    <string name="swipe_to_snooze_title">החלק נודניק</string>
+    <string name="app_settings">הגדרות אפלקציה</string>
+    <string name="swipe_to_snooze_description">זמן נודניק</string>
+    <string name="TEA_creation_date">זמן יצירה</string>
+    <string name="customize_drawer">התאמה אישית של מגירה</string>
+    <string name="customize_drawer_summary">גרור ושחרר כדי לסדר מחדש את פריטי התפריט</string>
+    <string name="sort_list">לפי רשימה</string>
+    <string name="sort_completed">לפי זמן השלמה</string>
 </resources>
