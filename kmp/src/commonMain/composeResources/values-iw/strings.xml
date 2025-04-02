@@ -26,4 +26,11 @@
     <string name="today_lowercase">היום</string>
     <string name="show_unstarted">הצג לא התחיל</string>
     <string name="show_completed">הצגת משימות שבוצעו</string>
+    <string name="subscription_required_description">בטל את הנעילה של כל התכונות תמורת דולר בלבד לשנה</string>
+    <string name="wear_install_app">התקן בטלפון</string>
+    <string name="wear_unknown_error">שגיאה לא ידועה</string>
+    <string name="search_no_results">אין תוצאות</string>
+    <string name="requires_pro_subscription">תכונות פרו</string>
+    <string name="add_task">הוסף משימה</string>
+    <string name="filter_snoozed">נודניק</string>
 </resources>
