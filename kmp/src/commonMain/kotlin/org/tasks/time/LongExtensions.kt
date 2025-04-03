@@ -137,6 +137,9 @@ private fun Long.minus(value: Int, units: DateTimeUnit.TimeBased): Long =
 val Long.millisOfDay: Int
     get() = if (this > 0) toLocalDateTime().time.toMillisecondOfDay() else 0
 
+val Long.hourOfDay: Int
+    get() = if (this > 0) toLocalDateTime().hour else 0
+
 val Long.minuteOfHour: Int
     get() = if (this > 0) toLocalDateTime().minute else 0
 

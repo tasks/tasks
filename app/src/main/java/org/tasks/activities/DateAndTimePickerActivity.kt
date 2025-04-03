@@ -21,6 +21,10 @@ import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.hourOfDay
+import org.tasks.time.millisOfDay
+import org.tasks.time.minuteOfHour
+import org.tasks.time.withMillisOfDay
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -43,8 +47,8 @@ class DateAndTimePickerActivity : AppCompatActivity() {
                 if (showTimePicker) {
                     TimePickerDialog(
                         state = rememberTimePickerState(
-                            initialHour = 0,
-                            initialMinute = 0,
+                            initialHour = dateSelected.hourOfDay,
+                            initialMinute = dateSelected.minuteOfHour,
                             is24Hour = is24HourFormat
                         ),
                         initialDisplayMode = remember { preferences.timeDisplayMode },
@@ -74,7 +78,7 @@ class DateAndTimePickerActivity : AppCompatActivity() {
                             preferences.calendarDisplayMode = it
                         },
                         selected = {
-                            dateSelected = it
+                            dateSelected = it.withMillisOfDay(dateSelected.millisOfDay)
                             showTimePicker = true
                         },
                         dismiss = {
