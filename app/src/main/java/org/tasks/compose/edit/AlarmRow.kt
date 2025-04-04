@@ -5,12 +5,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,7 +31,6 @@ import org.tasks.R
 import org.tasks.compose.AddAlarmDialog
 import org.tasks.compose.AddReminderDialog
 import org.tasks.compose.ClearButton
-import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.entity.Alarm
 import org.tasks.reminders.AlarmToString
@@ -42,6 +44,7 @@ fun AlarmRow(
     fixNotificationPermissions: () -> Unit,
     alarms: ImmutableSet<Alarm>,
     ringMode: Int,
+    isNew: Boolean,
     hasStartDate: Boolean,
     hasDueDate: Boolean,
     addAlarm: (Alarm) -> Unit,
@@ -57,6 +60,7 @@ fun AlarmRow(
                 Alarms(
                     alarms = alarms,
                     ringMode = ringMode,
+                    isNew = isNew,
                     hasStartDate = hasStartDate,
                     hasDueDate = hasDueDate,
                     replaceAlarm = {
@@ -127,6 +131,7 @@ fun AlarmRow(
 fun Alarms(
     alarms: ImmutableSet<Alarm>,
     ringMode: Int,
+    isNew: Boolean,
     hasStartDate: Boolean,
     hasDueDate: Boolean,
     replaceAlarm: (Alarm) -> Unit,
@@ -156,11 +161,20 @@ fun Alarms(
                 remove = { deleteAlarm(alarm) }
             )
         }
+        val showError = remember(alarms, hasDueDate, hasStartDate) {
+            isNew && alarms.isEmpty() && (hasDueDate || hasStartDate)
+        }
         Row(modifier = Modifier.fillMaxWidth()) {
-            DisabledText(
-                text = stringResource(id = R.string.add_reminder),
+            Text(
+                text = stringResource(R.string.add_reminder),
+                color = when {
+                    showError -> MaterialTheme.colorScheme.error
+                    else -> MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled)
+                },
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier
-                    .padding(vertical = 12.dp)
+                    .padding(top = 12.dp, bottom = 12.dp, end = 16.dp)
+                    .defaultMinSize(24.dp)
                     .clickable(onClick = addAlarm)
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -218,6 +232,7 @@ fun NoAlarms() {
         AlarmRow(
             alarms = persistentSetOf(),
             ringMode = 0,
+            isNew = false,
             hasStartDate = true,
             hasDueDate = true,
             addAlarm = {},
@@ -238,6 +253,7 @@ fun PermissionDenied() {
         AlarmRow(
             alarms = persistentSetOf(),
             ringMode = 0,
+            isNew = false,
             hasStartDate = true,
             hasDueDate = true,
             addAlarm = {},

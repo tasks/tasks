@@ -96,6 +96,7 @@ class ReminderControlSet : TaskEditControlFragment() {
             },
             ringMode = ringMode,
             addAlarm = viewModel::addAlarm,
+            isNew = viewState.isNew,
             hasStartDate = startDate > 0,
             hasDueDate = dueDate > 0,
             openRingType = {
