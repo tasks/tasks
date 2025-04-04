@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun DisabledText(
+    modifier: Modifier = Modifier,
     text: String,
-    modifier: Modifier = Modifier
 ) {
     Text(
         text = text,

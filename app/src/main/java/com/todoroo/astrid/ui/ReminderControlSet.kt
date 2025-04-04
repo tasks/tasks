@@ -80,6 +80,8 @@ class ReminderControlSet : TaskEditControlFragment() {
                 viewModel.addAlarm(Alarm(time = timestamp, type = TYPE_DATE_TIME))
             }
         val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
+        val startDate = viewModel.startDate.collectAsStateWithLifecycle().value
+        val dueDate = viewModel.dueDate.collectAsStateWithLifecycle().value
         val context = LocalContext.current
         AlarmRow(
             alarms = viewState.alarms,
@@ -94,6 +96,8 @@ class ReminderControlSet : TaskEditControlFragment() {
             },
             ringMode = ringMode,
             addAlarm = viewModel::addAlarm,
+            hasStartDate = startDate > 0,
+            hasDueDate = dueDate > 0,
             openRingType = {
                 val modes = resources.getStringArray(R.array.reminder_ring_modes)
                 val selectedIndex = when {

@@ -5,12 +5,14 @@ import android.content.Context
 import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.compose.edit.StartDateRow
+import org.tasks.data.entity.Alarm
 import org.tasks.dialogs.StartDatePicker
 import org.tasks.dialogs.StartDatePicker.Companion.EXTRA_DAY
 import org.tasks.dialogs.StartDatePicker.Companion.EXTRA_TIME
@@ -44,10 +46,14 @@ class StartDateControlSet : TaskEditControlFragment() {
         val dueDate = viewModel.dueDate.collectAsStateWithLifecycle().value
         val selectedDay = vm.selectedDay.collectAsStateWithLifecycle().value
         val selectedTime = vm.selectedTime.collectAsStateWithLifecycle().value
+        val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
         StartDateRow(
             startDate = viewModel.startDate.collectAsStateWithLifecycle().value,
             selectedDay = selectedDay,
             selectedTime = selectedTime,
+            hasStartAlarm = remember (viewState.alarms) {
+                viewState.alarms.any { it.type == Alarm.TYPE_REL_START }
+            },
             hasDueDate = dueDate > 0,
             printDate = {
                 runBlocking {

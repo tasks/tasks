@@ -13,8 +13,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,6 +42,8 @@ fun AlarmRow(
     fixNotificationPermissions: () -> Unit,
     alarms: ImmutableSet<Alarm>,
     ringMode: Int,
+    hasStartDate: Boolean,
+    hasDueDate: Boolean,
     addAlarm: (Alarm) -> Unit,
     deleteAlarm: (Alarm) -> Unit,
     openRingType: () -> Unit,
@@ -55,6 +57,8 @@ fun AlarmRow(
                 Alarms(
                     alarms = alarms,
                     ringMode = ringMode,
+                    hasStartDate = hasStartDate,
+                    hasDueDate = hasDueDate,
                     replaceAlarm = {
                         vm.setReplace(it)
                         vm.showAddAlarm(visible = true)
@@ -74,12 +78,12 @@ fun AlarmRow(
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(
                         text = stringResource(id = R.string.enable_reminders),
-                        color = colorResource(id = org.tasks.kmp.R.color.red_500),
+                        color = MaterialTheme.colorScheme.error,
                     )
                     Text(
                         text = stringResource(id = R.string.enable_reminders_description),
                         style = MaterialTheme.typography.bodySmall,
-                        color = colorResource(id = org.tasks.kmp.R.color.red_500),
+                        color = MaterialTheme.colorScheme.error,
                     )
                     Spacer(modifier = Modifier.height(20.dp))
                 }
@@ -123,6 +127,8 @@ fun AlarmRow(
 fun Alarms(
     alarms: ImmutableSet<Alarm>,
     ringMode: Int,
+    hasStartDate: Boolean,
+    hasDueDate: Boolean,
     replaceAlarm: (Alarm) -> Unit,
     addAlarm: () -> Unit,
     deleteAlarm: (Alarm) -> Unit,
@@ -133,6 +139,19 @@ fun Alarms(
         alarms.forEach { alarm ->
             AlarmRow(
                 text = AlarmToString(LocalContext.current).toString(alarm),
+                color = when (alarm.type) {
+                    Alarm.TYPE_REL_START -> if (hasStartDate) {
+                        MaterialTheme.colorScheme.onSurface
+                    } else {
+                        MaterialTheme.colorScheme.error
+                    }
+                    Alarm.TYPE_REL_END -> if (hasDueDate) {
+                        MaterialTheme.colorScheme.onSurface
+                    } else {
+                        MaterialTheme.colorScheme.error
+                    }
+                    else -> MaterialTheme.colorScheme.onSurface
+                },
                 onClick = { replaceAlarm(alarm) },
                 remove = { deleteAlarm(alarm) }
             )
@@ -171,6 +190,7 @@ fun Alarms(
 @Composable
 private fun AlarmRow(
     text: String,
+    color: Color,
     onClick: () -> Unit,
     remove: () -> Unit,
 ) {
@@ -184,7 +204,7 @@ private fun AlarmRow(
             modifier = Modifier
                 .padding(vertical = 12.dp)
                 .weight(weight = 1f),
-            color = MaterialTheme.colorScheme.onSurface,
+            color = color,
         )
         ClearButton(onClick = remove)
     }
@@ -198,6 +218,8 @@ fun NoAlarms() {
         AlarmRow(
             alarms = persistentSetOf(),
             ringMode = 0,
+            hasStartDate = true,
+            hasDueDate = true,
             addAlarm = {},
             deleteAlarm = {},
             openRingType = {},
@@ -216,6 +238,8 @@ fun PermissionDenied() {
         AlarmRow(
             alarms = persistentSetOf(),
             ringMode = 0,
+            hasStartDate = true,
+            hasDueDate = true,
             addAlarm = {},
             deleteAlarm = {},
             openRingType = {},

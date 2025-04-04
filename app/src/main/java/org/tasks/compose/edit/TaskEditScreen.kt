@@ -29,6 +29,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -51,6 +52,7 @@ import org.tasks.R
 import org.tasks.compose.BeastModeBanner
 import org.tasks.compose.FilterSelectionActivity.Companion.EXTRA_FILTER
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
+import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.UserActivity
 import org.tasks.dialogs.Linkify
 import org.tasks.extensions.Context.findActivity
@@ -217,6 +219,9 @@ fun TaskEditScreen(
 
                     TAG_DUE_DATE -> DueDateRow(
                         dueDate = editViewModel.dueDate.collectAsStateWithLifecycle().value,
+                        hasDueDateAlarm = remember (viewState.alarms) {
+                            viewState.alarms.any { it.type == Alarm.TYPE_REL_END }
+                        },
                         is24HourFormat = context.is24HourFormat,
                         alwaysDisplayFullDate = viewState.alwaysDisplayFullDate,
                         onClick = onClickDueDate,

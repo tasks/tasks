@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.fragment.app.Fragment
@@ -68,7 +67,6 @@ class TaskEditFragment : Fragment() {
             }
             val context = LocalContext.current
             val keyboard = LocalSoftwareKeyboardController.current
-            val scope = rememberCoroutineScope()
 
             TaskEditScreen(
                 editViewModel = editViewModel,

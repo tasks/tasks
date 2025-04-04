@@ -2,18 +2,19 @@ package org.tasks.compose.edit
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
-import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.newDateTime
@@ -24,13 +25,21 @@ import org.tasks.themes.TasksTheme
 @Composable
 fun DueDateRow(
     dueDate: Long,
+    hasDueDateAlarm: Boolean,
     is24HourFormat: Boolean,
     alwaysDisplayFullDate: Boolean,
     onClick: () -> Unit,
 ) {
+    val overdue = remember (dueDate) {
+        when {
+            Task.hasDueTime(dueDate) -> newDateTime(dueDate).isBeforeNow
+            dueDate > 0 -> newDateTime(dueDate).endOfDay().isBeforeNow
+            else -> false
+        }
+    }
     DueDateRow(
         dueDate = if (dueDate == 0L) {
-            null
+            stringResource(id = R.string.no_due_date)
         } else {
             runBlocking {
                 getRelativeDateTime(
@@ -41,10 +50,11 @@ fun DueDateRow(
                 )
             }
         },
-        overdue = if (Task.hasDueTime(dueDate)) {
-            newDateTime(dueDate).isBeforeNow
-        } else {
-            newDateTime(dueDate).endOfDay().isBeforeNow
+        color = when {
+            overdue -> MaterialTheme.colorScheme.error
+            dueDate == 0L && hasDueDateAlarm -> MaterialTheme.colorScheme.error
+            dueDate == 0L -> MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled)
+            else -> MaterialTheme.colorScheme.onSurface
         },
         onClick = { onClick() },
     )
@@ -52,8 +62,8 @@ fun DueDateRow(
 
 @Composable
 private fun DueDateRow(
-    dueDate: String?,
-    overdue: Boolean,
+    dueDate: String,
+    color: Color,
     onClick: () -> Unit,
 ) {
     TaskEditRow(
@@ -61,7 +71,7 @@ private fun DueDateRow(
         content = {
             DueDate(
                 dueDate = dueDate,
-                overdue = overdue,
+                color = color,
             )
         },
         onClick = onClick,
@@ -69,23 +79,15 @@ private fun DueDateRow(
 }
 
 @Composable
-fun DueDate(dueDate: String?, overdue: Boolean) {
-    if (dueDate.isNullOrBlank()) {
-        DisabledText(
-            text = stringResource(id = R.string.no_due_date),
-            modifier = Modifier.padding(top = 20.dp, bottom = 20.dp, end = 16.dp)
-        )
-    } else {
-        Text(
-            text = dueDate,
-            color = if (overdue) {
-                colorResource(id = R.color.overdue)
-            } else {
-                MaterialTheme.colorScheme.onSurface
-            },
-            modifier = Modifier.padding(top = 20.dp, bottom = 20.dp, end = 16.dp)
-        )
-    }
+fun DueDate(
+    dueDate: String,
+    color: Color,
+) {
+    Text(
+        text = dueDate,
+        color = color,
+        modifier = Modifier.padding(top = 20.dp, bottom = 20.dp, end = 16.dp)
+    )
 }
 
 @ExperimentalComposeUiApi
@@ -96,7 +98,7 @@ fun DueDatePreview() {
     TasksTheme {
         DueDateRow(
             dueDate = "Today",
-            overdue = false,
+            color = MaterialTheme.colorScheme.onSurface,
         ) {}
     }
 }
@@ -108,8 +110,8 @@ fun DueDatePreview() {
 fun NoDueDatePreview() {
     TasksTheme {
         DueDateRow(
-            dueDate = null,
-            overdue = false,
+            dueDate = stringResource(R.string.no_due_date),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
         ) {}
     }
 }

@@ -9,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,6 +25,7 @@ fun StartDateRow(
     selectedDay: Long,
     selectedTime: Int,
     currentTime: Long = currentTimeMillis(),
+    hasStartAlarm: Boolean,
     hasDueDate: Boolean,
     printDate: () -> String,
     onClick: () -> Unit,
@@ -38,6 +38,7 @@ fun StartDateRow(
                 selectedDay = selectedDay,
                 selectedTime = selectedTime,
                 currentTime = currentTime,
+                hasStartAlarm = hasStartAlarm,
                 hasDueDate = hasDueDate,
                 printDate = printDate,
             )
@@ -52,6 +53,7 @@ fun StartDate(
     selectedDay: Long,
     selectedTime: Int,
     currentTime: Long,
+    hasStartAlarm: Boolean,
     hasDueDate: Boolean,
     printDate: () -> String,
 ) {
@@ -66,9 +68,10 @@ fun StartDate(
             else -> stringResource(id = R.string.no_start_date)
         },
         color = when {
-            selectedDay < 0 && !hasDueDate -> colorResource(id = R.color.overdue)
+            selectedDay < 0 && !hasDueDate -> MaterialTheme.colorScheme.error
+            startDate == 0L && hasStartAlarm -> MaterialTheme.colorScheme.error
             startDate == 0L -> MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled)
-            startDate < currentTime -> colorResource(id = R.color.overdue)
+            startDate < currentTime -> MaterialTheme.colorScheme.error
             else -> MaterialTheme.colorScheme.onSurface
         },
         modifier = Modifier
@@ -87,6 +90,7 @@ fun NoStartDate() {
             selectedDay = StartDatePicker.NO_DAY,
             selectedTime = StartDatePicker.NO_TIME,
             currentTime = 1657080392000L,
+            hasStartAlarm = true,
             hasDueDate = false,
             printDate = { "" },
             onClick = {},
@@ -104,6 +108,7 @@ fun FutureStartDate() {
             selectedDay = StartDatePicker.DUE_DATE,
             selectedTime = StartDatePicker.NO_TIME,
             currentTime = 1657080392000L,
+            hasStartAlarm = true,
             hasDueDate = false,
             printDate = { "" },
             onClick = {},
@@ -121,6 +126,7 @@ fun PastStartDate() {
             selectedDay = StartDatePicker.DUE_TIME,
             selectedTime = StartDatePicker.NO_TIME,
             currentTime = 1657080392001L,
+            hasStartAlarm = true,
             hasDueDate = false,
             printDate = { "" },
             onClick = {},
