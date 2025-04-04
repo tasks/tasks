@@ -525,8 +525,8 @@
     <string name="repeats_plural_until">كرره كل %1$s، ينتهي عند %2$s</string>
     <string name="repeats_plural_on">كرره كل %1$s في %2$s</string>
     <string name="repeats_plural">كرره كل %s</string>
-    <string name="repeats_single_on_until">أعده %1$s في %2$s حتى %3$s</string>
-    <string name="repeats_single_until">أعده %1$s حتى %2$s</string>
+    <string name="repeats_single_on_until">أعده %1$s في %2$s أنهه عند %3$s</string>
+    <string name="repeats_single_until">أعده %1$s أنهه عند %2$s</string>
     <string name="repeats_single_on">أعده %1$s عند %2$s</string>
     <string name="repeats_single">أعده %s</string>
     <string name="bundle_notifications">حزمة الاشعارات</string>
@@ -774,4 +774,16 @@
     <string name="yesterday">الأمس</string>
     <string name="comment">التعليق</string>
     <string name="send_application_logs">إرسال سجلات التطبيق</string>
+    <string name="repeats_on">على</string>
+    <string name="repeat_monthly_on_the_nth_weekday">شهرياً على %1$s %2$s</string>
+    <string name="repeat_monthly_on_day_number">شهرياً في اليوم %1d</string>
+    <string name="show_edit_screen_without_unlock_summary">تمكين استخدام لوحة الإعدادات السريعة دون إلغاء قفل الجهاز</string>
+    <string name="banner_app_updated_description">تم تحديث Tasks للتو إلى %s. هل ترغب في الاطلاع على ملاحظات الإصدار؟</string>
+    <string name="banner_app_updated_title">التطبيق محدث</string>
+    <string name="donate_today">تبرع اليوم</string>
+    <string name="donate_maybe_later">ربما لاحقا</string>
+    <string name="donate_nag">فكِّر في إظهار دعمك بالتبرع!</string>
+    <string name="subtasks_multilevel_microsoft">المهام الفرعية متعددة المستويات غير مدعومة من قبل Microsoft To Do</string>
+    <string name="repeats_custom_recurrence">التكرار المخصّص</string>
+    <string name="repeats_weekly_on">التكرار على</string>
 </resources>
