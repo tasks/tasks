@@ -21,6 +21,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.tooling.preview.Preview
 import org.tasks.R
 import org.tasks.compose.Constants.TextButton
@@ -108,7 +109,9 @@ object ShareInvite {
                         contentDescription = label
                     )
                 },
-                textStyle = MaterialTheme.typography.bodyLarge,
+                textStyle = MaterialTheme.typography.bodyLarge.copy(
+                    textDirection = TextDirection.Content
+                ),
                 colors = textFieldColors(),
             )
         }

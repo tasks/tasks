@@ -40,7 +40,6 @@
     android:inputType="textCapSentences"
     android:nextFocusLeft="@id/commentField"
     android:nextFocusUp="@id/commentField"
-    android:textAlignment="viewStart"
     android:textColor="?attr/colorOnBackground"
     android:textColorHint="?attr/colorOnBackground"
     android:textCursorDrawable="@null"

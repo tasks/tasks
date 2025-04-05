@@ -92,7 +92,6 @@ fun EditTextView(
                 }
 
                 setBackgroundColor(context.getColor(android.R.color.transparent))
-                textAlignment = View.TEXT_ALIGNMENT_VIEW_START
                 importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_NO
                 freezesText = true
                 setHorizontallyScrolling(false)

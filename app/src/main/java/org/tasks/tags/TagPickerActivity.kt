@@ -34,7 +34,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -190,6 +192,9 @@ internal fun SearchBar(
                 focusedContainerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
+            ),
+            textStyle = TextStyle(
+                textDirection = TextDirection.Content
             ),
             modifier = Modifier.padding(start = 6.dp),
             keyboardOptions = KeyboardOptions(
