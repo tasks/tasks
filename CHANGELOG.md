@@ -1,3 +1,21 @@
+### 14.6.2 (2025-04-06)
+
+* Show error indicators if 'When started' or 'When due' reminders are used
+  without start or due times
+* Fix delay when saving tasks
+* Fix populating clock picker with initial value instead of 00:00
+* Fix displaying selected calendar month
+* Fix grouping by start date in descending order
+* Update translations
+  * Arabic - abdelbasset jabrane
+  * Danish - @catsnote
+  * Esperanto - Don Zouras
+  * German - @Kachelkaiser
+  * Hebrew - @elid34
+  * Italian - @Fs00
+  * Slovak - @jose1711
+  * Turkish - @emintufan
+
 ### 14.6.1 (2025-03-30)
 
 * Restore default sort mode for existing installs

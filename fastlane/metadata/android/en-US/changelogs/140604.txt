@@ -1,0 +1,7 @@
+* Show error indicators if 'When started' or 'When due' reminders are used
+  without start or due times
+* Fix delay when saving tasks
+* Fix populating clock picker with initial value instead of 00:00
+* Fix displaying selected calendar month
+* Fix grouping by start date in descending order
+* Update translations
