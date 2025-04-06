@@ -208,9 +208,6 @@
     <string name="widget_show_header">Näytä otsikot</string>
     <string name="widget_show_settings">Näytä asetukset</string>
     <string name="notifications">Ilmoitukset</string>
-    <string name="silent">Äänetön</string>
-    <string name="sound">Ääni</string>
-    <string name="vibrations">Värinä</string>
     <string name="quiet_hours">Hiljainen aika</string>
     <string name="attachment_directory">Liitehakemisto</string>
     <string name="backup_directory">Varmuuskopioiden hakemisto</string>
@@ -275,8 +272,6 @@
     <string name="restart_now">Käynnistä uudelleen nyt</string>
     <string name="restart_later">Myöhemmin</string>
     <string name="settings_localization">Paikallistaminen</string>
-    <string name="led_notification">LED muistutus</string>
-    <string name="hardware_support_required">Laitetuki vaaditaan</string>
     <string name="widget_settings">Widgetin asetukset</string>
     <string name="widget_header_settings">Otsikon asetukset</string>
     <string name="widget_row_settings">Rivin asetukset</string>

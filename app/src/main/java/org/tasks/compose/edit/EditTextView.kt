@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.widget.addTextChangedListener
-import com.todoroo.andlib.utility.AndroidUtilities
 import org.tasks.R
 import org.tasks.dialogs.Linkify
 import org.tasks.markdown.MarkdownProvider
@@ -94,9 +93,7 @@ fun EditTextView(
 
                 setBackgroundColor(context.getColor(android.R.color.transparent))
                 textAlignment = View.TEXT_ALIGNMENT_VIEW_START
-                if (AndroidUtilities.atLeastOreo()) {
-                    importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_NO
-                }
+                importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_NO
                 freezesText = true
                 setHorizontallyScrolling(false)
                 setHint(hint)

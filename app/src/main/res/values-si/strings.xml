@@ -172,8 +172,6 @@
     <string name="widget_open_list">ලැයිස්තුව විවෘත කරන්න</string>
     <string name="widget_row_settings">පේළි සැකසුම්</string>
     <string name="widget_header_settings">ශීර්ෂ සැකසුම්</string>
-    <string name="hardware_support_required">දෘඩාංග සහාය අවශ්‍යයි</string>
-    <string name="led_notification">LED දැනුම්දීම</string>
     <string name="settings_localization">ප්‍රාදේශීයකරණය</string>
     <string name="restart_later">පසුව</string>
     <string name="restart_now">නැවත ආරම්භ කරන්න</string>
@@ -594,9 +592,6 @@
     <string name="backup_directory">උපස්ථ ෆෝල්ඩරය</string>
     <string name="attachment_directory">ඇමුණුම් ෆෝල්ඩරය</string>
     <string name="quiet_hours">නිහඬ පැය</string>
-    <string name="vibrations">කම්පන</string>
-    <string name="sound">ශබ්දය</string>
-    <string name="silent">නිහඬ</string>
     <string name="notifications">දැනුම්දීම්</string>
     <string name="widget_show_dividers">බෙදුම්තීරු පෙන්වන්න</string>
     <string name="widget_show_menu">මෙනුව පෙන්වන්න</string>

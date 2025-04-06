@@ -88,7 +88,6 @@
     <string name="show_completed">Mostra completades</string>
     <string name="language">Idioma</string>
     <string name="settings_localization">Localització</string>
-    <string name="led_notification">Led de notificació</string>
     <string name="export_toast">Recolzades %1$s de %2$s.</string>
     <string name="import_summary_message">El fitxer %1$s contenia %2$s. 
 \n 
@@ -348,8 +347,6 @@
     <string name="location_permission_required_location">Es necessiten els permisos de ubicació per trobar la teva ubicació actual</string>
     <string name="google_tasks_add_to_top">Noves tasques a sobre</string>
     <string name="help">Ajuda</string>
-    <string name="silent">Silenci</string>
-    <string name="vibrations">Vibracions</string>
     <string name="list">Llista</string>
     <string name="show_description">Mostra la descripció</string>
     <string name="third_party_licenses">Llicències de tercers</string>
@@ -388,7 +385,6 @@
     <string name="swipe_to_snooze_time_24_hours">després de 24 hores</string>
     <string name="swipe_to_snooze_time_immediately">immediatament</string>
     <string name="next_tuesday">Proper dm</string>
-    <string name="sound">So</string>
     <string name="rate_tasks">Valora Tasks</string>
     <string name="tags">Etiquetes</string>
     <string name="date_shortcut_tomorrow_morning">Demà pel matí</string>
@@ -489,7 +485,6 @@
     <string name="theme">Tema</string>
     <string name="launcher_icon">Icona del llançador</string>
     <string name="theme_black">Negre</string>
-    <string name="hardware_support_required">Es requereix suport per al maquinari</string>
     <string name="widget_settings">Preferències del giny</string>
     <string name="color">Color</string>
     <string name="icon">Icona</string>

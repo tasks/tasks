@@ -251,9 +251,6 @@
     <string name="widget_show_header">הצג כותרת</string>
     <string name="widget_show_settings">הצג הגדרות</string>
     <string name="notifications">התראות</string>
-    <string name="silent">שקט</string>
-    <string name="sound">שמע</string>
-    <string name="vibrations">רטט</string>
     <string name="quiet_hours">שעות שקטות</string>
     <string name="attachment_directory">תיקיית קבצים מצורפים</string>
     <string name="backup_directory">תיקיית גיבוי</string>
@@ -329,8 +326,6 @@
     <string name="restart_now">אתחל כעת</string>
     <string name="restart_later">מאוחר יותר</string>
     <string name="settings_localization">לוקאליזציה</string>
-    <string name="led_notification">תאורת התראות</string>
-    <string name="hardware_support_required">נדרשת חומרה תואמת</string>
     <string name="widget_settings">הגדרות ווידג\'ט</string>
     <string name="widget_header_settings">הגדרות כותרת</string>
     <string name="widget_row_settings">הגדרות שורה</string>

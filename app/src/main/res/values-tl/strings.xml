@@ -40,7 +40,6 @@
         <item quantity="other">mga taon</item>
     </plurals>
     <string name="delete_task">Tanggalin gawain</string>
-    <string name="vibrations">Mga taginting</string>
     <string name="source_code">Pinagmulang code</string>
     <string name="translations">Umambag ng pagsasalin</string>
     <string name="contact_developer">Kontakin ang developer</string>

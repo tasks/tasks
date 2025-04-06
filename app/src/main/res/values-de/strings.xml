@@ -213,9 +213,6 @@
     <string name="widget_show_header">Kopfleiste anzeigen</string>
     <string name="widget_show_settings">Einstellungen anzeigen</string>
     <string name="notifications">Benachrichtigungen</string>
-    <string name="silent">Ohne Ton</string>
-    <string name="sound">Ton</string>
-    <string name="vibrations">Vibration</string>
     <string name="quiet_hours">Ruhezeit</string>
     <string name="attachment_directory">Ordner für Anhänge</string>
     <string name="backup_directory">Sicherungsordner</string>
@@ -288,8 +285,6 @@
     <string name="restart_now">Jetzt neustarten</string>
     <string name="restart_later">Später</string>
     <string name="settings_localization">Übersetzung</string>
-    <string name="led_notification">Benachrichtigungs-LED</string>
-    <string name="hardware_support_required">Hardware-Unterstützung benötigt</string>
     <string name="widget_settings">Widget-Einstellungen</string>
     <string name="widget_header_settings">Kopfleisteneinstellungen</string>
     <string name="widget_row_settings">Zeileneinstellungen</string>

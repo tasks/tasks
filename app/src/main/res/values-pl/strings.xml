@@ -230,9 +230,6 @@
     <string name="widget_show_header">Pokaż nagłówek</string>
     <string name="widget_show_settings">Pokaż ustawienia</string>
     <string name="notifications">Powiadomienia</string>
-    <string name="silent">Cichy</string>
-    <string name="sound">Dźwięk</string>
-    <string name="vibrations">Wibracje</string>
     <string name="quiet_hours">Ciche godziny</string>
     <string name="attachment_directory">Katalog załączników</string>
     <string name="backup_directory">Katalog kopii zapasowych</string>
@@ -307,8 +304,6 @@
     <string name="restart_now">Zrestartuj teraz</string>
     <string name="restart_later">Póżniej</string>
     <string name="settings_localization">Ustawienia regionalne</string>
-    <string name="led_notification">Powiadomienie LED</string>
-    <string name="hardware_support_required">Wymagane wsparcie sprzętowe</string>
     <string name="widget_settings">Ustawienie widgetu</string>
     <string name="widget_header_settings">Ustawienia nagłówka</string>
     <string name="widget_row_settings">Ustawienia rzędu</string>

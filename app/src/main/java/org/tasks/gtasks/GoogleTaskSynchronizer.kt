@@ -100,8 +100,7 @@ class GoogleTaskSynchronizer @Inject constructor(
 
     @Throws(IOException::class)
     private suspend fun synchronize(account: CaldavAccount) {
-        if (!permissionChecker.canAccessAccounts()
-                || googleAccountManager.getAccount(account.username) == null) {
+        if (googleAccountManager.getAccount(account.username) == null) {
             account.error = context.getString(R.string.cannot_access_account)
             return
         }

@@ -220,9 +220,6 @@
     <string name="widget_show_header">Заглавка</string>
     <string name="widget_show_settings">Настройки</string>
     <string name="notifications">Известия</string>
-    <string name="silent">Безшумен</string>
-    <string name="sound">Звук</string>
-    <string name="vibrations">Вибрации</string>
     <string name="quiet_hours">Тихи часове</string>
     <string name="attachment_directory">Папка за прикачени файлове</string>
     <string name="backup_directory">Папка за резервни копия</string>
@@ -298,8 +295,6 @@
     <string name="restart_now">Рестартиране</string>
     <string name="restart_later">По-късно</string>
     <string name="settings_localization">Локализация</string>
-    <string name="led_notification">Известия с LED</string>
-    <string name="hardware_support_required">Необходима е апаратна поддръжка</string>
     <string name="widget_settings">Настройки на приспособления</string>
     <string name="widget_header_settings">Настройки на заглавката</string>
     <string name="widget_row_settings">Настройки на реда</string>

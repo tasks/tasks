@@ -231,9 +231,6 @@
     <string name="widget_show_header">Показать заголовок</string>
     <string name="widget_show_settings">Показать настройки</string>
     <string name="notifications">Уведомления</string>
-    <string name="silent">Без звука</string>
-    <string name="sound">Звук</string>
-    <string name="vibrations">Вибрация</string>
     <string name="quiet_hours">Тихие часы</string>
     <string name="attachment_directory">Папка вложений</string>
     <string name="backup_directory">Папка резервных копий</string>
@@ -309,8 +306,6 @@
     <string name="restart_now">Перезапустить сейчас</string>
     <string name="restart_later">Позже</string>
     <string name="settings_localization">Локализация</string>
-    <string name="led_notification">LED уведомления</string>
-    <string name="hardware_support_required">Необходима аппаратная поддержка</string>
     <string name="widget_settings">Настройки виджета</string>
     <string name="widget_header_settings">Настройки заголовка</string>
     <string name="widget_row_settings">Настройки строк</string>

@@ -15,7 +15,6 @@
     <string name="gcal_completed_title">%s (završeno)</string>
     <string name="rmd_EPr_defaultRemind_title">Nasumice posetnik</string>
     <string name="delete_task">Obriši zadatak</string>
-    <string name="vibrations">Vibracije</string>
     <string name="contact_developer">Kontaktiraj razvojni tim</string>
     <string name="rate_tasks">Oceni Task</string>
     <string name="quiet_hours_summary">Bez podsetnika u mirnim satima</string>

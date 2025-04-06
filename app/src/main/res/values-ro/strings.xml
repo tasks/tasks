@@ -147,8 +147,6 @@
     <string name="widget_row_settings">Setări de rânduri</string>
     <string name="widget_header_settings">Setări de antet</string>
     <string name="widget_settings">Setări Widget</string>
-    <string name="hardware_support_required">Suport hardware necesar</string>
-    <string name="led_notification">Notificare cu LED-uri</string>
     <string name="settings_localization">Localizare</string>
     <string name="restart_later">Mai târziu</string>
     <string name="restart_now">Repornește acum</string>
@@ -238,9 +236,6 @@
     <string name="backup_directory">Dosar de rezervă</string>
     <string name="attachment_directory">Fișier atașat</string>
     <string name="quiet_hours">Ore de liniște</string>
-    <string name="vibrations">Vibrații</string>
-    <string name="sound">Sunet</string>
-    <string name="silent">Tăcut</string>
     <string name="notifications">Notificări</string>
     <string name="widget_show_dividers">Afișează separatoarele</string>
     <string name="widget_show_menu">Afișează meniul</string>

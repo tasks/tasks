@@ -210,9 +210,6 @@
     <string name="widget_show_header">Mostrar cabeçalho</string>
     <string name="widget_show_settings">Mostrar configurações</string>
     <string name="notifications">Notificações</string>
-    <string name="silent">Silêncio</string>
-    <string name="sound">Som</string>
-    <string name="vibrations">Vibrações</string>
     <string name="quiet_hours">Horas de silêncio</string>
     <string name="attachment_directory">Pasta de anexo</string>
     <string name="backup_directory">Pasta de cópias de segurança</string>
@@ -277,7 +274,6 @@
     <string name="restart_now">Reiniciar agora</string>
     <string name="restart_later">Mais tarde</string>
     <string name="settings_localization">Tradução</string>
-    <string name="led_notification">Notificação no LED</string>
     <string name="widget_settings">Definições do widget</string>
     <string name="widget_header_settings">Definições de cabeçalho</string>
     <string name="widget_row_settings">Definições de linhas</string>
@@ -370,7 +366,6 @@
     <string name="password">Palavra-passe</string>
     <string name="user">Utilizador</string>
     <string name="add_account">Adicionar conta</string>
-    <string name="hardware_support_required">É necessário que o dispositivo tenha esta funcionalidade</string>
     <string name="launcher_icon">Ícone do lançador</string>
     <string name="url_invalid_scheme">Deve iniciar com http(s)://</string>
     <string name="url_host_name_required">É necessário o nome do host</string>

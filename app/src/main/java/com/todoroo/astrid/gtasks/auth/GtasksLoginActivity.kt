@@ -26,7 +26,6 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.gtasks.GoogleAccountManager
-import org.tasks.preferences.ActivityPermissionRequestor
 import org.tasks.preferences.PermissionRequestor
 import javax.inject.Inject
 
@@ -41,14 +40,11 @@ class GtasksLoginActivity : AppCompatActivity() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var googleAccountManager: GoogleAccountManager
     @Inject lateinit var caldavDao: CaldavDao
-    @Inject lateinit var permissionRequestor: ActivityPermissionRequestor
     @Inject lateinit var firebase: Firebase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (permissionRequestor.requestAccountPermissions()) {
-            chooseAccount()
-        }
+        chooseAccount()
     }
 
     private fun chooseAccount() {

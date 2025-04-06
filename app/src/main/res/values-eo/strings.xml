@@ -4,7 +4,6 @@
     <string name="rate_tasks">Pritaksi Tasks</string>
     <string name="translations">Helpi traduki</string>
     <string name="font_size">Tipara grando</string>
-    <string name="sound">Sono</string>
     <string name="notifications">Sciigoj</string>
     <string name="widget_show_menu">Vidigi menuon</string>
     <string name="widget_show_settings">Vidigi agordojn</string>
@@ -256,8 +255,6 @@
     <string name="miscellaneous">Diversaj</string>
     <string name="backup_directory">Dosierujo de savkopioj</string>
     <string name="quiet_hours">Silentaj horoj</string>
-    <string name="vibrations">Vibradoj</string>
-    <string name="silent">Silenta</string>
     <string name="widget_show_title">Vidigi titolon</string>
     <string name="next_saturday">Sekva sab</string>
     <string name="next_friday">Sekva ven</string>
@@ -447,7 +444,6 @@
         <item quantity="other">Tagoj</item>
     </plurals>
     <string name="take_a_picture">Foti</string>
-    <string name="hardware_support_required">Bezonas aparataran subtenon</string>
     <string name="repeats_never">Neniam</string>
     <string name="bundle_notifications_summary">Unuigi multajn sciigojn kiel unu</string>
     <string name="help">Helpo</string>
@@ -605,7 +601,6 @@
     <string name="back_button_saves_task">Butono reen konservas taskon</string>
     <string name="restart_required">Restartigu Tasks por efikigi ĉi tiun ŝanĝon</string>
     <string name="restart_now">Restartigi tuj</string>
-    <string name="led_notification">LED sciigo</string>
     <string name="etesync_selection_description">Fin-al-fina ĉifrada sinkronigo</string>
     <string name="backup_location_warning">AVERTO: Dosieroj situas en %s estos forigitaj se Tasks malinstaliĝos! Bonvolu elekti propran lokon por malpermesi ke Android forigos viajn dosierojn.</string>
     <string name="snackbar_task_completed">Tasko finita</string>

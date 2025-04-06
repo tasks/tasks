@@ -1,12 +1,10 @@
 package org.tasks.files
 
-import android.annotation.TargetApi
 import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.provider.DocumentsContract
 import android.provider.OpenableColumns
 import android.webkit.MimeTypeMap
@@ -77,7 +75,6 @@ object FileHelper {
         fragment.startActivityForResult(intent, rc)
     }
 
-    @TargetApi(Build.VERSION_CODES.O)
     private fun setInitialUri(context: Context?, intent: Intent, uri: Uri?) {
         if (uri == null || uri.scheme != ContentResolver.SCHEME_CONTENT) {
             return
