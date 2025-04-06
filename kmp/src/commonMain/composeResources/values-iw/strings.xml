@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">חיפוש</string>
-    <string name="subscribe">רישום כמנוי</string>
+    <string name="subscribe">הרשמה למינוי</string>
     <string name="filter_my_tasks">המשימות שלי</string>
     <string name="filter_notifications">התראות</string>
     <string name="filter_timer">משימות עם הערכת זמן</string>
     <string name="filter_today">היום</string>
-    <string name="filter_recently_modified">עודכנו לאחרונה</string>
+    <string name="filter_recently_modified">השתנו לאחרונה</string>
     <string name="default_list">רשימת ברירת מחדל</string>
-    <string name="help_and_feedback">עזרה ומשוב</string>
+    <string name="help_and_feedback">עזרה &amp; משוב</string>
     <string name="settings">הגדרות</string>
-    <string name="drawer_filters">פילטרים</string>
+    <string name="drawer_filters">מסננים</string>
     <string name="drawer_tags">תגיות</string>
-    <string name="drawer_places">מיקומים</string>
+    <string name="drawer_places">מקומות</string>
     <string name="drawer_local_lists">רשימות מקומיות</string>
     <string name="tmrw">מחר</string>
     <string name="tomorrow_abbrev_lowercase">מחר</string>
     <string name="tomorrow">מחר</string>
     <string name="tomorrow_lowercase">מחר</string>
     <string name="yest">אתמול</string>
-    <string name="yesterday_abbrev_lowercase">כן</string>
+    <string name="yesterday_abbrev_lowercase">אתמול</string>
     <string name="yesterday">אתמול</string>
     <string name="yesterday_lowercase">אתמול</string>
     <string name="today">היום</string>
     <string name="today_lowercase">היום</string>
-    <string name="show_unstarted">הצג לא התחיל</string>
-    <string name="show_completed">הצגת משימות שבוצעו</string>
-    <string name="subscription_required_description">בטל את הנעילה של כל התכונות תמורת דולר בלבד לשנה</string>
+    <string name="show_unstarted">הצג משימות שלא התחילו</string>
+    <string name="show_completed">הצג משימות שהושלמו</string>
+    <string name="subscription_required_description">בטל את הנעילה של כל התכונות תמורת דולר אמריקאי אחד בלבד לשנה</string>
     <string name="wear_install_app">התקן בטלפון</string>
     <string name="wear_unknown_error">שגיאה לא ידועה</string>
     <string name="search_no_results">אין תוצאות</string>
-    <string name="requires_pro_subscription">תכונות פרו</string>
+    <string name="requires_pro_subscription">תכונת פרו</string>
     <string name="add_task">הוסף משימה</string>
-    <string name="filter_snoozed">נודניק</string>
+    <string name="filter_snoozed">בנמנום</string>
 </resources>
