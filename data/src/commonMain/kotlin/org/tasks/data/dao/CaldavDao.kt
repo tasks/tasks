@@ -287,12 +287,12 @@ GROUP BY caldav_lists.cdl_uuid
                 p.cd_task AS parent_id
             FROM caldav_tasks AS c
             INNER JOIN caldav_tasks AS p
-                ON p.cd_remote_id = c.cd_remote_parent
-                AND p.cd_calendar = c.cd_calendar
+                ON p.cd_calendar = c.cd_calendar
+                AND p.cd_remote_id = c.cd_remote_parent
                 AND p.cd_deleted = 0
-            WHERE c.cd_deleted = 0
-                AND c.cd_remote_parent IS NOT NULL
+            WHERE c.cd_remote_parent IS NOT NULL
                 AND c.cd_remote_parent != ''
+                AND c.cd_deleted = 0
         )
         UPDATE tasks
         SET parent = IFNULL(
@@ -314,13 +314,13 @@ GROUP BY caldav_lists.cdl_uuid
                 p.cd_task AS parent_id
             FROM caldav_tasks AS c
             INNER JOIN caldav_tasks AS p
-                ON p.cd_remote_id = c.cd_remote_parent
-                AND p.cd_calendar = c.cd_calendar
+                ON p.cd_calendar = c.cd_calendar
+                AND p.cd_remote_id = c.cd_remote_parent
                 AND p.cd_deleted = 0
             WHERE c.cd_calendar = :calendar
-                AND c.cd_deleted = 0
                 AND c.cd_remote_parent IS NOT NULL
                 AND c.cd_remote_parent != ''
+                AND c.cd_deleted = 0
         )
         UPDATE tasks
         SET parent = IFNULL(
@@ -330,8 +330,8 @@ GROUP BY caldav_lists.cdl_uuid
         WHERE _id IN (
             SELECT cd_task
             FROM caldav_tasks
-            WHERE cd_deleted = 0
-                AND cd_calendar = :calendar
+            WHERE cd_calendar = :calendar
+                AND cd_deleted = 0
         )
     """)
     abstract suspend fun updateParents(calendar: String)

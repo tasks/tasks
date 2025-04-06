@@ -24,7 +24,10 @@ import org.tasks.data.entity.Task.Companion.NO_ID
         ),
     ],
     indices = [
+        Index(value = ["cd_task"]),
+        Index(value = ["cd_remote_id"]),
         Index(value = ["cd_calendar", "cd_remote_id"]),
+        Index(value = ["cd_calendar", "cd_remote_parent"]),
     ]
 )
 data class CaldavTask(
@@ -32,7 +35,7 @@ data class CaldavTask(
     @ColumnInfo(name = "cd_id")
     @Transient
     val id: Long = 0,
-    @ColumnInfo(name = "cd_task", index = true)
+    @ColumnInfo(name = "cd_task")
     @Transient
     val task: Long = NO_ID,
     @ColumnInfo(name = "cd_calendar")

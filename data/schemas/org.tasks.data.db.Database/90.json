@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 90,
-    "identityHash": "c376076b2c39c19f28c221313fea1e15",
+    "identityHash": "967aa71f3344c8d6dd232aeaa63d9be2",
     "entities": [
       {
         "tableName": "notification",
@@ -887,6 +887,24 @@
         },
         "indices": [
           {
+            "name": "index_caldav_tasks_cd_task",
+            "unique": false,
+            "columnNames": [
+              "cd_task"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_task` ON `${TABLE_NAME}` (`cd_task`)"
+          },
+          {
+            "name": "index_caldav_tasks_cd_remote_id",
+            "unique": false,
+            "columnNames": [
+              "cd_remote_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_remote_id` ON `${TABLE_NAME}` (`cd_remote_id`)"
+          },
+          {
             "name": "index_caldav_tasks_cd_calendar_cd_remote_id",
             "unique": false,
             "columnNames": [
@@ -897,13 +915,14 @@
             "createSql": "CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_calendar_cd_remote_id` ON `${TABLE_NAME}` (`cd_calendar`, `cd_remote_id`)"
           },
           {
-            "name": "index_caldav_tasks_cd_task",
+            "name": "index_caldav_tasks_cd_calendar_cd_remote_parent",
             "unique": false,
             "columnNames": [
-              "cd_task"
+              "cd_calendar",
+              "cd_remote_parent"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_task` ON `${TABLE_NAME}` (`cd_task`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_calendar_cd_remote_parent` ON `${TABLE_NAME}` (`cd_calendar`, `cd_remote_parent`)"
           }
         ],
         "foreignKeys": [
@@ -1230,7 +1249,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c376076b2c39c19f28c221313fea1e15')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '967aa71f3344c8d6dd232aeaa63d9be2')"
     ]
   }
 }
