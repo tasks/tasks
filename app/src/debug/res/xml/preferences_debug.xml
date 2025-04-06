@@ -45,4 +45,8 @@
     android:key="@string/debug_clear_hints"
     android:title="@string/debug_clear_hints" />
 
+  <Preference
+    android:key="@string/debug_create_tasks"
+    android:title="@string/debug_create_tasks"/>
+
 </PreferenceScreen>

@@ -10,6 +10,7 @@
   <string name="debug_themes">debug_themes</string>
   <string name="debug_reset_ssl">Reset SSL certificates</string>
   <string name="debug_crash_app">Crash app now</string>
+  <string name="debug_create_tasks">Create tasks</string>
   <string name="debug_main_queries">Crash on violation</string>
   <string name="debug_force_restart">Restart app</string>
   <string name="debug_clear_hints">Clear hints</string>
