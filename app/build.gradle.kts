@@ -229,6 +229,9 @@ dependencies {
     implementation(libs.etebase)
     implementation(libs.colorpicker)
     implementation(libs.appauth)
+    implementation(libs.microsoft.authentication) {
+        exclude("com.microsoft.device.display", "display-mask")
+    }
     implementation(libs.osmdroid)
     implementation(libs.androidx.recyclerview)
 

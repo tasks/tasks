@@ -178,14 +178,6 @@
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="org.tasks.github.a50fdbf3e289a7fb2fc6" />
       </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data
-            android:host="${applicationId}"
-            android:scheme="msauth" />
-      </intent-filter>
     </activity>
 
     <activity
@@ -618,10 +610,6 @@
     <receiver android:name="org.tasks.jobs.NotificationReceiver" />
 
     <activity
-        android:name=".auth.MicrosoftAuthenticationActivity"
-        android:theme="@style/TranslucentDialog"/>
-
-    <activity
         android:name="com.todoroo.astrid.activity.MainActivity"
         android:exported="true"
         android:launchMode="singleTask"
@@ -1020,6 +1008,20 @@
     <meta-data android:name="com.samsung.android.keepalive.density" android:value="true"/>
     <!-- Version >= 3.0. DeX Dual Mode support -->
     <meta-data android:name="com.samsung.android.multidisplay.keep_process_alive" android:value="true"/>
+
+    <activity
+        android:name="com.microsoft.identity.client.BrowserTabActivity"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data
+                android:host="${applicationId}"
+                android:path="@string/microsoft_oauth_path"
+                android:scheme="msauth" />
+        </intent-filter>
+    </activity>
 
   </application>
 

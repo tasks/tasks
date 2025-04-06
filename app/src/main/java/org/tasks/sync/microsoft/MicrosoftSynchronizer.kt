@@ -64,10 +64,6 @@ class MicrosoftSynchronizer @Inject constructor(
         Timber.d("Synchronizing $account")
         Thread.currentThread().contextClassLoader = context.classLoader
 
-        if (isNullOrEmpty(account.password)) {
-            setError(account, ERROR_UNAUTHORIZED)
-            return
-        }
         try {
             synchronize(account)
         } catch (e: SocketTimeoutException) {
@@ -290,7 +286,7 @@ class MicrosoftSynchronizer @Inject constructor(
                     microsoft.paginateLists(nextPageToken)
                 }
             } catch (e: Exception) {
-                val error = e.message ?: "Sync failed"
+                val error = e.message ?: e.javaClass.simpleName
                 Timber.e(e)
                 setError(account, error)
                 return null

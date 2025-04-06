@@ -1,74 +1,94 @@
 package org.tasks.sync.microsoft
 
 import android.app.Activity
-import android.app.PendingIntent
-import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.microsoft.identity.client.AcquireTokenParameters
+import com.microsoft.identity.client.AuthenticationCallback
+import com.microsoft.identity.client.IAuthenticationResult
+import com.microsoft.identity.client.Prompt
+import com.microsoft.identity.client.PublicClientApplication
+import com.microsoft.identity.client.exception.MsalException
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import net.openid.appauth.AppAuthConfiguration
-import net.openid.appauth.AuthorizationRequest
-import net.openid.appauth.AuthorizationService
-import net.openid.appauth.ResponseTypeValues
-import net.openid.appauth.browser.AnyBrowserMatcher
-import net.openid.appauth.connectivity.DefaultConnectionBuilder
-import org.tasks.BuildConfig
-import org.tasks.auth.DebugConnectionBuilder
-import org.tasks.auth.IdentityProvider
-import org.tasks.auth.MicrosoftAuthenticationActivity
-import org.tasks.auth.MicrosoftAuthenticationActivity.Companion.EXTRA_SERVICE_DISCOVERY
+import org.tasks.R
+import org.tasks.analytics.Constants
+import org.tasks.analytics.Firebase
+import org.tasks.data.UUIDHelper
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
+import org.tasks.extensions.Context.toast
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class MicrosoftSignInViewModel @Inject constructor(
-    private val debugConnectionBuilder: DebugConnectionBuilder,
+    private val caldavDao: CaldavDao,
+    private val firebase: Firebase,
 ) : ViewModel() {
     fun signIn(activity: Activity) {
-        viewModelScope.launch {
-            val idp = IdentityProvider.MICROSOFT
-            val serviceConfig = idp.retrieveConfig()
-            val authRequest = AuthorizationRequest
-                .Builder(
-                    serviceConfig,
-                    idp.clientId,
-                    ResponseTypeValues.CODE,
-                    idp.redirectUri
-                )
-                .setScope(idp.scope)
-                .setPrompt(AuthorizationRequest.Prompt.SELECT_ACCOUNT)
-                .build()
-            val intent = Intent(activity, MicrosoftAuthenticationActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            intent.putExtra(
-                EXTRA_SERVICE_DISCOVERY,
-                serviceConfig.discoveryDoc!!.docJson.toString()
+        viewModelScope.launch(Dispatchers.IO) {
+            val app = PublicClientApplication.createMultipleAccountPublicClientApplication(
+                activity,
+                R.raw.microsoft_config
             )
 
-            val authorizationService = AuthorizationService(
-                activity,
-                AppAuthConfiguration.Builder()
-                    .setBrowserMatcher(AnyBrowserMatcher.INSTANCE)
-                    .setConnectionBuilder(
-                        if (BuildConfig.DEBUG) {
-                            debugConnectionBuilder
-                        } else {
-                            DefaultConnectionBuilder.INSTANCE
+            val parameters = AcquireTokenParameters.Builder()
+                .startAuthorizationFromActivity(activity)
+                .withScopes(scopes)
+                .withPrompt(Prompt.SELECT_ACCOUNT)
+                .withCallback(object : AuthenticationCallback {
+                    override fun onSuccess(authenticationResult: IAuthenticationResult) {
+                        val email = authenticationResult.account.claims?.get("preferred_username") as? String
+                        if (email == null) {
+                            Timber.e("No email found")
+                            return
                         }
-                    )
-                    .build()
-            )
-            authorizationService.performAuthorizationRequest(
-                authRequest,
-                PendingIntent.getActivity(
-                    activity,
-                    authRequest.hashCode(),
-                    intent,
-                    PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_CANCEL_CURRENT
-                ),
-                authorizationService.createCustomTabsIntentBuilder()
-                    .build()
-            )
+                        Timber.d("Successfully signed in")
+                        viewModelScope.launch {
+                            caldavDao
+                                .getAccount(TYPE_MICROSOFT, email)
+                                ?.let {
+                                    caldavDao.update(
+                                        it.copy(error = null)
+                                    )
+                                }
+                                ?: caldavDao
+                                    .insert(
+                                        CaldavAccount(
+                                            uuid = UUIDHelper.newUUID(),
+                                            name = email,
+                                            username = email,
+                                            accountType = TYPE_MICROSOFT,
+                                        )
+                                    )
+                                    .also {
+                                        firebase.logEvent(
+                                            R.string.event_sync_add_account,
+                                            R.string.param_type to Constants.SYNC_TYPE_MICROSOFT
+                                        )
+                                    }
+                        }
+                    }
+
+                    override fun onError(exception: MsalException?) {
+                        Timber.e(exception)
+                        activity.toast(exception?.message ?: exception?.javaClass?.simpleName ?: "Sign in failed")
+                    }
+
+                    override fun onCancel() {
+                        Timber.d("onCancel")
+                    }
+                })
+                .build()
+
+            app.acquireToken(parameters)
         }
+    }
+
+    companion object {
+        val scopes = listOf("https://graph.microsoft.com/.default")
     }
 }
