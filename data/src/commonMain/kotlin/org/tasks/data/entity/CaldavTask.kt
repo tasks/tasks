@@ -3,6 +3,7 @@ package org.tasks.data.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -21,6 +22,9 @@ import org.tasks.data.entity.Task.Companion.NO_ID
             childColumns = ["cd_task"],
             onDelete = ForeignKey.CASCADE,
         ),
+    ],
+    indices = [
+        Index(value = ["cd_calendar", "cd_remote_id"]),
     ]
 )
 data class CaldavTask(
