@@ -592,6 +592,14 @@ object Migrations {
         }
     }
 
+    private val MIGRATION_89_90 = object : Migration(89, 90) {
+        override fun migrate(connection: SQLiteConnection) {
+            connection.execSQL("CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_remote_id` ON `caldav_tasks` (`cd_remote_id`)")
+            connection.execSQL("CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_calendar_cd_remote_id` ON `caldav_tasks` (`cd_calendar`, `cd_remote_id`)")
+            connection.execSQL("CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_calendar_cd_remote_parent` ON `caldav_tasks` (`cd_calendar`, `cd_remote_parent`)")
+        }
+    }
+
     private fun migration_87_88(context: Context) = object : Migration(87, 88) {
         override fun migrate(connection: SQLiteConnection) {
             val prefs = Preferences(context)
@@ -675,6 +683,7 @@ object Migrations {
             MIGRATION_85_86,
             MIGRATION_86_87,
             migration_87_88(context),
+            MIGRATION_89_90,
     )
 
     private fun noop(from: Int, to: Int): Migration = object : Migration(from, to) {
