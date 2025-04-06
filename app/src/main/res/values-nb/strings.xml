@@ -107,6 +107,7 @@
     <string name="widget_show_checkboxes">Vis avkryssingsbokser</string>
     <string name="widget_show_settings">Vis innstillinger</string>
     <string name="notifications"> Varsler</string>
+    <string name="vibrations">Vibrering</string>
     <string name="row_spacing">Radmellomrom</string>
     <string name="source_code">Kildekode</string>
     <string name="contact_developer">Kontakt utvikler</string>
@@ -122,6 +123,7 @@
     <string name="restart_now">Restart nå</string>
     <string name="restart_later">Senere</string>
     <string name="settings_localization">Lokalisering</string>
+    <string name="led_notification">LED-varsel</string>
     <string name="notification_disable_battery_optimizations_description">Batterioptimalisering kan føre til forsinkede varsler</string>
     <string name="bundle_notifications">Samle varsler</string>
     <string name="repeats_single">Gjentas %s</string>
@@ -254,6 +256,8 @@
     <string name="TEA_timer_comment_stopped">stoppet arbeid med dette gjøremålet:</string>
     <string name="voice_command_added_task">La til gjøremål</string>
     <string name="widget_show_header">Vis hode</string>
+    <string name="silent">Stille</string>
+    <string name="sound">Lyd</string>
     <string name="quiet_hours">Stilletimer</string>
     <string name="attachment_directory">Vedleggsmappe</string>
     <string name="backup_directory">Sikkerhetskopimappe</string>
@@ -314,6 +318,7 @@
     <string name="theme_dark">Mørk</string>
     <string name="theme_wallpaper">Bakgrunnsbilde</string>
     <string name="theme_day_night">Dag/natt</string>
+    <string name="hardware_support_required">Maskinvarestøtte kreves</string>
     <string name="widget_settings">Miniprogramsinnstillinger</string>
     <string name="widget_header_settings">Hodeinnstillinger</string>
     <string name="widget_row_settings">Radinnstillinger</string>

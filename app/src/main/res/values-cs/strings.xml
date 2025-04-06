@@ -129,6 +129,9 @@
     <string name="widget_show_header">Zobrazit záhlaví</string>
     <string name="widget_show_settings">Zobrazit nastavení</string>
     <string name="notifications">Oznámení</string>
+    <string name="silent">Tichý</string>
+    <string name="sound">Zvuk</string>
+    <string name="vibrations">Vibrace</string>
     <string name="quiet_hours">Období nerušení</string>
     <string name="backup_directory">Složka pro zálohy</string>
     <string name="miscellaneous">Různé</string>
@@ -311,6 +314,8 @@
     <string name="url_host_name_required">Zadejte adresu serveru</string>
     <string name="url_invalid_scheme">Musí začínat na http(s)://</string>
     <string name="launcher_icon">Ikona na domovské obrazovce</string>
+    <string name="led_notification">LED upozornění</string>
+    <string name="hardware_support_required">Je vyžadována hardwarová podpora</string>
     <string name="widget_header_settings">Nastavení záhlaví</string>
     <string name="widget_row_settings">Nastavení řádku</string>
     <string name="clear_completed_tasks_confirmation">Smazat splněné úkoly\?</string>

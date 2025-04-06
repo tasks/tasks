@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -19,6 +20,9 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.pm.ShortcutManagerCompat
+import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo
 import org.tasks.R
 import org.tasks.compose.Constants
 import org.tasks.kmp.org.tasks.compose.settings.SettingRow
@@ -28,7 +32,8 @@ import org.tasks.themes.TasksTheme
 fun AddWidgetToHomeRow(onClick: () -> Unit) {
     val context = LocalContext.current
     val isRequestPinAppWidgetSupported = LocalInspectionMode.current || remember {
-        context.getSystemService(AppWidgetManager::class.java).isRequestPinAppWidgetSupported
+        atLeastOreo() &&
+                context.getSystemService(AppWidgetManager::class.java).isRequestPinAppWidgetSupported
     }
     if (isRequestPinAppWidgetSupported) {
         SettingRow(

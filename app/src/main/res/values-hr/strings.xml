@@ -324,6 +324,8 @@
     <string name="widget_open_list">Otvori popis</string>
     <string name="widget_row_settings">Postavke redaka</string>
     <string name="widget_header_settings">Postavke zaglavlja</string>
+    <string name="hardware_support_required">Podrška za hardver je obavezna</string>
+    <string name="led_notification">LED obavijest</string>
     <string name="settings_localization">Lokalizacija</string>
     <string name="restart_later">Kasnije</string>
     <string name="restart_now">Pokreni ponovo</string>
@@ -396,6 +398,9 @@
     <string name="backup_directory">Mapa sigurnosnih kopija</string>
     <string name="attachment_directory">Mapa priloga</string>
     <string name="quiet_hours">Vrijeme neobavještavanja</string>
+    <string name="vibrations">Vibracije</string>
+    <string name="sound">Zvuk</string>
+    <string name="silent">Stišano</string>
     <string name="widget_show_dividers">Pokaži rastavljače</string>
     <string name="widget_show_menu">Pokaži izbornik</string>
     <string name="widget_show_title">Pokaži naslov</string>

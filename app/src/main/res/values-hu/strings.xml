@@ -215,6 +215,9 @@
     <string name="widget_show_header">Fejléc megjelenítése</string>
     <string name="widget_show_settings">Beállítások megjelenítése</string>
     <string name="notifications">Értesítések</string>
+    <string name="silent">Csendes</string>
+    <string name="sound">Hang</string>
+    <string name="vibrations">Rezgés</string>
     <string name="quiet_hours">Csendes órák</string>
     <string name="attachment_directory">Csatolmányok mappája</string>
     <string name="backup_directory">Mentési mappa</string>
@@ -289,6 +292,8 @@
     <string name="restart_now">Újraindítás most</string>
     <string name="restart_later">Később</string>
     <string name="settings_localization">Lokalizáció</string>
+    <string name="led_notification">LED értesítés</string>
+    <string name="hardware_support_required">Hardveres támogatás szükséges</string>
     <string name="widget_settings">Widget beállításai</string>
     <string name="widget_header_settings">Fejléc beállításai</string>
     <string name="widget_row_settings">Sorok beállíátsai</string>

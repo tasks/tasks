@@ -34,6 +34,7 @@ private const val FRAG_TAG_IMPORT_TASKS = "frag_tag_import_tasks"
 class Backups : InjectingPreferenceFragment() {
 
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var permissionRequestor: FragmentPermissionRequestor
 
     private val viewModel: PreferencesViewModel by activityViewModels()
 
@@ -246,10 +247,12 @@ class Backups : InjectingPreferenceFragment() {
     }
 
     private fun requestGoogleDriveLogin() {
-        startActivityForResult(
-                Intent(context, DriveLoginActivity::class.java),
-                REQUEST_DRIVE_BACKUP
-        )
+        if (permissionRequestor.requestAccountPermissions()) {
+            startActivityForResult(
+                    Intent(context, DriveLoginActivity::class.java),
+                    REQUEST_DRIVE_BACKUP
+            )
+        }
     }
 
     private fun updateBackupDirectory() {

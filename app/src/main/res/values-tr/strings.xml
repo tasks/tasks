@@ -216,6 +216,9 @@
     <string name="widget_show_header">Üstü göster</string>
     <string name="widget_show_settings">Ayarları göster</string>
     <string name="notifications">Bildirimler</string>
+    <string name="silent">Sessiz</string>
+    <string name="sound">Ses</string>
+    <string name="vibrations">Titreşimler</string>
     <string name="quiet_hours">Sessiz saatler</string>
     <string name="attachment_directory">Ek klasörü</string>
     <string name="backup_directory">Yedekleme klasörü</string>
@@ -290,6 +293,8 @@
     <string name="restart_now">Şimdi yeniden başlat</string>
     <string name="restart_later">Sonra</string>
     <string name="settings_localization">Yerelleştirme</string>
+    <string name="led_notification">LED bildirimi</string>
+    <string name="hardware_support_required">Donanım desteği gerekiyor</string>
     <string name="widget_settings">Widget ayarları</string>
     <string name="widget_header_settings">Başlık ayarları</string>
     <string name="widget_row_settings">Satır ayarları</string>

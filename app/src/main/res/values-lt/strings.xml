@@ -240,6 +240,9 @@
     <string name="widget_show_header">Rodyti antraštę</string>
     <string name="widget_show_settings">Rodyti nustatymus</string>
     <string name="notifications">Pranešimai</string>
+    <string name="silent">Tyla</string>
+    <string name="sound">Garsas</string>
+    <string name="vibrations">Vibracijos</string>
     <string name="quiet_hours">Tylusis metas</string>
     <string name="attachment_directory">Pridedamo failo aplankas</string>
     <string name="backup_directory">Atsarginių kopijų aplankas</string>
@@ -314,6 +317,8 @@
     <string name="restart_now">Perkrauti dabar</string>
     <string name="restart_later">Vėliau</string>
     <string name="settings_localization">Lokalizacija</string>
+    <string name="led_notification">LED pranešimai</string>
+    <string name="hardware_support_required">Reikalingas techninės įrangos palaikymas</string>
     <string name="widget_settings">Valdiklio nustatymai</string>
     <string name="widget_header_settings">Antraščių nustatymai</string>
     <string name="widget_row_settings">Eilutės nustatymai</string>

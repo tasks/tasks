@@ -8,6 +8,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +26,7 @@ import androidx.lifecycle.lifecycleScope
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
-import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
+import com.todoroo.andlib.utility.AndroidUtilities
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.analytics.Firebase
@@ -200,7 +201,7 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
     protected fun createWidget() {
         val filter = filter ?: return
         val appWidgetManager = getSystemService(AppWidgetManager::class.java)
-        if (appWidgetManager.isRequestPinAppWidgetSupported) {
+        if (AndroidUtilities.atLeastOreo() && appWidgetManager.isRequestPinAppWidgetSupported) {
             val provider = ComponentName(this, TasksWidget::class.java)
             val configIntent = Intent(this, RequestPinWidgetReceiver::class.java).apply {
                 action = RequestPinWidgetReceiver.ACTION_CONFIGURE_WIDGET
@@ -211,7 +212,7 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
                 this,
                 filter.hashCode(),
                 configIntent,
-                if (atLeastS()) PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
             )
             appWidgetManager.requestPinAppWidget(provider, null, successCallback)
             firebase.logEvent(R.string.event_create_widget, R.string.param_type to "settings_activity")

@@ -231,6 +231,9 @@
     <string name="widget_show_header">Показати заголовок</string>
     <string name="widget_show_settings">Показати налаштування</string>
     <string name="notifications">Сповіщення</string>
+    <string name="silent">Безшумно</string>
+    <string name="sound">Звук</string>
+    <string name="vibrations">Вібрації</string>
     <string name="quiet_hours">Тихі години</string>
     <string name="attachment_directory">Тека з прикріпленими файлами</string>
     <string name="backup_directory">Тека з резервними копіями</string>
@@ -306,6 +309,8 @@
     <string name="restart_now">Перезапустити зараз</string>
     <string name="restart_later">Пізніше</string>
     <string name="settings_localization">Локалізація</string>
+    <string name="led_notification">LED-сповіщення</string>
+    <string name="hardware_support_required">Потрібна підтримка апартних засобів</string>
     <string name="widget_settings">Налаштування віджету</string>
     <string name="widget_header_settings">Налаштування заголовку</string>
     <string name="widget_row_settings">Налаштування рядку</string>

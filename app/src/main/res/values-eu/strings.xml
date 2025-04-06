@@ -221,6 +221,9 @@
     <string name="widget_show_header">Erakutsi goiburua</string>
     <string name="widget_show_settings">Erakutsi ezarpenak</string>
     <string name="notifications">Jakinarazpenak</string>
+    <string name="silent">Isila</string>
+    <string name="sound">Soinua</string>
+    <string name="vibrations">Bibrazioak</string>
     <string name="quiet_hours">Isilune orduak</string>
     <string name="attachment_directory">Eranskinen karpeta</string>
     <string name="backup_directory">Babes-kopien karpeta</string>
@@ -296,6 +299,8 @@
     <string name="restart_now">Berrabiarazi orain</string>
     <string name="restart_later">Geroago</string>
     <string name="settings_localization">Lokalizazioa</string>
+    <string name="led_notification">LED jakinarazpena</string>
+    <string name="hardware_support_required">Hardwareak onartzea ezinbestekoa</string>
     <string name="widget_settings">Trepetaren ezarpenak</string>
     <string name="widget_header_settings">Goiburuaren ezarpenak</string>
     <string name="widget_row_settings">Errenkadaren ezarpenak</string>

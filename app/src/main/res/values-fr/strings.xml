@@ -221,6 +221,8 @@
     <string name="widget_show_checkboxes">Afficher les cases à cocher</string>
     <string name="widget_show_header">Afficher l\'en-tête</string>
     <string name="widget_show_settings">Afficher les paramètres</string>
+    <string name="silent">Silencieux</string>
+    <string name="sound">Son</string>
     <string name="quiet_hours">Heures de repos</string>
     <string name="attachment_directory">Dossier des pièces jointes</string>
     <string name="backup_directory">Dossier de sauvegarde</string>
@@ -294,6 +296,8 @@
     <string name="restart_now">Redémarrer maintenant</string>
     <string name="restart_later">Plus tard</string>
     <string name="settings_localization">Localisation</string>
+    <string name="led_notification">Notification de la LED</string>
+    <string name="hardware_support_required">Support matériel requis</string>
     <string name="widget_settings">Paramètres du widget</string>
     <string name="widget_header_settings">Paramètres de l\'en-tête</string>
     <string name="widget_row_settings">Paramètres de la ligne</string>
@@ -392,6 +396,7 @@
         <item quantity="other">%d minutes</item>
     </plurals>
     <string name="notifications">Notifications</string>
+    <string name="vibrations">Vibrations</string>
     <string name="location_radius_meters">%s m</string>
     <string name="tags">Étiquettes</string>
     <string name="badges">Badges</string>

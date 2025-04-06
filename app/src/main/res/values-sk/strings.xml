@@ -236,6 +236,9 @@
     <string name="widget_show_header">Zobrazovať záhlavia</string>
     <string name="widget_show_settings">Zobraziť nastavenia</string>
     <string name="notifications">Oznámenia</string>
+    <string name="silent">Tichý</string>
+    <string name="sound">Zvuk</string>
+    <string name="vibrations">Vibrácie</string>
     <string name="quiet_hours">Čas ticha</string>
     <string name="attachment_directory">Priečinok pre prílohy</string>
     <string name="backup_directory">Priečinok so zálohami</string>
@@ -309,6 +312,8 @@
     <string name="restart_now">Reštartovať teraz</string>
     <string name="restart_later">Neskôr</string>
     <string name="settings_localization">Preklad</string>
+    <string name="led_notification">LED oznámenia</string>
+    <string name="hardware_support_required">Vyžaduje sa podpora zariadenia</string>
     <string name="widget_settings">Widget - nastavenia</string>
     <string name="widget_header_settings">Nastavenie záhlavia </string>
     <string name="widget_row_settings">Nastavenie riadka</string>

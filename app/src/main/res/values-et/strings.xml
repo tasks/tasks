@@ -125,6 +125,9 @@
     <string name="widget_show_header">Näita päist</string>
     <string name="widget_show_settings">Näita seadistusi</string>
     <string name="notifications">Teavitused</string>
+    <string name="silent">Vaikne</string>
+    <string name="sound">Heli</string>
+    <string name="vibrations">Vibra</string>
     <string name="quiet_hours">Vaiksed tunnid</string>
     <string name="attachment_directory">Manuste kaust</string>
     <string name="backup_directory">Varukoopia kaust</string>
@@ -191,6 +194,8 @@
     <string name="language">Keel</string>
     <string name="restart_now">Taaskäivita kohe</string>
     <string name="restart_later">Hiljem</string>
+    <string name="led_notification">LED-teavitused</string>
+    <string name="hardware_support_required">Riistvara tugi on nõutud</string>
     <string name="widget_settings">Vidina seadistused</string>
     <string name="widget_header_settings">Päise seadistused</string>
     <string name="widget_row_settings">Rea seadistused</string>

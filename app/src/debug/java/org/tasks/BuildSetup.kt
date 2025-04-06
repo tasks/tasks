@@ -3,6 +3,7 @@ package org.tasks
 import android.app.Application
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastQ
 import leakcanary.AppWatcher
 import org.tasks.logging.FileLogger
@@ -36,7 +37,9 @@ class BuildSetup @Inject constructor(
                     .detectLeakedClosableObjects()
                     .detectFileUriExposure()
                     .penaltyLog()
-                    .detectContentUriWithoutPermission()
+            if (atLeastOreo()) {
+                builder.detectContentUriWithoutPermission()
+            }
             if (atLeastQ()) {
                 builder
                         .detectCredentialProtectedWhileLocked()

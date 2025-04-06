@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import java.io.IOException
@@ -22,6 +23,7 @@ import javax.inject.Inject
 
 class GoogleAccountManager @Inject constructor(
         @ApplicationContext context: Context?,
+        private val permissionChecker: PermissionChecker,
         private val preferences: Preferences
 ) {
     private val accountManager: AccountManager = AccountManager.get(context)
@@ -30,7 +32,11 @@ class GoogleAccountManager @Inject constructor(
         get() = accountList.map { it.name }
 
     private val accountList: List<Account>
-        get() = accountManager.getAccountsByType("com.google").toList()
+        get() = if (permissionChecker.canAccessAccounts()) {
+            accountManager.getAccountsByType("com.google").toList()
+        } else {
+            emptyList()
+        }
 
     fun getAccount(name: String?): Account? = if (isNullOrEmpty(name)) {
         null

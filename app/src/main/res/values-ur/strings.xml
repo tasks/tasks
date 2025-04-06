@@ -286,6 +286,9 @@
     <string name="backup_directory">بیک اپ فولڈر</string>
     <string name="attachment_directory">اٹیچ منٹ فولڈر</string>
     <string name="quiet_hours">خاموش گھنٹے</string>
+    <string name="vibrations">تھرتھراہٹ</string>
+    <string name="sound">آواز</string>
+    <string name="silent">خاموش</string>
     <string name="notifications">نوٹیفیکیشنز</string>
     <string name="widget_show_dividers">ڈیوائیڈر دکھائیں</string>
     <string name="widget_show_menu">مینیو دکھائیں</string>
@@ -315,6 +318,8 @@
     <string name="widget_row_settings">قطار کی سیٹنگ</string>
     <string name="widget_header_settings">ہیڈر کی سیٹنگ</string>
     <string name="widget_settings">ویجٹ سیٹنگ</string>
+    <string name="hardware_support_required">ہارڈ وئیر سپورٹ درکار ہے</string>
+    <string name="led_notification">ایل ای ڈی نوٹیفیکیشن</string>
     <string name="settings_localization">لوکلائزیشن</string>
     <string name="restart_later">بعد میں</string>
     <string name="restart_now">ابھی ری سٹارٹ کریں</string>

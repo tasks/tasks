@@ -139,6 +139,9 @@
     <string name="widget_show_header">نمایش سربرگ</string>
     <string name="widget_show_settings">نمایش تنظیمات</string>
     <string name="notifications">اعلان ها</string>
+    <string name="silent">سکوت</string>
+    <string name="sound">صدا</string>
+    <string name="vibrations">لرزش ها</string>
     <string name="quiet_hours">ساعات سکوت</string>
     <string name="attachment_directory">پوشه پیوست</string>
     <string name="backup_directory">پشتیبان گیری از پوشه</string>

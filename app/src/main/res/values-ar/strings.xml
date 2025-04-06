@@ -94,6 +94,9 @@
     <string name="widget_show_header">إظهار الرأس</string>
     <string name="widget_show_settings">إظهار الإعدادات</string>
     <string name="notifications">إشعارات</string>
+    <string name="silent">الصمت</string>
+    <string name="sound">صوت</string>
+    <string name="vibrations">إهتزازات</string>
     <string name="quiet_hours">الساعات الهادئة</string>
     <string name="enabled">مفعّل</string>
     <string name="font_size">حجم الخط</string>
@@ -144,6 +147,7 @@
     <string name="default_list">القائمة الافتراضية</string>
     <string name="google_tasks_add_to_top">اضف المهام الجديدة لاعلى القائمة</string>
     <string name="add_account">أضف حساب</string>
+    <string name="led_notification">إشعار LED</string>
     <string name="wearable_notifications_summary">عرض الإشعارات على الساعة الذكية</string>
     <string name="building_notifications">توليد الإخطارات</string>
     <string name="bundle_notifications_summary">ادمج عدة إشعارات في شعار واحد</string>
@@ -531,6 +535,7 @@
     <string name="repeats_single">أعده %s</string>
     <string name="bundle_notifications">حزمة الاشعارات</string>
     <string name="clear_completed_tasks_confirmation">أزل المهام المتممة؟</string>
+    <string name="hardware_support_required">مطلوب دعم الأجهزة</string>
     <string name="restart_required">أعد تشغيل التطبيق ليأخذ هذا التغيير تأثيره</string>
     <string name="opacity_footer">عتمة التذييل</string>
     <string name="opacity_header">عتمة العنوان</string>

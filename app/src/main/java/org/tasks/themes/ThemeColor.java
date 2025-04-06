@@ -1,15 +1,18 @@
 package org.tasks.themes;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static org.tasks.kmp.org.tasks.themes.ColorProvider.WHITE;
 import static org.tasks.themes.ColorUtilsKt.calculateContrast;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build.VERSION_CODES;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.RequiresApi;
 import androidx.core.os.ParcelCompat;
 
 import org.tasks.R;
@@ -188,11 +191,14 @@ public class ThemeColor implements Pickable {
   public void applyToNavigationBar(Activity activity) {
     activity.getWindow().setNavigationBarColor(getPrimaryColor());
 
-    View decorView = activity.getWindow().getDecorView();
-    int systemUiVisibility = applyLightNavigationBar(decorView.getSystemUiVisibility());
-    decorView.setSystemUiVisibility(systemUiVisibility);
+    if (atLeastOreo()) {
+      View decorView = activity.getWindow().getDecorView();
+      int systemUiVisibility = applyLightNavigationBar(decorView.getSystemUiVisibility());
+      decorView.setSystemUiVisibility(systemUiVisibility);
+    }
   }
 
+  @RequiresApi(api = VERSION_CODES.O)
   private int applyLightNavigationBar(int flag) {
     return isDark
         ? flag | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR

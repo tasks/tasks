@@ -151,6 +151,9 @@
     <string name="widget_show_header">Amosar encabezado</string>
     <string name="widget_show_settings">Amosar configuracións</string>
     <string name="notifications">Notificacións</string>
+    <string name="silent">Silencioso</string>
+    <string name="sound">Son</string>
+    <string name="vibrations">Vibracións</string>
     <string name="quiet_hours">Horario silencioso</string>
     <string name="attachment_directory">Cartafol de anexos</string>
     <string name="backup_directory">Cartafol de copias de seguranza</string>
@@ -215,6 +218,8 @@
     <string name="restart_now">Reiniciar ahora</string>
     <string name="restart_later">Máis tarde</string>
     <string name="settings_localization">Localización</string>
+    <string name="led_notification">Notificación LED</string>
+    <string name="hardware_support_required">Precísase de soporte con hardware</string>
     <string name="widget_settings">Configuración de widgets</string>
     <string name="widget_header_settings">Configuración de cabeceiras</string>
     <string name="widget_row_settings">Configuración de filas</string>

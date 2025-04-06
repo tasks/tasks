@@ -145,6 +145,9 @@
     <string name="widget_show_header">Visa rubrik</string>
     <string name="widget_show_settings">Visa ikon för inställningar</string>
     <string name="notifications">Aviseringar</string>
+    <string name="silent">Tyst</string>
+    <string name="sound">Ljud</string>
+    <string name="vibrations">Vibrationer</string>
     <string name="quiet_hours">Tyst period</string>
     <string name="attachment_directory">Lagringsplats för bilagor</string>
     <string name="backup_directory">Säkerhetskopieringsmapp</string>
@@ -206,6 +209,8 @@
     <string name="restart_now">Starta om nu</string>
     <string name="restart_later">Senare</string>
     <string name="settings_localization">Språk</string>
+    <string name="led_notification">LED Notifiering</string>
+    <string name="hardware_support_required">Hårdvarustöd krävs</string>
     <string name="widget_settings">Inställningar för widget</string>
     <string name="clear_completed_tasks_confirmation">Rensa bort slutförda uppgifter?</string>
     <string name="action_call">Ring</string>

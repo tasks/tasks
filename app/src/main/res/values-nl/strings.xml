@@ -214,6 +214,9 @@
     <string name="widget_show_header">Koptekst tonen</string>
     <string name="widget_show_settings">Instellingen tonen</string>
     <string name="notifications">Meldingen</string>
+    <string name="silent">Stil</string>
+    <string name="sound">Geluid</string>
+    <string name="vibrations">Trillingen</string>
     <string name="quiet_hours">Rusttijd</string>
     <string name="attachment_directory">Map voor bijlagen</string>
     <string name="google_drive_backup">Backup naar Google Drive</string>
@@ -284,6 +287,8 @@
     <string name="restart_required">Start Tasks opnieuw om wijzigingen door te voeren</string>
     <string name="restart_now">Herstart nu</string>
     <string name="settings_localization">Localisatie</string>
+    <string name="led_notification">LED melding</string>
+    <string name="hardware_support_required">Hardware ondersteuning vereist</string>
     <string name="widget_settings">Widget instellingen</string>
     <string name="widget_header_settings">Koptekst instellingen</string>
     <string name="widget_row_settings">Regel instellingen</string>

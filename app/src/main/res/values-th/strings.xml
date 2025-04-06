@@ -266,6 +266,8 @@
     <string name="widget_row_settings">การตั้งค่าแถว</string>
     <string name="widget_header_settings">การตั้งค่าส่วนหัว</string>
     <string name="widget_settings">การตั้งค่าวิดเจ็ต</string>
+    <string name="hardware_support_required">ต้องการการสนับสนุนฮาร์ดแวร์</string>
+    <string name="led_notification">การแจ้งเตือน LED</string>
     <string name="settings_localization">แปล</string>
     <string name="restart_later">หลัง</string>
     <string name="restart_now">เริ่มการทํางานใหม่เดี๋ยวนี้</string>
@@ -346,6 +348,9 @@
     <string name="backup_directory">โฟลเดอร์สำรอง</string>
     <string name="attachment_directory">โฟลเดอร์สิ่งที่แนบมา</string>
     <string name="quiet_hours">ชั่วโมงเงียบ</string>
+    <string name="vibrations">การสั่นสะเทือน</string>
+    <string name="sound">เสียง</string>
+    <string name="silent">เงียบ</string>
     <string name="notifications">แจ้ง เตือน</string>
     <string name="widget_show_dividers">แสดงวงเวียน</string>
     <string name="widget_show_menu">แสดงเมนู</string>

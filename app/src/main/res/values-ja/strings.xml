@@ -217,6 +217,9 @@
     <string name="widget_show_header">ヘッダーを表示</string>
     <string name="widget_show_settings">設定を表示</string>
     <string name="notifications">通知</string>
+    <string name="silent">サイレント</string>
+    <string name="sound">サウンド</string>
+    <string name="vibrations">振動</string>
     <string name="quiet_hours">おやすみモード</string>
     <string name="attachment_directory">添付フォルダー</string>
     <string name="backup_directory">フォルダーをバックアップ</string>
@@ -291,6 +294,8 @@
     <string name="restart_now">今すぐ再起動</string>
     <string name="restart_later">あとで</string>
     <string name="settings_localization">ローカライズ</string>
+    <string name="led_notification">LED 通知</string>
+    <string name="hardware_support_required">ハードウェア サポートが必要です</string>
     <string name="widget_settings">ウィジェット設定</string>
     <string name="widget_header_settings">ヘッダー設定</string>
     <string name="widget_row_settings">行設定</string>

@@ -39,12 +39,30 @@ object AndroidUtilities {
         return (dp * displayMetrics.density + 0.5f).toInt()
     }
 
+    fun preOreo(): Boolean {
+        return !atLeastOreo()
+    }
+
     fun preS(): Boolean {
         return !atLeastS()
     }
 
+    @JvmStatic
+    fun preTiramisu(): Boolean {
+        return !atLeastTiramisu()
+    }
+
     fun preUpsideDownCake(): Boolean {
         return Build.VERSION.SDK_INT <= VERSION_CODES.TIRAMISU
+    }
+
+    fun atLeastNougatMR1(): Boolean {
+        return Build.VERSION.SDK_INT >= VERSION_CODES.N_MR1
+    }
+
+    @JvmStatic
+    fun atLeastOreo(): Boolean {
+        return Build.VERSION.SDK_INT >= VERSION_CODES.O
     }
 
     fun atLeastOreoMR1(): Boolean {

@@ -17,6 +17,14 @@ public abstract class PermissionRequestor {
     this.permissionChecker = permissionChecker;
   }
 
+  public boolean requestAccountPermissions() {
+    if (permissionChecker.canAccessAccounts()) {
+      return true;
+    }
+    requestPermissions(REQUEST_GOOGLE_ACCOUNTS, permission.GET_ACCOUNTS);
+    return false;
+  }
+
   public boolean requestForegroundLocation() {
     if (permissionChecker.canAccessForegroundLocation()) {
       return true;

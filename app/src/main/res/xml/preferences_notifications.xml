@@ -43,6 +43,22 @@
     android:summary="@string/bundle_notifications_summary"
     android:title="@string/bundle_notifications" />
 
+  <Preference
+    android:defaultValue="content://settings/system/notification_sound"
+    android:key="@string/p_rmd_ringtone"
+    android:title="@string/sound" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="true"
+    android:key="@string/p_rmd_vibrate"
+    android:title="@string/vibrations" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="true"
+    android:key="@string/p_led_notification"
+    android:summary="@string/hardware_support_required"
+    android:title="@string/led_notification" />
+
   <SwitchPreferenceCompat
     android:defaultValue="false"
     android:key="@string/p_voiceRemindersEnabled"

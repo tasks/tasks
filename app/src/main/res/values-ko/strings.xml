@@ -215,6 +215,9 @@
     <string name="widget_show_header">헤더 표시</string>
     <string name="widget_show_settings">설정버튼 표시</string>
     <string name="notifications">알림</string>
+    <string name="silent">무음</string>
+    <string name="sound">소리</string>
+    <string name="vibrations">진동</string>
     <string name="quiet_hours">무음 시간</string>
     <string name="attachment_directory">첨부파일 위치</string>
     <string name="backup_directory">백업 위치</string>
@@ -288,6 +291,8 @@
     <string name="restart_now">지금 재시작하기</string>
     <string name="restart_later">나중에</string>
     <string name="settings_localization">현지화</string>
+    <string name="led_notification">LED 알림</string>
+    <string name="hardware_support_required">하드웨어 지원을 필요로 합니다</string>
     <string name="widget_settings">위젯 설정</string>
     <string name="widget_header_settings">헤더 설정</string>
     <string name="widget_row_settings">줄 설정</string>
