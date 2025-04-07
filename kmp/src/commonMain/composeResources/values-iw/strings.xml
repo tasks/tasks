@@ -4,7 +4,7 @@
     <string name="subscribe">הרשמה למינוי</string>
     <string name="filter_my_tasks">המשימות שלי</string>
     <string name="filter_notifications">התראות</string>
-    <string name="filter_timer">משימות עם הערכת זמן</string>
+    <string name="filter_timer">משימות מתוזמנות</string>
     <string name="filter_today">היום</string>
     <string name="filter_recently_modified">השתנו לאחרונה</string>
     <string name="default_list">רשימת ברירת מחדל</string>
@@ -24,13 +24,13 @@
     <string name="yesterday_lowercase">אתמול</string>
     <string name="today">היום</string>
     <string name="today_lowercase">היום</string>
-    <string name="show_unstarted">הצג משימות שלא התחילו</string>
+    <string name="show_unstarted">הצגת משימות שלא התחילו</string>
     <string name="show_completed">הצג משימות שהושלמו</string>
-    <string name="subscription_required_description">בטל את הנעילה של כל התכונות תמורת דולר אמריקאי אחד בלבד לשנה</string>
-    <string name="wear_install_app">התקן בטלפון</string>
+    <string name="subscription_required_description">ביטול נעילת כל התכונות תמורת דולר אמריקאי אחד בלבד לשנה</string>
+    <string name="wear_install_app">התקנה בטלפון</string>
     <string name="wear_unknown_error">שגיאה לא ידועה</string>
     <string name="search_no_results">אין תוצאות</string>
     <string name="requires_pro_subscription">תכונת פרו</string>
-    <string name="add_task">הוסף משימה</string>
+    <string name="add_task">הוספת משימה</string>
     <string name="filter_snoozed">בנמנום</string>
 </resources>
