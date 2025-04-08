@@ -3,15 +3,10 @@
     <string name="actfm_picture_clear">Eliminar imagem</string>
     <string name="TVA_add_comment">Adicionar um comentário…</string>
     <string name="backup_BAc_import">Importar cópia de segurança</string>
-    <string name="backup_BAc_export">Fazer cópia de segurança</string>
+    <string name="backup_BAc_export">Fazer cópia de segurança agora</string>
     <string name="export_toast">Cópia de segurança feita de %1$s para %2$s.</string>
     <string name="import_summary_title">Resumo do restauro</string>
-    <string name="import_summary_message">O ficheiro %1$s continha %2$s.
-\n
-\n %3$s importadas,
-\n %4$s já existiam,
-\n %5$s tinham erros.
-\n</string>
+    <string name="import_summary_message">O ficheiro %1$s continha %2$s\n\n%3$s importadas\n%4$s já existem,\n%5$s tinham erros</string>
     <string name="import_progress_read">A ler a tarefa %d…</string>
     <string name="read_permission_label">Permissões do Tasks</string>
     <string name="discard_confirmation">Tem a certeza que deseja descartar as alterações?</string>
@@ -202,6 +197,7 @@
     <string name="voice_command_added_task">Tarefa adicionada</string>
     <plurals name="Ntasks">
         <item quantity="one">1 tarefa</item>
+        <item quantity="many">%d tarefas</item>
         <item quantity="other">%d tarefas</item>
     </plurals>
     <string name="today">Hoje</string>
@@ -346,7 +342,7 @@
     <string name="cannot_access_account">Não é possível aceder à conta</string>
     <string name="logout_warning">Todos os dados desta conta serão removidos do seu aparelho</string>
     <string name="logout">Sair</string>
-    <string name="requires_pro_subscription">É necessária uma subscrição pro</string>
+    <string name="requires_pro_subscription">Requer assinatura Pro</string>
     <string name="pro_dashclock_extension">Extensão Dashclock</string>
     <string name="license_summary">O Tasks é um programa livre e de código-aberto disponibilizado sob a GNU General Public License v3.0</string>
     <string name="about">Sobre</string>
@@ -686,4 +682,45 @@
     <string name="repeats_weekly_on">Repete em</string>
     <string name="theme_dynamic">Dinâmico</string>
     <string name="clear_completed_tasks_count">%s serão eliminadas</string>
+    <string name="enable_alarms_description">Para garantir que você seja notificado na hora certa, conceda permissão para configurar alarmes e lembretes nas Configurações</string>
+    <string name="swipe_to_snooze_title">Deslize para adiar</string>
+    <string name="swipe_to_snooze_description">Tempo de adiamento</string>
+    <string name="swipe_to_snooze_time_immediately">Imediatamente</string>
+    <string name="swipe_to_snooze_time_15_minutes">após 15 minutos</string>
+    <string name="swipe_to_snooze_time_30_minutes">após 30 minutos</string>
+    <string name="swipe_to_snooze_time_24_hours">após 24 horas</string>
+    <string name="yesterday">Ontem</string>
+    <string name="donate_maybe_later">Talvez depois</string>
+    <string name="multiline_title_off">Pressione Concluído para salvar a tarefa</string>
+    <string name="customize_drawer">Personalizar menu</string>
+    <string name="show_edit_screen_without_unlock_summary">Permite o uso do bloco de Configurações Rápidas sem desbloquear o dispositivo</string>
+    <string name="delete_comment">comentário</string>
+    <string name="quiet_hours_in_effect">O horário de silêncio está em vigor</string>
+    <string name="price_per_month_with_currency">%s/mês</string>
+    <string name="price_per_year_with_currency">%s/ano</string>
+    <string name="sync_warning_microsoft_title">Sobre a sincronização do Microsoft To Do</string>
+    <string name="sync_warning_google_tasks">Nem todos os detalhes das tarefas são sincronizados com o Google Tasks</string>
+    <string name="sync_warning_google_tasks_title">Sobre a sincronização do Google Tasks</string>
+    <string name="button_learn_more">Saiba mais</string>
+    <string name="add_widget_to_home_screen">Adicionar widget à tela inicial</string>
+    <string name="enable_alarms">Receba notificações na hora certa</string>
+    <string name="banner_app_updated_title">Aplicativo atualizado</string>
+    <string name="cost_money">Custo: R$</string>
+    <string name="multiline_title">Permitir títulos em várias linhas</string>
+    <string name="multiline_title_on">Pressione a tecla Enter para adicionar quebras de linha</string>
+    <string name="donate_nag">Considere mostrar seu apoio com uma doação!</string>
+    <string name="cost_more_money">Custo:R$$$</string>
+    <string name="show_edit_screen_without_unlock">Mostrar tela de edição sem desbloquear</string>
+    <string name="swipe_to_snooze_time_1_hour">após 1 hora</string>
+    <string name="banner_app_updated_description">O Tasks foi atualizado para a versão %s. Gostaria de ver as notas de lançamento?</string>
+    <string name="sync_warning_microsoft">Nem todos os detalhes das tarefas são sincronizados com o Microsoft To Do.</string>
+    <string name="subtasks_multilevel_microsoft">Subtarefas de múltiplos níveis não são suportadas pelo Microsoft To Do</string>
+    <string name="donate_today">Doe hoje</string>
+    <string name="customize_drawer_summary">Arraste e solte para reorganizar os itens do menu</string>
+    <string name="swipe_to_snooze_time_description">Uma notificação desmarcada será adiada e recriada em %s</string>
+    <string name="app_settings">Configurações do aplicativo</string>
+    <string name="comment">Comentário</string>
+    <string name="add_shortcut_to_home_screen">Adicionar atalho para a tela inicial</string>
+    <string name="cost_free">Custo: Grátis</string>
+    <string name="send_application_logs">Enviar logs do aplicativo</string>
 </resources>
