@@ -747,4 +747,7 @@
     <string name="show_edit_screen_without_unlock_summary">Разрешает использовать панель Быстрых Настроек без разблокирования устройства</string>
     <string name="clear_completed_tasks_count">%s будут удалены</string>
     <string name="app_settings">Настройки приложения</string>
+    <string name="banner_app_updated_description">Tasks обновились до версии %s. Показать что изменилось?</string>
+    <string name="banner_app_updated_title">Приложение обновлено</string>
+    <string name="multiline_title_off">Нажмите Done, чтобы сохранить задачу</string>
 </resources>
