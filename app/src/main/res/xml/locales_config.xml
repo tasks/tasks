@@ -7,6 +7,7 @@
     <locale android:name="be" />
     <locale android:name="bg-rBG" />
     <locale android:name="bn-rBD" />
+    <locale android:name="bs" />
     <locale android:name="ca" />
     <locale android:name="ckb" />
     <locale android:name="cs" />
@@ -39,7 +40,9 @@
     <locale android:name="ml" />
     <locale android:name="mr" />
     <locale android:name="my" />
+    <locale android:name="nah" />
     <locale android:name="nb" />
+    <locale android:name="ne" />
     <locale android:name="nl" />
     <locale android:name="or" />
     <locale android:name="pl" />
