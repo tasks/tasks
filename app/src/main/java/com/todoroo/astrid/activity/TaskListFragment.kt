@@ -23,6 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LAYOUT_DIRECTION_LTR
 import android.view.ViewGroup.MarginLayoutParams
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.BackHandler
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
@@ -128,6 +129,7 @@ import org.tasks.filters.Filter
 import org.tasks.filters.FilterImpl
 import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.PlaceFilter
+import org.tasks.filters.SearchFilter
 import org.tasks.filters.TagFilter
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
@@ -278,6 +280,23 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         taskListEventBus
             .onEach(this::process)
             .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if ((mainViewModel.state.value.filter as SearchFilter).query.isNotBlank()) {
+                    lifecycleScope.launch {
+                        mainViewModel.resetFilter()
+                    }
+                    if (search.isActionViewExpanded) {
+                        search.collapseActionView()
+                    }
+                    Timber.d("Filtro resettato")
+                } else {
+                    isEnabled = false // Disabilita il callback per consentire il comportamento predefinito
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
     }
 
     fun setNavigationClickListener(onClick: () -> Unit) {
