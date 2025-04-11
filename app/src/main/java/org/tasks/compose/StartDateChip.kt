@@ -12,7 +12,6 @@ import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.themes.TasksIcons
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
 
 @Composable
@@ -32,7 +31,7 @@ fun StartDateChip(
             ) {
                 startDate
                     .takeIf { Task.hasDueTime(it) }
-                    ?.let { getTimeString(currentTimeMillis(), context.is24HourFormat) }
+                    ?.let { getTimeString(it, context.is24HourFormat) }
             } else {
                 runBlocking {
                     getRelativeDateTime(
