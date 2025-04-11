@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Help
+import androidx.compose.material.icons.automirrored.outlined.Help
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -14,6 +14,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -47,6 +49,7 @@ import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.filters.mapToSerializedString
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -170,7 +173,18 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 optionButton = {
                     if (isNew) {
                         IconButton(onClick = { help() }) {
-                            Icon(imageVector = Icons.Outlined.Help, contentDescription = "")
+                            // Cancel the mirroring of the help icon when the locale is Hebrew.
+                            val modifier =
+                                if (Locale.getDefault().language == Locale.forLanguageTag("he").language) {
+                                    Modifier.scale(scaleX = -1f, scaleY = 1f)
+                                } else {
+                                    Modifier
+                                }
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Outlined.Help,
+                                contentDescription = "",
+                                modifier = modifier,
+                            )
                         }
                     } else DeleteButton(filter?.title ?: ""){ delete() }
                 },

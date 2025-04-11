@@ -48,6 +48,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -67,6 +68,7 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.help_and_feedback
 import tasks.kmp.generated.resources.search
 import tasks.kmp.generated.resources.subscribe
+import java.util.Locale
 import kotlin.math.roundToInt
 
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
@@ -314,10 +316,18 @@ fun RowScope.MenuSearchBar(
             }
         }
         IconButton(onClick = { onDrawerAction(DrawerAction.HELP_AND_FEEDBACK) }) {
+            // Cancel the mirroring of the help icon when the locale is Hebrew.
+            val modifier =
+                if (Locale.getDefault().language == Locale.forLanguageTag("he").language) {
+                    Modifier.scale(scaleX = -1f, scaleY = 1f)
+                } else {
+                    Modifier
+                }
             Icon(
                 imageVector = Icons.AutoMirrored.Outlined.HelpOutline,
                 contentDescription = stringResource(Res.string.help_and_feedback),
                 tint = MaterialTheme.colorScheme.onSurface,
+                modifier = modifier,
             )
         }
     }
