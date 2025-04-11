@@ -726,4 +726,26 @@
     <string name="quiet_hours_in_effect">Es el momento de descansar</string>
     <string name="enable_alarms_description">Para asegurarse de recibir notificaciones en el momento adecuado, otorgue permiso para configurar alarmas y recordatorios en Configuración</string>
     <string name="enable_alarms">Recibe notificaciones en el momento adecuado</string>
+    <string name="multiline_title">Permitir títulos de varias líneas</string>
+    <string name="multiline_title_on">Presione Enter para insertar saltos de línea</string>
+    <string name="price_per_year_with_currency">%s/año</string>
+    <string name="cost_free">Precio: Gratis</string>
+    <string name="app_settings">Ajustes de la aplicación</string>
+    <string name="delete_comment">Anotación</string>
+    <string name="yesterday">Ayer</string>
+    <string name="banner_app_updated_title">Actualización de la aplicación</string>
+    <string name="banner_app_updated_description">Tasks se ha actualizado a la versión %s. ¿Deseas ver las notas de la versión?</string>
+    <string name="add_widget_to_home_screen">Agregar widget a la pantalla de inicio</string>
+    <string name="add_shortcut_to_home_screen">Agregar acceso directo a la pantalla de inicio</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do no admite subtareas de múltiples niveles</string>
+    <string name="cost_money">Precio: $</string>
+    <string name="sync_warning_google_tasks_title">Acerca de la sincronización de Google Task</string>
+    <string name="cost_more_money">Precio: $$$</string>
+    <string name="sync_warning_google_tasks">Algunos detalles de las tareas no se sincronizan con Google Tasks</string>
+    <string name="button_learn_more">Obtén más información</string>
+    <string name="sync_warning_microsoft_title">Acerca de la sincronización de Microsoft To Do</string>
+    <string name="sync_warning_microsoft">No todos los detalles de las tareas se sincronizan con Microsoft To Do.</string>
+    <string name="price_per_month_with_currency">mes</string>
+    <string name="multiline_title_off">Presione en Hecho para guardar la tarea</string>
+    <string name="comment">Anotación.</string>
 </resources>
