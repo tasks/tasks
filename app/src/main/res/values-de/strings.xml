@@ -304,9 +304,9 @@
     <string name="repeats_from">Wiederholt sich ab</string>
     <string name="repeats_single">Wiederholt sich %s</string>
     <string name="repeats_single_on">Wiederholt sich %1$s %2$s</string>
-    <string name="repeats_single_until">Wiederholt sich %1$s, endet bei %2$s</string>
+    <string name="repeats_single_until">Wiederholt sich %1$s, endet am %2$s</string>
     <string name="repeats_single_number_of_times">Wiederholt sich %1$s, genau %2$d %3$s</string>
-    <string name="repeats_single_on_until">Wiederholt %1$s am %2$s, endet bei %3$s</string>
+    <string name="repeats_single_on_until">Wiederholt sich %1$s am %2$s, endet am %3$s</string>
     <string name="repeats_single_on_number_of_times">Wiederholt sich %1$s %2$s, genau %3$d %4$s</string>
     <string name="repeats_minutely">minütlich</string>
     <string name="repeats_hourly">stündlich</string>
