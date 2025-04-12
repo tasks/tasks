@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="actfm_picture_clear">Eliminar imagem</string>
+    <string name="actfm_picture_clear">Remover Imagem</string>
     <string name="TVA_add_comment">Adicionar um comentário…</string>
     <string name="backup_BAc_import">Importar cópia de segurança</string>
-    <string name="backup_BAc_export">Fazer cópia de segurança agora</string>
+    <string name="backup_BAc_export">Fazer cópia de segurança</string>
     <string name="export_toast">Cópia de segurança feita de %1$s para %2$s.</string>
     <string name="import_summary_title">Resumo do restauro</string>
     <string name="import_summary_message">O ficheiro %1$s continha %2$s\n\n%3$s importadas\n%4$s já existem,\n%5$s tinham erros</string>
-    <string name="import_progress_read">A ler a tarefa %d…</string>
+    <string name="import_progress_read">Lendo a tarefa %d…</string>
     <string name="read_permission_label">Permissões do Tasks</string>
     <string name="discard_confirmation">Tem a certeza que deseja descartar as alterações?</string>
-    <string name="keep_editing">Continuar a editar</string>
-    <string name="DLG_delete_this_task_question">Eliminar esta tarefa\?</string>
-    <string name="DLG_hour_minutes">Tempo (horas:minutos)</string>
-    <string name="DLG_undo">Anular</string>
-    <string name="WID_dateButtonUnset">Definir</string>
-    <string name="TLA_no_items">Não existem tarefas aqui.</string>
+    <string name="keep_editing">Continuar editando</string>
+    <string name="DLG_delete_this_task_question">Remover esta tarefa?</string>
+    <string name="DLG_hour_minutes">Horário (horas:minutos)</string>
+    <string name="DLG_undo">Desfazer</string>
+    <string name="WID_dateButtonUnset">Clique para definir</string>
+    <string name="TLA_no_items">Não há tarefas aqui.</string>
     <string name="TLA_menu_sort">Ordenar</string>
     <string name="TLA_menu_search">Pesquisar</string>
-    <string name="TLA_menu_settings">Definições</string>
+    <string name="TLA_menu_settings">Configurações</string>
     <string name="TAd_actionEditTask">Editar</string>
     <string name="SSD_sort_auto">Ordenação inteligente</string>
     <string name="SSD_sort_alpha">Por título</string>
@@ -255,7 +255,7 @@
     <string name="name_cannot_be_empty">O nome não pode estar vazio</string>
     <string name="no_title">(sem título)</string>
     <string name="back_button_saves_task">Botão \'voltar\' guarda a tarefa</string>
-    <string name="default_list">Lista predefinida</string>
+    <string name="default_list">Lista padrão</string>
     <string name="filter">Filtro</string>
     <string name="opacity">Opacidade</string>
     <string name="theme">Tema</string>
@@ -451,7 +451,7 @@
     <string name="preferences_advanced">Avançado</string>
     <string name="preferences_look_and_feel">Aparência</string>
     <string name="documentation">Documentação</string>
-    <string name="help_and_feedback">Ajuda e comentários</string>
+    <string name="help_and_feedback">Ajuda &amp; sugestões</string>
     <string name="etesync_account_description">Precisa de uma conta no EteSync.com ou de um servidor auto-alojado</string>
     <string name="caldav_account_description">Precisa de uma conta com um fornecedor CalDAV ou de um servidor auto-alojado. Encontre um fornecedor visitando tasks.org/caldav</string>
     <string name="show_advanced_settings">Mostrar configurações avançadas</string>
@@ -512,7 +512,7 @@
     <string name="background_location_permission_required">O Tarefas recolhe dados de localização para permitir lembretes baseados em localização, mesmo quando a aplicação está fechada ou não estiver a ser usada.</string>
     <string name="default_tags">Etiquetas predefinidas</string>
     <string name="header_spacing">Espaçamento</string>
-    <string name="ok">OK</string>
+    <string name="ok">Aceitar</string>
     <string name="repeat_type_completion_capitalized">Data de término</string>
     <string name="always_display_full_date">Mostrar data completa</string>
     <plurals name="list_count">
