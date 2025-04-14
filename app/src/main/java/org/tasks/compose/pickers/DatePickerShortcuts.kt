@@ -96,6 +96,7 @@ fun StartDateShortcuts(
     selected: Long,
     selectedDay: (Long) -> Unit,
     selectedDayTime: (Long, Int) -> Unit,
+    showDueDate: Boolean,
     clearDate: () -> Unit,
 ) {
     var custom by remember { mutableLongStateOf(0) }
@@ -128,12 +129,14 @@ fun StartDateShortcuts(
             onClick = { selectedDay(custom) },
         )
     }
-    ShortcutButton(
-        icon = Icons.Outlined.Today,
-        text = stringResource(R.string.due_date),
-        selected = selected == DUE_DATE,
-        onClick = { selectedDay(DUE_DATE) },
-    )
+    if (showDueDate) {
+        ShortcutButton(
+            icon = Icons.Outlined.Today,
+            text = stringResource(R.string.due_date),
+            selected = selected == DUE_DATE,
+            onClick = { selectedDay(DUE_DATE) },
+        )
+    }
     ShortcutButton(
         icon = Icons.Outlined.Schedule,
         text = stringResource(R.string.due_time),

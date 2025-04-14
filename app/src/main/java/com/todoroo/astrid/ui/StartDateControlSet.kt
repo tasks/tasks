@@ -73,10 +73,11 @@ class StartDateControlSet : TaskEditControlFragment() {
                         REQUEST_START_DATE,
                         vm.selectedDay.value,
                         vm.selectedTime.value,
-                        preferences.getBoolean(
+                        autoClose = preferences.getBoolean(
                             R.string.p_auto_dismiss_datetime_edit_screen,
                             false
-                        )
+                        ),
+                        showDueDate = !viewModel.viewState.value.list.account.isOpenTasks,
                     )
                         .show(fragmentManager, FRAG_TAG_DATE_PICKER)
                 }

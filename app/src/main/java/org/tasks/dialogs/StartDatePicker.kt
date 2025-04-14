@@ -44,10 +44,14 @@ class StartDatePicker : BaseDateTimePicker() {
     private var selectedDay by mutableLongStateOf(NO_DAY)
     private var selectedTime by mutableIntStateOf(NO_TIME)
     private val today = newDateTime().startOfDay()
+    private val showDueDate by lazy {
+        arguments?.getBoolean(EXTRA_SHOW_DUE_DATE) ?: true
+    }
 
     companion object {
         const val EXTRA_DAY = "extra_day"
         const val EXTRA_TIME = "extra_time"
+        const val EXTRA_SHOW_DUE_DATE = "extra_show_due_date"
         const val NO_DAY = 0L
         const val NO_TIME = 0
         const val DUE_DATE = -1L
@@ -55,11 +59,19 @@ class StartDatePicker : BaseDateTimePicker() {
         const val WEEK_BEFORE_DUE = -3L
         const val DUE_TIME = -4L
 
-        fun newDateTimePicker(target: Fragment, rc: Int, day: Long, time: Int, autoClose: Boolean): StartDatePicker {
+        fun newDateTimePicker(
+            target: Fragment,
+            rc: Int,
+            day: Long,
+            time: Int,
+            autoClose: Boolean,
+            showDueDate: Boolean,
+        ): StartDatePicker {
             val bundle = Bundle()
             bundle.putLong(EXTRA_DAY, day)
             bundle.putInt(EXTRA_TIME, time)
             bundle.putBoolean(EXTRA_AUTO_CLOSE, autoClose)
+            bundle.putBoolean(EXTRA_SHOW_DUE_DATE, showDueDate)
             val fragment = StartDatePicker()
             fragment.arguments = bundle
             fragment.setTargetFragment(target, rc)
@@ -105,6 +117,7 @@ class StartDatePicker : BaseDateTimePicker() {
                         selected = selectedDay,
                         selectedDay = { returnDate(it) },
                         selectedDayTime = { day, time -> returnDate(day, time) },
+                        showDueDate = showDueDate,
                         clearDate = { returnDate(day = 0, time = 0) },
                     )
                 },
