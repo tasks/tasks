@@ -4,8 +4,10 @@ import android.app.Activity.RESULT_OK
 import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.provider.Settings
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
@@ -13,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.color.DynamicColors
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastTiramisu
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
@@ -84,9 +87,16 @@ class LookAndFeel : InjectingPreferenceFragment() {
         val languagePreference = findPreference(R.string.p_language)
         languagePreference.summary = locale.getDisplayName(locale)
         languagePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            val dialog = LocalePickerDialog.newLocalePickerDialog()
-            dialog.setTargetFragment(this, REQUEST_LOCALE)
-            dialog.show(parentFragmentManager, FRAG_TAG_LOCALE_PICKER)
+            if (atLeastTiramisu()) {
+                startActivity(
+                    Intent(Settings.ACTION_APP_LOCALE_SETTINGS)
+                        .setData(Uri.fromParts("package", requireContext().packageName, null))
+                )
+            } else {
+                val dialog = LocalePickerDialog.newLocalePickerDialog()
+                dialog.setTargetFragment(this, REQUEST_LOCALE)
+                dialog.show(parentFragmentManager, FRAG_TAG_LOCALE_PICKER)
+            }
             false
         }
 
