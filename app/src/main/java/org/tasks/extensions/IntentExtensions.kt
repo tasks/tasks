@@ -14,5 +14,5 @@ val Intent.broughtToFront: Boolean
 val Intent.flagsToString
     get() = Intent::class.java.declaredFields
         .filter { it.name.startsWith("FLAG_") }
-        .filter { flags or it.getInt(null) == flags }
+        .filter { flags or it.getLong(null).toInt() == flags }
         .joinToString(" | ") { it.name }
