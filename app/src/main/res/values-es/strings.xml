@@ -7,12 +7,7 @@
     <string name="backup_BAc_export">Respaldar ahora</string>
     <string name="export_toast">Respaldadas %1$s de %2$s.</string>
     <string name="import_summary_title">Resumen de restauración</string>
-    <string name="import_summary_message">El fichero %1$s contenía %2$s.
-\n
-\n %3$s importadas
-\n %4$s ya existían
-\n %5$s tenían errores
-\n</string>
+    <string name="import_summary_message">El fichero %1$s contenía %2$s.\n\n‐ %3$s importadas\n‐ %4$s ya existían\n‐ %5$s tenían errores</string>
     <string name="import_progress_read">Leyendo tarea %d…</string>
     <string name="read_permission_label">Permisos de Tasks</string>
     <string name="discard_confirmation">¿Confirme que desea descartar los cambios\?</string>
@@ -734,7 +729,7 @@
     <string name="delete_comment">Anotación</string>
     <string name="yesterday">Ayer</string>
     <string name="banner_app_updated_title">Actualización de la aplicación</string>
-    <string name="banner_app_updated_description">Tasks se ha actualizado a la versión %s. ¿Deseas ver las notas de la versión?</string>
+    <string name="banner_app_updated_description">Tasks se ha actualizado a la versión %s. ¿Deseas ver las notas de esta versión?</string>
     <string name="add_widget_to_home_screen">Agregar widget a la pantalla de inicio</string>
     <string name="add_shortcut_to_home_screen">Agregar acceso directo a la pantalla de inicio</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do no admite subtareas de múltiples niveles</string>
