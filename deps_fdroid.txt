@@ -227,6 +227,9 @@
 +|    \--- org.jetbrains.kotlin:kotlin-android-extensions-runtime:2.1.20
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 (*)
 ++--- project :data
++|    +--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations:1.13.0
++|    |    \--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations-jvm:1.13.0
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 (*)
 +|    +--- androidx.room:room-runtime:2.7.0
 +|    |    \--- androidx.room:room-runtime-android:2.7.0
