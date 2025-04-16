@@ -174,7 +174,7 @@ shortcut-badger = { module = "me.leolin:ShortcutBadger", version.ref = "shortcut
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 xpp3 = { module = "org.ogce:xpp3", version.ref = "xpp3" }
 androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version = "1.7.8" }
-iconics = { module = "com.mikepenz:iconics-core", version = "5.5.0-b01" }
+iconics = { module = "com.mikepenz:iconics-core", version = "5.5.0-compose01" }
 play-services-wearable = { group = "com.google.android.gms", name = "play-services-wearable", version = "19.0.0" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
