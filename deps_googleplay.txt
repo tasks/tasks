@@ -3,7 +3,6 @@
 +|         \--- androidx.annotation:annotation-jvm:1.9.1
 +|              \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.1.20
 +|                   +--- org.jetbrains:annotations:13.0 -> 23.0.0
-+|                   +--- org.jetbrains.kotlin:kotlin-stdlib-common:2.1.20 (c)
 +|                   +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 2.1.10 (c)
 +|                   \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 2.1.10 (c)
 ++--- androidx.databinding:databinding-common:8.9.1
@@ -893,8 +892,6 @@
 +|    |         |    |    \--- org.jetbrains.kotlinx:atomicfu:0.23.2
 +|    |         |    |         \--- org.jetbrains.kotlinx:atomicfu-jvm:0.23.2
 +|    |         |    |              \--- org.jetbrains.kotlin:kotlin-stdlib:{prefer 1.9.21} -> 2.1.20 (*)
-+|    |         |    +--- org.jetbrains.kotlin:kotlin-stdlib-common:1.9.24 -> 2.1.20
-+|    |         |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 (*)
 +|    |         |    +--- org.jetbrains.kotlinx:atomicfu:0.23.2 (*)
 +|    |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.10.1 (*)
 +|    |         +--- org.jetbrains.compose.foundation:foundation:1.7.1
@@ -1325,15 +1322,15 @@
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.1.10 (*)
 ++--- project :icons
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 -> 2.1.20 (*)
-+|    \--- com.mikepenz:iconics-core:5.5.0-b01
-+|         +--- androidx.appcompat:appcompat:1.7.0 (*)
-+|         +--- org.jetbrains.compose.runtime:runtime:1.6.10 -> 1.7.1 (*)
-+|         +--- com.mikepenz:iconics-typeface-api:5.5.0-b01
-+|         |    +--- org.jetbrains.compose.runtime:runtime:1.6.10 -> 1.7.1 (*)
++|    \--- com.mikepenz:iconics-core:5.5.0-compose01
++|         +--- androidx.appcompat:appcompat:1.6.1 -> 1.7.0 (*)
++|         +--- androidx.compose.runtime:runtime:1.4.3 -> 1.7.8 (*)
++|         +--- com.mikepenz:iconics-typeface-api:5.5.0-compose01
++|         |    +--- androidx.compose.runtime:runtime:1.4.3 -> 1.7.8 (*)
 +|         |    +--- androidx.core:core-ktx:1.10.1 -> 1.13.1 (*)
-+|         |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0 -> 2.1.10 (*)
++|         |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 -> 2.1.10 (*)
 +|         |    \--- androidx.startup:startup-runtime:1.1.1 (*)
-+|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.1.20 (*)
++|         \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 -> 2.1.10 (*)
 ++--- androidx.compose.material3.adaptive:adaptive-navigation-android:1.1.0
 +|    +--- androidx.activity:activity-compose:1.8.2 -> 1.10.1 (*)
 +|    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
@@ -1460,8 +1457,7 @@
 +|    |    +--- org.jetbrains.kotlin:kotlin-bom:1.8.22
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.20 (c)
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22 -> 2.1.10 (c)
-+|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 -> 2.1.10 (c)
-+|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22 -> 2.1.20 (c)
++|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 -> 2.1.10 (c)
 +|    |    +--- androidx.activity:activity:1.8.0 -> 1.10.1 (*)
 +|    |    +--- androidx.annotation:annotation:1.2.0 -> 1.9.1 (*)
 +|    |    +--- androidx.appcompat:appcompat:1.6.1 -> 1.7.0 (*)
@@ -1633,7 +1629,7 @@
 +|         +--- androidx.sqlite:sqlite-framework:2.5.0 (c)
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 -> 2.1.20 (c)
 ++--- androidx.appcompat:appcompat:1.7.0 (*)
-++--- com.mikepenz:iconics-core:5.5.0-b01 (*)
+++--- com.mikepenz:iconics-core:5.5.0-compose01 (*)
 ++--- io.noties.markwon:core:4.6.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|    \--- com.atlassian.commonmark:commonmark:0.13.0
