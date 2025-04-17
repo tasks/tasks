@@ -1517,14 +1517,14 @@
 ++--- org.dmfs:lib-recur:0.11.4
 +|    \--- org.dmfs:rfc5545-datetime:0.2.4
 ++--- org.dmfs:jems:1.33
-++--- com.google.dagger:hilt-android:2.56.1
-+|    +--- com.google.dagger:dagger:2.56.1
+++--- com.google.dagger:hilt-android:2.56.2
++|    +--- com.google.dagger:dagger:2.56.2
 +|    |    +--- jakarta.inject:jakarta.inject-api:2.0.1
 +|    |    +--- javax.inject:javax.inject:1
 +|    |    \--- org.jspecify:jspecify:1.0.0
-+|    +--- com.google.dagger:dagger-lint-aar:2.56.1
-+|    +--- com.google.dagger:hilt-core:2.56.1
-+|    |    +--- com.google.dagger:dagger:2.56.1 (*)
++|    +--- com.google.dagger:dagger-lint-aar:2.56.2
++|    +--- com.google.dagger:hilt-core:2.56.2
++|    |    +--- com.google.dagger:dagger:2.56.2 (*)
 +|    |    \--- javax.inject:javax.inject:1
 +|    +--- androidx.activity:activity:1.5.1 -> 1.10.1 (*)
 +|    +--- androidx.annotation:annotation:1.7.0-beta01 -> 1.9.1 (*)
@@ -1558,7 +1558,7 @@
 +|    |    |    |    +--- androidx.savedstate:savedstate-ktx:1.2.0 -> 1.2.1 (*)
 +|    |    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.21 -> 2.1.20 (*)
 +|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.21 -> 2.1.20 (*)
-+|    |    +--- com.google.dagger:hilt-android:2.49 -> 2.56.1 (*)
++|    |    +--- com.google.dagger:hilt-android:2.49 -> 2.56.2 (*)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.20 (*)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1 -> 2.8.7 (*)
 +|    +--- androidx.navigation:navigation-compose:2.5.1
@@ -1579,7 +1579,7 @@
 ++--- androidx.hilt:hilt-work:1.2.0
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|    +--- androidx.hilt:hilt-common:1.2.0
-+|    |    \--- com.google.dagger:hilt-core:2.49 -> 2.56.1 (*)
++|    |    \--- com.google.dagger:hilt-core:2.49 -> 2.56.2 (*)
 +|    +--- androidx.work:work-runtime:2.3.4 -> 2.10.0
 +|    |    +--- androidx.annotation:annotation-experimental:1.4.1 (*)
 +|    |    +--- androidx.concurrent:concurrent-futures-ktx:1.1.0 (*)
@@ -1604,7 +1604,7 @@
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.10.1 (*)
 +|    |    +--- androidx.work:work-runtime-ktx:2.10.0 (c)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.20 (c)
-+|    \--- com.google.dagger:hilt-android:2.49 -> 2.56.1 (*)
++|    \--- com.google.dagger:hilt-android:2.49 -> 2.56.2 (*)
 ++--- androidx.datastore:datastore-preferences:1.1.4 (*)
 ++--- androidx.fragment:fragment-compose:1.8.6
 +|    +--- androidx.compose.runtime:runtime:1.5.4 -> 1.7.8 (*)
