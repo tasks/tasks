@@ -738,4 +738,9 @@
     <string name="cost_more_money">Cena: $$$</string>
     <string name="multiline_title">Povolit víceřádkové názvy</string>
     <string name="multiline_title_on">Stisknutím Enter přidáte konce řádků</string>
+    <string name="app_settings">Nastavení aplikace</string>
+    <string name="subtasks_multilevel_microsoft">Víceúrovňové dílčí úkoly nejsou podporované službou Microsoft To Do</string>
+    <string name="multiline_title_off">Stiskněte tlačítko Hotovo pro uložení úkolu</string>
+    <string name="banner_app_updated_title">Aplikace aktualizována</string>
+    <string name="banner_app_updated_description">Aplikace Tasks byla aktualizována na %s. Chcete zobrazit seznam změn?</string>
 </resources>
