@@ -232,4 +232,6 @@ class MainActivityViewModel @Inject constructor(
         _state.update { it.copy(menuQuery = query) }
         updateFilters()
     }
+
+    suspend fun getAccount(id: Long) = caldavDao.getAccount(id)
 }

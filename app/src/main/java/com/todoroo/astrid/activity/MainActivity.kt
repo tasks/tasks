@@ -16,27 +16,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.ime
-import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalDrawerSheet
-import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
-import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
 import androidx.compose.material3.adaptive.layout.PaneAdaptedValue
 import androidx.compose.material3.adaptive.layout.ThreePaneScaffoldRole
@@ -44,24 +26,15 @@ import androidx.compose.material3.adaptive.layout.calculatePaneScaffoldDirective
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.key
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.IntentCompat.getParcelableExtra
-import androidx.fragment.compose.AndroidFragment
-import androidx.fragment.compose.rememberFragmentState
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.astrid.activity.TaskEditFragment.Companion.EXTRA_TASK
-import com.todoroo.astrid.activity.TaskListFragment.Companion.EXTRA_FILTER
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.todoroo.astrid.adapter.SubheaderClickHandler
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCreator
@@ -70,43 +43,27 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.R
-import org.tasks.TasksApplication
-import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
-import org.tasks.billing.PurchaseActivity
-import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
-import org.tasks.compose.drawer.DrawerAction
-import org.tasks.compose.drawer.DrawerItem
-import org.tasks.compose.drawer.MenuSearchBar
-import org.tasks.compose.drawer.TaskListDrawer
+import org.tasks.compose.HomeDestination
+import org.tasks.compose.home.HomeScreen
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
-import org.tasks.data.listSettingsClass
 import org.tasks.dialogs.NewFilterDialog
 import org.tasks.extensions.Context.nightMode
-import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.broughtToFront
 import org.tasks.extensions.flagsToString
 import org.tasks.extensions.isFromHistory
 import org.tasks.filters.Filter
-import org.tasks.filters.FilterProvider
 import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_LIST
 import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_PLACE
-import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_TAGS
-import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.PlaceFilter
-import org.tasks.kmp.org.tasks.compose.TouchSlopMultiplier
-import org.tasks.kmp.org.tasks.compose.rememberImeState
-import org.tasks.location.LocationPickerActivity
 import org.tasks.location.LocationPickerActivity.Companion.EXTRA_PLACE
 import org.tasks.preferences.DefaultFilterProvider
-import org.tasks.preferences.HelpAndFeedback
-import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.TasksTheme
@@ -159,163 +116,30 @@ class MainActivity : AppCompatActivity() {
                 theme = theme.themeBase.index,
                 primary = theme.themeColor.primaryColor,
             ) {
-                val drawerState = rememberDrawerState(
-                    initialValue = DrawerValue.Closed,
-                    confirmStateChange = {
-                        viewModel.setDrawerState(it == DrawerValue.Open)
-                        true
-                    }
-                )
-                val state = viewModel.state.collectAsStateWithLifecycle().value
-                val currentWindowInsets = WindowInsets.systemBars.asPaddingValues()
-                val windowInsets = remember { mutableStateOf(currentWindowInsets) }
-                val keyboard = LocalSoftwareKeyboardController.current
-
-                LaunchedEffect(currentWindowInsets) {
-                    Timber.d("insets: $currentWindowInsets")
-                    if (currentWindowInsets.calculateTopPadding() != 0.dp || currentWindowInsets.calculateBottomPadding() != 0.dp) {
-                        windowInsets.value = currentWindowInsets
-                    }
-                }
-                val navigator = rememberListDetailPaneScaffoldNavigator(
-                    calculatePaneScaffoldDirective(
-                        windowAdaptiveInfo = currentWindowAdaptiveInfo(),
-                    ).copy(
-                        horizontalPartitionSpacerSize = 0.dp,
-                        verticalPartitionSpacerSize = 0.dp,
-                    )
-                )
-                val isListVisible =
-                    navigator.scaffoldValue[ListDetailPaneScaffoldRole.List] == PaneAdaptedValue.Expanded
-                val isDetailVisible =
-                    navigator.scaffoldValue[ListDetailPaneScaffoldRole.Detail] == PaneAdaptedValue.Expanded
-
-                TouchSlopMultiplier {
-                    ModalNavigationDrawer(
-                        drawerState = drawerState,
-                        gesturesEnabled = isListVisible,
-                        drawerContent = {
-                            ModalDrawerSheet(
-                                drawerState = drawerState,
-                                windowInsets = WindowInsets(0, 0, 0, 0),
-                            ) {
-                                val context = LocalContext.current
-                                val scope = rememberCoroutineScope()
-                                TaskListDrawer(
-                                    arrangement = if (state.menuQuery.isBlank()) Arrangement.Top else Arrangement.Bottom,
-                                    filters = if (state.menuQuery.isNotEmpty()) state.searchItems else state.drawerItems,
-                                    onClick = {
-                                        when (it) {
-                                            is DrawerItem.Filter -> {
-                                                viewModel.setFilter(it.filter)
-                                                scope.launch {
-                                                    drawerState.close()
-                                                    keyboard?.hide()
-                                                }
-                                            }
-
-                                            is DrawerItem.Header -> {
-                                                viewModel.toggleCollapsed(it.header)
-                                            }
-                                        }
-                                    },
-                                    onAddClick = {
-                                        scope.launch {
-                                            drawerState.close()
-                                            when (it.header.addIntentRc) {
-                                                FilterProvider.REQUEST_NEW_FILTER ->
-                                                    NewFilterDialog.newFilterDialog().show(
-                                                        supportFragmentManager,
-                                                        SubheaderClickHandler.FRAG_TAG_NEW_FILTER
-                                                    )
-
-                                                REQUEST_NEW_PLACE ->
-                                                    startActivityForResult(
-                                                        Intent(
-                                                            this@MainActivity,
-                                                            LocationPickerActivity::class.java
-                                                        ),
-                                                        REQUEST_NEW_PLACE
-                                                    )
-
-                                                REQUEST_NEW_TAGS ->
-                                                    startActivityForResult(
-                                                        Intent(
-                                                            this@MainActivity,
-                                                            TagSettingsActivity::class.java
-                                                        ),
-                                                        REQUEST_NEW_LIST
-                                                    )
-
-                                                REQUEST_NEW_LIST -> {
-                                                    val account =
-                                                        caldavDao.getAccount(it.header.id.toLong())
-                                                            ?: return@launch
-                                                    when (it.header.subheaderType) {
-                                                        NavigationDrawerSubheader.SubheaderType.CALDAV,
-                                                        NavigationDrawerSubheader.SubheaderType.TASKS,
-                                                            ->
-                                                            startActivityForResult(
-                                                                Intent(
-                                                                    this@MainActivity,
-                                                                    account.listSettingsClass()
-                                                                )
-                                                                    .putExtra(
-                                                                        EXTRA_CALDAV_ACCOUNT,
-                                                                        account
-                                                                    ),
-                                                                REQUEST_NEW_LIST
-                                                            )
-
-                                                        else -> {}
-                                                    }
-                                                }
-
-                                                else -> Timber.e("Unhandled request code: $it")
-                                            }
-                                        }
-                                    },
-                                    onErrorClick = {
-                                        context.startActivity(Intent(context, MainPreferences::class.java))
-                                    },
-                                    searchBar = {
-                                        MenuSearchBar(
-                                            begForMoney = state.begForMoney,
-                                            onDrawerAction = {
-                                                scope.launch {
-                                                    drawerState.close()
-                                                    when (it) {
-                                                        DrawerAction.PURCHASE ->
-                                                            if (TasksApplication.IS_GENERIC)
-                                                                context.openUri(R.string.url_donate)
-                                                            else
-                                                                context.startActivity(
-                                                                    Intent(
-                                                                        context,
-                                                                        PurchaseActivity::class.java
-                                                                    )
-                                                                )
-
-                                                        DrawerAction.HELP_AND_FEEDBACK ->
-                                                            context.startActivity(
-                                                                Intent(
-                                                                    context,
-                                                                    HelpAndFeedback::class.java
-                                                                )
-                                                            )
-                                                    }
-                                                }
-                                            },
-                                            query = state.menuQuery,
-                                            onQueryChange = { viewModel.queryMenu(it) },
-                                        )
-                                    },
-                                )
-                            }
-                        }
-                    ) {
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = HomeDestination,
+                ) {
+                    composable<HomeDestination> {
                         val scope = rememberCoroutineScope()
-
+                        val state = viewModel.state.collectAsStateWithLifecycle().value
+                        val drawerState = rememberDrawerState(
+                            initialValue = DrawerValue.Closed,
+                            confirmStateChange = {
+                                viewModel.setDrawerState(it == DrawerValue.Open)
+                                true
+                            }
+                        )
+                        val navigator = rememberListDetailPaneScaffoldNavigator(
+                            calculatePaneScaffoldDirective(
+                                windowAdaptiveInfo = currentWindowAdaptiveInfo(),
+                            ).copy(
+                                horizontalPartitionSpacerSize = 0.dp,
+                                verticalPartitionSpacerSize = 0.dp,
+                            )
+                        )
+                        val keyboard = LocalSoftwareKeyboardController.current
                         LaunchedEffect(state.task) {
                             if (state.task == null) {
                                 if (intent.finishAffinity) {
@@ -332,6 +156,8 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
+                        val isDetailVisible =
+                            navigator.scaffoldValue[ListDetailPaneScaffoldRole.Detail] == PaneAdaptedValue.Expanded
                         BackHandler(enabled = state.task == null) {
                             Timber.d("onBackPressed")
                             if (intent.finishAffinity) {
@@ -357,80 +183,21 @@ class MainActivity : AppCompatActivity() {
                             }
                             drawerState.close()
                         }
-                        ListDetailPaneScaffold(
-                            directive = navigator.scaffoldDirective,
-                            value = navigator.scaffoldValue,
-                            listPane = {
-                                key (state.filter) {
-                                    val fragment = remember { mutableStateOf<TaskListFragment?>(null) }
-                                    val keyboardOpen = rememberImeState()
-                                    AndroidFragment<TaskListFragment>(
-                                        fragmentState = rememberFragmentState(),
-                                        arguments = remember(state.filter) {
-                                            Bundle()
-                                                .apply { putParcelable(EXTRA_FILTER, state.filter) }
-                                        },
-                                        modifier = Modifier
-                                            .fillMaxSize()
-                                            .imePadding(),
-                                    ) { tlf ->
-                                        fragment.value = tlf
-                                        tlf.applyInsets(windowInsets.value)
-                                        tlf.setNavigationClickListener {
-                                            scope.launch { drawerState.open() }
-                                        }
-                                    }
-                                    LaunchedEffect(fragment, windowInsets, keyboardOpen.value) {
-                                        fragment.value?.applyInsets(
-                                            if (keyboardOpen.value) {
-                                                PaddingValues(
-                                                    top = windowInsets.value.calculateTopPadding(),
-                                                )
-                                            } else {
-                                                windowInsets.value
-                                            }
-                                        )
-                                    }
-                                }
+                        HomeScreen(
+                            state = state,
+                            drawerState = drawerState,
+                            navigator = navigator,
+                            newList = {
+                                startActivityForResult(
+                                    Intent(this@MainActivity, it),
+                                    REQUEST_NEW_LIST
+                                )
                             },
-                            detailPane = {
-                                val direction = LocalLayoutDirection.current
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(
-                                            top = windowInsets.value.calculateTopPadding(),
-                                            start = windowInsets.value.calculateStartPadding(direction),
-                                            end = windowInsets.value.calculateEndPadding(direction),
-                                            bottom = if (rememberImeState().value)
-                                                WindowInsets.ime.asPaddingValues().calculateBottomPadding()
-                                            else
-                                                windowInsets.value.calculateBottomPadding()
-                                        ),
-                                    contentAlignment = Alignment.Center,
-                                ) {
-                                    if (state.task == null) {
-                                        if (isListVisible && isDetailVisible) {
-                                            Icon(
-                                                painter = painterResource(org.tasks.kmp.R.drawable.ic_launcher_no_shadow_foreground),
-                                                contentDescription = null,
-                                                modifier = Modifier.size(192.dp),
-                                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                            )
-                                        }
-                                    } else {
-                                        key(state.task) {
-                                            AndroidFragment<TaskEditFragment>(
-                                                fragmentState = rememberFragmentState(),
-                                                arguments = remember(state.task) {
-                                                    Bundle()
-                                                        .apply { putParcelable(EXTRA_TASK, state.task) }
-                                                },
-                                                modifier = Modifier.fillMaxSize(),
-                                            )
-                                        }
-                                    }
-                                }
+                            showNewFilterDialog = {
+                                NewFilterDialog.newFilterDialog().show(
+                                    supportFragmentManager,
+                                    SubheaderClickHandler.FRAG_TAG_NEW_FILTER
+                                )
                             },
                         )
                     }

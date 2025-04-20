@@ -154,6 +154,7 @@ dependencies {
     implementation(projects.data)
     implementation(projects.kmp)
     implementation(projects.icons)
+    implementation(libs.androidx.navigation)
     implementation(libs.androidx.adaptive.navigation.android)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.bitfire.dav4jvm) {
