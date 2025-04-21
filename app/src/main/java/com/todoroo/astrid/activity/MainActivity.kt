@@ -30,6 +30,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.core.content.IntentCompat.getParcelableExtra
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
@@ -91,10 +92,15 @@ class MainActivity : AppCompatActivity() {
     private var currentNightMode = 0
     private var currentPro = false
     private var actionMode: ActionMode? = null
+    private var isReady = false
 
     /** @see android.app.Activity.onCreate
      */
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
+        
+        splashScreen.setKeepOnScreenCondition { !isReady }
+        
         super.onCreate(savedInstanceState)
         theme.themeBase.set(this)
         currentNightMode = nightMode
@@ -117,6 +123,17 @@ class MainActivity : AppCompatActivity() {
                 primary = theme.themeColor.primaryColor,
             ) {
                 val navController = rememberNavController()
+                val hasAccount = viewModel
+                    .accountExists
+                    .collectAsStateWithLifecycle(null)
+                    .value
+                LaunchedEffect(hasAccount) {
+                    Timber.d("hasAccount=$hasAccount")
+                    if (hasAccount == false) {
+                        // TODO: navigate to add account screen
+                    }
+                    isReady = hasAccount != null
+                }
                 NavHost(
                     navController = navController,
                     startDestination = HomeDestination,

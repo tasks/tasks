@@ -181,6 +181,7 @@ dependencies {
     implementation(libs.androidx.hilt.navigation)
     implementation(libs.androidx.hilt.work)
 
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.fragment.compose)
     implementation(libs.androidx.lifecycle.runtime)

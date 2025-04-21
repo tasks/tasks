@@ -61,4 +61,11 @@
     <item name="android:windowShowWallpaper">true</item>
   </style>
 
+  <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+    <item name="windowSplashScreenBackground">@color/window_background</item>
+    <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_blue</item>
+    <item name="windowSplashScreenAnimationDuration">300</item>
+    <item name="postSplashScreenTheme">@style/Tasks</item>
+  </style>
+
 </resources>

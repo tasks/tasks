@@ -14,6 +14,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
@@ -82,6 +83,9 @@ class MainActivityViewModel @Inject constructor(
         )
     )
     val state = _state.asStateFlow()
+
+    val accountExists: Flow<Boolean>
+        get() = caldavDao.watchAccountExists()
 
     private val refreshReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {

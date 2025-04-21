@@ -1274,6 +1274,9 @@
 +|    |    +--- androidx.work:work-runtime-ktx:2.10.0 (c)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.20 (c)
 +|    \--- com.google.dagger:hilt-android:2.49 -> 2.56.2 (*)
+++--- androidx.core:core-splashscreen:1.0.1
++|    +--- androidx.annotation:annotation:1.2.0 -> 1.9.1 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.21 -> 2.1.20 (*)
 ++--- androidx.datastore:datastore-preferences:1.1.4 (*)
 ++--- androidx.fragment:fragment-compose:1.8.6
 +|    +--- androidx.compose.runtime:runtime:1.5.4 -> 1.7.8 (*)

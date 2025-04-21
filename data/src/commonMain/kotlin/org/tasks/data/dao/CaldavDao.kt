@@ -60,6 +60,9 @@ abstract class CaldavDao {
     @Query("SELECT * FROM caldav_accounts WHERE cda_id = :id")
     abstract fun watchAccount(id: Long): Flow<CaldavAccount?>
 
+    @Query("SELECT EXISTS(SELECT 1 FROM caldav_accounts LIMIT 1)")
+    abstract fun watchAccountExists(): Flow<Boolean>
+
     @Query("""
 SELECT *
 FROM caldav_accounts
