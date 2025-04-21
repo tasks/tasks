@@ -3,6 +3,8 @@ package org.tasks.compose.home
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -73,7 +75,7 @@ import timber.log.Timber
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
 fun HomeScreen(
-    viewModel: MainActivityViewModel = hiltViewModel(),
+    viewModel: MainActivityViewModel = hiltViewModel(LocalActivity.current as ComponentActivity),
     newList: suspend (Class<out Activity>) -> Unit,
     state: MainActivityViewModel.State,
     drawerState: DrawerState,
