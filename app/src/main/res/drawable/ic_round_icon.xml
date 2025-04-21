@@ -12,11 +12,6 @@
     <group>
       <clip-path
           android:pathData="M572.65,571.88m-572.51,0a572.51,572.51 0,1 1,1145.02 0a572.51,572.51 45,1 1,-1145.02 0"/>
-      <path
-          android:fillColor="#FF000000"
-          android:pathData="M429.5,771.89L230.23,572.61L162.61,640.23L1146.31,1623.94L1719.76,1050.49L935.33,266.06L429.5,771.89Z"
-          android:fillType="nonZero"
-          android:fillAlpha="0.15"/>
     </group>
   </group>
   <path
