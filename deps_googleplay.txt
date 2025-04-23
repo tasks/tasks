@@ -760,19 +760,19 @@
 +|    |    |    \--- com.google.guava:guava:33.3.1-android -> 33.4.0-android (*)
 +|    |    +--- com.google.protobuf:protobuf-javalite:3.25.5 -> 4.30.2
 +|    |    \--- com.google.guava:guava:33.3.1-android -> 33.4.0-android (*)
-+|    +--- io.grpc:grpc-kotlin-stub:1.4.1
++|    +--- io.grpc:grpc-kotlin-stub:1.4.1 -> 1.4.3
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.0 -> 2.1.20 (*)
-+|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.3 -> 1.10.1 (*)
-+|    |    +--- io.grpc:grpc-stub:1.57.2
-+|    |    |    +--- io.grpc:grpc-api:1.57.2 -> 1.72.0 (*)
-+|    |    |    \--- com.google.guava:guava:32.0.1-android -> 33.4.0-android (*)
++|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0 -> 1.10.1 (*)
++|    |    +--- io.grpc:grpc-stub:1.62.2
++|    |    |    +--- io.grpc:grpc-api:1.62.2 -> 1.72.0 (*)
++|    |    |    \--- com.google.guava:guava:32.1.3-android -> 33.4.0-android (*)
 +|    |    \--- javax.annotation:javax.annotation-api:1.3.2
 +|    +--- com.google.android.gms:play-services-wearable:19.0.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.1.20 (*)
 ++--- com.google.android.horologist:horologist-datalayer:0.6.23 (*)
 ++--- com.google.android.gms:play-services-wearable:19.0.0 (*)
 ++--- project :wear-datalayer
-+|    +--- io.grpc:grpc-kotlin-stub:1.4.1 (*)
++|    +--- io.grpc:grpc-kotlin-stub:1.4.3 (*)
 +|    +--- io.grpc:grpc-protobuf-lite:1.72.0 (*)
 +|    +--- io.grpc:grpc-android:1.72.0
 +|    |    +--- io.grpc:grpc-api:1.72.0 (*)
