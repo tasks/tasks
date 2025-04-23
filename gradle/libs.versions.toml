@@ -196,7 +196,7 @@ protobuf-protoc-gen-javalite = { group = "com.google.protobuf", name = "protoc-g
 protobuf-protoc-stnd = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 io-grpc-grpc-android = { group = "io.grpc", name = "grpc-android", version.ref = "grpc" }
 io-grpc-grpc-binder = { group = "io.grpc", name = "grpc-binder", version.ref = "grpc" }
-io-grpc-grpc-kotlin = { group = "io.grpc", name = "grpc-kotlin-stub", version = "1.4.1" }
+io-grpc-grpc-kotlin = { group = "io.grpc", name = "grpc-kotlin-stub", version = "1.4.3" }
 io-grpc-protobuf-lite = { group = "io.grpc", name = "grpc-protobuf-lite", version.ref = "grpc" }
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
 
