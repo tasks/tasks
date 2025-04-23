@@ -1605,7 +1605,7 @@
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|    +--- androidx.hilt:hilt-common:1.2.0
 +|    |    \--- com.google.dagger:hilt-core:2.49 -> 2.56.2 (*)
-+|    +--- androidx.work:work-runtime:2.3.4 -> 2.10.0
++|    +--- androidx.work:work-runtime:2.3.4 -> 2.10.1
 +|    |    +--- androidx.annotation:annotation-experimental:1.4.1 (*)
 +|    |    +--- androidx.concurrent:concurrent-futures-ktx:1.1.0 (*)
 +|    |    +--- androidx.core:core:1.12.0 -> 1.13.1 (*)
@@ -1627,7 +1627,7 @@
 +|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.1.20 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.10.1 (*)
-+|    |    +--- androidx.work:work-runtime-ktx:2.10.0 (c)
++|    |    +--- androidx.work:work-runtime-ktx:2.10.1 (c)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.20 (c)
 +|    \--- com.google.dagger:hilt-android:2.49 -> 2.56.2 (*)
 ++--- androidx.core:core-splashscreen:1.0.1
@@ -1747,9 +1747,9 @@
 ++--- com.google.apis:google-api-services-drive:v3-rev20250329-2.0.0
 +|    \--- com.google.api-client:google-api-client:2.7.2 (*)
 ++--- com.google.auth:google-auth-library-oauth2-http:1.33.1 (*)
-++--- androidx.work:work-runtime-ktx:2.10.0
-+|    +--- androidx.work:work-runtime:2.10.0 (*)
-+|    \--- androidx.work:work-runtime:2.10.0 (c)
+++--- androidx.work:work-runtime-ktx:2.10.1
++|    +--- androidx.work:work-runtime:2.10.1 (*)
++|    \--- androidx.work:work-runtime:2.10.1 (c)
 ++--- com.etebase:client:2.3.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|    \--- com.squareup.okhttp3:logging-interceptor:3.12.1
