@@ -269,8 +269,8 @@
     <string name="date_shortcut_tomorrow_afternoon">Zajtra poobede</string>
     <string name="date_shortcut_must_come_before">%1$s musí predchádzať %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s musí nasledovať po %2$s</string>
-    <string name="discard_changes">Vymazať zmeny?</string>
-    <string name="discard">Vymazať</string>
+    <string name="discard_changes">Zahodiť zmeny?</string>
+    <string name="discard">Zahodiť</string>
     <string name="tag_settings">Nastavenie štítku</string>
     <string name="list_settings">Nastavenia zoznamu</string>
     <string name="delete">Zmazať</string>
@@ -405,7 +405,7 @@
         <item quantity="other">výskytov</item>
     </plurals>
     <string name="randomly_every">Náhodne každých %s</string>
-    <string name="menu_discard_changes">Zrušiť zmeny</string>
+    <string name="menu_discard_changes">Zahodiť zmeny</string>
     <string name="widget_due_date_after_title">Za názvom</string>
     <string name="SSD_sort_start">Podľa dátumu spustenia</string>
     <string name="theme_dynamic">Dynamické</string>
