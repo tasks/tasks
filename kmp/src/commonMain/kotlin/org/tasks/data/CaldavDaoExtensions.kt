@@ -11,8 +11,12 @@ import tasks.kmp.generated.resources.default_list
 
 private val mutex = Mutex()
 
-suspend fun CaldavDao.setupLocalAccount(): CaldavAccount = mutex.withLock {
-    val account = getLocalAccount()
+suspend fun CaldavDao.newLocalAccount(): CaldavAccount = mutex.withLock {
+    val account = CaldavAccount(
+        accountType = CaldavAccount.TYPE_LOCAL,
+        uuid = UUIDHelper.newUUID(),
+    )
+        .let { it.copy(id = insert(it)) }
     getLocalList(account)
     return account
 }
@@ -22,12 +26,7 @@ suspend fun CaldavDao.getLocalList() = mutex.withLock {
 }
 
 suspend fun CaldavDao.getLocalAccount() =
-    getAccountByUuid(CaldavDao.LOCAL)
-        ?: CaldavAccount(
-            accountType = CaldavAccount.TYPE_LOCAL,
-            uuid = CaldavDao.LOCAL,
-        )
-            .let { it.copy(id = insert(it)) }
+    getAccounts(CaldavAccount.TYPE_LOCAL).firstOrNull() ?: newLocalAccount()
 
 private suspend fun CaldavDao.getLocalList(account: CaldavAccount): CaldavCalendar =
     getCalendarsByAccount(account.uuid!!).getOrNull(0)

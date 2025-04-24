@@ -685,7 +685,6 @@
     <string name="filter_no_priority">Bez nastavenej dôležitosti</string>
     <string name="filter_no_tags">Bez štítkov</string>
     <string name="privacy">Súkromie</string>
-    <string name="not_signed_in">Neprihlásený</string>
     <string name="alarm_before_due">%s pred termínom</string>
     <string name="documentation">Dokumentácia</string>
     <string name="color_wheel">Viac farieb</string>

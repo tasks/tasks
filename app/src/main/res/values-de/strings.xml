@@ -543,7 +543,6 @@
     <string name="sign_in_with_github">Mit GitHub anmelden</string>
     <string name="github_sponsors">GitHub-Sponsoren</string>
     <string name="google_play_subscribers">Google Play-Abonnenten</string>
-    <string name="not_signed_in">Nicht angemeldet</string>
     <string name="authorization_cancelled">Autorisierung abgebrochen</string>
     <string name="sign_in_with_google">Mit Google anmelden</string>
     <string name="account_not_included">Nicht im „Wähle deinen Preis“-Abonnement enthalten</string>

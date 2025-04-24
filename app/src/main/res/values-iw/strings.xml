@@ -565,7 +565,6 @@
     <string name="sign_in_with_google">להיכנס באמצעות Google</string>
     <string name="github_sponsors">נותני חסות GitHub</string>
     <string name="google_play_subscribers">מנויי Google Play</string>
-    <string name="not_signed_in">לא מחובר</string>
     <string name="authorization_cancelled">הרשאה בוטלה</string>
     <string name="no_google_play_subscription">לא נמצא מינוי Google Play זכאי</string>
     <string name="insufficient_sponsorship">לא נמצאה חסות GitHub זכאית</string>

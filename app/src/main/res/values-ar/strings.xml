@@ -481,7 +481,6 @@
     <string name="github_sponsor">راعي</string>
     <string name="authentication_required">يستلزم التوثيق</string>
     <string name="github_sponsors">رعاة GitHub</string>
-    <string name="not_signed_in">لم تسجل الدخول</string>
     <string name="authorization_cancelled">تم إلغاء التخويل</string>
     <string name="issue_tracker">تعقب المشكلة</string>
     <string name="chat_libera">انضم إلى #tasks على Libera Chat</string>

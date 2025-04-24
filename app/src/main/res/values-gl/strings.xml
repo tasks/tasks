@@ -512,7 +512,6 @@
     <string name="custom_filter_has_reminder">Ten un recordatorio</string>
     <string name="price_per_month">$%s/mes</string>
     <string name="authorization_cancelled">Cancelouse a autenticación</string>
-    <string name="not_signed_in">Sen acceso</string>
     <string name="above_average">Por riba da media</string>
     <string name="save_percent">Gardar %d%%</string>
     <string name="app_password">Contrasinal da app</string>

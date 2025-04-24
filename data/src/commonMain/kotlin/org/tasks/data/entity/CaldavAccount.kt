@@ -62,6 +62,9 @@ data class CaldavAccount(
     val isGoogleTasks: Boolean
         get() = accountType == TYPE_GOOGLE_TASKS
 
+    val isLocalList: Boolean
+        get() = accountType == TYPE_LOCAL
+
     val isSuppressRepeatingTasks: Boolean
         get() = when (serverType) {
             SERVER_OPEN_XCHANGE,

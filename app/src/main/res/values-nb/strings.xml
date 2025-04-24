@@ -542,7 +542,6 @@
     <string name="insufficient_sponsorship">Fant ikke noe GitHub-sponsorabonnement</string>
     <string name="migrate_count">Flytt %s til Tasks.org</string>
     <string name="sign_in_with_github">Logg inn med GitHub</string>
-    <string name="not_signed_in">Ikke innlogget</string>
     <plurals name="list_count">
         <item quantity="one">%d liste</item>
         <item quantity="other">%d lister</item>

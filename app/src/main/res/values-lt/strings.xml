@@ -566,7 +566,6 @@
     <string name="app_passwords">Programėlių slaptažodžiai</string>
     <string name="app_password">Programėlės slaptažodis</string>
     <string name="authentication_required">Autentifikacija privaloma</string>
-    <string name="not_signed_in">Neprisijungta</string>
     <string name="authorization_cancelled">Autorizavimas atšauktas</string>
     <string name="privacy">Privatumas</string>
     <string name="open_source">Atviras kodas</string>

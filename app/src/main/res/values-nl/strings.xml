@@ -539,7 +539,6 @@
     <string name="github_sponsors">GitHub sponsors</string>
     <string name="google_play_subscribers">Google Play abonnees</string>
     <string name="sign_in_with_github">Log in met GitHub</string>
-    <string name="not_signed_in">Niet ingelogd</string>
     <string name="no_google_play_subscription">Geen in aanmerking komend Google Play abonnement gevonden</string>
     <string name="insufficient_sponsorship">Geen in aanmerking komend GitHub-sponsoring gevonden</string>
     <string name="save_percent">Bespaar %d%%</string>

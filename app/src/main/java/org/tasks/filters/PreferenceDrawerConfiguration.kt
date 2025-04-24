@@ -27,7 +27,4 @@ class PreferenceDrawerConfiguration(
 
     override val recentlyModifiedFilter: Boolean
         get() = preferences.getBoolean(R.string.p_show_recently_modified_filter, super.recentlyModifiedFilter)
-
-    override val localListsEnabled: Boolean
-        get() = preferences.getBoolean(R.string.p_lists_enabled, super.localListsEnabled)
 }

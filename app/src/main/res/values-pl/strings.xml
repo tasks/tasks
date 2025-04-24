@@ -538,7 +538,6 @@
     <string name="authentication_required">Wymagane uwierzytelnienie</string>
     <string name="sign_in_with_github">Zaloguj z GitHub</string>
     <string name="sign_in_with_google">Zaloguj z Google</string>
-    <string name="not_signed_in">Niezalogowany</string>
     <string name="repeat_monthly_fifth_week">piąty</string>
     <plurals name="list_count">
         <item quantity="one">%d lista</item>

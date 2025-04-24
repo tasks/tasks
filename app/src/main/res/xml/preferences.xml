@@ -4,8 +4,9 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <Preference
-    android:key="@string/add_account"
-    android:title="@string/not_signed_in" />
+      android:key="@string/add_account"
+      android:title="@string/add_account"
+      app:icon="@drawable/ic_outline_add_24px" />
 
   <Preference
     app:fragment="org.tasks.preferences.fragments.LookAndFeel"

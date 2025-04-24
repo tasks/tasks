@@ -555,7 +555,6 @@
     <string name="authentication_required">Autentifikazioa derrigorrezkoa</string>
     <string name="sign_in_with_github">Hasi saioa GitHub erabiliz</string>
     <string name="google_play_subscribers">Google Play harpideak</string>
-    <string name="not_signed_in">Saioa hasi gabe</string>
     <string name="no_google_play_subscription">Ez da Google Play harpidetza egokirik aurkitu</string>
     <string name="insufficient_sponsorship">Ez da GitHub sponsorship egokirik aurkitu</string>
     <string name="local_lists">Zerrenda lokalak</string>

@@ -533,7 +533,6 @@
     <string name="sign_in_with_github">使用 GitHub 登录</string>
     <string name="github_sponsors">Github 赞助者</string>
     <string name="google_play_subscribers">Google Play 订阅者</string>
-    <string name="not_signed_in">未登录</string>
     <string name="no_google_play_subscription">找不到符合要求的 Google Play 订阅</string>
     <string name="insufficient_sponsorship">找不到符合要求的 GitHub 赞助</string>
     <string name="above_average">高于平均</string>

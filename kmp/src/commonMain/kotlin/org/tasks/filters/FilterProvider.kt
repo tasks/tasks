@@ -13,7 +13,6 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
-import org.tasks.data.setupLocalAccount
 import org.tasks.data.toLocationFilter
 import org.tasks.data.toTagFilter
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
@@ -193,9 +192,8 @@ class FilterProvider(
         showCreate: Boolean,
         forceExpand: Boolean,
     ): List<FilterListItem> =
-            caldavDao.getAccounts()
-                    .ifEmpty { listOf(caldavDao.setupLocalAccount()) }
-                    .filter { it.accountType != TYPE_LOCAL || configuration.localListsEnabled }
+            caldavDao
+                .getAccounts()
                 .flatMap {
                     caldavFilter(
                         it,
@@ -213,7 +211,7 @@ class FilterProvider(
         return listOf(
             NavigationDrawerSubheader(
                 if (account.accountType == TYPE_LOCAL) {
-                    getString(Res.string.drawer_local_lists)
+                    account.name?.takeIf { it.isNotBlank() } ?: getString(Res.string.drawer_local_lists)
                 } else {
                     account.name
                 },

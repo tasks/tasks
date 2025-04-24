@@ -468,7 +468,6 @@
     <string name="sign_in_with_google">Logga in med Google</string>
     <string name="github_sponsors">GitHub-sponsorer</string>
     <string name="google_play_subscribers">Google Play-prenumeranter</string>
-    <string name="not_signed_in">Inte inloggad</string>
     <string name="authorization_cancelled">Auktorisationen upphävd</string>
     <string name="privacy">Integritet</string>
     <string name="open_source">Öppen källkod</string>

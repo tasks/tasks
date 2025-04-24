@@ -66,13 +66,12 @@ abstract class CaldavDao {
     @Query("""
 SELECT *
 FROM caldav_accounts
-WHERE cda_account_type NOT IN (:exclude)
 ORDER BY CASE cda_account_type
              WHEN $TYPE_TASKS THEN 0
              ELSE 1
              END, UPPER(cda_name)
     """)
-    abstract fun watchAccounts(exclude: List<Int> = emptyList()): Flow<List<CaldavAccount>>
+    abstract fun watchAccounts(): Flow<List<CaldavAccount>>
 
     @Query("""
 SELECT *
@@ -416,9 +415,16 @@ ORDER BY primary_sort
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertOrReplace(googleTaskList: CaldavCalendar): Long
 
-    companion object {
-        const val LOCAL = "local"
+    @Query("""
+        SELECT COUNT(*)
+        FROM caldav_tasks
+        INNER JOIN caldav_lists ON cd_calendar = cdl_uuid
+        WHERE cdl_account = :account
+        AND cd_deleted = 0
+    """)
+    abstract suspend fun countTasks(account: String): Int
 
+    companion object {
         fun Long.toAppleEpoch(): Long = (this - APPLE_EPOCH) / 1000
     }
 }

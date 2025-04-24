@@ -578,7 +578,6 @@
     <string name="sign_in_with_google">Přihlášení přes Google</string>
     <string name="github_sponsors">sponzoři na GitHubu</string>
     <string name="google_play_subscribers">předplatitelé Google Play</string>
-    <string name="not_signed_in">Nepřihlášeni</string>
     <string name="authorization_cancelled">Autorizace zrušena</string>
     <string name="privacy">Soukromí</string>
     <string name="open_source">Otevřený zdrojový kód</string>

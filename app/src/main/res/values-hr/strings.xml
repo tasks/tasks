@@ -139,7 +139,6 @@
     <string name="local_lists">Popisi na uređaju</string>
     <string name="help">Pomoć</string>
     <string name="choose_synchronization_service">Odaberi platformu</string>
-    <string name="not_signed_in">Nisi prijavljen/a</string>
     <string name="contact_developer">Kontaktiraj programera</string>
     <string name="hide_unused_places">Sakrij nekorištena mjesta</string>
     <string name="place_settings">Postavke mjesta</string>

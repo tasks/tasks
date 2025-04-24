@@ -11,8 +11,6 @@ import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
-import org.tasks.data.getLocalAccount
-import org.tasks.data.getLocalList
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.CustomFilter
 import org.tasks.filters.Filter
@@ -92,7 +90,7 @@ class DefaultFilterProvider @Inject constructor(
                     ?.let { caldavDao.getAccountByUuid(it) }
                     ?.let { account -> CaldavFilter(calendar = list, account = account) }
             }
-            ?: CaldavFilter(calendar = caldavDao.getLocalList(), account = caldavDao.getLocalAccount())
+            ?: throw IllegalStateException()
         defaultList = filter
         return filter
     }

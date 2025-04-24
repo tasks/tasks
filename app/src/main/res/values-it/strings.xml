@@ -556,7 +556,6 @@
     <string name="sign_in_with_github">Accedi con GitHub</string>
     <string name="github_sponsors">Sponsor di GitHub</string>
     <string name="google_play_subscribers">Abbonati a Google Play</string>
-    <string name="not_signed_in">Accesso non eseguito</string>
     <string name="no_google_play_subscription">Nessun abbonamento Google Play idoneo trovato</string>
     <string name="insufficient_sponsorship">Nessuna sponsorizzazione GitHub idonea trovata</string>
     <string name="decsync_selection_description">Sincronizzazione basata sui file</string>

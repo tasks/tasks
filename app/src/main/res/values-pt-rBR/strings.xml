@@ -592,7 +592,6 @@
     <string name="sign_in_with_google">Faça login com Google</string>
     <string name="github_sponsors">Patrocinadores do GitHub</string>
     <string name="google_play_subscribers">Assinantes do Google Play</string>
-    <string name="not_signed_in">Não autenticado</string>
     <string name="authorization_cancelled">Autorização cancelada</string>
     <string name="privacy">Privacidade</string>
     <string name="open_source">Código aberto</string>

@@ -478,7 +478,6 @@
     <string name="sign_in_with_google">Увійти через Google</string>
     <string name="github_sponsors">Спонсори GitHub</string>
     <string name="google_play_subscribers">Підписники Google Play</string>
-    <string name="not_signed_in">Не авторизовані</string>
     <string name="authorization_cancelled">Авторизацію скасовано</string>
     <string name="follow_reddit">Долучитися до r/tasks</string>
     <string name="current_subscription">Поточна підписка: %s</string>

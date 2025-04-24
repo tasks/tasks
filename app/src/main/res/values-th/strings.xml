@@ -81,7 +81,6 @@
     <string name="logout">ออกจากระบบ</string>
     <string name="this_feature_requires_a_subscription">คุณลักษณะนี้ต้องการการสมัครใช้งาน</string>
     <string name="network_error">ไม่สามารถเชื่อมต่อได้</string>
-    <string name="not_signed_in">ไม่ได้ลงชื่อเข้าใช้</string>
     <string name="authorization_cancelled">ยกเลิกการตรวจสอบแล้ว</string>
     <string name="privacy">ข้อมูลส่วนบุคคล</string>
     <string name="open_source">เปิดแหล่งที่มา</string>

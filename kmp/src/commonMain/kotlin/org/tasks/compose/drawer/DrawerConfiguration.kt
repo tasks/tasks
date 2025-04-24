@@ -21,7 +21,4 @@ interface DrawerConfiguration {
 
     val recentlyModifiedFilter: Boolean
         get() = true
-
-    val localListsEnabled: Boolean
-        get() = true
 }

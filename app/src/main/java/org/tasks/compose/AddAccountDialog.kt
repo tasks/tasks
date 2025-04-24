@@ -16,7 +16,6 @@ import org.tasks.themes.TasksTheme
 fun AddAccountDialog(
     hasTasksAccount: Boolean,
     hasPro: Boolean,
-    enableMicrosoftSync: Boolean = true,
     selected: (Platform) -> Unit,
 ) {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
@@ -36,15 +35,13 @@ fun AddAccountDialog(
             icon = R.drawable.ic_google,
             onClick = { selected(Platform.GOOGLE_TASKS) }
         )
-        if (enableMicrosoftSync) {
-            SyncAccount(
-                title = R.string.microsoft,
-                cost = if (hasPro) null else R.string.cost_free,
-                description = R.string.microsoft_selection_description,
-                icon = R.drawable.ic_microsoft_tasks,
-                onClick = { selected(Platform.MICROSOFT) }
-            )
-        }
+        SyncAccount(
+            title = R.string.microsoft,
+            cost = if (hasPro) null else R.string.cost_free,
+            description = R.string.microsoft_selection_description,
+            icon = R.drawable.ic_microsoft_tasks,
+            onClick = { selected(Platform.MICROSOFT) }
+        )
         SyncAccount(
             title = R.string.davx5,
             cost = if (hasPro) null else R.string.cost_money,

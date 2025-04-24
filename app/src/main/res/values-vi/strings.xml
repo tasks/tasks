@@ -100,7 +100,6 @@
     <string name="sign_in_with_google">Đăng nhập bằng Google</string>
     <string name="google_play_subscribers">Người đăng ký trên Google Play</string>
     <string name="github_sponsors">Nhà tài trợ trên GitHub</string>
-    <string name="not_signed_in">Chưa đăng nhập</string>
     <string name="authorization_cancelled">Đã huỷ xác thực</string>
     <string name="privacy">Riêng tư</string>
     <string name="open_source">Mã nguồn mở</string>

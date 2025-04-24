@@ -682,7 +682,6 @@
     <string name="alarm_after_start">தொடக்கத்திற்குப் பிறகு %s</string>
     <string name="sort_not_available">குறிச்சொற்கள், வடிப்பான்கள் அல்லது இடங்களுக்கு கிடைக்கவில்லை</string>
     <string name="authorization_cancelled">ஏற்பு ரத்து செய்யப்பட்டது</string>
-    <string name="not_signed_in">உள்நுழையவில்லை</string>
     <string name="above_average">சராசரிக்கு மேல்</string>
     <string name="app_passwords">பயன்பாட்டு கடவுச்சொற்கள்</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org உடன் ஒத்திசைத்து பிற பயனர்களுடன் ஒத்துழைக்கவும்</string>

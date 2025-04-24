@@ -561,7 +561,6 @@
     <string name="issue_tracker">Issue tracker / 問題追跡</string>
     <string name="privacy">プライバシー</string>
     <string name="authorization_cancelled">認証が取り消されました</string>
-    <string name="not_signed_in">サインインしていません</string>
     <string name="tasks_org_account_required">Tasks.org のアカウントが必要です</string>
     <string name="account_not_included">「価格はあなた次第」でのサブスクリプションには含まれていません</string>
     <string name="list_members">リストメンバー</string>

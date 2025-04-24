@@ -287,7 +287,6 @@
     <string name="sign_in_with_google">使用 Google 登入</string>
     <string name="github_sponsors">GitHub 贊助者</string>
     <string name="google_play_subscribers">Goole Play 訂閱者</string>
-    <string name="not_signed_in">未登入</string>
     <string name="authorization_cancelled">取消授權</string>
     <string name="current_subscription">目前訂閱: %s</string>
     <string name="price_per_month">$%s/每月</string>

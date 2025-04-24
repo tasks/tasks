@@ -515,7 +515,6 @@
     <string name="sign_in_with_google">Log ind med Google</string>
     <string name="github_sponsors">GitHub-sponsorer</string>
     <string name="google_play_subscribers">Google Play-abonnenter</string>
-    <string name="not_signed_in">Ikke logget ind</string>
     <string name="authorization_cancelled">Autorisation annulleret</string>
     <string name="follow_reddit">Følg r/tasks</string>
     <string name="current_subscription">Nuværende abonnement: %s</string>

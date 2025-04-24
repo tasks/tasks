@@ -9,8 +9,8 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.dao.CaldavDao.Companion.LOCAL
 import org.tasks.data.dao.DeletionDao
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.date.DateTimeUtils.newDateTime
@@ -62,7 +62,8 @@ class DeletionDaoTests : InjectingTestCase() {
     fun purgeDeletedLocalTask() = runBlocking {
         val task = newTask(with(DELETION_TIME, newDateTime()))
         taskDao.createNew(task)
-        caldavDao.insert(CaldavCalendar(name = "", uuid = "1234", account = LOCAL))
+        caldavDao.insert(CaldavAccount(uuid = "abcd", accountType = CaldavAccount.TYPE_LOCAL))
+        caldavDao.insert(CaldavCalendar(name = "", uuid = "1234", account = "abcd"))
         caldavDao.insert(CaldavTask(task = task.id, calendar = "1234"))
 
         deletionDao.purgeDeleted()
@@ -74,7 +75,8 @@ class DeletionDaoTests : InjectingTestCase() {
     fun dontPurgeActiveTasks() = runBlocking {
         val task = newTask()
         taskDao.createNew(task)
-        caldavDao.insert(CaldavCalendar(name = "", uuid = "1234", account = LOCAL))
+        caldavDao.insert(CaldavAccount(uuid = "abcd", accountType = CaldavAccount.TYPE_LOCAL))
+        caldavDao.insert(CaldavCalendar(name = "", uuid = "1234", account = "abcd"))
         caldavDao.insert(CaldavTask(task = task.id, calendar = "1234"))
 
         deletionDao.purgeDeleted()

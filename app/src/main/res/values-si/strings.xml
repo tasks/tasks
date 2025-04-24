@@ -91,7 +91,6 @@
     <string name="sign_in_with_github">GitHub සමඟ පුරනය වන්න</string>
     <string name="github_sponsors">GitHub අනුග්‍රාහකයන්</string>
     <string name="google_play_subscribers">Google Play ග්‍රාහකයින්</string>
-    <string name="not_signed_in">පුරනය වී නොමැත</string>
     <string name="authorization_cancelled">අවසරය අවලංගු කරන ලදි</string>
     <string name="privacy">පෞද්ගලිකත්වය</string>
     <string name="open_source">විවෘත මූලාශ්‍රය</string>

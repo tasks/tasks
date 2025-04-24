@@ -561,7 +561,6 @@
     <string name="sign_in_with_github">Connectez-vous avec « GitHub »</string>
     <string name="github_sponsors">Parrains « GitHub »</string>
     <string name="google_play_subscribers">Abonnés « Google Play »</string>
-    <string name="not_signed_in">Non connecté</string>
     <string name="no_google_play_subscription">Aucun abonnement « Google Play » éligible n\'a été trouvé</string>
     <string name="insufficient_sponsorship">Aucun parrainage « GitHub » éligible n\'a été trouvé</string>
     <string name="above_average">Au dessus de la moyenne</string>

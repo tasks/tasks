@@ -411,6 +411,8 @@ File %1$s contained %2$s.\n\n
   <string name="copy_selected_tasks">Copy selected tasks?</string>
   <string name="date_and_time">Date and time</string>
   <string name="add_account">Add account</string>
+  <string name="continue_without_sync">Continue without sync</string>
+  <string name="help_me_choose">Help me choose</string>
   <string name="user">User</string>
   <string name="password">Password</string>
   <string name="url">URL</string>
@@ -479,6 +481,7 @@ File %1$s contained %2$s.\n\n
   <string name="requires_pro_subscription">Requires pro subscription</string>
   <string name="this_feature_requires_a_subscription">This feature requires a subscription</string>
   <string name="logout">Log out</string>
+  <string name="delete_tasks_warning">%s will be deleted. This cannot be undone!</string>
   <string name="logout_warning">All data for this account will be removed from your device</string>
   <string name="cannot_access_account">Cannot access account</string>
   <string name="reinitialize_account">Reinitialize</string>
@@ -638,7 +641,6 @@ File %1$s contained %2$s.\n\n
   <string name="open_source">Open source</string>
   <string name="privacy">Privacy</string>
   <string name="authorization_cancelled">Authorization cancelled</string>
-  <string name="not_signed_in">Not signed in</string>
   <string name="google_play_subscribers">Google Play subscribers</string>
   <string name="github_sponsors">GitHub Sponsors</string>
   <string name="sign_in_with_google">Sign in with Google</string>

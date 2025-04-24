@@ -7,6 +7,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
+import org.tasks.compose.AddAccountDialog
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.Preferences
@@ -34,7 +35,8 @@ class AddAccountDialog : DialogFragment() {
         DAVX5,
         CALDAV,
         ETESYNC,
-        DECSYNC_CC
+        DECSYNC_CC,
+        LOCAL,
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -46,9 +48,8 @@ class AddAccountDialog : DialogFragment() {
                     theme = theme.themeBase.index,
                     primary = theme.themeColor.primaryColor,
                 ) {
-                    org.tasks.compose.AddAccountDialog(
+                    AddAccountDialog(
                         hasTasksAccount = hasTasksAccount,
-                        enableMicrosoftSync = preferences.getBoolean(R.string.p_microsoft_sync, false),
                         hasPro = hasPro,
                         selected = this::selected
                     )

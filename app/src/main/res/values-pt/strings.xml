@@ -558,7 +558,6 @@
     <string name="sign_in_with_google">Iniciar sessão com o Google</string>
     <string name="github_sponsors">Patrocinadores do GitHub</string>
     <string name="google_play_subscribers">Subscritores do Google Play</string>
-    <string name="not_signed_in">Não autenticado</string>
     <string name="privacy">Privacidade</string>
     <string name="open_source">Código-fonte aberto</string>
     <string name="issue_tracker">Reportar problemas</string>

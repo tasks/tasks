@@ -585,7 +585,6 @@
     <string name="astrid_sort_order">Astrid manuaalinen lajittelu</string>
     <string name="github_sponsors">GitHubin sponsorit</string>
     <string name="google_play_subscribers">Google Play -tilaajat</string>
-    <string name="not_signed_in">Ei kirjautunut sisään</string>
     <string name="authorization_cancelled">Lupa peruutettu</string>
     <string name="privacy">yksityisyys</string>
     <string name="open_source">Avoin lähdekoodi</string>

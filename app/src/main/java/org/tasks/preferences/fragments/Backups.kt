@@ -27,7 +27,7 @@ const val REQUEST_DRIVE_BACKUP = 12002
 private const val REQUEST_PICKER = 10003
 private const val REQUEST_BACKUP_NOW = 10004
 private const val FRAG_TAG_EXPORT_TASKS = "frag_tag_export_tasks"
-private const val FRAG_TAG_IMPORT_TASKS = "frag_tag_import_tasks"
+const val FRAG_TAG_IMPORT_TASKS = "frag_tag_import_tasks"
 
 @AndroidEntryPoint
 class Backups : InjectingPreferenceFragment() {

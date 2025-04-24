@@ -22,7 +22,6 @@ import org.tasks.auth.SignInActivity
 import org.tasks.auth.SignInActivity.Platform
 import org.tasks.billing.Inventory
 import org.tasks.billing.Purchase
-import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
 import org.tasks.extensions.Context.openUri
@@ -203,7 +202,8 @@ class TasksAccount : BaseAccountPreference() {
         }
 
         lifecycleScope.launch {
-            val listCount = caldavDao.listCount(CaldavDao.LOCAL)
+            val localAccount = caldavDao.getAccounts(CaldavAccount.TYPE_LOCAL).firstOrNull()
+            val listCount = localAccount?.uuid?.let { caldavDao.listCount(it) } ?: 0
             val quantityString = resources.getQuantityString(R.plurals.list_count, listCount, listCount)
             findPreference(R.string.migrate).isVisible = listCount > 0
             findPreference(R.string.local_lists).summary =

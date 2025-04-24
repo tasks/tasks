@@ -491,7 +491,6 @@
     <string name="third_party_licenses">Kolmandate osapoolte litsentsid</string>
     <string name="name_your_price">Ütle oma hind</string>
     <string name="hide_unused_places">Peida kasutamata asukohad</string>
-    <string name="not_signed_in">Ei ole sisse logitud</string>
     <string name="app_password_last_access">Viimati kasutatud: %s</string>
     <string name="invite_awaiting_response">Kutse ootab vastust</string>
     <string name="completion_sound">Esita lõpetamise heli</string>

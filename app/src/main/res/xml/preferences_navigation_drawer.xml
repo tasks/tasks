@@ -59,11 +59,4 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/local_lists">
-        <SwitchPreferenceCompat
-          android:defaultValue="true"
-          android:key="@string/p_lists_enabled"
-          android:title="@string/enabled" />
-    </PreferenceCategory>
-
 </PreferenceScreen>

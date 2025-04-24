@@ -521,7 +521,6 @@
     <string name="sign_in_with_google">구글을 이용해서 로그인</string>
     <string name="github_sponsors">깃허브 후원자</string>
     <string name="google_play_subscribers">구글 플레이 구독자</string>
-    <string name="not_signed_in">로그인 되어있지 않음</string>
     <string name="follow_reddit">r/tasks 구독</string>
     <string name="no_google_play_subscription">적합한 구글 플레이 구독을 찾을 수 없습니다</string>
     <string name="insufficient_sponsorship">적합한 깃허브 후원 자격을 찾을 수 없습니다</string>

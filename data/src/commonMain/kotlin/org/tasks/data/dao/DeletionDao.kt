@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
 import co.touchlab.kermit.Logger
-import org.tasks.data.dao.CaldavDao.Companion.LOCAL
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.CaldavAccount
@@ -90,7 +89,14 @@ WHERE recurring = 1
     @Delete
     internal abstract suspend fun deleteCaldavAccount(caldavAccount: CaldavAccount)
 
-    @Query("DELETE FROM tasks WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task INNER JOIN caldav_lists ON cdl_uuid = cd_calendar WHERE cdl_account = '$LOCAL' AND deleted > 0 AND cd_deleted = 0)")
+    @Query("""
+        DELETE FROM tasks WHERE _id IN (
+            SELECT _id FROM tasks 
+                INNER JOIN caldav_tasks ON _id = cd_task
+                INNER JOIN caldav_lists ON cdl_uuid = cd_calendar
+                INNER JOIN caldav_accounts ON cdl_account = cda_uuid
+                WHERE cda_account_type == ${CaldavAccount.TYPE_LOCAL} AND deleted > 0 AND cd_deleted = 0)
+    """)
     abstract suspend fun purgeDeleted()
 
     @Transaction

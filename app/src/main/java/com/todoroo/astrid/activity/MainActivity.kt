@@ -11,8 +11,10 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
@@ -31,13 +33,16 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.core.content.IntentCompat.getParcelableExtra
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.todoroo.astrid.adapter.SubheaderClickHandler
 import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -45,22 +50,36 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.analytics.Firebase
+import org.tasks.auth.SignInActivity
 import org.tasks.billing.Inventory
+import org.tasks.caldav.CaldavAccountSettingsActivity
+import org.tasks.compose.AddAccountDestination
 import org.tasks.compose.HomeDestination
+import org.tasks.compose.accounts.AddAccountScreen
+import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.home.HomeScreen
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Task
+import org.tasks.dialogs.ImportTasksDialog
 import org.tasks.dialogs.NewFilterDialog
+import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.extensions.Context.nightMode
+import org.tasks.extensions.Context.toast
 import org.tasks.extensions.broughtToFront
 import org.tasks.extensions.flagsToString
 import org.tasks.extensions.isFromHistory
+import org.tasks.files.FileHelper
 import org.tasks.filters.Filter
+import org.tasks.jobs.WorkManager
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.fragments.FRAG_TAG_IMPORT_TASKS
+import org.tasks.sync.AddAccountDialog
+import org.tasks.sync.SyncAdapters
+import org.tasks.sync.microsoft.MicrosoftSignInViewModel
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
@@ -82,6 +101,8 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var alarmDao: AlarmDao
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var syncAdapters: SyncAdapters
+    @Inject lateinit var workManager: WorkManager
 
     private val viewModel: MainActivityViewModel by viewModels()
     private var currentNightMode = 0
@@ -125,7 +146,7 @@ class MainActivity : AppCompatActivity() {
                 LaunchedEffect(hasAccount) {
                     Timber.d("hasAccount=$hasAccount")
                     if (hasAccount == false) {
-                        // TODO: navigate to add account screen
+                        navController.navigate(AddAccountDestination(showImport = true))
                     }
                     isReady = hasAccount != null
                 }
@@ -133,7 +154,87 @@ class MainActivity : AppCompatActivity() {
                     navController = navController,
                     startDestination = HomeDestination,
                 ) {
+                    composable<AddAccountDestination> {
+                        val route = it.toRoute<AddAccountDestination>()
+                        LaunchedEffect(hasAccount) {
+                            if (route.showImport && hasAccount == true) {
+                                navController.popBackStack()
+                            }
+                        }
+                        val addAccountViewModel: AddAccountViewModel = hiltViewModel()
+                        val microsoftVM: MicrosoftSignInViewModel = hiltViewModel()
+                        val syncLauncher =
+                            rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                                if (result.resultCode == RESULT_OK) {
+                                    syncAdapters.sync(true)
+                                    workManager.updateBackgroundSync()
+                                } else {
+                                    result.data
+                                        ?.getStringExtra(GtasksLoginActivity.EXTRA_ERROR)
+                                        ?.let { toast(it) }
+                                }
+                            }
+                        val importBackupLauncher =
+                            rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                                if (result.resultCode == RESULT_OK) {
+                                    val uri = result.data?.data ?: return@rememberLauncherForActivityResult
+                                    ImportTasksDialog.newImportTasksDialog(uri)
+                                        .show(supportFragmentManager, FRAG_TAG_IMPORT_TASKS)
+                                }
+                            }
+                        AddAccountScreen(
+                            gettingStarted = route.showImport,
+                            hasTasksAccount = inventory.hasTasksAccount,
+                            hasPro = inventory.hasPro,
+                            onBack = { navController.popBackStack() },
+                            signIn = { platform ->
+                                firebase.logEvent(R.string.event_onboarding_sync, R.string.param_selection to platform)
+                                when (platform) {
+                                    AddAccountDialog.Platform.TASKS_ORG ->
+                                        syncLauncher.launch(
+                                            Intent(this@MainActivity, SignInActivity::class.java)
+                                        )
+
+                                    AddAccountDialog.Platform.GOOGLE_TASKS ->
+                                        syncLauncher.launch(
+                                            Intent(this@MainActivity, GtasksLoginActivity::class.java)
+                                        )
+
+                                    AddAccountDialog.Platform.MICROSOFT ->
+                                        microsoftVM.signIn(this@MainActivity)
+
+                                    AddAccountDialog.Platform.CALDAV ->
+                                        syncLauncher.launch(
+                                            Intent(this@MainActivity, CaldavAccountSettingsActivity::class.java)
+                                        )
+
+                                    AddAccountDialog.Platform.ETESYNC ->
+                                        syncLauncher.launch(
+                                            Intent(this@MainActivity, EtebaseAccountSettingsActivity::class.java)
+                                        )
+
+                                    AddAccountDialog.Platform.LOCAL ->
+                                        addAccountViewModel.createLocalAccount()
+
+                                    else -> throw IllegalArgumentException()
+                                }
+                            },
+                            openUrl = { platform ->
+                                firebase.logEvent(R.string.event_onboarding_sync, R.string.param_selection to platform.name)
+                                addAccountViewModel.openUrl(this@MainActivity, platform)
+                            },
+                            onImportBackup = {
+                                firebase.logEvent(R.string.event_onboarding_sync, R.string.param_selection to "import_backup")
+                                importBackupLauncher.launch(
+                                    FileHelper.newFilePickerIntent(this@MainActivity, preferences.backupDirectory),
+                                )
+                            }
+                        )
+                    }
                     composable<HomeDestination> {
+                        if (hasAccount != true) {
+                            return@composable
+                        }
                         val scope = rememberCoroutineScope()
                         val state = viewModel.state.collectAsStateWithLifecycle().value
                         val drawerState = rememberDrawerState(
