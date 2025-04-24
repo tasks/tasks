@@ -17,7 +17,6 @@ import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.kmp.org.tasks.time.getFullDateTime
-import org.tasks.preferences.FragmentPermissionRequestor
 import org.tasks.preferences.PermissionRequestor
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.PreferencesViewModel
@@ -185,14 +184,10 @@ class Backups : InjectingPreferenceFragment() {
             if (resultCode == RESULT_OK) {
                 val uri = data!!.data
                 val extension = FileHelper.getExtension(requireContext(), uri!!)
-                if (!("json".equals(extension, ignoreCase = true) || "xml".equals(
-                        extension,
-                        ignoreCase = true
-                    ))
-                ) {
+                if (!"json".equals(extension, ignoreCase = true)) {
                     context?.toast(R.string.invalid_backup_file)
                 } else {
-                    ImportTasksDialog.newImportTasksDialog(uri, extension)
+                    ImportTasksDialog.newImportTasksDialog(uri)
                         .show(parentFragmentManager, FRAG_TAG_IMPORT_TASKS)
                 }
             }

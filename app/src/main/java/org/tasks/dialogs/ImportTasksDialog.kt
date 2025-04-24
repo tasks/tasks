@@ -25,7 +25,6 @@ class ImportTasksDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val arguments = requireArguments()
         val data = arguments.getParcelable<Uri>(EXTRA_URI)
-        val extension = arguments.getString(EXTRA_EXTENSION)
         val progressDialog = dialogBuilder.newProgressDialog().apply {
             setProgressStyle(ProgressDialog.STYLE_SPINNER)
             setCancelable(false)
@@ -34,17 +33,14 @@ class ImportTasksDialog : DialogFragment() {
 
         progressDialog.show()
         isCancelable = false
-        when (extension) {
-            "json" -> lifecycleScope.launch {
-                val result = withContext(NonCancellable) {
-                    jsonImporter.importTasks(requireActivity(), data, progressDialog)
-                }
-                if (progressDialog.isShowing) {
-                    progressDialog.dismiss()
-                }
-                showSummary(result)
+        lifecycleScope.launch {
+            val result = withContext(NonCancellable) {
+                jsonImporter.importTasks(requireActivity(), data, progressDialog)
             }
-            else -> throw RuntimeException("Invalid extension: $extension")
+            if (progressDialog.isShowing) {
+                progressDialog.dismiss()
+            }
+            showSummary(result)
         }
         return progressDialog
     }
@@ -70,13 +66,11 @@ class ImportTasksDialog : DialogFragment() {
 
     companion object {
         private const val EXTRA_URI = "extra_uri"
-        private const val EXTRA_EXTENSION = "extra_extension"
 
-        fun newImportTasksDialog(data: Uri?, extension: String?): ImportTasksDialog {
+        fun newImportTasksDialog(data: Uri): ImportTasksDialog {
             val importTasksDialog = ImportTasksDialog()
             val args = Bundle()
             args.putParcelable(EXTRA_URI, data)
-            args.putString(EXTRA_EXTENSION, extension)
             importTasksDialog.arguments = args
             return importTasksDialog
         }
