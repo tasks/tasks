@@ -1,10 +1,12 @@
 package org.tasks.compose.home
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity.RESULT_OK
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -41,9 +43,11 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.IntentCompat.getParcelableExtra
 import androidx.fragment.compose.AndroidFragment
 import androidx.fragment.compose.rememberFragmentState
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.todoroo.astrid.activity.MainActivity.Companion.OPEN_FILTER
 import com.todoroo.astrid.activity.MainActivityViewModel
 import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.EXTRA_TASK
@@ -60,6 +64,7 @@ import org.tasks.compose.drawer.MenuSearchBar
 import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.data.listSettingsClass
 import org.tasks.extensions.Context.openUri
+import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_LIST
 import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_PLACE
@@ -76,7 +81,6 @@ import timber.log.Timber
 @Composable
 fun HomeScreen(
     viewModel: MainActivityViewModel = hiltViewModel(LocalActivity.current as ComponentActivity),
-    newList: suspend (Class<out Activity>) -> Unit,
     state: MainActivityViewModel.State,
     drawerState: DrawerState,
     showNewFilterDialog: () -> Unit,
@@ -85,6 +89,14 @@ fun HomeScreen(
     val currentWindowInsets = WindowInsets.systemBars.asPaddingValues()
     val windowInsets = remember { mutableStateOf(currentWindowInsets) }
     val keyboard = LocalSoftwareKeyboardController.current
+    val newList =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                result.data
+                    ?.let { getParcelableExtra(it, OPEN_FILTER, Filter::class.java) }
+                    ?.let { viewModel.setFilter(it) }
+            }
+        }
 
     LaunchedEffect(currentWindowInsets) {
         Timber.d("insets: $currentWindowInsets")
@@ -134,10 +146,10 @@ fun HomeScreen(
                                         showNewFilterDialog()
 
                                     REQUEST_NEW_PLACE ->
-                                        newList(LocationPickerActivity::class.java)
+                                        newList.launch(Intent(context, LocationPickerActivity::class.java))
 
                                     REQUEST_NEW_TAGS ->
-                                        newList(TagSettingsActivity::class.java)
+                                        newList.launch(Intent(context, TagSettingsActivity::class.java))
 
                                     REQUEST_NEW_LIST ->
                                         when (it.header.subheaderType) {
@@ -145,7 +157,7 @@ fun HomeScreen(
                                             NavigationDrawerSubheader.SubheaderType.TASKS ->
                                                 viewModel
                                                     .getAccount(it.header.id.toLong())
-                                                    ?.let { newList(it.listSettingsClass()) }
+                                                    ?.let { newList.launch(Intent(context, it.listSettingsClass())) }
 
                                             else -> {}
                                         }

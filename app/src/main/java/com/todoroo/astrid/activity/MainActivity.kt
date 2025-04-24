@@ -52,7 +52,6 @@ import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
-import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
 import org.tasks.dialogs.NewFilterDialog
 import org.tasks.extensions.Context.nightMode
@@ -60,10 +59,6 @@ import org.tasks.extensions.broughtToFront
 import org.tasks.extensions.flagsToString
 import org.tasks.extensions.isFromHistory
 import org.tasks.filters.Filter
-import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_LIST
-import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_PLACE
-import org.tasks.filters.PlaceFilter
-import org.tasks.location.LocationPickerActivity.Companion.EXTRA_PLACE
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
@@ -204,12 +199,6 @@ class MainActivity : AppCompatActivity() {
                             state = state,
                             drawerState = drawerState,
                             navigator = navigator,
-                            newList = {
-                                startActivityForResult(
-                                    Intent(this@MainActivity, it),
-                                    REQUEST_NEW_LIST
-                                )
-                            },
                             showNewFilterDialog = {
                                 NewFilterDialog.newFilterDialog().show(
                                     supportFragmentManager,
@@ -223,27 +212,6 @@ class MainActivity : AppCompatActivity() {
         }
         logIntent("onCreate")
         handleIntent()
-    }
-
-    @Deprecated("Deprecated in Java")
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_NEW_LIST ->
-                if (resultCode == RESULT_OK && data != null) {
-                    getParcelableExtra(data, OPEN_FILTER, Filter::class.java)?.let {
-                        viewModel.setFilter(it)
-                    }
-                }
-            REQUEST_NEW_PLACE ->
-                if (resultCode == RESULT_OK && data != null) {
-                    getParcelableExtra(data, EXTRA_PLACE, Place::class.java)?.let {
-                        viewModel.setFilter(PlaceFilter(it))
-                    }
-                }
-
-            else ->
-                super.onActivityResult(requestCode, resultCode, data)
-        }
     }
 
     override fun onNewIntent(intent: Intent) {
