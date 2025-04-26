@@ -153,7 +153,6 @@
     android:fullBackupOnly="false"
     android:icon="@mipmap/ic_launcher_blue"
     android:label="@string/app_name"
-    android:manageSpaceActivity="org.tasks.preferences.ManageSpaceActivity"
     android:name=".TasksApplication"
     android:roundIcon="@mipmap/ic_launcher_blue"
     android:supportsRtl="true"
@@ -664,9 +663,6 @@
       </intent-filter>
     </activity>
 
-    <activity
-      android:name=".preferences.ManageSpaceActivity"
-      android:theme="@style/Tasks" />
       <activity android:name="org.tasks.sync.microsoft.MicrosoftListSettingsActivity" />
 
       <activity
