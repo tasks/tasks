@@ -51,4 +51,11 @@
 # material icons
 -keep class androidx.compose.material.icons.outlined.** { *; }
 
+# microsoft authentication
+
+-dontwarn com.microsoft.device.display.DisplayMask
+-dontwarn com.google.android.libraries.identity.**
+-dontwarn edu.umd.cs.findbugs.annotations.**
+-dontwarn com.google.crypto.tink.subtle.**
+
 -keepclassmembers class * extends com.google.protobuf.GeneratedMessageLite { <fields>; }
