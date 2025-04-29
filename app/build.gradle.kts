@@ -231,6 +231,8 @@ dependencies {
     implementation(libs.appauth)
     implementation(libs.microsoft.authentication) {
         exclude("com.microsoft.device.display", "display-mask")
+        exclude("com.google.android.gms")
+        exclude("com.google.android.libraries.identity.googleid")
     }
     implementation(libs.osmdroid)
     implementation(libs.androidx.recyclerview)
