@@ -1,3 +1,28 @@
+### 14.7 (2025-04-30)
+
+* Add support for Microsoft To Do work & school accounts [#3267](https://github.com/tasks/tasks/issues/3267)
+* Add ability to rename or delete local account
+* Prompt to sign in or import backup on first launch
+* @BeaterGhalio: Fix back button closing app after search [#3426](https://github.com/tasks/tasks/issues/3426)
+* @codokie: Automirrored icons fix [#3499](https://github.com/tasks/tasks/pull/3499)
+* @codokie: Fix ltr-rtl alignment for text input [#3489](https://github.com/tasks/tasks/pull/3489)
+* Use system language picker on Android 33+
+* Don't show 'due date' as a start date option for DAVx5, EteSync, DecSync CC [#1558](https://github.com/tasks/tasks/issues/1558)
+* Don't handle system 'Clear storage' button
+* Update minimum Android version to 8
+* Fix start date chip when grouping by start date [#3509](https://github.com/tasks/tasks/issues/3509)
+* Update translations
+  * Brazilian Portuguese - @sobeitnow0, dedakir923
+  * Czech - @Fjuro
+  * Dutch - Jay Tromp
+  * German - min7-i
+  * Hebrew - Xo
+  * Portuguese - @wm-pucrs
+  * Russian - @hady-exc
+  * Slovak - @jose1711
+  * Spanish - Nucl3arSnake, @diamondtipdr
+  * Tamil - @TamilNeram
+
 ### 14.6.2 (2025-04-06)
 
 * Show error indicators if 'When started' or 'When due' reminders are used

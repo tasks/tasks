@@ -1,0 +1,11 @@
+* Support Microsoft To Do work & school accounts
+* Rename or delete local account
+* Prompt to sign in or import backup on first launch
+* Use system language picker on Android 33+
+* Don't show 'due date' as a start date option for DAVx5, EteSync, DecSync CC
+* Automirrored icons fix
+* Fix back button closing app after search
+* Fix ltr-rtl alignment for text input
+* Don't handle system 'Clear storage' button
+* Fix start date chip when grouping by start date
+* Update minimum Android version to 8
