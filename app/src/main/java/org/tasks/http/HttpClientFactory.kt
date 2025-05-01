@@ -86,7 +86,7 @@ class HttpClientFactory @Inject constructor(
         return builder.build()
     }
 
-    suspend fun getMicrosoftService(account: CaldavAccount): MicrosoftService {
+    suspend fun getMicrosoftService(account: CaldavAccount): MicrosoftService = withContext(Dispatchers.IO) {
         val app = PublicClientApplication.createMultipleAccountPublicClientApplication(
             context,
             R.raw.microsoft_config
@@ -144,7 +144,7 @@ class HttpClientFactory @Inject constructor(
                 sanitizeHeader { header -> header == HttpHeaders.Authorization }
             }
         }
-        return MicrosoftService(
+        MicrosoftService(
             client = client
         )
     }
