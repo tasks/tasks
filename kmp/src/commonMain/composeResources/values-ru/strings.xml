@@ -27,4 +27,10 @@
     <string name="today_lowercase">сегодня</string>
     <string name="show_unstarted">Показать не начавшиеся</string>
     <string name="show_completed">Показать выполненные</string>
+    <string name="search_no_results">Нет результатов</string>
+    <string name="requires_pro_subscription">Профессиональная функция</string>
+    <string name="wear_install_app">Установить на телефон</string>
+    <string name="wear_unknown_error">Неизвестная ошибка</string>
+    <string name="add_task">Добавить задачу</string>
+    <string name="subscription_required_description">Разблокируйте все функции всего за 1 доллар США в год</string>
 </resources>
