@@ -31,7 +31,10 @@ fun DeleteButton(
     PromptAction(
         showDialog = promptDelete,
         title = stringResource(id = R.string.delete_tag_confirmation, title),
-        onAction = { scope.launch { onDelete() } },
+        onAction = {
+            scope.launch { onDelete() }
+            promptDelete = false
+        },
         onCancel = { promptDelete = false },
     )
 }

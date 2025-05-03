@@ -38,12 +38,14 @@ class MicrosoftListSettingsActivityViewModel @Inject constructor(
     val list: CaldavCalendar? =
         savedStateHandle[BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR]
 
+    private suspend fun service(): MicrosoftService =
+        httpClientFactory.getMicrosoftService(account)
+
     suspend fun createList(displayName: String) {
         _viewState.update { it.copy(requestInFlight = true) }
-        val microsoftService = httpClientFactory.getMicrosoftService(account)
         val taskList = TaskLists.TaskList(displayName = displayName)
         try {
-            val result = microsoftService.createList(taskList)
+            val result = service().createList(taskList)
             val list = CaldavCalendar(
                 account = this@MicrosoftListSettingsActivityViewModel.account.uuid
             ).apply {
@@ -58,9 +60,11 @@ class MicrosoftListSettingsActivityViewModel @Inject constructor(
 
     suspend fun deleteList() {
         _viewState.update { it.copy(requestInFlight = true) }
-        val microsoftService = httpClientFactory.getMicrosoftService(account)
         try {
-            val result = microsoftService.deleteList(list?.uuid!!)
+            if (isDefault()) {
+                throw IllegalArgumentException("The default list cannot be deleted")
+            }
+            val result = service().deleteList(list?.uuid!!)
             taskDeleter.delete(list)
             _viewState.update { it.copy(deleted = true) }
         } catch (e: Exception) {
@@ -70,10 +74,12 @@ class MicrosoftListSettingsActivityViewModel @Inject constructor(
 
     suspend fun updateList(displayName: String) {
         _viewState.update { it.copy(requestInFlight = true) }
-        val microsoftService = httpClientFactory.getMicrosoftService(account)
         val taskList = TaskLists.TaskList(displayName = displayName)
         try {
-            val result = microsoftService.updateList(list?.uuid!!, taskList)
+            if (isDefault()) {
+                throw IllegalArgumentException("The default list cannot be renamed")
+            }
+            val result = service().updateList(list?.uuid!!, taskList)
             result.applyTo(list)
             caldavDao.update(list)
             _viewState.update { it.copy(result = list) }
@@ -94,5 +100,12 @@ class MicrosoftListSettingsActivityViewModel @Inject constructor(
                 error = exception,
             )
         }
+    }
+
+    private suspend fun isDefault(): Boolean = try {
+        service().getList(list?.uuid!!).wellknownListName == "defaultList"
+    } catch (e: Exception) {
+        Timber.e(e)
+        false
     }
 }

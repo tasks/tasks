@@ -78,4 +78,11 @@ class MicrosoftService(
 
     suspend fun deleteChecklistItem(listId: String, taskId: String, checklistItemId: String) =
         client.delete("$baseUrl/lists/$listId/tasks/$taskId/checklistItems/$checklistItemId")
+
+    suspend fun getList(listId: String): TaskLists.TaskList =
+        client
+            .get("$baseUrl/lists/$listId") {
+                contentType(ContentType.Application.Json)
+            }
+            .body()
 }
