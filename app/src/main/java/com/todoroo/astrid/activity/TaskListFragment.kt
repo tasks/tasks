@@ -283,7 +283,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if ((mainViewModel.state.value.filter as SearchFilter).query.isNotBlank()) {
+                if ((mainViewModel.state.value.filter as? SearchFilter)?.query?.isNotBlank() == true) {
                     lifecycleScope.launch {
                         mainViewModel.resetFilter()
                     }
