@@ -720,7 +720,7 @@
         <item quantity="many">يوم</item>
         <item quantity="other">يوم</item>
     </plurals>
-    <string name="sort_list">بالقوائم</string>
+    <string name="sort_list">بالقائمة</string>
     <string name="sort_completed">بوقت الانتهاء</string>
     <string name="swipe_to_snooze_title">التمرير للاغفاء</string>
     <string name="swipe_to_snooze_time_immediately">فورا</string>
@@ -780,17 +780,17 @@
     <string name="subtasks_multilevel_microsoft">المهام الفرعية متعددة المستويات غير مدعومة من قبل Microsoft To Do</string>
     <string name="repeats_custom_recurrence">التكرار المخصّص</string>
     <string name="repeats_weekly_on">التكرار على</string>
-    <string name="add_widget_to_home_screen">إضافة ويدجت إلى الشاشة الرئيسية</string>
-    <string name="multiline_title">عنوان متعدد الأسطر</string>
-    <string name="multiline_title_on">عنوان متعدد الأسطر مفعّل</string>
-    <string name="multiline_title_off">عنوان متعدد الأسطر معطل</string>
+    <string name="add_widget_to_home_screen">إضافة عنصر واجهة مستخدم إلى الشاشة الرئيسية</string>
+    <string name="multiline_title">السماح بعناوين متعددة الأسطر</string>
+    <string name="multiline_title_on">اضغط على مفتاح Enter لإضافة فواصل الأسطر</string>
+    <string name="multiline_title_off">اضغط على تم لحفظ المهمة</string>
     <string name="caldav_server_unknown">غير معروف</string>
-    <string name="sort_not_available">الفرز غير متاح</string>
-    <string name="sync_warning_microsoft">تحذير: مشكلات مزامنة مع مايكروسوفت</string>
+    <string name="sort_not_available">غير متاح للعلامات أو المرشحات أو الأماكن</string>
+    <string name="sync_warning_microsoft">لا تتم مزامنة جميع تفاصيل المهام مع Microsoft To Do.</string>
     <string name="price_per_month_with_currency">%s/شهر</string>
     <string name="snoozed_until">مؤجل حتى%s</string>
     <string name="caldav_server_type">نوع الخادم</string>
-    <string name="button_learn_more">زر: تعرف على المزيد</string>
+    <string name="button_learn_more">تعرف على المزيد</string>
     <string name="custom_notification">إشعار مخصص</string>
     <string name="enable_reminders_description">التذكيرات معطلة في إعدادات أندرويد</string>
     <string name="enable_alarms">احصل على إشعار في الوقت المناسب</string>
@@ -799,13 +799,16 @@
     <string name="hint_customize_edit_body">يمكنك تخصيص هذه الشاشة عن طريق إعادة ترتيب الحقول أو إزالتها</string>
     <string name="consent_agree">موافق</string>
     <string name="add_shortcut_to_home_screen">إضافة اختصار إلى الشاشة الرئيسية</string>
-    <string name="cost_free">مجاني</string>
-    <string name="cost_money">بتكلفة</string>
-    <string name="cost_more_money">بتكلفة أعلى</string>
-    <string name="sync_warning_microsoft_title">تحذير المزامنة مع مايكروسوفت</string>
-    <string name="sync_warning_google_tasks_title">تحذير المزامنة مع مهام جوجل</string>
-    <string name="sync_warning_google_tasks">تحذير: مشكلات مزامنة مع مهام جوجل</string>
+    <string name="cost_free">التكلفة: مجاناً</string>
+    <string name="cost_money">التكلفة: المال</string>
+    <string name="cost_more_money">التكلفة: المزيد من المال</string>
+    <string name="sync_warning_microsoft_title">نبذة عن مزامنة Microsoft To Do</string>
+    <string name="sync_warning_google_tasks_title">حول مزامنة مهام جوجل</string>
+    <string name="sync_warning_google_tasks">لا تتم مزامنة جميع تفاصيل المهام مع مهام جوجل</string>
     <string name="enable_reminders">تفعيل التذكيرات</string>
     <string name="price_per_year_with_currency">%s/السنة</string>
     <string name="enable_alarms_description">للتأكد من إخطارك في الوقت المناسب، امنح الإذن لضبط التنبيهات والتذكيرات في الإعدادات</string>
+    <string name="continue_without_sync">المتابعة بدون مزامنة</string>
+    <string name="delete_tasks_warning">%s سيتم حذفها. لا يمكن التراجع عن ذلك!</string>
+    <string name="help_me_choose">ساعدني في الاختيار</string>
 </resources>
