@@ -720,4 +720,7 @@
     <string name="banner_app_updated_title">App aktualisiert</string>
     <string name="banner_app_updated_description">Tasks wurde gerade auf %s aktualisiert. Möchtest du dir die Änderungsnotizen ansehen?</string>
     <string name="multiline_title_off">Erledigt drücken, um Aufgabe zu speichern</string>
+    <string name="help_me_choose">Hilf mir bei der Auswahl</string>
+    <string name="continue_without_sync">Weiter ohne Synchronisierung</string>
+    <string name="delete_tasks_warning">%s wird/werden gelöscht. Dies kann nicht rückgängig gemacht werden!</string>
 </resources>
