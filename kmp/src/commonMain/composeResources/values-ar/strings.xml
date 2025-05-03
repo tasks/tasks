@@ -26,4 +26,11 @@
     <string name="today_lowercase">اليوم</string>
     <string name="show_unstarted">إظهار الغير مبدوء</string>
     <string name="show_completed">إظهار المهام المكتملة</string>
+    <string name="subscription_required_description">استمتع بجميع الميزات مقابل 1 دولار أمريكي واحد في السنة</string>
+    <string name="filter_snoozed">غفو</string>
+    <string name="wear_install_app">التثبيت على الهاتف</string>
+    <string name="wear_unknown_error">خطأ غير معروف</string>
+    <string name="search_no_results">لا نتائج</string>
+    <string name="add_task">إضافة مهمة</string>
+    <string name="requires_pro_subscription">ميزة احترافية</string>
 </resources>
