@@ -58,6 +58,7 @@ import org.tasks.R
 import org.tasks.TasksApplication
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.billing.PurchaseActivity
+import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.compose.drawer.DrawerAction
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.drawer.MenuSearchBar
@@ -157,7 +158,12 @@ fun HomeScreen(
                                             NavigationDrawerSubheader.SubheaderType.TASKS ->
                                                 viewModel
                                                     .getAccount(it.header.id.toLong())
-                                                    ?.let { newList.launch(Intent(context, it.listSettingsClass())) }
+                                                    ?.let {
+                                                        newList.launch(
+                                                            Intent(context, it.listSettingsClass())
+                                                                .putExtra(EXTRA_CALDAV_ACCOUNT, it)
+                                                        )
+                                                    }
 
                                             else -> {}
                                         }
