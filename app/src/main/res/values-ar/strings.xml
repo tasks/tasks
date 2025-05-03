@@ -414,12 +414,7 @@
     <string name="sort_modified_group">عُدّل %s</string>
     <string name="sort_created_group">أنشأ %s</string>
     <string name="EPr_manage_delete_gcal_status">تم حذف %d من أحداث التقويم!</string>
-    <string name="import_summary_message">الملف %1$s احتوى على %2$s.
-\n
-\n تم استيراد %3$s،
-\n %4$s موجود مسبقًا
-\n مشاكل في %5$s
-\n</string>
+    <string name="import_summary_message">الملف %1$s احتوى على %2$s. \n \n تم استيراد %3$s، \n %4$s موجود مسبقًا \n مشاكل في %5$s</string>
     <string name="support_development_subscribe">‪افتح ميّزات إضافيّة وادعم البرامج مفتوحة المصدر</string>
     <string name="invalid_backup_file">ملف نسخة احتياطيّة غير صالح</string>
     <string name="location_remind_departure">تذكير عند الرحيل</string>
@@ -512,7 +507,7 @@
     <string name="location_departed">غادر عند %s</string>
     <string name="reinitialize_account">إعادة التهيئة</string>
     <string name="cannot_access_account">لا يمكن الوصول الى الحساب</string>
-    <string name="requires_pro_subscription">يتطلب اشتراك متقدم</string>
+    <string name="requires_pro_subscription">يتطلب اشتراك احترافي</string>
     <string name="license_summary">التطبيق \"مهامي\" هي برنامج مفتوح المصدر حر ، ومرخص بموجب رخصة جنو العمومية العامة v3.0</string>
     <string name="about">حول</string>
     <string name="upgrade_to_pro">طور لاصدار متقدم</string>
@@ -682,7 +677,7 @@
     </plurals>
     <string name="now">اﻵن</string>
     <string name="TEA_creation_date">تاريخ الإنشاء</string>
-    <string name="sign_in_to_tasks_disclosure">سيتم إرسال عنوان البريد الإلكتروني ومعرف الحساب الخاصان بك وتخزينهما من قبل Tasks.org. هذه المعلومات سيتم استخدامها من أجل المصادقة ومن أجل تزويدك بالإعلانات المهمة المتعلقة بالخدمة. لن يتم مشاركة هذه المعلومات مع أحد</string>
+    <string name="sign_in_to_tasks_disclosure">سيتم إرسال عنوان البريد الإلكتروني ومعرف الحساب الخاصان بك وتخزينهما من قبل Tasks.org. هذه المعلومات سيتم استخدامها من أجل المصادقة ومن أجل تزويدك بالإعلانات المهمة المتعلقة بالخدمة. لن يتم مشاركة هذه المعلومات مع أحد.</string>
     <string name="default_reminder">تذكير افتراضي</string>
     <string name="rmd_time_description">أظهر الإشعارات من أجل المهام بدون أوقات محددة</string>
     <string name="completed">مكتمل</string>
@@ -758,7 +753,7 @@
     <string name="repeats_after">بعد</string>
     <string name="sign_in">سجل دخولك</string>
     <string name="consent_deny">ليس الآن</string>
-    <string name="dismiss">تجاهل</string>
+    <string name="dismiss">استبعاد</string>
     <string name="clear_completed_tasks_count">سيتم حذف %s</string>
     <string name="repeats_ends">ينتهي عند</string>
     <string name="repeats_never">أبدا</string>
@@ -785,4 +780,32 @@
     <string name="subtasks_multilevel_microsoft">المهام الفرعية متعددة المستويات غير مدعومة من قبل Microsoft To Do</string>
     <string name="repeats_custom_recurrence">التكرار المخصّص</string>
     <string name="repeats_weekly_on">التكرار على</string>
+    <string name="add_widget_to_home_screen">إضافة ويدجت إلى الشاشة الرئيسية</string>
+    <string name="multiline_title">عنوان متعدد الأسطر</string>
+    <string name="multiline_title_on">عنوان متعدد الأسطر مفعّل</string>
+    <string name="multiline_title_off">عنوان متعدد الأسطر معطل</string>
+    <string name="caldav_server_unknown">غير معروف</string>
+    <string name="sort_not_available">الفرز غير متاح</string>
+    <string name="sync_warning_microsoft">تحذير: مشكلات مزامنة مع مايكروسوفت</string>
+    <string name="price_per_month_with_currency">%s/شهر</string>
+    <string name="snoozed_until">مؤجل حتى%s</string>
+    <string name="caldav_server_type">نوع الخادم</string>
+    <string name="button_learn_more">زر: تعرف على المزيد</string>
+    <string name="custom_notification">إشعار مخصص</string>
+    <string name="enable_reminders_description">التذكيرات معطلة في إعدادات أندرويد</string>
+    <string name="enable_alarms">احصل على إشعار في الوقت المناسب</string>
+    <string name="caldav_server_other">آخر</string>
+    <string name="hint_customize_edit_title">الكثير من المعلومات؟</string>
+    <string name="hint_customize_edit_body">يمكنك تخصيص هذه الشاشة عن طريق إعادة ترتيب الحقول أو إزالتها</string>
+    <string name="consent_agree">الموافقة</string>
+    <string name="add_shortcut_to_home_screen">إضافة اختصار إلى الشاشة الرئيسية</string>
+    <string name="cost_free">مجاني</string>
+    <string name="cost_money">بتكلفة</string>
+    <string name="cost_more_money">بتكلفة أعلى</string>
+    <string name="sync_warning_microsoft_title">تحذير المزامنة مع مايكروسوفت</string>
+    <string name="sync_warning_google_tasks_title">تحذير المزامنة مع مهام جوجل</string>
+    <string name="sync_warning_google_tasks">تحذير: مشكلات مزامنة مع مهام جوجل</string>
+    <string name="enable_reminders">تفعيل التذكيرات</string>
+    <string name="price_per_year_with_currency">%s/السنة</string>
+    <string name="enable_alarms_description">للتأكد من إخطارك في الوقت المناسب، امنح الإذن لضبط التنبيهات والتذكيرات في الإعدادات</string>
 </resources>
