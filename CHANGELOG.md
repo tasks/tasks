@@ -11,7 +11,7 @@
 * Prevent attempts to delete or rename Microsoft To Do default list
 * Don't handle system 'Clear storage' button
 * Update minimum Android version to 8
-* Fix backup import dropping tags [#3555](https://github.com/tasks/tasks/issues/3555)
+* Fix backup import dropping tags [#3556](https://github.com/tasks/tasks/issues/3556)
 * Fix start date chip when grouping by start date [#3509](https://github.com/tasks/tasks/issues/3509)
 * Update translations
   * Brazilian Portuguese - @sobeitnow0, dedakir923
