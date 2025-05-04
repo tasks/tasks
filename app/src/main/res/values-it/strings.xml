@@ -452,7 +452,7 @@
     <string name="subtasks">Attività secondaria</string>
     <string name="TEA_timer_controls">Timer</string>
     <string name="chip_appearance">Aspetto icona</string>
-    <string name="chips">Icone</string>
+    <string name="chips">Smart Chips</string>
     <string name="custom_filter_not">NON</string>
     <string name="custom_filter_or">O</string>
     <string name="custom_filter_and">E</string>
@@ -742,4 +742,7 @@
     <string name="banner_app_updated_title">App aggiornata</string>
     <string name="banner_app_updated_description">Tasks è stata aggiornata a %s. Vuoi vedere le note di rilascio?</string>
     <string name="multiline_title_off">Premi il tasto di conferma per salvare l\'attività</string>
+    <string name="continue_without_sync">Continua senza sincronizzazione</string>
+    <string name="help_me_choose">Aiutami a scegliere</string>
+    <string name="delete_tasks_warning">%s verrà cancellato. L\'operazione non può essere annullata!</string>
 </resources>
