@@ -720,4 +720,7 @@
     <string name="banner_app_updated_description">Rakendus on uuendatud versioonini %s. Kas sa sooviksid lugeda, mis on siin hiljuti muutunud?</string>
     <string name="banner_app_updated_title">Rakendus on uuendatud</string>
     <string name="multiline_title_off">Ülesande salvestamiseks vajuta nuppu „Valmis“</string>
+    <string name="continue_without_sync">Jätka ilma sünkroniseerimata</string>
+    <string name="help_me_choose">Aita mul valida</string>
+    <string name="delete_tasks_warning">%s saab olema kustutatud. Seda tegevust ei saa tagasi pöörata!</string>
 </resources>
