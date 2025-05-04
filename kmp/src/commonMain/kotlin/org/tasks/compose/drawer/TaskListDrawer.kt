@@ -229,6 +229,8 @@ internal fun HeaderItem(
                 modifier = Modifier.weight(1f),
                 text = item.title,
                 color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
             )
             IconButton(onClick = toggleCollapsed) {
                 Chevron(item.collapsed)
