@@ -73,7 +73,7 @@ fun <T : RoomDatabase> RoomDatabase.Builder<T>.setDriver() =
     if (atLeastR()) {
         if (BuildConfig.DEBUG) {
             setQueryCallback(
-                queryCallback = { sql, args -> Timber.tag("SQL").d("[sql=${sql.replace(Regex("\\s+"), " ").trim()}] [args=$args]") },
+                queryCallback = { sql, args -> Timber.tag("SQL").v("[sql=${sql.replace(Regex("\\s+"), " ").trim()}] [args=$args]") },
                 executor = { it.run() },
             )
         } else {
