@@ -100,7 +100,7 @@
     <string name="gtasks_GTA_clear_completed">清除已完成项</string>
     <string name="gtasks_GLA_authenticating">正在认证…</string>
     <string name="gtasks_GLA_errorIOAuth">对不起，我们在与 Google 服务器通讯时遇到了问题。请稍后再尝试。</string>
-    <string name="gtasks_error_accountNotFound">找不到帐户 %s —请先退出，再从 Google Tasks 设置中重新登录。</string>
+    <string name="gtasks_error_accountNotFound">未找到账号 %s —请先退出，再从 Google Tasks 设置中重新登录。</string>
     <string name="premium_record_audio">录制一条便笺</string>
     <string name="ring_once">响铃一次</string>
     <string name="ring_five_times">响铃五次</string>
@@ -285,7 +285,7 @@
     <string name="delete_selected_tasks">删除已选的任务？</string>
     <string name="copy_selected_tasks">复制已选的任务？</string>
     <string name="date_and_time">日期和时间</string>
-    <string name="add_account">添加帐号</string>
+    <string name="add_account">添加账号</string>
     <string name="user">用户名</string>
     <string name="password">密码</string>
     <string name="url">网址</string>
@@ -335,8 +335,8 @@
     <string name="pro_dashclock_extension">Dashclock 扩展</string>
     <string name="requires_pro_subscription">需要订阅专业版</string>
     <string name="logout">登出</string>
-    <string name="logout_warning">此帐户的所有数据都将从您的设备中删除</string>
-    <string name="cannot_access_account">无法访问帐户</string>
+    <string name="logout_warning">此账号的所有数据都将从您的设备中移除</string>
+    <string name="cannot_access_account">无法访问账号</string>
     <string name="reinitialize_account">重新初始化</string>
     <string name="action_create_new_task">新建任务</string>
     <string name="show_description">显示描述</string>
@@ -390,12 +390,12 @@
     <string name="display_name">显示名称</string>
     <string name="this_feature_requires_a_subscription">该功能需要订阅</string>
     <string name="choose_synchronization_service">选择平台</string>
-    <string name="google_tasks_selection_description">基本服务，用你的 Google 账户进行数据同步</string>
+    <string name="google_tasks_selection_description">基本服务，用您的 Google 账号进行数据同步</string>
     <string name="caldav_selection_description">基于开放的互联网标准的同步</string>
     <string name="etesync_selection_description">端到端加密的同步</string>
     <string name="show_advanced_settings">显示高级设置</string>
-    <string name="caldav_account_description">需要一个 CalDAV 服务供应商账户或一个自托管服务器。访问 tasks.org/caldav 寻找服务供应商</string>
-    <string name="etesync_account_description">需要一个 EteSync.com 账户或一个自托管服务器</string>
+    <string name="caldav_account_description">需要一个 CalDAV 服务供应商账号或一个自托管服务器。访问 tasks.org/caldav 寻找服务供应商</string>
+    <string name="etesync_account_description">需要一个 EteSync.com 账号或一个自托管服务器</string>
     <string name="help_and_feedback">帮助&amp;反馈</string>
     <string name="documentation">文档</string>
     <string name="preferences_look_and_feel">外观</string>
@@ -487,7 +487,7 @@
     <string name="reset_sort_order">重置排列顺序</string>
     <string name="permission_read_tasks">对 Tasks 数据库的完全访问</string>
     <string name="davx5_selection_description">用 DAVx⁵ 应用同步你的任务</string>
-    <string name="account">账户</string>
+    <string name="account">账号</string>
     <string name="device_settings">设备设置</string>
     <string name="last_backup_never">从未</string>
     <string name="last_backup">上次备份：%s</string>
@@ -540,7 +540,7 @@
     <string name="decsync_selection_description">基于文件的同步</string>
     <string name="sign_in_to_tasks">登录到 Tasks.org</string>
     <string name="copied_to_clipboard">%s 被复制到剪贴板</string>
-    <string name="app_password_save">使用这些凭据配置第三方应用程序。它们允许对你的 Tasks.org 账户的完整访问权限，所以不要不要把它们写下来或与任何人分享！</string>
+    <string name="app_password_save">使用这些凭据配置第三方应用。它们允许对您的 Tasks.org 账号的完整访问权限，所以不要不要把它们写下来或与任何人分享！</string>
     <string name="app_password_delete_confirmation">任何使用此密码的应用程序都会退出登录</string>
     <string name="app_password_last_access">上次使用：%s</string>
     <string name="app_password_created_at">创建于：%s</string>
@@ -564,10 +564,10 @@
     <string name="sort_start_group">%s开始</string>
     <string name="tasks_org_description">使用 Tasks.org 同步您的任务</string>
     <string name="account_not_included">不包含于“您愿意支付多少费用”订阅</string>
-    <string name="tasks_org_account">Tasks.org 账户</string>
+    <string name="tasks_org_account">Tasks.org 账号</string>
     <string name="subscription">订阅</string>
     <string name="widget_show_title">显示标题</string>
-    <string name="tasks_org_account_required">需要 Tasks.org 账户</string>
+    <string name="tasks_org_account_required">需要 Tasks.org 账号</string>
     <string name="privacy">隐私</string>
     <string name="open_source">开源</string>
     <string name="issue_tracker">问题跟踪器</string>
@@ -639,9 +639,9 @@
     <string name="enable_reminders_description">提醒在 Android 设置中被禁用</string>
     <string name="TEA_creation_date">创建日期</string>
     <string name="sort_completion_group">完成 %s</string>
-    <string name="microsoft_selection_description">与您的个人 Microsoft 账户同步</string>
+    <string name="microsoft_selection_description">与您的个人 Microsoft 账号同步</string>
     <string name="sign_in">登录</string>
-    <string name="sign_in_to_tasks_disclosure">Tasks.org 将传输和存储您的电子邮箱地址和账户 ID。 此信息将用于身份验证并向您提供与服务相关的重要公告。 此信息不会与任何人共享。</string>
+    <string name="sign_in_to_tasks_disclosure">Tasks.org 将传输和存储您的电子邮箱地址和账号 ID。 此信息将用于身份验证并向您提供与服务相关的重要公告。 此信息不会与任何人共享。</string>
     <string name="consent_agree">同意</string>
     <string name="consent_deny">再想想</string>
     <string name="default_reminder">默认提醒</string>
@@ -709,4 +709,7 @@
     <string name="banner_app_updated_description">Tasks 刚刚更新至 %s。是否要查看更新说明？</string>
     <string name="banner_app_updated_title">应用已更新</string>
     <string name="multiline_title_off">按完成保存任务</string>
+    <string name="continue_without_sync">继续但不同步</string>
+    <string name="help_me_choose">帮我选择</string>
+    <string name="delete_tasks_warning">%s 将会删除。此操作无法撤销！</string>
 </resources>
