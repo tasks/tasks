@@ -254,28 +254,20 @@ class MainActivity : AppCompatActivity() {
                         )
                         val keyboard = LocalSoftwareKeyboardController.current
                         LaunchedEffect(state.task) {
-                            if (state.task == null) {
-                                if (intent.finishAffinity) {
-                                    finishAffinity()
-                                } else {
-                                    if (intent.removeTask && intent.broughtToFront) {
-                                        moveTaskToBack(true)
-                                    }
-                                    keyboard?.hide()
-                                    navigator.navigateTo(pane = ThreePaneScaffoldRole.Secondary)
-                                }
+                            val pane = if (state.task == null) {
+                                ThreePaneScaffoldRole.Secondary
                             } else {
-                                navigator.navigateTo(pane = ThreePaneScaffoldRole.Primary)
+                                ThreePaneScaffoldRole.Primary
                             }
+                            Timber.d("Navigating to $pane")
+                            navigator.navigateTo(pane = pane)
                         }
 
                         val isDetailVisible =
                             navigator.scaffoldValue[ListDetailPaneScaffoldRole.Detail] == PaneAdaptedValue.Expanded
                         BackHandler(enabled = state.task == null) {
                             Timber.d("onBackPressed")
-                            if (intent.finishAffinity) {
-                                finishAffinity()
-                            } else if (isDetailVisible && navigator.canNavigateBack()) {
+                            if (isDetailVisible && navigator.canNavigateBack()) {
                                 scope.launch {
                                     navigator.navigateBack()
                                 }
@@ -426,23 +418,17 @@ class MainActivity : AppCompatActivity() {
             }
 
         val Intent.removeTask: Boolean
-            get() = if (isFromHistory) {
-                false
-            } else {
-                getBooleanExtra(REMOVE_TASK, false).let {
-                    removeExtra(REMOVE_TASK)
-                    it
-                }
+            get() = try {
+                getBooleanExtra(REMOVE_TASK, false) && !isFromHistory && !broughtToFront
+            } finally {
+                removeExtra(REMOVE_TASK)
             }
 
         val Intent.finishAffinity: Boolean
-            get() = if (isFromHistory) {
-                false
-            } else {
-                getBooleanExtra(FINISH_AFFINITY, false).let {
-                    removeExtra(FINISH_AFFINITY)
-                    it
-                }
+            get() = try {
+                getBooleanExtra(FINISH_AFFINITY, false) && !isFromHistory && !broughtToFront
+            } finally {
+                removeExtra(FINISH_AFFINITY)
             }
     }
 }

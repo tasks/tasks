@@ -15,6 +15,8 @@ import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.todoroo.astrid.activity.MainActivity.Companion.finishAffinity
+import com.todoroo.astrid.activity.MainActivity.Companion.removeTask
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
@@ -24,6 +26,7 @@ import org.tasks.data.dao.UserActivityDao
 import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
+import org.tasks.extensions.hideKeyboard
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.notifications.NotificationManager
 import org.tasks.play.PlayServices
@@ -32,6 +35,7 @@ import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import org.tasks.ui.ChipProvider
 import org.tasks.ui.TaskEditViewModel
+import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 
@@ -98,7 +102,7 @@ class TaskEditFragment : Fragment() {
                         .setPositiveButton(R.string.ok) { _, _ ->
                             lifecycleScope.launch {
                                 editViewModel.delete()
-                                mainViewModel.setTask(null)
+                                clearTask()
                             }
                         }
                         .setNegativeButton(R.string.cancel, null)
@@ -132,17 +136,36 @@ class TaskEditFragment : Fragment() {
         }
     }
 
+    private fun clearTask() {
+        Timber.d("clearTask()")
+        mainViewModel.setTask(null)
+        activity?.let { activity ->
+            activity.hideKeyboard()
+            when {
+                activity.intent.finishAffinity -> {
+                    Timber.d("finishAffinity")
+                    activity.finishAffinity()
+                }
+                activity.intent.removeTask -> {
+                    Timber.d("removeTask")
+                    activity.moveTaskToBack(true)
+                    activity.finish()
+                }
+            }
+        }
+    }
+
     suspend fun save(remove: Boolean = true) {
         editViewModel.save()
         if (remove) {
-            mainViewModel.setTask(null)
+            clearTask()
         }
         activity?.let { playServices.requestReview(it) }
     }
 
     private fun discard() = lifecycleScope.launch {
         editViewModel.discard()
-        mainViewModel.setTask(null)
+        clearTask()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
