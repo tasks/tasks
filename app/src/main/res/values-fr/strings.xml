@@ -746,4 +746,8 @@
     <string name="app_settings">Paramètres de l\'application</string>
     <string name="banner_app_updated_description">Tasks vient d\'être mis à jour vers %s. Souhaitez-vous consulter les notes de mise à jour ?</string>
     <string name="banner_app_updated_title">Application mise à jour</string>
+    <string name="continue_without_sync">Continuer sans synchronisation</string>
+    <string name="help_me_choose">Aidez-moi à choisir</string>
+    <string name="delete_tasks_warning">%s sera supprimé. Cette opération est irréversible !</string>
+    <string name="multiline_title_off">Appuyer sur Terminé pour enregistrer la tâche</string>
 </resources>
