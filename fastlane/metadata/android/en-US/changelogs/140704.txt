@@ -1,0 +1,3 @@
+* Fix app closing itself automatically
+* Automatically set default list when connecting Microsoft To Do account
+* Update translations

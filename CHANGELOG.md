@@ -1,3 +1,14 @@
+### 14.7.1 (2025-05-04)
+
+* Fix app closing itself automatically [#3366](https://github.com/tasks/tasks/issues/3366)
+* Automatically set default list when connecting Microsoft To Do account
+* Update translations
+  * Arabic - abdelbasset jabrane, @kemo-1
+  * Brazilian Portuguese - Jose Delvani
+  * Chinese (Simplified) - Sketch6580
+  * French - @FlorianLeChat
+  * German - @Kachelkaiser
+
 ### 14.7 (2025-05-03)
 
 * Add support for Microsoft To Do work & school accounts [#3267](https://github.com/tasks/tasks/issues/3267)
