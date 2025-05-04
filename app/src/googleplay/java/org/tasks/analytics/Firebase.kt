@@ -19,12 +19,42 @@ import javax.inject.Singleton
 
 @Singleton
 class Firebase @Inject constructor(
-        @param:ApplicationContext val context: Context,
+        @ApplicationContext private val context: Context,
         private val preferences: Preferences
 ) {
-    private var crashlytics: FirebaseCrashlytics? = null
-    private var analytics: FirebaseAnalytics? = null
-    private var remoteConfig: FirebaseRemoteConfig? = null
+    private val crashlytics by lazy {
+        if (preferences.isTrackingEnabled) {
+            FirebaseCrashlytics.getInstance().apply {
+                setCrashlyticsCollectionEnabled(true)
+            }
+        } else {
+            null
+        }
+    }
+    
+    private val analytics by lazy {
+        if (preferences.isTrackingEnabled) {
+            FirebaseAnalytics.getInstance(context).apply {
+                setAnalyticsCollectionEnabled(true)
+            }
+        } else {
+            null
+        }
+    }
+    
+    private val remoteConfig by lazy {
+        if (preferences.isTrackingEnabled) {
+            FirebaseRemoteConfig.getInstance().apply {
+                setConfigSettingsAsync(remoteConfigSettings {
+                    minimumFetchIntervalInSeconds =
+                            TimeUnit.HOURS.toSeconds(WorkManager.REMOTE_CONFIG_INTERVAL_HOURS)
+                })
+                setDefaultsAsync(R.xml.remote_config_defaults)
+            }
+        } else {
+            null
+        }
+    }
 
     fun reportException(t: Throwable) {
         Timber.e(t)
@@ -79,22 +109,4 @@ class Firebase @Inject constructor(
 
     private fun days(key: String, default: Long): Long =
             TimeUnit.DAYS.toMillis(remoteConfig?.getLong(key) ?: default)
-
-    init {
-        if (preferences.isTrackingEnabled) {
-            analytics = FirebaseAnalytics.getInstance(context).apply {
-                setAnalyticsCollectionEnabled(true)
-            }
-            crashlytics = FirebaseCrashlytics.getInstance().apply {
-                setCrashlyticsCollectionEnabled(true)
-            }
-            remoteConfig = FirebaseRemoteConfig.getInstance().apply {
-                setConfigSettingsAsync(remoteConfigSettings {
-                    minimumFetchIntervalInSeconds =
-                            TimeUnit.HOURS.toSeconds(WorkManager.REMOTE_CONFIG_INTERVAL_HOURS)
-                })
-                setDefaultsAsync(R.xml.remote_config_defaults)
-            }
-        }
-    }
 }
