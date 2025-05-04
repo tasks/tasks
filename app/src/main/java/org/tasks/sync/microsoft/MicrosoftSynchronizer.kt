@@ -27,8 +27,10 @@ import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_UNKNOWN
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
+import org.tasks.filters.CaldavFilter
 import org.tasks.http.HttpClientFactory
 import org.tasks.http.NotFoundException
+import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.sync.microsoft.Error.Companion.toMicrosoftError
 import org.tasks.sync.microsoft.MicrosoftConverter.applyRemote
@@ -59,6 +61,7 @@ class MicrosoftSynchronizer @Inject constructor(
     private val tagDataDao: TagDataDao,
     private val preferences: Preferences,
     private val vtodoCache: VtodoCache,
+    private val defaultFilterProvider: DefaultFilterProvider,
 ) {
     suspend fun sync(account: CaldavAccount) {
         Timber.d("Synchronizing $account")
@@ -121,6 +124,9 @@ class MicrosoftSynchronizer @Inject constructor(
                     remote.applyTo(this)
                 }
                 caldavDao.insert(local)
+                if (remote.wellknownListName == "defaultList") {
+                    defaultFilterProvider.defaultList = CaldavFilter(local, account)
+                }
             } else if (local.name != remoteName || local.access != access) {
                 remote.applyTo(local)
                 caldavDao.update(local)
