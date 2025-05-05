@@ -750,4 +750,7 @@
     <string name="banner_app_updated_title">Застосунок оновлено</string>
     <string name="banner_app_updated_description">Tasks щойно оновлено до %s. Переглянете примітки до випуску?</string>
     <string name="multiline_title_off">Натисніть готово, щоб зберегти завдання</string>
+    <string name="continue_without_sync">Продовжити без синхронізації</string>
+    <string name="help_me_choose">Допоможіть обрати</string>
+    <string name="delete_tasks_warning">%s буде видалено. Дію неможливо скасувати!</string>
 </resources>
