@@ -481,7 +481,7 @@
     <string name="action_new_task">Nieuwe taak</string>
     <string name="sort_created_group">Gemaakt %s</string>
     <string name="sort_modified_group">Bewerkt %s</string>
-    <string name="astrid_sort_order_summary">Schakel Astrids handmatige sorteermodus in voor \'Mijn taken\', \'Vandaag\' en tags. Deze sorteermodus wordt in een toekomstige update vervangen door \'Mijn volgorde\'.</string>
+    <string name="astrid_sort_order_summary">Schakel Astrids handmatige sorteermodus in voor \'Mijn taken\', \'Vandaag\' en tags. Deze sorteermodus wordt in een toekomstige update vervangen door \'Mijn volgorde\'</string>
     <string name="astrid_sort_order">Astrid\'s handmatig sorteren</string>
     <string name="on_launch">Bij het starten</string>
     <string name="lists">Lijsten</string>
@@ -720,4 +720,7 @@
     <string name="banner_app_updated_title">App geüpdatet</string>
     <string name="banner_app_updated_description">Tasks is zojuist geüpdatet naar %s. Wil je de release-opmerkingen zien?</string>
     <string name="multiline_title_off">Druk op Gereed om de taak op te slaan</string>
+    <string name="continue_without_sync">Doorgaan zonder synchronisatie</string>
+    <string name="help_me_choose">Help me kiezen</string>
+    <string name="delete_tasks_warning">%s wordt verwijderd. Dit kan niet ongedaan worden gemaakt!</string>
 </resources>
