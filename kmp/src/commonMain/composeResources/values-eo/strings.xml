@@ -27,4 +27,10 @@
     <string name="today_lowercase">hodiaŭ</string>
     <string name="show_unstarted">Vidigi nekomencitajn</string>
     <string name="show_completed">Vidigi finitajn</string>
+    <string name="requires_pro_subscription">Profesia funkcio</string>
+    <string name="search_no_results">Neniu rezultoj</string>
+    <string name="subscription_required_description">Pagu laŭeble nur $1 (usona) por malŝlosi ĉiujn funkciojn</string>
+    <string name="add_task">Aldoni taskon</string>
+    <string name="wear_install_app">Instali en poŝtelefonon</string>
+    <string name="wear_unknown_error">Nekonata eraro</string>
 </resources>
