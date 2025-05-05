@@ -720,4 +720,7 @@
     <string name="multiline_title_off">Premu Finite por konservi taskon</string>
     <string name="banner_app_updated_title">Ĝisdatigo de Aplikaĵo</string>
     <string name="banner_app_updated_description">Tasks estis ĝisdatigita al %s. Ĉu vi deziras legi la eldonajn notojn?</string>
+    <string name="delete_tasks_warning">Forigas %s. Ne eblas malfari tion!</string>
+    <string name="continue_without_sync">Daŭrigi sen sinkronigo</string>
+    <string name="help_me_choose">Helpu min elekti</string>
 </resources>
