@@ -720,4 +720,7 @@
     <string name="banner_app_updated_description">Tasks %s sürümüne güncellendi. Dağıtım notlarını görmek ister misiniz?</string>
     <string name="banner_app_updated_title">Uygulama güncellendi</string>
     <string name="multiline_title_off">Tamamlandıya basarak görevi kaydet</string>
+    <string name="delete_tasks_warning">%s silinecek. Bu geri alınamaz!</string>
+    <string name="continue_without_sync">Eşzamanlamadan sürdür</string>
+    <string name="help_me_choose">Seçmeme yardım et</string>
 </resources>
