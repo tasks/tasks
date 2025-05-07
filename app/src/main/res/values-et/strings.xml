@@ -688,7 +688,7 @@
     <string name="enable_alarms_description">Tagamaks, et alati saad õigel ajal teavitusi, palun luba nutiseadme seadistustest äratuste ja meeldetuletuste kasutamine</string>
     <string name="alarm_after_start">%s peale alustamise tähtaega</string>
     <string name="snackbar_tasks_completed">%d ülesannet on lõpetatud</string>
-    <string name="social">Sotsiaalvõrk</string>
+    <string name="social">Sotsiaalmeedia</string>
     <string name="background_location_permission_required">Selleks, et kasutada asukohapõhiseid meeldetuletusi ka siis, kui rakendus on suletud või pole kasutusel, kogub Tasks asukohaandmeid.</string>
     <string name="location_permission_required_location">Sinu praeguse asukoha tuvastamiseks on vaja õiguseid asukohateenuste kasutamiseks</string>
     <string name="etesync_selection_description">Sünkroniseerimine, mis kasutab läbivat krüptimist</string>
