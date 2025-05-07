@@ -719,4 +719,8 @@
     <string name="app_settings">Alkalmazás beállításai</string>
     <string name="banner_app_updated_title">Alkalmazás frissítve</string>
     <string name="banner_app_updated_description">A Tasks frissítve lett a(z) %s verzióra. Szeretné látni a változások listáját?</string>
+    <string name="delete_tasks_warning">A(z) %s törlésre kerül. Ez a művelet nem visszavonható!</string>
+    <string name="continue_without_sync">Folytatás szinkronizálás nélkül</string>
+    <string name="help_me_choose">Segítséget kérek a választásban</string>
+    <string name="multiline_title_off">Kattints a Kész gombra a feladat elmentéséhez</string>
 </resources>
