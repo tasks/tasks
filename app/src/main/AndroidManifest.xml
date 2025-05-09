@@ -1013,20 +1013,6 @@
     <!-- Version >= 3.0. DeX Dual Mode support -->
     <meta-data android:name="com.samsung.android.multidisplay.keep_process_alive" android:value="true"/>
 
-    <activity
-        android:name="com.microsoft.identity.client.BrowserTabActivity"
-        android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            <data
-                android:host="${applicationId}"
-                android:path="@string/microsoft_oauth_path"
-                android:scheme="msauth" />
-        </intent-filter>
-    </activity>
-
   </application>
 
 </manifest>

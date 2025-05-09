@@ -229,11 +229,6 @@ dependencies {
     implementation(libs.etebase)
     implementation(libs.colorpicker)
     implementation(libs.appauth)
-    implementation(libs.microsoft.authentication) {
-        exclude("com.microsoft.device.display", "display-mask")
-        exclude("com.google.android.gms")
-        exclude("com.google.android.libraries.identity.googleid")
-    }
     implementation(libs.osmdroid)
     implementation(libs.androidx.recyclerview)
 
@@ -273,6 +268,9 @@ dependencies {
     googleplayImplementation(libs.horologist.datalayer.grpc)
     googleplayImplementation(libs.horologist.datalayer.core)
     googleplayImplementation(libs.play.services.wearable)
+    googleplayImplementation(libs.microsoft.authentication) {
+        exclude("com.microsoft.device.display", "display-mask")
+    }
     googleplayImplementation(projects.wearDatalayer)
 
     androidTestImplementation(libs.dagger.hilt.testing)

@@ -3,8 +3,6 @@ package org.tasks.http
 import android.content.Context
 import at.bitfire.cert4android.CustomCertManager
 import at.bitfire.dav4jvm.BasicDigestAuthHandler
-import com.microsoft.identity.client.AcquireTokenSilentParameters
-import com.microsoft.identity.client.PublicClientApplication
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
@@ -24,13 +22,12 @@ import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.internal.tls.OkHostnameVerifier
 import org.tasks.BuildConfig
-import org.tasks.R
 import org.tasks.caldav.TasksCookieJar
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.extensions.Context.cookiePersistor
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sync.microsoft.MicrosoftService
-import org.tasks.sync.microsoft.MicrosoftSignInViewModel
+import org.tasks.sync.microsoft.MicrosoftTokenProvider
 import timber.log.Timber
 import javax.inject.Inject
 import javax.net.ssl.SSLContext
@@ -38,6 +35,7 @@ import javax.net.ssl.SSLContext
 class HttpClientFactory @Inject constructor(
     @ApplicationContext private val context: Context,
     private val encryption: KeyStoreEncryption,
+    private val microsoftTokenProvider: MicrosoftTokenProvider,
 ) {
     suspend fun newClient(foreground: Boolean) = newClient(
         foreground = foreground,
@@ -87,28 +85,7 @@ class HttpClientFactory @Inject constructor(
     }
 
     suspend fun getMicrosoftService(account: CaldavAccount): MicrosoftService = withContext(Dispatchers.IO) {
-        val app = PublicClientApplication.createMultipleAccountPublicClientApplication(
-            context,
-            R.raw.microsoft_config
-        )
-        
-        val result = try {
-            val msalAccount = app.accounts.firstOrNull { it.username == account.username }
-                ?: throw RuntimeException("No matching account found")
-
-            val parameters = AcquireTokenSilentParameters.Builder()
-                .withScopes(MicrosoftSignInViewModel.scopes)
-                .forAccount(msalAccount)
-                .fromAuthority(msalAccount.authority)
-                .forceRefresh(true)
-                .build()
-            
-            app.acquireTokenSilent(parameters)
-        } catch (e: Exception) {
-            Timber.e(e)
-            throw RuntimeException("Authentication failed: ${e.message}")
-        }
-
+        val token = microsoftTokenProvider.getToken(account)
         val client = HttpClient(Android) {
             expectSuccess = true
 
@@ -121,7 +98,7 @@ class HttpClientFactory @Inject constructor(
             }
 
             defaultRequest {
-                header("Authorization", "Bearer ${result.accessToken}")
+                header("Authorization", "Bearer $token")
             }
 
             install(HttpTimeout) {
