@@ -1,9 +1,11 @@
 package org.tasks.notifications
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat.InterruptionFilter
 import com.todoroo.andlib.utility.AndroidUtilities.preUpsideDownCake
@@ -82,7 +84,11 @@ class NotificationManager @Inject constructor(
         }
     }
 
+    @SuppressLint("MissingPermission")
     suspend fun restoreNotifications(cancelExisting: Boolean) {
+        if (!permissionChecker.hasNotificationPermission()) {
+            return
+        }
         val notifications = notificationDao.getAllOrdered()
         if (cancelExisting) {
             for (notification in notifications) {
@@ -114,11 +120,16 @@ class NotificationManager @Inject constructor(
         }
     }
 
+    @SuppressLint("MissingPermission")
     suspend fun notifyTasks(
         newNotifications: List<Notification>,
         alert: Boolean,
         nonstop: Boolean,
-        fiveTimes: Boolean) {
+        fiveTimes: Boolean
+    ) {
+        if (!permissionChecker.hasNotificationPermission()) {
+            return
+        }
         val existingNotifications = notificationDao.getAllOrdered()
         notificationDao.insertAll(newNotifications)
         val totalCount = existingNotifications.size + newNotifications.size
@@ -167,6 +178,7 @@ class NotificationManager @Inject constructor(
         localBroadcastManager.broadcastRefresh()
     }
 
+    @SuppressLint("MissingPermission")
     private suspend fun createNotifications(
         notifications: List<Notification>,
         alert: Boolean,
@@ -204,6 +216,7 @@ class NotificationManager @Inject constructor(
         }
     }
 
+    @SuppressLint("MissingPermission")
     suspend fun notify(
             notificationId: Long,
             builder: NotificationCompat.Builder,
@@ -211,6 +224,9 @@ class NotificationManager @Inject constructor(
             nonstop: Boolean,
             fiveTimes: Boolean,
     ) {
+        if (!permissionChecker.hasNotificationPermission()) {
+            return
+        }
         if (preUpsideDownCake()) {
             builder.setLocalOnly(!preferences.getBoolean(R.string.p_wearable_notifications, true))
         }
@@ -245,6 +261,7 @@ class NotificationManager @Inject constructor(
         }
     }
 
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     private suspend fun updateSummary(
             notify: Boolean,
             nonStop: Boolean,
@@ -415,7 +432,11 @@ class NotificationManager @Inject constructor(
                 .extend(wearableExtender)
     }
 
+    @SuppressLint("MissingPermission")
     suspend fun updateTimerNotification() {
+        if (!permissionChecker.hasNotificationPermission()) {
+            return
+        }
         val count = taskDao.activeTimers()
         if (count == 0) {
             cancel(Constants.NOTIFICATION_TIMER.toLong())

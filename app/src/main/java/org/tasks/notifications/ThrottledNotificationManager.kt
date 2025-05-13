@@ -2,6 +2,7 @@ package org.tasks.notifications
 
 import android.app.Notification
 import android.content.Context
+import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.NotificationManagerCompat.InterruptionFilter
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -25,6 +26,7 @@ class ThrottledNotificationManager @Inject constructor(
         }
     }
 
+    @RequiresPermission(android.Manifest.permission.POST_NOTIFICATIONS)
     fun notify(id: Int, notification: Notification) {
         throttle.run {
             notificationManagerCompat.notify(id, notification)
