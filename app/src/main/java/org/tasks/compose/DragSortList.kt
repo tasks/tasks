@@ -189,8 +189,10 @@ fun LazyItemScope.DraggableItem(
             .zIndex(1f)
             .graphicsLayer { translationY = current }
     } else {
-        Modifier.animateItemPlacement(
-            tween(easing = FastOutLinearInEasing)
+        Modifier.animateItem(
+            fadeInSpec = null,
+            fadeOutSpec = null,
+            placementSpec = tween(easing = FastOutLinearInEasing),
         )
     }
     Box(modifier = modifier.then(draggingModifier)) {
