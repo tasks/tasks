@@ -110,7 +110,7 @@ class ShareLinkActivity : AppCompatActivity() {
         intent.type?.let { type -> ATTACHMENT_TYPES.any { type.startsWith(it) } } ?: false
 
     companion object {
-        private val ATTACHMENT_TYPES = listOf("image/", "application/", "audio/")
+        private val ATTACHMENT_TYPES = listOf("image/", "application/", "audio/", "video/", "text/plain")
 
         private suspend fun TaskCreator.create(intent: Intent): Task {
             val subject = intent.getStringExtra(Intent.EXTRA_SUBJECT)
