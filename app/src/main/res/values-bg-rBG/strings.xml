@@ -720,4 +720,7 @@
     <string name="banner_app_updated_description">Приложението Tasks е обновено до издание %s. Ще прегледате ли бележките към изданието?</string>
     <string name="banner_app_updated_title">Приложението е обновено</string>
     <string name="multiline_title_off">Докоснете „Готово“ за запазване на задачата</string>
+    <string name="delete_tasks_warning">Задачата %s ще бъде премахната. Действието е необратимо!</string>
+    <string name="continue_without_sync">Без синхронизиране</string>
+    <string name="help_me_choose">Помощ в избора</string>
 </resources>
