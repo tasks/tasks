@@ -14,7 +14,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.compose.edit.AttachmentRow
@@ -108,16 +110,16 @@ class FilesControlSet : TaskEditControlFragment() {
         )
     }
 
-    private fun newAttachment(output: Uri) {
+    private suspend fun newAttachment(output: Uri) {
         val attachment = TaskAttachment(
             uri = output.toString(),
             name = FileHelper.getFilename(requireContext(), output)!!,
         )
-        lifecycleScope.launch {
+        withContext(Dispatchers.IO) {
             taskAttachmentDao.insert(attachment)
             viewModel.setAttachments(
                 viewModel.viewState.value.attachments +
-                        (taskAttachmentDao.getAttachment(attachment.remoteId) ?: return@launch))
+                        (taskAttachmentDao.getAttachment(attachment.remoteId) ?: return@withContext))
         }
     }
 
