@@ -742,4 +742,7 @@
     <string name="price_per_month_with_currency">mes</string>
     <string name="multiline_title_off">Presione en Hecho para guardar la tarea</string>
     <string name="comment">Anotación.</string>
+    <string name="continue_without_sync">Continua sin sincronizar</string>
+    <string name="help_me_choose">Ayudame a escoger</string>
+    <string name="delete_tasks_warning">%s será eliminado. ¡Esto no se puede deshacer!</string>
 </resources>
