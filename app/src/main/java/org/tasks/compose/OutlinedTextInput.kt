@@ -16,7 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -34,10 +34,10 @@ fun OutlinedNumberInput(
     onFocus: () -> Unit = {},
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val context = LocalContext.current
-    val locale = remember {
+    val configuration = LocalConfiguration.current
+    val locale = remember(configuration) {
         ConfigurationCompat
-            .getLocales(context.resources.configuration)
+            .getLocales(configuration)
             .get(0)
             ?: Locale.getDefault()
     }

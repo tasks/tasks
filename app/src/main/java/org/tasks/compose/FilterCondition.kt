@@ -48,6 +48,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -230,10 +231,10 @@ object FilterCondition {
                 )
             },
             right = {
-                val context = LocalContext.current
-                val locale = remember {
+                val configuration = LocalConfiguration.current
+                val locale = remember(configuration) {
                     ConfigurationCompat
-                        .getLocales(context.resources.configuration)
+                        .getLocales(configuration)
                         .get(0)
                         ?: Locale.getDefault()
                 }

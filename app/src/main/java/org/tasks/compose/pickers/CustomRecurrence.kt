@@ -8,7 +8,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -43,6 +42,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -207,17 +207,16 @@ private fun Header(resId: Int) {
     )
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun WeekdayPicker(
     daysOfWeek: List<DayOfWeek>,
     selected: List<DayOfWeek>,
     toggle: (DayOfWeek) -> Unit,
 ) {
-    val context = LocalContext.current
-    val locale = remember {
+    val configuration = LocalConfiguration.current
+    val locale = remember(configuration) {
         ConfigurationCompat
-            .getLocales(context.resources.configuration)
+            .getLocales(configuration)
             .get(0)
             ?: Locale.getDefault()
     }
