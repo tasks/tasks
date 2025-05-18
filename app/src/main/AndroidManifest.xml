@@ -72,6 +72,18 @@
   <!-- ****************************** -->
   <uses-permission android:name="android.permission.READ_SYNC_STATS" />
 
+  <!-- ******************************** -->
+  <!-- Microsoft Authentication Library -->
+  <!-- ******************************** -->
+
+  <uses-permission android:name="android.permission.GET_ACCOUNTS" tools:node="remove" />
+  <uses-feature
+      android:name="android.hardware.nfc"
+      android:required="false" />
+  <uses-feature
+      android:name="android.hardware.usb.host"
+      android:required="false" />
+
   <!-- ****************************************** -->
   <!-- Exclude OpenTasks and jtxBoard permissions -->
   <!-- ****************************************** -->
