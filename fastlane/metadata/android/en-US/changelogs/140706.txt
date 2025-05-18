@@ -1,0 +1,6 @@
+* Remove Microsoft Authentication Library from F-Droid builds
+* Remove contacts permission added by Microsoft Authentication Library
+* Enable video attachments
+* Fix wallpaper theme
+* Fix handling multiple attachments
+* Update translations

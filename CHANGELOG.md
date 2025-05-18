@@ -1,3 +1,24 @@
+### 14.7.2 (2025-05-18)
+
+* Remove Microsoft Authentication Library from F-Droid builds [#3581](https://github.com/tasks/tasks/issues/3581)
+* Remove contacts permission added by Microsoft Authentication Library
+* Enable video attachments
+* Fix wallpaper theme
+* Fix handling multiple attachments
+* Update translations
+  * Arabic - abdelbasset jabrane
+  * Bulgarian - 109247019824
+  * Catalan - @Crashillo
+  * Czech - @Fjuro
+  * Danish - @catsnote
+  * Dutch - @fvbommel
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Turkish - @emintufan
+  * Ukrainian - @IhorHordiichuk
+
 ### 14.7.1 (2025-05-04)
 
 * Fix app closing itself automatically [#3366](https://github.com/tasks/tasks/issues/3366)
