@@ -110,15 +110,11 @@ class MainActivity : AppCompatActivity() {
     private var actionMode: ActionMode? = null
     private var isReady = false
 
-    /** @see android.app.Activity.onCreate
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
-        
-        splashScreen.setKeepOnScreenCondition { !isReady }
-        
         super.onCreate(savedInstanceState)
         theme.themeBase.set(this)
+        val splashScreen = installSplashScreen()
+        splashScreen.setKeepOnScreenCondition { !isReady }
         currentNightMode = nightMode
         currentPro = inventory.hasPro
 
