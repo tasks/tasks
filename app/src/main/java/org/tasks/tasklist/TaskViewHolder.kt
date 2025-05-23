@@ -139,7 +139,7 @@ class TaskViewHolder internal constructor(
             rowBody.setBackgroundColor(selectedColor)
         } else {
             rowBody.setBackgroundResource(background)
-            rowBody.background.jumpToCurrentState()
+            rowBody.background?.jumpToCurrentState()
         }
     }
 
