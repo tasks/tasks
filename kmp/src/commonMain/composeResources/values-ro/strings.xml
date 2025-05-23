@@ -27,4 +27,10 @@
     <string name="today_lowercase">azi</string>
     <string name="show_unstarted">Afișează datele nepornite</string>
     <string name="show_completed">Afișează finalizate</string>
+    <string name="search_no_results">Niciun rezultat</string>
+    <string name="requires_pro_subscription">Caracteristică Pro</string>
+    <string name="subscription_required_description">Deblochează toate caracteristicile pentru un USD/an</string>
+    <string name="wear_install_app">Instalează pe telefon</string>
+    <string name="add_task">Adaugă o sarcină</string>
+    <string name="wear_unknown_error">Eroare necunoscută</string>
 </resources>
