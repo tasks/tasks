@@ -744,4 +744,10 @@
     <string name="enable_alarms">Fii notificat la momentul potrivit</string>
     <string name="add_shortcut_to_home_screen">Adaugă comandă rapidă la ecranul de pornire</string>
     <string name="enable_alarms_description">Pentru a te asigura că ești notificat la momentul potrivit, acordă permisiunea de a seta alarme și mementouri în Setări</string>
+    <string name="multiline_title_off">Apasă Finalizat pentru a salva sarcina</string>
+    <string name="continue_without_sync">Continuă fără sincronizare</string>
+    <string name="help_me_choose">Ajută-mă să aleg</string>
+    <string name="delete_tasks_warning">%s va fi șters. Acest lucru nu poate fi anulat!</string>
+    <string name="banner_app_updated_title">Aplicație actualizată</string>
+    <string name="banner_app_updated_description">Tasks a fost actualizată la versiunea %s. Dorești să vezi modificările făcute?</string>
 </resources>
