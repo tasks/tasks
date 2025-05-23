@@ -1,4 +1,4 @@
-### 14.7.2 (2025-05-18)
+### 14.7.2 (2025-05-23)
 
 * Remove Microsoft Authentication Library from F-Droid builds [#3581](https://github.com/tasks/tasks/issues/3581)
 * Remove contacts permission added by Microsoft Authentication Library
