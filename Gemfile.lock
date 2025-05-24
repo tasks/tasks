@@ -5,22 +5,24 @@ GEM
       base64
       nkf
       rexml
+    abbrev (0.1.2)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     artifactory (3.0.17)
     atomos (0.1.3)
     aws-eventstream (1.3.2)
-    aws-partitions (1.1067.0)
-    aws-sdk-core (3.220.2)
+    aws-partitions (1.1107.0)
+    aws-sdk-core (3.224.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
       base64
       jmespath (~> 1, >= 1.6.1)
-    aws-sdk-kms (1.99.0)
+      logger
+    aws-sdk-kms (1.101.0)
       aws-sdk-core (~> 3, >= 3.216.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.182.0)
+    aws-sdk-s3 (1.186.1)
       aws-sdk-core (~> 3, >= 3.216.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
@@ -156,9 +158,10 @@ GEM
     httpclient (2.9.0)
       mutex_m
     jmespath (1.6.2)
-    json (2.10.2)
+    json (2.12.2)
     jwt (2.10.1)
       base64
+    logger (1.7.0)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     multi_json (1.15.0)
@@ -170,7 +173,7 @@ GEM
     optparse (0.6.0)
     os (1.1.4)
     plist (3.7.2)
-    public_suffix (5.1.1)
+    public_suffix (6.0.2)
     rake (13.2.1)
     representable (3.2.0)
       declarative (< 0.1.0)
@@ -182,7 +185,7 @@ GEM
     ruby2_keywords (0.0.5)
     rubyzip (2.4.1)
     security (0.1.5)
-    signet (0.19.0)
+    signet (0.20.0)
       addressable (~> 2.8)
       faraday (>= 0.17.5, < 3.a)
       jwt (>= 1.5, < 3.0)
@@ -218,7 +221,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  abbrev
   fastlane
 
 BUNDLED WITH
-   2.2.32
+   2.6.9
