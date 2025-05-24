@@ -950,9 +950,9 @@
 +|    |         \--- androidx.lifecycle:lifecycle-common-java8:2.9.0 (c)
 +|    +--- co.touchlab:kermit:2.0.5 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.6.2 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.8
-+|    |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.8
-+|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.1.21 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0
++|    |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.4.0
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.1.21 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.1.21 (*)
 ++--- project :icons
@@ -1404,7 +1404,7 @@
 ++--- io.noties.markwon:ext-tasklist:4.6.2
 +|    \--- io.noties.markwon:core:4.6.2 (*)
 ++--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.21 (*)
-++--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.8 (*)
+++--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0 (*)
 ++--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1 (*)
 ++--- com.squareup.okhttp3:okhttp:4.12.0 (*)
 ++--- com.github.franmontiel:PersistentCookieJar:1.0.1
