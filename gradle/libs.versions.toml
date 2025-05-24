@@ -18,11 +18,11 @@ dashclock-api = "2.0.0"
 dav4jvm = "2.2.1"
 desugar_jdk_libs = "2.1.5"
 etebase = "2.3.2"
-firebase = "33.13.0"
+firebase = "33.14.0"
 firebase-crashlytics-gradle = "3.0.3"
 google-oauth2 = "1.35.0"
 google-api-drive = "v3-rev20250511-2.0.0"
-google-api-tasks = "v1-rev20250415-2.0.0"
+google-api-tasks = "v1-rev20250518-2.0.0"
 google-services = "4.4.2"
 grpc = "1.72.0"
 hilt = "1.2.0"
@@ -42,7 +42,7 @@ locale = "1.0.4"
 make-it-easy = "4.0.1"
 markwon = "4.6.2"
 material = "1.12.0"
-mockito = "5.17.0"
+mockito = "5.18.0"
 okhttp = "4.12.0"
 opentasks = "562fec5"
 osmdroid = "6.1.20"
@@ -52,7 +52,7 @@ play-services-maps = "19.2.0"
 play-services-location = "21.3.0"
 play-services-oss-licenses = "17.1.0"
 preference = "1.2.1"
-protobuf = "4.30.2"
+protobuf = "4.31.0"
 recyclerview = "1.4.0"
 rfc5545-datetime = "0.2.4"
 room = "2.7.1"
@@ -143,7 +143,7 @@ kotlin-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref 
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.2" }
-kotlinx-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.8" }
+kotlinx-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.4.0" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.8.1" }
 ktor = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
@@ -204,7 +204,7 @@ protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-jetbrains-compose = { id = "org.jetbrains.compose", version = "1.8.0" }
+jetbrains-compose = { id = "org.jetbrains.compose", version = "1.8.1" }
 kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
