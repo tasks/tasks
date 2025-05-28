@@ -1,20 +1,20 @@
-++--- androidx.databinding:viewbinding:8.10.0
+++--- androidx.databinding:viewbinding:8.10.1
 +|    \--- androidx.annotation:annotation:1.0.0 -> 1.9.1
 +|         \--- androidx.annotation:annotation-jvm:1.9.1
 +|              \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.1.21
 +|                   +--- org.jetbrains:annotations:13.0 -> 23.0.0
 +|                   +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 2.1.21 (c)
 +|                   \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 2.1.21 (c)
-++--- androidx.databinding:databinding-common:8.10.0
-++--- androidx.databinding:databinding-runtime:8.10.0
+++--- androidx.databinding:databinding-common:8.10.1
+++--- androidx.databinding:databinding-runtime:8.10.1
 +|    +--- androidx.collection:collection:1.0.0 -> 1.5.0
 +|    |    \--- androidx.collection:collection-jvm:1.5.0
 +|    |         +--- androidx.annotation:annotation:1.9.1 (*)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.1.21 (*)
 +|    |         +--- androidx.collection:collection-ktx:1.5.0 (c)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.1.21 (c)
-+|    +--- androidx.databinding:databinding-common:8.10.0
-+|    +--- androidx.databinding:viewbinding:8.10.0 (*)
++|    +--- androidx.databinding:databinding-common:8.10.1
++|    +--- androidx.databinding:viewbinding:8.10.1 (*)
 +|    \--- androidx.lifecycle:lifecycle-runtime:2.6.1 -> 2.9.0
 +|         \--- androidx.lifecycle:lifecycle-runtime-android:2.9.0
 +|              +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
@@ -87,11 +87,11 @@
 +|              +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.9.0 (c)
 +|              +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.21 (c)
 +|              \--- androidx.lifecycle:lifecycle-common-java8:2.9.0 (c)
-++--- androidx.databinding:databinding-adapters:8.10.0
-+|    +--- androidx.databinding:databinding-runtime:8.10.0 (*)
-+|    \--- androidx.databinding:databinding-common:8.10.0
-++--- androidx.databinding:databinding-ktx:8.10.0
-+|    +--- androidx.databinding:databinding-runtime:8.10.0 (*)
+++--- androidx.databinding:databinding-adapters:8.10.1
++|    +--- androidx.databinding:databinding-runtime:8.10.1 (*)
++|    \--- androidx.databinding:databinding-common:8.10.1
+++--- androidx.databinding:databinding-ktx:8.10.1
++|    +--- androidx.databinding:databinding-runtime:8.10.1 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0 -> 2.1.21
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 (*)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.21
@@ -1183,10 +1183,10 @@
 +|    |    \--- org.slf4j:slf4j-api:2.0.3 -> 2.0.16
 +|    \--- androidx.core:core-ktx:1.9.0 -> 1.13.1 (*)
 ++--- com.github.bitfireAT:cert4android:7814052
-+|    +--- androidx.databinding:databinding-common:7.2.0 -> 8.10.0
-+|    +--- androidx.databinding:databinding-runtime:7.2.0 -> 8.10.0 (*)
-+|    +--- androidx.databinding:databinding-adapters:7.2.0 -> 8.10.0 (*)
-+|    +--- androidx.databinding:databinding-ktx:7.2.0 -> 8.10.0 (*)
++|    +--- androidx.databinding:databinding-common:7.2.0 -> 8.10.1
++|    +--- androidx.databinding:databinding-runtime:7.2.0 -> 8.10.1 (*)
++|    +--- androidx.databinding:databinding-adapters:7.2.0 -> 8.10.1 (*)
++|    +--- androidx.databinding:databinding-ktx:7.2.0 -> 8.10.1 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21 -> 2.1.21 (*)
 +|    +--- androidx.appcompat:appcompat:1.4.1 -> 1.7.0 (*)
 +|    +--- androidx.cardview:cardview:1.0.0
