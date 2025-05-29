@@ -94,8 +94,8 @@
     <string name="CFC_importance_name">Приоритет…</string>
     <string name="CFC_tag_text">Тег: ? </string>
     <string name="CFC_tag_name">Тег…</string>
-    <string name="CFC_tag_contains_name">Название тега содержит…</string>
-    <string name="CFC_tag_contains_text">Название тега содержит: ?</string>
+    <string name="CFC_tag_contains_name">Название метки содержит…</string>
+    <string name="CFC_tag_contains_text">Название метки содержит: ?</string>
     <string name="CFC_title_contains_name">Название содержит…</string>
     <string name="CFC_title_contains_text">Название содержит: ?</string>
     <string name="gcal_TEA_error">Ошибка при добавлении задачи в календарь!</string>
@@ -205,7 +205,7 @@
     <string name="repeat_type_due">намеченной даты</string>
     <string name="repeat_type_completion">даты завершения</string>
     <string name="repeat_snackbar">%1$s перенесено на %2$s</string>
-    <string name="new_tag">Создать новый тег</string>
+    <string name="new_tag">Создать новую метку</string>
     <string name="new_list">Создать новый список</string>
     <string name="delete_tag_confirmation">Удалить %s?</string>
     <string name="TPl_notification">Для %s действуют таймеры!</string>
@@ -267,13 +267,13 @@
     <string name="date_shortcut_must_come_after">%1$s должно идти после %2$s</string>
     <string name="discard_changes">Отменить изменения\?</string>
     <string name="discard">Отменить</string>
-    <string name="tag_settings">Настройки тега</string>
+    <string name="tag_settings">Настройки метки</string>
     <string name="list_settings">Настройки списка</string>
     <string name="delete">Удалить</string>
     <string name="copy">Копировать</string>
     <string name="move">Перенести</string>
     <string name="filter_settings">Настройки фильтра</string>
-    <string name="show_completed">Показать выполненные</string>
+    <string name="show_completed">Показать завершённые</string>
     <string name="add_attachment">Прикрепить файл</string>
     <string name="take_a_picture">Сделать снимок</string>
     <string name="pick_from_gallery">Выбрать из галереи</string>
@@ -408,7 +408,7 @@
     <string name="expand_subtasks">Развернуть подзадачи</string>
     <string name="collapse_subtasks">Свернуть подзадачи</string>
     <string name="subtasks_multilevel_google_task">Многоуровневые подзадачи не поддерживаются Google Tasks</string>
-    <string name="enter_tag_name">Введите имя тега</string>
+    <string name="enter_tag_name">Введите название метки</string>
     <string name="display_name">Отображаемое название</string>
     <string name="this_feature_requires_a_subscription">Эта функция требует подписки</string>
     <string name="choose_synchronization_service">Выберите платформу</string>
@@ -444,7 +444,7 @@
     <string name="chip_appearance_text_only">Только текст</string>
     <string name="chip_appearance_text_and_icon">Текст и иконка</string>
     <string name="hide_unused_places">Скрыть неиспользуемые места</string>
-    <string name="hide_unused_tags">Скрыть неиспользуемые теги</string>
+    <string name="hide_unused_tags">Скрыть неиспользуемые метки</string>
     <string name="navigation_drawer">Панель навигации</string>
     <string name="place_settings">Настройки места</string>
     <string name="places">Места</string>
@@ -480,8 +480,8 @@
     <string name="filter_low_priority">Низкий приоритет</string>
     <string name="filter_medium_priority">Средний приоритет</string>
     <string name="filter_high_priority">Высокий приоритет</string>
-    <string name="add_tags">Добавить теги</string>
-    <string name="filter_no_tags">Без тегов</string>
+    <string name="add_tags">Добавить метки</string>
+    <string name="filter_no_tags">Без меток</string>
     <string name="filter_after_today">После сегодняшнего дня</string>
     <string name="filter_any_due_date">Любая дата завершения</string>
     <string name="filter_today_only">Только сегодняшнее</string>
@@ -506,7 +506,7 @@
     <string name="date_shortcut_tomorrow_night">Завтра ночью</string>
     <string name="date_shortcut_tomorrow_evening">Завтра вечером</string>
     <string name="CFC_list_name">В списке…</string>
-    <string name="astrid_sort_order_summary">Включите режим ручной сортировки Astrid для «Моих задач», «Сегодня» и тегов. Этот режим сортировки будет заменён на «Мой порядок» в будущем обновлении</string>
+    <string name="astrid_sort_order_summary">Включите режим ручной сортировки Astrid для «Моих задач», «Сегодня» и меток. Этот режим сортировки будет заменён на «Мой порядок» в будущем обновлении</string>
     <string name="astrid_sort_order">Ручная сортировка Astrid</string>
     <string name="davx5_selection_description">Синхронизируйте свои задачи с приложением DAVx⁵</string>
     <string name="account">Учётная запись</string>
@@ -578,7 +578,7 @@
     <string name="default_due_date">Дата окончания по умолчанию</string>
     <string name="start_date">Дата начала</string>
     <string name="filter_criteria_unstarted">Не начавшиеся</string>
-    <string name="show_unstarted">Показать не начавшиеся</string>
+    <string name="show_unstarted">Показать непочатые</string>
     <string name="no_start_date">Нет даты начала</string>
     <string name="default_start_date">Дата начала по умолчанию</string>
     <string name="SSD_sort_start">Дата начала</string>
@@ -698,7 +698,7 @@
         <item quantity="many">повторов</item>
         <item quantity="other">повторов</item>
     </plurals>
-    <string name="sort_not_available">Недоступно для тегов, фильтров или мест</string>
+    <string name="sort_not_available">Недоступно для меток, фильтров или мест</string>
     <string name="sort_list">Список</string>
     <string name="sort_sorting">Сортировка</string>
     <string name="sort_grouping">Группировка</string>
@@ -749,4 +749,7 @@
     <string name="banner_app_updated_description">Tasks обновились до версии %s. Показать что изменилось?</string>
     <string name="banner_app_updated_title">Приложение обновлено</string>
     <string name="multiline_title_off">Нажмите Done, чтобы сохранить задачу</string>
+    <string name="continue_without_sync">Продолжить без синхронизации</string>
+    <string name="help_me_choose">Помогите мне выбрать</string>
+    <string name="delete_tasks_warning">%s будет удалена. Это нельзя отменить!</string>
 </resources>
