@@ -5,7 +5,7 @@
     <string name="filter_my_tasks">Мои задачи</string>
     <string name="filter_notifications">Уведомления</string>
     <string name="filter_snoozed">Отложенные</string>
-    <string name="filter_timer">Задачи с таймером</string>
+    <string name="filter_timer">Задачи с термином</string>
     <string name="filter_today">Сегодня</string>
     <string name="filter_recently_modified">Недавно изменённые</string>
     <string name="default_list">Список по умолчанию</string>
@@ -13,7 +13,7 @@
     <string name="help_and_feedback">Помощь и обратная связь</string>
     <string name="settings">Настройки</string>
     <string name="drawer_filters">Фильтры</string>
-    <string name="drawer_tags">Теги</string>
+    <string name="drawer_tags">Метки</string>
     <string name="drawer_places">Места</string>
     <string name="tmrw">Завтра</string>
     <string name="tomorrow_abbrev_lowercase">завтра</string>
@@ -25,10 +25,10 @@
     <string name="yesterday_lowercase">вчера</string>
     <string name="today">Сегодня</string>
     <string name="today_lowercase">сегодня</string>
-    <string name="show_unstarted">Показать не начавшиеся</string>
-    <string name="show_completed">Показать выполненные</string>
+    <string name="show_unstarted">Показать непочатые</string>
+    <string name="show_completed">Показать завершённые</string>
     <string name="search_no_results">Нет результатов</string>
-    <string name="requires_pro_subscription">Профессиональная функция</string>
+    <string name="requires_pro_subscription">Профессиональная функциональность</string>
     <string name="wear_install_app">Установить на телефон</string>
     <string name="wear_unknown_error">Неизвестная ошибка</string>
     <string name="add_task">Добавить задачу</string>
