@@ -419,7 +419,7 @@ File %1$s contained %2$s.\n\n
   <string name="error_adding_account">Error: %s</string>
   <string name="notification_disable_battery_optimizations_description">Battery optimizations may delay notifications</string>
   <string name="bundle_notifications">Bundle notifications</string>
-  <string name="default_reminder">Default Reminder</string>
+  <string name="default_reminder">Default reminder</string>
   <string name="badges">Badges</string>
   <string name="list">List</string>
   <string name="repeats_from">Repeats from</string>
