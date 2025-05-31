@@ -7,12 +7,7 @@
     <string name="backup_BAc_export">Sauvegarder maintenant</string>
     <string name="export_toast">Sauvegardée %1$s dans %2$s.</string>
     <string name="import_summary_title">Résumé de la restauration</string>
-    <string name="import_summary_message">Le fichier %1$s contenait %2$s.
-\n
-\n %3$s importées,
-\n %4$s existaient déjà
-\n %5$s contenaient des erreurs
-\n</string>
+    <string name="import_summary_message">Le fichier %1$s contenait %2$s.\n\n‐ %3$s importées\n‐ %4$s existaient déjà\n‐ %5$s contenaient des erreurs</string>
     <string name="import_progress_read">Lecture de la tâche %d…</string>
     <string name="read_permission_label">Permissions de Tasks</string>
     <string name="discard_confirmation">Voulez-vous vraiment annuler vos modifications \?</string>
