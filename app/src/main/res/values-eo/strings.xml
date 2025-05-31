@@ -543,7 +543,7 @@
     <string name="customize_edit_screen_summary">Rearanĝi aŭ forigi kampojn</string>
     <string name="widget_due_date_hidden">Kaŝita</string>
     <string name="widget_row_settings">Agordoj de vico</string>
-    <string name="default_reminder">Defaŭlta Memorigo</string>
+    <string name="default_reminder">Defaŭlta memorigo</string>
     <string name="decsync_selection_description">Perdosiersistema sinkronigo</string>
     <string name="repeats_single_on">Ripetiĝas %1$s je %2$s</string>
     <string name="google_drive_backup">Savkopio de Google Drive</string>
