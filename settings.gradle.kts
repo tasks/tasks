@@ -30,9 +30,9 @@ dependencyResolutionManagement {
             content {
                 includeModule("com.github.bitfireAT", "cert4android")
                 includeModule("com.github.bitfireAT", "dav4jvm")
+                includeModule("com.github.bitfireAT", "ical4android")
                 includeModule("com.github.franmontiel", "PersistentCookieJar")
                 includeModule("com.github.jheld", "colorpicker")
-                includeModule("com.github.tasks", "ical4android")
                 includeModule("com.github.tasks.opentasks", "opentasks-provider")
             }
         }
