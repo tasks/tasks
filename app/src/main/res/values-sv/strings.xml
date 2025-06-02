@@ -603,7 +603,7 @@
     <string name="TEA_add_subtask">Lägg till deluppgift</string>
     <string name="sort_created">Efter skapandetid</string>
     <string name="SSD_sort_start">Efter startdatum</string>
-    <string name="astrid_sort_order">Astrid manuell sortering</string>
+    <string name="astrid_sort_order">Manuell sortering från Astrid</string>
     <string name="display_name">Visa namnet</string>
     <string name="now">Nu</string>
     <string name="completed">Slutförd</string>
@@ -719,4 +719,8 @@
     <string name="app_settings">Appinställningar</string>
     <string name="banner_app_updated_title">App uppdaterad</string>
     <string name="banner_app_updated_description">Tasks uppdaterades just till %s. Vill du se versionsnyheterna?</string>
+    <string name="multiline_title_off">Tryck på \"klar\" för att spara uppgiften</string>
+    <string name="help_me_choose">Hjälp mig att välja</string>
+    <string name="delete_tasks_warning">%s kommer att tas bort. Detta kan inte ångras!</string>
+    <string name="continue_without_sync">Fortsätt utan synkronisering</string>
 </resources>
