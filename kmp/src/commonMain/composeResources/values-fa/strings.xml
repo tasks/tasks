@@ -16,4 +16,8 @@
     <string name="yesterday">فردا بعد از ظهر</string>
     <string name="today">امروز</string>
     <string name="show_completed">نمایش انجام شده ها</string>
+    <string name="requires_pro_subscription">ویژگی حرفه ای</string>
+    <string name="subscription_required_description">همه ویژگی ها را با قیمت 1 دلار در سال باز کنید</string>
+    <string name="subscribe">مشترک شدن</string>
+    <string name="filter_snoozed">چرت زده</string>
 </resources>
