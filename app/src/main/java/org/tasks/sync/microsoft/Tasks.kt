@@ -42,7 +42,7 @@ data class Tasks(
         data class LinkedResource(
             val applicationName: String,
             val displayName: String?,
-            val externalId: String,
+            val externalId: String?,
             val id: String,
         )
 
