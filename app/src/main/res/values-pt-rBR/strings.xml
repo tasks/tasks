@@ -623,7 +623,6 @@
     <string name="default_due_date">Data de vencimento padrão</string>
     <string name="markdown_description">Habilitar Markdown no título e descrição</string>
     <string name="markdown">Markdown</string>
-    <string name="chat_libera">#tasks (Libera Chat)</string>
     <string name="now">Agora</string>
     <string name="completed_tasks_at_bottom">Mover tarefas concluídas para baixo</string>
     <string name="completed">Concluída</string>

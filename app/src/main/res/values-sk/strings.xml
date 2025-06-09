@@ -510,7 +510,6 @@
     <string name="got_it">Rozumiem!</string>
     <string name="sort_completion_group">Dokončené %s</string>
     <string name="reset_sort_order">Obnoviť triedenie</string>
-    <string name="chat_libera">Pripojte sa k #tasks na Libera Chat</string>
     <string name="repeat_monthly_on_day_number">%1d. deň v mesiaci</string>
     <string name="repeat_monthly_fifth_week">piaty</string>
     <string name="filter_eisenhower_box_3">Naliehavé, ale nedôležité</string>

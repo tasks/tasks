@@ -625,7 +625,6 @@
     <string name="next_wednesday">Следующая Ср</string>
     <string name="markdown_description">Включить Markdown в названии и описании</string>
     <string name="markdown">Markdown</string>
-    <string name="chat_libera">Присоединяйтесь к #tasks в Libera Chat</string>
     <string name="now">Сейчас</string>
     <string name="when_started">После начала</string>
     <string name="completion_sound">Воспроизводить звук завершения</string>

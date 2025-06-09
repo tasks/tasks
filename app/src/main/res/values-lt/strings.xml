@@ -520,7 +520,6 @@
     <string name="github_sponsors">GitHub rėmėjai</string>
     <string name="sign_in_with_google">Prisijungti naudojant Google</string>
     <string name="sign_in_with_github">Prisijungti naudojant GitHub</string>
-    <string name="chat_libera">Prisijugti prie #tasks Libera Chat</string>
     <string name="follow_twitter">Sekti @tasks_org</string>
     <string name="follow_reddit">Prisijungti prie r/tasks</string>
     <string name="current_subscription">Dabartinė prenumerata: %s</string>

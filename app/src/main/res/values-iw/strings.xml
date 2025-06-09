@@ -605,7 +605,6 @@
     <string name="issue_tracker">עוקב בעיות</string>
     <string name="support">תמיכה</string>
     <string name="social">חברתי</string>
-    <string name="chat_libera">הצטרפו אל tasks# ב־Libera Chat</string>
     <string name="follow_twitter">עקבו אחרי tasks_org@</string>
     <string name="sort_due_group">יעד %s</string>
     <string name="sort_start_group">התחלה %s</string>

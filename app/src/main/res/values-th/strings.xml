@@ -85,7 +85,6 @@
     <string name="privacy">ข้อมูลส่วนบุคคล</string>
     <string name="open_source">เปิดแหล่งที่มา</string>
     <string name="support">สนับสนุน</string>
-    <string name="chat_libera">ร่วม#tasks Libera Chat</string>
     <string name="follow_twitter">ติดตาม@tasks_org</string>
     <string name="current_subscription">การสมัครสมาชิกปัจจุบัน: %s</string>
     <string name="price_per_month">$%s/เดือน</string>

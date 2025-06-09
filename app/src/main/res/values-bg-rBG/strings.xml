@@ -585,7 +585,6 @@
     <string name="price_per_year">$%s/година</string>
     <string name="social">Социални мрежи</string>
     <string name="permission_read_tasks">Пълен дистъп до банката данни на Task</string>
-    <string name="chat_libera">Присъединете към #tasks в Libera Chat</string>
     <string name="github_sponsors">Дарители от GitHub</string>
     <string name="sign_in_to_tasks">Вход в Tasks.org</string>
     <string name="markdown_description">Markdown в заглавията и описанията</string>

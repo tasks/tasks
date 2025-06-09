@@ -261,7 +261,6 @@
     <string name="device_settings">Nutiseadme seadistused</string>
     <string name="last_backup_never">mitte kunagi</string>
     <string name="account">Konto</string>
-    <string name="chat_libera">Liitu kanaliga #tasks Libera Chat\'is</string>
     <string name="above_average">Üle keskmise</string>
     <string name="app_password_created_at">Loodud: %s</string>
     <string name="premium_record_audio">Salvesta audiomärge</string>

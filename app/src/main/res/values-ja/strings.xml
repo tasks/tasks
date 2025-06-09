@@ -555,7 +555,6 @@
     <string name="insufficient_sponsorship">対象の GitHub スポンサーシップがありません</string>
     <string name="multi_select_reschedule">スケジュール変更</string>
     <string name="date_picker_multiple">複数</string>
-    <string name="chat_libera">参加: #tasks on Libera Chat</string>
     <string name="follow_reddit">参加: r/tasks</string>
     <string name="follow_twitter">フォロー: @tasks_org</string>
     <string name="issue_tracker">Issue tracker / 問題追跡</string>

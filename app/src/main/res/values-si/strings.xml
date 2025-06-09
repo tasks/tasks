@@ -611,7 +611,6 @@
     <string name="place_settings">ස්ථාන සැකසුම්</string>
     <string name="repeat_snackbar">%1$s, %2$s සඳහා නැවත සකස් කරන ලදි</string>
     <string name="CFC_importance_text">අවම වශයෙන් ප්‍රමුඛතාවය \?</string>
-    <string name="chat_libera">ලිබරා චැට් හි #කාර්යයන් හා සම්බන්ධ වන්න</string>
     <string name="now">දැන්</string>
     <plurals name="reminder_hours">
         <item quantity="one">පැය</item>

@@ -623,7 +623,6 @@
     <string name="next_monday">Lundi prochain</string>
     <string name="markdown_description">Activer « Markdown » dans le titre et la description</string>
     <string name="markdown">« Markdown »</string>
-    <string name="chat_libera">Rejoindre #tasks sur « Libera Chat »</string>
     <string name="now">Maintenant</string>
     <string name="when_started">Lorsqu\'il est démarré</string>
     <string name="completion_sound">Jouer le son d\'achèvement</string>

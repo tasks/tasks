@@ -474,7 +474,6 @@
     <string name="issue_tracker">Problemlösare</string>
     <string name="support">Stöd</string>
     <string name="social">Sociala</string>
-    <string name="chat_libera">Gå med i #tasks på Libera Chat</string>
     <string name="follow_reddit">Gå med i r/tasks</string>
     <string name="follow_twitter">Följ @tasks_org</string>
     <string name="current_subscription">Nuvarande abonnemang: %s</string>
