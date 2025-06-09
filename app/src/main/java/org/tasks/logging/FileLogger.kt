@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.os.Process
 import android.util.Log
+import dagger.Lazy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
+import org.tasks.backup.TasksJsonExporter
 import org.tasks.logging.LogFormatter.Companion.LINE_SEPARATOR
 import org.tasks.preferences.Device
 import timber.log.Timber
@@ -27,6 +29,8 @@ import javax.inject.Singleton
 @Singleton
 class FileLogger @Inject constructor(
     private val context: Application,
+    private val device: Lazy<Device>,
+    private val tasksJsonExporter: Lazy<TasksJsonExporter>,
 ) : Timber.DebugTree() {
     private val logDirectory = File(context.cacheDir, "logs").apply { mkdirs() }
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -82,7 +86,10 @@ class FileLogger @Inject constructor(
                     Timber.e(e, "Failed to save logcat")
                 }
                 zos.putNextEntry(ZipEntry("device.txt"))
-                zos.write(Device(context).debugInfo.toByteArray())
+                zos.write(device.get().debugInfo.toByteArray())
+                zos.closeEntry()
+                zos.putNextEntry(ZipEntry("settings.json"))
+                tasksJsonExporter.get().doSettingsExport(zos)
                 zos.closeEntry()
                 fileHandler.flush()
                 logDirectory
