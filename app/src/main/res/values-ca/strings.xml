@@ -496,4 +496,22 @@
     <string name="restart_later">Després</string>
     <string name="quiet_hours_in_effect">Les hores tranquil·les són efectives</string>
     <string name="opacity_footer">Opacitat del peu</string>
+    <string name="comment">Comentari</string>
+    <string name="widget_due_date_below_title">Sota el títol</string>
+    <string name="widget_due_date_hidden">Ocult</string>
+    <string name="clear_completed_tasks_confirmation">Voleu netejar les tasques completades?</string>
+    <string name="copy_multiple_tasks_confirmation">%s copiat</string>
+    <string name="delete_multiple_tasks_confirmation">%s esborrat</string>
+    <string name="widget_due_date_after_title">Després del títol</string>
+    <string name="widget_open_list">Llista oberta</string>
+    <string name="copy_selected_tasks">Voleu copiar les tasques seleccionades?</string>
+    <string name="notification_disable_battery_optimizations_description">Les optimitzacions de la bateria poden retardar les notificacions</string>
+    <string name="app_settings">Configuració de l\'aplicació</string>
+    <string name="widget_row_settings">Paràmetres de la fila</string>
+    <string name="delete_comment">comentari</string>
+    <string name="yesterday">Ahir</string>
+    <string name="delete_selected_tasks">Voleu suprimir les tasques seleccionades?</string>
+    <string name="add_account">Afegeiu un compte</string>
+    <string name="continue_without_sync">Continua sense sincronitzar</string>
+    <string name="help_me_choose">Ajuda\'m a triar</string>
 </resources>
