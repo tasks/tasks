@@ -676,7 +676,6 @@
     <string name="change_priority">Ändra prioritet</string>
     <string name="ok">OK</string>
     <string name="cancel">Avbryt</string>
-    <string name="clear_completed_tasks_count">%s kommer att tas bort</string>
     <string name="theme_dynamic">Dynamisk</string>
     <string name="donate_nag">Överväg att visa ditt stöd med en donation!</string>
     <string name="donate_today">Donera idag</string>

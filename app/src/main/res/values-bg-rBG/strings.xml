@@ -676,7 +676,6 @@
     <string name="repeat_monthly_on_the_nth_weekday">Ежемесечно в %1$s %2$s</string>
     <string name="repeat_monthly_on_day_number">Ежемесечно на %1d ден</string>
     <string name="change_priority">Промяна на приоритет</string>
-    <string name="clear_completed_tasks_count">Задачата „%s“ ще бъде премахната</string>
     <string name="theme_dynamic">Динамична</string>
     <string name="swipe_to_snooze_description">Отлагане на време</string>
     <string name="swipe_to_snooze_time_immediately">веднага</string>

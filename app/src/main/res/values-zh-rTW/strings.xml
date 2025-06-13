@@ -660,7 +660,6 @@
     <string name="sort_descending">遞減</string>
     <string name="sort_completed">依完成時間</string>
     <string name="change_priority">更改優先順序</string>
-    <string name="clear_completed_tasks_count">%s 將會刪除</string>
     <string name="swipe_to_snooze_title">滑動以延後</string>
     <string name="swipe_to_snooze_description">延後時間</string>
     <string name="swipe_to_snooze_time_immediately">立即</string>

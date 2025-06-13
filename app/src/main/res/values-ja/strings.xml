@@ -686,7 +686,6 @@
     <string name="add_widget_to_home_screen">ホーム画面にウィジェットを追加</string>
     <string name="theme_dynamic">ダイナミック</string>
     <string name="customize_drawer">ドロワーのカスタマイズ</string>
-    <string name="clear_completed_tasks_count">%s 削除されます</string>
     <string name="donate_today">今日寄付をする</string>
     <string name="donate_maybe_later">また後で</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do は多層式のサブタスクに対応していません</string>

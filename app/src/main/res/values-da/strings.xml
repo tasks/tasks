@@ -677,7 +677,6 @@
     <string name="repeats_ends">Slutter</string>
     <string name="sort_grouping">Gruppering</string>
     <string name="repeats_on">På</string>
-    <string name="clear_completed_tasks_count">%s bliver slettet</string>
     <string name="repeats_never">Aldrig</string>
     <string name="sort_ascending">Stigende</string>
     <string name="sign_in_to_tasks_disclosure">Din e-mailadresse og dit konto-ID overføres og gemmes af Tasks.org. Disse oplysninger bruges til godkendelse og til at give dig vigtige tjenesterelaterede meddelelser og deles ikke med nogen.</string>

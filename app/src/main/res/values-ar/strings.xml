@@ -753,7 +753,6 @@
     <string name="sign_in">سجل دخولك</string>
     <string name="consent_deny">ليس الآن</string>
     <string name="dismiss">استبعاد</string>
-    <string name="clear_completed_tasks_count">سيتم حذف %s</string>
     <string name="repeats_ends">ينتهي عند</string>
     <string name="repeats_never">أبدا</string>
     <string name="app_settings">إعدادات التطبيق</string>

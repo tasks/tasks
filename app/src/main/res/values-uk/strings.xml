@@ -706,7 +706,6 @@
     <string name="repeat_monthly_on_day_number">Щомісяця у %1d</string>
     <string name="repeat_monthly_on_the_nth_weekday">Щомісяця %1$s %2$s</string>
     <string name="change_priority">Змінити пріоритет</string>
-    <string name="clear_completed_tasks_count">%s буде видалено</string>
     <string name="theme_dynamic">Динамічна</string>
     <string name="donate_today">Підтримати сьогодні</string>
     <string name="show_edit_screen_without_unlock">Показувати екран редагування без розблокування</string>

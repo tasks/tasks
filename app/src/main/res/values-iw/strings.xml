@@ -730,7 +730,6 @@
     <string name="show_edit_screen_without_unlock">הצגת מסך עריכה ללא ביטול נעילה</string>
     <string name="show_edit_screen_without_unlock_summary">מאפשר שימוש באריח הגדרות מהירות מבלי לבטל את נעילת המכשיר</string>
     <string name="theme_dynamic">דינמי</string>
-    <string name="clear_completed_tasks_count">%s יימחקו</string>
     <string name="repeat_monthly_on_the_nth_weekday">מדי חודש ב%2$s ה%1$s</string>
     <string name="donate_today">לתרום היום</string>
     <string name="donate_maybe_later">אולי מאוחר יותר</string>

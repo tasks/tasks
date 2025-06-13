@@ -672,7 +672,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     } else {
                         dialogBuilder
                             .newDialog(R.string.clear_completed_tasks_confirmation)
-                            .setMessage(R.string.clear_completed_tasks_count, countString)
+                            .setMessage(R.string.delete_tasks_warning, countString)
                             .setPositiveButton(R.string.ok) { _, _ ->
                                 lifecycleScope.launch {
                                     listViewModel.markDeleted(tasks)

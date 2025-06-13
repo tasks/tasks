@@ -639,7 +639,6 @@
     <string name="invalid_username_or_password">Vigane kasutajanimi või salasõna</string>
     <string name="disable_battery_optimizations">Lülita akukasutuse optimeerimine välja</string>
     <string name="app_password_save">Kasuta neid salasõnu/kasutajanimesid kalendreid kolmandate osapoolte töölaua- ja nutiseadme rakenduste seadistamiseks. Nad annavad täisligipääsu sinu Tasks.org kasutajakontole, ära jaga neid kellegagi ega kirjuta üles mittekrüptitud viisil!</string>
-    <string name="clear_completed_tasks_count">%s kustutatakse</string>
     <string name="copy_multiple_tasks_confirmation">%s on kopeeritud</string>
     <string name="show_edit_screen_without_unlock">Näita muutmisvaadet ka ilma lukustust eemaldamata</string>
     <string name="sign_in_with_google">Logi sisse Google\'i kasutajakontoga</string>

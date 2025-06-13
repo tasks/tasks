@@ -586,7 +586,6 @@
     <string name="swipe_to_snooze_time_24_hours">24 மணி நேரம் கழித்து</string>
     <string name="when_started">தொடங்கும்போது</string>
     <string name="change_priority">முன்னுரிமையை மாற்றவும்</string>
-    <string name="clear_completed_tasks_count">%s நீக்கப்படும்</string>
     <string name="default_reminder">இயல்புநிலை நினைவூட்டல்</string>
     <string name="sort_start_group">தொடக்க %s</string>
     <string name="sort_completion_group">நிறைவு %s</string>

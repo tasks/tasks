@@ -679,7 +679,6 @@
     <string name="repeats_on">Ligado</string>
     <string name="repeats_weekly_on">Repete em</string>
     <string name="theme_dynamic">Dinâmico</string>
-    <string name="clear_completed_tasks_count">%s serão eliminadas</string>
     <string name="enable_alarms_description">Para garantir que você seja notificado na hora certa, conceda permissão para configurar alarmes e lembretes nas Configurações</string>
     <string name="swipe_to_snooze_title">Deslize para adiar</string>
     <string name="swipe_to_snooze_description">Tempo de adiamento</string>
