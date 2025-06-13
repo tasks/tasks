@@ -1,3 +1,24 @@
+### 14.7.3 (2025-06-13)
+
+* Fix dynamic color
+* Fix Microsoft To Do sync failure
+* Fix crash after deleting last list
+* Fix notifications when 'Alarms & reminders' not allowed
+* Update translations
+  * Bulgarian - 109247019824
+  * Dutch - @fvbommel
+  * Esperanto - Don Zouras
+  * French - @FlorianLeChat
+  * Hebrew - Xo
+  * Japanese - M_Haruki
+  * Persian - @theuser17
+  * Portuguese - @nero-bratti
+  * Romanian - @ygorigor
+  * Russian - @yurtpage
+  * Spanish - @orionn333
+  * Swedish - @Nicklasfox
+  * Turkish - @emintufan
+
 ### 14.7.2 (2025-05-23)
 
 * Remove Microsoft Authentication Library from F-Droid builds [#3581](https://github.com/tasks/tasks/issues/3581)

@@ -1,0 +1,5 @@
+* Fix dynamic color
+* Fix Microsoft To Do sync failure
+* Fix crash after deleting last list
+* Fix notifications when 'Alarms & reminders' not allowed
+* Update translations
