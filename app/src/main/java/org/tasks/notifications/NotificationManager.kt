@@ -86,7 +86,8 @@ class NotificationManager @Inject constructor(
 
     @SuppressLint("MissingPermission")
     suspend fun restoreNotifications(cancelExisting: Boolean) {
-        if (!permissionChecker.hasNotificationPermission()) {
+        if (!permissionChecker.canNotify()) {
+            Timber.w("Notifications disabled")
             return
         }
         val notifications = notificationDao.getAllOrdered()
@@ -127,7 +128,7 @@ class NotificationManager @Inject constructor(
         nonstop: Boolean,
         fiveTimes: Boolean
     ) {
-        if (!permissionChecker.hasNotificationPermission()) {
+        if (!permissionChecker.canNotify()) {
             return
         }
         val existingNotifications = notificationDao.getAllOrdered()
@@ -224,7 +225,7 @@ class NotificationManager @Inject constructor(
             nonstop: Boolean,
             fiveTimes: Boolean,
     ) {
-        if (!permissionChecker.hasNotificationPermission()) {
+        if (!permissionChecker.canNotify()) {
             return
         }
         if (preUpsideDownCake()) {
@@ -455,7 +456,7 @@ class NotificationManager @Inject constructor(
                 R.string.TPl_notification, r.getQuantityString(R.plurals.Ntasks, count, count)
             )
             val builder =
-                NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_TIMERS)
+                NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_TIMERS)
                     .setContentIntent(pendingIntent)
                     .setContentTitle(appName)
                     .setContentText(text)

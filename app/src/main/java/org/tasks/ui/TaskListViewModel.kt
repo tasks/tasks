@@ -220,7 +220,7 @@ class TaskListViewModel @Inject constructor(
     fun dismissBanner(tookAction: Boolean = false) {
         when (state.value.banner) {
             Banner.NotificationsDisabled -> preferences.warnNotificationsDisabled = tookAction
-            Banner.AlarmsDisabled -> preferences.warnAlarmsDisabled = false
+            Banner.AlarmsDisabled -> preferences.warnAlarmsDisabled = tookAction
             Banner.QuietHoursEnabled -> preferences.warnQuietHoursDisabled = false
             Banner.BegForMoney -> {
                 preferences.lastSubscribeRequest = currentTimeMillis()

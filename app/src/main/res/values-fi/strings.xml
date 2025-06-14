@@ -534,7 +534,6 @@
     <string name="authentication_required">Vaadittu tunnistautuminen</string>
     <string name="sign_in_with_github">Kirjaudu sisään GitHubilla</string>
     <string name="sign_in_with_google">Kirjaudu sisään Googlen avulla</string>
-    <string name="chat_libera">Liity #tasks Libera Chatiin</string>
     <string name="follow_twitter">Seuraa @tasks_org</string>
     <string name="follow_reddit">Liity r/tasks</string>
     <string name="current_subscription">Nykyinen tilaus: %s</string>
@@ -673,7 +672,6 @@
     <string name="customize_drawer_summary">Vedä ja pudota valikon kohteita järjestääksesi ne uudelleen</string>
     <string name="swipe_to_snooze_description">Torkutusaika</string>
     <string name="swipe_to_snooze_title">Pyyhkäise sivulle torkuttaaksesi</string>
-    <string name="clear_completed_tasks_count">%s poistetaan</string>
     <string name="donate_today">Lahjoita tänään</string>
     <string name="donate_maybe_later">Ehkä myöhemmin</string>
     <string name="swipe_to_snooze_time_15_minutes">15 minuutin jälkeen</string>

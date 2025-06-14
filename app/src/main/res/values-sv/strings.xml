@@ -474,7 +474,6 @@
     <string name="issue_tracker">Problemlösare</string>
     <string name="support">Stöd</string>
     <string name="social">Sociala</string>
-    <string name="chat_libera">Gå med i #tasks på Libera Chat</string>
     <string name="follow_reddit">Gå med i r/tasks</string>
     <string name="follow_twitter">Följ @tasks_org</string>
     <string name="current_subscription">Nuvarande abonnemang: %s</string>
@@ -603,7 +602,7 @@
     <string name="TEA_add_subtask">Lägg till deluppgift</string>
     <string name="sort_created">Efter skapandetid</string>
     <string name="SSD_sort_start">Efter startdatum</string>
-    <string name="astrid_sort_order">Astrid manuell sortering</string>
+    <string name="astrid_sort_order">Manuell sortering från Astrid</string>
     <string name="display_name">Visa namnet</string>
     <string name="now">Nu</string>
     <string name="completed">Slutförd</string>
@@ -677,7 +676,6 @@
     <string name="change_priority">Ändra prioritet</string>
     <string name="ok">OK</string>
     <string name="cancel">Avbryt</string>
-    <string name="clear_completed_tasks_count">%s kommer att tas bort</string>
     <string name="theme_dynamic">Dynamisk</string>
     <string name="donate_nag">Överväg att visa ditt stöd med en donation!</string>
     <string name="donate_today">Donera idag</string>
@@ -719,4 +717,8 @@
     <string name="app_settings">Appinställningar</string>
     <string name="banner_app_updated_title">App uppdaterad</string>
     <string name="banner_app_updated_description">Tasks uppdaterades just till %s. Vill du se versionsnyheterna?</string>
+    <string name="multiline_title_off">Tryck på \"klar\" för att spara uppgiften</string>
+    <string name="help_me_choose">Hjälp mig att välja</string>
+    <string name="delete_tasks_warning">%s kommer att tas bort. Detta kan inte ångras!</string>
+    <string name="continue_without_sync">Fortsätt utan synkronisering</string>
 </resources>

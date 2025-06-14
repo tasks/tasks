@@ -555,7 +555,6 @@
     <string name="insufficient_sponsorship">対象の GitHub スポンサーシップがありません</string>
     <string name="multi_select_reschedule">スケジュール変更</string>
     <string name="date_picker_multiple">複数</string>
-    <string name="chat_libera">参加: #tasks on Libera Chat</string>
     <string name="follow_reddit">参加: r/tasks</string>
     <string name="follow_twitter">フォロー: @tasks_org</string>
     <string name="issue_tracker">Issue tracker / 問題追跡</string>
@@ -687,7 +686,6 @@
     <string name="add_widget_to_home_screen">ホーム画面にウィジェットを追加</string>
     <string name="theme_dynamic">ダイナミック</string>
     <string name="customize_drawer">ドロワーのカスタマイズ</string>
-    <string name="clear_completed_tasks_count">%s 削除されます</string>
     <string name="donate_today">今日寄付をする</string>
     <string name="donate_maybe_later">また後で</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do は多層式のサブタスクに対応していません</string>
@@ -705,7 +703,11 @@
     <string name="app_settings">アプリ設定</string>
     <string name="banner_app_updated_title">アプリが更新されました</string>
     <string name="banner_app_updated_description">Tasks が %s に更新されました。リリース ノートを表示しますか?</string>
-    <string name="cost_money">費用: $</string>
+    <string name="cost_money">料金: $</string>
     <string name="multiline_title_off">タスクを保存するには「完了」を押してください</string>
     <string name="cost_free">料金: 無料</string>
+    <string name="continue_without_sync">同期せずに続ける</string>
+    <string name="help_me_choose">選択を手伝ってください</string>
+    <string name="delete_tasks_warning">%sは削除されます。これは元に戻せません！</string>
+    <string name="cost_more_money">料金: $$$</string>
 </resources>

@@ -606,7 +606,6 @@
     <string name="next_sunday">Sonraki Pzr</string>
     <string name="markdown_description">Başlık ve açıklamada Markdown\'ı etkinleştir</string>
     <string name="markdown">Markdown</string>
-    <string name="chat_libera">Libera Chat\'te #tasks kanalına katıl</string>
     <string name="now">Şimdi</string>
     <string name="when_started">Başladığında</string>
     <string name="completion_sound">Tamamlandığında ses çal</string>
@@ -677,7 +676,6 @@
     <string name="sort_descending">Azalan</string>
     <string name="sort_grouping">Kümeleme</string>
     <string name="change_priority">Önceliği değiştir</string>
-    <string name="clear_completed_tasks_count">%s silinecek</string>
     <string name="theme_dynamic">Dinamik</string>
     <string name="swipe_to_snooze_time_immediately">hemen</string>
     <string name="swipe_to_snooze_time_30_minutes">30 dakika sonra</string>

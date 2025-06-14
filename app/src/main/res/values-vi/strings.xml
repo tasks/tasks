@@ -594,7 +594,6 @@
     <string name="SSD_sort_my_order">Thứ tự của tôi</string>
     <string name="markdown_description">Bật Markdown trong tiêu đề và mô tả</string>
     <string name="import_summary_title">Tóm tắt khôi phục</string>
-    <string name="chat_libera">Tham gia #tasks trên Libera Chat</string>
     <string name="now">Bây giờ</string>
     <string name="when_started">Khi bắt đầu</string>
     <string name="completion_sound">Phát âm thanh hoàn tất</string>
@@ -660,5 +659,4 @@
     <string name="sort_descending">Giảm dần</string>
     <string name="sort_completed">Theo thời gian hoàn thành</string>
     <string name="change_priority">Thay đổi mức độ ưu tiên</string>
-    <string name="clear_completed_tasks_count">%s sẽ bị xóa</string>
 </resources>

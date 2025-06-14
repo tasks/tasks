@@ -501,7 +501,6 @@
     <string name="start_date">Dátum spustenia</string>
     <string name="theme_system_default">Podľa systému</string>
     <string name="widget_open_list">Otvoriť zoznam</string>
-    <string name="clear_completed_tasks_count">%s bude odstránené</string>
     <string name="astrid_sort_order_summary">Zapne ručné triedenie Astrid pre „Moje úlohy“, „Dnes“ a štítky. Tento režim triedenia bude v budúcnosti nahradený režimom „Vlastné triedenie“</string>
     <string name="display_name">Zobrazované meno</string>
     <string name="next_tuesday">Budúci utorok</string>
@@ -510,7 +509,6 @@
     <string name="got_it">Rozumiem!</string>
     <string name="sort_completion_group">Dokončené %s</string>
     <string name="reset_sort_order">Obnoviť triedenie</string>
-    <string name="chat_libera">Pripojte sa k #tasks na Libera Chat</string>
     <string name="repeat_monthly_on_day_number">%1d. deň v mesiaci</string>
     <string name="repeat_monthly_fifth_week">piaty</string>
     <string name="filter_eisenhower_box_3">Naliehavé, ale nedôležité</string>

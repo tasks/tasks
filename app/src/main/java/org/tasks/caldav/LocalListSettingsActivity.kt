@@ -29,6 +29,7 @@ class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         account: CaldavAccount, calendar: CaldavCalendar, name: String, color: Int) =
             updateCalendar()
 
+    // TODO: prevent deleting the last list
     override suspend fun deleteCalendar(caldavAccount: CaldavAccount, caldavCalendar: CaldavCalendar) =
             onDeleted(true)
 }

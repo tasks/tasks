@@ -623,7 +623,6 @@
     <string name="default_due_date">Data de vencimento padrão</string>
     <string name="markdown_description">Habilitar Markdown no título e descrição</string>
     <string name="markdown">Markdown</string>
-    <string name="chat_libera">#tasks (Libera Chat)</string>
     <string name="now">Agora</string>
     <string name="completed_tasks_at_bottom">Mover tarefas concluídas para baixo</string>
     <string name="completed">Concluída</string>
@@ -700,7 +699,6 @@
     <string name="sort_ascending">Ascendente</string>
     <string name="sort_descending">Descendente</string>
     <string name="theme_dynamic">Dinâmico</string>
-    <string name="clear_completed_tasks_count">%s serão excluídas</string>
     <string name="show_edit_screen_without_unlock">Mostrar tela de edição sem desbloquear</string>
     <string name="show_edit_screen_without_unlock_summary">Permite o uso do bloco \"Configurações Rápidas\" sem desbloquear o dispositivo</string>
     <string name="swipe_to_snooze_title">Deslize para adiar</string>

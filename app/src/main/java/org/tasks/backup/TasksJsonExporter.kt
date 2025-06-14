@@ -112,6 +112,20 @@ class TasksJsonExporter @Inject constructor(
         }
     }
 
+    suspend fun doSettingsExport(os: OutputStream?) = withContext(Dispatchers.IO) {
+        val writer = os!!.bufferedWriter()
+        with (JsonWriter(writer)) {
+            write("{")
+            write("version", BuildConfig.VERSION_CODE)
+            write("timestamp", currentTimeMillis())
+            write("\"data\":{")
+            writePreferences()
+            write("}")
+            write("}")
+        }
+        writer.flush()
+    }
+
     @Throws(IOException::class)
     private suspend fun doTasksExport(os: OutputStream?, taskIds: List<Long>) = withContext(Dispatchers.IO) {
         val writer = os!!.bufferedWriter()
@@ -146,17 +160,21 @@ class TasksJsonExporter @Inject constructor(
             write("caldavCalendars", caldavDao.getCalendars())
             write("taskListMetadata", taskListMetadataDao.getAll())
             write("taskAttachments", taskAttachmentDao.getAttachments())
-            write("intPrefs", preferences.getPrefs(Integer::class.java))
-            write("longPrefs", preferences.getPrefs(java.lang.Long::class.java))
-            write("stringPrefs", preferences.getPrefs(String::class.java))
-            write("boolPrefs", preferences.getPrefs(java.lang.Boolean::class.java))
-            write("setPrefs", preferences.getPrefs(Set::class.java) as Map<String, Set<String>>, lastItem = true)
+            writePreferences()
             write("}")
             write("}")
         }
         writer.close()
         os.close()
         exportCount = taskIds.size
+    }
+
+    private fun JsonWriter.writePreferences() {
+        write("intPrefs", preferences.getPrefs(Integer::class.java))
+        write("longPrefs", preferences.getPrefs(java.lang.Long::class.java))
+        write("stringPrefs", preferences.getPrefs(String::class.java))
+        write("boolPrefs", preferences.getPrefs(java.lang.Boolean::class.java))
+        write("setPrefs", preferences.getPrefs(Set::class.java) as Map<String, Set<String>>, lastItem = true)
     }
 
     private fun onFinishExport(outputFile: String) = post {

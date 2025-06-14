@@ -604,7 +604,6 @@
     <string name="invite_declined">Invitasjon avslått</string>
     <string name="invite">invitere</string>
     <string name="share_list">Dele liste</string>
-    <string name="chat_libera">Bli med #tasks på Libera Chat</string>
     <string name="next_saturday">Neste lør</string>
     <string name="next_friday">Neste fre</string>
     <string name="next_thursday">Neste tor</string>
@@ -661,7 +660,6 @@
     <string name="sort_ascending">Stigende</string>
     <string name="sort_descending">Synkende</string>
     <string name="donate_nag">Vurder å vis din støtte med en donasjon!</string>
-    <string name="clear_completed_tasks_count">%s vil bli slettet</string>
     <string name="repeats_custom_recurrence">Tilpasset gjentakelse</string>
     <string name="repeats_weekly_on">Gjentas på</string>
     <string name="rmd_time_description">Vis varslinger for oppgaver uten frister</string>

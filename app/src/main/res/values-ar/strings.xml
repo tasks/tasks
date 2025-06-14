@@ -478,7 +478,6 @@
     <string name="github_sponsors">رعاة GitHub</string>
     <string name="authorization_cancelled">تم إلغاء التخويل</string>
     <string name="issue_tracker">تعقب المشكلة</string>
-    <string name="chat_libera">انضم إلى #tasks على Libera Chat</string>
     <string name="no_google_play_subscription">لم يتم العثور على اشتراك Google Play مقبول</string>
     <string name="chip_appearance_text_and_icon">النص والايقونة</string>
     <string name="navigation_drawer">درج التنقل</string>
@@ -754,7 +753,6 @@
     <string name="sign_in">سجل دخولك</string>
     <string name="consent_deny">ليس الآن</string>
     <string name="dismiss">استبعاد</string>
-    <string name="clear_completed_tasks_count">سيتم حذف %s</string>
     <string name="repeats_ends">ينتهي عند</string>
     <string name="repeats_never">أبدا</string>
     <string name="app_settings">إعدادات التطبيق</string>

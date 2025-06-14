@@ -586,7 +586,6 @@
     <string name="swipe_to_snooze_time_24_hours">24 மணி நேரம் கழித்து</string>
     <string name="when_started">தொடங்கும்போது</string>
     <string name="change_priority">முன்னுரிமையை மாற்றவும்</string>
-    <string name="clear_completed_tasks_count">%s நீக்கப்படும்</string>
     <string name="default_reminder">இயல்புநிலை நினைவூட்டல்</string>
     <string name="sort_start_group">தொடக்க %s</string>
     <string name="sort_completion_group">நிறைவு %s</string>
@@ -688,7 +687,6 @@
     <string name="enable_reminders">நினைவூட்டல்களை இயக்கவும்</string>
     <string name="current_subscription">தற்போதைய சந்தா: %s</string>
     <string name="follow_reddit">ஆர்/பணிகளில் சேரவும்</string>
-    <string name="chat_libera">லைபரா அரட்டையில் #பணிகளில் சேரவும்</string>
     <string name="sign_in_with_google">Google உடன் உள்நுழைக</string>
     <string name="migrate_count">%s ஐ tasks.org க்கு நகர்த்தவும்</string>
     <string name="save_percent">%d %% சேமிக்கவும்</string>

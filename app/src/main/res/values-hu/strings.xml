@@ -606,7 +606,6 @@
     <string name="next_tuesday">Köv. K</string>
     <string name="markdown_description">Markdown engedélyezése címben és leírásban</string>
     <string name="markdown">Markdown</string>
-    <string name="chat_libera">Csatlakozzon #tasks a Libera Chat-en</string>
     <string name="now">Most</string>
     <string name="when_started">A kezdetekor</string>
     <string name="completion_sound">Hang lejátszása készre állításkor</string>
@@ -675,7 +674,6 @@
     <string name="repeat_monthly_on_day_number">Minden hónap %1d napján</string>
     <string name="repeats_ends">Befejeződik</string>
     <string name="repeats_weekly_on">Ismétlődik</string>
-    <string name="clear_completed_tasks_count">%s törlésre kerül</string>
     <string name="donate_today">Adományozzon ma</string>
     <string name="donate_nag">Gondolkodjon el rajta, hogy adományozással támogassa az alkalmazást!</string>
     <string name="repeats_on">Ekkor</string>

@@ -607,7 +607,6 @@
     <string name="default_start_date">Data de início predefinida</string>
     <string name="start_date">Data de início</string>
     <string name="SSD_sort_start">Por data de início</string>
-    <string name="chat_libera">Junte-se a #tasks no Libera Chat</string>
     <string name="now">Agora</string>
     <string name="when_started">Quando iniciado</string>
     <string name="completion_sound">Reproduzir som de conclusão</string>
@@ -680,7 +679,6 @@
     <string name="repeats_on">Ligado</string>
     <string name="repeats_weekly_on">Repete em</string>
     <string name="theme_dynamic">Dinâmico</string>
-    <string name="clear_completed_tasks_count">%s serão eliminadas</string>
     <string name="enable_alarms_description">Para garantir que você seja notificado na hora certa, conceda permissão para configurar alarmes e lembretes nas Configurações</string>
     <string name="swipe_to_snooze_title">Deslize para adiar</string>
     <string name="swipe_to_snooze_description">Tempo de adiamento</string>
@@ -722,4 +720,7 @@
     <string name="add_shortcut_to_home_screen">Adicionar atalho para a tela inicial</string>
     <string name="cost_free">Custo: Grátis</string>
     <string name="send_application_logs">Enviar logs do aplicativo</string>
+    <string name="help_me_choose">Ajude-me a escolher</string>
+    <string name="continue_without_sync">Continuar sem sync</string>
+    <string name="delete_tasks_warning">%s será apagado. Isso não poderá ser desfeito!</string>
 </resources>

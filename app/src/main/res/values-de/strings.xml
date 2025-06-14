@@ -607,7 +607,6 @@
     <string name="next_sunday">Nächsten Sonntag</string>
     <string name="markdown_description">Markdown in Titel und Beschreibung aktivieren</string>
     <string name="markdown">Markdown</string>
-    <string name="chat_libera">An #tasks auf Libera Chat teilnehmen</string>
     <string name="now">Jetzt</string>
     <string name="when_started">Wenn begonnen</string>
     <string name="completion_sound">Ton bei Erledigung abspielen</string>
@@ -677,7 +676,6 @@
     <string name="repeats_every">Wiederholt sich</string>
     <string name="repeat_monthly_on_day_number">Monatlich an Tag %1d</string>
     <string name="repeat_monthly_on_the_nth_weekday">Am %1$s %2$s jeden Monats</string>
-    <string name="clear_completed_tasks_count">%s werden gelöscht</string>
     <string name="theme_dynamic">Dynamisch</string>
     <string name="swipe_to_snooze_time_immediately">sofort</string>
     <string name="swipe_to_snooze_time_15_minutes">nach 15 Minuten</string>

@@ -623,7 +623,6 @@
     <string name="next_sunday">Domenica prossima</string>
     <string name="markdown_description">Abilita la formattazione Markdown nel titolo e nella descrizione</string>
     <string name="markdown">Markdown</string>
-    <string name="chat_libera">Unisciti a #tasks su Libera Chat</string>
     <string name="now">Ora</string>
     <string name="when_started">Alla data di inizio</string>
     <string name="completion_sound">Suono di completamento</string>
@@ -700,7 +699,6 @@
     <string name="repeat_monthly_on_the_nth_weekday">Mensilmente il %1$s %2$s</string>
     <string name="change_priority">Cambia priorità</string>
     <string name="theme_dynamic">Dinamico</string>
-    <string name="clear_completed_tasks_count">%s sarà cancellato</string>
     <string name="donate_today">Dona ora</string>
     <string name="donate_nag">Dimostra il tuo sostegno con una donazione!</string>
     <string name="donate_maybe_later">Forse più tardi</string>

@@ -624,7 +624,6 @@
     <string name="support">支援</string>
     <string name="privacy">隱私</string>
     <string name="open_source">開源</string>
-    <string name="chat_libera">加入 #tasks 的 Libera Chat 頻道</string>
     <string name="app_passwords_more_info">使用第三方桌面和移動應用程式同步您的任務和行事曆。點擊此處了解更多資訊</string>
     <string name="account_not_included">並不包含「隨意價格」訂閱</string>
     <string name="alarm_after_due">到期後 %s</string>
@@ -661,7 +660,6 @@
     <string name="sort_descending">遞減</string>
     <string name="sort_completed">依完成時間</string>
     <string name="change_priority">更改優先順序</string>
-    <string name="clear_completed_tasks_count">%s 將會刪除</string>
     <string name="swipe_to_snooze_title">滑動以延後</string>
     <string name="swipe_to_snooze_description">延後時間</string>
     <string name="swipe_to_snooze_time_immediately">立即</string>

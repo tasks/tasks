@@ -569,7 +569,6 @@
     <string name="issue_tracker">Problemsporing</string>
     <string name="support">Støtte</string>
     <string name="social">Social</string>
-    <string name="chat_libera">Deltag i #tasks på Libera Chat</string>
     <string name="follow_twitter">Følg @tasks_org</string>
     <string name="date_picker_multiple">Flere</string>
     <string name="multi_select_reschedule">Omlæg</string>
@@ -678,7 +677,6 @@
     <string name="repeats_ends">Slutter</string>
     <string name="sort_grouping">Gruppering</string>
     <string name="repeats_on">På</string>
-    <string name="clear_completed_tasks_count">%s bliver slettet</string>
     <string name="repeats_never">Aldrig</string>
     <string name="sort_ascending">Stigende</string>
     <string name="sign_in_to_tasks_disclosure">Din e-mailadresse og dit konto-ID overføres og gemmes af Tasks.org. Disse oplysninger bruges til godkendelse og til at give dig vigtige tjenesterelaterede meddelelser og deles ikke med nogen.</string>

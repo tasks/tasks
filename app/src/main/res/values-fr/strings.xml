@@ -623,7 +623,6 @@
     <string name="next_monday">Lundi prochain</string>
     <string name="markdown_description">Activer « Markdown » dans le titre et la description</string>
     <string name="markdown">« Markdown »</string>
-    <string name="chat_libera">Rejoindre #tasks sur « Libera Chat »</string>
     <string name="now">Maintenant</string>
     <string name="when_started">Lorsqu\'il est démarré</string>
     <string name="completion_sound">Jouer le son d\'achèvement</string>
@@ -703,7 +702,6 @@
     <string name="donate_nag">Pensez à manifester votre soutien en faisant un don !</string>
     <string name="donate_today">Faites un don aujourd\'hui</string>
     <string name="donate_maybe_later">Peut-être plus tard</string>
-    <string name="clear_completed_tasks_count">%s sera supprimée</string>
     <string name="customize_drawer">Personnaliser le tiroir</string>
     <string name="swipe_to_snooze_time_1_hour">après 1 heure</string>
     <string name="swipe_to_snooze_time_24_hours">après 24 heures</string>

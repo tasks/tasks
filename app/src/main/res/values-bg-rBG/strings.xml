@@ -585,7 +585,6 @@
     <string name="price_per_year">$%s/година</string>
     <string name="social">Социални мрежи</string>
     <string name="permission_read_tasks">Пълен дистъп до банката данни на Task</string>
-    <string name="chat_libera">Присъединете към #tasks в Libera Chat</string>
     <string name="github_sponsors">Дарители от GitHub</string>
     <string name="sign_in_to_tasks">Вход в Tasks.org</string>
     <string name="markdown_description">Markdown в заглавията и описанията</string>
@@ -654,7 +653,7 @@
     <string name="sign_in_to_tasks_disclosure">Адресът на електронната поща и идентификаторът на профила ще бъдат изпратени и съхранени от Tasks.org. Информацията ще бъде използвана за удостоверяване и за предоставяне на важни съобщения, свързани с услугата. Тази информация няма да бъде споделяна с никого.</string>
     <string name="consent_agree">Съгласявам се</string>
     <string name="consent_deny">Не сега</string>
-    <string name="default_reminder">Напомняне по подразбиране</string>
+    <string name="default_reminder">Подразбирано напомняне</string>
     <string name="rmd_time_description">Показват се известия за задачите без краен час</string>
     <string name="sort_list">По списък</string>
     <string name="sort_descending">Низходящо</string>
@@ -677,7 +676,6 @@
     <string name="repeat_monthly_on_the_nth_weekday">Ежемесечно в %1$s %2$s</string>
     <string name="repeat_monthly_on_day_number">Ежемесечно на %1d ден</string>
     <string name="change_priority">Промяна на приоритет</string>
-    <string name="clear_completed_tasks_count">Задачата „%s“ ще бъде премахната</string>
     <string name="theme_dynamic">Динамична</string>
     <string name="swipe_to_snooze_description">Отлагане на време</string>
     <string name="swipe_to_snooze_time_immediately">веднага</string>

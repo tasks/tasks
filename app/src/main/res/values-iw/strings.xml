@@ -605,7 +605,6 @@
     <string name="issue_tracker">עוקב בעיות</string>
     <string name="support">תמיכה</string>
     <string name="social">חברתי</string>
-    <string name="chat_libera">הצטרפו אל tasks# ב־Libera Chat</string>
     <string name="follow_twitter">עקבו אחרי tasks_org@</string>
     <string name="sort_due_group">יעד %s</string>
     <string name="sort_start_group">התחלה %s</string>
@@ -731,7 +730,6 @@
     <string name="show_edit_screen_without_unlock">הצגת מסך עריכה ללא ביטול נעילה</string>
     <string name="show_edit_screen_without_unlock_summary">מאפשר שימוש באריח הגדרות מהירות מבלי לבטל את נעילת המכשיר</string>
     <string name="theme_dynamic">דינמי</string>
-    <string name="clear_completed_tasks_count">%s יימחקו</string>
     <string name="repeat_monthly_on_the_nth_weekday">מדי חודש ב%2$s ה%1$s</string>
     <string name="donate_today">לתרום היום</string>
     <string name="donate_maybe_later">אולי מאוחר יותר</string>
@@ -744,4 +742,7 @@
     <string name="repeats_every">חוזר כל</string>
     <string name="repeats_after">לאחר</string>
     <string name="comment">הערה</string>
+    <string name="continue_without_sync">להמשיך ללא סנכרון</string>
+    <string name="help_me_choose">עזור לי לבחור</string>
+    <string name="delete_tasks_warning">%s יימחק. לא ניתן לבטל זאת!</string>
 </resources>

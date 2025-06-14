@@ -41,9 +41,12 @@ public class PermissionChecker {
     return !atLeastTiramisu() || checkPermissions(permission.POST_NOTIFICATIONS);
   }
 
+  public boolean hasAlarmsAndRemindersPermission() {
+    return org.tasks.extensions.Context.INSTANCE.canScheduleExactAlarms(context);
+  }
+
   public boolean canNotify() {
-      return org.tasks.extensions.Context.INSTANCE.canScheduleExactAlarms(context)
-            && hasNotificationPermission();
+      return hasAlarmsAndRemindersPermission() && hasNotificationPermission();
   }
 
   private boolean checkPermissions(String... permissions) {

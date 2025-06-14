@@ -61,7 +61,6 @@
     <string name="issue_tracker">Urmărirea problemelor</string>
     <string name="support">Suport</string>
     <string name="social">Social</string>
-    <string name="chat_libera">Alătură-te #tasks pe Libera Chat</string>
     <string name="follow_twitter">Urmărește @tasks_org</string>
     <string name="follow_reddit">Alătură-te la r/tasks</string>
     <string name="current_subscription">Abonamentul curent: %s</string>
@@ -721,7 +720,6 @@
     <string name="swipe_to_snooze_time_24_hours">după 24 de ore</string>
     <string name="yesterday">Ieri</string>
     <string name="delete_comment">comentariu</string>
-    <string name="clear_completed_tasks_count">%s va fi șters</string>
     <string name="comment">Comentariu</string>
     <string name="quiet_hours_in_effect">Orele liniștite sunt activate</string>
     <string name="cost_free">Preț: Gratuit</string>

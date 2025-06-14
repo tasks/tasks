@@ -584,7 +584,6 @@
     <string name="issue_tracker">Hlášení problémů</string>
     <string name="support">Podpora a nápověda</string>
     <string name="social">Sociální sítě</string>
-    <string name="chat_libera">Připojte se k #tasks na Libera Chat</string>
     <string name="follow_twitter">Sledujte @tasks_org</string>
     <string name="follow_reddit">Připojte se k r/tasks</string>
     <string name="current_subscription">Stávající předplatné: %s</string>
@@ -699,7 +698,6 @@
     <string name="repeats_ends">Končí</string>
     <string name="repeats_on">V</string>
     <string name="repeats_weekly_on">Opakuje se v</string>
-    <string name="clear_completed_tasks_count">%s bude smazáno</string>
     <string name="theme_dynamic">Dynamické</string>
     <string name="donate_nag">Zvažte podpoření projektu dobrovolným příspěvkem!</string>
     <string name="donate_today">Přispějte dnes</string>

@@ -404,7 +404,6 @@ File %1$s contained %2$s.\n\n
   <string name="widget_due_date_below_title">Below title</string>
   <string name="widget_due_date_hidden">Hidden</string>
   <string name="clear_completed_tasks_confirmation">Clear completed tasks?</string>
-  <string name="clear_completed_tasks_count">%s will be deleted</string>
   <string name="copy_multiple_tasks_confirmation">%s copied</string>
   <string name="delete_multiple_tasks_confirmation">%s deleted</string>
   <string name="delete_selected_tasks">Delete selected tasks?</string>
@@ -634,7 +633,6 @@ File %1$s contained %2$s.\n\n
   <string name="current_subscription">Current subscription: %s</string>
   <string name="follow_reddit">Join r/tasks</string>
   <string name="follow_twitter">Follow @tasks_org</string>
-  <string name="chat_libera">Join #tasks on Libera Chat</string>
   <string name="social">Social</string>
   <string name="support">Support</string>
   <string name="issue_tracker">Issue tracker</string>
