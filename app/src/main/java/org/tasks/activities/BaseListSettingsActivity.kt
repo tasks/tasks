@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.pm.ShortcutInfoCompat
@@ -29,21 +30,20 @@ import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.analytics.Firebase
+import org.tasks.billing.Inventory
+import org.tasks.billing.PurchaseActivity
 import org.tasks.compose.DeleteButton
 import org.tasks.compose.IconPickerActivity.Companion.launchIconPicker
 import org.tasks.compose.IconPickerActivity.Companion.registerForIconPickerResult
 import org.tasks.compose.settings.ListSettingsContent
 import org.tasks.compose.settings.ListSettingsScaffold
 import org.tasks.data.UUIDHelper
-import org.tasks.dialogs.ColorPalettePicker
-import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
-import org.tasks.dialogs.ColorPickerAdapter.Palette
-import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.extensions.addBackPressedCallback
 import org.tasks.filters.Filter
 import org.tasks.icons.OutlinedGoogleMaterial
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.DefaultFilterProvider
+import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
 import org.tasks.themes.contentColorFor
 import org.tasks.widget.RequestPinWidgetReceiver
@@ -53,10 +53,12 @@ import org.tasks.widget.TasksWidget
 import javax.inject.Inject
 
 
-abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicker.ColorPickedCallback, ColorWheelPicker.ColorPickedCallback {
+abstract class BaseListSettingsActivity : AppCompatActivity() {
     @Inject lateinit var tasksTheme: Theme
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var inventory: Inventory
+    @Inject lateinit var colorProvider: ColorProvider
 
     protected val baseViewModel: BaseListSettingsViewModel by viewModels()
 
@@ -88,21 +90,12 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
         }
     }
 
-    private fun showThemePicker() {
-        newColorPalette(null, 0, baseViewModel.color, Palette.COLORS)
-                .show(supportFragmentManager, FRAG_TAG_COLOR_PICKER)
-    }
-
     private val launcher = registerForIconPickerResult { selected ->
         baseViewModel.setIcon(selected)
     }
 
     fun showIconPicker() {
         launcher.launchIconPicker(this, baseViewModel.icon)
-    }
-
-    override fun onColorPicked(color: Int) {
-        baseViewModel.setColor(color)
     }
 
     protected open fun promptDelete() { baseViewModel.promptDelete(true) }
@@ -132,7 +125,9 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
             fab = fab,
         ) {
             ListSettingsContent(
+                hasPro = remember { inventory.purchasedThemes() },
                 color = viewState.color,
+                colors = remember { colorProvider.getThemeColors() },
                 icon = viewState.icon ?: defaultIcon,
                 text = viewState.title,
                 error = viewState.error,
@@ -142,12 +137,16 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
                     baseViewModel.setTitle(it)
                     baseViewModel.setError("")
                 },
-                pickColor = { showThemePicker() },
-                clearColor = { onColorPicked(0) },
+                setColor = { baseViewModel.setColor(it) },
                 pickIcon = { showIconPicker() },
                 addShortcutToHome = { createShortcut(color) },
                 addWidgetToHome = { createWidget() },
                 extensionContent = extensionContent,
+                purchase = {
+                    startActivity(
+                        Intent(this@BaseListSettingsActivity, PurchaseActivity::class.java)
+                    )
+                },
             )
         }
     }
@@ -219,8 +218,6 @@ abstract class BaseListSettingsActivity : AppCompatActivity(), ColorPalettePicke
     }
 
     companion object {
-        private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
-
         fun createShortcutIcon(context: Context, backgroundColor: Color): IconCompat {
             val size = context.resources.getDimensionPixelSize(android.R.dimen.app_icon_size)
             val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
