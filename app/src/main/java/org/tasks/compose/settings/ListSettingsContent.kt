@@ -5,22 +5,25 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.tasks.compose.Constants
+import org.tasks.themes.ThemeColor
 
 @Composable
 fun ColumnScope.ListSettingsContent(
+    hasPro: Boolean,
     color: Int,
+    colors: List<ThemeColor>,
     icon: String,
     text: String,
     error: String,
     requestKeyboard: Boolean,
     isNew: Boolean,
     setText: (String) -> Unit,
-    pickColor: () -> Unit,
-    clearColor: () -> Unit,
+    setColor: (Int) -> Unit,
     pickIcon: () -> Unit,
     addShortcutToHome: () -> Unit,
     addWidgetToHome: () -> Unit,
     extensionContent: @Composable ColumnScope.() -> Unit,
+    purchase: () -> Unit,
 ) {
     TitleInput(
         text = text,
@@ -30,9 +33,11 @@ fun ColumnScope.ListSettingsContent(
         setText = { setText(it) },
     )
     SelectColorRow(
+        hasPro = hasPro,
         color = color,
-        selectColor = { pickColor() },
-        clearColor = { clearColor() },
+        colors = colors,
+        selectColor = { setColor(it) },
+        purchase = { purchase() },
     )
     SelectIconRow(
         icon = icon,
