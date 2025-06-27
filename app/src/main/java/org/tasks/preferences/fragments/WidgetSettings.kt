@@ -44,6 +44,7 @@ class WidgetSettings : InjectingPreferenceFragment() {
     companion object {
         private const val REQUEST_THEME_SELECTION = 1006
         private const val REQUEST_COLOR_SELECTION = 1007
+        private const val REQUEST_CUSTOM_THEME_COLOR_SELECTION = 1009
         private const val REQUEST_SORT = 1008
 
         const val EXTRA_WIDGET_ID = "extra_widget_id"
@@ -163,6 +164,13 @@ class WidgetSettings : InjectingPreferenceFragment() {
         updateFilter()
         updateTheme()
         updateColor()
+
+        val customThemeColor = findPreference(R.string.p_widget_custom_theme_color)
+        customThemeColor.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            newColorPalette(this, REQUEST_CUSTOM_THEME_COLOR_SELECTION, widgetPreferences.customThemeColor, Palette.WIDGET)
+                .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
+            false
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -182,6 +190,12 @@ class WidgetSettings : InjectingPreferenceFragment() {
                 )
                 updateColor()
             }
+            REQUEST_CUSTOM_THEME_COLOR_SELECTION -> if (resultCode == Activity.RESULT_OK) {
+                widgetPreferences.setCustomThemeColor(
+                    data!!.getIntExtra(ColorWheelPicker.EXTRA_SELECTED, 0)
+                )
+                updateCustomThemeColor()
+            }
             REQUEST_SORT -> if (resultCode == Activity.RESULT_OK) updateSort()
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
@@ -198,10 +212,15 @@ class WidgetSettings : InjectingPreferenceFragment() {
         val widgetNames = resources.getStringArray(R.array.widget_themes)
         findPreference(R.string.p_widget_theme).summary = widgetNames[index]
         findPreference(R.string.p_widget_color_v2).isVisible = index != 4
+        findPreference(R.string.p_widget_custom_theme_color).isVisible = index == 5
     }
 
     private fun updateColor() {
         tintColorPreference(R.string.p_widget_color_v2, widgetPreferences.color)
+    }
+
+    private fun updateCustomThemeColor() {
+        tintColorPreference(R.string.p_widget_custom_theme_color, widgetPreferences.customThemeColor)
     }
 
     private fun updateFilter() = lifecycleScope.launch {

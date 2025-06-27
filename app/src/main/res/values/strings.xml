@@ -386,11 +386,14 @@ File %1$s contained %2$s.\n\n
   <string name="launcher_icon">Launcher icon</string>
   <string name="theme_black">Black</string>
   <string name="theme_light">Light</string>
+  <string name="theme_custom">Custom</string>
   <string name="theme_dark">Dark</string>
   <string name="theme_wallpaper">Wallpaper</string>
   <string name="theme_day_night">Day/Night</string>
   <string name="theme_system_default">System default</string>
   <string name="theme_dynamic">Dynamic</string>
+  <string name="p_widget_custom_theme_color" translatable="false">p_widget_custom_theme_color</string>
+  <string name="custom_theme_color">Custom theme color</string>
   <string name="language">Language</string>
   <string name="restart_required">Restart Tasks for this change to take effect</string>
   <string name="restart_now">Restart now</string>
