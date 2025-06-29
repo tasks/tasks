@@ -267,7 +267,7 @@
     <string name="EPr_voiceRemindersEnabled_title">Гласовни подсетници</string>
     <string name="voice_command_added_task">Додат задатак</string>
     <plurals name="Ntasks">
-        <item quantity="one">%d задатак</item>
+        <item quantity="one">1 задатак</item>
         <item quantity="few">%d задатка</item>
         <item quantity="other">%d задатака</item>
     </plurals>
