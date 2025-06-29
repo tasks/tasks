@@ -31,7 +31,7 @@
     <string name="import_progress_read">Учитавам задатак %d…</string>
     <string name="TLA_menu_settings">Подешавања</string>
     <string name="email">Е-пошта</string>
-    <string name="import_summary_message">"Датотека  %1$s садржи %2$s.\n\n %3$s увезених,\n %4$s већ постојећих\n %5$s са грешкама"</string>
+    <string name="import_summary_message">Датотека %1$s садржи %2$s.\n\n %3$s увезених,\n %4$s већ постојећих\n %5$s са грешкама</string>
     <string name="default_list">Подразумевана листа</string>
     <string name="help_and_feedback">Помоћ и повратне информације</string>
     <string name="discard_confirmation">Да ли желиш да одбациш промене?</string>
@@ -154,19 +154,19 @@
         <item quantity="other">понављања</item>
     </plurals>
     <plurals name="task_count">
-        <item quantity="one">задатак</item>
-        <item quantity="few">задатка</item>
-        <item quantity="other">задатака</item>
+        <item quantity="one">%d задатак</item>
+        <item quantity="few">%d задатка</item>
+        <item quantity="other">%d задатака</item>
     </plurals>
     <plurals name="subtask_count">
-        <item quantity="one">подзадатак</item>
-        <item quantity="few">подзадатка</item>
-        <item quantity="other">подзадатака</item>
+        <item quantity="one">%d подзадатак</item>
+        <item quantity="few">%d подзадатка</item>
+        <item quantity="other">%d подзадатака</item>
     </plurals>
     <plurals name="list_count">
-        <item quantity="one">листа</item>
-        <item quantity="few">листе</item>
-        <item quantity="other">листи</item>
+        <item quantity="one">%d листа</item>
+        <item quantity="few">%d листе</item>
+        <item quantity="other">%d листи</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">време</item>
@@ -267,9 +267,9 @@
     <string name="EPr_voiceRemindersEnabled_title">Гласовни подсетници</string>
     <string name="voice_command_added_task">Додат задатак</string>
     <plurals name="Ntasks">
-        <item quantity="one">задатак</item>
-        <item quantity="few">задатка</item>
-        <item quantity="other">задатака</item>
+        <item quantity="one">1 задатак</item>
+        <item quantity="few">%d задатка</item>
+        <item quantity="other">%d задатака</item>
     </plurals>
     <string name="now">Сада</string>
     <string name="next_sunday">Следеће недеље</string>
@@ -295,7 +295,7 @@
     <string name="source_code">Изворни кôд</string>
     <string name="add_reminder">Додај подсетник</string>
     <string name="add_location">Додај локацију</string>
-    <string name="remove">Обриши</string>
+    <string name="remove">Избриши</string>
     <string name="randomly_every">Насумично сваки %s</string>
     <string name="randomly">Насумично</string>
     <string name="pick_a_date_and_time">Одабери датум и време</string>
@@ -393,7 +393,7 @@
     <string name="rmd_time_description">Прикажи обавештења за задатке без времена доспећа</string>
     <string name="bundle_notifications_summary">Споји неколико обавештења у једно</string>
     <string name="repeat_monthly_on_day_number">Месечно на дан %1d</string>
-    <string name="repeat_monthly_on_the_nth_weekday">"Месечно  %1$s %2$s"</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Месечно на %1$s %2$s</string>
     <string name="repeat_monthly_first_week">први</string>
     <string name="repeat_monthly_second_week">други</string>
     <string name="repeat_monthly_third_week">трећи</string>
@@ -736,5 +736,11 @@
     <string name="multiline_title_off">Притисни ,,Готово\'\' за чување задатка</string>
     <string name="sync_warning_microsoft_title">О ,,Microsoft To Do\'\' синхронизацији</string>
     <string name="sync_warning_microsoft">Не синхронизују се сви детаљи задатка са ,,Microsoft To Do\'\'.</string>
-    <string name="sync_warning_google_tasks_title">О ,,Google Task\'\' синхронизацији</string>
+    <string name="sync_warning_google_tasks_title">О ,,Google Tasks\'\' синхронизацији</string>
+    <string name="sync_warning_google_tasks">Не синхронизују се сви детаљи задатка са ,,Google Tasks\'\'</string>
+    <string name="button_learn_more">Више информација</string>
+    <string name="EPr_cal_end_at_due_time">Окончај догађаје календара у време доспећа</string>
+    <string name="task_defaults">Подразумевано за задатке</string>
+    <string name="CFC_importance_text">Минимум приоритета ?</string>
+    <string name="caldav_home_set_not_found">Сет није пронађен</string>
 </resources>
