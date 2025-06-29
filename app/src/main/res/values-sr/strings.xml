@@ -478,6 +478,21 @@
     <string name="EPr_show_task_edit_comments">Прикажи коментаре у екрану за измене</string>
     <string name="EPr_cal_start_at_due_time">Стартуј догађаје календара у време доспећа</string>
     <string name="EPr_manage_delete_completed_gcal">Обриши догађаје календара за завршене задатке</string>
-    <string name="EPr_manage_delete_completed_gcal_message">Избрисати све догађаје за завршене задатке?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Обрисати све догађаје за завршене задатке?</string>
     <string name="EPr_manage_delete_gcal_status">Обрисано %d догађаја календара!</string>
+    <string name="EPr_manage_delete_all_gcal">Обриши све догађаје календара за задатке</string>
+    <string name="EPr_manage_delete_all_gcal_message">Обрисати све догађаје за задатке?</string>
+    <string name="EPr_default_location_reminder_title">Подразумевани подсетник локације</string>
+    <string name="priority_high">Висок</string>
+    <string name="priority_medium">Средњи</string>
+    <string name="priority_low">Низак</string>
+    <string name="default_location_reminder_on_arrival">У тренутку доласка</string>
+    <string name="default_location_reminder_on_departure">У тренутку одласка</string>
+    <string name="default_location_reminder_on_arrival_or_departure">У тренутку доласка и одласка</string>
+    <string name="CFC_startBefore_text">Крени од: ?</string>
+    <string name="CFC_startBefore_name">Крени од…</string>
+    <string name="CFC_tag_contains_name">Назив тага садржи…</string>
+    <string name="CFC_tag_contains_text">Назив тага садржи: ?</string>
+    <string name="CFC_title_contains_text">Назив садржи: ?</string>
+    <string name="gcal_TEA_showCalendar_label">Отвори календар догађаја</string>
 </resources>
