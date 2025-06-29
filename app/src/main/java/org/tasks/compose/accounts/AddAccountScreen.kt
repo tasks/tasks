@@ -137,7 +137,14 @@ fun AddAccountScreen(
                     icon = R.drawable.ic_microsoft_tasks,
                     onClick = { signIn(Platform.MICROSOFT) }
                 )
-                
+
+                AccountTypeCard(
+                    title = R.string.todoist,
+                    cost = if (hasPro) null else R.string.cost_free,
+                    icon = R.drawable.ic_todoist,
+                    onClick = { signIn(Platform.TODOIST) }
+                )
+
                 AccountTypeCard(
                     title = R.string.gtasks_GPr_header,
                     cost = if (hasPro) null else R.string.cost_free,

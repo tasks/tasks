@@ -15,6 +15,7 @@
   <string name="tasks_org">Tasks.org</string>
   <string name="microsoft">Microsoft To&#xA0;Do</string>
   <string name="etebase_url">https://api.etebase.com/partner/tasksorg/</string>
+  <string name="todoist_url">https://todoist.com</string>
   <string name="help_url_sync">https://tasks.org/sync</string>
   <string name="caldav_server_owncloud">ownCloud</string>
   <string name="caldav_server_nextcloud">Nextcloud</string>
