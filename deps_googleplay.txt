@@ -236,17 +236,17 @@
 +|              +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.9.1 (c)
 +|              +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.21 (c)
 +|              \--- androidx.lifecycle:lifecycle-common-java8:2.9.1 (c)
-++--- com.google.firebase:firebase-bom:33.14.0
-+|    +--- com.google.firebase:firebase-analytics:22.4.0 (c)
+++--- com.google.firebase:firebase-bom:33.16.0
++|    +--- com.google.firebase:firebase-analytics:22.5.0 (c)
 +|    +--- com.google.firebase:firebase-config-ktx:22.1.2 (c)
-+|    +--- com.google.firebase:firebase-crashlytics:19.4.3 (c)
++|    +--- com.google.firebase:firebase-crashlytics:19.4.4 (c)
 +|    +--- com.google.firebase:firebase-config:22.1.2 (c)
 +|    +--- com.google.firebase:firebase-common:21.0.0 (c)
 +|    +--- com.google.firebase:firebase-common-ktx:21.0.0 (c)
 +|    +--- com.google.firebase:firebase-installations:18.0.0 (c)
 +|    \--- com.google.firebase:firebase-encoders:17.0.0 (c)
-++--- com.google.firebase:firebase-crashlytics -> 19.4.3
-+|    +--- com.google.firebase:firebase-sessions:2.1.1
+++--- com.google.firebase:firebase-crashlytics -> 19.4.4
++|    +--- com.google.firebase:firebase-sessions:2.1.2
 +|    |    +--- com.google.firebase:firebase-common:21.0.0
 +|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4 -> 1.10.2
 +|    |    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2 (*)
@@ -518,8 +518,8 @@
 +|    +--- com.google.android.datatransport:transport-backend-cct:3.3.0 (*)
 +|    +--- com.google.android.datatransport:transport-runtime:3.3.0 (*)
 +|    \--- androidx.annotation:annotation:1.5.0 -> 1.9.1 (*)
-++--- com.google.firebase:firebase-analytics -> 22.4.0
-+|    +--- com.google.android.gms:play-services-measurement:22.4.0
+++--- com.google.firebase:firebase-analytics -> 22.5.0
++|    +--- com.google.android.gms:play-services-measurement:22.5.0
 +|    |    +--- androidx.collection:collection:1.0.0 -> 1.5.0 (*)
 +|    |    +--- androidx.legacy:legacy-support-core-utils:1.0.0
 +|    |    |    +--- androidx.annotation:annotation:1.0.0 -> 1.9.1 (*)
@@ -532,9 +532,9 @@
 +|    |    |    \--- androidx.print:print:1.0.0
 +|    |    |         \--- androidx.annotation:annotation:1.0.0 -> 1.9.1 (*)
 +|    |    +--- com.google.android.gms:play-services-basement:18.5.0 (*)
-+|    |    +--- com.google.android.gms:play-services-measurement-base:22.4.0
++|    |    +--- com.google.android.gms:play-services-measurement-base:22.5.0
 +|    |    |    \--- com.google.android.gms:play-services-basement:18.5.0 (*)
-+|    |    +--- com.google.android.gms:play-services-measurement-impl:22.4.0
++|    |    +--- com.google.android.gms:play-services-measurement-impl:22.5.0
 +|    |    |    +--- androidx.collection:collection:1.0.0 -> 1.5.0 (*)
 +|    |    |    +--- androidx.core:core:1.9.0 -> 1.13.1 (*)
 +|    |    |    +--- androidx.privacysandbox.ads:ads-adservices:1.1.0-beta11
@@ -559,7 +559,7 @@
 +|    |    |    |    +--- com.google.android.gms:play-services-basement:18.4.0 -> 18.5.0 (*)
 +|    |    |    |    \--- com.google.android.gms:play-services-tasks:18.2.0 (*)
 +|    |    |    +--- com.google.android.gms:play-services-basement:18.5.0 (*)
-+|    |    |    +--- com.google.android.gms:play-services-measurement-base:22.4.0 (*)
++|    |    |    +--- com.google.android.gms:play-services-measurement-base:22.5.0 (*)
 +|    |    |    +--- com.google.android.gms:play-services-stats:17.0.2
 +|    |    |    |    +--- androidx.legacy:legacy-support-core-utils:1.0.0 (*)
 +|    |    |    |    \--- com.google.android.gms:play-services-basement:18.0.0 -> 18.5.0 (*)
@@ -567,14 +567,14 @@
 +|    |    |    \--- com.google.guava:guava:31.1-android -> 33.4.0-android
 +|    |    |         +--- com.google.guava:failureaccess:1.0.2
 +|    |    |         \--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
-+|    |    +--- com.google.android.gms:play-services-measurement-sdk-api:22.4.0
++|    |    +--- com.google.android.gms:play-services-measurement-sdk-api:22.5.0
 +|    |    |    +--- com.google.android.gms:play-services-basement:18.5.0 (*)
-+|    |    |    \--- com.google.android.gms:play-services-measurement-base:22.4.0 (*)
++|    |    |    \--- com.google.android.gms:play-services-measurement-base:22.5.0 (*)
 +|    |    \--- com.google.android.gms:play-services-stats:17.0.2 (*)
-+|    +--- com.google.android.gms:play-services-measurement-api:22.4.0
++|    +--- com.google.android.gms:play-services-measurement-api:22.5.0
 +|    |    +--- com.google.android.gms:play-services-basement:18.5.0 (*)
-+|    |    +--- com.google.android.gms:play-services-measurement-base:22.4.0 (*)
-+|    |    +--- com.google.android.gms:play-services-measurement-sdk-api:22.4.0 (*)
++|    |    +--- com.google.android.gms:play-services-measurement-base:22.5.0 (*)
++|    |    +--- com.google.android.gms:play-services-measurement-sdk-api:22.5.0 (*)
 +|    |    +--- com.google.android.gms:play-services-tasks:18.2.0 (*)
 +|    |    +--- com.google.firebase:firebase-common:21.0.0 (*)
 +|    |    +--- com.google.firebase:firebase-common-ktx:21.0.0 (*)
@@ -584,11 +584,11 @@
 +|    |    +--- com.google.firebase:firebase-measurement-connector:19.0.0 -> 20.0.1 (*)
 +|    |    +--- com.google.guava:guava:31.1-android -> 33.4.0-android (*)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.0 -> 2.1.21 (*)
-+|    \--- com.google.android.gms:play-services-measurement-sdk:22.4.0
++|    \--- com.google.android.gms:play-services-measurement-sdk:22.5.0
 +|         +--- androidx.collection:collection:1.0.0 -> 1.5.0 (*)
 +|         +--- com.google.android.gms:play-services-basement:18.5.0 (*)
-+|         +--- com.google.android.gms:play-services-measurement-base:22.4.0 (*)
-+|         \--- com.google.android.gms:play-services-measurement-impl:22.4.0 (*)
++|         +--- com.google.android.gms:play-services-measurement-base:22.5.0 (*)
++|         \--- com.google.android.gms:play-services-measurement-impl:22.5.0 (*)
 ++--- com.google.firebase:firebase-config-ktx -> 22.1.2
 +|    +--- com.google.firebase:firebase-config:22.1.2
 +|    |    +--- com.google.firebase:firebase-config-interop:16.0.1 (*)
