@@ -518,5 +518,26 @@
     <string name="customize_edit_screen">Подеси екран измене</string>
     <string name="translations">Допринеси преводима</string>
     <string name="send_application_logs">Пошаљи извештај апликације</string>
-    <string name="when_overdue">Када је доспео</string>
+    <string name="when_overdue">Након доспећа</string>
+    <string name="when_due">До доспећа</string>
+    <string name="when_started">Након стартовања</string>
+    <string name="geofence_radius">Радијус геоограде</string>
+    <string name="location_radius_meters">%s м</string>
+    <string name="date_shortcut_hour">За час</string>
+    <string name="date_shortcut_tomorrow_night">Сутра у току ноћи</string>
+    <string name="date_shortcut_must_come_before">%1$s мора бити пре %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s мора бити након %2$s</string>
+    <string name="filter_criteria_unstarted">Није започето</string>
+    <string name="no_app_found">Ниједна апликација не може извршити захтев</string>
+    <string name="url_host_name_required">Назив уређаја на мрежи је неопходан</string>
+    <string name="back_button_saves_task">Дугме ,,назад\'\' чува задатак</string>
+    <string name="show_edit_screen_without_unlock">Прикажи екран измене без откључавања</string>
+    <string name="show_edit_screen_without_unlock_summary">Омогућава коришћење брзих подешавања без откључавања уређаја</string>
+    <string name="launcher_icon">Иконица за покретање</string>
+    <string name="settings_localization">Локализација</string>
+    <string name="widget_due_date_after_title">Након назива</string>
+    <string name="bundle_notifications">Пакет обавештења</string>
+    <string name="repeats_single_on">Понавља се %1$s на %2$s</string>
+    <string name="repeats_single_until">Понавља се %1$s, завршава се %2$s</string>
+    <string name="repeats_single_number_of_times">"Понавља се  %1$s, појављује се %2$d %3$s"</string>
 </resources>
