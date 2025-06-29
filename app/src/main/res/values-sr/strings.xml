@@ -67,5 +67,7 @@
     <string name="TEA_estimatedDuration_label">Колико ће трајати?</string>
     <string name="TEA_elapsedDuration_label">Утрошено време</string>
     <string name="save">Сачувај</string>
-    <string name="TEA_timer_est">"Процена  %s"</string>
+    <string name="TEA_timer_est">Процена %s</string>
+    <string name="TEA_timer_elap">Протекло %s</string>
+    <string name="due_date">Крајњи рок</string>
 </resources>
