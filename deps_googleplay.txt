@@ -918,27 +918,27 @@
 +|    |    \--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations-jvm:1.13.0
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.1.21 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 (*)
-+|    +--- androidx.room:room-runtime:2.7.1
-+|    |    \--- androidx.room:room-runtime-android:2.7.1
++|    +--- androidx.room:room-runtime:2.7.2
++|    |    \--- androidx.room:room-runtime-android:2.7.2
 +|    |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|    |         +--- androidx.annotation:annotation-experimental:1.4.1 (*)
 +|    |         +--- androidx.arch.core:core-runtime:2.2.0 (*)
 +|    |         +--- androidx.collection:collection:1.4.2 -> 1.5.0 (*)
-+|    |         +--- androidx.room:room-common:2.7.1
-+|    |         |    \--- androidx.room:room-common-jvm:2.7.1
++|    |         +--- androidx.room:room-common:2.7.2
++|    |         |    \--- androidx.room:room-common-jvm:2.7.2
 +|    |         |         +--- androidx.annotation:annotation:1.9.1 (*)
 +|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.1.21 (*)
-+|    |         |         +--- androidx.room:room-ktx:2.7.1 (c)
-+|    |         |         +--- androidx.room:room-runtime:2.7.1 (c)
++|    |         |         +--- androidx.room:room-ktx:2.7.2 (c)
++|    |         |         +--- androidx.room:room-runtime:2.7.2 (c)
 +|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 -> 2.1.21 (c)
-+|    |         +--- androidx.sqlite:sqlite:2.5.0 -> 2.5.2
++|    |         +--- androidx.sqlite:sqlite:2.5.1 -> 2.5.2
 +|    |         |    \--- androidx.sqlite:sqlite-android:2.5.2
 +|    |         |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.1.21 (*)
 +|    |         |         +--- androidx.sqlite:sqlite-framework:2.5.2 (c)
 +|    |         |         +--- androidx.sqlite:sqlite-bundled:2.5.2 (c)
 +|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 -> 2.1.21 (c)
-+|    |         +--- androidx.sqlite:sqlite-framework:2.5.0 -> 2.5.2
++|    |         +--- androidx.sqlite:sqlite-framework:2.5.1 -> 2.5.2
 +|    |         |    \--- androidx.sqlite:sqlite-framework-android:2.5.2
 +|    |         |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|    |         |         +--- androidx.sqlite:sqlite:2.5.2 (*)
@@ -950,9 +950,9 @@
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.10.2 (*)
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.10.2 (*)
 +|    |         +--- org.jspecify:jspecify:1.0.0
-+|    |         +--- androidx.room:room-common:2.7.1 (c)
++|    |         +--- androidx.room:room-common:2.7.2 (c)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 -> 2.1.21 (c)
-+|    |         \--- androidx.room:room-ktx:2.7.1 (c)
++|    |         \--- androidx.room:room-ktx:2.7.2 (c)
 +|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.6.2
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.6.2
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.1.21 (*)
@@ -1754,13 +1754,13 @@
 +|    |    +--- androidx.core:core:1.12.0 -> 1.13.1 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata:2.6.2 -> 2.9.1 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-service:2.6.2 -> 2.9.1 (*)
-+|    |    +--- androidx.room:room-ktx:2.6.1 -> 2.7.1
-+|    |    |    +--- androidx.room:room-common:2.7.1 (*)
-+|    |    |    +--- androidx.room:room-runtime:2.7.1 (*)
++|    |    +--- androidx.room:room-ktx:2.6.1 -> 2.7.2
++|    |    |    +--- androidx.room:room-common:2.7.2 (*)
++|    |    |    +--- androidx.room:room-runtime:2.7.2 (*)
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.1.21 (*)
 +|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.10.2 (*)
-+|    |    |    +--- androidx.room:room-common:2.7.1 (c)
-+|    |    |    +--- androidx.room:room-runtime:2.7.1 (c)
++|    |    |    +--- androidx.room:room-common:2.7.2 (c)
++|    |    |    +--- androidx.room:room-runtime:2.7.2 (c)
 +|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 -> 2.1.21 (c)
 +|    |    +--- androidx.startup:startup-runtime:1.1.1 (*)
 +|    |    +--- androidx.tracing:tracing-ktx:1.2.0
@@ -1798,7 +1798,7 @@
 ++--- androidx.lifecycle:lifecycle-runtime:2.9.1 (*)
 ++--- androidx.lifecycle:lifecycle-runtime-compose:2.9.1 (*)
 ++--- androidx.lifecycle:lifecycle-viewmodel:2.9.1 (*)
-++--- androidx.room:room-runtime:2.7.1 (*)
+++--- androidx.room:room-runtime:2.7.2 (*)
 ++--- androidx.sqlite:sqlite-bundled:2.5.2
 +|    \--- androidx.sqlite:sqlite-bundled-android:2.5.2
 +|         +--- androidx.sqlite:sqlite:2.5.2 (*)
