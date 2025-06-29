@@ -453,7 +453,7 @@
     <string name="more_settings">Додатна подешавања</string>
     <string name="more_notification_settings_summary">Звук звона, вибрација и додатно</string>
     <string name="invalid_username_or_password">Невалидно корисничко име или шифра</string>
-    <string name="upgrade_blurb_1"></string>
+    <string name="upgrade_blurb_1">Здраво! Моје име је Алекс. Ја сам независни развојни инжењер у ,,Задаци\'\' апликацији</string>
     <string name="upgrade_blurb_2">Провео сам хиљаде часова радећи на апликацији, коју објављујем онлајн бесплатно. Како бисте подржали мој рад, неке функционалности захтевају претплату</string>
     <string name="back">Назад</string>
     <string name="places">Места</string>
@@ -567,5 +567,26 @@
     <string name="banner_app_updated_description">Апликација је ажурирана на %s. Приказати белешке о ажурирању?</string>
     <string name="name_your_price">Наведи цену</string>
     <string name="collapse_subtasks">Споји подзадатке</string>
-    <string name="subtasks_multilevel_google_task">Подзадаци у више нивоа нису подржани од стране Гугл Задатака.</string>
+    <string name="subtasks_multilevel_google_task">Подзадаци у више нивоа нису подржани од стране Гугл Задатака</string>
+    <string name="subtasks_multilevel_microsoft">Подзадаци у више нивоа нису подржани од стране ,,Microsoft To Do\'\'</string>
+    <string name="caldav_selection_description">Синхронизација заснована на стандардима отвореног интернета</string>
+    <string name="caldav_account_description">Захтева налог код ,,CalDAV\'\' провајдера или приватни сервер. Пронађи провајдера на страници tasks.org/caldav</string>
+    <string name="etesync_account_description">Захтева налог код ,,EteSync.com\'\' или приватни сервер</string>
+    <string name="preferences_look_and_feel">Изглед и персонализација</string>
+    <string name="troubleshooting">Решавање проблема</string>
+    <string name="notification_troubleshooting_summary">Тапни овде уколико постоје проблеми са обавештењима</string>
+    <string name="color_wheel">Палета боја</string>
+    <string name="chips">Апликациони чипови</string>
+    <string name="chip_appearance">Изглед апликационих чипова</string>
+    <string name="navigation_drawer">Навигациони мени</string>
+    <string name="auto_dismiss_datetime_list_summary">Аутоматско затварање након одабира из листе задатака</string>
+    <string name="auto_dismiss_datetime_edit">Измена задатка</string>
+    <string name="auto_dismiss_datetime_edit_summary">Аутоматско затварање након бирања из измене задатка</string>
+    <string name="auto_dismiss_datetime_widget_summary">Аутоматско затварање након бирања из виџета</string>
+    <string name="calendar_event_created">Догађај у календару креиран на %s</string>
+    <string name="widget_id">Идентификација виџета: %d</string>
+    <string name="settings_default">Подразумевано</string>
+    <string name="compact">Компактно</string>
+    <string name="custom_filter_criteria">Критеријум филтера</string>
+    <string name="filter_overdue">Након доспећа</string>
 </resources>
