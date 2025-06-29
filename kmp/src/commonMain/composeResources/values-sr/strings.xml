@@ -18,5 +18,19 @@
     <string name="drawer_places">Места</string>
     <string name="drawer_local_lists">Локална листа</string>
     <string name="tmrw">Сутра</string>
-    <string name="tomorrow_abbrev_lowercase">Сутра</string>
+    <string name="tomorrow_abbrev_lowercase">сутра</string>
+    <string name="tomorrow">Сутра</string>
+    <string name="tomorrow_lowercase">сутра</string>
+    <string name="yest">Јуче</string>
+    <string name="yesterday_abbrev_lowercase">јуче</string>
+    <string name="yesterday">Јуче</string>
+    <string name="yesterday_lowercase">јуче</string>
+    <string name="today">Данас</string>
+    <string name="today_lowercase">данас</string>
+    <string name="add_task">Додај задатак</string>
+    <string name="show_unstarted">Прикажи незапочете</string>
+    <string name="show_completed">Прикажи завршене</string>
+    <string name="wear_install_app">Инсталирај на уређају</string>
+    <string name="wear_unknown_error">Непозната грешка</string>
+    <string name="filter_timer">Задаци са тајмером</string>
 </resources>
