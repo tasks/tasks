@@ -564,7 +564,7 @@
     <string name="tasks_org_description">Synchronisiere deine Aufgaben mit Tasks.org</string>
     <string name="subscription">Abonnement</string>
     <string name="filter_criteria_unstarted">Nicht gestartet</string>
-    <string name="show_unstarted">Noch nicht gestartete anzeigen</string>
+    <string name="show_unstarted">Nicht gestartete anzeigen</string>
     <string name="widget_show_title">Titel anzeigen</string>
     <string name="filter_any_start_date">Jedes Startdatum</string>
     <string name="no_start_date">Kein Startdatum</string>
