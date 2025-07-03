@@ -736,4 +736,11 @@
     <string name="add_shortcut_to_home_screen">Dodaj prečac na početni ekran</string>
     <string name="add_widget_to_home_screen">Dodaj widget na početni ekran</string>
     <string name="comment">Komentar</string>
+    <string name="app_settings">Postavke aplikacije</string>
+    <string name="continue_without_sync">Nastavi bez sinkronizacije</string>
+    <string name="help_me_choose">Pomogni mi odabrati</string>
+    <string name="delete_tasks_warning">%s će se izbrisati. Ovo se ne može opozvati!</string>
+    <string name="banner_app_updated_title">Aplikacija je aktualizirana</string>
+    <string name="banner_app_updated_description">Aplikacija Tasks je upravo aktualizirana na %s. Želiš li vidjeti bilješke o izdanju?</string>
+    <string name="multiline_title_off">Pritisni „Gotovo” za spremanje zadatka</string>
 </resources>
