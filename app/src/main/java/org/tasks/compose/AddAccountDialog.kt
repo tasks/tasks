@@ -36,6 +36,13 @@ fun AddAccountDialog(
             onClick = { selected(Platform.GOOGLE_TASKS) }
         )
         SyncAccount(
+            title = R.string.todoist,
+            cost = if (hasPro) null else R.string.cost_free,
+            description = R.string.todoist_selection_description,
+            icon = R.drawable.ic_todoist,
+            onClick = { selected(Platform.TODOIST) }
+        )
+        SyncAccount(
             title = R.string.microsoft,
             cost = if (hasPro) null else R.string.cost_free,
             description = R.string.microsoft_selection_description,
