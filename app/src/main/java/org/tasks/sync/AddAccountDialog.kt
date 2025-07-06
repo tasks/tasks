@@ -31,6 +31,7 @@ class AddAccountDialog : DialogFragment() {
     enum class Platform {
         TASKS_ORG,
         GOOGLE_TASKS,
+        TODOIST,
         MICROSOFT,
         DAVX5,
         CALDAV,

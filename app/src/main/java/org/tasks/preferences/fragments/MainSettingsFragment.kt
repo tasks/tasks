@@ -120,6 +120,8 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
                         Intent(requireContext(), GtasksLoginActivity::class.java),
                         REQUEST_GOOGLE_TASKS
                     )
+                Platform.TODOIST ->
+                    context?.openUri(R.string.url_todoist)
                 Platform.MICROSOFT ->
                     microsoftVM.signIn(requireActivity())
                 Platform.DAVX5 ->

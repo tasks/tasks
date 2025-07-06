@@ -95,6 +95,7 @@ data class CaldavAccount(
         const val TYPE_ETEBASE = 5
         const val TYPE_MICROSOFT = 6
         const val TYPE_GOOGLE_TASKS = 7
+        const val TYPE_TODOIST = 8
 
         const val SERVER_UNKNOWN = -1
         const val SERVER_TASKS = 0

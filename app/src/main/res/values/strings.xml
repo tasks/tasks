@@ -726,4 +726,7 @@ File %1$s contained %2$s.\n\n
   <string name="sync_warning_google_tasks_title">About Google Task sync</string>
   <string name="sync_warning_google_tasks">Not all task details sync with Google Tasks</string>
   <string name="button_learn_more">Learn more</string>
+    <string name="todoist">Todoist</string>
+    <string name="todoist_selection_description">Sync with Todoist</string>
+    <string name="todoist_account_description">Sync your tasks with Todoist</string>
 </resources>
