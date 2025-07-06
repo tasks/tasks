@@ -5,9 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.provider.Settings
 import android.speech.RecognizerIntent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
+import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 
@@ -27,6 +29,15 @@ class Device @Inject constructor(
         return (activities.size != 0)
     }
 
+    private fun isDontKeepActivitiesEnabled(): Boolean {
+        return try {
+            Settings.Global.getInt(context.contentResolver, Settings.Global.ALWAYS_FINISH_ACTIVITIES) == 1
+        } catch (e: Exception) {
+            Timber.e(e)
+            false
+        }
+    }
+
     val debugInfo: String
         get() = """
             ----------
@@ -42,6 +53,8 @@ class Device @Inject constructor(
             background location: ${permissionChecker.canAccessBackgroundLocation()}
             foreground location: ${permissionChecker.canAccessForegroundLocation()}
             calendar: ${permissionChecker.canAccessCalendars()}
+            ----------
+            dont keep activities: ${isDontKeepActivitiesEnabled()}
             ----------
         """.trimIndent()
 }
