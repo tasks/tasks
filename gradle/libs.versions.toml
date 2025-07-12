@@ -2,7 +2,7 @@
 versionCode = "140710" # increment by 2
 versionName = "14.7.3"
 agp = "8.11.0"
-android-compileSdk = "35"
+android-compileSdk = "36"
 android-minSdk = "26"
 android-targetSdk = "34"
 accompanist = "0.37.3"
