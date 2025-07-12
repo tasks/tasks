@@ -4,7 +4,8 @@
 +|              \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.1.21
 +|                   +--- org.jetbrains:annotations:13.0 -> 23.0.0
 +|                   +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 2.1.21 (c)
-+|                   \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 2.1.21 (c)
++|                   +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 2.1.21 (c)
++|                   \--- org.jetbrains.kotlin:kotlin-stdlib-common:2.1.21 (c)
 ++--- androidx.databinding:databinding-common:8.11.1
 ++--- androidx.databinding:databinding-runtime:8.11.1
 +|    +--- androidx.collection:collection:1.0.0 -> 1.5.0
@@ -317,12 +318,15 @@
 +|    |    |         +--- androidx.compose.runtime:runtime-livedata:1.8.3 (c)
 +|    |    |         +--- androidx.compose.runtime:runtime-saveable:1.8.3 (c)
 +|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.1.21 (c)
++|    |    +--- org.jetbrains.kotlin:kotlin-stdlib-common -> 2.1.21
++|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 (*)
 +|    |    +--- androidx.compose.ui:ui:1.8.3 (c)
 +|    |    +--- androidx.compose.ui:ui-geometry:1.8.3 (c)
 +|    |    +--- androidx.compose.ui:ui-graphics:1.8.3 (c)
 +|    |    +--- androidx.compose.ui:ui-text:1.8.3 (c)
 +|    |    +--- androidx.compose.ui:ui-unit:1.8.3 (c)
-+|    |    \--- androidx.compose.ui:ui-util:1.8.3 (c)
++|    |    +--- androidx.compose.ui:ui-util:1.8.3 (c)
++|    |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22 -> 2.1.21 (c)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 (*)
 +|    +--- project :data (*)
 +|    +--- org.jetbrains.compose.components:components-resources:1.8.2
@@ -1215,7 +1219,8 @@
 +|    |    +--- org.jetbrains.kotlin:kotlin-bom:1.8.22
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.21 (c)
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22 -> 2.1.21 (c)
-+|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 -> 2.1.21 (c)
++|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 -> 2.1.21 (c)
++|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22 -> 2.1.21 (c)
 +|    |    +--- androidx.activity:activity:1.8.0 -> 1.10.1 (*)
 +|    |    +--- androidx.annotation:annotation:1.2.0 -> 1.9.1 (*)
 +|    |    +--- androidx.appcompat:appcompat:1.6.1 -> 1.7.1 (*)
