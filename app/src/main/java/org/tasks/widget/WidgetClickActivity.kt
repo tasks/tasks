@@ -57,6 +57,16 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                 )
                 finish()
             }
+            OPEN_TASK_LIST -> {
+                val filter = intent.getParcelableExtra<Filter?>(EXTRA_FILTER)
+                Timber.tag("$action filter=$filter")
+                startActivity(
+                    TaskIntents
+                        .getTaskListIntent(this, filter)
+                        .putExtra(FINISH_AFFINITY, true)
+                )
+                finish()
+            }
             TOGGLE_SUBTASKS -> {
                 val task = task
                 val collapsed = intent.getBooleanExtra(EXTRA_COLLAPSED, false)
@@ -110,6 +120,7 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
     companion object {
         const val COMPLETE_TASK = "COMPLETE_TASK"
         const val EDIT_TASK = "EDIT_TASK"
+        const val OPEN_TASK_LIST = "OPEN_TASK_LIST"
         const val TOGGLE_SUBTASKS = "TOGGLE_SUBTASKS"
         const val RESCHEDULE_TASK = "RESCHEDULE_TASK"
         const val TOGGLE_GROUP = "TOGGLE_GROUP"
