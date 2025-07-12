@@ -1,6 +1,7 @@
 ++--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21
 +|    +--- org.jetbrains:annotations:13.0 -> 23.0.0
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 1.9.0 (c)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-common:2.1.21 (c)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 1.9.0 (c)
 ++--- org.jetbrains.compose.components:components-resources:1.8.2
 +|    \--- org.jetbrains.compose.components:components-resources-android:1.8.2
@@ -884,14 +885,17 @@
 +|    +--- androidx.compose.ui:ui-tooling-preview-android:1.8.3
 +|    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|    |    +--- androidx.compose.runtime:runtime:1.8.3 (*)
++|    |    +--- org.jetbrains.kotlin:kotlin-stdlib-common -> 2.1.21
++|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 (*)
 +|    |    +--- androidx.compose.ui:ui:1.8.3 (c)
 +|    |    +--- androidx.compose.ui:ui-geometry:1.8.3 (c)
 +|    |    +--- androidx.compose.ui:ui-graphics:1.8.3 (c)
 +|    |    +--- androidx.compose.ui:ui-text:1.8.3 (c)
 +|    |    +--- androidx.compose.ui:ui-tooling:1.8.3 (c)
++|    |    +--- androidx.compose.ui:ui-tooling-data:1.8.3 (c)
 +|    |    +--- androidx.compose.ui:ui-unit:1.8.3 (c)
 +|    |    +--- androidx.compose.ui:ui-util:1.8.3 (c)
-+|    |    \--- androidx.compose.ui:ui-tooling-data:1.8.3 (c)
++|    |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22 -> 2.1.21 (c)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 (*)
 +|    +--- project :data
 +|    |    +--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations:1.13.0
