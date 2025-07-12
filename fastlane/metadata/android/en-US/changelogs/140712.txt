@@ -1,0 +1,5 @@
+* Fix escaping quotes in iCalendar
+* Limit widget to 25 items on Android 16+
+* Fix bug when reconfiguring widget
+* Fix default widget group sort order
+* Update translations

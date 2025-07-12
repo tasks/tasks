@@ -1,3 +1,19 @@
+### 14.7.4 (2025-07-12)
+
+* @devn1x: Fix escaping quotes in iCalendar [#3645](https://github.com/tasks/tasks/pull/3645)
+* Limit widget to 25 items on Android 16+
+  * Android 16 nerfed widget performance 😢
+* Fix bug when reconfiguring widget
+* Fix default widget group sort order
+* Update translations
+  * Catalan - pitroig
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Croatian - @milotype
+  * German - @Kachelkaiser
+  * Serbian - @vale-decem
+  * Swedish - Nick Wick
+  * Tamil - @TamilNeram
+
 ### 14.7.3 (2025-06-13)
 
 * Fix dynamic color
