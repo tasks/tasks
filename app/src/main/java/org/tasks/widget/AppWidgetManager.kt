@@ -8,6 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.injection.ApplicationScope
 import timber.log.Timber
@@ -25,18 +26,21 @@ class AppWidgetManager @Inject constructor(
                 ?: intArrayOf()
 
     fun reconfigureWidgets(vararg appWidgetIds: Int) = scope.launch(Dispatchers.IO) {
+        Timber.d("reconfigureWidgets(${appWidgetIds.joinToString()})")
         val intent = Intent(context, TasksWidget::class.java)
         intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
         intent.putExtra(
                 AppWidgetManager.EXTRA_APPWIDGET_IDS,
                 appWidgetIds.takeIf { it.isNotEmpty() } ?: widgetIds)
         context.sendBroadcast(intent)
-        updateWidgets()
     }
 
     fun updateWidgets() = scope.launch(Dispatchers.IO) {
-        Timber.d("Updating widgets")
-        appWidgetManager?.notifyAppWidgetViewDataChanged(widgetIds, R.id.list_view)
+        val appWidgetIds = widgetIds
+        Timber.d("updateWidgets: ${appWidgetIds.joinToString()}")
+        withContext(Dispatchers.Main) {
+            appWidgetManager?.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list_view)
+        }
     }
 
     fun exists(id: Int) = appWidgetManager?.getAppWidgetInfo(id) != null

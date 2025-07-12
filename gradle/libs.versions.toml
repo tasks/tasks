@@ -1,8 +1,8 @@
 [versions]
 versionCode = "140710" # increment by 2
 versionName = "14.7.3"
-agp = "8.10.1"
-android-compileSdk = "35"
+agp = "8.11.0"
+android-compileSdk = "36"
 android-minSdk = "26"
 android-targetSdk = "34"
 accompanist = "0.37.3"
@@ -11,23 +11,23 @@ appauth = "0.11.1"
 appcompat = "1.7.1"
 cert4android = "7814052"
 coil = "2.7.0"
-compose = "2025.06.00"
+compose = "2025.06.01"
 constraintlayout = "2.2.1"
 dagger-hilt = "2.56.2"
 dashclock-api = "2.0.0"
 dav4jvm = "2.2.1"
 desugar_jdk_libs = "2.1.5"
 etebase = "2.3.2"
-firebase = "33.14.0"
+firebase = "33.16.0"
 firebase-crashlytics-gradle = "3.0.4"
-google-oauth2 = "1.37.0"
-google-api-drive = "v3-rev20250511-2.0.0"
+google-oauth2 = "1.37.1"
+google-api-drive = "v3-rev20250701-2.0.0"
 google-api-tasks = "v1-rev20250518-2.0.0"
-google-services = "4.4.2"
+google-services = "4.4.3"
 grpc = "1.73.0"
 hilt = "1.2.0"
 horologist = "0.6.23"
-ical4android = "12fe73a"
+ical4android = "2fe63dd"
 jchronic = "0.2.6"
 jems = "1.33"
 junit-junit = "4.13.2"
@@ -55,11 +55,11 @@ preference = "1.2.1"
 protobuf = "4.31.1"
 recyclerview = "1.4.0"
 rfc5545-datetime = "0.2.4"
-room = "2.7.1"
+room = "2.7.2"
 shortcut-badger = "1.1.22"
 timber = "5.0.1"
 swiperefreshlayout = "1.1.0"
-work = "2.10.1"
+work = "2.10.2"
 androidx-test = "1.6.1"
 androidx-test-runner = "1.6.2"
 xpp3 = "1.1.6"
@@ -86,13 +86,13 @@ androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-ru
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
-androidx-navigation = { module = "androidx.navigation:navigation-compose", version = "2.9.0" }
+androidx-navigation = { module = "androidx.navigation:navigation-compose", version = "2.9.1" }
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version = "3.3.6" }
 androidx-preference = { module = "androidx.preference:preference", version.ref = "preference" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 androidx-room = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room"}
-androidx-sqlite = { module = "androidx.sqlite:sqlite-bundled", version = "2.5.1" }
+androidx-sqlite = { module = "androidx.sqlite:sqlite-bundled", version = "2.5.2" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test" }
 androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
@@ -175,7 +175,7 @@ play-services-oss-licenses = { module = "com.google.android.gms:play-services-os
 shortcut-badger = { module = "me.leolin:ShortcutBadger", version.ref = "shortcut-badger" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 xpp3 = { module = "org.ogce:xpp3", version.ref = "xpp3" }
-androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version = "1.8.2" }
+androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version = "1.8.3" }
 iconics = { module = "com.mikepenz:iconics-core", version = "5.5.0-b01" }
 play-services-wearable = { group = "com.google.android.gms", name = "play-services-wearable", version = "19.0.0" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -204,7 +204,7 @@ protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-jetbrains-compose = { id = "org.jetbrains.compose", version = "1.8.1" }
+jetbrains-compose = { id = "org.jetbrains.compose", version = "1.8.2" }
 kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }

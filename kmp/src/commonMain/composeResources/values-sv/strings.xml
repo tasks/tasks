@@ -27,7 +27,7 @@
     <string name="today_lowercase">idag</string>
     <string name="search_no_results">Inga resultat</string>
     <string name="subscription_required_description">Lås upp alla funktioner för så lite som 1$ USD/år</string>
-    <string name="requires_pro_subscription">Pro funktion</string>
+    <string name="requires_pro_subscription">Pro-funktion</string>
     <string name="add_task">Lägg till uppgift</string>
     <string name="show_unstarted">Visa inte påbörjade</string>
     <string name="show_completed">Visa slutförda</string>

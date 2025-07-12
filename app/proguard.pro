@@ -26,6 +26,8 @@
 -dontwarn net.fortuna.ical4j.model.**
 -dontwarn org.codehaus.groovy.**
 -dontwarn org.apache.log4j.**             # ignore warnings from log4j dependency
+-dontwarn com.github.erosb.jsonsKema.**   # ical4android
+-dontwarn org.jparsec.**                  # ical4android
 -keep class net.fortuna.ical4j.** { *; }  # keep all model classes (properties/factories, created at runtime)
 -keep class at.bitfire.** { *; }       # all DAVdroid code is required
 

@@ -75,6 +75,10 @@ object AndroidUtilities {
         return Build.VERSION.SDK_INT >= VERSION_CODES.TIRAMISU
     }
 
+    fun atLeastAndroid16(): Boolean {
+        return Build.VERSION.SDK_INT >= VERSION_CODES.BAKLAVA
+    }
+
     fun assertMainThread() {
         check(!(BuildConfig.DEBUG && !isMainThread)) { "Should be called from main thread" }
     }

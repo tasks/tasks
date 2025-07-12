@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService.RemoteViewsFactory
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastAndroid16
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.subtasks.SubtasksHelper
 import kotlinx.coroutines.runBlocking
@@ -50,6 +51,7 @@ internal class TasksWidgetViewFactory(
     private val markdown: Markdown,
     private val headerFormatter: HeaderFormatter,
 ) : RemoteViewsFactory {
+    private val taskLimit = if (atLeastAndroid16()) 25 + 1 else Int.MAX_VALUE
     private val indentPadding = (20 * context.resources.displayMetrics.density).toInt()
     private val settings = widgetPreferences.getWidgetListSettings()
     private val hPad = context.resources.getDimension(R.dimen.widget_padding).toInt()
@@ -87,10 +89,11 @@ internal class TasksWidgetViewFactory(
 
     override fun onDestroy() {}
 
-    override fun getCount() = tasks.size
+    override fun getCount() = tasks.size.coerceAtMost(taskLimit)
 
     override fun getViewAt(position: Int): RemoteViews? = tasks.let {
         when {
+            position == taskLimit - 1 && it.size > taskLimit -> buildFooter()
             it.isHeader(position) -> buildHeader(it.getSection(position))
             position < it.size -> buildUpdate(it.getItem(position))
             else -> null
@@ -99,10 +102,11 @@ internal class TasksWidgetViewFactory(
 
     override fun getLoadingView(): RemoteViews = newRemoteView()
 
-    override fun getViewTypeCount(): Int = 2
+    override fun getViewTypeCount(): Int = 3
 
     override fun getItemId(position: Int) = tasks.let {
         when {
+            position == taskLimit - 1 && it.size > taskLimit -> 0
             it.isHeader(position) -> it.getSection(position).value
             position < it.size -> it.getItem(position).id
             else -> 0
@@ -112,6 +116,16 @@ internal class TasksWidgetViewFactory(
     override fun hasStableIds(): Boolean = true
 
     private fun newRemoteView() = RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_row)
+
+    private fun buildFooter(): RemoteViews {
+        return RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_footer).apply {
+            setOnClickFillInIntent(
+                R.id.widget_view_more,
+                Intent(WidgetClickActivity.OPEN_TASK_LIST)
+                    .putExtra(WidgetClickActivity.EXTRA_FILTER, filter)
+            )
+        }
+    }
 
     private fun buildHeader(section: AdapterSection): RemoteViews {
         val sortGroup = section.value

@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings">Подешавања</string>
+    <string name="search">Претражи</string>
+    <string name="search_no_results">Нема резултата</string>
+    <string name="requires_pro_subscription">Премијум функционалност</string>
+    <string name="subscription_required_description">Откључај све функционалности за само 1 USD годишње</string>
+    <string name="subscribe">Претплати се</string>
+    <string name="filter_my_tasks">Моји задаци</string>
+    <string name="filter_notifications">Обавештења</string>
+    <string name="filter_snoozed">Одложен</string>
+    <string name="filter_today">Данас</string>
+    <string name="filter_recently_modified">Недавно модификовани</string>
+    <string name="default_list">Подразумевана листа</string>
+    <string name="help_and_feedback">Помоћ и повратне информације</string>
+    <string name="drawer_filters">Филтери</string>
+    <string name="drawer_tags">Тагови</string>
+    <string name="drawer_places">Места</string>
+    <string name="drawer_local_lists">Локална листа</string>
+    <string name="tmrw">Сутра</string>
+    <string name="tomorrow_abbrev_lowercase">сутра</string>
+    <string name="tomorrow">Сутра</string>
+    <string name="tomorrow_lowercase">сутра</string>
+    <string name="yest">Јуче</string>
+    <string name="yesterday_abbrev_lowercase">јуче</string>
+    <string name="yesterday">Јуче</string>
+    <string name="yesterday_lowercase">јуче</string>
+    <string name="today">Данас</string>
+    <string name="today_lowercase">данас</string>
+    <string name="add_task">Додај задатак</string>
+    <string name="show_unstarted">Прикажи незапочете</string>
+    <string name="show_completed">Прикажи завршене</string>
+    <string name="wear_install_app">Инсталирај на уређају</string>
+    <string name="wear_unknown_error">Непозната грешка</string>
+    <string name="filter_timer">Задаци са тајмером</string>
 </resources>
