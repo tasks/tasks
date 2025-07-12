@@ -24,7 +24,7 @@ class RequestPinWidgetReceiver : BroadcastReceiver() {
         val widgetPreferences = WidgetPreferences(context, preferences, widgetId)
         widgetPreferences.setFilter(filter)
         widgetPreferences.setColor(color)
-        appWidgetManager.reconfigureWidgets()
+        appWidgetManager.reconfigureWidgets(widgetId)
     }
 
     companion object {
