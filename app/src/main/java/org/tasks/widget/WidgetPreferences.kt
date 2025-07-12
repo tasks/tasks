@@ -255,7 +255,7 @@ class WidgetPreferences(
             setBoolean(R.string.p_widget_sort_ascending, ascending)
         }
     override var groupAscending: Boolean
-        get() = getBoolean(R.string.p_widget_group_ascending, false)
+        get() = getBoolean(R.string.p_widget_group_ascending, true)
         set(ascending) {
             setBoolean(R.string.p_widget_group_ascending, ascending)
         }
