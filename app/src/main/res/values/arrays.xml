@@ -36,6 +36,7 @@
     <item>@string/theme_dark</item>
     <item>@string/theme_system_default</item>
     <item>@string/theme_dynamic</item>
+    <item>@string/theme_custom</item>
   </string-array>
 
   <string-array name="EPr_default_urgency">
