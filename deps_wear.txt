@@ -1369,9 +1369,11 @@
 +|    +--- androidx.wear.compose:compose-material:1.4.1 (c)
 +|    +--- androidx.wear.compose:compose-material-core:1.4.1 (c)
 +|    \--- androidx.wear.compose:compose-ui-tooling:1.4.1 (c)
-++--- androidx.wear:wear-input:1.2.0-alpha02
-+|    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.5.30 -> 2.1.21 (*)
+++--- androidx.wear:wear-input:1.2.0-alpha04
++|    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.1.21 (*)
++|    +--- org.jspecify:jspecify:1.0.0
++|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.1.21 (c)
 ++--- androidx.wear:wear-tooling-preview:1.0.0
 +|    +--- androidx.annotation:annotation:1.6.0 -> 1.9.1 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.21 (*)
