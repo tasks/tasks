@@ -558,7 +558,7 @@
     <string name="device_settings">Настройки на устройството</string>
     <string name="support_development_subscribe">Отключване на допълнителни възможности и подкрепа на софтуера с отворен код</string>
     <string name="sort_start_group">Започната %s</string>
-    <string name="sort_due_group">Завършена %s</string>
+    <string name="sort_due_group">За %s</string>
     <string name="on_launch">При стартиране</string>
     <string name="sort_created_group">Създадена %s</string>
     <string name="sort_modified_group">Променена %s</string>
