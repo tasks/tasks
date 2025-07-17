@@ -1719,14 +1719,14 @@
 ++--- org.dmfs:lib-recur:0.11.4
 +|    \--- org.dmfs:rfc5545-datetime:0.2.4
 ++--- org.dmfs:jems:1.33
-++--- com.google.dagger:hilt-android:2.56.2
-+|    +--- com.google.dagger:dagger:2.56.2
+++--- com.google.dagger:hilt-android:2.57
++|    +--- com.google.dagger:dagger:2.57
 +|    |    +--- jakarta.inject:jakarta.inject-api:2.0.1
 +|    |    +--- javax.inject:javax.inject:1
 +|    |    \--- org.jspecify:jspecify:1.0.0
-+|    +--- com.google.dagger:dagger-lint-aar:2.56.2
-+|    +--- com.google.dagger:hilt-core:2.56.2
-+|    |    +--- com.google.dagger:dagger:2.56.2 (*)
++|    +--- com.google.dagger:dagger-lint-aar:2.57
++|    +--- com.google.dagger:hilt-core:2.57
++|    |    +--- com.google.dagger:dagger:2.57 (*)
 +|    |    \--- javax.inject:javax.inject:1
 +|    +--- androidx.activity:activity:1.5.1 -> 1.10.1 (*)
 +|    +--- androidx.annotation:annotation:1.7.0-beta01 -> 1.9.1 (*)
@@ -1738,14 +1738,14 @@
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1 -> 2.9.1 (*)
 +|    +--- androidx.savedstate:savedstate:1.2.0 -> 1.3.0 (*)
 +|    +--- javax.inject:javax.inject:1
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 -> 2.1.21 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 (*)
 ++--- androidx.hilt:hilt-navigation-compose:1.2.0
 +|    +--- androidx.compose.runtime:runtime:1.0.1 -> 1.8.3 (*)
 +|    +--- androidx.compose.ui:ui:1.0.1 -> 1.8.3 (*)
 +|    +--- androidx.hilt:hilt-navigation:1.2.0
 +|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|    |    +--- androidx.navigation:navigation-runtime:2.5.1 -> 2.9.2 (*)
-+|    |    +--- com.google.dagger:hilt-android:2.49 -> 2.56.2 (*)
++|    |    +--- com.google.dagger:hilt-android:2.49 -> 2.57 (*)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.21 (*)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1 -> 2.9.1 (*)
 +|    +--- androidx.navigation:navigation-compose:2.5.1 -> 2.9.2 (*)
@@ -1753,7 +1753,7 @@
 ++--- androidx.hilt:hilt-work:1.2.0
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|    +--- androidx.hilt:hilt-common:1.2.0
-+|    |    \--- com.google.dagger:hilt-core:2.49 -> 2.56.2 (*)
++|    |    \--- com.google.dagger:hilt-core:2.49 -> 2.57 (*)
 +|    +--- androidx.work:work-runtime:2.3.4 -> 2.10.2
 +|    |    +--- androidx.annotation:annotation-experimental:1.4.1 (*)
 +|    |    +--- androidx.concurrent:concurrent-futures-ktx:1.1.0 (*)
@@ -1778,7 +1778,7 @@
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.10.2 (*)
 +|    |    +--- androidx.work:work-runtime-ktx:2.10.2 (c)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.1.21 (c)
-+|    \--- com.google.dagger:hilt-android:2.49 -> 2.56.2 (*)
++|    \--- com.google.dagger:hilt-android:2.49 -> 2.57 (*)
 ++--- androidx.core:core-splashscreen:1.0.1
 +|    +--- androidx.annotation:annotation:1.2.0 -> 1.9.1 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.21 -> 2.1.21 (*)
