@@ -451,7 +451,7 @@
     <string name="location_radius_meters">%s m</string>
     <string name="subtasks">Attività secondaria</string>
     <string name="TEA_timer_controls">Timer</string>
-    <string name="chip_appearance">Aspetto icona</string>
+    <string name="chip_appearance">Aspetto etichetta</string>
     <string name="chips">Smart Chips</string>
     <string name="custom_filter_not">NON</string>
     <string name="custom_filter_or">O</string>
