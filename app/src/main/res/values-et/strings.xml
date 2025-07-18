@@ -721,4 +721,5 @@
     <string name="continue_without_sync">Jätka ilma sünkroniseerimata</string>
     <string name="help_me_choose">Aita mul valida</string>
     <string name="delete_tasks_warning">%s saab olema kustutatud. Seda tegevust ei saa tagasi pöörata!</string>
+    <string name="widget_view_more_tasks">Vaata veel ülesandeid</string>
 </resources>
