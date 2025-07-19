@@ -276,7 +276,17 @@ fun TaskEditScreen(
                     FilesControlSet.TAG -> AndroidFragment<FilesControlSet>()
                     TimerControlSet.TAG -> AndroidFragment<TimerControlSet>()
                     TagsControlSet.TAG -> AndroidFragment<TagsControlSet>()
-                    RepeatControlSet.TAG -> AndroidFragment<RepeatControlSet>()
+                    RepeatControlSet.TAG -> {
+                        //AndroidFragment<RepeatControlSet>()
+                        RepeatRow(
+                            recurrence = viewState.task.recurrence,
+                            onRecurrenceChanged = { editViewModel.setRecurrence(it) },
+                            repeatFrom = viewState.task.repeatFrom,
+                            onRepeatFromChanged = { editViewModel.setRepeatFrom(it) },
+                            dueDate = editViewModel.dueDate.collectAsStateWithLifecycle().value,
+                            accountType = viewState.list.account.accountType
+                        )
+                    }
                     SubtaskControlSet.TAG -> AndroidFragment<SubtaskControlSet>()
                     else -> throw IllegalArgumentException("Unknown row: $tag")
                 }
