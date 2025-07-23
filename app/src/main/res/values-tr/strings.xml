@@ -721,4 +721,5 @@
     <string name="delete_tasks_warning">%s silinecek. Bu geri alınamaz!</string>
     <string name="continue_without_sync">Eşzamanlamadan sürdür</string>
     <string name="help_me_choose">Seçmeme yardım et</string>
+    <string name="widget_view_more_tasks">Daha çok görev gör</string>
 </resources>
