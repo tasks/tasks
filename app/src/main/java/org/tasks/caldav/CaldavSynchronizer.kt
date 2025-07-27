@@ -136,8 +136,7 @@ class CaldavSynchronizer @Inject constructor(
     private suspend fun synchronize(account: CaldavAccount) {
         val caldavClient = provider.forAccount(account)
         var serverType = account.serverType
-        val resources = caldavClient.calendars { chain ->
-            val response = chain.proceed(chain.request())
+        val resources = caldavClient.calendars { response ->
             if (serverType == SERVER_UNKNOWN) {
                 serverType = getServerType(account, response.headers)
             }

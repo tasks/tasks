@@ -18,7 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
-import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -101,9 +100,12 @@ open class CaldavClient(
                 .findHomeset()
     }
 
-    suspend fun calendars(interceptor: (Interceptor.Chain) -> okhttp3.Response): List<Response> =
+    suspend fun calendars(interceptor: (okhttp3.Response) -> okhttp3.Response = { it }): List<Response> =
         DavResource(
-            httpClient.newBuilder().addNetworkInterceptor(interceptor).build(),
+            httpClient
+                .newBuilder()
+                .addNetworkInterceptor { interceptor(it.proceed(it.request())) }
+                .build(),
             httpUrl!!
         )
             .propfind(1, *calendarProperties)
