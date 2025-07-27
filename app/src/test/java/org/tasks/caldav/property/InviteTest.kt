@@ -1,17 +1,18 @@
 package org.tasks.caldav.property
 
 import at.bitfire.dav4jvm.PropertyRegistry
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.tasks.caldav.property.PropertyUtils.register
 import org.tasks.caldav.property.ShareAccess.Companion.SHARED_OWNER
 import org.tasks.caldav.property.TestPropertyUtils.toProperty
 
 class InviteTest {
     @Before
     fun setUp() {
-        PropertyRegistry.register(ShareAccess.Factory(), Invite.Factory())
+        PropertyRegistry.register(listOf(ShareAccess.Factory(), Invite.Factory()))
     }
 
     @Test
