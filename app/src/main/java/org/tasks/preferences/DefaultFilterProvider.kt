@@ -84,7 +84,7 @@ class DefaultFilterProvider @Inject constructor(
     private suspend fun getAnyList(): CaldavFilter {
         val filter = caldavDao
             .getCalendars()
-            .filterNot { it.access == ACCESS_READ_ONLY }
+            .filterNot { it.readOnly() }
             .getOrNull(0)
             ?.let { list ->
                 list.account
