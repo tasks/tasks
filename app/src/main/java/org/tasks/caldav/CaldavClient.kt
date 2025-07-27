@@ -11,9 +11,16 @@ import at.bitfire.dav4jvm.XmlUtils.NS_CALDAV
 import at.bitfire.dav4jvm.XmlUtils.NS_WEBDAV
 import at.bitfire.dav4jvm.exception.DavException
 import at.bitfire.dav4jvm.exception.HttpException
-import at.bitfire.dav4jvm.property.*
+import at.bitfire.dav4jvm.property.CalendarColor
+import at.bitfire.dav4jvm.property.CalendarHomeSet
+import at.bitfire.dav4jvm.property.CurrentUserPrincipal
+import at.bitfire.dav4jvm.property.CurrentUserPrivilegeSet
+import at.bitfire.dav4jvm.property.DisplayName
+import at.bitfire.dav4jvm.property.GetCTag
+import at.bitfire.dav4jvm.property.ResourceType
 import at.bitfire.dav4jvm.property.ResourceType.Companion.CALENDAR
-import org.tasks.data.UUIDHelper
+import at.bitfire.dav4jvm.property.SupportedCalendarComponentSet
+import at.bitfire.dav4jvm.property.SyncToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl
@@ -23,11 +30,13 @@ import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.caldav.property.CalendarIcon
 import org.tasks.caldav.property.Invite
 import org.tasks.caldav.property.OCInvite
 import org.tasks.caldav.property.OCOwnerPrincipal
 import org.tasks.caldav.property.PropertyUtils.NS_OWNCLOUD
 import org.tasks.caldav.property.ShareAccess
+import org.tasks.data.UUIDHelper
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_NEXTCLOUD
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OWNCLOUD
@@ -122,30 +131,41 @@ open class CaldavClient(
     }
 
     @Throws(IOException::class, XmlPullParserException::class, HttpException::class)
-    suspend fun makeCollection(displayName: String, color: Int): String = withContext(Dispatchers.IO) {
+    suspend fun makeCollection(displayName: String, color: Int, icon: String?): String = withContext(Dispatchers.IO) {
         val davResource = DavResource(httpClient, httpUrl!!.resolve(UUIDHelper.newUUID() + "/")!!)
         val mkcolString = getMkcolString(displayName, color)
         davResource.mkCol(mkcolString) {}
+        if (icon?.isNotBlank() == true) {
+            davResource.proppatch(CalendarIcon.NAME, icon)
+        }
         davResource.location.toString()
     }
 
     @Throws(IOException::class, XmlPullParserException::class, HttpException::class)
-    suspend fun updateCollection(displayName: String, color: Int): String =
+    suspend fun updateCollection(displayName: String, color: Int, icon: String?): String =
         withContext(Dispatchers.IO) {
             with(DavResource(httpClient, httpUrl!!)) {
-                proppatch(
-                    setProperties = mutableMapOf(DisplayName.NAME to displayName).apply {
-                        if (color != 0) {
-                            put(
-                                CalendarColor.NAME,
-                                String.format("#%06X%02X", color and 0xFFFFFF, color ushr 24)
-                            )
-                        }
-                    },
-                    removeProperties = if (color == 0) listOf(CalendarColor.NAME) else emptyList(),
-                    callback = { _, _ -> },
-                )
+                proppatch(DisplayName.NAME, displayName)
+                if (color != 0) {
+                    proppatch(
+                        CalendarColor.NAME,
+                        String.format("#%06X%02X", color and 0xFFFFFF, color ushr 24)
+                    )
+                }
+                if (icon?.isNotBlank() == true) {
+                    proppatch(CalendarIcon.NAME, icon)
+                }
                 location.toString()
+            }
+        }
+
+    @Throws(IOException::class, XmlPullParserException::class, HttpException::class)
+    suspend fun updateIcon(url: HttpUrl, icon: String?, onFailure: () -> Unit) =
+        withContext(Dispatchers.IO) {
+            with(DavResource(httpClient, url)) {
+                if (icon?.isNotBlank() == true) {
+                    proppatch(CalendarIcon.NAME, icon, onFailure)
+                }
             }
         }
 
@@ -286,18 +306,19 @@ open class CaldavClient(
         private val MEDIATYPE_SHARING = "application/davsharing+xml".toMediaType()
 
         private val calendarProperties = arrayOf(
-                ResourceType.NAME,
-                DisplayName.NAME,
-                SupportedCalendarComponentSet.NAME,
-                GetCTag.NAME,
-                CalendarColor.NAME,
-                SyncToken.NAME,
-                ShareAccess.NAME,
-                Invite.NAME,
-                OCOwnerPrincipal.NAME,
-                OCInvite.NAME,
-                CurrentUserPrivilegeSet.NAME,
-                CurrentUserPrincipal.NAME,
+            ResourceType.NAME,
+            DisplayName.NAME,
+            SupportedCalendarComponentSet.NAME,
+            GetCTag.NAME,
+            CalendarColor.NAME,
+            SyncToken.NAME,
+            ShareAccess.NAME,
+            Invite.NAME,
+            OCOwnerPrincipal.NAME,
+            OCInvite.NAME,
+            CurrentUserPrivilegeSet.NAME,
+            CurrentUserPrincipal.NAME,
+            CalendarIcon.NAME,
         )
 
         private suspend fun DavResource.propfind(
@@ -313,5 +334,22 @@ open class CaldavClient(
                         cont.resumeWith(Result.success(responses))
                     }
                 }
+
+        fun DavResource.proppatch(
+            property: Property.Name,
+            value: String,
+            onFailure: () -> Unit = {},
+        ) {
+            proppatch(
+                setProperties = mapOf(property to value),
+                removeProperties = emptyList(),
+                callback = { response, _ ->
+                    if (!response.isSuccess()) {
+                        Timber.e("${response.status} when updating $property: ${response.error}")
+                        onFailure()
+                    }
+                },
+            )
+        }
     }
 }

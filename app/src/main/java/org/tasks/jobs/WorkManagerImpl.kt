@@ -207,9 +207,6 @@ class WorkManagerImpl(
         enqueue(builder)
     }
 
-    private val networkConstraints: Constraints
-        get() = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-
     override fun updatePurchases() =
         enqueueUnique(TAG_UPDATE_PURCHASES, UpdatePurchaseWork::class.java)
 
@@ -260,3 +257,6 @@ class WorkManagerImpl(
 private fun <B : WorkRequest.Builder<B, *>, W : WorkRequest> WorkRequest.Builder<B, W>.setInputData(
     vararg pairs: Pair<String, Any?>
 ): B = setInputData(workDataOf(*pairs))
+
+val networkConstraints: Constraints
+    get() = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()

@@ -78,11 +78,10 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
                 showProgressIndicator()
                 createCalendar(caldavAccount, name, baseViewModel.color)
             }
-            nameChanged() || colorChanged() -> {
+            nameChanged() || colorChanged() || iconChanged() -> {
                 showProgressIndicator()
                 updateNameAndColor(caldavAccount, caldavCalendar!!, name, baseViewModel.color)
             }
-            iconChanged() -> updateCalendar()
             else -> finish()
         }
     }
@@ -150,7 +149,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         )
         caldavDao.update(result)
         setResult(
-                Activity.RESULT_OK,
+                RESULT_OK,
                 Intent(TaskListFragment.ACTION_RELOAD)
                         .putExtra(
                             MainActivity.OPEN_FILTER,

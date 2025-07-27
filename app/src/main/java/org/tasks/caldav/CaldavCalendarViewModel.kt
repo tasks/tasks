@@ -37,7 +37,7 @@ class CaldavCalendarViewModel @Inject constructor(
     ): CaldavCalendar? =
         doRequest {
             val url = withContext(Dispatchers.IO) {
-                provider.forAccount(caldavAccount).makeCollection(name, color)
+                provider.forAccount(caldavAccount).makeCollection(name, color, icon)
             }
             val calendar = CaldavCalendar(
                 uuid = UUIDHelper.newUUID(),
@@ -67,7 +67,7 @@ class CaldavCalendarViewModel @Inject constructor(
     ) =
         doRequest {
             withContext(Dispatchers.IO) {
-                provider.forAccount(account, calendar.url!!).updateCollection(name, color)
+                provider.forAccount(account, calendar.url!!).updateCollection(name, color, icon)
             }
             val result = calendar.copy(
                 name = name,

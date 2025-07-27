@@ -34,7 +34,7 @@ class MigrateLocalWork @AssistedInject constructor(
         caldavDao.getCalendarsByAccount(fromAccount.uuid!!).forEach {
             caldavDao.update(
                 it.copy(
-                    url = caldavClient.makeCollection(it.name!!, it.color),
+                    url = caldavClient.makeCollection(it.name!!, it.color, it.icon),
                     account = caldavAccount.uuid,
                 )
             )
