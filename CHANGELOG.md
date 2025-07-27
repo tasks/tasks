@@ -1,3 +1,21 @@
+### 14.8 (2025-07-27)
+
+* Synchronize **list** icons for Tasks.org and CalDAV accounts
+  * Does not apply to Microsoft To Do, Google Tasks, DAVx5, EteSync, or DecSync
+    CC accounts
+  * Does not apply to tags or filters
+* Fix updating list names and colors for Tasks.org and CalDAV accounts
+* Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580
+  * Czech - @Fjuro
+  * Dutch - @fvbommel
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @Colorful Rhino
+  * Italian - @ppasserini
+  * Turkish - @emintufan
+
 ### 14.7.4 (2025-07-12)
 
 * @devn1x: Fix escaping quotes in iCalendar [#3645](https://github.com/tasks/tasks/pull/3645)

@@ -1,0 +1,6 @@
+* Synchronize **list** icons for Tasks.org and CalDAV accounts
+  * Does not apply to Microsoft To Do, Google Tasks, DAVx5, EteSync, or DecSync
+    CC accounts
+  * Does not apply to tags or filters
+* Fix updating list names and colors for Tasks.org and CalDAV accounts
+* Update translations
