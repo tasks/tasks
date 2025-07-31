@@ -751,4 +751,5 @@
     <string name="continue_without_sync">Продовжити без синхронізації</string>
     <string name="help_me_choose">Допоможіть обрати</string>
     <string name="delete_tasks_warning">%s буде видалено. Дію неможливо скасувати!</string>
+    <string name="widget_view_more_tasks">Переглянути інші завдання</string>
 </resources>
