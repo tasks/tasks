@@ -136,7 +136,7 @@ class WorkManagerImpl(
                     .setConstraints(networkConstraints)
                 workManager.enqueueUniquePeriodicWork(
                     TAG_BACKGROUND_SYNC,
-                    ExistingPeriodicWorkPolicy.KEEP,
+                    ExistingPeriodicWorkPolicy.UPDATE,
                     builder.build()
                 )
             } else {
@@ -183,7 +183,7 @@ class WorkManagerImpl(
         throttle.run {
             workManager.enqueueUniquePeriodicWork(
                     TAG_REMOTE_CONFIG,
-                    ExistingPeriodicWorkPolicy.KEEP,
+                    ExistingPeriodicWorkPolicy.UPDATE,
                     PeriodicWorkRequest.Builder(
                             RemoteConfigWork::class.java, REMOTE_CONFIG_INTERVAL_HOURS, TimeUnit.HOURS)
                             .setConstraints(networkConstraints)
