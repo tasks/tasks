@@ -1,9 +1,13 @@
-### 14.8 (2025-07-27)
+### 14.8 (2025-08-02)
 
 * Synchronize **list** icons for Tasks.org and CalDAV accounts
   * Does not apply to Microsoft To Do, Google Tasks, DAVx5, EteSync, or DecSync
     CC accounts
   * Does not apply to tags or filters
+  * CalDAV server must support extensible properties, e.g. Nextcloud or sabre/dav
+* Target Android 15
+* Return to previous view after searching
+* Remove shadow from date picker sheet
 * Fix updating list names and colors for Tasks.org and CalDAV accounts
 * Update translations
   * Bulgarian - 109247019824
@@ -13,8 +17,10 @@
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
   * German - @Colorful Rhino
+  * Hebrew - Xo
   * Italian - @ppasserini
   * Turkish - @emintufan
+  * Ukrainian - @IhorHordiichuk
 
 ### 14.7.4 (2025-07-12)
 
