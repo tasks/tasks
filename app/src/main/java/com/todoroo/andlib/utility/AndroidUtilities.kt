@@ -75,6 +75,10 @@ object AndroidUtilities {
         return Build.VERSION.SDK_INT >= VERSION_CODES.TIRAMISU
     }
 
+    fun atLeastAndroid15(): Boolean {
+        return Build.VERSION.SDK_INT >= VERSION_CODES.VANILLA_ICE_CREAM
+    }
+
     fun atLeastAndroid16(): Boolean {
         return Build.VERSION.SDK_INT >= VERSION_CODES.BAKLAVA
     }

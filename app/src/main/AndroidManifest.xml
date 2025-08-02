@@ -159,6 +159,7 @@
   </queries>
 
   <application
+    android:pageSizeCompat="enabled"
     android:allowBackup="true"
     android:backupAgent="org.tasks.backup.TasksBackupAgent"
     android:backupInForeground="true"
