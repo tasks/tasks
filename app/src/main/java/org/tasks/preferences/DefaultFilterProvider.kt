@@ -56,7 +56,7 @@ class DefaultFilterProvider @Inject constructor(
 
     fun setLastViewedFilter(filter: Filter) = setFilterPreference(filter, R.string.p_last_viewed_list)
 
-    private suspend fun getLastViewedFilter() = getFilterFromPreference(R.string.p_last_viewed_list)
+    suspend fun getLastViewedFilter() = getFilterFromPreference(R.string.p_last_viewed_list)
 
     suspend fun getDefaultOpenFilter() = getFilterFromPreference(R.string.p_default_open_filter)
 
