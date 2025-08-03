@@ -2,6 +2,7 @@ package org.tasks.notifications
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -15,6 +16,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.NotificationDao
 import org.tasks.data.dao.TaskDao
@@ -44,6 +46,7 @@ class NotificationManager @Inject constructor(
     private val preferences: Preferences,
     private val notificationDao: NotificationDao,
     private val taskDao: TaskDao,
+    private val caldavDao: CaldavDao,
     private val locationDao: LocationDao,
     private val localBroadcastManager: LocalBroadcastManager,
     private val notificationManager: ThrottledNotificationManager,
@@ -348,8 +351,24 @@ class NotificationManager @Inject constructor(
         val markdown = markdownProvider.markdown(force = true)
         val taskTitle = markdown.toMarkdown(task.title)
         val taskDescription = markdown.toMarkdown(task.notes)
+        val calendarName = caldavDao.getCalendarNameForTask(id) ?: "No calendar name"
 
-        val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_DEFAULT)
+        // Create an Android notification channel for this list
+        // This gives the user a way to enable notifications only for some lists
+        val channelId = "$NOTIFICATION_CHANNEL_PREFIX$calendarName"
+
+        // TODO: de-duplicate with createNotificationChannel from NotificationSchedulerIntentService
+        val importance = android.app.NotificationManager.IMPORTANCE_HIGH
+        val notificationChannel = NotificationChannel(channelId, calendarName, importance)
+        notificationChannel.enableLights(true)
+        notificationChannel.enableVibration(true)
+        notificationChannel.setBypassDnd(true)
+        notificationChannel.setShowBadge(true)
+
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
+        notificationManager.createNotificationChannel(notificationChannel)
+
+        val builder = NotificationCompat.Builder(context, calendarName)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setContentTitle(taskTitle)
                 .setColor(colorProvider.getPriorityColor(task.priority))
@@ -481,6 +500,7 @@ class NotificationManager @Inject constructor(
 
     companion object {
         const val NOTIFICATION_CHANNEL_DEFAULT = "notifications"
+        const val NOTIFICATION_CHANNEL_PREFIX = "notifications_"
         const val NOTIFICATION_CHANNEL_TASKER = "notifications_tasker"
         const val NOTIFICATION_CHANNEL_TIMERS = "notifications_timers"
         const val NOTIFICATION_CHANNEL_MISCELLANEOUS = "notifications_miscellaneous"

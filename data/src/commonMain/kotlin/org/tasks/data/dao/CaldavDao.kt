@@ -193,6 +193,13 @@ WHERE cd_calendar = :calendar
     abstract suspend fun getTasks(taskId: Long): List<CaldavTask>
 
     @Query("""
+        SELECT caldav_lists.cdl_name FROM caldav_tasks
+        JOIN caldav_lists ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid
+        WHERE caldav_tasks.cd_id = :taskId
+    """)
+    abstract suspend fun getCalendarNameForTask(taskId: Long): String?
+
+    @Query("""
 SELECT EXISTS(SELECT 1
               FROM caldav_tasks
                        INNER JOIN caldav_lists ON cdl_uuid = cd_calendar
