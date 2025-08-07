@@ -655,6 +655,94 @@ class iCalendarMergeTest {
                 assertEquals("789", it.remoteParent)
             }
 
+    @Test
+    fun remoteSetsEstimated() =
+        newTask()
+            .applyRemote(
+                remote = newIcal(with(iCalMaker.ESTIMATED_SECONDS, 2*60*60)),
+                local = null
+            )
+            .let {
+                assertEquals(2*60*60, it.estimatedSeconds)
+            }
+
+    @Test
+    fun remoteRemovesEstimated() =
+        newTask(with(TaskMaker.ESTIMATED_SECONDS, 2*60*60))
+            .applyRemote(
+                remote = newIcal(),
+                local = newIcal(with(iCalMaker.ESTIMATED_SECONDS, 2*60*60))
+            )
+            .let {
+                assertEquals(0, it.estimatedSeconds)
+            }
+
+    @Test
+    fun localResetsEstimated() =
+        newTask()
+            .applyRemote(
+                remote = newIcal(with(iCalMaker.ESTIMATED_SECONDS, 2*60*60)),
+                local = newIcal(with(iCalMaker.ESTIMATED_SECONDS, 2*60*60))
+            )
+            .let {
+                assertEquals(0, it.estimatedSeconds)
+            }
+
+    @Test
+    fun localBeatsRemoteEstimated() =
+        newTask(with(TaskMaker.ESTIMATED_SECONDS, 2*60*60))
+            .applyRemote(
+                remote = newIcal(with(iCalMaker.ESTIMATED_SECONDS, 4*60*60)),
+                local = newIcal(with(iCalMaker.ESTIMATED_SECONDS, 3*60*60))
+            )
+            .let {
+                assertEquals(2*60*60, it.estimatedSeconds)
+            }
+
+    @Test
+    fun remoteSetsElapsed() =
+        newTask()
+            .applyRemote(
+                remote = newIcal(with(iCalMaker.ELAPSED_SECONDS, 2*60*60)),
+                local = null
+            )
+            .let {
+                assertEquals(2*60*60, it.elapsedSeconds)
+            }
+
+    @Test
+    fun remoteRemovesElapsed() =
+        newTask(with(TaskMaker.ELAPSED_SECONDS, 2*60*60))
+            .applyRemote(
+                remote = newIcal(),
+                local = newIcal(with(iCalMaker.ELAPSED_SECONDS, 2*60*60))
+            )
+            .let {
+                assertEquals(0, it.elapsedSeconds)
+            }
+
+    @Test
+    fun localResetsElapsed() =
+        newTask()
+            .applyRemote(
+                remote = newIcal(with(iCalMaker.ELAPSED_SECONDS, 2*60*60)),
+                local = newIcal(with(iCalMaker.ELAPSED_SECONDS, 2*60*60))
+            )
+            .let {
+                assertEquals(0, it.elapsedSeconds)
+            }
+
+    @Test
+    fun localBeatsRemoteElapsed() =
+        newTask(with(TaskMaker.ELAPSED_SECONDS, 2*60*60))
+            .applyRemote(
+                remote = newIcal(with(iCalMaker.ELAPSED_SECONDS, 4*60*60)),
+                local = newIcal(with(iCalMaker.ELAPSED_SECONDS, 3*60*60))
+            )
+            .let {
+                assertEquals(2*60*60, it.elapsedSeconds)
+            }
+
     companion object {
         private fun DateTime.allDay() =
             createDueDate(URGENCY_SPECIFIC_DAY, millis)
