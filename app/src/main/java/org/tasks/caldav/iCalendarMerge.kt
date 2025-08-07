@@ -3,6 +3,8 @@ package org.tasks.caldav
 import at.bitfire.ical4android.Task
 import net.fortuna.ical4j.model.property.Status
 import org.tasks.caldav.iCalendar.Companion.collapsed
+import org.tasks.caldav.iCalendar.Companion.elapsedSeconds
+import org.tasks.caldav.iCalendar.Companion.estimatedSeconds
 import org.tasks.caldav.iCalendar.Companion.getLocal
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
@@ -32,6 +34,8 @@ fun org.tasks.data.entity.Task.applyRemote(
     applyStart(remote, local)
     applyCollapsed(remote, local)
     applyOrder(remote, local)
+    applyEstimatedSeconds(remote, local)
+    applyElapsedSeconds(remote, local)
     return this
 }
 
@@ -118,6 +122,18 @@ private fun org.tasks.data.entity.Task.applyOrder(remote: Task, local: Task?) {
 private fun CaldavTask.applyParent(remote: Task, local: Task?) {
     if (local == null || local.parent == remoteParent) {
         remoteParent = remote.parent
+    }
+}
+
+private fun org.tasks.data.entity.Task.applyEstimatedSeconds(remote: Task, local: Task?) {
+    if (local == null || local.estimatedSeconds == estimatedSeconds) {
+        estimatedSeconds = remote.estimatedSeconds ?: 0
+    }
+}
+
+private fun org.tasks.data.entity.Task.applyElapsedSeconds(remote: Task, local: Task?) {
+    if (local == null || local.elapsedSeconds == elapsedSeconds) {
+        elapsedSeconds = remote.elapsedSeconds ?: 0
     }
 }
 
