@@ -164,6 +164,7 @@ class WidgetSettings : InjectingPreferenceFragment() {
         updateFilter()
         updateTheme()
         updateColor()
+        updateCustomThemeColor()
 
         val customThemeColor = findPreference(R.string.p_widget_custom_theme_color)
         customThemeColor.onPreferenceClickListener = Preference.OnPreferenceClickListener {
