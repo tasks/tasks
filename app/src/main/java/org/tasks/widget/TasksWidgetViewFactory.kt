@@ -119,6 +119,8 @@ internal class TasksWidgetViewFactory(
 
     private fun buildFooter(): RemoteViews {
         return RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_footer).apply {
+            setTextSize(R.id.widget_view_more, settings.textSize)
+            setTextColor(R.id.widget_view_more, onSurface)
             setOnClickFillInIntent(
                 R.id.widget_view_more,
                 Intent(WidgetClickActivity.OPEN_TASK_LIST)

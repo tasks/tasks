@@ -39,6 +39,7 @@ import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
+import org.tasks.filters.SearchFilter
 import org.tasks.filters.getIcon
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.TasksPreferences
@@ -114,12 +115,9 @@ class MainActivityViewModel @Inject constructor(
             )
         }
         updateFilters()
-        defaultFilterProvider.setLastViewedFilter(filter)
-    }
-
-    fun closeDrawer() {
-        _drawerOpen.update { false }
-        _state.update { it.copy(menuQuery = "") }
+        if (filter !is SearchFilter) {
+            defaultFilterProvider.setLastViewedFilter(filter)
+        }
     }
 
     fun setDrawerState(opened: Boolean) {
@@ -238,4 +236,8 @@ class MainActivityViewModel @Inject constructor(
     }
 
     suspend fun getAccount(id: Long) = caldavDao.getAccount(id)
+
+    fun openLastViewedFilter() = viewModelScope.launch {
+        setFilter(defaultFilterProvider.getLastViewedFilter())
+    }
 }

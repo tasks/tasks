@@ -27,4 +27,5 @@
     <string name="today_lowercase">dzisiaj</string>
     <string name="show_completed">Pokaż ukończone</string>
     <string name="show_unstarted">Pokaż nierozpoczęte</string>
+    <string name="requires_pro_subscription">Funkcja Pro</string>
 </resources>

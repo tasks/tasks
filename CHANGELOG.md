@@ -1,3 +1,43 @@
+### 14.8 (2025-08-02)
+
+* Synchronize **list** icons for Tasks.org and CalDAV accounts
+  * Does not apply to Microsoft To Do, Google Tasks, DAVx5, EteSync, or DecSync
+    CC accounts
+  * Does not apply to tags or filters
+  * CalDAV server must support extensible properties, e.g. Nextcloud or sabre/dav
+* Target Android 15
+* Return to previous view after searching
+* Remove shadow from date picker sheet
+* Fix updating list names and colors for Tasks.org and CalDAV accounts
+* Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580
+  * Czech - @Fjuro
+  * Dutch - @fvbommel
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @Colorful Rhino
+  * Hebrew - Xo
+  * Italian - @ppasserini
+  * Turkish - @emintufan
+  * Ukrainian - @IhorHordiichuk
+
+### 14.7.4 (2025-07-12)
+
+* @devn1x: Fix escaping quotes in iCalendar [#3645](https://github.com/tasks/tasks/pull/3645)
+* Limit widget to 25 items on Android 16+
+  * Android 16 nerfed widget performance 😢
+* Fix bug when reconfiguring widget
+* Fix default widget group sort order
+* Update translations
+  * Catalan - pitroig
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Croatian - @milotype
+  * German - @Kachelkaiser
+  * Serbian - @vale-decem
+  * Swedish - Nick Wick
+  * Tamil - @TamilNeram
+
 ### 14.7.3 (2025-06-13)
 
 * Fix dynamic color

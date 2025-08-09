@@ -38,12 +38,12 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
+import org.tasks.caldav.property.CalendarIcon
 import org.tasks.caldav.property.Invite
 import org.tasks.caldav.property.OCAccess
 import org.tasks.caldav.property.OCInvite
 import org.tasks.caldav.property.OCOwnerPrincipal
 import org.tasks.caldav.property.OCUser
-import org.tasks.caldav.property.PropertyUtils.register
 import org.tasks.caldav.property.ShareAccess
 import org.tasks.caldav.property.ShareAccess.Companion.NOT_SHARED
 import org.tasks.caldav.property.ShareAccess.Companion.NO_ACCESS
@@ -136,8 +136,7 @@ class CaldavSynchronizer @Inject constructor(
     private suspend fun synchronize(account: CaldavAccount) {
         val caldavClient = provider.forAccount(account)
         var serverType = account.serverType
-        val resources = caldavClient.calendars { chain ->
-            val response = chain.proceed(chain.request())
+        val resources = caldavClient.calendars { response ->
             if (serverType == SERVER_UNKNOWN) {
                 serverType = getServerType(account, response.headers)
             }
@@ -155,8 +154,10 @@ class CaldavSynchronizer @Inject constructor(
             val url = resource.href.toString()
             var calendar = caldavDao.getCalendarByUrl(account.uuid!!, url)
             val remoteName = resource[DisplayName::class.java]!!.displayName
-            val calendarColor = resource[CalendarColor::class.java]
+            val color = resource[CalendarColor::class.java]?.color ?: 0
             val access = resource.accessLevel
+            val icon = resource[CalendarIcon::class.java]?.icon?.takeIf { it.isNotBlank() }
+
             if (access == ACCESS_UNKNOWN) {
                 firebase.logEvent(
                     R.string.event_sync_unknown_access,
@@ -164,7 +165,6 @@ class CaldavSynchronizer @Inject constructor(
                             (resource[ShareAccess::class.java]?.access?.toString() ?: "???")
                 )
             }
-            val color = calendarColor?.color ?: 0
             if (calendar == null) {
                 calendar = CaldavCalendar(
                     name = remoteName,
@@ -173,15 +173,20 @@ class CaldavSynchronizer @Inject constructor(
                     uuid = UUIDHelper.newUUID(),
                     color = color,
                     access = access,
+                    icon = icon,
                 )
                 caldavDao.insert(calendar)
             } else if (calendar.name != remoteName
-                    || calendar.color != color
-                    || calendar.access != access
+                || calendar.color != color
+                || calendar.access != access
+                || (icon != null && calendar.icon != icon)
             ) {
-                calendar.color = color
-                calendar.name = remoteName
-                calendar.access = access
+                calendar = calendar.copy(
+                    color = color,
+                    name = remoteName,
+                    access = access,
+                    icon = icon ?: calendar.icon,
+                )
                 caldavDao.update(calendar)
                 localBroadcastManager.broadcastRefreshList()
             }
@@ -436,10 +441,13 @@ class CaldavSynchronizer @Inject constructor(
 
         fun registerFactories() {
             PropertyRegistry.register(
-                ShareAccess.Factory(),
-                Invite.Factory(),
-                OCOwnerPrincipal.Factory(),
-                OCInvite.Factory(),
+                listOf(
+                    ShareAccess.Factory(),
+                    Invite.Factory(),
+                    OCOwnerPrincipal.Factory(),
+                    OCInvite.Factory(),
+                    CalendarIcon.Factory,
+                )
             )
         }
 

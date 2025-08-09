@@ -3,6 +3,7 @@ package org.tasks.injection
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastAndroid16
 import kotlinx.coroutines.runBlocking
 import org.tasks.analytics.Firebase
 import timber.log.Timber
@@ -14,7 +15,11 @@ abstract class BaseWorker(
 ) : Worker(context, workerParams) {
 
     override fun doWork(): Result {
-        Timber.d("${javaClass.simpleName} $id $inputData")
+        if (atLeastAndroid16()) {
+            Timber.d("${javaClass.simpleName} $id $inputData attempt=$runAttemptCount ${if (runAttemptCount > 0) "stopReason=$stopReason" else ""}")
+        } else {
+            Timber.d("${javaClass.simpleName} $id $inputData attempt=$runAttemptCount")
+        }
         return try {
             runBlocking {
                 run()

@@ -136,7 +136,7 @@ class WorkManagerImpl(
                     .setConstraints(networkConstraints)
                 workManager.enqueueUniquePeriodicWork(
                     TAG_BACKGROUND_SYNC,
-                    ExistingPeriodicWorkPolicy.KEEP,
+                    ExistingPeriodicWorkPolicy.UPDATE,
                     builder.build()
                 )
             } else {
@@ -183,7 +183,7 @@ class WorkManagerImpl(
         throttle.run {
             workManager.enqueueUniquePeriodicWork(
                     TAG_REMOTE_CONFIG,
-                    ExistingPeriodicWorkPolicy.KEEP,
+                    ExistingPeriodicWorkPolicy.UPDATE,
                     PeriodicWorkRequest.Builder(
                             RemoteConfigWork::class.java, REMOTE_CONFIG_INTERVAL_HOURS, TimeUnit.HOURS)
                             .setConstraints(networkConstraints)
@@ -206,9 +206,6 @@ class WorkManagerImpl(
         }
         enqueue(builder)
     }
-
-    private val networkConstraints: Constraints
-        get() = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
 
     override fun updatePurchases() =
         enqueueUnique(TAG_UPDATE_PURCHASES, UpdatePurchaseWork::class.java)
@@ -260,3 +257,6 @@ class WorkManagerImpl(
 private fun <B : WorkRequest.Builder<B, *>, W : WorkRequest> WorkRequest.Builder<B, W>.setInputData(
     vararg pairs: Pair<String, Any?>
 ): B = setInputData(workDataOf(*pairs))
+
+val networkConstraints: Constraints
+    get() = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
