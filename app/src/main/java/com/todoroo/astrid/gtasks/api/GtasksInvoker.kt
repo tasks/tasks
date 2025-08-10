@@ -7,6 +7,7 @@ import com.google.api.services.tasks.model.Task
 import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.TaskLists
 import org.tasks.googleapis.BaseInvoker
+import timber.log.Timber
 import java.io.IOException
 
 /**
@@ -43,21 +44,30 @@ class GtasksInvoker(
 
     @Throws(IOException::class)
     suspend fun getAllPositions(
-            listId: String?, pageToken: String?): com.google.api.services.tasks.model.Tasks? =
-            execute(
-                    service!!
-                            .tasks()
-                            .list(listId)
-                            .setMaxResults(100)
-                            .setShowDeleted(false)
-                            .setShowHidden(false)
-                            .setPageToken(pageToken)
-                            .setFields("items(id,parent,position),nextPageToken"))
+        listId: String?,
+        pageToken: String?,
+    ): com.google.api.services.tasks.model.Tasks? =
+        execute(
+            service!!
+                .tasks()
+                .list(listId)
+                .setMaxResults(100)
+                .setShowDeleted(false)
+                .setShowHidden(false)
+                .setPageToken(pageToken)
+                .setFields("items(id,parent,position),nextPageToken")
+        )
 
     @Throws(IOException::class)
     suspend fun createGtask(
-            listId: String?, task: Task?, parent: String?, previous: String?): Task? =
-            execute(service!!.tasks().insert(listId, task).setParent(parent).setPrevious(previous))
+            listId: String?,
+            task: Task?,
+            parent: String?,
+            previous: String?,
+    ): Task? {
+        Timber.d("createGtask(listId=$listId, task=<redacted>, parent=$parent, previous=$previous)")
+        return execute(service!!.tasks().insert(listId, task).setParent(parent).setPrevious(previous))
+    }
 
     @Throws(IOException::class)
     suspend fun updateGtask(listId: String?, task: Task) =
@@ -65,19 +75,26 @@ class GtasksInvoker(
 
     @Throws(IOException::class)
     suspend fun moveGtask(
-            listId: String?, taskId: String?, parentId: String?, previousId: String?): Task? =
-            execute(
-                    service!!
-                            .tasks()
-                            .move(listId, taskId)
-                            .setParent(parentId)
-                            .setPrevious(previousId))
+            listId: String?,
+            taskId: String?,
+            parentId: String?,
+            previousId: String?,
+    ): Task? {
+        Timber.d("moveGtask(listId=$listId, taskId=$taskId, parentId=$parentId, previousId=$previousId)")
+        return execute(
+            service!!
+                .tasks()
+                .move(listId, taskId)
+                .setParent(parentId)
+                .setPrevious(previousId)
+        )
+    }
 
     @Throws(IOException::class)
     suspend fun deleteGtaskList(listId: String?) {
         try {
             execute(service!!.tasklists().delete(listId))
-        } catch (ignored: HttpNotFoundException) {
+        } catch (_: HttpNotFoundException) {
         }
     }
 
@@ -91,9 +108,10 @@ class GtasksInvoker(
 
     @Throws(IOException::class)
     suspend fun deleteGtask(listId: String?, taskId: String?) {
+        Timber.d("deleteGtask(listId=$listId, taskId=$taskId)")
         try {
             execute(service!!.tasks().delete(listId, taskId))
-        } catch (ignored: HttpNotFoundException) {
+        } catch (_: HttpNotFoundException) {
         }
     }
 }
