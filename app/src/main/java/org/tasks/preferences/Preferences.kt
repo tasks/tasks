@@ -467,10 +467,6 @@ class Preferences @JvmOverloads constructor(
     fun <T> getPrefs(c: Class<T>): Map<String, T> =
         prefs.all.filter { (_, value) -> c.isInstance(value) } as Map<String, T>
 
-    var isPositionHackEnabled: Boolean
-        get() = getLong(R.string.p_google_tasks_position_hack, 0) > currentTimeMillis() - ONE_WEEK
-        set(value) { setLong(R.string.p_google_tasks_position_hack, if (value) currentTimeMillis() else 0) }
-
     override var isManualSort: Boolean
         get() = getBoolean(R.string.p_manual_sort, false)
         set(value) { setBoolean(R.string.p_manual_sort, value) }

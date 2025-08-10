@@ -19,7 +19,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
-import org.tasks.data.*
+import org.tasks.data.createDueDate
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
@@ -38,7 +38,7 @@ import java.net.HttpRetryException
 import java.net.SocketException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import java.util.*
+import java.util.Collections
 import javax.inject.Inject
 import javax.net.ssl.SSLException
 import kotlin.math.max
@@ -132,30 +132,29 @@ class GoogleTaskSynchronizer @Inject constructor(
                 continue
             }
             fetchAndApplyRemoteChanges(gtasksInvoker, list)
-            if (!preferences.isPositionHackEnabled) {
-                googleTaskDao.reposition(caldavDao, list.uuid!!)
-            }
-        }
-        if (preferences.isPositionHackEnabled) {
-            for (list in gtaskLists) {
-                val tasks = fetchPositions(gtasksInvoker, list.id)
-                for (task in tasks) {
-                    googleTaskDao.updatePosition(task.id, task.parent, task.position)
-                }
-                googleTaskDao.reposition(caldavDao, list.id)
-            }
+            gtasksInvoker.updatePositions(list.uuid!!)
         }
 //        account.etag = eTag
         account.error = ""
     }
 
     @Throws(IOException::class)
-    private suspend fun fetchPositions(
-            gtasksInvoker: GtasksInvoker, listId: String): List<Task> {
+    private suspend fun GtasksInvoker.updatePositions(list: String) {
+        // Unfortunately this is necessary because Google broke the API
+        // https://issuetracker.google.com/issues/132432317
+        Timber.d("updatePositions(list=${list})")
+        fetchPositions(list).forEach { task ->
+            googleTaskDao.updatePosition(task.id, task.parent, task.position)
+        }
+        googleTaskDao.reposition(caldavDao, list)
+    }
+
+    @Throws(IOException::class)
+    private suspend fun GtasksInvoker.fetchPositions(listId: String): List<Task> {
         val tasks: MutableList<Task> = ArrayList()
         var nextPageToken: String? = null
         do {
-            val taskList = gtasksInvoker.getAllPositions(listId, nextPageToken)
+            val taskList = getAllPositions(listId, nextPageToken)
             taskList?.items?.let {
                 tasks.addAll(it)
             }

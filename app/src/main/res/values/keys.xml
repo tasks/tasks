@@ -373,7 +373,6 @@
   <string name="p_linkify_task_edit">linkify_task_edit</string>
   <string name="preference_screen">preference_screen</string>
   <string name="p_add_to_top">google_tasks_add_to_top</string>
-  <string name="p_google_tasks_position_hack">google_tasks_position_hack</string>
   <string name="p_wearable_notifications">wearable_notifications</string>
   <string name="p_notified_oauth_error">notified_oauth_error_%1$s_%2$s</string>
   <string name="p_chip_appearance">chip_appearance</string>
