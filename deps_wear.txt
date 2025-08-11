@@ -609,7 +609,7 @@
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.0 -> 2.2.0 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0 -> 1.10.2 (*)
 +|    |    +--- io.grpc:grpc-stub:1.62.2
-+|    |    |    +--- io.grpc:grpc-api:1.62.2 -> 1.73.0
++|    |    |    +--- io.grpc:grpc-api:1.62.2 -> 1.74.0
 +|    |    |    |    +--- com.google.code.findbugs:jsr305:3.0.2
 +|    |    |    |    +--- com.google.errorprone:error_prone_annotations:2.30.0
 +|    |    |    |    \--- com.google.guava:guava:33.3.1-android
@@ -622,15 +622,15 @@
 +|    |    |    +--- com.google.guava:guava:32.1.3-android -> 33.3.1-android (*)
 +|    |    |    \--- com.google.errorprone:error_prone_annotations:2.23.0 -> 2.30.0
 +|    |    \--- javax.annotation:javax.annotation-api:1.3.2
-+|    +--- io.grpc:grpc-protobuf-lite:1.73.0
-+|    |    +--- io.grpc:grpc-api:1.73.0 (*)
++|    +--- io.grpc:grpc-protobuf-lite:1.74.0
++|    |    +--- io.grpc:grpc-api:1.74.0 (*)
 +|    |    +--- com.google.protobuf:protobuf-javalite:3.25.5 -> 4.31.1
 +|    |    +--- com.google.code.findbugs:jsr305:3.0.2
 +|    |    \--- com.google.guava:guava:33.3.1-android (*)
-+|    +--- io.grpc:grpc-android:1.73.0
-+|    |    +--- io.grpc:grpc-api:1.73.0 (*)
-+|    |    +--- io.grpc:grpc-core:1.73.0
-+|    |    |    +--- io.grpc:grpc-api:1.73.0 (*)
++|    +--- io.grpc:grpc-android:1.74.0
++|    |    +--- io.grpc:grpc-api:1.74.0 (*)
++|    |    +--- io.grpc:grpc-core:1.74.0
++|    |    |    +--- io.grpc:grpc-api:1.74.0 (*)
 +|    |    |    +--- com.google.code.gson:gson:2.11.0
 +|    |    |    |    \--- com.google.errorprone:error_prone_annotations:2.27.0 -> 2.30.0
 +|    |    |    +--- com.google.android:annotations:4.1.1.4
@@ -638,12 +638,12 @@
 +|    |    |    +--- com.google.errorprone:error_prone_annotations:2.30.0
 +|    |    |    +--- com.google.guava:guava:33.3.1-android (*)
 +|    |    |    +--- io.perfmark:perfmark-api:0.27.0
-+|    |    |    \--- io.grpc:grpc-context:1.73.0
-+|    |    |         \--- io.grpc:grpc-api:1.73.0 (*)
++|    |    |    \--- io.grpc:grpc-context:1.74.0
++|    |    |         \--- io.grpc:grpc-api:1.74.0 (*)
 +|    |    \--- com.google.guava:guava:33.3.1-android (*)
-+|    +--- io.grpc:grpc-binder:1.73.0
-+|    |    +--- io.grpc:grpc-api:1.73.0 (*)
-+|    |    +--- io.grpc:grpc-core:1.73.0 (*)
++|    +--- io.grpc:grpc-binder:1.74.0
++|    |    +--- io.grpc:grpc-api:1.74.0 (*)
++|    |    +--- io.grpc:grpc-core:1.74.0 (*)
 +|    |    +--- androidx.annotation:annotation:1.9.0 -> 1.9.1 (*)
 +|    |    +--- androidx.core:core:1.13.1 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-common:2.8.7 -> 2.9.2 (*)
@@ -1776,7 +1776,7 @@
 +|    +--- androidx.wear:wear-remote-interactions:1.1.0 (*)
 +|    +--- com.google.android.horologist:horologist-annotations:0.7.15 (*)
 +|    +--- com.google.android.horologist:horologist-datalayer:0.7.15 (*)
-+|    +--- io.grpc:grpc-protobuf-lite:1.73.0 (*)
++|    +--- io.grpc:grpc-protobuf-lite:1.73.0 -> 1.74.0 (*)
 +|    +--- io.grpc:grpc-kotlin-stub:1.4.3 (*)
 +|    \--- com.google.android.gms:play-services-wearable:19.0.0 (*)
 ++--- com.jakewharton.timber:timber:5.0.1
