@@ -64,6 +64,14 @@ internal class TasksWidgetViewFactory(
 
     init {
         chipProvider.isDark = settings.isDark
+
+        val widgetThemes = context.resources.getStringArray(R.array.widget_themes)
+        val customThemeName = context.getString(R.string.theme_custom)
+        val customThemeIndex = widgetThemes.indexOf(customThemeName)
+
+        if (widgetPreferences.themeIndex == customThemeIndex) {
+            chipProvider.customBackgroundColor = widgetPreferences.customThemeColor
+        }
     }
 
     override fun onCreate() {}
