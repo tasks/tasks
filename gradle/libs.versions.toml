@@ -19,7 +19,7 @@ dav4jvm = "2.2.1"
 desugar_jdk_libs = "2.1.5"
 etebase = "2.3.2"
 firebase = "33.16.0"
-firebase-crashlytics-gradle = "3.0.5"
+firebase-crashlytics-gradle = "3.0.6"
 google-oauth2 = "1.37.1"
 google-api-drive = "v3-rev20250723-2.0.0"
 google-api-tasks = "v1-rev20250518-2.0.0"
@@ -46,7 +46,7 @@ mockito = "5.18.0"
 okhttp = "4.12.0"
 opentasks = "562fec5"
 osmdroid = "6.1.20"
-oss-licenses-plugin = "0.10.6"
+oss-licenses-plugin = "0.10.7"
 persistent-cookiejar = "1.0.1"
 play-services-maps = "19.2.0"
 play-services-location = "21.3.0"
@@ -159,7 +159,7 @@ markwon-strikethrough = { module = "io.noties.markwon:ext-strikethrough", versio
 markwon-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markwon" }
 markwon-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwon" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
-microsoft-authentication = { module = "com.microsoft.identity.client:msal", version = "6.2.0" }
+microsoft-authentication = { module = "com.microsoft.identity.client:msal", version = "7.0.0" }
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }

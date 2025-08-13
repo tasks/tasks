@@ -15,11 +15,12 @@ import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.delay
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
-import org.tasks.data.*
+import org.tasks.data.createDueDate
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
@@ -38,7 +39,7 @@ import java.net.HttpRetryException
 import java.net.SocketException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import java.util.*
+import java.util.Collections
 import javax.inject.Inject
 import javax.net.ssl.SSLException
 import kotlin.math.max
@@ -125,37 +126,50 @@ class GoogleTaskSynchronizer @Inject constructor(
                 preferences.setString(R.string.p_default_list, null)
             }
         }
-        pushLocalChanges(account, gtasksInvoker)
+        val failedTasks = mutableSetOf<Long>()
+        var retryTaskId = pushLocalChanges(account, gtasksInvoker)
+        
+        while (retryTaskId != null) {
+            if (failedTasks.contains(retryTaskId)) {
+                throw IOException("Invalid Task ID: $retryTaskId")
+            }
+            failedTasks.add(retryTaskId)
+            
+            Timber.d("Retrying push local changes due to stale task ID $retryTaskId (${failedTasks.size} total failed tasks)")
+            
+            delay(1000)
+            
+            retryTaskId = pushLocalChanges(account, gtasksInvoker)
+        }
         for (list in caldavDao.getCalendarsByAccount(account.uuid!!)) {
             if (isNullOrEmpty(list.uuid)) {
                 firebase.reportException(RuntimeException("Empty remote id"))
                 continue
             }
             fetchAndApplyRemoteChanges(gtasksInvoker, list)
-            if (!preferences.isPositionHackEnabled) {
-                googleTaskDao.reposition(caldavDao, list.uuid!!)
-            }
-        }
-        if (preferences.isPositionHackEnabled) {
-            for (list in gtaskLists) {
-                val tasks = fetchPositions(gtasksInvoker, list.id)
-                for (task in tasks) {
-                    googleTaskDao.updatePosition(task.id, task.parent, task.position)
-                }
-                googleTaskDao.reposition(caldavDao, list.id)
-            }
+            gtasksInvoker.updatePositions(list.uuid!!)
         }
 //        account.etag = eTag
         account.error = ""
     }
 
     @Throws(IOException::class)
-    private suspend fun fetchPositions(
-            gtasksInvoker: GtasksInvoker, listId: String): List<Task> {
+    private suspend fun GtasksInvoker.updatePositions(list: String) {
+        // Unfortunately this is necessary because Google broke the API
+        // https://issuetracker.google.com/issues/132432317
+        Timber.d("updatePositions(list=${list})")
+        fetchPositions(list).forEach { task ->
+            googleTaskDao.updatePosition(task.id, task.parent, task.position)
+        }
+        googleTaskDao.reposition(caldavDao, list)
+    }
+
+    @Throws(IOException::class)
+    private suspend fun GtasksInvoker.fetchPositions(listId: String): List<Task> {
         val tasks: MutableList<Task> = ArrayList()
         var nextPageToken: String? = null
         do {
-            val taskList = gtasksInvoker.getAllPositions(listId, nextPageToken)
+            val taskList = getAllPositions(listId, nextPageToken)
             taskList?.items?.let {
                 tasks.addAll(it)
             }
@@ -165,15 +179,19 @@ class GoogleTaskSynchronizer @Inject constructor(
     }
 
     @Throws(IOException::class)
-    private suspend fun pushLocalChanges(account: CaldavAccount, gtasksInvoker: GtasksInvoker) {
+    private suspend fun pushLocalChanges(account: CaldavAccount, gtasksInvoker: GtasksInvoker): Long? {
         val tasks = taskDao.getGoogleTasksToPush(account.uuid!!)
         for (task in tasks) {
-            pushTask(task, gtasksInvoker)
+            val staleTaskId = pushTask(task, gtasksInvoker)
+            if (staleTaskId != null) {
+                return staleTaskId
+            }
         }
+        return null
     }
 
     @Throws(IOException::class)
-    private suspend fun pushTask(task: org.tasks.data.entity.Task, gtasksInvoker: GtasksInvoker) {
+    private suspend fun pushTask(task: org.tasks.data.entity.Task, gtasksInvoker: GtasksInvoker): Long? {
         for (deleted in googleTaskDao.getDeletedByTaskId(task.id)) {
             deleted.remoteId?.let {
                 try {
@@ -187,7 +205,7 @@ class GoogleTaskSynchronizer @Inject constructor(
             }
             googleTaskDao.delete(deleted)
         }
-        val gtasksMetadata = googleTaskDao.getByTaskId(task.id) ?: return
+        val gtasksMetadata = googleTaskDao.getByTaskId(task.id) ?: return null
         val remoteModel = Task()
         var newlyCreated = false
         val remoteId: String?
@@ -208,7 +226,7 @@ class GoogleTaskSynchronizer @Inject constructor(
         // creating a task which may end up being cancelled. Also don't sync new but already
         // deleted tasks
         if (newlyCreated && (isNullOrEmpty(task.title) || task.deletionDate > 0)) {
-            return
+            return null
         }
 
         // Update the remote model's changed properties
@@ -231,10 +249,11 @@ class GoogleTaskSynchronizer @Inject constructor(
             val parent = task.parent
             val localParent = if (parent > 0) googleTaskDao.getRemoteId(parent) else null
             val previous = googleTaskDao.getPrevious(
-                    listId!!, if (isNullOrEmpty(localParent)) 0 else parent, task.order ?: 0)
+                    listId, if (isNullOrEmpty(localParent)) 0 else parent, task.order ?: 0)
             val created: Task? = try {
                 gtasksInvoker.createGtask(listId, remoteModel, localParent, previous)
             } catch (e: HttpNotFoundException) {
+                Timber.e(e, "Failed to create task, retry without parent or order")
                 gtasksInvoker.createGtask(listId, remoteModel, null, null)
             }
             if (created != null) {
@@ -242,8 +261,10 @@ class GoogleTaskSynchronizer @Inject constructor(
                 gtasksMetadata.remoteId = created.id
                 gtasksMetadata.calendar = listId
                 setOrderAndParent(gtasksMetadata, created, task)
+                Timber.d("Created new task: $gtasksMetadata")
             } else {
-                return
+                Timber.e("Empty response when creating task")
+                return null
             }
         } else {
             try {
@@ -252,29 +273,64 @@ class GoogleTaskSynchronizer @Inject constructor(
                         val parent = task.parent
                         val localParent = if (parent > 0) googleTaskDao.getRemoteId(parent) else null
                         val previous = googleTaskDao.getPrevious(
-                                listId!!,
+                                listId,
                                 if (localParent.isNullOrBlank()) 0 else parent,
-                                task.order ?: 0)
+                                task.order ?: 0,
+                        )
                         gtasksInvoker
-                                .moveGtask(listId, remoteModel.id, localParent, previous)
-                                ?.let { setOrderAndParent(gtasksMetadata, it, task) }
+                                .moveGtask(
+                                    listId = listId,
+                                    taskId = remoteModel.id,
+                                    parentId = localParent,
+                                    previousId = previous,
+                                )
+                                ?.let {
+                                    setOrderAndParent(
+                                        googleTask = gtasksMetadata,
+                                        task = it,
+                                        local = task,
+                                    )
+                                }
                     } catch (e: GoogleJsonResponseException) {
                         if (e.statusCode == 400) {
-                            Timber.e(e)
+                            Timber.w("HTTP 400: clearing parent and order")
+                            firebase.reportException(e)
+                            taskDao.setParent(0L, listOf(task.id))
+                            taskDao.setOrder(task.id, 0L)
+                            googleTaskDao.update(gtasksMetadata.copy(isMoved = false))
+                            return task.id
                         } else {
                             throw e
                         }
                     }
                 }
                 // TODO: don't updateGtask if it was only moved
-                gtasksInvoker.updateGtask(listId, remoteModel)
-            } catch (e: HttpNotFoundException) {
+                try {
+                    gtasksInvoker.updateGtask(listId, remoteModel)
+                } catch (e: GoogleJsonResponseException) {
+                    if (e.statusCode == 400 && e.details?.message == "Invalid task ID") {
+                        Timber.w("HTTP 400: Invalid task ID for ${remoteModel.id}, clearing to recreate on next sync")
+                        firebase.reportException(e)
+                        googleTaskDao.update(
+                            gtasksMetadata.copy(
+                                remoteId = "",
+                                isMoved = false,
+                            )
+                        )
+                        return task.id
+                    } else {
+                        throw e
+                    }
+                }
+            } catch (_: HttpNotFoundException) {
+                Timber.w("HTTP 404, deleting $gtasksMetadata")
                 googleTaskDao.delete(gtasksMetadata)
-                return
+                return null
             }
         }
         gtasksMetadata.isMoved = false
         write(task, gtasksMetadata)
+        return null
     }
 
     @Throws(IOException::class)

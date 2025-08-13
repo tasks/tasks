@@ -96,9 +96,6 @@ class SyncWork @AssistedInject constructor(
     private val syncStatus = R.string.p_sync_ongoing
 
     private suspend fun doSync() {
-        if (preferences.isManualSort) {
-            preferences.isPositionHackEnabled = true
-        }
         val hasNetworkConnectivity = context.hasNetworkConnectivity()
         if (hasNetworkConnectivity) {
             googleTaskJobs().plus(caldavJobs()).awaitAll()
