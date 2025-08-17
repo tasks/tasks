@@ -3,7 +3,7 @@
     <string name="search">Buscar</string>
     <string name="subscribe">Suscribirte</string>
     <string name="search_no_results">Sin resultados</string>
-    <string name="requires_pro_subscription">Versión Pro</string>
+    <string name="requires_pro_subscription">Característica pro</string>
     <string name="subscription_required_description">Desbloquea todas las funciones por tan solo $1 USD al año</string>
     <string name="filter_my_tasks">Mis tareas</string>
     <string name="filter_notifications">Notificaciones</string>
