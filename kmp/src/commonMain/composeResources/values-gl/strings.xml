@@ -27,4 +27,10 @@
     <string name="today_lowercase">hoxe</string>
     <string name="show_unstarted">Amosar sen comezar</string>
     <string name="show_completed">Amosar finalizadas</string>
+    <string name="search_no_results">Sen resultados</string>
+    <string name="requires_pro_subscription">Característica Pro</string>
+    <string name="subscription_required_description">Desbloquea todas as características por tan pouco como 1$/ano</string>
+    <string name="add_task">Engade a tarefa</string>
+    <string name="wear_install_app">Instala en teléfono</string>
+    <string name="wear_unknown_error">Erro descoñecido</string>
 </resources>
