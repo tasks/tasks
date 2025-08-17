@@ -582,7 +582,7 @@
     <string name="delete_tasks_warning">%s será eliminado. Isto non se pode desfacer!</string>
     <string name="banner_app_updated_title">Aplicación actualizada</string>
     <string name="banner_app_updated_description">Tarefas acaba de actualizarse a %s. Queres ver as notas da versión?</string>
-    <string name="name_your_price">Indica o teu prezo</string>
+    <string name="name_your_price">Nomea o teu prezo</string>
     <string name="subtasks_multilevel_microsoft">Subtarefas multinivel non compatibles con Microsoft To Do</string>
     <string name="microsoft_selection_description">Sincronizar coa túa conta persoal de Microsoft</string>
     <string name="caldav_account_description">Require unha conta cun provedor de servizos CalDAV ou un servidor autoaloxado. Atopa un provedor de servizos visitando tasks.org/caldav</string>
@@ -590,14 +590,14 @@
     <string name="wearable_notifications">Notificacións de dispositivos portátiles</string>
     <string name="wearable_notifications_summary">Mostrar notificacións no teu dispositivo portátil</string>
     <string name="notification_troubleshooting_summary">Toca aquí se tes problemas coas notificacións</string>
-    <string name="disable_battery_optimizations">Desactivar as optimizacións da batería</string>
-    <string name="more_notification_settings_summary">Tono de chamada, vibracións e moito máis</string>
+    <string name="disable_battery_optimizations">Desactivar optimizacións da batería</string>
+    <string name="more_notification_settings_summary">Tono de chamada, vibracións e máis</string>
     <string name="upgrade_blurb_1">Ola! Chámome Alex. Son o desenvolvedor independente detrás de Tasks</string>
     <string name="upgrade_blurb_2">Levo miles de horas traballando en Tasks e publico todo o código fonte en liña de balde. Para apoiar o meu traballo, algunhas funcións requiren unha subscrición</string>
-    <string name="chips">Chips</string>
-    <string name="chip_appearance">Aspecto do chip</string>
-    <string name="widget_id">ID do widget: %d</string>
-    <string name="filter_overdue">Atrasado</string>
+    <string name="chips">Distintivos</string>
+    <string name="chip_appearance">Apariencia dos distintivos</string>
+    <string name="widget_id">ID do Widget: %d</string>
+    <string name="filter_overdue">Atrasada</string>
     <string name="enjoying_tasks">Gústache Tasks?</string>
     <string name="donate_nag">Considera mostrar o teu apoio cunha doazón!</string>
     <string name="donate_today">Doa hoxe</string>
@@ -607,12 +607,12 @@
     <string name="sort_completion_group">Completado %s</string>
     <string name="on_launch">Ao iniciar</string>
     <string name="permission_read_tasks">Acceso completo á base de datos de Tasks</string>
-    <string name="android_auto_backup">Servizo de copia de seguridade de Android</string>
+    <string name="android_auto_backup">Servicio de Copias de Seguridade de Android</string>
     <string name="android_auto_backup_device_summary">Tamén debes activar o servizo de copia de seguridade a través da configuración do teu dispositivo. Non todos os dispositivos ofrecen servizo de copia de seguridade.</string>
     <string name="backups_ignore_warnings_summary">Ignora os avisos de copia de seguridade se non necesitas copias de seguridade ou tes a túa propia solución de copia de seguridade.</string>
-    <string name="backup_location_warning">ADVERTENCIA: Os ficheiros situados en %s eliminaranse se se desinstala Tasks. Escolle unha localización personalizada para evitar que Android elimine os teus ficheiros.</string>
+    <string name="backup_location_warning">ATENCIÓN: Eliminaranse os arquivos situados en %s se se desinstala Tasks! Por favor escolla unha ubicación personalizada para evitar que Android elimine os seus arquivos.</string>
     <string name="your_subscription_expired">A túa subscrición caducou. Subscríbete agora para retomar o servizo.</string>
-    <string name="insufficient_subscription">Nivel de subscrición insuficiente. Actualiza a túa subscrición para retomar o servizo.</string>
+    <string name="insufficient_subscription">Nivel de subscrición insuficiente. Por favor actualice a súa subscrición para reanudar o servizo.</string>
     <string name="insufficient_sponsorship">Non se atopou ningún patrocinio de GitHub elixible.</string>
     <string name="no_google_play_subscription">Non se atopou ningunha subscrición de Google Play elixible.</string>
     <string name="price_per_month_with_currency">%s/mes</string>
@@ -686,5 +686,45 @@
     <plurals name="repeat_n_hours">
         <item quantity="one">%d hora</item>
         <item quantity="other">%d horas</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">día</item>
+        <item quantity="other">días</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Día</item>
+        <item quantity="other">Días</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%d día</item>
+        <item quantity="other">%d días</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">semana</item>
+        <item quantity="other">semanas</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Semana</item>
+        <item quantity="other">Semanas</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%d semana</item>
+        <item quantity="other">%d semanas</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">mes</item>
+        <item quantity="other">meses</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%d mes</item>
+        <item quantity="other">%d meses</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">ano</item>
+        <item quantity="other">anos</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%d ano</item>
+        <item quantity="other">%d anos</item>
     </plurals>
 </resources>
