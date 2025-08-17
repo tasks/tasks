@@ -614,10 +614,10 @@
     <string name="price_per_year_with_currency">%s/ano</string>
     <string name="current_subscription">Subscrición actual: %s</string>
     <string name="follow_reddit">Únete a r/tasks</string>
-    <string name="follow_twitter">Segue a @tasks_org</string>
-    <string name="social">Redes sociais</string>
+    <string name="follow_twitter">Seguir a @tasks_org</string>
+    <string name="social">Social</string>
     <string name="support">Asistencia</string>
-    <string name="issue_tracker">Rastreador de problemas</string>
+    <string name="issue_tracker">Seguidor de problemas</string>
     <string name="open_source">Código aberto</string>
     <string name="privacy">Privacidade</string>
     <string name="google_play_subscribers">Subscritores de Google Play</string>
