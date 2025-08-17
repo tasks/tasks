@@ -7,7 +7,7 @@
     <string name="backup_BAc_export">Respaldar ahora</string>
     <string name="export_toast">Respaldadas %1$s de %2$s.</string>
     <string name="import_summary_title">Resumen de restauración</string>
-    <string name="import_summary_message">El fichero %1$s contenía %2$s.\n\n‐ %3$s importadas\n‐ %4$s ya existían\n‐ %5$s tenían errores</string>
+    <string name="import_summary_message">El fichero %1$s contenía %2$s. \n \n %3$s importadas \n %4$s ya existían \n %5$s tenían errores</string>
     <string name="import_progress_read">Leyendo tarea %d…</string>
     <string name="read_permission_label">Permisos de Tasks</string>
     <string name="discard_confirmation">¿Confirme que desea descartar los cambios\?</string>
@@ -359,7 +359,7 @@
     <string name="about">Sobre</string>
     <string name="license_summary">Tasks es software libre de código abierto, licenciado bajo la GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Extensión Dashclock</string>
-    <string name="requires_pro_subscription">Requiere suscripción profesional</string>
+    <string name="requires_pro_subscription">Requiere suscripción Pro</string>
     <string name="logout">Cerrar sesión</string>
     <string name="logout_warning">Todos los datos de esta cuenta se borrarán del dispositivo</string>
     <string name="cannot_access_account">No se puede acceder a la cuenta</string>
@@ -723,7 +723,7 @@
     <string name="price_per_year_with_currency">%s/año</string>
     <string name="cost_free">Precio: Gratis</string>
     <string name="app_settings">Ajustes de la aplicación</string>
-    <string name="delete_comment">Anotación</string>
+    <string name="delete_comment">comentario</string>
     <string name="yesterday">Ayer</string>
     <string name="banner_app_updated_title">Actualización de la aplicación</string>
     <string name="banner_app_updated_description">Tasks se ha actualizado a la versión %s. ¿Deseas ver las notas de esta versión?</string>
@@ -731,16 +731,17 @@
     <string name="add_shortcut_to_home_screen">Agregar acceso directo a la pantalla de inicio</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do no admite subtareas de múltiples niveles</string>
     <string name="cost_money">Precio: $</string>
-    <string name="sync_warning_google_tasks_title">Acerca de la sincronización de Google Task</string>
+    <string name="sync_warning_google_tasks_title">Acerca de la sincronización de Google Tasks</string>
     <string name="cost_more_money">Precio: $$$</string>
-    <string name="sync_warning_google_tasks">Algunos detalles de las tareas no se sincronizan con Google Tasks</string>
-    <string name="button_learn_more">Obtén más información</string>
+    <string name="sync_warning_google_tasks">No todos los detalles de las tareas se sincronizan con Google Tasks</string>
+    <string name="button_learn_more">Más información</string>
     <string name="sync_warning_microsoft_title">Acerca de la sincronización de Microsoft To Do</string>
     <string name="sync_warning_microsoft">No todos los detalles de las tareas se sincronizan con Microsoft To Do.</string>
-    <string name="price_per_month_with_currency">mes</string>
+    <string name="price_per_month_with_currency">%s/mes</string>
     <string name="multiline_title_off">Presione en Hecho para guardar la tarea</string>
-    <string name="comment">Anotación.</string>
+    <string name="comment">Comentario</string>
     <string name="continue_without_sync">Continua sin sincronizar</string>
     <string name="help_me_choose">Ayudame a escoger</string>
     <string name="delete_tasks_warning">%s será eliminado. ¡Esto no se puede deshacer!</string>
+    <string name="widget_view_more_tasks">Ver más tareas</string>
 </resources>
