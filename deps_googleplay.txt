@@ -766,9 +766,9 @@
 +|    \--- com.google.android.gms:play-services-wearable:19.0.0 (*)
 ++--- com.google.android.horologist:horologist-datalayer:0.7.15 (*)
 ++--- com.google.android.gms:play-services-wearable:19.0.0 (*)
-++--- com.microsoft.identity.client:msal:7.0.1
-+|    +--- com.microsoft.identity:common:22.0.1
-+|    |    +--- com.microsoft.identity:common4j:22.0.1
+++--- com.microsoft.identity.client:msal:7.0.2
++|    +--- com.microsoft.identity:common:22.0.2
++|    |    +--- com.microsoft.identity:common4j:22.0.2
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.0 -> 2.2.0 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4 -> 1.10.2 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-runtime-ktx:2.5.1 -> 2.9.2 (*)
