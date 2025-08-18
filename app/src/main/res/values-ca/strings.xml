@@ -132,7 +132,7 @@
     <string name="start_date">Data d\'inici</string>
     <string name="sort_created">Per data de creació</string>
     <string name="SSD_sort_start">Per data d\'inici</string>
-    <string name="astrid_sort_order_summary">Activa el mode d\'ordenació manual d\'Astrid per a les etiquetes «Les meves tasques», «Avui» i «etiquetes». Aquest mode d\'ordenació serà substituït per «El meu ordre» en una actualització futura</string>
+    <string name="astrid_sort_order_summary">Activa el mode d\'ordenació manual d\'Astrid per a «Les meves tasques», «Avui» i «etiquetes». Aquest mode d\'ordenació serà substituït per «El meu ordre» en una actualització futura</string>
     <string name="astrid_sort_order">Ordenació manual d\'Astrid</string>
     <string name="cancel">Cancel·la</string>
     <string name="ok">OK</string>
