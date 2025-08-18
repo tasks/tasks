@@ -20,7 +20,7 @@ jobs:
       - name: Decode Keystore
         run: |
           echo ${{ secrets.KEY_STORE }} | base64 -di > "${RUNNER_TEMP}"/keystore.jks
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
