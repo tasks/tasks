@@ -270,7 +270,19 @@ fun TaskEditScreen(
                         )
 
                     CalendarControlSet.TAG -> AndroidFragment<CalendarControlSet>()
-                    StartDateControlSet.TAG -> AndroidFragment<StartDateControlSet>()
+                    StartDateControlSet.TAG -> {
+                        //AndroidFragment<StartDateControlSet>()
+                        StartDateRow(
+                            current = editViewModel.startDate.collectAsStateWithLifecycle().value,
+                            setCurrent = { editViewModel.setStartDate(it) },
+                            dueDate = editViewModel.dueDate.collectAsStateWithLifecycle().value,
+                            isNew = viewState.isNew,
+                            hasStartAlarm = remember (viewState.alarms) {
+                                viewState.alarms.any { it.type == Alarm.TYPE_REL_START }
+                            },
+                            showDueDate = !viewState.list.account.isOpenTasks
+                        )
+                    }
                     ReminderControlSet.TAG -> AndroidFragment<ReminderControlSet>()
                     LocationControlSet.TAG -> AndroidFragment<LocationControlSet>()
                     FilesControlSet.TAG -> AndroidFragment<FilesControlSet>()
