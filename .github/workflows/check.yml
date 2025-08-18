@@ -11,7 +11,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
@@ -43,7 +43,7 @@ jobs:
         api-level: [29]
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
