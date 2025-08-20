@@ -643,7 +643,7 @@
         <item quantity="other">일</item>
     </plurals>
     <string name="alarm_after_due">마감 후 %s</string>
-    <string name="consent_deny">지금은 아닙니다</string>
+    <string name="consent_deny">나중에</string>
     <string name="default_reminder">기본 알람</string>
     <plurals name="reminder_week">
         <item quantity="other">주</item>
@@ -690,7 +690,7 @@
     <string name="theme_dynamic">동적</string>
     <string name="price_per_month_with_currency">%s/월</string>
     <string name="price_per_year_with_currency">%s/년</string>
-    <string name="add_widget_to_home_screen">홈스크린에 위젯 추가</string>
+    <string name="add_widget_to_home_screen">홈 스크린에 위젯 추가</string>
     <string name="yesterday">어제</string>
     <string name="add_shortcut_to_home_screen">홈화면에 바로가기 추가</string>
     <string name="cost_free">비용: 무료</string>
@@ -699,7 +699,18 @@
     <string name="cost_more_money">비용: $$$</string>
     <string name="sync_warning_microsoft_title">마이크로소프트 To Do 동기화</string>
     <string name="button_learn_more">더 알아보기</string>
-    <string name="sync_warning_google_tasks_title">구글 태스트 동기화</string>
+    <string name="sync_warning_google_tasks_title">Google Task 동기화에 대하여</string>
     <string name="multiline_title">여러 줄 제목 허용</string>
     <string name="subtasks_multilevel_microsoft">마이크로소프트 To Do는 다단계 하위할일을 지원하지 않습니다</string>
+    <string name="app_settings">앱 설정</string>
+    <string name="delete_comment">코멘트</string>
+    <string name="comment">코멘트</string>
+    <string name="continue_without_sync">동기화 없이 계속하기</string>
+    <string name="help_me_choose">고르는 것을 도와주세요</string>
+    <string name="delete_tasks_warning">%s 를 삭제합니다. 삭제 후 되돌릴 수 없습니다!</string>
+    <string name="banner_app_updated_title">앱이 업데이트됨</string>
+    <string name="banner_app_updated_description">Tasks.org가 방금 %s 버전으로 업데이트되었습니다. 릴리즈 노트를 열까요?</string>
+    <string name="multiline_title_off">할 일을 저장하려면 완료를 누르세요</string>
+    <string name="sync_warning_microsoft">모든 할 일이 Microsoft To Do와 동기화되지는 않습니다.</string>
+    <string name="sync_warning_google_tasks">모든 할 일이 Google Tasks와 동기화되진 않습니다.</string>
 </resources>
