@@ -27,4 +27,10 @@
     <string name="today_lowercase">오늘</string>
     <string name="show_unstarted">시작하지 않은 할일 표시</string>
     <string name="show_completed">완료한 할일 표시</string>
+    <string name="search_no_results">결과 없음</string>
+    <string name="requires_pro_subscription">프리미엄 기능</string>
+    <string name="subscription_required_description">연간 1400원어치의 요금으로 모든 기능을 잠금 해제하세요</string>
+    <string name="add_task">할 일 추가</string>
+    <string name="wear_install_app">휴대폰에 설치하기</string>
+    <string name="wear_unknown_error">알 수 없는 오류</string>
 </resources>
