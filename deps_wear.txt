@@ -924,12 +924,12 @@
 +|    |    |         +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.8.1 (*)
 +|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.2.0 (*)
 +|    |    |         \--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.1 (*)
-+|    |    +--- co.touchlab:kermit:2.0.6
-+|    |    |    \--- co.touchlab:kermit-android:2.0.6
-+|    |    |         +--- co.touchlab:kermit-core:2.0.6
-+|    |    |         |    \--- co.touchlab:kermit-core-android:2.0.6
-+|    |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.2.0 (*)
-+|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.2.0 (*)
++|    |    +--- co.touchlab:kermit:2.0.8
++|    |    |    \--- co.touchlab:kermit-android:2.0.8
++|    |    |         +--- co.touchlab:kermit-core:2.0.8
++|    |    |         |    \--- co.touchlab:kermit-core-android:2.0.8
++|    |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 (*)
++|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 (*)
 +|    |    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.1.21 (*)
 +|    +--- org.jetbrains.compose.components:components-resources:1.8.2 (*)
 +|    +--- org.jetbrains.compose.foundation:foundation:1.8.2 (*)
@@ -1055,7 +1055,7 @@
 +|    |         +--- androidx.lifecycle:lifecycle-common-java8:2.9.2 (c)
 +|    |         +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.9.2 (c)
 +|    |         \--- androidx.lifecycle:lifecycle-process:2.9.2 (c)
-+|    +--- co.touchlab:kermit:2.0.6 (*)
++|    +--- co.touchlab:kermit:2.0.8 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.6.2 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.4.0
