@@ -108,7 +108,7 @@ fun TaskListDrawer(
                             placeable.place(0, 0)
                         }
                     },
-                containerColor = MaterialTheme.colorScheme.surface,
+                containerColor = MaterialTheme.colorScheme.background,
                 scrollBehavior = bottomAppBarScrollBehavior
             ) {
                 searchBar()

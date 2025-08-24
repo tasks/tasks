@@ -68,6 +68,13 @@
 
   </LinearLayout>
 
+  <View
+      android:id="@+id/systemBarScrim"
+      android:layout_width="match_parent"
+      android:layout_height="56dp"
+      android:layout_gravity="bottom"
+      android:visibility="visible" />
+
   <com.google.android.material.bottomappbar.BottomAppBar
       android:id="@+id/bottomAppBar"
       style="@style/Widget.Material3.BottomAppBar"

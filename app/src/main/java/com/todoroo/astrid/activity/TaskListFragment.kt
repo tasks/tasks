@@ -22,7 +22,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LAYOUT_DIRECTION_LTR
-import android.view.ViewGroup.MarginLayoutParams
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.BackHandler
 import androidx.activity.result.contract.ActivityResultContracts
@@ -338,7 +337,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             right = endInset,
         )
         binding.bottomAppBar.updatePadding(bottom = bottomInset)
-        (binding.fab.layoutParams as MarginLayoutParams).bottomMargin = bottomInset / 2
+        val scrimLayoutParams = binding.systemBarScrim.layoutParams
+        scrimLayoutParams.height = bottomInset
+        binding.systemBarScrim.layoutParams = scrimLayoutParams
     }
 
     @OptIn(ExperimentalPermissionsApi::class)
@@ -365,6 +366,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         listViewModel.setFilter(filter)
         (recyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         recyclerView.layoutManager = LinearLayoutManager(context)
+
+        val baseFooterHeight = resources.getDimensionPixelSize(R.dimen.task_list_footer_height)
+        val additionalFabSpace = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            56f,
+            resources.displayMetrics
+        ).toInt()
+        recyclerView.updatePadding(bottom = baseFooterHeight + additionalFabSpace)
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 listViewModel.updateBannerState()
@@ -394,6 +403,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 binding.bottomAppBar.performShow()
             }
         }
+
+        val typedValue = TypedValue()
+        requireContext().theme.resolveAttribute(android.R.attr.colorBackground, typedValue, true)
+        val scrimColor = typedValue.data
+        binding.systemBarScrim.setBackgroundColor((scrimColor and 0x00FFFFFF) or 0xCC000000.toInt()) // 80% opacity
         with (binding.fab) {
             backgroundTintList = ColorStateList.valueOf(themeColor.primaryColor)
             imageTintList = ColorStateList.valueOf(themeColor.colorOnPrimary)

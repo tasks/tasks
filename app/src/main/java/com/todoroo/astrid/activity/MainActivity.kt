@@ -123,10 +123,11 @@ class MainActivity : AppCompatActivity() {
                 lightScrim = Color.TRANSPARENT,
                 darkScrim = Color.TRANSPARENT
             ),
-            navigationBarStyle = SystemBarStyle.auto(
-                lightScrim = Color.TRANSPARENT,
-                darkScrim = Color.TRANSPARENT
-            )
+            navigationBarStyle = if (theme.themeBase.isDarkTheme(this)) {
+                SystemBarStyle.dark(Color.TRANSPARENT)
+            } else {
+                SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
+            }
         )
 
         setContent {
