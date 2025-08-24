@@ -1,3 +1,23 @@
+### 14.8.1 (2025-08-24)
+
+* System bar scrim improvements
+* Recover from Google Task 'Bad request' errors
+* Improve layout on Z Folds
+* Crash fixes
+* Update translations
+  * Brazilian Portuguese - odnankenobi
+  * Catalan - @Crashillo, @ferranpujolcamins
+  * Danish - ERYpTION
+  * Esperanto - Don Zouras
+  * Galician - @Crashillo, @delthia
+  * Hungarian - @Antmajgra, @gthrepwood
+  * Italian - @ppasserini
+  * Korean - Jiho Min
+  * Polish - @Antmajgra
+  * Portuguese - @Crashillo
+  * Russian - Алексей Ежков
+  * Spanish - @Crashillo
+
 ### 14.8 (2025-08-02)
 
 * Synchronize **list** icons for Tasks.org and CalDAV accounts

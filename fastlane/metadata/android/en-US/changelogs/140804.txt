@@ -1,0 +1,5 @@
+* System bar scrim improvements
+* Recover from Google Task 'Bad request' errors
+* Improve layout on Z Folds
+* Crash fixes
+* Update translations
