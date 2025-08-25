@@ -111,7 +111,7 @@
     <string name="ring_once">Een keer bellen</string>
     <string name="ring_five_times">Vijf keer bellen</string>
     <string name="ring_nonstop">Non-stop bellen</string>
-    <string name="rmd_NoA_done">Gereed</string>
+    <string name="rmd_NoA_done">Voltooid</string>
     <string name="rmd_NoA_snooze">Snoozen</string>
     <string name="snooze_all">Alles snoozen</string>
     <string name="rmd_EPr_quiet_hours_start_title">Begin rusttijd</string>
