@@ -355,8 +355,8 @@
     <string name="location_remind_arrival">Bei Ankunft erinnern</string>
     <string name="location_remind_departure">Bei Abreise erinnern</string>
     <string name="visit_website">Website öffnen</string>
-    <string name="location_arrived">Angekommen um %s</string>
-    <string name="location_departed">Abgereist um %s</string>
+    <string name="location_arrived">%s erreicht</string>
+    <string name="location_departed">%s verlassen</string>
     <string name="building_notifications">Benachrichtigungen generieren</string>
     <string name="choose_a_location">Ort auswählen</string>
     <string name="pick_this_location">Diesen Ort auswählen</string>
