@@ -196,17 +196,33 @@ class TaskViewHolder internal constructor(
     }
 
     private fun setupTitleAndCheckbox() {
-        if (task.isCompleted) {
-            nameView.setTextColor(context.getColor(R.color.text_tertiary))
-            nameView.paintFlags = nameView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-        } else {
-            nameView.setTextColor(
-                    context.getColor(if (task.task.isHidden) R.color.text_tertiary else R.color.text_primary))
-            nameView.paintFlags = nameView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-        }
-        completeBox.isChecked = task.isCompleted
-        completeBox.setImageDrawable(checkBoxProvider.getCheckBox(task.task))
-        completeBox.invalidate()
+            if (task.isCompleted) {
+                nameView.setTextColor(context.getColor(R.color.text_tertiary))
+                nameView.paintFlags = nameView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            } else {
+                nameView.setTextColor(
+                        context.getColor(if (task.task.isHidden) R.color.text_tertiary else R.color.text_primary))
+                nameView.paintFlags = nameView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+            }
+            completeBox.isChecked = task.isCompleted
+            val style = preferences.checkboxStyle
+            if (style == "round") {
+                val size = context.resources.getDimensionPixelSize(R.dimen.checkbox_size)
+                val drawable = android.graphics.drawable.ShapeDrawable(android.graphics.drawable.shapes.OvalShape())
+                drawable.intrinsicWidth = size
+                drawable.intrinsicHeight = size
+                drawable.paint.color = context.getColor(R.color.icon_tint)
+                completeBox.background = drawable
+                if (task.isCompleted) {
+                    completeBox.setImageResource(android.R.drawable.checkbox_on_background)
+                } else {
+                    completeBox.setImageDrawable(null)
+                }
+            } else {
+                completeBox.setImageDrawable(checkBoxProvider.getCheckBox(task.task))
+                completeBox.background = null
+            }
+            completeBox.invalidate()
     }
 
     private fun setupDueDate(sortByDueDate: Boolean) {

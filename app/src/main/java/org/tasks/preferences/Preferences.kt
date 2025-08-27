@@ -589,11 +589,14 @@ class Preferences @JvmOverloads constructor(
 
     companion object {
         private fun getSharedPreferencesName(context: Context): String =
-                context.packageName + "_preferences"
+            context.packageName + "_preferences"
 
         private val syncFlags = listOf(
-                R.string.p_sync_ongoing,
-                R.string.p_sync_ongoing_android,
+            R.string.p_sync_ongoing,
+            R.string.p_sync_ongoing_android,
         )
-    }
+        }
+
+        val checkboxStyle: String
+        get() = getStringValue(R.string.p_checkbox_style) ?: "default"
 }

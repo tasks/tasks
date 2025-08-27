@@ -46,7 +46,13 @@
   <PreferenceCategory
     android:key="@string/settings_localization"
     android:title="@string/settings_localization">
-
+    <ListPreference
+      android:key="checkbox_style"
+      android:title="@string/checkbox_style"
+      android:summary="@string/checkbox_style_summary"
+      android:defaultValue="default"
+      android:entries="@array/checkbox_style_entries"
+      android:entryValues="@array/checkbox_style_values" />
     <Preference
       android:key="@string/p_language"
       android:title="@string/language" />
