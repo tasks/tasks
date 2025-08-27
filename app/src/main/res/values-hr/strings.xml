@@ -743,4 +743,5 @@
     <string name="banner_app_updated_title">Aplikacija je aktualizirana</string>
     <string name="banner_app_updated_description">Aplikacija Tasks je upravo aktualizirana na %s. Želiš li vidjeti bilješke o izdanju?</string>
     <string name="multiline_title_off">Pritisni „Gotovo” za spremanje zadatka</string>
+    <string name="widget_view_more_tasks">Prikaži više zadataka</string>
 </resources>
