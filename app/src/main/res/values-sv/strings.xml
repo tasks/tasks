@@ -721,4 +721,5 @@
     <string name="help_me_choose">Hjälp mig att välja</string>
     <string name="delete_tasks_warning">%s kommer att tas bort. Detta kan inte ångras!</string>
     <string name="continue_without_sync">Fortsätt utan synkronisering</string>
+    <string name="widget_view_more_tasks">Visa mer uppgifter</string>
 </resources>
