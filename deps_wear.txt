@@ -1355,7 +1355,7 @@
 +|    +--- androidx.wear.compose:compose-material:1.5.0-rc01 (c)
 +|    +--- androidx.wear.compose:compose-material-core:1.5.0-rc01 (c)
 +|    \--- androidx.wear.compose:compose-ui-tooling:1.5.0-rc01 (c)
-++--- androidx.wear:wear-input:1.2.0-beta01
+++--- androidx.wear:wear-input:1.2.0-rc01
 +|    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.2.0 (*)
 +|    +--- org.jspecify:jspecify:1.0.0
