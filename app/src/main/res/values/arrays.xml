@@ -155,3 +155,11 @@
   </integer-array>
 
 </resources>
+  <string-array name="checkbox_style_entries">
+    <item>@string/checkbox_style_default</item>
+    <item>@string/checkbox_style_round</item>
+  </string-array>
+  <string-array name="checkbox_style_values">
+    <item>default</item>
+    <item>round</item>
+  </string-array>
