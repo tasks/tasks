@@ -11,6 +11,7 @@ import android.content.Context
 import android.net.Uri
 import android.provider.CalendarContract
 import android.text.format.Time
+import androidx.core.net.toUri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -19,7 +20,7 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.DateTime
 import org.tasks.time.ONE_HOUR
 import timber.log.Timber
 import java.util.TimeZone
@@ -30,8 +31,8 @@ class GCalHelper @Inject constructor(
     private val taskDao: TaskDao,
     private val preferences: Preferences,
     private val permissionChecker: PermissionChecker,
-    private val calendarEventProvider: CalendarEventProvider) {
-
+    private val calendarEventProvider: CalendarEventProvider,
+) {
     private val cr: ContentResolver = context.contentResolver
 
     private suspend fun getTaskEventUri(task: Task) =
@@ -109,7 +110,7 @@ class GCalHelper @Inject constructor(
             })
             updateValues.put(CalendarContract.Events.DESCRIPTION, task.notes)
             createStartAndEndDate(task, updateValues)
-            cr.update(Uri.parse(uri), updateValues, null, null)
+            cr.update(uri.toUri(), updateValues, null, null)
         } catch (e: Exception) {
             Timber.e(e, "Failed to update calendar: %s [%s]", uri, task)
         }
@@ -117,10 +118,10 @@ class GCalHelper @Inject constructor(
 
     suspend fun rescheduleRepeatingTask(task: Task) {
         val taskUri = getTaskEventUri(task)
-        if (isNullOrEmpty(taskUri)) {
+        if (taskUri.isNullOrBlank()) {
             return
         }
-        val eventUri = Uri.parse(taskUri)
+        val eventUri = taskUri.toUri()
         val event = calendarEventProvider.getEvent(eventUri)
         if (event == null) {
             task.calendarURI = ""
@@ -134,11 +135,6 @@ class GCalHelper @Inject constructor(
 
     private fun createStartAndEndDate(task: Task, values: ContentValues) {
         val dueDate = task.dueDate
-        val tzCorrectedDueDate = dueDate + TimeZone.getDefault().getOffset(dueDate)
-        val tzCorrectedDueDateNow = currentTimeMillis() + TimeZone.getDefault().getOffset(
-            currentTimeMillis()
-        )
-        // FIXME: doesn't respect timezones, see story 17443653
         if (task.hasDueDate()) {
             if (task.hasDueTime()) {
                 var estimatedTime = task.estimatedSeconds * 1000.toLong()
@@ -152,24 +148,19 @@ class GCalHelper @Inject constructor(
                     values.put(CalendarContract.Events.DTSTART, dueDate - estimatedTime)
                     values.put(CalendarContract.Events.DTEND, dueDate)
                 }
-                // setting a duetime to a previously timeless event requires explicitly setting allDay=0
                 values.put(CalendarContract.Events.ALL_DAY, "0")
                 values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
             } else {
-                values.put(CalendarContract.Events.DTSTART, tzCorrectedDueDate)
-                values.put(CalendarContract.Events.DTEND, tzCorrectedDueDate)
+                val utcMidnight = DateTime(dueDate).toUTC().startOfDay()
+                values.put(CalendarContract.Events.DTSTART, utcMidnight.millis)
+                values.put(CalendarContract.Events.DTEND, utcMidnight.plusDays(1).millis)
                 values.put(CalendarContract.Events.ALL_DAY, "1")
+                values.put(CalendarContract.Events.EVENT_TIMEZONE, Time.TIMEZONE_UTC)
             }
         } else {
-            values.put(CalendarContract.Events.DTSTART, tzCorrectedDueDateNow)
-            values.put(CalendarContract.Events.DTEND, tzCorrectedDueDateNow)
-            values.put(CalendarContract.Events.ALL_DAY, "1")
+            Timber.w("Not creating calendar event, task has no due date: %s", task)
         }
-        if ("1" == values[CalendarContract.Events.ALL_DAY]) {
-            values.put(CalendarContract.Events.EVENT_TIMEZONE, Time.TIMEZONE_UTC)
-        } else {
-            values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
-        }
+
     }
 
     companion object {
