@@ -9,7 +9,7 @@
     <string name="import_summary_title">Riepilogo del ripristino</string>
     <string name="import_summary_message">Il file %1$s contiene %2$s. \n \n %3$s importate, \n %4$s già esistenti \n %5$s con errori</string>
     <string name="import_progress_read">Lettura attività %d…</string>
-    <string name="read_permission_label">accedere a Tasks</string>
+    <string name="read_permission_label">Permessi di Tasks</string>
     <string name="discard_confirmation">Vuoi davvero annullare tutte le modifiche\?</string>
     <string name="keep_editing">No, continua la modifica</string>
     <string name="DLG_delete_this_task_question">Eliminare questa attività\?</string>
@@ -451,8 +451,8 @@
     <string name="location_radius_meters">%s m</string>
     <string name="subtasks">Attività secondaria</string>
     <string name="TEA_timer_controls">Timer</string>
-    <string name="chip_appearance">Aspetto etichetta</string>
-    <string name="chips">Smart Chips</string>
+    <string name="chip_appearance">Aspetto chip</string>
+    <string name="chips">Smart Chip</string>
     <string name="custom_filter_not">NON</string>
     <string name="custom_filter_or">O</string>
     <string name="custom_filter_and">E</string>
