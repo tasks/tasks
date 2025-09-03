@@ -1,0 +1,3 @@
+* Fix all-day calendar events
+* Fix crash when clearing completed while grouping by lists
+* Update translations

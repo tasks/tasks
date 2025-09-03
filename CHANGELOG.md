@@ -1,3 +1,12 @@
+### 14.8.2 (2025-09-03)
+
+* Fix all-day calendar events
+* Fix crash when clearing completed while grouping by lists
+* Update translations
+  * Croatian - @milotype
+  * Dutch - @fvbommel
+  * German - @MisterTechnik
+
 ### 14.8.1 (2025-08-24)
 
 * System bar scrim improvements
