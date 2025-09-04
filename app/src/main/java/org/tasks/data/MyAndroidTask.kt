@@ -3,15 +3,14 @@ package org.tasks.data
 import android.content.ContentUris
 import android.database.Cursor
 import android.net.Uri
-import at.bitfire.ical4android.AndroidTask
 import at.bitfire.ical4android.BatchOperation
 import at.bitfire.ical4android.BatchOperation.CpoBuilder.Companion.newInsert
 import at.bitfire.ical4android.BatchOperation.CpoBuilder.Companion.newUpdate
+import at.bitfire.ical4android.DmfsTask
 import at.bitfire.ical4android.ICalendar
-import at.bitfire.ical4android.Ical4Android
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.UnknownProperty
-import at.bitfire.ical4android.util.MiscUtils.CursorHelper.toValues
+import at.bitfire.ical4android.util.MiscUtils.toValues
 import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.model.parameter.RelType
 import net.fortuna.ical4j.model.parameter.Related
@@ -21,7 +20,7 @@ import org.tasks.data.OpenTaskDao.Companion.getLong
 import java.util.Locale
 import java.util.logging.Level
 
-class MyAndroidTask() : AndroidTask(null) {
+class MyAndroidTask() : DmfsTask(null) {
 
     constructor(cursor: Cursor) : this() {
         val values = cursor.toValues()
@@ -99,7 +98,7 @@ class MyAndroidTask() : AndroidTask(null) {
                     .withValue(TaskContract.Property.Alarm.MESSAGE, alarm.description?.value ?: alarm.summary)
                     .withValue(TaskContract.Property.Alarm.ALARM_TYPE, alarmType)
 
-            Ical4Android.log.log(Level.FINE, "Inserting alarm", builder.build())
+            logger.log(Level.FINE, "Inserting alarm", builder.build())
             batch.add(builder)
         }
     }
@@ -110,7 +109,7 @@ class MyAndroidTask() : AndroidTask(null) {
                     .withTaskId(TaskContract.Property.Category.TASK_ID, idxTask)
                     .withValue(TaskContract.Property.Category.MIMETYPE, TaskContract.Property.Category.CONTENT_ITEM_TYPE)
                     .withValue(TaskContract.Property.Category.CATEGORY_NAME, category)
-            Ical4Android.log.log(Level.FINE, "Inserting category", builder.build())
+            logger.log(Level.FINE, "Inserting category", builder.build())
             batch.add(builder)
         }
     }
@@ -130,7 +129,7 @@ class MyAndroidTask() : AndroidTask(null) {
                     .withValue(TaskContract.Property.Relation.MIMETYPE, TaskContract.Property.Relation.CONTENT_ITEM_TYPE)
                     .withValue(TaskContract.Property.Relation.RELATED_UID, relatedTo.value)
                     .withValue(TaskContract.Property.Relation.RELATED_TYPE, relType)
-            Ical4Android.log.log(Level.FINE, "Inserting relation", builder.build())
+            logger.log(Level.FINE, "Inserting relation", builder.build())
             batch.add(builder)
         }
     }
@@ -138,7 +137,7 @@ class MyAndroidTask() : AndroidTask(null) {
     private fun insertUnknownProperties(batch: MutableList<BatchOperation.CpoBuilder>, idxTask: Int?, uri: Uri) {
         for (property in requireNotNull(task).unknownProperties) {
             if (property.value.length > UnknownProperty.MAX_UNKNOWN_PROPERTY_SIZE) {
-                Ical4Android.log.warning("Ignoring unknown property with ${property.value.length} octets (too long)")
+                logger.warning("Ignoring unknown property with ${property.value.length} octets (too long)")
                 return
             }
 
@@ -146,7 +145,7 @@ class MyAndroidTask() : AndroidTask(null) {
                     .withTaskId(TaskContract.Properties.TASK_ID, idxTask)
                     .withValue(TaskContract.Properties.MIMETYPE, UnknownProperty.CONTENT_ITEM_TYPE)
                     .withValue(UNKNOWN_PROPERTY_DATA, UnknownProperty.toJsonString(property))
-            Ical4Android.log.log(Level.FINE, "Inserting unknown property", builder.build())
+            logger.log(Level.FINE, "Inserting unknown property", builder.build())
             batch.add(builder)
         }
     }

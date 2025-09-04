@@ -1,13 +1,19 @@
 package org.tasks.caldav.extensions
 
+import at.bitfire.ical4android.Task.Companion.tasksFromReader
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.tasks.caldav.iCalendar.Companion.applyLocal
+import org.tasks.data.createDueDate
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Task
 import org.tasks.time.DateTime
 import org.tasks.time.DateTime.Companion.UTC
+import java.io.ByteArrayInputStream
 import java.util.concurrent.TimeUnit.HOURS
 import java.util.concurrent.TimeUnit.MINUTES
 
@@ -110,5 +116,35 @@ class VAlarmTests {
             interval = MINUTES.toMillis(15)
         )
         assertEquals(alarm, alarm.toVAlarm()?.toAlarm())
+    }
+
+    @Test
+    fun serializeAlarms() {
+        val remoteTask = at.bitfire.ical4android.Task()
+        remoteTask.applyLocal(
+            CaldavTask(
+                calendar = "",
+            ),
+            Task(
+                dueDate = createDueDate(
+                    Task.URGENCY_SPECIFIC_DAY_TIME,
+                    DateTime(2025, 9, 4, 18, 0, 0).millis
+                ),
+            ),
+        )
+        Alarm(time = 0, type = TYPE_REL_END).toVAlarm()?.let { remoteTask.alarms.add(it) }
+
+        val os = java.io.ByteArrayOutputStream()
+        remoteTask.write(os)
+
+        val tasks = tasksFromReader(ByteArrayInputStream(os.toByteArray()).reader())
+        assertEquals(1, tasks.size)
+
+        val task = tasks.first()
+        assertEquals(1, task.alarms.size)
+
+        val alarm = task.alarms.first().toAlarm()
+        assertEquals(TYPE_REL_END, alarm?.type)
+        assertEquals(0L, alarm?.time)
     }
 }
