@@ -15,6 +15,8 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
+import org.tasks.caldav.FileStorage
+import org.tasks.caldav.VtodoCache
 import org.tasks.compose.drawer.DrawerConfiguration
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.Astrid2ContentProviderDao
@@ -167,4 +169,14 @@ class ApplicationModule {
         taskDao = taskDao,
         tasksPreferences = tasksPreferences,
     )
+
+    @Provides
+    @Singleton
+    fun providesFileStorage(@ApplicationContext context: Context) =
+        FileStorage(context.filesDir.absolutePath)
+
+    @Provides
+    @Singleton
+    fun providesVtodoCache(caldavDao: CaldavDao, fileStorage: FileStorage) =
+        VtodoCache(caldavDao, fileStorage)
 }

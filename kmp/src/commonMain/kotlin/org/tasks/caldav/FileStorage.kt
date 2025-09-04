@@ -1,16 +1,13 @@
 package org.tasks.caldav
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
-import javax.inject.Inject
 
-class FileStorage @Inject constructor(
-    @ApplicationContext context: Context
+class FileStorage(
+    rootPath: String
 ) {
-    val root = File(context.filesDir, "vtodo")
+    val root = File(rootPath, "vtodo")
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     fun getFile(vararg segments: String?): File? =

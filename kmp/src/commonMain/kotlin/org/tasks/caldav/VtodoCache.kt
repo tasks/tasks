@@ -1,18 +1,15 @@
 package org.tasks.caldav
 
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
-import timber.log.Timber
 import java.io.File
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class VtodoCache @Inject constructor(
+class VtodoCache(
     private val caldavDao: CaldavDao,
     private val fileStorage: FileStorage,
 ) {
@@ -30,7 +27,7 @@ class VtodoCache @Inject constructor(
                     ?: return@withContext
             source.copyTo(target, overwrite = true)
             val deleted = source.delete()
-            Timber.d("Moved $source to $target [success=${deleted}]")
+            Logger.d("VtodoCache") { "Moved $source to $target [success=${deleted}]" }
         }
 
     suspend fun getVtodo(caldavTask: CaldavTask?): String? {
@@ -69,28 +66,28 @@ class VtodoCache @Inject constructor(
     suspend fun delete(calendar: CaldavCalendar, caldavTask: CaldavTask) = withContext(Dispatchers.IO) {
         fileStorage.getFile(calendar.account, caldavTask.calendar, caldavTask.obj)?.let {
             val deleted = it.delete()
-            Timber.d("Deleting $it [success=$deleted]")
+            Logger.d("VtodoCache") { "Deleting $it [success=$deleted]" }
         }
     }
 
     suspend fun delete(calendar: CaldavCalendar) = withContext(Dispatchers.IO) {
         fileStorage.getFile(calendar.account, calendar.uuid)?.let {
             val deleted = it.deleteRecursively()
-            Timber.d("Deleting $it [success=$deleted]")
+            Logger.d("VtodoCache") { "Deleting $it [success=$deleted]" }
         }
     }
 
     suspend fun delete(account: CaldavAccount) = withContext(Dispatchers.IO) {
         fileStorage.getFile(account.uuid)?.let {
             val deleted = it.deleteRecursively()
-            Timber.d("Deleting $it [success=$deleted]")
+            Logger.d("VtodoCache") { "Deleting $it [success=$deleted]" }
         }
     }
 
     suspend fun clear() = withContext(Dispatchers.IO) {
         fileStorage.getFile()?.let {
             val deleted = it.deleteRecursively()
-            Timber.d("Deleting $it [success=$deleted]")
+            Logger.d("VtodoCache") { "Deleting $it [success=$deleted]" }
         }
     }
 }
