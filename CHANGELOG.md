@@ -1,11 +1,14 @@
-### 14.8.2 (2025-09-03)
+### 14.8.2 (2025-09-04)
 
 * Fix all-day calendar events
+* Fix alarm synchronization
 * Fix crash when clearing completed while grouping by lists
 * Update translations
   * Croatian - @milotype
   * Dutch - @fvbommel
   * German - @MisterTechnik
+  * Italian - @glemco
+  * Serbian - @vale-decem
 
 ### 14.8.1 (2025-08-24)
 
