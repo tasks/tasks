@@ -5,7 +5,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.dao.CaldavDao
@@ -34,7 +34,7 @@ class SyncAdapters @Inject constructor(
     private val googleTaskDao: GoogleTaskDao,
     private val openTaskDao: OpenTaskDao,
     private val preferences: Preferences,
-    private val localBroadcastManager: LocalBroadcastManager
+    private val refreshBroadcaster: RefreshBroadcaster
 ) {
     private val scope = CoroutineScope(newSingleThreadExecutor().asCoroutineDispatcher() + SupervisorJob())
     private val sync = Debouncer(TAG_SYNC) { workManager.sync(it) }
@@ -42,7 +42,7 @@ class SyncAdapters @Inject constructor(
         val currentState = preferences.getBoolean(R.string.p_sync_ongoing_android, false)
         if (currentState != newState && isOpenTaskSyncEnabled()) {
             preferences.setBoolean(R.string.p_sync_ongoing_android, newState)
-            localBroadcastManager.broadcastRefresh()
+            refreshBroadcaster.broadcastRefresh()
         }
     }
 

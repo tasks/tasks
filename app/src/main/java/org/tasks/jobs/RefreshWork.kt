@@ -5,7 +5,7 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.analytics.Firebase
 import org.tasks.data.dao.TaskDao
 import org.tasks.date.DateTimeUtils
@@ -16,13 +16,13 @@ class RefreshWork @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParams: WorkerParameters,
     firebase: Firebase,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val workManager: WorkManager,
     private val taskDao: TaskDao,
 ) : RepeatingWorker(context, workerParams, firebase) {
 
     override suspend fun run(): Result {
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
         return Result.success()
     }
 

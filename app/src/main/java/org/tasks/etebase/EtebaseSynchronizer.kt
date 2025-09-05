@@ -14,7 +14,7 @@ import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import net.fortuna.ical4j.model.property.ProdId
 import org.tasks.BuildConfig
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.billing.Inventory
@@ -32,7 +32,7 @@ import javax.inject.Inject
 class EtebaseSynchronizer @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val caldavDao: CaldavDao,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val taskDeleter: TaskDeleter,
     private val inventory: Inventory,
     private val clientProvider: EtebaseClientProvider,
@@ -98,7 +98,7 @@ class EtebaseSynchronizer @Inject constructor(
                 calendar.name = meta.name
                 calendar.color = color
                 caldavDao.update(calendar)
-                localBroadcastManager.broadcastRefresh()
+                refreshBroadcaster.broadcastRefresh()
             }
             fetchChanges(account, client, calendar, collection)
             pushLocalChanges(account, client, calendar, collection)
@@ -112,7 +112,7 @@ class EtebaseSynchronizer @Inject constructor(
     private suspend fun setError(account: CaldavAccount, message: String?) {
         account.error = message
         caldavDao.update(account)
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
         if (!isNullOrEmpty(message)) {
             Timber.e(message)
         }
@@ -137,7 +137,7 @@ class EtebaseSynchronizer @Inject constructor(
         caldavDao.update(caldavCalendar)
         Timber.d("Updating parents for ${caldavCalendar.uuid}")
         caldavDao.updateParents(caldavCalendar.uuid!!)
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     private suspend fun pushLocalChanges(

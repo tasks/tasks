@@ -6,7 +6,7 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.analytics.Firebase
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Place
@@ -20,7 +20,7 @@ class ReverseGeocodeWork @AssistedInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,
-        private val localBroadcastManager: LocalBroadcastManager,
+        private val refreshBroadcaster: RefreshBroadcaster,
         private val geocoder: Geocoder,
         private val locationDao: LocationDao
 ) : BaseWorker(context, workerParams, firebase) {
@@ -51,7 +51,7 @@ class ReverseGeocodeWork @AssistedInject constructor(
                     url = result.url,
                 )
             )
-            localBroadcastManager.broadcastRefresh()
+            refreshBroadcaster.broadcastRefresh()
             Timber.d("found $result")
             Result.success()
         } catch (e: Exception) {

@@ -13,7 +13,7 @@ import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.NotificationDao
@@ -45,7 +45,7 @@ class NotificationManager @Inject constructor(
     private val notificationDao: NotificationDao,
     private val taskDao: TaskDao,
     private val locationDao: LocationDao,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val notificationManager: ThrottledNotificationManager,
     private val markdownProvider: MarkdownProvider,
     private val permissionChecker: PermissionChecker,
@@ -176,7 +176,7 @@ class NotificationManager @Inject constructor(
                 useGroupKey = false,
             )
         }
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     @SuppressLint("MissingPermission")

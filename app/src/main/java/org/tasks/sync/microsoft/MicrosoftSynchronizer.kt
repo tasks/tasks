@@ -11,7 +11,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.call.body
 import io.ktor.http.isSuccess
 import kotlinx.serialization.json.Json
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.caldav.VtodoCache
@@ -52,7 +52,7 @@ class MicrosoftSynchronizer @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val taskDeleter: TaskDeleter,
     private val firebase: Firebase,
     private val taskCreator: TaskCreator,
@@ -130,7 +130,7 @@ class MicrosoftSynchronizer @Inject constructor(
             } else if (local.name != remoteName || local.access != access) {
                 remote.applyTo(local)
                 caldavDao.update(local)
-                localBroadcastManager.broadcastRefresh()
+                refreshBroadcaster.broadcastRefresh()
             }
             if (local.ctag?.isNotBlank() == true) {
                 deltaSync(account, local, remote, microsoft)
@@ -275,7 +275,7 @@ class MicrosoftSynchronizer @Inject constructor(
         }
         Timber.d("UPDATE $list")
         caldavDao.update(list)
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     private suspend fun getTaskLists(
@@ -368,7 +368,7 @@ class MicrosoftSynchronizer @Inject constructor(
             }
         Timber.d("UPDATE $list")
         caldavDao.update(list)
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     private suspend fun updateTask(list: CaldavCalendar, remote: Tasks.Task) {
@@ -488,7 +488,7 @@ class MicrosoftSynchronizer @Inject constructor(
     private suspend fun setError(account: CaldavAccount, message: String?) {
         account.error = message
         caldavDao.update(account)
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
         if (!isNullOrEmpty(message)) {
             Timber.e(message)
         }

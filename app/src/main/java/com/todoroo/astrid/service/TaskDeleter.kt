@@ -7,7 +7,7 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.LocationDao
@@ -28,7 +28,7 @@ class TaskDeleter @Inject constructor(
     @ApplicationContext private val context: Context,
     private val deletionDao: DeletionDao,
     private val taskDao: TaskDao,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val syncAdapters: SyncAdapters,
     private val vtodoCache: VtodoCache,
     private val notificationManager: NotificationManager,
@@ -50,7 +50,7 @@ class TaskDeleter @Inject constructor(
             cleanup = { cleanup(it) }
         )
         syncAdapters.sync()
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
         taskDao.fetch(ids)
     }
 
@@ -63,7 +63,7 @@ class TaskDeleter @Inject constructor(
             ids = tasks,
             cleanup = { cleanup(it) }
         )
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     suspend fun delete(list: CaldavCalendar) {
@@ -72,7 +72,7 @@ class TaskDeleter @Inject constructor(
             caldavCalendar = list,
             cleanup = { cleanup(it) }
         )
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     suspend fun delete(account: CaldavAccount) {
@@ -81,7 +81,7 @@ class TaskDeleter @Inject constructor(
             caldavAccount = account,
             cleanup = { cleanup(it) }
         )
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     private suspend fun cleanup(tasks: List<Long>) {

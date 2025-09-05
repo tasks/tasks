@@ -7,7 +7,7 @@ package com.todoroo.astrid.gtasks
 
 import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.service.TaskDeleter
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class GtasksListService @Inject constructor(
     private val caldavDao: CaldavDao,
     private val taskDeleter: TaskDeleter,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
 ) {
 
     /**
@@ -55,6 +55,6 @@ class GtasksListService @Inject constructor(
         for (listId in previousLists) {
             taskDeleter.delete(caldavDao.getCalendarById(listId)!!)
         }
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 }

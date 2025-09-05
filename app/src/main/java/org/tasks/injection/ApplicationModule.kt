@@ -11,6 +11,7 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
@@ -43,6 +44,8 @@ import org.tasks.security.AndroidKeyStoreEncryption
 import org.tasks.security.KeyStoreEncryption
 import java.util.Locale
 import javax.inject.Singleton
+
+import org.tasks.broadcast.RefreshBroadcaster
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -185,4 +188,8 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun providesKeyStoreEncryption(): KeyStoreEncryption = AndroidKeyStoreEncryption()
+
+    @Provides
+    fun providesBroadcastRefresh(localBroadcastManager: LocalBroadcastManager): RefreshBroadcaster =
+        localBroadcastManager
 }

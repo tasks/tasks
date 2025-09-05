@@ -28,7 +28,7 @@ import com.todoroo.astrid.api.TextInputCriterion
 import com.todoroo.astrid.core.CriterionInstance
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.compose.DeleteButton
@@ -56,7 +56,7 @@ import javax.inject.Inject
 class FilterSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var filterDao: FilterDao
     @Inject lateinit var filterCriteriaProvider: FilterCriteriaProvider
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
 
     private val viewModel: FilterSettingsViewModel by viewModels()
 
@@ -128,7 +128,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             } else {
                 filterDao.update(f)
             }
-            localBroadcastManager.broadcastRefresh()
+            refreshBroadcaster.broadcastRefresh()
             setResult(
                     Activity.RESULT_OK,
                     Intent(TaskListFragment.ACTION_RELOAD)

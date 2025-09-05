@@ -6,7 +6,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.compose.throttleLatest
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDataDao
@@ -23,7 +23,7 @@ import javax.inject.Singleton
 class ChipListCache @Inject internal constructor(
     caldavDao: CaldavDao,
     tagDataDao: TagDataDao,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val lists: MutableMap<String?, CaldavFilter> = HashMap()
@@ -42,7 +42,7 @@ class ChipListCache @Inject internal constructor(
                 lists.clear()
                 it.associateByTo(lists) { filter -> filter.uuid }
             }
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     private fun updateTags(updated: List<TagData>) {
@@ -51,7 +51,7 @@ class ChipListCache @Inject internal constructor(
         for (update in updated) {
             tagDatas[update.remoteId] = TagFilter(update)
         }
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     fun getCaldavList(caldav: String?): CaldavFilter? = lists[caldav]

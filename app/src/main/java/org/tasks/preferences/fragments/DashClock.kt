@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
 import org.tasks.injection.InjectingPreferenceFragment
@@ -16,14 +16,14 @@ import javax.inject.Inject
 class DashClock : InjectingPreferenceFragment() {
 
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
 
     private val listPickerLauncher = registerForFilterPickerResult {
         defaultFilterProvider.dashclockFilter = it
         lifecycleScope.launch {
             refreshPreferences()
         }
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     override fun getPreferenceXml() = R.xml.preferences_dashclock

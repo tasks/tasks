@@ -12,7 +12,7 @@ import androidx.activity.compose.setContent
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.dao.TagDao
@@ -28,7 +28,7 @@ import javax.inject.Inject
 class TagSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var tagDao: TagDao
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
 
     private lateinit var tagData: TagData
     private val isNewTag: Boolean
@@ -88,7 +88,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
                 )
                 .let { it.copy(id = tagDataDao.insert(it)) }
                 .let {
-                    localBroadcastManager.broadcastRefresh()
+                    refreshBroadcaster.broadcastRefresh()
                     setResult(
                         Activity.RESULT_OK,
                         Intent().putExtra(MainActivity.OPEN_FILTER, TagFilter(it))
@@ -104,7 +104,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
                 .let {
                     tagDataDao.update(it)
                     tagDao.rename(it.remoteId!!, newName)
-                    localBroadcastManager.broadcastRefresh()
+                    refreshBroadcaster.broadcastRefresh()
                     setResult(
                         Activity.RESULT_OK,
                         Intent(TaskListFragment.ACTION_RELOAD)

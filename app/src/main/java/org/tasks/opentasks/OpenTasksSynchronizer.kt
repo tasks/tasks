@@ -7,7 +7,7 @@ import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dmfs.tasks.contract.TaskContract
 import org.dmfs.tasks.contract.TaskContract.Tasks
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
@@ -36,7 +36,7 @@ class OpenTasksSynchronizer @Inject constructor(
     @ApplicationContext private val context: Context,
     private val caldavDao: CaldavDao,
     private val taskDeleter: TaskDeleter,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val taskDao: TaskDao,
     private val firebase: Firebase,
     private val iCalendar: iCalendar,
@@ -111,7 +111,7 @@ class OpenTasksSynchronizer @Inject constructor(
         if (local.id == NO_ID) {
             caldavDao.insert(local)
             Timber.d("Created calendar: $local")
-            localBroadcastManager.broadcastRefresh()
+            refreshBroadcaster.broadcastRefresh()
         } else if (
             local.name != remote.name ||
             local.color != remote.color ||
@@ -122,7 +122,7 @@ class OpenTasksSynchronizer @Inject constructor(
             local.access = remote.access
             caldavDao.update(local)
             Timber.d("Updated calendar: $local")
-            localBroadcastManager.broadcastRefresh()
+            refreshBroadcaster.broadcastRefresh()
         }
         return local
     }
@@ -184,7 +184,7 @@ class OpenTasksSynchronizer @Inject constructor(
         caldavDao.update(calendar)
         Timber.d("Updating parents for ${calendar.uuid}")
         caldavDao.updateParents(calendar.uuid!!)
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     private suspend fun removeDeleted(calendar: String, uids: List<String>) {
@@ -202,7 +202,7 @@ class OpenTasksSynchronizer @Inject constructor(
     private suspend fun setError(account: CaldavAccount, message: String?) {
         account.error = message
         caldavDao.update(account)
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
         if (!message.isNullOrBlank()) {
             Timber.e(message)
         }

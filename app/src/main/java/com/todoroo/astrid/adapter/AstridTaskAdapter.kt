@@ -3,8 +3,8 @@ package com.todoroo.astrid.adapter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
-import org.tasks.LocalBroadcastManager
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.TaskContainer
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
@@ -24,9 +24,9 @@ class AstridTaskAdapter internal constructor(
     googleTaskDao: GoogleTaskDao,
     caldavDao: CaldavDao,
     private val taskDao: TaskDao,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     taskMover: TaskMover,
-) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover) {
+) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, refreshBroadcaster, taskMover) {
 
     private val chainedCompletions = Collections.synchronizedMap(HashMap<String, ArrayList<String>>())
 
@@ -56,7 +56,7 @@ class AstridTaskAdapter internal constructor(
             for (i in 0 until abs(delta)) {
                 updater.indent(list, filter, targetTaskId, delta)
             }
-            localBroadcastManager.broadcastRefresh()
+            refreshBroadcaster.broadcastRefresh()
         } catch (e: Exception) {
             Timber.e(e)
         }

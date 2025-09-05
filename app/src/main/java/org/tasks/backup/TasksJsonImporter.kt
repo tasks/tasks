@@ -19,7 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.GoogleTaskAccount
@@ -65,7 +65,7 @@ class TasksJsonImporter @Inject constructor(
     private val userActivityDao: UserActivityDao,
     private val taskDao: TaskDao,
     private val locationDao: LocationDao,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val alarmDao: AlarmDao,
     private val tagDao: TagDao,
     private val filterDao: FilterDao,
@@ -110,7 +110,7 @@ class TasksJsonImporter @Inject constructor(
         } catch (e: IOException) {
             Timber.e(e)
         }
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
         result
     }
 

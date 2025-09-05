@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.data.dao.CaldavDao
@@ -30,7 +30,7 @@ class SubheaderClickHandler @Inject constructor(
     private val activity: Activity,
     private val tasksPreferences: TasksPreferences,
     private val caldavDao: CaldavDao,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
 ): SubheaderViewHolder.ClickHandler {
     override fun onClick(subheader: NavigationDrawerSubheader) {
         (activity as AppCompatActivity).lifecycleScope.launch {
@@ -40,7 +40,7 @@ class SubheaderClickHandler @Inject constructor(
                 CALDAV,
                 TASKS -> caldavDao.setCollapsed(subheader.id, collapsed)
             }
-            localBroadcastManager.broadcastRefresh()
+            refreshBroadcaster.broadcastRefresh()
         }
     }
 

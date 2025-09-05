@@ -9,7 +9,7 @@ import com.todoroo.astrid.service.TaskCompleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.data.entity.Task
@@ -25,7 +25,7 @@ import javax.inject.Inject
 class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var taskDao: TaskDao
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var firebase: Firebase
 
@@ -101,7 +101,7 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                     collapsed.remove(group)
                 }
                 widgetPreferences.collapsed = collapsed
-                localBroadcastManager.broadcastRefresh()
+                refreshBroadcaster.broadcastRefresh()
                 finish()
             }
             else -> {

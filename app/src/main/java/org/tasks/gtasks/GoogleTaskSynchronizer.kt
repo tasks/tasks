@@ -16,7 +16,7 @@ import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
@@ -56,7 +56,7 @@ class GoogleTaskSynchronizer @Inject constructor(
     private val defaultFilterProvider: DefaultFilterProvider,
     private val permissionChecker: PermissionChecker,
     private val googleAccountManager: GoogleAccountManager,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val taskDeleter: TaskDeleter,
     private val invokers: InvokerFactory,
     private val alarmDao: AlarmDao,
@@ -94,7 +94,7 @@ class GoogleTaskSynchronizer @Inject constructor(
             firebase.reportException(e)
         } finally {
             caldavDao.update(account)
-            localBroadcastManager.broadcastRefresh()
+            refreshBroadcaster.broadcastRefresh()
             Timber.d("%s: end sync", account)
         }
     }

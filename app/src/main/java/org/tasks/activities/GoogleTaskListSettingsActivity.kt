@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
@@ -35,7 +35,7 @@ import javax.inject.Inject
 class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDeleter: TaskDeleter
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
 
     private val account: CaldavAccount
         get() = intent.getParcelableExtra(EXTRA_CALDAV_ACCOUNT)!!
@@ -122,7 +122,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
                             icon = baseViewModel.icon
                         )
                     )
-                    localBroadcastManager.broadcastRefresh()
+                    refreshBroadcaster.broadcastRefresh()
                     setResult(
                             Activity.RESULT_OK,
                             Intent(TaskListFragment.ACTION_RELOAD)

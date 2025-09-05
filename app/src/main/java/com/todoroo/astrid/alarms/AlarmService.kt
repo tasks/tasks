@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.alarms
 
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.db.DbUtils
@@ -28,7 +28,7 @@ import javax.inject.Inject
 class AlarmService @Inject constructor(
     private val alarmDao: AlarmDao,
     private val taskDao: TaskDao,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val notificationManager: NotificationManager,
     private val workManager: WorkManager,
     private val alarmCalculator: AlarmCalculator,
@@ -54,7 +54,7 @@ class AlarmService @Inject constructor(
             changed = true
         }
         if (changed) {
-            localBroadcastManager.broadcastRefresh()
+            refreshBroadcaster.broadcastRefresh()
         }
         return changed
     }

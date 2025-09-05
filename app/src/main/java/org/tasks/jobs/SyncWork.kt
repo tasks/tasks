@@ -17,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
@@ -44,7 +44,7 @@ class SyncWork @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParams: WorkerParameters,
     firebase: Firebase,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val preferences: Preferences,
     private val caldavDao: CaldavDao,
     private val caldavSynchronizer: Lazy<CaldavSynchronizer>,
@@ -74,7 +74,7 @@ class SyncWork @AssistedInject constructor(
             }
             preferences.setBoolean(syncStatus, true)
         }
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
         try {
             doSync()
             preferences.lastSync = currentTimeMillis()
@@ -82,7 +82,7 @@ class SyncWork @AssistedInject constructor(
             firebase.reportException(e)
         } finally {
             preferences.setBoolean(syncStatus, false)
-            localBroadcastManager.broadcastRefresh()
+            refreshBroadcaster.broadcastRefresh()
         }
         return Result.success()
     }

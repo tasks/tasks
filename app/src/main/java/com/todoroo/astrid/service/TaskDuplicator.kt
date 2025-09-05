@@ -2,7 +2,7 @@ package com.todoroo.astrid.service
 
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.gcal.GCalHelper
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
@@ -24,7 +24,7 @@ import javax.inject.Inject
 class TaskDuplicator @Inject constructor(
     private val gcalHelper: GCalHelper,
     private val taskDao: TaskDao,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val tagDao: TagDao,
     private val tagDataDao: TagDataDao,
     private val googleTaskDao: GoogleTaskDao,
@@ -44,7 +44,7 @@ class TaskDuplicator @Inject constructor(
             .let { taskDao.fetch(it) }
             .filterNot { it.readOnly }
             .map { clone(it, it.parent) }
-            .also { localBroadcastManager.broadcastRefresh() }
+            .also { refreshBroadcaster.broadcastRefresh() }
     }
 
     private suspend fun clone(task: Task, parentId: Long): Task {

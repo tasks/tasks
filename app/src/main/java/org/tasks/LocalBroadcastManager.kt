@@ -7,13 +7,14 @@ import android.content.IntentFilter
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.todoroo.astrid.api.AstridApiConstants
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.widget.AppWidgetManager
 import javax.inject.Inject
 
 class LocalBroadcastManager @Inject constructor(
     @ApplicationContext context: Context,
     private val appWidgetManager: AppWidgetManager,
-) {
+): RefreshBroadcaster {
     private val localBroadcastManager = LocalBroadcastManager.getInstance(context)
 
     fun registerRefreshReceiver(broadcastReceiver: BroadcastReceiver?) {
@@ -41,7 +42,7 @@ class LocalBroadcastManager @Inject constructor(
         )
     }
 
-    fun broadcastRefresh() {
+    override fun broadcastRefresh() {
         localBroadcastManager.sendBroadcast(Intent(REFRESH))
         appWidgetManager.updateWidgets()
     }

@@ -13,7 +13,7 @@ import com.todoroo.astrid.core.SortHelper.SORT_START
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskMover
 import org.tasks.BuildConfig
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.TaskContainer
 import org.tasks.data.createDueDate
 import org.tasks.data.createHideUntil
@@ -31,7 +31,7 @@ open class TaskAdapter(
     private val googleTaskDao: GoogleTaskDao,
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val taskMover: TaskMover,
 ) {
     private val selected = HashSet<Long>()
@@ -296,7 +296,7 @@ open class TaskAdapter(
         taskDao.setOrder(task.id, task.task.order)
         taskDao.setParent(newParentId, listOf(task.id))
         taskDao.touch(task.id)
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     protected suspend fun moveGoogleTask(from: Int, to: Int, indent: Int) {
@@ -375,7 +375,7 @@ open class TaskAdapter(
             }
         }
         taskDao.touch(task.id)
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
         if (BuildConfig.DEBUG) {
             googleTaskDao.validateSorting(task.caldav!!)
         }
@@ -407,7 +407,7 @@ open class TaskAdapter(
             newPosition = newPosition,
         )
         taskDao.touch(task.id)
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     private suspend fun changeCaldavParent(task: TaskContainer, indent: Int, to: Int): Long {

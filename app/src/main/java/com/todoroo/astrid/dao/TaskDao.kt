@@ -6,7 +6,7 @@
 package com.todoroo.astrid.dao
 
 import com.todoroo.astrid.timers.TimerPlugin
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.TaskContainer
 import org.tasks.data.count
 import org.tasks.data.dao.TaskDao
@@ -28,7 +28,7 @@ import javax.inject.Inject
 
 class TaskDao @Inject constructor(
     private val taskDao: TaskDao,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val notificationManager: NotificationManager,
     private val geofenceApi: GeofenceApi,
     private val timerPlugin: TimerPlugin,
@@ -82,7 +82,7 @@ class TaskDao @Inject constructor(
     suspend fun setCollapsed(id: Long, collapsed: Boolean) {
         taskDao.setCollapsed(listOf(id), collapsed)
         syncAdapters.sync()
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     suspend fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) {
@@ -103,7 +103,7 @@ class TaskDao @Inject constructor(
             Timber.d("Saved $task")
             afterUpdate(task, original)
             if (!task.isSuppressRefresh()) {
-                localBroadcastManager.broadcastRefresh()
+                refreshBroadcaster.broadcastRefresh()
             }
             workManager.triggerNotifications()
             workManager.scheduleRefresh()

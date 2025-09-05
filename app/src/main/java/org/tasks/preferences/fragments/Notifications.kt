@@ -17,8 +17,8 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.voice.VoiceOutputAssistant
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
@@ -39,13 +39,13 @@ class Notifications : InjectingPreferenceFragment() {
 
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
     @Inject lateinit var voiceOutputAssistant: VoiceOutputAssistant
 
     private val listPickerLauncher = registerForFilterPickerResult {
         defaultFilterProvider.setBadgeFilter(it)
         findPreference(R.string.p_badge_list).summary = it.title
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     override fun getPreferenceXml() = R.xml.preferences_notifications

@@ -32,7 +32,7 @@ import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.tasks.BuildConfig
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
@@ -84,7 +84,7 @@ class CaldavSynchronizer @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val taskDeleter: TaskDeleter,
     private val inventory: Inventory,
     private val firebase: Firebase,
@@ -188,7 +188,7 @@ class CaldavSynchronizer @Inject constructor(
                     icon = icon ?: calendar.icon,
                 )
                 caldavDao.update(calendar)
-                localBroadcastManager.broadcastRefresh()
+                refreshBroadcaster.broadcastRefresh()
             }
             resource
                 .principals(account, calendar)
@@ -220,7 +220,7 @@ class CaldavSynchronizer @Inject constructor(
         }
         account.error = message
         caldavDao.update(account)
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
         if (!isNullOrEmpty(message)) {
             Timber.e(message)
         }
@@ -297,7 +297,7 @@ class CaldavSynchronizer @Inject constructor(
         caldavDao.update(caldavCalendar)
         Timber.d("Updating parents for ${caldavCalendar.uuid}")
         caldavDao.updateParents(caldavCalendar.uuid!!)
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     private suspend fun pushLocalChanges(

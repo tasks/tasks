@@ -27,7 +27,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.compose.Constants
@@ -60,7 +60,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
     @Inject lateinit var map: MapFragment
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var locale: Locale
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
 
     private lateinit var place: Place
     override val defaultIcon = TasksIcons.PLACE
@@ -172,7 +172,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
             radius = sliderPos.floatValue.roundToInt(),
         )
         locationDao.update(place)
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
         setResult(
                 Activity.RESULT_OK,
                 Intent(TaskListFragment.ACTION_RELOAD)
@@ -190,7 +190,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
         locationDao.deleteGeofencesByPlace(place.uid!!)
         locationDao.delete(place)
         setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
         finish()
     }
 

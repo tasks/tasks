@@ -18,10 +18,10 @@ import com.google.android.material.color.DynamicColors
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastTiramisu
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
 import org.tasks.dialogs.ColorPalettePicker
@@ -48,7 +48,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
     @Inject lateinit var themeBase: ThemeBase
     @Inject lateinit var themeColor: ThemeColor
     @Inject lateinit var preferences: Preferences
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var locale: Locale
@@ -56,7 +56,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
     private val listPickerLauncher = registerForFilterPickerResult {
         defaultFilterProvider.setDefaultOpenFilter(it)
         findPreference(R.string.p_default_open_filter).summary = it.title
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
     }
 
     override fun getPreferenceXml() = R.xml.preferences_look_and_feel

@@ -1,6 +1,6 @@
 package com.todoroo.astrid.service
 
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
@@ -22,7 +22,7 @@ class TaskMover @Inject constructor(
     private val caldavDao: CaldavDao,
     private val googleTaskDao: GoogleTaskDao,
     private val preferences: Preferences,
-    private val localBroadcastManager: LocalBroadcastManager,
+    private val refreshBroadcaster: RefreshBroadcaster,
     private val syncAdapters: SyncAdapters,
     private val vtodoCache: VtodoCache,
 ) {
@@ -63,7 +63,7 @@ class TaskMover @Inject constructor(
         taskIds.dbchunk().forEach {
             taskDao.touch(it)
         }
-        localBroadcastManager.broadcastRefresh()
+        refreshBroadcaster.broadcastRefresh()
         syncAdapters.sync()
     }
 
