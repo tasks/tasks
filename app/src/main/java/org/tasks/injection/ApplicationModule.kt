@@ -39,6 +39,8 @@ import org.tasks.jobs.WorkManager
 import org.tasks.kmp.createDataStore
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
+import org.tasks.security.AndroidKeyStoreEncryption
+import org.tasks.security.KeyStoreEncryption
 import java.util.Locale
 import javax.inject.Singleton
 
@@ -179,4 +181,8 @@ class ApplicationModule {
     @Singleton
     fun providesVtodoCache(caldavDao: CaldavDao, fileStorage: FileStorage) =
         VtodoCache(caldavDao, fileStorage)
+
+    @Provides
+    @Singleton
+    fun providesKeyStoreEncryption(): KeyStoreEncryption = AndroidKeyStoreEncryption()
 }
