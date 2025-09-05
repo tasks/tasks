@@ -94,7 +94,7 @@ class GoogleTaskSynchronizer @Inject constructor(
             firebase.reportException(e)
         } finally {
             caldavDao.update(account)
-            localBroadcastManager.broadcastRefreshList()
+            localBroadcastManager.broadcastRefresh()
             Timber.d("%s: end sync", account)
         }
     }

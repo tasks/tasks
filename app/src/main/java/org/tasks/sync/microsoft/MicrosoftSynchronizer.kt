@@ -130,7 +130,7 @@ class MicrosoftSynchronizer @Inject constructor(
             } else if (local.name != remoteName || local.access != access) {
                 remote.applyTo(local)
                 caldavDao.update(local)
-                localBroadcastManager.broadcastRefreshList()
+                localBroadcastManager.broadcastRefresh()
             }
             if (local.ctag?.isNotBlank() == true) {
                 deltaSync(account, local, remote, microsoft)
@@ -488,7 +488,7 @@ class MicrosoftSynchronizer @Inject constructor(
     private suspend fun setError(account: CaldavAccount, message: String?) {
         account.error = message
         caldavDao.update(account)
-        localBroadcastManager.broadcastRefreshList()
+        localBroadcastManager.broadcastRefresh()
         if (!isNullOrEmpty(message)) {
             Timber.e(message)
         }

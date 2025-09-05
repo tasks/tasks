@@ -91,8 +91,7 @@ class MainActivityViewModel @Inject constructor(
     private val refreshReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             when (intent?.action) {
-                LocalBroadcastManager.REFRESH,
-                LocalBroadcastManager.REFRESH_LIST -> _updateFilters.update { currentTimeMillis() }
+                LocalBroadcastManager.REFRESH -> _updateFilters.update { currentTimeMillis() }
             }
         }
     }
@@ -216,12 +215,12 @@ class MainActivityViewModel @Inject constructor(
         when (subheader.subheaderType) {
             NavigationDrawerSubheader.SubheaderType.PREFERENCE -> {
                 tasksPreferences.set(booleanPreferencesKey(subheader.id), collapsed)
-                localBroadcastManager.broadcastRefreshList()
+                localBroadcastManager.broadcastRefresh()
             }
             NavigationDrawerSubheader.SubheaderType.CALDAV,
             NavigationDrawerSubheader.SubheaderType.TASKS -> {
                 caldavDao.setCollapsed(subheader.id, collapsed)
-                localBroadcastManager.broadcastRefreshList()
+                localBroadcastManager.broadcastRefresh()
             }
         }
     }

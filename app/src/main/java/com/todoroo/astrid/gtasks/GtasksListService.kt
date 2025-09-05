@@ -55,6 +55,6 @@ class GtasksListService @Inject constructor(
         for (listId in previousLists) {
             taskDeleter.delete(caldavDao.getCalendarById(listId)!!)
         }
-        localBroadcastManager.broadcastRefreshList()
+        localBroadcastManager.broadcastRefresh()
     }
 }

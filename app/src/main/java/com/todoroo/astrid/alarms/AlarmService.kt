@@ -54,7 +54,7 @@ class AlarmService @Inject constructor(
             changed = true
         }
         if (changed) {
-            localBroadcastManager.broadcastRefreshList()
+            localBroadcastManager.broadcastRefresh()
         }
         return changed
     }

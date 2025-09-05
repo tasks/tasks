@@ -72,7 +72,7 @@ class TaskDeleter @Inject constructor(
             caldavCalendar = list,
             cleanup = { cleanup(it) }
         )
-        localBroadcastManager.broadcastRefreshList()
+        localBroadcastManager.broadcastRefresh()
     }
 
     suspend fun delete(account: CaldavAccount) {
@@ -81,7 +81,7 @@ class TaskDeleter @Inject constructor(
             caldavAccount = account,
             cleanup = { cleanup(it) }
         )
-        localBroadcastManager.broadcastRefreshList()
+        localBroadcastManager.broadcastRefresh()
     }
 
     private suspend fun cleanup(tasks: List<Long>) {

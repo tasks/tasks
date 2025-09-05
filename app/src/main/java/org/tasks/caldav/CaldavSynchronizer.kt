@@ -188,7 +188,7 @@ class CaldavSynchronizer @Inject constructor(
                     icon = icon ?: calendar.icon,
                 )
                 caldavDao.update(calendar)
-                localBroadcastManager.broadcastRefreshList()
+                localBroadcastManager.broadcastRefresh()
             }
             resource
                 .principals(account, calendar)
@@ -220,7 +220,7 @@ class CaldavSynchronizer @Inject constructor(
         }
         account.error = message
         caldavDao.update(account)
-        localBroadcastManager.broadcastRefreshList()
+        localBroadcastManager.broadcastRefresh()
         if (!isNullOrEmpty(message)) {
             Timber.e(message)
         }

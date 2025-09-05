@@ -98,7 +98,7 @@ class EtebaseSynchronizer @Inject constructor(
                 calendar.name = meta.name
                 calendar.color = color
                 caldavDao.update(calendar)
-                localBroadcastManager.broadcastRefreshList()
+                localBroadcastManager.broadcastRefresh()
             }
             fetchChanges(account, client, calendar, collection)
             pushLocalChanges(account, client, calendar, collection)
@@ -112,7 +112,7 @@ class EtebaseSynchronizer @Inject constructor(
     private suspend fun setError(account: CaldavAccount, message: String?) {
         account.error = message
         caldavDao.update(account)
-        localBroadcastManager.broadcastRefreshList()
+        localBroadcastManager.broadcastRefresh()
         if (!isNullOrEmpty(message)) {
             Timber.e(message)
         }

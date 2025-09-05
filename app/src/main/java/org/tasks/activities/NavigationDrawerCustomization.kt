@@ -140,7 +140,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
     private inner class RefreshReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent?) {
             val action = intent?.action
-            if (LocalBroadcastManager.REFRESH == action || LocalBroadcastManager.REFRESH_LIST == action) {
+            if (LocalBroadcastManager.REFRESH == action) {
                 updateFilters()
             }
         }

@@ -111,7 +111,7 @@ class OpenTasksSynchronizer @Inject constructor(
         if (local.id == NO_ID) {
             caldavDao.insert(local)
             Timber.d("Created calendar: $local")
-            localBroadcastManager.broadcastRefreshList()
+            localBroadcastManager.broadcastRefresh()
         } else if (
             local.name != remote.name ||
             local.color != remote.color ||
@@ -122,7 +122,7 @@ class OpenTasksSynchronizer @Inject constructor(
             local.access = remote.access
             caldavDao.update(local)
             Timber.d("Updated calendar: $local")
-            localBroadcastManager.broadcastRefreshList()
+            localBroadcastManager.broadcastRefresh()
         }
         return local
     }
@@ -202,7 +202,7 @@ class OpenTasksSynchronizer @Inject constructor(
     private suspend fun setError(account: CaldavAccount, message: String?) {
         account.error = message
         caldavDao.update(account)
-        localBroadcastManager.broadcastRefreshList()
+        localBroadcastManager.broadcastRefresh()
         if (!message.isNullOrBlank()) {
             Timber.e(message)
         }

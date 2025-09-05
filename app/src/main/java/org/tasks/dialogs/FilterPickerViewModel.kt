@@ -86,7 +86,7 @@ class FilterPickerViewModel @Inject constructor(
 
             else -> throw IllegalStateException()
         }
-        localBroadcastManager.broadcastRefreshList()
+        localBroadcastManager.broadcastRefresh()
     }
 
     fun getIcon(filter: Filter): String? = filter.getIcon(inventory)

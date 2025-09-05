@@ -23,7 +23,6 @@ class LocalBroadcastManager @Inject constructor(
     fun registerRefreshListReceiver(broadcastReceiver: BroadcastReceiver?) {
         val intentFilter = IntentFilter()
         intentFilter.addAction(REFRESH)
-        intentFilter.addAction(REFRESH_LIST)
         localBroadcastManager.registerReceiver(broadcastReceiver!!, intentFilter)
     }
 
@@ -45,10 +44,6 @@ class LocalBroadcastManager @Inject constructor(
     fun broadcastRefresh() {
         localBroadcastManager.sendBroadcast(Intent(REFRESH))
         appWidgetManager.updateWidgets()
-    }
-
-    fun broadcastRefreshList() {
-        localBroadcastManager.sendBroadcast(Intent(REFRESH_LIST))
     }
 
     fun broadcastPreferenceRefresh() {
@@ -80,7 +75,6 @@ class LocalBroadcastManager @Inject constructor(
 
     companion object {
         const val REFRESH = "${BuildConfig.APPLICATION_ID}.REFRESH"
-        const val REFRESH_LIST = "${BuildConfig.APPLICATION_ID}.REFRESH_LIST"
         private const val TASK_COMPLETED = "${BuildConfig.APPLICATION_ID}.REPEAT"
         private const val REFRESH_PURCHASES = "${BuildConfig.APPLICATION_ID}.REFRESH_PURCHASES"
         private const val REFRESH_PREFERENCES = "${BuildConfig.APPLICATION_ID}.REFRESH_PREFERENCES"

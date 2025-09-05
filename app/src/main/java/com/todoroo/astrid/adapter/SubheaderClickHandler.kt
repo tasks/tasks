@@ -40,7 +40,7 @@ class SubheaderClickHandler @Inject constructor(
                 CALDAV,
                 TASKS -> caldavDao.setCollapsed(subheader.id, collapsed)
             }
-            localBroadcastManager.broadcastRefreshList()
+            localBroadcastManager.broadcastRefresh()
         }
     }
 
