@@ -1854,20 +1854,23 @@
 +|         |    |    +--- com.google.http-client:google-http-client:1.47.0 (*)
 +|         |    |    \--- com.google.code.gson:gson:2.11.0 -> 2.12.1
 +|         |    \--- com.google.guava:guava:31.1-android -> 33.4.0-android (*)
-+|         +--- com.google.auth:google-auth-library-credentials:1.30.0 -> 1.38.0
-+|         +--- com.google.auth:google-auth-library-oauth2-http:1.30.0 -> 1.38.0
++|         +--- com.google.auth:google-auth-library-credentials:1.30.0 -> 1.39.0
++|         +--- com.google.auth:google-auth-library-oauth2-http:1.30.0 -> 1.39.0
 +|         |    +--- com.google.auto.value:auto-value-annotations:1.11.0
-+|         |    +--- com.google.auth:google-auth-library-credentials:1.38.0
++|         |    +--- com.google.auth:google-auth-library-credentials:1.39.0
 +|         |    +--- com.google.http-client:google-http-client:1.47.0 (*)
 +|         |    +--- com.google.http-client:google-http-client-gson:1.47.0 (*)
 +|         |    +--- com.google.guava:guava:33.4.0-android (*)
++|         |    +--- com.google.api:api-common:2.53.0
++|         |    |    +--- com.google.auto.value:auto-value-annotations:1.11.0
++|         |    |    \--- javax.annotation:javax.annotation-api:1.3.2
 +|         |    \--- com.google.code.gson:gson:2.12.1
 +|         +--- com.google.http-client:google-http-client-gson:1.45.2 -> 1.47.0 (*)
 +|         +--- com.google.guava:guava:33.1.0-jre -> 33.4.0-android (*)
 +|         \--- com.google.http-client:google-http-client:1.45.2 -> 1.47.0 (*)
 ++--- com.google.apis:google-api-services-drive:v3-rev20250819-2.0.0
 +|    \--- com.google.api-client:google-api-client:2.7.2 (*)
-++--- com.google.auth:google-auth-library-oauth2-http:1.38.0 (*)
+++--- com.google.auth:google-auth-library-oauth2-http:1.39.0 (*)
 ++--- androidx.work:work-runtime-ktx:2.10.3
 +|    +--- androidx.work:work-runtime:2.10.3 (*)
 +|    \--- androidx.work:work-runtime:2.10.3 (c)
