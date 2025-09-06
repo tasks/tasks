@@ -8,8 +8,8 @@ import com.etebase.client.Item
 import com.etebase.client.ItemMetadata
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
@@ -64,7 +64,14 @@ class EtebaseClient(
 
     suspend fun updateItem(collection: Collection, task: CaldavTask, content: ByteArray): Item {
         val itemManager = etebase.collectionManager.getItemManager(collection)
-        val item = cache.itemGet(itemManager, collection.uid, task.obj!!)
+        val obj = task.obj
+            ?: run {
+                Timber.e("null obj for caldavTask.id=${task.id}")
+                task.obj = task.remoteId
+                task.obj
+            }
+            ?: throw IllegalStateException("Update failed - missing UUID")
+        val item = cache.itemGet(itemManager, collection.uid, obj)
                 ?: itemManager
                         .create(ItemMetadata().apply { name = task.remoteId!! }, "")
                         .apply {
@@ -78,7 +85,14 @@ class EtebaseClient(
 
     suspend fun deleteItem(collection: Collection, task: CaldavTask): Item? {
         val itemManager = etebase.collectionManager.getItemManager(collection)
-        return cache.itemGet(itemManager, collection.uid, task.obj!!)
+        val objId = task.obj
+            ?: run {
+                Timber.e("null obj for caldavTask.id=${task.id}")
+                task.obj = task.remoteId
+                task.obj
+            }
+            ?: return null
+        return cache.itemGet(itemManager, collection.uid, objId)
                 ?.takeIf { !it.isDeleted }
                 ?.apply {
                     meta = updateMtime(meta)

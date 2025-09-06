@@ -325,9 +325,17 @@ class CaldavSynchronizer @Inject constructor(
         caldavTask: CaldavTask
     ): Boolean {
         try {
-            if (!isNullOrEmpty(caldavTask.obj)) {
+            val objectId = caldavTask.obj
+                ?: run {
+                    Timber.e("null obj for caldavTask.id=${caldavTask.id} task.id=${caldavTask.task}")
+                    caldavTask.obj = caldavTask.remoteId?.let { "$it.ics" }
+                    caldavTask.obj
+                }
+            if (objectId?.isNotBlank() == true) {
                 val remote = DavResource(
-                        httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.obj!!).build())
+                    httpClient = httpClient,
+                    location = httpUrl.newBuilder().addPathSegment(objectId).build(),
+                )
                 remote.delete(null) {}
             }
         } catch (e: HttpException) {
