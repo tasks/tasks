@@ -32,11 +32,11 @@ import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.tasks.BuildConfig
-import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.caldav.property.CalendarIcon
 import org.tasks.caldav.property.Invite
@@ -351,8 +351,8 @@ class CaldavSynchronizer @Inject constructor(
         httpClient: OkHttpClient,
         httpUrl: HttpUrl
     ) {
-        Timber.d("pushing %s", task)
         val caldavTask = caldavDao.getTask(task.id) ?: return
+        Timber.d("pushing caldavTask=$caldavTask task=$task")
         if (task.isDeleted) {
             if (deleteRemoteResource(httpClient, httpUrl, calendar, caldavTask)) {
                 taskDeleter.delete(task)
@@ -361,9 +361,19 @@ class CaldavSynchronizer @Inject constructor(
         }
         val data = iCal.toVtodo(account, calendar, caldavTask, task)
         val requestBody = data.toRequestBody(contentType = MIME_ICALENDAR)
+        val objPath = caldavTask.obj
+            ?: run {
+                Timber.e("null obj for caldavTask.id=${caldavTask.id} task.id=${task.id}")
+                caldavTask.obj = caldavTask.remoteId?.let { "$it.ics" }
+                caldavTask.obj
+            }
+            ?: throw IllegalStateException("Push failed - missing UUID")
+
         try {
             val remote = DavResource(
-                    httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.obj!!).build())
+                httpClient = httpClient,
+                location = httpUrl.newBuilder().addPathSegment(objPath).build(),
+            )
             remote.put(requestBody) {
                 if (it.isSuccessful) {
                     fromResponse(it)?.eTag?.takeIf(String::isNotBlank)?.let { etag ->
