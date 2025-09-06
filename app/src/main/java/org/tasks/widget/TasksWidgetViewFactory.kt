@@ -217,7 +217,7 @@ internal class TasksWidgetViewFactory(
                     R.id.widget_row,
                     Intent(WidgetClickActivity.EDIT_TASK)
                         .putExtra(WidgetClickActivity.EXTRA_FILTER, filter)
-                        .putExtra(WidgetClickActivity.EXTRA_TASK, task)
+                        .putExtra(WidgetClickActivity.EXTRA_TASK_ID, task.id)
                 )
                 if (settings.showCheckboxes) {
                     setViewPadding(
@@ -232,7 +232,8 @@ internal class TasksWidgetViewFactory(
                     setOnClickFillInIntent(
                         R.id.widget_complete_box,
                         Intent(WidgetClickActivity.COMPLETE_TASK)
-                            .putExtra(WidgetClickActivity.EXTRA_TASK, task)
+                            .putExtra(WidgetClickActivity.EXTRA_TASK_ID, task.id)
+                            .putExtra(WidgetClickActivity.EXTRA_COMPLETED, !task.isCompleted)
                     )
                 } else {
                     setViewPadding(R.id.widget_complete_box, hPad, 0, 0, 0)
@@ -250,7 +251,7 @@ internal class TasksWidgetViewFactory(
                     setOnClickFillInIntent(
                         R.id.chip,
                         Intent(WidgetClickActivity.TOGGLE_SUBTASKS)
-                            .putExtra(WidgetClickActivity.EXTRA_TASK, task)
+                            .putExtra(WidgetClickActivity.EXTRA_TASK_ID, task.id)
                             .putExtra(
                                 WidgetClickActivity.EXTRA_COLLAPSED,
                                 !taskContainer.isCollapsed
@@ -332,11 +333,10 @@ internal class TasksWidgetViewFactory(
             setOnClickFillInIntent(
                 dueDateRes,
                 Intent(WidgetClickActivity.RESCHEDULE_TASK)
-                    .putExtra(WidgetClickActivity.EXTRA_TASK, task.task)
+                    .putExtra(WidgetClickActivity.EXTRA_TASK_ID, task.id)
             )
         } else {
             setViewVisibility(dueDateRes, View.GONE)
         }
     }
 }
-

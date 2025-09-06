@@ -9,10 +9,9 @@ import com.todoroo.astrid.service.TaskCompleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
-import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.analytics.Firebase
-import org.tasks.data.entity.Task
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.dialogs.BaseDateTimePicker.OnDismissHandler
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.filters.Filter
@@ -34,28 +33,37 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
         val intent = intent
         val action = intent.action
         if (action.isNullOrEmpty()) {
+            finish()
             return
         }
         when (action) {
             COMPLETE_TASK -> {
-                val task = task
-                Timber.tag("$action task=$task")
-                lifecycleScope.launch(NonCancellable) {
-                    taskCompleter.setComplete(task, !task.isCompleted)
-                    firebase.completeTask("widget")
+                val taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L)
+                val completed = intent.getBooleanExtra(EXTRA_COMPLETED, false)
+                Timber.tag("$action taskId=$taskId completed=$completed")
+                if (taskId > 0) {
+                    lifecycleScope.launch(NonCancellable) {
+                        taskCompleter.setComplete(taskId, completed)
+                        firebase.completeTask("widget")
+                    }
                 }
                 finish()
             }
             EDIT_TASK -> {
                 val filter = intent.getParcelableExtra<Filter?>(EXTRA_FILTER)
-                val task = task
-                Timber.tag("$action task=$task filter=$filter")
-                startActivity(
-                    TaskIntents
-                        .getEditTaskIntent(this, filter, task)
-                        .putExtra(FINISH_AFFINITY, true)
-                )
-                finish()
+                val taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L)
+                Timber.tag("$action taskId=$taskId filter=$filter")
+                lifecycleScope.launch {
+                    if (taskId > 0) {
+                        val task = taskDao.fetch(taskId)
+                        startActivity(
+                            TaskIntents
+                                .getEditTaskIntent(this@WidgetClickActivity, filter, task)
+                                .putExtra(FINISH_AFFINITY, true)
+                        )
+                    }
+                    finish()
+                }
             }
             OPEN_TASK_LIST -> {
                 val filter = intent.getParcelableExtra<Filter?>(EXTRA_FILTER)
@@ -68,23 +76,36 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                 finish()
             }
             TOGGLE_SUBTASKS -> {
-                val task = task
+                val taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L)
                 val collapsed = intent.getBooleanExtra(EXTRA_COLLAPSED, false)
-                Timber.d("$action collapsed=$collapsed task=$task")
-                lifecycleScope.launch(NonCancellable) {
-                    taskDao.setCollapsed(task.id, collapsed)
+                Timber.d("$action collapsed=$collapsed taskId=$taskId")
+                if (taskId > 0) {
+                    lifecycleScope.launch(NonCancellable) {
+                        taskDao.setCollapsed(taskId, collapsed)
+                    }
                 }
                 finish()
             }
             RESCHEDULE_TASK -> {
-                val task = task
-                Timber.d("$action task=$task")
+                val taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L)
+                Timber.d("$action taskId=$taskId")
                 val fragmentManager = supportFragmentManager
                 if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_TIME_PICKER) == null) {
-                    newDateTimePicker(
-                            preferences.getBoolean(R.string.p_auto_dismiss_datetime_widget, false),
-                            task)
-                            .show(fragmentManager, FRAG_TAG_DATE_TIME_PICKER)
+                    lifecycleScope.launch {
+                        val task = taskDao.fetch(taskId)
+                        if (task != null) {
+                            newDateTimePicker(
+                                preferences.getBoolean(
+                                    R.string.p_auto_dismiss_datetime_widget,
+                                    false
+                                ),
+                                task
+                            )
+                                .show(fragmentManager, FRAG_TAG_DATE_TIME_PICKER)
+                        } else {
+                            finish()
+                        }
+                    }
                 }
             }
             TOGGLE_GROUP -> {
@@ -106,12 +127,10 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
             }
             else -> {
                 Timber.e("Unknown action $action")
+                finish()
             }
         }
     }
-
-    val task: Task
-        get() = intent.getParcelableExtra(EXTRA_TASK)!!
 
     override fun onDismiss() {
         finish()
@@ -125,8 +144,9 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
         const val RESCHEDULE_TASK = "RESCHEDULE_TASK"
         const val TOGGLE_GROUP = "TOGGLE_GROUP"
         const val EXTRA_FILTER = "extra_filter"
-        const val EXTRA_TASK = "extra_task" // $NON-NLS-1$
+        const val EXTRA_TASK_ID = "extra_task_id"
         const val EXTRA_COLLAPSED = "extra_collapsed"
+        const val EXTRA_COMPLETED = "extra_completed"
         const val EXTRA_GROUP = "extra_group"
         const val EXTRA_WIDGET = "extra_widget"
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"
