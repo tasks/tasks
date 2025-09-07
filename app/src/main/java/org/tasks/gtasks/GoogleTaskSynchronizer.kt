@@ -182,7 +182,7 @@ class GoogleTaskSynchronizer @Inject constructor(
     private suspend fun pushLocalChanges(account: CaldavAccount, gtasksInvoker: GtasksInvoker): Long? {
         val tasks = taskDao.getGoogleTasksToPush(account.uuid!!)
         for (task in tasks) {
-            val staleTaskId = pushTask(task, gtasksInvoker)
+            val staleTaskId = pushTask(task, account.uuid!!, gtasksInvoker)
             if (staleTaskId != null) {
                 return staleTaskId
             }
@@ -191,8 +191,8 @@ class GoogleTaskSynchronizer @Inject constructor(
     }
 
     @Throws(IOException::class)
-    private suspend fun pushTask(task: org.tasks.data.entity.Task, gtasksInvoker: GtasksInvoker): Long? {
-        for (deleted in googleTaskDao.getDeletedByTaskId(task.id)) {
+    private suspend fun pushTask(task: org.tasks.data.entity.Task, account: String, gtasksInvoker: GtasksInvoker): Long? {
+        for (deleted in googleTaskDao.getDeletedByTaskId(task.id, account)) {
             deleted.remoteId?.let {
                 try {
                     gtasksInvoker.deleteGtask(deleted.calendar, it)
