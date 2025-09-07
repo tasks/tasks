@@ -6,6 +6,7 @@ import android.app.ApplicationExitInfo
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -37,6 +38,7 @@ import org.tasks.location.GeofenceApi
 import org.tasks.opentasks.OpenTaskContentObserver
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.RefreshReceiver
+import org.tasks.receivers.ScreenUnlockReceiver
 import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.sync.SyncAdapters
 import org.tasks.themes.ThemeBase
@@ -140,6 +142,7 @@ class TasksApplication : Application(), Configuration.Provider {
         geofenceApi.get().registerAll()
         appWidgetManager.get().reconfigureWidgets()
         CaldavSynchronizer.registerFactories()
+        registerScreenUnlockReceiver()
     }
 
     override val workManagerConfiguration: Configuration
@@ -162,6 +165,16 @@ class TasksApplication : Application(), Configuration.Provider {
                     InjectingJobIntentService.JOB_ID_REFRESH_RECEIVER,
                     intent)
         }
+    }
+
+    private fun registerScreenUnlockReceiver() {
+        registerReceiver(
+            ScreenUnlockReceiver(appWidgetManager.get()),
+            IntentFilter().apply {
+                addAction(Intent.ACTION_USER_PRESENT)
+                addAction(Intent.ACTION_SCREEN_ON)
+            }
+        )
     }
 
     companion object {
