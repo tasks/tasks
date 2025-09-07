@@ -2,5 +2,7 @@
 * Fix all-day calendar events
 * Fix alarm synchronization
 * Fix sync failure when migrating data from EteSync to CalDAV
+* Fix removing values from Microsoft To Do
+* Fix failure to delete source data when moving to Google Tasks
 * Fix crash when clearing completed while grouping by lists
 * Update translations
