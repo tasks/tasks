@@ -782,10 +782,12 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 colorProvider.getPriorityColor(3))
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onResume() {
         super.onResume()
         listViewModel.invalidate()
         localBroadcastManager.registerTaskCompletedReceiver(repeatConfirmationReceiver)
+        recyclerAdapter?.notifyDataSetChanged() // force rebind to update timestamps (hidden/overdue)
     }
 
     private fun makeSnackbar(@StringRes res: Int, vararg args: Any?): Snackbar? {
