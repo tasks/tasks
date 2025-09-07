@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalSerializationApi::class)
+
 package org.tasks.sync.microsoft
 
 import kotlinx.serialization.EncodeDefault
@@ -17,19 +19,19 @@ data class Tasks(
         @SerialName("@odata.etag") val etag: String? = null,
         val id: String? = null,
         @Redacted val title: String? = null,
-        val body: Body? = null,
+        @EncodeDefault val body: Body? = null,
         @EncodeDefault val importance: Importance = Importance.low,
         @EncodeDefault val status: Status = Status.notStarted,
-        val categories: List<String>? = null,
+        @EncodeDefault val categories: List<String>? = null,
         val isReminderOn: Boolean = false,
         val createdDateTime: String? = null,
         val lastModifiedDateTime: String? = null,
-        val completedDateTime: DateTime? = null,
-        val dueDateTime: DateTime? = null,
+        @EncodeDefault val completedDateTime: DateTime? = null,
+        @EncodeDefault val dueDateTime: DateTime? = null,
         val linkedResources: List<LinkedResource>? = null,
-        val recurrence: Recurrence? = null,
-        val reminderDateTime: DateTime? = null,
-        val checklistItems: List<ChecklistItem>? = null,
+        @EncodeDefault val recurrence: Recurrence? = null,
+        @EncodeDefault val reminderDateTime: DateTime? = null,
+        @EncodeDefault val checklistItems: List<ChecklistItem>? = null,
         @SerialName("@removed") val removed: Removed? = null,
     ) {
         @Serializable
@@ -106,7 +108,7 @@ data class Tasks(
             val displayName: String,
             val createdDateTime: String? = null,
             val isChecked: Boolean,
-            val checkedDateTime: String? = null,
+            @EncodeDefault val checkedDateTime: String? = null,
         )
 
         enum class Importance {
