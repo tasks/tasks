@@ -5,10 +5,10 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.RemoteViews
+import androidx.core.net.toUri
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
 import com.todoroo.astrid.activity.MainActivity.Companion.FINISH_AFFINITY
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,13 +35,11 @@ class TasksWidget : AppWidgetProvider() {
     @Inject @ApplicationContext lateinit var context: Context
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        appWidgetIds.forEach { appWidgetId ->
+        Timber.d("onUpdate appWidgetIds=${appWidgetIds.joinToString { it.toString() }}")
+        appWidgetIds.forEach { id ->
             try {
-                val options = appWidgetManager.getAppWidgetOptions(appWidgetId)
-                appWidgetManager.updateAppWidget(
-                    appWidgetId,
-                    createWidget(context, appWidgetId, options)
-                )
+                val options = appWidgetManager.getAppWidgetOptions(id)
+                appWidgetManager.updateAppWidget(id, createWidget(context, id, options))
             } catch (e: Exception) {
                 Timber.e(e)
             }
@@ -54,10 +52,12 @@ class TasksWidget : AppWidgetProvider() {
             appWidgetId: Int,
             newOptions: Bundle
     ) {
+        Timber.d("onAppWidgetOptionsChanged appWidgetId=$appWidgetId")
         appWidgetManager.updateAppWidget(
             appWidgetId,
             createWidget(context, appWidgetId, newOptions)
         )
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.list_view)
     }
 
     private fun createWidget(context: Context, id: Int, options: Bundle): RemoteViews {
@@ -69,6 +69,8 @@ class TasksWidget : AppWidgetProvider() {
         val filter = runBlocking {
             defaultFilterProvider.getFilterFromPreference(widgetPreferences.filterId)
         }
+        Timber.d("createWidget id=$id filter=$filter")
+
         return RemoteViews(context.packageName, R.layout.scrollable_widget).apply {
             if (settings.showHeader) {
                 setViewVisibility(R.id.widget_header, View.VISIBLE)
@@ -87,11 +89,12 @@ class TasksWidget : AppWidgetProvider() {
                 opacity = widgetPreferences.footerOpacity,
             )
             setOnClickPendingIntent(R.id.empty_view, getOpenListIntent(context, filter, id))
-            val cacheBuster = Uri.parse("tasks://widget/" + currentTimeMillis())
+            val cacheBuster = "tasks://widget/${currentTimeMillis()}".toUri()
             setRemoteAdapter(
                 R.id.list_view,
                 Intent(context, TasksWidgetAdapter::class.java)
                     .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id)
+                    .putExtra("extra_cache_buster", cacheBuster)
                     .setData(cacheBuster)
             )
             setPendingIntentTemplate(R.id.list_view, getPendingIntentTemplate(context))

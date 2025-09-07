@@ -66,9 +66,12 @@ internal class TasksWidgetViewFactory(
         chipProvider.isDark = settings.isDark
     }
 
-    override fun onCreate() {}
+    override fun onCreate() {
+        Timber.d("onCreate widgetId:$widgetId filter:$filter")
+    }
 
     override fun onDataSetChanged() {
+        Timber.v("onDataSetChanged $filter")
         runBlocking {
             val collapsed = widgetPreferences.collapsed
             tasks = SectionedDataSource(
@@ -87,7 +90,9 @@ internal class TasksWidgetViewFactory(
         }
     }
 
-    override fun onDestroy() {}
+    override fun onDestroy() {
+        Timber.d("onDestroy widgetId:$widgetId")
+    }
 
     override fun getCount() = tasks.size.coerceAtMost(taskLimit)
 

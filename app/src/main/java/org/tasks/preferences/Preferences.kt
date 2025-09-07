@@ -6,12 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Binder
 import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import androidx.preference.PreferenceManager
@@ -30,8 +28,6 @@ import org.tasks.extensions.Context.getResourceUri
 import org.tasks.kmp.org.tasks.themes.ColorProvider.BLUE_500
 import org.tasks.themes.ThemeBase
 import org.tasks.time.DateTime
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import org.tasks.time.ONE_WEEK
 import timber.log.Timber
 import java.io.File
 import java.net.URI

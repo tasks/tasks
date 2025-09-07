@@ -13,6 +13,7 @@ import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.HeaderFormatter
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,6 +33,7 @@ class TasksWidgetAdapter : RemoteViewsService() {
         val filter = runBlocking {
             defaultFilterProvider.getFilterFromPreference(widgetPreferences.filterId)
         }
+        Timber.d("onGetViewFactory $filter")
         return TasksWidgetViewFactory(
             subtasksHelper,
             widgetPreferences,
