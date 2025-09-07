@@ -1,7 +1,9 @@
-### 14.8.2 (2025-09-04)
+### 14.8.2 (2025-09-06)
 
-* Fix all-day calendar events
-* Fix alarm synchronization
+* Fix blank widgets on Android 16 QPR1 [#3847](https://github.com/tasks/tasks/issues/3847)
+* Fix all-day calendar events [#1534](https://github.com/tasks/tasks/issues/1534)
+* Fix alarm synchronization [#3859](https://github.com/tasks/tasks/issues/3859)
+* Fix sync failure when migrating data from EteSync to CalDAV [#3869](https://github.com/tasks/tasks/issues/3869)
 * Fix crash when clearing completed while grouping by lists
 * Update translations
   * Croatian - @milotype
