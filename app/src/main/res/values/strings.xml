@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="ok">OK</string>
+  <string name="checkbox_style">Checkbox/Bullet style</string>
+  <string name="checkbox_style_default">Default</string>
+  <string name="checkbox_style_round">Round</string>
+  <string name="checkbox_style_summary">Choose the appearance for checkboxes and bullets in lists.</string>
   <string name="cancel">Cancel</string>
   <string name="actfm_picture_clear">Clear Picture</string>
   <string name="TVA_add_comment">Add a comment…</string>

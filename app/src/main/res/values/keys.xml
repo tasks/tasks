@@ -4,6 +4,7 @@
   These should not be translated 
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <string name="p_checkbox_style">checkbox_style</string>
   <string name="app_package">org.tasks</string>
   <string name="opentasks_authority" tools:node="replace">org.tasks.opentasks</string>
   <string name="backup_api_key">AEdPqrEAAAAI49v5bBusi_bq1bgLBB1LIsepNV0eBrFkQrBZkw</string>
