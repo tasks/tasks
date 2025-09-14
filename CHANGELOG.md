@@ -1,10 +1,11 @@
-### 14.8.2 (2025-09-07)
+### 14.8.2 (2025-09-14)
 
 * Fix blank widgets on Android 16 QPR1 [#3847](https://github.com/tasks/tasks/issues/3847)
 * Fix all-day calendar events [#1534](https://github.com/tasks/tasks/issues/1534)
 * Fix alarm synchronization [#3859](https://github.com/tasks/tasks/issues/3859)
 * Fix sync failure when migrating data from EteSync to CalDAV [#3869](https://github.com/tasks/tasks/issues/3869)
 * Fix removing values from Microsoft To Do [#3862](https://github.com/tasks/tasks/issues/3862)
+* Fix share invites for Nextcloud [#2386](https://github.com/tasks/tasks/issues/2386)
 * Fix failure to delete source data when moving to Google Tasks [#3867](https://github.com/tasks/tasks/issues/3867)
 * Fix crash when clearing completed while grouping by lists
 * Update translations
