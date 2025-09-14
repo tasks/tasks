@@ -743,5 +743,4 @@
     <string name="continue_without_sync">Continua sin sincronizar</string>
     <string name="help_me_choose">Ayudame a escoger</string>
     <string name="delete_tasks_warning">%s será eliminado. ¡Esto no se puede deshacer!</string>
-    <string name="widget_view_more_tasks">Ver más tareas</string>
 </resources>

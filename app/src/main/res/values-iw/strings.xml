@@ -745,5 +745,4 @@
     <string name="continue_without_sync">להמשיך ללא סנכרון</string>
     <string name="help_me_choose">עזור לי לבחור</string>
     <string name="delete_tasks_warning">%s יימחק. לא ניתן לבטל זאת!</string>
-    <string name="widget_view_more_tasks">הצג עוד משימות</string>
 </resources>

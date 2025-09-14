@@ -743,5 +743,4 @@
     <string name="help_me_choose">Aidez-moi à choisir</string>
     <string name="delete_tasks_warning">%s sera supprimé. Cette opération est irréversible !</string>
     <string name="multiline_title_off">Appuyer sur Terminé pour enregistrer la tâche</string>
-    <string name="widget_view_more_tasks">Voir plus de tâches</string>
 </resources>

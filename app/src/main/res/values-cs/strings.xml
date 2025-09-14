@@ -743,5 +743,4 @@
     <string name="help_me_choose">Pomozte mi s výběrem</string>
     <string name="delete_tasks_warning">Úkol %s bude odstraněn. Tato akce je nevratná!</string>
     <string name="continue_without_sync">Pokračovat bez synchronizace</string>
-    <string name="widget_view_more_tasks">Zobrazit další úkoly</string>
 </resources>

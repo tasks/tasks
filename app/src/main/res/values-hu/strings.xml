@@ -721,5 +721,4 @@
     <string name="continue_without_sync">Folytatás szinkronizálás nélkül</string>
     <string name="help_me_choose">Segítséget kérek a választásban</string>
     <string name="multiline_title_off">Kattints a Kész gombra a feladat elmentéséhez</string>
-    <string name="widget_view_more_tasks">További feladatok megtekintése</string>
 </resources>

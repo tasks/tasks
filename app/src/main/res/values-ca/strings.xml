@@ -743,5 +743,4 @@
     <string name="sync_warning_google_tasks_title">Sobre la sincronització de Google Tasks</string>
     <string name="sync_warning_google_tasks">No tots els detalls de la tasca es sincronitzen amb Google Tasks</string>
     <string name="button_learn_more">Més informació</string>
-    <string name="widget_view_more_tasks">Mostreu més tasques</string>
 </resources>

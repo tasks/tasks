@@ -743,5 +743,4 @@
     <string name="task_defaults">Подразумевано за задатке</string>
     <string name="CFC_importance_text">Минимум приоритета ?</string>
     <string name="caldav_home_set_not_found">Сет није пронађен</string>
-    <string name="widget_view_more_tasks">Погледај још задатака</string>
 </resources>

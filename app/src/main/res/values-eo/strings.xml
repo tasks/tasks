@@ -721,5 +721,4 @@
     <string name="delete_tasks_warning">Forigas %s. Ne eblas malfari tion!</string>
     <string name="continue_without_sync">Daŭrigi sen sinkronigo</string>
     <string name="help_me_choose">Helpu min elekti</string>
-    <string name="widget_view_more_tasks">Vidi pli da taskoj</string>
 </resources>

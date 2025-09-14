@@ -710,5 +710,4 @@
     <string name="continue_without_sync">继续但不同步</string>
     <string name="help_me_choose">帮我选择</string>
     <string name="delete_tasks_warning">%s 将会删除。此操作无法撤销！</string>
-    <string name="widget_view_more_tasks">查看更多任务</string>
 </resources>

@@ -721,5 +721,4 @@
     <string name="continue_without_sync">Fortsæt uden synkronisering</string>
     <string name="help_me_choose">Hjælp mig med at vælge</string>
     <string name="delete_tasks_warning">%s bliver slettet. Dette kan ikke fortrydes!</string>
-    <string name="widget_view_more_tasks">Vis flere opgaver</string>
 </resources>

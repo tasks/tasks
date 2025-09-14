@@ -743,5 +743,4 @@
     <string name="continue_without_sync">Continua senza sincronizzazione</string>
     <string name="help_me_choose">Aiutami a scegliere</string>
     <string name="delete_tasks_warning">%s verrà cancellato. L\'operazione non può essere annullata!</string>
-    <string name="widget_view_more_tasks">Visualizza ulteriori attività</string>
 </resources>
