@@ -12,6 +12,8 @@ import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_NEXTCLOUD
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OWNCLOUD
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_WRITE
 import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
@@ -96,10 +98,10 @@ class CaldavCalendarViewModel @Inject constructor(
         list: CaldavCalendar,
         input: String
     ) = doRequest {
-        val href = if (account.serverType == CaldavAccount.SERVER_OWNCLOUD)
-            "principal:principals/users/$input"
-        else
-            "mailto:$input"
+        val href = when (account.serverType) {
+            SERVER_OWNCLOUD, SERVER_NEXTCLOUD -> "principal:principals/users/$input"
+            else -> "mailto:$input"
+        }
         withContext(Dispatchers.IO) {
             provider.forAccount(account, list.url!!).share(account, href)
         }

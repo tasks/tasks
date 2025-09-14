@@ -56,6 +56,7 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.ERROR_UNAUTHORIZED
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_NEXTCLOUD
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OPEN_XCHANGE
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OWNCLOUD
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_SABREDAV
@@ -203,7 +204,11 @@ class CaldavSynchronizer @Inject constructor(
 
     private fun getServerType(account: CaldavAccount, headers: Headers) = when {
         account.isTasksOrg -> SERVER_TASKS
-        headers["DAV"]?.contains("oc-resource-sharing") == true -> SERVER_OWNCLOUD
+        headers["DAV"]?.contains("oc-resource-sharing") == true ->
+            if (headers["DAV"]?.let { it.contains("nextcloud-") || it.contains("nc-") } == true)
+                SERVER_NEXTCLOUD
+            else
+                SERVER_OWNCLOUD
         headers["x-sabre-version"]?.isNotBlank() == true -> SERVER_SABREDAV
         headers["server"] == "Openexchange WebDAV" -> SERVER_OPEN_XCHANGE
         else -> SERVER_UNKNOWN

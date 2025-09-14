@@ -225,8 +225,8 @@ open class CaldavClient(
         href: String,
     ) {
         when (account.serverType) {
-            SERVER_TASKS, SERVER_SABREDAV, SERVER_NEXTCLOUD -> shareSabredav(href)
-            SERVER_OWNCLOUD -> shareOwncloud(href)
+            SERVER_TASKS, SERVER_SABREDAV -> shareSabredav(href)
+            SERVER_OWNCLOUD, SERVER_NEXTCLOUD -> shareOwncloud(href)
             else -> throw IllegalArgumentException()
         }
     }
@@ -265,8 +265,8 @@ open class CaldavClient(
         href: String,
     ) {
         when (account.serverType) {
-            SERVER_TASKS, SERVER_SABREDAV, SERVER_NEXTCLOUD -> removeSabrePrincipal(calendar, href)
-            SERVER_OWNCLOUD -> removeOwncloudPrincipal(calendar, href)
+            SERVER_TASKS, SERVER_SABREDAV -> removeSabrePrincipal(calendar, href)
+            SERVER_OWNCLOUD, SERVER_NEXTCLOUD -> removeOwncloudPrincipal(calendar, href)
             else -> throw IllegalArgumentException()
         }
     }

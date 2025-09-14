@@ -15,7 +15,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -35,7 +34,6 @@ import org.tasks.data.entity.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.themes.TasksTheme
-import org.tasks.themes.colorOn
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -72,7 +70,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                             val openDialog = rememberSaveable { mutableStateOf(false) }
                             ShareInviteDialog(
                                 openDialog,
-                                email = caldavAccount.serverType != SERVER_OWNCLOUD
+                                email = caldavAccount.serverType !in listOf(SERVER_OWNCLOUD, SERVER_NEXTCLOUD),
                             ) { input ->
                                 lifecycleScope.launch {
                                     share(input)
