@@ -22,7 +22,7 @@ data class Tasks(
         @EncodeDefault val body: Body? = null,
         @EncodeDefault val importance: Importance = Importance.low,
         @EncodeDefault val status: Status = Status.notStarted,
-        @EncodeDefault val categories: List<String>? = null,
+        val categories: List<String>? = null,
         val isReminderOn: Boolean = false,
         val createdDateTime: String? = null,
         val lastModifiedDateTime: String? = null,
@@ -31,7 +31,7 @@ data class Tasks(
         val linkedResources: List<LinkedResource>? = null,
         @EncodeDefault val recurrence: Recurrence? = null,
         @EncodeDefault val reminderDateTime: DateTime? = null,
-        @EncodeDefault val checklistItems: List<ChecklistItem>? = null,
+        val checklistItems: List<ChecklistItem>? = null,
         @SerialName("@removed") val removed: Removed? = null,
     ) {
         @Serializable

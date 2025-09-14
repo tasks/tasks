@@ -11,15 +11,14 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.call.body
 import io.ktor.http.isSuccess
 import kotlinx.serialization.json.Json
-import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavAccount.Companion.ERROR_UNAUTHORIZED
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_WRITE
@@ -403,6 +402,7 @@ class MicrosoftSynchronizer @Inject constructor(
                 list = list,
                 parentId = task.id,
                 parentRemoteId = caldavTask.remoteId!!,
+                parentCompletionDate = task.completionDate,
                 checklistItems = it,
             )
         }
@@ -421,6 +421,7 @@ class MicrosoftSynchronizer @Inject constructor(
         list: CaldavCalendar,
         parentId: Long,
         parentRemoteId: String,
+        parentCompletionDate: Long,
         checklistItems: List<Tasks.Task.ChecklistItem>,
     ) {
         val existingSubtasks: List<CaldavTask> = taskDao.getChildren(parentId).let { caldavDao.getTasks(it) }
@@ -451,6 +452,7 @@ class MicrosoftSynchronizer @Inject constructor(
             } else {
                 task.applySubtask(
                     parent = parentId,
+                    parentCompletionDate = parentCompletionDate,
                     checklistItem = item,
                 )
             }

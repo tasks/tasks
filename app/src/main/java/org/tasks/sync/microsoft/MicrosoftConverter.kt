@@ -25,14 +25,15 @@ object MicrosoftConverter {
 
     fun Task.applySubtask(
         parent: Long,
+        parentCompletionDate: Long,
         checklistItem: Tasks.Task.ChecklistItem,
     ) {
         this.parent = parent
         title = checklistItem.displayName
         completionDate = if (checklistItem.isChecked) {
-            checklistItem.checkedDateTime?.parseDateTime() ?: System.currentTimeMillis()
+            checklistItem.checkedDateTime.parseDateTime()
         } else {
-            0L
+            parentCompletionDate
         }
         creationDate = checklistItem.createdDateTime.parseDateTime()
     }
@@ -120,7 +121,7 @@ object MicrosoftConverter {
             } else {
                 Tasks.Task.Status.notStarted
             },
-            categories = tags.map { it.name!! }.takeIf { it.isNotEmpty() },
+            categories = tags.map { it.name!! }.takeIf { it.isNotEmpty() } ?: emptyList(),
             dueDateTime = if (hasDueDate()) {
                 Tasks.Task.DateTime(
                         dateTime = DateTime(dueDate).startOfDay().toString(DATE_TIME_FORMAT),
