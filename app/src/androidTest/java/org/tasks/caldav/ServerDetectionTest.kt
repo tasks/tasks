@@ -1,13 +1,13 @@
 package org.tasks.caldav
 
-import org.tasks.data.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.tasks.data.UUIDHelper
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_NEXTCLOUD
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OPEN_XCHANGE
-import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OWNCLOUD
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_SABREDAV
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_UNKNOWN
@@ -36,7 +36,7 @@ class ServerDetectionTest : CaldavTest() {
 
         sync()
 
-        assertEquals(SERVER_OWNCLOUD, loadAccount().serverType)
+        assertEquals(SERVER_NEXTCLOUD, loadAccount().serverType)
     }
 
     @Test

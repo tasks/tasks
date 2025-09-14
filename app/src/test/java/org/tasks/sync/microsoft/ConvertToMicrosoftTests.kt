@@ -91,7 +91,7 @@ class ConvertToMicrosoftTests {
     @Test
     fun noCategories() {
         val remote = newTask().toRemote()
-        assertNull(remote.categories)
+        assertEquals(true, remote.categories?.isEmpty())
     }
 
     @Test
