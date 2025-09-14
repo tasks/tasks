@@ -3,7 +3,6 @@ package org.tasks.widget
 import android.content.Context
 import android.widget.RemoteViews
 import androidx.annotation.ColorInt
-import com.mikepenz.iconics.IconicsDrawable
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
@@ -19,7 +18,6 @@ import org.tasks.filters.Filter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import org.tasks.filters.getIcon
-import org.tasks.icons.OutlinedGoogleMaterial
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.time.startOfDay
@@ -115,14 +113,16 @@ class WidgetChipProvider @Inject constructor(
             setTextViewText(R.id.chip_text, filter.title)
             filter
                 .getIcon(inventory)
-                ?.let {
+                ?.let { iconName ->
                     try {
-                        OutlinedGoogleMaterial.getIcon("gmo_$it")
-                    } catch (_: IllegalArgumentException) {
-                        null
+                        val iconUri = WidgetIconProvider.getIconUri(
+                            iconName = iconName,
+                        )
+                        setImageViewUri(R.id.chip_icon, iconUri)
+                    } catch (_: Exception) {
+                        setImageViewResource(R.id.chip_icon, defaultIcon)
                     }
                 }
-                ?.let { setImageViewBitmap(R.id.chip_icon, IconicsDrawable(context, it).toBitmap()) }
                 ?: setImageViewResource(R.id.chip_icon, defaultIcon)
         }
 

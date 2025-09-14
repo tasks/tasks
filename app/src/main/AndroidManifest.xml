@@ -387,6 +387,13 @@
         android:resource="@xml/file_provider_paths"/>
     </provider>
 
+    <provider
+        android:name=".widget.WidgetIconProvider"
+        android:authorities="${applicationId}.widgeticons"
+        android:exported="true"
+        android:grantUriPermissions="true"
+        tools:ignore="ExportedContentProvider" />
+
     <receiver
       android:name="org.dmfs.provider.tasks.TaskProviderBroadcastReceiver"
       tools:node="remove"/>
