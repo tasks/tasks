@@ -721,4 +721,5 @@
     <string name="delete_tasks_warning">Задачата %s ще бъде премахната. Действието е необратимо!</string>
     <string name="continue_without_sync">Без синхронизиране</string>
     <string name="help_me_choose">Помощ в избора</string>
+    <string name="widget_view_more_tasks">Повече задачи</string>
 </resources>
