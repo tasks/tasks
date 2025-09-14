@@ -51,7 +51,7 @@ internal class TasksWidgetViewFactory(
     private val markdown: Markdown,
     private val headerFormatter: HeaderFormatter,
 ) : RemoteViewsFactory {
-    private val taskLimit = if (atLeastAndroid16()) 175 + 1 else Int.MAX_VALUE
+    private val taskLimit = if (atLeastAndroid16()) 50 + 1 else Int.MAX_VALUE
     private val indentPadding = (20 * context.resources.displayMetrics.density).toInt()
     private val settings = widgetPreferences.getWidgetListSettings()
     private val hPad = context.resources.getDimension(R.dimen.widget_padding).toInt()
