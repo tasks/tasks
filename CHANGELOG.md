@@ -1,3 +1,7 @@
+### 14.8.3 (2025-09-16)
+
+* Fix crash on Android 10 and below
+
 ### 14.8.2 (2025-09-14)
 
 * Fix blank widgets on Android 16 QPR1 [#3847](https://github.com/tasks/tasks/issues/3847)
