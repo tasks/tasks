@@ -13,9 +13,45 @@ jobs:
   bundle:
     uses: ./.github/workflows/bundle.yml
     secrets: inherit
+
+  release-test:
+    runs-on: ubuntu-latest
+    needs: [bundle]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v5
+
+      - name: Download release artifacts
+        uses: actions/download-artifact@v5
+        with:
+          name: release
+          path: build-outputs
+
+      - name: Run release Android tests
+        uses: ./.github/actions/setup-emulator
+        with:
+          api-level: 29
+          script: |
+            # Install the pre-built APKs
+            adb install build-outputs/app/build/outputs/apk/googleplayRelease/universal.apk
+            adb install build-outputs/app/build/outputs/apk/androidTest/googleplayRelease/app-googleplay-release-androidTest.apk
+
+            # Run tests without rebuilding
+            ./gradlew app:connectedGoogleplayReleaseAndroidTest \
+              -x :app:packageGoogleplayRelease \
+              -x :app:assembleGoogleplayRelease \
+              -x :app:assembleGoogleplayReleaseAndroidTest
+
+      - name: Upload release test reports
+        uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: release-test-reports-googleplay
+          path: app/build/reports/**
+
   deploy:
     runs-on: ubuntu-latest
-    needs: [ bundle ]
+    needs: [ bundle, release-test ]
     steps:
       - uses: actions/checkout@v5
       - name: Fastlane key

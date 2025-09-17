@@ -25,7 +25,7 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
@@ -43,6 +43,26 @@ jobs:
           MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
           GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
         run: bundle exec fastlane bundle
+
+      - name: Install bundletool
+        run: |
+          wget -q https://github.com/google/bundletool/releases/download/1.17.2/bundletool-all-1.17.2.jar
+          sudo mv bundletool-all-1.17.2.jar /usr/local/bin/bundletool.jar
+          echo '#!/bin/bash' | sudo tee /usr/local/bin/bundletool
+          echo 'java -jar /usr/local/bin/bundletool.jar "$@"' | sudo tee -a /usr/local/bin/bundletool
+          sudo chmod +x /usr/local/bin/bundletool
+
+      - name: Extract APKs from bundles
+        env:
+          KEY_PATH: ${{ runner.temp }}/keystore.jks
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+        run: bundle exec fastlane apkFromBundle
+
+      - name: Build test APK
+        run: ./gradlew app:assembleGoogleplayReleaseAndroidTest
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:

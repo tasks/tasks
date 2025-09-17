@@ -69,4 +69,37 @@ platform :android do
             }
         )
   end
+
+  desc "Generate APKs from bundles"
+  lane :apkFromBundle do
+    app_bundle = "app/build/outputs/bundle/googleplayRelease/app-googleplay-release.aab"
+    wear_bundle = "wear/build/outputs/bundle/release/wear-release.aab"
+    app_bundle_dir = "app/build/outputs/apk/googleplayRelease"
+    wear_bundle_dir = "wear/build/outputs/apk/release"
+    
+    sh(
+        "bundletool",
+        "build-apks",
+        "--output-format", "DIRECTORY",
+        "--bundle", app_bundle,
+        "--output", app_bundle_dir,
+        "--mode", "universal",
+        "--ks", ENV["KEY_PATH"],
+        "--ks-pass", "pass:#{ENV["KEY_STORE_PASSWORD"]}",
+        "--ks-key-alias", ENV["KEY_ALIAS"],
+        "--key-pass", "pass:#{ENV["KEY_PASSWORD"]}",
+    )
+    sh(
+        "bundletool",
+        "build-apks",
+        "--output-format", "DIRECTORY",
+        "--bundle", wear_bundle,
+        "--output", wear_bundle_dir,
+        "--mode", "universal",
+        "--ks", ENV["KEY_PATH"],
+        "--ks-pass", "pass:#{ENV["KEY_STORE_PASSWORD"]}",
+        "--ks-key-alias", ENV["KEY_ALIAS"],
+        "--key-pass", "pass:#{ENV["KEY_PASSWORD"]}",
+    )
+  end
 end
