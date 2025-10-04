@@ -23,6 +23,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Abc
@@ -54,6 +55,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
@@ -384,16 +386,31 @@ object FilterCondition {
             Row {
                 for (index in items.indices) {
                     val highlight = (index == selected.intValue)
-                    val color =
-                        if (highlight) MaterialTheme.colorScheme.secondary.copy(alpha = 0.5f)
-                        else MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
                     OutlinedButton(
                         onClick = { selected.intValue = index },
-                        border = BorderStroke(1.dp, SolidColor(color.copy(alpha = 0.5f))),
+                        border = BorderStroke(
+                            width = 1.dp,
+                            brush = SolidColor(
+                                if (highlight) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
+                                }
+                            )
+                        ),
                         colors = ButtonDefaults.outlinedButtonColors(
-                            containerColor = color.copy(alpha = 0.2f),
-                            contentColor = MaterialTheme.colorScheme.onBackground),
-                        shape = RoundedCornerShape(Constants.HALF_KEYLINE)
+                            containerColor = if (highlight) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f)
+                            },
+                            contentColor = if (highlight) {
+                                MaterialTheme.colorScheme.onPrimary
+                            } else {
+                                MaterialTheme.colorScheme.onBackground
+                            },
+                        ),
+                        shape = RoundedCornerShape(Constants.HALF_KEYLINE),
                     ) {
                         Text(items[index])
                     }
@@ -484,6 +501,9 @@ object FilterCondition {
                                 contentDescription = null
                             )
                         },
+                        keyboardOptions = KeyboardOptions(
+                            capitalization = KeyboardCapitalization.Sentences
+                        ),
                         textStyle = MaterialTheme.typography.bodyMedium.copy(
                             textDirection = TextDirection.Content
                         ),
