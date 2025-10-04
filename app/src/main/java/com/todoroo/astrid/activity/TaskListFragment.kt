@@ -106,11 +106,13 @@ import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.entity.Task
 import org.tasks.data.listSettingsClass
 import org.tasks.data.open
+import org.tasks.data.sql.Field
 import org.tasks.data.sql.QueryTemplate
 import org.tasks.databinding.FragmentTaskListBinding
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.PriorityPicker.Companion.newPriorityPicker
+import org.tasks.dialogs.RescheduleAssistant.Companion.newRescheduleAssistant
 import org.tasks.dialogs.SortSettingsActivity
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.extensions.Context.is24HourFormat
@@ -629,6 +631,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         return when (item.itemId) {
             R.id.menu_settings -> {
                 settingsLauncher.launch(Intent(context, MainPreferences::class.java))
+                true
+            }
+            R.id.menu_reschedule_assistant -> {
+                newRescheduleAssistant().show(parentFragmentManager, FRAG_TAG_RESCHEDULE_ASSISTANT)
                 true
             }
             R.id.menu_search -> {
@@ -1220,6 +1226,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         private const val VOICE_RECOGNITION_REQUEST_CODE = 1234
         const val EXTRA_FILTER = "extra_filter"
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"
+        private const val FRAG_TAG_RESCHEDULE_ASSISTANT = "frag_tag_reschedule_assistant"
         private const val FRAG_TAG_PRIORITY_PICKER = "frag_tag_priority_picker"
         private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
         private const val REQUEST_TAG_TASKS = 10106
