@@ -64,6 +64,8 @@ androidx-test = "1.7.0"
 androidx-test-runner = "1.7.0"
 xpp3 = "1.1.6"
 wearCompose = "1.5.1"
+animation = "1.9.2"
+foundationLayout = "1.9.2"
 
 [libraries]
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
@@ -200,6 +202,8 @@ io-grpc-grpc-binder = { group = "io.grpc", name = "grpc-binder", version.ref = "
 io-grpc-grpc-kotlin = { group = "io.grpc", name = "grpc-kotlin-stub", version = "1.4.3" }
 io-grpc-protobuf-lite = { group = "io.grpc", name = "grpc-protobuf-lite", version.ref = "grpc" }
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
+androidx-compose-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "animation" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

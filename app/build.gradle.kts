@@ -156,6 +156,8 @@ dependencies {
     implementation(projects.icons)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.adaptive.navigation.android)
+    implementation(libs.androidx.compose.animation)
+    implementation(libs.androidx.compose.foundation.layout)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.bitfire.dav4jvm) {
         exclude(group = "junit")

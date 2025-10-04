@@ -78,6 +78,7 @@ class DateTimePicker : BaseDateTimePicker() {
         const val NO_TIME = 0
         const val MULTIPLE_DAYS = -1L
         const val MULTIPLE_TIMES = -1
+        const val NO_SELECTION = -2L
 
         fun newDateTimePicker(
             autoClose: Boolean,
