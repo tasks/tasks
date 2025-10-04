@@ -57,7 +57,6 @@ class TasksWidget : AppWidgetProvider() {
             appWidgetId,
             createWidget(context, appWidgetId, newOptions)
         )
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.list_view)
     }
 
     private fun createWidget(context: Context, id: Int, options: Bundle): RemoteViews {
@@ -94,7 +93,6 @@ class TasksWidget : AppWidgetProvider() {
                 R.id.list_view,
                 Intent(context, TasksWidgetAdapter::class.java)
                     .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id)
-                    .putExtra("extra_cache_buster", cacheBuster)
                     .setData(cacheBuster)
             )
             setPendingIntentTemplate(R.id.list_view, getPendingIntentTemplate(context))

@@ -1,18 +1,20 @@
 package org.tasks.widget
 
-import android.app.Activity
 import android.appwidget.AppWidgetManager
-import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.R
+import org.tasks.compose.throttleLatest
 import org.tasks.injection.ApplicationScope
 import timber.log.Timber
 import javax.inject.Inject
@@ -22,6 +24,19 @@ class AppWidgetManager @Inject constructor(
     @ApplicationScope private val scope: CoroutineScope,
 ) {
     private val appWidgetManager: AppWidgetManager? = AppWidgetManager.getInstance(context)
+    private val updateChannel = Channel<Unit>(Channel.CONFLATED)
+
+    init {
+        updateChannel
+            .consumeAsFlow()
+            .throttleLatest(1000)
+            .onEach {
+                val appWidgetIds = widgetIds
+                Timber.d("updateWidgets: ${appWidgetIds.joinToString { it.toString() }}")
+                notifyAppWidgetViewDataChanged(appWidgetIds)
+            }
+            .launchIn(scope)
+    }
 
     val widgetIds: IntArray
         get() = appWidgetManager
@@ -37,31 +52,11 @@ class AppWidgetManager @Inject constructor(
             .putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
             .apply { action = AppWidgetManager.ACTION_APPWIDGET_UPDATE }
 
-        context.sendOrderedBroadcast(
-            intent,
-            null,
-            object : BroadcastReceiver() {
-                override fun onReceive(context: Context, intent: Intent) {
-                    scope.launch {
-                        Timber.d("Update widgets after reconfigure: ${appWidgetIds.joinToString { it.toString() }}")
-                        // I don't like it, but this seems to give Android enough time to update
-                        // the cache, and I don't have time to rewrite this in Glance right now
-                        delay(100)
-                        notifyAppWidgetViewDataChanged(ids)
-                    }
-                }
-            },
-            null,
-            Activity.RESULT_OK,
-            null,
-            null
-        )
+        context.sendBroadcast(intent)
     }
 
-    fun updateWidgets() = scope.launch {
-        val appWidgetIds = widgetIds
-        Timber.d("updateWidgets: ${appWidgetIds.joinToString { it.toString() }}")
-        notifyAppWidgetViewDataChanged(appWidgetIds)
+    fun updateWidgets() {
+        updateChannel.trySend(Unit)
     }
 
     fun exists(id: Int) = appWidgetManager?.getAppWidgetInfo(id) != null
