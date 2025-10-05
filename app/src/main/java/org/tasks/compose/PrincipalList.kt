@@ -47,7 +47,7 @@ private val principals = listOf(
     ),
     PrincipalWithAccess(
         PrincipalAccess(list = 0, invite = INVITE_ACCEPTED),
-        Principal(account = 0, href = "", displayName = "a really really really really really long display name")
+        Principal(account = 0, href = "", displayName = "a really, really, really really, really, long display name")
     )
 )
 

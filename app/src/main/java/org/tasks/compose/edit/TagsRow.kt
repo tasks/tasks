@@ -112,7 +112,7 @@ fun TagWithReallyLongName() {
         TagsRow(
             tags = persistentSetOf(
                 TagData(
-                    name = "This is a tag with a really really long name",
+                    name = "This is a tag with a really, really, long name",
                     icon = "home",
                     color = BLUE_500
                 )
