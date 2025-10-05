@@ -189,7 +189,7 @@ class Astrid2TaskProvider : ContentProvider() {
     /**
      * Return tags as a list of strings separated by given separator
      *
-     * @return empty string if no tags, otherwise string
+     * @return empty string if no tags; otherwise, string
      */
     private fun getTagsAsString(taskId: Long, separator: String) =
             hilt().contentProviderDao.getTagNames(taskId).joinToString(separator)
