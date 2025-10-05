@@ -38,7 +38,7 @@ class TranslationTests {
         return Resources(resources.assets, resources.displayMetrics, configuration)
     }
 
-    /** check if string contains contains substrings  */
+    /** check if string contains substrings  */
     private fun contains(r: Resources, resource: Int, failures: StringBuilder, expected: String) {
         val translation = r.getString(resource)
         if (!translation.contains(expected)) {
