@@ -95,7 +95,7 @@ fun TitleInput(
     if (requestKeyboard) {
         LaunchedEffect(null) {
             requester.requestFocus()
-            delay(30) // Workaround. Otherwise keyboard don't show in 4/5 tries
+            delay(30) // Workaround. Otherwise, keyboard don't show in 4/5 tries
             keyboardController?.show()
         }
     }
