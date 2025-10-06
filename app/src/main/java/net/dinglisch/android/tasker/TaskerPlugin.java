@@ -200,7 +200,7 @@ public class TaskerPlugin {
         } else {
           String callerPackage = callingActivity.getPackageName();
 
-          // Tasker only supporteed this from 1.0.10
+          // Tasker only supported this from 1.0.10
           supportedFlag =
               (callerPackage.startsWith(BASE_KEY))
                   && (getPackageVersionCode(editActivity.getPackageManager(), callerPackage)
