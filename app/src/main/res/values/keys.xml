@@ -210,7 +210,7 @@
   <!-- default reminder mode setting (corresponds to entry in TEA_reminder_mode_once, TEA_reminder_mode_five, TEA_reminder_mode_nonstop) -->
   <string name="p_default_reminders_mode_key">rmd_default_reminder_mode</string>
 
-  <!-- on calendar end at dealline if true, start at deadline if false -->
+  <!-- on calendar end at deadline if true, start at deadline if false -->
   <string name="p_end_at_deadline">p_end_at_deadline</string>
 
   <!-- ============================================================ OTHER == -->
