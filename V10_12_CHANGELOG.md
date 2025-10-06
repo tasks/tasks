@@ -84,7 +84,7 @@
   * Swedish - @reportxx
   * Turkish - @ersen0
   * Ukrainian - @IhorHordiichuk
-  * Urdue - @Crystal-RainSlide
+  * Urdu - @Crystal-RainSlide
   * Vietnamese - @unbaseduser
 
 ### 12.5 (2022-02-27)
