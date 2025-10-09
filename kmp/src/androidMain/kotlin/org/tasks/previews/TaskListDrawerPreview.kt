@@ -49,7 +49,7 @@ fun MenuPreview() {
                     ),
                 ),
                 DrawerItem.Filter(
-                    title = "A really really really really really really really really really really really really really long title",
+                    title = "A really, really, really, really, really, really, really, really, really, really, really, really, really, long title",
                     icon = TasksIcons.CLOUD,
                     filter = FilterImpl(),
                     count = 123456,

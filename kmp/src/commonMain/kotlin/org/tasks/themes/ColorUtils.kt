@@ -16,7 +16,7 @@ fun contentColorFor(backgroundColor: Int): Color =
 fun calculateContrast(foreground: Int, background: Int): Double {
     var foreground = foreground
     require(alpha(background) == 255) {
-        ("background can not be translucent: #" + Integer.toHexString(background))
+        ("background cannot be translucent: #" + Integer.toHexString(background))
     }
     if (alpha(foreground) < 255) {
         // If the foreground is translucent, composite the foreground over the background

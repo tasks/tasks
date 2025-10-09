@@ -30,7 +30,7 @@ object PermaSql {
     /** value to be replaced by end of day tomorrow as long  */
     const val VALUE_EOD_TOMORROW: String = "EODT()" // $NON-NLS-1$
 
-    /** value to be replaced by end of day day after tomorrow as long  */
+    /** value to be replaced by end of day the day after tomorrow as long  */
     const val VALUE_EOD_DAY_AFTER: String = "EODTT()" // $NON-NLS-1$
 
     /** value to be replaced by end of day next week as long  */
