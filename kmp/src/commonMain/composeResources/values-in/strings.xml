@@ -27,4 +27,5 @@
     <string name="today_lowercase">hari ini</string>
     <string name="show_unstarted">Tampilkan yang belum dimulai</string>
     <string name="show_completed">Tampilkan selesai</string>
+    <string name="requires_pro_subscription">Fitur Pro</string>
 </resources>
