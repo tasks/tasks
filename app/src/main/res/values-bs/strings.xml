@@ -109,4 +109,7 @@
     <string name="CFC_importance_name">Prioritet…</string>
     <string name="week_before_due">Sedmica prije roka</string>
     <string name="TEA_control_repeat">Ponovi</string>
+    <string name="app_settings">Postavke aplikacije</string>
+    <string name="customize_drawer">Prilagodi meni</string>
+    <string name="customize_drawer_summary">Povuci i pusti za promjenu rasporeda u meniju</string>
 </resources>
