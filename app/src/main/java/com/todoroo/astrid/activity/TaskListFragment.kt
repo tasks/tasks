@@ -99,6 +99,7 @@ import org.tasks.compose.SubscriptionNagBanner
 import org.tasks.compose.SyncWarningGoogleTasks
 import org.tasks.compose.SyncWarningMicrosoft
 import org.tasks.data.TaskContainer
+import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.db.Database
@@ -111,6 +112,7 @@ import org.tasks.databinding.FragmentTaskListBinding
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.PriorityPicker.Companion.newPriorityPicker
+import org.tasks.dialogs.RescheduleAssistant.Companion.newRescheduleAssistant
 import org.tasks.dialogs.SortSettingsActivity
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.extensions.Context.is24HourFormat
@@ -629,6 +631,12 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         return when (item.itemId) {
             R.id.menu_settings -> {
                 settingsLauncher.launch(Intent(context, MainPreferences::class.java))
+                true
+            }
+            R.id.menu_reschedule_assistant -> {
+                newRescheduleAssistant(
+                    getQuery(preferences, filter)
+                ).show(parentFragmentManager, FRAG_TAG_RESCHEDULE_ASSISTANT)
                 true
             }
             R.id.menu_search -> {
@@ -1220,6 +1228,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         private const val VOICE_RECOGNITION_REQUEST_CODE = 1234
         const val EXTRA_FILTER = "extra_filter"
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"
+        private const val FRAG_TAG_RESCHEDULE_ASSISTANT = "frag_tag_reschedule_assistant"
         private const val FRAG_TAG_PRIORITY_PICKER = "frag_tag_priority_picker"
         private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
         private const val REQUEST_TAG_TASKS = 10106

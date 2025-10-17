@@ -43,4 +43,9 @@
         android:icon="@drawable/ic_outline_mic_none_24px"
         android:title="@string/EPr_voiceInputEnabled_title"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_reschedule_assistant"
+        android:icon="@drawable/outline_wand_stars_24"
+        android:title="Reschule assistant"
+        app:showAsAction="always" />
 </menu>
