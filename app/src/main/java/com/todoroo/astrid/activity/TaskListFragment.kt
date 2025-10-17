@@ -99,6 +99,7 @@ import org.tasks.compose.SubscriptionNagBanner
 import org.tasks.compose.SyncWarningGoogleTasks
 import org.tasks.compose.SyncWarningMicrosoft
 import org.tasks.data.TaskContainer
+import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.db.Database
@@ -106,7 +107,6 @@ import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.entity.Task
 import org.tasks.data.listSettingsClass
 import org.tasks.data.open
-import org.tasks.data.sql.Field
 import org.tasks.data.sql.QueryTemplate
 import org.tasks.databinding.FragmentTaskListBinding
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
@@ -634,7 +634,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_reschedule_assistant -> {
-                newRescheduleAssistant().show(parentFragmentManager, FRAG_TAG_RESCHEDULE_ASSISTANT)
+                newRescheduleAssistant(
+                    getQuery(preferences, filter)
+                ).show(parentFragmentManager, FRAG_TAG_RESCHEDULE_ASSISTANT)
                 true
             }
             R.id.menu_search -> {

@@ -34,7 +34,10 @@ class RescheduleAssistantViewModel @Inject constructor(
 
     private val skippedTasks = mutableListOf<Task>()
 
-    init {
+    private var filter = ""
+
+    fun initData(filter: String){
+        this.filter = filter
         getNextTask()
     }
 
@@ -83,14 +86,10 @@ class RescheduleAssistantViewModel @Inject constructor(
 
     fun getNextTask() {
         viewModelScope.launch {
-            val tasks = taskDao.getActiveTasks()
-
+            val tasks = taskDao.fetchTasks(filter).map { it.task }
             val tasksToReschedule = tasks
                 .filter { task -> task.isOverdue || isToday(task.dueDate) }
                 .filter { !skippedTasks.contains(it) }
-                .sortedBy { it.title }
-                .sortedBy { it.priority }
-                .sortedBy { it.dueDate }
 
             tasksToReschedule.firstOrNull().let { task ->
                 _viewState.update { state ->

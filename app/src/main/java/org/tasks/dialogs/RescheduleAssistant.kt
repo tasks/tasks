@@ -90,7 +90,15 @@ class RescheduleAssistant : DialogFragment() {
     private var selectedDay by mutableLongStateOf(NO_DAY)
     private val today = newDateTime().startOfDay()
 
+    private val filter: String
+        get() = arguments?.getString(EXTRA_FILTER).orEmpty()
+
     private val rescheduleAssistantViewModel: RescheduleAssistantViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        rescheduleAssistantViewModel.initData(filter)
+    }
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreateView(
@@ -324,12 +332,17 @@ class RescheduleAssistant : DialogFragment() {
 
     companion object {
         const val NO_DAY = 0L
+        const val EXTRA_FILTER = "extra_filter"
         private const val REQUEST_DATE_RESCHEDULE_ASSISTANT = 754454
         private const val FRAG_TAG_DATE_PICKER_RESCHEDULE_ASSISTANT =
             "frag_tag_date_picker_reschedule_assistant"
 
-        fun newRescheduleAssistant(): RescheduleAssistant {
+        fun newRescheduleAssistant(filterString : String): RescheduleAssistant {
+            val bundle = Bundle()
+            bundle.putString(EXTRA_FILTER, filterString)
+
             val fragment = RescheduleAssistant()
+            fragment.arguments = bundle
             return fragment
         }
     }
