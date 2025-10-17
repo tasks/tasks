@@ -732,4 +732,5 @@ File %1$s contained %2$s.\n\n
   <string name="reschedule_done">Done</string>
   <string name="reschedule_skip">Skip</string>
   <string name="reschedule_all_tasks_done">All tasks rescheduled!</string>
+  <string name="reschedule_custom">Custom</string>
 </resources>

@@ -214,7 +214,7 @@ class RescheduleAssistant : DialogFragment() {
                     )
                     ShortcutButton(
                         icon = Icons.Outlined.Menu,
-                        text = "Custom",
+                        text = getString(R.string.reschedule_custom),
                         onClick = {
                             DateTimePicker
                                 .newDateTimePicker(
