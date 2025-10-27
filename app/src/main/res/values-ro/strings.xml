@@ -672,7 +672,7 @@
     <string name="enable_reminders">Activează memento-uri</string>
     <string name="enable_reminders_description">Reamintirile sunt dezactivate în Setări Android</string>
     <string name="TEA_creation_date">Data creării</string>
-    <string name="default_reminder">Reamintire implicită</string>
+    <string name="default_reminder">Memento implicit</string>
     <string name="rmd_time_description">Afișează notificări pentru sarcinile fără termene limită</string>
     <string name="consent_agree">De acord</string>
     <string name="consent_deny">Nu acum</string>
@@ -748,4 +748,5 @@
     <string name="delete_tasks_warning">%s va fi șters. Acest lucru nu poate fi anulat!</string>
     <string name="banner_app_updated_title">Aplicație actualizată</string>
     <string name="banner_app_updated_description">Tasks a fost actualizată la versiunea %s. Dorești să vezi modificările făcute?</string>
+    <string name="widget_view_more_tasks">Vezi mai multe sarcini</string>
 </resources>
