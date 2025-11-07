@@ -18,6 +18,7 @@ import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.RepeatFrom
 import org.tasks.data.setRecurrence
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.date.DateTimeUtils2.currentTimeMillis
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 import org.tasks.time.ONE_HOUR
@@ -61,7 +62,7 @@ class RepeatTaskHelper @Inject constructor(
             task.setRecurrence(rrule)
         }
         task.reminderLast = 0L
-        task.completionDate = 0L
+        task.completionDate = task.completionDate = currentTimeMillis()
         val oldDueDate = task.dueDate
         task.setDueDateAdjustingHideUntil(newDueDate)
         gcalHelper.rescheduleRepeatingTask(task)
