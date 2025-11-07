@@ -62,7 +62,7 @@ class RepeatTaskHelper @Inject constructor(
             task.setRecurrence(rrule)
         }
         task.reminderLast = 0L
-        task.completionDate = task.completionDate = currentTimeMillis()
+        task.completionDate = currentTimeMillis()
         val oldDueDate = task.dueDate
         task.setDueDateAdjustingHideUntil(newDueDate)
         gcalHelper.rescheduleRepeatingTask(task)
