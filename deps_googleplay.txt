@@ -742,8 +742,8 @@
 +|    |    +--- androidx.datastore:datastore-preferences:1.1.7 (*)
 +|    |    +--- androidx.datastore:datastore-preferences-proto:1.1.7 (*)
 +|    |    +--- androidx.datastore:datastore:1.1.7 (*)
-+|    |    +--- com.google.protobuf:protobuf-kotlin-lite:4.26.1 -> 4.32.1
-+|    |    |    +--- com.google.protobuf:protobuf-javalite:4.32.1
++|    |    +--- com.google.protobuf:protobuf-kotlin-lite:4.26.1 -> 4.33.0
++|    |    |    +--- com.google.protobuf:protobuf-javalite:4.33.0
 +|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.0 -> 2.2.0 (*)
 +|    |    \--- androidx.wear:wear-remote-interactions:1.1.0 (*)
 +|    \--- com.google.android.gms:play-services-wearable:19.0.0 (*)
@@ -759,7 +759,7 @@
 +|    +--- io.grpc:grpc-protobuf-lite:1.73.0
 +|    |    +--- io.grpc:grpc-api:1.73.0
 +|    |    |    \--- com.google.guava:guava:33.3.1-android -> 33.4.0-android (*)
-+|    |    +--- com.google.protobuf:protobuf-javalite:3.25.5 -> 4.32.1
++|    |    +--- com.google.protobuf:protobuf-javalite:3.25.5 -> 4.33.0
 +|    |    \--- com.google.guava:guava:33.3.1-android -> 33.4.0-android (*)
 +|    +--- io.grpc:grpc-kotlin-stub:1.4.3
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.0 -> 2.2.0 (*)
@@ -878,7 +878,7 @@
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.2.0 (*)
 +|    +--- com.google.android.horologist:horologist-datalayer:0.7.15 (*)
 +|    +--- androidx.datastore:datastore-preferences:1.1.7 (*)
-+|    \--- com.google.protobuf:protobuf-kotlin-lite:4.32.1 (*)
++|    \--- com.google.protobuf:protobuf-kotlin-lite:4.33.0 (*)
 ++--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.1.21 (*)
 ++--- project :data
 +|    +--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations:1.13.0
