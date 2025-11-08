@@ -159,7 +159,7 @@ markwon-strikethrough = { module = "io.noties.markwon:ext-strikethrough", versio
 markwon-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markwon" }
 markwon-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwon" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
-microsoft-authentication = { module = "com.microsoft.identity.client:msal", version = "7.0.3" }
+microsoft-authentication = { module = "com.microsoft.identity.client:msal", version = "7.1.0" }
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
