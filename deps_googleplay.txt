@@ -1787,7 +1787,7 @@
 ++--- androidx.lifecycle:lifecycle-runtime-compose:2.9.3 -> 2.9.4 (*)
 ++--- androidx.lifecycle:lifecycle-viewmodel:2.9.3 -> 2.9.4 (*)
 ++--- androidx.room:room-runtime:2.8.3 (*)
-++--- androidx.sqlite:sqlite-bundled:2.5.2 -> 2.6.1
+++--- androidx.sqlite:sqlite-bundled:2.6.1
 +|    \--- androidx.sqlite:sqlite-bundled-android:2.6.1
 +|         +--- androidx.sqlite:sqlite:2.6.1 (*)
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.2.0 (*)
