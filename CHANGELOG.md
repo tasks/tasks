@@ -1,3 +1,14 @@
+### 14.8.4 (2025-11-08)
+
+* Fix flashing widgets
+* Fix deadlock when adding new task
+* Fix Hebrew and Indonesian support
+* Update translations
+  * Bosnian - @hasak
+  * Finnish - @pHamala
+  * Indonesian - @erigmac
+  * Japanese - @array
+
 ### 14.8.3 (2025-09-16)
 
 * Fix crash on Android 10 and below
