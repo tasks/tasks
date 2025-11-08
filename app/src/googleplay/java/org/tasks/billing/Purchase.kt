@@ -31,7 +31,7 @@ class Purchase(private val purchase: Purchase) {
         get() = purchase.signature
 
     val sku: String
-        get() = purchase.skus.first()
+        get() = purchase.products.first()
 
     val purchaseToken: String
         get() = purchase.purchaseToken
@@ -55,7 +55,7 @@ class Purchase(private val purchase: Purchase) {
         get() {
             val matcher = PATTERN.matcher(sku)
             if (matcher.matches()) {
-                val price = matcher.group(2).toInt()
+                val price = matcher.group(2)?.toInt()
                 return if (price == 499) 5 else price
             }
             return null

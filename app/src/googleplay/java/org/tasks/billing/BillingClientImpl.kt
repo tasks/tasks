@@ -4,27 +4,24 @@ import android.app.Activity
 import android.content.Context
 import com.android.billingclient.api.AcknowledgePurchaseParams
 import com.android.billingclient.api.BillingClient.BillingResponseCode
-import com.android.billingclient.api.BillingClient.SkuType
+import com.android.billingclient.api.BillingClient.ProductType
 import com.android.billingclient.api.BillingClient.newBuilder
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
-import com.android.billingclient.api.BillingFlowParams.ProrationMode
+import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
 import com.android.billingclient.api.BillingFlowParams.SubscriptionUpdateParams
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.ConsumeParams
 import com.android.billingclient.api.Purchase.PurchaseState
-import com.android.billingclient.api.PurchasesResult
 import com.android.billingclient.api.PurchasesUpdatedListener
-import com.android.billingclient.api.SkuDetailsParams
+import com.android.billingclient.api.QueryProductDetailsParams
+import com.android.billingclient.api.QueryPurchasesParams
 import com.android.billingclient.api.consumePurchase
-import com.android.billingclient.api.queryPurchasesAsync
-import com.android.billingclient.api.querySkuDetails
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
 import org.tasks.BuildConfig
 import org.tasks.analytics.Firebase
 import org.tasks.jobs.WorkManager
@@ -49,32 +46,61 @@ class BillingClientImpl(
 
     override suspend fun getSkus(skus: List<String>): List<Sku> =
         executeServiceRequest {
-            val skuDetailsResult = withContext(Dispatchers.IO) {
-                billingClient.querySkuDetails(
-                    SkuDetailsParams
-                        .newBuilder()
-                        .setType(SkuType.SUBS)
-                        .setSkusList(skus)
-                        .build()
-                )
+            val productList = skus.map {
+                QueryProductDetailsParams.Product.newBuilder()
+                    .setProductId(it)
+                    .setProductType(ProductType.SUBS)
+                    .build()
             }
-            skuDetailsResult.billingResult.let {
+            val params = QueryProductDetailsParams.newBuilder()
+                .setProductList(productList)
+                .build()
+
+            val productDetailsResult = withContext(Dispatchers.IO) {
+                suspendCoroutine { cont ->
+                    billingClient.queryProductDetailsAsync(params) { billingResult, productDetailsList ->
+                        cont.resume(billingResult to productDetailsList)
+                    }
+                }
+            }
+
+            productDetailsResult.first.let {
                 if (!it.success) {
                     throw IllegalStateException(it.responseCodeString)
                 }
             }
-            val json = Json { ignoreUnknownKeys = true }
-            skuDetailsResult
-                .skuDetailsList
-                ?.map { json.decodeFromString<Sku>(it.originalJson) }
-                ?: emptyList()
+
+            productDetailsResult.second?.map { productDetails ->
+                Sku(
+                    productId = productDetails.productId,
+                    price = productDetails.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice
+                        ?: productDetails.oneTimePurchaseOfferDetails?.formattedPrice
+                        ?: ""
+                )
+            } ?: emptyList()
         }
 
     override suspend fun queryPurchases(throwError: Boolean) = try {
         executeServiceRequest {
             withContext(Dispatchers.IO + NonCancellable) {
-                val subs = billingClient.queryPurchasesAsync(SkuType.SUBS)
-                val iaps = billingClient.queryPurchasesAsync(SkuType.INAPP)
+                val subsParams = QueryPurchasesParams.newBuilder()
+                    .setProductType(ProductType.SUBS)
+                    .build()
+                val iapsParams = QueryPurchasesParams.newBuilder()
+                    .setProductType(ProductType.INAPP)
+                    .build()
+
+                val subs = suspendCoroutine { cont ->
+                    billingClient.queryPurchasesAsync(subsParams) { billingResult, purchases ->
+                        cont.resume(PurchasesResult(billingResult, purchases))
+                    }
+                }
+                val iaps = suspendCoroutine { cont ->
+                    billingClient.queryPurchasesAsync(iapsParams) { billingResult, purchases ->
+                        cont.resume(PurchasesResult(billingResult, purchases))
+                    }
+                }
+
                 if (subs.success || iaps.success) {
                     withContext(Dispatchers.Main) {
                         inventory.clear()
@@ -105,7 +131,7 @@ class BillingClientImpl(
         purchases?.forEach {
             firebase.reportIabResult(
                 result.responseCodeString,
-                it.skus.joinToString(","),
+                it.products.joinToString(","),
                 it.purchaseState.purchaseStateString
             )
         }
@@ -122,31 +148,57 @@ class BillingClientImpl(
         oldPurchase: Purchase?
     ) {
         executeServiceRequest {
-            val skuDetailsResult = withContext(Dispatchers.IO) {
-                billingClient.querySkuDetails(
-                    SkuDetailsParams.newBuilder().setSkusList(listOf(sku)).setType(skuType)
-                        .build()
-                )
+            val productList = listOf(
+                QueryProductDetailsParams.Product.newBuilder()
+                    .setProductId(sku)
+                    .setProductType(skuType)
+                    .build()
+            )
+            val queryParams = QueryProductDetailsParams.newBuilder()
+                .setProductList(productList)
+                .build()
+
+            val productDetailsResult = withContext(Dispatchers.IO) {
+                suspendCoroutine { cont ->
+                    billingClient.queryProductDetailsAsync(queryParams) { billingResult, productDetailsList ->
+                        cont.resume(billingResult to productDetailsList)
+                    }
+                }
             }
-            skuDetailsResult.billingResult.let {
+
+            productDetailsResult.first.let {
                 if (!it.success) {
                     throw IllegalStateException(it.responseCodeString)
                 }
             }
-            val skuDetails =
-                skuDetailsResult
-                    .skuDetailsList
-                    ?.firstOrNull()
-                    ?: throw IllegalStateException("Sku $sku not found")
-            val params = BillingFlowParams.newBuilder().setSkuDetails(skuDetails)
+
+            val productDetails = productDetailsResult.second?.firstOrNull()
+                ?: throw IllegalStateException("Product $sku not found")
+
+            val productDetailsParamsBuilder = ProductDetailsParams.newBuilder()
+                .setProductDetails(productDetails)
+
+            // For subscriptions (including legacy subscriptions), we need to provide an offer token
+            if (skuType == ProductType.SUBS) {
+                val offerToken = productDetails.subscriptionOfferDetails?.firstOrNull()?.offerToken
+                    ?: throw IllegalStateException("No offer token found for subscription $sku")
+                productDetailsParamsBuilder.setOfferToken(offerToken)
+            }
+
+            val productDetailsParams = productDetailsParamsBuilder.build()
+
+            val params = BillingFlowParams.newBuilder()
+                .setProductDetailsParamsList(listOf(productDetailsParams))
+
             oldPurchase?.let {
                 params.setSubscriptionUpdateParams(
                     SubscriptionUpdateParams.newBuilder()
-                        .setOldSkuPurchaseToken(it.purchaseToken)
-                        .setReplaceSkusProrationMode(ProrationMode.IMMEDIATE_WITH_TIME_PRORATION)
+                        .setOldPurchaseToken(it.purchaseToken)
+                        .setSubscriptionReplacementMode(BillingFlowParams.SubscriptionUpdateParams.ReplacementMode.WITH_TIME_PRORATION)
                         .build()
                 )
             }
+
             if (activity is OnPurchasesUpdated) {
                 onPurchasesUpdated = activity
             }
@@ -214,16 +266,27 @@ class BillingClientImpl(
                 ConsumeParams.newBuilder().setPurchaseToken(purchase.purchaseToken).build(),
             )
             Timber.d("consume purchase: ${result.billingResult.responseCodeString}")
-            queryPurchases()
+            queryPurchases(throwError = false)
         }
     }
 
-    companion object {
-        const val TYPE_SUBS = SkuType.SUBS
-        const val STATE_PURCHASED = PurchaseState.PURCHASED
-
-        private val PurchasesResult.success: Boolean
+    private data class PurchasesResult(
+        val billingResult: BillingResult,
+        val purchasesList: List<com.android.billingclient.api.Purchase>
+    ) {
+        val success: Boolean
             get() = billingResult.responseCode == BillingResponseCode.OK
+
+        val responseCodeString: String
+            get() = billingResult.responseCodeString
+
+        val purchases: List<com.android.billingclient.api.Purchase>
+            get() = purchasesList
+    }
+
+    companion object {
+        const val TYPE_SUBS = ProductType.SUBS
+        const val STATE_PURCHASED = PurchaseState.PURCHASED
 
         private val BillingResult.success: Boolean
             get() = responseCode == BillingResponseCode.OK
@@ -251,11 +314,5 @@ class BillingClientImpl(
                 PurchaseState.PENDING -> "PENDING"
                 else -> this.toString()
             }
-
-        private val PurchasesResult.responseCodeString: String
-            get() = billingResult.responseCodeString
-
-        private val PurchasesResult.purchases: List<com.android.billingclient.api.Purchase>
-            get() = purchasesList
     }
 }
