@@ -349,7 +349,7 @@ class DateUtilitiesTest {
     }
 
     @Test
-    fun hebrewDateTimeNoYear() = withLocale(Locale.forLanguageTag("iw")) {
+    fun hebrewDateTimeNoYear() = withLocale(Locale.forLanguageTag("he")) {
         freezeAt(DateTime(2018, 12, 12)) {
             assertMatches(
                 "יום ראשון, 14 בינואר( בשעה)? 13:45",
@@ -359,7 +359,7 @@ class DateUtilitiesTest {
     }
 
     @Test
-    fun hebrewDateTimeWithYear() = withLocale(Locale.forLanguageTag("iw")) {
+    fun hebrewDateTimeWithYear() = withLocale(Locale.forLanguageTag("he")) {
         freezeAt(DateTime(2017, 12, 12)) {
             assertMatches(
                 "יום ראשון, 14 בינואר 2018( בשעה)? 13:45",

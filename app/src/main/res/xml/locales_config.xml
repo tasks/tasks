@@ -29,8 +29,10 @@
     <locale android:name="hy" />
     <locale android:name="ia" />
     <locale android:name="id" />
+    <locale android:name="in" />
     <locale android:name="it" />
     <locale android:name="iw" />
+    <locale android:name="he" />
     <locale android:name="ja" />
     <locale android:name="kmr" />
     <locale android:name="kn" />
