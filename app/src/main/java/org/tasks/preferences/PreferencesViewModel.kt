@@ -2,6 +2,7 @@ package org.tasks.preferences
 
 import android.content.ContentResolver
 import android.content.Context
+import android.net.Uri
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -51,8 +52,16 @@ class PreferencesViewModel @Inject constructor(
         get() = isStale(lastDriveBackup.value) && isStale(lastAndroidBackup.value)
 
     val usingPrivateStorage: Boolean
-        get() = preferences.backupDirectory.let {
-            it == null || it.toString().startsWith(preferences.externalStorage.toString())
+        get() = preferences.backupDirectory.let { backupDir ->
+            val backupDirStr = backupDir?.toString() ?: return true
+            context
+                .getExternalFilesDir(null)
+                ?.let {
+                    if (backupDirStr.startsWith(Uri.fromFile(it).toString())) {
+                        return true
+                    }
+                }
+            return backupDirStr.startsWith(Uri.fromFile(context.filesDir).toString())
         }
 
     val driveAccount: String?

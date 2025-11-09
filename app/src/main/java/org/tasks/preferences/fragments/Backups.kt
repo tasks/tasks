@@ -257,7 +257,7 @@ class Backups : InjectingPreferenceFragment() {
             pref.summary = """
                 $location
 
-                ${requireContext().getString(R.string.backup_location_warning, FileHelper.uri2String(preferences.externalStorage))}
+                ${requireContext().getString(R.string.backup_location_warning, FileHelper.uri2String(preferences.appPrivateStorage))}
             """.trimIndent()
         } else {
             pref.icon = null

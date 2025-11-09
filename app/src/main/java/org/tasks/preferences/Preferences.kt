@@ -378,7 +378,7 @@ class Preferences @JvmOverloads constructor(
     val backupDirectory: Uri?
         get() = getDirectory(R.string.p_backup_dir, "backups")
 
-    val externalStorage: Uri
+    val appPrivateStorage: Uri
         get() = root.uri
 
     val attachmentsDirectory: Uri?
@@ -412,13 +412,12 @@ class Preferences @JvmOverloads constructor(
                     ?: getDefaultFileLocation(name)?.let { Uri.fromFile(it) }
 
     private val root: DocumentFile
-        get() = DocumentFile.fromFile(context.getExternalFilesDir(null)!!)
+        get() = DocumentFile.fromFile(context.getExternalFilesDir(null) ?: context.filesDir)
 
     private fun getDefaultFileLocation(type: String): File? {
-        val externalFilesDir = context.getExternalFilesDir(null) ?: return null
-        val path = String.format("%s/%s", externalFilesDir.absolutePath, type)
-        val file = File(path)
-        return if (file.isDirectory || file.mkdirs()) file else null
+        val baseDir = context.getExternalFilesDir(null) ?: context.filesDir
+        val path = File(baseDir, type)
+        return if (path.isDirectory || path.mkdirs()) path else null
     }
 
     private fun hasWritePermission(context: Context, uri: Uri): Boolean =
