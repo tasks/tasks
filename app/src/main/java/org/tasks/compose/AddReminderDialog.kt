@@ -25,10 +25,11 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -62,22 +63,98 @@ import java.util.concurrent.TimeUnit
 
 @ExperimentalComposeUiApi
 object AddReminderDialog {
+    // Helper functions for converting between Alarm properties and UI state
+    private fun unitIndexToMillis(unitIndex: Int): Long = when (unitIndex) {
+        1 -> TimeUnit.HOURS.toMillis(1)
+        2 -> TimeUnit.DAYS.toMillis(1)
+        3 -> TimeUnit.DAYS.toMillis(7)
+        else -> TimeUnit.MINUTES.toMillis(1)
+    }
+
+    private fun timeToAmountAndUnit(time: Long): Pair<Int, Int> {
+        val absTime = kotlin.math.abs(time)
+        return when {
+            absTime == 0L -> 0 to 0 // Default to minutes when time is 0
+            absTime % TimeUnit.DAYS.toMillis(7) == 0L ->
+                (absTime / TimeUnit.DAYS.toMillis(7)).toInt() to 3
+            absTime % TimeUnit.DAYS.toMillis(1) == 0L ->
+                (absTime / TimeUnit.DAYS.toMillis(1)).toInt() to 2
+            absTime % TimeUnit.HOURS.toMillis(1) == 0L ->
+                (absTime / TimeUnit.HOURS.toMillis(1)).toInt() to 1
+            else ->
+                (absTime / TimeUnit.MINUTES.toMillis(1)).toInt() to 0
+        }
+    }
+
     @Composable
     fun AddRandomReminderDialog(
-        viewState: ViewState,
-        addAlarm: (Alarm) -> Unit,
+        alarm: Alarm?,
+        updateAlarm: (Alarm) -> Unit,
         closeDialog: () -> Unit,
     ) {
-        val time = rememberSaveable { mutableStateOf(15) }
-        val units = rememberSaveable { mutableStateOf(0) }
-        if (viewState.showRandomDialog) {
+        // Create working copy from alarm or use defaults
+        var workingCopy by rememberSaveable {
+            mutableStateOf(alarm ?: Alarm(time = 15 * TimeUnit.MINUTES.toMillis(1), type = TYPE_RANDOM))
+        }
+
+        AlertDialog(
+            onDismissRequest = closeDialog,
+            text = {
+                AddRandomReminder(
+                    alarm = workingCopy,
+                    updateAlarm = { workingCopy = it }
+                )
+            },
+            confirmButton = {
+                Constants.TextButton(text = R.string.ok, onClick = {
+                    val (amount, _) = timeToAmountAndUnit(workingCopy.time)
+                    if (amount > 0) {
+                        updateAlarm(workingCopy)
+                        closeDialog()
+                    }
+                })
+            },
+            dismissButton = {
+                Constants.TextButton(
+                    text = R.string.cancel,
+                    onClick = closeDialog
+                )
+            },
+        )
+    }
+
+    @Composable
+    fun AddCustomReminderDialog(
+        alarm: Alarm?,
+        updateAlarm: (Alarm) -> Unit,
+        closeDialog: () -> Unit,
+    ) {
+        // Create working copy from alarm or use defaults
+        var workingCopy by rememberSaveable {
+            mutableStateOf(
+                alarm ?: Alarm(
+                    time = -1 * 15 * TimeUnit.MINUTES.toMillis(1),
+                    type = TYPE_REL_END
+                )
+            )
+        }
+        var showRecurringDialog by rememberSaveable { mutableStateOf(false) }
+
+        if (!showRecurringDialog) {
             AlertDialog(
                 onDismissRequest = closeDialog,
-                text = { AddRandomReminder(time, units) },
+                text = {
+                    AddCustomReminder(
+                        alarm = workingCopy,
+                        updateAlarm = { workingCopy = it },
+                        showRecurring = { showRecurringDialog = true }
+                    )
+                },
                 confirmButton = {
                     Constants.TextButton(text = R.string.ok, onClick = {
-                        time.value.takeIf { it > 0 }?.let { i ->
-                            addAlarm(Alarm(time = i * units.millis, type = TYPE_RANDOM))
+                        val (amount, _) = timeToAmountAndUnit(workingCopy.time)
+                        if (amount >= 0) {
+                            updateAlarm(workingCopy)
                             closeDialog()
                         }
                     })
@@ -89,137 +166,74 @@ object AddReminderDialog {
                     )
                 },
             )
-        } else {
-            time.value = 15
-            units.value = 0
         }
-    }
 
-    @Composable
-    fun AddCustomReminderDialog(
-        viewState: ViewState,
-        addAlarm: (Alarm) -> Unit,
-        closeDialog: () -> Unit,
-    ) {
-        val openDialog = viewState.showCustomDialog
-        val time = rememberSaveable { mutableStateOf(15) }
-        val units = rememberSaveable { mutableStateOf(0) }
-        val openRecurringDialog = rememberSaveable { mutableStateOf(false) }
-        val interval = rememberSaveable { mutableStateOf(0) }
-        val recurringUnits = rememberSaveable { mutableStateOf(0) }
-        val repeat = rememberSaveable { mutableStateOf(0) }
-        if (openDialog) {
-            if (!openRecurringDialog.value) {
-                AlertDialog(
-                    onDismissRequest = closeDialog,
-                    text = {
-                        AddCustomReminder(
-                            time,
-                            units,
-                            interval,
-                            recurringUnits,
-                            repeat,
-                            showRecurring = {
-                                openRecurringDialog.value = true
-                            }
-                        )
-                    },
-                    confirmButton = {
-                        Constants.TextButton(text = R.string.ok, onClick = {
-                            time.value.takeIf { it >= 0 }?.let { i ->
-                                addAlarm(
-                                    Alarm(
-                                        time = -1 * i * units.millis,
-                                        type = TYPE_REL_END,
-                                        repeat = repeat.value,
-                                        interval = interval.value * recurringUnits.millis
-                                    )
-                                )
-                                closeDialog()
-                            }
-                        })
-                    },
-                    dismissButton = {
-                        Constants.TextButton(
-                            text = R.string.cancel,
-                            onClick = closeDialog
-                        )
-                    },
-                )
-            }
+        if (showRecurringDialog) {
             AddRepeatReminderDialog(
-                openDialog = openRecurringDialog,
-                initialInterval = interval.value,
-                initialUnits = recurringUnits.value,
-                initialRepeat = repeat.value,
-                selected = { i, u, r ->
-                    interval.value = i
-                    recurringUnits.value = u
-                    repeat.value = r
-                }
+                alarm = workingCopy,
+                updateAlarm = { workingCopy = it },
+                closeDialog = { showRecurringDialog = false }
             )
-        } else {
-            time.value = 15
-            units.value = 0
-            interval.value = 0
-            recurringUnits.value = 0
-            repeat.value = 0
         }
     }
 
     @Composable
     fun AddRepeatReminderDialog(
-        openDialog: MutableState<Boolean>,
-        initialInterval: Int,
-        initialUnits: Int,
-        initialRepeat: Int,
-        selected: (Int, Int, Int) -> Unit,
+        alarm: Alarm,
+        updateAlarm: (Alarm) -> Unit,
+        closeDialog: () -> Unit,
     ) {
-        val interval = rememberSaveable { mutableStateOf(initialInterval) }
-        val units = rememberSaveable { mutableStateOf(initialUnits) }
-        val repeat = rememberSaveable { mutableStateOf(initialRepeat) }
-        val closeDialog = {
-            openDialog.value = false
-        }
-        if (openDialog.value) {
-            AlertDialog(
-                onDismissRequest = closeDialog,
-                text = {
-                    AddRecurringReminder(
-                        openDialog.value,
-                        interval,
-                        units,
-                        repeat,
+        // Create working copy with defaults if no recurrence set
+        var workingCopy by rememberSaveable {
+            mutableStateOf(
+                if (alarm.interval == 0L && alarm.repeat == 0) {
+                    // Default to 15 minutes, 4 times
+                    alarm.copy(
+                        interval = 15 * TimeUnit.MINUTES.toMillis(1),
+                        repeat = 4
                     )
-                },
-                confirmButton = {
-                    Constants.TextButton(text = R.string.ok, onClick = {
-                        if (interval.value > 0 && repeat.value > 0) {
-                            selected(interval.value, units.value, repeat.value)
-                            openDialog.value = false
-                        }
-                    })
-                },
-                dismissButton = {
-                    Constants.TextButton(
-                        text = R.string.cancel,
-                        onClick = closeDialog
-                    )
-                },
+                } else {
+                    alarm
+                }
             )
-        } else {
-            interval.value = initialInterval.takeIf { it > 0 } ?: 15
-            units.value = initialUnits
-            repeat.value = initialRepeat.takeIf { it > 0 } ?: 4
         }
+
+        AlertDialog(
+            onDismissRequest = closeDialog,
+            text = {
+                AddRecurringReminder(
+                    alarm = workingCopy,
+                    updateAlarm = { workingCopy = it }
+                )
+            },
+            confirmButton = {
+                Constants.TextButton(text = R.string.ok, onClick = {
+                    val (intervalAmount, _) = timeToAmountAndUnit(workingCopy.interval)
+                    if (intervalAmount > 0 && workingCopy.repeat > 0) {
+                        updateAlarm(workingCopy)
+                        closeDialog()
+                    }
+                })
+            },
+            dismissButton = {
+                Constants.TextButton(
+                    text = R.string.cancel,
+                    onClick = closeDialog
+                )
+            },
+        )
     }
 
     @Composable
     fun AddRandomReminder(
-        time: MutableState<Int>,
-        units: MutableState<Int>,
+        alarm: Alarm,
+        updateAlarm: (Alarm) -> Unit,
     ) {
+        val (initialAmount, initialUnit) = timeToAmountAndUnit(alarm.time)
+        var selectedUnit by rememberSaveable { mutableStateOf(initialUnit) }
+        val amount = if (alarm.time == 0L) 0 else (alarm.time / unitIndexToMillis(selectedUnit)).toInt()
         val scrollState = rememberScrollState()
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -228,14 +242,27 @@ object AddReminderDialog {
             CenteredH6(text = stringResource(id = R.string.randomly_every, "").trim())
             val focusRequester = remember { FocusRequester() }
             OutlinedIntInput(
-                time,
+                value = amount,
+                onValueChange = { newAmount ->
+                    val amt = newAmount ?: 0
+                    updateAlarm(alarm.copy(time = amt * unitIndexToMillis(selectedUnit)))
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(focusRequester)
             )
             Spacer(modifier = Modifier.height(16.dp))
             options.forEachIndexed { index, option ->
-                RadioRow(index, option, time, units)
+                RadioRow(
+                    index = index,
+                    option = option,
+                    timeAmount = amount,
+                    unitIndex = selectedUnit,
+                    onUnitSelected = { newUnit ->
+                        selectedUnit = newUnit
+                        updateAlarm(alarm.copy(time = amount * unitIndexToMillis(newUnit)))
+                    }
+                )
             }
             ShowKeyboard(true, focusRequester)
         }
@@ -243,14 +270,19 @@ object AddReminderDialog {
 
     @Composable
     fun AddCustomReminder(
-        time: MutableState<Int>,
-        units: MutableState<Int>,
-        interval: MutableState<Int>,
-        recurringUnits: MutableState<Int>,
-        repeat: MutableState<Int>,
+        alarm: Alarm,
+        updateAlarm: (Alarm) -> Unit,
         showRecurring: () -> Unit,
     ) {
+        val (initialAmount, initialUnit) = timeToAmountAndUnit(alarm.time)
+        var selectedUnit by rememberSaveable { mutableStateOf(initialUnit) }
+        val amount = if (alarm.time == 0L) 0 else kotlin.math.abs(alarm.time / unitIndexToMillis(selectedUnit)).toInt()
+
+        val (initialIntervalAmount, initialIntervalUnit) = timeToAmountAndUnit(alarm.interval)
+        val intervalAmount = if (alarm.interval == 0L) 0 else (alarm.interval / unitIndexToMillis(initialIntervalUnit)).toInt()
+
         val scrollState = rememberScrollState()
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -259,7 +291,11 @@ object AddReminderDialog {
             CenteredH6(resId = R.string.custom_notification)
             val focusRequester = remember { FocusRequester() }
             OutlinedIntInput(
-                time,
+                value = amount,
+                onValueChange = { newAmount ->
+                    val amt = newAmount ?: 0
+                    updateAlarm(alarm.copy(time = -1 * amt * unitIndexToMillis(selectedUnit)))
+                },
                 minValue = 0,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -267,7 +303,17 @@ object AddReminderDialog {
             )
             Spacer(modifier = Modifier.height(16.dp))
             options.forEachIndexed { index, option ->
-                RadioRow(index, option, time, units, R.string.alarm_before_due)
+                RadioRow(
+                    index = index,
+                    option = option,
+                    timeAmount = amount,
+                    unitIndex = selectedUnit,
+                    onUnitSelected = { newUnit ->
+                        selectedUnit = newUnit
+                        updateAlarm(alarm.copy(time = -1 * amount * unitIndexToMillis(newUnit)))
+                    },
+                    formatString = R.string.alarm_before_due
+                )
             }
             Divider(modifier = Modifier.padding(vertical = 4.dp), thickness = 1.dp)
             Row(modifier = Modifier
@@ -288,11 +334,11 @@ object AddReminderDialog {
                             ),
                     )
                 }
-                val repeating = repeat.value > 0 && interval.value > 0
+                val repeating = alarm.repeat > 0 && intervalAmount > 0
                 val text = if (repeating) {
                     LocalContext.current.resources.getRepeatString(
-                        repeat.value,
-                        interval.value * recurringUnits.millis
+                        alarm.repeat,
+                        alarm.interval
                     )
                 } else {
                     stringResource(id = R.string.repeat_option_does_not_repeat)
@@ -305,11 +351,9 @@ object AddReminderDialog {
                         .align(CenterVertically)
                 )
                 if (repeating) {
-                    ClearButton {
-                        repeat.value = 0
-                        interval.value = 0
-                        recurringUnits.value = 0
-                    }
+                    ClearButton(onClick = {
+                        updateAlarm(alarm.copy(repeat = 0, interval = 0))
+                    })
                 }
             }
             ShowKeyboard(true, focusRequester)
@@ -318,12 +362,14 @@ object AddReminderDialog {
 
     @Composable
     fun AddRecurringReminder(
-        openDialog: Boolean,
-        interval: MutableState<Int>,
-        units: MutableState<Int>,
-        repeat: MutableState<Int>
+        alarm: Alarm,
+        updateAlarm: (Alarm) -> Unit,
     ) {
+        val (initialIntervalAmount, initialIntervalUnit) = timeToAmountAndUnit(alarm.interval)
+        var selectedUnit by rememberSaveable { mutableStateOf(initialIntervalUnit) }
+        val intervalAmount = if (alarm.interval == 0L) 0 else (alarm.interval / unitIndexToMillis(selectedUnit)).toInt()
         val scrollState = rememberScrollState()
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -332,24 +378,40 @@ object AddReminderDialog {
             CenteredH6(text = stringResource(id = R.string.repeats_plural, "").trim())
             val focusRequester = remember { FocusRequester() }
             OutlinedIntInput(
-                time = interval,
+                value = intervalAmount,
+                onValueChange = { newAmount ->
+                    val amt = newAmount ?: 0
+                    updateAlarm(alarm.copy(interval = amt * unitIndexToMillis(selectedUnit)))
+                },
                 modifier = Modifier.focusRequester(focusRequester),
             )
             Spacer(modifier = Modifier.height(16.dp))
             options.forEachIndexed { index, option ->
-                RadioRow(index, option, interval, units)
+                RadioRow(
+                    index = index,
+                    option = option,
+                    timeAmount = intervalAmount,
+                    unitIndex = selectedUnit,
+                    onUnitSelected = { newUnit ->
+                        selectedUnit = newUnit
+                        updateAlarm(alarm.copy(interval = intervalAmount * unitIndexToMillis(newUnit)))
+                    }
+                )
             }
             Divider(modifier = Modifier.padding(vertical = 4.dp), thickness = 1.dp)
             Row(modifier = Modifier.fillMaxWidth()) {
                 OutlinedIntInput(
-                    time = repeat,
+                    value = alarm.repeat,
+                    onValueChange = { newRepeat ->
+                        updateAlarm(alarm.copy(repeat = newRepeat ?: 0))
+                    },
                     modifier = Modifier.weight(0.5f),
                     autoSelect = false,
                 )
                 BodyText(
                     text = LocalContext.current.resources.getQuantityString(
                         R.plurals.repeat_times,
-                        repeat.value
+                        alarm.repeat
                     ),
                     modifier = Modifier
                         .weight(0.5f)
@@ -357,7 +419,7 @@ object AddReminderDialog {
                 )
             }
 
-            ShowKeyboard(openDialog, focusRequester)
+            ShowKeyboard(true, focusRequester)
         }
     }
 
@@ -367,14 +429,6 @@ object AddReminderDialog {
         R.plurals.reminder_days,
         R.plurals.reminder_week,
     )
-
-    private val MutableState<Int>.millis: Long
-        get() = when (value) {
-            1 -> TimeUnit.HOURS.toMillis(1)
-            2 -> TimeUnit.DAYS.toMillis(1)
-            3 -> TimeUnit.DAYS.toMillis(7)
-            else -> TimeUnit.MINUTES.toMillis(1)
-        }
 }
 
 @ExperimentalComposeUiApi
@@ -391,25 +445,48 @@ fun ShowKeyboard(visible: Boolean, focusRequester: FocusRequester) {
 
 @Composable
 fun OutlinedIntInput(
-    time: MutableState<Int>,
+    value: Int?,
+    onValueChange: (Int?) -> Unit,
     modifier: Modifier = Modifier,
     minValue: Int = 1,
     autoSelect: Boolean = true,
 ) {
-    val value = rememberSaveable(stateSaver = TextFieldValue.Saver) {
-        val text = time.value.toString()
+    var textFieldValue by remember {
         mutableStateOf(
             TextFieldValue(
-                text = text,
-                selection = TextRange(0, if (autoSelect) text.length else 0)
+                text = value?.toString() ?: "",
+                selection = if (autoSelect) {
+                    TextRange(0, value?.toString()?.length ?: 0)
+                } else {
+                    TextRange.Zero
+                }
             )
         )
     }
+
+    // Sync when external value changes, but don't interfere with user editing
+    LaunchedEffect(value) {
+        val currentParsedValue = textFieldValue.text.toIntOrNull()
+        // Only sync if the new value is different from what we currently parse to,
+        // and don't sync if the text field is empty (user is actively deleting)
+        if (currentParsedValue != value && textFieldValue.text.isNotEmpty()) {
+            val newText = value?.toString() ?: ""
+            textFieldValue = TextFieldValue(
+                text = newText,
+                selection = if (autoSelect) {
+                    TextRange(0, newText.length)
+                } else {
+                    textFieldValue.selection
+                }
+            )
+        }
+    }
+
     OutlinedTextField(
-        value = value.value,
+        value = textFieldValue,
         onValueChange = {
-            value.value = it.copy(text = it.text.filter { t -> t.isDigit() })
-            time.value = value.value.text.toIntOrNull() ?: 0
+            textFieldValue = it.copy(text = it.text.filter { t -> t.isDigit() })
+            onValueChange(textFieldValue.text.toIntOrNull())
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         modifier = modifier.padding(horizontal = 16.dp),
@@ -419,7 +496,7 @@ fun OutlinedIntInput(
             focusedBorderColor = MaterialTheme.colorScheme.onSurface,
             unfocusedBorderColor = MaterialTheme.colorScheme.onSurface,
         ),
-        isError = value.value.text.toIntOrNull()?.let { it < minValue } ?: true,
+        isError = textFieldValue.text.toIntOrNull()?.let { it < minValue } ?: true,
     )
 }
 
@@ -445,23 +522,24 @@ fun CenteredH6(text: String) {
 fun RadioRow(
     index: Int,
     option: Int,
-    time: MutableState<Int>,
-    units: MutableState<Int>,
+    timeAmount: Int,
+    unitIndex: Int,
+    onUnitSelected: (Int) -> Unit,
     formatString: Int? = null,
 ) {
-    val optionString = LocalContext.current.resources.getQuantityString(option, time.value)
+    val optionString = LocalContext.current.resources.getQuantityString(option, timeAmount)
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { units.value = index }
+            .clickable { onUnitSelected(index) }
     ) {
         RadioButton(
-            selected = index == units.value,
-            onClick = { units.value = index },
+            selected = index == unitIndex,
+            onClick = { onUnitSelected(index) },
             modifier = Modifier.align(CenterVertically)
         )
         BodyText(
-            text = if (index == units.value) {
+            text = if (index == unitIndex) {
                 formatString
                     ?.let { stringResource(id = formatString, optionString) }
                     ?: optionString
@@ -506,8 +584,14 @@ fun AddAlarmDialog(
                 dismiss()
                 return
             }
-            // TODO: if replacing custom alarm show custom picker
-            // TODO: prepopulate pickers with existing values
+            TYPE_REL_END -> {
+                if (viewState.replace.time < 0) {
+                    // Custom reminder (before due)
+                    addCustom()
+                    dismiss()
+                    return
+                }
+            }
         }
     }
     CustomDialog(visible = viewState.showAddAlarm, onDismiss = dismiss) {
@@ -555,11 +639,11 @@ fun AddAlarmDialog(
 fun AddCustomReminderOne() =
     TasksTheme {
         AddReminderDialog.AddCustomReminder(
-            time = remember { mutableStateOf(1) },
-            units = remember { mutableStateOf(0) },
-            interval = remember { mutableStateOf(0) },
-            recurringUnits = remember { mutableStateOf(0) },
-            repeat = remember { mutableStateOf(0) },
+            alarm = Alarm(
+                time = -1 * TimeUnit.MINUTES.toMillis(1),
+                type = TYPE_REL_END
+            ),
+            updateAlarm = {},
             showRecurring = {},
         )
     }
@@ -571,11 +655,11 @@ fun AddCustomReminderOne() =
 fun AddCustomReminder() =
     TasksTheme {
         AddReminderDialog.AddCustomReminder(
-            time = remember { mutableStateOf(15) },
-            units = remember { mutableStateOf(1) },
-            interval = remember { mutableStateOf(0) },
-            recurringUnits = remember { mutableStateOf(0) },
-            repeat = remember { mutableStateOf(0) },
+            alarm = Alarm(
+                time = -15 * TimeUnit.HOURS.toMillis(1),
+                type = TYPE_REL_END
+            ),
+            updateAlarm = {},
             showRecurring = {},
         )
     }
@@ -587,10 +671,13 @@ fun AddCustomReminder() =
 fun AddRepeatingReminderOne() =
     TasksTheme {
         AddReminderDialog.AddRecurringReminder(
-            openDialog = true,
-            interval = remember { mutableStateOf(1) },
-            units = remember { mutableStateOf(0) },
-            repeat = remember { mutableStateOf(1) },
+            alarm = Alarm(
+                time = -1 * TimeUnit.MINUTES.toMillis(1),
+                type = TYPE_REL_END,
+                interval = TimeUnit.MINUTES.toMillis(1),
+                repeat = 1
+            ),
+            updateAlarm = {},
         )
     }
 
@@ -601,10 +688,13 @@ fun AddRepeatingReminderOne() =
 fun AddRepeatingReminder() =
     TasksTheme {
         AddReminderDialog.AddRecurringReminder(
-            openDialog = true,
-            interval = remember { mutableStateOf(15) },
-            units = remember { mutableStateOf(1) },
-            repeat = remember { mutableStateOf(4) },
+            alarm = Alarm(
+                time = -15 * TimeUnit.HOURS.toMillis(1),
+                type = TYPE_REL_END,
+                interval = 15 * TimeUnit.HOURS.toMillis(1),
+                repeat = 4
+            ),
+            updateAlarm = {},
         )
     }
 
@@ -615,8 +705,11 @@ fun AddRepeatingReminder() =
 fun AddRandomReminderOne() =
     TasksTheme {
         AddReminderDialog.AddRandomReminder(
-            time = remember { mutableStateOf(1) },
-            units = remember { mutableStateOf(0) }
+            alarm = Alarm(
+                time = TimeUnit.MINUTES.toMillis(1),
+                type = TYPE_RANDOM
+            ),
+            updateAlarm = {}
         )
     }
 
@@ -627,8 +720,11 @@ fun AddRandomReminderOne() =
 fun AddRandomReminder() =
     TasksTheme {
         AddReminderDialog.AddRandomReminder(
-            time = remember { mutableStateOf(15) },
-            units = remember { mutableStateOf(1) }
+            alarm = Alarm(
+                time = 15 * TimeUnit.HOURS.toMillis(1),
+                type = TYPE_RANDOM
+            ),
+            updateAlarm = {}
         )
     }
 

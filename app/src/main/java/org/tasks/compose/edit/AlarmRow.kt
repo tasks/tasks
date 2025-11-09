@@ -106,23 +106,27 @@ fun AlarmRow(
                 dismiss = { vm.showAddAlarm(visible = false) },
             )
 
-            AddReminderDialog.AddCustomReminderDialog(
-                viewState = viewState,
-                addAlarm = {
-                    viewState.replace?.let(deleteAlarm)
-                    addAlarm(it)
-                },
-                closeDialog = { vm.showCustomDialog(visible = false) }
-            )
+            if (viewState.showCustomDialog) {
+                AddReminderDialog.AddCustomReminderDialog(
+                    alarm = viewState.replace,
+                    updateAlarm = {
+                        viewState.replace?.let(deleteAlarm)
+                        addAlarm(it)
+                    },
+                    closeDialog = { vm.showCustomDialog(visible = false) }
+                )
+            }
 
-            AddReminderDialog.AddRandomReminderDialog(
-                viewState = viewState,
-                addAlarm = {
-                    viewState.replace?.let(deleteAlarm)
-                    addAlarm(it)
-                },
-                closeDialog = { vm.showRandomDialog(visible = false) }
-            )
+            if (viewState.showRandomDialog) {
+                AddReminderDialog.AddRandomReminderDialog(
+                    alarm = viewState.replace,
+                    updateAlarm = {
+                        viewState.replace?.let(deleteAlarm)
+                        addAlarm(it)
+                    },
+                    closeDialog = { vm.showRandomDialog(visible = false) }
+                )
+            }
         },
     )
 }
