@@ -75,10 +75,16 @@ class AlarmCalculator(
      */
     private fun calculateNextRandomReminder(random: Random, task: Task, reminderPeriod: Long) =
         if (reminderPeriod > 0) {
+            val baseline = when {
+                task.reminderLast > 0 -> task.reminderLast
+                task.isRecurring -> task.modificationDate
+                else -> task.creationDate
+            }
+
+            val multiplier = 0.85f + 0.3f * random.nextFloat(task.id + baseline)
+
             maxOf(
-                task.reminderLast
-                    .coerceAtLeast(task.creationDate)
-                    .plus((reminderPeriod * (0.85f + 0.3f * random.nextFloat())).toLong()),
+                baseline.plus((reminderPeriod * multiplier).toLong()),
                 task.hideUntil
             )
         } else {

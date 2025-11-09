@@ -295,7 +295,7 @@ class AlarmCalculatorTest {
 
     @Test
     fun scheduleOverdueRandomReminder() {
-        random.seed = 0.3865f
+        random.stub = 0.3865f
         freezeAt(now) {
             val alarm = alarmCalculator.toAlarmEntry(
                 newTask(
@@ -316,7 +316,7 @@ class AlarmCalculatorTest {
 
     @Test
     fun scheduleOverdueRandomReminderForHiddenTask() {
-        random.seed = 0.3865f
+        random.stub = 0.3865f
         freezeAt(now) {
             val task = newTask(
                 with(REMINDER_LAST, now.minusDays(14)),
@@ -335,7 +335,7 @@ class AlarmCalculatorTest {
 
     @Test
     fun scheduleInitialRandomReminder() {
-        random.seed = 0.3865f
+        random.stub = 0.3865f
 
         freezeAt(now) {
             val alarm = alarmCalculator.toAlarmEntry(
@@ -358,7 +358,7 @@ class AlarmCalculatorTest {
 
     @Test
     fun scheduleNextRandomReminder() {
-        random.seed = 0.3865f
+        random.stub = 0.3865f
 
         freezeAt(now) {
             val alarm = alarmCalculator.toAlarmEntry(
@@ -379,9 +379,28 @@ class AlarmCalculatorTest {
         }
     }
 
-    internal class RandomStub : Random() {
-        var seed = 1.0f
+    @Test
+    fun randomReminderIsDeterministic() {
+        val calculator = AlarmCalculator(
+            isDefaultDueTimeEnabled = true,
+            random = Random(),
+            defaultDueTime = TimeUnit.HOURS.toMillis(13).toInt(),
+        )
 
-        override fun nextFloat() = seed
+        freezeAt(now) {
+            val task = newTask(with(CREATION_TIME, now.minusDays(1)))
+            val alarm = Alarm(time = ONE_WEEK, type = TYPE_RANDOM)
+
+            val first = calculator.toAlarmEntry(task, alarm)
+            val second = calculator.toAlarmEntry(task, alarm)
+
+            assertEquals(first, second)
+        }
+    }
+
+    internal class RandomStub : Random() {
+        var stub = 1.0f
+
+        override fun nextFloat(seed: Long) = this.stub
     }
 }
