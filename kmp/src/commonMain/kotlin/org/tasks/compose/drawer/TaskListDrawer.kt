@@ -53,7 +53,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -70,9 +69,6 @@ import tasks.kmp.generated.resources.search
 import tasks.kmp.generated.resources.subscribe
 import java.util.Locale
 import kotlin.math.roundToInt
-
-@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-private val SEARCH_BAR_BOTTOM_PADDING = androidx.compose.material3.OutlinedTextFieldTopPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -286,7 +282,6 @@ fun RowScope.MenuSearchBar(
     query: String,
     onQueryChange: (String) -> Unit,
 ) {
-    val density = LocalDensity.current
     var hasFocus by remember { mutableStateOf(false) }
     SearchBar(
         modifier = Modifier
@@ -294,7 +289,7 @@ fun RowScope.MenuSearchBar(
             .padding(
                 start = 8.dp,
                 end = if (hasFocus) 8.dp else 0.dp,
-                bottom = with(density) { SEARCH_BAR_BOTTOM_PADDING.toDp() }
+                bottom = 8.dp
             )
             .weight(1f)
             .animateContentSize(
