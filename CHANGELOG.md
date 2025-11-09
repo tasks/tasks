@@ -1,13 +1,17 @@
-### 14.8.4 (2025-11-08)
+### 14.8.4 (2025-11-09)
 
-* Fix flashing widgets
+* Fix flashing widgets [#3902](https://github.com/tasks/tasks/issues/3902)
+* Fix random reminder scheduling
+* Fix random reminders firing immediately on recurring tasks [#3904](https://github.com/tasks/tasks/issues/3904)
 * Fix deadlock when adding new task
-* Fix Hebrew and Indonesian support
+* Fix crash in settings when backup location unavailable [#3989](https://github.com/tasks/tasks/issues/3989)
+* Fix Hebrew and Indonesian support [#3928](https://github.com/tasks/tasks/issues/3928)
 * Update translations
   * Bosnian - @hasak
   * Finnish - @pHamala
   * Indonesian - @erigmac
   * Japanese - @array
+  * Romanian - @ygorigor
 
 ### 14.8.3 (2025-09-16)
 

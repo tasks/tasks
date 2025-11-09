@@ -1,0 +1,7 @@
+* Fix flashing widgets
+* Fix random reminder scheduling
+* Fix random reminders firing immediately on recurring tasks
+* Fix deadlock when adding new task
+* Fix crash in settings when backup location unavailable
+* Fix Hebrew and Indonesian support
+* Update translations

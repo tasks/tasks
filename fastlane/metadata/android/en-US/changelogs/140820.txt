@@ -1,4 +1,0 @@
-* Fix flashing widgets
-* Fix deadlock when adding new task
-* Fix Hebrew and Indonesian support
-* Update translations
