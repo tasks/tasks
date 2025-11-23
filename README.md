@@ -1,4 +1,4 @@
-# EvIDENCE OF CHANGES IN THE APP REPOSITORY MOVILE APP DEVELOPMENT COURSE 
+# EVIDENCE OF CHANGES IN THE APP REPOSITORY MOVILE APP DEVELOPMENT COURSE 
 
 ## ISSUE 
 <img width="1726" height="933" alt="image" src="https://github.com/user-attachments/assets/afd51f5f-b5a4-4020-85db-476d20b71d36" />
