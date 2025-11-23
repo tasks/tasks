@@ -1,3 +1,14 @@
+# EvIDENCE OF CHANGES IN THE APP REPOSITORY MOVILE APP DEVELOPMENT COURSE 
+
+## ISSUE 
+<img width="1726" height="933" alt="image" src="https://github.com/user-attachments/assets/afd51f5f-b5a4-4020-85db-476d20b71d36" />
+##PULL REQUEST 
+
+<img width="1715" height="918" alt="image" src="https://github.com/user-attachments/assets/6430abe7-b326-4f83-b16d-5dd7e823e296" />
+
+
+
+
 Astrid was a popular cross-platform productivity service that was [acquired](https://web.archive.org/web/20130811052500/http://blog.astrid.com/blog/2013/05/01/yahoo-acquires-astrid/) and [discontinued](https://techcrunch.com/2013/07/06/astrid-goes-dark-august-5-goodnight-sweet-squid/) in 2013. The source code from Astrid's open source Android app serves as the basis of Tasks.
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
