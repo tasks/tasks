@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="today">Güei</string>
+    <string name="tomorrow">Mañana</string>
+    <string name="yesterday">Ayeri</string>
+    <string name="show_unstarted">Amosar ensin entamar</string>
+    <string name="show_completed">Amosar acabaes</string>
+    <string name="default_list">Llista predeterminada</string>
+    <string name="help_and_feedback">Aida y comentarios</string>
+</resources>
