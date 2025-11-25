@@ -13,6 +13,8 @@ import org.tasks.preferences.QueryPreferences
 import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
 import timber.log.Timber
 
+import org.tasks.themes.Theme
+
 class WidgetPreferences(
     private val context: Context,
     private val preferences: Preferences,
@@ -92,18 +94,18 @@ class WidgetPreferences(
         get() = when (themeIndex) {
             0 -> false
             3, 4 -> context.isNightMode
+            5 -> !Theme.isLight(backgroundColor)
             else -> true
         }
 
     private val backgroundColor: Int
-        get() = context.getColor(
-            when (themeIndex) {
-                1 -> android.R.color.black
-                2 -> R.color.md_background_dark
-                3, 4 -> R.color.widget_background_follow_system
-                else -> android.R.color.white
-            }
-        )
+        get() = when (themeIndex) {
+            1 -> context.getColor(android.R.color.black)
+            2 -> context.getColor(R.color.md_background_dark)
+            3, 4 -> context.getColor(R.color.widget_background_follow_system)
+            5 -> customThemeColor
+            else -> context.getColor(android.R.color.white)
+        }
 
     var collapsed: Set<Long>
         get() {
@@ -159,6 +161,13 @@ class WidgetPreferences(
         }
     fun setColor(color: Int) {
         setInt(R.string.p_widget_color_v2, color)
+    }
+
+    val customThemeColor: Int
+        get() = getInt(R.string.p_widget_custom_theme_color, 0)
+
+    fun setCustomThemeColor(color: Int) {
+        setInt(R.string.p_widget_custom_theme_color, color)
     }
     val footerOpacity: Int
         get() = getAlphaValue(R.string.p_widget_footer_opacity)

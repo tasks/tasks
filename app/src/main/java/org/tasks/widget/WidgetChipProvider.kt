@@ -30,6 +30,7 @@ class WidgetChipProvider @Inject constructor(
     private val inventory: Inventory,
 ) {
     var isDark = false
+    @ColorInt var customBackgroundColor: Int? = null
 
     fun getSubtaskChip(task: TaskContainer): RemoteViews {
         return newChip().apply {
@@ -127,13 +128,18 @@ class WidgetChipProvider @Inject constructor(
         }
 
     private fun newChip(@ColorInt color: Int = 0) = RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_chip).apply {
-        val tint = if (color == 0) {
+        var tint = if (color == 0) {
             context.getColor(
                 if (isDark) R.color.icon_tint_dark_alpha else R.color.icon_tint_light_alpha
             )
         } else {
             color
         }
+
+        if (customBackgroundColor != null && tint == customBackgroundColor) {
+            tint = context.getColor(if (isDark) R.color.white_87 else R.color.black_87)
+        }
+
         setColorFilter(R.id.chip_icon, tint)
         setColorFilter(R.id.chip_background, tint)
         setTextColor(R.id.chip_text, tint)

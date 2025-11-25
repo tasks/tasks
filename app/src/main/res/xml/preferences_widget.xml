@@ -11,6 +11,10 @@
     android:title="@string/theme" />
 
   <Preference
+    android:key="@string/p_widget_custom_theme_color"
+    android:title="@string/custom_theme_color" />
+
+  <Preference
     android:key="@string/p_widget_sort"
     android:title="@string/TLA_menu_sort" />
 

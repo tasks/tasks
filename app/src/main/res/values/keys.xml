@@ -327,6 +327,7 @@
   <string name="p_widget_compact">widget-compact-</string>
   <string name="p_widget_color">widget-color-</string>
   <string name="p_widget_color_v2">widget-color-v2</string>
+  <string name="p_widget_custom_theme_color">p_widget_custom_theme_color</string>
   <string name="p_widget_opacity">widget-opacity-v3-</string>
   <string name="p_widget_font_size">widget-font-size-</string>
   <string name="p_widget_show_due_date">widget-show-due-date-</string>
