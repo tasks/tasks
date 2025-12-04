@@ -249,4 +249,8 @@
     <string name="rmd_NoA_snooze">عقب انداختن</string>
     <string name="calendar_event_not_found">اتفاقی توی تقویم پیدا نشد</string>
     <string name="CFC_list_name">توی لیست …</string>
+    <string name="export_toast">پشتیبان گیری شد %1$s تا %2$s</string>
+    <string name="import_progress_read">درحال خواندن تسک %d…</string>
+    <string name="help_and_feedback">راهنما و بازخورد</string>
+    <string name="app_settings">تنظیمات برنامه</string>
 </resources>
