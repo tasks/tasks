@@ -348,7 +348,7 @@
     <string name="about">アプリについて</string>
     <string name="license_summary">Tasks は、GNU General Public License v3.0 でライセンスされる、自由オープンソースソフトウェアです</string>
     <string name="pro_dashclock_extension">Dashclock 拡張</string>
-    <string name="requires_pro_subscription">プロ版のサブスクリプションが必要です</string>
+    <string name="requires_pro_subscription">プロ版の購入が必要です</string>
     <string name="logout">ログアウト</string>
     <string name="logout_warning">このアカウントのデータがお使いの端末からすべて削除されます</string>
     <string name="cannot_access_account">アカウントにアクセスできません</string>
@@ -710,4 +710,5 @@
     <string name="help_me_choose">選択を手伝ってください</string>
     <string name="delete_tasks_warning">%sは削除されます。これは元に戻せません！</string>
     <string name="cost_more_money">料金: $$$</string>
+    <string name="widget_view_more_tasks">ほかのタスクを表示</string>
 </resources>
