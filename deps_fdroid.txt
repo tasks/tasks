@@ -1443,7 +1443,7 @@
 +|    \--- org.jetbrains:annotations:20.1.0 -> 23.0.0
 ++--- com.google.android.apps.dashclock:dashclock-api:2.0.0
 ++--- com.twofortyfouram:android-plugin-api-for-locale:1.0.4
-++--- com.rubiconproject.oss:jchronic:0.2.6
+++--- com.rubiconproject.oss:jchronic:0.2.8
 ++--- me.leolin:ShortcutBadger:1.1.22
 ++--- com.google.apis:google-api-services-tasks:v1-rev20251102-2.0.0
 +|    \--- com.google.api-client:google-api-client:2.7.2
