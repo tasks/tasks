@@ -86,7 +86,7 @@ class FileLogger @Inject constructor(
                     Timber.e(e, "Failed to save logcat")
                 }
                 zos.putNextEntry(ZipEntry("device.txt"))
-                zos.write(device.get().debugInfo.toByteArray())
+                zos.write(device.get().debugInfo.toByteArray(Charsets.UTF_8))
                 zos.closeEntry()
                 zos.putNextEntry(ZipEntry("settings.json"))
                 tasksJsonExporter.get().doSettingsExport(zos)

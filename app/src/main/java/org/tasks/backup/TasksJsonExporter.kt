@@ -113,7 +113,7 @@ class TasksJsonExporter @Inject constructor(
     }
 
     suspend fun doSettingsExport(os: OutputStream?) = withContext(Dispatchers.IO) {
-        val writer = os!!.bufferedWriter()
+        val writer = os!!.bufferedWriter(Charsets.UTF_8)
         with (JsonWriter(writer)) {
             write("{")
             write("version", BuildConfig.VERSION_CODE)
@@ -128,7 +128,7 @@ class TasksJsonExporter @Inject constructor(
 
     @Throws(IOException::class)
     private suspend fun doTasksExport(os: OutputStream?, taskIds: List<Long>) = withContext(Dispatchers.IO) {
-        val writer = os!!.bufferedWriter()
+        val writer = os!!.bufferedWriter(Charsets.UTF_8)
         with (JsonWriter(writer)) {
             write("{")
             write("version", BuildConfig.VERSION_CODE)
