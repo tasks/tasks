@@ -1420,10 +1420,11 @@
 ++--- androidx.compose.material3:material3 -> 1.4.0 (*)
 ++--- androidx.compose.material3.adaptive:adaptive-layout-android:1.2.0 (*)
 ++--- androidx.constraintlayout:constraintlayout:2.2.1 (*)
-++--- androidx.swiperefreshlayout:swiperefreshlayout:1.1.0
-+|    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
+++--- androidx.swiperefreshlayout:swiperefreshlayout:1.2.0
++|    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|    +--- androidx.core:core:1.1.0 -> 1.16.0 (*)
-+|    \--- androidx.interpolator:interpolator:1.0.0 (*)
++|    +--- androidx.interpolator:interpolator:1.0.0 (*)
++|    \--- org.jspecify:jspecify:1.0.0
 ++--- androidx.preference:preference:1.2.1
 +|    +--- androidx.annotation:annotation:1.2.0 -> 1.9.1 (*)
 +|    +--- androidx.appcompat:appcompat:1.1.0 -> 1.7.1 (*)
