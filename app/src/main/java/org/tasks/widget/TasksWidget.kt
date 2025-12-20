@@ -33,6 +33,7 @@ class TasksWidget : AppWidgetProvider() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject @ApplicationContext lateinit var context: Context
+    @Inject lateinit var widgetManager: org.tasks.widget.AppWidgetManager
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         Timber.d("onUpdate appWidgetIds=${appWidgetIds.joinToString { it.toString() }}")
@@ -57,6 +58,7 @@ class TasksWidget : AppWidgetProvider() {
             appWidgetId,
             createWidget(context, appWidgetId, newOptions)
         )
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.list_view)
     }
 
     private fun createWidget(context: Context, id: Int, options: Bundle): RemoteViews {
