@@ -1303,7 +1303,8 @@
 ++--- org.dmfs:rfc5545-datetime:0.2.4
 ++--- org.dmfs:lib-recur:0.11.4
 +|    \--- org.dmfs:rfc5545-datetime:0.2.4
-++--- org.dmfs:jems:1.33
+++--- org.dmfs:jems:1.44
++|    \--- org.dmfs:jems2:2.0.0
 ++--- com.google.dagger:hilt-android:2.57.2
 +|    +--- com.google.dagger:dagger:2.57.2
 +|    |    +--- jakarta.inject:jakarta.inject-api:2.0.1
