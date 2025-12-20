@@ -7,6 +7,7 @@ import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity.RESULT_OK
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,8 +21,6 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.windowInsetsBottomHeight
-import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -44,6 +43,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.core.content.IntentCompat.getParcelableExtra
 import androidx.fragment.compose.AndroidFragment
@@ -123,194 +123,183 @@ fun HomeScreen(
                 ) {
                     val context = LocalContext.current
                     val scope = rememberCoroutineScope()
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        TaskListDrawer(
-                            arrangement = if (state.menuQuery.isBlank()) Arrangement.Top else Arrangement.Bottom,
-                            filters = if (state.menuQuery.isNotEmpty()) state.searchItems else state.drawerItems,
-                            onClick = {
-                                when (it) {
-                                    is DrawerItem.Filter -> {
-                                        viewModel.setFilter(it.filter)
-                                        scope.launch {
-                                            drawerState.close()
-                                            keyboard?.hide()
-                                        }
-                                    }
-
-                                    is DrawerItem.Header -> {
-                                        viewModel.toggleCollapsed(it.header)
+                    TaskListDrawer(
+                        arrangement = if (state.menuQuery.isBlank()) Arrangement.Top else Arrangement.Bottom,
+                        filters = if (state.menuQuery.isNotEmpty()) state.searchItems else state.drawerItems,
+                        onClick = {
+                            when (it) {
+                                is DrawerItem.Filter -> {
+                                    viewModel.setFilter(it.filter)
+                                    scope.launch {
+                                        drawerState.close()
+                                        keyboard?.hide()
                                     }
                                 }
-                            },
-                            onAddClick = {
-                                scope.launch {
-                                    drawerState.close()
-                                    when (it.header.addIntentRc) {
-                                        FilterProvider.REQUEST_NEW_FILTER ->
-                                            showNewFilterDialog()
 
-                                        REQUEST_NEW_PLACE ->
-                                            newList.launch(Intent(context, LocationPickerActivity::class.java))
-
-                                        REQUEST_NEW_TAGS ->
-                                            newList.launch(Intent(context, TagSettingsActivity::class.java))
-
-                                        REQUEST_NEW_LIST ->
-                                            when (it.header.subheaderType) {
-                                                NavigationDrawerSubheader.SubheaderType.CALDAV,
-                                                NavigationDrawerSubheader.SubheaderType.TASKS ->
-                                                    viewModel
-                                                        .getAccount(it.header.id.toLong())
-                                                        ?.let {
-                                                            newList.launch(
-                                                                Intent(context, it.listSettingsClass())
-                                                                    .putExtra(EXTRA_CALDAV_ACCOUNT, it)
-                                                            )
-                                                        }
-
-                                                else -> {}
-                                            }
-
-                                        else -> Timber.e("Unhandled request code: $it")
-                                    }
+                                is DrawerItem.Header -> {
+                                    viewModel.toggleCollapsed(it.header)
                                 }
-                            },
-                            onErrorClick = {
-                                context.startActivity(Intent(context, MainPreferences::class.java))
-                            },
-                            searchBar = {
-                                MenuSearchBar(
-                                    begForMoney = state.begForMoney,
-                                    onDrawerAction = {
-                                        scope.launch {
-                                            drawerState.close()
-                                            when (it) {
-                                                DrawerAction.PURCHASE ->
-                                                    if (TasksApplication.IS_GENERIC)
-                                                        context.openUri(R.string.url_donate)
-                                                    else
-                                                        context.startActivity(
-                                                            Intent(
-                                                                context,
-                                                                PurchaseActivity::class.java
-                                                            )
+                            }
+                        },
+                        onAddClick = {
+                            scope.launch {
+                                drawerState.close()
+                                when (it.header.addIntentRc) {
+                                    FilterProvider.REQUEST_NEW_FILTER ->
+                                        showNewFilterDialog()
+
+                                    REQUEST_NEW_PLACE ->
+                                        newList.launch(Intent(context, LocationPickerActivity::class.java))
+
+                                    REQUEST_NEW_TAGS ->
+                                        newList.launch(Intent(context, TagSettingsActivity::class.java))
+
+                                    REQUEST_NEW_LIST ->
+                                        when (it.header.subheaderType) {
+                                            NavigationDrawerSubheader.SubheaderType.CALDAV,
+                                            NavigationDrawerSubheader.SubheaderType.TASKS ->
+                                                viewModel
+                                                    .getAccount(it.header.id.toLong())
+                                                    ?.let {
+                                                        newList.launch(
+                                                            Intent(context, it.listSettingsClass())
+                                                                .putExtra(EXTRA_CALDAV_ACCOUNT, it)
                                                         )
+                                                    }
 
-                                                DrawerAction.HELP_AND_FEEDBACK ->
+                                            else -> {}
+                                        }
+
+                                    else -> Timber.e("Unhandled request code: $it")
+                                }
+                            }
+                        },
+                        onErrorClick = {
+                            context.startActivity(Intent(context, MainPreferences::class.java))
+                        },
+                        searchBar = {
+                            MenuSearchBar(
+                                begForMoney = state.begForMoney,
+                                onDrawerAction = {
+                                    scope.launch {
+                                        drawerState.close()
+                                        when (it) {
+                                            DrawerAction.PURCHASE ->
+                                                if (TasksApplication.IS_GENERIC)
+                                                    context.openUri(R.string.url_donate)
+                                                else
                                                     context.startActivity(
                                                         Intent(
                                                             context,
-                                                            HelpAndFeedback::class.java
+                                                            PurchaseActivity::class.java
                                                         )
                                                     )
-                                            }
-                                        }
-                                    },
-                                    query = state.menuQuery,
-                                    onQueryChange = { viewModel.queryMenu(it) },
-                                )
-                            },
-                        )
 
-                        SystemBarScrim(
-                            modifier = Modifier
-                                .windowInsetsTopHeight(WindowInsets.systemBars)
-                                .align(Alignment.TopCenter)
-                        )
-                        SystemBarScrim(
-                            modifier = Modifier
-                                .windowInsetsBottomHeight(WindowInsets.systemBars)
-                                .align(Alignment.BottomCenter),
-                        )
-                    }
+                                            DrawerAction.HELP_AND_FEEDBACK ->
+                                                context.startActivity(
+                                                    Intent(
+                                                        context,
+                                                        HelpAndFeedback::class.java
+                                                    )
+                                                )
+                                        }
+                                    }
+                                },
+                                query = state.menuQuery,
+                                onQueryChange = { viewModel.queryMenu(it) },
+                            )
+                        },
+                    )
                 }
             }
         ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                val scope = rememberCoroutineScope()
-                ListDetailPaneScaffold(
-                    directive = navigator.scaffoldDirective,
-                    value = navigator.scaffoldValue,
-                    listPane = {
-                        key (state.filter) {
-                            val fragment = remember { mutableStateOf<TaskListFragment?>(null) }
-                            val keyboardOpen = rememberImeState()
-                            AndroidFragment<TaskListFragment>(
-                                fragmentState = rememberFragmentState(),
-                                arguments = remember(state.filter) {
-                                    Bundle()
-                                        .apply { putParcelable(EXTRA_FILTER, state.filter) }
-                                },
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .imePadding(),
-                            ) { tlf ->
-                                fragment.value = tlf
-                                tlf.applyInsets(windowInsets.value)
-                                tlf.setNavigationClickListener {
-                                    scope.launch { drawerState.open() }
-                                }
+            val scope = rememberCoroutineScope()
+
+
+            ListDetailPaneScaffold(
+                directive = navigator.scaffoldDirective,
+                value = navigator.scaffoldValue,
+                listPane = {
+                    key (state.filter) {
+                        val fragment = remember { mutableStateOf<TaskListFragment?>(null) }
+                        val keyboardOpen = rememberImeState()
+                        AndroidFragment<TaskListFragment>(
+                            fragmentState = rememberFragmentState(),
+                            arguments = remember(state.filter) {
+                                Bundle()
+                                    .apply { putParcelable(EXTRA_FILTER, state.filter) }
+                            },
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .imePadding(),
+                        ) { tlf ->
+                            fragment.value = tlf
+                            tlf.applyInsets(windowInsets.value)
+                            tlf.setNavigationClickListener {
+                                scope.launch { drawerState.open() }
                             }
-                            LaunchedEffect(fragment, windowInsets, keyboardOpen.value) {
-                                fragment.value?.applyInsets(
-                                    if (keyboardOpen.value) {
-                                        PaddingValues(
-                                            top = windowInsets.value.calculateTopPadding(),
-                                        )
-                                    } else {
-                                        windowInsets.value
-                                    }
+                        }
+                        LaunchedEffect(fragment, windowInsets, keyboardOpen.value) {
+                            fragment.value?.applyInsets(
+                                if (keyboardOpen.value) {
+                                    PaddingValues(
+                                        top = windowInsets.value.calculateTopPadding(),
+                                    )
+                                } else {
+                                    windowInsets.value
+                                }
+                            )
+                        }
+                    }
+                },
+                detailPane = {
+                    val direction = LocalLayoutDirection.current
+                    val imeOpen = rememberImeState().value
+                    val insets = windowInsets.value
+                    val topPad = insets.calculateTopPadding()
+                    val startPad = insets.calculateStartPadding(direction)
+                    val endPad = insets.calculateEndPadding(direction)
+                    val bottomPad = if (imeOpen)
+                        WindowInsets.ime.asPaddingValues().calculateBottomPadding()
+                    else
+                        insets.calculateBottomPadding()
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+
+                            .padding(
+                                top = topPad,
+                                start = startPad,
+                                end = endPad,
+                                bottom = bottomPad
+                            ),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        if (state.task == null) {
+                            if (isListVisible && isDetailVisible) {
+                                Icon(
+                                    painter = painterResource(org.tasks.kmp.R.drawable.ic_launcher_no_shadow_foreground),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(192.dp),
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                )
+                            }
+                        } else {
+                            key(state.task) {
+                                AndroidFragment<TaskEditFragment>(
+                                    fragmentState = rememberFragmentState(),
+                                    arguments = remember(state.task) {
+                                        Bundle()
+                                            .apply { putParcelable(EXTRA_TASK, state.task) }
+                                    },
+                                    modifier = Modifier.fillMaxSize(),
                                 )
                             }
                         }
-                    },
-                    detailPane = {
-                        val direction = LocalLayoutDirection.current
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(
-                                    top = windowInsets.value.calculateTopPadding(),
-                                    start = windowInsets.value.calculateStartPadding(direction),
-                                    end = windowInsets.value.calculateEndPadding(direction),
-                                    bottom = if (rememberImeState().value)
-                                        WindowInsets.ime.asPaddingValues().calculateBottomPadding()
-                                    else
-                                        windowInsets.value.calculateBottomPadding()
-                                ),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            if (state.task == null) {
-                                if (isListVisible && isDetailVisible) {
-                                    Icon(
-                                        painter = painterResource(org.tasks.kmp.R.drawable.ic_launcher_no_shadow_foreground),
-                                        contentDescription = null,
-                                        modifier = Modifier.size(192.dp),
-                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    )
-                                }
-                            } else {
-                                key(state.task) {
-                                    AndroidFragment<TaskEditFragment>(
-                                        fragmentState = rememberFragmentState(),
-                                        arguments = remember(state.task) {
-                                            Bundle()
-                                                .apply { putParcelable(EXTRA_TASK, state.task) }
-                                        },
-                                        modifier = Modifier.fillMaxSize(),
-                                    )
-                                }
-                            }
-                        }
-                    },
-                )
-
-                SystemBarScrim(
-                    modifier = Modifier
-                        .windowInsetsTopHeight(WindowInsets.systemBars)
-                        .align(Alignment.TopCenter),
-                )
-            }
+                    }
+                },
+            )
         }
     }
 }
