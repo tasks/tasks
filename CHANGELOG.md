@@ -1,4 +1,4 @@
-### 14.8.4 (2025-11-09)
+### 14.8.4 (2025-12-20)
 
 * Fix flashing widgets [#3902](https://github.com/tasks/tasks/issues/3902)
 * Fix random reminder scheduling
@@ -7,10 +7,12 @@
 * Fix crash in settings when backup location unavailable [#3989](https://github.com/tasks/tasks/issues/3989)
 * Fix Hebrew and Indonesian support [#3928](https://github.com/tasks/tasks/issues/3928)
 * Update translations
+  * Asturian - Xana
   * Bosnian - @hasak
   * Finnish - @pHamala
   * Indonesian - @erigmac
-  * Japanese - @array
+  * Japanese - @array, Norara
+  * Persian - @theuser17
   * Romanian - @ygorigor
 
 ### 14.8.3 (2025-09-16)
