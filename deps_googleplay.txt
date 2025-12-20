@@ -1451,15 +1451,15 @@
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.1.21 (*)
 ++--- project :icons
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.2.21 (*)
-+|    \--- com.mikepenz:iconics-core:5.5.0-b01
-+|         +--- androidx.appcompat:appcompat:1.7.0 -> 1.7.1 (*)
-+|         +--- org.jetbrains.compose.runtime:runtime:1.6.10 -> 1.9.3 (*)
-+|         +--- com.mikepenz:iconics-typeface-api:5.5.0-b01
-+|         |    +--- org.jetbrains.compose.runtime:runtime:1.6.10 -> 1.9.3 (*)
++|    \--- com.mikepenz:iconics-core:5.5.0-compose01
++|         +--- androidx.appcompat:appcompat:1.6.1 -> 1.7.1 (*)
++|         +--- androidx.compose.runtime:runtime:1.4.3 -> 1.9.5 (*)
++|         +--- com.mikepenz:iconics-typeface-api:5.5.0-compose01
++|         |    +--- androidx.compose.runtime:runtime:1.4.3 -> 1.9.5 (*)
 +|         |    +--- androidx.core:core-ktx:1.10.1 -> 1.16.0 (*)
-+|         |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0 -> 2.1.21 (*)
++|         |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 -> 2.1.21 (*)
 +|         |    \--- androidx.startup:startup-runtime:1.1.1 -> 1.2.0 (*)
-+|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.2.21 (*)
++|         \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 -> 2.1.21 (*)
 ++--- androidx.navigation:navigation-compose:2.9.6
 +|    \--- androidx.navigation:navigation-compose-android:2.9.6
 +|         +--- androidx.activity:activity:1.8.0 -> 1.11.0 (*)
@@ -1784,7 +1784,7 @@
 +|         +--- androidx.sqlite:sqlite-framework:2.6.2 (c)
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.2.21 (c)
 ++--- androidx.appcompat:appcompat:1.7.1 (*)
-++--- com.mikepenz:iconics-core:5.5.0-b01 (*)
+++--- com.mikepenz:iconics-core:5.5.0-compose01 (*)
 ++--- io.noties.markwon:core:4.6.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|    \--- com.atlassian.commonmark:commonmark:0.13.0
