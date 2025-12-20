@@ -24,7 +24,6 @@ import org.tasks.intents.TaskIntents
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeColor
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -37,10 +36,11 @@ class TasksWidget : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         Timber.d("onUpdate appWidgetIds=${appWidgetIds.joinToString { it.toString() }}")
+        val generation = widgetManager.generation
         appWidgetIds.forEach { id ->
             try {
                 val options = appWidgetManager.getAppWidgetOptions(id)
-                appWidgetManager.updateAppWidget(id, createWidget(context, id, options))
+                appWidgetManager.updateAppWidget(id, createWidget(context, id, options, generation))
             } catch (e: Exception) {
                 Timber.e(e)
             }
@@ -56,12 +56,11 @@ class TasksWidget : AppWidgetProvider() {
         Timber.d("onAppWidgetOptionsChanged appWidgetId=$appWidgetId")
         appWidgetManager.updateAppWidget(
             appWidgetId,
-            createWidget(context, appWidgetId, newOptions)
+            createWidget(context, appWidgetId, newOptions, widgetManager.generation)
         )
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.list_view)
     }
 
-    private fun createWidget(context: Context, id: Int, options: Bundle): RemoteViews {
+    private fun createWidget(context: Context, id: Int, options: Bundle, generation: Long): RemoteViews {
         val widgetPreferences = WidgetPreferences(context, preferences, id)
         val settings = widgetPreferences.getWidgetHeaderSettings()
         widgetPreferences.setCompact(
@@ -70,7 +69,7 @@ class TasksWidget : AppWidgetProvider() {
         val filter = runBlocking {
             defaultFilterProvider.getFilterFromPreference(widgetPreferences.filterId)
         }
-        Timber.d("createWidget id=$id filter=$filter")
+        Timber.d("createWidget id=$id generation=$generation filter=$filter")
 
         return RemoteViews(context.packageName, R.layout.scrollable_widget).apply {
             if (settings.showHeader) {
@@ -90,7 +89,7 @@ class TasksWidget : AppWidgetProvider() {
                 opacity = widgetPreferences.footerOpacity,
             )
             setOnClickPendingIntent(R.id.empty_view, getOpenListIntent(context, filter, id))
-            val cacheBuster = "tasks://widget/${currentTimeMillis()}".toUri()
+            val cacheBuster = "tasks://widget/$id/$generation".toUri()
             setRemoteAdapter(
                 R.id.list_view,
                 Intent(context, TasksWidgetAdapter::class.java)

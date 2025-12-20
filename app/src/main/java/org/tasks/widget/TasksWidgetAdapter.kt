@@ -30,14 +30,16 @@ class TasksWidgetAdapter : RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory? {
         val widgetId = intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID) ?: return null
         val widgetPreferences = WidgetPreferences(context, preferences, widgetId)
+        val filterId = widgetPreferences.filterId
         val filter = runBlocking {
-            defaultFilterProvider.getFilterFromPreference(widgetPreferences.filterId)
+            defaultFilterProvider.getFilterFromPreference(filterId)
         }
         Timber.d("onGetViewFactory $filter")
         return TasksWidgetViewFactory(
             subtasksHelper,
             widgetPreferences,
             filter,
+            filterId,
             applicationContext,
             widgetId,
             taskDao,

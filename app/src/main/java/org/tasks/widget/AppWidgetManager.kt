@@ -6,34 +6,41 @@ import android.content.Context
 import android.content.Intent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.compose.throttleLatest
 import org.tasks.injection.ApplicationScope
 import timber.log.Timber
+import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class AppWidgetManager @Inject constructor(
     @param:ApplicationContext private val context: Context,
     @ApplicationScope private val scope: CoroutineScope,
 ) {
     private val appWidgetManager: AppWidgetManager? = AppWidgetManager.getInstance(context)
-    private val updateChannel = Channel<Unit>(Channel.CONFLATED)
+    private val _generation = AtomicLong(0)
+    val generation: Long get() = _generation.get()
+
+    private val updateChannel = Channel<Long>(Channel.CONFLATED)
 
     init {
         updateChannel
             .consumeAsFlow()
             .throttleLatest(1000)
-            .onEach {
-                val appWidgetIds = widgetIds
-                Timber.d("updateWidgets: ${appWidgetIds.joinToString { it.toString() }}")
-                notifyAppWidgetViewDataChanged(appWidgetIds)
+            .onEach { gen ->
+                if (gen == _generation.get()) {
+                    val appWidgetIds = widgetIds
+                    Timber.d("updateWidgets: ${appWidgetIds.joinToString { it.toString() }}")
+                    appWidgetManager?.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list_view)
+                } else {
+                    Timber.d("Skipping stale widget update")
+                }
             }
             .launchIn(scope)
     }
@@ -43,25 +50,19 @@ class AppWidgetManager @Inject constructor(
                 ?.getAppWidgetIds(ComponentName(context, TasksWidget::class.java))
                 ?: intArrayOf()
 
-    fun reconfigureWidgets(vararg appWidgetIds: Int) = scope.launch {
-        Timber.d("reconfigureWidgets(${appWidgetIds.joinToString()})")
-
+    fun reconfigureWidgets(vararg appWidgetIds: Int) {
+        val newGeneration = _generation.incrementAndGet()
         val ids = appWidgetIds.takeIf { it.isNotEmpty() } ?: widgetIds
-
+        Timber.d("reconfigureWidgets(${ids.joinToString()}) generation=$newGeneration")
         val intent = Intent(context, TasksWidget::class.java)
             .putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
             .apply { action = AppWidgetManager.ACTION_APPWIDGET_UPDATE }
-
         context.sendBroadcast(intent)
     }
 
     fun updateWidgets() {
-        updateChannel.trySend(Unit)
+        updateChannel.trySend(_generation.get())
     }
 
     fun exists(id: Int) = appWidgetManager?.getAppWidgetInfo(id) != null
-
-    private suspend fun notifyAppWidgetViewDataChanged(appWidgetIds: IntArray) = withContext(Dispatchers.Main) {
-        appWidgetManager?.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list_view)
-    }
 }

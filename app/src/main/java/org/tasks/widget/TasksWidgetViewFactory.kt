@@ -44,6 +44,7 @@ internal class TasksWidgetViewFactory(
     private val subtasksHelper: SubtasksHelper,
     private val widgetPreferences: WidgetPreferences,
     private val filter: Filter,
+    private val filterId: String?,
     private val context: Context,
     private val widgetId: Int,
     private val taskDao: TaskDao,
@@ -72,6 +73,10 @@ internal class TasksWidgetViewFactory(
 
     override fun onDataSetChanged() {
         Timber.v("onDataSetChanged $filter")
+        if (widgetPreferences.filterId != filterId) {
+            Timber.d("Skipping stale factory: expected $filterId, current ${widgetPreferences.filterId}")
+            return
+        }
         runBlocking {
             val collapsed = widgetPreferences.collapsed
             tasks = SectionedDataSource(
