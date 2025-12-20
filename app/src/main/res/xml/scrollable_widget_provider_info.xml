@@ -13,6 +13,6 @@
   android:minResizeWidth="110dp"
   android:minWidth="110dp"
   android:resizeMode="horizontal|vertical"
-  android:updatePeriodMillis="0"
+  android:updatePeriodMillis="1800000"
   android:widgetCategory="keyguard|home_screen"
   tools:ignore="UnusedAttribute"/>
