@@ -52,23 +52,52 @@ class DateTime {
         timeZone = timeZone
     )
 
-    fun startOfMinute(): DateTime = DateTime(millis.startOfMinute())
+    fun startOfMinute(): DateTime = DateTime(millis.startOfMinute(), timeZone)
 
-    fun startOfSecond(): DateTime = DateTime(millis.startOfSecond())
+    fun startOfSecond(): DateTime = DateTime(millis.startOfSecond(), timeZone)
 
-    fun endOfMinute(): DateTime = DateTime(millis.endOfMinute())
+    fun endOfMinute(): DateTime = DateTime(millis.endOfMinute(), timeZone)
 
-    fun noon(): DateTime = DateTime(millis.noon())
+    fun noon(): DateTime = DateTime(
+        year = year,
+        month = monthOfYear,
+        day = dayOfMonth,
+        hour = 12,
+        timeZone = timeZone
+    )
 
-    fun endOfDay(): DateTime = DateTime(millis.endOfDay())
+    fun endOfDay(): DateTime = DateTime(
+        year = year,
+        month = monthOfYear,
+        day = dayOfMonth,
+        hour = 23,
+        minute = 59,
+        second = 59,
+        timeZone = timeZone
+    )
 
-    fun withMillisOfDay(millisOfDay: Int): DateTime = DateTime(millis.withMillisOfDay(millisOfDay))
+    fun withMillisOfDay(millisOfDay: Int): DateTime {
+        val hours = millisOfDay / 3600000
+        val minutes = (millisOfDay % 3600000) / 60000
+        val seconds = (millisOfDay % 60000) / 1000
+        val millis = millisOfDay % 1000
+        return DateTime(
+            year = year,
+            month = monthOfYear,
+            day = dayOfMonth,
+            hour = hours,
+            minute = minutes,
+            second = seconds,
+            millisecond = millis,
+            timeZone = timeZone
+        )
+    }
 
     val offset: Long
         get() = timeZone.getOffset(millis).toLong()
 
     val millisOfDay: Int
-        get() = millis.millisOfDay
+        get() = hourOfDay * 3600000 + minuteOfHour * 60000 + secondOfMinute * 1000 + calendar[Calendar.MILLISECOND]
 
     val year: Int
         get() = calendar[Calendar.YEAR]
@@ -151,11 +180,11 @@ class DateTime {
         return add(Calendar.SECOND, -seconds)
     }
 
-    fun minusDays(days: Int): DateTime = DateTime(millis.minusDays(days))
+    fun minusDays(days: Int): DateTime = add(Calendar.DATE, -days)
 
-    fun minusMinutes(minutes: Int): DateTime = DateTime(millis.minusMinutes(minutes))
+    fun minusMinutes(minutes: Int): DateTime = add(Calendar.MINUTE, -minutes)
 
-    fun minusMillis(millis: Long): DateTime = DateTime(this.millis.minusMillis(millis))
+    fun minusMillis(millis: Long): DateTime = DateTime(this.millis - millis, timeZone)
 
     val isAfterNow: Boolean
         get() = isAfter(currentTimeMillis())

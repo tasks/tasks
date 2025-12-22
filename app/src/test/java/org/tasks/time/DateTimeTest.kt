@@ -219,7 +219,9 @@ class DateTimeTest {
     @Test
     fun testMinusMinutes() {
         assertEquals(
-                DateTime(2015, 11, 4, 23, 59, 0), DateTime(2015, 11, 5, 0, 1, 0).minusMinutes(2))
+            DateTime(2015, 11, 4, 23, 59, 0, timeZone = DateTime.UTC),
+            DateTime(2015, 11, 5, 0, 1, 0, timeZone = DateTime.UTC).minusMinutes(2)
+        )
     }
 
     @Test
@@ -292,16 +294,21 @@ class DateTimeTest {
     @Test
     fun testMinusMillis() {
         assertEquals(
-                DateTime(2015, 11, 6, 16, 18, 20, 452),
-                DateTime(2015, 11, 6, 16, 18, 21, 374).minusMillis(922))
+            DateTime(2015, 11, 6, 16, 18, 20, 452, DateTime.UTC),
+            DateTime(2015, 11, 6, 16, 18, 21, 374, DateTime.UTC).minusMillis(922)
+        )
     }
 
     @Test
     fun testMinusDays() {
         assertEquals(
-                DateTime(2015, 11, 6, 16, 19, 16), DateTime(2015, 12, 4, 16, 19, 16).minusDays(28))
+            DateTime(2015, 11, 6, 16, 19, 16, timeZone = DateTime.UTC),
+            DateTime(2015, 12, 4, 16, 19, 16, timeZone = DateTime.UTC).minusDays(28)
+        )
         assertEquals(
-                DateTime(2015, 11, 6, 16, 19, 16), DateTime(2015, 11, 7, 16, 19, 16).minusDays(1))
+            DateTime(2015, 11, 6, 16, 19, 16, timeZone = DateTime.UTC),
+            DateTime(2015, 11, 7, 16, 19, 16, timeZone = DateTime.UTC).minusDays(1)
+        )
     }
 
     @Test
@@ -347,15 +354,17 @@ class DateTimeTest {
     @Test
     fun testStartOfMinute() {
         assertEquals(
-                DateTime(2017, 9, 3, 0, 51, 0, 0),
-                DateTime(2017, 9, 3, 0, 51, 13, 427).startOfMinute())
+            DateTime(2017, 9, 3, 0, 51, 0, 0, DateTime.UTC),
+            DateTime(2017, 9, 3, 0, 51, 13, 427, DateTime.UTC).startOfMinute()
+        )
     }
 
     @Test
     fun testEndOfMinute() {
         assertEquals(
-                DateTime(2017, 9, 22, 14, 47, 59, 999),
-                DateTime(2017, 9, 22, 14, 47, 14, 453).endOfMinute())
+            DateTime(2017, 9, 22, 14, 47, 59, 999, DateTime.UTC),
+            DateTime(2017, 9, 22, 14, 47, 14, 453, DateTime.UTC).endOfMinute()
+        )
     }
 
     @Test
@@ -443,5 +452,29 @@ class DateTimeTest {
             val utcMidnight = localMidnight.startOfDay(DateTime.UTC)
             assertEquals(DateTime(2024, 12, 20, timeZone = DateTime.UTC), utcMidnight)
         }
+    }
+
+    @Test
+    fun noon() {
+        assertEquals(
+            DateTime(2024, 12, 20, 12, timeZone = DateTime.UTC),
+            DateTime(2024, 12, 20, 8, 30, 45, 123, DateTime.UTC).noon()
+        )
+    }
+
+    @Test
+    fun endOfDay() {
+        assertEquals(
+            DateTime(2024, 12, 20, 23, 59, 59, timeZone = DateTime.UTC),
+            DateTime(2024, 12, 20, 8, 30, 45, 123, DateTime.UTC).endOfDay()
+        )
+    }
+
+    @Test
+    fun millisOfDayRespectsTimezone() {
+        val instant = DateTime(2024, 12, 20, 12, timeZone = DateTime.UTC)
+        val berlinDateTime = DateTime(instant.millis, TimeZone.getTimeZone("Europe/Berlin")) // UTC+1
+        assertEquals(12 * 3600000, instant.millisOfDay)
+        assertEquals(13 * 3600000, berlinDateTime.millisOfDay)
     }
 }
