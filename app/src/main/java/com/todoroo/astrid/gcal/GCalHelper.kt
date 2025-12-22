@@ -151,7 +151,7 @@ class GCalHelper @Inject constructor(
                 values.put(CalendarContract.Events.ALL_DAY, "0")
                 values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
             } else {
-                val utcMidnight = DateTime(dueDate).toUTC().startOfDay()
+                val utcMidnight = DateTime(dueDate).startOfDay(DateTime.UTC)
                 values.put(CalendarContract.Events.DTSTART, utcMidnight.millis)
                 values.put(CalendarContract.Events.DTEND, utcMidnight.plusDays(1).millis)
                 values.put(CalendarContract.Events.ALL_DAY, "1")

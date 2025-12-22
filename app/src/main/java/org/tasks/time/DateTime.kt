@@ -44,7 +44,13 @@ class DateTime {
 
     private constructor(calendar: Calendar) : this(calendar.timeInMillis, calendar.timeZone)
 
-    fun startOfDay(): DateTime = DateTime(millis.startOfDay())
+    @JvmOverloads
+    fun startOfDay(timeZone: TimeZone = this.timeZone): DateTime = DateTime(
+        year = year,
+        month = monthOfYear,
+        day = dayOfMonth,
+        timeZone = timeZone
+    )
 
     fun startOfMinute(): DateTime = DateTime(millis.startOfMinute())
 

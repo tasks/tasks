@@ -1,9 +1,12 @@
 package org.tasks.time
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.Freeze
 import org.tasks.TestUtilities.withTZ
+import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 
 class DateTimeTest {
@@ -353,5 +356,92 @@ class DateTimeTest {
         assertEquals(
                 DateTime(2017, 9, 22, 14, 47, 59, 999),
                 DateTime(2017, 9, 22, 14, 47, 14, 453).endOfMinute())
+    }
+
+    @Test
+    fun startOfDayPreservesTimezone() {
+        val utcDateTime = DateTime(2024, 12, 20, 14, 30, timeZone = DateTime.UTC)
+        val result = utcDateTime.startOfDay()
+        assertEquals(DateTime(2024, 12, 20, timeZone = DateTime.UTC), result)
+    }
+
+    @Test
+    fun startOfDayInDefaultTimezone() {
+        val dateTime = DateTime(2024, 12, 20, 14, 30)
+        val result = dateTime.startOfDay()
+        assertEquals(DateTime(2024, 12, 20), result)
+    }
+
+    @Test
+    fun startOfDayWithUTCTimezone() {
+        withTZ("America/Chicago") { // UTC-6
+            val utcDateTime = DateTime(2024, 12, 20, 15, timeZone = DateTime.UTC)
+            val result = utcDateTime.startOfDay()
+            assertEquals(DateTime(2024, 12, 20, timeZone = DateTime.UTC), result)
+        }
+    }
+
+    @Test
+    fun startOfDayBeforeUTC() {
+        withTZ("America/New_York") { // UTC-5
+            val nyDateTime = DateTime(2024, 12, 20, 15)
+            val result = nyDateTime.startOfDay()
+            assertEquals(DateTime(2024, 12, 20), result)
+        }
+    }
+
+    @Test
+    fun startOfDayAfterUTC() {
+        withTZ("Europe/Berlin") { // UTC+1
+            val berlinDateTime = DateTime(2024, 12, 20, 15)
+            val result = berlinDateTime.startOfDay()
+            assertEquals(DateTime(2024, 12, 20), result)
+        }
+    }
+
+    @Test
+    fun startOfDayWithDateBoundaryWrap() {
+        withTZ("Pacific/Auckland") { // UTC+13
+            val aucklandDateTime = DateTime(2024, 12, 20, 12)
+            val result = aucklandDateTime.startOfDay()
+            assertEquals(DateTime(2024, 12, 20), result)
+        }
+    }
+
+    @Test
+    fun startOfDayRespectsTimezoneNotSystemDefault() {
+        withTZ("America/New_York") { // UTC-5
+            val berlinTz = TimeZone.getTimeZone("Europe/Berlin") // UTC+1
+            val berlinDateTime = DateTime(2024, 12, 20, 1, timeZone = berlinTz)
+            val result = berlinDateTime.startOfDay()
+            assertEquals(DateTime(2024, 12, 20, timeZone = berlinTz), result)
+        }
+    }
+
+    @Test
+    fun startOfDayWithExplicitTimezone() {
+        withTZ("Europe/Berlin") { // UTC+1
+            val localMidnight = DateTime(2024, 12, 20)
+            val utcMidnight = localMidnight.startOfDay(DateTime.UTC)
+            assertEquals(DateTime(2024, 12, 20, timeZone = DateTime.UTC), utcMidnight)
+        }
+    }
+
+    @Test
+    fun startOfDayWithExplicitTimezoneFromAuckland() {
+        withTZ("Pacific/Auckland") { // UTC+13
+            val localMidnight = DateTime(2024, 12, 20)
+            val utcMidnight = localMidnight.startOfDay(DateTime.UTC)
+            assertEquals(DateTime(2024, 12, 20, timeZone = DateTime.UTC), utcMidnight)
+        }
+    }
+
+    @Test
+    fun startOfDayWithExplicitTimezoneFromHonolulu() {
+        withTZ("Pacific/Honolulu") { // UTC-10
+            val localMidnight = DateTime(2024, 12, 20)
+            val utcMidnight = localMidnight.startOfDay(DateTime.UTC)
+            assertEquals(DateTime(2024, 12, 20, timeZone = DateTime.UTC), utcMidnight)
+        }
     }
 }
