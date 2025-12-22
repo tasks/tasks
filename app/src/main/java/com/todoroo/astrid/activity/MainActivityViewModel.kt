@@ -50,7 +50,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
     private val defaultFilterProvider: DefaultFilterProvider,
     private val filterProvider: FilterProvider,
     private val taskDao: TaskDao,
@@ -81,9 +81,14 @@ class MainActivityViewModel @Inject constructor(
                 }
                 ?: runBlocking { defaultFilterProvider.getStartupFilter() },
             begForMoney = if (IS_GENERIC) !inventory.hasTasksAccount else !inventory.hasPro,
+            task = savedStateHandle.get<Task>(EXTRA_TASK),
         )
     )
     val state = _state.asStateFlow()
+
+    companion object {
+        private const val EXTRA_TASK = "extra_task"
+    }
 
     val accountExists: Flow<Boolean>
         get() = caldavDao.watchAccountExists()
@@ -107,6 +112,7 @@ class MainActivityViewModel @Inject constructor(
         if (filter == _state.value.filter && task == null) {
             return
         }
+        savedStateHandle[EXTRA_TASK] = task
         _state.update {
             it.copy(
                 filter = filter,
@@ -226,6 +232,7 @@ class MainActivityViewModel @Inject constructor(
     }
 
     fun setTask(task: Task?) {
+        savedStateHandle[EXTRA_TASK] = task
         _state.update { it.copy(task = task) }
     }
 

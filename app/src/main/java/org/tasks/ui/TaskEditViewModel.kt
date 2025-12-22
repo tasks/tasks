@@ -87,8 +87,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskEditViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
-    savedStateHandle: SavedStateHandle,
+    @param:ApplicationContext private val context: Context,
+    private val savedStateHandle: SavedStateHandle,
     private val taskDao: TaskDao,
     private val taskDeleter: TaskDeleter,
     private val timerPlugin: TimerPlugin,
@@ -116,9 +116,24 @@ class TaskEditViewModel @Inject constructor(
     private val resources = context.resources
     private var cleared = false
 
-    private val task: Task = savedStateHandle.get<Task>(TaskEditFragment.EXTRA_TASK)
-        ?.apply { notes = notes?.stripCarriageReturns() } // copying here broke tests 🙄
-        ?: throw IllegalArgumentException("task is null")
+    private val task: Task = run {
+        val argTask = savedStateHandle.get<Task>(TaskEditFragment.EXTRA_TASK)
+            ?: throw IllegalArgumentException("task is null")
+
+        val wasRecreated = savedStateHandle.contains(EXTRA_WAS_INIT)
+            .also { savedStateHandle[EXTRA_WAS_INIT] = true }
+        if (wasRecreated) {
+            runBlocking {
+                if (argTask.isNew) {
+                    taskDao.fetch(argTask.uuid)
+                } else {
+                    taskDao.fetch(argTask.id)
+                }
+            } ?: argTask
+        } else {
+            argTask
+        }
+    }.apply { notes = notes?.stripCarriageReturns() } // copying here broke tests 🙄
 
     private val _originalState = MutableStateFlow(
         TaskEditViewState(
@@ -364,12 +379,11 @@ class TaskEditViewModel @Inject constructor(
             taskDao.createNew(subtask)
             alarmDao.insert(subtask.getDefaultAlarms())
             firebase?.addTask("subtasks")
-            val filter = selectedList
             when {
-                filter.isGoogleTasks -> {
+                selectedList.isGoogleTasks -> {
                     val googleTask = CaldavTask(
                         task = subtask.id,
-                        calendar = filter.uuid,
+                        calendar = selectedList.uuid,
                         remoteId = null,
                     )
                     subtask.parent = task.id
@@ -595,7 +609,7 @@ class TaskEditViewModel @Inject constructor(
             val attachments = async {
                 taskAttachmentDao
                     .getAttachments(task.id)
-                    .filter { FileHelper.fileExists(context, Uri.parse(it.uri)) }
+                    .filter { FileHelper.fileExists(context, it.uri.toUri()) }
                     .toPersistentSet()
             }
             val alarms = async {
@@ -630,6 +644,8 @@ class TaskEditViewModel @Inject constructor(
     }
 
     companion object {
+        private const val EXTRA_WAS_INIT = "extra_was_init"
+
         // one spark tasks for windows adds these
         fun String?.stripCarriageReturns(): String? = this?.replace("\\r\\n?".toRegex(), "\n")
 
