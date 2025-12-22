@@ -68,6 +68,17 @@ class RecursiveLoopTest : InjectingTestCase() {
         assertEquals(grandchild, tasks[2].id)
     }
 
+    @Test
+    fun descendantsRecursiveLoopBothMatchFilter() = runBlocking {
+        val parent = addTask(with(DUE_DATE, newDateTime()))
+        val child = addTask(with(DUE_DATE, newDateTime()), with(PARENT, parent))
+
+        taskDao.setParent(child, listOf(parent))
+
+        val tasks = getTasks()
+        assertEquals(2, tasks.size)
+    }
+
     private suspend fun getTasks() = taskDao.fetchTasks(
         getQuery(preferences, TodayFilter.create())
     )

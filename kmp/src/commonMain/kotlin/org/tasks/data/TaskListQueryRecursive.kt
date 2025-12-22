@@ -127,7 +127,7 @@ internal object TaskListQueryRecursive {
                     parent_complete as completed
                 FROM recursive_tasks
                 WHERE parent > 0
-                UNION ALL
+                UNION
                 SELECT
                     d.parent,
                     r.task as descendant,
