@@ -658,4 +658,7 @@
     <string name="sort_descending">Giảm dần</string>
     <string name="sort_completed">Theo thời gian hoàn thành</string>
     <string name="change_priority">Thay đổi mức độ ưu tiên</string>
+    <string name="app_settings">Cài đặt ứng dụng</string>
+    <string name="customize_drawer">Tùy chỉnh ngăn kéo</string>
+    <string name="customize_drawer_summary">Kéo và thả để sắp xếp lại các mục danh sách</string>
 </resources>
