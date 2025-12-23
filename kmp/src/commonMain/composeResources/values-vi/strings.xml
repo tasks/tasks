@@ -27,4 +27,6 @@
     <string name="today_lowercase">hôm nay</string>
     <string name="show_unstarted">Hiện mục chưa bắt đầu</string>
     <string name="show_completed">Hiện mục đã hoàn thành</string>
+    <string name="search_no_results">Không có kết quả</string>
+    <string name="add_task">Thêm nhiệm vụ</string>
 </resources>
