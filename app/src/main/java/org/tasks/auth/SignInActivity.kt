@@ -265,6 +265,9 @@ class SignInActivity : ComponentActivity() {
     private fun handleConfigurationRetrievalResult(
             config: AuthorizationServiceConfiguration?,
             ex: AuthorizationException?) {
+        if (isFinishing || isDestroyed) {
+            return
+        }
         if (config == null) {
             returnError(ex ?: Exception("Failed to retrieve discovery document"))
             return
@@ -311,6 +314,9 @@ class SignInActivity : ComponentActivity() {
     private fun handleRegistrationResponse(
             response: RegistrationResponse?,
             ex: AuthorizationException?) {
+        if (isFinishing || isDestroyed) {
+            return
+        }
         authStateManager.updateAfterRegistration(response, ex)
         if (response == null) {
             runOnUiThread { returnError(ex ?: Exception("Failed to dynamically register client")) }
