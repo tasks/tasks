@@ -506,7 +506,6 @@
     <string name="next_tuesday">Budúci utorok</string>
     <string name="date_shortcut_tomorrow_night">Zajtra v noci</string>
     <string name="default_location">Predvolené miesto</string>
-    <string name="got_it">Rozumiem!</string>
     <string name="sort_completion_group">Dokončené %s</string>
     <string name="reset_sort_order">Obnoviť triedenie</string>
     <string name="repeat_monthly_on_day_number">%1d. deň v mesiaci</string>

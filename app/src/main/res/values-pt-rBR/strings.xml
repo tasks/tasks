@@ -482,7 +482,6 @@
     <string name="on_launch">Ao iniciar</string>
     <string name="sort_modified_group">Modificado em %s</string>
     <string name="sort_created_group">Criado em %s</string>
-    <string name="got_it">Entendi!</string>
     <string name="support_development_subscribe">Desbloquear funcionalidades adicionais e oferecer suporte a software de código aberto</string>
     <string name="enjoying_tasks">Curtindo Tasks\?</string>
     <string name="filter_eisenhower_box_4">Não é importante e não é urgente</string>

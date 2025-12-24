@@ -607,7 +607,6 @@
     <string name="donate_today">Донирај данас</string>
     <string name="donate_maybe_later">Можда касније</string>
     <string name="support_development_subscribe">Откључај додатне функционалности и подржи софтвер отвореног кода</string>
-    <string name="got_it">Јасно!</string>
     <string name="sort_start_group">Старт %s</string>
     <string name="sort_due_group">Доспеће %s</string>
     <string name="sort_created_group">Креирано %s</string>

@@ -429,7 +429,6 @@
     <string name="theme_system_default">시스템 기본설정</string>
     <string name="menu_discard_changes">변경사항 폐기</string>
     <string name="support_development_subscribe">부가 기능을 해제하고 오픈소스 소프트웨어를 지원하십시오</string>
-    <string name="got_it">확인했습니다!</string>
     <string name="compact">촘촘하게</string>
     <string name="settings_default">기본값</string>
     <string name="sort_modified_group">%s 변경</string>

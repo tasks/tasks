@@ -478,7 +478,6 @@
     <string name="filter_eisenhower_box_3">Unwichtig und dringend</string>
     <string name="filter_eisenhower_box_2">Wichtig und nicht dringend</string>
     <string name="filter_eisenhower_box_1">Wichtig und dringend</string>
-    <string name="got_it">Verstanden!</string>
     <string name="action_new_task">Neue Aufgabe</string>
     <string name="support_development_subscribe">Schalte zusätzliche Funktionen frei und unterstütze freie Software</string>
     <string name="astrid_sort_order_summary">Astrids manuelle Sortiermethode für „Meine Aufgaben“, „Heute“ und Schlagwörter aktivieren. Diese Sortiermethode wird in einer zukünftigen Version „Meine Sortierung“ ersetzen</string>

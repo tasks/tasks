@@ -137,7 +137,6 @@
     <string name="on_launch">தொடங்கும்போது</string>
     <string name="sort_modified_group">மாற்றியமைக்கப்பட்ட %s</string>
     <string name="sort_created_group">%s உருவாக்கப்பட்டது</string>
-    <string name="got_it">அறிந்துகொண்டேன்!</string>
     <string name="enjoying_tasks">பணிகளை அனுபவிக்கிறீர்களா\?</string>
     <string name="filter_eisenhower_box_4">முக்கியமற்றது மற்றும் அவசரமற்றது</string>
     <string name="filter_eisenhower_box_3">முக்கியமற்றது மற்றும் அவசரமானது</string>

@@ -598,7 +598,6 @@
     <string name="donate_today">Doa hoxe</string>
     <string name="donate_maybe_later">Quizais máis tarde</string>
     <string name="support_development_subscribe">Desbloquea funcións adicionais e apoia software de código aberto</string>
-    <string name="got_it">Entendido!</string>
     <string name="sort_completion_group">Completado %s</string>
     <string name="on_launch">Ao iniciar</string>
     <string name="permission_read_tasks">Acceso completo á base de datos de Tasks</string>

@@ -506,7 +506,6 @@
     <string name="on_launch">Vid start</string>
     <string name="sort_due_group">Förfaller %s</string>
     <string name="sort_start_group">Starta %s</string>
-    <string name="got_it">Förstått!</string>
     <string name="support_development_subscribe">Lås upp ytterligare funktioner och stöd programvara med öppen källkod</string>
     <string name="enjoying_tasks">Gillar du Tasks\?</string>
     <string name="filter_eisenhower_box_4">Inte viktigt och inte brådskande</string>

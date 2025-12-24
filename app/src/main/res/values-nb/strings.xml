@@ -479,7 +479,6 @@
     <string name="auto_dismiss_datetime_edit">Gjøremålsredigering</string>
     <string name="place_settings">Stedsinnstillinger</string>
     <string name="places">Steder</string>
-    <string name="got_it">Skjønner!</string>
     <string name="sort_modified_group">Endret %s</string>
     <string name="sort_created_group">Opprettet %s</string>
     <string name="reset_sort_order">Tilbakestill sorteringsrekkefølge</string>

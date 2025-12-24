@@ -479,7 +479,6 @@
     <string name="sort_created_group">Stvoreno %s</string>
     <string name="sort_due_group">Rok %s</string>
     <string name="sort_start_group">Pokreni %s</string>
-    <string name="got_it">Razumijem!</string>
     <string name="support_development_subscribe">Otključaj dodatne funkcije i podrži softver otvorenog koda</string>
     <string name="enjoying_tasks">Sviđa ti se Tasks\?</string>
     <string name="filter_eisenhower_box_4">Nije važno i nije hitno</string>

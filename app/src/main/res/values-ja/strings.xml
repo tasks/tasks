@@ -383,7 +383,6 @@
     <string name="name_your_price">価格はあなた次第</string>
     <string name="cancel">キャンセル</string>
     <string name="email">電子メール</string>
-    <string name="got_it">わかりました！</string>
     <string name="add_tags">タグを追加</string>
     <string name="filter_no_tags">タグなし</string>
     <string name="hide_unused_tags">使われていないタグを隠す</string>

@@ -446,7 +446,6 @@
         <item quantity="other">aastat</item>
     </plurals>
     <string name="widget_due_date_after_title">Pealkirja järel</string>
-    <string name="got_it">Selge!</string>
     <string name="default_recurrence">Vaikekordus</string>
     <string name="authorization_cancelled">Autoriseerimine tühisatud</string>
     <string name="migrating_tasks">Ülesanded on kolimisel</string>
