@@ -700,7 +700,7 @@
     <string name="button_learn_more">Saiba mais</string>
     <string name="add_widget_to_home_screen">Adicionar widget à tela inicial</string>
     <string name="enable_alarms">Receba notificações na hora certa</string>
-    <string name="banner_app_updated_title">Aplicativo atualizado</string>
+    <string name="banner_app_updated_title">Aplicação atualizada</string>
     <string name="cost_money">Custo: R$</string>
     <string name="multiline_title">Permitir títulos em várias linhas</string>
     <string name="multiline_title_on">Pressione a tecla Enter para adicionar quebras de linha</string>
@@ -714,11 +714,11 @@
     <string name="donate_today">Doe hoje</string>
     <string name="customize_drawer_summary">Arraste e solte para reorganizar os itens do menu</string>
     <string name="swipe_to_snooze_time_description">Uma notificação desmarcada será adiada e recriada em %s</string>
-    <string name="app_settings">Configurações do aplicativo</string>
+    <string name="app_settings">Configurações da aplicação</string>
     <string name="comment">Comentário</string>
     <string name="add_shortcut_to_home_screen">Adicionar atalho para a tela inicial</string>
     <string name="cost_free">Custo: Grátis</string>
-    <string name="send_application_logs">Enviar logs do aplicativo</string>
+    <string name="send_application_logs">Enviar logs da aplicação</string>
     <string name="help_me_choose">Ajude-me a escolher</string>
     <string name="continue_without_sync">Continuar sem sync</string>
     <string name="delete_tasks_warning">%s será apagado. Isso não poderá ser desfeito!</string>
