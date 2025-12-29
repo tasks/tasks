@@ -175,7 +175,7 @@ play-services-oss-licenses = { module = "com.google.android.gms:play-services-os
 shortcut-badger = { module = "me.leolin:ShortcutBadger", version.ref = "shortcut-badger" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 xpp3 = { module = "org.ogce:xpp3", version.ref = "xpp3" }
-androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version = "1.9.5" }
+androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version = "1.10.0" }
 iconics = { module = "com.mikepenz:iconics-core", version = "5.5.0-b01" }
 play-services-wearable = { group = "com.google.android.gms", name = "play-services-wearable", version = "19.0.0" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
