@@ -77,21 +77,25 @@ internal class TasksWidgetViewFactory(
             Timber.d("Skipping stale factory: expected $filterId, current ${widgetPreferences.filterId}")
             return
         }
-        runBlocking {
-            val collapsed = widgetPreferences.collapsed
-            tasks = SectionedDataSource(
-                taskDao.fetchTasks(getQuery(filter)),
-                disableGroups,
-                settings.groupMode,
-                widgetPreferences.subtaskMode,
-                collapsed,
-                widgetPreferences.completedTasksAtBottom,
-            )
-            collapsed.toMutableSet().let {
-                if (it.retainAll(tasks.getSectionValues().toSet())) {
-                    widgetPreferences.collapsed = it
+        try {
+            runBlocking {
+                val collapsed = widgetPreferences.collapsed
+                tasks = SectionedDataSource(
+                    taskDao.fetchTasks(getQuery(filter)),
+                    disableGroups,
+                    settings.groupMode,
+                    widgetPreferences.subtaskMode,
+                    collapsed,
+                    widgetPreferences.completedTasksAtBottom,
+                )
+                collapsed.toMutableSet().let {
+                    if (it.retainAll(tasks.getSectionValues().toSet())) {
+                        widgetPreferences.collapsed = it
+                    }
                 }
             }
+        } catch (e: InterruptedException) {
+            Timber.w("Widget update interrupted")
         }
     }
 
