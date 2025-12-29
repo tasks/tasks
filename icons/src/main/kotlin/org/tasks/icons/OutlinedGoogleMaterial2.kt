@@ -254,6 +254,8 @@ object OutlinedGoogleMaterial2 : ITypeface {
 		gmo_zoom_out('\uf104'),
 		gmo_zoom_out_map('\uf103'),
 		gmo_local_grocery_store('\uf3e2'), // mapped to 'gmo_shopping_cart'
+		gmo_favorite_border('\ufa0b'), // mapped to 'gmo_favorite'
+		gmo_card_giftcard('\uf4e9'), // mapped to 'gmo_redeem'
 		;
 
 		override val typeface: ITypeface by lazy { OutlinedGoogleMaterial2 }
