@@ -584,9 +584,10 @@
 +|    |    |    |    +--- androidx.legacy:legacy-support-core-utils:1.0.0 (*)
 +|    |    |    |    \--- com.google.android.gms:play-services-basement:18.0.0 -> 18.8.0 (*)
 +|    |    |    +--- com.google.android.gms:play-services-tasks:18.2.0 -> 18.4.0 (*)
-+|    |    |    \--- com.google.guava:guava:31.1-android -> 33.4.0-android
-+|    |    |         +--- com.google.guava:failureaccess:1.0.2
-+|    |    |         \--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
++|    |    |    \--- com.google.guava:guava:31.1-android -> 33.5.0-android
++|    |    |         +--- com.google.guava:failureaccess:1.0.3
++|    |    |         +--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
++|    |    |         \--- org.jspecify:jspecify:1.0.0
 +|    |    +--- com.google.android.gms:play-services-measurement-sdk-api:22.5.0
 +|    |    |    +--- com.google.android.gms:play-services-basement:18.5.0 -> 18.8.0 (*)
 +|    |    |    \--- com.google.android.gms:play-services-measurement-base:22.5.0 (*)
@@ -602,7 +603,7 @@
 +|    |    +--- com.google.firebase:firebase-installations:17.0.1 -> 18.0.0 (*)
 +|    |    +--- com.google.firebase:firebase-installations-interop:17.0.0 -> 17.2.0 (*)
 +|    |    +--- com.google.firebase:firebase-measurement-connector:19.0.0 -> 20.0.1 (*)
-+|    |    +--- com.google.guava:guava:31.1-android -> 33.4.0-android (*)
++|    |    +--- com.google.guava:guava:31.1-android -> 33.5.0-android (*)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.0 -> 2.2.21 (*)
 +|    \--- com.google.android.gms:play-services-measurement-sdk:22.5.0
 +|         +--- androidx.collection:collection:1.0.0 -> 1.5.0 (*)
@@ -768,17 +769,17 @@
 +|    +--- androidx.wear:wear-remote-interactions:1.1.0 (*)
 +|    +--- com.google.android.horologist:horologist-annotations:0.7.15 (*)
 +|    +--- com.google.android.horologist:horologist-datalayer:0.7.15 (*)
-+|    +--- io.grpc:grpc-protobuf-lite:1.73.0
-+|    |    +--- io.grpc:grpc-api:1.73.0
-+|    |    |    \--- com.google.guava:guava:33.3.1-android -> 33.4.0-android (*)
-+|    |    +--- com.google.protobuf:protobuf-javalite:3.25.5 -> 4.33.2
-+|    |    \--- com.google.guava:guava:33.3.1-android -> 33.4.0-android (*)
++|    +--- io.grpc:grpc-protobuf-lite:1.73.0 -> 1.78.0
++|    |    +--- io.grpc:grpc-api:1.78.0
++|    |    |    \--- com.google.guava:guava:33.5.0-android (*)
++|    |    +--- com.google.protobuf:protobuf-javalite:3.25.8 -> 4.33.2
++|    |    \--- com.google.guava:guava:33.5.0-android (*)
 +|    +--- io.grpc:grpc-kotlin-stub:1.4.3 -> 1.5.0
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.2.21 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2 (*)
 +|    |    +--- io.grpc:grpc-stub:1.62.2
-+|    |    |    +--- io.grpc:grpc-api:1.62.2 -> 1.73.0 (*)
-+|    |    |    \--- com.google.guava:guava:32.1.3-android -> 33.4.0-android (*)
++|    |    |    +--- io.grpc:grpc-api:1.62.2 -> 1.78.0 (*)
++|    |    |    \--- com.google.guava:guava:32.1.3-android -> 33.5.0-android (*)
 +|    |    +--- javax.annotation:javax.annotation-api:1.3.2
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.2.21 (c)
 +|    \--- com.google.android.gms:play-services-wearable:19.0.0 (*)
@@ -868,26 +869,26 @@
 +|    \--- io.opentelemetry:opentelemetry-api:1.18.0 (*)
 ++--- project :wear-datalayer
 +|    +--- io.grpc:grpc-kotlin-stub:1.5.0 (*)
-+|    +--- io.grpc:grpc-protobuf-lite:1.73.0 (*)
-+|    +--- io.grpc:grpc-android:1.73.0
-+|    |    +--- io.grpc:grpc-api:1.73.0 (*)
-+|    |    +--- io.grpc:grpc-core:1.73.0
-+|    |    |    +--- io.grpc:grpc-api:1.73.0 (*)
-+|    |    |    +--- com.google.code.gson:gson:2.11.0 -> 2.12.1
++|    +--- io.grpc:grpc-protobuf-lite:1.78.0 (*)
++|    +--- io.grpc:grpc-android:1.78.0
++|    |    +--- io.grpc:grpc-api:1.78.0 (*)
++|    |    +--- io.grpc:grpc-core:1.78.0
++|    |    |    +--- io.grpc:grpc-api:1.78.0 (*)
++|    |    |    +--- com.google.code.gson:gson:2.12.1
 +|    |    |    +--- com.google.android:annotations:4.1.1.4
-+|    |    |    +--- org.codehaus.mojo:animal-sniffer-annotations:1.24
-+|    |    |    +--- com.google.guava:guava:33.3.1-android -> 33.4.0-android (*)
++|    |    |    +--- org.codehaus.mojo:animal-sniffer-annotations:1.26
++|    |    |    +--- com.google.guava:guava:33.5.0-android (*)
 +|    |    |    +--- io.perfmark:perfmark-api:0.27.0
-+|    |    |    \--- io.grpc:grpc-context:1.73.0
-+|    |    |         \--- io.grpc:grpc-api:1.73.0 (*)
-+|    |    \--- com.google.guava:guava:33.3.1-android -> 33.4.0-android (*)
-+|    +--- io.grpc:grpc-binder:1.73.0
-+|    |    +--- io.grpc:grpc-api:1.73.0 (*)
-+|    |    +--- io.grpc:grpc-core:1.73.0 (*)
++|    |    |    \--- io.grpc:grpc-context:1.78.0
++|    |    |         \--- io.grpc:grpc-api:1.78.0 (*)
++|    |    \--- com.google.guava:guava:33.5.0-android (*)
++|    +--- io.grpc:grpc-binder:1.78.0
++|    |    +--- io.grpc:grpc-api:1.78.0 (*)
++|    |    +--- io.grpc:grpc-core:1.78.0 (*)
 +|    |    +--- androidx.annotation:annotation:1.9.0 -> 1.9.1 (*)
 +|    |    +--- androidx.core:core:1.13.1 -> 1.16.0 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-common:2.8.7 -> 2.10.0 (*)
-+|    |    \--- com.google.guava:guava:33.3.1-android -> 33.4.0-android (*)
++|    |    \--- com.google.guava:guava:33.5.0-android (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.2.21 (*)
 +|    +--- com.google.android.horologist:horologist-datalayer:0.7.15 (*)
 +|    +--- androidx.datastore:datastore-preferences:1.2.0 (*)
@@ -1857,30 +1858,30 @@
 +|         +--- commons-codec:commons-codec:1.17.1
 +|         +--- com.google.oauth-client:google-oauth-client:1.36.0
 +|         |    +--- com.google.http-client:google-http-client:1.43.3 -> 1.47.0
-+|         |    |    +--- com.google.guava:guava:30.1.1-android -> 33.4.0-android (*)
-+|         |    |    +--- io.grpc:grpc-context:1.70.0 -> 1.73.0 (*)
++|         |    |    +--- com.google.guava:guava:30.1.1-android -> 33.5.0-android (*)
++|         |    |    +--- io.grpc:grpc-context:1.70.0 -> 1.78.0 (*)
 +|         |    |    +--- io.opencensus:opencensus-api:0.31.1
-+|         |    |    |    \--- io.grpc:grpc-context:1.27.2 -> 1.73.0 (*)
++|         |    |    |    \--- io.grpc:grpc-context:1.27.2 -> 1.78.0 (*)
 +|         |    |    \--- io.opencensus:opencensus-contrib-http-util:0.31.1
 +|         |    |         +--- io.opencensus:opencensus-api:0.31.1 (*)
-+|         |    |         \--- com.google.guava:guava:29.0-android -> 33.4.0-android (*)
++|         |    |         \--- com.google.guava:guava:29.0-android -> 33.5.0-android (*)
 +|         |    +--- com.google.http-client:google-http-client-gson:1.43.3 -> 1.47.0
 +|         |    |    +--- com.google.http-client:google-http-client:1.47.0 (*)
 +|         |    |    \--- com.google.code.gson:gson:2.11.0 -> 2.12.1
-+|         |    \--- com.google.guava:guava:31.1-android -> 33.4.0-android (*)
++|         |    \--- com.google.guava:guava:31.1-android -> 33.5.0-android (*)
 +|         +--- com.google.auth:google-auth-library-credentials:1.30.0 -> 1.39.0
 +|         +--- com.google.auth:google-auth-library-oauth2-http:1.30.0 -> 1.39.0
 +|         |    +--- com.google.auto.value:auto-value-annotations:1.11.0
 +|         |    +--- com.google.auth:google-auth-library-credentials:1.39.0
 +|         |    +--- com.google.http-client:google-http-client:1.47.0 (*)
 +|         |    +--- com.google.http-client:google-http-client-gson:1.47.0 (*)
-+|         |    +--- com.google.guava:guava:33.4.0-android (*)
++|         |    +--- com.google.guava:guava:33.4.0-android -> 33.5.0-android (*)
 +|         |    +--- com.google.api:api-common:2.53.0
 +|         |    |    +--- com.google.auto.value:auto-value-annotations:1.11.0
 +|         |    |    \--- javax.annotation:javax.annotation-api:1.3.2
 +|         |    \--- com.google.code.gson:gson:2.12.1
 +|         +--- com.google.http-client:google-http-client-gson:1.45.2 -> 1.47.0 (*)
-+|         +--- com.google.guava:guava:33.1.0-jre -> 33.4.0-android (*)
++|         +--- com.google.guava:guava:33.1.0-jre -> 33.5.0-android (*)
 +|         \--- com.google.http-client:google-http-client:1.45.2 -> 1.47.0 (*)
 ++--- com.google.apis:google-api-services-drive:v3-rev20251210-2.0.0
 +|    \--- com.google.api-client:google-api-client:2.7.2 (*)
