@@ -363,6 +363,18 @@
           android:name="androidx.work.WorkManagerInitializer"
           android:value="androidx.startup"
           tools:node="remove" />
+      <meta-data
+          android:name="com.mikepenz.iconics.animation.SpinProcessor"
+          android:value="androidx.startup"
+          tools:node="remove" />
+      <meta-data
+          android:name="com.mikepenz.iconics.animation.BlinkAlphaProcessor"
+          android:value="androidx.startup"
+          tools:node="remove" />
+      <meta-data
+          android:name="com.mikepenz.iconics.animation.BlinkScaleProcessor"
+          android:value="androidx.startup"
+          tools:node="remove" />
     </provider>
 
     <provider
