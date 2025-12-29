@@ -300,7 +300,8 @@ internal class TasksWidgetViewFactory(
 
     private suspend fun getQuery(filter: Filter): String {
         subtasksHelper.applySubtasksToWidgetFilter(filter, widgetPreferences)
-        return getQuery(widgetPreferences, filter)
+        val limit = if (taskLimit == Int.MAX_VALUE) null else taskLimit
+        return getQuery(widgetPreferences, filter, limit)
     }
 
     private fun formatDueDate(row: RemoteViews, task: TaskContainer) = with(row) {

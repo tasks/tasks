@@ -19,6 +19,7 @@ internal object TaskListQueryRecursive {
     fun getRecursiveQuery(
         filter: Filter,
         preferences: QueryPreferences,
+        limit: Int? = null,
     ): String {
         val parentQuery = when (filter) {
             is CaldavFilter -> newCaldavQuery(filter.uuid)
@@ -165,6 +166,7 @@ internal object TaskListQueryRecursive {
                 ${TaskListQuery.JOINS}
             GROUP BY tasks._id
             ORDER BY sequence
+            ${limit?.let { "LIMIT $it" } ?: ""}
         """.trimIndent()
 
         return SortHelper.adjustQueryForFlags(preferences, query)
