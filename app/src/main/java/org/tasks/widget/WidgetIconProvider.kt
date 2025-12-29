@@ -11,13 +11,24 @@ import androidx.core.graphics.createBitmap
 import androidx.core.net.toUri
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.utils.sizeDp
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.components.SingletonComponent
 import org.tasks.BuildConfig
+import org.tasks.analytics.Firebase
 import org.tasks.icons.OutlinedGoogleMaterial
 import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 
 class WidgetIconProvider : ContentProvider() {
+
+    @EntryPoint
+    @InstallIn(SingletonComponent::class)
+    interface WidgetIconProviderEntryPoint {
+        val firebase: Firebase
+    }
 
     override fun onCreate() = true
 
@@ -76,9 +87,16 @@ class WidgetIconProvider : ContentProvider() {
             bitmap.recycle()
         } catch (e: Exception) {
             Timber.e(e, "Failed to generate icon: $iconName")
+            hilt().firebase.reportException(e)
             file.delete()
         }
     }
+
+    private fun hilt() =
+        EntryPointAccessors.fromApplication(
+            context!!.applicationContext,
+            WidgetIconProviderEntryPoint::class.java
+        )
 
     private fun getCacheFile(iconName: String): File {
         val context = context ?: throw IllegalStateException("Context is null")
