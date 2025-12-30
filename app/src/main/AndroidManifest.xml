@@ -505,10 +505,11 @@
     </activity>
 
     <receiver
-        android:name=".receivers.BootCompletedReceiver"
+        android:name=".receivers.SystemEventReceiver"
         android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        <action android:name="android.intent.action.USER_PRESENT"/>
       </intent-filter>
     </receiver>
 
