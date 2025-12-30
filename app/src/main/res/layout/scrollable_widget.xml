@@ -27,12 +27,15 @@
       tools:padding="@dimen/widget_padding"/>
 
     <ImageButton
-      android:id="@+id/widget_reconfigure"
-      style="@style/WidgetButton"
-      android:layout_toStartOf="@id/widget_button"
-      android:src="@drawable/ic_outline_settings_24px"
-      android:contentDescription="@string/widget_settings"
-      tools:padding="@dimen/widget_padding"/>
+        android:id="@+id/widget_reconfigure"
+        style="@style/WidgetButton"
+        android:layout_toStartOf="@id/widget_button"
+        android:src="@drawable/ic_outline_settings_24px"
+        android:contentDescription="@string/widget_settings"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/widget_padding"
+         />
+
 
     <TextView
         android:id="@+id/widget_title"
