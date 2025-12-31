@@ -15,12 +15,8 @@ kotlin {
     applyDefaultHierarchyTemplate()
     androidTarget {
         compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
             freeCompilerArgs.addAll("-P", "plugin:org.jetbrains.kotlin.parcelize:additionalAnnotation=org.tasks.CommonParcelize")
-        }
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"
-            }
         }
     }
     jvm()
