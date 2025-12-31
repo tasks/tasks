@@ -106,10 +106,13 @@ fun EditTextView(
         },
         update = { view ->
             if (shouldRequestFocus) {
-                view.requestFocus()
-                val imm = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
                 shouldRequestFocus = false
+                view.post {
+                    if (view.requestFocus()) {
+                        val imm = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+                    }
+                }
             }
             view.paintFlags = if (strikethrough) {
                 view.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
