@@ -21,9 +21,11 @@ import javax.inject.Singleton
 @Singleton
 class AppWidgetManager @Inject constructor(
     @param:ApplicationContext private val context: Context,
-    @ApplicationScope private val scope: CoroutineScope,
+    @param:ApplicationScope private val scope: CoroutineScope,
 ) {
-    private val appWidgetManager: AppWidgetManager? = AppWidgetManager.getInstance(context)
+    private val appWidgetManager: AppWidgetManager? by lazy {
+        AppWidgetManager.getInstance(context)
+    }
     private val _generation = AtomicLong(0)
     val generation: Long get() = _generation.get()
 
