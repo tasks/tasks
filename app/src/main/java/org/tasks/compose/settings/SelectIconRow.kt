@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.tasks.R
 import org.tasks.compose.Constants
@@ -30,7 +31,7 @@ fun SelectIconRow(icon: String, selectIcon: () -> Unit) =
         },
         center = {
             Text(
-                text = LocalContext.current.getString(R.string.icon),
+                text = stringResource(R.string.icon),
                 modifier = Modifier.padding(start = Constants.KEYLINE_FIRST)
             )
         }

@@ -1,8 +1,9 @@
 package org.tasks.compose
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.pluralStringResource
 import org.tasks.R
 import org.tasks.themes.TasksIcons
 import java.text.NumberFormat
@@ -14,7 +15,7 @@ fun SubtaskChip(
     compact: Boolean,
     onClick: () -> Unit,
 ) {
-    val context = LocalContext.current
+    val chipColor = colorResource(R.color.default_chip_background).toArgb()
     Chip(
         icon = if (collapsed)
             TasksIcons.KEYBOARD_ARROW_DOWN
@@ -23,13 +24,11 @@ fun SubtaskChip(
         name = if (compact)
             NumberFormat.getInstance().format(children)
         else
-            remember(children) {
-                context.resources.getQuantityString(R.plurals.subtask_count, children, children)
-            },
+            pluralStringResource(R.plurals.subtask_count, children, children),
         theme = 0,
         showText = true,
         showIcon = true,
         onClick = onClick,
-        colorProvider = { context.getColor(R.color.default_chip_background) },
+        colorProvider = { chipColor },
     )
 }

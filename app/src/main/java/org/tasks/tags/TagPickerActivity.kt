@@ -35,7 +35,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.TextStyle
@@ -175,7 +176,6 @@ internal fun SearchBar(
     onBack: () -> Unit
 ) {
     val searchPattern = remember { viewModel.searchText }
-    val invitation = LocalContext.current.getString(R.string.enter_tag_name)
     Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(
             ImageVector.vectorResource(id = R.drawable.ic_outline_arrow_back_24px),
@@ -191,7 +191,7 @@ internal fun SearchBar(
             onValueChange = { viewModel.search(it) },
             placeholder = {
                 Text(
-                    text = invitation,
+                    text = stringResource(R.string.enter_tag_name),
                     color = MaterialTheme.colorScheme.onSurface,
                 )
             },
@@ -232,11 +232,10 @@ internal fun PickerBox (
     LazyColumn {
         if (viewModel.tagToCreate.value != "") {
             item(key = -1) {
-                val text = LocalContext.current.getString(R.string.new_tag) + " \"${viewModel.tagToCreate.value}\""
                 TagRow(
                     icon = TasksIcons.ADD,
-                    iconColor = Color(LocalContext.current.getColor(R.color.icon_tint_with_alpha)),
-                    text = text,
+                    iconColor = colorResource(R.color.icon_tint_with_alpha),
+                    text = "${stringResource(R.string.new_tag)} \"${viewModel.tagToCreate.value}\"",
                     onClick = { newItem(viewModel.searchText.value) }
                 )
             }

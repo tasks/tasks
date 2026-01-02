@@ -9,6 +9,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,11 +52,12 @@ class PurchaseActivity : AppCompatActivity(), OnPurchasesUpdated {
                     skus = state.skus,
                     snackbarHostState = snackbarHostState,
                 )
+                val dismissLabel = stringResource(R.string.dismiss)
                 LaunchedEffect(state.error) {
                     if (state.error?.isNotBlank() == true) {
                         snackbarHostState.showSnackbar(
                             message = state.error,
-                            actionLabel = context.getString(R.string.dismiss),
+                            actionLabel = dismissLabel,
                             duration = SnackbarDuration.Long,
                         )
                         viewModel.dismissError()

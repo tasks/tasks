@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -57,15 +56,14 @@ fun StartDate(
     hasDueDate: Boolean,
     printDate: () -> String,
 ) {
-    val context = LocalContext.current
     Text(
         text = when (selectedDay) {
-            StartDatePicker.DUE_DATE -> context.getRelativeDateString(R.string.due_date, selectedTime)
-            StartDatePicker.DUE_TIME -> context.getString(R.string.due_time)
-            StartDatePicker.DAY_BEFORE_DUE -> context.getRelativeDateString(R.string.day_before_due, selectedTime)
-            StartDatePicker.WEEK_BEFORE_DUE -> context.getRelativeDateString(R.string.week_before_due, selectedTime)
+            StartDatePicker.DUE_DATE -> getRelativeDateString(R.string.due_date, selectedTime)
+            StartDatePicker.DUE_TIME -> stringResource(R.string.due_time)
+            StartDatePicker.DAY_BEFORE_DUE -> getRelativeDateString(R.string.day_before_due, selectedTime)
+            StartDatePicker.WEEK_BEFORE_DUE -> getRelativeDateString(R.string.week_before_due, selectedTime)
             in 1..Long.MAX_VALUE -> printDate()
-            else -> stringResource(id = R.string.no_start_date)
+            else -> stringResource(R.string.no_start_date)
         },
         color = when {
             selectedDay < 0 && !hasDueDate -> MaterialTheme.colorScheme.error

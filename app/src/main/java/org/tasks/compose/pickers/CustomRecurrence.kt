@@ -43,7 +43,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -138,17 +137,12 @@ fun CustomRecurrence(
                         number = state.interval,
                         onTextChanged = setInterval,
                     )
-                    val context = LocalContext.current
-                    val options by remember(state.interval, state.frequency) {
-                        derivedStateOf {
-                            state.frequencyOptions.map {
-                                context.resources.getQuantityString(
-                                    it.plural,
-                                    state.interval,
-                                    state.interval,
-                                )
-                            }
-                        }
+                    val options = state.frequencyOptions.map {
+                        pluralStringResource(
+                            id = it.plural,
+                            count = state.interval,
+                            state.interval,
+                        )
                     }
                     OutlinedSpinner(
                         text = pluralStringResource(
@@ -279,36 +273,37 @@ private fun MonthlyPicker(
         modifier = Modifier.padding(vertical = 16.dp),
         color = border()
     )
-    val context = LocalContext.current
-    val options = remember(dayNumber, dayOfWeek, nthWeek, isLastWeek, locale) {
+    val dayOfWeekDisplayName = remember(dayOfWeek, locale) {
+        dayOfWeek.getDisplayName(TextStyle.FULL, locale)
+    }
+    val onDayNumber = stringResource(R.string.repeat_monthly_on_day_number, dayNumber)
+    val nth = stringResource(
+        when (nthWeek - 1) {
+            0 -> R.string.repeat_monthly_first_week
+            1 -> R.string.repeat_monthly_second_week
+            2 -> R.string.repeat_monthly_third_week
+            3 -> R.string.repeat_monthly_fourth_week
+            4 -> R.string.repeat_monthly_fifth_week
+            else -> throw IllegalArgumentException()
+        }
+    )
+    val onNthWeekday = stringResource(
+        R.string.repeat_monthly_on_the_nth_weekday,
+        nth,
+        dayOfWeekDisplayName
+    )
+    val lastWeekString = stringResource(R.string.repeat_monthly_last_week)
+    val onLastWeekday = stringResource(
+        R.string.repeat_monthly_on_the_nth_weekday,
+        lastWeekString,
+        dayOfWeekDisplayName
+    )
+    val options = remember(onDayNumber, onNthWeekday, onLastWeekday, isLastWeek) {
         ArrayList<String>().apply {
-            add(context.getString(R.string.repeat_monthly_on_day_number, dayNumber))
-            val nth = context.getString(
-                when (nthWeek - 1) {
-                    0 -> R.string.repeat_monthly_first_week
-                    1 -> R.string.repeat_monthly_second_week
-                    2 -> R.string.repeat_monthly_third_week
-                    3 -> R.string.repeat_monthly_fourth_week
-                    4 -> R.string.repeat_monthly_fifth_week
-                    else -> throw IllegalArgumentException()
-                }
-            )
-            val dayOfWeekDisplayName = dayOfWeek.getDisplayName(TextStyle.FULL, locale)
-            add(
-                context.getString(
-                    R.string.repeat_monthly_on_the_nth_weekday,
-                    nth,
-                    dayOfWeekDisplayName
-                )
-            )
+            add(onDayNumber)
+            add(onNthWeekday)
             if (isLastWeek) {
-                add(
-                    context.getString(
-                        R.string.repeat_monthly_on_the_nth_weekday,
-                        context.getString(R.string.repeat_monthly_last_week),
-                        dayOfWeekDisplayName
-                    )
-                )
+                add(onLastWeekday)
             }
         }
     }
@@ -347,8 +342,7 @@ private fun EndsPicker(
     RadioRow(selected = selection == 1, onClick = { setSelection(1) }) {
         Text(text = stringResource(id = R.string.repeats_on))
         Spacer(modifier = Modifier.width(8.dp))
-        val context = LocalContext.current
-        val endDateString by remember(context, endDate) {
+        val endDateString by remember(endDate) {
             derivedStateOf {
                 runBlocking {
                     getRelativeDay(endDate)

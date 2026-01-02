@@ -1,9 +1,10 @@
 package com.todoroo.astrid.ui
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.fragment.app.viewModels
@@ -113,11 +114,14 @@ class StartDateControlSet : TaskEditControlFragment() {
         private const val REQUEST_START_DATE = 11011
         private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
 
-        internal fun Context.getRelativeDateString(resId: Int, time: Int) =
-            if (time == NO_TIME) {
-                getString(resId)
+        @Composable
+        internal fun getRelativeDateString(resId: Int, time: Int): String {
+            val label = stringResource(resId)
+            return if (time == NO_TIME) {
+                label
             } else {
-                "${getString(resId)} ${getTimeString(currentTimeMillis().withMillisOfDay(time), this.is24HourFormat)}"
+                "$label ${getTimeString(currentTimeMillis().withMillisOfDay(time), LocalContext.current.is24HourFormat)}"
             }
+        }
     }
 }

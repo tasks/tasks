@@ -50,7 +50,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -309,7 +308,7 @@ object FilterCondition {
                     )
                     if (isExtended)
                         Text(
-                            text = LocalContext.current.getString(R.string.CFA_button_add),
+                            text = stringResource(R.string.CFA_button_add),
                             modifier = Modifier.padding(end = 16.dp)
                         )
                 }
