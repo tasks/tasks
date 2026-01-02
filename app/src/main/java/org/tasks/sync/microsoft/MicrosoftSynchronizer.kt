@@ -227,7 +227,13 @@ class MicrosoftSynchronizer @Inject constructor(
                 microsoft.createTask(list.uuid!!, remoteTask)
             } else {
                 Timber.d("Updating existing task: $task")
-                microsoft.updateTask(list.uuid!!, caldavTask.remoteId!!, remoteTask)
+                try {
+                    microsoft.updateTask(list.uuid!!, caldavTask.remoteId!!, remoteTask)
+                } catch (e: NotFoundException) {
+                    Timber.w(e, "Task deleted remotely, deleting locally: $task")
+                    taskDeleter.delete(task.id)
+                    return
+                }
             }
             caldavTask.remoteId = result.id
             caldavTask.obj = "${result.id}.json"
@@ -241,7 +247,13 @@ class MicrosoftSynchronizer @Inject constructor(
                 microsoft.createChecklistItem(list.uuid!!, caldavParent, remoteTask)
             } else {
                 Timber.d("Updating existing checklist item: $task")
-                microsoft.updateChecklistItem(list.uuid!!, caldavParent, remoteTask)
+                try {
+                    microsoft.updateChecklistItem(list.uuid!!, caldavParent, remoteTask)
+                } catch (e: NotFoundException) {
+                    Timber.w(e, "Checklist item deleted remotely, deleting locally: $task")
+                    taskDeleter.delete(task.id)
+                    return
+                }
             }
             caldavTask.remoteId = result.id
             caldavTask.remoteParent = caldavParent
