@@ -1,0 +1,9 @@
+* Widget performance improvements
+* What's New now opens changelog on GitHub
+* Fix automatically opening keyboard for new tasks
+* Fix parent-child cycle causing crash
+* Fix state restoration issue
+* Fix all day calendar entries created on previous day
+* Fix Microsoft To Do sync error
+* Fix multiple icons missing from widget
+* Update translations

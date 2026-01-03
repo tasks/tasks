@@ -1,3 +1,17 @@
+### 14.8.5 (2026-01-02)
+
+* Widget performance improvements
+* What's New now opens changelog on GitHub
+* Fix automatically opening keyboard for new tasks [#4035](https://github.com/tasks/tasks/issues/4035)
+* Fix parent-child cycle causing crash [#4065](https://github.com/tasks/tasks/issues/4065)
+* Fix state restoration issue [#4025](https://github.com/tasks/tasks/issues/4025)
+* Fix all day calendar entries created on previous day
+* Fix Microsoft To Do sync error
+* Fix multiple icons missing from widget
+* Update translations
+  * Portuguese - Paulo
+  * Vietnamese - @ngocanhtve
+
 ### 14.8.4 (2025-12-20)
 
 * Fix flashing widgets [#3902](https://github.com/tasks/tasks/issues/3902)
