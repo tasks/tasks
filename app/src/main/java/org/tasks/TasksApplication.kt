@@ -6,7 +6,6 @@ import android.app.ApplicationExitInfo
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -42,7 +41,6 @@ import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.sync.SyncAdapters
 import org.tasks.themes.ThemeBase
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import org.tasks.widget.AppWidgetManager
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -58,7 +56,6 @@ class TasksApplication : Application(), Configuration.Provider {
     @Inject lateinit var upgrader: Lazy<Upgrader>
     @Inject lateinit var workManager: Lazy<WorkManager>
     @Inject lateinit var geofenceApi: Lazy<GeofenceApi>
-    @Inject lateinit var appWidgetManager: Lazy<AppWidgetManager>
     @Inject lateinit var workerFactory: HiltWorkerFactory
     @Inject lateinit var contentObserver: Lazy<OpenTaskContentObserver>
     @Inject lateinit var syncAdapters: Lazy<SyncAdapters>
@@ -139,7 +136,6 @@ class TasksApplication : Application(), Configuration.Provider {
         }
         OpenTaskContentObserver.registerObserver(context, contentObserver.get())
         geofenceApi.get().registerAll()
-        appWidgetManager.get().reconfigureWidgets()
         CaldavSynchronizer.registerFactories()
     }
 

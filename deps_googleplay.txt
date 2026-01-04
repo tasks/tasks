@@ -1761,6 +1761,10 @@
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.2.21 (c)
 +|    +--- com.google.dagger:hilt-android:2.54 -> 2.57.2 (*)
 +|    \--- org.jspecify:jspecify:1.0.0
+++--- androidx.core:core-remoteviews:1.1.0
++|    +--- androidx.annotation:annotation:1.2.0 -> 1.9.1 (*)
++|    +--- androidx.core:core:1.8.0 -> 1.16.0 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.2.21 (*)
 ++--- androidx.core:core-splashscreen:1.2.0
 +|    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|    +--- androidx.appcompat:appcompat-resources:1.7.0 -> 1.7.1 (*)

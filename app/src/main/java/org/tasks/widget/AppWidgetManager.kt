@@ -10,11 +10,9 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import org.tasks.R
 import org.tasks.compose.throttleLatest
 import org.tasks.injection.ApplicationScope
 import timber.log.Timber
-import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -26,24 +24,13 @@ class AppWidgetManager @Inject constructor(
     private val appWidgetManager: AppWidgetManager? by lazy {
         AppWidgetManager.getInstance(context)
     }
-    private val _generation = AtomicLong(0)
-    val generation: Long get() = _generation.get()
-
-    private val updateChannel = Channel<Long>(Channel.CONFLATED)
+    private val updateChannel = Channel<Unit>(Channel.CONFLATED)
 
     init {
         updateChannel
             .consumeAsFlow()
             .throttleLatest(1000)
-            .onEach { gen ->
-                if (gen == _generation.get()) {
-                    val appWidgetIds = widgetIds
-                    Timber.d("updateWidgets: ${appWidgetIds.joinToString { it.toString() }}")
-                    appWidgetManager?.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list_view)
-                } else {
-                    Timber.d("Skipping stale widget update")
-                }
-            }
+            .onEach { rebuildWidgets() }
             .launchIn(scope)
     }
 
@@ -52,10 +39,9 @@ class AppWidgetManager @Inject constructor(
                 ?.getAppWidgetIds(ComponentName(context, TasksWidget::class.java))
                 ?: intArrayOf()
 
-    fun reconfigureWidgets(vararg appWidgetIds: Int) {
-        val newGeneration = _generation.incrementAndGet()
+    fun rebuildWidgets(vararg appWidgetIds: Int) {
         val ids = appWidgetIds.takeIf { it.isNotEmpty() } ?: widgetIds
-        Timber.d("reconfigureWidgets(${ids.joinToString()}) generation=$newGeneration")
+        Timber.d("rebuildWidgets(${ids.joinToString()})")
         val intent = Intent(context, TasksWidget::class.java)
             .putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
             .apply { action = AppWidgetManager.ACTION_APPWIDGET_UPDATE }
@@ -63,7 +49,7 @@ class AppWidgetManager @Inject constructor(
     }
 
     fun updateWidgets() {
-        updateChannel.trySend(_generation.get())
+        updateChannel.trySend(Unit)
     }
 
     fun exists(id: Int) = appWidgetManager?.getAppWidgetInfo(id) != null

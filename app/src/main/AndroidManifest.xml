@@ -340,8 +340,9 @@
     <!-- ======================================================== Services = -->
 
     <service
-      android:name=".widget.TasksWidgetAdapter"
-      android:permission="android.permission.BIND_REMOTEVIEWS"/>
+      android:name="androidx.core.widget.RemoteViewsCompatService"
+      android:permission="android.permission.BIND_REMOTEVIEWS"
+      android:exported="false"/>
 
     <service
         android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"

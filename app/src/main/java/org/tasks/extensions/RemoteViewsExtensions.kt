@@ -2,11 +2,22 @@ package org.tasks.extensions
 
 import android.graphics.Paint.ANTI_ALIAS_FLAG
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+import android.os.Parcel
 import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.ColorUtils
 import org.tasks.R
+
+fun RemoteViews.estimateParcelSize(): Int {
+    val parcel = Parcel.obtain()
+    return try {
+        writeToParcel(parcel, 0)
+        parcel.dataSize()
+    } finally {
+        parcel.recycle()
+    }
+}
 
 fun RemoteViews.setColorFilter(viewId: Int, @ColorInt color: Int) =
     setInt(viewId, "setColorFilter", color)

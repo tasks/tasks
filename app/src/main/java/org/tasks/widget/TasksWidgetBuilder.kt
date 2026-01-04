@@ -2,10 +2,10 @@ package org.tasks.widget
 
 import android.content.Context
 import android.content.Intent
+import android.text.format.Formatter
 import android.view.View
 import android.widget.RemoteViews
-import android.widget.RemoteViewsService.RemoteViewsFactory
-import com.todoroo.andlib.utility.AndroidUtilities.atLeastAndroid16
+import androidx.core.widget.RemoteViewsCompat.RemoteCollectionItems
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.subtasks.SubtasksHelper
 import kotlinx.coroutines.runBlocking
@@ -18,6 +18,7 @@ import org.tasks.data.hasNotes
 import org.tasks.data.isHidden
 import org.tasks.data.isOverdue
 import org.tasks.extensions.Context.is24HourFormat
+import org.tasks.extensions.estimateParcelSize
 import org.tasks.extensions.setBackgroundResource
 import org.tasks.extensions.setColorFilter
 import org.tasks.extensions.setMaxLines
@@ -40,96 +41,29 @@ import org.tasks.ui.CheckBoxProvider.Companion.getCheckboxRes
 import timber.log.Timber
 import kotlin.math.max
 
-internal class TasksWidgetViewFactory(
+internal class TasksWidgetBuilder(
     private val subtasksHelper: SubtasksHelper,
     private val widgetPreferences: WidgetPreferences,
     private val filter: Filter,
-    private val filterId: String?,
     private val context: Context,
     private val widgetId: Int,
     private val taskDao: TaskDao,
     private val chipProvider: WidgetChipProvider,
     private val markdown: Markdown,
     private val headerFormatter: HeaderFormatter,
-) : RemoteViewsFactory {
-    private val taskLimit = if (atLeastAndroid16()) 50 + 1 else Int.MAX_VALUE
+) {
     private val indentPadding = (20 * context.resources.displayMetrics.density).toInt()
     private val settings = widgetPreferences.getWidgetListSettings()
     private val hPad = context.resources.getDimension(R.dimen.widget_padding).toInt()
     private val disableGroups = !filter.supportsSorting()
             || (filter.supportsManualSort() && widgetPreferences.isManualSort)
             || (filter is AstridOrderingFilter && widgetPreferences.isAstridSort)
-    private var tasks = SectionedDataSource()
     private val onSurface = context.getColor(if (settings.isDark) R.color.white_87 else R.color.black_87)
     private val onSurfaceVariant = context.getColor(if (settings.isDark) R.color.white_60 else R.color.black_60)
 
     init {
         chipProvider.isDark = settings.isDark
     }
-
-    override fun onCreate() {
-        Timber.d("onCreate widgetId:$widgetId filter:$filter")
-    }
-
-    override fun onDataSetChanged() {
-        Timber.v("onDataSetChanged $filter")
-        if (widgetPreferences.filterId != filterId) {
-            Timber.d("Skipping stale factory: expected $filterId, current ${widgetPreferences.filterId}")
-            return
-        }
-        try {
-            runBlocking {
-                val collapsed = widgetPreferences.collapsed
-                tasks = SectionedDataSource(
-                    taskDao.fetchTasks(getQuery(filter)),
-                    disableGroups,
-                    settings.groupMode,
-                    widgetPreferences.subtaskMode,
-                    collapsed,
-                    widgetPreferences.completedTasksAtBottom,
-                )
-                collapsed.toMutableSet().let {
-                    if (it.retainAll(tasks.getSectionValues().toSet())) {
-                        widgetPreferences.collapsed = it
-                    }
-                }
-            }
-        } catch (e: InterruptedException) {
-            Timber.w("Widget update interrupted")
-        }
-    }
-
-    override fun onDestroy() {
-        Timber.d("onDestroy widgetId:$widgetId")
-    }
-
-    override fun getCount() = tasks.size.coerceAtMost(taskLimit)
-
-    override fun getViewAt(position: Int): RemoteViews? = tasks.let {
-        when {
-            position == taskLimit - 1 && it.size > taskLimit -> buildFooter()
-            it.isHeader(position) -> buildHeader(it.getSection(position))
-            position < it.size -> buildUpdate(it.getItem(position))
-            else -> null
-        }
-    }
-
-    override fun getLoadingView(): RemoteViews = newRemoteView()
-
-    override fun getViewTypeCount(): Int = 3
-
-    override fun getItemId(position: Int) = tasks.let {
-        when {
-            position == taskLimit - 1 && it.size > taskLimit -> 0
-            it.isHeader(position) -> it.getSection(position).value
-            position < it.size -> it.getItem(position).id
-            else -> 0
-        }
-    }
-
-    override fun hasStableIds(): Boolean = true
-
-    private fun newRemoteView() = RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_row)
 
     private fun buildFooter(): RemoteViews {
         return RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_footer).apply {
@@ -196,7 +130,7 @@ internal class TasksWidgetViewFactory(
                 !settings.showDueDates && task.isOverdue -> context.getColor(R.color.overdue)
                 else -> onSurface
             }
-            newRemoteView().apply {
+            RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_row).apply {
                 strikethrough(R.id.widget_text, task.isCompleted)
                 setTextSize(R.id.widget_text, settings.textSize)
                 if (settings.showDueDates) {
@@ -304,8 +238,7 @@ internal class TasksWidgetViewFactory(
 
     private suspend fun getQuery(filter: Filter): String {
         subtasksHelper.applySubtasksToWidgetFilter(filter, widgetPreferences)
-        val limit = if (taskLimit == Int.MAX_VALUE) null else taskLimit
-        return getQuery(widgetPreferences, filter, limit)
+        return getQuery(widgetPreferences, filter, MAX_ITEMS)
     }
 
     private fun formatDueDate(row: RemoteViews, task: TaskContainer) = with(row) {
@@ -353,5 +286,73 @@ internal class TasksWidgetViewFactory(
         } else {
             setViewVisibility(dueDateRes, View.GONE)
         }
+    }
+
+    suspend fun buildItems(): RemoteCollectionItems {
+        var totalParcelSize = 0
+        val collapsed = widgetPreferences.collapsed
+        val tasks = SectionedDataSource(
+            taskDao.fetchTasks(getQuery(filter)),
+            disableGroups,
+            settings.groupMode,
+            widgetPreferences.subtaskMode,
+            collapsed,
+            widgetPreferences.completedTasksAtBottom,
+        )
+        collapsed.toMutableSet().let {
+            if (it.retainAll(tasks.getSectionValues().toSet())) {
+                widgetPreferences.collapsed = it
+            }
+        }
+        Timber.d("buildItems loaded ${tasks.size} items for widget $widgetId")
+
+        data class WidgetItem(val id: Long, val view: RemoteViews, val isHeader: Boolean)
+        val items = mutableListOf<WidgetItem>()
+        var truncatedDueToSize = false
+
+        for (position in 0 until tasks.size) {
+            val isHeader = tasks.isHeader(position)
+            val id = if (isHeader) {
+                tasks.getSection(position).value
+            } else {
+                tasks.getItem(position).id
+            }
+            val view = if (isHeader) {
+                buildHeader(tasks.getSection(position))
+            } else {
+                buildUpdate(tasks.getItem(position))
+            } ?: continue
+
+            val viewSize = view.estimateParcelSize()
+            if (totalParcelSize + viewSize > MAX_PARCEL_SIZE) {
+                Timber.d("Stopping at position $position due to size limit")
+                truncatedDueToSize = true
+                break
+            }
+
+            items.add(WidgetItem(id, view, isHeader))
+            totalParcelSize += viewSize
+        }
+
+        val builder = RemoteCollectionItems.Builder()
+            .setHasStableIds(true)
+            .setViewTypeCount(VIEW_TYPE_COUNT)
+
+        items.forEach { builder.addItem(it.id, it.view) }
+
+        if (truncatedDueToSize) {
+            builder.addItem(FOOTER_ID, buildFooter())
+        }
+
+        Timber.d("Built ${items.size} items, totalSize=${Formatter.formatShortFileSize(context, totalParcelSize.toLong())}, truncated=$truncatedDueToSize")
+
+        return builder.build()
+    }
+
+    companion object {
+        const val VIEW_TYPE_COUNT = 3
+        const val MAX_ITEMS = 100
+        const val MAX_PARCEL_SIZE = 200_000 // 200KB
+        const val FOOTER_ID = 0L
     }
 }

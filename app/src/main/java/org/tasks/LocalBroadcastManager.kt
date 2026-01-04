@@ -71,7 +71,7 @@ class LocalBroadcastManager @Inject constructor(
     }
 
     fun reconfigureWidget(appWidgetId: Int) {
-        appWidgetManager.reconfigureWidgets(appWidgetId)
+        appWidgetManager.rebuildWidgets(appWidgetId)
     }
 
     companion object {
