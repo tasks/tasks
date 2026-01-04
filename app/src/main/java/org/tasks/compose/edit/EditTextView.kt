@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -102,16 +101,25 @@ fun EditTextView(
                     context.resources.getDimension(R.dimen.task_edit_text_size)
                 )
                 linkify?.linkify(this)
+
+                if (requestFocus) {
+                    post { shouldRequestFocus = true }
+                }
             }
         },
         update = { view ->
             if (shouldRequestFocus) {
                 shouldRequestFocus = false
                 view.post {
-                    if (view.requestFocus()) {
-                        val imm = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+                    fun tryFocus(attempts: Int = 3) {
+                        if (view.requestFocus()) {
+                            val imm = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+                        } else if (attempts > 1) {
+                            view.postDelayed({ tryFocus(attempts - 1) }, 50)
+                        }
                     }
+                    tryFocus()
                 }
             }
             view.paintFlags = if (strikethrough) {
@@ -121,10 +129,4 @@ fun EditTextView(
             }
         },
     )
-
-    LaunchedEffect(Unit) {
-        if (requestFocus) {
-            shouldRequestFocus = true
-        }
-    }
 }
