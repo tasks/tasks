@@ -676,7 +676,7 @@
     <string name="now">اﻵن</string>
     <string name="TEA_creation_date">تاريخ الإنشاء</string>
     <string name="sign_in_to_tasks_disclosure">سيتم إرسال عنوان البريد الإلكتروني ومعرف الحساب الخاصان بك وتخزينهما من قبل Tasks.org. هذه المعلومات سيتم استخدامها من أجل المصادقة ومن أجل تزويدك بالإعلانات المهمة المتعلقة بالخدمة. لن يتم مشاركة هذه المعلومات مع أحد.</string>
-    <string name="default_reminder">تذكير افتراضي</string>
+    <string name="default_reminder">تذكير تلقائي افتراضي</string>
     <string name="rmd_time_description">أظهر الإشعارات من أجل المهام بدون أوقات محددة</string>
     <string name="completed">مكتمل</string>
     <string name="snackbar_task_completed">اكتملت المهمة</string>
@@ -808,4 +808,5 @@
     <string name="continue_without_sync">المتابعة بدون مزامنة</string>
     <string name="delete_tasks_warning">%s سيتم حذفها. لا يمكن التراجع عن ذلك!</string>
     <string name="help_me_choose">ساعدني في الاختيار</string>
+    <string name="widget_view_more_tasks">عرض المزيد من المهام</string>
 </resources>
