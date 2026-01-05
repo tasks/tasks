@@ -30,6 +30,7 @@
   </style>
 
   <style name="Tasks" parent="TasksBase">
+    <item name="android:windowBackground">@null</item>
     <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     <item name="android:windowLightStatusBar">@bool/light_status_bar</item>
     <item name="android:statusBarColor">@color/content_background</item>
