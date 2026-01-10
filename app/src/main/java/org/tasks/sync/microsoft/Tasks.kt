@@ -28,7 +28,6 @@ data class Tasks(
         val lastModifiedDateTime: String? = null,
         @EncodeDefault val completedDateTime: DateTime? = null,
         @EncodeDefault val dueDateTime: DateTime? = null,
-        val linkedResources: List<LinkedResource>? = null,
         @EncodeDefault val recurrence: Recurrence? = null,
         @EncodeDefault val reminderDateTime: DateTime? = null,
         val checklistItems: List<ChecklistItem>? = null,
@@ -38,14 +37,6 @@ data class Tasks(
         data class Body(
             @Redacted val content: String,
             val contentType: String,
-        )
-
-        @Serializable
-        data class LinkedResource(
-            val applicationName: String,
-            val displayName: String?,
-            val externalId: String?,
-            val id: String,
         )
 
         @Serializable
