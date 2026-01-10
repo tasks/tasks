@@ -30,7 +30,7 @@ class AppWidgetManager @Inject constructor(
         updateChannel
             .consumeAsFlow()
             .throttleLatest(1000)
-            .onEach { rebuildWidgets() }
+            .onEach { rebuildWidgets(*widgetIds) }
             .launchIn(scope)
     }
 
@@ -40,10 +40,12 @@ class AppWidgetManager @Inject constructor(
                 ?: intArrayOf()
 
     fun rebuildWidgets(vararg appWidgetIds: Int) {
-        val ids = appWidgetIds.takeIf { it.isNotEmpty() } ?: widgetIds
-        Timber.d("rebuildWidgets(${ids.joinToString()})")
+        if (appWidgetIds.isEmpty()) {
+            return
+        }
+        Timber.d("rebuildWidgets(${appWidgetIds.joinToString()})")
         val intent = Intent(context, TasksWidget::class.java)
-            .putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+            .putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
             .apply { action = AppWidgetManager.ACTION_APPWIDGET_UPDATE }
         context.sendBroadcast(intent)
     }
