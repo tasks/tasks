@@ -68,7 +68,7 @@ abstract class GoogleTaskDao {
     @Query("UPDATE caldav_tasks SET gt_moved = 1 WHERE cd_task = :task and cd_calendar = :list")
     internal abstract suspend fun setMoved(task: Long, list: String)
 
-    @Query("SELECT caldav_tasks.* FROM caldav_tasks INNER JOIN caldav_lists ON cdl_uuid = cd_calendar INNER JOIN caldav_accounts ON cda_uuid = cdl_account WHERE cd_task = :taskId AND cd_deleted = 0 AND cda_account_type = $TYPE_GOOGLE_TASKS LIMIT 1")
+    @Query("SELECT caldav_tasks.* FROM caldav_tasks INNER JOIN caldav_lists ON cdl_uuid = cd_calendar INNER JOIN caldav_accounts ON cda_uuid = cdl_account WHERE cd_task = :taskId AND cd_deleted = 0 AND cda_account_type = $TYPE_GOOGLE_TASKS")
     abstract suspend fun getByTaskId(taskId: Long): CaldavTask?
 
     @Update
@@ -80,8 +80,8 @@ abstract class GoogleTaskDao {
     @Delete
     abstract suspend fun delete(deleted: CaldavTask)
 
-    @Query("SELECT * FROM caldav_tasks WHERE cd_remote_id = :remoteId LIMIT 1")
-    abstract suspend fun getByRemoteId(remoteId: String): CaldavTask?
+    @Query("SELECT * FROM caldav_tasks WHERE cd_remote_id = :remoteId AND cd_calendar = :calendar")
+    abstract suspend fun getByRemoteId(remoteId: String, calendar: String): CaldavTask?
 
     @Query("""
 SELECT caldav_tasks.*
@@ -115,11 +115,11 @@ ORDER BY `order` DESC
     )
     abstract suspend fun getPrevious(listId: String, parent: Long, order: Long): String?
 
-    @Query("SELECT cd_remote_id FROM caldav_tasks WHERE cd_task = :task")
-    abstract suspend fun getRemoteId(task: Long): String?
+    @Query("SELECT cd_remote_id FROM caldav_tasks WHERE cd_task = :task AND cd_calendar = :calendar")
+    abstract suspend fun getRemoteId(task: Long, calendar: String): String?
 
-    @Query("SELECT cd_task FROM caldav_tasks WHERE cd_remote_id = :remoteId")
-    abstract suspend fun getTask(remoteId: String): Long?
+    @Query("SELECT cd_task FROM caldav_tasks WHERE cd_remote_id = :remoteId AND cd_calendar = :calendar")
+    abstract suspend fun getTask(remoteId: String, calendar: String): Long?
 
     @Query(
         """

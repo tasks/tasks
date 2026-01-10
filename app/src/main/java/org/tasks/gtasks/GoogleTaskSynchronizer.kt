@@ -247,7 +247,7 @@ class GoogleTaskSynchronizer @Inject constructor(
         }
         if (newlyCreated) {
             val parent = task.parent
-            val localParent = if (parent > 0) googleTaskDao.getRemoteId(parent) else null
+            val localParent = if (parent > 0) googleTaskDao.getRemoteId(parent, listId) else null
             val previous = googleTaskDao.getPrevious(
                     listId, if (isNullOrEmpty(localParent)) 0 else parent, task.order ?: 0)
             val created: Task? = try {
@@ -271,7 +271,7 @@ class GoogleTaskSynchronizer @Inject constructor(
                 if (!task.isDeleted && gtasksMetadata.isMoved) {
                     try {
                         val parent = task.parent
-                        val localParent = if (parent > 0) googleTaskDao.getRemoteId(parent) else null
+                        val localParent = if (parent > 0) googleTaskDao.getRemoteId(parent, listId) else null
                         val previous = googleTaskDao.getPrevious(
                                 listId,
                                 if (localParent.isNullOrBlank()) 0 else parent,
@@ -359,12 +359,12 @@ class GoogleTaskSynchronizer @Inject constructor(
         Collections.sort(tasks, PARENTS_FIRST)
         for (gtask in tasks) {
             val remoteId = gtask.id
-            var googleTask = googleTaskDao.getByRemoteId(remoteId)
+            var googleTask = googleTaskDao.getByRemoteId(remoteId, listId!!)
             var task: org.tasks.data.entity.Task? = null
             if (googleTask == null) {
                 googleTask = CaldavTask(
                     task = 0,
-                    calendar = "",
+                    calendar = listId,
                     remoteId = null,
                 )
             } else if (googleTask.task > 0) {
@@ -402,7 +402,6 @@ class GoogleTaskSynchronizer @Inject constructor(
             val dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(gtask.due?.let(::DateTime))
             mergeDates(createDueDate(org.tasks.data.entity.Task.URGENCY_SPECIFIC_DAY, dueDate), task)
             task.notes = getTruncatedValue(task.notes, gtask.notes, MAX_DESCRIPTION_LENGTH)
-            googleTask.calendar = listId
             if (task.title?.isNotBlank() == true || task.notes?.isNotBlank() == true) {
                 write(task, googleTask)
             }
@@ -417,7 +416,7 @@ class GoogleTaskSynchronizer @Inject constructor(
     private suspend fun setOrderAndParent(googleTask: CaldavTask, task: Task, local: org.tasks.data.entity.Task) {
         task.position?.toLongOrNull()?.let { googleTask.remoteOrder = it }
         googleTask.remoteParent = task.parent?.takeIf { it.isNotBlank() }
-        local.parent = googleTask.remoteParent?.let { googleTaskDao.getTask(it) } ?: 0L
+        local.parent = googleTask.remoteParent?.let { googleTaskDao.getTask(it, googleTask.calendar!!) } ?: 0L
     }
 
     private suspend fun write(task: org.tasks.data.entity.Task, googleTask: CaldavTask) {

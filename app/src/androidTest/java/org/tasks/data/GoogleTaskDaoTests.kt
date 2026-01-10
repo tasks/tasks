@@ -96,13 +96,13 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     @Test
     fun getTaskFromRemoteId() = runBlocking {
         insert(newCaldavTask(with(REMOTE_ID, "1234")))
-        assertEquals(1L, googleTaskDao.getTask("1234"))
+        assertEquals(1L, googleTaskDao.getTask("1234", "calendar"))
     }
 
     @Test
     fun getRemoteIdForTask() = runBlocking {
         insert(newCaldavTask(with(REMOTE_ID, "1234")))
-        assertEquals("1234", googleTaskDao.getRemoteId(1L))
+        assertEquals("1234", googleTaskDao.getRemoteId(1L, "calendar"))
     }
 
     @Test
@@ -256,7 +256,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     }
 
     private suspend fun getOrder(remoteId: String): Long? {
-        return taskDao.fetch(googleTaskDao.getByRemoteId(remoteId)!!.task)?.order
+        return taskDao.fetch(googleTaskDao.getByRemoteId(remoteId, "calendar")!!.task)?.order
     }
 
     private suspend fun insertTop(googleTask: CaldavTask) {
@@ -278,6 +278,6 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     }
 
     private suspend fun getByRemoteId(remoteId: String): CaldavTask {
-        return googleTaskDao.getByRemoteId(remoteId)!!
+        return googleTaskDao.getByRemoteId(remoteId, "calendar")!!
     }
 }
