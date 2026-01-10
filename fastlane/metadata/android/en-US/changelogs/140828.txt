@@ -4,6 +4,6 @@
 * Fix parent-child cycle causing crash
 * Fix state restoration issue
 * Fix all day calendar entries created on previous day
-* Fix Microsoft To Do sync error
+* Fix Microsoft To Do and Google Task sync errors
 * Fix multiple icons missing from widget
 * Update translations
