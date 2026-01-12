@@ -17,6 +17,7 @@ import org.dmfs.tasks.contract.TaskContract.TaskLists
 import org.dmfs.tasks.contract.TaskContract.Tasks
 import org.json.JSONObject
 import org.tasks.R
+import timber.log.Timber
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.openTaskType
@@ -59,9 +60,11 @@ open class OpenTaskDao @Inject constructor(
                         name = it.getString(TaskLists.LIST_NAME),
                         color = it.getInt(TaskLists.LIST_COLOR),
                         url = it.getString(CommonSyncColumns._SYNC_ID),
-                        ctag = it.getString(TaskLists.SYNC_VERSION)
-                            ?.let(::JSONObject)
-                            ?.getString("value"),
+                        ctag = it.getString(TaskLists.SYNC_VERSION)?.let { json ->
+                            runCatching { JSONObject(json).getString("value") }
+                                .onFailure { Timber.w("Failed to parse ${TaskLists.SYNC_VERSION}: $json") }
+                                .getOrNull()
+                        },
                         access = when (it.getInt(TaskLists.ACCESS_LEVEL)) {
                             TaskLists.ACCESS_LEVEL_OWNER -> CaldavCalendar.ACCESS_OWNER
                             TaskLists.ACCESS_LEVEL_READ -> CaldavCalendar.ACCESS_READ_ONLY
