@@ -21,10 +21,6 @@ import androidx.activity.viewModels
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
@@ -45,9 +41,7 @@ import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_GITHUB
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
-import org.tasks.compose.ConsentDialog
 import org.tasks.compose.SignInDialog
-import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
@@ -71,7 +65,6 @@ import javax.inject.Inject
 class SignInActivity : ComponentActivity() {
     @Inject lateinit var theme: Theme
     @Inject lateinit var inventory: Inventory
-    @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var firebase: Firebase
 
     private val viewModel: SignInViewModel by viewModels()
@@ -102,29 +95,17 @@ class SignInActivity : ComponentActivity() {
         viewModel.error.observe(this, this::handleError)
 
         val autoSelect = intent.getSerializableExtra(EXTRA_SELECT_SERVICE) as Platform?
-        setContent {
-            var selectedPlatform by rememberSaveable {
-                mutableStateOf(autoSelect)
-            }
-            TasksTheme(
-                theme = theme.themeBase.index,
-                primary = theme.themeColor.primaryColor,
-            ) {
-                selectedPlatform
-                    ?.let {
-                        Dialog(onDismissRequest = { finish() }) {
-                            ConsentDialog { agree ->
-                                if (agree) {
-                                    selectService(it)
-                                } else {
-                                    finish()
-                                }
-                            }
-                        }
-                    }
-                    ?: Dialog(onDismissRequest = { finish() }) {
+        if (autoSelect != null) {
+            selectService(autoSelect)
+        } else {
+            setContent {
+                TasksTheme(
+                    theme = theme.themeBase.index,
+                    primary = theme.themeColor.primaryColor,
+                ) {
+                    Dialog(onDismissRequest = { finish() }) {
                         SignInDialog(
-                            selected = { selectedPlatform = it },
+                            selected = { selectService(it) },
                             help = {
                                 openUri(R.string.help_url_sync)
                                 finish()
@@ -132,6 +113,7 @@ class SignInActivity : ComponentActivity() {
                             cancel = { finish() }
                         )
                     }
+                }
             }
         }
     }
@@ -176,6 +158,11 @@ class SignInActivity : ComponentActivity() {
         }
     }
 
+    private suspend fun setupAccount(): Boolean {
+        val account = viewModel.setupAccount(authService)
+        return account != null
+    }
+
     override fun onDestroy() {
         super.onDestroy()
 
@@ -199,14 +186,16 @@ class SignInActivity : ComponentActivity() {
             RC_AUTH ->
                 if (resultCode == RESULT_OK) {
                     lifecycleScope.launch {
-                        val account = try {
+                        try {
                             viewModel.handleResult(authService, data!!)
+                            if (authService.authStateManager.current.isAuthorized) {
+                                if (setupAccount()) {
+                                    setResult(RESULT_OK)
+                                    finish()
+                                }
+                            }
                         } catch (e: Exception) {
                             returnError(e)
-                        }
-                        if (account != null) {
-                            setResult(RESULT_OK)
-                            finish()
                         }
                     }
                 } else {

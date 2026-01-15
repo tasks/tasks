@@ -655,7 +655,6 @@
     <string name="etesync_account_description">Bezonas konton de EteSync.com aŭ memgastigan servilon</string>
     <string name="wearable_notifications">Sciigoj per portebla aparataro</string>
     <string name="android_auto_backup_device_summary">Vi devas ankaŭ doni permeson al savkopia servo per viaj aparataj agordoj. Ne ĉiuj aparatoj provizas savkopian servon.</string>
-    <string name="sign_in_to_tasks_disclosure">Via retpoŝtadreso kaj konta ID estos transsendita kaj konservita de Tasks.org. Ĉi tiu informo estos uzata por aŭtentigi kaj por provizi al vi gravajn anoncojn rilate al servo. Ĉi tiu informo ne estos diskongita al iu ajn.</string>
     <string name="repeats_every">Ripetiĝas ĉiu</string>
     <string name="badges_description">Vidigi nombro da taskoj sur lanĉpiktogramo de Tasks. Ne ĉiuj lanĉiloj subtenas ĉi tiajn simbolojn.</string>
     <string name="caldav_account_description">Bezonas konton de CalDAV servprovizanto aŭ memgastigan servilon. Por trovi servprovizanton vizitu task.org/caldav</string>
@@ -719,6 +718,5 @@
     <string name="banner_app_updated_description">Tasks estis ĝisdatigita al %s. Ĉu vi deziras legi la eldonajn notojn?</string>
     <string name="delete_tasks_warning">Forigas %s. Ne eblas malfari tion!</string>
     <string name="continue_without_sync">Daŭrigi sen sinkronigo</string>
-    <string name="help_me_choose">Helpu min elekti</string>
     <string name="widget_view_more_tasks">Vidi pli da taskoj</string>
 </resources>

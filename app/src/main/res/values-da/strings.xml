@@ -678,7 +678,6 @@
     <string name="repeats_on">På</string>
     <string name="repeats_never">Aldrig</string>
     <string name="sort_ascending">Stigende</string>
-    <string name="sign_in_to_tasks_disclosure">Din e-mailadresse og dit konto-ID overføres og gemmes af Tasks.org. Disse oplysninger bruges til godkendelse og til at give dig vigtige tjenesterelaterede meddelelser og deles ikke med nogen.</string>
     <string name="theme_dynamic">Dynamisk</string>
     <string name="subtasks_multilevel_microsoft">Underopgaver på flere niveauer understøttes ikke af Microsoft To Do</string>
     <string name="donate_nag">Overvej at vise din støtte med en donation!</string>
@@ -718,7 +717,6 @@
     <string name="banner_app_updated_title">App opdateret</string>
     <string name="multiline_title_off">Tryk på Færdig for at gemme opgave</string>
     <string name="continue_without_sync">Fortsæt uden synkronisering</string>
-    <string name="help_me_choose">Hjælp mig med at vælge</string>
     <string name="delete_tasks_warning">%s bliver slettet. Dette kan ikke fortrydes!</string>
     <string name="widget_view_more_tasks">Vis flere opgaver</string>
 </resources>

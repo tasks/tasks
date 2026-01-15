@@ -35,6 +35,7 @@ import org.tasks.gtasks.GoogleTaskSynchronizer
 import org.tasks.injection.BaseWorker
 import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.TasksPreferences
 import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
@@ -53,11 +54,13 @@ class SyncWork @AssistedInject constructor(
     private val openTasksSynchronizer: Lazy<OpenTasksSynchronizer>,
     private val microsoftSynchronizer: Lazy<MicrosoftSynchronizer>,
     private val openTaskDao: OpenTaskDao,
-    private val inventory: Inventory
+    private val inventory: Inventory,
+    private val tasksPreferences: TasksPreferences,
 ) : BaseWorker(context, workerParams, firebase) {
 
     override suspend fun run(): Result {
         Timber.d("Starting...")
+
         if (isBackground) {
             ContextCompat.getSystemService(context, ConnectivityManager::class.java)?.apply {
                 if (restrictBackgroundStatus == ConnectivityManagerCompat.RESTRICT_BACKGROUND_STATUS_ENABLED) {
@@ -95,9 +98,15 @@ class SyncWork @AssistedInject constructor(
 
     private val syncStatus = R.string.p_sync_ongoing
 
+    private suspend fun hasTosAcceptance(): Boolean {
+        val currentTosVersion = firebase.getTosVersion()
+        val acceptedTosVersion = tasksPreferences.get(TasksPreferences.acceptedTosVersion, 0)
+        return acceptedTosVersion >= currentTosVersion
+    }
+
     private suspend fun doSync() {
         val hasNetworkConnectivity = context.hasNetworkConnectivity()
-        if (hasNetworkConnectivity) {
+        if (hasNetworkConnectivity && hasTosAcceptance()) {
             googleTaskJobs().plus(caldavJobs()).awaitAll()
         }
         inventory.updateTasksAccount()

@@ -675,7 +675,6 @@
     <string name="enable_reminders_description">Przypomnienia są wyłączone w Ustawieniach Androida</string>
     <string name="rmd_time_description">Wyświetlanie powiadomień o zadaniach bez terminów do wykonania</string>
     <string name="microsoft_selection_description">Synchronizuj z osobistym kontem Microsoft</string>
-    <string name="sign_in_to_tasks_disclosure">Twój adres e-mail i identyfikator konta będą przekazywane i przechowywane przez Tasks.org. Informacje te będą wykorzystywane do uwierzytelniania oraz do przekazywania Ci ważnych ogłoszeń związanych z naszymi usługami. Informacje te nie będą nikomu udostępniane.</string>
     <string name="consent_agree">Zgadzam się</string>
     <string name="consent_deny">Nie teraz</string>
     <string name="default_reminder">Domyślne przypomnienie</string>
@@ -717,5 +716,4 @@
     <string name="change_priority">Zmień priorytet</string>
     <string name="theme_dynamic">Dynamiczny</string>
     <string name="continue_without_sync">Kontynuuj bez synchronizacji</string>
-    <string name="help_me_choose">Pomóż mi wybrać</string>
 </resources>

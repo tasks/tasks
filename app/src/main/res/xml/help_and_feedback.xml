@@ -73,11 +73,21 @@
   </PreferenceCategory>
 
   <PreferenceCategory
-    android:title="@string/privacy">
+    android:title="@string/legal">
+
+    <Preference
+        android:key="@string/terms_of_service"
+        android:title="@string/terms_of_service"
+        app:icon="@drawable/ic_outline_gavel_24px" />
+
     <Preference
         android:key="@string/privacy_policy"
         android:title="@string/privacy_policy"
         app:icon="@drawable/ic_outline_perm_identity_24px" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory>
 
     <SwitchPreferenceCompat
         android:defaultValue="true"

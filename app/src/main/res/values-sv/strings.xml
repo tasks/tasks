@@ -643,7 +643,6 @@
     <string name="hint_customize_edit_body">Du kan anpassa den här skärmen genom att ordna om eller ta bort fält</string>
     <string name="default_reminder">Standardpåminnelse</string>
     <string name="rmd_time_description">Visa aviseringar för uppgifter utan deadlinetid</string>
-    <string name="sign_in_to_tasks_disclosure">Din e-postadress och konto-id kommer föras över till och lagras av Tasks.org. Uppgifterna kommer användas för autentisering och för att förse dig med viktiga tjänsterelaterade meddelanden. Informationen kommer inte delas med någon annan.</string>
     <string name="consent_agree">Samtyck</string>
     <string name="consent_deny">Inte nu</string>
     <string name="enable_reminders_description">Påminnelser är avstängda i Android-inställningarna</string>
@@ -717,7 +716,6 @@
     <string name="banner_app_updated_title">App uppdaterad</string>
     <string name="banner_app_updated_description">Tasks uppdaterades just till %s. Vill du se versionsnyheterna?</string>
     <string name="multiline_title_off">Tryck på \"klar\" för att spara uppgiften</string>
-    <string name="help_me_choose">Hjälp mig att välja</string>
     <string name="delete_tasks_warning">%s kommer att tas bort. Detta kan inte ångras!</string>
     <string name="continue_without_sync">Fortsätt utan synkronisering</string>
     <string name="widget_view_more_tasks">Visa mer uppgifter</string>

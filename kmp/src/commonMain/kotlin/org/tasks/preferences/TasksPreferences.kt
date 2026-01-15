@@ -3,6 +3,7 @@ package org.tasks.preferences
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.edit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
@@ -25,5 +26,6 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val collapseTags = booleanPreferencesKey("drawer_collapse_tags")
         val collapseDebug = booleanPreferencesKey("drawer_collapse_debug")
         val collapsePlaces = booleanPreferencesKey("drawer_collapse_places")
+        val acceptedTosVersion = intPreferencesKey("accepted_tos_version")
     }
 }

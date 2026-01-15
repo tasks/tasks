@@ -411,7 +411,6 @@ File %1$s contained %2$s.\n\n
   <string name="date_and_time">Date and time</string>
   <string name="add_account">Add account</string>
   <string name="continue_without_sync">Continue without sync</string>
-  <string name="help_me_choose">Help me choose</string>
   <string name="user">User</string>
   <string name="password">Password</string>
   <string name="url">URL</string>
@@ -637,6 +636,7 @@ File %1$s contained %2$s.\n\n
   <string name="issue_tracker">Issue tracker</string>
   <string name="open_source">Open source</string>
   <string name="privacy">Privacy</string>
+  <string name="legal">Legal</string>
   <string name="authorization_cancelled">Authorization cancelled</string>
   <string name="google_play_subscribers">Google Play subscribers</string>
   <string name="github_sponsors">GitHub Sponsors</string>
@@ -650,7 +650,6 @@ File %1$s contained %2$s.\n\n
   <string name="above_average">Above average</string>
   <string name="save_percent">Save %d%%</string>
   <string name="sign_in_to_tasks">Sign in to Tasks.org</string>
-  <string name="sign_in_to_tasks_disclosure">Your e-mail address and account ID will be transmitted and stored by Tasks.org. This information will be used for authentication and to provide you with important service related announcements. This information will not be shared with anyone.</string>
   <string name="app_password">App password</string>
   <string name="app_passwords">App passwords</string>
   <string name="app_passwords_more_info">Synchronize your tasks and calendars with third-party desktop and mobile apps. Tap here for more info</string>
@@ -705,8 +704,16 @@ File %1$s contained %2$s.\n\n
   <string name="enable_alarms">Get notified at the right time</string>
   <string name="enable_alarms_description">To make sure you\'re notified at the right time, grant permission to set alarms and reminders in Settings</string>
   <string name="sign_in">Sign in</string>
-  <string name="consent_agree">Agree</string>
-  <string name="consent_deny">Not now</string>
+  <string name="legal_disclosure">By using Tasks.org, you agree to the %1$s and %2$s. Tasks is open source software provided under the %3$s.</string>
+  <string name="terms_of_service">Terms of service</string>
+  <string name="terms_of_service_proper">Terms of Service</string>
+  <string name="privacy_policy_proper">Privacy Policy</string>
+  <string name="gplv3_license">GPLv3 License</string>
+  <string name="tos_updated_title">We\'ve updated our Terms of Service</string>
+  <string name="view_tos">View Terms of Service</string>
+  <string name="accept">Accept</string>
+  <string name="exit">Exit</string>
+  <string name="returning_user">Returning user?</string>
   <string name="sort_sorting">Sorting</string>
   <string name="sort_grouping">Grouping</string>
   <string name="sort_ascending">Ascending</string>

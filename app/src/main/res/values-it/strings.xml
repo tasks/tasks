@@ -671,7 +671,6 @@
     <string name="microsoft_selection_description">Sincronizzazione con l\'account personale Microsoft</string>
     <string name="sign_in">Accedi</string>
     <string name="consent_agree">Accetto</string>
-    <string name="sign_in_to_tasks_disclosure">Il tuo indirizzo e-mail e l\'ID dell\'account saranno trasmessi e memorizzati da Tasks.org. Queste informazioni saranno utilizzate per l\'autenticazione e per inviarti annunci importanti relativi al servizio. Queste informazioni non saranno condivise con nessuno.</string>
     <string name="consent_deny">Non ora</string>
     <string name="default_reminder">Promemoria predefinito</string>
     <string name="rmd_time_description">Mostra le notifiche per le attività senza scadenza</string>
@@ -740,7 +739,6 @@
     <string name="banner_app_updated_description">Tasks è stata aggiornata a %s. Vuoi vedere le note di rilascio?</string>
     <string name="multiline_title_off">Premi il tasto di conferma per salvare l\'attività</string>
     <string name="continue_without_sync">Continua senza sincronizzazione</string>
-    <string name="help_me_choose">Aiutami a scegliere</string>
     <string name="delete_tasks_warning">%s verrà cancellato. L\'operazione non può essere annullata!</string>
     <string name="widget_view_more_tasks">Visualizza ulteriori attività</string>
 </resources>

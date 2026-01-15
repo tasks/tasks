@@ -12,6 +12,7 @@ import org.tasks.billing.Inventory
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.getPassword
 import org.tasks.http.HttpClientFactory
+import org.tasks.preferences.TasksPreferences
 import org.tasks.security.KeyStoreEncryption
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -21,6 +22,7 @@ class CaldavClientProvider @Inject constructor(
         private val encryption: KeyStoreEncryption,
         private val inventory: Inventory,
         private val httpClientFactory: HttpClientFactory,
+        private val tasksPreferences: TasksPreferences,
 ) {
     private val tasksUrl = context.getString(R.string.tasks_caldav_url)
 
@@ -29,7 +31,8 @@ class CaldavClientProvider @Inject constructor(
             username: String? = null,
             password: String? = null
     ): CaldavClient {
-        val auth = getAuthInterceptor(username, password, url)
+        val tosVersion = tasksPreferences.get(TasksPreferences.acceptedTosVersion, 0)
+        val auth = getAuthInterceptor(username, password, url, tosVersion)
         return CaldavClient(
                 this,
                 createHttpClient(
@@ -48,10 +51,12 @@ class CaldavClientProvider @Inject constructor(
     }
 
     suspend fun forAccount(account: CaldavAccount, url: String? = account.url): CaldavClient {
+        val tosVersion = tasksPreferences.get(TasksPreferences.acceptedTosVersion, 0)
         val auth = getAuthInterceptor(
                 account.username,
                 account.getPassword(encryption),
-                account.url
+                account.url,
+                tosVersion,
         )
         val client = createHttpClient(auth)
         return if (account.isTasksOrg) {
@@ -64,10 +69,11 @@ class CaldavClientProvider @Inject constructor(
     private fun getAuthInterceptor(
             username: String?,
             password: String?,
-            url: String?
+            url: String?,
+            tosVersion: Int,
     ): Interceptor? = when {
         username.isNullOrBlank() || password.isNullOrBlank() -> null
-        url?.startsWith(tasksUrl) == true -> TasksBasicAuth(username, password, inventory)
+        url?.startsWith(tasksUrl) == true -> TasksBasicAuth(username, password, inventory, tosVersion)
         else -> BasicDigestAuthHandler(null, username, password)
     }
 

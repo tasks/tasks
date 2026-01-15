@@ -670,7 +670,6 @@
     <string name="TEA_creation_date">Fecha de creación</string>
     <string name="microsoft_selection_description">Sincronizar con su cuenta personal de Microsoft</string>
     <string name="sign_in">Iniciar sesión</string>
-    <string name="sign_in_to_tasks_disclosure">Tu dirección de correo electrónico y el ID de tu cuenta serán transmitidos y almacenados por Tasks.org. Esta información se utilizará para la autenticación y para proporcionarle anuncios importantes relacionados con el servicio. Esta información no se compartirá con nadie.</string>
     <string name="consent_agree">De acuerdo</string>
     <string name="consent_deny">No ahora</string>
     <string name="default_reminder">Aviso por defecto</string>
@@ -740,7 +739,6 @@
     <string name="multiline_title_off">Presione en Hecho para guardar la tarea</string>
     <string name="comment">Comentario</string>
     <string name="continue_without_sync">Continua sin sincronizar</string>
-    <string name="help_me_choose">Ayudame a escoger</string>
     <string name="delete_tasks_warning">%s será eliminado. ¡Esto no se puede deshacer!</string>
     <string name="widget_view_more_tasks">Ver más tareas</string>
 </resources>

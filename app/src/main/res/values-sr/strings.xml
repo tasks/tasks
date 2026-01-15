@@ -366,7 +366,6 @@
     <string name="date_and_time">Време и датум</string>
     <string name="add_account">Додај налог</string>
     <string name="continue_without_sync">Настави без синхронизације</string>
-    <string name="help_me_choose">Помоћ при одабиру</string>
     <string name="user">Корисник</string>
     <string name="password">Шифра</string>
     <string name="url">URL</string>
@@ -664,7 +663,6 @@
     <string name="above_average">Изнад просека</string>
     <string name="save_percent">Усними %d%%</string>
     <string name="sign_in_to_tasks">Пријави се на Tasks.org</string>
-    <string name="sign_in_to_tasks_disclosure">Мејл адреса и идентификациони број ће бити послати и складиштени од стране Tasks.org. Ове информације ће се користити за аутентикацију и обезбеђење важних обавештења у вези сервиса. Ове информације се неће делити ни са ким.</string>
     <string name="app_password">Шифра апликације</string>
     <string name="app_passwords">Шифре апликације</string>
     <string name="app_passwords_more_info">Синхронизуј задатке и календар са десктоп и мобилним апликацијама треће стране. Тапни овде за додатне информације</string>

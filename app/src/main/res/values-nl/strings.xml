@@ -651,7 +651,6 @@
     <string name="sign_in">Log in</string>
     <string name="consent_agree">Akkoord</string>
     <string name="consent_deny">Niet nu</string>
-    <string name="sign_in_to_tasks_disclosure">Uw e-mailadres en account-ID worden verzonden naar Tasks.org en opgeslagen. Deze informatie wordt gebruikt voor authenticatie en om u te voorzien van belangrijke servicegerelateerde aankondigingen. Deze informatie wordt met niemand gedeeld.</string>
     <string name="default_reminder">Standaardherinnering</string>
     <string name="rmd_time_description">Toon meldingen voor taken zonder vervaltijd</string>
     <string name="sort_list">Op lijstvolgorde</string>
@@ -718,7 +717,6 @@
     <string name="banner_app_updated_description">Tasks is zojuist geüpdatet naar %s. Wil je de release-opmerkingen zien?</string>
     <string name="multiline_title_off">Druk op Gereed om de taak op te slaan</string>
     <string name="continue_without_sync">Doorgaan zonder synchronisatie</string>
-    <string name="help_me_choose">Help me kiezen</string>
     <string name="delete_tasks_warning">%s wordt verwijderd. Dit kan niet ongedaan worden gemaakt!</string>
     <string name="widget_view_more_tasks">Meer taken zien</string>
 </resources>

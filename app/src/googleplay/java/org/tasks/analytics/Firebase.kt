@@ -109,4 +109,13 @@ class Firebase @Inject constructor(
 
     private fun days(key: String, default: Long): Long =
             TimeUnit.DAYS.toMillis(remoteConfig?.getLong(key) ?: default)
+
+    fun getTosVersion(): Int {
+        val default = context.resources.getInteger(R.integer.default_tos_version)
+        return remoteConfig
+            ?.getLong(context.getString(R.string.remote_config_tos_version))
+            ?.toInt()
+            ?.takeIf { it >= default }
+            ?: default
+    }
 }

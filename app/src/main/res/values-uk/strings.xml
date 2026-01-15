@@ -678,7 +678,6 @@
     <string name="microsoft_selection_description">Синхронізація з особистим обліковим записом Microsoft</string>
     <string name="sign_in">Увійти</string>
     <string name="consent_deny">Не зараз</string>
-    <string name="sign_in_to_tasks_disclosure">Ваша адреса електронної пошти та ID облікового запису будуть передані та збережені Tasks.org. Ці дані використовуватимуться для автентифікації та надання вам важливих оголошень, пов\'язаних з обслуговуванням. Ці дані нікому не будуть передані.</string>
     <string name="consent_agree">Погоджуюся</string>
     <string name="rmd_time_description">Показувати сповіщення про завдання без запланованого часу</string>
     <string name="default_reminder">Типове нагадування</string>
@@ -748,7 +747,6 @@
     <string name="banner_app_updated_description">Tasks щойно оновлено до %s. Переглянете примітки до випуску?</string>
     <string name="multiline_title_off">Натисніть готово, щоб зберегти завдання</string>
     <string name="continue_without_sync">Продовжити без синхронізації</string>
-    <string name="help_me_choose">Допоможіть обрати</string>
     <string name="delete_tasks_warning">%s буде видалено. Дію неможливо скасувати!</string>
     <string name="widget_view_more_tasks">Переглянути інші завдання</string>
 </resources>

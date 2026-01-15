@@ -675,7 +675,6 @@
     <string name="rmd_time_description">Afișează notificări pentru sarcinile fără termene limită</string>
     <string name="consent_agree">De acord</string>
     <string name="consent_deny">Nu acum</string>
-    <string name="sign_in_to_tasks_disclosure">Adresa de e-mail și ID-ul contului vor fi transmise și stocate de Tasks.org. Aceste informații vor fi utilizate pentru autentificare și pentru a furniza anunțuri importante legate de servicii. Aceste informații nu vor fi partajate cu nimeni.</string>
     <string name="microsoft_selection_description">Sincronizarea cu contul personal Microsoft</string>
     <string name="sign_in">Conectează-te</string>
     <string name="sort_ascending">Crescător</string>
@@ -743,7 +742,6 @@
     <string name="enable_alarms_description">Pentru a te asigura că ești notificat la momentul potrivit, acordă permisiunea de a seta alarme și mementouri în Setări</string>
     <string name="multiline_title_off">Apasă Finalizat pentru a salva sarcina</string>
     <string name="continue_without_sync">Continuă fără sincronizare</string>
-    <string name="help_me_choose">Ajută-mă să aleg</string>
     <string name="delete_tasks_warning">%s va fi șters. Acest lucru nu poate fi anulat!</string>
     <string name="banner_app_updated_title">Aplicație actualizată</string>
     <string name="banner_app_updated_description">Tasks a fost actualizată la versiunea %s. Dorești să vezi modificările făcute?</string>

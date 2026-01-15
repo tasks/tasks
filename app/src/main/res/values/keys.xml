@@ -38,6 +38,8 @@
   <string name="url_issue_tracker">https://github.com/tasks/tasks/issues</string>
   <string name="url_changelog">https://tasks.org/changelog</string>
   <string name="url_source_code">https://tasks.org/source</string>
+  <string name="url_license">https://tasks.org/license</string>
+  <string name="url_tos">https://tasks.org/terms</string>
   <string name="url_privacy_policy">https://tasks.org/privacy</string>
   <string name="url_backups">https://tasks.org/backups</string>
   <string name="url_translations">https://tasks.org/translations</string>
@@ -422,6 +424,8 @@
   <string name="event_create_shortcut">create_shortcut</string>
   <string name="event_create_widget">create_widget</string>
   <string name="event_onboarding_sync">onboarding_sync</string>
+  <string name="event_accept_tos">accept_tos</string>
+  <string name="event_accept_tos_update">accept_tos_update</string>
   <string name="param_type">type</string>
   <string name="p_picker_mode_date">picker_mode_date</string>
   <string name="p_picker_mode_time">picker_mode_time</string>
@@ -431,4 +435,6 @@
   <string name="p_last_sync">last_sync_time</string>
   <string name="p_multiline_title">multiline_title</string>
   <string name="p_dynamic_color">dynamic_color</string>
+  <string name="remote_config_tos_version">tos_version</string>
+  <integer name="default_tos_version">1</integer>
 </resources>

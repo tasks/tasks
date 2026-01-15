@@ -84,6 +84,7 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
         openUrl(R.string.follow_reddit, R.string.url_reddit)
         openUrl(R.string.follow_twitter, R.string.url_twitter)
         openUrl(R.string.source_code, R.string.url_source_code)
+        openUrl(R.string.terms_of_service, R.string.url_tos)
         openUrl(R.string.privacy_policy, R.string.url_privacy_policy)
     }
 

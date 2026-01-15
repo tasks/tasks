@@ -22,9 +22,12 @@ import org.tasks.auth.SignInActivity
 import org.tasks.auth.SignInActivity.Platform
 import org.tasks.billing.Inventory
 import org.tasks.billing.Purchase
+import org.tasks.analytics.Firebase
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
+import org.tasks.data.entity.CaldavAccount.Companion.isTosRequired
 import org.tasks.extensions.Context.openUri
+import org.tasks.preferences.TasksPreferences
 import org.tasks.extensions.Context.toast
 import org.tasks.jobs.WorkManager
 import org.tasks.kmp.org.tasks.time.DateStyle
@@ -40,8 +43,11 @@ class TasksAccount : BaseAccountPreference() {
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var workManager: WorkManager
+    @Inject lateinit var firebase: Firebase
+    @Inject lateinit var tasksPreferences: TasksPreferences
 
     private val viewModel: TasksAccountViewModel by viewModels()
+    private var tosDialogShown = false
 
     private val refreshReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -209,6 +215,11 @@ class TasksAccount : BaseAccountPreference() {
             findPreference(R.string.local_lists).summary =
                     getString(R.string.migrate_count, quantityString)
         }
+
+        if (account.isTosRequired() && !tosDialogShown) {
+            tosDialogShown = true
+            showTosDialog()
+        }
     }
 
     private suspend fun refreshPasswords(passwords: List<TasksAccountViewModel.AppPassword>) {
@@ -248,6 +259,24 @@ class TasksAccount : BaseAccountPreference() {
             DateStyle.FULL,
             lowercase = true
         )
+    }
+
+    private fun showTosDialog() {
+        dialogBuilder
+            .newDialog(R.string.tos_updated_title)
+            .setNeutralButton(R.string.view_tos) { _, _ ->
+                context?.openUri(R.string.url_tos)
+            }
+            .setPositiveButton(R.string.accept) { _, _ ->
+                lifecycleScope.launch {
+                    val currentTosVersion = firebase.getTosVersion()
+                    tasksPreferences.set(TasksPreferences.acceptedTosVersion, currentTosVersion)
+                    caldavDao.update(account.copy(error = null))
+                    workManager.sync(immediate = true)
+                }
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
     }
 
     companion object {

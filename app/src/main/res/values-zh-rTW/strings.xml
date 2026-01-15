@@ -546,7 +546,6 @@
     <string name="markdown_description">在標題和描述中啟用 Markdown</string>
     <string name="more_options">更多選項</string>
     <string name="hint_customize_edit_body">您可以透過重新排列或移除欄位來自訂此畫面</string>
-    <string name="sign_in_to_tasks_disclosure">您的電子郵件地址和帳戶 ID 將被傳輸並儲存於 Tasks.org。這些資訊將用於驗證和提供重要的服務相關公告。這些資訊不會與任何人分享。</string>
     <string name="app_password_save">請使用這些憑證來設定第三方應用程式。它們授予您對 Tasks.org 帳戶的完全存取權限，請勿將其寫下或與他人分享！</string>
     <string name="repeats_every">每次重複</string>
     <string name="share_list">分享清單</string>

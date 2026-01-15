@@ -684,7 +684,6 @@
     <string name="show_edit_screen_without_unlock">Näytä muokkaa näyttöä ilman lukituksen avaamista</string>
     <string name="theme_dynamic">Dynaaminen</string>
     <string name="donate_nag">Harkitse tuen osoittamista lahjoituksella!</string>
-    <string name="sign_in_to_tasks_disclosure">Sähköpostiosoitteesi ja käyttäjä-ID:si lähetetään säilytettäväksi Tasks.org:iin. Näitä tietoja käytetään tunnistautumiseen ja tärkeiden palveluun liittyvien ilmoitusten toimittamiseen. Tietoja ei jaeta kenenkään kanssa.</string>
     <string name="show_edit_screen_without_unlock_summary">Aktivoi pika-asetusten käyttö ilman laitteen lukituksen avaamista</string>
     <string name="sort_not_available">Ei käytettävissä tunnisteiden, suodattimien tai paikkojen kanssa</string>
     <string name="customize_drawer">Muokkaa vetolaatikkoa</string>
@@ -700,7 +699,6 @@
     <string name="comment">Kommentti</string>
     <string name="yesterday">Eilen</string>
     <string name="continue_without_sync">Jatka ilman synkronointia</string>
-    <string name="help_me_choose">Auta minua valitsemaan</string>
     <string name="delete_tasks_warning">%s poistetaan. Tätä ei voi perua!</string>
     <string name="banner_app_updated_title">Sovellus päivitetty</string>
     <string name="banner_app_updated_description">Sovellus päivitettiin juuri %s. Haluatko lukea julkaisutiedot?</string>

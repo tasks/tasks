@@ -124,7 +124,7 @@ class CaldavSynchronizer @Inject constructor(
             setError(account, e)
         } catch (e: HttpException) {
             when(e.code) {
-                402, in 500..599 -> {}
+                402, 451, in 500..599 -> {}
                 else -> { firebase.reportException(e) }
             }
             setError(account, e)

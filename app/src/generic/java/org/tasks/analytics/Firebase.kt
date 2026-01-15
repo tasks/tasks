@@ -37,4 +37,7 @@ class Firebase @Inject constructor(
 
     private fun days(default: Long): Long =
         TimeUnit.DAYS.toMillis(default)
+
+    fun getTosVersion(): Int =
+        context.resources.getInteger(R.integer.default_tos_version)
 }

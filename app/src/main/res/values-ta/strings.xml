@@ -689,7 +689,6 @@
     <string name="sign_in_with_google">Google உடன் உள்நுழைக</string>
     <string name="migrate_count">%s ஐ tasks.org க்கு நகர்த்தவும்</string>
     <string name="save_percent">%d %% சேமிக்கவும்</string>
-    <string name="sign_in_to_tasks_disclosure">உங்கள் மின்னஞ்சல் முகவரி மற்றும் கணக்கு ஐடி TASKS.org ஆல் அனுப்பப்பட்டு சேமிக்கப்படும். இந்த செய்தி அங்கீகாரத்திற்காகவும், முக்கியமான பணி தொடர்பான அறிவிப்புகளை உங்களுக்கு வழங்கவும் பயன்படுத்தப்படும். இந்த செய்தி யாருடனும் பகிரப்படாது.</string>
     <string name="generate_new_password">புதிய கடவுச்சொல்லை உருவாக்குங்கள்</string>
     <string name="app_password_enter_description">உங்கள் கடவுச்சொல்லை ஒரு பெயரைக் கொடுங்கள் (விரும்பினால்)</string>
     <string name="app_password_created_at">உருவாக்கப்பட்டது: %s</string>
@@ -718,6 +717,5 @@
     <string name="multiline_title_off">பணியைச் சேமிக்க முடிந்தது என்பதை அழுத்தவும்</string>
     <string name="banner_app_updated_description">பணிகள் இப்போதுதான் %s ஆகப் புதுப்பிக்கப்பட்டது. வெளியீட்டுக் குறிப்புகளைப் பார்க்க விரும்புகிறீர்களா?</string>
     <string name="continue_without_sync">ஒத்திசைவு இல்லாமல் தொடரவும்</string>
-    <string name="help_me_choose">தேர்வு செய்ய எனக்கு உதவு</string>
     <string name="delete_tasks_warning">%s நீக்கப்படும். இதை செயல்தவிர்க்க முடியாது!</string>
 </resources>

@@ -337,7 +337,6 @@
     <string name="date_and_time">Ημερομηνία και ώρα</string>
     <string name="add_account">Προσθήκη λογαριασμού</string>
     <string name="continue_without_sync">Συνέχεια χωρίς συγχρονισμό</string>
-    <string name="help_me_choose">Βοήθησε με να διαλέξω</string>
     <string name="user">Χρήστης</string>
     <string name="password">Κωδικός</string>
     <string name="url">Ηλεκτρονική διεύθυνση (URL)</string>
@@ -570,7 +569,6 @@
     <string name="above_average">Άνω του μέσου όρου</string>
     <string name="save_percent">Αποθήκευση %d%%</string>
     <string name="sign_in_to_tasks">Συνδεθείτε στο Tasks.org</string>
-    <string name="sign_in_to_tasks_disclosure">Η διεύθυνση ηλεκτρονικού ταχυδρομείου και το αναγνωριστικό του λογαριασμού σας θα μεταδοθούν και θα αποθηκευτούν από το Tasks.org. Οι πληροφορίες αυτές θα χρησιμοποιηθούν για την εξακρίβωση της ταυτότητας και για την παροχή σημαντικών ανακοινώσεων σχετικά με την υπηρεσία. Αυτές οι πληροφορίες δεν θα κοινοποιηθούν σε κανέναν.</string>
     <string name="app_password">Κωδικός εφαρμογής</string>
     <string name="app_passwords">Κωδικοί εφαρμογής</string>
     <string name="app_passwords_more_info">Συγχρονίστε τις εργασίες και τα ημερολόγια σας με εφαρμογές ηλεκτρονικών υπολογιστών και κινητών συσκευών τρίτων. Πατήστε εδώ για περισσότερες πληροφορίες</string>

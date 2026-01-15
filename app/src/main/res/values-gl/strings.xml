@@ -562,7 +562,6 @@
     <string name="show_edit_screen_without_unlock_summary">Activa o uso do mosaico Configuración rápida sen desbloquear o dispositivo</string>
     <string name="theme_dynamic">Dinámico</string>
     <string name="continue_without_sync">Continuar sen sincronización</string>
-    <string name="help_me_choose">Axúdame a escoller</string>
     <string name="default_reminder">Recordatorio predeterminado</string>
     <string name="repeats_custom_recurrence">Recorrencia personalizada</string>
     <string name="repeats_every">Repítese cada</string>
@@ -622,7 +621,6 @@
     <string name="google_play_subscribers">Subscritores de Google Play</string>
     <string name="github_sponsors">Patrocinadores de GitHub</string>
     <string name="github_sponsor">Patrocinador</string>
-    <string name="sign_in_to_tasks_disclosure">O teu enderezo de correo electrónico e o ID da túa conta serán transmitidos e almacenados por Tasks.org. Esta información usarase para a autenticación e para proporcionarche anuncios importantes relacionados co servizo. Esta información non se compartirá con ninguén.</string>
     <string name="app_password_delete_confirmation">Calquera aplicación que use este contrasinal pechará sesión</string>
     <string name="app_password_save">Usa estas credenciais para configurar unha aplicación de terceiros. Conceden acceso completo á túa conta de Tasks.org, non as escribas nin as compartas con ninguén!</string>
     <string name="account_not_included">Non incluído nas subscricións de \'Prezo flexible\'</string>

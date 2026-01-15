@@ -652,7 +652,6 @@
     <string name="sign_in">Bejelentkezés</string>
     <string name="consent_agree">Beleegyezés</string>
     <string name="consent_deny">Most nem</string>
-    <string name="sign_in_to_tasks_disclosure">Az Ön e-mail címét és azonodítóját a Tasks.org tárolja. Ezek az információk azonosításra és fontos, a szolgáltatással kapcsolatos információk eljuttatásának céljából kerülnek felhasználásra. Ez az információ senkivel sem kerül megosztásra.</string>
     <string name="enable_reminders">Emlékeztetők engedélyezése</string>
     <string name="sort_list">Lista szerint</string>
     <string name="sort_sorting">Sorbarendezés</string>
@@ -718,7 +717,6 @@
     <string name="banner_app_updated_description">A Tasks frissítve lett a(z) %s verzióra. Szeretné látni a változások listáját?</string>
     <string name="delete_tasks_warning">A(z) %s törlésre kerül. Ez a művelet nem visszavonható!</string>
     <string name="continue_without_sync">Folytatás szinkronizálás nélkül</string>
-    <string name="help_me_choose">Segítséget kérek a választásban</string>
     <string name="multiline_title_off">Kattints a Kész gombra a feladat elmentéséhez</string>
     <string name="widget_view_more_tasks">További feladatok megtekintése</string>
 </resources>

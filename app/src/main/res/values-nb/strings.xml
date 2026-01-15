@@ -664,7 +664,6 @@
     <string name="rmd_time_description">Vis varslinger for oppgaver uten frister</string>
     <string name="donate_today">Donér i dag</string>
     <string name="donate_maybe_later">Kanskje senere</string>
-    <string name="sign_in_to_tasks_disclosure">Din e-postadresse og konto-ID sendes til og lagres av Tasks.org. Denne informasjonen benyttes for autentisering og for å kunne tilby deg viktige tjenesterelaterte kunngjøringer. Denne informasjonen deles ikke med noen.</string>
     <plurals name="repeat_occurrence">
         <item quantity="one">hendelse</item>
         <item quantity="other">hendelser</item>

@@ -652,7 +652,6 @@
     <string name="migrate_count">Teisalda %s teenusesse Tasks.org</string>
     <string name="sort_completion_group">Lõpetatud %s</string>
     <string name="auto_dismiss_datetime_list">Ülesannete loend</string>
-    <string name="sign_in_to_tasks_disclosure">Sinu e-posti aadress ja kasutajatunnus saadetakse teenusele Tasks.org ja salvestuvad seal. Neid kasutatakse autentimiseks ja teenusega seotud oluliste teavituste jaoks, kuid ei jagata kolmandate osapooltega.</string>
     <string name="google_tasks_selection_description">Google\'i kasutajakontoga lihtsustatud andmete sünkroniseerimise võimalus</string>
     <string name="upgrade_blurb_1">Tere! Minu nimi on Alex ja ma olen sõltumatu arendaja, kes on Taski arendust juhtinud</string>
     <string name="chips">Infosildid</string>
@@ -718,7 +717,6 @@
     <string name="banner_app_updated_title">Rakendus on uuendatud</string>
     <string name="multiline_title_off">Ülesande salvestamiseks vajuta nuppu „Valmis“</string>
     <string name="continue_without_sync">Jätka ilma sünkroniseerimata</string>
-    <string name="help_me_choose">Aita mul valida</string>
     <string name="delete_tasks_warning">%s saab olema kustutatud. Seda tegevust ei saa tagasi pöörata!</string>
     <string name="widget_view_more_tasks">Vaata veel ülesandeid</string>
 </resources>

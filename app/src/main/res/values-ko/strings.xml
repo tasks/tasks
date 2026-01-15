@@ -611,7 +611,6 @@
     <string name="microsoft_selection_description">마이크로소프트 계정과 동기화</string>
     <string name="enable_reminders">알람 활성화</string>
     <string name="hint_customize_edit_body">필드 순서를 변경하거나 삭제하실 수 있습니다</string>
-    <string name="sign_in_to_tasks_disclosure">이메일 주소와 계정 ID가 Tasks.org으로 전송되어 보관됩니다. 이 정보는 계정 인증과 서비스 관련 중요 공지를 전달하기 위해 쓰이며, 다른 누구와도 공유하지 않습니다.</string>
     <string name="completion_sound">완료 효과음 재생</string>
     <string name="alarm_before_start">시작 %s 전</string>
     <string name="alarm_before_due">마감 %s 전</string>
@@ -705,7 +704,6 @@
     <string name="delete_comment">코멘트</string>
     <string name="comment">코멘트</string>
     <string name="continue_without_sync">동기화 없이 계속하기</string>
-    <string name="help_me_choose">고르는 것을 도와주세요</string>
     <string name="delete_tasks_warning">%s 를 삭제합니다. 삭제 후 되돌릴 수 없습니다!</string>
     <string name="banner_app_updated_title">앱이 업데이트됨</string>
     <string name="banner_app_updated_description">Tasks.org가 방금 %s 버전으로 업데이트되었습니다. 릴리즈 노트를 열까요?</string>

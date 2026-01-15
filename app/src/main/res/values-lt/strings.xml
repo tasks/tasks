@@ -640,7 +640,6 @@
     <string name="default_reminder">Numatytas priminimas</string>
     <string name="randomly_every">Atsitiktinai kas %s</string>
     <string name="completed">Įvykdyta</string>
-    <string name="sign_in_to_tasks_disclosure">Jūsų el. pašto adresas ir paskyros ID bus perduodami ir saugomi Tasks.org. Ši informacija bus naudojama autentiškumui patvirtinti ir svarbiems su paslaugomis susijusiems pranešimams teikti. Ši informacija nebus niekam perduodama.</string>
     <string name="dismiss">Atsisakyti</string>
     <string name="consent_agree">Sutinku</string>
     <string name="consent_deny">Ne dabar</string>

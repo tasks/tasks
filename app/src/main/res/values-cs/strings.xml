@@ -671,7 +671,6 @@
     <string name="default_reminder">Výchozí upomínka</string>
     <string name="rmd_time_description">Zobrazovat upozornění na úkoly bez termínů</string>
     <string name="microsoft_selection_description">Synchronizovat se svým osobním účtem Microsoft</string>
-    <string name="sign_in_to_tasks_disclosure">Vaše e-mailová adresa a ID účtu budou přeneseny a uloženy na Tasks.org. Tyto informace budou použity pro ověření a pro poskytování důležitých oznámení souvisejících se službami. Tyto informace nebudou s nikým sdíleny.</string>
     <string name="consent_agree">Souhlasím</string>
     <string name="consent_deny">Teď ne</string>
     <string name="sign_in">Přihlásit se</string>
@@ -739,7 +738,6 @@
     <string name="multiline_title_off">Stiskněte tlačítko Hotovo pro uložení úkolu</string>
     <string name="banner_app_updated_title">Aplikace aktualizována</string>
     <string name="banner_app_updated_description">Aplikace Tasks byla aktualizována na %s. Chcete zobrazit seznam změn?</string>
-    <string name="help_me_choose">Pomozte mi s výběrem</string>
     <string name="delete_tasks_warning">Úkol %s bude odstraněn. Tato akce je nevratná!</string>
     <string name="continue_without_sync">Pokračovat bez synchronizace</string>
     <string name="widget_view_more_tasks">Zobrazit další úkoly</string>

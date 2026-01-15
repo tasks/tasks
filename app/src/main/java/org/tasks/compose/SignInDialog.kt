@@ -2,7 +2,6 @@ package org.tasks.compose
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -77,58 +76,11 @@ fun SignInDialog(
     }
 }
 
-@Composable
-fun ConsentDialog(
-    agree: (Boolean) -> Unit,
-) {
-    Column(Modifier.background(MaterialTheme.colorScheme.surface)) {
-        Text(
-            text = stringResource(id = R.string.sign_in_to_tasks),
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(16.dp),
-            color = MaterialTheme.colorScheme.onSurface,
-        )
-        Text(
-            text = stringResource(id = R.string.sign_in_to_tasks_disclosure),
-            modifier = Modifier.padding(horizontal = 16.dp),
-            color = MaterialTheme.colorScheme.onSurface,
-        )
-        Row(
-            horizontalArrangement = Arrangement.End,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-        ) {
-            TextButton(onClick = { agree(false) }) {
-                Text(
-                    text = stringResource(id = R.string.consent_deny),
-                    color = MaterialTheme.colorScheme.onSurface,
-                )
-            }
-            TextButton(onClick = { agree(true) }) {
-                Text(
-                    text = stringResource(id = R.string.consent_agree),
-                    color = MaterialTheme.colorScheme.onSurface,
-                )
-            }
-        }
-    }
-}
-
 @Preview(widthDp = 320)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun SignInDialogPreview() {
     TasksTheme {
         SignInDialog(selected = {}, help = {}, cancel = {})
-    }
-}
-
-@Preview(widthDp = 320)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
-@Composable
-fun DisclosurePreview() {
-    TasksTheme {
-        ConsentDialog(agree = {})
     }
 }

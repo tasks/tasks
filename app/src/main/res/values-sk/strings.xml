@@ -692,7 +692,6 @@
     <string name="app_password">Heslo aplikácie</string>
     <string name="google_play_subscribers">Predplatitelia Google Play</string>
     <string name="sign_in_with_google">Prihlásenie účtom Google</string>
-    <string name="sign_in_to_tasks_disclosure">Vaša e-mailová adresa a ID účtu bude prenesená a uložená do Tasks.org. Tieto informácie sa použijú na overenie a pre poskytovanie dôležitých oznámení súvisiacich so službami. Tieto informácie nebudú s nikým zdieľané.</string>
     <string name="app_passwords">Heslá aplikácie</string>
     <string name="app_passwords_more_info">Synchronizujte svoje úlohy a kalendáre s desktopovými a mobilnými aplikáciami tretích strán. Pre viac informácii kliknite sem</string>
     <string name="invite_invalid">Neplatná pozvánka</string>

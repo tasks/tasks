@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.tasks.data.UUIDHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import net.openid.appauth.AuthorizationException
@@ -14,8 +13,9 @@ import net.openid.appauth.GrantTypeValues
 import net.openid.appauth.TokenRequest
 import org.tasks.R
 import org.tasks.caldav.CaldavClientProvider
-import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.security.KeyStoreEncryption
 import timber.log.Timber
 import javax.inject.Inject
@@ -37,7 +37,7 @@ class SignInViewModel @Inject constructor(
         authService = AuthorizationService(iss, context, debugConnectionBuilder)
     }
 
-    suspend fun handleResult(authService: AuthorizationService, intent: Intent): CaldavAccount? {
+    suspend fun handleResult(authService: AuthorizationService, intent: Intent) {
         val response = AuthorizationResponse.fromIntent(intent)
         val ex = AuthorizationException.fromIntent(intent)
         val authStateManager = authService.authStateManager
@@ -53,12 +53,7 @@ class SignInViewModel @Inject constructor(
 
         ex?.let {
             error.value = it
-            return null
         }
-
-        return authStateManager.current
-                .takeIf { it.isAuthorized }
-                ?.let { setupAccount(authService) }
     }
 
     suspend fun setupAccount(authService: AuthorizationService): CaldavAccount? {
@@ -66,7 +61,7 @@ class SignInViewModel @Inject constructor(
         val tokenString = auth.accessToken ?: return null
         val idToken = auth.idToken?.let { IdToken(it) } ?: return null
         val username = "${authService.iss}_${idToken.sub}"
-        try {
+        return try {
             val homeSet = provider
                     .forUrl(
                             context.getString(R.string.tasks_caldav_url),
@@ -75,7 +70,7 @@ class SignInViewModel @Inject constructor(
                     )
                     .homeSet(username, tokenString)
             val password = encryption.encrypt(tokenString)
-            return caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)
+            caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)
                     ?.let {
                         it.copy(error = null, password = password)
                             .also { caldavDao.update(it) }
@@ -91,9 +86,10 @@ class SignInViewModel @Inject constructor(
                         it.copy(id = caldavDao.insert(it))
                     }
         } catch (e: Exception) {
+            Timber.d("setupAccount: caught ${e.javaClass.simpleName} - ${e.message}")
             error.postValue(e)
+            null
         }
-        return null
     }
 
     private suspend fun exchangeAuthorizationCode(

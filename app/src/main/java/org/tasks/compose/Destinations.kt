@@ -6,4 +6,7 @@ import kotlinx.serialization.Serializable
 object HomeDestination
 
 @Serializable
-data class AddAccountDestination(val showImport: Boolean)
+object WelcomeDestination
+
+@Serializable
+object AddAccountDestination

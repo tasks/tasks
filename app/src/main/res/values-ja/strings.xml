@@ -538,7 +538,6 @@
     <string name="app_password">アプリパスワード</string>
     <string name="invite_declined">招待を辞退</string>
     <string name="upgrade_more_customization">さらなるカスタマイズ</string>
-    <string name="sign_in_to_tasks_disclosure">あなたのメールアドレスとアカウントID は、Tasks.org によって送信および保存されます。この情報は、認証とサービス関連の重要なお知らせを提供するために使用され、誰とも共有されることはありません。</string>
     <string name="consent_agree">同意する</string>
     <string name="consent_deny">あとで</string>
     <string name="customize_edit_screen_summary">フィールドの並び替えや削除</string>
@@ -706,7 +705,6 @@
     <string name="multiline_title_off">タスクを保存するには「完了」を押してください</string>
     <string name="cost_free">料金: 無料</string>
     <string name="continue_without_sync">同期せずに続ける</string>
-    <string name="help_me_choose">選択を手伝ってください</string>
     <string name="delete_tasks_warning">%sは削除されます。これは元に戻せません！</string>
     <string name="cost_more_money">料金: $$$</string>
     <string name="widget_view_more_tasks">ほかのタスクを表示</string>

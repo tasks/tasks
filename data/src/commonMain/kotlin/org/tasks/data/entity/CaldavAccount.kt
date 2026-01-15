@@ -79,6 +79,8 @@ data class CaldavAccount(
 
     fun isPaymentRequired() = error.isPaymentRequired()
 
+    fun isTosRequired() = error.isTosRequired()
+
     val hasError: Boolean
         get() = !error.isNullOrBlank()
 
@@ -108,9 +110,12 @@ data class CaldavAccount(
 
         const val ERROR_UNAUTHORIZED = "HTTP ${HttpURLConnection.HTTP_UNAUTHORIZED}"
         const val ERROR_PAYMENT_REQUIRED = "HTTP ${HttpURLConnection.HTTP_PAYMENT_REQUIRED}"
+        const val ERROR_TOS_REQUIRED = "HTTP 451"
 
         fun String?.openTaskType(): String? = this?.split(":")?.get(0)
 
         fun String?.isPaymentRequired(): Boolean = this?.startsWith(ERROR_PAYMENT_REQUIRED) == true
+
+        fun String?.isTosRequired(): Boolean = this?.startsWith(ERROR_TOS_REQUIRED) == true
     }
 }

@@ -681,7 +681,6 @@
     <string name="subtasks_multilevel_microsoft">תתי־משימות מקוננות אינן נתמכות על ידי Microsoft To Do</string>
     <string name="sort_completion_group">השלמה %s</string>
     <string name="custom_filter_has_reminder">יש תזכורת</string>
-    <string name="sign_in_to_tasks_disclosure">כתובת הדוא\"ל ומזהה החשבון שלך ישודרו ויאוחסנו על ידי Tasks.org. מידע זה ישמש עבור אימות וכדי לספק לך הכרזות חשובות הקשורות לשירות. מידע זה לא ישותף עם אף אחד.</string>
     <string name="enable_reminders_description">תזכורות מושבתות בהגדרות Android</string>
     <string name="cost_free">עלות: חינם</string>
     <string name="multiline_title_on">יש ללחוץ על מקש Enter כדי להוסיף מעברי שורה</string>
@@ -742,7 +741,6 @@
     <string name="repeats_after">לאחר</string>
     <string name="comment">הערה</string>
     <string name="continue_without_sync">להמשיך ללא סנכרון</string>
-    <string name="help_me_choose">עזור לי לבחור</string>
     <string name="delete_tasks_warning">%s יימחק. לא ניתן לבטל זאת!</string>
     <string name="widget_view_more_tasks">הצג עוד משימות</string>
 </resources>

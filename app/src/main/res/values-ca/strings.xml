@@ -508,7 +508,6 @@
     <string name="delete_selected_tasks">Voleu suprimir les tasques seleccionades?</string>
     <string name="add_account">Afegeiu un compte</string>
     <string name="continue_without_sync">Continua sense sincronitzar</string>
-    <string name="help_me_choose">Ajuda\'m a triar</string>
     <string name="bundle_notifications">Notificacions del paquet</string>
     <string name="default_reminder">Recordatori predeterminat</string>
     <string name="badges">Insígnies</string>
@@ -668,7 +667,6 @@
     <string name="above_average">Per sobre de la mitjana</string>
     <string name="save_percent">Desa %d%%</string>
     <string name="sign_in_to_tasks">Inicieu la sessió a Tasks.org</string>
-    <string name="sign_in_to_tasks_disclosure">La vostra adreça de correu electrònic i l\'ID del compte es transmetran i s\'emmagatzemaran a Tasks.org. Aquesta informació s\'utilitzarà per a l\'autenticació i per a proporcionar-vos anuncis relacionats amb serveis importants. Aquesta informació no es compartirà amb ningú.</string>
     <string name="app_password">Contrasenya de l\'aplicació</string>
     <string name="app_passwords">Contrasenyes d\'aplicacions</string>
     <string name="app_passwords_more_info">Sincronitzeu les vostres tasques i calendaris amb l\'escriptori de tercers i les aplicacions mòbils. Fes clic aquí per a més informació</string>
