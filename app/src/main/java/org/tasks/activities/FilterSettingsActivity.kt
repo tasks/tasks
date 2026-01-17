@@ -125,6 +125,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 f = f.copy(
                     id = filterDao.insert(f)
                 )
+                firebase.logEvent(R.string.event_create_filter)
             } else {
                 filterDao.update(f)
             }

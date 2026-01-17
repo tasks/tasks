@@ -1,17 +1,20 @@
 package org.tasks.analytics
 
 import android.content.Context
-import android.os.Bundle
 import androidx.annotation.StringRes
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.posthog.PostHog
+import com.posthog.android.PostHogAndroid
+import com.posthog.android.PostHogAndroidConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -31,14 +34,25 @@ class Firebase @Inject constructor(
             null
         }
     }
-    
-    private val analytics by lazy {
-        if (preferences.isTrackingEnabled) {
-            FirebaseAnalytics.getInstance(context).apply {
-                setAnalyticsCollectionEnabled(true)
-            }
+
+    private val posthogEnabled: Boolean by lazy {
+        val apiKey = context.getString(R.string.posthog_key)
+        if (preferences.isTrackingEnabled && apiKey.isNotBlank()) {
+            PostHogAndroid.setup(
+                context,
+                PostHogAndroidConfig(
+                    apiKey = apiKey,
+                    host = POSTHOG_HOST
+                ).apply {
+                    sessionReplay = BuildConfig.DEBUG
+                    sessionReplayConfig.maskAllTextInputs = true
+                    sessionReplayConfig.maskAllImages = false
+                    sessionReplayConfig.screenshot = true
+                }
+            )
+            true
         } else {
-            null
+            false
         }
     }
     
@@ -77,24 +91,48 @@ class Firebase @Inject constructor(
     }
 
     fun addTask(source: String) =
-        logEvent(R.string.event_add_task, R.string.param_type to source)
+        logEventForNewUsers(R.string.event_add_task, R.string.param_type to source)
 
     fun completeTask(source: String) =
-        logEvent(R.string.event_complete_task, R.string.param_type to source)
+        logEventForNewUsers(R.string.event_complete_task, R.string.param_type to source)
+
+    private val loggedOnceEvents = mutableSetOf<Int>()
 
     fun logEvent(@StringRes event: Int, vararg p: Pair<Int, Any>) {
         val eventName = context.getString(event)
         Timber.d("$eventName -> $p")
-        analytics?.logEvent(eventName, Bundle().apply {
-            p.forEach {
-                val key = context.getString(it.first)
-                when (it.second::class) {
-                    String::class -> putString(key, it.second as String)
-                    Boolean::class -> putBoolean(key, it.second as Boolean)
-                    else -> Timber.e("Unhandled param: $it")
-                }
-            }
-        })
+        if (posthogEnabled) {
+            PostHog.capture(
+                event = eventName,
+                properties = p.associate { context.getString(it.first) to it.second }
+            )
+        }
+    }
+
+    fun logEventOnce(@StringRes event: Int, vararg p: Pair<Int, Any>) {
+        if (loggedOnceEvents.add(event)) {
+            logEvent(event, *p)
+        }
+    }
+
+    fun logEventOncePerDay(@StringRes event: Int, vararg p: Pair<Int, Any>) {
+        val eventName = context.getString(event)
+        val prefKey = "last_logged_$eventName"
+        val today = currentTimeMillis().startOfDay()
+        val lastLogged = preferences.getLong(prefKey, 0L)
+        if (lastLogged < today) {
+            preferences.setLong(prefKey, today)
+            logEvent(event, *p)
+        }
+    }
+
+    fun logEventForNewUsers(@StringRes event: Int, vararg p: Pair<Int, Any>) {
+        val installDate = preferences.installDate
+        // Only track for users installed within last 30 days
+        // installDate of 0 means very old user (pre-tracking) - skip them
+        if (installDate > 0 && currentTimeMillis() - installDate < TimeUnit.DAYS.toMillis(30)) {
+            logEvent(event, *p)
+        }
     }
 
     private val installCooldown: Boolean
@@ -117,5 +155,9 @@ class Firebase @Inject constructor(
             ?.toInt()
             ?.takeIf { it >= default }
             ?: default
+    }
+
+    companion object {
+        private const val POSTHOG_HOST = "https://us.i.posthog.com"
     }
 }

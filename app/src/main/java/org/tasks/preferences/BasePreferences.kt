@@ -13,14 +13,18 @@ import androidx.fragment.app.Fragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.databinding.ActivityPreferencesBinding
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.injection.ThemedInjectingAppCompatActivity
+import javax.inject.Inject
 
 private const val EXTRA_TITLE = "extra_title"
 
 abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback, Toolbar.OnMenuItemClickListener {
+
+    @Inject lateinit var firebase: Firebase
 
     lateinit var toolbar: Toolbar
     var menu: Int = 0
@@ -110,6 +114,10 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
             fragment: Fragment,
             title: CharSequence
     ): Boolean {
+        firebase.logEvent(
+            R.string.event_settings_navigation,
+            R.string.param_screen to title.toString()
+        )
         fragment.setTargetFragment(caller, 0)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.settings, fragment)

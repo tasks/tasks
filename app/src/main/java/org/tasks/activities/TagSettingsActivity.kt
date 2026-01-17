@@ -88,6 +88,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
                 )
                 .let { it.copy(id = tagDataDao.insert(it)) }
                 .let {
+                    firebase.logEvent(R.string.event_create_tag)
                     refreshBroadcaster.broadcastRefresh()
                     setResult(
                         Activity.RESULT_OK,

@@ -34,7 +34,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            val tasks_posthog_key: String? by project
+            resValue("string", "posthog_key", tasks_posthog_key ?: "")
+        }
         release {
+            val tasks_posthog_key: String? by project
+            resValue("string", "posthog_key", tasks_posthog_key ?: "")
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -74,9 +80,7 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
     implementation(platform(libs.firebase))
     implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.analytics) {
-        exclude("com.google.android.gms", "play-services-ads-identifier")
-    }
+    implementation(libs.posthog.android)
     implementation(libs.wear.compose.material)
     implementation(libs.wear.compose.foundation)
     implementation(libs.wear.compose.navigation)

@@ -870,6 +870,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+        firebase.logEvent(R.string.event_search)
         search.setOnQueryTextListener(this)
         listViewModel.setSearchQuery("")
         return true

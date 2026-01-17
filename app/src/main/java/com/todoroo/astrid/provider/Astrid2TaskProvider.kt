@@ -149,7 +149,7 @@ class Astrid2TaskProvider : ContentProvider() {
     private val tasks: Cursor
         get() {
             val hilt = hilt()
-            hilt.firebase.logEvent(R.string.event_astrid2taskprovider)
+            hilt.firebase.logEventOncePerDay(R.string.event_astrid2taskprovider)
             val tasks = hilt.contentProviderDao.getAstrid2TaskProviderTasks()
             val ret = MatrixCursor(TASK_FIELD_LIST)
             for (task in tasks) {

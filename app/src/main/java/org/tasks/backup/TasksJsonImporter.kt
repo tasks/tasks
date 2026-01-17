@@ -21,6 +21,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.GoogleTaskAccount
 import org.tasks.data.GoogleTaskList
@@ -76,6 +77,7 @@ class TasksJsonImporter @Inject constructor(
     private val taskListMetadataDao: TaskListMetadataDao,
     private val vtodoCache: VtodoCache,
     private val filterCriteriaProvider: FilterCriteriaProvider,
+    private val firebase: Firebase,
 ) {
     private val result = ImportResult()
 
@@ -107,8 +109,15 @@ class TasksJsonImporter @Inject constructor(
             }
             Timber.d("Updating parents")
             caldavDao.updateParents()
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             Timber.e(e)
+            firebase.logEvent(
+                R.string.event_import_backup_failed,
+                R.string.param_error to e.javaClass.simpleName
+            )
+            if (e !is IOException) {
+                throw e
+            }
         }
         refreshBroadcaster.broadcastRefresh()
         result

@@ -292,7 +292,9 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
                         place.latitude.toLikeString(),
                         place.longitude.toLikeString()
                     )
-                    ?: place.copy(id = locationDao.insert(place))
+                    ?: place.copy(id = locationDao.insert(place)).also {
+                        firebase.logEvent(R.string.event_create_place)
+                    }
             }
             setResult(Activity.RESULT_OK, Intent().putExtra(EXTRA_PLACE, place as Parcelable?))
             finish()

@@ -131,6 +131,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
             icon = baseViewModel.icon,
         )
         caldavDao.insert(caldavCalendar)
+        firebase.logEvent(R.string.event_create_list)
         setResult(
                 Activity.RESULT_OK,
                 Intent().putExtra(

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceFragmentCompat
@@ -31,6 +32,11 @@ class MainPreferences : BasePreferences() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private val viewModel: PreferencesViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        firebase.logEvent(R.string.event_screen_settings)
+    }
 
     override fun getRootTitle() = R.string.TLA_menu_settings
 

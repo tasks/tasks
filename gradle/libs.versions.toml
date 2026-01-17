@@ -120,7 +120,6 @@ dmfs-rfc5545-datetime = { module = "org.dmfs:rfc5545-datetime", version = "0.2.4
 etebase = { module = "com.etebase:client", version.ref = "etebase" }
 firebase = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
 firebase-config-ktx = { module = "com.google.firebase:firebase-config-ktx" }
-firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebase-crashlytics-gradle" }
 google-oauth2 = { module = "com.google.auth:google-auth-library-oauth2-http", version.ref = "google-oauth2" }
@@ -173,6 +172,7 @@ play-review = { module = "com.google.android.play:review-ktx", version = "2.0.2"
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "play-services-maps" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "play-services-location" }
 play-services-oss-licenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "play-services-oss-licenses" }
+posthog-android = { module = "com.posthog:posthog-android", version = "3.28.0" }
 shortcut-badger = { module = "me.leolin:ShortcutBadger", version.ref = "shortcut-badger" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 xpp3 = { module = "org.ogce:xpp3", version.ref = "xpp3" }

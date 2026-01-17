@@ -65,7 +65,8 @@ platform :android do
                 "tasksStorePassword": ENV["KEY_STORE_PASSWORD"],
                 "tasksKeyPassword": ENV["KEY_PASSWORD"],
                 "tasks_mapbox_key": ENV["MAPBOX_KEY"],
-                "tasks_google_key": ENV["GOOGLE_KEY"]
+                "tasks_google_key": ENV["GOOGLE_KEY"],
+                "tasks_posthog_key": ENV["POSTHOG_KEY"]
             }
         )
   end

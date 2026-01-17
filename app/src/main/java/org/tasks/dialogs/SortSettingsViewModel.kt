@@ -9,6 +9,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.dialogs.SortSettingsActivity.Companion.WIDGET_NONE
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
@@ -20,6 +22,7 @@ class SortSettingsViewModel @Inject constructor(
     @ApplicationContext context: Context,
     savedStateHandle: SavedStateHandle,
     private val appPreferences: Preferences,
+    private val firebase: Firebase,
 ): ViewModel() {
     data class ViewState(
         val manualSort: Boolean,
@@ -40,6 +43,14 @@ class SortSettingsViewModel @Inject constructor(
             .takeIf { it != WIDGET_NONE }
             ?.let { WidgetPreferences(context, appPreferences, it) }
             ?: appPreferences
+
+    private fun trackSortChange(setting: String, value: Any) {
+        firebase.logEvent(
+            R.string.event_sort_change,
+            R.string.param_type to setting,
+            R.string.param_value to value.toString()
+        )
+    }
 
     private val initialState = ViewState(
         manualSort = preferences.isManualSort,
@@ -86,6 +97,7 @@ class SortSettingsViewModel @Inject constructor(
         if (preferences.groupMode == groupMode) {
             return
         }
+        trackSortChange("group", groupMode.toSortName())
         if (groupMode != SortHelper.GROUP_NONE) {
             preferences.isManualSort = false
             preferences.isAstridSort = false
@@ -128,6 +140,7 @@ class SortSettingsViewModel @Inject constructor(
     }
 
     fun setSortMode(sortMode: Int) {
+        trackSortChange("sort", sortMode.toSortName())
         preferences.isManualSort = false
         preferences.isAstridSort = false
         preferences.sortMode = sortMode
@@ -148,6 +161,7 @@ class SortSettingsViewModel @Inject constructor(
     }
 
     fun setSubtaskMode(subtaskMode: Int) {
+        trackSortChange("subtask", subtaskMode.toSortName())
         preferences.subtaskMode = subtaskMode
         val ascending = when (subtaskMode) {
             SortHelper.SORT_MODIFIED,
@@ -164,6 +178,7 @@ class SortSettingsViewModel @Inject constructor(
     }
 
     fun setManual(value: Boolean) {
+        trackSortChange("sort", "manual")
         preferences.isManualSort = value
         if (value) {
             preferences.groupMode = SortHelper.GROUP_NONE
@@ -177,6 +192,7 @@ class SortSettingsViewModel @Inject constructor(
     }
 
     fun setAstrid(value: Boolean) {
+        trackSortChange("sort", "astrid")
         preferences.isAstridSort = value
         if (value) {
             preferences.groupMode = SortHelper.GROUP_NONE
@@ -195,4 +211,19 @@ class SortSettingsViewModel @Inject constructor(
 
     val changedGroup: Boolean
         get() = initialState.groupMode != _viewState.value.groupMode
+
+    private fun Int.toSortName(): String = when (this) {
+        SortHelper.GROUP_NONE -> "none"
+        SortHelper.SORT_ALPHA -> "alpha"
+        SortHelper.SORT_DUE -> "due"
+        SortHelper.SORT_IMPORTANCE -> "importance"
+        SortHelper.SORT_MODIFIED -> "modified"
+        SortHelper.SORT_CREATED -> "created"
+        SortHelper.SORT_START -> "start"
+        SortHelper.SORT_LIST -> "list"
+        SortHelper.SORT_COMPLETED -> "completed"
+        SortHelper.SORT_MANUAL -> "manual"
+        SortHelper.SORT_AUTO -> "auto"
+        else -> "unknown"
+    }
 }

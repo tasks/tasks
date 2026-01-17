@@ -29,7 +29,10 @@ import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaf
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.core.content.IntentCompat.getParcelableExtra
@@ -155,14 +158,33 @@ class MainActivity : AppCompatActivity() {
                     tasksPreferences.set(TasksPreferences.acceptedTosVersion, version)
                 }
 
+                var wasInOnboarding by rememberSaveable { mutableStateOf(false) }
                 LaunchedEffect(hasAccount) {
                     Timber.d("hasAccount=$hasAccount")
                     when (hasAccount) {
-                        false -> navController.navigate(WelcomeDestination) {
-                            popUpTo(0) { inclusive = true }
+                        false -> {
+                            wasInOnboarding = true
+                            navController.navigate(WelcomeDestination) {
+                                popUpTo(0) { inclusive = true }
+                            }
                         }
-                        true -> navController.navigate(HomeDestination) {
-                            popUpTo(0) { inclusive = true }
+                        true -> {
+                            if (wasInOnboarding) {
+                                val hasLogged = tasksPreferences.get(
+                                    TasksPreferences.hasLoggedOnboardingComplete,
+                                    false
+                                )
+                                if (!hasLogged) {
+                                    firebase.logEvent(R.string.event_onboarding_complete)
+                                    tasksPreferences.set(
+                                        TasksPreferences.hasLoggedOnboardingComplete,
+                                        true
+                                    )
+                                }
+                            }
+                            navController.navigate(HomeDestination) {
+                                popUpTo(0) { inclusive = true }
+                            }
                         }
                         else -> {}
                     }
@@ -174,6 +196,9 @@ class MainActivity : AppCompatActivity() {
                     startDestination = HomeDestination,
                 ) {
                     composable<WelcomeDestination> {
+                        LaunchedEffect(Unit) {
+                            firebase.logEvent(R.string.event_screen_welcome)
+                        }
                         val addAccountViewModel: AddAccountViewModel = hiltViewModel()
                         val importBackupLauncher =
                             rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -220,6 +245,9 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
                     composable<AddAccountDestination> {
+                        LaunchedEffect(Unit) {
+                            firebase.logEvent(R.string.event_screen_add_account)
+                        }
                         val addAccountViewModel: AddAccountViewModel = hiltViewModel()
                         val microsoftVM: MicrosoftSignInViewModel = hiltViewModel()
                         val syncLauncher =

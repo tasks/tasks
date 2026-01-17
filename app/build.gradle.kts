@@ -88,9 +88,11 @@ android {
             }
             val tasks_mapbox_key_debug: String? by project
             val tasks_google_key_debug: String? by project
+            val tasks_posthog_key: String? by project
             val tasks_caldav_url: String? by project
             resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
             resValue("string", "google_key", tasks_google_key_debug ?: "")
+            resValue("string", "posthog_key", tasks_posthog_key ?: "")
             resValue("string", "tasks_caldav_url", tasks_caldav_url ?: "https://caldav.tasks.org")
             resValue("string", "tasks_nominatim_url", tasks_caldav_url ?: "https://nominatim.tasks.org")
             resValue("string", "tasks_places_url", tasks_caldav_url ?: "https://places.tasks.org")
@@ -99,8 +101,10 @@ android {
         release {
             val tasks_mapbox_key: String? by project
             val tasks_google_key: String? by project
+            val tasks_posthog_key: String? by project
             resValue("string", "mapbox_key", tasks_mapbox_key ?: "")
             resValue("string", "google_key", tasks_google_key ?: "")
+            resValue("string", "posthog_key", tasks_posthog_key ?: "")
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard.pro")
             signingConfig = signingConfigs.getByName("release")
@@ -256,9 +260,7 @@ dependencies {
 
     googleplayImplementation(platform(libs.firebase))
     googleplayImplementation(libs.firebase.crashlytics)
-    googleplayImplementation(libs.firebase.analytics) {
-        exclude("com.google.android.gms", "play-services-ads-identifier")
-    }
+    googleplayImplementation(libs.posthog.android)
     googleplayImplementation(libs.firebase.config.ktx)
     googleplayImplementation(libs.play.services.location)
     googleplayImplementation(libs.play.services.maps)

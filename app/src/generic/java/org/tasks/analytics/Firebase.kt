@@ -22,6 +22,18 @@ class Firebase @Inject constructor(
         Timber.d("${context.getString(event)} -> $params")
     }
 
+    fun logEventOnce(event: Int, vararg params: Pair<Int, Any>) {
+        logEvent(event, *params)
+    }
+
+    fun logEventOncePerDay(event: Int, vararg params: Pair<Int, Any>) {
+        logEvent(event, *params)
+    }
+
+    fun logEventForNewUsers(event: Int, vararg params: Pair<Int, Any>) {
+        logEvent(event, *params)
+    }
+
     fun addTask(source: String) =
         logEvent(R.string.event_add_task, R.string.param_type to source)
 

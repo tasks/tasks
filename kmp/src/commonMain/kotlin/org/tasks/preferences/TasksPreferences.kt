@@ -27,5 +27,6 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val collapseDebug = booleanPreferencesKey("drawer_collapse_debug")
         val collapsePlaces = booleanPreferencesKey("drawer_collapse_places")
         val acceptedTosVersion = intPreferencesKey("accepted_tos_version")
+        val hasLoggedOnboardingComplete = booleanPreferencesKey("has_logged_onboarding_complete")
     }
 }
