@@ -475,7 +475,8 @@ class TasksJsonImporter @Inject constructor(
         }
         private val ignorePrefs = intArrayOf(
                 R.string.p_current_version,
-                R.string.p_backups_android_backup_last
+                R.string.p_backups_android_backup_last,
+                R.string.p_device_install_version,
         )
     }
 }

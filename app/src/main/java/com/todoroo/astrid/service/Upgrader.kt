@@ -163,6 +163,9 @@ class Upgrader @Inject constructor(
         } else {
             setInstallDetails(to)
         }
+        if (preferences.deviceInstallVersion == 0) {
+            preferences.deviceInstallVersion = from
+        }
         preferences.lastSubscribeRequest -= TimeUnit.DAYS.toMillis(7)
         preferences.setCurrentVersion(to)
     }
@@ -170,6 +173,7 @@ class Upgrader @Inject constructor(
     private fun setInstallDetails(version: Int) {
         preferences.installVersion = version
         preferences.installDate = currentTimeMillis()
+        preferences.deviceInstallVersion = version
     }
 
     private fun run(from: Int, version: Int, runnable: suspend () -> Unit) {

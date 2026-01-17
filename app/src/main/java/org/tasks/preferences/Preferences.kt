@@ -343,6 +343,10 @@ class Preferences @JvmOverloads constructor(
         get() = getLong(R.string.p_install_date, 0L)
         set(value) = setLong(R.string.p_install_date, value)
 
+    var deviceInstallVersion: Int
+        get() = getInt(R.string.p_device_install_version, 0)
+        set(value) = setInt(R.string.p_device_install_version, value)
+
     override var sortMode: Int
         get() = getInt(R.string.p_sort_mode, SortHelper.SORT_DUE)
         set(value) { setInt(R.string.p_sort_mode, value) }
