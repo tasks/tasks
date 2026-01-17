@@ -16,6 +16,7 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
 import org.tasks.compose.drawer.DrawerConfiguration
@@ -37,15 +38,12 @@ import org.tasks.data.db.Database
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.PreferenceDrawerConfiguration
 import org.tasks.jobs.WorkManager
-import org.tasks.kmp.createDataStore
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.security.AndroidKeyStoreEncryption
 import org.tasks.security.KeyStoreEncryption
 import java.util.Locale
 import javax.inject.Singleton
-
-import org.tasks.broadcast.RefreshBroadcaster
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -146,11 +144,6 @@ class ApplicationModule {
     @Provides
     fun providesNotificationManager(@ApplicationContext context: Context) =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    @Singleton
-    @Provides
-    fun providesTasksPreferences(@ApplicationContext context: Context) =
-        TasksPreferences(createDataStore(context))
 
     @Provides
     fun providesDrawerConfiguration(preferences: Preferences): DrawerConfiguration =

@@ -23,9 +23,11 @@ import org.tasks.data.db.Database
 import org.tasks.db.Migrations
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManagerImpl
+import org.tasks.kmp.createDataStore
 import org.tasks.location.AndroidLocationManager
 import org.tasks.location.LocationManager
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.TasksPreferences
 import timber.log.Timber
 import javax.inject.Singleton
 
@@ -55,6 +57,11 @@ internal class ProductionModule {
 
     @Provides
     fun getPreferences(@ApplicationContext context: Context): Preferences = Preferences(context)
+
+    @Singleton
+    @Provides
+    fun getTasksPreferences(@ApplicationContext context: Context): TasksPreferences =
+        TasksPreferences(createDataStore(context))
 
     @Provides
     fun locationManager(locationManager: AndroidLocationManager): LocationManager = locationManager
