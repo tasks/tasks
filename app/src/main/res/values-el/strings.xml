@@ -622,8 +622,6 @@
     <string name="enable_alarms">Ενημερωθείτε την κατάλληλη στιγμή</string>
     <string name="enable_alarms_description">Για να βεβαιωθείτε ότι θα ειδοποιηθείτε την κατάλληλη στιγμή, παραχωρήστε άδεια δημιουργίας υπενθυμίσεων και ειδοποιήσεων στις Ρυθμίσεις</string>
     <string name="sign_in">Συνδεθείτε</string>
-    <string name="consent_agree">Συμφωνώ</string>
-    <string name="consent_deny">Όχι τώρα</string>
     <string name="sort_sorting">Ταξινόμηση ανά</string>
     <string name="sort_grouping">Δημιουργία γκρουπ</string>
     <string name="sort_ascending">Αύξουσα</string>

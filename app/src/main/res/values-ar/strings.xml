@@ -749,7 +749,6 @@
     <string name="repeats_every">يتكرر كل</string>
     <string name="repeats_after">بعد</string>
     <string name="sign_in">سجل دخولك</string>
-    <string name="consent_deny">ليس الآن</string>
     <string name="dismiss">استبعاد</string>
     <string name="repeats_ends">ينتهي عند</string>
     <string name="repeats_never">أبدا</string>
@@ -793,7 +792,6 @@
     <string name="caldav_server_other">آخر</string>
     <string name="hint_customize_edit_title">الكثير من المعلومات؟</string>
     <string name="hint_customize_edit_body">يمكنك تخصيص هذه الشاشة عن طريق إعادة ترتيب الحقول أو إزالتها</string>
-    <string name="consent_agree">موافق</string>
     <string name="add_shortcut_to_home_screen">إضافة اختصار إلى الشاشة الرئيسية</string>
     <string name="cost_free">التكلفة: مجاناً</string>
     <string name="cost_money">التكلفة: المال</string>

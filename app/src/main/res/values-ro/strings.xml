@@ -673,8 +673,6 @@
     <string name="TEA_creation_date">Data creării</string>
     <string name="default_reminder">Memento implicit</string>
     <string name="rmd_time_description">Afișează notificări pentru sarcinile fără termene limită</string>
-    <string name="consent_agree">De acord</string>
-    <string name="consent_deny">Nu acum</string>
     <string name="microsoft_selection_description">Sincronizarea cu contul personal Microsoft</string>
     <string name="sign_in">Conectează-te</string>
     <string name="sort_ascending">Crescător</string>

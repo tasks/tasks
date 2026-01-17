@@ -649,8 +649,6 @@
     <string name="sort_completion_group">Voltooid %s</string>
     <string name="microsoft_selection_description">Synchroniseer met je persoonlijke Microsoft-account</string>
     <string name="sign_in">Log in</string>
-    <string name="consent_agree">Akkoord</string>
-    <string name="consent_deny">Niet nu</string>
     <string name="default_reminder">Standaardherinnering</string>
     <string name="rmd_time_description">Toon meldingen voor taken zonder vervaltijd</string>
     <string name="sort_list">Op lijstvolgorde</string>

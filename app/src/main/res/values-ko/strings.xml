@@ -617,7 +617,6 @@
     <string name="completed_tasks_at_bottom">완료한 할일을 하단으로 이동</string>
     <string name="snoozed_until">%s까지 알람 잠시 미루기</string>
     <string name="custom_notification">사용자정의 상태바 알림</string>
-    <string name="consent_agree">동의</string>
     <string name="randomly_every">매 %s마다 무작위로</string>
     <string name="custom_filter_has_reminder">알림 있음</string>
     <string name="snackbar_tasks_completed">%d 할일 완료</string>
@@ -641,7 +640,6 @@
         <item quantity="other">일</item>
     </plurals>
     <string name="alarm_after_due">마감 후 %s</string>
-    <string name="consent_deny">나중에</string>
     <string name="default_reminder">기본 알람</string>
     <plurals name="reminder_week">
         <item quantity="other">주</item>

@@ -649,8 +649,6 @@
     <string name="sort_completion_group">Завършена %s</string>
     <string name="microsoft_selection_description">Синхронизирайте задачите си с личния профил в Microsoft</string>
     <string name="sign_in">Вход</string>
-    <string name="consent_agree">Съгласявам се</string>
-    <string name="consent_deny">Не сега</string>
     <string name="default_reminder">Подразбирано напомняне</string>
     <string name="rmd_time_description">Показват се известия за задачите без краен час</string>
     <string name="sort_list">По списък</string>

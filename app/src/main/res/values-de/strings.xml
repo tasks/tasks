@@ -648,8 +648,6 @@
     <string name="TEA_creation_date">Erstellungsdatum</string>
     <string name="enable_reminders">Erinnerungen aktivieren</string>
     <string name="enable_reminders_description">Erinnerungen sind in den Android-Einstellungen deaktiviert</string>
-    <string name="consent_agree">Zustimmen</string>
-    <string name="consent_deny">Nicht jetzt</string>
     <string name="microsoft_selection_description">Mit persönlichem Microsoft-Konto synchronisieren</string>
     <string name="sign_in">Anmelden</string>
     <string name="rmd_time_description">Benachrichtigungen für Aufgaben ohne Fälligkeitsdatum anzeigen</string>

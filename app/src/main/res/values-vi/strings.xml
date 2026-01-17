@@ -635,8 +635,6 @@
     <string name="rmd_time_description">Hiện thông báo cho công việc không có hạn chót</string>
     <string name="microsoft_selection_description">Đồng bộ với tài khoản Microsoft cá nhân</string>
     <string name="sign_in">Đăng nhập</string>
-    <string name="consent_agree">Đồng ý</string>
-    <string name="consent_deny">Không phải bây giờ</string>
     <plurals name="repeat_occurrence">
         <item quantity="other">lần xảy ra</item>
     </plurals>

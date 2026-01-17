@@ -649,8 +649,6 @@
     <string name="TEA_creation_date">Oluşturulma zamanı</string>
     <string name="microsoft_selection_description">Kişisel Microsoft hesabınızla eşzamanlayın</string>
     <string name="sign_in">Oturum aç</string>
-    <string name="consent_agree">Kabul et</string>
-    <string name="consent_deny">Şimdi değil</string>
     <string name="default_reminder">Öntanımlı anımsatıcı</string>
     <string name="rmd_time_description">Bitiş zamanı olmayan görevler için bildirimleri göster</string>
     <string name="sort_list">Listeye göre</string>

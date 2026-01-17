@@ -731,8 +731,6 @@
     <string name="repeat_monthly_on_the_nth_weekday">מדי חודש ב%2$s ה%1$s</string>
     <string name="donate_today">לתרום היום</string>
     <string name="donate_maybe_later">אולי מאוחר יותר</string>
-    <string name="consent_agree">הסכמה</string>
-    <string name="consent_deny">לא עכשיו</string>
     <string name="sort_sorting">מיון</string>
     <string name="sort_descending">יורד</string>
     <string name="add_shortcut_to_home_screen">הוספת קיצור דרך למסך הבית</string>

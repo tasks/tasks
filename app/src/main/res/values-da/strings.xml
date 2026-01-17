@@ -649,8 +649,6 @@
     <string name="microsoft_selection_description">Synkroniser med din personlige Microsoft-konto</string>
     <string name="enable_reminders">Aktiver påmindelser</string>
     <string name="enable_reminders_description">Påmindelser er deaktiveret i Android-indstillinger</string>
-    <string name="consent_agree">Enig</string>
-    <string name="consent_deny">Ikke nu</string>
     <string name="TEA_creation_date">Oprettelsesdato</string>
     <string name="sign_in">Log ind</string>
     <string name="customize_drawer">Tilpas skuffe</string>

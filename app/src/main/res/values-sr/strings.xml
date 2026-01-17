@@ -716,8 +716,6 @@
     <string name="enable_alarms">Обавести ме у право време</string>
     <string name="enable_alarms_description">За могућност обавештења у право време, дозволи подешавања аларма и подсетника у подешавањима уређаја</string>
     <string name="sign_in">Пријави се</string>
-    <string name="consent_agree">Слажем се</string>
-    <string name="consent_deny">Не сада</string>
     <string name="sort_sorting">Сортирање</string>
     <string name="sort_grouping">Груписање</string>
     <string name="sort_ascending">Растући редослед</string>

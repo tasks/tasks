@@ -673,8 +673,6 @@
     <string name="enable_reminders">Включить напоминания</string>
     <string name="enable_reminders_description">Напоминания отключены в настройках Android</string>
     <string name="TEA_creation_date">Дата создания</string>
-    <string name="consent_agree">Соглашаюсь</string>
-    <string name="consent_deny">Не сейчас</string>
     <string name="sort_completion_group">Готовность %s</string>
     <string name="microsoft_selection_description">Синхронизация с личной учетной записью Microsoft</string>
     <string name="sign_in">Войти</string>

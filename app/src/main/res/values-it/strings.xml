@@ -670,8 +670,6 @@
     <string name="sort_completion_group">Completamento %s</string>
     <string name="microsoft_selection_description">Sincronizzazione con l\'account personale Microsoft</string>
     <string name="sign_in">Accedi</string>
-    <string name="consent_agree">Accetto</string>
-    <string name="consent_deny">Non ora</string>
     <string name="default_reminder">Promemoria predefinito</string>
     <string name="rmd_time_description">Mostra le notifiche per le attività senza scadenza</string>
     <string name="sort_list">Per lista</string>

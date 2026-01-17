@@ -648,8 +648,6 @@
     <string name="sign_in">登入</string>
     <string name="alarm_before_start">開始前 %s</string>
     <string name="enable_reminders_description">在 Android 設定中禁用提醒</string>
-    <string name="consent_deny">現在不要</string>
-    <string name="consent_agree">同意</string>
     <string name="enable_reminders">啟用提醒</string>
     <string name="android_auto_backup_device_summary">您還必須透過裝置設定選擇備份服務。並非所有裝置都提供備份服務。</string>
     <string name="sort_sorting">排序</string>

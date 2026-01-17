@@ -670,8 +670,6 @@
     <string name="TEA_creation_date">Datum stvaranja</string>
     <string name="microsoft_selection_description">Sinkroniziraj s tvojim osobnim Microsoft računom</string>
     <string name="sign_in">Prijavi se</string>
-    <string name="consent_agree">Prihvati</string>
-    <string name="consent_deny">Ne sada</string>
     <string name="default_reminder">Standardni podsjetitelj</string>
     <string name="rmd_time_description">Prikaži obavijesti za zadatke bez rokova</string>
     <string name="sort_list">Po popisu</string>

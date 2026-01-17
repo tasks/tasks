@@ -696,7 +696,6 @@
     <string name="app_passwords_more_info">Synchronizujte svoje úlohy a kalendáre s desktopovými a mobilnými aplikáciami tretích strán. Pre viac informácii kliknite sem</string>
     <string name="invite_invalid">Neplatná pozvánka</string>
     <string name="caldav_server_unknown">Neznámy</string>
-    <string name="consent_agree">Súhlasím</string>
     <string name="sort_sorting">Triedenie</string>
     <string name="add_shortcut_to_home_screen">Pridať skratku na domovskú obrazovku</string>
     <string name="cost_free">Cena: Zdarma</string>
@@ -706,7 +705,6 @@
     <string name="invite">Pozvať</string>
     <string name="sign_in">Prihlásiť sa</string>
     <string name="enable_reminders">Povoliť pripomienky</string>
-    <string name="consent_deny">Teraz nie</string>
     <string name="hint_customize_edit_body">Túto obrazovku si môžete prispôsobiť preskupením alebo odobraním polí</string>
     <string name="add_widget_to_home_screen">Pridať widget na domovskú obrazovku</string>
     <string name="remove_user_confirmation">%1$s už nebude mať prístup k %2$s</string>

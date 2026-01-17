@@ -666,8 +666,6 @@
     <string name="hint_customize_edit_body">Você pode personalizar esta tela reordenamento ou removendo campos</string>
     <string name="default_reminder">Lembrete padrão</string>
     <string name="rmd_time_description">Mostrar notificações de tarefas sem prazo</string>
-    <string name="consent_agree">Concordar</string>
-    <string name="consent_deny">Agora não</string>
     <string name="enable_reminders">Ativar lembretes</string>
     <string name="microsoft_selection_description">Sincronize com sua conta pessoal da Microsoft</string>
     <string name="enable_reminders_description">Os lembretes estão desabilitados nas configurações do Android</string>

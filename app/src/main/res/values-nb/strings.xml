@@ -671,8 +671,6 @@
     <string name="repeats_on">På</string>
     <string name="repeats_after">Etter</string>
     <string name="repeats_ends">Avsluttes</string>
-    <string name="consent_agree">Godta</string>
-    <string name="consent_deny">Ikke nå</string>
     <string name="sort_sorting">Sortering</string>
     <string name="sort_grouping">Gruppering</string>
     <string name="customize_drawer">Tilpass meny</string>

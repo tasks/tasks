@@ -635,8 +635,6 @@
     <string name="caldav_server_other">Muu</string>
     <string name="caldav_server_type">Palvelimen tyyppi</string>
     <string name="sign_in">Kirjaudu sisään</string>
-    <string name="consent_agree">Hyväksy</string>
-    <string name="consent_deny">Hylkää</string>
     <string name="snackbar_tasks_completed">%d tehtävää suoritettu</string>
     <string name="custom_notification">Mukautettu ilmoitus</string>
     <string name="snoozed_until">Torkuta %s</string>

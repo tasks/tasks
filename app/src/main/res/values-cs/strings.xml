@@ -671,8 +671,6 @@
     <string name="default_reminder">Výchozí upomínka</string>
     <string name="rmd_time_description">Zobrazovat upozornění na úkoly bez termínů</string>
     <string name="microsoft_selection_description">Synchronizovat se svým osobním účtem Microsoft</string>
-    <string name="consent_agree">Souhlasím</string>
-    <string name="consent_deny">Teď ne</string>
     <string name="sign_in">Přihlásit se</string>
     <string name="sort_not_available">Není k dispozici pro štítky, filtry a místa</string>
     <string name="sort_list">Podle seznamu</string>

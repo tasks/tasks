@@ -650,8 +650,6 @@
     <string name="sort_completion_group">Elkészültség %s</string>
     <string name="enable_reminders_description">Az emlékeztetők az Android beállításaiban ki vannak kapcsolva</string>
     <string name="sign_in">Bejelentkezés</string>
-    <string name="consent_agree">Beleegyezés</string>
-    <string name="consent_deny">Most nem</string>
     <string name="enable_reminders">Emlékeztetők engedélyezése</string>
     <string name="sort_list">Lista szerint</string>
     <string name="sort_sorting">Sorbarendezés</string>

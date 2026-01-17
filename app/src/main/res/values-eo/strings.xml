@@ -411,8 +411,6 @@
     <string name="sign_in_with_google">Ensaluti per Google</string>
     <string name="sign_in_with_github">Ensaluti per GitHub</string>
     <string name="invite_invalid">Nevalida invito</string>
-    <string name="consent_agree">Konsenti</string>
-    <string name="consent_deny">Ne nun</string>
     <string name="sort_sorting">Ordigo</string>
     <string name="sort_grouping">Grupigo</string>
     <string name="sort_ascending">Kreskanta</string>

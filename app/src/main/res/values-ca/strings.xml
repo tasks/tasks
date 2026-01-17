@@ -720,8 +720,6 @@
     <string name="enable_alarms">Notifiqueu-vos en el moment adequat</string>
     <string name="enable_alarms_description">Per assegurar-vos que us notifiqueu en el moment adequat, concediu permís per establir alarmes i recordatoris a la configuració</string>
     <string name="sign_in">Inicieu la sessió</string>
-    <string name="consent_agree">D\'acord</string>
-    <string name="consent_deny">No ara</string>
     <string name="sort_sorting">Ordenació</string>
     <string name="sort_grouping">Agrupament</string>
     <string name="sort_ascending">Ascendent</string>

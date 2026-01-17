@@ -641,8 +641,6 @@
     <string name="randomly_every">Atsitiktinai kas %s</string>
     <string name="completed">Įvykdyta</string>
     <string name="dismiss">Atsisakyti</string>
-    <string name="consent_agree">Sutinku</string>
-    <string name="consent_deny">Ne dabar</string>
     <plurals name="reminder_days">
         <item quantity="one">Diena</item>
         <item quantity="few">Dienos</item>

@@ -638,8 +638,6 @@
     <string name="enable_alarms">Recibir notificacións no momento adecuado</string>
     <string name="enable_alarms_description">Para asegurarte de que recibes notificacións no momento adecuado, concede permiso para configurar alarmas e recordatorios na Configuración</string>
     <string name="sign_in">Iniciar sesión</string>
-    <string name="consent_agree">De acordo</string>
-    <string name="consent_deny">Agora non</string>
     <string name="sort_sorting">Ordenación</string>
     <string name="sort_grouping">Agrupación</string>
     <string name="sort_ascending">Ascendente</string>

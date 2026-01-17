@@ -670,8 +670,6 @@
     <string name="sort_completion_group">Achèvement %s</string>
     <string name="microsoft_selection_description">Synchroniser avec votre compte « Microsoft » personnel</string>
     <string name="sign_in">Se connecter</string>
-    <string name="consent_deny">Pas maintenant</string>
-    <string name="consent_agree">Accepter</string>
     <string name="default_reminder">Rappel par défaut</string>
     <string name="rmd_time_description">Afficher les notifications pour les tâches dont les heures d\'échéances ne sont pas renseignées</string>
     <string name="sort_list">Par liste</string>

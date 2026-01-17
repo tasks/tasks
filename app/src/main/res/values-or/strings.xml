@@ -165,14 +165,12 @@
     <string name="filter_overdue">ଅତିଦେୟ</string>
     <string name="last_backup">ଗତ ବ୍ୟାକଅପ୍: %s</string>
     <string name="invite_awaiting_response">ନିମନ୍ତ୍ରଣ ପ୍ରତିକ୍ରିୟାର ଅପେକ୍ଷାରେ</string>
-    <string name="consent_agree">ସହମତ</string>
     <string name="TVA_add_comment">ଏକ ମନ୍ତଵ୍ୟ ଯୋଡ଼ନ୍ତୁ…</string>
     <string name="social">ସାମାଜିକ</string>
     <string name="github_sponsor">ପ୍ରାୟୋଜକ</string>
     <string name="invite_declined">ନିମନ୍ତ୍ରଣ ପ୍ରତ୍ୟାଖ୍ୟାନ ହୋଇଛି</string>
     <string name="more_options">ଅଧିକ ଵିକଳ୍ପ</string>
     <string name="support">ସମର୍ଥନ</string>
-    <string name="consent_deny">ଏବେ ନୁହେଁ</string>
     <string name="privacy">ଗୋପନୀୟତା</string>
     <string name="app_password">ଆପ୍ ପାସ୍‍ୱର୍ଡ଼</string>
     <string name="email">ଇମେଲ୍</string>

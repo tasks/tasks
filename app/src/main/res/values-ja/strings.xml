@@ -538,8 +538,6 @@
     <string name="app_password">アプリパスワード</string>
     <string name="invite_declined">招待を辞退</string>
     <string name="upgrade_more_customization">さらなるカスタマイズ</string>
-    <string name="consent_agree">同意する</string>
-    <string name="consent_deny">あとで</string>
     <string name="customize_edit_screen_summary">フィールドの並び替えや削除</string>
     <string name="widget_due_date_below_title">タイトルの下</string>
     <string name="widget_due_date_after_title">タイトルの後ろ</string>

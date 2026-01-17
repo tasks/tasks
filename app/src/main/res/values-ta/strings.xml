@@ -633,7 +633,6 @@
     <string name="cost_more_money">செலவு: $$$</string>
     <string name="multiline_title">மல்டிலைன் தலைப்புகளை அனுமதிக்கவும்</string>
     <string name="multiline_title_on">வரி இடைவெளிகளைச் சேர்க்க ENTER விசையை அழுத்தவும்</string>
-    <string name="consent_deny">இப்போது இல்லை</string>
     <string name="authentication_required">ஏற்பு தேவை</string>
     <string name="invite">அழைக்கவும்</string>
     <string name="invite_invalid">செல்லாது என்று அழைக்கவும்</string>
@@ -642,7 +641,6 @@
     <string name="completed">முடிந்தது</string>
     <string name="snackbar_task_completed">பணி முடிந்தது</string>
     <string name="custom_notification">தனிப்பயன் notification</string>
-    <string name="consent_agree">ஒப்புக்கொள்கிறேன்</string>
     <string name="sort_sorting">வரிசைப்படுத்துதல்</string>
     <string name="sort_grouping">தொகுத்தல்</string>
     <string name="sort_ascending">ஏறுதல்</string>

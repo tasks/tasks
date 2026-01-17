@@ -264,7 +264,6 @@
     <string name="above_average">Üle keskmise</string>
     <string name="app_password_created_at">Loodud: %s</string>
     <string name="premium_record_audio">Salvesta audiomärge</string>
-    <string name="consent_agree">Nõustun</string>
     <string name="default_location">Vaikeasukoht</string>
     <string name="expand_subtasks">Ava alamülesanded</string>
     <string name="next_wednesday">Järgkmine K</string>
@@ -395,7 +394,6 @@
     <string name="custom_notification">Kohandatud teavitused</string>
     <string name="caldav_server_type">Serveri liik</string>
     <string name="sign_in">Logi sisse</string>
-    <string name="consent_deny">Praegy mitte</string>
     <string name="TEA_timer_comment_spent">Kulunud aeg:</string>
     <string name="opacity_header">Päise läbipaistmatus</string>
     <string name="opacity_row">Rea läbipaistmatus</string>
