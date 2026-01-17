@@ -75,6 +75,7 @@ fun TitleInput(
                     color = LocalContentColor.current
                 ),
                 onValueChange = { setText(it) },
+                singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.Sentences
                 ),
