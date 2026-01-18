@@ -74,6 +74,7 @@ class Debug : InjectingPreferenceFragment() {
             preferences.warnGoogleTasks = true
             preferences.warnQuietHoursDisabled = true
             preferences.setBoolean(R.string.p_just_updated, true)
+            preferences.setBoolean(R.string.p_local_list_banner_dismissed, false)
             true
             }
         findPreference(R.string.debug_create_tasks).setOnPreferenceClickListener {

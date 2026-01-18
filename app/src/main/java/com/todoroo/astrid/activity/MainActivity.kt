@@ -28,6 +28,7 @@ import androidx.compose.material3.adaptive.layout.calculatePaneScaffoldDirective
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.LaunchedEffect
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
@@ -189,6 +190,14 @@ class MainActivity : AppCompatActivity() {
                         else -> {}
                     }
                     isReady = hasAccount != null
+                }
+
+                LifecycleResumeEffect(Unit) {
+                    if (intent.getBooleanExtra(OPEN_ADD_ACCOUNT, false)) {
+                        intent.removeExtra(OPEN_ADD_ACCOUNT)
+                        navController.navigate(AddAccountDestination)
+                    }
+                    onPauseOrDispose {}
                 }
 
                 NavHost(
@@ -483,6 +492,7 @@ class MainActivity : AppCompatActivity() {
         const val OPEN_TASK = "open_new_task" // $NON-NLS-1$
         const val REMOVE_TASK = "remove_task"
         const val FINISH_AFFINITY = "finish_affinity"
+        const val OPEN_ADD_ACCOUNT = "open_add_account"
 
         val Intent.getFilter: Filter?
             get() = if (isFromHistory) {

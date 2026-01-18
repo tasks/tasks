@@ -22,9 +22,11 @@ fun ColumnScope.ListSettingsContent(
     pickIcon: () -> Unit,
     addShortcutToHome: () -> Unit,
     addWidgetToHome: () -> Unit,
+    headerContent: @Composable ColumnScope.() -> Unit = {},
     extensionContent: @Composable ColumnScope.() -> Unit,
     purchase: () -> Unit,
 ) {
+    headerContent()
     TitleInput(
         text = text,
         error = error,

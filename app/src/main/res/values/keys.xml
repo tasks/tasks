@@ -405,6 +405,7 @@
   <string name="p_warn_quiet_hours_enabled">warn_quiet_hours_enabled</string>
   <string name="p_warn_microsoft">warn_microsoft</string>
   <string name="p_warn_google_tasks">warn_google_Tasks</string>
+  <string name="p_local_list_banner_dismissed">local_list_banner_dismissed</string>
 
   <string name="event_showed_purchase_dialog">showed_purchase_dialog</string>
   <string name="event_purchase_result">billing_flow_result</string>

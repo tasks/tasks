@@ -109,6 +109,7 @@ abstract class BaseListSettingsActivity : AppCompatActivity() {
             if (!isNew) DeleteButton(toolbarTitle ?: "") { delete() }
         },
         fab: @Composable () -> Unit = {},
+        headerContent: @Composable ColumnScope.() -> Unit = {},
         extensionContent: @Composable ColumnScope.() -> Unit = {},
     ) {
         val viewState = baseViewModel.viewState.collectAsStateWithLifecycle().value
@@ -141,6 +142,7 @@ abstract class BaseListSettingsActivity : AppCompatActivity() {
                 pickIcon = { showIconPicker() },
                 addShortcutToHome = { createShortcut(color) },
                 addWidgetToHome = { createWidget() },
+                headerContent = headerContent,
                 extensionContent = extensionContent,
                 purchase = {
                     startActivity(

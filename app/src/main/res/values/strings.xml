@@ -261,6 +261,8 @@ File %1$s contained %2$s.\n\n
   <string name="repeat_snackbar">%1$s rescheduled for %2$s</string>
   <string name="new_tag">Create new tag</string>
   <string name="new_list">Create new list</string>
+  <string name="local_list_title">This is a local list</string>
+  <string name="local_list_description">Tasks in this list are stored only on this device. Connect an account to safeguard your data and access it anywhere.</string>
   <string name="delete_tag_confirmation">Delete %s?</string>
   <string name="delete_comment">comment</string>
   <string name="comment">Comment</string>
