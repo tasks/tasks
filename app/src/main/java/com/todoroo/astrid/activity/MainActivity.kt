@@ -86,7 +86,7 @@ import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.fragments.FRAG_TAG_IMPORT_TASKS
-import org.tasks.sync.AddAccountDialog
+import org.tasks.compose.accounts.Platform
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.microsoft.MicrosoftSignInViewModel
 import org.tasks.themes.ColorProvider
@@ -277,30 +277,30 @@ class MainActivity : AppCompatActivity() {
                             signIn = { platform ->
                                 firebase.logEvent(R.string.event_onboarding_sync, R.string.param_selection to platform)
                                 when (platform) {
-                                    AddAccountDialog.Platform.TASKS_ORG ->
+                                    Platform.TASKS_ORG ->
                                         syncLauncher.launch(
                                             Intent(this@MainActivity, SignInActivity::class.java)
                                         )
 
-                                    AddAccountDialog.Platform.GOOGLE_TASKS ->
+                                    Platform.GOOGLE_TASKS ->
                                         syncLauncher.launch(
                                             Intent(this@MainActivity, GtasksLoginActivity::class.java)
                                         )
 
-                                    AddAccountDialog.Platform.MICROSOFT ->
+                                    Platform.MICROSOFT ->
                                         microsoftVM.signIn(this@MainActivity)
 
-                                    AddAccountDialog.Platform.CALDAV ->
+                                    Platform.CALDAV ->
                                         syncLauncher.launch(
                                             Intent(this@MainActivity, CaldavAccountSettingsActivity::class.java)
                                         )
 
-                                    AddAccountDialog.Platform.ETESYNC ->
+                                    Platform.ETESYNC ->
                                         syncLauncher.launch(
                                             Intent(this@MainActivity, EtebaseAccountSettingsActivity::class.java)
                                         )
 
-                                    AddAccountDialog.Platform.LOCAL ->
+                                    Platform.LOCAL ->
                                         addAccountViewModel.createLocalAccount()
 
                                     else -> throw IllegalArgumentException()

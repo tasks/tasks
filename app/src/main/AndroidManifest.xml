@@ -310,6 +310,10 @@
         android:name=".billing.PurchaseActivity"
         android:theme="@style/Tasks" />
 
+    <activity
+        android:name=".compose.accounts.AddAccountActivity"
+        android:theme="@style/Tasks" />
+
     <!-- ======================================================= Receivers = -->
 
     <!-- widgets -->

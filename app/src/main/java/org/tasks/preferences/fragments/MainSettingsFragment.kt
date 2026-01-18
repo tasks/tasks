@@ -4,11 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
-import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -16,19 +14,15 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
 import org.tasks.R
-import org.tasks.auth.SignInActivity
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.billing.Purchase
 import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
-import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.data.accountSettingsClass
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.prefIcon
 import org.tasks.data.prefTitle
-import org.tasks.etebase.EtebaseAccountSettingsActivity
-import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.IconPreference
@@ -38,11 +32,7 @@ import org.tasks.preferences.PreferencesViewModel
 import org.tasks.preferences.fragments.GoogleTasksAccount.Companion.newGoogleTasksAccountPreference
 import org.tasks.preferences.fragments.MicrosoftAccount.Companion.newMicrosoftAccountPreference
 import org.tasks.preferences.fragments.TasksAccount.Companion.newTasksAccountPreference
-import org.tasks.sync.AddAccountDialog
-import org.tasks.sync.AddAccountDialog.Companion.EXTRA_SELECTED
-import org.tasks.sync.AddAccountDialog.Companion.newAccountDialog
-import org.tasks.sync.AddAccountDialog.Platform
-import org.tasks.sync.microsoft.MicrosoftSignInViewModel
+import org.tasks.compose.accounts.AddAccountActivity
 import org.tasks.widget.AppWidgetManager
 import javax.inject.Inject
 
@@ -56,7 +46,6 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
     @Inject lateinit var billingClient: BillingClient
 
     private val viewModel: PreferencesViewModel by activityViewModels()
-    private val microsoftVM: MicrosoftSignInViewModel by viewModels()
 
     override fun getPreferenceXml() = R.xml.preferences
 
@@ -101,45 +90,6 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         } else {
             inventory.subscription.observe(this) { refreshSubscription(it) }
         }
-
-        parentFragmentManager.setFragmentResultListener(
-            AddAccountDialog.ADD_ACCOUNT,
-            this
-        ) { _, result ->
-            val platform =
-                result.getSerializable(EXTRA_SELECTED) as? Platform
-                    ?: return@setFragmentResultListener
-            when (platform) {
-                Platform.TASKS_ORG ->
-                    startActivityForResult(
-                        Intent(requireContext(), SignInActivity::class.java),
-                        REQUEST_TASKS_ORG
-                    )
-                Platform.GOOGLE_TASKS ->
-                    startActivityForResult(
-                        Intent(requireContext(), GtasksLoginActivity::class.java),
-                        REQUEST_GOOGLE_TASKS
-                    )
-                Platform.MICROSOFT ->
-                    microsoftVM.signIn(requireActivity())
-                Platform.DAVX5 ->
-                    context?.openUri(R.string.url_davx5)
-                Platform.CALDAV ->
-                    startActivityForResult(
-                        Intent(requireContext(), CaldavAccountSettingsActivity::class.java),
-                        REQUEST_CALDAV_SETTINGS
-                    )
-                Platform.ETESYNC ->
-                    startActivityForResult(
-                        Intent(requireContext(), EtebaseAccountSettingsActivity::class.java),
-                        REQUEST_CALDAV_SETTINGS
-                    )
-                Platform.DECSYNC_CC ->
-                    context?.openUri(R.string.url_decsync)
-
-                Platform.LOCAL -> {}
-            }
-        }
     }
 
     override fun onResume() {
@@ -166,13 +116,10 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
     }
 
     private fun addAccount(): Boolean {
-        lifecycleScope.launch {
-            newAccountDialog(
-                hasTasksAccount = viewModel.tasksAccount() != null,
-                hasPro = inventory.hasPro,
-            )
-                .show(parentFragmentManager, FRAG_TAG_ADD_ACCOUNT)
-        }
+        startActivityForResult(
+            Intent(requireContext(), AddAccountActivity::class.java),
+            REQUEST_ADD_ACCOUNT
+        )
         return false
     }
 
@@ -294,10 +241,10 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
     }
 
     companion object {
-        private const val FRAG_TAG_ADD_ACCOUNT = "frag_tag_add_account"
         const val REQUEST_CALDAV_SETTINGS = 10013
         const val REQUEST_GOOGLE_TASKS = 10014
         const val REQUEST_TASKS_ORG = 10016
+        private const val REQUEST_ADD_ACCOUNT = 10017
 
         fun PreferenceScreen.removeAt(index: Int, count: Int = 1) {
             repeat(count) {
