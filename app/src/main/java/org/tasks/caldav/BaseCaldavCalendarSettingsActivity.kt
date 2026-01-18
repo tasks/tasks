@@ -35,20 +35,18 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
 
     protected var caldavCalendar: CaldavCalendar? = null
 
-    protected lateinit var caldavAccount: CaldavAccount
+    protected open val caldavAccount: CaldavAccount by lazy {
+        caldavCalendar?.account
+            ?.let { runBlocking { caldavDao.getAccountByUuid(it)!! } }
+            ?: intent.getParcelableExtra(EXTRA_CALDAV_ACCOUNT)!!
+    }
     override val defaultIcon = TasksIcons.LIST
 
     protected val snackbar = SnackbarHostState() // to be used by descendants
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val intent = intent
         caldavCalendar = intent.getParcelableExtra(EXTRA_CALDAV_CALENDAR)
         super.onCreate(savedInstanceState)
-        caldavAccount = if (caldavCalendar == null) {
-            intent.getParcelableExtra(EXTRA_CALDAV_ACCOUNT)!!
-        } else {
-            runBlocking { caldavDao.getAccountByUuid(caldavCalendar!!.account!!)!! }
-        }
         if (savedInstanceState == null) {
             if (caldavCalendar != null) {
                 baseViewModel.setTitle(caldavCalendar!!.name ?: "")
@@ -134,10 +132,11 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         firebase.logEvent(R.string.event_create_list)
         setResult(
                 Activity.RESULT_OK,
-                Intent().putExtra(
-                    MainActivity.OPEN_FILTER,
-                    CaldavFilter(calendar = caldavCalendar, account = caldavAccount)
-                )
+                Intent(TaskListFragment.ACTION_RELOAD)
+                    .putExtra(
+                        MainActivity.OPEN_FILTER,
+                        CaldavFilter(calendar = caldavCalendar, account = caldavAccount)
+                    )
         )
         finish()
     }

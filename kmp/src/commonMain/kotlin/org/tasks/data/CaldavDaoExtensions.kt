@@ -22,6 +22,14 @@ suspend fun CaldavDao.getLocalList() = mutex.withLock {
 suspend fun CaldavDao.getLocalAccount() =
     getAccounts(CaldavAccount.TYPE_LOCAL).firstOrNull() ?: newLocalAccountUnsafe()
 
+suspend fun CaldavDao.getOrCreateLocalAccount(): CaldavAccount = mutex.withLock {
+    getAccounts(CaldavAccount.TYPE_LOCAL).firstOrNull()
+        ?: CaldavAccount(
+            accountType = CaldavAccount.TYPE_LOCAL,
+            uuid = UUIDHelper.newUUID(),
+        ).let { it.copy(id = insert(it)) }
+}
+
 private suspend fun CaldavDao.newLocalAccountUnsafe(): CaldavAccount {
     val account = CaldavAccount(
         accountType = CaldavAccount.TYPE_LOCAL,

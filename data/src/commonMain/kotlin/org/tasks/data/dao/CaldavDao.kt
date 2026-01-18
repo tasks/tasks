@@ -63,6 +63,9 @@ abstract class CaldavDao {
     @Query("SELECT EXISTS(SELECT 1 FROM caldav_accounts LIMIT 1)")
     abstract fun watchAccountExists(): Flow<Boolean>
 
+    @Query("SELECT EXISTS(SELECT 1 FROM caldav_lists WHERE cdl_access != ${CaldavCalendar.ACCESS_READ_ONLY} LIMIT 1)")
+    abstract fun watchHasWritableList(): Flow<Boolean>
+
     @Query("""
 SELECT *
 FROM caldav_accounts

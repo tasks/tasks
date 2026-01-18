@@ -89,6 +89,7 @@ import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
+import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.compose.AlarmsDisabledBanner
 import org.tasks.compose.AppUpdatedBanner
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
@@ -201,6 +202,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private var onClickMenu: () -> Unit = {}
     private lateinit var binding: FragmentTaskListBinding
     private var windowInsets: PaddingValues? = null
+    private var hasWritableList = true
     private val listPickerLauncher = registerForListPickerResult {
         val selected = taskAdapter.getSelected()
         lifecycleScope.launch {
@@ -277,6 +279,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
         taskListEventBus
             .onEach(this::process)
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        caldavDao.watchHasWritableList()
+            .onEach { hasWritableList = it }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -757,11 +763,16 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
     }
 
-    private fun createNewTask() {
-        lifecycleScope.launch {
+    private fun createNewTask() = lifecycleScope.launch {
+        if (hasWritableList) {
             shortcutManager.reportShortcutUsed(ShortcutManager.SHORTCUT_NEW_TASK)
             onTaskListItemClicked(addTask(""))
             firebase.addTask("fab")
+        } else {
+            Timber.e("createNewTask(): No writable list")
+            listSettingsRequest.launch(
+                Intent(activity, LocalListSettingsActivity::class.java)
+            )
         }
     }
 

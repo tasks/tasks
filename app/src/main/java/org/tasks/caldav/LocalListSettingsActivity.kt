@@ -10,10 +10,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import com.todoroo.astrid.activity.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.compose.DeleteButton
 import org.tasks.compose.components.AnimatedBanner
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.getOrCreateLocalAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksTheme
@@ -23,6 +25,10 @@ import javax.inject.Inject
 class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
     @Inject lateinit var preferences: Preferences
+
+    override val caldavAccount: CaldavAccount by lazy {
+        runBlocking { caldavDao.getOrCreateLocalAccount() }
+    }
 
     private val showLocalListBanner: Boolean
         get() = isNew && !preferences.getBoolean(R.string.p_local_list_banner_dismissed, false)
