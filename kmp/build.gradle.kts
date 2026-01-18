@@ -40,7 +40,7 @@ kotlin {
             implementation(libs.kotlinx.serialization)
         }
     }
-    task("testClasses")
+    tasks.register("testClasses")
 }
 
 compose.resources {
@@ -54,7 +54,6 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
     }
 
     compileOptions {
