@@ -11,7 +11,9 @@ import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GENERIC
+import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import org.tasks.analytics.Firebase
+import org.tasks.billing.Inventory
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.logging.FileLogger
 import javax.inject.Inject
@@ -21,6 +23,7 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
 
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var fileLogger: FileLogger
+    @Inject lateinit var inventory: Inventory
 
     override fun getPreferenceXml() = R.xml.help_and_feedback
 
@@ -84,7 +87,11 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
         openUrl(R.string.follow_reddit, R.string.url_reddit)
         openUrl(R.string.follow_twitter, R.string.url_twitter)
         openUrl(R.string.source_code, R.string.url_source_code)
-        openUrl(R.string.terms_of_service, R.string.url_tos)
+        if (IS_GOOGLE_PLAY || inventory.hasTasksAccount) {
+            openUrl(R.string.terms_of_service, R.string.url_tos)
+        } else {
+            remove(R.string.terms_of_service)
+        }
         openUrl(R.string.privacy_policy, R.string.url_privacy_policy)
     }
 

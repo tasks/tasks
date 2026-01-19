@@ -39,6 +39,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import org.tasks.R
+import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import org.tasks.themes.TasksTheme
 
 @Composable
@@ -131,13 +132,15 @@ private fun WelcomeContent(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        LegalDisclosure(
-            prefixRes = R.string.legal_disclosure_prefix_continuing,
-            openLegalUrl = openLegalUrl,
-            modifier = Modifier.widthIn(max = 400.dp),
-        )
+        if (IS_GOOGLE_PLAY) {
+            LegalDisclosure(
+                prefixRes = R.string.legal_disclosure_prefix_continuing,
+                openLegalUrl = openLegalUrl,
+                modifier = Modifier.widthIn(max = 400.dp),
+            )
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+        }
 
         Button(
             onClick = onSignIn,

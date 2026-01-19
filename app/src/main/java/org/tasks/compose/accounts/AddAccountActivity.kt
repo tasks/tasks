@@ -22,6 +22,8 @@ import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.data.dao.CaldavDao
 import org.tasks.etebase.EtebaseAccountSettingsActivity
+import org.tasks.extensions.Context.openUri
+import org.tasks.preferences.TasksPreferences
 import org.tasks.sync.microsoft.MicrosoftSignInViewModel
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
@@ -33,6 +35,7 @@ class AddAccountActivity : ComponentActivity() {
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var tasksPreferences: TasksPreferences
 
     private val viewModel: AddAccountViewModel by viewModels()
     private val microsoftVM: MicrosoftSignInViewModel by viewModels()
@@ -60,6 +63,10 @@ class AddAccountActivity : ComponentActivity() {
                 .collectAsStateWithLifecycle(initialValue = emptyList())
             var initialAccountCount by remember { mutableStateOf<Int?>(null) }
             var hasTasksAccount by remember { mutableStateOf(inventory.hasTasksAccount) }
+            val currentTosVersion = firebase.getTosVersion()
+            val acceptedTosVersion by tasksPreferences
+                .flow(TasksPreferences.acceptedTosVersion, 0)
+                .collectAsStateWithLifecycle(0)
             LaunchedEffect(Unit) {
                 inventory.updateTasksAccount()
                 hasTasksAccount = inventory.hasTasksAccount
@@ -78,6 +85,7 @@ class AddAccountActivity : ComponentActivity() {
                 AddAccountScreen(
                     hasTasksAccount = hasTasksAccount,
                     hasPro = inventory.hasPro,
+                    needsConsent = acceptedTosVersion < currentTosVersion,
                     onBack = { finish() },
                     signIn = { platform ->
                         firebase.logEvent(
@@ -114,6 +122,10 @@ class AddAccountActivity : ComponentActivity() {
                             R.string.param_selection to platform.name
                         )
                         viewModel.openUrl(this, platform)
+                    },
+                    openLegalUrl = { openUri(it) },
+                    onConsent = {
+                        tasksPreferences.set(TasksPreferences.acceptedTosVersion, currentTosVersion)
                     },
                     onNameYourPriceInfo = {
                         firebase.logEvent(R.string.event_onboarding_name_your_price)

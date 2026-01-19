@@ -32,6 +32,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -40,18 +41,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
+import org.tasks.compose.LegalDisclosure
 import org.tasks.themes.TasksTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,12 +64,17 @@ import org.tasks.themes.TasksTheme
 fun AddAccountScreen(
     hasTasksAccount: Boolean,
     hasPro: Boolean,
+    needsConsent: Boolean,
     onBack: () -> Unit,
     signIn: (Platform) -> Unit,
     openUrl: (Platform) -> Unit,
+    openLegalUrl: (String) -> Unit,
+    onConsent: suspend () -> Unit = {},
     onNameYourPriceInfo: () -> Unit = {},
 ) {
+    val scope = rememberCoroutineScope()
     var showNameYourPriceInfo by remember { mutableStateOf(false) }
+    var showTasksOrgConsent by remember { mutableStateOf(false) }
 
     if (showNameYourPriceInfo) {
         AlertDialog(
@@ -74,6 +84,36 @@ fun AddAccountScreen(
             confirmButton = {
                 TextButton(onClick = { showNameYourPriceInfo = false }) {
                     Text(stringResource(R.string.ok))
+                }
+            },
+        )
+    }
+
+    if (showTasksOrgConsent) {
+        AlertDialog(
+            onDismissRequest = { showTasksOrgConsent = false },
+            title = { Text(stringResource(R.string.terms_of_service_proper)) },
+            text = {
+                LegalDisclosure(
+                    prefixRes = R.string.legal_disclosure_prefix_using,
+                    openLegalUrl = openLegalUrl,
+                    textAlign = TextAlign.Start,
+                )
+            },
+            dismissButton = {
+                TextButton(onClick = { showTasksOrgConsent = false }) {
+                    Text(stringResource(R.string.cancel))
+                }
+            },
+            confirmButton = {
+                Button(onClick = {
+                    showTasksOrgConsent = false
+                    scope.launch {
+                        onConsent()
+                        signIn(Platform.TASKS_ORG)
+                    }
+                }) {
+                    Text(stringResource(R.string.accept))
                 }
             },
         )
@@ -119,7 +159,13 @@ fun AddAccountScreen(
                         title = R.string.tasks_org,
                         icon = R.drawable.ic_round_icon,
                         description = R.string.tasks_org_description,
-                        onClick = { signIn(Platform.TASKS_ORG) }
+                        onClick = {
+                            if (needsConsent) {
+                                showTasksOrgConsent = true
+                            } else {
+                                signIn(Platform.TASKS_ORG)
+                            }
+                        }
                     )
                     if (hasPro) {
                         HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
@@ -332,9 +378,11 @@ fun AddAccountPreview() {
         AddAccountScreen(
             hasTasksAccount = false,
             hasPro = false,
+            needsConsent = false,
             onBack = {},
             signIn = {},
             openUrl = {},
+            openLegalUrl = {},
         )
     }
 }

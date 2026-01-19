@@ -53,6 +53,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import org.tasks.analytics.Firebase
 import org.tasks.auth.SignInActivity
 import org.tasks.billing.Inventory
@@ -154,7 +155,8 @@ class MainActivity : AppCompatActivity() {
                 val acceptedTosVersion by tasksPreferences
                     .flow(TasksPreferences.acceptedTosVersion, 0)
                     .collectAsStateWithLifecycle(0)
-                val needsTosAcceptance = acceptedTosVersion < currentTosVersion
+                val needsTosAcceptance = acceptedTosVersion < currentTosVersion &&
+                        (IS_GOOGLE_PLAY || inventory.hasTasksAccount)
                 suspend fun setAcceptedTosVersion(version: Int) {
                     tasksPreferences.set(TasksPreferences.acceptedTosVersion, version)
                 }
@@ -224,27 +226,33 @@ class MainActivity : AppCompatActivity() {
                             onBack = { finish() },
                             onSignIn = {
                                 lifecycleScope.launch {
-                                    firebase.logEvent(R.string.event_accept_tos)
-                                    setAcceptedTosVersion(currentTosVersion)
+                                    if (IS_GOOGLE_PLAY) {
+                                        firebase.logEvent(R.string.event_accept_tos)
+                                        setAcceptedTosVersion(currentTosVersion)
+                                    }
                                     navController.navigate(AddAccountDestination)
                                 }
                             },
                             onContinueWithoutSync = {
                                 lifecycleScope.launch {
-                                    firebase.logEvent(R.string.event_accept_tos)
+                                    if (IS_GOOGLE_PLAY) {
+                                        firebase.logEvent(R.string.event_accept_tos)
+                                        setAcceptedTosVersion(currentTosVersion)
+                                    }
                                     firebase.logEvent(R.string.event_onboarding_sync, R.string.param_selection to "local")
-                                    setAcceptedTosVersion(currentTosVersion)
                                     addAccountViewModel.createLocalAccount()
                                 }
                             },
                             onImportBackup = {
                                 lifecycleScope.launch {
-                                    firebase.logEvent(R.string.event_accept_tos)
+                                    if (IS_GOOGLE_PLAY) {
+                                        firebase.logEvent(R.string.event_accept_tos)
+                                        setAcceptedTosVersion(currentTosVersion)
+                                    }
                                     firebase.logEvent(
                                         R.string.event_onboarding_sync,
                                         R.string.param_selection to "import_backup"
                                     )
-                                    setAcceptedTosVersion(currentTosVersion)
                                     importBackupLauncher.launch(
                                         FileHelper.newFilePickerIntent(
                                             this@MainActivity,
@@ -276,6 +284,7 @@ class MainActivity : AppCompatActivity() {
                         AddAccountScreen(
                             hasTasksAccount = inventory.hasTasksAccount,
                             hasPro = inventory.hasPro,
+                            needsConsent = acceptedTosVersion < currentTosVersion,
                             onBack = { navController.popBackStack() },
                             signIn = { platform ->
                                 firebase.logEvent(R.string.event_onboarding_sync, R.string.param_selection to platform)
@@ -313,6 +322,8 @@ class MainActivity : AppCompatActivity() {
                                 firebase.logEvent(R.string.event_onboarding_sync, R.string.param_selection to platform.name)
                                 addAccountViewModel.openUrl(this@MainActivity, platform)
                             },
+                            openLegalUrl = { openUri(it) },
+                            onConsent = { setAcceptedTosVersion(currentTosVersion) },
                             onNameYourPriceInfo = {
                                 firebase.logEvent(R.string.event_onboarding_name_your_price)
                             },
