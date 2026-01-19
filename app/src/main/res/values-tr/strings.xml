@@ -689,7 +689,7 @@
     <string name="donate_maybe_later">Belki daha sonra</string>
     <string name="donate_nag">Desteğinizi bağış yaparak göstermeyi düşünün!</string>
     <string name="comment">Yorum</string>
-    <string name="cost_free">Ücret: Ücretsiz</string>
+    <string name="cost_free">Ücretsiz</string>
     <string name="cost_money">Ücret: $</string>
     <string name="delete_comment">yorum</string>
     <string name="yesterday">Dün</string>

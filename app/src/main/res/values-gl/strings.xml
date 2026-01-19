@@ -645,7 +645,7 @@
     <string name="sort_not_available">Non dispoñible para etiquetas, filtros ou lugares</string>
     <string name="add_shortcut_to_home_screen">Engadir acceso directo á pantalla de inicio</string>
     <string name="add_widget_to_home_screen">Engadir widget á pantalla de inicio</string>
-    <string name="cost_free">Custo: Gratis</string>
+    <string name="cost_free">Gratis</string>
     <string name="cost_money">Custo: $</string>
     <string name="cost_more_money">Custo: $$$</string>
     <string name="multiline_title">Permitir títulos de varias liñas</string>

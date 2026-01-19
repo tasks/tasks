@@ -689,7 +689,7 @@
     <string name="add_widget_to_home_screen">홈 스크린에 위젯 추가</string>
     <string name="yesterday">어제</string>
     <string name="add_shortcut_to_home_screen">홈화면에 바로가기 추가</string>
-    <string name="cost_free">비용: 무료</string>
+    <string name="cost_free">무료</string>
     <string name="cost_money">비용: $</string>
     <string name="multiline_title_on">줄을 바꾸려면 엔터키를 누르세요</string>
     <string name="cost_more_money">비용: $$$</string>

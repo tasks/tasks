@@ -717,7 +717,7 @@
     <string name="multiline_title">Permitir títulos de varias líneas</string>
     <string name="multiline_title_on">Presione Enter para insertar saltos de línea</string>
     <string name="price_per_year_with_currency">%s/año</string>
-    <string name="cost_free">Precio: Gratis</string>
+    <string name="cost_free">Gratis</string>
     <string name="app_settings">Ajustes de la aplicación</string>
     <string name="delete_comment">comentario</string>
     <string name="yesterday">Ayer</string>

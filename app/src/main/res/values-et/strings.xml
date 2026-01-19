@@ -589,7 +589,7 @@
     <string name="logout_warning">Kõik selle kasutajakonto andmed eemaldatakse sellest seadmest</string>
     <string name="reinitialize_account">Initsialiseeri uuesti</string>
     <string name="location_arrived">Saabusid: %s</string>
-    <string name="cost_free">Hind: tasuta</string>
+    <string name="cost_free">Tasuta</string>
     <string name="cost_money">Hind: $</string>
     <string name="restart_required">Selle muudatuse jõustamiseks käivita Tasks uuesti</string>
     <string name="show_edit_screen_without_unlock_summary">Võimaldab kiirseadistuste paani kasutamist ilma lukustust eemaldamata</string>

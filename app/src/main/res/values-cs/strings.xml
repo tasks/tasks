@@ -718,7 +718,7 @@
     <string name="price_per_year_with_currency">%s ročně</string>
     <string name="enable_alarms">Dostaňte upozornění včas</string>
     <string name="comment">Komentář</string>
-    <string name="cost_free">Cena: Zdarma</string>
+    <string name="cost_free">Zdarma</string>
     <string name="cost_money">Cena: $</string>
     <string name="sync_warning_microsoft_title">O synchronizaci Microsoft To Do</string>
     <string name="sync_warning_google_tasks">Ne všechny podrobnosti připomínek se synchronizují s Google Tasks</string>

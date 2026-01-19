@@ -693,7 +693,7 @@
     <string name="add_widget_to_home_screen">Widget aan startscherm toevoegen</string>
     <string name="add_shortcut_to_home_screen">Snelkoppeling aan startscherm toevoegen</string>
     <string name="yesterday">Gisteren</string>
-    <string name="cost_free">Kosten: gratis</string>
+    <string name="cost_free">Gratis</string>
     <string name="cost_money">Kosten: €</string>
     <string name="cost_more_money">Kosten: €€€</string>
     <string name="delete_comment">commentaar</string>

@@ -709,7 +709,7 @@
     <string name="customize_drawer_summary">Перетаскивайте элементы меню, чтобы изменить их порядок</string>
     <string name="donate_maybe_later">Возможно, позже</string>
     <string name="swipe_to_snooze_time_15_minutes">через 15 минут</string>
-    <string name="cost_free">Цена: бесплатно</string>
+    <string name="cost_free">Бесплатно</string>
     <string name="multiline_title">Разрешить многострочные заголовки</string>
     <string name="sync_warning_google_tasks">Не все подробности задачи синхронизируются с Google Task</string>
     <string name="customize_drawer">Настроить панель</string>

@@ -728,7 +728,7 @@
     <string name="button_learn_more">Voir plus</string>
     <string name="enable_alarms">Sois notifié au bon moment</string>
     <string name="enable_alarms_description">Pour être sûr d\'être notifié au bon moment, autorisez la permission d\'ajouter des alarmes et des rappels dans Paramètres</string>
-    <string name="cost_free">Coût : gratuit</string>
+    <string name="cost_free">Gratuit</string>
     <string name="cost_money">Coût : $</string>
     <string name="cost_more_money">Coût : $$$</string>
     <string name="subtasks_multilevel_microsoft">Les sous-tâches à plusieurs niveaux ne sont pas prises en charge par Microsoft To Do</string>

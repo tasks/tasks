@@ -629,7 +629,7 @@
     <string name="sort_not_available">Δεν είναι διαθέσιμο για ετικέτες, φίλτρα ή μέρη</string>
     <string name="add_shortcut_to_home_screen">Προσθήκη συντόμευσης στην αρχική οθόνη</string>
     <string name="add_widget_to_home_screen">Προσθήκη γραφικού στοιχείου στην αρχική οθόνη</string>
-    <string name="cost_free">Κόστος: Δωρεάν</string>
+    <string name="cost_free">Δωρεάν</string>
     <string name="cost_money">Κόστος: $</string>
     <string name="cost_more_money">Κόστος: $$$</string>
     <string name="multiline_title">Επιτρέψτε τους τίτλους πολλαπλών γραμμών</string>

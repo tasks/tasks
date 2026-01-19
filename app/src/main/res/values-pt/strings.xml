@@ -714,7 +714,7 @@
     <string name="app_settings">Configurações da aplicação</string>
     <string name="comment">Comentário</string>
     <string name="add_shortcut_to_home_screen">Adicionar atalho para a tela inicial</string>
-    <string name="cost_free">Custo: Grátis</string>
+    <string name="cost_free">Grátis</string>
     <string name="send_application_logs">Enviar logs da aplicação</string>
     <string name="continue_without_sync">Continuar sem sync</string>
     <string name="delete_tasks_warning">%s será apagado. Isso não poderá ser desfeito!</string>

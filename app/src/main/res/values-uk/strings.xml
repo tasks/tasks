@@ -724,7 +724,7 @@
     <string name="comment">Коментар</string>
     <string name="yesterday">Учора</string>
     <string name="subtasks_multilevel_microsoft">Багаторівневі підзавдання, які не підтримуються Microsoft To Do</string>
-    <string name="cost_free">Вартість: Безплатно</string>
+    <string name="cost_free">Безплатно</string>
     <string name="cost_more_money">Вартість: $$$</string>
     <string name="multiline_title">Дозволити багаторядкові заголовки</string>
     <string name="multiline_title_on">Натисніть Enter, щоб перенести рядок</string>

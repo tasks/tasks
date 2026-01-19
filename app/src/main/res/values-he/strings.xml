@@ -682,7 +682,7 @@
     <string name="sort_completion_group">השלמה %s</string>
     <string name="custom_filter_has_reminder">יש תזכורת</string>
     <string name="enable_reminders_description">תזכורות מושבתות בהגדרות Android</string>
-    <string name="cost_free">עלות: חינם</string>
+    <string name="cost_free">חינם</string>
     <string name="multiline_title_on">יש ללחוץ על מקש Enter כדי להוסיף מעברי שורה</string>
     <string name="multiline_title_off">יש ללחוץ על \"השלמה\" כדי לשמור משימה</string>
     <string name="completion_sound">ניגון צליל השלמה</string>

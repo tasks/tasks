@@ -714,7 +714,7 @@
     <string name="cost_money">Preço: $</string>
     <string name="app_settings">Configurações do aplicativo</string>
     <string name="cost_more_money">Preço: $$$</string>
-    <string name="cost_free">Preço: Grátis</string>
+    <string name="cost_free">Grátis</string>
     <string name="subtasks_multilevel_microsoft">Subtarefas multinível não suportadas pelo Microsoft To Do</string>
     <string name="enable_alarms_description">Para garantir que você seja notificado no momento certo, conceda permissão para definir alarmes e lembretes em \'Configurações\'</string>
     <string name="multiline_title_on">Pressione a tecla \'Enter\' para adicionar quebras de linha</string>

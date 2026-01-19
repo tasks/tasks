@@ -698,7 +698,7 @@
     <string name="caldav_server_unknown">Neznámy</string>
     <string name="sort_sorting">Triedenie</string>
     <string name="add_shortcut_to_home_screen">Pridať skratku na domovskú obrazovku</string>
-    <string name="cost_free">Cena: Zdarma</string>
+    <string name="cost_free">Zdarma</string>
     <string name="multiline_title">Povoliť názvy na viac riadkov</string>
     <string name="multiline_title_on">Stlačením Enter pridáte konce riadkov</string>
     <string name="enable_reminders_description">Pripomienky sú zakázané v nastaveniach systému Android</string>

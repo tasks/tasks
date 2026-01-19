@@ -682,7 +682,7 @@
     <string name="price_per_month_with_currency">%s/måned</string>
     <string name="price_per_year_with_currency">%s/år</string>
     <string name="add_widget_to_home_screen">Føj widget til startskærm</string>
-    <string name="cost_free">Pris: Gratis</string>
+    <string name="cost_free">Gratis</string>
     <string name="cost_money">Pris: $</string>
     <string name="cost_more_money">Pris: $$$</string>
     <string name="multiline_title">Tillad flerlinjede titler</string>

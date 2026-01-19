@@ -727,7 +727,7 @@
     <string name="sort_not_available">No disponible per a etiquetes, filtres o llocs</string>
     <string name="add_shortcut_to_home_screen">Afegiu una drecera a la pantalla d\'inici</string>
     <string name="add_widget_to_home_screen">Afegiu un giny a la pantalla d\'inici</string>
-    <string name="cost_free">Cost: gratuït</string>
+    <string name="cost_free">Gratuït</string>
     <string name="cost_money">Cost: $</string>
     <string name="cost_more_money">Cost: $$$</string>
     <string name="multiline_title">Permeteu títols multilínies</string>

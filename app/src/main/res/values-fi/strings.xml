@@ -705,7 +705,7 @@
     <string name="price_per_year_with_currency">%s/vuosi</string>
     <string name="add_shortcut_to_home_screen">Lisää pikakuvake aloitusnäytölle</string>
     <string name="add_widget_to_home_screen">Lisää pienoissovellus aloitusnäytölle</string>
-    <string name="cost_free">Hinta: Ilmainen</string>
+    <string name="cost_free">Ilmainen</string>
     <string name="cost_money">Hinta: $</string>
     <string name="cost_more_money">Hinta: $$$</string>
     <string name="multiline_title">Salli moniriviset otsikot</string>

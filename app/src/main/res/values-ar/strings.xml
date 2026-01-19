@@ -793,7 +793,7 @@
     <string name="hint_customize_edit_title">الكثير من المعلومات؟</string>
     <string name="hint_customize_edit_body">يمكنك تخصيص هذه الشاشة عن طريق إعادة ترتيب الحقول أو إزالتها</string>
     <string name="add_shortcut_to_home_screen">إضافة اختصار إلى الشاشة الرئيسية</string>
-    <string name="cost_free">التكلفة: مجاناً</string>
+    <string name="cost_free">مجاناً</string>
     <string name="cost_money">التكلفة: المال</string>
     <string name="cost_more_money">التكلفة: المزيد من المال</string>
     <string name="sync_warning_microsoft_title">نبذة عن مزامنة Microsoft To Do</string>

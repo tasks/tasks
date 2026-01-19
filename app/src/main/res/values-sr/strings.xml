@@ -723,7 +723,7 @@
     <string name="sort_not_available">Није доступно за тагове, филтере, или места</string>
     <string name="add_shortcut_to_home_screen">Додај пречицу на почетни екран</string>
     <string name="add_widget_to_home_screen">Додај виџет на почетни екран</string>
-    <string name="cost_free">Цена: Бесплатно</string>
+    <string name="cost_free">Бесплатно</string>
     <string name="cost_money">Цена: $</string>
     <string name="cost_more_money">Цена: $$$</string>
     <string name="multiline_title">Омогући називе у више редова</string>
