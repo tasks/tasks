@@ -162,9 +162,9 @@ class TasksApplication : Application(), Configuration.Provider {
     }
 
     companion object {
-        @Suppress("KotlinConstantConditions")
+        @Suppress("KotlinConstantConditions", "SimplifyBooleanWithConstants")
         const val IS_GOOGLE_PLAY = BuildConfig.FLAVOR == "googleplay"
-        @Suppress("KotlinConstantConditions")
+        @Suppress("KotlinConstantConditions", "SimplifyBooleanWithConstants")
         const val IS_GENERIC = BuildConfig.FLAVOR == "generic"
     }
 }

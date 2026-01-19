@@ -21,6 +21,14 @@ import androidx.activity.viewModels
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
@@ -36,6 +44,7 @@ import net.openid.appauth.RegistrationResponse
 import net.openid.appauth.ResponseTypeValues
 import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GENERIC
+import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
@@ -74,6 +83,7 @@ class SignInActivity : ComponentActivity() {
     private val mAuthIntent = AtomicReference<CustomTabsIntent>()
     private var mAuthIntentLatch = CountDownLatch(1)
     private val mExecutor: ExecutorService = newSingleThreadExecutor()
+    private var showSubscriptionRequiredDialog by mutableStateOf<Boolean?>(null)
 
     private val authService: AuthorizationService
         get() = viewModel.authService!!
@@ -96,6 +106,19 @@ class SignInActivity : ComponentActivity() {
 
         val autoSelect = intent.getSerializableExtra(EXTRA_SELECT_SERVICE) as Platform?
         if (autoSelect != null) {
+            setContent {
+                TasksTheme(
+                    theme = theme.themeBase.index,
+                    primary = theme.themeColor.primaryColor,
+                ) {
+                    showSubscriptionRequiredDialog?.let { isGitHub ->
+                        SubscriptionRequiredDialog(
+                            isGitHub = isGitHub,
+                            onDismiss = { finish() },
+                        )
+                    }
+                }
+            }
             selectService(autoSelect)
         } else {
             setContent {
@@ -103,19 +126,74 @@ class SignInActivity : ComponentActivity() {
                     theme = theme.themeBase.index,
                     primary = theme.themeColor.primaryColor,
                 ) {
-                    Dialog(onDismissRequest = { finish() }) {
-                        SignInDialog(
-                            selected = { selectService(it) },
-                            help = {
-                                openUri(R.string.help_url_sync)
-                                finish()
-                            },
-                            cancel = { finish() }
+                    if (showSubscriptionRequiredDialog != null) {
+                        SubscriptionRequiredDialog(
+                            isGitHub = showSubscriptionRequiredDialog!!,
+                            onDismiss = { finish() },
                         )
+                    } else {
+                        Dialog(onDismissRequest = { finish() }) {
+                            SignInDialog(
+                                selected = { selectService(it) },
+                                help = {
+                                    openUri(R.string.help_url_sync)
+                                    finish()
+                                },
+                                cancel = { finish() }
+                            )
+                        }
                     }
                 }
             }
         }
+    }
+
+    @Composable
+    private fun SubscriptionRequiredDialog(
+        isGitHub: Boolean,
+        onDismiss: () -> Unit,
+    ) {
+        AlertDialog(
+            onDismissRequest = onDismiss,
+            title = {
+                Text(
+                    stringResource(
+                        if (isGitHub) R.string.github_sponsors else R.string.subscription
+                    )
+                )
+            },
+            text = {
+                Text(
+                    stringResource(
+                        if (isGitHub)
+                            R.string.sponsorship_required_fdroid
+                        else
+                            R.string.subscription_required_fdroid
+                    )
+                )
+            },
+            dismissButton = if (isGitHub) {
+                {
+                    TextButton(onClick = onDismiss) {
+                        Text(stringResource(R.string.cancel))
+                    }
+                }
+            } else null,
+            confirmButton = {
+                TextButton(onClick = {
+                    if (isGitHub) {
+                        openUri(R.string.url_sponsor)
+                    }
+                    onDismiss()
+                }) {
+                    Text(
+                        stringResource(
+                            if (isGitHub) R.string.github_sponsor else R.string.ok
+                        )
+                    )
+                }
+            },
+        )
     }
 
     private fun selectService(which: Platform) {
@@ -147,12 +225,16 @@ class SignInActivity : ComponentActivity() {
 
     private fun handleError(e: Throwable) {
         if (e is HttpException && e.code == 402) {
-            startActivityForResult(
-                Intent(this, PurchaseActivity::class.java)
-                    .putExtra(EXTRA_GITHUB, viewModel.authService?.isGitHub ?: IS_GENERIC)
-                    .putExtra(EXTRA_NAME_YOUR_PRICE, false),
-                RC_PURCHASE
-            )
+            if (IS_GOOGLE_PLAY) {
+                startActivityForResult(
+                    Intent(this, PurchaseActivity::class.java)
+                        .putExtra(EXTRA_GITHUB, viewModel.authService?.isGitHub ?: IS_GENERIC)
+                        .putExtra(EXTRA_NAME_YOUR_PRICE, false),
+                    RC_PURCHASE
+                )
+            } else {
+                showSubscriptionRequiredDialog = viewModel.authService?.isGitHub ?: false
+            }
         } else {
             returnError(e)
         }

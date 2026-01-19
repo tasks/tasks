@@ -628,6 +628,8 @@ File %1$s contained %2$s.\n\n
   <string name="insufficient_subscription">Insufficient subscription level. Please upgrade your subscription to resume service.</string>
   <string name="insufficient_sponsorship">No eligible GitHub sponsorship found</string>
   <string name="no_google_play_subscription">No eligible Google Play subscription found</string>
+  <string name="subscription_required_fdroid">A subscription is required to use Tasks.org sync. Subscriptions must be initiated from the Google Play version of Tasks.</string>
+  <string name="sponsorship_required_fdroid">A GitHub sponsorship is required to use Tasks.org sync. Click below to become a sponsor.</string>
   <string name="price_per_year">$%s/year</string>
   <string name="price_per_month">$%s/month</string>
   <string name="price_per_month_with_currency">%s/month</string>
