@@ -1,5 +1,6 @@
 package org.tasks.compose
 
+import androidx.annotation.StringRes
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -131,6 +132,7 @@ private fun WelcomeContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         LegalDisclosure(
+            prefixRes = R.string.legal_disclosure_prefix_continuing,
             openLegalUrl = openLegalUrl,
             modifier = Modifier.widthIn(max = 400.dp),
         )
@@ -141,7 +143,11 @@ private fun WelcomeContent(
             onClick = onSignIn,
             modifier = buttonModifier
         ) {
-            Text(text = stringResource(R.string.add_account))
+            Text(
+                text = stringResource(R.string.add_account),
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+            )
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -150,25 +156,31 @@ private fun WelcomeContent(
             onClick = onContinueWithoutSync,
             modifier = buttonModifier
         ) {
-            Text(text = stringResource(R.string.continue_without_sync))
+            Text(
+                text = stringResource(R.string.continue_without_sync),
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+            )
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = stringResource(R.string.returning_user),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-
-        TextButton(onClick = onImportBackup) {
-            Text(text = stringResource(R.string.backup_BAc_import))
+        OutlinedButton(
+            onClick = onImportBackup,
+            modifier = buttonModifier
+        ) {
+            Text(
+                text = stringResource(R.string.returning_user_import_backup),
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+            )
         }
     }
 }
 
 @Composable
 internal fun LegalDisclosure(
+    @StringRes prefixRes: Int,
     openLegalUrl: (String) -> Unit,
     modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Center,
@@ -181,11 +193,12 @@ internal fun LegalDisclosure(
         color = MaterialTheme.colorScheme.primary,
         textDecoration = TextDecoration.Underline,
     )
+    val prefixText = stringResource(prefixRes)
     val tosText = stringResource(R.string.terms_of_service_proper)
     val privacyText = stringResource(R.string.privacy_policy_proper)
     val licenseText = stringResource(R.string.gplv3_license)
     val template = stringResource(R.string.legal_disclosure)
-    val formatted = String.format(template, tosText, privacyText, licenseText)
+    val formatted = String.format(template, prefixText, tosText, privacyText, licenseText)
 
     val tosStart = formatted.indexOf(tosText)
     val tosEnd = tosStart + tosText.length

@@ -164,9 +164,11 @@ class MainActivity : AppCompatActivity() {
                     Timber.d("hasAccount=$hasAccount")
                     when (hasAccount) {
                         false -> {
-                            wasInOnboarding = true
-                            navController.navigate(WelcomeDestination) {
-                                popUpTo(0) { inclusive = true }
+                            if (!wasInOnboarding) {
+                                wasInOnboarding = true
+                                navController.navigate(WelcomeDestination) {
+                                    popUpTo(0) { inclusive = true }
+                                }
                             }
                         }
                         true -> {
@@ -182,6 +184,7 @@ class MainActivity : AppCompatActivity() {
                                         true
                                     )
                                 }
+                                wasInOnboarding = false
                             }
                             navController.navigate(HomeDestination) {
                                 popUpTo(0) { inclusive = true }
@@ -309,6 +312,9 @@ class MainActivity : AppCompatActivity() {
                             openUrl = { platform ->
                                 firebase.logEvent(R.string.event_onboarding_sync, R.string.param_selection to platform.name)
                                 addAccountViewModel.openUrl(this@MainActivity, platform)
+                            },
+                            onNameYourPriceInfo = {
+                                firebase.logEvent(R.string.event_onboarding_name_your_price)
                             },
                         )
                     }

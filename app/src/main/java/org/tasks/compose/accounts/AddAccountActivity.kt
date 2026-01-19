@@ -115,6 +115,9 @@ class AddAccountActivity : ComponentActivity() {
                         )
                         viewModel.openUrl(this, platform)
                     },
+                    onNameYourPriceInfo = {
+                        firebase.logEvent(R.string.event_onboarding_name_your_price)
+                    },
                 )
             }
         }

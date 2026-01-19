@@ -513,6 +513,7 @@ File %1$s contained %2$s.\n\n
   <string name="invalid_backup_file">Invalid backup file</string>
   <string name="google_tasks_add_to_top">New tasks on top</string>
   <string name="name_your_price">Name your price</string>
+  <string name="name_your_price_blurb">Pay what you want to unlock themes, icons, and these advanced sync options</string>
   <string name="expand_subtasks">Expand subtasks</string>
   <string name="collapse_subtasks">Collapse subtasks</string>
   <string name="subtasks_multilevel_google_task">Multi-level subtasks not supported by Google Tasks</string>
@@ -707,7 +708,9 @@ File %1$s contained %2$s.\n\n
   <string name="enable_alarms">Get notified at the right time</string>
   <string name="enable_alarms_description">To make sure you\'re notified at the right time, grant permission to set alarms and reminders in Settings</string>
   <string name="sign_in">Sign in</string>
-  <string name="legal_disclosure">By using Tasks.org, you agree to the %1$s and %2$s. Tasks is open source software provided under the %3$s.</string>
+  <string name="legal_disclosure">%1$s, you agree to the %2$s and %3$s. Tasks is open source software provided under the %4$s.</string>
+  <string name="legal_disclosure_prefix_using">By using Tasks.org</string>
+  <string name="legal_disclosure_prefix_continuing">By continuing with any button below</string>
   <string name="terms_of_service">Terms of service</string>
   <string name="terms_of_service_proper">Terms of Service</string>
   <string name="privacy_policy_proper">Privacy Policy</string>
@@ -717,6 +720,7 @@ File %1$s contained %2$s.\n\n
   <string name="accept">Accept</string>
   <string name="exit">Exit</string>
   <string name="returning_user">Returning user?</string>
+  <string name="returning_user_import_backup">Import Tasks.org backup</string>
   <string name="sort_sorting">Sorting</string>
   <string name="sort_grouping">Grouping</string>
   <string name="sort_ascending">Ascending</string>

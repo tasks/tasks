@@ -429,6 +429,7 @@
   <string name="event_accept_tos">accept_tos</string>
   <string name="event_accept_tos_update">accept_tos_update</string>
   <string name="event_onboarding_complete">onboarding_complete</string>
+  <string name="event_onboarding_name_your_price">onboarding_name_your_price</string>
   <string name="event_screen_settings">screen_settings</string>
   <string name="event_create_tag">create_tag</string>
   <string name="event_create_filter">create_filter</string>

@@ -3,29 +3,44 @@ package org.tasks.compose.accounts
 import androidx.activity.compose.BackHandler
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material3.Card
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,7 +62,23 @@ fun AddAccountScreen(
     onBack: () -> Unit,
     signIn: (Platform) -> Unit,
     openUrl: (Platform) -> Unit,
+    onNameYourPriceInfo: () -> Unit = {},
 ) {
+    var showNameYourPriceInfo by remember { mutableStateOf(false) }
+
+    if (showNameYourPriceInfo) {
+        AlertDialog(
+            onDismissRequest = { showNameYourPriceInfo = false },
+            title = { Text(stringResource(R.string.name_your_price)) },
+            text = { Text(stringResource(R.string.name_your_price_blurb)) },
+            confirmButton = {
+                TextButton(onClick = { showNameYourPriceInfo = false }) {
+                    Text(stringResource(R.string.ok))
+                }
+            },
+        )
+    }
+
     BackHandler(onBack = onBack)
     Scaffold(
         topBar = {
@@ -62,7 +93,10 @@ fun AddAccountScreen(
                 },
                 title = {
                     Text(text = stringResource(R.string.add_account))
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                ),
             )
         }
     ) { paddingValues ->
@@ -78,7 +112,6 @@ fun AddAccountScreen(
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState())
                     .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 if (!hasTasksAccount) {
                     SectionHeader(R.string.upgrade_to_pro)
@@ -89,70 +122,126 @@ fun AddAccountScreen(
                         onClick = { signIn(Platform.TASKS_ORG) }
                     )
                     if (hasPro) {
-                        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                        HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
                     }
                 }
 
                 if (!hasPro) {
                     SectionHeader(R.string.cost_free)
                 }
-                AccountTypeCard(
-                    title = R.string.microsoft,
-                    icon = R.drawable.ic_microsoft_tasks,
-                    description = if (IS_GOOGLE_PLAY)
-                        R.string.microsoft_selection_description_googleplay
-                    else
-                        R.string.microsoft_selection_description,
-                    onClick = { signIn(Platform.MICROSOFT) }
-                )
-                AccountTypeCard(
-                    title = R.string.gtasks_GPr_header,
-                    icon = R.drawable.ic_google,
-                    description = R.string.google_tasks_selection_description,
-                    onClick = { signIn(Platform.GOOGLE_TASKS) }
-                )
+                CardGroup {
+                    AccountTypeRow(
+                        title = R.string.microsoft,
+                        icon = R.drawable.ic_microsoft_tasks,
+                        description = if (IS_GOOGLE_PLAY)
+                            R.string.microsoft_selection_description_googleplay
+                        else
+                            R.string.microsoft_selection_description,
+                        onClick = { signIn(Platform.MICROSOFT) }
+                    )
+                    HorizontalDivider()
+                    AccountTypeRow(
+                        title = R.string.gtasks_GPr_header,
+                        icon = R.drawable.ic_google,
+                        description = R.string.google_tasks_selection_description,
+                        onClick = { signIn(Platform.GOOGLE_TASKS) }
+                    )
+                }
 
                 if (!hasPro) {
-                    SectionHeader(R.string.name_your_price)
+                    SectionHeader(
+                        title = R.string.name_your_price,
+                        onInfoClick = {
+                            onNameYourPriceInfo()
+                            showNameYourPriceInfo = true
+                        },
+                    )
+                } else {
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
-                AccountTypeCard(
-                    title = R.string.davx5,
-                    icon = R.drawable.ic_davx5_icon_green_bg,
-                    description = R.string.davx5_selection_description,
-                    onClick = { openUrl(Platform.DAVX5) }
-                )
-                AccountTypeCard(
-                    title = R.string.caldav,
-                    icon = R.drawable.ic_webdav_logo,
-                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = .8f),
-                    description = R.string.caldav_selection_description,
-                    onClick = { signIn(Platform.CALDAV) }
-                )
-                AccountTypeCard(
-                    title = R.string.etesync,
-                    icon = R.drawable.ic_etesync,
-                    description = R.string.etesync_selection_description,
-                    onClick = { signIn(Platform.ETESYNC) }
-                )
-                AccountTypeCard(
-                    title = R.string.decsync,
-                    icon = R.drawable.ic_decsync,
-                    description = R.string.decsync_selection_description,
-                    onClick = { openUrl(Platform.DECSYNC_CC) }
-                )
+                CardGroup {
+                    AccountTypeRow(
+                        title = R.string.davx5,
+                        icon = R.drawable.ic_davx5_icon_green_bg,
+                        description = R.string.davx5_selection_description,
+                        onClick = { openUrl(Platform.DAVX5) }
+                    )
+                    HorizontalDivider()
+                    AccountTypeRow(
+                        title = R.string.caldav,
+                        icon = R.drawable.ic_webdav_logo,
+                        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = .8f),
+                        description = R.string.caldav_selection_description,
+                        onClick = { signIn(Platform.CALDAV) }
+                    )
+                    HorizontalDivider()
+                    AccountTypeRow(
+                        title = R.string.etesync,
+                        icon = R.drawable.ic_etesync,
+                        description = R.string.etesync_selection_description,
+                        onClick = { signIn(Platform.ETESYNC) }
+                    )
+                    HorizontalDivider()
+                    AccountTypeRow(
+                        title = R.string.decsync,
+                        icon = R.drawable.ic_decsync,
+                        description = R.string.decsync_selection_description,
+                        onClick = { openUrl(Platform.DECSYNC_CC) }
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
-private fun SectionHeader(@StringRes title: Int) {
-    Text(
-        text = stringResource(id = title).uppercase(),
-        style = MaterialTheme.typography.labelLarge,
-        color = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.padding(top = 8.dp),
-    )
+private fun SectionHeader(
+    @StringRes title: Int,
+    onInfoClick: (() -> Unit)? = null,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .height(48.dp)
+            .then(
+                if (onInfoClick != null)
+                    Modifier.clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        onClick = onInfoClick,
+                    )
+                else
+                    Modifier
+            ),
+    ) {
+        Text(
+            text = stringResource(id = title).uppercase(),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.primary,
+        )
+        if (onInfoClick != null) {
+            Icon(
+                imageVector = Icons.Outlined.Info,
+                contentDescription = stringResource(R.string.help),
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .padding(start = 4.dp)
+                    .size(24.dp),
+            )
+        }
+    }
+}
+
+@Composable
+private fun CardGroup(
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    OutlinedCard(
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+    ) {
+        Column(content = content)
+    }
 }
 
 @Composable
@@ -160,52 +249,76 @@ private fun AccountTypeCard(
     @StringRes title: Int,
     @DrawableRes icon: Int,
     @StringRes description: Int,
-    @StringRes price: Int? = null,
     tint: Color? = null,
     onClick: () -> Unit,
 ) {
-    Card(
+    OutlinedCard(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.large,
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Icon(
-                painter = painterResource(id = icon),
-                contentDescription = null,
-                tint = tint ?: Color.Unspecified,
-                modifier = Modifier.size(40.dp)
+        AccountTypeRowContent(
+            title = title,
+            icon = icon,
+            description = description,
+            tint = tint,
+        )
+    }
+}
+
+@Composable
+private fun AccountTypeRow(
+    @StringRes title: Int,
+    @DrawableRes icon: Int,
+    @StringRes description: Int,
+    tint: Color? = null,
+    onClick: () -> Unit,
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+    ) {
+        AccountTypeRowContent(
+            title = title,
+            icon = icon,
+            description = description,
+            tint = tint,
+        )
+    }
+}
+
+@Composable
+private fun AccountTypeRowContent(
+    @StringRes title: Int,
+    @DrawableRes icon: Int,
+    @StringRes description: Int,
+    tint: Color? = null,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        Icon(
+            painter = painterResource(id = icon),
+            contentDescription = null,
+            tint = tint ?: Color.Unspecified,
+            modifier = Modifier.size(40.dp)
+        )
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = stringResource(id = title),
+                style = MaterialTheme.typography.bodyLarge,
             )
-            Column(modifier = Modifier.weight(1f)) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = stringResource(id = title),
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.weight(1f),
-                    )
-                    price?.let {
-                        Text(
-                            text = stringResource(id = it),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.primary,
-                        )
-                    }
-                }
-                Text(
-                    text = stringResource(id = description),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 4.dp),
-                )
-            }
+            Text(
+                text = stringResource(id = description),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 4.dp),
+            )
         }
     }
 }
@@ -222,6 +335,23 @@ fun AddAccountPreview() {
             onBack = {},
             signIn = {},
             openUrl = {},
+        )
+    }
+}
+
+@PreviewLightDark
+@Composable
+fun NameYourPriceDialogPreview() {
+    TasksTheme {
+        AlertDialog(
+            onDismissRequest = {},
+            title = { Text(stringResource(R.string.name_your_price)) },
+            text = { Text(stringResource(R.string.name_your_price_blurb)) },
+            confirmButton = {
+                TextButton(onClick = {}) {
+                    Text(stringResource(R.string.ok))
+                }
+            },
         )
     }
 }

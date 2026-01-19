@@ -33,7 +33,11 @@ fun TosUpdateDialog(
             )
         },
         text = {
-            LegalDisclosure(openLegalUrl = openUrl, textAlign = TextAlign.Start)
+            LegalDisclosure(
+                prefixRes = R.string.legal_disclosure_prefix_using,
+                openLegalUrl = openUrl,
+                textAlign = TextAlign.Start,
+            )
         },
         dismissButton = {
             TextButton(onClick = onExit) {
