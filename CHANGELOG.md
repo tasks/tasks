@@ -1,4 +1,4 @@
-### 14.9 (2026-01-19)
+### 14.9 (2026-01-20)
 
 * New Terms of Service [blog post](https://tasks.org/blog/terms-of-service)
 * Onboarding improvements
