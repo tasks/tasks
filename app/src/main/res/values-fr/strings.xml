@@ -739,4 +739,24 @@
     <string name="delete_tasks_warning">%s sera supprimé. Cette opération est irréversible !</string>
     <string name="multiline_title_off">Appuyer sur Terminé pour enregistrer la tâche</string>
     <string name="widget_view_more_tasks">Voir plus de tâches</string>
+    <string name="local_list_title">C\'est une liste locale</string>
+    <string name="local_list_description">Les tâches dans cette liste ne sont enregistrées que sur cet appareil. Connectez un compte pour sauvegarder vos données et y accéder n\'importe où.</string>
+    <string name="name_your_price_blurb">Payez ce que vous voulez pour débloquer des thèmes, icônes et des options de synchronisation avancées</string>
+    <string name="microsoft_selection_description_googleplay">Synchronisez avec votre travail, votre école ou votre compte Microsoft personnel</string>
+    <string name="subscription_required_fdroid">Un abonnement est nécessaire pour utiliser la synchronisation avec Tasks.org. Les abonnements doivent être initiés à partir de la version Google Play de Tasks.</string>
+    <string name="sponsorship_required_fdroid">Un parrainage GitHub est nécessaire pour utiliser la synchronisation avec Tasks.org. Cliquez ci-dessous pour devenir un parrain.</string>
+    <string name="legal_disclosure">%1$s, vous acceptez les %2$s et %3$s. Tasks est un logiciel en sources ouvertes fournis sous %4$s.</string>
+    <string name="legal_disclosure_prefix_using">En utilisant Tasks.org</string>
+    <string name="legal_disclosure_prefix_continuing">En continuant avec n\'importe quel bouton ci-dessous</string>
+    <string name="terms_of_service">Conditions d\'utilisation</string>
+    <string name="terms_of_service_proper">Conditions d\'utilisation</string>
+    <string name="privacy_policy_proper">Politique de confidentialité</string>
+    <string name="gplv3_license">Licence GPLv3</string>
+    <string name="tos_updated_title">Nous avons mis à jour nos conditions d\'utilisation</string>
+    <string name="view_tos">Voir les conditions d\'utilisation</string>
+    <string name="accept">Accepter</string>
+    <string name="returning_user_import_backup">Importer une sauvegarde Tasks.org</string>
+    <string name="legal">Mentions légales</string>
+    <string name="exit">Sortir</string>
+    <string name="returning_user">Avez-vous déjà utilisé l\'application ?</string>
 </resources>
