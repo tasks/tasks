@@ -5,33 +5,14 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.consumeAsFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import org.tasks.compose.throttleLatest
-import org.tasks.injection.ApplicationScope
 import timber.log.Timber
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class AppWidgetManager @Inject constructor(
     @param:ApplicationContext private val context: Context,
-    @param:ApplicationScope private val scope: CoroutineScope,
 ) {
     private val appWidgetManager: AppWidgetManager? by lazy {
         AppWidgetManager.getInstance(context)
-    }
-    private val updateChannel = Channel<Unit>(Channel.CONFLATED)
-
-    init {
-        updateChannel
-            .consumeAsFlow()
-            .throttleLatest(1000)
-            .onEach { rebuildWidgets(*widgetIds) }
-            .launchIn(scope)
     }
 
     val widgetIds: IntArray
@@ -51,7 +32,7 @@ class AppWidgetManager @Inject constructor(
     }
 
     fun updateWidgets() {
-        updateChannel.trySend(Unit)
+        rebuildWidgets(*widgetIds)
     }
 
     fun exists(id: Int) = appWidgetManager?.getAppWidgetInfo(id) != null

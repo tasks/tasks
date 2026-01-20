@@ -7,15 +7,37 @@ import android.content.IntentFilter
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.todoroo.astrid.api.AstridApiConstants
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.tasks.broadcast.RefreshBroadcaster
+import org.tasks.compose.throttleLatest
+import org.tasks.injection.ApplicationScope
 import org.tasks.widget.AppWidgetManager
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class LocalBroadcastManager @Inject constructor(
     @ApplicationContext context: Context,
+    @ApplicationScope private val scope: CoroutineScope,
     private val appWidgetManager: AppWidgetManager,
 ): RefreshBroadcaster {
     private val localBroadcastManager = LocalBroadcastManager.getInstance(context)
+    private val refreshChannel = Channel<Unit>(Channel.CONFLATED)
+
+    init {
+        refreshChannel
+            .consumeAsFlow()
+            .throttleLatest(1000)
+            .onEach {
+                localBroadcastManager.sendBroadcast(Intent(REFRESH))
+                appWidgetManager.updateWidgets()
+            }
+            .launchIn(scope)
+    }
 
     fun registerRefreshReceiver(broadcastReceiver: BroadcastReceiver?) {
         localBroadcastManager.registerReceiver(broadcastReceiver!!, IntentFilter(REFRESH))
@@ -43,8 +65,7 @@ class LocalBroadcastManager @Inject constructor(
     }
 
     override fun broadcastRefresh() {
-        localBroadcastManager.sendBroadcast(Intent(REFRESH))
-        appWidgetManager.updateWidgets()
+        refreshChannel.trySend(Unit)
     }
 
     fun broadcastPreferenceRefresh() {
