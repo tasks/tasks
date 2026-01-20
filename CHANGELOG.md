@@ -1,3 +1,10 @@
+### 14.9 (2026-01-19)
+
+* New Terms of Service [blog post](https://tasks.org/blog/terms-of-service)
+* Onboarding improvements
+* Update translations
+  * Greek - Clio Germanou
+
 ### 14.8.5 (2026-01-09)
 
 * Widget performance improvements
