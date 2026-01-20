@@ -717,4 +717,17 @@
     <string name="continue_without_sync">Jätka ilma sünkroniseerimata</string>
     <string name="delete_tasks_warning">%s saab olema kustutatud. Seda tegevust ei saa tagasi pöörata!</string>
     <string name="widget_view_more_tasks">Vaata veel ülesandeid</string>
+    <string name="local_list_title">See on kohalik loend</string>
+    <string name="local_list_description">Selle loendi ülesanded on salvestatud vaid selles nutiseadmes. Kui tahad, et andmed oleks ligipääsetavad kõikjalt ja nende hoidmine paremini tagatud, siis lisa vastav kasutajakonto.</string>
+    <string name="name_your_price_blurb">Maksa nii palju kui saad ja võid kasutada kujundusi, ikoone ja detailsemaid sünkroonimisvõimalusi</string>
+    <string name="microsoft_selection_description_googleplay">Sünkrooni oma töö-, kooli- või isikliku Microsofti kasutajakontoga</string>
+    <string name="subscription_required_fdroid">Tasks.org\'i sünkroonimisvõimaluste kasutamiseks on vajalik tellimus. Tellimused peavad olema lisatud Tasks-rakenduse Google Play versioonis.</string>
+    <string name="sponsorship_required_fdroid">Tasks.org\'i sünkroonimisvõimaluste kasutamiseks on vajalik GitHubi sponsorlus. Sponsoriks hakkamiseks klõpsa järgnevat linki.</string>
+    <string name="legal">Juriidiline teave</string>
+    <string name="tos_updated_title">Me oleme uuendanud oma kasutustingimusi</string>
+    <string name="view_tos">Vaata kasutustingimusi</string>
+    <string name="accept">Nõustu</string>
+    <string name="exit">Välju</string>
+    <string name="returning_user">Sa oled seda rakendust varem kasutanud?</string>
+    <string name="returning_user_import_backup">Impordi Tasks.org-i varukoopia</string>
 </resources>
