@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.backup.TasksJsonExporter
 import org.tasks.logging.LogFormatter.Companion.LINE_SEPARATOR
-import org.tasks.preferences.Device
+import org.tasks.preferences.DiagnosticInfo
 import timber.log.Timber
 import java.io.File
 import java.io.FileInputStream
@@ -29,7 +29,7 @@ import javax.inject.Singleton
 @Singleton
 class FileLogger @Inject constructor(
     private val context: Application,
-    private val device: Lazy<Device>,
+    private val diagnosticInfo: Lazy<DiagnosticInfo>,
     private val tasksJsonExporter: Lazy<TasksJsonExporter>,
 ) : Timber.DebugTree() {
     private val logDirectory = File(context.cacheDir, "logs").apply { mkdirs() }
@@ -86,7 +86,13 @@ class FileLogger @Inject constructor(
                     Timber.e(e, "Failed to save logcat")
                 }
                 zos.putNextEntry(ZipEntry("device.txt"))
-                zos.write(device.get().debugInfo.toByteArray(Charsets.UTF_8))
+                zos.write(diagnosticInfo.get().debugInfo.toByteArray(Charsets.UTF_8))
+                try {
+                    zos.write("\n".toByteArray(Charsets.UTF_8))
+                    zos.write(diagnosticInfo.get().getDiagnosticInfo().toByteArray(Charsets.UTF_8))
+                } catch (e: Exception) {
+                    Timber.e(e, "Failed to save diagnostics")
+                }
                 zos.closeEntry()
                 zos.putNextEntry(ZipEntry("settings.json"))
                 tasksJsonExporter.get().doSettingsExport(zos)

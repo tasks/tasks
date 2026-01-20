@@ -16,6 +16,7 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.logging.FileLogger
+import org.tasks.preferences.DiagnosticInfo
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -24,6 +25,7 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var fileLogger: FileLogger
     @Inject lateinit var inventory: Inventory
+    @Inject lateinit var diagnosticInfo: DiagnosticInfo
 
     override fun getPreferenceXml() = R.xml.help_and_feedback
 
@@ -41,7 +43,7 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
                 )
                 val intent = Intent(Intent.ACTION_SENDTO, uri)
                     .putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback")
-                    .putExtra(Intent.EXTRA_TEXT, device.debugInfo)
+                    .putExtra(Intent.EXTRA_TEXT, diagnosticInfo.debugInfo)
                 startActivity(intent)
                 false
             }
@@ -58,7 +60,7 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
                         .setType("message/rfc822")
                         .putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.support_email)))
                         .putExtra(Intent.EXTRA_SUBJECT, "Tasks logs")
-                        .putExtra(Intent.EXTRA_TEXT, device.debugInfo)
+                        .putExtra(Intent.EXTRA_TEXT, diagnosticInfo.debugInfo)
                         .putExtra(Intent.EXTRA_STREAM, file)
                         .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     startActivity(intent)
