@@ -706,4 +706,24 @@
     <string name="continue_without_sync">继续但不同步</string>
     <string name="delete_tasks_warning">%s 将会删除。此操作无法撤销！</string>
     <string name="widget_view_more_tasks">查看更多任务</string>
+    <string name="local_list_title">这是本地清单</string>
+    <string name="local_list_description">此清单中的任务只存储在这台设备上。连接账户保护数据，在任何地方访问它。</string>
+    <string name="name_your_price_blurb">支付你想要付款的金额解锁主题、图标和这些高级同步选项</string>
+    <string name="microsoft_selection_description_googleplay">与工作、学校或个人 Microsoft 账户同步</string>
+    <string name="subscription_required_fdroid">使用 Tasks.org 同步需要订阅。订阅必须通过 Google Play 版本的 Tasks 应用进行。</string>
+    <string name="sponsorship_required_fdroid">使用 Tasks.org 同步功能需要成为 GitHub 赞助者。单击下方成为赞助者。</string>
+    <string name="legal">法律</string>
+    <string name="legal_disclosure">%1$s，您同意 %2$s 和 %3$s。Tasks 是在 %4$s 下提供的开源软件。</string>
+    <string name="legal_disclosure_prefix_using">使用 Tasks.org</string>
+    <string name="legal_disclosure_prefix_continuing">通过下方任意按钮继续</string>
+    <string name="terms_of_service">服务条款</string>
+    <string name="terms_of_service_proper">服务条款</string>
+    <string name="privacy_policy_proper">隐私政策</string>
+    <string name="gplv3_license">GPLv3 许可证</string>
+    <string name="tos_updated_title">我们更新了服务条款</string>
+    <string name="view_tos">查看服务条款</string>
+    <string name="accept">接受</string>
+    <string name="exit">退出</string>
+    <string name="returning_user">用过 Tasks.org 吗？</string>
+    <string name="returning_user_import_backup">导入 Tasks.org 备份</string>
 </resources>
