@@ -30,7 +30,9 @@ const val FORCE_MICROSOFT_SYNC = "force_microsoft_sync"
         tableName = Task.TABLE_NAME,
         indices = [
             Index(name = "t_rid", value = ["remoteId"], unique = true),
-            Index(name = "active_and_visible", value = ["completed", "deleted", "hideUntil"])])
+            Index(name = "active_and_visible", value = ["completed", "deleted", "hideUntil"]),
+            Index(value = ["parent"]),
+        ])
 data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")

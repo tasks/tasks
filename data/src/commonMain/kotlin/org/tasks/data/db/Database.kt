@@ -61,8 +61,9 @@ import org.tasks.data.entity.UserActivity
     autoMigrations = [
         AutoMigration(from = 83, to = 84, spec = AutoMigrate83to84::class),
         AutoMigration(from = 88, to = 89, spec = AutoMigrate88to89::class),
+        AutoMigration(from = 90, to = 91),
     ],
-    version = 90
+    version = 91
 )
 abstract class Database : RoomDatabase() {
     abstract fun notificationDao(): NotificationDao

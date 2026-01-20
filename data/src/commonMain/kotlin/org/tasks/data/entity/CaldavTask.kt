@@ -28,6 +28,7 @@ import org.tasks.data.entity.Task.Companion.NO_ID
         Index(value = ["cd_remote_id"]),
         Index(value = ["cd_calendar", "cd_remote_id"]),
         Index(value = ["cd_calendar", "cd_remote_parent"]),
+        Index(value = ["cd_calendar", "cd_object"]),
     ]
 )
 data class CaldavTask(
