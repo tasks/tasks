@@ -42,6 +42,7 @@ jobs:
           KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
           MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
           GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
+          POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
         run: bundle exec fastlane bundle
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
