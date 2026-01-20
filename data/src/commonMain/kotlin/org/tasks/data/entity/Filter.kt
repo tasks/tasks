@@ -21,10 +21,13 @@ data class Filter(
     @Redacted
     @ColumnInfo(name = "title")
     val title: String? = null,
+    @Redacted
     @ColumnInfo(name = "sql")
     val sql: String? = null,
+    @Redacted
     @ColumnInfo(name = "values")
     val values: String? = null,
+    @Redacted
     @ColumnInfo(name = "criterion")
     val criterion: String? = null,
     @ColumnInfo(name = "f_color")
