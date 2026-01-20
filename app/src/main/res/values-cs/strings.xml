@@ -739,4 +739,24 @@
     <string name="delete_tasks_warning">Úkol %s bude odstraněn. Tato akce je nevratná!</string>
     <string name="continue_without_sync">Pokračovat bez synchronizace</string>
     <string name="widget_view_more_tasks">Zobrazit další úkoly</string>
+    <string name="local_list_title">Toto je lokální seznam</string>
+    <string name="local_list_description">Úkoly v tomto seznamu jsou uloženy pouze na tomto zařízení. Připojte účet pro zabezpečení vašich dat a přístup k nim odkudkoli.</string>
+    <string name="name_your_price_blurb">Zaplaťte, kolik chcete, pro odemknutí motivů, ikon a těchto pokročilých možností synchronizace</string>
+    <string name="microsoft_selection_description_googleplay">Synchronizujte se svým pracovním, školním nebo osobním účtem Microsoft</string>
+    <string name="subscription_required_fdroid">Pro využití synchronizace Tasks.org je vyžadováno předplatné. Předplatná lze pořídit v Google Play verzi aplikace Tasks.</string>
+    <string name="sponsorship_required_fdroid">Sponzorství na GitHubu je vyžadováno pro synchronizaci Tasks.org. Kliknutím níže se stanete sponzorem.</string>
+    <string name="legal">Právní informace</string>
+    <string name="legal_disclosure">%1$s souhlasíte s %2$s a %3$s. Aplikace Tasks je open-source software poskytovaný pod licencí %4$s.</string>
+    <string name="legal_disclosure_prefix_using">Používáním Tasks.org</string>
+    <string name="legal_disclosure_prefix_continuing">Pokračováním kliknutím na jakékoli tlačítko níže</string>
+    <string name="terms_of_service">Podmínky služby</string>
+    <string name="terms_of_service_proper">Podmínky služby</string>
+    <string name="privacy_policy_proper">Ochrana soukromí</string>
+    <string name="gplv3_license">GPLv3 License</string>
+    <string name="tos_updated_title">Upravili jsme naše Podmínky služby</string>
+    <string name="view_tos">Zobrazit Podmínky služby</string>
+    <string name="accept">Přijmout</string>
+    <string name="exit">Ukončit</string>
+    <string name="returning_user">Už jste aplikaci používali?</string>
+    <string name="returning_user_import_backup">Importovat zálohu Tasks.org</string>
 </resources>
