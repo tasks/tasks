@@ -6,6 +6,7 @@ import android.text.format.Formatter
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.widget.RemoteViewsCompat.RemoteCollectionItems
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastAndroid16
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.subtasks.SubtasksHelper
 import kotlinx.coroutines.runBlocking
@@ -304,13 +305,19 @@ internal class TasksWidgetBuilder(
                 widgetPreferences.collapsed = it
             }
         }
+        val hasMoreItems = tasks.taskCount >= MAX_ITEMS
         Timber.d("buildItems loaded ${tasks.size} items for widget $widgetId")
 
         data class WidgetItem(val id: Long, val view: RemoteViews, val isHeader: Boolean)
         val items = mutableListOf<WidgetItem>()
-        var truncatedDueToSize = false
+        var truncated = false
+        val maxToDisplay = if (hasMoreItems) tasks.size - 1 else tasks.size
 
         for (position in 0 until tasks.size) {
+            if (items.size >= maxToDisplay) {
+                truncated = true
+                break
+            }
             val isHeader = tasks.isHeader(position)
             val id = if (isHeader) {
                 tasks.getSection(position).value
@@ -326,7 +333,7 @@ internal class TasksWidgetBuilder(
             val viewSize = view.estimateParcelSize()
             if (totalParcelSize + viewSize > MAX_PARCEL_SIZE) {
                 Timber.d("Stopping at position $position due to size limit")
-                truncatedDueToSize = true
+                truncated = true
                 break
             }
 
@@ -340,11 +347,11 @@ internal class TasksWidgetBuilder(
 
         items.forEach { builder.addItem(it.id, it.view) }
 
-        if (truncatedDueToSize) {
+        if (truncated) {
             builder.addItem(FOOTER_ID, buildFooter())
         }
 
-        Timber.d("Built ${items.size} items, totalSize=${Formatter.formatShortFileSize(context, totalParcelSize.toLong())}, truncated=$truncatedDueToSize")
+        Timber.d("Built ${items.size} items, totalSize=${Formatter.formatShortFileSize(context, totalParcelSize.toLong())}, truncated=$truncated")
 
         return builder.build()
     }
@@ -352,7 +359,7 @@ internal class TasksWidgetBuilder(
     companion object {
         const val VIEW_TYPE_COUNT = 3
         const val MAX_ITEMS = 100
-        const val MAX_PARCEL_SIZE = 200_000 // 200KB
+        val MAX_PARCEL_SIZE = if (atLeastAndroid16()) 200_000 else Int.MAX_VALUE
         const val FOOTER_ID = 0L
     }
 }
