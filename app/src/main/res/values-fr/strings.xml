@@ -758,5 +758,5 @@
     <string name="returning_user_import_backup">Importer une sauvegarde Tasks.org</string>
     <string name="legal">Mentions légales</string>
     <string name="exit">Sortir</string>
-    <string name="returning_user">Avez-vous déjà utilisé l\'application ?</string>
+    <string name="returning_user">Restaurer les données ?</string>
 </resources>
