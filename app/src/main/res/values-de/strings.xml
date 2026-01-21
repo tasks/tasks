@@ -717,4 +717,17 @@
     <string name="continue_without_sync">Weiter ohne Synchronisierung</string>
     <string name="delete_tasks_warning">%s wird/werden gelöscht. Dies kann nicht rückgängig gemacht werden!</string>
     <string name="widget_view_more_tasks">Mehr Aufgaben anzeigen</string>
+    <string name="local_list_title">Dies ist eine lokale Liste</string>
+    <string name="legal_disclosure_prefix_using">Durch die Nutzung von Tasks.org</string>
+    <string name="legal_disclosure_prefix_continuing">Durch Fortfahren mit einer der folgenden Schaltflächen</string>
+    <string name="terms_of_service">Nutzungsbedingungen</string>
+    <string name="terms_of_service_proper">Nutzungsbedingungen</string>
+    <string name="privacy_policy_proper">Datenschutzerklärung</string>
+    <string name="gplv3_license">GPLv3-Lizenz</string>
+    <string name="tos_updated_title">Wir haben unsere Nutzungsbedingungen aktualisiert</string>
+    <string name="view_tos">Nutzungsbedingungen ansehen</string>
+    <string name="accept">Annehmen</string>
+    <string name="exit">Beenden</string>
+    <string name="returning_user">Wiederkehrender Benutzer?</string>
+    <string name="returning_user_import_backup">Tasks.org-Sicherung importieren</string>
 </resources>
