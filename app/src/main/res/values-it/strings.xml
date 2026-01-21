@@ -739,4 +739,24 @@
     <string name="continue_without_sync">Continua senza sincronizzazione</string>
     <string name="delete_tasks_warning">%s verrà cancellato. L\'operazione non può essere annullata!</string>
     <string name="widget_view_more_tasks">Visualizza ulteriori attività</string>
+    <string name="local_list_title">Questa è una lista locale</string>
+    <string name="local_list_description">Le attività in questa lista sono memorizzate solo su questo dispositivo. Collega un account per sincronizzarle in sicurezza ed accedervi da qualsiasi dispositivo.</string>
+    <string name="name_your_price_blurb">Paga quanto vuoi per sbloccare temi, icone e le opzioni avanzate di sincronizzazione</string>
+    <string name="microsoft_selection_description_googleplay">Sincronizza con il tuo account Microsoft personale, di lavoro o di scuola</string>
+    <string name="subscription_required_fdroid">Per utilizzare la sincronizzazione di Tasks.org è necessaria una sottoscrizione. Le sottoscrizioni devono essere avviate dalla versione di Tasks su Google Play.</string>
+    <string name="sponsorship_required_fdroid">Per utilizzare la sincronizzazione di Tasks.org serve essere sponsor su GitHub. Clicca sotto per aderire.</string>
+    <string name="legal">Condizioni</string>
+    <string name="legal_disclosure">%1$s, accetti anche %2$s e %3$s. Tasks è software open source distribuito con licenza %4$s.</string>
+    <string name="legal_disclosure_prefix_using">Utilizzando Tasks.org</string>
+    <string name="legal_disclosure_prefix_continuing">Continuando con uno qualsiasi dei pulsanti qui sotto</string>
+    <string name="terms_of_service">Termini del servizio</string>
+    <string name="terms_of_service_proper">Termini del Servizio</string>
+    <string name="privacy_policy_proper">Informativa sulla privacy</string>
+    <string name="gplv3_license">Licenza GPLv3</string>
+    <string name="tos_updated_title">Abbiamo aggiornato i Termini di Servizio</string>
+    <string name="view_tos">Mostra i Termini di Servizio</string>
+    <string name="accept">Accetta</string>
+    <string name="exit">Esci</string>
+    <string name="returning_user">Ripristino i dati?</string>
+    <string name="returning_user_import_backup">Importa il backup di Tasks.org</string>
 </resources>
