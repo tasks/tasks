@@ -325,7 +325,7 @@
     <string name="auto_dismiss_datetime_widget_summary">Aŭtomate fermi kiam elekti per umilo</string>
     <string name="share">Kunhavigi</string>
     <string name="calendar_event_created">Kreis kalendara evento por %s</string>
-    <string name="sort_created_group">Kreita: %s</string>
+    <string name="sort_created_group">Kreite: %s</string>
     <string name="EPr_manage_delete_completed_gcal_message">Ĉu vi vere volas forigi ĉiujn de viaj eventoj de finitaj taskoj?</string>
     <string name="when_due">Kiam atendata</string>
     <string name="when_started">Kiam komencita</string>
@@ -338,7 +338,7 @@
     <string name="or_choose_a_location">Aŭ elekti lokon</string>
     <string name="shortcut_pick_time">Elekti horon</string>
     <string name="auto_dismiss_datetime_summary">Fermi data/hora elektilo post elekti daton aŭ horon</string>
-    <string name="app_password_created_at">Kreita: %s</string>
+    <string name="app_password_created_at">Kreite: %s</string>
     <string name="task_defaults">Taskaj defaŭltoj</string>
     <string name="task_list_options">Taskolistaj agordoj</string>
     <string name="auto_dismiss_datetime">Aŭtomate fermi datan/horan elektilon</string>
@@ -717,4 +717,24 @@
     <string name="delete_tasks_warning">Forigas %s. Ne eblas malfari tion!</string>
     <string name="continue_without_sync">Daŭrigi sen sinkronigo</string>
     <string name="widget_view_more_tasks">Vidi pli da taskoj</string>
+    <string name="local_list_title">Ĉi tiu estas loka listo</string>
+    <string name="local_list_description">Taskoj en ĉi tiu listo estas konservitaj nur en ĉi tiu aparato. Konektu konton por sekurigi vian datumojn kaj atingi ĝin de ĉie.</string>
+    <string name="name_your_price_blurb">Laŭvole pagi por malŝlosi etosojn, piktogramojn, kaj altnivelajn opciojn de sinkronigo</string>
+    <string name="microsoft_selection_description_googleplay">Por sinkronigi vian laboran, lernejan, aŭ privatan Microsoft konton</string>
+    <string name="subscription_required_fdroid">Uzi sinkronigon de Tasks.org bezonas abonon. Oni devas iniciati abonon per Google Play versio de Tasks.</string>
+    <string name="legal">Leĝa</string>
+    <string name="legal_disclosure_prefix_using">Per uzi Tasks.org</string>
+    <string name="legal_disclosure_prefix_continuing">Per daŭri per ajna butono sube</string>
+    <string name="terms_of_service">Kondiĉoj de uzado</string>
+    <string name="terms_of_service_proper">Kondiĉoj de Uzado</string>
+    <string name="privacy_policy_proper">Regularo pri Privateco</string>
+    <string name="gplv3_license">GPLv3 Licenco</string>
+    <string name="tos_updated_title">Ni ĝisdatigis niajn Kondiĉojn de Uzado</string>
+    <string name="view_tos">Vidi Kondiĉojn de Uzado</string>
+    <string name="accept">Akcepti</string>
+    <string name="exit">Eliri</string>
+    <string name="returning_user">Ĉu revena uzanto?</string>
+    <string name="returning_user_import_backup">Importi savkopion de Tasks.org</string>
+    <string name="sponsorship_required_fdroid">Uzi Tasks.org sinkronigon bezonas GitHub sponsorecon. Alklaku suben por fariĝi sponsoro.</string>
+    <string name="legal_disclosure">%1$s, vi konsentas kun la %2$s kaj %3$s. Tasks estas malfermitkoda programaro disponita per la %4$s.</string>
 </resources>
