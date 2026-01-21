@@ -717,4 +717,24 @@
     <string name="continue_without_sync">Folytatás szinkronizálás nélkül</string>
     <string name="multiline_title_off">Kattints a Kész gombra a feladat elmentéséhez</string>
     <string name="widget_view_more_tasks">További feladatok megtekintése</string>
+    <string name="local_list_title">Ez egy helyi lista</string>
+    <string name="local_list_description">Az ebben a listában található feladatok csak erzen a készüléken kerülnek mentésre. Kapcsolódj egy fiókhoz, hogy az adataid biztonságban legyenek és bárhonnan elérd őket.</string>
+    <string name="name_your_price_blurb">Tetszőleges összeget fizethetsz a témákért, ikonokért és fejlett szinkronizációs lehetőségekért</string>
+    <string name="microsoft_selection_description_googleplay">Szinkronizálás munkahelyi, iskolai vagy személyes Microsoft fiókkal</string>
+    <string name="subscription_required_fdroid">A Tasks.org szinkronizáláshoz előfizetés szükséges. Az előfizetést a Tasks alkalmazás Google Play verziójából lehet kezdeményezni.</string>
+    <string name="sponsorship_required_fdroid">A Tasks.org szinkronizáláshoz GitHub szponzori előfizetés szükséges. A szponzori tagsághoz kattints az alábbi linkre.</string>
+    <string name="legal">Jogi tudnivalók</string>
+    <string name="legal_disclosure">%1$s, egyetértesz a következőkkel: %2$s és %3$s. A Tasks a %4$s szerinti nyílt forráskódú szoftver.</string>
+    <string name="legal_disclosure_prefix_using">A Tasks.org használata által</string>
+    <string name="legal_disclosure_prefix_continuing">Az alábbi gombok használatával</string>
+    <string name="terms_of_service">Szolgáltatási feltételek</string>
+    <string name="terms_of_service_proper">Szolgáltatási feltételek</string>
+    <string name="privacy_policy_proper">Adatvédelmi irányelv</string>
+    <string name="gplv3_license">GPLv3 licensz</string>
+    <string name="tos_updated_title">Frissítettük a Szolgáltatási feltételeket</string>
+    <string name="view_tos">Szolgáltatási feltételek megtekintése</string>
+    <string name="accept">Elfogadás</string>
+    <string name="exit">Kilépés</string>
+    <string name="returning_user">Visszatérő felhasználó?</string>
+    <string name="returning_user_import_backup">Tasks.org mentés importálása</string>
 </resources>
