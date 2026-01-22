@@ -717,4 +717,24 @@
     <string name="delete_tasks_warning">%s silinecek. Bu geri alınamaz!</string>
     <string name="continue_without_sync">Eşzamanlamadan sürdür</string>
     <string name="widget_view_more_tasks">Daha çok görev gör</string>
+    <string name="local_list_title">Bu yerel listedir</string>
+    <string name="local_list_description">Bu listedeki görevler yalnızca bu aygıtta saklanır. Verinizi korumak ve her yerden erişmek için hesaba bağlanın.</string>
+    <string name="name_your_price_blurb">Gövdeleri, simgeleri ve gelişmiş eşzamanlama seçenekleri için istediğinizi ödeyin</string>
+    <string name="microsoft_selection_description_googleplay">İş, okul ya da kişisel Microsoft hesabınızla eşzamanlayın</string>
+    <string name="subscription_required_fdroid">Tasks.org eşzamanlamasını kullanmak için abonelik gerekir. Abonelikler, Tasks\'ın Google Play sürümünden başlatılmalıdır.</string>
+    <string name="sponsorship_required_fdroid">Tasks.org eşzamanlamasını kullanmak için GitHub sponsorluğu gerekir. Sponsor olmak için aşağıya tıklayın.</string>
+    <string name="legal">Yasal</string>
+    <string name="legal_disclosure">%1$s, %2$s ve %3$s kabul ediyorsunuz. Tasks, %4$s altında sağlanan açık kaynaklı yazılımdır.</string>
+    <string name="legal_disclosure_prefix_using">Tasks.org\'u kullanarak</string>
+    <string name="legal_disclosure_prefix_continuing">Aşağıdaki herhangi düğmeyle sürdürerek</string>
+    <string name="terms_of_service">Hizmet koşulları</string>
+    <string name="terms_of_service_proper">Hizmet Koşulları</string>
+    <string name="privacy_policy_proper">Gizlilik İlkesi</string>
+    <string name="gplv3_license">GPLv3 Lisansı</string>
+    <string name="tos_updated_title">Hizmet Koşullarımızı güncelledik</string>
+    <string name="view_tos">Hizmet Koşullarını Görüntüle</string>
+    <string name="accept">Onayla</string>
+    <string name="exit">Çık</string>
+    <string name="returning_user">Geri gelen kullanıcı mısınız?</string>
+    <string name="returning_user_import_backup">Tasks.org yedeğini içe aktar</string>
 </resources>
