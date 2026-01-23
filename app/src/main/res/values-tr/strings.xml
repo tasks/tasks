@@ -737,4 +737,6 @@
     <string name="exit">Çık</string>
     <string name="returning_user">Geri gelen kullanıcı mısınız?</string>
     <string name="returning_user_import_backup">Tasks.org yedeğini içe aktar</string>
+    <string name="import_failed">İçe aktarma başarısız</string>
+    <string name="import_failed_message">Yedek dosyası okunamadı</string>
 </resources>
