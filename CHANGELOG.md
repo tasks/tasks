@@ -1,9 +1,21 @@
-### 14.9 (2026-01-20)
+### 14.9 (2026-01-22)
 
 * New Terms of Service [blog post](https://tasks.org/blog/terms-of-service)
 * Onboarding improvements
+* Fix DAVx5 sync error
+* Performance improvements
 * Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Czech - @Fjuro
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @Atalanttore
   * Greek - Clio Germanou
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Turkish - @emintufan
 
 ### 14.8.5 (2026-01-09)
 

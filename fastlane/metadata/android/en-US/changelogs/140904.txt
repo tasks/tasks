@@ -1,3 +1,5 @@
 * New Terms of Service
 * Onboarding improvements
+* Fix DAVx5 sync error
+* Performance improvements
 * Update translations
