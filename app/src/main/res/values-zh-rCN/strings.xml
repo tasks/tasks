@@ -726,4 +726,6 @@
     <string name="exit">退出</string>
     <string name="returning_user">用过 Tasks.org 吗？</string>
     <string name="returning_user_import_backup">导入 Tasks.org 备份</string>
+    <string name="import_failed">导入失败</string>
+    <string name="import_failed_message">无法读取备份文件</string>
 </resources>
