@@ -1,4 +1,4 @@
-### 14.9 (2026-01-22)
+### 14.9 (2026-01-23)
 
 * New Terms of Service [blog post](https://tasks.org/blog/terms-of-service)
 * Onboarding improvements
@@ -6,7 +6,7 @@
 * Performance improvements
 * Update translations
   * Bulgarian - 109247019824
-  * Chinese (Simplified) - 大王叫我来巡山
+  * Chinese (Simplified) - 大王叫我来巡山, Sketch6580
   * Czech - @Fjuro
   * Esperanto - Don Zouras
   * Estonian - Priit Jõerüüt
@@ -15,6 +15,7 @@
   * Greek - Clio Germanou
   * Hungarian - Kaci
   * Italian - @ppasserini
+  * Japanese - @f1047
   * Turkish - @emintufan
 
 ### 14.8.5 (2026-01-09)
