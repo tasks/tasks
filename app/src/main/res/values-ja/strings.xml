@@ -706,4 +706,5 @@
     <string name="delete_tasks_warning">%sは削除されます。これは元に戻せません！</string>
     <string name="cost_more_money">料金: $$$</string>
     <string name="widget_view_more_tasks">ほかのタスクを表示</string>
+    <string name="microsoft_selection_description_googleplay">職場用、学校用、または個人用Microsoftアカウントと同期する</string>
 </resources>
