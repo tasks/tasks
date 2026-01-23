@@ -60,6 +60,7 @@ import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.compose.AddAccountDestination
 import org.tasks.compose.HomeDestination
+import org.tasks.compose.ImportTasksViewModel
 import org.tasks.compose.TosUpdateDialog
 import org.tasks.compose.WelcomeDestination
 import org.tasks.compose.WelcomeScreen
@@ -72,7 +73,6 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Task
-import org.tasks.dialogs.ImportTasksDialog
 import org.tasks.dialogs.NewFilterDialog
 import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.extensions.Context.nightMode
@@ -87,7 +87,6 @@ import org.tasks.jobs.WorkManager
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
-import org.tasks.preferences.fragments.FRAG_TAG_IMPORT_TASKS
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.microsoft.MicrosoftSignInViewModel
 import org.tasks.themes.ColorProvider
@@ -162,8 +161,11 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 var wasInOnboarding by rememberSaveable { mutableStateOf(false) }
-                LaunchedEffect(hasAccount) {
-                    Timber.d("hasAccount=$hasAccount")
+                val importViewModel: ImportTasksViewModel = hiltViewModel()
+                val importState by importViewModel.state.collectAsStateWithLifecycle()
+                val isImporting = importState !is ImportTasksViewModel.ImportState.Idle
+                LaunchedEffect(hasAccount, isImporting) {
+                    Timber.d("hasAccount=$hasAccount isImporting=$isImporting")
                     when (hasAccount) {
                         false -> {
                             if (!wasInOnboarding) {
@@ -174,6 +176,9 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                         true -> {
+                            if (isImporting) {
+                                return@LaunchedEffect
+                            }
                             if (wasInOnboarding) {
                                 val hasLogged = tasksPreferences.get(
                                     TasksPreferences.hasLoggedOnboardingComplete,
@@ -214,15 +219,12 @@ class MainActivity : AppCompatActivity() {
                             firebase.logEvent(R.string.event_screen_welcome)
                         }
                         val addAccountViewModel: AddAccountViewModel = hiltViewModel()
-                        val importBackupLauncher =
-                            rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                                if (result.resultCode == RESULT_OK) {
-                                    val uri = result.data?.data ?: return@rememberLauncherForActivityResult
-                                    ImportTasksDialog.newImportTasksDialog(uri)
-                                        .show(supportFragmentManager, FRAG_TAG_IMPORT_TASKS)
-                                }
-                            }
                         WelcomeScreen(
+                            importViewModel = importViewModel,
+                            filePickerIntent = FileHelper.newFilePickerIntent(
+                                this@MainActivity,
+                                preferences.backupDirectory
+                            ),
                             onBack = { finish() },
                             onSignIn = {
                                 lifecycleScope.launch {
@@ -252,12 +254,6 @@ class MainActivity : AppCompatActivity() {
                                     firebase.logEvent(
                                         R.string.event_onboarding_sync,
                                         R.string.param_selection to "import_backup"
-                                    )
-                                    importBackupLauncher.launch(
-                                        FileHelper.newFilePickerIntent(
-                                            this@MainActivity,
-                                            preferences.backupDirectory
-                                        ),
                                     )
                                 }
                             },

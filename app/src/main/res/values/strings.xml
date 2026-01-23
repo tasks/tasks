@@ -17,6 +17,8 @@ File %1$s contained %2$s.\n\n
 %5$s had errors\n
   </string>
   <string name="import_progress_read">Reading task %d…</string>
+  <string name="import_failed">Import failed</string>
+  <string name="import_failed_message">Could not read backup file</string>
   <string name="read_permission_label">Tasks Permission</string>
   <string name="discard_confirmation">Are you sure you want to discard your changes?</string>
   <string name="keep_editing">Keep editing</string>

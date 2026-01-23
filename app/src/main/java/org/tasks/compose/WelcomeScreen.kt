@@ -1,7 +1,11 @@
 package org.tasks.compose
 
-import androidx.annotation.StringRes
+import android.app.Activity
+import android.content.Intent
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -23,8 +27,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,12 +42,53 @@ import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import org.tasks.themes.TasksTheme
 
 @Composable
 fun WelcomeScreen(
+    importViewModel: ImportTasksViewModel,
+    filePickerIntent: Intent,
+    onBack: () -> Unit,
+    onSignIn: () -> Unit,
+    onContinueWithoutSync: () -> Unit,
+    onImportBackup: () -> Unit,
+    openLegalUrl: (String) -> Unit,
+) {
+    val importUri by importViewModel.importUri.collectAsStateWithLifecycle()
+
+    val importBackupLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            importViewModel.setImportUri(result.data?.data)
+        }
+    }
+
+    importUri?.let { uri ->
+        ImportTasksDialog(
+            uri = uri,
+            viewModel = importViewModel,
+            onFinished = { importViewModel.reset() }
+        )
+    }
+
+    WelcomeScreenLayout(
+        onBack = onBack,
+        onSignIn = onSignIn,
+        onContinueWithoutSync = onContinueWithoutSync,
+        onImportBackup = {
+            onImportBackup()
+            importBackupLauncher.launch(filePickerIntent)
+        },
+        openLegalUrl = openLegalUrl,
+    )
+}
+
+@Composable
+private fun WelcomeScreenLayout(
     onBack: () -> Unit,
     onSignIn: () -> Unit,
     onContinueWithoutSync: () -> Unit,
@@ -240,9 +285,9 @@ internal fun LegalDisclosure(
 @PreviewScreenSizes
 @PreviewFontScale
 @Composable
-fun WelcomeScreenPreview() {
+private fun WelcomeScreenPreview() {
     TasksTheme {
-        WelcomeScreen(
+        WelcomeScreenLayout(
             onBack = {},
             onSignIn = {},
             onContinueWithoutSync = {},

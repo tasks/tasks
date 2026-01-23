@@ -1,9 +1,7 @@
 package org.tasks.backup
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.net.Uri
-import android.os.Handler
 import android.util.JsonReader
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
@@ -81,23 +79,15 @@ class TasksJsonImporter @Inject constructor(
 ) {
     private val result = ImportResult()
 
-    private fun setProgressMessage(
-            handler: Handler, progressDialog: ProgressDialog?, message: String) {
-        if (progressDialog == null) {
-            return
-        }
-        handler.post { progressDialog.setMessage(message) }
-    }
-
     suspend fun importTasks(
         context: Context,
         backupFile: Uri?,
-        progressDialog: ProgressDialog?
+        onProgress: (suspend (String) -> Unit)? = null
     ): ImportResult = withContext(Dispatchers.IO) {
         Timber.d("Importing backup file $backupFile")
         try {
             val version = importMetadata(context, backupFile)
-            importTasks(context, backupFile, progressDialog, version)
+            importTasks(context, backupFile, onProgress, version)
             if (version < Upgrader.V8_2) {
                 val themeIndex = preferences.getInt(R.string.p_theme_color, 7)
                 preferences.setInt(
@@ -276,10 +266,9 @@ class TasksJsonImporter @Inject constructor(
     private suspend fun importTasks(
         context: Context,
         backupFile: Uri?,
-        progressDialog: ProgressDialog?,
+        onProgress: (suspend (String) -> Unit)?,
         version: Int,
     ) {
-        val handler = Handler(context.mainLooper)
         val `is`: InputStream? = try {
             context.contentResolver.openInputStream(backupFile!!)
         } catch (e: FileNotFoundException) {
@@ -298,10 +287,9 @@ class TasksJsonImporter @Inject constructor(
                             "tasks" -> {
                                 reader.forEach<TaskBackup> { backup ->
                                     result.taskCount++
-                                    setProgressMessage(
-                                        handler,
-                                        progressDialog,
-                                        context.getString(R.string.import_progress_read, result.taskCount))
+                                    onProgress?.invoke(
+                                        context.getString(R.string.import_progress_read, result.taskCount)
+                                    )
                                     importTask(backup, version)
                                 }
                             }
