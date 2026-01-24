@@ -717,4 +717,21 @@
     <string name="continue_without_sync">Doorgaan zonder synchronisatie</string>
     <string name="delete_tasks_warning">%s wordt verwijderd. Dit kan niet ongedaan worden gemaakt!</string>
     <string name="widget_view_more_tasks">Meer taken zien</string>
+    <string name="import_failed">Import mislukt</string>
+    <string name="import_failed_message">Kon het backupbestand niet lezen</string>
+    <string name="local_list_title">Dit is een lokale lijst</string>
+    <string name="local_list_description">Taken in deze lijst worden uitsluitend op dit apparaat opgeslagen. Maak verbinding met een account om uw data veilig te stellen en het overal te kunnen benaderen.</string>
+    <string name="microsoft_selection_description_googleplay">Synchroniseer met je werk-, school- of persoonlijk Microsoft-account</string>
+    <string name="legal">Juridische informatie</string>
+    <string name="legal_disclosure_prefix_using">Door Tasks.org te gebruiken</string>
+    <string name="terms_of_service">Gebruiksvoorwaarden</string>
+    <string name="terms_of_service_proper">Gebruiksvoorwaarden</string>
+    <string name="privacy_policy_proper">Privacybeleid</string>
+    <string name="gplv3_license">GPLv3-licentie</string>
+    <string name="tos_updated_title">We hebben onze gebruikersvoorwaarden bijgewerkt</string>
+    <string name="view_tos">Gebruikersvoorwaarden bekijken</string>
+    <string name="accept">Accepteren</string>
+    <string name="exit">Afsluiten</string>
+    <string name="returning_user">Terugkerende gebruiker?</string>
+    <string name="returning_user_import_backup">Tasks.org-backup importeren</string>
 </resources>
