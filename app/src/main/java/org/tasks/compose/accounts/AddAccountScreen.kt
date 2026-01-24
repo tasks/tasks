@@ -225,7 +225,7 @@ fun AddAccountScreen(
                         title = R.string.etesync,
                         icon = R.drawable.ic_etesync,
                         description = R.string.etesync_selection_description,
-                        onClick = { signIn(Platform.ETESYNC) }
+                        onClick = { signIn(Platform.ETEBASE) }
                     )
                     HorizontalDivider()
                     AccountTypeRow(

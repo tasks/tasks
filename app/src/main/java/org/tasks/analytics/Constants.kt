@@ -10,4 +10,5 @@ object Constants {
     const val SYNC_TYPE_DECSYNC = "decsync"
     const val SYNC_TYPE_MICROSOFT = "microsoft"
     const val SYNC_TYPE_LOCAL = "local"
+    const val SYNC_TYPE_TASKS_ORG = "tasks_org"
 }

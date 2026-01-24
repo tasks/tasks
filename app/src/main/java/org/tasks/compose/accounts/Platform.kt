@@ -6,7 +6,6 @@ enum class Platform {
     MICROSOFT,
     DAVX5,
     CALDAV,
-    ETESYNC,
+    ETEBASE,
     DECSYNC_CC,
-    LOCAL,
 }

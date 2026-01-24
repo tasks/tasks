@@ -304,13 +304,10 @@ class MainActivity : AppCompatActivity() {
                                             Intent(this@MainActivity, CaldavAccountSettingsActivity::class.java)
                                         )
 
-                                    Platform.ETESYNC ->
+                                    Platform.ETEBASE ->
                                         syncLauncher.launch(
                                             Intent(this@MainActivity, EtebaseAccountSettingsActivity::class.java)
                                         )
-
-                                    Platform.LOCAL ->
-                                        addAccountViewModel.createLocalAccount()
 
                                     else -> throw IllegalArgumentException()
                                 }

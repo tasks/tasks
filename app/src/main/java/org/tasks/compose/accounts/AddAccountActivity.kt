@@ -108,12 +108,10 @@ class AddAccountActivity : ComponentActivity() {
                                 syncLauncher.launch(
                                     Intent(this, CaldavAccountSettingsActivity::class.java)
                                 )
-                            Platform.ETESYNC ->
+                            Platform.ETEBASE ->
                                 syncLauncher.launch(
                                     Intent(this, EtebaseAccountSettingsActivity::class.java)
                                 )
-                            Platform.LOCAL ->
-                                viewModel.createLocalAccount()
                             else -> throw IllegalArgumentException()
                         }
                     },

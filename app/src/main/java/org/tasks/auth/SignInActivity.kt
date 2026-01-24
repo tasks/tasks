@@ -43,6 +43,7 @@ import net.openid.appauth.RegistrationRequest
 import net.openid.appauth.RegistrationResponse
 import net.openid.appauth.ResponseTypeValues
 import org.tasks.R
+import org.tasks.analytics.Constants
 import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import org.tasks.analytics.Firebase
@@ -258,6 +259,10 @@ class SignInActivity : ComponentActivity() {
                     lifecycleScope.launch {
                         val account = viewModel.setupAccount(authService)
                         if (account != null) {
+                            firebase.logEvent(
+                                R.string.event_sync_add_account,
+                                R.string.param_type to Constants.SYNC_TYPE_TASKS_ORG
+                            )
                             setResult(RESULT_OK)
                             finish()
                         }
@@ -272,6 +277,10 @@ class SignInActivity : ComponentActivity() {
                             viewModel.handleResult(authService, data!!)
                             if (authService.authStateManager.current.isAuthorized) {
                                 if (setupAccount()) {
+                                    firebase.logEvent(
+                                        R.string.event_sync_add_account,
+                                        R.string.param_type to Constants.SYNC_TYPE_TASKS_ORG
+                                    )
                                     setResult(RESULT_OK)
                                     finish()
                                 }
