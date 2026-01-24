@@ -730,4 +730,6 @@
     <string name="exit">Beenden</string>
     <string name="returning_user">Wiederkehrender Benutzer?</string>
     <string name="returning_user_import_backup">Tasks.org-Sicherung importieren</string>
+    <string name="import_failed">Import fehlgeschlagen</string>
+    <string name="import_failed_message">Sicherungsdatei konnte nicht gelesen werden</string>
 </resources>
