@@ -737,4 +737,6 @@
     <string name="exit">Изход</string>
     <string name="returning_user">Вече сте потребител?</string>
     <string name="returning_user_import_backup">Внесете резервно копие на Tasks.org</string>
+    <string name="import_failed">Грешка при внасяне</string>
+    <string name="import_failed_message">Файлът с резервното копие не може да бъде прочетен</string>
 </resources>
