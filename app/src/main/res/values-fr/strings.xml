@@ -759,4 +759,6 @@
     <string name="legal">Mentions légales</string>
     <string name="exit">Sortir</string>
     <string name="returning_user">Restaurer les données ?</string>
+    <string name="import_failed_message">Impossible de lire le fichier de sauvegarde</string>
+    <string name="import_failed">Échec de l\'importation</string>
 </resources>
