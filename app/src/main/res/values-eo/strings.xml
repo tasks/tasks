@@ -737,4 +737,6 @@
     <string name="returning_user_import_backup">Importi savkopion de Tasks.org</string>
     <string name="sponsorship_required_fdroid">Uzi Tasks.org sinkronigon bezonas GitHub sponsorecon. Alklaku suben por fariĝi sponsoro.</string>
     <string name="legal_disclosure">%1$s, vi konsentas kun la %2$s kaj %3$s. Tasks estas malfermitkoda programaro disponita per la %4$s.</string>
+    <string name="import_failed">Importo malsukcesis</string>
+    <string name="import_failed_message">Malsukcesis legi dosieron de savkopio</string>
 </resources>
