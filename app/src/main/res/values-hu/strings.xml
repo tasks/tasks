@@ -9,8 +9,8 @@
     <string name="import_summary_title">Visszaállítás összesítése</string>
     <string name="import_summary_message">A(z) %1$s file %2$s-t tartalmazott.\n\n %3$s importálva,\n %4$s már létezett\n %5$s hibás</string>
     <string name="import_progress_read">%d feladat felolvasása…</string>
-    <string name="read_permission_label">Tasks Engedélyek</string>
-    <string name="discard_confirmation">Biztosan el akarja vetni a változtatásokat?</string>
+    <string name="read_permission_label">Tasks engedélyek</string>
+    <string name="discard_confirmation">Biztosan el akarod vetni a változtatásokat?</string>
     <string name="keep_editing">Vissza a szerkesztéshez</string>
     <string name="DLG_delete_this_task_question">Feladat törlése?</string>
     <string name="DLG_hour_minutes">Idő (óra : perc)</string>
@@ -737,4 +737,6 @@
     <string name="exit">Kilépés</string>
     <string name="returning_user">Visszatérő felhasználó?</string>
     <string name="returning_user_import_backup">Tasks.org mentés importálása</string>
+    <string name="import_failed_message">A mentés fájlja nem olvasható</string>
+    <string name="import_failed">Sikertelen importálás</string>
 </resources>
