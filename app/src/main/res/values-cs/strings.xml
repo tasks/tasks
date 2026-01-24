@@ -759,4 +759,6 @@
     <string name="exit">Ukončit</string>
     <string name="returning_user">Už jste aplikaci používali?</string>
     <string name="returning_user_import_backup">Importovat zálohu Tasks.org</string>
+    <string name="import_failed">Import selhal</string>
+    <string name="import_failed_message">Nepodařilo se přečíst soubor zálohy</string>
 </resources>
