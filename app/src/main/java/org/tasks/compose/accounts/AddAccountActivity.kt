@@ -89,7 +89,8 @@ class AddAccountActivity : ComponentActivity() {
                     onBack = { finish() },
                     signIn = { platform ->
                         firebase.logEvent(
-                            R.string.event_onboarding_sync,
+                            R.string.event_add_account,
+                            R.string.param_source to "settings",
                             R.string.param_selection to platform
                         )
                         when (platform) {
@@ -118,7 +119,8 @@ class AddAccountActivity : ComponentActivity() {
                     },
                     openUrl = { platform ->
                         firebase.logEvent(
-                            R.string.event_onboarding_sync,
+                            R.string.event_add_account,
+                            R.string.param_source to "settings",
                             R.string.param_selection to platform.name
                         )
                         viewModel.openUrl(this, platform)

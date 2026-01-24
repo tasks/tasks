@@ -241,7 +241,7 @@ class MainActivity : AppCompatActivity() {
                                         firebase.logEvent(R.string.event_accept_tos)
                                         setAcceptedTosVersion(currentTosVersion)
                                     }
-                                    firebase.logEvent(R.string.event_onboarding_sync, R.string.param_selection to "local")
+                                    firebase.logEvent(R.string.event_add_account, R.string.param_source to "onboarding", R.string.param_selection to "local")
                                     addAccountViewModel.createLocalAccount()
                                 }
                             },
@@ -252,7 +252,8 @@ class MainActivity : AppCompatActivity() {
                                         setAcceptedTosVersion(currentTosVersion)
                                     }
                                     firebase.logEvent(
-                                        R.string.event_onboarding_sync,
+                                        R.string.event_add_account,
+                                        R.string.param_source to "onboarding",
                                         R.string.param_selection to "import_backup"
                                     )
                                 }
@@ -283,7 +284,7 @@ class MainActivity : AppCompatActivity() {
                             needsConsent = acceptedTosVersion < currentTosVersion,
                             onBack = { navController.popBackStack() },
                             signIn = { platform ->
-                                firebase.logEvent(R.string.event_onboarding_sync, R.string.param_selection to platform)
+                                firebase.logEvent(R.string.event_add_account, R.string.param_source to "onboarding", R.string.param_selection to platform)
                                 when (platform) {
                                     Platform.TASKS_ORG ->
                                         syncLauncher.launch(
@@ -315,7 +316,7 @@ class MainActivity : AppCompatActivity() {
                                 }
                             },
                             openUrl = { platform ->
-                                firebase.logEvent(R.string.event_onboarding_sync, R.string.param_selection to platform.name)
+                                firebase.logEvent(R.string.event_add_account, R.string.param_source to "onboarding", R.string.param_selection to platform.name)
                                 addAccountViewModel.openUrl(this@MainActivity, platform)
                             },
                             openLegalUrl = { openUri(it) },

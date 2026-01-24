@@ -425,7 +425,8 @@
   <string name="event_request_review">request_review</string>
   <string name="event_create_shortcut">create_shortcut</string>
   <string name="event_create_widget">create_widget</string>
-  <string name="event_onboarding_sync">onboarding_sync</string>
+  <string name="event_add_account">add_account</string>
+  <string name="param_source">source</string>
   <string name="event_accept_tos">accept_tos</string>
   <string name="event_accept_tos_update">accept_tos_update</string>
   <string name="event_onboarding_complete">onboarding_complete</string>
