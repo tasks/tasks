@@ -730,4 +730,6 @@
     <string name="exit">Välju</string>
     <string name="returning_user">Sa oled seda rakendust varem kasutanud?</string>
     <string name="returning_user_import_backup">Impordi Tasks.org-i varukoopia</string>
+    <string name="import_failed">Importimine ei õnnestunud</string>
+    <string name="import_failed_message">Varukoopia faili lugemine ei õnnestunud</string>
 </resources>
