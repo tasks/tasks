@@ -732,4 +732,11 @@
     <string name="returning_user_import_backup">Tasks.org-Sicherung importieren</string>
     <string name="import_failed">Import fehlgeschlagen</string>
     <string name="import_failed_message">Sicherungsdatei konnte nicht gelesen werden</string>
+    <string name="name_your_price_blurb">Zahle, was du willst, um Designs, Icons und diese erweiterten Sync-Optionen freizuschalten</string>
+    <string name="local_list_description">Aufgaben in dieser Liste werden nur auf diesem Gerät gespeichert. Verbinde ein Konto, um deine Daten zu sichern und von überall darauf zuzugreifen.</string>
+    <string name="microsoft_selection_description_googleplay">Synchronisiere mit deinem Arbeits-, Schul- oder persönlichen Microsoft-Konto</string>
+    <string name="subscription_required_fdroid">Ein Abo ist erforderlich, um die Tasks.org-Synchronisierung zu nutzen. Abos müssen über die Google Play-Version von Tasks gekauft werden.</string>
+    <string name="sponsorship_required_fdroid">Ein GitHub-Sponsoring ist erforderlich, um die Tasks.org-Synchronisierung zu nutzen. Klicke unten, um Sponsor:in zu werden.</string>
+    <string name="legal">Rechtliches</string>
+    <string name="legal_disclosure">%1$s stimmst du den %2$s und der %3$s zu. Tasks ist Open-Source-Software, die unter der %4$s bereitgestellt wird.</string>
 </resources>
