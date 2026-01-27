@@ -42,6 +42,12 @@
         android:summary="@string/linkify_description"
         android:title="@string/linkify" />
 
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/p_per_list_sort"
+        android:summary="@string/per_list_sort_summary"
+        android:title="@string/per_list_sort_title" />
+
     <PreferenceCategory android:title="@string/chips">
 
         <ListPreference

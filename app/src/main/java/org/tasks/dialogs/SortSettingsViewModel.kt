@@ -11,7 +11,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import org.tasks.R
 import org.tasks.analytics.Firebase
+import org.tasks.dialogs.SortSettingsActivity.Companion.EXTRA_FILTER_KEY
 import org.tasks.dialogs.SortSettingsActivity.Companion.WIDGET_NONE
+import org.tasks.preferences.FilterPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
 import org.tasks.widget.WidgetPreferences
@@ -38,10 +40,13 @@ class SortSettingsViewModel @Inject constructor(
         val subtaskAscending: Boolean,
     )
     private val widgetId = savedStateHandle[SortSettingsActivity.EXTRA_WIDGET_ID] ?: WIDGET_NONE
+    private val filterKey = savedStateHandle.get<String>(EXTRA_FILTER_KEY)
     private val preferences =
         widgetId
             .takeIf { it != WIDGET_NONE }
             ?.let { WidgetPreferences(context, appPreferences, it) }
+            ?: filterKey
+                ?.let { FilterPreferences(appPreferences, it) }
             ?: appPreferences
 
     private fun trackSortChange(setting: String, value: Any) {

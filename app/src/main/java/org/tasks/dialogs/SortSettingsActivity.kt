@@ -303,6 +303,7 @@ class SortSettingsActivity : ComponentActivity() {
         const val EXTRA_MANUAL_ORDER = "extra_manual_order"
         const val EXTRA_ASTRID_ORDER = "extra_astrid_order"
         const val EXTRA_WIDGET_ID = "extra_widget_id"
+        const val EXTRA_FILTER_KEY = "extra_filter_key"
         const val EXTRA_FORCE_RELOAD = "extra_force_reload"
         const val EXTRA_CHANGED_GROUP = "extra_changed_group"
         const val WIDGET_NONE = -1
@@ -312,10 +313,12 @@ class SortSettingsActivity : ComponentActivity() {
             manualOrderEnabled: Boolean,
             astridOrderEnabled: Boolean,
             widgetId: Int? = null,
+            filterKey: String? = null,
         ) = Intent(context, SortSettingsActivity::class.java)
             .addFlags(FLAG_ACTIVITY_NO_ANIMATION)
             .putExtra(EXTRA_MANUAL_ORDER, manualOrderEnabled)
             .putExtra(EXTRA_ASTRID_ORDER, astridOrderEnabled)
+            .putExtra(EXTRA_FILTER_KEY, filterKey)
             .apply {
                 widgetId?.let {
                     putExtra(EXTRA_WIDGET_ID, it)
