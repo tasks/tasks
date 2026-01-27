@@ -52,7 +52,7 @@ class DragAndDropRecyclerAdapter(
         val viewType = getItemViewType(position)
         if (viewType == 1) {
             val headerSection = items.getSection(position)
-            (holder as HeaderViewHolder).bind(taskList.getFilter(), preferences.groupMode, headerSection)
+            (holder as HeaderViewHolder).bind(taskList.getFilter(), items.groupMode, headerSection)
         } else {
             super.onBindViewHolder(holder, position)
         }

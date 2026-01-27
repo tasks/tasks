@@ -64,7 +64,7 @@ class HeaderFormatter @Inject constructor(
                         context.getString(R.string.sort_created_group, dateString)
                     groupMode == SortHelper.SORT_MODIFIED ->
                         context.getString(R.string.sort_modified_group, dateString)
-                    else -> throw IllegalArgumentException()
+                    else -> dateString
                 }
             }
         }
