@@ -11,9 +11,12 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.call.body
 import io.ktor.http.isSuccess
 import kotlinx.serialization.json.Json
+import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.broadcast.RefreshBroadcaster
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDao
@@ -68,6 +71,16 @@ class MicrosoftSynchronizer @Inject constructor(
 
         try {
             synchronize(account)
+            if (account.lastSync == 0L) {
+                val taskCount = caldavDao.getTaskCountForAccount(account.uuid!!)
+                firebase.logEvent(
+                    R.string.event_initial_sync_complete,
+                    R.string.param_type to Constants.SYNC_TYPE_MICROSOFT,
+                    R.string.param_task_count to taskCount
+                )
+            }
+            account.lastSync = currentTimeMillis()
+            setError(account, "")
         } catch (e: SocketTimeoutException) {
             setError(account, e.message)
         } catch (e: SSLException) {
@@ -138,7 +151,6 @@ class MicrosoftSynchronizer @Inject constructor(
             }
             pushLocalChanges(local, microsoft)
         }
-        setError(account, "")
     }
 
     private suspend fun pushLocalChanges(

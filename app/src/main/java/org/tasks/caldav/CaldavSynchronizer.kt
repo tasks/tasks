@@ -34,8 +34,10 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.caldav.property.CalendarIcon
@@ -112,6 +114,17 @@ class CaldavSynchronizer @Inject constructor(
         }
         try {
             synchronize(account)
+            if (account.lastSync == 0L) {
+                val taskCount = caldavDao.getTaskCountForAccount(account.uuid!!)
+                val syncType = if (account.isTasksOrg) Constants.SYNC_TYPE_TASKS_ORG else Constants.SYNC_TYPE_CALDAV
+                firebase.logEvent(
+                    R.string.event_initial_sync_complete,
+                    R.string.param_type to syncType,
+                    R.string.param_task_count to taskCount
+                )
+            }
+            account.lastSync = currentTimeMillis()
+            setError(account, "")
         } catch (e: IOException) {
             setError(account, e)
         } catch (e: UnauthorizedException) {
@@ -199,7 +212,6 @@ class CaldavSynchronizer @Inject constructor(
                 pushLocalChanges(account, calendar, caldavClient.httpClient, resource.href)
             }
         }
-        setError(account, "")
     }
 
     private fun getServerType(account: CaldavAccount, headers: Headers) = when {

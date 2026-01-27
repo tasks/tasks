@@ -100,11 +100,12 @@ class Firebase @Inject constructor(
 
     fun logEvent(@StringRes event: Int, vararg p: Pair<Int, Any>) {
         val eventName = context.getString(event)
-        Timber.d("$eventName -> $p")
+        val properties = p.associate { context.getString(it.first) to it.second }
+        Timber.d("$eventName -> $properties")
         if (posthogEnabled) {
             PostHog.capture(
                 event = eventName,
-                properties = p.associate { context.getString(it.first) to it.second }
+                properties = properties
             )
         }
     }

@@ -43,6 +43,8 @@ data class CaldavAccount(
     val isCollapsed: Boolean = false,
     @ColumnInfo(name = "cda_server_type")
     var serverType: Int = SERVER_UNKNOWN,
+    @ColumnInfo(name = "cda_last_sync", defaultValue = "0")
+    var lastSync: Long = 0,
 ) : CommonParcelable {
     val isCaldavAccount: Boolean
         get() = accountType == TYPE_CALDAV

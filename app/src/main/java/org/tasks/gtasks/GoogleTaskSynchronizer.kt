@@ -19,7 +19,9 @@ import kotlinx.coroutines.delay
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.data.createDueDate
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
@@ -93,6 +95,17 @@ class GoogleTaskSynchronizer @Inject constructor(
             account.error = e.message
             firebase.reportException(e)
         } finally {
+            if (account.error.isNullOrBlank()) {
+                if (account.lastSync == 0L) {
+                    val taskCount = caldavDao.getTaskCountForAccount(account.uuid!!)
+                    firebase.logEvent(
+                        R.string.event_initial_sync_complete,
+                        R.string.param_type to Constants.SYNC_TYPE_GOOGLE_TASKS,
+                        R.string.param_task_count to taskCount
+                    )
+                }
+                account.lastSync = currentTimeMillis()
+            }
             caldavDao.update(account)
             refreshBroadcaster.broadcastRefresh()
             Timber.d("%s: end sync", account)
