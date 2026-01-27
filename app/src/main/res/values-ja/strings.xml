@@ -12,7 +12,7 @@
     <string name="read_permission_label">Tasks へのアクセス</string>
     <string name="discard_confirmation">本当に変更を破棄しますか？</string>
     <string name="keep_editing">編集を続ける</string>
-    <string name="DLG_delete_this_task_question">タスクを削除しますか？</string>
+    <string name="DLG_delete_this_task_question">このタスクを削除しますか？</string>
     <string name="DLG_hour_minutes">時間 (時 : 分)</string>
     <string name="DLG_undo">元に戻す</string>
     <string name="WID_dateButtonUnset">タップして設定</string>
@@ -707,4 +707,6 @@
     <string name="cost_more_money">料金: $$$</string>
     <string name="widget_view_more_tasks">ほかのタスクを表示</string>
     <string name="microsoft_selection_description_googleplay">職場用、学校用、または個人用Microsoftアカウントと同期する</string>
+    <string name="import_failed_message">バックアップファイルを読めません</string>
+    <string name="import_failed">インポートできませんでした</string>
 </resources>
