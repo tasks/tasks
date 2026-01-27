@@ -27,6 +27,7 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.NO_ID
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -78,6 +79,22 @@ class OpenTasksSynchronizer @Inject constructor(
             } else {
                 try {
                     sync(account, entries)
+                    if (account.lastSync == 0L) {
+                        val taskCount = caldavDao.getTaskCountForAccount(account.uuid!!)
+                        val syncType = when {
+                            account.uuid.isDavx5() -> Constants.SYNC_TYPE_DAVX5
+                            account.uuid.isDavx5Managed() -> Constants.SYNC_TYPE_DAVX5_MANAGED
+                            account.uuid.isEteSync() -> Constants.SYNC_TYPE_ETESYNC_OT
+                            account.uuid.isDecSync() -> Constants.SYNC_TYPE_DECSYNC
+                            else -> "opentasks"
+                        }
+                        firebase.logEvent(
+                            R.string.event_initial_sync_complete,
+                            R.string.param_type to syncType,
+                            R.string.param_task_count to taskCount
+                        )
+                    }
+                    account.lastSync = currentTimeMillis()
                     setError(account, null)
                 } catch (e: Exception) {
                     firebase.reportException(e)

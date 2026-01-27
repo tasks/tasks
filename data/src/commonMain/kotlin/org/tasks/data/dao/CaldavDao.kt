@@ -31,6 +31,13 @@ abstract class CaldavDao {
     @Query("SELECT COUNT(*) FROM caldav_lists WHERE cdl_account = :account")
     abstract suspend fun listCount(account: String): Int
 
+    @Query("""
+        SELECT COUNT(*) FROM caldav_tasks
+        INNER JOIN caldav_lists ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid
+        WHERE caldav_lists.cdl_account = :account
+    """)
+    abstract suspend fun getTaskCountForAccount(account: String): Int
+
     @Query("SELECT * FROM caldav_lists")
     abstract fun subscribeToCalendars(): Flow<List<CaldavCalendar>>
 

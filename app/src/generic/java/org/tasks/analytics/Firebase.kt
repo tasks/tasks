@@ -19,7 +19,7 @@ class Firebase @Inject constructor(
     fun updateRemoteConfig() {}
 
     fun logEvent(event: Int, vararg params: Pair<Int, Any>) {
-        Timber.d("${context.getString(event)} -> $params")
+        Timber.d("${context.getString(event)} -> ${params.associate { context.getString(it.first) to it.second }}")
     }
 
     fun logEventOnce(event: Int, vararg params: Pair<Int, Any>) {

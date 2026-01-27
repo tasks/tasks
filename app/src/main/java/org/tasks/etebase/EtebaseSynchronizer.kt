@@ -17,6 +17,8 @@ import org.tasks.BuildConfig
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.analytics.Constants
+import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
@@ -38,6 +40,7 @@ class EtebaseSynchronizer @Inject constructor(
     private val clientProvider: EtebaseClientProvider,
     private val iCal: iCalendar,
     private val vtodoCache: VtodoCache,
+    private val firebase: Firebase,
 ) {
     companion object {
         init {
@@ -59,6 +62,16 @@ class EtebaseSynchronizer @Inject constructor(
         }
         try {
             synchronize(account)
+            if (account.lastSync == 0L) {
+                val taskCount = caldavDao.getTaskCountForAccount(account.uuid!!)
+                firebase.logEvent(
+                    R.string.event_initial_sync_complete,
+                    R.string.param_type to Constants.SYNC_TYPE_ETEBASE,
+                    R.string.param_task_count to taskCount
+                )
+            }
+            account.lastSync = currentTimeMillis()
+            setError(account, "")
         } catch (e: ConnectionException) {
             setError(account, e)
         } catch (e: PermissionDeniedException) {
@@ -103,7 +116,6 @@ class EtebaseSynchronizer @Inject constructor(
             fetchChanges(account, client, calendar, collection)
             pushLocalChanges(account, client, calendar, collection)
         }
-        setError(account, "")
     }
 
     private suspend fun setError(account: CaldavAccount, e: Throwable) =
