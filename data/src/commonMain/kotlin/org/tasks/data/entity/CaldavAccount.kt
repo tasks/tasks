@@ -46,6 +46,8 @@ data class CaldavAccount(
     @ColumnInfo(name = "cda_last_sync", defaultValue = "0")
     var lastSync: Long = 0,
 ) : CommonParcelable {
+    val needsPro: Boolean
+        get() = isCaldavAccount || isEtebaseAccount || isOpenTasks
     val isCaldavAccount: Boolean
         get() = accountType == TYPE_CALDAV
 

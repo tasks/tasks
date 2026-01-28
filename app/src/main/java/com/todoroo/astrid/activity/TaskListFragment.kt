@@ -88,6 +88,7 @@ import org.tasks.activities.PlaceSettingsActivity
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.compose.AlarmsDisabledBanner
@@ -97,6 +98,7 @@ import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPicker
 import org.tasks.compose.NotificationsDisabledBanner
 import org.tasks.compose.QuietHoursBanner
 import org.tasks.compose.SubscriptionNagBanner
+import org.tasks.compose.SubscriptionRequiredBanner
 import org.tasks.compose.SyncWarningGoogleTasks
 import org.tasks.compose.SyncWarningMicrosoft
 import org.tasks.data.TaskContainer
@@ -476,6 +478,28 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         Banner.AlarmsDisabled ->
                             AlarmsDisabledBanner(
                                 settings = { context.openReminderSettings() },
+                                dismiss = { listViewModel.dismissBanner() },
+                            )
+
+                        is Banner.SubscriptionRequired ->
+                            SubscriptionRequiredBanner(
+                                nameRes = state.banner.nameRes,
+                                isTasksOrg = state.banner.isTasksOrg,
+                                subscribe = {
+                                    val isTasksOrg = state.banner.isTasksOrg
+                                    listViewModel.dismissBanner(tookAction = true)
+                                    context.startActivity(
+                                        Intent(
+                                            context,
+                                            PurchaseActivity::class.java
+                                        ).apply {
+                                            putExtra(
+                                                PurchaseActivityViewModel.EXTRA_NAME_YOUR_PRICE,
+                                                !isTasksOrg
+                                            )
+                                        }
+                                    )
+                                },
                                 dismiss = { listViewModel.dismissBanner() },
                             )
 
