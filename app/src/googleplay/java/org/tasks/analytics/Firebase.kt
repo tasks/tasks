@@ -44,6 +44,10 @@ class Firebase @Inject constructor(
                     apiKey = apiKey,
                     host = POSTHOG_HOST
                 ).apply {
+                    preloadFeatureFlags = false
+                    sendFeatureFlagEvent = false
+                    remoteConfig = false
+
                     sessionReplay = BuildConfig.DEBUG
                     sessionReplayConfig.maskAllTextInputs = true
                     sessionReplayConfig.maskAllImages = false
