@@ -19,6 +19,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
+import org.tasks.TasksApplication
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavSynchronizer
@@ -99,6 +100,9 @@ class SyncWork @AssistedInject constructor(
     private val syncStatus = R.string.p_sync_ongoing
 
     private suspend fun hasTosAcceptance(): Boolean {
+        if (!TasksApplication.IS_GOOGLE_PLAY && !inventory.hasTasksAccount) {
+            return true
+        }
         val currentTosVersion = firebase.getTosVersion()
         val acceptedTosVersion = tasksPreferences.get(TasksPreferences.acceptedTosVersion, 0)
         return acceptedTosVersion >= currentTosVersion
