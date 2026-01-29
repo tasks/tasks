@@ -759,4 +759,6 @@
     <string name="exit">Esci</string>
     <string name="returning_user">Ripristino i dati?</string>
     <string name="returning_user_import_backup">Importa il backup di Tasks.org</string>
+    <string name="import_failed">Importazione non riuscita</string>
+    <string name="import_failed_message">Impossibile leggere il file di backup</string>
 </resources>
