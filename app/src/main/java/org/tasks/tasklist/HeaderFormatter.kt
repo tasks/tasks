@@ -38,15 +38,15 @@ class HeaderFormatter @Inject constructor(
     ): String =
         when {
             value == SectionedDataSource.HEADER_COMPLETED -> context.getString(R.string.completed)
-            groupMode == SortHelper.SORT_IMPORTANCE -> context.getString(priorityToString(value))
-            groupMode == SortHelper.SORT_LIST ->
-                listCache.getOrPut(value) { caldavDao.getCalendarById(value)?.name }?: "list: $value"
             value == SectionedDataSource.HEADER_OVERDUE -> context.getString(R.string.filter_overdue)
             value == 0L -> context.getString(when (groupMode) {
                 SortHelper.SORT_DUE -> R.string.no_due_date
                 SortHelper.SORT_START -> R.string.no_start_date
                 else -> R.string.no_date
             })
+            groupMode == SortHelper.SORT_IMPORTANCE -> context.getString(priorityToString(value))
+            groupMode == SortHelper.SORT_LIST ->
+                listCache.getOrPut(value) { caldavDao.getCalendarById(value)?.name }?: "list: $value"
             else -> {
                 val dateString = getRelativeDay(
                     value,
@@ -64,7 +64,7 @@ class HeaderFormatter @Inject constructor(
                         context.getString(R.string.sort_created_group, dateString)
                     groupMode == SortHelper.SORT_MODIFIED ->
                         context.getString(R.string.sort_modified_group, dateString)
-                    else -> throw IllegalArgumentException()
+                    else -> dateString
                 }
             }
         }

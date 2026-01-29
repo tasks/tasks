@@ -185,12 +185,12 @@ object SortHelper {
         secondaryAscending: Boolean
     ): Order {
         val order = if (primaryAscending || sortMode == SORT_GTASKS || sortMode == SORT_CALDAV
-        ) asc("primary_sort")
-        else desc("primary_sort")
+        ) asc("primary_ordering")
+        else desc("primary_ordering")
         order.addSecondaryExpression(
             if (secondaryAscending || secondaryMode == SORT_GTASKS || secondaryMode == SORT_CALDAV
-            ) asc("secondary_sort")
-            else desc("secondary_sort")
+            ) asc("secondary_ordering")
+            else desc("secondary_ordering")
         )
         if (sortMode != SORT_ALPHA) {
             order.addSecondaryExpression(asc("sort_title"))

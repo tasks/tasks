@@ -46,6 +46,8 @@ import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
+import org.tasks.preferences.FilterPreferences
+import org.tasks.filters.key
 
 sealed class Banner {
     data object NotificationsDisabled : Banner()
@@ -145,21 +147,31 @@ class TaskListViewModel @Inject constructor(
                     it.searchQuery.isBlank() -> MyTasksFilter.create()
                     else -> applicationContext.createSearchQuery(it.searchQuery)
                 }
-                taskDao.fetchTasks(getQuery(preferences, filter))
+                val prefs = if (preferences.isPerListSortEnabled) {
+                    FilterPreferences(preferences, filter.key())
+                } else {
+                    preferences
+                }
+                taskDao.fetchTasks(getQuery(prefs, filter))
             }
             .onEach { tasks ->
+                val prefs = if (preferences.isPerListSortEnabled) {
+                    FilterPreferences(preferences, _state.value.filter.key())
+                } else {
+                    preferences
+                }
                 _state.update {
                     it.copy(
                         tasks = TasksResults.Results(
                             SectionedDataSource(
                                 tasks = tasks,
                                 disableHeaders = it.filter.disableHeaders()
-                                        || (it.filter.supportsManualSort() && preferences.isManualSort)
-                                        || (it.filter is AstridOrderingFilter && preferences.isAstridSort),
-                                groupMode = preferences.groupMode,
-                                subtaskMode = preferences.subtaskMode,
+                                        || (it.filter.supportsManualSort() && prefs.isManualSort)
+                                        || (it.filter is AstridOrderingFilter && prefs.isAstridSort),
+                                groupMode = prefs.groupMode,
+                                subtaskMode = prefs.subtaskMode,
                                 collapsed = it.collapsed,
-                                completedAtBottom = preferences.completedTasksAtBottom,
+                                completedAtBottom = prefs.completedTasksAtBottom,
                             )
                         )
                     )

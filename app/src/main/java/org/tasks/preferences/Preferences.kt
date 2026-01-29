@@ -466,6 +466,9 @@ class Preferences @JvmOverloads constructor(
     fun <T> getPrefs(c: Class<T>): Map<String, T> =
         prefs.all.filter { (_, value) -> c.isInstance(value) } as Map<String, T>
 
+    val isPerListSortEnabled: Boolean
+        get() = getBoolean(R.string.p_per_list_sort, false)
+
     override var isManualSort: Boolean
         get() = getBoolean(R.string.p_manual_sort, false)
         set(value) { setBoolean(R.string.p_manual_sort, value) }
