@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?><!--
 ** Copyright (c) 2012 Todoroo Inc
 **
-** See the file "LICENSE" for the full license governing this code. 
+** See the file "LICENSE" for the full license governing this code.
 -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/task_list_coordinator"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:descendantFocusability="beforeDescendants"
-  android:focusable="true"
-  android:focusableInTouchMode="true"
-  android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/task_list_coordinator"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
   <com.google.android.material.appbar.AppBarLayout
       android:id="@+id/appbarlayout"
@@ -32,10 +32,10 @@
   </com.google.android.material.appbar.AppBarLayout>
 
   <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/banner"
@@ -43,14 +43,14 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
       <FrameLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="100">
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="100">
 
         <include
             android:id="@+id/body_standard"
