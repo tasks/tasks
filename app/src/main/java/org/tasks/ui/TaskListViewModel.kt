@@ -205,6 +205,16 @@ class TaskListViewModel @Inject constructor(
             val dismissedSubscriptionAccounts = tasksPreferences.get(
                 TasksPreferences.subscriptionDismissedAccounts, emptySet()
             )
+            val resolvedAccounts = accounts
+                .filter { it.uuid in dismissedSubscriptionAccounts && !it.isSubscriptionRequired() }
+                .mapNotNull { it.uuid }
+                .toSet()
+            if (resolvedAccounts.isNotEmpty()) {
+                tasksPreferences.set(
+                    TasksPreferences.subscriptionDismissedAccounts,
+                    dismissedSubscriptionAccounts - resolvedAccounts
+                )
+            }
             val subscriptionAccounts = if (IS_GOOGLE_PLAY) {
                 accounts.filter {
                     it.isSubscriptionRequired() && it.uuid !in dismissedSubscriptionAccounts
