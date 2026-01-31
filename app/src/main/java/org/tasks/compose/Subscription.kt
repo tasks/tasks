@@ -130,6 +130,7 @@ object PurchaseText {
         nameYourPrice: Boolean,
         sliderPosition: Float,
         github: Boolean = false,
+        showMoreOptions: Boolean = true,
         snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
         setPrice: (Float) -> Unit,
         setNameYourPrice: (Boolean) -> Unit,
@@ -208,6 +209,7 @@ object PurchaseText {
                         nameYourPrice = nameYourPrice,
                         sliderPosition = sliderPosition,
                         pagerState = pagerState,
+                        showMoreOptions = showMoreOptions,
                         setNameYourPrice = setNameYourPrice,
                         setPrice = setPrice,
                         subscribe = subscribe,
@@ -259,6 +261,7 @@ object PurchaseText {
         nameYourPrice: Boolean,
         sliderPosition: Float,
         pagerState: PagerState,
+        showMoreOptions: Boolean = true,
         setNameYourPrice: (Boolean) -> Unit,
         setPrice: (Float) -> Unit,
         subscribe: (Int, Boolean) -> Unit,
@@ -282,24 +285,26 @@ object PurchaseText {
                     subscribe = subscribe
                 )
             }
-            Spacer(Modifier.height(KEYLINE_FIRST))
-            val scope = rememberCoroutineScope()
-            OutlinedButton(
-                onClick = {
-                    setNameYourPrice(!nameYourPrice)
-                    scope.launch {
-                        pagerState.animateScrollToPage(0)
-                    }
-                },
-                colors = ButtonDefaults.textButtonColors(
-                    containerColor = Color.Transparent
-                )
-            ) {
-                Text(
-                    text = stringResource(R.string.more_options),
-                    color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.bodyLarge
-                )
+            if (showMoreOptions) {
+                Spacer(Modifier.height(KEYLINE_FIRST))
+                val scope = rememberCoroutineScope()
+                OutlinedButton(
+                    onClick = {
+                        setNameYourPrice(!nameYourPrice)
+                        scope.launch {
+                            pagerState.animateScrollToPage(0)
+                        }
+                    },
+                    colors = ButtonDefaults.textButtonColors(
+                        containerColor = Color.Transparent
+                    )
+                ) {
+                    Text(
+                        text = stringResource(R.string.more_options),
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
             }
             Text(
                 text = stringResource(R.string.pro_free_trial),

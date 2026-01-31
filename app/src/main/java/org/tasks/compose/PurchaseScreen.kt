@@ -34,6 +34,7 @@ fun PurchaseScreen(
         nameYourPrice = state.nameYourPrice,
         sliderPosition = state.price,
         github = state.isGithub,
+        showMoreOptions = state.showMoreOptions,
         subscribe = { price, isMonthly ->
             context.findActivity()?.let { viewModel.purchase(it, price, isMonthly) }
         },

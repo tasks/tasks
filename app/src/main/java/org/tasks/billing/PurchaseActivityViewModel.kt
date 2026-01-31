@@ -30,6 +30,7 @@ class PurchaseActivityViewModel @Inject constructor(
     data class ViewState(
         val nameYourPrice: Boolean,
         val isGithub: Boolean,
+        val showMoreOptions: Boolean = nameYourPrice,
         val price: Float = -1f,
         val subscription: Purchase? = null,
         val error: String? = null,
