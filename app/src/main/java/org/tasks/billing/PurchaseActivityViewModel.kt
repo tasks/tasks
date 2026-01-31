@@ -34,6 +34,7 @@ class PurchaseActivityViewModel @Inject constructor(
         val subscription: Purchase? = null,
         val error: String? = null,
         val skus: List<Sku> = emptyList(),
+        val purchased: Boolean = false,
     )
 
     private val purchaseReceiver = object : BroadcastReceiver() {
@@ -104,6 +105,9 @@ class PurchaseActivityViewModel @Inject constructor(
                 newSku,
                 BillingClientImpl.TYPE_SUBS,
                 _viewState.value.subscription?.takeIf { it.sku != newSku },
+                onPurchased = {
+                    _viewState.update { it.copy(purchased = true) }
+                },
             )
         } catch (e: Exception) {
             _viewState.update {
@@ -121,8 +125,8 @@ class PurchaseActivityViewModel @Inject constructor(
     }
 
     companion object {
-        const val EXTRA_GITHUB = "extra_github"
-        const val EXTRA_NAME_YOUR_PRICE = "extra_name_your_price"
+        const val EXTRA_GITHUB = "github"
+        const val EXTRA_NAME_YOUR_PRICE = "nameYourPrice"
 
         fun Int.toSku(monthly: Boolean) =
             String.format(Locale.US, "%s_%02d", if (monthly) "monthly" else "annual", this)

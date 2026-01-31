@@ -17,7 +17,8 @@ class BillingClientImpl(
             activity: Activity,
             sku: String,
             skuType: String,
-            oldPurchase: Purchase?
+            oldPurchase: Purchase?,
+            onPurchased: (() -> Unit)?,
     ) {}
 
     override suspend fun acknowledge(purchase: Purchase) {}

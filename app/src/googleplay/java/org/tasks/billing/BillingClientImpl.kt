@@ -42,7 +42,7 @@ class BillingClientImpl(
             .enablePendingPurchases()
             .build()
     private var connected = false
-    private var onPurchasesUpdated: OnPurchasesUpdated? = null
+    private var onPurchased: (() -> Unit)? = null
 
     override suspend fun getSkus(skus: List<String>): List<Sku> =
         executeServiceRequest {
@@ -127,7 +127,9 @@ class BillingClientImpl(
             add(purchases ?: emptyList())
         }
         workManager.updatePurchases()
-        onPurchasesUpdated?.onPurchasesUpdated(success)
+        if (success) {
+            onPurchased?.invoke()
+        }
         purchases?.forEach {
             firebase.reportIabResult(
                 result.responseCodeString,
@@ -145,7 +147,8 @@ class BillingClientImpl(
         activity: Activity,
         sku: String,
         skuType: String,
-        oldPurchase: Purchase?
+        oldPurchase: Purchase?,
+        onPurchased: (() -> Unit)?,
     ) {
         executeServiceRequest {
             val productList = listOf(
@@ -199,9 +202,7 @@ class BillingClientImpl(
                 )
             }
 
-            if (activity is OnPurchasesUpdated) {
-                onPurchasesUpdated = activity
-            }
+            this@BillingClientImpl.onPurchased = onPurchased
             billingClient.launchBillingFlow(activity, params.build())
         }
     }
