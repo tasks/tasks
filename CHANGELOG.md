@@ -1,3 +1,23 @@
+### 14.9.1 (2026-01-30)
+
+* Fix F-Droid sync
+* Add banner when subscription required
+* Update translations
+  * Bulgarian - 109247019824
+  * Czech - @Fjuro
+  * Danish - ERYpTION
+  * Dutch - Bram Schoenmakers
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @Atalanttore
+  * German - @Colorful Rhino
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Japanese - Norara
+  * Swedish - @Nicklasfox
+  * Turkish - @oersen
+
 ### 14.9 (2026-01-24)
 
 * New Terms of Service [blog post](https://tasks.org/blog/terms-of-service)

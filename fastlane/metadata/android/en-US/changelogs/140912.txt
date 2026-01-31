@@ -1,0 +1,3 @@
+* Fix F-Droid sync
+* Add banner when subscription required
+* Update translations
