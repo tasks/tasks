@@ -285,7 +285,6 @@ class MainActivity : AppCompatActivity() {
                             .getStateFlow("purchased", false)
                             .collectAsStateWithLifecycle()
                         fun doSignIn(platform: Platform) {
-                            firebase.logEvent(R.string.event_add_account, R.string.param_source to "onboarding", R.string.param_selection to platform)
                             when (platform) {
                                 Platform.TASKS_ORG ->
                                     syncLauncher.launch(
@@ -314,7 +313,6 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                         fun doOpenUrl(platform: Platform) {
-                            firebase.logEvent(R.string.event_add_account, R.string.param_source to "onboarding", R.string.param_selection to platform.name)
                             addAccountViewModel.openUrl(this@MainActivity, platform)
                         }
                         fun requirePurchase(platform: Platform, nameYourPrice: Boolean = true) {
@@ -348,6 +346,7 @@ class MainActivity : AppCompatActivity() {
                             needsConsent = acceptedTosVersion < currentTosVersion,
                             onBack = { navController.popBackStack() },
                             signIn = { platform ->
+                                firebase.logEvent(R.string.event_add_account, R.string.param_source to "onboarding", R.string.param_selection to platform)
                                 when (platform) {
                                     Platform.TASKS_ORG -> {
                                         if (inventory.hasTasksSubscription) {
@@ -367,6 +366,7 @@ class MainActivity : AppCompatActivity() {
                                 }
                             },
                             openUrl = { platform ->
+                                firebase.logEvent(R.string.event_add_account, R.string.param_source to "onboarding", R.string.param_selection to platform.name)
                                 when (platform) {
                                     Platform.DAVX5, Platform.DECSYNC_CC -> {
                                         if (inventory.hasPro) {

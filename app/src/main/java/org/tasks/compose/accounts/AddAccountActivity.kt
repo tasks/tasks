@@ -78,11 +78,6 @@ class AddAccountActivity : ComponentActivity() {
     }
 
     private fun doSignIn(platform: Platform) {
-        firebase.logEvent(
-            R.string.event_add_account,
-            R.string.param_source to "settings",
-            R.string.param_selection to platform
-        )
         when (platform) {
             Platform.TASKS_ORG ->
                 syncLauncher.launch(Intent(this, SignInActivity::class.java))
@@ -99,11 +94,6 @@ class AddAccountActivity : ComponentActivity() {
     }
 
     private fun doOpenUrl(platform: Platform) {
-        firebase.logEvent(
-            R.string.event_add_account,
-            R.string.param_source to "settings",
-            R.string.param_selection to platform.name
-        )
         viewModel.openUrl(this, platform)
     }
 
@@ -151,6 +141,11 @@ class AddAccountActivity : ComponentActivity() {
                     needsConsent = acceptedTosVersion < currentTosVersion,
                     onBack = { finish() },
                     signIn = { platform ->
+                        firebase.logEvent(
+                            R.string.event_add_account,
+                            R.string.param_source to "settings",
+                            R.string.param_selection to platform
+                        )
                         when (platform) {
                             Platform.TASKS_ORG -> {
                                 if (inventory.hasTasksSubscription) doSignIn(platform) else requirePurchase(platform, nameYourPrice = false)
@@ -162,6 +157,11 @@ class AddAccountActivity : ComponentActivity() {
                         }
                     },
                     openUrl = { platform ->
+                        firebase.logEvent(
+                            R.string.event_add_account,
+                            R.string.param_source to "settings",
+                            R.string.param_selection to platform.name
+                        )
                         when (platform) {
                             Platform.DAVX5, Platform.DECSYNC_CC -> {
                                 if (inventory.hasPro) doOpenUrl(platform) else requirePurchase(platform)
