@@ -1,3 +1,7 @@
+### 14.9.2 (2026-02-01)
+
+* Onboarding improvements
+
 ### 14.9.1 (2026-01-30)
 
 * Fix F-Droid sync
