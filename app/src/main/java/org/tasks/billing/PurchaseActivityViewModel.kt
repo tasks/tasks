@@ -30,6 +30,7 @@ class PurchaseActivityViewModel @Inject constructor(
     data class ViewState(
         val nameYourPrice: Boolean,
         val isGithub: Boolean,
+        val feature: Int = 0,
         val showMoreOptions: Boolean = nameYourPrice,
         val price: Float = -1f,
         val subscription: Purchase? = null,
@@ -60,6 +61,7 @@ class PurchaseActivityViewModel @Inject constructor(
         ViewState(
             nameYourPrice = savedStateHandle.get<Boolean>(EXTRA_NAME_YOUR_PRICE) ?: true,
             isGithub = savedStateHandle.get<Boolean>(EXTRA_GITHUB) ?: false,
+            feature = savedStateHandle.get<Int>(EXTRA_FEATURE) ?: 0,
         )
     )
     val viewState: StateFlow<ViewState> = _viewState
@@ -128,6 +130,7 @@ class PurchaseActivityViewModel @Inject constructor(
     companion object {
         const val EXTRA_GITHUB = "github"
         const val EXTRA_NAME_YOUR_PRICE = "nameYourPrice"
+        const val EXTRA_FEATURE = "feature"
 
         fun Int.toSku(monthly: Boolean) =
             String.format(Locale.US, "%s_%02d", if (monthly) "monthly" else "annual", this)

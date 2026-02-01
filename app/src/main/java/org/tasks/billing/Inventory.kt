@@ -54,6 +54,9 @@ class Inventory @Inject constructor(
         updateSubscription()
     }
 
+    val hasTasksSubscription: Boolean
+        get() = subscription.value?.isTasksSubscription == true || hasTasksAccount
+
     fun purchasedThemes() = hasPro || purchases.containsKey(SKU_THEMES)
 
     var hasPro = false

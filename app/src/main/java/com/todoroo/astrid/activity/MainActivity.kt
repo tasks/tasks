@@ -61,6 +61,8 @@ import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.compose.AddAccountDestination
 import org.tasks.compose.HomeDestination
 import org.tasks.compose.ImportTasksViewModel
+import org.tasks.compose.PurchaseDestination
+import org.tasks.compose.PurchaseScreen
 import org.tasks.compose.TosUpdateDialog
 import org.tasks.compose.WelcomeDestination
 import org.tasks.compose.WelcomeScreen
@@ -261,7 +263,7 @@ class MainActivity : AppCompatActivity() {
                             openLegalUrl = { url -> openUri(url) }
                         )
                     }
-                    composable<AddAccountDestination> {
+                    composable<AddAccountDestination> { backStackEntry ->
                         LaunchedEffect(Unit) {
                             firebase.logEvent(R.string.event_screen_add_account)
                         }
@@ -278,49 +280,127 @@ class MainActivity : AppCompatActivity() {
                                         ?.let { toast(it) }
                                 }
                             }
+                        var pendingPlatform by rememberSaveable { mutableStateOf<String?>(null) }
+                        val purchased by backStackEntry.savedStateHandle
+                            .getStateFlow("purchased", false)
+                            .collectAsStateWithLifecycle()
+                        fun doSignIn(platform: Platform) {
+                            firebase.logEvent(R.string.event_add_account, R.string.param_source to "onboarding", R.string.param_selection to platform)
+                            when (platform) {
+                                Platform.TASKS_ORG ->
+                                    syncLauncher.launch(
+                                        Intent(this@MainActivity, SignInActivity::class.java)
+                                    )
+
+                                Platform.GOOGLE_TASKS ->
+                                    syncLauncher.launch(
+                                        Intent(this@MainActivity, GtasksLoginActivity::class.java)
+                                    )
+
+                                Platform.MICROSOFT ->
+                                    microsoftVM.signIn(this@MainActivity)
+
+                                Platform.CALDAV ->
+                                    syncLauncher.launch(
+                                        Intent(this@MainActivity, CaldavAccountSettingsActivity::class.java)
+                                    )
+
+                                Platform.ETEBASE ->
+                                    syncLauncher.launch(
+                                        Intent(this@MainActivity, EtebaseAccountSettingsActivity::class.java)
+                                    )
+
+                                else -> throw IllegalArgumentException()
+                            }
+                        }
+                        fun doOpenUrl(platform: Platform) {
+                            firebase.logEvent(R.string.event_add_account, R.string.param_source to "onboarding", R.string.param_selection to platform.name)
+                            addAccountViewModel.openUrl(this@MainActivity, platform)
+                        }
+                        fun requirePurchase(platform: Platform, nameYourPrice: Boolean = true) {
+                            pendingPlatform = platform.name
+                            navController.navigate(
+                                PurchaseDestination(
+                                    nameYourPrice = nameYourPrice,
+                                    feature = platform.featureTitle,
+                                )
+                            )
+                        }
+                        LaunchedEffect(purchased) {
+                            if (purchased) {
+                                backStackEntry.savedStateHandle["purchased"] = false
+                                pendingPlatform?.let { name ->
+                                    pendingPlatform = null
+                                    val platform = Platform.valueOf(name)
+                                    when (platform) {
+                                        Platform.TASKS_ORG,
+                                        Platform.CALDAV,
+                                        Platform.ETEBASE -> doSignIn(platform)
+                                        Platform.DAVX5, Platform.DECSYNC_CC -> doOpenUrl(platform)
+                                        else -> {}
+                                    }
+                                }
+                            }
+                        }
                         AddAccountScreen(
                             hasTasksAccount = inventory.hasTasksAccount,
                             hasPro = inventory.hasPro,
                             needsConsent = acceptedTosVersion < currentTosVersion,
                             onBack = { navController.popBackStack() },
                             signIn = { platform ->
-                                firebase.logEvent(R.string.event_add_account, R.string.param_source to "onboarding", R.string.param_selection to platform)
                                 when (platform) {
-                                    Platform.TASKS_ORG ->
-                                        syncLauncher.launch(
-                                            Intent(this@MainActivity, SignInActivity::class.java)
-                                        )
-
-                                    Platform.GOOGLE_TASKS ->
-                                        syncLauncher.launch(
-                                            Intent(this@MainActivity, GtasksLoginActivity::class.java)
-                                        )
-
-                                    Platform.MICROSOFT ->
-                                        microsoftVM.signIn(this@MainActivity)
-
-                                    Platform.CALDAV ->
-                                        syncLauncher.launch(
-                                            Intent(this@MainActivity, CaldavAccountSettingsActivity::class.java)
-                                        )
-
-                                    Platform.ETEBASE ->
-                                        syncLauncher.launch(
-                                            Intent(this@MainActivity, EtebaseAccountSettingsActivity::class.java)
-                                        )
-
-                                    else -> throw IllegalArgumentException()
+                                    Platform.TASKS_ORG -> {
+                                        if (inventory.hasTasksSubscription) {
+                                            doSignIn(platform)
+                                        } else {
+                                            requirePurchase(platform, nameYourPrice = false)
+                                        }
+                                    }
+                                    Platform.CALDAV, Platform.ETEBASE -> {
+                                        if (inventory.hasPro) {
+                                            doSignIn(platform)
+                                        } else {
+                                            requirePurchase(platform)
+                                        }
+                                    }
+                                    else -> doSignIn(platform)
                                 }
                             },
                             openUrl = { platform ->
-                                firebase.logEvent(R.string.event_add_account, R.string.param_source to "onboarding", R.string.param_selection to platform.name)
-                                addAccountViewModel.openUrl(this@MainActivity, platform)
+                                when (platform) {
+                                    Platform.DAVX5, Platform.DECSYNC_CC -> {
+                                        if (inventory.hasPro) {
+                                            doOpenUrl(platform)
+                                        } else {
+                                            requirePurchase(platform)
+                                        }
+                                    }
+                                    else -> doOpenUrl(platform)
+                                }
                             },
                             openLegalUrl = { openUri(it) },
                             onConsent = { setAcceptedTosVersion(currentTosVersion) },
                             onNameYourPriceInfo = {
                                 firebase.logEvent(R.string.event_onboarding_name_your_price)
                             },
+                        )
+                    }
+                    composable<PurchaseDestination> {
+                        PurchaseScreen(
+                            onBack = { navController.popBackStack() },
+                            onPurchased = {
+                                navController.previousBackStackEntry
+                                    ?.savedStateHandle
+                                    ?.set("purchased", true)
+                                navController.popBackStack()
+                            },
+                            onSignIn = {
+                                navController.previousBackStackEntry
+                                    ?.savedStateHandle
+                                    ?.set("purchased", true)
+                                navController.popBackStack()
+                            },
+                            existingSubscriber = inventory.hasPro && !inventory.hasTasksSubscription,
                         )
                     }
                     composable<HomeDestination> {

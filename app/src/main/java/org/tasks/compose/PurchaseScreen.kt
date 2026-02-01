@@ -19,6 +19,8 @@ import org.tasks.extensions.Context.findActivity
 fun PurchaseScreen(
     onBack: () -> Unit,
     onPurchased: () -> Unit = onBack,
+    onSignIn: () -> Unit = {},
+    existingSubscriber: Boolean = false,
 ) {
     BackHandler { onBack() }
     val viewModel: PurchaseActivityViewModel = hiltViewModel()
@@ -33,8 +35,11 @@ fun PurchaseScreen(
     SubscriptionScreen(
         nameYourPrice = state.nameYourPrice,
         sliderPosition = state.price,
+        feature = state.feature,
         github = state.isGithub,
         showMoreOptions = state.showMoreOptions,
+        existingSubscriber = existingSubscriber,
+        onSignIn = onSignIn,
         subscribe = { price, isMonthly ->
             context.findActivity()?.let { viewModel.purchase(it, price, isMonthly) }
         },

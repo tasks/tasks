@@ -15,4 +15,5 @@ object AddAccountDestination
 data class PurchaseDestination(
     val nameYourPrice: Boolean = true,
     val github: Boolean = false,
+    val feature: Int = 0,
 )

@@ -1,11 +1,10 @@
 package org.tasks.compose
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,19 +12,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -41,13 +43,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -55,7 +60,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewFontScale
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
@@ -79,12 +86,6 @@ object PurchaseText {
 
     private val featureList = listOf(
         CarouselItem(
-            R.string.tasks_org_account,
-            R.drawable.ic_round_icon,
-            R.string.upgrade_tasks_org_account_description,
-            tint = false
-        ),
-        CarouselItem(
             R.string.upgrade_more_customization,
             R.drawable.ic_outline_palette_24px,
             R.string.upgrade_more_customization_description
@@ -93,6 +94,12 @@ object PurchaseText {
             R.string.open_source,
             R.drawable.ic_octocat,
             R.string.upgrade_open_source_description
+        ),
+        CarouselItem(
+            R.string.tasks_org_account,
+            R.drawable.ic_round_icon,
+            R.string.upgrade_tasks_org_account_description,
+            tint = false
         ),
         CarouselItem(
             R.string.upgrade_desktop_access,
@@ -129,8 +136,11 @@ object PurchaseText {
     fun SubscriptionScreen(
         nameYourPrice: Boolean,
         sliderPosition: Float,
+        feature: Int = 0,
         github: Boolean = false,
         showMoreOptions: Boolean = true,
+        existingSubscriber: Boolean = false,
+        onSignIn: () -> Unit = {},
         snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
         setPrice: (Float) -> Unit,
         setNameYourPrice: (Boolean) -> Unit,
@@ -143,7 +153,10 @@ object PurchaseText {
                 TopAppBar(
                     title = {
                         Text(
-                            text = stringResource(R.string.upgrade_to_pro),
+                            text = stringResource(
+                                if (nameYourPrice) R.string.name_your_price
+                                else R.string.upgrade_to_pro
+                            ),
                             color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.titleLarge
                         )
@@ -154,6 +167,29 @@ object PurchaseText {
                                 imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                                 contentDescription = null
                             )
+                        }
+                    },
+                    actions = {
+                        if (existingSubscriber) {
+                            var expanded by remember { mutableStateOf(false) }
+                            IconButton(onClick = { expanded = true }) {
+                                Icon(
+                                    imageVector = Icons.Outlined.MoreVert,
+                                    contentDescription = null,
+                                )
+                            }
+                            DropdownMenu(
+                                expanded = expanded,
+                                onDismissRequest = { expanded = false },
+                            ) {
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.sign_in)) },
+                                    onClick = {
+                                        expanded = false
+                                        onSignIn()
+                                    },
+                                )
+                            }
                         }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
@@ -171,34 +207,52 @@ object PurchaseText {
                     .background(color = colorResource(R.color.content_background)),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
+                if (existingSubscriber) {
+                    ElevatedCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(KEYLINE_FIRST, KEYLINE_FIRST, KEYLINE_FIRST, 0.dp),
+                        colors = CardDefaults.elevatedCardColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                        ),
+                    ) {
+                        Text(
+                            text = stringResource(R.string.upgrade_subscription_banner),
+                            modifier = Modifier.padding(KEYLINE_FIRST),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+                }
                 GreetingText(R.string.upgrade_blurb_1)
                 GreetingText(R.string.upgrade_blurb_2)
                 Spacer(Modifier.height(KEYLINE_FIRST))
-                val pagerState = rememberPagerState {
-                    featureList.size
+                val listState = rememberLazyListState()
+                val highlightFeature =
+                    if (nameYourPrice) feature
+                    else R.string.tasks_org_account
+                val items = remember(highlightFeature) {
+                    if (highlightFeature != 0) {
+                        val reordered = featureList.toMutableList()
+                        val index = reordered.indexOfFirst { it.title == highlightFeature }
+                        if (index > 0) {
+                            reordered.add(0, reordered.removeAt(index))
+                        }
+                        reordered
+                    } else {
+                        featureList
+                    }
                 }
-                HorizontalPager(
-                    state = pagerState // Optional: to control the pager's state
-                ) { index ->
-                    val item = featureList[index]
-                    PagerItem(item, nameYourPrice && index == 0)
-                }
-                Row(
-                    Modifier
-                        .wrapContentHeight()
-                        .fillMaxWidth()
-                        .align(Alignment.CenterHorizontally)
-                        .padding(bottom = 8.dp),
-                    horizontalArrangement = Arrangement.Center
+                LazyRow(
+                    state = listState,
+                    contentPadding = PaddingValues(horizontal = KEYLINE_FIRST),
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
-                    repeat(pagerState.pageCount) { iteration ->
-                        val color = if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
-                        Box(
-                            modifier = Modifier
-                                .padding(2.dp)
-                                .clip(CircleShape)
-                                .background(color)
-                                .size(16.dp)
+                    items(items) { item ->
+                        PagerItem(
+                            feature = item,
+                            disabled = nameYourPrice && item.title == R.string.tasks_org_account,
                         )
                     }
                 }
@@ -208,8 +262,10 @@ object PurchaseText {
                     GooglePlayButtons(
                         nameYourPrice = nameYourPrice,
                         sliderPosition = sliderPosition,
-                        pagerState = pagerState,
+                        listState = listState,
                         showMoreOptions = showMoreOptions,
+                        existingSubscriber = existingSubscriber,
+                        onSignIn = onSignIn,
                         setNameYourPrice = setNameYourPrice,
                         setPrice = setPrice,
                         subscribe = subscribe,
@@ -260,8 +316,10 @@ object PurchaseText {
     fun GooglePlayButtons(
         nameYourPrice: Boolean,
         sliderPosition: Float,
-        pagerState: PagerState,
+        listState: LazyListState,
         showMoreOptions: Boolean = true,
+        existingSubscriber: Boolean = false,
+        onSignIn: () -> Unit = {},
         setNameYourPrice: (Boolean) -> Unit,
         setPrice: (Float) -> Unit,
         subscribe: (Int, Boolean) -> Unit,
@@ -272,6 +330,15 @@ object PurchaseText {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             HorizontalDivider(modifier = Modifier.padding(vertical = KEYLINE_FIRST))
+            Text(
+                text = stringResource(R.string.pro_free_trial),
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier
+                    .fillMaxWidth(.75f)
+                    .padding(bottom = KEYLINE_FIRST),
+                color = MaterialTheme.colorScheme.onSurface,
+                textAlign = TextAlign.Center,
+            )
             if (nameYourPrice) {
                 NameYourPrice(
                     sliderPosition = sliderPosition,
@@ -292,7 +359,7 @@ object PurchaseText {
                     onClick = {
                         setNameYourPrice(!nameYourPrice)
                         scope.launch {
-                            pagerState.animateScrollToPage(0)
+                            listState.animateScrollToItem(0)
                         }
                     },
                     colors = ButtonDefaults.textButtonColors(
@@ -300,21 +367,29 @@ object PurchaseText {
                     )
                 ) {
                     Text(
-                        text = stringResource(R.string.more_options),
+                        text = stringResource(
+                            if (nameYourPrice) R.string.more_options
+                            else R.string.name_your_price
+                        ),
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+            } else if (!existingSubscriber) {
+                Spacer(Modifier.height(KEYLINE_FIRST))
+                OutlinedButton(
+                    onClick = onSignIn,
+                    colors = ButtonDefaults.textButtonColors(
+                        containerColor = Color.Transparent
+                    )
+                ) {
+                    Text(
+                        text = stringResource(R.string.already_subscribed),
                         color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
             }
-            Text(
-                text = stringResource(R.string.pro_free_trial),
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier
-                    .fillMaxWidth(.75f)
-                    .padding(KEYLINE_FIRST),
-                color = MaterialTheme.colorScheme.onSurface,
-                textAlign = TextAlign.Center,
-            )
         }
     }
 
@@ -323,53 +398,49 @@ object PurchaseText {
         feature: CarouselItem,
         disabled: Boolean = false,
     ) {
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center,
+        Column(
+            modifier = Modifier
+                .width(150.dp)
+                .padding(HALF_KEYLINE),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
+            Image(
+                painter = painterResource(feature.icon),
+                contentDescription = null,
+                modifier = Modifier.requiredSize(72.dp),
+                alignment = Alignment.Center,
+                colorFilter = when {
+                    disabled -> ColorFilter.colorMatrix(
+                        ColorMatrix().apply { setToSaturation(0f) }
+                    )
+                    feature.tint -> ColorFilter.tint(colorResource(R.color.icon_tint_with_alpha))
+                    else -> null
+                }
+            )
+            Text(
+                text = stringResource(feature.title),
                 modifier = Modifier
-                    .width(250.dp)
-                    .height(150.dp)
-                    .padding(HALF_KEYLINE),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Image(
-                    painter = painterResource(feature.icon),
-                    contentDescription = null,
-                    modifier = Modifier.requiredSize(72.dp),
-                    alignment = Alignment.Center,
-                    colorFilter = if (feature.tint) {
-                        ColorFilter.tint(colorResource(R.color.icon_tint_with_alpha))
-                    } else {
-                        null
-                    }
-                )
-                Text(
-                    text = stringResource(feature.title),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(0.dp, 4.dp),
-                    color = MaterialTheme.colorScheme.onBackground,
-                    style = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 14.sp,
-                        letterSpacing = 0.25.sp
-                    ),
-                    textAlign = TextAlign.Center
-                )
-                Text(
-                    text = stringResource(if (disabled) R.string.account_not_included else feature.description),
-                    modifier = Modifier.fillMaxWidth(),
-                    color = if (disabled) Color.Red else MaterialTheme.colorScheme.onBackground,
-                    style = TextStyle(
-                        fontWeight = if (disabled) FontWeight.Bold else FontWeight.Normal,
-                        fontSize = 12.sp,
-                        letterSpacing = 0.4.sp
-                    ),
-                    textAlign = TextAlign.Center,
-                )
-            }
+                    .fillMaxWidth()
+                    .padding(0.dp, 4.dp),
+                color = MaterialTheme.colorScheme.onBackground,
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 14.sp,
+                    letterSpacing = 0.25.sp
+                ),
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = stringResource(if (disabled) R.string.account_not_included else feature.description),
+                modifier = Modifier.fillMaxWidth(),
+                color = if (disabled) Color.Red else MaterialTheme.colorScheme.onBackground,
+                style = TextStyle(
+                    fontWeight = if (disabled) FontWeight.Bold else FontWeight.Normal,
+                    fontSize = 12.sp,
+                    letterSpacing = 0.4.sp
+                ),
+                textAlign = TextAlign.Center,
+            )
         }
     }
 
@@ -502,8 +573,9 @@ object PurchaseText {
     }
 }
 
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@PreviewLightDark
+@PreviewFontScale
+@PreviewScreenSizes
 @Composable
 private fun PurchaseDialogPreview() {
     TasksTheme {
@@ -519,8 +591,7 @@ private fun PurchaseDialogPreview() {
     }
 }
 
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@PreviewLightDark
 @Composable
 private fun NameYourPricePreview() {
     TasksTheme {
@@ -529,6 +600,41 @@ private fun NameYourPricePreview() {
             onBack = {},
             nameYourPrice = true,
             sliderPosition = 4f,
+            setPrice = {},
+            setNameYourPrice = {},
+            skus = emptyList(),
+        )
+    }
+}
+
+@PreviewLightDark
+@Composable
+private fun UpgradeNoSubscriptionPreview() {
+    TasksTheme {
+        SubscriptionScreen(
+            subscribe = { _, _ -> },
+            onBack = {},
+            nameYourPrice = false,
+            showMoreOptions = false,
+            sliderPosition = 1f,
+            setPrice = {},
+            setNameYourPrice = {},
+            skus = emptyList(),
+        )
+    }
+}
+
+@PreviewLightDark
+@Composable
+private fun UpgradeExistingSubscriberPreview() {
+    TasksTheme {
+        SubscriptionScreen(
+            subscribe = { _, _ -> },
+            onBack = {},
+            nameYourPrice = false,
+            showMoreOptions = false,
+            existingSubscriber = true,
+            sliderPosition = 1f,
             setPrice = {},
             setNameYourPrice = {},
             skus = emptyList(),

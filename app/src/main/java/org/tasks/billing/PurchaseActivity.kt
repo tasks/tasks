@@ -12,6 +12,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PurchaseActivity : AppCompatActivity() {
     @Inject lateinit var theme: Theme
+    @Inject lateinit var inventory: Inventory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,11 @@ class PurchaseActivity : AppCompatActivity() {
                         setResult(RESULT_OK)
                         finish()
                     },
+                    onSignIn = {
+                        setResult(RESULT_OK)
+                        finish()
+                    },
+                    existingSubscriber = inventory.hasPro && !inventory.hasTasksSubscription,
                 )
             }
         }

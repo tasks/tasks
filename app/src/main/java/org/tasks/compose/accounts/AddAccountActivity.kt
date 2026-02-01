@@ -19,6 +19,9 @@ import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.auth.SignInActivity
 import org.tasks.billing.Inventory
+import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_FEATURE
+import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.data.dao.CaldavDao
 import org.tasks.etebase.EtebaseAccountSettingsActivity
@@ -40,6 +43,27 @@ class AddAccountActivity : ComponentActivity() {
     private val viewModel: AddAccountViewModel by viewModels()
     private val microsoftVM: MicrosoftSignInViewModel by viewModels()
 
+    private var pendingPlatform: Platform? = null
+
+    private val purchaseLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            pendingPlatform?.let { platform ->
+                pendingPlatform = null
+                when (platform) {
+                    Platform.TASKS_ORG,
+                    Platform.CALDAV,
+                    Platform.ETEBASE -> doSignIn(platform)
+                    Platform.DAVX5, Platform.DECSYNC_CC -> doOpenUrl(platform)
+                    else -> {}
+                }
+            }
+        } else {
+            pendingPlatform = null
+        }
+    }
+
     private val syncLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -51,6 +75,45 @@ class AddAccountActivity : ComponentActivity() {
                 ?.getStringExtra(GtasksLoginActivity.EXTRA_ERROR)
                 ?.let { /* ignore error, user can try again */ }
         }
+    }
+
+    private fun doSignIn(platform: Platform) {
+        firebase.logEvent(
+            R.string.event_add_account,
+            R.string.param_source to "settings",
+            R.string.param_selection to platform
+        )
+        when (platform) {
+            Platform.TASKS_ORG ->
+                syncLauncher.launch(Intent(this, SignInActivity::class.java))
+            Platform.GOOGLE_TASKS ->
+                syncLauncher.launch(Intent(this, GtasksLoginActivity::class.java))
+            Platform.MICROSOFT ->
+                microsoftVM.signIn(this)
+            Platform.CALDAV ->
+                syncLauncher.launch(Intent(this, CaldavAccountSettingsActivity::class.java))
+            Platform.ETEBASE ->
+                syncLauncher.launch(Intent(this, EtebaseAccountSettingsActivity::class.java))
+            else -> throw IllegalArgumentException()
+        }
+    }
+
+    private fun doOpenUrl(platform: Platform) {
+        firebase.logEvent(
+            R.string.event_add_account,
+            R.string.param_source to "settings",
+            R.string.param_selection to platform.name
+        )
+        viewModel.openUrl(this, platform)
+    }
+
+    private fun requirePurchase(platform: Platform, nameYourPrice: Boolean = true) {
+        pendingPlatform = platform
+        purchaseLauncher.launch(
+            Intent(this, PurchaseActivity::class.java)
+                .putExtra(EXTRA_NAME_YOUR_PRICE, nameYourPrice)
+                .putExtra(EXTRA_FEATURE, platform.featureTitle)
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,40 +151,23 @@ class AddAccountActivity : ComponentActivity() {
                     needsConsent = acceptedTosVersion < currentTosVersion,
                     onBack = { finish() },
                     signIn = { platform ->
-                        firebase.logEvent(
-                            R.string.event_add_account,
-                            R.string.param_source to "settings",
-                            R.string.param_selection to platform
-                        )
                         when (platform) {
-                            Platform.TASKS_ORG ->
-                                syncLauncher.launch(
-                                    Intent(this, SignInActivity::class.java)
-                                )
-                            Platform.GOOGLE_TASKS ->
-                                syncLauncher.launch(
-                                    Intent(this, GtasksLoginActivity::class.java)
-                                )
-                            Platform.MICROSOFT ->
-                                microsoftVM.signIn(this)
-                            Platform.CALDAV ->
-                                syncLauncher.launch(
-                                    Intent(this, CaldavAccountSettingsActivity::class.java)
-                                )
-                            Platform.ETEBASE ->
-                                syncLauncher.launch(
-                                    Intent(this, EtebaseAccountSettingsActivity::class.java)
-                                )
-                            else -> throw IllegalArgumentException()
+                            Platform.TASKS_ORG -> {
+                                if (inventory.hasTasksSubscription) doSignIn(platform) else requirePurchase(platform, nameYourPrice = false)
+                            }
+                            Platform.CALDAV, Platform.ETEBASE -> {
+                                if (inventory.hasPro) doSignIn(platform) else requirePurchase(platform)
+                            }
+                            else -> doSignIn(platform)
                         }
                     },
                     openUrl = { platform ->
-                        firebase.logEvent(
-                            R.string.event_add_account,
-                            R.string.param_source to "settings",
-                            R.string.param_selection to platform.name
-                        )
-                        viewModel.openUrl(this, platform)
+                        when (platform) {
+                            Platform.DAVX5, Platform.DECSYNC_CC -> {
+                                if (inventory.hasPro) doOpenUrl(platform) else requirePurchase(platform)
+                            }
+                            else -> doOpenUrl(platform)
+                        }
                     },
                     openLegalUrl = { openUri(it) },
                     onConsent = {
