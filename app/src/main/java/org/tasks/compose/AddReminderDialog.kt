@@ -3,12 +3,15 @@ package org.tasks.compose
 import android.content.res.Configuration
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -19,9 +22,11 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,6 +49,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewFontScale
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.core.content.res.ResourcesCompat
 import com.todoroo.astrid.ui.ReminderControlSetViewModel.ViewState
@@ -278,6 +285,17 @@ object AddReminderDialog {
         var selectedUnit by rememberSaveable { mutableStateOf(initialUnit) }
         val amount = if (alarm.time == 0L) 0 else kotlin.math.abs(alarm.time / unitIndexToMillis(selectedUnit)).toInt()
 
+        var isBefore by rememberSaveable { mutableStateOf(alarm.time <= 0) }
+        val isStart = alarm.type == TYPE_REL_START
+        val sign = if (isBefore) -1 else 1
+
+        val formatString = when {
+            isBefore && isStart -> R.string.alarm_before_start
+            !isBefore && isStart -> R.string.alarm_after_start
+            isBefore && !isStart -> R.string.alarm_before_due
+            else -> R.string.alarm_after_due
+        }
+
         val (initialIntervalAmount, initialIntervalUnit) = timeToAmountAndUnit(alarm.interval)
         val intervalAmount = if (alarm.interval == 0L) 0 else (alarm.interval / unitIndexToMillis(initialIntervalUnit)).toInt()
 
@@ -294,7 +312,7 @@ object AddReminderDialog {
                 value = amount,
                 onValueChange = { newAmount ->
                     val amt = newAmount ?: 0
-                    updateAlarm(alarm.copy(time = -1 * amt * unitIndexToMillis(selectedUnit)))
+                    updateAlarm(alarm.copy(time = sign * amt * unitIndexToMillis(selectedUnit)))
                 },
                 minValue = 0,
                 modifier = Modifier
@@ -303,17 +321,69 @@ object AddReminderDialog {
             )
             Spacer(modifier = Modifier.height(16.dp))
             options.forEachIndexed { index, option ->
-                RadioRow(
-                    index = index,
-                    option = option,
-                    timeAmount = amount,
-                    unitIndex = selectedUnit,
-                    onUnitSelected = { newUnit ->
-                        selectedUnit = newUnit
-                        updateAlarm(alarm.copy(time = -1 * amount * unitIndexToMillis(newUnit)))
-                    },
-                    formatString = R.string.alarm_before_due
-                )
+                if (index == selectedUnit) {
+                    val optionString = LocalContext.current.resources.getQuantityString(option, amount)
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                selectedUnit = index
+                                updateAlarm(alarm.copy(time = sign * amount * unitIndexToMillis(index)))
+                            }
+                    ) {
+                        RadioButton(
+                            selected = true,
+                            onClick = { },
+                            modifier = Modifier.align(CenterVertically)
+                        )
+                        BodyText(
+                            text = optionString,
+                            modifier = Modifier.align(CenterVertically),
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        OutlinedButton(
+                            onClick = {
+                                isBefore = !isBefore
+                                val newSign = if (isBefore) -1 else 1
+                                updateAlarm(alarm.copy(time = newSign * kotlin.math.abs(alarm.time)))
+                            },
+                            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 0.dp),
+                            shape = OutlinedTextFieldDefaults.shape,
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface),
+                            modifier = Modifier.align(CenterVertically),
+                        ) {
+                            Text(
+                                text = stringResource(id = if (isBefore) R.string.alarm_before else R.string.alarm_after),
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(4.dp))
+                        OutlinedButton(
+                            onClick = {
+                                val newType = if (isStart) TYPE_REL_END else TYPE_REL_START
+                                updateAlarm(alarm.copy(type = newType))
+                            },
+                            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 0.dp),
+                            shape = OutlinedTextFieldDefaults.shape,
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface),
+                            modifier = Modifier.align(CenterVertically),
+                        ) {
+                            Text(
+                                text = stringResource(id = if (isStart) R.string.alarm_start else R.string.alarm_due),
+                            )
+                        }
+                    }
+                } else {
+                    RadioRow(
+                        index = index,
+                        option = option,
+                        timeAmount = amount,
+                        unitIndex = selectedUnit,
+                        onUnitSelected = { newUnit ->
+                            selectedUnit = newUnit
+                            updateAlarm(alarm.copy(time = sign * amount * unitIndexToMillis(newUnit)))
+                        }
+                    )
+                }
             }
             Divider(modifier = Modifier.padding(vertical = 4.dp), thickness = 1.dp)
             Row(modifier = Modifier
@@ -398,7 +468,7 @@ object AddReminderDialog {
                     }
                 )
             }
-            Divider(modifier = Modifier.padding(vertical = 4.dp), thickness = 1.dp)
+            Spacer(modifier = Modifier.height(8.dp))
             Row(modifier = Modifier.fillMaxWidth()) {
                 OutlinedIntInput(
                     value = alarm.repeat,
@@ -408,6 +478,7 @@ object AddReminderDialog {
                     modifier = Modifier.weight(0.5f),
                     autoSelect = false,
                 )
+                Spacer(modifier = Modifier.width(8.dp))
                 BodyText(
                     text = LocalContext.current.resources.getQuantityString(
                         R.plurals.repeat_times,
@@ -489,7 +560,7 @@ fun OutlinedIntInput(
             onValueChange(textFieldValue.text.toIntOrNull())
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        modifier = modifier.padding(horizontal = 16.dp),
+        modifier = modifier,
         colors = OutlinedTextFieldDefaults.colors(
             focusedTextColor = MaterialTheme.colorScheme.onSurface,
             unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
@@ -584,13 +655,10 @@ fun AddAlarmDialog(
                 dismiss()
                 return
             }
-            TYPE_REL_END -> {
-                if (viewState.replace.time < 0) {
-                    // Custom reminder (before due)
-                    addCustom()
-                    dismiss()
-                    return
-                }
+            TYPE_REL_START, TYPE_REL_END -> {
+                addCustom()
+                dismiss()
+                return
             }
         }
     }
@@ -633,14 +701,31 @@ fun AddAlarmDialog(
 }
 
 @ExperimentalComposeUiApi
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@PreviewLightDark
+@PreviewFontScale
 @Composable
 fun AddCustomReminderOne() =
     TasksTheme {
+        Surface {
+            AddReminderDialog.AddCustomReminder(
+                alarm = Alarm(
+                    time = -1 * TimeUnit.MINUTES.toMillis(1),
+                    type = TYPE_REL_END
+                ),
+                updateAlarm = {},
+                showRecurring = {},
+            )
+        }
+    }
+
+@ExperimentalComposeUiApi
+@Preview(showBackground = true, locale = "ta", fontScale = 1.3f)
+@Composable
+fun AddCustomReminderTamil() =
+    TasksTheme {
         AddReminderDialog.AddCustomReminder(
             alarm = Alarm(
-                time = -1 * TimeUnit.MINUTES.toMillis(1),
+                time = -15 * TimeUnit.HOURS.toMillis(1),
                 type = TYPE_REL_END
             ),
             updateAlarm = {},
@@ -652,12 +737,60 @@ fun AddCustomReminderOne() =
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun AddCustomReminder() =
+fun AddCustomReminderPlural() =
     TasksTheme {
         AddReminderDialog.AddCustomReminder(
             alarm = Alarm(
                 time = -15 * TimeUnit.HOURS.toMillis(1),
                 type = TYPE_REL_END
+            ),
+            updateAlarm = {},
+            showRecurring = {},
+        )
+    }
+
+@ExperimentalComposeUiApi
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun AddCustomReminderAfterDue() =
+    TasksTheme {
+        AddReminderDialog.AddCustomReminder(
+            alarm = Alarm(
+                time = 15 * TimeUnit.HOURS.toMillis(1),
+                type = TYPE_REL_END
+            ),
+            updateAlarm = {},
+            showRecurring = {},
+        )
+    }
+
+@ExperimentalComposeUiApi
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun AddCustomReminderBeforeStart() =
+    TasksTheme {
+        AddReminderDialog.AddCustomReminder(
+            alarm = Alarm(
+                time = -15 * TimeUnit.HOURS.toMillis(1),
+                type = TYPE_REL_START
+            ),
+            updateAlarm = {},
+            showRecurring = {},
+        )
+    }
+
+@ExperimentalComposeUiApi
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun AddCustomReminderAfterStart() =
+    TasksTheme {
+        AddReminderDialog.AddCustomReminder(
+            alarm = Alarm(
+                time = 15 * TimeUnit.HOURS.toMillis(1),
+                type = TYPE_REL_START
             ),
             updateAlarm = {},
             showRecurring = {},
@@ -717,7 +850,7 @@ fun AddRandomReminderOne() =
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun AddRandomReminder() =
+fun AddRandomReminderPlural() =
     TasksTheme {
         AddReminderDialog.AddRandomReminder(
             alarm = Alarm(
