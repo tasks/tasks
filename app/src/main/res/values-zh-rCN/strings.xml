@@ -728,4 +728,8 @@
     <string name="returning_user_import_backup">导入 Tasks.org 备份</string>
     <string name="import_failed">导入失败</string>
     <string name="import_failed_message">无法读取备份文件</string>
+    <string name="banner_subscription_required_title">需要订阅</string>
+    <string name="banner_subscription_required_body">支付您想支付的金额解锁 %s 同步</string>
+    <string name="already_subscribed">已经是订阅者？</string>
+    <string name="upgrade_subscription_banner">感谢支持！升级订阅启用 Tasks.org 云同步</string>
 </resources>
