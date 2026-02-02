@@ -35,7 +35,7 @@ class Firebase @Inject constructor(
         }
     }
 
-    private val posthogEnabled: Boolean by lazy {
+    private val posthogEnabled: Boolean = run {
         val apiKey = context.getString(R.string.posthog_key)
         if (preferences.isTrackingEnabled && apiKey.isNotBlank()) {
             PostHogAndroid.setup(
@@ -95,12 +95,10 @@ class Firebase @Inject constructor(
     }
 
     fun addTask(source: String) =
-        logEventForNewUsers(R.string.event_add_task, R.string.param_type to source)
+        logEvent(R.string.event_add_task, R.string.param_type to source)
 
     fun completeTask(source: String) =
-        logEventForNewUsers(R.string.event_complete_task, R.string.param_type to source)
-
-    private val loggedOnceEvents = mutableSetOf<Int>()
+        logEvent(R.string.event_complete_task, R.string.param_type to source)
 
     fun logEvent(@StringRes event: Int, vararg p: Pair<Int, Any>) {
         val eventName = context.getString(event)
@@ -114,12 +112,6 @@ class Firebase @Inject constructor(
         }
     }
 
-    fun logEventOnce(@StringRes event: Int, vararg p: Pair<Int, Any>) {
-        if (loggedOnceEvents.add(event)) {
-            logEvent(event, *p)
-        }
-    }
-
     fun logEventOncePerDay(@StringRes event: Int, vararg p: Pair<Int, Any>) {
         val eventName = context.getString(event)
         val prefKey = "last_logged_$eventName"
@@ -127,15 +119,6 @@ class Firebase @Inject constructor(
         val lastLogged = preferences.getLong(prefKey, 0L)
         if (lastLogged < today) {
             preferences.setLong(prefKey, today)
-            logEvent(event, *p)
-        }
-    }
-
-    fun logEventForNewUsers(@StringRes event: Int, vararg p: Pair<Int, Any>) {
-        val installDate = preferences.installDate
-        // Only track for users installed within last 30 days
-        // installDate of 0 means very old user (pre-tracking) - skip them
-        if (installDate > 0 && currentTimeMillis() - installDate < TimeUnit.DAYS.toMillis(30)) {
             logEvent(event, *p)
         }
     }
