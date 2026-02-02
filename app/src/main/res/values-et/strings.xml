@@ -732,4 +732,8 @@
     <string name="returning_user_import_backup">Impordi Tasks.org-i varukoopia</string>
     <string name="import_failed">Importimine ei õnnestunud</string>
     <string name="import_failed_message">Varukoopia faili lugemine ei õnnestunud</string>
+    <string name="banner_subscription_required_title">Vajalik on tellimus</string>
+    <string name="banner_subscription_required_body">%s rakenduse sünkroonimisfunktsionaalsuse kasutamiseks maksa sulle sobiv summa</string>
+    <string name="already_subscribed">Kas juba oled tellija?</string>
+    <string name="upgrade_subscription_banner">Tänud sinu toetuse eest! Kasutamaks Tasks.org-i pilvesünkroonimise võimalus palun uuenda oma tellimust</string>
 </resources>
