@@ -120,23 +120,25 @@ class BillingClientImpl(
     }
 
     override fun onPurchasesUpdated(
-        result: BillingResult, purchases: List<com.android.billingclient.api.Purchase>?
+        result: BillingResult,
+        purchases: List<com.android.billingclient.api.Purchase>?,
     ) {
         val success = result.success
         if (success) {
             add(purchases ?: emptyList())
+            onPurchased?.invoke()
+            purchases
+                ?.filter { !it.isAcknowledged }
+                ?.forEach {
+                    firebase.reportIabResult(
+                        result.responseCodeString,
+                        it.products.joinToString(","),
+                        it.purchaseState.purchaseStateString,
+                        it.orderId ?: "",
+                    )
+                }
         }
         workManager.updatePurchases()
-        if (success) {
-            onPurchased?.invoke()
-        }
-        purchases?.forEach {
-            firebase.reportIabResult(
-                result.responseCodeString,
-                it.products.joinToString(","),
-                it.purchaseState.purchaseStateString
-            )
-        }
     }
 
     private fun add(purchases: List<com.android.billingclient.api.Purchase>) {

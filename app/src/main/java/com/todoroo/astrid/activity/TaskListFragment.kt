@@ -955,6 +955,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         val selected = taskAdapter.getSelected()
         return when (item.itemId) {
             R.id.edit_tags -> {
+                logMultiSelect("edit_tags", selected.size)
                 lifecycleScope.launch {
                     val tags = tagDataDao.getTagSelections(selected)
                     val intent = Intent(context, TagPickerActivity::class.java)
@@ -969,6 +970,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.edit_priority -> {
+                logMultiSelect("edit_priority", selected.size)
                 lifecycleScope.launch {
                     taskDao
                         .fetch(selected)
@@ -982,6 +984,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.move_tasks -> {
+                logMultiSelect("move", selected.size)
                 lifecycleScope.launch {
                     val singleFilter = taskMover.getSingleFilter(selected)
                     listPickerLauncher.launch(
@@ -993,6 +996,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.reschedule -> {
+                logMultiSelect("reschedule", selected.size)
                 lifecycleScope.launch {
                     taskDao
                             .fetch(selected)
@@ -1009,6 +1013,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_select_all -> {
+                logMultiSelect("select_all", selected.size)
                 lifecycleScope.launch {
                     setSelected(taskDao.fetchTasks(preferences, filter)
                         .map(TaskContainer::id))
@@ -1016,6 +1021,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_share -> {
+                logMultiSelect("share", selected.size)
                 lifecycleScope.launch {
                     selected
                         .chunkedMap {
@@ -1033,6 +1039,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.delete -> {
+                logMultiSelect("delete", selected.size)
                 dialogBuilder
                         .newDialog(R.string.delete_selected_tasks)
                         .setPositiveButton(
@@ -1042,6 +1049,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.copy_tasks -> {
+                logMultiSelect("copy", selected.size)
                 dialogBuilder
                         .newDialog(R.string.copy_selected_tasks)
                         .setPositiveButton(
@@ -1052,6 +1060,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
             else -> false
         }
+    }
+
+    private fun logMultiSelect(type: String, count: Int) {
+        firebase.logEvent(
+            R.string.event_multi_select,
+            R.string.param_type to type,
+            R.string.param_count to count,
+        )
     }
 
     private fun send(tasks: List<TaskContainer>) {

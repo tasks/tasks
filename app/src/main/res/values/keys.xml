@@ -412,6 +412,7 @@
   <string name="param_sku">sku</string>
   <string name="param_result">result</string>
   <string name="param_state">state</string>
+  <string name="param_order_id">order_id</string>
   <string name="param_click">click</string>
   <string name="param_selection">selection</string>
   <string name="event_todoagenda">cp_todoagenda</string>
@@ -445,6 +446,8 @@
   <string name="event_notification">notification</string>
   <string name="event_widget_click">widget_click</string>
   <string name="param_widget_id">widget_id</string>
+  <string name="event_multi_select">multi_select</string>
+  <string name="param_count">count</string>
   <string name="event_screen_welcome">screen_welcome</string>
   <string name="event_screen_add_account">screen_add_account</string>
   <string name="event_settings_navigation">settings_navigation</string>
