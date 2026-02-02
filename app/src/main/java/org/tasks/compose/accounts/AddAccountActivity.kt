@@ -22,6 +22,7 @@ import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_FEATURE
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
+import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.data.dao.CaldavDao
 import org.tasks.etebase.EtebaseAccountSettingsActivity
@@ -103,6 +104,7 @@ class AddAccountActivity : ComponentActivity() {
             Intent(this, PurchaseActivity::class.java)
                 .putExtra(EXTRA_NAME_YOUR_PRICE, nameYourPrice)
                 .putExtra(EXTRA_FEATURE, platform.featureTitle)
+                .putExtra(EXTRA_SOURCE, platform.name)
         )
     }
 

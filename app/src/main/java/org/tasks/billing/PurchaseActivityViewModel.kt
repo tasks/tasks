@@ -31,6 +31,7 @@ class PurchaseActivityViewModel @Inject constructor(
         val nameYourPrice: Boolean,
         val isGithub: Boolean,
         val feature: Int = 0,
+        val source: String = "",
         val showMoreOptions: Boolean = nameYourPrice,
         val price: Float = -1f,
         val subscription: Purchase? = null,
@@ -62,6 +63,7 @@ class PurchaseActivityViewModel @Inject constructor(
             nameYourPrice = savedStateHandle.get<Boolean>(EXTRA_NAME_YOUR_PRICE) ?: true,
             isGithub = savedStateHandle.get<Boolean>(EXTRA_GITHUB) ?: false,
             feature = savedStateHandle.get<Int>(EXTRA_FEATURE) ?: 0,
+            source = savedStateHandle.get<String>(EXTRA_SOURCE) ?: "",
         )
     )
     val viewState: StateFlow<ViewState> = _viewState
@@ -92,7 +94,10 @@ class PurchaseActivityViewModel @Inject constructor(
             }
         }
 
-        firebase.logEvent(R.string.event_showed_purchase_dialog)
+        firebase.logEvent(
+            R.string.event_showed_purchase_dialog,
+            R.string.param_source to _viewState.value.source,
+        )
     }
 
     override fun onCleared() {
@@ -131,6 +136,7 @@ class PurchaseActivityViewModel @Inject constructor(
         const val EXTRA_GITHUB = "github"
         const val EXTRA_NAME_YOUR_PRICE = "nameYourPrice"
         const val EXTRA_FEATURE = "feature"
+        const val EXTRA_SOURCE = "source"
 
         fun Int.toSku(monthly: Boolean) =
             String.format(Locale.US, "%s_%02d", if (monthly) "monthly" else "annual", this)

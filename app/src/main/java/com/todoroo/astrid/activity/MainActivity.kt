@@ -321,6 +321,7 @@ class MainActivity : AppCompatActivity() {
                                 PurchaseDestination(
                                     nameYourPrice = nameYourPrice,
                                     feature = platform.featureTitle,
+                                    source = platform.name,
                                 )
                             )
                         }

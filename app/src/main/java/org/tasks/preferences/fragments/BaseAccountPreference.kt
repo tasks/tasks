@@ -14,6 +14,7 @@ import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.billing.BillingClient
 import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.injection.InjectingPreferenceFragment
@@ -67,7 +68,8 @@ abstract class BaseAccountPreference : InjectingPreferenceFragment() {
 
     protected fun showPurchaseDialog(): Boolean {
         startActivityForResult(
-            Intent(context, PurchaseActivity::class.java),
+            Intent(context, PurchaseActivity::class.java)
+                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "account_settings"),
             REQUEST_PURCHASE
         )
         return false

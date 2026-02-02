@@ -24,6 +24,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.compose.pickers.IconPicker
 import org.tasks.compose.pickers.IconPickerViewModel
 import org.tasks.themes.TasksTheme
@@ -69,7 +70,10 @@ class IconPickerActivity : AppCompatActivity() {
                         },
                         hasPro = hasPro,
                         subscribe = {
-                            startActivity(Intent(this, PurchaseActivity::class.java))
+                            startActivity(
+                                Intent(this, PurchaseActivity::class.java)
+                                    .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "icons")
+                            )
                         },
                     )
                 }

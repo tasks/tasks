@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
@@ -174,7 +175,8 @@ class LookAndFeel : InjectingPreferenceFragment() {
                         setBaseTheme(index)
                     } else {
                         startActivityForResult(
-                            Intent(context, PurchaseActivity::class.java),
+                            Intent(context, PurchaseActivity::class.java)
+                                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "themes"),
                             REQUEST_PURCHASE
                         )
                     }

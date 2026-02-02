@@ -38,6 +38,7 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.compose.ServerSelector
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
@@ -137,7 +138,10 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             newSnackbar(getString(R.string.this_feature_requires_a_subscription))
                     .setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE)
                     .setAction(R.string.button_subscribe) {
-                        startActivity(Intent(this, PurchaseActivity::class.java))
+                        startActivity(
+                            Intent(this, PurchaseActivity::class.java)
+                                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "caldav_settings")
+                        )
                     }
                     .show()
         }

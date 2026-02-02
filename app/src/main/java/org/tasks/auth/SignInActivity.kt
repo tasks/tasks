@@ -51,6 +51,7 @@ import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_GITHUB
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
+import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
 import org.tasks.compose.SignInDialog
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
@@ -230,7 +231,8 @@ class SignInActivity : ComponentActivity() {
                 startActivityForResult(
                     Intent(this, PurchaseActivity::class.java)
                         .putExtra(EXTRA_GITHUB, viewModel.authService?.isGitHub ?: IS_GENERIC)
-                        .putExtra(EXTRA_NAME_YOUR_PRICE, false),
+                        .putExtra(EXTRA_NAME_YOUR_PRICE, false)
+                        .putExtra(EXTRA_SOURCE, "sign_in"),
                     RC_PURCHASE
                 )
             } else {

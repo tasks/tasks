@@ -497,6 +497,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                                 PurchaseActivityViewModel.EXTRA_NAME_YOUR_PRICE,
                                                 !isTasksOrg
                                             )
+                                            putExtra(
+                                                PurchaseActivityViewModel.EXTRA_SOURCE,
+                                                "banner"
+                                            )
                                         }
                                     )
                                 },
@@ -512,6 +516,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                             Intent(
                                                 context,
                                                 PurchaseActivity::class.java
+                                            ).putExtra(
+                                                PurchaseActivityViewModel.EXTRA_SOURCE,
+                                                "nag"
                                             )
                                         )
                                     } else {
