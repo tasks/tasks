@@ -761,4 +761,8 @@
     <string name="returning_user_import_backup">Importa il backup di Tasks.org</string>
     <string name="import_failed">Importazione non riuscita</string>
     <string name="import_failed_message">Impossibile leggere il file di backup</string>
+    <string name="banner_subscription_required_title">Richiede un abbonamento</string>
+    <string name="already_subscribed">Sei già abbonato?</string>
+    <string name="upgrade_subscription_banner">Grazie per il tuo sostegno! Aggiorna il tuo abbonamento per abilitare Tasks.org Cloud Sync</string>
+    <string name="banner_subscription_required_body">Paga quanto vuoi per sbloccare la sincronizzazione %s</string>
 </resources>
