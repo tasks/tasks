@@ -6,7 +6,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.MenuItem
+import android.view.ViewGroup
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG
@@ -58,12 +62,21 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         binding = ActivityTagOrganizerBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
         toolbar = binding.toolbar.toolbar
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val toolbarParams = toolbar.layoutParams as ViewGroup.MarginLayoutParams
+            toolbarParams.topMargin = systemBars.top
+            binding.recyclerView.setPadding(0, 0, 0, systemBars.bottom)
+            insets
+        }
 
         with(toolbar) {
             title = getString(R.string.customize_drawer)
@@ -78,6 +91,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
         adapter.setOnClick(this::onClick)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
+        binding.recyclerView.clipToPadding = false
 
         val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback())
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
