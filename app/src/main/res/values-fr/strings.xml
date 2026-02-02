@@ -761,4 +761,8 @@
     <string name="returning_user">Restaurer les données ?</string>
     <string name="import_failed_message">Impossible de lire le fichier de sauvegarde</string>
     <string name="import_failed">Échec de l\'importation</string>
+    <string name="upgrade_subscription_banner">Merci pour votre soutien ! Mettez à niveau votre abonnement pour activer la synchronisation cloud Tasks.org</string>
+    <string name="banner_subscription_required_title">Abonnement requis</string>
+    <string name="banner_subscription_required_body">Payez ce que vous voulez pour déverrouiller la synchronisation %s</string>
+    <string name="already_subscribed">Déjà abonné ?</string>
 </resources>
