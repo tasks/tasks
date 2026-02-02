@@ -13,6 +13,7 @@ import com.todoroo.astrid.core.CriterionInstance.Companion.serialize
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.FilterSettingsActivity
+import org.tasks.analytics.Firebase
 import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_LIST
 import javax.inject.Inject
@@ -22,6 +23,7 @@ class NewFilterDialog : DialogFragment() {
 
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var provider: FilterCriteriaProvider
+    @Inject lateinit var firebase: Firebase
 
     companion object {
         fun newFilterDialog(): NewFilterDialog = NewFilterDialog()
@@ -58,6 +60,11 @@ class NewFilterDialog : DialogFragment() {
     }
 
     private fun newCustomFilter(title: Int) {
+        val template = resources.getResourceEntryName(title)
+        firebase.logEvent(
+            R.string.event_create_filter,
+            R.string.param_type to template,
+        )
         val list = ArrayList<CriterionInstance>()
         when (title) {
             R.string.filter_overdue ->

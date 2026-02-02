@@ -99,10 +99,12 @@ class TasksJsonImporter @Inject constructor(
             }
             Timber.d("Updating parents")
             caldavDao.updateParents()
+            firebase.logEvent(R.string.event_settings_click, R.string.param_type to "import_backup_success")
         } catch (e: Exception) {
             Timber.e(e)
             firebase.logEvent(
-                R.string.event_import_backup_failed,
+                R.string.event_settings_click,
+                R.string.param_type to "import_backup_failed",
                 R.string.param_error to e.javaClass.simpleName
             )
             if (e !is IOException) {

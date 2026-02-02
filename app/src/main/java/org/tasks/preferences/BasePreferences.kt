@@ -130,7 +130,10 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
 
     override fun onMenuItemClick(item: MenuItem?): Boolean =
             if (item?.itemId == R.id.menu_help_and_feedback) {
-                startActivity(Intent(this, HelpAndFeedback::class.java))
+                startActivity(
+                    Intent(this, HelpAndFeedback::class.java)
+                        .putExtra(HelpAndFeedback.EXTRA_SOURCE, "settings_overflow")
+                )
                 true
             } else false
 }

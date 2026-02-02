@@ -9,6 +9,7 @@ import androidx.preference.SwitchPreferenceCompat
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.PermissionUtil
 import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.dialogs.ExportTasksDialog
 import org.tasks.dialogs.ImportTasksDialog
 import org.tasks.drive.DriveLoginActivity
@@ -33,6 +34,7 @@ const val FRAG_TAG_IMPORT_TASKS = "frag_tag_import_tasks"
 class Backups : InjectingPreferenceFragment() {
 
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var firebase: Firebase
 
     private val viewModel: PreferencesViewModel by activityViewModels()
 
@@ -49,6 +51,7 @@ class Backups : InjectingPreferenceFragment() {
 
         findPreference(R.string.backup_BAc_import)
             .setOnPreferenceClickListener {
+                firebase.logEvent(R.string.event_settings_click, R.string.param_type to "import_backup")
                 startActivityForResult(
                     FileHelper.newFilePickerIntent(activity, preferences.backupDirectory),
                     REQUEST_PICKER
@@ -58,6 +61,7 @@ class Backups : InjectingPreferenceFragment() {
 
         findPreference(R.string.backup_BAc_export)
             .setOnPreferenceClickListener {
+                firebase.logEvent(R.string.event_settings_click, R.string.param_type to "backup_now")
                 ExportTasksDialog.newExportTasksDialog(this, REQUEST_BACKUP_NOW)
                     .show(parentFragmentManager, FRAG_TAG_EXPORT_TASKS)
                 false

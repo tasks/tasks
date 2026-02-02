@@ -440,10 +440,14 @@
   <string name="event_create_list">create_list</string>
   <string name="event_search">search</string>
   <string name="event_sort_change">sort_change</string>
+  <string name="event_settings_click">settings_click</string>
+  <string name="event_help_and_feedback">help_and_feedback</string>
+  <string name="event_notification">notification</string>
+  <string name="event_widget_click">widget_click</string>
+  <string name="param_widget_id">widget_id</string>
   <string name="event_screen_welcome">screen_welcome</string>
   <string name="event_screen_add_account">screen_add_account</string>
   <string name="event_settings_navigation">settings_navigation</string>
-  <string name="event_import_backup_failed">import_backup_failed</string>
   <string name="param_type">type</string>
   <string name="param_screen">screen</string>
   <string name="param_error">error</string>
@@ -453,6 +457,7 @@
   <string name="p_markdown">markdown</string>
   <string name="p_completed_tasks_at_bottom">completed_tasks_at_bottom</string>
   <string name="p_shown_beast_mode_hint">shown_beast_mode_hint</string>
+  <string name="p_beast_mode_order">beast_mode_order_v6</string>
   <string name="p_last_sync">last_sync_time</string>
   <string name="p_multiline_title">multiline_title</string>
   <string name="p_dynamic_color">dynamic_color</string>

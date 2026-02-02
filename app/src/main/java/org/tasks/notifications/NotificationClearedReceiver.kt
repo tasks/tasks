@@ -7,6 +7,8 @@ import com.todoroo.astrid.alarms.AlarmService
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.injection.ApplicationScope
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -19,6 +21,7 @@ class NotificationClearedReceiver : BroadcastReceiver() {
     @Inject @ApplicationScope lateinit var scope: CoroutineScope
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var alarmService: AlarmService
+    @Inject lateinit var firebase: Firebase
 
     override fun onReceive(context: Context, intent: Intent) {
         val notificationId = intent.getLongExtra(NotificationManager.EXTRA_NOTIFICATION_ID, -1L)
@@ -26,6 +29,7 @@ class NotificationClearedReceiver : BroadcastReceiver() {
         if (notificationId <= 0L) return
         scope.launch {
             if (preferences.useSwipeToSnooze()) {
+                firebase.logEvent(R.string.event_notification, R.string.param_type to "auto_snooze")
                 var snoozeTime = preferences.swipeToSnoozeIntervalMS()
                 // snoozing for 0ms will cause the alarm service to miss this notification
                 // so sleep for 1s instead
@@ -35,6 +39,7 @@ class NotificationClearedReceiver : BroadcastReceiver() {
                     taskIds = listOf(notificationId)
                 )
             } else {
+                firebase.logEvent(R.string.event_notification, R.string.param_type to "clear")
                 notificationManager.cancel(notificationId)
             }
         }

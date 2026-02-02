@@ -8,6 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.caldav.VtodoCache
 import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.dao.TaskDao
@@ -30,6 +31,7 @@ class Advanced : InjectingPreferenceFragment() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var calendarEventProvider: CalendarEventProvider
     @Inject lateinit var vtodoCache: VtodoCache
+    @Inject lateinit var firebase: Firebase
 
     override fun getPreferenceXml() = R.xml.preferences_advanced
 
@@ -93,6 +95,7 @@ class Advanced : InjectingPreferenceFragment() {
             .newDialog()
             .setMessage(R.string.EPr_manage_delete_completed_gcal_message)
             .setPositiveButton(R.string.ok) { _, _ ->
+                firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_completed_calendar_events")
                 performAction(R.string.EPr_manage_delete_gcal_status) {
                     calendarEventProvider.deleteEvents(taskDao.getCompletedCalendarEvents())
                     taskDao.clearCompletedCalendarEvents()
@@ -107,6 +110,7 @@ class Advanced : InjectingPreferenceFragment() {
             .newDialog()
             .setMessage(R.string.EPr_manage_delete_all_gcal_message)
             .setPositiveButton(R.string.ok) { _, _ ->
+                firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_all_calendar_events")
                 performAction(
                     R.string.EPr_manage_delete_gcal_status) {
                         calendarEventProvider.deleteEvents(taskDao.getAllCalendarEvents())
@@ -126,6 +130,7 @@ class Advanced : InjectingPreferenceFragment() {
             .newDialog()
             .setMessage(R.string.EPr_reset_preferences_warning)
             .setPositiveButton(R.string.EPr_reset_preferences) { _, _ ->
+                firebase.logEvent(R.string.event_settings_click, R.string.param_type to "reset_preferences")
                 preferences.reset()
                 restart()
             }
@@ -138,6 +143,7 @@ class Advanced : InjectingPreferenceFragment() {
             .newDialog()
             .setMessage(R.string.EPr_delete_task_data_warning)
             .setPositiveButton(R.string.EPr_delete_task_data) { _, _ ->
+                firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_task_data")
                 val context = requireContext()
                 lifecycleScope.launch(NonCancellable) {
                     context.deleteDatabase(database.name)

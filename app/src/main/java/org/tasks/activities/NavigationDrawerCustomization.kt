@@ -26,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.FilterDao
@@ -55,6 +56,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
     @Inject lateinit var filterDao: FilterDao
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var locationDao: LocationDao
+    @Inject lateinit var firebase: Firebase
 
     private lateinit var binding: ActivityTagOrganizerBinding
     private lateinit var toolbar: Toolbar
@@ -138,6 +140,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         return if (item.itemId == R.id.reset_sort) {
+            firebase.logEvent(R.string.event_settings_click, R.string.param_type to "drawer_reset")
             lifecycleScope.launch {
                 filterDao.resetOrders()
                 caldavDao.resetOrders()
@@ -205,6 +208,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
             (viewHolder as FilterViewHolder).setMoving(false)
 
             if (from != to) {
+                firebase.logEvent(R.string.event_settings_click, R.string.param_type to "drawer_reorder")
                 lifecycleScope.launch {
                     adapter.items
                             .apply {

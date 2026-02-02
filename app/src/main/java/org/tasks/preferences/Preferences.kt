@@ -39,6 +39,10 @@ class Preferences @JvmOverloads constructor(
 ) : QueryPreferences {
     private val prefs: SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
+    fun registerOnSharedPreferenceChangeListener(
+        listener: SharedPreferences.OnSharedPreferenceChangeListener
+    ) = prefs.registerOnSharedPreferenceChangeListener(listener)
+
     fun androidBackupServiceEnabled() = getBoolean(R.string.p_backups_android_backup_enabled, true)
 
     fun showBackupWarnings() = !getBoolean(R.string.p_backups_ignore_warnings, false)

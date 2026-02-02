@@ -156,6 +156,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     }
 
     override suspend fun delete() {
+        firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_filter")
         viewModel.delete {
             setResult(
                 Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED).putExtra(TOKEN_FILTER, filter))

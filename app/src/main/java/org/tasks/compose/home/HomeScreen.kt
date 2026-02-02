@@ -205,6 +205,9 @@ fun HomeScreen(
                                                         Intent(
                                                             context,
                                                             HelpAndFeedback::class.java
+                                                        ).putExtra(
+                                                            HelpAndFeedback.EXTRA_SOURCE,
+                                                            "drawer"
                                                         )
                                                     )
                                             }

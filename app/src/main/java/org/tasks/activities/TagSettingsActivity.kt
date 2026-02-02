@@ -132,6 +132,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
     }
 
     override suspend fun delete() {
+        firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_tag")
         val uuid = tagData.remoteId
         tagDataDao.delete(tagData)
         setResult(

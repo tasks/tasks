@@ -12,7 +12,9 @@ import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
+import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
+import org.tasks.analytics.Firebase
 import org.tasks.time.DateTime
 import javax.inject.Inject
 
@@ -20,6 +22,7 @@ import javax.inject.Inject
 class SnoozeActivity : AppCompatActivity(), SnoozeCallback, DialogInterface.OnCancelListener {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var alarmService: AlarmService
+    @Inject lateinit var firebase: Firebase
 
     private val taskIds: MutableList<Long> = ArrayList()
     private var pickingDateTime = false
@@ -53,6 +56,7 @@ class SnoozeActivity : AppCompatActivity(), SnoozeCallback, DialogInterface.OnCa
     }
 
     override fun snoozeForTime(time: DateTime) {
+        firebase.logEvent(R.string.event_notification, R.string.param_type to "snooze_time")
         lifecycleScope.launch(NonCancellable) {
             alarmService.snooze(time.millis, taskIds)
         }
