@@ -297,7 +297,7 @@
     <string name="add_account">Konto hinzufügen</string>
     <string name="user">Benutzer</string>
     <string name="password">Passwort</string>
-    <string name="notification_disable_battery_optimizations_description">Energiesparmodus kann Benachrichtigungen verzögern</string>
+    <string name="notification_disable_battery_optimizations_description">Akkuoptimierungen können Benachrichtigungen verzögern</string>
     <string name="bundle_notifications">Benachrichtigungen zusammenfassen</string>
     <string name="badges">Benachrichtigungspunkte</string>
     <string name="list">Liste</string>
@@ -413,7 +413,7 @@
     <string name="wearable_notifications_summary">Benachrichtigungen auf deinem Wearable anzeigen</string>
     <string name="troubleshooting">Fehlerbehebung</string>
     <string name="notification_troubleshooting_summary">Tippe hier, wenn du Probleme hast Benachrichtigungen zu erhalten</string>
-    <string name="disable_battery_optimizations">Akkueinschränkungen deaktivieren</string>
+    <string name="disable_battery_optimizations">Akkuoptimierungen deaktivieren</string>
     <string name="more_notification_settings_summary">Klingelton, Vibration und mehr</string>
     <string name="invalid_username_or_password">Ungültiger Benutzername oder Passwort</string>
     <string name="color_wheel">Farbkreis</string>
@@ -739,4 +739,8 @@
     <string name="sponsorship_required_fdroid">Ein GitHub-Sponsoring ist erforderlich, um die Tasks.org-Synchronisierung zu nutzen. Klicke unten, um Sponsor:in zu werden.</string>
     <string name="legal">Rechtliches</string>
     <string name="legal_disclosure">%1$s stimmst du den %2$s und der %3$s zu. Tasks ist Open-Source-Software, die unter der %4$s bereitgestellt wird.</string>
+    <string name="banner_subscription_required_body">Bezahle, was du möchtest, um die Synchronisierung von %s freizuschalten</string>
+    <string name="banner_subscription_required_title">Abonnement erforderlich</string>
+    <string name="already_subscribed">Bereits Abonnent?</string>
+    <string name="upgrade_subscription_banner">Vielen Dank für deine Unterstützung! Aktualisiere dein Abonnement, um Tasks.org Cloud Sync zu aktivieren</string>
 </resources>
