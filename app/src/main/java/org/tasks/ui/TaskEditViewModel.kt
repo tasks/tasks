@@ -196,6 +196,16 @@ class TaskEditViewModel @Inject constructor(
     private val _viewState = MutableStateFlow(originalState.value)
     val viewState: StateFlow<TaskEditViewState> = _viewState
 
+    init {
+        if (!preferences.shownBeastModeHint) {
+            firebase?.logEvent(
+                R.string.event_banner,
+                R.string.param_type to "beast_mode",
+                R.string.param_action to "shown",
+            )
+        }
+    }
+
     var eventUri = MutableStateFlow(task.calendarURI)
     val timerStarted = MutableStateFlow(task.timerStart)
     val estimatedSeconds = MutableStateFlow(task.estimatedSeconds)
@@ -530,7 +540,14 @@ class TaskEditViewModel @Inject constructor(
             it.copy(showBeastModeHint = false)
         }
         preferences.shownBeastModeHint = true
-        firebase?.logEvent(R.string.event_banner_beast, R.string.param_click to click)
+        firebase?.logEvent(
+            R.string.event_banner,
+            R.string.param_type to "beast_mode",
+            R.string.param_action to if (click) "positive" else "negative",
+            R.string.param_label to resources.getResourceEntryName(
+                if (click) R.string.TLA_menu_settings else R.string.dismiss
+            ),
+        )
     }
 
     fun setPriority(priority: Int) {
