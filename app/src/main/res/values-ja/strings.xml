@@ -529,7 +529,7 @@
     <string name="davx5_selection_description">DAVx⁵ でタスクを同期する</string>
     <string name="caldav_account_description">CalDAV サービスプロバイダまたはセルフホストサーバのアカウントが必要です。サービスプロバイダを探すには、tasks.org/caldav にアクセスしてください</string>
     <string name="chips">チップ</string>
-    <string name="now">今</string>
+    <string name="now">現在</string>
     <string name="choose_synchronization_service">プラットフォームを選択</string>
     <string name="upgrade_blurb_1">こんにちは！私は Alex です。Tasks のインディーディベロッパーです</string>
     <string name="no_google_play_subscription">対象の Google Play の定期購入がありません</string>
@@ -709,4 +709,9 @@
     <string name="microsoft_selection_description_googleplay">職場用、学校用、または個人用Microsoftアカウントと同期する</string>
     <string name="import_failed_message">バックアップファイルを読めません</string>
     <string name="import_failed">インポートできませんでした</string>
+    <string name="banner_subscription_required_title">購入が必要</string>
+    <string name="banner_subscription_required_body">%sとの同期をするため、お好みの金額をお支払いください</string>
+    <string name="sponsorship_required_fdroid">Tasks.orgと同期するには GitHubへの寄付が必要です。寄付をするには下をクリックしてください。</string>
+    <string name="already_subscribed">購入済みですか？</string>
+    <string name="terms_of_service">サービス規約</string>
 </resources>
