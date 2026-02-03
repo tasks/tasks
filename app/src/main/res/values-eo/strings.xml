@@ -739,4 +739,8 @@
     <string name="legal_disclosure">%1$s, vi konsentas kun la %2$s kaj %3$s. Tasks estas malfermitkoda programaro disponita per la %4$s.</string>
     <string name="import_failed">Importo malsukcesis</string>
     <string name="import_failed_message">Malsukcesis legi dosieron de savkopio</string>
+    <string name="banner_subscription_required_title">Bezonas abonon</string>
+    <string name="banner_subscription_required_body">Pagu kiel vi volas por malŝlosi sinkronigon per %s</string>
+    <string name="already_subscribed">Ĉu jam abonanto?</string>
+    <string name="upgrade_subscription_banner">Dankon pro via subteno! Altgradigu vian abonon por ŝalti sinkronigon de Tasks.org Cloud</string>
 </resources>
