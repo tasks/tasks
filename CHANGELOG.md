@@ -1,3 +1,17 @@
+### 14.10 (2026-02-03)
+
+* Improved custom reminders
+  * Configure reminders relative to start date or due date
+  * Configure period before or after date
+* Fix drawer customization layout
+* Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山, @xlionjuan
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @Kachelkaiser, @ColorfulRhino
+  * Italian - @ppasserini
+
 ### 14.9.2 (2026-02-01)
 
 * Onboarding improvements

@@ -1,0 +1,5 @@
+* Improved custom reminders
+  * Configure reminders relative to start date or due date
+  * Configure period before or after date
+* Fix drawer customization layout
+* Update translations
