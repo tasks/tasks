@@ -22,7 +22,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import org.tasks.data.prefTitle
 import org.tasks.analytics.Firebase
@@ -237,7 +236,7 @@ class TaskListViewModel @Inject constructor(
                     Banner.NotificationsDisabled
                 preferences.warnAlarmsDisabled && !applicationContext.canScheduleExactAlarms() ->
                     Banner.AlarmsDisabled
-                (IS_GENERIC || !inventory.hasPro) && !firebase.subscribeCooldown ->
+                inventory.begForMoney && !firebase.subscribeCooldown ->
                     Banner.BegForMoney
                 preferences.isCurrentlyQuietHours && preferences.warnQuietHoursDisabled ->
                     Banner.QuietHoursEnabled

@@ -26,7 +26,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
-import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.billing.Inventory
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.throttleLatest
@@ -80,7 +79,7 @@ class MainActivityViewModel @Inject constructor(
                     runBlocking { defaultFilterProvider.getFilterFromPreference(it) }
                 }
                 ?: runBlocking { defaultFilterProvider.getStartupFilter() },
-            begForMoney = if (IS_GENERIC) !inventory.hasTasksAccount else !inventory.hasPro,
+            begForMoney = inventory.begForMoney,
             task = savedStateHandle.get<Task>(EXTRA_TASK),
         )
     )

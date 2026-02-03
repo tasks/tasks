@@ -7,6 +7,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
@@ -19,7 +20,7 @@ import javax.inject.Singleton
 
 @Singleton
 class Inventory @Inject constructor(
-        @ApplicationContext private val context: Context,
+        @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,
         private val signatureVerifier: SignatureVerifier,
         private val localBroadcastManager: LocalBroadcastManager,
@@ -57,12 +58,16 @@ class Inventory @Inject constructor(
     val hasTasksSubscription: Boolean
         get() = subscription.value?.isTasksSubscription == true || hasTasksAccount
 
+    val begForMoney: Boolean
+        get() = if (IS_GENERIC) !hasTasksAccount else !hasPro
+
     fun purchasedThemes() = hasPro || purchases.containsKey(SKU_THEMES)
 
+    @Suppress("SimplifyBooleanWithConstants")
     var hasPro = false
         get() {
             @Suppress("KotlinConstantConditions")
-            return BuildConfig.FLAVOR == "generic"
+            return IS_GENERIC
                     || (BuildConfig.DEBUG && preferences.getBoolean(R.string.p_debug_pro, false))
                     || hasTasksAccount
                     || field
