@@ -741,6 +741,6 @@
     <string name="legal_disclosure">%1$s stimmst du den %2$s und der %3$s zu. Tasks ist Open-Source-Software, die unter der %4$s bereitgestellt wird.</string>
     <string name="banner_subscription_required_body">Bezahle, was du möchtest, um die Synchronisierung von %s freizuschalten</string>
     <string name="banner_subscription_required_title">Abo erforderlich</string>
-    <string name="already_subscribed">Abonnierst du bereits?</string>
+    <string name="already_subscribed">Hast du schon ein Abo?</string>
     <string name="upgrade_subscription_banner">Vielen Dank für deine Unterstützung! Aktualisiere dein Abo, um Tasks.org Cloud Sync zu aktivieren</string>
 </resources>
