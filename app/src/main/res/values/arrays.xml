@@ -46,12 +46,6 @@
     <item>@string/next_week</item>
   </string-array>
 
-  <string-array name="EPr_default_reminders">
-    <item>@string/when_started</item>
-    <item>@string/when_due</item>
-    <item>@string/when_overdue</item>
-  </string-array>
-
   <string-array name="CFC_dueBefore_entries">
     <item>@string/no_due_date</item>
     <item>@string/yesterday</item>

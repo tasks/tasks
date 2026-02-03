@@ -19,10 +19,9 @@ import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.TagData
-import org.tasks.data.entity.Task.Companion.NOTIFY_AFTER_DEADLINE
-import org.tasks.data.entity.Task.Companion.NOTIFY_AT_DEADLINE
-import org.tasks.data.entity.Task.Companion.NOTIFY_AT_START
+import org.tasks.compose.DefaultRemindersActivity
 import org.tasks.injection.InjectingPreferenceFragment
+import org.tasks.reminders.AlarmToString
 import org.tasks.location.LocationPickerActivity
 import org.tasks.location.LocationPickerActivity.Companion.EXTRA_PLACE
 import org.tasks.preferences.DefaultFilterProvider
@@ -116,9 +115,9 @@ class TaskDefaults : InjectingPreferenceFragment() {
                     false
                 }
 
-        findPreference(R.string.p_default_reminders_key).setOnPreferenceChangeListener { _, newValue ->
-            updateDefaultReminders(newValue as Collection<String>)
-            true
+        findPreference(R.string.p_default_reminders_key).setOnPreferenceClickListener {
+            startActivity(Intent(requireContext(), DefaultRemindersActivity::class.java))
+            false
         }
 
         updateRemoteListSummary()
@@ -219,20 +218,16 @@ class TaskDefaults : InjectingPreferenceFragment() {
                         ?: requireContext().getString(R.string.none)
     }
 
-    private fun updateDefaultReminders(prefs: Collection<String> = preferences.defaultRemindersSet) {
+    private fun updateDefaultReminders() {
+        val alarms = preferences.defaultAlarms
         findPreference(R.string.p_default_reminders_key).summary =
-            if (prefs.isEmpty()) {
+            if (alarms.isEmpty()) {
                 getString(R.string.no_reminders)
             } else {
-                prefs.mapNotNull {
-                    when (it.toInt()) {
-                        NOTIFY_AT_DEADLINE -> getString(R.string.when_due)
-                        NOTIFY_AFTER_DEADLINE -> getString(R.string.when_overdue)
-                        NOTIFY_AT_START -> getString(R.string.when_started)
-                        else -> null
-                    }
+                val alarmToString = AlarmToString(requireContext())
+                alarms.joinToString("\n") {
+                    alarmToString.toString(it).replace("\n", ", ")
                 }
-                    .joinToString("\n")
             }
     }
 

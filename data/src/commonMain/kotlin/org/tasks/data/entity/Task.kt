@@ -133,19 +133,6 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
     val isNotifyModeFive: Boolean
         get() = ringFlags == NOTIFY_MODE_FIVE
 
-    val isNotifyAfterDeadline: Boolean
-        get() = isReminderSet(NOTIFY_AFTER_DEADLINE)
-
-    val isNotifyAtStart: Boolean
-        get() = isReminderSet(NOTIFY_AT_START)
-
-    val isNotifyAtDeadline: Boolean
-        get() = isReminderSet(NOTIFY_AT_DEADLINE)
-
-    private fun isReminderSet(flag: Int): Boolean {
-        return ((transitoryData?.get(TRANS_REMINDERS) as? Int) ?: 0) and flag > 0
-    }
-
     val isNew: Boolean
         get() = id == NO_ID
 
@@ -238,10 +225,6 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
     }
 
     fun isSuppressRefresh() = checkTransitory(TRANS_SUPPRESS_REFRESH)
-
-    fun defaultReminders(flags: Int) {
-        putTransitory(TRANS_REMINDERS, flags)
-    }
 
     var randomReminder: Long
         get() = getTransitory(TRANS_RANDOM) ?: 0L
@@ -358,7 +341,7 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
         const val URGENCY_IN_TWO_WEEKS = 5
 
         private const val TRANS_SUPPRESS_REFRESH = "suppress-refresh"
-        const val TRANS_REMINDERS = "reminders"
+        const val TRANS_DEFAULT_ALARMS = "default_alarms"
         const val TRANS_RANDOM = "random"
 
         private val INVALID_COUNT = ";?COUNT=(-1|0)".toRegex()

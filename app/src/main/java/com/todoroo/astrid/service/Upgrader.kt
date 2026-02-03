@@ -70,6 +70,7 @@ class Upgrader @Inject constructor(
     private val upgrade_12_4: Lazy<Upgrade_12_4>,
     private val upgrade_13_2: Lazy<Upgrade_13_2>,
     private val upgrade_13_11: Lazy<Upgrade_13_11>,
+    private val upgrade_14_11: Lazy<Upgrade_14_11>,
 ) {
 
     fun upgrade(from: Int, to: Int) {
@@ -157,6 +158,9 @@ class Upgrader @Inject constructor(
                         .setConstraints(networkConstraints)
                         .build()
                 )
+            }
+            run(from, Upgrade_14_11.VERSION) {
+                upgrade_14_11.get().migrateDefaultAlarms()
             }
             preferences.setBoolean(R.string.p_just_updated, true)
         } else {

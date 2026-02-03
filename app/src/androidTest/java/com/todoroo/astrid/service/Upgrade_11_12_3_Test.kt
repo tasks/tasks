@@ -9,6 +9,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.tasks.R
 import org.tasks.TestUtilities.newPreferences
 import org.tasks.preferences.Preferences
 
@@ -22,8 +23,7 @@ class Upgrade_11_12_3_Test {
         preferences.setString(LEGACY_PREFERENCE, "0")
         upgrader.migrateDefaultReminderPreference()
 
-        assertEquals(emptySet<String>(), preferences.defaultRemindersSet)
-        assertEquals(0, preferences.defaultReminders)
+        assertEquals(emptySet<String>(), defaultRemindersSet())
     }
 
     @Test
@@ -31,8 +31,7 @@ class Upgrade_11_12_3_Test {
         preferences.setString(LEGACY_PREFERENCE, "2")
         upgrader.migrateDefaultReminderPreference()
 
-        assertEquals(setOf("2"), preferences.defaultRemindersSet)
-        assertEquals(2, preferences.defaultReminders)
+        assertEquals(setOf("2"), defaultRemindersSet())
     }
 
     @Test
@@ -40,8 +39,7 @@ class Upgrade_11_12_3_Test {
         preferences.setString(LEGACY_PREFERENCE, "4")
         upgrader.migrateDefaultReminderPreference()
 
-        assertEquals(setOf("4"), preferences.defaultRemindersSet)
-        assertEquals(4, preferences.defaultReminders)
+        assertEquals(setOf("4"), defaultRemindersSet())
     }
 
     @Test
@@ -49,9 +47,11 @@ class Upgrade_11_12_3_Test {
         preferences.setString(LEGACY_PREFERENCE, "6")
         upgrader.migrateDefaultReminderPreference()
 
-        assertEquals(setOf("2", "4"), preferences.defaultRemindersSet)
-        assertEquals(6, preferences.defaultReminders)
+        assertEquals(setOf("2", "4"), defaultRemindersSet())
     }
+
+    private fun defaultRemindersSet() =
+        preferences.getStringSet(R.string.p_default_reminders_key)
 
     @Before
     fun setUp() {

@@ -16,13 +16,13 @@ import androidx.preference.PreferenceManager
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.BeastModePreferences
 import com.todoroo.astrid.core.SortHelper
+import kotlinx.serialization.json.Json
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.billing.Purchase
+import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Task
-import org.tasks.data.entity.Task.Companion.NOTIFY_AFTER_DEADLINE
-import org.tasks.data.entity.Task.Companion.NOTIFY_AT_DEADLINE
 import org.tasks.data.entity.TaskAttachment
 import org.tasks.extensions.Context.getResourceUri
 import org.tasks.kmp.org.tasks.themes.ColorProvider.BLUE_500
@@ -201,16 +201,24 @@ class Preferences @JvmOverloads constructor(
         null
     }
 
-    val defaultRemindersSet: Set<String>
-        get() = getStringSet(
-            R.string.p_default_reminders_key,
-            hashSetOf(NOTIFY_AT_DEADLINE.toString(), NOTIFY_AFTER_DEADLINE.toString())
-        )
+    val defaultAlarms: List<Alarm>
+        get() = getStringSet(R.string.p_default_alarms, DEFAULT_ALARMS)
+            .mapNotNull {
+                try {
+                    Json.decodeFromString<Alarm>(it)
+                } catch (e: Exception) {
+                    Timber.e(e)
+                    null
+                }
+            }
+            .sortedWith(compareBy({ it.type }, { it.time }))
 
-    val defaultReminders: Int
-        get() = defaultRemindersSet
-            .mapNotNull { it.toIntOrNull() }
-            .sum()
+    fun setDefaultAlarms(alarms: List<Alarm>) {
+        setStringSet(
+            R.string.p_default_alarms,
+            alarms.map { Json.encodeToString(it) }.toHashSet()
+        )
+    }
 
     val defaultRingMode: Int
         get() = getIntegerFromString(R.string.p_default_reminders_mode_key, 0)
@@ -258,7 +266,7 @@ class Preferences @JvmOverloads constructor(
         editor.apply()
     }
 
-    private fun getStringSet(key: Int, defaultValue: Set<String> = emptySet()) =
+    internal fun getStringSet(key: Int, defaultValue: Set<String> = emptySet()) =
         getStringSet(context.getString(key), defaultValue)
 
     private fun getStringSet(key: String, defaultValue: Set<String> = emptySet()): Set<String> =
@@ -597,6 +605,12 @@ class Preferences @JvmOverloads constructor(
         private val syncFlags = listOf(
                 R.string.p_sync_ongoing,
                 R.string.p_sync_ongoing_android,
+        )
+
+        private val DEFAULT_ALARMS: Set<String> = setOf(
+            Json.encodeToString(Alarm(time = 0, type = Alarm.TYPE_REL_START)),
+            Json.encodeToString(Alarm(time = 0, type = Alarm.TYPE_REL_END)),
+            Json.encodeToString(Alarm.whenOverdue(0)),
         )
     }
 }

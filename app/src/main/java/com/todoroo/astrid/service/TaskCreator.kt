@@ -19,9 +19,8 @@ import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
-import org.tasks.data.entity.Alarm.Companion.whenDue
-import org.tasks.data.entity.Alarm.Companion.whenOverdue
-import org.tasks.data.entity.Alarm.Companion.whenStarted
+import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
+import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Tag
@@ -214,23 +213,19 @@ class TaskCreator @Inject constructor(
                 R.string.p_rmd_default_random_hours,
                 0
             )
-            defaultReminders(preferences.defaultReminders)
+            putTransitory(Task.TRANS_DEFAULT_ALARMS, preferences.defaultAlarms)
             ringFlags = preferences.defaultRingMode
         }
 
         private fun Any?.substitute(): String? =
             (this as? String)?.let { PermaSql.replacePlaceholdersForNewTask(it) }
 
-        fun Task.getDefaultAlarms(): List<Alarm> = ArrayList<Alarm>().apply {
-            if (hasStartDate() && isNotifyAtStart) {
-                add(whenStarted(id))
-            }
-            if (hasDueDate()) {
-                if (isNotifyAtDeadline) {
-                    add(whenDue(id))
-                }
-                if (isNotifyAfterDeadline) {
-                    add(whenOverdue(id))
+        fun Task.getDefaultAlarms(): List<Alarm> = buildList {
+            val defaults = getTransitory<List<Alarm>>(Task.TRANS_DEFAULT_ALARMS) ?: emptyList()
+            for (alarm in defaults) {
+                when (alarm.type) {
+                    TYPE_REL_START -> if (hasStartDate()) add(alarm.copy(task = id))
+                    TYPE_REL_END -> if (hasDueDate()) add(alarm.copy(task = id))
                 }
             }
             if (randomReminder > 0) {

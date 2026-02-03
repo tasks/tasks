@@ -2,8 +2,8 @@ package org.tasks.compose
 
 import android.content.res.Configuration
 import androidx.annotation.StringRes
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -642,6 +642,8 @@ fun AddAlarmDialog(
     addCustom: () -> Unit,
     pickDateAndTime: () -> Unit,
     dismiss: () -> Unit,
+    showRandom: Boolean = true,
+    showDateTimePicker: Boolean = true,
 ) {
     if (viewState.showAddAlarm) {
         when (viewState.replace?.type) {
@@ -660,6 +662,14 @@ fun AddAlarmDialog(
                 dismiss()
                 return
             }
+        }
+        val hasWhenStarted = existingAlarms.any { it.type == TYPE_REL_START && it.time == 0L }
+        val hasWhenDue = existingAlarms.any { it.type == TYPE_REL_END && it.time == 0L }
+        val hasWhenOverdue = existingAlarms.any { it.type == TYPE_REL_END && it.time > 0 } // any reminder after due
+        if (!showRandom && !showDateTimePicker && hasWhenStarted && hasWhenDue && hasWhenOverdue) {
+            addCustom()
+            dismiss()
+            return
         }
     }
     CustomDialog(visible = viewState.showAddAlarm, onDismiss = dismiss) {
@@ -684,13 +694,17 @@ fun AddAlarmDialog(
                     dismiss()
                 }
             }
-            DialogRow(text = R.string.randomly) {
-                addRandom()
-                dismiss()
+            if (showRandom) {
+                DialogRow(text = R.string.randomly) {
+                    addRandom()
+                    dismiss()
+                }
             }
-            DialogRow(text = R.string.pick_a_date_and_time) {
-                pickDateAndTime()
-                dismiss()
+            if (showDateTimePicker) {
+                DialogRow(text = R.string.pick_a_date_and_time) {
+                    pickDateAndTime()
+                    dismiss()
+                }
             }
             DialogRow(text = R.string.repeat_option_custom) {
                 addCustom()
