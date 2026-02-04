@@ -743,4 +743,8 @@
     <string name="banner_subscription_required_title">Abo erforderlich</string>
     <string name="already_subscribed">Hast du schon ein Abo?</string>
     <string name="upgrade_subscription_banner">Vielen Dank für deine Unterstützung! Aktualisiere dein Abo, um Tasks.org Cloud Sync zu aktivieren</string>
+    <string name="alarm_after">nach</string>
+    <string name="alarm_start">Start</string>
+    <string name="alarm_due">fällig</string>
+    <string name="alarm_before">vor</string>
 </resources>
