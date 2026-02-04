@@ -736,4 +736,8 @@
     <string name="banner_subscription_required_body">%s rakenduse sünkroonimisfunktsionaalsuse kasutamiseks maksa sulle sobiv summa</string>
     <string name="already_subscribed">Kas juba oled tellija?</string>
     <string name="upgrade_subscription_banner">Tänud sinu toetuse eest! Kasutamaks Tasks.org-i pilvesünkroonimise võimalus palun uuenda oma tellimust</string>
+    <string name="alarm_before">enne</string>
+    <string name="alarm_after">peale</string>
+    <string name="alarm_start">algus</string>
+    <string name="alarm_due">tähtaeg</string>
 </resources>
