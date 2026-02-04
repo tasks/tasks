@@ -739,4 +739,12 @@
     <string name="returning_user_import_backup">Tasks.org yedeğini içe aktar</string>
     <string name="import_failed">İçe aktarma başarısız</string>
     <string name="import_failed_message">Yedek dosyası okunamadı</string>
+    <string name="banner_subscription_required_title">Abonelik gereklidir</string>
+    <string name="banner_subscription_required_body">%s eşzamanlama kilidini açmak için dilediğinizi ödeyin</string>
+    <string name="already_subscribed">Hâlihazırda abone misiniz?</string>
+    <string name="upgrade_subscription_banner">Desteğiniz için sağ olun! Tasks.org Bulut Eşzamanlamasını etkinleştirmek için aboneliğinizi yükseltin</string>
+    <string name="alarm_before">önce</string>
+    <string name="alarm_after">sonra</string>
+    <string name="alarm_start">başlangıç</string>
+    <string name="alarm_due">bitiş</string>
 </resources>
