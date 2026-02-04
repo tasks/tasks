@@ -732,4 +732,8 @@
     <string name="banner_subscription_required_body">支付您想支付的金额解锁 %s 同步</string>
     <string name="already_subscribed">已经是订阅者？</string>
     <string name="upgrade_subscription_banner">感谢支持！升级订阅启用 Tasks.org 云同步</string>
+    <string name="alarm_before">前</string>
+    <string name="alarm_after">后</string>
+    <string name="alarm_start">开始</string>
+    <string name="alarm_due">到期</string>
 </resources>
