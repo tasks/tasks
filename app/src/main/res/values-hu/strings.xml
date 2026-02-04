@@ -739,4 +739,12 @@
     <string name="returning_user_import_backup">Tasks.org mentés importálása</string>
     <string name="import_failed_message">A mentés fájlja nem olvasható</string>
     <string name="import_failed">Sikertelen importálás</string>
+    <string name="banner_subscription_required_title">Előfizetés szükséges</string>
+    <string name="banner_subscription_required_body">A %s szinkronizáció tetszőleges összeg fizetésével feloldható</string>
+    <string name="already_subscribed">Már előfizető?</string>
+    <string name="upgrade_subscription_banner">Köszönjük a támogatást. Frissítse az előfizetését a Tasks.org felhős szinkronizáció engedélyezéséhez</string>
+    <string name="alarm_before">előtte</string>
+    <string name="alarm_after">utána</string>
+    <string name="alarm_start">kezdet</string>
+    <string name="alarm_due">esedékes</string>
 </resources>
