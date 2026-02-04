@@ -34,6 +34,7 @@ import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDay
 import org.tasks.preferences.IconPreference
 import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_TASKS_ORG
+import org.tasks.fcm.PushTokenManager
 import org.tasks.utility.copyToClipboard
 import javax.inject.Inject
 
@@ -45,6 +46,7 @@ class TasksAccount : BaseAccountPreference() {
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var tasksPreferences: TasksPreferences
+    @Inject lateinit var pushTokenManager: PushTokenManager
 
     private val viewModel: TasksAccountViewModel by viewModels()
     private var tosDialogShown = false
@@ -91,6 +93,7 @@ class TasksAccount : BaseAccountPreference() {
     }
 
     override suspend fun removeAccount() {
+        pushTokenManager.unregisterToken(account)
         super.removeAccount()
         // TODO: try to delete session from caldav.tasks.org
         inventory.updateTasksAccount()

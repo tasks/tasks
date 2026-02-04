@@ -5,8 +5,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.FormBody
 import okhttp3.HttpUrl
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
 class TasksClient(
@@ -52,6 +54,34 @@ class TasksClient(
                 }
     }
 
+    suspend fun registerPushToken(token: String) = withContext(Dispatchers.IO) {
+        val url = httpUrl?.resolve(ENDPOINT_PUSH_TOKEN) ?: return@withContext
+        val body = JSONObject().put("token", token).toString()
+            .toRequestBody("application/json".toMediaType())
+        httpClient
+            .newCall(Request.Builder().post(body).url(url).build())
+            .execute()
+            .use { response ->
+                if (!response.isSuccessful) {
+                    throw HttpException(response)
+                }
+            }
+    }
+
+    suspend fun unregisterPushToken(token: String) = withContext(Dispatchers.IO) {
+        val url = httpUrl?.resolve(ENDPOINT_PUSH_TOKEN) ?: return@withContext
+        val body = JSONObject().put("token", token).toString()
+            .toRequestBody("application/json".toMediaType())
+        httpClient
+            .newCall(Request.Builder().delete(body).url(url).build())
+            .execute()
+            .use { response ->
+                if (!response.isSuccessful) {
+                    throw HttpException(response)
+                }
+            }
+    }
+
     suspend fun getAppPasswords(): JSONObject? = withContext(Dispatchers.IO) {
         val url = httpUrl?.resolve(ENDPOINT_PASSWORDS) ?: return@withContext null
         httpClient
@@ -70,6 +100,7 @@ class TasksClient(
 
     companion object {
         private const val ENDPOINT_PASSWORDS = "/app-passwords"
+        private const val ENDPOINT_PUSH_TOKEN = "/push-token"
         private const val FORM_DESCRIPTION = "description"
         private const val FORM_SESSION_ID = "session_id"
     }

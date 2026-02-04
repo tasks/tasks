@@ -121,6 +121,7 @@ etebase = { module = "com.etebase:client", version.ref = "etebase" }
 firebase = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
 firebase-config-ktx = { module = "com.google.firebase:firebase-config-ktx" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging-ktx" }
 firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebase-crashlytics-gradle" }
 google-oauth2 = { module = "com.google.auth:google-auth-library-oauth2-http", version.ref = "google-oauth2" }
 google-api-drive = { module = "com.google.apis:google-api-services-drive", version.ref = "google-api-drive" }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.annotation.StringRes
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.posthog.PostHog
@@ -16,10 +17,13 @@ import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
+import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 @Singleton
 class Firebase @Inject constructor(
@@ -301,6 +305,19 @@ class Firebase @Inject constructor(
             ?.toInt()
             ?.takeIf { it >= default }
             ?: default
+    }
+
+    suspend fun getToken(): String? {
+        return try {
+            suspendCancellableCoroutine { cont ->
+                FirebaseMessaging.getInstance().token
+                    .addOnSuccessListener { cont.resume(it) }
+                    .addOnFailureListener { cont.resumeWithException(it) }
+            }
+        } catch (e: Exception) {
+            Timber.e(e, "Failed to get FCM token")
+            null
+        }
     }
 
     companion object {

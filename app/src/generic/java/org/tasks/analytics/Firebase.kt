@@ -44,4 +44,7 @@ class Firebase @Inject constructor(
 
     fun getTosVersion(): Int =
         context.resources.getInteger(R.integer.default_tos_version)
+
+    @Suppress("RedundantSuspendModifier")
+    suspend fun getToken(): String? = null
 }
