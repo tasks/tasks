@@ -51,7 +51,10 @@ import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_GITHUB
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
+import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
 import org.tasks.compose.SignInDialog
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.fcm.PushTokenManager
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
@@ -76,6 +79,7 @@ class SignInActivity : ComponentActivity() {
     @Inject lateinit var theme: Theme
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var pushTokenManager: PushTokenManager
 
     private val viewModel: SignInViewModel by viewModels()
 
@@ -230,7 +234,8 @@ class SignInActivity : ComponentActivity() {
                 startActivityForResult(
                     Intent(this, PurchaseActivity::class.java)
                         .putExtra(EXTRA_GITHUB, viewModel.authService?.isGitHub ?: IS_GENERIC)
-                        .putExtra(EXTRA_NAME_YOUR_PRICE, false),
+                        .putExtra(EXTRA_NAME_YOUR_PRICE, false)
+                        .putExtra(EXTRA_SOURCE, "sign_in"),
                     RC_PURCHASE
                 )
             } else {
@@ -241,9 +246,8 @@ class SignInActivity : ComponentActivity() {
         }
     }
 
-    private suspend fun setupAccount(): Boolean {
-        val account = viewModel.setupAccount(authService)
-        return account != null
+    private suspend fun setupAccount(): CaldavAccount? {
+        return viewModel.setupAccount(authService)
     }
 
     override fun onDestroy() {
@@ -257,8 +261,9 @@ class SignInActivity : ComponentActivity() {
             RC_PURCHASE ->
                 if (inventory.subscription.value?.isTasksSubscription == true) {
                     lifecycleScope.launch {
-                        val account = viewModel.setupAccount(authService)
+                        val account = setupAccount()
                         if (account != null) {
+                            pushTokenManager.registerTokenForAccount(account)
                             firebase.logEvent(
                                 R.string.event_sync_add_account,
                                 R.string.param_type to Constants.SYNC_TYPE_TASKS_ORG
@@ -276,7 +281,9 @@ class SignInActivity : ComponentActivity() {
                         try {
                             viewModel.handleResult(authService, data!!)
                             if (authService.authStateManager.current.isAuthorized) {
-                                if (setupAccount()) {
+                                val account = setupAccount()
+                                if (account != null) {
+                                    pushTokenManager.registerTokenForAccount(account)
                                     firebase.logEvent(
                                         R.string.event_sync_add_account,
                                         R.string.param_type to Constants.SYNC_TYPE_TASKS_ORG

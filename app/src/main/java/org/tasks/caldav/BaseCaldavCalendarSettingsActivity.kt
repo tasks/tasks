@@ -198,6 +198,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
 
     protected suspend fun onDeleted(deleted: Boolean) {
         if (deleted) {
+            firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_list")
             taskDeleter.delete(caldavCalendar!!)
             setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))
             finish()

@@ -74,6 +74,7 @@ internal class TasksWidgetBuilder(
                 R.id.widget_view_more,
                 Intent(WidgetClickActivity.OPEN_TASK_LIST)
                     .putExtra(WidgetClickActivity.EXTRA_FILTER, filter)
+                    .putExtra(WidgetClickActivity.EXTRA_WIDGET, widgetId)
             )
         }
     }
@@ -167,6 +168,7 @@ internal class TasksWidgetBuilder(
                     Intent(WidgetClickActivity.EDIT_TASK)
                         .putExtra(WidgetClickActivity.EXTRA_FILTER, filter)
                         .putExtra(WidgetClickActivity.EXTRA_TASK_ID, task.id)
+                        .putExtra(WidgetClickActivity.EXTRA_WIDGET, widgetId)
                 )
                 if (settings.showCheckboxes) {
                     setViewPadding(
@@ -183,6 +185,7 @@ internal class TasksWidgetBuilder(
                         Intent(WidgetClickActivity.COMPLETE_TASK)
                             .putExtra(WidgetClickActivity.EXTRA_TASK_ID, task.id)
                             .putExtra(WidgetClickActivity.EXTRA_COMPLETED, !task.isCompleted)
+                            .putExtra(WidgetClickActivity.EXTRA_WIDGET, widgetId)
                     )
                 } else {
                     setViewPadding(R.id.widget_complete_box, hPad, 0, 0, 0)
@@ -205,6 +208,7 @@ internal class TasksWidgetBuilder(
                                 WidgetClickActivity.EXTRA_COLLAPSED,
                                 !taskContainer.isCollapsed
                             )
+                            .putExtra(WidgetClickActivity.EXTRA_WIDGET, widgetId)
                     )
                 }
                 if (taskContainer.task.isHidden && settings.showStartChips) {
@@ -283,6 +287,7 @@ internal class TasksWidgetBuilder(
                 dueDateRes,
                 Intent(WidgetClickActivity.RESCHEDULE_TASK)
                     .putExtra(WidgetClickActivity.EXTRA_TASK_ID, task.id)
+                    .putExtra(WidgetClickActivity.EXTRA_WIDGET, widgetId)
             )
         } else {
             setViewVisibility(dueDateRes, View.GONE)

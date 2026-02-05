@@ -9,6 +9,7 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.injection.BaseWorker
+import timber.log.Timber
 
 @HiltWorker
 class UpdatePurchaseWork @AssistedInject constructor(
@@ -22,6 +23,7 @@ class UpdatePurchaseWork @AssistedInject constructor(
         try {
             billingClient.queryPurchases(throwError = true)
         } catch (e: Exception) {
+            Timber.e(e)
             return Result.retry()
         }
         inventory.purchases.values

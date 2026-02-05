@@ -43,6 +43,27 @@ fun AlarmsDisabledBanner(
 }
 
 @Composable
+fun SubscriptionRequiredBanner(
+    nameRes: Int,
+    isTasksOrg: Boolean,
+    subscribe: () -> Unit,
+    dismiss: () -> Unit,
+) {
+    Banner(
+        title = stringResource(id = R.string.banner_subscription_required_title),
+        body = if (isTasksOrg) {
+            stringResource(id = R.string.your_subscription_expired)
+        } else {
+            stringResource(id = R.string.banner_subscription_required_body, stringResource(nameRes))
+        },
+        dismissText = stringResource(id = R.string.dismiss),
+        onDismiss = dismiss,
+        action = stringResource(id = R.string.button_subscribe),
+        onAction = subscribe,
+    )
+}
+
+@Composable
 fun SubscriptionNagBanner(
     subscribe: () -> Unit,
     dismiss: () -> Unit,
@@ -182,6 +203,30 @@ private fun MicrosoftWarningPreview() = TasksTheme {
 @Composable
 private fun GoogleTasksWarningPreview() = TasksTheme {
     SyncWarningGoogleTasks(moreInfo = {}, dismiss = {})
+}
+
+@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun SubscriptionRequiredDavx5Preview() = TasksTheme {
+    SubscriptionRequiredBanner(
+        nameRes = R.string.davx5,
+        isTasksOrg = false,
+        subscribe = {},
+        dismiss = {},
+    )
+}
+
+@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun SubscriptionRequiredTasksOrgPreview() = TasksTheme {
+    SubscriptionRequiredBanner(
+        nameRes = R.string.tasks_org,
+        isTasksOrg = true,
+        subscribe = {},
+        dismiss = {},
+    )
 }
 
 @Preview(showBackground = true)

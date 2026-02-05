@@ -22,15 +22,7 @@ class Firebase @Inject constructor(
         Timber.d("${context.getString(event)} -> ${params.associate { context.getString(it.first) to it.second }}")
     }
 
-    fun logEventOnce(event: Int, vararg params: Pair<Int, Any>) {
-        logEvent(event, *params)
-    }
-
     fun logEventOncePerDay(event: Int, vararg params: Pair<Int, Any>) {
-        logEvent(event, *params)
-    }
-
-    fun logEventForNewUsers(event: Int, vararg params: Pair<Int, Any>) {
         logEvent(event, *params)
     }
 
@@ -52,4 +44,7 @@ class Firebase @Inject constructor(
 
     fun getTosVersion(): Int =
         context.resources.getInteger(R.integer.default_tos_version)
+
+    @Suppress("RedundantSuspendModifier")
+    suspend fun getToken(): String? = null
 }

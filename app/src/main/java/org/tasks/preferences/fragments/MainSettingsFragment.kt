@@ -18,6 +18,7 @@ import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.billing.Purchase
 import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.data.accountSettingsClass
 import org.tasks.data.entity.CaldavAccount
@@ -55,7 +56,10 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         findPreference(R.string.add_account).setOnPreferenceClickListener { addAccount() }
 
         findPreference(R.string.name_your_price).setOnPreferenceClickListener {
-            startActivity(Intent(context, PurchaseActivity::class.java))
+            startActivity(
+                Intent(context, PurchaseActivity::class.java)
+                    .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "settings")
+            )
             false
         }
 

@@ -700,6 +700,10 @@
     <string name="upgrade_more_customization_description">அனைத்து கருப்பொருள்கள், வண்ணங்கள் மற்றும் ஐகான்களைத் திறக்கவும்</string>
     <string name="markdown">மார்க் பேரூர்</string>
     <string name="alarm_before_due">வருவதற்கு முன் %s</string>
+    <string name="alarm_before">முன்</string>
+    <string name="alarm_after">பிறகு</string>
+    <string name="alarm_start">தொடக்கம்</string>
+    <string name="alarm_due">உரிய</string>
     <string name="hint_customize_edit_title">அதிகமான தகவல்கள்?</string>
     <string name="hint_customize_edit_body">புலங்களை மறுசீரமைப்பதன் மூலம் அல்லது அகற்றுவதன் மூலம் இந்தத் திரையைத் தனிப்பயனாக்கலாம்</string>
     <string name="enable_alarms_description">சரியான நேரத்தில் உங்களுக்கு அறிவிக்கப்பட்டிருப்பதை உறுதிப்படுத்த, அமைப்புகளில் அலாரங்கள் மற்றும் நினைவூட்டல்களை அமைக்க இசைவு வழங்கவும்</string>

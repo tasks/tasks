@@ -9,7 +9,8 @@ interface BillingClient {
         activity: Activity,
         sku: String,
         skuType: String,
-        oldPurchase: Purchase? = null
+        oldPurchase: Purchase? = null,
+        onPurchased: (() -> Unit)? = null,
     )
     suspend fun acknowledge(purchase: Purchase)
     suspend fun getSkus(skus: List<String>): List<Sku>

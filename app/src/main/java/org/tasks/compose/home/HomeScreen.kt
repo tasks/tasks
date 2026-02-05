@@ -60,6 +60,7 @@ import org.tasks.R
 import org.tasks.TasksApplication
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.compose.drawer.DrawerAction
 import org.tasks.compose.drawer.DrawerItem
@@ -193,6 +194,9 @@ fun HomeScreen(
                                                             Intent(
                                                                 context,
                                                                 PurchaseActivity::class.java
+                                                            ).putExtra(
+                                                                PurchaseActivityViewModel.EXTRA_SOURCE,
+                                                                "drawer"
                                                             )
                                                         )
 
@@ -201,6 +205,9 @@ fun HomeScreen(
                                                         Intent(
                                                             context,
                                                             HelpAndFeedback::class.java
+                                                        ).putExtra(
+                                                            HelpAndFeedback.EXTRA_SOURCE,
+                                                            "drawer"
                                                         )
                                                     )
                                             }

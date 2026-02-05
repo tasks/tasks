@@ -717,4 +717,26 @@
     <string name="continue_without_sync">Fortsæt uden synkronisering</string>
     <string name="delete_tasks_warning">%s bliver slettet. Dette kan ikke fortrydes!</string>
     <string name="widget_view_more_tasks">Vis flere opgaver</string>
+    <string name="import_failed">Import mislykkedes</string>
+    <string name="import_failed_message">Kunne ikke læse sikkerhedskopifil</string>
+    <string name="local_list_title">Dette er en lokal liste</string>
+    <string name="local_list_description">Opgaver på denne liste gemmes kun på denne enhed. Tilknyt en konto for at beskytte dine data og få adgang til dem hvor som helst.</string>
+    <string name="name_your_price_blurb">Betal det beløb, du ønsker, for at låse op for temaer, ikoner og disse avancerede synkroniseringsindstillinger</string>
+    <string name="microsoft_selection_description_googleplay">Synkroniser med din arbejds-, skole- eller personlige Microsoft-konto</string>
+    <string name="subscription_required_fdroid">Der kræves et abonnement for at kunne bruge Tasks.org-synkronisering. Abonnementer skal oprettes fra Google Play-versionen af Tasks.</string>
+    <string name="sponsorship_required_fdroid">Der kræves et GitHub-sponsorat for at kunne bruge Tasks.org-synkronisering. Klik nedenfor for at blive sponsor.</string>
+    <string name="legal">Juridisk</string>
+    <string name="legal_disclosure">%1$s, du accepterer %2$s og %3$s. Tasks er open source-software, der stilles til rådighed under %4$s.</string>
+    <string name="legal_disclosure_prefix_using">Ved at bruge Tasks.org</string>
+    <string name="legal_disclosure_prefix_continuing">Ved at fortsætte med en af nedenstående knapper</string>
+    <string name="terms_of_service">Servicevilkår</string>
+    <string name="terms_of_service_proper">Servicevilkår</string>
+    <string name="privacy_policy_proper">Privatlivspolitik</string>
+    <string name="gplv3_license">GPLv3-licens</string>
+    <string name="tos_updated_title">Vi har opdateret vores servicevilkår</string>
+    <string name="view_tos">Vis servicevilkår</string>
+    <string name="accept">Acceptér</string>
+    <string name="exit">Afslut</string>
+    <string name="returning_user">Tilbagevendende bruger?</string>
+    <string name="returning_user_import_backup">Importér Tasks.org-sikkerhedskopi</string>
 </resources>

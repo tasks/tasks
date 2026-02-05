@@ -1,0 +1,3 @@
+* Set custom default reminders
+* Push sync for Tasks.org accounts (Google Play only)
+* Update translations

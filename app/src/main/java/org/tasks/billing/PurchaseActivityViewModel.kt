@@ -30,10 +30,14 @@ class PurchaseActivityViewModel @Inject constructor(
     data class ViewState(
         val nameYourPrice: Boolean,
         val isGithub: Boolean,
+        val feature: Int = 0,
+        val source: String = "",
+        val showMoreOptions: Boolean = nameYourPrice,
         val price: Float = -1f,
         val subscription: Purchase? = null,
         val error: String? = null,
         val skus: List<Sku> = emptyList(),
+        val purchased: Boolean = false,
     )
 
     private val purchaseReceiver = object : BroadcastReceiver() {
@@ -58,6 +62,8 @@ class PurchaseActivityViewModel @Inject constructor(
         ViewState(
             nameYourPrice = savedStateHandle.get<Boolean>(EXTRA_NAME_YOUR_PRICE) ?: true,
             isGithub = savedStateHandle.get<Boolean>(EXTRA_GITHUB) ?: false,
+            feature = savedStateHandle.get<Int>(EXTRA_FEATURE) ?: 0,
+            source = savedStateHandle.get<String>(EXTRA_SOURCE) ?: "",
         )
     )
     val viewState: StateFlow<ViewState> = _viewState
@@ -88,7 +94,10 @@ class PurchaseActivityViewModel @Inject constructor(
             }
         }
 
-        firebase.logEvent(R.string.event_showed_purchase_dialog)
+        firebase.logEvent(
+            R.string.event_showed_purchase_dialog,
+            R.string.param_source to _viewState.value.source,
+        )
     }
 
     override fun onCleared() {
@@ -104,6 +113,9 @@ class PurchaseActivityViewModel @Inject constructor(
                 newSku,
                 BillingClientImpl.TYPE_SUBS,
                 _viewState.value.subscription?.takeIf { it.sku != newSku },
+                onPurchased = {
+                    _viewState.update { it.copy(purchased = true) }
+                },
             )
         } catch (e: Exception) {
             _viewState.update {
@@ -121,8 +133,10 @@ class PurchaseActivityViewModel @Inject constructor(
     }
 
     companion object {
-        const val EXTRA_GITHUB = "extra_github"
-        const val EXTRA_NAME_YOUR_PRICE = "extra_name_your_price"
+        const val EXTRA_GITHUB = "github"
+        const val EXTRA_NAME_YOUR_PRICE = "nameYourPrice"
+        const val EXTRA_FEATURE = "feature"
+        const val EXTRA_SOURCE = "source"
 
         fun Int.toSku(monthly: Boolean) =
             String.format(Locale.US, "%s_%02d", if (monthly) "monthly" else "annual", this)

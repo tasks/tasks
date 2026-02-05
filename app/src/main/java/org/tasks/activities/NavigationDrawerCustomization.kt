@@ -6,7 +6,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.MenuItem
+import android.view.ViewGroup
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG
@@ -22,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.FilterDao
@@ -51,6 +56,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
     @Inject lateinit var filterDao: FilterDao
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var locationDao: LocationDao
+    @Inject lateinit var firebase: Firebase
 
     private lateinit var binding: ActivityTagOrganizerBinding
     private lateinit var toolbar: Toolbar
@@ -58,12 +64,21 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         binding = ActivityTagOrganizerBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
         toolbar = binding.toolbar.toolbar
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val toolbarParams = toolbar.layoutParams as ViewGroup.MarginLayoutParams
+            toolbarParams.topMargin = systemBars.top
+            binding.recyclerView.setPadding(0, 0, 0, systemBars.bottom)
+            insets
+        }
 
         with(toolbar) {
             title = getString(R.string.customize_drawer)
@@ -78,6 +93,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
         adapter.setOnClick(this::onClick)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
+        binding.recyclerView.clipToPadding = false
 
         val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback())
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
@@ -124,6 +140,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         return if (item.itemId == R.id.reset_sort) {
+            firebase.logEvent(R.string.event_settings_click, R.string.param_type to "drawer_reset")
             lifecycleScope.launch {
                 filterDao.resetOrders()
                 caldavDao.resetOrders()
@@ -191,6 +208,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
             (viewHolder as FilterViewHolder).setMoving(false)
 
             if (from != to) {
+                firebase.logEvent(R.string.event_settings_click, R.string.param_type to "drawer_reorder")
                 lifecycleScope.launch {
                     adapter.items
                             .apply {

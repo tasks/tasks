@@ -4,10 +4,14 @@ import android.content.Context
 import android.net.Uri
 import android.util.JsonReader
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
+import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
+import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.service.Upgrade_13_11.Companion.migrateLegacyIcon
 import com.todoroo.astrid.service.Upgrade_13_2
+import com.todoroo.astrid.service.Upgrade_14_11
 import com.todoroo.astrid.service.Upgrader
 import com.todoroo.astrid.service.Upgrader.Companion.V12_4
 import com.todoroo.astrid.service.Upgrader.Companion.V12_8
@@ -99,10 +103,12 @@ class TasksJsonImporter @Inject constructor(
             }
             Timber.d("Updating parents")
             caldavDao.updateParents()
+            firebase.logEvent(R.string.event_settings_click, R.string.param_type to "import_backup_success")
         } catch (e: Exception) {
             Timber.e(e)
             firebase.logEvent(
-                R.string.event_import_backup_failed,
+                R.string.event_settings_click,
+                R.string.param_type to "import_backup_failed",
                 R.string.param_error to e.javaClass.simpleName
             )
             if (e !is IOException) {
@@ -346,8 +352,22 @@ class TasksJsonImporter @Inject constructor(
         val taskUuid = task.uuid
         backup.alarms?.map { it.copy(task = taskId) }?.let { alarmDao.insert(it) }
         if (version < V12_4) {
-            task.defaultReminders(task.ringFlags)
-            alarmDao.insert(task.getDefaultAlarms())
+            val alarms = Upgrade_14_11.fromLegacyFlags(task.ringFlags, task.id)
+                .filter { alarm ->
+                    when (alarm.type) {
+                        TYPE_REL_START -> task.hasStartDate()
+                        TYPE_REL_END -> task.hasDueDate()
+                        else -> true
+                    }
+                }
+                .let {
+                    if (task.randomReminder > 0) {
+                        it + Alarm(task = task.id, time = task.randomReminder, type = TYPE_RANDOM)
+                    } else {
+                        it
+                    }
+                }
+            alarmDao.insert(alarms)
             task.ringFlags = when {
                 task.isNotifyModeFive -> Task.NOTIFY_MODE_FIVE
                 task.isNotifyModeNonstop -> Task.NOTIFY_MODE_NONSTOP

@@ -3,9 +3,6 @@ package org.tasks.preferences
 import android.annotation.SuppressLint
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.tasks.data.entity.Task.Companion.NOTIFY_AFTER_DEADLINE
-import org.tasks.data.entity.Task.Companion.NOTIFY_AT_DEADLINE
-import org.tasks.data.entity.Task.Companion.NOTIFY_AT_START
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -119,30 +116,12 @@ class PreferenceTests {
         assertEquals(dueDate, preferences.adjustForQuietHours(dueDate))
     }
 
-    @Test
-    fun testDefaultReminders() {
-        assertEquals(0, defaultReminders())
-        assertEquals(2, defaultReminders(NOTIFY_AT_DEADLINE))
-        assertEquals(4, defaultReminders(NOTIFY_AFTER_DEADLINE))
-        assertEquals(6, defaultReminders(NOTIFY_AT_DEADLINE, NOTIFY_AFTER_DEADLINE))
-        assertEquals(32, defaultReminders(NOTIFY_AT_START))
-        assertEquals(38, defaultReminders(NOTIFY_AT_START, NOTIFY_AT_DEADLINE, NOTIFY_AFTER_DEADLINE))
-    }
-
     private fun setQuietHoursStart(hour: Int) {
         preferences.setInt(R.string.p_rmd_quietStart, hour * MILLIS_PER_HOUR)
     }
 
     private fun setQuietHoursEnd(hour: Int) {
         preferences.setInt(R.string.p_rmd_quietEnd, hour * MILLIS_PER_HOUR)
-    }
-
-    private fun defaultReminders(vararg values: Int): Int {
-        preferences.setStringSet(
-            R.string.p_default_reminders_key,
-            values.map { it.toString() }.toSet()
-        )
-        return preferences.defaultReminders
     }
 
     companion object {

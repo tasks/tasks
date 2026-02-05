@@ -593,6 +593,8 @@ File %1$s contained %2$s.\n\n
   <string name="filter_eisenhower_box_2">Important and not urgent</string>
   <string name="filter_eisenhower_box_3">Not important and urgent</string>
   <string name="filter_eisenhower_box_4">Not important and not urgent</string>
+  <string name="banner_subscription_required_title">Subscription required</string>
+  <string name="banner_subscription_required_body">Pay whatever you want to unlock %s synchronization</string>
   <string name="enjoying_tasks">Enjoying Tasks?</string>
   <string name="donate_nag">Consider showing your support with a donation!</string>
   <string name="donate_today">Donate today</string>
@@ -691,6 +693,8 @@ File %1$s contained %2$s.\n\n
   <string name="upgrade_desktop_access_description">Sync with third-party clients like Outlook and Apple Reminders</string>
   <string name="upgrade_open_source_description">Your subscription supports continued development</string>
   <string name="more_options">More options</string>
+  <string name="already_subscribed">Already a subscriber?</string>
+  <string name="upgrade_subscription_banner">Thanks for your support! Upgrade your subscription to enable Tasks.org Cloud Sync</string>
   <string name="markdown">Markdown</string>
   <string name="markdown_description">Enable Markdown in title and description</string>
   <string name="completion_sound">Play completion sound</string>
@@ -702,6 +706,10 @@ File %1$s contained %2$s.\n\n
   <string name="alarm_after_start">%s after start</string>
   <string name="alarm_before_due">%s before due</string>
   <string name="alarm_after_due">%s after due</string>
+  <string name="alarm_before">before</string>
+  <string name="alarm_after">after</string>
+  <string name="alarm_start">start</string>
+  <string name="alarm_due">due</string>
   <string name="snoozed_until">Snoozed until %s</string>
   <string name="custom_notification">Custom notification</string>
   <string name="caldav_server_unknown">Unknown</string>

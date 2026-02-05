@@ -31,7 +31,9 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
+import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.compose.DeleteButton
 import org.tasks.compose.IconPickerActivity.Companion.launchIconPicker
 import org.tasks.compose.IconPickerActivity.Companion.registerForIconPickerResult
@@ -95,8 +97,23 @@ abstract class BaseListSettingsActivity : AppCompatActivity() {
     }
 
     fun showIconPicker() {
+        firebase.logEvent(
+            R.string.event_settings_click,
+            R.string.param_type to "icon_picker",
+            R.string.param_source to settingsSource,
+        )
         launcher.launchIconPicker(this, baseViewModel.icon)
     }
+
+    private val settingsSource: String
+        get() = when (this) {
+            is TagSettingsActivity -> "tag"
+            is FilterSettingsActivity -> "filter"
+            is PlaceSettingsActivity -> "place"
+            is GoogleTaskListSettingsActivity -> "google_task_list"
+            is BaseCaldavCalendarSettingsActivity -> "list"
+            else -> "unknown"
+        }
 
     protected open fun promptDelete() { baseViewModel.promptDelete(true) }
 
@@ -138,7 +155,14 @@ abstract class BaseListSettingsActivity : AppCompatActivity() {
                     baseViewModel.setTitle(it)
                     baseViewModel.setError("")
                 },
-                setColor = { baseViewModel.setColor(it) },
+                setColor = {
+                    baseViewModel.setColor(it)
+                    firebase.logEvent(
+                        R.string.event_settings_click,
+                        R.string.param_type to "color_picker",
+                        R.string.param_source to settingsSource,
+                    )
+                },
                 pickIcon = { showIconPicker() },
                 addShortcutToHome = { createShortcut(color) },
                 addWidgetToHome = { createWidget() },
@@ -147,6 +171,7 @@ abstract class BaseListSettingsActivity : AppCompatActivity() {
                 purchase = {
                     startActivity(
                         Intent(this@BaseListSettingsActivity, PurchaseActivity::class.java)
+                            .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "list_colors")
                     )
                 },
             )

@@ -16,6 +16,14 @@
       android:name="com.google.android.gms.version"
       android:value="@integer/google_play_services_version"/>
 
+    <service
+        android:name=".fcm.TasksFirebaseMessagingService"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT" />
+      </intent-filter>
+    </service>
+
     <receiver android:name=".location.GoogleGeofenceTransitionIntentService$Broadcast"/>
     <service
       android:exported="false"

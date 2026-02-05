@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.databinding.DialogIconPickerBinding
 import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
@@ -102,7 +103,10 @@ class ColorPalettePicker : DialogFragment() {
             builder.setNegativeButton(R.string.cancel, null)
         } else {
             builder.setPositiveButton(R.string.upgrade_to_pro) { _: DialogInterface?, _: Int ->
-                startActivity(Intent(context, PurchaseActivity::class.java))
+                startActivity(
+                    Intent(context, PurchaseActivity::class.java)
+                        .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "colors")
+                )
             }
         }
         return builder.show()

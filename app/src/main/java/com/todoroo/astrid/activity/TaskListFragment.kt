@@ -88,6 +88,7 @@ import org.tasks.activities.PlaceSettingsActivity
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.compose.AlarmsDisabledBanner
@@ -97,6 +98,7 @@ import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPicker
 import org.tasks.compose.NotificationsDisabledBanner
 import org.tasks.compose.QuietHoursBanner
 import org.tasks.compose.SubscriptionNagBanner
+import org.tasks.compose.SubscriptionRequiredBanner
 import org.tasks.compose.SyncWarningGoogleTasks
 import org.tasks.compose.SyncWarningMicrosoft
 import org.tasks.data.TaskContainer
@@ -480,6 +482,32 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                 dismiss = { listViewModel.dismissBanner() },
                             )
 
+                        is Banner.SubscriptionRequired ->
+                            SubscriptionRequiredBanner(
+                                nameRes = state.banner.nameRes,
+                                isTasksOrg = state.banner.isTasksOrg,
+                                subscribe = {
+                                    val isTasksOrg = state.banner.isTasksOrg
+                                    listViewModel.dismissBanner(tookAction = true)
+                                    context.startActivity(
+                                        Intent(
+                                            context,
+                                            PurchaseActivity::class.java
+                                        ).apply {
+                                            putExtra(
+                                                PurchaseActivityViewModel.EXTRA_NAME_YOUR_PRICE,
+                                                !isTasksOrg
+                                            )
+                                            putExtra(
+                                                PurchaseActivityViewModel.EXTRA_SOURCE,
+                                                "banner"
+                                            )
+                                        }
+                                    )
+                                },
+                                dismiss = { listViewModel.dismissBanner() },
+                            )
+
                         Banner.BegForMoney ->
                             SubscriptionNagBanner(
                                 subscribe = {
@@ -489,6 +517,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                             Intent(
                                                 context,
                                                 PurchaseActivity::class.java
+                                            ).putExtra(
+                                                PurchaseActivityViewModel.EXTRA_SOURCE,
+                                                "nag"
                                             )
                                         )
                                     } else {
@@ -772,9 +803,18 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             firebase.addTask("fab")
         } else {
             Timber.e("createNewTask(): No writable list")
-            listSettingsRequest.launch(
-                Intent(activity, LocalListSettingsActivity::class.java)
-            )
+            val account = caldavDao.getAccounts()
+                .firstOrNull { !it.isOpenTasks }
+            if (account != null) {
+                listSettingsRequest.launch(
+                    Intent(activity, account.listSettingsClass())
+                        .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, account)
+                )
+            } else {
+                listSettingsRequest.launch(
+                    Intent(activity, LocalListSettingsActivity::class.java)
+                )
+            }
         }
     }
 
@@ -926,6 +966,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         val selected = taskAdapter.getSelected()
         return when (item.itemId) {
             R.id.edit_tags -> {
+                logMultiSelect("edit_tags", selected.size)
                 lifecycleScope.launch {
                     val tags = tagDataDao.getTagSelections(selected)
                     val intent = Intent(context, TagPickerActivity::class.java)
@@ -940,6 +981,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.edit_priority -> {
+                logMultiSelect("edit_priority", selected.size)
                 lifecycleScope.launch {
                     taskDao
                         .fetch(selected)
@@ -953,6 +995,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.move_tasks -> {
+                logMultiSelect("move", selected.size)
                 lifecycleScope.launch {
                     val singleFilter = taskMover.getSingleFilter(selected)
                     listPickerLauncher.launch(
@@ -964,6 +1007,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.reschedule -> {
+                logMultiSelect("reschedule", selected.size)
                 lifecycleScope.launch {
                     taskDao
                             .fetch(selected)
@@ -980,6 +1024,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_select_all -> {
+                logMultiSelect("select_all", selected.size)
                 lifecycleScope.launch {
                     setSelected(taskDao.fetchTasks(preferences, filter)
                         .map(TaskContainer::id))
@@ -987,6 +1032,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_share -> {
+                logMultiSelect("share", selected.size)
                 lifecycleScope.launch {
                     selected
                         .chunkedMap {
@@ -1004,6 +1050,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.delete -> {
+                logMultiSelect("delete", selected.size)
                 dialogBuilder
                         .newDialog(R.string.delete_selected_tasks)
                         .setPositiveButton(
@@ -1013,6 +1060,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.copy_tasks -> {
+                logMultiSelect("copy", selected.size)
                 dialogBuilder
                         .newDialog(R.string.copy_selected_tasks)
                         .setPositiveButton(
@@ -1023,6 +1071,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
             else -> false
         }
+    }
+
+    private fun logMultiSelect(type: String, count: Int) {
+        firebase.logEvent(
+            R.string.event_multi_select,
+            R.string.param_type to type,
+            R.string.param_count to count,
+        )
     }
 
     private fun send(tasks: List<TaskContainer>) {

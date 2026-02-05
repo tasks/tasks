@@ -176,6 +176,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
             icon = baseViewModel.icon,
         )
         val id = caldavDao.insertOrReplace(result)
+        firebase.logEvent(R.string.event_create_list)
 
         setResult(
             Activity.RESULT_OK,
@@ -189,6 +190,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
 
     private fun onListDeleted(deleted: Boolean) {
         if (deleted) {
+            firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_list")
             lifecycleScope.launch {
                 withContext(NonCancellable) {
                     taskDeleter.delete(gtasksList)

@@ -39,14 +39,21 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class BeastModePreferences extends ThemedInjectingAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
 
-  private static final String BEAST_MODE_ORDER_PREF = "beast_mode_order_v6"; // $NON-NLS-1$
+  private static String beastModeOrderPref;
+
+  private static String getBeastModeOrderPref(Context context) {
+    if (beastModeOrderPref == null) {
+      beastModeOrderPref = context.getString(R.string.p_beast_mode_order);
+    }
+    return beastModeOrderPref;
+  }
   private static final String BEAST_MODE_PREF_ITEM_SEPARATOR = ";";
 
   @Inject Preferences preferences;
   private BeastModeRecyclerAdapter adapter;
 
   public static void setDefaultOrder(Preferences preferences, Context context) {
-    if (preferences.getStringValue(BEAST_MODE_ORDER_PREF) != null) {
+    if (preferences.getStringValue(getBeastModeOrderPref(context)) != null) {
       return;
     }
 
@@ -56,12 +63,12 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
       newSetting.append(item);
       newSetting.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
     }
-    preferences.setString(BEAST_MODE_ORDER_PREF, newSetting.toString());
+    preferences.setString(getBeastModeOrderPref(context), newSetting.toString());
   }
 
   public static ArrayList<String> constructOrderedControlList(
       Preferences preferences, Context context) {
-    String order = preferences.getStringValue(BEAST_MODE_ORDER_PREF);
+    String order = preferences.getStringValue(getBeastModeOrderPref(context));
     ArrayList<String> list = new ArrayList<>();
     String[] itemsArray;
     if (order == null) {
@@ -136,10 +143,10 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
       newSetting.append(items.get(i));
       newSetting.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
     }
-    String oldValue = preferences.getStringValue(BEAST_MODE_ORDER_PREF);
+    String oldValue = preferences.getStringValue(getBeastModeOrderPref(this));
     String newValue = newSetting.toString();
     if (isNullOrEmpty(oldValue) || !oldValue.equals(newValue)) {
-      preferences.setString(BEAST_MODE_ORDER_PREF, newSetting.toString());
+      preferences.setString(getBeastModeOrderPref(this), newSetting.toString());
       setResult(RESULT_OK);
     }
     super.finish();

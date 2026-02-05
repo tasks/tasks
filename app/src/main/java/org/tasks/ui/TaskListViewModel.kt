@@ -17,16 +17,22 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GENERIC
+import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
+import androidx.annotation.StringRes
+import org.tasks.data.prefTitle
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.compose.throttleLatest
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
@@ -42,6 +48,7 @@ import org.tasks.filters.SearchFilter
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
+import org.tasks.preferences.TasksPreferences
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -49,14 +56,23 @@ import javax.inject.Inject
 import org.tasks.preferences.FilterPreferences
 import org.tasks.filters.key
 
-sealed class Banner {
-    data object NotificationsDisabled : Banner()
-    data object AlarmsDisabled : Banner()
-    data object QuietHoursEnabled : Banner()
-    data object BegForMoney : Banner()
-    data object WarnMicrosoft : Banner()
-    data object WarnGoogleTasks : Banner()
-    data object AppUpdated : Banner()
+sealed class Banner(
+    val eventType: String,
+    @StringRes val positiveLabel: Int,
+    @StringRes val negativeLabel: Int,
+) {
+    data object NotificationsDisabled : Banner("notifications", R.string.TLA_menu_settings, R.string.dismiss)
+    data object AlarmsDisabled : Banner("alarms", R.string.TLA_menu_settings, R.string.dismiss)
+    data object QuietHoursEnabled : Banner("quiet_hours", R.string.TLA_menu_settings, R.string.dismiss)
+    data class SubscriptionRequired(val nameRes: Int, val isTasksOrg: Boolean) : Banner("subscribe", R.string.button_subscribe, R.string.dismiss)
+    data object BegForMoney : Banner(
+        "subscribe",
+        if (IS_GENERIC) R.string.donate_today else R.string.button_subscribe,
+        R.string.donate_maybe_later,
+    )
+    data object WarnMicrosoft : Banner("microsoft", R.string.button_learn_more, R.string.dismiss)
+    data object WarnGoogleTasks : Banner("google_tasks", R.string.button_learn_more, R.string.dismiss)
+    data object AppUpdated : Banner("app_updated", R.string.whats_new, R.string.dismiss)
 }
 
 @HiltViewModel
@@ -71,6 +87,7 @@ class TaskListViewModel @Inject constructor(
     private val firebase: Firebase,
     private val permissionChecker: PermissionChecker,
     private val caldavDao: CaldavDao,
+    private val tasksPreferences: TasksPreferences,
 ) : ViewModel() {
 
     data class State(
@@ -206,14 +223,42 @@ class TaskListViewModel @Inject constructor(
     fun updateBannerState() {
         viewModelScope.launch(Dispatchers.IO) {
             val accounts = caldavDao.getAccounts()
+            val dismissedSubscriptionAccounts = tasksPreferences.get(
+                TasksPreferences.subscriptionDismissedAccounts, emptySet()
+            )
+            val resolvedAccounts = accounts
+                .filter { it.uuid in dismissedSubscriptionAccounts && !it.isSubscriptionRequired() }
+                .mapNotNull { it.uuid }
+                .toSet()
+            if (resolvedAccounts.isNotEmpty()) {
+                tasksPreferences.set(
+                    TasksPreferences.subscriptionDismissedAccounts,
+                    dismissedSubscriptionAccounts - resolvedAccounts
+                )
+            }
+            val subscriptionAccounts = if (IS_GOOGLE_PLAY) {
+                accounts.filter {
+                    it.isSubscriptionRequired() && it.uuid !in dismissedSubscriptionAccounts
+                }
+            } else {
+                emptyList()
+            }
             val banner = when {
+                subscriptionAccounts.isNotEmpty() -> {
+                    val account = subscriptionAccounts.find { it.isTasksOrg }
+                        ?: subscriptionAccounts.first()
+                    Banner.SubscriptionRequired(
+                        nameRes = account.prefTitle,
+                        isTasksOrg = account.isTasksOrg,
+                    )
+                }
                 preferences.getBoolean(R.string.p_just_updated, false) ->
                     Banner.AppUpdated
                 preferences.warnNotificationsDisabled && !permissionChecker.hasNotificationPermission() ->
                     Banner.NotificationsDisabled
                 preferences.warnAlarmsDisabled && !applicationContext.canScheduleExactAlarms() ->
                     Banner.AlarmsDisabled
-                (IS_GENERIC || !inventory.hasPro) && !firebase.subscribeCooldown ->
+                inventory.begForMoney && !firebase.subscribeCooldown ->
                     Banner.BegForMoney
                 preferences.isCurrentlyQuietHours && preferences.warnQuietHoursDisabled ->
                     Banner.QuietHoursEnabled
@@ -223,6 +268,13 @@ class TaskListViewModel @Inject constructor(
                     Banner.WarnGoogleTasks
                 else -> null
             }
+            if (banner != null && banner != state.value.banner) {
+                firebase.logEvent(
+                    R.string.event_banner,
+                    R.string.param_type to banner.eventType,
+                    R.string.param_action to "shown",
+                )
+            }
             _state.update {
                 it.copy(banner = banner)
             }
@@ -230,22 +282,47 @@ class TaskListViewModel @Inject constructor(
     }
 
     fun dismissBanner(tookAction: Boolean = false) {
-        when (state.value.banner) {
-            Banner.NotificationsDisabled -> preferences.warnNotificationsDisabled = tookAction
-            Banner.AlarmsDisabled -> preferences.warnAlarmsDisabled = tookAction
-            Banner.QuietHoursEnabled -> preferences.warnQuietHoursDisabled = false
-            Banner.BegForMoney -> {
-                preferences.lastSubscribeRequest = currentTimeMillis()
-                firebase.logEvent(R.string.event_banner_sub, R.string.param_click to tookAction)
-            }
-            Banner.WarnGoogleTasks -> preferences.warnGoogleTasks = false
-            Banner.WarnMicrosoft -> preferences.warnMicrosoft = false
-            Banner.AppUpdated -> preferences.setBoolean(R.string.p_just_updated, false)
-            null -> {}
-        }
+        val currentBanner = state.value.banner ?: return
+        _state.update { it.copy(banner = null) }
 
-        updateBannerState()
+        viewModelScope.launch(NonCancellable) {
+            when (currentBanner) {
+                Banner.NotificationsDisabled -> preferences.warnNotificationsDisabled = tookAction
+                Banner.AlarmsDisabled -> preferences.warnAlarmsDisabled = tookAction
+                Banner.QuietHoursEnabled -> preferences.warnQuietHoursDisabled = false
+                is Banner.SubscriptionRequired -> {
+                    withContext(Dispatchers.IO) {
+                        val dismissed = tasksPreferences.get(
+                            TasksPreferences.subscriptionDismissedAccounts, emptySet()
+                        )
+                        val uuids = caldavDao.getAccounts()
+                            .filter { it.isSubscriptionRequired() }
+                            .mapNotNull { it.uuid }
+                        tasksPreferences.set(
+                            TasksPreferences.subscriptionDismissedAccounts,
+                            dismissed + uuids
+                        )
+                    }
+                }
+                Banner.BegForMoney -> preferences.lastSubscribeRequest = currentTimeMillis()
+                Banner.WarnGoogleTasks -> preferences.warnGoogleTasks = false
+                Banner.WarnMicrosoft -> preferences.warnMicrosoft = false
+                Banner.AppUpdated -> preferences.setBoolean(R.string.p_just_updated, false)
+            }
+            val action = if (tookAction) "positive" else "negative"
+            val labelResId = if (tookAction) currentBanner.positiveLabel else currentBanner.negativeLabel
+            firebase.logEvent(
+                R.string.event_banner,
+                R.string.param_type to currentBanner.eventType,
+                R.string.param_action to action,
+                R.string.param_label to applicationContext.resources.getResourceEntryName(labelResId),
+            )
+            updateBannerState()
+        }
     }
+
+    private fun CaldavAccount.isSubscriptionRequired() =
+        (!inventory.hasPro && needsPro) || (isTasksOrg && isPaymentRequired())
 
     companion object {
         fun Context.createSearchQuery(query: String): Filter =

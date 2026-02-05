@@ -1,3 +1,57 @@
+### 14.11 (2026-02-05)
+
+* Set custom default reminders [#1848](https://github.com/tasks/tasks/issues/1848)
+* Push sync for Tasks.org accounts (Google Play only)
+* Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Croatian - @milotype
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+  * German - @franconian, @Kachelkaiser
+  * Hungarian - Kaci
+  * Japanese - Norara
+  * Serbian - @vale-decem
+  * Turkish - @emintufan
+
+### 14.10 (2026-02-03)
+
+* Improved custom reminders
+  * Configure reminders relative to start date or due date
+  * Configure period before or after date
+* Fix drawer customization layout
+* Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山, @xlionjuan
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @Kachelkaiser, @ColorfulRhino
+  * Italian - @ppasserini
+
+### 14.9.2 (2026-02-01)
+
+* Onboarding improvements
+
+### 14.9.1 (2026-01-30)
+
+* Fix F-Droid sync
+* Add banner when subscription required
+* Update translations
+  * Bulgarian - 109247019824
+  * Czech - @Fjuro
+  * Danish - ERYpTION
+  * Dutch - Bram Schoenmakers
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @Atalanttore
+  * German - @Colorful Rhino
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Japanese - Norara
+  * Swedish - @Nicklasfox
+  * Turkish - @oersen
+
 ### 14.9 (2026-01-24)
 
 * New Terms of Service [blog post](https://tasks.org/blog/terms-of-service)

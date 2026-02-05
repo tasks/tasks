@@ -8,6 +8,7 @@ import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.getPassword
@@ -23,6 +24,7 @@ class CaldavClientProvider @Inject constructor(
         private val inventory: Inventory,
         private val httpClientFactory: HttpClientFactory,
         private val tasksPreferences: TasksPreferences,
+        private val firebase: Firebase,
 ) {
     private val tasksUrl = context.getString(R.string.tasks_caldav_url)
 
@@ -52,11 +54,13 @@ class CaldavClientProvider @Inject constructor(
 
     suspend fun forAccount(account: CaldavAccount, url: String? = account.url): CaldavClient {
         val tosVersion = tasksPreferences.get(TasksPreferences.acceptedTosVersion, 0)
+        val pushToken = if (account.isTasksOrg) firebase.getToken() else null
         val auth = getAuthInterceptor(
                 account.username,
                 account.getPassword(encryption),
                 account.url,
                 tosVersion,
+                pushToken,
         )
         val client = createHttpClient(auth)
         return if (account.isTasksOrg) {
@@ -71,9 +75,10 @@ class CaldavClientProvider @Inject constructor(
             password: String?,
             url: String?,
             tosVersion: Int,
+            pushToken: String? = null,
     ): Interceptor? = when {
         username.isNullOrBlank() || password.isNullOrBlank() -> null
-        url?.startsWith(tasksUrl) == true -> TasksBasicAuth(username, password, inventory, tosVersion)
+        url?.startsWith(tasksUrl) == true -> TasksBasicAuth(username, password, inventory, tosVersion, pushToken)
         else -> BasicDigestAuthHandler(null, username, password)
     }
 

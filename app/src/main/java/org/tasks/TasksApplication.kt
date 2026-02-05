@@ -31,6 +31,7 @@ import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.icons.OutlinedGoogleMaterial
 import org.tasks.icons.OutlinedGoogleMaterial2
+import org.tasks.fcm.PushTokenManager
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
@@ -59,6 +60,7 @@ class TasksApplication : Application(), Configuration.Provider {
     @Inject lateinit var workerFactory: HiltWorkerFactory
     @Inject lateinit var contentObserver: Lazy<OpenTaskContentObserver>
     @Inject lateinit var syncAdapters: Lazy<SyncAdapters>
+    @Inject lateinit var pushTokenManager: Lazy<PushTokenManager>
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -137,6 +139,7 @@ class TasksApplication : Application(), Configuration.Provider {
         OpenTaskContentObserver.registerObserver(context, contentObserver.get())
         geofenceApi.get().registerAll()
         CaldavSynchronizer.registerFactories()
+        pushTokenManager.get().registerTokenForAllAccounts()
     }
 
     override val workManagerConfiguration: Configuration

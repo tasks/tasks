@@ -18,6 +18,7 @@ import org.tasks.filters.MyTasksFilter
 import org.tasks.injection.InjectingTestCase
 import org.tasks.preferences.PermissivePermissionChecker
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.TasksPreferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.TaskListViewModel
 import javax.inject.Inject
@@ -33,6 +34,7 @@ class TaskListViewModelTest : InjectingTestCase() {
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var tasksPreferences: TasksPreferences
 
     @Before
     override fun setUp() {
@@ -48,6 +50,7 @@ class TaskListViewModelTest : InjectingTestCase() {
             firebase = firebase,
             permissionChecker = PermissivePermissionChecker(context),
             caldavDao = caldavDao,
+            tasksPreferences = tasksPreferences,
         )
         viewModel.setFilter(runBlocking { MyTasksFilter.create() })
     }

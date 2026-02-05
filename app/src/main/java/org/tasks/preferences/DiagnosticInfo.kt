@@ -6,7 +6,6 @@ import android.provider.Settings
 import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
-import org.tasks.data.TaskContainer
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.LocationDao
@@ -21,7 +20,7 @@ import java.util.Locale
 import javax.inject.Inject
 
 class DiagnosticInfo @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val permissionChecker: PermissionChecker,
     private val preferences: Preferences,
     private val caldavDao: CaldavDao,
@@ -63,7 +62,7 @@ class DiagnosticInfo @Inject constructor(
         appendLine("=== Accounts ===")
         val accounts = caldavDao.getAccounts().associateBy { it.uuid }
         accounts.values.forEach { account ->
-            appendLine("${account.name} (type=${account.accountType})")
+            appendLine("$account")
         }
 
         appendLine()
@@ -71,47 +70,46 @@ class DiagnosticInfo @Inject constructor(
         caldavDao.getCalendars().forEach { calendar ->
             val account = accounts[calendar.account] ?: return@forEach
             val filter = CaldavFilter(calendar, account)
-            appendLine("${calendar.name}: ${getStats(filter)}")
+            appendLine("$calendar: ${getStats(filter)}")
         }
 
         appendLine()
         appendLine("=== Tags ===")
         tagDataDao.getAll().forEach { tag ->
             val filter = TagFilter(tag)
-            appendLine("${tag.name}: ${getStats(filter)}")
+            appendLine("$tag: ${getStats(filter)}")
         }
 
         appendLine()
         appendLine("=== Places ===")
         locationDao.getPlaces().forEach { place ->
             val filter = PlaceFilter(place)
-            appendLine("${place.name}: ${getStats(filter)}")
+            appendLine("$place: ${getStats(filter)}")
         }
 
         appendLine()
         appendLine("=== Filters ===")
         filterDao.getFilters().forEach { filter ->
-            val stats = try {
-                getStats(CustomFilter(filter))
-            } catch (e: Exception) {
-                "error"
-            }
-            appendLine("$filter $stats")
+            appendLine("$filter ${getStats(CustomFilter(filter))}")
         }
     }
 
     private suspend fun getStats(filter: Filter): String {
-        val tasks = taskDao.fetchTasks(preferences, filter)
-        val size = tasks.size
-        val subtasks = tasks.count { it.parent != 0L }
-        val indents = tasks.map { it.indent }
-        val maxDepth = indents.maxOrNull() ?: 0
-        val meanDepth = if (indents.isNotEmpty()) indents.average() else 0.0
-        val medianDepth = indents.sorted().let { sorted ->
-            if (sorted.isEmpty()) 0.0
-            else if (sorted.size % 2 == 1) sorted[sorted.size / 2].toDouble()
-            else (sorted[sorted.size / 2 - 1] + sorted[sorted.size / 2]) / 2.0
+        return try {
+            val tasks = taskDao.fetchTasks(preferences, filter)
+            val size = tasks.size
+            val subtasks = tasks.count { it.parent != 0L }
+            val indents = tasks.map { it.indent }
+            val maxDepth = indents.maxOrNull() ?: 0
+            val meanDepth = if (indents.isNotEmpty()) indents.average() else 0.0
+            val medianDepth = indents.sorted().let { sorted ->
+                if (sorted.isEmpty()) 0.0
+                else if (sorted.size % 2 == 1) sorted[sorted.size / 2].toDouble()
+                else (sorted[sorted.size / 2 - 1] + sorted[sorted.size / 2]) / 2.0
+            }
+            "tasks=$size, subtasks=$subtasks, maxDepth=$maxDepth, meanDepth=${"%.2f".format(meanDepth)}, medianDepth=${"%.2f".format(medianDepth)}"
+        } catch (e: Exception) {
+            e.toString()
         }
-        return "tasks=$size, subtasks=$subtasks, maxDepth=$maxDepth, meanDepth=${"%.2f".format(meanDepth)}, medianDepth=${"%.2f".format(medianDepth)}"
     }
 }

@@ -9,7 +9,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.tasks.R
 import org.tasks.data.createDueDate
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.whenDue
@@ -26,10 +25,7 @@ import org.tasks.time.DateTimeUtils2.currentTimeMillis
 class ReminderTests : BaseTaskEditViewModelTest() {
     @Test
     fun whenStartReminder() = runBlocking {
-        preferences.setStringSet(
-            R.string.p_default_reminders_key,
-            hashSetOf(Task.NOTIFY_AT_START.toString())
-        )
+        preferences.setDefaultAlarms(listOf(whenStarted(0)))
         val task = newTask(with(START_DATE, DateTime()))
         task.setDefaultReminders(preferences)
 
@@ -43,10 +39,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
 
     @Test
     fun whenDueReminder() = runBlocking {
-        preferences.setStringSet(
-            R.string.p_default_reminders_key,
-            hashSetOf(Task.NOTIFY_AT_DEADLINE.toString())
-        )
+        preferences.setDefaultAlarms(listOf(whenDue(0)))
         val task = newTask(with(DUE_TIME, DateTime()))
         task.setDefaultReminders(preferences)
 
@@ -60,10 +53,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
 
     @Test
     fun whenOverDueReminder() = runBlocking {
-        preferences.setStringSet(
-            R.string.p_default_reminders_key,
-            hashSetOf(Task.NOTIFY_AFTER_DEADLINE.toString())
-        )
+        preferences.setDefaultAlarms(listOf(whenOverdue(0)))
         val task = newTask(with(DUE_TIME, DateTime()))
         task.setDefaultReminders(preferences)
 
@@ -141,13 +131,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
 
     @Test
     fun addDefaultRemindersWhenAddingDueDate() = runBlocking {
-        preferences.setStringSet(
-            R.string.p_default_reminders_key,
-            hashSetOf(
-                Task.NOTIFY_AT_DEADLINE.toString(),
-                Task.NOTIFY_AFTER_DEADLINE.toString(),
-            )
-        )
+        preferences.setDefaultAlarms(listOf(whenDue(0), whenOverdue(0)))
         val task = newTask()
         setup(task)
 
@@ -168,10 +152,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
 
     @Test
     fun addDefaultRemindersWhenAddingStartDate() = runBlocking {
-        preferences.setStringSet(
-            R.string.p_default_reminders_key,
-            hashSetOf(Task.NOTIFY_AT_START.toString())
-        )
+        preferences.setDefaultAlarms(listOf(whenStarted(0)))
         val task = newTask()
         setup(task)
 

@@ -46,7 +46,6 @@ import org.tasks.widget.AppWidgetManager
 import org.tasks.widget.WidgetPreferences
 import timber.log.Timber
 import java.io.File
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class Upgrader @Inject constructor(
@@ -71,6 +70,7 @@ class Upgrader @Inject constructor(
     private val upgrade_12_4: Lazy<Upgrade_12_4>,
     private val upgrade_13_2: Lazy<Upgrade_13_2>,
     private val upgrade_13_11: Lazy<Upgrade_13_11>,
+    private val upgrade_14_11: Lazy<Upgrade_14_11>,
 ) {
 
     fun upgrade(from: Int, to: Int) {
@@ -159,6 +159,9 @@ class Upgrader @Inject constructor(
                         .build()
                 )
             }
+            run(from, Upgrade_14_11.VERSION) {
+                upgrade_14_11.get().migrateDefaultAlarms()
+            }
             preferences.setBoolean(R.string.p_just_updated, true)
         } else {
             setInstallDetails(to)
@@ -166,7 +169,6 @@ class Upgrader @Inject constructor(
         if (preferences.deviceInstallVersion == 0) {
             preferences.deviceInstallVersion = from
         }
-        preferences.lastSubscribeRequest -= TimeUnit.DAYS.toMillis(7)
         preferences.setCurrentVersion(to)
     }
 

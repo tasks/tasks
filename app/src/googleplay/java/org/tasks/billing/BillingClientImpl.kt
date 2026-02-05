@@ -42,7 +42,7 @@ class BillingClientImpl(
             .enablePendingPurchases()
             .build()
     private var connected = false
-    private var onPurchasesUpdated: OnPurchasesUpdated? = null
+    private var onPurchased: (() -> Unit)? = null
 
     override suspend fun getSkus(skus: List<String>): List<Sku> =
         executeServiceRequest {
@@ -120,21 +120,25 @@ class BillingClientImpl(
     }
 
     override fun onPurchasesUpdated(
-        result: BillingResult, purchases: List<com.android.billingclient.api.Purchase>?
+        result: BillingResult,
+        purchases: List<com.android.billingclient.api.Purchase>?,
     ) {
         val success = result.success
         if (success) {
             add(purchases ?: emptyList())
+            onPurchased?.invoke()
+            purchases
+                ?.filter { !it.isAcknowledged }
+                ?.forEach {
+                    firebase.reportIabResult(
+                        result.responseCodeString,
+                        it.products.joinToString(","),
+                        it.purchaseState.purchaseStateString,
+                        it.orderId ?: "",
+                    )
+                }
         }
         workManager.updatePurchases()
-        onPurchasesUpdated?.onPurchasesUpdated(success)
-        purchases?.forEach {
-            firebase.reportIabResult(
-                result.responseCodeString,
-                it.products.joinToString(","),
-                it.purchaseState.purchaseStateString
-            )
-        }
     }
 
     private fun add(purchases: List<com.android.billingclient.api.Purchase>) {
@@ -145,7 +149,8 @@ class BillingClientImpl(
         activity: Activity,
         sku: String,
         skuType: String,
-        oldPurchase: Purchase?
+        oldPurchase: Purchase?,
+        onPurchased: (() -> Unit)?,
     ) {
         executeServiceRequest {
             val productList = listOf(
@@ -199,9 +204,7 @@ class BillingClientImpl(
                 )
             }
 
-            if (activity is OnPurchasesUpdated) {
-                onPurchasesUpdated = activity
-            }
+            this@BillingClientImpl.onPurchased = onPurchased
             billingClient.launchBillingFlow(activity, params.build())
         }
     }

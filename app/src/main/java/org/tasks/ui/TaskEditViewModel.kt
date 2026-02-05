@@ -54,9 +54,6 @@ import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
-import org.tasks.data.entity.Alarm.Companion.whenDue
-import org.tasks.data.entity.Alarm.Companion.whenOverdue
-import org.tasks.data.entity.Alarm.Companion.whenStarted
 import org.tasks.data.entity.Attachment
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
@@ -168,15 +165,15 @@ class TaskEditViewModel @Inject constructor(
                         .toPersistentList()
                 },
             alarms = if (task.isNew) {
-                ArrayList<Alarm>().apply {
-                    if (task.isNotifyAtStart) {
-                        add(whenStarted(0))
-                    }
-                    if (task.isNotifyAtDeadline) {
-                        add(whenDue(0))
-                    }
-                    if (task.isNotifyAfterDeadline) {
-                        add(whenOverdue(0))
+                val defaults = task.getTransitory<List<Alarm>>(Task.TRANS_DEFAULT_ALARMS)
+                    ?: emptyList()
+                buildList {
+                    for (alarm in defaults) {
+                        when (alarm.type) {
+                            TYPE_REL_START -> if (task.hasStartDate()) add(alarm)
+                            TYPE_REL_END -> if (task.hasDueDate()) add(alarm)
+                            else -> add(alarm)
+                        }
                     }
                     if (task.randomReminder > 0) {
                         add(Alarm(time = task.randomReminder, type = Alarm.TYPE_RANDOM))
@@ -196,6 +193,16 @@ class TaskEditViewModel @Inject constructor(
     private val _viewState = MutableStateFlow(originalState.value)
     val viewState: StateFlow<TaskEditViewState> = _viewState
 
+    init {
+        if (!preferences.shownBeastModeHint) {
+            firebase?.logEvent(
+                R.string.event_banner,
+                R.string.param_type to "beast_mode",
+                R.string.param_action to "shown",
+            )
+        }
+    }
+
     var eventUri = MutableStateFlow(task.calendarURI)
     val timerStarted = MutableStateFlow(task.timerStart)
     val estimatedSeconds = MutableStateFlow(task.estimatedSeconds)
@@ -211,17 +218,14 @@ class TaskEditViewModel @Inject constructor(
             else -> createDueDate(Task.URGENCY_SPECIFIC_DAY, value)
         }
         if (addedDueDate) {
-            val reminderFlags = preferences.defaultReminders
-            if (reminderFlags.isFlagSet(Task.NOTIFY_AT_DEADLINE)) {
-                _viewState.update { state ->
-                    state.copy(alarms = state.alarms.plusAlarm(whenDue(task.id)))
+            preferences
+                .defaultAlarms
+                .filter { it.type == TYPE_REL_END }
+                .forEach { alarm ->
+                    _viewState.update { state ->
+                        state.copy(alarms = state.alarms.plusAlarm(alarm.copy(task = task.id)))
+                    }
                 }
-            }
-            if (reminderFlags.isFlagSet(Task.NOTIFY_AFTER_DEADLINE)) {
-                _viewState.update { state ->
-                    state.copy(alarms = state.alarms.plusAlarm(whenOverdue(task.id)))
-                }
-            }
         }
     }
 
@@ -235,10 +239,15 @@ class TaskEditViewModel @Inject constructor(
                 value.toDateTime().withSecondOfMinute(1).withMillisOfSecond(0).millis
             else -> value.startOfDay()
         }
-        if (addedStartDate && preferences.defaultReminders.isFlagSet(Task.NOTIFY_AT_START)) {
-            _viewState.update { state ->
-                state.copy(alarms = state.alarms.plusAlarm(whenStarted(task.id)))
-            }
+        if (addedStartDate) {
+            preferences
+                .defaultAlarms
+                .filter { it.type == TYPE_REL_START }
+                .forEach { alarm ->
+                    _viewState.update { state ->
+                        state.copy(alarms = state.alarms.plusAlarm(alarm.copy(task = task.id)))
+                    }
+                }
         }
     }
 
@@ -530,7 +539,14 @@ class TaskEditViewModel @Inject constructor(
             it.copy(showBeastModeHint = false)
         }
         preferences.shownBeastModeHint = true
-        firebase?.logEvent(R.string.event_banner_beast, R.string.param_click to click)
+        firebase?.logEvent(
+            R.string.event_banner,
+            R.string.param_type to "beast_mode",
+            R.string.param_action to if (click) "positive" else "negative",
+            R.string.param_label to resources.getResourceEntryName(
+                if (click) R.string.TLA_menu_settings else R.string.dismiss
+            ),
+        )
     }
 
     fun setPriority(priority: Int) {
@@ -648,8 +664,6 @@ class TaskEditViewModel @Inject constructor(
 
         // one spark tasks for windows adds these
         fun String?.stripCarriageReturns(): String? = this?.replace("\\r\\n?".toRegex(), "\n")
-
-        private fun Int.isFlagSet(flag: Int): Boolean = this and flag > 0
 
         private fun ImmutableSet<Alarm>.plusAlarm(alarm: Alarm): ImmutableSet<Alarm> =
             if (any { it.same(alarm) }) this else this.plus(alarm).toPersistentSet()

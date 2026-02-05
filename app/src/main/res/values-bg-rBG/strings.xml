@@ -739,4 +739,12 @@
     <string name="returning_user_import_backup">Внесете резервно копие на Tasks.org</string>
     <string name="import_failed">Грешка при внасяне</string>
     <string name="import_failed_message">Файлът с резервното копие не може да бъде прочетен</string>
+    <string name="banner_subscription_required_title">Изисква абонамент</string>
+    <string name="banner_subscription_required_body">Платете сума по желание, за да отключите синхронизиране чрез %s</string>
+    <string name="already_subscribed">Вече сте абонат?</string>
+    <string name="upgrade_subscription_banner">Благодаря за подкрепата! Надградете абонамента си, за да включва и облачното сонхронизиране на Tasks.org</string>
+    <string name="alarm_before">преди</string>
+    <string name="alarm_after">след</string>
+    <string name="alarm_start">начало</string>
+    <string name="alarm_due">край</string>
 </resources>

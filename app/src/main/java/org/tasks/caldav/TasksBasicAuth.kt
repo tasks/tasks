@@ -10,6 +10,7 @@ class TasksBasicAuth(
         token: String,
         private val inventory: Inventory,
         private val tosVersion: Int,
+        private val pushToken: String? = null,
 ) : Interceptor {
     private val credentials = Credentials.basic(user, token, Charsets.UTF_8)
 
@@ -20,6 +21,7 @@ class TasksBasicAuth(
             builder.header(TOKEN, it.purchaseToken)
         }
         builder.header(TOS_VERSION, tosVersion.toString())
+        pushToken?.let { builder.header(PUSH_TOKEN, it) }
         return chain.proceed(builder.build())
     }
 
@@ -28,5 +30,6 @@ class TasksBasicAuth(
         private const val SKU = "tasks-sku"
         private const val TOKEN = "tasks-token"
         private const val TOS_VERSION = "tasks-tos-version"
+        private const val PUSH_TOKEN = "X-Push-Token"
     }
 }

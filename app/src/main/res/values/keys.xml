@@ -181,18 +181,6 @@
     <item>3</item>
   </string-array>
 
-  <string-array name="EPr_default_reminders_values">
-    <!-- reminders: values that map EPr_default_reminders items to reminder flags. -->
-    <item>32</item> <!-- when started -->
-    <item>2</item> <!-- when due -->
-    <item>4</item> <!-- when overdue -->
-  </string-array>
-
-  <string-array name="EPr_default_reminders_default">
-    <item>1</item> <!-- when due -->
-    <item>2</item> <!-- when overdue -->
-  </string-array>
-
   <string-array name="EPr_default_reminders_mode_values">
     <!-- reminders: values that map EPr_default_reminders items to reminder flags. -->
     <item>0</item>
@@ -208,6 +196,7 @@
 
   <!-- default reminders setting (corresponds to reminder flags) -->
   <string name="p_default_reminders_key">p_def_reminders_v2</string>
+  <string name="p_default_alarms">p_default_alarms</string>
   <string name="p_default_location_reminder_key">p_def_location_reminders</string>
 
   <!-- default reminder mode setting (corresponds to entry in TEA_reminder_mode_once, TEA_reminder_mode_five, TEA_reminder_mode_nonstop) -->
@@ -412,7 +401,9 @@
   <string name="param_sku">sku</string>
   <string name="param_result">result</string>
   <string name="param_state">state</string>
-  <string name="param_click">click</string>
+  <string name="param_order_id">order_id</string>
+  <string name="param_action">action</string>
+  <string name="param_label">label</string>
   <string name="param_selection">selection</string>
   <string name="event_todoagenda">cp_todoagenda</string>
   <string name="event_astrid2taskprovider">cp_astrid2taskprovider</string>
@@ -420,8 +411,7 @@
   <string name="event_initial_sync_complete">initial_sync_complete</string>
   <string name="param_task_count">task_count</string>
   <string name="event_sync_unknown_access">sync_unknown_access</string>
-  <string name="event_banner_beast">banner_beast</string>
-  <string name="event_banner_sub">banner_subscribe</string>
+  <string name="event_banner">banner</string>
   <string name="event_add_task">add_task</string>
   <string name="event_complete_task">complete_task</string>
   <string name="event_request_review">request_review</string>
@@ -440,10 +430,16 @@
   <string name="event_create_list">create_list</string>
   <string name="event_search">search</string>
   <string name="event_sort_change">sort_change</string>
+  <string name="event_settings_click">settings_click</string>
+  <string name="event_help_and_feedback">help_and_feedback</string>
+  <string name="event_notification">notification</string>
+  <string name="event_widget_click">widget_click</string>
+  <string name="param_widget_id">widget_id</string>
+  <string name="event_multi_select">multi_select</string>
+  <string name="param_count">count</string>
   <string name="event_screen_welcome">screen_welcome</string>
   <string name="event_screen_add_account">screen_add_account</string>
   <string name="event_settings_navigation">settings_navigation</string>
-  <string name="event_import_backup_failed">import_backup_failed</string>
   <string name="param_type">type</string>
   <string name="param_screen">screen</string>
   <string name="param_error">error</string>
@@ -453,6 +449,7 @@
   <string name="p_markdown">markdown</string>
   <string name="p_completed_tasks_at_bottom">completed_tasks_at_bottom</string>
   <string name="p_shown_beast_mode_hint">shown_beast_mode_hint</string>
+  <string name="p_beast_mode_order">beast_mode_order_v6</string>
   <string name="p_last_sync">last_sync_time</string>
   <string name="p_multiline_title">multiline_title</string>
   <string name="p_dynamic_color">dynamic_color</string>

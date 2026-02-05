@@ -28,6 +28,9 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var firebase: Firebase
 
+    private val widgetId: Int
+        get() = intent.getIntExtra(EXTRA_WIDGET, -1)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val intent = intent
@@ -47,12 +50,14 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                         firebase.completeTask("widget")
                     }
                 }
+                logWidgetClick("complete_task")
                 finish()
             }
             EDIT_TASK -> {
                 val filter = intent.getParcelableExtra<Filter?>(EXTRA_FILTER)
                 val taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L)
                 Timber.tag("$action taskId=$taskId filter=$filter")
+                logWidgetClick("edit_task")
                 lifecycleScope.launch {
                     if (taskId > 0) {
                         val task = taskDao.fetch(taskId)
@@ -68,6 +73,7 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
             OPEN_TASK_LIST -> {
                 val filter = intent.getParcelableExtra<Filter?>(EXTRA_FILTER)
                 Timber.tag("$action filter=$filter")
+                logWidgetClick("open_list")
                 startActivity(
                     TaskIntents
                         .getTaskListIntent(this, filter)
@@ -79,6 +85,7 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                 val taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L)
                 val collapsed = intent.getBooleanExtra(EXTRA_COLLAPSED, false)
                 Timber.d("$action collapsed=$collapsed taskId=$taskId")
+                logWidgetClick("toggle_subtasks")
                 if (taskId > 0) {
                     lifecycleScope.launch(NonCancellable) {
                         taskDao.setCollapsed(taskId, collapsed)
@@ -89,6 +96,7 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
             RESCHEDULE_TASK -> {
                 val taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L)
                 Timber.d("$action taskId=$taskId")
+                logWidgetClick("reschedule")
                 val fragmentManager = supportFragmentManager
                 if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_TIME_PICKER) == null) {
                     lifecycleScope.launch {
@@ -109,10 +117,10 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                 }
             }
             TOGGLE_GROUP -> {
-                val widgetId = intent.getIntExtra(EXTRA_WIDGET, -1)
                 val group = intent.getLongExtra(EXTRA_GROUP, -1)
                 val setCollapsed = intent.getBooleanExtra(EXTRA_COLLAPSED, false)
                 Timber.d("$action widgetId=$widgetId group=$group collapsed=$setCollapsed")
+                logWidgetClick("toggle_group")
                 val widgetPreferences =
                     WidgetPreferences(applicationContext, preferences, widgetId)
                 val collapsed = widgetPreferences.collapsed.toMutableSet()
@@ -130,6 +138,14 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                 finish()
             }
         }
+    }
+
+    private fun logWidgetClick(type: String) {
+        firebase.logEvent(
+            R.string.event_widget_click,
+            R.string.param_type to type,
+            R.string.param_widget_id to widgetId,
+        )
     }
 
     override fun onDismiss() {

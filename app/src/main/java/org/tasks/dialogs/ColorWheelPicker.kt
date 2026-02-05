@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -65,7 +66,8 @@ class ColorWheelPicker : DialogFragment() {
                         deliverSelection()
                     } else {
                         startActivityForResult(
-                            Intent(context, PurchaseActivity::class.java),
+                            Intent(context, PurchaseActivity::class.java)
+                                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "colors"),
                             REQUEST_PURCHASE
                         )
                     }
