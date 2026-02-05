@@ -801,9 +801,18 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             firebase.addTask("fab")
         } else {
             Timber.e("createNewTask(): No writable list")
-            listSettingsRequest.launch(
-                Intent(activity, LocalListSettingsActivity::class.java)
-            )
+            val account = caldavDao.getAccounts()
+                .firstOrNull { !it.isOpenTasks }
+            if (account != null) {
+                listSettingsRequest.launch(
+                    Intent(activity, account.listSettingsClass())
+                        .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, account)
+                )
+            } else {
+                listSettingsRequest.launch(
+                    Intent(activity, LocalListSettingsActivity::class.java)
+                )
+            }
         }
     }
 
