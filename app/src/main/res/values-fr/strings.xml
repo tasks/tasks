@@ -765,4 +765,8 @@
     <string name="banner_subscription_required_title">Abonnement requis</string>
     <string name="banner_subscription_required_body">Payez ce que vous voulez pour déverrouiller la synchronisation %s</string>
     <string name="already_subscribed">Déjà abonné ?</string>
+    <string name="alarm_before">avant</string>
+    <string name="alarm_after">après</string>
+    <string name="alarm_start">début le</string>
+    <string name="alarm_due">échéance le</string>
 </resources>
