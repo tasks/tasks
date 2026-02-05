@@ -1,3 +1,19 @@
+### 14.11 (2026-02-05)
+
+* Set custom default reminders [#1848](https://github.com/tasks/tasks/issues/1848)
+* Push sync for Tasks.org accounts (Google Play only)
+* Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Croatian - @milotype
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+  * German - @franconian, @Kachelkaiser
+  * Hungarian - Kaci
+  * Japanese - Norara
+  * Serbian - @vale-decem
+  * Turkish - @emintufan
+
 ### 14.10 (2026-02-03)
 
 * Improved custom reminders
