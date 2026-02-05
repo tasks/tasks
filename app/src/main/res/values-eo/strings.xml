@@ -743,4 +743,8 @@
     <string name="banner_subscription_required_body">Pagu kiel vi volas por malŝlosi sinkronigon per %s</string>
     <string name="already_subscribed">Ĉu jam abonanto?</string>
     <string name="upgrade_subscription_banner">Dankon pro via subteno! Altgradigu vian abonon por ŝalti sinkronigon de Tasks.org Cloud</string>
+    <string name="alarm_before">antaŭ</string>
+    <string name="alarm_after">post</string>
+    <string name="alarm_start">komenco</string>
+    <string name="alarm_due">atendate</string>
 </resources>
