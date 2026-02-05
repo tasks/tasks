@@ -761,4 +761,12 @@
     <string name="returning_user_import_backup">Importovat zálohu Tasks.org</string>
     <string name="import_failed">Import selhal</string>
     <string name="import_failed_message">Nepodařilo se přečíst soubor zálohy</string>
+    <string name="banner_subscription_required_title">Vyžadováno předplatné</string>
+    <string name="banner_subscription_required_body">Zaplaťte, kolik chcete, pro odemknutí synchronizace %s</string>
+    <string name="already_subscribed">Již máte předplatné?</string>
+    <string name="upgrade_subscription_banner">Děkujeme za vaší podporu! Zvyšte své předplatné pro zapnutí cloudové synchronizace Tasks.org</string>
+    <string name="alarm_before">před</string>
+    <string name="alarm_after">po</string>
+    <string name="alarm_start">začátek</string>
+    <string name="alarm_due">konec</string>
 </resources>
