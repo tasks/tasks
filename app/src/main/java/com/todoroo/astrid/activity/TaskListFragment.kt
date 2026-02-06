@@ -132,6 +132,7 @@ import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.SearchFilter
 import org.tasks.filters.TagFilter
+import org.tasks.filters.key
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.markdown.MarkdownProvider
@@ -694,6 +695,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         requireActivity(),
                         filter.supportsManualSort(),
                         filter is AstridOrderingFilter && preferences.isAstridSortEnabled,
+                        filterKey = filter.key()
                     )
                 )
                 true
