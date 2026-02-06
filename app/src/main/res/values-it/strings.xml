@@ -765,4 +765,8 @@
     <string name="already_subscribed">Sei già abbonato?</string>
     <string name="upgrade_subscription_banner">Grazie per il tuo sostegno! Aggiorna il tuo abbonamento per abilitare Tasks.org Cloud Sync</string>
     <string name="banner_subscription_required_body">Paga quanto vuoi per sbloccare la sincronizzazione %s</string>
+    <string name="alarm_before">prima</string>
+    <string name="alarm_after">dopo</string>
+    <string name="alarm_start">inizio</string>
+    <string name="alarm_due">fine</string>
 </resources>
