@@ -98,9 +98,69 @@ class TasksClient(
                 }
     }
 
+    suspend fun getInboundEmail(): JSONObject? = withContext(Dispatchers.IO) {
+        val url = httpUrl?.resolve(ENDPOINT_INBOUND_EMAIL) ?: return@withContext null
+        val body = JSONObject().toString()
+            .toRequestBody("application/json".toMediaType())
+        httpClient
+            .newCall(Request.Builder()
+                .post(body)
+                .url(url)
+                .build())
+            .execute()
+            .use { response ->
+                if (!response.isSuccessful) {
+                    throw HttpException(response)
+                }
+                response.body?.use { body -> JSONObject(body.string()) }
+            }
+    }
+
+    suspend fun regenerateInboundEmail(): JSONObject? = withContext(Dispatchers.IO) {
+        val url = httpUrl?.resolve(ENDPOINT_INBOUND_EMAIL) ?: return@withContext null
+        val body = JSONObject().put("regenerate", true).toString()
+            .toRequestBody("application/json".toMediaType())
+        httpClient
+            .newCall(Request.Builder()
+                .post(body)
+                .url(url)
+                .build())
+            .execute()
+            .use { response ->
+                if (!response.isSuccessful) {
+                    throw HttpException(response)
+                }
+                response.body?.use { body -> JSONObject(body.string()) }
+            }
+    }
+
+    suspend fun setInboundCalendar(calendar: String?): JSONObject? = withContext(Dispatchers.IO) {
+        val url = httpUrl?.resolve(ENDPOINT_INBOUND_EMAIL) ?: return@withContext null
+        val body = JSONObject().apply {
+            if (calendar != null) {
+                put("calendar", calendar)
+            } else {
+                put("calendar", JSONObject.NULL)
+            }
+        }.toString().toRequestBody("application/json".toMediaType())
+        httpClient
+            .newCall(Request.Builder()
+                .post(body)
+                .url(url)
+                .build())
+            .execute()
+            .use { response ->
+                if (!response.isSuccessful) {
+                    throw HttpException(response)
+                }
+                response.body?.use { body -> JSONObject(body.string()) }
+            }
+    }
+
     companion object {
         private const val ENDPOINT_PASSWORDS = "/app-passwords"
         private const val ENDPOINT_PUSH_TOKEN = "/push-token"
+        private const val ENDPOINT_INBOUND_EMAIL = "/inbound-email"
         private const val FORM_DESCRIPTION = "description"
         private const val FORM_SESSION_ID = "session_id"
     }

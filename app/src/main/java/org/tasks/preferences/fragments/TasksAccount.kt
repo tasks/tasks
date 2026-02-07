@@ -9,10 +9,14 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.PreferenceCategory
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
@@ -77,6 +81,39 @@ class TasksAccount : BaseAccountPreference() {
 
         if (savedInstanceState == null) {
             viewModel.refreshPasswords(account)
+            viewModel.refreshInboundEmail(account)
+        }
+
+        findPreference(R.string.regenerate_email_address).setOnPreferenceClickListener {
+            dialogBuilder.newDialog()
+                .setTitle(R.string.regenerate_email_address)
+                .setMessage(R.string.regenerate_email_address_confirmation)
+                .setPositiveButton(R.string.ok) { _, _ ->
+                    viewModel.regenerateInboundEmail(account)
+                }
+                .setNegativeButton(R.string.cancel, null)
+                .show()
+            false
+        }
+
+        findPreference(R.string.email_to_task_calendar).setOnPreferenceClickListener {
+            lifecycleScope.launch {
+                val calendars = caldavDao.getCalendarsByAccount(account.uuid!!)
+                    .filter { !it.readOnly() }
+                val currentUri = viewModel.inboundCalendar.value
+                val names = calendars.map { it.name ?: it.uuid ?: "" }.toTypedArray()
+                val selected = calendars.indexOfFirst { it.calendarUri == currentUri }
+                dialogBuilder.newDialog()
+                    .setTitle(R.string.email_to_task_calendar)
+                    .setSingleChoiceItems(names, selected) { dialog, which ->
+                        val selectedCalendar = calendars[which]
+                        viewModel.setInboundCalendar(account, selectedCalendar.calendarUri)
+                        dialog.dismiss()
+                    }
+                    .setNegativeButton(R.string.cancel, null)
+                    .show()
+            }
+            false
         }
 
         findPreference(R.string.local_lists).setOnPreferenceClickListener {
@@ -91,6 +128,21 @@ class TasksAccount : BaseAccountPreference() {
         }
 
         openUrl(R.string.app_passwords_more_info, R.string.url_app_passwords)
+
+        // Observe both inbound calendar URI and calendars database to update UI reactively
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                caldavDao.subscribeToCalendars()
+                    .map { calendars -> calendars.filter { it.account == account.uuid } }
+                    .combine(viewModel.inboundCalendarFlow) { calendars, calendarUri ->
+                        calendars.find { it.calendarUri == calendarUri }?.name
+                    }
+                    .collect { calendarName ->
+                        findPreference(R.string.email_to_task_calendar).summary =
+                            calendarName ?: getString(R.string.none)
+                    }
+            }
+        }
     }
 
     override suspend fun removeAccount() {
@@ -106,6 +158,25 @@ class TasksAccount : BaseAccountPreference() {
             passwords?.let {
                 runBlocking {
                     refreshPasswords(passwords)
+                }
+            }
+        }
+        viewModel.inboundEmail.observe(this) { email ->
+            findPreference(R.string.email_to_task).isVisible = email != null
+            (findPreference(R.string.email_to_task_address) as IconPreference).apply {
+                summary = email
+                if (email != null) {
+                    iconVisible = true
+                    drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_content_copy_24px)
+                    tint = ContextCompat.getColor(requireContext(), R.color.icon_tint_with_alpha)
+                    setOnPreferenceClickListener {
+                        copyToClipboard(requireContext(), R.string.email_to_task_address, email)
+                        firebase.logEvent(
+                            R.string.event_settings_click,
+                            R.string.param_type to "email_to_task_copy"
+                        )
+                        true
+                    }
                 }
             }
         }

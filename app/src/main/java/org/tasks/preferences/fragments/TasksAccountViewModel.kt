@@ -2,10 +2,14 @@ package org.tasks.preferences.fragments
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import org.json.JSONObject
+import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.data.entity.CaldavAccount
 import timber.log.Timber
@@ -13,10 +17,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TasksAccountViewModel @Inject constructor(
-        private val provider: CaldavClientProvider
+        private val provider: CaldavClientProvider,
+        private val firebase: Firebase,
 ) : ViewModel() {
     val newPassword = MutableLiveData<AppPassword?>()
     val appPasswords = MutableLiveData<List<AppPassword>?>()
+    val inboundEmail = MutableLiveData<String?>()
+    val inboundCalendar = MutableLiveData<String?>()
+    val inboundCalendarFlow: Flow<String?> = inboundCalendar.asFlow()
 
     private var inFlight = false
 
@@ -80,6 +88,56 @@ class TasksAccountViewModel @Inject constructor(
         newPassword.value = null
     }
 
+    fun refreshInboundEmail(account: CaldavAccount) = viewModelScope.launch {
+        try {
+            provider
+                .forTasksAccount(account)
+                .getInboundEmail()
+                ?.let {
+                    inboundEmail.value = it.getString(EMAIL)
+                    inboundCalendar.value = it.getStringOrNull(CALENDAR)
+                }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+    }
+
+    fun regenerateInboundEmail(account: CaldavAccount) = viewModelScope.launch {
+        try {
+            provider
+                .forTasksAccount(account)
+                .regenerateInboundEmail()
+                ?.let {
+                    inboundEmail.value = it.getString(EMAIL)
+                    inboundCalendar.value = it.getStringOrNull(CALENDAR)
+                    firebase.logEvent(
+                        R.string.event_settings_click,
+                        R.string.param_type to "email_to_task_regenerate"
+                    )
+                }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+    }
+
+    fun setInboundCalendar(account: CaldavAccount, calendar: String?) = viewModelScope.launch {
+        try {
+            provider
+                .forTasksAccount(account)
+                .setInboundCalendar(calendar)
+                ?.let {
+                    inboundEmail.value = it.getString(EMAIL)
+                    inboundCalendar.value = it.getStringOrNull(CALENDAR)
+                    firebase.logEvent(
+                        R.string.event_settings_click,
+                        R.string.param_type to "email_to_task_set_calendar"
+                    )
+                }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+    }
+
     data class AppPassword(
             val username: String? = null,
             val password: String? = null,
@@ -97,6 +155,8 @@ class TasksAccountViewModel @Inject constructor(
         private const val LAST_ACCESS = "last_access"
         private const val PASSWORD = "password"
         private const val USERNAME = "username"
+        private const val EMAIL = "email"
+        private const val CALENDAR = "calendar"
 
         fun JSONObject.getStringOrNull(key: String) = if (isNull(key)) null else getString(key)
 
