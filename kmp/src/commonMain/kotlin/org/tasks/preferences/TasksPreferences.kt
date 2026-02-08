@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
@@ -30,5 +31,6 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val acceptedTosVersion = intPreferencesKey("accepted_tos_version")
         val hasLoggedOnboardingComplete = booleanPreferencesKey("has_logged_onboarding_complete")
         val subscriptionDismissedAccounts = stringSetPreferencesKey("subscription_dismissed_accounts")
+        val syncSource = stringPreferencesKey("sync_source")
     }
 }

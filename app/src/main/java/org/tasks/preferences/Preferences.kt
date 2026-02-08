@@ -463,12 +463,6 @@ class Preferences @JvmOverloads constructor(
             getIntegerFromString(R.string.p_rmd_swipe_to_snooze_time_minutes, 0).toLong()
         )
 
-    var isSyncOngoing: Boolean
-        get() = syncFlags.any { getBoolean(it, false) }
-        set(value) {
-            syncFlags.forEach { setBoolean(it, value) }
-        }
-
     var lastSync: Long
         get() = getLong(R.string.p_last_sync, 0L)
         set(value) {
@@ -601,11 +595,6 @@ class Preferences @JvmOverloads constructor(
     companion object {
         private fun getSharedPreferencesName(context: Context): String =
                 context.packageName + "_preferences"
-
-        private val syncFlags = listOf(
-                R.string.p_sync_ongoing,
-                R.string.p_sync_ongoing_android,
-        )
 
         private val DEFAULT_ALARMS: Set<String> = setOf(
             Json.encodeToString(Alarm(time = 0, type = Alarm.TYPE_REL_START)),

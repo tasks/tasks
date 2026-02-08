@@ -19,6 +19,7 @@ import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_WRITE
 import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
 import org.tasks.filters.CaldavFilter
 import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import javax.inject.Inject
 
 @HiltViewModel
@@ -107,7 +108,7 @@ class CaldavCalendarViewModel @Inject constructor(
         }
         val principal = principalDao.getOrCreatePrincipal(account, href)
         principalDao.getOrCreateAccess(list, principal, INVITE_UNKNOWN, ACCESS_READ_WRITE)
-        syncAdapters.sync(true)
+        syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
     }
 
     suspend fun removeUser(account: CaldavAccount, list: CaldavCalendar, principal: PrincipalWithAccess) =

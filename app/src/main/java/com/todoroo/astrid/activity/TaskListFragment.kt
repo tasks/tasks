@@ -141,6 +141,7 @@ import org.tasks.preferences.Preferences
 import org.tasks.preferences.ResourceResolver.getData
 import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import org.tasks.tags.TagPickerActivity
 import org.tasks.tasklist.DragAndDropRecyclerAdapter
 import org.tasks.tasklist.SectionedDataSource
@@ -256,7 +257,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onRefresh() {
-        syncAdapters.sync(true)
+        syncAdapters.sync(SyncSource.USER_INITIATED)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -874,7 +875,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         for (task in tasks) {
             onTaskCreated(task.uuid)
         }
-        syncAdapters.sync()
+        syncAdapters.sync(SyncSource.TASK_CHANGE)
         loadTaskListContent()
     }
 

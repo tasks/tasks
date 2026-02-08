@@ -38,6 +38,7 @@ import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.sync.microsoft.MicrosoftSynchronizer
+import org.tasks.sync.SyncSource
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 
@@ -62,7 +63,7 @@ class SyncWork @AssistedInject constructor(
     override suspend fun run(): Result {
         Timber.d("Starting...")
 
-        if (isBackground) {
+        if (source == SyncSource.BACKGROUND) {
             ContextCompat.getSystemService(context, ConnectivityManager::class.java)?.apply {
                 if (restrictBackgroundStatus == ConnectivityManagerCompat.RESTRICT_BACKGROUND_STATUS_ENABLED) {
                     Timber.w("Background restrictions enabled, skipping sync")
@@ -71,13 +72,22 @@ class SyncWork @AssistedInject constructor(
             }
         }
 
-        synchronized(LOCK) {
+        val alreadySyncing = synchronized(LOCK) {
             if (preferences.getBoolean(syncStatus, false)) {
-                Timber.e("Sync ongoing")
-                return Result.retry()
+                true
+            } else {
+                preferences.setBoolean(syncStatus, true)
+                false
             }
-            preferences.setBoolean(syncStatus, true)
         }
+        if (alreadySyncing) {
+            Timber.d("Sync ongoing, source=$source")
+            setSyncSource(getSyncSource().upgrade(source))
+            refreshBroadcaster.broadcastRefresh()
+            return Result.retry()
+        }
+        setSyncSource(source)
+        Timber.d("Sync started, source=$source")
         refreshBroadcaster.broadcastRefresh()
         try {
             doSync()
@@ -86,18 +96,22 @@ class SyncWork @AssistedInject constructor(
             firebase.reportException(e)
         } finally {
             preferences.setBoolean(syncStatus, false)
+            setSyncSource(SyncSource.NONE)
             refreshBroadcaster.broadcastRefresh()
         }
         return Result.success()
     }
 
-    private val isImmediate: Boolean
-        get() = inputData.getBoolean(EXTRA_IMMEDIATE, false)
-
-    private val isBackground: Boolean
-        get() = inputData.getBoolean(EXTRA_BACKGROUND, false)
+    private val source: SyncSource
+        get() = SyncSource.fromString(inputData.getString(EXTRA_SOURCE))
 
     private val syncStatus = R.string.p_sync_ongoing
+
+    private suspend fun getSyncSource(): SyncSource =
+        SyncSource.fromString(tasksPreferences.get(TasksPreferences.syncSource, SyncSource.NONE.name))
+
+    private suspend fun setSyncSource(source: SyncSource) =
+        tasksPreferences.set(TasksPreferences.syncSource, source.name)
 
     private suspend fun hasTosAcceptance(): Boolean {
         if (!TasksApplication.IS_GOOGLE_PLAY && !inventory.hasTasksAccount) {
@@ -117,7 +131,7 @@ class SyncWork @AssistedInject constructor(
         if (openTaskDao.shouldSync()) {
             openTasksSynchronizer.get().sync()
 
-            if (isImmediate) {
+            if (source == SyncSource.USER_INITIATED) {
                 AccountManager
                     .get(context)
                     .accounts
@@ -168,7 +182,6 @@ class SyncWork @AssistedInject constructor(
     companion object {
         private val LOCK = Any()
 
-        const val EXTRA_IMMEDIATE = "extra_immediate"
-        const val EXTRA_BACKGROUND = "extra_background"
+        const val EXTRA_SOURCE = "extra_source"
     }
 }

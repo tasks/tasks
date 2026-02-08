@@ -22,6 +22,7 @@ import org.tasks.files.FileHelper
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
 import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import javax.inject.Inject
 
 class TaskDeleter @Inject constructor(
@@ -49,7 +50,7 @@ class TaskDeleter @Inject constructor(
             ids = ids,
             cleanup = { cleanup(it) }
         )
-        syncAdapters.sync()
+        syncAdapters.sync(SyncSource.TASK_CHANGE)
         refreshBroadcaster.broadcastRefresh()
         taskDao.fetch(ids)
     }

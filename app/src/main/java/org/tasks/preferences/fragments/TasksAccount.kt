@@ -30,6 +30,7 @@ import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.TasksPreferences
 import org.tasks.extensions.Context.toast
 import org.tasks.jobs.WorkManager
+import org.tasks.sync.SyncSource
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDay
 import org.tasks.preferences.IconPreference
@@ -275,7 +276,7 @@ class TasksAccount : BaseAccountPreference() {
                     val currentTosVersion = firebase.getTosVersion()
                     tasksPreferences.set(TasksPreferences.acceptedTosVersion, currentTosVersion)
                     caldavDao.update(account.copy(error = null))
-                    workManager.sync(immediate = true)
+                    workManager.sync(SyncSource.ACCOUNT_ADDED)
                 }
             }
             .setNegativeButton(R.string.cancel, null)

@@ -22,6 +22,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.extensions.Context.toast
 import org.tasks.jobs.WorkManager
 import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -74,7 +75,7 @@ class MicrosoftSignInViewModel @Inject constructor(
                                             R.string.param_type to Constants.SYNC_TYPE_MICROSOFT
                                         )
                                     }
-                            syncAdapters.sync(true)
+                            syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
                             workManager.updateBackgroundSync()
                         }
                     }

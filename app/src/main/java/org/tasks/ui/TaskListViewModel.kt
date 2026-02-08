@@ -49,6 +49,7 @@ import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.preferences.TasksPreferences
+import org.tasks.sync.SyncSource
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -119,10 +120,7 @@ class TaskListViewModel @Inject constructor(
 
     fun invalidate() {
         _state.update {
-            it.copy(
-                now = currentTimeMillis(),
-                syncOngoing = preferences.isSyncOngoing,
-            )
+            it.copy(now = currentTimeMillis())
         }
     }
 
@@ -151,6 +149,13 @@ class TaskListViewModel @Inject constructor(
 
     init {
         localBroadcastManager.registerRefreshReceiver(refreshReceiver)
+
+        tasksPreferences
+            .flow(TasksPreferences.syncSource, SyncSource.NONE.name)
+            .map { SyncSource.fromString(it).showIndicator }
+            .distinctUntilChanged()
+            .onEach { syncOngoing -> _state.update { it.copy(syncOngoing = syncOngoing) } }
+            .launchIn(viewModelScope)
 
         _state
             .map { it.copy(tasks = TasksResults.Loading) }

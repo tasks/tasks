@@ -90,6 +90,7 @@ import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import org.tasks.sync.microsoft.MicrosoftSignInViewModel
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.TasksTheme
@@ -272,7 +273,7 @@ class MainActivity : AppCompatActivity() {
                         val syncLauncher =
                             rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                                 if (result.resultCode == RESULT_OK) {
-                                    syncAdapters.sync(true)
+                                    syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
                                     workManager.updateBackgroundSync()
                                 } else {
                                     result.data
@@ -416,7 +417,7 @@ class MainActivity : AppCompatActivity() {
                                     lifecycleScope.launch {
                                         firebase.logEvent(R.string.event_accept_tos_update)
                                         setAcceptedTosVersion(currentTosVersion)
-                                        workManager.sync(immediate = true)
+                                        workManager.sync(SyncSource.ACCOUNT_ADDED)
                                     }
                                 },
                                 onExit = { finish() },

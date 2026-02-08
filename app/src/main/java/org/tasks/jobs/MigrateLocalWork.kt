@@ -12,6 +12,7 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.injection.BaseWorker
 import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 
 @HiltWorker
 class MigrateLocalWork @AssistedInject constructor(
@@ -40,7 +41,7 @@ class MigrateLocalWork @AssistedInject constructor(
             )
         }
         taskDeleter.delete(fromAccount)
-        syncAdapters.sync()
+        syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
         return Result.success()
     }
 
