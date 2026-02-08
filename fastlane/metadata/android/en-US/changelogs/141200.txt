@@ -1,0 +1,5 @@
+* Email-to-task for Tasks.org accounts
+  * Send email to a private address and it instantly appears in your Tasks.org
+    account
+* Don't show indicator for background syncs
+* Update translations

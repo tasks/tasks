@@ -1,3 +1,14 @@
+### 14.12 (2026-02-08)
+
+* Email-to-task for Tasks.org accounts
+  * Send email to a private address and it instantly appears in your Tasks.org
+    account
+* Don't show indicator for background syncs
+* Update translations
+  * Czech - @Fjuro
+  * French - @FlorianLeChat
+  * Italian - @ppasserini
+
 ### 14.11 (2026-02-05)
 
 * Set custom default reminders [#1848](https://github.com/tasks/tasks/issues/1848)
