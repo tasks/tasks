@@ -362,7 +362,7 @@
     <string name="location_departed">离开 %s</string>
     <string name="building_notifications">生成通知</string>
     <string name="choose_a_location">选择一个位置</string>
-    <string name="pick_this_location">选中这个位置</string>
+    <string name="pick_this_location">选择此位置</string>
     <string name="or_choose_a_location">或选择一个位置</string>
     <string name="missing_permissions">缺少权限</string>
     <string name="location_permission_required_location">需要位置权限来发现您当前位置</string>
@@ -430,7 +430,7 @@
     <string name="chip_appearance_text_and_icon">文本和图标</string>
     <string name="menu_discard_changes">放弃修改</string>
     <string name="share">分享</string>
-    <string name="select_all">选中全部</string>
+    <string name="select_all">全选</string>
     <string name="calendar_event_created">已为 %s 创建日历事件</string>
     <string name="compact">紧凑</string>
     <string name="settings_default">默认</string>
@@ -538,7 +538,7 @@
     <string name="save_percent">节省 %d%%</string>
     <string name="decsync_selection_description">基于文件的同步</string>
     <string name="sign_in_to_tasks">登录到 Tasks.org</string>
-    <string name="copied_to_clipboard">%s 被复制到剪贴板</string>
+    <string name="copied_to_clipboard">%s 已复制到剪贴板</string>
     <string name="app_password_save">使用这些凭据配置第三方应用。它们允许对您的 Tasks.org 账号的完整访问权限，所以不要不要把它们写下来或与任何人分享！</string>
     <string name="app_password_delete_confirmation">任何使用此密码的应用程序都会退出登录</string>
     <string name="app_password_last_access">上次使用：%s</string>
@@ -736,4 +736,9 @@
     <string name="alarm_after">后</string>
     <string name="alarm_start">开始</string>
     <string name="alarm_due">到期</string>
+    <string name="email_to_task_address">您的电子邮件地址</string>
+    <string name="regenerate_email_address">重新生成地址</string>
+    <string name="email_to_task_calendar">目标列表</string>
+    <string name="regenerate_email_address_confirmation">您当前的电子邮件地址将停止使用</string>
+    <string name="email_to_task">邮件转任务</string>
 </resources>
