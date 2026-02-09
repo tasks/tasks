@@ -1,8 +1,5 @@
 package org.tasks.preferences
 
-import com.todoroo.astrid.core.SortHelper
-import org.tasks.R
-
 class FilterPreferences(
     private val preferences: Preferences,
     private val filterKey: String,
