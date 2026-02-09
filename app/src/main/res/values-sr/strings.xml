@@ -764,4 +764,8 @@
     <string name="name_your_price_blurb">Плати колико желиш за откључавање тема, иконица и напредних опција синхронизације</string>
     <string name="local_list_description">Задаци у овој листи су смештени на овом уређају. Повежи налог како би заштитио своје податке и приступао њима било где.</string>
     <string name="local_list_title">Ово је локална листа</string>
+    <string name="alarm_due">доспеће</string>
+    <string name="alarm_start">старт</string>
+    <string name="alarm_after">након</string>
+    <string name="alarm_before">пре</string>
 </resources>
