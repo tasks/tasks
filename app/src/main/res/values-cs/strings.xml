@@ -368,7 +368,7 @@
     <string name="button_unsubscribe">Zrušit předplatné</string>
     <string name="help_and_feedback">Nápověda a zpětná vazba</string>
     <string name="pro_dashclock_extension">Dashclock rozšíření</string>
-    <string name="requires_pro_subscription">Vyžaduje PRO předplatné</string>
+    <string name="requires_pro_subscription">Vyžaduje předplatné Pro</string>
     <string name="logout">Odhlásit se</string>
     <string name="this_feature_requires_a_subscription">Tato funkce vyžaduje předplatné</string>
     <string name="when_overdue">Po termínu</string>
@@ -769,4 +769,9 @@
     <string name="alarm_after">po</string>
     <string name="alarm_start">začátek</string>
     <string name="alarm_due">konec</string>
+    <string name="email_to_task">E-mail na úkol</string>
+    <string name="email_to_task_address">Vaše e-mailová adresa</string>
+    <string name="email_to_task_calendar">Seznam cílů</string>
+    <string name="regenerate_email_address">Znovu vygenerovat adresu</string>
+    <string name="regenerate_email_address_confirmation">Vaše aktuální e-mailová adresa přestane fungovat</string>
 </resources>
