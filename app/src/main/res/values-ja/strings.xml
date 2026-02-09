@@ -721,5 +721,5 @@
     <string name="alarm_before">前に</string>
     <string name="alarm_after">後に</string>
     <string name="alarm_start">着手時間に対して</string>
-    <string name="alarm_due">締め切り時間に対して</string>
+    <string name="alarm_due">期限</string>
 </resources>
