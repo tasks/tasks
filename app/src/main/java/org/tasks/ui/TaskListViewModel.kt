@@ -169,14 +169,9 @@ class TaskListViewModel @Inject constructor(
                 } else {
                     preferences
                 }
-                taskDao.fetchTasks(getQuery(prefs, filter))
+                Pair(taskDao.fetchTasks(getQuery(prefs, filter)), prefs)
             }
-            .onEach { tasks ->
-                val prefs = if (preferences.isPerListSortEnabled) {
-                    FilterPreferences(preferences, _state.value.filter.key())
-                } else {
-                    preferences
-                }
+            .onEach { (tasks, prefs) ->
                 _state.update {
                     it.copy(
                         tasks = TasksResults.Results(
