@@ -185,7 +185,7 @@ class WearService(
                                 ListItem.newBuilder()
                                     .setId(defaultFilterProvider.getFilterPreferenceValue(item))
                                     .setType(ListItemType.Item)
-                                    .setTitle(item.title ?: "")
+                                    .setTitle(item.title)
                                     .setIcon(item.getIcon(inventory))
                                     .setColor(getColor(item))
                                     .setTaskCount(item.count.takeIf { it != NO_COUNT } ?: try {

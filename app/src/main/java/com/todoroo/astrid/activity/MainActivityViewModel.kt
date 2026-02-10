@@ -157,7 +157,7 @@ class MainActivityViewModel @Inject constructor(
                 when (item) {
                     is Filter ->
                         DrawerItem.Filter(
-                            title = item.title ?: "",
+                            title = item.title,
                             icon = item.getIcon(inventory),
                             color = getColor(item),
                             count = item.count.takeIf { it != NO_COUNT } ?: try {
@@ -185,10 +185,10 @@ class MainActivityViewModel @Inject constructor(
         val query = _state.value.menuQuery
         filterProvider
             .allFilters()
-            .filter { it.title!!.contains(query, ignoreCase = true) }
+            .filter { it.title.contains(query, ignoreCase = true) }
             .map { item ->
                 DrawerItem.Filter(
-                    title = item.title ?: "",
+                    title = item.title,
                     icon = item.getIcon(inventory),
                     color = getColor(item),
                     count = item.count.takeIf { it != NO_COUNT } ?: try {

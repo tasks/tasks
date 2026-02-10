@@ -75,7 +75,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             filter?.let {
                 baseViewModel.setColor(it.tint)
                 baseViewModel.setIcon(it.icon)
-                baseViewModel.setTitle(it.title ?: "")
+                baseViewModel.setTitle(it.title)
             }
             intent.getStringExtra(EXTRA_TITLE)?.let { baseViewModel.setTitle(it) }
         }

@@ -4,7 +4,7 @@ import org.tasks.CommonParcelize
 
 @CommonParcelize
 data class FilterImpl(
-    override val title: String? = null,
+    override val title: String = "",
     override val sql: String? = null,
     override val valuesForNewTasks: String? = null,
     override val icon: String? = null,

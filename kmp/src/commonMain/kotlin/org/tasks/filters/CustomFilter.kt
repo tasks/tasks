@@ -7,8 +7,8 @@ import org.tasks.themes.TasksIcons
 data class CustomFilter(
     val filter: org.tasks.data.entity.Filter,
 ) : Filter() {
-    override val title: String?
-        get() = filter.title
+    override val title: String
+        get() = filter.title ?: ""
     override val sql: String
         get() = filter.sql!!
 

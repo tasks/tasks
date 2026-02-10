@@ -110,7 +110,7 @@ class FilterPickerViewModel @Inject constructor(
             state.copy(
                 query = query,
                 searchResults = state.allFilters
-                    .filter { it.title!!.contains(query, ignoreCase = true) }
+                    .filter { it.title.contains(query, ignoreCase = true) }
                     .sortedBy { it.title },
             )
         }
