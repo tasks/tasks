@@ -325,7 +325,7 @@
     <string name="tasker_create_task">创建任务</string>
     <string name="tasker_list_notification">列出通知</string>
     <string name="help">帮助</string>
-    <string name="caldav_home_set_not_found">未设置 CalDAV Home</string>
+    <string name="caldav_home_set_not_found">未找到 Home set</string>
     <string name="network_error">无法连接</string>
     <string name="upgrade_to_pro">升级至专业版</string>
     <string name="refresh_purchases">刷新购买</string>
