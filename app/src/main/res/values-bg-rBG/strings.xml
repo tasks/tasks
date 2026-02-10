@@ -747,4 +747,9 @@
     <string name="alarm_after">след</string>
     <string name="alarm_start">начало</string>
     <string name="alarm_due">край</string>
+    <string name="email_to_task">Задача от писмо</string>
+    <string name="email_to_task_address">Адрес на ел. поща</string>
+    <string name="email_to_task_calendar">Целеви списък</string>
+    <string name="regenerate_email_address">Пресъздаване на адреса</string>
+    <string name="regenerate_email_address_confirmation">Текущия ел. адрес ще спре да работи</string>
 </resources>
