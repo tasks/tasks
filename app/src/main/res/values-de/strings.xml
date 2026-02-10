@@ -399,9 +399,9 @@
     <string name="theme_system_default">Systemstandard</string>
     <string name="enter_tag_name">Schlagwort eingeben</string>
     <string name="choose_synchronization_service">Einen Dienst wählen</string>
-    <string name="google_tasks_selection_description">Basisdienst zur Synchronisation mit deinem Google-Konto</string>
-    <string name="caldav_selection_description">Synchronisation basierend auf offenen Internetstandards</string>
-    <string name="etesync_selection_description">Ende-zu-Ende-verschlüsselte Synchronisation</string>
+    <string name="google_tasks_selection_description">Basisdienst zur Synchronisierung mit deinem Google-Konto</string>
+    <string name="caldav_selection_description">Synchronisierung basierend auf offenen Internetstandards</string>
+    <string name="etesync_selection_description">Ende-zu-Ende-verschlüsselte Synchronisierung</string>
     <string name="show_advanced_settings">Erweiterte Einstellungen anzeigen</string>
     <string name="caldav_account_description">Erfordert ein Konto bei einem CalDAV-Dienstanbieter oder einem selbst gehosteten Server. Du kannst einen Dienstanbieter finden, indem du tasks.org/caldav besuchst</string>
     <string name="etesync_account_description">Erfordert ein Konto bei EteSync.com oder einen selbst gehosteten Server</string>
@@ -541,7 +541,7 @@
     <string name="authentication_required">Authentifizierung erforderlich</string>
     <string name="sign_in_with_github">Mit GitHub anmelden</string>
     <string name="github_sponsors">GitHub-Sponsoren</string>
-    <string name="google_play_subscribers">Google Play-Abonnenten</string>
+    <string name="google_play_subscribers">Google Play-Abonnent:innen</string>
     <string name="authorization_cancelled">Autorisierung abgebrochen</string>
     <string name="sign_in_with_google">Mit Google anmelden</string>
     <string name="account_not_included">Nicht im „Wähle deinen Preis“-Abonnement enthalten</string>
@@ -596,7 +596,7 @@
     <string name="upgrade_tasks_org_account_description">Mit Tasks.org synchronisieren und mit anderen zusammenarbeiten</string>
     <string name="upgrade_more_customization_description">Schalte alle Themen, Farben und Symbole frei</string>
     <string name="upgrade_more_customization">Mehr Anpassungsmöglichkeiten</string>
-    <string name="pro_free_trial">Neue Abonnenten erhalten eine 7-tägige kostenlose Testversion. Jederzeit abbrechen</string>
+    <string name="pro_free_trial">Neue Abonnent:innen erhalten eine 7-tägige kostenlose Testversion. Kann jederzeit gekündigt werden</string>
     <string name="next_saturday">Nächsten Samstag</string>
     <string name="next_friday">Nächsten Freitag</string>
     <string name="next_thursday">Nächsten Donnerstag</string>
@@ -747,4 +747,9 @@
     <string name="alarm_start">Start</string>
     <string name="alarm_due">fällig</string>
     <string name="alarm_before">vor</string>
+    <string name="email_to_task_address">Deine E-Mail-Adresse</string>
+    <string name="regenerate_email_address_confirmation">Deine derzeitige E-Mail-Adresse wird nicht mehr funktionieren</string>
+    <string name="regenerate_email_address">Neue E-Mail-Adresse generieren</string>
+    <string name="email_to_task">E-Mail Aufgabenerstellung</string>
+    <string name="email_to_task_calendar">Zielliste</string>
 </resources>
