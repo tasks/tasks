@@ -747,4 +747,9 @@
     <string name="alarm_after">utána</string>
     <string name="alarm_start">kezdet</string>
     <string name="alarm_due">esedékes</string>
+    <string name="email_to_task">Feladat e-mailből</string>
+    <string name="email_to_task_address">E-mail cím</string>
+    <string name="email_to_task_calendar">Cél lista</string>
+    <string name="regenerate_email_address">Cím újragenerálása</string>
+    <string name="regenerate_email_address_confirmation">A jelenlegi e-mail címed megszűnik működni</string>
 </resources>
