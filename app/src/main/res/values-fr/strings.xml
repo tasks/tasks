@@ -769,4 +769,9 @@
     <string name="alarm_after">après</string>
     <string name="alarm_start">début le</string>
     <string name="alarm_due">échéance le</string>
+    <string name="regenerate_email_address_confirmation">Votre adresse électronique actuelle cessera de fonctionner</string>
+    <string name="email_to_task">Courriel en tâche</string>
+    <string name="email_to_task_address">Votre adresse électronique</string>
+    <string name="email_to_task_calendar">Liste de destination</string>
+    <string name="regenerate_email_address">Regénérer l\'adresse</string>
 </resources>
