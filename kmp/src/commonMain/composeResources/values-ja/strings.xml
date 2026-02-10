@@ -29,7 +29,7 @@
     <string name="show_completed">完了したタスクを表示</string>
     <string name="search_no_results">結果なし</string>
     <string name="subscription_required_description">すべての機能を1USD/年でアンロックすることができます</string>
-    <string name="requires_pro_subscription">有償版</string>
+    <string name="requires_pro_subscription">プロ版の機能</string>
     <string name="add_task">タスクを追加</string>
     <string name="wear_install_app">インストール</string>
     <string name="wear_unknown_error">不明なエラー</string>
