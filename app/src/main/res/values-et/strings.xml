@@ -739,4 +739,9 @@
     <string name="alarm_after">peale</string>
     <string name="alarm_start">algus</string>
     <string name="alarm_due">tähtaeg</string>
+    <string name="email_to_task">E-kiri ülesandeks</string>
+    <string name="email_to_task_address">Sinu e-posti aadress</string>
+    <string name="email_to_task_calendar">Sihtkalendrite loend</string>
+    <string name="regenerate_email_address">Loo aadress uuesti</string>
+    <string name="regenerate_email_address_confirmation">Sinu senine e-posti aadress lõpetab toimimise</string>
 </resources>
