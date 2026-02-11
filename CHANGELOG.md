@@ -1,13 +1,22 @@
-### 14.12 (2026-02-08)
+### 14.12 (2026-02-11)
 
 * Email-to-task for Tasks.org accounts
   * Send email to a private address and it instantly appears in your Tasks.org
     account
 * Don't show indicator for background syncs
+* Change 'Repeats from' to a toggle button
+* Fix price buttons showing 'Free' [#4155](https://github.com/tasks/tasks/issues/4155)
+* Fix crash on startup [#4153](https://github.com/tasks/tasks/issues/4153)
 * Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山, Sketch6580
   * Czech - @Fjuro
   * French - @FlorianLeChat
+  * German - @ColorfulRhino
+  * Hungarian - Kaci
   * Italian - @ppasserini
+  * Japanese - Norara, @array
+  * Serbian - @vale-decem
 
 ### 14.11 (2026-02-05)
 
