@@ -77,6 +77,10 @@ import org.tasks.location.GeofenceApi
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
+import net.fortuna.ical4j.model.Recur
+import net.fortuna.ical4j.model.WeekDay
+import org.tasks.repeats.RecurrenceUtils.newRecur
+import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
 import timber.log.Timber
@@ -617,6 +621,28 @@ class TaskEditViewModel @Inject constructor(
     fun setRepeatFrom(repeatFrom: @Task.RepeatFrom Int) {
         _viewState.update { state ->
             state.copy(task = state.task.copy(repeatFrom = repeatFrom))
+        }
+    }
+
+    fun onDueDateChanged() {
+        _viewState.value.task.recurrence?.takeIf { it.isNotBlank() }?.let { recurrence ->
+            val recur = newRecur(recurrence)
+            if (recur.frequency == Recur.Frequency.MONTHLY && recur.dayList.isNotEmpty()) {
+                val weekdayNum = recur.dayList[0]
+                val dateTime =
+                    DateTime(dueDate.value.let { if (it > 0) it else currentTimeMillis() })
+                val dayOfWeekInMonth = dateTime.dayOfWeekInMonth
+                val num = if (weekdayNum.offset == -1 || dayOfWeekInMonth == 5) {
+                    if (dayOfWeekInMonth == dateTime.maxDayOfWeekInMonth) -1 else dayOfWeekInMonth
+                } else {
+                    dayOfWeekInMonth
+                }
+                recur.dayList.let {
+                    it.clear()
+                    it.add(WeekDay(dateTime.weekDay, num))
+                }
+                setRecurrence(recur.toString())
+            }
         }
     }
 
