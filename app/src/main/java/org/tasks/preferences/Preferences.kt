@@ -37,11 +37,20 @@ class Preferences @JvmOverloads constructor(
         private val context: Context,
         name: String? = getSharedPreferencesName(context)
 ) : QueryPreferences {
-    private val prefs: SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
+    private val listeners = ArrayList<SharedPreferences.OnSharedPreferenceChangeListener>()
+    private val proxyListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
+            listeners.forEach { it.onSharedPreferenceChanged(prefs, key) }
+        }
+    private val prefs: SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE).apply {
+        registerOnSharedPreferenceChangeListener(proxyListener)
+    }
 
     fun registerOnSharedPreferenceChangeListener(
         listener: SharedPreferences.OnSharedPreferenceChangeListener
-    ) = prefs.registerOnSharedPreferenceChangeListener(listener)
+    ) {
+        listeners.add(listener)
+    }
 
     fun androidBackupServiceEnabled() = getBoolean(R.string.p_backups_android_backup_enabled, true)
 
@@ -175,6 +184,7 @@ class Preferences @JvmOverloads constructor(
     }
 
     fun setDefaults() {
+        prefs.unregisterOnSharedPreferenceChangeListener(proxyListener)
         PreferenceManager.setDefaultValues(context, R.xml.preferences, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_look_and_feel, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_notifications, true)
@@ -185,9 +195,11 @@ class Preferences @JvmOverloads constructor(
         PreferenceManager.setDefaultValues(context, R.xml.preferences_advanced, true)
         PreferenceManager.setDefaultValues(context, R.xml.help_and_feedback, true)
         BeastModePreferences.setDefaultOrder(this, context)
+        prefs.registerOnSharedPreferenceChangeListener(proxyListener)
     }
 
     fun reset() {
+        prefs.unregisterOnSharedPreferenceChangeListener(proxyListener)
         clear()
         setDefaults()
     }
