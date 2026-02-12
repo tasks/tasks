@@ -123,7 +123,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Čas ticha sa začne</string>
     <string name="rmd_EPr_quiet_hours_end_title">Čas ticha skončí</string>
     <string name="rmd_EPr_rmd_time_title">Čas pripomienky</string>
-    <string name="rmd_EPr_rmd_time_desc">Oznámenia úloh bez času dokončenia sa objavia o %s</string>
     <string name="persistent_notifications">Trvalé upozornenia </string>
     <string name="persistent_notifications_description">Trvalé upozornenia nemôžu byť skryté</string>
     <string name="rmd_EPr_defaultRemind_title">Náhodné pripomienky</string>
@@ -540,14 +539,12 @@
     <string name="expand_subtasks">Rozbaliť podúlohy</string>
     <string name="action_new_task">Nová úloha</string>
     <string name="sort_due_group">Termín %s</string>
-    <string name="default_reminder">Predvolená pripomienka</string>
     <string name="repeats_custom_recurrence">Vlastné opakovanie</string>
     <string name="repeats_every">Opakuje sa každý</string>
     <string name="repeats_on">V</string>
     <string name="repeats_never">Nikdy</string>
     <string name="repeats_after">Po</string>
     <string name="repeats_ends">Končí</string>
-    <string name="rmd_time_description">Zobrazovať upozornenia na úlohy bez termínov</string>
     <string name="background_location_permission_required">Táto aplikácia zbiera údaje o vašej polohe, aby fungovali upozornenia podľa polohy aj keď aplikáciu práve nepoužívate.</string>
     <string name="invalid_backup_file">Neplatný súbor zálohy</string>
     <string name="choose_synchronization_service">Vyberte službu</string>

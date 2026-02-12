@@ -9,6 +9,7 @@ import org.tasks.analytics.Firebase
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.createDueDate
 import org.tasks.locale.bundle.TaskCreationBundle
+import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
@@ -24,6 +25,7 @@ class TaskerTaskCreator @Inject internal constructor(
     private val taskDao: TaskDao,
     private val firebase: Firebase,
     private val alarmDao: AlarmDao,
+    private val preferences: Preferences,
 ) {
     suspend fun handle(bundle: TaskCreationBundle) {
         val task = taskCreator.basicQuickAddTask(bundle.title)
@@ -62,7 +64,7 @@ class TaskerTaskCreator @Inject internal constructor(
         }
         task.notes = bundle.description
         taskDao.save(task)
-        alarmDao.insert(task.getDefaultAlarms())
+        alarmDao.insert(task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled))
         taskCreator.createTags(task)
         firebase.addTask("tasker")
     }

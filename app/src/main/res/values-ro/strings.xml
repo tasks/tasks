@@ -343,7 +343,6 @@
     <string name="rmd_EPr_defaultRemind_title">Reamintiri aleatorii</string>
     <string name="persistent_notifications_description">Notificările persistente nu pot fi șterse</string>
     <string name="persistent_notifications">Notificări persistente</string>
-    <string name="rmd_EPr_rmd_time_desc">Notificările pentru sarcinile fără termen de predare vor apărea la %s</string>
     <string name="rmd_EPr_rmd_time_title">Timp de reamintire</string>
     <string name="rmd_EPr_quiet_hours_end_title">Sfârșitul orelor de liniște</string>
     <string name="rmd_EPr_quiet_hours_start_title">Începutul orelor de liniște</string>
@@ -670,8 +669,6 @@
     <string name="enable_reminders">Activează memento-uri</string>
     <string name="enable_reminders_description">Reamintirile sunt dezactivate în Setări Android</string>
     <string name="TEA_creation_date">Data creării</string>
-    <string name="default_reminder">Memento implicit</string>
-    <string name="rmd_time_description">Afișează notificări pentru sarcinile fără termene limită</string>
     <string name="microsoft_selection_description">Sincronizarea cu contul personal Microsoft</string>
     <string name="sign_in">Conectează-te</string>
     <string name="sort_ascending">Crescător</string>

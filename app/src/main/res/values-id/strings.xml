@@ -537,7 +537,6 @@
     <string name="repeat_snackbar">%1$s dijadwalkan ulang untuk %2$s</string>
     <string name="repeat_type_completion_capitalized">tanggal selesai</string>
     <string name="persistent_notifications_description">Notifikasi tetap tidak dapat dihapus</string>
-    <string name="rmd_EPr_rmd_time_desc">Notifikasi untuk tugas tanpa waktu jatuh tempo akan muncul pada %s</string>
     <string name="rmd_EPr_quiet_hours_end_title">Jalam tenang berakhir</string>
     <string name="rmd_EPr_quiet_hours_start_title">Jam tenang mulai</string>
     <string name="gtasks_GTA_clear_completed">Hapus Telah Selesai</string>

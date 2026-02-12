@@ -123,7 +123,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Isiluneko ordutegiaren hasiera</string>
     <string name="rmd_EPr_quiet_hours_end_title">Isiluneko ordutegiaren amaiera</string>
     <string name="rmd_EPr_rmd_time_title">Lehenetsitako oroigarria</string>
-    <string name="rmd_EPr_rmd_time_desc">Epemuga-ordurik gabeko zereginen jakinarazpenak %s(e)tan agertuko dira</string>
     <string name="persistent_notifications">Jakinarazpen iraunkorrak</string>
     <string name="persistent_notifications_description">Jakinarazpen iraunkorrak ezin dira kendu</string>
     <string name="rmd_EPr_defaultRemind_title">Ausazko oroigarriak</string>

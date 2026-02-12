@@ -115,7 +115,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Início das horas de silêncio</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fim das horas de silêncio</string>
     <string name="rmd_EPr_rmd_time_title">Hora do lembrete</string>
-    <string name="rmd_EPr_rmd_time_desc">Notificações de tarefas sem tempo de vencimento vão aparecer à(s) %s</string>
     <string name="persistent_notifications">Notificações persistentes</string>
     <string name="persistent_notifications_description">Notificações persistentes não podem ser removidas</string>
     <string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
@@ -663,8 +662,6 @@
     <string name="dismiss">Dispensar</string>
     <string name="hint_customize_edit_title">Informação demais\?</string>
     <string name="hint_customize_edit_body">Você pode personalizar esta tela reordenamento ou removendo campos</string>
-    <string name="default_reminder">Lembrete padrão</string>
-    <string name="rmd_time_description">Mostrar notificações de tarefas sem prazo</string>
     <string name="enable_reminders">Ativar lembretes</string>
     <string name="microsoft_selection_description">Sincronize com sua conta pessoal da Microsoft</string>
     <string name="enable_reminders_description">Os lembretes estão desabilitados nas configurações do Android</string>

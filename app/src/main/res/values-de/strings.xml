@@ -116,7 +116,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Beginn der Ruhezeit</string>
     <string name="rmd_EPr_quiet_hours_end_title">Ende der Ruhezeit</string>
     <string name="rmd_EPr_rmd_time_title">Erinnerungszeit</string>
-    <string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Uhrzeit werden um %s angezeigt</string>
     <string name="persistent_notifications">Dauerhafte Benachrichtigungen</string>
     <string name="persistent_notifications_description">Dauerhafte Benachrichtigungen können nicht gelöscht werden</string>
     <string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
@@ -649,8 +648,6 @@
     <string name="enable_reminders_description">Erinnerungen sind in den Android-Einstellungen deaktiviert</string>
     <string name="microsoft_selection_description">Mit persönlichem Microsoft-Konto synchronisieren</string>
     <string name="sign_in">Anmelden</string>
-    <string name="rmd_time_description">Benachrichtigungen für Aufgaben ohne Fälligkeitsdatum anzeigen</string>
-    <string name="default_reminder">Standarderinnerung</string>
     <string name="sort_list">Nach Listen</string>
     <string name="sort_sorting">Sortierung</string>
     <string name="sort_grouping">Gruppierung</string>

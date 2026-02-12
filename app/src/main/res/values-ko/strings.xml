@@ -118,7 +118,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">무음 시간 시작</string>
     <string name="rmd_EPr_quiet_hours_end_title">무음 시간 종료</string>
     <string name="rmd_EPr_rmd_time_title">알람 시간</string>
-    <string name="rmd_EPr_rmd_time_desc">마감일이 없는 할일 알림은 %s 에 나타날 것입니다</string>
     <string name="persistent_notifications">항구적 알림</string>
     <string name="persistent_notifications_description">항구적 알림은 지울 수 없습니다</string>
     <string name="rmd_EPr_defaultRemind_title">무작위 알람</string>
@@ -606,7 +605,6 @@
     <string name="alarm_after_start">시작 후 %s</string>
     <string name="caldav_server_type">서버 유형</string>
     <string name="sign_in">로그인</string>
-    <string name="rmd_time_description">상태바 알림에 마감 시한이 없는 할일 보이기</string>
     <string name="microsoft_selection_description">마이크로소프트 계정과 동기화</string>
     <string name="enable_reminders">알람 활성화</string>
     <string name="hint_customize_edit_body">필드 순서를 변경하거나 삭제하실 수 있습니다</string>
@@ -639,7 +637,6 @@
         <item quantity="other">일</item>
     </plurals>
     <string name="alarm_after_due">마감 후 %s</string>
-    <string name="default_reminder">기본 알람</string>
     <plurals name="reminder_week">
         <item quantity="other">주</item>
     </plurals>

@@ -411,7 +411,6 @@
     <string name="rmd_EPr_defaultRemind_title">Slučajni podsjetnici</string>
     <string name="persistent_notifications_description">Ustrajuća upozorenja se ne mogu izbrisati</string>
     <string name="persistent_notifications">Ustrajuća upozorenja</string>
-    <string name="rmd_EPr_rmd_time_desc">Obavijesti za zadatke bez rokova pojavit će se na %s</string>
     <string name="rmd_EPr_rmd_time_title">Vremenski podsjetnik</string>
     <string name="rmd_EPr_quiet_hours_end_title">Kraj vremena neobavještavanja</string>
     <string name="rmd_EPr_quiet_hours_start_title">Početak vremena neobavještavanja</string>
@@ -669,8 +668,6 @@
     <string name="TEA_creation_date">Datum stvaranja</string>
     <string name="microsoft_selection_description">Sinkroniziraj s tvojim osobnim Microsoft računom</string>
     <string name="sign_in">Prijavi se</string>
-    <string name="default_reminder">Standardni podsjetitelj</string>
-    <string name="rmd_time_description">Prikaži obavijesti za zadatke bez rokova</string>
     <string name="sort_list">Po popisu</string>
     <string name="sort_sorting">Razvrstavanje</string>
     <string name="sort_grouping">Grupiranje</string>

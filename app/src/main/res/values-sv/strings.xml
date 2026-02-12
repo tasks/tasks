@@ -112,7 +112,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Tyst period börjar</string>
     <string name="rmd_EPr_quiet_hours_end_title">Tyst period slutar</string>
     <string name="rmd_EPr_rmd_time_title">Påminnelsetid</string>
-    <string name="rmd_EPr_rmd_time_desc">Aviseringar för uppgifter utan sluttid visas vid %s</string>
     <string name="persistent_notifications">Beständiga aviseringar</string>
     <string name="persistent_notifications_description">Beständiga aviseringar kan inte rensas</string>
     <string name="rmd_EPr_defaultRemind_title">Slumpmässiga påminnelser</string>
@@ -640,8 +639,6 @@
     <string name="customize_edit_screen_summary">Ordna om eller ta bort fält</string>
     <string name="hint_customize_edit_title">För mycket information\?</string>
     <string name="hint_customize_edit_body">Du kan anpassa den här skärmen genom att ordna om eller ta bort fält</string>
-    <string name="default_reminder">Standardpåminnelse</string>
-    <string name="rmd_time_description">Visa aviseringar för uppgifter utan deadlinetid</string>
     <string name="enable_reminders_description">Påminnelser är avstängda i Android-inställningarna</string>
     <string name="TEA_creation_date">Skapatdatum</string>
     <string name="sort_completion_group">Slutfört %s</string>

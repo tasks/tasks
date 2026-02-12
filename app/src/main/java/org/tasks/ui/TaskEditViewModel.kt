@@ -171,11 +171,16 @@ class TaskEditViewModel @Inject constructor(
             alarms = if (task.isNew) {
                 val defaults = task.getTransitory<List<Alarm>>(Task.TRANS_DEFAULT_ALARMS)
                     ?: emptyList()
+                val defaultRemindersEnabled = preferences.isDefaultDueTimeEnabled
                 buildList {
                     for (alarm in defaults) {
                         when (alarm.type) {
-                            TYPE_REL_START -> if (task.hasStartDate()) add(alarm)
-                            TYPE_REL_END -> if (task.hasDueDate()) add(alarm)
+                            TYPE_REL_START ->
+                                if (task.hasStartDate() && (task.hasStartTime() || defaultRemindersEnabled))
+                                    add(alarm)
+                            TYPE_REL_END ->
+                                if (task.hasDueDate() && (task.hasDueTime() || defaultRemindersEnabled))
+                                    add(alarm)
                             else -> add(alarm)
                         }
                     }
@@ -215,13 +220,22 @@ class TaskEditViewModel @Inject constructor(
     val dueDate = MutableStateFlow(task.dueDate)
 
     fun setDueDate(value: Long) {
-        val addedDueDate = value > 0 && dueDate.value == 0L
+        val hadDueDate = dueDate.value > 0
+        val hadDueTime = hasDueTime(dueDate.value)
         dueDate.value = when {
             value == 0L -> 0
             hasDueTime(value) -> createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, value)
             else -> createDueDate(Task.URGENCY_SPECIFIC_DAY, value)
         }
-        if (addedDueDate) {
+        val hasDueTimeNow = hasDueTime(dueDate.value)
+        val addedDueDate = !hadDueDate && dueDate.value > 0
+        val addedDueTime = hadDueDate && !hadDueTime && hasDueTimeNow
+        val shouldAddReminders = when {
+            addedDueDate -> hasDueTimeNow || preferences.isDefaultDueTimeEnabled
+            addedDueTime -> !preferences.isDefaultDueTimeEnabled
+            else -> false
+        }
+        if (shouldAddReminders) {
             preferences
                 .defaultAlarms
                 .filter { it.type == TYPE_REL_END }
@@ -236,14 +250,23 @@ class TaskEditViewModel @Inject constructor(
     val startDate = MutableStateFlow(task.hideUntil)
 
     fun setStartDate(value: Long) {
-        val addedStartDate = value > 0 && startDate.value == 0L
+        val hadStartDate = startDate.value > 0
+        val hadStartTime = hasDueTime(startDate.value)
         startDate.value = when {
             value == 0L -> 0
             hasDueTime(value) ->
                 value.toDateTime().withSecondOfMinute(1).withMillisOfSecond(0).millis
             else -> value.startOfDay()
         }
-        if (addedStartDate) {
+        val hasStartTimeNow = hasDueTime(startDate.value)
+        val addedStartDate = !hadStartDate && startDate.value > 0
+        val addedStartTime = hadStartDate && !hadStartTime && hasStartTimeNow
+        val shouldAddReminders = when {
+            addedStartDate -> hasStartTimeNow || preferences.isDefaultDueTimeEnabled
+            addedStartTime -> !preferences.isDefaultDueTimeEnabled
+            else -> false
+        }
+        if (shouldAddReminders) {
             preferences
                 .defaultAlarms
                 .filter { it.type == TYPE_REL_START }
@@ -390,7 +413,7 @@ class TaskEditViewModel @Inject constructor(
                 subtask.completionDate = task.completionDate
             }
             taskDao.createNew(subtask)
-            alarmDao.insert(subtask.getDefaultAlarms())
+            alarmDao.insert(subtask.getDefaultAlarms(preferences.isDefaultDueTimeEnabled))
             firebase?.addTask("subtasks")
             when {
                 selectedList.isGoogleTasks -> {

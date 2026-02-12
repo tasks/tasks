@@ -122,7 +122,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Начало на тихи часове</string>
     <string name="rmd_EPr_quiet_hours_end_title">Край на тихи часове</string>
     <string name="rmd_EPr_rmd_time_title">Време на напомняне</string>
-    <string name="rmd_EPr_rmd_time_desc">Известията за задачи без краен срок ще се появяват на %s</string>
     <string name="persistent_notifications">Постоянни известия</string>
     <string name="persistent_notifications_description">Постоянните известия не могат да бъдат изчиствани</string>
     <string name="rmd_EPr_defaultRemind_title">Напомняния на случаен принцип</string>
@@ -648,8 +647,6 @@
     <string name="sort_completion_group">Завършена %s</string>
     <string name="microsoft_selection_description">Синхронизирайте задачите си с личния профил в Microsoft</string>
     <string name="sign_in">Вход</string>
-    <string name="default_reminder">Подразбирано напомняне</string>
-    <string name="rmd_time_description">Показват се известия за задачите без краен час</string>
     <string name="sort_list">По списък</string>
     <string name="sort_descending">Низходящо</string>
     <string name="sort_sorting">Сортиране</string>

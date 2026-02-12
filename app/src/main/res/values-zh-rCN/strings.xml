@@ -111,7 +111,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">静音开始时间</string>
     <string name="rmd_EPr_quiet_hours_end_title">静音结束时间</string>
     <string name="rmd_EPr_rmd_time_title">提醒时间</string>
-    <string name="rmd_EPr_rmd_time_desc">没有设定截止时间的任务将在 %s 出现通知</string>
     <string name="persistent_notifications">在通知栏固定通知</string>
     <string name="persistent_notifications_description">在通知栏固定通知后将无法被清除</string>
     <string name="rmd_EPr_defaultRemind_title">随机提醒</string>
@@ -638,8 +637,6 @@
     <string name="sort_completion_group">完成 %s</string>
     <string name="microsoft_selection_description">与您的个人 Microsoft 账号同步</string>
     <string name="sign_in">登录</string>
-    <string name="default_reminder">默认提醒</string>
-    <string name="rmd_time_description">显示没有到期时间的任务的通知</string>
     <string name="sort_not_available">不适用于标签、过滤器或地点</string>
     <string name="sort_list">按列表</string>
     <string name="sort_sorting">排序</string>

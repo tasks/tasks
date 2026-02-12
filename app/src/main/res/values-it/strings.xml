@@ -118,7 +118,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Inizio ore di quiete</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fine ore di quiete</string>
     <string name="rmd_EPr_rmd_time_title">Ora del promemoria</string>
-    <string name="rmd_EPr_rmd_time_desc">Le notifiche per le attività senza scadenza appariranno alle %s</string>
     <string name="persistent_notifications">Notifiche persistenti</string>
     <string name="persistent_notifications_description">Le notifiche persistenti non possono essere cancellate</string>
     <string name="rmd_EPr_defaultRemind_title">Promemoria casuali</string>
@@ -669,8 +668,6 @@
     <string name="sort_completion_group">Completamento %s</string>
     <string name="microsoft_selection_description">Sincronizzazione con l\'account personale Microsoft</string>
     <string name="sign_in">Accedi</string>
-    <string name="default_reminder">Promemoria predefinito</string>
-    <string name="rmd_time_description">Mostra le notifiche per le attività senza scadenza</string>
     <string name="sort_list">Per lista</string>
     <string name="sort_sorting">Ordinamento</string>
     <string name="sort_grouping">Raggruppamento</string>

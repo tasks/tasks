@@ -385,7 +385,6 @@
     <string name="upgrade_blurb_1">Saluton! Mi nomiĝas Alex. Mi estas la sendependa programisto de Tasks</string>
     <string name="local_lists">Lokaj listoj</string>
     <string name="custom_notification">Propra sciigo</string>
-    <string name="rmd_time_description">Vidigi sciigojn por taskoj sen limtempo</string>
     <string name="notification_troubleshooting_summary">Batetu ĉi tien se vi havas problemon pri sciigoj</string>
     <string name="more_settings">Aliaj agordoj</string>
     <string name="filter_no_tags">Neniu etikedoj</string>
@@ -475,7 +474,6 @@
     <string name="filter_any_start_date">Ajna komencodato</string>
     <string name="rmd_EPr_quiet_hours_start_title">Komenco de kviethoroj</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fino de Kviethoroj</string>
-    <string name="rmd_EPr_rmd_time_desc">Sciigoj de taskoj sen limtempoj aperos je %s</string>
     <plurals name="repeat_occurrence">
         <item quantity="one">okazo</item>
         <item quantity="other">okazoj</item>
@@ -539,7 +537,6 @@
     <string name="customize_edit_screen_summary">Rearanĝi aŭ forigi kampojn</string>
     <string name="widget_due_date_hidden">Kaŝita</string>
     <string name="widget_row_settings">Agordoj de vico</string>
-    <string name="default_reminder">Defaŭlta memorigo</string>
     <string name="decsync_selection_description">Perdosiersistema sinkronigo</string>
     <string name="repeats_single_on">Ripetiĝas %1$s je %2$s</string>
     <string name="google_drive_backup">Savkopio de Google Drive</string>

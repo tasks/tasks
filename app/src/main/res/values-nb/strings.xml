@@ -205,7 +205,6 @@
     <string name="ring_nonstop">Ring konstant</string>
     <string name="snooze_all">Slumre alle</string>
     <string name="rmd_EPr_rmd_time_title">Tidspunkt for påminnelse</string>
-    <string name="rmd_EPr_rmd_time_desc">Merknader for gjøremål uten tidsfrister vil vises %s.</string>
     <string name="default_random_reminder_disabled">Avskrudd</string>
     <string name="default_random_reminder_hourly">Hver time</string>
     <string name="default_random_reminder_daily">Daglig</string>
@@ -660,7 +659,6 @@
     <string name="donate_nag">Vurder å vis din støtte med en donasjon!</string>
     <string name="repeats_custom_recurrence">Tilpasset gjentakelse</string>
     <string name="repeats_weekly_on">Gjentas på</string>
-    <string name="rmd_time_description">Vis varslinger for oppgaver uten frister</string>
     <string name="donate_today">Donér i dag</string>
     <string name="donate_maybe_later">Kanskje senere</string>
     <plurals name="repeat_occurrence">
@@ -678,7 +676,6 @@
     <string name="show_edit_screen_without_unlock">Vis redigeringsskjerm uten opplåsning</string>
     <string name="show_edit_screen_without_unlock_summary">Aktiverer bruken av knapp i hurtiginnstillinger uten å låse opp enheten</string>
     <string name="theme_dynamic">Dynamisk</string>
-    <string name="default_reminder">Standard påminnelse</string>
     <string name="sort_list">Etter liste</string>
     <string name="sort_completed">Etter fullført tidspunkt</string>
     <string name="swipe_to_snooze_title">Stryk for å utsette</string>

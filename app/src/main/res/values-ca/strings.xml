@@ -171,7 +171,6 @@
     <string name="CFC_tag_contains_name">El nom de l\'etiqueta conté…</string>
     <string name="calendar_event_not_found">Esdeveniment de calendari no trobat</string>
     <string name="rmd_EPr_rmd_time_title">Hora del recordatori</string>
-    <string name="rmd_EPr_rmd_time_desc">Notificacions per tasques sense data de venciment apareixeran a %s</string>
     <plurals name="task_count">
         <item quantity="one">%d tasca</item>
         <item quantity="many">%d tasques</item>
@@ -509,7 +508,6 @@
     <string name="add_account">Afegeiu un compte</string>
     <string name="continue_without_sync">Continua sense sincronitzar</string>
     <string name="bundle_notifications">Notificacions del paquet</string>
-    <string name="default_reminder">Recordatori predeterminat</string>
     <string name="badges">Insígnies</string>
     <string name="repeats_from">Repeteix des de</string>
     <string name="repeats_single">Repeteix %s</string>
@@ -523,7 +521,6 @@
     <string name="repeats_on">En</string>
     <string name="repeats_after">Després</string>
     <string name="dont_add_to_calendar">No afegiu al calendari</string>
-    <string name="rmd_time_description">Mostreu les notificacions per a les tasques sense temps de venciment</string>
     <string name="badges_description">Mostreu un recompte de tasques a la icona del llançador de tasques. No tots els llançadors suporten insígnies.</string>
     <string name="caldav_home_set_not_found">No s\'ha trobat la configuració d\'inici</string>
     <string name="pro_dashclock_extension">Extensió Dashclock</string>

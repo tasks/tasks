@@ -437,7 +437,6 @@
     <string name="rmd_EPr_defaultRemind_title">การแจ้งเตือนแบบสุ่ม</string>
     <string name="persistent_notifications_description">ไม่สามารถล้างการแจ้งเตือนแบบถาวรได้</string>
     <string name="persistent_notifications">การแจ้งเตือนแบบถาวร</string>
-    <string name="rmd_EPr_rmd_time_desc">การแจ้งให้ทราบสําหรับงานที่ไม่มีวันครบกําหนดจะปรากฏที่ %s</string>
     <string name="rmd_EPr_rmd_time_title">ตัวเตือนเริ่มต้น</string>
     <string name="rmd_EPr_quiet_hours_end_title">สิ้นสุดชั่วโมงเงียบ</string>
     <string name="rmd_EPr_quiet_hours_start_title">ชั่วโมงที่เงียบสงบเริ่มต้น</string>

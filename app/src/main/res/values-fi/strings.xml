@@ -110,7 +110,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Hiljainen aika alkaa</string>
     <string name="rmd_EPr_quiet_hours_end_title">Hiljainen aika loppuu</string>
     <string name="rmd_EPr_rmd_time_title">Muistutusaika</string>
-    <string name="rmd_EPr_rmd_time_desc">Ilman määräaikaa olevien tehtävien ilmoitukset näkyvät %s</string>
     <string name="persistent_notifications">Jatkuvat ilmoitukset</string>
     <string name="persistent_notifications_description">Jatkuvia ilmoituksia ei voi tyhjentää</string>
     <string name="rmd_EPr_defaultRemind_title">Satunnainen muistutus</string>
@@ -626,8 +625,6 @@
     </plurals>
     <string name="completion_sound">Toista valmistumisääni</string>
     <string name="TEA_creation_date">Luontipäivä</string>
-    <string name="default_reminder">Oletusmuistutus</string>
-    <string name="rmd_time_description">Näytä ilmoitukset tehtäville ilman eräpäivää</string>
     <string name="microsoft_selection_description">Synkronoi henkilökohtaisen Microsoft-tilin kanssa</string>
     <string name="completed_tasks_at_bottom">Siirrä valmiit tehtävät alimmaiseksi</string>
     <string name="caldav_server_unknown">Tuntematon</string>

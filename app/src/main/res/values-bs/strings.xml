@@ -71,7 +71,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Početak mirnih sati</string>
     <string name="rmd_EPr_quiet_hours_end_title">Kraj mirnih sati</string>
     <string name="rmd_EPr_rmd_time_title">Vrijeme podsjetnika</string>
-    <string name="rmd_EPr_rmd_time_desc">Notifikacije za zadatke bez rokova će se pojaviti u %s</string>
     <string name="persistent_notifications">Stalne notifikacije</string>
     <string name="persistent_notifications_description">Stalne notifikacije se ne mogu ukloniti</string>
     <string name="swipe_to_snooze_title">Povuci za odgodu</string>

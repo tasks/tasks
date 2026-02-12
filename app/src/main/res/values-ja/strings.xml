@@ -123,7 +123,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">おやすみモードの開始時刻</string>
     <string name="rmd_EPr_quiet_hours_end_title">おやすみモードの終了時刻</string>
     <string name="rmd_EPr_rmd_time_title">リマインダーの時刻</string>
-    <string name="rmd_EPr_rmd_time_desc">締切時刻が設定されていないタスクは %s に通知されます</string>
     <string name="persistent_notifications">継続通知</string>
     <string name="persistent_notifications_description">継続通知はクリアできません</string>
     <string name="rmd_EPr_defaultRemind_title">ランダム通知</string>
@@ -523,8 +522,6 @@
     <string name="hint_customize_edit_body">この画面は、フィールドを並べ替えたり削除してカスタマイズすることができます</string>
     <string name="sign_in">サインイン</string>
     <string name="google_tasks_selection_description">Googleアカウントと同期する基本サービス</string>
-    <string name="default_reminder">デフォルトのリマインダー</string>
-    <string name="rmd_time_description">期限のないタスクの通知を表示します</string>
     <string name="davx5_selection_description">DAVx⁵ でタスクを同期する</string>
     <string name="caldav_account_description">CalDAV サービスプロバイダまたはセルフホストサーバのアカウントが必要です。サービスプロバイダを探すには、tasks.org/caldav にアクセスしてください</string>
     <string name="chips">チップ</string>

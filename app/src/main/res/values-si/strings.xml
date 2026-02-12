@@ -291,7 +291,6 @@
         <item quantity="one">කාර්යය %d</item>
         <item quantity="other">කාර්යයන් %d</item>
     </plurals>
-    <string name="rmd_EPr_rmd_time_desc">නියමිත වේලාවක් නොමැති කාර්යයන් සඳහා දැනුම්දීම් %s හි දිස්වනු ඇත</string>
     <string name="repeat_option_custom">අභිරුචි…</string>
     <string name="repeat_option_every_year">සෑම වසරකම</string>
     <string name="repeat_option_every_month">සෑම මාසයකම</string>

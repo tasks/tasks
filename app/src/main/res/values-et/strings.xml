@@ -308,7 +308,6 @@
     <string name="theme_system_default">Süsteemi vaikeseade</string>
     <string name="repeats_yearly">iga aasta</string>
     <string name="repeats_custom_recurrence">Vaikimisi kordus</string>
-    <string name="rmd_time_description">Näita teavitusi tähtaegadeta ülesannetele</string>
     <string name="location_remind_departure">Tuleta lahkudes meelde</string>
     <string name="building_notifications">Loon teavitusi</string>
     <string name="whats_new">Mida on uut?</string>
@@ -338,7 +337,6 @@
     <string name="default_tags">Vaikesildid</string>
     <string name="widget_due_date_hidden">Peidetud</string>
     <string name="clear_completed_tasks_confirmation">Kas eemaldame täidetud ülesanded?</string>
-    <string name="default_reminder">Vaikimisi meeldetuletus</string>
     <string name="badges">Märgised</string>
     <string name="repeats_minutely">igas minutis</string>
     <string name="repeats_hourly">igas tunnis</string>
@@ -521,7 +519,6 @@
     <string name="CFC_dueBefore_name">Tähtajaks…</string>
     <string name="CFC_startBefore_text">Algusajaks: ?</string>
     <string name="gtasks_GLA_errorIOAuth">Vabandust, Google\'i serveri ühendusega on probleeme. Palun proovi hiljem uuesti.</string>
-    <string name="rmd_EPr_rmd_time_desc">Ilma tähtajata ülesannete teavitused on nähtavad %s</string>
     <string name="FLA_search_filter">Vasteks „%s“</string>
     <string name="day_before_due">Päev enne tähtaega</string>
     <string name="week_before_due">Nädal enne tähtaega</string>

@@ -99,7 +99,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
     <string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
     <string name="rmd_EPr_rmd_time_title">Čas upomínky</string>
-    <string name="rmd_EPr_rmd_time_desc">Upozornění na úkoly bez času dokončení se objeví v %s</string>
     <string name="rmd_EPr_defaultRemind_title">Náhodné upomínky</string>
     <string name="default_random_reminder_disabled">Zakázáno</string>
     <string name="default_random_reminder_hourly">Každou hodinu</string>
@@ -667,8 +666,6 @@
     <string name="sort_completion_group">Dokončeno %s</string>
     <string name="enable_reminders">Povolit připomínky</string>
     <string name="enable_reminders_description">Připomínky jsou zakázány v nastavení Android</string>
-    <string name="default_reminder">Výchozí upomínka</string>
-    <string name="rmd_time_description">Zobrazovat upozornění na úkoly bez termínů</string>
     <string name="microsoft_selection_description">Synchronizovat se svým osobním účtem Microsoft</string>
     <string name="sign_in">Přihlásit se</string>
     <string name="sort_not_available">Není k dispozici pro štítky, filtry a místa</string>

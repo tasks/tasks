@@ -136,7 +136,6 @@
     <string name="rmd_EPr_defaultRemind_title">بے ترتیب یاد دہانیاں</string>
     <string name="persistent_notifications_description">مستقل نوٹیفکیشن ختم نہیں ہو سکتے</string>
     <string name="persistent_notifications">مستقل نوٹیفکیشن</string>
-    <string name="rmd_EPr_rmd_time_desc">طے شدہ وقت کے بغیر ٹاسکس کے نوٹیفیکیشن %s پر ظاہر ہوں گے</string>
     <string name="rmd_EPr_rmd_time_title">ڈیفالٹ یاددہانی</string>
     <string name="rmd_EPr_quiet_hours_end_title">خاموش گھنٹہ ختم کریں</string>
     <string name="rmd_EPr_quiet_hours_start_title">خاموش گھنٹہ شروع کریں</string>

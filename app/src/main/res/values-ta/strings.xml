@@ -91,7 +91,6 @@
     <string name="rmd_EPr_defaultRemind_title">சீரற்ற நினைவூட்டல்கள்</string>
     <string name="persistent_notifications_description">தொடர்ச்சியான அறிவிப்புகளை அழிக்க முடியாது</string>
     <string name="persistent_notifications">தொடர்ச்சியான அறிவிப்புகள்</string>
-    <string name="rmd_EPr_rmd_time_desc">சரியான நேரமின்றி பணிகளுக்கான அறிவிப்புகள் %s இல் தோன்றும்</string>
     <string name="rmd_EPr_rmd_time_title">நினைவூட்டல் நேரம்</string>
     <string name="rmd_EPr_quiet_hours_end_title">அமைதியான நேரம் முடிகிறது</string>
     <string name="rmd_EPr_quiet_hours_start_title">அமைதியான நேரம் தொடங்கும்</string>
@@ -499,7 +498,6 @@
     <string name="default_tags">இயல்புநிலை குறிச்சொற்கள்</string>
     <string name="repeats_ends">முனைகள்</string>
     <string name="repeats_plural_on_number_of_times">%2$s இல் ஒவ்வொரு %1$s ஐ மீண்டும் நிகழ்கிறது, %3$d %4$s ஏற்படுகிறது</string>
-    <string name="rmd_time_description">பணிகளுக்கான அறிவிப்புகளைக் காட்டுங்கள்</string>
     <string name="default_location">இயல்புநிலை இடம்</string>
     <string name="tasks_org_description">உங்கள் பணிகளை டாச்கள்.org உடன் ஒத்திசைக்கவும்</string>
     <string name="account">கணக்கு</string>
@@ -585,7 +583,6 @@
     <string name="swipe_to_snooze_time_24_hours">24 மணி நேரம் கழித்து</string>
     <string name="when_started">தொடங்கும்போது</string>
     <string name="change_priority">முன்னுரிமையை மாற்றவும்</string>
-    <string name="default_reminder">இயல்புநிலை நினைவூட்டல்</string>
     <string name="sort_start_group">தொடக்க %s</string>
     <string name="sort_completion_group">நிறைவு %s</string>
     <string name="backup_location_warning">எச்சரிக்கை: பணிகள் நிறுவல் நீக்கப்பட்டால் %s இல் அமைந்துள்ள கோப்புகள் நீக்கப்படும்! உங்கள் கோப்புகளை நீக்குவதைத் தடுக்க தனிப்பயன் இருப்பிடத்தைத் தேர்வுசெய்க.</string>

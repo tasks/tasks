@@ -127,7 +127,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Tylaus meto pradžia</string>
     <string name="rmd_EPr_quiet_hours_end_title">Tylaus meto pabaiga</string>
     <string name="rmd_EPr_rmd_time_title">Priminimo laikas</string>
-    <string name="rmd_EPr_rmd_time_desc">Pranešimai užduotims be termino atsiras %s</string>
     <string name="persistent_notifications">„Atkaklūs“ pranešimai</string>
     <string name="persistent_notifications_description">„Atkaklūs“ pranešimai negali būti išvalyti</string>
     <string name="rmd_EPr_defaultRemind_title">Atsitiktiniai priminimai</string>
@@ -634,9 +633,7 @@
     <string name="caldav_server_type">Serverio tipas</string>
     <string name="hint_customize_edit_title">Per daug informacijos\?</string>
     <string name="enable_reminders_description">Priminimai išjungti Android nustatymuose</string>
-    <string name="rmd_time_description">Rodyti pranešimus apie užduotis neturinčias termino</string>
     <string name="custom_filter_has_reminder">Turi priminimą</string>
-    <string name="default_reminder">Numatytas priminimas</string>
     <string name="randomly_every">Atsitiktinai kas %s</string>
     <string name="completed">Įvykdyta</string>
     <string name="dismiss">Atsisakyti</string>

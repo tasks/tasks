@@ -437,7 +437,7 @@ class GoogleTaskSynchronizer @Inject constructor(
         task.suppressRefresh()
         if (task.isNew) {
             taskDao.createNew(task)
-            alarmDao.insert(task.getDefaultAlarms())
+            alarmDao.insert(task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled))
         }
         taskDao.save(task)
         googleTask
