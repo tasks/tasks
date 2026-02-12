@@ -569,7 +569,6 @@
     <string name="remove_user_confirmation">%1$s는 이제 %2$s에 접근할 수 없습니다</string>
     <string name="remove_user">사용자를 삭제할까요\?</string>
     <string name="tasks_org_account_required">Tasks.org 계정 필요</string>
-    <string name="tasks_org_account">Tasks.org 계정</string>
     <string name="copied_to_clipboard">클립보드로 %s 건 복사</string>
     <string name="app_password_delete_confirmation">이 비밀번호를 사용하는 모든 앱에서 로그아웃 됩니다</string>
     <string name="app_password_last_access">마지막 사용: %s</string>

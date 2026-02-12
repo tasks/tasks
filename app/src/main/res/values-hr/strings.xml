@@ -176,7 +176,6 @@
     <string name="list_members">Članovi popisa</string>
     <string name="account_not_included">Nije uključeno s pretplatama „Odredi tvoju cijenu”</string>
     <string name="tasks_org_account_required">Tasks.org račun je obavezan</string>
-    <string name="tasks_org_account">Tasks.org račun</string>
     <string name="copied_to_clipboard">%s kopirano u međuspremnik</string>
     <string name="app_password_save">Koristi ove podatke za prijavu za konfiguriranje programa treće strane. Oni odobravaju potpuni pristup tvom Tasks.org računu, nemoj ih zapisivati niti dijeliti s bilo kime!</string>
     <string name="app_password_delete_confirmation">Bilo koji program koji koristi lozinku bit će odjavljen</string>

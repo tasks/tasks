@@ -268,7 +268,6 @@
     <string name="default_location">默認位置</string>
     <string name="EPr_default_location_reminder_title">默認位置提醒</string>
     <string name="always_display_full_date">顯示完整日期</string>
-    <string name="tasks_org_account">Tasks.org 帳號</string>
     <string name="copied_to_clipboard">%s 已複製至剪貼簿</string>
     <string name="app_password_delete_confirmation">任何使用此密碼的應用程式將會被登出</string>
     <string name="app_password_last_access">最後使用: %s</string>

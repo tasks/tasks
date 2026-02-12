@@ -342,7 +342,6 @@
     <string name="remove_user">إزالة المستعمل؟</string>
     <string name="list_members">أعضاء القائمة</string>
     <string name="tasks_org_account_required">حساب Tasks.org مطلوب</string>
-    <string name="tasks_org_account">حساب Tasks.org</string>
     <string name="sign_in_to_tasks">تسجيل الدخول إلى Tasks.org</string>
     <string name="support">دعم</string>
     <string name="follow_twitter">اتبع @tasks_org</string>

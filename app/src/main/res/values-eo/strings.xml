@@ -527,7 +527,6 @@
     <string name="enable_reminders_description">Memorigoj estas malŝaltitaj en Agordoj de Android</string>
     <string name="sign_in_to_tasks">Ensaluti al Tasks.org</string>
     <string name="copied_to_clipboard">%s kopiiĝis al tondujo</string>
-    <string name="tasks_org_account">Tasks.org konto</string>
     <string name="remove_user">Forigi uzanton?</string>
     <string name="invite_awaiting_response">Invito atendas respondon</string>
     <string name="pro_free_trial">Novaj abonantoj ricevas provperiodon de 7 tagoj. Iam ajn nuligi ĝin</string>

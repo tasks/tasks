@@ -430,7 +430,6 @@
     <string name="last_backup_never">nunca</string>
     <string name="device_settings">Configuracións de dispositivo</string>
     <string name="migrating_tasks">Migrando as tarefas</string>
-    <string name="tasks_org_account">Conta en Tasks.org</string>
     <string name="multi_select_reschedule">Reprogramar</string>
     <string name="SSD_sort_my_order">O meu pedido</string>
     <string name="TEA_control_location">Posición</string>

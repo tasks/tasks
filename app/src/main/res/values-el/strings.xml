@@ -579,7 +579,6 @@
     <string name="app_password_delete_confirmation">Οποιαδήποτε εφαρμογή χρησιμοποιεί αυτόν τον κωδικό θα αποσυνδεθεί</string>
     <string name="app_password_save">Χρησιμοποιήστε αυτά τα διαπιστευτήρια για να ρυθμίσετε μια εφαρμογή τρίτων. Σας παραχωρούν πλήρη πρόσβαση στο λογαριασμό σας στο Tasks.org, μην τα γράψετε ή τα μοιραστείτε με κανέναν!</string>
     <string name="copied_to_clipboard">%s αντιγράφηκε στο πρόχειρο</string>
-    <string name="tasks_org_account">Λογαριασμός Tasks.org</string>
     <string name="tasks_org_account_required">Χρειάζεται λογαριασμός Tasks.org</string>
     <string name="account_not_included">Δεν περιλαμβάνεται με τις συνδρομές \"Ονομάστε την τιμή σας\"</string>
     <string name="list_members">Μέλη λίστας</string>

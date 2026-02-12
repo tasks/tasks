@@ -491,7 +491,6 @@
     <string name="DLG_undo">Fortryd</string>
     <string name="keep_editing">Fortsæt redigering</string>
     <string name="discard_confirmation">Er du sikker på, at du vil kassere dine ændringer\?</string>
-    <string name="tasks_org_account">Tasks.org-konto</string>
     <string name="copied_to_clipboard">%s kopieret til udklipsholder</string>
     <string name="app_password_save">Brug disse loginoplysninger til at konfigurere en tredjepartsapp. De giver fuld adgang til din Tasks.org-konto, så skriv dem ikke ned, og del dem ikke med nogen!</string>
     <string name="app_password_delete_confirmation">Enhver app, der bruger denne adgangskode, logges ud</string>

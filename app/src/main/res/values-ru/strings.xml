@@ -588,7 +588,6 @@
     <string name="sort_start_group">Начало %s</string>
     <string name="tasks_org_description">Синхронизировать задачи с Tasks.org</string>
     <string name="account_not_included">Не включено в подписку \'Назовите свою цену\'</string>
-    <string name="tasks_org_account">Аккаунт Tasks.org</string>
     <string name="subscription">Подписка</string>
     <string name="widget_show_title">Показать заголовок</string>
     <string name="tasks_org_account_required">Требуется учетная запись Tasks.org</string>

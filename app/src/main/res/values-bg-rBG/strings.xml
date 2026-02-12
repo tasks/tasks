@@ -593,7 +593,6 @@
     <string name="app_password_created_at">Създадена: %s</string>
     <string name="upgrade_open_source_description">Абонаментът поддържа непрекъснатото развитие</string>
     <string name="your_subscription_expired">Абонаментът е изтекъл. Подновете го, за да се възстанови услугата.</string>
-    <string name="tasks_org_account">Профил в Tasks.org</string>
     <string name="list_members">Списък на участниците</string>
     <string name="remove_user_confirmation">%1$s вече няма да има достъп до %2$s</string>
     <string name="upgrade_more_customization">Повече настройки</string>

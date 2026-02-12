@@ -647,7 +647,6 @@
     <string name="widget_id">ID widgetu: %d</string>
     <string name="app_password_save">Týmto menom a heslom sa môžete prihlásiť k vášmu účtu na Tasks.org aj v aplikáciach tretích strán. Udeľujú k nemu neobmedzený prístup - uchovávajte ho v tajnosti a nikomu ho neodovzdávajte!</string>
     <string name="copied_to_clipboard">%s skopírované do schránky</string>
-    <string name="tasks_org_account">Účet na Tasks.org</string>
     <string name="upgrade_desktop_access">Prístup z počítača</string>
     <string name="upgrade_blurb_1">Ahoj! Volám sa Alex a som nezávislý vývojár aplikácie Tasks</string>
     <string name="auto_dismiss_datetime_widget_summary">Automaticky zatvoriť pri výbere z widgetu</string>

@@ -1,10 +1,14 @@
 package org.tasks.compose
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,10 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -25,6 +26,7 @@ import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ElevatedCard
@@ -34,6 +36,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
@@ -50,6 +53,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
@@ -77,14 +81,16 @@ import org.tasks.themes.TasksTheme
 object PurchaseText {
     private const val POPPER = "\uD83C\uDF89"
 
+    enum class IconStyle { TINT, ORIGINAL, GRAYSCALE }
+
     data class CarouselItem(
         val title: Int,
         val icon: Int,
         val description: Int,
-        val tint: Boolean = true,
+        val iconStyle: IconStyle = IconStyle.TINT,
     )
 
-    private val featureList = listOf(
+    private val nameYourPriceFeatureList = listOf(
         CarouselItem(
             R.string.upgrade_more_customization,
             R.drawable.ic_outline_palette_24px,
@@ -92,25 +98,20 @@ object PurchaseText {
         ),
         CarouselItem(
             R.string.open_source,
-            R.drawable.ic_octocat,
+            R.drawable.ic_outline_favorite_border_24px,
             R.string.upgrade_open_source_description
         ),
         CarouselItem(
             R.string.tasks_org_account,
             R.drawable.ic_round_icon,
-            R.string.upgrade_tasks_org_account_description,
-            tint = false
-        ),
-        CarouselItem(
-            R.string.upgrade_desktop_access,
-            R.drawable.ic_outline_computer_24px,
-            R.string.upgrade_desktop_access_description
+            R.string.account_not_included,
+            iconStyle = IconStyle.GRAYSCALE
         ),
         CarouselItem(
             R.string.davx5,
             R.drawable.ic_davx5_icon_green_bg,
             R.string.davx5_selection_description,
-            false
+            iconStyle = IconStyle.ORIGINAL
         ),
         CarouselItem(
             R.string.caldav,
@@ -121,13 +122,47 @@ object PurchaseText {
             R.string.etesync,
             R.drawable.ic_etesync,
             R.string.etesync_selection_description,
-            false
+            iconStyle = IconStyle.ORIGINAL
         ),
         CarouselItem(
             R.string.decsync,
             R.drawable.ic_decsync,
             R.string.decsync_selection_description,
-            false
+            iconStyle = IconStyle.ORIGINAL
+        ),
+    )
+
+    private val tasksOrgFeatureList = listOf(
+        CarouselItem(
+            R.string.tasks_org_account,
+            R.drawable.ic_round_icon,
+            R.string.upgrade_tasks_org_account_description,
+            iconStyle = IconStyle.ORIGINAL
+        ),
+        CarouselItem(
+            R.string.email_to_task,
+            R.drawable.ic_outline_email_24px,
+            R.string.upgrade_email_to_task_description
+        ),
+        CarouselItem(
+            R.string.upgrade_more_customization,
+            R.drawable.ic_outline_palette_24px,
+            R.string.upgrade_more_customization_description
+        ),
+        CarouselItem(
+            R.string.upgrade_desktop_access,
+            R.drawable.ic_outline_computer_24px,
+            R.string.upgrade_desktop_access_description
+        ),
+        CarouselItem(
+            R.string.open_source,
+            R.drawable.ic_outline_favorite_border_24px,
+            R.string.upgrade_open_source_description
+        ),
+        CarouselItem(
+            R.string.advanced_tools,
+            R.drawable.ic_outline_build_24px,
+            R.string.advanced_tools_description
         ),
     )
 
@@ -210,6 +245,7 @@ object PurchaseText {
                 if (existingSubscriber) {
                     ElevatedCard(
                         modifier = Modifier
+                            .widthIn(max = 480.dp)
                             .fillMaxWidth()
                             .padding(KEYLINE_FIRST, KEYLINE_FIRST, KEYLINE_FIRST, 0.dp),
                         colors = CardDefaults.elevatedCardColors(
@@ -225,35 +261,43 @@ object PurchaseText {
                         )
                     }
                 }
-                GreetingText(R.string.upgrade_blurb_1)
-                GreetingText(R.string.upgrade_blurb_2)
+                OutlinedCard(
+                    modifier = Modifier
+                        .widthIn(max = 480.dp)
+                        .fillMaxWidth()
+                        .padding(KEYLINE_FIRST, KEYLINE_FIRST, KEYLINE_FIRST, 0.dp),
+                    shape = MaterialTheme.shapes.large,
+                ) {
+                    GreetingText(R.string.upgrade_blurb_1)
+                    GreetingText(R.string.upgrade_blurb_2)
+                    Spacer(Modifier.height(KEYLINE_FIRST))
+                }
                 Spacer(Modifier.height(KEYLINE_FIRST))
-                val listState = rememberLazyListState()
-                val highlightFeature =
-                    if (nameYourPrice) feature
-                    else R.string.tasks_org_account
-                val items = remember(highlightFeature) {
-                    if (highlightFeature != 0) {
-                        val reordered = featureList.toMutableList()
-                        val index = reordered.indexOfFirst { it.title == highlightFeature }
-                        if (index > 0) {
-                            reordered.add(0, reordered.removeAt(index))
+                val scrollState = rememberScrollState()
+                val items = remember(nameYourPrice, feature) {
+                    if (nameYourPrice) {
+                        val reordered = nameYourPriceFeatureList.toMutableList()
+                        if (feature != 0) {
+                            val index = reordered.indexOfFirst { it.title == feature }
+                            if (index > 0) {
+                                reordered.add(0, reordered.removeAt(index))
+                            }
                         }
                         reordered
                     } else {
-                        featureList
+                        tasksOrgFeatureList
                     }
                 }
-                LazyRow(
-                    state = listState,
-                    contentPadding = PaddingValues(horizontal = KEYLINE_FIRST),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(scrollState)
+                        .height(IntrinsicSize.Max)
+                        .padding(horizontal = KEYLINE_FIRST),
+                    horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally),
                 ) {
-                    items(items) { item ->
-                        PagerItem(
-                            feature = item,
-                            disabled = nameYourPrice && item.title == R.string.tasks_org_account,
-                        )
+                    items.forEach { item ->
+                        PagerItem(feature = item)
                     }
                 }
                 if (github) {
@@ -262,7 +306,7 @@ object PurchaseText {
                     GooglePlayButtons(
                         nameYourPrice = nameYourPrice,
                         sliderPosition = sliderPosition,
-                        listState = listState,
+                        scrollState = scrollState,
                         showMoreOptions = showMoreOptions,
                         existingSubscriber = existingSubscriber,
                         onSignIn = onSignIn,
@@ -304,7 +348,9 @@ object PurchaseText {
     @Composable
     fun GreetingText(resId: Int) {
         Text(
-            modifier = Modifier.padding(KEYLINE_FIRST, KEYLINE_FIRST, KEYLINE_FIRST, 0.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(KEYLINE_FIRST, KEYLINE_FIRST, KEYLINE_FIRST, 0.dp),
             text = stringResource(resId),
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.bodyLarge,
@@ -316,7 +362,7 @@ object PurchaseText {
     fun GooglePlayButtons(
         nameYourPrice: Boolean,
         sliderPosition: Float,
-        listState: LazyListState,
+        scrollState: ScrollState,
         showMoreOptions: Boolean = true,
         existingSubscriber: Boolean = false,
         onSignIn: () -> Unit = {},
@@ -330,52 +376,79 @@ object PurchaseText {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             HorizontalDivider(modifier = Modifier.padding(vertical = KEYLINE_FIRST))
-            Text(
-                text = stringResource(R.string.pro_free_trial),
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier
-                    .fillMaxWidth(.75f)
-                    .padding(bottom = KEYLINE_FIRST),
-                color = MaterialTheme.colorScheme.onSurface,
-                textAlign = TextAlign.Center,
-            )
-            if (nameYourPrice) {
-                NameYourPrice(
-                    sliderPosition = sliderPosition,
-                    setPrice = setPrice,
-                    subscribe = subscribe,
-                    skus = skus,
-                )
-            } else {
-                TasksAccount(
-                    skus = skus,
-                    subscribe = subscribe
-                )
-            }
-            if (showMoreOptions) {
-                Spacer(Modifier.height(KEYLINE_FIRST))
-                val scope = rememberCoroutineScope()
-                OutlinedButton(
-                    onClick = {
-                        setNameYourPrice(!nameYourPrice)
-                        scope.launch {
-                            listState.animateScrollToItem(0)
-                        }
-                    },
-                    colors = ButtonDefaults.textButtonColors(
-                        containerColor = Color.Transparent
-                    )
+            val loading = skus.isEmpty()
+            Box(
+                contentAlignment = Alignment.Center,
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .alpha(if (loading) 0f else 1f),
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Text(
-                        text = stringResource(
-                            if (nameYourPrice) R.string.more_options
-                            else R.string.name_your_price
-                        ),
+                        text = stringResource(R.string.pro_free_trial),
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier
+                            .fillMaxWidth(.75f)
+                            .padding(bottom = KEYLINE_FIRST),
                         color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.bodyLarge
+                        textAlign = TextAlign.Center,
+                    )
+                    if (nameYourPrice) {
+                        NameYourPrice(
+                            sliderPosition = sliderPosition,
+                            setPrice = setPrice,
+                            subscribe = subscribe,
+                            skus = skus,
+                        )
+                    } else {
+                        TasksAccount(
+                            skus = skus,
+                            subscribe = subscribe
+                        )
+                    }
+                    if (showMoreOptions) {
+                        Spacer(Modifier.height(KEYLINE_FIRST))
+                        val scope = rememberCoroutineScope()
+                        OutlinedButton(
+                            onClick = {
+                                setNameYourPrice(!nameYourPrice)
+                                scope.launch {
+                                    scrollState.animateScrollTo(0)
+                                }
+                            },
+                            colors = ButtonDefaults.textButtonColors(
+                                containerColor = Color.Transparent
+                            )
+                        ) {
+                            Text(
+                                text = stringResource(
+                                    if (nameYourPrice) R.string.more_options
+                                    else R.string.name_your_price
+                                ),
+                                color = MaterialTheme.colorScheme.onSurface,
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
+                    }
+                }
+                if (loading) {
+                    Spacer(
+                        modifier = Modifier
+                            .matchParentSize()
+                            .clickable(
+                                interactionSource = null,
+                                indication = null,
+                                onClick = {}
+                            )
+                    )
+                    CircularProgressIndicator(
+                        color = MaterialTheme.colorScheme.secondary,
                     )
                 }
-            } else if (!existingSubscriber) {
+            }
+            if (!showMoreOptions && !existingSubscriber) {
                 Spacer(Modifier.height(KEYLINE_FIRST))
                 OutlinedButton(
                     onClick = onSignIn,
@@ -394,10 +467,7 @@ object PurchaseText {
     }
 
     @Composable
-    fun PagerItem(
-        feature: CarouselItem,
-        disabled: Boolean = false,
-    ) {
+    fun PagerItem(feature: CarouselItem) {
         Column(
             modifier = Modifier
                 .width(150.dp)
@@ -409,12 +479,12 @@ object PurchaseText {
                 contentDescription = null,
                 modifier = Modifier.requiredSize(72.dp),
                 alignment = Alignment.Center,
-                colorFilter = when {
-                    disabled -> ColorFilter.colorMatrix(
+                colorFilter = when (feature.iconStyle) {
+                    IconStyle.GRAYSCALE -> ColorFilter.colorMatrix(
                         ColorMatrix().apply { setToSaturation(0f) }
                     )
-                    feature.tint -> ColorFilter.tint(colorResource(R.color.icon_tint_with_alpha))
-                    else -> null
+                    IconStyle.TINT -> ColorFilter.tint(colorResource(R.color.icon_tint_with_alpha))
+                    IconStyle.ORIGINAL -> null
                 }
             )
             Text(
@@ -431,11 +501,13 @@ object PurchaseText {
                 textAlign = TextAlign.Center
             )
             Text(
-                text = stringResource(if (disabled) R.string.account_not_included else feature.description),
+                text = stringResource(feature.description),
                 modifier = Modifier.fillMaxWidth(),
-                color = if (disabled) Color.Red else MaterialTheme.colorScheme.onBackground,
+                color = if (feature.iconStyle == IconStyle.GRAYSCALE)
+                    MaterialTheme.colorScheme.error
+                else
+                    MaterialTheme.colorScheme.onBackground,
                 style = TextStyle(
-                    fontWeight = if (disabled) FontWeight.Bold else FontWeight.Normal,
                     fontSize = 12.sp,
                     letterSpacing = 0.4.sp
                 ),
@@ -468,7 +540,7 @@ object PurchaseText {
                 )
                 Spacer(Modifier.width(KEYLINE_FIRST))
                 PurchaseButton(
-                    price = remember (skus) {
+                    price = remember(skus) {
                         skus.find { it.productId == "monthly_03" }?.price ?: "$3"
                     },
                     monthly = true,
@@ -542,7 +614,7 @@ object PurchaseText {
             ) {
                 val price = sliderPosition.toInt()
                 PurchaseButton(
-                    price = remember (skus, price) {
+                    price = remember(skus, price) {
                         skus
                             .find { it.productId == "annual_${price.toString().padStart(2, '0')}" }
                             ?.price
@@ -557,7 +629,7 @@ object PurchaseText {
                 if (sliderPosition.toInt() < 3) {
                     Spacer(Modifier.width(KEYLINE_FIRST))
                     PurchaseButton(
-                        price = remember (skus, price) {
+                        price = remember(skus, price) {
                             skus
                                 .find { it.productId == "monthly_${price.toString().padStart(2, '0')}" }
                                 ?.price

@@ -569,7 +569,6 @@
     <string name="sort_start_group">Begin %s</string>
     <string name="tasks_org_description">Taken synchroniseren met Tasks.org</string>
     <string name="account_not_included">Niet inbegrepen bij \"Bepaal je eigen prijs\" abonnementen</string>
-    <string name="tasks_org_account">Tasks.org account</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Titel tonen</string>
     <string name="tasks_org_account_required">Een Tasks.org account vereist</string>

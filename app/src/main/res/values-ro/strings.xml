@@ -32,7 +32,6 @@
     <string name="list_members">Lista membrilor</string>
     <string name="account_not_included">Nu este inclus în abonamentele \'Spune prețul\'</string>
     <string name="tasks_org_account_required">Cont Tasks.org necesar</string>
-    <string name="tasks_org_account">Cont Tasks.org</string>
     <string name="copied_to_clipboard">%s copiat în clipboard</string>
     <string name="app_password_save">Utilizează aceste acreditări pentru a configura o aplicație terță. Acestea acordă acces complet la contul Tasks.org, nu le nota și nu le împărtăși cu nimeni!</string>
     <string name="app_password_delete_confirmation">Orice aplicație care utilizează această parolă va fi deconectată</string>

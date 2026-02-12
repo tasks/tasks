@@ -677,7 +677,6 @@
     <string name="app_password_delete_confirmation">Qualsevol aplicació que utilitzi aquesta contrasenya serà eliminada</string>
     <string name="app_password_save">Utilitzeu aquestes credencials per configurar una aplicació de tercers. Atorguen accés complet al vostre compte de Tasks.org, no els escriguis ni els comparteixis amb ningú!</string>
     <string name="copied_to_clipboard">%s copiat al porta-retalls</string>
-    <string name="tasks_org_account">Compte Tasks.org</string>
     <string name="tasks_org_account_required">Cal un compte de Tasks.org</string>
     <string name="account_not_included">No inclòs amb les subscripcions \'Preu flexible\'</string>
     <string name="list_members">Llista de membres</string>

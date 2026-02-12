@@ -581,7 +581,6 @@
     <string name="copied_to_clipboard">%s copiato</string>
     <string name="local_lists">Liste locali</string>
     <string name="account_not_included">Non incluso negli abbonamenti con prezzo a scelta</string>
-    <string name="tasks_org_account">Account Tasks.org</string>
     <string name="subscription">Abbonamento</string>
     <string name="CFC_startBefore_text">Inizia: \?</string>
     <string name="CFC_startBefore_name">Inizia…</string>

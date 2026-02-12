@@ -50,7 +50,6 @@
     <string name="remove_user">ลบผู้ใช้หรือไม่\?</string>
     <string name="list_members">รายชื่อสมาชิก</string>
     <string name="tasks_org_account_required">Tasks.org บัญชีลูกค้า</string>
-    <string name="tasks_org_account">Tasks.org บัญชี</string>
     <string name="copied_to_clipboard">%s คัดลอกไปยังคลิปบอร์ดแล้ว</string>
     <string name="app_password_save">ใช้ข้อมูลรับรองเหล่านี้เพื่อกําหนดค่าแอปของบริษัทอื่น พวกเขาให้สิทธิ์การเข้าถึงบัญชี Tasks.org ของคุณอย่างสมบูรณ์อย่าจดหรือแบ่งปันกับใคร!</string>
     <string name="app_password_delete_confirmation">แอปใดๆ ที่ใช้รหัสผ่านนี้จะออกจากระบบ</string>

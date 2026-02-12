@@ -77,7 +77,6 @@
     <string name="list_members">Liệt kê các thành viên</string>
     <string name="account_not_included">Không được bao gồm với các gói đăng ký \'Đặt giá của bạn\'</string>
     <string name="tasks_org_account_required">Yêu cầu tài khoản Tasks.org</string>
-    <string name="tasks_org_account">Tài khoản Tasks.org</string>
     <string name="copied_to_clipboard">Đã sao chép %s vào bộ nhớ tạm</string>
     <string name="app_password_save">Sử dụng thông tin này để thiết lập một ứng dụng bên thứ ba. Chúng cấp quyền truy cập toàn bộ vào tài khoản Tasks.org của bạn, đừng viết chúng ra hoặc chia sẻ chúng với bất kỳ ai!</string>
     <string name="app_password_delete_confirmation">Bất kỳ ứng dụng nào đang sử dụng mật khẩu này sẽ bị đăng xuất</string>

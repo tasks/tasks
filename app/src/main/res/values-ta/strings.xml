@@ -646,7 +646,6 @@
     <string name="sort_ascending">ஏறுதல்</string>
     <string name="support">உதவி</string>
     <string name="app_password_delete_confirmation">இந்த கடவுச்சொல்லைப் பயன்படுத்தும் எந்த பயன்பாடும் பதிவு செய்யப்படும்</string>
-    <string name="tasks_org_account">Tasks.org கணக்கு</string>
     <string name="tasks_org_account_required">Tasks.org கணக்கு தேவை</string>
     <string name="list_members">உறுப்பினர்களை பட்டியலிடுங்கள்</string>
     <string name="remove_user">பயனரை அகற்றவா?</string>

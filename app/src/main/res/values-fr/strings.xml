@@ -586,7 +586,6 @@
     <string name="sort_start_group">Début %s</string>
     <string name="tasks_org_description">Synchronisez vos tâches avec Tasks.org</string>
     <string name="account_not_included">Non inclus avec les abonnements « Donnez votre prix »</string>
-    <string name="tasks_org_account">Compte « Tasks.org »</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Afficher le titre</string>
     <string name="tasks_org_account_required">Compte « Tasks.org » requis</string>

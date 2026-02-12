@@ -418,7 +418,6 @@
         <item quantity="other">daftar %d</item>
     </plurals>
     <string name="account_not_included">Tidak termasuk dalam langganan \'Berikan penawaran harga Anda\'</string>
-    <string name="tasks_org_account">Akun Tasks.org</string>
     <string name="copied_to_clipboard">%s disalin ke papan klip</string>
     <string name="app_password_save">Gunakan kredensial ini untuk mengkonfigurasi aplikasi pihak ketiga. Mereka memberikan akses penuh ke akun Tasks.org Anda, jangan tuliskan ataupun berbagi dengan orang lain!</string>
     <string name="app_password_delete_confirmation">Aplikasi apa pun yang menggunakan sandi ini akan keluar/sign out</string>

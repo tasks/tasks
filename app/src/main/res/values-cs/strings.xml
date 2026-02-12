@@ -554,7 +554,6 @@
     <string name="your_subscription_expired">Platnost vašeho předplatného skončila. Pokud chcete službu dále využívat, obnovte ho.</string>
     <string name="account_not_included">Nezahrnuto v předplatném typu „Zaplaťte kolik chcete“</string>
     <string name="tasks_org_account_required">Je vyžadován účet na Tasks.org</string>
-    <string name="tasks_org_account">Účet na Tasks.org</string>
     <string name="copied_to_clipboard">%s zkopírováno do schránky</string>
     <string name="app_password_save">Tímto jménem a heslem se můžete přihlásit k Vašemu Tasks.org účtu i v aplikacích třetích stran. Udělují k němu neomezený přistup - uchovávejte je v tajnosti a nikomu je nesdělujte!</string>
     <string name="app_password_delete_confirmation">Všechny aplikace používající toto heslo budou odhlášeny</string>

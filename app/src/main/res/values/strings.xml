@@ -675,7 +675,6 @@ File %1$s contained %2$s.\n\n
   <string name="email_to_task_calendar">Destination list</string>
   <string name="regenerate_email_address">Regenerate address</string>
   <string name="regenerate_email_address_confirmation">Your current email address will stop working</string>
-  <string name="tasks_org_account">Tasks.org account</string>
   <string name="tasks_org_account_required">Tasks.org account required</string>
   <string name="account_not_included">Not included with \'Name your price\' subscriptions</string>
   <string name="list_members">List members</string>
@@ -694,6 +693,9 @@ File %1$s contained %2$s.\n\n
   <string name="upgrade_desktop_access">Desktop access</string>
   <string name="upgrade_desktop_access_description">Sync with third-party clients like Outlook and Apple Reminders</string>
   <string name="upgrade_open_source_description">Your subscription supports continued development</string>
+  <string name="upgrade_email_to_task_description">Turn emails into tasks by forwarding them to your private inbox</string>
+  <string name="advanced_tools">Advanced tools</string>
+  <string name="advanced_tools_description">Google Places, CalDAV, EteSync, and more!</string>
   <string name="more_options">More options</string>
   <string name="already_subscribed">Already a subscriber?</string>
   <string name="upgrade_subscription_banner">Thanks for your support! Upgrade your subscription to enable Tasks.org Cloud Sync</string>

@@ -569,7 +569,6 @@
     <string name="sort_start_group">%s başlayan</string>
     <string name="tasks_org_description">Görevlerinizi Tasks.org ile eşzamanlayın</string>
     <string name="account_not_included">\'Fiyat belirle\' aboneliklerini içermez</string>
-    <string name="tasks_org_account">Tasks.org hesabı</string>
     <string name="subscription">Abonelik</string>
     <string name="widget_show_title">Başlığı göster</string>
     <string name="tasks_org_account_required">Tasks.org hesabı gerekli</string>

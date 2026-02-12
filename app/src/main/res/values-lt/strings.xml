@@ -572,7 +572,6 @@
     <string name="support">Pagalba</string>
     <string name="social">Socialiniai tinklai</string>
     <string name="tasks_org_account_required">Būtina Tasks.org paskyra</string>
-    <string name="tasks_org_account">Tasks.org paskyra</string>
     <string name="insufficient_subscription">Nepakankamas prenumeratos lygis. Atnaujinkite savo prenumeratą, kad būtų tęsiama paslauga.</string>
     <string name="your_subscription_expired">Jūsų prenumeratos galiojimo laikas baigėsi. Prenumeruokite dabar, norėdami tęsti paslaugą.</string>
     <string name="custom_filter_is_subtask">Ar antrinė užduotis</string>

@@ -568,7 +568,6 @@
     <string name="list_members">Lista de membros</string>
     <string name="account_not_included">Não incluído nas assinaturas de \'Dê o seu preço\'</string>
     <string name="tasks_org_account_required">É necessária uma conta em Tasks.org</string>
-    <string name="tasks_org_account">Conta do Tasks.org</string>
     <string name="copied_to_clipboard">%s copiado para a área de transferência</string>
     <string name="app_password_save">Use essas credenciais para configurar um aplicativo de terceiros. Ela garante acesso completo a sua conta Task.org, não os escreva ou compartilhe com ninguém!</string>
     <string name="app_password_delete_confirmation">Qualquer aplicativo que usar esta senha será desconectado</string>

@@ -512,7 +512,6 @@
     <string name="list_members">Luettelo jäsenistä</string>
     <string name="account_not_included">Ei sisälly \"Nimeä hintasi\" -tilauksiin</string>
     <string name="tasks_org_account_required">Tarvitaan Tasks.org-tili</string>
-    <string name="tasks_org_account">Tasks.org-tili</string>
     <string name="copied_to_clipboard">%s kopioitu leikepöydälle</string>
     <string name="app_password_save">Käytä näitä tunnistetietoja kolmannen osapuolen sovelluksen määrittämiseen. Ne antavat täydellisen pääsyn Tasks.org-tiliisi, älä kirjoita niitä ylös tai jaa niitä kenenkään kanssa!</string>
     <string name="app_password_delete_confirmation">Kaikki tätä salasanaa käyttävät sovellukset kirjautuvat ulos</string>

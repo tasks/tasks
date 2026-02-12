@@ -534,7 +534,6 @@
     <string name="github_sponsor">Babeslea</string>
     <string name="github_sponsors">GitHub babesleak</string>
     <string name="account_not_included">Ez dago \"hautatu zure prezioa\" harpidetzetan barne</string>
-    <string name="tasks_org_account">Tasks.org kontua</string>
     <string name="copied_to_clipboard">%s arbelera kopiatuta</string>
     <string name="app_password_save">Erabili kredentzial hauek hirugarrengoen aplikazio bat konfiguratzeko. Zure Tasks.org kontura sarbide osoa ematen dute, ez idatzi inon eta ez partekatu inorekin!</string>
     <string name="app_password_delete_confirmation">Pasahitz hau darabiltzaten aplikazioen saioak amaituko dira</string>

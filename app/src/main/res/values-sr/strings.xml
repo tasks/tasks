@@ -673,7 +673,6 @@
     <string name="app_password_delete_confirmation">Свака апликација која користи ову шифру ће бити одјављена</string>
     <string name="app_password_save">Користи ове креденцијале за конфигурацију апликације од треће стране. Они омогућавају потпуни приступ Tasks.org налогу, не записуј их нигде и не дели их ни са ким!</string>
     <string name="copied_to_clipboard">%s копирано у привремену меморију</string>
-    <string name="tasks_org_account">Tasks.org налог</string>
     <string name="tasks_org_account_required">Неопходан налог на Tasks.org</string>
     <string name="account_not_included">Није укључено у ,,Задај цену\'\' тип претплате</string>
     <string name="list_members">Чланови листе</string>

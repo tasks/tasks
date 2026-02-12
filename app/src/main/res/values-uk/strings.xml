@@ -587,7 +587,6 @@
     <string name="sort_start_group">Початок %s</string>
     <string name="tasks_org_description">Синхронізувати ваші завдання з Tasks.org</string>
     <string name="account_not_included">Не входить до передплати \"Назвіть свою ціну\"</string>
-    <string name="tasks_org_account">Обліковий запис Tasks.org</string>
     <string name="subscription">Підписка</string>
     <string name="widget_show_title">Показати заголовок</string>
     <string name="tasks_org_account_required">Потрібен обліковий запис Tasks.org</string>

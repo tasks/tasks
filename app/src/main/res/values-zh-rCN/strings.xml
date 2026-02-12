@@ -563,7 +563,6 @@
     <string name="sort_start_group">%s开始</string>
     <string name="tasks_org_description">使用 Tasks.org 同步您的任务</string>
     <string name="account_not_included">不包含于“您愿意支付多少费用”订阅</string>
-    <string name="tasks_org_account">Tasks.org 账号</string>
     <string name="subscription">订阅</string>
     <string name="widget_show_title">显示标题</string>
     <string name="tasks_org_account_required">需要 Tasks.org 账号</string>

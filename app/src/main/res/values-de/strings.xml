@@ -545,7 +545,6 @@
     <string name="authorization_cancelled">Autorisierung abgebrochen</string>
     <string name="sign_in_with_google">Mit Google anmelden</string>
     <string name="account_not_included">Nicht im „Wähle deinen Preis“-Abonnement enthalten</string>
-    <string name="tasks_org_account">Tasks.org-Konto</string>
     <string name="copied_to_clipboard">%s in Zwischenablage kopiert</string>
     <string name="app_password_save">Nutze diese Anmeldedaten, um eine Drittanbieter-App zu konfigurieren. Diese erlauben vollen Zugriff auf deinen Task.org-Konto. Schreib sie nicht auf und teile sie mit niemandem!</string>
     <string name="app_password_delete_confirmation">Jede App, die dieses Passwort benutzt, wird abgemeldet</string>
