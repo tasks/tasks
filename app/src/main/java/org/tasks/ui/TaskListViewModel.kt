@@ -69,6 +69,8 @@ sealed class Banner(
         if (IS_GENERIC) R.string.donate_today else R.string.button_subscribe,
         R.string.donate_maybe_later,
     )
+    data object WarnMicrosoft : Banner("microsoft", R.string.button_learn_more, R.string.dismiss)
+    data object WarnGoogleTasks : Banner("google_tasks", R.string.button_learn_more, R.string.dismiss)
     data object AppUpdated : Banner("app_updated", R.string.whats_new, R.string.dismiss)
 }
 
@@ -253,6 +255,10 @@ class TaskListViewModel @Inject constructor(
                     Banner.BegForMoney
                 preferences.isCurrentlyQuietHours && preferences.warnQuietHoursDisabled ->
                     Banner.QuietHoursEnabled
+                accounts.any { it.isMicrosoft } && preferences.warnMicrosoft ->
+                    Banner.WarnMicrosoft
+                accounts.any { it.isGoogleTasks } && preferences.warnGoogleTasks ->
+                    Banner.WarnGoogleTasks
                 else -> null
             }
             if (banner != null && banner != state.value.banner) {
@@ -292,6 +298,8 @@ class TaskListViewModel @Inject constructor(
                     }
                 }
                 Banner.BegForMoney -> preferences.lastSubscribeRequest = currentTimeMillis()
+                Banner.WarnGoogleTasks -> preferences.warnGoogleTasks = false
+                Banner.WarnMicrosoft -> preferences.warnMicrosoft = false
                 Banner.AppUpdated -> preferences.setBoolean(R.string.p_just_updated, false)
             }
             val action = if (tookAction) "positive" else "negative"

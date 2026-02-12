@@ -563,6 +563,7 @@
     <string name="quiet_hours_in_effect">Vaiksed tunnid on kasutusel</string>
     <string name="send_application_logs">Saada rakenduste logid</string>
     <string name="delete_comment">kommentaar</string>
+    <string name="button_learn_more">Loe lisaks</string>
     <plurals name="subtask_count">
         <item quantity="one">%d alamülesanne</item>
         <item quantity="other">%d alamülesannet</item>
@@ -608,6 +609,8 @@
     <string name="cost_more_money">Hind: $$$</string>
     <string name="multiline_title">Kasuta mitmerealisi pealkirju</string>
     <string name="multiline_title_on">Kasuta sisestusklahvi reavahetuse lisamiseks</string>
+    <string name="sync_warning_microsoft_title">Teave Microsoft To Do sünkroniseerimise kohta</string>
+    <string name="sync_warning_microsoft">Ülesannete kõikide üksikasjade sünkroniseerimine ei toimi Microsoft To Do liidestusega.</string>
     <string name="repeats_single_on">Kordub %1$s - %2$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="astrid_sort_order">Astridi käsitsi järjestamine</string>
@@ -618,6 +621,8 @@
     <string name="license_summary">Tasks on avatud lähtekoodil põhinev tarkvara, mis on litsentseeritud GNU Üldise Avaliku Litsentsi versiooni 3.0 alusel</string>
     <string name="app_password_delete_confirmation">Kõik seda salasõna kasutavad rakendused logitakse võrgust välja</string>
     <string name="app_password_enter_description">Lisa salasõnale nimetus (valikuline)</string>
+    <string name="sync_warning_google_tasks_title">Teave Google Tasksi sünkroniseerimise kohta</string>
+    <string name="sync_warning_google_tasks">Ülesannete kõikide üksikasjade sünkroniseerimine ei toimi Google Tasksi liidestusega</string>
     <string name="app_passwords_more_info">Sünkroniseeri oma ülesandeid ja kalendreid kolmandate osapoolte töölaua- ja nutiseadme rakendustega. Lisateavet leiad siit</string>
     <string name="repeat_monthly_every_day_of_nth_week">iga %1$s %2$s</string>
     <string name="repeats_after">Kordub peale</string>

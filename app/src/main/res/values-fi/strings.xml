@@ -711,5 +711,10 @@
     <string name="multiline_title">Salli moniriviset otsikot</string>
     <string name="multiline_title_on">Paina Enter-näppäintä lisätäksesi rivinvaihdon</string>
     <string name="multiline_title_off">Paina Valmis tallentaaksesi tehtävän</string>
+    <string name="sync_warning_microsoft_title">Microsoft To Do synkronoinnista</string>
+    <string name="sync_warning_microsoft">Kaikkia tehtävän tietoja ei voi synkronoida Microsoft To Do:n kanssa.</string>
+    <string name="sync_warning_google_tasks_title">Google Taskista</string>
+    <string name="sync_warning_google_tasks">Kaikkia tehtävän tietoja ei voi synkronoida Google Taskin kanssa</string>
+    <string name="button_learn_more">Lue lisää</string>
     <string name="widget_view_more_tasks">Lisää tehtäviä</string>
 </resources>

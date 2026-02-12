@@ -99,6 +99,8 @@ import org.tasks.compose.NotificationsDisabledBanner
 import org.tasks.compose.QuietHoursBanner
 import org.tasks.compose.SubscriptionNagBanner
 import org.tasks.compose.SubscriptionRequiredBanner
+import org.tasks.compose.SyncWarningGoogleTasks
+import org.tasks.compose.SyncWarningMicrosoft
 import org.tasks.data.TaskContainer
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDataDao
@@ -465,6 +467,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         is Banner.NotificationsDisabled ->
                             NotificationsDisabledBanner(
                                 settings = {
+                                    listViewModel.dismissBanner(tookAction = true)
                                     if (notificationPermissions?.status?.shouldShowRationale == true) {
                                         context.openAppNotificationSettings()
                                     } else {
@@ -476,7 +479,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
                         Banner.AlarmsDisabled ->
                             AlarmsDisabledBanner(
-                                settings = { context.openReminderSettings() },
+                                settings = {
+                                    listViewModel.dismissBanner(tookAction = true)
+                                    context.openReminderSettings()
+                                },
                                 dismiss = { listViewModel.dismissBanner() },
                             )
 
@@ -531,7 +537,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         Banner.QuietHoursEnabled ->
                             QuietHoursBanner(
                                 showSettings = {
-                                    listViewModel.dismissBanner()
+                                    listViewModel.dismissBanner(tookAction = true)
                                     context.startActivity(
                                         Intent(
                                             context,
@@ -542,12 +548,29 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                 dismiss = { listViewModel.dismissBanner() },
                             )
 
+                        Banner.WarnGoogleTasks ->
+                            SyncWarningGoogleTasks(
+                                moreInfo = {
+                                    listViewModel.dismissBanner(tookAction = true)
+                                    context.openUri(R.string.url_google_tasks)
+                                },
+                                dismiss = { listViewModel.dismissBanner() },
+                            )
+
+                        Banner.WarnMicrosoft ->
+                            SyncWarningMicrosoft(
+                                moreInfo = {
+                                    listViewModel.dismissBanner(tookAction = true)
+                                    context.openUri(R.string.url_microsoft)
+                                },
+                                dismiss = { listViewModel.dismissBanner() },
+                            )
 
                         Banner.AppUpdated ->
                             AppUpdatedBanner(
                                 whatsNew = {
+                                    listViewModel.dismissBanner(tookAction = true)
                                     context.openUri(R.string.url_changelog)
-                                    listViewModel.dismissBanner()
                                 },
                                 dismiss = { listViewModel.dismissBanner() },
                             )

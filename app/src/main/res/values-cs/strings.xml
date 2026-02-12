@@ -720,7 +720,12 @@
     <string name="comment">Komentář</string>
     <string name="cost_free">Zdarma</string>
     <string name="cost_money">Cena: $</string>
+    <string name="sync_warning_microsoft_title">O synchronizaci Microsoft To Do</string>
+    <string name="sync_warning_google_tasks">Ne všechny podrobnosti připomínek se synchronizují s Google Tasks</string>
     <string name="enable_alarms_description">Chcete-li být informováni v čas, udělte v Nastavení oprávnění k nastavení budíků a připomenutí</string>
+    <string name="sync_warning_microsoft">Ne všechny podrobnosti připomínek se synchronizují s Microsoft To Do.</string>
+    <string name="sync_warning_google_tasks_title">O synchronizaci připomínek Google</string>
+    <string name="button_learn_more">Zjistit více</string>
     <string name="add_shortcut_to_home_screen">Přidat zkratku na domovskou obrazovku</string>
     <string name="add_widget_to_home_screen">Přidat widget na domovskou obrazovku</string>
     <string name="cost_more_money">Cena: $$$</string>

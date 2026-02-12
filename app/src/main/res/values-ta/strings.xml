@@ -665,6 +665,10 @@
     <string name="issue_tracker">வெளியீடு டிராக்கர்</string>
     <string name="app_password_save">மூன்றாம் தரப்பு பயன்பாட்டை உள்ளமைக்க இந்த நற்சான்றிதழ்களைப் பயன்படுத்தவும். அவர்கள் உங்கள் டாச்க்ச்.org கணக்கிற்கு முழுமையான அணுகலை வழங்குகிறார்கள், அவற்றை எழுத வேண்டாம் அல்லது யாருடனும் பகிர்ந்து கொள்ள வேண்டாம்!</string>
     <string name="dismiss">தள்ளுபடி</string>
+    <string name="sync_warning_microsoft_title">ஒத்திசைவு செய்ய மைக்ரோசாப்ட் பற்றி</string>
+    <string name="sync_warning_microsoft">அனைத்து பணி விவரங்களும் மைக்ரோசாப்ட் உடன் ஒத்திசைக்கவில்லை.</string>
+    <string name="sync_warning_google_tasks_title">கூகிள் பணி ஒத்திசைவு பற்றி</string>
+    <string name="sync_warning_google_tasks">அனைத்து பணி விவரங்களும் கூகிள் பணிகளுடன் ஒத்திசைக்கவில்லை</string>
     <string name="privacy">தனியுரிமை</string>
     <string name="app_passwords_more_info">மூன்றாம் தரப்பு டெச்க்டாப் மற்றும் மொபைல் பயன்பாடுகளுடன் உங்கள் பணிகள் மற்றும் காலெண்டர்களை ஒத்திசைக்கவும். மேலும் தகவலுக்கு இங்கே தட்டவும்</string>
     <string name="completion_sound">நிறைவு ஒலி</string>
@@ -707,6 +711,7 @@
     <string name="add_shortcut_to_home_screen">முகப்புத் திரையில் குறுக்குவழியைச் சேர்க்கவும்</string>
     <string name="add_widget_to_home_screen">முகப்புத் திரையில் விட்செட்டைச் சேர்க்கவும்</string>
     <string name="cost_free">இலவசம்</string>
+    <string name="button_learn_more">மேலும் அறிக</string>
     <string name="open_source">திறந்த மூல</string>
     <string name="google_play_subscribers">கூகிள் பிளே சந்தாதாரர்கள்</string>
     <string name="upgrade_more_customization">மேலும் தனிப்பயனாக்கம்</string>

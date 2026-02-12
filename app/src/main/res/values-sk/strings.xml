@@ -678,6 +678,7 @@
     <string name="alarm_after_due">%s po termíne</string>
     <string name="snoozed_until">Odložené do %s</string>
     <string name="custom_notification">Vlastné oznámenie</string>
+    <string name="button_learn_more">Zistiť viac</string>
     <string name="filter_no_priority">Bez nastavenej dôležitosti</string>
     <string name="filter_no_tags">Bez štítkov</string>
     <string name="privacy">Súkromie</string>
@@ -717,6 +718,10 @@
     <string name="dismiss">Odmietnuť</string>
     <string name="enable_alarms">Dostaňte upozornenia včas</string>
     <string name="sort_grouping">Zoskupovanie</string>
+    <string name="sync_warning_microsoft_title">O synchronizácii Microsoft To Do</string>
+    <string name="sync_warning_microsoft">Nie všetky podrobnosti pripomienok sa synchronizujú s Microsoft To Do.</string>
+    <string name="sync_warning_google_tasks_title">O synchronizácií pripomienok Google</string>
+    <string name="sync_warning_google_tasks">Nie všetky podrobnosti pripomienok sa synchronizujú s Google Tasks</string>
     <string name="caldav_server_other">Ďalšie</string>
     <string name="caldav_server_type">Typ servera</string>
     <string name="enable_alarms_description">Ak chcete byť informovaný včas, udeľte v nastaveniach oprávnenia k nastaveniu budíka a pripomienok</string>

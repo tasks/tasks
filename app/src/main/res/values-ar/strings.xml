@@ -781,9 +781,11 @@
     <string name="multiline_title_off">اضغط على تم لحفظ المهمة</string>
     <string name="caldav_server_unknown">غير معروف</string>
     <string name="sort_not_available">غير متاح للعلامات أو المرشحات أو الأماكن</string>
+    <string name="sync_warning_microsoft">لا تتم مزامنة جميع تفاصيل المهام مع Microsoft To Do.</string>
     <string name="price_per_month_with_currency">%s/شهر</string>
     <string name="snoozed_until">مؤجل حتى%s</string>
     <string name="caldav_server_type">نوع الخادم</string>
+    <string name="button_learn_more">تعرف على المزيد</string>
     <string name="custom_notification">إشعار مخصص</string>
     <string name="enable_reminders_description">التذكيرات معطلة في إعدادات أندرويد</string>
     <string name="enable_alarms">احصل على إشعار في الوقت المناسب</string>
@@ -794,6 +796,9 @@
     <string name="cost_free">مجاناً</string>
     <string name="cost_money">التكلفة: المال</string>
     <string name="cost_more_money">التكلفة: المزيد من المال</string>
+    <string name="sync_warning_microsoft_title">نبذة عن مزامنة Microsoft To Do</string>
+    <string name="sync_warning_google_tasks_title">حول مزامنة مهام جوجل</string>
+    <string name="sync_warning_google_tasks">لا تتم مزامنة جميع تفاصيل المهام مع مهام جوجل</string>
     <string name="enable_reminders">تفعيل التذكيرات</string>
     <string name="price_per_year_with_currency">%s/السنة</string>
     <string name="enable_alarms_description">للتأكد من إخطارك في الوقت المناسب، امنح الإذن لضبط التنبيهات والتذكيرات في الإعدادات</string>

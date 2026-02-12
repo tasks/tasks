@@ -687,6 +687,8 @@
     <string name="cost_more_money">Pris: $$$</string>
     <string name="multiline_title">Tillad flerlinjede titler</string>
     <string name="multiline_title_on">Tryk på Enter for at tilføje linjeskift</string>
+    <string name="sync_warning_microsoft_title">Om Microsoft To Do-synkronisering</string>
+    <string name="sync_warning_google_tasks_title">Om Google Huskeliste-synkronisering</string>
     <string name="delete_comment">kommentar</string>
     <string name="repeats_every">Gentages hver</string>
     <string name="repeats_weekly_on">Gentages</string>
@@ -695,6 +697,9 @@
     <string name="repeats_custom_recurrence">Brugerdefineret gentagelse</string>
     <string name="yesterday">I går</string>
     <string name="send_application_logs">Send applikationslogfiler</string>
+    <string name="sync_warning_microsoft">Ikke alle opgavedetaljer synkroniseres med Microsoft To Do.</string>
+    <string name="sync_warning_google_tasks">Ikke alle opgavedetaljer synkroniseres med Google Huskeliste</string>
+    <string name="button_learn_more">Få mere at vide</string>
     <string name="sort_sorting">Sortering</string>
     <string name="repeat_monthly_on_the_nth_weekday">Månedligt på den %1$s %2$s</string>
     <string name="repeat_monthly_on_day_number">Månedligt på dag %1d</string>

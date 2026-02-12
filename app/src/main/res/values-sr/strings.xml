@@ -729,6 +729,11 @@
     <string name="multiline_title">Омогући називе у више редова</string>
     <string name="multiline_title_on">Притисни Ентер за додавање размака између редова</string>
     <string name="multiline_title_off">Притисни ,,Готово\'\' за чување задатка</string>
+    <string name="sync_warning_microsoft_title">О ,,Microsoft To Do\'\' синхронизацији</string>
+    <string name="sync_warning_microsoft">Не синхронизују се сви детаљи задатка са ,,Microsoft To Do\'\'.</string>
+    <string name="sync_warning_google_tasks_title">О ,,Google Tasks\'\' синхронизацији</string>
+    <string name="sync_warning_google_tasks">Не синхронизују се сви детаљи задатка са ,,Google Tasks\'\'</string>
+    <string name="button_learn_more">Више информација</string>
     <string name="EPr_cal_end_at_due_time">Окончај догађаје календара у време доспећа</string>
     <string name="task_defaults">Подразумевано за задатке</string>
     <string name="CFC_importance_text">Минимум приоритета ?</string>

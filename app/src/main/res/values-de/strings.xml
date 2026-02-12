@@ -704,6 +704,11 @@
     <string name="multiline_title">Mehrzeilige Titel zulassen</string>
     <string name="multiline_title_on">Eingabetaste drücken, um Zeilenumbrüche einzufügen</string>
     <string name="comment">Kommentar</string>
+    <string name="sync_warning_google_tasks_title">Über die Synchronisierung mit „Google Tasks“</string>
+    <string name="sync_warning_google_tasks">Nicht alle Aufgabendetails können mit Google Tasks synchronisiert werden.</string>
+    <string name="button_learn_more">Mehr erfahren</string>
+    <string name="sync_warning_microsoft">Nicht alle Aufgabendetails können mit Microsoft To Do synchronisiert werden.</string>
+    <string name="sync_warning_microsoft_title">Über die Synchronisierung mit „Microsoft To Do“</string>
     <string name="subtasks_multilevel_microsoft">Mehrstufige Teilaufgaben werden von Microsoft To Do nicht unterstützt</string>
     <string name="app_settings">App-Einstellungen</string>
     <string name="banner_app_updated_title">App aktualisiert</string>
