@@ -1734,7 +1734,7 @@
 +|    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|    +--- androidx.hilt:hilt-common:1.3.0
 +|    |    \--- com.google.dagger:hilt-core:2.54 -> 2.57.2 (*)
-+|    +--- androidx.work:work-runtime:2.3.4 -> 2.11.0
++|    +--- androidx.work:work-runtime:2.3.4 -> 2.11.1
 +|    |    +--- androidx.annotation:annotation-experimental:1.4.1 -> 1.5.1 (*)
 +|    |    +--- androidx.concurrent:concurrent-futures-ktx:1.1.0 (*)
 +|    |    +--- androidx.core:core:1.12.0 -> 1.16.0 (*)
@@ -1750,7 +1750,7 @@
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.2.21 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0 -> 1.10.2 (*)
 +|    |    +--- org.jspecify:jspecify:1.0.0
-+|    |    +--- androidx.work:work-runtime-ktx:2.11.0 (c)
++|    |    +--- androidx.work:work-runtime-ktx:2.11.1 (c)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.2.21 (c)
 +|    +--- com.google.dagger:hilt-android:2.54 -> 2.57.2 (*)
 +|    \--- org.jspecify:jspecify:1.0.0
@@ -1881,9 +1881,9 @@
 ++--- com.google.apis:google-api-services-drive:v3-rev20251210-2.0.0
 +|    \--- com.google.api-client:google-api-client:2.7.2 (*)
 ++--- com.google.auth:google-auth-library-oauth2-http:1.39.0 (*)
-++--- androidx.work:work-runtime-ktx:2.11.0
-+|    +--- androidx.work:work-runtime:2.11.0 (*)
-+|    \--- androidx.work:work-runtime:2.11.0 (c)
+++--- androidx.work:work-runtime-ktx:2.11.1
++|    +--- androidx.work:work-runtime:2.11.1 (*)
++|    \--- androidx.work:work-runtime:2.11.1 (c)
 ++--- com.etebase:client:2.3.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|    \--- com.squareup.okhttp3:logging-interceptor:3.12.1 -> 4.11.0
