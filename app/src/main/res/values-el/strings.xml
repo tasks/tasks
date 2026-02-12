@@ -635,11 +635,6 @@
     <string name="multiline_title">Επιτρέψτε τους τίτλους πολλαπλών γραμμών</string>
     <string name="multiline_title_on">Πατήστε το πλήκτρο Enter για να προσθέσετε διακοπές γραμμής</string>
     <string name="multiline_title_off">Πατήστε Τέλος για να αποθηκεύσετε την εργασία</string>
-    <string name="sync_warning_microsoft_title">Σχετικά με τον συγχρονισμό Microsoft To Do</string>
-    <string name="sync_warning_microsoft">Δεν συγχρονίζονται όλες οι λεπτομέρειες εργασίας με το Microsoft To Do.</string>
-    <string name="sync_warning_google_tasks_title">Σχετικά με τον συγχρονισμό Google Task</string>
-    <string name="sync_warning_google_tasks">Δεν συγχρονίζονται όλες οι λεπτομέρειες εργασίας με το Google Tasks</string>
-    <string name="button_learn_more">Μάθετε περισσότερα</string>
     <string name="widget_view_more_tasks">Εμφάνιση περισσότερων εργασιών</string>
     <string name="show_unstarted">Εμφάνιση όσων δεν έχουν ξεκινήσει</string>
     <string name="widget_show_checkboxes">Εμφάνιση πλαισίων ελέγχου (κουτάκια)</string>

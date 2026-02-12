@@ -99,8 +99,6 @@ import org.tasks.compose.NotificationsDisabledBanner
 import org.tasks.compose.QuietHoursBanner
 import org.tasks.compose.SubscriptionNagBanner
 import org.tasks.compose.SubscriptionRequiredBanner
-import org.tasks.compose.SyncWarningGoogleTasks
-import org.tasks.compose.SyncWarningMicrosoft
 import org.tasks.data.TaskContainer
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDataDao
@@ -544,23 +542,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                 dismiss = { listViewModel.dismissBanner() },
                             )
 
-                        Banner.WarnGoogleTasks ->
-                            SyncWarningGoogleTasks(
-                                moreInfo = {
-                                    listViewModel.dismissBanner()
-                                    context.openUri(R.string.url_google_tasks)
-                                },
-                                dismiss = { listViewModel.dismissBanner() },
-                            )
-
-                        Banner.WarnMicrosoft ->
-                            SyncWarningMicrosoft(
-                                moreInfo = {
-                                    listViewModel.dismissBanner()
-                                    context.openUri(R.string.url_microsoft)
-                                },
-                                dismiss = { listViewModel.dismissBanner() },
-                            )
 
                         Banner.AppUpdated ->
                             AppUpdatedBanner(

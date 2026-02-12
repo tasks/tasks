@@ -70,8 +70,6 @@ class Debug : InjectingPreferenceFragment() {
             preferences.lastSubscribeRequest = 0L
             preferences.lastReviewRequest = 0L
             preferences.shownBeastModeHint = false
-            preferences.warnMicrosoft = true
-            preferences.warnGoogleTasks = true
             preferences.warnQuietHoursDisabled = true
             preferences.setBoolean(R.string.p_just_updated, true)
             preferences.setBoolean(R.string.p_local_list_banner_dismissed, false)

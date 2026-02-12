@@ -733,10 +733,5 @@
     <string name="multiline_title">Permeteu títols multilínies</string>
     <string name="multiline_title_on">Premeu la tecla Retorn per a afegir salts de línia</string>
     <string name="multiline_title_off">Premeu Fet per a desar la tasca</string>
-    <string name="sync_warning_microsoft_title">Sobre la sincronització del Microsoft To Do</string>
-    <string name="sync_warning_microsoft">No tots els detalls de la tasca se sincronitzen amb Microsoft To Do.</string>
-    <string name="sync_warning_google_tasks_title">Sobre la sincronització de Google Tasks</string>
-    <string name="sync_warning_google_tasks">No tots els detalls de la tasca es sincronitzen amb Google Tasks</string>
-    <string name="button_learn_more">Més informació</string>
     <string name="widget_view_more_tasks">Mostreu més tasques</string>
 </resources>

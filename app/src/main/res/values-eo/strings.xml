@@ -704,11 +704,6 @@
     <string name="comment">Komento</string>
     <string name="multiline_title">Permesi pluliniajn titolojn</string>
     <string name="multiline_title_on">Premu enen-klavo por aldoni linisaltojn</string>
-    <string name="sync_warning_google_tasks">Iuj detaloj de tasko ne sinkronigos per Google Tasks</string>
-    <string name="sync_warning_microsoft_title">Pri sinkronigado de Microsoft To Do</string>
-    <string name="sync_warning_google_tasks_title">Pri sinkronigado de Google</string>
-    <string name="sync_warning_microsoft">Iuj detaloj de tasko ne sinkronigos per Microsoft To Do.</string>
-    <string name="button_learn_more">Lerni Plu</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do ne subtenas plurnivelajn subtaskojn</string>
     <string name="app_settings">Agordoj de Aplikaĵo</string>
     <string name="multiline_title_off">Premu Finite por konservi taskon</string>

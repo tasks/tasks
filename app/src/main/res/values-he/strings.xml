@@ -654,7 +654,6 @@
     <string name="banner_app_updated_description">היישום Tasks עודכן זה עתה לגרסת %s. האם ברצונך לראות את הערות השחרור?</string>
     <string name="snackbar_task_completed">המשימה הושלמה</string>
     <string name="enable_alarms_description">כדי להבטיח קבלת הודעה בזמן הנכון, יש להעניק הרשאה להגדרת התראות ותזכורות בהגדרות</string>
-    <string name="sync_warning_microsoft_title">בנוגע לסנכרון Microsoft To Do</string>
     <string name="swipe_to_snooze_time_description">התראה שנוקתה תנמנם ותיווצר מחדש %s</string>
     <string name="swipe_to_snooze_time_immediately">באופן מיידי</string>
     <string name="swipe_to_snooze_time_15_minutes">לאחר 15 דקות</string>
@@ -677,7 +676,6 @@
     <string name="enable_alarms">קבלת הודעה בזמן הנכון</string>
     <string name="alarm_after_start">%s לאחר מועד התחלה</string>
     <string name="cost_more_money">עלות: $$$</string>
-    <string name="sync_warning_microsoft">לא כל פרטי המשימה מסתנכרנים עם Microsoft To Do.</string>
     <string name="subtasks_multilevel_microsoft">תתי־משימות מקוננות אינן נתמכות על ידי Microsoft To Do</string>
     <string name="sort_completion_group">השלמה %s</string>
     <string name="custom_filter_has_reminder">יש תזכורת</string>
@@ -699,7 +697,6 @@
     <string name="repeats_on">מופעל</string>
     <string name="rmd_time_description">הצגת התראות עבור משימות ללא זמני יעד</string>
     <string name="alarm_before_start">%s לפני מועד התחלה</string>
-    <string name="button_learn_more">ללמוד עוד</string>
     <string name="dismiss">התעלמות</string>
     <string name="sort_not_available">לא זמין עבור תגיות, מסננים, או מקומות</string>
     <plurals name="repeat_occurrence">
@@ -722,8 +719,6 @@
     <string name="repeat_monthly_on_day_number">מדי חודש ביום %1d</string>
     <string name="alarm_after_due">%s לאחר מועד יעד</string>
     <string name="multiline_title">אפשור כותרות מרובות שורות</string>
-    <string name="sync_warning_google_tasks_title">בנוגע לסנכרון Google Tasks</string>
-    <string name="sync_warning_google_tasks">לא כל פרטי המשימה מסתנכרנים עם Google Tasks</string>
     <string name="completed_tasks_at_bottom">העברת משימות שהושלמו לתחתית</string>
     <string name="show_edit_screen_without_unlock">הצגת מסך עריכה ללא ביטול נעילה</string>
     <string name="show_edit_screen_without_unlock_summary">מאפשר שימוש באריח הגדרות מהירות מבלי לבטל את נעילת המכשיר</string>

@@ -691,10 +691,6 @@
     <string name="quiet_hours_in_effect">O horário de silêncio está em vigor</string>
     <string name="price_per_month_with_currency">%s/mês</string>
     <string name="price_per_year_with_currency">%s/ano</string>
-    <string name="sync_warning_microsoft_title">Sobre a sincronização do Microsoft To Do</string>
-    <string name="sync_warning_google_tasks">Nem todos os detalhes das tarefas são sincronizados com o Google Tasks</string>
-    <string name="sync_warning_google_tasks_title">Sobre a sincronização do Google Tasks</string>
-    <string name="button_learn_more">Saiba mais</string>
     <string name="add_widget_to_home_screen">Adicionar widget à tela inicial</string>
     <string name="enable_alarms">Receba notificações na hora certa</string>
     <string name="banner_app_updated_title">Aplicação atualizada</string>
@@ -706,7 +702,6 @@
     <string name="show_edit_screen_without_unlock">Mostrar tela de edição sem desbloquear</string>
     <string name="swipe_to_snooze_time_1_hour">após 1 hora</string>
     <string name="banner_app_updated_description">O Tasks foi atualizado para a versão %s. Gostaria de ver as notas de lançamento?</string>
-    <string name="sync_warning_microsoft">Nem todos os detalhes das tarefas são sincronizados com o Microsoft To Do.</string>
     <string name="subtasks_multilevel_microsoft">Subtarefas de múltiplos níveis não são suportadas pelo Microsoft To Do</string>
     <string name="donate_today">Doe hoje</string>
     <string name="customize_drawer_summary">Arraste e solte para reorganizar os itens do menu</string>

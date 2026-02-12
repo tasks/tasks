@@ -693,9 +693,6 @@
     <string name="cost_money">비용: $</string>
     <string name="multiline_title_on">줄을 바꾸려면 엔터키를 누르세요</string>
     <string name="cost_more_money">비용: $$$</string>
-    <string name="sync_warning_microsoft_title">마이크로소프트 To Do 동기화</string>
-    <string name="button_learn_more">더 알아보기</string>
-    <string name="sync_warning_google_tasks_title">Google Task 동기화에 대하여</string>
     <string name="multiline_title">여러 줄 제목 허용</string>
     <string name="subtasks_multilevel_microsoft">마이크로소프트 To Do는 다단계 하위할일을 지원하지 않습니다</string>
     <string name="app_settings">앱 설정</string>
@@ -706,6 +703,4 @@
     <string name="banner_app_updated_title">앱이 업데이트됨</string>
     <string name="banner_app_updated_description">Tasks.org가 방금 %s 버전으로 업데이트되었습니다. 릴리즈 노트를 열까요?</string>
     <string name="multiline_title_off">할 일을 저장하려면 완료를 누르세요</string>
-    <string name="sync_warning_microsoft">모든 할 일이 Microsoft To Do와 동기화되지는 않습니다.</string>
-    <string name="sync_warning_google_tasks">모든 할 일이 Google Tasks와 동기화되진 않습니다.</string>
 </resources>

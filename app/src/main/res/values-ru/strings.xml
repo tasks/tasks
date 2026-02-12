@@ -711,17 +711,12 @@
     <string name="swipe_to_snooze_time_15_minutes">через 15 минут</string>
     <string name="cost_free">Бесплатно</string>
     <string name="multiline_title">Разрешить многострочные заголовки</string>
-    <string name="sync_warning_google_tasks">Не все подробности задачи синхронизируются с Google Task</string>
     <string name="customize_drawer">Настроить панель</string>
     <string name="swipe_to_snooze_time_30_minutes">через 30 минут</string>
     <string name="delete_comment">комментарий</string>
     <string name="change_priority">Изменить приоритет</string>
     <string name="price_per_year_with_currency">%s/год</string>
     <string name="price_per_month_with_currency">%s/месяц</string>
-    <string name="sync_warning_microsoft_title">О синхронизации с Microsoft To Do</string>
-    <string name="sync_warning_microsoft">Не все подробности задачи синхронизируются с Microsoft To Do.</string>
-    <string name="sync_warning_google_tasks_title">О синхронизации с Google Task</string>
-    <string name="button_learn_more">Узнать больше</string>
     <string name="enable_alarms">Получайте напоминания вовремя</string>
     <string name="swipe_to_snooze_title">Смахните, чтобы отложить</string>
     <string name="swipe_to_snooze_description">Длительность паузы</string>

@@ -725,16 +725,11 @@
     <string name="cost_more_money">Preț: $$$</string>
     <string name="multiline_title">Permite titluri multiline</string>
     <string name="multiline_title_on">Apasă tasta Enter pentru a adăuga o linie nouă</string>
-    <string name="sync_warning_microsoft">Nu toate detaliile sarcinii se sincronizează cu Microsoft To Do.</string>
     <string name="donate_today">Donează astăzi</string>
     <string name="donate_nag">Exprimă-ți sprijinul cu ajutorul unei donații!</string>
     <string name="subtasks_multilevel_microsoft">Subsarcini pe mai multe niveluri nu sunt acceptate de Microsoft To Do</string>
     <string name="donate_maybe_later">Poate mai târziu</string>
     <string name="cost_money">Preț: $</string>
-    <string name="sync_warning_microsoft_title">Despre sincronizarea Microsoft To Do</string>
-    <string name="sync_warning_google_tasks_title">Despre sincronizarea Sarcini Google</string>
-    <string name="sync_warning_google_tasks">Nu toate detaliile sarcinii se sincronizează cu Sarcini Google</string>
-    <string name="button_learn_more">Află mai multe</string>
     <string name="enable_alarms">Fii notificat la momentul potrivit</string>
     <string name="add_shortcut_to_home_screen">Adaugă comandă rapidă la ecranul de pornire</string>
     <string name="enable_alarms_description">Pentru a te asigura că ești notificat la momentul potrivit, acordă permisiunea de a seta alarme și mementouri în Setări</string>
