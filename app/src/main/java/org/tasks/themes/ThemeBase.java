@@ -4,6 +4,9 @@ import static org.tasks.extensions.Context.INSTANCE;
 
 import android.app.Activity;
 import android.content.Intent;
+import static org.tasks.themes.TasksThemeKt.SETTINGS_SURFACE_DARK;
+import static org.tasks.themes.TasksThemeKt.SETTINGS_SURFACE_LIGHT;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -79,6 +82,10 @@ public class ThemeBase implements Parcelable {
 
   public boolean isDarkTheme(Activity activity) {
     return index == 4 || index == 5 ? INSTANCE.isNightMode(activity) : index > 0;
+  }
+
+  public int getSettingsSurfaceColor(Activity activity) {
+    return isDarkTheme(activity) ? SETTINGS_SURFACE_DARK : SETTINGS_SURFACE_LIGHT;
   }
 
   public void set(Activity activity) {

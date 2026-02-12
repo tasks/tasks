@@ -443,6 +443,7 @@
   <string name="event_screen_welcome">screen_welcome</string>
   <string name="event_screen_add_account">screen_add_account</string>
   <string name="event_settings_navigation">settings_navigation</string>
+  <string name="event_pro_card">pro_card</string>
   <string name="param_type">type</string>
   <string name="param_screen">screen</string>
   <string name="param_error">error</string>

@@ -16,10 +16,10 @@ import org.tasks.R
 import org.tasks.auth.SignInActivity
 import org.tasks.extensions.Context.toast
 import org.tasks.jobs.WorkManager
-import org.tasks.preferences.fragments.MainSettingsFragment
-import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_CALDAV_SETTINGS
-import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_GOOGLE_TASKS
-import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_TASKS_ORG
+import org.tasks.preferences.fragments.MainSettingsComposeFragment
+import org.tasks.preferences.fragments.MainSettingsComposeFragment.Companion.REQUEST_CALDAV_SETTINGS
+import org.tasks.preferences.fragments.MainSettingsComposeFragment.Companion.REQUEST_GOOGLE_TASKS
+import org.tasks.preferences.fragments.MainSettingsComposeFragment.Companion.REQUEST_TASKS_ORG
 import org.tasks.preferences.fragments.TasksAccount
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
@@ -41,7 +41,7 @@ class MainPreferences : BasePreferences() {
 
     override fun getRootTitle() = R.string.TLA_menu_settings
 
-    override fun getRootPreference() = MainSettingsFragment()
+    override fun getRootPreference() = MainSettingsComposeFragment()
 
     override fun onResume() {
         super.onResume()
@@ -75,9 +75,8 @@ class MainPreferences : BasePreferences() {
                 lifecycleScope.launch {
                     val account = viewModel.tasksAccount() ?: return@launch
                     val fragment = supportFragmentManager.findFragmentById(R.id.settings)
-                    if (fragment is PreferenceFragmentCompat && fragment !is TasksAccount) {
+                    if (fragment !is TasksAccount) {
                         startPreference(
-                                fragment,
                                 TasksAccount.newTasksAccountPreference(account),
                                 getString(R.string.tasks_org)
                         )

@@ -32,5 +32,6 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val hasLoggedOnboardingComplete = booleanPreferencesKey("has_logged_onboarding_complete")
         val subscriptionDismissedAccounts = stringSetPreferencesKey("subscription_dismissed_accounts")
         val syncSource = stringPreferencesKey("sync_source")
+        val cachedAccountData = stringPreferencesKey("cached_account_data")
     }
 }

@@ -1,17 +1,23 @@
 package org.tasks.preferences.fragments
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.json.JSONObject
+import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.Json
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.caldav.CaldavClientProvider
+import org.tasks.caldav.TasksAccountResponse
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.preferences.TasksPreferences
+import org.tasks.preferences.TasksPreferences.Companion.cachedAccountData
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -19,38 +25,57 @@ import javax.inject.Inject
 class TasksAccountViewModel @Inject constructor(
         private val provider: CaldavClientProvider,
         private val firebase: Firebase,
+        private val tasksPreferences: TasksPreferences,
 ) : ViewModel() {
-    val newPassword = MutableLiveData<AppPassword?>()
-    val appPasswords = MutableLiveData<List<AppPassword>?>()
-    val inboundEmail = MutableLiveData<String?>()
-    val inboundCalendar = MutableLiveData<String?>()
-    val inboundCalendarFlow: Flow<String?> = inboundCalendar.asFlow()
+    val newPassword = MutableStateFlow<NewPassword?>(null)
+
+    private val json = Json { ignoreUnknownKeys = true }
+
+    private val initialResponse: TasksAccountResponse? = runBlocking {
+        tasksPreferences.get(cachedAccountData, "").takeIf(String::isNotBlank)?.let {
+            try { json.decodeFromString<TasksAccountResponse>(it) }
+            catch (e: Exception) { Timber.e(e); null }
+        }
+    }
+
+    private val accountResponse: StateFlow<TasksAccountResponse?> =
+        tasksPreferences.flow(cachedAccountData, "")
+            .map { raw ->
+                if (raw.isBlank()) return@map null
+                try {
+                    json.decodeFromString<TasksAccountResponse>(raw)
+                } catch (e: Exception) {
+                    Timber.e(e)
+                    null
+                }
+            }
+            .stateIn(viewModelScope, SharingStarted.Eagerly, initialResponse)
+
+    val appPasswords: StateFlow<List<TasksAccountResponse.AppPassword>?> = accountResponse
+        .map { it?.appPasswords }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
+    val inboundEmail: StateFlow<String?> = accountResponse
+        .map { it?.inboundEmail?.email?.takeIf(String::isNotEmpty) }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
+    val inboundCalendar: StateFlow<String?> = accountResponse
+        .map { it?.inboundEmail?.calendar?.takeIf(String::isNotEmpty) }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     private var inFlight = false
 
-    fun refreshPasswords(account: CaldavAccount) = viewModelScope.launch {
+    private suspend fun refreshAccountData(account: CaldavAccount) {
         try {
-            provider
-                    .forTasksAccount(account)
-                    .getAppPasswords()
-                    ?.let {
-                        val passwords = it.getJSONArray(PASSWORDS)
-                        val result = ArrayList<AppPassword>()
-                        for (i in 0 until passwords.length()) {
-                            with(passwords.getJSONObject(i)) {
-                                result.add(AppPassword(
-                                        description = getStringOrNull(DESCRIPTION),
-                                        id = getInt(SESSION_ID),
-                                        createdAt = getLongOrNull(CREATED_AT),
-                                        lastAccess = getLongOrNull(LAST_ACCESS)
-                                ))
-                            }
-                        }
-                        appPasswords.value = result
-                    }
+            val response = provider.forTasksAccount(account).getAccount() ?: return
+            tasksPreferences.set(cachedAccountData, response)
         } catch (e: Exception) {
             Timber.e(e)
         }
+    }
+
+    fun refreshAccount(account: CaldavAccount) = viewModelScope.launch {
+        refreshAccountData(account)
     }
 
     fun requestNewPassword(account: CaldavAccount, description: String) = viewModelScope.launch {
@@ -64,9 +89,9 @@ class TasksAccountViewModel @Inject constructor(
                     .generateNewPassword(description.takeIf { it.isNotBlank() })
                     ?.let {
                         newPassword.value =
-                                AppPassword(
-                                        username = it.getString(USERNAME),
-                                        password = it.getString(PASSWORD)
+                                NewPassword(
+                                        username = it.getString("username"),
+                                        password = it.getString("password"),
                                 )
                     }
         } catch (e: Exception) {
@@ -78,7 +103,7 @@ class TasksAccountViewModel @Inject constructor(
     fun deletePassword(account: CaldavAccount, id: Int) = viewModelScope.launch {
         try {
             provider.forTasksAccount(account).deletePassword(id)
-            refreshPasswords(account)
+            refreshAccountData(account)
         } catch (e: Exception) {
             Timber.e(e)
         }
@@ -88,33 +113,19 @@ class TasksAccountViewModel @Inject constructor(
         newPassword.value = null
     }
 
-    fun refreshInboundEmail(account: CaldavAccount) = viewModelScope.launch {
-        try {
-            provider
-                .forTasksAccount(account)
-                .getInboundEmail()
-                ?.let {
-                    inboundEmail.value = it.getString(EMAIL)
-                    inboundCalendar.value = it.getStringOrNull(CALENDAR)
-                }
-        } catch (e: Exception) {
-            Timber.e(e)
-        }
-    }
+    data class NewPassword(
+        val username: String,
+        val password: String,
+    )
 
     fun regenerateInboundEmail(account: CaldavAccount) = viewModelScope.launch {
         try {
-            provider
-                .forTasksAccount(account)
-                .regenerateInboundEmail()
-                ?.let {
-                    inboundEmail.value = it.getString(EMAIL)
-                    inboundCalendar.value = it.getStringOrNull(CALENDAR)
-                    firebase.logEvent(
-                        R.string.event_settings_click,
-                        R.string.param_type to "email_to_task_regenerate"
-                    )
-                }
+            provider.forTasksAccount(account).regenerateInboundEmail()
+            refreshAccountData(account)
+            firebase.logEvent(
+                R.string.event_settings_click,
+                R.string.param_type to "email_to_task_regenerate"
+            )
         } catch (e: Exception) {
             Timber.e(e)
         }
@@ -122,44 +133,14 @@ class TasksAccountViewModel @Inject constructor(
 
     fun setInboundCalendar(account: CaldavAccount, calendar: String?) = viewModelScope.launch {
         try {
-            provider
-                .forTasksAccount(account)
-                .setInboundCalendar(calendar)
-                ?.let {
-                    inboundEmail.value = it.getString(EMAIL)
-                    inboundCalendar.value = it.getStringOrNull(CALENDAR)
-                    firebase.logEvent(
-                        R.string.event_settings_click,
-                        R.string.param_type to "email_to_task_set_calendar"
-                    )
-                }
+            provider.forTasksAccount(account).setInboundCalendar(calendar)
+            refreshAccountData(account)
+            firebase.logEvent(
+                R.string.event_settings_click,
+                R.string.param_type to "email_to_task_set_calendar"
+            )
         } catch (e: Exception) {
             Timber.e(e)
         }
-    }
-
-    data class AppPassword(
-            val username: String? = null,
-            val password: String? = null,
-            val description: String? = null,
-            val id: Int = -1,
-            val createdAt: Long? = null,
-            val lastAccess: Long? = null
-    )
-
-    companion object {
-        private const val PASSWORDS = "passwords"
-        private const val DESCRIPTION = "description"
-        private const val SESSION_ID = "session_id"
-        private const val CREATED_AT = "created_at"
-        private const val LAST_ACCESS = "last_access"
-        private const val PASSWORD = "password"
-        private const val USERNAME = "username"
-        private const val EMAIL = "email"
-        private const val CALENDAR = "calendar"
-
-        fun JSONObject.getStringOrNull(key: String) = if (isNull(key)) null else getString(key)
-
-        fun JSONObject.getLongOrNull(key: String) = if (isNull(key)) null else getLong(key)
     }
 }

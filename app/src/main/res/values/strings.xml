@@ -474,7 +474,9 @@ File %1$s contained %2$s.\n\n
   <string name="caldav_home_set_not_found">Home set not found</string>
   <string name="network_error">Could not connect</string>
   <string name="upgrade_to_pro">Upgrade to pro</string>
+  <string name="upgrade_to_pro_card_description">Unlock Tasks.org Cloud sync, Email to Task, and more!</string>
   <string name="subscription">Subscription</string>
+  <string name="supporter">Supporter</string>
   <string name="manage_subscription">Modify subscription</string>
   <string name="refresh_purchases">Refresh purchases</string>
   <string name="button_subscribe">Subscribe</string>
@@ -598,6 +600,7 @@ File %1$s contained %2$s.\n\n
   <string name="banner_subscription_required_title">Subscription required</string>
   <string name="banner_subscription_required_body">Pay whatever you want to unlock %s synchronization</string>
   <string name="enjoying_tasks">Enjoying Tasks?</string>
+  <string name="donate">Donate</string>
   <string name="donate_nag">Consider showing your support with a donation!</string>
   <string name="donate_today">Donate today</string>
   <string name="donate_maybe_later">Maybe later</string>
@@ -641,6 +644,7 @@ File %1$s contained %2$s.\n\n
   <string name="price_per_month_with_currency">%s/month</string>
   <string name="price_per_year_with_currency">%s/year</string>
   <string name="current_subscription">Current subscription: %s</string>
+  <string name="supporter_summary">%s • Thank you!</string>
   <string name="follow_reddit">Join r/tasks</string>
   <string name="follow_twitter">Follow @tasks_org</string>
   <string name="social">Social</string>
@@ -662,6 +666,7 @@ File %1$s contained %2$s.\n\n
   <string name="above_average">Above average</string>
   <string name="save_percent">Save %d%%</string>
   <string name="sign_in_to_tasks">Sign in to Tasks.org</string>
+  <string name="sign_in_to_connect">Sign in to connect your Tasks.org account</string>
   <string name="app_password">App password</string>
   <string name="app_passwords">App passwords</string>
   <string name="app_passwords_more_info">Synchronize your tasks and calendars with third-party desktop and mobile apps. Tap here for more info</string>

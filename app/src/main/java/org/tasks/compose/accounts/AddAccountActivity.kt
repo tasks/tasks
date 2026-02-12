@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.runtime.LaunchedEffect
@@ -29,7 +30,7 @@ import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.TasksPreferences
 import org.tasks.sync.microsoft.MicrosoftSignInViewModel
-import org.tasks.themes.TasksTheme
+import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
 import javax.inject.Inject
 
@@ -81,7 +82,16 @@ class AddAccountActivity : ComponentActivity() {
     private fun doSignIn(platform: Platform) {
         when (platform) {
             Platform.TASKS_ORG ->
-                syncLauncher.launch(Intent(this, SignInActivity::class.java))
+                syncLauncher.launch(
+                    Intent(this, SignInActivity::class.java).apply {
+                        if (inventory.subscription.value?.isTasksSubscription == true) {
+                            putExtra(
+                                SignInActivity.EXTRA_SELECT_SERVICE,
+                                SignInActivity.Platform.GOOGLE,
+                            )
+                        }
+                    }
+                )
             Platform.GOOGLE_TASKS ->
                 syncLauncher.launch(Intent(this, GtasksLoginActivity::class.java))
             Platform.MICROSOFT ->
@@ -110,7 +120,7 @@ class AddAccountActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        theme.themeBase.set(this)
+        enableEdgeToEdge()
 
         setContent {
             val accounts by caldavDao
@@ -133,7 +143,7 @@ class AddAccountActivity : ComponentActivity() {
                     finish()
                 }
             }
-            TasksTheme(
+            TasksSettingsTheme(
                 theme = theme.themeBase.index,
                 primary = theme.themeColor.primaryColor,
             ) {
