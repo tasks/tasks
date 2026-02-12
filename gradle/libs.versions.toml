@@ -173,7 +173,7 @@ play-review = { module = "com.google.android.play:review-ktx", version = "2.0.2"
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "play-services-maps" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "play-services-location" }
 play-services-oss-licenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "play-services-oss-licenses" }
-posthog-android = { module = "com.posthog:posthog-android", version = "3.28.0" }
+posthog-android = { module = "com.posthog:posthog-android", version = "3.31.0" }
 shortcut-badger = { module = "me.leolin:ShortcutBadger", version.ref = "shortcut-badger" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 xpp3 = { module = "org.ogce:xpp3", version.ref = "xpp3" }
