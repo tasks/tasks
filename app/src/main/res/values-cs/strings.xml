@@ -357,7 +357,7 @@
     <string name="tasker_list_notification">Vypsat upozornění</string>
     <string name="help">Nápověda</string>
     <string name="network_error">Nepodařilo se připojit</string>
-    <string name="upgrade_to_pro">Získat PRO verzi</string>
+    <string name="upgrade_to_pro">Získat verzi Pro</string>
     <string name="manage_subscription">Upravit předplatné</string>
     <string name="refresh_purchases">Obnovit nákupy</string>
     <string name="button_subscribe">Předplatit</string>
@@ -770,4 +770,12 @@
     <string name="email_to_task_calendar">Seznam cílů</string>
     <string name="regenerate_email_address">Znovu vygenerovat adresu</string>
     <string name="regenerate_email_address_confirmation">Vaše aktuální e-mailová adresa přestane fungovat</string>
+    <string name="rmd_EPr_rmd_time_desc">Oznámení o celodenních úkolech se zobrazí v %1$s</string>
+    <string name="default_reminder">Celodenní úkoly</string>
+    <string name="add_default_reminders">Přidat výchozí připomínky</string>
+    <string name="rmd_time_enabled_on">Přidat výchozí připomínky k celodenním úkolům</string>
+    <string name="rmd_time_enabled_off">Nepřidávat výchozí připomínky do celodenních úkolů</string>
+    <string name="upgrade_email_to_task_description">Přeměňte e-maily na úkoly jejich přesměrováním do vaší soukromé schránky</string>
+    <string name="advanced_tools">Pokročilé nástroje</string>
+    <string name="advanced_tools_description">Místa Google, CalDAV, EteSync a další!</string>
 </resources>
