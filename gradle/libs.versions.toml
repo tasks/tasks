@@ -114,7 +114,7 @@ desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref 
 dmfs-jems = { module = "org.dmfs:jems", version = "1.33" }
 dmfs-opentasks-provider = { module = "com.github.tasks.opentasks:opentasks-provider", version.ref = "opentasks" }
 #noinspection NewerVersionAvailable
-dmfs-recur = { module = "org.dmfs:lib-recur", version = "0.11.4" }
+dmfs-recur = { module = "org.dmfs:lib-recur", version = "0.17.1" }
 #noinspection NewerVersionAvailable
 dmfs-rfc5545-datetime = { module = "org.dmfs:rfc5545-datetime", version = "0.2.4" }
 etebase = { module = "com.etebase:client", version.ref = "etebase" }
