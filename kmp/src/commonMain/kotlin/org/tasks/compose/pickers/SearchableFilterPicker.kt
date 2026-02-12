@@ -81,7 +81,7 @@ fun SearchableFilterPicker(
                     ) {
                         Row(verticalAlignment = CenterVertically) {
                             Text(
-                                text = filter.title!!,
+                                text = filter.title,
                                 style = MaterialTheme.typography.bodyMedium.copy(
                                     fontWeight = FontWeight.Medium,
                                     color = MaterialTheme.colorScheme.onSurface,

@@ -117,7 +117,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Начало тихих часов</string>
     <string name="rmd_EPr_quiet_hours_end_title">Конец тихих часов</string>
     <string name="rmd_EPr_rmd_time_title">Время напоминания</string>
-    <string name="rmd_EPr_rmd_time_desc">Уведомления для задач без срока окончания появятся в %s</string>
     <string name="persistent_notifications">Постоянные напоминания</string>
     <string name="persistent_notifications_description">Постоянные уведомления нельзя убрать</string>
     <string name="rmd_EPr_defaultRemind_title">Случайные напоминания</string>
@@ -588,7 +587,6 @@
     <string name="sort_start_group">Начало %s</string>
     <string name="tasks_org_description">Синхронизировать задачи с Tasks.org</string>
     <string name="account_not_included">Не включено в подписку \'Назовите свою цену\'</string>
-    <string name="tasks_org_account">Аккаунт Tasks.org</string>
     <string name="subscription">Подписка</string>
     <string name="widget_show_title">Показать заголовок</string>
     <string name="tasks_org_account_required">Требуется учетная запись Tasks.org</string>
@@ -676,8 +674,6 @@
     <string name="sort_completion_group">Готовность %s</string>
     <string name="microsoft_selection_description">Синхронизация с личной учетной записью Microsoft</string>
     <string name="sign_in">Войти</string>
-    <string name="default_reminder">Напоминание по умолчанию</string>
-    <string name="rmd_time_description">Показывать уведомления для задач без срока выполнения</string>
     <string name="repeats_weekly_on">Повторять в</string>
     <string name="repeats_on">В</string>
     <string name="repeats_after">После</string>

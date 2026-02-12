@@ -102,7 +102,7 @@ class ColorPalettePicker : DialogFragment() {
         if (inventory.purchasedThemes()) {
             builder.setNegativeButton(R.string.cancel, null)
         } else {
-            builder.setPositiveButton(R.string.upgrade_to_pro) { _: DialogInterface?, _: Int ->
+            builder.setPositiveButton(R.string.name_your_price) { _: DialogInterface?, _: Int ->
                 startActivity(
                     Intent(context, PurchaseActivity::class.java)
                         .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "colors")

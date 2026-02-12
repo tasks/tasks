@@ -20,6 +20,7 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.db.Database
+import org.tasks.R
 import org.tasks.data.entity.Task
 import org.tasks.data.newLocalAccount
 import org.tasks.injection.InjectingTestCase
@@ -57,6 +58,7 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
             super.setUp()
             caldavDao.newLocalAccount()
         }
+        preferences.setBoolean(R.string.p_rmd_time_enabled, true)
     }
 
     protected fun setup(task: Task) = runBlocking {

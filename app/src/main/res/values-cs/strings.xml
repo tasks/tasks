@@ -99,7 +99,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
     <string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
     <string name="rmd_EPr_rmd_time_title">Čas upomínky</string>
-    <string name="rmd_EPr_rmd_time_desc">Upozornění na úkoly bez času dokončení se objeví v %s</string>
     <string name="rmd_EPr_defaultRemind_title">Náhodné upomínky</string>
     <string name="default_random_reminder_disabled">Zakázáno</string>
     <string name="default_random_reminder_hourly">Každou hodinu</string>
@@ -368,7 +367,7 @@
     <string name="button_unsubscribe">Zrušit předplatné</string>
     <string name="help_and_feedback">Nápověda a zpětná vazba</string>
     <string name="pro_dashclock_extension">Dashclock rozšíření</string>
-    <string name="requires_pro_subscription">Vyžaduje PRO předplatné</string>
+    <string name="requires_pro_subscription">Vyžaduje předplatné Pro</string>
     <string name="logout">Odhlásit se</string>
     <string name="this_feature_requires_a_subscription">Tato funkce vyžaduje předplatné</string>
     <string name="when_overdue">Po termínu</string>
@@ -554,7 +553,6 @@
     <string name="your_subscription_expired">Platnost vašeho předplatného skončila. Pokud chcete službu dále využívat, obnovte ho.</string>
     <string name="account_not_included">Nezahrnuto v předplatném typu „Zaplaťte kolik chcete“</string>
     <string name="tasks_org_account_required">Je vyžadován účet na Tasks.org</string>
-    <string name="tasks_org_account">Účet na Tasks.org</string>
     <string name="copied_to_clipboard">%s zkopírováno do schránky</string>
     <string name="app_password_save">Tímto jménem a heslem se můžete přihlásit k Vašemu Tasks.org účtu i v aplikacích třetích stran. Udělují k němu neomezený přistup - uchovávejte je v tajnosti a nikomu je nesdělujte!</string>
     <string name="app_password_delete_confirmation">Všechny aplikace používající toto heslo budou odhlášeny</string>
@@ -668,8 +666,6 @@
     <string name="sort_completion_group">Dokončeno %s</string>
     <string name="enable_reminders">Povolit připomínky</string>
     <string name="enable_reminders_description">Připomínky jsou zakázány v nastavení Android</string>
-    <string name="default_reminder">Výchozí upomínka</string>
-    <string name="rmd_time_description">Zobrazovat upozornění na úkoly bez termínů</string>
     <string name="microsoft_selection_description">Synchronizovat se svým osobním účtem Microsoft</string>
     <string name="sign_in">Přihlásit se</string>
     <string name="sort_not_available">Není k dispozici pro štítky, filtry a místa</string>
@@ -761,4 +757,17 @@
     <string name="returning_user_import_backup">Importovat zálohu Tasks.org</string>
     <string name="import_failed">Import selhal</string>
     <string name="import_failed_message">Nepodařilo se přečíst soubor zálohy</string>
+    <string name="banner_subscription_required_title">Vyžadováno předplatné</string>
+    <string name="banner_subscription_required_body">Zaplaťte, kolik chcete, pro odemknutí synchronizace %s</string>
+    <string name="already_subscribed">Již máte předplatné?</string>
+    <string name="upgrade_subscription_banner">Děkujeme za vaší podporu! Zvyšte své předplatné pro zapnutí cloudové synchronizace Tasks.org</string>
+    <string name="alarm_before">před</string>
+    <string name="alarm_after">po</string>
+    <string name="alarm_start">začátek</string>
+    <string name="alarm_due">konec</string>
+    <string name="email_to_task">E-mail na úkol</string>
+    <string name="email_to_task_address">Vaše e-mailová adresa</string>
+    <string name="email_to_task_calendar">Seznam cílů</string>
+    <string name="regenerate_email_address">Znovu vygenerovat adresu</string>
+    <string name="regenerate_email_address_confirmation">Vaše aktuální e-mailová adresa přestane fungovat</string>
 </resources>

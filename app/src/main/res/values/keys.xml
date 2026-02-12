@@ -13,6 +13,7 @@
   <string name="davx5">DAVx⁵</string>
   <string name="decsync">DecSync CC</string>
   <string name="tasks_org">Tasks.org</string>
+  <string name="tasks_org_account">Tasks.org Cloud</string>
   <string name="microsoft">Microsoft To&#xA0;Do</string>
   <string name="etebase_url">https://api.etebase.com/partner/tasksorg/</string>
   <string name="help_url_sync">https://tasks.org/sync</string>

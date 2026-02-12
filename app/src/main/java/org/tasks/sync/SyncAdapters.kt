@@ -37,8 +37,15 @@ class SyncAdapters @Inject constructor(
     private val refreshBroadcaster: RefreshBroadcaster
 ) {
     private val scope = CoroutineScope(newSingleThreadExecutor().asCoroutineDispatcher() + SupervisorJob())
-    private val sync = Debouncer(TAG_SYNC) { workManager.sync(it) }
-    private val syncStatus = Debouncer("sync_status") { newState ->
+    private val sync = Debouncer(
+        tag = TAG_SYNC,
+        default = SyncSource.NONE,
+        merge = { current, new -> current.upgrade(new) }
+    ) { workManager.sync(it) }
+    private val syncStatus = Debouncer(
+        tag = "sync_status",
+        default = false
+    ) { newState ->
         val currentState = preferences.getBoolean(R.string.p_sync_ongoing_android, false)
         if (currentState != newState && isOpenTaskSyncEnabled()) {
             preferences.setBoolean(R.string.p_sync_ongoing_android, newState)
@@ -57,7 +64,7 @@ class SyncAdapters @Inject constructor(
         val needsIcalendarSync = (task.checkTransitory(FORCE_CALDAV_SYNC) || !task.caldavUpToDate(original))
             && caldavDao.isAccountType(task.id, TYPE_ICALENDAR)
         if (needsGoogleTaskSync || needsMicrosoftSync || needsIcalendarSync) {
-            sync.sync(false)
+            sync.sync(SyncSource.TASK_CHANGE)
         }
     }
 
@@ -65,12 +72,12 @@ class SyncAdapters @Inject constructor(
         syncStatus.sync(active)
     }
 
-    fun sync(immediate: Boolean = false) = scope.launch {
+    fun sync(source: SyncSource) = scope.launch {
         val caldavEnabled = async { isSyncEnabled() }
         val opentasksEnabled = async { isOpenTaskSyncEnabled() }
 
         if (caldavEnabled.await() || opentasksEnabled.await()) {
-            sync.sync(immediate)
+            sync.sync(source)
         }
     }
 

@@ -420,7 +420,6 @@
     <string name="default_random_reminder_disabled">Deaktiveret</string>
     <string name="persistent_notifications_description">Vedvarende meddelelser kan ikke ryddes</string>
     <string name="persistent_notifications">Vedvarende meddelelser</string>
-    <string name="rmd_EPr_rmd_time_desc">Meddelelser om opgaver uden forfaldsdato vises kl. %s</string>
     <string name="rmd_EPr_rmd_time_title">Påmindelsestid</string>
     <string name="snooze_all">Udsæt alle</string>
     <string name="ring_nonstop">Ring uafbrudt</string>
@@ -491,7 +490,6 @@
     <string name="DLG_undo">Fortryd</string>
     <string name="keep_editing">Fortsæt redigering</string>
     <string name="discard_confirmation">Er du sikker på, at du vil kassere dine ændringer\?</string>
-    <string name="tasks_org_account">Tasks.org-konto</string>
     <string name="copied_to_clipboard">%s kopieret til udklipsholder</string>
     <string name="app_password_save">Brug disse loginoplysninger til at konfigurere en tredjepartsapp. De giver fuld adgang til din Tasks.org-konto, så skriv dem ikke ned, og del dem ikke med nogen!</string>
     <string name="app_password_delete_confirmation">Enhver app, der bruger denne adgangskode, logges ud</string>
@@ -644,8 +642,6 @@
     <string name="alarm_before_due">%s før forfald</string>
     <string name="alarm_after_due">%s efter forfald</string>
     <string name="sort_completion_group">Fuldførelse %s</string>
-    <string name="default_reminder">Standardpåmindelse</string>
-    <string name="rmd_time_description">Vis meddelelser om opgaver uden forfaldstid</string>
     <string name="microsoft_selection_description">Synkroniser med din personlige Microsoft-konto</string>
     <string name="enable_reminders">Aktiver påmindelser</string>
     <string name="enable_reminders_description">Påmindelser er deaktiveret i Android-indstillinger</string>

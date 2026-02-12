@@ -116,7 +116,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">El horario en silencio empieza</string>
     <string name="rmd_EPr_quiet_hours_end_title">El horario en silencio termina</string>
     <string name="rmd_EPr_rmd_time_title">Tiempo de recordatorio</string>
-    <string name="rmd_EPr_rmd_time_desc">Las notificaciones de tareas sin fecha límite aparecerán a las %s</string>
     <string name="persistent_notifications">Notificaciones persistentes</string>
     <string name="persistent_notifications_description">Las notificaciones persistentes no se pueden borrar</string>
     <string name="rmd_EPr_defaultRemind_title">Recordatorios aleatorios</string>
@@ -586,7 +585,6 @@
     <string name="sort_start_group">Inicio %s</string>
     <string name="tasks_org_description">Sincronice sus tareas con Tasks.org</string>
     <string name="account_not_included">No incluido con las suscripciones de precio flexible</string>
-    <string name="tasks_org_account">Cuenta de Tasks.org</string>
     <string name="subscription">Suscripción</string>
     <string name="widget_show_title">Mostrar título</string>
     <string name="tasks_org_account_required">Se requiere una cuenta de Tasks.org</string>
@@ -670,8 +668,6 @@
     <string name="TEA_creation_date">Fecha de creación</string>
     <string name="microsoft_selection_description">Sincronizar con su cuenta personal de Microsoft</string>
     <string name="sign_in">Iniciar sesión</string>
-    <string name="default_reminder">Aviso por defecto</string>
-    <string name="rmd_time_description">Mostrar notificaciones de tareas sin fecha de vencimiento</string>
     <string name="sort_list">Por lista</string>
     <string name="sort_ascending">Ascendente</string>
     <string name="sort_sorting">Clasificación</string>

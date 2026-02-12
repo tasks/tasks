@@ -24,6 +24,26 @@
   </PreferenceCategory>
 
   <PreferenceCategory
+    android:key="@string/email_to_task"
+    android:title="@string/email_to_task"
+    app:isPreferenceVisible="false">
+
+    <org.tasks.preferences.IconPreference
+      android:key="@string/email_to_task_address"
+      android:title="@string/email_to_task_address"
+      android:layout="@layout/preference_icon" />
+
+    <Preference
+      android:key="@string/email_to_task_calendar"
+      android:title="@string/email_to_task_calendar" />
+
+    <Preference
+      android:key="@string/regenerate_email_address"
+      android:title="@string/regenerate_email_address" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
     android:key="@string/app_passwords"
     android:title="@string/app_passwords">
   </PreferenceCategory>

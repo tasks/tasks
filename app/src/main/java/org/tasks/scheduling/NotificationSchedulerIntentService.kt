@@ -54,7 +54,6 @@ class NotificationSchedulerIntentService : InjectingJobIntentService() {
         val notificationChannel = NotificationChannel(channelId, channelName, importance)
         notificationChannel.enableLights(alert)
         notificationChannel.enableVibration(alert)
-        notificationChannel.setBypassDnd(alert)
         notificationChannel.setShowBadge(alert)
         return notificationChannel
     }

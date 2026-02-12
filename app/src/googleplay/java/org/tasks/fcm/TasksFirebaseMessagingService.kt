@@ -9,6 +9,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.tasks.jobs.WorkManager
+import org.tasks.sync.SyncSource
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -24,7 +25,7 @@ class TasksFirebaseMessagingService : FirebaseMessagingService() {
         Timber.d("FCM message received: keys=%s", message.data.keys)
         if (message.data["sync"] == "true") {
             scope.launch {
-                workManager.sync(immediate = true)
+                workManager.sync(SyncSource.PUSH_NOTIFICATION)
             }
         }
     }

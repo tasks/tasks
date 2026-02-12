@@ -176,7 +176,6 @@
     <string name="list_members">Članovi popisa</string>
     <string name="account_not_included">Nije uključeno s pretplatama „Odredi tvoju cijenu”</string>
     <string name="tasks_org_account_required">Tasks.org račun je obavezan</string>
-    <string name="tasks_org_account">Tasks.org račun</string>
     <string name="copied_to_clipboard">%s kopirano u međuspremnik</string>
     <string name="app_password_save">Koristi ove podatke za prijavu za konfiguriranje programa treće strane. Oni odobravaju potpuni pristup tvom Tasks.org računu, nemoj ih zapisivati niti dijeliti s bilo kime!</string>
     <string name="app_password_delete_confirmation">Bilo koji program koji koristi lozinku bit će odjavljen</string>
@@ -412,7 +411,6 @@
     <string name="rmd_EPr_defaultRemind_title">Slučajni podsjetnici</string>
     <string name="persistent_notifications_description">Ustrajuća upozorenja se ne mogu izbrisati</string>
     <string name="persistent_notifications">Ustrajuća upozorenja</string>
-    <string name="rmd_EPr_rmd_time_desc">Obavijesti za zadatke bez rokova pojavit će se na %s</string>
     <string name="rmd_EPr_rmd_time_title">Vremenski podsjetnik</string>
     <string name="rmd_EPr_quiet_hours_end_title">Kraj vremena neobavještavanja</string>
     <string name="rmd_EPr_quiet_hours_start_title">Početak vremena neobavještavanja</string>
@@ -670,8 +668,6 @@
     <string name="TEA_creation_date">Datum stvaranja</string>
     <string name="microsoft_selection_description">Sinkroniziraj s tvojim osobnim Microsoft računom</string>
     <string name="sign_in">Prijavi se</string>
-    <string name="default_reminder">Standardni podsjetitelj</string>
-    <string name="rmd_time_description">Prikaži obavijesti za zadatke bez rokova</string>
     <string name="sort_list">Po popisu</string>
     <string name="sort_sorting">Razvrstavanje</string>
     <string name="sort_grouping">Grupiranje</string>

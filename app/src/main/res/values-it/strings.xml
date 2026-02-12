@@ -118,7 +118,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Inizio ore di quiete</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fine ore di quiete</string>
     <string name="rmd_EPr_rmd_time_title">Ora del promemoria</string>
-    <string name="rmd_EPr_rmd_time_desc">Le notifiche per le attività senza scadenza appariranno alle %s</string>
     <string name="persistent_notifications">Notifiche persistenti</string>
     <string name="persistent_notifications_description">Le notifiche persistenti non possono essere cancellate</string>
     <string name="rmd_EPr_defaultRemind_title">Promemoria casuali</string>
@@ -581,7 +580,6 @@
     <string name="copied_to_clipboard">%s copiato</string>
     <string name="local_lists">Liste locali</string>
     <string name="account_not_included">Non incluso negli abbonamenti con prezzo a scelta</string>
-    <string name="tasks_org_account">Account Tasks.org</string>
     <string name="subscription">Abbonamento</string>
     <string name="CFC_startBefore_text">Inizia: \?</string>
     <string name="CFC_startBefore_name">Inizia…</string>
@@ -670,8 +668,6 @@
     <string name="sort_completion_group">Completamento %s</string>
     <string name="microsoft_selection_description">Sincronizzazione con l\'account personale Microsoft</string>
     <string name="sign_in">Accedi</string>
-    <string name="default_reminder">Promemoria predefinito</string>
-    <string name="rmd_time_description">Mostra le notifiche per le attività senza scadenza</string>
     <string name="sort_list">Per lista</string>
     <string name="sort_sorting">Ordinamento</string>
     <string name="sort_grouping">Raggruppamento</string>
@@ -765,4 +761,8 @@
     <string name="already_subscribed">Sei già abbonato?</string>
     <string name="upgrade_subscription_banner">Grazie per il tuo sostegno! Aggiorna il tuo abbonamento per abilitare Tasks.org Cloud Sync</string>
     <string name="banner_subscription_required_body">Paga quanto vuoi per sbloccare la sincronizzazione %s</string>
+    <string name="alarm_before">prima</string>
+    <string name="alarm_after">dopo</string>
+    <string name="alarm_start">inizio</string>
+    <string name="alarm_due">fine</string>
 </resources>

@@ -22,6 +22,7 @@ import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_GO
 import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_TASKS_ORG
 import org.tasks.preferences.fragments.TasksAccount
 import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -59,17 +60,17 @@ class MainPreferences : BasePreferences() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             REQUEST_CALDAV_SETTINGS -> if (resultCode == RESULT_OK) {
-                syncAdapters.sync(true)
+                syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
                 workManager.updateBackgroundSync()
             }
             REQUEST_GOOGLE_TASKS -> if (resultCode == Activity.RESULT_OK) {
-                syncAdapters.sync(true)
+                syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
                 workManager.updateBackgroundSync()
             } else {
                 data?.getStringExtra(GtasksLoginActivity.EXTRA_ERROR)?.let { toast(it) }
             }
             REQUEST_TASKS_ORG -> if (resultCode == Activity.RESULT_OK) {
-                syncAdapters.sync(true)
+                syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
                 workManager.updateBackgroundSync()
                 lifecycleScope.launch {
                     val account = viewModel.tasksAccount() ?: return@launch

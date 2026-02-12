@@ -15,7 +15,7 @@ abstract class Filter : FilterListItem, CommonParcelable {
     abstract val sql: String?
     open val icon: String?
         get() = null
-    abstract val title: String?
+    abstract val title: String
     open val tint: Int
         get() = 0
     @Deprecated("Remove this")

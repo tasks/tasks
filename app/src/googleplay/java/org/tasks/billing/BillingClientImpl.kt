@@ -73,7 +73,8 @@ class BillingClientImpl(
             productDetailsResult.second?.map { productDetails ->
                 Sku(
                     productId = productDetails.productId,
-                    price = productDetails.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice
+                    price = productDetails.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.maxByOrNull { it.priceAmountMicros }?.formattedPrice
+                        ?: productDetails.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.lastOrNull()?.formattedPrice
                         ?: productDetails.oneTimePurchaseOfferDetails?.formattedPrice
                         ?: ""
                 )

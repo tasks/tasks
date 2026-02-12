@@ -247,7 +247,7 @@ class iCalendar @Inject constructor(
             vtodo?.prodId()?.supportsReminders() != true // other client doesn't support reminder sync
         ) {
             task.setDefaultReminders(preferences)
-            alarmService.synchronizeAlarms(task.id, task.getDefaultAlarms().toMutableSet())
+            alarmService.synchronizeAlarms(task.id, task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled).toMutableSet())
         } else if (account.reminderSync) {
             val alarms = alarmDao.getAlarms(task.id).map {
                 it.copy(id = 0, task = 0)

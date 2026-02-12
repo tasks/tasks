@@ -92,7 +92,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Ξεκίνησε η ώρα ησυχίας </string>
     <string name="rmd_EPr_quiet_hours_end_title">Τέλος ώρας κοινής ησυχίας</string>
     <string name="rmd_EPr_rmd_time_title">Ώρα υπενθύμισης</string>
-    <string name="rmd_EPr_rmd_time_desc">Ειδοποιήσεις για εργασίες χωρίς ώρα λήξης θα φαίνονται στις %s</string>
     <string name="rmd_EPr_defaultRemind_title">Τυχαίες υπενθυμίσεις</string>
     <string name="default_random_reminder_disabled">απενεργοποιημένο</string>
     <string name="default_random_reminder_hourly">Ωριαία</string>
@@ -343,7 +342,6 @@
     <string name="error_adding_account">Σφάλμα: %s</string>
     <string name="notification_disable_battery_optimizations_description">Οι βελτιστοποιήσεις μπαταρίας ενδέχεται να καθυστερούν τις ειδοποιήσεις</string>
     <string name="bundle_notifications">Ειδοποιήσεις πακέτου</string>
-    <string name="default_reminder">Προεπιλεγμένη υπενθύμιση</string>
     <string name="badges">Μετάλλια</string>
     <string name="list">Λίστα</string>
     <string name="repeats_from">Επανάληψη από</string>
@@ -375,7 +373,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Να μην προστεθεί στο ημερολόγιο</string>
     <string name="default_calendar">Προεπιλεγμένο ημερολόγιο</string>
-    <string name="rmd_time_description">Να εμφανίζονται ειδοποιήσεις για εργασίες χωρίς τις προθεσμίες</string>
     <string name="badges_description">Εμφάνιση αριθμού εργασιών στο εικονίδιο εκκίνησης της εφαρμογής Tasks. Δεν υποστηρίζουν όλοι οι προωθητές (launchers) μετάλλια/ εικονίδια.</string>
     <string name="bundle_notifications_summary">Συνδυασμός πολλαπλών ενημερώσεων σε μία</string>
     <string name="repeat_monthly_every_day_of_nth_week">κάθε %1$s %2$s</string>
@@ -579,7 +576,6 @@
     <string name="app_password_delete_confirmation">Οποιαδήποτε εφαρμογή χρησιμοποιεί αυτόν τον κωδικό θα αποσυνδεθεί</string>
     <string name="app_password_save">Χρησιμοποιήστε αυτά τα διαπιστευτήρια για να ρυθμίσετε μια εφαρμογή τρίτων. Σας παραχωρούν πλήρη πρόσβαση στο λογαριασμό σας στο Tasks.org, μην τα γράψετε ή τα μοιραστείτε με κανέναν!</string>
     <string name="copied_to_clipboard">%s αντιγράφηκε στο πρόχειρο</string>
-    <string name="tasks_org_account">Λογαριασμός Tasks.org</string>
     <string name="tasks_org_account_required">Χρειάζεται λογαριασμός Tasks.org</string>
     <string name="account_not_included">Δεν περιλαμβάνεται με τις συνδρομές \"Ονομάστε την τιμή σας\"</string>
     <string name="list_members">Μέλη λίστας</string>

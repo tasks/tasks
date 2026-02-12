@@ -51,4 +51,8 @@ data class CaldavCalendar(
     }
 
     fun readOnly(): Boolean = access == ACCESS_READ_ONLY
+
+    /** Extract the URI (last path segment) from the full URL */
+    val calendarUri: String?
+        get() = url?.trimEnd('/')?.substringAfterLast('/')?.takeIf { it.isNotEmpty() }
 }

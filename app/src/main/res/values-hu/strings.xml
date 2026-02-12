@@ -117,7 +117,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Csendes órák kezdete</string>
     <string name="rmd_EPr_quiet_hours_end_title">Csendes órák vége</string>
     <string name="rmd_EPr_rmd_time_title">Emlékeztető időpontja</string>
-    <string name="rmd_EPr_rmd_time_desc">Esedékességi idő nélküli feladatok értesítése %s-kor jelenik meg</string>
     <string name="persistent_notifications">Állandó értesítések</string>
     <string name="persistent_notifications_description">Az állandó értesítések nem törölhetőek</string>
     <string name="rmd_EPr_defaultRemind_title">Véletlenszerű emlékeztetők</string>
@@ -558,7 +557,6 @@
     <string name="default_due_date">Alapértelmezett határidő</string>
     <string name="start_date">Kezdő dátum</string>
     <string name="account_not_included">A \"Nevezd meg az árat\" előfizetés nem tartalmazza</string>
-    <string name="tasks_org_account">Tasks.org fiók</string>
     <string name="sort_due_group">Határidő %s</string>
     <string name="sort_start_group">Kezdés %s</string>
     <string name="tasks_org_description">Feladatok szinkronizálása a Tasks.org-gal</string>
@@ -643,8 +641,6 @@
     <string name="customize_edit_screen_summary">Mezők átrendezése vagy törlése</string>
     <string name="hint_customize_edit_title">Túl sok információ\?</string>
     <string name="hint_customize_edit_body">Ez a képernyő a mezők átrendezésével vagy eltávolításával testre szabható</string>
-    <string name="rmd_time_description">Határidő nélküli feladatok emlékeztetőinek megjelenítése</string>
-    <string name="default_reminder">Alapértelmezett emlékeztető</string>
     <string name="TEA_creation_date">Létrehozás dátuma</string>
     <string name="microsoft_selection_description">Szinkronizálás személyes Microsoft fiókkal</string>
     <string name="sort_completion_group">Elkészültség %s</string>
@@ -747,4 +743,9 @@
     <string name="alarm_after">utána</string>
     <string name="alarm_start">kezdet</string>
     <string name="alarm_due">esedékes</string>
+    <string name="email_to_task">Feladat e-mailből</string>
+    <string name="email_to_task_address">E-mail cím</string>
+    <string name="email_to_task_calendar">Cél lista</string>
+    <string name="regenerate_email_address">Cím újragenerálása</string>
+    <string name="regenerate_email_address_confirmation">A jelenlegi e-mail címed megszűnik működni</string>
 </resources>

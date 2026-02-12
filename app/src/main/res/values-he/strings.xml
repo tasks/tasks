@@ -118,7 +118,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">התחלת שעות שקטות</string>
     <string name="rmd_EPr_quiet_hours_end_title">סיום שעות שקטות</string>
     <string name="rmd_EPr_rmd_time_title">זמן תזכורת</string>
-    <string name="rmd_EPr_rmd_time_desc">התראות עבור משימות ללא זמני יעד יופיעו ב־%s</string>
     <string name="persistent_notifications">התראות מתמשכות</string>
     <string name="persistent_notifications_description">התראות מתמשכות אינן ניתנות לניקוי</string>
     <string name="rmd_EPr_defaultRemind_title">תזכורות אקראיות</string>
@@ -598,7 +597,6 @@
     <string name="list_members">חברי הרשימה</string>
     <string name="account_not_included">לא כלול במינויי \'מה המחיר שלך\'</string>
     <string name="tasks_org_account_required">נדרש חשבון Tasks.org</string>
-    <string name="tasks_org_account">חשבון Tasks.org</string>
     <string name="privacy">פרטיות</string>
     <string name="open_source">קוד פתוח</string>
     <string name="issue_tracker">עוקב בעיות</string>
@@ -650,7 +648,6 @@
         <item quantity="other">שבועות</item>
     </plurals>
     <string name="repeats_weekly_on">חוזר ב</string>
-    <string name="default_reminder">תזכורת ברירת מחדל</string>
     <string name="banner_app_updated_description">היישום Tasks עודכן זה עתה לגרסת %s. האם ברצונך לראות את הערות השחרור?</string>
     <string name="snackbar_task_completed">המשימה הושלמה</string>
     <string name="enable_alarms_description">כדי להבטיח קבלת הודעה בזמן הנכון, יש להעניק הרשאה להגדרת התראות ותזכורות בהגדרות</string>
@@ -697,7 +694,6 @@
     <string name="send_application_logs">שליחת יומני יישום</string>
     <string name="change_priority">שינוי עדיפות</string>
     <string name="repeats_on">מופעל</string>
-    <string name="rmd_time_description">הצגת התראות עבור משימות ללא זמני יעד</string>
     <string name="alarm_before_start">%s לפני מועד התחלה</string>
     <string name="button_learn_more">ללמוד עוד</string>
     <string name="dismiss">התעלמות</string>

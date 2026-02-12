@@ -29,6 +29,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -90,6 +91,8 @@ fun TaskEditScreen(
     dismissBeastMode: () -> Unit,
     deleteComment: (UserActivity) -> Unit,
     onClickDueDate: () -> Unit,
+    onClickRepeat: () -> Unit,
+    repeatRuleToString: (String?) -> String?,
     markdownProvider: MarkdownProvider,
     linkify: Linkify?,
     locale: Locale,
@@ -276,7 +279,18 @@ fun TaskEditScreen(
                     FilesControlSet.TAG -> AndroidFragment<FilesControlSet>()
                     TimerControlSet.TAG -> AndroidFragment<TimerControlSet>()
                     TagsControlSet.TAG -> AndroidFragment<TagsControlSet>()
-                    RepeatControlSet.TAG -> AndroidFragment<RepeatControlSet>()
+                    RepeatControlSet.TAG -> {
+                        val dueDate = editViewModel.dueDate.collectAsStateWithLifecycle().value
+                        LaunchedEffect(dueDate) {
+                            editViewModel.onDueDateChanged()
+                        }
+                        RepeatRow(
+                            recurrence = repeatRuleToString(viewState.task.recurrence),
+                            repeatFrom = viewState.task.repeatFrom,
+                            onClick = onClickRepeat,
+                            onRepeatFromChanged = { editViewModel.setRepeatFrom(it) },
+                        )
+                    }
                     SubtaskControlSet.TAG -> AndroidFragment<SubtaskControlSet>()
                     else -> throw IllegalArgumentException("Unknown row: $tag")
                 }

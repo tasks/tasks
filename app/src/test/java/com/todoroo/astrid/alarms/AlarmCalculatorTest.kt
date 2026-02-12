@@ -45,7 +45,6 @@ class AlarmCalculatorTest {
     fun setUp() {
         random = RandomStub()
         alarmCalculator = AlarmCalculator(
-            isDefaultDueTimeEnabled = true,
             random = random,
             defaultDueTime = TimeUnit.HOURS.toMillis(13).toInt(),
         )
@@ -382,7 +381,6 @@ class AlarmCalculatorTest {
     @Test
     fun randomReminderIsDeterministic() {
         val calculator = AlarmCalculator(
-            isDefaultDueTimeEnabled = true,
             random = Random(),
             defaultDueTime = TimeUnit.HOURS.toMillis(13).toInt(),
         )

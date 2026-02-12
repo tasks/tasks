@@ -5,6 +5,7 @@ import org.tasks.data.entity.Task
 import org.tasks.BuildConfig
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.Place
+import org.tasks.sync.SyncSource
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 interface WorkManager {
@@ -13,7 +14,7 @@ interface WorkManager {
 
     fun migrateLocalTasks(caldavAccount: CaldavAccount)
 
-    suspend fun sync(immediate: Boolean)
+    suspend fun sync(source: SyncSource)
 
     suspend fun startEnqueuedSync()
 

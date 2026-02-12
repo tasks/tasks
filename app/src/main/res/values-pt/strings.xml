@@ -107,7 +107,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Início da hora de silêncio</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fim das horas de silêncio</string>
     <string name="rmd_EPr_rmd_time_title">Hora do lembrete</string>
-    <string name="rmd_EPr_rmd_time_desc">As notificações para tarefas sem data de fim aparecerão às %s</string>
     <string name="persistent_notifications">Notificações persistentes</string>
     <string name="persistent_notifications_description">As notificações persistentes não podem ser eliminadas</string>
     <string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
@@ -539,7 +538,6 @@
     <string name="list_members">Lista de membros</string>
     <string name="account_not_included">Não incluído nas subscrições de \'Dê o seu preço\'</string>
     <string name="tasks_org_account_required">É necessária uma conta no Tasks.org</string>
-    <string name="tasks_org_account">Conta Tasks.org</string>
     <string name="copied_to_clipboard">%s copiado para a área de transferência</string>
     <string name="app_password_save">Use estas credenciais para configurar uma aplicação de terceiros. Elas garantem o acesso completo à sua conta em Task.org, não as escreva nem as partilhe com ninguém!</string>
     <string name="app_password_delete_confirmation">Qualquer aplicação que usar esta palavra-passe será desconectada</string>
@@ -650,8 +648,6 @@
     <string name="TEA_creation_date">Data de criação</string>
     <string name="microsoft_selection_description">Sincronize com a sua conta pessoal Microsoft</string>
     <string name="sign_in">Iniciar sessão</string>
-    <string name="default_reminder">Lembrete predefinido</string>
-    <string name="rmd_time_description">Mostrar notificações para tarefas sem fecho</string>
     <string name="sort_list">Por lista</string>
     <string name="sort_not_available">Não disponível para etiquetas, filtros ou locais</string>
     <string name="sort_sorting">Ordenação</string>

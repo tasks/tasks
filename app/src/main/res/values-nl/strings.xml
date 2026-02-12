@@ -117,7 +117,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Begin rusttijd</string>
     <string name="rmd_EPr_quiet_hours_end_title">Einde rusttijd</string>
     <string name="rmd_EPr_rmd_time_title">Herinneringstijd</string>
-    <string name="rmd_EPr_rmd_time_desc">Meldingen voor taken zonder vervaltijd verschijnen om %s</string>
     <string name="persistent_notifications">Permanente meldingen</string>
     <string name="persistent_notifications_description">Permanente meldingen kunnen niet gewist worden</string>
     <string name="rmd_EPr_defaultRemind_title">Willekeurige herinneringen</string>
@@ -569,7 +568,6 @@
     <string name="sort_start_group">Begin %s</string>
     <string name="tasks_org_description">Taken synchroniseren met Tasks.org</string>
     <string name="account_not_included">Niet inbegrepen bij \"Bepaal je eigen prijs\" abonnementen</string>
-    <string name="tasks_org_account">Tasks.org account</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Titel tonen</string>
     <string name="tasks_org_account_required">Een Tasks.org account vereist</string>
@@ -649,8 +647,6 @@
     <string name="sort_completion_group">Voltooid %s</string>
     <string name="microsoft_selection_description">Synchroniseer met je persoonlijke Microsoft-account</string>
     <string name="sign_in">Log in</string>
-    <string name="default_reminder">Standaardherinnering</string>
-    <string name="rmd_time_description">Toon meldingen voor taken zonder vervaltijd</string>
     <string name="sort_list">Op lijstvolgorde</string>
     <string name="sort_sorting">Sorteren</string>
     <string name="sort_grouping">Groepering</string>

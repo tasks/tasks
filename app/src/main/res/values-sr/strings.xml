@@ -129,7 +129,6 @@
     <string name="snooze_all">Одложи све</string>
     <string name="rmd_EPr_quiet_hours_start_title">Почетак режима без узнемиравања</string>
     <string name="rmd_EPr_quiet_hours_end_title">Завршетак режима без узнемиравања</string>
-    <string name="rmd_EPr_rmd_time_desc">Обавештења за задатке без времена доспећа ће се појавити у %s</string>
     <string name="persistent_notifications">Перзистентна обавештења</string>
     <string name="persistent_notifications_description">Перзистентна обавештења се не могу брисати</string>
     <string name="swipe_to_snooze_title">Превуци за одлагање</string>
@@ -371,7 +370,6 @@
     <string name="url">URL</string>
     <string name="error_adding_account">Грешка: %s</string>
     <string name="notification_disable_battery_optimizations_description">Оптимизација батерије може одложити обавештења</string>
-    <string name="default_reminder">Подразумевани подсетник</string>
     <string name="badges">Беџеви</string>
     <string name="list">Листа</string>
     <string name="repeats_from">Понавља се од</string>
@@ -389,7 +387,6 @@
     <string name="repeats_after">Након</string>
     <string name="dont_add_to_calendar">Не додавати у календар</string>
     <string name="default_calendar">Подразумевани календар</string>
-    <string name="rmd_time_description">Прикажи обавештења за задатке без времена доспећа</string>
     <string name="bundle_notifications_summary">Споји неколико обавештења у једно</string>
     <string name="repeat_monthly_on_day_number">Месечно на дан %1d</string>
     <string name="repeat_monthly_on_the_nth_weekday">Месечно на %1$s %2$s</string>
@@ -673,7 +670,6 @@
     <string name="app_password_delete_confirmation">Свака апликација која користи ову шифру ће бити одјављена</string>
     <string name="app_password_save">Користи ове креденцијале за конфигурацију апликације од треће стране. Они омогућавају потпуни приступ Tasks.org налогу, не записуј их нигде и не дели их ни са ким!</string>
     <string name="copied_to_clipboard">%s копирано у привремену меморију</string>
-    <string name="tasks_org_account">Tasks.org налог</string>
     <string name="tasks_org_account_required">Неопходан налог на Tasks.org</string>
     <string name="account_not_included">Није укључено у ,,Задај цену\'\' тип претплате</string>
     <string name="list_members">Чланови листе</string>
@@ -764,4 +760,8 @@
     <string name="name_your_price_blurb">Плати колико желиш за откључавање тема, иконица и напредних опција синхронизације</string>
     <string name="local_list_description">Задаци у овој листи су смештени на овом уређају. Повежи налог како би заштитио своје податке и приступао њима било где.</string>
     <string name="local_list_title">Ово је локална листа</string>
+    <string name="alarm_due">доспеће</string>
+    <string name="alarm_start">старт</string>
+    <string name="alarm_after">након</string>
+    <string name="alarm_before">пре</string>
 </resources>

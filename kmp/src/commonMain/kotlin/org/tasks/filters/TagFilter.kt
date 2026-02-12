@@ -16,8 +16,8 @@ data class TagFilter(
     override val count: Int = NO_COUNT,
     override var filterOverride: String? = null,
 ) : AstridOrderingFilter() {
-    override val title: String?
-        get() = tagData.name
+    override val title: String
+        get() = tagData.name ?: ""
     override val sql: String
         get() = QueryTemplate()
             .join(inner(Tag.TABLE, Task.ID.eq(Tag.TASK)))

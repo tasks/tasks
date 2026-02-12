@@ -34,7 +34,7 @@
     <string name="TEA_importance_label">優先度</string>
     <string name="no_date">日付なし</string>
     <string name="TEA_note_label">説明</string>
-    <string name="TEA_estimatedDuration_label">所要時間</string>
+    <string name="TEA_estimatedDuration_label">どのくらい時間がかかりますか？</string>
     <string name="TEA_elapsedDuration_label">経過時間</string>
     <string name="save">保存</string>
     <string name="TEA_timer_est">所要時間 %s</string>
@@ -92,14 +92,14 @@
     <string name="custom_filter_and">かつ</string>
     <string name="CFA_button_add">条件を追加</string>
     <string name="CFC_dueBefore_text">締切: \?</string>
-    <string name="CFC_dueBefore_name">…に締切</string>
+    <string name="CFC_dueBefore_name">…までに締切</string>
     <string name="no_due_date">締切日時なし</string>
     <string name="next_month">1 か月後</string>
-    <string name="CFC_importance_text">優先度</string>
+    <string name="CFC_importance_text">優先度は少なくとも？</string>
     <string name="CFC_importance_name">優先度…</string>
     <string name="CFC_tag_text">タグ: ?</string>
     <string name="CFC_tag_name">タグ…</string>
-    <string name="CFC_tag_contains_name">…をタグ名に含む</string>
+    <string name="CFC_tag_contains_name">…のタグ名を含む</string>
     <string name="CFC_tag_contains_text">タグ名に含む: ?</string>
     <string name="CFC_title_contains_name">タイトルに含む…</string>
     <string name="CFC_title_contains_text">タイトルに含む: \?</string>
@@ -123,7 +123,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">おやすみモードの開始時刻</string>
     <string name="rmd_EPr_quiet_hours_end_title">おやすみモードの終了時刻</string>
     <string name="rmd_EPr_rmd_time_title">リマインダーの時刻</string>
-    <string name="rmd_EPr_rmd_time_desc">締切時刻が設定されていないタスクは %s に通知されます</string>
     <string name="persistent_notifications">継続通知</string>
     <string name="persistent_notifications_description">継続通知はクリアできません</string>
     <string name="rmd_EPr_defaultRemind_title">ランダム通知</string>
@@ -348,7 +347,7 @@
     <string name="about">アプリについて</string>
     <string name="license_summary">Tasks は、GNU General Public License v3.0 でライセンスされる、自由オープンソースソフトウェアです</string>
     <string name="pro_dashclock_extension">Dashclock 拡張</string>
-    <string name="requires_pro_subscription">プロ版の購入が必要です</string>
+    <string name="requires_pro_subscription">プロ版の定期購入が必要です</string>
     <string name="logout">ログアウト</string>
     <string name="logout_warning">このアカウントのデータがお使いの端末からすべて削除されます</string>
     <string name="cannot_access_account">アカウントにアクセスできません</string>
@@ -439,7 +438,6 @@
     <string name="sort_created">作成日時</string>
     <string name="display_name">表示名</string>
     <string name="error_adding_account">エラー：%s</string>
-    <string name="tasks_org_account">Tasks.org アカウント</string>
     <string name="copied_to_clipboard">%sをクリップボードにコピーしました</string>
     <string name="hide_unused_places">使われていない場所を隠す</string>
     <string name="place_settings">場所の設定</string>
@@ -456,7 +454,7 @@
     <string name="ok">OK</string>
     <string name="always_display_full_date">完全な日付を表示</string>
     <string name="astrid_sort_order_summary">「マイタスク」「今日」そしてタグにおいて Astrid の手動並べ替えモードを有効にします。この並べ替えモードは将来のアップデートで「マイ設定」に置き換えられる予定です</string>
-    <string name="CFC_startBefore_name">…に着手</string>
+    <string name="CFC_startBefore_name">…までに着手</string>
     <plurals name="reminder_minutes">
         <item quantity="other">分</item>
     </plurals>
@@ -524,8 +522,6 @@
     <string name="hint_customize_edit_body">この画面は、フィールドを並べ替えたり削除してカスタマイズすることができます</string>
     <string name="sign_in">サインイン</string>
     <string name="google_tasks_selection_description">Googleアカウントと同期する基本サービス</string>
-    <string name="default_reminder">デフォルトのリマインダー</string>
-    <string name="rmd_time_description">期限のないタスクの通知を表示します</string>
     <string name="davx5_selection_description">DAVx⁵ でタスクを同期する</string>
     <string name="caldav_account_description">CalDAV サービスプロバイダまたはセルフホストサーバのアカウントが必要です。サービスプロバイダを探すには、tasks.org/caldav にアクセスしてください</string>
     <string name="chips">チップ</string>
@@ -714,4 +710,31 @@
     <string name="sponsorship_required_fdroid">Tasks.orgと同期するには GitHubへの寄付が必要です。寄付をするには下をクリックしてください。</string>
     <string name="already_subscribed">購入済みですか？</string>
     <string name="terms_of_service">サービス規約</string>
+    <string name="subscription_required_fdroid">Tasks.orgと同期するには定期購入が必要です。定期購入はGoogle Play版のTasksアプリからお申し込みください。</string>
+    <string name="upgrade_subscription_banner">ご支援ありがとうございます！ Tasks.org Cloudと同期するために、定期購入をアップグレードしましょう</string>
+    <string name="local_list_description">このリストのタスクは端末内だけに保存されています。保存先アカウントを登録して、データを安全な場所に保存し、どこからでもアクセスできるようにしましょう。</string>
+    <string name="name_your_price_blurb">テーマやアイコンの着せ替え、追加の同期オプションを利用できるようにするためにお好きな金額をお支払いください</string>
+    <string name="alarm_before">前に</string>
+    <string name="alarm_after">後に</string>
+    <string name="alarm_start">着手時間に対して</string>
+    <string name="alarm_due">期限</string>
+    <string name="local_list_title">ローカルリスト（端末内に保存されたリスト）</string>
+    <string name="email_to_task_address">あなたのメールアドレス</string>
+    <string name="regenerate_email_address_confirmation">現在のメールアドレスは使えなくなります</string>
+    <string name="terms_of_service_proper">サービス規約</string>
+    <string name="privacy_policy_proper">個人情報保護</string>
+    <string name="gplv3_license">GPLv3ライセンス</string>
+    <string name="tos_updated_title">サービス規約を改定しました</string>
+    <string name="view_tos">サービス規約を読む</string>
+    <string name="accept">了承</string>
+    <string name="exit">終了する</string>
+    <string name="returning_user">以前利用していましたか？</string>
+    <string name="returning_user_import_backup">Tasks.orgのバックアップを読み込む</string>
+    <string name="legal">法的事項</string>
+    <string name="email_to_task_calendar">送信先リスト</string>
+    <string name="regenerate_email_address">メールアドレスを再登録する</string>
+    <string name="legal_disclosure_prefix_using">Tasks.org使用</string>
+    <string name="legal_disclosure_prefix_continuing">下のボタンのいずれかで続行</string>
+    <string name="email_to_task">タスクをメールする</string>
+    <string name="legal_disclosure">%1$s、あなたは%2$s と%3$sに賛同します。 Tasks は%4$sの下に提供されているオープンソースソフトウェアです。</string>
 </resources>

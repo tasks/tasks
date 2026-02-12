@@ -112,7 +112,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Comeza o tempo en silencio</string>
     <string name="rmd_EPr_quiet_hours_end_title">Rematou o tempo en silencio</string>
     <string name="rmd_EPr_rmd_time_title">Hora de recordatorio</string>
-    <string name="rmd_EPr_rmd_time_desc">As notificacións de tarefas sen vencemento aparecerán ás %s</string>
     <string name="persistent_notifications">Notificacións persistentes</string>
     <string name="persistent_notifications_description">As notificacións persistentes non se poden borrar</string>
     <string name="rmd_EPr_defaultRemind_title">Recordatorios ao chou</string>
@@ -430,7 +429,6 @@
     <string name="last_backup_never">nunca</string>
     <string name="device_settings">Configuracións de dispositivo</string>
     <string name="migrating_tasks">Migrando as tarefas</string>
-    <string name="tasks_org_account">Conta en Tasks.org</string>
     <string name="multi_select_reschedule">Reprogramar</string>
     <string name="SSD_sort_my_order">O meu pedido</string>
     <string name="TEA_control_location">Posición</string>
@@ -562,7 +560,6 @@
     <string name="show_edit_screen_without_unlock_summary">Activa o uso do mosaico Configuración rápida sen desbloquear o dispositivo</string>
     <string name="theme_dynamic">Dinámico</string>
     <string name="continue_without_sync">Continuar sen sincronización</string>
-    <string name="default_reminder">Recordatorio predeterminado</string>
     <string name="repeats_custom_recurrence">Recorrencia personalizada</string>
     <string name="repeats_every">Repítese cada</string>
     <string name="repeats_weekly_on">Repítese o</string>
@@ -570,7 +567,6 @@
     <string name="repeats_on">Aceso</string>
     <string name="repeats_after">Despois de</string>
     <string name="repeats_ends">Remata</string>
-    <string name="rmd_time_description">Mostrar notificacións para tarefas sen data de vencemento</string>
     <string name="repeat_monthly_on_day_number">Mensualmente o día %1d</string>
     <string name="repeat_monthly_on_the_nth_weekday">Mensualmente o %1$s %2$s</string>
     <string name="delete_tasks_warning">%s será eliminado. Isto non se pode desfacer!</string>

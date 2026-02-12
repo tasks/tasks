@@ -23,6 +23,7 @@ import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -66,7 +67,7 @@ class TaskDao @Inject constructor(
 
     suspend fun touch(ids: List<Long>) {
         ids.eachChunk { taskDao.touch(ids) }
-        syncAdapters.sync()
+        syncAdapters.sync(SyncSource.TASK_CHANGE)
     }
 
     suspend fun setOrder(taskId: Long, order: Long?) = taskDao.setOrder(taskId, order)
@@ -81,13 +82,13 @@ class TaskDao @Inject constructor(
 
     suspend fun setCollapsed(id: Long, collapsed: Boolean) {
         taskDao.setCollapsed(listOf(id), collapsed)
-        syncAdapters.sync()
+        syncAdapters.sync(SyncSource.TASK_CHANGE)
         refreshBroadcaster.broadcastRefresh()
     }
 
     suspend fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) {
         taskDao.setCollapsed(preferences, filter, collapsed)
-        syncAdapters.sync()
+        syncAdapters.sync(SyncSource.TASK_CHANGE)
     }
 
     // --- save

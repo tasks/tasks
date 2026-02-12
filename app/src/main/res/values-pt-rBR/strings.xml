@@ -115,7 +115,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Início das horas de silêncio</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fim das horas de silêncio</string>
     <string name="rmd_EPr_rmd_time_title">Hora do lembrete</string>
-    <string name="rmd_EPr_rmd_time_desc">Notificações de tarefas sem tempo de vencimento vão aparecer à(s) %s</string>
     <string name="persistent_notifications">Notificações persistentes</string>
     <string name="persistent_notifications_description">Notificações persistentes não podem ser removidas</string>
     <string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
@@ -568,7 +567,6 @@
     <string name="list_members">Lista de membros</string>
     <string name="account_not_included">Não incluído nas assinaturas de \'Dê o seu preço\'</string>
     <string name="tasks_org_account_required">É necessária uma conta em Tasks.org</string>
-    <string name="tasks_org_account">Conta do Tasks.org</string>
     <string name="copied_to_clipboard">%s copiado para a área de transferência</string>
     <string name="app_password_save">Use essas credenciais para configurar um aplicativo de terceiros. Ela garante acesso completo a sua conta Task.org, não os escreva ou compartilhe com ninguém!</string>
     <string name="app_password_delete_confirmation">Qualquer aplicativo que usar esta senha será desconectado</string>
@@ -664,8 +662,6 @@
     <string name="dismiss">Dispensar</string>
     <string name="hint_customize_edit_title">Informação demais\?</string>
     <string name="hint_customize_edit_body">Você pode personalizar esta tela reordenamento ou removendo campos</string>
-    <string name="default_reminder">Lembrete padrão</string>
-    <string name="rmd_time_description">Mostrar notificações de tarefas sem prazo</string>
     <string name="enable_reminders">Ativar lembretes</string>
     <string name="microsoft_selection_description">Sincronize com sua conta pessoal da Microsoft</string>
     <string name="enable_reminders_description">Os lembretes estão desabilitados nas configurações do Android</string>

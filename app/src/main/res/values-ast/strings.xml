@@ -143,7 +143,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Entama l\'horariu de silenciu</string>
     <string name="rmd_EPr_quiet_hours_end_title">Acaba l\'horariu de silenciu</string>
     <string name="rmd_EPr_rmd_time_title">Hora del recordatoriu</string>
-    <string name="rmd_EPr_rmd_time_desc">Notificaciones pa xeres ensin data de vencimientu aparecerán a les %s</string>
     <string name="persistent_notifications">Notificaciones persistentes</string>
     <string name="persistent_notifications_description">Les notificaciones persistentes nun se pueen desaniciar</string>
     <string name="swipe_to_snooze_title">Desliza pa posponer</string>
@@ -412,7 +411,6 @@
     <string name="error_adding_account">Error:%s</string>
     <string name="notification_disable_battery_optimizations_description">L\'optimización de batería puee retrasar avisos</string>
     <string name="bundle_notifications">Axuntar avisos</string>
-    <string name="default_reminder">Recordatoriu predetermináu</string>
     <string name="badges">Insignies</string>
     <string name="list">Llista</string>
     <string name="repeats_from">Repetir dende</string>
@@ -444,7 +442,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Non amestar al calendariu</string>
     <string name="default_calendar">Calendariu predetermináu</string>
-    <string name="rmd_time_description">Amosar avisos pa xeres ensin data de vencimientu</string>
     <string name="badges_description">Amosar un contador de xeres nel iconu de Tasks del llanzador. Non tolos llanzadores soporten insignies.</string>
     <string name="bundle_notifications_summary">Combinar multiples avisos en uno</string>
     <string name="repeat_monthly_every_day_of_nth_week">cada %1$s%2$s</string>

@@ -3,6 +3,7 @@ package org.tasks.utility
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.os.Build
 import android.widget.Toast.LENGTH_SHORT
 import androidx.core.content.ContextCompat.getSystemService
 import org.tasks.R
@@ -13,6 +14,8 @@ fun copyToClipboard(context: Context, labelRes: Int, message: String) {
     if (clipboard != null) {
         val label = context.getString(labelRes)
         clipboard.setPrimaryClip(ClipData.newPlainText(label, message))
-        context.toast(R.string.copied_to_clipboard, label, duration = LENGTH_SHORT)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            context.toast(R.string.copied_to_clipboard, label, duration = LENGTH_SHORT)
+        }
     }
 }

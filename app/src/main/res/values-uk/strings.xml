@@ -117,7 +117,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Тихий час починається</string>
     <string name="rmd_EPr_quiet_hours_end_title">Тихий час закінчується</string>
     <string name="rmd_EPr_rmd_time_title">Час нагадування</string>
-    <string name="rmd_EPr_rmd_time_desc">Сповіщення для завдань без часу виконання будут з’являтися о %s</string>
     <string name="persistent_notifications">Постійні сповіщення</string>
     <string name="persistent_notifications_description">Постійні сповіщення не можна прибрати</string>
     <string name="rmd_EPr_defaultRemind_title">Випадкові нагадування</string>
@@ -587,7 +586,6 @@
     <string name="sort_start_group">Початок %s</string>
     <string name="tasks_org_description">Синхронізувати ваші завдання з Tasks.org</string>
     <string name="account_not_included">Не входить до передплати \"Назвіть свою ціну\"</string>
-    <string name="tasks_org_account">Обліковий запис Tasks.org</string>
     <string name="subscription">Підписка</string>
     <string name="widget_show_title">Показати заголовок</string>
     <string name="tasks_org_account_required">Потрібен обліковий запис Tasks.org</string>
@@ -677,8 +675,6 @@
     <string name="sort_completion_group">Завершення %s</string>
     <string name="microsoft_selection_description">Синхронізація з особистим обліковим записом Microsoft</string>
     <string name="sign_in">Увійти</string>
-    <string name="rmd_time_description">Показувати сповіщення про завдання без запланованого часу</string>
-    <string name="default_reminder">Типове нагадування</string>
     <string name="sort_list">За списком</string>
     <string name="sort_sorting">Сортування</string>
     <string name="sort_grouping">Групування</string>

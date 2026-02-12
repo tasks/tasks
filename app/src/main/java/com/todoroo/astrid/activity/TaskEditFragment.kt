@@ -22,6 +22,8 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.calendars.CalendarPicker
 import org.tasks.compose.edit.TaskEditScreen
+import org.tasks.repeats.BasicRecurrenceDialog
+import org.tasks.repeats.RepeatRuleToString
 import org.tasks.data.dao.UserActivityDao
 import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DialogBuilder
@@ -50,6 +52,7 @@ class TaskEditFragment : Fragment() {
     @Inject lateinit var chipProvider: ChipProvider
     @Inject lateinit var playServices: PlayServices
     @Inject lateinit var theme: Theme
+    @Inject lateinit var repeatRuleToString: RepeatRuleToString
 
     private val editViewModel: TaskEditViewModel by viewModels()
     private val mainViewModel: MainActivityViewModel by activityViewModels()
@@ -130,6 +133,17 @@ class TaskEditFragment : Fragment() {
                         )
                         .show(parentFragmentManager, FRAG_TAG_DATE_PICKER)
                 },
+                onClickRepeat = {
+                    val vs = editViewModel.viewState.value
+                    BasicRecurrenceDialog.newBasicRecurrenceDialog(
+                        target = this@TaskEditFragment,
+                        rc = REQUEST_RECURRENCE,
+                        rrule = vs.task.recurrence,
+                        dueDate = editViewModel.dueDate.value,
+                        accountType = vs.list.account.accountType,
+                    ).show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
+                },
+                repeatRuleToString = { repeatRuleToString.toString(it) },
                 colorProvider = { chipProvider.getColor(it) },
                 locale = remember { locale },
             )
@@ -180,6 +194,13 @@ class TaskEditFragment : Fragment() {
                     editViewModel.setCalendar(data!!.getStringExtra(CalendarPicker.EXTRA_CALENDAR_ID))
                 }
             }
+            REQUEST_RECURRENCE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    editViewModel.setRecurrence(
+                        data?.getStringExtra(BasicRecurrenceDialog.EXTRA_RRULE)
+                    )
+                }
+            }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
@@ -189,7 +210,9 @@ class TaskEditFragment : Fragment() {
 
         const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
         private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
+        private const val FRAG_TAG_BASIC_RECURRENCE = "frag_tag_basic_recurrence"
         const val REQUEST_CODE_PICK_CALENDAR = 70
         private const val REQUEST_DATE = 504
+        private const val REQUEST_RECURRENCE = 10000
     }
 }

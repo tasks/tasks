@@ -308,7 +308,6 @@
     <string name="theme_system_default">Süsteemi vaikeseade</string>
     <string name="repeats_yearly">iga aasta</string>
     <string name="repeats_custom_recurrence">Vaikimisi kordus</string>
-    <string name="rmd_time_description">Näita teavitusi tähtaegadeta ülesannetele</string>
     <string name="location_remind_departure">Tuleta lahkudes meelde</string>
     <string name="building_notifications">Loon teavitusi</string>
     <string name="whats_new">Mida on uut?</string>
@@ -338,7 +337,6 @@
     <string name="default_tags">Vaikesildid</string>
     <string name="widget_due_date_hidden">Peidetud</string>
     <string name="clear_completed_tasks_confirmation">Kas eemaldame täidetud ülesanded?</string>
-    <string name="default_reminder">Vaikimisi meeldetuletus</string>
     <string name="badges">Märgised</string>
     <string name="repeats_minutely">igas minutis</string>
     <string name="repeats_hourly">igas tunnis</string>
@@ -387,7 +385,6 @@
     <string name="settings_default">Vaikimisi</string>
     <string name="follow_reddit">Liitu grupiga r/tasks</string>
     <string name="support">Tugi</string>
-    <string name="tasks_org_account">Tasks.org konto</string>
     <string name="invite_invalid">Vigane kutse</string>
     <string name="completed">Lõpetatud</string>
     <string name="enable_reminders">Luba meeldetuletused</string>
@@ -522,7 +519,6 @@
     <string name="CFC_dueBefore_name">Tähtajaks…</string>
     <string name="CFC_startBefore_text">Algusajaks: ?</string>
     <string name="gtasks_GLA_errorIOAuth">Vabandust, Google\'i serveri ühendusega on probleeme. Palun proovi hiljem uuesti.</string>
-    <string name="rmd_EPr_rmd_time_desc">Ilma tähtajata ülesannete teavitused on nähtavad %s</string>
     <string name="FLA_search_filter">Vasteks „%s“</string>
     <string name="day_before_due">Päev enne tähtaega</string>
     <string name="week_before_due">Nädal enne tähtaega</string>
@@ -740,4 +736,9 @@
     <string name="alarm_after">peale</string>
     <string name="alarm_start">algus</string>
     <string name="alarm_due">tähtaeg</string>
+    <string name="email_to_task">E-kiri ülesandeks</string>
+    <string name="email_to_task_address">Sinu e-posti aadress</string>
+    <string name="email_to_task_calendar">Sihtkalendrite loend</string>
+    <string name="regenerate_email_address">Loo aadress uuesti</string>
+    <string name="regenerate_email_address_confirmation">Sinu senine e-posti aadress lõpetab toimimise</string>
 </resources>

@@ -116,7 +116,7 @@ class TaskCreator @Inject constructor(
             }
         }
         taskDao.save(task, null)
-        alarmDao.insert(task.getDefaultAlarms())
+        alarmDao.insert(task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled))
         return task
     }
 
@@ -220,12 +220,16 @@ class TaskCreator @Inject constructor(
         private fun Any?.substitute(): String? =
             (this as? String)?.let { PermaSql.replacePlaceholdersForNewTask(it) }
 
-        fun Task.getDefaultAlarms(): List<Alarm> = buildList {
+        fun Task.getDefaultAlarms(defaultRemindersEnabled: Boolean): List<Alarm> = buildList {
             val defaults = getTransitory<List<Alarm>>(Task.TRANS_DEFAULT_ALARMS) ?: emptyList()
             for (alarm in defaults) {
                 when (alarm.type) {
-                    TYPE_REL_START -> if (hasStartDate()) add(alarm.copy(task = id))
-                    TYPE_REL_END -> if (hasDueDate()) add(alarm.copy(task = id))
+                    TYPE_REL_START ->
+                        if (hasStartDate() && (hasStartTime() || defaultRemindersEnabled))
+                            add(alarm.copy(task = id))
+                    TYPE_REL_END ->
+                        if (hasDueDate() && (hasDueTime() || defaultRemindersEnabled))
+                            add(alarm.copy(task = id))
                 }
             }
             if (randomReminder > 0) {

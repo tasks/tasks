@@ -117,7 +117,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Początek czasu wyciszenia</string>
     <string name="rmd_EPr_quiet_hours_end_title">Koniec czasu wyciszenia</string>
     <string name="rmd_EPr_rmd_time_title">Czas przypomnienia</string>
-    <string name="rmd_EPr_rmd_time_desc">Powiadomienia zadań bez odpowiedniego czasu pojawi się na %s</string>
     <string name="persistent_notifications">Natarczywe powiadomienia</string>
     <string name="persistent_notifications_description">Natarczywe powiadomienia nie mogą zostać wyczyszczone</string>
     <string name="rmd_EPr_defaultRemind_title">Losowe przypomnienia</string>
@@ -586,7 +585,6 @@
     <string name="default_start_date">Domyślna data rozpoczęcia</string>
     <string name="start_date">Data rozpoczęcia</string>
     <string name="SSD_sort_start">Wg daty rozpoczęcia</string>
-    <string name="tasks_org_account">Konto Tasks.org</string>
     <string name="subscription">Subskrypcja</string>
     <string name="account_not_included">Nie obejmuje subskrypcji \"Podaj swoją cenę\"</string>
     <string name="widget_show_title">Pokaż tytuł</string>
@@ -673,9 +671,7 @@
     <string name="TEA_creation_date">Data utworzenia</string>
     <string name="sort_completion_group">Ukończono %s</string>
     <string name="enable_reminders_description">Przypomnienia są wyłączone w Ustawieniach Androida</string>
-    <string name="rmd_time_description">Wyświetlanie powiadomień o zadaniach bez terminów do wykonania</string>
     <string name="microsoft_selection_description">Synchronizuj z osobistym kontem Microsoft</string>
-    <string name="default_reminder">Domyślne przypomnienie</string>
     <string name="sign_in">Zaloguj się</string>
     <string name="sort_not_available">Niedostępne dla tagów, filtrów lub miejsc</string>
     <plurals name="repeat_occurrence">

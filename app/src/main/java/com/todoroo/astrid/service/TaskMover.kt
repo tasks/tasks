@@ -13,6 +13,7 @@ import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
@@ -64,7 +65,7 @@ class TaskMover @Inject constructor(
             taskDao.touch(it)
         }
         refreshBroadcaster.broadcastRefresh()
-        syncAdapters.sync()
+        syncAdapters.sync(SyncSource.TASK_CHANGE)
     }
 
     suspend fun migrateLocalTasks() {

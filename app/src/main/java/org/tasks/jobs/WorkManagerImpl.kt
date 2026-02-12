@@ -39,8 +39,7 @@ import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.jobs.DriveUploader.Companion.EXTRA_PURGE
 import org.tasks.jobs.DriveUploader.Companion.EXTRA_URI
 import org.tasks.jobs.MigrateLocalWork.Companion.EXTRA_ACCOUNT
-import org.tasks.jobs.SyncWork.Companion.EXTRA_BACKGROUND
-import org.tasks.jobs.SyncWork.Companion.EXTRA_IMMEDIATE
+import org.tasks.sync.SyncSource
 import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKUP
@@ -87,14 +86,15 @@ class WorkManagerImpl(
 
     override suspend fun startEnqueuedSync() {
         if (getSyncJob().any { it.state == WorkInfo.State.ENQUEUED }) {
-            sync(true)
+            sync(SyncSource.APP_BACKGROUND)
         }
     }
 
     @SuppressLint("EnqueueWork")
-    override suspend fun sync(immediate: Boolean) {
+    override suspend fun sync(source: SyncSource) {
+        val immediate = source != SyncSource.TASK_CHANGE
         val builder = OneTimeWorkRequest.Builder(SyncWork::class.java)
-                .setInputData(EXTRA_IMMEDIATE to immediate)
+                .setInputData(SyncWork.EXTRA_SOURCE to source.name)
         if (!openTaskDao.shouldSync()) {
             builder.setConstraints(networkConstraints)
         }
@@ -102,7 +102,7 @@ class WorkManagerImpl(
             builder.setInitialDelay(1, TimeUnit.MINUTES)
         }
         val append = getSyncJob().any { it.state == WorkInfo.State.RUNNING }
-        Timber.d("sync immediate=$immediate append=$append")
+        Timber.d("sync source=$source immediate=$immediate append=$append")
         enqueue(workManager.beginUniqueWork(
                 TAG_SYNC,
                 if (append) APPEND_OR_REPLACE else REPLACE,
@@ -132,7 +132,7 @@ class WorkManagerImpl(
             if (enabled) {
                 Timber.d("Enabling background sync")
                 val builder = PeriodicWorkRequest.Builder(SyncWork::class.java, 1, TimeUnit.HOURS)
-                    .setInputData(EXTRA_BACKGROUND to true)
+                    .setInputData(SyncWork.EXTRA_SOURCE to SyncSource.BACKGROUND.name)
                     .setConstraints(networkConstraints)
                 workManager.enqueueUniquePeriodicWork(
                     TAG_BACKGROUND_SYNC,

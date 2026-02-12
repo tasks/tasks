@@ -43,6 +43,7 @@ import org.tasks.jobs.WorkManager
 import org.tasks.preferences.fragments.TasksAccountViewModel.Companion.getStringOrNull
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import org.tasks.sync.microsoft.requestTokenExchange
 import javax.inject.Inject
 
@@ -97,7 +98,7 @@ class MicrosoftAuthenticationActivity : ComponentActivity() {
                                 R.string.param_type to Constants.SYNC_TYPE_MICROSOFT
                             )
                         }
-                syncAdapters.sync(true)
+                syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
                 workManager.updateBackgroundSync()
                 finish()
             } else {

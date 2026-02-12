@@ -118,7 +118,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Sessiz saatlerin başlangıcı</string>
     <string name="rmd_EPr_quiet_hours_end_title">Sessiz saatlerin sonu</string>
     <string name="rmd_EPr_rmd_time_title">Anımsatıcı zamanı</string>
-    <string name="rmd_EPr_rmd_time_desc">Bitiş zamanı olmayan görevler için bildirimler şunda gösterilecek: %s</string>
     <string name="persistent_notifications">Kalıcı bildirimler</string>
     <string name="persistent_notifications_description">Kalıcı bildirimler temizlenemez</string>
     <string name="rmd_EPr_defaultRemind_title">Rastgele anımsatıcılar</string>
@@ -569,7 +568,6 @@
     <string name="sort_start_group">%s başlayan</string>
     <string name="tasks_org_description">Görevlerinizi Tasks.org ile eşzamanlayın</string>
     <string name="account_not_included">\'Fiyat belirle\' aboneliklerini içermez</string>
-    <string name="tasks_org_account">Tasks.org hesabı</string>
     <string name="subscription">Abonelik</string>
     <string name="widget_show_title">Başlığı göster</string>
     <string name="tasks_org_account_required">Tasks.org hesabı gerekli</string>
@@ -649,8 +647,6 @@
     <string name="TEA_creation_date">Oluşturulma zamanı</string>
     <string name="microsoft_selection_description">Kişisel Microsoft hesabınızla eşzamanlayın</string>
     <string name="sign_in">Oturum aç</string>
-    <string name="default_reminder">Öntanımlı anımsatıcı</string>
-    <string name="rmd_time_description">Bitiş zamanı olmayan görevler için bildirimleri göster</string>
     <string name="sort_list">Listeye göre</string>
     <string name="repeats_ends">Biter</string>
     <plurals name="repeat_occurrence">

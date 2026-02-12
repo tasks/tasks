@@ -114,7 +114,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Début des heures de repos</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fin des heures de repos</string>
     <string name="rmd_EPr_rmd_time_title">Heure de rappel</string>
-    <string name="rmd_EPr_rmd_time_desc">Les notifications pour les tâches dont les heures d\'échéances ne sont pas renseignées apparaîtront à %s</string>
     <string name="persistent_notifications">Notifications persistantes</string>
     <string name="persistent_notifications_description">Les notifications persistantes ne peuvent pas être effacées</string>
     <string name="rmd_EPr_defaultRemind_title">Rappels aléatoires</string>
@@ -586,7 +585,6 @@
     <string name="sort_start_group">Début %s</string>
     <string name="tasks_org_description">Synchronisez vos tâches avec Tasks.org</string>
     <string name="account_not_included">Non inclus avec les abonnements « Donnez votre prix »</string>
-    <string name="tasks_org_account">Compte « Tasks.org »</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Afficher le titre</string>
     <string name="tasks_org_account_required">Compte « Tasks.org » requis</string>
@@ -670,8 +668,6 @@
     <string name="sort_completion_group">Achèvement %s</string>
     <string name="microsoft_selection_description">Synchroniser avec votre compte « Microsoft » personnel</string>
     <string name="sign_in">Se connecter</string>
-    <string name="default_reminder">Rappel par défaut</string>
-    <string name="rmd_time_description">Afficher les notifications pour les tâches dont les heures d\'échéances ne sont pas renseignées</string>
     <string name="sort_list">Par liste</string>
     <string name="sort_grouping">Regroupement</string>
     <string name="sort_sorting">Tri</string>
@@ -765,4 +761,13 @@
     <string name="banner_subscription_required_title">Abonnement requis</string>
     <string name="banner_subscription_required_body">Payez ce que vous voulez pour déverrouiller la synchronisation %s</string>
     <string name="already_subscribed">Déjà abonné ?</string>
+    <string name="alarm_before">avant</string>
+    <string name="alarm_after">après</string>
+    <string name="alarm_start">début le</string>
+    <string name="alarm_due">échéance le</string>
+    <string name="regenerate_email_address_confirmation">Votre adresse électronique actuelle cessera de fonctionner</string>
+    <string name="email_to_task">Courriel en tâche</string>
+    <string name="email_to_task_address">Votre adresse électronique</string>
+    <string name="email_to_task_calendar">Liste de destination</string>
+    <string name="regenerate_email_address">Regénérer l\'adresse</string>
 </resources>

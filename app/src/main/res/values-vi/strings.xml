@@ -77,7 +77,6 @@
     <string name="list_members">Liệt kê các thành viên</string>
     <string name="account_not_included">Không được bao gồm với các gói đăng ký \'Đặt giá của bạn\'</string>
     <string name="tasks_org_account_required">Yêu cầu tài khoản Tasks.org</string>
-    <string name="tasks_org_account">Tài khoản Tasks.org</string>
     <string name="copied_to_clipboard">Đã sao chép %s vào bộ nhớ tạm</string>
     <string name="app_password_save">Sử dụng thông tin này để thiết lập một ứng dụng bên thứ ba. Chúng cấp quyền truy cập toàn bộ vào tài khoản Tasks.org của bạn, đừng viết chúng ra hoặc chia sẻ chúng với bất kỳ ai!</string>
     <string name="app_password_delete_confirmation">Bất kỳ ứng dụng nào đang sử dụng mật khẩu này sẽ bị đăng xuất</string>
@@ -504,7 +503,6 @@
     <string name="rmd_EPr_defaultRemind_title">Lời nhắc ngẫu nhiên</string>
     <string name="persistent_notifications_description">Thông báo cố định không thể bị xoá</string>
     <string name="persistent_notifications">Thông báo cố định</string>
-    <string name="rmd_EPr_rmd_time_desc">Các thông báo cho các công việc không có ngày hạn sẽ hiện lên ở %s</string>
     <string name="rmd_EPr_rmd_time_title">Thời gian lời nhắc</string>
     <string name="rmd_EPr_quiet_hours_end_title">Giờ im lặng kết thúc</string>
     <string name="rmd_EPr_quiet_hours_start_title">Giờ im lặng bắt đầu</string>
@@ -631,8 +629,6 @@
     <string name="enable_reminders_description">Lời nhắc bị tắt trong cài đặt Android</string>
     <string name="enable_reminders">Bật lời nhắc</string>
     <string name="TEA_creation_date">Ngày tạo</string>
-    <string name="default_reminder">Lời nhắc mặc định</string>
-    <string name="rmd_time_description">Hiện thông báo cho công việc không có hạn chót</string>
     <string name="microsoft_selection_description">Đồng bộ với tài khoản Microsoft cá nhân</string>
     <string name="sign_in">Đăng nhập</string>
     <plurals name="repeat_occurrence">

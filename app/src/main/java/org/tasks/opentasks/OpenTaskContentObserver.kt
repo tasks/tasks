@@ -14,6 +14,7 @@ import org.dmfs.tasks.contract.TaskContract.Tasks
 import org.tasks.R
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -25,6 +26,10 @@ class OpenTaskContentObserver @Inject constructor(
 
     val authority = context.getString(R.string.opentasks_authority)
 
+    private val isSyncOngoing: Boolean
+        get() = preferences.getBoolean(R.string.p_sync_ongoing, false) ||
+                preferences.getBoolean(R.string.p_sync_ongoing_android, false)
+
     override fun onChange(selfChange: Boolean) = onChange(selfChange, null)
 
     override fun onChange(selfChange: Boolean, uri: Uri?) {
@@ -34,15 +39,15 @@ class OpenTaskContentObserver @Inject constructor(
 
             uri.getQueryParameter("caller_is_syncadapter")?.toBoolean() == true-> {
                 Timber.d("onChange uri=$uri")
-                syncAdapters.sync(immediate = true)
+                syncAdapters.sync(SyncSource.CONTENT_OBSERVER)
             }
 
-            preferences.isSyncOngoing ->
+            isSyncOngoing ->
                 Timber.v("Ignoring onChange uri=$uri sync in progress")
 
             else -> {
                 Timber.d("onChange uri=$uri")
-                syncAdapters.sync(immediate = true)
+                syncAdapters.sync(SyncSource.CONTENT_OBSERVER)
             }
         }
     }

@@ -37,9 +37,11 @@ import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
 import org.tasks.opentasks.OpenTaskContentObserver
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.TasksPreferences
 import org.tasks.receivers.RefreshReceiver
 import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import org.tasks.themes.ThemeBase
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
@@ -51,6 +53,7 @@ class TasksApplication : Application(), Configuration.Provider {
 
     @Inject @ApplicationContext lateinit var context: Context
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var tasksPreferences: TasksPreferences
     @Inject lateinit var buildSetup: BuildSetup
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
@@ -73,7 +76,8 @@ class TasksApplication : Application(), Configuration.Provider {
             defaultExceptionHandler?.uncaughtException(thread, throwable) ?: throw throwable
         }
         upgrade()
-        preferences.isSyncOngoing = false
+        preferences.setBoolean(R.string.p_sync_ongoing, false)
+        preferences.setBoolean(R.string.p_sync_ongoing_android, false)
         ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode()
         localBroadcastManager.registerRefreshReceiver(RefreshBroadcastReceiver())
         backgroundWork()
@@ -83,7 +87,7 @@ class TasksApplication : Application(), Configuration.Provider {
                     Timber.d("Application.onResume")
                     localBroadcastManager.broadcastRefresh()
                     if (currentTimeMillis() - preferences.lastSync > TimeUnit.MINUTES.toMillis(5)) {
-                        syncAdapters.get().sync(true)
+                        syncAdapters.get().sync(SyncSource.APP_RESUME)
                     }
                 }
 
@@ -125,6 +129,7 @@ class TasksApplication : Application(), Configuration.Provider {
     }
 
     private fun backgroundWork() = scope.launch {
+        tasksPreferences.set(TasksPreferences.syncSource, SyncSource.NONE.name)
         Iconics.registerFont(OutlinedGoogleMaterial)
         Iconics.registerFont(OutlinedGoogleMaterial2)
         inventory.updateTasksAccount()

@@ -71,7 +71,6 @@
     <string name="remove_user">පරිශීලකයා ඉවත් කරන්නද\?</string>
     <string name="account_not_included">\'ඔබේ මිල නම් කරන්න\' (\'Name your price\') දායකත්වයන් සමඟ ඇතුළත් නොවේ</string>
     <string name="tasks_org_account_required">Tasks.org ගිණුම අවශ්‍යයි</string>
-    <string name="tasks_org_account">Tasks.org ගිණුම</string>
     <string name="copied_to_clipboard">%s ක්ලිප් පුවරුවට පිටපත් කරන ලදි</string>
     <string name="app_password_save">තෙවන පාර්ශවීය යෙදුමක් වින්‍යාස කිරීමට මෙම අක්තපත්‍ර භාවිතා කරන්න. ඒවා ඔබේ Tasks.org ගිණුමට සම්පූර්ණ ප්‍රවේශය ලබා දෙයි. එමනිසා ඒවා ලියා තැබීම හෝ කිසිවෙකු සමඟ බෙදා ගැනීමෙන් වළකින්න!</string>
     <string name="app_password_delete_confirmation">මෙම මුරපදය භාවිතා කරන ඕනෑම යෙදුමක් ඉවත්වනු (signed out) ඇත</string>
@@ -292,7 +291,6 @@
         <item quantity="one">කාර්යය %d</item>
         <item quantity="other">කාර්යයන් %d</item>
     </plurals>
-    <string name="rmd_EPr_rmd_time_desc">නියමිත වේලාවක් නොමැති කාර්යයන් සඳහා දැනුම්දීම් %s හි දිස්වනු ඇත</string>
     <string name="repeat_option_custom">අභිරුචි…</string>
     <string name="repeat_option_every_year">සෑම වසරකම</string>
     <string name="repeat_option_every_month">සෑම මාසයකම</string>

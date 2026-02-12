@@ -21,8 +21,8 @@ data class CaldavFilter(
     override val count: Int = NO_COUNT,
 ) : Filter() {
 
-    override val title: String?
-        get() = calendar.name
+    override val title: String
+        get() = calendar.name ?: ""
 
     override val sql: String
         get() = QueryTemplate()

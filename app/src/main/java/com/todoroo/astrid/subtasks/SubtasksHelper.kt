@@ -34,7 +34,7 @@ class SubtasksHelper @Inject constructor(
     ) {
         if (filter is AstridOrderingFilter && preferences.isAstridSort) {
             var query = filter.sql!!
-            val tagData = tagDataDao.getTagByName(filter.title!!)
+            val tagData = tagDataDao.getTagByName(filter.title)
             val tlm = when {
                 tagData != null ->
                     taskListMetadataDao.fetchByTagOrFilter(tagData.remoteId!!)
