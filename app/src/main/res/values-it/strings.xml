@@ -765,4 +765,7 @@
     <string name="alarm_after">dopo</string>
     <string name="alarm_start">inizio</string>
     <string name="alarm_due">fine</string>
+    <string name="email_to_task_address">Il tuo indirizzo email</string>
+    <string name="regenerate_email_address_confirmation">L\'indirizzo email attuale smetterà di funzionare</string>
+    <string name="advanced_tools_description">Google Places, CalDAV, EteSync ed altro ancora!</string>
 </resources>
