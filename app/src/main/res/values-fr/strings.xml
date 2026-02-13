@@ -770,4 +770,12 @@
     <string name="email_to_task_address">Votre adresse électronique</string>
     <string name="email_to_task_calendar">Liste de destination</string>
     <string name="regenerate_email_address">Regénérer l\'adresse</string>
+    <string name="rmd_EPr_rmd_time_desc">Les notifications pour toutes les tâches quotidiennes apparaîtront à %1$s</string>
+    <string name="default_reminder">Toutes les tâches quotidiennes</string>
+    <string name="add_default_reminders">Ajouter des rappels par défaut</string>
+    <string name="rmd_time_enabled_on">Ajouter des rappels par défaut aux tâches quotidiennes</string>
+    <string name="rmd_time_enabled_off">Ne pas ajouter de rappels par défaut aux tâches quotidiennes</string>
+    <string name="upgrade_email_to_task_description">Transformez vos courriels en tâches en les transférant vers votre boîte de réception privée</string>
+    <string name="advanced_tools">Outils avancés</string>
+    <string name="advanced_tools_description">Google Places, CalDAV, EteSync, et plus encore !</string>
 </resources>
