@@ -737,4 +737,12 @@
     <string name="email_to_task_calendar">目标列表</string>
     <string name="regenerate_email_address_confirmation">您当前的电子邮件地址将停止使用</string>
     <string name="email_to_task">邮件转任务</string>
+    <string name="rmd_EPr_rmd_time_desc">全天任务的通知将显示在 %1$s</string>
+    <string name="default_reminder">全天任务</string>
+    <string name="add_default_reminders">添加默认提醒</string>
+    <string name="rmd_time_enabled_on">为全天任务添加默认提醒</string>
+    <string name="rmd_time_enabled_off">不为全天任务添加默认提醒</string>
+    <string name="upgrade_email_to_task_description">通过将邮件转发至您的专属收件箱即可将其转为任务</string>
+    <string name="advanced_tools">高级工具</string>
+    <string name="advanced_tools_description">Google Places、CalDAV、EteSync 等！</string>
 </resources>
