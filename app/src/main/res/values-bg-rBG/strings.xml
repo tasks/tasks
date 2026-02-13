@@ -748,4 +748,12 @@
     <string name="email_to_task_calendar">Целеви списък</string>
     <string name="regenerate_email_address">Пресъздаване на адреса</string>
     <string name="regenerate_email_address_confirmation">Текущия ел. адрес ще спре да работи</string>
+    <string name="advanced_tools_description">Google Places, CalDAV, EteSync и други!</string>
+    <string name="rmd_EPr_rmd_time_desc">Известията за целодневните задачи ще се показват в %1$s</string>
+    <string name="default_reminder">Целодневни задачи</string>
+    <string name="add_default_reminders">Добавяне на стандартно напомняне</string>
+    <string name="rmd_time_enabled_on">Добавяне на стандартно напомняне към целодневните задачи</string>
+    <string name="rmd_time_enabled_off">Без добавяне на стандартно напомняне към целодневните задачи</string>
+    <string name="upgrade_email_to_task_description">Създаване на задачи от ел. писма, чрез препращането им към личната ви входяща кутия</string>
+    <string name="advanced_tools">Разширени инструменти</string>
 </resources>
