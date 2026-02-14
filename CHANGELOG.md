@@ -1,3 +1,20 @@
+### 14.13 (2026-02-14)
+
+* New design for settings screens
+  * Work in progress - not all screens use the new design yet
+* Improve notifications for all day tasks [#4152](https://github.com/tasks/tasks/issues/4152)
+  * Updated 'Settings > Notifications > All day tasks' section
+* Don't configure notification channels to bypass DnD [#4030](https://github.com/tasks/tasks/discussions/4030)
+  * Only applies to new installs going forward
+* Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580
+  * Czech - @Fjuro
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @ColorfulRhino
+  * Italian - @ppasserini
+
 ### 14.12 (2026-02-11)
 
 * Email-to-task for Tasks.org accounts

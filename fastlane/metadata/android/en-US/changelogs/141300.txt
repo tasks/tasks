@@ -1,0 +1,7 @@
+* New design for settings screens
+  * Work in progress - not all screens use the new design yet
+* Improve notifications for all day tasks
+  * Updated 'Settings > Notifications > All day tasks' section
+* Don't configure notification channels to bypass DnD
+  * Only applies to new installs going forward
+* Update translations
