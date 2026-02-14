@@ -768,4 +768,14 @@
     <string name="email_to_task_address">Il tuo indirizzo email</string>
     <string name="regenerate_email_address_confirmation">L\'indirizzo email attuale smetterà di funzionare</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync ed altro ancora!</string>
+    <string name="rmd_EPr_rmd_time_desc">Le notifiche delle attività per l\'intera giornata verranno visualizzate alle %1$s</string>
+    <string name="default_reminder">Attività per l\'intera giornata</string>
+    <string name="rmd_time_enabled_on">Aggiungi promemoria predefiniti alle attività per l’intera giornata</string>
+    <string name="rmd_time_enabled_off">Non aggiungere promemoria predefiniti alle attività per l’intera giornata</string>
+    <string name="add_default_reminders">Aggiungi promemoria predefiniti</string>
+    <string name="email_to_task">Attività da email</string>
+    <string name="email_to_task_calendar">Lista di destinazione</string>
+    <string name="regenerate_email_address">Generazione nuovo indirizzo email</string>
+    <string name="upgrade_email_to_task_description">Converti le email in attività inoltrandole alla tua casella privata</string>
+    <string name="advanced_tools">Strumenti avanzati</string>
 </resources>
