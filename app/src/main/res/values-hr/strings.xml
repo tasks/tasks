@@ -175,7 +175,7 @@
     <string name="remove_user">Ukloniti korisnika\?</string>
     <string name="list_members">Članovi popisa</string>
     <string name="account_not_included">Nije uključeno s pretplatama „Odredi tvoju cijenu”</string>
-    <string name="tasks_org_account_required">Tasks.org račun je obavezan</string>
+    <string name="tasks_org_account_required">Potreban je Tasks.org račun</string>
     <string name="copied_to_clipboard">%s kopirano u međuspremnik</string>
     <string name="app_password_save">Koristi ove podatke za prijavu za konfiguriranje programa treće strane. Oni odobravaju potpuni pristup tvom Tasks.org računu, nemoj ih zapisivati niti dijeliti s bilo kime!</string>
     <string name="app_password_delete_confirmation">Bilo koji program koji koristi lozinku bit će odjavljen</string>
@@ -718,7 +718,7 @@
     <string name="sync_warning_microsoft_title">O sinkronizaciji s Microsoft To Do</string>
     <string name="sync_warning_google_tasks_title">O sinkronizaciji s Google Tasks</string>
     <string name="button_learn_more">Saznaj više</string>
-    <string name="sync_warning_google_tasks">S Google Tasks se ne sinkroniziraju se svi detalji zadataka.</string>
+    <string name="sync_warning_google_tasks">S Google Tasks se ne sinkroniziraju svi detalji zadataka.</string>
     <string name="delete_comment">komentar</string>
     <string name="cost_free">Besplatno</string>
     <string name="sync_warning_microsoft">S Microsoft To Do se ne sinkroniziraju se svi detalji zadataka.</string>
@@ -765,4 +765,17 @@
     <string name="exit">Zatvori</string>
     <string name="returning_user">Povratni korisnik?</string>
     <string name="returning_user_import_backup">Uvezi Tasks.org sigurnosnu kopiju</string>
+    <string name="rmd_EPr_rmd_time_desc">Obavijesti za cjelodnevne zadatke će se prikazati u %s</string>
+    <string name="default_reminder">Cjelodnevni zadaci</string>
+    <string name="add_default_reminders">Dodaj standardne podsjetnike</string>
+    <string name="rmd_time_enabled_on">Dodaj standardne podsjetnike svim cjelodnevnim zadacima</string>
+    <string name="rmd_time_enabled_off">Nemoj dodavati standardne podsjetnike cjelodnevnim zadacima</string>
+    <string name="email_to_task">E-mail u zadatak</string>
+    <string name="email_to_task_address">Tvoja e-mail adresa</string>
+    <string name="email_to_task_calendar">Popis odredišta</string>
+    <string name="regenerate_email_address">Ponovo generiraj adresu</string>
+    <string name="regenerate_email_address_confirmation">Tvoja će trenutačna e-mail adresa prestati raditi</string>
+    <string name="upgrade_email_to_task_description">Pretvori e-mail poruke u zadatke prosljeđivanjem u tvoju privatnu dolaznu poštu</string>
+    <string name="advanced_tools">Napredni alati</string>
+    <string name="advanced_tools_description">Google Places, CalDAV, EteSync i još više!</string>
 </resources>
