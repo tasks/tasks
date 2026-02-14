@@ -71,6 +71,7 @@ class Upgrader @Inject constructor(
     private val upgrade_13_2: Lazy<Upgrade_13_2>,
     private val upgrade_13_11: Lazy<Upgrade_13_11>,
     private val upgrade_14_11: Lazy<Upgrade_14_11>,
+    private val upgrade_14_13: Lazy<Upgrade_14_13>,
 ) {
 
     fun upgrade(from: Int, to: Int) {
@@ -161,6 +162,9 @@ class Upgrader @Inject constructor(
             }
             run(from, Upgrade_14_11.VERSION) {
                 upgrade_14_11.get().migrateDefaultAlarms()
+            }
+            run(from, Upgrade_14_13.VERSION) {
+                upgrade_14_13.get().deleteAlarmsForAllDayTasks()
             }
             preferences.setBoolean(R.string.p_just_updated, true)
         } else {
@@ -428,6 +432,7 @@ class Upgrader @Inject constructor(
         const val V14_5_4 = 140516
         const val V14_6_1 = 140602
         const val V14_8 = 140800
+        const val V14_13 = 141300
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {
