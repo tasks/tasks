@@ -471,7 +471,7 @@ object PurchaseText {
                             )
                     )
                     CircularProgressIndicator(
-                        color = MaterialTheme.colorScheme.onPrimary,
+                        color = MaterialTheme.colorScheme.primary,
                     )
                 }
             }

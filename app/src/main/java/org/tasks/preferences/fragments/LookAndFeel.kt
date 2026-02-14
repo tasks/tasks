@@ -1,208 +1,212 @@
 package org.tasks.preferences.fragments
 
 import android.app.Activity.RESULT_OK
-import android.content.ComponentName
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
-import androidx.annotation.StringRes
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.fragment.compose.content
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.Preference
-import androidx.preference.SwitchPreferenceCompat
-import com.google.android.material.color.DynamicColors
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastTiramisu
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel
-import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
+import org.tasks.compose.settings.LookAndFeelScreen
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter
 import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.dialogs.ThemePickerDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
-import org.tasks.injection.InjectingPreferenceFragment
+import org.tasks.extensions.Context.openUri
 import org.tasks.locale.LocalePickerDialog
-import org.tasks.preferences.DefaultFilterProvider
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.BasePreferences
+import org.tasks.themes.TasksSettingsTheme
+import org.tasks.themes.Theme
 import org.tasks.themes.ThemeBase
-import org.tasks.themes.ThemeBase.DEFAULT_BASE_THEME
 import org.tasks.themes.ThemeBase.EXTRA_THEME_OVERRIDE
-import org.tasks.themes.ThemeColor
-import org.tasks.themes.ThemeColor.getLauncherColor
-import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LookAndFeel : InjectingPreferenceFragment() {
+class LookAndFeel : Fragment() {
 
-    @Inject lateinit var themeBase: ThemeBase
-    @Inject lateinit var themeColor: ThemeColor
-    @Inject lateinit var preferences: Preferences
-    @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
-    @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
-    @Inject lateinit var inventory: Inventory
-    @Inject lateinit var locale: Locale
+    @Inject lateinit var theme: Theme
+
+    private val viewModel: LookAndFeelViewModel by viewModels()
 
     private val listPickerLauncher = registerForFilterPickerResult {
-        defaultFilterProvider.setDefaultOpenFilter(it)
-        findPreference(R.string.p_default_open_filter).summary = it.title
-        refreshBroadcaster.broadcastRefresh()
+        viewModel.setDefaultFilter(it)
     }
 
-    override fun getPreferenceXml() = R.xml.preferences_look_and_feel
-
-    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
-        val themePref = findPreference(R.string.p_theme)
-        val themeNames = resources.getStringArray(R.array.base_theme_names)
-        themePref.summary = themeNames[themeBase.index]
-        themePref.setOnPreferenceClickListener {
-            newThemePickerDialog(this, REQUEST_THEME_PICKER, themeBase.index)
-                .show(parentFragmentManager, FRAG_TAG_THEME_PICKER)
-            false
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: android.os.Bundle?
+    ) = content {
+        TasksSettingsTheme(
+            theme = theme.themeBase.index,
+            primary = theme.themeColor.primaryColor,
+        ) {
+            LookAndFeelScreen(
+                themeName = viewModel.themeName,
+                dynamicColorAvailable = viewModel.dynamicColorAvailable,
+                dynamicColorEnabled = viewModel.dynamicColorEnabled,
+                dynamicColorProOnly = viewModel.dynamicColorProOnly,
+                themeColor = viewModel.currentThemeColor,
+                launcherColor = viewModel.currentLauncherColor,
+                markdownEnabled = viewModel.markdownEnabled,
+                openLastViewedList = viewModel.openLastViewedList,
+                defaultFilterName = viewModel.defaultFilterName,
+                localeName = viewModel.localeName,
+                onTheme = {
+                    newThemePickerDialog(this@LookAndFeel, REQUEST_THEME_PICKER, theme.themeBase.index)
+                        .show(parentFragmentManager, FRAG_TAG_THEME_PICKER)
+                },
+                onDynamicColor = { enabled ->
+                    viewModel.updateDynamicColor(enabled)
+                },
+                onColor = {
+                    newColorPalette(
+                        this@LookAndFeel,
+                        REQUEST_COLOR_PICKER,
+                        theme.themeColor.pickerColor,
+                        ColorPickerAdapter.Palette.COLORS,
+                    ).show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
+                },
+                onLauncher = {
+                    newColorPalette(
+                        this@LookAndFeel,
+                        REQUEST_LAUNCHER_PICKER,
+                        viewModel.currentLauncherColor,
+                        ColorPickerAdapter.Palette.LAUNCHERS,
+                    ).show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
+                },
+                onMarkdown = { enabled ->
+                    viewModel.updateMarkdown(enabled)
+                },
+                onOpenLastViewedList = { enabled ->
+                    viewModel.updateOpenLastViewedList(enabled)
+                },
+                onDefaultFilter = {
+                    lifecycleScope.launch {
+                        listPickerLauncher.launch(
+                            context = requireContext(),
+                            selectedFilter = viewModel.getDefaultOpenFilter(),
+                        )
+                    }
+                },
+                onLanguage = {
+                    if (atLeastTiramisu()) {
+                        startActivity(
+                            Intent(Settings.ACTION_APP_LOCALE_SETTINGS)
+                                .setData(
+                                    Uri.fromParts(
+                                        "package",
+                                        requireContext().packageName,
+                                        null,
+                                    )
+                                )
+                        )
+                    } else {
+                        val dialog = LocalePickerDialog.newLocalePickerDialog()
+                        dialog.setTargetFragment(this@LookAndFeel, REQUEST_LOCALE)
+                        dialog.show(parentFragmentManager, FRAG_TAG_LOCALE_PICKER)
+                    }
+                },
+                onTranslations = {
+                    context?.openUri(R.string.url_translations)
+                },
+            )
         }
-
-        val defaultList = findPreference(R.string.p_default_open_filter)
-        val filter = defaultFilterProvider.getDefaultOpenFilter()
-        defaultList.summary = filter.title
-        defaultList.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            lifecycleScope.launch {
-                listPickerLauncher.launch(
-                    context = requireContext(),
-                    selectedFilter = defaultFilterProvider.getDefaultOpenFilter(),
-                )
-            }
-            true
-        }
-
-        val languagePreference = findPreference(R.string.p_language)
-        languagePreference.summary = locale.getDisplayName(locale)
-        languagePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            if (atLeastTiramisu()) {
-                startActivity(
-                    Intent(Settings.ACTION_APP_LOCALE_SETTINGS)
-                        .setData(Uri.fromParts("package", requireContext().packageName, null))
-                )
-            } else {
-                val dialog = LocalePickerDialog.newLocalePickerDialog()
-                dialog.setTargetFragment(this, REQUEST_LOCALE)
-                dialog.show(parentFragmentManager, FRAG_TAG_LOCALE_PICKER)
-            }
-            false
-        }
-
-        openUrl(R.string.translations, R.string.url_translations)
-        val themeColor = findPreference(R.string.p_theme_color)
-        val dynamicColor = findPreference(R.string.p_dynamic_color) as SwitchPreferenceCompat
-        themeColor.isVisible = !dynamicColor.isChecked
-        dynamicColor.setOnPreferenceChangeListener { _, newValue ->
-            themeColor.isVisible = !(newValue as Boolean)
-            true
-        }
-        requires(DynamicColors.isDynamicColorAvailable(), R.string.p_dynamic_color)
     }
 
     override fun onResume() {
         super.onResume()
-
-        setupColorPreference(
-            R.string.p_theme_color,
-            themeColor.pickerColor,
-            ColorPickerAdapter.Palette.COLORS,
-            REQUEST_COLOR_PICKER
+        viewModel.refreshState(
+            themeBaseIndex = theme.themeBase.index,
+            themeColorPickerColor = theme.themeColor.pickerColor,
         )
-        updateLauncherPreference()
-
-        if (DynamicColors.isDynamicColorAvailable()) {
-            (findPreference(R.string.p_dynamic_color) as SwitchPreferenceCompat).apply {
-                if (inventory.hasPro) {
-                    summary = null
-                    isEnabled = true
-                } else {
-                    summary = getString(R.string.requires_pro_subscription)
-                    isEnabled = false
-                    isChecked = false
-                }
-            }
+        val surfaceColor = theme.themeBase.getSettingsSurfaceColor(requireActivity())
+        (activity as? BasePreferences)?.toolbar?.let { toolbar ->
+            toolbar.setBackgroundColor(surfaceColor)
+            (toolbar.parent as? View)?.setBackgroundColor(surfaceColor)
         }
     }
 
-    private fun updateLauncherPreference() {
-        val launcher = getLauncherColor(context, preferences.getInt(R.string.p_theme_launcher, 7))
-        setupColorPreference(
-            R.string.p_theme_launcher,
-            launcher.pickerColor,
-            ColorPickerAdapter.Palette.LAUNCHERS,
-            REQUEST_LAUNCHER_PICKER
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val defaultColor = androidx.core.content.ContextCompat.getColor(
+            requireContext(),
+            R.color.content_background,
         )
+        (activity as? BasePreferences)?.toolbar?.let { toolbar ->
+            toolbar.setBackgroundColor(defaultColor)
+            (toolbar.parent as? View)?.setBackgroundColor(defaultColor)
+        }
     }
 
-    private fun setBaseTheme(index: Int) {
+    private fun applyBaseTheme(index: Int) {
         activity?.intent?.removeExtra(EXTRA_THEME_OVERRIDE)
-        preferences.setInt(R.string.p_theme, index)
-        if (themeBase.index != index) {
+        val needsRecreate = viewModel.setBaseTheme(index)
+        if (needsRecreate) {
             Handler().post {
                 ThemeBase(index).setDefaultNightMode()
-                recreate()
+                requireActivity().recreate()
             }
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             REQUEST_PURCHASE -> {
-                val index = if (inventory.hasPro) {
-                    data?.getIntExtra(ThemePickerDialog.EXTRA_SELECTED, DEFAULT_BASE_THEME)
-                            ?: themeBase.index
-                } else preferences.themeBase
-                setBaseTheme(index)
+                val index = viewModel.handlePurchaseResult(data)
+                applyBaseTheme(index)
             }
             REQUEST_THEME_PICKER -> {
-                val index = data?.getIntExtra(ThemePickerDialog.EXTRA_SELECTED, DEFAULT_BASE_THEME)
-                        ?: preferences.themeBase
-                if (resultCode == RESULT_OK) {
-                    if (inventory.purchasedThemes() || ThemeBase(index).isFree) {
-                        setBaseTheme(index)
-                    } else {
+                val selectedIndex = data?.getIntExtra(
+                    ThemePickerDialog.EXTRA_SELECTED,
+                    ThemeBase.DEFAULT_BASE_THEME
+                ) ?: ThemeBase.DEFAULT_BASE_THEME
+                when (val result = viewModel.handleThemePickerResult(resultCode, selectedIndex)) {
+                    is LookAndFeelViewModel.ThemePickerResult.ApplyTheme -> {
+                        applyBaseTheme(result.index)
+                    }
+                    is LookAndFeelViewModel.ThemePickerResult.PurchaseRequired -> {
                         startActivityForResult(
                             Intent(context, PurchaseActivity::class.java)
                                 .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "themes"),
                             REQUEST_PURCHASE
                         )
                     }
-                } else {
-                    setBaseTheme(index)
                 }
             }
             REQUEST_COLOR_PICKER -> {
                 if (resultCode == RESULT_OK) {
                     val color = data?.getIntExtra(
-                            ColorWheelPicker.EXTRA_SELECTED,
-                            themeColor.primaryColor
-                    ) ?: themeColor.primaryColor
-
-                    if (preferences.defaultThemeColor != color) {
-                        preferences.setInt(R.string.p_theme_color, color)
-                        recreate()
+                        ColorWheelPicker.EXTRA_SELECTED,
+                        theme.themeColor.primaryColor
+                    ) ?: theme.themeColor.primaryColor
+                    if (viewModel.handleColorPickerResult(color)) {
+                        requireActivity().recreate()
                     }
                 }
             }
             REQUEST_LAUNCHER_PICKER -> {
                 if (resultCode == RESULT_OK) {
                     val index = data!!.getIntExtra(ColorPalettePicker.EXTRA_SELECTED, 0)
-                    setLauncherIcon(index)
-                    preferences.setInt(R.string.p_theme_launcher, index)
-                    updateLauncherPreference()
+                    viewModel.handleLauncherPickerResult(requireContext(), index)
                 }
             }
             REQUEST_LOCALE -> {
@@ -216,35 +220,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
             else -> {
                 super.onActivityResult(requestCode, resultCode, data)
             }
-        }
-    }
-
-    private fun setLauncherIcon(index: Int) {
-        val packageManager: PackageManager? = context?.packageManager
-        for (i in ThemeColor.LAUNCHERS.indices) {
-            val componentName = ComponentName(
-                requireContext(),
-                "com.todoroo.astrid.activity.TaskListActivity" + ThemeColor.LAUNCHERS[i]
-            )
-            packageManager?.setComponentEnabledSetting(
-                componentName,
-                if (index == i) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP
-            )
-        }
-    }
-
-    private fun setupColorPreference(
-        @StringRes prefId: Int,
-        color: Int,
-        palette: ColorPickerAdapter.Palette,
-        requestCode: Int
-    ) {
-        tintColorPreference(prefId, color)
-        findPreference(prefId).setOnPreferenceClickListener {
-            newColorPalette(this, requestCode, color, palette)
-                .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
-            false
         }
     }
 

@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.ui.draw.alpha
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -47,9 +48,11 @@ enum class CardPosition { Only, First, Middle, Last }
 fun PreferenceRow(
     title: String,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     icon: ImageVector? = null,
     @DrawableRes iconRes: Int? = null,
     iconTint: Color? = null,
+    leading: (@Composable () -> Unit)? = null,
     summary: String? = null,
     summaryMaxLines: Int = 2,
     showWarning: Boolean = false,
@@ -66,14 +69,17 @@ fun PreferenceRow(
         modifier = modifier
             .fillMaxWidth()
             .then(
-                if (onClick != null) Modifier.clickable(onClick = onClick)
+                if (enabled && onClick != null) Modifier.clickable(onClick = onClick)
                 else Modifier
             )
+            .alpha(if (enabled) 1f else 0.38f)
             .padding(vertical = SettingsRowPadding),
         verticalAlignment = Alignment.CenterVertically
     ) {
         // Icon slot
-        if (icon != null) {
+        if (leading != null) {
+            leading()
+        } else if (icon != null) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
