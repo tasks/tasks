@@ -18,6 +18,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -50,6 +51,7 @@ fun PreferenceRow(
     @DrawableRes iconRes: Int? = null,
     iconTint: Color? = null,
     summary: String? = null,
+    summaryMaxLines: Int = 2,
     showWarning: Boolean = false,
     showError: Boolean = false,
     showChevron: Boolean = false,
@@ -112,7 +114,7 @@ fun PreferenceRow(
                     text = summary,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 2,
+                    maxLines = summaryMaxLines,
                     overflow = TextOverflow.Ellipsis
                 )
             }
@@ -210,6 +212,34 @@ fun cardPosition(index: Int, total: Int) = when {
     index == 0 -> CardPosition.First
     index == total - 1 -> CardPosition.Last
     else -> CardPosition.Middle
+}
+
+@Composable
+fun SwitchPreferenceRow(
+    title: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    @DrawableRes iconRes: Int? = null,
+    iconTint: Color? = null,
+    summary: String? = null,
+) {
+    PreferenceRow(
+        title = title,
+        modifier = modifier,
+        iconRes = iconRes,
+        iconTint = iconTint,
+        summary = summary,
+        summaryMaxLines = Int.MAX_VALUE,
+        onClick = { onCheckedChange(!checked) },
+        trailing = {
+            Switch(
+                checked = checked,
+                onCheckedChange = onCheckedChange,
+                modifier = Modifier.padding(end = SettingsContentPadding),
+            )
+        },
+    )
 }
 
 @Composable
