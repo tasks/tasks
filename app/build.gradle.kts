@@ -88,11 +88,10 @@ android {
             }
             val tasks_mapbox_key_debug: String? by project
             val tasks_google_key_debug: String? by project
-            val tasks_posthog_key: String? by project
             val tasks_caldav_url: String? by project
             resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
             resValue("string", "google_key", tasks_google_key_debug ?: "")
-            resValue("string", "posthog_key", tasks_posthog_key ?: "")
+            resValue("string", "posthog_key", "")
             resValue("string", "tasks_caldav_url", tasks_caldav_url ?: "https://caldav.tasks.org")
             resValue("string", "tasks_nominatim_url", tasks_caldav_url ?: "https://nominatim.tasks.org")
             resValue("string", "tasks_places_url", tasks_caldav_url ?: "https://places.tasks.org")

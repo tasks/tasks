@@ -35,8 +35,7 @@ android {
 
     buildTypes {
         debug {
-            val tasks_posthog_key: String? by project
-            resValue("string", "posthog_key", tasks_posthog_key ?: "")
+            resValue("string", "posthog_key", "")
         }
         release {
             val tasks_posthog_key: String? by project
