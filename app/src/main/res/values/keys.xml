@@ -411,6 +411,8 @@
   <string name="event_sync_add_account">sync_add_account</string>
   <string name="event_initial_sync_complete">initial_sync_complete</string>
   <string name="param_task_count">task_count</string>
+  <string name="param_import_count">import_count</string>
+  <string name="param_skip_count">skip_count</string>
   <string name="event_sync_unknown_access">sync_unknown_access</string>
   <string name="event_banner">banner</string>
   <string name="event_add_task">add_task</string>
