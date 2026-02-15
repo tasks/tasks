@@ -1,116 +1,118 @@
 package org.tasks.preferences.fragments
 
-import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.StringRes
-import androidx.lifecycle.lifecycleScope
-import androidx.preference.Preference
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.res.stringResource
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.fragment.compose.content
 import at.bitfire.cert4android.CustomCertManager.Companion.resetCertificates
-import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.billing.BillingClient
-import org.tasks.billing.Inventory
-import org.tasks.data.createDueDate
-import org.tasks.data.entity.Task
+import org.tasks.compose.settings.DebugScreen
 import org.tasks.extensions.Context.toast
-import org.tasks.injection.InjectingPreferenceFragment
-import org.tasks.preferences.Preferences
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import java.util.concurrent.TimeUnit
+import org.tasks.preferences.BasePreferences
+import org.tasks.themes.TasksSettingsTheme
+import org.tasks.themes.Theme
 import javax.inject.Inject
-import kotlin.math.min
 
 @AndroidEntryPoint
-class Debug : InjectingPreferenceFragment() {
+class Debug : Fragment() {
 
-    @Inject lateinit var inventory: Inventory
-    @Inject lateinit var billingClient: BillingClient
-    @Inject lateinit var preferences: Preferences
-    @Inject lateinit var taskCreator: TaskCreator
-    @Inject lateinit var taskDao: com.todoroo.astrid.dao.TaskDao
+    @Inject lateinit var theme: Theme
 
-    override fun getPreferenceXml() = R.xml.preferences_debug
+    private val viewModel: DebugViewModel by viewModels()
 
-    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
-        for (pref in listOf(
-            R.string.p_leakcanary,
-            R.string.p_strict_mode_vm,
-            R.string.p_strict_mode_thread,
-            R.string.p_crash_main_queries
-        )) {
-            findPreference(pref)
-                .setOnPreferenceChangeListener { _: Preference?, _: Any? ->
-                    showRestartDialog()
-                    true
-                }
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: android.os.Bundle?
+    ) = content {
+        TasksSettingsTheme(
+            theme = theme.themeBase.index,
+            primary = theme.themeColor.primaryColor,
+        ) {
+            DebugScreen(
+                leakCanaryEnabled = viewModel.leakCanaryEnabled,
+                strictModeVmEnabled = viewModel.strictModeVmEnabled,
+                strictModeThreadEnabled = viewModel.strictModeThreadEnabled,
+                crashOnViolationEnabled = viewModel.crashOnViolationEnabled,
+                unlockProEnabled = viewModel.unlockProEnabled,
+                iapTitle = viewModel.iapTitle,
+                onLeakCanary = { viewModel.updateLeakCanary(it) },
+                onStrictModeVm = { viewModel.updateStrictModeVm(it) },
+                onStrictModeThread = { viewModel.updateStrictModeThread(it) },
+                onCrashOnViolation = { viewModel.updateCrashOnViolation(it) },
+                onUnlockPro = { viewModel.updateUnlockPro(it) },
+                onResetSsl = {
+                    resetCertificates(requireContext())
+                    context?.toast("SSL certificates reset")
+                },
+                onCrashApp = {
+                    throw RuntimeException("Crashed app from debug preferences")
+                },
+                onRestartApp = {
+                    kotlin.system.exitProcess(0)
+                },
+                onIap = {
+                    viewModel.toggleIap(requireActivity()) {}
+                },
+                onClearHints = {
+                    viewModel.clearHints()
+                },
+                onCreateTasks = {
+                    viewModel.createTasks { count ->
+                        Toast.makeText(context, "Created $count tasks", Toast.LENGTH_SHORT).show()
+                    }
+                },
+            )
 
-        findPreference(R.string.debug_reset_ssl).setOnPreferenceClickListener {
-            resetCertificates(requireContext())
-            context?.toast("SSL certificates reset")
-            false
-        }
-
-        findPreference(R.string.debug_force_restart).setOnPreferenceClickListener {
-            restart()
-            false
-        }
-
-        setupIap(R.string.debug_themes, Inventory.SKU_THEMES)
-
-        findPreference(R.string.debug_crash_app).setOnPreferenceClickListener {
-            throw RuntimeException("Crashed app from debug preferences")
-        }
-
-        findPreference(R.string.debug_clear_hints).setOnPreferenceClickListener {
-            preferences.installDate =
-                min(preferences.installDate, currentTimeMillis() - TimeUnit.DAYS.toMillis(14))
-            preferences.lastSubscribeRequest = 0L
-            preferences.lastReviewRequest = 0L
-            preferences.shownBeastModeHint = false
-            preferences.warnMicrosoft = true
-            preferences.warnGoogleTasks = true
-            preferences.warnQuietHoursDisabled = true
-            preferences.setBoolean(R.string.p_just_updated, true)
-            preferences.setBoolean(R.string.p_local_list_banner_dismissed, false)
-            true
+            if (viewModel.showRestartDialog) {
+                AlertDialog(
+                    onDismissRequest = { viewModel.dismissRestartDialog() },
+                    text = {
+                        Text(stringResource(R.string.restart_required))
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            viewModel.dismissRestartDialog()
+                            kotlin.system.exitProcess(0)
+                        }) {
+                            Text(stringResource(R.string.restart_now))
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { viewModel.dismissRestartDialog() }) {
+                            Text(stringResource(R.string.restart_later))
+                        }
+                    },
+                )
             }
-        findPreference(R.string.debug_create_tasks).setOnPreferenceClickListener {
-            lifecycleScope.launch {
-                val count = 5000
-                for (i in 1..count) {
-                    val task = taskCreator.createWithValues("")
-                    taskDao.createNew(task)
-                    task.title = "Task ${task.id}"
-                    task.dueDate = createDueDate(Task.URGENCY_SPECIFIC_DAY, currentTimeMillis())
-                    taskDao.save(task)
-                }
-                Toast.makeText(context, "Created $count tasks", Toast.LENGTH_SHORT).show()
-            }
-            false
         }
     }
 
-    private fun setupIap(@StringRes prefId: Int, sku: String) {
-        val preference: Preference = findPreference(prefId)
-        if (inventory.getPurchase(sku) == null) {
-            preference.title = getString(R.string.debug_purchase, sku)
-            preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                lifecycleScope.launch {
-                    billingClient.initiatePurchaseFlow(requireActivity().parent, "inapp" /*SkuType.INAPP*/, sku)
-                }
-                false
-            }
-        } else {
-            preference.title = getString(R.string.debug_consume, sku)
-            preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                lifecycleScope.launch {
-                    billingClient.consume(sku)
-                }
-                false
-            }
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshState()
+        val surfaceColor = theme.themeBase.getSettingsSurfaceColor(requireActivity())
+        (activity as? BasePreferences)?.toolbar?.let { toolbar ->
+            toolbar.setBackgroundColor(surfaceColor)
+            (toolbar.parent as? View)?.setBackgroundColor(surfaceColor)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val defaultColor = ContextCompat.getColor(requireContext(), R.color.content_background)
+        (activity as? BasePreferences)?.toolbar?.let { toolbar ->
+            toolbar.setBackgroundColor(defaultColor)
+            (toolbar.parent as? View)?.setBackgroundColor(defaultColor)
         }
     }
 }
