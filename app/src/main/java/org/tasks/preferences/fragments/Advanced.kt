@@ -13,8 +13,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.R
+import org.tasks.compose.FilterSelectionActivity.Companion.launch
+import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
 import org.tasks.compose.settings.AdvancedScreen
 import org.tasks.extensions.Context.takePersistableUriPermission
 import org.tasks.extensions.Context.toast
@@ -30,6 +34,10 @@ class Advanced : Fragment() {
     @Inject lateinit var theme: Theme
 
     private val viewModel: AdvancedViewModel by viewModels()
+
+    private val listPickerLauncher = registerForFilterPickerResult {
+        viewModel.setBadgeFilter(it)
+    }
 
     private val filesDirLauncher = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
@@ -53,6 +61,8 @@ class Advanced : Fragment() {
                 astridSortEnabled = viewModel.astridSortEnabled,
                 attachmentDirSummary = viewModel.attachmentDirSummary,
                 calendarEndAtDueTime = viewModel.calendarEndAtDueTime,
+                badgesEnabled = viewModel.badgesEnabled,
+                badgeFilterName = viewModel.badgeFilterName,
                 onAstridSort = { viewModel.updateAstridSort(it) },
                 onAttachmentDir = {
                     filesDirLauncher.launch(
@@ -63,11 +73,37 @@ class Advanced : Fragment() {
                     )
                 },
                 onCalendarEndAtDueTime = { viewModel.updateCalendarEndAtDueTime(it) },
+                onBadges = { viewModel.updateBadges(it) },
+                onBadgeList = {
+                    lifecycleScope.launch {
+                        listPickerLauncher.launch(
+                            context = requireContext(),
+                            selectedFilter = viewModel.getBadgeFilter(),
+                        )
+                    }
+                },
                 onDeleteCompletedEvents = { viewModel.openDeleteCompletedDialog() },
                 onDeleteAllEvents = { viewModel.openDeleteAllDialog() },
                 onResetPreferences = { viewModel.openResetDialog() },
                 onDeleteTaskData = { viewModel.openDeleteDataDialog() },
             )
+
+            if (viewModel.showRestartDialog) {
+                AlertDialog(
+                    onDismissRequest = { viewModel.dismissRestartDialog() },
+                    text = { Text(stringResource(R.string.restart_required)) },
+                    confirmButton = {
+                        TextButton(onClick = { kotlin.system.exitProcess(0) }) {
+                            Text(stringResource(R.string.restart_now))
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { viewModel.dismissRestartDialog() }) {
+                            Text(stringResource(R.string.restart_later))
+                        }
+                    },
+                )
+            }
 
             if (viewModel.showDeleteCompletedDialog) {
                 AlertDialog(

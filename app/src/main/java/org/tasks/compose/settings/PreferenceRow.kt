@@ -56,6 +56,7 @@ fun PreferenceRow(
     iconTint: Color? = null,
     leading: (@Composable () -> Unit)? = null,
     summary: String? = null,
+    titleMaxLines: Int = 1,
     summaryMaxLines: Int = 2,
     showWarning: Boolean = false,
     showError: Boolean = false,
@@ -116,7 +117,7 @@ fun PreferenceRow(
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.onSurface,
-                maxLines = 1,
+                maxLines = titleMaxLines,
                 overflow = TextOverflow.Ellipsis
             )
             if (!summary.isNullOrBlank()) {

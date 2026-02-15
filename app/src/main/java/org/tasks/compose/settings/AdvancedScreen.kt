@@ -27,9 +27,13 @@ fun AdvancedScreen(
     astridSortEnabled: Boolean,
     attachmentDirSummary: String,
     calendarEndAtDueTime: Boolean,
+    badgesEnabled: Boolean,
+    badgeFilterName: String,
     onAstridSort: (Boolean) -> Unit,
     onAttachmentDir: () -> Unit,
     onCalendarEndAtDueTime: (Boolean) -> Unit,
+    onBadges: (Boolean) -> Unit,
+    onBadgeList: () -> Unit,
     onDeleteCompletedEvents: () -> Unit,
     onDeleteAllEvents: () -> Unit,
     onResetPreferences: () -> Unit,
@@ -88,6 +92,7 @@ fun AdvancedScreen(
             SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(R.string.EPr_manage_delete_completed_gcal),
+                    titleMaxLines = 2,
                     onClick = onDeleteCompletedEvents,
                 )
             }
@@ -95,6 +100,33 @@ fun AdvancedScreen(
                 PreferenceRow(
                     title = stringResource(R.string.EPr_manage_delete_all_gcal),
                     onClick = onDeleteAllEvents,
+                )
+            }
+        }
+
+        // Badges section
+        SectionHeader(
+            R.string.badges,
+            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+        )
+        Column(
+            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+        ) {
+            SettingsItemCard(position = CardPosition.First) {
+                SwitchPreferenceRow(
+                    title = stringResource(R.string.enabled),
+                    summary = stringResource(R.string.badges_description),
+                    checked = badgesEnabled,
+                    onCheckedChange = onBadges,
+                )
+            }
+            SettingsItemCard(position = CardPosition.Last) {
+                PreferenceRow(
+                    title = stringResource(R.string.list),
+                    summary = badgeFilterName,
+                    enabled = badgesEnabled,
+                    onClick = onBadgeList,
                 )
             }
         }

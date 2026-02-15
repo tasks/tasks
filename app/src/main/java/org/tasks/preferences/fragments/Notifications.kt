@@ -28,13 +28,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
-import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.compose.FilterSelectionActivity.Companion.launch
-import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
 import org.tasks.compose.settings.NotificationsScreen
 import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
@@ -53,10 +49,6 @@ class Notifications : Fragment() {
     @Inject lateinit var theme: Theme
 
     private val viewModel: NotificationsViewModel by viewModels()
-
-    private val listPickerLauncher = registerForFilterPickerResult {
-        viewModel.setBadgeFilter(it)
-    }
 
     private val completionSoundLauncher = registerForActivityResult(StartActivityForResult()) { result ->
         viewModel.handleCompletionSoundResult(result.resultCode, result.data)
@@ -116,8 +108,6 @@ class Notifications : Fragment() {
                 snoozeSummary = viewModel.snoozeSummary,
                 defaultRemindersEnabled = viewModel.defaultRemindersEnabled,
                 reminderTimeSummary = viewModel.reminderTimeSummary,
-                badgesEnabled = viewModel.badgesEnabled,
-                badgeFilterName = viewModel.badgeFilterName,
                 quietHoursEnabled = viewModel.quietHoursEnabled,
                 isCurrentlyQuietHours = viewModel.isCurrentlyQuietHours,
                 quietStartSummary = viewModel.quietStartSummary,
@@ -191,15 +181,6 @@ class Notifications : Fragment() {
                     val current = DateTime().withMillisOfDay(millisOfDay)
                     newTimePicker(REQUEST_KEY_DEFAULT_REMIND, current.millis)
                         .show(parentFragmentManager, FRAG_TAG_TIME_PICKER)
-                },
-                onBadges = { viewModel.updateBadges(it) },
-                onBadgeList = {
-                    lifecycleScope.launch {
-                        listPickerLauncher.launch(
-                            context = requireContext(),
-                            selectedFilter = viewModel.getBadgeFilter(),
-                        )
-                    }
                 },
                 onQuietHours = { viewModel.updateQuietHours(it) },
                 onQuietStart = {

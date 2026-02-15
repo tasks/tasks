@@ -35,8 +35,6 @@ fun NotificationsScreen(
     snoozeSummary: String,
     defaultRemindersEnabled: Boolean,
     reminderTimeSummary: String,
-    badgesEnabled: Boolean,
-    badgeFilterName: String,
     quietHoursEnabled: Boolean,
     isCurrentlyQuietHours: Boolean,
     quietStartSummary: String,
@@ -53,8 +51,6 @@ fun NotificationsScreen(
     onSnoozeTime: () -> Unit,
     onDefaultReminders: (Boolean) -> Unit,
     onReminderTime: () -> Unit,
-    onBadges: (Boolean) -> Unit,
-    onBadgeList: () -> Unit,
     onQuietHours: (Boolean) -> Unit,
     onQuietStart: () -> Unit,
     onQuietEnd: () -> Unit,
@@ -221,33 +217,6 @@ fun NotificationsScreen(
                     title = stringResource(R.string.rmd_EPr_rmd_time_title),
                     summary = reminderTimeSummary,
                     onClick = onReminderTime,
-                )
-            }
-        }
-
-        // Badges section
-        SectionHeader(
-            R.string.badges,
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
-        )
-        Column(
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
-            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-        ) {
-            SettingsItemCard(position = CardPosition.First) {
-                SwitchPreferenceRow(
-                    title = stringResource(R.string.enabled),
-                    summary = stringResource(R.string.badges_description),
-                    checked = badgesEnabled,
-                    onCheckedChange = onBadges,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Last) {
-                PreferenceRow(
-                    title = stringResource(R.string.list),
-                    summary = badgeFilterName,
-                    enabled = badgesEnabled,
-                    onClick = onBadgeList,
                 )
             }
         }
