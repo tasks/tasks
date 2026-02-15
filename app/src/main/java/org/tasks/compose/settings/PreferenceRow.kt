@@ -226,6 +226,7 @@ fun SwitchPreferenceRow(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     @DrawableRes iconRes: Int? = null,
     iconTint: Color? = null,
     summary: String? = null,
@@ -233,6 +234,7 @@ fun SwitchPreferenceRow(
     PreferenceRow(
         title = title,
         modifier = modifier,
+        enabled = enabled,
         iconRes = iconRes,
         iconTint = iconTint,
         summary = summary,
@@ -242,6 +244,7 @@ fun SwitchPreferenceRow(
             Switch(
                 checked = checked,
                 onCheckedChange = onCheckedChange,
+                enabled = enabled,
                 modifier = Modifier.padding(end = SettingsContentPadding),
             )
         },
