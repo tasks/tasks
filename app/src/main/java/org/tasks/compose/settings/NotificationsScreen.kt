@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -75,7 +77,7 @@ fun NotificationsScreen(
                 PreferenceRow(
                     title = stringResource(R.string.troubleshooting),
                     summary = stringResource(R.string.notification_troubleshooting_summary),
-                    iconRes = R.drawable.ic_open_in_new_24px,
+                    icon = Icons.AutoMirrored.Outlined.OpenInNew,
                     onClick = onTroubleshooting,
                 )
             }
@@ -84,7 +86,7 @@ fun NotificationsScreen(
                     PreferenceRow(
                         title = stringResource(R.string.disable_battery_optimizations),
                         summary = stringResource(R.string.notification_disable_battery_optimizations_description),
-                        iconRes = R.drawable.ic_open_in_new_24px,
+                        icon = Icons.AutoMirrored.Outlined.OpenInNew,
                         onClick = onBatteryOptimization,
                     )
                 }
@@ -151,7 +153,7 @@ fun NotificationsScreen(
             PreferenceRow(
                 title = stringResource(R.string.more_settings),
                 summary = stringResource(R.string.more_notification_settings_summary),
-                iconRes = R.drawable.ic_open_in_new_24px,
+                icon = Icons.AutoMirrored.Outlined.OpenInNew,
                 onClick = onMoreSettings,
             )
         }

@@ -12,6 +12,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Attachment
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Event
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -55,7 +59,7 @@ fun AdvancedScreen(
             SettingsItemCard(position = CardPosition.Last) {
                 PreferenceRow(
                     title = stringResource(R.string.attachment_directory),
-                    iconRes = R.drawable.ic_outline_attachment_24px,
+                    icon = Icons.Outlined.Attachment,
                     summary = attachmentDirSummary,
                     onClick = onAttachmentDir,
                 )
@@ -72,7 +76,7 @@ fun AdvancedScreen(
             SettingsItemCard(position = CardPosition.First) {
                 SwitchPreferenceRow(
                     title = stringResource(R.string.EPr_cal_end_or_start_at_due_time),
-                    iconRes = R.drawable.ic_outline_event_24px,
+                    icon = Icons.Outlined.Event,
                     summary = if (calendarEndAtDueTime)
                         stringResource(R.string.EPr_cal_start_at_due_time)
                     else
@@ -111,7 +115,7 @@ fun AdvancedScreen(
             SettingsItemCard(position = CardPosition.Last) {
                 PreferenceRow(
                     title = stringResource(R.string.EPr_delete_task_data),
-                    iconRes = R.drawable.ic_outline_delete_24px,
+                    icon = Icons.Outlined.Delete,
                     onClick = onDeleteTaskData,
                 )
             }

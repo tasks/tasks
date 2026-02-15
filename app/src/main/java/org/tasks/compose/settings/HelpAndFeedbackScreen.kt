@@ -12,6 +12,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Attachment
+import androidx.compose.material.icons.outlined.BugReport
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Gavel
+import androidx.compose.material.icons.automirrored.outlined.HelpOutline
+import androidx.compose.material.icons.outlined.NewReleases
+import androidx.compose.material.icons.outlined.PermIdentity
+import androidx.compose.material.icons.outlined.StarBorder
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -56,7 +65,7 @@ fun HelpAndFeedbackScreen(
             ) {
                 PreferenceRow(
                     title = stringResource(R.string.whats_new),
-                    iconRes = R.drawable.ic_outline_new_releases_24px,
+                    icon = Icons.Outlined.NewReleases,
                     summary = stringResource(R.string.version_string, versionName),
                     onClick = onWhatsNew,
                 )
@@ -65,7 +74,7 @@ fun HelpAndFeedbackScreen(
                 SettingsItemCard(position = CardPosition.Last) {
                     PreferenceRow(
                         title = stringResource(R.string.rate_tasks),
-                        iconRes = R.drawable.ic_outline_star_border_24px,
+                        icon = Icons.Outlined.StarBorder,
                         onClick = onRateTasks,
                     )
                 }
@@ -84,28 +93,28 @@ fun HelpAndFeedbackScreen(
             SettingsItemCard(position = CardPosition.First) {
                 PreferenceRow(
                     title = stringResource(R.string.documentation),
-                    iconRes = R.drawable.ic_outline_help_outline_24px,
+                    icon = Icons.AutoMirrored.Outlined.HelpOutline,
                     onClick = onDocumentation,
                 )
             }
             SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(R.string.issue_tracker),
-                    iconRes = R.drawable.ic_outline_bug_report_24px,
+                    icon = Icons.Outlined.BugReport,
                     onClick = onIssueTracker,
                 )
             }
             SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(R.string.contact_developer),
-                    iconRes = R.drawable.ic_outline_email_24px,
+                    icon = Icons.Outlined.Email,
                     onClick = onContactDeveloper,
                 )
             }
             SettingsItemCard(position = CardPosition.Last) {
                 PreferenceRow(
                     title = stringResource(R.string.send_application_logs),
-                    iconRes = R.drawable.ic_outline_attachment_24px,
+                    icon = Icons.Outlined.Attachment,
                     onClick = onSendLogs,
                 )
             }
@@ -159,7 +168,7 @@ fun HelpAndFeedbackScreen(
                 SettingsItemCard(position = CardPosition.Last) {
                     PreferenceRow(
                         title = stringResource(R.string.third_party_licenses),
-                        iconRes = R.drawable.ic_outline_gavel_24px,
+                        icon = Icons.Outlined.Gavel,
                         onClick = onThirdPartyLicenses,
                     )
                 }
@@ -179,14 +188,14 @@ fun HelpAndFeedbackScreen(
                 SettingsItemCard(position = CardPosition.First) {
                     PreferenceRow(
                         title = stringResource(R.string.terms_of_service),
-                        iconRes = R.drawable.ic_outline_gavel_24px,
+                        icon = Icons.Outlined.Gavel,
                         onClick = onTermsOfService,
                     )
                 }
                 SettingsItemCard(position = CardPosition.Last) {
                     PreferenceRow(
                         title = stringResource(R.string.privacy_policy),
-                        iconRes = R.drawable.ic_outline_perm_identity_24px,
+                        icon = Icons.Outlined.PermIdentity,
                         onClick = onPrivacyPolicy,
                     )
                 }
@@ -194,7 +203,7 @@ fun HelpAndFeedbackScreen(
                 SettingsItemCard {
                     PreferenceRow(
                         title = stringResource(R.string.privacy_policy),
-                        iconRes = R.drawable.ic_outline_perm_identity_24px,
+                        icon = Icons.Outlined.PermIdentity,
                         onClick = onPrivacyPolicy,
                     )
                 }
@@ -207,7 +216,7 @@ fun HelpAndFeedbackScreen(
             SettingsItemCard(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
                 SwitchPreferenceRow(
                     title = stringResource(R.string.send_anonymous_statistics),
-                    iconRes = R.drawable.ic_outline_bug_report_24px,
+                    icon = Icons.Outlined.BugReport,
                     summary = stringResource(R.string.send_anonymous_statistics_summary),
                     checked = collectStatistics,
                     onCheckedChange = onCollectStatisticsChanged,

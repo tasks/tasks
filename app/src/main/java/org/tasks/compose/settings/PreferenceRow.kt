@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -133,9 +135,9 @@ fun PreferenceRow(
             trailing()
         } else {
             val trailingIcon = when {
-                showError -> R.drawable.ic_outline_error_outline_24px
-                showWarning -> R.drawable.ic_outline_error_outline_24px
-                showChevron -> R.drawable.ic_keyboard_arrow_right_24px
+                showError -> Icons.Outlined.ErrorOutline
+                showWarning -> Icons.Outlined.ErrorOutline
+                showChevron -> Icons.AutoMirrored.Outlined.KeyboardArrowRight
                 else -> null
             }
             if (trailingIcon != null) {
@@ -145,7 +147,7 @@ fun PreferenceRow(
                     else -> defaultTint
                 }
                 Icon(
-                    painter = painterResource(trailingIcon),
+                    imageVector = trailingIcon,
                     contentDescription = null,
                     modifier = Modifier
                         .padding(end = SettingsContentPadding)
@@ -229,6 +231,7 @@ fun SwitchPreferenceRow(
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    icon: ImageVector? = null,
     @DrawableRes iconRes: Int? = null,
     iconTint: Color? = null,
     summary: String? = null,
@@ -237,6 +240,7 @@ fun SwitchPreferenceRow(
         title = title,
         modifier = modifier,
         enabled = enabled,
+        icon = icon,
         iconRes = iconRes,
         iconTint = iconTint,
         summary = summary,
@@ -260,7 +264,7 @@ fun DangerCard(
     tint: Color,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    @DrawableRes trailingIcon: Int? = null,
+    trailingIcon: ImageVector? = null,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -296,7 +300,7 @@ fun DangerCard(
             )
             if (trailingIcon != null) {
                 Icon(
-                    painter = painterResource(trailingIcon),
+                    imageVector = trailingIcon,
                     contentDescription = null,
                     modifier = Modifier
                         .padding(end = SettingsContentPadding)

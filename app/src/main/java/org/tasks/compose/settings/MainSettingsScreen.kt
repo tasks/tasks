@@ -12,6 +12,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.List
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.Build
+import androidx.compose.material.icons.outlined.BugReport
+import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.Palette
+import androidx.compose.material.icons.outlined.Schedule
+import androidx.compose.material.icons.outlined.SdStorage
+import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -91,7 +104,7 @@ fun MainSettingsScreen(
                     ) {
                         PreferenceRow(
                             title = stringResource(R.string.add_account),
-                            iconRes = R.drawable.ic_outline_add_24px,
+                            icon = Icons.Outlined.Add,
                             onClick = onAddAccountClick
                         )
                     }
@@ -108,14 +121,14 @@ fun MainSettingsScreen(
             SettingsItemCard(position = CardPosition.First) {
                 PreferenceRow(
                     title = stringResource(R.string.preferences_look_and_feel),
-                    iconRes = R.drawable.ic_outline_palette_24px,
+                    icon = Icons.Outlined.Palette,
                     onClick = { onSettingsClick(SettingsDestination.LookAndFeel) }
                 )
             }
             SettingsItemCard(position = CardPosition.Last) {
                 PreferenceRow(
                     title = stringResource(R.string.notifications),
-                    iconRes = R.drawable.ic_outline_notifications_24px,
+                    icon = Icons.Outlined.Notifications,
                     showWarning = showQuietHoursWarning,
                     onClick = { onSettingsClick(SettingsDestination.Notifications) }
                 )
@@ -132,21 +145,21 @@ fun MainSettingsScreen(
             SettingsItemCard(position = CardPosition.First) {
                 PreferenceRow(
                     title = stringResource(R.string.task_defaults),
-                    iconRes = R.drawable.ic_outline_add_24px,
+                    icon = Icons.Outlined.Add,
                     onClick = { onSettingsClick(SettingsDestination.TaskDefaults) }
                 )
             }
             SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(R.string.task_list_options),
-                    iconRes = R.drawable.ic_list_24px,
+                    icon = Icons.AutoMirrored.Outlined.List,
                     onClick = { onSettingsClick(SettingsDestination.TaskList) }
                 )
             }
             SettingsItemCard(position = CardPosition.Last) {
                 PreferenceRow(
                     title = stringResource(R.string.EPr_edit_screen_options),
-                    iconRes = R.drawable.ic_outline_edit_24px,
+                    icon = Icons.Outlined.Edit,
                     onClick = { onSettingsClick(SettingsDestination.TaskEdit) }
                 )
             }
@@ -162,21 +175,21 @@ fun MainSettingsScreen(
             SettingsItemCard(position = CardPosition.First) {
                 PreferenceRow(
                     title = stringResource(R.string.date_and_time),
-                    iconRes = R.drawable.ic_outline_schedule_24px,
+                    icon = Icons.Outlined.Schedule,
                     onClick = { onSettingsClick(SettingsDestination.DateAndTime) }
                 )
             }
             SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(R.string.navigation_drawer),
-                    iconRes = R.drawable.ic_outline_menu_24px,
+                    icon = Icons.Outlined.Menu,
                     onClick = { onSettingsClick(SettingsDestination.NavigationDrawer) }
                 )
             }
             SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(R.string.backup_BPr_header),
-                    iconRes = R.drawable.ic_outline_sd_storage_24px,
+                    icon = Icons.Outlined.SdStorage,
                     showWarning = showBackupWarning,
                     onClick = { onSettingsClick(SettingsDestination.Backups) }
                 )
@@ -185,7 +198,7 @@ fun MainSettingsScreen(
                 SettingsItemCard(position = CardPosition.Middle) {
                     PreferenceRow(
                         title = stringResource(R.string.widget_settings),
-                        iconRes = R.drawable.ic_widgets_24px,
+                        icon = Icons.Outlined.Widgets,
                         onClick = { onSettingsClick(SettingsDestination.Widgets) }
                     )
                 }
@@ -193,7 +206,7 @@ fun MainSettingsScreen(
             SettingsItemCard(position = CardPosition.Last) {
                 PreferenceRow(
                     title = stringResource(R.string.preferences_advanced),
-                    iconRes = R.drawable.ic_outline_build_24px,
+                    icon = Icons.Outlined.Build,
                     onClick = { onSettingsClick(SettingsDestination.Advanced) }
                 )
             }
@@ -211,7 +224,7 @@ fun MainSettingsScreen(
             ) {
                 PreferenceRow(
                     title = stringResource(R.string.about),
-                    iconRes = R.drawable.ic_outline_info_24px,
+                    icon = Icons.Outlined.Info,
                     onClick = { onSettingsClick(SettingsDestination.HelpAndFeedback) }
                 )
             }
@@ -219,7 +232,7 @@ fun MainSettingsScreen(
                 SettingsItemCard(position = CardPosition.Last) {
                     PreferenceRow(
                         title = stringResource(R.string.debug),
-                        iconRes = R.drawable.ic_outline_bug_report_24px,
+                        icon = Icons.Outlined.BugReport,
                         onClick = { onSettingsClick(SettingsDestination.Debug) }
                     )
                 }

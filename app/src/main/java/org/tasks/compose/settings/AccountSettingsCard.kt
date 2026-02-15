@@ -10,7 +10,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.ErrorOutline
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.RemoveCircleOutline
 import androidx.compose.material.icons.outlined.RocketLaunch
 import androidx.compose.material.icons.outlined.WorkspacePremium
@@ -86,7 +90,8 @@ fun AccountSettingsCard(
             val defaultTint = colorResource(R.color.icon_tint_with_alpha)
             val errorColor = colorResource(R.color.overdue)
 
-            var iconRes: Int?
+            var iconVector: ImageVector? = null
+            var iconRes: Int? = null
             val iconTint: Color
             val title: String
             val summary: String?
@@ -94,14 +99,12 @@ fun AccountSettingsCard(
 
             when (state) {
                 is ProCardState.Upgrade -> {
-                    iconRes = null
                     iconTint = ProGoldColor
                     title = stringResource(R.string.upgrade_to_pro)
                     summary = stringResource(R.string.upgrade_to_pro_card_description)
                     showError = false
                 }
                 is ProCardState.Subscribed -> {
-                    iconRes = null
                     iconTint = ProGoldColor
                     title = stringResource(R.string.supporter)
                     val interval = if (state.isMonthly) {
@@ -131,7 +134,7 @@ fun AccountSettingsCard(
                     showError = state.account.hasError
                 }
                 is ProCardState.Donate -> {
-                    iconRes = R.drawable.ic_outline_favorite_border_24px
+                    iconVector = Icons.Outlined.FavoriteBorder
                     iconTint = defaultTint
                     title = stringResource(R.string.donate)
                     summary = stringResource(R.string.donate_nag)
@@ -145,6 +148,13 @@ fun AccountSettingsCard(
             if (iconOverride != null) {
                 Icon(
                     imageVector = iconOverride,
+                    contentDescription = null,
+                    modifier = iconModifier,
+                    tint = iconTint
+                )
+            } else if (iconVector != null) {
+                Icon(
+                    imageVector = iconVector,
                     contentDescription = null,
                     modifier = iconModifier,
                     tint = iconTint
@@ -196,7 +206,7 @@ fun AccountSettingsCard(
                 )
             } else if (showError) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_outline_error_outline_24px),
+                    imageVector = Icons.Outlined.ErrorOutline,
                     contentDescription = null,
                     modifier = Modifier
                         .padding(end = SettingsContentPadding)
@@ -205,7 +215,7 @@ fun AccountSettingsCard(
                 )
             } else if (showChevron) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_keyboard_arrow_right_24px),
+                    imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                     contentDescription = null,
                     modifier = Modifier
                         .padding(end = SettingsContentPadding)
@@ -369,7 +379,7 @@ fun ManageSubscriptionSheetContent(
             icon = Icons.Outlined.RemoveCircleOutline,
             title = stringResource(R.string.button_unsubscribe),
             tint = colorResource(R.color.overdue),
-            trailingIcon = R.drawable.ic_open_in_new_24px,
+            trailingIcon = Icons.AutoMirrored.Outlined.OpenInNew,
             onClick = onCancel,
         )
     }

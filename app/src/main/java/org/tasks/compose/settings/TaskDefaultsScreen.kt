@@ -14,12 +14,23 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.List
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Event
+import androidx.compose.material.icons.outlined.Flag
+import androidx.compose.material.icons.automirrored.outlined.Label
+import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.PendingActions
+import androidx.compose.material.icons.outlined.Place
+import androidx.compose.material.icons.outlined.Repeat
+import androidx.compose.material.icons.outlined.Schedule
+import androidx.compose.material.icons.outlined.VerticalAlignTop
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import org.tasks.R
 
@@ -68,7 +79,7 @@ fun TaskDefaultsScreen(
         SettingsItemCard(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
             SwitchPreferenceRow(
                 title = stringResource(R.string.google_tasks_add_to_top),
-                iconRes = R.drawable.ic_vertical_align_top_24px,
+                icon = Icons.Outlined.VerticalAlignTop,
                 checked = addToTopEnabled,
                 onCheckedChange = onAddToTop,
             )
@@ -84,7 +95,7 @@ fun TaskDefaultsScreen(
             SettingsItemCard(position = CardPosition.First) {
                 PreferenceRow(
                     title = stringResource(R.string.default_list),
-                    iconRes = R.drawable.ic_list_24px,
+                    icon = Icons.AutoMirrored.Outlined.List,
                     summary = defaultListName,
                     onClick = onDefaultList,
                 )
@@ -92,7 +103,7 @@ fun TaskDefaultsScreen(
             SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(R.string.default_tags),
-                    iconRes = R.drawable.ic_outline_label_24px,
+                    icon = Icons.AutoMirrored.Outlined.Label,
                     summary = defaultTagsSummary,
                     onClick = onDefaultTags,
                 )
@@ -100,7 +111,7 @@ fun TaskDefaultsScreen(
             SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(R.string.EPr_default_importance_title),
-                    iconRes = R.drawable.ic_outline_flag_24px,
+                    icon = Icons.Outlined.Flag,
                     summary = importanceSummary,
                     onClick = onImportance,
                 )
@@ -108,7 +119,7 @@ fun TaskDefaultsScreen(
             SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(R.string.default_start_date),
-                    iconRes = R.drawable.ic_pending_actions_24px,
+                    icon = Icons.Outlined.PendingActions,
                     summary = startDateSummary,
                     onClick = onStartDate,
                 )
@@ -116,7 +127,7 @@ fun TaskDefaultsScreen(
             SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(R.string.default_due_date),
-                    iconRes = R.drawable.ic_outline_schedule_24px,
+                    icon = Icons.Outlined.Schedule,
                     summary = dueDateSummary,
                     onClick = onDueDate,
                 )
@@ -124,7 +135,7 @@ fun TaskDefaultsScreen(
             SettingsItemCard(position = CardPosition.Last) {
                 PreferenceRow(
                     title = stringResource(R.string.default_calendar),
-                    iconRes = R.drawable.ic_outline_event_24px,
+                    icon = Icons.Outlined.Event,
                     summary = calendarName,
                     onClick = onCalendar,
                 )
@@ -143,7 +154,7 @@ fun TaskDefaultsScreen(
             SettingsItemCard(position = CardPosition.First) {
                 PreferenceRow(
                     title = stringResource(R.string.EPr_default_reminders_title),
-                    iconRes = R.drawable.ic_outline_notifications_24px,
+                    icon = Icons.Outlined.Notifications,
                     summary = remindersSummary,
                     summaryMaxLines = Int.MAX_VALUE,
                     onClick = onReminders,
@@ -177,7 +188,7 @@ fun TaskDefaultsScreen(
             SettingsItemCard(position = CardPosition.First) {
                 PreferenceRow(
                     title = stringResource(R.string.default_recurrence),
-                    iconRes = R.drawable.ic_outline_repeat_24px,
+                    icon = Icons.Outlined.Repeat,
                     summary = recurrenceSummary,
                     onClick = onRecurrence,
                 )
@@ -203,13 +214,13 @@ fun TaskDefaultsScreen(
             SettingsItemCard(position = CardPosition.First) {
                 PreferenceRow(
                     title = stringResource(R.string.default_location),
-                    iconRes = R.drawable.ic_outline_place_24px,
+                    icon = Icons.Outlined.Place,
                     summary = locationName,
                     onClick = onLocation,
                     trailing = if (hasDefaultLocation) {
                         {
                             Icon(
-                                painter = painterResource(R.drawable.ic_outline_delete_24px),
+                                imageVector = Icons.Outlined.Delete,
                                 contentDescription = null,
                                 modifier = Modifier
                                     .padding(end = SettingsContentPadding)

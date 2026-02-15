@@ -22,7 +22,14 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.automirrored.outlined.Logout
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.Autorenew
+import androidx.compose.material.icons.outlined.ContentCopy
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -69,6 +76,7 @@ fun TasksAccountScreen(
     account: CaldavAccount?,
     isGithub: Boolean,
     hasSubscription: Boolean,
+    isTasksSubscription: Boolean,
     localListCount: Int,
     localListSummary: String,
     inboundEmail: String?,
@@ -102,7 +110,8 @@ fun TasksAccountScreen(
 ) {
     var showLogoutDialog by rememberSaveable { mutableStateOf(false) }
     var showRegenerateDialog by rememberSaveable { mutableStateOf(false) }
-    var showDeletePasswordDialog by rememberSaveable { mutableStateOf<Pair<Int, String>?>(null) }
+    var deletePasswordId by rememberSaveable { mutableStateOf<Int?>(null) }
+    var deletePasswordDescription by rememberSaveable { mutableStateOf<String?>(null) }
     var showDescriptionDialog by rememberSaveable { mutableStateOf(false) }
     var showCalendarDialog by rememberSaveable { mutableStateOf(false) }
     var showManageSheet by rememberSaveable { mutableStateOf(false) }
@@ -121,6 +130,7 @@ fun TasksAccountScreen(
                 account = account,
                 isGithub = isGithub,
                 hasSubscription = hasSubscription,
+                isTasksSubscription = isTasksSubscription,
                 onSignIn = onSignIn,
                 onSubscribe = onSubscribe,
                 onOpenSponsor = onOpenSponsor,
@@ -153,15 +163,17 @@ fun TasksAccountScreen(
                     PreferenceRow(
                         title = stringResource(R.string.email_to_task_address),
                         summary = inboundEmail,
+                        icon = Icons.Outlined.Email,
+                        onClick = onCopyEmail,
                         trailing = {
-                            IconButton(onClick = onCopyEmail) {
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_content_copy_24px),
-                                    contentDescription = null,
-                                    modifier = Modifier.size(SettingsIconSize),
-                                    tint = colorResource(R.color.icon_tint_with_alpha),
-                                )
-                            }
+                            Icon(
+                                imageVector = Icons.Outlined.ContentCopy,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .padding(end = SettingsContentPadding)
+                                    .size(SettingsIconSize),
+                                tint = colorResource(R.color.icon_tint_with_alpha),
+                            )
                         },
                     )
                 }
@@ -169,12 +181,14 @@ fun TasksAccountScreen(
                     PreferenceRow(
                         title = stringResource(R.string.email_to_task_calendar),
                         summary = inboundCalendarName ?: stringResource(R.string.none),
+                        icon = Icons.AutoMirrored.Outlined.List,
                         onClick = { showCalendarDialog = true },
                     )
                 }
                 SettingsItemCard(position = CardPosition.Last) {
                     PreferenceRow(
                         title = stringResource(R.string.regenerate_email_address),
+                        icon = Icons.Outlined.Autorenew,
                         onClick = { showRegenerateDialog = true },
                     )
                 }
@@ -205,10 +219,11 @@ fun TasksAccountScreen(
                         summary = summary,
                         trailing = {
                             IconButton(onClick = {
-                                showDeletePasswordDialog = Pair(pw.sessionId, description)
+                                deletePasswordId = pw.sessionId
+                                deletePasswordDescription = description
                             }) {
                                 Icon(
-                                    painter = painterResource(R.drawable.ic_outline_delete_24px),
+                                    imageVector = Icons.Outlined.Delete,
                                     contentDescription = null,
                                     modifier = Modifier.size(SettingsIconSize),
                                     tint = colorResource(R.color.icon_tint_with_alpha),
@@ -223,7 +238,7 @@ fun TasksAccountScreen(
             ) {
                 PreferenceRow(
                     title = stringResource(R.string.generate_new_password),
-                    iconRes = R.drawable.ic_outline_add_24px,
+                    icon = Icons.Outlined.Add,
                     onClick = { showDescriptionDialog = true },
                 )
             }
@@ -241,7 +256,7 @@ fun TasksAccountScreen(
             ) {
                 PreferenceRow(
                     title = stringResource(R.string.add_account),
-                    iconRes = R.drawable.ic_outline_add_24px,
+                    icon = Icons.Outlined.Add,
                     onClick = onAddAccount,
                 )
             }
@@ -312,21 +327,30 @@ fun TasksAccountScreen(
         )
     }
 
-    showDeletePasswordDialog?.let { (id, description) ->
+    if (deletePasswordId != null && deletePasswordDescription != null) {
         AlertDialog(
-            onDismissRequest = { showDeletePasswordDialog = null },
-            title = { Text(stringResource(R.string.delete_tag_confirmation, description)) },
+            onDismissRequest = {
+                deletePasswordId = null
+                deletePasswordDescription = null
+            },
+            title = { Text(stringResource(R.string.delete_tag_confirmation, deletePasswordDescription!!)) },
             text = { Text(stringResource(R.string.app_password_delete_confirmation)) },
             confirmButton = {
                 TextButton(onClick = {
-                    showDeletePasswordDialog = null
-                    onDeletePassword(id, description)
+                    val id = deletePasswordId!!
+                    val desc = deletePasswordDescription!!
+                    deletePasswordId = null
+                    deletePasswordDescription = null
+                    onDeletePassword(id, desc)
                 }) {
                     Text(stringResource(R.string.ok))
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showDeletePasswordDialog = null }) {
+                TextButton(onClick = {
+                    deletePasswordId = null
+                    deletePasswordDescription = null
+                }) {
                     Text(stringResource(R.string.cancel))
                 }
             },
@@ -438,6 +462,7 @@ private fun ErrorBannerCard(
     account: CaldavAccount,
     isGithub: Boolean,
     hasSubscription: Boolean,
+    isTasksSubscription: Boolean,
     onSignIn: () -> Unit,
     onSubscribe: () -> Unit,
     onOpenSponsor: () -> Unit,
@@ -461,7 +486,7 @@ private fun ErrorBannerCard(
                 } else {
                     onOpenSponsor
                 }
-            } else if (!hasSubscription) {
+            } else if (!hasSubscription || isTasksSubscription) {
                 title = stringResource(R.string.button_subscribe)
                 summary = stringResource(R.string.your_subscription_expired)
                 onClick = onSubscribe
@@ -500,7 +525,7 @@ private fun ErrorBannerCard(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
-                painter = painterResource(R.drawable.ic_outline_error_outline_24px),
+                imageVector = Icons.Outlined.ErrorOutline,
                 contentDescription = null,
                 modifier = Modifier
                     .padding(start = SettingsContentPadding)
@@ -610,7 +635,7 @@ private fun CopyableField(
         trailingIcon = {
             IconButton(onClick = onCopy) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_content_copy_24px),
+                    imageVector = Icons.Outlined.ContentCopy,
                     contentDescription = null,
                 )
             }

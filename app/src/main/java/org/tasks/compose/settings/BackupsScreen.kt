@@ -12,6 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
+import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -58,7 +61,7 @@ fun BackupsScreen(
         SettingsItemCard(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
             PreferenceRow(
                 title = stringResource(R.string.documentation),
-                iconRes = R.drawable.ic_open_in_new_24px,
+                icon = Icons.AutoMirrored.Outlined.OpenInNew,
                 onClick = onDocumentation,
             )
         }
@@ -124,8 +127,8 @@ fun BackupsScreen(
                     summary = lastDriveBackupSummary,
                     checked = driveBackupEnabled,
                     onCheckedChange = onDriveBackup,
-                    iconRes = if (showDriveBackupWarning)
-                        R.drawable.ic_outline_error_outline_24px else null,
+                    icon = if (showDriveBackupWarning)
+                        Icons.Outlined.ErrorOutline else null,
                     iconTint = if (showDriveBackupWarning) errorColor else null,
                 )
             }
@@ -155,8 +158,8 @@ fun BackupsScreen(
                     summary = lastAndroidBackupSummary,
                     checked = androidBackupEnabled,
                     onCheckedChange = onAndroidBackup,
-                    iconRes = if (showAndroidBackupWarning)
-                        R.drawable.ic_outline_error_outline_24px else null,
+                    icon = if (showAndroidBackupWarning)
+                        Icons.Outlined.ErrorOutline else null,
                     iconTint = if (showAndroidBackupWarning) errorColor else null,
                 )
             }
@@ -165,7 +168,7 @@ fun BackupsScreen(
                     title = stringResource(R.string.device_settings),
                     summary = stringResource(R.string.android_auto_backup_device_summary),
                     summaryMaxLines = 4,
-                    iconRes = R.drawable.ic_open_in_new_24px,
+                    icon = Icons.AutoMirrored.Outlined.OpenInNew,
                     onClick = onDeviceSettings,
                 )
             }

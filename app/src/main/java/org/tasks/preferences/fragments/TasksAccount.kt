@@ -123,6 +123,7 @@ class TasksAccount : Fragment() {
             val trigger by refreshTrigger
 
             LaunchedEffect(trigger) {
+                viewModel.refreshAccount(initialAccount)
                 val localAccount = caldavDao.getAccounts(CaldavAccount.TYPE_LOCAL).firstOrNull()
                 val count = localAccount?.uuid?.let { caldavDao.listCount(it) } ?: 0
                 localListCount = count
@@ -151,18 +152,19 @@ class TasksAccount : Fragment() {
             }
 
             // Calendar items for the dialog
-            var calendars by remember { mutableStateOf(emptyList<CalendarItem>()) }
-            LaunchedEffect(Unit) {
-                caldavDao.getCalendarsByAccount(initialAccount.uuid!!)
-                    .filter { !it.readOnly() }
-                    .map { CalendarItem(it.name ?: it.uuid ?: "", it.calendarUri) }
-                    .let { calendars = it }
-            }
+            val calendars by remember {
+                caldavDao.subscribeToCalendars()
+                    .map { cals ->
+                        cals.filter { it.account == initialAccount.uuid && !it.readOnly() }
+                            .map { CalendarItem(it.name ?: it.uuid ?: "", it.calendarUri) }
+                    }
+            }.collectAsStateWithLifecycle(initialValue = emptyList())
 
             TasksAccountScreen(
                 account = account,
                 isGithub = isGithub,
                 hasSubscription = subscription != null,
+                isTasksSubscription = subscription?.isTasksSubscription == true,
                 localListCount = localListCount,
                 localListSummary = localListSummary,
                 inboundEmail = inboundEmail,
@@ -196,7 +198,8 @@ class TasksAccount : Fragment() {
                     context?.openUri(R.string.url_sponsor)
                 },
                 onMigrate = {
-                    workManager.migrateLocalTasks(initialAccount)
+                    val currentAccount = account ?: return@TasksAccountScreen
+                    workManager.migrateLocalTasks(currentAccount)
                     context?.toast(R.string.migrating_tasks)
                 },
                 onCopyEmail = {
@@ -209,16 +212,20 @@ class TasksAccount : Fragment() {
                     }
                 },
                 onRegenerateEmail = {
-                    viewModel.regenerateInboundEmail(initialAccount)
+                    val currentAccount = account ?: return@TasksAccountScreen
+                    viewModel.regenerateInboundEmail(currentAccount)
                 },
                 onSelectCalendar = { calendarUri ->
-                    viewModel.setInboundCalendar(initialAccount, calendarUri)
+                    val currentAccount = account ?: return@TasksAccountScreen
+                    viewModel.setInboundCalendar(currentAccount, calendarUri)
                 },
                 onDeletePassword = { id, _ ->
-                    viewModel.deletePassword(initialAccount, id)
+                    val currentAccount = account ?: return@TasksAccountScreen
+                    viewModel.deletePassword(currentAccount, id)
                 },
                 onGeneratePassword = { description ->
-                    viewModel.requestNewPassword(initialAccount, description)
+                    val currentAccount = account ?: return@TasksAccountScreen
+                    viewModel.requestNewPassword(currentAccount, description)
                 },
                 onOpenAppPasswordsInfo = {
                     context?.openUri(R.string.url_app_passwords)
@@ -230,7 +237,8 @@ class TasksAccount : Fragment() {
                     viewModel.clearNewPassword()
                 },
                 onRefreshPasswords = {
-                    viewModel.refreshAccount(initialAccount)
+                    val currentAccount = account ?: return@TasksAccountScreen
+                    viewModel.refreshAccount(currentAccount)
                 },
                 onOpenHelp = {
                     context?.openUri(R.string.url_app_passwords)

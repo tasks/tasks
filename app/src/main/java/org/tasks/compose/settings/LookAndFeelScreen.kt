@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -162,7 +164,7 @@ fun LookAndFeelScreen(
             SettingsItemCard(position = CardPosition.Last) {
                 PreferenceRow(
                     title = stringResource(R.string.translations),
-                    iconRes = R.drawable.ic_open_in_new_24px,
+                    icon = Icons.AutoMirrored.Outlined.OpenInNew,
                     onClick = onTranslations,
                 )
             }
