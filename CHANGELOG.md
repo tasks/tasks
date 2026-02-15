@@ -1,14 +1,15 @@
-### 14.13 (2026-02-14)
+### 14.13 (2026-02-15)
 
-* New design for settings screens
-  * Work in progress - not all screens use the new design yet
+* New design for app settings screens
 * Improve notifications for all day tasks [#4152](https://github.com/tasks/tasks/issues/4152)
   * Updated 'Settings > Notifications > All day tasks' section
 * Don't configure notification channels to bypass DnD [#4030](https://github.com/tasks/tasks/discussions/4030)
   * Only applies to new installs going forward
+* Moved 'Badges' preference to 'Advanced'
 * Update translations
   * Bulgarian - 109247019824
   * Chinese (Simplified) - Sketch6580
+  * Croatian - @milotype
   * Czech - @Fjuro
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
