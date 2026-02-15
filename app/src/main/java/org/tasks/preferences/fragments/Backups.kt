@@ -6,6 +6,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -27,11 +28,8 @@ import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
 import javax.inject.Inject
 
-private const val REQUEST_CODE_BACKUP_DIR = 10001
-const val REQUEST_DRIVE_BACKUP = 12002
-private const val REQUEST_PICKER = 10003
 private const val FRAG_TAG_EXPORT_TASKS = "frag_tag_export_tasks"
-const val FRAG_TAG_IMPORT_TASKS = "frag_tag_import_tasks"
+private const val FRAG_TAG_IMPORT_TASKS = "frag_tag_import_tasks"
 
 @AndroidEntryPoint
 class Backups : Fragment() {
@@ -40,6 +38,39 @@ class Backups : Fragment() {
 
     private val preferencesViewModel: PreferencesViewModel by activityViewModels()
     private val viewModel: BackupsViewModel by viewModels()
+
+    private val backupDirLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            result.data?.data?.let { uri ->
+                requireContext().takePersistableUriPermission(uri)
+                viewModel.handleBackupDirResult(uri, preferencesViewModel)
+            }
+        }
+    }
+
+    private val importPickerLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            result.data?.data?.let { uri ->
+                val extension = FileHelper.getExtension(requireContext(), uri)
+                if (!"json".equals(extension, ignoreCase = true)) {
+                    context?.toast(R.string.invalid_backup_file)
+                } else {
+                    ImportTasksDialog.newImportTasksDialog(uri)
+                        .show(parentFragmentManager, FRAG_TAG_IMPORT_TASKS)
+                }
+            }
+        }
+    }
+
+    private val driveLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            preferencesViewModel.updateDriveBackup()
+        } else {
+            result.data?.getStringExtra(DriveLoginActivity.EXTRA_ERROR)
+                ?.let { context?.toast(it) }
+        }
+        viewModel.refreshDriveState(preferencesViewModel)
+    }
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,10 +118,11 @@ class Backups : Fragment() {
                     requireContext().openUri(R.string.url_backups)
                 },
                 onBackupDir = {
-                    FileHelper.newDirectoryPicker(
-                        this@Backups,
-                        REQUEST_CODE_BACKUP_DIR,
-                        viewModel.backupDirectory,
+                    backupDirLauncher.launch(
+                        FileHelper.newDirectoryPickerIntent(
+                            context,
+                            viewModel.backupDirectory,
+                        )
                     )
                 },
                 onBackupNow = {
@@ -100,9 +132,8 @@ class Backups : Fragment() {
                 },
                 onImportBackup = {
                     viewModel.logEvent("import_backup")
-                    startActivityForResult(
+                    importPickerLauncher.launch(
                         FileHelper.newFilePickerIntent(activity, viewModel.backupDirectory),
-                        REQUEST_PICKER,
                     )
                 },
                 onBackupsEnabled = { viewModel.updateBackupsEnabled(it) },
@@ -148,45 +179,9 @@ class Backups : Fragment() {
         }
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_CODE_BACKUP_DIR -> {
-                if (resultCode == RESULT_OK && data != null) {
-                    val uri = data.data!!
-                    requireContext().takePersistableUriPermission(uri)
-                    viewModel.handleBackupDirResult(uri, preferencesViewModel)
-                }
-            }
-            REQUEST_PICKER -> {
-                if (resultCode == RESULT_OK) {
-                    val uri = data!!.data
-                    val extension = FileHelper.getExtension(requireContext(), uri!!)
-                    if (!"json".equals(extension, ignoreCase = true)) {
-                        context?.toast(R.string.invalid_backup_file)
-                    } else {
-                        ImportTasksDialog.newImportTasksDialog(uri)
-                            .show(parentFragmentManager, FRAG_TAG_IMPORT_TASKS)
-                    }
-                }
-            }
-            REQUEST_DRIVE_BACKUP -> {
-                if (resultCode == RESULT_OK) {
-                    preferencesViewModel.updateDriveBackup()
-                } else {
-                    data?.getStringExtra(DriveLoginActivity.EXTRA_ERROR)
-                        ?.let { context?.toast(it) }
-                }
-                viewModel.refreshDriveState(preferencesViewModel)
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     private fun requestGoogleDriveLogin() {
-        startActivityForResult(
+        driveLauncher.launch(
             Intent(context, DriveLoginActivity::class.java),
-            REQUEST_DRIVE_BACKUP,
         )
     }
 }

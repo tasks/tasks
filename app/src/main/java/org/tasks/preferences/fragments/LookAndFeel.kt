@@ -7,6 +7,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
@@ -48,6 +49,11 @@ class LookAndFeel : Fragment() {
         viewModel.setDefaultFilter(it)
     }
 
+    private val purchaseLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+        val index = viewModel.handlePurchaseResult(result.data)
+        applyBaseTheme(index)
+    }
+
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -63,10 +69,9 @@ class LookAndFeel : Fragment() {
                     applyBaseTheme(result.index)
                 }
                 is LookAndFeelViewModel.ThemePickerResult.PurchaseRequired -> {
-                    startActivityForResult(
+                    purchaseLauncher.launch(
                         Intent(context, PurchaseActivity::class.java)
                             .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "themes"),
-                        REQUEST_PURCHASE
                     )
                 }
             }
@@ -213,21 +218,7 @@ class LookAndFeel : Fragment() {
         }
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_PURCHASE -> {
-                val index = viewModel.handlePurchaseResult(data)
-                applyBaseTheme(index)
-            }
-            else -> {
-                super.onActivityResult(requestCode, resultCode, data)
-            }
-        }
-    }
-
     companion object {
-        private const val REQUEST_PURCHASE = 10007
         private const val REQUEST_KEY_COLOR = "color_picker_result"
         private const val REQUEST_KEY_LAUNCHER = "launcher_picker_result"
         private const val FRAG_TAG_LOCALE_PICKER = "frag_tag_locale_picker"

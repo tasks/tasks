@@ -1,8 +1,6 @@
 package org.tasks.preferences.fragments
 
-import android.app.Activity.RESULT_OK
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -82,13 +80,9 @@ class AdvancedViewModel @Inject constructor(
     fun openDeleteDataDialog() { showDeleteDataDialog = true }
     fun dismissDeleteDataDialog() { showDeleteDataDialog = false }
 
-    fun handleFilesDirResult(resultCode: Int, data: Intent?, takePersistable: (Uri) -> Unit) {
-        if (resultCode == RESULT_OK && data != null) {
-            val uri = data.data!!
-            takePersistable(uri)
-            preferences.setUri(R.string.p_attachment_dir, uri)
-            refreshAttachmentDirectory()
-        }
+    fun handleFilesDirResult(uri: Uri) {
+        preferences.setUri(R.string.p_attachment_dir, uri)
+        refreshAttachmentDirectory()
     }
 
     fun deleteCompletedEvents(onComplete: (Int) -> Unit) {

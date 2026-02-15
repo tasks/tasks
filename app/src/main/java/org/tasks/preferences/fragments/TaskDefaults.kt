@@ -1,9 +1,11 @@
 package org.tasks.preferences.fragments
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,8 +39,10 @@ import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.compose.settings.TaskDefaultsScreen
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.Place
 import org.tasks.data.entity.TagData
 import org.tasks.location.LocationPickerActivity
+import org.tasks.location.LocationPickerActivity.Companion.EXTRA_PLACE
 import org.tasks.preferences.BasePreferences
 import org.tasks.repeats.BasicRecurrenceDialog
 import org.tasks.tags.TagPickerActivity
@@ -58,6 +62,20 @@ class TaskDefaults : Fragment() {
 
     private val listPickerLauncher = registerForListPickerResult {
         viewModel.setDefaultList(it)
+    }
+
+    private val locationLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val place = result.data?.getParcelableExtra<Place>(EXTRA_PLACE)
+            viewModel.setDefaultLocation(place)
+        }
+    }
+
+    private val tagsLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val tags = result.data?.getParcelableArrayListExtra<TagData>(EXTRA_SELECTED)
+            viewModel.handleTagsResult(tags)
+        }
     }
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
@@ -127,7 +145,7 @@ class TaskDefaults : Fragment() {
                                 EXTRA_SELECTED,
                                 ArrayList(viewModel.defaultTags())
                             )
-                        startActivityForResult(intent, REQUEST_TAGS)
+                        tagsLauncher.launch(intent)
                     }
                 },
                 onImportance = { showImportanceDialog = true },
@@ -156,9 +174,8 @@ class TaskDefaults : Fragment() {
                 onRandomReminder = { showRandomReminderDialog = true },
                 onRemindersMode = { showRemindersModeDialog = true },
                 onLocation = {
-                    startActivityForResult(
+                    locationLauncher.launch(
                         Intent(context, LocationPickerActivity::class.java),
-                        REQUEST_LOCATION
                     )
                 },
                 onDeleteLocation = {
@@ -300,18 +317,7 @@ class TaskDefaults : Fragment() {
         }
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_LOCATION -> viewModel.handleLocationResult(resultCode, data)
-            REQUEST_TAGS -> viewModel.handleTagsResult(resultCode, data)
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     companion object {
-        const val REQUEST_LOCATION = 10001
-        const val REQUEST_TAGS = 10002
         const val FRAG_TAG_BASIC_RECURRENCE = "frag_tag_basic_recurrence"
     }
 }

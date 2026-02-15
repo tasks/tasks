@@ -1,9 +1,10 @@
 package org.tasks.preferences.fragments
 
-import android.content.Intent
+import android.app.Activity.RESULT_OK
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -23,14 +24,21 @@ import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
 import javax.inject.Inject
 
-private const val REQUEST_CODE_FILES_DIR = 10000
-
 @AndroidEntryPoint
 class Advanced : Fragment() {
 
     @Inject lateinit var theme: Theme
 
     private val viewModel: AdvancedViewModel by viewModels()
+
+    private val filesDirLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            result.data?.data?.let { uri ->
+                requireContext().takePersistableUriPermission(uri)
+                viewModel.handleFilesDirResult(uri)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,10 +55,11 @@ class Advanced : Fragment() {
                 calendarEndAtDueTime = viewModel.calendarEndAtDueTime,
                 onAstridSort = { viewModel.updateAstridSort(it) },
                 onAttachmentDir = {
-                    FileHelper.newDirectoryPicker(
-                        this@Advanced,
-                        REQUEST_CODE_FILES_DIR,
-                        viewModel.attachmentsDirectory,
+                    filesDirLauncher.launch(
+                        FileHelper.newDirectoryPickerIntent(
+                            context,
+                            viewModel.attachmentsDirectory,
+                        )
                     )
                 },
                 onCalendarEndAtDueTime = { viewModel.updateCalendarEndAtDueTime(it) },
@@ -173,14 +182,4 @@ class Advanced : Fragment() {
         }
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CODE_FILES_DIR) {
-            viewModel.handleFilesDirResult(resultCode, data) { uri ->
-                requireContext().takePersistableUriPermission(uri)
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
 }

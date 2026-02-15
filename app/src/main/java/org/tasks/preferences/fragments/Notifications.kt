@@ -1,6 +1,5 @@
 package org.tasks.preferences.fragments
 
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
@@ -10,6 +9,7 @@ import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -56,6 +56,20 @@ class Notifications : Fragment() {
 
     private val listPickerLauncher = registerForFilterPickerResult {
         viewModel.setBadgeFilter(it)
+    }
+
+    private val completionSoundLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+        viewModel.handleCompletionSoundResult(result.resultCode, result.data)
+    }
+
+    private val ttsCheckLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+        viewModel.handleTtsCheckResult(result.resultCode)
+        if (result.resultCode != TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+            val installIntent = Intent().apply {
+                action = TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA
+            }
+            startActivity(installIntent)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -148,7 +162,7 @@ class Notifications : Fragment() {
                             )
                         }
                     }
-                    startActivityForResult(intent, REQUEST_CODE_COMPLETION_SOUND)
+                    completionSoundLauncher.launch(intent)
                 },
                 onPersistent = { viewModel.updatePersistent(it) },
                 onWearable = { viewModel.updateWearable(it) },
@@ -160,7 +174,7 @@ class Notifications : Fragment() {
                             val checkIntent = Intent().apply {
                                 action = TextToSpeech.Engine.ACTION_CHECK_TTS_DATA
                             }
-                            startActivityForResult(checkIntent, REQUEST_CODE_TTS_CHECK)
+                            ttsCheckLauncher.launch(checkIntent)
                         } catch (_: Exception) { }
                     }
                 },
@@ -280,31 +294,10 @@ class Notifications : Fragment() {
         }
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_CODE_COMPLETION_SOUND -> {
-                viewModel.handleCompletionSoundResult(resultCode, data)
-            }
-            REQUEST_CODE_TTS_CHECK -> {
-                viewModel.handleTtsCheckResult(resultCode)
-                if (resultCode != TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
-                    val installIntent = Intent().apply {
-                        action = TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA
-                    }
-                    startActivity(installIntent)
-                }
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     companion object {
         private const val FRAG_TAG_TIME_PICKER = "frag_tag_time_picker"
         private const val REQUEST_KEY_QUIET_START = "time_picker_quiet_start"
         private const val REQUEST_KEY_QUIET_END = "time_picker_quiet_end"
         private const val REQUEST_KEY_DEFAULT_REMIND = "time_picker_default_remind"
-        private const val REQUEST_CODE_TTS_CHECK = 10006
-        private const val REQUEST_CODE_COMPLETION_SOUND = 10007
     }
 }

@@ -1,8 +1,6 @@
 package org.tasks.preferences.fragments
 
-import android.app.Activity.RESULT_OK
 import android.content.Context
-import android.content.Intent
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -17,13 +15,11 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.TagData
-import org.tasks.location.LocationPickerActivity.Companion.EXTRA_PLACE
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.reminders.AlarmToString
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.filters.CaldavFilter
-import org.tasks.tags.TagPickerActivity.Companion.EXTRA_SELECTED
 import javax.inject.Inject
 
 @HiltViewModel
@@ -146,22 +142,13 @@ class TaskDefaultsViewModel @Inject constructor(
         refreshRecurrence()
     }
 
-    fun handleLocationResult(resultCode: Int, data: Intent?) {
-        if (resultCode == RESULT_OK) {
-            setDefaultLocation(data?.getParcelableExtra(EXTRA_PLACE))
-        }
-    }
-
-    fun handleTagsResult(resultCode: Int, data: Intent?) {
-        if (resultCode == RESULT_OK) {
-            preferences.setString(
-                R.string.p_default_tags,
-                data?.getParcelableArrayListExtra<TagData>(EXTRA_SELECTED)
-                    ?.mapNotNull { it.remoteId }
-                    ?.joinToString(",")
-            )
-            refreshTags()
-        }
+    fun handleTagsResult(tags: List<TagData>?) {
+        preferences.setString(
+            R.string.p_default_tags,
+            tags?.mapNotNull { it.remoteId }
+                ?.joinToString(",")
+        )
+        refreshTags()
     }
 
     fun setDefaultLocation(place: Place?) {
