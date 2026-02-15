@@ -778,4 +778,9 @@
     <string name="upgrade_email_to_task_description">Přeměňte e-maily na úkoly jejich přesměrováním do vaší soukromé schránky</string>
     <string name="advanced_tools">Pokročilé nástroje</string>
     <string name="advanced_tools_description">Místa Google, CalDAV, EteSync a další!</string>
+    <string name="upgrade_to_pro_card_description">Odemkněte cloudovou synchronizaci Tasks.org, e-mail na úkol a další!</string>
+    <string name="supporter">Podporovatel</string>
+    <string name="donate">Přispět</string>
+    <string name="supporter_summary">%s • Děkujeme!</string>
+    <string name="sign_in_to_connect">Pro připojení účtu Tasks.org se přihlaste</string>
 </resources>
