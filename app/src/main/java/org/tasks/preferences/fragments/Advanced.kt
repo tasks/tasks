@@ -1,158 +1,186 @@
 package org.tasks.preferences.fragments
 
-import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
-import androidx.lifecycle.lifecycleScope
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.res.stringResource
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.fragment.compose.content
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.analytics.Firebase
-import org.tasks.caldav.VtodoCache
-import org.tasks.calendars.CalendarEventProvider
-import org.tasks.data.dao.TaskDao
-import org.tasks.data.db.Database
-import org.tasks.etebase.EtebaseLocalCache
+import org.tasks.compose.settings.AdvancedScreen
 import org.tasks.extensions.Context.takePersistableUriPermission
 import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
-import org.tasks.injection.InjectingPreferenceFragment
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.BasePreferences
+import org.tasks.themes.TasksSettingsTheme
+import org.tasks.themes.Theme
 import javax.inject.Inject
 
 private const val REQUEST_CODE_FILES_DIR = 10000
 
 @AndroidEntryPoint
-class Advanced : InjectingPreferenceFragment() {
+class Advanced : Fragment() {
 
-    @Inject lateinit var preferences: Preferences
-    @Inject lateinit var database: Database
-    @Inject lateinit var taskDao: TaskDao
-    @Inject lateinit var calendarEventProvider: CalendarEventProvider
-    @Inject lateinit var vtodoCache: VtodoCache
-    @Inject lateinit var firebase: Firebase
+    @Inject lateinit var theme: Theme
 
-    override fun getPreferenceXml() = R.xml.preferences_advanced
+    private val viewModel: AdvancedViewModel by viewModels()
 
-    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
-        findPreference(R.string.EPr_manage_delete_completed_gcal)
-            .setOnPreferenceClickListener {
-                deleteCompletedEvents()
-                false
-            }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: android.os.Bundle?
+    ) = content {
+        TasksSettingsTheme(
+            theme = theme.themeBase.index,
+            primary = theme.themeColor.primaryColor,
+        ) {
+            AdvancedScreen(
+                astridSortEnabled = viewModel.astridSortEnabled,
+                attachmentDirSummary = viewModel.attachmentDirSummary,
+                calendarEndAtDueTime = viewModel.calendarEndAtDueTime,
+                onAstridSort = { viewModel.updateAstridSort(it) },
+                onAttachmentDir = {
+                    FileHelper.newDirectoryPicker(
+                        this@Advanced,
+                        REQUEST_CODE_FILES_DIR,
+                        viewModel.attachmentsDirectory,
+                    )
+                },
+                onCalendarEndAtDueTime = { viewModel.updateCalendarEndAtDueTime(it) },
+                onDeleteCompletedEvents = { viewModel.openDeleteCompletedDialog() },
+                onDeleteAllEvents = { viewModel.openDeleteAllDialog() },
+                onResetPreferences = { viewModel.openResetDialog() },
+                onDeleteTaskData = { viewModel.openDeleteDataDialog() },
+            )
 
-        findPreference(R.string.EPr_manage_delete_all_gcal)
-            .setOnPreferenceClickListener {
-                deleteAllCalendarEvents()
-                false
-            }
-
-        findPreference(R.string.EPr_reset_preferences)
-            .setOnPreferenceClickListener {
-                resetPreferences()
-                false
-            }
-
-        findPreference(R.string.EPr_delete_task_data)
-            .setOnPreferenceClickListener {
-                deleteTaskData()
-                false
-            }
-
-        findPreference(R.string.p_attachment_dir)
-            .setOnPreferenceClickListener {
-                FileHelper.newDirectoryPicker(
-                    this,
-                    REQUEST_CODE_FILES_DIR,
-                    preferences.attachmentsDirectory
+            if (viewModel.showDeleteCompletedDialog) {
+                AlertDialog(
+                    onDismissRequest = { viewModel.dismissDeleteCompletedDialog() },
+                    text = {
+                        Text(stringResource(R.string.EPr_manage_delete_completed_gcal_message))
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            viewModel.dismissDeleteCompletedDialog()
+                            viewModel.deleteCompletedEvents { count ->
+                                context?.toast(R.string.EPr_manage_delete_gcal_status, count)
+                            }
+                        }) {
+                            Text(stringResource(R.string.ok))
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { viewModel.dismissDeleteCompletedDialog() }) {
+                            Text(stringResource(R.string.cancel))
+                        }
+                    },
                 )
-                false
             }
-        updateAttachmentDirectory()
+
+            if (viewModel.showDeleteAllDialog) {
+                AlertDialog(
+                    onDismissRequest = { viewModel.dismissDeleteAllDialog() },
+                    text = {
+                        Text(stringResource(R.string.EPr_manage_delete_all_gcal_message))
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            viewModel.dismissDeleteAllDialog()
+                            viewModel.deleteAllCalendarEvents { count ->
+                                context?.toast(R.string.EPr_manage_delete_gcal_status, count)
+                            }
+                        }) {
+                            Text(stringResource(R.string.ok))
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { viewModel.dismissDeleteAllDialog() }) {
+                            Text(stringResource(R.string.cancel))
+                        }
+                    },
+                )
+            }
+
+            if (viewModel.showResetDialog) {
+                AlertDialog(
+                    onDismissRequest = { viewModel.dismissResetDialog() },
+                    text = {
+                        Text(stringResource(R.string.EPr_reset_preferences_warning))
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            viewModel.dismissResetDialog()
+                            viewModel.resetPreferences()
+                        }) {
+                            Text(stringResource(R.string.EPr_reset_preferences))
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { viewModel.dismissResetDialog() }) {
+                            Text(stringResource(R.string.cancel))
+                        }
+                    },
+                )
+            }
+
+            if (viewModel.showDeleteDataDialog) {
+                AlertDialog(
+                    onDismissRequest = { viewModel.dismissDeleteDataDialog() },
+                    text = {
+                        Text(stringResource(R.string.EPr_delete_task_data_warning))
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            viewModel.dismissDeleteDataDialog()
+                            viewModel.deleteTaskData()
+                        }) {
+                            Text(stringResource(R.string.EPr_delete_task_data))
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { viewModel.dismissDeleteDataDialog() }) {
+                            Text(stringResource(R.string.cancel))
+                        }
+                    },
+                )
+            }
+        }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshState()
+        val surfaceColor = theme.themeBase.getSettingsSurfaceColor(requireActivity())
+        (activity as? BasePreferences)?.toolbar?.let { toolbar ->
+            toolbar.setBackgroundColor(surfaceColor)
+            (toolbar.parent as? View)?.setBackgroundColor(surfaceColor)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val defaultColor = ContextCompat.getColor(requireContext(), R.color.content_background)
+        (activity as? BasePreferences)?.toolbar?.let { toolbar ->
+            toolbar.setBackgroundColor(defaultColor)
+            (toolbar.parent as? View)?.setBackgroundColor(defaultColor)
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE_FILES_DIR) {
-            if (resultCode == Activity.RESULT_OK) {
-                val uri = data!!.data!!
+            viewModel.handleFilesDirResult(resultCode, data) { uri ->
                 requireContext().takePersistableUriPermission(uri)
-                preferences.setUri(R.string.p_attachment_dir, uri)
-                updateAttachmentDirectory()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
-    }
-
-    private fun updateAttachmentDirectory() {
-        findPreference(R.string.p_attachment_dir).summary =
-            FileHelper.uri2String(preferences.attachmentsDirectory)
-    }
-
-    private fun deleteCompletedEvents() {
-        dialogBuilder
-            .newDialog()
-            .setMessage(R.string.EPr_manage_delete_completed_gcal_message)
-            .setPositiveButton(R.string.ok) { _, _ ->
-                firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_completed_calendar_events")
-                performAction(R.string.EPr_manage_delete_gcal_status) {
-                    calendarEventProvider.deleteEvents(taskDao.getCompletedCalendarEvents())
-                    taskDao.clearCompletedCalendarEvents()
-                }
-            }
-            .setNegativeButton(R.string.cancel, null)
-            .show()
-    }
-
-    private fun deleteAllCalendarEvents() {
-        dialogBuilder
-            .newDialog()
-            .setMessage(R.string.EPr_manage_delete_all_gcal_message)
-            .setPositiveButton(R.string.ok) { _, _ ->
-                firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_all_calendar_events")
-                performAction(
-                    R.string.EPr_manage_delete_gcal_status) {
-                        calendarEventProvider.deleteEvents(taskDao.getAllCalendarEvents())
-                        taskDao.clearAllCalendarEvents()
-                    }
-            }
-            .setNegativeButton(R.string.cancel, null)
-            .show()
-    }
-
-    private fun performAction(message: Int, callable: suspend () -> Int) = lifecycleScope.launch {
-        context?.toast(message, callable())
-    }
-
-    private fun resetPreferences() {
-        dialogBuilder
-            .newDialog()
-            .setMessage(R.string.EPr_reset_preferences_warning)
-            .setPositiveButton(R.string.EPr_reset_preferences) { _, _ ->
-                firebase.logEvent(R.string.event_settings_click, R.string.param_type to "reset_preferences")
-                preferences.reset()
-                restart()
-            }
-            .setNegativeButton(R.string.cancel, null)
-            .show()
-    }
-
-    private fun deleteTaskData() {
-        dialogBuilder
-            .newDialog()
-            .setMessage(R.string.EPr_delete_task_data_warning)
-            .setPositiveButton(R.string.EPr_delete_task_data) { _, _ ->
-                firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_task_data")
-                val context = requireContext()
-                lifecycleScope.launch(NonCancellable) {
-                    context.deleteDatabase(database.name)
-                    vtodoCache.clear()
-                    EtebaseLocalCache.clear(context)
-                    restart()
-                }
-            }
-            .setNegativeButton(R.string.cancel, null)
-            .show()
     }
 }
