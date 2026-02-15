@@ -1,250 +1,301 @@
 package org.tasks.preferences.fragments
 
-import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.fragment.compose.content
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.Preference
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.calendars.CalendarPicker
 import org.tasks.calendars.CalendarPicker.Companion.newCalendarPicker
-import org.tasks.calendars.CalendarProvider
+import org.tasks.compose.DefaultRemindersActivity
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
-import org.tasks.data.dao.LocationDao
-import org.tasks.data.dao.TagDataDao
+import org.tasks.compose.settings.TaskDefaultsScreen
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.Place
 import org.tasks.data.entity.TagData
-import org.tasks.compose.DefaultRemindersActivity
-import org.tasks.injection.InjectingPreferenceFragment
-import org.tasks.reminders.AlarmToString
 import org.tasks.location.LocationPickerActivity
-import org.tasks.location.LocationPickerActivity.Companion.EXTRA_PLACE
-import org.tasks.preferences.DefaultFilterProvider
-import org.tasks.preferences.IconPreference
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.BasePreferences
 import org.tasks.repeats.BasicRecurrenceDialog
-import org.tasks.repeats.BasicRecurrenceDialog.Companion.EXTRA_RRULE
-import org.tasks.repeats.RepeatRuleToString
 import org.tasks.tags.TagPickerActivity
 import org.tasks.tags.TagPickerActivity.Companion.EXTRA_SELECTED
+import org.tasks.themes.TasksSettingsTheme
+import org.tasks.themes.Theme
 import javax.inject.Inject
 
 private const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
 private const val REQUEST_CALENDAR_SELECTION = 10011
 
 @AndroidEntryPoint
-class TaskDefaults : InjectingPreferenceFragment() {
+class TaskDefaults : Fragment() {
 
-    @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
-    @Inject lateinit var preferences: Preferences
-    @Inject lateinit var calendarProvider: CalendarProvider
-    @Inject lateinit var repeatRuleToString: RepeatRuleToString
-    @Inject lateinit var locationDao: LocationDao
-    @Inject lateinit var tagDataDao: TagDataDao
+    @Inject lateinit var theme: Theme
 
-    private lateinit var defaultCalendarPref: Preference
+    private val viewModel: TaskDefaultsViewModel by viewModels()
+
     private val listPickerLauncher = registerForListPickerResult {
-        defaultFilterProvider.defaultList = it
-        updateRemoteListSummary()
+        viewModel.setDefaultList(it)
     }
 
-    override fun getPreferenceXml() = R.xml.preferences_task_defaults
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: android.os.Bundle?
+    ) = content {
+        TasksSettingsTheme(
+            theme = theme.themeBase.index,
+            primary = theme.themeColor.primaryColor,
+        ) {
+            var showImportanceDialog by rememberSaveable { mutableStateOf(false) }
+            var showStartDateDialog by rememberSaveable { mutableStateOf(false) }
+            var showDueDateDialog by rememberSaveable { mutableStateOf(false) }
+            var showRecurrenceFromDialog by rememberSaveable { mutableStateOf(false) }
+            var showRandomReminderDialog by rememberSaveable { mutableStateOf(false) }
+            var showRemindersModeDialog by rememberSaveable { mutableStateOf(false) }
+            var showLocationReminderDialog by rememberSaveable { mutableStateOf(false) }
 
-    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
-        defaultCalendarPref = findPreference(R.string.gcal_p_default)
-        defaultCalendarPref.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            newCalendarPicker(this, REQUEST_CALENDAR_SELECTION, preferences.defaultCalendar)
-                .show(parentFragmentManager, FRAG_TAG_CALENDAR_PICKER)
-            false
-        }
-        updateCalendarName()
-
-        findPreference(R.string.p_default_list)
-            .setOnPreferenceClickListener {
-                lifecycleScope.launch {
-                    listPickerLauncher.launch(
-                        context = requireContext(),
-                        selectedFilter = defaultFilterProvider.getDefaultList(),
-                        listsOnly = true,
-                    )
-                }
-                false
-            }
-
-        findPreference(R.string.p_default_recurrence)
-                .setOnPreferenceClickListener {
-                    val rrule = preferences
-                            .getStringValue(R.string.p_default_recurrence)
-                            ?.takeIf { it.isNotBlank() }
-                    BasicRecurrenceDialog
-                            .newBasicRecurrenceDialog(
-                                target = this,
-                                rc = REQUEST_RECURRENCE,
-                                rrule = rrule,
-                                dueDate = 0,
-                                accountType = CaldavAccount.TYPE_LOCAL
-                            )
-                            .show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
-                    false
-                }
-
-        findPreference(R.string.p_default_location)
-                .setOnPreferenceClickListener {
-                    startActivityForResult(
-                            Intent(context, LocationPickerActivity::class.java),
-                            REQUEST_LOCATION
-                    )
-                    false
-                }
-
-        findPreference(R.string.p_default_tags)
-                .setOnPreferenceClickListener {
+            TaskDefaultsScreen(
+                addToTopEnabled = viewModel.addToTopEnabled,
+                defaultListName = viewModel.defaultListName,
+                defaultTagsSummary = viewModel.defaultTagsSummary,
+                importanceSummary = viewModel.importanceSummary,
+                startDateSummary = viewModel.startDateSummary,
+                dueDateSummary = viewModel.dueDateSummary,
+                calendarName = viewModel.calendarName,
+                recurrenceSummary = viewModel.recurrenceSummary,
+                recurrenceFromSummary = viewModel.recurrenceFromSummary,
+                remindersSummary = viewModel.remindersSummary,
+                randomReminderSummary = viewModel.randomReminderSummary,
+                remindersModeSummary = viewModel.remindersModeSummary,
+                locationName = viewModel.locationName,
+                hasDefaultLocation = viewModel.hasDefaultLocation,
+                locationReminderSummary = viewModel.locationReminderSummary,
+                onAddToTop = { viewModel.updateAddToTop(it) },
+                onDefaultList = {
+                    lifecycleScope.launch {
+                        listPickerLauncher.launch(
+                            context = requireContext(),
+                            selectedFilter = viewModel.getDefaultList(),
+                            listsOnly = true,
+                        )
+                    }
+                },
+                onDefaultTags = {
                     lifecycleScope.launch {
                         val intent = Intent(context, TagPickerActivity::class.java)
-                                .putParcelableArrayListExtra(
-                                        EXTRA_SELECTED,
-                                        ArrayList(defaultTags())
-                                )
+                            .putParcelableArrayListExtra(
+                                EXTRA_SELECTED,
+                                ArrayList(viewModel.defaultTags())
+                            )
                         startActivityForResult(intent, REQUEST_TAGS)
                     }
-                    false
-                }
+                },
+                onImportance = { showImportanceDialog = true },
+                onStartDate = { showStartDateDialog = true },
+                onDueDate = { showDueDateDialog = true },
+                onCalendar = {
+                    newCalendarPicker(
+                        this@TaskDefaults,
+                        REQUEST_CALENDAR_SELECTION,
+                        viewModel.defaultCalendar,
+                    ).show(parentFragmentManager, FRAG_TAG_CALENDAR_PICKER)
+                },
+                onRecurrence = {
+                    BasicRecurrenceDialog
+                        .newBasicRecurrenceDialog(
+                            target = this@TaskDefaults,
+                            rc = REQUEST_RECURRENCE,
+                            rrule = viewModel.getRecurrenceRule(),
+                            dueDate = 0,
+                            accountType = CaldavAccount.TYPE_LOCAL
+                        )
+                        .show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
+                },
+                onRecurrenceFrom = { showRecurrenceFromDialog = true },
+                onReminders = {
+                    startActivity(
+                        Intent(requireContext(), DefaultRemindersActivity::class.java)
+                    )
+                },
+                onRandomReminder = { showRandomReminderDialog = true },
+                onRemindersMode = { showRemindersModeDialog = true },
+                onLocation = {
+                    startActivityForResult(
+                        Intent(context, LocationPickerActivity::class.java),
+                        REQUEST_LOCATION
+                    )
+                },
+                onDeleteLocation = {
+                    viewModel.setDefaultLocation(null)
+                },
+                onLocationReminder = { showLocationReminderDialog = true },
+            )
 
-        findPreference(R.string.p_default_reminders_key).setOnPreferenceClickListener {
-            startActivity(Intent(requireContext(), DefaultRemindersActivity::class.java))
-            false
+            if (showImportanceDialog) {
+                ListPreferenceDialog(
+                    title = stringResource(R.string.EPr_default_importance_title),
+                    entries = viewModel.importanceEntries,
+                    values = viewModel.importanceValues,
+                    currentValue = viewModel.getListPrefCurrentValue(
+                        R.string.p_default_importance_key, 2
+                    ),
+                    onSelect = { value ->
+                        viewModel.setListPreference(R.string.p_default_importance_key, value)
+                        viewModel.refreshImportance()
+                    },
+                    onDismiss = { showImportanceDialog = false },
+                )
+            }
+
+            if (showStartDateDialog) {
+                ListPreferenceDialog(
+                    title = stringResource(R.string.default_start_date),
+                    entries = viewModel.startDateEntries,
+                    values = viewModel.startDateValues,
+                    currentValue = viewModel.getListPrefCurrentValue(
+                        R.string.p_default_hideUntil_key, 0
+                    ),
+                    onSelect = { value ->
+                        viewModel.setListPreference(R.string.p_default_hideUntil_key, value)
+                        viewModel.refreshStartDate()
+                    },
+                    onDismiss = { showStartDateDialog = false },
+                )
+            }
+
+            if (showDueDateDialog) {
+                ListPreferenceDialog(
+                    title = stringResource(R.string.default_due_date),
+                    entries = viewModel.dueDateEntries,
+                    values = viewModel.dueDateValues,
+                    currentValue = viewModel.getListPrefCurrentValue(
+                        R.string.p_default_urgency_key, 0
+                    ),
+                    onSelect = { value ->
+                        viewModel.setListPreference(R.string.p_default_urgency_key, value)
+                        viewModel.refreshDueDate()
+                    },
+                    onDismiss = { showDueDateDialog = false },
+                )
+            }
+
+            if (showRecurrenceFromDialog) {
+                ListPreferenceDialog(
+                    title = stringResource(R.string.repeats_from),
+                    entries = viewModel.recurrenceFromEntries,
+                    values = viewModel.recurrenceFromValues,
+                    currentValue = viewModel.getListPrefCurrentValue(
+                        R.string.p_default_recurrence_from, 0
+                    ),
+                    onSelect = { value ->
+                        viewModel.setListPreference(R.string.p_default_recurrence_from, value)
+                        viewModel.refreshRecurrenceFrom()
+                    },
+                    onDismiss = { showRecurrenceFromDialog = false },
+                )
+            }
+
+            if (showRandomReminderDialog) {
+                ListPreferenceDialog(
+                    title = stringResource(R.string.rmd_EPr_defaultRemind_title),
+                    entries = viewModel.randomReminderEntries,
+                    values = viewModel.randomReminderValues,
+                    currentValue = viewModel.getListPrefCurrentValue(
+                        R.string.p_rmd_default_random_hours, 0
+                    ),
+                    onSelect = { value ->
+                        viewModel.setListPreference(R.string.p_rmd_default_random_hours, value)
+                        viewModel.refreshRandomReminder()
+                    },
+                    onDismiss = { showRandomReminderDialog = false },
+                )
+            }
+
+            if (showRemindersModeDialog) {
+                ListPreferenceDialog(
+                    title = stringResource(R.string.EPr_default_reminders_mode_title),
+                    entries = viewModel.remindersModeEntries,
+                    values = viewModel.remindersModeValues,
+                    currentValue = viewModel.getListPrefCurrentValue(
+                        R.string.p_default_reminders_mode_key, 0
+                    ),
+                    onSelect = { value ->
+                        viewModel.setListPreference(R.string.p_default_reminders_mode_key, value)
+                        viewModel.refreshRemindersMode()
+                    },
+                    onDismiss = { showRemindersModeDialog = false },
+                )
+            }
+
+            if (showLocationReminderDialog) {
+                ListPreferenceDialog(
+                    title = stringResource(R.string.EPr_default_location_reminder_title),
+                    entries = viewModel.locationReminderEntries,
+                    values = viewModel.locationReminderValues,
+                    currentValue = viewModel.getListPrefCurrentValue(
+                        R.string.p_default_location_reminder_key, 0
+                    ),
+                    onSelect = { value ->
+                        viewModel.setListPreference(R.string.p_default_location_reminder_key, value)
+                        viewModel.refreshLocationReminder()
+                    },
+                    onDismiss = { showLocationReminderDialog = false },
+                )
+            }
         }
-
-        updateRemoteListSummary()
-        updateRecurrence()
-        updateDefaultLocation()
-        updateTags()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_CALENDAR_SELECTION -> if (resultCode == RESULT_OK) {
-                preferences.setString(
-                        R.string.gcal_p_default,
-                        data!!.getStringExtra(CalendarPicker.EXTRA_CALENDAR_ID)
-                )
-                updateCalendarName()
-            }
-            REQUEST_RECURRENCE -> if (resultCode == RESULT_OK) {
-                preferences.setString(
-                        R.string.p_default_recurrence,
-                        data?.getStringExtra(EXTRA_RRULE)
-                )
-                updateRecurrence()
-            }
-            REQUEST_LOCATION ->
-                if (resultCode == RESULT_OK)
-                    setDefaultLocation(data?.getParcelableExtra(EXTRA_PLACE))
-            REQUEST_TAGS -> if (resultCode == RESULT_OK) {
-                preferences.setString(
-                        R.string.p_default_tags,
-                        data?.getParcelableArrayListExtra<TagData>(EXTRA_SELECTED)
-                                ?.mapNotNull { it.remoteId }
-                                ?.joinToString(",")
-                )
-                updateTags()
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
-    private fun setDefaultLocation(place: Place?) {
-        preferences.setString(R.string.p_default_location, place?.uid)
-        updateDefaultLocation()
-    }
-
-    private fun updateCalendarName() {
-        val calendarId = preferences.defaultCalendar
-        val name = calendarProvider.getCalendar(calendarId)?.name
-        defaultCalendarPref.summary = name ?: getString(R.string.dont_add_to_calendar)
     }
 
     override fun onResume() {
         super.onResume()
-
-        updateRemoteListSummary()
-        updateRecurrence()
-        updateDefaultLocation()
-        updateTags()
-        updateDefaultReminders()
-    }
-
-    private fun updateRemoteListSummary() = lifecycleScope.launch {
-        val defaultFilter = defaultFilterProvider.getDefaultList()
-        findPreference(R.string.p_default_list).summary = defaultFilter.title
-    }
-
-    private fun updateDefaultLocation() = lifecycleScope.launch {
-        val place = preferences
-                .getStringValue(R.string.p_default_location)
-                ?.let { locationDao.getByUid(it) }
-        val defaultLocation = findPreference(R.string.p_default_location) as IconPreference
-        if (place == null) {
-            defaultLocation.iconVisible = false
-            defaultLocation.summary = requireContext().getString(R.string.none)
-        } else {
-            defaultLocation.drawable =
-                    context?.getDrawable(R.drawable.ic_outline_delete_24px)?.mutate()
-            defaultLocation.tint = context?.getColor(R.color.icon_tint_with_alpha)
-            defaultLocation.iconClickListener = View.OnClickListener { setDefaultLocation(null) }
-            defaultLocation.iconVisible = true
-            defaultLocation.summary = place.displayName
+        viewModel.refreshState()
+        val surfaceColor = theme.themeBase.getSettingsSurfaceColor(requireActivity())
+        (activity as? BasePreferences)?.toolbar?.let { toolbar ->
+            toolbar.setBackgroundColor(surfaceColor)
+            (toolbar.parent as? View)?.setBackgroundColor(surfaceColor)
         }
     }
 
-    private suspend fun defaultTags(): List<TagData> =
-            preferences.getStringValue(R.string.p_default_tags)
-                    ?.split(",")
-                    ?.let { tagDataDao.getByUuid(it) }
-                    ?.sortedBy { it.name }
-                    ?: emptyList()
-
-    private fun updateTags() = lifecycleScope.launch {
-        findPreference(R.string.p_default_tags).summary =
-                defaultTags()
-                        .mapNotNull { it.name }
-                        .takeIf { it.isNotEmpty() }
-                        ?.joinToString(", ")
-                        ?: requireContext().getString(R.string.none)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val defaultColor = ContextCompat.getColor(requireContext(), R.color.content_background)
+        (activity as? BasePreferences)?.toolbar?.let { toolbar ->
+            toolbar.setBackgroundColor(defaultColor)
+            (toolbar.parent as? View)?.setBackgroundColor(defaultColor)
+        }
     }
 
-    private fun updateDefaultReminders() {
-        val alarms = preferences.defaultAlarms
-        findPreference(R.string.p_default_reminders_key).summary =
-            if (alarms.isEmpty()) {
-                getString(R.string.no_reminders)
-            } else {
-                val alarmToString = AlarmToString(requireContext())
-                alarms.joinToString("\n") {
-                    alarmToString.toString(it).replace("\n", ", ")
-                }
-            }
-    }
-
-    private fun updateRecurrence() {
-        val rrule = preferences.getStringValue(R.string.p_default_recurrence)
-        findPreference(R.string.p_default_recurrence).summary =
-                rrule
-                        ?.takeIf { it.isNotBlank() }
-                        ?.let {
-                            try {
-                                repeatRuleToString.toString(it)
-                            } catch (e: Exception) {
-                                null
-                            }
-                        }
-                        ?: requireContext().getString(R.string.repeat_option_does_not_repeat)
-        findPreference(R.string.p_default_recurrence_from).isVisible = rrule?.isNotBlank() == true
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            REQUEST_CALENDAR_SELECTION -> viewModel.handleCalendarResult(resultCode, data)
+            REQUEST_RECURRENCE -> viewModel.handleRecurrenceResult(resultCode, data)
+            REQUEST_LOCATION -> viewModel.handleLocationResult(resultCode, data)
+            REQUEST_TAGS -> viewModel.handleTagsResult(resultCode, data)
+            else -> super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     companion object {
@@ -253,4 +304,46 @@ class TaskDefaults : InjectingPreferenceFragment() {
         const val REQUEST_TAGS = 10002
         const val FRAG_TAG_BASIC_RECURRENCE = "frag_tag_basic_recurrence"
     }
+}
+
+@Composable
+private fun ListPreferenceDialog(
+    title: String,
+    entries: Array<String>,
+    values: Array<String>,
+    currentValue: String,
+    onSelect: (String) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(title) },
+        text = {
+            Column {
+                entries.forEachIndexed { index, entry ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                onSelect(values[index])
+                                onDismiss()
+                            }
+                            .padding(vertical = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        RadioButton(
+                            selected = values[index] == currentValue,
+                            onClick = null,
+                        )
+                        Text(
+                            text = entry,
+                            modifier = Modifier.padding(start = 8.dp),
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                    }
+                }
+            }
+        },
+        confirmButton = {},
+    )
 }
