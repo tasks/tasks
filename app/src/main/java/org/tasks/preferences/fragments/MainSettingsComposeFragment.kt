@@ -85,7 +85,6 @@ class MainSettingsComposeFragment : Fragment() {
                 accounts = filteredAccounts,
                 proCardState = proCardState,
                 showBackupWarning = showBackupWarning,
-                showQuietHoursWarning = viewModel.isCurrentlyQuietHours,
                 hasWidgets = viewModel.hasWidgets,
                 onAccountClick = { account -> handleAccountClick(account) },
                 onAddAccountClick = { addAccount() },

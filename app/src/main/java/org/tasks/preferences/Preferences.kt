@@ -562,10 +562,6 @@ class Preferences @JvmOverloads constructor(
         get() = getBoolean(R.string.p_warn_alarms_disabled, true)
         set(value) = setBoolean(R.string.p_warn_alarms_disabled, value)
 
-    var warnQuietHoursDisabled: Boolean
-        get() = getBoolean(R.string.p_warn_quiet_hours_enabled, true)
-        set(value) = setBoolean(R.string.p_warn_quiet_hours_enabled, value)
-
     var warnMicrosoft: Boolean
         get() = getBoolean(R.string.p_warn_microsoft, true)
         set(value) = setBoolean(R.string.p_warn_microsoft, value)

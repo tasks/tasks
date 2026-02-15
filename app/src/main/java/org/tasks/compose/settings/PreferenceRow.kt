@@ -262,8 +262,8 @@ fun DangerCard(
     icon: ImageVector,
     title: String,
     tint: Color,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
     trailingIcon: ImageVector? = null,
 ) {
     Card(
@@ -276,7 +276,7 @@ fun DangerCard(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable(onClick = onClick)
+                .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
                 .padding(vertical = SettingsRowPadding),
             verticalAlignment = Alignment.CenterVertically,
         ) {

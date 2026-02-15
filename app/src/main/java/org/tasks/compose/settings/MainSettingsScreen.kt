@@ -54,7 +54,6 @@ fun MainSettingsScreen(
     accounts: List<CaldavAccount>,
     proCardState: ProCardState?,
     showBackupWarning: Boolean,
-    showQuietHoursWarning: Boolean,
     hasWidgets: Boolean,
     isDebug: Boolean = BuildConfig.DEBUG,
     onAccountClick: (CaldavAccount) -> Unit,
@@ -129,7 +128,6 @@ fun MainSettingsScreen(
                 PreferenceRow(
                     title = stringResource(R.string.notifications),
                     icon = Icons.Outlined.Notifications,
-                    showWarning = showQuietHoursWarning,
                     onClick = { onSettingsClick(SettingsDestination.Notifications) }
                 )
             }

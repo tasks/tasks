@@ -14,9 +14,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
+import androidx.compose.material.icons.outlined.NotificationsOff
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import org.tasks.R
 
@@ -64,6 +66,16 @@ fun NotificationsScreen(
             .verticalScroll(rememberScrollState())
     ) {
         Spacer(modifier = Modifier.height(SettingsContentPadding))
+
+        if (isCurrentlyQuietHours) {
+            DangerCard(
+                icon = Icons.Outlined.NotificationsOff,
+                title = stringResource(R.string.quiet_hours_in_effect),
+                tint = colorResource(R.color.overdue),
+                modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            )
+            Spacer(modifier = Modifier.height(SettingsContentPadding))
+        }
 
         // Troubleshooting island
         Column(
@@ -262,7 +274,6 @@ fun NotificationsScreen(
                     title = stringResource(R.string.rmd_EPr_quiet_hours_start_title),
                     summary = quietStartSummary,
                     enabled = quietHoursEnabled,
-                    showWarning = quietHoursEnabled && isCurrentlyQuietHours,
                     onClick = onQuietStart,
                 )
             }

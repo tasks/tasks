@@ -96,7 +96,6 @@ import org.tasks.compose.AppUpdatedBanner
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.compose.NotificationsDisabledBanner
-import org.tasks.compose.QuietHoursBanner
 import org.tasks.compose.SubscriptionNagBanner
 import org.tasks.compose.SubscriptionRequiredBanner
 import org.tasks.compose.SyncWarningGoogleTasks
@@ -530,20 +529,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                         preferences.lastSubscribeRequest = currentTimeMillis()
                                         context.openUri(R.string.url_donate)
                                     }
-                                },
-                                dismiss = { listViewModel.dismissBanner() },
-                            )
-
-                        Banner.QuietHoursEnabled ->
-                            QuietHoursBanner(
-                                showSettings = {
-                                    listViewModel.dismissBanner(tookAction = true)
-                                    context.startActivity(
-                                        Intent(
-                                            context,
-                                            MainPreferences::class.java
-                                        )
-                                    )
                                 },
                                 dismiss = { listViewModel.dismissBanner() },
                             )

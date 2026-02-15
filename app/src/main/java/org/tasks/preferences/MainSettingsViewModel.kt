@@ -21,9 +21,6 @@ class MainSettingsViewModel @Inject constructor(
     private val billingClient: BillingClient,
 ) : ViewModel() {
 
-    val isCurrentlyQuietHours: Boolean
-        get() = preferences.isCurrentlyQuietHours
-
     val hasWidgets: Boolean
         get() = appWidgetManager.widgetIds.isNotEmpty()
 

@@ -392,7 +392,6 @@
   <string name="p_default_location">default_location</string>
   <string name="p_warn_notifications_disabled">warn_notifications_disabled</string>
   <string name="p_warn_alarms_disabled">warn_alarms_disabled</string>
-  <string name="p_warn_quiet_hours_enabled">warn_quiet_hours_enabled</string>
   <string name="p_warn_microsoft">warn_microsoft</string>
   <string name="p_warn_google_tasks">warn_google_Tasks</string>
   <string name="p_local_list_banner_dismissed">local_list_banner_dismissed</string>

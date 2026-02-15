@@ -15,6 +15,8 @@ import androidx.lifecycle.viewModelScope
 import com.todoroo.astrid.voice.VoiceOutputAssistant
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.broadcast.RefreshBroadcaster
@@ -78,6 +80,8 @@ class NotificationsViewModel @Inject constructor(
     var showRestartDialog by mutableStateOf(false)
         private set
 
+    private var quietHoursRefreshJob: Job? = null
+
     val snoozeEntries: Array<String> = context.resources.getStringArray(R.array.swipe_to_snooze_times)
     val snoozeValues: Array<String> = context.resources.getStringArray(R.array.swipe_to_snooze_time_values)
     private val defaultBundleNotifications: Boolean = context.resources.getBoolean(R.bool.default_bundle_notifications)
@@ -106,6 +110,7 @@ class NotificationsViewModel @Inject constructor(
         isCurrentlyQuietHours = preferences.isCurrentlyQuietHours
         refreshTimeSummary(R.string.p_rmd_quietStart, R.integer.default_quiet_hours_start) { quietStartSummary = it }
         refreshTimeSummary(R.string.p_rmd_quietEnd, R.integer.default_quiet_hours_end) { quietEndSummary = it }
+        scheduleQuietHoursRefresh()
     }
 
     private fun checkBatteryOptimizations() {
@@ -265,6 +270,7 @@ class NotificationsViewModel @Inject constructor(
         quietHoursEnabled = enabled
         isCurrentlyQuietHours = preferences.isCurrentlyQuietHours
         rescheduleNotifications(false)
+        scheduleQuietHoursRefresh()
     }
 
     fun getQuietStartMillisOfDay(defaultRes: Int): Int {
@@ -305,6 +311,7 @@ class NotificationsViewModel @Inject constructor(
         ) { quietStartSummary = it }
         isCurrentlyQuietHours = preferences.isCurrentlyQuietHours
         rescheduleNotifications(false)
+        scheduleQuietHoursRefresh()
     }
 
     fun handleQuietEndResult(timestamp: Long) {
@@ -313,6 +320,7 @@ class NotificationsViewModel @Inject constructor(
         ) { quietEndSummary = it }
         isCurrentlyQuietHours = preferences.isCurrentlyQuietHours
         rescheduleNotifications(false)
+        scheduleQuietHoursRefresh()
     }
 
     fun handleDefaultRemindResult(timestamp: Long) {
@@ -332,8 +340,30 @@ class NotificationsViewModel @Inject constructor(
         return preferences.getStringValue(R.string.p_completion_ringtone)
     }
 
+    private fun scheduleQuietHoursRefresh() {
+        quietHoursRefreshJob?.cancel()
+        if (!isCurrentlyQuietHours) return
+        val endMillis = preferences.getInt(
+            R.string.p_rmd_quietEnd,
+            context.resources.getInteger(R.integer.default_quiet_hours_end)
+        )
+        quietHoursRefreshJob = viewModelScope.launch {
+            var endTime = DateTime().withMillisOfDay(endMillis)
+            if (endTime.isBeforeNow) {
+                endTime = endTime.plusDays(1)
+            }
+            val delayMs = endTime.millis - currentTimeMillis() + 1000
+            if (delayMs > 0) {
+                delay(delayMs)
+            }
+            isCurrentlyQuietHours = preferences.isCurrentlyQuietHours
+            scheduleQuietHoursRefresh()
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
+        quietHoursRefreshJob?.cancel()
         voiceOutputAssistant.shutdown()
     }
 }
