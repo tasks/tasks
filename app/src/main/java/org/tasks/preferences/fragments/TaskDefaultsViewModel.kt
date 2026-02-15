@@ -12,7 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.calendars.CalendarPicker
 import org.tasks.calendars.CalendarProvider
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
@@ -22,7 +21,6 @@ import org.tasks.location.LocationPickerActivity.Companion.EXTRA_PLACE
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.reminders.AlarmToString
-import org.tasks.repeats.BasicRecurrenceDialog.Companion.EXTRA_RRULE
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.filters.CaldavFilter
 import org.tasks.tags.TagPickerActivity.Companion.EXTRA_SELECTED
@@ -138,24 +136,14 @@ class TaskDefaultsViewModel @Inject constructor(
     fun getListPrefCurrentValue(prefKey: Int, defaultValue: Int): String =
         preferences.getIntegerFromString(prefKey, defaultValue).toString()
 
-    fun handleCalendarResult(resultCode: Int, data: Intent?) {
-        if (resultCode == RESULT_OK && data != null) {
-            preferences.setString(
-                R.string.gcal_p_default,
-                data.getStringExtra(CalendarPicker.EXTRA_CALENDAR_ID)
-            )
-            refreshCalendarName()
-        }
+    fun handleCalendarResult(calendarId: String?) {
+        preferences.setString(R.string.gcal_p_default, calendarId)
+        refreshCalendarName()
     }
 
-    fun handleRecurrenceResult(resultCode: Int, data: Intent?) {
-        if (resultCode == RESULT_OK) {
-            preferences.setString(
-                R.string.p_default_recurrence,
-                data?.getStringExtra(EXTRA_RRULE)
-            )
-            refreshRecurrence()
-        }
+    fun handleRecurrenceResult(rrule: String?) {
+        preferences.setString(R.string.p_default_recurrence, rrule)
+        refreshRecurrence()
     }
 
     fun handleLocationResult(resultCode: Int, data: Intent?) {

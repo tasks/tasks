@@ -8,7 +8,6 @@ import android.widget.Toast.LENGTH_SHORT
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.todoroo.astrid.activity.TaskEditFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -51,14 +50,10 @@ class CalendarControlSet : TaskEditControlFragment() {
             onClick = {
                 if (viewModel.eventUri.value.isNullOrBlank()) {
                     CalendarPicker
-                        .newCalendarPicker(
-                            requireParentFragment(),
-                            TaskEditFragment.REQUEST_CODE_PICK_CALENDAR,
-                            viewState.calendar,
-                        )
+                        .newCalendarPicker(viewState.calendar)
                         .show(
                             requireParentFragment().parentFragmentManager,
-                            TaskEditFragment.FRAG_TAG_CALENDAR_PICKER
+                            FRAG_TAG_CALENDAR_PICKER
                         )
                 } else {
                     openCalendarEvent()
@@ -118,5 +113,6 @@ class CalendarControlSet : TaskEditControlFragment() {
 
     companion object {
         val TAG = R.string.TEA_ctrl_gcal
+        private const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
     }
 }

@@ -1,15 +1,14 @@
 package org.tasks.dialogs
 
 import android.app.Activity
-import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,13 +23,14 @@ class ColorWheelPicker : DialogFragment() {
 
     companion object {
         const val EXTRA_SELECTED = "extra_selected"
+        private const val EXTRA_REQUEST_KEY = "extra_request_key"
         private const val REQUEST_PURCHASE = 10010
 
-        fun newColorWheel(target: Fragment?, rc: Int, selected: Int): ColorWheelPicker {
+        fun newColorWheel(requestKey: String, selected: Int): ColorWheelPicker {
             val args = Bundle()
             args.putInt(EXTRA_SELECTED, selected)
+            args.putString(EXTRA_REQUEST_KEY, requestKey)
             val dialog = ColorWheelPicker()
-            dialog.setTargetFragment(target, rc)
             dialog.arguments = args
             return dialog
         }
@@ -45,6 +45,9 @@ class ColorWheelPicker : DialogFragment() {
     var dialog: AlertDialog? = null
     var selected = -1
     var callback: ColorPickedCallback? = null
+
+    private val requestKey: String
+        get() = requireArguments().getString(EXTRA_REQUEST_KEY)!!
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: requireArguments().getInt(EXTRA_SELECTED, 0)
@@ -102,16 +105,18 @@ class ColorWheelPicker : DialogFragment() {
 
     private fun deliverSelection() {
         dialog?.dismiss()
-        if (targetFragment == null) {
+        if (callback != null) {
             callback?.onColorPicked(selected)
         } else {
-            val data = Intent().putExtra(EXTRA_SELECTED, selected)
-            targetFragment?.onActivityResult(targetRequestCode, RESULT_OK, data)
+            parentFragmentManager.setFragmentResult(
+                requestKey,
+                bundleOf(EXTRA_SELECTED to selected)
+            )
         }
     }
 
     override fun onCancel(dialog: DialogInterface) {
-        targetFragment?.onActivityResult(targetRequestCode, RESULT_CANCELED, null)
+        // no result on cancel
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

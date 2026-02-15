@@ -1,7 +1,5 @@
 package org.tasks.preferences.fragments
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +31,47 @@ class DateAndTime : Fragment() {
 
     private val viewModel: DateAndTimeViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        parentFragmentManager.setFragmentResultListener(
+            REQUEST_KEY_MORNING, this
+        ) { _, bundle ->
+            handleTimePickerResult(bundle) { viewModel.handleMorningResult(it) }
+        }
+        parentFragmentManager.setFragmentResultListener(
+            REQUEST_KEY_AFTERNOON, this
+        ) { _, bundle ->
+            handleTimePickerResult(bundle) { viewModel.handleAfternoonResult(it) }
+        }
+        parentFragmentManager.setFragmentResultListener(
+            REQUEST_KEY_EVENING, this
+        ) { _, bundle ->
+            handleTimePickerResult(bundle) { viewModel.handleEveningResult(it) }
+        }
+        parentFragmentManager.setFragmentResultListener(
+            REQUEST_KEY_NIGHT, this
+        ) { _, bundle ->
+            handleTimePickerResult(bundle) { viewModel.handleNightResult(it) }
+        }
+    }
+
+    private fun handleTimePickerResult(
+        bundle: android.os.Bundle,
+        handler: (Int) -> DateAndTimeViewModel.TimePickerResult
+    ) {
+        val timestamp = bundle.getLong(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
+        val millisOfDay = DateTime(timestamp).millisOfDay
+        val result = handler(millisOfDay)
+        if (result is DateAndTimeViewModel.TimePickerResult.Error) {
+            context?.toast(
+                result.messageResId,
+                getString(result.setting),
+                getString(result.relative),
+            )
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,28 +95,28 @@ class DateAndTime : Fragment() {
                     showTimePicker(
                         R.string.p_date_shortcut_morning,
                         R.integer.default_morning,
-                        REQUEST_MORNING,
+                        REQUEST_KEY_MORNING,
                     )
                 },
                 onAfternoon = {
                     showTimePicker(
                         R.string.p_date_shortcut_afternoon,
                         R.integer.default_afternoon,
-                        REQUEST_AFTERNOON,
+                        REQUEST_KEY_AFTERNOON,
                     )
                 },
                 onEvening = {
                     showTimePicker(
                         R.string.p_date_shortcut_evening,
                         R.integer.default_evening,
-                        REQUEST_EVENING,
+                        REQUEST_KEY_EVENING,
                     )
                 },
                 onNight = {
                     showTimePicker(
                         R.string.p_date_shortcut_night,
                         R.integer.default_night,
-                        REQUEST_NIGHT,
+                        REQUEST_KEY_NIGHT,
                     )
                 },
                 onAutoDismissInfo = { viewModel.openAutoDismissInfo() },
@@ -120,45 +159,18 @@ class DateAndTime : Fragment() {
         }
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode != RESULT_OK || data == null) {
-            super.onActivityResult(requestCode, resultCode, data)
-            return
-        }
-        val timestamp = data.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
-        val millisOfDay = DateTime(timestamp).millisOfDay
-        val result = when (requestCode) {
-            REQUEST_MORNING -> viewModel.handleMorningResult(millisOfDay)
-            REQUEST_AFTERNOON -> viewModel.handleAfternoonResult(millisOfDay)
-            REQUEST_EVENING -> viewModel.handleEveningResult(millisOfDay)
-            REQUEST_NIGHT -> viewModel.handleNightResult(millisOfDay)
-            else -> {
-                super.onActivityResult(requestCode, resultCode, data)
-                return
-            }
-        }
-        if (result is DateAndTimeViewModel.TimePickerResult.Error) {
-            context?.toast(
-                result.messageResId,
-                getString(result.setting),
-                getString(result.relative),
-            )
-        }
-    }
-
-    private fun showTimePicker(prefKey: Int, defaultRes: Int, requestCode: Int) {
+    private fun showTimePicker(prefKey: Int, defaultRes: Int, requestKey: String) {
         val millisOfDay = viewModel.getMillisOfDay(prefKey, defaultRes)
         val current = DateTime().withMillisOfDay(millisOfDay)
-        newTimePicker(this, requestCode, current.millis)
+        newTimePicker(requestKey, current.millis)
             .show(parentFragmentManager, FRAG_TAG_TIME_PICKER)
     }
 
     companion object {
         private const val FRAG_TAG_TIME_PICKER = "frag_tag_time_picker"
-        private const val REQUEST_MORNING = 10007
-        private const val REQUEST_AFTERNOON = 10008
-        private const val REQUEST_EVENING = 10009
-        private const val REQUEST_NIGHT = 10010
+        private const val REQUEST_KEY_MORNING = "time_picker_morning"
+        private const val REQUEST_KEY_AFTERNOON = "time_picker_afternoon"
+        private const val REQUEST_KEY_EVENING = "time_picker_evening"
+        private const val REQUEST_KEY_NIGHT = "time_picker_night"
     }
 }

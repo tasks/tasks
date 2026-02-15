@@ -1,15 +1,13 @@
 package org.tasks.dialogs
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.remember
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.fragment.compose.content
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.compose.pickers.TimePickerDialog
@@ -28,6 +26,9 @@ class MyTimePickerDialog : DialogFragment() {
 
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var theme: Theme
+
+    private val requestKey: String
+        get() = requireArguments().getString(EXTRA_REQUEST_KEY)!!
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreateView(
@@ -48,10 +49,9 @@ class MyTimePickerDialog : DialogFragment() {
                 initialDisplayMode = remember { preferences.timeDisplayMode },
                 setDisplayMode = { preferences.timeDisplayMode = it },
                 selected = {
-                    targetFragment?.onActivityResult(
-                        targetRequestCode,
-                        Activity.RESULT_OK,
-                        Intent().putExtra(EXTRA_TIMESTAMP, initial.withMillisOfDay(it))
+                    parentFragmentManager.setFragmentResult(
+                        requestKey,
+                        bundleOf(EXTRA_TIMESTAMP to initial.withMillisOfDay(it))
                     )
                     dismiss()
                 },
@@ -65,17 +65,17 @@ class MyTimePickerDialog : DialogFragment() {
 
     companion object {
         const val EXTRA_TIMESTAMP = "extra_timestamp"
+        private const val EXTRA_REQUEST_KEY = "extra_request_key"
 
         fun newTimePicker(
-            target: Fragment,
-            rc: Int,
+            requestKey: String,
             initial: Long,
         ) =
             MyTimePickerDialog().apply {
                 arguments = Bundle().apply {
                     putLong(EXTRA_TIMESTAMP, initial)
+                    putString(EXTRA_REQUEST_KEY, requestKey)
                 }
-                setTargetFragment(target, rc)
             }
     }
 }

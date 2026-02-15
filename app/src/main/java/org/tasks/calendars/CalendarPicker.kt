@@ -1,11 +1,9 @@
 package org.tasks.calendars
 
-import android.app.Activity
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.compose.pickers.CalendarPicker
 import org.tasks.dialogs.DialogBuilder
@@ -29,10 +27,9 @@ class CalendarPicker : DialogFragment() {
                     CalendarPicker(
                         selected = arguments?.getString(EXTRA_SELECTED),
                         onSelected = {
-                            targetFragment!!.onActivityResult(
-                                targetRequestCode,
-                                Activity.RESULT_OK,
-                                Intent().putExtra(EXTRA_CALENDAR_ID, it?.id)
+                            parentFragmentManager.setFragmentResult(
+                                REQUEST_KEY,
+                                bundleOf(EXTRA_CALENDAR_ID to it?.id)
                             )
                             dismiss()
                         },
@@ -44,14 +41,14 @@ class CalendarPicker : DialogFragment() {
 
     companion object {
         const val EXTRA_CALENDAR_ID = "extra_calendar_id"
+        const val REQUEST_KEY = "calendar_picker_result"
         private const val EXTRA_SELECTED = "extra_selected"
 
-        fun newCalendarPicker(target: Fragment?, rc: Int, selected: String?) =
+        fun newCalendarPicker(selected: String?) =
             CalendarPicker().apply {
                 arguments = Bundle().apply {
                     putString(EXTRA_SELECTED, selected)
                 }
-                setTargetFragment(target, rc)
             }
     }
 }

@@ -30,6 +30,7 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
+import org.tasks.calendars.CalendarPicker
 import org.tasks.calendars.CalendarPicker.Companion.newCalendarPicker
 import org.tasks.compose.DefaultRemindersActivity
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
@@ -47,7 +48,6 @@ import org.tasks.themes.Theme
 import javax.inject.Inject
 
 private const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
-private const val REQUEST_CALENDAR_SELECTION = 10011
 
 @AndroidEntryPoint
 class TaskDefaults : Fragment() {
@@ -58,6 +58,23 @@ class TaskDefaults : Fragment() {
 
     private val listPickerLauncher = registerForListPickerResult {
         viewModel.setDefaultList(it)
+    }
+
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        parentFragmentManager.setFragmentResultListener(
+            CalendarPicker.REQUEST_KEY, this
+        ) { _, bundle ->
+            val calendarId = bundle.getString(CalendarPicker.EXTRA_CALENDAR_ID)
+            viewModel.handleCalendarResult(calendarId)
+        }
+        parentFragmentManager.setFragmentResultListener(
+            BasicRecurrenceDialog.REQUEST_KEY, this
+        ) { _, bundle ->
+            val rrule = bundle.getString(BasicRecurrenceDialog.EXTRA_RRULE)
+            viewModel.handleRecurrenceResult(rrule)
+        }
     }
 
     override fun onCreateView(
@@ -118,16 +135,12 @@ class TaskDefaults : Fragment() {
                 onDueDate = { showDueDateDialog = true },
                 onCalendar = {
                     newCalendarPicker(
-                        this@TaskDefaults,
-                        REQUEST_CALENDAR_SELECTION,
                         viewModel.defaultCalendar,
                     ).show(parentFragmentManager, FRAG_TAG_CALENDAR_PICKER)
                 },
                 onRecurrence = {
                     BasicRecurrenceDialog
                         .newBasicRecurrenceDialog(
-                            target = this@TaskDefaults,
-                            rc = REQUEST_RECURRENCE,
                             rrule = viewModel.getRecurrenceRule(),
                             dueDate = 0,
                             accountType = CaldavAccount.TYPE_LOCAL
@@ -290,8 +303,6 @@ class TaskDefaults : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            REQUEST_CALENDAR_SELECTION -> viewModel.handleCalendarResult(resultCode, data)
-            REQUEST_RECURRENCE -> viewModel.handleRecurrenceResult(resultCode, data)
             REQUEST_LOCATION -> viewModel.handleLocationResult(resultCode, data)
             REQUEST_TAGS -> viewModel.handleTagsResult(resultCode, data)
             else -> super.onActivityResult(requestCode, resultCode, data)
@@ -299,7 +310,6 @@ class TaskDefaults : Fragment() {
     }
 
     companion object {
-        const val REQUEST_RECURRENCE = 10000
         const val REQUEST_LOCATION = 10001
         const val REQUEST_TAGS = 10002
         const val FRAG_TAG_BASIC_RECURRENCE = "frag_tag_basic_recurrence"

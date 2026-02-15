@@ -30,7 +30,6 @@ import javax.inject.Inject
 private const val REQUEST_CODE_BACKUP_DIR = 10001
 const val REQUEST_DRIVE_BACKUP = 12002
 private const val REQUEST_PICKER = 10003
-private const val REQUEST_BACKUP_NOW = 10004
 private const val FRAG_TAG_EXPORT_TASKS = "frag_tag_export_tasks"
 const val FRAG_TAG_IMPORT_TASKS = "frag_tag_import_tasks"
 
@@ -52,6 +51,11 @@ class Backups : Fragment() {
         }
         preferencesViewModel.lastAndroidBackup.observe(this) {
             viewModel.refreshAndroidBackupSummary(it, preferencesViewModel)
+        }
+        parentFragmentManager.setFragmentResultListener(
+            ExportTasksDialog.REQUEST_KEY, this
+        ) { _, _ ->
+            preferencesViewModel.updateLocalBackup()
         }
     }
 
@@ -91,7 +95,7 @@ class Backups : Fragment() {
                 },
                 onBackupNow = {
                     viewModel.logEvent("backup_now")
-                    ExportTasksDialog.newExportTasksDialog(this@Backups, REQUEST_BACKUP_NOW)
+                    ExportTasksDialog.newExportTasksDialog()
                         .show(parentFragmentManager, FRAG_TAG_EXPORT_TASKS)
                 },
                 onImportBackup = {
@@ -174,11 +178,6 @@ class Backups : Fragment() {
                         ?.let { context?.toast(it) }
                 }
                 viewModel.refreshDriveState(preferencesViewModel)
-            }
-            REQUEST_BACKUP_NOW -> {
-                if (resultCode == RESULT_OK) {
-                    preferencesViewModel.updateLocalBackup()
-                }
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }

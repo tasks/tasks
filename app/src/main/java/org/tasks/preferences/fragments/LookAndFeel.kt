@@ -1,6 +1,5 @@
 package org.tasks.preferences.fragments
 
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
@@ -49,6 +48,56 @@ class LookAndFeel : Fragment() {
         viewModel.setDefaultFilter(it)
     }
 
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        parentFragmentManager.setFragmentResultListener(
+            ThemePickerDialog.REQUEST_KEY, this
+        ) { _, bundle ->
+            val selectedIndex = bundle.getInt(
+                ThemePickerDialog.EXTRA_SELECTED,
+                ThemeBase.DEFAULT_BASE_THEME
+            )
+            when (val result = viewModel.handleThemePickerResult(selectedIndex)) {
+                is LookAndFeelViewModel.ThemePickerResult.ApplyTheme -> {
+                    applyBaseTheme(result.index)
+                }
+                is LookAndFeelViewModel.ThemePickerResult.PurchaseRequired -> {
+                    startActivityForResult(
+                        Intent(context, PurchaseActivity::class.java)
+                            .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "themes"),
+                        REQUEST_PURCHASE
+                    )
+                }
+            }
+        }
+        parentFragmentManager.setFragmentResultListener(
+            REQUEST_KEY_COLOR, this
+        ) { _, bundle ->
+            val color = bundle.getInt(
+                ColorWheelPicker.EXTRA_SELECTED,
+                theme.themeColor.primaryColor
+            )
+            if (viewModel.handleColorPickerResult(color)) {
+                requireActivity().recreate()
+            }
+        }
+        parentFragmentManager.setFragmentResultListener(
+            REQUEST_KEY_LAUNCHER, this
+        ) { _, bundle ->
+            val index = bundle.getInt(ColorPalettePicker.EXTRA_SELECTED, 0)
+            viewModel.handleLauncherPickerResult(requireContext(), index)
+        }
+        parentFragmentManager.setFragmentResultListener(
+            LocalePickerDialog.REQUEST_KEY, this
+        ) { _, bundle ->
+            val languageTag = bundle.getString(LocalePickerDialog.EXTRA_LOCALE)
+            AppCompatDelegate.setApplicationLocales(
+                LocaleListCompat.forLanguageTags(languageTag)
+            )
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -70,7 +119,7 @@ class LookAndFeel : Fragment() {
                 defaultFilterName = viewModel.defaultFilterName,
                 localeName = viewModel.localeName,
                 onTheme = {
-                    newThemePickerDialog(this@LookAndFeel, REQUEST_THEME_PICKER, theme.themeBase.index)
+                    newThemePickerDialog(theme.themeBase.index)
                         .show(parentFragmentManager, FRAG_TAG_THEME_PICKER)
                 },
                 onDynamicColor = { enabled ->
@@ -78,16 +127,14 @@ class LookAndFeel : Fragment() {
                 },
                 onColor = {
                     newColorPalette(
-                        this@LookAndFeel,
-                        REQUEST_COLOR_PICKER,
+                        REQUEST_KEY_COLOR,
                         theme.themeColor.pickerColor,
                         ColorPickerAdapter.Palette.COLORS,
                     ).show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
                 },
                 onLauncher = {
                     newColorPalette(
-                        this@LookAndFeel,
-                        REQUEST_LAUNCHER_PICKER,
+                        REQUEST_KEY_LAUNCHER,
                         viewModel.currentLauncherColor,
                         ColorPickerAdapter.Palette.LAUNCHERS,
                     ).show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
@@ -119,9 +166,8 @@ class LookAndFeel : Fragment() {
                                 )
                         )
                     } else {
-                        val dialog = LocalePickerDialog.newLocalePickerDialog()
-                        dialog.setTargetFragment(this@LookAndFeel, REQUEST_LOCALE)
-                        dialog.show(parentFragmentManager, FRAG_TAG_LOCALE_PICKER)
+                        LocalePickerDialog.newLocalePickerDialog()
+                            .show(parentFragmentManager, FRAG_TAG_LOCALE_PICKER)
                     }
                 },
                 onTranslations = {
@@ -174,49 +220,6 @@ class LookAndFeel : Fragment() {
                 val index = viewModel.handlePurchaseResult(data)
                 applyBaseTheme(index)
             }
-            REQUEST_THEME_PICKER -> {
-                val selectedIndex = data?.getIntExtra(
-                    ThemePickerDialog.EXTRA_SELECTED,
-                    ThemeBase.DEFAULT_BASE_THEME
-                ) ?: ThemeBase.DEFAULT_BASE_THEME
-                when (val result = viewModel.handleThemePickerResult(resultCode, selectedIndex)) {
-                    is LookAndFeelViewModel.ThemePickerResult.ApplyTheme -> {
-                        applyBaseTheme(result.index)
-                    }
-                    is LookAndFeelViewModel.ThemePickerResult.PurchaseRequired -> {
-                        startActivityForResult(
-                            Intent(context, PurchaseActivity::class.java)
-                                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "themes"),
-                            REQUEST_PURCHASE
-                        )
-                    }
-                }
-            }
-            REQUEST_COLOR_PICKER -> {
-                if (resultCode == RESULT_OK) {
-                    val color = data?.getIntExtra(
-                        ColorWheelPicker.EXTRA_SELECTED,
-                        theme.themeColor.primaryColor
-                    ) ?: theme.themeColor.primaryColor
-                    if (viewModel.handleColorPickerResult(color)) {
-                        requireActivity().recreate()
-                    }
-                }
-            }
-            REQUEST_LAUNCHER_PICKER -> {
-                if (resultCode == RESULT_OK) {
-                    val index = data!!.getIntExtra(ColorPalettePicker.EXTRA_SELECTED, 0)
-                    viewModel.handleLauncherPickerResult(requireContext(), index)
-                }
-            }
-            REQUEST_LOCALE -> {
-                if (resultCode == RESULT_OK) {
-                    val languageTag = data!!.getStringExtra(LocalePickerDialog.EXTRA_LOCALE)
-                    AppCompatDelegate.setApplicationLocales(
-                        LocaleListCompat.forLanguageTags(languageTag)
-                    )
-                }
-            }
             else -> {
                 super.onActivityResult(requestCode, resultCode, data)
             }
@@ -224,11 +227,9 @@ class LookAndFeel : Fragment() {
     }
 
     companion object {
-        private const val REQUEST_THEME_PICKER = 10001
-        private const val REQUEST_COLOR_PICKER = 10002
-        private const val REQUEST_LAUNCHER_PICKER = 10004
-        private const val REQUEST_LOCALE = 10006
         private const val REQUEST_PURCHASE = 10007
+        private const val REQUEST_KEY_COLOR = "color_picker_result"
+        private const val REQUEST_KEY_LAUNCHER = "launcher_picker_result"
         private const val FRAG_TAG_LOCALE_PICKER = "frag_tag_locale_picker"
         private const val FRAG_TAG_THEME_PICKER = "frag_tag_theme_picker"
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"

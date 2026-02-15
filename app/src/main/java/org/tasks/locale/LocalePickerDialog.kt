@@ -1,9 +1,8 @@
 package org.tasks.locale
 
-import android.app.Activity
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
@@ -32,9 +31,11 @@ class LocalePickerDialog : DialogFragment() {
                 .newDialog()
                 .setSingleChoiceItems(display, display.indexOf(locale.getDisplayName(locale))) { dialog, which ->
                     val locale = locales[which].toLanguageTag()
-                    val data = Intent().putExtra(EXTRA_LOCALE, locale)
+                    parentFragmentManager.setFragmentResult(
+                        REQUEST_KEY,
+                        bundleOf(EXTRA_LOCALE to locale)
+                    )
                     dialog.dismiss()
-                    targetFragment!!.onActivityResult(targetRequestCode, Activity.RESULT_OK, data)
                 }
                 .setNegativeButton(R.string.cancel, null)
                 .show()
@@ -42,6 +43,7 @@ class LocalePickerDialog : DialogFragment() {
 
     companion object {
         const val EXTRA_LOCALE = "extra_locale"
+        const val REQUEST_KEY = "locale_picker_result"
 
         fun newLocalePickerDialog(): LocalePickerDialog = LocalePickerDialog()
     }

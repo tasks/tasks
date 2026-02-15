@@ -1,6 +1,5 @@
 package org.tasks.preferences.fragments
 
-import android.app.Activity.RESULT_OK
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -127,15 +126,12 @@ class LookAndFeelViewModel @Inject constructor(
         return currentThemeBaseIndex != index
     }
 
-    fun handleThemePickerResult(resultCode: Int, selectedIndex: Int): ThemePickerResult {
-        if (resultCode == RESULT_OK) {
-            return if (inventory.purchasedThemes() || ThemeBase(selectedIndex).isFree) {
-                ThemePickerResult.ApplyTheme(selectedIndex)
-            } else {
-                ThemePickerResult.PurchaseRequired
-            }
+    fun handleThemePickerResult(selectedIndex: Int): ThemePickerResult {
+        return if (inventory.purchasedThemes() || ThemeBase(selectedIndex).isFree) {
+            ThemePickerResult.ApplyTheme(selectedIndex)
+        } else {
+            ThemePickerResult.PurchaseRequired
         }
-        return ThemePickerResult.ApplyTheme(selectedIndex)
     }
 
     fun handlePurchaseResult(data: Intent?): Int {

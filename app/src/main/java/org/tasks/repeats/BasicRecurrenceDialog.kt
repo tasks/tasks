@@ -3,11 +3,10 @@ package org.tasks.repeats
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import com.google.common.collect.Lists
 import dagger.hilt.android.AndroidEntryPoint
 import net.fortuna.ical4j.model.Recur
@@ -28,7 +27,13 @@ class BasicRecurrenceDialog : DialogFragment() {
 
     private val customRecurrence =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            targetFragment?.onActivityResult(targetRequestCode, it.resultCode, it.data)
+            if (it.resultCode == RESULT_OK) {
+                val rrule = it.data?.getStringExtra(EXTRA_RRULE)
+                parentFragmentManager.setFragmentResult(
+                    REQUEST_KEY,
+                    bundleOf(EXTRA_RRULE to rrule)
+                )
+            }
             dismiss()
         }
 
@@ -101,9 +106,10 @@ class BasicRecurrenceDialog : DialogFragment() {
                         }
                     }
                 }
-                val intent = Intent()
-                intent.putExtra(EXTRA_RRULE, result?.toString())
-                targetFragment!!.onActivityResult(targetRequestCode, RESULT_OK, intent)
+                parentFragmentManager.setFragmentResult(
+                    REQUEST_KEY,
+                    bundleOf(EXTRA_RRULE to result?.toString())
+                )
                 dialog.dismiss()
             }
             .show()
@@ -119,16 +125,15 @@ class BasicRecurrenceDialog : DialogFragment() {
 
     companion object {
         const val EXTRA_RRULE = "extra_rrule"
+        const val REQUEST_KEY = "basic_recurrence_result"
         private const val EXTRA_DATE = "extra_date"
+
         fun newBasicRecurrenceDialog(
-            target: Fragment?,
-            rc: Int,
             rrule: String?,
             dueDate: Long,
             accountType: Int,
         ): BasicRecurrenceDialog {
             val dialog = BasicRecurrenceDialog()
-            dialog.setTargetFragment(target, rc)
             dialog.arguments = Bundle().apply {
                 rrule?.let { putString(EXTRA_RRULE, it) }
                 putLong(EXTRA_DATE, dueDate)

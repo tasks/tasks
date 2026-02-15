@@ -289,38 +289,35 @@ class NotificationsViewModel @Inject constructor(
     }
 
     fun handleTimePickerResult(
-        data: Intent,
+        timestamp: Long,
         prefKey: Int,
         defaultRes: Int,
         setter: (String) -> Unit,
     ) {
-        val timestamp = data.getLongExtra(
-            org.tasks.dialogs.MyTimePickerDialog.EXTRA_TIMESTAMP, 0L
-        )
         val millisOfDay = DateTime(timestamp).millisOfDay
         preferences.setInt(prefKey, millisOfDay)
         refreshTimeSummary(prefKey, defaultRes, setter)
     }
 
-    fun handleQuietStartResult(data: Intent) {
+    fun handleQuietStartResult(timestamp: Long) {
         handleTimePickerResult(
-            data, R.string.p_rmd_quietStart, R.integer.default_quiet_hours_start
+            timestamp, R.string.p_rmd_quietStart, R.integer.default_quiet_hours_start
         ) { quietStartSummary = it }
         isCurrentlyQuietHours = preferences.isCurrentlyQuietHours
         rescheduleNotifications(false)
     }
 
-    fun handleQuietEndResult(data: Intent) {
+    fun handleQuietEndResult(timestamp: Long) {
         handleTimePickerResult(
-            data, R.string.p_rmd_quietEnd, R.integer.default_quiet_hours_end
+            timestamp, R.string.p_rmd_quietEnd, R.integer.default_quiet_hours_end
         ) { quietEndSummary = it }
         isCurrentlyQuietHours = preferences.isCurrentlyQuietHours
         rescheduleNotifications(false)
     }
 
-    fun handleDefaultRemindResult(data: Intent) {
+    fun handleDefaultRemindResult(timestamp: Long) {
         handleTimePickerResult(
-            data, R.string.p_rmd_time, R.integer.default_remind_time
+            timestamp, R.string.p_rmd_time, R.integer.default_remind_time
         ) { reminderTimeSummary = it }
         rescheduleNotifications(false)
     }

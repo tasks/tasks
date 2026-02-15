@@ -36,6 +36,7 @@ import org.tasks.R
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
 import org.tasks.compose.settings.NotificationsScreen
+import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
 import org.tasks.extensions.Context.openChannelNotificationSettings
 import org.tasks.extensions.Context.openUri
@@ -55,6 +56,29 @@ class Notifications : Fragment() {
 
     private val listPickerLauncher = registerForFilterPickerResult {
         viewModel.setBadgeFilter(it)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        parentFragmentManager.setFragmentResultListener(
+            REQUEST_KEY_QUIET_START, this
+        ) { _, bundle ->
+            val timestamp = bundle.getLong(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
+            viewModel.handleQuietStartResult(timestamp)
+        }
+        parentFragmentManager.setFragmentResultListener(
+            REQUEST_KEY_QUIET_END, this
+        ) { _, bundle ->
+            val timestamp = bundle.getLong(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
+            viewModel.handleQuietEndResult(timestamp)
+        }
+        parentFragmentManager.setFragmentResultListener(
+            REQUEST_KEY_DEFAULT_REMIND, this
+        ) { _, bundle ->
+            val timestamp = bundle.getLong(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
+            viewModel.handleDefaultRemindResult(timestamp)
+        }
     }
 
     override fun onCreateView(
@@ -151,7 +175,7 @@ class Notifications : Fragment() {
                         R.integer.default_remind_time
                     )
                     val current = DateTime().withMillisOfDay(millisOfDay)
-                    newTimePicker(this@Notifications, REQUEST_DEFAULT_REMIND, current.millis)
+                    newTimePicker(REQUEST_KEY_DEFAULT_REMIND, current.millis)
                         .show(parentFragmentManager, FRAG_TAG_TIME_PICKER)
                 },
                 onBadges = { viewModel.updateBadges(it) },
@@ -169,7 +193,7 @@ class Notifications : Fragment() {
                         R.integer.default_quiet_hours_start
                     )
                     val current = DateTime().withMillisOfDay(millisOfDay)
-                    newTimePicker(this@Notifications, REQUEST_QUIET_START, current.millis)
+                    newTimePicker(REQUEST_KEY_QUIET_START, current.millis)
                         .show(parentFragmentManager, FRAG_TAG_TIME_PICKER)
                 },
                 onQuietEnd = {
@@ -177,7 +201,7 @@ class Notifications : Fragment() {
                         R.integer.default_quiet_hours_end
                     )
                     val current = DateTime().withMillisOfDay(millisOfDay)
-                    newTimePicker(this@Notifications, REQUEST_QUIET_END, current.millis)
+                    newTimePicker(REQUEST_KEY_QUIET_END, current.millis)
                         .show(parentFragmentManager, FRAG_TAG_TIME_PICKER)
                 },
             )
@@ -262,15 +286,6 @@ class Notifications : Fragment() {
             REQUEST_CODE_COMPLETION_SOUND -> {
                 viewModel.handleCompletionSoundResult(resultCode, data)
             }
-            REQUEST_QUIET_START -> if (resultCode == RESULT_OK && data != null) {
-                viewModel.handleQuietStartResult(data)
-            }
-            REQUEST_QUIET_END -> if (resultCode == RESULT_OK && data != null) {
-                viewModel.handleQuietEndResult(data)
-            }
-            REQUEST_DEFAULT_REMIND -> if (resultCode == RESULT_OK && data != null) {
-                viewModel.handleDefaultRemindResult(data)
-            }
             REQUEST_CODE_TTS_CHECK -> {
                 viewModel.handleTtsCheckResult(resultCode)
                 if (resultCode != TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
@@ -286,9 +301,9 @@ class Notifications : Fragment() {
 
     companion object {
         private const val FRAG_TAG_TIME_PICKER = "frag_tag_time_picker"
-        private const val REQUEST_QUIET_START = 10001
-        private const val REQUEST_QUIET_END = 10002
-        private const val REQUEST_DEFAULT_REMIND = 10003
+        private const val REQUEST_KEY_QUIET_START = "time_picker_quiet_start"
+        private const val REQUEST_KEY_QUIET_END = "time_picker_quiet_end"
+        private const val REQUEST_KEY_DEFAULT_REMIND = "time_picker_default_remind"
         private const val REQUEST_CODE_TTS_CHECK = 10006
         private const val REQUEST_CODE_COMPLETION_SOUND = 10007
     }
