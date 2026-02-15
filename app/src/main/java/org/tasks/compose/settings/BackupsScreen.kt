@@ -90,25 +90,19 @@ fun BackupsScreen(
                     onClick = onBackupNow,
                 )
             }
-            SettingsItemCard(position = CardPosition.Last) {
+            SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(R.string.backup_BAc_import),
                     onClick = onImportBackup,
                 )
             }
-        }
-
-        // Automatic backups section
-        SectionHeader(
-            R.string.automatic_backups,
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
-        )
-        SettingsItemCard(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
-            SwitchPreferenceRow(
-                title = stringResource(R.string.enabled),
-                checked = backupsEnabled,
-                onCheckedChange = onBackupsEnabled,
-            )
+            SettingsItemCard(position = CardPosition.Last) {
+                SwitchPreferenceRow(
+                    title = stringResource(R.string.automatic_backups),
+                    checked = backupsEnabled,
+                    onCheckedChange = onBackupsEnabled,
+                )
+            }
         }
 
         // Google Drive backup section

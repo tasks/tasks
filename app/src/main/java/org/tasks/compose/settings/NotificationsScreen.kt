@@ -166,32 +166,6 @@ fun NotificationsScreen(
             )
         }
 
-        // Swipe to snooze section
-        SectionHeader(
-            R.string.swipe_to_snooze_title,
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
-        )
-        Column(
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
-            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-        ) {
-            SettingsItemCard(position = CardPosition.First) {
-                SwitchPreferenceRow(
-                    title = stringResource(R.string.enabled),
-                    checked = swipeToSnoozeEnabled,
-                    onCheckedChange = onSwipeToSnooze,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Last) {
-                PreferenceRow(
-                    title = stringResource(R.string.swipe_to_snooze_description),
-                    summary = snoozeSummary,
-                    enabled = swipeToSnoozeEnabled,
-                    onClick = onSnoozeTime,
-                )
-            }
-        }
-
         // All day tasks section
         SectionHeader(
             R.string.default_reminder,
@@ -217,6 +191,32 @@ fun NotificationsScreen(
                     title = stringResource(R.string.rmd_EPr_rmd_time_title),
                     summary = reminderTimeSummary,
                     onClick = onReminderTime,
+                )
+            }
+        }
+
+        // Swipe to snooze section
+        SectionHeader(
+            R.string.swipe_to_snooze_title,
+            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+        )
+        Column(
+            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+        ) {
+            SettingsItemCard(position = CardPosition.First) {
+                SwitchPreferenceRow(
+                    title = stringResource(R.string.enabled),
+                    checked = swipeToSnoozeEnabled,
+                    onCheckedChange = onSwipeToSnooze,
+                )
+            }
+            SettingsItemCard(position = CardPosition.Last) {
+                PreferenceRow(
+                    title = stringResource(R.string.swipe_to_snooze_description),
+                    summary = snoozeSummary,
+                    enabled = swipeToSnoozeEnabled,
+                    onClick = onSnoozeTime,
                 )
             }
         }

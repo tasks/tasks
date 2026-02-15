@@ -54,7 +54,7 @@ fun MainSettingsScreen(
     accounts: List<CaldavAccount>,
     proCardState: ProCardState?,
     showBackupWarning: Boolean,
-    hasWidgets: Boolean,
+    showWidgets: Boolean,
     isDebug: Boolean = BuildConfig.DEBUG,
     onAccountClick: (CaldavAccount) -> Unit,
     onAddAccountClick: () -> Unit,
@@ -192,7 +192,7 @@ fun MainSettingsScreen(
                     onClick = { onSettingsClick(SettingsDestination.Backups) }
                 )
             }
-            if (hasWidgets) {
+            if (showWidgets) {
                 SettingsItemCard(position = CardPosition.Middle) {
                     PreferenceRow(
                         title = stringResource(R.string.widget_settings),

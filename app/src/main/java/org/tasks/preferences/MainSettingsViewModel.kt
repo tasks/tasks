@@ -1,6 +1,8 @@
 package org.tasks.preferences
 
+import android.appwidget.AppWidgetManager as SystemAppWidgetManager
 import android.content.Context
+import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,8 +23,11 @@ class MainSettingsViewModel @Inject constructor(
     private val billingClient: BillingClient,
 ) : ViewModel() {
 
-    val hasWidgets: Boolean
+    val showWidgets: Boolean
         get() = appWidgetManager.widgetIds.isNotEmpty()
+                || ShortcutManagerCompat.isRequestPinShortcutSupported(context)
+                || context.getSystemService(SystemAppWidgetManager::class.java)
+                    .isRequestPinAppWidgetSupported
 
     fun refreshPurchases(onError: (String?) -> Unit) {
         viewModelScope.launch {

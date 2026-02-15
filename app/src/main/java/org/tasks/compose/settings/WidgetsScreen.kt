@@ -16,6 +16,9 @@ import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -35,7 +38,11 @@ data class WidgetItem(
 @Composable
 fun WidgetsScreen(
     widgets: List<WidgetItem>,
+    showAddShortcut: Boolean,
+    showAddWidget: Boolean,
     onWidgetClick: (Int) -> Unit,
+    onAddShortcut: () -> Unit,
+    onAddWidget: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -68,6 +75,36 @@ fun WidgetsScreen(
                                 )
                             },
                             onClick = { onWidgetClick(widget.widgetId) },
+                        )
+                    }
+                }
+            }
+        }
+
+        if (showAddShortcut || showAddWidget) {
+            Spacer(modifier = Modifier.height(SettingsContentPadding))
+
+            val total = (if (showAddShortcut) 1 else 0) + (if (showAddWidget) 1 else 0)
+            var i = 0
+            Column(
+                modifier = Modifier.padding(horizontal = SettingsContentPadding),
+                verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+            ) {
+                if (showAddShortcut) {
+                    SettingsItemCard(position = cardPosition(i++, total)) {
+                        PreferenceRow(
+                            title = stringResource(R.string.add_shortcut_to_home_screen),
+                            icon = Icons.Outlined.Home,
+                            onClick = onAddShortcut,
+                        )
+                    }
+                }
+                if (showAddWidget) {
+                    SettingsItemCard(position = cardPosition(i, total)) {
+                        PreferenceRow(
+                            title = stringResource(R.string.add_widget_to_home_screen),
+                            icon = Icons.Outlined.Widgets,
+                            onClick = onAddWidget,
                         )
                     }
                 }

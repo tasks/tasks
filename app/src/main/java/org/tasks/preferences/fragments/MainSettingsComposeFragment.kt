@@ -85,7 +85,7 @@ class MainSettingsComposeFragment : Fragment() {
                 accounts = filteredAccounts,
                 proCardState = proCardState,
                 showBackupWarning = showBackupWarning,
-                hasWidgets = viewModel.hasWidgets,
+                showWidgets = viewModel.showWidgets,
                 onAccountClick = { account -> handleAccountClick(account) },
                 onAddAccountClick = { addAccount() },
                 onSettingsClick = { destination -> navigateToSettings(destination) },
