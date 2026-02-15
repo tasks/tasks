@@ -703,9 +703,9 @@
     <string name="delete_tasks_warning">%s 将会删除。此操作无法撤销！</string>
     <string name="widget_view_more_tasks">查看更多任务</string>
     <string name="local_list_title">这是本地清单</string>
-    <string name="local_list_description">此清单中的任务只存储在这台设备上。连接账户保护数据，在任何地方访问它。</string>
+    <string name="local_list_description">此清单中的任务只存储在这台设备上。连接账号保护数据，在任何地方访问它。</string>
     <string name="name_your_price_blurb">支付你想要付款的金额解锁主题、图标和这些高级同步选项</string>
-    <string name="microsoft_selection_description_googleplay">与工作、学校或个人 Microsoft 账户同步</string>
+    <string name="microsoft_selection_description_googleplay">与工作、学校或个人 Microsoft 账号同步</string>
     <string name="subscription_required_fdroid">使用 Tasks.org 同步需要订阅。订阅必须通过 Google Play 版本的 Tasks 应用进行。</string>
     <string name="sponsorship_required_fdroid">使用 Tasks.org 同步功能需要成为 GitHub 赞助者。单击下方成为赞助者。</string>
     <string name="legal">法律</string>
@@ -745,4 +745,9 @@
     <string name="upgrade_email_to_task_description">通过将邮件转发至您的专属收件箱即可将其转为任务</string>
     <string name="advanced_tools">高级工具</string>
     <string name="advanced_tools_description">Google Places、CalDAV、EteSync 等！</string>
+    <string name="donate">捐赠</string>
+    <string name="sign_in_to_connect">登录以连接您的 Tasks.org 账号</string>
+    <string name="supporter">支持者</string>
+    <string name="supporter_summary">%s • 谢谢！</string>
+    <string name="upgrade_to_pro_card_description">解锁 Tasks.org 云同步、邮件转任务等更多功能！</string>
 </resources>
