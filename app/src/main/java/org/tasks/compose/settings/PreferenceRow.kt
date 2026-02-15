@@ -105,7 +105,9 @@ fun PreferenceRow(
 
         // Title and summary
         Column(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(1f)
+                .padding(end = SettingsContentPadding)
         ) {
             Text(
                 text = title,
