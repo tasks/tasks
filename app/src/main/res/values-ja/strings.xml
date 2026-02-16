@@ -683,7 +683,7 @@
     <string name="subtasks_multilevel_microsoft">Microsoft To Do は多層式のサブタスクに対応していません</string>
     <string name="price_per_month_with_currency">%s/月</string>
     <string name="price_per_year_with_currency">%s/年</string>
-    <string name="donate_nag">寄付によるサポートをご検討ください！</string>
+    <string name="donate_nag">寄付で私たちをサポートしてください！</string>
     <string name="sync_warning_microsoft">すべてのタスクの詳細が Microsoft To Do と同期されるわけではありません。</string>
     <string name="button_learn_more">詳細を見る</string>
     <string name="enable_alarms">適切なタイミングで通知を受け取る</string>
@@ -737,4 +737,5 @@
     <string name="legal_disclosure_prefix_continuing">下のボタンのいずれかで続行</string>
     <string name="email_to_task">タスクをメールする</string>
     <string name="legal_disclosure">%1$s、あなたは%2$s と%3$sに賛同します。 Tasks は%4$sの下に提供されているオープンソースソフトウェアです。</string>
+    <string name="donate">寄付</string>
 </resources>
