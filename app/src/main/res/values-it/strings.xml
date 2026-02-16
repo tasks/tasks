@@ -778,4 +778,9 @@
     <string name="regenerate_email_address">Generazione nuovo indirizzo email</string>
     <string name="upgrade_email_to_task_description">Converti le email in attività inoltrandole alla tua casella privata</string>
     <string name="advanced_tools">Strumenti avanzati</string>
+    <string name="supporter">Sostenitore</string>
+    <string name="donate">Dona</string>
+    <string name="supporter_summary">%s • Grazie!</string>
+    <string name="sign_in_to_connect">Accedi per connettere il tuo account Tasks.org</string>
+    <string name="upgrade_to_pro_card_description">Sblocca sincronizzazione cloud Tasks.org, attività da e-mail e altro ancora!</string>
 </resources>
