@@ -756,4 +756,9 @@
     <string name="add_default_reminders">Standarderinnerungen hinzufügen</string>
     <string name="rmd_time_enabled_on">Standarderinnerungen für alle Aufgaben ohne Uhrzeit hinzufügen</string>
     <string name="rmd_time_enabled_off">Keine Standarderinnerungen für Aufgaben ohne Uhrzeit hinzufügen</string>
+    <string name="upgrade_to_pro_card_description">Schalte Tasks.org Cloud Sync, Aufgabenerstellung per E-Mail und mehr frei!</string>
+    <string name="supporter">Unterstützer:in</string>
+    <string name="donate">Spenden</string>
+    <string name="supporter_summary">%s • Danke!</string>
+    <string name="sign_in_to_connect">Melde dich an, um dein Tasks.org Konto zu verbinden</string>
 </resources>
