@@ -748,4 +748,17 @@
     <string name="email_to_task_calendar">Cél lista</string>
     <string name="regenerate_email_address">Cím újragenerálása</string>
     <string name="regenerate_email_address_confirmation">A jelenlegi e-mail címed megszűnik működni</string>
+    <string name="rmd_EPr_rmd_time_desc">Az egész napos feladatok emlékeztetője %1$s jelenik meg</string>
+    <string name="default_reminder">Egész napos feladatok</string>
+    <string name="add_default_reminders">Alapértelmezett emlékeztető hozzáadása</string>
+    <string name="rmd_time_enabled_on">Alapértelmezett emlékeztető hozzáadása egész napos feladatokhoz</string>
+    <string name="rmd_time_enabled_off">Egész napos feladatok emlékeztetőjének mellőzése</string>
+    <string name="upgrade_to_pro_card_description">Tasks.org szinkronizálás, feladat e-mailből és egyebek feloldása!</string>
+    <string name="supporter">Támogató</string>
+    <string name="donate">Adományozás</string>
+    <string name="supporter_summary">%s • Köszönöm!</string>
+    <string name="sign_in_to_connect">Jelentkezz be a Tasks.org fiókod csatolásához</string>
+    <string name="upgrade_email_to_task_description">Feladatok létrehozásához küldd tovább a leveleidet a privát fiókodba</string>
+    <string name="advanced_tools">Speciális eszközök</string>
+    <string name="advanced_tools_description">Google Helyek, CalDAV, EteSync, és egyebek!</string>
 </resources>
