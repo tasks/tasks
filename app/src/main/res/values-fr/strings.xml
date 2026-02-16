@@ -778,4 +778,9 @@
     <string name="upgrade_email_to_task_description">Transformez vos courriels en tâches en les transférant vers votre boîte de réception privée</string>
     <string name="advanced_tools">Outils avancés</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync, et plus encore !</string>
+    <string name="supporter">Supporter</string>
+    <string name="donate">Faire un don</string>
+    <string name="supporter_summary">%s • Merci !</string>
+    <string name="sign_in_to_connect">Authentifiez-vous pour connecter votre compte Tasks.org</string>
+    <string name="upgrade_to_pro_card_description">Débloquez la synchronisation cloud Tasks.org, la transformation de vos courriels vers des tâches et bien plus encore !</string>
 </resources>
