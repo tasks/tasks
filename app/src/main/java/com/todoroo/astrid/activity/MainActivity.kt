@@ -195,9 +195,9 @@ class MainActivity : AppCompatActivity() {
                                     )
                                 }
                                 wasInOnboarding = false
-                            }
-                            navController.navigate(HomeDestination) {
-                                popUpTo(0) { inclusive = true }
+                                navController.navigate(HomeDestination) {
+                                    popUpTo(0) { inclusive = true }
+                                }
                             }
                         }
                         else -> {}
