@@ -743,4 +743,22 @@
     <string name="alarm_after">sonra</string>
     <string name="alarm_start">başlangıç</string>
     <string name="alarm_due">bitiş</string>
+    <string name="add_default_reminders">Öntanımlı anımsatıcı ekle</string>
+    <string name="default_reminder">Tüm gün görevleri</string>
+    <string name="rmd_time_enabled_on">Tüm gün görevlerine öntanımlı anımsatıcı ekle</string>
+    <string name="rmd_time_enabled_off">Tüm gün görevlerine öntanımlı anımsatıcı ekleme</string>
+    <string name="upgrade_to_pro_card_description">Tasks.org Cloud eşzamanlamasını, E-postayla Görev ve diğerlerini aç!</string>
+    <string name="supporter">Destekçi</string>
+    <string name="donate">Bağış Yap</string>
+    <string name="supporter_summary">%s • Sağ olun!</string>
+    <string name="sign_in_to_connect">Tasks.org hesabınıza bağlanmak için oturum açın</string>
+    <string name="email_to_task">E-postayla görev</string>
+    <string name="email_to_task_address">E-posta adresiniz</string>
+    <string name="email_to_task_calendar">Hedef liste</string>
+    <string name="regenerate_email_address">Adresi yeniden üret</string>
+    <string name="regenerate_email_address_confirmation">Geçerli e-posta adresiniz çalışmayı durduracak</string>
+    <string name="upgrade_email_to_task_description">E-postaları özel gelen kutunuza yönlendirerek göreve çevirin</string>
+    <string name="advanced_tools">Gelişmiş araçlar</string>
+    <string name="advanced_tools_description">Google Yerler, CalDAV, EteSync ve dahası!</string>
+    <string name="rmd_EPr_rmd_time_desc">Tüm gün görevleri için bildirimlerin görüneceği an: %1$s</string>
 </resources>
