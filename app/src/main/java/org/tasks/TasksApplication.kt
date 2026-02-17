@@ -27,6 +27,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.icons.OutlinedGoogleMaterial
@@ -63,6 +65,7 @@ class TasksApplication : Application(), Configuration.Provider {
     @Inject lateinit var workerFactory: HiltWorkerFactory
     @Inject lateinit var contentObserver: Lazy<OpenTaskContentObserver>
     @Inject lateinit var syncAdapters: Lazy<SyncAdapters>
+    @Inject lateinit var firebase: Firebase
     @Inject lateinit var pushTokenManager: Lazy<PushTokenManager>
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -124,7 +127,12 @@ class TasksApplication : Application(), Configuration.Provider {
             upgrader.get().upgrade(lastVersion, currentVersion)
             scope.launch {
                 preferences.setDefaults()
+                withContext(Dispatchers.Main) {
+                    firebase.registerPrefChangeListener()
+                }
             }
+        } else {
+            firebase.registerPrefChangeListener()
         }
     }
 

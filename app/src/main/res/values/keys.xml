@@ -435,6 +435,7 @@
   <string name="event_settings_click">settings_click</string>
   <string name="event_help_and_feedback">help_and_feedback</string>
   <string name="event_notification">notification</string>
+  <string name="event_preference_changed">preference_changed</string>
   <string name="event_widget_click">widget_click</string>
   <string name="param_widget_id">widget_id</string>
   <string name="event_multi_select">multi_select</string>
@@ -443,6 +444,7 @@
   <string name="event_screen_add_account">screen_add_account</string>
   <string name="event_settings_navigation">settings_navigation</string>
   <string name="event_pro_card">pro_card</string>
+  <string name="param_key">key</string>
   <string name="param_type">type</string>
   <string name="param_screen">screen</string>
   <string name="param_error">error</string>

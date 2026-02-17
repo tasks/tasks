@@ -153,6 +153,7 @@ class AdvancedViewModel @Inject constructor(
             R.string.event_settings_click,
             R.string.param_type to "reset_preferences",
         )
+        firebase.unregisterPrefChangeListener()
         preferences.reset()
         kotlin.system.exitProcess(0)
     }

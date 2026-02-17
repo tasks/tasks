@@ -179,11 +179,14 @@ class Firebase @Inject constructor(
 
     private val prefChangeListener =
         SharedPreferences.OnSharedPreferenceChangeListener { sharedPrefs, key ->
-            if (key == null || !posthogEnabled) return@OnSharedPreferenceChangeListener
-            val properties = when {
+            if (key == null) return@OnSharedPreferenceChangeListener
+            val params = when {
                 key in trackedPrefs -> {
                     val value = sharedPrefs.all[key]
-                    mapOf("key" to key, "value" to (value ?: "null"))
+                    arrayOf(
+                        R.string.param_key to key,
+                        R.string.param_value to (value ?: "null"),
+                    )
                 }
                 key in obfuscatedPrefs -> {
                     val value = sharedPrefs.getString(key, null)
@@ -192,7 +195,10 @@ class Firebase @Inject constructor(
                         value.isEmpty() -> "empty"
                         else -> "non-empty"
                     }
-                    mapOf("key" to key, "value" to state)
+                    arrayOf(
+                        R.string.param_key to key,
+                        R.string.param_value to state,
+                    )
                 }
                 key.startsWith("widget-") -> {
                     // strip widget ID suffix: "widget-theme-v2-123" -> "widget-theme-v2"
@@ -202,23 +208,32 @@ class Firebase @Inject constructor(
                     else
                         key
                     val value = sharedPrefs.all[key]
-                    buildMap<String, Any> {
-                        put("key", normalized)
-                        put("value", value ?: "null")
-                        if (widgetId != null) put("widget_id", widgetId)
+                    if (widgetId != null) {
+                        arrayOf(
+                            R.string.param_key to normalized,
+                            R.string.param_value to (value ?: "null"),
+                            R.string.param_widget_id to widgetId,
+                        )
+                    } else {
+                        arrayOf(
+                            R.string.param_key to normalized,
+                            R.string.param_value to (value ?: "null"),
+                        )
                     }
                 }
                 else -> null
             }
-            if (properties != null) {
-                PostHog.capture(event = "preference_changed", properties = properties)
+            if (params != null) {
+                logEvent(R.string.event_preference_changed, *params)
             }
         }
 
-    init {
-        if (posthogEnabled) {
-            preferences.registerOnSharedPreferenceChangeListener(prefChangeListener)
-        }
+    fun registerPrefChangeListener() {
+        preferences.registerOnSharedPreferenceChangeListener(prefChangeListener)
+    }
+
+    fun unregisterPrefChangeListener() {
+        preferences.unregisterOnSharedPreferenceChangeListener(prefChangeListener)
     }
 
     private val remoteConfig by lazy {
