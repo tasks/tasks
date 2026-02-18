@@ -73,6 +73,7 @@ class MainSettingsComposeFragment : Fragment() {
         ) {
             val filteredAccounts = proCardViewModel.filteredAccounts.collectAsStateWithLifecycle().value
             val proCardState = proCardViewModel.proCardState.collectAsStateWithLifecycle().value
+            val environmentLabel = proCardViewModel.environmentLabel.collectAsStateWithLifecycle().value
             var showManageSheet by remember { mutableStateOf(false) }
 
             // Calculate backup warning from activity's PreferencesViewModel
@@ -84,6 +85,7 @@ class MainSettingsComposeFragment : Fragment() {
             MainSettingsScreen(
                 accounts = filteredAccounts,
                 proCardState = proCardState,
+                environmentLabel = environmentLabel,
                 showBackupWarning = showBackupWarning,
                 showWidgets = viewModel.showWidgets,
                 onAccountClick = { account -> handleAccountClick(account) },

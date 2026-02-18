@@ -72,6 +72,7 @@ fun AccountSettingsCard(
     modifier: Modifier = Modifier,
     iconOverride: ImageVector? = null,
     showChevron: Boolean = true,
+    environmentLabel: String? = null,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -122,14 +123,18 @@ fun AccountSettingsCard(
                 is ProCardState.SignIn -> {
                     iconRes = R.drawable.ic_round_icon
                     iconTint = Color.Unspecified
-                    title = stringResource(R.string.tasks_org)
+                    title = environmentLabel
+                        ?.let { "${stringResource(R.string.tasks_org)} \u2022 $it" }
+                        ?: stringResource(R.string.tasks_org)
                     summary = stringResource(R.string.sign_in_to_connect)
                     showError = false
                 }
                 is ProCardState.TasksOrgAccount -> {
                     iconRes = R.drawable.ic_round_icon
                     iconTint = Color.Unspecified
-                    title = stringResource(R.string.tasks_org)
+                    title = environmentLabel
+                        ?.let { "${stringResource(R.string.tasks_org)} \u2022 $it" }
+                        ?: stringResource(R.string.tasks_org)
                     summary = state.account.name
                     showError = state.account.hasError
                 }

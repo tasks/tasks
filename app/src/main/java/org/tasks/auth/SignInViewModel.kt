@@ -11,7 +11,6 @@ import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.ClientAuthentication.UnsupportedAuthenticationMethod
 import net.openid.appauth.GrantTypeValues
 import net.openid.appauth.TokenRequest
-import org.tasks.R
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
@@ -26,7 +25,8 @@ class SignInViewModel @Inject constructor(
     private val provider: CaldavClientProvider,
     private val caldavDao: CaldavDao,
     private val encryption: KeyStoreEncryption,
-    private val debugConnectionBuilder: DebugConnectionBuilder
+    private val debugConnectionBuilder: DebugConnectionBuilder,
+    private val environment: TasksServerEnvironment,
 ) : ViewModel() {
     val error = MutableLiveData<Throwable>()
 
@@ -34,7 +34,7 @@ class SignInViewModel @Inject constructor(
 
     fun initializeAuthService(iss: String) {
         authService?.dispose()
-        authService = AuthorizationService(iss, context, debugConnectionBuilder)
+        authService = AuthorizationService(iss, context, debugConnectionBuilder, environment.caldavUrl)
     }
 
     suspend fun handleResult(authService: AuthorizationService, intent: Intent) {
@@ -64,7 +64,7 @@ class SignInViewModel @Inject constructor(
         return try {
             val homeSet = provider
                     .forUrl(
-                            context.getString(R.string.tasks_caldav_url),
+                            environment.caldavUrl,
                             username,
                             tokenString
                     )

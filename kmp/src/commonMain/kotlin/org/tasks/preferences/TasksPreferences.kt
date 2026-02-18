@@ -33,5 +33,6 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val subscriptionDismissedAccounts = stringSetPreferencesKey("subscription_dismissed_accounts")
         val syncSource = stringPreferencesKey("sync_source")
         val cachedAccountData = stringPreferencesKey("cached_account_data")
+        val serverEnvironment = stringPreferencesKey("server_environment")
     }
 }

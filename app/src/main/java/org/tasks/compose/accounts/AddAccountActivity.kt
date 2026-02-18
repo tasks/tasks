@@ -1,4 +1,4 @@
-package org.tasks.compose.accounts
+ package org.tasks.compose.accounts
 
 import android.app.Activity
 import android.content.Intent

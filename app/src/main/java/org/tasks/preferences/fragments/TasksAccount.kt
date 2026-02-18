@@ -31,6 +31,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.auth.SignInActivity
+import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
@@ -69,6 +70,7 @@ class TasksAccount : Fragment() {
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var theme: Theme
+    @Inject lateinit var environment: TasksServerEnvironment
 
     private val viewModel: TasksAccountViewModel by viewModels()
 
@@ -172,6 +174,7 @@ class TasksAccount : Fragment() {
                 newPassword = newPassword,
                 calendars = calendars,
                 inboundCalendarUri = inboundCalendarUri,
+                caldavUrl = environment.caldavUrl,
                 showTosDialog = showTosDialog,
                 onSignIn = {
                     activity?.startActivityForResult(

@@ -85,6 +85,7 @@ fun TasksAccountScreen(
     newPassword: NewPassword?,
     calendars: List<CalendarItem>,
     inboundCalendarUri: String?,
+    caldavUrl: String,
     showTosDialog: Boolean,
     onSignIn: () -> Unit,
     onSubscribe: () -> Unit,
@@ -390,7 +391,7 @@ fun TasksAccountScreen(
 
     if (newPassword != null) {
         NewPasswordDialog(
-            caldavUrl = stringResource(R.string.tasks_caldav_url),
+            caldavUrl = caldavUrl,
             username = newPassword.username,
             password = newPassword.password,
             onCopyField = onCopyField,

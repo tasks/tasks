@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.tasks.TasksApplication.Companion.IS_GENERIC
+import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.Inventory
 import org.tasks.billing.Purchase
 import org.tasks.caldav.CaldavClientProvider
@@ -31,6 +32,7 @@ class ProCardViewModel @Inject constructor(
     private val inventory: Inventory,
     private val provider: CaldavClientProvider,
     private val tasksPreferences: TasksPreferences,
+    private val serverEnvironment: TasksServerEnvironment,
 ) : ViewModel() {
 
     private val json = Json { ignoreUnknownKeys = true }
@@ -44,6 +46,8 @@ class ProCardViewModel @Inject constructor(
 
     private val _accountData = MutableStateFlow<AccountData?>(null)
     private val _isLoading = MutableStateFlow(false)
+    private val _environmentLabel = MutableStateFlow<String?>(null)
+    val environmentLabel: StateFlow<String?> = _environmentLabel
 
     val proCardState: StateFlow<ProCardState> = combine(
         accounts,
@@ -71,6 +75,12 @@ class ProCardViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            val env = serverEnvironment.getEnvironment()
+            _environmentLabel.value = when (env) {
+                TasksServerEnvironment.ENV_STAGING -> "Staging"
+                TasksServerEnvironment.ENV_DEV -> "Development"
+                else -> null
+            }
             loadCachedAccountData()
             accounts.first { it.isNotEmpty() }
                 .firstOrNull { it.isTasksOrg }

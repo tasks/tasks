@@ -7,8 +7,8 @@ import okhttp3.Authenticator
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import org.tasks.R
 import org.tasks.analytics.Firebase
+import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.Inventory
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.getPassword
@@ -25,8 +25,8 @@ class CaldavClientProvider @Inject constructor(
         private val httpClientFactory: HttpClientFactory,
         private val tasksPreferences: TasksPreferences,
         private val firebase: Firebase,
+        private val environment: TasksServerEnvironment,
 ) {
-    private val tasksUrl = context.getString(R.string.tasks_caldav_url)
 
     suspend fun forUrl(
             url: String?,
@@ -78,7 +78,7 @@ class CaldavClientProvider @Inject constructor(
             pushToken: String? = null,
     ): Interceptor? = when {
         username.isNullOrBlank() || password.isNullOrBlank() -> null
-        url?.startsWith(tasksUrl) == true -> TasksBasicAuth(username, password, inventory, tosVersion, pushToken)
+        url?.startsWith(environment.caldavUrl) == true -> TasksBasicAuth(username, password, inventory, tosVersion, pushToken)
         else -> BasicDigestAuthHandler(null, username, password)
     }
 

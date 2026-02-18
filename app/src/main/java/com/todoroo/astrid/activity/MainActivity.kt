@@ -56,6 +56,7 @@ import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import org.tasks.analytics.Firebase
 import org.tasks.auth.SignInActivity
+import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.compose.AddAccountDestination
@@ -116,6 +117,7 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var syncAdapters: SyncAdapters
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var tasksPreferences: TasksPreferences
+    @Inject lateinit var serverEnvironment: TasksServerEnvironment
 
     private val viewModel: MainActivityViewModel by viewModels()
     private var currentNightMode = 0
@@ -162,6 +164,10 @@ class MainActivity : AppCompatActivity() {
                 suspend fun setAcceptedTosVersion(version: Int) {
                     tasksPreferences.set(TasksPreferences.acceptedTosVersion, version)
                 }
+
+                val currentEnv by tasksPreferences
+                    .flow(TasksPreferences.serverEnvironment, TasksServerEnvironment.ENV_PRODUCTION)
+                    .collectAsStateWithLifecycle(TasksServerEnvironment.ENV_PRODUCTION)
 
                 var wasInOnboarding by rememberSaveable { mutableStateOf(false) }
                 val importViewModel: ImportTasksViewModel = hiltViewModel()
@@ -261,7 +267,14 @@ class MainActivity : AppCompatActivity() {
                                     )
                                 }
                             },
-                            openLegalUrl = { url -> openUri(url) }
+                            openLegalUrl = { url -> openUri(url) },
+                            environments = serverEnvironment.environments,
+                            currentEnvironment = currentEnv,
+                            onSelectEnvironment = { env ->
+                                lifecycleScope.launch {
+                                    serverEnvironment.setEnvironment(env)
+                                }
+                            },
                         )
                     }
                     composable<AddAccountDestination> { backStackEntry ->

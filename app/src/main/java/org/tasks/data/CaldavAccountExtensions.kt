@@ -49,10 +49,7 @@ val CaldavAccount.prefIcon: Int
     }
 
 fun CaldavAccount.isTasksSubscription(context: Context): Boolean {
-    val caldavUrl = context.getString(R.string.tasks_caldav_url)
-    return url?.startsWith("${caldavUrl}/calendars/") == true &&
-            !isPaymentRequired() &&
-            !isLoggedOut()
+    return isTasksOrg && !isPaymentRequired() && !isLoggedOut()
 }
 
 fun CaldavAccount.listSettingsClass(): Class<out Activity> = when(accountType) {

@@ -53,6 +53,7 @@ sealed class SettingsDestination(val titleRes: Int) {
 fun MainSettingsScreen(
     accounts: List<CaldavAccount>,
     proCardState: ProCardState?,
+    environmentLabel: String? = null,
     showBackupWarning: Boolean,
     showWidgets: Boolean,
     isDebug: Boolean = BuildConfig.DEBUG,
@@ -75,6 +76,7 @@ fun MainSettingsScreen(
                 state = proCardState,
                 onClick = onProCardClick,
                 modifier = Modifier.padding(horizontal = SettingsContentPadding),
+                environmentLabel = environmentLabel,
             )
             Spacer(modifier = Modifier.height(SettingsContentPadding))
         }
