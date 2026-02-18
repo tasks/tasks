@@ -31,7 +31,6 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.auth.SignInActivity
-import org.tasks.auth.SignInActivity.Platform
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
@@ -175,14 +174,8 @@ class TasksAccount : Fragment() {
                 inboundCalendarUri = inboundCalendarUri,
                 showTosDialog = showTosDialog,
                 onSignIn = {
-                    val currentAccount = account ?: return@TasksAccountScreen
-                    val isGh = currentAccount.username?.startsWith("github") == true
                     activity?.startActivityForResult(
-                        Intent(activity, SignInActivity::class.java)
-                            .putExtra(
-                                SignInActivity.EXTRA_SELECT_SERVICE,
-                                if (isGh) Platform.GITHUB else Platform.GOOGLE
-                            ),
+                        Intent(activity, SignInActivity::class.java),
                         REQUEST_TASKS_ORG,
                     )
                 },

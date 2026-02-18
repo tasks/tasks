@@ -174,10 +174,7 @@ class MainSettingsComposeFragment : Fragment() {
         when (state) {
             is ProCardState.TasksOrgAccount -> handleAccountClick(state.account)
             is ProCardState.SignIn -> {
-                startActivity(
-                    Intent(context, SignInActivity::class.java)
-                        .putExtra(SignInActivity.EXTRA_SELECT_SERVICE, SignInActivity.Platform.GOOGLE)
-                )
+                startActivity(Intent(context, SignInActivity::class.java))
             }
             is ProCardState.Donate -> {
                 requireContext().openUri(R.string.url_donate)

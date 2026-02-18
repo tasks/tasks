@@ -53,7 +53,9 @@ import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_GITHUB
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
 import org.tasks.compose.SignInDialog
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.fcm.PushTokenManager
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
@@ -80,6 +82,7 @@ class SignInActivity : ComponentActivity() {
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var pushTokenManager: PushTokenManager
+    @Inject lateinit var caldavDao: CaldavDao
 
     private val viewModel: SignInViewModel by viewModels()
 
@@ -109,47 +112,63 @@ class SignInActivity : ComponentActivity() {
 
         viewModel.error.observe(this, this::handleError)
 
-        val autoSelect = intent.getSerializableExtra(EXTRA_SELECT_SERVICE) as Platform?
-        if (autoSelect != null) {
-            setContent {
-                TasksTheme(
-                    theme = theme.themeBase.index,
-                    primary = theme.themeColor.primaryColor,
-                ) {
-                    showSubscriptionRequiredDialog?.let { isGitHub ->
-                        SubscriptionRequiredDialog(
-                            isGitHub = isGitHub,
-                            onDismiss = { finish() },
-                        )
-                    }
-                }
-            }
-            selectService(autoSelect)
-        } else {
-            setContent {
-                TasksTheme(
-                    theme = theme.themeBase.index,
-                    primary = theme.themeColor.primaryColor,
-                ) {
-                    if (showSubscriptionRequiredDialog != null) {
-                        SubscriptionRequiredDialog(
-                            isGitHub = showSubscriptionRequiredDialog!!,
-                            onDismiss = { finish() },
-                        )
-                    } else {
-                        Dialog(onDismissRequest = { finish() }) {
-                            SignInDialog(
-                                selected = { selectService(it) },
-                                help = {
-                                    openUri(R.string.help_url_sync)
-                                    finish()
-                                },
-                                cancel = { finish() }
+        lifecycleScope.launch {
+            val autoSelect = getAutoSelectPlatform()
+            if (autoSelect != null) {
+                setContent {
+                    TasksTheme(
+                        theme = theme.themeBase.index,
+                        primary = theme.themeColor.primaryColor,
+                    ) {
+                        showSubscriptionRequiredDialog?.let { isGitHub ->
+                            SubscriptionRequiredDialog(
+                                isGitHub = isGitHub,
+                                onDismiss = { finish() },
                             )
                         }
                     }
                 }
+                selectService(autoSelect)
+            } else {
+                setContent {
+                    TasksTheme(
+                        theme = theme.themeBase.index,
+                        primary = theme.themeColor.primaryColor,
+                    ) {
+                        if (showSubscriptionRequiredDialog != null) {
+                            SubscriptionRequiredDialog(
+                                isGitHub = showSubscriptionRequiredDialog!!,
+                                onDismiss = { finish() },
+                            )
+                        } else {
+                            Dialog(onDismissRequest = { finish() }) {
+                                SignInDialog(
+                                    selected = { selectService(it) },
+                                    help = {
+                                        openUri(R.string.help_url_sync)
+                                        finish()
+                                    },
+                                    cancel = { finish() }
+                                )
+                            }
+                        }
+                    }
+                }
             }
+        }
+    }
+
+    private suspend fun getAutoSelectPlatform(): Platform? {
+        val existingAccount = caldavDao.getAccounts(TYPE_TASKS).firstOrNull()
+        return when {
+            existingAccount != null ->
+                if (existingAccount.username?.startsWith("github") == true)
+                    Platform.GITHUB
+                else
+                    Platform.GOOGLE
+            inventory.subscription.value?.isTasksSubscription == true ->
+                Platform.GOOGLE
+            else -> null
         }
     }
 
@@ -473,7 +492,6 @@ class SignInActivity : ComponentActivity() {
 
     companion object {
         const val EXTRA_ERROR = "extra_error"
-        const val EXTRA_SELECT_SERVICE = "extra_select_service"
         private const val RC_AUTH = 100
         private const val RC_PURCHASE = 101
     }

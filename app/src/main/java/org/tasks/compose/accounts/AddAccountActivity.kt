@@ -89,16 +89,7 @@ class AddAccountActivity : ComponentActivity() {
     private fun doSignIn(platform: Platform) {
         when (platform) {
             Platform.TASKS_ORG ->
-                syncLauncher.launch(
-                    Intent(this, SignInActivity::class.java).apply {
-                        if (inventory.subscription.value?.isTasksSubscription == true) {
-                            putExtra(
-                                SignInActivity.EXTRA_SELECT_SERVICE,
-                                SignInActivity.Platform.GOOGLE,
-                            )
-                        }
-                    }
-                )
+                syncLauncher.launch(Intent(this, SignInActivity::class.java))
             Platform.GOOGLE_TASKS ->
                 syncLauncher.launch(Intent(this, GtasksLoginActivity::class.java))
             Platform.MICROSOFT ->
