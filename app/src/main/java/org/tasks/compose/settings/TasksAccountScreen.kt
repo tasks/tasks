@@ -177,13 +177,15 @@ fun TasksAccountScreen(
                         },
                     )
                 }
-                SettingsItemCard(position = CardPosition.Middle) {
-                    PreferenceRow(
-                        title = stringResource(R.string.email_to_task_calendar),
-                        summary = inboundCalendarName ?: stringResource(R.string.none),
-                        icon = Icons.AutoMirrored.Outlined.List,
-                        onClick = { showCalendarDialog = true },
-                    )
+                if (inboundCalendarName != null) {
+                    SettingsItemCard(position = CardPosition.Middle) {
+                        PreferenceRow(
+                            title = stringResource(R.string.email_to_task_calendar),
+                            summary = inboundCalendarName,
+                            icon = Icons.AutoMirrored.Outlined.List,
+                            onClick = { showCalendarDialog = true },
+                        )
+                    }
                 }
                 SettingsItemCard(position = CardPosition.Last) {
                     PreferenceRow(
