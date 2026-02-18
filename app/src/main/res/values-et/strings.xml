@@ -741,4 +741,17 @@
     <string name="email_to_task_calendar">Sihtkalendrite loend</string>
     <string name="regenerate_email_address">Loo aadress uuesti</string>
     <string name="regenerate_email_address_confirmation">Sinu senine e-posti aadress lõpetab toimimise</string>
+    <string name="rmd_EPr_rmd_time_desc">Kogu päeva katvate ülesannete teavitused on nähtavad siin: %1$s</string>
+    <string name="default_reminder">Kogu päeva katvad ülesanded</string>
+    <string name="add_default_reminders">Lisa vaikimisi meeldetuletusi</string>
+    <string name="rmd_time_enabled_on">Lisa vaikimisi meeldetuletused kogu päeva katvatele ülesannetele</string>
+    <string name="rmd_time_enabled_off">Ära lisa vaikimisi meeldetuletusi kogu päeva katvatele ülesannetele</string>
+    <string name="upgrade_to_pro_card_description">Saad kasutada Tasks.org- pilvesünkroonimist, e-kirjast ülesande tegemist ja palju muud!</string>
+    <string name="supporter">Toetaja</string>
+    <string name="donate">Toeta meid rahaliselt</string>
+    <string name="supporter_summary">%s • Suur tänu!</string>
+    <string name="sign_in_to_connect">Ühendamaks oma Tasks.org-i kontot palun logi sisse</string>
+    <string name="upgrade_email_to_task_description">Muuda e-kirjad ülesanneteks, kui edastad need oma privaatsesse postkasti</string>
+    <string name="advanced_tools">Täiendavad tarvikud</string>
+    <string name="advanced_tools_description">Google Places, CalDAV, EteSync ja palju muud!</string>
 </resources>
