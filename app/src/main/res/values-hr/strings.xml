@@ -778,4 +778,9 @@
     <string name="upgrade_email_to_task_description">Pretvori e-mail poruke u zadatke prosljeđivanjem u tvoju privatnu dolaznu poštu</string>
     <string name="advanced_tools">Napredni alati</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync i još više!</string>
+    <string name="upgrade_to_pro_card_description">Otključaj Tasks.org Cloud sinkronizaciju, pretvori e-mail u zadatak i još više!</string>
+    <string name="supporter">Podržavatelj</string>
+    <string name="donate">Doniraj</string>
+    <string name="supporter_summary">%s • Hvala!</string>
+    <string name="sign_in_to_connect">Prijavi se za povezivanje na tvoj Tasks.org račun</string>
 </resources>
