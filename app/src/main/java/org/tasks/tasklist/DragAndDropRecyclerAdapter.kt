@@ -122,8 +122,8 @@ class DragAndDropRecyclerAdapter(
 
         override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
             return when {
+                viewHolder !is TaskViewHolder -> NO_MOVEMENT
                 !dragAndDropEnabled() -> NO_MOVEMENT
-                adapter.isHeader(viewHolder.bindingAdapterPosition) -> NO_MOVEMENT
                 adapter.numSelected > 0 -> NO_MOVEMENT
                 else -> ALLOW_DRAGGING
             }
@@ -133,6 +133,7 @@ class DragAndDropRecyclerAdapter(
                 recyclerView: RecyclerView,
                 src: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder): Boolean {
+            if (target !is TaskViewHolder && target !is HeaderViewHolder) return false
             taskList.finishActionMode()
             val fromPosition = src.bindingAdapterPosition
             val toPosition = target.bindingAdapterPosition

@@ -34,10 +34,22 @@ import androidx.appcompat.widget.Toolbar
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.core.Animatable
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.IntOffset
+import kotlin.math.abs
+import kotlin.math.roundToInt
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.core.app.ShareCompat
 import androidx.core.content.IntentCompat
@@ -142,6 +154,7 @@ import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.tags.TagPickerActivity
+import org.tasks.tasklist.BannerAdapter
 import org.tasks.tasklist.DragAndDropRecyclerAdapter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TaskViewHolder
@@ -197,6 +210,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private val mainViewModel: MainActivityViewModel by activityViewModels()
     private lateinit var taskAdapter: TaskAdapter
     private var recyclerAdapter: DragAndDropRecyclerAdapter? = null
+    private val bannerAdapter = BannerAdapter()
     private lateinit var filter: Filter
     private lateinit var search: MenuItem
     private var mode: ActionMode? = null
@@ -428,8 +442,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
         setupToolbarMenu()
         setupBottomAppBarMenu()
-        binding.banner.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-        binding.banner.setContent {
+        bannerAdapter.content = {
             val context = LocalContext.current
             val mainActivityState = mainViewModel.state.collectAsStateWithLifecycle().value
             val state = listViewModel.state.collectAsStateWithLifecycle().value
@@ -462,6 +475,41 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     enter = expandVertically(),
                     exit = shrinkVertically(),
                 ) {
+                    val offsetX = remember { Animatable(0f) }
+                    val scope = rememberCoroutineScope()
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .offset { IntOffset(offsetX.value.roundToInt(), 0) }
+                            .pointerInput(Unit) {
+                                detectHorizontalDragGestures(
+                                    onDragEnd = {
+                                        scope.launch {
+                                            if (abs(offsetX.value) > size.width * 0.4f) {
+                                                val target = if (offsetX.value > 0) {
+                                                    size.width.toFloat()
+                                                } else {
+                                                    -size.width.toFloat()
+                                                }
+                                                offsetX.animateTo(target)
+                                                listViewModel.dismissBanner()
+                                            } else {
+                                                offsetX.animateTo(0f)
+                                            }
+                                        }
+                                    },
+                                    onDragCancel = {
+                                        scope.launch { offsetX.animateTo(0f) }
+                                    },
+                                    onHorizontalDrag = { change, dragAmount ->
+                                        change.consume()
+                                        scope.launch {
+                                            offsetX.snapTo(offsetX.value + dragAmount)
+                                        }
+                                    }
+                                )
+                            }
+                    ) {
                     when (state.banner) {
                         is Banner.NotificationsDisabled ->
                             NotificationsDisabledBanner(
@@ -562,6 +610,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
                         null -> {}
                     }
+                    }
                 }
             }
         }
@@ -589,7 +638,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     private fun setAdapter(adapter: DragAndDropRecyclerAdapter) {
         recyclerAdapter = adapter
-        binding.bodyStandard.recyclerView.adapter = adapter
+        binding.bodyStandard.recyclerView.adapter = ConcatAdapter(bannerAdapter, adapter)
         taskAdapter.setDataSource(adapter)
     }
 
