@@ -102,6 +102,7 @@ android {
             resValue("string", "mapbox_key", tasks_mapbox_key ?: "")
             resValue("string", "google_key", tasks_google_key ?: "")
             resValue("string", "posthog_key", tasks_posthog_key ?: "")
+            resValue("string", "tasks_dev_url", "")
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard.pro")
             signingConfig = signingConfigs.getByName("release")
