@@ -10,9 +10,21 @@ class BannerAdapter : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {
 
     var content: (@Composable () -> Unit)? = null
 
+    var showBanner: Boolean = false
+        set(value) {
+            if (field != value) {
+                field = value
+                if (value) {
+                    notifyItemInserted(0)
+                } else {
+                    notifyItemRemoved(0)
+                }
+            }
+        }
+
     class BannerViewHolder(val composeView: ComposeView) : RecyclerView.ViewHolder(composeView)
 
-    override fun getItemCount() = 1
+    override fun getItemCount() = if (showBanner) 1 else 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BannerViewHolder(
         ComposeView(parent.context).apply {

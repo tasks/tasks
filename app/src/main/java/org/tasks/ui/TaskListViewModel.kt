@@ -273,7 +273,6 @@ class TaskListViewModel @Inject constructor(
 
     fun dismissBanner(tookAction: Boolean = false) {
         val currentBanner = state.value.banner ?: return
-        _state.update { it.copy(banner = null) }
 
         viewModelScope.launch(NonCancellable) {
             when (currentBanner) {
