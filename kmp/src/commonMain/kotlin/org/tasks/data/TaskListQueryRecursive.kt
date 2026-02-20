@@ -28,8 +28,7 @@ internal object TaskListQueryRecursive {
         val manualSort = preferences.isManualSort
         val groupPreference = preferences.groupMode
         val groupMode = when {
-            filter is CaldavFilter && (manualSort || groupPreference == SortHelper.SORT_LIST) ->
-                SortHelper.GROUP_NONE
+            filter is CaldavFilter && manualSort -> SortHelper.GROUP_NONE
             else -> groupPreference
         }
         val sortMode = when {
@@ -69,8 +68,8 @@ internal object TaskListQueryRecursive {
                     0 AS indent,
                     UPPER(tasks.title) AS sort_title,
                     ${SortHelper.orderSelectForSortTypeRecursive(groupMode, true)} AS primary_group,
-                    ${SortHelper.orderSelectForSortTypeRecursive(sortMode, false)} AS primary_sort,
-                    NULL as secondary_sort,
+                    ${SortHelper.orderSelectForSortTypeRecursive(sortMode, false)} AS primary_ordering,
+                    NULL as secondary_ordering,
                     ${SortHelper.getSortGroup(groupMode)} AS sort_group,
                     '/' || tasks._id || '/' as recursive_path
                 FROM tasks
@@ -98,8 +97,8 @@ internal object TaskListQueryRecursive {
                     END AS indent,
                     UPPER(tasks.title) AS sort_title,
                     recursive_tasks.primary_group AS primary_group,
-                    recursive_tasks.primary_sort AS primary_sort,
-                    ${SortHelper.orderSelectForSortTypeRecursive(subtaskMode, false)} AS secondary_sort,
+                    recursive_tasks.primary_ordering AS primary_ordering,
+                    ${SortHelper.orderSelectForSortTypeRecursive(subtaskMode, false)} AS secondary_ordering,
                     recursive_tasks.sort_group AS sort_group,
                     recursive_tasks.recursive_path || tasks._id || '/' AS recursive_path
                 FROM tasks
@@ -153,8 +152,8 @@ internal object TaskListQueryRecursive {
                     WHEN parent_complete > 0 THEN completed_children
                     ELSE uncompleted_children
                 END as children,
-                primary_sort,
-                secondary_sort,
+                ${if (sortMode == SortHelper.SORT_GTASKS || sortMode == SortHelper.SORT_CALDAV) "primary_ordering" else "0"} AS primary_sort,
+                ${if (subtaskMode == SortHelper.SORT_GTASKS || subtaskMode == SortHelper.SORT_CALDAV) "secondary_ordering" else "0"} AS secondary_sort,
                 parent_complete
             FROM tasks
                 INNER JOIN max_indent

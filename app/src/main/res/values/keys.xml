@@ -453,6 +453,7 @@
   <string name="p_picker_mode_time">picker_mode_time</string>
   <string name="p_markdown">markdown</string>
   <string name="p_completed_tasks_at_bottom">completed_tasks_at_bottom</string>
+  <string name="p_per_list_sort">per_list_sort</string>
   <string name="p_shown_beast_mode_hint">shown_beast_mode_hint</string>
   <string name="p_beast_mode_order">beast_mode_order_v6</string>
   <string name="p_last_sync">last_sync_time</string>

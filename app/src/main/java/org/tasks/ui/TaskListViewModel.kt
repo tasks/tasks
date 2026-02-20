@@ -54,6 +54,8 @@ import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
+import org.tasks.preferences.FilterPreferences
+import org.tasks.filters.key
 
 sealed class Banner(
     val eventType: String,
@@ -166,21 +168,26 @@ class TaskListViewModel @Inject constructor(
                     it.searchQuery.isBlank() -> MyTasksFilter.create()
                     else -> applicationContext.createSearchQuery(it.searchQuery)
                 }
-                taskDao.fetchTasks(getQuery(preferences, filter))
+                val prefs = if (preferences.isPerListSortEnabled) {
+                    FilterPreferences(preferences, filter.key())
+                } else {
+                    preferences
+                }
+                Pair(taskDao.fetchTasks(getQuery(prefs, filter)), prefs)
             }
-            .onEach { tasks ->
+            .onEach { (tasks, prefs) ->
                 _state.update {
                     it.copy(
                         tasks = TasksResults.Results(
                             SectionedDataSource(
                                 tasks = tasks,
                                 disableHeaders = it.filter.disableHeaders()
-                                        || (it.filter.supportsManualSort() && preferences.isManualSort)
-                                        || (it.filter is AstridOrderingFilter && preferences.isAstridSort),
-                                groupMode = preferences.groupMode,
-                                subtaskMode = preferences.subtaskMode,
+                                        || (it.filter.supportsManualSort() && prefs.isManualSort)
+                                        || (it.filter is AstridOrderingFilter && prefs.isAstridSort),
+                                groupMode = prefs.groupMode,
+                                subtaskMode = prefs.subtaskMode,
                                 collapsed = it.collapsed,
-                                completedAtBottom = preferences.completedTasksAtBottom,
+                                completedAtBottom = prefs.completedTasksAtBottom,
                             )
                         )
                     )
