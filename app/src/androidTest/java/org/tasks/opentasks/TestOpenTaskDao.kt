@@ -12,6 +12,7 @@ import org.tasks.data.MyAndroidTask
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount.Companion.ACCOUNT_TYPE_DAVX5
 import org.tasks.data.entity.CaldavCalendar
 import javax.inject.Inject
 
