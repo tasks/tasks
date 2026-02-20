@@ -9,6 +9,7 @@ data class NavigationDrawerSubheader(
     val subheaderType: SubheaderType,
     val id: String,
     val addIntentRc: Int = 0,
+    val icon: String? = null,
     val accountIcon: AccountIcon? = null,
 ) : FilterListItem {
     override fun areItemsTheSame(other: FilterListItem): Boolean {

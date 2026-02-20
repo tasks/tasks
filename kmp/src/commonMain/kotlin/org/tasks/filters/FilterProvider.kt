@@ -18,6 +18,7 @@ import org.tasks.data.toLocationFilter
 import org.tasks.data.toTagFilter
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
 import org.tasks.kmp.IS_DEBUG
+import org.tasks.themes.TasksIcons
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.TasksPreferences.Companion.collapseDebug
 import org.tasks.preferences.TasksPreferences.Companion.collapseFilters
@@ -105,6 +106,7 @@ class FilterProvider(
                         SubheaderType.PREFERENCE,
                         collapseFilters.name,
                         if (showCreate) REQUEST_NEW_FILTER else 0,
+                        icon = TasksIcons.FILTER_LIST,
                     )
                 )
                         .apply { if (collapsed) return this }
@@ -131,6 +133,7 @@ class FilterProvider(
                         SubheaderType.PREFERENCE,
                         collapseTags.name,
                         if (showCreate) REQUEST_NEW_TAGS else 0,
+                        icon = TasksIcons.LABEL,
                     )
                 )
                         .apply { if (collapsed) return this }
@@ -159,6 +162,7 @@ class FilterProvider(
                         SubheaderType.PREFERENCE,
                         collapsePlaces.name,
                         if (showCreate) REQUEST_NEW_PLACE else 0,
+                        icon = TasksIcons.PLACE,
                     )
                 )
                         .apply { if (collapsed) return this }

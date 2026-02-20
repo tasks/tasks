@@ -6,6 +6,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,7 +27,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Add
@@ -36,12 +37,12 @@ import androidx.compose.material.icons.outlined.PermIdentity
 import androidx.compose.material.icons.outlined.SyncProblem
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.BottomAppBarDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -57,6 +58,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
@@ -90,6 +92,7 @@ fun TaskListDrawer(
         modifier = Modifier
             .imePadding()
             .nestedScroll(bottomAppBarScrollBehavior.nestedScrollConnection),
+        containerColor = MaterialTheme.colorScheme.surface,
         bottomBar = {
             BottomAppBar(
                 modifier = Modifier
@@ -108,7 +111,7 @@ fun TaskListDrawer(
                             placeable.place(0, 0)
                         }
                     },
-                containerColor = MaterialTheme.colorScheme.background,
+                containerColor = MaterialTheme.colorScheme.surface,
                 scrollBehavior = bottomAppBarScrollBehavior
             ) {
                 searchBar()
@@ -137,20 +140,40 @@ fun TaskListDrawer(
             },
             verticalArrangement = arrangement,
         ) {
-            items(items = filters, key = { it.key() }) {
-                when (it) {
-                    is DrawerItem.Filter -> FilterItem(
-                        item = it,
-                        onClick = { onClick(it) }
-                    )
-
-                    is DrawerItem.Header -> HeaderItem(
-                        item = it,
-                        canAdd = it.canAdd,
-                        toggleCollapsed = { onClick(it) },
-                        onAddClick = { onAddClick(it) },
-                        onErrorClick = onErrorClick,
-                    )
+            itemsIndexed(items = filters, key = { _, it -> it.key() }) { index, item ->
+                val isFirst = index == 0 || item is DrawerItem.Header
+                val isLast = index == filters.lastIndex ||
+                        filters[index + 1] is DrawerItem.Header
+                val cornerRadius = 16.dp
+                val shape = when {
+                    isFirst && isLast -> RoundedCornerShape(cornerRadius)
+                    isFirst -> RoundedCornerShape(topStart = cornerRadius, topEnd = cornerRadius)
+                    isLast -> RoundedCornerShape(bottomStart = cornerRadius, bottomEnd = cornerRadius)
+                    else -> RoundedCornerShape(0.dp)
+                }
+                Surface(
+                    modifier = Modifier
+                        .padding(
+                            start = 8.dp,
+                            end = 8.dp,
+                            top = if (isFirst && index > 0) 8.dp else 0.dp,
+                        ),
+                    shape = shape,
+                    color = MaterialTheme.colorScheme.surfaceContainerLowest,
+                ) {
+                    when (item) {
+                        is DrawerItem.Filter -> FilterItem(
+                            item = item,
+                            onClick = { onClick(item) }
+                        )
+                        is DrawerItem.Header -> HeaderItem(
+                            item = item,
+                            canAdd = item.canAdd,
+                            toggleCollapsed = { onClick(item) },
+                            onAddClick = { onAddClick(item) },
+                            onErrorClick = onErrorClick,
+                        )
+                    }
                 }
             }
         }
@@ -167,7 +190,7 @@ internal fun FilterItem(
         modifier = modifier
             .background(
                 if (item.selected)
-                    MaterialTheme.colorScheme.onSurface.copy(alpha = .1f)
+                    MaterialTheme.colorScheme.surfaceContainerHigh
                 else
                     Color.Transparent
             )
@@ -185,6 +208,7 @@ internal fun FilterItem(
         Text(
             text = item.title,
             color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.weight(1f).padding(end = 8.dp),
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
@@ -221,31 +245,35 @@ internal fun HeaderItem(
     onAddClick: () -> Unit,
     onErrorClick: () -> Unit,
 ) {
-    Column(
+    MenuRow(
         modifier = modifier,
+        padding = PaddingValues(start = 16.dp),
+        onClick = toggleCollapsed,
     ) {
-        Divider(modifier = Modifier.fillMaxWidth())
-        MenuRow(
-            padding = PaddingValues(start = 16.dp),
-            onClick = toggleCollapsed,
-        ) {
-            item.header.accountIcon?.let { icon ->
+            val accountIcon = item.header.accountIcon
+            if (accountIcon != null) {
                 Image(
-                    painter = painterResource(icon.drawable),
+                    painter = painterResource(accountIcon.drawable),
                     contentDescription = null,
                     modifier = Modifier.size(24.dp),
-                    colorFilter = if (icon.tinted) {
+                    colorFilter = if (accountIcon.tinted) {
                         ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
                     } else {
                         null
                     },
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+            } else {
+                TasksIcon(
+                    label = item.header.icon,
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
             }
+            Spacer(modifier = Modifier.width(16.dp))
             Text(
                 modifier = Modifier.weight(1f),
                 text = item.title,
                 color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.titleMedium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
@@ -270,7 +298,6 @@ internal fun HeaderItem(
                     )
                 }
             }
-        }
     }
 }
 

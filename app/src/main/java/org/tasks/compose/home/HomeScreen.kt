@@ -121,6 +121,7 @@ fun HomeScreen(
                 ModalDrawerSheet(
                     drawerState = drawerState,
                     windowInsets = WindowInsets(0, 0, 0, 0),
+                    drawerContainerColor = MaterialTheme.colorScheme.surface,
                 ) {
                     val context = LocalContext.current
                     val scope = rememberCoroutineScope()
@@ -222,12 +223,14 @@ fun HomeScreen(
                         SystemBarScrim(
                             modifier = Modifier
                                 .windowInsetsTopHeight(WindowInsets.systemBars)
-                                .align(Alignment.TopCenter)
+                                .align(Alignment.TopCenter),
+                            color = MaterialTheme.colorScheme.surface,
                         )
                         SystemBarScrim(
                             modifier = Modifier
                                 .windowInsetsBottomHeight(WindowInsets.systemBars)
                                 .align(Alignment.BottomCenter),
+                            color = MaterialTheme.colorScheme.surface,
                         )
                     }
                 }
