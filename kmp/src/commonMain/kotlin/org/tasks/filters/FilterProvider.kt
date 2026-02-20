@@ -10,6 +10,7 @@ import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.composeIcon
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
@@ -223,6 +224,7 @@ class FilterProvider(
                 },
                 account.id.toString(),
                 if (showCreate) REQUEST_NEW_LIST else 0,
+                accountIcon = account.composeIcon,
             )
         )
             .apply { if (collapsed) return this }

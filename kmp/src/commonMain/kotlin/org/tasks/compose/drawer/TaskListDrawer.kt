@@ -4,6 +4,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
@@ -51,12 +53,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.components.Chevron
 import org.tasks.compose.components.SearchBar
@@ -225,6 +229,19 @@ internal fun HeaderItem(
             padding = PaddingValues(start = 16.dp),
             onClick = toggleCollapsed,
         ) {
+            item.header.accountIcon?.let { icon ->
+                Image(
+                    painter = painterResource(icon.drawable),
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp),
+                    colorFilter = if (icon.tinted) {
+                        ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
+                    } else {
+                        null
+                    },
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+            }
             Text(
                 modifier = Modifier.weight(1f),
                 text = item.title,

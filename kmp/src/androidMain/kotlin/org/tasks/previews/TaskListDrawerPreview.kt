@@ -8,10 +8,14 @@ import kotlinx.collections.immutable.persistentListOf
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.drawer.MenuSearchBar
 import org.tasks.compose.drawer.TaskListDrawer
+import org.tasks.data.AccountIcon
 import org.tasks.filters.FilterImpl
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.ic_google
+import tasks.kmp.generated.resources.ic_round_icon
 
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
@@ -53,6 +57,34 @@ fun MenuPreview() {
                     icon = TasksIcons.CLOUD,
                     filter = FilterImpl(),
                     count = 123456,
+                ),
+                DrawerItem.Header(
+                    title = "user@tasks.org",
+                    collapsed = false,
+                    canAdd = true,
+                    hasError = false,
+                    header = NavigationDrawerSubheader(
+                        "user@tasks.org",
+                        false,
+                        false,
+                        NavigationDrawerSubheader.SubheaderType.TASKS,
+                        "1",
+                        accountIcon = AccountIcon(Res.drawable.ic_round_icon, false),
+                    ),
+                ),
+                DrawerItem.Header(
+                    title = "user@google.com",
+                    collapsed = false,
+                    canAdd = true,
+                    hasError = false,
+                    header = NavigationDrawerSubheader(
+                        "user@google.com",
+                        false,
+                        false,
+                        NavigationDrawerSubheader.SubheaderType.CALDAV,
+                        "2",
+                        accountIcon = AccountIcon(Res.drawable.ic_google, false),
+                    ),
                 )
             ),
             onClick = {},
