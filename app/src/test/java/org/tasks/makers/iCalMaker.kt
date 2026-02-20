@@ -14,6 +14,8 @@ import net.fortuna.ical4j.model.property.RRule
 import net.fortuna.ical4j.model.property.Status
 import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.collapsed
+import org.tasks.caldav.iCalendar.Companion.elapsedSeconds
+import org.tasks.caldav.iCalendar.Companion.estimatedSeconds
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
 import org.tasks.time.DateTime
@@ -35,6 +37,8 @@ object iCalMaker {
     val COLLAPSED: Property<Task, Boolean> = newProperty()
     val RRULE: Property<Task, String?> = newProperty()
     val STATUS: Property<Task, Status?> = newProperty()
+    val ESTIMATED_SECONDS: Property<Task, Int> = newProperty()
+    val ELAPSED_SECONDS: Property<Task, Int> = newProperty()
 
     private val instantiator = Instantiator { lookup: PropertyLookup<Task> ->
         val task = Task()
@@ -65,6 +69,8 @@ object iCalMaker {
         task.collapsed = lookup.valueOf(COLLAPSED, false)
         task.rRule = lookup.valueOf(RRULE, null as String?)?.let { RRule(it) }
         task.status = lookup.valueOf(STATUS, null as Status?)
+        task.estimatedSeconds = lookup.valueOf(ESTIMATED_SECONDS, 0)
+        task.elapsedSeconds = lookup.valueOf(ELAPSED_SECONDS, 0)
         task
     }
     fun newIcal(vararg properties: PropertyValue<in Task?, *>): Task {

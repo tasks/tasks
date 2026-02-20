@@ -35,6 +35,8 @@ object TaskMaker {
     val COLLAPSED: Property<Task, Boolean> = newProperty()
     val DESCRIPTION: Property<Task, String?> = newProperty()
     val ORDER: Property<Task, Long> = newProperty()
+    val ESTIMATED_SECONDS: Property<Task, Int> = newProperty()
+    val ELAPSED_SECONDS: Property<Task, Int> = newProperty()
 
     private val instantiator = Instantiator { lookup: PropertyLookup<Task> ->
         val creationTime = lookup.valueOf(CREATION_TIME, DateTimeUtils.newDateTime())
@@ -62,6 +64,8 @@ object TaskMaker {
             order = lookup.valueOf(ORDER, null as Long?),
             creationDate = creationTime.millis,
             modificationDate = lookup.valueOf(MODIFICATION_TIME, creationTime).millis,
+            estimatedSeconds = lookup.valueOf(ESTIMATED_SECONDS, 0),
+            elapsedSeconds = lookup.valueOf(ELAPSED_SECONDS, 0)
         )
         lookup.valueOf(START_DATE, null as DateTime?)?.let {
             task.hideUntil = task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, it.millis)
