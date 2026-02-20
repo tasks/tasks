@@ -538,7 +538,7 @@
 +|    +--- com.google.android.datatransport:transport-backend-cct:3.3.0 (*)
 +|    +--- com.google.android.datatransport:transport-runtime:3.3.0 (*)
 +|    \--- androidx.annotation:annotation:1.5.0 -> 1.9.1 (*)
-++--- com.posthog:posthog-android:3.28.0
+++--- com.posthog:posthog-android:3.31.0
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 -> 2.2.20 (*)
 +|    +--- androidx.lifecycle:lifecycle-process:2.6.2 -> 2.10.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-common-java8:2.6.2 -> 2.10.0
@@ -561,7 +561,7 @@
 +|    +--- androidx.core:core:1.5.0 -> 1.16.0 (*)
 +|    +--- com.squareup.curtains:curtains:1.2.5
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.4.21 -> 2.2.21 (*)
-+|    \--- com.posthog:posthog:6.0.0
++|    \--- com.posthog:posthog:6.4.0
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 -> 2.2.20 (*)
 +|         +--- com.google.code.gson:gson:2.10.1 -> 2.12.1
 +|         +--- com.squareup.okhttp3:okhttp-bom:4.11.0
