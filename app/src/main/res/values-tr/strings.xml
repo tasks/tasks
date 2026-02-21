@@ -761,4 +761,5 @@
     <string name="advanced_tools">Gelişmiş araçlar</string>
     <string name="advanced_tools_description">Google Yerler, CalDAV, EteSync ve dahası!</string>
     <string name="rmd_EPr_rmd_time_desc">Tüm gün görevleri için bildirimlerin görüneceği an: %1$s</string>
+    <string name="invalid_email_address">Geçersiz e-posta adresi</string>
 </resources>
