@@ -4,6 +4,7 @@ import com.natpryce.makeiteasy.MakeItEasy
 import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import kotlinx.coroutines.runBlocking
@@ -12,17 +13,19 @@ import org.mockito.Mockito.anyLong
 import org.mockito.Mockito.anySet
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
-import org.tasks.LocalBroadcastManager
 import org.tasks.data.createDueDate
 import org.tasks.makers.TaskMaker
 import org.tasks.time.DateTime
 
 abstract class RepeatTests {
     private val alarmService = mock(AlarmService::class.java)
-    private val helper = RepeatTaskHelper(
+    private val taskDao = mock(TaskDao::class.java)
+    private val caldavDao = mock(CaldavDao::class.java)
+    protected val helper = RepeatTaskHelper(
             mock(GCalHelper::class.java),
             alarmService,
-            mock(TaskDao::class.java),
+            taskDao,
+            caldavDao,
     )
 
     @Before
@@ -30,7 +33,13 @@ abstract class RepeatTests {
         runBlocking {
             `when`(alarmService.getAlarms(anyLong())).thenReturn(emptyList())
             `when`(alarmService.synchronizeAlarms(anyLong(), anySet())).thenReturn(false)
+            `when`(caldavDao.getAccountForTask(anyLong())).thenReturn(null)
         }
+    }
+
+    protected fun advanceToNextOccurrence(taskId: Long, task: Task): Boolean = runBlocking {
+        `when`(taskDao.fetch(taskId)).thenReturn(task)
+        helper.advanceToNextOccurrence(taskId)
     }
 
     protected fun newDay(year: Int, month: Int, day: Int) =
