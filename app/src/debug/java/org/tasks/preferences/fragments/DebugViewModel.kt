@@ -15,6 +15,7 @@ import org.tasks.billing.Inventory
 import org.tasks.data.createDueDate
 import org.tasks.data.entity.Task
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.TasksPreferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -26,6 +27,7 @@ class DebugViewModel @Inject constructor(
     private val inventory: Inventory,
     private val billingClient: BillingClient,
     private val preferences: Preferences,
+    private val tasksPreferences: TasksPreferences,
     private val taskCreator: com.todoroo.astrid.service.TaskCreator,
     private val taskDao: com.todoroo.astrid.dao.TaskDao,
 ) : ViewModel() {
@@ -40,6 +42,8 @@ class DebugViewModel @Inject constructor(
         private set
     var unlockProEnabled by mutableStateOf(false)
         private set
+    var showDebugFilters by mutableStateOf(false)
+        private set
     var iapTitle by mutableStateOf("")
         private set
     var showRestartDialog by mutableStateOf(false)
@@ -52,6 +56,9 @@ class DebugViewModel @Inject constructor(
         crashOnViolationEnabled = preferences.getBoolean(R.string.p_crash_main_queries, false)
         unlockProEnabled = preferences.getBoolean(R.string.p_debug_pro, false)
         refreshIapTitle()
+        viewModelScope.launch {
+            showDebugFilters = tasksPreferences.get(TasksPreferences.showDebugFilters, false)
+        }
     }
 
     fun updateLeakCanary(enabled: Boolean) {
@@ -81,6 +88,13 @@ class DebugViewModel @Inject constructor(
     fun updateUnlockPro(enabled: Boolean) {
         preferences.setBoolean(R.string.p_debug_pro, enabled)
         unlockProEnabled = enabled
+    }
+
+    fun updateShowDebugFilters(enabled: Boolean) {
+        viewModelScope.launch {
+            tasksPreferences.set(TasksPreferences.showDebugFilters, enabled)
+            showDebugFilters = enabled
+        }
     }
 
     fun dismissRestartDialog() {

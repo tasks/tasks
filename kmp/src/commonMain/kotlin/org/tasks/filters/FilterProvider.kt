@@ -21,6 +21,7 @@ import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
 import org.tasks.kmp.IS_DEBUG
 import org.tasks.themes.TasksIcons
 import org.tasks.preferences.TasksPreferences
+import org.tasks.preferences.TasksPreferences.Companion.showDebugFilters
 import org.tasks.preferences.TasksPreferences.Companion.collapseDebug
 import org.tasks.preferences.TasksPreferences.Companion.collapseFilters
 import org.tasks.preferences.TasksPreferences.Companion.collapsePlaces
@@ -64,8 +65,17 @@ class FilterProvider(
             getAllFilters(showBuiltIn = false, showCreate = true)
 
     private suspend fun getDebugFilters(): List<FilterListItem> =
-            if (IS_DEBUG) {
+            if (IS_DEBUG && tasksPreferences.get(showDebugFilters, false)) {
                 val collapsed = tasksPreferences.get(collapseDebug, false)
+                val filters = listOf(
+                    DebugFilters.getNoListFilter(),
+                    DebugFilters.getNoTitleFilter(),
+                    DebugFilters.getMissingListFilter(),
+                    DebugFilters.getMissingAccountFilter(),
+                    DebugFilters.getNoCreateDateFilter(),
+                    DebugFilters.getNoModificationDateFilter(),
+                    DebugFilters.getDeleted()
+                )
                 listOf(
                     NavigationDrawerSubheader(
                         "Debug",
@@ -73,18 +83,11 @@ class FilterProvider(
                         collapsed,
                         SubheaderType.PREFERENCE,
                         collapseDebug.name,
+                        childCount = filters.size,
                     )
                 )
                         .apply { if (collapsed) return this }
-                        .plus(listOf(
-                            DebugFilters.getNoListFilter(),
-                            DebugFilters.getNoTitleFilter(),
-                            DebugFilters.getMissingListFilter(),
-                            DebugFilters.getMissingAccountFilter(),
-                            DebugFilters.getNoCreateDateFilter(),
-                            DebugFilters.getNoModificationDateFilter(),
-                            DebugFilters.getDeleted()
-                        ))
+                        .plus(filters)
 
             } else {
                 emptyList()

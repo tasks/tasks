@@ -44,12 +44,14 @@ class Debug : Fragment() {
                 strictModeThreadEnabled = viewModel.strictModeThreadEnabled,
                 crashOnViolationEnabled = viewModel.crashOnViolationEnabled,
                 unlockProEnabled = viewModel.unlockProEnabled,
+                showDebugFilters = viewModel.showDebugFilters,
                 iapTitle = viewModel.iapTitle,
                 onLeakCanary = { viewModel.updateLeakCanary(it) },
                 onStrictModeVm = { viewModel.updateStrictModeVm(it) },
                 onStrictModeThread = { viewModel.updateStrictModeThread(it) },
                 onCrashOnViolation = { viewModel.updateCrashOnViolation(it) },
                 onUnlockPro = { viewModel.updateUnlockPro(it) },
+                onShowDebugFilters = { viewModel.updateShowDebugFilters(it) },
                 onResetSsl = {
                     resetCertificates(requireContext())
                     context?.toast("SSL certificates reset")

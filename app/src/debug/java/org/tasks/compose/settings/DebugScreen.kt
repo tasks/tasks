@@ -25,12 +25,14 @@ fun DebugScreen(
     strictModeThreadEnabled: Boolean,
     crashOnViolationEnabled: Boolean,
     unlockProEnabled: Boolean,
+    showDebugFilters: Boolean,
     iapTitle: String,
     onLeakCanary: (Boolean) -> Unit,
     onStrictModeVm: (Boolean) -> Unit,
     onStrictModeThread: (Boolean) -> Unit,
     onCrashOnViolation: (Boolean) -> Unit,
     onUnlockPro: (Boolean) -> Unit,
+    onShowDebugFilters: (Boolean) -> Unit,
     onResetSsl: () -> Unit,
     onCrashApp: () -> Unit,
     onRestartApp: () -> Unit,
@@ -79,11 +81,18 @@ fun DebugScreen(
                     onCheckedChange = onCrashOnViolation,
                 )
             }
-            SettingsItemCard(position = CardPosition.Last) {
+            SettingsItemCard(position = CardPosition.Middle) {
                 SwitchPreferenceRow(
                     title = stringResource(R.string.debug_pro),
                     checked = unlockProEnabled,
                     onCheckedChange = onUnlockPro,
+                )
+            }
+            SettingsItemCard(position = CardPosition.Last) {
+                SwitchPreferenceRow(
+                    title = stringResource(R.string.debug_show_filters),
+                    checked = showDebugFilters,
+                    onCheckedChange = onShowDebugFilters,
                 )
             }
         }
