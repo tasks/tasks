@@ -1,3 +1,15 @@
+### 14.14 (2026-02-21)
+
+* Update navigation drawer design
+* Update color palettes
+* Swipe to dismiss banners
+* Improved sharing for new lists
+* Update translations
+  * Croatian - @milotype
+  * Danish - ERYpTION
+  * Estonian - Priit Jõerüüt
+  * Turkish - @emintufan
+
 ### 14.13 (2026-02-16)
 
 * New design for app settings screens
