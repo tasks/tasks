@@ -38,6 +38,7 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.immutable)
             implementation(libs.kotlinx.serialization)
+            implementation(libs.material.kolor)
         }
     }
     tasks.register("testClasses")
