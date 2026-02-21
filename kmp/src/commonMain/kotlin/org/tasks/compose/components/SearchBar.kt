@@ -2,6 +2,7 @@ package org.tasks.compose.components
 
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -10,8 +11,8 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -37,8 +38,7 @@ fun SearchBar(
     onSearchClicked: (String) -> Unit,
 ) {
     var canFocus by remember { mutableStateOf(false) }
-    OutlinedTextField(
-        shape = MaterialTheme.shapes.medium,
+    TextField(
         modifier = modifier
             .height(SEARCH_BAR_HEIGHT)
             .focusProperties {
@@ -86,9 +86,12 @@ fun SearchBar(
         textStyle = MaterialTheme.typography.bodyLarge.copy(
             textDirection = TextDirection.Content
         ),
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = MaterialTheme.colorScheme.onSurface,
-            unfocusedBorderColor = MaterialTheme.colorScheme.onSurface,
+        shape = RoundedCornerShape(16.dp),
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+            unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+            focusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
+            unfocusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
             cursorColor = MaterialTheme.colorScheme.onSurface,
         ),
     )

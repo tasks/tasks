@@ -3,6 +3,7 @@ package org.tasks.compose.home
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -58,19 +59,13 @@ import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.EXTRA_TASK
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.activity.TaskListFragment.Companion.EXTRA_FILTER
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
-import org.tasks.R
-import org.tasks.TasksApplication
 import org.tasks.activities.TagSettingsActivity
-import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
-import org.tasks.compose.drawer.DrawerAction
 import org.tasks.compose.drawer.DrawerItem
-import org.tasks.compose.drawer.MenuSearchBar
 import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.data.listSettingsClass
-import org.tasks.extensions.Context.openUri
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_LIST
@@ -80,7 +75,6 @@ import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.kmp.org.tasks.compose.TouchSlopMultiplier
 import org.tasks.kmp.org.tasks.compose.rememberImeState
 import org.tasks.location.LocationPickerActivity
-import org.tasks.preferences.HelpAndFeedback
 import org.tasks.preferences.MainPreferences
 import timber.log.Timber
 
@@ -158,6 +152,20 @@ fun HomeScreen(
                 ) {
                     val context = LocalContext.current
                     val scope = rememberCoroutineScope()
+                    val searchExpanded = remember { mutableStateOf(false) }
+                    LaunchedEffect(drawerState.isClosed) {
+                        if (drawerState.isClosed) {
+                            searchExpanded.value = false
+                        }
+                    }
+                    BackHandler(enabled = searchExpanded.value) {
+                        if (state.menuQuery.isNotEmpty()) {
+                            viewModel.queryMenu("")
+                        } else {
+                            searchExpanded.value = false
+                            scope.launch { drawerState.close() }
+                        }
+                    }
                     Box(modifier = Modifier.fillMaxSize()) {
                         TaskListDrawer(
                             arrangement = if (state.menuQuery.isBlank()) Arrangement.Top else Arrangement.Bottom,
@@ -217,44 +225,10 @@ fun HomeScreen(
                             onErrorClick = {
                                 context.startActivity(Intent(context, MainPreferences::class.java))
                             },
-                            searchBar = {
-                                MenuSearchBar(
-                                    begForMoney = state.begForMoney,
-                                    onDrawerAction = {
-                                        scope.launch {
-                                            drawerState.close()
-                                            when (it) {
-                                                DrawerAction.PURCHASE ->
-                                                    if (TasksApplication.IS_GENERIC)
-                                                        context.openUri(R.string.url_donate)
-                                                    else
-                                                        context.startActivity(
-                                                            Intent(
-                                                                context,
-                                                                PurchaseActivity::class.java
-                                                            ).putExtra(
-                                                                PurchaseActivityViewModel.EXTRA_SOURCE,
-                                                                "drawer"
-                                                            )
-                                                        )
-
-                                                DrawerAction.HELP_AND_FEEDBACK ->
-                                                    context.startActivity(
-                                                        Intent(
-                                                            context,
-                                                            HelpAndFeedback::class.java
-                                                        ).putExtra(
-                                                            HelpAndFeedback.EXTRA_SOURCE,
-                                                            "drawer"
-                                                        )
-                                                    )
-                                            }
-                                        }
-                                    },
-                                    query = state.menuQuery,
-                                    onQueryChange = { viewModel.queryMenu(it) },
-                                )
-                            },
+                            query = state.menuQuery,
+                            onQueryChange = { viewModel.queryMenu(it) },
+                            searchExpanded = searchExpanded.value,
+                            onSearchExpandedChange = { searchExpanded.value = it },
                         )
 
                         SystemBarScrim(
