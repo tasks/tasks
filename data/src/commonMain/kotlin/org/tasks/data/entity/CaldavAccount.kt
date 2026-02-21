@@ -121,6 +121,11 @@ data class CaldavAccount(
         const val ACCOUNT_TYPE_ETESYNC = "com.etesync.syncadapter"
         const val ACCOUNT_TYPE_DECSYNC = "org.decsync.tasks"
 
+        const val PACKAGE_DAVX5 = "at.bitfire.davdroid"
+        const val PACKAGE_DAVX5_MANAGED = "com.davdroid"
+        const val PACKAGE_ETESYNC = "com.etesync.syncadapter"
+        const val PACKAGE_DECSYNC = "org.decsync.cc"
+
         fun String?.openTaskType(): String? = this?.split(":")?.get(0)
 
         fun String?.isDavx5(): Boolean = this?.startsWith(ACCOUNT_TYPE_DAVX5) == true

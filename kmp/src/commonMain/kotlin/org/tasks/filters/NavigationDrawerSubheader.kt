@@ -1,6 +1,7 @@
 package org.tasks.filters
 
 import org.tasks.data.AccountIcon
+import org.tasks.data.OpenTaskApp
 
 data class NavigationDrawerSubheader(
     val title: String?,
@@ -11,6 +12,8 @@ data class NavigationDrawerSubheader(
     val addIntentRc: Int = 0,
     val icon: String? = null,
     val accountIcon: AccountIcon? = null,
+    val childCount: Int = 0,
+    val openTaskApp: OpenTaskApp? = null,
 ) : FilterListItem {
     override fun areItemsTheSame(other: FilterListItem): Boolean {
         return other is NavigationDrawerSubheader && subheaderType == other.subheaderType && id == other.id

@@ -176,6 +176,8 @@ class MainActivityViewModel @Inject constructor(
                             collapsed = item.isCollapsed,
                             hasError = item.error,
                             canAdd = item.addIntentRc != 0,
+                            hasChildren = item.childCount > 0,
+                            openTaskApp = item.openTaskApp,
                             header = item,
                         )
                     else -> throw IllegalArgumentException()

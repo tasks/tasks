@@ -22,7 +22,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsTopHeight
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DrawerState
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
@@ -113,6 +116,36 @@ fun HomeScreen(
     val isDetailVisible =
         navigator.scaffoldValue[ListDetailPaneScaffoldRole.Detail] == PaneAdaptedValue.Expanded
 
+    val openTaskAppDialog = remember { mutableStateOf<org.tasks.data.OpenTaskApp?>(null) }
+    val context = LocalContext.current
+
+    openTaskAppDialog.value?.let { app ->
+        AlertDialog(
+            onDismissRequest = { openTaskAppDialog.value = null },
+            text = {
+                Text(
+                    text = "To create new lists, open ${app.name} and add them there.",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            },
+            dismissButton = {
+                TextButton(onClick = { openTaskAppDialog.value = null }) {
+                    Text("Cancel")
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    openTaskAppDialog.value = null
+                    context.packageManager
+                        .getLaunchIntentForPackage(app.packageName)
+                        ?.let { context.startActivity(it) }
+                }) {
+                    Text("Open ${app.name}")
+                }
+            },
+        )
+    }
+
     TouchSlopMultiplier {
         ModalNavigationDrawer(
             drawerState = drawerState,
@@ -145,35 +178,39 @@ fun HomeScreen(
                                 }
                             },
                             onAddClick = {
-                                scope.launch {
-                                    drawerState.close()
-                                    when (it.header.addIntentRc) {
-                                        FilterProvider.REQUEST_NEW_FILTER ->
-                                            showNewFilterDialog()
+                                if (it.openTaskApp != null) {
+                                    openTaskAppDialog.value = it.openTaskApp
+                                } else {
+                                    scope.launch {
+                                        drawerState.close()
+                                        when (it.header.addIntentRc) {
+                                            FilterProvider.REQUEST_NEW_FILTER ->
+                                                showNewFilterDialog()
 
-                                        REQUEST_NEW_PLACE ->
-                                            newList.launch(Intent(context, LocationPickerActivity::class.java))
+                                            REQUEST_NEW_PLACE ->
+                                                newList.launch(Intent(context, LocationPickerActivity::class.java))
 
-                                        REQUEST_NEW_TAGS ->
-                                            newList.launch(Intent(context, TagSettingsActivity::class.java))
+                                            REQUEST_NEW_TAGS ->
+                                                newList.launch(Intent(context, TagSettingsActivity::class.java))
 
-                                        REQUEST_NEW_LIST ->
-                                            when (it.header.subheaderType) {
-                                                NavigationDrawerSubheader.SubheaderType.CALDAV,
-                                                NavigationDrawerSubheader.SubheaderType.TASKS ->
-                                                    viewModel
-                                                        .getAccount(it.header.id.toLong())
-                                                        ?.let {
-                                                            newList.launch(
-                                                                Intent(context, it.listSettingsClass())
-                                                                    .putExtra(EXTRA_CALDAV_ACCOUNT, it)
-                                                            )
-                                                        }
+                                            REQUEST_NEW_LIST ->
+                                                when (it.header.subheaderType) {
+                                                    NavigationDrawerSubheader.SubheaderType.CALDAV,
+                                                    NavigationDrawerSubheader.SubheaderType.TASKS ->
+                                                        viewModel
+                                                            .getAccount(it.header.id.toLong())
+                                                            ?.let {
+                                                                newList.launch(
+                                                                    Intent(context, it.listSettingsClass())
+                                                                        .putExtra(EXTRA_CALDAV_ACCOUNT, it)
+                                                                )
+                                                            }
 
-                                                else -> {}
-                                            }
+                                                    else -> {}
+                                                }
 
-                                        else -> Timber.e("Unhandled request code: $it")
+                                            else -> Timber.e("Unhandled request code: $it")
+                                        }
                                     }
                                 }
                             },

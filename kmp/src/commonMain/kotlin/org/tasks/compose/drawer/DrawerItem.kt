@@ -1,5 +1,6 @@
 package org.tasks.compose.drawer
 
+import org.tasks.data.OpenTaskApp
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.key
 
@@ -21,6 +22,8 @@ sealed class DrawerItem {
         val collapsed: Boolean,
         val hasError: Boolean,
         val canAdd: Boolean,
+        val hasChildren: Boolean = true,
+        val openTaskApp: OpenTaskApp? = null,
         val header: NavigationDrawerSubheader,
     ) : DrawerItem() {
         override fun key() = "header_${header.subheaderType}_${header.id}"

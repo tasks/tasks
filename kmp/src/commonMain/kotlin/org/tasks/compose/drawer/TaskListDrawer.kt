@@ -248,7 +248,7 @@ internal fun HeaderItem(
     MenuRow(
         modifier = modifier,
         padding = PaddingValues(start = 16.dp),
-        onClick = toggleCollapsed,
+        onClick = if (item.hasChildren) toggleCollapsed else null,
     ) {
             val accountIcon = item.header.accountIcon
             if (accountIcon != null) {
@@ -277,8 +277,10 @@ internal fun HeaderItem(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-            IconButton(onClick = toggleCollapsed) {
-                Chevron(item.collapsed)
+            if (item.hasChildren) {
+                IconButton(onClick = toggleCollapsed) {
+                    Chevron(item.collapsed)
+                }
             }
             if (canAdd) {
                 IconButton(onClick = onAddClick) {
@@ -305,12 +307,12 @@ internal fun HeaderItem(
 private fun MenuRow(
     modifier: Modifier = Modifier,
     padding: PaddingValues = PaddingValues(horizontal = 16.dp),
-    onClick: () -> Unit,
+    onClick: (() -> Unit)? = null,
     content: @Composable RowScope.() -> Unit,
 ) {
     Row(
         modifier = modifier
-            .clickable(onClick = onClick)
+            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
             .height(48.dp)
             .padding(padding)
             .fillMaxWidth(),
