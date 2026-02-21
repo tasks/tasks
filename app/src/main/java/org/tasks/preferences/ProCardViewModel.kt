@@ -11,18 +11,16 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.Inventory
 import org.tasks.billing.Purchase
-import org.tasks.caldav.CaldavClientProvider
+import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.TasksAccountResponse
 import org.tasks.compose.settings.AccountData
 import org.tasks.compose.settings.ProCardState
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.preferences.TasksPreferences.Companion.cachedAccountData
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -30,12 +28,9 @@ import javax.inject.Inject
 class ProCardViewModel @Inject constructor(
     private val caldavDao: CaldavDao,
     private val inventory: Inventory,
-    private val provider: CaldavClientProvider,
-    private val tasksPreferences: TasksPreferences,
+    private val accountDataRepository: TasksAccountDataRepository,
     private val serverEnvironment: TasksServerEnvironment,
 ) : ViewModel() {
-
-    private val json = Json { ignoreUnknownKeys = true }
 
     private val accounts: StateFlow<List<CaldavAccount>> = caldavDao.watchAccounts()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
@@ -81,30 +76,19 @@ class ProCardViewModel @Inject constructor(
                 TasksServerEnvironment.ENV_DEV -> "Development"
                 else -> null
             }
-            loadCachedAccountData()
+            accountDataRepository.getAccountResponse()
+                ?.toAccountData()
+                ?.let { _accountData.value = it }
             accounts.first { it.isNotEmpty() }
                 .firstOrNull { it.isTasksOrg }
                 ?.let { fetchAccountData(it) }
         }
     }
 
-    private suspend fun loadCachedAccountData() {
-        val raw = tasksPreferences.get(cachedAccountData, "")
-        if (raw.isNotBlank()) {
-            try {
-                _accountData.value = json.decodeFromString<TasksAccountResponse>(raw).toAccountData()
-            } catch (e: Exception) {
-                Timber.e(e)
-            }
-        }
-    }
-
     private suspend fun fetchAccountData(account: CaldavAccount) {
         _isLoading.value = true
         try {
-            val raw = provider.forTasksAccount(account).getAccount() ?: return
-            tasksPreferences.set(cachedAccountData, raw)
-            _accountData.value = json.decodeFromString<TasksAccountResponse>(raw).toAccountData()
+            _accountData.value = accountDataRepository.fetchAndCache(account)?.toAccountData()
         } catch (e: Exception) {
             Timber.e(e)
         } finally {
@@ -137,6 +121,7 @@ class ProCardViewModel @Inject constructor(
             subscriptionFree = subscription?.free ?: true,
             subscriptionProvider = subscription?.provider,
             subscriptionExpiration = subscription?.expiration,
+            guest = guest,
         )
     }
 }

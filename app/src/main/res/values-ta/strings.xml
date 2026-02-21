@@ -499,7 +499,6 @@
     <string name="repeats_ends">முனைகள்</string>
     <string name="repeats_plural_on_number_of_times">%2$s இல் ஒவ்வொரு %1$s ஐ மீண்டும் நிகழ்கிறது, %3$d %4$s ஏற்படுகிறது</string>
     <string name="default_location">இயல்புநிலை இடம்</string>
-    <string name="tasks_org_description">உங்கள் பணிகளை டாச்கள்.org உடன் ஒத்திசைக்கவும்</string>
     <string name="account">கணக்கு</string>
     <string name="backups_ignore_warnings_summary">உங்களுக்கு காப்புப்பிரதிகள் தேவையில்லை அல்லது உங்கள் சொந்த காப்புப்பிரதி தீர்வு இருந்தால் காப்புப்பிரதி எச்சரிக்கைகளை புறக்கணிக்கவும்</string>
     <string name="repeats_single_number_of_times">%1$s மீண்டும் நிகழ்கிறது, %2$d %3$s</string>
@@ -622,8 +621,6 @@
     <string name="github_sponsors">அறிவிலிமையம் ஒப்புரவாளர்கள்</string>
     <string name="sign_in_to_tasks">Tasks.org இல் உள்நுழைக</string>
     <string name="copied_to_clipboard">இடைநிலைப்பலகைக்கு %s நகலெடுக்கப்பட்டது</string>
-    <string name="share_list">பகிர்வு பட்டியல்</string>
-    <string name="upgrade_desktop_access">டெச்க்டாப் அணுகல்</string>
     <string name="enable_reminders_description">ஆண்ட்ராய்டு அமைப்புகளில் நினைவூட்டல்கள் முடக்கப்பட்டுள்ளன</string>
     <string name="enable_alarms">சரியான நேரத்தில் அறிவிக்கப்படுங்கள்</string>
     <string name="cost_money">செலவு: $</string>
@@ -631,7 +628,6 @@
     <string name="multiline_title">மல்டிலைன் தலைப்புகளை அனுமதிக்கவும்</string>
     <string name="multiline_title_on">வரி இடைவெளிகளைச் சேர்க்க ENTER விசையை அழுத்தவும்</string>
     <string name="authentication_required">ஏற்பு தேவை</string>
-    <string name="invite">அழைக்கவும்</string>
     <string name="invite_invalid">செல்லாது என்று அழைக்கவும்</string>
     <string name="github_sponsor">ஒப்புரவாளர்</string>
     <string name="migrate">இடம்பெயர்வு</string>
@@ -691,7 +687,6 @@
     <string name="remove_user_confirmation">%1$s இனி %2$s அணுகல் இருக்காது</string>
     <string name="invite_declined">அழைப்பு மறுக்கப்பட்டது</string>
     <string name="pro_free_trial">புதிய சந்தாதாரர்கள் 7 நாள் இலவச சோதனையைப் பெறுகிறார்கள். எந்த நேரத்திலும் ரத்துசெய்</string>
-    <string name="upgrade_desktop_access_description">அவுட்லுக் மற்றும் ஆப்பிள் நினைவூட்டல்கள் போன்ற மூன்றாம் தரப்பு வாடிக்கையாளர்களுடன் ஒத்திசைக்கவும்</string>
     <string name="more_options">மேலும் விருப்பங்கள்</string>
     <string name="upgrade_more_customization_description">அனைத்து கருப்பொருள்கள், வண்ணங்கள் மற்றும் ஐகான்களைத் திறக்கவும்</string>
     <string name="markdown">மார்க் பேரூர்</string>

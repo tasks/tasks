@@ -561,7 +561,6 @@
     <string name="app_password_created_at">Opprettet: %s</string>
     <string name="app_passwords">Programpassord</string>
     <string name="account_not_included">Ikke inkludert i «Bestem prisen selv»-abonnementer</string>
-    <string name="tasks_org_description">Synkroniser dine gjøremål med Tasks.org</string>
     <string name="subscription">Abonnement</string>
     <string name="filter_criteria_unstarted">Ikke startet</string>
     <string name="show_unstarted">Vis ustartede</string>
@@ -590,8 +589,6 @@
     <string name="markdown">Markdown</string>
     <string name="more_options">Flere innstillinger</string>
     <string name="upgrade_open_source_description">Abonnementet støtter fortsatt utvikling</string>
-    <string name="upgrade_desktop_access_description">Synkronisere med tredjepartsklienter som Outlook og Apple-påminnelser</string>
-    <string name="upgrade_desktop_access">Tilgang til skrivebordet</string>
     <string name="upgrade_tasks_org_account_description">Synkronisere med Tasks.org og samarbeide med andre brukere</string>
     <string name="upgrade_more_customization_description">Lås opp alle temaer, farger og ikoner</string>
     <string name="upgrade_more_customization">Mer tilpasning</string>
@@ -599,8 +596,6 @@
     <string name="invite_invalid">Invitasjon ugyldig</string>
     <string name="invite_awaiting_response">Inviter venter på svar</string>
     <string name="invite_declined">Invitasjon avslått</string>
-    <string name="invite">invitere</string>
-    <string name="share_list">Dele liste</string>
     <string name="next_saturday">Neste lør</string>
     <string name="next_friday">Neste fre</string>
     <string name="next_thursday">Neste tor</string>

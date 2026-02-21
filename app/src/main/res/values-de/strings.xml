@@ -558,7 +558,6 @@
     <string name="local_lists">Lokale Listen</string>
     <string name="sort_due_group">%s fällig</string>
     <string name="sort_start_group">%s gestartet</string>
-    <string name="tasks_org_description">Synchronisiere deine Aufgaben mit Tasks.org</string>
     <string name="subscription">Abonnement</string>
     <string name="filter_criteria_unstarted">Nicht gestartet</string>
     <string name="show_unstarted">Nicht gestartete anzeigen</string>
@@ -584,13 +583,9 @@
     <string name="privacy">Datenschutz</string>
     <string name="invite_invalid">Einladung ungültig</string>
     <string name="invite_declined">Einladung abgelehnt</string>
-    <string name="invite">Einladen</string>
     <string name="email">E-Mail</string>
-    <string name="share_list">Listen teilen</string>
     <string name="more_options">Weitere Optionen</string>
     <string name="upgrade_open_source_description">Dein Abonnement unterstützt die Weiterentwicklung</string>
-    <string name="upgrade_desktop_access_description">Mit Drittanbieter-Apps wie Outlook und Apple-Erinnerungen synchronisieren</string>
-    <string name="upgrade_desktop_access">Desktop-Zugriff</string>
     <string name="upgrade_tasks_org_account_description">Mit Tasks.org synchronisieren und mit anderen zusammenarbeiten</string>
     <string name="upgrade_more_customization_description">Schalte alle Themen, Farben und Symbole frei</string>
     <string name="upgrade_more_customization">Mehr Anpassungsmöglichkeiten</string>
@@ -737,7 +732,6 @@
     <string name="legal_disclosure">%1$s stimmst du den %2$s und der %3$s zu. Tasks ist Open-Source-Software, die unter der %4$s bereitgestellt wird.</string>
     <string name="banner_subscription_required_body">Bezahle, was du möchtest, um die Synchronisierung von %s freizuschalten</string>
     <string name="banner_subscription_required_title">Abo erforderlich</string>
-    <string name="already_subscribed">Hast du schon ein Abo?</string>
     <string name="upgrade_subscription_banner">Vielen Dank für deine Unterstützung! Aktualisiere dein Abo, um Tasks.org Cloud Sync zu aktivieren</string>
     <string name="alarm_after">nach</string>
     <string name="alarm_start">Start</string>
@@ -756,7 +750,6 @@
     <string name="add_default_reminders">Standarderinnerungen hinzufügen</string>
     <string name="rmd_time_enabled_on">Standarderinnerungen für alle Aufgaben ohne Uhrzeit hinzufügen</string>
     <string name="rmd_time_enabled_off">Keine Standarderinnerungen für Aufgaben ohne Uhrzeit hinzufügen</string>
-    <string name="upgrade_to_pro_card_description">Schalte Tasks.org Cloud Sync, Aufgabenerstellung per E-Mail und mehr frei!</string>
     <string name="supporter">Unterstützer:in</string>
     <string name="donate">Spenden</string>
     <string name="supporter_summary">%s • Danke!</string>

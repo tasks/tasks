@@ -560,7 +560,6 @@
     <string name="filter_any_start_date">任意开始日期</string>
     <string name="sort_due_group">%s截止</string>
     <string name="sort_start_group">%s开始</string>
-    <string name="tasks_org_description">使用 Tasks.org 同步您的任务</string>
     <string name="account_not_included">不包含于“您愿意支付多少费用”订阅</string>
     <string name="subscription">订阅</string>
     <string name="widget_show_title">显示标题</string>
@@ -577,13 +576,9 @@
     <string name="invite_invalid">邀请无效</string>
     <string name="invite_awaiting_response">邀请等待回应</string>
     <string name="invite_declined">邀请被拒绝</string>
-    <string name="invite">邀请</string>
     <string name="email">电子邮件</string>
-    <string name="share_list">分享列表</string>
     <string name="more_options">更多选项</string>
     <string name="upgrade_open_source_description">你的订阅支持持续开发</string>
-    <string name="upgrade_desktop_access_description">与 Outlook 和 Apple Reminders 等第三方客户端同步</string>
-    <string name="upgrade_desktop_access">桌面访问</string>
     <string name="upgrade_tasks_org_account_description">与 Tasks.org 同步并与其他用户协作</string>
     <string name="upgrade_more_customization_description">解锁所有主题、颜色和图标</string>
     <string name="upgrade_more_customization">更多自定义</string>
@@ -726,7 +721,6 @@
     <string name="import_failed_message">无法读取备份文件</string>
     <string name="banner_subscription_required_title">需要订阅</string>
     <string name="banner_subscription_required_body">支付您想支付的金额解锁 %s 同步</string>
-    <string name="already_subscribed">已经是订阅者？</string>
     <string name="upgrade_subscription_banner">感谢支持！升级订阅启用 Tasks.org 云同步</string>
     <string name="alarm_before">前</string>
     <string name="alarm_after">后</string>
@@ -749,6 +743,5 @@
     <string name="sign_in_to_connect">登录以连接您的 Tasks.org 账号</string>
     <string name="supporter">支持者</string>
     <string name="supporter_summary">%s • 谢谢！</string>
-    <string name="upgrade_to_pro_card_description">解锁 Tasks.org 云同步、邮件转任务等更多功能！</string>
     <string name="invalid_email_address">电子邮件地址无效</string>
 </resources>

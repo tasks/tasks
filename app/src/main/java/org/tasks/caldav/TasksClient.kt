@@ -174,9 +174,10 @@ class TasksClient(
     }
 
     companion object {
-        private const val ENDPOINT_ACCOUNT = "/account"
+        private const val ENDPOINT_ACCOUNT = "/api/account"
         private const val ENDPOINT_PASSWORDS = "/app-passwords"
         private const val ENDPOINT_PUSH_TOKEN = "/push-token"
+
         private const val ENDPOINT_INBOUND_EMAIL = "/inbound-email"
         private const val FORM_DESCRIPTION = "description"
         private const val FORM_SESSION_ID = "session_id"

@@ -45,6 +45,7 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
                 username = newUsername,
                 password = encryption.encrypt(newPassword!!),
                 uuid = UUIDHelper.newUUID(),
+                serverType = serverType.value,
             )
         )
         firebase.logEvent(

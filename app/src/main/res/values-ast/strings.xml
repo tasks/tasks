@@ -509,7 +509,6 @@
     <string name="subtasks_multilevel_microsoft">Subxeres multi-nivel non soportaes por Microsoft To Do</string>
     <string name="enter_tag_name">Introduz nome de etiqueta</string>
     <string name="choose_synchronization_service">Selecciona una plataforma</string>
-    <string name="tasks_org_description">Sincroniza les tos xeres con Tasks.org</string>
     <string name="google_tasks_selection_description">Serviciu básicu que sincroniza cola to cuenta de Google</string>
     <string name="caldav_selection_description">Sincronización basada en estándares abiertos d\'internet</string>
     <string name="etesync_selection_description">Sincronización con cifráu d\'estremu a estremu</string>

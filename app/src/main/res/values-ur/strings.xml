@@ -457,7 +457,6 @@
     <string name="etesync_selection_description">اینڈ ٹو اینڈ انکرپٹڈ سنکرونائزیشن</string>
     <string name="caldav_selection_description">اوپن انٹرنیٹ میعارات پر مبنی سنکرونائزیشن</string>
     <string name="google_tasks_selection_description">بنیادی سروس جو آپ کے گوگل اکاؤنٹ کے ساتھ سنکرونائز ہوتی</string>
-    <string name="tasks_org_description">اپنے ٹاسکس کو Tasks.org کے ساتھ سنکرونائز کریں</string>
     <string name="choose_synchronization_service">پلیٹ فارم منتخب کریں</string>
     <string name="enter_tag_name">ٹیگ کا نام درج کریں</string>
     <string name="missing_permissions">حذف شدہ اجازتیں</string>

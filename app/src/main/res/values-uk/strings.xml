@@ -584,7 +584,6 @@
     <string name="CFC_startBefore_text">Дата початку: \?</string>
     <string name="sort_due_group">Завершення %s</string>
     <string name="sort_start_group">Початок %s</string>
-    <string name="tasks_org_description">Синхронізувати ваші завдання з Tasks.org</string>
     <string name="account_not_included">Не входить до передплати \"Назвіть свою ціну\"</string>
     <string name="subscription">Підписка</string>
     <string name="widget_show_title">Показати заголовок</string>
@@ -603,13 +602,9 @@
     <string name="invite_invalid">Запрошення недійсне</string>
     <string name="invite_awaiting_response">Запрошення в очікуванні відповіді</string>
     <string name="invite_declined">Запрошення відхилено</string>
-    <string name="invite">Запросити</string>
     <string name="email">Е-пошта</string>
-    <string name="share_list">Поділитися списком</string>
     <string name="more_options">Додаткові параметри</string>
     <string name="upgrade_open_source_description">Ваша передплата підтримує постійний розвиток</string>
-    <string name="upgrade_desktop_access_description">Синхронізація зі сторонніми клієнтами, наприклад Outlook і Apple Нагадування</string>
-    <string name="upgrade_desktop_access">Доступ до комп\'ютера</string>
     <string name="upgrade_tasks_org_account_description">Синхронізація з Tasks.org та співпраця з іншими користувачами</string>
     <string name="upgrade_more_customization_description">Розблокування всіх тем, кольорів і піктограм</string>
     <string name="upgrade_more_customization">Більше налаштувань</string>

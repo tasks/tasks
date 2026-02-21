@@ -6,18 +6,21 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.json.Json
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.caldav.CaldavClientProvider
+import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.TasksAccountResponse
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.preferences.TasksPreferences
-import org.tasks.preferences.TasksPreferences.Companion.cachedAccountData
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -25,35 +28,52 @@ import javax.inject.Inject
 class TasksAccountViewModel @Inject constructor(
         private val provider: CaldavClientProvider,
         private val firebase: Firebase,
-        private val tasksPreferences: TasksPreferences,
+        private val accountDataRepository: TasksAccountDataRepository,
+        private val caldavDao: CaldavDao,
+        private val principalDao: PrincipalDao,
 ) : ViewModel() {
     val newPassword = MutableStateFlow<NewPassword?>(null)
+    private val accountUuid = MutableStateFlow<String?>(null)
 
-    private val json = Json { ignoreUnknownKeys = true }
+    fun setAccountUuid(uuid: String) {
+        accountUuid.value = uuid
+    }
 
     private val initialResponse: TasksAccountResponse? = runBlocking {
-        tasksPreferences.get(cachedAccountData, "").takeIf(String::isNotBlank)?.let {
-            try { json.decodeFromString<TasksAccountResponse>(it) }
-            catch (e: Exception) { Timber.e(e); null }
-        }
+        accountDataRepository.getAccountResponse()
     }
 
     private val accountResponse: StateFlow<TasksAccountResponse?> =
-        tasksPreferences.flow(cachedAccountData, "")
-            .map { raw ->
-                if (raw.isBlank()) return@map null
-                try {
-                    json.decodeFromString<TasksAccountResponse>(raw)
-                } catch (e: Exception) {
-                    Timber.e(e)
-                    null
-                }
-            }
+        accountDataRepository.accountResponseFlow
             .stateIn(viewModelScope, SharingStarted.Eagerly, initialResponse)
 
     val appPasswords: StateFlow<List<TasksAccountResponse.AppPassword>?> = accountResponse
         .map { it?.appPasswords }
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
+    val sharedWithMe: StateFlow<List<SharedCalendarDisplay>> =
+        accountResponse
+            .combine(caldavDao.subscribeToCalendars()) { response, calendars ->
+                response to calendars
+            }
+            .combine(accountUuid.filterNotNull()) { (response, calendars), uuid ->
+                Triple(response, calendars.filter { it.account == uuid }, uuid)
+            }
+            .mapLatest { (response, calendars, _) ->
+                val uris = response?.sharedWithMe ?: emptyList()
+                uris.mapNotNull { uri ->
+                    val cal = calendars.find { it.calendarUri == uri }
+                        ?: return@mapNotNull null
+                    val ownerName = principalDao.getOwnerName(cal.id)
+                    SharedCalendarDisplay(
+                        name = cal.name ?: uri,
+                        icon = cal.icon,
+                        color = cal.color,
+                        ownerName = ownerName,
+                    )
+                }
+            }
+            .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     val inboundEmail: StateFlow<String?> = accountResponse
         .map { it?.inboundEmail?.email?.takeIf(String::isNotEmpty) }
@@ -63,12 +83,23 @@ class TasksAccountViewModel @Inject constructor(
         .map { it?.inboundEmail?.calendar?.takeIf(String::isNotEmpty) }
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
+    val isGuest: StateFlow<Boolean> = accountResponse
+        .map { it?.guest ?: false }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
+    val guests: StateFlow<List<TasksAccountResponse.Guest>> = accountResponse
+        .map { it?.guests ?: emptyList() }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
+    val maxGuests: StateFlow<Int> = accountResponse
+        .map { it?.maxGuests ?: 5 }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, 5)
+
     private var inFlight = false
 
     private suspend fun refreshAccountData(account: CaldavAccount) {
         try {
-            val response = provider.forTasksAccount(account).getAccount() ?: return
-            tasksPreferences.set(cachedAccountData, response)
+            accountDataRepository.fetchAndCache(account)
         } catch (e: Exception) {
             Timber.e(e)
         }
@@ -116,6 +147,13 @@ class TasksAccountViewModel @Inject constructor(
     data class NewPassword(
         val username: String,
         val password: String,
+    )
+
+    data class SharedCalendarDisplay(
+        val name: String,
+        val icon: String?,
+        val color: Int,
+        val ownerName: String?,
     )
 
     fun regenerateInboundEmail(account: CaldavAccount) = viewModelScope.launch {

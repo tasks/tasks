@@ -559,7 +559,6 @@
     <string name="account_not_included">A \"Nevezd meg az árat\" előfizetés nem tartalmazza</string>
     <string name="sort_due_group">Határidő %s</string>
     <string name="sort_start_group">Kezdés %s</string>
-    <string name="tasks_org_description">Feladatok szinkronizálása a Tasks.org-gal</string>
     <string name="subscription">Előfizetés</string>
     <string name="filter_criteria_unstarted">El nem kezdett</string>
     <string name="show_unstarted">El nem kezdettek mutatása</string>
@@ -583,13 +582,9 @@
     <string name="invite_invalid">Érvénytelen meghívás</string>
     <string name="invite_awaiting_response">Válaszra váró meghívás</string>
     <string name="invite_declined">Meghívás visszautasítva</string>
-    <string name="invite">Meghívás</string>
     <string name="email">E-mail</string>
-    <string name="share_list">Lista megosztása</string>
     <string name="more_options">Több opció</string>
     <string name="upgrade_open_source_description">Az előfizetéseddel a folyamatos fejlesztést támogatod</string>
-    <string name="upgrade_desktop_access_description">Szinkronizálás harmadik fél megoldásaival, mint az Outlook vagy az Apple Emlékeztetők</string>
-    <string name="upgrade_desktop_access">Desktop hozzáférés</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org szinkronizáció és együttműködés más felhasználókkal</string>
     <string name="upgrade_more_customization_description">Az összes téma, szín és ikon feloldása</string>
     <string name="upgrade_more_customization">Még nagyobb testreszabhatóság</string>
@@ -737,7 +732,6 @@
     <string name="import_failed">Sikertelen importálás</string>
     <string name="banner_subscription_required_title">Előfizetés szükséges</string>
     <string name="banner_subscription_required_body">A %s szinkronizáció tetszőleges összeg fizetésével feloldható</string>
-    <string name="already_subscribed">Már előfizető?</string>
     <string name="upgrade_subscription_banner">Köszönjük a támogatást. Frissítse az előfizetését a Tasks.org felhős szinkronizáció engedélyezéséhez</string>
     <string name="alarm_before">előtte</string>
     <string name="alarm_after">utána</string>
@@ -753,7 +747,6 @@
     <string name="add_default_reminders">Alapértelmezett emlékeztető hozzáadása</string>
     <string name="rmd_time_enabled_on">Alapértelmezett emlékeztető hozzáadása egész napos feladatokhoz</string>
     <string name="rmd_time_enabled_off">Egész napos feladatok emlékeztetőjének mellőzése</string>
-    <string name="upgrade_to_pro_card_description">Tasks.org szinkronizálás, feladat e-mailből és egyebek feloldása!</string>
     <string name="supporter">Támogató</string>
     <string name="donate">Adományozás</string>
     <string name="supporter_summary">%s • Köszönöm!</string>

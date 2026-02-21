@@ -585,7 +585,6 @@
     <string name="filter_any_start_date">Любая дата начала</string>
     <string name="sort_due_group">Завершение %s</string>
     <string name="sort_start_group">Начало %s</string>
-    <string name="tasks_org_description">Синхронизировать задачи с Tasks.org</string>
     <string name="account_not_included">Не включено в подписку \'Назовите свою цену\'</string>
     <string name="subscription">Подписка</string>
     <string name="widget_show_title">Показать заголовок</string>
@@ -599,7 +598,6 @@
     <string name="remove_user_confirmation">%1$s больше не будет иметь доступа к %2$s</string>
     <string name="more_options">Дополнительные параметры</string>
     <string name="upgrade_open_source_description">Ваша подписка поддерживает продолжающуюся разработку</string>
-    <string name="upgrade_desktop_access_description">Синхронизация со сторонними клиентами, такими как Outlook и Apple Reminders</string>
     <string name="upgrade_tasks_org_account_description">Синхронизируйтесь с Tasks.org и сотрудничайте с другими пользователями</string>
     <string name="upgrade_more_customization_description">Разблокировать все темы, цвета и иконки</string>
     <string name="upgrade_more_customization">Больше настроек</string>
@@ -607,8 +605,6 @@
     <string name="invite_invalid">Приглашение недействительно</string>
     <string name="invite_awaiting_response">Приглашение в ожидании ответа</string>
     <string name="invite_declined">Приглашение отклонено</string>
-    <string name="invite">Пригласить</string>
-    <string name="share_list">Поделиться списком</string>
     <string name="remove_user">Удалить пользователя\?</string>
     <string name="list_members">Список участников</string>
     <string name="next_saturday">Следующая Сб</string>
@@ -618,7 +614,6 @@
     <string name="next_sunday">Следующее Вс</string>
     <string name="next_tuesday">Следующий Вт</string>
     <string name="social">Социальные сети</string>
-    <string name="upgrade_desktop_access">Доступ к рабочему столу</string>
     <string name="next_wednesday">Следующая Ср</string>
     <string name="markdown_description">Включить Markdown в названии и описании</string>
     <string name="markdown">Markdown</string>

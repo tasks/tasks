@@ -387,7 +387,6 @@
     <string name="hide_unused_tags">使われていないタグを隠す</string>
     <string name="navigation_drawer">ドロワーメニュー</string>
     <string name="invalid_username_or_password">不正なユーザー名やパスワードです</string>
-    <string name="tasks_org_description">Tasks.org にタスクを同期する</string>
     <string name="enter_tag_name">タグの名前を入力</string>
     <string name="action_new_task">新しいタスク</string>
     <string name="this_feature_requires_a_subscription">この機能はサブスクリプションが必要です</string>
@@ -474,7 +473,6 @@
     <string name="no_app_found">使用できるアプリがありません</string>
     <string name="background_location_permission_required">Tasks は場所に関連したリマインダーを有効にするため、アプリを閉じているときでも位置情報を取得します。</string>
     <string name="authentication_required">認証が必要です</string>
-    <string name="share_list">リストを共有</string>
     <string name="markdown">マークダウン</string>
     <string name="auto_dismiss_datetime_widget">ウィジェット</string>
     <string name="lists">リスト</string>
@@ -584,11 +582,8 @@
     <string name="app_passwords">アプリパスワード</string>
     <string name="app_password_last_access">最後に使用: %s</string>
     <string name="remove_user">ユーザーを削除しますか？</string>
-    <string name="invite">招待</string>
     <string name="invite_invalid">招待が無効</string>
-    <string name="upgrade_desktop_access_description">Outlook や Apple Reminders などのサードパーティクライアントと同期可能</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org と同期し、他のユーザーと共同作業が可能</string>
-    <string name="upgrade_desktop_access">デスクトップアクセス</string>
     <string name="upgrade_open_source_description">あなたの支援が継続的な開発を支えます</string>
     <string name="snackbar_tasks_completed">完了したタスク: %d</string>
     <string name="alarm_before_start">着手 %s 前</string>
@@ -708,7 +703,6 @@
     <string name="banner_subscription_required_title">購入が必要</string>
     <string name="banner_subscription_required_body">%sとの同期をするため、お好みの金額をお支払いください</string>
     <string name="sponsorship_required_fdroid">Tasks.orgと同期するには GitHubへの寄付が必要です。寄付をするには下をクリックしてください。</string>
-    <string name="already_subscribed">購入済みですか？</string>
     <string name="terms_of_service">サービス規約</string>
     <string name="subscription_required_fdroid">Tasks.orgと同期するには定期購入が必要です。定期購入はGoogle Play版のTasksアプリからお申し込みください。</string>
     <string name="upgrade_subscription_banner">ご支援ありがとうございます！ Tasks.org Cloudと同期するために、定期購入をアップグレードしましょう</string>
@@ -738,7 +732,6 @@
     <string name="email_to_task">メールでタスクを追加する</string>
     <string name="legal_disclosure">%1$sさんは、%2$s と%3$sに同意します。 Tasks は%4$sの下に提供されているオープンソースソフトウェアです。</string>
     <string name="donate">寄付</string>
-    <string name="upgrade_to_pro_card_description">Tasks.org Cloudとの同期、メールでタスク追加などの機能を有効化します！</string>
     <string name="supporter">支援者</string>
     <string name="sign_in_to_connect">サインインしてTasks.orgアカウントに接続する</string>
     <string name="invalid_email_address">無効なメールアドレス</string>

@@ -342,7 +342,6 @@
     <string name="documentation">檔案</string>
     <string name="preferences_advanced">進階</string>
     <string name="preferences_look_and_feel">外觀</string>
-    <string name="tasks_org_description">使用 Task.org 同步您的工作</string>
     <string name="choose_synchronization_service">選擇一個平臺</string>
     <string name="enter_tag_name">輸入標籤名稱</string>
     <string name="collapse_subtasks">收起次工作</string>
@@ -544,7 +543,6 @@
     <string name="hint_customize_edit_body">您可以透過重新排列或移除欄位來自訂此畫面</string>
     <string name="app_password_save">請使用這些憑證來設定第三方應用程式。它們授予您對 Tasks.org 帳戶的完全存取權限，請勿將其寫下或與他人分享！</string>
     <string name="repeats_every">每次重複</string>
-    <string name="share_list">分享清單</string>
     <string name="alarm_before_due">到期前 %s</string>
     <string name="alarm_after_start">開始後 %s</string>
     <string name="etesync_account_description">需要 EteSync.com 帳戶或自架伺服器</string>
@@ -567,7 +565,6 @@
     <string name="sort_created_group">建立於 %s</string>
     <string name="invite_declined">邀請已拒絕</string>
     <string name="invite_awaiting_response">邀請等待回覆</string>
-    <string name="invite">邀請</string>
     <string name="backup_location_warning">警告：如果移除 Tasks 應用程式，位於%s的檔案將會被刪除！請選擇自訂位置，以防止 Android 刪除您的檔案。</string>
     <string name="multi_select_reschedule">重新安排</string>
     <string name="insufficient_sponsorship">沒有符合資格的 GitHub 贊助</string>
@@ -589,7 +586,6 @@
     <string name="chips">顯示元件</string>
     <string name="chip_appearance">元件外觀</string>
     <string name="upgrade_open_source_description">你的訂閱支援持續開發</string>
-    <string name="upgrade_desktop_access_description">與 Outlook 和 Apple 提醒等第三方客戶端同步</string>
     <string name="navigation_drawer">導覽側邊欄</string>
     <string name="sort_not_available">不支援標籤、篩選或地點</string>
     <string name="microsoft_selection_description">與您的個人 Microsoft 帳戶同步</string>
@@ -636,7 +632,6 @@
     <string name="date_picker_multiple">多個</string>
     <string name="background_location">背景定位</string>
     <string name="backups_ignore_warnings_summary">如果你不需要備份或有自己的備份解決方案，請忽略備份警告</string>
-    <string name="upgrade_desktop_access">桌面訪問</string>
     <string name="completed">已完成</string>
     <string name="caldav_server_unknown">未知</string>
     <string name="hint_customize_edit_title">資訊過多嗎？</string>
@@ -684,7 +679,6 @@
     <string name="add_default_reminders">新增預設提醒</string>
     <string name="rmd_time_enabled_on">為全天任務新增預設提醒</string>
     <string name="rmd_time_enabled_off">不要為全天任務新增預設提醒</string>
-    <string name="upgrade_to_pro_card_description">解鎖 Tasks.org 雲端同步、郵件轉任務等功能！</string>
     <string name="supporter">支持者</string>
     <string name="delete_tasks_warning">%s 將被刪除。此操作無法撤銷！</string>
     <string name="banner_app_updated_description">Tasks 已更新至 %s。是否要查看更新說明？</string>

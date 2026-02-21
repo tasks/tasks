@@ -9,6 +9,10 @@ data class TasksAccountResponse(
     val subscription: Subscription? = null,
     @SerialName("inbound_email") val inboundEmail: InboundEmail? = null,
     @SerialName("app_passwords") val appPasswords: List<AppPassword> = emptyList(),
+    val guest: Boolean = false,
+    @SerialName("shared_with_me") val sharedWithMe: List<String> = emptyList(),
+    val guests: List<Guest> = emptyList(),
+    @SerialName("max_guests") val maxGuests: Int = 5,
 ) {
     @Serializable
     data class Subscription(
@@ -29,5 +33,11 @@ data class TasksAccountResponse(
         @SerialName("session_id") val sessionId: Int = -1,
         @SerialName("created_at") val createdAt: Long? = null,
         @SerialName("last_access") val lastAccess: Long? = null,
+    )
+
+    @Serializable
+    data class Guest(
+        @SerialName("display_name") val displayName: String? = null,
+        val email: String? = null,
     )
 }

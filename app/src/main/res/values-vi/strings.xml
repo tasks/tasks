@@ -60,18 +60,14 @@
     <string name="markdown">Markdown</string>
     <string name="more_options">Nhiều tuỳ chọn hơn</string>
     <string name="upgrade_open_source_description">Việc đăng ký của bạn hỗ trợ cho sự phát triển được tiếp tục</string>
-    <string name="upgrade_desktop_access_description">Đồng bộ bằng các ứng dụng khách bên thứ ba như Outlook và Apple Reminders</string>
-    <string name="upgrade_desktop_access">Truy cập từ máy tính</string>
     <string name="upgrade_tasks_org_account_description">Đồng bộ bằng Tasks.org và hợp tác với những người dùng khác</string>
     <string name="upgrade_more_customization_description">Mở khoá tất cả chủ đề, màu sắc, và biểu tượng</string>
     <string name="upgrade_more_customization">Nhiều tuỳ biến hơn</string>
     <string name="pro_free_trial">Những người đăng ký mới sẽ nhận khoảng thời gian dùng thử 7 ngày miễn phí. Huỷ vào bất kỳ lúc nào</string>
     <string name="invite_invalid">Lời mời không hợp lệ</string>
-    <string name="invite">Lời mời</string>
     <string name="invite_awaiting_response">Lời mời đang chờ phản hồi</string>
     <string name="invite_declined">Lời mời bị từ chối</string>
     <string name="email">Thư điện tử</string>
-    <string name="share_list">Chia sẻ danh sách</string>
     <string name="remove_user_confirmation">%1$s sẽ không còn quyền truy cập vào %2$s nữa</string>
     <string name="remove_user">Xoá người dùng\?</string>
     <string name="list_members">Liệt kê các thành viên</string>
@@ -208,7 +204,6 @@
     <string name="etesync_selection_description">Đồng bộ hoá được mã hoá đầu cuối</string>
     <string name="caldav_selection_description">Đồng bộ hoá dựa trên các tiêu chuẩn internet mở</string>
     <string name="google_tasks_selection_description">Dịch vụ cơ bản đồng bộ hoá với tài khoản Google của bạn</string>
-    <string name="tasks_org_description">Đồng bộ hoá các công việc của bạn bằng Tasks.org</string>
     <string name="choose_synchronization_service">Chọn nền tảng</string>
     <string name="enter_tag_name">Nhập tên thẻ</string>
     <string name="subtasks_multilevel_google_task">Các công việc con có nhiều cấp không được Google Tasks hỗ trợ</string>

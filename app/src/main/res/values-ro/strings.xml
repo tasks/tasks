@@ -16,8 +16,6 @@
     <string name="markdown">Markdown</string>
     <string name="more_options">Mai multe opțiuni</string>
     <string name="upgrade_open_source_description">Abonamentul sprijină dezvoltarea continuă</string>
-    <string name="upgrade_desktop_access_description">Sincronizare cu clienți terți, cum ar fi Outlook și Apple Reminders</string>
-    <string name="upgrade_desktop_access">Acces la desktop</string>
     <string name="upgrade_tasks_org_account_description">Sincronizează cu Tasks.org și colaborează cu alți utilizatori</string>
     <string name="upgrade_more_customization_description">Deblochează toate temele, culorile și pictogramele</string>
     <string name="upgrade_more_customization">Mai multă personalizare</string>
@@ -25,8 +23,6 @@
     <string name="invite_invalid">Invitație nevalabilă</string>
     <string name="invite_awaiting_response">Invitație în așteptarea răspunsului</string>
     <string name="invite_declined">Invitație refuzată</string>
-    <string name="invite">Invită</string>
-    <string name="share_list">Lista de distribuire</string>
     <string name="remove_user_confirmation">%1$s nu va mai avea acces la %2$s</string>
     <string name="remove_user">Elimini utilizatorul\?</string>
     <string name="list_members">Lista membrilor</string>
@@ -548,7 +544,6 @@
     <string name="etesync_selection_description">Sincronizare criptată end-to-end</string>
     <string name="caldav_selection_description">Sincronizare bazată pe standarde deschise de internet</string>
     <string name="google_tasks_selection_description">Serviciu de bază care se sincronizează cu contul Google</string>
-    <string name="tasks_org_description">Sincronizează-ți sarcinile cu Tasks.org</string>
     <string name="choose_synchronization_service">Selectează o platformă</string>
     <string name="enter_tag_name">Introdu numele etichetei</string>
     <string name="subtasks_multilevel_google_task">Sub-sarcinile pe mai multe niveluri nu sunt acceptate de Google Tasks</string>

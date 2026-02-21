@@ -522,8 +522,6 @@
     <string name="markdown">Código Markdown</string>
     <string name="more_options">Mais opções</string>
     <string name="upgrade_open_source_description">A sua subscrição ajuda a continuar o desenvolvimento</string>
-    <string name="upgrade_desktop_access_description">Sincronize com clientes terceiros, como Outlook e Apple Reminders</string>
-    <string name="upgrade_desktop_access">Acesso desktop</string>
     <string name="upgrade_tasks_org_account_description">Sincronize com o Tasks.org e colabore com outros utilizadores</string>
     <string name="upgrade_more_customization_description">Desbloqueie todos os temas, cores e ícones</string>
     <string name="upgrade_more_customization">Mais personalizações</string>
@@ -531,8 +529,6 @@
     <string name="invite_invalid">Convite inválido</string>
     <string name="invite_awaiting_response">Convite a aguardar resposta</string>
     <string name="invite_declined">Convite cancelado</string>
-    <string name="invite">Convidar</string>
-    <string name="share_list">Partilhar lista</string>
     <string name="remove_user_confirmation">%1$s deixará de ter acesso a %2$s</string>
     <string name="remove_user">Remover utilizador\?</string>
     <string name="list_members">Lista de membros</string>
@@ -580,7 +576,6 @@
     <string name="sort_due_group">Vencimento %s</string>
     <string name="sort_start_group">Começar %s</string>
     <string name="decsync_selection_description">Sincronização baseada em ficheiro</string>
-    <string name="tasks_org_description">Sincronize as suas tarefas com o Tasks.org</string>
     <string name="subscription">Subscrição</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
     <string name="default_recurrence">Recorrência predefinida</string>

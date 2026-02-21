@@ -542,7 +542,6 @@
     <string name="sort_created_group">Vytvořeno %s</string>
     <string name="sort_start_group">Začátek %s</string>
     <string name="sort_due_group">Termín %s</string>
-    <string name="tasks_org_description">Synchronizujte své úkoly pomocí Tasks.org</string>
     <string name="background_location_permission_required">Tato aplikace sbírá údaje o Vaší poloze, aby fungovala upozornění podle polohy i když aplikaci zrovna nepoužíváte.</string>
     <string name="reinitialize_account">Znovu inicializovat</string>
     <string name="custom_filter_is_subtask">Je podúkol</string>
@@ -604,8 +603,6 @@
     <string name="markdown">Značkovací jazyk</string>
     <string name="more_options">Další volby</string>
     <string name="upgrade_open_source_description">Vaše předplatné podporuje pokračování vývoje</string>
-    <string name="upgrade_desktop_access_description">Synchronizujte klienty třetích stran jako Outlook a Apple Remminders</string>
-    <string name="upgrade_desktop_access">Přístup z počítače</string>
     <string name="upgrade_tasks_org_account_description">Synchronizujte s Tasks.org a spolupracujte s ostatními uživateli</string>
     <string name="upgrade_more_customization_description">Odemknout všechny vzhledy, barvy a ikony</string>
     <string name="upgrade_more_customization">Další přizpůsobení</string>
@@ -613,8 +610,6 @@
     <string name="invite_invalid">Neplatné pozvání</string>
     <string name="invite_awaiting_response">Pozvání čeká na odpověď</string>
     <string name="invite_declined">Pozvání odmítnuto</string>
-    <string name="invite">Pozvat</string>
-    <string name="share_list">Sdílet seznam</string>
     <string name="remove_user_confirmation">%1$s už nebude mít přístup k %2$s</string>
     <string name="remove_user">Odebrat uživatele\?</string>
     <string name="list_members">Členové seznamu</string>
@@ -759,7 +754,6 @@
     <string name="import_failed_message">Nepodařilo se přečíst soubor zálohy</string>
     <string name="banner_subscription_required_title">Vyžadováno předplatné</string>
     <string name="banner_subscription_required_body">Zaplaťte, kolik chcete, pro odemknutí synchronizace %s</string>
-    <string name="already_subscribed">Již máte předplatné?</string>
     <string name="upgrade_subscription_banner">Děkujeme za vaší podporu! Zvyšte své předplatné pro zapnutí cloudové synchronizace Tasks.org</string>
     <string name="alarm_before">před</string>
     <string name="alarm_after">po</string>
@@ -778,7 +772,6 @@
     <string name="upgrade_email_to_task_description">Přeměňte e-maily na úkoly jejich přesměrováním do vaší soukromé schránky</string>
     <string name="advanced_tools">Pokročilé nástroje</string>
     <string name="advanced_tools_description">Místa Google, CalDAV, EteSync a další!</string>
-    <string name="upgrade_to_pro_card_description">Odemkněte cloudovou synchronizaci Tasks.org, e-mail na úkol a další!</string>
     <string name="supporter">Podporovatel</string>
     <string name="donate">Přispět</string>
     <string name="supporter_summary">%s • Děkujeme!</string>

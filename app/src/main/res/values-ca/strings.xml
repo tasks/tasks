@@ -537,7 +537,6 @@
     <string name="subtasks_multilevel_microsoft">Les subtasques multinivell no són compatibles amb Microsoft To Do</string>
     <string name="enter_tag_name">Introduïu el nom de l\'etiqueta</string>
     <string name="choose_synchronization_service">Seleccioneu una plataforma</string>
-    <string name="tasks_org_description">Sincronitzeu les tasques amb Tasks.org</string>
     <string name="google_tasks_selection_description">Servei bàsic que es sincronitza amb el vostre compte de Google</string>
     <string name="caldav_selection_description">Sincronització basada en estàndards oberts d\'Internet</string>
     <string name="etesync_selection_description">Sincronització xifrada d\'extrem a extrem</string>
@@ -679,8 +678,6 @@
     <string name="list_members">Llista de membres</string>
     <string name="remove_user">Voleu suprimir l\'usuari?</string>
     <string name="remove_user_confirmation">%1$s ja no tindrà accés a %2$s</string>
-    <string name="share_list">Compartiu la llista</string>
-    <string name="invite">Convideu</string>
     <string name="invite_declined">Invitació rebutjada</string>
     <string name="invite_awaiting_response">Convideu a esperar resposta</string>
     <string name="invite_invalid">Convida no vàlida</string>
@@ -688,8 +685,6 @@
     <string name="upgrade_more_customization">Més personalització</string>
     <string name="upgrade_more_customization_description">Desbloquegeu tots els temes, colors i icones</string>
     <string name="upgrade_tasks_org_account_description">Sincronitzeu amb Tasks.org i col·labora amb altres usuaris</string>
-    <string name="upgrade_desktop_access">Accés a l\'escriptori</string>
-    <string name="upgrade_desktop_access_description">Sincronitzeu amb clients de tercers com Outlook i Apple Reminders</string>
     <string name="upgrade_open_source_description">La vostra subscripció suporta el desenvolupament continu</string>
     <string name="more_options">Més opcions</string>
     <string name="markdown">Markdown</string>

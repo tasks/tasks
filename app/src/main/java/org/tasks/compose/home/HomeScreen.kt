@@ -48,6 +48,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.IntentCompat.getParcelableExtra
 import androidx.fragment.compose.AndroidFragment
@@ -61,8 +62,14 @@ import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.activity.TaskListFragment.Companion.EXTRA_FILTER
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
+import org.tasks.R
 import org.tasks.activities.TagSettingsActivity
+import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
+import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SHOW_MORE_OPTIONS
+import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
+import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.data.listSettingsClass
@@ -111,6 +118,7 @@ fun HomeScreen(
         navigator.scaffoldValue[ListDetailPaneScaffoldRole.Detail] == PaneAdaptedValue.Expanded
 
     val openTaskAppDialog = remember { mutableStateOf<org.tasks.data.OpenTaskApp?>(null) }
+    val guestDialog = remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     openTaskAppDialog.value?.let { app ->
@@ -136,6 +144,33 @@ fun HomeScreen(
                 }) {
                     Text("Open ${app.name}")
                 }
+            },
+        )
+    }
+
+    if (guestDialog.value) {
+        AlertDialog(
+            onDismissRequest = { guestDialog.value = false },
+            title = { Text(stringResource(R.string.upgrade_to_pro)) },
+            text = { Text(stringResource(R.string.guest_create_list_message)) },
+            dismissButton = {
+                TextButton(onClick = {
+                    guestDialog.value = false
+                    newList.launch(
+                        Intent(context, LocalListSettingsActivity::class.java)
+                    )
+                }) { Text(stringResource(R.string.local_lists)) }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    guestDialog.value = false
+                    context.startActivity(
+                        Intent(context, PurchaseActivity::class.java)
+                            .putExtra(EXTRA_SOURCE, "guest_create_list")
+                            .putExtra(EXTRA_NAME_YOUR_PRICE, false)
+                            .putExtra(EXTRA_SHOW_MORE_OPTIONS, false)
+                    )
+                }) { Text(stringResource(R.string.button_subscribe)) }
             },
         )
     }
@@ -203,8 +238,19 @@ fun HomeScreen(
 
                                             REQUEST_NEW_LIST ->
                                                 when (it.header.subheaderType) {
-                                                    NavigationDrawerSubheader.SubheaderType.CALDAV,
-                                                    NavigationDrawerSubheader.SubheaderType.TASKS ->
+                                                    NavigationDrawerSubheader.SubheaderType.TASKS -> {
+                                                        val account = viewModel.getAccount(it.header.id.toLong())
+                                                        if (account != null && viewModel.isTasksGuest()) {
+                                                            guestDialog.value = true
+                                                        } else if (account != null) {
+                                                            newList.launch(
+                                                                Intent(context, account.listSettingsClass())
+                                                                    .putExtra(EXTRA_CALDAV_ACCOUNT, account)
+                                                            )
+                                                        }
+                                                    }
+
+                                                    NavigationDrawerSubheader.SubheaderType.CALDAV ->
                                                         viewModel
                                                             .getAccount(it.header.id.toLong())
                                                             ?.let {

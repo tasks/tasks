@@ -140,6 +140,11 @@ object PurchaseText {
 
     private val tasksOrgFeatureList = listOf(
         CarouselItem(
+            title = R.string.upgrade_friends_and_family,
+            icon = R.drawable.outline_groups_24,
+            description = R.string.upgrade_friends_and_family_description,
+        ),
+        CarouselItem(
             R.string.tasks_org_account,
             R.drawable.ic_round_icon,
             R.string.upgrade_tasks_org_account_description,
@@ -154,11 +159,6 @@ object PurchaseText {
             R.string.upgrade_more_customization,
             R.drawable.ic_outline_palette_24px,
             R.string.upgrade_more_customization_description
-        ),
-        CarouselItem(
-            R.string.upgrade_desktop_access,
-            R.drawable.ic_outline_computer_24px,
-            R.string.upgrade_desktop_access_description
         ),
         CarouselItem(
             R.string.open_source,
@@ -181,6 +181,7 @@ object PurchaseText {
         github: Boolean = false,
         showMoreOptions: Boolean = true,
         existingSubscriber: Boolean = false,
+        hasTasksAccount: Boolean = false,
         onSignIn: () -> Unit = {},
         snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
         setPrice: (Float) -> Unit,
@@ -213,7 +214,7 @@ object PurchaseText {
                         }
                     },
                     actions = {
-                        if (existingSubscriber && !github) {
+                        if (existingSubscriber && !github && !hasTasksAccount) {
                             var expanded by remember { mutableStateOf(false) }
                             IconButton(onClick = { expanded = true }) {
                                 Icon(
@@ -315,15 +316,15 @@ object PurchaseText {
                     Spacer(Modifier.height(KEYLINE_FIRST))
                     SponsorButton()
                     Spacer(Modifier.height(KEYLINE_FIRST))
-                    OutlinedButton(
+                    Button(
                         onClick = onSignIn,
-                        colors = ButtonDefaults.textButtonColors(
-                            containerColor = Color.Transparent
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                     ) {
                         Text(
-                            text = stringResource(R.string.already_subscribed),
-                            color = MaterialTheme.colorScheme.onSurface,
+                            text = stringResource(R.string.sign_in),
                             style = MaterialTheme.typography.bodyLarge
                         )
                     }
@@ -334,6 +335,7 @@ object PurchaseText {
                         scrollState = scrollState,
                         showMoreOptions = showMoreOptions,
                         existingSubscriber = existingSubscriber,
+                        hasTasksAccount = hasTasksAccount,
                         onSignIn = onSignIn,
                         setNameYourPrice = setNameYourPrice,
                         setPrice = setPrice,
@@ -392,6 +394,7 @@ object PurchaseText {
         scrollState: ScrollState,
         showMoreOptions: Boolean = true,
         existingSubscriber: Boolean = false,
+        hasTasksAccount: Boolean = false,
         onSignIn: () -> Unit = {},
         setNameYourPrice: (Boolean) -> Unit,
         setPrice: (Float) -> Unit,
@@ -475,17 +478,17 @@ object PurchaseText {
                     )
                 }
             }
-            if (!showMoreOptions && !existingSubscriber) {
+            if (!showMoreOptions && !existingSubscriber && !hasTasksAccount) {
                 Spacer(Modifier.height(KEYLINE_FIRST))
-                OutlinedButton(
+                Button(
                     onClick = onSignIn,
-                    colors = ButtonDefaults.textButtonColors(
-                        containerColor = Color.Transparent
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                 ) {
                     Text(
-                        text = stringResource(R.string.already_subscribed),
-                        color = MaterialTheme.colorScheme.onSurface,
+                        text = stringResource(R.string.sign_in),
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }

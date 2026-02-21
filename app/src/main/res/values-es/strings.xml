@@ -583,7 +583,6 @@
     <string name="CFC_startBefore_text">Comienza: \?</string>
     <string name="sort_due_group">Previsto %s</string>
     <string name="sort_start_group">Inicio %s</string>
-    <string name="tasks_org_description">Sincronice sus tareas con Tasks.org</string>
     <string name="account_not_included">No incluido con las suscripciones de precio flexible</string>
     <string name="subscription">Suscripción</string>
     <string name="widget_show_title">Mostrar título</string>
@@ -600,13 +599,9 @@
     <string name="invite_invalid">Invitación no válida</string>
     <string name="invite_awaiting_response">Invitación en espera de respuesta</string>
     <string name="invite_declined">Invitación declinada</string>
-    <string name="invite">Invitar</string>
     <string name="email">Correo electrónico</string>
-    <string name="share_list">Compartir lista</string>
     <string name="more_options">Más opciones</string>
     <string name="upgrade_open_source_description">Su suscripción apoya el desarrollo continuo</string>
-    <string name="upgrade_desktop_access_description">Sincronización con clientes de terceros como Outlook y Apple Reminders</string>
-    <string name="upgrade_desktop_access">Acceso al escritorio</string>
     <string name="upgrade_tasks_org_account_description">Sincronizar con Tasks.org y colaborar con otros usuarios</string>
     <string name="upgrade_more_customization_description">Desbloquea todos los temas, colores e iconos</string>
     <string name="upgrade_more_customization">Más personalización</string>

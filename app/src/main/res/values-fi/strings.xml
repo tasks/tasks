@@ -495,8 +495,6 @@
     <string name="markdown">Markdown</string>
     <string name="more_options">Lisää vaihtoehtoja</string>
     <string name="upgrade_open_source_description">Tilauksesi tukee jatkuvaa kehitystä</string>
-    <string name="upgrade_desktop_access_description">Synkronoi kolmansien osapuolten, kuten Outlookin ja Applen muistutusten, kanssa</string>
-    <string name="upgrade_desktop_access">Työpöydän käyttöoikeus</string>
     <string name="upgrade_tasks_org_account_description">Synkronoi Tasks.orgin kanssa ja tee yhteistyötä muiden käyttäjien kanssa</string>
     <string name="upgrade_more_customization_description">Avaa kaikki teemat, värit ja kuvakkeet</string>
     <string name="upgrade_more_customization">Lisää räätälöintiä</string>
@@ -504,8 +502,6 @@
     <string name="invite_invalid">Kutsu on mitätön</string>
     <string name="invite_awaiting_response">Kutsu odottaa vastausta</string>
     <string name="invite_declined">Kutsu hylätty</string>
-    <string name="invite">Kutsu</string>
-    <string name="share_list">Jaa lista</string>
     <string name="remove_user_confirmation">%1$s ei enää pääse %2$s:een</string>
     <string name="remove_user">Poista käyttäjä\?</string>
     <string name="list_members">Luettelo jäsenistä</string>
@@ -560,7 +556,6 @@
     <string name="sort_start_group">Aloita %s</string>
     <string name="davx5_selection_description">Tehtävien synkronointi DAVx⁵sovelluksen kanssa</string>
     <string name="decsync_selection_description">Tiedostopohjainen synkronointi</string>
-    <string name="tasks_org_description">Synkronoi tehtävät Tasks.orgin kanssa</string>
     <string name="subscription">Tilaus</string>
     <string name="caldav_home_set_not_found">Kotijoukkoa ei löytynyt</string>
     <string name="repeat_monthly_fifth_week">viides</string>

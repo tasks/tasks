@@ -60,10 +60,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.tasks.BuildConfig
 import org.tasks.R
+import androidx.compose.ui.graphics.Color
+import org.tasks.compose.components.TasksIcon
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
 import org.tasks.caldav.TasksAccountResponse
+import org.tasks.caldav.TasksAccountResponse.Guest
 import org.tasks.preferences.fragments.TasksAccountViewModel.NewPassword
+import org.tasks.preferences.fragments.TasksAccountViewModel.SharedCalendarDisplay
+import org.tasks.themes.TasksIcons
 
 data class CalendarItem(
     val name: String,
@@ -75,6 +80,7 @@ data class CalendarItem(
 fun TasksAccountScreen(
     account: CaldavAccount?,
     isGithub: Boolean,
+    isGuest: Boolean,
     hasSubscription: Boolean,
     isTasksSubscription: Boolean,
     localListCount: Int,
@@ -82,6 +88,9 @@ fun TasksAccountScreen(
     inboundEmail: String?,
     inboundCalendarName: String?,
     appPasswords: List<TasksAccountResponse.AppPassword>?,
+    sharedWithMe: List<SharedCalendarDisplay>,
+    guests: List<Guest>,
+    maxGuests: Int,
     newPassword: NewPassword?,
     calendars: List<CalendarItem>,
     inboundCalendarUri: String?,
@@ -124,6 +133,16 @@ fun TasksAccountScreen(
             .verticalScroll(rememberScrollState())
     ) {
         Spacer(modifier = Modifier.height(SettingsContentPadding))
+
+        // Upgrade card for guests
+        if (isGuest && !isTasksSubscription) {
+            AccountSettingsCard(
+                state = ProCardState.Upgrade,
+                onClick = onSubscribe,
+                modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            )
+            Spacer(modifier = Modifier.height(SettingsSectionGap))
+        }
 
         // Error banner card
         if (account != null && !account.error.isNullOrBlank()) {
@@ -199,6 +218,72 @@ fun TasksAccountScreen(
             Spacer(modifier = Modifier.height(SettingsSectionGap))
         }
 
+        // Shared with me section (calendars shared by others)
+        if (sharedWithMe.isNotEmpty()) {
+            SectionHeader(R.string.shared_with_me, modifier = Modifier.padding(horizontal = SettingsContentPadding))
+            Column(
+                modifier = Modifier.padding(horizontal = SettingsContentPadding),
+                verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+            ) {
+                sharedWithMe.forEachIndexed { index, shared ->
+                    SettingsItemCard(
+                        position = cardPosition(index, sharedWithMe.size),
+                    ) {
+                        PreferenceRow(
+                            title = shared.name,
+                            summary = shared.ownerName?.let { stringResource(R.string.shared_by, it) },
+                            leading = {
+                                TasksIcon(
+                                    modifier = Modifier
+                                        .padding(start = SettingsContentPadding)
+                                        .size(SettingsIconSize),
+                                    label = shared.icon ?: TasksIcons.LIST,
+                                    tint = when (shared.color) {
+                                        0 -> MaterialTheme.colorScheme.onSurface
+                                        else -> Color(shared.color)
+                                    },
+                                )
+                            },
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(SettingsSectionGap))
+        }
+
+        // Guests section (people using this user's guest slots)
+        if (guests.isNotEmpty()) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .padding(horizontal = SettingsContentPadding)
+                    .height(48.dp),
+            ) {
+                Text(
+                    text = stringResource(R.string.guests, guests.size, maxGuests),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
+            Column(
+                modifier = Modifier.padding(horizontal = SettingsContentPadding),
+                verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+            ) {
+                guests.forEachIndexed { index, guest ->
+                    SettingsItemCard(
+                        position = cardPosition(index, guests.size),
+                    ) {
+                        PreferenceRow(
+                            title = guest.displayName ?: guest.email ?: "",
+                            summary = if (guest.displayName != null && guest.email != null)
+                                guest.email else null,
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(SettingsSectionGap))
+        }
+
         // App passwords card
         SectionHeader(R.string.app_passwords, modifier = Modifier.padding(horizontal = SettingsContentPadding), onClick = onOpenAppPasswordsInfo)
         Column(
@@ -249,7 +334,7 @@ fun TasksAccountScreen(
 
         // Bottom actions card
         Spacer(modifier = Modifier.height(SettingsContentPadding))
-        val showManageRow = hasSubscription && !isGithub
+        val showManageRow = hasSubscription && !isGithub && !isGuest
         Column(
             modifier = Modifier.padding(horizontal = SettingsContentPadding),
             verticalArrangement = Arrangement.spacedBy(SettingsCardGap),

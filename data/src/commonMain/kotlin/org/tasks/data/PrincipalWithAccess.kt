@@ -1,21 +1,28 @@
 package org.tasks.data
 
-import androidx.room.Embedded
-import androidx.room.Relation
-import org.tasks.data.entity.Principal
-import org.tasks.data.entity.PrincipalAccess
+import androidx.room.ColumnInfo
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_UNKNOWN
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
 
 data class PrincipalWithAccess(
-    @Embedded val access: PrincipalAccess,
-    @Relation(
-        parentColumn = "principal",
-        entityColumn = "id"
-    )
-    val principal: Principal
+    val id: Long = 0,
+    val list: Long = 0,
+    val invite: Int = INVITE_UNKNOWN,
+    val access: Int = ACCESS_UNKNOWN,
+    val href: String = "",
+    @ColumnInfo(name = "display_name") val displayName: String? = null,
 ) {
-    val displayName get() = principal.displayName
-    val list get() = access.list
-    val href get() = principal.href
-    val inviteStatus get() = access.invite
-    val name get() = principal.name
+    val inviteStatus get() = invite
+    val email: String?
+        get() = href.takeIf { it.startsWith("mailto:") }?.removePrefix("mailto:")
+    val name: String
+        get() = displayName
+            ?: href
+                .replace(MAILTO, "")
+                .replaceFirst(LAST_SEGMENT, "$1")
+
+    companion object {
+        private val MAILTO = "^mailto:".toRegex()
+        private val LAST_SEGMENT = ".*/([^/]+).*".toRegex()
+    }
 }

@@ -574,7 +574,6 @@
     <string name="local_lists">Listy lokalne</string>
     <string name="sort_due_group">Termin %s</string>
     <string name="sort_start_group">Początek %s</string>
-    <string name="tasks_org_description">Synchronizowanie zadań z Tasks.org</string>
     <string name="filter_criteria_unstarted">Nierozpoczęte</string>
     <string name="show_unstarted">Pokaż nierozpoczęte</string>
     <string name="filter_any_start_date">Dowolna data rozpoczęcia</string>
@@ -599,8 +598,6 @@
     <string name="markdown">Markdown</string>
     <string name="more_options">Więcej opcji</string>
     <string name="upgrade_open_source_description">Twoja subskrypcja wspiera dalszy rozwój aplikacji</string>
-    <string name="upgrade_desktop_access_description">Synchronizacja z aplikacjami innych firm, takimi jak Outlook i Apple Reminders</string>
-    <string name="upgrade_desktop_access">Dostęp z aplikacji desktopowych</string>
     <string name="upgrade_tasks_org_account_description">Synchronizuj z Tasks.org oraz współpracuj z innymi użytkownikami</string>
     <string name="upgrade_more_customization_description">Odblokuj wszystkie motywy, kolory oraz ikony</string>
     <string name="upgrade_more_customization">Więcej możliwości konfiguracji</string>
@@ -608,8 +605,6 @@
     <string name="invite_invalid">Zaproszenie nieważne</string>
     <string name="invite_awaiting_response">Zaproszenie oczekuje na odpowiedź</string>
     <string name="invite_declined">Zaproszenie odrzucone</string>
-    <string name="invite">Zaproszenie</string>
-    <string name="share_list">Udostępnij listę</string>
     <string name="remove_user_confirmation">%1$s nie będzie miał już dostępu do %2$s</string>
     <string name="list_members">Członkowie listy</string>
     <string name="open_source">Open source</string>

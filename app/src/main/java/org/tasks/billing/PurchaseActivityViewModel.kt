@@ -16,6 +16,8 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
+import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import java.util.Locale
 import javax.inject.Inject
 
@@ -25,6 +27,7 @@ class PurchaseActivityViewModel @Inject constructor(
     private val inventory: Inventory,
     private val billingClient: BillingClient,
     private val localBroadcastManager: LocalBroadcastManager,
+    private val syncAdapters: SyncAdapters,
     firebase: Firebase,
 ) : ViewModel() {
 
@@ -120,6 +123,7 @@ class PurchaseActivityViewModel @Inject constructor(
                 _viewState.value.subscription?.takeIf { it.sku != newSku },
                 onPurchased = {
                     _viewState.update { it.copy(purchased = true) }
+                    syncAdapters.sync(SyncSource.PURCHASE_COMPLETED)
                 },
             )
         } catch (e: Exception) {

@@ -95,6 +95,7 @@ class CaldavSynchronizer @Inject constructor(
     private val iCal: iCalendar,
     private val principalDao: PrincipalDao,
     private val vtodoCache: VtodoCache,
+    private val accountDataRepository: TasksAccountDataRepository,
 ) {
     suspend fun sync(account: CaldavAccount) {
         Timber.d("Synchronizing $account")
@@ -150,6 +151,17 @@ class CaldavSynchronizer @Inject constructor(
     private suspend fun synchronize(account: CaldavAccount) {
         val caldavClient = provider.forAccount(account)
         var serverType = account.serverType
+
+        // Check guest status for Tasks.org accounts
+        val isGuest = if (account.isTasksOrg) {
+            try {
+                accountDataRepository.fetchAndCache(account)?.guest ?: false
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to fetch account data")
+                accountDataRepository.getAccountResponse()?.guest ?: false
+            }
+        } else false
+
         val resources = caldavClient.calendars { response ->
             if (serverType == SERVER_UNKNOWN) {
                 serverType = getServerType(account, response.headers)
@@ -169,10 +181,12 @@ class CaldavSynchronizer @Inject constructor(
             var calendar = caldavDao.getCalendarByUrl(account.uuid!!, url)
             val remoteName = resource[DisplayName::class.java]!!.displayName
             val color = resource[CalendarColor::class.java]?.color ?: 0
-            val access = resource.accessLevel
+            val rawAccess = resource.accessLevel
+            val guestOwned = isGuest && rawAccess == ACCESS_OWNER
+            val access = if (guestOwned) ACCESS_READ_ONLY else rawAccess
             val icon = resource[CalendarIcon::class.java]?.icon?.takeIf { it.isNotBlank() }
 
-            if (access == ACCESS_UNKNOWN) {
+            if (rawAccess == ACCESS_UNKNOWN) {
                 firebase.logEvent(
                     R.string.event_sync_unknown_access,
                     R.string.param_type to
@@ -208,8 +222,14 @@ class CaldavSynchronizer @Inject constructor(
                 .principals(account, calendar)
                 .let { principalDao.deleteRemoved(calendar.id, it.map(PrincipalAccess::id)) }
             fetchChanges(account, calendar, resource, caldavClient.httpClient)
-            if (calendar.access != ACCESS_READ_ONLY) {
-                pushLocalChanges(account, calendar, caldavClient.httpClient, resource.href)
+            when {
+                guestOwned -> pushLocalChanges(
+                    account, calendar, caldavClient.httpClient, resource.href,
+                    deleteOnly = true
+                )
+                calendar.access != ACCESS_READ_ONLY -> pushLocalChanges(
+                    account, calendar, caldavClient.httpClient, resource.href
+                )
             }
         }
     }
@@ -321,12 +341,14 @@ class CaldavSynchronizer @Inject constructor(
         account: CaldavAccount,
         caldavCalendar: CaldavCalendar,
         httpClient: OkHttpClient,
-        httpUrl: HttpUrl
+        httpUrl: HttpUrl,
+        deleteOnly: Boolean = false,
     ) {
         for (task in caldavDao.getMoved(caldavCalendar.uuid!!)) {
             deleteRemoteResource(httpClient, httpUrl, caldavCalendar, task)
         }
         for (task in taskDao.getCaldavTasksToPush(caldavCalendar.uuid!!)) {
+            if (deleteOnly && !task.isDeleted) continue
             try {
                 pushTask(account, caldavCalendar, task, httpClient, httpUrl)
             } catch (e: IOException) {

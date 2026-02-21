@@ -246,7 +246,6 @@
     <string name="next_thursday">Järgmine N</string>
     <string name="compact">Kompaktne</string>
     <string name="lists">Loendid</string>
-    <string name="invite">Kutsu</string>
     <plurals name="reminder_days">
         <item quantity="one">Päev</item>
         <item quantity="other">Päeva</item>
@@ -399,7 +398,6 @@
     <string name="share">Jaga</string>
     <string name="last_backup">Viimane varundus: %s</string>
     <string name="reset_sort_order">Tühista sorteerimine</string>
-    <string name="share_list">Jaga nimekirja</string>
     <string name="dismiss">Loobu</string>
     <string name="caldav_server_other">Muu</string>
     <string name="customize_drawer">Kohanda menüüriba</string>
@@ -660,7 +658,6 @@
     <string name="android_auto_backup">Androidi varukoopiateenus</string>
     <string name="sign_in_with_github">Logi sisse GitHubi kasutajakontoga</string>
     <string name="add_shortcut_to_home_screen">Lisa link avalehele</string>
-    <string name="upgrade_desktop_access_description">Sünkroniseeri kolmandate osapoolte teenustega, nagu Outlook või Apple Reminders</string>
     <string name="caldav_account_description">Eeldab, et sul on olemas kasutajakonto CalDAV-põhise teenusepakkuja serveris või sinu omas vastavas serveris. Teenusepakkujaid leiad tasks.org/caldav lehelt</string>
     <string name="calendar_event_created">Kalendrisündmus loodud %s jaoks</string>
     <string name="github_sponsors">Sponsorid GitHubis</string>
@@ -682,7 +679,6 @@
     <string name="background_location_permission_required">Selleks, et kasutada asukohapõhiseid meeldetuletusi ka siis, kui rakendus on suletud või pole kasutusel, kogub Tasks asukohaandmeid.</string>
     <string name="location_permission_required_location">Sinu praeguse asukoha tuvastamiseks on vaja õiguseid asukohateenuste kasutamiseks</string>
     <string name="etesync_selection_description">Sünkroniseerimine, mis kasutab läbivat krüptimist</string>
-    <string name="tasks_org_description">Sünkroniseeri oma ülesanded Tasks.org teenusega</string>
     <string name="caldav_selection_description">Sünkroniseerimine, mis põhineb avatud ja vabadel internetistandarditel</string>
     <string name="microsoft_selection_description">Microsofti isikliku kasutajakontoga andmete sünkroniseerimise võimalus</string>
     <string name="davx5_selection_description">Ülesannete sünkroniseerimise võimalus DAVx⁵ rakendusega</string>
@@ -698,7 +694,6 @@
     <string name="price_per_year_with_currency">%s aastas</string>
     <string name="backup_location_warning">HOIATUS: Tasks rakenduse eemaldamisel kustutatakse ka kõik „%s“ asuukohas leiduvad failid. Kui soovid, et Android sinu faile ei kustutaks, siis palun vali muu asukoht.</string>
     <string name="remove_user_confirmation">Kasutajal %1$s ei saa enam olema ligipääsu siia: %2$s</string>
-    <string name="upgrade_desktop_access">Ligipääs töölauafunktsionaalsusele</string>
     <string name="completed_tasks_at_bottom">Nihuta lõpetatud ülesanded alla</string>
     <string name="hint_customize_edit_body">Sa võid seda vaadet kohendada väljade ümbertõstmise ja eemaldamise teel</string>
     <string name="enable_alarms">Taga õigeaegsed teavitused</string>
@@ -730,7 +725,6 @@
     <string name="import_failed_message">Varukoopia faili lugemine ei õnnestunud</string>
     <string name="banner_subscription_required_title">Vajalik on tellimus</string>
     <string name="banner_subscription_required_body">%s rakenduse sünkroonimisfunktsionaalsuse kasutamiseks maksa sulle sobiv summa</string>
-    <string name="already_subscribed">Kas juba oled tellija?</string>
     <string name="upgrade_subscription_banner">Tänud sinu toetuse eest! Kasutamaks Tasks.org-i pilvesünkroonimise võimalus palun uuenda oma tellimust</string>
     <string name="alarm_before">enne</string>
     <string name="alarm_after">peale</string>
@@ -746,7 +740,6 @@
     <string name="add_default_reminders">Lisa vaikimisi meeldetuletusi</string>
     <string name="rmd_time_enabled_on">Lisa vaikimisi meeldetuletused kogu päeva katvatele ülesannetele</string>
     <string name="rmd_time_enabled_off">Ära lisa vaikimisi meeldetuletusi kogu päeva katvatele ülesannetele</string>
-    <string name="upgrade_to_pro_card_description">Saad kasutada Tasks.org- pilvesünkroonimist, e-kirjast ülesande tegemist ja palju muud!</string>
     <string name="supporter">Toetaja</string>
     <string name="donate">Toeta meid rahaliselt</string>
     <string name="supporter_summary">%s • Suur tänu!</string>

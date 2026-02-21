@@ -1,15 +1,15 @@
 package org.tasks.data.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Transaction
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 import org.tasks.data.PrincipalWithAccess
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_INVALID
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_NO_RESPONSE
 import org.tasks.data.entity.Principal
 import org.tasks.data.entity.PrincipalAccess
 
@@ -31,17 +31,29 @@ WHERE list = :list
   AND id NOT IN (:access)""")
     abstract suspend fun deleteRemoved(list: Long, access: List<Long>)
 
-    @Delete
-    abstract suspend fun delete(access: PrincipalAccess)
+    @Query("DELETE FROM principal_access WHERE id = :id")
+    abstract suspend fun deleteAccessById(id: Long)
 
-    @Transaction
-    @Query("SELECT * FROM principal_access")
+    @Query("""
+        SELECT pa.id, pa.list, pa.invite, pa.access, p.href, p.display_name
+        FROM principal_access pa
+        INNER JOIN principals p ON pa.principal = p.id
+    """)
     abstract suspend fun getAll(): List<PrincipalWithAccess>
 
     suspend fun getOrCreatePrincipal(account: CaldavAccount, href: String, displayName: String? = null) =
         findPrincipal(account.id, href)
+            ?.apply {
+                if (displayName != null && this.displayName != displayName) {
+                    this.displayName = displayName
+                    updatePrincipal(this)
+                }
+            }
             ?: Principal(account = account.id, href = href, displayName = displayName)
                 .apply { id = insert(this) }
+
+    @Update
+    abstract suspend fun updatePrincipal(principal: Principal)
 
     suspend fun getOrCreateAccess(
         calendar: CaldavCalendar,
@@ -51,9 +63,18 @@ WHERE list = :list
     ): PrincipalAccess =
         findAccess(calendar.id, principal.id)
             ?.apply {
-                if (this.access != access || this.invite != invite) {
+                // Don't let a stale sync overwrite a known-good status:
+                // INVITE_NO_RESPONSE means we sent an invite, while
+                // INVITE_INVALID just means the mailto: principal wasn't
+                // resolved yet on the server at PROPFIND time.
+                val newInvite =
+                    if (this.invite == INVITE_NO_RESPONSE && invite == INVITE_INVALID)
+                        this.invite
+                    else
+                        invite
+                if (this.access != access || this.invite != newInvite) {
                     this.access = access
-                    this.invite = invite
+                    this.invite = newInvite
                     update(this)
                 }
             }
@@ -70,7 +91,21 @@ WHERE list = :list
     @Query("SELECT * FROM principal_access WHERE list = :list and principal = :principal")
     abstract suspend fun findAccess(list: Long, principal: Long): PrincipalAccess?
 
-    @Query("SELECT * FROM principal_access WHERE list = :id")
+    @Query("""
+        SELECT pa.id, pa.list, pa.invite, pa.access, p.href, p.display_name
+        FROM principal_access pa
+        INNER JOIN principals p ON pa.principal = p.id
+        WHERE pa.list = :id
+    """)
     abstract fun getPrincipals(id: Long): Flow<List<PrincipalWithAccess>>
+
+    @Query("""
+        SELECT p.display_name
+        FROM principal_access pa
+        INNER JOIN principals p ON pa.principal = p.id
+        WHERE pa.list = :listId AND pa.access = 0
+        LIMIT 1
+    """)
+    abstract suspend fun getOwnerName(listId: Long): String?
 
 }

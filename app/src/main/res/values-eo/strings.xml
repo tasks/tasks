@@ -435,7 +435,6 @@
     <string name="visit_website">Viziti retejon</string>
     <string name="location_arrived">Alvenis je %s</string>
     <string name="disable_battery_optimizations">Malŝalti optimumigojn</string>
-    <string name="invite">Inviti</string>
     <plurals name="reminder_days">
         <item quantity="one">Tago</item>
         <item quantity="other">Tagoj</item>
@@ -563,7 +562,6 @@
     <string name="location_remind_departure">Memorigi je foriro</string>
     <string name="google_tasks_add_to_top">Novaj taskoj ĉe supro</string>
     <string name="name_your_price">Elekti propran prezon</string>
-    <string name="tasks_org_description">Sinkronigi viajn taskojn kun Tasks.org</string>
     <string name="caldav_selection_description">Sinkronigo bazite el malfermaj interretaj normoj</string>
     <string name="invalid_backup_file">Nevalida savkopio</string>
     <string name="davx5_selection_description">Sinkronigi viajn taskojn kun la DAVx⁵ aplikaĵo</string>
@@ -602,7 +600,6 @@
     <string name="on_launch">Je lanĉi</string>
     <string name="save_percent">Ŝpari je %d%%</string>
     <string name="remove_user_confirmation">%1$s ne plu povos atingi %2$s</string>
-    <string name="share_list">Komunigi liston</string>
     <string name="widget_id">Fenestraĵa ID: %d</string>
     <string name="sort_start_group">Komenci %s</string>
     <string name="open_last_viewed_list">Malfermi liston de laste rigardita</string>
@@ -657,9 +654,7 @@
     <string name="upgrade_tasks_org_account_description">Sinkronigi kun Tasks.org kaj kunlabori kun aliaj uzantoj</string>
     <string name="app_password_save">Uzu ĉi tiujn identigilojn por agordi aplikaĵon de ekstera liveranto. Ili permesas tutan atingorajton al via Tasks.org konto. Ne skribi ilin aŭ konigi ilin al iu ajn!</string>
     <string name="upgrade_more_customization_description">Malŝlosi ĉiujn etosojn, kolorojn, kaj piktogramojn</string>
-    <string name="upgrade_desktop_access">Aliri per labortablo</string>
     <string name="account_not_included">Ne inkluzivite per \'Elekti propran prezon\' abonoj</string>
-    <string name="upgrade_desktop_access_description">Sinkronigi kun klientoj de ekstera liveranto kiel Outlook kaj Apple Reminders</string>
     <string name="pro_dashclock_extension">Dashclock kromprogramo</string>
     <string name="tasker_list_notification">Sciigo de listo</string>
     <string name="list_members">Anoj de la listo</string>
@@ -737,7 +732,6 @@
     <string name="import_failed_message">Malsukcesis legi dosieron de savkopio</string>
     <string name="banner_subscription_required_title">Bezonas abonon</string>
     <string name="banner_subscription_required_body">Pagu kiel vi volas por malŝlosi sinkronigon per %s</string>
-    <string name="already_subscribed">Ĉu jam abonanto?</string>
     <string name="upgrade_subscription_banner">Dankon pro via subteno! Altgradigu vian abonon por ŝalti sinkronigon de Tasks.org Cloud</string>
     <string name="alarm_before">antaŭ</string>
     <string name="alarm_after">post</string>

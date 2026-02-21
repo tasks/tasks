@@ -583,7 +583,6 @@
     <string name="CFC_startBefore_text">Débute par : \?</string>
     <string name="sort_due_group">Fin %s</string>
     <string name="sort_start_group">Début %s</string>
-    <string name="tasks_org_description">Synchronisez vos tâches avec Tasks.org</string>
     <string name="account_not_included">Non inclus avec les abonnements « Donnez votre prix »</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Afficher le titre</string>
@@ -600,13 +599,9 @@
     <string name="invite_invalid">Invitation non valide</string>
     <string name="invite_awaiting_response">Invitation en attente de réponse</string>
     <string name="invite_declined">Invitation déclinée</string>
-    <string name="invite">Inviter</string>
     <string name="email">Courriel</string>
-    <string name="share_list">Partager la liste</string>
     <string name="more_options">Plus d’options</string>
     <string name="upgrade_open_source_description">Votre abonnement soutient le développement continu</string>
-    <string name="upgrade_desktop_access_description">Synchronisez avec des clients tiers comme « Outlook » et « Apple Reminders »</string>
-    <string name="upgrade_desktop_access">Accès au bureau</string>
     <string name="upgrade_tasks_org_account_description">Synchronisez avec « Tasks.org » et collaborez avec les autres utilisateurs</string>
     <string name="upgrade_more_customization_description">Déverrouillez tous les thèmes, couleurs et icônes</string>
     <string name="upgrade_more_customization">Plus de personnalisation</string>
@@ -760,7 +755,6 @@
     <string name="upgrade_subscription_banner">Merci pour votre soutien ! Mettez à niveau votre abonnement pour activer la synchronisation cloud Tasks.org</string>
     <string name="banner_subscription_required_title">Abonnement requis</string>
     <string name="banner_subscription_required_body">Payez ce que vous voulez pour déverrouiller la synchronisation %s</string>
-    <string name="already_subscribed">Déjà abonné ?</string>
     <string name="alarm_before">avant</string>
     <string name="alarm_after">après</string>
     <string name="alarm_start">début le</string>
@@ -782,6 +776,5 @@
     <string name="donate">Faire un don</string>
     <string name="supporter_summary">%s • Merci !</string>
     <string name="sign_in_to_connect">Authentifiez-vous pour connecter votre compte Tasks.org</string>
-    <string name="upgrade_to_pro_card_description">Débloquez la synchronisation cloud Tasks.org, la transformation de vos courriels vers des tâches et bien plus encore !</string>
     <string name="invalid_email_address">Adresse électronique invalide</string>
 </resources>

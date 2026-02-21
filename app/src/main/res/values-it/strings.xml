@@ -559,7 +559,6 @@
     <string name="decsync_selection_description">Sincronizzazione basata sui file</string>
     <string name="cancel">Annulla</string>
     <string name="ok">OK</string>
-    <string name="tasks_org_description">Sincronizza le tue attività con Tasks.org</string>
     <string name="filter_any_start_date">Qualsiasi data di inizio</string>
     <string name="no_start_date">Nessuna data di inizio</string>
     <string name="show_unstarted">Mostra non iniziate</string>
@@ -585,10 +584,8 @@
     <string name="CFC_startBefore_name">Inizia…</string>
     <string name="app_passwords">Password delle app</string>
     <string name="widget_show_title">Mostra titolo</string>
-    <string name="share_list">Condividi lista</string>
     <string name="remove_user_confirmation">%1$s non avrà più accesso a %2$s</string>
     <string name="remove_user">Vuoi rimuovere l\'utente\?</string>
-    <string name="invite">Invita</string>
     <string name="invite_invalid">Invito non valido</string>
     <string name="invite_awaiting_response">Invito in attesa di risposta</string>
     <string name="invite_declined">Invito rifiutato</string>
@@ -602,8 +599,6 @@
     <string name="social">Social</string>
     <string name="follow_twitter">Segui @tasks_org</string>
     <string name="upgrade_open_source_description">Il tuo abbonamento supporta lo sviluppo continuo</string>
-    <string name="upgrade_desktop_access_description">Sincronizza con client di terze parti come Outlook e Apple Reminders</string>
-    <string name="upgrade_desktop_access">Accesso desktop</string>
     <string name="upgrade_tasks_org_account_description">Sincronizza con Tasks.org e collabora con altri utenti</string>
     <string name="upgrade_more_customization_description">Sblocca tutti i temi, i colori e le icone</string>
     <string name="upgrade_more_customization">Maggiore personalizzazione</string>
@@ -758,7 +753,6 @@
     <string name="import_failed">Importazione non riuscita</string>
     <string name="import_failed_message">Impossibile leggere il file di backup</string>
     <string name="banner_subscription_required_title">Richiede un abbonamento</string>
-    <string name="already_subscribed">Sei già abbonato?</string>
     <string name="upgrade_subscription_banner">Grazie per il tuo sostegno! Aggiorna il tuo abbonamento per abilitare Tasks.org Cloud Sync</string>
     <string name="banner_subscription_required_body">Paga quanto vuoi per sbloccare la sincronizzazione %s</string>
     <string name="alarm_before">prima</string>
@@ -782,6 +776,5 @@
     <string name="donate">Dona</string>
     <string name="supporter_summary">%s • Grazie!</string>
     <string name="sign_in_to_connect">Accedi per connettere il tuo account Tasks.org</string>
-    <string name="upgrade_to_pro_card_description">Sblocca sincronizzazione cloud Tasks.org, attività da e-mail e altro ancora!</string>
     <string name="invalid_email_address">Indirizzo e-mail non valido</string>
 </resources>

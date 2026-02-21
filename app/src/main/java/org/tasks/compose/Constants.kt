@@ -17,10 +17,11 @@ object Constants {
     val HALF_KEYLINE = 8.dp
 
     @Composable
-    fun TextButton(@StringRes text: Int, onClick: () -> Unit) {
+    fun TextButton(@StringRes text: Int, enabled: Boolean = true, onClick: () -> Unit) {
         androidx.compose.material3.TextButton(
             onClick = onClick,
-            colors = textButtonColors()
+            colors = textButtonColors(),
+            enabled = enabled,
         ) {
             Text(
                 stringResource(text).uppercase(Locale.getDefault()),

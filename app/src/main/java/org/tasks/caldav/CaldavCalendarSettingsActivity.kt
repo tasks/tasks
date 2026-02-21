@@ -11,7 +11,6 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -43,7 +42,6 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
     private val viewModel: CaldavCalendarViewModel by viewModels()
 
-    private var principalsList: MutableState<List<PrincipalWithAccess>> = mutableStateOf( emptyList<PrincipalWithAccess>().toMutableList())
     private val removeDialog = mutableStateOf<PrincipalWithAccess?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,18 +65,35 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                 BaseCaldavSettingsContent(
                     fab = {
                         if (caldavAccount.canShare && (isNew || caldavCalendar?.access == ACCESS_OWNER)) {
+                            val listName = baseViewModel.viewState.collectAsStateWithLifecycle().value.title
                             val openDialog = rememberSaveable { mutableStateOf(false) }
+                            val isSharing = rememberSaveable { mutableStateOf(false) }
                             ShareInviteDialog(
                                 openDialog,
                                 email = caldavAccount.serverType !in listOf(SERVER_OWNCLOUD, SERVER_NEXTCLOUD),
+                                listName = listName,
+                                isLoading = isSharing.value,
                             ) { input ->
                                 lifecycleScope.launch {
-                                    share(input)
-                                    openDialog.value = false
+                                    isSharing.value = true
+                                    try {
+                                        share(input)
+                                        if (viewModel.error.value == null) {
+                                            openDialog.value = false
+                                        }
+                                    } finally {
+                                        isSharing.value = false
+                                    }
                                 }
                             }
                             FloatingActionButton(
-                                onClick = { openDialog.value = true },
+                                onClick = {
+                                    if (isNew && listName.isBlank()) {
+                                        baseViewModel.setError(getString(R.string.name_cannot_be_empty))
+                                    } else {
+                                        openDialog.value = true
+                                    }
+                                },
                                 modifier = Modifier.padding(Constants.KEYLINE_FIRST),
                                 containerColor = MaterialTheme.colorScheme.primary,
                                 contentColor = MaterialTheme.colorScheme.onPrimary,
@@ -98,11 +113,6 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                             onRemove = if (canRemovePrincipals) { { onRemove(it) } } else null,
                         )
                     }
-                    if (principalsList.value.isNotEmpty())
-                        PrincipalList(
-                            principalsList.value,
-                            onRemove = if (canRemovePrincipals) ::onRemove else null
-                        )
                 }
 
                 removeDialog.value?.let { principal ->
@@ -177,7 +187,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         viewModel.deleteCalendar(caldavAccount, caldavCalendar)
     }
 
-    private suspend fun share(email: String) {
+    private suspend fun share(input: String) {
         if (isNew) {
             viewModel.ignoreFinish = true
             try {
@@ -186,7 +196,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                 viewModel.ignoreFinish = false
             }
         }
-        caldavCalendar?.let { viewModel.addUser(caldavAccount, it, email) }
+        caldavCalendar?.let { viewModel.addUser(caldavAccount, it, input) }
     }
 
     companion object {

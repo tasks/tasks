@@ -434,7 +434,6 @@
     <string name="expand_subtasks">Прошири подзадатке</string>
     <string name="enter_tag_name">Унеси назив тага</string>
     <string name="choose_synchronization_service">Одабери платформу</string>
-    <string name="tasks_org_description">Синхронизуј задатке са Tasks.org</string>
     <string name="google_tasks_selection_description">Основни сервис који се синхронизује са Гугл налогом</string>
     <string name="etesync_selection_description">End-to-end енкриптована синхронизација</string>
     <string name="decsync_selection_description">Синхронизација базирана на датотеци</string>
@@ -675,8 +674,6 @@
     <string name="list_members">Чланови листе</string>
     <string name="remove_user">Уклонити корисника?</string>
     <string name="remove_user_confirmation">%1$s више нема приступ до %2$s</string>
-    <string name="share_list">Подели листу</string>
-    <string name="invite">Позови</string>
     <string name="invite_declined">Позив одбијен</string>
     <string name="invite_awaiting_response">Чека се на одговор</string>
     <string name="invite_invalid">Невалидан позив</string>
@@ -684,8 +681,6 @@
     <string name="upgrade_more_customization">Додатно прилагоди</string>
     <string name="upgrade_more_customization_description">Откључај све теме, боје, и иконице</string>
     <string name="upgrade_tasks_org_account_description">Синхронизуј са Tasks.org и сарађуј са другим корисницима</string>
-    <string name="upgrade_desktop_access">Приступ десктопу</string>
-    <string name="upgrade_desktop_access_description">Синхронизуј са апликацијама треће стране као што су ,,Outlook\'\' и ,,Apple Reminders\'\'</string>
     <string name="upgrade_open_source_description">Ова претплата омогућава наставак развоја апликације</string>
     <string name="more_options">Додатне опције</string>
     <string name="markdown">Редукција</string>
@@ -736,7 +731,6 @@
     <string name="caldav_home_set_not_found">Сет није пронађен</string>
     <string name="widget_view_more_tasks">Погледај још задатака</string>
     <string name="upgrade_subscription_banner">Хвала на подршци! Унапреди претплату за омогућену Tasks.org Cloud синхронизацију</string>
-    <string name="already_subscribed">Већ си претплаћен?</string>
     <string name="banner_subscription_required_body">Плати колико желиш за откључавање %s синхронизације</string>
     <string name="banner_subscription_required_title">Потребна је претплата</string>
     <string name="import_failed_message">Неуспело читање резервног фајла</string>
@@ -768,7 +762,6 @@
     <string name="sign_in_to_connect">Пријави се за повезивање Tasks.org налога</string>
     <string name="supporter_summary">%s • Хвала!</string>
     <string name="donate">Донирај</string>
-    <string name="upgrade_to_pro_card_description">Откључај Tasks.org Cloud sync, Email to Task, и још много тога!</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync, и још тога!</string>
     <string name="advanced_tools">Напредна подешавања</string>
     <string name="upgrade_email_to_task_description">Претвори мејлове у задатке прослеђивањем истих у своје поштанско сандуче</string>

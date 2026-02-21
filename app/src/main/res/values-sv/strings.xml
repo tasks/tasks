@@ -431,8 +431,6 @@
     <string name="markdown">Markdown</string>
     <string name="more_options">Fler alternativ</string>
     <string name="upgrade_open_source_description">Ditt abonnemang stöder fortsatt utveckling</string>
-    <string name="upgrade_desktop_access_description">Synkronisera med tredjepartsklienter som Outlook och Apple Reminders</string>
-    <string name="upgrade_desktop_access">Tillgång till skrivbordet</string>
     <string name="upgrade_tasks_org_account_description">Synkronisera med Tasks.org och samarbeta med andra användare</string>
     <string name="upgrade_more_customization_description">Lås upp alla teman, färger och ikoner</string>
     <string name="upgrade_more_customization">Mer anpassning</string>
@@ -440,8 +438,6 @@
     <string name="invite_invalid">Inbjudan ogiltig</string>
     <string name="invite_awaiting_response">Inbjudan väntar på svar</string>
     <string name="invite_declined">Inbjudan avfärdad</string>
-    <string name="invite">Bjud in</string>
-    <string name="share_list">Dela lista</string>
     <string name="remove_user_confirmation">%1$s kommer inte längre att ha tillgång till %2$s</string>
     <string name="remove_user">Ta bort användaren\?</string>
     <string name="list_members">Förteckning över medlemmar</string>
@@ -543,7 +539,6 @@
     <string name="etesync_selection_description">Krypterad synkronisering från slut till slut</string>
     <string name="caldav_selection_description">Synkronisering baserad på öppna internetstandarder</string>
     <string name="google_tasks_selection_description">Grundläggande tjänst som synkroniseras med ditt Google-konto</string>
-    <string name="tasks_org_description">Synkronisera dina uppgifter med Tasks.org</string>
     <string name="choose_synchronization_service">Välj en plattform</string>
     <string name="enter_tag_name">Ange taggnamn</string>
     <string name="subtasks_multilevel_google_task">Deluppgifter på flera nivåer stöds inte av Google Tasks</string>

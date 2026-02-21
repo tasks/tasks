@@ -10,6 +10,8 @@ enum class SyncSource(val showIndicator: Boolean) {
     APP_BACKGROUND(false),
     APP_RESUME(false),
     ACCOUNT_ADDED(true),
+    PURCHASE_COMPLETED(true),
+    SHARING_CHANGE(true),
     ;
 
     fun upgrade(other: SyncSource): SyncSource =

@@ -457,8 +457,6 @@
     <string name="widget_open_list">Atidaryti sąrašą</string>
     <string name="start_date">Pradžios data</string>
     <string name="SSD_sort_my_order">Mano užsakymas</string>
-    <string name="upgrade_desktop_access">Darbalaukio prieiga</string>
-    <string name="upgrade_desktop_access_description">Sinchronizuokite su trečiųjų šalių klientais, tokiais kaip Outlook ir Apple Reminders</string>
     <string name="upgrade_open_source_description">Jūsų prenumerata palaiko tolesnį kūrimą</string>
     <string name="more_options">Daugiau pasirinkimų</string>
     <string name="markdown">Markdown</string>
@@ -477,8 +475,6 @@
     <string name="list_members">Sąrašo nariai</string>
     <string name="remove_user">Pašalinti vartotoją\?</string>
     <string name="remove_user_confirmation">%1$s nebeturės prieigos prie %2$s</string>
-    <string name="share_list">Bendrinti sąrašą</string>
-    <string name="invite">Pakviesti</string>
     <string name="invite_declined">Kvietimas atmestas</string>
     <string name="invite_awaiting_response">Kvietimas laukia atsakymo</string>
     <string name="invite_invalid">Kvietimas negalioja</string>
@@ -620,7 +616,6 @@
     <string name="decsync_selection_description">Failais paremta sinchronizacija</string>
     <string name="etesync_selection_description">Sinchronizacija paremta abipusiu šifravimu</string>
     <string name="caldav_selection_description">Sinchronizacija paremta atviro interneto standartais</string>
-    <string name="tasks_org_description">Sinchronizuoti užduotis su Tasks.org</string>
     <string name="choose_synchronization_service">Pasirinkti platformą</string>
     <string name="enter_tag_name">Įvesti etiketės pavadinimą</string>
     <string name="subtasks_multilevel_google_task">„Google Tasks“ nepalaiko kelių lygių antrinių užduočių</string>

@@ -538,7 +538,6 @@
     <string name="sort_due_group">Vencimento %s</string>
     <string name="sort_start_group">Começa %s</string>
     <string name="decsync_selection_description">Sincronização baseada em arquivo</string>
-    <string name="tasks_org_description">Sincronize suas tarefas com Tasks.org</string>
     <string name="background_location_permission_required">Tasks coleta dados de localização para permitir lembretes baseados em localização, mesmo quando o aplicativo está fechado ou não estiver sendo usado.</string>
     <string name="subscription">Assinatura</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
@@ -551,8 +550,6 @@
     <string name="always_display_full_date">Mostrar data completa</string>
     <string name="more_options">Mais opções</string>
     <string name="upgrade_open_source_description">Sua assinatura ajuda a continuar o desenvolvimento</string>
-    <string name="upgrade_desktop_access_description">Sincronização com clientes de terceiros, como Outlook e Apple Reminders</string>
-    <string name="upgrade_desktop_access">Acesso para a versão Desktop (computador)</string>
     <string name="upgrade_tasks_org_account_description">Sincronize com Tasks.org e colabore com outros usuários</string>
     <string name="upgrade_more_customization_description">Desbloqueie todos os temas, cores e ícones</string>
     <string name="upgrade_more_customization">Mais customização</string>
@@ -560,8 +557,6 @@
     <string name="invite_invalid">Convite inválido</string>
     <string name="invite_awaiting_response">Convite aguardando resposta</string>
     <string name="invite_declined">Convite cancelado</string>
-    <string name="invite">Convidar</string>
-    <string name="share_list">Compartilhar lista</string>
     <string name="remove_user_confirmation">%1$s não terá mais acesso a %2$s</string>
     <string name="remove_user">Remover usuário\?</string>
     <string name="list_members">Lista de membros</string>

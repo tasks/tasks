@@ -566,7 +566,6 @@
     <string name="filter_any_start_date">Herhangi başlangıç tarihi</string>
     <string name="sort_due_group">%s biten</string>
     <string name="sort_start_group">%s başlayan</string>
-    <string name="tasks_org_description">Görevlerinizi Tasks.org ile eşzamanlayın</string>
     <string name="account_not_included">\'Fiyat belirle\' aboneliklerini içermez</string>
     <string name="subscription">Abonelik</string>
     <string name="widget_show_title">Başlığı göster</string>
@@ -583,14 +582,10 @@
     <string name="invite_invalid">Davet geçersiz</string>
     <string name="invite_awaiting_response">Davet yanıt bekliyor</string>
     <string name="invite_declined">Davet reddedildi</string>
-    <string name="invite">Davet et</string>
     <string name="email">E-posta</string>
-    <string name="share_list">Listeyi paylaş</string>
     <string name="more_options">Daha çok seçenek</string>
     <string name="upgrade_open_source_description">Aboneliğiniz geliştirmenin sürekliliğini destekler</string>
-    <string name="upgrade_desktop_access_description">Outlook ve Apple Anımsatıcılar gibi üçüncü taraf istemcilerle eşzamanlama</string>
     <string name="upgrade_more_customization_description">Tüm gövdeler, renkler ve simgeler kullanılabilir</string>
-    <string name="upgrade_desktop_access">Masaüstü erişimi</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org ile eşzamanla ve diğer kullanıcılarla ortak çalış</string>
     <string name="upgrade_more_customization">Daha çok özelleştirme</string>
     <string name="pro_free_trial">Yeni aboneler 7 günlük sınama süresi kazanır. İstendiğinde iptal edilir</string>
@@ -737,7 +732,6 @@
     <string name="import_failed_message">Yedek dosyası okunamadı</string>
     <string name="banner_subscription_required_title">Abonelik gereklidir</string>
     <string name="banner_subscription_required_body">%s eşzamanlama kilidini açmak için dilediğinizi ödeyin</string>
-    <string name="already_subscribed">Hâlihazırda abone misiniz?</string>
     <string name="upgrade_subscription_banner">Desteğiniz için sağ olun! Tasks.org Bulut Eşzamanlamasını etkinleştirmek için aboneliğinizi yükseltin</string>
     <string name="alarm_before">önce</string>
     <string name="alarm_after">sonra</string>
@@ -747,7 +741,6 @@
     <string name="default_reminder">Tüm gün görevleri</string>
     <string name="rmd_time_enabled_on">Tüm gün görevlerine öntanımlı anımsatıcı ekle</string>
     <string name="rmd_time_enabled_off">Tüm gün görevlerine öntanımlı anımsatıcı ekleme</string>
-    <string name="upgrade_to_pro_card_description">Tasks.org Cloud eşzamanlamasını, E-postayla Görev ve diğerlerini aç!</string>
     <string name="supporter">Destekçi</string>
     <string name="donate">Bağış Yap</string>
     <string name="supporter_summary">%s • Sağ olun!</string>

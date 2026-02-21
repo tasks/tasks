@@ -510,7 +510,6 @@
     <string name="wearable_notifications_summary">Tampilkan notifikasi pada alat wearable Anda</string>
     <string name="wearable_notifications">Notifikasi pada alat wearable</string>
     <string name="decsync_selection_description">Sinkronisasi berdasarkan berkas</string>
-    <string name="tasks_org_description">Sinkronisasi tugas Anda dengan Tasks.org</string>
     <string name="collapse_subtasks">Ciutkan subtugas</string>
     <string name="name_your_price">Tetapkan harga dari Anda</string>
     <string name="location_departed">Berangkat pada %s</string>
@@ -569,13 +568,9 @@
     <string name="invite_invalid">Undangan tidak valid</string>
     <string name="invite_awaiting_response">Undangan menunggu respon</string>
     <string name="invite_declined">Undangan ditolak</string>
-    <string name="invite">Undang</string>
     <string name="email">Surel</string>
-    <string name="share_list">Bagikan daftar</string>
     <string name="more_options">Opsi lebih banyak</string>
     <string name="upgrade_open_source_description">Langganan Anda mendukung kelanjutan pengembangan aplikasi ini</string>
-    <string name="upgrade_desktop_access_description">Sinkronkan dengan klien pihak-ketiga seperti Outlook dan Apple Reminders</string>
-    <string name="upgrade_desktop_access">Akses dekstop</string>
     <string name="upgrade_tasks_org_account_description">Sinkronkan dengan Tasks.org dan kolaborasi dengan pengguna lain</string>
     <string name="upgrade_more_customization_description">Buka semua tema, warna, dan ikon</string>
     <string name="upgrade_more_customization">Lebih banyak kostumisasi</string>

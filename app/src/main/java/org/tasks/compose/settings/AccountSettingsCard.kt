@@ -48,6 +48,7 @@ data class AccountData(
     val subscriptionFree: Boolean = true,
     val subscriptionProvider: String? = null,
     val subscriptionExpiration: Long? = null,
+    val guest: Boolean = false,
 )
 
 sealed class ProCardState {
@@ -132,9 +133,13 @@ fun AccountSettingsCard(
                 is ProCardState.TasksOrgAccount -> {
                     iconRes = R.drawable.ic_round_icon
                     iconTint = Color.Unspecified
-                    title = environmentLabel
-                        ?.let { "${stringResource(R.string.tasks_org)} \u2022 $it" }
-                        ?: stringResource(R.string.tasks_org)
+                    title = buildString {
+                        append(stringResource(R.string.tasks_org))
+                        environmentLabel?.let { append(" \u2022 $it") }
+                        if (state.accountData?.guest == true) {
+                            append(" \u2022 ${stringResource(R.string.guest)}")
+                        }
+                    }
                     summary = state.account.name
                     showError = state.account.hasError
                 }

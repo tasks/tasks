@@ -326,7 +326,6 @@
     <string name="missing_permissions">Sen permisos</string>
     <string name="subtasks_multilevel_google_task">Gootle Tasks non acepta as subtarefas a múltiples niveis</string>
     <string name="caldav_selection_description">Sincronización basada en estándares abertos de internet</string>
-    <string name="tasks_org_description">Sincroniza as tarefas con Tasks.org</string>
     <string name="google_tasks_selection_description">Servizo básico que sincroniza coa túa conta de Google</string>
     <string name="chip_appearance_icon_only">Só iconas</string>
     <string name="add_tags">Engadir etiquetas</string>
@@ -389,7 +388,6 @@
     <string name="custom_filter_has_subtask">Ten subtarefas</string>
     <string name="tasks_org_account_required">Precísase de conta en Tasks.org</string>
     <string name="remove_user">Borrar usuario\?</string>
-    <string name="share_list">Compartir lista</string>
     <string name="invite_invalid">Convite non válido</string>
     <string name="upgrade_more_customization">Máis opcións</string>
     <string name="upgrade_more_customization_description">Desbloquear todos os temas, cores e iconas</string>
@@ -401,7 +399,6 @@
     <string name="app_passwords">Contrainais da app</string>
     <string name="app_passwords_more_info">Sincroniza as tarefas e os calendarios en aplicativos de terceiros para escritorio ou dispositivos móbiles. Preme aquí para máis información</string>
     <string name="generate_new_password">Xerar novo contrasinal</string>
-    <string name="upgrade_desktop_access">Acceso ao escritorio</string>
     <string name="repeats_weekly">por semana</string>
     <string name="version_string">Versión %s</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
@@ -512,10 +509,8 @@
     <string name="app_password_created_at">Creouse: %s</string>
     <string name="app_password_last_access">Último empregado: %s</string>
     <string name="copied_to_clipboard">%s copiadas ao portaretallos</string>
-    <string name="invite">Convidar</string>
     <string name="invite_declined">Convite rexeitado</string>
     <string name="invite_awaiting_response">Convite en agarda</string>
-    <string name="upgrade_desktop_access_description">Sincronizar con clientes de terceiros como Outlook e Appler Reminders</string>
     <string name="completed">Finalizada</string>
     <string name="completed_tasks_at_bottom">Mover as tarefas finalizadas ao fondo</string>
     <string name="snoozed_until">Posposta ata %s</string>

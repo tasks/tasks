@@ -38,14 +38,11 @@
     <string name="markdown_description">เปิดใช้งานการทําเครื่องหมายในชื่อและคําอธิบาย</string>
     <string name="markdown">มาร์กดาวน์</string>
     <string name="more_options">ตัวเลือกเพิ่มเติม</string>
-    <string name="upgrade_desktop_access">การเข้าถึงเดสก์ท็อป</string>
     <string name="upgrade_tasks_org_account_description">ซิงค์กับ Tasks.org และทํางานร่วมกับผู้ใช้รายอื่น</string>
     <string name="invite_invalid">การเชิญไม่ถูกต้อง</string>
     <string name="invite_awaiting_response">คําเชิญที่กําลังรอการตอบกลับ</string>
     <string name="invite_declined">ปฏิเสธคำเชิญ</string>
-    <string name="invite">เชิญ</string>
     <string name="email">อีเมล</string>
-    <string name="share_list">แชร์รายการ</string>
     <string name="remove_user_confirmation">%1$s จะไม่สามารถเข้าถึง %2$s ได้อีกต่อไป</string>
     <string name="remove_user">ลบผู้ใช้หรือไม่\?</string>
     <string name="list_members">รายชื่อสมาชิก</string>
@@ -155,7 +152,6 @@
     <string name="etesync_selection_description">การทําข้อมูลให้ตรงกันที่เข้ารหัสตั้งแต่ต้นจนจบ</string>
     <string name="caldav_selection_description">การซิงโครไนซ์ตามมาตรฐานอินเทอร์เน็ตแบบเปิด</string>
     <string name="google_tasks_selection_description">บริการพื้นฐานที่ซิงโครไนซ์กับบัญชี Google ของคุณ</string>
-    <string name="tasks_org_description">ซิงโครไนซ์งานของคุณกับ Tasks.org</string>
     <string name="choose_synchronization_service">เลือกแพลตฟอร์ม</string>
     <string name="enter_tag_name">ป้อนชื่อแท็ก</string>
     <string name="subtasks_multilevel_google_task">งานย่อยหลายระดับไม่ได้รับการสนับสนุนโดย Google Tasks</string>
@@ -477,7 +473,6 @@
     <string name="default_start_date">วันที่เริ่มต้นเริ่มต้น</string>
     <string name="account_not_included">ไม่รวมอยู่ในการสมัครสมาชิก \'ตั้งชื่อราคาของคุณ\'</string>
     <string name="upgrade_open_source_description">การสมัครใช้งานของคุณสนับสนุนการพัฒนาอย่างต่อเนื่อง</string>
-    <string name="upgrade_desktop_access_description">ซิงค์กับไคลเอ็นต์ของบริษัทอื่น เช่น Outlook และรายการเตือนความจําของ Apple</string>
     <string name="upgrade_more_customization_description">ปลดล็อกธีม สี และไอคอนทั้งหมด</string>
     <string name="upgrade_more_customization">การปรับแต่งเพิ่มเติม</string>
     <string name="pro_free_trial">สมาชิกใหม่ได้รับการทดลองใช้ฟรี 7 วัน ยกเลิกได้ตลอดเวลา</string>

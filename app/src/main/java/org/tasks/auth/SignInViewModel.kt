@@ -82,6 +82,7 @@ class SignInViewModel @Inject constructor(
                         password = password,
                         url = homeSet,
                         name = idToken.email ?: idToken.login,
+                        serverType = CaldavAccount.SERVER_TASKS,
                     ).let {
                         it.copy(id = caldavDao.insert(it))
                     }

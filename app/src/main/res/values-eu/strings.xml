@@ -558,7 +558,6 @@
     <string name="sort_due_group">Epemuga %s</string>
     <string name="sort_start_group">Hasiera %s</string>
     <string name="decsync_selection_description">Fitxategietan oinarritutako sinkronizazioa</string>
-    <string name="tasks_org_description">Sinkronizatu zereginak Tasks.org gunearekin</string>
     <string name="subscription">Harpidetza</string>
     <string name="show_unstarted">Erakutsi hasi gabeak</string>
     <string name="filter_criteria_unstarted">Hasi gabea</string>
@@ -586,15 +585,11 @@
     <string name="invite_invalid">Gonbidapen baliogabea</string>
     <string name="invite_awaiting_response">Gonbidapena erantzunaren zain</string>
     <string name="invite_declined">Gonbidapena atzera bota da</string>
-    <string name="invite">Gonbidatu</string>
     <string name="email">Posta elektronikoa</string>
-    <string name="share_list">Zerrenda partekatu</string>
     <string name="markdown_description">Markdown gaitu izenburuan eta deskribapenean</string>
     <string name="markdown">Markdown</string>
     <string name="more_options">Aukera gehiago</string>
     <string name="upgrade_open_source_description">Harpidetzak etengabeko garapenaren alde egiten du</string>
-    <string name="upgrade_desktop_access_description">Outlook eta Apple Reminders bezalako hirugarrenen bezeroekin sinkronizatu</string>
-    <string name="upgrade_desktop_access">Mahaigaineko sarbidea</string>
     <string name="upgrade_tasks_org_account_description">Sinkronizatu Tasks.org-ekin eta lankidetu beste erabiltzaile batzuekin</string>
     <string name="upgrade_more_customization_description">Desblokeatu gai, kolore eta ikono guztiak</string>
     <string name="upgrade_more_customization">Pertsonalizazio gehiago</string>

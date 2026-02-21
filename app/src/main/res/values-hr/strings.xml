@@ -160,8 +160,6 @@
     <string name="markdown">Markdown</string>
     <string name="more_options">Više opcija</string>
     <string name="upgrade_open_source_description">Tvoja pretplata podržava kontinuirani razvoj</string>
-    <string name="upgrade_desktop_access_description">Sinkroniziraj s klijentima trećih strana poput Outlook i Apple Reminders</string>
-    <string name="upgrade_desktop_access">Desktop pristup</string>
     <string name="upgrade_tasks_org_account_description">Sinkroniziraj s Tasks.org i surađuj s drugim korisnicima</string>
     <string name="upgrade_more_customization_description">Otključaj sve teme, boje i ikone</string>
     <string name="upgrade_more_customization">Više prilagođavanja</string>
@@ -169,8 +167,6 @@
     <string name="invite_invalid">Poziv nevaljan</string>
     <string name="invite_awaiting_response">Poziv čeka odgovor</string>
     <string name="invite_declined">Poziv odbijen</string>
-    <string name="invite">Poziv</string>
-    <string name="share_list">Dijeli popis</string>
     <string name="remove_user_confirmation">%1$s više neće moći pristup na %2$s</string>
     <string name="remove_user">Ukloniti korisnika\?</string>
     <string name="list_members">Članovi popisa</string>
@@ -237,7 +233,6 @@
     <string name="etesync_selection_description">Obostrana šifrirana sinkronizacija</string>
     <string name="caldav_selection_description">Sinkronizacija temeljena na otvorenim internetskim standardima</string>
     <string name="google_tasks_selection_description">Osnovna usluga koja sinkronizira s tvojim Google računom</string>
-    <string name="tasks_org_description">Sinkroniziraj tvoje zadatke s Tasks.org</string>
     <string name="enter_tag_name">Upiši ime oznake</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ne podržava višerazinske podzadatke</string>
     <string name="collapse_subtasks">Sklopi podzadatke</string>
@@ -746,7 +741,6 @@
     <string name="subscription_required_fdroid">Za korištenje Tasks.org sinkronizacije je potrebna pretplata. Pretplata se mora pokrenuti putem Tasks verzije na Google Playu.</string>
     <string name="sponsorship_required_fdroid">Za korištenje Tasks.org sinkronizacije je potrebno GitHub sponzorstvo. Klikni dolje da postaneš sponzor.</string>
     <string name="legal">Pravno</string>
-    <string name="already_subscribed">Već si se pretplatio/la?</string>
     <string name="upgrade_subscription_banner">Hvala ti na podršci! Nadogradi svoju pretplatu i na taj način omogući Tasks.org Cloud sinkronizaciju</string>
     <string name="alarm_before">prije</string>
     <string name="alarm_after">nakon</string>
@@ -778,7 +772,6 @@
     <string name="upgrade_email_to_task_description">Pretvori e-mail poruke u zadatke prosljeđivanjem u tvoju privatnu dolaznu poštu</string>
     <string name="advanced_tools">Napredni alati</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync i još više!</string>
-    <string name="upgrade_to_pro_card_description">Otključaj Tasks.org Cloud sinkronizaciju, pretvori e-mail u zadatak i još više!</string>
     <string name="supporter">Podržavatelj</string>
     <string name="donate">Doniraj</string>
     <string name="supporter_summary">%s • Hvala!</string>

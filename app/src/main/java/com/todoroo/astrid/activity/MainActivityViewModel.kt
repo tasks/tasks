@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.billing.Inventory
+import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.throttleLatest
 import org.tasks.data.NO_COUNT
@@ -58,6 +59,7 @@ class MainActivityViewModel @Inject constructor(
     private val colorProvider: ColorProvider,
     private val caldavDao: CaldavDao,
     private val tasksPreferences: TasksPreferences,
+    private val accountDataRepository: TasksAccountDataRepository,
 ) : ViewModel() {
 
     data class State(
@@ -241,6 +243,16 @@ class MainActivityViewModel @Inject constructor(
     }
 
     suspend fun getAccount(id: Long) = caldavDao.getAccount(id)
+
+    suspend fun isTasksGuest(): Boolean =
+        try {
+            val response = accountDataRepository.getAccountResponse()
+                ?: accountDataRepository.fetchAndCache()
+            response?.guest ?: false
+        } catch (e: Exception) {
+            Timber.e(e, "Failed to check guest status")
+            false
+        }
 
     fun openLastViewedFilter() = viewModelScope.launch {
         setFilter(defaultFilterProvider.getLastViewedFilter())

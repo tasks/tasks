@@ -566,7 +566,6 @@
     <string name="CFC_startBefore_text">Begindatum: \?</string>
     <string name="sort_due_group">Vervalt %s</string>
     <string name="sort_start_group">Begin %s</string>
-    <string name="tasks_org_description">Taken synchroniseren met Tasks.org</string>
     <string name="account_not_included">Niet inbegrepen bij \"Bepaal je eigen prijs\" abonnementen</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Titel tonen</string>
@@ -580,8 +579,6 @@
     <string name="list_members">Leden op de lijst</string>
     <string name="remove_user_confirmation">%1$s krijgt geen toegang meer tot %2$s</string>
     <string name="remove_user">Gebruiker verwijderen\?</string>
-    <string name="share_list">Lijst delen</string>
-    <string name="invite">Uitnodigen</string>
     <string name="invite_invalid">Uitnodiging ongeldig</string>
     <string name="invite_awaiting_response">Uitnodiging wacht op reactie</string>
     <string name="invite_declined">Uitnodiging afgewezen</string>
@@ -590,8 +587,6 @@
     <string name="upgrade_more_customization_description">Alle thema\'s, kleuren en pictogrammen ontgrendelen</string>
     <string name="more_options">Meer opties</string>
     <string name="upgrade_open_source_description">Jouw abonnement ondersteunt verdere ontwikkeling</string>
-    <string name="upgrade_desktop_access_description">Met toepassingen van derden als Outlook en Apple Herinneringen synchroniseren</string>
-    <string name="upgrade_desktop_access">Desktop-toegang</string>
     <string name="upgrade_tasks_org_account_description">Synchroniseren met Tasks.org en samenwerken met andere gebruikers</string>
     <string name="pro_free_trial">Nieuwe abonnees krijgen een gratis proefperiode van 7 dagen. Annuleren kan op elk moment</string>
     <string name="next_saturday">Volgende zaterdag</string>
@@ -743,6 +738,5 @@
     <string name="add_default_reminders">Standaardherinneringen toevoegen</string>
     <string name="rmd_time_enabled_on">Standaardherinneringen toevoegen aan taken zonder tijdsaanduiding</string>
     <string name="rmd_time_enabled_off">Geen standaardherinnering toevoegen aan taken zonder tijdsaanduiding</string>
-    <string name="upgrade_to_pro_card_description">Krijg beschikking tot Tasks.org cloud-synchronisatie, taken aanmaken per e-mail en meer!</string>
     <string name="supporter">Supporter</string>
 </resources>

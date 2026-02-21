@@ -67,7 +67,7 @@ class SharingMailboxDotOrgTest : CaldavTest() {
         assertEquals("/principals/users/5", principal.href)
         assertNull(principal.displayName)
         assertEquals(CaldavCalendar.INVITE_ACCEPTED, principal.inviteStatus)
-        assertEquals(CaldavCalendar.ACCESS_UNKNOWN, principal.access.access)
+        assertEquals(CaldavCalendar.ACCESS_UNKNOWN, principal.access)
     }
 
     companion object {

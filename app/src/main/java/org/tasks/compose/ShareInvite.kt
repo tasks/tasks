@@ -5,11 +5,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -24,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import org.tasks.R
 import org.tasks.compose.Constants.TextButton
 import org.tasks.compose.Constants.textFieldColors
@@ -33,31 +36,31 @@ import org.tasks.themes.TasksTheme
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
 private fun Invite() = TasksTheme {
-    ShareInvite(true, remember { mutableStateOf("") })
+    ShareInvite(true, "My Tasks", remember { mutableStateOf("") })
 }
 
 @Preview(showBackground = true, backgroundColor = 0x202124)
 @Composable
 private fun InviteDark() = TasksTheme(theme = 2) {
-    ShareInvite(false, remember { mutableStateOf("") })
+    ShareInvite(false, "My Tasks", remember { mutableStateOf("") })
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
 private fun InviteFilled() = TasksTheme {
-    ShareInvite(true, remember { mutableStateOf("user@example.com") })
+    ShareInvite(true, "My Tasks", remember { mutableStateOf("user@example.com") })
 }
 
 @Preview(showBackground = true, backgroundColor = 0x202124)
 @Composable
 private fun InviteDarkFilled() = TasksTheme(theme = 2) {
-    ShareInvite(false, remember { mutableStateOf("user@example.com") })
+    ShareInvite(false, "My Tasks", remember { mutableStateOf("user@example.com") })
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
 private fun InviteError() = TasksTheme {
-    ShareInvite(true, remember { mutableStateOf("invalid email") }, isError = true)
+    ShareInvite(true, "My Tasks", remember { mutableStateOf("invalid email") }, isError = true)
 }
 
 object ShareInvite {
@@ -65,6 +68,8 @@ object ShareInvite {
     fun ShareInviteDialog(
         openDialog: MutableState<Boolean>,
         email: Boolean,
+        listName: String,
+        isLoading: Boolean = false,
         invite: (String) -> Unit,
     ) {
         val text = rememberSaveable { mutableStateOf("") }
@@ -78,18 +83,37 @@ object ShareInvite {
             }
             AlertDialog(
                 onDismissRequest = {},
-                text = { ShareInvite(email, text, isError = showError.value && !isValid) },
+                text = {
+                    ShareInvite(
+                        email,
+                        listName,
+                        text,
+                        isError = showError.value && !isValid,
+                        enabled = !isLoading,
+                    )
+                },
                 confirmButton = {
-                    TextButton(text = R.string.invite, onClick = {
-                        if (isValid) {
-                            invite(trimmed)
-                        } else {
-                            showError.value = true
-                        }
-                    })
+                    if (isLoading) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(24.dp),
+                            strokeWidth = 2.dp,
+                        )
+                    } else {
+                        TextButton(text = R.string.send, onClick = {
+                            if (isValid) {
+                                invite(trimmed)
+                            } else {
+                                showError.value = true
+                            }
+                        })
+                    }
                 },
                 dismissButton = {
-                    TextButton(text = R.string.cancel, onClick = { openDialog.value = false })
+                    TextButton(
+                        text = R.string.cancel,
+                        onClick = { openDialog.value = false },
+                        enabled = !isLoading,
+                    )
                 },
             )
         } else {
@@ -101,12 +125,14 @@ object ShareInvite {
     @Composable
     fun ShareInvite(
         email: Boolean,
+        listName: String,
         text: MutableState<String>,
         isError: Boolean = false,
+        enabled: Boolean = true,
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
-                stringResource(R.string.share_list),
+                stringResource(R.string.share_list, listName),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onSurface,
             )
@@ -132,6 +158,7 @@ object ShareInvite {
                     )
                 },
                 isError = isError,
+                enabled = enabled,
                 supportingText = if (isError) {
                     { Text(stringResource(R.string.invalid_email_address)) }
                 } else null,

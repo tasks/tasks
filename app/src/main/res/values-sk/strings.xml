@@ -512,7 +512,6 @@
     <string name="filter_eisenhower_box_3">Naliehavé, ale nedôležité</string>
     <string name="date_picker_multiple">Viacnásobné</string>
     <string name="google_tasks_add_to_top">Nové úlohy hore</string>
-    <string name="tasks_org_description">Synchronizujte svoje úlohy pomocou Tasks.org</string>
     <string name="last_backup">Posledná záloha: %s</string>
     <string name="this_feature_requires_a_subscription">Táto funkcia vyžaduje predplatné</string>
     <string name="lists">Zoznamy</string>
@@ -620,7 +619,6 @@
     <string name="completed">Dokončené</string>
     <string name="upgrade_open_source_description">Vaše predplatné podporí ďalší vývoj aplikácie</string>
     <string name="back">Späť</string>
-    <string name="upgrade_desktop_access_description">Synchronizujte s aplikáciami tretích strán ako napr. Outlook alebo Apple Reminders</string>
     <string name="navigation_drawer">Postranná ponuka</string>
     <string name="app_password_last_access">Naposledy použité: %s</string>
     <string name="github_sponsors">Sponzori na GitHube</string>
@@ -644,7 +642,6 @@
     <string name="widget_id">ID widgetu: %d</string>
     <string name="app_password_save">Týmto menom a heslom sa môžete prihlásiť k vášmu účtu na Tasks.org aj v aplikáciach tretích strán. Udeľujú k nemu neobmedzený prístup - uchovávajte ho v tajnosti a nikomu ho neodovzdávajte!</string>
     <string name="copied_to_clipboard">%s skopírované do schránky</string>
-    <string name="upgrade_desktop_access">Prístup z počítača</string>
     <string name="upgrade_blurb_1">Ahoj! Volám sa Alex a som nezávislý vývojár aplikácie Tasks</string>
     <string name="auto_dismiss_datetime_widget_summary">Automaticky zatvoriť pri výbere z widgetu</string>
     <string name="filter_after_today">Kedykoľvek po dnešku</string>
@@ -698,7 +695,6 @@
     <string name="multiline_title">Povoliť názvy na viac riadkov</string>
     <string name="multiline_title_on">Stlačením Enter pridáte konce riadkov</string>
     <string name="enable_reminders_description">Pripomienky sú zakázané v nastaveniach systému Android</string>
-    <string name="invite">Pozvať</string>
     <string name="sign_in">Prihlásiť sa</string>
     <string name="enable_reminders">Povoliť pripomienky</string>
     <string name="hint_customize_edit_body">Túto obrazovku si môžete prispôsobiť preskupením alebo odobraním polí</string>
@@ -721,7 +717,6 @@
     <string name="caldav_server_other">Ďalšie</string>
     <string name="caldav_server_type">Typ servera</string>
     <string name="enable_alarms_description">Ak chcete byť informovaný včas, udeľte v nastaveniach oprávnenia k nastaveniu budíka a pripomienok</string>
-    <string name="share_list">Zdieľať zoznam</string>
     <string name="hint_customize_edit_title">Príliš veľa informácií?</string>
     <string name="sort_ascending">Vzostupne</string>
     <string name="sort_descending">Zostupne</string>

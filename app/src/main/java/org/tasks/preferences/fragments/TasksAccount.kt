@@ -48,6 +48,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
 import org.tasks.data.entity.CaldavAccount.Companion.isTosRequired
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
+import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.fcm.PushTokenManager
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.TasksPreferences
@@ -71,6 +72,7 @@ class TasksAccount : Fragment() {
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var theme: Theme
     @Inject lateinit var environment: TasksServerEnvironment
+    @Inject lateinit var accountDataRepository: TasksAccountDataRepository
 
     private val viewModel: TasksAccountViewModel by viewModels()
 
@@ -93,6 +95,7 @@ class TasksAccount : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ) = content {
+        viewModel.setAccountUuid(initialAccount.uuid!!)
         TasksSettingsTheme(
             theme = theme.themeBase.index,
             primary = theme.themeColor.primaryColor,
@@ -102,8 +105,12 @@ class TasksAccount : Fragment() {
             val subscription by inventory.subscription.observeAsState()
             val newPassword by viewModel.newPassword.collectAsStateWithLifecycle()
             val appPasswords by viewModel.appPasswords.collectAsStateWithLifecycle()
+            val sharedWithMe by viewModel.sharedWithMe.collectAsStateWithLifecycle()
+            val guests by viewModel.guests.collectAsStateWithLifecycle()
+            val maxGuests by viewModel.maxGuests.collectAsStateWithLifecycle()
             val inboundEmail by viewModel.inboundEmail.collectAsStateWithLifecycle()
             val inboundCalendarUri by viewModel.inboundCalendar.collectAsStateWithLifecycle()
+            val isGuest by viewModel.isGuest.collectAsStateWithLifecycle()
 
             // Derive calendar name reactively
             val calendarName by remember {
@@ -164,6 +171,7 @@ class TasksAccount : Fragment() {
             TasksAccountScreen(
                 account = account,
                 isGithub = isGithub,
+                isGuest = isGuest,
                 hasSubscription = subscription != null,
                 isTasksSubscription = subscription?.isTasksSubscription == true,
                 localListCount = localListCount,
@@ -171,6 +179,9 @@ class TasksAccount : Fragment() {
                 inboundEmail = inboundEmail,
                 inboundCalendarName = calendarName,
                 appPasswords = appPasswords,
+                sharedWithMe = sharedWithMe,
+                guests = guests,
+                maxGuests = maxGuests,
                 newPassword = newPassword,
                 calendars = calendars,
                 inboundCalendarUri = inboundCalendarUri,
@@ -259,6 +270,7 @@ class TasksAccount : Fragment() {
                             val acct = account ?: initialAccount
                             pushTokenManager.unregisterToken(acct)
                             taskDeleter.delete(acct)
+                            accountDataRepository.clear()
                             inventory.updateTasksAccount()
                         }
                         activity?.onBackPressed()

@@ -35,6 +35,7 @@ class PurchaseActivity : AppCompatActivity() {
                         finish()
                     },
                     existingSubscriber = inventory.hasPro && !inventory.hasTasksSubscription,
+                    hasTasksAccount = inventory.hasTasksAccount,
                 )
             }
         }
