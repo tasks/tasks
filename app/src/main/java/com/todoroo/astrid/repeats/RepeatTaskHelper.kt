@@ -8,6 +8,7 @@ package com.todoroo.astrid.repeats
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.gcal.GCalHelper
+import org.tasks.data.dao.CaldavDao
 import net.fortuna.ical4j.model.Date
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
@@ -32,6 +33,7 @@ class RepeatTaskHelper @Inject constructor(
         private val gcalHelper: GCalHelper,
         private val alarmService: AlarmService,
         private val taskDao: TaskDao,
+        private val caldavDao: CaldavDao,
 ) {
     suspend fun handleRepeat(task: Task): Boolean {
         val recurrence = task.recurrence
@@ -97,6 +99,54 @@ class RepeatTaskHelper @Inject constructor(
             Timber.e(e)
         }
         taskDao.save(task)
+    }
+
+    /**
+     * Advances a recurring task to its next occurrence without completing it.
+     * Used when the user dismisses a reminder notification (swipe/clear all) so that
+     * the next instance will still receive a reminder.
+     */
+    suspend fun advanceToNextOccurrence(taskId: Long): Boolean {
+        val task = taskDao.fetch(taskId) ?: return false
+        if (task.readOnly || !task.isRecurring) {
+            return false
+        }
+        if (caldavDao.getAccountForTask(taskId)?.isSuppressRepeatingTasks == true) {
+            return false
+        }
+        val recurrence = task.recurrence
+        if (recurrence.isNullOrBlank()) {
+            return false
+        }
+        val newDueDate: Long
+        val rrule: Recur
+        val count: Int
+        try {
+            rrule = initRRule(recurrence)
+            count = rrule.count
+            if (count == 1) {
+                return false
+            }
+            newDueDate = computeNextDueDate(task, recurrence, false)
+            if (newDueDate == -1L) {
+                return false
+            }
+        } catch (e: ParseException) {
+            Timber.e(e)
+            return false
+        }
+        if (count > 1) {
+            rrule.count = count - 1
+            task.setRecurrence(rrule)
+        }
+        task.reminderLast = 0L
+        val oldDueDate = task.dueDate
+        task.setDueDateAdjustingHideUntil(newDueDate)
+        gcalHelper.rescheduleRepeatingTask(task)
+        taskDao.save(task)
+        val previousDueDate = oldDueDate.takeIf { it > 0 } ?: computePreviousDueDate(task)
+        rescheduleAlarms(task.id, previousDueDate, newDueDate)
+        return true
     }
 
     private suspend fun rescheduleAlarms(taskId: Long, oldDueDate: Long, newDueDate: Long) {

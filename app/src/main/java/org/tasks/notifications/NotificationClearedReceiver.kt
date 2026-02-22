@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.todoroo.astrid.alarms.AlarmService
+import com.todoroo.astrid.repeats.RepeatTaskHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -22,6 +23,7 @@ class NotificationClearedReceiver : BroadcastReceiver() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var alarmService: AlarmService
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var repeatTaskHelper: RepeatTaskHelper
 
     override fun onReceive(context: Context, intent: Intent) {
         val notificationId = intent.getLongExtra(NotificationManager.EXTRA_NOTIFICATION_ID, -1L)
@@ -41,6 +43,9 @@ class NotificationClearedReceiver : BroadcastReceiver() {
             } else {
                 firebase.logEvent(R.string.event_notification, R.string.param_type to "clear")
                 notificationManager.cancel(notificationId)
+                // For recurring tasks, advance to next occurrence so the reminder will fire again.
+                // Swipe/clear should only dismiss this instance, not suppress future reminders.
+                repeatTaskHelper.advanceToNextOccurrence(notificationId)
             }
         }
     }
