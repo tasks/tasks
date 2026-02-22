@@ -783,4 +783,5 @@
     <string name="donate">Přispět</string>
     <string name="supporter_summary">%s • Děkujeme!</string>
     <string name="sign_in_to_connect">Pro připojení účtu Tasks.org se přihlaste</string>
+    <string name="invalid_email_address">Neplatná e-mailová adresa</string>
 </resources>
