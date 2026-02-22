@@ -783,4 +783,5 @@
     <string name="supporter_summary">%s • Merci !</string>
     <string name="sign_in_to_connect">Authentifiez-vous pour connecter votre compte Tasks.org</string>
     <string name="upgrade_to_pro_card_description">Débloquez la synchronisation cloud Tasks.org, la transformation de vos courriels vers des tâches et bien plus encore !</string>
+    <string name="invalid_email_address">Adresse électronique invalide</string>
 </resources>
