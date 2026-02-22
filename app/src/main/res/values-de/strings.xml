@@ -761,4 +761,5 @@
     <string name="donate">Spenden</string>
     <string name="supporter_summary">%s • Danke!</string>
     <string name="sign_in_to_connect">Melde dich an, um dein Tasks.org Konto zu verbinden</string>
+    <string name="invalid_email_address">Ungültige E-Mail-Adresse</string>
 </resources>
