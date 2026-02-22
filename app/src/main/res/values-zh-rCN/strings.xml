@@ -369,7 +369,7 @@
     <string name="choose_new_location">选择新位置</string>
     <string name="third_party_licenses">第三方许可证</string>
     <string name="version_string">版本 %s</string>
-    <string name="invalid_backup_file">无效的备份文件</string>
+    <string name="invalid_backup_file">备份文件无效</string>
     <string name="google_tasks_add_to_top">新任务显示在顶部</string>
     <string name="icon">图标</string>
     <string name="button_unsubscribe">取消订阅</string>
@@ -750,4 +750,5 @@
     <string name="supporter">支持者</string>
     <string name="supporter_summary">%s • 谢谢！</string>
     <string name="upgrade_to_pro_card_description">解锁 Tasks.org 云同步、邮件转任务等更多功能！</string>
+    <string name="invalid_email_address">电子邮件地址无效</string>
 </resources>
