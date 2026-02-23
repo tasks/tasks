@@ -761,4 +761,5 @@
     <string name="upgrade_email_to_task_description">Feladatok létrehozásához küldd tovább a leveleidet a privát fiókodba</string>
     <string name="advanced_tools">Speciális eszközök</string>
     <string name="advanced_tools_description">Google Helyek, CalDAV, EteSync, és egyebek!</string>
+    <string name="invalid_email_address">Érvénytelen e-mail cím</string>
 </resources>
