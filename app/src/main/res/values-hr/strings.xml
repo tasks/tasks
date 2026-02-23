@@ -135,7 +135,7 @@
     <string name="enabled">Omogućeno</string>
     <string name="subtasks">Podzadaci</string>
     <string name="tomorrow">Sutra</string>
-    <string name="email">E-pošta</string>
+    <string name="email">E-mail adresa</string>
     <string name="local_lists">Popisi na uređaju</string>
     <string name="help">Pomoć</string>
     <string name="choose_synchronization_service">Odaberi platformu</string>
@@ -783,4 +783,5 @@
     <string name="donate">Doniraj</string>
     <string name="supporter_summary">%s • Hvala!</string>
     <string name="sign_in_to_connect">Prijavi se za povezivanje na tvoj Tasks.org račun</string>
+    <string name="invalid_email_address">Nevaljana e-mail adresa</string>
 </resources>
