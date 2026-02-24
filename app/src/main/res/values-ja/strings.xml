@@ -733,9 +733,17 @@
     <string name="legal">法的事項</string>
     <string name="email_to_task_calendar">送信先リスト</string>
     <string name="regenerate_email_address">メールアドレスを再登録する</string>
-    <string name="legal_disclosure_prefix_using">Tasks.org使用</string>
+    <string name="legal_disclosure_prefix_using">Tasks.orgを使用</string>
     <string name="legal_disclosure_prefix_continuing">下のボタンのいずれかで続行</string>
-    <string name="email_to_task">タスクをメールする</string>
+    <string name="email_to_task">メールでタスクを追加する</string>
     <string name="legal_disclosure">%1$s、あなたは%2$s と%3$sに賛同します。 Tasks は%4$sの下に提供されているオープンソースソフトウェアです。</string>
     <string name="donate">寄付</string>
+    <string name="upgrade_to_pro_card_description">Tasks.org Cloudとの同期、メールでタスク追加などの機能を有効化します！</string>
+    <string name="supporter">支援者</string>
+    <string name="sign_in_to_connect">サインインしてTasks.orgアカウントに接続する</string>
+    <string name="invalid_email_address">無効なメールアドレス</string>
+    <string name="upgrade_email_to_task_description">あなたの私書箱に送ってメールをタスクに変換する</string>
+    <string name="advanced_tools_description">Google Places、CalDAV、EteSyncなど！</string>
+    <string name="rmd_EPr_rmd_time_desc">時間指定のないタスクの通知は%1$sに表示されます</string>
+    <string name="default_reminder">時間指定のないタスク</string>
 </resources>
