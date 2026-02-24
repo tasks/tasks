@@ -1,10 +1,11 @@
-package org.tasks.compose.accounts
+ package org.tasks.compose.accounts
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.runtime.LaunchedEffect
@@ -27,9 +28,12 @@ import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.data.dao.CaldavDao
 import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.extensions.Context.openUri
+import org.tasks.jobs.WorkManager
 import org.tasks.preferences.TasksPreferences
+import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import org.tasks.sync.microsoft.MicrosoftSignInViewModel
-import org.tasks.themes.TasksTheme
+import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
 import javax.inject.Inject
 
@@ -40,6 +44,8 @@ class AddAccountActivity : ComponentActivity() {
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var tasksPreferences: TasksPreferences
+    @Inject lateinit var syncAdapters: SyncAdapters
+    @Inject lateinit var workManager: WorkManager
 
     private val viewModel: AddAccountViewModel by viewModels()
     private val microsoftVM: MicrosoftSignInViewModel by viewModels()
@@ -69,6 +75,8 @@ class AddAccountActivity : ComponentActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
+            syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
+            workManager.updateBackgroundSync()
             setResult(Activity.RESULT_OK)
             finish()
         } else {
@@ -110,7 +118,7 @@ class AddAccountActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        theme.themeBase.set(this)
+        enableEdgeToEdge()
 
         setContent {
             val accounts by caldavDao
@@ -129,11 +137,13 @@ class AddAccountActivity : ComponentActivity() {
             }
             LaunchedEffect(accounts, initialAccountCount) {
                 if (initialAccountCount != null && accounts.size > initialAccountCount!!) {
+                    syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
+                    workManager.updateBackgroundSync()
                     setResult(Activity.RESULT_OK)
                     finish()
                 }
             }
-            TasksTheme(
+            TasksSettingsTheme(
                 theme = theme.themeBase.index,
                 primary = theme.themeColor.primaryColor,
             ) {

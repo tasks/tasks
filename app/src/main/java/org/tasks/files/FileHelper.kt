@@ -10,7 +10,6 @@ import android.provider.OpenableColumns
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import androidx.documentfile.provider.DocumentFile
-import androidx.fragment.app.Fragment
 import com.google.common.collect.Iterables
 import com.google.common.io.ByteStreams
 import com.google.common.io.Files
@@ -60,8 +59,8 @@ object FileHelper {
                 }
             }
 
-    fun newDirectoryPicker(fragment: Fragment, rc: Int, initial: Uri?) {
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
+    fun newDirectoryPickerIntent(context: Context?, initial: Uri?): Intent =
+        Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
             addFlags(
                     Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
                             or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
@@ -70,10 +69,8 @@ object FileHelper {
             putExtra("android.content.extra.SHOW_ADVANCED", true)
             putExtra("android.content.extra.FANCY", true)
             putExtra("android.content.extra.SHOW_FILESIZE", true)
-            setInitialUri(fragment.context, this, initial)
+            setInitialUri(context, this, initial)
         }
-        fragment.startActivityForResult(intent, rc)
-    }
 
     private fun setInitialUri(context: Context?, intent: Intent, uri: Uri?) {
         if (uri == null || uri.scheme != ContentResolver.SCHEME_CONTENT) {

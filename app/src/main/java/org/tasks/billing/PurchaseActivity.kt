@@ -2,10 +2,11 @@ package org.tasks.billing
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.compose.PurchaseScreen
-import org.tasks.themes.TasksTheme
+import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
 import javax.inject.Inject
 
@@ -16,9 +17,10 @@ class PurchaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         setContent {
-            TasksTheme(
+            TasksSettingsTheme(
                 theme = theme.themeBase.index,
                 primary = theme.themeColor.primaryColor,
             ) {

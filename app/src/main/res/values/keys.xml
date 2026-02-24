@@ -392,7 +392,6 @@
   <string name="p_default_location">default_location</string>
   <string name="p_warn_notifications_disabled">warn_notifications_disabled</string>
   <string name="p_warn_alarms_disabled">warn_alarms_disabled</string>
-  <string name="p_warn_quiet_hours_enabled">warn_quiet_hours_enabled</string>
   <string name="p_warn_microsoft">warn_microsoft</string>
   <string name="p_warn_google_tasks">warn_google_Tasks</string>
   <string name="p_local_list_banner_dismissed">local_list_banner_dismissed</string>
@@ -411,6 +410,8 @@
   <string name="event_sync_add_account">sync_add_account</string>
   <string name="event_initial_sync_complete">initial_sync_complete</string>
   <string name="param_task_count">task_count</string>
+  <string name="param_import_count">import_count</string>
+  <string name="param_skip_count">skip_count</string>
   <string name="event_sync_unknown_access">sync_unknown_access</string>
   <string name="event_banner">banner</string>
   <string name="event_add_task">add_task</string>
@@ -434,6 +435,7 @@
   <string name="event_settings_click">settings_click</string>
   <string name="event_help_and_feedback">help_and_feedback</string>
   <string name="event_notification">notification</string>
+  <string name="event_preference_changed">preference_changed</string>
   <string name="event_widget_click">widget_click</string>
   <string name="param_widget_id">widget_id</string>
   <string name="event_multi_select">multi_select</string>
@@ -441,6 +443,8 @@
   <string name="event_screen_welcome">screen_welcome</string>
   <string name="event_screen_add_account">screen_add_account</string>
   <string name="event_settings_navigation">settings_navigation</string>
+  <string name="event_pro_card">pro_card</string>
+  <string name="param_key">key</string>
   <string name="param_type">type</string>
   <string name="param_screen">screen</string>
   <string name="param_error">error</string>

@@ -1,6 +1,7 @@
 package org.tasks.injection
 
 import android.content.Context
+import com.google.android.gms.wearable.Wearable
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
@@ -66,8 +67,12 @@ class FlavorModule {
     @Provides
     @Singleton
     fun getWearRefresher(
+        @ApplicationContext applicationContext: Context,
         phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-        wearDataLayerRegistry: WearDataLayerRegistry,
         @ApplicationScope scope: CoroutineScope,
-    ): WearRefresher = WearRefresherImpl(phoneDataLayerAppHelper, wearDataLayerRegistry, scope)
+    ): WearRefresher = WearRefresherImpl(
+        phoneDataLayerAppHelper,
+        Wearable.getMessageClient(applicationContext),
+        scope,
+    )
 }

@@ -10,9 +10,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.LaunchedEffect
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -38,14 +45,19 @@ import org.tasks.presentation.screens.MenuScreen
 import org.tasks.presentation.screens.MenuViewModel
 import org.tasks.presentation.screens.SettingsScreen
 import org.tasks.presentation.screens.SettingsViewModel
+import org.tasks.presentation.screens.SortPickerScreen
 import org.tasks.presentation.screens.TaskEditScreen
 import org.tasks.presentation.screens.TaskEditViewModel
 import org.tasks.presentation.screens.TaskEditViewModelFactory
 import org.tasks.presentation.screens.TaskListScreen
 import org.tasks.presentation.screens.TaskListViewModel
 import org.tasks.presentation.theme.TasksTheme
+import org.tasks.complications.EXTRA_ADD_TASK
+import org.tasks.complications.EXTRA_COMPLICATION_FILTER
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.wear_install_app
+import tasks.kmp.generated.resources.wear_phone_update_required
+import tasks.kmp.generated.resources.wear_connecting_to_phone
 import tasks.kmp.generated.resources.wear_unknown_error
 
 class MainActivity : ComponentActivity() {
@@ -67,10 +79,14 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberSwipeDismissableNavController()
                     val taskListViewModel: TaskListViewModel = viewModel()
                     val taskListItems = taskListViewModel.uiItems.collectAsLazyPagingItems()
-                    val settingsViewModel: SettingsViewModel = viewModel()
-                    val connected = viewModel.uiState.collectAsStateWithLifecycle().value
                     val menuViewModel: MenuViewModel = viewModel()
                     val menuItems = menuViewModel.uiItems.collectAsLazyPagingItems()
+                    val settingsViewModel: SettingsViewModel = viewModel()
+                    val connected = viewModel.uiState.collectAsStateWithLifecycle().value
+                    LifecycleResumeEffect(Unit) {
+                        taskListViewModel.invalidate()
+                        onPauseOrDispose {}
+                    }
                     LaunchedEffect(connected) {
                         when (connected) {
                             NodesActionScreenState.ApiNotAvailable -> {
@@ -81,7 +97,25 @@ class MainActivity : ComponentActivity() {
                             is NodesActionScreenState.Loaded -> {
                                 navController.popBackStack()
                                 if (connected.nodeList.any { it.type == NodeTypeUiModel.PHONE && it.appInstalled }) {
-                                    navController.navigate("task_list")
+                                    if (connected.phoneUpdateRequired) {
+                                        val phoneNodeId = connected.nodeList
+                                            .first { it.type == NodeTypeUiModel.PHONE && it.appInstalled }
+                                            .id
+                                        navController.navigate("error?type=${Errors.PHONE_UPDATE_REQUIRED},nodeId=$phoneNodeId")
+                                    } else {
+                                        intent.getStringExtra(EXTRA_COMPLICATION_FILTER)?.let { complicationFilter ->
+                                            settingsViewModel.setFilter(complicationFilter)
+                                            intent.removeExtra(EXTRA_COMPLICATION_FILTER)
+                                        }
+                                        val addTask = intent.getBooleanExtra(EXTRA_ADD_TASK, false)
+                                        if (addTask) {
+                                            intent.removeExtra(EXTRA_ADD_TASK)
+                                        }
+                                        navController.navigate("task_list")
+                                        if (addTask) {
+                                            navController.navigate("task_edit?taskId=0")
+                                        }
+                                    }
                                 } else {
                                     connected
                                         .nodeList
@@ -147,10 +181,45 @@ class MainActivity : ComponentActivity() {
                                         )
                                     }
 
-                                    else ->
-                                        Text(
-                                            text = stringResource(Res.string.wear_unknown_error),
+                                    Errors.PHONE_UPDATE_REQUIRED -> {
+                                        LaunchedEffect(Unit) {
+                                            while (true) {
+                                                delay(5000)
+                                                viewModel.loadNodes()
+                                            }
+                                        }
+                                        Chip(
+                                            onClick = { viewModel.installOnNode(nodeId) },
+                                            label = {
+                                                Text(
+                                                    text = stringResource(Res.string.wear_phone_update_required),
+                                                    maxLines = 1,
+                                                    overflow = TextOverflow.Ellipsis
+                                                )
+                                            },
                                         )
+                                    }
+
+                                    else -> {
+                                        LaunchedEffect(Unit) {
+                                            while (true) {
+                                                delay(5000)
+                                                viewModel.loadNodes()
+                                            }
+                                        }
+                                        Column(
+                                            horizontalAlignment = Alignment.CenterHorizontally,
+                                            verticalArrangement = Arrangement.Center,
+                                        ) {
+                                            CircularProgressIndicator(
+                                                modifier = Modifier.size(24.dp),
+                                            )
+                                            Spacer(modifier = Modifier.height(8.dp))
+                                            Text(
+                                                text = stringResource(Res.string.wear_connecting_to_phone),
+                                            )
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -193,14 +262,14 @@ class MainActivity : ComponentActivity() {
                             TaskEditScreen(
                                 uiState = uiState,
                                 setTitle = { viewModel.setTitle(it) },
-                                toggleCompleted = { viewModel.setCompleted(!uiState.completed) },
+                                toggleCompleted = { viewModel.setCompleted(!uiState.completed) { navController.popBackStack() } },
                                 save = { viewModel.save { navController.popBackStack() } },
                                 back = { navController.popBackStack() },
                             )
                         }
                         composable(
                             route = "menu",
-                        ) { navBackStackEntry ->
+                        ) {
                             MenuScreen(
                                 items = menuItems,
                                 selectFilter = {
@@ -214,16 +283,44 @@ class MainActivity : ComponentActivity() {
                         ) {
                             val viewState =
                                 settingsViewModel.viewState.collectAsStateWithLifecycle().value
-                            if (viewState.initialized) {
-                                SettingsScreen(
-                                    showHidden = viewState.settings.showHidden,
-                                    showCompleted = viewState.settings.showCompleted,
-                                    toggleShowHidden = { settingsViewModel.setShowHidden(it) },
-                                    toggleShowCompleted = { settingsViewModel.setShowCompleted(it) },
-                                )
-                            } else {
-                                // TODO: show spinner
-                            }
+                            SettingsScreen(
+                                showHidden = viewState.showHidden,
+                                showCompleted = viewState.showCompleted,
+                                sortMode = viewState.sortMode,
+                                groupMode = viewState.groupMode,
+                                toggleShowHidden = { settingsViewModel.setShowHidden(it) },
+                                toggleShowCompleted = { settingsViewModel.setShowCompleted(it) },
+                                openSortPicker = { navController.navigate("sort_picker") },
+                                openGroupPicker = { navController.navigate("group_picker") },
+                            )
+                        }
+                        composable(
+                            route = "sort_picker",
+                        ) {
+                            val viewState =
+                                settingsViewModel.viewState.collectAsStateWithLifecycle().value
+                            SortPickerScreen(
+                                selected = viewState.sortMode,
+                                includeNone = false,
+                                onSelect = {
+                                    settingsViewModel.setSortMode(it)
+                                    navController.popBackStack()
+                                },
+                            )
+                        }
+                        composable(
+                            route = "group_picker",
+                        ) {
+                            val viewState =
+                                settingsViewModel.viewState.collectAsStateWithLifecycle().value
+                            SortPickerScreen(
+                                selected = viewState.groupMode,
+                                includeNone = true,
+                                onSelect = {
+                                    settingsViewModel.setGroupMode(it)
+                                    navController.popBackStack()
+                                },
+                            )
                         }
                     }
                 }

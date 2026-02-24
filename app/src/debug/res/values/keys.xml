@@ -14,6 +14,7 @@
   <string name="debug_main_queries">Crash on violation</string>
   <string name="debug_force_restart">Restart app</string>
   <string name="debug_clear_hints">Clear hints</string>
+  <string name="debug_show_filters">Show debug filters</string>
   <string name="google_oauth_scheme">com.googleusercontent.apps.1006257750459-vf4mvft1b3rfda8b4c4bl4k4418abqlf</string>
   <string name="microsoft_oauth_path">/8wnYBRqh5nnQgFzbIXfxXSs41xE=</string>
 </resources>

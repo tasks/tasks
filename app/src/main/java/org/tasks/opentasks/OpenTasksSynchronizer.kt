@@ -16,13 +16,13 @@ import org.tasks.caldav.iCalendar
 import org.tasks.data.MyAndroidTask
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.OpenTaskDao.Companion.filterActive
-import org.tasks.data.OpenTaskDao.Companion.isDavx5
-import org.tasks.data.OpenTaskDao.Companion.isDavx5Managed
-import org.tasks.data.OpenTaskDao.Companion.isDecSync
-import org.tasks.data.OpenTaskDao.Companion.isEteSync
 import org.tasks.data.OpenTaskDao.Companion.toLocalCalendar
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.isDavx5
+import org.tasks.data.entity.CaldavAccount.Companion.isDavx5Managed
+import org.tasks.data.entity.CaldavAccount.Companion.isDecSync
+import org.tasks.data.entity.CaldavAccount.Companion.isEteSync
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task

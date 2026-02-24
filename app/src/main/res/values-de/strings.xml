@@ -748,4 +748,18 @@
     <string name="regenerate_email_address">Neue E-Mail-Adresse generieren</string>
     <string name="email_to_task">E-Mail Aufgabenerstellung</string>
     <string name="email_to_task_calendar">Zielliste</string>
+    <string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Uhrzeit werden um %1$s angezeigt</string>
+    <string name="default_reminder">Aufgaben ohne Uhrzeit</string>
+    <string name="advanced_tools">Erweiterte Tools</string>
+    <string name="advanced_tools_description">Google Places, CalDAV, EteSync und mehr!</string>
+    <string name="upgrade_email_to_task_description">Wandle E-Mails in Aufgaben um, indem du sie an deinen eigenen Posteingang sendest</string>
+    <string name="add_default_reminders">Standarderinnerungen hinzufügen</string>
+    <string name="rmd_time_enabled_on">Standarderinnerungen für alle Aufgaben ohne Uhrzeit hinzufügen</string>
+    <string name="rmd_time_enabled_off">Keine Standarderinnerungen für Aufgaben ohne Uhrzeit hinzufügen</string>
+    <string name="upgrade_to_pro_card_description">Schalte Tasks.org Cloud Sync, Aufgabenerstellung per E-Mail und mehr frei!</string>
+    <string name="supporter">Unterstützer:in</string>
+    <string name="donate">Spenden</string>
+    <string name="supporter_summary">%s • Danke!</string>
+    <string name="sign_in_to_connect">Melde dich an, um dein Tasks.org Konto zu verbinden</string>
+    <string name="invalid_email_address">Ungültige E-Mail-Adresse</string>
 </resources>

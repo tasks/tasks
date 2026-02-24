@@ -8,8 +8,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.data.ProtoDataStoreHelper.protoFlow
-import com.google.android.horologist.data.TargetNodeId
+import org.tasks.presentation.phoneTargetNodeId
 import com.google.android.horologist.datalayer.grpc.GrpcExtensions.grpcClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
@@ -17,26 +16,36 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.tasks.GrpcProto
 import org.tasks.GrpcProto.CompleteTaskRequest
-import org.tasks.GrpcProto.LastUpdate
-import org.tasks.GrpcProto.Settings
 import org.tasks.GrpcProto.ToggleGroupRequest
 import org.tasks.GrpcProto.UiItem
 import org.tasks.WearServiceGrpcKt
 import org.tasks.extensions.wearDataLayerRegistry
 import org.tasks.presentation.MyPagingSource
+import org.tasks.presentation.RefreshTrigger
+import org.tasks.presentation.WearSettings
 import timber.log.Timber
 
 @OptIn(ExperimentalHorologistApi::class)
 class TaskListViewModel(
     application: Application
 ) : AndroidViewModel(application) {
+    private val registry = application.wearDataLayerRegistry(viewModelScope)
+    private val targetNodeId = application.phoneTargetNodeId()
+    private val wearSettings = WearSettings.getInstance(application)
+
+    private val wearService : WearServiceGrpcKt.WearServiceCoroutineStub = registry.grpcClient(
+        nodeId = targetNodeId,
+        coroutineScope = viewModelScope,
+    ) {
+        WearServiceGrpcKt.WearServiceCoroutineStub(it)
+    }
+
     private var pagingSource: MyPagingSource<UiItem>? = null
     val uiItems: Flow<PagingData<UiItem>> = Pager(
         config = PagingConfig(pageSize = 20),
         pagingSourceFactory = {
-            Timber.d("Creating new paging source")
             MyPagingSource { position, limit ->
-                Timber.d("Fetching $limit @ $position")
+                val settings = wearSettings.stateFlow.value
                 wearService
                     .getTasks(
                         GrpcProto
@@ -44,12 +53,19 @@ class TaskListViewModel(
                             .newBuilder()
                             .setPosition(position)
                             .setLimit(limit)
+                            .setShowHidden(settings.showHidden)
+                            .setShowCompleted(settings.showCompleted)
+                            .addAllCollapsed(settings.collapsed)
+                            .apply {
+                                settings.filter?.takeIf { it.isNotBlank() }?.let {
+                                    setFilter(it)
+                                }
+                                setSortMode(settings.sortMode)
+                                setGroupMode(settings.groupMode)
+                            }
                             .build()
                     )
                     .let { Pair(it.totalItems, it.itemsList) }
-                    .also {
-                        Timber.d("Fetched ${it.second.size} items [position=$position limit=$limit totalItems=${it.first}]")
-                    }
             }
                 .also { pagingSource = it }
         }
@@ -57,38 +73,18 @@ class TaskListViewModel(
         .flow
         .cachedIn(viewModelScope)
 
-    private val registry = application.wearDataLayerRegistry(viewModelScope)
-
-    private val wearService : WearServiceGrpcKt.WearServiceCoroutineStub = registry.grpcClient(
-        nodeId = TargetNodeId.PairedPhone,
-        coroutineScope = viewModelScope,
-    ) {
-        WearServiceGrpcKt.WearServiceCoroutineStub(it)
-    }
-
     init {
-        registry
-            .protoFlow<LastUpdate>(TargetNodeId.PairedPhone)
+        wearSettings.stateFlow
             .onEach { invalidate() }
             .launchIn(viewModelScope)
-        registry
-            .protoFlow<Settings>(TargetNodeId.PairedPhone)
+        RefreshTrigger.flow
             .onEach { invalidate() }
             .launchIn(viewModelScope)
     }
 
-    fun toggleGroup(value: Long, setCollapsed: Boolean) = viewModelScope.launch {
-        try {
-            wearService.toggleGroup(
-                ToggleGroupRequest.newBuilder()
-                    .setValue(value)
-                    .setCollapsed(setCollapsed)
-                    .build()
-            )
-            invalidate()
-        } catch (e: Exception) {
-            Timber.e(e)
-        }
+    fun toggleGroup(value: Long, setCollapsed: Boolean) {
+        wearSettings.setCollapsed(value, setCollapsed)
+        invalidate()
     }
 
     fun completeTask(id: Long, completed: Boolean) = viewModelScope.launch {
@@ -113,7 +109,7 @@ class TaskListViewModel(
         }
     }
 
-    private fun invalidate() {
+    fun invalidate() {
         pagingSource?.invalidate()
     }
 }

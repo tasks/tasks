@@ -1,3 +1,36 @@
+### 14.14 (2026-02-21)
+
+* Update navigation drawer design
+* Update color palettes
+* Swipe to dismiss banners
+* Improved sharing for new lists
+* Update translations
+  * Croatian - @milotype
+  * Danish - ERYpTION
+  * Estonian - Priit Jõerüüt
+  * Turkish - @emintufan
+
+### 14.13 (2026-02-16)
+
+* New design for app settings screens
+* Improve notifications for all day tasks [#4152](https://github.com/tasks/tasks/issues/4152)
+  * Updated 'Settings > Notifications > All day tasks' section
+* Don't configure notification channels to bypass DnD [#4030](https://github.com/tasks/tasks/discussions/4030)
+  * Only applies to new installs going forward
+* Moved 'Badges' preference to 'Advanced'
+* Fix rotation bug [#3009](https://github.com/tasks/tasks/issues/3009)
+* Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580
+  * Croatian - @milotype
+  * Czech - @Fjuro
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @ColorfulRhino
+  * Hungarian - Kaci
+  * Italian - @ppasserini, @glemco
+  * Japanese - @array
+
 ### 14.12 (2026-02-11)
 
 * Email-to-task for Tasks.org accounts

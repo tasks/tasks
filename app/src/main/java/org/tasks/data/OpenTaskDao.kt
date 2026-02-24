@@ -19,6 +19,7 @@ import org.json.JSONObject
 import org.tasks.R
 import timber.log.Timber
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.openTaskType
 import org.tasks.data.entity.CaldavCalendar
@@ -126,28 +127,16 @@ open class OpenTaskDao @Inject constructor(
 
     companion object {
         private const val OPENTASK_BATCH_LIMIT = 499
-        const val ACCOUNT_TYPE_DAVX5 = "bitfire.at.davdroid"
-        private const val ACCOUNT_TYPE_DAVX5_MANAGED = "com.davdroid"
-        private const val ACCOUNT_TYPE_ETESYNC = "com.etesync.syncadapter"
-        private const val ACCOUNT_TYPE_DECSYNC = "org.decsync.tasks"
         val SUPPORTED_TYPES = setOf(
-                ACCOUNT_TYPE_DAVX5,
-                ACCOUNT_TYPE_DAVX5_MANAGED,
-                ACCOUNT_TYPE_ETESYNC,
-                ACCOUNT_TYPE_DECSYNC
+                CaldavAccount.ACCOUNT_TYPE_DAVX5,
+                CaldavAccount.ACCOUNT_TYPE_DAVX5_MANAGED,
+                CaldavAccount.ACCOUNT_TYPE_ETESYNC,
+                CaldavAccount.ACCOUNT_TYPE_DECSYNC
         )
         val SUPPORTED_TYPE_FILTER = SUPPORTED_TYPES.joinToString(" OR ") { "ACCOUNT_TYPE = '$it'" }
 
         suspend fun Map<String, List<CaldavCalendar>>.filterActive(caldavDao: CaldavDao) =
                 filterNot { (_, lists) -> caldavDao.anyExist(lists.map { it.url!! }) }
-
-        fun String?.isDavx5(): Boolean = this?.startsWith(ACCOUNT_TYPE_DAVX5) == true
-
-        fun String?.isDavx5Managed(): Boolean = this?.startsWith(ACCOUNT_TYPE_DAVX5_MANAGED) == true
-
-        fun String?.isEteSync(): Boolean = this?.startsWith(ACCOUNT_TYPE_ETESYNC) == true
-
-        fun String?.isDecSync(): Boolean = this?.startsWith(ACCOUNT_TYPE_DECSYNC) == true
 
         private fun Cursor.getString(columnName: String): String? =
                 getString(getColumnIndexOrThrow(columnName))

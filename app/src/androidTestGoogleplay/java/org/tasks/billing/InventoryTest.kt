@@ -33,15 +33,6 @@ class InventoryTest : InjectingTestCase() {
     }
 
     @Test
-    fun hasTasksAccountWithCaldav() = runBlocking {
-        caldavDao.insert(CaldavAccount(accountType = CaldavAccount.TYPE_CALDAV, url = "https://caldav.tasks.org/calendars/"))
-        initInventory()
-        inventory.updateTasksAccount()
-
-        assertTrue(inventory.hasTasksAccount)
-    }
-
-    @Test
     fun monthlyIsPro() {
         withPurchases(monthly01)
 

@@ -10,6 +10,8 @@ import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.composeIcon
+import org.tasks.data.openTaskApp
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
@@ -17,7 +19,9 @@ import org.tasks.data.toLocationFilter
 import org.tasks.data.toTagFilter
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
 import org.tasks.kmp.IS_DEBUG
+import org.tasks.themes.TasksIcons
 import org.tasks.preferences.TasksPreferences
+import org.tasks.preferences.TasksPreferences.Companion.showDebugFilters
 import org.tasks.preferences.TasksPreferences.Companion.collapseDebug
 import org.tasks.preferences.TasksPreferences.Companion.collapseFilters
 import org.tasks.preferences.TasksPreferences.Companion.collapsePlaces
@@ -61,8 +65,17 @@ class FilterProvider(
             getAllFilters(showBuiltIn = false, showCreate = true)
 
     private suspend fun getDebugFilters(): List<FilterListItem> =
-            if (IS_DEBUG) {
+            if (IS_DEBUG && tasksPreferences.get(showDebugFilters, false)) {
                 val collapsed = tasksPreferences.get(collapseDebug, false)
+                val filters = listOf(
+                    DebugFilters.getNoListFilter(),
+                    DebugFilters.getNoTitleFilter(),
+                    DebugFilters.getMissingListFilter(),
+                    DebugFilters.getMissingAccountFilter(),
+                    DebugFilters.getNoCreateDateFilter(),
+                    DebugFilters.getNoModificationDateFilter(),
+                    DebugFilters.getDeleted()
+                )
                 listOf(
                     NavigationDrawerSubheader(
                         "Debug",
@@ -70,18 +83,11 @@ class FilterProvider(
                         collapsed,
                         SubheaderType.PREFERENCE,
                         collapseDebug.name,
+                        childCount = filters.size,
                     )
                 )
                         .apply { if (collapsed) return this }
-                        .plus(listOf(
-                            DebugFilters.getNoListFilter(),
-                            DebugFilters.getNoTitleFilter(),
-                            DebugFilters.getMissingListFilter(),
-                            DebugFilters.getMissingAccountFilter(),
-                            DebugFilters.getNoCreateDateFilter(),
-                            DebugFilters.getNoModificationDateFilter(),
-                            DebugFilters.getDeleted()
-                        ))
+                        .plus(filters)
 
             } else {
                 emptyList()
@@ -96,6 +102,10 @@ class FilterProvider(
                 emptyList()
             } else {
                 val collapsed = !forceExpand && tasksPreferences.get(collapseFilters, false)
+                val children = buildList<Filter> {
+                    if (showBuiltIn) addAll(builtInFilters())
+                    addAll(filterDao.getFilters().map(::CustomFilter).sort())
+                }
                 listOf(
                     NavigationDrawerSubheader(
                         getString(Res.string.drawer_filters),
@@ -104,13 +114,12 @@ class FilterProvider(
                         SubheaderType.PREFERENCE,
                         collapseFilters.name,
                         if (showCreate) REQUEST_NEW_FILTER else 0,
+                        icon = TasksIcons.FILTER_LIST,
+                        childCount = children.size,
                     )
                 )
                         .apply { if (collapsed) return this }
-                        .plusAllIf(showBuiltIn) {
-                            builtInFilters()
-                        }
-                        .plus(filterDao.getFilters().map(::CustomFilter).sort())
+                        .plus(children)
             }
 
     private suspend fun addTags(
@@ -122,6 +131,12 @@ class FilterProvider(
                 emptyList()
             } else {
                 val collapsed = !forceExpand && tasksPreferences.get(collapseTags, false)
+                val children = tagDataDao.getTagFilters()
+                    .filterIf(hideUnused && configuration.hideUnusedTags) {
+                        it.count > 0
+                    }
+                    .map(TagFilters::toTagFilter)
+                    .sort()
                 listOf(
                     NavigationDrawerSubheader(
                         getString(Res.string.drawer_tags),
@@ -130,15 +145,12 @@ class FilterProvider(
                         SubheaderType.PREFERENCE,
                         collapseTags.name,
                         if (showCreate) REQUEST_NEW_TAGS else 0,
+                        icon = TasksIcons.LABEL,
+                        childCount = children.size,
                     )
                 )
                         .apply { if (collapsed) return this }
-                        .plus(tagDataDao.getTagFilters()
-                                    .filterIf(hideUnused && configuration.hideUnusedTags) {
-                                        it.count > 0
-                                    }
-                                    .map(TagFilters::toTagFilter)
-                                    .sort())
+                        .plus(children)
             }
 
     private suspend fun addPlaces(
@@ -150,6 +162,12 @@ class FilterProvider(
                 emptyList()
             } else {
                 val collapsed = !forceExpand && tasksPreferences.get(collapsePlaces, false)
+                val children = locationDao.getPlaceFilters()
+                    .filterIf(hideUnused && configuration.hideUnusedPlaces) {
+                        it.count > 0
+                    }
+                    .map(LocationFilters::toLocationFilter)
+                    .sort()
                 listOf(
                     NavigationDrawerSubheader(
                         getString(Res.string.drawer_places),
@@ -158,15 +176,12 @@ class FilterProvider(
                         SubheaderType.PREFERENCE,
                         collapsePlaces.name,
                         if (showCreate) REQUEST_NEW_PLACE else 0,
+                        icon = TasksIcons.PLACE,
+                        childCount = children.size,
                     )
                 )
                         .apply { if (collapsed) return this }
-                        .plus(locationDao.getPlaceFilters()
-                                    .filterIf(hideUnused && configuration.hideUnusedPlaces) {
-                                        it.count > 0
-                                    }
-                                    .map(LocationFilters::toLocationFilter)
-                                    .sort())
+                        .plus(children)
             }
 
     private suspend fun getAllFilters(
@@ -197,7 +212,7 @@ class FilterProvider(
                 .flatMap {
                     caldavFilter(
                         it,
-                        showCreate && it.accountType != TYPE_OPENTASKS,
+                        showCreate,
                         forceExpand,
                     )
                 }
@@ -208,6 +223,22 @@ class FilterProvider(
         forceExpand: Boolean,
     ): List<FilterListItem> {
         val collapsed = !forceExpand && account.isCollapsed
+        val children = caldavDao
+            .getCaldavFilters(account.uuid!!)
+            .map {
+                CaldavFilter(
+                    calendar = it.caldavCalendar,
+                    account = account,
+                    principals = it.principals,
+                    count = it.count,
+                )
+            }
+            .sort()
+        val openTaskApp = if (account.accountType == TYPE_OPENTASKS) {
+            account.openTaskApp
+        } else {
+            null
+        }
         return listOf(
             NavigationDrawerSubheader(
                 if (account.accountType == TYPE_LOCAL) {
@@ -223,20 +254,13 @@ class FilterProvider(
                 },
                 account.id.toString(),
                 if (showCreate) REQUEST_NEW_LIST else 0,
+                accountIcon = account.composeIcon,
+                childCount = children.size,
+                openTaskApp = openTaskApp,
             )
         )
             .apply { if (collapsed) return this }
-            .plus(caldavDao
-                .getCaldavFilters(account.uuid!!)
-                .map {
-                    CaldavFilter(
-                        calendar = it.caldavCalendar,
-                        account = account,
-                        principals = it.principals,
-                        count = it.count,
-                    )
-                }
-                .sort())
+            .plus(children)
     }
 
     private suspend fun builtInFilters(): List<Filter> {

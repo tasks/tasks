@@ -138,7 +138,9 @@ class DateTimePicker : BaseDateTimePicker() {
             primary = theme.themeColor.primaryColor,
         ) {
             val datePickerState = rememberDatePickerState(
-                initialDisplayMode = remember { preferences.calendarDisplayMode },
+                initialDisplayMode = remember {
+                    if (autoclose) DisplayMode.Picker else preferences.calendarDisplayMode
+                },
             )
             DueDatePicker(
                 sheetState = rememberModalBottomSheetState(

@@ -87,21 +87,6 @@ fun SubscriptionNagBanner(
 }
 
 @Composable
-fun QuietHoursBanner(
-    showSettings: () -> Unit,
-    dismiss: () -> Unit,
-) {
-    Banner(
-        title = stringResource(R.string.quiet_hours_in_effect),
-        body = stringResource(R.string.quiet_hours_summary),
-        dismissText = stringResource(id = R.string.dismiss),
-        onDismiss = dismiss,
-        action = stringResource(id = R.string.TLA_menu_settings),
-        onAction = showSettings,
-    )
-}
-
-@Composable
 fun SyncWarningGoogleTasks(
     moreInfo: () -> Unit,
     dismiss: () -> Unit,
@@ -182,13 +167,6 @@ private fun BeastModePreview() = TasksTheme {
 @Composable
 private fun SubscriptionNagPreview() = TasksTheme {
     SubscriptionNagBanner(subscribe = {}, dismiss = {})
-}
-
-@Preview(showBackground = true)
-@Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun QuietHoursPreview() = TasksTheme {
-    QuietHoursBanner(showSettings = {}, dismiss = {})
 }
 
 @Preview(showBackground = true)

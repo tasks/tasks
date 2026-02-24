@@ -1,5 +1,6 @@
 package org.tasks.compose
 
+import android.util.Patterns
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -53,6 +54,12 @@ private fun InviteDarkFilled() = TasksTheme(theme = 2) {
     ShareInvite(false, remember { mutableStateOf("user@example.com") })
 }
 
+@Preview(showBackground = true, backgroundColor = 0xFFFFFF)
+@Composable
+private fun InviteError() = TasksTheme {
+    ShareInvite(true, remember { mutableStateOf("invalid email") }, isError = true)
+}
+
 object ShareInvite {
     @Composable
     fun ShareInviteDialog(
@@ -61,12 +68,25 @@ object ShareInvite {
         invite: (String) -> Unit,
     ) {
         val text = rememberSaveable { mutableStateOf("") }
+        val showError = rememberSaveable { mutableStateOf(false) }
         if (openDialog.value) {
+            val trimmed = text.value.trim()
+            val isValid = if (email) {
+                trimmed.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(trimmed).matches()
+            } else {
+                trimmed.isNotEmpty()
+            }
             AlertDialog(
                 onDismissRequest = {},
-                text = { ShareInvite(email, text) },
+                text = { ShareInvite(email, text, isError = showError.value && !isValid) },
                 confirmButton = {
-                    TextButton(text = R.string.invite, onClick = { invite(text.value) })
+                    TextButton(text = R.string.invite, onClick = {
+                        if (isValid) {
+                            invite(trimmed)
+                        } else {
+                            showError.value = true
+                        }
+                    })
                 },
                 dismissButton = {
                     TextButton(text = R.string.cancel, onClick = { openDialog.value = false })
@@ -74,6 +94,7 @@ object ShareInvite {
             )
         } else {
             text.value = ""
+            showError.value = false
         }
     }
 
@@ -81,6 +102,7 @@ object ShareInvite {
     fun ShareInvite(
         email: Boolean,
         text: MutableState<String>,
+        isError: Boolean = false,
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
@@ -109,6 +131,10 @@ object ShareInvite {
                         contentDescription = label
                     )
                 },
+                isError = isError,
+                supportingText = if (isError) {
+                    { Text(stringResource(R.string.invalid_email_address)) }
+                } else null,
                 textStyle = MaterialTheme.typography.bodyLarge.copy(
                     textDirection = TextDirection.Content
                 ),

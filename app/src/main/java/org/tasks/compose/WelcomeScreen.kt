@@ -6,6 +6,9 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -22,18 +25,26 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
@@ -45,6 +56,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
+import org.tasks.auth.TasksServerEnvironment
 import org.tasks.themes.TasksTheme
 
 @Composable
@@ -56,6 +68,9 @@ fun WelcomeScreen(
     onContinueWithoutSync: () -> Unit,
     onImportBackup: () -> Unit,
     openLegalUrl: (String) -> Unit,
+    environments: List<TasksServerEnvironment.Environment>,
+    currentEnvironment: String,
+    onSelectEnvironment: (String) -> Unit,
 ) {
     val importUri by importViewModel.importUri.collectAsStateWithLifecycle()
 
@@ -84,6 +99,9 @@ fun WelcomeScreen(
             importBackupLauncher.launch(filePickerIntent)
         },
         openLegalUrl = openLegalUrl,
+        environments = environments,
+        currentEnvironment = currentEnvironment,
+        onSelectEnvironment = onSelectEnvironment,
     )
 }
 
@@ -94,67 +112,163 @@ private fun WelcomeScreenLayout(
     onContinueWithoutSync: () -> Unit,
     onImportBackup: () -> Unit,
     openLegalUrl: (String) -> Unit,
+    environments: List<TasksServerEnvironment.Environment> = emptyList(),
+    currentEnvironment: String = TasksServerEnvironment.ENV_PRODUCTION,
+    onSelectEnvironment: (String) -> Unit = {},
 ) {
+    var showNetButton by remember { mutableStateOf(currentEnvironment != TasksServerEnvironment.ENV_PRODUCTION) }
+    var tapCount by remember { mutableIntStateOf(0) }
+    var showEnvironmentSelector by remember { mutableStateOf(false) }
+
+    if (showEnvironmentSelector) {
+        EnvironmentSelectorDialog(
+            environments = environments,
+            currentEnvironment = currentEnvironment,
+            onSelect = { env ->
+                onSelectEnvironment(env)
+                showEnvironmentSelector = false
+            },
+            onDismiss = { showEnvironmentSelector = false },
+        )
+    }
+
     BackHandler(onBack = onBack)
     Scaffold { paddingValues ->
-        BoxWithConstraints(
+        Box(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
         ) {
-            val isCompact = maxHeight < 500.dp
-            if (isCompact) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(24.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(24.dp),
-                ) {
-                    Box(
-                        modifier = Modifier.weight(1f),
-                        contentAlignment = Alignment.Center,
+            BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+                val isCompact = maxHeight < 500.dp
+                val iconModifier = Modifier
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
                     ) {
+                        tapCount++
+                        if (tapCount >= 7) {
+                            tapCount = 0
+                            showNetButton = true
+                        }
+                    }
+                if (isCompact) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(24.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(24.dp),
+                    ) {
+                        Box(
+                            modifier = Modifier.weight(1f),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_round_icon),
+                                contentDescription = stringResource(R.string.tasks_org),
+                                tint = Color.Unspecified,
+                                modifier = iconModifier.size(120.dp)
+                            )
+                        }
+                        WelcomeContent(
+                            onSignIn = onSignIn,
+                            onContinueWithoutSync = onContinueWithoutSync,
+                            onImportBackup = onImportBackup,
+                            openLegalUrl = openLegalUrl,
+                            modifier = Modifier
+                                .weight(1f)
+                                .verticalScroll(rememberScrollState()),
+                        )
+                    }
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(32.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                    ) {
+                        Spacer(modifier = Modifier.weight(1f))
                         Icon(
                             painter = painterResource(id = R.drawable.ic_round_icon),
                             contentDescription = stringResource(R.string.tasks_org),
                             tint = Color.Unspecified,
-                            modifier = Modifier.size(120.dp)
+                            modifier = iconModifier.size(152.dp)
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        WelcomeContent(
+                            onSignIn = onSignIn,
+                            onContinueWithoutSync = onContinueWithoutSync,
+                            onImportBackup = onImportBackup,
+                            openLegalUrl = openLegalUrl,
+                            modifier = Modifier.fillMaxWidth(),
                         )
                     }
-                    WelcomeContent(
-                        onSignIn = onSignIn,
-                        onContinueWithoutSync = onContinueWithoutSync,
-                        onImportBackup = onImportBackup,
-                        openLegalUrl = openLegalUrl,
-                        modifier = Modifier
-                            .weight(1f)
-                            .verticalScroll(rememberScrollState()),
-                    )
                 }
-            } else {
-                Column(
+            }
+            if (showNetButton) {
+                Text(
+                    text = "\u03C0",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(32.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Spacer(modifier = Modifier.weight(1f))
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_round_icon),
-                        contentDescription = stringResource(R.string.tasks_org),
-                        tint = Color.Unspecified,
-                        modifier = Modifier.size(152.dp)
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    WelcomeContent(
-                        onSignIn = onSignIn,
-                        onContinueWithoutSync = onContinueWithoutSync,
-                        onImportBackup = onImportBackup,
-                        openLegalUrl = openLegalUrl,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
+                        .align(Alignment.BottomEnd)
+                        .padding(16.dp)
+                        .clickable { showEnvironmentSelector = true },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun EnvironmentSelectorDialog(
+    environments: List<TasksServerEnvironment.Environment>,
+    currentEnvironment: String,
+    onSelect: (String) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    val dialogColor = MaterialTheme.colorScheme.surfaceContainerHigh
+    Dialog(onDismissRequest = onDismiss) {
+        Surface(
+            shape = MaterialTheme.shapes.extraLarge,
+            color = dialogColor,
+            tonalElevation = 6.dp,
+        ) {
+            Column(
+                modifier = Modifier.padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                environments.forEach { env ->
+                    val selected = env.key == currentEnvironment
+                    OutlinedCard(
+                        onClick = { onSelect(env.key) },
+                        border = BorderStroke(
+                            width = if (selected) 2.dp else 1.dp,
+                            color = if (selected) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.outlineVariant
+                            },
+                        ),
+                        colors = CardDefaults.outlinedCardColors(
+                            containerColor = dialogColor,
+                        ),
+                    ) {
+                        Text(
+                            text = env.label,
+                            style = MaterialTheme.typography.titleMedium,
+                            color = if (selected) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.onSurface
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                        )
+                    }
                 }
             }
         }

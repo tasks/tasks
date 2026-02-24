@@ -64,7 +64,6 @@ sealed class Banner(
 ) {
     data object NotificationsDisabled : Banner("notifications", R.string.TLA_menu_settings, R.string.dismiss)
     data object AlarmsDisabled : Banner("alarms", R.string.TLA_menu_settings, R.string.dismiss)
-    data object QuietHoursEnabled : Banner("quiet_hours", R.string.TLA_menu_settings, R.string.dismiss)
     data class SubscriptionRequired(val nameRes: Int, val isTasksOrg: Boolean) : Banner("subscribe", R.string.button_subscribe, R.string.dismiss)
     data object BegForMoney : Banner(
         "subscribe",
@@ -265,8 +264,6 @@ class TaskListViewModel @Inject constructor(
                     Banner.AlarmsDisabled
                 inventory.begForMoney && !firebase.subscribeCooldown ->
                     Banner.BegForMoney
-                preferences.isCurrentlyQuietHours && preferences.warnQuietHoursDisabled ->
-                    Banner.QuietHoursEnabled
                 accounts.any { it.isMicrosoft } && preferences.warnMicrosoft ->
                     Banner.WarnMicrosoft
                 accounts.any { it.isGoogleTasks } && preferences.warnGoogleTasks ->
@@ -288,13 +285,11 @@ class TaskListViewModel @Inject constructor(
 
     fun dismissBanner(tookAction: Boolean = false) {
         val currentBanner = state.value.banner ?: return
-        _state.update { it.copy(banner = null) }
 
         viewModelScope.launch(NonCancellable) {
             when (currentBanner) {
                 Banner.NotificationsDisabled -> preferences.warnNotificationsDisabled = tookAction
                 Banner.AlarmsDisabled -> preferences.warnAlarmsDisabled = tookAction
-                Banner.QuietHoursEnabled -> preferences.warnQuietHoursDisabled = false
                 is Banner.SubscriptionRequired -> {
                     withContext(Dispatchers.IO) {
                         val dismissed = tasksPreferences.get(

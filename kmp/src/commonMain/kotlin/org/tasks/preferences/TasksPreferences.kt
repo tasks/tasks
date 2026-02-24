@@ -26,11 +26,14 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
     companion object {
         val collapseFilters = booleanPreferencesKey("drawer_collapse_filters")
         val collapseTags = booleanPreferencesKey("drawer_collapse_tags")
+        val showDebugFilters = booleanPreferencesKey("show_debug_filters")
         val collapseDebug = booleanPreferencesKey("drawer_collapse_debug")
         val collapsePlaces = booleanPreferencesKey("drawer_collapse_places")
         val acceptedTosVersion = intPreferencesKey("accepted_tos_version")
         val hasLoggedOnboardingComplete = booleanPreferencesKey("has_logged_onboarding_complete")
         val subscriptionDismissedAccounts = stringSetPreferencesKey("subscription_dismissed_accounts")
         val syncSource = stringPreferencesKey("sync_source")
+        val cachedAccountData = stringPreferencesKey("cached_account_data")
+        val serverEnvironment = stringPreferencesKey("server_environment")
     }
 }

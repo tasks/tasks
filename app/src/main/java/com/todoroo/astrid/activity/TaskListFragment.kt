@@ -31,13 +31,22 @@ import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.core.Animatable
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.IntOffset
+import kotlin.math.abs
+import kotlin.math.roundToInt
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.core.app.ShareCompat
 import androidx.core.content.IntentCompat
@@ -96,7 +105,6 @@ import org.tasks.compose.AppUpdatedBanner
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.compose.NotificationsDisabledBanner
-import org.tasks.compose.QuietHoursBanner
 import org.tasks.compose.SubscriptionNagBanner
 import org.tasks.compose.SubscriptionRequiredBanner
 import org.tasks.compose.SyncWarningGoogleTasks
@@ -144,6 +152,7 @@ import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.tags.TagPickerActivity
+import org.tasks.tasklist.BannerAdapter
 import org.tasks.tasklist.DragAndDropRecyclerAdapter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TaskViewHolder
@@ -199,6 +208,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private val mainViewModel: MainActivityViewModel by activityViewModels()
     private lateinit var taskAdapter: TaskAdapter
     private var recyclerAdapter: DragAndDropRecyclerAdapter? = null
+    private val bannerAdapter = BannerAdapter()
     private lateinit var filter: Filter
     private lateinit var search: MenuItem
     private var mode: ActionMode? = null
@@ -387,6 +397,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 listViewModel.updateBannerState()
                 listViewModel.state.collect {
+                    bannerAdapter.showBanner = it.banner != null
                     if (it.tasks is TasksResults.Results) {
                         submitList(it.tasks.tasks)
                         if (it.tasks.tasks.isEmpty()) {
@@ -430,8 +441,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
         setupToolbarMenu()
         setupBottomAppBarMenu()
-        binding.banner.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-        binding.banner.setContent {
+        bannerAdapter.content = {
             val context = LocalContext.current
             val mainActivityState = mainViewModel.state.collectAsStateWithLifecycle().value
             val state = listViewModel.state.collectAsStateWithLifecycle().value
@@ -459,124 +469,142 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     null
                 }
 
-                AnimatedVisibility(
-                    visible = state.banner != null,
-                    enter = expandVertically(),
-                    exit = shrinkVertically(),
-                ) {
-                    when (state.banner) {
-                        is Banner.NotificationsDisabled ->
-                            NotificationsDisabledBanner(
-                                settings = {
-                                    listViewModel.dismissBanner(tookAction = true)
-                                    if (notificationPermissions?.status?.shouldShowRationale == true) {
-                                        context.openAppNotificationSettings()
-                                    } else {
-                                        notificationPermissions?.launchPermissionRequest()
-                                    }
-                                },
-                                dismiss = { listViewModel.dismissBanner() },
-                            )
-
-                        Banner.AlarmsDisabled ->
-                            AlarmsDisabledBanner(
-                                settings = {
-                                    listViewModel.dismissBanner(tookAction = true)
-                                    context.openReminderSettings()
-                                },
-                                dismiss = { listViewModel.dismissBanner() },
-                            )
-
-                        is Banner.SubscriptionRequired ->
-                            SubscriptionRequiredBanner(
-                                nameRes = state.banner.nameRes,
-                                isTasksOrg = state.banner.isTasksOrg,
-                                subscribe = {
-                                    val isTasksOrg = state.banner.isTasksOrg
-                                    listViewModel.dismissBanner(tookAction = true)
-                                    context.startActivity(
-                                        Intent(
-                                            context,
-                                            PurchaseActivity::class.java
-                                        ).apply {
-                                            putExtra(
-                                                PurchaseActivityViewModel.EXTRA_NAME_YOUR_PRICE,
-                                                !isTasksOrg
-                                            )
-                                            putExtra(
-                                                PurchaseActivityViewModel.EXTRA_SOURCE,
-                                                "banner"
-                                            )
+                if (state.banner != null) {
+                    val offsetX = remember(state.banner) { Animatable(0f) }
+                    val scope = rememberCoroutineScope()
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .offset { IntOffset(offsetX.value.roundToInt(), 0) }
+                            .pointerInput(state.banner) {
+                                detectHorizontalDragGestures(
+                                    onDragEnd = {
+                                        scope.launch {
+                                            if (abs(offsetX.value) > size.width * 0.4f) {
+                                                val target = if (offsetX.value > 0) {
+                                                    size.width.toFloat()
+                                                } else {
+                                                    -size.width.toFloat()
+                                                }
+                                                offsetX.animateTo(target)
+                                                listViewModel.dismissBanner()
+                                            } else {
+                                                offsetX.animateTo(0f)
+                                            }
                                         }
-                                    )
-                                },
-                                dismiss = { listViewModel.dismissBanner() },
-                            )
+                                    },
+                                    onDragCancel = {
+                                        scope.launch { offsetX.animateTo(0f) }
+                                    },
+                                    onHorizontalDrag = { change, dragAmount ->
+                                        change.consume()
+                                        scope.launch {
+                                            offsetX.snapTo(offsetX.value + dragAmount)
+                                        }
+                                    }
+                                )
+                            }
+                    ) {
+                        when (state.banner) {
+                            is Banner.NotificationsDisabled ->
+                                NotificationsDisabledBanner(
+                                    settings = {
+                                        listViewModel.dismissBanner(tookAction = true)
+                                        if (notificationPermissions?.status?.shouldShowRationale == true) {
+                                            context.openAppNotificationSettings()
+                                        } else {
+                                            notificationPermissions?.launchPermissionRequest()
+                                        }
+                                    },
+                                    dismiss = { listViewModel.dismissBanner() },
+                                )
 
-                        Banner.BegForMoney ->
-                            SubscriptionNagBanner(
-                                subscribe = {
-                                    listViewModel.dismissBanner(tookAction = true)
-                                    if (TasksApplication.IS_GOOGLE_PLAY) {
+                            Banner.AlarmsDisabled ->
+                                AlarmsDisabledBanner(
+                                    settings = {
+                                        listViewModel.dismissBanner(tookAction = true)
+                                        context.openReminderSettings()
+                                    },
+                                    dismiss = { listViewModel.dismissBanner() },
+                                )
+
+                            is Banner.SubscriptionRequired ->
+                                SubscriptionRequiredBanner(
+                                    nameRes = state.banner.nameRes,
+                                    isTasksOrg = state.banner.isTasksOrg,
+                                    subscribe = {
+                                        val isTasksOrg = state.banner.isTasksOrg
+                                        listViewModel.dismissBanner(tookAction = true)
                                         context.startActivity(
                                             Intent(
                                                 context,
                                                 PurchaseActivity::class.java
-                                            ).putExtra(
-                                                PurchaseActivityViewModel.EXTRA_SOURCE,
-                                                "nag"
+                                            ).apply {
+                                                putExtra(
+                                                    PurchaseActivityViewModel.EXTRA_NAME_YOUR_PRICE,
+                                                    !isTasksOrg
+                                                )
+                                                putExtra(
+                                                    PurchaseActivityViewModel.EXTRA_SOURCE,
+                                                    "banner"
+                                                )
+                                            }
+                                        )
+                                    },
+                                    dismiss = { listViewModel.dismissBanner() },
+                                )
+
+                            Banner.BegForMoney ->
+                                SubscriptionNagBanner(
+                                    subscribe = {
+                                        listViewModel.dismissBanner(tookAction = true)
+                                        if (TasksApplication.IS_GOOGLE_PLAY) {
+                                            context.startActivity(
+                                                Intent(
+                                                    context,
+                                                    PurchaseActivity::class.java
+                                                ).putExtra(
+                                                    PurchaseActivityViewModel.EXTRA_SOURCE,
+                                                    "nag"
+                                                )
                                             )
-                                        )
-                                    } else {
-                                        preferences.lastSubscribeRequest = currentTimeMillis()
-                                        context.openUri(R.string.url_donate)
-                                    }
-                                },
-                                dismiss = { listViewModel.dismissBanner() },
-                            )
+                                        } else {
+                                            preferences.lastSubscribeRequest = currentTimeMillis()
+                                            context.openUri(R.string.url_donate)
+                                        }
+                                    },
+                                    dismiss = { listViewModel.dismissBanner() },
+                                )
 
-                        Banner.QuietHoursEnabled ->
-                            QuietHoursBanner(
-                                showSettings = {
-                                    listViewModel.dismissBanner(tookAction = true)
-                                    context.startActivity(
-                                        Intent(
-                                            context,
-                                            MainPreferences::class.java
-                                        )
-                                    )
-                                },
-                                dismiss = { listViewModel.dismissBanner() },
-                            )
+                            Banner.WarnGoogleTasks ->
+                                SyncWarningGoogleTasks(
+                                    moreInfo = {
+                                        listViewModel.dismissBanner(tookAction = true)
+                                        context.openUri(R.string.url_google_tasks)
+                                    },
+                                    dismiss = { listViewModel.dismissBanner() },
+                                )
 
-                        Banner.WarnGoogleTasks ->
-                            SyncWarningGoogleTasks(
-                                moreInfo = {
-                                    listViewModel.dismissBanner(tookAction = true)
-                                    context.openUri(R.string.url_google_tasks)
-                                },
-                                dismiss = { listViewModel.dismissBanner() },
-                            )
+                            Banner.WarnMicrosoft ->
+                                SyncWarningMicrosoft(
+                                    moreInfo = {
+                                        listViewModel.dismissBanner(tookAction = true)
+                                        context.openUri(R.string.url_microsoft)
+                                    },
+                                    dismiss = { listViewModel.dismissBanner() },
+                                )
 
-                        Banner.WarnMicrosoft ->
-                            SyncWarningMicrosoft(
-                                moreInfo = {
-                                    listViewModel.dismissBanner(tookAction = true)
-                                    context.openUri(R.string.url_microsoft)
-                                },
-                                dismiss = { listViewModel.dismissBanner() },
-                            )
+                            Banner.AppUpdated ->
+                                AppUpdatedBanner(
+                                    whatsNew = {
+                                        listViewModel.dismissBanner(tookAction = true)
+                                        context.openUri(R.string.url_changelog)
+                                    },
+                                    dismiss = { listViewModel.dismissBanner() },
+                                )
 
-                        Banner.AppUpdated ->
-                            AppUpdatedBanner(
-                                whatsNew = {
-                                    listViewModel.dismissBanner(tookAction = true)
-                                    context.openUri(R.string.url_changelog)
-                                },
-                                dismiss = { listViewModel.dismissBanner() },
-                            )
-
-                        null -> {}
+                            else -> {}
+                        }
                     }
                 }
             }
@@ -605,7 +633,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     private fun setAdapter(adapter: DragAndDropRecyclerAdapter) {
         recyclerAdapter = adapter
-        binding.bodyStandard.recyclerView.adapter = adapter
+        binding.bodyStandard.recyclerView.adapter = ConcatAdapter(bannerAdapter, adapter)
         taskAdapter.setDataSource(adapter)
     }
 

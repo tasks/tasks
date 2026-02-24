@@ -29,24 +29,15 @@ message Tasks {
   repeated UiItem items = 2;
 }
 
-message LastUpdate {
-  uint64 now = 1;
-}
-
-message Settings {
-  repeated uint64 collapsed = 1;
-  optional string filter = 2;
-  bool showHidden = 3;
-  bool showCompleted = 4;
-}
-
-message UpdateSettingsRequest {
-  Settings settings = 1;
-}
-
 message GetTasksRequest {
   uint32 position = 1;
   uint32 limit = 2;
+  optional string filter = 3;
+  bool showHidden = 4;
+  bool showCompleted = 5;
+  repeated uint64 collapsed = 6;
+  optional int32 sortMode = 7;
+  optional int32 groupMode = 8;
 }
 message CompleteTaskRequest {
   uint64 id = 1;
@@ -86,24 +77,39 @@ message GetTaskResponse {
   bool completed = 2;
   bool repeating = 3;
   uint32 priority = 4;
+  string description = 5;
 }
 
 message SaveTaskRequest {
   uint64 taskId = 1;
   string title = 2;
   bool completed = 3;
+  optional string filter = 4;
 }
 message SaveTaskResponse {
   uint64 taskId = 1;
 }
 
+message GetTaskCountRequest {
+  optional string filter = 1;
+  bool showHidden = 2;
+  bool showCompleted = 3;
+}
+message GetTaskCountResponse {
+  uint32 count = 1;
+  uint32 completedCount = 2;
+}
+
+message GetVersionRequest {}
+message GetVersionResponse { int32 versionCode = 1; }
+
 service WearService {
   rpc getTasks(GetTasksRequest) returns (Tasks);
   rpc completeTask(CompleteTaskRequest) returns (CompleteTaskResponse);
-  rpc toggleGroup(ToggleGroupRequest) returns (ToggleGroupResponse);
-  rpc updateSettings(UpdateSettingsRequest) returns (Settings);
   rpc toggleSubtasks(ToggleGroupRequest) returns (ToggleGroupResponse);
   rpc getLists(GetListsRequest) returns (GetListsResponse);
   rpc getTask(GetTaskRequest) returns (GetTaskResponse);
   rpc saveTask(SaveTaskRequest) returns (SaveTaskResponse);
+  rpc getTaskCount(GetTaskCountRequest) returns (GetTaskCountResponse);
+  rpc getVersion(GetVersionRequest) returns (GetVersionResponse);
 }

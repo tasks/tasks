@@ -88,14 +88,11 @@ android {
             }
             val tasks_mapbox_key_debug: String? by project
             val tasks_google_key_debug: String? by project
-            val tasks_posthog_key: String? by project
-            val tasks_caldav_url: String? by project
+            val tasks_dev_url: String? by project
             resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
             resValue("string", "google_key", tasks_google_key_debug ?: "")
-            resValue("string", "posthog_key", tasks_posthog_key ?: "")
-            resValue("string", "tasks_caldav_url", tasks_caldav_url ?: "https://caldav.tasks.org")
-            resValue("string", "tasks_nominatim_url", tasks_caldav_url ?: "https://nominatim.tasks.org")
-            resValue("string", "tasks_places_url", tasks_caldav_url ?: "https://places.tasks.org")
+            resValue("string", "posthog_key", "")
+            resValue("string", "tasks_dev_url", tasks_dev_url ?: "")
             enableUnitTestCoverage = project.hasProperty("coverage")
         }
         release {
@@ -105,6 +102,7 @@ android {
             resValue("string", "mapbox_key", tasks_mapbox_key ?: "")
             resValue("string", "google_key", tasks_google_key ?: "")
             resValue("string", "posthog_key", tasks_posthog_key ?: "")
+            resValue("string", "tasks_dev_url", "")
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard.pro")
             signingConfig = signingConfigs.getByName("release")

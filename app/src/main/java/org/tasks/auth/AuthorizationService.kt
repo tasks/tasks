@@ -21,7 +21,8 @@ import kotlin.coroutines.suspendCoroutine
 class AuthorizationService(
         val iss: String,
         context: Context,
-        debugConnectionBuilder: DebugConnectionBuilder
+        debugConnectionBuilder: DebugConnectionBuilder,
+        caldavUrl: String? = null,
 ) {
     val isGitHub = iss == ISS_GITHUB
     val authStateManager = AuthStateManager()
@@ -32,7 +33,8 @@ class AuthorizationService(
                 ISS_GITHUB -> Configuration.GITHUB_CONFIG
                 else -> throw IllegalArgumentException()
             },
-            debugConnectionBuilder
+            debugConnectionBuilder,
+            caldavUrl,
     )
     private val authorizationService = AuthorizationService(
             context,

@@ -28,6 +28,7 @@ import org.tasks.BuildConfig
 import org.tasks.R
 import java.io.IOException
 import java.nio.charset.StandardCharsets
+import androidx.core.net.toUri
 
 /**
  * Reads and validates the app configuration from `authConfig`. Configuration
@@ -37,7 +38,8 @@ import java.nio.charset.StandardCharsets
 class Configuration(
         private val context: Context,
         private val authConfig: Int,
-        debugConnectionBuilder: DebugConnectionBuilder
+        debugConnectionBuilder: DebugConnectionBuilder,
+        private val caldavUrl: String? = null,
 ) {
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     private var configJson: JSONObject? = null
@@ -130,11 +132,11 @@ class Configuration(
             }
         } else {
             discoveryUri = getRequiredConfigWebUri("discovery_uri")
-            if (BuildConfig.DEBUG) {
-                discoveryUri = Uri.parse(discoveryUri.toString().replace(
-                        """^https://caldav.tasks.org""".toRegex(),
-                        context.getString(R.string.tasks_caldav_url)
-                ))
+            if (caldavUrl != null) {
+                discoveryUri = discoveryUri.toString().replace(
+                    """^https://caldav.tasks.org""".toRegex(),
+                    caldavUrl
+                ).toUri()
             }
         }
         isHttpsRequired = configJson!!.optBoolean("https_required", true)

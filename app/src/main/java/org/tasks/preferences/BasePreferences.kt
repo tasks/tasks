@@ -1,14 +1,15 @@
 package org.tasks.preferences
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.ViewGroup
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
 import androidx.core.view.updateLayoutParams
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -32,7 +33,17 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.auto(
+                lightScrim = Color.TRANSPARENT,
+                darkScrim = Color.TRANSPARENT
+            ),
+            navigationBarStyle = if (tasksTheme.themeBase.isDarkTheme(this)) {
+                SystemBarStyle.dark(Color.TRANSPARENT)
+            } else {
+                SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
+            }
+        )
 
         val binding = ActivityPreferencesBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -42,7 +53,6 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
             toolbar.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = systemBars.top
             }
-            binding.settings.updatePadding(bottom = systemBars.bottom)
             insets
         }
 
@@ -82,7 +92,7 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
 
     abstract fun getRootTitle(): Int
 
-    abstract fun getRootPreference(): InjectingPreferenceFragment
+    abstract fun getRootPreference(): Fragment
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -118,7 +128,25 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
             R.string.event_settings_navigation,
             R.string.param_screen to title.toString()
         )
+        @Suppress("DEPRECATION")
         fragment.setTargetFragment(caller, 0)
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.settings, fragment)
+                .addToBackStack(null)
+                .commit()
+        toolbar.title = title
+        setupMenu(fragment)
+        return true
+    }
+
+    fun startPreference(
+            fragment: Fragment,
+            title: CharSequence
+    ): Boolean {
+        firebase.logEvent(
+            R.string.event_settings_navigation,
+            R.string.param_screen to title.toString()
+        )
         supportFragmentManager.beginTransaction()
                 .replace(R.id.settings, fragment)
                 .addToBackStack(null)

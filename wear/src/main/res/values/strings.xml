@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Tasks</string>
+    <string name="complication_task_count_label">Task count</string>
+    <string name="complication_next_task_label">Next task</string>
+    <string name="complication_task_progress_label">Task progress</string>
+    <string name="complication_add_task_label">Add task</string>
+    <string name="complication_shortcut_label">Shortcut</string>
 </resources>

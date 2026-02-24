@@ -57,6 +57,21 @@ class TaskEditFragment : Fragment() {
     private val editViewModel: TaskEditViewModel by viewModels()
     private val mainViewModel: MainActivityViewModel by activityViewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        parentFragmentManager.setFragmentResultListener(
+            CalendarPicker.REQUEST_KEY, this
+        ) { _, bundle ->
+            editViewModel.setCalendar(bundle.getString(CalendarPicker.EXTRA_CALENDAR_ID))
+        }
+        parentFragmentManager.setFragmentResultListener(
+            BasicRecurrenceDialog.REQUEST_KEY, this
+        ) { _, bundle ->
+            editViewModel.setRecurrence(bundle.getString(BasicRecurrenceDialog.EXTRA_RRULE))
+        }
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -136,8 +151,6 @@ class TaskEditFragment : Fragment() {
                 onClickRepeat = {
                     val vs = editViewModel.viewState.value
                     BasicRecurrenceDialog.newBasicRecurrenceDialog(
-                        target = this@TaskEditFragment,
-                        rc = REQUEST_RECURRENCE,
                         rrule = vs.task.recurrence,
                         dueDate = editViewModel.dueDate.value,
                         accountType = vs.list.account.accountType,
@@ -189,18 +202,6 @@ class TaskEditFragment : Fragment() {
                     editViewModel.setDueDate(data!!.getLongExtra(DateTimePicker.EXTRA_TIMESTAMP, 0L))
                 }
             }
-            REQUEST_CODE_PICK_CALENDAR -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    editViewModel.setCalendar(data!!.getStringExtra(CalendarPicker.EXTRA_CALENDAR_ID))
-                }
-            }
-            REQUEST_RECURRENCE -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    editViewModel.setRecurrence(
-                        data?.getStringExtra(BasicRecurrenceDialog.EXTRA_RRULE)
-                    )
-                }
-            }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
@@ -211,8 +212,6 @@ class TaskEditFragment : Fragment() {
         const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
         private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
         private const val FRAG_TAG_BASIC_RECURRENCE = "frag_tag_basic_recurrence"
-        const val REQUEST_CODE_PICK_CALENDAR = 70
         private const val REQUEST_DATE = 504
-        private const val REQUEST_RECURRENCE = 10000
     }
 }

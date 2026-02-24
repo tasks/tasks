@@ -82,6 +82,22 @@ class TasksClient(
             }
     }
 
+    suspend fun getAccount(): String? = withContext(Dispatchers.IO) {
+        val url = httpUrl?.resolve(ENDPOINT_ACCOUNT) ?: return@withContext null
+        httpClient
+                .newCall(Request.Builder()
+                .get()
+                .url(url)
+                .build())
+                .execute()
+                .use { response ->
+                    if (!response.isSuccessful) {
+                        throw HttpException(response)
+                    }
+                    response.body?.use { body -> body.string() }
+                }
+    }
+
     suspend fun getAppPasswords(): JSONObject? = withContext(Dispatchers.IO) {
         val url = httpUrl?.resolve(ENDPOINT_PASSWORDS) ?: return@withContext null
         httpClient
@@ -158,6 +174,7 @@ class TasksClient(
     }
 
     companion object {
+        private const val ENDPOINT_ACCOUNT = "/account"
         private const val ENDPOINT_PASSWORDS = "/app-passwords"
         private const val ENDPOINT_PUSH_TOKEN = "/push-token"
         private const val ENDPOINT_INBOUND_EMAIL = "/inbound-email"

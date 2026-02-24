@@ -9,11 +9,11 @@ import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalAccountSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
-import org.tasks.data.OpenTaskDao.Companion.isDavx5
-import org.tasks.data.OpenTaskDao.Companion.isDavx5Managed
-import org.tasks.data.OpenTaskDao.Companion.isDecSync
-import org.tasks.data.OpenTaskDao.Companion.isEteSync
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.isDavx5
+import org.tasks.data.entity.CaldavAccount.Companion.isDavx5Managed
+import org.tasks.data.entity.CaldavAccount.Companion.isDecSync
+import org.tasks.data.entity.CaldavAccount.Companion.isEteSync
 import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.etebase.EtebaseCalendarSettingsActivity
 import org.tasks.opentasks.OpenTaskAccountSettingsActivity
@@ -49,10 +49,7 @@ val CaldavAccount.prefIcon: Int
     }
 
 fun CaldavAccount.isTasksSubscription(context: Context): Boolean {
-    val caldavUrl = context.getString(R.string.tasks_caldav_url)
-    return url?.startsWith("${caldavUrl}/calendars/") == true &&
-            !isPaymentRequired() &&
-            !isLoggedOut()
+    return isTasksOrg && !isPaymentRequired() && !isLoggedOut()
 }
 
 fun CaldavAccount.listSettingsClass(): Class<out Activity> = when(accountType) {

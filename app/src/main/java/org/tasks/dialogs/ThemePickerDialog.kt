@@ -1,10 +1,7 @@
 package org.tasks.dialogs
 
-import android.app.Activity.RESULT_CANCELED
-import android.app.Activity.RESULT_OK
 import android.app.Dialog
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -12,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import com.todoroo.andlib.utility.AndroidUtilities.preS
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
@@ -28,10 +25,9 @@ class ThemePickerDialog : DialogFragment() {
     companion object {
         const val EXTRA_SELECTED = "extra_selected"
         const val EXTRA_WIDGET = "extra_widget"
+        const val REQUEST_KEY = "theme_picker_result"
 
         fun newThemePickerDialog(
-            target: Fragment,
-            rc: Int,
             selected: Int,
             widget: Boolean = false
         ): ThemePickerDialog {
@@ -39,7 +35,6 @@ class ThemePickerDialog : DialogFragment() {
             args.putInt(EXTRA_SELECTED, selected)
             args.putBoolean(EXTRA_WIDGET, widget)
             val dialog = ThemePickerDialog()
-            dialog.setTargetFragment(target, rc)
             dialog.arguments = args
             return dialog
         }
@@ -102,13 +97,21 @@ class ThemePickerDialog : DialogFragment() {
         if (available()) {
             deliverResult()
         } else {
-            targetFragment?.onActivityResult(targetRequestCode, RESULT_CANCELED, null)
+            // Restore original theme on cancel
+            val original = requireArguments().getInt(EXTRA_SELECTED)
+            parentFragmentManager.setFragmentResult(
+                REQUEST_KEY,
+                bundleOf(EXTRA_SELECTED to original)
+            )
         }
     }
 
     private fun deliverResult() {
         dialog?.dismiss()
-        targetFragment?.onActivityResult(targetRequestCode, RESULT_OK, Intent().putExtra(EXTRA_SELECTED, selected))
+        parentFragmentManager.setFragmentResult(
+            REQUEST_KEY,
+            bundleOf(EXTRA_SELECTED to selected)
+        )
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

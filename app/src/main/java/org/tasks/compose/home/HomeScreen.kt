@@ -3,6 +3,7 @@ package org.tasks.compose.home
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,7 +23,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsTopHeight
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DrawerState
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
@@ -55,19 +59,13 @@ import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.EXTRA_TASK
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.activity.TaskListFragment.Companion.EXTRA_FILTER
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
-import org.tasks.R
-import org.tasks.TasksApplication
 import org.tasks.activities.TagSettingsActivity
-import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
-import org.tasks.compose.drawer.DrawerAction
 import org.tasks.compose.drawer.DrawerItem
-import org.tasks.compose.drawer.MenuSearchBar
 import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.data.listSettingsClass
-import org.tasks.extensions.Context.openUri
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_LIST
@@ -77,7 +75,6 @@ import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.kmp.org.tasks.compose.TouchSlopMultiplier
 import org.tasks.kmp.org.tasks.compose.rememberImeState
 import org.tasks.location.LocationPickerActivity
-import org.tasks.preferences.HelpAndFeedback
 import org.tasks.preferences.MainPreferences
 import timber.log.Timber
 
@@ -113,6 +110,36 @@ fun HomeScreen(
     val isDetailVisible =
         navigator.scaffoldValue[ListDetailPaneScaffoldRole.Detail] == PaneAdaptedValue.Expanded
 
+    val openTaskAppDialog = remember { mutableStateOf<org.tasks.data.OpenTaskApp?>(null) }
+    val context = LocalContext.current
+
+    openTaskAppDialog.value?.let { app ->
+        AlertDialog(
+            onDismissRequest = { openTaskAppDialog.value = null },
+            text = {
+                Text(
+                    text = "To create new lists, open ${app.name} and add them there.",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            },
+            dismissButton = {
+                TextButton(onClick = { openTaskAppDialog.value = null }) {
+                    Text("Cancel")
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    openTaskAppDialog.value = null
+                    context.packageManager
+                        .getLaunchIntentForPackage(app.packageName)
+                        ?.let { context.startActivity(it) }
+                }) {
+                    Text("Open ${app.name}")
+                }
+            },
+        )
+    }
+
     TouchSlopMultiplier {
         ModalNavigationDrawer(
             drawerState = drawerState,
@@ -121,9 +148,24 @@ fun HomeScreen(
                 ModalDrawerSheet(
                     drawerState = drawerState,
                     windowInsets = WindowInsets(0, 0, 0, 0),
+                    drawerContainerColor = MaterialTheme.colorScheme.surface,
                 ) {
                     val context = LocalContext.current
                     val scope = rememberCoroutineScope()
+                    val searchExpanded = remember { mutableStateOf(false) }
+                    LaunchedEffect(drawerState.isClosed) {
+                        if (drawerState.isClosed) {
+                            searchExpanded.value = false
+                        }
+                    }
+                    BackHandler(enabled = searchExpanded.value) {
+                        if (state.menuQuery.isNotEmpty()) {
+                            viewModel.queryMenu("")
+                        } else {
+                            searchExpanded.value = false
+                            scope.launch { drawerState.close() }
+                        }
+                    }
                     Box(modifier = Modifier.fillMaxSize()) {
                         TaskListDrawer(
                             arrangement = if (state.menuQuery.isBlank()) Arrangement.Top else Arrangement.Bottom,
@@ -144,90 +186,62 @@ fun HomeScreen(
                                 }
                             },
                             onAddClick = {
-                                scope.launch {
-                                    drawerState.close()
-                                    when (it.header.addIntentRc) {
-                                        FilterProvider.REQUEST_NEW_FILTER ->
-                                            showNewFilterDialog()
+                                if (it.openTaskApp != null) {
+                                    openTaskAppDialog.value = it.openTaskApp
+                                } else {
+                                    scope.launch {
+                                        drawerState.close()
+                                        when (it.header.addIntentRc) {
+                                            FilterProvider.REQUEST_NEW_FILTER ->
+                                                showNewFilterDialog()
 
-                                        REQUEST_NEW_PLACE ->
-                                            newList.launch(Intent(context, LocationPickerActivity::class.java))
+                                            REQUEST_NEW_PLACE ->
+                                                newList.launch(Intent(context, LocationPickerActivity::class.java))
 
-                                        REQUEST_NEW_TAGS ->
-                                            newList.launch(Intent(context, TagSettingsActivity::class.java))
+                                            REQUEST_NEW_TAGS ->
+                                                newList.launch(Intent(context, TagSettingsActivity::class.java))
 
-                                        REQUEST_NEW_LIST ->
-                                            when (it.header.subheaderType) {
-                                                NavigationDrawerSubheader.SubheaderType.CALDAV,
-                                                NavigationDrawerSubheader.SubheaderType.TASKS ->
-                                                    viewModel
-                                                        .getAccount(it.header.id.toLong())
-                                                        ?.let {
-                                                            newList.launch(
-                                                                Intent(context, it.listSettingsClass())
-                                                                    .putExtra(EXTRA_CALDAV_ACCOUNT, it)
-                                                            )
-                                                        }
+                                            REQUEST_NEW_LIST ->
+                                                when (it.header.subheaderType) {
+                                                    NavigationDrawerSubheader.SubheaderType.CALDAV,
+                                                    NavigationDrawerSubheader.SubheaderType.TASKS ->
+                                                        viewModel
+                                                            .getAccount(it.header.id.toLong())
+                                                            ?.let {
+                                                                newList.launch(
+                                                                    Intent(context, it.listSettingsClass())
+                                                                        .putExtra(EXTRA_CALDAV_ACCOUNT, it)
+                                                                )
+                                                            }
 
-                                                else -> {}
-                                            }
+                                                    else -> {}
+                                                }
 
-                                        else -> Timber.e("Unhandled request code: $it")
+                                            else -> Timber.e("Unhandled request code: $it")
+                                        }
                                     }
                                 }
                             },
                             onErrorClick = {
                                 context.startActivity(Intent(context, MainPreferences::class.java))
                             },
-                            searchBar = {
-                                MenuSearchBar(
-                                    begForMoney = state.begForMoney,
-                                    onDrawerAction = {
-                                        scope.launch {
-                                            drawerState.close()
-                                            when (it) {
-                                                DrawerAction.PURCHASE ->
-                                                    if (TasksApplication.IS_GENERIC)
-                                                        context.openUri(R.string.url_donate)
-                                                    else
-                                                        context.startActivity(
-                                                            Intent(
-                                                                context,
-                                                                PurchaseActivity::class.java
-                                                            ).putExtra(
-                                                                PurchaseActivityViewModel.EXTRA_SOURCE,
-                                                                "drawer"
-                                                            )
-                                                        )
-
-                                                DrawerAction.HELP_AND_FEEDBACK ->
-                                                    context.startActivity(
-                                                        Intent(
-                                                            context,
-                                                            HelpAndFeedback::class.java
-                                                        ).putExtra(
-                                                            HelpAndFeedback.EXTRA_SOURCE,
-                                                            "drawer"
-                                                        )
-                                                    )
-                                            }
-                                        }
-                                    },
-                                    query = state.menuQuery,
-                                    onQueryChange = { viewModel.queryMenu(it) },
-                                )
-                            },
+                            query = state.menuQuery,
+                            onQueryChange = { viewModel.queryMenu(it) },
+                            searchExpanded = searchExpanded.value,
+                            onSearchExpandedChange = { searchExpanded.value = it },
                         )
 
                         SystemBarScrim(
                             modifier = Modifier
                                 .windowInsetsTopHeight(WindowInsets.systemBars)
-                                .align(Alignment.TopCenter)
+                                .align(Alignment.TopCenter),
+                            color = MaterialTheme.colorScheme.surface,
                         )
                         SystemBarScrim(
                             modifier = Modifier
                                 .windowInsetsBottomHeight(WindowInsets.systemBars)
                                 .align(Alignment.BottomCenter),
+                            color = MaterialTheme.colorScheme.surface,
                         )
                     }
                 }

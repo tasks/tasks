@@ -61,7 +61,6 @@ class MainActivityViewModel @Inject constructor(
 ) : ViewModel() {
 
     data class State(
-        val begForMoney: Boolean = false,
         val filter: Filter,
         val task: Task? = null,
         val drawerItems: ImmutableList<DrawerItem> = persistentListOf(),
@@ -79,7 +78,6 @@ class MainActivityViewModel @Inject constructor(
                     runBlocking { defaultFilterProvider.getFilterFromPreference(it) }
                 }
                 ?: runBlocking { defaultFilterProvider.getStartupFilter() },
-            begForMoney = inventory.begForMoney,
             task = savedStateHandle.get<Task>(EXTRA_TASK),
         )
     )
@@ -176,6 +174,8 @@ class MainActivityViewModel @Inject constructor(
                             collapsed = item.isCollapsed,
                             hasError = item.error,
                             canAdd = item.addIntentRc != 0,
+                            hasChildren = item.childCount > 0,
+                            openTaskApp = item.openTaskApp,
                             header = item,
                         )
                     else -> throw IllegalArgumentException()

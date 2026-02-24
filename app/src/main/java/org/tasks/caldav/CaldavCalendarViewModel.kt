@@ -53,7 +53,7 @@ class CaldavCalendarViewModel @Inject constructor(
                 caldavDao.insert(this)
             }
             if (!ignoreFinish) {
-                finish.value = Intent().putExtra(
+                finish.value = Intent(TaskListFragment.ACTION_RELOAD).putExtra(
                     MainActivity.OPEN_FILTER,
                     CaldavFilter(calendar = calendar, account = caldavAccount)
                 )

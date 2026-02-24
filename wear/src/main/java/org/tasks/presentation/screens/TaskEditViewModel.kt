@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.data.TargetNodeId
+import org.tasks.presentation.phoneTargetNodeId
 import com.google.android.horologist.datalayer.grpc.GrpcExtensions.grpcClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import org.tasks.GrpcProto
 import org.tasks.WearServiceGrpcKt
 import org.tasks.extensions.wearDataLayerRegistry
+import org.tasks.presentation.WearSettings
 import timber.log.Timber
 
 data class UiState(
@@ -23,6 +24,7 @@ data class UiState(
     val repeating: Boolean = false,
     val priority: Int = 0,
     val title: String = "",
+    val description: String = "",
 )
 
 @OptIn(ExperimentalHorologistApi::class)
@@ -33,9 +35,10 @@ class TaskEditViewModel(
     private val _uiState = MutableStateFlow(UiState(taskId = taskId))
     val uiState = _uiState.asStateFlow()
     private val registry = applicationContext.wearDataLayerRegistry(viewModelScope)
+    private val wearSettings = WearSettings.getInstance(applicationContext)
 
     private val wearService : WearServiceGrpcKt.WearServiceCoroutineStub = registry.grpcClient(
-        nodeId = TargetNodeId.PairedPhone,
+        nodeId = applicationContext.phoneTargetNodeId(),
         coroutineScope = viewModelScope,
     ) {
         WearServiceGrpcKt.WearServiceCoroutineStub(it)
@@ -61,6 +64,7 @@ class TaskEditViewModel(
                 title = task.title,
                 repeating = task.repeating,
                 priority = task.priority,
+                description = task.description,
             )
         }
     }
@@ -69,6 +73,11 @@ class TaskEditViewModel(
         val response = wearService.saveTask(
             GrpcProto.SaveTaskRequest.newBuilder()
                 .setTitle(uiState.value.title)
+                .apply {
+                    wearSettings.stateFlow.value.filter
+                        ?.takeIf { it.isNotBlank() }
+                        ?.let { setFilter(it) }
+                }
                 .build()
         )
         fetchTask(response.taskId)
@@ -93,8 +102,11 @@ class TaskEditViewModel(
         }
     }
 
-    fun setCompleted(completed: Boolean) {
+    fun setCompleted(completed: Boolean, onComplete: () -> Unit) {
         _uiState.update { it.copy(completed = completed) }
+        if (completed) {
+            save(onComplete)
+        }
     }
 }
 
