@@ -736,14 +736,19 @@
     <string name="legal_disclosure_prefix_using">Tasks.orgを使用</string>
     <string name="legal_disclosure_prefix_continuing">下のボタンのいずれかで続行</string>
     <string name="email_to_task">メールでタスクを追加する</string>
-    <string name="legal_disclosure">%1$s、あなたは%2$s と%3$sに賛同します。 Tasks は%4$sの下に提供されているオープンソースソフトウェアです。</string>
+    <string name="legal_disclosure">%1$sさんは、%2$s と%3$sに同意します。 Tasks は%4$sの下に提供されているオープンソースソフトウェアです。</string>
     <string name="donate">寄付</string>
     <string name="upgrade_to_pro_card_description">Tasks.org Cloudとの同期、メールでタスク追加などの機能を有効化します！</string>
     <string name="supporter">支援者</string>
     <string name="sign_in_to_connect">サインインしてTasks.orgアカウントに接続する</string>
     <string name="invalid_email_address">無効なメールアドレス</string>
-    <string name="upgrade_email_to_task_description">あなたの私書箱に送ってメールをタスクに変換する</string>
+    <string name="upgrade_email_to_task_description">あなたの私書箱に送ったメールをタスクに変換する</string>
     <string name="advanced_tools_description">Google Places、CalDAV、EteSyncなど！</string>
     <string name="rmd_EPr_rmd_time_desc">時間指定のないタスクの通知は%1$sに表示されます</string>
     <string name="default_reminder">時間指定のないタスク</string>
+    <string name="rmd_time_enabled_on">時間指定のないタスクにデフォルトの通知を追加</string>
+    <string name="rmd_time_enabled_off">時間指定のないタスクにデフォルトの通知を追加しない</string>
+    <string name="supporter_summary">%s •さん、ありがとうございます！</string>
+    <string name="add_default_reminders">デフォルトの通知を追加する</string>
+    <string name="advanced_tools">便利なツール</string>
 </resources>
