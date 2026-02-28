@@ -713,4 +713,6 @@
     <string name="sync_warning_google_tasks">Kaikkia tehtävän tietoja ei voi synkronoida Google Taskin kanssa</string>
     <string name="button_learn_more">Lue lisää</string>
     <string name="widget_view_more_tasks">Lisää tehtäviä</string>
+    <string name="import_failed">Tuonti epäonnistui</string>
+    <string name="import_failed_message">Varmuuskopiota ei voitu lukea</string>
 </resources>
