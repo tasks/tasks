@@ -33,4 +33,12 @@
     <string name="wear_install_app">Instal·la al telèfon</string>
     <string name="wear_unknown_error">Error desconegut</string>
     <string name="add_task">Afegeix una tasca</string>
+    <string name="new_task">Tasca nova</string>
+    <string name="save">Desa</string>
+    <string name="sort_mode">Ordena</string>
+    <string name="sort_due_date">Data de venciment</string>
+    <string name="sort_priority">Prioritat</string>
+    <string name="sort_start_date">Data d\'inici</string>
+    <string name="group_none">Cap</string>
+    <string name="filter">Filtre</string>
 </resources>

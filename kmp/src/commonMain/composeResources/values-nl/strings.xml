@@ -33,4 +33,12 @@
     <string name="show_completed">Voltooide tonen</string>
     <string name="wear_unknown_error">Onbekende fout</string>
     <string name="wear_install_app">Installeer op telefoon</string>
+    <string name="new_task">Nieuwe taak</string>
+    <string name="save">Opslaan</string>
+    <string name="sort_mode">Sorteren</string>
+    <string name="sort_due_date">Vervaldatum</string>
+    <string name="sort_priority">Prioriteit</string>
+    <string name="sort_start_date">Begindatum</string>
+    <string name="group_none">Geen</string>
+    <string name="filter">Filter</string>
 </resources>

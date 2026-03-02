@@ -33,4 +33,12 @@
     <string name="add_task">Lisää tehtävä</string>
     <string name="search_no_results">Ei tuloksia</string>
     <string name="wear_install_app">Asenna puhelimeen</string>
+    <string name="new_task">Uusi tehtävä</string>
+    <string name="save">Tallenna</string>
+    <string name="sort_mode">Järjestä</string>
+    <string name="sort_due_date">Määräpäivä</string>
+    <string name="sort_priority">Tärkeys</string>
+    <string name="sort_start_date">Aloituspäivä</string>
+    <string name="group_none">Ei mitään</string>
+    <string name="filter">Suodatin</string>
 </resources>

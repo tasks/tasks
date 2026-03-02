@@ -33,4 +33,12 @@
     <string name="show_completed">Показати завершені</string>
     <string name="wear_install_app">Установити на телефон</string>
     <string name="wear_unknown_error">Невідома помилка</string>
+    <string name="new_task">Нове завдання</string>
+    <string name="save">Зберегти</string>
+    <string name="sort_mode">Сортувати</string>
+    <string name="sort_due_date">Дата виконання</string>
+    <string name="sort_priority">Пріоритет</string>
+    <string name="sort_start_date">Дата початку</string>
+    <string name="group_none">Немає</string>
+    <string name="filter">Фільтр</string>
 </resources>

@@ -33,4 +33,12 @@
     <string name="add_task">Aufgabe hinzufügen</string>
     <string name="wear_unknown_error">Unbekannter Fehler</string>
     <string name="wear_install_app">Auf dem Handy installieren</string>
+    <string name="new_task">Neue Aufgabe</string>
+    <string name="save">Speichern</string>
+    <string name="sort_mode">Sortieren</string>
+    <string name="sort_due_date">Fälligkeitsdatum</string>
+    <string name="sort_priority">Priorität</string>
+    <string name="sort_start_date">Starttermin</string>
+    <string name="group_none">Keine</string>
+    <string name="filter">Filter</string>
 </resources>

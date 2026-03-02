@@ -33,4 +33,10 @@
     <string name="show_unstarted">Паказаць непачатыя</string>
     <string name="show_completed">Паказаць завершаныя</string>
     <string name="search_no_results">Не знойдзена</string>
+    <string name="save">Захаваць</string>
+    <string name="sort_mode">Сартаванне</string>
+    <string name="sort_due_date">Дата выканання</string>
+    <string name="sort_priority">Прыярытэт</string>
+    <string name="sort_start_date">Дата пачатку</string>
+    <string name="group_none">Няма</string>
 </resources>

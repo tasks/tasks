@@ -33,4 +33,12 @@
     <string name="wear_install_app">Instale no celular</string>
     <string name="wear_unknown_error">Erro desconhecido</string>
     <string name="add_task">Adicionar tarefa</string>
+    <string name="new_task">Nova tarefa</string>
+    <string name="save">Guardar</string>
+    <string name="sort_mode">Ordenar</string>
+    <string name="sort_due_date">Data de fim</string>
+    <string name="sort_priority">Prioridade</string>
+    <string name="sort_start_date">Data de início</string>
+    <string name="group_none">Nenhum</string>
+    <string name="filter">Filtro</string>
 </resources>

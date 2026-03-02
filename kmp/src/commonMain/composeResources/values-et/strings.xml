@@ -33,4 +33,12 @@
     <string name="wear_unknown_error">Tundmatu viga</string>
     <string name="add_task">Lisa ülesanne</string>
     <string name="filter_timer">Ajastatud ülesanded</string>
+    <string name="new_task">Uus ülesanne</string>
+    <string name="save">Salvesta</string>
+    <string name="sort_mode">Sorteeri</string>
+    <string name="sort_due_date">Tähtaeg</string>
+    <string name="sort_priority">Tähtsus</string>
+    <string name="sort_start_date">Alguskuupäev</string>
+    <string name="group_none">Pole</string>
+    <string name="filter">Filter</string>
 </resources>
