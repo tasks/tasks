@@ -1,24 +1,27 @@
 package org.tasks.compose
 
 import android.content.res.Configuration
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,6 +31,7 @@ import org.tasks.R
 import org.tasks.compose.components.imageVectorByName
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
+import org.tasks.themes.chipColors
 
 @Composable
 fun Chip(
@@ -57,59 +61,56 @@ fun Chip(
     onClick: () -> Unit = {},
     clear: (() -> Unit)? = null,
 ) {
+    val colors = chipColors(color.toArgb())
+    val bgColor = Color(colors.backgroundColor)
+    val onColor = Color(colors.contentColor)
     CompositionLocalProvider(
         LocalMinimumInteractiveComponentSize provides Dp.Unspecified
     ) {
-        FilterChip(
-            selected = false,
-            onClick = onClick,
-            border = BorderStroke(1.dp, color = color),
-            leadingIcon = {
-                if (text != null) {
-                    ChipIcon(icon = icon)
-                }
-            },
-            trailingIcon = {
-                clear?.let { onClearClick ->
-                    Icon(
-                        imageVector = Icons.Outlined.Cancel,
-                        modifier = Modifier
-                            .size(16.dp)
-                            .clickable { onClearClick() },
-                        contentDescription = stringResource(id = R.string.delete),
-                    )
-                }
-            },
-            modifier = Modifier.defaultMinSize(minHeight = 26.dp),
-            colors = FilterChipDefaults.filterChipColors(
-                containerColor = color.copy(alpha = .1f),
-                iconColor = MaterialTheme.colorScheme.onSurface,
-                labelColor = MaterialTheme.colorScheme.onSurface,
-            ),
-            label = {
-                if (text == null) {
-                    ChipIcon(icon = icon)
-                }
-                text?.let {
-                    Text(
-                        text = it,
-                        style = MaterialTheme.typography.bodySmall,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                }
+    Surface(
+        onClick = onClick,
+        shape = MaterialTheme.shapes.small,
+        color = bgColor,
+        modifier = Modifier.defaultMinSize(minHeight = 26.dp),
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+        ) {
+            ChipIcon(icon = icon, tint = onColor)
+            text?.let {
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = onColor,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
             }
-        )
+            clear?.let { onClearClick ->
+                Icon(
+                    imageVector = Icons.Outlined.Cancel,
+                    modifier = Modifier
+                        .size(16.dp)
+                        .clickable { onClearClick() },
+                    contentDescription = stringResource(id = R.string.delete),
+                    tint = onColor,
+                )
+            }
+        }
+    }
     }
 }
 
 @Composable
-private fun ChipIcon(icon: String?) {
+private fun ChipIcon(icon: String?, tint: Color = Color.Unspecified) {
     icon?.let {
         Icon(
             imageVector = imageVectorByName(it) ?: return@let,
             contentDescription = null,
-            modifier = Modifier.size(18.dp)
+            modifier = Modifier.size(18.dp),
+            tint = tint,
         )
     }
 }

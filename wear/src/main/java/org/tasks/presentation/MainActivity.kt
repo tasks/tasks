@@ -251,19 +251,29 @@ class MainActivity : ComponentActivity() {
                         ) { navBackStackEntry ->
                             val taskId = navBackStackEntry.arguments?.getLong("taskId") ?: 0
                             val context = LocalContext.current
-                            val viewModel: TaskEditViewModel = viewModel(
+                            val editViewModel: TaskEditViewModel = viewModel(
                                 viewModelStoreOwner = navBackStackEntry,
                                 factory = TaskEditViewModelFactory(
                                     applicationContext = context.applicationContext,
                                     taskId = taskId,
                                 )
                             )
-                            val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
+                            val uiState = editViewModel.uiState.collectAsStateWithLifecycle().value
+                            LaunchedEffect(uiState.error) {
+                                if (uiState.error) {
+                                    navController.popBackStack()
+                                }
+                            }
+                            LaunchedEffect(Unit) {
+                                editViewModel.navigateBack.collect {
+                                    navController.popBackStack()
+                                }
+                            }
                             TaskEditScreen(
                                 uiState = uiState,
-                                setTitle = { viewModel.setTitle(it) },
-                                toggleCompleted = { viewModel.setCompleted(!uiState.completed) { navController.popBackStack() } },
-                                save = { viewModel.save { navController.popBackStack() } },
+                                setTitle = { editViewModel.setTitle(it) },
+                                toggleCompleted = { editViewModel.setCompleted(!uiState.completed) { navController.popBackStack() } },
+                                save = { editViewModel.save { navController.popBackStack() } },
                                 back = { navController.popBackStack() },
                             )
                         }

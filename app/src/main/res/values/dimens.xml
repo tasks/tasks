@@ -28,7 +28,6 @@
 
   <dimen name="task_list_item_spacing">4dp</dimen>
 
-  <dimen name="chip_stroke">1dp</dimen>
   <dimen name="chip_icon_size">18dp</dimen>
 
   <dimen name="icon_picker_size">48dp</dimen>

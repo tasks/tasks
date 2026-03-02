@@ -4,16 +4,20 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import org.tasks.jobs.PendingTaskQueue
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import org.tasks.presentation.phoneTargetNodeId
 import com.google.android.horologist.datalayer.grpc.GrpcExtensions.grpcClient
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.GrpcProto
 import org.tasks.WearServiceGrpcKt
 import org.tasks.extensions.wearDataLayerRegistry
+import org.tasks.jobs.CreateTaskWorker
 import org.tasks.presentation.WearSettings
 import timber.log.Timber
 
@@ -25,17 +29,23 @@ data class UiState(
     val priority: Int = 0,
     val title: String = "",
     val description: String = "",
+    val error: Boolean = false,
 )
 
 @OptIn(ExperimentalHorologistApi::class)
 class TaskEditViewModel(
-    applicationContext: Context,
+    private val applicationContext: Context,
     taskId: Long,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState(taskId = taskId))
     val uiState = _uiState.asStateFlow()
     private val registry = applicationContext.wearDataLayerRegistry(viewModelScope)
     private val wearSettings = WearSettings.getInstance(applicationContext)
+
+    private val _navigateBack = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
+    val navigateBack = _navigateBack.asSharedFlow()
+
+    private var taskQueued = false
 
     private val wearService : WearServiceGrpcKt.WearServiceCoroutineStub = registry.grpcClient(
         nodeId = applicationContext.phoneTargetNodeId(),
@@ -53,52 +63,54 @@ class TaskEditViewModel(
     }
 
     private fun fetchTask(taskId: Long) = viewModelScope.launch {
-        val task = wearService
-            .getTask(GrpcProto.GetTaskRequest.newBuilder().setTaskId(taskId).build())
-        Timber.d("Received $task")
-        _uiState.update {
-            it.copy(
-                loaded = true,
-                taskId = taskId,
-                completed = task.completed,
-                title = task.title,
-                repeating = task.repeating,
-                priority = task.priority,
-                description = task.description,
-            )
+        try {
+            val task = wearService
+                .getTask(GrpcProto.GetTaskRequest.newBuilder().setTaskId(taskId).build())
+            Timber.d("Received $task")
+            _uiState.update {
+                it.copy(
+                    loaded = true,
+                    taskId = taskId,
+                    completed = task.completed,
+                    title = task.title,
+                    repeating = task.repeating,
+                    priority = task.priority,
+                    description = task.description,
+                )
+            }
+        } catch (e: Exception) {
+            Timber.e(e, "Failed to fetch task $taskId")
+            _uiState.update { it.copy(error = true) }
         }
     }
 
-    fun createTask() = viewModelScope.launch {
-        val response = wearService.saveTask(
-            GrpcProto.SaveTaskRequest.newBuilder()
-                .setTitle(uiState.value.title)
-                .apply {
-                    wearSettings.stateFlow.value.filter
-                        ?.takeIf { it.isNotBlank() }
-                        ?.let { setFilter(it) }
-                }
-                .build()
-        )
-        fetchTask(response.taskId)
-    }
-
     fun save(onComplete: () -> Unit) = viewModelScope.launch {
-        val state = uiState.value
-        wearService.saveTask(
-            GrpcProto.SaveTaskRequest.newBuilder()
-                .setTitle(state.title)
-                .setTaskId(state.taskId)
-                .setCompleted(state.completed)
-                .build()
-        )
-        onComplete()
+        try {
+            val state = uiState.value
+            wearService.saveTask(
+                GrpcProto.SaveTaskRequest.newBuilder()
+                    .setTitle(state.title)
+                    .setTaskId(state.taskId)
+                    .setCompleted(state.completed)
+                    .build()
+            )
+            onComplete()
+        } catch (e: Exception) {
+            Timber.e(e, "Failed to save task")
+            _uiState.update { it.copy(error = true) }
+        }
     }
 
     fun setTitle(title: String) {
         _uiState.update { it.copy(title = title) }
-        if (uiState.value.taskId == 0L) {
-            createTask()
+        if (uiState.value.taskId == 0L && !taskQueued) {
+            taskQueued = true
+            PendingTaskQueue.getInstance(applicationContext).add(
+                title = title,
+                filter = wearSettings.stateFlow.value.filter,
+            )
+            CreateTaskWorker.enqueue(applicationContext)
+            _navigateBack.tryEmit(Unit)
         }
     }
 

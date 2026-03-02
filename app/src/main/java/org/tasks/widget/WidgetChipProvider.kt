@@ -13,6 +13,7 @@ import org.tasks.data.entity.Task
 import org.tasks.data.isHidden
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.extensions.setColorFilter
+import org.tasks.themes.chipColors
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.PlaceFilter
@@ -127,15 +128,14 @@ class WidgetChipProvider @Inject constructor(
         }
 
     private fun newChip(@ColorInt color: Int = 0) = RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_chip).apply {
-        val tint = if (color == 0) {
-            context.getColor(
-                if (isDark) R.color.icon_tint_dark_alpha else R.color.icon_tint_light_alpha
-            )
+        val seedColor = if (color == 0) {
+            context.getColor(R.color.default_chip_background)
         } else {
             color
         }
-        setColorFilter(R.id.chip_icon, tint)
-        setColorFilter(R.id.chip_background, tint)
-        setTextColor(R.id.chip_text, tint)
+        val colors = chipColors(seedColor, isDark)
+        setColorFilter(R.id.chip_icon, colors.contentColor)
+        setColorFilter(R.id.chip_background, colors.backgroundColor)
+        setTextColor(R.id.chip_text, colors.contentColor)
     }
 }

@@ -1,0 +1,9 @@
+* Wear OS app works over WiFi now
+* Configure group and sort mode
+* Fix connection issues
+* Add complications
+  * 'Progress' complication
+  * 'Next task' complication
+  * 'Add task' complication
+  * 'Task count' complication
+  * 'Shortcut' complication

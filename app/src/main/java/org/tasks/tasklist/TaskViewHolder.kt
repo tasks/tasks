@@ -303,7 +303,7 @@ class TaskViewHolder internal constructor(
                         preferences.showListChip &&
                         filter !is CaldavFilter
                     ) {
-                        remember(list) {
+                        remember(list, chipProvider.lists.listsCount.value) {
                             chipProvider.lists.getCaldavList(list)
                         }?.let {
                             FilterChip(

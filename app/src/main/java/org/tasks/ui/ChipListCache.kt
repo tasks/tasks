@@ -6,6 +6,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.compose.throttleLatest
 import org.tasks.data.dao.CaldavDao
@@ -28,6 +30,8 @@ class ChipListCache @Inject internal constructor(
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val lists: MutableMap<String?, CaldavFilter> = HashMap()
     private val tagDatas: MutableMap<String?, TagFilter> = HashMap()
+    private val _listsCount = mutableStateOf(0)
+    val listsCount: State<Int> = _listsCount
     private fun updateCaldavCalendars(
         accounts: List<CaldavAccount>,
         calendars: List<CaldavCalendar>
@@ -42,6 +46,7 @@ class ChipListCache @Inject internal constructor(
                 lists.clear()
                 it.associateByTo(lists) { filter -> filter.uuid }
             }
+        _listsCount.value = lists.size
         refreshBroadcaster.broadcastRefresh()
     }
 
@@ -54,7 +59,8 @@ class ChipListCache @Inject internal constructor(
         refreshBroadcaster.broadcastRefresh()
     }
 
-    fun getCaldavList(caldav: String?): CaldavFilter? = lists[caldav]
+    fun getCaldavList(caldav: String?): CaldavFilter? =
+        if (lists.size <= 1) null else lists[caldav]
 
     fun getTag(tag: String?): TagFilter? = tagDatas[tag]
 

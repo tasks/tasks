@@ -14,7 +14,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.tasks.GrpcProto.GetVersionRequest
 import org.tasks.WearServiceGrpcKt
+import org.tasks.complications.requestComplicationUpdates
 import org.tasks.extensions.wearDataLayerRegistry
+import org.tasks.jobs.CreateTaskWorker
 import timber.log.Timber
 
 @OptIn(ExperimentalHorologistApi::class)
@@ -103,6 +105,8 @@ class MainActivityViewModel(
                         true
                     }
                 }
+                app.requestComplicationUpdates()
+                CreateTaskWorker.enqueue(app)
                 _uiState.value = NodesActionScreenState.Loaded(
                     nodeList = nodeList,
                     phoneUpdateRequired = phoneUpdateRequired,

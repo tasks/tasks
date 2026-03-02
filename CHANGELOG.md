@@ -1,3 +1,29 @@
+### 14.15 (2026-02-25)
+
+* Wear OS improvements
+  * Wear OS app works over WiFi now [#3960](https://github.com/tasks/tasks/issues/3960)
+  * Configure group and sort mode
+  * Fix connection issues [#3604](https://github.com/tasks/tasks/issues/3604)
+* Add Wear OS complications [#3765](https://github.com/tasks/tasks/issues/3765)
+  * 'Progress' complication
+  * 'Next task' complication
+  * 'Add task' complication
+  * 'Task count' complication
+  * 'Shortcut' complication
+* Default to calendar picker when autoclose is enabled
+* Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580
+  * Croatian - @milotype
+  * Czech - @Fjuro
+  * Dutch - Bram Schoenmakers
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @ColorfulRhino
+  * Hungarian - Kaci
+  * Japanese - Norara
+  * Turkish - @oersen
+
 ### 14.14 (2026-02-21)
 
 * Update navigation drawer design

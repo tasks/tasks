@@ -207,9 +207,9 @@ class MainActivityViewModel @Inject constructor(
 
     private fun getColor(filter: Filter): Int {
         if (filter.tint != 0) {
-            val color = colorProvider.getThemeColor(filter.tint, true)
+            val color = colorProvider.getThemeColor(filter.tint, adjust = false)
             if (color.isFree || inventory.purchasedThemes()) {
-                return color.primaryColor
+                return filter.tint
             }
         }
         return 0

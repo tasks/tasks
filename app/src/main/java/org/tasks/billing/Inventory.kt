@@ -9,6 +9,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.isTasksSubscription
 import org.tasks.extensions.Context.openUri
@@ -74,7 +75,7 @@ class Inventory @Inject constructor(
         private set
 
     suspend fun updateTasksAccount() {
-        hasTasksAccount = caldavDao.getAccounts(TYPE_TASKS).any {
+        hasTasksAccount = caldavDao.getAccounts(TYPE_TASKS, TYPE_CALDAV).any {
             it.isTasksSubscription(context)
         }
     }

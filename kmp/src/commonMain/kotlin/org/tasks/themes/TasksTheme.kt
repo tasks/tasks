@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.toArgb
 import com.materialkolor.dynamicColorScheme
 import org.tasks.kmp.org.tasks.themes.ColorProvider.BLACK
 import org.tasks.kmp.org.tasks.themes.ColorProvider.WHITE
-import org.tasks.kmp.org.tasks.themes.ColorProvider.saturated
 
 const val BLUE = -14575885
 
@@ -31,13 +30,9 @@ fun TasksTheme(
         1, 2, 3 -> true
         else -> isSystemInDarkTheme()
     }
-    val desaturated = when {
-        isDark -> saturated[primary] ?: primary
-        primary == WHITE -> BLACK
-        else -> primary
-    }
+    val seedColor = if (primary == WHITE) BLACK else primary
     val generated = dynamicColorScheme(
-        seedColor = Color(desaturated),
+        seedColor = Color(seedColor),
         isDark = isDark,
     )
     val colorScheme = when (theme) {

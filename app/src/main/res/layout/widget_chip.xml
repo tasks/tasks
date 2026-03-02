@@ -10,12 +10,22 @@
   tools:background="@color/md_background_dark">
 
     <ImageView
+      android:id="@+id/chip_background"
+      android:src="@drawable/widget_chip_bg"
+      android:layout_alignParentStart="true"
+      android:layout_alignParentTop="true"
+      android:layout_alignBottom="@id/chip_text"
+      android:layout_alignEnd="@id/chip_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content" />
+
+    <ImageView
       android:id="@+id/chip_icon"
       android:layout_width="@dimen/chip_icon_size"
       android:layout_height="@dimen/chip_icon_size"
       android:layout_alignTop="@id/chip_text"
       android:layout_alignBottom="@id/chip_text"
-      android:paddingStart="5dp"
+      android:paddingStart="6dp"
       android:paddingEnd="0dp"
       android:layout_gravity="center_vertical"
       android:tint="@color/icon_tint_dark_alpha"
@@ -33,18 +43,8 @@
       android:ellipsize="end"
       android:paddingBottom="2dp"
       android:paddingStart="2dp"
-      android:paddingEnd="8dp"
+      android:paddingEnd="6dp"
       android:textColor="@color/white_60"
       tools:text="4 subtasks"/>
-
-    <ImageView
-      android:id="@+id/chip_background"
-      android:src="@drawable/widget_chip_bg"
-      android:layout_alignParentStart="true"
-      android:layout_alignParentTop="true"
-      android:layout_alignBottom="@id/chip_text"
-      android:layout_alignEnd="@id/chip_text"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content" />
 
 </RelativeLayout>

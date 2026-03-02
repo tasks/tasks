@@ -49,6 +49,7 @@ data class ComplicationState(
 abstract class BaseComplicationService : SuspendingComplicationDataSourceService() {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private val stateCache = mutableMapOf<Int, ComplicationState>()
 
     protected val wearService: WearServiceGrpcKt.WearServiceCoroutineStub by lazy {
         val registry = applicationContext.wearDataLayerRegistry(scope)
@@ -68,41 +69,47 @@ abstract class BaseComplicationService : SuspendingComplicationDataSourceService
 
     override fun onComplicationDeactivated(complicationInstanceId: Int) {
         applicationContext.clearComplicationFilter(complicationInstanceId)
+        stateCache.remove(complicationInstanceId)
         super.onComplicationDeactivated(complicationInstanceId)
     }
 
-    protected suspend fun fetchState(complicationId: Int, needsNextTask: Boolean): ComplicationState {
-        val filter = applicationContext.getComplicationFilter(complicationId)
-        val showHidden = applicationContext.getComplicationShowHidden(complicationId)
-        val countRequest = GetTaskCountRequest.newBuilder()
-            .setShowHidden(showHidden)
-            .setShowCompleted(false)
-            .apply { if (filter != null) setFilter(filter) }
-            .build()
-        val countResponse = wearService.getTaskCount(countRequest)
-
-        val nextTask = if (needsNextTask) {
-            val sortMode = applicationContext.getComplicationSortMode(complicationId)
-            val tasksRequest = GetTasksRequest.newBuilder()
-                .setPosition(0)
-                .setLimit(5)
-                .setSortMode(sortMode)
-                .setGroupMode(com.todoroo.astrid.core.SortHelper.GROUP_NONE)
+    protected suspend fun fetchState(complicationId: Int, needsNextTask: Boolean): ComplicationState? {
+        return try {
+            val filter = applicationContext.getComplicationFilter(complicationId)
+            val showHidden = applicationContext.getComplicationShowHidden(complicationId)
+            val countRequest = GetTaskCountRequest.newBuilder()
                 .setShowHidden(showHidden)
                 .setShowCompleted(false)
                 .apply { if (filter != null) setFilter(filter) }
                 .build()
-            val tasks = wearService.getTasks(tasksRequest)
-            tasks.itemsList.firstOrNull { it.type == ListItemType.Item }
-        } else {
-            null
-        }
+            val countResponse = wearService.getTaskCount(countRequest)
 
-        return ComplicationState(
-            count = countResponse.count.toInt(),
-            completedCount = countResponse.completedCount.toInt(),
-            nextTask = nextTask,
-        )
+            val nextTask = if (needsNextTask) {
+                val sortMode = applicationContext.getComplicationSortMode(complicationId)
+                val tasksRequest = GetTasksRequest.newBuilder()
+                    .setPosition(0)
+                    .setLimit(5)
+                    .setSortMode(sortMode)
+                    .setGroupMode(com.todoroo.astrid.core.SortHelper.GROUP_NONE)
+                    .setShowHidden(showHidden)
+                    .setShowCompleted(false)
+                    .apply { if (filter != null) setFilter(filter) }
+                    .build()
+                val tasks = wearService.getTasks(tasksRequest)
+                tasks.itemsList.firstOrNull { it.type == ListItemType.Item }
+            } else {
+                null
+            }
+
+            ComplicationState(
+                count = countResponse.count.toInt(),
+                completedCount = countResponse.completedCount.toInt(),
+                nextTask = nextTask,
+            ).also { stateCache[complicationId] = it }
+        } catch (e: Exception) {
+            Timber.e(e)
+            stateCache[complicationId]
+        }
     }
 
     protected fun monoImage() = MonochromaticImage.Builder(
@@ -127,12 +134,7 @@ class TaskCountComplicationService : BaseComplicationService() {
     override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData? {
         val filter = applicationContext.getComplicationFilter(request.complicationInstanceId)
         val tapAction = tapIntent(request.complicationInstanceId, filter)
-        val state = try {
-            fetchState(request.complicationInstanceId, needsNextTask = false)
-        } catch (e: Exception) {
-            Timber.e(e)
-            null
-        }
+        val state = fetchState(request.complicationInstanceId, needsNextTask = false)
         val label = state?.count?.toString() ?: "--"
         val text = PlainComplicationText.Builder(label).build()
         val contentDescription = PlainComplicationText.Builder("$label tasks").build()
@@ -177,12 +179,7 @@ class NextTaskComplicationService : BaseComplicationService() {
         val filter = applicationContext.getComplicationFilter(request.complicationInstanceId)
         val tapAction = tapIntent(request.complicationInstanceId, filter)
         val contentDescription = PlainComplicationText.Builder("Tasks").build()
-        val state = try {
-            fetchState(request.complicationInstanceId, needsNextTask = true)
-        } catch (e: Exception) {
-            Timber.e(e)
-            null
-        }
+        val state = fetchState(request.complicationInstanceId, needsNextTask = true)
 
         return when (request.complicationType) {
             ComplicationType.LONG_TEXT -> {
@@ -236,25 +233,32 @@ class NextTaskComplicationService : BaseComplicationService() {
 
 class TaskProgressComplicationService : BaseComplicationService() {
 
+    private val progressCache = mutableMapOf<Int, ComplicationState>()
+
     override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData? {
-        val filter = applicationContext.getComplicationFilter(request.complicationInstanceId)
-        val tapAction = tapIntent(request.complicationInstanceId, filter)
-        val response = try {
-            val showHidden = applicationContext.getComplicationShowHidden(request.complicationInstanceId)
-            wearService.getTaskCount(
+        val complicationId = request.complicationInstanceId
+        val filter = applicationContext.getComplicationFilter(complicationId)
+        val tapAction = tapIntent(complicationId, filter)
+        val state = try {
+            val showHidden = applicationContext.getComplicationShowHidden(complicationId)
+            val response = wearService.getTaskCount(
                 GetTaskCountRequest.newBuilder()
                     .setShowHidden(showHidden)
                     .setShowCompleted(true)
                     .apply { if (filter != null) setFilter(filter) }
                     .build()
             )
+            ComplicationState(
+                count = response.count.toInt(),
+                completedCount = response.completedCount.toInt(),
+            ).also { progressCache[complicationId] = it }
         } catch (e: Exception) {
             Timber.e(e)
-            null
+            progressCache[complicationId]
         }
-        val incompleteCount = response?.count ?: 0
-        val completedCount = response?.completedCount ?: 0
-        val label = if (response != null) "$incompleteCount" else "--"
+        val incompleteCount = state?.count ?: 0
+        val completedCount = state?.completedCount ?: 0
+        val label = if (state != null) "$incompleteCount" else "--"
         val text = PlainComplicationText.Builder(label).build()
         val contentDescription = PlainComplicationText.Builder("$label tasks").build()
         val total = (completedCount + incompleteCount).toFloat().coerceAtLeast(1f)
