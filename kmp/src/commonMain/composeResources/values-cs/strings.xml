@@ -41,4 +41,12 @@
     <string name="sort_start_date">Datum zahájení</string>
     <string name="group_none">Žádný</string>
     <string name="filter">Filtr</string>
+    <string name="wear_phone_update_required">Vyžadována aktualizace telefonu</string>
+    <string name="wear_connecting_to_phone">Připojování k telefonu…</string>
+    <string name="enter_title">Zadejte název</string>
+    <string name="group_mode">Skupina</string>
+    <string name="sort_alphabetical">Abecedně</string>
+    <string name="sort_created">Čas vytvoření</string>
+    <string name="sort_modified">Čas úpravy</string>
+    <string name="all_done">Vše hotovo!</string>
 </resources>
