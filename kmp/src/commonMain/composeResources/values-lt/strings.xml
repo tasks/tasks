@@ -27,4 +27,12 @@
     <string name="today_lowercase">šiandien</string>
     <string name="show_unstarted">Rodyti nepradėtas</string>
     <string name="show_completed">Rodyti užbaigtas</string>
+    <string name="new_task">Nauja užduotis</string>
+    <string name="save">Išsaugoti</string>
+    <string name="sort_mode">Eiliškumas</string>
+    <string name="sort_due_date">Termino tada</string>
+    <string name="sort_priority">Prioritetas</string>
+    <string name="sort_start_date">Pradžios data</string>
+    <string name="group_none">Nėra</string>
+    <string name="filter">Filtras</string>
 </resources>

@@ -33,4 +33,12 @@
     <string name="show_completed">Mostra completate</string>
     <string name="wear_install_app">Installa sul telefono</string>
     <string name="wear_unknown_error">Errore sconosciuto</string>
+    <string name="new_task">Nuova attività</string>
+    <string name="save">Salva</string>
+    <string name="sort_mode">Ordina</string>
+    <string name="sort_due_date">Scadenza</string>
+    <string name="sort_priority">Priorità</string>
+    <string name="sort_start_date">Data di inizio</string>
+    <string name="group_none">Nessuno</string>
+    <string name="filter">Filtra</string>
 </resources>

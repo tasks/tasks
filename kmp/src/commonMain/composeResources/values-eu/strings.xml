@@ -27,4 +27,12 @@
     <string name="yesterday">Atzo</string>
     <string name="show_unstarted">Erakutsi hasi gabeak</string>
     <string name="show_completed">Erakutsi burututakoak</string>
+    <string name="new_task">Zeregin berria</string>
+    <string name="save">Gorde</string>
+    <string name="sort_mode">Ordenatu</string>
+    <string name="sort_due_date">Epemuga data</string>
+    <string name="sort_priority">Lehentasuna</string>
+    <string name="sort_start_date">Hasiera data</string>
+    <string name="group_none">Bat ere ez</string>
+    <string name="filter">Iragazkia</string>
 </resources>

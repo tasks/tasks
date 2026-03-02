@@ -33,4 +33,10 @@
     <string name="default_list">സ്വമേധയാ ഉള്ള പട്ടിക</string>
     <string name="show_unstarted">സ്റ്റാർ ചെയ്യാത്തവ കാണിക്കുക</string>
     <string name="show_completed">കഴിഞ്ഞവ കാണുക</string>
+    <string name="save">സംരക്ഷിക്കുക</string>
+    <string name="sort_mode">അടുക്കുക</string>
+    <string name="sort_due_date">തികയുന്നു തിയതി</string>
+    <string name="sort_priority">മുൻഗണന</string>
+    <string name="sort_start_date">തുടങ്ങുന്ന സമയം</string>
+    <string name="group_none">ഒന്നുമില്ല</string>
 </resources>

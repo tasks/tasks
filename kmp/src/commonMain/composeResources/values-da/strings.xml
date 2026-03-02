@@ -33,4 +33,12 @@
     <string name="wear_unknown_error">Ukendt fejl</string>
     <string name="wear_install_app">Installer på telefon</string>
     <string name="add_task">Tilføj opgave</string>
+    <string name="new_task">Ny opgave</string>
+    <string name="save">Gem</string>
+    <string name="sort_mode">Sortér</string>
+    <string name="sort_due_date">Forfaldsdato</string>
+    <string name="sort_priority">Prioritet</string>
+    <string name="sort_start_date">Startdato</string>
+    <string name="group_none">Ingen</string>
+    <string name="filter">Filter</string>
 </resources>

@@ -28,4 +28,12 @@
     <string name="show_completed">Pokaż ukończone</string>
     <string name="show_unstarted">Pokaż nierozpoczęte</string>
     <string name="requires_pro_subscription">Funkcja Pro</string>
+    <string name="new_task">Nowe zadanie</string>
+    <string name="save">Zapisz</string>
+    <string name="sort_mode">Sortuj</string>
+    <string name="sort_due_date">Termin wykonania</string>
+    <string name="sort_priority">Priorytet</string>
+    <string name="sort_start_date">Data rozpoczęcia</string>
+    <string name="group_none">Brak</string>
+    <string name="filter">Filtr</string>
 </resources>

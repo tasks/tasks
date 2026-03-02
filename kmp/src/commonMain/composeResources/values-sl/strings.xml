@@ -11,4 +11,7 @@
     <string name="yest">Včer</string>
     <string name="yesterday">Včeraj</string>
     <string name="today">Danes</string>
+    <string name="sort_mode">Razvrsti</string>
+    <string name="sort_due_date">Dospelost po datumu</string>
+    <string name="sort_priority">Prioriteta</string>
 </resources>

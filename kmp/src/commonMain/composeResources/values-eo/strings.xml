@@ -33,4 +33,12 @@
     <string name="add_task">Aldoni taskon</string>
     <string name="wear_install_app">Instali en poŝtelefonon</string>
     <string name="wear_unknown_error">Nekonata eraro</string>
+    <string name="new_task">Nova tasko</string>
+    <string name="save">Konservi</string>
+    <string name="sort_mode">Ordigi</string>
+    <string name="sort_due_date">Limdato</string>
+    <string name="sort_priority">Prioritato</string>
+    <string name="sort_start_date">Komencodato</string>
+    <string name="group_none">Neniu</string>
+    <string name="filter">Filtrilo</string>
 </resources>

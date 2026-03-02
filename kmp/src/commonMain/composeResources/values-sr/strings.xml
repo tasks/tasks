@@ -33,4 +33,12 @@
     <string name="wear_install_app">Инсталирај на уређају</string>
     <string name="wear_unknown_error">Непозната грешка</string>
     <string name="filter_timer">Задаци са тајмером</string>
+    <string name="new_task">Нови задатак</string>
+    <string name="save">Сачувај</string>
+    <string name="sort_mode">Сортирај</string>
+    <string name="sort_due_date">Датум доспећа</string>
+    <string name="sort_priority">Приоритет</string>
+    <string name="sort_start_date">Датум почетка</string>
+    <string name="group_none">Празно</string>
+    <string name="filter">Филтер</string>
 </resources>

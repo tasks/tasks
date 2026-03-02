@@ -7,4 +7,6 @@
     <string name="settings">Parametros</string>
     <string name="today">Hodie</string>
     <string name="today_lowercase">hodie</string>
+    <string name="save">Salvar</string>
+    <string name="sort_mode">Ordinar</string>
 </resources>

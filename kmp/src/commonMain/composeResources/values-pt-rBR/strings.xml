@@ -33,4 +33,12 @@
     <string name="show_completed">Mostrar tarefas concluídas</string>
     <string name="wear_unknown_error">Erro desconhecido</string>
     <string name="wear_install_app">Instalar no celular</string>
+    <string name="new_task">Nova tarefa</string>
+    <string name="save">Salvar</string>
+    <string name="sort_mode">Ordenar</string>
+    <string name="sort_due_date">Data de vencimento</string>
+    <string name="sort_priority">Prioridade</string>
+    <string name="sort_start_date">Data inicial</string>
+    <string name="group_none">Nenhuma</string>
+    <string name="filter">Filtrar</string>
 </resources>

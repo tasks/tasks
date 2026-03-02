@@ -27,4 +27,12 @@
     <string name="today_lowercase">i dag</string>
     <string name="show_completed">Vis fullførte</string>
     <string name="show_unstarted">Vis ustartede</string>
+    <string name="new_task">Nytt gjøremål</string>
+    <string name="save">Lagre</string>
+    <string name="sort_mode">Sorter</string>
+    <string name="sort_due_date">Tidsfristsdato</string>
+    <string name="sort_priority">Prioritet</string>
+    <string name="sort_start_date">Startdato</string>
+    <string name="group_none">Ingen</string>
+    <string name="filter">Filter</string>
 </resources>

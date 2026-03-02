@@ -33,4 +33,12 @@
     <string name="wear_install_app">Instaliraj na mobitel</string>
     <string name="wear_unknown_error">Nepoznata greška</string>
     <string name="add_task">Dodaj zadatak</string>
+    <string name="new_task">Novi zadatak</string>
+    <string name="save">Spremi</string>
+    <string name="sort_mode">Razvrstaj</string>
+    <string name="sort_due_date">Datum roka</string>
+    <string name="sort_priority">Prioritet</string>
+    <string name="sort_start_date">Datum početka</string>
+    <string name="group_none">Ništa</string>
+    <string name="filter">Filtar</string>
 </resources>

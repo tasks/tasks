@@ -33,4 +33,12 @@
     <string name="show_unstarted">Незапочнати</string>
     <string name="wear_unknown_error">Неочаквана грешка</string>
     <string name="wear_install_app">Инсталиране на телефон</string>
+    <string name="new_task">Нова задача</string>
+    <string name="save">Запазване</string>
+    <string name="sort_mode">Сортиране</string>
+    <string name="sort_due_date">Крайна дата</string>
+    <string name="sort_priority">Приоритет</string>
+    <string name="sort_start_date">Начална дата</string>
+    <string name="group_none">Без</string>
+    <string name="filter">Филтър</string>
 </resources>

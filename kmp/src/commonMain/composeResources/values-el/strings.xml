@@ -33,4 +33,12 @@
     <string name="wear_unknown_error">Άγνωστο σφάλμα</string>
     <string name="show_completed">Εμφάνιση ολοκληρωμένων</string>
     <string name="show_unstarted">Εμφάνιση όσων δεν έχουν ξεκινήσει</string>
+    <string name="new_task">Νέα εργασία</string>
+    <string name="save">Αποθήκευση</string>
+    <string name="sort_mode">Ταξινόμηση</string>
+    <string name="sort_due_date">Ημερομηνία λήξης</string>
+    <string name="sort_priority">Προτεραιότητα</string>
+    <string name="sort_start_date">Ημερομηνία Έναρξης</string>
+    <string name="group_none">Κανένα</string>
+    <string name="filter">Φίλτρο</string>
 </resources>

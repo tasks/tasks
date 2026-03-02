@@ -24,4 +24,12 @@
     <string name="today_lowercase">آج</string>
     <string name="show_unstarted">غیر شروع دکھائیں</string>
     <string name="show_completed">مکمل ہو چکے دکھائیں</string>
+    <string name="new_task">نیا ٹاسک</string>
+    <string name="save">محفوظ کریں</string>
+    <string name="sort_mode">ترتیب</string>
+    <string name="sort_due_date">آخری تاریخ</string>
+    <string name="sort_priority">ترجیح</string>
+    <string name="sort_start_date">تاریخ آغاز</string>
+    <string name="group_none">کوئی نہیں</string>
+    <string name="filter">فلٹر</string>
 </resources>

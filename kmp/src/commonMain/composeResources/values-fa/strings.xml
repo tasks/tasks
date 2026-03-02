@@ -28,4 +28,10 @@
     <string name="tomorrow_lowercase">فردا</string>
     <string name="today_lowercase">امروز</string>
     <string name="add_task">افزودن تسک</string>
+    <string name="save">ذخیره</string>
+    <string name="sort_mode">چینش</string>
+    <string name="sort_due_date">تاریخ موعود</string>
+    <string name="sort_priority">اولیت</string>
+    <string name="sort_start_date">تاریخ شروع</string>
+    <string name="group_none">هیچکدام</string>
 </resources>

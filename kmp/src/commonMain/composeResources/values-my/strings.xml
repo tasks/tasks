@@ -2,4 +2,9 @@
 <resources>
     <string name="search">ရှာမယ်</string>
     <string name="settings">ဆက်တင်များ</string>
+    <string name="save">သိမ်းမည်</string>
+    <string name="sort_mode">စီမည်</string>
+    <string name="sort_due_date">ဆုံးရက်</string>
+    <string name="sort_priority">အရေးပါမှု</string>
+    <string name="sort_start_date">စရက်</string>
 </resources>

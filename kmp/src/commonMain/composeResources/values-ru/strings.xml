@@ -33,4 +33,12 @@
     <string name="wear_unknown_error">Неизвестная ошибка</string>
     <string name="add_task">Добавить задачу</string>
     <string name="subscription_required_description">Разблокируйте все функции всего за 1 доллар США в год</string>
+    <string name="new_task">Новая задача</string>
+    <string name="save">Сохранить</string>
+    <string name="sort_mode">Сортировка</string>
+    <string name="sort_due_date">Дата завершения</string>
+    <string name="sort_priority">Приоритет</string>
+    <string name="sort_start_date">Дата начала</string>
+    <string name="group_none">Нет</string>
+    <string name="filter">Фильтр</string>
 </resources>

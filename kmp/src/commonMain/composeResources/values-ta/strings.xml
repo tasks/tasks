@@ -33,4 +33,12 @@
     <string name="drawer_local_lists">உள்ளக பட்டியல்கள்</string>
     <string name="tomorrow_abbrev_lowercase">டி.எம்.ஆர்.டபிள்யூ</string>
     <string name="yesterday_abbrev_lowercase">உள்ளது</string>
+    <string name="new_task">புதிய பணி</string>
+    <string name="save">சேமி</string>
+    <string name="sort_mode">வரிசைப்படுத்து</string>
+    <string name="sort_due_date">உரிய தேதி</string>
+    <string name="sort_priority">முன்னுரிமை</string>
+    <string name="sort_start_date">தொடங்கும் நாள்</string>
+    <string name="group_none">எதுவுமில்லை</string>
+    <string name="filter">வடிகட்டு</string>
 </resources>

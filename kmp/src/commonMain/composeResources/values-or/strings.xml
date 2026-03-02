@@ -11,4 +11,6 @@
     <string name="yesterday_lowercase">ଗତକାଲି</string>
     <string name="today">ଆଜି</string>
     <string name="today_lowercase">ଆଜି</string>
+    <string name="sort_mode">ସଜାନ୍ତୁ</string>
+    <string name="sort_priority">ପ୍ରାଥମିକତା</string>
 </resources>

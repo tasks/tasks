@@ -33,4 +33,12 @@
     <string name="add_task">增加任務</string>
     <string name="wear_install_app">在手機上安裝</string>
     <string name="wear_unknown_error">未知錯誤</string>
+    <string name="new_task">新工作</string>
+    <string name="save">儲存</string>
+    <string name="sort_mode">排序</string>
+    <string name="sort_due_date">到期日</string>
+    <string name="sort_priority">優先權</string>
+    <string name="sort_start_date">起始日期</string>
+    <string name="group_none">無</string>
+    <string name="filter">過濾器</string>
 </resources>

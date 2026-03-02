@@ -7,4 +7,7 @@
     <string name="search">खोज्नुहोस्</string>
     <string name="filter_my_tasks">मेरा कार्यहरू</string>
     <string name="filter_today">आज</string>
+    <string name="save">सुरक्षित गर्नुहोस्</string>
+    <string name="sort_priority">प्राथमिकता</string>
+    <string name="sort_start_date">सुरु मिति</string>
 </resources>

@@ -33,4 +33,12 @@
     <string name="show_completed">Visa slutförda</string>
     <string name="wear_install_app">Installera på telefon</string>
     <string name="wear_unknown_error">Okänt fel</string>
+    <string name="new_task">Ny uppgift</string>
+    <string name="save">Spara</string>
+    <string name="sort_mode">Sortera</string>
+    <string name="sort_due_date">Förfallodatum</string>
+    <string name="sort_priority">Prioritet</string>
+    <string name="sort_start_date">Startdatum</string>
+    <string name="group_none">Ingen</string>
+    <string name="filter">Filter</string>
 </resources>

@@ -33,4 +33,12 @@
     <string name="wear_install_app">Instalează pe telefon</string>
     <string name="add_task">Adaugă o sarcină</string>
     <string name="wear_unknown_error">Eroare necunoscută</string>
+    <string name="new_task">Sarcină nouă</string>
+    <string name="save">Salvează</string>
+    <string name="sort_mode">Sortare</string>
+    <string name="sort_due_date">Data completării</string>
+    <string name="sort_priority">Prioritate</string>
+    <string name="sort_start_date">Data începerii</string>
+    <string name="group_none">Niciuna</string>
+    <string name="filter">Filtru</string>
 </resources>

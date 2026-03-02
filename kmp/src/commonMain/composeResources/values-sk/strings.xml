@@ -33,4 +33,12 @@
     <string name="tomorrow_abbrev_lowercase">zajtra</string>
     <string name="tomorrow_lowercase">zajtra</string>
     <string name="show_unstarted">Zobraziť nespustené</string>
+    <string name="new_task">Nová úloha</string>
+    <string name="save">Uložiť</string>
+    <string name="sort_mode">Triediť</string>
+    <string name="sort_due_date">Do termínu</string>
+    <string name="sort_priority">Dôležitosť</string>
+    <string name="sort_start_date">Dátum spustenia</string>
+    <string name="group_none">Žiadna</string>
+    <string name="filter">Filter</string>
 </resources>

@@ -33,4 +33,12 @@
     <string name="add_task">Engade a tarefa</string>
     <string name="wear_install_app">Instala en teléfono</string>
     <string name="wear_unknown_error">Erro descoñecido</string>
+    <string name="new_task">Nova tarefa</string>
+    <string name="save">Gardar</string>
+    <string name="sort_mode">Ordenar</string>
+    <string name="sort_due_date">Data de vencemento</string>
+    <string name="sort_priority">Prioridade</string>
+    <string name="sort_start_date">Data de inicio</string>
+    <string name="group_none">Ningunha</string>
+    <string name="filter">Filtro</string>
 </resources>

@@ -2,4 +2,5 @@
 <resources>
     <string name="search">সার্চ</string>
     <string name="settings">সেটিংস</string>
+    <string name="sort_mode">সাজাও</string>
 </resources>
