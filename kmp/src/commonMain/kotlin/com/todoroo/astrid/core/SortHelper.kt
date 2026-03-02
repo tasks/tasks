@@ -12,6 +12,7 @@ import org.tasks.db.QueryUtils.showCompleted
 import org.tasks.db.QueryUtils.showHidden
 import org.tasks.preferences.QueryPreferences
 
+@Suppress("StringLiteralDuplication")
 object SortHelper {
     const val GROUP_NONE: Int = -1
     const val SORT_AUTO: Int = 0
