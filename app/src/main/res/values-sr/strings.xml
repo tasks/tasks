@@ -764,4 +764,21 @@
     <string name="alarm_start">старт</string>
     <string name="alarm_after">након</string>
     <string name="alarm_before">пре</string>
+    <string name="invalid_email_address">Невалидна мејл адреса</string>
+    <string name="sign_in_to_connect">Пријави се за повезивање Tasks.org налога</string>
+    <string name="supporter_summary">%s • Хвала!</string>
+    <string name="donate">Донирај</string>
+    <string name="upgrade_to_pro_card_description">Откључај Tasks.org Cloud sync, Email to Task, и још много тога!</string>
+    <string name="advanced_tools_description">Google Places, CalDAV, EteSync, и још тога!</string>
+    <string name="advanced_tools">Напредна подешавања</string>
+    <string name="upgrade_email_to_task_description">Претвори мејлове у задатке прослеђивањем истих у своје поштанско сандуче</string>
+    <string name="rmd_time_enabled_off">Без додавања подразумеваних подсетника за целодневне задатке</string>
+    <string name="rmd_time_enabled_on">Додај подразумеване подсетнике за целодневне задатке</string>
+    <string name="add_default_reminders">Додај подразумеване подсетнике</string>
+    <string name="regenerate_email_address_confirmation">Твоја тренутна мејл адреса ће престати да ради</string>
+    <string name="regenerate_email_address">Регенериши адресу</string>
+    <string name="email_to_task_calendar">Листа дестинација</string>
+    <string name="email_to_task_address">Твоја мејл адреса</string>
+    <string name="email_to_task">Мејл у задатак</string>
+    <string name="supporter">Подржавач</string>
 </resources>
