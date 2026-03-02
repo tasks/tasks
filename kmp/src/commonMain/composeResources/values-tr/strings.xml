@@ -33,4 +33,12 @@
     <string name="show_completed">Tamamlananları göster</string>
     <string name="wear_install_app">Telefona kur</string>
     <string name="wear_unknown_error">Bilinmeyen hata</string>
+    <string name="new_task">Yeni görev</string>
+    <string name="save">Kaydet</string>
+    <string name="sort_mode">Sırala</string>
+    <string name="sort_due_date">Bitiş tarihi</string>
+    <string name="sort_priority">Öncelik</string>
+    <string name="sort_start_date">Başlangıç tarihi</string>
+    <string name="group_none">Hiçbiri</string>
+    <string name="filter">Süzgeç</string>
 </resources>

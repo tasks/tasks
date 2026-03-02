@@ -26,4 +26,12 @@
     <string name="yesterday_lowercase">เมื่อวานนี้</string>
     <string name="show_unstarted">แสดงสิ่งที่ไม่ได้เริ่มต้น</string>
     <string name="show_completed">การแสดงเสร็จสมบูรณ์</string>
+    <string name="new_task">งานใหม่</string>
+    <string name="save">บันทึก</string>
+    <string name="sort_mode">Sort &amp; Hidden</string>
+    <string name="sort_due_date">วันที่ครบกําหนด</string>
+    <string name="sort_priority">ความสำคัญ</string>
+    <string name="sort_start_date">วันที่เริ่มต้น</string>
+    <string name="group_none">ไม่มีใคร</string>
+    <string name="filter">กรอง</string>
 </resources>

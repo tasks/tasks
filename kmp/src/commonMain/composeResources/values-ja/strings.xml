@@ -33,4 +33,12 @@
     <string name="add_task">タスクを追加</string>
     <string name="wear_install_app">インストール</string>
     <string name="wear_unknown_error">不明なエラー</string>
+    <string name="new_task">新しいタスク</string>
+    <string name="save">保存</string>
+    <string name="sort_mode">並べ替え</string>
+    <string name="sort_due_date">締切日</string>
+    <string name="sort_priority">優先度</string>
+    <string name="sort_start_date">着手日時</string>
+    <string name="group_none">なし</string>
+    <string name="filter">フィルター</string>
 </resources>

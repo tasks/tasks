@@ -33,4 +33,12 @@
     <string name="wear_install_app">Instalovat na telefon</string>
     <string name="wear_unknown_error">Neznámá chyba</string>
     <string name="add_task">Přidat připomínku</string>
+    <string name="new_task">Nový úkol</string>
+    <string name="save">Uložit</string>
+    <string name="sort_mode">Seřadit</string>
+    <string name="sort_due_date">Termín úkolu</string>
+    <string name="sort_priority">Důležitost</string>
+    <string name="sort_start_date">Datum zahájení</string>
+    <string name="group_none">Žádný</string>
+    <string name="filter">Filtr</string>
 </resources>

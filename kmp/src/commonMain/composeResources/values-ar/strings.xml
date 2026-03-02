@@ -33,4 +33,12 @@
     <string name="search_no_results">لا نتائج</string>
     <string name="add_task">إضافة مهمة</string>
     <string name="requires_pro_subscription">يتطلب اشتراك احترافي</string>
+    <string name="new_task">مهمة جديدة</string>
+    <string name="save">حفظ</string>
+    <string name="sort_mode">رتب</string>
+    <string name="sort_due_date">التاريخ المحدد</string>
+    <string name="sort_priority">الأولويّة</string>
+    <string name="sort_start_date">تاريخ البدأ</string>
+    <string name="group_none">لا شيء</string>
+    <string name="filter">تصفية</string>
 </resources>
