@@ -33,4 +33,12 @@
     <string name="show_completed">Afficher les tâches terminées</string>
     <string name="wear_install_app">Installer sur le téléphone</string>
     <string name="wear_unknown_error">Erreur inconnue</string>
+    <string name="new_task">Nouvelle tâche</string>
+    <string name="save">Enregistrer</string>
+    <string name="sort_mode">Trier</string>
+    <string name="sort_due_date">Date d\'échéance</string>
+    <string name="sort_priority">Priorité</string>
+    <string name="sort_start_date">Date de départ</string>
+    <string name="group_none">Aucun</string>
+    <string name="filter">Filtre</string>
 </resources>

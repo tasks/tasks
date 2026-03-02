@@ -33,4 +33,12 @@
     <string name="show_completed">Elvégzettek megjelenítése</string>
     <string name="wear_install_app">A telefonra telepíteni</string>
     <string name="wear_unknown_error">Ismeretlen hiba</string>
+    <string name="new_task">Új feladat</string>
+    <string name="save">Mentés</string>
+    <string name="sort_mode">Rendezés</string>
+    <string name="sort_due_date">Határidő</string>
+    <string name="sort_priority">Prioritás</string>
+    <string name="sort_start_date">Kezdő dátum</string>
+    <string name="group_none">Nincs</string>
+    <string name="filter">Szűrő</string>
 </resources>

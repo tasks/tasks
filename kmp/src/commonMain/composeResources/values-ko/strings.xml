@@ -33,4 +33,12 @@
     <string name="add_task">할 일 추가</string>
     <string name="wear_install_app">휴대폰에 설치하기</string>
     <string name="wear_unknown_error">알 수 없는 오류</string>
+    <string name="new_task">새 할일</string>
+    <string name="save">저장</string>
+    <string name="sort_mode">정렬</string>
+    <string name="sort_due_date">마감일</string>
+    <string name="sort_priority">우선순위</string>
+    <string name="sort_start_date">시작일</string>
+    <string name="group_none">없음</string>
+    <string name="filter">필터</string>
 </resources>

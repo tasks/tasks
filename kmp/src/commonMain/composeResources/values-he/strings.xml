@@ -33,4 +33,12 @@
     <string name="requires_pro_subscription">תכונת פרו</string>
     <string name="add_task">הוספת משימה</string>
     <string name="filter_snoozed">בנמנום</string>
+    <string name="new_task">משימה חדשה</string>
+    <string name="save">שמירה</string>
+    <string name="sort_mode">מיון</string>
+    <string name="sort_due_date">תאריך יעד</string>
+    <string name="sort_priority">עדיפות</string>
+    <string name="sort_start_date">תאריך התחלה</string>
+    <string name="group_none">ללא</string>
+    <string name="filter">מסנן</string>
 </resources>

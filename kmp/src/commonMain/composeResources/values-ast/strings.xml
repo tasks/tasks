@@ -16,4 +16,12 @@
     <string name="settings">Axustes</string>
     <string name="drawer_filters">Filtros</string>
     <string name="drawer_tags">Etiquetes</string>
+    <string name="new_task">Nueva xera</string>
+    <string name="save">Guardar</string>
+    <string name="sort_mode">Ordenar</string>
+    <string name="sort_due_date">Data de vencimientu</string>
+    <string name="sort_priority">Prioridá</string>
+    <string name="sort_start_date">Data d\'entamu</string>
+    <string name="group_none">Denguna</string>
+    <string name="filter">Filtru</string>
 </resources>

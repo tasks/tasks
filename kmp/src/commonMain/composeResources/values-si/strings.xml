@@ -26,4 +26,12 @@
     <string name="today_lowercase">අද</string>
     <string name="show_unstarted">ආරම්භ නොවූ ඒවා පෙන්වන්න</string>
     <string name="show_completed">සම්පුර්ණ කරන ලද</string>
+    <string name="new_task">නව කාර්යයක්</string>
+    <string name="save">සුරකින්න</string>
+    <string name="sort_mode">වර්ග කරන්න</string>
+    <string name="sort_due_date">අවසාන දිනය</string>
+    <string name="sort_priority">ප්‍රමුඛතාවය</string>
+    <string name="sort_start_date">ආරම්භක දිනය</string>
+    <string name="group_none">කිසිවක් නැත</string>
+    <string name="filter">පෙරහන</string>
 </resources>
