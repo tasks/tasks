@@ -41,4 +41,12 @@
     <string name="sort_start_date">Alguskuupäev</string>
     <string name="group_none">Pole</string>
     <string name="filter">Filter</string>
+    <string name="wear_phone_update_required">Vajalik on telefoni uuendus</string>
+    <string name="wear_connecting_to_phone">Ühendan telefoniga…</string>
+    <string name="enter_title">Sisesta pealkiri</string>
+    <string name="group_mode">Grupp</string>
+    <string name="sort_alphabetical">Tähestiku järjekorras</string>
+    <string name="sort_created">Loomise aja alusel</string>
+    <string name="sort_modified">Muutmise aja alusel</string>
+    <string name="all_done">Saigi valmis!</string>
 </resources>
