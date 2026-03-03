@@ -32,7 +32,7 @@
     <string name="show_completed">Erledigte anzeigen</string>
     <string name="add_task">Aufgabe hinzufügen</string>
     <string name="wear_unknown_error">Unbekannter Fehler</string>
-    <string name="wear_install_app">Auf dem Handy installieren</string>
+    <string name="wear_install_app">Auf dem Smartphone installieren</string>
     <string name="new_task">Neue Aufgabe</string>
     <string name="save">Speichern</string>
     <string name="sort_mode">Sortieren</string>
@@ -41,4 +41,12 @@
     <string name="sort_start_date">Starttermin</string>
     <string name="group_none">Keine</string>
     <string name="filter">Filter</string>
+    <string name="wear_phone_update_required">Update des Smartphones erforderlich</string>
+    <string name="wear_connecting_to_phone">Wird mit dem Smartphone verbunden…</string>
+    <string name="enter_title">Titel eingeben</string>
+    <string name="group_mode">Gruppe</string>
+    <string name="sort_alphabetical">Alphabetisch</string>
+    <string name="sort_created">Erstellungsdatum</string>
+    <string name="sort_modified">Änderungsdatum</string>
+    <string name="all_done">Alles erledigt!</string>
 </resources>
