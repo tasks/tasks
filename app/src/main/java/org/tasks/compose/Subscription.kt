@@ -22,13 +22,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -80,7 +80,6 @@ import org.tasks.compose.Constants.HALF_KEYLINE
 import org.tasks.compose.Constants.KEYLINE_FIRST
 import org.tasks.compose.PurchaseText.SubscriptionScreen
 import org.tasks.compose.settings.SettingsCardRadius
-import org.tasks.themes.TasksSettingsTheme
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
 
@@ -479,7 +478,13 @@ object PurchaseText {
                 }
             }
             if (!showMoreOptions && !existingSubscriber && !hasTasksAccount) {
-                Spacer(Modifier.height(KEYLINE_FIRST))
+                Spacer(Modifier.height(32.dp))
+                Text(
+                    text = stringResource(R.string.sign_in_subtitle),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Spacer(Modifier.height(4.dp))
                 Button(
                     onClick = onSignIn,
                     colors = ButtonDefaults.buttonColors(

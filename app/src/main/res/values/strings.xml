@@ -740,6 +740,7 @@ File %1$s contained %2$s.\n\n
   <string name="enable_alarms">Get notified at the right time</string>
   <string name="enable_alarms_description">To make sure you\'re notified at the right time, grant permission to set alarms and reminders in Settings</string>
   <string name="sign_in">Sign in</string>
+  <string name="sign_in_subtitle">Already a subscriber or invited guest?</string>
   <string name="legal_disclosure">%1$s, you agree to the %2$s and %3$s. Tasks is open source software provided under the %4$s.</string>
   <string name="legal_disclosure_prefix_using">By using Tasks.org</string>
   <string name="legal_disclosure_prefix_continuing">By continuing with any button below</string>
