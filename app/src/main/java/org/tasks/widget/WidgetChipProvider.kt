@@ -129,7 +129,7 @@ class WidgetChipProvider @Inject constructor(
 
     private fun newChip(@ColorInt color: Int = 0) = RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_chip).apply {
         val seedColor = if (color == 0) {
-            context.getColor(R.color.default_chip_background)
+            context.getColor(org.tasks.kmp.R.color.grey_300)
         } else {
             color
         }

@@ -4,6 +4,7 @@ import android.app.Activity
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.themes.ColorProvider
+import org.tasks.themes.chipColors
 import javax.inject.Inject
 
 @Deprecated("remove me")
@@ -13,6 +14,7 @@ class ChipProvider @Inject constructor(
     val lists: ChipListCache,
     private val colorProvider: ColorProvider,
 ) {
+    private val isDark = activity.resources.getBoolean(R.bool.is_dark)
 
     fun getColor(theme: Int): Int {
         if (theme != 0) {
@@ -21,6 +23,6 @@ class ChipProvider @Inject constructor(
                 return color.primaryColor
             }
         }
-        return activity.getColor(R.color.default_chip_background)
+        return chipColors(activity.getColor(org.tasks.kmp.R.color.grey_300), isDark).backgroundColor
     }
 }
