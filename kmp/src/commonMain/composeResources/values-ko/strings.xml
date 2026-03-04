@@ -41,4 +41,5 @@
     <string name="sort_start_date">시작일</string>
     <string name="group_none">없음</string>
     <string name="filter">필터</string>
+    <string name="sort_list">목록</string>
 </resources>

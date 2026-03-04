@@ -35,4 +35,5 @@
     <string name="sort_start_date">Startdato</string>
     <string name="group_none">Ingen</string>
     <string name="filter">Filter</string>
+    <string name="sort_list">Liste</string>
 </resources>

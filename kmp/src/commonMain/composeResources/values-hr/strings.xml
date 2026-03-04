@@ -41,4 +41,5 @@
     <string name="sort_start_date">Datum početka</string>
     <string name="group_none">Ništa</string>
     <string name="filter">Filtar</string>
+    <string name="sort_list">Popis</string>
 </resources>

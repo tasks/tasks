@@ -41,4 +41,5 @@
     <string name="sort_start_date">تاريخ البدأ</string>
     <string name="group_none">لا شيء</string>
     <string name="filter">تصفية</string>
+    <string name="sort_list">قائمة</string>
 </resources>

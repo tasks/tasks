@@ -41,4 +41,5 @@
     <string name="sort_start_date">起始日期</string>
     <string name="group_none">無</string>
     <string name="filter">過濾器</string>
+    <string name="sort_list">清單</string>
 </resources>

@@ -41,4 +41,5 @@
     <string name="sort_start_date">Начална дата</string>
     <string name="group_none">Без</string>
     <string name="filter">Филтър</string>
+    <string name="sort_list">Списък</string>
 </resources>

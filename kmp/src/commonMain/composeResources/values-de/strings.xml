@@ -49,4 +49,5 @@
     <string name="sort_created">Erstellungsdatum</string>
     <string name="sort_modified">Änderungsdatum</string>
     <string name="all_done">Alles erledigt!</string>
+    <string name="sort_list">Liste</string>
 </resources>

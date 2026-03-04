@@ -41,4 +41,5 @@
     <string name="sort_start_date">Data di inizio</string>
     <string name="group_none">Nessuno</string>
     <string name="filter">Filtra</string>
+    <string name="sort_list">Lista</string>
 </resources>

@@ -37,4 +37,5 @@
     <string name="sort_start_date">Ngày bắt đầu</string>
     <string name="group_none">Không có</string>
     <string name="filter">Lọc</string>
+    <string name="sort_list">Danh sách</string>
 </resources>

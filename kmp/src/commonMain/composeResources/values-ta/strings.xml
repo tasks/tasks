@@ -41,4 +41,5 @@
     <string name="sort_start_date">தொடங்கும் நாள்</string>
     <string name="group_none">எதுவுமில்லை</string>
     <string name="filter">வடிகட்டு</string>
+    <string name="sort_list">பட்டியல்</string>
 </resources>

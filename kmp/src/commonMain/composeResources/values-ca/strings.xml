@@ -41,4 +41,5 @@
     <string name="sort_start_date">Data d\'inici</string>
     <string name="group_none">Cap</string>
     <string name="filter">Filtre</string>
+    <string name="sort_list">Llista</string>
 </resources>

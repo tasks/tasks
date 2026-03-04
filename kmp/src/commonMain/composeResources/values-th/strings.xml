@@ -34,4 +34,5 @@
     <string name="sort_start_date">วันที่เริ่มต้น</string>
     <string name="group_none">ไม่มีใคร</string>
     <string name="filter">กรอง</string>
+    <string name="sort_list">รายการ</string>
 </resources>

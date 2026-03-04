@@ -41,4 +41,5 @@
     <string name="sort_start_date">着手日時</string>
     <string name="group_none">なし</string>
     <string name="filter">フィルター</string>
+    <string name="sort_list">リスト</string>
 </resources>

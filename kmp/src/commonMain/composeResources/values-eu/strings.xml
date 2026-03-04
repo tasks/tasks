@@ -35,4 +35,5 @@
     <string name="sort_start_date">Hasiera data</string>
     <string name="group_none">Bat ere ez</string>
     <string name="filter">Iragazkia</string>
+    <string name="sort_list">Zerrenda</string>
 </resources>

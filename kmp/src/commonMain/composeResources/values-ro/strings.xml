@@ -41,4 +41,5 @@
     <string name="sort_start_date">Data începerii</string>
     <string name="group_none">Niciuna</string>
     <string name="filter">Filtru</string>
+    <string name="sort_list">Listă</string>
 </resources>

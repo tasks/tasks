@@ -34,4 +34,5 @@
     <string name="sort_start_date">ආරම්භක දිනය</string>
     <string name="group_none">කිසිවක් නැත</string>
     <string name="filter">පෙරහන</string>
+    <string name="sort_list">ලැයිස්තුව</string>
 </resources>

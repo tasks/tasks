@@ -41,4 +41,5 @@
     <string name="sort_start_date">Komencodato</string>
     <string name="group_none">Neniu</string>
     <string name="filter">Filtrilo</string>
+    <string name="sort_list">Listo</string>
 </resources>

@@ -41,4 +41,5 @@
     <string name="sort_start_date">Dátum spustenia</string>
     <string name="group_none">Žiadna</string>
     <string name="filter">Filter</string>
+    <string name="sort_list">Zoznam</string>
 </resources>

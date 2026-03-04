@@ -41,4 +41,5 @@
     <string name="sort_start_date">תאריך התחלה</string>
     <string name="group_none">ללא</string>
     <string name="filter">מסנן</string>
+    <string name="sort_list">רשימה</string>
 </resources>

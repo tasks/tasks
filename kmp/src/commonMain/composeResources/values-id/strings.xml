@@ -36,4 +36,5 @@
     <string name="sort_start_date">Tanggal mulai</string>
     <string name="group_none">Tidak Ada</string>
     <string name="filter">Filter</string>
+    <string name="sort_list">Daftar</string>
 </resources>
