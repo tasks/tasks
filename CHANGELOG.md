@@ -1,3 +1,17 @@
+### 15.0 (2026-03-04)
+
+* Friends & Family Sharing
+  * Tasks.org cloud users can invite five guests to access shared lists for free
+  * Guests can use Tasks.org, Apple Reminders, or any third-party CalDAV client
+* Updated chip styles
+* Fix group by list headers on WearOS
+* Update translations
+  * Chinese (Traditional) - @xlionjuan
+  * Finnish - @pHamala
+  * Italian - @ppasserini
+  * Japanese - Norara
+  * Serbian - @vale-decem
+
 ### 14.15 (2026-02-25)
 
 * Wear OS improvements
