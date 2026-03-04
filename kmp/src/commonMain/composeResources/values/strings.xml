@@ -46,6 +46,7 @@
     <string name="sort_created">Created</string>
     <string name="sort_modified">Modified</string>
     <string name="sort_start_date">Start date</string>
+    <string name="sort_list">List</string>
     <string name="group_none">None</string>
     <string name="all_done">All done!</string>
     <string name="filter">Filter</string>

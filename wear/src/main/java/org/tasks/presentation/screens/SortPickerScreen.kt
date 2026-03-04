@@ -29,6 +29,7 @@ import tasks.kmp.generated.resources.sort_created
 import tasks.kmp.generated.resources.sort_due_date
 import tasks.kmp.generated.resources.sort_modified
 import tasks.kmp.generated.resources.sort_priority
+import tasks.kmp.generated.resources.sort_list
 import tasks.kmp.generated.resources.sort_start_date
 
 @Composable
@@ -45,6 +46,7 @@ fun sortModeLabel(sortMode: Int): String = when (sortMode) {
 @Composable
 fun groupModeLabel(groupMode: Int): String = when (groupMode) {
     SortHelper.GROUP_NONE -> stringResource(Res.string.group_none)
+    SortHelper.SORT_LIST -> stringResource(Res.string.sort_list)
     else -> sortModeLabel(groupMode)
 }
 
@@ -70,6 +72,9 @@ fun SortPickerScreen(
         add(SortOption(SortHelper.SORT_CREATED) { stringResource(Res.string.sort_created) })
         add(SortOption(SortHelper.SORT_MODIFIED) { stringResource(Res.string.sort_modified) })
         add(SortOption(SortHelper.SORT_START) { stringResource(Res.string.sort_start_date) })
+        if (includeNone) {
+            add(SortOption(SortHelper.SORT_LIST) { stringResource(Res.string.sort_list) })
+        }
     }
 
     val columnState = rememberResponsiveColumnState()

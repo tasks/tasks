@@ -96,7 +96,7 @@ class WearService(
                                 GrpcProto.UiItem.newBuilder()
                                     .setId(item.value)
                                     .setType(ListItemType.Header)
-                                    .setTitle(headerFormatter.headerString(item.value, style = DateStyle.MEDIUM))
+                                    .setTitle(headerFormatter.headerString(item.value, groupMode = preferences.groupMode, style = DateStyle.MEDIUM))
                                     .setCollapsed(item.collapsed)
                                     .build()
 
