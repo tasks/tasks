@@ -58,7 +58,8 @@ data class CaldavAccount(
         get() = accountType == TYPE_OPENTASKS
 
     val isTasksOrg: Boolean
-        get() = accountType == TYPE_TASKS
+        get() = accountType == TYPE_TASKS ||
+                (accountType == TYPE_CALDAV && url?.matches(Regex("https://(staging|caldav)\\.tasks\\.org/.*")) == true)
 
     val isMicrosoft: Boolean
         get() = accountType == TYPE_MICROSOFT
