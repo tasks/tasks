@@ -65,7 +65,8 @@ import org.tasks.compose.components.SearchBar
 import org.tasks.compose.components.TasksIcon
 import org.tasks.kmp.formatNumber
 import androidx.compose.foundation.isSystemInDarkTheme
-import org.tasks.themes.darkModeColor
+import org.tasks.themes.ColorTone
+import org.tasks.themes.tonalColor
 import org.tasks.kmp.org.tasks.compose.rememberImeState
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.search
@@ -254,12 +255,13 @@ internal fun FilterItem(
     ) {
         TasksIcon(
             label = item.icon,
-            tint = when (item.color) {
-                0 -> MaterialTheme.colorScheme.onSurface
-                else -> if (isSystemInDarkTheme())
-                    Color(darkModeColor(item.color, tone = 60))
-                else
-                    Color(item.color)
+            tint = when {
+                item.color == 0 -> MaterialTheme.colorScheme.onSurface
+                item.adjustColor && isSystemInDarkTheme() ->
+                    Color(tonalColor(item.color, ColorTone.DARK_DRAWER))
+                item.adjustColor ->
+                    Color(tonalColor(item.color, ColorTone.LIGHT_DRAWER))
+                else -> Color(item.color)
             }
         )
         Spacer(modifier = Modifier.width(16.dp))

@@ -1,7 +1,6 @@
 package org.tasks.themes;
 
-import static org.tasks.kmp.org.tasks.themes.ColorProvider.WHITE;
-import static org.tasks.themes.ColorUtilsKt.calculateContrast;
+import static org.tasks.themes.ChipColorsKt.contentColor;
 
 import android.app.Activity;
 import android.content.Context;
@@ -165,13 +164,8 @@ public class ThemeColor implements Pickable {
     }
     colorPrimary = color;
 
-    double contrast = calculateContrast(WHITE, colorPrimary);
-    isDark = contrast < 3;
-    if (isDark) {
-      colorOnPrimary = context.getColor(R.color.black_87);
-    } else {
-      colorOnPrimary = WHITE;
-    }
+    colorOnPrimary = contentColor(colorPrimary);
+    isDark = colorOnPrimary != -1; // not white means dark background
   }
 
   private ThemeColor(Parcel source) {

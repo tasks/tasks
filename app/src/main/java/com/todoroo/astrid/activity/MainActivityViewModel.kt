@@ -155,11 +155,13 @@ class MainActivityViewModel @Inject constructor(
             .drawerItems()
             .map { item ->
                 when (item) {
-                    is Filter ->
+                    is Filter -> {
+                        val tint = getTintInfo(item)
                         DrawerItem.Filter(
                             title = item.title,
                             icon = item.getIcon(inventory),
-                            color = getColor(item),
+                            color = tint.color,
+                            adjustColor = tint.adjust,
                             count = item.count.takeIf { it != NO_COUNT } ?: try {
                                 taskDao.count(item)
                             } catch (e: Exception) {
@@ -170,6 +172,7 @@ class MainActivityViewModel @Inject constructor(
                             shareCount = if (item is CaldavFilter) item.principals else 0,
                             filter = item,
                         )
+                    }
                     is NavigationDrawerSubheader ->
                         DrawerItem.Header(
                             title = item.title ?: "",
@@ -189,10 +192,12 @@ class MainActivityViewModel @Inject constructor(
             .allFilters()
             .filter { it.title.contains(query, ignoreCase = true) }
             .map { item ->
+                val tint = getTintInfo(item)
                 DrawerItem.Filter(
                     title = item.title,
                     icon = item.getIcon(inventory),
-                    color = getColor(item),
+                    color = tint.color,
+                    adjustColor = tint.adjust,
                     count = item.count.takeIf { it != NO_COUNT } ?: try {
                         taskDao.count(item)
                     } catch (e: Exception) {
@@ -207,14 +212,19 @@ class MainActivityViewModel @Inject constructor(
             .let { filters -> _state.update { it.copy(searchItems = filters.toPersistentList()) } }
     }
 
-    private fun getColor(filter: Filter): Int {
+    private data class TintInfo(val color: Int, val adjust: Boolean)
+
+    private fun getTintInfo(filter: Filter): TintInfo {
         if (filter.tint != 0) {
             val color = colorProvider.getThemeColor(filter.tint, adjust = false)
             if (color.isFree || inventory.purchasedThemes()) {
-                return filter.tint
+                return TintInfo(
+                    color = filter.tint,
+                    adjust = colorProvider.isPresetColor(filter.tint),
+                )
             }
         }
-        return 0
+        return TintInfo(color = 0, adjust = false)
     }
 
     fun toggleCollapsed(subheader: NavigationDrawerSubheader) = viewModelScope.launch {

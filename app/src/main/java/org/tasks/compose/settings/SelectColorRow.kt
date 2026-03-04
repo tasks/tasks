@@ -3,6 +3,7 @@ package org.tasks.compose.settings
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -35,9 +36,10 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import org.tasks.R
 import org.tasks.compose.Constants
 import org.tasks.kmp.org.tasks.compose.settings.SettingRow
-import org.tasks.themes.ColorProvider
+import org.tasks.themes.ColorTone
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.ThemeColor
+import org.tasks.themes.tonalColor
 
 @Composable
 fun SelectColorRow(
@@ -59,7 +61,7 @@ fun SelectColorRow(
             onDismiss = { showColorPicker = false },
             onColorSelected = {
                 if (hasPro || it.isFree) {
-                    selectColor(it.primaryColor)
+                    selectColor(it.originalColor)
                 } else {
                     purchase()
                 }
@@ -117,9 +119,16 @@ fun SelectColorRow(
     SettingRow(
         modifier = Modifier.clickable(onClick = { showColorPicker = true }),
         left = {
-            val context = LocalContext.current
-            val adjusted = remember(color) {
-                ColorProvider(context).getThemeColor(color).primaryColor
+            val isPreset = remember(color, colors) {
+                colors.any { it.originalColor == color }
+            }
+            val isDark = isSystemInDarkTheme()
+            val adjusted = remember(color, isDark, isPreset) {
+                if (isPreset) {
+                    tonalColor(color, if (isDark) ColorTone.DARK_TITLE else ColorTone.LIGHT_TITLE)
+                } else {
+                    color
+                }
             }
             Box(
                 modifier = Modifier.size(56.dp),

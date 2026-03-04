@@ -17,15 +17,25 @@ class ColorProvider @Inject constructor(
         ThemeColor.COLORS.map { context.getColor(it) }.toSet() - WHITE
     }
 
-    private fun getColor(@ColorInt color: Int, adjust: Boolean) =
-        when {
-            adjust && isDark && color in presetColors -> darkModeColor(color)
+    private fun getColor(
+        @ColorInt color: Int,
+        adjust: Boolean,
+        lightTone: Int = ColorTone.LIGHT_TITLE,
+        darkTone: Int = ColorTone.DARK_TITLE,
+    ) = when {
+            adjust && color in presetColors && isDark -> tonalColor(color, darkTone)
+            adjust && color in presetColors && !isDark -> tonalColor(color, lightTone)
             !isDark && color == WHITE -> BLACK
             else -> color
         }
 
+    fun isPresetColor(@ColorInt color: Int) = color in presetColors
+
     fun getThemeColor(@ColorInt color: Int, adjust: Boolean = true) =
             ThemeColor(context, color, getColor(color, adjust))
+
+    fun getChipColor(@ColorInt color: Int, adjust: Boolean = true) =
+            ThemeColor(context, color, getColor(color, adjust, ColorTone.LIGHT_CHIP, ColorTone.DARK_CHIP))
 
     fun getPriorityColor(priority: Int) = priorityColor(
         priority = priority,

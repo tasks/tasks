@@ -31,7 +31,7 @@ import org.tasks.R
 import org.tasks.compose.components.imageVectorByName
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
-import org.tasks.themes.chipColors
+import org.tasks.themes.contentColor
 
 @Composable
 fun Chip(
@@ -61,9 +61,8 @@ fun Chip(
     onClick: () -> Unit = {},
     clear: (() -> Unit)? = null,
 ) {
-    val colors = chipColors(color.toArgb())
-    val bgColor = Color(colors.backgroundColor)
-    val onColor = Color(colors.contentColor)
+    val bgColor = color
+    val onColor = Color(contentColor(color.toArgb()))
     CompositionLocalProvider(
         LocalMinimumInteractiveComponentSize provides Dp.Unspecified
     ) {

@@ -1,7 +1,8 @@
 package org.tasks.kmp.org.tasks.themes
 
 import org.tasks.data.entity.Task
-import org.tasks.themes.darkModeColor
+import org.tasks.themes.ColorTone
+import org.tasks.themes.tonalColor
 
 object ColorProvider {
     const val BLUE_500 = -14575885
@@ -18,10 +19,9 @@ object ColorProvider {
             Task.Priority.LOW -> BLUE_500
             else -> GREY_500
         }
-        return if (isDarkMode) {
-            darkModeColor(color, tone = 70)
-        } else {
-            color
-        }
+        return tonalColor(
+            seedColor = color,
+            tone = if (isDarkMode) ColorTone.DARK_CHECKBOX else ColorTone.LIGHT_CHECKBOX
+        )
     }
 }

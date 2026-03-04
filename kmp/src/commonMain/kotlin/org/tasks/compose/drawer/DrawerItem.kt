@@ -9,6 +9,7 @@ sealed class DrawerItem {
         val title: String,
         val icon: String?,
         val color: Int = 0,
+        val adjustColor: Boolean = false,
         val count: Int = 0,
         val shareCount: Int = 0,
         val selected: Boolean = false,

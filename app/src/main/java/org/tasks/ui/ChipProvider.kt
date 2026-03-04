@@ -16,7 +16,7 @@ class ChipProvider @Inject constructor(
 
     fun getColor(theme: Int): Int {
         if (theme != 0) {
-            val color = colorProvider.getThemeColor(theme, false)
+            val color = colorProvider.getChipColor(theme)
             if (color.isFree || inventory.purchasedThemes()) {
                 return color.primaryColor
             }
