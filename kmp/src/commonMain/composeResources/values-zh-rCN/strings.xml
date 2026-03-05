@@ -11,8 +11,8 @@
     <string name="filter_timer">任务已开始计时</string>
     <string name="filter_today">今天</string>
     <string name="filter_recently_modified">最近修改过的</string>
-    <string name="default_list">默认列表</string>
-    <string name="drawer_local_lists">本地列表</string>
+    <string name="default_list">默认清单</string>
+    <string name="drawer_local_lists">本地清单</string>
     <string name="help_and_feedback">帮助和反馈</string>
     <string name="settings">设置</string>
     <string name="drawer_filters">过滤器</string>
@@ -49,5 +49,5 @@
     <string name="sort_created">已创建</string>
     <string name="sort_modified">已修改</string>
     <string name="all_done">完成！</string>
-    <string name="sort_list">列表</string>
+    <string name="sort_list">清单</string>
 </resources>
