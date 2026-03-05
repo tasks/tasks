@@ -755,4 +755,10 @@
     <string name="supporter_summary">%s • Danke!</string>
     <string name="sign_in_to_connect">Melde dich an, um dein Tasks.org Konto zu verbinden</string>
     <string name="invalid_email_address">Ungültige E-Mail-Adresse</string>
+    <string name="upgrade_friends_and_family">Freunde &amp; Familie</string>
+    <string name="send">Senden</string>
+    <string name="guest">Gast</string>
+    <string name="guests">Gäste (%1$d/%2$d)</string>
+    <string name="shared_with_me">Mit mir geteilt</string>
+    <string name="shared_by">Geteilt von %s</string>
 </resources>
