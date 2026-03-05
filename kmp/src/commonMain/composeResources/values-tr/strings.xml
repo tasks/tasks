@@ -3,7 +3,7 @@
     <string name="search">Ara</string>
     <string name="subscribe">Abone ol</string>
     <string name="search_no_results">Sonuç yok</string>
-    <string name="requires_pro_subscription">Pro özellik</string>
+    <string name="requires_pro_subscription">Pro özelliği</string>
     <string name="subscription_required_description">Yılda 1$ gibi düşük bir ücretle tüm özelliklerin kilidini açın</string>
     <string name="filter_my_tasks">Görevlerim</string>
     <string name="filter_notifications">Bildirimler</string>
@@ -42,4 +42,12 @@
     <string name="group_none">Hiçbiri</string>
     <string name="filter">Süzgeç</string>
     <string name="sort_list">Liste</string>
+    <string name="wear_phone_update_required">Telefon güncellemesi gerekli</string>
+    <string name="wear_connecting_to_phone">Telefona bağlanıyor…</string>
+    <string name="enter_title">Başlık gir</string>
+    <string name="group_mode">Küme</string>
+    <string name="sort_alphabetical">Alfabetik</string>
+    <string name="sort_created">Oluşturulma</string>
+    <string name="sort_modified">Değiştirilme</string>
+    <string name="all_done">Tümü bitti!</string>
 </resources>
