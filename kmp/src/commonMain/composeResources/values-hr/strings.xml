@@ -42,4 +42,7 @@
     <string name="group_none">Ništa</string>
     <string name="filter">Filtar</string>
     <string name="sort_list">Popis</string>
+    <string name="enter_title">Upiši naslov</string>
+    <string name="wear_connecting_to_phone">Povezivanje s telefonom …</string>
+    <string name="group_mode">Grupa</string>
 </resources>
