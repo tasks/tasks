@@ -755,4 +755,17 @@
     <string name="advanced_tools_description">Google Yerler, CalDAV, EteSync ve dahası!</string>
     <string name="rmd_EPr_rmd_time_desc">Tüm gün görevleri için bildirimlerin görüneceği an: %1$s</string>
     <string name="invalid_email_address">Geçersiz e-posta adresi</string>
+    <string name="upgrade_to_pro_card_description">Tasks.org Cloud eşzamanlama, Arkadaşlar &amp; Aile Paylaşımı ve E-postayla Görev kilidini aç</string>
+    <string name="tasks_org_description">Arkadaşlar &amp; Aile Paylaşımı ve E-postayla Görev\'i içerir</string>
+    <string name="share_list">Paylaş \"%1$s\"</string>
+    <string name="send">Gönder</string>
+    <string name="guest">Konuk</string>
+    <string name="guest_create_list_message">Bu paylaşılan listeye konuk erişiminiz var. Kendi özel listelerinizi oluşturmak ve buluta eşzamanlamak için Tasks.org aboneliğine gereksineceksiniz. Ya da bu aygıtta kalacak ücretsiz yerel liste oluştuabilirsiniz.</string>
+    <string name="guests">Konuklar (%1$d/%2$d)</string>
+    <string name="shared_with_me">Benimle paylaşıldı</string>
+    <string name="shared_by">%s tarafından paylaşıldı</string>
+    <string name="upgrade_friends_and_family">Arkadaşlar &amp; Aile</string>
+    <string name="upgrade_friends_and_family_description">Paylaşılan listelerde 5 ücretsiz konuk. Apple Anımsatıcılar ile çalışır</string>
+    <string name="already_subscribed">Halihazırda abone misiniz?</string>
+    <string name="sign_in_subtitle">Halihazırda abone ya da davetli konuk musunuz?</string>
 </resources>
