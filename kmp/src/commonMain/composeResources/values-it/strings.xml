@@ -42,4 +42,12 @@
     <string name="group_none">Nessuno</string>
     <string name="filter">Filtra</string>
     <string name="sort_list">Lista</string>
+    <string name="wear_phone_update_required">E\' necessario aggiornare il telefono</string>
+    <string name="wear_connecting_to_phone">Connessione al telefono…</string>
+    <string name="enter_title">Inserisci il titolo</string>
+    <string name="group_mode">Gruppo</string>
+    <string name="sort_alphabetical">Alfabetico</string>
+    <string name="sort_created">Creato</string>
+    <string name="sort_modified">Modificato</string>
+    <string name="all_done">Fatto!</string>
 </resources>
