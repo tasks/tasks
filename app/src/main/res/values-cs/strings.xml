@@ -777,4 +777,17 @@
     <string name="supporter_summary">%s • Děkujeme!</string>
     <string name="sign_in_to_connect">Pro připojení účtu Tasks.org se přihlaste</string>
     <string name="invalid_email_address">Neplatná e-mailová adresa</string>
+    <string name="upgrade_to_pro_card_description">Odemkněte cloudovou synchronizaci Tasks.org, sdílení s rodinou a přáteli a e-mail na úkol</string>
+    <string name="tasks_org_description">Zahrnuje sdílení s rodinou a přáteli a e-mail na úkol</string>
+    <string name="share_list">Sdílet „%1$s“</string>
+    <string name="send">Odeslat</string>
+    <string name="guest">Host</string>
+    <string name="guest_create_list_message">V současné době máte přístup hosta ke sdíleným seznamům. Pro vytvoření a synchronizaci vašich vlastních soukromých seznamů budete potřebovat předplatné Tasks.org. Můžete si také vytvořit lokální seznam, který zůstane na vašem zařízení.</string>
+    <string name="guests">Hosté (%1$d/%2$d)</string>
+    <string name="shared_with_me">Sdíleno se mnou</string>
+    <string name="shared_by">Sdíleno uživatelem %s</string>
+    <string name="upgrade_friends_and_family">Přátelé a rodina</string>
+    <string name="upgrade_friends_and_family_description">5 bezplatných hostů ve sdílených seznamech. Funguje s Připomínkami Apple</string>
+    <string name="already_subscribed">Již máte předplatné?</string>
+    <string name="sign_in_subtitle">Již máte předplatné nebo jste pozvaným hostem?</string>
 </resources>
