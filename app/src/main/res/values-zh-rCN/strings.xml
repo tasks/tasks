@@ -55,7 +55,7 @@
     <string name="EPr_beastMode_reset">恢复默认值</string>
     <string name="EPr_fullTask_title">显示完整的任务标题</string>
     <string name="EPr_show_task_edit_comments">在任务编辑中显示注释</string>
-    <string name="task_list_options">任务列表选项</string>
+    <string name="task_list_options">任务清单选项</string>
     <string name="EPr_cal_end_or_start_at_due_time">日历事件时间</string>
     <string name="EPr_cal_end_at_due_time">在截止时结束日历事件</string>
     <string name="EPr_cal_start_at_due_time">在截止时开始日历事件</string>
@@ -96,7 +96,7 @@
     <string name="gcal_TEA_showCalendar_label">打开日程表事件</string>
     <string name="calendar_event_not_found">找不到日历事件</string>
     <string name="gcal_completed_title">%s (已完成)</string>
-    <string name="CFC_gtasks_list_text">列表内容：?</string>
+    <string name="CFC_gtasks_list_text">清单内容：?</string>
     <string name="gtasks_GTA_clear_completed">清除已完成项</string>
     <string name="gtasks_GLA_authenticating">正在认证…</string>
     <string name="gtasks_GLA_errorIOAuth">对不起，我们在与 Google 服务器通讯时遇到了问题。请稍后再尝试。</string>
@@ -182,7 +182,7 @@
     <string name="repeat_type_completion">完成日期</string>
     <string name="repeat_snackbar">重新安排了 %2$s 的 %1$s</string>
     <string name="new_tag">新建标签</string>
-    <string name="new_list">新建列表</string>
+    <string name="new_list">新建清单</string>
     <string name="delete_tag_confirmation">是否删除 %s？</string>
     <string name="TPl_notification">%s 的定时器已启动！</string>
     <string name="TEA_timer_controls">计时器</string>
@@ -237,7 +237,7 @@
     <string name="discard_changes">是否放弃修改？</string>
     <string name="discard">放弃</string>
     <string name="tag_settings">标签设置</string>
-    <string name="list_settings">列表设置</string>
+    <string name="list_settings">清单设置</string>
     <string name="delete">删除</string>
     <string name="copy">克隆</string>
     <string name="move">移动</string>
@@ -259,7 +259,7 @@
     <string name="url_invalid_scheme">必须以 http(s):// 开头</string>
     <string name="no_title">（无标题）</string>
     <string name="back_button_saves_task">按返回键时保存任务</string>
-    <string name="default_list">默认列表</string>
+    <string name="default_list">默认清单</string>
     <string name="filter">过滤器</string>
     <string name="opacity">不透明度</string>
     <string name="theme">主题</string>
@@ -291,7 +291,7 @@
     <string name="notification_disable_battery_optimizations_description">电池优化可能会延迟通知</string>
     <string name="bundle_notifications">合并通知</string>
     <string name="badges">角标</string>
-    <string name="list">列表</string>
+    <string name="list">清单</string>
     <string name="repeats_from">重复始于</string>
     <string name="repeats_single">重复 %s</string>
     <string name="repeats_single_on">重复 %1$s 于 %2$s</string>
@@ -435,13 +435,13 @@
     <string name="settings_default">默认</string>
     <string name="widget_id">部件ID：%d</string>
     <string name="widget_show_menu">显示菜单</string>
-    <string name="widget_open_list">打开列表</string>
+    <string name="widget_open_list">打开清单</string>
     <string name="auto_dismiss_datetime_widget_summary">从小部件中选择时自动关闭</string>
     <string name="auto_dismiss_datetime_widget">小部件</string>
     <string name="auto_dismiss_datetime_edit_summary">从任务编辑中选择时自动关闭</string>
     <string name="auto_dismiss_datetime_edit">任务编辑</string>
-    <string name="auto_dismiss_datetime_list_summary">从任务列表中选择时自动关闭</string>
-    <string name="auto_dismiss_datetime_list">任务列表</string>
+    <string name="auto_dismiss_datetime_list_summary">从任务清单中选择时自动关闭</string>
+    <string name="auto_dismiss_datetime_list">任务清单</string>
     <string name="widget_due_date_hidden">隐藏</string>
     <string name="widget_due_date_below_title">标题下方</string>
     <string name="widget_due_date_after_title">标题后</string>
@@ -474,12 +474,12 @@
     <string name="action_new_task">新任务</string>
     <string name="sort_modified_group">%s修改</string>
     <string name="sort_created_group">%s创建</string>
-    <string name="lists">列表</string>
-    <string name="open_last_viewed_list">打开上次查看的列表</string>
+    <string name="lists">清单</string>
+    <string name="open_last_viewed_list">打开上次查看的清单</string>
     <string name="on_launch">启动时</string>
     <string name="astrid_sort_order_summary">为“我的任务”，“今天”和标签启用 Astrid 的手动排序模式。在以后的更新中，此排序模式将被“我的顺序”代替</string>
     <string name="astrid_sort_order">Astrid 手动排序</string>
-    <string name="CFC_list_name">在某列表中…</string>
+    <string name="CFC_list_name">在某清单中…</string>
     <string name="date_shortcut_tomorrow_night">明天晚上</string>
     <string name="date_shortcut_tomorrow_evening">明天傍晚</string>
     <string name="reset_sort_order">重置排列顺序</string>
@@ -526,7 +526,7 @@
     <string name="migrating_tasks">正在迁移任务</string>
     <string name="migrate">迁移</string>
     <plurals name="list_count">
-        <item quantity="other">%d 个列表</item>
+        <item quantity="other">%d 个清单</item>
     </plurals>
     <string name="sign_in_with_github">使用 GitHub 登录</string>
     <string name="github_sponsors">Github 赞助者</string>
@@ -547,7 +547,7 @@
     <string name="app_passwords_more_info">用第三方桌面和移动应用程序同步你的任务和日历。点击此处了解更多信息</string>
     <string name="app_passwords">多个应用程序密码</string>
     <string name="app_password">应用程序密码</string>
-    <string name="local_lists">本地列表</string>
+    <string name="local_lists">本地清单</string>
     <string name="default_due_date">默认截止日期</string>
     <string name="start_date">开始日期</string>
     <string name="filter_criteria_unstarted">尚未开始</string>
@@ -572,7 +572,7 @@
     <string name="follow_twitter">关注 @tasks_org</string>
     <string name="remove_user_confirmation">%1$s 将无法再访问 %2$s</string>
     <string name="remove_user">是否移除用户？</string>
-    <string name="list_members">列表成员</string>
+    <string name="list_members">清单成员</string>
     <string name="invite_invalid">邀请无效</string>
     <string name="invite_awaiting_response">邀请等待回应</string>
     <string name="invite_declined">邀请被拒绝</string>
@@ -633,7 +633,7 @@
     <string name="microsoft_selection_description">与您的个人 Microsoft 账号同步</string>
     <string name="sign_in">登录</string>
     <string name="sort_not_available">不适用于标签、过滤器或地点</string>
-    <string name="sort_list">按列表</string>
+    <string name="sort_list">按清单</string>
     <string name="sort_sorting">排序</string>
     <string name="sort_grouping">分组</string>
     <string name="sort_ascending">升序</string>
@@ -728,7 +728,7 @@
     <string name="alarm_due">到期</string>
     <string name="email_to_task_address">您的电子邮件地址</string>
     <string name="regenerate_email_address">重新生成地址</string>
-    <string name="email_to_task_calendar">目标列表</string>
+    <string name="email_to_task_calendar">目标清单</string>
     <string name="regenerate_email_address_confirmation">您当前的电子邮件地址将停止使用</string>
     <string name="email_to_task">邮件转任务</string>
     <string name="rmd_EPr_rmd_time_desc">全天任务的通知将显示在 %1$s</string>
@@ -744,4 +744,17 @@
     <string name="supporter">支持者</string>
     <string name="supporter_summary">%s • 谢谢！</string>
     <string name="invalid_email_address">电子邮件地址无效</string>
+    <string name="upgrade_to_pro_card_description">解锁 Tasks.org 云同步、好友和家庭共享、邮件转任务</string>
+    <string name="tasks_org_description">包括好友和家庭共享、邮件转任务</string>
+    <string name="share_list">共享 \"%1$s\"</string>
+    <string name="already_subscribed">已是订阅者？</string>
+    <string name="send">发送</string>
+    <string name="guest">来宾</string>
+    <string name="guest_create_list_message">你当前有共享清单的来宾权限。要创建并同步自己的私人清单到云端需要 Tasks.org 订阅。也可以创建保留在此设备上的免费本地清单。</string>
+    <string name="guests">来宾 (%1$d/%2$d)</string>
+    <string name="shared_with_me">与我分享的</string>
+    <string name="shared_by">由 %s 共享</string>
+    <string name="upgrade_friends_and_family">好友和家庭</string>
+    <string name="upgrade_friends_and_family_description">共享清单可以有 5 位免费来宾。可与 Apple Reminders 配合使用</string>
+    <string name="sign_in_subtitle">已是订阅者或受邀来宾？</string>
 </resources>
