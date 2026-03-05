@@ -6,8 +6,13 @@
 * Updated chip styles
 * Fix group by list headers on WearOS
 * Update translations
+  * Chinese (Simplified) - 大王叫我来巡山
   * Chinese (Traditional) - @xlionjuan
+  * Czech - @Fjuro
+  * Estonian - Priit Jõerüüt
   * Finnish - @pHamala
+  * French - @FlorianLeChat
+  * German - @ColorfulRhino
   * Italian - @ppasserini
   * Japanese - Norara
   * Serbian - @vale-decem
