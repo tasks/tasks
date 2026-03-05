@@ -755,4 +755,17 @@
     <string name="advanced_tools">Speciális eszközök</string>
     <string name="advanced_tools_description">Google Helyek, CalDAV, EteSync, és egyebek!</string>
     <string name="invalid_email_address">Érvénytelen e-mail cím</string>
+    <string name="upgrade_to_pro_card_description">Tasks.org felhős szinkronizálás, megosztás családdal és barátokkal, illetve Task e-mailből funkciók feloldása</string>
+    <string name="tasks_org_description">Beleértve a megosztás családdal és barátokkal, illetve Task e-mailből funkciókat</string>
+    <string name="share_list">\"%1$s\" megosztása</string>
+    <string name="send">Küldés</string>
+    <string name="guest">Vendég</string>
+    <string name="guest_create_list_message">A megosztott listához jelenleg vendég hozzáféréssel rendelkezel. Saját privát listák létrehozásához és felhős szinkronizálásához Tasks.org előfizetésre van szükséged. Alternatívaként létrehozhatsz egy ingyenes helyi listát, ami ezen a készüléken tárolódik.</string>
+    <string name="guests">Vendégek (%1$d/%2$d)</string>
+    <string name="shared_with_me">Velem megosztva</string>
+    <string name="shared_by">%s által megosztva</string>
+    <string name="upgrade_friends_and_family">Család és barátok</string>
+    <string name="upgrade_friends_and_family_description">A megosztott listához 5 ingyenes vendég adható hozzá. Apple Reminders-el is működik</string>
+    <string name="already_subscribed">Már előfizettél?</string>
+    <string name="sign_in_subtitle">Már előfizettél vagy meghívtak, mint vendéget?</string>
 </resources>
