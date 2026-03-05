@@ -42,4 +42,12 @@
     <string name="group_none">無</string>
     <string name="filter">過濾器</string>
     <string name="sort_list">清單</string>
+    <string name="wear_phone_update_required">需要更新手機</string>
+    <string name="wear_connecting_to_phone">正在連線至手機…</string>
+    <string name="enter_title">輸入標題</string>
+    <string name="group_mode">群組</string>
+    <string name="sort_alphabetical">字母順序</string>
+    <string name="sort_created">建立日期</string>
+    <string name="sort_modified">修改日期</string>
+    <string name="all_done">完成了！</string>
 </resources>
