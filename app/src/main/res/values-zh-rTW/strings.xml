@@ -7,12 +7,7 @@
     <string name="backup_BAc_export">現在備份</string>
     <string name="export_toast">在%2$s備份%1$s。</string>
     <string name="import_summary_title">還原摘要</string>
-    <string name="import_summary_message">檔案%1$s包含%2$s。
-\n
-\n已匯入%3$s，
-\n %4$s已存在
-\n %5$s有問題
-\n</string>
+    <string name="import_summary_message">檔案%1$s包含%2$s。 \n\n 已匯入%3$s， \n %4$s已存在 \n %5$s有問題</string>
     <string name="import_progress_read">正在讀取工作 %d…</string>
     <string name="read_permission_label">Tasks 的權限</string>
     <string name="DLG_delete_this_task_question">刪除這項工作？</string>
@@ -582,7 +577,7 @@
     <string name="caldav_server_type">伺服器類型</string>
     <string name="troubleshooting">疑難排解</string>
     <string name="notification_troubleshooting_summary">若有通知問題，點選這裡</string>
-    <string name="upgrade_blurb_2">我花了數千小時的心血在開發 Tasks 上，並且將所有程式碼免費開源。為了支持我的工作，某些功能需要訂閱。</string>
+    <string name="upgrade_blurb_2">我花了數千小時的心血在開發 Tasks 上，並且將所有程式碼免費開源。為了支持我的工作，某些功能需要訂閱</string>
     <string name="chips">顯示元件</string>
     <string name="chip_appearance">元件外觀</string>
     <string name="upgrade_open_source_description">你的訂閱支援持續開發</string>
@@ -740,4 +735,16 @@
     <string name="banner_app_updated_title">應用程式已更新</string>
     <string name="invalid_email_address">電子郵件地址無效</string>
     <string name="view_tos">查看服務條款</string>
+    <string name="upgrade_to_pro_card_description">解鎖 Tasks.org 雲端同步、家人和朋友共享，以及電子郵件轉任務</string>
+    <string name="tasks_org_description">包含家人和朋友共享以及電子郵件轉任務</string>
+    <string name="share_list">分享「%1$s」</string>
+    <string name="send">傳送</string>
+    <string name="guest">訪客</string>
+    <string name="guests">訪客 (%1$d/%2$d)</string>
+    <string name="guest_create_list_message">您目前擁有共享清單的訪客存取權限。若要建立並同步自己的私人清單至雲端，您需要 Tasks.org 訂閱。或者，您可以建立免費的本地清單，留在此裝置上。</string>
+    <string name="shared_with_me">與我共享</string>
+    <string name="shared_by">由 %s 共享</string>
+    <string name="upgrade_friends_and_family">家人和朋友</string>
+    <string name="upgrade_friends_and_family_description">共享清單 5 個免費訪客。支援 Apple Reminders</string>
+    <string name="sign_in_subtitle">已經是訂閱者或受邀訪客？</string>
 </resources>
