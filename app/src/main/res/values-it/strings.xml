@@ -777,4 +777,17 @@
     <string name="supporter_summary">%s • Grazie!</string>
     <string name="sign_in_to_connect">Accedi per connettere il tuo account Tasks.org</string>
     <string name="invalid_email_address">Indirizzo e-mail non valido</string>
+    <string name="upgrade_to_pro_card_description">Sblocca Tasks.org Cloud, la condivisione con amici e familiari e Email-to-Task</string>
+    <string name="tasks_org_description">Include la condivisione con amici e familiari e Email-to-Task</string>
+    <string name="share_list">Condividi \"%1$s\"</string>
+    <string name="send">Invia</string>
+    <string name="guest">Ospite</string>
+    <string name="guest_create_list_message">Attualmente hai accesso agli elenchi condivisi in qualità di ospite. Per creare e sincronizzare le tue liste private sul cloud, è necessario un abbonamento a Tasks.org. In alternativa, puoi creare un elenco locale gratuito che rimarrà su questo dispositivo.</string>
+    <string name="guests">Ospiti (%1$d/%2$d)</string>
+    <string name="shared_with_me">Condivisi con me</string>
+    <string name="shared_by">Condivisi da %s</string>
+    <string name="upgrade_friends_and_family">Amici e familiari</string>
+    <string name="upgrade_friends_and_family_description">5 ospiti gratuiti su liste condivise. Funziona con Apple Reminders</string>
+    <string name="already_subscribed">Sei già abbonato?</string>
+    <string name="sign_in_subtitle">Sei già abbonato o sei stato invitato?</string>
 </resources>
