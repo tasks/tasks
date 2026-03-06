@@ -777,4 +777,17 @@
     <string name="supporter_summary">%s • Hvala!</string>
     <string name="sign_in_to_connect">Prijavi se za povezivanje na tvoj Tasks.org račun</string>
     <string name="invalid_email_address">Nevaljana e-mail adresa</string>
+    <string name="upgrade_to_pro_card_description">Otključaj Tasks.org sinkronizaciju u oblaku, dijeljenje s prijateljima i obitelji te slanje e-maila u zadatak</string>
+    <string name="tasks_org_description">Uključuje dijeljenje s prijateljima i obitelji te slanje e-maila u zadatak</string>
+    <string name="share_list">Dijeli „%1$s”</string>
+    <string name="already_subscribed">Već jesi pretplatnik?</string>
+    <string name="send">Pošalji</string>
+    <string name="guest">Gost</string>
+    <string name="guest_create_list_message">Trenutačno imaš pristup dijeljenim popisima kao gost. Za izradu i sinkronizaciju vlastitih privatnih popisa s oblakom moraš se pretplatiti na Tasks.org. Ili stvori besplatan lokalni popis koji ostaje na ovom uređaju.</string>
+    <string name="guests">Gost (%1$d/%2$d)</string>
+    <string name="shared_with_me">Dijeli sa mnom</string>
+    <string name="shared_by">Dijeli %s</string>
+    <string name="upgrade_friends_and_family">Prijatelji i obitelj</string>
+    <string name="upgrade_friends_and_family_description">5 besplatnih gostiju na dijeljenim popisima. Radi s Apple aplikacijom „Podsjetnici”</string>
+    <string name="sign_in_subtitle">Već jesi pretplatnik ili pozvani gost?</string>
 </resources>
