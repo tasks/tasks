@@ -761,4 +761,11 @@
     <string name="guests">Gäste (%1$d/%2$d)</string>
     <string name="shared_with_me">Mit mir geteilt</string>
     <string name="shared_by">Geteilt von %s</string>
+    <string name="upgrade_to_pro_card_description">Tasks.org Cloud-Synchronisierung, Freigabe für Freunde und Familie und E-Mail-zu-Aufgabe freischalten</string>
+    <string name="tasks_org_description">Beinhaltet „Freunde &amp; Familie teilen“ und „E-Mail-zu-Aufgabe“</string>
+    <string name="share_list">„%1$s“ teilen</string>
+    <string name="guest_create_list_message">Du hast derzeit Gastzugriff auf freigegebene Listen. Um deine eigenen privaten Listen zu erstellen und mit der Cloud zu synchronisieren, benötigst du ein Tasks.org-Abonnement. Alternativ kannst du eine kostenlose lokale Liste erstellen, die auf diesem Gerät gespeichert bleibt.</string>
+    <string name="upgrade_friends_and_family_description">5 kostenlose Gäste auf gemeinsamen Listen. Funktioniert mit Apple Reminders</string>
+    <string name="already_subscribed">Schon abonniert?</string>
+    <string name="sign_in_subtitle">Bereits Abonnent oder eingeladener Gast?</string>
 </resources>
