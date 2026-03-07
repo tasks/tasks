@@ -39,14 +39,19 @@ class ImportTasksViewModel @Inject constructor(
         savedStateHandle[KEY_IMPORT_URI] = uri?.toString()
     }
 
-    fun startImport(uri: Uri) {
+    fun startImport(uri: Uri, password: String? = null) {
         if (_state.value is ImportState.Importing) return // Already importing
+
+        if (password == null && uri.toString().endsWith(".crypt")) {
+            _state.value = ImportState.PasswordRequired
+            return
+        }
 
         _state.value = ImportState.Importing("")
         viewModelScope.launch {
             withContext(NonCancellable + Dispatchers.IO) {
                 try {
-                    val result = importer.importTasks(context, uri) { message ->
+                    val result = importer.importTasks(context, uri, password) { message ->
                         _state.value = ImportState.Importing(message)
                     }
                     _state.value = ImportState.Complete(result)
@@ -58,12 +63,13 @@ class ImportTasksViewModel @Inject constructor(
     }
 
     fun reset() {
-        savedStateHandle[KEY_IMPORT_URI] = null
+        setImportUri(null)
         _state.value = ImportState.Idle
     }
 
     sealed class ImportState {
         data object Idle : ImportState()
+        data object PasswordRequired : ImportState()
         data class Importing(val message: String) : ImportState()
         data class Complete(val result: TasksJsonImporter.ImportResult) : ImportState()
         data object Error : ImportState()

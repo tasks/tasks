@@ -39,6 +39,8 @@ class Backups : Fragment() {
     private val preferencesViewModel: PreferencesViewModel by activityViewModels()
     private val viewModel: BackupsViewModel by viewModels()
 
+    private val allowedFileExtensions = setOf("json", "crypt", "bin")
+
     private val backupDirLauncher = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             result.data?.data?.let { uri ->
@@ -51,8 +53,8 @@ class Backups : Fragment() {
     private val importPickerLauncher = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             result.data?.data?.let { uri ->
-                val extension = FileHelper.getExtension(requireContext(), uri)
-                if (!"json".equals(extension, ignoreCase = true)) {
+                val extension = FileHelper.getExtension(requireContext(), uri)?.lowercase()
+                if (!allowedFileExtensions.contains(extension)) {
                     context?.toast(R.string.invalid_backup_file)
                 } else {
                     ImportTasksDialog.newImportTasksDialog(uri)
