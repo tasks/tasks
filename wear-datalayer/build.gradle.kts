@@ -35,6 +35,8 @@ android {
     }
 }
 
+val isNixOS = System.getenv("PROTOC_GEN_GRPC_JAVA") != null
+
 val archSuffix = if (System.getProperty("os.name").contains("mac", ignoreCase = true))
     ":osx-x86_64"
 else
@@ -42,17 +44,30 @@ else
 
 protobuf {
     protoc {
-        artifact = libs.protobuf.protoc.stnd.get().toString() + archSuffix
+        if (isNixOS) {
+            path = "${System.getenv("DEVENV_PROFILE") ?: "/run/current-system/sw"}/bin/protoc"
+        } else {
+            artifact = libs.protobuf.protoc.stnd.get().toString() + archSuffix
+        }
     }
     plugins {
         create("javalite") {
-            artifact = libs.protobuf.protoc.gen.javalite.get().toString() + archSuffix
+            if (!isNixOS) {
+                artifact = libs.protobuf.protoc.gen.javalite.get().toString() + archSuffix
+            }
         }
         create("grpc") {
-            artifact = libs.protobuf.protoc.gen.grpc.java.get().toString()
+            if (isNixOS) {
+                path = System.getenv("PROTOC_GEN_GRPC_JAVA") ?: "${System.getenv("DEVENV_PROFILE") ?: "/run/current-system/sw"}/bin/protoc-gen-grpc-java"
+            } else {
+                artifact = libs.protobuf.protoc.gen.grpc.java.get().toString()
+            }
         }
         create("grpckt") {
-            artifact = libs.protobuf.protoc.gen.grpc.kotlin.get().toString()
+            // grpckt plugin not available in nixpkgs, only use on non-NixOS
+            if (!isNixOS) {
+                artifact = libs.protobuf.protoc.gen.grpc.kotlin.get().toString()
+            }
         }
     }
     generateProtoTasks {
@@ -69,8 +84,10 @@ protobuf {
                 create("grpc") {
                     option("lite")
                 }
-                create("grpckt") {
-                    option("lite")
+                if (!isNixOS) {
+                    create("grpckt") {
+                        option("lite")
+                    }
                 }
             }
         }
@@ -80,6 +97,7 @@ protobuf {
 dependencies {
     api(libs.io.grpc.grpc.kotlin)
     api(libs.io.grpc.protobuf.lite)
+    api(libs.io.grpc.grpc.stub)
 
     api(libs.io.grpc.grpc.android)
     api(libs.io.grpc.grpc.binder)
