@@ -115,6 +115,8 @@ class Backups : Fragment() {
                 androidBackupEnabled = viewModel.androidBackupEnabled,
                 lastAndroidBackupSummary = viewModel.lastAndroidBackupSummary,
                 showAndroidBackupWarning = viewModel.showAndroidBackupWarning,
+                backupsEncryptionEnabled = viewModel.backupsEncryptionEnabled,
+                backupsEncryptionPassword = viewModel.backupsEncryptionPassword,
                 ignoreWarnings = viewModel.ignoreWarnings,
                 onDocumentation = {
                     requireContext().openUri(R.string.url_backups)
@@ -139,6 +141,8 @@ class Backups : Fragment() {
                     )
                 },
                 onBackupsEnabled = { viewModel.updateBackupsEnabled(it) },
+                onBackupsEncryptionEnabled = { viewModel.updateBackupsEncryptionEnabled(it) },
+                onBackupsEncryptionPassword = { viewModel.updateBackupsEncryptionPassword(it) },
                 onDriveBackup = { enabled ->
                     if (enabled) {
                         requestGoogleDriveLogin()

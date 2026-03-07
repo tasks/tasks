@@ -8,6 +8,7 @@
   <string name="backup_BPr_header">Backups</string>
   <string name="backup_BAc_export">Backup now</string>
   <string name="encrypt_backup">Encrypt backup</string>
+  <string name="encrypt_backups">Encrypt automatic backups</string>
   <string name="encrypted_backup">Encrypted backup</string>
   <string name="backup_BAc_import">Import backup</string>
   <string name="export_toast">Backed up %1$s to %2$s.</string>

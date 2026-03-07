@@ -33,6 +33,14 @@ class BackupsViewModel @Inject constructor(
         private set
     var backupsEnabled by mutableStateOf(preferences.getBoolean(R.string.p_backups_enabled, true))
         private set
+    var backupsEncryptionEnabled by mutableStateOf(
+        preferences.getBoolean(R.string.p_backups_encryption_enabled, false)
+    )
+        private set
+    var backupsEncryptionPassword by mutableStateOf(
+        preferences.getStringValue(R.string.p_backups_encryption_password) ?: ""
+    )
+        private set
     var driveBackupEnabled by mutableStateOf(false)
         private set
     var driveAccountSummary by mutableStateOf("")
@@ -61,6 +69,12 @@ class BackupsViewModel @Inject constructor(
 
     fun refreshState(preferencesViewModel: PreferencesViewModel) {
         backupsEnabled = preferences.getBoolean(R.string.p_backups_enabled, true)
+        backupsEncryptionEnabled = preferences.getBoolean(
+            R.string.p_backups_encryption_enabled, false
+        )
+        backupsEncryptionPassword = preferences.getStringValue(
+            R.string.p_backups_encryption_password
+        ) ?: ""
         androidBackupEnabled = preferences.getBoolean(
             R.string.p_backups_android_backup_enabled, true,
         )
@@ -73,6 +87,16 @@ class BackupsViewModel @Inject constructor(
     fun updateBackupsEnabled(enabled: Boolean) {
         preferences.setBoolean(R.string.p_backups_enabled, enabled)
         backupsEnabled = enabled
+    }
+
+    fun updateBackupsEncryptionEnabled(enabled: Boolean) {
+        preferences.setBoolean(R.string.p_backups_encryption_enabled, enabled)
+        backupsEncryptionEnabled = enabled
+    }
+
+    fun updateBackupsEncryptionPassword(password: String) {
+        preferences.setString(R.string.p_backups_encryption_password, password)
+        backupsEncryptionPassword = password
     }
 
     fun disableDriveBackup(preferencesViewModel: PreferencesViewModel) {
