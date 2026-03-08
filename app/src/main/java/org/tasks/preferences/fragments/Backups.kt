@@ -14,7 +14,6 @@ import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.backup.BackupConstants
 import org.tasks.backup.BackupConstants.ENCRYPTED_FILE_EXTENSION
 import org.tasks.compose.settings.BackupsScreen
 import org.tasks.dialogs.ExportTasksDialog
@@ -120,21 +119,14 @@ class Backups : Fragment() {
                 backupsEncryptionEnabled = viewModel.backupsEncryptionEnabled,
                 backupsEncryptionPassword = viewModel.backupsEncryptionPassword,
                 ignoreWarnings = viewModel.ignoreWarnings,
-                onDocumentation = {
-                    requireContext().openUri(R.string.url_backups)
-                },
+                onDocumentation = { requireContext().openUri(R.string.url_backups) },
                 onBackupDir = {
-                    backupDirLauncher.launch(
-                        FileHelper.newDirectoryPickerIntent(
-                            context,
-                            viewModel.backupDirectory,
-                        )
-                    )
+                    val intent = FileHelper.newDirectoryPickerIntent(context, viewModel.backupDirectory)
+                    backupDirLauncher.launch(intent)
                 },
                 onBackupNow = {
                     viewModel.logEvent("backup_now")
-                    ExportTasksDialog.newExportTasksDialog()
-                        .show(parentFragmentManager, FRAG_TAG_EXPORT_TASKS)
+                    ExportTasksDialog.newExportTasksDialog().show(parentFragmentManager, FRAG_TAG_EXPORT_TASKS)
                 },
                 onImportBackup = {
                     viewModel.logEvent("import_backup")
@@ -152,15 +144,9 @@ class Backups : Fragment() {
                         viewModel.disableDriveBackup(preferencesViewModel)
                     }
                 },
-                onDriveAccount = {
-                    requestGoogleDriveLogin()
-                },
-                onAndroidBackup = { enabled ->
-                    viewModel.updateAndroidBackup(enabled, preferencesViewModel)
-                },
-                onDeviceSettings = {
-                    startActivity(Intent(Settings.ACTION_SETTINGS))
-                },
+                onDriveAccount = { requestGoogleDriveLogin() },
+                onAndroidBackup = { enabled -> viewModel.updateAndroidBackup(enabled, preferencesViewModel) },
+                onDeviceSettings = { startActivity(Intent(Settings.ACTION_SETTINGS)) },
                 onIgnoreWarnings = { enabled ->
                     viewModel.updateIgnoreWarnings(enabled, preferencesViewModel)
                 },

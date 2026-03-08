@@ -17,9 +17,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.tasks.backup.BackupConstants
 import org.tasks.backup.BackupConstants.ENCRYPTED_FILE_EXTENSION
 import org.tasks.backup.TasksJsonImporter
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -58,6 +58,7 @@ class ImportTasksViewModel @Inject constructor(
                     }
                     _state.value = ImportState.Complete(result)
                 } catch (e: Exception) {
+                    Timber.i(e)
                     _state.value = ImportState.Error
                 }
             }
