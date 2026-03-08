@@ -14,6 +14,8 @@ import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
+import org.tasks.backup.BackupConstants
+import org.tasks.backup.BackupConstants.ENCRYPTED_FILE_EXTENSION
 import org.tasks.compose.settings.BackupsScreen
 import org.tasks.dialogs.ExportTasksDialog
 import org.tasks.dialogs.ImportTasksDialog
@@ -39,7 +41,7 @@ class Backups : Fragment() {
     private val preferencesViewModel: PreferencesViewModel by activityViewModels()
     private val viewModel: BackupsViewModel by viewModels()
 
-    private val allowedFileExtensions = setOf("json", "crypt", "bin")
+    private val allowedFileExtensions = setOf("json", "bin", ENCRYPTED_FILE_EXTENSION)
 
     private val backupDirLauncher = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {

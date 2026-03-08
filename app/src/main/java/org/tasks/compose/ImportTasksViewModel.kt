@@ -17,6 +17,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.tasks.backup.BackupConstants
+import org.tasks.backup.BackupConstants.ENCRYPTED_FILE_EXTENSION
 import org.tasks.backup.TasksJsonImporter
 import javax.inject.Inject
 
@@ -42,7 +44,7 @@ class ImportTasksViewModel @Inject constructor(
     fun startImport(uri: Uri, password: String? = null) {
         if (_state.value is ImportState.Importing) return // Already importing
 
-        if (password == null && uri.toString().endsWith(".crypt")) {
+        if (password == null && uri.toString().endsWith(".$ENCRYPTED_FILE_EXTENSION")) {
             _state.value = ImportState.PasswordRequired
             return
         }

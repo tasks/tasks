@@ -14,6 +14,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.backup.BackupConstants.ENCRYPTED_FILE_EXTENSION
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
@@ -223,7 +224,7 @@ class TasksJsonExporter @Inject constructor(
         private const val MIME = "application/json"
         private const val MIME_CRYPT = "application/octet-stream"
         private const val EXTENSION = ".json"
-        private const val EXTENSION_CRYPT = ".crypt"
+        private const val EXTENSION_CRYPT = ".$ENCRYPTED_FILE_EXTENSION"
         private val dateForExport: String
             get() = newDateTime().toString("yyyyMMdd'T'HHmm")
 
