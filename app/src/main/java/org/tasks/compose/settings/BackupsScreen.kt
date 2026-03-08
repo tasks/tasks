@@ -124,7 +124,8 @@ fun BackupsScreen(
             }
             SettingsItemCard(position = if (backupsEncryptionEnabled) CardPosition.Middle else CardPosition.Last) {
                 SwitchPreferenceRow(
-                    title = stringResource(R.string.encrypt_backups),
+                    title = stringResource(R.string.encrypt_backups_title),
+                    summary = stringResource(R.string.encrypt_backups_summary),
                     checked = backupsEncryptionEnabled,
                     onCheckedChange = onBackupsEncryptionEnabled,
                 )
