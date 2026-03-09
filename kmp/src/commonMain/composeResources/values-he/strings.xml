@@ -42,4 +42,12 @@
     <string name="group_none">ללא</string>
     <string name="filter">מסנן</string>
     <string name="sort_list">רשימה</string>
+    <string name="wear_phone_update_required">נדרש עדכון בטלפון</string>
+    <string name="wear_connecting_to_phone">מתחבר לטלפון…</string>
+    <string name="enter_title">הזנת כותרת</string>
+    <string name="group_mode">קבוצה</string>
+    <string name="sort_alphabetical">אלפביתי</string>
+    <string name="sort_created">נוצר</string>
+    <string name="sort_modified">שונה</string>
+    <string name="all_done">בוצע!</string>
 </resources>
