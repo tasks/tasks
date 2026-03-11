@@ -41,5 +41,13 @@
     <string name="sort_start_date">Начална дата</string>
     <string name="group_none">Без</string>
     <string name="filter">Филтър</string>
-    <string name="sort_list">Списък</string>
+    <string name="sort_list">По списък</string>
+    <string name="wear_phone_update_required">Необходимо е обновяване на телефона</string>
+    <string name="wear_connecting_to_phone">Свързване към телефона…</string>
+    <string name="enter_title">Въведете заглавие</string>
+    <string name="group_mode">Група</string>
+    <string name="sort_alphabetical">Азбучно</string>
+    <string name="sort_created">Създадено</string>
+    <string name="sort_modified">Променено</string>
+    <string name="all_done">Всичко е готово!</string>
 </resources>
