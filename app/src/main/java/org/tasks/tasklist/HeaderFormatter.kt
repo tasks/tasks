@@ -13,7 +13,7 @@ import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
 class HeaderFormatter @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val preferences: Preferences,
     private val caldavDao: CaldavDao,
 ) {
@@ -21,7 +21,7 @@ class HeaderFormatter @Inject constructor(
 
     fun headerStringBlocking(
         value: Long,
-        groupMode: Int = preferences.groupMode,
+        groupMode: Int,
         alwaysDisplayFullDate: Boolean = preferences.alwaysDisplayFullDate,
         style: DateStyle = DateStyle.FULL,
         compact: Boolean = false,
@@ -31,7 +31,7 @@ class HeaderFormatter @Inject constructor(
 
     suspend fun headerString(
         value: Long,
-        groupMode: Int = preferences.groupMode,
+        groupMode: Int,
         alwaysDisplayFullDate: Boolean = preferences.alwaysDisplayFullDate,
         style: DateStyle = DateStyle.FULL,
         compact: Boolean = false
