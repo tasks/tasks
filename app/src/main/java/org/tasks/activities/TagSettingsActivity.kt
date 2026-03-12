@@ -20,6 +20,9 @@ import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.TagData
 import org.tasks.filters.Filter
 import org.tasks.filters.TagFilter
+import org.tasks.filters.key
+import org.tasks.preferences.FilterPreferences
+import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
 import javax.inject.Inject
@@ -29,6 +32,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var tagDao: TagDao
     @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
+    @Inject lateinit var preferences: Preferences
 
     private lateinit var tagData: TagData
     private val isNewTag: Boolean
@@ -135,6 +139,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
         firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_tag")
         val uuid = tagData.remoteId
         tagDataDao.delete(tagData)
+        filter?.key()?.let { FilterPreferences.delete(preferences, it) }
         setResult(
                 Activity.RESULT_OK,
                 Intent(TaskListFragment.ACTION_DELETED).putExtra(EXTRA_TAG_UUID, uuid))

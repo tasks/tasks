@@ -26,6 +26,9 @@ class SectionedDataSource(
 
     fun getHeaderValue(position: Int): Long = getSection(position).value
 
+    val groupsEnabled: Boolean
+        get() = sections.isNotEmpty()
+
     fun isHeader(position: Int) = sections[position] != null
 
     private fun sectionedPositionToPosition(sectionedPosition: Int): Int {

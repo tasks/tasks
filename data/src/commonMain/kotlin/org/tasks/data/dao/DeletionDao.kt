@@ -103,12 +103,12 @@ WHERE recurring = 1
     open suspend fun delete(
         caldavAccount: CaldavAccount,
         cleanup: suspend (List<Long>) -> Unit,
-    ) {
+    ): List<CaldavCalendar> {
         Logger.d("DeletionDao") { "deleting $caldavAccount" }
-        for (calendar in getCalendars(caldavAccount.uuid!!)) {
-            delete(calendar, cleanup)
-        }
+        val calendars = getCalendars(caldavAccount.uuid!!)
+        calendars.forEach { delete(it, cleanup) }
         deleteCaldavAccount(caldavAccount)
+        return calendars
     }
 
     @Query("""

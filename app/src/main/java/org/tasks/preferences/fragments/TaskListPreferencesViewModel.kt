@@ -30,6 +30,8 @@ class TaskListPreferencesViewModel @Inject constructor(
         private set
     var showLinks by mutableStateOf(false)
         private set
+    var perListSort by mutableStateOf(false)
+        private set
     var chipAppearanceSummary by mutableStateOf("")
         private set
     var subtaskChips by mutableStateOf(true)
@@ -59,6 +61,7 @@ class TaskListPreferencesViewModel @Inject constructor(
         showDescription = preferences.getBoolean(R.string.p_show_description, true)
         showFullDescription = preferences.getBoolean(R.string.p_show_full_description, false)
         showLinks = preferences.getBoolean(R.string.p_linkify_task_list, false)
+        perListSort = preferences.getBoolean(R.string.p_per_list_sort, false)
         refreshChipAppearance()
         subtaskChips = preferences.getBoolean(R.string.p_subtask_chips, true)
         startDateChips = preferences.getBoolean(R.string.p_start_date_chip, true)
@@ -99,6 +102,11 @@ class TaskListPreferencesViewModel @Inject constructor(
     fun updateShowLinks(enabled: Boolean) {
         preferences.setBoolean(R.string.p_linkify_task_list, enabled)
         showLinks = enabled
+    }
+
+    fun updatePerListSort(enabled: Boolean) {
+        preferences.setBoolean(R.string.p_per_list_sort, enabled)
+        perListSort = enabled
     }
 
     fun openChipAppearanceDialog() {
