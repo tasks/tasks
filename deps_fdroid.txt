@@ -1,98 +1,101 @@
-++--- androidx.databinding:viewbinding:8.13.2
-+|    \--- androidx.annotation:annotation:1.0.0 -> 1.9.1
-+|         \--- androidx.annotation:annotation-jvm:1.9.1
-+|              \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.3.0
-+|                   +--- org.jetbrains:annotations:13.0 -> 23.0.0
-+|                   +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 2.2.20 (c)
-+|                   \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 2.2.20 (c)
-++--- androidx.databinding:databinding-common:8.13.2
-++--- androidx.databinding:databinding-runtime:8.13.2
+++--- androidx.databinding:viewbinding:9.1.0
++|    +--- androidx.annotation:annotation:1.0.0 -> 1.9.1
++|    |    \--- androidx.annotation:annotation-jvm:1.9.1
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.3.0
++|    |              +--- org.jetbrains:annotations:13.0 -> 23.0.0
++|    |              +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 2.2.20 (c)
++|    |              \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 2.2.20 (c)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.10 -> 2.3.0 (*)
+++--- androidx.databinding:databinding-common:9.1.0
+++--- androidx.databinding:databinding-runtime:9.1.0
 +|    +--- androidx.collection:collection:1.0.0 -> 1.5.0
 +|    |    \--- androidx.collection:collection-jvm:1.5.0
 +|    |         +--- androidx.annotation:annotation:1.9.1 (*)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.3.0 (*)
 +|    |         +--- androidx.collection:collection-ktx:1.5.0 (c)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.3.0 (c)
-+|    +--- androidx.databinding:databinding-common:8.13.2
-+|    +--- androidx.databinding:viewbinding:8.13.2 (*)
-+|    \--- androidx.lifecycle:lifecycle-runtime:2.6.1 -> 2.10.0
-+|         \--- androidx.lifecycle:lifecycle-runtime-android:2.10.0
-+|              +--- androidx.annotation:annotation:1.9.1 (*)
-+|              +--- androidx.arch.core:core-common:2.2.0
-+|              |    \--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
-+|              +--- androidx.arch.core:core-runtime:2.2.0
-+|              |    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
-+|              |    \--- androidx.arch.core:core-common:2.2.0 (*)
-+|              +--- androidx.core:core-viewtree:1.0.0
-+|              |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.3.0 (*)
-+|              |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.3.0 (c)
-+|              +--- androidx.lifecycle:lifecycle-common:2.10.0
-+|              |    \--- androidx.lifecycle:lifecycle-common-jvm:2.10.0
-+|              |         +--- androidx.annotation:annotation:1.9.1 (*)
-+|              |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.3.0 (*)
-+|              |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.10.2
-+|              |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2
-+|              |         |         +--- org.jetbrains:annotations:23.0.0
-+|              |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.10.2
-+|              |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2 (c)
-+|              |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2 (c)
-+|              |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2 (c)
-+|              |         |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.10.2 (c)
-+|              |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.3.0 (*)
-+|              |         +--- org.jspecify:jspecify:1.0.0
-+|              |         +--- androidx.lifecycle:lifecycle-livedata:2.10.0 (c)
-+|              |         +--- androidx.lifecycle:lifecycle-livedata-core:2.10.0 (c)
-+|              |         +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.10.0 (c)
-+|              |         +--- androidx.lifecycle:lifecycle-livedata-ktx:2.10.0 (c)
-+|              |         +--- androidx.lifecycle:lifecycle-process:2.10.0 (c)
-+|              |         +--- androidx.lifecycle:lifecycle-runtime:2.10.0 (c)
-+|              |         +--- androidx.lifecycle:lifecycle-runtime-compose:2.10.0 (c)
-+|              |         +--- androidx.lifecycle:lifecycle-runtime-ktx:2.10.0 (c)
-+|              |         +--- androidx.lifecycle:lifecycle-service:2.10.0 (c)
-+|              |         +--- androidx.lifecycle:lifecycle-viewmodel:2.10.0 (c)
-+|              |         +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0 (c)
-+|              |         +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0 (c)
-+|              |         +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.10.0 (c)
-+|              |         +--- org.jetbrains.androidx.lifecycle:lifecycle-common:2.9.5 -> 2.9.6 (c)
-+|              |         \--- androidx.lifecycle:lifecycle-common-java8:2.10.0 (c)
-+|              +--- androidx.profileinstaller:profileinstaller:1.4.0
-+|              |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
-+|              |    +--- androidx.concurrent:concurrent-futures:1.1.0
-+|              |    |    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
-+|              |    |    \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
-+|              |    +--- androidx.startup:startup-runtime:1.1.1 -> 1.2.0
-+|              |    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
-+|              |    |    \--- androidx.tracing:tracing:1.0.0 -> 1.2.0
-+|              |    |         +--- androidx.annotation:annotation:1.2.0 -> 1.9.1 (*)
-+|              |    |         \--- androidx.tracing:tracing-ktx:1.2.0 (c)
-+|              |    \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
-+|              +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.3.0 (*)
-+|              +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0 -> 1.10.2
-+|              |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2 (*)
-+|              |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.10.2 (*)
-+|              |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.3.0 (*)
-+|              +--- org.jspecify:jspecify:1.0.0
-+|              +--- androidx.lifecycle:lifecycle-common:2.10.0 (c)
-+|              +--- androidx.lifecycle:lifecycle-livedata:2.10.0 (c)
-+|              +--- androidx.lifecycle:lifecycle-livedata-core:2.10.0 (c)
-+|              +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.10.0 (c)
-+|              +--- androidx.lifecycle:lifecycle-livedata-ktx:2.10.0 (c)
-+|              +--- androidx.lifecycle:lifecycle-process:2.10.0 (c)
-+|              +--- androidx.lifecycle:lifecycle-runtime-compose:2.10.0 (c)
-+|              +--- androidx.lifecycle:lifecycle-runtime-ktx:2.10.0 (c)
-+|              +--- androidx.lifecycle:lifecycle-service:2.10.0 (c)
-+|              +--- androidx.lifecycle:lifecycle-viewmodel:2.10.0 (c)
-+|              +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0 (c)
-+|              +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0 (c)
-+|              +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.10.0 (c)
-+|              +--- org.jetbrains.androidx.lifecycle:lifecycle-runtime:2.9.5 -> 2.9.6 (c)
-+|              \--- androidx.lifecycle:lifecycle-common-java8:2.10.0 (c)
-++--- androidx.databinding:databinding-adapters:8.13.2
-+|    +--- androidx.databinding:databinding-runtime:8.13.2 (*)
-+|    \--- androidx.databinding:databinding-common:8.13.2
-++--- androidx.databinding:databinding-ktx:8.13.2
-+|    +--- androidx.databinding:databinding-runtime:8.13.2 (*)
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 -> 2.3.0 (*)
++|    +--- androidx.databinding:databinding-common:9.1.0
++|    +--- androidx.databinding:viewbinding:9.1.0 (*)
++|    +--- androidx.lifecycle:lifecycle-runtime:2.6.1 -> 2.10.0
++|    |    \--- androidx.lifecycle:lifecycle-runtime-android:2.10.0
++|    |         +--- androidx.annotation:annotation:1.9.1 (*)
++|    |         +--- androidx.arch.core:core-common:2.2.0
++|    |         |    \--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
++|    |         +--- androidx.arch.core:core-runtime:2.2.0
++|    |         |    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
++|    |         |    \--- androidx.arch.core:core-common:2.2.0 (*)
++|    |         +--- androidx.core:core-viewtree:1.0.0
++|    |         |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.3.0 (*)
++|    |         |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.3.0 (c)
++|    |         +--- androidx.lifecycle:lifecycle-common:2.10.0
++|    |         |    \--- androidx.lifecycle:lifecycle-common-jvm:2.10.0
++|    |         |         +--- androidx.annotation:annotation:1.9.1 (*)
++|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.3.0 (*)
++|    |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.10.2
++|    |         |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2
++|    |         |         |         +--- org.jetbrains:annotations:23.0.0
++|    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.10.2
++|    |         |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2 (c)
++|    |         |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2 (c)
++|    |         |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2 (c)
++|    |         |         |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.10.2 (c)
++|    |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.3.0 (*)
++|    |         |         +--- org.jspecify:jspecify:1.0.0
++|    |         |         +--- androidx.lifecycle:lifecycle-livedata:2.10.0 (c)
++|    |         |         +--- androidx.lifecycle:lifecycle-livedata-core:2.10.0 (c)
++|    |         |         +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.10.0 (c)
++|    |         |         +--- androidx.lifecycle:lifecycle-livedata-ktx:2.10.0 (c)
++|    |         |         +--- androidx.lifecycle:lifecycle-process:2.10.0 (c)
++|    |         |         +--- androidx.lifecycle:lifecycle-runtime:2.10.0 (c)
++|    |         |         +--- androidx.lifecycle:lifecycle-runtime-compose:2.10.0 (c)
++|    |         |         +--- androidx.lifecycle:lifecycle-runtime-ktx:2.10.0 (c)
++|    |         |         +--- androidx.lifecycle:lifecycle-service:2.10.0 (c)
++|    |         |         +--- androidx.lifecycle:lifecycle-viewmodel:2.10.0 (c)
++|    |         |         +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0 (c)
++|    |         |         +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0 (c)
++|    |         |         +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.10.0 (c)
++|    |         |         +--- org.jetbrains.androidx.lifecycle:lifecycle-common:2.9.5 -> 2.9.6 (c)
++|    |         |         \--- androidx.lifecycle:lifecycle-common-java8:2.10.0 (c)
++|    |         +--- androidx.profileinstaller:profileinstaller:1.4.0
++|    |         |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
++|    |         |    +--- androidx.concurrent:concurrent-futures:1.1.0
++|    |         |    |    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
++|    |         |    |    \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
++|    |         |    +--- androidx.startup:startup-runtime:1.1.1 -> 1.2.0
++|    |         |    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
++|    |         |    |    \--- androidx.tracing:tracing:1.0.0 -> 1.2.0
++|    |         |    |         +--- androidx.annotation:annotation:1.2.0 -> 1.9.1 (*)
++|    |         |    |         \--- androidx.tracing:tracing-ktx:1.2.0 (c)
++|    |         |    \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.3.0 (*)
++|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0 -> 1.10.2
++|    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2 (*)
++|    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.10.2 (*)
++|    |         |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.3.0 (*)
++|    |         +--- org.jspecify:jspecify:1.0.0
++|    |         +--- androidx.lifecycle:lifecycle-common:2.10.0 (c)
++|    |         +--- androidx.lifecycle:lifecycle-livedata:2.10.0 (c)
++|    |         +--- androidx.lifecycle:lifecycle-livedata-core:2.10.0 (c)
++|    |         +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.10.0 (c)
++|    |         +--- androidx.lifecycle:lifecycle-livedata-ktx:2.10.0 (c)
++|    |         +--- androidx.lifecycle:lifecycle-process:2.10.0 (c)
++|    |         +--- androidx.lifecycle:lifecycle-runtime-compose:2.10.0 (c)
++|    |         +--- androidx.lifecycle:lifecycle-runtime-ktx:2.10.0 (c)
++|    |         +--- androidx.lifecycle:lifecycle-service:2.10.0 (c)
++|    |         +--- androidx.lifecycle:lifecycle-viewmodel:2.10.0 (c)
++|    |         +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0 (c)
++|    |         +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0 (c)
++|    |         +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.10.0 (c)
++|    |         +--- org.jetbrains.androidx.lifecycle:lifecycle-runtime:2.9.5 -> 2.9.6 (c)
++|    |         \--- androidx.lifecycle:lifecycle-common-java8:2.10.0 (c)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.10 -> 2.3.0 (*)
+++--- androidx.databinding:databinding-adapters:9.1.0
++|    +--- androidx.databinding:databinding-runtime:9.1.0 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.10 -> 2.3.0 (*)
++|    \--- androidx.databinding:databinding-common:9.1.0
+++--- androidx.databinding:databinding-ktx:9.1.0
++|    +--- androidx.databinding:databinding-runtime:9.1.0 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.10 -> 2.3.0 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1 -> 1.10.2 (*)
 +|    +--- androidx.lifecycle:lifecycle-runtime-ktx:2.6.1 -> 2.10.0
 +|    |    \--- androidx.lifecycle:lifecycle-runtime-ktx-android:2.10.0
@@ -1240,10 +1243,10 @@
 +|              +--- commons-beanutils:commons-beanutils:1.9.4
 +|              \--- commons-digester:commons-digester:2.1
 ++--- com.github.bitfireAT:cert4android:7814052
-+|    +--- androidx.databinding:databinding-common:7.2.0 -> 8.13.2
-+|    +--- androidx.databinding:databinding-runtime:7.2.0 -> 8.13.2 (*)
-+|    +--- androidx.databinding:databinding-adapters:7.2.0 -> 8.13.2 (*)
-+|    +--- androidx.databinding:databinding-ktx:7.2.0 -> 8.13.2 (*)
++|    +--- androidx.databinding:databinding-common:7.2.0 -> 9.1.0
++|    +--- androidx.databinding:databinding-runtime:7.2.0 -> 9.1.0 (*)
++|    +--- androidx.databinding:databinding-adapters:7.2.0 -> 9.1.0 (*)
++|    +--- androidx.databinding:databinding-ktx:7.2.0 -> 9.1.0 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21 -> 2.2.20 (*)
 +|    +--- androidx.appcompat:appcompat:1.4.1 -> 1.7.1 (*)
 +|    +--- androidx.cardview:cardview:1.0.0
