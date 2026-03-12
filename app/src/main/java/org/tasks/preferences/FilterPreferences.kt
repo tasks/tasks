@@ -34,7 +34,7 @@ class FilterPreferences(
         preferences.setBoolean(getKey(suffix), value)
     }
 
-    private fun getKey(suffix: String) = "${filterKey}_$suffix"
+    private fun getKey(suffix: String) = "${KEY_PREFIX}_${filterKey}_$suffix"
 
     override var sortMode: Int
         get() = getInt(KEY_SORT_MODE, preferences.sortMode)
@@ -158,5 +158,10 @@ class FilterPreferences(
         private const val KEY_COMPLETED_ASCENDING = "completed_ascending"
         private const val KEY_SUBTASK_ASCENDING = "subtask_ascending"
         private const val KEY_COMPLETED_AT_BOTTOM = "completed_at_bottom"
+        private const val KEY_PREFIX = "filter_sort"
+
+        fun delete(preferences: Preferences, filterKey: String) {
+            preferences.removeByPrefix("${KEY_PREFIX}_${filterKey}_")
+        }
     }
 }

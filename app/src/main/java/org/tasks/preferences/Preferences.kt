@@ -458,6 +458,14 @@ class Preferences @JvmOverloads constructor(
         editor.apply()
     }
 
+    fun removeByPrefix(prefix: String) {
+        val editor = prefs.edit()
+        prefs.all.keys
+            .filter { it.startsWith(prefix) }
+            .forEach { editor.remove(it) }
+        editor.apply()
+    }
+
     fun bundleNotifications(): Boolean = getBoolean(R.string.p_bundle_notifications, true)
 
     fun usePersistentReminders(): Boolean =

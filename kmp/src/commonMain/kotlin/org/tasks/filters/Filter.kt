@@ -5,6 +5,7 @@ import co.touchlab.kermit.Logger
 import org.tasks.CommonParcelable
 import org.tasks.data.NO_COUNT
 import org.tasks.data.NO_ORDER
+import org.tasks.data.entity.CaldavCalendar
 
 
 @Stable
@@ -46,7 +47,7 @@ abstract class Filter : FilterListItem, CommonParcelable {
 
 fun Filter.key(): String = when (this) {
     is CustomFilter -> "custom_${id}"
-    is CaldavFilter -> "list_${calendar.account}_${calendar.uuid}"
+    is CaldavFilter -> calendar.filterPreferencesKey()
     is PlaceFilter -> "place_${place.uid}"
     is TagFilter -> "tag_${tagData.remoteId}"
     is MyTasksFilter -> "builtin_my_tasks"
@@ -63,3 +64,5 @@ fun Filter.key(): String = when (this) {
         "unknown_${sql.hashCode()}"
     }
 }
+
+fun CaldavCalendar.filterPreferencesKey(): String = "list_${account}_${uuid}"

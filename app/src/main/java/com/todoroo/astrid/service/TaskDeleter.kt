@@ -21,6 +21,9 @@ import org.tasks.data.pictureUri
 import org.tasks.files.FileHelper
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
+import org.tasks.filters.filterPreferencesKey
+import org.tasks.preferences.FilterPreferences
+import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import javax.inject.Inject
@@ -36,6 +39,7 @@ class TaskDeleter @Inject constructor(
     private val geofenceApi: GeofenceApi,
     private val userActivityDao: UserActivityDao,
     private val locationDao: LocationDao,
+    private val preferences: Preferences,
 ) {
     suspend fun markDeleted(item: Task) = markDeleted(listOf(item.id))
 
@@ -73,15 +77,17 @@ class TaskDeleter @Inject constructor(
             caldavCalendar = list,
             cleanup = { cleanup(it) }
         )
+        FilterPreferences.delete(preferences, list.filterPreferencesKey())
         refreshBroadcaster.broadcastRefresh()
     }
 
     suspend fun delete(account: CaldavAccount) {
         vtodoCache.delete(account)
-        deletionDao.delete(
+        val calendars = deletionDao.delete(
             caldavAccount = account,
             cleanup = { cleanup(it) }
         )
+        calendars.forEach { FilterPreferences.delete(preferences, it.filterPreferencesKey()) }
         refreshBroadcaster.broadcastRefresh()
     }
 
