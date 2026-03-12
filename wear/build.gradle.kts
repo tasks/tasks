@@ -68,6 +68,7 @@ android {
 
 dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.libs)
+    implementation(platform(libs.androidx.compose))
     implementation(compose.components.resources)
     implementation(projects.wearDatalayer)
     implementation(projects.kmp)
