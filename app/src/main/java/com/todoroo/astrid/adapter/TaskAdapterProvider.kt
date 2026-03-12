@@ -20,7 +20,10 @@ import org.tasks.filters.Filter
 import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.TagFilter
 import org.tasks.filters.TodayFilter
+import org.tasks.filters.key
+import org.tasks.preferences.FilterPreferences
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.QueryPreferences
 import javax.inject.Inject
 
 class TaskAdapterProvider @Inject constructor(
@@ -34,7 +37,12 @@ class TaskAdapterProvider @Inject constructor(
     private val taskMover: TaskMover,
 ) {
     fun createTaskAdapter(filter: Filter): TaskAdapter {
-        if (filter is AstridOrderingFilter && preferences.isAstridSort) {
+        val queryPreferences: QueryPreferences = if (preferences.isPerListSortEnabled) {
+            FilterPreferences(preferences, filter.key())
+        } else {
+            preferences
+        }
+        if (filter is AstridOrderingFilter && queryPreferences.isAstridSort) {
             when (filter) {
                 is TagFilter -> return createManualTagTaskAdapter(filter)
                 else -> {
@@ -45,7 +53,7 @@ class TaskAdapterProvider @Inject constructor(
                 }
             }
         }
-        if (filter.supportsManualSort() && preferences.isManualSort) {
+        if (filter.supportsManualSort() && queryPreferences.isManualSort) {
             if (filter is CaldavFilter) {
                 when {
                     filter.isGoogleTasks -> return GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
