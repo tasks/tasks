@@ -136,7 +136,7 @@ horologist-datalayer-grpc = { group = "com.google.android.horologist", name = "h
 horologist-datalayer-phone = { group = "com.google.android.horologist", name = "horologist-datalayer-phone", version.ref = "horologist" }
 horologist-datalayer-watch = { group = "com.google.android.horologist", name = "horologist-datalayer-watch", version.ref = "horologist" }
 #noinspection NewerVersionAvailable
-jchronic = { module = "com.rubiconproject.oss:jchronic", version = "0.2.6" }
+jchronic = { module = "com.rubiconproject.oss:jchronic", version = "0.2.8" }
 junit = { module = "junit:junit", version.ref = "junit-junit" }
 kermit = { module = "co.touchlab:kermit", version = "2.0.8" }
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
