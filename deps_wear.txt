@@ -1710,8 +1710,8 @@
 ++--- com.jakewharton.timber:timber:5.0.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.21 -> 2.3.0 (*)
 +|    \--- org.jetbrains:annotations:20.1.0 -> 23.0.0
-++--- androidx.work:work-runtime-ktx:2.11.0
-+|    +--- androidx.work:work-runtime:2.11.0
+++--- androidx.work:work-runtime-ktx:2.11.1
++|    +--- androidx.work:work-runtime:2.11.1
 +|    |    +--- androidx.annotation:annotation-experimental:1.4.1 -> 1.5.0 (*)
 +|    |    +--- androidx.concurrent:concurrent-futures-ktx:1.1.0 (*)
 +|    |    +--- androidx.core:core:1.12.0 -> 1.16.0 (*)
@@ -1727,7 +1727,7 @@
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.3.0 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0 -> 1.10.2 (*)
 +|    |    +--- org.jspecify:jspecify:1.0.0
-+|    |    +--- androidx.work:work-runtime-ktx:2.11.0 (c)
++|    |    +--- androidx.work:work-runtime-ktx:2.11.1 (c)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.3.0 (c)
-+|    \--- androidx.work:work-runtime:2.11.0 (c)
++|    \--- androidx.work:work-runtime:2.11.1 (c)
 +\--- androidx.wear.tiles:tiles-proto:1.5.0 (*)
