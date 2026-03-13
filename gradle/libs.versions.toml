@@ -9,7 +9,6 @@ accompanist = "0.37.3"
 activity-compose = "1.12.2"
 appauth = "0.11.1"
 appcompat = "1.7.1"
-cert4android = "7814052"
 coil = "2.7.0"
 compose = "2026.03.00"
 constraintlayout = "2.2.1"
@@ -97,7 +96,7 @@ androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
 androidx-work = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
 appauth = { module = "net.openid:appauth", version.ref = "appauth" }
-bitfire-cert4android = { module = "com.github.bitfireAT:cert4android", version.ref = "cert4android" }
+bitfire-cert4android = { module = "com.github.bitfireAT:cert4android", version = "035dd99f7f" }
 bitfire-dav4jvm = { module = "com.github.bitfireAT:dav4jvm", version = "ffb83c7aca"}
 bitfire-ical4android = { module = "com.github.tasks:ical4android", version.ref = "ical4android"}
 ical4j = { module = "org.mnode.ical4j:ical4j", version.ref = "ical4j" }

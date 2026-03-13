@@ -2,6 +2,8 @@ package org.tasks.http
 
 import android.content.Context
 import at.bitfire.cert4android.CustomCertManager
+import at.bitfire.cert4android.CustomCertStore
+import at.bitfire.cert4android.SettingsProvider
 import at.bitfire.dav4jvm.okhttp.BasicDigestAuthHandler
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.HttpClient
@@ -64,10 +66,15 @@ class HttpClientFactory @Inject constructor(
         block: (OkHttpClient.Builder) -> Unit = {}
     ): OkHttpClient {
         val customCertManager = withContext(Dispatchers.Default) {
-            CustomCertManager(context)
+            CustomCertManager(
+                certStore = CustomCertStore.getInstance(context),
+                settings = object : SettingsProvider {
+                    override val appInForeground = foreground
+                    override val trustSystemCerts = true
+                }
+            )
         }
-        customCertManager.appInForeground = foreground
-        val hostnameVerifier = customCertManager.hostnameVerifier(OkHostnameVerifier)
+        val hostnameVerifier = customCertManager.HostnameVerifier(OkHostnameVerifier)
         val sslContext = SSLContext.getInstance("TLS")
         sslContext.init(null, arrayOf(customCertManager), null)
         val builder = OkHttpClient()
