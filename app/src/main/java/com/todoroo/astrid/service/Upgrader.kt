@@ -151,6 +151,12 @@ class Upgrader @Inject constructor(
                     }
                 }
             }
+            run(from, V14_7_5) {
+                upgraderDao.tasksWithVtodos()
+                    .filter { it.task.estimatedSeconds > 0 || it.task.elapsedSeconds > 0 }
+                    .map { it.id }
+                    .let { taskDao.touch(it) }
+            }
             run(from, V14_8) {
                 WorkManager.getInstance(context).enqueueUniqueWork(
                     uniqueWorkName = "upload_icons",
@@ -431,6 +437,7 @@ class Upgrader @Inject constructor(
         const val V12_8 = 120800
         const val V14_5_4 = 140516
         const val V14_6_1 = 140602
+        const val V14_7_5 = 140705
         const val V14_8 = 140800
 
         @JvmStatic

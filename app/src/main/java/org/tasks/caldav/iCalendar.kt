@@ -296,11 +296,16 @@ class iCalendar @Inject constructor(
                 it === RelType.PARENT || it == null || it.value.isNullOrBlank()
             }
         }
+        // custom X- properties to sync internal fields
+        private const val TASKS_ESTIMATED_SECONDS = "X-TASKS-ESTIMATED-SECONDS"
+        private const val TASKS_ELAPSED_SECONDS = "X-TASKS-ELAPSED-SECONDS"
 
         internal val IS_APPLE_SORT_ORDER = { x: Property? -> x?.name.equals(APPLE_SORT_ORDER, true) }
         private val IS_OC_HIDESUBTASKS = { x: Property? -> x?.name.equals(OC_HIDESUBTASKS, true) }
         private val IS_MOZ_SNOOZE_TIME = { x: Property? -> x?.name.equals(MOZ_SNOOZE_TIME, true) }
         private val IS_MOZ_LASTACK = { x: Property? -> x?.name.equals(MOZ_LASTACK, true) }
+        private val IS_TASKS_ESTIMATED_SECONDS = { x: Property? -> x?.name.equals(TASKS_ESTIMATED_SECONDS, true) }
+        private val IS_TASKS_ELAPSED_SECONDS = { x: Property? -> x?.name.equals(TASKS_ELAPSED_SECONDS, true) }
 
         fun Due?.apply(task: org.tasks.data.entity.Task) {
             task.dueDate = toMillis()
@@ -442,6 +447,36 @@ class iCalendar @Inject constructor(
                         ?: unknownProperties.removeIf(IS_MOZ_SNOOZE_TIME)
             }
 
+        var Task.estimatedSeconds: Int?
+            get() = unknownProperties.find(IS_TASKS_ESTIMATED_SECONDS)?.value?.toInt()
+            set(value) {
+                value
+                    ?.takeIf { it != 0 }
+                    ?.let { dur ->
+                        unknownProperties.find(IS_TASKS_ESTIMATED_SECONDS)
+                            ?.let { it.value = dur.toString() }
+                            ?: unknownProperties.add(
+                                XProperty(TASKS_ESTIMATED_SECONDS, dur.toString())
+                            )
+                    }
+                    ?: unknownProperties.removeIf(IS_TASKS_ESTIMATED_SECONDS)
+            }
+
+        var Task.elapsedSeconds: Int?
+            get() = unknownProperties.find(IS_TASKS_ELAPSED_SECONDS)?.value?.toInt()
+            set(value) {
+                value
+                    ?.takeIf { it != 0 }
+                    ?.let { dur ->
+                        unknownProperties.find(IS_TASKS_ELAPSED_SECONDS)
+                            ?.let { it.value = dur.toString() }
+                            ?: unknownProperties.add(
+                                XProperty(TASKS_ELAPSED_SECONDS, dur.toString())
+                            )
+                    }
+                    ?: unknownProperties.removeIf(IS_TASKS_ELAPSED_SECONDS)
+            }
+
         fun Task.applyLocal(caldavTask: CaldavTask, task: org.tasks.data.entity.Task) {
             createdAt = newDateTime(task.creationDate).toUTC().millis
             summary = task.title
@@ -494,6 +529,8 @@ class iCalendar @Inject constructor(
             parent = if (task.parent == 0L) null else caldavTask.remoteParent
             order = task.order
             collapsed = task.isCollapsed
+            estimatedSeconds = task.estimatedSeconds
+            elapsedSeconds = task.elapsedSeconds
         }
 
         val List<VAlarm>.filtered: List<VAlarm>
