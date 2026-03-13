@@ -766,4 +766,6 @@
     <string name="upgrade_friends_and_family_description">Paylaşılan listelerde 5 ücretsiz konuk. Apple Anımsatıcılar ile çalışır</string>
     <string name="already_subscribed">Halihazırda abone misiniz?</string>
     <string name="sign_in_subtitle">Halihazırda abone ya da davetli konuk musunuz?</string>
+    <string name="per_list_sort_title">Liste başına sıralama</string>
+    <string name="per_list_sort_summary">Her liste için sıra ve küme ayarlarını ayrı ayrı anımsa</string>
 </resources>
