@@ -1,26 +1,26 @@
 package org.tasks.caldav
 
 import android.content.Context
-import at.bitfire.dav4jvm.DavCalendar
-import at.bitfire.dav4jvm.DavCalendar.Companion.MIME_ICALENDAR
-import at.bitfire.dav4jvm.DavResource
 import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.PropertyRegistry
-import at.bitfire.dav4jvm.Response
-import at.bitfire.dav4jvm.Response.HrefRelation
-import at.bitfire.dav4jvm.exception.DavException
-import at.bitfire.dav4jvm.exception.HttpException
-import at.bitfire.dav4jvm.exception.ServiceUnavailableException
-import at.bitfire.dav4jvm.exception.UnauthorizedException
-import at.bitfire.dav4jvm.property.CalendarColor
-import at.bitfire.dav4jvm.property.CalendarData
-import at.bitfire.dav4jvm.property.CurrentUserPrincipal
-import at.bitfire.dav4jvm.property.CurrentUserPrivilegeSet
-import at.bitfire.dav4jvm.property.DisplayName
-import at.bitfire.dav4jvm.property.GetCTag
-import at.bitfire.dav4jvm.property.GetETag
-import at.bitfire.dav4jvm.property.GetETag.Companion.fromResponse
-import at.bitfire.dav4jvm.property.SyncToken
+import at.bitfire.dav4jvm.okhttp.DavCalendar
+import at.bitfire.dav4jvm.okhttp.DavCalendar.Companion.MIME_ICALENDAR
+import at.bitfire.dav4jvm.okhttp.DavResource
+import at.bitfire.dav4jvm.okhttp.Response
+import at.bitfire.dav4jvm.okhttp.Response.HrefRelation
+import at.bitfire.dav4jvm.okhttp.exception.DavException
+import at.bitfire.dav4jvm.okhttp.exception.HttpException
+import at.bitfire.dav4jvm.okhttp.exception.ServiceUnavailableException
+import at.bitfire.dav4jvm.okhttp.exception.UnauthorizedException
+import at.bitfire.dav4jvm.property.caldav.CalendarColor
+import at.bitfire.dav4jvm.property.caldav.CalendarData
+import at.bitfire.dav4jvm.property.webdav.CurrentUserPrincipal
+import at.bitfire.dav4jvm.property.webdav.CurrentUserPrivilegeSet
+import at.bitfire.dav4jvm.property.caldav.GetCTag
+import at.bitfire.dav4jvm.property.webdav.DisplayName
+import at.bitfire.dav4jvm.property.webdav.GetETag
+import at.bitfire.dav4jvm.property.webdav.GetETag.Companion.fromResponse
+import at.bitfire.dav4jvm.property.webdav.SyncToken
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -136,7 +136,7 @@ class CaldavSynchronizer @Inject constructor(
         } catch (e: NoSuchAlgorithmException) {
             setError(account, e)
         } catch (e: HttpException) {
-            when(e.code) {
+            when(e.statusCode) {
                 402, 451, in 500..599 -> {}
                 else -> { firebase.reportException(e) }
             }
@@ -377,7 +377,7 @@ class CaldavSynchronizer @Inject constructor(
                 remote.delete(null) {}
             }
         } catch (e: HttpException) {
-            if (e.code != 404) {
+            if (e.statusCode != 404) {
                 Timber.e(e)
                 return false
             }
@@ -512,8 +512,8 @@ class CaldavSynchronizer @Inject constructor(
 
         val Response.accessLevel: Int
             get() {
-                this[ShareAccess::class.java]?.let {
-                    return when (it.access) {
+                this[ShareAccess::class.java]?.access?.let {
+                    return when (it) {
                         NOT_SHARED, SHARED_OWNER -> ACCESS_OWNER
                         READ_WRITE -> ACCESS_READ_WRITE
                         NO_ACCESS, READ -> ACCESS_READ_ONLY

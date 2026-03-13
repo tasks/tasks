@@ -1,8 +1,6 @@
 package org.tasks.caldav
 
-import android.content.Context
-import at.bitfire.dav4jvm.BasicDigestAuthHandler
-import dagger.hilt.android.qualifiers.ApplicationContext
+import at.bitfire.dav4jvm.okhttp.BasicDigestAuthHandler
 import okhttp3.Authenticator
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.Interceptor
@@ -19,7 +17,6 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class CaldavClientProvider @Inject constructor(
-        @ApplicationContext private val context: Context,
         private val encryption: KeyStoreEncryption,
         private val inventory: Inventory,
         private val httpClientFactory: HttpClientFactory,
@@ -79,7 +76,7 @@ class CaldavClientProvider @Inject constructor(
     ): Interceptor? = when {
         username.isNullOrBlank() || password.isNullOrBlank() -> null
         url?.startsWith(environment.caldavUrl) == true -> TasksBasicAuth(username, password, inventory, tosVersion, pushToken)
-        else -> BasicDigestAuthHandler(null, username, password)
+        else -> BasicDigestAuthHandler(null, username, password.toCharArray())
     }
 
     private suspend fun createHttpClient(

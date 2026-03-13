@@ -1,9 +1,9 @@
 package org.tasks.sync.microsoft
 
 import android.content.Context
-import at.bitfire.dav4jvm.exception.HttpException
-import at.bitfire.dav4jvm.exception.ServiceUnavailableException
-import at.bitfire.dav4jvm.exception.UnauthorizedException
+import at.bitfire.dav4jvm.okhttp.exception.HttpException
+import at.bitfire.dav4jvm.okhttp.exception.ServiceUnavailableException
+import at.bitfire.dav4jvm.okhttp.exception.UnauthorizedException
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskDeleter
@@ -100,7 +100,7 @@ class MicrosoftSynchronizer @Inject constructor(
         } catch (e: IOException) {
             setError(account, e.message)
         } catch (e: HttpException) {
-            val message = when(e.code) {
+            val message = when(e.statusCode) {
                 402, in 500..599 -> e.message
                 else -> {
                     firebase.reportException(e)

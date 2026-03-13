@@ -2,9 +2,8 @@ package org.tasks.caldav.property
 
 import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.PropertyFactory
-import at.bitfire.dav4jvm.XmlUtils
+import at.bitfire.dav4jvm.XmlReader
 import org.xmlpull.v1.XmlPullParser
-import timber.log.Timber
 
 data class CalendarIcon(
     val icon: String,
@@ -18,15 +17,9 @@ data class CalendarIcon(
 
         override fun getName() = NAME
 
-        override fun create(parser: XmlPullParser): CalendarIcon? {
-            XmlUtils.readText(parser)?.takeIf { it.isNotBlank() }?.let {
-                try {
-                    return CalendarIcon(it)
-                } catch (e: IllegalArgumentException) {
-                    Timber.e(e, "Couldn't parse icon: $it")
-                }
-            }
-            return null
+        override fun create(parser: XmlPullParser): CalendarIcon {
+            val text = XmlReader(parser).readText()?.takeIf { it.isNotBlank() }
+            return CalendarIcon(text ?: "")
         }
     }
 }

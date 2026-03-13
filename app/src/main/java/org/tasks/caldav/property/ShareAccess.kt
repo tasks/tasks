@@ -2,22 +2,22 @@ package org.tasks.caldav.property
 
 import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.PropertyFactory
-import at.bitfire.dav4jvm.XmlUtils
 import at.bitfire.dav4jvm.XmlUtils.propertyName
+import at.bitfire.dav4jvm.property.webdav.WebDAV
 import org.tasks.BuildConfig
 import org.xmlpull.v1.XmlPullParser
 
-data class ShareAccess(val access: Property.Name): Property {
+data class ShareAccess(val access: Property.Name?): Property {
 
     companion object {
         @JvmField
-        val NAME = Property.Name(XmlUtils.NS_WEBDAV, "share-access")
+        val NAME = Property.Name(WebDAV.NS_WEBDAV, "share-access")
 
-        val SHARED_OWNER = Property.Name(XmlUtils.NS_WEBDAV, "shared-owner")
-        val READ_WRITE = Property.Name(XmlUtils.NS_WEBDAV, "read-write")
-        val NOT_SHARED = Property.Name(XmlUtils.NS_WEBDAV, "not-shared")
-        val NO_ACCESS = Property.Name(XmlUtils.NS_WEBDAV, "no-access")
-        val READ = Property.Name(XmlUtils.NS_WEBDAV, "read")
+        val SHARED_OWNER = Property.Name(WebDAV.NS_WEBDAV, "shared-owner")
+        val READ_WRITE = Property.Name(WebDAV.NS_WEBDAV, "read-write")
+        val NOT_SHARED = Property.Name(WebDAV.NS_WEBDAV, "not-shared")
+        val NO_ACCESS = Property.Name(WebDAV.NS_WEBDAV, "no-access")
+        val READ = Property.Name(WebDAV.NS_WEBDAV, "read")
     }
 
     override fun toString(): String {
@@ -28,7 +28,7 @@ data class ShareAccess(val access: Property.Name): Property {
 
         override fun getName() = NAME
 
-        override fun create(parser: XmlPullParser): ShareAccess? {
+        override fun create(parser: XmlPullParser): ShareAccess {
             // <!ELEMENT share-access #PCDATA>
             var result: Property.Name? = null
             val depth = parser.depth
@@ -40,7 +40,7 @@ data class ShareAccess(val access: Property.Name): Property {
                 eventType = parser.next()
             }
             if (BuildConfig.DEBUG && parser.depth != depth) { error("Assertion failed") }
-            return result?.let { ShareAccess(it) }
+            return ShareAccess(result)
         }
     }
 }

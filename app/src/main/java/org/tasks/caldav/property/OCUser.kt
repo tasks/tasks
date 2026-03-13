@@ -1,9 +1,9 @@
 package org.tasks.caldav.property
 
-import at.bitfire.dav4jvm.DavResource
 import at.bitfire.dav4jvm.Property
-import at.bitfire.dav4jvm.XmlUtils
+import at.bitfire.dav4jvm.XmlReader
 import at.bitfire.dav4jvm.XmlUtils.propertyName
+import at.bitfire.dav4jvm.property.webdav.WebDAV
 import org.tasks.BuildConfig
 import org.tasks.caldav.property.PropertyUtils.NS_OWNCLOUD
 import org.xmlpull.v1.XmlPullParser
@@ -24,10 +24,10 @@ class OCUser(parser: XmlPullParser) {
         while (!(eventType == XmlPullParser.END_TAG && parser.depth == depth)) {
             if (eventType == XmlPullParser.START_TAG && parser.depth == depth + 1) {
                 when (val name = parser.propertyName()) {
-                    DavResource.HREF ->
-                        XmlUtils.readText(parser)?.let { href = it }
+                    WebDAV.Href ->
+                        XmlReader(parser).readText()?.let { href = it }
                     COMMON_NAME ->
-                        XmlUtils.readText(parser)?.let { commonName = it }
+                        XmlReader(parser).readText()?.let { commonName = it }
                     OCAccess.ACCESS ->
                         access = OCAccess(parser)
                     INVITE_ACCEPTED, INVITE_DECLINED, INVITE_NORESPONSE, INVITE_INVALID ->

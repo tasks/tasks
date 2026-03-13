@@ -31,7 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
-import at.bitfire.dav4jvm.exception.HttpException
+import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import net.openid.appauth.AuthState
@@ -248,7 +248,7 @@ class SignInActivity : ComponentActivity() {
     }
 
     private fun handleError(e: Throwable) {
-        if (e is HttpException && e.code == 402) {
+        if (e is HttpException && e.statusCode == 402) {
             if (IS_GOOGLE_PLAY) {
                 startActivityForResult(
                     Intent(this, PurchaseActivity::class.java)

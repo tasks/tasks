@@ -15,7 +15,6 @@ compose = "2026.03.00"
 constraintlayout = "2.2.1"
 dagger-hilt = "2.59.2"
 dashclock-api = "2.0.0"
-dav4jvm = "2.2.1"
 desugar_jdk_libs = "2.1.5"
 etebase = "2.3.2"
 firebase = "34.10.0"
@@ -99,7 +98,7 @@ androidx-test-runner = { module = "androidx.test:runner", version.ref = "android
 androidx-work = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
 appauth = { module = "net.openid:appauth", version.ref = "appauth" }
 bitfire-cert4android = { module = "com.github.bitfireAT:cert4android", version.ref = "cert4android" }
-bitfire-dav4jvm = { module = "com.github.bitfireAT:dav4jvm", version.ref = "dav4jvm"}
+bitfire-dav4jvm = { module = "com.github.bitfireAT:dav4jvm", version = "ffb83c7aca"}
 bitfire-ical4android = { module = "com.github.tasks:ical4android", version.ref = "ical4android"}
 ical4j = { module = "org.mnode.ical4j:ical4j", version.ref = "ical4j" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }

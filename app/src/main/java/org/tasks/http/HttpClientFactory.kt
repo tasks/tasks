@@ -2,7 +2,7 @@ package org.tasks.http
 
 import android.content.Context
 import at.bitfire.cert4android.CustomCertManager
-import at.bitfire.dav4jvm.BasicDigestAuthHandler
+import at.bitfire.dav4jvm.okhttp.BasicDigestAuthHandler
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
@@ -51,7 +51,7 @@ class HttpClientFactory @Inject constructor(
         val decrypted = encryptedPassword?.let { encryption.decrypt(it) }
         return newClient(foreground = foreground, cookieKey = username) { builder ->
             if (!username.isNullOrBlank() && !decrypted.isNullOrBlank()) {
-                val auth = BasicDigestAuthHandler(null, username, decrypted)
+                val auth = BasicDigestAuthHandler(null, username, decrypted.toCharArray())
                 builder.addNetworkInterceptor(auth)
                 builder.authenticator(auth)
             }

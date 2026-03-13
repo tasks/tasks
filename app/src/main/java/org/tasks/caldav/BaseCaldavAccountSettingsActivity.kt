@@ -26,7 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
-import at.bitfire.dav4jvm.exception.HttpException
+import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import com.franmontiel.persistentcookiejar.persistence.CookiePersistor
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -306,7 +306,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         hideProgressIndicator()
         when (t) {
             is HttpException ->
-                if (t.code == 401)
+                if (t.statusCode == 401)
                     showSnackbar(R.string.invalid_username_or_password)
                 else
                     showSnackbar(t.message)

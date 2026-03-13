@@ -2,8 +2,8 @@ package org.tasks.caldav.property
 
 import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.PropertyFactory
-import at.bitfire.dav4jvm.XmlUtils
 import at.bitfire.dav4jvm.XmlUtils.propertyName
+import at.bitfire.dav4jvm.property.webdav.WebDAV
 import org.tasks.BuildConfig
 import org.xmlpull.v1.XmlPullParser
 
@@ -11,9 +11,9 @@ data class Invite(val sharees: List<Sharee>): Property {
 
     companion object {
         @JvmField
-        val NAME = Property.Name(XmlUtils.NS_WEBDAV, "invite")
+        val NAME = Property.Name(WebDAV.NS_WEBDAV, "invite")
 
-        val SHAREE = Property.Name(XmlUtils.NS_WEBDAV, "sharee")
+        val SHAREE = Property.Name(WebDAV.NS_WEBDAV, "sharee")
     }
 
 

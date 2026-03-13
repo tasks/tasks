@@ -1,26 +1,27 @@
 package org.tasks.caldav
 
-import at.bitfire.dav4jvm.DavCollection
-import at.bitfire.dav4jvm.DavResource
-import at.bitfire.dav4jvm.DavResource.Companion.MIME_XML
 import at.bitfire.dav4jvm.Property
-import at.bitfire.dav4jvm.Response
-import at.bitfire.dav4jvm.Response.HrefRelation
-import at.bitfire.dav4jvm.XmlUtils.NS_APPLE_ICAL
-import at.bitfire.dav4jvm.XmlUtils.NS_CALDAV
-import at.bitfire.dav4jvm.XmlUtils.NS_WEBDAV
-import at.bitfire.dav4jvm.exception.DavException
-import at.bitfire.dav4jvm.exception.HttpException
-import at.bitfire.dav4jvm.property.CalendarColor
-import at.bitfire.dav4jvm.property.CalendarHomeSet
-import at.bitfire.dav4jvm.property.CurrentUserPrincipal
-import at.bitfire.dav4jvm.property.CurrentUserPrivilegeSet
-import at.bitfire.dav4jvm.property.DisplayName
-import at.bitfire.dav4jvm.property.GetCTag
-import at.bitfire.dav4jvm.property.ResourceType
-import at.bitfire.dav4jvm.property.ResourceType.Companion.CALENDAR
-import at.bitfire.dav4jvm.property.SupportedCalendarComponentSet
-import at.bitfire.dav4jvm.property.SyncToken
+import at.bitfire.dav4jvm.okhttp.DavCollection
+import at.bitfire.dav4jvm.okhttp.DavResource
+import at.bitfire.dav4jvm.okhttp.DavResource.Companion.MIME_XML
+import at.bitfire.dav4jvm.okhttp.Response
+import at.bitfire.dav4jvm.okhttp.Response.HrefRelation
+import at.bitfire.dav4jvm.okhttp.exception.DavException
+import at.bitfire.dav4jvm.okhttp.exception.HttpException
+import at.bitfire.dav4jvm.property.caldav.CalDAV
+import at.bitfire.dav4jvm.property.caldav.CalDAV.NS_APPLE_ICAL
+import at.bitfire.dav4jvm.property.caldav.CalDAV.NS_CALDAV
+import at.bitfire.dav4jvm.property.caldav.CalendarColor
+import at.bitfire.dav4jvm.property.caldav.CalendarHomeSet
+import at.bitfire.dav4jvm.property.caldav.GetCTag
+import at.bitfire.dav4jvm.property.caldav.SupportedCalendarComponentSet
+import at.bitfire.dav4jvm.property.webdav.CurrentUserPrincipal
+import at.bitfire.dav4jvm.property.webdav.CurrentUserPrivilegeSet
+import at.bitfire.dav4jvm.property.webdav.DisplayName
+import at.bitfire.dav4jvm.property.webdav.ResourceType
+import at.bitfire.dav4jvm.property.webdav.SyncToken
+import at.bitfire.dav4jvm.property.webdav.WebDAV
+import at.bitfire.dav4jvm.property.webdav.WebDAV.NS_WEBDAV
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl
@@ -67,7 +68,7 @@ open class CaldavClient(
             httpUrl
                     ?.resolve(link)
                     ?.let { DavResource(httpClient, it) }
-                    ?.propfind(0, CurrentUserPrincipal.NAME)
+                    ?.propfind(0, WebDAV.CurrentUserPrincipal)
                     ?.firstOrNull()
                     ?.let { (response, _) -> response[CurrentUserPrincipal::class.java] }
                     ?.href
@@ -76,10 +77,10 @@ open class CaldavClient(
     private suspend fun findHomeset(): String {
         val davResource = DavResource(httpClient, httpUrl!!)
         return davResource
-                .propfind(0, CalendarHomeSet.NAME)
+                .propfind(0, CalDAV.CalendarHomeSet)
                 .firstOrNull()
                 ?.let { (response, _) -> response[CalendarHomeSet::class.java] }
-                ?.href
+                ?.hrefs?.firstOrNull()
                 ?.takeIf { it.isNotBlank() }
                 ?.let { davResource.location.resolve(it).toString() }
                 ?: throw DisplayableException(R.string.caldav_home_set_not_found)
@@ -94,7 +95,7 @@ open class CaldavClient(
         try {
             principal = tryFindPrincipal("/.well-known/caldav")
         } catch (e: Exception) {
-            if (e is HttpException && e.code == 401) {
+            if (e is HttpException && e.statusCode == 401) {
                 throw e
             }
             Timber.w(e)
@@ -120,7 +121,7 @@ open class CaldavClient(
             .propfind(1, *calendarProperties)
             .filter { (response, relation) ->
                 relation == HrefRelation.MEMBER &&
-                        response[ResourceType::class.java]?.types?.contains(CALENDAR) == true &&
+                        response[ResourceType::class.java]?.types?.contains(CalDAV.Calendar) == true &&
                         response[SupportedCalendarComponentSet::class.java]?.supportsTasks == true
             }
             .map { (response, _) -> response }
@@ -145,10 +146,10 @@ open class CaldavClient(
     suspend fun updateCollection(displayName: String, color: Int, icon: String?): String =
         withContext(Dispatchers.IO) {
             with(DavResource(httpClient, httpUrl!!)) {
-                proppatch(DisplayName.NAME, displayName)
+                proppatch(WebDAV.DisplayName, displayName)
                 if (color != 0) {
                     proppatch(
-                        CalendarColor.NAME,
+                        CalDAV.CalendarColor,
                         String.format("#%06X%02X", color and 0xFFFFFF, color ushr 24)
                     )
                 }
@@ -306,18 +307,18 @@ open class CaldavClient(
         private val MEDIATYPE_SHARING = "application/davsharing+xml".toMediaType()
 
         private val calendarProperties = arrayOf(
-            ResourceType.NAME,
-            DisplayName.NAME,
-            SupportedCalendarComponentSet.NAME,
-            GetCTag.NAME,
-            CalendarColor.NAME,
-            SyncToken.NAME,
+            WebDAV.ResourceType,
+            WebDAV.DisplayName,
+            CalDAV.SupportedCalendarComponentSet,
+            CalDAV.GetCTag,
+            CalDAV.CalendarColor,
+            WebDAV.SyncToken,
             ShareAccess.NAME,
             Invite.NAME,
             OCOwnerPrincipal.NAME,
             OCInvite.NAME,
-            CurrentUserPrivilegeSet.NAME,
-            CurrentUserPrincipal.NAME,
+            WebDAV.CurrentUserPrivilegeSet,
+            WebDAV.CurrentUserPrincipal,
             CalendarIcon.NAME,
         )
 

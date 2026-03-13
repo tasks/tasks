@@ -1,10 +1,10 @@
 package org.tasks.caldav.property
 
-import at.bitfire.dav4jvm.DavResource
 import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.PropertyRegistry
-import at.bitfire.dav4jvm.XmlUtils
+import at.bitfire.dav4jvm.XmlReader
 import at.bitfire.dav4jvm.XmlUtils.propertyName
+import at.bitfire.dav4jvm.property.webdav.WebDAV
 import org.tasks.BuildConfig
 import org.xmlpull.v1.XmlPullParser
 
@@ -25,16 +25,16 @@ class Sharee(parser: XmlPullParser) {
         while (!(eventType == XmlPullParser.END_TAG && parser.depth == depth)) {
             if (eventType == XmlPullParser.START_TAG && parser.depth == depth + 1) {
                 when (val name = parser.propertyName()) {
-                    DavResource.HREF ->
-                        XmlUtils.readText(parser)?.let { href = it }
+                    WebDAV.Href ->
+                        XmlReader(parser).readText()?.let { href = it }
                     ShareAccess.NAME ->
                         PropertyRegistry.create(ShareAccess.NAME, parser)
                             ?.let { access = it as ShareAccess }
                     COMMENT ->
-                        XmlUtils.readText(parser)?.let { comment = it }
+                        XmlReader(parser).readText()?.let { comment = it }
                     INVITE_ACCEPTED, INVITE_DECLINED, INVITE_NORESPONSE, INVITE_INVALID ->
                         response = name
-                    DavResource.PROP ->
+                    WebDAV.Prop ->
                         properties.addAll(Property.parse(parser))
                 }
             }
@@ -48,10 +48,10 @@ class Sharee(parser: XmlPullParser) {
     }
 
     companion object {
-        val COMMENT = Property.Name(XmlUtils.NS_WEBDAV, "comment")
-        val INVITE_ACCEPTED = Property.Name(XmlUtils.NS_WEBDAV, "invite-accepted")
-        val INVITE_DECLINED = Property.Name(XmlUtils.NS_WEBDAV, "invite-declined")
-        val INVITE_NORESPONSE = Property.Name(XmlUtils.NS_WEBDAV, "invite-noresponse")
-        val INVITE_INVALID = Property.Name(XmlUtils.NS_WEBDAV, "invite-invalid")
+        val COMMENT = Property.Name(WebDAV.NS_WEBDAV, "comment")
+        val INVITE_ACCEPTED = Property.Name(WebDAV.NS_WEBDAV, "invite-accepted")
+        val INVITE_DECLINED = Property.Name(WebDAV.NS_WEBDAV, "invite-declined")
+        val INVITE_NORESPONSE = Property.Name(WebDAV.NS_WEBDAV, "invite-noresponse")
+        val INVITE_INVALID = Property.Name(WebDAV.NS_WEBDAV, "invite-invalid")
     }
 }
