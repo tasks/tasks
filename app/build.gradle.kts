@@ -259,7 +259,7 @@ dependencies {
     googleplayImplementation(platform(libs.firebase))
     googleplayImplementation(libs.firebase.crashlytics)
     googleplayImplementation(libs.posthog.android)
-    googleplayImplementation(libs.firebase.config.ktx)
+    googleplayImplementation(libs.firebase.config)
     googleplayImplementation(libs.firebase.messaging)
     googleplayImplementation(libs.play.services.location)
     googleplayImplementation(libs.play.services.maps)
