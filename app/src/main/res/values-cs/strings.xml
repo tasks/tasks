@@ -788,4 +788,7 @@
     <string name="upgrade_friends_and_family_description">5 bezplatných hostů ve sdílených seznamech. Funguje s Připomínkami Apple</string>
     <string name="already_subscribed">Již máte předplatné?</string>
     <string name="sign_in_subtitle">Již máte předplatné nebo jste pozvaným hostem?</string>
+    <string name="p_per_list_sort">per_list_sort</string>
+    <string name="per_list_sort_title">Řazení dle seznamu</string>
+    <string name="per_list_sort_summary">Zapamatovat si nastavení řazení a skupin zvlášť pro každý seznam</string>
 </resources>
