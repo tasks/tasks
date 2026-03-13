@@ -1,6 +1,6 @@
 package org.tasks.makers
 
-import at.bitfire.ical4android.Task
+import org.tasks.caldav.Task
 import com.natpryce.makeiteasy.Instantiator
 import com.natpryce.makeiteasy.Property
 import com.natpryce.makeiteasy.Property.newProperty

@@ -22,8 +22,20 @@ kotlin {
     }
     jvm()
     sourceSets {
-        androidMain.dependencies {
-            implementation(libs.androidx.ui.tooling.preview.android)
+        val jvmCommonMain by creating {
+            dependsOn(commonMain.get())
+        }
+        androidMain {
+            dependsOn(jvmCommonMain)
+            dependencies {
+                implementation(libs.androidx.ui.tooling.preview.android)
+            }
+        }
+        jvmMain {
+            dependsOn(jvmCommonMain)
+        }
+        jvmCommonMain.dependencies {
+            api(libs.ical4j)
         }
         commonMain.dependencies {
             implementation(projects.data)

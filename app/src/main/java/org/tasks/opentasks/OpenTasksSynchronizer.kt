@@ -12,6 +12,7 @@ import org.tasks.R
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
+import org.tasks.caldav.Ical4androidTaskAdapter
 import org.tasks.caldav.iCalendar
 import org.tasks.data.MyAndroidTask
 import org.tasks.data.OpenTaskDao
@@ -230,7 +231,8 @@ class OpenTasksSynchronizer @Inject constructor(
         val uid = caldavTask.remoteId!!
         val androidTask = openTaskDao.getTask(listId, uid)
                 ?: MyAndroidTask(at.bitfire.ical4android.Task())
-        iCalendar.toVtodo(account, caldavTask, task, androidTask.task!!)
+        val adapted = Ical4androidTaskAdapter(androidTask.task!!)
+        iCalendar.toVtodo(account, caldavTask, task, adapted)
         val operations = ArrayList<BatchOperation.CpoBuilder>()
         val builder = androidTask.toBuilder(openTaskDao.tasks)
         val idxTask = if (androidTask.isNew) {
@@ -268,8 +270,9 @@ class OpenTasksSynchronizer @Inject constructor(
         etag: String?,
         existing: CaldavTask?
     ) {
-        openTaskDao.getTask(listId, uid)?.let {
-            iCalendar.fromVtodo(account, calendar, existing, it.task!!, null, null, etag)
+        openTaskDao.getTask(listId, uid)?.let { androidTask ->
+            val adapted = Ical4androidTaskAdapter(androidTask.task!!)
+            iCalendar.fromVtodo(account, calendar, existing, adapted, null, null, etag)
         }
     }
 

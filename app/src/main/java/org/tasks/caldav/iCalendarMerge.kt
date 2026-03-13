@@ -1,6 +1,5 @@
 package org.tasks.caldav
 
-import at.bitfire.ical4android.Task
 import net.fortuna.ical4j.model.property.Status
 import org.tasks.caldav.iCalendar.Companion.collapsed
 import org.tasks.caldav.iCalendar.Companion.getLocal
@@ -19,8 +18,8 @@ import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfSecond
 
 fun org.tasks.data.entity.Task.applyRemote(
-    remote: Task,
-    local: Task?
+    remote: VTodoTask,
+    local: VTodoTask?
 ): org.tasks.data.entity.Task {
     applyCompletedAt(remote, local)
     applyCreatedAt(remote, local)
@@ -35,12 +34,12 @@ fun org.tasks.data.entity.Task.applyRemote(
     return this
 }
 
-fun CaldavTask.applyRemote(remote: Task, local: Task?): CaldavTask {
+fun CaldavTask.applyRemote(remote: VTodoTask, local: VTodoTask?): CaldavTask {
     applyParent(remote, local)
     return this
 }
 
-private fun org.tasks.data.entity.Task.applyCompletedAt(remote: Task, local: Task?) {
+private fun org.tasks.data.entity.Task.applyCompletedAt(remote: VTodoTask, local: VTodoTask?) {
     if (local == null ||
         (local.completedAt?.let { getLocal(it) } ?: 0) == completionDate.startOfSecond() &&
         (local.status == Status.VTODO_COMPLETED) == isCompleted
@@ -58,7 +57,7 @@ private fun org.tasks.data.entity.Task.applyCompletedAt(remote: Task, local: Tas
     }
 }
 
-private fun org.tasks.data.entity.Task.applyCreatedAt(remote: Task, local: Task?) {
+private fun org.tasks.data.entity.Task.applyCreatedAt(remote: VTodoTask, local: VTodoTask?) {
     val localCreated = local?.createdAt?.let { newDateTime(it, UTC) }?.toLocal()?.millis
     if (localCreated == null || localCreated == creationDate) {
         remote.createdAt?.let {
@@ -67,61 +66,61 @@ private fun org.tasks.data.entity.Task.applyCreatedAt(remote: Task, local: Task?
     }
 }
 
-private fun org.tasks.data.entity.Task.applyTitle(remote: Task, local: Task?) {
+private fun org.tasks.data.entity.Task.applyTitle(remote: VTodoTask, local: VTodoTask?) {
     if (local == null || local.summary == title) {
         title = remote.summary
     }
 }
 
-private fun org.tasks.data.entity.Task.applyDescription(remote: Task, local: Task?) {
+private fun org.tasks.data.entity.Task.applyDescription(remote: VTodoTask, local: VTodoTask?) {
     if (local == null || local.description == notes) {
         notes = remote.description
     }
 }
 
-private fun org.tasks.data.entity.Task.applyPriority(remote: Task, local: Task?) {
+private fun org.tasks.data.entity.Task.applyPriority(remote: VTodoTask, local: VTodoTask?) {
     if (local == null || local.tasksPriority == priority) {
         priority = remote.tasksPriority
     }
 }
 
-private fun org.tasks.data.entity.Task.applyRecurrence(remote: Task, local: Task?) {
+private fun org.tasks.data.entity.Task.applyRecurrence(remote: VTodoTask, local: VTodoTask?) {
     if (local == null || local.rRule?.recur?.toString() == recurrence) {
         setRecurrence(remote.rRule?.recur)
     }
 }
 
-private fun org.tasks.data.entity.Task.applyDue(remote: Task, local: Task?) {
+private fun org.tasks.data.entity.Task.applyDue(remote: VTodoTask, local: VTodoTask?) {
     if (local == null || local.due.toMillis() == dueDate) {
         dueDate = remote.due.toMillis()
     }
 }
 
-private fun org.tasks.data.entity.Task.applyStart(remote: Task, local: Task?) {
+private fun org.tasks.data.entity.Task.applyStart(remote: VTodoTask, local: VTodoTask?) {
     if (local == null || local.dtStart.toMillis(this) == hideUntil) {
         hideUntil = remote.dtStart.toMillis(this)
     }
 }
 
-private fun org.tasks.data.entity.Task.applyCollapsed(remote: Task, local: Task?) {
+private fun org.tasks.data.entity.Task.applyCollapsed(remote: VTodoTask, local: VTodoTask?) {
     if (local == null || isCollapsed == local.collapsed) {
         isCollapsed = remote.collapsed
     }
 }
 
-private fun org.tasks.data.entity.Task.applyOrder(remote: Task, local: Task?) {
+private fun org.tasks.data.entity.Task.applyOrder(remote: VTodoTask, local: VTodoTask?) {
     if (local == null || local.order == order) {
         order = remote.order
     }
 }
 
-private fun CaldavTask.applyParent(remote: Task, local: Task?) {
+private fun CaldavTask.applyParent(remote: VTodoTask, local: VTodoTask?) {
     if (local == null || local.parent == remoteParent) {
         remoteParent = remote.parent
     }
 }
 
-private val Task.tasksPriority: Int
+private val VTodoTask.tasksPriority: Int
     get() = when (this.priority) {
         // https://tools.ietf.org/html/rfc5545#section-3.8.1.9
         in 1..4 -> HIGH

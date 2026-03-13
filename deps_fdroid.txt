@@ -1047,6 +1047,16 @@
 +|    |         \--- com.github.ajalt.colormath:colormath:3.6.1
 +|    |              \--- com.github.ajalt.colormath:colormath-jvm:3.6.1
 +|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.3.10 (*)
++|    +--- org.mnode.ical4j:ical4j:3.2.19
++|    |    +--- org.slf4j:slf4j-api:2.0.9 -> 2.0.17
++|    |    +--- commons-codec:commons-codec:1.15 -> 1.17.1
++|    |    +--- org.apache.commons:commons-lang3:3.12.0
++|    |    +--- org.apache.commons:commons-collections4:4.4
++|    |    \--- commons-validator:commons-validator:1.7
++|    |         +--- commons-beanutils:commons-beanutils:1.9.4
++|    |         |    \--- commons-logging:commons-logging:1.2
++|    |         +--- commons-digester:commons-digester:2.1
++|    |         \--- commons-logging:commons-logging:1.2
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.3.10 (*)
 ++--- project :icons
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.10 (*)
@@ -1234,14 +1244,7 @@
 +|    +--- androidx.core:core-ktx:1.16.0 (*)
 +|    +--- org.slf4j:slf4j-jdk14:2.0.17
 +|    |    \--- org.slf4j:slf4j-api:2.0.17
-+|    \--- org.mnode.ical4j:ical4j:3.2.19
-+|         +--- org.slf4j:slf4j-api:2.0.9 -> 2.0.17
-+|         +--- commons-codec:commons-codec:1.15 -> 1.17.1
-+|         +--- org.apache.commons:commons-lang3:3.12.0
-+|         +--- org.apache.commons:commons-collections4:4.4
-+|         \--- commons-validator:commons-validator:1.7
-+|              +--- commons-beanutils:commons-beanutils:1.9.4
-+|              \--- commons-digester:commons-digester:2.1
++|    \--- org.mnode.ical4j:ical4j:3.2.19 (*)
 ++--- com.github.bitfireAT:cert4android:7814052
 +|    +--- androidx.databinding:databinding-common:7.2.0 -> 9.1.0
 +|    +--- androidx.databinding:databinding-runtime:7.2.0 -> 9.1.0 (*)

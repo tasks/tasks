@@ -1,6 +1,5 @@
 package org.tasks.caldav.extensions
 
-import at.bitfire.ical4android.util.TimeApiExtensions.toDuration
 import net.fortuna.ical4j.model.ParameterList
 import net.fortuna.ical4j.model.component.VAlarm
 import net.fortuna.ical4j.model.parameter.Related
@@ -12,7 +11,6 @@ import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.getDateTime
 import org.tasks.data.entity.Alarm
 import java.time.Duration
-import java.time.Instant
 import java.time.temporal.TemporalAmount
 
 fun List<Alarm>.toVAlarms(): List<VAlarm> = mapNotNull(Alarm::toVAlarm)
@@ -77,5 +75,16 @@ internal fun VAlarm.toAlarm(): Alarm? {
 
 private fun net.fortuna.ical4j.model.property.Duration.toMillis() = duration.toMillis()
 
-private fun TemporalAmount.toMillis() = toDuration(Instant.EPOCH).toMillis()
+private fun TemporalAmount.toMillis(): Long = when (this) {
+    is Duration -> toMillis()
+    is java.time.Period -> {
+        val cal = java.util.Calendar.getInstance(java.util.TimeZone.getTimeZone("UTC"))
+        cal.timeInMillis = 0
+        cal.add(java.util.Calendar.DAY_OF_MONTH, days)
+        cal.add(java.util.Calendar.MONTH, months)
+        cal.add(java.util.Calendar.YEAR, years)
+        cal.timeInMillis
+    }
+    else -> throw IllegalArgumentException("TemporalAmount must be Period or Duration")
+}
 

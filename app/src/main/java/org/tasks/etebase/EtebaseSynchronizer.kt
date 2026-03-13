@@ -2,7 +2,7 @@ package org.tasks.etebase
 
 import android.content.Context
 import android.graphics.Color
-import at.bitfire.ical4android.ICalendar.Companion.prodId
+import org.tasks.caldav.Task.Companion.prodId
 import com.etebase.client.Collection
 import com.etebase.client.Item
 import com.etebase.client.exceptions.ConnectionException

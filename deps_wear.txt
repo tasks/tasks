@@ -1169,6 +1169,16 @@
 +|    |         \--- com.github.ajalt.colormath:colormath:3.6.1
 +|    |              \--- com.github.ajalt.colormath:colormath-jvm:3.6.1
 +|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.3.10 (*)
++|    +--- org.mnode.ical4j:ical4j:3.2.19
++|    |    +--- org.slf4j:slf4j-api:2.0.9
++|    |    +--- commons-codec:commons-codec:1.15
++|    |    +--- org.apache.commons:commons-lang3:3.12.0
++|    |    +--- org.apache.commons:commons-collections4:4.4
++|    |    \--- commons-validator:commons-validator:1.7
++|    |         +--- commons-beanutils:commons-beanutils:1.9.4
++|    |         |    \--- commons-logging:commons-logging:1.2
++|    |         +--- commons-digester:commons-digester:2.1
++|    |         \--- commons-logging:commons-logging:1.2
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.3.10 (*)
 ++--- com.google.android.gms:play-services-wearable:19.0.0 (*)
 ++--- androidx.paging:paging-compose:3.3.6

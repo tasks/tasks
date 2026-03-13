@@ -1,14 +1,12 @@
 package org.tasks.caldav
 
-import at.bitfire.ical4android.Task
-import at.bitfire.ical4android.Task.Companion.tasksFromReader
-import at.bitfire.ical4android.util.DateUtils.ical4jTimeZone
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskCreator.Companion.setDefaultReminders
 import net.fortuna.ical4j.model.DateTime
+import net.fortuna.ical4j.model.TimeZoneRegistryFactory
 import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.model.Property
 import net.fortuna.ical4j.model.component.VAlarm
@@ -166,7 +164,7 @@ class iCalendar @Inject constructor(
         account: CaldavAccount,
         caldavTask: CaldavTask,
         task: org.tasks.data.entity.Task,
-        remoteModel: Task
+        remoteModel: VTodoTask
     ): ByteArray {
         remoteModel.applyLocal(caldavTask, task)
         val categories = remoteModel.categories
@@ -196,7 +194,7 @@ class iCalendar @Inject constructor(
         account: CaldavAccount,
         calendar: CaldavCalendar,
         existing: CaldavTask?,
-        remote: Task,
+        remote: VTodoTask,
         vtodo: String?,
         obj: String? = null,
         eTag: String? = null
@@ -348,7 +346,7 @@ class iCalendar @Inject constructor(
 
         fun fromVtodo(vtodo: String): Task? {
             try {
-                val tasks = tasksFromReader(StringReader(vtodo))
+                val tasks = Task.tasksFromReader(StringReader(vtodo))
                 if (tasks.size == 1) {
                     return tasks[0]
                 }
@@ -358,7 +356,7 @@ class iCalendar @Inject constructor(
             return null
         }
 
-        var Task.parent: String?
+        var VTodoTask.parent: String?
             get() = relatedTo.find(IS_PARENT)?.value
             set(value) {
                 val parents = relatedTo.filter(IS_PARENT)
@@ -377,7 +375,7 @@ class iCalendar @Inject constructor(
                 }
             }
 
-        var Task.order: Long?
+        var VTodoTask.order: Long?
             get() = unknownProperties.find(IS_APPLE_SORT_ORDER).let { it?.value?.toLongOrNull() }
             set(order) {
                 if (order == null) {
@@ -390,7 +388,7 @@ class iCalendar @Inject constructor(
                 }
             }
 
-        var Task.collapsed: Boolean
+        var VTodoTask.collapsed: Boolean
             get() = unknownProperties.find(IS_OC_HIDESUBTASKS).let { it?.value == HIDE_SUBTASKS }
             set(collapsed) {
                 if (collapsed) {
@@ -403,7 +401,7 @@ class iCalendar @Inject constructor(
                 }
             }
 
-        var Task.lastAck: Long?
+        var VTodoTask.lastAck: Long?
             get() = unknownProperties.find(IS_MOZ_LASTACK)?.value?.let {
                 org.tasks.time.DateTime.from(DateTime(it)).toLocal().millis
             }
@@ -421,7 +419,7 @@ class iCalendar @Inject constructor(
                     }
             }
 
-        var Task.snooze: Long?
+        var VTodoTask.snooze: Long?
             get() = unknownProperties.find(IS_MOZ_SNOOZE_TIME)?.value?.let {
                 org.tasks.time.DateTime.from(DateTime(it)).toLocal().millis
             }
@@ -442,7 +440,7 @@ class iCalendar @Inject constructor(
                         ?: unknownProperties.removeIf(IS_MOZ_SNOOZE_TIME)
             }
 
-        fun Task.applyLocal(caldavTask: CaldavTask, task: org.tasks.data.entity.Task) {
+        fun VTodoTask.applyLocal(caldavTask: CaldavTask, task: org.tasks.data.entity.Task) {
             createdAt = newDateTime(task.creationDate).toUTC().millis
             summary = task.title
             description = task.notes
@@ -501,10 +499,16 @@ class iCalendar @Inject constructor(
                 filter { it.action == Action.DISPLAY || it.action == Action.AUDIO }
                     .filterNot { it.trigger.dateTime == IGNORE_ALARM }
 
-        val Task.reminders: List<Alarm>
+        val VTodoTask.reminders: List<Alarm>
             get() = alarms.filtered.toAlarms().let { alarms ->
                 snooze?.let { time -> alarms.plus(Alarm(time = time, type = TYPE_SNOOZE))} ?: alarms
             }
+
+        private val tzRegistry by lazy {
+            TimeZoneRegistryFactory.getInstance().createRegistry()
+        }
+
+        private fun ical4jTimeZone(id: String) = tzRegistry.getTimeZone(id)
 
         internal fun getDateTime(timestamp: Long): DateTime {
             val tz = ical4jTimeZone(TimeZone.getDefault().id)

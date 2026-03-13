@@ -21,7 +21,6 @@ import at.bitfire.dav4jvm.property.GetCTag
 import at.bitfire.dav4jvm.property.GetETag
 import at.bitfire.dav4jvm.property.GetETag.Companion.fromResponse
 import at.bitfire.dav4jvm.property.SyncToken
-import at.bitfire.ical4android.ICalendar.Companion.prodId
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -493,7 +492,7 @@ class CaldavSynchronizer @Inject constructor(
 
     companion object {
         init {
-            prodId = ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN")
+            org.tasks.caldav.Task.prodId = ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN")
         }
 
         fun registerFactories() {

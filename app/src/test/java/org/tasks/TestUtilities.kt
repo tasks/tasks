@@ -1,7 +1,7 @@
 package org.tasks
 
 import android.content.Context
-import at.bitfire.ical4android.Task.Companion.tasksFromReader
+import org.tasks.caldav.Task.Companion.tasksFromReader
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import org.tasks.caldav.applyRemote
@@ -68,14 +68,14 @@ object TestUtilities {
     val String.alarms: List<Alarm>
         get() = icalendarFromFile(this).reminders
 
-    fun setup(path: String): Triple<Task, CaldavTask, at.bitfire.ical4android.Task> {
+    fun setup(path: String): Triple<Task, CaldavTask, org.tasks.caldav.Task> {
         val task = Task()
         val remote = icalendarFromFile(path)
         task.applyRemote(remote, null)
         return Triple(task, CaldavTask(task = 0, calendar = null), remote)
     }
 
-    fun icalendarFromFile(path: String): at.bitfire.ical4android.Task =
+    fun icalendarFromFile(path: String): org.tasks.caldav.Task =
         tasksFromReader(StringReader(readFile(path)))
             .takeIf { it.size == 1 }
             ?.first()
