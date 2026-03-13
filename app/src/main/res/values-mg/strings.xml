@@ -1,3 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="ok">OK</string>
+    <string name="cancel">Miverina</string>
+    <string name="actfm_picture_clear">Sary mazava</string>
+    <string name="TVA_add_comment">Ambarao izay tianao lazaina…</string>
+    <string name="display_name">Anaranao isehoana</string>
+    <string name="backup_BPr_header">Tahirin\'ny zava-bita</string>
+    <string name="backup_BAc_export">Hitahiry ny zava-bitako izao</string>
+    <string name="backup_BAc_import">Mampiditra ny zava-bita voatahiry</string>
+    <string name="export_toast">Voatahiry ny %1$s hatramin\'ny %2$s</string>
+    <string name="import_summary_title">Fanerenana ny famintinana</string>
+    <string name="import_summary_message">Ny rakitra %1$s dia misy %2$s.\n\n. %3$s nafarana,\n. %4$s efa misy\n. %5$s dia nanana hadisoana</string>
+    <string name="import_progress_read">Eo am-pamakiana ny asa voatondro %d…</string>
+    <string name="default_list">Araka ny mahazatra</string>
+    <string name="import_failed">Tsy nety ny fampidirana ny Zava-bitanao voatahiry</string>
+    <string name="help_and_feedback">Fangatahana fanampiana &amp; Fanehoan-kevitra avy aminao mombanay</string>
+    <string name="import_failed_message">Tsy voasokatra ny zava-bitanao voatahiry</string>
+    <string name="read_permission_label">Alàlana mihatra momba ny asa</string>
+    <string name="discard_confirmation">Tena te hanafoana ny fanovàna vitanao ve ianao?</string>
+    <string name="keep_editing">Toizana ny fanitsiana</string>
+    <string name="DLG_delete_this_task_question">Tianao fafàna ilay asa?</string>
+    <string name="DLG_hour_minutes">Famantaran\'hora (hora : minitra)</string>
+    <string name="DLG_undo">Ravaina/Averina</string>
+    <string name="WID_dateButtonUnset">Tsindrio raha hametraka</string>
+    <string name="tomorrow">Rahampitso</string>
+    <string name="TLA_no_items">Tsy Mbola misy Asa ato</string>
+    <string name="TLA_menu_sort">Alamina</string>
 </resources>
