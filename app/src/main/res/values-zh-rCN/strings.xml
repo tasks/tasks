@@ -755,4 +755,7 @@
     <string name="upgrade_friends_and_family">好友和家庭</string>
     <string name="upgrade_friends_and_family_description">共享清单可以有 5 位免费来宾。可与 Apple Reminders 配合使用</string>
     <string name="sign_in_subtitle">已是订阅者或受邀来宾？</string>
+    <string name="per_list_sort_title">清单单独排序</string>
+    <string name="per_list_sort_summary">记住每个清单不同的排序和分组设置</string>
+    <string name="p_per_list_sort">per_list_sort</string>
 </resources>
