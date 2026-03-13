@@ -35,7 +35,7 @@ class TasksClient(
                     if (!response.isSuccessful) {
                         throw HttpException(response)
                     }
-                    response.body?.use { body -> JSONObject(body.string()) }
+                    response.body.use { body -> JSONObject(body.string()) }
                 }
     }
 
@@ -94,42 +94,8 @@ class TasksClient(
                     if (!response.isSuccessful) {
                         throw HttpException(response)
                     }
-                    response.body?.use { body -> body.string() }
+                    response.body.use { body -> body.string() }
                 }
-    }
-
-    suspend fun getAppPasswords(): JSONObject? = withContext(Dispatchers.IO) {
-        val url = httpUrl?.resolve(ENDPOINT_PASSWORDS) ?: return@withContext null
-        httpClient
-                .newCall(Request.Builder()
-                .get()
-                .url(url)
-                .build())
-                .execute()
-                .use { response ->
-                    if (!response.isSuccessful) {
-                        throw HttpException(response)
-                    }
-                    response.body?.use { body -> JSONObject(body.string()) }
-                }
-    }
-
-    suspend fun getInboundEmail(): JSONObject? = withContext(Dispatchers.IO) {
-        val url = httpUrl?.resolve(ENDPOINT_INBOUND_EMAIL) ?: return@withContext null
-        val body = JSONObject().toString()
-            .toRequestBody("application/json".toMediaType())
-        httpClient
-            .newCall(Request.Builder()
-                .post(body)
-                .url(url)
-                .build())
-            .execute()
-            .use { response ->
-                if (!response.isSuccessful) {
-                    throw HttpException(response)
-                }
-                response.body?.use { body -> JSONObject(body.string()) }
-            }
     }
 
     suspend fun regenerateInboundEmail(): JSONObject? = withContext(Dispatchers.IO) {
@@ -146,7 +112,7 @@ class TasksClient(
                 if (!response.isSuccessful) {
                     throw HttpException(response)
                 }
-                response.body?.use { body -> JSONObject(body.string()) }
+                response.body.use { body -> JSONObject(body.string()) }
             }
     }
 
@@ -169,7 +135,7 @@ class TasksClient(
                 if (!response.isSuccessful) {
                     throw HttpException(response)
                 }
-                response.body?.use { body -> JSONObject(body.string()) }
+                response.body.use { body -> JSONObject(body.string()) }
             }
     }
 
