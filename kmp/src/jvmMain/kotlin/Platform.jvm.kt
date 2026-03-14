@@ -14,6 +14,8 @@ actual val IS_DEBUG = true
 
 actual val PROD_ID = "+//IDN tasks.org//desktop-${JvmBuildConfig.VERSION_CODE}//EN"
 
+actual val DEV_URL: String = JvmBuildConfig.DEV_URL
+
 actual fun formatDate(timestamp: Long, style: DateStyle): String =
     DateTimeFormatter
         .ofLocalizedDate(style.toFormatStyle())

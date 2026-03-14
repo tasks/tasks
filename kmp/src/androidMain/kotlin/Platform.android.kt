@@ -23,6 +23,8 @@ actual val IS_DEBUG = BuildConfig.DEBUG
 
 actual val PROD_ID = "+//IDN tasks.org//android-${BuildConfig.VERSION_CODE}//EN"
 
+actual val DEV_URL: String = BuildConfig.DEV_URL
+
 actual fun formatDate(timestamp: Long, style: DateStyle): String =
     DateTimeFormatter
         .ofLocalizedDate(style.toFormatStyle())

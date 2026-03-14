@@ -66,7 +66,10 @@ kotlin {
 val generateJvmBuildConfig by tasks.registering {
     val outputDir = layout.buildDirectory.dir("generated/jvmBuildConfig")
     val versionCode = libs.versions.versionCode.get()
+    val tasks_dev_url: String? by project
+    val devUrl = tasks_dev_url ?: ""
     inputs.property("versionCode", versionCode)
+    inputs.property("devUrl", devUrl)
     outputs.dir(outputDir)
     doLast {
         outputDir.get().asFile.resolve("JvmBuildConfig.kt").apply {
@@ -76,6 +79,7 @@ val generateJvmBuildConfig by tasks.registering {
                 |
                 |object JvmBuildConfig {
                 |    const val VERSION_CODE = $versionCode
+                |    const val DEV_URL = "$devUrl"
                 |}
             """.trimMargin())
         }
@@ -102,6 +106,8 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
         buildConfigField("int", "VERSION_CODE", libs.versions.versionCode.get())
+        val tasks_dev_url: String? by project
+        buildConfigField("String", "DEV_URL", "\"${tasks_dev_url ?: ""}\"")
     }
 
     compileOptions {

@@ -43,6 +43,7 @@ import org.tasks.filters.PreferenceDrawerConfiguration
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
+import org.tasks.auth.TasksServerEnvironment
 import org.tasks.security.AndroidKeyStoreEncryption
 import org.tasks.security.KeyStoreEncryption
 import java.util.Locale
@@ -195,4 +196,12 @@ class ApplicationModule {
 
     @Provides
     fun providesCaldavClientProvider(impl: CaldavClientProviderImpl): CaldavClientProvider = impl
+
+    @Provides
+    @Singleton
+    fun providesTasksServerEnvironment(
+        tasksPreferences: TasksPreferences,
+    ) = TasksServerEnvironment(
+        tasksPreferences = tasksPreferences,
+    )
 }

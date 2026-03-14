@@ -13,6 +13,8 @@ expect val IS_DEBUG: Boolean
 
 expect val PROD_ID: String
 
+expect val DEV_URL: String
+
 fun createDataStore(producePath: () -> String): DataStore<Preferences> =
     PreferenceDataStoreFactory.createWithPath(
         produceFile = { producePath().toPath() }

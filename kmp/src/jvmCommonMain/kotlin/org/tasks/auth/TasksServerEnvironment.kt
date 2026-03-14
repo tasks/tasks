@@ -1,19 +1,13 @@
 package org.tasks.auth
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
-import org.tasks.R
+import org.tasks.kmp.DEV_URL
 import org.tasks.preferences.TasksPreferences
 import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class TasksServerEnvironment @Inject constructor(
-    @ApplicationContext private val context: Context,
+class TasksServerEnvironment(
     private val tasksPreferences: TasksPreferences,
 ) {
-    private val devUrl = context.getString(R.string.tasks_dev_url)
+    private val devUrl = DEV_URL
 
     val caldavUrl: String
         get() = when (currentEnvironment) {
