@@ -29,7 +29,7 @@ import kotlin.coroutines.resumeWithException
 class Firebase @Inject constructor(
         @ApplicationContext private val context: Context,
         private val preferences: Preferences
-) {
+) : Reporting {
     private val crashlytics by lazy {
         if (preferences.isTrackingEnabled) {
             FirebaseCrashlytics.getInstance().apply {
@@ -250,7 +250,7 @@ class Firebase @Inject constructor(
         }
     }
 
-    fun reportException(t: Throwable) {
+    override fun reportException(t: Throwable) {
         Timber.e(t)
         crashlytics?.recordException(t)
     }
@@ -277,16 +277,22 @@ class Firebase @Inject constructor(
     fun completeTask(source: String) =
         logEvent(R.string.event_complete_task, R.string.param_type to source)
 
-    fun logEvent(@StringRes event: Int, vararg p: Pair<Int, Any>) {
-        val eventName = context.getString(event)
-        val properties = p.associate { context.getString(it.first) to it.second }
-        Timber.d("$eventName -> $properties")
+    override fun logEvent(event: String, vararg params: Pair<String, Any>) {
+        val properties = params.toMap()
+        Timber.d("$event -> $properties")
         if (posthogEnabled) {
             PostHog.capture(
-                event = eventName,
+                event = event,
                 properties = properties
             )
         }
+    }
+
+    fun logEvent(@StringRes event: Int, vararg p: Pair<Int, Any>) {
+        logEvent(
+            event = context.getString(event),
+            params = p.map { context.getString(it.first) to it.second }.toTypedArray()
+        )
     }
 
     fun logEventOncePerDay(@StringRes event: Int, vararg p: Pair<Int, Any>) {

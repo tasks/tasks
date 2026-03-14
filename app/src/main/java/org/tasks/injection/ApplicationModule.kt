@@ -13,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
+import org.tasks.analytics.Reporting
 import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
@@ -57,6 +58,10 @@ class ApplicationModule {
             ?.let { Locale.forLanguageTag(it) }
             ?: Locale.getDefault()
     }
+
+    @Provides
+    @Singleton
+    fun getReporting(firebase: Firebase): Reporting = firebase
 
     @Provides
     @Singleton

@@ -33,8 +33,12 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.analytics.AnalyticsEvents.INITIAL_SYNC_COMPLETE
+import org.tasks.analytics.AnalyticsEvents.PARAM_TASK_COUNT
+import org.tasks.analytics.AnalyticsEvents.PARAM_TYPE
+import org.tasks.analytics.AnalyticsEvents.SYNC_UNKNOWN_ACCESS
 import org.tasks.analytics.Constants
-import org.tasks.analytics.Firebase
+import org.tasks.analytics.Reporting
 import org.tasks.billing.Inventory
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.broadcast.RefreshBroadcaster
@@ -89,7 +93,7 @@ class CaldavSynchronizer @Inject constructor(
     private val refreshBroadcaster: RefreshBroadcaster,
     private val taskDeleter: TaskDeleter,
     private val inventory: Inventory,
-    private val firebase: Firebase,
+    private val reporting: Reporting,
     private val provider: CaldavClientProvider,
     private val iCal: iCalendar,
     private val principalDao: PrincipalDao,
@@ -117,10 +121,10 @@ class CaldavSynchronizer @Inject constructor(
             if (account.lastSync == 0L) {
                 val taskCount = caldavDao.getTaskCountForAccount(account.uuid!!)
                 val syncType = if (account.isTasksOrg) Constants.SYNC_TYPE_TASKS_ORG else Constants.SYNC_TYPE_CALDAV
-                firebase.logEvent(
-                    R.string.event_initial_sync_complete,
-                    R.string.param_type to syncType,
-                    R.string.param_task_count to taskCount
+                reporting.logEvent(
+                    INITIAL_SYNC_COMPLETE,
+                    PARAM_TYPE to syncType,
+                    PARAM_TASK_COUNT to taskCount
                 )
             }
             account.lastSync = currentTimeMillis()
@@ -138,12 +142,12 @@ class CaldavSynchronizer @Inject constructor(
         } catch (e: HttpException) {
             when(e.statusCode) {
                 402, 451, in 500..599 -> {}
-                else -> { firebase.reportException(e) }
+                else -> { reporting.reportException(e) }
             }
             setError(account, e)
         } catch (e: Exception) {
             setError(account, e)
-            firebase.reportException(e)
+            reporting.reportException(e)
         }
     }
 
@@ -186,9 +190,9 @@ class CaldavSynchronizer @Inject constructor(
             val icon = resource[CalendarIcon::class.java]?.icon?.takeIf { it.isNotBlank() }
 
             if (rawAccess == ACCESS_UNKNOWN) {
-                firebase.logEvent(
-                    R.string.event_sync_unknown_access,
-                    R.string.param_type to
+                reporting.logEvent(
+                    SYNC_UNKNOWN_ACCESS,
+                    PARAM_TYPE to
                             (resource[ShareAccess::class.java]?.access?.toString() ?: "???")
                 )
             }

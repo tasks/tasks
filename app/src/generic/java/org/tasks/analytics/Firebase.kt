@@ -13,13 +13,20 @@ import javax.inject.Inject
 class Firebase @Inject constructor(
     @param:ApplicationContext val context: Context,
     private val preferences: Preferences
-) {
-    fun reportException(t: Throwable) = Timber.e(t)
+) : Reporting {
+    override fun reportException(t: Throwable) = Timber.e(t)
 
     fun updateRemoteConfig() {}
 
+    override fun logEvent(event: String, vararg params: Pair<String, Any>) {
+        Timber.d("$event -> ${params.toMap()}")
+    }
+
     fun logEvent(event: Int, vararg params: Pair<Int, Any>) {
-        Timber.d("${context.getString(event)} -> ${params.associate { context.getString(it.first) to it.second }}")
+        logEvent(
+            event = context.getString(event),
+            params = params.map { context.getString(it.first) to it.second }.toTypedArray()
+        )
     }
 
     fun logEventOncePerDay(event: Int, vararg params: Pair<Int, Any>) {
