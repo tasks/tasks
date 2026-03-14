@@ -17,7 +17,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.tasks.backup.BackupConstants.ENCRYPTED_FILE_EXTENSION
 import org.tasks.backup.TasksJsonImporter
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,18 +41,24 @@ class ImportTasksViewModel @Inject constructor(
         savedStateHandle[KEY_IMPORT_URI] = uri?.toString()
     }
 
-    fun startImport(uri: Uri) {
+    fun startImport(uri: Uri, password: String? = null) {
         if (_state.value is ImportState.Importing) return // Already importing
+
+        if (password == null && uri.toString().endsWith(".$ENCRYPTED_FILE_EXTENSION")) {
+            _state.value = ImportState.PasswordRequired
+            return
+        }
 
         _state.value = ImportState.Importing("")
         viewModelScope.launch {
             withContext(NonCancellable + Dispatchers.IO) {
                 try {
-                    val result = importer.importTasks(context, uri) { message ->
+                    val result = importer.importTasks(context, uri, password) { message ->
                         _state.value = ImportState.Importing(message)
                     }
                     _state.value = ImportState.Complete(result)
                 } catch (e: Exception) {
+                    Timber.i(e)
                     _state.value = ImportState.Error
                 }
             }
@@ -58,12 +66,13 @@ class ImportTasksViewModel @Inject constructor(
     }
 
     fun reset() {
-        savedStateHandle[KEY_IMPORT_URI] = null
+        setImportUri(null)
         _state.value = ImportState.Idle
     }
 
     sealed class ImportState {
         data object Idle : ImportState()
+        data object PasswordRequired : ImportState()
         data class Importing(val message: String) : ImportState()
         data class Complete(val result: TasksJsonImporter.ImportResult) : ImportState()
         data object Error : ImportState()

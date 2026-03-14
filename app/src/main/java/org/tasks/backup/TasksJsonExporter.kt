@@ -14,8 +14,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.backup.BackupConstants.ENCRYPTED_FILE_EXTENSION
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.*
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.FilterDao
@@ -54,11 +54,13 @@ class TasksJsonExporter @Inject constructor(
     private val workManager: WorkManager,
     private val taskListMetadataDao: TaskListMetadataDao,
     private val vtodoCache: VtodoCache,
+    private val backupEncryptionHelper: BackupEncryptionHelper,
 ) {
     private var context: Context? = null
     private var exportCount = 0
     private var progressDialog: ProgressDialog? = null
     private var handler: Handler? = null
+    private var password: String? = null
 
     private fun post(runnable: () -> Unit) = handler?.post(runnable)
 
@@ -67,10 +69,16 @@ class TasksJsonExporter @Inject constructor(
         progressDialog?.progress = taskNumber
     }
 
-    suspend fun exportTasks(context: Context?, exportType: ExportType, progressDialog: ProgressDialog?) {
+    suspend fun exportTasks(
+        context: Context?,
+        exportType: ExportType,
+        progressDialog: ProgressDialog?,
+        password: String? = null
+    ) {
         this.context = context
         exportCount = 0
         this.progressDialog = progressDialog
+        this.password = password
         if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
             handler = Handler()
         }
@@ -85,22 +93,26 @@ class TasksJsonExporter @Inject constructor(
             file.delete()
             file.createNewFile()
             val internalStorageBackup = Uri.fromFile(file)
-            val os = context!!.contentResolver.openOutputStream(internalStorageBackup)
+            val baseOs = context!!.contentResolver.openOutputStream(internalStorageBackup)!!
+            val os = password?.takeUnless { it.isEmpty() }?.let {
+                backupEncryptionHelper.encrypt(baseOs, it)
+            } ?: baseOs
             doTasksExport(os, tasks)
-            os!!.close()
+            os.close()
             val externalStorageBackup = FileHelper.newFile(
-                    context!!,
-                    preferences.backupDirectory!!,
-                    MIME,
-                    Files.getNameWithoutExtension(filename),
-                    EXTENSION)
+                context!!,
+                preferences.backupDirectory!!,
+                if (password.isNullOrEmpty()) MIME else MIME_CRYPT,
+                Files.getNameWithoutExtension(filename),
+                if (password.isNullOrEmpty()) EXTENSION else EXTENSION_CRYPT
+            )
             FileHelper.copyStream(context!!, internalStorageBackup, externalStorageBackup)
             workManager.scheduleDriveUpload(externalStorageBackup, exportType == ExportType.EXPORT_TYPE_SERVICE)
             BackupManager(context).dataChanged()
             if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
                 onFinishExport(filename)
             }
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             Timber.e(e)
         } finally {
             post {
@@ -188,11 +200,21 @@ class TasksJsonExporter @Inject constructor(
     }
 
 
-    private fun getFileName(type: ExportType): String =
-        when (type) {
-            ExportType.EXPORT_TYPE_SERVICE -> String.format(BackupConstants.BACKUP_FILE_NAME, dateForExport)
-            ExportType.EXPORT_TYPE_MANUAL -> String.format(BackupConstants.EXPORT_FILE_NAME, dateForExport)
+    private fun getFileName(type: ExportType): String {
+        val format = when (type) {
+            ExportType.EXPORT_TYPE_SERVICE -> if (password.isNullOrEmpty()) {
+                BackupConstants.BACKUP_FILE_NAME
+            } else {
+                BackupConstants.BACKUP_FILE_NAME_CRYPT
+            }
+            ExportType.EXPORT_TYPE_MANUAL -> if (password.isNullOrEmpty()) {
+                BackupConstants.EXPORT_FILE_NAME
+            } else {
+                BackupConstants.EXPORT_FILE_NAME_CRYPT
+            }
         }
+        return String.format(format, dateForExport)
+    }
 
     enum class ExportType {
         EXPORT_TYPE_SERVICE, EXPORT_TYPE_MANUAL
@@ -200,7 +222,9 @@ class TasksJsonExporter @Inject constructor(
 
     companion object {
         private const val MIME = "application/json"
+        private const val MIME_CRYPT = "application/octet-stream"
         private const val EXTENSION = ".json"
+        private const val EXTENSION_CRYPT = ".$ENCRYPTED_FILE_EXTENSION"
         private val dateForExport: String
             get() = newDateTime().toString("yyyyMMdd'T'HHmm")
 
