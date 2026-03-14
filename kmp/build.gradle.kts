@@ -56,6 +56,29 @@ kotlin {
     tasks.register("testClasses")
 }
 
+val generateJvmBuildConfig by tasks.registering {
+    val outputDir = layout.buildDirectory.dir("generated/jvmBuildConfig")
+    val versionCode = libs.versions.versionCode.get()
+    inputs.property("versionCode", versionCode)
+    outputs.dir(outputDir)
+    doLast {
+        outputDir.get().asFile.resolve("JvmBuildConfig.kt").apply {
+            parentFile.mkdirs()
+            writeText("""
+                |package org.tasks.kmp
+                |
+                |object JvmBuildConfig {
+                |    const val VERSION_CODE = $versionCode
+                |}
+            """.trimMargin())
+        }
+    }
+}
+
+kotlin.sourceSets.named("jvmMain") {
+    kotlin.srcDir(generateJvmBuildConfig)
+}
+
 compose.resources {
     publicResClass = true
     generateResClass = always
@@ -65,8 +88,13 @@ android {
     namespace = "org.tasks.kmp"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
+        buildConfigField("int", "VERSION_CODE", libs.versions.versionCode.get())
     }
 
     compileOptions {

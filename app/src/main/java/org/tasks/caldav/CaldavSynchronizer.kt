@@ -29,7 +29,7 @@ import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.jetbrains.compose.resources.getString
-import org.tasks.BuildConfig
+import org.tasks.kmp.PROD_ID
 import org.tasks.Strings.isNullOrEmpty
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.password_required
@@ -494,7 +494,7 @@ class CaldavSynchronizer @Inject constructor(
 
     companion object {
         init {
-            org.tasks.caldav.Task.prodId = ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN")
+            org.tasks.caldav.Task.prodId = ProdId(PROD_ID)
         }
 
         fun registerFactories() {

@@ -11,6 +11,8 @@ expect fun formatNumber(number: Int): String
 
 expect val IS_DEBUG: Boolean
 
+expect val PROD_ID: String
+
 fun createDataStore(producePath: () -> String): DataStore<Preferences> =
     PreferenceDataStoreFactory.createWithPath(
         produceFile = { producePath().toPath() }

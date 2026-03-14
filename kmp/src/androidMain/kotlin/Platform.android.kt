@@ -3,7 +3,7 @@ package org.tasks.kmp
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import org.tasks.data.BuildConfig
+import org.tasks.kmp.BuildConfig
 import org.tasks.extensions.formatNumber
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.TextStyle
@@ -20,6 +20,8 @@ fun createDataStore(context: Context): DataStore<Preferences> = createDataStore(
 )
 
 actual val IS_DEBUG = BuildConfig.DEBUG
+
+actual val PROD_ID = "+//IDN tasks.org//android-${BuildConfig.VERSION_CODE}//EN"
 
 actual fun formatDate(timestamp: Long, style: DateStyle): String =
     DateTimeFormatter

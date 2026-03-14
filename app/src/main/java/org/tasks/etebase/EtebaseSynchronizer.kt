@@ -13,7 +13,7 @@ import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import net.fortuna.ical4j.model.property.ProdId
 import org.jetbrains.compose.resources.getString
-import org.tasks.BuildConfig
+import org.tasks.kmp.PROD_ID
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Constants
@@ -47,7 +47,7 @@ class EtebaseSynchronizer @Inject constructor(
 ) {
     companion object {
         init {
-            prodId = ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN")
+            prodId = ProdId(PROD_ID)
         }
     }
 
