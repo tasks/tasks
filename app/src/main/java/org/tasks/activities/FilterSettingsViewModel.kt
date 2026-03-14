@@ -18,8 +18,8 @@ import org.tasks.activities.FilterSettingsActivity.Companion.TOKEN_FILTER
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.filters.key
-import org.tasks.preferences.FilterPreferences
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.FilterPreferences.Companion.delete
+import org.tasks.preferences.TasksPreferences
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.data.entity.Task
 import org.tasks.data.sql.Field
@@ -37,7 +37,7 @@ class FilterSettingsViewModel @Inject constructor(
     private val filterCriteriaProvider: FilterCriteriaProvider,
     private val filterDao: FilterDao,
     private val taskDao: TaskDao,
-    private val preferences: Preferences,
+    private val tasksPreferences: TasksPreferences,
 ) : ViewModel() {
     data class ViewState(
         val filter: CustomFilter? = null,
@@ -161,7 +161,7 @@ class FilterSettingsViewModel @Inject constructor(
     fun delete(onCompleted: () -> Unit) = viewModelScope.launch {
         _viewState.value.filter?.let {
             filterDao.delete(it.id)
-            FilterPreferences.delete(preferences, it.key())
+            tasksPreferences.delete(it.key())
         }
         onCompleted()
     }

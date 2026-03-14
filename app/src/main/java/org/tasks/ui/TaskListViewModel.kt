@@ -169,7 +169,7 @@ class TaskListViewModel @Inject constructor(
                     else -> applicationContext.createSearchQuery(it.searchQuery)
                 }
                 val prefs = if (preferences.isPerListSortEnabled) {
-                    FilterPreferences(preferences, filter.key())
+                    FilterPreferences(preferences, tasksPreferences, filter.key())
                 } else {
                     preferences
                 }

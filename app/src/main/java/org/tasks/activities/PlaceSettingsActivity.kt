@@ -39,8 +39,8 @@ import org.tasks.filters.Filter
 import org.tasks.filters.PlaceFilter
 import org.tasks.location.MapFragment
 import org.tasks.filters.key
-import org.tasks.preferences.FilterPreferences
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.FilterPreferences.Companion.delete
+import org.tasks.preferences.TasksPreferences
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
 import java.util.Locale
@@ -60,7 +60,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
 
     @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var map: MapFragment
-    @Inject lateinit var preferences: Preferences
+    @Inject lateinit var tasksPreferences: TasksPreferences
     @Inject lateinit var locale: Locale
     @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
 
@@ -192,7 +192,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
         firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_place")
         locationDao.deleteGeofencesByPlace(place.uid!!)
         locationDao.delete(place)
-        FilterPreferences.delete(preferences, filter.key())
+        tasksPreferences.delete(filter.key())
         setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))
         refreshBroadcaster.broadcastRefresh()
         finish()

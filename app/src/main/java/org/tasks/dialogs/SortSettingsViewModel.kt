@@ -15,6 +15,7 @@ import org.tasks.dialogs.SortSettingsActivity.Companion.EXTRA_FILTER_KEY
 import org.tasks.dialogs.SortSettingsActivity.Companion.WIDGET_NONE
 import org.tasks.preferences.FilterPreferences
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.TasksPreferences
 import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
 import org.tasks.widget.WidgetPreferences
 import javax.inject.Inject
@@ -24,6 +25,7 @@ class SortSettingsViewModel @Inject constructor(
     @ApplicationContext context: Context,
     savedStateHandle: SavedStateHandle,
     private val appPreferences: Preferences,
+    private val tasksPreferences: TasksPreferences,
     private val firebase: Firebase,
 ): ViewModel() {
     data class ViewState(
@@ -46,7 +48,8 @@ class SortSettingsViewModel @Inject constructor(
             .takeIf { it != WIDGET_NONE }
             ?.let { WidgetPreferences(context, appPreferences, it) }
             ?: filterKey
-                ?.let { FilterPreferences(appPreferences, it) }
+                ?.takeIf { appPreferences.isPerListSortEnabled }
+                ?.let { FilterPreferences(appPreferences, tasksPreferences, it) }
             ?: appPreferences
 
     private fun trackSortChange(setting: String, value: Any) {

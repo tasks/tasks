@@ -23,6 +23,14 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         dataStore.edit { it[key] = value }
     }
 
+    suspend fun removeByPrefix(prefix: String) {
+        dataStore.edit { prefs ->
+            prefs.asMap().keys
+                .filter { it.name.startsWith(prefix) }
+                .forEach { prefs.remove(it) }
+        }
+    }
+
     companion object {
         val collapseFilters = booleanPreferencesKey("drawer_collapse_filters")
         val collapseTags = booleanPreferencesKey("drawer_collapse_tags")

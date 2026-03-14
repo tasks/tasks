@@ -24,11 +24,13 @@ import org.tasks.filters.key
 import org.tasks.preferences.FilterPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
+import org.tasks.preferences.TasksPreferences
 import javax.inject.Inject
 
 class TaskAdapterProvider @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val preferences: Preferences,
+    private val tasksPreferences: TasksPreferences,
     private val taskListMetadataDao: TaskListMetadataDao,
     private val taskDao: TaskDao,
     private val googleTaskDao: GoogleTaskDao,
@@ -38,7 +40,7 @@ class TaskAdapterProvider @Inject constructor(
 ) {
     fun createTaskAdapter(filter: Filter): TaskAdapter {
         val queryPreferences: QueryPreferences = if (preferences.isPerListSortEnabled) {
-            FilterPreferences(preferences, filter.key())
+            FilterPreferences(preferences, tasksPreferences, filter.key())
         } else {
             preferences
         }
