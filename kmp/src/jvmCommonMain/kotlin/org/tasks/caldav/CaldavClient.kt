@@ -22,6 +22,7 @@ import at.bitfire.dav4jvm.property.webdav.ResourceType
 import at.bitfire.dav4jvm.property.webdav.SyncToken
 import at.bitfire.dav4jvm.property.webdav.WebDAV
 import at.bitfire.dav4jvm.property.webdav.WebDAV.NS_WEBDAV
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl
@@ -29,7 +30,6 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.tasks.Strings.isNullOrEmpty
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.caldav_home_set_not_found
 import org.tasks.caldav.property.CalendarIcon
@@ -49,7 +49,6 @@ import org.tasks.ui.DisplayableException
 import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory
 import org.xmlpull.v1.XmlSerializer
-import timber.log.Timber
 import java.io.IOException
 import java.io.StringWriter
 import java.security.KeyManagementException
@@ -99,13 +98,13 @@ open class CaldavClient(
             if (e is HttpException && e.statusCode == 401) {
                 throw e
             }
-            Timber.w(e)
+            Logger.w(e, tag = "CaldavClient") { "" }
         }
         if (principal == null) {
             principal = tryFindPrincipal("")
         }
         provider.forUrl(
-                (if (isNullOrEmpty(principal)) httpUrl else httpUrl!!.resolve(principal!!)).toString(),
+                (if (principal.isNullOrBlank()) httpUrl else httpUrl!!.resolve(principal!!)).toString(),
                 username,
                 password)
                 .findHomeset()
@@ -347,7 +346,7 @@ open class CaldavClient(
                 removeProperties = emptyList(),
                 callback = { response, _ ->
                     if (!response.isSuccess()) {
-                        Timber.e("${response.status} when updating $property: ${response.error}")
+                        Logger.e(tag = "CaldavClient") { "${response.status} when updating $property: ${response.error}" }
                         onFailure()
                     }
                 },

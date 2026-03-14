@@ -16,19 +16,19 @@ import org.tasks.security.KeyStoreEncryption
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class CaldavClientProvider @Inject constructor(
+class CaldavClientProviderImpl @Inject constructor(
         private val encryption: KeyStoreEncryption,
         private val inventory: Inventory,
         private val httpClientFactory: HttpClientFactory,
         private val tasksPreferences: TasksPreferences,
         private val firebase: Firebase,
         private val environment: TasksServerEnvironment,
-) {
+) : CaldavClientProvider {
 
-    suspend fun forUrl(
+    override suspend fun forUrl(
             url: String?,
-            username: String? = null,
-            password: String? = null
+            username: String?,
+            password: String?,
     ): CaldavClient {
         val tosVersion = tasksPreferences.get(TasksPreferences.acceptedTosVersion, 0)
         val auth = getAuthInterceptor(username, password, url, tosVersion)
@@ -42,14 +42,14 @@ class CaldavClientProvider @Inject constructor(
         )
     }
 
-    suspend fun forTasksAccount(account: CaldavAccount): TasksClient {
+    override suspend fun forTasksAccount(account: CaldavAccount): TasksClient {
         if (!account.isTasksOrg) {
             throw IllegalArgumentException()
         }
         return forAccount(account) as TasksClient
     }
 
-    suspend fun forAccount(account: CaldavAccount, url: String? = account.url): CaldavClient {
+    override suspend fun forAccount(account: CaldavAccount, url: String?): CaldavClient {
         val tosVersion = tasksPreferences.get(TasksPreferences.acceptedTosVersion, 0)
         val pushToken = if (account.isTasksOrg) firebase.getToken() else null
         val auth = getAuthInterceptor(

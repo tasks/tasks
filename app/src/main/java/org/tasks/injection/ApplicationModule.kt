@@ -18,6 +18,8 @@ import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
 import org.tasks.broadcast.RefreshBroadcaster
+import org.tasks.caldav.CaldavClientProvider
+import org.tasks.caldav.CaldavClientProviderImpl
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
 import org.tasks.compose.drawer.DrawerConfiguration
@@ -190,4 +192,7 @@ class ApplicationModule {
     @Provides
     fun providesBroadcastRefresh(localBroadcastManager: LocalBroadcastManager): RefreshBroadcaster =
         localBroadcastManager
+
+    @Provides
+    fun providesCaldavClientProvider(impl: CaldavClientProviderImpl): CaldavClientProvider = impl
 }

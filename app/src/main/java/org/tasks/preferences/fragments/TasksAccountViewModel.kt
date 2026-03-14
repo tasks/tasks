@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.jsonPrimitive
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.caldav.CaldavClientProvider
@@ -121,8 +122,8 @@ class TasksAccountViewModel @Inject constructor(
                     ?.let {
                         newPassword.value =
                                 NewPassword(
-                                        username = it.getString("username"),
-                                        password = it.getString("password"),
+                                        username = it["username"]!!.jsonPrimitive.content,
+                                        password = it["password"]!!.jsonPrimitive.content,
                                 )
                     }
         } catch (e: Exception) {
