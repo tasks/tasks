@@ -766,4 +766,6 @@
     <string name="upgrade_friends_and_family_description">5 kostenlose Gäste auf gemeinsamen Listen. Funktioniert mit Apple Reminders</string>
     <string name="already_subscribed">Schon abonniert?</string>
     <string name="sign_in_subtitle">Schon abonniert oder als Gast eingeladen worden?</string>
+    <string name="per_list_sort_summary">Sortier- und Gruppierungseinstellungen für jede Liste unabhängig speichern</string>
+    <string name="per_list_sort_title">Individuelle Listen-Sortierung</string>
 </resources>
