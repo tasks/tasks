@@ -5,7 +5,9 @@ import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastQ
 import leakcanary.AppWatcher
+import co.touchlab.kermit.Logger
 import org.tasks.logging.FileLogger
+import org.tasks.logging.TimberLogWriter
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,6 +20,7 @@ class BuildSetup @Inject constructor(
     fun setup() {
         Timber.plant(Timber.DebugTree())
         Timber.plant(fileLogger)
+        Logger.mutableConfig.logWriterList = listOf(TimberLogWriter())
         if (preferences.getBoolean(R.string.p_leakcanary, false)) {
             AppWatcher.manualInstall(context)
         }

@@ -3,7 +3,9 @@ package org.tasks
 import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
+import co.touchlab.kermit.Logger
 import org.tasks.logging.FileLogger
+import org.tasks.logging.TimberLogWriter
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -14,6 +16,7 @@ class BuildSetup @Inject constructor(
     fun setup() {
         Timber.plant(ErrorReportingTree())
         Timber.plant(fileLogger)
+        Logger.mutableConfig.logWriterList = listOf(TimberLogWriter())
     }
 
     private class ErrorReportingTree : Timber.Tree() {

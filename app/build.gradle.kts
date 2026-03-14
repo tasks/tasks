@@ -152,6 +152,7 @@ val googleplayImplementation by configurations
 dependencies {
     implementation(projects.data)
     implementation(projects.kmp)
+    implementation(libs.kermit)
     implementation(projects.icons)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.adaptive.navigation.android)
