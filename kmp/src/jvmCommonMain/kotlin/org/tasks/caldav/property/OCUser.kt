@@ -4,7 +4,7 @@ import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.XmlReader
 import at.bitfire.dav4jvm.XmlUtils.propertyName
 import at.bitfire.dav4jvm.property.webdav.WebDAV
-import org.tasks.BuildConfig
+import org.tasks.kmp.IS_DEBUG
 import org.tasks.caldav.property.PropertyUtils.NS_OWNCLOUD
 import org.xmlpull.v1.XmlPullParser
 
@@ -36,7 +36,7 @@ class OCUser(parser: XmlPullParser) {
             }
             eventType = parser.next()
         }
-        if (BuildConfig.DEBUG && parser.depth != depth) { error("Assertion failed") }
+        if (IS_DEBUG && parser.depth != depth) { error("Assertion failed") }
     }
 
     companion object {

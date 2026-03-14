@@ -4,7 +4,7 @@ import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.PropertyFactory
 import at.bitfire.dav4jvm.XmlUtils.propertyName
 import at.bitfire.dav4jvm.property.webdav.WebDAV
-import org.tasks.BuildConfig
+import org.tasks.kmp.IS_DEBUG
 import org.xmlpull.v1.XmlPullParser
 
 data class Invite(val sharees: List<Sharee>): Property {
@@ -33,7 +33,7 @@ data class Invite(val sharees: List<Sharee>): Property {
                 }
                 eventType = parser.next()
             }
-            if (BuildConfig.DEBUG && parser.depth != depth) { error("Assertion failed") }
+            if (IS_DEBUG && parser.depth != depth) { error("Assertion failed") }
             return Invite(sharees)
         }
     }

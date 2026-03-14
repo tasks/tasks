@@ -3,7 +3,7 @@ package org.tasks.caldav.property
 import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.PropertyFactory
 import at.bitfire.dav4jvm.XmlUtils.propertyName
-import org.tasks.BuildConfig
+import org.tasks.kmp.IS_DEBUG
 import org.tasks.caldav.property.PropertyUtils.NS_OWNCLOUD
 import org.xmlpull.v1.XmlPullParser
 
@@ -32,7 +32,7 @@ data class OCInvite(val users: List<OCUser>): Property {
                 }
                 eventType = parser.next()
             }
-            if (BuildConfig.DEBUG && parser.depth != depth) { error("Assertion failed") }
+            if (IS_DEBUG && parser.depth != depth) { error("Assertion failed") }
             return OCInvite(users)
         }
     }

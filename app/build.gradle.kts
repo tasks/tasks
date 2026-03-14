@@ -159,10 +159,6 @@ dependencies {
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.adaptive.navigation.android)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
-    implementation(libs.bitfire.dav4jvm) {
-        exclude(group = "junit")
-        exclude(group = "org.ogce", module = "xpp3")
-    }
     implementation(libs.bitfire.ical4android) {
         exclude(group = "commons-logging")
         exclude(group = "org.json", module = "json")

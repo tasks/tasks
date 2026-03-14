@@ -33,9 +33,16 @@ kotlin {
         }
         jvmMain {
             dependsOn(jvmCommonMain)
+            dependencies {
+                implementation(libs.xpp3)
+            }
         }
         jvmCommonMain.dependencies {
             api(libs.ical4j)
+            api(libs.bitfire.dav4jvm.get().toString()) {
+                exclude(group = "junit")
+                exclude(group = "org.ogce", module = "xpp3")
+            }
         }
         commonMain.dependencies {
             implementation(projects.data)
