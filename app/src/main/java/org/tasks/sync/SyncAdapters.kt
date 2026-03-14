@@ -6,7 +6,6 @@ import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.tasks.broadcast.RefreshBroadcaster
-import org.tasks.R
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
@@ -22,7 +21,7 @@ import org.tasks.data.entity.SUPPRESS_SYNC
 import org.tasks.data.entity.Task
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.TasksPreferences
 import java.util.concurrent.Executors.newSingleThreadExecutor
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -33,7 +32,7 @@ class SyncAdapters @Inject constructor(
     private val caldavDao: CaldavDao,
     private val googleTaskDao: GoogleTaskDao,
     private val openTaskDao: OpenTaskDao,
-    private val preferences: Preferences,
+    private val tasksPreferences: TasksPreferences,
     private val refreshBroadcaster: RefreshBroadcaster
 ) {
     private val scope = CoroutineScope(newSingleThreadExecutor().asCoroutineDispatcher() + SupervisorJob())
@@ -46,9 +45,9 @@ class SyncAdapters @Inject constructor(
         tag = "sync_status",
         default = false
     ) { newState ->
-        val currentState = preferences.getBoolean(R.string.p_sync_ongoing_android, false)
+        val currentState = tasksPreferences.get(TasksPreferences.syncOngoingAndroid, false)
         if (currentState != newState && isOpenTaskSyncEnabled()) {
-            preferences.setBoolean(R.string.p_sync_ongoing_android, newState)
+            tasksPreferences.set(TasksPreferences.syncOngoingAndroid, newState)
             refreshBroadcaster.broadcastRefresh()
         }
     }

@@ -31,6 +31,15 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         }
     }
 
+    suspend fun <T> getAndSet(key: Preferences.Key<T>, value: T): T? {
+        var previous: T? = null
+        dataStore.edit {
+            previous = it[key]
+            it[key] = value
+        }
+        return previous
+    }
+
     companion object {
         val collapseFilters = booleanPreferencesKey("drawer_collapse_filters")
         val collapseTags = booleanPreferencesKey("drawer_collapse_tags")
@@ -43,5 +52,7 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val syncSource = stringPreferencesKey("sync_source")
         val cachedAccountData = stringPreferencesKey("cached_account_data")
         val serverEnvironment = stringPreferencesKey("server_environment")
+        val syncOngoing = booleanPreferencesKey("sync_ongoing")
+        val syncOngoingAndroid = booleanPreferencesKey("sync_ongoing_android")
     }
 }

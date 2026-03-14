@@ -12,7 +12,7 @@ import org.dmfs.tasks.contract.TaskContract.Properties
 import org.dmfs.tasks.contract.TaskContract.TaskLists
 import org.dmfs.tasks.contract.TaskContract.Tasks
 import org.tasks.R
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.TasksPreferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import timber.log.Timber
@@ -21,14 +21,16 @@ import javax.inject.Inject
 class OpenTaskContentObserver @Inject constructor(
     @ApplicationContext context: Context,
     private val syncAdapters: SyncAdapters,
-    private val preferences: Preferences,
+    private val tasksPreferences: TasksPreferences,
 ) : ContentObserver(getHandler()), SyncStatusObserver {
 
     val authority = context.getString(R.string.opentasks_authority)
 
     private val isSyncOngoing: Boolean
-        get() = preferences.getBoolean(R.string.p_sync_ongoing, false) ||
-                preferences.getBoolean(R.string.p_sync_ongoing_android, false)
+        get() = kotlinx.coroutines.runBlocking {
+            tasksPreferences.get(TasksPreferences.syncOngoing, false) ||
+                    tasksPreferences.get(TasksPreferences.syncOngoingAndroid, false)
+        }
 
     override fun onChange(selfChange: Boolean) = onChange(selfChange, null)
 

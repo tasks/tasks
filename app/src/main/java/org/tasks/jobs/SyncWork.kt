@@ -18,7 +18,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.tasks.broadcast.RefreshBroadcaster
-import org.tasks.R
 import org.tasks.TasksApplication
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
@@ -72,14 +71,7 @@ class SyncWork @AssistedInject constructor(
             }
         }
 
-        val alreadySyncing = synchronized(LOCK) {
-            if (preferences.getBoolean(syncStatus, false)) {
-                true
-            } else {
-                preferences.setBoolean(syncStatus, true)
-                false
-            }
-        }
+        val alreadySyncing = tasksPreferences.getAndSet(TasksPreferences.syncOngoing, true) ?: false
         if (alreadySyncing) {
             Timber.d("Sync ongoing, source=$source")
             setSyncSource(getSyncSource().upgrade(source))
@@ -95,7 +87,7 @@ class SyncWork @AssistedInject constructor(
         } catch (e: Exception) {
             firebase.reportException(e)
         } finally {
-            preferences.setBoolean(syncStatus, false)
+            tasksPreferences.set(TasksPreferences.syncOngoing, false)
             setSyncSource(SyncSource.NONE)
             refreshBroadcaster.broadcastRefresh()
         }
@@ -104,8 +96,6 @@ class SyncWork @AssistedInject constructor(
 
     private val source: SyncSource
         get() = SyncSource.fromString(inputData.getString(EXTRA_SOURCE))
-
-    private val syncStatus = R.string.p_sync_ongoing
 
     private suspend fun getSyncSource(): SyncSource =
         SyncSource.fromString(tasksPreferences.get(TasksPreferences.syncSource, SyncSource.NONE.name))
@@ -181,8 +171,6 @@ class SyncWork @AssistedInject constructor(
             caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_MICROSOFT)
 
     companion object {
-        private val LOCK = Any()
-
         const val EXTRA_SOURCE = "extra_source"
     }
 }

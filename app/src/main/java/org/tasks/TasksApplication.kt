@@ -27,6 +27,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
@@ -79,8 +80,10 @@ class TasksApplication : Application(), Configuration.Provider {
             defaultExceptionHandler?.uncaughtException(thread, throwable) ?: throw throwable
         }
         upgrade()
-        preferences.setBoolean(R.string.p_sync_ongoing, false)
-        preferences.setBoolean(R.string.p_sync_ongoing_android, false)
+        runBlocking {
+            tasksPreferences.set(TasksPreferences.syncOngoing, false)
+            tasksPreferences.set(TasksPreferences.syncOngoingAndroid, false)
+        }
         ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode()
         localBroadcastManager.registerRefreshReceiver(RefreshBroadcastReceiver())
         backgroundWork()
