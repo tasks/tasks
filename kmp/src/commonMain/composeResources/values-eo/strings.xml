@@ -43,4 +43,5 @@
     <string name="filter">Filtrilo</string>
     <string name="sort_list">Listo</string>
     <string name="password_required">Pasvorto bezonata</string>
+    <string name="caldav_home_set_not_found">Ne trovis hejman aron</string>
 </resources>

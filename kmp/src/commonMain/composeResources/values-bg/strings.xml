@@ -51,4 +51,5 @@
     <string name="sort_modified">Променено</string>
     <string name="all_done">Всичко е готово!</string>
     <string name="password_required">Паролата е задължителна</string>
+    <string name="caldav_home_set_not_found">Домашният набор не е намерен</string>
 </resources>

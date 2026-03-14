@@ -43,4 +43,5 @@
     <string name="filter">Filter</string>
     <string name="sort_list">Lista</string>
     <string name="password_required">Lösenord krävs</string>
+    <string name="caldav_home_set_not_found">Hemuppsättning hittades inte</string>
 </resources>

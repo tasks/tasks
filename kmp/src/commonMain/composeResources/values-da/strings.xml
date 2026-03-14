@@ -43,4 +43,5 @@
     <string name="filter">Filter</string>
     <string name="sort_list">Liste</string>
     <string name="password_required">Adgangskode påkrævet</string>
+    <string name="caldav_home_set_not_found">Kunne ikke finde Home Set</string>
 </resources>

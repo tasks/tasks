@@ -251,7 +251,6 @@
     <string name="subscription">Đăng ký</string>
     <string name="upgrade_to_pro">Nâng cấp lên pro</string>
     <string name="network_error">Không thể kết nối</string>
-    <string name="caldav_home_set_not_found">Không tìm thấy bộ trang chủ</string>
     <string name="help_and_feedback">Trợ giúp &amp; phản hồi</string>
     <string name="help">Trợ giúp</string>
     <string name="tasker_list_notification">Thông báo danh sách</string>

@@ -521,7 +521,6 @@
     <string name="repeats_after">Després</string>
     <string name="dont_add_to_calendar">No afegiu al calendari</string>
     <string name="badges_description">Mostreu un recompte de tasques a la icona del llançador de tasques. No tots els llançadors suporten insígnies.</string>
-    <string name="caldav_home_set_not_found">No s\'ha trobat la configuració d\'inici</string>
     <string name="pro_dashclock_extension">Extensió Dashclock</string>
     <string name="requires_pro_subscription">Requereix una subscripció pro</string>
     <string name="this_feature_requires_a_subscription">Aquesta característica requereix una subscripció</string>

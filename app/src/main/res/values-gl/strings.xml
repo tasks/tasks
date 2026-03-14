@@ -339,7 +339,6 @@
     <string name="repeat_monthly_second_week">segundo</string>
     <string name="help">Axuda</string>
     <string name="help_and_feedback">Axuda e soporte</string>
-    <string name="caldav_home_set_not_found">Non se atopa a configuración de inicio</string>
     <string name="refresh_purchases">Anovar as compras</string>
     <string name="logout_warning">Todos dos datos desta conta vabse a borrar deste dispositivo</string>
     <string name="sign_in_with_google">Acceso con Google</string>

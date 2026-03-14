@@ -727,7 +727,6 @@
     <string name="EPr_cal_end_at_due_time">Окончај догађаје календара у време доспећа</string>
     <string name="task_defaults">Подразумевано за задатке</string>
     <string name="CFC_importance_text">Минимум приоритета ?</string>
-    <string name="caldav_home_set_not_found">Сет није пронађен</string>
     <string name="widget_view_more_tasks">Погледај још задатака</string>
     <string name="upgrade_subscription_banner">Хвала на подршци! Унапреди претплату за омогућену Tasks.org Cloud синхронизацију</string>
     <string name="banner_subscription_required_body">Плати колико желиш за откључавање %s синхронизације</string>

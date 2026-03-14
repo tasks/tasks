@@ -470,7 +470,6 @@ File %1$s contained %2$s.\n\n
   <string name="tasker_list_notification">List notification</string>
   <string name="help">Help</string>
   <string name="help_and_feedback">Help &amp; feedback</string>
-  <string name="caldav_home_set_not_found">Home set not found</string>
   <string name="network_error">Could not connect</string>
   <string name="upgrade_to_pro">Upgrade to pro</string>
   <string name="upgrade_to_pro_card_description">Unlock Tasks.org Cloud sync, Friends &amp; Family Sharing, and Email-to-Task</string>

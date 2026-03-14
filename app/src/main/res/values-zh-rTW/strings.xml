@@ -591,7 +591,6 @@
     <string name="repeats_custom_recurrence">自訂循環</string>
     <string name="repeats_ends">結束</string>
     <string name="repeat_monthly_on_day_number">每月的第 %1d 天</string>
-    <string name="caldav_home_set_not_found">找不到設定首頁</string>
     <string name="reinitialize_account">重新初始化</string>
     <string name="caldav_selection_description">基於開放網際網路標準的同步</string>
     <string name="davx5_selection_description">使用 DAVx⁵ 應用程式同步您的任務</string>

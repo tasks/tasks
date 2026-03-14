@@ -335,7 +335,6 @@
     <string name="tasker_create_task">Créer une tâche</string>
     <string name="tasker_list_notification">Notification de liste</string>
     <string name="help">Aide</string>
-    <string name="caldav_home_set_not_found">Ensemble d\'accueil introuvable</string>
     <string name="network_error">Impossible de se connecter</string>
     <string name="upgrade_to_pro">Mise à niveau vers la version « pro »</string>
     <string name="manage_subscription">Modifier l\'abonnement</string>

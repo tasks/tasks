@@ -192,7 +192,6 @@
     <string name="button_unsubscribe">Opsig abonnement</string>
     <string name="button_subscribe">Abonnér</string>
     <string name="network_error">Kunne ikke oprette forbindelse</string>
-    <string name="caldav_home_set_not_found">Kunne ikke finde Home Set</string>
     <string name="help_and_feedback">Hjælp og feedback</string>
     <string name="help">Hjælp</string>
     <string name="tasker_list_notification">Listemeddelelser</string>

@@ -348,7 +348,6 @@
     <string name="tasker_create_task">Crear tarea</string>
     <string name="tasker_list_notification">Listar notificación</string>
     <string name="help">Ayuda</string>
-    <string name="caldav_home_set_not_found">Origen no encontrado</string>
     <string name="network_error">No se pudo conectar</string>
     <string name="upgrade_to_pro">Actualizar a profesional</string>
     <string name="manage_subscription">Modificar suscripción</string>

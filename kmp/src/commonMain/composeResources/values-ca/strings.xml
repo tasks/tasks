@@ -43,4 +43,5 @@
     <string name="filter">Filtre</string>
     <string name="sort_list">Llista</string>
     <string name="password_required">La paraula de pas és necessària</string>
+    <string name="caldav_home_set_not_found">No s'ha trobat la configuració d'inici</string>
 </resources>

@@ -264,7 +264,6 @@
     <string name="subscription">Pretplata</string>
     <string name="upgrade_to_pro">Nadogradi na Pro verziju</string>
     <string name="network_error">Neuspjelo spajanje</string>
-    <string name="caldav_home_set_not_found">Početni skup nije pronađen</string>
     <string name="tasker_list_notification">Obavijest popisa</string>
     <string name="tasker_create_task">Stvori zadatak</string>
     <string name="repeat_monthly_last_week">zadnji</string>

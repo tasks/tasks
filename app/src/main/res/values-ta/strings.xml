@@ -240,7 +240,6 @@
     <string name="manage_subscription">சந்தாவை மாற்றவும்</string>
     <string name="upgrade_to_pro">சார்புக்கு மேம்படுத்தவும்</string>
     <string name="network_error">இணைக்க முடியவில்லை</string>
-    <string name="caldav_home_set_not_found">முகப்பு தொகுப்பு கிடைக்கவில்லை</string>
     <string name="help_and_feedback">உதவி &amp; கருத்து</string>
     <string name="help">உதவி</string>
     <string name="tasker_list_notification">பட்டியல் அறிவிப்பு</string>

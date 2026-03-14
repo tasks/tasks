@@ -448,7 +448,6 @@
     <string name="gcal_TEA_error">خطأ في إضافة المهمة للتقويم!</string>
     <string name="name_your_price">سمي سعرك</string>
     <string name="pro_dashclock_extension">الاضافة داشكلوك</string>
-    <string name="caldav_home_set_not_found">لم يتم العثور على المجموعة الرئيسية</string>
     <string name="repeats_plural_on_number_of_times">يتكرر كل %1$s في %2$s، يحدث عند %3$d %4$s</string>
     <string name="repeats_single_on_number_of_times">يتكرر %1$s في %2$s، يحدث %3$d %4$s</string>
     <string name="repeats_single_number_of_times">يتكرر %1$s، يحدث %2$d %3$s</string>

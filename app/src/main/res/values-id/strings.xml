@@ -514,7 +514,6 @@
     <string name="location_departed">Berangkat pada %s</string>
     <string name="location_arrived">Datang pada %s</string>
     <string name="subscription">Langganan</string>
-    <string name="caldav_home_set_not_found">Set beranda tidak ditemukan</string>
     <string name="repeat_monthly_fifth_week">kelima</string>
     <string name="repeat_monthly_every_day_of_nth_week">setiap %1$s %2$s</string>
     <string name="repeats_plural_on_until">Ulangi setiap %1$s pada %2$s sampai %3$s</string>

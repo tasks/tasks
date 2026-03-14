@@ -344,7 +344,6 @@
     <string name="tasker_create_task">Sortu zeregina</string>
     <string name="tasker_list_notification">Zerrenda-jakinarazpena</string>
     <string name="help">Laguntza</string>
-    <string name="caldav_home_set_not_found">Ez da jatorria aurkitu</string>
     <string name="network_error">Ezin izan da konektatu</string>
     <string name="upgrade_to_pro">Aldatu pro bertsiora</string>
     <string name="manage_subscription">Aldatu harpidetza</string>

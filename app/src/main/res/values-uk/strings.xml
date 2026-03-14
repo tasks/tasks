@@ -352,7 +352,6 @@
     <string name="tasker_create_task">Створити завдання</string>
     <string name="tasker_list_notification">Список повідомлень</string>
     <string name="help">Довідка</string>
-    <string name="caldav_home_set_not_found">Домашній список не знайдено</string>
     <string name="network_error">Не вдалося з’єднатися</string>
     <string name="upgrade_to_pro">Покращити до Преміум</string>
     <string name="manage_subscription">Змінити підписку</string>

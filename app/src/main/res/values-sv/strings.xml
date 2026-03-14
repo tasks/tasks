@@ -342,7 +342,6 @@
     <string name="tasker_create_task">Skapa uppgift</string>
     <string name="tasker_list_notification">Lista meddelande</string>
     <string name="help">Hjälp</string>
-    <string name="caldav_home_set_not_found">Hemuppsättning hittades inte</string>
     <string name="network_error">Kunde inte ansluta</string>
     <string name="upgrade_to_pro">Uppgradera till Pro</string>
     <string name="manage_subscription">Ändra abonnemang</string>

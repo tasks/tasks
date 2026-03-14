@@ -43,4 +43,5 @@
     <string name="filter">Фильтр</string>
     <string name="sort_list">Список</string>
     <string name="password_required">Требуется пароль</string>
+    <string name="caldav_home_set_not_found">Домашний набор не найден</string>
 </resources>

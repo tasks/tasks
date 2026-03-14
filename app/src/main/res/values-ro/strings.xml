@@ -82,7 +82,6 @@
     <string name="subscription">Abonare</string>
     <string name="upgrade_to_pro">Actualizare la PRO</string>
     <string name="network_error">Nu s-a putut conecta</string>
-    <string name="caldav_home_set_not_found">Setarea inițială nu a fost găsită</string>
     <string name="help_and_feedback">Ajutor și reacții</string>
     <string name="help">Ajutor</string>
     <string name="tasker_list_notification">Listă de notificare</string>

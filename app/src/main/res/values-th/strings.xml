@@ -194,7 +194,6 @@
     <string name="subscription">การบอกรับสมาชิก</string>
     <string name="upgrade_to_pro">อัปเกรดเป็น Pro</string>
     <string name="refresh_purchases">รีเฟรชการซื้อ</string>
-    <string name="caldav_home_set_not_found">ไม่พบชุดบ้าน</string>
     <string name="help_and_feedback">ความช่วยเหลือและคําติชม</string>
     <string name="help">วิธีใช้</string>
     <string name="tasker_list_notification">รายการแจ้งเตือน</string>

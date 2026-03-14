@@ -51,4 +51,5 @@
     <string name="all_done">完成！</string>
     <string name="sort_list">清单</string>
     <string name="password_required">请填写密码</string>
+    <string name="caldav_home_set_not_found">未找到 Home set</string>
 </resources>

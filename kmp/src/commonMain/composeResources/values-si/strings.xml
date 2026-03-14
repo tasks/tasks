@@ -36,4 +36,5 @@
     <string name="filter">පෙරහන</string>
     <string name="sort_list">ලැයිස්තුව</string>
     <string name="password_required">මුරපදය අවශ්‍යයි</string>
+    <string name="caldav_home_set_not_found">CalDAV Home Set හමු නොවීය</string>
 </resources>

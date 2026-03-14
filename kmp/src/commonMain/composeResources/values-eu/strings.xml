@@ -37,4 +37,5 @@
     <string name="filter">Iragazkia</string>
     <string name="sort_list">Zerrenda</string>
     <string name="password_required">Pasahitza ezinbestekoa da</string>
+    <string name="caldav_home_set_not_found">Ez da jatorria aurkitu</string>
 </resources>

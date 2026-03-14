@@ -360,7 +360,6 @@
     <string name="tasker_create_task">Sukurti užduotį</string>
     <string name="tasker_list_notification">Rodyti pranešimus</string>
     <string name="help">Pagalba</string>
-    <string name="caldav_home_set_not_found">Kalendorių rinkinio direktorija nerasta</string>
     <string name="network_error">Nepavyko prisijungti</string>
     <string name="upgrade_to_pro">Atnaujinti į pro versiją</string>
     <string name="manage_subscription">Keisti prenumeratą</string>

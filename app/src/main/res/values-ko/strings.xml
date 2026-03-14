@@ -334,7 +334,6 @@
     <string name="tasker_create_task">할일 만들기</string>
     <string name="tasker_list_notification">목록 알림</string>
     <string name="help">도움말</string>
-    <string name="caldav_home_set_not_found">CalDAV 홈 설정 없음</string>
     <string name="network_error">연결 실패</string>
     <string name="upgrade_to_pro">프로 서비스로 업그레이드</string>
     <string name="refresh_purchases">구매 새로고침</string>

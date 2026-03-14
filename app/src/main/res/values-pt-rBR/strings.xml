@@ -348,7 +348,6 @@
     <string name="tasker_create_task">Criar tarefa</string>
     <string name="tasker_list_notification">Listar notificações</string>
     <string name="help">Ajuda</string>
-    <string name="caldav_home_set_not_found">Conjunto inicial não encontrado</string>
     <string name="network_error">Não foi possível conectar</string>
     <string name="upgrade_to_pro">Comprar assinatura</string>
     <string name="manage_subscription">Modificar assinatura</string>

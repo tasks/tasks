@@ -437,7 +437,6 @@
     <string name="place_settings">Nastavení místa</string>
     <string name="places">Místa</string>
     <string name="action_new_task">Nový úkol</string>
-    <string name="caldav_home_set_not_found">Domovská sada nenalezena</string>
     <string name="list_separator_with_space">", "</string>
     <string name="opacity_footer">Průhlednost zápatí</string>
     <string name="opacity_row">Průhlednost řádku</string>

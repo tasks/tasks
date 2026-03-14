@@ -337,7 +337,6 @@
     <string name="tasker_create_task">タスクを作成</string>
     <string name="tasker_list_notification">通知のリスト</string>
     <string name="help">ヘルプ</string>
-    <string name="caldav_home_set_not_found">ホームの設定が見つかりません</string>
     <string name="network_error">接続できません</string>
     <string name="upgrade_to_pro">プロ版にアップグレード</string>
     <string name="manage_subscription">サブスクリプションの変更</string>

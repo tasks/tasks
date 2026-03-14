@@ -336,7 +336,6 @@
     <string name="tasker_create_task">Görev oluştur</string>
     <string name="tasker_list_notification">Bildirimi listele</string>
     <string name="help">Yardım</string>
-    <string name="caldav_home_set_not_found">Ev takımı (home set) bulunamadı</string>
     <string name="network_error">Bağlanamadı</string>
     <string name="upgrade_to_pro">Pro\'ya yükselt</string>
     <string name="manage_subscription">Aboneliği değiştir</string>

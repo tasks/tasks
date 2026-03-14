@@ -107,7 +107,9 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         when (t) {
             is HttpException -> showSnackbar(t.message)
             is org.tasks.http.HttpException -> showSnackbar(t.message ?: "HTTP ${t.code}")
-            is DisplayableException -> showSnackbar(t.resId)
+            is DisplayableException -> lifecycleScope.launch {
+                snackbar.showSnackbar(org.jetbrains.compose.resources.getString(t.resource))
+            }
             is ConnectException -> showSnackbar(R.string.network_error)
             else -> showSnackbar(R.string.error_adding_account, t.message!!)
         }

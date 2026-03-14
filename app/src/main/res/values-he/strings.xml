@@ -355,7 +355,6 @@
     <string name="tasker_create_task">יצירת משימה</string>
     <string name="tasker_list_notification">התראת רשימה</string>
     <string name="help">עזרה</string>
-    <string name="caldav_home_set_not_found">סט הבית לא נמצא</string>
     <string name="network_error">לא ניתן להתחבר</string>
     <string name="upgrade_to_pro">שדרוג לגרסת פרו</string>
     <string name="manage_subscription">שינוי מינוי</string>

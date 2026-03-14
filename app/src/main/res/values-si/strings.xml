@@ -359,7 +359,6 @@
     <string name="location_arrived">%s වෙත පැමිණියේය</string>
     <string name="pro_dashclock_extension">Dashclock දිගුව</string>
     <string name="upgrade_to_pro">Pro වෙත උත්ශ්‍රේණි කරන්න</string>
-    <string name="caldav_home_set_not_found">CalDAV Home Set හමු නොවීය</string>
     <string name="repeat_monthly_every_day_of_nth_week">සෑම %1$s %2$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeats_plural_on_number_of_times">පුනරාවර්තනය සෑම %1$s %2$s, %3$d %4$s සිදු වේ</string>

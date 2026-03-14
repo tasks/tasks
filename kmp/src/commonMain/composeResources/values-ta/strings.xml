@@ -43,4 +43,5 @@
     <string name="filter">வடிகட்டு</string>
     <string name="sort_list">பட்டியல்</string>
     <string name="password_required">கடவுச்சொல் தேவை</string>
+    <string name="caldav_home_set_not_found">முகப்பு தொகுப்பு கிடைக்கவில்லை</string>
 </resources>

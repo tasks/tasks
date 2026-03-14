@@ -344,7 +344,6 @@
     <string name="tasker_create_task">Opprett gjøremål</string>
     <string name="tasker_list_notification">Listemerknad</string>
     <string name="help">Hjelp</string>
-    <string name="caldav_home_set_not_found">Hjemmesettet ble ikke funnet</string>
     <string name="network_error">Kunne ikke koble til</string>
     <string name="upgrade_to_pro">Oppgrader til pro</string>
     <string name="manage_subscription">Endre abonnement</string>

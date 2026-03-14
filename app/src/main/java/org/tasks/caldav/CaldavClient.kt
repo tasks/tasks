@@ -29,8 +29,9 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.caldav_home_set_not_found
 import org.tasks.caldav.property.CalendarIcon
 import org.tasks.caldav.property.Invite
 import org.tasks.caldav.property.OCInvite
@@ -83,7 +84,7 @@ open class CaldavClient(
                 ?.hrefs?.firstOrNull()
                 ?.takeIf { it.isNotBlank() }
                 ?.let { davResource.location.resolve(it).toString() }
-                ?: throw DisplayableException(R.string.caldav_home_set_not_found)
+                ?: throw DisplayableException(Res.string.caldav_home_set_not_found)
     }
 
     @Throws(IOException::class, DavException::class, NoSuchAlgorithmException::class, KeyManagementException::class)

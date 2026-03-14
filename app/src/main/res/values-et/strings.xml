@@ -610,7 +610,6 @@
     <string name="astrid_sort_order_summary">Kasuta Astridi käsitsi järjestamist „Minu ülesanded“, „Täna“ ja siltide puhul. Tulevases rakenduse uuenduses see järjestuse viis asendub vaatega „Minu järjestus“</string>
     <string name="error_adding_account">Viga: %s</string>
     <string name="dont_add_to_calendar">Ära lisa kalendrisse</string>
-    <string name="caldav_home_set_not_found">Avakomplekti ei leidu</string>
     <string name="license_summary">Tasks on avatud lähtekoodil põhinev tarkvara, mis on litsentseeritud GNU Üldise Avaliku Litsentsi versiooni 3.0 alusel</string>
     <string name="app_password_delete_confirmation">Kõik seda salasõna kasutavad rakendused logitakse võrgust välja</string>
     <string name="app_password_enter_description">Lisa salasõnale nimetus (valikuline)</string>

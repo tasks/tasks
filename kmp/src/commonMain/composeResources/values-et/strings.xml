@@ -51,4 +51,5 @@
     <string name="all_done">Saigi valmis!</string>
     <string name="sort_list">Nimekiri</string>
     <string name="password_required">Salasõna on kohustuslik</string>
+    <string name="caldav_home_set_not_found">Avakomplekti ei leidu</string>
 </resources>

@@ -43,4 +43,5 @@
     <string name="filter">تصفية</string>
     <string name="sort_list">قائمة</string>
     <string name="password_required">كلمة السرّ مطلوبة</string>
+    <string name="caldav_home_set_not_found">لم يتم العثور على المجموعة الرئيسية</string>
 </resources>

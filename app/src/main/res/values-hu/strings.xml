@@ -336,7 +336,6 @@
     <string name="tasker_create_task">Feladat létrehozása</string>
     <string name="tasker_list_notification">Lista értesítés</string>
     <string name="help">Súgó</string>
-    <string name="caldav_home_set_not_found">Home set nem található</string>
     <string name="network_error">Sikertelen kapcsolódás</string>
     <string name="upgrade_to_pro">Upgrade pro verzióra</string>
     <string name="manage_subscription">Előfizetés módosítása</string>

@@ -349,7 +349,6 @@
     <string name="refresh_purchases">Atualizar compras</string>
     <string name="manage_subscription">Alterar subscrição</string>
     <string name="upgrade_to_pro">Atualizar para pro</string>
-    <string name="caldav_home_set_not_found">Não foi encontrado o conjunto inicial</string>
     <string name="help">Ajuda</string>
     <string name="tasker_list_notification">Listar notificações</string>
     <string name="tasker_create_task">Criar tarefa</string>

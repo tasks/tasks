@@ -37,4 +37,5 @@
     <string name="filter">Filter</string>
     <string name="sort_list">Liste</string>
     <string name="password_required">Passord kreves</string>
+    <string name="caldav_home_set_not_found">Hjemmesettet ble ikke funnet</string>
 </resources>

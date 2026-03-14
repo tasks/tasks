@@ -556,7 +556,6 @@
     <string name="davx5_selection_description">Tehtävien synkronointi DAVx⁵sovelluksen kanssa</string>
     <string name="decsync_selection_description">Tiedostopohjainen synkronointi</string>
     <string name="subscription">Tilaus</string>
-    <string name="caldav_home_set_not_found">Kotijoukkoa ei löytynyt</string>
     <string name="repeat_monthly_fifth_week">viides</string>
     <string name="default_recurrence">Oletusarvoinen toistuvuus</string>
     <string name="default_tags">Oletustunnisteet</string>

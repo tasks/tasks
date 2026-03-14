@@ -312,7 +312,9 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
                     showSnackbar(R.string.invalid_username_or_password)
                 else
                     showSnackbar(t.message)
-            is DisplayableException -> showSnackbar(t.resId)
+            is DisplayableException -> lifecycleScope.launch {
+                showSnackbar(org.jetbrains.compose.resources.getString(t.resource))
+            }
             is ConnectException -> showSnackbar(R.string.network_error)
             else -> {
                 Timber.e(t)

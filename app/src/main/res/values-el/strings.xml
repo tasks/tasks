@@ -387,7 +387,6 @@
     <string name="tasker_create_task">Δημιουργία εργασίας</string>
     <string name="tasker_list_notification">Ειδοποίηση λίστας</string>
     <string name="help">Βοήθεια</string>
-    <string name="caldav_home_set_not_found">Δεν βρέθηκε αρχικό σετ</string>
     <string name="network_error">Η σύνδεση απέτυχε</string>
     <string name="upgrade_to_pro">Αναβάθμιση σε συνδρομή</string>
     <string name="subscription">Συνδρομή εφαρμογής</string>
