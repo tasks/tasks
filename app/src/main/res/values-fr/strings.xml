@@ -788,4 +788,7 @@
     <string name="upgrade_friends_and_family_description">5 invités gratuits sur des listes partagées. Fonctionne avec les rappels Apple</string>
     <string name="already_subscribed">Déjà abonné ?</string>
     <string name="sign_in_subtitle">Déjà abonné ou invité ?</string>
+    <string name="per_list_sort_title">Tri par liste</string>
+    <string name="per_list_sort_summary">Mémoriser les paramètres de tri et de regroupement pour chaque liste séparément</string>
+    <string name="p_per_list_sort">per_list_sort</string>
 </resources>
