@@ -30,7 +30,7 @@ import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import com.franmontiel.persistentcookiejar.persistence.CookiePersistor
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import kotlinx.coroutines.launch
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.tasks.R

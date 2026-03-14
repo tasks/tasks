@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.R

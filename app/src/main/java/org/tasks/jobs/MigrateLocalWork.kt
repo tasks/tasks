@@ -3,7 +3,7 @@ package org.tasks.jobs
 import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import org.tasks.analytics.Firebase

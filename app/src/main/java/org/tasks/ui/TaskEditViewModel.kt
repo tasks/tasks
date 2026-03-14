@@ -16,7 +16,7 @@ import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatControlSet
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.tags.TagsControlSet
 import com.todoroo.astrid.timers.TimerControlSet

@@ -6,7 +6,7 @@ import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.service.TaskCompleter
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
 import kotlinx.coroutines.Dispatchers

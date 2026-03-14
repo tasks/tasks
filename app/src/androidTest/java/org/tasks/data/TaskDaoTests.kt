@@ -7,7 +7,7 @@ package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import org.tasks.data.entity.Task
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

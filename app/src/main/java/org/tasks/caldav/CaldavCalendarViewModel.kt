@@ -3,7 +3,7 @@ package org.tasks.caldav
 import android.content.Intent
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

@@ -3,7 +3,7 @@ package org.tasks.opentasks
 import android.content.Context
 import at.bitfire.ical4android.BatchOperation
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dmfs.tasks.contract.TaskContract
 import org.dmfs.tasks.contract.TaskContract.Tasks

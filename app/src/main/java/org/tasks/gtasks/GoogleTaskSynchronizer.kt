@@ -13,7 +13,7 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import org.tasks.broadcast.RefreshBroadcaster

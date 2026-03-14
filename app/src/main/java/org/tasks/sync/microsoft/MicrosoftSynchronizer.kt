@@ -5,7 +5,7 @@ import at.bitfire.dav4jvm.okhttp.exception.ServiceUnavailableException
 import at.bitfire.dav4jvm.okhttp.exception.UnauthorizedException
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCreator
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import io.ktor.client.call.body
 import io.ktor.http.isSuccess
 import kotlinx.serialization.json.Json

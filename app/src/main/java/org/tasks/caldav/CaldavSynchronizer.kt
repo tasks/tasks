@@ -20,8 +20,8 @@ import at.bitfire.dav4jvm.property.webdav.DisplayName
 import at.bitfire.dav4jvm.property.webdav.GetETag
 import at.bitfire.dav4jvm.property.webdav.GetETag.Companion.fromResponse
 import at.bitfire.dav4jvm.property.webdav.SyncToken
-import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
+import org.tasks.data.dao.TaskDao
 import kotlinx.coroutines.runBlocking
 import net.fortuna.ical4j.model.property.ProdId
 import okhttp3.Headers
@@ -30,7 +30,6 @@ import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.jetbrains.compose.resources.getString
 import org.tasks.kmp.PROD_ID
-import org.tasks.Strings.isNullOrEmpty
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.password_required
 import tasks.kmp.generated.resources.requires_pro_subscription
@@ -106,7 +105,7 @@ class CaldavSynchronizer @Inject constructor(
             setError(account, getString(Res.string.requires_pro_subscription))
             return
         }
-        if (isNullOrEmpty(account.password)) {
+        if (account.password.isNullOrBlank()) {
             setError(account, if (account.isTasksOrg) {
                 ERROR_UNAUTHORIZED
             } else {
@@ -259,7 +258,7 @@ class CaldavSynchronizer @Inject constructor(
         account.error = message
         caldavDao.update(account)
         refreshBroadcaster.broadcastRefresh()
-        if (!isNullOrEmpty(message)) {
+        if (!message.isNullOrBlank()) {
             Timber.e(message)
         }
     }

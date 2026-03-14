@@ -45,6 +45,9 @@ import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.security.AndroidKeyStoreEncryption
+import com.todoroo.astrid.service.AndroidCleanup
+import org.tasks.service.TaskCleanup
+import org.tasks.service.TaskDeleter
 import org.tasks.security.KeyStoreEncryption
 import java.util.Locale
 import javax.inject.Singleton
@@ -196,6 +199,19 @@ class ApplicationModule {
 
     @Provides
     fun providesCaldavClientProvider(impl: CaldavClientProviderImpl): CaldavClientProvider = impl
+
+    @Provides
+    fun providesTaskCleanup(impl: AndroidCleanup): TaskCleanup = impl
+
+    @Provides
+    fun providesTaskDeleter(
+        deletionDao: DeletionDao,
+        taskDao: TaskDao,
+        refreshBroadcaster: RefreshBroadcaster,
+        vtodoCache: VtodoCache,
+        tasksPreferences: TasksPreferences,
+        taskCleanup: TaskCleanup,
+    ) = TaskDeleter(deletionDao, taskDao, refreshBroadcaster, vtodoCache, tasksPreferences, taskCleanup)
 
     @Provides
     @Singleton
