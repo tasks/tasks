@@ -1,5 +1,6 @@
 package org.tasks.caldav
 
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
@@ -9,12 +10,8 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.TasksPreferences.Companion.cachedAccountData
-import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class TasksAccountDataRepository @Inject constructor(
+class TasksAccountDataRepository(
     private val provider: CaldavClientProvider,
     private val caldavDao: CaldavDao,
     private val tasksPreferences: TasksPreferences,
@@ -52,7 +49,7 @@ class TasksAccountDataRepository @Inject constructor(
         try {
             json.decodeFromString<TasksAccountResponse>(raw)
         } catch (e: Exception) {
-            Timber.e(e, "Failed to parse account data")
+            Logger.e(e, tag = "TasksAccountDataRepository") { "Failed to parse account data" }
             null
         }
 }

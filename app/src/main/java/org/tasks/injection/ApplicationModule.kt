@@ -44,6 +44,7 @@ import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.security.AndroidKeyStoreEncryption
 import com.todoroo.astrid.service.AndroidCleanup
 import org.tasks.service.TaskCleanup
@@ -220,4 +221,12 @@ class ApplicationModule {
     ) = TasksServerEnvironment(
         tasksPreferences = tasksPreferences,
     )
+
+    @Provides
+    @Singleton
+    fun providesTasksAccountDataRepository(
+        provider: CaldavClientProvider,
+        caldavDao: CaldavDao,
+        tasksPreferences: TasksPreferences,
+    ) = TasksAccountDataRepository(provider, caldavDao, tasksPreferences)
 }
