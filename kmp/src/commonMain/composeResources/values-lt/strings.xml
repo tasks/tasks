@@ -36,4 +36,5 @@
     <string name="group_none">Nėra</string>
     <string name="filter">Filtras</string>
     <string name="sort_list">Sąrašas</string>
+    <string name="password_required">Reikalingas slaptažodis</string>
 </resources>

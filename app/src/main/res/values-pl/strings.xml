@@ -281,7 +281,6 @@
     <string name="tag_already_exists">Tag już istnieje</string>
     <string name="name_cannot_be_empty">Nazwa nie może być pusta</string>
     <string name="username_required">Wymagana nazwa użytkownika</string>
-    <string name="password_required">Wymagane hasło</string>
     <string name="url_required">Wymagany URL</string>
     <string name="url_host_name_required">Wymagana nazwa hosta</string>
     <string name="url_invalid_scheme">Musi rozpoczynać się od http(s)://</string>

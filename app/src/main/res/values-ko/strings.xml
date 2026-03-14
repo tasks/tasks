@@ -265,7 +265,6 @@
     <string name="tag_already_exists">태그가 이미 존재합니다</string>
     <string name="name_cannot_be_empty">이름은 필수 입력항목입니다</string>
     <string name="username_required">계정명 필수</string>
-    <string name="password_required">비밀번호 필수</string>
     <string name="url_required">URL 필수</string>
     <string name="url_host_name_required">호스트명 필수</string>
     <string name="url_invalid_scheme">반드시 http(s):// 로 시작해야 합니다</string>

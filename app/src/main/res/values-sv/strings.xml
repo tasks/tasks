@@ -289,7 +289,6 @@
     <string name="copy">Kopiera</string>
     <string name="move">Flytta</string>
     <string name="username_required">Användarnamn krävs</string>
-    <string name="password_required">Lösenord krävs</string>
     <string name="url_required">URL krävs</string>
     <string name="url_host_name_required">Värddatornamn krävs</string>
     <string name="url_invalid_scheme">Måste börja med http(s)://</string>

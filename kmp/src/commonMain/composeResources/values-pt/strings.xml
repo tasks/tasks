@@ -42,4 +42,5 @@
     <string name="group_none">Nenhum</string>
     <string name="filter">Filtro</string>
     <string name="sort_list">Lista</string>
+    <string name="password_required">É necessária a palavra-passe</string>
 </resources>

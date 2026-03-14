@@ -42,4 +42,5 @@
     <string name="group_none">Ingen</string>
     <string name="filter">Filter</string>
     <string name="sort_list">Lista</string>
+    <string name="password_required">Lösenord krävs</string>
 </resources>

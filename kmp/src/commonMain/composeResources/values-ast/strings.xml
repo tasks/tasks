@@ -25,4 +25,5 @@
     <string name="group_none">Denguna</string>
     <string name="filter">Filtru</string>
     <string name="sort_list">Llista</string>
+    <string name="password_required">Precísase una conseña</string>
 </resources>

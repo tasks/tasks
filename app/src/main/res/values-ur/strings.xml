@@ -342,7 +342,6 @@
     <string name="url_invalid_scheme">http(s):// کے ساتھ شروع ہونا ضروری ہے</string>
     <string name="url_host_name_required">ہوسٹ کا نام مطلوب ہے</string>
     <string name="url_required">یو آر ایل مطلوب ہے</string>
-    <string name="password_required">پاسورڈ مطلوب ہے</string>
     <string name="username_required">صارف کا نام مطلوب ہے</string>
     <string name="name_cannot_be_empty">نام خالی نہیں ہو سکتا</string>
     <string name="tag_already_exists">ٹیگ پہلے ہی موجود ہے</string>

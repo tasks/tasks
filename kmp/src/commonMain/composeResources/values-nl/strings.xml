@@ -42,4 +42,5 @@
     <string name="group_none">Geen</string>
     <string name="filter">Filter</string>
     <string name="sort_list">Lijst</string>
+    <string name="password_required">Wachtwoord vereist</string>
 </resources>

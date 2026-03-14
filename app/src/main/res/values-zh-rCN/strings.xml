@@ -253,7 +253,6 @@
     <string name="tag_already_exists">标签已存在</string>
     <string name="name_cannot_be_empty">名字不能为空</string>
     <string name="username_required">请填写用户名</string>
-    <string name="password_required">请填写密码</string>
     <string name="url_required">请填写网址</string>
     <string name="url_host_name_required">请填写主机名</string>
     <string name="url_invalid_scheme">必须以 http(s):// 开头</string>

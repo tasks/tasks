@@ -283,7 +283,6 @@
     <string name="tag_already_exists">Мітка вже існує</string>
     <string name="name_cannot_be_empty">Ім\'я не може бути порожнє</string>
     <string name="username_required">Потрібне ім\'я користувача</string>
-    <string name="password_required">Потрібний пароль</string>
     <string name="url_required">Потрібний URL</string>
     <string name="url_host_name_required">Потрібне ім\'я хоста</string>
     <string name="url_invalid_scheme">Має починатися з http(s)://</string>

@@ -50,4 +50,5 @@
     <string name="sort_modified">Modifié</string>
     <string name="all_done">C\'est terminé !</string>
     <string name="sort_list">Liste</string>
+    <string name="password_required">Mot de passe requis</string>
 </resources>

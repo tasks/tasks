@@ -168,7 +168,6 @@
     <string name="url_invalid_scheme">Trebuie să înceapă cu http(s)://</string>
     <string name="url_host_name_required">Numele de gazdă necesar</string>
     <string name="url_required">URL necesar</string>
-    <string name="password_required">Parolă necesară</string>
     <string name="username_required">Nume de utilizator necesar</string>
     <string name="name_cannot_be_empty">Numele nu poate fi gol</string>
     <string name="tag_already_exists">Etichetă deja existentă</string>

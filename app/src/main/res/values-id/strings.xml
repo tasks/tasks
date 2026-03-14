@@ -206,7 +206,6 @@
     <string name="tag_already_exists">Tag sudah ada</string>
     <string name="name_cannot_be_empty">Nama tidak boleh kosong</string>
     <string name="username_required">Nama pengguna diperlukan</string>
-    <string name="password_required">Kata sandi diperluikan</string>
     <string name="url_required">URL diperlukan</string>
     <string name="url_host_name_required">Nama host diperlukan</string>
     <string name="url_invalid_scheme">Harus diawali dengan http(s)://</string>

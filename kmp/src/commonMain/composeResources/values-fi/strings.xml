@@ -42,4 +42,5 @@
     <string name="group_none">Ei mitään</string>
     <string name="filter">Suodatin</string>
     <string name="sort_list">Lista</string>
+    <string name="password_required">Salasana vaaditaan</string>
 </resources>

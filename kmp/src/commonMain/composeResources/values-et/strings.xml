@@ -50,4 +50,5 @@
     <string name="sort_modified">Muutmise aja alusel</string>
     <string name="all_done">Saigi valmis!</string>
     <string name="sort_list">Nimekiri</string>
+    <string name="password_required">Salasõna on kohustuslik</string>
 </resources>

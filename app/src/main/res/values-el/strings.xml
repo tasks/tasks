@@ -685,7 +685,6 @@
     <string name="tag_already_exists">Η ετικέτα υπάρχει ήδη</string>
     <string name="name_cannot_be_empty">Το όνομα δεν μπορεί να είναι κενό</string>
     <string name="username_required">Απαιτείται όνομα χρήστη</string>
-    <string name="password_required">Απαιτείται κωδικός</string>
     <string name="url_required">Απαιτείται διεύθυνση URL</string>
     <string name="url_host_name_required">Απαιτείται όνομα κεντρικού υπολογιστή</string>
     <string name="url_invalid_scheme">Πρέπει να αρχίζει με http(s)://</string>

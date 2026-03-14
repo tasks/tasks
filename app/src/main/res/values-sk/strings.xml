@@ -287,7 +287,6 @@
     <string name="tag_already_exists">Štítok už jestvuje</string>
     <string name="name_cannot_be_empty">Názov nesmie ostať prázdny </string>
     <string name="username_required">Vyžaduje sa meno užívateľa </string>
-    <string name="password_required">Vyžaduje sa heslo</string>
     <string name="url_required">Vyžaduje sa URL</string>
     <string name="url_host_name_required">Vyžaduje sa adresa servera</string>
     <string name="url_invalid_scheme">Musí sa začínať http(s)://</string>

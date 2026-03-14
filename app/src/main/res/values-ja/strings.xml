@@ -268,7 +268,6 @@
     <string name="tag_already_exists">タグは既に存在します</string>
     <string name="name_cannot_be_empty">名前は空にできません</string>
     <string name="username_required">ユーザー名が必要です</string>
-    <string name="password_required">パスワードが必要です</string>
     <string name="url_required">URL が必要です</string>
     <string name="url_host_name_required">ホスト名が必要です</string>
     <string name="url_invalid_scheme">http(s):// で始める必要があります</string>

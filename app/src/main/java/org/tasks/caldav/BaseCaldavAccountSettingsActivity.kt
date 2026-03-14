@@ -35,6 +35,8 @@ import kotlinx.coroutines.launch
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.password_required
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
@@ -275,7 +277,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             failed = true
         }
         if (isNullOrEmpty(password)) {
-            binding.passwordLayout.error = getString(R.string.password_required)
+            binding.passwordLayout.error = org.jetbrains.compose.resources.getString(Res.string.password_required)
             failed = true
         }
         when {

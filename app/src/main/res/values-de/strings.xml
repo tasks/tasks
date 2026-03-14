@@ -264,7 +264,6 @@
     <string name="tag_already_exists">Schlagwort existiert bereits</string>
     <string name="name_cannot_be_empty">Name darf nicht leer sein</string>
     <string name="username_required">Benutzername benötigt</string>
-    <string name="password_required">Passwort benötigt</string>
     <string name="url_required">URL benötigt</string>
     <string name="url_host_name_required">Hostname erforderlich</string>
     <string name="url_invalid_scheme">Muss mit „http(s)://“ beginnen</string>

@@ -286,7 +286,6 @@
     <string name="url_invalid_scheme">ต้องเริ่มต้นด้วย http(s)://</string>
     <string name="url_host_name_required">ต้องการชื่อโฮสต์</string>
     <string name="url_required">URL ที่ต้องการ</string>
-    <string name="password_required">ต้องใช้รหัสผ่าน</string>
     <string name="username_required">ต้องการชื่อผู้ใช้</string>
     <string name="name_cannot_be_empty">ชื่อไม่สามารถปล่อยให้ว่างได้</string>
     <string name="tag_already_exists">มีแท็กอยู่แล้ว</string>

@@ -37,4 +37,5 @@
     <string name="group_none">Tidak Ada</string>
     <string name="filter">Filter</string>
     <string name="sort_list">Daftar</string>
+    <string name="password_required">Kata sandi diperluikan</string>
 </resources>

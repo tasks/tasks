@@ -285,7 +285,6 @@
     <string name="tag_already_exists">תגית כבר קיימת</string>
     <string name="name_cannot_be_empty">השם לא יכול להיות ריק</string>
     <string name="username_required">נדרש שם משתמש</string>
-    <string name="password_required">נדרשת סיסמה</string>
     <string name="url_required">נדרשת כתובת URL</string>
     <string name="url_host_name_required">נדרש שם מארח</string>
     <string name="url_invalid_scheme">חייב להתחיל עם http(s)://‎</string>

@@ -267,7 +267,6 @@
     <string name="tag_already_exists">Etiket zaten var</string>
     <string name="name_cannot_be_empty">Ad boş olamaz</string>
     <string name="username_required">Kullanıcı adı gerekli</string>
-    <string name="password_required">Parola gerekli</string>
     <string name="url_required">URL gerekli</string>
     <string name="url_host_name_required">Ana makine adı gerekli</string>
     <string name="url_invalid_scheme">http(s):// ile başlamalı</string>

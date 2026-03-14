@@ -358,7 +358,6 @@
     <string name="tag_already_exists">L\'etiqueta yá esiste</string>
     <string name="name_cannot_be_empty">El nome nun puee tar baleru</string>
     <string name="username_required">Precísase un nome d\'usuariu</string>
-    <string name="password_required">Precísase una conseña</string>
     <string name="url_required">Precísase la URL</string>
     <string name="url_host_name_required">Precísase un hostname</string>
     <string name="url_invalid_scheme">Tien d\'entamar con http(s)://</string>

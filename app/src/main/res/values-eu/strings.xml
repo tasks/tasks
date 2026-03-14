@@ -273,7 +273,6 @@
     <string name="tag_already_exists">Etiketa hau badago aurretik</string>
     <string name="name_cannot_be_empty">Izena ezin da hutsik egon</string>
     <string name="username_required">Erabiltzaile-izena ezinbestekoa da</string>
-    <string name="password_required">Pasahitza ezinbestekoa da</string>
     <string name="url_required">URL-a ezinbestekoa da</string>
     <string name="url_host_name_required">Ostalari-izena ezinbestekoa da</string>
     <string name="url_invalid_scheme">https:// batekin hasi behar da</string>

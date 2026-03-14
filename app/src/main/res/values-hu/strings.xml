@@ -266,7 +266,6 @@
     <string name="tag_already_exists">A címke már létezik</string>
     <string name="name_cannot_be_empty">A cím nem lehet üres</string>
     <string name="username_required">Felhasználónév szükséges</string>
-    <string name="password_required">Jelszó szükséges</string>
     <string name="url_required">Link szükséges</string>
     <string name="url_host_name_required">Host név szükséges</string>
     <string name="url_invalid_scheme">http(s)://-el kell kezdődnie</string>

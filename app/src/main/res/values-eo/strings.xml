@@ -217,7 +217,6 @@
     <string name="default_list">Defaŭlta listo</string>
     <string name="no_title">(Sen titolo)</string>
     <string name="url_required">URL bezonata</string>
-    <string name="password_required">Pasvorto bezonata</string>
     <string name="username_required">Uzantnomo bezonata</string>
     <string name="name_cannot_be_empty">Nomo ne povas malpleni</string>
     <string name="tag_already_exists">Etikedo jam ekzistas</string>

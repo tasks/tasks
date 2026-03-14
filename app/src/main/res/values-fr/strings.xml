@@ -266,7 +266,6 @@
     <string name="tag_already_exists">L\'étiquette existe déjà</string>
     <string name="name_cannot_be_empty">Le nom doit être renseigné</string>
     <string name="username_required">Nom d\'utilisateur requis</string>
-    <string name="password_required">Mot de passe requis</string>
     <string name="url_required">Adresse web requise</string>
     <string name="url_host_name_required">Nom d\'hôte requis</string>
     <string name="url_invalid_scheme">Doit commencer par http(s)://</string>

@@ -2,4 +2,5 @@
 <resources>
     <string name="show_completed">Ipakita ang natapos</string>
     <string name="sort_priority">Prayoridad</string>
+    <string name="password_required">Password kailangan</string>
 </resources>

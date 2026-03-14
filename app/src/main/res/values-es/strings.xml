@@ -280,7 +280,6 @@
     <string name="tag_already_exists">La etiqueta ya existe</string>
     <string name="name_cannot_be_empty">El nombre no puede estar vacío</string>
     <string name="username_required">Nombre de usuario requerido</string>
-    <string name="password_required">Contraseña requerida</string>
     <string name="url_required">Se requiere un URL</string>
     <string name="url_host_name_required">Se necesita el nombre de anfitrión</string>
     <string name="url_invalid_scheme">Debe comenzar por http(s)://</string>

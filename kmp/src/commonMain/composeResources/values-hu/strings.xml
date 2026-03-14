@@ -42,4 +42,5 @@
     <string name="group_none">Nincs</string>
     <string name="filter">Szűrő</string>
     <string name="sort_list">Lista</string>
+    <string name="password_required">Jelszó szükséges</string>
 </resources>

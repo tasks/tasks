@@ -281,7 +281,6 @@
     <string name="tag_already_exists">Etichetta già presente</string>
     <string name="name_cannot_be_empty">Il nome non può essere vuoto</string>
     <string name="username_required">Nome utente obbligatorio</string>
-    <string name="password_required">Password obbligatoria</string>
     <string name="url_required">URL obbligatoria</string>
     <string name="url_host_name_required">Hostname obbligatorio</string>
     <string name="url_invalid_scheme">Deve iniziare con http(s)://</string>

@@ -389,7 +389,6 @@
     <string name="icon">Kuvake</string>
     <string name="url_invalid_scheme">On alettava http(s)://</string>
     <string name="url_required">URL vaaditaan</string>
-    <string name="password_required">Salasana vaaditaan</string>
     <string name="username_required">Käyttäjänimi vaaditaan</string>
     <string name="move">Siirrä</string>
     <string name="menu_discard_changes">Hylkää muutokset</string>

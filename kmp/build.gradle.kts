@@ -39,7 +39,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(projects.data)
-            implementation(compose.components.resources)
+            api(compose.components.resources)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)

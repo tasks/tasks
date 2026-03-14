@@ -524,7 +524,6 @@
     <string name="url_invalid_scheme">http(s):// වලින් ආරම්භවිය යුතුය</string>
     <string name="url_host_name_required">ධාරක නාමය (Hostname) අවශ්‍යයි</string>
     <string name="url_required">URL අවශ්‍යයි</string>
-    <string name="password_required">මුරපදය අවශ්‍යයි</string>
     <string name="username_required">පරිශීලක නාමය අවශ්‍යයි</string>
     <string name="name_cannot_be_empty">නම හිස්ව තැබිය නොහැකිය</string>
     <string name="tag_already_exists">ටැගය දැනටමත් පවතී</string>

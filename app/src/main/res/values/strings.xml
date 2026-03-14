@@ -368,7 +368,6 @@ File %1$s contained %2$s.\n\n
   <string name="tag_already_exists">Tag already exists</string>
   <string name="name_cannot_be_empty">Name cannot be empty</string>
   <string name="username_required">Username required</string>
-  <string name="password_required">Password required</string>
   <string name="url_required">URL required</string>
   <string name="url_host_name_required">Hostname required</string>
   <string name="url_invalid_scheme">Must begin with http(s)://</string>

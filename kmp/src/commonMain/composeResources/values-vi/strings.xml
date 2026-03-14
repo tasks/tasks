@@ -38,4 +38,5 @@
     <string name="group_none">Không có</string>
     <string name="filter">Lọc</string>
     <string name="sort_list">Danh sách</string>
+    <string name="password_required">Yêu cầu mật khẩu</string>
 </resources>

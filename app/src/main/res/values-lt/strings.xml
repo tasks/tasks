@@ -291,7 +291,6 @@
     <string name="tag_already_exists">Etiketė jau egzistuoja</string>
     <string name="name_cannot_be_empty">Pavadinimas negali būti tuščias</string>
     <string name="username_required">Reikalingas vartotojo vardas</string>
-    <string name="password_required">Reikalingas slaptažodis</string>
     <string name="url_required">Reikalingas URL</string>
     <string name="url_host_name_required">Reikalingas serverio vardas</string>
     <string name="url_invalid_scheme">Turi prasidėti http(s)://</string>

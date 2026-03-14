@@ -448,7 +448,6 @@
     <string name="customize_edit_screen_summary">Reorganitza o elimina camps</string>
     <string name="name_cannot_be_empty">El nom no pot ser buit</string>
     <string name="username_required">El nom d\'usuari és necessari</string>
-    <string name="password_required">La paraula de pas és necessària</string>
     <string name="url_invalid_scheme">Ha de començar amb http(s)://</string>
     <string name="back_button_saves_task">El botó enrere guarda la tasca</string>
     <string name="add_location">Afegeix un lloc</string>

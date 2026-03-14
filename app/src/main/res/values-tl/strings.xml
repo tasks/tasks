@@ -47,7 +47,6 @@
     <string name="quiet_hours_summary">Walang paalala sa tahimik na mga oras</string>
     <string name="show_completed">Ipakita ang natapos</string>
     <string name="username_required">Pangalan ng gumagamit kailangan</string>
-    <string name="password_required">Password kailangan</string>
     <string name="url_required">URL kailangan</string>
     <string name="url_host_name_required">Pangalan ng host kailangan</string>
     <string name="url_invalid_scheme">Kailangan magsimula na may http(s)://</string>

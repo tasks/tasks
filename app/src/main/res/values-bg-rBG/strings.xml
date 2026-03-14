@@ -272,7 +272,6 @@
     <string name="tag_already_exists">Етикетът вече съществува</string>
     <string name="name_cannot_be_empty">Името не може да е празно</string>
     <string name="username_required">Потребителското име е задължително</string>
-    <string name="password_required">Паролата е задължителна</string>
     <string name="url_required">Адресът е задължителен</string>
     <string name="url_host_name_required">Името на хоста е задължително</string>
     <string name="url_invalid_scheme">Трябва да започва с http(s)://</string>

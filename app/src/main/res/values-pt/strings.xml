@@ -365,7 +365,6 @@
     <string name="url_invalid_scheme">Deve iniciar com http(s)://</string>
     <string name="url_host_name_required">É necessário o nome do host</string>
     <string name="url_required">É necessário o URL</string>
-    <string name="password_required">É necessária a palavra-passe</string>
     <string name="username_required">É necessário o nome de utilizador</string>
     <string name="move">Mover</string>
     <string name="geofence_radius">Raio da cerca geográfica</string>

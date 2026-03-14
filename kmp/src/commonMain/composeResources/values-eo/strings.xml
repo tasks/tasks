@@ -42,4 +42,5 @@
     <string name="group_none">Neniu</string>
     <string name="filter">Filtrilo</string>
     <string name="sort_list">Listo</string>
+    <string name="password_required">Pasvorto bezonata</string>
 </resources>

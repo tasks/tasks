@@ -35,4 +35,5 @@
     <string name="group_none">ไม่มีใคร</string>
     <string name="filter">กรอง</string>
     <string name="sort_list">รายการ</string>
+    <string name="password_required">ต้องใช้รหัสผ่าน</string>
 </resources>

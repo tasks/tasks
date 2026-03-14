@@ -42,4 +42,5 @@
     <string name="group_none">Κανένα</string>
     <string name="filter">Φίλτρο</string>
     <string name="sort_list">Λίστα</string>
+    <string name="password_required">Απαιτείται κωδικός</string>
 </resources>

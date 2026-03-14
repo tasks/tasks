@@ -50,4 +50,5 @@
     <string name="sort_modified">Čas úpravy</string>
     <string name="all_done">Vše hotovo!</string>
     <string name="sort_list">Seznam</string>
+    <string name="password_required">Zadejte heslo</string>
 </resources>

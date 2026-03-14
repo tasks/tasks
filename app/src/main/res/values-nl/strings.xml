@@ -263,7 +263,6 @@
     <string name="tag_already_exists">Label bestaat reeds</string>
     <string name="name_cannot_be_empty">Naam mag niet leeg zijn</string>
     <string name="username_required">Gebruikersnaam vereist</string>
-    <string name="password_required">Wachtwoord vereist</string>
     <string name="url_required">URL vereist</string>
     <string name="url_host_name_required">Hostnaam vereist</string>
     <string name="url_invalid_scheme">Moet beginnen met http(s)://</string>

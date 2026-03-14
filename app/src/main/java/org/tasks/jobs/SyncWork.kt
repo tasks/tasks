@@ -163,6 +163,7 @@ class SyncWork @AssistedInject constructor(
     private suspend fun caldavJobs(): List<Deferred<Unit>> = coroutineScope {
         getCaldavAccounts().map {
             async(Dispatchers.IO) {
+                Thread.currentThread().contextClassLoader = context.classLoader
                 when (it.accountType) {
                     TYPE_ETEBASE -> etebaseSynchronizer.get().sync(it)
                     TYPE_TASKS,

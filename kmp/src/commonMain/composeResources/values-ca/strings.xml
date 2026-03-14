@@ -42,4 +42,5 @@
     <string name="group_none">Cap</string>
     <string name="filter">Filtre</string>
     <string name="sort_list">Llista</string>
+    <string name="password_required">La paraula de pas és necessària</string>
 </resources>

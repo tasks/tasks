@@ -50,4 +50,5 @@
     <string name="sort_created">נוצר</string>
     <string name="sort_modified">שונה</string>
     <string name="all_done">בוצע!</string>
+    <string name="password_required">נדרשת סיסמה</string>
 </resources>

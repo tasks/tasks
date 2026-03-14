@@ -50,4 +50,5 @@
     <string name="sort_created">Creato</string>
     <string name="sort_modified">Modificato</string>
     <string name="all_done">Fatto!</string>
+    <string name="password_required">Password obbligatoria</string>
 </resources>

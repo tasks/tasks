@@ -283,7 +283,6 @@
     <string name="tag_already_exists">Тег уже существует</string>
     <string name="name_cannot_be_empty">Необходимо задать имя</string>
     <string name="username_required">Требуется имя пользователя</string>
-    <string name="password_required">Требуется пароль</string>
     <string name="url_required">Требуется URL</string>
     <string name="url_host_name_required">Требуется имя хоста</string>
     <string name="url_invalid_scheme">Должно начинаться с http(s)://</string>

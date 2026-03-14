@@ -50,4 +50,5 @@
     <string name="sort_created">Oluşturulma</string>
     <string name="sort_modified">Değiştirilme</string>
     <string name="all_done">Tümü bitti!</string>
+    <string name="password_required">Parola gerekli</string>
 </resources>

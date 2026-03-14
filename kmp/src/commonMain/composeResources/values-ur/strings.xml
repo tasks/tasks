@@ -33,4 +33,5 @@
     <string name="group_none">کوئی نہیں</string>
     <string name="filter">فلٹر</string>
     <string name="sort_list">فہرست</string>
+    <string name="password_required">پاسورڈ مطلوب ہے</string>
 </resources>

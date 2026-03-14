@@ -297,7 +297,6 @@
     <string name="send_anonymous_statistics_summary">Send anonym bruksstatistkk og krasjrapporter for å hjelpe til å forbedre Tasks. Ingen personlig data vil bli samlet inn.</string>
     <string name="name_cannot_be_empty">Navn kan ikke stå tomt</string>
     <string name="username_required">Brukernavn kreves</string>
-    <string name="password_required">Passord kreves</string>
     <string name="url_required">Nettadresse kreves</string>
     <string name="url_host_name_required">Vertsnavn kreves</string>
     <string name="url_invalid_scheme">Må begynne med http(s)://</string>

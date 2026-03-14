@@ -337,7 +337,6 @@
     <string name="url_invalid_scheme">Phải bắt đầu bằng http(s)://</string>
     <string name="url_host_name_required">Yêu cầu tên miền máy chủ</string>
     <string name="url_required">Yêu cầu URL</string>
-    <string name="password_required">Yêu cầu mật khẩu</string>
     <string name="username_required">Yêu cầu tên người dùng</string>
     <string name="name_cannot_be_empty">Tên không thể trống</string>
     <string name="tag_already_exists">Thẻ đã tồn tại</string>

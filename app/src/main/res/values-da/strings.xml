@@ -267,7 +267,6 @@
     <string name="url_host_name_required">Værtsnavn påkrævet</string>
     <string name="url_required">URL påkrævet</string>
     <string name="username_required">Brugernavn påkrævet</string>
-    <string name="password_required">Adgangskode påkrævet</string>
     <string name="name_cannot_be_empty">Navnet må ikke være tomt</string>
     <string name="tag_already_exists">Tagget findes allerede</string>
     <string name="send_anonymous_statistics_summary">Send anonyme brugerstatistik og fejlrapporter for at hjælpe med at forbedre Tasks. Ingen personlige data indsamles.</string>

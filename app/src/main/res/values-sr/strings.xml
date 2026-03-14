@@ -326,7 +326,6 @@
     <string name="tag_already_exists">Таг већ постоји</string>
     <string name="name_cannot_be_empty">Поље имена не може бити празно</string>
     <string name="username_required">Корисничко име је неопходно</string>
-    <string name="password_required">Шифра је неопходна</string>
     <string name="url_required">URL је неопходан</string>
     <string name="url_invalid_scheme">Мора почети са http(s)://</string>
     <string name="no_title">(Без назива)</string>

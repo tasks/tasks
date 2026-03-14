@@ -2,7 +2,6 @@ package org.tasks.etebase
 
 import android.content.Context
 import android.graphics.Color
-import org.tasks.caldav.Task.Companion.prodId
 import com.etebase.client.Collection
 import com.etebase.client.Item
 import com.etebase.client.exceptions.ConnectionException
@@ -13,13 +12,15 @@ import com.etebase.client.exceptions.UnauthorizedException
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import net.fortuna.ical4j.model.property.ProdId
+import org.jetbrains.compose.resources.getString
 import org.tasks.BuildConfig
-import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
+import org.tasks.broadcast.RefreshBroadcaster
+import org.tasks.caldav.Task.Companion.prodId
 import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
@@ -28,6 +29,8 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.password_required
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -50,14 +53,12 @@ class EtebaseSynchronizer @Inject constructor(
 
     suspend fun sync(account: CaldavAccount) {
         Timber.d("Synchronizing $account")
-        Thread.currentThread().contextClassLoader = context.classLoader
-
         if (!inventory.hasPro) {
             setError(account, context.getString(R.string.requires_pro_subscription))
             return
         }
         if (isNullOrEmpty(account.password)) {
-            setError(account, context.getString(R.string.password_required))
+            setError(account, getString(Res.string.password_required))
             return
         }
         try {

@@ -1,6 +1,5 @@
 package org.tasks.caldav
 
-import android.content.Context
 import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.PropertyRegistry
 import at.bitfire.dav4jvm.okhttp.DavCalendar
@@ -23,16 +22,18 @@ import at.bitfire.dav4jvm.property.webdav.GetETag.Companion.fromResponse
 import at.bitfire.dav4jvm.property.webdav.SyncToken
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskDeleter
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import net.fortuna.ical4j.model.property.ProdId
 import okhttp3.Headers
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.jetbrains.compose.resources.getString
 import org.tasks.BuildConfig
-import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.password_required
+import tasks.kmp.generated.resources.requires_pro_subscription
 import org.tasks.analytics.AnalyticsEvents.INITIAL_SYNC_COMPLETE
 import org.tasks.analytics.AnalyticsEvents.PARAM_TASK_COUNT
 import org.tasks.analytics.AnalyticsEvents.PARAM_TYPE
@@ -87,7 +88,6 @@ import java.security.NoSuchAlgorithmException
 import javax.inject.Inject
 
 class CaldavSynchronizer @Inject constructor(
-    @param:ApplicationContext private val context: Context,
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
     private val refreshBroadcaster: RefreshBroadcaster,
@@ -102,17 +102,15 @@ class CaldavSynchronizer @Inject constructor(
 ) {
     suspend fun sync(account: CaldavAccount) {
         Timber.d("Synchronizing $account")
-        Thread.currentThread().contextClassLoader = context.classLoader
-
         if (!inventory.hasPro && !account.isTasksOrg) {
-            setError(account, context.getString(R.string.requires_pro_subscription))
+            setError(account, getString(Res.string.requires_pro_subscription))
             return
         }
         if (isNullOrEmpty(account.password)) {
             setError(account, if (account.isTasksOrg) {
                 ERROR_UNAUTHORIZED
             } else {
-                context.getString(R.string.password_required)
+                getString(Res.string.password_required)
             })
             return
         }

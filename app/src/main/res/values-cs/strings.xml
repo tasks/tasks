@@ -305,7 +305,6 @@
     <string name="pick_from_storage">Vybrat z úložiště</string>
     <string name="name_cannot_be_empty">Název nemůže být prázdný</string>
     <string name="username_required">Zadejte uživatelské jméno</string>
-    <string name="password_required">Zadejte heslo</string>
     <string name="url_required">Zadejte URL</string>
     <string name="url_host_name_required">Zadejte adresu serveru</string>
     <string name="url_invalid_scheme">Musí začínat na http(s)://</string>

@@ -279,7 +279,6 @@
     <string name="tag_already_exists">Etiqueta já existe</string>
     <string name="name_cannot_be_empty">Nome não pode ser vazio</string>
     <string name="username_required">Nome de usuário necessário</string>
-    <string name="password_required">Senha necessária</string>
     <string name="url_required">É necessário o URL</string>
     <string name="url_host_name_required">É necessário o nome do Host</string>
     <string name="url_invalid_scheme">Deve iniciar com http(s)://</string>

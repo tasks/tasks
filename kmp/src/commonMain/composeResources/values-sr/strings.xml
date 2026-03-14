@@ -42,4 +42,5 @@
     <string name="group_none">Празно</string>
     <string name="filter">Филтер</string>
     <string name="sort_list">Листа</string>
+    <string name="password_required">Шифра је неопходна</string>
 </resources>

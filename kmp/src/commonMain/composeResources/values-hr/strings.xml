@@ -50,4 +50,5 @@
     <string name="sort_created">Stvoreno</string>
     <string name="sort_modified">Promijenjeno</string>
     <string name="all_done">Sve je gotovo!</string>
+    <string name="password_required">Lozinka je obavezna</string>
 </resources>

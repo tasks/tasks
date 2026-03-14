@@ -1,13 +1,11 @@
 package org.tasks.sync.microsoft
 
-import android.content.Context
 import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import at.bitfire.dav4jvm.okhttp.exception.ServiceUnavailableException
 import at.bitfire.dav4jvm.okhttp.exception.UnauthorizedException
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskDeleter
-import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.call.body
 import io.ktor.http.isSuccess
 import kotlinx.serialization.json.Json
@@ -16,7 +14,6 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.broadcast.RefreshBroadcaster
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDao
@@ -39,6 +36,7 @@ import org.tasks.sync.microsoft.MicrosoftConverter.applyRemote
 import org.tasks.sync.microsoft.MicrosoftConverter.applySubtask
 import org.tasks.sync.microsoft.MicrosoftConverter.toChecklistItem
 import org.tasks.sync.microsoft.MicrosoftConverter.toRemote
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import java.io.IOException
 import java.net.ConnectException
@@ -51,7 +49,6 @@ import javax.net.ssl.SSLException
 
 
 class MicrosoftSynchronizer @Inject constructor(
-    @param:ApplicationContext private val context: Context,
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
     private val refreshBroadcaster: RefreshBroadcaster,
@@ -67,8 +64,6 @@ class MicrosoftSynchronizer @Inject constructor(
 ) {
     suspend fun sync(account: CaldavAccount) {
         Timber.d("Synchronizing $account")
-        Thread.currentThread().contextClassLoader = context.classLoader
-
         try {
             synchronize(account)
             if (account.lastSync == 0L) {

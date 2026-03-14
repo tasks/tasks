@@ -42,4 +42,5 @@
     <string name="group_none">எதுவுமில்லை</string>
     <string name="filter">வடிகட்டு</string>
     <string name="sort_list">பட்டியல்</string>
+    <string name="password_required">கடவுச்சொல் தேவை</string>
 </resources>

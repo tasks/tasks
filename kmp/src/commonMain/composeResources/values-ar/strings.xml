@@ -42,4 +42,5 @@
     <string name="group_none">لا شيء</string>
     <string name="filter">تصفية</string>
     <string name="sort_list">قائمة</string>
+    <string name="password_required">كلمة السرّ مطلوبة</string>
 </resources>
