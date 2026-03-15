@@ -40,6 +40,7 @@ import org.tasks.injection.InjectingJobIntentService
 import org.tasks.jobs.WorkManager
 import org.tasks.location.LocationService
 import org.tasks.opentasks.OpenTaskContentObserver
+import org.tasks.pebble.PebbleService
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.receivers.RefreshReceiver
@@ -68,6 +69,7 @@ class TasksApplication : Application(), Configuration.Provider {
     @Inject lateinit var contentObserver: Lazy<OpenTaskContentObserver>
     @Inject lateinit var syncAdapters: Lazy<SyncAdapters>
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var pebbleService: PebbleService
     @Inject lateinit var pushTokenManager: Lazy<PushTokenManager>
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -157,6 +159,7 @@ class TasksApplication : Application(), Configuration.Provider {
         locationService.get().registerAllGeofences()
         CaldavSynchronizer.registerFactories()
         pushTokenManager.get().registerTokenForAllAccounts()
+        pebbleService.register()
     }
 
     override val workManagerConfiguration: Configuration
