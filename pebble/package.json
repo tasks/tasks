@@ -1,0 +1,17 @@
+{
+  "name": "tasks-pebble",
+  "version": "1.0.0",
+  "author": "Tasks.org",
+  "pebble": {
+    "displayName": "Tasks",
+    "uuid": "a1b2c3d4-1234-5678-abcd-1a5c500e9001",
+    "sdkVersion": "3",
+    "targetPlatforms": ["aplite", "basalt", "chalk", "diorite", "emery"],
+    "watchapp": {
+      "watchface": false
+    },
+    "resources": {
+      "media": []
+    }
+  }
+}

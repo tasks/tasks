@@ -25,6 +25,17 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Build Pebble app
+        run: |
+          pip install pebble-tool
+          pebble sdk install latest
+          cd pebble && pebble build
+
       - name: Set up JDK 17
         uses: actions/setup-java@v5
         with:
@@ -54,6 +65,11 @@ jobs:
         with:
           name: wear-release.apk
           path: wear/build/outputs/bundle/release/wear-release.apk
+      - name: Upload Pebble app
+        uses: actions/upload-artifact@v6
+        with:
+          name: pebble.pbw
+          path: pebble/build/pebble.pbw
       - name: Upload release bundles
         uses: actions/upload-artifact@v6
         with:

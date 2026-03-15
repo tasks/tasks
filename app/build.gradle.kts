@@ -226,6 +226,7 @@ dependencies {
     implementation(libs.etebase)
     implementation(libs.colorpicker)
     implementation(libs.appauth)
+    implementation(libs.pebblekit)
     implementation(libs.osmdroid)
     implementation(libs.androidx.recyclerview)
 
