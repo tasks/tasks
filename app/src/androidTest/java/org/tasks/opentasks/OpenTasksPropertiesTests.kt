@@ -10,6 +10,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.TestUtilities.withTZ
+import org.tasks.caldav.Ical4androidTaskAdapter
 import org.tasks.caldav.iCalendar.Companion.collapsed
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
@@ -65,7 +66,7 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
 
         synchronizer.sync()
 
-        assertEquals("1234", openTaskDao.getTask(listId, "abcd")?.task?.parent)
+        assertEquals("1234", openTaskDao.getTask(listId, "abcd")?.task?.let(::Ical4androidTaskAdapter)?.parent)
     }
 
     @Test
@@ -144,7 +145,7 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
 
         assertEquals(
                 5678L,
-                openTaskDao.getTask(listId, "1234")?.task?.order
+                openTaskDao.getTask(listId, "1234")?.task?.let(::Ical4androidTaskAdapter)?.order
         )
     }
 
@@ -173,7 +174,7 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
 
         synchronizer.sync()
 
-        assertTrue(openTaskDao.getTask(listId, "abcd")?.task!!.collapsed)
+        assertTrue(Ical4androidTaskAdapter(openTaskDao.getTask(listId, "abcd")?.task!!).collapsed)
     }
 
     @Test
@@ -189,10 +190,11 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
         synchronizer.sync()
 
         assertFalse(
-                openTaskDao
-                        .getTask(listId, "2822976a-b71e-4962-92e4-db7297789c20")
-                        ?.task
-                        !!.collapsed
+                Ical4androidTaskAdapter(
+                        openTaskDao
+                                .getTask(listId, "2822976a-b71e-4962-92e4-db7297789c20")
+                                ?.task!!
+                ).collapsed
         )
     }
 
@@ -243,7 +245,7 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
             synchronizer.sync()
         }
 
-        assertEquals(1612467000000, openTaskDao.getTask(listId, "abcd")?.task!!.snooze)
+        assertEquals(1612467000000, Ical4androidTaskAdapter(openTaskDao.getTask(listId, "abcd")?.task!!).snooze)
     }
 
     @Test
@@ -268,7 +270,7 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
             synchronizer.sync()
         }
 
-        assertNull(openTaskDao.getTask(listId, "abcd")?.task!!.snooze)
+        assertNull(Ical4androidTaskAdapter(openTaskDao.getTask(listId, "abcd")?.task!!).snooze)
     }
 
     @Test
@@ -289,10 +291,11 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
         synchronizer.sync()
 
         assertNull(
-                openTaskDao
-                        .getTask(listId, "4CBBC669-70E3-474D-A0A3-0FC42A14A5A5")
-                        ?.task
-                !!.snooze
+                Ical4androidTaskAdapter(
+                        openTaskDao
+                                .getTask(listId, "4CBBC669-70E3-474D-A0A3-0FC42A14A5A5")
+                                ?.task!!
+                ).snooze
         )
     }
 

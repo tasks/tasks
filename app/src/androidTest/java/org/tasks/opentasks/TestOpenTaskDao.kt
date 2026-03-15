@@ -7,13 +7,13 @@ import at.bitfire.ical4android.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dmfs.tasks.contract.TaskContract
 import org.dmfs.tasks.contract.TaskContract.TaskListColumns.ACCESS_LEVEL_OWNER
-import org.tasks.caldav.iCalendar
 import org.tasks.data.MyAndroidTask
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount.Companion.ACCOUNT_TYPE_DAVX5
 import org.tasks.data.entity.CaldavCalendar
+import java.io.StringReader
 import javax.inject.Inject
 
 class TestOpenTaskDao @Inject constructor(
@@ -51,7 +51,7 @@ class TestOpenTaskDao @Inject constructor(
 
     fun insertTask(listId: Long, vtodo: String) {
         val ops = ArrayList<BatchOperation.CpoBuilder>()
-        val task = MyAndroidTask(iCalendar.fromVtodo(vtodo)!!)
+        val task = MyAndroidTask(Task.tasksFromReader(StringReader(vtodo)).first())
         ops.add(task.toBuilder(tasks).withValue(TaskContract.TaskColumns.LIST_ID, listId))
         task.enqueueProperties(properties, ops, 0)
         applyOperation(*ops.toTypedArray())
