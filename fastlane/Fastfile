@@ -69,5 +69,41 @@ platform :android do
                 "tasks_posthog_key": ENV["POSTHOG_KEY"]
             }
         )
+        generate_apks
+  end
+
+  desc "Generate universal APKs from AABs using bundletool"
+  private_lane :generate_apks do
+    bundletool_version = "1.17.2"
+    bundletool = "bundletool.jar"
+    unless File.exist?("../#{bundletool}")
+      sh("curl -sLf https://github.com/google/bundletool/releases/download/#{bundletool_version}/bundletool-all-#{bundletool_version}.jar -o ../#{bundletool}")
+    end
+
+    bundles = [
+      "app/build/outputs/bundle/googleplayRelease/app-googleplay-release",
+      "wear/build/outputs/bundle/release/wear-release",
+    ]
+
+    bundles.each do |base|
+      aab = "../#{base}.aab"
+      apk = "../#{base}.apk"
+      apks = "../#{base}.apks"
+      sh(
+        "java", "-jar", "../#{bundletool}",
+        "build-apks",
+        "--bundle=#{aab}",
+        "--output=#{apks}",
+        "--mode=universal",
+        "--ks=#{ENV['KEY_PATH']}",
+        "--ks-key-alias=#{ENV['KEY_ALIAS']}",
+        "--ks-pass=pass:#{ENV['KEY_STORE_PASSWORD']}",
+        "--key-pass=pass:#{ENV['KEY_PASSWORD']}",
+        "--overwrite",
+      )
+      sh("unzip", "-o", apks, "universal.apk", "-d", File.dirname(apk))
+      File.rename(File.join(File.dirname(apk), "universal.apk"), apk)
+      File.delete(apks)
+    end
   end
 end

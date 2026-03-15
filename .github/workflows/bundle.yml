@@ -44,10 +44,22 @@ jobs:
           GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
           POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
         run: bundle exec fastlane bundle
-      - name: Upload artifacts
+      - name: Upload app APK
+        uses: actions/upload-artifact@v6
+        with:
+          name: app-googleplay-release.apk
+          path: app/build/outputs/bundle/googleplayRelease/app-googleplay-release.apk
+      - name: Upload wear APK
+        uses: actions/upload-artifact@v6
+        with:
+          name: wear-release.apk
+          path: wear/build/outputs/bundle/release/wear-release.apk
+      - name: Upload release bundles
         uses: actions/upload-artifact@v6
         with:
           name: release
           path: |
-            app/build/outputs/**
-            wear/build/outputs/**
+            app/build/outputs/bundle/googleplayRelease/app-googleplay-release.aab
+            app/build/outputs/mapping/googleplayRelease/mapping.txt
+            wear/build/outputs/bundle/release/wear-release.aab
+            wear/build/outputs/mapping/release/mapping.txt
