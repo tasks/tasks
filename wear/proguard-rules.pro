@@ -10,6 +10,7 @@
     public static *** i(...);
 }
 
+-dontwarn com.github.erosb.jsonsKema.**
 -dontwarn com.google.android.gms.**
 -keepclassmembers class * extends com.google.protobuf.GeneratedMessageLite { <fields>; }
 -keep class androidx.compose.material.icons.outlined.** { *; }
