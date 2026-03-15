@@ -756,4 +756,17 @@
     <string name="sign_in_subtitle">Ĉu vi jam estas abonanto aŭ invitita gasto?</string>
     <string name="rmd_time_enabled_on">Aldoni defaŭltajn memorigilojn al tuttagaj taskoj</string>
     <string name="rmd_time_enabled_off">Ne aldoni defaŭltajn memorigilojn al tuttagaj taskoj</string>
+    <string name="upgrade_to_pro_card_description">Por malŝlosi sinkronigon de Tasks.org Cloud, komunigon de Amikoj kaj Familianoj, kaj Retpoŝto al Tasko</string>
+    <string name="tasks_org_description">Inkluzive de Komunigo de Amikoj kaj Familianoj kaj Retpoŝto-al-Tasko</string>
+    <string name="email_to_task">Retpoŝto al tasko</string>
+    <string name="email_to_task_calendar">Listo de cellokoj</string>
+    <string name="regenerate_email_address">Regeneri adreson</string>
+    <string name="regenerate_email_address_confirmation">Via aktuala retpoŝtadreso ne plu funkcios</string>
+    <string name="share_list">Komunigi \"%1$s\"</string>
+    <string name="shared_with_me">Komunaj kun mi</string>
+    <string name="shared_by">Komunigata de %s</string>
+    <string name="upgrade_friends_and_family_description">5 senpagaj gastoj de komunaj listoj. Funkcias per Apple Reminders</string>
+    <string name="upgrade_email_to_task_description">Krei taskojn el retpoŝtoj per antaŭsendi ilin al via privata enirkesto</string>
+    <string name="guest_create_list_message">Vi nun havas aliron kiel gasto al komunaj listoj. Por krei kaj sinkronigi proprajn privatajn listojn al la nubo, vi bezonas abonon de Tasks.org. Vi povas ankaŭ krei senpagan lokan liston kiu restas en ĉi tiu aparato.</string>
+    <string name="p_per_list_sort">ordigi_laŭ_listo</string>
 </resources>
