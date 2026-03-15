@@ -41,7 +41,7 @@ abstract class CaldavTest : InjectingTestCase() {
     fun after() = server.shutdown()
 
     protected suspend fun sync(account: CaldavAccount = this.account) {
-        synchronizer.sync(account)
+        synchronizer.sync(account, hasPro = true)
 
         assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
     }

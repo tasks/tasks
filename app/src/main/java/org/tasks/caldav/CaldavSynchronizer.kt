@@ -39,7 +39,6 @@ import org.tasks.analytics.AnalyticsEvents.PARAM_TYPE
 import org.tasks.analytics.AnalyticsEvents.SYNC_UNKNOWN_ACCESS
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Reporting
-import org.tasks.billing.Inventory
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
@@ -91,7 +90,6 @@ class CaldavSynchronizer @Inject constructor(
     private val taskDao: TaskDao,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val taskDeleter: TaskDeleter,
-    private val inventory: Inventory,
     private val reporting: Reporting,
     private val provider: CaldavClientProvider,
     private val iCal: iCalendar,
@@ -99,9 +97,9 @@ class CaldavSynchronizer @Inject constructor(
     private val vtodoCache: VtodoCache,
     private val accountDataRepository: TasksAccountDataRepository,
 ) {
-    suspend fun sync(account: CaldavAccount) {
+    suspend fun sync(account: CaldavAccount, hasPro: Boolean) {
         Timber.d("Synchronizing $account")
-        if (!inventory.hasPro && !account.isTasksOrg) {
+        if (!hasPro && !account.isTasksOrg) {
             setError(account, getString(Res.string.requires_pro_subscription))
             return
         }
