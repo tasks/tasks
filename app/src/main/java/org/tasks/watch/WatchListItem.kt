@@ -11,6 +11,7 @@ sealed class WatchListItem {
         val title: String,
         val icon: String?,
         val color: Int,
+        val textColor: Int,
         val taskCount: Int,
     ) : WatchListItem()
 }
