@@ -766,4 +766,7 @@
     <string name="upgrade_friends_and_family_description">A megosztott listához 5 ingyenes vendég adható hozzá. Apple Reminders-el is működik</string>
     <string name="already_subscribed">Már előfizettél?</string>
     <string name="sign_in_subtitle">Már előfizettél vagy meghívtak, mint vendéget?</string>
+    <string name="per_list_sort_title">Listánkénti rendezés</string>
+    <string name="p_per_list_sort">listánkénti_rendezés</string>
+    <string name="per_list_sort_summary">Listánként eltérő rendezési és csoportosítási beállítások eltárolása</string>
 </resources>
