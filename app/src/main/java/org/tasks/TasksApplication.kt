@@ -38,7 +38,7 @@ import org.tasks.icons.OutlinedGoogleMaterial2
 import org.tasks.fcm.PushTokenManager
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.jobs.WorkManager
-import org.tasks.location.GeofenceApi
+import org.tasks.location.LocationService
 import org.tasks.opentasks.OpenTaskContentObserver
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
@@ -63,7 +63,7 @@ class TasksApplication : Application(), Configuration.Provider {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var upgrader: Lazy<Upgrader>
     @Inject lateinit var workManager: Lazy<WorkManager>
-    @Inject lateinit var geofenceApi: Lazy<GeofenceApi>
+    @Inject lateinit var locationService: Lazy<LocationService>
     @Inject lateinit var workerFactory: HiltWorkerFactory
     @Inject lateinit var contentObserver: Lazy<OpenTaskContentObserver>
     @Inject lateinit var syncAdapters: Lazy<SyncAdapters>
@@ -154,7 +154,7 @@ class TasksApplication : Application(), Configuration.Provider {
             scheduleRefresh()
         }
         OpenTaskContentObserver.registerObserver(context, contentObserver.get())
-        geofenceApi.get().registerAll()
+        locationService.get().registerAllGeofences()
         CaldavSynchronizer.registerFactories()
         pushTokenManager.get().registerTokenForAllAccounts()
     }

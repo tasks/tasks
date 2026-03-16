@@ -10,7 +10,7 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.pictureUri
 import org.tasks.files.FileHelper
-import org.tasks.location.GeofenceApi
+import org.tasks.location.LocationService
 import org.tasks.notifications.NotificationManager
 import org.tasks.service.TaskCleanup
 import org.tasks.sync.SyncAdapters
@@ -22,7 +22,7 @@ class AndroidCleanup @Inject constructor(
     private val deletionDao: DeletionDao,
     private val syncAdapters: SyncAdapters,
     private val notificationManager: NotificationManager,
-    private val geofenceApi: GeofenceApi,
+    private val locationService: LocationService,
     private val userActivityDao: UserActivityDao,
     private val locationDao: LocationDao,
 ) : TaskCleanup {
@@ -35,7 +35,7 @@ class AndroidCleanup @Inject constructor(
         tasks.forEach { task ->
             locationDao.getGeofencesForTask(task).forEach {
                 locationDao.delete(it)
-                geofenceApi.update(it.place!!)
+                locationService.updateGeofences(it.place!!)
             }
             userActivityDao.getComments(task).forEach {
                 FileHelper.delete(context, it.pictureUri)

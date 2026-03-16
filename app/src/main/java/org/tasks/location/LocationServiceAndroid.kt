@@ -9,6 +9,7 @@ import android.net.Uri
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.data.MergedGeofence
+import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Place
 import org.tasks.preferences.PermissionChecker
 import java.util.concurrent.TimeUnit
@@ -18,6 +19,7 @@ class LocationServiceAndroid @Inject constructor(
         @ApplicationContext private val context: Context,
         private val locationManager: LocationManager,
         private val permissionChecker: PermissionChecker,
+        override val locationDao: LocationDao,
 ) : LocationService {
 
     private var cached: Location? = null
@@ -39,6 +41,7 @@ class LocationServiceAndroid @Inject constructor(
 
     @SuppressLint("MissingPermission")
     override fun addGeofences(geofence: MergedGeofence) {
+        if (!permissionChecker.canAccessBackgroundLocation()) return
         locationManager.addProximityAlert(
                 geofence.latitude,
                 geofence.longitude,
@@ -48,6 +51,7 @@ class LocationServiceAndroid @Inject constructor(
     }
 
     override fun removeGeofences(place: Place) {
+        if (!permissionChecker.canAccessBackgroundLocation()) return
         locationManager.removeProximityAlert(createPendingIntent(place.id))
     }
 

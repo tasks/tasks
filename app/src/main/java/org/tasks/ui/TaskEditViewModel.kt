@@ -73,7 +73,7 @@ import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.files.FileHelper
 import org.tasks.filters.CaldavFilter
 import org.tasks.kmp.org.tasks.taskedit.TaskEditViewState
-import org.tasks.location.GeofenceApi
+import org.tasks.location.LocationService
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
@@ -98,7 +98,7 @@ class TaskEditViewModel @Inject constructor(
     private val gCalHelper: GCalHelper,
     private val taskMover: TaskMover,
     private val locationDao: LocationDao,
-    private val geofenceApi: GeofenceApi,
+    private val locationService: LocationService,
     private val tagDao: TagDao,
     private val tagDataDao: TagDataDao,
     private val preferences: Preferences,
@@ -350,7 +350,7 @@ class TaskEditViewModel @Inject constructor(
             originalState.value.location?.let { location ->
                 if (location.geofence.id > 0) {
                     locationDao.delete(location.geofence)
-                    geofenceApi.update(location.place)
+                    locationService.updateGeofences(location.place)
                 }
             }
             selectedLocation?.let { location ->
@@ -361,7 +361,7 @@ class TaskEditViewModel @Inject constructor(
                         place = place.uid,
                     )
                 )
-                geofenceApi.update(place)
+                locationService.updateGeofences(place)
             }
             task.putTransitory(FORCE_CALDAV_SYNC, true)
             task.putTransitory(FORCE_MICROSOFT_SYNC, true)

@@ -20,7 +20,7 @@ import org.tasks.data.setCollapsed
 import org.tasks.date.DateTimeUtils.isAfterNow
 import org.tasks.filters.Filter
 import org.tasks.jobs.WorkManager
-import org.tasks.location.GeofenceApi
+import org.tasks.location.LocationService
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
@@ -33,7 +33,7 @@ class TaskDao @Inject constructor(
     private val taskDao: TaskDao,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val notificationManager: NotificationManager,
-    private val geofenceApi: GeofenceApi,
+    private val locationService: LocationService,
     private val timerPlugin: TimerPlugin,
     private val syncAdapters: SyncAdapters,
     private val workManager: WorkManager,
@@ -133,7 +133,7 @@ class TaskDao @Inject constructor(
             notificationManager.cancel(task.id)
         }
         if (completionDateModified || deletionDateModified) {
-            geofenceApi.update(task.id)
+            locationService.updateGeofences(task.id)
         }
         syncAdapters.sync(task, original)
     }

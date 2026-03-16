@@ -49,8 +49,8 @@ import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.date.DateTimeUtils.toLocal
-import org.tasks.location.GeofenceApi
 import org.tasks.location.Geocoder
+import org.tasks.location.LocationService
 import org.tasks.location.MapPosition
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
@@ -74,8 +74,8 @@ class iCalendar @Inject constructor(
     private val tagDataDao: TagDataDao,
     private val preferences: Preferences,
     private val locationDao: LocationDao,
-    private val geofenceApi: GeofenceApi,
     private val geocoder: Geocoder,
+    private val locationService: LocationService,
     private val taskCreator: TaskCreator,
     private val tagDao: TagDao,
     private val taskDao: TaskDao,
@@ -90,7 +90,7 @@ class iCalendar @Inject constructor(
         if (geo == null) {
             locationDao.getActiveGeofences(taskId).forEach {
                 locationDao.delete(it.geofence)
-                geofenceApi.update(it.place)
+                locationService.updateGeofences(it.place)
             }
             return
         }
@@ -133,9 +133,9 @@ class iCalendar @Inject constructor(
         } else if (place != existing.place) {
             val geofence = existing.geofence.copy(place = place.uid)
             locationDao.update(geofence)
-            geofenceApi.update(existing.place)
+            locationService.updateGeofences(existing.place)
         }
-        geofenceApi.update(place)
+        locationService.updateGeofences(place)
     }
 
     suspend fun getTags(categories: List<String>): List<TagData> {

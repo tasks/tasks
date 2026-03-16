@@ -12,12 +12,16 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.tasks.data.MergedGeofence
+import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Place
+import org.tasks.preferences.PermissionChecker
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 
 class LocationServiceGooglePlay @Inject constructor(
-        @ApplicationContext private val context: Context
+        @ApplicationContext private val context: Context,
+        private val permissionChecker: PermissionChecker,
+        override val locationDao: LocationDao,
 ) : LocationService {
     @SuppressLint("MissingPermission")
     override suspend fun currentLocation(): MapPosition = withContext(Dispatchers.IO) {
@@ -37,6 +41,7 @@ class LocationServiceGooglePlay @Inject constructor(
 
     @SuppressLint("MissingPermission")
     override fun addGeofences(geofence: MergedGeofence) {
+        if (!permissionChecker.canAccessBackgroundLocation()) return
         LocationServices
             .getGeofencingClient(context)
             .addGeofences(
@@ -54,6 +59,7 @@ class LocationServiceGooglePlay @Inject constructor(
     }
 
     override fun removeGeofences(place: Place) {
+        if (!permissionChecker.canAccessBackgroundLocation()) return
         LocationServices
                 .getGeofencingClient(context)
                 .removeGeofences(listOf(place.id.toString()))

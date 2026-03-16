@@ -24,7 +24,7 @@ import org.tasks.R
 import org.tasks.data.entity.Task
 import org.tasks.data.newLocalAccount
 import org.tasks.injection.InjectingTestCase
-import org.tasks.location.GeofenceApi
+import org.tasks.location.LocationService
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.PermissivePermissionChecker
 import org.tasks.preferences.Preferences
@@ -39,7 +39,7 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
     @Inject lateinit var calendarEventProvider: CalendarEventProvider
     @Inject lateinit var gCalHelper: GCalHelper
     @Inject lateinit var taskMover: TaskMover
-    @Inject lateinit var geofenceApi: GeofenceApi
+    @Inject lateinit var locationService: LocationService
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var alarmService: AlarmService
@@ -75,7 +75,7 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
             gCalHelper,
             taskMover,
             db.locationDao(),
-            geofenceApi,
+            locationService,
             db.tagDao(),
             db.tagDataDao(),
             preferences,
