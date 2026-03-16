@@ -737,4 +737,6 @@
     <string name="rmd_time_enabled_on">Standaardherinneringen toevoegen aan taken zonder tijdsaanduiding</string>
     <string name="rmd_time_enabled_off">Geen standaardherinnering toevoegen aan taken zonder tijdsaanduiding</string>
     <string name="supporter">Supporter</string>
+    <string name="per_list_sort_summary">Instellingen voor sorteren en groeperen voor iedere lijst apart bewaren</string>
+    <string name="per_list_sort_title">Sorteren per lijst</string>
 </resources>
