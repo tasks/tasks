@@ -53,6 +53,12 @@ object PebbleProtocol {
     const val KEY_LIST_COLOR = 24
     const val KEY_LIST_COUNT = 25
 
+    // Settings keys
+    const val KEY_SHOW_HIDDEN = 28
+    const val KEY_SHOW_COMPLETED = 29
+    const val KEY_SORT_MODE = 30
+    const val KEY_GROUP_MODE = 31
+
     // Watch → Phone message types
     const val MSG_GET_TASKS: Int = 1
     const val MSG_COMPLETE_TASK: Int = 2

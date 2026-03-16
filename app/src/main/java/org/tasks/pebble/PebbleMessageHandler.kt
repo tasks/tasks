@@ -1,9 +1,12 @@
 package org.tasks.pebble
 
 import android.content.Context
+import com.getpebble.android.kit.PebbleKit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.pebble.PebbleProtocol.CHUNK_SIZE
 import org.tasks.pebble.PebbleProtocol.ITEM_COLLAPSED
 import org.tasks.pebble.PebbleProtocol.ITEM_COMPLETED
@@ -65,12 +68,16 @@ import kotlin.math.ceil
 
 class PebbleMessageHandler @Inject constructor(
     private val watchServiceLogic: WatchServiceLogic,
+    private val firebase: Firebase,
 ) {
     companion object {
         private const val CHUNK_DELAY_MS = 100L
+        private const val HEADER_COMPLETED = -2L
     }
 
-    private val collapsedGroups = mutableSetOf<Long>()
+    private val collapsedGroups = mutableSetOf(HEADER_COMPLETED)
+    private var lastFilter: String? = null
+    @Volatile private var lastMessageTime = 0L
 
     fun handleMessage(
         context: Context,
@@ -79,16 +86,36 @@ class PebbleMessageHandler @Inject constructor(
         scope: CoroutineScope,
     ) {
         val msgType = (data[KEY_MSG_TYPE] as? Long)?.toInt() ?: return
+        // Use protocol txn from the watch, not PebbleKit's system txn
+        val protocolTxn = (data[KEY_TRANSACTION_ID] as? Long)?.toInt() ?: transactionId
+
+        // The Pebble watch outbox sends one message at a time over Bluetooth,
+        // requiring a round-trip ACK before the next can be sent (~100ms+).
+        // On app relaunch, the mobile app replays buffered messages back-to-back
+        // (~8ms apart). State-changing messages arriving <50ms after the previous
+        // message are replays and should be ignored.
+        val now = System.currentTimeMillis()
+        val elapsed = now - lastMessageTime
+        lastMessageTime = now
+
+        val isStateChanging = msgType == MSG_COMPLETE_TASK
+                || msgType == MSG_SAVE_TASK || msgType == MSG_TOGGLE_GROUP
+        if (isStateChanging && elapsed < 50) {
+            Timber.d("PEBBLE ignoring replayed msg=$msgType elapsed=${elapsed}ms")
+            return
+        }
+
+        logPebbleEvent(context)
         scope.launch {
             try {
                 when (msgType) {
-                    MSG_GET_TASKS -> handleGetTasks(context, data, transactionId)
-                    MSG_COMPLETE_TASK -> handleCompleteTask(context, data, transactionId)
-                    MSG_TOGGLE_GROUP -> handleToggleGroup(context, data, transactionId)
-                    MSG_GET_LISTS -> handleGetLists(context, data, transactionId)
-                    MSG_GET_TASK -> handleGetTask(context, data, transactionId)
-                    MSG_SAVE_TASK -> handleSaveTask(context, data, transactionId)
-                    MSG_GET_TASK_COUNT -> handleGetTaskCount(context, data, transactionId)
+                    MSG_GET_TASKS -> handleGetTasks(context, data, protocolTxn)
+                    MSG_COMPLETE_TASK -> handleCompleteTask(context, data, protocolTxn)
+                    MSG_TOGGLE_GROUP -> handleToggleGroup(context, data, protocolTxn)
+                    MSG_GET_LISTS -> handleGetLists(context, data, protocolTxn)
+                    MSG_GET_TASK -> handleGetTask(context, data, protocolTxn)
+                    MSG_SAVE_TASK -> handleSaveTask(context, data, protocolTxn)
+                    MSG_GET_TASK_COUNT -> handleGetTaskCount(context, data, protocolTxn)
                     else -> Timber.w("Unknown Pebble message type: $msgType")
                 }
             } catch (e: Exception) {
@@ -105,16 +132,43 @@ class PebbleMessageHandler @Inject constructor(
         val position = (data[KEY_POSITION] as? Long)?.toInt() ?: 0
         val limit = (data[KEY_LIMIT] as? Long)?.toInt() ?: 0
         val filter = data[KEY_FILTER] as? String
+        val sortMode = (data[PebbleProtocol.KEY_SORT_MODE] as? Long)?.toInt()
+        val groupMode = (data[PebbleProtocol.KEY_GROUP_MODE] as? Long)?.toInt()
+        val showHidden = (data[PebbleProtocol.KEY_SHOW_HIDDEN] as? Long)?.toInt() == 1
+        val showCompleted = (data[PebbleProtocol.KEY_SHOW_COMPLETED] as? Long)?.toInt() == 1
+
+        Timber.d("PEBBLE GET_TASKS: pos=$position limit=$limit filter=$filter sort=$sortMode group=$groupMode hidden=$showHidden completed=$showCompleted collapsed=$collapsedGroups txn=$transactionId")
+
+        if (filter != lastFilter) {
+            lastFilter = filter
+            collapsedGroups.clear()
+            collapsedGroups.add(HEADER_COMPLETED)
+            Timber.d("PEBBLE filter changed, reset collapsed to $collapsedGroups")
+        }
 
         val result = watchServiceLogic.getTasks(
             filterPreference = filter,
             position = position,
             limit = limit,
+            showHidden = showHidden,
+            showCompleted = showCompleted,
+            sortMode = sortMode,
+            groupMode = groupMode,
             collapsed = collapsedGroups,
         )
 
+        Timber.d("PEBBLE result: ${result.items.size} items, totalItems=${result.totalItems}")
+        result.items.forEachIndexed { i, item ->
+            when (item) {
+                is WatchUiItem.Header -> Timber.d("PEBBLE   [$i] HEADER id=${item.id} title=${item.title} collapsed=${item.collapsed}")
+                is WatchUiItem.Task -> Timber.d("PEBBLE   [$i] TASK id=${item.id} title=${item.title}")
+            }
+        }
+
         val chunkCount = ceil(result.items.size.toDouble() / CHUNK_SIZE).toInt()
             .coerceAtLeast(1)
+
+        Timber.d("PEBBLE sending $chunkCount chunks")
 
         for (chunkIndex in 0 until chunkCount) {
             val start = chunkIndex * CHUNK_SIZE
@@ -200,7 +254,6 @@ class PebbleMessageHandler @Inject constructor(
         } else {
             collapsedGroups.remove(value)
         }
-        watchServiceLogic.toggleGroup(value, collapsed)
 
         val dict = mapOf<Int, Any>(
             KEY_MSG_TYPE to RESP_TOGGLE_GROUP,
@@ -334,5 +387,19 @@ class PebbleMessageHandler @Inject constructor(
             KEY_TASK_COMPLETED_COUNT to result.completedCount,
         )
         PebbleProtocol.sendToPebble(context, dict, transactionId)
+    }
+
+    private fun logPebbleEvent(context: Context) {
+        val params = try {
+            val fw = PebbleKit.getWatchFWVersion(context)
+            if (fw != null) {
+                arrayOf(R.string.param_device_model to fw.tag as Any)
+            } else {
+                emptyArray()
+            }
+        } catch (e: Exception) {
+            emptyArray<Pair<Int, Any>>()
+        }
+        firebase.logEventOncePerDay(R.string.event_pebble, *params)
     }
 }

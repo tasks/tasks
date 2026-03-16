@@ -6,6 +6,7 @@ build/
 *.apk
 *.apks
 *.aab
+*.pbw
 local.properties
 Thumbs.db
 /captures/

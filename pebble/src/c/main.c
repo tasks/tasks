@@ -27,14 +27,17 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
             task_list_handle_complete_response(iter);
             task_view_handle_complete_response(iter);
             break;
-        case RESP_TOGGLE_GROUP:
-            task_list_handle_toggle_response(iter);
-            break;
         case RESP_LISTS:
             menu_window_handle_lists_response(iter);
             break;
         case RESP_TASK:
             task_view_handle_task_response(iter);
+            break;
+        case RESP_SAVE_TASK:
+            task_list_handle_save_response(iter);
+            break;
+        case RESP_TOGGLE_GROUP:
+            task_list_handle_toggle_response(iter);
             break;
         case MSG_REFRESH:
             task_list_window_refresh();
@@ -47,6 +50,10 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
 
 static void inbox_dropped_handler(AppMessageResult reason, void *context) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Message dropped: %d", (int)reason);
+}
+
+static void outbox_sent_handler(DictionaryIterator *iter, void *context) {
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "Outbox send succeeded");
 }
 
 static void outbox_failed_handler(DictionaryIterator *iter,
@@ -67,6 +74,7 @@ static void init(void) {
     // Register AppMessage handlers
     app_message_register_inbox_received(inbox_received_handler);
     app_message_register_inbox_dropped(inbox_dropped_handler);
+    app_message_register_outbox_sent(outbox_sent_handler);
     app_message_register_outbox_failed(outbox_failed_handler);
 
     // Open AppMessage with maximum inbox (for chunked responses)

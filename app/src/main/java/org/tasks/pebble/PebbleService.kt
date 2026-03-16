@@ -1,6 +1,7 @@
 package org.tasks.pebble
 
 import android.content.Context
+import android.content.IntentFilter
 import com.getpebble.android.kit.PebbleKit
 import com.getpebble.android.kit.util.PebbleDictionary
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -16,24 +17,33 @@ class PebbleService @Inject constructor(
     private val messageHandler: PebbleMessageHandler,
     @ApplicationScope private val scope: CoroutineScope,
 ) {
+    private var registered = false
+
     fun register() {
-        PebbleKit.registerReceivedDataHandler(
-            context,
-            object : PebbleKit.PebbleDataReceiver(PebbleProtocol.APP_UUID) {
-                override fun receiveData(
-                    context: Context,
-                    transactionId: Int,
-                    data: PebbleDictionary,
-                ) {
-                    PebbleKit.sendAckToPebble(context, transactionId)
-                    try {
-                        val map = PebbleProtocol.toMap(data)
-                        messageHandler.handleMessage(context, map, transactionId, scope)
-                    } catch (e: Exception) {
-                        Timber.e(e, "Failed to handle Pebble message")
-                    }
+        if (registered) return
+        registered = true
+        val receiver = object : PebbleKit.PebbleDataReceiver(PebbleProtocol.APP_UUID) {
+            override fun receiveData(
+                context: Context,
+                transactionId: Int,
+                data: PebbleDictionary,
+            ) {
+                Timber.d("PEBBLE receiveData: txn=$transactionId thread=${Thread.currentThread().name} time=${System.currentTimeMillis()}")
+                PebbleKit.sendAckToPebble(context, transactionId)
+                Timber.d("PEBBLE ACK sent for txn=$transactionId")
+                try {
+                    val map = PebbleProtocol.toMap(data)
+                    Timber.d("PEBBLE parsed msg type=${map[0]} keys=${map.keys}")
+                    messageHandler.handleMessage(context, map, transactionId, scope)
+                } catch (e: Exception) {
+                    Timber.e(e, "Failed to handle Pebble message")
                 }
             }
+        }
+        context.registerReceiver(
+            receiver,
+            IntentFilter("com.getpebble.action.app.RECEIVE"),
+            Context.RECEIVER_EXPORTED,
         )
         Timber.d("Pebble data receiver registered")
     }

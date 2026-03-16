@@ -412,6 +412,8 @@
   <string name="param_skip_count">skip_count</string>
   <string name="event_sync_unknown_access">sync_unknown_access</string>
   <string name="event_banner">banner</string>
+  <string name="event_pebble">pebble</string>
+  <string name="param_device_model">device_model</string>
   <string name="event_add_task">add_task</string>
   <string name="event_complete_task">complete_task</string>
   <string name="event_request_review">request_review</string>

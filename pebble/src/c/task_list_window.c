@@ -2,6 +2,7 @@
 #include "protocol.h"
 #include "task_view_window.h"
 #include "menu_window.h"
+#include "settings_window.h"
 
 static Window *s_window;
 static MenuLayer *s_menu_layer;
@@ -21,6 +22,8 @@ static int s_pending_capacity = 0;
 static int s_pending_count = 0;
 static int s_pending_total = 0;
 static bool s_refreshing = false;
+static bool s_refresh_pending = false;
+static bool s_first_load = true;
 static MenuIndex s_saved_selection;
 
 // Current filter
@@ -31,12 +34,18 @@ static uint32_t s_filter_text_color = 0;
 
 // Chunk assembly for current page request
 static int s_expected_chunks = 0;
-static int s_received_chunks = 0;
+static uint32_t s_received_chunk_mask = 0;
 static uint8_t s_request_txn = 0;
 static AppTimer *s_chunk_timer = NULL;
 
-// Row 0 is the filter header; task items start at row 1
+// Fixed rows at top of list
 #define FILTER_ROW 0
+#ifdef PBL_MICROPHONE
+#define ADD_ROW 1
+#define TASK_ROW_OFFSET 2
+#else
+#define TASK_ROW_OFFSET 1
+#endif
 
 // Persistent storage keys
 #define PERSIST_FILTER_ID         1
@@ -50,6 +59,13 @@ static void page_complete(void);
 static void chunk_timeout_handler(void *data);
 static void request_next_page(void);
 static void on_filter_selected(const char *filter_id, const char *filter_name, uint32_t color, uint32_t text_color);
+
+#ifdef PBL_MICROPHONE
+static DictationSession *s_dictation_session;
+static void start_dictation(void);
+static void dictation_callback(DictationSession *session, DictationSessionStatus status,
+                               char *transcription, void *context);
+#endif
 
 // Ensure an item array can hold at least `needed` items.
 static bool ensure_capacity_for(UiItem **items, int *capacity, int needed) {
@@ -89,15 +105,19 @@ static void free_pending(void) {
 
 static uint16_t get_num_rows(MenuLayer *menu_layer, uint16_t section_index, void *data) {
     if (s_loading && s_num_items == 0) return 0; // hidden during initial load
-    if (s_num_items > 0) return (uint16_t)(1 + s_num_items); // filter row + items
-    return 2; // filter row + "No tasks"
+    if (s_num_items > 0) return (uint16_t)(TASK_ROW_OFFSET + s_num_items);
+    if (s_refreshing) return (uint16_t)TASK_ROW_OFFSET; // don't show "No tasks" during refresh
+    return (uint16_t)(TASK_ROW_OFFSET + 1); // fixed rows + "No tasks"
 }
 
 static int16_t get_cell_height(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
+#ifdef PBL_MICROPHONE
+    if (cell_index->row == ADD_ROW) return 28;
+#endif
     if (cell_index->row == FILTER_ROW) return 28;
     if (s_num_items == 0) return 44; // "No tasks" row
-    int item_idx = cell_index->row - 1;
-    if (item_idx < s_num_items) {
+    int item_idx = cell_index->row - TASK_ROW_OFFSET;
+    if (item_idx >= 0 && item_idx < s_num_items) {
         return s_items[item_idx].type == UI_TYPE_HEADER ? 28 : 44;
     }
     return 44;
@@ -136,7 +156,7 @@ static void draw_filter_row(GContext *ctx, const Layer *cell_layer, bool selecte
 #endif
 
     graphics_draw_text(ctx, s_filter_name, font,
-                       GRect(4, 2, bounds.size.w - 8, bounds.size.h - 4),
+                       GRect(4, 5, bounds.size.w - 8, bounds.size.h - 5),
                        GTextOverflowModeTrailingEllipsis,
                        GTextAlignmentCenter, NULL);
 }
@@ -144,6 +164,20 @@ static void draw_filter_row(GContext *ctx, const Layer *cell_layer, bool selecte
 static void draw_row(GContext *ctx, const Layer *cell_layer,
                      MenuIndex *cell_index, void *data) {
     bool selected = is_row_selected(cell_index);
+
+#ifdef PBL_MICROPHONE
+    if (cell_index->row == ADD_ROW) {
+        GRect add_bounds = layer_get_bounds(cell_layer);
+        GFont add_font = fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD);
+        graphics_context_set_text_color(ctx,
+            selected ? GColorWhite : PBL_IF_COLOR_ELSE(GColorDarkGray, GColorBlack));
+        graphics_draw_text(ctx, "+ Add Task", add_font,
+                           GRect(4, 5, add_bounds.size.w - 8, add_bounds.size.h - 5),
+                           GTextOverflowModeTrailingEllipsis,
+                           GTextAlignmentCenter, NULL);
+        return;
+    }
+#endif
 
     if (cell_index->row == FILTER_ROW) {
         draw_filter_row(ctx, cell_layer, selected);
@@ -157,7 +191,7 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
         return;
     }
 
-    int item_idx = cell_index->row - 1;
+    int item_idx = cell_index->row - TASK_ROW_OFFSET;
     if (item_idx >= s_num_items) return;
     UiItem *item = &s_items[item_idx];
 
@@ -180,48 +214,91 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
         graphics_context_set_text_color(ctx, selected ? GColorWhite : GColorBlack);
 #endif
         graphics_draw_text(ctx, header, font,
-                           GRect(4, 2, bounds.size.w - 8, bounds.size.h - 4),
+                           GRect(4, 5, bounds.size.w - 8, bounds.size.h - 5),
                            GTextOverflowModeTrailingEllipsis,
                            GTextAlignmentLeft, NULL);
     } else {
         // Task row
-#ifdef PBL_COLOR
-        // Priority color bar on left edge
-        GColor pcolor = protocol_priority_color(item->priority);
-        graphics_context_set_fill_color(ctx, pcolor);
-        graphics_fill_rect(ctx, GRect(0, 0, 6, bounds.size.h), 0, GCornerNone);
-#endif
+        int padding = 6;
+        int x_start = PBL_IF_COLOR_ELSE(padding, 4);
+        bool has_subtitle = item->extra[0] != '\0';
 
-        // Build display string
+        // Vertical layout: center content block in row
+        int title_h = 22;
+        int sub_h = has_subtitle ? 18 : 0;
+        int content_h = title_h + sub_h;
+        int y_off = (bounds.size.h - content_h) / 2;
+
+        // Draw checkbox colored by priority
+        int cb_size = 14;
+        int cb_x = x_start;
+        int cb_y = y_off + (title_h - cb_size) / 2;
+        GColor cb_color = selected ? GColorWhite :
+            PBL_IF_COLOR_ELSE(
+                protocol_priority_color(item->priority),
+                GColorBlack);
+        graphics_context_set_stroke_color(ctx, cb_color);
+        graphics_context_set_stroke_width(ctx, 3);
+        graphics_draw_rect(ctx, GRect(cb_x, cb_y, cb_size, cb_size));
+
+        if (item->completed) {
+            // Draw checkmark
+            graphics_context_set_stroke_width(ctx, 2);
+            graphics_draw_line(ctx,
+                GPoint(cb_x + 3, cb_y + cb_size / 2),
+                GPoint(cb_x + cb_size / 2 - 1, cb_y + cb_size - 4));
+            graphics_draw_line(ctx,
+                GPoint(cb_x + cb_size / 2 - 1, cb_y + cb_size - 4),
+                GPoint(cb_x + cb_size - 3, cb_y + 3));
+        }
+        graphics_context_set_stroke_width(ctx, 1);
+
+        // Title text
+        int text_x = cb_x + cb_size + padding;
+        int text_w = bounds.size.w - text_x - 4;
         char display[80];
         const char *prefix = "";
 #ifndef PBL_COLOR
         prefix = protocol_priority_prefix(item->priority);
 #endif
-
-        snprintf(display, sizeof(display), "%s%s%s",
-                 item->completed ? "[x] " : "[ ] ",
-                 prefix,
-                 item->title);
+        snprintf(display, sizeof(display), "%s%s", prefix, item->title);
 
         GFont font = fonts_get_system_font(FONT_KEY_GOTHIC_18);
-        GColor text_color = PBL_IF_COLOR_ELSE(
-            item->completed ? GColorDarkGray : GColorBlack,
-            GColorBlack);
+        GColor text_color = selected ? GColorWhite :
+            PBL_IF_COLOR_ELSE(
+                item->completed ? GColorDarkGray : GColorBlack,
+                GColorBlack);
         graphics_context_set_text_color(ctx, text_color);
-
-        int x_offset = PBL_IF_COLOR_ELSE(10, 4);
+        int text_y = y_off - 1; // compensate for font top padding
         graphics_draw_text(ctx, display, font,
-                           GRect(x_offset, 0, bounds.size.w - x_offset - 4, 22),
+                           GRect(text_x, text_y, text_w, title_h + 4),
                            GTextOverflowModeTrailingEllipsis,
                            GTextAlignmentLeft, NULL);
 
+        // Strikethrough for completed tasks
+        if (item->completed) {
+            GSize text_size = graphics_text_layout_get_content_size(
+                display, font,
+                GRect(0, 0, text_w, title_h),
+                GTextOverflowModeTrailingEllipsis,
+                GTextAlignmentLeft);
+            int strike_w = (int)text_size.w < text_w
+                ? (int)text_size.w : text_w;
+            int strike_y = y_off + title_h / 2;
+            graphics_context_set_stroke_color(ctx, text_color);
+            graphics_draw_line(ctx,
+                GPoint(text_x, strike_y),
+                GPoint(text_x + strike_w, strike_y));
+        }
+
         // Subtitle (timestamp)
-        if (item->extra[0]) {
+        if (has_subtitle) {
             GFont small_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
-            graphics_context_set_text_color(ctx, PBL_IF_COLOR_ELSE(GColorDarkGray, GColorBlack));
+            GColor sub_color = selected ? GColorWhite :
+                PBL_IF_COLOR_ELSE(GColorDarkGray, GColorBlack);
+            graphics_context_set_text_color(ctx, sub_color);
             graphics_draw_text(ctx, item->extra, small_font,
-                               GRect(x_offset, 20, bounds.size.w - x_offset - 4, 18),
+                               GRect(text_x, y_off + title_h, text_w, sub_h),
                                GTextOverflowModeTrailingEllipsis,
                                GTextAlignmentLeft, NULL);
         }
@@ -230,8 +307,8 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
 
 static void selection_changed(MenuLayer *menu_layer, MenuIndex new_index,
                               MenuIndex old_index, void *data) {
-    // Prefetch next page when scrolling near the bottom (account for filter row offset)
-    int item_idx = (int)new_index.row - 1;
+    // Prefetch next page when scrolling near the bottom
+    int item_idx = (int)new_index.row - TASK_ROW_OFFSET;
     if (s_num_items > PREFETCH_THRESHOLD &&
         item_idx >= (s_num_items - PREFETCH_THRESHOLD) &&
         s_num_items < s_total_items &&
@@ -241,12 +318,19 @@ static void selection_changed(MenuLayer *menu_layer, MenuIndex new_index,
 }
 
 static void select_click(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
+#ifdef PBL_MICROPHONE
+    if (cell_index->row == ADD_ROW) {
+        start_dictation();
+        return;
+    }
+#endif
+
     if (cell_index->row == FILTER_ROW) {
         menu_window_push(on_filter_selected);
         return;
     }
 
-    int item_idx = cell_index->row - 1;
+    int item_idx = cell_index->row - TASK_ROW_OFFSET;
     if (item_idx < 0 || item_idx >= s_num_items) return;
 
     UiItem *item = &s_items[item_idx];
@@ -258,19 +342,22 @@ static void select_click(MenuLayer *menu_layer, MenuIndex *cell_index, void *dat
     }
 }
 
-static void select_long_click(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
-    if (cell_index->row == FILTER_ROW) return;
+static void on_settings_changed(void);
 
-    int item_idx = cell_index->row - 1;
+static void select_long_click(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
+    if (cell_index->row == FILTER_ROW) {
+        settings_window_push(on_settings_changed);
+        return;
+    }
+    if (cell_index->row < TASK_ROW_OFFSET) return;
+
+    int item_idx = cell_index->row - TASK_ROW_OFFSET;
     if (item_idx < 0 || item_idx >= s_num_items) return;
 
     UiItem *item = &s_items[item_idx];
 
     if (item->type == UI_TYPE_TASK) {
-        // Complete/uncomplete task
         protocol_send_complete_task(item->id_high, item->id_low, !item->completed);
-        item->completed = !item->completed;
-        menu_layer_reload_data(s_menu_layer);
     }
 }
 
@@ -346,6 +433,7 @@ static void window_load(Window *window) {
     // Request first page
     free_items();
     s_total_items = 0;
+    s_first_load = true;
     request_tasks_page(0, PAGE_SIZE);
 }
 
@@ -354,11 +442,18 @@ static void window_unload(Window *window) {
         app_timer_cancel(s_chunk_timer);
         s_chunk_timer = NULL;
     }
+#ifdef PBL_MICROPHONE
+    if (s_dictation_session) {
+        dictation_session_destroy(s_dictation_session);
+        s_dictation_session = NULL;
+    }
+#endif
     menu_layer_destroy(s_menu_layer);
     text_layer_destroy(s_loading_layer);
     free_items();
     free_pending();
     s_refreshing = false;
+    s_refresh_pending = false;
 }
 
 // Internal helpers
@@ -371,7 +466,7 @@ static void show_loading(bool show) {
 
 static void request_tasks_page(int position, int limit) {
     s_expected_chunks = 0;
-    s_received_chunks = 0;
+    s_received_chunk_mask = 0;
 
     if (s_chunk_timer) {
         app_timer_cancel(s_chunk_timer);
@@ -388,7 +483,9 @@ static void request_tasks_page(int position, int limit) {
         s_loading_more = true;
     }
 
-    protocol_send_get_tasks(s_filter_id[0] ? s_filter_id : NULL, position, limit);
+    protocol_send_get_tasks(s_filter_id[0] ? s_filter_id : NULL, position, limit,
+                            settings_get_sort_mode(), settings_get_group_mode(),
+                            settings_get_show_hidden(), settings_get_show_completed());
     s_request_txn = protocol_get_active_transaction_id();
 
     s_chunk_timer = app_timer_register(5000, chunk_timeout_handler, NULL);
@@ -411,6 +508,17 @@ static void page_complete(void) {
     }
 
     if (s_refreshing) {
+        // If we timed out before receiving any chunks, keep old data and retry
+        if (s_pending_count == 0 && s_pending_total != 0) {
+            free_pending();
+            s_refreshing = false;
+            if (s_refresh_pending) {
+                s_refresh_pending = false;
+                task_list_window_refresh();
+            }
+            return;
+        }
+
         // Swap pending buffer into active
         free_items();
         s_items = s_pending;
@@ -427,13 +535,20 @@ static void page_complete(void) {
 
         menu_layer_reload_data(s_menu_layer);
 
-        // Restore scroll position, clamped to new bounds (account for filter row)
-        uint16_t max_row = s_num_items > 0 ? (uint16_t)s_num_items : 1;
+        // Restore scroll position, clamped to new bounds
+        uint16_t max_row = s_num_items > 0
+            ? (uint16_t)(TASK_ROW_OFFSET - 1 + s_num_items)
+            : (uint16_t)FILTER_ROW;
         if (s_saved_selection.row > max_row) {
             s_saved_selection.row = max_row;
         }
         menu_layer_set_selected_index(s_menu_layer, s_saved_selection,
                                       MenuRowAlignCenter, false);
+
+        if (s_refresh_pending) {
+            s_refresh_pending = false;
+            task_list_window_refresh();
+        }
         return;
     }
 
@@ -446,12 +561,16 @@ static void page_complete(void) {
 
     menu_layer_reload_data(s_menu_layer);
 
-    if (was_initial && s_num_items > 0) {
-        // Select first task item (row 1), not the filter header (row 0)
-        // Use MenuRowAlignNone so the filter header at row 0 stays visible
+    if (was_initial && s_first_load) {
+        s_first_load = false;
         menu_layer_set_selected_index(s_menu_layer,
-                                      (MenuIndex){0, 1},
+                                      (MenuIndex){0, FILTER_ROW},
                                       MenuRowAlignNone, false);
+    }
+
+    if (s_refresh_pending) {
+        s_refresh_pending = false;
+        task_list_window_refresh();
     }
 }
 
@@ -476,7 +595,10 @@ void task_list_window_push(void) {
 }
 
 void task_list_window_refresh(void) {
-    if (s_loading || s_loading_more || s_refreshing) return;
+    if (s_loading || s_loading_more || s_refreshing) {
+        s_refresh_pending = true;
+        return;
+    }
 
     // If we already have data, do a background refresh
     if (s_num_items > 0) {
@@ -485,14 +607,16 @@ void task_list_window_refresh(void) {
 
         free_pending();
         s_expected_chunks = 0;
-        s_received_chunks = 0;
+        s_received_chunk_mask = 0;
 
         if (s_chunk_timer) {
             app_timer_cancel(s_chunk_timer);
             s_chunk_timer = NULL;
         }
 
-        protocol_send_get_tasks(s_filter_id[0] ? s_filter_id : NULL, 0, PAGE_SIZE);
+        protocol_send_get_tasks(s_filter_id[0] ? s_filter_id : NULL, 0, PAGE_SIZE,
+                                settings_get_sort_mode(), settings_get_group_mode(),
+                                settings_get_show_hidden(), settings_get_show_completed());
         s_request_txn = protocol_get_active_transaction_id();
         s_chunk_timer = app_timer_register(5000, chunk_timeout_handler, NULL);
     } else {
@@ -504,48 +628,69 @@ void task_list_window_refresh(void) {
 void task_list_handle_tasks_response(DictionaryIterator *iter) {
     Tuple *txn_t = dict_find(iter, KEY_TRANSACTION_ID);
     if (txn_t && (uint8_t)txn_t->value->uint32 != s_request_txn) {
-        APP_LOG(APP_LOG_LEVEL_DEBUG, "Discarding stale tasks response");
+        return;
+    }
+
+    if (!s_loading && !s_loading_more && !s_refreshing) {
         return;
     }
 
     Tuple *chunk_count_t = dict_find(iter, KEY_CHUNK_COUNT);
     s_expected_chunks = chunk_count_t ? (int)chunk_count_t->value->uint32 : 1;
 
+    Tuple *chunk_index_t = dict_find(iter, KEY_CHUNK_INDEX);
+    int chunk_index = chunk_index_t ? (int)chunk_index_t->value->uint32 : 0;
+
+    // Skip already-received chunks (handles duplicate broadcasts)
+    if (s_received_chunk_mask & (1 << chunk_index)) {
+        return;
+    }
+    s_received_chunk_mask |= (1 << chunk_index);
+
+    // Position items by chunk index, not by appending
+    int chunk_offset = chunk_index * CHUNK_SIZE;
+
     if (s_refreshing) {
-        // Accumulate into pending buffer
         Tuple *total_t = dict_find(iter, KEY_TOTAL_ITEMS);
         if (total_t) {
             s_pending_total = (int)total_t->value->uint32;
         }
 
-        if (!ensure_capacity_for(&s_pending, &s_pending_capacity,
-                                 s_pending_count + CHUNK_SIZE)) {
+        int needed = chunk_offset + CHUNK_SIZE;
+        if (!ensure_capacity_for(&s_pending, &s_pending_capacity, needed)) {
             page_complete();
             return;
         }
 
-        int space = s_pending_capacity - s_pending_count;
-        int parsed = protocol_parse_items(iter, &s_pending[s_pending_count], space);
-        s_pending_count += parsed;
+        int space = s_pending_capacity - chunk_offset;
+        int parsed = protocol_parse_items(iter, &s_pending[chunk_offset], space);
+        int end = chunk_offset + parsed;
+        if (end > s_pending_count) {
+            s_pending_count = end;
+        }
     } else {
-        // Normal load (initial or next page)
         Tuple *total_t = dict_find(iter, KEY_TOTAL_ITEMS);
         if (total_t) {
             s_total_items = (int)total_t->value->uint32;
         }
 
-        if (!ensure_capacity_for(&s_items, &s_items_capacity,
-                                 s_num_items + CHUNK_SIZE)) {
+        // For pagination (loading_more), offset relative to existing items
+        int base = s_loading_more ? s_num_items : 0;
+        int abs_offset = base + chunk_offset;
+
+        int needed = abs_offset + CHUNK_SIZE;
+        if (!ensure_capacity_for(&s_items, &s_items_capacity, needed)) {
             page_complete();
             return;
         }
 
-        int space = s_items_capacity - s_num_items;
-        int parsed = protocol_parse_items(iter, &s_items[s_num_items], space);
-        s_num_items += parsed;
+        int space = s_items_capacity - abs_offset;
+        int parsed = protocol_parse_items(iter, &s_items[abs_offset], space);
+        int end = abs_offset + parsed;
+        if (end > s_num_items) {
+            s_num_items = end;
+        }
     }
-
-    s_received_chunks++;
 
     // Reset chunk timeout
     if (s_chunk_timer) {
@@ -553,15 +698,46 @@ void task_list_handle_tasks_response(DictionaryIterator *iter) {
     }
     s_chunk_timer = app_timer_register(5000, chunk_timeout_handler, NULL);
 
-    if (s_received_chunks >= s_expected_chunks) {
+    // Check if all expected chunks received
+    uint32_t expected_mask = ((uint32_t)1 << s_expected_chunks) - 1;
+    if ((s_received_chunk_mask & expected_mask) == expected_mask) {
         page_complete();
     }
+}
+
+static void on_settings_changed(void) {
+    task_list_window_refresh();
 }
 
 void task_list_handle_complete_response(DictionaryIterator *iter) {
     task_list_window_refresh();
 }
 
+
+void task_list_handle_save_response(DictionaryIterator *iter) {
+    task_list_window_refresh();
+}
+
 void task_list_handle_toggle_response(DictionaryIterator *iter) {
     task_list_window_refresh();
 }
+
+#ifdef PBL_MICROPHONE
+static void dictation_callback(DictationSession *session, DictationSessionStatus status,
+                               char *transcription, void *context) {
+    if (status == DictationSessionStatusSuccess && transcription) {
+        protocol_send_save_task(transcription,
+                                s_filter_id[0] ? s_filter_id : NULL);
+    }
+}
+
+static void start_dictation(void) {
+    if (!s_dictation_session) {
+        s_dictation_session = dictation_session_create(MAX_TITLE_LEN,
+                                                       dictation_callback, NULL);
+    }
+    if (s_dictation_session) {
+        dictation_session_start(s_dictation_session);
+    }
+}
+#endif

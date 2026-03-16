@@ -44,6 +44,12 @@
 #define KEY_GROUP_VALUE_LOW   21
 #define KEY_GROUP_COLLAPSED   22
 
+// Settings keys
+#define KEY_SHOW_HIDDEN     28
+#define KEY_SHOW_COMPLETED  29
+#define KEY_SORT_MODE       30
+#define KEY_GROUP_MODE      31
+
 // Watch -> Phone message types
 #define MSG_GET_TASKS       1
 #define MSG_COMPLETE_TASK   2
@@ -74,6 +80,23 @@
 #define PRIORITY_MEDIUM     1
 #define PRIORITY_LOW        2
 #define PRIORITY_NONE       3
+
+// Sort modes (mirrors SortHelper.kt)
+#define SORT_GROUP_NONE     -1
+#define SORT_AUTO           0
+#define SORT_ALPHA          1
+#define SORT_DUE            2
+#define SORT_IMPORTANCE     3
+#define SORT_MODIFIED       4
+#define SORT_CREATED        5
+#define SORT_START          8
+#define SORT_LIST           9
+
+// Persistent storage keys for settings
+#define PERSIST_SORT_GROUP       10
+#define PERSIST_SORT_MODE        11
+#define PERSIST_SHOW_HIDDEN      12
+#define PERSIST_SHOW_COMPLETED   13
 
 // Configuration
 #define CHUNK_SIZE          5
@@ -122,11 +145,14 @@ uint8_t protocol_next_transaction_id(void);
 uint8_t protocol_get_active_transaction_id(void);
 
 // Message sending
-void protocol_send_get_tasks(const char *filter, int position, int limit);
+void protocol_send_get_tasks(const char *filter, int position, int limit,
+                            int sort_mode, int group_mode,
+                            bool show_hidden, bool show_completed);
 void protocol_send_complete_task(uint32_t id_high, uint32_t id_low, bool completed);
 void protocol_send_toggle_group(uint32_t id_high, uint32_t id_low, bool collapsed);
 void protocol_send_get_lists(void);
 void protocol_send_get_task(uint32_t id_high, uint32_t id_low);
+void protocol_send_save_task(const char *title, const char *filter);
 
 // Chunk parsing -- returns number of items parsed
 int protocol_parse_items(DictionaryIterator *iter, UiItem *items, int max_items);

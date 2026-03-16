@@ -19,7 +19,9 @@ static void send_message(void) {
     }
 }
 
-void protocol_send_get_tasks(const char *filter, int position, int limit) {
+void protocol_send_get_tasks(const char *filter, int position, int limit,
+                            int sort_mode, int group_mode,
+                            bool show_hidden, bool show_completed) {
     DictionaryIterator *out;
     AppMessageResult result = app_message_outbox_begin(&out);
     if (result != APP_MSG_OK) {
@@ -35,6 +37,10 @@ void protocol_send_get_tasks(const char *filter, int position, int limit) {
     if (filter) {
         dict_write_cstring(out, KEY_FILTER, filter);
     }
+    dict_write_uint32(out, KEY_SORT_MODE, (uint32_t)sort_mode);
+    dict_write_uint32(out, KEY_GROUP_MODE, (uint32_t)group_mode);
+    dict_write_uint8(out, KEY_SHOW_HIDDEN, show_hidden ? 1 : 0);
+    dict_write_uint8(out, KEY_SHOW_COMPLETED, show_completed ? 1 : 0);
 
     send_message();
 }
@@ -89,6 +95,24 @@ void protocol_send_get_task(uint32_t id_high, uint32_t id_low) {
     dict_write_uint8(out, KEY_TRANSACTION_ID, protocol_next_transaction_id());
     dict_write_uint32(out, KEY_TASK_ID_HIGH, id_high);
     dict_write_uint32(out, KEY_TASK_ID_LOW, id_low);
+
+    send_message();
+}
+
+void protocol_send_save_task(const char *title, const char *filter) {
+    DictionaryIterator *out;
+    AppMessageResult result = app_message_outbox_begin(&out);
+    if (result != APP_MSG_OK) return;
+
+    dict_write_uint8(out, KEY_MSG_TYPE, MSG_SAVE_TASK);
+    dict_write_uint8(out, KEY_TRANSACTION_ID, protocol_next_transaction_id());
+    dict_write_uint32(out, KEY_TASK_ID_HIGH, 0);
+    dict_write_uint32(out, KEY_TASK_ID_LOW, 0);
+    dict_write_cstring(out, KEY_TASK_TITLE, title);
+    dict_write_uint8(out, KEY_TASK_COMPLETED, 0);
+    if (filter) {
+        dict_write_cstring(out, KEY_FILTER, filter);
+    }
 
     send_message();
 }
