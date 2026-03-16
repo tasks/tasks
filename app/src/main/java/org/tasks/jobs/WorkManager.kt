@@ -4,7 +4,6 @@ import android.net.Uri
 import org.tasks.data.entity.Task
 import org.tasks.BuildConfig
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.Place
 import org.tasks.sync.SyncSource
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
@@ -17,8 +16,6 @@ interface WorkManager {
     suspend fun sync(source: SyncSource)
 
     suspend fun startEnqueuedSync()
-
-    fun reverseGeocode(place: Place)
 
     fun updateBackgroundSync()
 

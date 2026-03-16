@@ -32,7 +32,6 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
-import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
@@ -108,16 +107,6 @@ class WorkManagerImpl(
                 if (append) APPEND_OR_REPLACE else REPLACE,
                 builder.build())
         )
-    }
-
-    override fun reverseGeocode(place: Place) {
-        if (BuildConfig.DEBUG && place.id == 0L) {
-            throw RuntimeException("Missing id")
-        }
-        enqueue(
-                OneTimeWorkRequest.Builder(ReverseGeocodeWork::class.java)
-                        .setInputData(ReverseGeocodeWork.PLACE_ID to place.id)
-                        .setConstraints(networkConstraints))
     }
 
     override fun updateBackgroundSync() {

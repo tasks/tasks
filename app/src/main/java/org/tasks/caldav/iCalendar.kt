@@ -49,8 +49,9 @@ import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.date.DateTimeUtils.toLocal
-import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
+import org.tasks.location.Geocoder
+import org.tasks.location.MapPosition
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
 import org.tasks.repeats.RecurrenceUtils.newRRule
@@ -73,8 +74,8 @@ class iCalendar @Inject constructor(
     private val tagDataDao: TagDataDao,
     private val preferences: Preferences,
     private val locationDao: LocationDao,
-    private val workManager: WorkManager,
     private val geofenceApi: GeofenceApi,
+    private val geocoder: Geocoder,
     private val taskCreator: TaskCreator,
     private val tagDao: TagDao,
     private val taskDao: TaskDao,
@@ -104,7 +105,22 @@ class iCalendar @Inject constructor(
             ).let {
                 it.copy(id = locationDao.insert(it))
             }
-            workManager.reverseGeocode(place)
+            try {
+                geocoder.reverseGeocode(
+                    MapPosition(place.latitude, place.longitude)
+                )?.takeIf { place.distanceTo(it) <= 100 }
+                ?.let { result ->
+                    place = place.copy(
+                        name = result.name,
+                        address = result.address,
+                        phone = result.phone,
+                        url = result.url,
+                    )
+                    locationDao.update(place)
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
         }
         val existing = locationDao.getGeofences(taskId)
         if (existing == null) {

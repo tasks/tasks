@@ -73,6 +73,12 @@ data class Place(
             }
         }
 
+    /** Returns distance in meters to another place using the haversine formula. */
+    fun distanceTo(other: Place): Double = distanceBetween(
+        latitude, longitude,
+        other.latitude, other.longitude,
+    )
+
     companion object {
         private val COORDS = Pattern.compile("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$")
         const val KEY = "place"
@@ -81,5 +87,20 @@ data class Place(
         @JvmField val UID = TABLE.column("uid")
         @JvmField val NAME = TABLE.column("name")
         @JvmField val ADDRESS = TABLE.column("address")
+
+        /** Returns distance in meters between two coordinates using the haversine formula. */
+        fun distanceBetween(
+            lat1: Double, lon1: Double,
+            lat2: Double, lon2: Double,
+        ): Double {
+            val earthRadius = 6_371_000.0 // meters
+            val dLat = Math.toRadians(lat2 - lat1)
+            val dLon = Math.toRadians(lon2 - lon1)
+            val a = kotlin.math.sin(dLat / 2).let { it * it } +
+                    kotlin.math.cos(Math.toRadians(lat1)) *
+                    kotlin.math.cos(Math.toRadians(lat2)) *
+                    kotlin.math.sin(dLon / 2).let { it * it }
+            return earthRadius * 2 * kotlin.math.atan2(kotlin.math.sqrt(a), kotlin.math.sqrt(1 - a))
+        }
     }
 }
