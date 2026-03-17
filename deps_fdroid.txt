@@ -1676,6 +1676,7 @@
 +|         +--- androidx.core:core:1.1.0 -> 1.18.0 (*)
 +|         +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|         \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
+++--- com.getpebble:pebblekit:4.0.1
 ++--- org.osmdroid:osmdroid-android:6.1.20
 ++--- androidx.recyclerview:recyclerview:1.4.0 (*)
 ++--- androidx.compose:compose-bom:2026.03.00 (*)
