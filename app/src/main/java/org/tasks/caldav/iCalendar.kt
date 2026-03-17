@@ -52,7 +52,7 @@ import org.tasks.date.DateTimeUtils.toLocal
 import org.tasks.location.Geocoder
 import org.tasks.location.LocationService
 import org.tasks.location.MapPosition
-import org.tasks.notifications.NotificationManager
+import org.tasks.notifications.Notifier
 import org.tasks.preferences.Preferences
 import org.tasks.repeats.RecurrenceUtils.newRRule
 import org.tasks.time.DateTimeUtils.toDate
@@ -83,7 +83,7 @@ class iCalendar @Inject constructor(
     private val alarmDao: AlarmDao,
     private val alarmService: AlarmService,
     private val vtodoCache: VtodoCache,
-    private val notificationManager: NotificationManager,
+    private val notifier: Notifier,
 ) {
 
     suspend fun setPlace(taskId: Long, geo: Geo?) {
@@ -240,7 +240,7 @@ class iCalendar @Inject constructor(
         caldavTask.applyRemote(remote, local)
 
         if ((remote.lastAck ?: 0) > task.reminderLast) {
-            notificationManager.cancel(task.id)
+            notifier.cancel(task.id)
         }
 
         val place = locationDao.getPlaceForTask(task.id)

@@ -49,7 +49,7 @@ class NotificationManager @Inject constructor(
     private val notificationManager: ThrottledNotificationManager,
     private val markdownProvider: MarkdownProvider,
     private val permissionChecker: PermissionChecker,
-) {
+) : Notifier {
     @InterruptionFilter
     val currentInterruptionFilter: Int
         get() = notificationManager.currentInterruptionFilter
@@ -58,7 +58,7 @@ class NotificationManager @Inject constructor(
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
 
     @SuppressLint("CheckResult")
-    suspend fun cancel(id: Long) {
+    override suspend fun cancel(id: Long) {
         if (id == SUMMARY_NOTIFICATION_ID.toLong()) {
             cancel(notificationDao.getAll() + id)
         } else {
@@ -67,7 +67,7 @@ class NotificationManager @Inject constructor(
     }
 
     @SuppressLint("CheckResult")
-    suspend fun cancel(ids: Iterable<Long>) {
+    override suspend fun cancel(ids: Iterable<Long>) {
         coroutineScope {
             launch {
                 for (id in ids) {

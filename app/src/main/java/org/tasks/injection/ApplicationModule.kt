@@ -47,6 +47,7 @@ import org.tasks.auth.TasksServerEnvironment
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.security.AndroidKeyStoreEncryption
 import com.todoroo.astrid.service.AndroidCleanup
+import org.tasks.notifications.Notifier
 import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskDeleter
 import org.tasks.security.KeyStoreEncryption
@@ -200,6 +201,11 @@ class ApplicationModule {
 
     @Provides
     fun providesCaldavClientProvider(impl: CaldavClientProviderImpl): CaldavClientProvider = impl
+
+    @Provides
+    @Singleton
+    fun providesNotifier(notificationManager: org.tasks.notifications.NotificationManager): Notifier =
+        notificationManager
 
     @Provides
     fun providesTaskCleanup(impl: AndroidCleanup): TaskCleanup = impl
