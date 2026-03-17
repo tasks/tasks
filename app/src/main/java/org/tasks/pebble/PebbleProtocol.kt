@@ -53,6 +53,9 @@ object PebbleProtocol {
     const val KEY_LIST_COLOR = 24
     const val KEY_LIST_COUNT = 25
 
+    // Session ID (for replay detection)
+    const val KEY_SESSION_ID = 8
+
     // Settings keys
     const val KEY_SHOW_HIDDEN = 28
     const val KEY_SHOW_COMPLETED = 29

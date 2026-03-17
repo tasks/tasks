@@ -1,7 +1,15 @@
 #include "protocol.h"
+#include <stdlib.h>
 
 static uint8_t s_next_transaction_id = 1;
 static uint8_t s_active_transaction_id = 0;
+static uint32_t s_session_id = 0;
+
+void protocol_init_session(void) {
+    srand(time(NULL));
+    s_session_id = (uint32_t)rand();
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "PEBBLE_W session_id=%u", (unsigned)s_session_id);
+}
 
 uint8_t protocol_next_transaction_id(void) {
     s_active_transaction_id = s_next_transaction_id++;
@@ -13,20 +21,21 @@ uint8_t protocol_get_active_transaction_id(void) {
 }
 
 static void send_message(void) {
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "PEBBLE_W outbox_send txn=%d", s_active_transaction_id);
     AppMessageResult result = app_message_outbox_send();
     if (result != APP_MSG_OK) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send failed: %d", (int)result);
+        APP_LOG(APP_LOG_LEVEL_ERROR, "PEBBLE_W outbox_send FAILED: %d txn=%d", (int)result, s_active_transaction_id);
     }
 }
 
-void protocol_send_get_tasks(const char *filter, int position, int limit,
+bool protocol_send_get_tasks(const char *filter, int position, int limit,
                             int sort_mode, int group_mode,
                             bool show_hidden, bool show_completed) {
     DictionaryIterator *out;
     AppMessageResult result = app_message_outbox_begin(&out);
     if (result != APP_MSG_OK) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox begin failed: %d", (int)result);
-        return;
+        APP_LOG(APP_LOG_LEVEL_ERROR, "PEBBLE_W Outbox begin failed: %d", (int)result);
+        return false;
     }
 
     uint8_t txn = protocol_next_transaction_id();
@@ -43,6 +52,7 @@ void protocol_send_get_tasks(const char *filter, int position, int limit,
     dict_write_uint8(out, KEY_SHOW_COMPLETED, show_completed ? 1 : 0);
 
     send_message();
+    return true;
 }
 
 void protocol_send_complete_task(uint32_t id_high, uint32_t id_low, bool completed) {
@@ -52,6 +62,7 @@ void protocol_send_complete_task(uint32_t id_high, uint32_t id_low, bool complet
 
     dict_write_uint8(out, KEY_MSG_TYPE, MSG_COMPLETE_TASK);
     dict_write_uint8(out, KEY_TRANSACTION_ID, protocol_next_transaction_id());
+    dict_write_uint32(out, KEY_SESSION_ID, s_session_id);
     dict_write_uint32(out, KEY_TASK_ID_HIGH, id_high);
     dict_write_uint32(out, KEY_TASK_ID_LOW, id_low);
     dict_write_uint8(out, KEY_TASK_COMPLETED, completed ? 1 : 0);
@@ -66,6 +77,7 @@ void protocol_send_toggle_group(uint32_t id_high, uint32_t id_low, bool collapse
 
     dict_write_uint8(out, KEY_MSG_TYPE, MSG_TOGGLE_GROUP);
     dict_write_uint8(out, KEY_TRANSACTION_ID, protocol_next_transaction_id());
+    dict_write_uint32(out, KEY_SESSION_ID, s_session_id);
     dict_write_uint32(out, KEY_GROUP_VALUE_HIGH, id_high);
     dict_write_uint32(out, KEY_GROUP_VALUE_LOW, id_low);
     dict_write_uint8(out, KEY_GROUP_COLLAPSED, collapsed ? 1 : 0);
@@ -106,6 +118,7 @@ void protocol_send_save_task(const char *title, const char *filter) {
 
     dict_write_uint8(out, KEY_MSG_TYPE, MSG_SAVE_TASK);
     dict_write_uint8(out, KEY_TRANSACTION_ID, protocol_next_transaction_id());
+    dict_write_uint32(out, KEY_SESSION_ID, s_session_id);
     dict_write_uint32(out, KEY_TASK_ID_HIGH, 0);
     dict_write_uint32(out, KEY_TASK_ID_LOW, 0);
     dict_write_cstring(out, KEY_TASK_TITLE, title);

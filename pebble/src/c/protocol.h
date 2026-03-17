@@ -44,6 +44,9 @@
 #define KEY_GROUP_VALUE_LOW   21
 #define KEY_GROUP_COLLAPSED   22
 
+// Session ID (for replay detection)
+#define KEY_SESSION_ID      8
+
 // Settings keys
 #define KEY_SHOW_HIDDEN     28
 #define KEY_SHOW_COMPLETED  29
@@ -100,8 +103,8 @@
 
 // Configuration
 #define CHUNK_SIZE          5
-#define PAGE_SIZE           20
-#define PREFETCH_THRESHOLD  5
+#define PAGE_SIZE           10
+#define PREFETCH_THRESHOLD  3
 #define MAX_LISTS           30
 #define MAX_TITLE_LEN       51
 #define MAX_EXTRA_LEN       21
@@ -140,12 +143,13 @@ typedef struct {
     bool repeating;
 } TaskDetail;
 
-// Transaction tracking
+// Session and transaction tracking
+void protocol_init_session(void);
 uint8_t protocol_next_transaction_id(void);
 uint8_t protocol_get_active_transaction_id(void);
 
 // Message sending
-void protocol_send_get_tasks(const char *filter, int position, int limit,
+bool protocol_send_get_tasks(const char *filter, int position, int limit,
                             int sort_mode, int group_mode,
                             bool show_hidden, bool show_completed);
 void protocol_send_complete_task(uint32_t id_high, uint32_t id_low, bool completed);

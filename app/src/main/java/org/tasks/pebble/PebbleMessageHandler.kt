@@ -73,11 +73,17 @@ class PebbleMessageHandler @Inject constructor(
     companion object {
         private const val CHUNK_DELAY_MS = 100L
         private const val HEADER_COMPLETED = -2L
+        private const val VERBOSE_LOGGING = false
     }
 
     private val collapsedGroups = mutableSetOf(HEADER_COMPLETED)
     private var lastFilter: String? = null
-    @Volatile private var lastMessageTime = 0L
+    // Session-based replay detection. The watch generates a random session ID
+    // on each launch and includes it in state-changing messages. Replayed
+    // messages from a previous session carry the old session ID, allowing
+    // the phone to identify and block them.
+    private var currentSessionId = 0L
+    private val processedActions = mutableSetOf<Int>()
 
     fun handleMessage(
         context: Context,
@@ -89,20 +95,21 @@ class PebbleMessageHandler @Inject constructor(
         // Use protocol txn from the watch, not PebbleKit's system txn
         val protocolTxn = (data[KEY_TRANSACTION_ID] as? Long)?.toInt() ?: transactionId
 
-        // The Pebble watch outbox sends one message at a time over Bluetooth,
-        // requiring a round-trip ACK before the next can be sent (~100ms+).
-        // On app relaunch, the mobile app replays buffered messages back-to-back
-        // (~8ms apart). State-changing messages arriving <50ms after the previous
-        // message are replays and should be ignored.
-        val now = System.currentTimeMillis()
-        val elapsed = now - lastMessageTime
-        lastMessageTime = now
-
         val isStateChanging = msgType == MSG_COMPLETE_TASK
                 || msgType == MSG_SAVE_TASK || msgType == MSG_TOGGLE_GROUP
-        if (isStateChanging && elapsed < 50) {
-            Timber.d("PEBBLE ignoring replayed msg=$msgType elapsed=${elapsed}ms")
-            return
+        if (isStateChanging) {
+            val sessionId = (data[PebbleProtocol.KEY_SESSION_ID] as? Long) ?: 0L
+            if (sessionId != currentSessionId) {
+                // New session — clear old dedup cache
+                currentSessionId = sessionId
+                processedActions.clear()
+                Timber.d("PEBBLE new session: $sessionId")
+            }
+            val key = (msgType shl 8) or (protocolTxn and 0xFF)
+            if (!processedActions.add(key)) {
+                Timber.d("PEBBLE ignoring replayed msg=$msgType txn=$protocolTxn session=$sessionId")
+                return
+            }
         }
 
         logPebbleEvent(context)
@@ -137,13 +144,13 @@ class PebbleMessageHandler @Inject constructor(
         val showHidden = (data[PebbleProtocol.KEY_SHOW_HIDDEN] as? Long)?.toInt() == 1
         val showCompleted = (data[PebbleProtocol.KEY_SHOW_COMPLETED] as? Long)?.toInt() == 1
 
-        Timber.d("PEBBLE GET_TASKS: pos=$position limit=$limit filter=$filter sort=$sortMode group=$groupMode hidden=$showHidden completed=$showCompleted collapsed=$collapsedGroups txn=$transactionId")
+        if (VERBOSE_LOGGING) Timber.d("PEBBLE GET_TASKS: pos=$position limit=$limit filter=$filter sort=$sortMode group=$groupMode hidden=$showHidden completed=$showCompleted collapsed=$collapsedGroups txn=$transactionId")
 
         if (filter != lastFilter) {
             lastFilter = filter
             collapsedGroups.clear()
             collapsedGroups.add(HEADER_COMPLETED)
-            Timber.d("PEBBLE filter changed, reset collapsed to $collapsedGroups")
+            if (VERBOSE_LOGGING) Timber.d("PEBBLE filter changed, reset collapsed to $collapsedGroups")
         }
 
         val result = watchServiceLogic.getTasks(
@@ -157,18 +164,20 @@ class PebbleMessageHandler @Inject constructor(
             collapsed = collapsedGroups,
         )
 
-        Timber.d("PEBBLE result: ${result.items.size} items, totalItems=${result.totalItems}")
-        result.items.forEachIndexed { i, item ->
-            when (item) {
-                is WatchUiItem.Header -> Timber.d("PEBBLE   [$i] HEADER id=${item.id} title=${item.title} collapsed=${item.collapsed}")
-                is WatchUiItem.Task -> Timber.d("PEBBLE   [$i] TASK id=${item.id} title=${item.title}")
+        if (VERBOSE_LOGGING) {
+            Timber.d("PEBBLE result: ${result.items.size} items, totalItems=${result.totalItems}")
+            result.items.forEachIndexed { i, item ->
+                when (item) {
+                    is WatchUiItem.Header -> Timber.d("PEBBLE   [$i] HEADER id=${item.id} title=${item.title} collapsed=${item.collapsed}")
+                    is WatchUiItem.Task -> Timber.d("PEBBLE   [$i] TASK id=${item.id} title=${item.title}")
+                }
             }
         }
 
         val chunkCount = ceil(result.items.size.toDouble() / CHUNK_SIZE).toInt()
             .coerceAtLeast(1)
 
-        Timber.d("PEBBLE sending $chunkCount chunks")
+        if (VERBOSE_LOGGING) Timber.d("PEBBLE sending $chunkCount chunks")
 
         for (chunkIndex in 0 until chunkCount) {
             val start = chunkIndex * CHUNK_SIZE

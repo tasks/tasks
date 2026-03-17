@@ -18,6 +18,7 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
     if (!msg_type_t) return;
 
     uint8_t msg_type = (uint8_t)msg_type_t->value->uint32;
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "PEBBLE_W inbox type=%d", msg_type);
 
     switch (msg_type) {
         case RESP_TASKS:
@@ -53,12 +54,16 @@ static void inbox_dropped_handler(AppMessageResult reason, void *context) {
 }
 
 static void outbox_sent_handler(DictionaryIterator *iter, void *context) {
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "Outbox send succeeded");
+    Tuple *msg_t = dict_find(iter, KEY_MSG_TYPE);
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "PEBBLE_W outbox_sent type=%d",
+            msg_t ? (int)msg_t->value->uint32 : -1);
 }
 
 static void outbox_failed_handler(DictionaryIterator *iter,
                                    AppMessageResult reason, void *context) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send failed: %d", (int)reason);
+    Tuple *msg_t = dict_find(iter, KEY_MSG_TYPE);
+    APP_LOG(APP_LOG_LEVEL_ERROR, "PEBBLE_W outbox_FAILED reason=%d type=%d",
+            (int)reason, msg_t ? (int)msg_t->value->uint32 : -1);
 }
 
 static void bluetooth_handler(bool connected) {
@@ -71,6 +76,9 @@ static void bluetooth_handler(bool connected) {
 }
 
 static void init(void) {
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "PEBBLE_W init() start");
+    protocol_init_session();
+
     // Register AppMessage handlers
     app_message_register_inbox_received(inbox_received_handler);
     app_message_register_inbox_dropped(inbox_dropped_handler);
@@ -80,6 +88,8 @@ static void init(void) {
     // Open AppMessage with maximum inbox (for chunked responses)
     const uint32_t inbox_size = app_message_inbox_size_maximum();
     const uint32_t outbox_size = 256;
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "PEBBLE_W app_message_open inbox=%u outbox=%u",
+            (unsigned)inbox_size, (unsigned)outbox_size);
     app_message_open(inbox_size, outbox_size);
 
     // Bluetooth connection monitoring

@@ -25,6 +25,8 @@ static bool s_refreshing = false;
 static bool s_refresh_pending = false;
 static bool s_first_load = true;
 static MenuIndex s_saved_selection;
+static uint32_t s_saved_id_high = 0;
+static uint32_t s_saved_id_low = 0;
 
 // Current filter
 static char s_filter_id[MAX_FILTER_ID_LEN] = {0};
@@ -36,6 +38,7 @@ static uint32_t s_filter_text_color = 0;
 static int s_expected_chunks = 0;
 static uint32_t s_received_chunk_mask = 0;
 static uint8_t s_request_txn = 0;
+static int s_page_base = 0; // s_num_items at start of page request
 static AppTimer *s_chunk_timer = NULL;
 
 // Fixed rows at top of list
@@ -59,6 +62,7 @@ static void page_complete(void);
 static void chunk_timeout_handler(void *data);
 static void request_next_page(void);
 static void on_filter_selected(const char *filter_id, const char *filter_name, uint32_t color, uint32_t text_color);
+static void retry_refresh_handler(void *data);
 
 #ifdef PBL_MICROPHONE
 static DictationSession *s_dictation_session;
@@ -66,6 +70,72 @@ static void start_dictation(void);
 static void dictation_callback(DictationSession *session, DictationSessionStatus status,
                                char *transcription, void *context);
 #endif
+
+static void save_selection(void) {
+    s_saved_selection = menu_layer_get_selected_index(s_menu_layer);
+    int idx = (int)s_saved_selection.row - TASK_ROW_OFFSET;
+    if (idx >= 0 && idx < s_num_items) {
+        s_saved_id_high = s_items[idx].id_high;
+        s_saved_id_low = s_items[idx].id_low;
+    } else {
+        s_saved_id_high = 0;
+        s_saved_id_low = 0;
+    }
+}
+
+static void restore_selection(void) {
+    // If the user scrolled during the refresh, respect their position
+    MenuIndex current = menu_layer_get_selected_index(s_menu_layer);
+    if (current.row != s_saved_selection.row) {
+        return;
+    }
+
+    // Find the saved item by ID and follow it — unless it crossed a
+    // section boundary (e.g., moved to completed section after being checked)
+    if (s_saved_id_high != 0 || s_saved_id_low != 0) {
+        // Determine which section the saved row was in (find nearest header above)
+        int saved_idx = (int)s_saved_selection.row - TASK_ROW_OFFSET;
+        int saved_section_header = -1;
+        for (int i = saved_idx; i >= 0; i--) {
+            if (s_items[i].type == UI_TYPE_HEADER) {
+                saved_section_header = i;
+                break;
+            }
+        }
+
+        for (int i = 0; i < s_num_items; i++) {
+            if (s_items[i].id_high == s_saved_id_high &&
+                s_items[i].id_low == s_saved_id_low) {
+                // Find which section this item is in now
+                int new_section_header = -1;
+                for (int j = i; j >= 0; j--) {
+                    if (s_items[j].type == UI_TYPE_HEADER) {
+                        new_section_header = j;
+                        break;
+                    }
+                }
+                // If the item moved to a different section, stay in place
+                if (new_section_header != saved_section_header) {
+                    break; // fall through to row-based restore
+                }
+                // Same section — follow it
+                menu_layer_set_selected_index(s_menu_layer,
+                    (MenuIndex){0, (uint16_t)(TASK_ROW_OFFSET + i)},
+                    MenuRowAlignNone, false);
+                return;
+            }
+        }
+    }
+    // Fallback: keep same row position, clamped
+    uint16_t max_row = s_num_items > 0
+        ? (uint16_t)(TASK_ROW_OFFSET - 1 + s_num_items)
+        : (uint16_t)FILTER_ROW;
+    if (s_saved_selection.row > max_row) {
+        s_saved_selection.row = max_row;
+    }
+    menu_layer_set_selected_index(s_menu_layer, s_saved_selection,
+                                  MenuRowAlignNone, false);
+}
 
 // Ensure an item array can hold at least `needed` items.
 static bool ensure_capacity_for(UiItem **items, int *capacity, int needed) {
@@ -357,7 +427,9 @@ static void select_long_click(MenuLayer *menu_layer, MenuIndex *cell_index, void
     UiItem *item = &s_items[item_idx];
 
     if (item->type == UI_TYPE_TASK) {
-        protocol_send_complete_task(item->id_high, item->id_low, !item->completed);
+        item->completed = !item->completed;
+        menu_layer_reload_data(s_menu_layer);
+        protocol_send_complete_task(item->id_high, item->id_low, item->completed);
     }
 }
 
@@ -473,9 +545,12 @@ static void request_tasks_page(int position, int limit) {
         s_chunk_timer = NULL;
     }
 
+    s_page_base = s_num_items;
+
     if (position == 0) {
         free_items();
         s_total_items = 0;
+        s_page_base = 0;
         s_loading_more = false;
         show_loading(true);
     } else {
@@ -483,12 +558,23 @@ static void request_tasks_page(int position, int limit) {
         s_loading_more = true;
     }
 
-    protocol_send_get_tasks(s_filter_id[0] ? s_filter_id : NULL, position, limit,
-                            settings_get_sort_mode(), settings_get_group_mode(),
-                            settings_get_show_hidden(), settings_get_show_completed());
-    s_request_txn = protocol_get_active_transaction_id();
+    bool sent = protocol_send_get_tasks(
+        s_filter_id[0] ? s_filter_id : NULL, position, limit,
+        settings_get_sort_mode(), settings_get_group_mode(),
+        settings_get_show_hidden(), settings_get_show_completed());
 
-    s_chunk_timer = app_timer_register(5000, chunk_timeout_handler, NULL);
+    if (sent) {
+        s_request_txn = protocol_get_active_transaction_id();
+        s_chunk_timer = app_timer_register(5000, chunk_timeout_handler, NULL);
+    } else {
+        // Outbox busy — revert state and retry after outbox clears
+        if (position == 0) {
+            show_loading(false);
+        }
+        s_loading = false;
+        s_loading_more = false;
+        app_timer_register(200, retry_refresh_handler, NULL);
+    }
 }
 
 static void request_next_page(void) {
@@ -534,16 +620,7 @@ static void page_complete(void) {
         s_refreshing = false;
 
         menu_layer_reload_data(s_menu_layer);
-
-        // Restore scroll position, clamped to new bounds
-        uint16_t max_row = s_num_items > 0
-            ? (uint16_t)(TASK_ROW_OFFSET - 1 + s_num_items)
-            : (uint16_t)FILTER_ROW;
-        if (s_saved_selection.row > max_row) {
-            s_saved_selection.row = max_row;
-        }
-        menu_layer_set_selected_index(s_menu_layer, s_saved_selection,
-                                      MenuRowAlignCenter, false);
+        restore_selection();
 
         if (s_refresh_pending) {
             s_refresh_pending = false;
@@ -583,6 +660,10 @@ static void chunk_timeout_handler(void *data) {
     }
 }
 
+static void retry_refresh_handler(void *data) {
+    task_list_window_refresh();
+}
+
 // Public API
 
 void task_list_window_push(void) {
@@ -602,8 +683,7 @@ void task_list_window_refresh(void) {
 
     // If we already have data, do a background refresh
     if (s_num_items > 0) {
-        s_saved_selection = menu_layer_get_selected_index(s_menu_layer);
-        s_refreshing = true;
+        save_selection();
 
         free_pending();
         s_expected_chunks = 0;
@@ -614,11 +694,19 @@ void task_list_window_refresh(void) {
             s_chunk_timer = NULL;
         }
 
-        protocol_send_get_tasks(s_filter_id[0] ? s_filter_id : NULL, 0, PAGE_SIZE,
-                                settings_get_sort_mode(), settings_get_group_mode(),
-                                settings_get_show_hidden(), settings_get_show_completed());
-        s_request_txn = protocol_get_active_transaction_id();
-        s_chunk_timer = app_timer_register(5000, chunk_timeout_handler, NULL);
+        bool sent = protocol_send_get_tasks(
+            s_filter_id[0] ? s_filter_id : NULL, 0, PAGE_SIZE,
+            settings_get_sort_mode(), settings_get_group_mode(),
+            settings_get_show_hidden(), settings_get_show_completed());
+
+        if (sent) {
+            s_refreshing = true;
+            s_request_txn = protocol_get_active_transaction_id();
+            s_chunk_timer = app_timer_register(5000, chunk_timeout_handler, NULL);
+        } else {
+            // Outbox busy — retry after outbox clears
+            app_timer_register(200, retry_refresh_handler, NULL);
+        }
     } else {
         // No existing data -- normal initial load
         request_tasks_page(0, PAGE_SIZE);
@@ -674,9 +762,8 @@ void task_list_handle_tasks_response(DictionaryIterator *iter) {
             s_total_items = (int)total_t->value->uint32;
         }
 
-        // For pagination (loading_more), offset relative to existing items
-        int base = s_loading_more ? s_num_items : 0;
-        int abs_offset = base + chunk_offset;
+        // For pagination (loading_more), offset relative to page start
+        int abs_offset = s_page_base + chunk_offset;
 
         int needed = abs_offset + CHUNK_SIZE;
         if (!ensure_capacity_for(&s_items, &s_items_capacity, needed)) {
@@ -713,12 +800,12 @@ void task_list_handle_complete_response(DictionaryIterator *iter) {
     task_list_window_refresh();
 }
 
-
 void task_list_handle_save_response(DictionaryIterator *iter) {
     task_list_window_refresh();
 }
 
 void task_list_handle_toggle_response(DictionaryIterator *iter) {
+    // Toggle doesn't modify DB, so phone won't send MSG_REFRESH — refresh here
     task_list_window_refresh();
 }
 

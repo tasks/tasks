@@ -28,12 +28,9 @@ class PebbleService @Inject constructor(
                 transactionId: Int,
                 data: PebbleDictionary,
             ) {
-                Timber.d("PEBBLE receiveData: txn=$transactionId thread=${Thread.currentThread().name} time=${System.currentTimeMillis()}")
                 PebbleKit.sendAckToPebble(context, transactionId)
-                Timber.d("PEBBLE ACK sent for txn=$transactionId")
                 try {
                     val map = PebbleProtocol.toMap(data)
-                    Timber.d("PEBBLE parsed msg type=${map[0]} keys=${map.keys}")
                     messageHandler.handleMessage(context, map, transactionId, scope)
                 } catch (e: Exception) {
                     Timber.e(e, "Failed to handle Pebble message")
