@@ -742,4 +742,8 @@
     <string name="supporter_summary">%s •さん、ありがとうございます！</string>
     <string name="add_default_reminders">デフォルトの通知を追加する</string>
     <string name="advanced_tools">便利なツール</string>
+    <string name="per_list_sort_summary">並べ替えやグループの設定を個別に保存する</string>
+    <string name="per_list_sort_title">リストごとの並べ替え設定</string>
+    <string name="p_per_list_sort">リストごとの並べ替え設定</string>
+    <string name="tasks_org_description">友人・家族との共有や、メールでのタスク追加を含む</string>
 </resources>
