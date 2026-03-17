@@ -1,17 +1,20 @@
-### 15.1 (2026-03-12)
+### 15.1 (2026-03-17)
 
 * Add 'Per-list sorting' - @repparw
   * Toggle on '⚙ > App settings > Task list options > Per-list sorting'
 * Update translations
+  * Bulgarian - 109247019824
   * Chinese (Simplified) - 大王叫我来巡山
   * Chinese (Traditional) - @xlionjuan
   * Croatian - @milotype
   * Czech - @Fjuro
+  * Esperanto - Don Zouras
   * French - @FlorianLeChat
   * German - @Atalanttore, @Kachelkaiser, @ColorfulRhino
   * Hebrew - Xo
   * Hungarian - Kaci
   * Italian - @ppasserini
+  * Malagasy - @HairEureka160
   * Turkish - @emintufan
 
 ### 15.0 (2026-03-04)
