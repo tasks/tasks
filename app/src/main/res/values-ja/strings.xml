@@ -746,4 +746,10 @@
     <string name="per_list_sort_title">リストごとの並べ替え設定</string>
     <string name="p_per_list_sort">リストごとの並べ替え設定</string>
     <string name="tasks_org_description">友人・家族との共有や、メールでのタスク追加を含む</string>
+    <string name="share_list">\"%1$s\"を共有</string>
+    <string name="send">送る</string>
+    <string name="guest">ゲスト</string>
+    <string name="guest_create_list_message">あなたは共有リストへのゲストアクセスがあります。自分の個人的なリストを作成してクラウドに同期するにはTasks.orgの購読が</string>
+    <string name="guests">ゲスト (%1$d/%2$d)</string>
+    <string name="shared_with_me">共有されたもの</string>
 </resources>
