@@ -38,6 +38,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.todoroo.astrid.ui.ReminderControlSetViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.collections.immutable.toPersistentSet
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.whenOverdue
@@ -64,7 +65,7 @@ class DefaultRemindersActivity : AppCompatActivity() {
                 val vm: ReminderControlSetViewModel = viewModel()
                 val viewState = vm.viewState.collectAsStateWithLifecycle().value
                 var alarms by remember {
-                    mutableStateOf(preferences.defaultAlarms.toSet())
+                    mutableStateOf(runBlocking { preferences.defaultAlarms() }.toSet())
                 }
 
                 BasicAlertDialog(onDismissRequest = { finish() }) {

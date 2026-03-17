@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.calendars.CalendarProvider
 import org.tasks.data.dao.LocationDao
@@ -246,7 +247,7 @@ class TaskDefaultsViewModel @Inject constructor(
     }
 
     fun refreshReminders() {
-        val alarms = preferences.defaultAlarms
+        val alarms = runBlocking { preferences.defaultAlarms() }
         remindersSummary = if (alarms.isEmpty()) {
             context.getString(R.string.no_reminders)
         } else {

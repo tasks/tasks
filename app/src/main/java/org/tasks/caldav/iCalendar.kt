@@ -53,7 +53,7 @@ import org.tasks.location.Geocoder
 import org.tasks.location.LocationService
 import org.tasks.location.MapPosition
 import org.tasks.notifications.Notifier
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.AppPreferences
 import org.tasks.repeats.RecurrenceUtils.newRRule
 import org.tasks.time.DateTimeUtils.toDate
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -72,7 +72,7 @@ import kotlin.math.min
 @Suppress("ClassName")
 class iCalendar @Inject constructor(
     private val tagDataDao: TagDataDao,
-    private val preferences: Preferences,
+    private val preferences: AppPreferences,
     private val locationDao: LocationDao,
     private val geocoder: Geocoder,
     private val locationService: LocationService,
@@ -261,7 +261,7 @@ class iCalendar @Inject constructor(
             vtodo?.prodId()?.supportsReminders() != true // other client doesn't support reminder sync
         ) {
             task.setDefaultReminders(preferences)
-            alarmService.synchronizeAlarms(task.id, task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled).toMutableSet())
+            alarmService.synchronizeAlarms(task.id, task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled()).toMutableSet())
         } else if (account.reminderSync) {
             val alarms = alarmDao.getAlarms(task.id).map {
                 it.copy(id = 0, task = 0)

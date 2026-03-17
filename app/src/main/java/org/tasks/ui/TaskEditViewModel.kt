@@ -171,7 +171,7 @@ class TaskEditViewModel @Inject constructor(
             alarms = if (task.isNew) {
                 val defaults = task.getTransitory<List<Alarm>>(Task.TRANS_DEFAULT_ALARMS)
                     ?: emptyList()
-                val defaultRemindersEnabled = preferences.isDefaultDueTimeEnabled
+                val defaultRemindersEnabled = runBlocking { preferences.isDefaultDueTimeEnabled() }
                 buildList {
                     for (alarm in defaults) {
                         when (alarm.type) {
@@ -230,14 +230,14 @@ class TaskEditViewModel @Inject constructor(
         val hasDueTimeNow = hasDueTime(dueDate.value)
         val addedDueDate = !hadDueDate && dueDate.value > 0
         val addedDueTime = hadDueDate && !hadDueTime && hasDueTimeNow
+        val isDefaultDueTimeEnabled = runBlocking { preferences.isDefaultDueTimeEnabled() }
         val shouldAddReminders = when {
-            addedDueDate -> hasDueTimeNow || preferences.isDefaultDueTimeEnabled
-            addedDueTime -> !preferences.isDefaultDueTimeEnabled
+            addedDueDate -> hasDueTimeNow || isDefaultDueTimeEnabled
+            addedDueTime -> !isDefaultDueTimeEnabled
             else -> false
         }
         if (shouldAddReminders) {
-            preferences
-                .defaultAlarms
+            runBlocking { preferences.defaultAlarms() }
                 .filter { it.type == TYPE_REL_END }
                 .forEach { alarm ->
                     _viewState.update { state ->
@@ -261,14 +261,14 @@ class TaskEditViewModel @Inject constructor(
         val hasStartTimeNow = hasDueTime(startDate.value)
         val addedStartDate = !hadStartDate && startDate.value > 0
         val addedStartTime = hadStartDate && !hadStartTime && hasStartTimeNow
+        val isDefaultDueTimeEnabled = runBlocking { preferences.isDefaultDueTimeEnabled() }
         val shouldAddReminders = when {
-            addedStartDate -> hasStartTimeNow || preferences.isDefaultDueTimeEnabled
-            addedStartTime -> !preferences.isDefaultDueTimeEnabled
+            addedStartDate -> hasStartTimeNow || isDefaultDueTimeEnabled
+            addedStartTime -> !isDefaultDueTimeEnabled
             else -> false
         }
         if (shouldAddReminders) {
-            preferences
-                .defaultAlarms
+            runBlocking { preferences.defaultAlarms() }
                 .filter { it.type == TYPE_REL_START }
                 .forEach { alarm ->
                     _viewState.update { state ->
@@ -413,7 +413,7 @@ class TaskEditViewModel @Inject constructor(
                 subtask.completionDate = task.completionDate
             }
             taskDao.createNew(subtask)
-            alarmDao.insert(subtask.getDefaultAlarms(preferences.isDefaultDueTimeEnabled))
+            alarmDao.insert(subtask.getDefaultAlarms(preferences.isDefaultDueTimeEnabled()))
             firebase?.addTask("subtasks")
             when {
                 selectedList.isGoogleTasks -> {

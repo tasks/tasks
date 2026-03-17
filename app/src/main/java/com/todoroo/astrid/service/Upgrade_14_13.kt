@@ -11,7 +11,7 @@ class Upgrade_14_13 @Inject constructor(
     private val upgraderDao: UpgraderDao,
 ) {
     internal suspend fun deleteAlarmsForAllDayTasks() {
-        if (!preferences.isDefaultDueTimeEnabled) {
+        if (!preferences.isDefaultDueTimeEnabled()) {
             upgraderDao.deleteAlarmsForAllDayTasks()
         }
     }

@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit
 class Preferences @JvmOverloads constructor(
         private val context: Context,
         name: String? = getSharedPreferencesName(context)
-) : QueryPreferences {
+) : QueryPreferences, AppPreferences {
     private val prefs: SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
     fun registerOnSharedPreferenceChangeListener(
@@ -96,8 +96,8 @@ class Preferences @JvmOverloads constructor(
 
     private fun quietHoursEnabled(): Boolean = getBoolean(R.string.p_rmd_enable_quiet, false)
 
-    val isDefaultDueTimeEnabled: Boolean
-        get() = getBoolean(R.string.p_rmd_time_enabled, true)
+    override suspend fun isDefaultDueTimeEnabled(): Boolean =
+        getBoolean(R.string.p_rmd_time_enabled, true)
 
     val defaultDueTime: Int
         get() = getInt(R.string.p_rmd_time, TimeUnit.HOURS.toMillis(18).toInt())
@@ -209,8 +209,8 @@ class Preferences @JvmOverloads constructor(
         null
     }
 
-    val defaultAlarms: List<Alarm>
-        get() = getStringSet(R.string.p_default_alarms, DEFAULT_ALARMS)
+    override suspend fun defaultAlarms(): List<Alarm> =
+        getStringSet(R.string.p_default_alarms, DEFAULT_ALARMS)
             .mapNotNull {
                 try {
                     Json.decodeFromString<Alarm>(it)
@@ -228,8 +228,14 @@ class Preferences @JvmOverloads constructor(
         )
     }
 
-    val defaultRingMode: Int
-        get() = getIntegerFromString(R.string.p_default_reminders_mode_key, 0)
+    override suspend fun defaultRingMode(): Int =
+        getIntegerFromString(R.string.p_default_reminders_mode_key, 0)
+
+    override suspend fun defaultLocationReminder(): Int =
+        getIntegerFromString(R.string.p_default_location_reminder_key, 1)
+
+    override suspend fun defaultRandomHours(): Int =
+        getIntegerFromString(R.string.p_rmd_default_random_hours, 0)
 
     val fontSize: Int
         get() = getInt(R.string.p_fontSize, 16)

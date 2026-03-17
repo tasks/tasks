@@ -361,7 +361,7 @@ class TasksJsonImporter @Inject constructor(
         val skipAllDayAlarms = version < Upgrade_14_13.VERSION
                 && task.hasDueDate()
                 && !task.hasDueTime()
-                && !preferences.isDefaultDueTimeEnabled
+                && !preferences.isDefaultDueTimeEnabled()
         backup.alarms
             ?.map { it.copy(task = taskId) }
             ?.let { if (skipAllDayAlarms) emptyList() else it }

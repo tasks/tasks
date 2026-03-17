@@ -48,6 +48,7 @@ import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.security.AndroidKeyStoreEncryption
 import com.todoroo.astrid.service.AndroidCleanup
 import org.tasks.notifications.Notifier
+import org.tasks.preferences.AppPreferences
 import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskDeleter
 import org.tasks.security.KeyStoreEncryption
@@ -206,6 +207,11 @@ class ApplicationModule {
     @Singleton
     fun providesNotifier(notificationManager: org.tasks.notifications.NotificationManager): Notifier =
         notificationManager
+
+    @Provides
+    @Singleton
+    fun providesAppPreferences(preferences: org.tasks.preferences.Preferences): AppPreferences =
+        preferences
 
     @Provides
     fun providesTaskCleanup(impl: AndroidCleanup): TaskCleanup = impl

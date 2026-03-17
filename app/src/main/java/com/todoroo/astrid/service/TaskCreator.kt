@@ -33,6 +33,7 @@ import org.tasks.data.entity.Task.Companion.IMPORTANCE
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.mapFromSerializedString
+import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -116,7 +117,7 @@ class TaskCreator @Inject constructor(
             }
         }
         taskDao.save(task, null)
-        alarmDao.insert(task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled))
+        alarmDao.insert(task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled()))
         return task
     }
 
@@ -208,13 +209,10 @@ class TaskCreator @Inject constructor(
     }
 
     companion object {
-        fun Task.setDefaultReminders(preferences: Preferences) {
-            randomReminder = ONE_HOUR * preferences.getIntegerFromString(
-                R.string.p_rmd_default_random_hours,
-                0
-            )
-            putTransitory(Task.TRANS_DEFAULT_ALARMS, preferences.defaultAlarms)
-            ringFlags = preferences.defaultRingMode
+        suspend fun Task.setDefaultReminders(preferences: AppPreferences) {
+            randomReminder = ONE_HOUR * preferences.defaultRandomHours()
+            putTransitory(Task.TRANS_DEFAULT_ALARMS, preferences.defaultAlarms())
+            ringFlags = preferences.defaultRingMode()
         }
 
         private fun Any?.substitute(): String? =
