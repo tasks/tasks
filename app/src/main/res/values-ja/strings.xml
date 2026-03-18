@@ -749,7 +749,13 @@
     <string name="share_list">\"%1$s\"を共有</string>
     <string name="send">送る</string>
     <string name="guest">ゲスト</string>
-    <string name="guest_create_list_message">あなたは共有リストへのゲストアクセスがあります。自分の個人的なリストを作成してクラウドに同期するにはTasks.orgの購読が</string>
+    <string name="guest_create_list_message">あなたは共有リストへのゲストアクセスがあります。自分の個人的なリストを作成してクラウドに同期するにはTasks.orgの購読が必要です。または、端末内に保存する無料のローカルリストを作成することができます。</string>
     <string name="guests">ゲスト (%1$d/%2$d)</string>
     <string name="shared_with_me">共有されたもの</string>
+    <string name="upgrade_to_pro_card_description">Tasks.orgクラウド同期、家族・友人との共有、メールでタスク追加を可能にする</string>
+    <string name="shared_by">%sからの共有</string>
+    <string name="upgrade_friends_and_family">家族・友人</string>
+    <string name="upgrade_friends_and_family_description">共有リストに無料のゲスト5名。Apple Remindersで利用可能</string>
+    <string name="already_subscribed">すでに購読していますか？</string>
+    <string name="sign_in_subtitle">すでに購読しているか、招待されたゲストですか？</string>
 </resources>
