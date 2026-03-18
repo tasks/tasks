@@ -44,4 +44,12 @@
     <string name="sort_list">Lista</string>
     <string name="password_required">Salasana vaaditaan</string>
     <string name="caldav_home_set_not_found">Kotijoukkoa ei löytynyt</string>
+    <string name="wear_phone_update_required">Puhelimen päivitys vaaditaan</string>
+    <string name="wear_connecting_to_phone">Yhdistetään puhelimeen…</string>
+    <string name="enter_title">Syötä otsikko</string>
+    <string name="group_mode">Ryhmä</string>
+    <string name="sort_alphabetical">Aakkosjärjestyksessä</string>
+    <string name="sort_created">Luotu</string>
+    <string name="sort_modified">Muokattu</string>
+    <string name="all_done">Valmista!</string>
 </resources>
