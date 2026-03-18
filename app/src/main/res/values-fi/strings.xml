@@ -708,4 +708,17 @@
     <string name="widget_view_more_tasks">Lisää tehtäviä</string>
     <string name="import_failed">Tuonti epäonnistui</string>
     <string name="import_failed_message">Varmuuskopiota ei voitu lukea</string>
+    <string name="rmd_EPr_rmd_time_desc">Koko päivän tehtävien ilmoitukset näkyvät klo %1$s</string>
+    <string name="local_list_title">Tämä on paikallinen lista</string>
+    <string name="local_list_description">Tämän listan tehtävät tallennetaan vain tälle laitteelle. Yhdistä tili varmistaaksesi tietosi ja käyttääksesi niitä missä tahansa.</string>
+    <string name="default_reminder">Koko päivän tehtävät</string>
+    <string name="add_default_reminders">Lisää oletusmuistutus</string>
+    <string name="rmd_time_enabled_on">Lisää oletusmuistutus koko päivän tehtäville</string>
+    <string name="rmd_time_enabled_off">Älä lisää oletusmuistutusta koko päivän tehtäville</string>
+    <string name="upgrade_to_pro_card_description">Avaa Tasks.org-pilvisynkronointi, perhe- ja ystäväjako sekä sähköpostista tehtäväksi -toiminto</string>
+    <string name="supporter">Tukija</string>
+    <string name="name_your_price_blurb">Maksa haluamasi summa avataksesi teemat, kuvakkeet ja edistyneet synkronointiasetukset</string>
+    <string name="tasks_org_description">Sisältää perhe- ja ystäväjaon sekä sähköpostista tehtäväksi -toiminnon</string>
+    <string name="microsoft_selection_description_googleplay">Synkronoi työ-, koulu- tai henkilökohtaisen Microsoft tilin kanssa</string>
+    <string name="banner_subscription_required_title">Tilaus vaaditaan</string>
 </resources>
