@@ -12,8 +12,7 @@ import org.tasks.data.db.DbUtils
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.Notification
-import org.tasks.jobs.WorkManager
-import org.tasks.notifications.NotificationManager
+import org.tasks.notifications.Notifier
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -29,8 +28,7 @@ class AlarmService @Inject constructor(
     private val alarmDao: AlarmDao,
     private val taskDao: TaskDao,
     private val refreshBroadcaster: RefreshBroadcaster,
-    private val notificationManager: NotificationManager,
-    private val workManager: WorkManager,
+    private val notifier: Notifier,
     private val alarmCalculator: AlarmCalculator,
     private val preferences: Preferences,
 ) {
@@ -60,11 +58,11 @@ class AlarmService @Inject constructor(
     }
 
     suspend fun snooze(time: Long, taskIds: List<Long>) {
-        notificationManager.cancel(taskIds)
+        notifier.cancel(taskIds)
         alarmDao.deleteSnoozed(taskIds)
         alarmDao.insert(taskIds.map { Alarm(task = it, time = time, type = TYPE_SNOOZE) })
         taskDao.touch(taskIds)
-        workManager.triggerNotifications()
+        notifier.triggerNotifications()
     }
 
     suspend fun triggerAlarms(
