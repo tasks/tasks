@@ -129,7 +129,7 @@
     <string name="default_random_reminder_hourly">Ĉiuhore</string>
     <string name="default_random_reminder_disabled">Malŝaltitaj</string>
     <string name="rmd_EPr_defaultRemind_title">Hazardaj memorigiloj</string>
-    <string name="rmd_EPr_rmd_time_title">Memorigo-tempo</string>
+    <string name="rmd_EPr_rmd_time_title">Memorigo-horo</string>
     <string name="CFC_list_name">En listo…</string>
     <string name="CFC_gtasks_list_text">En Listo: \?</string>
     <string name="calendar_event_not_found">Kalendara evento ne trovita</string>
@@ -569,7 +569,7 @@
     <string name="filter_high_priority">Grava</string>
     <string name="filter_medium_priority">Meza prioritato</string>
     <string name="reset_sort_order">Restarigi ordigan ordon</string>
-    <string name="automatic_backups">Aŭtomata savkopio</string>
+    <string name="automatic_backups">Aŭtomate savkopii</string>
     <string name="android_auto_backup">Savkopia Servo de Android</string>
     <string name="last_backup">Lasta savkopio: %s</string>
     <string name="TPl_notification">Tempumiloj Aktivaj por %s!</string>
