@@ -3,6 +3,9 @@ package org.tasks.injection
 import android.app.NotificationManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
+import com.todoroo.astrid.alarms.AlarmCalculator
+import com.todoroo.astrid.alarms.AlarmService
+import com.todoroo.astrid.service.AndroidCleanup
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,9 +14,11 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.analytics.Reporting
+import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
@@ -21,6 +26,7 @@ import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.CaldavClientProviderImpl
 import org.tasks.caldav.FileStorage
+import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.VtodoCache
 import org.tasks.compose.drawer.DrawerConfiguration
 import org.tasks.data.dao.AlarmDao
@@ -41,17 +47,15 @@ import org.tasks.data.db.Database
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.PreferenceDrawerConfiguration
 import org.tasks.jobs.WorkManager
-import org.tasks.preferences.Preferences
-import org.tasks.preferences.TasksPreferences
-import org.tasks.auth.TasksServerEnvironment
-import org.tasks.caldav.TasksAccountDataRepository
-import org.tasks.security.AndroidKeyStoreEncryption
-import com.todoroo.astrid.service.AndroidCleanup
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
+import org.tasks.preferences.Preferences
+import org.tasks.preferences.TasksPreferences
+import org.tasks.reminders.Random
+import org.tasks.security.AndroidKeyStoreEncryption
+import org.tasks.security.KeyStoreEncryption
 import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskDeleter
-import org.tasks.security.KeyStoreEncryption
 import java.util.Locale
 import javax.inject.Singleton
 
@@ -210,8 +214,23 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun providesAppPreferences(preferences: org.tasks.preferences.Preferences): AppPreferences =
+    fun providesAppPreferences(preferences: Preferences): AppPreferences =
         preferences
+
+    @Provides
+    fun providesAlarmCalculator(preferences: AppPreferences): AlarmCalculator =
+        AlarmCalculator(Random(), runBlocking { preferences.defaultDueTime() })
+
+    @Provides
+    fun providesAlarmService(
+        alarmDao: AlarmDao,
+        taskDao: TaskDao,
+        refreshBroadcaster: RefreshBroadcaster,
+        notifier: Notifier,
+        alarmCalculator: AlarmCalculator,
+        preferences: AppPreferences,
+    ): AlarmService =
+        AlarmService(alarmDao, taskDao, refreshBroadcaster, notifier, alarmCalculator, preferences)
 
     @Provides
     fun providesTaskCleanup(impl: AndroidCleanup): TaskCleanup = impl

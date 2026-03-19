@@ -106,7 +106,7 @@ class TaskCompleter @Inject internal constructor(
         if (completed && notificationManager.currentInterruptionFilter == INTERRUPTION_FILTER_ALL) {
             preferences
                 .completionSound
-                ?.takeUnless { preferences.isCurrentlyQuietHours }
+                ?.takeUnless { preferences.isCurrentlyQuietHours() }
                 ?.let {
                     RingtoneManager
                         .getRingtone(context, it)

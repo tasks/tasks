@@ -59,8 +59,7 @@ class Preferences @JvmOverloads constructor(
 
     fun backButtonSavesTask(): Boolean = getBoolean(R.string.p_back_button_saves_task, false)
 
-    val isCurrentlyQuietHours: Boolean
-        get() {
+    override suspend fun isCurrentlyQuietHours(): Boolean {
             if (quietHoursEnabled()) {
                 val dateTime = DateTime()
                 val start = dateTime.withMillisOfDay(quietHoursStart)
@@ -74,7 +73,7 @@ class Preferences @JvmOverloads constructor(
             return false
         }
 
-    fun adjustForQuietHours(time: Long): Long {
+    override suspend fun adjustForQuietHours(time: Long): Long {
         if (quietHoursEnabled()) {
             val dateTime = DateTime(time)
             val start = dateTime.withMillisOfDay(quietHoursStart)
@@ -99,8 +98,8 @@ class Preferences @JvmOverloads constructor(
     override suspend fun isDefaultDueTimeEnabled(): Boolean =
         getBoolean(R.string.p_rmd_time_enabled, true)
 
-    val defaultDueTime: Int
-        get() = getInt(R.string.p_rmd_time, TimeUnit.HOURS.toMillis(18).toInt())
+    override suspend fun defaultDueTime(): Int =
+        getInt(R.string.p_rmd_time, TimeUnit.HOURS.toMillis(18).toInt())
 
     private val quietHoursStart: Int
         get() = getMillisPerDayPref(R.string.p_rmd_quietStart, R.integer.default_quiet_hours_start)

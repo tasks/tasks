@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.alarms
 
+import co.touchlab.kermit.Logger
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.TaskDao
@@ -13,24 +14,17 @@ import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.Notification
 import org.tasks.notifications.Notifier
-import org.tasks.preferences.Preferences
-import org.tasks.time.DateTime
+import org.tasks.preferences.AppPreferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import timber.log.Timber
-import javax.inject.Inject
+import org.tasks.time.startOfMinute
 
-/**
- * Provides operations for working with alerts
- *
- * @author Tim Su <tim></tim>@todoroo.com>
- */
-class AlarmService @Inject constructor(
+class AlarmService(
     private val alarmDao: AlarmDao,
     private val taskDao: TaskDao,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val notifier: Notifier,
     private val alarmCalculator: AlarmCalculator,
-    private val preferences: Preferences,
+    private val preferences: AppPreferences,
 ) {
     suspend fun getAlarms(taskId: Long): List<Alarm> = alarmDao.getAlarms(taskId)
 
@@ -68,7 +62,7 @@ class AlarmService @Inject constructor(
     suspend fun triggerAlarms(
         trigger: suspend (List<Notification>) -> Unit
     ): Long {
-        if (preferences.isCurrentlyQuietHours) {
+        if (preferences.isCurrentlyQuietHours()) {
             return preferences.adjustForQuietHours(currentTimeMillis())
         }
         val (overdue, _) = getAlarms()
@@ -95,6 +89,7 @@ class AlarmService @Inject constructor(
         val start = currentTimeMillis()
         val overdue = ArrayList<Notification>()
         val future = ArrayList<Notification>()
+        val nextMinute = currentTimeMillis().startOfMinute() + 60_000
         alarmDao.getActiveAlarms()
             .groupBy { it.task }
             .forEach { (taskId, alarms) ->
@@ -103,7 +98,7 @@ class AlarmService @Inject constructor(
                     alarmCalculator.toAlarmEntry(task, it)
                 }
                 val (now, later) = alarmEntries.partition {
-                    it.timestamp < DateTime().startOfMinute().plusMinutes(1).millis
+                    it.timestamp < nextMinute
                 }
                 later
                     .filter { it.type == TYPE_SNOOZE }
@@ -114,7 +109,7 @@ class AlarmService @Inject constructor(
                         later.minByOrNull { it.timestamp }?.let { future.add(it) }
                     }
             }
-        Timber.d("took ${currentTimeMillis() - start}ms overdue=${overdue.size} future=${future.size}")
+        Logger.d("AlarmService") { "took ${currentTimeMillis() - start}ms overdue=${overdue.size} future=${future.size}" }
         return overdue to future
     }
 
