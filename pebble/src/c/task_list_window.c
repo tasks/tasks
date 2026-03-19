@@ -8,19 +8,24 @@ static Window *s_window;
 static MenuLayer *s_menu_layer;
 static TextLayer *s_loading_layer;
 
-// Active item array (what the menu reads from)
+// Sliding window of items — represents s_num_items starting at s_window_start
+// within a full list of s_total_items
 static UiItem *s_items = NULL;
 static int s_items_capacity = 0;
 static int s_num_items = 0;
-static int s_total_items = 0;   // total available on phone
+static int s_total_items = 0;
+static int s_window_start = 0;  // position of s_items[0] in the full list
 static bool s_loading = false;
-static bool s_loading_more = false; // loading a subsequent page (not initial)
+
+// Maximum items to keep in the window
+#define MAX_WINDOW 100
 
 // Pending buffer for refresh (accumulated while old data stays visible)
 static UiItem *s_pending = NULL;
 static int s_pending_capacity = 0;
 static int s_pending_count = 0;
 static int s_pending_total = 0;
+static int s_pending_start = 0;  // window start for pending data
 static bool s_refreshing = false;
 static bool s_refresh_pending = false;
 static bool s_first_load = true;
@@ -38,8 +43,12 @@ static uint32_t s_filter_text_color = 0;
 static int s_expected_chunks = 0;
 static uint32_t s_received_chunk_mask = 0;
 static uint8_t s_request_txn = 0;
-static int s_page_base = 0; // s_num_items at start of page request
+static int s_page_base = 0;
 static AppTimer *s_chunk_timer = NULL;
+
+// Tracks whether current request is paging down (appending) or up (prepending)
+static bool s_paging_up = false;
+static int s_page_position = 0;  // position requested from the server
 
 // Fixed rows at top of list
 #define FILTER_ROW 0
@@ -60,7 +69,6 @@ static void show_loading(bool show);
 static void request_tasks_page(int position, int limit);
 static void page_complete(void);
 static void chunk_timeout_handler(void *data);
-static void request_next_page(void);
 static void on_filter_selected(const char *filter_id, const char *filter_name, uint32_t color, uint32_t text_color);
 static void retry_refresh_handler(void *data);
 
@@ -71,12 +79,20 @@ static void dictation_callback(DictationSession *session, DictationSessionStatus
                                char *transcription, void *context);
 #endif
 
+// Convert a list index (0-based in the full list) to a window index, or -1 if outside
+static int list_to_window(int list_idx) {
+    int w = list_idx - s_window_start;
+    if (w >= 0 && w < s_num_items) return w;
+    return -1;
+}
+
 static void save_selection(void) {
     s_saved_selection = menu_layer_get_selected_index(s_menu_layer);
-    int idx = (int)s_saved_selection.row - TASK_ROW_OFFSET;
-    if (idx >= 0 && idx < s_num_items) {
-        s_saved_id_high = s_items[idx].id_high;
-        s_saved_id_low = s_items[idx].id_low;
+    int list_idx = (int)s_saved_selection.row - TASK_ROW_OFFSET;
+    int w = list_to_window(list_idx);
+    if (w >= 0) {
+        s_saved_id_high = s_items[w].id_high;
+        s_saved_id_low = s_items[w].id_low;
     } else {
         s_saved_id_high = 0;
         s_saved_id_low = 0;
@@ -90,45 +106,49 @@ static void restore_selection(void) {
         return;
     }
 
-    // Find the saved item by ID and follow it — unless it crossed a
-    // section boundary (e.g., moved to completed section after being checked)
+    // Find the saved item by ID — follow it unless it crossed sections
     if (s_saved_id_high != 0 || s_saved_id_low != 0) {
-        // Determine which section the saved row was in (find nearest header above)
-        int saved_idx = (int)s_saved_selection.row - TASK_ROW_OFFSET;
-        int saved_section_header = -1;
-        for (int i = saved_idx; i >= 0; i--) {
-            if (s_items[i].type == UI_TYPE_HEADER) {
-                saved_section_header = i;
-                break;
+        int saved_list_idx = (int)s_saved_selection.row - TASK_ROW_OFFSET;
+        int saved_w = list_to_window(saved_list_idx);
+
+        // Find section header above the saved position
+        int saved_section = -1;
+        if (saved_w >= 0) {
+            for (int i = saved_w; i >= 0; i--) {
+                if (s_items[i].type == UI_TYPE_HEADER) {
+                    saved_section = i;
+                    break;
+                }
             }
         }
 
         for (int i = 0; i < s_num_items; i++) {
             if (s_items[i].id_high == s_saved_id_high &&
                 s_items[i].id_low == s_saved_id_low) {
-                // Find which section this item is in now
-                int new_section_header = -1;
+                // Find section header above the new position
+                int new_section = -1;
                 for (int j = i; j >= 0; j--) {
                     if (s_items[j].type == UI_TYPE_HEADER) {
-                        new_section_header = j;
+                        new_section = j;
                         break;
                     }
                 }
-                // If the item moved to a different section, stay in place
-                if (new_section_header != saved_section_header) {
-                    break; // fall through to row-based restore
+                // Different section — stay in place
+                if (new_section != saved_section) {
+                    break;
                 }
                 // Same section — follow it
+                uint16_t new_row = (uint16_t)(TASK_ROW_OFFSET + s_window_start + i);
                 menu_layer_set_selected_index(s_menu_layer,
-                    (MenuIndex){0, (uint16_t)(TASK_ROW_OFFSET + i)},
-                    MenuRowAlignNone, false);
+                    (MenuIndex){0, new_row}, MenuRowAlignNone, false);
                 return;
             }
         }
     }
-    // Fallback: keep same row position, clamped
-    uint16_t max_row = s_num_items > 0
-        ? (uint16_t)(TASK_ROW_OFFSET - 1 + s_num_items)
+
+    // Fallback: keep same row, clamped
+    uint16_t max_row = s_total_items > 0
+        ? (uint16_t)(TASK_ROW_OFFSET - 1 + s_total_items)
         : (uint16_t)FILTER_ROW;
     if (s_saved_selection.row > max_row) {
         s_saved_selection.row = max_row;
@@ -161,6 +181,7 @@ static void free_items(void) {
     s_items = NULL;
     s_items_capacity = 0;
     s_num_items = 0;
+    s_window_start = 0;
 }
 
 static void free_pending(void) {
@@ -169,14 +190,15 @@ static void free_pending(void) {
     s_pending_capacity = 0;
     s_pending_count = 0;
     s_pending_total = 0;
+    s_pending_start = 0;
 }
 
 // MenuLayer callbacks
 
 static uint16_t get_num_rows(MenuLayer *menu_layer, uint16_t section_index, void *data) {
     if (s_loading && s_num_items == 0) return 0; // hidden during initial load
-    if (s_num_items > 0) return (uint16_t)(TASK_ROW_OFFSET + s_num_items);
-    if (s_refreshing) return (uint16_t)TASK_ROW_OFFSET; // don't show "No tasks" during refresh
+    if (s_total_items > 0) return (uint16_t)(TASK_ROW_OFFSET + s_total_items);
+    if (s_refreshing) return (uint16_t)TASK_ROW_OFFSET;
     return (uint16_t)(TASK_ROW_OFFSET + 1); // fixed rows + "No tasks"
 }
 
@@ -185,12 +207,13 @@ static int16_t get_cell_height(MenuLayer *menu_layer, MenuIndex *cell_index, voi
     if (cell_index->row == ADD_ROW) return 28;
 #endif
     if (cell_index->row == FILTER_ROW) return 28;
-    if (s_num_items == 0) return 44; // "No tasks" row
-    int item_idx = cell_index->row - TASK_ROW_OFFSET;
-    if (item_idx >= 0 && item_idx < s_num_items) {
-        return s_items[item_idx].type == UI_TYPE_HEADER ? 28 : 44;
+    if (s_total_items == 0) return 44; // "No tasks" row
+    int list_idx = cell_index->row - TASK_ROW_OFFSET;
+    int w = list_to_window(list_idx);
+    if (w >= 0) {
+        return s_items[w].type == UI_TYPE_HEADER ? 28 : 44;
     }
-    return 44;
+    return 44; // placeholder row — matches task row height
 }
 
 static bool is_row_selected(MenuIndex *cell_index) {
@@ -212,7 +235,6 @@ static void draw_filter_row(GContext *ctx, const Layer *cell_layer, bool selecte
         }
         graphics_fill_rect(ctx, bounds, 0, GCornerNone);
     }
-    // Selected: MenuLayer fills with highlight color (CobaltBlue)
     if (selected) {
         graphics_context_set_text_color(ctx, GColorWhite);
     } else if (s_filter_text_color != 0) {
@@ -256,17 +278,28 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
 
     GRect bounds = layer_get_bounds(cell_layer);
 
-    if (s_num_items == 0) {
+    if (s_total_items == 0) {
         menu_cell_basic_draw(ctx, cell_layer, "No tasks", NULL, NULL);
         return;
     }
 
-    int item_idx = cell_index->row - TASK_ROW_OFFSET;
-    if (item_idx >= s_num_items) return;
-    UiItem *item = &s_items[item_idx];
+    int list_idx = cell_index->row - TASK_ROW_OFFSET;
+    int w = list_to_window(list_idx);
+    if (w < 0) {
+        // Outside the loaded window — draw placeholder
+        GFont font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
+        graphics_context_set_text_color(ctx,
+            PBL_IF_COLOR_ELSE(GColorDarkGray, GColorBlack));
+        graphics_draw_text(ctx, "...", font,
+                           GRect(4, 5, bounds.size.w - 8, bounds.size.h - 5),
+                           GTextOverflowModeTrailingEllipsis,
+                           GTextAlignmentCenter, NULL);
+        return;
+    }
+
+    UiItem *item = &s_items[w];
 
     if (item->type == UI_TYPE_HEADER) {
-        // Section header with collapse indicator
         char header[MAX_TITLE_LEN + 4];
         snprintf(header, sizeof(header), "%s %s",
                  item->collapsed ? ">" : "v", item->title);
@@ -278,7 +311,6 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
             graphics_context_set_fill_color(ctx, GColorLightGray);
             graphics_fill_rect(ctx, bounds, 0, GCornerNone);
         }
-        // Selected: MenuLayer highlight (CobaltBlue) shows through
         graphics_context_set_text_color(ctx, selected ? GColorWhite : GColorBlack);
 #else
         graphics_context_set_text_color(ctx, selected ? GColorWhite : GColorBlack);
@@ -293,13 +325,11 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
         int x_start = PBL_IF_COLOR_ELSE(padding, 4);
         bool has_subtitle = item->extra[0] != '\0';
 
-        // Vertical layout: center content block in row
         int title_h = 22;
         int sub_h = has_subtitle ? 18 : 0;
         int content_h = title_h + sub_h;
         int y_off = (bounds.size.h - content_h) / 2;
 
-        // Draw checkbox colored by priority
         int cb_size = 14;
         int cb_x = x_start;
         int cb_y = y_off + (title_h - cb_size) / 2;
@@ -312,7 +342,6 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
         graphics_draw_rect(ctx, GRect(cb_x, cb_y, cb_size, cb_size));
 
         if (item->completed) {
-            // Draw checkmark
             graphics_context_set_stroke_width(ctx, 2);
             graphics_draw_line(ctx,
                 GPoint(cb_x + 3, cb_y + cb_size / 2),
@@ -323,7 +352,6 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
         }
         graphics_context_set_stroke_width(ctx, 1);
 
-        // Title text
         int text_x = cb_x + cb_size + padding;
         int text_w = bounds.size.w - text_x - 4;
         char display[80];
@@ -339,13 +367,12 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
                 item->completed ? GColorDarkGray : GColorBlack,
                 GColorBlack);
         graphics_context_set_text_color(ctx, text_color);
-        int text_y = y_off - 1; // compensate for font top padding
+        int text_y = y_off - 1;
         graphics_draw_text(ctx, display, font,
                            GRect(text_x, text_y, text_w, title_h + 4),
                            GTextOverflowModeTrailingEllipsis,
                            GTextAlignmentLeft, NULL);
 
-        // Strikethrough for completed tasks
         if (item->completed) {
             GSize text_size = graphics_text_layout_get_content_size(
                 display, font,
@@ -361,7 +388,6 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
                 GPoint(text_x + strike_w, strike_y));
         }
 
-        // Subtitle (timestamp)
         if (has_subtitle) {
             GFont small_font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
             GColor sub_color = selected ? GColorWhite :
@@ -377,13 +403,30 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
 
 static void selection_changed(MenuLayer *menu_layer, MenuIndex new_index,
                               MenuIndex old_index, void *data) {
-    // Prefetch next page when scrolling near the bottom
-    int item_idx = (int)new_index.row - TASK_ROW_OFFSET;
-    if (s_num_items > PREFETCH_THRESHOLD &&
-        item_idx >= (s_num_items - PREFETCH_THRESHOLD) &&
-        s_num_items < s_total_items &&
-        !s_loading_more && !s_refreshing) {
-        request_next_page();
+    if (s_loading || s_refreshing) return;
+
+    int list_idx = (int)new_index.row - TASK_ROW_OFFSET;
+    int window_end = s_window_start + s_num_items;
+
+    // Page down: near bottom of window and more items exist below
+    if (list_idx >= window_end - PREFETCH_THRESHOLD &&
+        window_end < s_total_items &&
+        !s_loading) {
+        int pos = window_end;
+        int remaining = s_total_items - pos;
+        int limit = remaining < PAGE_SIZE ? remaining : PAGE_SIZE;
+        s_paging_up = false;
+        request_tasks_page(pos, limit);
+    }
+
+    // Page up: near top of window and items exist above
+    if (list_idx < s_window_start + PREFETCH_THRESHOLD &&
+        s_window_start > 0 &&
+        !s_loading) {
+        int limit = s_window_start < PAGE_SIZE ? s_window_start : PAGE_SIZE;
+        int pos = s_window_start - limit;
+        s_paging_up = true;
+        request_tasks_page(pos, limit);
     }
 }
 
@@ -400,10 +443,11 @@ static void select_click(MenuLayer *menu_layer, MenuIndex *cell_index, void *dat
         return;
     }
 
-    int item_idx = cell_index->row - TASK_ROW_OFFSET;
-    if (item_idx < 0 || item_idx >= s_num_items) return;
+    int list_idx = cell_index->row - TASK_ROW_OFFSET;
+    int w = list_to_window(list_idx);
+    if (w < 0) return;
 
-    UiItem *item = &s_items[item_idx];
+    UiItem *item = &s_items[w];
 
     if (item->type == UI_TYPE_HEADER) {
         protocol_send_toggle_group(item->id_high, item->id_low, !item->collapsed);
@@ -421,10 +465,11 @@ static void select_long_click(MenuLayer *menu_layer, MenuIndex *cell_index, void
     }
     if (cell_index->row < TASK_ROW_OFFSET) return;
 
-    int item_idx = cell_index->row - TASK_ROW_OFFSET;
-    if (item_idx < 0 || item_idx >= s_num_items) return;
+    int list_idx = cell_index->row - TASK_ROW_OFFSET;
+    int w = list_to_window(list_idx);
+    if (w < 0) return;
 
-    UiItem *item = &s_items[item_idx];
+    UiItem *item = &s_items[w];
 
     if (item->type == UI_TYPE_TASK) {
         item->completed = !item->completed;
@@ -463,8 +508,9 @@ static void on_filter_selected(const char *filter_id, const char *filter_name, u
     s_filter_color = color;
     s_filter_text_color = text_color;
     save_filter();
-    // Full reload from position 0 with new filter
-    request_tasks_page(0, PAGE_SIZE);
+    s_first_load = true;
+    s_paging_up = false;
+    request_tasks_page(0, INITIAL_PAGE_SIZE);
 }
 
 // Window handlers
@@ -493,7 +539,6 @@ static void window_load(Window *window) {
 
     layer_add_child(window_layer, menu_layer_get_layer(s_menu_layer));
 
-    // Loading indicator
     s_loading_layer = text_layer_create(
         GRect(0, bounds.size.h / 2 - 15, bounds.size.w, 30));
     text_layer_set_text(s_loading_layer, "Loading...");
@@ -502,11 +547,11 @@ static void window_load(Window *window) {
                         fonts_get_system_font(FONT_KEY_GOTHIC_18));
     layer_add_child(window_layer, text_layer_get_layer(s_loading_layer));
 
-    // Request first page
     free_items();
     s_total_items = 0;
     s_first_load = true;
-    request_tasks_page(0, PAGE_SIZE);
+    s_paging_up = false;
+    request_tasks_page(0, INITIAL_PAGE_SIZE);
 }
 
 static void window_unload(Window *window) {
@@ -537,25 +582,24 @@ static void show_loading(bool show) {
 }
 
 static void request_tasks_page(int position, int limit) {
+    if (s_loading) return; // already loading
+
     s_expected_chunks = 0;
     s_received_chunk_mask = 0;
+    s_page_position = position;
+    s_loading = true;
 
     if (s_chunk_timer) {
         app_timer_cancel(s_chunk_timer);
         s_chunk_timer = NULL;
     }
 
-    s_page_base = s_num_items;
-
-    if (position == 0) {
+    if (s_num_items == 0 && !s_refreshing) {
+        // Initial load
         free_items();
         s_total_items = 0;
-        s_page_base = 0;
-        s_loading_more = false;
+        s_window_start = position;
         show_loading(true);
-    } else {
-        // Loading more
-        s_loading_more = true;
     }
 
     bool sent = protocol_send_get_tasks(
@@ -567,24 +611,28 @@ static void request_tasks_page(int position, int limit) {
         s_request_txn = protocol_get_active_transaction_id();
         s_chunk_timer = app_timer_register(5000, chunk_timeout_handler, NULL);
     } else {
-        // Outbox busy — revert state and retry after outbox clears
-        if (position == 0) {
+        if (s_num_items == 0) {
             show_loading(false);
         }
         s_loading = false;
-        s_loading_more = false;
         app_timer_register(200, retry_refresh_handler, NULL);
     }
 }
 
-static void request_next_page(void) {
-    if (s_loading_more || s_loading || s_num_items >= s_total_items) {
-        return;
+// Trim the window to MAX_WINDOW items, dropping from the far end
+static void trim_window(bool dropped_top) {
+    if (s_num_items <= MAX_WINDOW) return;
+
+    int excess = s_num_items - MAX_WINDOW;
+    if (dropped_top) {
+        // Drop from the top (we paged down)
+        memmove(s_items, &s_items[excess], MAX_WINDOW * sizeof(UiItem));
+        s_window_start += excess;
+        s_num_items = MAX_WINDOW;
+    } else {
+        // Drop from the bottom (we paged up)
+        s_num_items = MAX_WINDOW;
     }
-    int remaining = s_total_items - s_num_items;
-    int limit = remaining < PAGE_SIZE ? remaining : PAGE_SIZE;
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "Fetching next page: pos=%d limit=%d", s_num_items, limit);
-    request_tasks_page(s_num_items, limit);
 }
 
 static void page_complete(void) {
@@ -594,7 +642,7 @@ static void page_complete(void) {
     }
 
     if (s_refreshing) {
-        // If we timed out before receiving any chunks, keep old data and retry
+        // If we timed out before receiving any chunks, keep old data
         if (s_pending_count == 0 && s_pending_total != 0) {
             free_pending();
             s_refreshing = false;
@@ -611,12 +659,13 @@ static void page_complete(void) {
         s_items_capacity = s_pending_capacity;
         s_num_items = s_pending_count;
         s_total_items = s_pending_total;
+        s_window_start = s_pending_start;
 
-        // Detach pending (now owned by s_items)
         s_pending = NULL;
         s_pending_capacity = 0;
         s_pending_count = 0;
         s_pending_total = 0;
+        s_pending_start = 0;
         s_refreshing = false;
 
         menu_layer_reload_data(s_menu_layer);
@@ -629,16 +678,16 @@ static void page_complete(void) {
         return;
     }
 
-    bool was_initial = !s_loading_more;
-    s_loading_more = false;
+    // Paging or initial load completed
+    s_loading = false;
 
-    if (was_initial) {
+    if (s_first_load) {
         show_loading(false);
     }
 
     menu_layer_reload_data(s_menu_layer);
 
-    if (was_initial && s_first_load) {
+    if (s_first_load) {
         s_first_load = false;
         menu_layer_set_selected_index(s_menu_layer,
                                       (MenuIndex){0, FILTER_ROW},
@@ -653,7 +702,7 @@ static void page_complete(void) {
 
 static void chunk_timeout_handler(void *data) {
     s_chunk_timer = NULL;
-    if (s_loading || s_loading_more || s_refreshing) {
+    if (s_loading || s_refreshing) {
         APP_LOG(APP_LOG_LEVEL_WARNING, "Chunk timeout, showing %d items",
                 s_refreshing ? s_pending_count : s_num_items);
         page_complete();
@@ -676,12 +725,11 @@ void task_list_window_push(void) {
 }
 
 void task_list_window_refresh(void) {
-    if (s_loading || s_loading_more || s_refreshing) {
+    if (s_loading || s_refreshing) {
         s_refresh_pending = true;
         return;
     }
 
-    // If we already have data, do a background refresh
     if (s_num_items > 0) {
         save_selection();
 
@@ -694,8 +742,16 @@ void task_list_window_refresh(void) {
             s_chunk_timer = NULL;
         }
 
+        // Refresh centered on the current selection
+        MenuIndex sel = menu_layer_get_selected_index(s_menu_layer);
+        int sel_list_idx = (int)sel.row - TASK_ROW_OFFSET;
+        int refresh_start = sel_list_idx - INITIAL_PAGE_SIZE / 2;
+        if (refresh_start < 0) refresh_start = 0;
+        int refresh_limit = INITIAL_PAGE_SIZE;
+        s_pending_start = refresh_start;
+
         bool sent = protocol_send_get_tasks(
-            s_filter_id[0] ? s_filter_id : NULL, 0, PAGE_SIZE,
+            s_filter_id[0] ? s_filter_id : NULL, refresh_start, refresh_limit,
             settings_get_sort_mode(), settings_get_group_mode(),
             settings_get_show_hidden(), settings_get_show_completed());
 
@@ -704,12 +760,10 @@ void task_list_window_refresh(void) {
             s_request_txn = protocol_get_active_transaction_id();
             s_chunk_timer = app_timer_register(5000, chunk_timeout_handler, NULL);
         } else {
-            // Outbox busy — retry after outbox clears
             app_timer_register(200, retry_refresh_handler, NULL);
         }
     } else {
-        // No existing data -- normal initial load
-        request_tasks_page(0, PAGE_SIZE);
+        request_tasks_page(0, INITIAL_PAGE_SIZE);
     }
 }
 
@@ -719,7 +773,7 @@ void task_list_handle_tasks_response(DictionaryIterator *iter) {
         return;
     }
 
-    if (!s_loading && !s_loading_more && !s_refreshing) {
+    if (!s_loading && !s_refreshing) {
         return;
     }
 
@@ -729,13 +783,11 @@ void task_list_handle_tasks_response(DictionaryIterator *iter) {
     Tuple *chunk_index_t = dict_find(iter, KEY_CHUNK_INDEX);
     int chunk_index = chunk_index_t ? (int)chunk_index_t->value->uint32 : 0;
 
-    // Skip already-received chunks (handles duplicate broadcasts)
     if (s_received_chunk_mask & (1 << chunk_index)) {
         return;
     }
     s_received_chunk_mask |= (1 << chunk_index);
 
-    // Position items by chunk index, not by appending
     int chunk_offset = chunk_index * CHUNK_SIZE;
 
     if (s_refreshing) {
@@ -762,32 +814,62 @@ void task_list_handle_tasks_response(DictionaryIterator *iter) {
             s_total_items = (int)total_t->value->uint32;
         }
 
-        // For pagination (loading_more), offset relative to page start
-        int abs_offset = s_page_base + chunk_offset;
+        if (s_paging_up) {
+            // Accumulate page-up chunks into pending buffer, prepend on complete
+            int needed = chunk_offset + CHUNK_SIZE;
+            if (!ensure_capacity_for(&s_pending, &s_pending_capacity, needed)) {
+                page_complete();
+                return;
+            }
+            int space = s_pending_capacity - chunk_offset;
+            int parsed = protocol_parse_items(iter, &s_pending[chunk_offset], space);
+            int end = chunk_offset + parsed;
+            if (end > s_pending_count) {
+                s_pending_count = end;
+            }
+        } else {
+            // Append: items go after the current window
+            int abs_offset = (s_page_position - s_window_start) + chunk_offset;
+            if (abs_offset < 0) abs_offset = 0;
 
-        int needed = abs_offset + CHUNK_SIZE;
-        if (!ensure_capacity_for(&s_items, &s_items_capacity, needed)) {
-            page_complete();
-            return;
-        }
+            int needed = abs_offset + CHUNK_SIZE;
+            if (!ensure_capacity_for(&s_items, &s_items_capacity, needed)) {
+                page_complete();
+                return;
+            }
 
-        int space = s_items_capacity - abs_offset;
-        int parsed = protocol_parse_items(iter, &s_items[abs_offset], space);
-        int end = abs_offset + parsed;
-        if (end > s_num_items) {
-            s_num_items = end;
+            int space = s_items_capacity - abs_offset;
+            int parsed = protocol_parse_items(iter, &s_items[abs_offset], space);
+            int end = abs_offset + parsed;
+            if (end > s_num_items) {
+                s_num_items = end;
+            }
+
+            trim_window(true); // drop from top if too large
         }
     }
 
-    // Reset chunk timeout
     if (s_chunk_timer) {
         app_timer_cancel(s_chunk_timer);
     }
     s_chunk_timer = app_timer_register(5000, chunk_timeout_handler, NULL);
 
-    // Check if all expected chunks received
     uint32_t expected_mask = ((uint32_t)1 << s_expected_chunks) - 1;
     if ((s_received_chunk_mask & expected_mask) == expected_mask) {
+        // For page-up, prepend accumulated pending items before existing items
+        if (s_paging_up && !s_refreshing && s_pending_count > 0) {
+            int total = s_pending_count + s_num_items;
+            if (ensure_capacity_for(&s_items, &s_items_capacity, total)) {
+                // Shift existing items right to make room
+                memmove(&s_items[s_pending_count], s_items, s_num_items * sizeof(UiItem));
+                // Copy pending items to the front
+                memcpy(s_items, s_pending, s_pending_count * sizeof(UiItem));
+                s_num_items = total;
+                s_window_start = s_page_position;
+                trim_window(false); // drop from bottom if too large
+            }
+            free_pending();
+        }
         page_complete();
     }
 }
@@ -805,7 +887,6 @@ void task_list_handle_save_response(DictionaryIterator *iter) {
 }
 
 void task_list_handle_toggle_response(DictionaryIterator *iter) {
-    // Toggle doesn't modify DB, so phone won't send MSG_REFRESH — refresh here
     task_list_window_refresh();
 }
 

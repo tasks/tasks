@@ -104,7 +104,8 @@
 // Configuration
 #define CHUNK_SIZE          5
 #define PAGE_SIZE           10
-#define PREFETCH_THRESHOLD  3
+#define INITIAL_PAGE_SIZE   15
+#define PREFETCH_THRESHOLD  5
 #define MAX_LISTS           30
 #define MAX_TITLE_LEN       51
 #define MAX_EXTRA_LEN       21
