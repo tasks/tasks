@@ -379,6 +379,8 @@
   <string name="p_last_review_request">last_review_request</string>
   <string name="p_last_subscribe_request">last_subscribe_request</string>
   <string name="p_backups_enabled">backups_enabled</string>
+  <string name="p_backups_encryption_enabled">backups_encryption_enabled</string>
+  <string name="p_backups_encryption_password">backups_encryption_password</string>
   <string name="p_backups_ignore_warnings">backups_ignore_warnings</string>
   <string name="p_backups_android_backup_enabled">backups_android_backup_enabled</string>
   <string name="p_backups_android_backup_last">backups_android_backup_last</string>

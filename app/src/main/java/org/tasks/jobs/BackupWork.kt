@@ -46,8 +46,17 @@ class BackupWork @AssistedInject constructor(
             Timber.e(e)
         }
         try {
+            val password = if (preferences.getBoolean(R.string.p_backups_encryption_enabled, false)) {
+                preferences.getStringValue(R.string.p_backups_encryption_password)
+            } else {
+                null
+            }
             tasksJsonExporter.exportTasks(
-                    context, TasksJsonExporter.ExportType.EXPORT_TYPE_SERVICE, null)
+                context = context,
+                exportType = TasksJsonExporter.ExportType.EXPORT_TYPE_SERVICE,
+                progressDialog = null,
+                password = password,
+            )
         } catch (e: Exception) {
             Timber.e(e)
         }

@@ -7,18 +7,25 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import org.tasks.R
@@ -39,11 +46,13 @@ fun ImportTasksDialog(
 
     val isDone = state is ImportTasksViewModel.ImportState.Complete ||
             state is ImportTasksViewModel.ImportState.Error
+    val isPasswordRequired = state is ImportTasksViewModel.ImportState.PasswordRequired
+    var password by remember { mutableStateOf("") }
 
     AlertDialog(
-        onDismissRequest = { /* non-dismissable while importing */ },
+        onDismissRequest = { if (isDone || isPasswordRequired) onFinished() },
         properties = DialogProperties(
-            dismissOnBackPress = isDone,
+            dismissOnBackPress = isDone || isPasswordRequired,
             dismissOnClickOutside = false,
         ),
         title = {
@@ -52,6 +61,7 @@ fun ImportTasksDialog(
                     when (state) {
                         is ImportTasksViewModel.ImportState.Complete -> R.string.import_summary_title
                         is ImportTasksViewModel.ImportState.Error -> R.string.import_failed
+                        is ImportTasksViewModel.ImportState.PasswordRequired -> R.string.encrypted_backup
                         else -> R.string.backup_BAc_import
                     }
                 )
@@ -76,6 +86,16 @@ fun ImportTasksDialog(
                         )
                     }
                 }
+                is ImportTasksViewModel.ImportState.PasswordRequired -> {
+                    OutlinedTextField(
+                        value = password,
+                        onValueChange = { password = it },
+                        label = { Text(stringResource(R.string.password)) },
+                        visualTransformation = PasswordVisualTransformation(),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                        singleLine = true
+                    )
+                }
                 is ImportTasksViewModel.ImportState.Complete -> {
                     Text(text = formatSummary(context, currentState.result))
                 }
@@ -91,6 +111,19 @@ fun ImportTasksDialog(
                     onFinished()
                 }) {
                     Text(text = stringResource(R.string.ok))
+                }
+            } else if (isPasswordRequired) {
+                Button(onClick = {
+                    viewModel.startImport(uri, password)
+                }) {
+                    Text(text = stringResource(R.string.ok))
+                }
+            }
+        },
+        dismissButton = {
+            if (isPasswordRequired) {
+                Button(onClick = onFinished) {
+                    Text(text = stringResource(R.string.cancel))
                 }
             }
         }

@@ -4,10 +4,6 @@ import android.content.Context
 import android.net.Uri
 import android.util.JsonReader
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Alarm
-import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
-import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
-import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.service.Upgrade_13_11.Companion.migrateLegacyIcon
 import com.todoroo.astrid.service.Upgrade_13_2
@@ -22,9 +18,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.analytics.Firebase
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.GoogleTaskAccount
 import org.tasks.data.GoogleTaskList
@@ -38,6 +34,10 @@ import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskAttachmentDao
 import org.tasks.data.dao.TaskListMetadataDao
 import org.tasks.data.dao.UserActivityDao
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
+import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
+import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.entity.Attachment
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
@@ -81,18 +81,20 @@ class TasksJsonImporter @Inject constructor(
     private val vtodoCache: VtodoCache,
     private val filterCriteriaProvider: FilterCriteriaProvider,
     private val firebase: Firebase,
+    private val backupEncryptionHelper: BackupEncryptionHelper,
 ) {
     private val result = ImportResult()
 
     suspend fun importTasks(
         context: Context,
         backupFile: Uri?,
-        onProgress: (suspend (String) -> Unit)? = null
+        password: String? = null,
+        onProgress: (suspend (String) -> Unit)? = null,
     ): ImportResult = withContext(Dispatchers.IO) {
         Timber.d("Importing backup file $backupFile")
         try {
-            val version = importMetadata(context, backupFile)
-            importTasks(context, backupFile, onProgress, version)
+            val version = importMetadata(context, backupFile, password)
+            importTasks(context, backupFile, version, password, onProgress)
             if (version < Upgrader.V8_2) {
                 val themeIndex = preferences.getInt(R.string.p_theme_color, 7)
                 preferences.setInt(
@@ -130,13 +132,15 @@ class TasksJsonImporter @Inject constructor(
     private suspend fun importMetadata(
         context: Context,
         backupFile: Uri?,
+        password: String?
     ): Int {
-        val `is`: InputStream? = try {
-            context.contentResolver.openInputStream(backupFile!!)
+        val `is`: InputStream = try {
+            val baseIs = context.contentResolver.openInputStream(backupFile!!)!!
+            if (password != null) backupEncryptionHelper.decrypt(baseIs, password) else baseIs
         } catch (e: FileNotFoundException) {
             throw IllegalStateException(e)
         }
-        val bufferedReader = `is`!!.bufferedReader(Charsets.UTF_8)
+        val bufferedReader = `is`.bufferedReader(Charsets.UTF_8)
         val reader = JsonReader(bufferedReader)
         reader.isLenient = true
         val ignoreKeys = ignorePrefs.map { context.getString(it) }
@@ -280,15 +284,17 @@ class TasksJsonImporter @Inject constructor(
     private suspend fun importTasks(
         context: Context,
         backupFile: Uri?,
-        onProgress: (suspend (String) -> Unit)?,
         version: Int,
+        password: String?,
+        onProgress: (suspend (String) -> Unit)?,
     ) {
-        val `is`: InputStream? = try {
-            context.contentResolver.openInputStream(backupFile!!)
+        val `is`: InputStream = try {
+            val baseIs = context.contentResolver.openInputStream(backupFile!!)!!
+            if (password != null) backupEncryptionHelper.decrypt(baseIs, password) else baseIs
         } catch (e: FileNotFoundException) {
             throw IllegalStateException(e)
         }
-        val bufferedReader = `is`!!.bufferedReader(Charsets.UTF_8)
+        val bufferedReader = `is`.bufferedReader(Charsets.UTF_8)
         val reader = JsonReader(bufferedReader)
         reader.isLenient = true
         reader.beginObject()
