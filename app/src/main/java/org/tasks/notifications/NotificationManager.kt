@@ -440,7 +440,7 @@ class NotificationManager @Inject constructor(
     }
 
     @SuppressLint("MissingPermission")
-    suspend fun updateTimerNotification() {
+    override suspend fun updateTimerNotification() {
         if (!permissionChecker.hasNotificationPermission()) {
             return
         }

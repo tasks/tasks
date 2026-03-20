@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.todoroo.astrid.alarms.AlarmCalculator
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.service.AndroidCleanup
+import com.todoroo.astrid.timers.TimerPlugin
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -231,6 +232,12 @@ class ApplicationModule {
         preferences: AppPreferences,
     ): AlarmService =
         AlarmService(alarmDao, taskDao, refreshBroadcaster, notifier, alarmCalculator, preferences)
+
+    @Provides
+    fun providesTimerPlugin(
+        notifier: Notifier,
+        taskDao: TaskDao,
+    ) = TimerPlugin(notifier, taskDao)
 
     @Provides
     fun providesTaskCleanup(impl: AndroidCleanup): TaskCleanup = impl

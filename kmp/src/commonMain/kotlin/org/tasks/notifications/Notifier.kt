@@ -6,4 +6,6 @@ interface Notifier {
     suspend fun cancel(ids: Iterable<Long>)
 
     fun triggerNotifications()
+
+    suspend fun updateTimerNotification()
 }
