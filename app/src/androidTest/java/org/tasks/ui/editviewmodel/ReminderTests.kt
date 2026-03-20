@@ -1,7 +1,7 @@
 package org.tasks.ui.editviewmodel
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.service.TaskCreator.Companion.setDefaultReminders
+import org.tasks.data.setDefaultReminders
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.coroutines.runBlocking

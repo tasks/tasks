@@ -1,9 +1,8 @@
 package org.tasks.caldav
 
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.service.TaskCreator
-import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
-import com.todoroo.astrid.service.TaskCreator.Companion.setDefaultReminders
+import org.tasks.data.getDefaultAlarms
+import org.tasks.data.setDefaultReminders
 import net.fortuna.ical4j.model.DateTime
 import net.fortuna.ical4j.model.TimeZoneRegistryFactory
 import net.fortuna.ical4j.model.Parameter
@@ -19,7 +18,7 @@ import net.fortuna.ical4j.model.property.Geo
 import net.fortuna.ical4j.model.property.RelatedTo
 import net.fortuna.ical4j.model.property.Status
 import net.fortuna.ical4j.model.property.XProperty
-import org.tasks.BuildConfig
+import org.tasks.IS_DEBUG
 import org.tasks.caldav.GeoUtils.equalish
 import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.GeoUtils.toLikeString
@@ -60,24 +59,22 @@ import org.tasks.time.DateTimeUtils.toDate
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
 import org.tasks.time.startOfMinute
-import timber.log.Timber
+import co.touchlab.kermit.Logger
 import java.io.ByteArrayOutputStream
 import java.io.StringReader
 import java.text.ParseException
 import java.util.TimeZone
 import java.util.regex.Pattern
-import javax.inject.Inject
 import kotlin.math.max
 import kotlin.math.min
 
 @Suppress("ClassName")
-class iCalendar @Inject constructor(
+class iCalendar(
     private val tagDataDao: TagDataDao,
     private val preferences: AppPreferences,
     private val locationDao: LocationDao,
     private val geocoder: Geocoder,
     private val locationService: LocationService,
-    private val taskCreator: TaskCreator,
     private val tagDao: TagDao,
     private val taskDao: TaskDao,
     private val taskSaver: TaskSaver,
@@ -121,7 +118,7 @@ class iCalendar @Inject constructor(
                     locationDao.update(place)
                 }
             } catch (e: Exception) {
-                Timber.e(e)
+                Logger.e(e) { e.message.orEmpty() }
             }
         }
         val existing = locationDao.getGeofences(taskId)
@@ -169,7 +166,7 @@ class iCalendar @Inject constructor(
                 remoteModel = fromVtodo(vtodo)
             }
         } catch (e: java.lang.Exception) {
-            Timber.e(e)
+            Logger.e(e) { e.message.orEmpty() }
         }
         if (remoteModel == null) {
             remoteModel = Task()
@@ -188,7 +185,7 @@ class iCalendar @Inject constructor(
         val categories = remoteModel.categories
         categories.clear()
         categories.addAll(tagDataDao.getTagDataForTask(task.id).map { it.name!! })
-        if (BuildConfig.DEBUG && caldavTask.remoteId.isNullOrBlank()) {
+        if (IS_DEBUG && caldavTask.remoteId.isNullOrBlank()) {
             throw IllegalStateException()
         }
         remoteModel.uid = caldavTask.remoteId
@@ -222,9 +219,11 @@ class iCalendar @Inject constructor(
         }
         val task = existing?.task
             ?.let { taskDao.fetch(it) }
-            ?: taskCreator.createWithValues("").apply {
-                readOnly = calendar.readOnly()
-                taskDao.createNew(this)
+            ?: org.tasks.data.entity.Task(
+                readOnly = calendar.readOnly(),
+                priority = preferences.defaultPriority(),
+            ).also {
+                taskDao.createNew(it)
             }
         val caldavTask =
             existing
@@ -291,10 +290,10 @@ class iCalendar @Inject constructor(
         }
         if (isNew) {
             caldavDao.insert(caldavTask)
-            Timber.d("NEW %s", caldavTask)
+            Logger.d("iCalendar") { "NEW $caldavTask" }
         } else {
             caldavDao.update(caldavTask)
-            Timber.d("UPDATE %s", caldavTask)
+            Logger.d("iCalendar") { "UPDATE $caldavTask" }
         }
     }
 
@@ -313,7 +312,7 @@ class iCalendar @Inject constructor(
             }
         }
 
-        internal val IS_APPLE_SORT_ORDER = { x: Property? -> x?.name.equals(APPLE_SORT_ORDER, true) }
+        val IS_APPLE_SORT_ORDER = { x: Property? -> x?.name.equals(APPLE_SORT_ORDER, true) }
         private val IS_OC_HIDESUBTASKS = { x: Property? -> x?.name.equals(OC_HIDESUBTASKS, true) }
         private val IS_MOZ_SNOOZE_TIME = { x: Property? -> x?.name.equals(MOZ_SNOOZE_TIME, true) }
         private val IS_MOZ_LASTACK = { x: Property? -> x?.name.equals(MOZ_LASTACK, true) }
@@ -359,7 +358,7 @@ class iCalendar @Inject constructor(
             "Apple Inc.",
         )
 
-        internal fun getLocal(property: DateProperty): Long =
+        fun getLocal(property: DateProperty): Long =
                 org.tasks.time.DateTime.from(property.date).toLocal().millis
 
         fun fromVtodo(vtodo: String): Task? {
@@ -369,7 +368,7 @@ class iCalendar @Inject constructor(
                     return tasks[0]
                 }
             } catch (e: Exception) {
-                Timber.e(e)
+                Logger.e(e) { e.message.orEmpty() }
             }
             return null
         }
@@ -493,7 +492,7 @@ class iCalendar @Inject constructor(
                 try {
                     newRRule(task.recurrence!!)
                 } catch (e: ParseException) {
-                    Timber.e(e)
+                    Logger.e(e) { e.message.orEmpty() }
                     null
                 }
             } else {
@@ -528,7 +527,7 @@ class iCalendar @Inject constructor(
 
         private fun ical4jTimeZone(id: String) = tzRegistry.getTimeZone(id)
 
-        internal fun getDateTime(timestamp: Long): DateTime {
+        fun getDateTime(timestamp: Long): DateTime {
             val tz = ical4jTimeZone(TimeZone.getDefault().id)
             val dateTime = DateTime(if (tz != null) timestamp else org.tasks.time.DateTime(timestamp).toUTC().millis)
             dateTime.timeZone = tz

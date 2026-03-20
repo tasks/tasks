@@ -15,7 +15,7 @@ import java.time.temporal.TemporalAmount
 
 fun List<Alarm>.toVAlarms(): List<VAlarm> = mapNotNull(Alarm::toVAlarm)
 
-internal fun Alarm.toVAlarm(): VAlarm? {
+fun Alarm.toVAlarm(): VAlarm? {
     val trigger = when (type) {
         Alarm.TYPE_DATE_TIME ->
             Trigger(getDateTime(time))
@@ -49,7 +49,7 @@ internal fun Alarm.toVAlarm(): VAlarm? {
 
 fun List<VAlarm>.toAlarms(): List<Alarm> = mapNotNull(VAlarm::toAlarm)
 
-internal fun VAlarm.toAlarm(): Alarm? {
+fun VAlarm.toAlarm(): Alarm? {
     val (type, time) = when {
         trigger.date != null ->
             Pair(Alarm.TYPE_DATE_TIME, iCalendar.getLocal(trigger))

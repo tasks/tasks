@@ -412,7 +412,7 @@ class MicrosoftSynchronizer @Inject constructor(
             Timber.w("Ignoring update for dirty taskId=${task.id} remote=$remote")
             return
         }
-        task.applyRemote(remote, preferences.defaultPriority)
+        task.applyRemote(remote, preferences.defaultPriority())
         task.suppressSync()
         task.suppressRefresh()
         taskSaver.save(task)

@@ -12,6 +12,8 @@ import org.tasks.data.UUIDHelper
 import org.tasks.data.createDueDate
 import org.tasks.data.createGeofence
 import org.tasks.data.createHideUntil
+import org.tasks.data.getDefaultAlarms
+import org.tasks.data.setDefaultReminders
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
@@ -140,7 +142,7 @@ class TaskCreator @Inject constructor(
             creationDate = currentTimeMillis(),
             modificationDate = currentTimeMillis(),
             remoteId = UUIDHelper.newUUID(),
-            priority = preferences.defaultPriority,
+            priority = preferences.defaultPriority(),
         )
         preferences.getStringValue(R.string.p_default_recurrence)
                 ?.takeIf { it.isNotBlank() }
@@ -211,30 +213,7 @@ class TaskCreator @Inject constructor(
     }
 
     companion object {
-        suspend fun Task.setDefaultReminders(preferences: AppPreferences) {
-            randomReminder = ONE_HOUR * preferences.defaultRandomHours()
-            putTransitory(Task.TRANS_DEFAULT_ALARMS, preferences.defaultAlarms())
-            ringFlags = preferences.defaultRingMode()
-        }
-
         private fun Any?.substitute(): String? =
             (this as? String)?.let { PermaSql.replacePlaceholdersForNewTask(it) }
-
-        fun Task.getDefaultAlarms(defaultRemindersEnabled: Boolean): List<Alarm> = buildList {
-            val defaults = getTransitory<List<Alarm>>(Task.TRANS_DEFAULT_ALARMS) ?: emptyList()
-            for (alarm in defaults) {
-                when (alarm.type) {
-                    TYPE_REL_START ->
-                        if (hasStartDate() && (hasStartTime() || defaultRemindersEnabled))
-                            add(alarm.copy(task = id))
-                    TYPE_REL_END ->
-                        if (hasDueDate() && (hasDueTime() || defaultRemindersEnabled))
-                            add(alarm.copy(task = id))
-                }
-            }
-            if (randomReminder > 0) {
-                add(Alarm(task = id, time = randomReminder, type = TYPE_RANDOM))
-            }
-        }
     }
 }

@@ -525,8 +525,8 @@ class Preferences @JvmOverloads constructor(
         get() = getBoolean(R.string.p_subtask_ascending, false)
         set(value) { setBoolean(R.string.p_subtask_ascending, value) }
 
-    val defaultPriority: Int
-        get() = getIntegerFromString(R.string.p_default_importance_key, Task.Priority.LOW)
+    override suspend fun defaultPriority(): Int =
+        getIntegerFromString(R.string.p_default_importance_key, Task.Priority.LOW)
 
     val themeBase: Int
         get() = getInt(R.string.p_theme, ThemeBase.DEFAULT_BASE_THEME)

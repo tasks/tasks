@@ -9,6 +9,7 @@ interface AppPreferences {
     suspend fun defaultRandomHours(): Int
     suspend fun defaultRingMode(): Int
     suspend fun defaultDueTime(): Int
+    suspend fun defaultPriority(): Int
     suspend fun isCurrentlyQuietHours(): Boolean
     suspend fun adjustForQuietHours(time: Long): Long
 }

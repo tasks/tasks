@@ -3,7 +3,7 @@ package org.tasks.locale.receiver
 import org.tasks.data.TaskSaver
 import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskCreator
-import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
+import org.tasks.data.getDefaultAlarms
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.data.dao.AlarmDao

@@ -52,6 +52,7 @@ import org.tasks.filters.FilterProvider
 import org.tasks.filters.PreferenceDrawerConfiguration
 import org.tasks.jobs.BackgroundWork
 import org.tasks.jobs.WorkManager
+import org.tasks.location.Geocoder
 import org.tasks.location.LocationService
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
@@ -261,6 +262,26 @@ class ApplicationModule {
         notifier: Notifier,
         taskDao: TaskDao,
     ) = TimerPlugin(notifier, taskDao)
+
+    @Provides
+    fun providesICalendar(
+        tagDataDao: TagDataDao,
+        preferences: AppPreferences,
+        locationDao: LocationDao,
+        geocoder: Geocoder,
+        locationService: LocationService,
+        tagDao: TagDao,
+        taskDao: TaskDao,
+        taskSaver: TaskSaver,
+        caldavDao: CaldavDao,
+        alarmDao: AlarmDao,
+        alarmService: AlarmService,
+        vtodoCache: VtodoCache,
+        notifier: Notifier,
+    ) = org.tasks.caldav.iCalendar(
+        tagDataDao, preferences, locationDao, geocoder, locationService,
+        tagDao, taskDao, taskSaver, caldavDao, alarmDao, alarmService, vtodoCache, notifier,
+    )
 
     @Provides
     @Singleton

@@ -97,9 +97,6 @@ class TaskCompleter @Inject internal constructor(
                 }
             }
         )
-        localBroadcastManager.broadcastRefresh()
-        workManager.triggerNotifications()
-        workManager.scheduleRefresh()
         repeated.lastOrNull()?.let { task ->
             val oldDueDate = tasks.find { it.id == task.id }?.dueDate?.takeIf { it > 0 }
                 ?: computePreviousDueDate(task)
