@@ -79,13 +79,14 @@ import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.PrincipalAccess
 import org.tasks.data.entity.Task
-import timber.log.Timber
+import co.touchlab.kermit.Logger
 import java.io.IOException
 import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
-import javax.inject.Inject
 
-class CaldavSynchronizer @Inject constructor(
+private const val TAG = "CaldavSync"
+
+class CaldavSynchronizer(
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
     private val refreshBroadcaster: RefreshBroadcaster,
@@ -98,7 +99,7 @@ class CaldavSynchronizer @Inject constructor(
     private val accountDataRepository: TasksAccountDataRepository,
 ) {
     suspend fun sync(account: CaldavAccount, hasPro: Boolean) {
-        Timber.d("Synchronizing $account")
+        Logger.d(TAG) { "Synchronizing $account" }
         if (!hasPro && !account.isTasksOrg) {
             setError(account, getString(Res.string.requires_pro_subscription))
             return
@@ -155,7 +156,7 @@ class CaldavSynchronizer @Inject constructor(
             try {
                 accountDataRepository.fetchAndCache(account)?.guest ?: false
             } catch (e: Exception) {
-                Timber.e(e, "Failed to fetch account data")
+                Logger.e(e) { "Failed to fetch account data" }
                 accountDataRepository.getAccountResponse()?.guest ?: false
             }
         } else false
@@ -245,19 +246,19 @@ class CaldavSynchronizer @Inject constructor(
     }
 
     private suspend fun setError(account: CaldavAccount, throwable: Throwable) {
-        Timber.e(throwable, "$account: ${throwable.message}")
+        Logger.e(throwable) { "$account: ${throwable.message}" }
         setError(account, throwable.message)
     }
 
     private suspend fun setError(account: CaldavAccount, message: String?) {
         if (!message.isNullOrBlank()) {
-            Timber.e("$account: $message")
+            Logger.e(TAG) { "$account: $message" }
         }
         account.error = message
         caldavDao.update(account)
         refreshBroadcaster.broadcastRefresh()
         if (!message.isNullOrBlank()) {
-            Timber.e(message)
+            Logger.e(TAG) { message.orEmpty() }
         }
     }
 
@@ -270,10 +271,10 @@ class CaldavSynchronizer @Inject constructor(
         val httpUrl = resource.href
         val remoteCtag = resource.ctag
         if (caldavCalendar.ctag?.equals(remoteCtag) == true) {
-            Timber.d("up to date: $caldavCalendar")
+            Logger.d(TAG) { "up to date: $caldavCalendar" }
             return
         }
-        Timber.d("updating $caldavCalendar")
+        Logger.d(TAG) { "updating $caldavCalendar" }
         val davCalendar = DavCalendar(httpClient, httpUrl)
         val members = ArrayList<Response>()
         davCalendar.calendarQuery("VTODO", null, null) { response, relation ->
@@ -296,7 +297,7 @@ class CaldavSynchronizer @Inject constructor(
                     responses.add(response)
                 }
             }
-            Timber.d("MULTI %s", urls)
+            Logger.d(TAG) { "MULTI $urls" }
             for (vCard in responses) {
                 val eTag = vCard[GetETag::class.java]?.eTag
                 val url = vCard.href
@@ -310,7 +311,7 @@ class CaldavSynchronizer @Inject constructor(
                 val fileName = vCard.hrefName()
                 val remote = fromVtodo(vtodo)
                 if (remote == null) {
-                    Timber.e("Invalid VCALENDAR: %s", fileName)
+                    Logger.e(TAG) { "Invalid VCALENDAR: $fileName" }
                     return
                 }
                 val caldavTask = caldavDao.getTask(caldavCalendar.uuid!!, fileName)
@@ -322,15 +323,15 @@ class CaldavSynchronizer @Inject constructor(
                 .subtract(members.map { it.hrefName() })
                 .takeIf { it.isNotEmpty() }
                 ?.let {
-                    Timber.d("DELETED $it")
+                    Logger.d(TAG) { "DELETED $it" }
                     val tasks = caldavDao.getTasks(caldavCalendar.uuid!!, it.toList())
                     vtodoCache.delete(caldavCalendar, tasks)
                     taskDeleter.delete(tasks.map { it.task })
                 }
         caldavCalendar.ctag = remoteCtag
-        Timber.d("UPDATE %s", caldavCalendar)
+        Logger.d(TAG) { "UPDATE $caldavCalendar" }
         caldavDao.update(caldavCalendar)
-        Timber.d("Updating parents for ${caldavCalendar.uuid}")
+        Logger.d(TAG) { "Updating parents for ${caldavCalendar.uuid}" }
         caldavDao.updateParents(caldavCalendar.uuid!!)
         refreshBroadcaster.broadcastRefresh()
     }
@@ -350,7 +351,7 @@ class CaldavSynchronizer @Inject constructor(
             try {
                 pushTask(account, caldavCalendar, task, httpClient, httpUrl)
             } catch (e: IOException) {
-                Timber.e(e)
+                Logger.e(e) { e.message.orEmpty() }
             }
         }
     }
@@ -364,7 +365,7 @@ class CaldavSynchronizer @Inject constructor(
         try {
             val objectId = caldavTask.obj
                 ?: run {
-                    Timber.e("null obj for caldavTask.id=${caldavTask.id} task.id=${caldavTask.task}")
+                    Logger.e(TAG) { "null obj for caldavTask.id=${caldavTask.id} task.id=${caldavTask.task}" }
                     caldavTask.obj = caldavTask.remoteId?.let { "$it.ics" }
                     caldavTask.obj
                 }
@@ -377,11 +378,11 @@ class CaldavSynchronizer @Inject constructor(
             }
         } catch (e: HttpException) {
             if (e.statusCode != 404) {
-                Timber.e(e)
+                Logger.e(e) { e.message.orEmpty() }
                 return false
             }
         } catch (e: IOException) {
-            Timber.e(e)
+            Logger.e(e) { e.message.orEmpty() }
             return false
         }
         vtodoCache.delete(calendar, caldavTask)
@@ -397,7 +398,7 @@ class CaldavSynchronizer @Inject constructor(
         httpUrl: HttpUrl
     ) {
         val caldavTask = caldavDao.getTask(task.id) ?: return
-        Timber.d("pushing caldavTask=$caldavTask task=$task")
+        Logger.d(TAG) { "pushing caldavTask=$caldavTask task=$task" }
         if (task.isDeleted) {
             if (deleteRemoteResource(httpClient, httpUrl, calendar, caldavTask)) {
                 taskDeleter.delete(task)
@@ -408,7 +409,7 @@ class CaldavSynchronizer @Inject constructor(
         val requestBody = data.toRequestBody(contentType = MIME_ICALENDAR)
         val objPath = caldavTask.obj
             ?: run {
-                Timber.e("null obj for caldavTask.id=${caldavTask.id} task.id=${task.id}")
+                Logger.e(TAG) { "null obj for caldavTask.id=${caldavTask.id} task.id=${task.id}" }
                 caldavTask.obj = caldavTask.remoteId?.let { "$it.ics" }
                 caldavTask.obj
             }
@@ -430,12 +431,12 @@ class CaldavSynchronizer @Inject constructor(
                 }
             }
         } catch (e: HttpException) {
-            Timber.e(e)
+            Logger.e(e) { e.message.orEmpty() }
             return
         }
         caldavTask.lastSync = task.modificationDate
         caldavDao.update(caldavTask)
-        Timber.d("SENT %s", caldavTask)
+        Logger.d(TAG) { "SENT $caldavTask" }
     }
 
     suspend fun Response.principals(

@@ -264,6 +264,23 @@ class ApplicationModule {
     ) = TimerPlugin(notifier, taskDao)
 
     @Provides
+    fun providesCaldavSynchronizer(
+        caldavDao: CaldavDao,
+        taskDao: TaskDao,
+        refreshBroadcaster: RefreshBroadcaster,
+        taskDeleter: org.tasks.service.TaskDeleter,
+        reporting: org.tasks.analytics.Reporting,
+        provider: org.tasks.caldav.CaldavClientProvider,
+        iCal: org.tasks.caldav.iCalendar,
+        principalDao: org.tasks.data.dao.PrincipalDao,
+        vtodoCache: VtodoCache,
+        accountDataRepository: org.tasks.caldav.TasksAccountDataRepository,
+    ) = org.tasks.caldav.CaldavSynchronizer(
+        caldavDao, taskDao, refreshBroadcaster, taskDeleter, reporting,
+        provider, iCal, principalDao, vtodoCache, accountDataRepository,
+    )
+
+    @Provides
     fun providesICalendar(
         tagDataDao: TagDataDao,
         preferences: AppPreferences,
