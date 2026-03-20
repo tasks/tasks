@@ -1,6 +1,6 @@
 package com.todoroo.astrid.model
 
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking

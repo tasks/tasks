@@ -20,7 +20,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.fragment.app.Fragment
 import androidx.fragment.compose.content
-import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.compose.pickers.DatePickerBottomSheet
 import org.tasks.compose.pickers.StartDateShortcuts
@@ -38,7 +37,6 @@ import javax.inject.Inject
 class StartDatePicker : BaseDateTimePicker() {
 
     @Inject lateinit var activity: Activity
-    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var notificationManager: NotificationManager
 
     private var selectedDay by mutableLongStateOf(NO_DAY)

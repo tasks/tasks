@@ -45,7 +45,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.todoroo.astrid.adapter.SubheaderClickHandler
-import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
@@ -105,7 +104,6 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var theme: Theme
-    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var taskCreator: TaskCreator
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var colorProvider: ColorProvider

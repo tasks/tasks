@@ -55,10 +55,7 @@ class TaskDao @Inject constructor(
             taskDao.getRecurringTasks(remoteIds)
 
     suspend fun setCompletionDate(remoteId: String, completionDate: Long) =
-        setCompletionDate(listOf(remoteId), completionDate)
-
-    suspend fun setCompletionDate(remoteIds: List<String>, completionDate: Long) =
-        taskDao.setCompletionDate(remoteIds, completionDate)
+        taskDao.setCompletionDate(listOf(remoteId), completionDate)
 
     suspend fun getGoogleTasksToPush(account: String): List<Task> =
             taskDao.getGoogleTasksToPush(account)

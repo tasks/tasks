@@ -8,7 +8,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
@@ -20,7 +19,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SnoozeActivity : AppCompatActivity(), SnoozeCallback, DialogInterface.OnCancelListener {
-    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var alarmService: AlarmService
     @Inject lateinit var firebase: Firebase
 

@@ -1,6 +1,6 @@
 package com.todoroo.astrid.sync
 
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
