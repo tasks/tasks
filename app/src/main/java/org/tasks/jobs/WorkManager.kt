@@ -7,19 +7,19 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.sync.SyncSource
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
-interface WorkManager {
+interface WorkManager : BackgroundWork {
 
-    fun updateCalendar(task: Task)
+    override fun updateCalendar(task: Task)
 
     fun migrateLocalTasks(caldavAccount: CaldavAccount)
 
-    suspend fun sync(source: SyncSource)
+    override suspend fun sync(source: SyncSource)
 
     suspend fun startEnqueuedSync()
 
     fun updateBackgroundSync()
 
-    suspend fun scheduleRefresh(timestamp: Long = currentTimeMillis() + 5_000)
+    override suspend fun scheduleRefresh(timestamp: Long)
 
     fun triggerNotifications(expedited: Boolean = false)
 

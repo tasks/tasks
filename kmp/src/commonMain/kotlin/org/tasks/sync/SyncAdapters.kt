@@ -2,13 +2,12 @@ package org.tasks.sync
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.tasks.broadcast.RefreshBroadcaster
-import org.tasks.data.OpenTaskDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.jobs.BackgroundWork
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
@@ -19,28 +18,24 @@ import org.tasks.data.entity.FORCE_CALDAV_SYNC
 import org.tasks.data.entity.FORCE_MICROSOFT_SYNC
 import org.tasks.data.entity.SUPPRESS_SYNC
 import org.tasks.data.entity.Task
-import org.tasks.jobs.WorkManager
-import org.tasks.jobs.WorkManager.Companion.TAG_SYNC
 import org.tasks.preferences.TasksPreferences
-import java.util.concurrent.Executors.newSingleThreadExecutor
-import javax.inject.Inject
-import javax.inject.Singleton
+import kotlin.coroutines.CoroutineContext
 
-@Singleton
-class SyncAdapters @Inject constructor(
-    workManager: WorkManager,
+class SyncAdapters(
+    private val backgroundWork: BackgroundWork,
     private val caldavDao: CaldavDao,
     private val googleTaskDao: GoogleTaskDao,
-    private val openTaskDao: OpenTaskDao,
+    private val openTaskSyncCheck: suspend () -> Boolean,
     private val tasksPreferences: TasksPreferences,
-    private val refreshBroadcaster: RefreshBroadcaster
+    private val refreshBroadcaster: RefreshBroadcaster,
+    coroutineContext: CoroutineContext,
 ) {
-    private val scope = CoroutineScope(newSingleThreadExecutor().asCoroutineDispatcher() + SupervisorJob())
+    private val scope = CoroutineScope(coroutineContext + SupervisorJob())
     private val sync = Debouncer(
         tag = TAG_SYNC,
         default = SyncSource.NONE,
         merge = { current, new -> current.upgrade(new) }
-    ) { workManager.sync(it) }
+    ) { backgroundWork.sync(it) }
     private val syncStatus = Debouncer(
         tag = "sync_status",
         default = false
@@ -91,9 +86,10 @@ class SyncAdapters @Inject constructor(
                 )
                 .isNotEmpty()
 
-    private suspend fun isOpenTaskSyncEnabled() = openTaskDao.shouldSync()
+    private suspend fun isOpenTaskSyncEnabled() = openTaskSyncCheck()
 
     companion object {
+        const val TAG_SYNC = "tag_sync"
         private val TYPE_ICALENDAR = listOf(
             TYPE_CALDAV,
             TYPE_TASKS,

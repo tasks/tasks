@@ -15,6 +15,7 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
@@ -30,6 +31,7 @@ import org.tasks.caldav.FileStorage
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.VtodoCache
 import org.tasks.compose.drawer.DrawerConfiguration
+import org.tasks.data.OpenTaskDao
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.Astrid2ContentProviderDao
 import org.tasks.data.dao.CaldavDao
@@ -47,6 +49,7 @@ import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.db.Database
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.PreferenceDrawerConfiguration
+import org.tasks.jobs.BackgroundWork
 import org.tasks.jobs.WorkManager
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
@@ -57,7 +60,9 @@ import org.tasks.security.AndroidKeyStoreEncryption
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskDeleter
+import org.tasks.sync.SyncAdapters
 import java.util.Locale
+import java.util.concurrent.Executors
 import javax.inject.Singleton
 
 @Module
@@ -234,10 +239,33 @@ class ApplicationModule {
         AlarmService(alarmDao, taskDao, refreshBroadcaster, notifier, alarmCalculator, preferences)
 
     @Provides
+    @Singleton
+    fun providesBackgroundWork(workManager: WorkManager): BackgroundWork = workManager
+
+    @Provides
     fun providesTimerPlugin(
         notifier: Notifier,
         taskDao: TaskDao,
     ) = TimerPlugin(notifier, taskDao)
+
+    @Provides
+    @Singleton
+    fun providesSyncAdapters(
+        backgroundWork: BackgroundWork,
+        caldavDao: CaldavDao,
+        googleTaskDao: GoogleTaskDao,
+        openTaskDao: OpenTaskDao,
+        tasksPreferences: TasksPreferences,
+        refreshBroadcaster: RefreshBroadcaster,
+    ) = SyncAdapters(
+        backgroundWork = backgroundWork,
+        caldavDao = caldavDao,
+        googleTaskDao = googleTaskDao,
+        openTaskSyncCheck = { openTaskDao.shouldSync() },
+        tasksPreferences = tasksPreferences,
+        refreshBroadcaster = refreshBroadcaster,
+        coroutineContext = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),
+    )
 
     @Provides
     fun providesTaskCleanup(impl: AndroidCleanup): TaskCleanup = impl

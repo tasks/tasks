@@ -1,7 +1,7 @@
 package org.tasks.sync
 
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.delay
-import timber.log.Timber
 
 class Debouncer<T>(
     private val tag: String,
@@ -21,7 +21,7 @@ class Debouncer<T>(
             pending = default
             block(valueToUse)
         } else {
-            Timber.v("debouncing $tag")
+            Logger.v("Debouncer") { "debouncing $tag" }
         }
     }
 }
