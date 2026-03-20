@@ -1,11 +1,9 @@
 package com.todoroo.astrid.subtasks
 
-import android.content.Context
-import org.tasks.data.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Companion.buildOrderString
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Companion.buildTreeModel
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Companion.serializeTree
-import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskListMetadataDao
@@ -22,7 +20,6 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SubtasksHelper @Inject constructor(
-    @param:ApplicationContext private val context: Context,
     private val taskDao: TaskDao,
     private val tagDataDao: TagDataDao,
     private val taskListMetadataDao: TaskListMetadataDao

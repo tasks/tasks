@@ -1,11 +1,9 @@
 package com.todoroo.astrid.adapter
 
-import android.content.Context
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import com.todoroo.astrid.subtasks.SubtasksHelper
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.Strings.isNullOrEmpty
@@ -28,7 +26,6 @@ import org.tasks.preferences.TasksPreferences
 import javax.inject.Inject
 
 class TaskAdapterProvider @Inject constructor(
-    @param:ApplicationContext private val context: Context,
     private val preferences: Preferences,
     private val tasksPreferences: TasksPreferences,
     private val taskListMetadataDao: TaskListMetadataDao,
