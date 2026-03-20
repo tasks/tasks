@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.activity.MainActivity.Companion.FINISH_AFFINITY
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import com.todoroo.astrid.service.TaskCompleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
@@ -24,6 +25,7 @@ import javax.inject.Inject
 class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskSaver: TaskSaver
     @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var firebase: Firebase
@@ -88,7 +90,7 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                 logWidgetClick("toggle_subtasks")
                 if (taskId > 0) {
                     lifecycleScope.launch(NonCancellable) {
-                        taskDao.setCollapsed(taskId, collapsed)
+                        taskSaver.setCollapsed(taskId, collapsed)
                     }
                 }
                 finish()

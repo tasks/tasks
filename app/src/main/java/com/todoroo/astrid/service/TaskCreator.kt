@@ -1,7 +1,8 @@
 package com.todoroo.astrid.service
 
 import com.todoroo.astrid.api.PermaSql
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.utility.TitleParser.parse
 import org.tasks.R
@@ -47,6 +48,7 @@ class TaskCreator @Inject constructor(
     private val preferences: Preferences,
     private val tagDataDao: TagDataDao,
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val tagDao: TagDao,
     private val googleTaskDao: GoogleTaskDao,
     private val defaultFilterProvider: DefaultFilterProvider,
@@ -116,7 +118,7 @@ class TaskCreator @Inject constructor(
                 locationDao.insert(createGeofence(place.uid, preferences))
             }
         }
-        taskDao.save(task, null)
+        taskSaver.save(task, null)
         alarmDao.insert(task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled()))
         return task
     }

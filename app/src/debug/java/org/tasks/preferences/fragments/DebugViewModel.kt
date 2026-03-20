@@ -29,7 +29,8 @@ class DebugViewModel @Inject constructor(
     private val preferences: Preferences,
     private val tasksPreferences: TasksPreferences,
     private val taskCreator: com.todoroo.astrid.service.TaskCreator,
-    private val taskDao: com.todoroo.astrid.dao.TaskDao,
+    private val taskDao: org.tasks.data.dao.TaskDao,
+    private val taskSaver: org.tasks.data.TaskSaver,
 ) : ViewModel() {
 
     var leakCanaryEnabled by mutableStateOf(false)
@@ -144,7 +145,7 @@ class DebugViewModel @Inject constructor(
                     Task.URGENCY_SPECIFIC_DAY,
                     currentTimeMillis(),
                 )
-                taskDao.save(task)
+                taskSaver.save(task)
             }
             onComplete(count)
         }

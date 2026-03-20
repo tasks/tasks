@@ -5,7 +5,8 @@ import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioAttributes.USAGE_NOTIFICATION_EVENT
 import android.media.RingtoneManager
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import com.todoroo.astrid.repeats.RepeatTaskHelper.Companion.computePreviousDueDate
@@ -24,6 +25,7 @@ import javax.inject.Inject
 class TaskCompleter @Inject internal constructor(
     @ApplicationContext private val context: Context,
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val preferences: Preferences,
     private val notificationManager: NotificationManager,
     private val localBroadcastManager: LocalBroadcastManager,
@@ -76,7 +78,7 @@ class TaskCompleter @Inject internal constructor(
             afterSave = { updated ->
                 updated.forEach { saved ->
                     val original = tasks.find { it.id == saved.id }
-                    taskDao.afterUpdate(saved, original)
+                    taskSaver.afterSave(saved, original)
                 }
                 updated.forEach { task ->
                     if (completed && task.isRecurring) {

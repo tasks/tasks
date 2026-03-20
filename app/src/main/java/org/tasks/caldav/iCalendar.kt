@@ -1,7 +1,6 @@
 package org.tasks.caldav
 
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskCreator.Companion.setDefaultReminders
@@ -27,10 +26,12 @@ import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.caldav.extensions.toAlarms
 import org.tasks.caldav.extensions.toVAlarms
 import org.tasks.data.createDueDate
+import org.tasks.data.TaskSaver
 import org.tasks.data.createGeofence
 import org.tasks.data.createHideUntil
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
@@ -79,6 +80,7 @@ class iCalendar @Inject constructor(
     private val taskCreator: TaskCreator,
     private val tagDao: TagDao,
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val caldavDao: CaldavDao,
     private val alarmDao: AlarmDao,
     private val alarmService: AlarmService,
@@ -281,7 +283,7 @@ class iCalendar @Inject constructor(
 
         task.suppressSync()
         task.suppressRefresh()
-        taskDao.save(task)
+        taskSaver.save(task)
         vtodoCache.putVtodo(calendar, caldavTask, vtodo)
         caldavTask.etag = eTag
         if (!dirty) {

@@ -1,6 +1,6 @@
 package org.tasks.locale.receiver
 
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.TaskSaver
 import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
@@ -22,7 +22,7 @@ import kotlin.math.min
 
 class TaskerTaskCreator @Inject internal constructor(
     private val taskCreator: TaskCreator,
-    private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val firebase: Firebase,
     private val alarmDao: AlarmDao,
     private val preferences: Preferences,
@@ -63,7 +63,7 @@ class TaskerTaskCreator @Inject internal constructor(
             }
         }
         task.notes = bundle.description
-        taskDao.save(task)
+        taskSaver.save(task)
         alarmDao.insert(task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled()))
         taskCreator.createTags(task)
         firebase.addTask("tasker")

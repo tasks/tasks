@@ -10,7 +10,8 @@ import androidx.lifecycle.viewModelScope
 import com.todoroo.astrid.activity.BeastModePreferences
 import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatControlSet
@@ -91,6 +92,7 @@ class TaskEditViewModel @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val savedStateHandle: SavedStateHandle,
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val taskDeleter: TaskDeleter,
     private val timerPlugin: TimerPlugin,
     private val permissionChecker: PermissionChecker,
@@ -398,7 +400,7 @@ class TaskEditViewModel @Inject constructor(
             task.modificationDate = currentTimeMillis()
         }
 
-        taskDao.save(task, null)
+        taskSaver.save(task, null)
         val selectedList = _viewState.value.list
         if (isNew || originalState.value.list != selectedList) {
             task.parent = 0
@@ -437,7 +439,7 @@ class TaskEditViewModel @Inject constructor(
                     )
                     subtask.parent = task.id
                     caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.id)
-                    taskDao.save(subtask)
+                    taskSaver.save(subtask)
                     caldavDao.insert(
                         task = subtask,
                         caldavTask = caldavTask,

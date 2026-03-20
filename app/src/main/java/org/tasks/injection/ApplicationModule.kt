@@ -32,6 +32,7 @@ import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.VtodoCache
 import org.tasks.compose.drawer.DrawerConfiguration
 import org.tasks.data.OpenTaskDao
+import org.tasks.data.TaskSaver
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.Astrid2ContentProviderDao
 import org.tasks.data.dao.CaldavDao
@@ -51,6 +52,7 @@ import org.tasks.filters.FilterProvider
 import org.tasks.filters.PreferenceDrawerConfiguration
 import org.tasks.jobs.BackgroundWork
 import org.tasks.jobs.WorkManager
+import org.tasks.location.LocationService
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.Preferences
@@ -241,6 +243,18 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun providesBackgroundWork(workManager: WorkManager): BackgroundWork = workManager
+
+    @Provides
+    @Singleton
+    fun providesTaskSaver(
+        taskDao: TaskDao,
+        refreshBroadcaster: RefreshBroadcaster,
+        notifier: Notifier,
+        locationService: LocationService,
+        timerPlugin: TimerPlugin,
+        syncAdapters: SyncAdapters,
+        backgroundWork: BackgroundWork,
+    ) = TaskSaver(taskDao, refreshBroadcaster, notifier, locationService, timerPlugin, syncAdapters, backgroundWork)
 
     @Provides
     fun providesTimerPlugin(

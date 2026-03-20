@@ -1,6 +1,6 @@
 package com.todoroo.astrid.subtasks
 
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Companion.buildOrderString
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Companion.buildTreeModel
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Companion.serializeTree

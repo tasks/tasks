@@ -4,7 +4,8 @@ import android.content.Context
 import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.fetchTasks
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.data.dao.CaldavDao

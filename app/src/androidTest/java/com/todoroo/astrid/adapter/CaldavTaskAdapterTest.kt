@@ -2,7 +2,7 @@ package com.todoroo.astrid.adapter
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
 import com.todoroo.astrid.service.TaskMover
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
@@ -22,6 +22,7 @@ import javax.inject.Inject
 @HiltAndroidTest
 class CaldavTaskAdapterTest : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskSaver: TaskSaver
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
@@ -35,7 +36,7 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
         super.setUp()
 
         tasks.clear()
-        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
+        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao, taskSaver, localBroadcastManager, taskMover)
         adapter.setDataSource(object : TaskAdapterDataSource {
             override fun getItem(position: Int) = tasks[position]
 

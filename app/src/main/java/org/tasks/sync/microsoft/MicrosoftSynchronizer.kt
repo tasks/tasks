@@ -3,7 +3,8 @@ package org.tasks.sync.microsoft
 import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import at.bitfire.dav4jvm.okhttp.exception.ServiceUnavailableException
 import at.bitfire.dav4jvm.okhttp.exception.UnauthorizedException
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import com.todoroo.astrid.service.TaskCreator
 import org.tasks.service.TaskDeleter
 import io.ktor.client.call.body
@@ -51,6 +52,7 @@ import javax.net.ssl.SSLException
 class MicrosoftSynchronizer @Inject constructor(
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val taskDeleter: TaskDeleter,
     private val firebase: Firebase,
@@ -413,7 +415,7 @@ class MicrosoftSynchronizer @Inject constructor(
         task.applyRemote(remote, preferences.defaultPriority)
         task.suppressSync()
         task.suppressRefresh()
-        taskDao.save(task)
+        taskSaver.save(task)
         vtodoCache.putVtodo(list, caldavTask, json.encodeToString(remote))
         tagDao.applyTags(task, tagDataDao, getTags(remote.categories ?: emptyList()))
         remote.checklistItems?.let {
@@ -477,7 +479,7 @@ class MicrosoftSynchronizer @Inject constructor(
             }
             task.suppressSync()
             task.suppressRefresh()
-            taskDao.save(task)
+            taskSaver.save(task)
             if (!dirty) {
                 caldavTask.lastSync = task.modificationDate
             }

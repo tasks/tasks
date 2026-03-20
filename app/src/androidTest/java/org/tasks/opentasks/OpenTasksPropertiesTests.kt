@@ -185,7 +185,7 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
 
         val task = caldavDao.getTaskByRemoteId(list.uuid!!, "2822976a-b71e-4962-92e4-db7297789c20")
 
-        taskDao.setCollapsed(task!!.task, false)
+        taskSaver.setCollapsed(task!!.task, false)
 
         synchronizer.sync()
 
@@ -286,7 +286,7 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
             alarmDao.getAlarms(1)
         )
         alarmDao.deleteSnoozed(listOf(1))
-        taskDao.touch(task.task)
+        taskSaver.touch(listOf(task.task))
 
         synchronizer.sync()
 

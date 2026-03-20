@@ -74,7 +74,10 @@ import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_TASK_ID
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
+import org.tasks.data.fetchTasks
+import org.tasks.data.setCollapsed
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
@@ -190,6 +193,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var taskMover: TaskMover
     @Inject lateinit var taskAdapterProvider: TaskAdapterProvider
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskSaver: TaskSaver
     @Inject lateinit var taskDuplicator: TaskDuplicator
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var caldavDao: CaldavDao
@@ -803,15 +807,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
             R.id.menu_expand_subtasks -> {
                 lifecycleScope.launch {
-                    taskDao.setCollapsed(preferences, filter, false)
-                    localBroadcastManager.broadcastRefresh()
+                    taskSaver.setCollapsed(preferences, filter, false)
                 }
                 true
             }
             R.id.menu_collapse_subtasks -> {
                 lifecycleScope.launch {
-                    taskDao.setCollapsed(preferences, filter, true)
-                    localBroadcastManager.broadcastRefresh()
+                    taskSaver.setCollapsed(preferences, filter, true)
                 }
                 true
             }
@@ -942,7 +944,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                             data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_PARTIALLY_SELECTED)!!,
                             data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED)!!
                     )
-                    taskDao.touch(modified)
+                    taskSaver.touch(modified)
                 }
                 finishActionMode()
             }
@@ -1252,7 +1254,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun toggleSubtasks(task: Long, collapsed: Boolean) {
         lifecycleScope.launch {
-            taskDao.setCollapsed(task, collapsed)
+            taskSaver.setCollapsed(task, collapsed)
         }
     }
 

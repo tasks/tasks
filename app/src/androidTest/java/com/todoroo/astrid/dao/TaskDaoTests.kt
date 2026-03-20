@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.dao
 
+import org.tasks.data.TaskSaver
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
 import org.tasks.service.TaskDeleter
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -19,6 +21,7 @@ import javax.inject.Inject
 class TaskDaoTests : InjectingTestCase() {
 
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskSaver: TaskSaver
     @Inject lateinit var taskDeleter: TaskDeleter
 
     /** Test basic task creation, fetch, and save  */
@@ -46,7 +49,7 @@ class TaskDaoTests : InjectingTestCase() {
         val sadId = task.id
         assertNotSame(Task.NO_ID, sadId)
         task.title = "melancholy"
-        taskDao.save(task)
+        taskSaver.save(task)
         assertEquals(2, taskDao.getAll().size)
 
         // check state
@@ -121,7 +124,7 @@ class TaskDaoTests : InjectingTestCase() {
         val task = Task()
         task.title = "happy"
         task.id = 1L
-        taskDao.save(task)
+        taskSaver.save(task)
         assertEquals(0, taskDao.getAll().size)
     }
 

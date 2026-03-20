@@ -1,6 +1,7 @@
 package com.todoroo.astrid.adapter
 
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import com.todoroo.astrid.service.TaskMover
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.dao.CaldavDao
@@ -10,9 +11,10 @@ class GoogleTaskManualSortAdapter internal constructor(
     googleTaskDao: GoogleTaskDao,
     caldavDao: CaldavDao,
     taskDao: TaskDao,
+    taskSaver: TaskSaver,
     localBroadcastManager: LocalBroadcastManager,
     taskMover: TaskMover,
-) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover) {
+) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, taskSaver, localBroadcastManager, taskMover) {
 
     override suspend fun moved(from: Int, to: Int, indent: Int) {
         moveGoogleTask(from, to, indent)

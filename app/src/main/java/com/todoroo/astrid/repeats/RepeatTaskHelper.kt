@@ -6,7 +6,7 @@
 package com.todoroo.astrid.repeats
 
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.TaskSaver
 import com.todoroo.astrid.gcal.GCalHelper
 import net.fortuna.ical4j.model.Date
 import net.fortuna.ical4j.model.Recur
@@ -31,7 +31,7 @@ import javax.inject.Inject
 class RepeatTaskHelper @Inject constructor(
         private val gcalHelper: GCalHelper,
         private val alarmService: AlarmService,
-        private val taskDao: TaskDao,
+        private val taskSaver: TaskSaver,
 ) {
     suspend fun handleRepeat(task: Task): Boolean {
         val recurrence = task.recurrence
@@ -65,7 +65,7 @@ class RepeatTaskHelper @Inject constructor(
         val oldDueDate = task.dueDate
         task.setDueDateAdjustingHideUntil(newDueDate)
         gcalHelper.rescheduleRepeatingTask(task)
-        taskDao.save(task)
+        taskSaver.save(task)
         val previousDueDate = oldDueDate.takeIf { it > 0 } ?: computePreviousDueDate(task)
         rescheduleAlarms(task.id, previousDueDate, newDueDate)
         return true
@@ -74,7 +74,7 @@ class RepeatTaskHelper @Inject constructor(
     suspend fun undoRepeat(task: Task, oldDueDate: Long) {
         if (task.completionDate > 0) {
             task.completionDate = 0
-            taskDao.save(task)
+            taskSaver.save(task)
             return
         }
         try {
@@ -96,7 +96,7 @@ class RepeatTaskHelper @Inject constructor(
         } catch (e: ParseException) {
             Timber.e(e)
         }
-        taskDao.save(task)
+        taskSaver.save(task)
     }
 
     private suspend fun rescheduleAlarms(taskId: Long, oldDueDate: Long, newDueDate: Long) {

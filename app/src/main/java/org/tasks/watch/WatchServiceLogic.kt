@@ -3,7 +3,12 @@ package org.tasks.watch
 import android.content.Context
 import android.text.format.DateFormat
 import com.todoroo.astrid.core.SortHelper.SORT_DUE
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
+import org.tasks.data.count
+import org.tasks.data.countCompletedSql
+import org.tasks.data.countSql
+import org.tasks.data.fetchTasks
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -34,6 +39,7 @@ import javax.inject.Inject
 
 class WatchServiceLogic @Inject constructor(
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val appPreferences: Preferences,
     private val taskCompleter: TaskCompleter,
     private val headerFormatter: HeaderFormatter,
@@ -138,7 +144,7 @@ class WatchServiceLogic @Inject constructor(
     }
 
     suspend fun toggleGroup(value: Long, collapsed: Boolean) {
-        taskDao.setCollapsed(value, collapsed)
+        taskSaver.setCollapsed(value, collapsed)
     }
 
     suspend fun getLists(position: Int, limit: Int): WatchListItems {
@@ -208,7 +214,7 @@ class WatchServiceLogic @Inject constructor(
             return task.id
         } else {
             taskDao.fetch(taskId)?.let { task ->
-                taskDao.save(
+                taskSaver.save(
                     task.copy(
                         title = title,
                         completionDate = when {

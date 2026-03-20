@@ -3,7 +3,8 @@ package org.tasks.ui.editviewmodel
 import androidx.lifecycle.SavedStateHandle
 import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.service.TaskCompleter
 import org.tasks.service.TaskDeleter
@@ -34,6 +35,7 @@ import javax.inject.Inject
 open class BaseTaskEditViewModelTest : InjectingTestCase() {
     @Inject lateinit var db: Database
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskSaver: TaskSaver
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var timerPlugin: TimerPlugin
     @Inject lateinit var calendarEventProvider: CalendarEventProvider
@@ -68,6 +70,7 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
                 set(TaskEditFragment.EXTRA_TASK, task)
             },
             taskDao,
+            taskSaver,
             taskDeleter,
             timerPlugin,
             PermissivePermissionChecker(context),

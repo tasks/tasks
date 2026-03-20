@@ -3,7 +3,8 @@ package org.tasks.backup
 import android.content.Context
 import android.net.Uri
 import android.util.JsonReader
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
@@ -68,6 +69,7 @@ class TasksJsonImporter @Inject constructor(
     private val tagDataDao: TagDataDao,
     private val userActivityDao: UserActivityDao,
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val locationDao: LocationDao,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val alarmDao: AlarmDao,
@@ -389,7 +391,7 @@ class TasksJsonImporter @Inject constructor(
                 task.isNotifyModeNonstop -> Task.NOTIFY_MODE_NONSTOP
                 else -> 0
             }
-            taskDao.save(task)
+            taskSaver.save(task)
         }
         if (version < V12_8) {
             task.repeatFrom = task.recurrence.repeatFrom()

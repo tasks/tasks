@@ -1,6 +1,7 @@
 package org.tasks.opentasks
 
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import org.junit.Before
 import org.tasks.R
 import org.tasks.data.entity.CaldavCalendar
@@ -15,6 +16,7 @@ abstract class OpenTasksTest : InjectingTestCase() {
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var synchronizer: OpenTasksSynchronizer
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskSaver: TaskSaver
 
     @Before
     override fun setUp() {
