@@ -322,7 +322,7 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
     } else {
         // Task row
         int padding = 6;
-        int x_start = PBL_IF_COLOR_ELSE(padding, 4);
+        int x_start = PBL_IF_COLOR_ELSE(padding, 4) + 14 * item->indent;
         bool has_subtitle = item->extra[0] != '\0';
 
         int title_h = 22;
