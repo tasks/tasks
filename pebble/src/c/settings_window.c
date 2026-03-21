@@ -153,6 +153,9 @@ static void window_load(Window *window) {
     });
     menu_layer_set_click_config_onto_window(s_menu_layer, window);
 
+#ifdef PBL_ROUND
+    menu_layer_set_center_focused(s_menu_layer, true);
+#endif
 #ifdef PBL_COLOR
     menu_layer_set_normal_colors(s_menu_layer, GColorWhite, GColorBlack);
     menu_layer_set_highlight_colors(s_menu_layer, GColorCobaltBlue, GColorWhite);

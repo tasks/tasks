@@ -33,7 +33,9 @@ static void click_config_provider(void *context) {
 static void window_load(Window *window) {
     Layer *window_layer = window_get_root_layer(window);
     GRect bounds = layer_get_bounds(window_layer);
-    int width = bounds.size.w - 10;
+    int margin = PBL_IF_ROUND_ELSE(10, 5);
+    int top_y = PBL_IF_ROUND_ELSE(40, 5);
+    int width = bounds.size.w - margin * 2;
 
     // Scroll layer for content
     s_scroll_layer = scroll_layer_create(bounds);
@@ -44,14 +46,14 @@ static void window_load(Window *window) {
     layer_add_child(window_layer, scroll_layer_get_layer(s_scroll_layer));
 
     // Title
-    s_title_layer = text_layer_create(GRect(5, 5, width, 60));
+    s_title_layer = text_layer_create(GRect(margin, top_y, width, 60));
     text_layer_set_font(s_title_layer,
                         fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
     text_layer_set_overflow_mode(s_title_layer, GTextOverflowModeWordWrap);
     scroll_layer_add_child(s_scroll_layer, text_layer_get_layer(s_title_layer));
 
     // Status
-    s_status_layer = text_layer_create(GRect(5, 70, width, 50));
+    s_status_layer = text_layer_create(GRect(margin, 70, width, 50));
     text_layer_set_font(s_status_layer,
                         fonts_get_system_font(FONT_KEY_GOTHIC_18));
     text_layer_set_overflow_mode(s_status_layer, GTextOverflowModeWordWrap);
@@ -59,12 +61,18 @@ static void window_load(Window *window) {
                            text_layer_get_layer(s_status_layer));
 
     // Description
-    s_desc_layer = text_layer_create(GRect(5, 125, width, 300));
+    s_desc_layer = text_layer_create(GRect(margin, 125, width, 300));
     text_layer_set_font(s_desc_layer,
                         fonts_get_system_font(FONT_KEY_GOTHIC_18));
     text_layer_set_overflow_mode(s_desc_layer, GTextOverflowModeWordWrap);
     scroll_layer_add_child(s_scroll_layer,
                            text_layer_get_layer(s_desc_layer));
+
+#ifdef PBL_ROUND
+    text_layer_enable_screen_text_flow_and_paging(s_title_layer, 8);
+    text_layer_enable_screen_text_flow_and_paging(s_status_layer, 8);
+    text_layer_enable_screen_text_flow_and_paging(s_desc_layer, 8);
+#endif
 
     // Loading indicator
     s_loading_layer = text_layer_create(
@@ -126,20 +134,22 @@ static void update_display(void) {
     // Recalculate layout based on content sizes
     Layer *window_layer = window_get_root_layer(s_window);
     GRect bounds = layer_get_bounds(window_layer);
-    int width = bounds.size.w - 10;
+    int margin = PBL_IF_ROUND_ELSE(10, 5);
+    int top_y = PBL_IF_ROUND_ELSE(40, 5);
+    int width = bounds.size.w - margin * 2;
 
     GSize title_size = text_layer_get_content_size(s_title_layer);
     int title_h = title_size.h + 10;
 
     layer_set_frame(text_layer_get_layer(s_status_layer),
-                    GRect(5, 5 + title_h, width, 50));
+                    GRect(margin, top_y + title_h, width, 50));
 
     GSize status_size = text_layer_get_content_size(s_status_layer);
     int status_h = status_size.h + 10;
 
-    int desc_y = 5 + title_h + status_h;
+    int desc_y = top_y + title_h + status_h;
     layer_set_frame(text_layer_get_layer(s_desc_layer),
-                    GRect(5, desc_y, width, 300));
+                    GRect(margin, desc_y, width, 300));
 
     GSize desc_size = text_layer_get_content_size(s_desc_layer);
     int total_height = desc_y + desc_size.h + 20;
