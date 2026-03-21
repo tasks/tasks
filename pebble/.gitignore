@@ -1,3 +1,5 @@
 build/
+screenshots/*/*.png
+resources/images/*.png
 node_modules/
 .lock-waf_*

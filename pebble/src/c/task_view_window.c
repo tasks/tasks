@@ -1,6 +1,10 @@
 #include "task_view_window.h"
 #include "protocol.h"
 
+#ifdef SCREENSHOT_MODE
+#include "screenshot_data.h"
+#endif
+
 static Window *s_window;
 static ScrollLayer *s_scroll_layer;
 static TextLayer *s_title_layer;
@@ -86,7 +90,15 @@ static void window_load(Window *window) {
     // Start loading
     s_loading = true;
     layer_set_hidden(scroll_layer_get_layer(s_scroll_layer), true);
+#ifdef SCREENSHOT_MODE
+    screenshot_populate_task_detail(&s_task);
+    s_loading = false;
+    layer_set_hidden(text_layer_get_layer(s_loading_layer), true);
+    layer_set_hidden(scroll_layer_get_layer(s_scroll_layer), false);
+    update_display();
+#else
     protocol_send_get_task(s_id_high, s_id_low);
+#endif
 }
 
 static void window_unload(Window *window) {

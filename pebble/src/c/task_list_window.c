@@ -4,6 +4,10 @@
 #include "menu_window.h"
 #include "settings_window.h"
 
+#ifdef SCREENSHOT_MODE
+#include "screenshot_data.h"
+#endif
+
 static Window *s_window;
 static MenuLayer *s_menu_layer;
 static TextLayer *s_loading_layer;
@@ -518,6 +522,36 @@ static void on_filter_selected(const char *filter_id, const char *filter_name, u
     request_tasks_page(0, INITIAL_PAGE_SIZE);
 }
 
+#ifdef SCREENSHOT_MODE
+static void load_screenshot_data(void) {
+#if SCREENSHOT_SCENE == 5
+    strncpy(s_filter_name, "Shopping", MAX_TITLE_LEN - 1);
+    s_filter_color = 0x00AA00;
+    s_filter_text_color = 0xFFFFFF;
+#else
+    strncpy(s_filter_name, "My Tasks", MAX_TITLE_LEN - 1);
+    s_filter_color = 0;
+    s_filter_text_color = 0;
+#endif
+
+    ensure_capacity_for(&s_items, &s_items_capacity, 20);
+#if SCREENSHOT_SCENE == 5
+    s_num_items = screenshot_populate_shopping_tasks(s_items, 20);
+#else
+    s_num_items = screenshot_populate_tasks(s_items, 20);
+#endif
+    s_total_items = s_num_items;
+    s_window_start = 0;
+    s_first_load = false;
+
+    show_loading(false);
+    menu_layer_reload_data(s_menu_layer);
+    menu_layer_set_selected_index(s_menu_layer,
+        (MenuIndex){0, (uint16_t)(TASK_ROW_OFFSET + 1)},
+        MenuRowAlignNone, false);
+}
+#endif
+
 // Window handlers
 
 static void window_load(Window *window) {
@@ -559,7 +593,11 @@ static void window_load(Window *window) {
     s_total_items = 0;
     s_first_load = true;
     s_paging_up = false;
+#ifdef SCREENSHOT_MODE
+    load_screenshot_data();
+#else
     request_tasks_page(0, INITIAL_PAGE_SIZE);
+#endif
 }
 
 static void window_unload(Window *window) {

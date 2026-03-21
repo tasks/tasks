@@ -1,6 +1,10 @@
 #include "menu_window.h"
 #include "protocol.h"
 
+#ifdef SCREENSHOT_MODE
+#include "screenshot_data.h"
+#endif
+
 static Window *s_window;
 static MenuLayer *s_menu_layer;
 static TextLayer *s_loading_layer;
@@ -143,6 +147,17 @@ static void select_click(MenuLayer *menu_layer, MenuIndex *cell_index,
     }
 }
 
+#ifdef SCREENSHOT_MODE
+static void load_screenshot_lists(void) {
+    s_num_lists = screenshot_populate_lists(s_lists, MAX_LISTS);
+    rebuild_visible_map();
+    show_loading(false);
+    menu_layer_reload_data(s_menu_layer);
+    menu_layer_set_selected_index(s_menu_layer,
+        (MenuIndex){0, 1}, MenuRowAlignNone, false);
+}
+#endif
+
 // Window handlers
 
 static void window_load(Window *window) {
@@ -173,7 +188,11 @@ static void window_load(Window *window) {
                         fonts_get_system_font(FONT_KEY_GOTHIC_18));
     layer_add_child(window_layer, text_layer_get_layer(s_loading_layer));
 
+#ifdef SCREENSHOT_MODE
+    load_screenshot_lists();
+#else
     request_lists();
+#endif
 }
 
 static void window_unload(Window *window) {

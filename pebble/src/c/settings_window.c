@@ -65,6 +65,12 @@ static void save_settings(void) {
 }
 
 static void load_settings(void) {
+#ifdef SCREENSHOT_MODE
+    s_group_mode = SORT_DUE;
+    s_sort_mode = SORT_IMPORTANCE;
+    s_show_hidden = false;
+    s_show_completed = true;
+#else
     s_group_mode = persist_exists(PERSIST_SORT_GROUP)
         ? (int)persist_read_int(PERSIST_SORT_GROUP) : SORT_DUE;
     s_sort_mode = persist_exists(PERSIST_SORT_MODE)
@@ -73,6 +79,7 @@ static void load_settings(void) {
         ? persist_read_bool(PERSIST_SHOW_HIDDEN) : false;
     s_show_completed = persist_exists(PERSIST_SHOW_COMPLETED)
         ? persist_read_bool(PERSIST_SHOW_COMPLETED) : true;
+#endif
 }
 
 static void update_labels(void) {
