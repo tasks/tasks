@@ -40,9 +40,9 @@ data class Tag(
 ) {
     companion object {
         const val KEY = "tags-tag" // $NON-NLS-1$
-        @JvmField val TABLE = Table("tags")
-        @JvmField val TASK = TABLE.column("task")
-        @JvmField val TAG_UID = TABLE.column("tag_uid")
-        @JvmField val NAME = TABLE.column("name")
+        val TABLE = Table("tags")
+        val TASK = TABLE.column("task")
+        val TAG_UID = TABLE.column("tag_uid")
+        val NAME = TABLE.column("name")
     }
 }

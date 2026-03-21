@@ -55,10 +55,10 @@ data class Alarm(
 
     companion object {
         const val TABLE_NAME = "alarms"
-        @JvmField val TABLE = Table(TABLE_NAME)
-        @JvmField val TASK = TABLE.column("task")
-        @JvmField val TYPE = TABLE.column("type")
-        @JvmField val TIME = TABLE.column("time")
+        val TABLE = Table(TABLE_NAME)
+        val TASK = TABLE.column("task")
+        val TYPE = TABLE.column("type")
+        val TIME = TABLE.column("time")
 
         const val TYPE_DATE_TIME = 0
         const val TYPE_REL_START = 1

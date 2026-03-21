@@ -279,15 +279,15 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
         const val NO_ID: Long = 0
 
         // --- properties
-        @JvmField val ID = TABLE.column("_id")
-        @JvmField val TITLE = TABLE.column("title")
+        val ID = TABLE.column("_id")
+        val TITLE = TABLE.column("title")
         val IMPORTANCE = TABLE.column("importance")
         val DUE_DATE = TABLE.column("dueDate")
         val HIDE_UNTIL = TABLE.column("hideUntil")
-        @JvmField val MODIFICATION_DATE = TABLE.column("modified")
-        @JvmField val CREATION_DATE = TABLE.column("created")
+        val MODIFICATION_DATE = TABLE.column("modified")
+        val CREATION_DATE = TABLE.column("created")
         val COMPLETION_DATE = TABLE.column("completed")
-        @JvmField val DELETION_DATE = TABLE.column("deleted")
+        val DELETION_DATE = TABLE.column("deleted")
         val NOTES = TABLE.column("notes")
         val TIMER_START = TABLE.column("timerStart")
         val PARENT = TABLE.column("parent")
@@ -341,7 +341,7 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
         private val INVALID_COUNT = ";?COUNT=(-1|0)".toRegex()
 
         /** Checks whether provided due date has a due time or only a date  */
-        @JvmStatic fun hasDueTime(dueDate: Long): Boolean {
+        fun hasDueTime(dueDate: Long): Boolean {
             return dueDate > 0 && dueDate % 60000 > 0
         }
 

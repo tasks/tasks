@@ -229,7 +229,7 @@ WHERE cd_id IS NULL
     object TaskCriteria {
         /** @return tasks that have not yet been completed or deleted
          */
-        @JvmStatic fun activeAndVisible(): Criterion = Criterion.and(
+        fun activeAndVisible(): Criterion = Criterion.and(
             Task.COMPLETION_DATE.lte(0),
             Task.DELETION_DATE.lte(0),
             Task.HIDE_UNTIL.lte(Functions.now())

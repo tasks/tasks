@@ -82,10 +82,10 @@ data class Place(
         private val COORDS = Regex("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$")
         const val KEY = "place"
         const val TABLE_NAME = "places"
-        @JvmField val TABLE = Table(TABLE_NAME)
-        @JvmField val UID = TABLE.column("uid")
-        @JvmField val NAME = TABLE.column("name")
-        @JvmField val ADDRESS = TABLE.column("address")
+        val TABLE = Table(TABLE_NAME)
+        val UID = TABLE.column("uid")
+        val NAME = TABLE.column("name")
+        val ADDRESS = TABLE.column("address")
 
         /** Returns distance in meters between two coordinates using the haversine formula. */
         fun distanceBetween(

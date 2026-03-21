@@ -40,8 +40,8 @@ data class Geofence(
 ) : CommonParcelable {
     companion object {
         const val TABLE_NAME = "geofences"
-        @JvmField val TABLE = Table(TABLE_NAME)
-        @JvmField val TASK = TABLE.column("task")
-        @JvmField val PLACE = TABLE.column("place")
+        val TABLE = Table(TABLE_NAME)
+        val TASK = TABLE.column("task")
+        val PLACE = TABLE.column("place")
     }
 }

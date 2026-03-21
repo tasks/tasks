@@ -54,7 +54,6 @@ class Query private constructor(vararg fields: Field?) {
     }
 
     companion object {
-        @JvmStatic
         fun select(vararg fields: Field?): Query {
             return Query(*fields)
         }

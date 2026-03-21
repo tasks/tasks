@@ -4,7 +4,6 @@ import org.tasks.IS_DEBUG
 import org.tasks.printTimestamp
 
 object DateTimeUtils2 {
-    @JvmStatic
     fun currentTimeMillis(): Long {
         return MILLIS_PROVIDER.millis
     }
