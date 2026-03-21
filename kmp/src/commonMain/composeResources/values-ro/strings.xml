@@ -44,4 +44,6 @@
     <string name="sort_list">Listă</string>
     <string name="password_required">Parolă necesară</string>
     <string name="caldav_home_set_not_found">Setarea inițială nu a fost găsită</string>
+    <string name="add_account">Adaugă un cont</string>
+    <string name="continue_without_sync">Continuă fără sincronizare</string>
 </resources>

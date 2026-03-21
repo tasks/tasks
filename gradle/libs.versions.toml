@@ -139,6 +139,13 @@ horologist-datalayer-watch = { group = "com.google.android.horologist", name = "
 jchronic = { module = "com.rubiconproject.oss:jchronic", version = "0.2.6" }
 junit = { module = "junit:junit", version.ref = "junit-junit" }
 kermit = { module = "co.touchlab:kermit", version = "2.1.0" }
+jetbrains-navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version = "1.0.0-alpha06" }
+jetbrains-lifecycle-viewmodel-navigation3 = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3", version = "2.10.0" }
+koin-core = { module = "io.insert-koin:koin-core", version = "4.1.0" }
+koin-android = { module = "io.insert-koin:koin-android", version = "4.1.0" }
+koin-compose = { module = "io.insert-koin:koin-compose", version = "4.1.0" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version = "4.1.0" }
+kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }

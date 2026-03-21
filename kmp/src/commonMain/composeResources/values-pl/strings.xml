@@ -39,4 +39,6 @@
     <string name="sort_list">Lista</string>
     <string name="password_required">Wymagane hasło</string>
     <string name="caldav_home_set_not_found">Nie znaleziono zestawu domowego</string>
+    <string name="add_account">Dodaj konto</string>
+    <string name="continue_without_sync">Kontynuuj bez synchronizacji</string>
 </resources>

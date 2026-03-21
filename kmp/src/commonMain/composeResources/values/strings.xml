@@ -52,4 +52,12 @@
     <string name="group_none">None</string>
     <string name="all_done">All done!</string>
     <string name="filter">Filter</string>
+    <string name="add_account">Add account</string>
+    <string name="continue_without_sync">Continue without sync</string>
+    <string name="returning_user_import_backup">Import Tasks.org backup</string>
+    <string name="legal_disclosure">%1$s, you agree to the %2$s and %3$s. Tasks is open source software provided under the %4$s.</string>
+    <string name="legal_disclosure_prefix_continuing">By continuing with any button below</string>
+    <string name="terms_of_service_proper">Terms of Service</string>
+    <string name="privacy_policy_proper">Privacy Policy</string>
+    <string name="gplv3_license">GPLv3 License</string>
 </resources>

@@ -296,7 +296,6 @@
     <string name="delete_selected_tasks">Supprimer les tâches sélectionnées \?</string>
     <string name="copy_selected_tasks">Copier les tâches sélectionnées \?</string>
     <string name="date_and_time">Date et heure</string>
-    <string name="add_account">Ajouter un compte</string>
     <string name="user">Utilisateur</string>
     <string name="password">Mot de passe</string>
     <string name="url">Adresse web</string>
@@ -724,7 +723,6 @@
     <string name="app_settings">Paramètres de l\'application</string>
     <string name="banner_app_updated_description">Tasks vient d\'être mis à jour vers %s. Souhaitez-vous consulter les notes de mise à jour ?</string>
     <string name="banner_app_updated_title">Application mise à jour</string>
-    <string name="continue_without_sync">Continuer sans synchronisation</string>
     <string name="delete_tasks_warning">%s sera supprimé. Cette opération est irréversible !</string>
     <string name="multiline_title_off">Appuyer sur Terminé pour enregistrer la tâche</string>
     <string name="widget_view_more_tasks">Voir plus de tâches</string>
@@ -734,17 +732,11 @@
     <string name="microsoft_selection_description_googleplay">Synchronisez avec votre travail, votre école ou votre compte Microsoft personnel</string>
     <string name="subscription_required_fdroid">Un abonnement est nécessaire pour utiliser la synchronisation avec Tasks.org. Les abonnements doivent être initiés à partir de la version Google Play de Tasks.</string>
     <string name="sponsorship_required_fdroid">Un parrainage GitHub est nécessaire pour utiliser la synchronisation avec Tasks.org. Cliquez ci-dessous pour devenir un parrain.</string>
-    <string name="legal_disclosure">%1$s, vous acceptez les %2$s et %3$s. Tasks est un logiciel en sources ouvertes fournis sous %4$s.</string>
     <string name="legal_disclosure_prefix_using">En utilisant Tasks.org</string>
-    <string name="legal_disclosure_prefix_continuing">En continuant avec n\'importe quel bouton ci-dessous</string>
     <string name="terms_of_service">Conditions d\'utilisation</string>
-    <string name="terms_of_service_proper">Conditions d\'utilisation</string>
-    <string name="privacy_policy_proper">Politique de confidentialité</string>
-    <string name="gplv3_license">Licence GPLv3</string>
     <string name="tos_updated_title">Nous avons mis à jour nos conditions d\'utilisation</string>
     <string name="view_tos">Voir les conditions d\'utilisation</string>
     <string name="accept">Accepter</string>
-    <string name="returning_user_import_backup">Importer une sauvegarde Tasks.org</string>
     <string name="legal">Mentions légales</string>
     <string name="exit">Sortir</string>
     <string name="returning_user">Restaurer les données ?</string>

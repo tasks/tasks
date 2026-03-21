@@ -52,4 +52,7 @@
     <string name="sort_list">Nimekiri</string>
     <string name="password_required">Salasõna on kohustuslik</string>
     <string name="caldav_home_set_not_found">Avakomplekti ei leidu</string>
+    <string name="add_account">Lisa konto</string>
+    <string name="continue_without_sync">Jätka ilma sünkroniseerimata</string>
+    <string name="returning_user_import_backup">Impordi Tasks.org-i varukoopia</string>
 </resources>

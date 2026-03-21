@@ -504,8 +504,6 @@
     <string name="delete_comment">comentari</string>
     <string name="yesterday">Ahir</string>
     <string name="delete_selected_tasks">Voleu suprimir les tasques seleccionades?</string>
-    <string name="add_account">Afegeiu un compte</string>
-    <string name="continue_without_sync">Continua sense sincronitzar</string>
     <string name="bundle_notifications">Notificacions del paquet</string>
     <string name="badges">Insígnies</string>
     <string name="repeats_from">Repeteix des de</string>

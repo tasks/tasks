@@ -44,4 +44,12 @@
     <string name="sort_list">Listo</string>
     <string name="password_required">Pasvorto bezonata</string>
     <string name="caldav_home_set_not_found">Ne trovis hejman aron</string>
+    <string name="add_account">Aldoni konton</string>
+    <string name="continue_without_sync">Daŭrigi sen sinkronigo</string>
+    <string name="legal_disclosure_prefix_continuing">Per daŭri per ajna butono sube</string>
+    <string name="terms_of_service_proper">Kondiĉoj de Uzado</string>
+    <string name="privacy_policy_proper">Regularo pri Privateco</string>
+    <string name="gplv3_license">GPLv3 Licenco</string>
+    <string name="returning_user_import_backup">Importi savkopion de Tasks.org</string>
+    <string name="legal_disclosure">%1$s, vi konsentas kun la %2$s kaj %3$s. Tasks estas malfermitkoda programaro disponita per la %4$s.</string>
 </resources>

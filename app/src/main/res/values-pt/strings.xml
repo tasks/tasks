@@ -359,7 +359,6 @@
     <string name="url">URL</string>
     <string name="password">Palavra-passe</string>
     <string name="user">Utilizador</string>
-    <string name="add_account">Adicionar conta</string>
     <string name="launcher_icon">Ícone do lançador</string>
     <string name="url_invalid_scheme">Deve iniciar com http(s)://</string>
     <string name="url_host_name_required">É necessário o nome do host</string>
@@ -705,7 +704,6 @@
     <string name="add_shortcut_to_home_screen">Adicionar atalho para a tela inicial</string>
     <string name="cost_free">Grátis</string>
     <string name="send_application_logs">Enviar logs da aplicação</string>
-    <string name="continue_without_sync">Continuar sem sync</string>
     <string name="delete_tasks_warning">%s será apagado. Isso não poderá ser desfeito!</string>
     <string name="widget_view_more_tasks">Ver mais tarefas</string>
 </resources>

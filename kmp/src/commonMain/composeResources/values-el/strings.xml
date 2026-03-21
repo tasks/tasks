@@ -44,4 +44,6 @@
     <string name="sort_list">Λίστα</string>
     <string name="password_required">Απαιτείται κωδικός</string>
     <string name="caldav_home_set_not_found">Δεν βρέθηκε αρχικό σετ</string>
+    <string name="add_account">Προσθήκη λογαριασμού</string>
+    <string name="continue_without_sync">Συνέχεια χωρίς συγχρονισμό</string>
 </resources>

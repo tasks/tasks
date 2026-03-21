@@ -27,4 +27,6 @@
     <string name="sort_list">Llista</string>
     <string name="password_required">Precísase una conseña</string>
     <string name="caldav_home_set_not_found">Nun se atopen los axustes d'aniciu</string>
+    <string name="add_account">Amestar cuenta</string>
+    <string name="continue_without_sync">Continuar ensin sincronizar</string>
 </resources>

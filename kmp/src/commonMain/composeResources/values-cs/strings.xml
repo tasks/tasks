@@ -52,4 +52,12 @@
     <string name="sort_list">Seznam</string>
     <string name="password_required">Zadejte heslo</string>
     <string name="caldav_home_set_not_found">Domovská sada nenalezena</string>
+    <string name="add_account">Přidat účet</string>
+    <string name="continue_without_sync">Pokračovat bez synchronizace</string>
+    <string name="legal_disclosure">%1$s souhlasíte s %2$s a %3$s. Aplikace Tasks je open-source software poskytovaný pod licencí %4$s.</string>
+    <string name="legal_disclosure_prefix_continuing">Pokračováním kliknutím na jakékoli tlačítko níže</string>
+    <string name="terms_of_service_proper">Podmínky služby</string>
+    <string name="privacy_policy_proper">Ochrana soukromí</string>
+    <string name="gplv3_license">GPLv3 License</string>
+    <string name="returning_user_import_backup">Importovat zálohu Tasks.org</string>
 </resources>

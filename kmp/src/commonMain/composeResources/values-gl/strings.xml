@@ -44,4 +44,6 @@
     <string name="sort_list">Lista</string>
     <string name="password_required">Precísase contrasinal</string>
     <string name="caldav_home_set_not_found">Non se atopa a configuración de inicio</string>
+    <string name="add_account">Engadir conta</string>
+    <string name="continue_without_sync">Continuar sen sincronización</string>
 </resources>

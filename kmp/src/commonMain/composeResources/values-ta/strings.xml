@@ -44,4 +44,6 @@
     <string name="sort_list">பட்டியல்</string>
     <string name="password_required">கடவுச்சொல் தேவை</string>
     <string name="caldav_home_set_not_found">முகப்பு தொகுப்பு கிடைக்கவில்லை</string>
+    <string name="add_account">கணக்கு சேர்க்க</string>
+    <string name="continue_without_sync">ஒத்திசைவு இல்லாமல் தொடரவும்</string>
 </resources>

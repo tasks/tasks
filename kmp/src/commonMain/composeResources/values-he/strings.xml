@@ -52,4 +52,12 @@
     <string name="all_done">בוצע!</string>
     <string name="password_required">נדרשת סיסמה</string>
     <string name="caldav_home_set_not_found">סט הבית לא נמצא</string>
+    <string name="add_account">הוספת חשבון</string>
+    <string name="continue_without_sync">להמשיך ללא סנכרון</string>
+    <string name="legal_disclosure">‪%1$s‬, את/ה מסכים/ה ל%2$s ו%3$s‏. Tasks היא תוכנת קוד פתוח המסופקת תחת %4$s.</string>
+    <string name="legal_disclosure_prefix_continuing">על ידי המשך עם כל לחצן למטה</string>
+    <string name="terms_of_service_proper">תנאי השירות</string>
+    <string name="privacy_policy_proper">מדיניות הפרטיות</string>
+    <string name="gplv3_license">רישיון ה־GPLv3</string>
+    <string name="returning_user_import_backup">ייבוא גיבוי Tasks.org</string>
 </resources>

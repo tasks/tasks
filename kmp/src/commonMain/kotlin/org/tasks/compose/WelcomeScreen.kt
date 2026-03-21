@@ -1,11 +1,5 @@
 package org.tasks.compose
 
-import android.app.Activity
-import android.content.Intent
-import androidx.activity.compose.BackHandler
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -42,72 +36,33 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.PreviewFontScale
-import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import org.tasks.R
-import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
+import androidx.compose.ui.window.Dialog
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.add_account
+import tasks.kmp.generated.resources.continue_without_sync
+import tasks.kmp.generated.resources.gplv3_license
+import tasks.kmp.generated.resources.ic_round_icon
+import tasks.kmp.generated.resources.legal_disclosure
+import tasks.kmp.generated.resources.legal_disclosure_prefix_continuing
+import tasks.kmp.generated.resources.privacy_policy_proper
+import tasks.kmp.generated.resources.returning_user_import_backup
+import tasks.kmp.generated.resources.tasks_org
+import tasks.kmp.generated.resources.terms_of_service_proper
+import tasks.kmp.generated.resources.url_license
+import tasks.kmp.generated.resources.url_privacy_policy
 import org.tasks.auth.TasksServerEnvironment
-import org.tasks.themes.TasksTheme
+import tasks.kmp.generated.resources.url_tos
 
 @Composable
-fun WelcomeScreen(
-    importViewModel: ImportTasksViewModel,
-    filePickerIntent: Intent,
-    onBack: () -> Unit,
-    onSignIn: () -> Unit,
-    onContinueWithoutSync: () -> Unit,
-    onImportBackup: () -> Unit,
-    openLegalUrl: (String) -> Unit,
-    environments: List<TasksServerEnvironment.Environment>,
-    currentEnvironment: String,
-    onSelectEnvironment: (String) -> Unit,
-) {
-    val importUri by importViewModel.importUri.collectAsStateWithLifecycle()
-
-    val importBackupLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            importViewModel.setImportUri(result.data?.data)
-        }
-    }
-
-    importUri?.let { uri ->
-        ImportTasksDialog(
-            uri = uri,
-            viewModel = importViewModel,
-            onFinished = { importViewModel.reset() }
-        )
-    }
-
-    WelcomeScreenLayout(
-        onBack = onBack,
-        onSignIn = onSignIn,
-        onContinueWithoutSync = onContinueWithoutSync,
-        onImportBackup = {
-            onImportBackup()
-            importBackupLauncher.launch(filePickerIntent)
-        },
-        openLegalUrl = openLegalUrl,
-        environments = environments,
-        currentEnvironment = currentEnvironment,
-        onSelectEnvironment = onSelectEnvironment,
-    )
-}
-
-@Composable
-private fun WelcomeScreenLayout(
-    onBack: () -> Unit,
+fun WelcomeScreenLayout(
+    showLegalDisclosure: Boolean,
     onSignIn: () -> Unit,
     onContinueWithoutSync: () -> Unit,
     onImportBackup: () -> Unit,
@@ -132,7 +87,6 @@ private fun WelcomeScreenLayout(
         )
     }
 
-    BackHandler(onBack = onBack)
     Scaffold { paddingValues ->
         Box(
             modifier = Modifier
@@ -165,13 +119,14 @@ private fun WelcomeScreenLayout(
                             contentAlignment = Alignment.Center,
                         ) {
                             Icon(
-                                painter = painterResource(id = R.drawable.ic_round_icon),
-                                contentDescription = stringResource(R.string.tasks_org),
+                                painter = painterResource(Res.drawable.ic_round_icon),
+                                contentDescription = stringResource(Res.string.tasks_org),
                                 tint = Color.Unspecified,
                                 modifier = iconModifier.size(120.dp)
                             )
                         }
                         WelcomeContent(
+                            showLegalDisclosure = showLegalDisclosure,
                             onSignIn = onSignIn,
                             onContinueWithoutSync = onContinueWithoutSync,
                             onImportBackup = onImportBackup,
@@ -191,13 +146,14 @@ private fun WelcomeScreenLayout(
                     ) {
                         Spacer(modifier = Modifier.weight(1f))
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_round_icon),
-                            contentDescription = stringResource(R.string.tasks_org),
+                            painter = painterResource(Res.drawable.ic_round_icon),
+                            contentDescription = stringResource(Res.string.tasks_org),
                             tint = Color.Unspecified,
                             modifier = iconModifier.size(152.dp)
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         WelcomeContent(
+                            showLegalDisclosure = showLegalDisclosure,
                             onSignIn = onSignIn,
                             onContinueWithoutSync = onContinueWithoutSync,
                             onImportBackup = onImportBackup,
@@ -277,6 +233,7 @@ private fun EnvironmentSelectorDialog(
 
 @Composable
 private fun WelcomeContent(
+    showLegalDisclosure: Boolean,
     onSignIn: () -> Unit,
     onContinueWithoutSync: () -> Unit,
     onImportBackup: () -> Unit,
@@ -291,9 +248,9 @@ private fun WelcomeContent(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        if (IS_GOOGLE_PLAY) {
+        if (showLegalDisclosure) {
             LegalDisclosure(
-                prefixRes = R.string.legal_disclosure_prefix_continuing,
+                prefixText = stringResource(Res.string.legal_disclosure_prefix_continuing),
                 openLegalUrl = openLegalUrl,
                 modifier = Modifier.widthIn(max = 400.dp),
             )
@@ -306,7 +263,7 @@ private fun WelcomeContent(
             modifier = buttonModifier
         ) {
             Text(
-                text = stringResource(R.string.add_account),
+                text = stringResource(Res.string.add_account),
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
             )
@@ -319,7 +276,7 @@ private fun WelcomeContent(
             modifier = buttonModifier
         ) {
             Text(
-                text = stringResource(R.string.continue_without_sync),
+                text = stringResource(Res.string.continue_without_sync),
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
             )
@@ -332,7 +289,7 @@ private fun WelcomeContent(
             modifier = buttonModifier
         ) {
             Text(
-                text = stringResource(R.string.returning_user_import_backup),
+                text = stringResource(Res.string.returning_user_import_backup),
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
             )
@@ -341,8 +298,8 @@ private fun WelcomeContent(
 }
 
 @Composable
-internal fun LegalDisclosure(
-    @StringRes prefixRes: Int,
+fun LegalDisclosure(
+    prefixText: String,
     openLegalUrl: (String) -> Unit,
     modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Center,
@@ -355,11 +312,10 @@ internal fun LegalDisclosure(
         color = MaterialTheme.colorScheme.primary,
         textDecoration = TextDecoration.Underline,
     )
-    val prefixText = stringResource(prefixRes)
-    val tosText = stringResource(R.string.terms_of_service_proper)
-    val privacyText = stringResource(R.string.privacy_policy_proper)
-    val licenseText = stringResource(R.string.gplv3_license)
-    val template = stringResource(R.string.legal_disclosure)
+    val tosText = stringResource(Res.string.terms_of_service_proper)
+    val privacyText = stringResource(Res.string.privacy_policy_proper)
+    val licenseText = stringResource(Res.string.gplv3_license)
+    val template = stringResource(Res.string.legal_disclosure)
     val formatted = String.format(template, prefixText, tosText, privacyText, licenseText)
 
     val tosStart = formatted.indexOf(tosText)
@@ -369,9 +325,9 @@ internal fun LegalDisclosure(
     val licenseStart = formatted.indexOf(licenseText)
     val licenseEnd = licenseStart + licenseText.length
 
-    val tosUrl = stringResource(R.string.url_tos)
-    val privacyUrl = stringResource(R.string.url_privacy_policy)
-    val licenseUrl = stringResource(R.string.url_license)
+    val tosUrl = stringResource(Res.string.url_tos)
+    val privacyUrl = stringResource(Res.string.url_privacy_policy)
+    val licenseUrl = stringResource(Res.string.url_license)
 
     val annotatedText = buildAnnotatedString {
         append(formatted)
@@ -393,20 +349,4 @@ internal fun LegalDisclosure(
                 ?.let { openLegalUrl(it.item) }
         }
     )
-}
-
-@PreviewLightDark
-@PreviewScreenSizes
-@PreviewFontScale
-@Composable
-private fun WelcomeScreenPreview() {
-    TasksTheme {
-        WelcomeScreenLayout(
-            onBack = {},
-            onSignIn = {},
-            onContinueWithoutSync = {},
-            onImportBackup = {},
-            openLegalUrl = {},
-        )
-    }
 }

@@ -309,7 +309,6 @@
     <string name="delete_selected_tasks">¿Borrar tareas seleccionadas?</string>
     <string name="copy_selected_tasks">¿Copiar tareas seleccionadas?</string>
     <string name="date_and_time">Fecha y hora</string>
-    <string name="add_account">Añadir cuenta</string>
     <string name="user">Usuario</string>
     <string name="password">Contraseña</string>
     <string name="notification_disable_battery_optimizations_description">Optimizaciones de batería pueden retrasar notificaciones</string>
@@ -725,7 +724,6 @@
     <string name="price_per_month_with_currency">%s/mes</string>
     <string name="multiline_title_off">Presione en Hecho para guardar la tarea</string>
     <string name="comment">Comentario</string>
-    <string name="continue_without_sync">Continua sin sincronizar</string>
     <string name="delete_tasks_warning">%s será eliminado. ¡Esto no se puede deshacer!</string>
     <string name="widget_view_more_tasks">Ver más tareas</string>
 </resources>

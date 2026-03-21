@@ -315,7 +315,6 @@
     <string name="delete_selected_tasks">למחוק משימות שנבחרו?</string>
     <string name="copy_selected_tasks">להעתיק משימות שנבחרו?</string>
     <string name="date_and_time">תאריך ושעה</string>
-    <string name="add_account">הוספת חשבון</string>
     <string name="user">משתמש</string>
     <string name="password">סיסמה</string>
     <string name="url">URL</string>
@@ -727,7 +726,6 @@
     <string name="repeats_every">חוזר כל</string>
     <string name="repeats_after">לאחר</string>
     <string name="comment">הערה</string>
-    <string name="continue_without_sync">להמשיך ללא סנכרון</string>
     <string name="delete_tasks_warning">%s יימחק. לא ניתן לבטל זאת!</string>
     <string name="widget_view_more_tasks">הצג עוד משימות</string>
     <string name="import_failed">הייבוא נכשל</string>
@@ -777,17 +775,11 @@
     <string name="alarm_start">התחלה</string>
     <string name="alarm_due">יעד</string>
     <string name="sign_in_subtitle">כבר מנוי/ה או אורח/ת מוזמן/ת?</string>
-    <string name="legal_disclosure">‪%1$s‬, את/ה מסכים/ה ל%2$s ו%3$s‏. Tasks היא תוכנת קוד פתוח המסופקת תחת %4$s.</string>
     <string name="legal_disclosure_prefix_using">על ידי שימוש ב־Tasks.org</string>
-    <string name="legal_disclosure_prefix_continuing">על ידי המשך עם כל לחצן למטה</string>
     <string name="terms_of_service">תנאי השירות</string>
-    <string name="terms_of_service_proper">תנאי השירות</string>
-    <string name="privacy_policy_proper">מדיניות הפרטיות</string>
-    <string name="gplv3_license">רישיון ה־GPLv3</string>
     <string name="tos_updated_title">עדכנו את תנאי השירות שלנו</string>
     <string name="view_tos">הצגת תנאי השירות</string>
     <string name="accept">הסכמה</string>
     <string name="exit">יציאה</string>
     <string name="returning_user">משתמש/ת חוזר/ת?</string>
-    <string name="returning_user_import_backup">ייבוא גיבוי Tasks.org</string>
 </resources>

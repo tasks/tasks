@@ -197,7 +197,6 @@
     <string name="delete_selected_tasks">Kas kustutame valitud ülesanded?</string>
     <string name="copy_selected_tasks">Kas kopeerime valitud ülesanded?</string>
     <string name="date_and_time">Kuupäev ja kellaaeg</string>
-    <string name="add_account">Lisa konto</string>
     <string name="user">Kasutaja</string>
     <string name="password">Salasõna</string>
     <string name="url">URL</string>
@@ -703,7 +702,6 @@
     <string name="banner_app_updated_description">Rakendus on uuendatud versioonini %s. Kas sa sooviksid lugeda, mis on siin hiljuti muutunud?</string>
     <string name="banner_app_updated_title">Rakendus on uuendatud</string>
     <string name="multiline_title_off">Ülesande salvestamiseks vajuta nuppu „Valmis“</string>
-    <string name="continue_without_sync">Jätka ilma sünkroniseerimata</string>
     <string name="delete_tasks_warning">%s saab olema kustutatud. Seda tegevust ei saa tagasi pöörata!</string>
     <string name="widget_view_more_tasks">Vaata veel ülesandeid</string>
     <string name="local_list_title">See on kohalik loend</string>
@@ -718,7 +716,6 @@
     <string name="accept">Nõustu</string>
     <string name="exit">Välju</string>
     <string name="returning_user">Sa oled seda rakendust varem kasutanud?</string>
-    <string name="returning_user_import_backup">Impordi Tasks.org-i varukoopia</string>
     <string name="import_failed">Importimine ei õnnestunud</string>
     <string name="import_failed_message">Varukoopia faili lugemine ei õnnestunud</string>
     <string name="banner_subscription_required_title">Vajalik on tellimus</string>

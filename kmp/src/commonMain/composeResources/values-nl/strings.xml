@@ -44,4 +44,10 @@
     <string name="sort_list">Lijst</string>
     <string name="password_required">Wachtwoord vereist</string>
     <string name="caldav_home_set_not_found">CalDAV-home niet gevonden</string>
+    <string name="add_account">Account toevoegen</string>
+    <string name="continue_without_sync">Doorgaan zonder synchronisatie</string>
+    <string name="terms_of_service_proper">Gebruiksvoorwaarden</string>
+    <string name="privacy_policy_proper">Privacybeleid</string>
+    <string name="gplv3_license">GPLv3-licentie</string>
+    <string name="returning_user_import_backup">Tasks.org-backup importeren</string>
 </resources>

@@ -20,7 +20,10 @@ import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.tasks_org
 import org.tasks.auth.SignInActivity
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_FEATURE
@@ -202,7 +205,7 @@ class MainSettingsComposeFragment : Fragment() {
             account.isTasksOrg -> {
                 activity.startPreference(
                     newTasksAccountPreference(account),
-                    getString(R.string.tasks_org)
+                    runBlocking { org.jetbrains.compose.resources.getString(Res.string.tasks_org) }
                 )
             }
             account.isMicrosoft -> {

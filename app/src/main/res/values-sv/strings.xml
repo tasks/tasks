@@ -301,7 +301,6 @@
     <string name="delete_selected_tasks">Ta bort valda uppgifter\?</string>
     <string name="copy_selected_tasks">Kopiera valda uppgifter\?</string>
     <string name="date_and_time">Datum och tid</string>
-    <string name="add_account">Lägg till konto</string>
     <string name="user">Användare</string>
     <string name="password">Lösenord</string>
     <string name="url">URL</string>
@@ -704,7 +703,6 @@
     <string name="banner_app_updated_description">Tasks uppdaterades just till %s. Vill du se versionsnyheterna?</string>
     <string name="multiline_title_off">Tryck på \"klar\" för att spara uppgiften</string>
     <string name="delete_tasks_warning">%s kommer att tas bort. Detta kan inte ångras!</string>
-    <string name="continue_without_sync">Fortsätt utan synkronisering</string>
     <string name="widget_view_more_tasks">Visa mer uppgifter</string>
     <string name="import_failed">Importeringen misslyckades</string>
     <string name="import_failed_message">Kunde inte läsa säkerhetskopian</string>
@@ -715,17 +713,11 @@
     <string name="subscription_required_fdroid">En prenumeration krävs för att använda Tasks.org-synkronisering. Prenumerationer måste startas från Google Play-versionen av Tasks.</string>
     <string name="sponsorship_required_fdroid">Ett GitHub-sponsorskap krävs för att använda Tasks.org-synkronisering. Klicka nedan för att bli sponsor.</string>
     <string name="legal">Juridisk</string>
-    <string name="legal_disclosure">%1$s, godkänner du %2$s och %3$s. Tasks är programvara med öppen källkod som tillhandahålls under %4$s.</string>
     <string name="legal_disclosure_prefix_using">Genom att använda Tasks.org</string>
-    <string name="legal_disclosure_prefix_continuing">Genom att fortsätta med någon av knapparna nedan</string>
     <string name="terms_of_service">Användarvillkor</string>
-    <string name="terms_of_service_proper">Användarvillkor</string>
-    <string name="privacy_policy_proper">Integritetspolicy</string>
-    <string name="gplv3_license">GPLv3-licens</string>
     <string name="tos_updated_title">Vi har uppdaterat våra användarvillkor</string>
     <string name="view_tos">Visa användarvillkor</string>
     <string name="accept">Acceptera</string>
     <string name="exit">Avsluta</string>
     <string name="returning_user">Återvändande användare?</string>
-    <string name="returning_user_import_backup">Importera Tasks.org-säkerhetskopia</string>
 </resources>

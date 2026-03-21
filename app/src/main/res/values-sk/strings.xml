@@ -316,7 +316,6 @@
     <string name="delete_selected_tasks">Vymazať vybrané úlohy?</string>
     <string name="copy_selected_tasks">Kopírovať vybrané úlohy?</string>
     <string name="date_and_time">Dátum a čas</string>
-    <string name="add_account">Pridať účet</string>
     <string name="user">Užívateľ</string>
     <string name="password">Heslo</string>
     <string name="notification_disable_battery_optimizations_description">Zníženie spotreby môže spôsobiť oneskorenie upozornení</string>

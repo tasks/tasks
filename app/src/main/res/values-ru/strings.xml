@@ -313,7 +313,6 @@
     <string name="delete_selected_tasks">Удалить выделенную(-ые) задачу(-и)?</string>
     <string name="copy_selected_tasks">Скопировать выделенные задачи?</string>
     <string name="date_and_time">Дата и время</string>
-    <string name="add_account">Добавить учётную запись</string>
     <string name="user">Пользователь</string>
     <string name="password">Пароль</string>
     <string name="notification_disable_battery_optimizations_description">Оптимизация расхода батареи может задерживать уведомления</string>
@@ -732,7 +731,6 @@
     <string name="banner_app_updated_description">Tasks обновились до версии %s. Показать что изменилось?</string>
     <string name="banner_app_updated_title">Приложение обновлено</string>
     <string name="multiline_title_off">Нажмите Done, чтобы сохранить задачу</string>
-    <string name="continue_without_sync">Продолжить без синхронизации</string>
     <string name="delete_tasks_warning">%s будет удалена. Это нельзя отменить!</string>
     <string name="widget_view_more_tasks">Просмотреть больше задач</string>
 </resources>

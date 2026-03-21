@@ -311,7 +311,6 @@
     <string name="delete_selected_tasks">Usunąć zaznaczone zadania?</string>
     <string name="copy_selected_tasks">Skopiować zaznaczone zadania?</string>
     <string name="date_and_time">Data i czas</string>
-    <string name="add_account">Dodaj konto</string>
     <string name="user">Użytkownik</string>
     <string name="password">Hasło</string>
     <string name="notification_disable_battery_optimizations_description">Optymalizacja zużycia energii może opóźniać powiadomienia</string>
@@ -702,5 +701,4 @@
     <string name="send_application_logs">Wyślij logi aplikacji</string>
     <string name="change_priority">Zmień priorytet</string>
     <string name="theme_dynamic">Dynamiczny</string>
-    <string name="continue_without_sync">Kontynuuj bez synchronizacji</string>
 </resources>

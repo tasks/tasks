@@ -13,6 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.tasks_org
 import org.tasks.auth.SignInActivity
 import org.tasks.extensions.Context.toast
 import org.tasks.jobs.WorkManager
@@ -78,7 +80,7 @@ class MainPreferences : BasePreferences() {
                     if (fragment !is TasksAccount) {
                         startPreference(
                                 TasksAccount.newTasksAccountPreference(account),
-                                getString(R.string.tasks_org)
+                                org.jetbrains.compose.resources.getString(Res.string.tasks_org)
                         )
                     }
                 }

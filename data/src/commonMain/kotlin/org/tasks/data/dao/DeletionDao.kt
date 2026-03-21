@@ -119,5 +119,5 @@ WHERE recurring = 1
         FROM tasks
         WHERE _id = :task
     """)
-    abstract fun isDeleted(task: Long): Boolean
+    abstract suspend fun isDeleted(task: Long): Boolean
 }

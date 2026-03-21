@@ -52,4 +52,12 @@
     <string name="all_done">Всичко е готово!</string>
     <string name="password_required">Паролата е задължителна</string>
     <string name="caldav_home_set_not_found">Домашният набор не е намерен</string>
+    <string name="add_account">Добавяне на профил</string>
+    <string name="continue_without_sync">Без синхронизиране</string>
+    <string name="legal_disclosure">%1$s, вие се съгласявате с %2$s и %3$s. Tasks е софтуер с отворен код, предоставен под %4$s.</string>
+    <string name="legal_disclosure_prefix_continuing">Продължавайки с някой от бутоните отдолу</string>
+    <string name="terms_of_service_proper">Условия за използване на услугата</string>
+    <string name="privacy_policy_proper">Декларация за поверителност</string>
+    <string name="gplv3_license">Лиценз GPLv3</string>
+    <string name="returning_user_import_backup">Внесете резервно копие на Tasks.org</string>
 </resources>

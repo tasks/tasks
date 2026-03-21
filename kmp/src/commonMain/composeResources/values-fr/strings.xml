@@ -52,4 +52,12 @@
     <string name="sort_list">Liste</string>
     <string name="password_required">Mot de passe requis</string>
     <string name="caldav_home_set_not_found">Ensemble d'accueil introuvable</string>
+    <string name="add_account">Ajouter un compte</string>
+    <string name="continue_without_sync">Continuer sans synchronisation</string>
+    <string name="legal_disclosure">%1$s, vous acceptez les %2$s et %3$s. Tasks est un logiciel en sources ouvertes fournis sous %4$s.</string>
+    <string name="legal_disclosure_prefix_continuing">En continuant avec n\'importe quel bouton ci-dessous</string>
+    <string name="terms_of_service_proper">Conditions d\'utilisation</string>
+    <string name="privacy_policy_proper">Politique de confidentialité</string>
+    <string name="gplv3_license">Licence GPLv3</string>
+    <string name="returning_user_import_backup">Importer une sauvegarde Tasks.org</string>
 </resources>

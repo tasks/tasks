@@ -52,4 +52,12 @@
     <string name="all_done">Sve je gotovo!</string>
     <string name="password_required">Lozinka je obavezna</string>
     <string name="caldav_home_set_not_found">Početni skup nije pronađen</string>
+    <string name="add_account">Dodaj račun</string>
+    <string name="continue_without_sync">Nastavi bez sinkronizacije</string>
+    <string name="legal_disclosure">%1$s, slažeš se s %2$s i %3$s. Tasks je softver otvorenog koda koji se pruža pod %4$s.</string>
+    <string name="legal_disclosure_prefix_continuing">Nastavljanje klikom na bilo koji donji gumb</string>
+    <string name="terms_of_service_proper">Uvjeti pružanja usluge</string>
+    <string name="privacy_policy_proper">Politika privatnosti</string>
+    <string name="gplv3_license">GPLv3 licenca</string>
+    <string name="returning_user_import_backup">Uvezi Tasks.org sigurnosnu kopiju</string>
 </resources>

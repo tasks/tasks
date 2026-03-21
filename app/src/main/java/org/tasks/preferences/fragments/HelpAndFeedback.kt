@@ -18,7 +18,11 @@ import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.url_privacy_policy
+import tasks.kmp.generated.resources.url_tos
 import org.tasks.compose.settings.HelpAndFeedbackScreen
 import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.BasePreferences
@@ -113,11 +117,11 @@ class HelpAndFeedback : Fragment() {
                 },
                 onTermsOfService = {
                     viewModel.logEvent("tos")
-                    context?.openUri(R.string.url_tos)
+                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_tos) })
                 },
                 onPrivacyPolicy = {
                     viewModel.logEvent("privacy_policy")
-                    context?.openUri(R.string.url_privacy_policy)
+                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_privacy_policy) })
                 },
                 onCollectStatisticsChanged = { enabled ->
                     viewModel.updateCollectStatistics(enabled)

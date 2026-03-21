@@ -52,6 +52,9 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.add_account
+import tasks.kmp.generated.resources.terms_of_service_proper
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import org.tasks.compose.LegalDisclosure
 import org.tasks.compose.settings.CardPosition
@@ -97,10 +100,10 @@ fun AddAccountScreen(
     if (showTasksOrgConsent) {
         AlertDialog(
             onDismissRequest = { showTasksOrgConsent = false },
-            title = { Text(stringResource(R.string.terms_of_service_proper)) },
+            title = { Text(org.jetbrains.compose.resources.stringResource(Res.string.terms_of_service_proper)) },
             text = {
                 LegalDisclosure(
-                    prefixRes = R.string.legal_disclosure_prefix_using,
+                    prefixText = stringResource(R.string.legal_disclosure_prefix_using),
                     openLegalUrl = openLegalUrl,
                     textAlign = TextAlign.Start,
                 )
@@ -139,7 +142,7 @@ fun AddAccountScreen(
                     }
                 },
                 title = {
-                    Text(text = stringResource(R.string.add_account))
+                    Text(text = org.jetbrains.compose.resources.stringResource(Res.string.add_account))
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,

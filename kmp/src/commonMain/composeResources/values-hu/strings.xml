@@ -44,4 +44,12 @@
     <string name="sort_list">Lista</string>
     <string name="password_required">Jelszó szükséges</string>
     <string name="caldav_home_set_not_found">Home set nem található</string>
+    <string name="add_account">Felhasználói fiók hozzáadása</string>
+    <string name="continue_without_sync">Folytatás szinkronizálás nélkül</string>
+    <string name="legal_disclosure">%1$s, egyetértesz a következőkkel: %2$s és %3$s. A Tasks a %4$s szerinti nyílt forráskódú szoftver.</string>
+    <string name="legal_disclosure_prefix_continuing">Az alábbi gombok használatával</string>
+    <string name="terms_of_service_proper">Szolgáltatási feltételek</string>
+    <string name="privacy_policy_proper">Adatvédelmi irányelv</string>
+    <string name="gplv3_license">GPLv3 licensz</string>
+    <string name="returning_user_import_backup">Tasks.org mentés importálása</string>
 </resources>

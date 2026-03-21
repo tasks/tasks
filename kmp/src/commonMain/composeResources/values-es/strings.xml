@@ -44,4 +44,6 @@
     <string name="sort_list">Lista</string>
     <string name="password_required">Contraseña requerida</string>
     <string name="caldav_home_set_not_found">Origen no encontrado</string>
+    <string name="add_account">Añadir cuenta</string>
+    <string name="continue_without_sync">Continua sin sincronizar</string>
 </resources>

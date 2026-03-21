@@ -52,4 +52,12 @@
     <string name="all_done">Fatto!</string>
     <string name="password_required">Password obbligatoria</string>
     <string name="caldav_home_set_not_found">Home set non trovato</string>
+    <string name="add_account">Aggiungi account</string>
+    <string name="continue_without_sync">Continua senza sincronizzazione</string>
+    <string name="legal_disclosure">%1$s, accetti anche %2$s e %3$s. Tasks è software open source distribuito con licenza %4$s.</string>
+    <string name="legal_disclosure_prefix_continuing">Continuando con uno qualsiasi dei pulsanti qui sotto</string>
+    <string name="terms_of_service_proper">Termini del Servizio</string>
+    <string name="privacy_policy_proper">Informativa sulla privacy</string>
+    <string name="gplv3_license">Licenza GPLv3</string>
+    <string name="returning_user_import_backup">Importa il backup di Tasks.org</string>
 </resources>

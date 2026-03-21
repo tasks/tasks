@@ -303,7 +303,6 @@
     <string name="delete_selected_tasks">Ezabatu hautatutako zereginak\?</string>
     <string name="copy_selected_tasks">Kopiatu hautatutako zereginak\?</string>
     <string name="date_and_time">Data eta ordua</string>
-    <string name="add_account">Gehitu kontua</string>
     <string name="user">Erabiltzailea</string>
     <string name="password">Pasahitza</string>
     <string name="url">URL-a</string>

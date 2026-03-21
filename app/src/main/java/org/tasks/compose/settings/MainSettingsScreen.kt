@@ -32,6 +32,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import org.tasks.BuildConfig
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.add_account
 import org.tasks.data.entity.CaldavAccount
 
 sealed class SettingsDestination(val titleRes: Int) {
@@ -104,7 +106,7 @@ fun MainSettingsScreen(
                         position = if (accounts.isEmpty()) CardPosition.Only else CardPosition.Last,
                     ) {
                         PreferenceRow(
-                            title = stringResource(R.string.add_account),
+                            title = org.jetbrains.compose.resources.stringResource(Res.string.add_account),
                             icon = Icons.Outlined.Add,
                             onClick = onAddAccountClick
                         )

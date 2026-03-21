@@ -52,4 +52,12 @@
     <string name="sort_list">Liste</string>
     <string name="password_required">Passwort benötigt</string>
     <string name="caldav_home_set_not_found">CalDAV-Home-Set nicht gefunden</string>
+    <string name="add_account">Konto hinzufügen</string>
+    <string name="continue_without_sync">Weiter ohne Synchronisierung</string>
+    <string name="legal_disclosure_prefix_continuing">Durch Fortfahren mit einer der folgenden Schaltflächen</string>
+    <string name="terms_of_service_proper">Nutzungsbedingungen</string>
+    <string name="privacy_policy_proper">Datenschutzerklärung</string>
+    <string name="gplv3_license">GPLv3-Lizenz</string>
+    <string name="returning_user_import_backup">Tasks.org-Sicherung importieren</string>
+    <string name="legal_disclosure">%1$s stimmst du den %2$s und der %3$s zu. Tasks ist Open-Source-Software, die unter der %4$s bereitgestellt wird.</string>
 </resources>

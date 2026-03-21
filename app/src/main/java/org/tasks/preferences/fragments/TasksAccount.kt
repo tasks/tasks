@@ -23,12 +23,15 @@ import androidx.lifecycle.lifecycleScope
 import org.tasks.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.url_tos
 import org.tasks.analytics.Firebase
 import org.tasks.auth.SignInActivity
 import org.tasks.auth.TasksServerEnvironment
@@ -291,7 +294,7 @@ class TasksAccount : Fragment() {
                     }
                 },
                 onViewTos = {
-                    context?.openUri(R.string.url_tos)
+                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_tos) })
                 },
                 onDismissTos = {
                     showTosDialog = false

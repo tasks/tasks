@@ -44,4 +44,6 @@
     <string name="sort_list">Lista</string>
     <string name="password_required">Senha necessária</string>
     <string name="caldav_home_set_not_found">Conjunto inicial não encontrado</string>
+    <string name="add_account">Adicionar conta</string>
+    <string name="continue_without_sync">Continuar sem sincronizar</string>
 </resources>

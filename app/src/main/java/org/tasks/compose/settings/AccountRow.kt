@@ -9,6 +9,8 @@ import org.tasks.R
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.prefIcon
 import org.tasks.data.prefTitle
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.tasks_org
 
 @Composable
 fun AccountRow(
@@ -23,7 +25,11 @@ fun AccountRow(
     }
 
     PreferenceRow(
-        title = stringResource(account.prefTitle),
+        title = if (account.isTasksOrg) {
+            org.jetbrains.compose.resources.stringResource(Res.string.tasks_org)
+        } else {
+            stringResource(account.prefTitle)
+        },
         iconRes = account.prefIcon,
         iconTint = iconTint,
         summary = account.name,

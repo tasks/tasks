@@ -302,7 +302,6 @@
     <string name="delete_selected_tasks">Изтриване на избраните задачи?</string>
     <string name="copy_selected_tasks">Копиране на избраните задачи?</string>
     <string name="date_and_time">Дата и час</string>
-    <string name="add_account">Добавяне на профил</string>
     <string name="user">Потребител</string>
     <string name="password">Парола</string>
     <string name="notification_disable_battery_optimizations_description">Оптимизацията на батерията може да забави известията</string>
@@ -704,7 +703,6 @@
     <string name="banner_app_updated_title">Приложението е обновено</string>
     <string name="multiline_title_off">Докоснете „Готово“ за запазване на задачата</string>
     <string name="delete_tasks_warning">Задачата %s ще бъде премахната. Действието е необратимо!</string>
-    <string name="continue_without_sync">Без синхронизиране</string>
     <string name="widget_view_more_tasks">Повече задачи</string>
     <string name="local_list_title">Това е местен списък</string>
     <string name="local_list_description">Задачите в този списък се пазят само на това устройство. Свържете профил, за да запазите задачите си и да имате достъп до тях отвсякъде.</string>
@@ -713,19 +711,13 @@
     <string name="subscription_required_fdroid">За да използвате синхронизацията на Tasks.org е необходим абонамент. Абонаментите трябва да се започват от версията на Tasks в Google Play.</string>
     <string name="sponsorship_required_fdroid">За да използвате синхронизацията на Tasks.org е необходимо даряване чрез Гитхъб. Докоснете отдолу, за да станете дарител.</string>
     <string name="legal">Правни въпроси</string>
-    <string name="legal_disclosure">%1$s, вие се съгласявате с %2$s и %3$s. Tasks е софтуер с отворен код, предоставен под %4$s.</string>
     <string name="legal_disclosure_prefix_using">Използвайки Tasks.org</string>
-    <string name="legal_disclosure_prefix_continuing">Продължавайки с някой от бутоните отдолу</string>
     <string name="terms_of_service">Условия за използване на услугата</string>
-    <string name="terms_of_service_proper">Условия за използване на услугата</string>
-    <string name="privacy_policy_proper">Декларация за поверителност</string>
-    <string name="gplv3_license">Лиценз GPLv3</string>
     <string name="tos_updated_title">Променихме условията за използване на услугата</string>
     <string name="view_tos">Преглед на условията на услугата</string>
     <string name="accept">Приемане</string>
     <string name="exit">Изход</string>
     <string name="returning_user">Вече сте потребител?</string>
-    <string name="returning_user_import_backup">Внесете резервно копие на Tasks.org</string>
     <string name="import_failed">Грешка при внасяне</string>
     <string name="import_failed_message">Файлът с резервното копие не може да бъде прочетен</string>
     <string name="banner_subscription_required_title">Изисква абонамент</string>

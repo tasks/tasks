@@ -44,4 +44,6 @@
     <string name="sort_list">Список</string>
     <string name="password_required">Потрібний пароль</string>
     <string name="caldav_home_set_not_found">Домашній список не знайдено</string>
+    <string name="add_account">Додати обліковий запис</string>
+    <string name="continue_without_sync">Продовжити без синхронізації</string>
 </resources>

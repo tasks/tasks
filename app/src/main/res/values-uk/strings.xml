@@ -313,7 +313,6 @@
     <string name="delete_selected_tasks">Видалити вибрані завдання?</string>
     <string name="copy_selected_tasks">Копіювати вибрані завдання?</string>
     <string name="date_and_time">Дата й час</string>
-    <string name="add_account">Додати обліковий запис</string>
     <string name="user">Користувач</string>
     <string name="password">Пароль</string>
     <string name="notification_disable_battery_optimizations_description">Оптимізація енергоспоживання може спричинити затримку сповіщень</string>
@@ -733,7 +732,6 @@
     <string name="banner_app_updated_title">Застосунок оновлено</string>
     <string name="banner_app_updated_description">Tasks щойно оновлено до %s. Переглянете примітки до випуску?</string>
     <string name="multiline_title_off">Натисніть готово, щоб зберегти завдання</string>
-    <string name="continue_without_sync">Продовжити без синхронізації</string>
     <string name="delete_tasks_warning">%s буде видалено. Дію неможливо скасувати!</string>
     <string name="widget_view_more_tasks">Переглянути інші завдання</string>
 </resources>

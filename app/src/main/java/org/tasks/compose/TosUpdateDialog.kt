@@ -10,6 +10,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.window.DialogProperties
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.terms_of_service_proper
 import org.tasks.themes.TasksTheme
 
 @Composable
@@ -27,14 +29,16 @@ fun TosUpdateDialog(
         ),
         title = {
             Text(
-                text = stringResource(
-                    if (isUpdate) R.string.tos_updated_title else R.string.terms_of_service_proper
-                )
+                text = if (isUpdate) {
+                    stringResource(R.string.tos_updated_title)
+                } else {
+                    org.jetbrains.compose.resources.stringResource(Res.string.terms_of_service_proper)
+                }
             )
         },
         text = {
             LegalDisclosure(
-                prefixRes = R.string.legal_disclosure_prefix_using,
+                prefixText = stringResource(R.string.legal_disclosure_prefix_using),
                 openLegalUrl = openUrl,
                 textAlign = TextAlign.Start,
             )

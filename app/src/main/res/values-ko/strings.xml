@@ -295,7 +295,6 @@
     <string name="delete_selected_tasks">선택한 할일을 삭제할까요?</string>
     <string name="copy_selected_tasks">선택한 할일을 복사할까요?</string>
     <string name="date_and_time">날짜와 시간</string>
-    <string name="add_account">계정 추가</string>
     <string name="user">사용자</string>
     <string name="password">비밀번호</string>
     <string name="notification_disable_battery_optimizations_description">배터리 최적화 시 알림이 지연될 수 있습니다</string>
@@ -690,7 +689,6 @@
     <string name="app_settings">앱 설정</string>
     <string name="delete_comment">코멘트</string>
     <string name="comment">코멘트</string>
-    <string name="continue_without_sync">동기화 없이 계속하기</string>
     <string name="delete_tasks_warning">%s 를 삭제합니다. 삭제 후 되돌릴 수 없습니다!</string>
     <string name="banner_app_updated_title">앱이 업데이트됨</string>
     <string name="banner_app_updated_description">Tasks.org가 방금 %s 버전으로 업데이트되었습니다. 릴리즈 노트를 열까요?</string>

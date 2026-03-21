@@ -72,5 +72,5 @@ class TaskDeleter(
         refreshBroadcaster.broadcastRefresh()
     }
 
-    fun isDeleted(task: Long): Boolean = deletionDao.isDeleted(task)
+    suspend fun isDeleted(task: Long): Boolean = deletionDao.isDeleted(task)
 }

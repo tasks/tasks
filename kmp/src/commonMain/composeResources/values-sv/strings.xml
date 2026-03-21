@@ -44,4 +44,12 @@
     <string name="sort_list">Lista</string>
     <string name="password_required">Lösenord krävs</string>
     <string name="caldav_home_set_not_found">Hemuppsättning hittades inte</string>
+    <string name="add_account">Lägg till konto</string>
+    <string name="continue_without_sync">Fortsätt utan synkronisering</string>
+    <string name="legal_disclosure">%1$s, godkänner du %2$s och %3$s. Tasks är programvara med öppen källkod som tillhandahålls under %4$s.</string>
+    <string name="legal_disclosure_prefix_continuing">Genom att fortsätta med någon av knapparna nedan</string>
+    <string name="terms_of_service_proper">Användarvillkor</string>
+    <string name="privacy_policy_proper">Integritetspolicy</string>
+    <string name="gplv3_license">GPLv3-licens</string>
+    <string name="returning_user_import_backup">Importera Tasks.org-säkerhetskopia</string>
 </resources>

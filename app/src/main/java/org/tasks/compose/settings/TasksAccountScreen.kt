@@ -60,6 +60,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.tasks.BuildConfig
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.add_account
 import androidx.compose.ui.graphics.Color
 import org.tasks.compose.components.TasksIcon
 import org.tasks.data.entity.CaldavAccount
@@ -343,7 +345,7 @@ fun TasksAccountScreen(
                 position = if (showManageRow) CardPosition.First else CardPosition.Only,
             ) {
                 PreferenceRow(
-                    title = stringResource(R.string.add_account),
+                    title = org.jetbrains.compose.resources.stringResource(Res.string.add_account),
                     icon = Icons.Outlined.Add,
                     onClick = onAddAccount,
                 )

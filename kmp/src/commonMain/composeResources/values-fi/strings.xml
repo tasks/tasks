@@ -52,4 +52,6 @@
     <string name="sort_created">Luotu</string>
     <string name="sort_modified">Muokattu</string>
     <string name="all_done">Valmista!</string>
+    <string name="add_account">Lisää tili</string>
+    <string name="continue_without_sync">Jatka ilman synkronointia</string>
 </resources>

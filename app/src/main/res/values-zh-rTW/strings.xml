@@ -398,7 +398,6 @@
     <string name="url">URL</string>
     <string name="password">密碼</string>
     <string name="user">使用者名稱</string>
-    <string name="add_account">新增帳號</string>
     <string name="date_and_time">日期與時間</string>
     <string name="copy_selected_tasks">複製選擇的工作？</string>
     <string name="delete_selected_tasks">刪除所選工作？</string>
@@ -667,7 +666,6 @@
     <string name="yesterday">昨天</string>
     <string name="quiet_hours_in_effect">靜音時段生效中</string>
     <string name="send_application_logs">傳送應用程式日誌</string>
-    <string name="continue_without_sync">不同步並繼續</string>
     <string name="default_reminder">全天任務</string>
     <string name="add_default_reminders">新增預設提醒</string>
     <string name="rmd_time_enabled_on">為全天任務新增預設提醒</string>
@@ -704,18 +702,12 @@
     <string name="alarm_due">到期</string>
     <string name="enable_alarms">在正確的時間收到通知</string>
     <string name="enable_alarms_description">為確保您在正確的時間收到通知，請在設定中授予設定鬧鐘和提醒的權限</string>
-    <string name="legal_disclosure">%1$s，您同意 %2$s 和 %3$s。Tasks 是在 %4$s 下提供的開源軟體。</string>
     <string name="legal_disclosure_prefix_using">使用 Tasks.org</string>
-    <string name="legal_disclosure_prefix_continuing">透過點擊下方任意按鈕繼續</string>
     <string name="terms_of_service">服務條款</string>
-    <string name="terms_of_service_proper">服務條款</string>
-    <string name="privacy_policy_proper">隱私權政策</string>
-    <string name="gplv3_license">GPLv3 授權</string>
     <string name="tos_updated_title">我們已更新服務條款</string>
     <string name="accept">接受</string>
     <string name="exit">退出</string>
     <string name="returning_user">回歸使用者？</string>
-    <string name="returning_user_import_backup">匯入 Tasks.org 備份</string>
     <string name="add_shortcut_to_home_screen">新增捷徑至主畫面</string>
     <string name="add_widget_to_home_screen">新增小工具至主畫面</string>
     <string name="cost_free">免費</string>

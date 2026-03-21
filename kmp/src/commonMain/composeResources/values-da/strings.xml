@@ -44,4 +44,12 @@
     <string name="sort_list">Liste</string>
     <string name="password_required">Adgangskode påkrævet</string>
     <string name="caldav_home_set_not_found">Kunne ikke finde Home Set</string>
+    <string name="add_account">Tilføj konto</string>
+    <string name="continue_without_sync">Fortsæt uden synkronisering</string>
+    <string name="legal_disclosure">%1$s, du accepterer %2$s og %3$s. Tasks er open source-software, der stilles til rådighed under %4$s.</string>
+    <string name="legal_disclosure_prefix_continuing">Ved at fortsætte med en af nedenstående knapper</string>
+    <string name="terms_of_service_proper">Servicevilkår</string>
+    <string name="privacy_policy_proper">Privatlivspolitik</string>
+    <string name="gplv3_license">GPLv3-licens</string>
+    <string name="returning_user_import_backup">Importér Tasks.org-sikkerhedskopi</string>
 </resources>

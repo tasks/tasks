@@ -35,7 +35,9 @@ import kotlinx.coroutines.launch
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import kotlinx.coroutines.runBlocking
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.add_account
 import tasks.kmp.generated.resources.password_required
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
@@ -124,7 +126,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             }
         }
         val toolbar = binding.toolbar.toolbar
-        toolbar.title = if (caldavAccount == null) getString(R.string.add_account) else caldavAccount!!.name
+        toolbar.title = if (caldavAccount == null) runBlocking { org.jetbrains.compose.resources.getString(Res.string.add_account) } else caldavAccount!!.name
         toolbar.navigationIcon = AppCompatResources.getDrawable(this, R.drawable.ic_outline_save_24px)
         toolbar.setNavigationOnClickListener { save() }
         toolbar.inflateMenu(menuRes)

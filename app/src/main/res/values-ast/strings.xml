@@ -402,8 +402,6 @@
     <string name="delete_selected_tasks">¿Desaniciar les xeres seleccionaes?</string>
     <string name="copy_selected_tasks">¿Copiar les xeres seleccionaes?</string>
     <string name="date_and_time">Data y hora</string>
-    <string name="add_account">Amestar cuenta</string>
-    <string name="continue_without_sync">Continuar ensin sincronizar</string>
     <string name="user">Usuariu</string>
     <string name="password">Conseña</string>
     <string name="url">URL</string>

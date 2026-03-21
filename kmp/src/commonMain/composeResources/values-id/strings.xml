@@ -39,4 +39,5 @@
     <string name="sort_list">Daftar</string>
     <string name="password_required">Kata sandi diperluikan</string>
     <string name="caldav_home_set_not_found">Set beranda tidak ditemukan</string>
+    <string name="add_account">Tambah akun</string>
 </resources>

@@ -143,7 +143,6 @@
     <string name="on_launch">عند فتح التطبيق</string>
     <string name="default_list">القائمة الافتراضية</string>
     <string name="google_tasks_add_to_top">اضف المهام الجديدة لاعلى القائمة</string>
-    <string name="add_account">أضف حساب</string>
     <string name="wearable_notifications_summary">عرض الإشعارات على الساعة الذكية</string>
     <string name="building_notifications">توليد الإخطارات</string>
     <string name="bundle_notifications_summary">ادمج عدة إشعارات في شعار واحد</string>
@@ -791,7 +790,6 @@
     <string name="enable_reminders">تفعيل التذكيرات</string>
     <string name="price_per_year_with_currency">%s/السنة</string>
     <string name="enable_alarms_description">للتأكد من إخطارك في الوقت المناسب، امنح الإذن لضبط التنبيهات والتذكيرات في الإعدادات</string>
-    <string name="continue_without_sync">المتابعة بدون مزامنة</string>
     <string name="delete_tasks_warning">%s سيتم حذفها. لا يمكن التراجع عن ذلك!</string>
     <string name="widget_view_more_tasks">عرض المزيد من المهام</string>
 </resources>

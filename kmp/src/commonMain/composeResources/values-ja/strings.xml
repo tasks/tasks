@@ -44,4 +44,12 @@
     <string name="sort_list">リスト</string>
     <string name="password_required">パスワードが必要です</string>
     <string name="caldav_home_set_not_found">ホームの設定が見つかりません</string>
+    <string name="add_account">アカウントを追加</string>
+    <string name="continue_without_sync">同期せずに続ける</string>
+    <string name="terms_of_service_proper">サービス規約</string>
+    <string name="privacy_policy_proper">個人情報保護</string>
+    <string name="gplv3_license">GPLv3ライセンス</string>
+    <string name="returning_user_import_backup">Tasks.orgのバックアップを読み込む</string>
+    <string name="legal_disclosure_prefix_continuing">下のボタンのいずれかで続行</string>
+    <string name="legal_disclosure">%1$sさんは、%2$s と%3$sに同意します。 Tasks は%4$sの下に提供されているオープンソースソフトウェアです。</string>
 </resources>

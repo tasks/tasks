@@ -38,6 +38,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.tasks_org
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.themes.TasksTheme
 
@@ -124,9 +126,10 @@ fun AccountSettingsCard(
                 is ProCardState.SignIn -> {
                     iconRes = R.drawable.ic_round_icon
                     iconTint = Color.Unspecified
+                    val tasksOrgName = org.jetbrains.compose.resources.stringResource(Res.string.tasks_org)
                     title = environmentLabel
-                        ?.let { "${stringResource(R.string.tasks_org)} \u2022 $it" }
-                        ?: stringResource(R.string.tasks_org)
+                        ?.let { "$tasksOrgName \u2022 $it" }
+                        ?: tasksOrgName
                     summary = stringResource(R.string.sign_in_to_connect)
                     showError = false
                 }
@@ -134,7 +137,7 @@ fun AccountSettingsCard(
                     iconRes = R.drawable.ic_round_icon
                     iconTint = Color.Unspecified
                     title = buildString {
-                        append(stringResource(R.string.tasks_org))
+                        append(org.jetbrains.compose.resources.stringResource(Res.string.tasks_org))
                         environmentLabel?.let { append(" \u2022 $it") }
                         if (state.accountData?.guest == true) {
                             append(" \u2022 ${stringResource(R.string.guest)}")

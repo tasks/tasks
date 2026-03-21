@@ -155,7 +155,6 @@
     <string name="url">URL</string>
     <string name="password">මුරපදය</string>
     <string name="user">පරිශීලක</string>
-    <string name="add_account">ගිණුම එක් කරන්න</string>
     <string name="date_and_time">දිනය සහ වේලාව</string>
     <string name="copy_selected_tasks">තෝරාගත් කාර්යයන් පිටපත් කරන්නද\?</string>
     <string name="delete_selected_tasks">තෝරාගත් කාර්යයන් මකාදමන්න ද\?</string>

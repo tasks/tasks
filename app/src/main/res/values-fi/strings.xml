@@ -383,7 +383,6 @@
     <string name="url">URL</string>
     <string name="password">Salasana</string>
     <string name="user">Käyttäjä</string>
-    <string name="add_account">Lisää tili</string>
     <string name="theme_system_default">Järjestelmän oletus</string>
     <string name="launcher_icon">Käynnistyskuvake</string>
     <string name="icon">Kuvake</string>
@@ -685,7 +684,6 @@
     <string name="delete_comment">kommentti</string>
     <string name="comment">Kommentti</string>
     <string name="yesterday">Eilen</string>
-    <string name="continue_without_sync">Jatka ilman synkronointia</string>
     <string name="delete_tasks_warning">%s poistetaan. Tätä ei voi perua!</string>
     <string name="banner_app_updated_title">Sovellus päivitetty</string>
     <string name="banner_app_updated_description">Sovellus päivitettiin juuri %s. Haluatko lukea julkaisutiedot?</string>

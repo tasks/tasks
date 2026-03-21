@@ -227,7 +227,6 @@
     <string name="filter_no_priority">Sen prioridade</string>
     <string name="repeat_type_due">data de fin</string>
     <string name="geofence_radius">Radio da xeocerca</string>
-    <string name="add_account">Engadir conta</string>
     <string name="error_adding_account">Erro: %s</string>
     <string name="repeats_yearly">por ano</string>
     <string name="button_subscribe">Suscribirse</string>
@@ -552,7 +551,6 @@
     <string name="show_edit_screen_without_unlock">Mostrar pantalla de edición sen desbloquear</string>
     <string name="show_edit_screen_without_unlock_summary">Activa o uso do mosaico Configuración rápida sen desbloquear o dispositivo</string>
     <string name="theme_dynamic">Dinámico</string>
-    <string name="continue_without_sync">Continuar sen sincronización</string>
     <string name="repeats_custom_recurrence">Recorrencia personalizada</string>
     <string name="repeats_every">Repítese cada</string>
     <string name="repeats_weekly_on">Repítese o</string>

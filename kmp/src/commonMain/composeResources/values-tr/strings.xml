@@ -52,4 +52,12 @@
     <string name="all_done">Tümü bitti!</string>
     <string name="password_required">Parola gerekli</string>
     <string name="caldav_home_set_not_found">Ev takımı (home set) bulunamadı</string>
+    <string name="add_account">Hesap ekle</string>
+    <string name="continue_without_sync">Eşzamanlamadan sürdür</string>
+    <string name="legal_disclosure">%1$s, %2$s ve %3$s kabul ediyorsunuz. Tasks, %4$s altında sağlanan açık kaynaklı yazılımdır.</string>
+    <string name="legal_disclosure_prefix_continuing">Aşağıdaki herhangi düğmeyle sürdürerek</string>
+    <string name="terms_of_service_proper">Hizmet Koşulları</string>
+    <string name="privacy_policy_proper">Gizlilik İlkesi</string>
+    <string name="gplv3_license">GPLv3 Lisansı</string>
+    <string name="returning_user_import_backup">Tasks.org yedeğini içe aktar</string>
 </resources>

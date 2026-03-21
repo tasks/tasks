@@ -321,7 +321,6 @@
     <string name="delete_selected_tasks">Ištrinti pažymėtas užduotis?</string>
     <string name="copy_selected_tasks">Nukopijuoti pažymėtas užduotis?</string>
     <string name="date_and_time">Data ir laikas</string>
-    <string name="add_account">Pridėti paskyrą</string>
     <string name="user">Vartotojas</string>
     <string name="password">Slaptažodis</string>
     <string name="notification_disable_battery_optimizations_description">Baterijos optimizacijos gali uždelsti pranešimus</string>

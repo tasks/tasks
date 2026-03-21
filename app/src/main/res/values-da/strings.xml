@@ -227,7 +227,6 @@
     <string name="url">URL</string>
     <string name="password">Adgangskode</string>
     <string name="user">Bruger</string>
-    <string name="add_account">Tilføj konto</string>
     <string name="date_and_time">Dato og tidspunkt</string>
     <string name="delete_selected_tasks">Slet valgte opgaver?</string>
     <string name="copy_selected_tasks">Kopiér valgte opgaver?</string>
@@ -703,7 +702,6 @@
     <string name="banner_app_updated_description">Tasks er lige blevet opdateret til %s. Vil du se udgivelsesnoterne?</string>
     <string name="banner_app_updated_title">App opdateret</string>
     <string name="multiline_title_off">Tryk på Færdig for at gemme opgave</string>
-    <string name="continue_without_sync">Fortsæt uden synkronisering</string>
     <string name="delete_tasks_warning">%s bliver slettet. Dette kan ikke fortrydes!</string>
     <string name="widget_view_more_tasks">Vis flere opgaver</string>
     <string name="import_failed">Import mislykkedes</string>
@@ -715,19 +713,13 @@
     <string name="subscription_required_fdroid">Der kræves et abonnement for at kunne bruge Tasks.org-synkronisering. Abonnementer skal oprettes fra Google Play-versionen af Tasks.</string>
     <string name="sponsorship_required_fdroid">Der kræves et GitHub-sponsorat for at kunne bruge Tasks.org-synkronisering. Klik nedenfor for at blive sponsor.</string>
     <string name="legal">Juridisk</string>
-    <string name="legal_disclosure">%1$s, du accepterer %2$s og %3$s. Tasks er open source-software, der stilles til rådighed under %4$s.</string>
     <string name="legal_disclosure_prefix_using">Ved at bruge Tasks.org</string>
-    <string name="legal_disclosure_prefix_continuing">Ved at fortsætte med en af nedenstående knapper</string>
     <string name="terms_of_service">Servicevilkår</string>
-    <string name="terms_of_service_proper">Servicevilkår</string>
-    <string name="privacy_policy_proper">Privatlivspolitik</string>
-    <string name="gplv3_license">GPLv3-licens</string>
     <string name="tos_updated_title">Vi har opdateret vores servicevilkår</string>
     <string name="view_tos">Vis servicevilkår</string>
     <string name="accept">Acceptér</string>
     <string name="exit">Afslut</string>
     <string name="returning_user">Tilbagevendende bruger?</string>
-    <string name="returning_user_import_backup">Importér Tasks.org-sikkerhedskopi</string>
     <string name="rmd_EPr_rmd_time_desc">Notifikationer for alle daglige opgaver vises kl. %1$s</string>
     <string name="default_reminder">Heldagsopgaver</string>
     <string name="add_default_reminders">Tilføj standardpåmindelser</string>

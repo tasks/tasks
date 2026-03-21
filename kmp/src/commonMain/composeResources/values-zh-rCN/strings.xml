@@ -52,4 +52,12 @@
     <string name="sort_list">清单</string>
     <string name="password_required">请填写密码</string>
     <string name="caldav_home_set_not_found">未找到 Home set</string>
+    <string name="add_account">添加账号</string>
+    <string name="continue_without_sync">继续但不同步</string>
+    <string name="legal_disclosure">%1$s，您同意 %2$s 和 %3$s。Tasks 是在 %4$s 下提供的开源软件。</string>
+    <string name="legal_disclosure_prefix_continuing">通过下方任意按钮继续</string>
+    <string name="terms_of_service_proper">服务条款</string>
+    <string name="privacy_policy_proper">隐私政策</string>
+    <string name="gplv3_license">GPLv3 许可证</string>
+    <string name="returning_user_import_backup">导入 Tasks.org 备份</string>
 </resources>

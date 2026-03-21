@@ -44,4 +44,12 @@
     <string name="sort_list">Листа</string>
     <string name="password_required">Шифра је неопходна</string>
     <string name="caldav_home_set_not_found">Сет није пронађен</string>
+    <string name="add_account">Додај налог</string>
+    <string name="continue_without_sync">Настави без синхронизације</string>
+    <string name="returning_user_import_backup">Увоз Tasks.org резерве</string>
+    <string name="gplv3_license">GPLv3 лиценца</string>
+    <string name="privacy_policy_proper">Политика приватности</string>
+    <string name="terms_of_service_proper">Услови коришћења</string>
+    <string name="legal_disclosure_prefix_continuing">Наставак било којим тастером наниже</string>
+    <string name="legal_disclosure">%1$s, слажеш се за %2$s и %3$s. Tasks је софтвер отвореног типа обезбеђен на основу %4$s.</string>
 </resources>

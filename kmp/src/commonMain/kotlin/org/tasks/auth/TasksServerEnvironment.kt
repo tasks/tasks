@@ -30,7 +30,7 @@ class TasksServerEnvironment(
             else -> PRODUCTION_PLACES_URL
         }
 
-    private var currentEnvironment: String = runBlocking {
+    var currentEnvironment: String = runBlocking {
         tasksPreferences.get(TasksPreferences.serverEnvironment, ENV_PRODUCTION)
     }
 
