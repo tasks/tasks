@@ -38,7 +38,7 @@
     <string name="save">Salva</string>
     <string name="TEA_timer_est">Stimato %s</string>
     <string name="TEA_timer_elap">Trascorso %s</string>
-    <string name="due_date">Scadenza</string>
+    <string name="due_date">Data di scadenza</string>
     <string name="due_time">Ora di scadenza</string>
     <string name="day_before_due">Giorno prima della scadenza</string>
     <string name="week_before_due">Settimana prima della scadenza</string>
@@ -788,4 +788,6 @@
     <string name="upgrade_friends_and_family_description">5 ospiti gratuiti su liste condivise. Funziona con Apple Reminders</string>
     <string name="already_subscribed">Sei già abbonato?</string>
     <string name="sign_in_subtitle">Sei già abbonato o sei stato invitato?</string>
+    <string name="per_list_sort_title">Ordinamento per lista</string>
+    <string name="per_list_sort_summary">Consente ordinamento e raggruppamento indipendenti per ogni lista</string>
 </resources>
