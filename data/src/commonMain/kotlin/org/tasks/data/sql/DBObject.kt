@@ -1,6 +1,5 @@
 package org.tasks.data.sql
 
-import java.util.*
 
 abstract class DBObject internal constructor(val expression: String) {
     var alias: String? = null
@@ -19,7 +18,11 @@ abstract class DBObject internal constructor(val expression: String) {
         return expression == other.expression && alias == other.alias
     }
 
-    override fun hashCode() = Objects.hash(expression, alias)
+    override fun hashCode(): Int {
+        var result = expression.hashCode()
+        result = 31 * result + (alias?.hashCode() ?: 0)
+        return result
+    }
 
     override fun toString() = alias ?: expression
 }

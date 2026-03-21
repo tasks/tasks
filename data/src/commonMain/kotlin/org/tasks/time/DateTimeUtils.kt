@@ -11,7 +11,7 @@ object DateTimeUtils2 {
 
     private val SYSTEM_MILLIS_PROVIDER = SystemMillisProvider()
 
-    @Volatile
+    @kotlin.concurrent.Volatile
     private var MILLIS_PROVIDER: MillisProvider = SYSTEM_MILLIS_PROVIDER
 
     fun setCurrentMillisFixed(millis: Long) {

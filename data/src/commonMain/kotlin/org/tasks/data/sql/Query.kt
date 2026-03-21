@@ -5,7 +5,6 @@ import org.tasks.data.sql.StringBuilderExtensions.from
 import org.tasks.data.sql.StringBuilderExtensions.join
 import org.tasks.data.sql.StringBuilderExtensions.select
 import org.tasks.data.sql.StringBuilderExtensions.where
-import java.util.*
 
 class Query private constructor(vararg fields: Field?) {
     private val criterions = ArrayList<Criterion>()
@@ -31,7 +30,7 @@ class Query private constructor(vararg fields: Field?) {
 
     override fun equals(other: Any?): Boolean {
         return this === other
-                || !(other == null || javaClass != other.javaClass) && this.toString() == other.toString()
+                || (other is Query && this.toString() == other.toString())
     }
 
     override fun hashCode() = toString().hashCode()

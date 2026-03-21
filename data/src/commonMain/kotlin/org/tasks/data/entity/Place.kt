@@ -14,7 +14,6 @@ import org.tasks.data.Redacted
 import org.tasks.data.UUIDHelper
 import org.tasks.data.db.Table
 import org.tasks.formatCoordinates
-import java.util.regex.Pattern
 
 @Serializable
 @CommonParcelize
@@ -57,13 +56,13 @@ data class Place(
     val order: Int = NO_ORDER,
     @ColumnInfo(name = "radius", defaultValue = "250")
     val radius: Int = 250,
-) : java.io.Serializable, CommonParcelable {
+) : CommonParcelable {
     val displayAddress: String?
         get() = if (address.isNullOrEmpty()) null else address.replace("$name, ", "")
 
     val displayName: String
         get() {
-            if (!name.isNullOrEmpty() && !COORDS.matcher(name).matches()) {
+            if (!name.isNullOrEmpty() && !COORDS.matches(name)) {
                 return name
             }
             return if (!address.isNullOrEmpty()) {
@@ -80,7 +79,7 @@ data class Place(
     )
 
     companion object {
-        private val COORDS = Pattern.compile("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$")
+        private val COORDS = Regex("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$")
         const val KEY = "place"
         const val TABLE_NAME = "places"
         @JvmField val TABLE = Table(TABLE_NAME)
@@ -93,12 +92,13 @@ data class Place(
             lat1: Double, lon1: Double,
             lat2: Double, lon2: Double,
         ): Double {
+            fun Double.toRadians() = this * kotlin.math.PI / 180.0
             val earthRadius = 6_371_000.0 // meters
-            val dLat = Math.toRadians(lat2 - lat1)
-            val dLon = Math.toRadians(lon2 - lon1)
+            val dLat = (lat2 - lat1).toRadians()
+            val dLon = (lon2 - lon1).toRadians()
             val a = kotlin.math.sin(dLat / 2).let { it * it } +
-                    kotlin.math.cos(Math.toRadians(lat1)) *
-                    kotlin.math.cos(Math.toRadians(lat2)) *
+                    kotlin.math.cos(lat1.toRadians()) *
+                    kotlin.math.cos(lat2.toRadians()) *
                     kotlin.math.sin(dLon / 2).let { it * it }
             return earthRadius * 2 * kotlin.math.atan2(kotlin.math.sqrt(a), kotlin.math.sqrt(1 - a))
         }

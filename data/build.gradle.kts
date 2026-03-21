@@ -23,6 +23,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.androidx.room)
+            implementation(libs.androidx.sqlite)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization)
             implementation(libs.kermit)
@@ -71,5 +72,6 @@ redacted {
 }
 
 dependencies {
-    ksp(libs.androidx.room.compiler)
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspJvm", libs.androidx.room.compiler)
 }
