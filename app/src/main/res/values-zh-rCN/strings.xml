@@ -329,7 +329,7 @@
     <string name="about">关于</string>
     <string name="license_summary">Tasks 是遵循 GNU 通用公共许可证 v3.0 的自由开源软件</string>
     <string name="pro_dashclock_extension">Dashclock 扩展</string>
-    <string name="requires_pro_subscription">需要订阅专业版</string>
+    <string name="requires_pro_subscription">需订阅专业版</string>
     <string name="logout">登出</string>
     <string name="logout_warning">此账号的所有数据都将从您的设备中移除</string>
     <string name="cannot_access_account">无法访问账号</string>
