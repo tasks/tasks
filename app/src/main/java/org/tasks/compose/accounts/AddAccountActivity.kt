@@ -1,5 +1,6 @@
  package org.tasks.compose.accounts
 
+import org.tasks.PlatformConfiguration
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -46,6 +47,7 @@ class AddAccountActivity : ComponentActivity() {
     @Inject lateinit var tasksPreferences: TasksPreferences
     @Inject lateinit var syncAdapters: SyncAdapters
     @Inject lateinit var workManager: WorkManager
+    @Inject lateinit var configuration: PlatformConfiguration
 
     private val viewModel: AddAccountViewModel by viewModels()
     private val microsoftVM: MicrosoftSignInViewModel by viewModels()
@@ -148,6 +150,7 @@ class AddAccountActivity : ComponentActivity() {
                 primary = theme.themeColor.primaryColor,
             ) {
                 AddAccountScreen(
+                    configuration = configuration,
                     hasTasksAccount = hasTasksAccount,
                     hasPro = inventory.hasPro,
                     needsConsent = acceptedTosVersion < currentTosVersion,

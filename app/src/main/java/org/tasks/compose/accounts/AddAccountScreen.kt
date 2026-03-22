@@ -55,7 +55,7 @@ import org.tasks.R
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.add_account
 import tasks.kmp.generated.resources.terms_of_service_proper
-import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
+import org.tasks.PlatformConfiguration
 import org.tasks.compose.LegalDisclosure
 import org.tasks.compose.settings.CardPosition
 import org.tasks.compose.settings.SectionHeader
@@ -70,6 +70,7 @@ import org.tasks.themes.TasksTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddAccountScreen(
+    configuration: PlatformConfiguration,
     hasTasksAccount: Boolean,
     hasPro: Boolean,
     needsConsent: Boolean,
@@ -163,7 +164,7 @@ fun AddAccountScreen(
                     .verticalScroll(rememberScrollState())
                     .padding(horizontal = SettingsContentPadding),
             ) {
-                if (!hasTasksAccount) {
+                if (configuration.supportsTasksOrg && !hasTasksAccount) {
                     if (!hasPro) {
                         SectionHeader(R.string.upgrade_to_pro)
                     } else {
@@ -186,79 +187,99 @@ fun AddAccountScreen(
                     Spacer(modifier = Modifier.height(SettingsSectionGap))
                 }
 
-                if (!hasPro) {
-                    SectionHeader(R.string.cost_free)
+                val freeAccounts = buildList {
+                    if (configuration.supportsMicrosoft) add(Platform.MICROSOFT)
+                    if (configuration.supportsGoogleTasks) add(Platform.GOOGLE_TASKS)
                 }
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-                ) {
-                    SettingsItemCard(position = CardPosition.First) {
-                        AccountTypeRowContent(
-                            title = R.string.microsoft,
-                            icon = R.drawable.ic_microsoft_tasks,
-                            description = if (IS_GOOGLE_PLAY)
-                                R.string.microsoft_selection_description_googleplay
-                            else
-                                R.string.microsoft_selection_description,
-                            onClick = { signIn(Platform.MICROSOFT) },
-                        )
+                if (freeAccounts.isNotEmpty()) {
+                    if (!hasPro) {
+                        SectionHeader(R.string.cost_free)
                     }
-                    SettingsItemCard(position = CardPosition.Last) {
-                        AccountTypeRowContent(
-                            title = R.string.gtasks_GPr_header,
-                            icon = R.drawable.ic_google,
-                            description = R.string.google_tasks_selection_description,
-                            onClick = { signIn(Platform.GOOGLE_TASKS) },
-                        )
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+                    ) {
+                        freeAccounts.forEachIndexed { index, platform ->
+                            SettingsItemCard(
+                                position = CardPosition.forIndex(index, freeAccounts.size),
+                            ) {
+                                when (platform) {
+                                    Platform.MICROSOFT -> AccountTypeRowContent(
+                                        title = R.string.microsoft,
+                                        icon = R.drawable.ic_microsoft_tasks,
+                                        description = if (!configuration.isLibre)
+                                            R.string.microsoft_selection_description_googleplay
+                                        else
+                                            R.string.microsoft_selection_description,
+                                        onClick = { signIn(Platform.MICROSOFT) },
+                                    )
+                                    Platform.GOOGLE_TASKS -> AccountTypeRowContent(
+                                        title = R.string.gtasks_GPr_header,
+                                        icon = R.drawable.ic_google,
+                                        description = R.string.google_tasks_selection_description,
+                                        onClick = { signIn(Platform.GOOGLE_TASKS) },
+                                    )
+                                    else -> {}
+                                }
+                            }
+                        }
                     }
                 }
 
-                if (!hasPro) {
-                    SectionHeader(
-                        title = R.string.name_your_price,
-                        onClick = {
-                            onNameYourPriceInfo()
-                            showNameYourPriceInfo = true
-                        },
-                    )
-                } else {
-                    Spacer(modifier = Modifier.height(SettingsContentPadding))
+                val proAccounts = buildList {
+                    if (configuration.supportsOpenTasks) add(Platform.DAVX5)
+                    if (configuration.supportsCaldav) add(Platform.CALDAV)
+                    if (configuration.supportsEteSync) add(Platform.ETEBASE)
+                    if (configuration.supportsOpenTasks) add(Platform.DECSYNC_CC)
                 }
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-                ) {
-                    SettingsItemCard(position = CardPosition.First) {
-                        AccountTypeRowContent(
-                            title = R.string.davx5,
-                            icon = R.drawable.ic_davx5_icon_green_bg,
-                            description = R.string.davx5_selection_description,
-                            onClick = { openUrl(Platform.DAVX5) },
+                if (proAccounts.isNotEmpty()) {
+                    if (!hasPro) {
+                        SectionHeader(
+                            title = R.string.name_your_price,
+                            onClick = {
+                                onNameYourPriceInfo()
+                                showNameYourPriceInfo = true
+                            },
                         )
+                    } else {
+                        Spacer(modifier = Modifier.height(SettingsContentPadding))
                     }
-                    SettingsItemCard(position = CardPosition.Middle) {
-                        AccountTypeRowContent(
-                            title = R.string.caldav,
-                            icon = R.drawable.ic_webdav_logo,
-                            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = .8f),
-                            description = R.string.caldav_selection_description,
-                            onClick = { signIn(Platform.CALDAV) },
-                        )
-                    }
-                    SettingsItemCard(position = CardPosition.Middle) {
-                        AccountTypeRowContent(
-                            title = R.string.etesync,
-                            icon = R.drawable.ic_etesync,
-                            description = R.string.etesync_selection_description,
-                            onClick = { signIn(Platform.ETEBASE) },
-                        )
-                    }
-                    SettingsItemCard(position = CardPosition.Last) {
-                        AccountTypeRowContent(
-                            title = R.string.decsync,
-                            icon = R.drawable.ic_decsync,
-                            description = R.string.decsync_selection_description,
-                            onClick = { openUrl(Platform.DECSYNC_CC) },
-                        )
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+                    ) {
+                        proAccounts.forEachIndexed { index, platform ->
+                            SettingsItemCard(
+                                position = CardPosition.forIndex(index, proAccounts.size),
+                            ) {
+                                when (platform) {
+                                    Platform.DAVX5 -> AccountTypeRowContent(
+                                        title = R.string.davx5,
+                                        icon = R.drawable.ic_davx5_icon_green_bg,
+                                        description = R.string.davx5_selection_description,
+                                        onClick = { openUrl(Platform.DAVX5) },
+                                    )
+                                    Platform.CALDAV -> AccountTypeRowContent(
+                                        title = R.string.caldav,
+                                        icon = R.drawable.ic_webdav_logo,
+                                        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = .8f),
+                                        description = R.string.caldav_selection_description,
+                                        onClick = { signIn(Platform.CALDAV) },
+                                    )
+                                    Platform.ETEBASE -> AccountTypeRowContent(
+                                        title = R.string.etesync,
+                                        icon = R.drawable.ic_etesync,
+                                        description = R.string.etesync_selection_description,
+                                        onClick = { signIn(Platform.ETEBASE) },
+                                    )
+                                    Platform.DECSYNC_CC -> AccountTypeRowContent(
+                                        title = R.string.decsync,
+                                        icon = R.drawable.ic_decsync,
+                                        description = R.string.decsync_selection_description,
+                                        onClick = { openUrl(Platform.DECSYNC_CC) },
+                                    )
+                                    else -> {}
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -314,6 +335,16 @@ private fun AccountTypeRowContent(
 fun AddAccountPreview() {
     TasksSettingsTheme {
         AddAccountScreen(
+            configuration = PlatformConfiguration(
+                supportsTasksOrg = true,
+                supportsCaldav = true,
+                supportsGoogleTasks = true,
+                supportsMicrosoft = true,
+                supportsOpenTasks = true,
+                supportsEteSync = true,
+                supportsInAppPurchase = true,
+                isLibre = false,
+            ),
             hasTasksAccount = false,
             hasPro = false,
             needsConsent = false,

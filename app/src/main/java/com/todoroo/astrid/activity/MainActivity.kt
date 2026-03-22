@@ -35,6 +35,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
+import org.tasks.PlatformConfiguration
 import androidx.core.content.IntentCompat.getParcelableExtra
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -116,6 +117,7 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var tasksPreferences: TasksPreferences
     @Inject lateinit var serverEnvironment: TasksServerEnvironment
+    @Inject lateinit var configuration: PlatformConfiguration
 
     private val viewModel: MainActivityViewModel by viewModels()
     private var currentNightMode = 0
@@ -354,6 +356,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                         AddAccountScreen(
+                            configuration = configuration,
                             hasTasksAccount = inventory.hasTasksAccount,
                             hasPro = inventory.hasPro,
                             needsConsent = acceptedTosVersion < currentTosVersion,

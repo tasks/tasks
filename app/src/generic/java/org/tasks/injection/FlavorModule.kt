@@ -1,5 +1,6 @@
 package org.tasks.injection
 
+import org.tasks.PlatformConfiguration
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +16,19 @@ import org.tasks.wear.WearRefresher
 @Module
 @InstallIn(SingletonComponent::class)
 class FlavorModule {
+    @Provides
+    fun getPlatformConfiguration() = PlatformConfiguration(
+        supportsTasksOrg = true,
+        supportsCaldav = true,
+        supportsGoogleTasks = true,
+        supportsMicrosoft = true,
+        supportsOpenTasks = true,
+        supportsEteSync = true,
+        supportsGeofences = true,
+        supportsCalendarEvents = true,
+        isLibre = true,
+    )
+
     @Provides
     fun getLocationService(service: LocationServiceAndroid): LocationService = service
 

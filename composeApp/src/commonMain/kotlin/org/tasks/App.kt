@@ -21,6 +21,7 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
 import org.koin.compose.koinInject
+import org.tasks.auth.TasksServerEnvironment
 import org.tasks.compose.WelcomeScreenLayout
 import org.tasks.data.dao.CaldavDao
 import org.tasks.themes.TasksTheme
@@ -33,15 +34,15 @@ data object TaskListDestination : NavKey
 
 @Composable
 fun App(
-    showLegalDisclosure: Boolean = true,
     openUrl: (String) -> Unit = {},
-    environments: List<org.tasks.auth.TasksServerEnvironment.Environment> = emptyList(),
-    currentEnvironment: String = org.tasks.auth.TasksServerEnvironment.ENV_PRODUCTION,
+    environments: List<TasksServerEnvironment.Environment> = emptyList(),
+    currentEnvironment: String = TasksServerEnvironment.ENV_PRODUCTION,
     onSelectEnvironment: (String) -> Unit = {},
 ) {
     TasksTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
             val caldavDao = koinInject<CaldavDao>()
+            val configuration = koinInject<PlatformConfiguration>()
             val hasAccount by caldavDao.watchAccountExists().collectAsState(initial = null)
             val backStack = rememberNavBackStack(
                 SavedStateConfiguration {
@@ -78,7 +79,7 @@ fun App(
                 entryProvider = entryProvider {
                     entry<WelcomeDestination> {
                         WelcomeScreenLayout(
-                            showLegalDisclosure = showLegalDisclosure,
+                            showLegalDisclosure = !configuration.isLibre,
                             onSignIn = {
                                 // TODO: sign in flow
                             },

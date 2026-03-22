@@ -88,6 +88,15 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    flavorDimensions += "store"
+    productFlavors {
+        create("googleplay") {
+            dimension = "store"
+        }
+        create("fdroid") {
+            dimension = "store"
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = false

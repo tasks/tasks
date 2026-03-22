@@ -12,6 +12,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
+import org.tasks.PlatformConfiguration
 import org.tasks.extensions.wearDataLayerRegistry
 import org.tasks.location.Geocoder
 import org.tasks.location.GeocoderMapbox
@@ -29,6 +30,19 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class FlavorModule {
+    @Provides
+    fun getPlatformConfiguration() = PlatformConfiguration(
+        supportsTasksOrg = true,
+        supportsCaldav = true,
+        supportsGoogleTasks = true,
+        supportsMicrosoft = true,
+        supportsOpenTasks = true,
+        supportsEteSync = true,
+        supportsGeofences = true,
+        supportsCalendarEvents = true,
+        supportsInAppPurchase = true,
+    )
+
     @Provides
     fun getLocationService(
         google: Lazy<LocationServiceGooglePlay>,

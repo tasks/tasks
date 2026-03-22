@@ -9,6 +9,7 @@ import org.tasks.kmp.createDataStore
 import org.tasks.preferences.TasksPreferences
 
 actual fun platformModule(): Module = module {
+    includes(flavorModule)
     single<Database> {
         val context = androidContext()
         val dbFile = context.getDatabasePath(Database.NAME)

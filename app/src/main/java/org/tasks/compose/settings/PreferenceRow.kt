@@ -44,7 +44,18 @@ val SettingsContentPadding = 16.dp
 val SettingsIconSize = 24.dp
 val SettingsSectionGap = 8.dp
 
-enum class CardPosition { Only, First, Middle, Last }
+enum class CardPosition {
+    Only, First, Middle, Last;
+
+    companion object {
+        fun forIndex(index: Int, size: Int): CardPosition = when {
+            size == 1 -> Only
+            index == 0 -> First
+            index == size - 1 -> Last
+            else -> Middle
+        }
+    }
+}
 
 @Composable
 fun PreferenceRow(
