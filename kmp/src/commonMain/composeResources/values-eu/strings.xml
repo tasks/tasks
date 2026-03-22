@@ -39,4 +39,5 @@
     <string name="password_required">Pasahitza ezinbestekoa da</string>
     <string name="caldav_home_set_not_found">Ez da jatorria aurkitu</string>
     <string name="add_account">Gehitu kontua</string>
+    <string name="requires_pro_subscription">Pro harpidetza eskatzen du</string>
 </resources>
