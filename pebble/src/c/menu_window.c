@@ -77,6 +77,8 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
     ListItem *item = &s_lists[idx];
     bool selected = is_row_selected(cell_index);
 
+    int inset = PBL_IF_ROUND_ELSE(14, 4);
+
     if (item->type == UI_TYPE_HEADER) {
         char header[MAX_TITLE_LEN + 4];
         snprintf(header, sizeof(header), "%s %s",
@@ -94,27 +96,28 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
         graphics_context_set_text_color(ctx, selected ? GColorWhite : GColorBlack);
 #endif
         graphics_draw_text(ctx, header, font,
-                           GRect(4, 2, bounds.size.w - 8, bounds.size.h - 4),
+                           GRect(inset, 2, bounds.size.w - inset * 2, bounds.size.h - 4),
                            GTextOverflowModeTrailingEllipsis,
                            GTextAlignmentLeft, NULL);
     } else {
         // Filter item with color bar
+        int color_bar_x = PBL_IF_ROUND_ELSE(inset - 6, 0);
 #ifdef PBL_COLOR
         if (item->color != 0) {
             GColor color = GColorFromHEX(item->color & 0x00FFFFFF);
             graphics_context_set_fill_color(ctx, color);
-            graphics_fill_rect(ctx, GRect(0, 0, 6, bounds.size.h), 0, GCornerNone);
+            graphics_fill_rect(ctx, GRect(color_bar_x, 0, 6, bounds.size.h), 0, GCornerNone);
         }
 #endif
 
-        int x_offset = PBL_IF_COLOR_ELSE(10, 4);
+        int x_offset = PBL_IF_ROUND_ELSE(inset + 4, PBL_IF_COLOR_ELSE(10, 4));
         GFont font = fonts_get_system_font(FONT_KEY_GOTHIC_18);
         GColor text_color = PBL_IF_COLOR_ELSE(
             selected ? GColorWhite : GColorBlack,
             selected ? GColorWhite : GColorBlack);
         graphics_context_set_text_color(ctx, text_color);
         graphics_draw_text(ctx, item->title, font,
-                           GRect(x_offset, 8, bounds.size.w - x_offset - 4, 28),
+                           GRect(x_offset, 8, bounds.size.w - x_offset - inset, 28),
                            GTextOverflowModeTrailingEllipsis,
                            GTextAlignmentLeft, NULL);
     }
@@ -155,9 +158,6 @@ static void window_load(Window *window) {
     });
     menu_layer_set_click_config_onto_window(s_menu_layer, window);
 
-#ifdef PBL_ROUND
-    menu_layer_set_center_focused(s_menu_layer, true);
-#endif
 #ifdef PBL_COLOR
     menu_layer_set_normal_colors(s_menu_layer, GColorWhite, GColorBlack);
     menu_layer_set_highlight_colors(s_menu_layer, GColorCobaltBlue, GColorWhite);

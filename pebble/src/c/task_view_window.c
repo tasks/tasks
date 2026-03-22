@@ -33,7 +33,7 @@ static void click_config_provider(void *context) {
 static void window_load(Window *window) {
     Layer *window_layer = window_get_root_layer(window);
     GRect bounds = layer_get_bounds(window_layer);
-    int margin = PBL_IF_ROUND_ELSE(10, 5);
+    int margin = PBL_IF_ROUND_ELSE(10, 8);
     int top_y = PBL_IF_ROUND_ELSE(40, 5);
     int width = bounds.size.w - margin * 2;
 
@@ -134,7 +134,7 @@ static void update_display(void) {
     // Recalculate layout based on content sizes
     Layer *window_layer = window_get_root_layer(s_window);
     GRect bounds = layer_get_bounds(window_layer);
-    int margin = PBL_IF_ROUND_ELSE(10, 5);
+    int margin = PBL_IF_ROUND_ELSE(10, 8);
     int top_y = PBL_IF_ROUND_ELSE(40, 5);
     int width = bounds.size.w - margin * 2;
 

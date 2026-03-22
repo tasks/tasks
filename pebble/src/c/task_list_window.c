@@ -223,6 +223,7 @@ static bool is_row_selected(MenuIndex *cell_index) {
 
 static void draw_filter_row(GContext *ctx, const Layer *cell_layer, bool selected) {
     GRect bounds = layer_get_bounds(cell_layer);
+    int inset = PBL_IF_ROUND_ELSE(6, 4);
     GFont font = fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD);
 
 #ifdef PBL_COLOR
@@ -248,7 +249,7 @@ static void draw_filter_row(GContext *ctx, const Layer *cell_layer, bool selecte
 #endif
 
     graphics_draw_text(ctx, s_filter_name, font,
-                       GRect(4, 5, bounds.size.w - 8, bounds.size.h - 5),
+                       GRect(inset, 5, bounds.size.w - inset * 2, bounds.size.h - 5),
                        GTextOverflowModeTrailingEllipsis,
                        GTextAlignmentCenter, NULL);
 }
@@ -260,11 +261,12 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
 #ifdef PBL_MICROPHONE
     if (cell_index->row == ADD_ROW) {
         GRect add_bounds = layer_get_bounds(cell_layer);
+        int add_inset = PBL_IF_ROUND_ELSE(6, 4);
         GFont add_font = fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD);
         graphics_context_set_text_color(ctx,
             selected ? GColorWhite : PBL_IF_COLOR_ELSE(GColorDarkGray, GColorBlack));
         graphics_draw_text(ctx, "+ Add Task", add_font,
-                           GRect(4, 5, add_bounds.size.w - 8, add_bounds.size.h - 5),
+                           GRect(add_inset, 5, add_bounds.size.w - add_inset * 2, add_bounds.size.h - 5),
                            GTextOverflowModeTrailingEllipsis,
                            GTextAlignmentCenter, NULL);
         return;
@@ -299,6 +301,9 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
 
     UiItem *item = &s_items[w];
 
+    // center_focused handles the main round inset; add a small extra margin
+    int inset = PBL_IF_ROUND_ELSE(6, 4);
+
     if (item->type == UI_TYPE_HEADER) {
         char header[MAX_TITLE_LEN + 4];
         snprintf(header, sizeof(header), "%s %s",
@@ -316,12 +321,12 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
         graphics_context_set_text_color(ctx, selected ? GColorWhite : GColorBlack);
 #endif
         graphics_draw_text(ctx, header, font,
-                           GRect(4, 5, bounds.size.w - 8, bounds.size.h - 5),
+                           GRect(inset, 5, bounds.size.w - inset * 2, bounds.size.h - 5),
                            GTextOverflowModeTrailingEllipsis,
                            GTextAlignmentLeft, NULL);
     } else {
         // Task row
-        int padding = 6;
+        int padding = PBL_IF_ROUND_ELSE(8, 6);
         int x_start = PBL_IF_COLOR_ELSE(padding, 4) + 14 * item->indent;
         bool has_subtitle = item->extra[0] != '\0';
 
@@ -356,7 +361,7 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
         int text_w = bounds.size.w - text_x - 4;
         char display[80];
         const char *prefix = "";
-#ifndef PBL_COLOR
+#if !defined(PBL_COLOR) && !defined(SCREENSHOT_MODE)
         prefix = protocol_priority_prefix(item->priority);
 #endif
         snprintf(display, sizeof(display), "%s%s", prefix, item->title);
