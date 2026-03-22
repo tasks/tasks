@@ -40,4 +40,11 @@
     <string name="password_required">Kata sandi diperluikan</string>
     <string name="caldav_home_set_not_found">Set beranda tidak ditemukan</string>
     <string name="add_account">Tambah akun</string>
+    <string name="google_tasks_selection_description">Layanan standar yang disinkronkan dengan akun Google Anda</string>
+    <string name="name_your_price">Tetapkan harga dari Anda</string>
+    <string name="upgrade_to_pro">Tingkatkan ke pro</string>
+    <string name="caldav_selection_description">Sinkronisasi yang berdasarkan pada standar internet terbuka</string>
+    <string name="davx5_selection_description">Sinkronkan tugas Anda dengan aplikasi DAVx⁵</string>
+    <string name="etesync_selection_description">Enkripsi klien-ke-klien bersumber terbuka</string>
+    <string name="decsync_selection_description">Sinkronisasi berdasarkan berkas</string>
 </resources>

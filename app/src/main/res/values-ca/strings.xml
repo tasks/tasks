@@ -533,11 +533,9 @@
     <string name="subtasks_multilevel_microsoft">Les subtasques multinivell no són compatibles amb Microsoft To Do</string>
     <string name="enter_tag_name">Introduïu el nom de l\'etiqueta</string>
     <string name="choose_synchronization_service">Seleccioneu una plataforma</string>
-    <string name="google_tasks_selection_description">Servei bàsic que es sincronitza amb el vostre compte de Google</string>
     <string name="caldav_selection_description">Sincronització basada en estàndards oberts d\'Internet</string>
     <string name="etesync_selection_description">Sincronització xifrada d\'extrem a extrem</string>
     <string name="decsync_selection_description">Sincronització per fitxers</string>
-    <string name="microsoft_selection_description">Sincronitza amb el teu compte personal de Microsoft</string>
     <string name="davx5_selection_description">Sincronitza les teves tasques amb l\'aplicació DAVx5</string>
     <string name="show_advanced_settings">Mostreu la configuració avançada</string>
     <string name="caldav_account_description">Requereix un compte amb un proveïdor de servei CalDAV o un servidor allotjat per si mateix. Cerqueu un proveïdor de serveis visitant tasks.org/caldav</string>
@@ -714,7 +712,6 @@
     <string name="sort_not_available">No disponible per a etiquetes, filtres o llocs</string>
     <string name="add_shortcut_to_home_screen">Afegiu una drecera a la pantalla d\'inici</string>
     <string name="add_widget_to_home_screen">Afegiu un giny a la pantalla d\'inici</string>
-    <string name="cost_free">Gratuït</string>
     <string name="cost_money">Cost: $</string>
     <string name="cost_more_money">Cost: $$$</string>
     <string name="multiline_title">Permeteu títols multilínies</string>

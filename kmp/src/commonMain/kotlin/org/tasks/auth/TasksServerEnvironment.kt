@@ -33,6 +33,7 @@ class TasksServerEnvironment(
     var currentEnvironment: String = runBlocking {
         tasksPreferences.get(TasksPreferences.serverEnvironment, ENV_PRODUCTION)
     }
+        private set
 
     val environments: List<Environment>
         get() = buildList {

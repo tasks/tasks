@@ -23,11 +23,16 @@ import kotlinx.serialization.modules.subclass
 import org.koin.compose.koinInject
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.compose.WelcomeScreenLayout
+import org.tasks.compose.accounts.AddAccountScreen
+import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
 import org.tasks.themes.TasksTheme
 
 @Serializable
 data object WelcomeDestination : NavKey
+
+@Serializable
+data object AddAccountDestination : NavKey
 
 @Serializable
 data object TaskListDestination : NavKey
@@ -49,6 +54,7 @@ fun App(
                     serializersModule = SerializersModule {
                         polymorphic(NavKey::class) {
                             subclass(WelcomeDestination::class, WelcomeDestination.serializer())
+                            subclass(AddAccountDestination::class, AddAccountDestination.serializer())
                             subclass(TaskListDestination::class, TaskListDestination.serializer())
                         }
                     }
@@ -65,7 +71,8 @@ fun App(
                         }
                     }
                     false -> {
-                        if (backStack.lastOrNull() !is WelcomeDestination) {
+                        if (backStack.lastOrNull() !is WelcomeDestination
+                            && backStack.lastOrNull() !is AddAccountDestination) {
                             backStack.clear()
                             backStack.add(WelcomeDestination)
                         }
@@ -81,7 +88,7 @@ fun App(
                         WelcomeScreenLayout(
                             showLegalDisclosure = !configuration.isLibre,
                             onSignIn = {
-                                // TODO: sign in flow
+                                backStack.add(AddAccountDestination)
                             },
                             onContinueWithoutSync = {
                                 // TODO: create local account and navigate
@@ -93,6 +100,22 @@ fun App(
                             environments = environments,
                             currentEnvironment = currentEnvironment,
                             onSelectEnvironment = onSelectEnvironment,
+                        )
+                    }
+                    entry<AddAccountDestination> {
+                        AddAccountScreen(
+                            configuration = configuration,
+                            hasTasksAccount = false,
+                            hasPro = false,
+                            needsConsent = false,
+                            onBack = { backStack.removeLastOrNull() },
+                            signIn = { platform ->
+                                // TODO: handle sign in for platform
+                            },
+                            openUrl = { platform ->
+                                // TODO: handle open URL for platform
+                            },
+                            openLegalUrl = openUrl,
                         )
                     }
                     entry<TaskListDestination> {

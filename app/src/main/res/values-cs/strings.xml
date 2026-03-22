@@ -397,7 +397,6 @@
     <string name="subtasks_multilevel_google_task">Úkoly Google nepodporují víceúrovňové podúkoly</string>
     <string name="enter_tag_name">Zadejte název štítku</string>
     <string name="choose_synchronization_service">Zvolte službu</string>
-    <string name="google_tasks_selection_description">Jednoduchá služba zajišťující synchronizaci s vaším Google účtem</string>
     <string name="caldav_selection_description">Synchronizace založená na otevřených internetových standardech</string>
     <string name="etesync_selection_description">Synchronizace šifrovaná mezi koncovými body</string>
     <string name="show_advanced_settings">Zobrazit pokročilé možnosti</string>
@@ -658,7 +657,6 @@
     <string name="sort_completion_group">Dokončeno %s</string>
     <string name="enable_reminders">Povolit připomínky</string>
     <string name="enable_reminders_description">Připomínky jsou zakázány v nastavení Android</string>
-    <string name="microsoft_selection_description">Synchronizovat se svým osobním účtem Microsoft</string>
     <string name="sign_in">Přihlásit se</string>
     <string name="sort_not_available">Není k dispozici pro štítky, filtry a místa</string>
     <string name="sort_list">Podle seznamu</string>
@@ -706,7 +704,6 @@
     <string name="price_per_year_with_currency">%s ročně</string>
     <string name="enable_alarms">Dostaňte upozornění včas</string>
     <string name="comment">Komentář</string>
-    <string name="cost_free">Zdarma</string>
     <string name="cost_money">Cena: $</string>
     <string name="sync_warning_microsoft_title">O synchronizaci Microsoft To Do</string>
     <string name="sync_warning_google_tasks">Ne všechny podrobnosti připomínek se synchronizují s Google Tasks</string>
@@ -728,8 +725,6 @@
     <string name="widget_view_more_tasks">Zobrazit další úkoly</string>
     <string name="local_list_title">Toto je lokální seznam</string>
     <string name="local_list_description">Úkoly v tomto seznamu jsou uloženy pouze na tomto zařízení. Připojte účet pro zabezpečení vašich dat a přístup k nim odkudkoli.</string>
-    <string name="name_your_price_blurb">Zaplaťte, kolik chcete, pro odemknutí motivů, ikon a těchto pokročilých možností synchronizace</string>
-    <string name="microsoft_selection_description_googleplay">Synchronizujte se svým pracovním, školním nebo osobním účtem Microsoft</string>
     <string name="subscription_required_fdroid">Pro využití synchronizace Tasks.org je vyžadováno předplatné. Předplatná lze pořídit v Google Play verzi aplikace Tasks.</string>
     <string name="sponsorship_required_fdroid">Sponzorství na GitHubu je vyžadováno pro synchronizaci Tasks.org. Kliknutím níže se stanete sponzorem.</string>
     <string name="legal">Právní informace</string>
@@ -768,7 +763,6 @@
     <string name="sign_in_to_connect">Pro připojení účtu Tasks.org se přihlaste</string>
     <string name="invalid_email_address">Neplatná e-mailová adresa</string>
     <string name="upgrade_to_pro_card_description">Odemkněte cloudovou synchronizaci Tasks.org, sdílení s rodinou a přáteli a e-mail na úkol</string>
-    <string name="tasks_org_description">Zahrnuje sdílení s rodinou a přáteli a e-mail na úkol</string>
     <string name="share_list">Sdílet „%1$s“</string>
     <string name="send">Odeslat</string>
     <string name="guest">Host</string>

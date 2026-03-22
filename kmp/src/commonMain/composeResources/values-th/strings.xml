@@ -39,4 +39,11 @@
     <string name="caldav_home_set_not_found">ไม่พบชุดบ้าน</string>
     <string name="add_account">เพิ่มบัญชี</string>
     <string name="requires_pro_subscription">ต้องสมัครสมาชิกแบบโปร</string>
+    <string name="google_tasks_selection_description">บริการพื้นฐานที่ซิงโครไนซ์กับบัญชี Google ของคุณ</string>
+    <string name="name_your_price">ตั้งชื่อราคาของคุณ</string>
+    <string name="upgrade_to_pro">อัปเกรดเป็น Pro</string>
+    <string name="caldav_selection_description">การซิงโครไนซ์ตามมาตรฐานอินเทอร์เน็ตแบบเปิด</string>
+    <string name="davx5_selection_description">ซิงโครไนซ์งานของคุณกับแอป davx⁵ของคุณ</string>
+    <string name="etesync_selection_description">การทําข้อมูลให้ตรงกันที่เข้ารหัสตั้งแต่ต้นจนจบ</string>
+    <string name="decsync_selection_description">การซิงโครไนส์ตามไฟล์</string>
 </resources>

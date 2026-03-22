@@ -60,4 +60,17 @@
     <string name="privacy_policy_proper">Ochrana soukromí</string>
     <string name="gplv3_license">Licence GPLv3</string>
     <string name="returning_user_import_backup">Importovat zálohu Tasks.org</string>
+    <string name="google_tasks_selection_description">Jednoduchá služba zajišťující synchronizaci s vaším Google účtem</string>
+    <string name="microsoft_selection_description">Synchronizovat se svým osobním účtem Microsoft</string>
+    <string name="cost_free">Zdarma</string>
+    <string name="name_your_price_blurb">Zaplaťte, kolik chcete, pro odemknutí motivů, ikon a těchto pokročilých možností synchronizace</string>
+    <string name="microsoft_selection_description_googleplay">Synchronizujte se svým pracovním, školním nebo osobním účtem Microsoft</string>
+    <string name="tasks_org_description">Zahrnuje sdílení s rodinou a přáteli a e-mail na úkol</string>
+    <string name="name_your_price">Zaplaťte libovolnou částku</string>
+    <string name="upgrade_to_pro">Získat verzi Pro</string>
+    <string name="legal_disclosure_prefix_using">Používáním Tasks.org</string>
+    <string name="caldav_selection_description">Synchronizace založená na otevřených internetových standardech</string>
+    <string name="davx5_selection_description">Synchronizujte své úkoly pomocí aplikace DAVx⁵</string>
+    <string name="etesync_selection_description">Synchronizace šifrovaná mezi koncovými body</string>
+    <string name="decsync_selection_description">Synchronizace založená na souborech</string>
 </resources>

@@ -387,7 +387,6 @@
     <string name="enter_tag_name">태그 이름 입력</string>
     <string name="this_feature_requires_a_subscription">이 기능을 사용하려면 구독해야 합니다</string>
     <string name="choose_synchronization_service">플랫폼 선택</string>
-    <string name="google_tasks_selection_description">기본 서비스는 구글 계정과 동기화합니다</string>
     <string name="caldav_selection_description">개방형 인터넷 표준을 바탕으로 한 동기화</string>
     <string name="etesync_selection_description">종단간 암호화된 동기화</string>
     <string name="show_advanced_settings">고급 설정 표시</string>
@@ -597,7 +596,6 @@
     <string name="alarm_after_start">시작 후 %s</string>
     <string name="caldav_server_type">서버 유형</string>
     <string name="sign_in">로그인</string>
-    <string name="microsoft_selection_description">마이크로소프트 계정과 동기화</string>
     <string name="enable_reminders">알람 활성화</string>
     <string name="hint_customize_edit_body">필드 순서를 변경하거나 삭제하실 수 있습니다</string>
     <string name="completion_sound">완료 효과음 재생</string>
@@ -677,7 +675,6 @@
     <string name="add_widget_to_home_screen">홈 스크린에 위젯 추가</string>
     <string name="yesterday">어제</string>
     <string name="add_shortcut_to_home_screen">홈화면에 바로가기 추가</string>
-    <string name="cost_free">무료</string>
     <string name="cost_money">비용: $</string>
     <string name="multiline_title_on">줄을 바꾸려면 엔터키를 누르세요</string>
     <string name="cost_more_money">비용: $$$</string>

@@ -418,7 +418,6 @@
     <string name="show_advanced_settings">Mostra impostazioni avanzate</string>
     <string name="etesync_selection_description">Sincronizzazione con crittografia end-to-end</string>
     <string name="caldav_selection_description">Sincronizzazione basata su standard aperti di internet</string>
-    <string name="google_tasks_selection_description">Servizio di base sincronizzato con il tuo account Google</string>
     <string name="choose_synchronization_service">Seleziona una piattaforma</string>
     <string name="enter_tag_name">Inserisci il nome dell\'etichetta</string>
     <string name="collapse_subtasks">Comprimi attività secondarie</string>
@@ -658,7 +657,6 @@
     <string name="enable_reminders_description">I promemoria sono disattivati nelle impostazioni di Android</string>
     <string name="TEA_creation_date">Data di creazione</string>
     <string name="sort_completion_group">Completamento %s</string>
-    <string name="microsoft_selection_description">Sincronizzazione con l\'account personale Microsoft</string>
     <string name="sign_in">Accedi</string>
     <string name="sort_list">Per lista</string>
     <string name="sort_sorting">Ordinamento</string>
@@ -709,7 +707,6 @@
     <string name="add_shortcut_to_home_screen">Aggiungi collegamento sulla Home</string>
     <string name="add_widget_to_home_screen">Aggiungi widget sulla Home</string>
     <string name="comment">Commento</string>
-    <string name="cost_free">Gratuito</string>
     <string name="multiline_title">Consenti titoli su più righe</string>
     <string name="multiline_title_on">Premi il tasto Invio per andare a capo</string>
     <string name="cost_more_money">Costo: $$$</string>
@@ -728,8 +725,6 @@
     <string name="widget_view_more_tasks">Visualizza ulteriori attività</string>
     <string name="local_list_title">Questa è una lista locale</string>
     <string name="local_list_description">Le attività in questa lista sono memorizzate solo su questo dispositivo. Collega un account per sincronizzarle in sicurezza ed accedervi da qualsiasi dispositivo.</string>
-    <string name="name_your_price_blurb">Paga quanto vuoi per sbloccare temi, icone e le opzioni avanzate di sincronizzazione</string>
-    <string name="microsoft_selection_description_googleplay">Sincronizza con il tuo account Microsoft personale, di lavoro o di scuola</string>
     <string name="subscription_required_fdroid">Per utilizzare la sincronizzazione di Tasks.org è necessaria una sottoscrizione. Le sottoscrizioni devono essere avviate dalla versione di Tasks su Google Play.</string>
     <string name="sponsorship_required_fdroid">Per utilizzare la sincronizzazione di Tasks.org serve essere sponsor su GitHub. Clicca sotto per aderire.</string>
     <string name="legal">Condizioni</string>
@@ -768,7 +763,6 @@
     <string name="sign_in_to_connect">Accedi per connettere il tuo account Tasks.org</string>
     <string name="invalid_email_address">Indirizzo e-mail non valido</string>
     <string name="upgrade_to_pro_card_description">Sblocca Tasks.org Cloud, la condivisione con amici e familiari e Email-to-Task</string>
-    <string name="tasks_org_description">Include la condivisione con amici e familiari e Email-to-Task</string>
     <string name="share_list">Condividi \"%1$s\"</string>
     <string name="send">Invia</string>
     <string name="guest">Ospite</string>

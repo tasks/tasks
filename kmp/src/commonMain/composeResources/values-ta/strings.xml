@@ -46,4 +46,13 @@
     <string name="caldav_home_set_not_found">முகப்பு தொகுப்பு கிடைக்கவில்லை</string>
     <string name="add_account">கணக்கு சேர்க்க</string>
     <string name="continue_without_sync">ஒத்திசைவு இல்லாமல் தொடரவும்</string>
+    <string name="google_tasks_selection_description">உங்கள் கூகிள் கணக்குடன் ஒத்திசைக்கும் அடிப்படை சேவை</string>
+    <string name="microsoft_selection_description">உங்கள் தனிப்பட்ட நுண்மென் கணக்குடன் ஒத்திசைக்கவும்</string>
+    <string name="cost_free">இலவசம்</string>
+    <string name="name_your_price">உங்கள் விலைக்கு பெயரிடுங்கள்</string>
+    <string name="upgrade_to_pro">சார்புக்கு மேம்படுத்தவும்</string>
+    <string name="caldav_selection_description">திறந்த இணைய தரங்களின் அடிப்படையில் ஒத்திசைவு</string>
+    <string name="davx5_selection_description">உங்கள் பணிகளை DAVX⁵ பயன்பாட்டுடன் ஒத்திசைக்கவும்</string>
+    <string name="etesync_selection_description">திறந்த மூல, இறுதி முதல் இறுதி மறைகுறியாக்க ஒத்திசைவு</string>
+    <string name="decsync_selection_description">கோப்பு அடிப்படையிலான ஒத்திசைவு</string>
 </resources>

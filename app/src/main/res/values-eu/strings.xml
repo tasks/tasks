@@ -396,7 +396,6 @@
     <string name="display_name">Erakutsi izena</string>
     <string name="this_feature_requires_a_subscription">Ezaugarri honek harpidetza eskatzen du</string>
     <string name="choose_synchronization_service">Hautatu plataforma</string>
-    <string name="google_tasks_selection_description">Zure Google kontuarekin sinkronizatzen den oinarrizko zerbitzua</string>
     <string name="caldav_selection_description">Internet estandar irekietan oinarritutako sinkronizazioa</string>
     <string name="etesync_selection_description">Muturretik-muturrera zifratutako sinkronizazioa</string>
     <string name="show_advanced_settings">Erakutsi ezarpen aurreratuak</string>
@@ -642,6 +641,5 @@
     <string name="enable_reminders">Aktibatu oroigarriak</string>
     <string name="sort_completion_group">Osatu %s</string>
     <string name="TEA_creation_date">Sortze-data</string>
-    <string name="microsoft_selection_description">Sinkronizatu zure Microsoft kontu pertsonalarekin</string>
     <string name="sign_in">Saioa hasi</string>
 </resources>

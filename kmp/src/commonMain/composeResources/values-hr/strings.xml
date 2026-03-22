@@ -60,4 +60,17 @@
     <string name="privacy_policy_proper">Politika privatnosti</string>
     <string name="gplv3_license">GPLv3 licenca</string>
     <string name="returning_user_import_backup">Uvezi Tasks.org sigurnosnu kopiju</string>
+    <string name="google_tasks_selection_description">Osnovna usluga koja sinkronizira s tvojim Google računom</string>
+    <string name="microsoft_selection_description">Sinkroniziraj s tvojim osobnim Microsoft računom</string>
+    <string name="cost_free">Besplatno</string>
+    <string name="name_your_price_blurb">Plati koliko želiš za otključavanje teme, ikone i ove napredne opcije sinkronizacije</string>
+    <string name="microsoft_selection_description_googleplay">Sinkroniziraj sa svojim poslovnim, školskim ili osobnim Microsoft računom</string>
+    <string name="tasks_org_description">Uključuje dijeljenje s prijateljima i obitelji te slanje e-maila u zadatak</string>
+    <string name="name_your_price">Odredi tvoju cijenu</string>
+    <string name="upgrade_to_pro">Nadogradi na Pro verziju</string>
+    <string name="legal_disclosure_prefix_using">Korištenjem Tasks.org-a</string>
+    <string name="caldav_selection_description">Sinkronizacija temeljena na otvorenim internetskim standardima</string>
+    <string name="davx5_selection_description">Sinkroniziraj tvoje zadatke s DAVx⁵</string>
+    <string name="etesync_selection_description">Obostrana šifrirana sinkronizacija</string>
+    <string name="decsync_selection_description">Sinkronizacija pojedinačnih datoteka</string>
 </resources>

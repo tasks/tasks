@@ -150,7 +150,6 @@
     <string name="davx5_selection_description">Synkroniser dine opgaver med DAVx⁵-appen</string>
     <string name="etesync_selection_description">End-to-end-krypteret synkronisering</string>
     <string name="caldav_selection_description">Synkronisering baseret på åbne internetstandarder</string>
-    <string name="google_tasks_selection_description">Basistjeneste, som synkroniserer med din Google-konto</string>
     <string name="choose_synchronization_service">Vælg tjeneste</string>
     <string name="enter_tag_name">Indtast tagnavn</string>
     <string name="subtasks_multilevel_google_task">Underopgaver på flere niveauer understøttes ikke af Google Huskeliste</string>
@@ -634,7 +633,6 @@
     <string name="alarm_before_due">%s før forfald</string>
     <string name="alarm_after_due">%s efter forfald</string>
     <string name="sort_completion_group">Fuldførelse %s</string>
-    <string name="microsoft_selection_description">Synkroniser med din personlige Microsoft-konto</string>
     <string name="enable_reminders">Aktiver påmindelser</string>
     <string name="enable_reminders_description">Påmindelser er deaktiveret i Android-indstillinger</string>
     <string name="TEA_creation_date">Oprettelsesdato</string>
@@ -670,7 +668,6 @@
     <string name="price_per_month_with_currency">%s/måned</string>
     <string name="price_per_year_with_currency">%s/år</string>
     <string name="add_widget_to_home_screen">Føj widget til startskærm</string>
-    <string name="cost_free">Gratis</string>
     <string name="cost_money">Pris: $</string>
     <string name="cost_more_money">Pris: $$$</string>
     <string name="multiline_title">Tillad flerlinjede titler</string>
@@ -708,8 +705,6 @@
     <string name="import_failed_message">Kunne ikke læse sikkerhedskopifil</string>
     <string name="local_list_title">Dette er en lokal liste</string>
     <string name="local_list_description">Opgaver på denne liste gemmes kun på denne enhed. Tilknyt en konto for at beskytte dine data og få adgang til dem hvor som helst.</string>
-    <string name="name_your_price_blurb">Betal det beløb, du ønsker, for at låse op for temaer, ikoner og disse avancerede synkroniseringsindstillinger</string>
-    <string name="microsoft_selection_description_googleplay">Synkroniser med din arbejds-, skole- eller personlige Microsoft-konto</string>
     <string name="subscription_required_fdroid">Der kræves et abonnement for at kunne bruge Tasks.org-synkronisering. Abonnementer skal oprettes fra Google Play-versionen af Tasks.</string>
     <string name="sponsorship_required_fdroid">Der kræves et GitHub-sponsorat for at kunne bruge Tasks.org-synkronisering. Klik nedenfor for at blive sponsor.</string>
     <string name="legal">Juridisk</string>

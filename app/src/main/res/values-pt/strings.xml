@@ -452,7 +452,6 @@
     <string name="caldav_account_description">Precisa de uma conta com um fornecedor CalDAV ou de um servidor auto-alojado. Encontre um fornecedor visitando tasks.org/caldav</string>
     <string name="show_advanced_settings">Mostrar configurações avançadas</string>
     <string name="etesync_selection_description">Sincronização com encriptação ponta-a-ponta</string>
-    <string name="google_tasks_selection_description">Serviço básico que sincroniza com a sua conta Google</string>
     <string name="choose_synchronization_service">Selecione uma plataforma</string>
     <string name="this_feature_requires_a_subscription">Este recurso necessita de uma subscrição</string>
     <string name="display_name">Mostrar nome</string>
@@ -638,7 +637,6 @@
     <string name="enable_reminders_description">Os lembretes estão desativados nas configurações do Android</string>
     <string name="sort_completion_group">Concluído %s</string>
     <string name="TEA_creation_date">Data de criação</string>
-    <string name="microsoft_selection_description">Sincronize com a sua conta pessoal Microsoft</string>
     <string name="sign_in">Iniciar sessão</string>
     <string name="sort_list">Por lista</string>
     <string name="sort_not_available">Não disponível para etiquetas, filtros ou locais</string>
@@ -702,7 +700,6 @@
     <string name="app_settings">Configurações da aplicação</string>
     <string name="comment">Comentário</string>
     <string name="add_shortcut_to_home_screen">Adicionar atalho para a tela inicial</string>
-    <string name="cost_free">Grátis</string>
     <string name="send_application_logs">Enviar logs da aplicação</string>
     <string name="delete_tasks_warning">%s será apagado. Isso não poderá ser desfeito!</string>
     <string name="widget_view_more_tasks">Ver mais tarefas</string>

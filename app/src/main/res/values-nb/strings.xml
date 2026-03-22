@@ -396,7 +396,6 @@
     <string name="display_name">Visningsnavn</string>
     <string name="this_feature_requires_a_subscription">Denne funksjonen krever abonnement</string>
     <string name="choose_synchronization_service">Velg en plattform</string>
-    <string name="google_tasks_selection_description">Enkel tjeneste som synkroniserer med Google-kontoen din</string>
     <string name="show_advanced_settings">Vis avanserte innstillinger</string>
     <string name="etesync_account_description">Krever en konto hos EteSync.com eller selvdrevet tjener</string>
     <string name="help_and_feedback">Hjelp og tilbakemelding</string>
@@ -619,7 +618,6 @@
     <string name="caldav_server_unknown">Ukjent</string>
     <string name="completed">Fullført</string>
     <string name="TEA_creation_date">Opprettelsesdato</string>
-    <string name="microsoft_selection_description">Synkroniser med din personlige Microsoft-konto</string>
     <string name="sort_completion_group">Fullføring %s</string>
     <string name="snackbar_tasks_completed">%d gjøremål fullført</string>
     <string name="sign_in">Logg inn</string>

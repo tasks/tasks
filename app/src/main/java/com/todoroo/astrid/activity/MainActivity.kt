@@ -67,7 +67,8 @@ import org.tasks.compose.PurchaseScreen
 import org.tasks.compose.TosUpdateDialog
 import org.tasks.compose.WelcomeDestination
 import org.tasks.compose.WelcomeScreen
-import org.tasks.compose.accounts.AddAccountScreen
+import org.tasks.compose.accounts.AddAccountScreenWrapper
+import org.tasks.compose.accounts.featureTitle
 import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.accounts.Platform
 import org.tasks.compose.home.HomeScreen
@@ -355,7 +356,7 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }
                         }
-                        AddAccountScreen(
+                        AddAccountScreenWrapper(
                             configuration = configuration,
                             hasTasksAccount = inventory.hasTasksAccount,
                             hasPro = inventory.hasPro,

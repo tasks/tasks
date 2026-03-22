@@ -434,7 +434,6 @@
     <string name="auto_dismiss_datetime_list">Tehtävä lista</string>
     <string name="navigation_drawer">Navigointi valikko</string>
     <string name="show_advanced_settings">Näytä lisäasetukset</string>
-    <string name="google_tasks_selection_description">Perus palvelu joka synkronoi sinun Google tilisi kanssa</string>
     <string name="opacity_footer">Alatunnisteen läpinäkyvyys</string>
     <string name="support_development_subscribe">Avaa lisäominaisuuksia ja tue avoimen lähdekoodin ohjelmistoa</string>
     <string name="enjoying_tasks">Pidätkö Tasks ohjelmasta\?</string>
@@ -617,7 +616,6 @@
     </plurals>
     <string name="completion_sound">Toista valmistumisääni</string>
     <string name="TEA_creation_date">Luontipäivä</string>
-    <string name="microsoft_selection_description">Synkronoi henkilökohtaisen Microsoft-tilin kanssa</string>
     <string name="completed_tasks_at_bottom">Siirrä valmiit tehtävät alimmaiseksi</string>
     <string name="caldav_server_unknown">Tuntematon</string>
     <string name="caldav_server_other">Muu</string>
@@ -692,7 +690,6 @@
     <string name="price_per_year_with_currency">%s/vuosi</string>
     <string name="add_shortcut_to_home_screen">Lisää pikakuvake aloitusnäytölle</string>
     <string name="add_widget_to_home_screen">Lisää pienoissovellus aloitusnäytölle</string>
-    <string name="cost_free">Ilmainen</string>
     <string name="cost_money">Hinta: $</string>
     <string name="cost_more_money">Hinta: $$$</string>
     <string name="multiline_title">Salli moniriviset otsikot</string>
@@ -715,8 +712,5 @@
     <string name="rmd_time_enabled_off">Älä lisää oletusmuistutusta koko päivän tehtäville</string>
     <string name="upgrade_to_pro_card_description">Avaa Tasks.org-pilvisynkronointi, perhe- ja ystäväjako sekä sähköpostista tehtäväksi -toiminto</string>
     <string name="supporter">Tukija</string>
-    <string name="name_your_price_blurb">Maksa haluamasi summa avataksesi teemat, kuvakkeet ja edistyneet synkronointiasetukset</string>
-    <string name="tasks_org_description">Sisältää perhe- ja ystäväjaon sekä sähköpostista tehtäväksi -toiminnon</string>
-    <string name="microsoft_selection_description_googleplay">Synkronoi työ-, koulu- tai henkilökohtaisen Microsoft tilin kanssa</string>
     <string name="banner_subscription_required_title">Tilaus vaaditaan</string>
 </resources>

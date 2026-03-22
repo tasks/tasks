@@ -46,4 +46,13 @@
     <string name="caldav_home_set_not_found">Setarea inițială nu a fost găsită</string>
     <string name="add_account">Adaugă un cont</string>
     <string name="continue_without_sync">Continuă fără sincronizare</string>
+    <string name="google_tasks_selection_description">Serviciu de bază care se sincronizează cu contul Google</string>
+    <string name="microsoft_selection_description">Sincronizarea cu contul personal Microsoft</string>
+    <string name="cost_free">Gratuit</string>
+    <string name="name_your_price">Spune prețul</string>
+    <string name="upgrade_to_pro">Actualizare la PRO</string>
+    <string name="caldav_selection_description">Sincronizare bazată pe standarde deschise de internet</string>
+    <string name="davx5_selection_description">Sincronizează-ți sarcinile cu aplicația DAVx⁵</string>
+    <string name="etesync_selection_description">Sincronizare criptată end-to-end</string>
+    <string name="decsync_selection_description">Sincronizare pe bază de fișiere</string>
 </resources>

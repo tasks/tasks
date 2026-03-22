@@ -407,7 +407,6 @@
     <string name="display_name">Nazwa wyświetlana</string>
     <string name="this_feature_requires_a_subscription">Ta funkcja wymaga subskrypcji</string>
     <string name="choose_synchronization_service">Wybierz platformę</string>
-    <string name="google_tasks_selection_description">Podstawowy serwis, synchronizujący dane z Twoim kontem Google</string>
     <string name="caldav_selection_description">Synchronizacja oparta na otwartych standardach</string>
     <string name="etesync_selection_description">Szyfrowana synchronizacja end-to-end</string>
     <string name="show_advanced_settings">Pokaż ustawienia zaawansowane</string>
@@ -663,7 +662,6 @@
     <string name="TEA_creation_date">Data utworzenia</string>
     <string name="sort_completion_group">Ukończono %s</string>
     <string name="enable_reminders_description">Przypomnienia są wyłączone w Ustawieniach Androida</string>
-    <string name="microsoft_selection_description">Synchronizuj z osobistym kontem Microsoft</string>
     <string name="sign_in">Zaloguj się</string>
     <string name="sort_not_available">Niedostępne dla tagów, filtrów lub miejsc</string>
     <plurals name="repeat_occurrence">

@@ -391,7 +391,6 @@
     <string name="display_name">Weergavenaam</string>
     <string name="this_feature_requires_a_subscription">Voor deze functie is een abonnement vereist</string>
     <string name="choose_synchronization_service">Een platform kiezen</string>
-    <string name="google_tasks_selection_description">Basisdienst die synchroniseert met een Google-account</string>
     <string name="caldav_selection_description">Synchroniseren op eigen open source CalDAV-server of bij derden</string>
     <string name="etesync_selection_description">End-to-end versleuteld synchroniseren met EteSync</string>
     <string name="show_advanced_settings">Geavanceerde instellingen tonen</string>
@@ -637,7 +636,6 @@
     <string name="enable_reminders_description">Herinneringen staan uit in Android Instellingen</string>
     <string name="TEA_creation_date">Aanmaakdatum</string>
     <string name="sort_completion_group">Voltooid %s</string>
-    <string name="microsoft_selection_description">Synchroniseer met je persoonlijke Microsoft-account</string>
     <string name="sign_in">Log in</string>
     <string name="sort_list">Op lijstvolgorde</string>
     <string name="sort_sorting">Sorteren</string>
@@ -681,7 +679,6 @@
     <string name="add_widget_to_home_screen">Widget aan startscherm toevoegen</string>
     <string name="add_shortcut_to_home_screen">Snelkoppeling aan startscherm toevoegen</string>
     <string name="yesterday">Gisteren</string>
-    <string name="cost_free">Gratis</string>
     <string name="cost_money">Kosten: €</string>
     <string name="cost_more_money">Kosten: €€€</string>
     <string name="delete_comment">commentaar</string>
@@ -708,7 +705,6 @@
     <string name="import_failed_message">Kon het backupbestand niet lezen</string>
     <string name="local_list_title">Dit is een lokale lijst</string>
     <string name="local_list_description">Taken in deze lijst worden uitsluitend op dit apparaat opgeslagen. Maak verbinding met een account om uw data veilig te stellen en het overal te kunnen benaderen.</string>
-    <string name="microsoft_selection_description_googleplay">Synchroniseer met je werk-, school- of persoonlijk Microsoft-account</string>
     <string name="legal">Juridische informatie</string>
     <string name="legal_disclosure_prefix_using">Door Tasks.org te gebruiken</string>
     <string name="terms_of_service">Gebruiksvoorwaarden</string>
@@ -724,7 +720,6 @@
     <string name="email_to_task_address">Je e-mailadres</string>
     <string name="email_to_task">Taak maken per e-mail</string>
     <string name="donate">Doneren</string>
-    <string name="name_your_price_blurb">Betaal een bedrag naar keuze om thema\'s, pictogrammen en geavanceerde sync-mogelijkheden te verkrijgen</string>
     <string name="rmd_EPr_rmd_time_desc">Meldingen voor taken zonder tijdsaanduiding worden om %1$s getoond</string>
     <string name="default_reminder">Taken zonder tijdsaanduiding</string>
     <string name="add_default_reminders">Standaardherinneringen toevoegen</string>

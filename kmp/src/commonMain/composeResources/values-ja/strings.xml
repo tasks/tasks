@@ -52,4 +52,17 @@
     <string name="returning_user_import_backup">Tasks.orgのバックアップを読み込む</string>
     <string name="legal_disclosure_prefix_continuing">下のボタンのいずれかで続行</string>
     <string name="legal_disclosure">%1$sさんは、%2$s と%3$sに同意します。 Tasks は%4$sの下に提供されているオープンソースソフトウェアです。</string>
+    <string name="microsoft_selection_description">個人用 Microsoftアカウントと同期する</string>
+    <string name="google_tasks_selection_description">Googleアカウントと同期する基本サービス</string>
+    <string name="cost_free">無料</string>
+    <string name="microsoft_selection_description_googleplay">職場用、学校用、または個人用Microsoftアカウントと同期する</string>
+    <string name="name_your_price_blurb">テーマやアイコンの着せ替え、追加の同期オプションを利用できるようにするためにお好きな金額をお支払いください</string>
+    <string name="tasks_org_description">友人・家族との共有や、メールでのタスク追加を含む</string>
+    <string name="name_your_price">価格はあなた次第</string>
+    <string name="upgrade_to_pro">プロ版にアップグレード</string>
+    <string name="legal_disclosure_prefix_using">Tasks.orgを使用</string>
+    <string name="caldav_selection_description">オープンインターネット標準による同期</string>
+    <string name="davx5_selection_description">DAVx⁵ でタスクを同期する</string>
+    <string name="etesync_selection_description">エンドツーエンド暗号化による同期</string>
+    <string name="decsync_selection_description">ファイルベースによる同期</string>
 </resources>

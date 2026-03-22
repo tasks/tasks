@@ -486,7 +486,6 @@
     <string name="decsync_selection_description">مزامنة على اساس الملف</string>
     <string name="etesync_selection_description">مزامنة مشفرة من طرف إلى طرف</string>
     <string name="caldav_selection_description">التزامن على أساس معايير الإنترنت المفتوحة</string>
-    <string name="google_tasks_selection_description">خدمة اساسية تتزامن مع حساب كوكل</string>
     <string name="subtasks_multilevel_google_task">مهام فرعية متعددة المراحل غير مدعومة بواسطة مهام كوكل</string>
     <string name="collapse_subtasks">طي المهام الفرعية</string>
     <string name="expand_subtasks">وسع المهام الفرعية</string>
@@ -678,7 +677,6 @@
     <string name="alarm_before_start">%s قبل البدئ</string>
     <string name="alarm_after_due">%s بعد موعد الإنتهاء</string>
     <string name="when_started">عند البدئ</string>
-    <string name="microsoft_selection_description">مزامنة مع حساب مايكروسوفت الخاص بك</string>
     <string name="completion_sound">تشغيل صوت الإكتمال</string>
     <string name="theme_dynamic">ديناميكى</string>
     <plurals name="reminder_hours">
@@ -781,7 +779,6 @@
     <string name="hint_customize_edit_title">الكثير من المعلومات؟</string>
     <string name="hint_customize_edit_body">يمكنك تخصيص هذه الشاشة عن طريق إعادة ترتيب الحقول أو إزالتها</string>
     <string name="add_shortcut_to_home_screen">إضافة اختصار إلى الشاشة الرئيسية</string>
-    <string name="cost_free">مجاناً</string>
     <string name="cost_money">التكلفة: المال</string>
     <string name="cost_more_money">التكلفة: المزيد من المال</string>
     <string name="sync_warning_microsoft_title">نبذة عن مزامنة Microsoft To Do</string>

@@ -540,7 +540,6 @@
     <string name="decsync_selection_description">Sincronizare pe bază de fișiere</string>
     <string name="etesync_selection_description">Sincronizare criptată end-to-end</string>
     <string name="caldav_selection_description">Sincronizare bazată pe standarde deschise de internet</string>
-    <string name="google_tasks_selection_description">Serviciu de bază care se sincronizează cu contul Google</string>
     <string name="choose_synchronization_service">Selectează o platformă</string>
     <string name="enter_tag_name">Introdu numele etichetei</string>
     <string name="subtasks_multilevel_google_task">Sub-sarcinile pe mai multe niveluri nu sunt acceptate de Google Tasks</string>
@@ -661,7 +660,6 @@
     <string name="enable_reminders">Activează memento-uri</string>
     <string name="enable_reminders_description">Reamintirile sunt dezactivate în Setări Android</string>
     <string name="TEA_creation_date">Data creării</string>
-    <string name="microsoft_selection_description">Sincronizarea cu contul personal Microsoft</string>
     <string name="sign_in">Conectează-te</string>
     <string name="sort_ascending">Crescător</string>
     <string name="change_priority">Schimbă prioritatea</string>
@@ -706,7 +704,6 @@
     <string name="delete_comment">comentariu</string>
     <string name="comment">Comentariu</string>
     <string name="quiet_hours_in_effect">Orele liniștite sunt activate</string>
-    <string name="cost_free">Gratuit</string>
     <string name="price_per_month_with_currency">%s/lună</string>
     <string name="price_per_year_with_currency">%s/an</string>
     <string name="add_widget_to_home_screen">Adaugă widget pe ecranul de pornire</string>

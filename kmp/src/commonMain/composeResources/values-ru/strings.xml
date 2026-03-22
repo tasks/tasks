@@ -46,4 +46,13 @@
     <string name="caldav_home_set_not_found">Домашний набор не найден</string>
     <string name="add_account">Добавить учётную запись</string>
     <string name="continue_without_sync">Продолжить без синхронизации</string>
+    <string name="google_tasks_selection_description">Простой сервис, который синхронизируется с Вашим аккаунтом Google</string>
+    <string name="microsoft_selection_description">Синхронизация с личной учетной записью Microsoft</string>
+    <string name="cost_free">Бесплатно</string>
+    <string name="name_your_price">Назовите свою цену</string>
+    <string name="upgrade_to_pro">Обновить до версии Про</string>
+    <string name="caldav_selection_description">Синхронизация, основанная на открытых стандартах</string>
+    <string name="davx5_selection_description">Синхронизируйте свои задачи с приложением DAVx⁵</string>
+    <string name="etesync_selection_description">Синхронизация с использованием сквозного шифрования</string>
+    <string name="decsync_selection_description">Синхронизация с использованием локального файла</string>
 </resources>

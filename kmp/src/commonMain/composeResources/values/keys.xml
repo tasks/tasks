@@ -4,4 +4,11 @@
     <string name="url_tos" translatable="false">https://tasks.org/terms</string>
     <string name="url_privacy_policy" translatable="false">https://tasks.org/privacy</string>
     <string name="url_license" translatable="false">https://tasks.org/license</string>
+    <string name="caldav" translatable="false">CalDAV</string>
+    <string name="davx5" translatable="false">DAVx⁵</string>
+    <string name="decsync" translatable="false">DecSync CC</string>
+    <string name="etesync" translatable="false">EteSync</string>
+    <string name="gtasks_GPr_header" translatable="false">Google Tasks</string>
+    <string name="microsoft" translatable="false">Microsoft To&#xA0;Do</string>
+    <string name="tasks_org_account" translatable="false">Tasks.org Cloud</string>
 </resources>

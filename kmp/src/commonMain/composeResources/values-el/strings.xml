@@ -46,4 +46,13 @@
     <string name="caldav_home_set_not_found">Δεν βρέθηκε αρχικό σετ</string>
     <string name="add_account">Προσθήκη λογαριασμού</string>
     <string name="continue_without_sync">Συνέχεια χωρίς συγχρονισμό</string>
+    <string name="google_tasks_selection_description">Βασική υπηρεσία που συγχρονίζει με το λογαριασμό σας Google</string>
+    <string name="microsoft_selection_description">Συγχρονίστε με τον προσωπικό σας λογαριασμό Microsoft</string>
+    <string name="cost_free">Δωρεάν</string>
+    <string name="name_your_price">Καθορίστε την τιμή σας</string>
+    <string name="upgrade_to_pro">Αναβάθμιση σε συνδρομή</string>
+    <string name="caldav_selection_description">Συγχρονισμός βασισμένος σε ανοιχτά πρότυπα διαδικτύου</string>
+    <string name="davx5_selection_description">Συγχρονίστε τις εργασίες σας με την εφαρμογή DAVx⁵</string>
+    <string name="etesync_selection_description">Κρυπτογραφημένος συγχρονισμός από άκρο σε άκρο</string>
+    <string name="decsync_selection_description">Συγχρονισμός βάσει αρχείων</string>
 </resources>

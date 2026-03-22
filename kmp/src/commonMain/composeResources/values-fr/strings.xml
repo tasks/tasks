@@ -60,4 +60,17 @@
     <string name="privacy_policy_proper">Politique de confidentialité</string>
     <string name="gplv3_license">Licence GPLv3</string>
     <string name="returning_user_import_backup">Importer une sauvegarde Tasks.org</string>
+    <string name="google_tasks_selection_description">Service de base qui se synchronise avec votre compte « Google »</string>
+    <string name="microsoft_selection_description">Synchroniser avec votre compte « Microsoft » personnel</string>
+    <string name="cost_free">Gratuit</string>
+    <string name="name_your_price_blurb">Payez ce que vous voulez pour débloquer des thèmes, icônes et des options de synchronisation avancées</string>
+    <string name="microsoft_selection_description_googleplay">Synchronisez avec votre travail, votre école ou votre compte Microsoft personnel</string>
+    <string name="tasks_org_description">Comprend le partage entre amis et famille et la conversion des courriels en tâches</string>
+    <string name="name_your_price">Donnez votre prix</string>
+    <string name="upgrade_to_pro">Mise à niveau vers la version « pro »</string>
+    <string name="legal_disclosure_prefix_using">En utilisant Tasks.org</string>
+    <string name="caldav_selection_description">Synchronisation basée sur des normes d\'Internet ouvertes</string>
+    <string name="davx5_selection_description">Synchroniser vos tâches avec l’application « DAVx⁵ »</string>
+    <string name="etesync_selection_description">Synchronisation du chiffrement de bout en bout</string>
+    <string name="decsync_selection_description">Synchronisation basée sur les fichiers</string>
 </resources>

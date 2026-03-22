@@ -482,7 +482,6 @@
     <string name="whats_new">更新情報</string>
     <string name="caldav_selection_description">オープンインターネット標準による同期</string>
     <string name="etesync_selection_description">エンドツーエンド暗号化による同期</string>
-    <string name="microsoft_selection_description">個人用 Microsoftアカウントと同期する</string>
     <string name="chip_appearance_text_and_icon">文字とアイコン</string>
     <string name="chip_appearance_text_only">文字のみ</string>
     <string name="shortcut_pick_time">時間を選択</string>
@@ -516,7 +515,6 @@
     <string name="hint_customize_edit_title">情報量が多すぎる？</string>
     <string name="hint_customize_edit_body">この画面は、フィールドを並べ替えたり削除してカスタマイズすることができます</string>
     <string name="sign_in">サインイン</string>
-    <string name="google_tasks_selection_description">Googleアカウントと同期する基本サービス</string>
     <string name="davx5_selection_description">DAVx⁵ でタスクを同期する</string>
     <string name="caldav_account_description">CalDAV サービスプロバイダまたはセルフホストサーバのアカウントが必要です。サービスプロバイダを探すには、tasks.org/caldav にアクセスしてください</string>
     <string name="chips">チップ</string>
@@ -689,11 +687,9 @@
     <string name="banner_app_updated_description">Tasks が %s に更新されました。リリース ノートを表示しますか?</string>
     <string name="cost_money">料金: $</string>
     <string name="multiline_title_off">タスクを保存するには「完了」を押してください</string>
-    <string name="cost_free">無料</string>
     <string name="delete_tasks_warning">%sは削除されます。これは元に戻せません！</string>
     <string name="cost_more_money">料金: $$$</string>
     <string name="widget_view_more_tasks">ほかのタスクを表示</string>
-    <string name="microsoft_selection_description_googleplay">職場用、学校用、または個人用Microsoftアカウントと同期する</string>
     <string name="import_failed_message">バックアップファイルを読めません</string>
     <string name="import_failed">インポートできませんでした</string>
     <string name="banner_subscription_required_title">購入が必要</string>
@@ -703,7 +699,6 @@
     <string name="subscription_required_fdroid">Tasks.orgと同期するには定期購入が必要です。定期購入はGoogle Play版のTasksアプリからお申し込みください。</string>
     <string name="upgrade_subscription_banner">ご支援ありがとうございます！ Tasks.org Cloudと同期するために、定期購入をアップグレードしましょう</string>
     <string name="local_list_description">このリストのタスクは端末内だけに保存されています。保存先アカウントを登録して、データを安全な場所に保存し、どこからでもアクセスできるようにしましょう。</string>
-    <string name="name_your_price_blurb">テーマやアイコンの着せ替え、追加の同期オプションを利用できるようにするためにお好きな金額をお支払いください</string>
     <string name="alarm_before">前に</string>
     <string name="alarm_after">後に</string>
     <string name="alarm_start">着手時間に対して</string>
@@ -737,7 +732,6 @@
     <string name="per_list_sort_summary">並べ替えやグループの設定を個別に保存する</string>
     <string name="per_list_sort_title">リストごとの並べ替え設定</string>
     <string name="p_per_list_sort">リストごとの並べ替え設定</string>
-    <string name="tasks_org_description">友人・家族との共有や、メールでのタスク追加を含む</string>
     <string name="share_list">\"%1$s\"を共有</string>
     <string name="send">送る</string>
     <string name="guest">ゲスト</string>

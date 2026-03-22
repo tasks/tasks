@@ -581,7 +581,6 @@
     <string name="logout_warning">Kõik selle kasutajakonto andmed eemaldatakse sellest seadmest</string>
     <string name="reinitialize_account">Initsialiseeri uuesti</string>
     <string name="location_arrived">Saabusid: %s</string>
-    <string name="cost_free">Tasuta</string>
     <string name="cost_money">Hind: $</string>
     <string name="restart_required">Selle muudatuse jõustamiseks käivita Tasks uuesti</string>
     <string name="show_edit_screen_without_unlock_summary">Võimaldab kiirseadistuste paani kasutamist ilma lukustust eemaldamata</string>
@@ -641,7 +640,6 @@
     <string name="migrate_count">Teisalda %s teenusesse Tasks.org</string>
     <string name="sort_completion_group">Lõpetatud %s</string>
     <string name="auto_dismiss_datetime_list">Ülesannete loend</string>
-    <string name="google_tasks_selection_description">Google\'i kasutajakontoga lihtsustatud andmete sünkroniseerimise võimalus</string>
     <string name="upgrade_blurb_1">Tere! Minu nimi on Alex ja ma olen sõltumatu arendaja, kes on Taski arendust juhtinud</string>
     <string name="chips">Infosildid</string>
     <string name="auto_dismiss_datetime_edit">Ülesande muutmine</string>
@@ -677,7 +675,6 @@
     <string name="location_permission_required_location">Sinu praeguse asukoha tuvastamiseks on vaja õiguseid asukohateenuste kasutamiseks</string>
     <string name="etesync_selection_description">Sünkroniseerimine, mis kasutab läbivat krüptimist</string>
     <string name="caldav_selection_description">Sünkroniseerimine, mis põhineb avatud ja vabadel internetistandarditel</string>
-    <string name="microsoft_selection_description">Microsofti isikliku kasutajakontoga andmete sünkroniseerimise võimalus</string>
     <string name="davx5_selection_description">Ülesannete sünkroniseerimise võimalus DAVx⁵ rakendusega</string>
     <string name="etesync_account_description">Eeldab, et sul on olemas kasutajakonto EteSync.com teenusepakkuja serveris või sinu omas vastavas serveris</string>
     <string name="upgrade_blurb_2">Olen Tasksi loomiseks kulutanud tuhandeid tunde ja ma avaldan kogu rakenduse lähtekoodi veebis vaba litsentsi all. Selleks, et oleks võimalik minu töid ja tegemisi toetada, eeldavad selle rakenduse mõned funktsionaalsused tellimuse olemasolu</string>
@@ -706,8 +703,6 @@
     <string name="widget_view_more_tasks">Vaata veel ülesandeid</string>
     <string name="local_list_title">See on kohalik loend</string>
     <string name="local_list_description">Selle loendi ülesanded on salvestatud vaid selles nutiseadmes. Kui tahad, et andmed oleks ligipääsetavad kõikjalt ja nende hoidmine paremini tagatud, siis lisa vastav kasutajakonto.</string>
-    <string name="name_your_price_blurb">Maksa nii palju kui saad ja võid kasutada kujundusi, ikoone ja detailsemaid sünkroonimisvõimalusi</string>
-    <string name="microsoft_selection_description_googleplay">Sünkrooni oma töö-, kooli- või isikliku Microsofti kasutajakontoga</string>
     <string name="subscription_required_fdroid">Tasks.org\'i sünkroonimisvõimaluste kasutamiseks on vajalik tellimus. Tellimused peavad olema lisatud Tasks-rakenduse Google Play versioonis.</string>
     <string name="sponsorship_required_fdroid">Tasks.org\'i sünkroonimisvõimaluste kasutamiseks on vajalik GitHubi sponsorlus. Sponsoriks hakkamiseks klõpsa järgnevat linki.</string>
     <string name="legal">Juriidiline teave</string>

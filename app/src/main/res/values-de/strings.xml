@@ -395,7 +395,6 @@
     <string name="theme_system_default">Systemstandard</string>
     <string name="enter_tag_name">Schlagwort eingeben</string>
     <string name="choose_synchronization_service">Einen Dienst wählen</string>
-    <string name="google_tasks_selection_description">Basisdienst zur Synchronisierung mit deinem Google-Konto</string>
     <string name="caldav_selection_description">Synchronisierung basierend auf offenen Internetstandards</string>
     <string name="etesync_selection_description">Ende-zu-Ende-verschlüsselte Synchronisierung</string>
     <string name="show_advanced_settings">Erweiterte Einstellungen anzeigen</string>
@@ -638,7 +637,6 @@
     <string name="TEA_creation_date">Erstellungsdatum</string>
     <string name="enable_reminders">Erinnerungen aktivieren</string>
     <string name="enable_reminders_description">Erinnerungen sind in den Android-Einstellungen deaktiviert</string>
-    <string name="microsoft_selection_description">Mit persönlichem Microsoft-Konto synchronisieren</string>
     <string name="sign_in">Anmelden</string>
     <string name="sort_list">Nach Listen</string>
     <string name="sort_sorting">Sortierung</string>
@@ -688,7 +686,6 @@
     <string name="add_shortcut_to_home_screen">Verknüpfung zum Startbildschirm hinzufügen</string>
     <string name="cost_more_money">Kosten: €€€</string>
     <string name="cost_money">Kosten: €</string>
-    <string name="cost_free">Kostenlos</string>
     <string name="multiline_title">Mehrzeilige Titel zulassen</string>
     <string name="multiline_title_on">Eingabetaste drücken, um Zeilenumbrüche einzufügen</string>
     <string name="comment">Kommentar</string>
@@ -714,9 +711,7 @@
     <string name="returning_user">Wiederkehrender Benutzer?</string>
     <string name="import_failed">Import fehlgeschlagen</string>
     <string name="import_failed_message">Sicherungsdatei konnte nicht gelesen werden</string>
-    <string name="name_your_price_blurb">Zahle, was du willst, um Designs, Icons und diese erweiterten Sync-Optionen freizuschalten</string>
     <string name="local_list_description">Aufgaben in dieser Liste werden nur auf diesem Gerät gespeichert. Verbinde ein Konto, um deine Daten zu sichern und von überall darauf zuzugreifen.</string>
-    <string name="microsoft_selection_description_googleplay">Synchronisiere mit deinem Arbeits-, Schul- oder persönlichen Microsoft-Konto</string>
     <string name="subscription_required_fdroid">Ein Abo ist erforderlich, um die Tasks.org-Synchronisierung zu nutzen. Abos müssen über die Google Play-Version von Tasks gekauft werden.</string>
     <string name="sponsorship_required_fdroid">Ein GitHub-Sponsoring ist erforderlich, um die Tasks.org-Synchronisierung zu nutzen. Klicke unten, um Sponsor:in zu werden.</string>
     <string name="legal">Rechtliches</string>
@@ -752,7 +747,6 @@
     <string name="shared_with_me">Mit mir geteilt</string>
     <string name="shared_by">Geteilt von %s</string>
     <string name="upgrade_to_pro_card_description">Tasks.org Cloud-Synchronisierung, Freigabe für Freunde &amp; Familie und E-Mail Aufgabenerstellung freischalten</string>
-    <string name="tasks_org_description">Beinhaltet „Freunde &amp; Familie teilen“ und „E-Mail Aufgabenerstellung“</string>
     <string name="share_list">„%1$s“ teilen</string>
     <string name="guest_create_list_message">Du hast derzeit Gastzugriff auf freigegebene Listen. Um deine eigenen privaten Listen zu erstellen und mit der Cloud zu synchronisieren, benötigst du ein Tasks.org-Abo. Alternativ kannst du kostenlos eine lokale Liste erstellen, die auf diesem Gerät gespeichert bleibt.</string>
     <string name="upgrade_friends_and_family_description">5 kostenlose Gäste auf gemeinsamen Listen. Funktioniert mit Apple Reminders</string>

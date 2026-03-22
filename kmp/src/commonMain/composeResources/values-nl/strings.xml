@@ -50,4 +50,16 @@
     <string name="privacy_policy_proper">Privacybeleid</string>
     <string name="gplv3_license">GPLv3-licentie</string>
     <string name="returning_user_import_backup">Tasks.org-backup importeren</string>
+    <string name="google_tasks_selection_description">Basisdienst die synchroniseert met een Google-account</string>
+    <string name="microsoft_selection_description">Synchroniseer met je persoonlijke Microsoft-account</string>
+    <string name="cost_free">Gratis</string>
+    <string name="microsoft_selection_description_googleplay">Synchroniseer met je werk-, school- of persoonlijk Microsoft-account</string>
+    <string name="name_your_price_blurb">Betaal een bedrag naar keuze om thema\'s, pictogrammen en geavanceerde sync-mogelijkheden te verkrijgen</string>
+    <string name="name_your_price">Bepaal je eigen prijs</string>
+    <string name="upgrade_to_pro">Opwaarderen naar pro</string>
+    <string name="legal_disclosure_prefix_using">Door Tasks.org te gebruiken</string>
+    <string name="caldav_selection_description">Synchroniseren op eigen open source CalDAV-server of bij derden</string>
+    <string name="davx5_selection_description">Synchroniseren met de DAVx⁵-app</string>
+    <string name="etesync_selection_description">End-to-end versleuteld synchroniseren met EteSync</string>
+    <string name="decsync_selection_description">Synchroniseren op de interne opslag</string>
 </resources>

@@ -60,4 +60,17 @@
     <string name="privacy_policy_proper">隐私政策</string>
     <string name="gplv3_license">GPLv3 许可证</string>
     <string name="returning_user_import_backup">导入 Tasks.org 备份</string>
+    <string name="google_tasks_selection_description">基本服务，用您的 Google 账号进行数据同步</string>
+    <string name="microsoft_selection_description">与您的个人 Microsoft 账号同步</string>
+    <string name="cost_free">免费</string>
+    <string name="name_your_price_blurb">支付你想要付款的金额解锁主题、图标和这些高级同步选项</string>
+    <string name="microsoft_selection_description_googleplay">与工作、学校或个人 Microsoft 账号同步</string>
+    <string name="tasks_org_description">包括好友和家庭共享、邮件转任务</string>
+    <string name="name_your_price">您愿意支付多少费用</string>
+    <string name="upgrade_to_pro">升级至专业版</string>
+    <string name="legal_disclosure_prefix_using">使用 Tasks.org</string>
+    <string name="caldav_selection_description">基于开放的互联网标准的同步</string>
+    <string name="davx5_selection_description">用 DAVx⁵ 应用同步你的任务</string>
+    <string name="etesync_selection_description">端到端加密的同步</string>
+    <string name="decsync_selection_description">基于文件的同步</string>
 </resources>

@@ -232,7 +232,6 @@
     <string name="decsync_selection_description">Sinkronizacija pojedinačnih datoteka</string>
     <string name="etesync_selection_description">Obostrana šifrirana sinkronizacija</string>
     <string name="caldav_selection_description">Sinkronizacija temeljena na otvorenim internetskim standardima</string>
-    <string name="google_tasks_selection_description">Osnovna usluga koja sinkronizira s tvojim Google računom</string>
     <string name="enter_tag_name">Upiši ime oznake</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ne podržava višerazinske podzadatke</string>
     <string name="collapse_subtasks">Sklopi podzadatke</string>
@@ -658,7 +657,6 @@
     <string name="enable_reminders_description">Podsjetnici su deaktivirani u Android postavkama</string>
     <string name="sort_completion_group">Završeno %s</string>
     <string name="TEA_creation_date">Datum stvaranja</string>
-    <string name="microsoft_selection_description">Sinkroniziraj s tvojim osobnim Microsoft računom</string>
     <string name="sign_in">Prijavi se</string>
     <string name="sort_list">Po popisu</string>
     <string name="sort_sorting">Razvrstavanje</string>
@@ -712,7 +710,6 @@
     <string name="button_learn_more">Saznaj više</string>
     <string name="sync_warning_google_tasks">S Google Tasks se ne sinkroniziraju svi detalji zadataka.</string>
     <string name="delete_comment">komentar</string>
-    <string name="cost_free">Besplatno</string>
     <string name="sync_warning_microsoft">S Microsoft To Do se ne sinkroniziraju se svi detalji zadataka.</string>
     <string name="yesterday">Jučer</string>
     <string name="price_per_month_with_currency">%s/mjesec</string>
@@ -730,8 +727,6 @@
     <string name="import_failed_message">Nije moguće čitati datoteku sigurnosne kopije</string>
     <string name="local_list_title">Ovo je lokalni popis</string>
     <string name="local_list_description">Zadaci na ovom popisu su spremljeni samo na ovom uređaju. Poveži račun i zaštiti svoje podatke te im pristupi bilo gdje.</string>
-    <string name="name_your_price_blurb">Plati koliko želiš za otključavanje teme, ikone i ove napredne opcije sinkronizacije</string>
-    <string name="microsoft_selection_description_googleplay">Sinkroniziraj sa svojim poslovnim, školskim ili osobnim Microsoft računom</string>
     <string name="banner_subscription_required_title">Potrebna je pretplata</string>
     <string name="banner_subscription_required_body">Plati koliko god želiš za otključavanje %s sinkronizacije</string>
     <string name="subscription_required_fdroid">Za korištenje Tasks.org sinkronizacije je potrebna pretplata. Pretplata se mora pokrenuti putem Tasks verzije na Google Playu.</string>
@@ -768,7 +763,6 @@
     <string name="sign_in_to_connect">Prijavi se za povezivanje na tvoj Tasks.org račun</string>
     <string name="invalid_email_address">Nevaljana e-mail adresa</string>
     <string name="upgrade_to_pro_card_description">Otključaj Tasks.org sinkronizaciju u oblaku, dijeljenje s prijateljima i obitelji te slanje e-maila u zadatak</string>
-    <string name="tasks_org_description">Uključuje dijeljenje s prijateljima i obitelji te slanje e-maila u zadatak</string>
     <string name="share_list">Dijeli „%1$s”</string>
     <string name="already_subscribed">Već jesi pretplatnik?</string>
     <string name="send">Pošalji</string>

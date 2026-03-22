@@ -60,4 +60,17 @@
     <string name="gplv3_license">GPLv3-Lizenz</string>
     <string name="returning_user_import_backup">Tasks.org-Sicherung importieren</string>
     <string name="legal_disclosure">%1$s stimmst du den %2$s und der %3$s zu. Tasks ist Open-Source-Software, die unter der %4$s bereitgestellt wird.</string>
+    <string name="google_tasks_selection_description">Basisdienst zur Synchronisierung mit deinem Google-Konto</string>
+    <string name="microsoft_selection_description">Mit persönlichem Microsoft-Konto synchronisieren</string>
+    <string name="cost_free">Kostenlos</string>
+    <string name="name_your_price_blurb">Zahle, was du willst, um Designs, Icons und diese erweiterten Sync-Optionen freizuschalten</string>
+    <string name="microsoft_selection_description_googleplay">Synchronisiere mit deinem Arbeits-, Schul- oder persönlichen Microsoft-Konto</string>
+    <string name="tasks_org_description">Beinhaltet „Freunde &amp; Familie teilen“ und „E-Mail Aufgabenerstellung“</string>
+    <string name="name_your_price">Nenn deinen Preis</string>
+    <string name="upgrade_to_pro">Pro-Funktionen freischalten</string>
+    <string name="legal_disclosure_prefix_using">Durch die Nutzung von Tasks.org</string>
+    <string name="caldav_selection_description">Synchronisierung basierend auf offenen Internetstandards</string>
+    <string name="davx5_selection_description">Aufgaben mit der DAVx⁵-App synchronisieren</string>
+    <string name="etesync_selection_description">Ende-zu-Ende-verschlüsselte Synchronisierung</string>
+    <string name="decsync_selection_description">Dateibasierte Synchronisierung</string>
 </resources>

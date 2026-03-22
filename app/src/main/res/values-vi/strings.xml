@@ -203,7 +203,6 @@
     <string name="decsync_selection_description">Đồng bộ hoá dựa trên từng tệp</string>
     <string name="etesync_selection_description">Đồng bộ hoá được mã hoá đầu cuối</string>
     <string name="caldav_selection_description">Đồng bộ hoá dựa trên các tiêu chuẩn internet mở</string>
-    <string name="google_tasks_selection_description">Dịch vụ cơ bản đồng bộ hoá với tài khoản Google của bạn</string>
     <string name="choose_synchronization_service">Chọn nền tảng</string>
     <string name="enter_tag_name">Nhập tên thẻ</string>
     <string name="subtasks_multilevel_google_task">Các công việc con có nhiều cấp không được Google Tasks hỗ trợ</string>
@@ -621,7 +620,6 @@
     <string name="enable_reminders_description">Lời nhắc bị tắt trong cài đặt Android</string>
     <string name="enable_reminders">Bật lời nhắc</string>
     <string name="TEA_creation_date">Ngày tạo</string>
-    <string name="microsoft_selection_description">Đồng bộ với tài khoản Microsoft cá nhân</string>
     <string name="sign_in">Đăng nhập</string>
     <plurals name="repeat_occurrence">
         <item quantity="other">lần xảy ra</item>

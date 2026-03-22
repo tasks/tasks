@@ -60,4 +60,16 @@
     <string name="privacy_policy_proper">Декларация за поверителност</string>
     <string name="gplv3_license">Лиценз GPLv3</string>
     <string name="returning_user_import_backup">Внесете резервно копие на Tasks.org</string>
+    <string name="google_tasks_selection_description">Обикновена услуга за синхронизиране чрез профила ви в Google</string>
+    <string name="microsoft_selection_description">Синхронизирайте задачите си с личния профил в Microsoft</string>
+    <string name="cost_free">Безплатно</string>
+    <string name="name_your_price_blurb">Платете сума по желание, за да отключите теми, икони и тези разширени възможности за синхронизиране</string>
+    <string name="microsoft_selection_description_googleplay">Синхронизирайте със служебен, учебен или личен профил в Microsoft</string>
+    <string name="name_your_price">Посочете своя цена</string>
+    <string name="upgrade_to_pro">Надграждане до версия Про</string>
+    <string name="legal_disclosure_prefix_using">Използвайки Tasks.org</string>
+    <string name="caldav_selection_description">Синхронизиране посредством отворени стандарти</string>
+    <string name="davx5_selection_description">Синхронизиране на задачите с DAVx⁵</string>
+    <string name="etesync_selection_description">Синхронизация, шифрована от край до край</string>
+    <string name="decsync_selection_description">Синхронизация чрез файлове</string>
 </resources>

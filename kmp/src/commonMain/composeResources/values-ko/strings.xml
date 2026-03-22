@@ -46,4 +46,13 @@
     <string name="caldav_home_set_not_found">CalDAV 홈 설정 없음</string>
     <string name="add_account">계정 추가</string>
     <string name="continue_without_sync">동기화 없이 계속하기</string>
+    <string name="google_tasks_selection_description">기본 서비스는 구글 계정과 동기화합니다</string>
+    <string name="microsoft_selection_description">마이크로소프트 계정과 동기화</string>
+    <string name="cost_free">무료</string>
+    <string name="name_your_price">구독 금액 정하기</string>
+    <string name="upgrade_to_pro">프로 서비스로 업그레이드</string>
+    <string name="caldav_selection_description">개방형 인터넷 표준을 바탕으로 한 동기화</string>
+    <string name="davx5_selection_description">DAVx⁵ 앱과 내 할일 동기화</string>
+    <string name="etesync_selection_description">종단간 암호화된 동기화</string>
+    <string name="decsync_selection_description">파일 기반 동기화</string>
 </resources>

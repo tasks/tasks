@@ -45,4 +45,13 @@
     <string name="password_required">Vyžaduje sa heslo</string>
     <string name="caldav_home_set_not_found">Nastavenie Domov nenájdené</string>
     <string name="add_account">Pridať účet</string>
+    <string name="google_tasks_selection_description">Jednoduchá služba, ktorá zabezpečuje synchronizáciu s vašim účtom Google</string>
+    <string name="microsoft_selection_description">Synchronizovať so svojim osobným účtom Microsoft</string>
+    <string name="cost_free">Zdarma</string>
+    <string name="name_your_price">Zaplaťte ľubovoľnú čiastku</string>
+    <string name="upgrade_to_pro">Rozšíriť na verziu pro</string>
+    <string name="caldav_selection_description">Synchronizácia založená na otvorených štandardoch</string>
+    <string name="davx5_selection_description">Synchronizujte svoje úlohy pomocou aplikácie DAVx⁵</string>
+    <string name="etesync_selection_description">Synchronizácia šifrovaná medzi koncovými uzlami</string>
+    <string name="decsync_selection_description">Synchronizácia založená na súboroch</string>
 </resources>

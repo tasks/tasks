@@ -407,7 +407,6 @@
     <string name="display_name">Afficher le nom</string>
     <string name="this_feature_requires_a_subscription">Cette fonctionnalité nécessite un abonnement</string>
     <string name="choose_synchronization_service">Sélectionner une plate-forme</string>
-    <string name="google_tasks_selection_description">Service de base qui se synchronise avec votre compte « Google »</string>
     <string name="caldav_selection_description">Synchronisation basée sur des normes d\'Internet ouvertes</string>
     <string name="etesync_selection_description">Synchronisation du chiffrement de bout en bout</string>
     <string name="show_advanced_settings">Afficher les paramètres avancés</string>
@@ -658,7 +657,6 @@
     <string name="enable_reminders">Activer les rappels</string>
     <string name="TEA_creation_date">Date de création</string>
     <string name="sort_completion_group">Achèvement %s</string>
-    <string name="microsoft_selection_description">Synchroniser avec votre compte « Microsoft » personnel</string>
     <string name="sign_in">Se connecter</string>
     <string name="sort_list">Par liste</string>
     <string name="sort_grouping">Regroupement</string>
@@ -716,7 +714,6 @@
     <string name="button_learn_more">Voir plus</string>
     <string name="enable_alarms">Sois notifié au bon moment</string>
     <string name="enable_alarms_description">Pour être sûr d\'être notifié au bon moment, autorisez la permission d\'ajouter des alarmes et des rappels dans Paramètres</string>
-    <string name="cost_free">Gratuit</string>
     <string name="cost_money">Coût : $</string>
     <string name="cost_more_money">Coût : $$$</string>
     <string name="subtasks_multilevel_microsoft">Les sous-tâches à plusieurs niveaux ne sont pas prises en charge par Microsoft To Do</string>
@@ -728,8 +725,6 @@
     <string name="widget_view_more_tasks">Voir plus de tâches</string>
     <string name="local_list_title">C\'est une liste locale</string>
     <string name="local_list_description">Les tâches dans cette liste ne sont enregistrées que sur cet appareil. Connectez un compte pour sauvegarder vos données et y accéder n\'importe où.</string>
-    <string name="name_your_price_blurb">Payez ce que vous voulez pour débloquer des thèmes, icônes et des options de synchronisation avancées</string>
-    <string name="microsoft_selection_description_googleplay">Synchronisez avec votre travail, votre école ou votre compte Microsoft personnel</string>
     <string name="subscription_required_fdroid">Un abonnement est nécessaire pour utiliser la synchronisation avec Tasks.org. Les abonnements doivent être initiés à partir de la version Google Play de Tasks.</string>
     <string name="sponsorship_required_fdroid">Un parrainage GitHub est nécessaire pour utiliser la synchronisation avec Tasks.org. Cliquez ci-dessous pour devenir un parrain.</string>
     <string name="legal_disclosure_prefix_using">En utilisant Tasks.org</string>
@@ -768,7 +763,6 @@
     <string name="sign_in_to_connect">Authentifiez-vous pour connecter votre compte Tasks.org</string>
     <string name="invalid_email_address">Adresse électronique invalide</string>
     <string name="upgrade_to_pro_card_description">Débloquez la synchronisation cloud Tasks.org, le partage entre amis et famille et la conversion de courriels en tâches</string>
-    <string name="tasks_org_description">Comprend le partage entre amis et famille et la conversion des courriels en tâches</string>
     <string name="share_list">Partager « %1$s »</string>
     <string name="send">Envoyer</string>
     <string name="guest">Invité</string>

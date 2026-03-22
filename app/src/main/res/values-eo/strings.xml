@@ -542,8 +542,6 @@
     <string name="error_adding_account">Eraro: %s</string>
     <string name="logout_warning">Ĉiu de la datumo de ĉi tiu konto foriĝos el via aparato</string>
     <string name="location_permission_required_location">Por trovi vian aktualan lokon bezonas permesoj pri loko</string>
-    <string name="microsoft_selection_description">Sinkronigi kun via persona konto de Microsoft</string>
-    <string name="google_tasks_selection_description">Simpla servo kiu sinkronigas kun via Google konto</string>
     <string name="auto_dismiss_datetime_list">Taskolisto</string>
     <string name="filter_low_priority">Malalta prioritato</string>
     <string name="repeats_from">Ripetiĝas de</string>
@@ -686,7 +684,6 @@
     <string name="enable_alarms">Sciiĝu je la ĝusta horo</string>
     <string name="add_shortcut_to_home_screen">Aldoni ŝparvojon al hejmekrano</string>
     <string name="add_widget_to_home_screen">Aldoni fenestraĵon al hejmekrano</string>
-    <string name="cost_free">Senpaga</string>
     <string name="cost_more_money">Kosto: $$$</string>
     <string name="cost_money">Kosto: $</string>
     <string name="comment">Komento</string>
@@ -706,8 +703,6 @@
     <string name="widget_view_more_tasks">Vidi pli da taskoj</string>
     <string name="local_list_title">Ĉi tiu estas loka listo</string>
     <string name="local_list_description">Taskoj en ĉi tiu listo estas konservitaj nur en ĉi tiu aparato. Konektu konton por sekurigi vian datumojn kaj atingi ĝin de ĉie.</string>
-    <string name="name_your_price_blurb">Laŭvole pagi por malŝlosi etosojn, piktogramojn, kaj altnivelajn opciojn de sinkronigo</string>
-    <string name="microsoft_selection_description_googleplay">Por sinkronigi vian laboran, lernejan, aŭ privatan Microsoft konton</string>
     <string name="subscription_required_fdroid">Uzi sinkronigon de Tasks.org bezonas abonon. Oni devas iniciati abonon per Google Play versio de Tasks.</string>
     <string name="legal">Leĝa</string>
     <string name="legal_disclosure_prefix_using">Per uzi Tasks.org</string>
@@ -749,7 +744,6 @@
     <string name="rmd_time_enabled_on">Aldoni defaŭltajn memorigilojn al tuttagaj taskoj</string>
     <string name="rmd_time_enabled_off">Ne aldoni defaŭltajn memorigilojn al tuttagaj taskoj</string>
     <string name="upgrade_to_pro_card_description">Por malŝlosi sinkronigon de Tasks.org Cloud, komunigon de Amikoj kaj Familianoj, kaj Retpoŝto al Tasko</string>
-    <string name="tasks_org_description">Inkluzive de Komunigo de Amikoj kaj Familianoj kaj Retpoŝto-al-Tasko</string>
     <string name="email_to_task">Retpoŝto al tasko</string>
     <string name="email_to_task_calendar">Listo de cellokoj</string>
     <string name="regenerate_email_address">Regeneri adreson</string>

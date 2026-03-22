@@ -431,10 +431,8 @@
     <string name="expand_subtasks">Прошири подзадатке</string>
     <string name="enter_tag_name">Унеси назив тага</string>
     <string name="choose_synchronization_service">Одабери платформу</string>
-    <string name="google_tasks_selection_description">Основни сервис који се синхронизује са Гугл налогом</string>
     <string name="etesync_selection_description">End-to-end енкриптована синхронизација</string>
     <string name="decsync_selection_description">Синхронизација базирана на датотеци</string>
-    <string name="microsoft_selection_description">Синхронизуј са личним Мајкрософт налогом</string>
     <string name="davx5_selection_description">Синхронизуј своје задатке са DAVx⁵ апликацијом</string>
     <string name="show_advanced_settings">Прикажи напредна подешавања</string>
     <string name="preferences_advanced">Напредно</string>
@@ -711,7 +709,6 @@
     <string name="sort_not_available">Није доступно за тагове, филтере, или места</string>
     <string name="add_shortcut_to_home_screen">Додај пречицу на почетни екран</string>
     <string name="add_widget_to_home_screen">Додај виџет на почетни екран</string>
-    <string name="cost_free">Бесплатно</string>
     <string name="cost_money">Цена: $</string>
     <string name="cost_more_money">Цена: $$$</string>
     <string name="multiline_title">Омогући називе у више редова</string>
@@ -740,8 +737,6 @@
     <string name="legal_disclosure_prefix_using">Коришћењем Tasks.org</string>
     <string name="legal">Правни</string>
     <string name="sponsorship_required_fdroid">Потребно је GitHub спонзорство за коришћење Tasks.org синхронизације. Кликни испод да постанеш спонзор.</string>
-    <string name="microsoft_selection_description_googleplay">Синхронизуј са својим послом, школом или личним Microsoft налогом</string>
-    <string name="name_your_price_blurb">Плати колико желиш за откључавање тема, иконица и напредних опција синхронизације</string>
     <string name="local_list_description">Задаци у овој листи су смештени на овом уређају. Повежи налог како би заштитио своје податке и приступао њима било где.</string>
     <string name="local_list_title">Ово је локална листа</string>
     <string name="alarm_due">доспеће</string>

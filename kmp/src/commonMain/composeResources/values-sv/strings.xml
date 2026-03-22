@@ -52,4 +52,16 @@
     <string name="privacy_policy_proper">Integritetspolicy</string>
     <string name="gplv3_license">GPLv3-licens</string>
     <string name="returning_user_import_backup">Importera Tasks.org-säkerhetskopia</string>
+    <string name="google_tasks_selection_description">Grundläggande tjänst som synkroniseras med ditt Google-konto</string>
+    <string name="microsoft_selection_description">Synkronisera med ditt personliga Microsoft-konto</string>
+    <string name="cost_free">Gratis</string>
+    <string name="name_your_price_blurb">Betala valfritt belopp för att låsa upp teman, ikoner och dessa avancerade synkroniseringsalternativ</string>
+    <string name="microsoft_selection_description_googleplay">Synkronisera med ditt arbets-, skol- eller personliga Microsoft-konto</string>
+    <string name="name_your_price">Namnge ditt pris</string>
+    <string name="upgrade_to_pro">Uppgradera till Pro</string>
+    <string name="legal_disclosure_prefix_using">Genom att använda Tasks.org</string>
+    <string name="caldav_selection_description">Synkronisering baserad på öppna internetstandarder</string>
+    <string name="davx5_selection_description">Synkronisera dina uppgifter med DAVx⁵-appen</string>
+    <string name="etesync_selection_description">Krypterad synkronisering från slut till slut</string>
+    <string name="decsync_selection_description">Filbaserad synkronisering</string>
 </resources>

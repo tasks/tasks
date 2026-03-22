@@ -606,7 +606,6 @@
     <string name="place_settings">Vietos nustatymai</string>
     <string name="wearable_notifications_summary">Rodyti pranešimus ant jūsų dėvimo įrenginio</string>
     <string name="wearable_notifications">Dėvimo įrenginio pranešimai</string>
-    <string name="google_tasks_selection_description">Paprasta paslauga, kuri atlieka sinchronizaciją su jūsų Google paskyra</string>
     <string name="notification_troubleshooting_summary">Bakstelėkite čia, jei kyla problemų dėl pranešimų</string>
     <string name="etesync_account_description">Reikia paskyros EteSync.com arba asmeninis serveris</string>
     <string name="caldav_account_description">Reikia paskyros pas CalDAV paslaugų teikėją arba turėti asmeninį serverį. Paslaugų teikėją raskite apsilankę tasks.org/caldav</string>
@@ -654,7 +653,6 @@
     <string name="snoozed_until">Užmigdyta iki %s</string>
     <string name="completion_sound">Groti užbaigimo garsą</string>
     <string name="TEA_creation_date">Sukūrimo data</string>
-    <string name="microsoft_selection_description">Sinchronizuoti su asmenine Microsoft paskyra</string>
     <string name="sort_completion_group">Užbaigimas %s</string>
     <string name="completed_tasks_at_bottom">Perkelti užbaigtas užduotis į apačią</string>
     <string name="alarm_before_due">%s iki termino pabaigos</string>

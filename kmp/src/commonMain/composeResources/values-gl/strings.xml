@@ -46,4 +46,13 @@
     <string name="caldav_home_set_not_found">Non se atopa a configuración de inicio</string>
     <string name="add_account">Engadir conta</string>
     <string name="continue_without_sync">Continuar sen sincronización</string>
+    <string name="google_tasks_selection_description">Servizo básico que sincroniza coa túa conta de Google</string>
+    <string name="microsoft_selection_description">Sincronizar coa túa conta persoal de Microsoft</string>
+    <string name="cost_free">Gratis</string>
+    <string name="name_your_price">Prezo flexible</string>
+    <string name="upgrade_to_pro">Anovar a pro</string>
+    <string name="caldav_selection_description">Sincronización basada en estándares abertos de internet</string>
+    <string name="davx5_selection_description">Sincronizar tarefas co aplicativo DAVx⁵</string>
+    <string name="etesync_selection_description">Sincronización con cifrado par a par</string>
+    <string name="decsync_selection_description">Sincronización baseada en ficheiros</string>
 </resources>

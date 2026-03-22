@@ -449,7 +449,6 @@
     <string name="show_advanced_settings">הצגת הגדרות מתקדמות</string>
     <string name="etesync_selection_description">סנכרון מוצפן מקצה־לקצה</string>
     <string name="caldav_selection_description">סנכרון מבוסס על תקני אינטרנט פתוחים</string>
-    <string name="google_tasks_selection_description">שירות בסיסי שמסתנכרן עם חשבון ה־Google שלך</string>
     <string name="choose_synchronization_service">בחירת פלטפורמה</string>
     <string name="enter_tag_name">הזנת שם תגית</string>
     <string name="subtasks_multilevel_google_task">תתי־משימות מקוננות אינן נתמכות על ידי Google Tasks</string>
@@ -661,7 +660,6 @@
     <string name="donate_nag">נא לשקול להראות את תמיכתך באמצעות תרומה!</string>
     <string name="completed">הושלמו</string>
     <string name="banner_app_updated_title">היישום עודכן</string>
-    <string name="microsoft_selection_description">סנכרון עם חשבון ה־Microsoft האישי שלך</string>
     <string name="caldav_server_unknown">לא ידוע</string>
     <string name="enable_alarms">קבלת הודעה בזמן הנכון</string>
     <string name="alarm_after_start">%s לאחר מועד התחלה</string>
@@ -671,7 +669,6 @@
     <string name="sort_completion_group">השלמה %s</string>
     <string name="custom_filter_has_reminder">יש תזכורת</string>
     <string name="enable_reminders_description">תזכורות מושבתות בהגדרות Android</string>
-    <string name="cost_free">חינם</string>
     <string name="multiline_title_on">יש ללחוץ על מקש Enter כדי להוסיף מעברי שורה</string>
     <string name="multiline_title_off">יש ללחוץ על \"השלמה\" כדי לשמור משימה</string>
     <string name="completion_sound">ניגון צליל השלמה</string>
@@ -739,9 +736,6 @@
     <string name="rmd_time_enabled_off">אין להוסיף תזכורות ברירת מחדל למשימות של יום שלם</string>
     <string name="upgrade_to_pro_card_description">פתיחת סנכרון בענן Tasks.org,שיתוף חברים ומשפחה, ודוא\"ל־למשימה</string>
     <string name="supporter">תומך</string>
-    <string name="name_your_price_blurb">שלם כפי רצונך כדי לפתוח ערכות נושא, סמלים, ואת הגדרות הסנכרון המתקדמות האלה</string>
-    <string name="tasks_org_description">כולל שיתוף חברים ומשפחה ודוא\"ל־למשימה</string>
-    <string name="microsoft_selection_description_googleplay">סנכרון עם העבודה, בית הספר, או חשבון ה־Microsoft האישי שלך</string>
     <string name="banner_subscription_required_title">נדרש מינוי</string>
     <string name="banner_subscription_required_body">שלם כפי רצונך כדי לפתוח סנכרון %s</string>
     <string name="donate">תרומה</string>

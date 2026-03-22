@@ -535,7 +535,6 @@
     <string name="decsync_selection_description">Filbaserad synkronisering</string>
     <string name="etesync_selection_description">Krypterad synkronisering från slut till slut</string>
     <string name="caldav_selection_description">Synkronisering baserad på öppna internetstandarder</string>
-    <string name="google_tasks_selection_description">Grundläggande tjänst som synkroniseras med ditt Google-konto</string>
     <string name="choose_synchronization_service">Välj en plattform</string>
     <string name="enter_tag_name">Ange taggnamn</string>
     <string name="subtasks_multilevel_google_task">Deluppgifter på flera nivåer stöds inte av Google Tasks</string>
@@ -643,7 +642,6 @@
     <string name="sort_ascending">Stigande</string>
     <string name="sort_descending">Fallande</string>
     <string name="sort_completed">Efter färdigställd tid</string>
-    <string name="microsoft_selection_description">Synkronisera med ditt personliga Microsoft-konto</string>
     <string name="repeats_every">Upprepas varje</string>
     <string name="repeats_after">Efter</string>
     <string name="repeats_never">Aldrig</string>
@@ -684,7 +682,6 @@
     <string name="price_per_year_with_currency">%s/år</string>
     <string name="price_per_month_with_currency">%s/månad</string>
     <string name="yesterday">Igår</string>
-    <string name="cost_free">Gratis</string>
     <string name="cost_money">Pris: $</string>
     <string name="cost_more_money">Pris: $$$</string>
     <string name="add_shortcut_to_home_screen">Lägg till genväg på hemskärm</string>
@@ -708,8 +705,6 @@
     <string name="import_failed_message">Kunde inte läsa säkerhetskopian</string>
     <string name="local_list_title">Det här är en lokal lista</string>
     <string name="local_list_description">Uppgifter i den här listan lagras endast på den här enheten. Anslut ett konto för att skydda dina data och komma åt dem var som helst.</string>
-    <string name="name_your_price_blurb">Betala valfritt belopp för att låsa upp teman, ikoner och dessa avancerade synkroniseringsalternativ</string>
-    <string name="microsoft_selection_description_googleplay">Synkronisera med ditt arbets-, skol- eller personliga Microsoft-konto</string>
     <string name="subscription_required_fdroid">En prenumeration krävs för att använda Tasks.org-synkronisering. Prenumerationer måste startas från Google Play-versionen av Tasks.</string>
     <string name="sponsorship_required_fdroid">Ett GitHub-sponsorskap krävs för att använda Tasks.org-synkronisering. Klicka nedan för att bli sponsor.</string>
     <string name="legal">Juridisk</string>

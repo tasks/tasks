@@ -52,4 +52,17 @@
     <string name="gplv3_license">GPLv3 Licenco</string>
     <string name="returning_user_import_backup">Importi savkopion de Tasks.org</string>
     <string name="legal_disclosure">%1$s, vi konsentas kun la %2$s kaj %3$s. Tasks estas malfermitkoda programaro disponita per la %4$s.</string>
+    <string name="microsoft_selection_description">Sinkronigi kun via persona konto de Microsoft</string>
+    <string name="google_tasks_selection_description">Simpla servo kiu sinkronigas kun via Google konto</string>
+    <string name="cost_free">Senpaga</string>
+    <string name="name_your_price_blurb">Laŭvole pagi por malŝlosi etosojn, piktogramojn, kaj altnivelajn opciojn de sinkronigo</string>
+    <string name="microsoft_selection_description_googleplay">Por sinkronigi vian laboran, lernejan, aŭ privatan Microsoft konton</string>
+    <string name="tasks_org_description">Inkluzive de Komunigo de Amikoj kaj Familianoj kaj Retpoŝto-al-Tasko</string>
+    <string name="name_your_price">Elekti propran prezon</string>
+    <string name="upgrade_to_pro">Altgradigi al profesia</string>
+    <string name="legal_disclosure_prefix_using">Per uzi Tasks.org</string>
+    <string name="caldav_selection_description">Sinkronigo bazite el malfermaj interretaj normoj</string>
+    <string name="davx5_selection_description">Sinkronigi viajn taskojn kun la DAVx⁵ aplikaĵo</string>
+    <string name="etesync_selection_description">Fin-al-fina ĉifrada sinkronigo</string>
+    <string name="decsync_selection_description">Perdosiersistema sinkronigo</string>
 </resources>

@@ -421,7 +421,6 @@
     <string name="show_advanced_settings">Mostrar configurações avançadas</string>
     <string name="etesync_selection_description">Sincronização criptografada de ponta a ponta</string>
     <string name="caldav_selection_description">Sincronização usando protocolos padrões e livres da Internet</string>
-    <string name="google_tasks_selection_description">Serviço básico que sincroniza com a sua conta Google</string>
     <string name="choose_synchronization_service">Escolha uma plataforma</string>
     <string name="enter_tag_name">Adicione nome da etiqueta</string>
     <string name="subtasks_multilevel_google_task">Subtarefas em vários níveis não são suportadas pelo Google Tarefas</string>
@@ -655,7 +654,6 @@
     <string name="hint_customize_edit_title">Informação demais\?</string>
     <string name="hint_customize_edit_body">Você pode personalizar esta tela reordenamento ou removendo campos</string>
     <string name="enable_reminders">Ativar lembretes</string>
-    <string name="microsoft_selection_description">Sincronize com sua conta pessoal da Microsoft</string>
     <string name="enable_reminders_description">Os lembretes estão desabilitados nas configurações do Android</string>
     <string name="TEA_creation_date">Data de criação</string>
     <string name="sign_in">Fazer login</string>
@@ -702,7 +700,6 @@
     <string name="cost_money">Preço: $</string>
     <string name="app_settings">Configurações do aplicativo</string>
     <string name="cost_more_money">Preço: $$$</string>
-    <string name="cost_free">Grátis</string>
     <string name="subtasks_multilevel_microsoft">Subtarefas multinível não suportadas pelo Microsoft To Do</string>
     <string name="enable_alarms_description">Para garantir que você seja notificado no momento certo, conceda permissão para definir alarmes e lembretes em \'Configurações\'</string>
     <string name="multiline_title_on">Pressione a tecla \'Enter\' para adicionar quebras de linha</string>

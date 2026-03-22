@@ -194,7 +194,6 @@
     <string name="show_advanced_settings">மேம்பட்ட அமைப்புகளைக் காட்டு</string>
     <string name="etesync_selection_description">திறந்த மூல, இறுதி முதல் இறுதி மறைகுறியாக்க ஒத்திசைவு</string>
     <string name="caldav_selection_description">திறந்த இணைய தரங்களின் அடிப்படையில் ஒத்திசைவு</string>
-    <string name="google_tasks_selection_description">உங்கள் கூகிள் கணக்குடன் ஒத்திசைக்கும் அடிப்படை சேவை</string>
     <string name="choose_synchronization_service">ஒரு தளத்தைத் தேர்ந்தெடுக்கவும்</string>
     <string name="enter_tag_name">குறிச்சொல் பெயரை உள்ளிடவும்</string>
     <string name="subtasks_multilevel_google_task">கூகிள் பணிகளால் பல நிலை துணை பணிகள் ஆதரிக்கப்படவில்லை</string>
@@ -540,7 +539,6 @@
     <string name="show_edit_screen_without_unlock_summary">சாதனத்தைத் திறக்காமல் விரைவான அமைப்புகள் ஓடு பயன்படுத்த உதவுகிறது</string>
     <string name="header_spacing">இடைவெளி</string>
     <string name="repeats_single_on_number_of_times">%2$s இல் %1$s, %3$d %4$s ஏற்படுகிறது</string>
-    <string name="microsoft_selection_description">உங்கள் தனிப்பட்ட நுண்மென் கணக்குடன் ஒத்திசைக்கவும்</string>
     <string name="davx5_selection_description">உங்கள் பணிகளை DAVX⁵ பயன்பாட்டுடன் ஒத்திசைக்கவும்</string>
     <string name="navigation_drawer">வழிசெலுத்தல் டிராயர்</string>
     <plurals name="reminder_minutes">
@@ -698,7 +696,6 @@
     <string name="sort_descending">இறங்கு</string>
     <string name="add_shortcut_to_home_screen">முகப்புத் திரையில் குறுக்குவழியைச் சேர்க்கவும்</string>
     <string name="add_widget_to_home_screen">முகப்புத் திரையில் விட்செட்டைச் சேர்க்கவும்</string>
-    <string name="cost_free">இலவசம்</string>
     <string name="button_learn_more">மேலும் அறிக</string>
     <string name="open_source">திறந்த மூல</string>
     <string name="google_play_subscribers">கூகிள் பிளே சந்தாதாரர்கள்</string>

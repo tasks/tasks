@@ -408,7 +408,6 @@
     <string name="display_name">Отображаемое название</string>
     <string name="this_feature_requires_a_subscription">Эта функция требует подписки</string>
     <string name="choose_synchronization_service">Выберите платформу</string>
-    <string name="google_tasks_selection_description">Простой сервис, который синхронизируется с Вашим аккаунтом Google</string>
     <string name="caldav_selection_description">Синхронизация, основанная на открытых стандартах</string>
     <string name="etesync_selection_description">Синхронизация с использованием сквозного шифрования</string>
     <string name="show_advanced_settings">Показать расширенные настройки</string>
@@ -664,7 +663,6 @@
     <string name="enable_reminders_description">Напоминания отключены в настройках Android</string>
     <string name="TEA_creation_date">Дата создания</string>
     <string name="sort_completion_group">Готовность %s</string>
-    <string name="microsoft_selection_description">Синхронизация с личной учетной записью Microsoft</string>
     <string name="sign_in">Войти</string>
     <string name="repeats_weekly_on">Повторять в</string>
     <string name="repeats_on">В</string>
@@ -697,7 +695,6 @@
     <string name="customize_drawer_summary">Перетаскивайте элементы меню, чтобы изменить их порядок</string>
     <string name="donate_maybe_later">Возможно, позже</string>
     <string name="swipe_to_snooze_time_15_minutes">через 15 минут</string>
-    <string name="cost_free">Бесплатно</string>
     <string name="multiline_title">Разрешить многострочные заголовки</string>
     <string name="sync_warning_google_tasks">Не все подробности задачи синхронизируются с Google Task</string>
     <string name="customize_drawer">Настроить панель</string>

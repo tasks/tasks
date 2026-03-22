@@ -40,4 +40,12 @@
     <string name="caldav_home_set_not_found">Hjemmesettet ble ikke funnet</string>
     <string name="add_account">Legg til konto</string>
     <string name="requires_pro_subscription">Krever pro-abonnement</string>
+    <string name="google_tasks_selection_description">Enkel tjeneste som synkroniserer med Google-kontoen din</string>
+    <string name="microsoft_selection_description">Synkroniser med din personlige Microsoft-konto</string>
+    <string name="name_your_price">Betal det du vil</string>
+    <string name="upgrade_to_pro">Oppgrader til pro</string>
+    <string name="caldav_selection_description">Synkronisering basert på åpne internettstandarder</string>
+    <string name="davx5_selection_description">Synkroniser dine gjøremål med DAVx⁵-programmet</string>
+    <string name="etesync_selection_description">Ende-til-ende-kryptert synkronisering</string>
+    <string name="decsync_selection_description">Filbasert synkronisering</string>
 </resources>

@@ -391,7 +391,6 @@
     <string name="display_name">Megjelenített név</string>
     <string name="this_feature_requires_a_subscription">Ez a funkció csak előfizetéssel vehető igénybe</string>
     <string name="choose_synchronization_service">Platform választása</string>
-    <string name="google_tasks_selection_description">Alapvető szolgáltatás, ami a Google accounttal szinkronizál</string>
     <string name="caldav_selection_description">Nyílt Internetes szabványon alapuló szinkronizáció</string>
     <string name="etesync_selection_description">Végponttól végpontig titkosított szinkronizáció</string>
     <string name="show_advanced_settings">Haladó beállítások mutatása</string>
@@ -634,7 +633,6 @@
     <string name="hint_customize_edit_title">Túl sok információ\?</string>
     <string name="hint_customize_edit_body">Ez a képernyő a mezők átrendezésével vagy eltávolításával testre szabható</string>
     <string name="TEA_creation_date">Létrehozás dátuma</string>
-    <string name="microsoft_selection_description">Szinkronizálás személyes Microsoft fiókkal</string>
     <string name="sort_completion_group">Elkészültség %s</string>
     <string name="enable_reminders_description">Az emlékeztetők az Android beállításaiban ki vannak kapcsolva</string>
     <string name="sign_in">Bejelentkezés</string>
@@ -680,7 +678,6 @@
     <string name="swipe_to_snooze_time_description">Egy törölt értesítés annyi idő múlva lesz újra megjelenítve: %s</string>
     <string name="customize_drawer_summary">A menüelemek húzással történő átrendezése</string>
     <string name="show_edit_screen_without_unlock_summary">Gyorsbeállítások ikon engedélyezése a telefon feloldása nélkül</string>
-    <string name="cost_free">Ingyenes</string>
     <string name="cost_money">Ár: $</string>
     <string name="cost_more_money">Ár: $$$</string>
     <string name="multiline_title">Többsoros címek engedélyezése</string>
@@ -706,8 +703,6 @@
     <string name="widget_view_more_tasks">További feladatok megtekintése</string>
     <string name="local_list_title">Ez egy helyi lista</string>
     <string name="local_list_description">Az ebben a listában található feladatok csak erzen a készüléken kerülnek mentésre. Kapcsolódj egy fiókhoz, hogy az adataid biztonságban legyenek és bárhonnan elérd őket.</string>
-    <string name="name_your_price_blurb">Tetszőleges összeget fizethetsz a témákért, ikonokért és fejlett szinkronizációs lehetőségekért</string>
-    <string name="microsoft_selection_description_googleplay">Szinkronizálás munkahelyi, iskolai vagy személyes Microsoft fiókkal</string>
     <string name="subscription_required_fdroid">A Tasks.org szinkronizáláshoz előfizetés szükséges. Az előfizetést a Tasks alkalmazás Google Play verziójából lehet kezdeményezni.</string>
     <string name="sponsorship_required_fdroid">A Tasks.org szinkronizáláshoz GitHub szponzori előfizetés szükséges. A szponzori tagsághoz kattints az alábbi linkre.</string>
     <string name="legal">Jogi tudnivalók</string>
@@ -746,7 +741,6 @@
     <string name="advanced_tools_description">Google Helyek, CalDAV, EteSync, és egyebek!</string>
     <string name="invalid_email_address">Érvénytelen e-mail cím</string>
     <string name="upgrade_to_pro_card_description">Tasks.org felhős szinkronizálás, megosztás családdal és barátokkal, illetve Task e-mailből funkciók feloldása</string>
-    <string name="tasks_org_description">Beleértve a megosztás családdal és barátokkal, illetve Task e-mailből funkciókat</string>
     <string name="share_list">\"%1$s\" megosztása</string>
     <string name="send">Küldés</string>
     <string name="guest">Vendég</string>

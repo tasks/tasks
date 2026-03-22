@@ -386,7 +386,6 @@
     <string name="display_name">显示名称</string>
     <string name="this_feature_requires_a_subscription">该功能需要订阅</string>
     <string name="choose_synchronization_service">选择平台</string>
-    <string name="google_tasks_selection_description">基本服务，用您的 Google 账号进行数据同步</string>
     <string name="caldav_selection_description">基于开放的互联网标准的同步</string>
     <string name="etesync_selection_description">端到端加密的同步</string>
     <string name="show_advanced_settings">显示高级设置</string>
@@ -627,7 +626,6 @@
     <string name="enable_reminders_description">提醒在 Android 设置中被禁用</string>
     <string name="TEA_creation_date">创建日期</string>
     <string name="sort_completion_group">完成 %s</string>
-    <string name="microsoft_selection_description">与您的个人 Microsoft 账号同步</string>
     <string name="sign_in">登录</string>
     <string name="sort_not_available">不适用于标签、过滤器或地点</string>
     <string name="sort_list">按清单</string>
@@ -676,7 +674,6 @@
     <string name="add_widget_to_home_screen">添加小部件到主屏幕</string>
     <string name="add_shortcut_to_home_screen">添加快捷方式到主屏幕</string>
     <string name="cost_more_money">费用：$$$</string>
-    <string name="cost_free">免费</string>
     <string name="cost_money">费用：$</string>
     <string name="comment">注释</string>
     <string name="multiline_title">允许多行标题</string>
@@ -695,8 +692,6 @@
     <string name="widget_view_more_tasks">查看更多任务</string>
     <string name="local_list_title">这是本地清单</string>
     <string name="local_list_description">此清单中的任务只存储在这台设备上。连接账号保护数据，在任何地方访问它。</string>
-    <string name="name_your_price_blurb">支付你想要付款的金额解锁主题、图标和这些高级同步选项</string>
-    <string name="microsoft_selection_description_googleplay">与工作、学校或个人 Microsoft 账号同步</string>
     <string name="subscription_required_fdroid">使用 Tasks.org 同步需要订阅。订阅必须通过 Google Play 版本的 Tasks 应用进行。</string>
     <string name="sponsorship_required_fdroid">使用 Tasks.org 同步功能需要成为 GitHub 赞助者。单击下方成为赞助者。</string>
     <string name="legal">法律</string>
@@ -735,7 +730,6 @@
     <string name="supporter_summary">%s • 谢谢！</string>
     <string name="invalid_email_address">电子邮件地址无效</string>
     <string name="upgrade_to_pro_card_description">解锁 Tasks.org 云同步、好友和家庭共享、邮件转任务</string>
-    <string name="tasks_org_description">包括好友和家庭共享、邮件转任务</string>
     <string name="share_list">共享 \"%1$s\"</string>
     <string name="already_subscribed">已是订阅者？</string>
     <string name="send">发送</string>

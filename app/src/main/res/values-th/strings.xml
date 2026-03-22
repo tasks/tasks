@@ -151,7 +151,6 @@
     <string name="decsync_selection_description">การซิงโครไนส์ตามไฟล์</string>
     <string name="etesync_selection_description">การทําข้อมูลให้ตรงกันที่เข้ารหัสตั้งแต่ต้นจนจบ</string>
     <string name="caldav_selection_description">การซิงโครไนซ์ตามมาตรฐานอินเทอร์เน็ตแบบเปิด</string>
-    <string name="google_tasks_selection_description">บริการพื้นฐานที่ซิงโครไนซ์กับบัญชี Google ของคุณ</string>
     <string name="choose_synchronization_service">เลือกแพลตฟอร์ม</string>
     <string name="enter_tag_name">ป้อนชื่อแท็ก</string>
     <string name="subtasks_multilevel_google_task">งานย่อยหลายระดับไม่ได้รับการสนับสนุนโดย Google Tasks</string>

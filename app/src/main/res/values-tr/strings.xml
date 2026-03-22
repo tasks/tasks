@@ -391,7 +391,6 @@
     <string name="display_name">Gösterim adı</string>
     <string name="this_feature_requires_a_subscription">Bu özellik abonelik gerektiriyor</string>
     <string name="choose_synchronization_service">Platform seç</string>
-    <string name="google_tasks_selection_description">Google hesabınızla eşzamanlayan basit servis</string>
     <string name="caldav_selection_description">Açık internet standartlarında eşzamanlama</string>
     <string name="etesync_selection_description">Uçtan uca şifreli eşzamanlama</string>
     <string name="show_advanced_settings">Gelişmiş ayarları göster</string>
@@ -637,7 +636,6 @@
     <string name="enable_reminders_description">Anımsatıcılar Android ayarlarında devre dışı bırakıldı</string>
     <string name="sort_completion_group">Tamamlanma %s</string>
     <string name="TEA_creation_date">Oluşturulma zamanı</string>
-    <string name="microsoft_selection_description">Kişisel Microsoft hesabınızla eşzamanlayın</string>
     <string name="sign_in">Oturum aç</string>
     <string name="sort_list">Listeye göre</string>
     <string name="repeats_ends">Biter</string>
@@ -677,7 +675,6 @@
     <string name="donate_maybe_later">Belki daha sonra</string>
     <string name="donate_nag">Desteğinizi bağış yaparak göstermeyi düşünün!</string>
     <string name="comment">Yorum</string>
-    <string name="cost_free">Ücretsiz</string>
     <string name="cost_money">Ücret: $</string>
     <string name="delete_comment">yorum</string>
     <string name="yesterday">Dün</string>
@@ -706,8 +703,6 @@
     <string name="widget_view_more_tasks">Daha çok görev gör</string>
     <string name="local_list_title">Bu yerel listedir</string>
     <string name="local_list_description">Bu listedeki görevler yalnızca bu aygıtta saklanır. Verinizi korumak ve her yerden erişmek için hesaba bağlanın.</string>
-    <string name="name_your_price_blurb">Gövdeleri, simgeleri ve gelişmiş eşzamanlama seçenekleri için istediğinizi ödeyin</string>
-    <string name="microsoft_selection_description_googleplay">İş, okul ya da kişisel Microsoft hesabınızla eşzamanlayın</string>
     <string name="subscription_required_fdroid">Tasks.org eşzamanlamasını kullanmak için abonelik gerekir. Abonelikler, Tasks\'ın Google Play sürümünden başlatılmalıdır.</string>
     <string name="sponsorship_required_fdroid">Tasks.org eşzamanlamasını kullanmak için GitHub sponsorluğu gerekir. Sponsor olmak için aşağıya tıklayın.</string>
     <string name="legal">Yasal</string>
@@ -746,7 +741,6 @@
     <string name="rmd_EPr_rmd_time_desc">Tüm gün görevleri için bildirimlerin görüneceği an: %1$s</string>
     <string name="invalid_email_address">Geçersiz e-posta adresi</string>
     <string name="upgrade_to_pro_card_description">Tasks.org Cloud eşzamanlama, Arkadaşlar &amp; Aile Paylaşımı ve E-postayla Görev kilidini aç</string>
-    <string name="tasks_org_description">Arkadaşlar &amp; Aile Paylaşımı ve E-postayla Görev\'i içerir</string>
     <string name="share_list">Paylaş \"%1$s\"</string>
     <string name="send">Gönder</string>
     <string name="guest">Konuk</string>

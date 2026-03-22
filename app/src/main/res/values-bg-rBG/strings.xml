@@ -453,7 +453,6 @@
     <string name="share">Споделяне</string>
     <string name="settings_default">По подразбиране</string>
     <string name="opacity_footer">Непрозрачност на долния колонтитул</string>
-    <string name="google_tasks_selection_description">Обикновена услуга за синхронизиране чрез профила ви в Google</string>
     <string name="documentation">Документация</string>
     <string name="upgrade_blurb_2">Прекарвам хиляди часове в работа по Tasks и публикувам изходният код безплатно. За да поддържам работата си, някои възможности изискват абонамент</string>
     <string name="widget_due_date_hidden">Скрито</string>
@@ -637,7 +636,6 @@
     <string name="enable_reminders_description">Напомнянията са изключени в настройките на Андроид</string>
     <string name="TEA_creation_date">Дата на създаване</string>
     <string name="sort_completion_group">Завършена %s</string>
-    <string name="microsoft_selection_description">Синхронизирайте задачите си с личния профил в Microsoft</string>
     <string name="sign_in">Вход</string>
     <string name="sort_list">По списък</string>
     <string name="sort_descending">Низходящо</string>
@@ -690,7 +688,6 @@
     <string name="multiline_title">Многоредови заглавия</string>
     <string name="cost_more_money">Цена: $$$</string>
     <string name="cost_money">Цена: $</string>
-    <string name="cost_free">Безплатно</string>
     <string name="multiline_title_on">Натиснете Enter, за да въведете нови редове</string>
     <string name="sync_warning_google_tasks_title">Относно синхронизацията с Google Task</string>
     <string name="button_learn_more">Научете повече</string>
@@ -706,8 +703,6 @@
     <string name="widget_view_more_tasks">Повече задачи</string>
     <string name="local_list_title">Това е местен списък</string>
     <string name="local_list_description">Задачите в този списък се пазят само на това устройство. Свържете профил, за да запазите задачите си и да имате достъп до тях отвсякъде.</string>
-    <string name="name_your_price_blurb">Платете сума по желание, за да отключите теми, икони и тези разширени възможности за синхронизиране</string>
-    <string name="microsoft_selection_description_googleplay">Синхронизирайте със служебен, учебен или личен профил в Microsoft</string>
     <string name="subscription_required_fdroid">За да използвате синхронизацията на Tasks.org е необходим абонамент. Абонаментите трябва да се започват от версията на Tasks в Google Play.</string>
     <string name="sponsorship_required_fdroid">За да използвате синхронизацията на Tasks.org е необходимо даряване чрез Гитхъб. Докоснете отдолу, за да станете дарител.</string>
     <string name="legal">Правни въпроси</string>

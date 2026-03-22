@@ -37,4 +37,10 @@
     <string name="caldav_home_set_not_found">ہوم سیٹ نہیں ملا</string>
     <string name="add_account">اکاؤنٹ داخل کریں</string>
     <string name="requires_pro_subscription">پرو سبسکرپشن کی ضرورت ہے</string>
+    <string name="google_tasks_selection_description">بنیادی سروس جو آپ کے گوگل اکاؤنٹ کے ساتھ سنکرونائز ہوتی</string>
+    <string name="name_your_price">اپنی قیمت بتائیں</string>
+    <string name="upgrade_to_pro">پرو پر اپ گریڈ کریں</string>
+    <string name="caldav_selection_description">اوپن انٹرنیٹ میعارات پر مبنی سنکرونائزیشن</string>
+    <string name="etesync_selection_description">اینڈ ٹو اینڈ انکرپٹڈ سنکرونائزیشن</string>
+    <string name="decsync_selection_description">فائل بیسڈ سنکرونائزیشن</string>
 </resources>

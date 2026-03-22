@@ -40,4 +40,12 @@
     <string name="caldav_home_set_not_found">Ez da jatorria aurkitu</string>
     <string name="add_account">Gehitu kontua</string>
     <string name="requires_pro_subscription">Pro harpidetza eskatzen du</string>
+    <string name="google_tasks_selection_description">Zure Google kontuarekin sinkronizatzen den oinarrizko zerbitzua</string>
+    <string name="microsoft_selection_description">Sinkronizatu zure Microsoft kontu pertsonalarekin</string>
+    <string name="name_your_price">Jarri zuk prezioa</string>
+    <string name="upgrade_to_pro">Aldatu pro bertsiora</string>
+    <string name="caldav_selection_description">Internet estandar irekietan oinarritutako sinkronizazioa</string>
+    <string name="davx5_selection_description">Sinkronizatu zure zereginak DAVx⁵ aplikazioarekin</string>
+    <string name="etesync_selection_description">Muturretik-muturrera zifratutako sinkronizazioa</string>
+    <string name="decsync_selection_description">Fitxategietan oinarritutako sinkronizazioa</string>
 </resources>

@@ -60,4 +60,17 @@
     <string name="privacy_policy_proper">מדיניות הפרטיות</string>
     <string name="gplv3_license">רישיון ה־GPLv3</string>
     <string name="returning_user_import_backup">ייבוא גיבוי Tasks.org</string>
+    <string name="google_tasks_selection_description">שירות בסיסי שמסתנכרן עם חשבון ה־Google שלך</string>
+    <string name="microsoft_selection_description">סנכרון עם חשבון ה־Microsoft האישי שלך</string>
+    <string name="cost_free">חינם</string>
+    <string name="name_your_price_blurb">שלם כפי רצונך כדי לפתוח ערכות נושא, סמלים, ואת הגדרות הסנכרון המתקדמות האלה</string>
+    <string name="tasks_org_description">כולל שיתוף חברים ומשפחה ודוא\"ל־למשימה</string>
+    <string name="microsoft_selection_description_googleplay">סנכרון עם העבודה, בית הספר, או חשבון ה־Microsoft האישי שלך</string>
+    <string name="name_your_price">מה המחיר שלך</string>
+    <string name="upgrade_to_pro">שדרוג לגרסת פרו</string>
+    <string name="legal_disclosure_prefix_using">על ידי שימוש ב־Tasks.org</string>
+    <string name="caldav_selection_description">סנכרון מבוסס על תקני אינטרנט פתוחים</string>
+    <string name="davx5_selection_description">סנכרון של המשימות שלך עם היישום DAVx⁵</string>
+    <string name="etesync_selection_description">סנכרון מוצפן מקצה־לקצה</string>
+    <string name="decsync_selection_description">סנכרון מבוסס קובץ</string>
 </resources>

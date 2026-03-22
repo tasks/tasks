@@ -46,4 +46,13 @@
     <string name="caldav_home_set_not_found">لم يتم العثور على المجموعة الرئيسية</string>
     <string name="add_account">أضف حساب</string>
     <string name="continue_without_sync">المتابعة بدون مزامنة</string>
+    <string name="google_tasks_selection_description">خدمة اساسية تتزامن مع حساب كوكل</string>
+    <string name="microsoft_selection_description">مزامنة مع حساب مايكروسوفت الخاص بك</string>
+    <string name="cost_free">مجاناً</string>
+    <string name="name_your_price">سمي سعرك</string>
+    <string name="upgrade_to_pro">طور لاصدار متقدم</string>
+    <string name="caldav_selection_description">التزامن على أساس معايير الإنترنت المفتوحة</string>
+    <string name="davx5_selection_description">مزامنة مهامك مع تطبيق DAVx⁵</string>
+    <string name="etesync_selection_description">مزامنة مشفرة من طرف إلى طرف</string>
+    <string name="decsync_selection_description">مزامنة على اساس الملف</string>
 </resources>

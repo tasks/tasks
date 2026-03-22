@@ -52,4 +52,17 @@
     <string name="privacy_policy_proper">Adatvédelmi irányelv</string>
     <string name="gplv3_license">GPLv3 licensz</string>
     <string name="returning_user_import_backup">Tasks.org mentés importálása</string>
+    <string name="google_tasks_selection_description">Alapvető szolgáltatás, ami a Google accounttal szinkronizál</string>
+    <string name="microsoft_selection_description">Szinkronizálás személyes Microsoft fiókkal</string>
+    <string name="cost_free">Ingyenes</string>
+    <string name="name_your_price_blurb">Tetszőleges összeget fizethetsz a témákért, ikonokért és fejlett szinkronizációs lehetőségekért</string>
+    <string name="microsoft_selection_description_googleplay">Szinkronizálás munkahelyi, iskolai vagy személyes Microsoft fiókkal</string>
+    <string name="tasks_org_description">Beleértve a megosztás családdal és barátokkal, illetve Task e-mailből funkciókat</string>
+    <string name="name_your_price">Nevezd meg az árat</string>
+    <string name="upgrade_to_pro">Upgrade pro verzióra</string>
+    <string name="legal_disclosure_prefix_using">A Tasks.org használata által</string>
+    <string name="caldav_selection_description">Nyílt Internetes szabványon alapuló szinkronizáció</string>
+    <string name="davx5_selection_description">Feladatok szinkronizálása DAVx⁵ alkalmazással</string>
+    <string name="etesync_selection_description">Végponttól végpontig titkosított szinkronizáció</string>
+    <string name="decsync_selection_description">Fájl alapú szinkronizálás</string>
 </resources>

@@ -39,4 +39,11 @@
     <string name="caldav_home_set_not_found">CalDAV Home Set හමු නොවීය</string>
     <string name="add_account">ගිණුම එක් කරන්න</string>
     <string name="requires_pro_subscription">Pro දායකත්වයක් අවශ්‍යයි</string>
+    <string name="google_tasks_selection_description">ඔබගේ Google ගිණුම සමඟ සමමුහුර්ත කරන මූලික සේවාව</string>
+    <string name="name_your_price">මිලක් නියම කරන්න</string>
+    <string name="upgrade_to_pro">Pro වෙත උත්ශ්‍රේණි කරන්න</string>
+    <string name="caldav_selection_description">විවෘත අන්තර්ජාල ප්‍රමිතීන් මත පදනම් වූ සමමුහුර්තකරණය</string>
+    <string name="davx5_selection_description">DAVx⁵ යෙදුම සමඟ ඔබගේ කාර්යයන් සමමුහුර්ත කරන්න</string>
+    <string name="etesync_selection_description">End-to-end encrypted සමමුහුර්තකරණය</string>
+    <string name="decsync_selection_description">ගොනු මත පදනම් වූ සමමුහුර්තකරණය</string>
 </resources>

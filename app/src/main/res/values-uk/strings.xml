@@ -414,7 +414,6 @@
     <string name="caldav_account_description">Потрібний обліковий запис у провайдера сервісу CalDAV або власний сервер. Відвідайте tasks.org/caldav, щоб переглянути список провайдерів</string>
     <string name="etesync_selection_description">Захищена наскрізним шифруванням синхронізація</string>
     <string name="caldav_selection_description">Синхронізація на основі стандартів відкритого інтернету</string>
-    <string name="google_tasks_selection_description">Базовий сервіс, що синхронізується з вашим обліковим записом Google</string>
     <string name="choose_synchronization_service">Обрати платформу</string>
     <string name="enter_tag_name">Введіть назву мітки</string>
     <string name="subtasks_multilevel_google_task">Багаторівневі підзавдання не підтримуються Google Tasks</string>
@@ -665,7 +664,6 @@
     <string name="enable_reminders_description">Нагадування вимкнено в налаштуваннях Android</string>
     <string name="TEA_creation_date">Дата створення</string>
     <string name="sort_completion_group">Завершення %s</string>
-    <string name="microsoft_selection_description">Синхронізація з особистим обліковим записом Microsoft</string>
     <string name="sign_in">Увійти</string>
     <string name="sort_list">За списком</string>
     <string name="sort_sorting">Сортування</string>
@@ -712,7 +710,6 @@
     <string name="comment">Коментар</string>
     <string name="yesterday">Учора</string>
     <string name="subtasks_multilevel_microsoft">Багаторівневі підзавдання, які не підтримуються Microsoft To Do</string>
-    <string name="cost_free">Безплатно</string>
     <string name="cost_more_money">Вартість: $$$</string>
     <string name="multiline_title">Дозволити багаторядкові заголовки</string>
     <string name="multiline_title_on">Натисніть Enter, щоб перенести рядок</string>

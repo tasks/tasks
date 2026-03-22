@@ -60,4 +60,17 @@
     <string name="privacy_policy_proper">隱私權政策</string>
     <string name="gplv3_license">GPLv3 授權</string>
     <string name="returning_user_import_backup">匯入 Tasks.org 備份</string>
+    <string name="microsoft_selection_description">與您的個人 Microsoft 帳戶同步</string>
+    <string name="google_tasks_selection_description">基本服務，與您的 Google 帳戶同步</string>
+    <string name="name_your_price_blurb">支付您想要的金額以解鎖主題、圖示和這些進階同步選項</string>
+    <string name="microsoft_selection_description_googleplay">與您的公司、學校或個人 Microsoft 帳戶同步</string>
+    <string name="cost_free">免費</string>
+    <string name="tasks_org_description">包含家人和朋友共享以及電子郵件轉任務</string>
+    <string name="name_your_price">自行設定價格</string>
+    <string name="upgrade_to_pro">升級至專業版</string>
+    <string name="legal_disclosure_prefix_using">使用 Tasks.org</string>
+    <string name="caldav_selection_description">基於開放網際網路標準的同步</string>
+    <string name="davx5_selection_description">使用 DAVx⁵ 應用程式同步您的任務</string>
+    <string name="etesync_selection_description">端對端加密同步</string>
+    <string name="decsync_selection_description">基於檔案的同步</string>
 </resources>

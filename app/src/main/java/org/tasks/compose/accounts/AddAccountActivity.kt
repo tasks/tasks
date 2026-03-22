@@ -149,7 +149,7 @@ class AddAccountActivity : ComponentActivity() {
                 theme = theme.themeBase.index,
                 primary = theme.themeColor.primaryColor,
             ) {
-                AddAccountScreen(
+                AddAccountScreenWrapper(
                     configuration = configuration,
                     hasTasksAccount = hasTasksAccount,
                     hasPro = inventory.hasPro,
