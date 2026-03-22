@@ -29,4 +29,5 @@
     <string name="caldav_home_set_not_found">Nun se atopen los axustes d'aniciu</string>
     <string name="add_account">Amestar cuenta</string>
     <string name="continue_without_sync">Continuar ensin sincronizar</string>
+    <string name="requires_pro_subscription">Requier soscripción pro</string>
 </resources>
