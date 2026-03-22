@@ -274,6 +274,13 @@
 +|    |         +--- org.jspecify:jspecify:1.0.0
 +|    |         +--- androidx.room:room-common:2.8.4 (c)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.3.10 (c)
++|    +--- androidx.sqlite:sqlite-bundled:2.6.2
++|    |    \--- androidx.sqlite:sqlite-bundled-android:2.6.2
++|    |         +--- androidx.sqlite:sqlite:2.6.2 (*)
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.3.10 (*)
++|    |         +--- androidx.sqlite:sqlite:2.6.2 (c)
++|    |         +--- androidx.sqlite:sqlite-framework:2.6.2 (c)
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.3.10 (c)
 +|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.7.1-0.6.x-compat
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.7.1-0.6.x-compat
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.3.10 (*)
@@ -1515,13 +1522,7 @@
 ++--- androidx.lifecycle:lifecycle-runtime-compose:2.10.0 (*)
 ++--- androidx.lifecycle:lifecycle-viewmodel:2.10.0 (*)
 ++--- androidx.room:room-runtime:2.8.4 (*)
-++--- androidx.sqlite:sqlite-bundled:2.6.2
-+|    \--- androidx.sqlite:sqlite-bundled-android:2.6.2
-+|         +--- androidx.sqlite:sqlite:2.6.2 (*)
-+|         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.3.10 (*)
-+|         +--- androidx.sqlite:sqlite:2.6.2 (c)
-+|         +--- androidx.sqlite:sqlite-framework:2.6.2 (c)
-+|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.3.10 (c)
+++--- androidx.sqlite:sqlite-bundled:2.6.2 (*)
 ++--- androidx.appcompat:appcompat:1.7.1 (*)
 ++--- com.mikepenz:iconics-core:5.5.0-b01 (*)
 ++--- io.noties.markwon:core:4.6.2
