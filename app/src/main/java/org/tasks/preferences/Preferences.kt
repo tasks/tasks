@@ -182,7 +182,6 @@ class Preferences @JvmOverloads constructor(
     }
 
     fun setDefaults() {
-        PreferenceManager.setDefaultValues(context, R.xml.preferences, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_look_and_feel, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_notifications, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_task_defaults, true)
