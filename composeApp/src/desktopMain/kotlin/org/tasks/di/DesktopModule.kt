@@ -3,8 +3,13 @@ package org.tasks.di
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.tasks.PlatformConfiguration
+import org.tasks.caldav.FileStorage
+import org.tasks.caldav.VtodoCache
 import org.tasks.auth.DesktopOAuthFlow
 import org.tasks.auth.DesktopSignInHandler
 import org.tasks.auth.SignInHandler
@@ -18,10 +23,10 @@ import org.tasks.security.KeyStoreEncryption
 import java.io.File
 
 actual fun platformModule(): Module = module {
-    single { TasksServerEnvironment(get()) }
+    singleOf(::TasksServerEnvironment)
     single { PlatformConfiguration() }
-    single { DesktopOAuthFlow(caldavUrl = get<TasksServerEnvironment>().caldavUrl) }
-    single<SignInHandler> { DesktopSignInHandler(get(), get(), get(), get()) }
+    factory { DesktopOAuthFlow(serverEnvironment = get()) }
+    factoryOf(::DesktopSignInHandler) bind SignInHandler::class
     single {
         val configDir = File(System.getProperty("user.home"), ".tasks.org")
         KeyStoreEncryption(DesktopKeyProvider(File(configDir, ".key")))
@@ -40,4 +45,9 @@ actual fun platformModule(): Module = module {
         val dataStoreFile = File(configDir, dataStoreFileName)
         TasksPreferences(createDataStore { dataStoreFile.absolutePath })
     }
+    factory {
+        val configDir = File(System.getProperty("user.home"), ".tasks.org")
+        FileStorage(configDir.absolutePath)
+    }
+    factoryOf(::VtodoCache)
 }

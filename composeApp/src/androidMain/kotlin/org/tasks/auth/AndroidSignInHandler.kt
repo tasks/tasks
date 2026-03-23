@@ -7,9 +7,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.jsonPrimitive
+import org.tasks.caldav.CaldavClientProvider
 import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
 import org.tasks.security.KeyStoreEncryption
+import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.InetAddress
@@ -25,6 +28,8 @@ class AndroidSignInHandler(
     private val caldavDao: CaldavDao,
     private val encryption: KeyStoreEncryption,
     private val serverEnvironment: TasksServerEnvironment,
+    private val syncAdapters: SyncAdapters,
+    private val caldavClientProvider: CaldavClientProvider,
 ) : SignInHandler {
 
     private val oauthClient = TasksOAuthClient()
@@ -77,8 +82,10 @@ class AndroidSignInHandler(
             caldavUrl = serverEnvironment.caldavUrl,
             caldavDao = caldavDao,
             encryption = encryption,
+            provider = caldavClientProvider,
         )
         Logger.i(TAG) { "Account created successfully" }
+        syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
         bringAppToForeground()
     }
 

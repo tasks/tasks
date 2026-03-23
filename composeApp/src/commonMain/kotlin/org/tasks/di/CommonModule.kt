@@ -1,13 +1,44 @@
 package org.tasks.di
 
+import com.todoroo.astrid.alarms.AlarmCalculator
+import com.todoroo.astrid.alarms.AlarmService
+import com.todoroo.astrid.timers.TimerPlugin
+import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.Module
-import org.koin.core.module.dsl.viewModel
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.dsl.viewModelOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
+import org.tasks.analytics.Reporting
+import org.tasks.broadcast.RefreshBroadcaster
+import org.tasks.caldav.CaldavClientProvider
+import org.tasks.caldav.CaldavSynchronizer
+import org.tasks.caldav.SimpleCaldavClientProvider
+import org.tasks.caldav.TasksAccountDataRepository
+import org.tasks.caldav.iCalendar
+import org.tasks.data.TaskSaver
 import org.tasks.data.db.Database
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Place
+import org.tasks.jobs.BackgroundWork
+import org.tasks.data.entity.Task
+import org.tasks.location.Geocoder
+import org.tasks.location.LocationService
+import org.tasks.location.MapPosition
+import org.tasks.data.MergedGeofence
+import org.tasks.notifications.Notifier
+import org.tasks.preferences.AppPreferences
+import org.tasks.reminders.Random
+import org.tasks.service.TaskCleanup
+import org.tasks.service.TaskDeleter
+import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
 
 val commonModule = module {
+    // DAOs - singletons (from Database singleton)
     single { get<Database>().caldavDao() }
     single { get<Database>().taskDao() }
     single { get<Database>().tagDataDao() }
@@ -25,8 +56,94 @@ val commonModule = module {
     single { get<Database>().userActivityDao() }
     single { get<Database>().taskAttachmentDao() }
     single { get<Database>().taskListMetadataDao() }
-    viewModel { AppViewModel(get()) }
-    viewModel { AddAccountViewModel(get()) }
+
+    // No-op implementations
+    factory<RefreshBroadcaster> { RefreshBroadcaster {} }
+    factory<Notifier> {
+        object : Notifier {
+            override suspend fun cancel(id: Long) {}
+            override suspend fun cancel(ids: Iterable<Long>) {}
+            override fun triggerNotifications() {}
+            override suspend fun updateTimerNotification() {}
+        }
+    }
+    factory<Reporting> {
+        object : Reporting {
+            override fun logEvent(event: String, vararg params: Pair<String, Any>) {}
+            override fun reportException(t: Throwable) {}
+        }
+    }
+    factory<LocationService> {
+        object : LocationService {
+            override val locationDao = get<org.tasks.data.dao.LocationDao>()
+            override suspend fun currentLocation(): MapPosition? = null
+            override fun addGeofences(geofence: MergedGeofence) {}
+            override fun removeGeofences(place: Place) {}
+        }
+    }
+    factory<Geocoder> {
+        object : Geocoder {
+            override suspend fun reverseGeocode(mapPosition: MapPosition): Place? = null
+        }
+    }
+    factory<AppPreferences> {
+        object : AppPreferences {
+            override suspend fun isDefaultDueTimeEnabled() = false
+            override suspend fun defaultLocationReminder() = 0
+            override suspend fun defaultAlarms() = emptyList<Alarm>()
+            override suspend fun defaultRandomHours() = 0
+            override suspend fun defaultRingMode() = 0
+            override suspend fun defaultDueTime() = 0
+            override suspend fun defaultPriority() = 0
+            override suspend fun isCurrentlyQuietHours() = false
+            override suspend fun adjustForQuietHours(time: Long) = time
+        }
+    }
+    factory<TaskCleanup> { object : TaskCleanup {} }
+
+    // Stateful singletons
+    single<BackgroundWork> {
+        val mutex = kotlinx.coroutines.sync.Mutex()
+        val pending = java.util.concurrent.atomic.AtomicBoolean(false)
+        object : BackgroundWork {
+            override fun updateCalendar(task: Task) {}
+            override suspend fun scheduleRefresh(timestamp: Long) {}
+            override suspend fun sync(source: SyncSource) {
+                if (!mutex.tryLock()) {
+                    pending.set(true)
+                    return
+                }
+                try {
+                    do {
+                        pending.set(false)
+                        val synchronizer = get<CaldavSynchronizer>()
+                        val caldavDao = get<org.tasks.data.dao.CaldavDao>()
+                        caldavDao.getAccounts().forEach { account ->
+                            synchronizer.sync(account, hasPro = account.isTasksOrg)
+                        }
+                    } while (pending.getAndSet(false))
+                } finally {
+                    mutex.unlock()
+                }
+            }
+        }
+    }
+    single { SyncAdapters(get(), get(), get(), { false }, get(), get(), Dispatchers.IO) }
+    singleOf(::TasksAccountDataRepository)
+
+    // Stateless factories
+    factoryOf(::SimpleCaldavClientProvider) bind CaldavClientProvider::class
+    factory { AlarmCalculator(Random(), 0) }
+    factoryOf(::AlarmService)
+    factoryOf(::TimerPlugin)
+    factoryOf(::TaskDeleter)
+    factoryOf(::TaskSaver)
+    factoryOf(::iCalendar)
+    factoryOf(::CaldavSynchronizer)
+
+    // ViewModels
+    viewModelOf(::AppViewModel)
+    viewModelOf(::AddAccountViewModel)
 }
 
 expect fun platformModule(): Module

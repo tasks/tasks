@@ -15,7 +15,7 @@ private const val TAG = "DesktopOAuthFlow"
 
 class DesktopOAuthFlow(
     private val oauthClient: TasksOAuthClient = TasksOAuthClient(),
-    private val caldavUrl: String,
+    private val serverEnvironment: TasksServerEnvironment,
     private val openUrl: (String) -> Unit = { url ->
         val os = System.getProperty("os.name").lowercase()
         when {
@@ -26,7 +26,7 @@ class DesktopOAuthFlow(
     },
 ) {
     suspend fun signIn(provider: OAuthProvider): OAuthResult = withContext(Dispatchers.IO) {
-        val discoveryUrl = "$caldavUrl${provider.discoveryPath}"
+        val discoveryUrl = "${serverEnvironment.caldavUrl}${provider.discoveryPath}"
 
         Logger.d(TAG) { "Fetching discovery from $discoveryUrl" }
         val discovery = oauthClient.fetchDiscovery(discoveryUrl)

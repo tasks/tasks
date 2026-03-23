@@ -3,10 +3,14 @@ package org.tasks.di
 import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import org.tasks.auth.AndroidSignInHandler
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.caldav.FileStorage
+import org.tasks.caldav.VtodoCache
 import org.tasks.data.db.Database
 import org.tasks.kmp.createDataStore
 import org.tasks.preferences.TasksPreferences
@@ -15,9 +19,9 @@ import org.tasks.security.KeyStoreEncryption
 
 actual fun platformModule(): Module = module {
     includes(flavorModule)
-    single { TasksServerEnvironment(get()) }
+    singleOf(::TasksServerEnvironment)
     single<KeyStoreEncryption> { AndroidKeyStoreEncryption() }
-    single<SignInHandler> { AndroidSignInHandler(androidContext(), get(), get(), get()) }
+    factory<SignInHandler> { AndroidSignInHandler(androidContext(), get(), get(), get(), get(), get()) }
     single<Database> {
         val context = androidContext()
         val dbFile = context.getDatabasePath(Database.NAME)
@@ -30,4 +34,6 @@ actual fun platformModule(): Module = module {
         val context = androidContext()
         TasksPreferences(createDataStore(context))
     }
+    factory { FileStorage(androidContext().filesDir.absolutePath) }
+    factoryOf(::VtodoCache)
 }

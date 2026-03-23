@@ -1,15 +1,20 @@
 package org.tasks.auth
 
 import co.touchlab.kermit.Logger
+import org.tasks.caldav.CaldavClientProvider
 import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
 import org.tasks.security.KeyStoreEncryption
+import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 
 class DesktopSignInHandler(
     private val oauthFlow: DesktopOAuthFlow,
     private val caldavDao: CaldavDao,
     private val encryption: KeyStoreEncryption,
     private val serverEnvironment: TasksServerEnvironment,
+    private val syncAdapters: SyncAdapters,
+    private val caldavClientProvider: CaldavClientProvider,
 ) : SignInHandler {
 
     override suspend fun signIn(platform: Platform, provider: OAuthProvider?, openUrl: (String) -> Unit) {
@@ -26,7 +31,9 @@ class DesktopSignInHandler(
             caldavUrl = serverEnvironment.caldavUrl,
             caldavDao = caldavDao,
             encryption = encryption,
+            provider = caldavClientProvider,
         )
         Logger.i("DesktopSignInHandler") { "Account created successfully" }
+        syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
     }
 }
