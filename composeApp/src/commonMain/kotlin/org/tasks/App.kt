@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavKey
@@ -16,6 +17,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
@@ -26,6 +28,7 @@ import org.tasks.compose.WelcomeScreenLayout
 import org.tasks.compose.accounts.AddAccountScreen
 import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.newLocalAccount
 import org.tasks.themes.TasksTheme
 
 @Serializable
@@ -48,7 +51,14 @@ fun App(
         Surface(modifier = Modifier.fillMaxSize()) {
             val caldavDao = koinInject<CaldavDao>()
             val configuration = koinInject<PlatformConfiguration>()
+            val scope = rememberCoroutineScope()
             val hasAccount by caldavDao.watchAccountExists().collectAsState(initial = null)
+
+            if (hasAccount == null) {
+                // Loading — show nothing until we know whether to show welcome or task list
+                return@Surface
+            }
+
             val backStack = rememberNavBackStack(
                 SavedStateConfiguration {
                     serializersModule = SerializersModule {
@@ -59,7 +69,7 @@ fun App(
                         }
                     }
                 },
-                WelcomeDestination,
+                if (hasAccount == true) TaskListDestination else WelcomeDestination,
             )
 
             LaunchedEffect(hasAccount) {
@@ -77,7 +87,7 @@ fun App(
                             backStack.add(WelcomeDestination)
                         }
                     }
-                    null -> {} // loading
+                    null -> {}
                 }
             }
 
@@ -87,14 +97,12 @@ fun App(
                     entry<WelcomeDestination> {
                         WelcomeScreenLayout(
                             showLegalDisclosure = !configuration.isLibre,
+                            showImportBackup = configuration.supportsBackupImport,
                             onSignIn = {
                                 backStack.add(AddAccountDestination)
                             },
                             onContinueWithoutSync = {
-                                // TODO: create local account and navigate
-                            },
-                            onImportBackup = {
-                                // TODO: import backup
+                                scope.launch { caldavDao.newLocalAccount() }
                             },
                             openLegalUrl = openUrl,
                             environments = environments,

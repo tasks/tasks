@@ -63,9 +63,10 @@ import tasks.kmp.generated.resources.url_tos
 @Composable
 fun WelcomeScreenLayout(
     showLegalDisclosure: Boolean,
+    showImportBackup: Boolean = true,
     onSignIn: () -> Unit,
     onContinueWithoutSync: () -> Unit,
-    onImportBackup: () -> Unit,
+    onImportBackup: () -> Unit = {},
     openLegalUrl: (String) -> Unit,
     environments: List<TasksServerEnvironment.Environment> = emptyList(),
     currentEnvironment: String = TasksServerEnvironment.ENV_PRODUCTION,
@@ -127,6 +128,7 @@ fun WelcomeScreenLayout(
                         }
                         WelcomeContent(
                             showLegalDisclosure = showLegalDisclosure,
+                            showImportBackup = showImportBackup,
                             onSignIn = onSignIn,
                             onContinueWithoutSync = onContinueWithoutSync,
                             onImportBackup = onImportBackup,
@@ -154,6 +156,7 @@ fun WelcomeScreenLayout(
                         Spacer(modifier = Modifier.weight(1f))
                         WelcomeContent(
                             showLegalDisclosure = showLegalDisclosure,
+                            showImportBackup = showImportBackup,
                             onSignIn = onSignIn,
                             onContinueWithoutSync = onContinueWithoutSync,
                             onImportBackup = onImportBackup,
@@ -234,6 +237,7 @@ private fun EnvironmentSelectorDialog(
 @Composable
 private fun WelcomeContent(
     showLegalDisclosure: Boolean,
+    showImportBackup: Boolean,
     onSignIn: () -> Unit,
     onContinueWithoutSync: () -> Unit,
     onImportBackup: () -> Unit,
@@ -282,17 +286,19 @@ private fun WelcomeContent(
             )
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        if (showImportBackup) {
+            Spacer(modifier = Modifier.height(8.dp))
 
-        OutlinedButton(
-            onClick = onImportBackup,
-            modifier = buttonModifier
-        ) {
-            Text(
-                text = stringResource(Res.string.returning_user_import_backup),
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-            )
+            OutlinedButton(
+                onClick = onImportBackup,
+                modifier = buttonModifier
+            ) {
+                Text(
+                    text = stringResource(Res.string.returning_user_import_backup),
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                )
+            }
         }
     }
 }
