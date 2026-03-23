@@ -55,4 +55,8 @@
     <string name="davx5_selection_description">Синхронизируйте свои задачи с приложением DAVx⁵</string>
     <string name="etesync_selection_description">Синхронизация с использованием сквозного шифрования</string>
     <string name="decsync_selection_description">Синхронизация с использованием локального файла</string>
+    <string name="ok">ОК</string>
+    <string name="cancel">Отмена</string>
+    <string name="back">Назад</string>
+    <string name="help">Помощь</string>
 </resources>

@@ -73,4 +73,9 @@
     <string name="davx5_selection_description">Synchroniser vos tâches avec l’application « DAVx⁵ »</string>
     <string name="etesync_selection_description">Synchronisation du chiffrement de bout en bout</string>
     <string name="decsync_selection_description">Synchronisation basée sur les fichiers</string>
+    <string name="ok">Valider</string>
+    <string name="cancel">Annuler</string>
+    <string name="accept">Accepter</string>
+    <string name="back">Retour</string>
+    <string name="help">Aide</string>
 </resources>

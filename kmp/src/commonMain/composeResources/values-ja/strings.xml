@@ -65,4 +65,9 @@
     <string name="davx5_selection_description">DAVx⁵ でタスクを同期する</string>
     <string name="etesync_selection_description">エンドツーエンド暗号化による同期</string>
     <string name="decsync_selection_description">ファイルベースによる同期</string>
+    <string name="ok">OK</string>
+    <string name="cancel">キャンセル</string>
+    <string name="accept">了承</string>
+    <string name="back">戻る</string>
+    <string name="help">ヘルプ</string>
 </resources>

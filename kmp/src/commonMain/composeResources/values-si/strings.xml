@@ -46,4 +46,6 @@
     <string name="davx5_selection_description">DAVx⁵ යෙදුම සමඟ ඔබගේ කාර්යයන් සමමුහුර්ත කරන්න</string>
     <string name="etesync_selection_description">End-to-end encrypted සමමුහුර්තකරණය</string>
     <string name="decsync_selection_description">ගොනු මත පදනම් වූ සමමුහුර්තකරණය</string>
+    <string name="back">ආපසු</string>
+    <string name="help">උදව්</string>
 </resources>

@@ -10,4 +10,6 @@
     <string name="save">सुरक्षित गर्नुहोस्</string>
     <string name="sort_priority">प्राथमिकता</string>
     <string name="sort_start_date">सुरु मिति</string>
+    <string name="ok">ठिक छ</string>
+    <string name="cancel">रद्द गर्नुहोस्</string>
 </resources>

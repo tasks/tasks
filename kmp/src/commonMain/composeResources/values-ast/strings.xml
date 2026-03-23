@@ -38,4 +38,5 @@
     <string name="davx5_selection_description">Sincroniza les tos xeres cola aplicación DAVx⁵</string>
     <string name="etesync_selection_description">Sincronización con cifráu d\'estremu a estremu</string>
     <string name="decsync_selection_description">Sincronización basada en ficheros</string>
+    <string name="help">Aida</string>
 </resources>

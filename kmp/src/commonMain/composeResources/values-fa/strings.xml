@@ -34,4 +34,5 @@
     <string name="sort_priority">اولیت</string>
     <string name="sort_start_date">تاریخ شروع</string>
     <string name="group_none">هیچکدام</string>
+    <string name="ok">تایید</string>
 </resources>

@@ -66,4 +66,8 @@
     <string name="davx5_selection_description">Tehtävien synkronointi DAVx⁵sovelluksen kanssa</string>
     <string name="etesync_selection_description">End-to-end-salattu synkronointi</string>
     <string name="decsync_selection_description">Tiedostopohjainen synkronointi</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Peruuta</string>
+    <string name="back">Takaisin</string>
+    <string name="help">Apua</string>
 </resources>

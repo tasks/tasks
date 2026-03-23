@@ -50,4 +50,8 @@
     <string name="davx5_selection_description">Đồng bộ hoá các công việc của bạn bằng ứng dụng DAVx⁵</string>
     <string name="etesync_selection_description">Đồng bộ hoá được mã hoá đầu cuối</string>
     <string name="decsync_selection_description">Đồng bộ hoá dựa trên từng tệp</string>
+    <string name="ok">Ôkê</string>
+    <string name="cancel">Huỷ</string>
+    <string name="back">Quay lại</string>
+    <string name="help">Trợ giúp</string>
 </resources>

@@ -55,4 +55,8 @@
     <string name="davx5_selection_description">Синхронізувати ваші завдання з застосунком DAVx⁵</string>
     <string name="etesync_selection_description">Захищена наскрізним шифруванням синхронізація</string>
     <string name="decsync_selection_description">Синхронізація на основі файлів</string>
+    <string name="ok">Гаразд</string>
+    <string name="cancel">Скасувати</string>
+    <string name="back">Назад</string>
+    <string name="help">Довідка</string>
 </resources>

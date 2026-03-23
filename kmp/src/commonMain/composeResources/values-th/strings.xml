@@ -46,4 +46,6 @@
     <string name="davx5_selection_description">ซิงโครไนซ์งานของคุณกับแอป davx⁵ของคุณ</string>
     <string name="etesync_selection_description">การทําข้อมูลให้ตรงกันที่เข้ารหัสตั้งแต่ต้นจนจบ</string>
     <string name="decsync_selection_description">การซิงโครไนส์ตามไฟล์</string>
+    <string name="back">กลับ</string>
+    <string name="help">วิธีใช้</string>
 </resources>

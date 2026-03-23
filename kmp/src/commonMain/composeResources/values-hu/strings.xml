@@ -65,4 +65,9 @@
     <string name="davx5_selection_description">Feladatok szinkronizálása DAVx⁵ alkalmazással</string>
     <string name="etesync_selection_description">Végponttól végpontig titkosított szinkronizáció</string>
     <string name="decsync_selection_description">Fájl alapú szinkronizálás</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Mégse</string>
+    <string name="accept">Elfogadás</string>
+    <string name="back">Vissza</string>
+    <string name="help">Súgó</string>
 </resources>

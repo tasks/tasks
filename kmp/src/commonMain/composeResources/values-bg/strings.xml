@@ -72,4 +72,9 @@
     <string name="davx5_selection_description">Синхронизиране на задачите с DAVx⁵</string>
     <string name="etesync_selection_description">Синхронизация, шифрована от край до край</string>
     <string name="decsync_selection_description">Синхронизация чрез файлове</string>
+    <string name="ok">Добре</string>
+    <string name="cancel">Отказ</string>
+    <string name="accept">Приемане</string>
+    <string name="back">Назад</string>
+    <string name="help">Помощ</string>
 </resources>

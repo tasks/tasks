@@ -73,4 +73,9 @@
     <string name="davx5_selection_description">使用 DAVx⁵ 應用程式同步您的任務</string>
     <string name="etesync_selection_description">端對端加密同步</string>
     <string name="decsync_selection_description">基於檔案的同步</string>
+    <string name="ok">OK</string>
+    <string name="cancel">取消</string>
+    <string name="accept">接受</string>
+    <string name="back">返回</string>
+    <string name="help">幫助</string>
 </resources>

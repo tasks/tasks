@@ -62,4 +62,9 @@
     <string name="davx5_selection_description">Synchroniseren met de DAVx⁵-app</string>
     <string name="etesync_selection_description">End-to-end versleuteld synchroniseren met EteSync</string>
     <string name="decsync_selection_description">Synchroniseren op de interne opslag</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuleren</string>
+    <string name="accept">Accepteren</string>
+    <string name="back">Terug</string>
+    <string name="help">Hulp</string>
 </resources>

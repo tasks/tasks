@@ -73,4 +73,9 @@
     <string name="davx5_selection_description">Aufgaben mit der DAVx⁵-App synchronisieren</string>
     <string name="etesync_selection_description">Ende-zu-Ende-verschlüsselte Synchronisierung</string>
     <string name="decsync_selection_description">Dateibasierte Synchronisierung</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="accept">Annehmen</string>
+    <string name="back">Zurück</string>
+    <string name="help">Hilfe</string>
 </resources>

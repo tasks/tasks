@@ -64,4 +64,9 @@
     <string name="davx5_selection_description">Синхронизуј своје задатке са DAVx⁵ апликацијом</string>
     <string name="etesync_selection_description">End-to-end енкриптована синхронизација</string>
     <string name="decsync_selection_description">Синхронизација базирана на датотеци</string>
+    <string name="ok">У реду</string>
+    <string name="cancel">Откажи</string>
+    <string name="accept">Прихвати</string>
+    <string name="back">Назад</string>
+    <string name="help">Помоћ</string>
 </resources>

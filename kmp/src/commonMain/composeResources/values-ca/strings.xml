@@ -55,4 +55,8 @@
     <string name="davx5_selection_description">Sincronitza les teves tasques amb l\'aplicació DAVx5</string>
     <string name="etesync_selection_description">Sincronització xifrada d\'extrem a extrem</string>
     <string name="decsync_selection_description">Sincronització per fitxers</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel·la</string>
+    <string name="back">Enrere</string>
+    <string name="help">Ajuda</string>
 </resources>

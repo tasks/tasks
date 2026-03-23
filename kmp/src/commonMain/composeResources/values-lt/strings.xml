@@ -48,4 +48,6 @@
     <string name="davx5_selection_description">Sinchronizuoti užduotis su DAVx⁵ programėle</string>
     <string name="etesync_selection_description">Sinchronizacija paremta abipusiu šifravimu</string>
     <string name="decsync_selection_description">Failais paremta sinchronizacija</string>
+    <string name="back">Atgal</string>
+    <string name="help">Pagalba</string>
 </resources>

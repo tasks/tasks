@@ -39,4 +39,6 @@
     <string name="sort_priority">Прыярытэт</string>
     <string name="sort_start_date">Дата пачатку</string>
     <string name="group_none">Няма</string>
+    <string name="ok">Добра</string>
+    <string name="cancel">Адмена</string>
 </resources>

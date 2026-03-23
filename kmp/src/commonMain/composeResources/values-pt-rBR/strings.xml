@@ -55,4 +55,8 @@
     <string name="davx5_selection_description">Sincronize suas tarefas com o aplicativo DAVx⁵</string>
     <string name="etesync_selection_description">Sincronização criptografada de ponta a ponta</string>
     <string name="decsync_selection_description">Sincronização baseada em arquivo</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="back">Voltar</string>
+    <string name="help">Ajuda</string>
 </resources>

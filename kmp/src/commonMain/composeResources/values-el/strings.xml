@@ -55,4 +55,8 @@
     <string name="davx5_selection_description">Συγχρονίστε τις εργασίες σας με την εφαρμογή DAVx⁵</string>
     <string name="etesync_selection_description">Κρυπτογραφημένος συγχρονισμός από άκρο σε άκρο</string>
     <string name="decsync_selection_description">Συγχρονισμός βάσει αρχείων</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Ακύρωση</string>
+    <string name="back">Πίσω</string>
+    <string name="help">Βοήθεια</string>
 </resources>

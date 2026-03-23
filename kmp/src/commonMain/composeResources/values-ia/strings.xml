@@ -9,4 +9,6 @@
     <string name="today_lowercase">hodie</string>
     <string name="save">Salvar</string>
     <string name="sort_mode">Ordinar</string>
+    <string name="cancel">Cancellar</string>
+    <string name="help">Adjuta</string>
 </resources>

@@ -48,4 +48,6 @@
     <string name="davx5_selection_description">Sinkronizatu zure zereginak DAVx⁵ aplikazioarekin</string>
     <string name="etesync_selection_description">Muturretik-muturrera zifratutako sinkronizazioa</string>
     <string name="decsync_selection_description">Fitxategietan oinarritutako sinkronizazioa</string>
+    <string name="back">Atzera</string>
+    <string name="help">Laguntza</string>
 </resources>

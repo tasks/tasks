@@ -55,4 +55,8 @@
     <string name="davx5_selection_description">مزامنة مهامك مع تطبيق DAVx⁵</string>
     <string name="etesync_selection_description">مزامنة مشفرة من طرف إلى طرف</string>
     <string name="decsync_selection_description">مزامنة على اساس الملف</string>
+    <string name="ok">حسنًا</string>
+    <string name="cancel">إلغاء</string>
+    <string name="back">عودة</string>
+    <string name="help">مساعدة</string>
 </resources>

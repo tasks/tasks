@@ -64,4 +64,9 @@
     <string name="davx5_selection_description">Synkroniser dine opgaver med DAVx⁵-appen</string>
     <string name="etesync_selection_description">End-to-end-krypteret synkronisering</string>
     <string name="decsync_selection_description">Filbaseret synkronisering</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuller</string>
+    <string name="accept">Acceptér</string>
+    <string name="back">Tilbage</string>
+    <string name="help">Hjælp</string>
 </resources>

@@ -55,4 +55,8 @@
     <string name="davx5_selection_description">Sincronizează-ți sarcinile cu aplicația DAVx⁵</string>
     <string name="etesync_selection_description">Sincronizare criptată end-to-end</string>
     <string name="decsync_selection_description">Sincronizare pe bază de fișiere</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Anulează</string>
+    <string name="back">Înapoi</string>
+    <string name="help">Ajutor</string>
 </resources>

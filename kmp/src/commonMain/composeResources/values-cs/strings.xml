@@ -73,4 +73,9 @@
     <string name="davx5_selection_description">Synchronizujte své úkoly pomocí aplikace DAVx⁵</string>
     <string name="etesync_selection_description">Synchronizace šifrovaná mezi koncovými body</string>
     <string name="decsync_selection_description">Synchronizace založená na souborech</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Zrušit</string>
+    <string name="accept">Přijmout</string>
+    <string name="back">Zpět</string>
+    <string name="help">Nápověda</string>
 </resources>

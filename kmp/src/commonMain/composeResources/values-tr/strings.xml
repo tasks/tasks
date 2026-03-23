@@ -73,4 +73,9 @@
     <string name="davx5_selection_description">DAVx⁵ uygulamasıyla görevlerinizi eşzamanlayın</string>
     <string name="etesync_selection_description">Uçtan uca şifreli eşzamanlama</string>
     <string name="decsync_selection_description">Dosya tabanlı eşzamanlama</string>
+    <string name="ok">Tamam</string>
+    <string name="cancel">İptal</string>
+    <string name="accept">Onayla</string>
+    <string name="back">Geri</string>
+    <string name="help">Yardım</string>
 </resources>

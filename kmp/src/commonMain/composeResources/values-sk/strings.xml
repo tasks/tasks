@@ -54,4 +54,8 @@
     <string name="davx5_selection_description">Synchronizujte svoje úlohy pomocou aplikácie DAVx⁵</string>
     <string name="etesync_selection_description">Synchronizácia šifrovaná medzi koncovými uzlami</string>
     <string name="decsync_selection_description">Synchronizácia založená na súboroch</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Zrušiť</string>
+    <string name="back">Späť</string>
+    <string name="help">Pomoc</string>
 </resources>

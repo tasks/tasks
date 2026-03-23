@@ -73,4 +73,9 @@
     <string name="davx5_selection_description">Sincronizza le tue attività con l\'app DAVx⁵</string>
     <string name="etesync_selection_description">Sincronizzazione con crittografia end-to-end</string>
     <string name="decsync_selection_description">Sincronizzazione basata sui file</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annulla</string>
+    <string name="accept">Accetta</string>
+    <string name="back">Indietro</string>
+    <string name="help">Aiuto</string>
 </resources>

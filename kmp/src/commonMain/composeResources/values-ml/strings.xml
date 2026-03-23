@@ -39,4 +39,6 @@
     <string name="sort_priority">മുൻഗണന</string>
     <string name="sort_start_date">തുടങ്ങുന്ന സമയം</string>
     <string name="group_none">ഒന്നുമില്ല</string>
+    <string name="ok">ശരി</string>
+    <string name="cancel">റദ്ധാക്കുക</string>
 </resources>

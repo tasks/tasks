@@ -65,4 +65,9 @@
     <string name="davx5_selection_description">Sinkronigi viajn taskojn kun la DAVx⁵ aplikaĵo</string>
     <string name="etesync_selection_description">Fin-al-fina ĉifrada sinkronigo</string>
     <string name="decsync_selection_description">Perdosiersistema sinkronigo</string>
+    <string name="ok">Bone</string>
+    <string name="cancel">Nuligi</string>
+    <string name="accept">Akcepti</string>
+    <string name="back">Reen</string>
+    <string name="help">Helpo</string>
 </resources>
