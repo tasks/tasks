@@ -415,7 +415,7 @@
     <string name="more_notification_settings_summary">Zvuk upozornění, vibrace, atd.</string>
     <string name="menu_discard_changes">Zrušit změny</string>
     <string name="widget_show_menu">Zobrazit nabídku</string>
-    <string name="sort_created">Podle data vytvoření</string>
+    <string name="sort_created">Podle času vytvoření</string>
     <string name="delete_multiple_tasks_confirmation">%s smazáno</string>
     <string name="copy_multiple_tasks_confirmation">%s zkopírováno</string>
     <string name="auto_dismiss_datetime_summary">Zavřít výběr data a času po zvolení data nebo času</string>
