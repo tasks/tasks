@@ -1,12 +1,12 @@
 package org.tasks.caldav
 
 import at.bitfire.dav4jvm.okhttp.BasicDigestAuthHandler
-import okhttp3.Credentials
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.fcm.FcmTokenProvider
 import org.tasks.preferences.TasksPreferences
 import org.tasks.security.KeyStoreEncryption
 import java.util.concurrent.TimeUnit
@@ -15,6 +15,8 @@ class SimpleCaldavClientProvider(
     private val encryption: KeyStoreEncryption,
     private val tasksPreferences: TasksPreferences,
     private val environment: TasksServerEnvironment,
+    private val tokenProvider: FcmTokenProvider? = null,
+    private val subscriptionProvider: () -> TasksBasicAuth.SubscriptionInfo? = { null },
 ) : CaldavClientProvider {
 
     override suspend fun forUrl(
@@ -34,7 +36,14 @@ class SimpleCaldavClientProvider(
     override suspend fun forAccount(account: CaldavAccount, url: String?): CaldavClient {
         val tosVersion = tasksPreferences.get(TasksPreferences.acceptedTosVersion, 0)
         val password = encryption.decrypt(account.password) ?: ""
-        val auth = getAuthInterceptor(account.username, password, account.url, tosVersion)
+        val pushToken = if (account.isTasksOrg) tokenProvider?.getToken() else null
+        val auth = getAuthInterceptor(
+            account.username,
+            password,
+            account.url,
+            tosVersion,
+            pushToken,
+        )
         val client = createHttpClient(auth)
         return if (account.isTasksOrg) {
             TasksClient(this, client, url?.toHttpUrlOrNull())
@@ -48,15 +57,16 @@ class SimpleCaldavClientProvider(
         password: String?,
         url: String?,
         tosVersion: Int,
+        pushToken: String? = null,
     ): Interceptor? = when {
         username.isNullOrBlank() || password.isNullOrBlank() -> null
-        url?.startsWith(environment.caldavUrl) == true -> Interceptor { chain ->
-            val request = chain.request().newBuilder()
-                .header("Authorization", Credentials.basic(username, password))
-                .header("tasks-tos-version", tosVersion.toString())
-                .build()
-            chain.proceed(request)
-        }
+        url?.startsWith(environment.caldavUrl) == true -> TasksBasicAuth(
+            user = username,
+            token = password,
+            tosVersion = tosVersion,
+            pushToken = pushToken,
+            subscriptionInfo = subscriptionProvider(),
+        )
         else -> BasicDigestAuthHandler(null, username, password.toCharArray())
     }
 

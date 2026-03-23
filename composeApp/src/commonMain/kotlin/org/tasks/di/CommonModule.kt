@@ -132,7 +132,14 @@ val commonModule = module {
     singleOf(::TasksAccountDataRepository)
 
     // Stateless factories
-    factoryOf(::SimpleCaldavClientProvider) bind CaldavClientProvider::class
+    factory<CaldavClientProvider> {
+        SimpleCaldavClientProvider(
+            encryption = get(),
+            tasksPreferences = get(),
+            environment = get(),
+            tokenProvider = getOrNull(),
+        )
+    }
     factory { AlarmCalculator(Random(), 0) }
     factoryOf(::AlarmService)
     factoryOf(::TimerPlugin)

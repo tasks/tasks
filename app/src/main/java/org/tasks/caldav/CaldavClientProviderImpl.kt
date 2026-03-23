@@ -75,7 +75,15 @@ class CaldavClientProviderImpl @Inject constructor(
             pushToken: String? = null,
     ): Interceptor? = when {
         username.isNullOrBlank() || password.isNullOrBlank() -> null
-        url?.startsWith(environment.caldavUrl) == true -> TasksBasicAuth(username, password, inventory, tosVersion, pushToken)
+        url?.startsWith(environment.caldavUrl) == true -> TasksBasicAuth(
+            user = username,
+            token = password,
+            tosVersion = tosVersion,
+            pushToken = pushToken,
+            subscriptionInfo = inventory.subscription.value?.let {
+                TasksBasicAuth.SubscriptionInfo(it.sku, it.purchaseToken)
+            },
+        )
         else -> BasicDigestAuthHandler(null, username, password.toCharArray())
     }
 
