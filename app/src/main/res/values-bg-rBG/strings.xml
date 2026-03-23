@@ -347,7 +347,7 @@
     <string name="button_subscribe">Абониране</string>
     <string name="about">Относно</string>
     <string name="pro_dashclock_extension">Разширение за Dashclock</string>
-    <string name="requires_pro_subscription">Изисква версия Про</string>
+    <string name="requires_pro_subscription">Изисква абонамент Про</string>
     <string name="logout">Изход</string>
     <string name="logout_warning">Всички данни за този профил ще бъдат изтрити от устройството</string>
     <string name="cannot_access_account">Няма достъп до профила</string>
