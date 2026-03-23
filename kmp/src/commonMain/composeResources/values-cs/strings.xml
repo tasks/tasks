@@ -26,7 +26,7 @@
     <string name="yesterday_abbrev_lowercase">včera</string>
     <string name="yesterday_lowercase">včera</string>
     <string name="search_no_results">Žádné výsledky</string>
-    <string name="requires_pro_subscription">Funkce Pro</string>
+    <string name="requires_pro_subscription">Vyžaduje předplatné Pro</string>
     <string name="subscription_required_description">Odemkněte všechny funkce za pouhý $1 USD ročně</string>
     <string name="show_completed">Zobrazit dokončené</string>
     <string name="show_unstarted">Zobrazit nezahájené</string>
@@ -46,7 +46,7 @@
     <string name="enter_title">Zadejte název</string>
     <string name="group_mode">Skupina</string>
     <string name="sort_alphabetical">Abecedně</string>
-    <string name="sort_created">Čas vytvoření</string>
+    <string name="sort_created">Vytvořeno</string>
     <string name="sort_modified">Čas úpravy</string>
     <string name="all_done">Vše hotovo!</string>
     <string name="sort_list">Seznam</string>
@@ -58,6 +58,6 @@
     <string name="legal_disclosure_prefix_continuing">Pokračováním kliknutím na jakékoli tlačítko níže</string>
     <string name="terms_of_service_proper">Podmínky služby</string>
     <string name="privacy_policy_proper">Ochrana soukromí</string>
-    <string name="gplv3_license">GPLv3 License</string>
+    <string name="gplv3_license">Licence GPLv3</string>
     <string name="returning_user_import_backup">Importovat zálohu Tasks.org</string>
 </resources>
