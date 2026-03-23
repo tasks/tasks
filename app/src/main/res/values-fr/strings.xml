@@ -342,7 +342,7 @@
     <string name="about">À propos</string>
     <string name="license_summary">Tasks est un logiciel libre à code source ouvert, codé sous licence « GNU », « General Public License » version 3.0</string>
     <string name="pro_dashclock_extension">Extension du tableau de bord</string>
-    <string name="requires_pro_subscription">Nécessite un abonnement Pro</string>
+    <string name="requires_pro_subscription">Nécessite un abonnement pro</string>
     <string name="logout">Se déconnecter</string>
     <string name="logout_warning">Toutes les données liées à ce compte seront supprimées de votre appareil</string>
     <string name="cannot_access_account">Impossible d\'accéder au compte</string>
