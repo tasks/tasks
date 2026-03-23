@@ -59,13 +59,13 @@ jobs:
           rsvg-convert -w 720 -h 320 graphics/promo.svg -o pebble/screenshots/banner_720x320.png
 
       - name: Upload Pebble app
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: pebble.pbw
           path: pebble/build/pebble.pbw
 
       - name: Upload store assets
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: pebble-store-assets
           path: pebble/screenshots/
@@ -103,17 +103,17 @@ jobs:
         run: bundle exec fastlane bundle
 
       - name: Upload app APK
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: app-googleplay-release.apk
           path: app/build/outputs/bundle/googleplayRelease/app-googleplay-release.apk
       - name: Upload wear APK
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: wear-release.apk
           path: wear/build/outputs/bundle/release/wear-release.apk
       - name: Upload release bundles
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: release
           path: |
