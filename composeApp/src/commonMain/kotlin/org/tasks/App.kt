@@ -1,8 +1,35 @@
 package org.tasks
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import kotlinx.coroutines.launch
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material.icons.outlined.MoreVert
+import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.SwapVert
+import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FloatingToolbarDefaults
+import androidx.compose.material3.HorizontalFloatingToolbar
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -20,6 +47,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
@@ -40,8 +70,13 @@ import org.tasks.compose.WelcomeScreenLayout
 import org.tasks.compose.accounts.AddAccountScreen
 import org.tasks.compose.accounts.Platform
 import org.tasks.themes.TasksTheme
+import org.tasks.data.TaskContainer
+import org.tasks.filters.MyTasksFilter
+import org.tasks.tasklist.SectionedDataSource
+import org.tasks.tasklist.TasksResults
 import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
+import org.tasks.viewmodel.TaskListViewModel
 
 @Serializable
 data object WelcomeDestination : NavKey
@@ -195,7 +230,11 @@ fun App(
                         }
                     }
                     entry<TaskListDestination> {
-                        TaskListScreen()
+                        val taskListViewModel = koinViewModel<TaskListViewModel>()
+                        LaunchedEffect(Unit) {
+                            taskListViewModel.setFilter(MyTasksFilter.create())
+                        }
+                        TaskListScreen(viewModel = taskListViewModel)
                     }
                 },
             )
@@ -203,14 +242,199 @@ fun App(
     }
 }
 
+@OptIn(ExperimentalMaterial3AdaptiveApi::class, ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun TaskListScreen() {
-    Box(
+private fun TaskListScreen(viewModel: TaskListViewModel) {
+    val state by viewModel.state.collectAsState()
+    val navigator = rememberListDetailPaneScaffoldNavigator<Long>()
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
+    val listState = androidx.compose.foundation.lazy.rememberLazyListState()
+    val scrollBehavior = FloatingToolbarDefaults.exitAlwaysScrollBehavior(
+        exitDirection = androidx.compose.material3.FloatingToolbarExitDirection.Bottom,
+    )
+
+    Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior),
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = state.filter.title.ifEmpty { "Tasks" },
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                },
+            )
+        },
+    ) { padding ->
+        Box(modifier = Modifier.padding(padding).fillMaxSize()) {
+            ListDetailPaneScaffold(
+            directive = navigator.scaffoldDirective,
+            value = navigator.scaffoldValue,
+            listPane = {
+                when (val results = state.tasks) {
+                    is TasksResults.Loading -> {
+                        androidx.compose.foundation.layout.Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            CircularProgressIndicator()
+                        }
+                    }
+                    is TasksResults.Results -> {
+                        TaskList(
+                            tasks = results.tasks,
+                            listState = listState,
+                            onTaskClick = { task ->
+                                scope.launch {
+                                    navigator.navigateTo(
+                                        ListDetailPaneScaffoldRole.Detail,
+                                        task.id,
+                                    )
+                                }
+                            },
+                        )
+                    }
+                }
+            },
+            detailPane = {
+                navigator.currentDestination?.contentKey?.let { taskId ->
+                    TaskDetailPlaceholder(taskId)
+                }
+            },
+        )
+
+            FloatingToolbar(
+                onMenuClick = { /* TODO: open drawer */ },
+                onSearchClick = { /* TODO: search */ },
+                onSortClick = { /* TODO: sort */ },
+                onMoreClick = { /* TODO: more options */ },
+                onAddClick = { /* TODO: create task */ },
+                scrollBehavior = scrollBehavior,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(16.dp),
+            )
+        }
+    }
+}
+
+@Composable
+private fun TaskList(
+    tasks: SectionedDataSource,
+    listState: androidx.compose.foundation.lazy.LazyListState = androidx.compose.foundation.lazy.rememberLazyListState(),
+    onTaskClick: (TaskContainer) -> Unit,
+) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        state = listState,
+    ) {
+        items(
+            count = tasks.size,
+            key = { if (tasks.isHeader(it)) -it.toLong() else tasks.getItem(it).id },
+        ) { index ->
+            if (tasks.isHeader(index)) {
+                return@items // TODO: render section headers
+            }
+            val task = tasks.getItem(index)
+            TaskRow(
+                task = task,
+                onClick = { onTaskClick(task) },
+            )
+        }
+    }
+}
+
+@Composable
+private fun TaskRow(
+    task: TaskContainer,
+    onClick: () -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        val checkColor = if (task.isCompleted) {
+            MaterialTheme.colorScheme.outline
+        } else {
+            when (task.priority) {
+                0 -> MaterialTheme.colorScheme.error
+                1 -> MaterialTheme.colorScheme.tertiary
+                2 -> MaterialTheme.colorScheme.primary
+                else -> MaterialTheme.colorScheme.outline
+            }
+        }
+        Text(
+            text = if (task.isCompleted) "●" else "○",
+            color = checkColor,
+            style = MaterialTheme.typography.titleLarge,
+            modifier = Modifier.size(24.dp),
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Text(
+            text = task.title ?: "",
+            style = MaterialTheme.typography.bodyLarge,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textDecoration = if (task.isCompleted) TextDecoration.LineThrough else null,
+            color = if (task.isCompleted) {
+                MaterialTheme.colorScheme.outline
+            } else {
+                MaterialTheme.colorScheme.onSurface
+            },
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+private fun FloatingToolbar(
+    onMenuClick: () -> Unit,
+    onSearchClick: () -> Unit,
+    onSortClick: () -> Unit,
+    onMoreClick: () -> Unit,
+    onAddClick: () -> Unit,
+    scrollBehavior: androidx.compose.material3.FloatingToolbarScrollBehavior? = null,
+    modifier: Modifier = Modifier,
+) {
+    HorizontalFloatingToolbar(
+        expanded = true,
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = onAddClick,
+            ) {
+                Icon(Icons.Filled.Add, contentDescription = "New task")
+            }
+        },
+        scrollBehavior = scrollBehavior,
+        modifier = modifier,
+    ) {
+        IconButton(onClick = onMenuClick) {
+            Icon(Icons.Outlined.Menu, contentDescription = "Menu")
+        }
+        IconButton(onClick = onSearchClick) {
+            Icon(Icons.Outlined.Search, contentDescription = "Search")
+        }
+        IconButton(onClick = onSortClick) {
+            Icon(Icons.Outlined.SwapVert, contentDescription = "Sort")
+        }
+        IconButton(onClick = onMoreClick) {
+            Icon(Icons.Outlined.MoreVert, contentDescription = "More")
+        }
+    }
+}
+
+@Composable
+private fun TaskDetailPlaceholder(taskId: Long) {
+    androidx.compose.foundation.layout.Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            text = "Task List",
+            text = "Task #$taskId",
             style = MaterialTheme.typography.headlineMedium,
         )
     }

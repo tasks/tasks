@@ -46,7 +46,8 @@ kotlin {
             implementation(libs.androidx.datastore)
             implementation(compose.components.resources)
             implementation(compose.foundation)
-            implementation(compose.material3)
+            implementation("androidx.compose.material3:material3:1.5.0-alpha15")
+            implementation(compose.materialIconsExtended)
             implementation(compose.runtime)
             implementation(compose.ui)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -58,6 +59,9 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            implementation("org.jetbrains.compose.material3.adaptive:adaptive:1.1.2")
+            implementation("org.jetbrains.compose.material3.adaptive:adaptive-layout:1.1.2")
+            implementation("org.jetbrains.compose.material3.adaptive:adaptive-navigation:1.1.2")
         }
         androidMain.dependencies {
             implementation(compose.preview)
@@ -82,8 +86,8 @@ android {
         applicationId = "org.tasks"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.versionName.get()
     }
     packaging {
         resources {

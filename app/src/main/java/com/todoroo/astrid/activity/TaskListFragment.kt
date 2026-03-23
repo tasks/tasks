@@ -170,7 +170,6 @@ import org.tasks.ui.Banner
 import org.tasks.ui.TaskListEvent
 import org.tasks.ui.TaskListEventBus
 import org.tasks.ui.TaskListViewModel
-import org.tasks.ui.TaskListViewModel.Companion.createSearchQuery
 import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
@@ -400,11 +399,16 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 listViewModel.updateBannerState()
+                launch {
+                    listViewModel.banner.collect { banner ->
+                        bannerAdapter.showBanner = banner != null
+                    }
+                }
                 listViewModel.state.collect {
-                    bannerAdapter.showBanner = it.banner != null
-                    if (it.tasks is TasksResults.Results) {
-                        submitList(it.tasks.tasks)
-                        if (it.tasks.tasks.isEmpty()) {
+                    val results = it.tasks
+                    if (results is TasksResults.Results) {
+                        submitList(results.tasks)
+                        if (results.tasks.isEmpty()) {
                             swipeRefreshLayout.visibility = View.GONE
                             emptyRefreshLayout.visibility = View.VISIBLE
                         } else {
@@ -449,6 +453,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             val context = LocalContext.current
             val mainActivityState = mainViewModel.state.collectAsStateWithLifecycle().value
             val state = listViewModel.state.collectAsStateWithLifecycle().value
+            val banner = listViewModel.banner.collectAsStateWithLifecycle().value
             BackHandler(enabled = state.searchQuery != null && mainActivityState.task == null) {
                 Timber.d("onBackPressed")
                 if (search.isActionViewExpanded) {
@@ -473,14 +478,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     null
                 }
 
-                if (state.banner != null) {
-                    val offsetX = remember(state.banner) { Animatable(0f) }
+                if (banner != null) {
+                    val offsetX = remember(banner) { Animatable(0f) }
                     val scope = rememberCoroutineScope()
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .offset { IntOffset(offsetX.value.roundToInt(), 0) }
-                            .pointerInput(state.banner) {
+                            .pointerInput(banner) {
                                 detectHorizontalDragGestures(
                                     onDragEnd = {
                                         scope.launch {
@@ -509,7 +514,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                 )
                             }
                     ) {
-                        when (state.banner) {
+                        when (banner) {
                             is Banner.NotificationsDisabled ->
                                 NotificationsDisabledBanner(
                                     settings = {
@@ -534,10 +539,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
                             is Banner.SubscriptionRequired ->
                                 SubscriptionRequiredBanner(
-                                    nameRes = state.banner.nameRes,
-                                    isTasksOrg = state.banner.isTasksOrg,
+                                    nameRes = banner.nameRes,
+                                    isTasksOrg = banner.isTasksOrg,
                                     subscribe = {
-                                        val isTasksOrg = state.banner.isTasksOrg
+                                        val isTasksOrg = banner.isTasksOrg
                                         listViewModel.dismissBanner(tookAction = true)
                                         context.startActivity(
                                             Intent(
@@ -972,7 +977,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onQueryTextSubmit(query: String): Boolean {
-        mainViewModel.setFilter(requireContext().createSearchQuery(query.trim()))
+        mainViewModel.setFilter(SearchFilter(getString(R.string.FLA_search_filter, query.trim()), query.trim()))
         search.collapseActionView()
         return true
     }

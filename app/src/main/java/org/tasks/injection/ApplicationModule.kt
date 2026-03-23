@@ -19,6 +19,7 @@ import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
+import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.analytics.Reporting
 import org.tasks.fcm.FcmTokenProvider
 import org.tasks.fcm.PushTokenManager
@@ -216,6 +217,10 @@ class ApplicationModule {
     @Provides
     fun providesBroadcastRefresh(localBroadcastManager: LocalBroadcastManager): RefreshBroadcaster =
         localBroadcastManager
+
+    @Provides
+    @Singleton
+    fun providesComposeRefreshBroadcaster() = ComposeRefreshBroadcaster()
 
     @Provides
     fun providesCaldavClientProvider(

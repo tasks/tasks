@@ -7,9 +7,11 @@ import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
+import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.analytics.Reporting
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavClientProvider
@@ -35,6 +37,7 @@ import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
+import org.tasks.viewmodel.TaskListViewModel
 
 val commonModule = module {
     // DAOs - singletons (from Database singleton)
@@ -57,7 +60,8 @@ val commonModule = module {
     single { get<Database>().taskListMetadataDao() }
 
     // No-op implementations
-    factory<RefreshBroadcaster> { RefreshBroadcaster {} }
+    single { ComposeRefreshBroadcaster() }
+    factory<RefreshBroadcaster> { get<ComposeRefreshBroadcaster>() }
     factory<Notifier> {
         object : Notifier {
             override suspend fun cancel(id: Long) {}
@@ -151,6 +155,15 @@ val commonModule = module {
     // ViewModels
     viewModelOf(::AppViewModel)
     viewModelOf(::AddAccountViewModel)
+    viewModel {
+        TaskListViewModel(
+            taskDao = get(),
+            taskDeleter = get(),
+            deletionDao = get(),
+            tasksPreferences = get(),
+            refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
+        )
+    }
 }
 
 expect fun platformModule(): Module

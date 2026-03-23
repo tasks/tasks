@@ -12,6 +12,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.compose.throttleLatest
 import org.tasks.injection.ApplicationScope
@@ -24,6 +25,7 @@ class LocalBroadcastManager @Inject constructor(
     @ApplicationContext context: Context,
     @ApplicationScope private val scope: CoroutineScope,
     private val appWidgetManager: AppWidgetManager,
+    val composeRefreshBroadcaster: ComposeRefreshBroadcaster,
 ): RefreshBroadcaster {
     private val localBroadcastManager = LocalBroadcastManager.getInstance(context)
     private val refreshChannel = Channel<Unit>(Channel.CONFLATED)
@@ -66,6 +68,7 @@ class LocalBroadcastManager @Inject constructor(
 
     override fun broadcastRefresh() {
         refreshChannel.trySend(Unit)
+        composeRefreshBroadcaster.broadcastRefresh()
     }
 
     fun broadcastPreferenceRefresh() {

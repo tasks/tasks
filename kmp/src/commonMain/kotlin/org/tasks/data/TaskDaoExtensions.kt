@@ -12,7 +12,7 @@ import org.tasks.preferences.QueryPreferences
 suspend fun TaskDao.fetchTasks(preferences: QueryPreferences, filter: Filter): List<TaskContainer> =
     fetchTasks(TaskListQuery.getQuery(preferences, filter))
 
-internal suspend fun TaskDao.setCollapsed(preferences: QueryPreferences, filter: Filter, collapsed: Boolean) {
+suspend fun TaskDao.setCollapsed(preferences: QueryPreferences, filter: Filter, collapsed: Boolean) {
     fetchTasks(preferences, filter)
         .filter(TaskContainer::hasChildren)
         .map(TaskContainer::id)
