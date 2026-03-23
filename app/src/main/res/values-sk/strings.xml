@@ -590,7 +590,6 @@
     <string name="migrating_tasks">Prebieha presúvanie úloh</string>
     <string name="migrate_count">Presunúť %s do Tasks.org</string>
     <string name="above_average">Nadpriemerné</string>
-    <string name="sign_in_to_tasks">Prihlásiť sa do Tasks.org</string>
     <string name="account_not_included">Nezahrnuté v predplatnom type „Zaplaťte koľko chcete“</string>
     <string name="markdown_description">Zapnúť Markdown v nadpise a popise</string>
     <string name="completed_tasks_at_bottom">Presunúť dokončené úlohy nadol</string>
@@ -678,7 +677,6 @@
     <string name="filter_overdue">Po termíne</string>
     <string name="filter_today_only">Iba dnešné</string>
     <string name="app_password">Heslo aplikácie</string>
-    <string name="google_play_subscribers">Predplatitelia Google Play</string>
     <string name="sign_in_with_google">Prihlásenie účtom Google</string>
     <string name="app_passwords">Heslá aplikácie</string>
     <string name="app_passwords_more_info">Synchronizujte svoje úlohy a kalendáre s desktopovými a mobilnými aplikáciami tretích strán. Pre viac informácii kliknite sem</string>

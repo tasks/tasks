@@ -536,7 +536,6 @@
     <string name="authentication_required">Authentifizierung erforderlich</string>
     <string name="sign_in_with_github">Mit GitHub anmelden</string>
     <string name="github_sponsors">GitHub-Sponsoren</string>
-    <string name="google_play_subscribers">Google Play-Abonnent:innen</string>
     <string name="authorization_cancelled">Autorisierung abgebrochen</string>
     <string name="sign_in_with_google">Mit Google anmelden</string>
     <string name="account_not_included">Nicht im „Wähle deinen Preis“-Abonnement enthalten</string>
@@ -550,7 +549,6 @@
     <string name="app_passwords_more_info">Synchronisiere deine Aufgaben und Kalender mit Desktop- und mobilen Apps von Drittanbietern. Tippe hier für mehr Informationen</string>
     <string name="app_passwords">App-Passwörter</string>
     <string name="app_password">App-Passwort</string>
-    <string name="sign_in_to_tasks">Bei Tasks.org anmelden</string>
     <string name="local_lists">Lokale Listen</string>
     <string name="sort_due_group">%s fällig</string>
     <string name="sort_start_group">%s gestartet</string>

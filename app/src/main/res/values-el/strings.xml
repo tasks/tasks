@@ -548,7 +548,6 @@
     <string name="open_source">Ανοιχτός κώδικας</string>
     <string name="privacy">Ιδιωτικότητα</string>
     <string name="authorization_cancelled">Η εξουσιοδότηση ακυρώθηκε</string>
-    <string name="google_play_subscribers">Συνδρομητές Google Play</string>
     <string name="github_sponsors">Χορηγοί GitHub</string>
     <string name="sign_in_with_google">Συνδεθείτε μέσω Google</string>
     <string name="sign_in_with_github">Συνδεθείτε μέσω GitHub</string>
@@ -559,7 +558,6 @@
     <string name="migrate_count">Μετακίνηση %s στο Tasks.org</string>
     <string name="above_average">Άνω του μέσου όρου</string>
     <string name="save_percent">Αποθήκευση %d%%</string>
-    <string name="sign_in_to_tasks">Συνδεθείτε στο Tasks.org</string>
     <string name="app_password">Κωδικός εφαρμογής</string>
     <string name="app_passwords">Κωδικοί εφαρμογής</string>
     <string name="app_passwords_more_info">Συγχρονίστε τις εργασίες και τα ημερολόγια σας με εφαρμογές ηλεκτρονικών υπολογιστών και κινητών συσκευών τρίτων. Πατήστε εδώ για περισσότερες πληροφορίες</string>

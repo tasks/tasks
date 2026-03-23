@@ -514,7 +514,6 @@
     <string name="sign_in_with_github">깃허브를 이용해서 로그인</string>
     <string name="sign_in_with_google">구글을 이용해서 로그인</string>
     <string name="github_sponsors">깃허브 후원자</string>
-    <string name="google_play_subscribers">구글 플레이 구독자</string>
     <string name="follow_reddit">r/tasks 구독</string>
     <string name="no_google_play_subscription">적합한 구글 플레이 구독을 찾을 수 없습니다</string>
     <string name="insufficient_sponsorship">적합한 깃허브 후원 자격을 찾을 수 없습니다</string>
@@ -569,7 +568,6 @@
     <string name="above_average">평균 이상</string>
     <string name="app_passwords">앱 비밀번호</string>
     <string name="app_password">앱 비밀번호</string>
-    <string name="sign_in_to_tasks">Tasks.org에 로그인</string>
     <string name="privacy">개인정보</string>
     <string name="open_source">오픈 소스</string>
     <string name="issue_tracker">이슈 트래커</string>

@@ -73,9 +73,9 @@
     <string name="davx5_selection_description">סנכרון של המשימות שלך עם היישום DAVx⁵</string>
     <string name="etesync_selection_description">סנכרון מוצפן מקצה־לקצה</string>
     <string name="decsync_selection_description">סנכרון מבוסס קובץ</string>
-    <string name="ok">אישור</string>
-    <string name="cancel">ביטול</string>
-    <string name="accept">הסכמה</string>
-    <string name="back">חזרה</string>
-    <string name="help">עזרה</string>
+    <string name="sign_in_to_tasks">להיכנס אל Tasks.org</string>
+    <string name="sign_in_with_google">להיכנס באמצעות Google</string>
+    <string name="sign_in_with_github">להיכנס באמצעות GitHub</string>
+    <string name="google_play_subscribers">מנויי Google Play</string>
+    <string name="github_sponsors">נותני חסות GitHub</string>
 </resources>

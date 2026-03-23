@@ -83,7 +83,6 @@
     <string name="app_passwords_more_info">Đồng bộ hoá các công việc và lịch của bạn bằng các ứng dụng máy tính và di động của bên thứ ba. Nhấn vào đây để xem thêm thông tin</string>
     <string name="app_passwords">Các mật khẩu ứng dụng</string>
     <string name="app_password">Mật khẩu ứng dụng</string>
-    <string name="sign_in_to_tasks">Đăng nhập vào Tasks.org</string>
     <string name="save_percent">Lưu %d%%</string>
     <string name="above_average">Trên trung bình</string>
     <string name="migrate_count">Di chuyển %s đến Tasks.org</string>
@@ -93,7 +92,6 @@
     <string name="authentication_required">Yêu cầu xác thực</string>
     <string name="sign_in_with_github">Đăng nhập bằng GitHub</string>
     <string name="sign_in_with_google">Đăng nhập bằng Google</string>
-    <string name="google_play_subscribers">Người đăng ký trên Google Play</string>
     <string name="github_sponsors">Nhà tài trợ trên GitHub</string>
     <string name="authorization_cancelled">Đã huỷ xác thực</string>
     <string name="privacy">Riêng tư</string>

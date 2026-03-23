@@ -73,9 +73,9 @@
     <string name="davx5_selection_description">DAVx⁵ uygulamasıyla görevlerinizi eşzamanlayın</string>
     <string name="etesync_selection_description">Uçtan uca şifreli eşzamanlama</string>
     <string name="decsync_selection_description">Dosya tabanlı eşzamanlama</string>
-    <string name="ok">Tamam</string>
-    <string name="cancel">İptal</string>
-    <string name="accept">Onayla</string>
-    <string name="back">Geri</string>
-    <string name="help">Yardım</string>
+    <string name="sign_in_to_tasks">Tasks.org\'da oturum aç</string>
+    <string name="sign_in_with_google">Google ile oturum aç</string>
+    <string name="sign_in_with_github">GitHub ile oturum aç</string>
+    <string name="google_play_subscribers">Google Play aboneleri</string>
+    <string name="github_sponsors">GitHub Sponsorları</string>
 </resources>

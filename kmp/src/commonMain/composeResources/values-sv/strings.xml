@@ -64,9 +64,9 @@
     <string name="davx5_selection_description">Synkronisera dina uppgifter med DAVx⁵-appen</string>
     <string name="etesync_selection_description">Krypterad synkronisering från slut till slut</string>
     <string name="decsync_selection_description">Filbaserad synkronisering</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Avbryt</string>
-    <string name="accept">Acceptera</string>
-    <string name="back">Tillbaka</string>
-    <string name="help">Hjälp</string>
+    <string name="sign_in_to_tasks">Logga in på Tasks.org</string>
+    <string name="sign_in_with_google">Logga in med Google</string>
+    <string name="sign_in_with_github">Logga in med GitHub</string>
+    <string name="google_play_subscribers">Google Play-prenumeranter</string>
+    <string name="github_sponsors">GitHub-sponsorer</string>
 </resources>

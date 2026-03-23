@@ -55,8 +55,9 @@
     <string name="davx5_selection_description">مزامنة مهامك مع تطبيق DAVx⁵</string>
     <string name="etesync_selection_description">مزامنة مشفرة من طرف إلى طرف</string>
     <string name="decsync_selection_description">مزامنة على اساس الملف</string>
-    <string name="ok">حسنًا</string>
-    <string name="cancel">إلغاء</string>
-    <string name="back">عودة</string>
-    <string name="help">مساعدة</string>
+    <string name="sign_in_to_tasks">تسجيل الدخول إلى Tasks.org</string>
+    <string name="sign_in_with_google">تسجيل الدخول بجوجل</string>
+    <string name="sign_in_with_github">تسجيل الدخول بGitHub</string>
+    <string name="google_play_subscribers">مشتركي جوجل بلاي</string>
+    <string name="github_sponsors">رعاة GitHub</string>
 </resources>

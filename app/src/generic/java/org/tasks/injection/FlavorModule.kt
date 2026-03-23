@@ -24,6 +24,7 @@ class FlavorModule {
         supportsMicrosoft = true,
         supportsOpenTasks = true,
         supportsEteSync = true,
+        supportsBackupImport = true,
         supportsGeofences = true,
         supportsCalendarEvents = true,
         isLibre = true,

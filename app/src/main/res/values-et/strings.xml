@@ -629,13 +629,11 @@
     <string name="copy_multiple_tasks_confirmation">%s on kopeeritud</string>
     <string name="show_edit_screen_without_unlock">Näita muutmisvaadet ka ilma lukustust eemaldamata</string>
     <string name="sign_in_with_google">Logi sisse Google\'i kasutajakontoga</string>
-    <string name="google_play_subscribers">Tellijad Google Play teenuses</string>
     <string name="migrate">Teisalda andmed</string>
     <string name="alarm_before_start">%s enne alustamise tähtaega</string>
     <string name="add_widget_to_home_screen">Lisa vidin avalehele</string>
     <string name="account_not_included">Ei sisaldu „Paku oma hind“ taseme tellimustes</string>
     <string name="pro_free_trial">Uued tellijad võivad kasutada 7-päevast tasuta testperioodi, mida on võimalik igal ajahetkel katkestada</string>
-    <string name="sign_in_to_tasks">Logi sisse teenusesse Tasks.org</string>
     <string name="filter_eisenhower_box_2">Tähtis ja mittekiire</string>
     <string name="migrate_count">Teisalda %s teenusesse Tasks.org</string>
     <string name="sort_completion_group">Lõpetatud %s</string>

@@ -55,8 +55,9 @@
     <string name="davx5_selection_description">Συγχρονίστε τις εργασίες σας με την εφαρμογή DAVx⁵</string>
     <string name="etesync_selection_description">Κρυπτογραφημένος συγχρονισμός από άκρο σε άκρο</string>
     <string name="decsync_selection_description">Συγχρονισμός βάσει αρχείων</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Ακύρωση</string>
-    <string name="back">Πίσω</string>
-    <string name="help">Βοήθεια</string>
+    <string name="sign_in_to_tasks">Συνδεθείτε στο Tasks.org</string>
+    <string name="sign_in_with_google">Συνδεθείτε μέσω Google</string>
+    <string name="sign_in_with_github">Συνδεθείτε μέσω GitHub</string>
+    <string name="google_play_subscribers">Συνδρομητές Google Play</string>
+    <string name="github_sponsors">Χορηγοί GitHub</string>
 </resources>

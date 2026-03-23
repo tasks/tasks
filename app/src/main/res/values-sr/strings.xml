@@ -642,7 +642,6 @@
     <string name="open_source">Кôд отвореног типа</string>
     <string name="privacy">Приватност</string>
     <string name="authorization_cancelled">Отказана ауторизација</string>
-    <string name="google_play_subscribers">,,Google Play\'\' претплатници</string>
     <string name="github_sponsors">,,GitHub\'\' спонзори</string>
     <string name="sign_in_with_google">Пријави се путем Гугла</string>
     <string name="sign_in_with_github">Пријави се путем GitHub-а</string>
@@ -653,7 +652,6 @@
     <string name="migrate_count">Премести %s на Tasks.org</string>
     <string name="above_average">Изнад просека</string>
     <string name="save_percent">Усними %d%%</string>
-    <string name="sign_in_to_tasks">Пријави се на Tasks.org</string>
     <string name="app_password">Шифра апликације</string>
     <string name="app_passwords">Шифре апликације</string>
     <string name="app_passwords_more_info">Синхронизуј задатке и календар са десктоп и мобилним апликацијама треће стране. Тапни овде за додатне информације</string>

@@ -461,7 +461,6 @@
     <string name="app_passwords_more_info">Синхронізуйте свої завдання та календарі зі сторонніми настільними та мобільними застосунками. Натисніть тут, щоб дізнатися більше</string>
     <string name="app_passwords">Паролі застосунку</string>
     <string name="app_password">Пароль застосунку</string>
-    <string name="sign_in_to_tasks">Увійти на Tasks.org</string>
     <string name="save_percent">Зберегти %d%%</string>
     <string name="above_average">Вище середнього</string>
     <string name="migrate_count">Перемістити %s на Tasks.org</string>
@@ -472,7 +471,6 @@
     <string name="sign_in_with_github">Увійти через GitHub</string>
     <string name="sign_in_with_google">Увійти через Google</string>
     <string name="github_sponsors">Спонсори GitHub</string>
-    <string name="google_play_subscribers">Підписники Google Play</string>
     <string name="authorization_cancelled">Авторизацію скасовано</string>
     <string name="follow_reddit">Долучитися до r/tasks</string>
     <string name="current_subscription">Поточна підписка: %s</string>

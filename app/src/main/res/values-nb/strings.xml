@@ -531,7 +531,6 @@
     <string name="migrating_tasks">Flytting av gjøremål</string>
     <string name="migrate">Flytt</string>
     <string name="github_sponsors">GitHub-sponsorer</string>
-    <string name="google_play_subscribers">Google Play-abonnenter</string>
     <string name="no_google_play_subscription">Fant ikke noe Google Play-abonnement</string>
     <string name="insufficient_sponsorship">Fant ikke noe GitHub-sponsorabonnement</string>
     <string name="migrate_count">Flytt %s til Tasks.org</string>
@@ -540,7 +539,6 @@
         <item quantity="one">%d liste</item>
         <item quantity="other">%d lister</item>
     </plurals>
-    <string name="sign_in_to_tasks">Logg inn på Tasks.org</string>
     <string name="save_percent">Lagre %d%%</string>
     <string name="above_average">Over gjennomsnittet</string>
     <string name="decsync_selection_description">Filbasert synkronisering</string>

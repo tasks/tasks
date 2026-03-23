@@ -506,9 +506,7 @@
     <string name="price_per_year">$%s/metai</string>
     <string name="no_google_play_subscription">Nerasta tinkamos Google Play prenumeratos</string>
     <string name="insufficient_sponsorship">Nerasta tinkamo GitHub rėmimo</string>
-    <string name="sign_in_to_tasks">Prisijungti prie Tasks.org</string>
     <string name="github_sponsor">Remti</string>
-    <string name="google_play_subscribers">Google Play prenumeratoriai</string>
     <string name="github_sponsors">GitHub rėmėjai</string>
     <string name="sign_in_with_google">Prisijungti naudojant Google</string>
     <string name="sign_in_with_github">Prisijungti naudojant GitHub</string>

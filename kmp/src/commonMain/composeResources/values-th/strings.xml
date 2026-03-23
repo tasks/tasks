@@ -46,6 +46,9 @@
     <string name="davx5_selection_description">ซิงโครไนซ์งานของคุณกับแอป davx⁵ของคุณ</string>
     <string name="etesync_selection_description">การทําข้อมูลให้ตรงกันที่เข้ารหัสตั้งแต่ต้นจนจบ</string>
     <string name="decsync_selection_description">การซิงโครไนส์ตามไฟล์</string>
-    <string name="back">กลับ</string>
-    <string name="help">วิธีใช้</string>
+    <string name="sign_in_to_tasks">ลงชื่อเข้าใช้ Tasks.org</string>
+    <string name="sign_in_with_google">ลงชื่อเข้าใช้ด้วย Google</string>
+    <string name="sign_in_with_github">เข้าสู่ระบบด้วย GitHub</string>
+    <string name="google_play_subscribers">สมาชิก Google Play</string>
+    <string name="github_sponsors">ผู้สนับสนุน GitHub</string>
 </resources>

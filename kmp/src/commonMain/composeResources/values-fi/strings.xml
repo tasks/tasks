@@ -66,8 +66,9 @@
     <string name="davx5_selection_description">Tehtävien synkronointi DAVx⁵sovelluksen kanssa</string>
     <string name="etesync_selection_description">End-to-end-salattu synkronointi</string>
     <string name="decsync_selection_description">Tiedostopohjainen synkronointi</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Peruuta</string>
-    <string name="back">Takaisin</string>
-    <string name="help">Apua</string>
+    <string name="sign_in_to_tasks">Kirjautuminen Tasks.org</string>
+    <string name="sign_in_with_google">Kirjaudu sisään Googlen avulla</string>
+    <string name="sign_in_with_github">Kirjaudu sisään GitHubilla</string>
+    <string name="google_play_subscribers">Google Play -tilaajat</string>
+    <string name="github_sponsors">GitHubin sponsorit</string>
 </resources>

@@ -66,9 +66,9 @@
     <string name="davx5_selection_description">Ülesannete sünkroniseerimise võimalus DAVx⁵ rakendusega</string>
     <string name="etesync_selection_description">Sünkroniseerimine, mis kasutab läbivat krüptimist</string>
     <string name="decsync_selection_description">Failipõhine sünkrooniseerimine</string>
-    <string name="ok">Ok</string>
-    <string name="cancel">Tühista</string>
-    <string name="accept">Nõustu</string>
-    <string name="back">Tagasi</string>
-    <string name="help">Abiinfo</string>
+    <string name="sign_in_to_tasks">Logi sisse teenusesse Tasks.org</string>
+    <string name="sign_in_with_google">Logi sisse Google\'i kasutajakontoga</string>
+    <string name="sign_in_with_github">Logi sisse GitHubi kasutajakontoga</string>
+    <string name="google_play_subscribers">Tellijad Google Play teenuses</string>
+    <string name="github_sponsors">Sponsorid GitHubis</string>
 </resources>

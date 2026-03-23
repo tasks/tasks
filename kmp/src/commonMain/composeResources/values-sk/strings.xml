@@ -54,8 +54,9 @@
     <string name="davx5_selection_description">Synchronizujte svoje úlohy pomocou aplikácie DAVx⁵</string>
     <string name="etesync_selection_description">Synchronizácia šifrovaná medzi koncovými uzlami</string>
     <string name="decsync_selection_description">Synchronizácia založená na súboroch</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Zrušiť</string>
-    <string name="back">Späť</string>
-    <string name="help">Pomoc</string>
+    <string name="sign_in_to_tasks">Prihlásiť sa do Tasks.org</string>
+    <string name="sign_in_with_google">Prihlásenie účtom Google</string>
+    <string name="sign_in_with_github">Prihlásenie pomocou GitHubu</string>
+    <string name="google_play_subscribers">Predplatitelia Google Play</string>
+    <string name="github_sponsors">Sponzori na GitHube</string>
 </resources>

@@ -532,7 +532,6 @@
     </plurals>
     <string name="sign_in_with_github">GitHub ile oturum aç</string>
     <string name="github_sponsors">GitHub Sponsorları</string>
-    <string name="google_play_subscribers">Google Play aboneleri</string>
     <string name="no_google_play_subscription">Uygun Google Play aboneliği bulunamadı</string>
     <string name="insufficient_sponsorship">Uygun GitHub sponsorluğu bulunamadı</string>
     <string name="save_percent">%%%d tasarruf</string>
@@ -548,7 +547,6 @@
     <string name="app_passwords_more_info">Görevlerinizi ve takvimlerinizi üçüncü taraf masaüstü ve mobil uygulamalarla eşzamanlayın. Daha çok bilgi için dokun</string>
     <string name="app_passwords">Uygulama parolaları</string>
     <string name="app_password">Uygulama parolası</string>
-    <string name="sign_in_to_tasks">Tasks.org\'da oturum aç</string>
     <string name="local_lists">Yerel listeler</string>
     <string name="default_due_date">Öntanımlı bitiş tarihi</string>
     <string name="start_date">Başlangıç tarihi</string>

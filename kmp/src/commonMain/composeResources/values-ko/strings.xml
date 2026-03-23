@@ -55,8 +55,9 @@
     <string name="davx5_selection_description">DAVx⁵ 앱과 내 할일 동기화</string>
     <string name="etesync_selection_description">종단간 암호화된 동기화</string>
     <string name="decsync_selection_description">파일 기반 동기화</string>
-    <string name="ok">확인</string>
-    <string name="cancel">취소</string>
-    <string name="back">이전</string>
-    <string name="help">도움말</string>
+    <string name="sign_in_to_tasks">Tasks.org에 로그인</string>
+    <string name="sign_in_with_google">구글을 이용해서 로그인</string>
+    <string name="sign_in_with_github">깃허브를 이용해서 로그인</string>
+    <string name="google_play_subscribers">구글 플레이 구독자</string>
+    <string name="github_sponsors">깃허브 후원자</string>
 </resources>

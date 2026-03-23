@@ -48,6 +48,9 @@
     <string name="davx5_selection_description">Sinkronizatu zure zereginak DAVx⁵ aplikazioarekin</string>
     <string name="etesync_selection_description">Muturretik-muturrera zifratutako sinkronizazioa</string>
     <string name="decsync_selection_description">Fitxategietan oinarritutako sinkronizazioa</string>
-    <string name="back">Atzera</string>
-    <string name="help">Laguntza</string>
+    <string name="sign_in_to_tasks">Hasi saioa Tasks.org gunean</string>
+    <string name="sign_in_with_google">Hasi saioa Google-n</string>
+    <string name="sign_in_with_github">Hasi saioa GitHub erabiliz</string>
+    <string name="google_play_subscribers">Google Play harpideak</string>
+    <string name="github_sponsors">GitHub babesleak</string>
 </resources>

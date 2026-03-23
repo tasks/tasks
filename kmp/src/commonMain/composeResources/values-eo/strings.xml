@@ -65,9 +65,9 @@
     <string name="davx5_selection_description">Sinkronigi viajn taskojn kun la DAVx⁵ aplikaĵo</string>
     <string name="etesync_selection_description">Fin-al-fina ĉifrada sinkronigo</string>
     <string name="decsync_selection_description">Perdosiersistema sinkronigo</string>
-    <string name="ok">Bone</string>
-    <string name="cancel">Nuligi</string>
-    <string name="accept">Akcepti</string>
-    <string name="back">Reen</string>
-    <string name="help">Helpo</string>
+    <string name="sign_in_to_tasks">Ensaluti al Tasks.org</string>
+    <string name="sign_in_with_google">Ensaluti per Google</string>
+    <string name="sign_in_with_github">Ensaluti per GitHub</string>
+    <string name="google_play_subscribers">Abonantoj de Google Play</string>
+    <string name="github_sponsors">GitHub Sponsoroj</string>
 </resources>

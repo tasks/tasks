@@ -65,9 +65,9 @@
     <string name="davx5_selection_description">Feladatok szinkronizálása DAVx⁵ alkalmazással</string>
     <string name="etesync_selection_description">Végponttól végpontig titkosított szinkronizáció</string>
     <string name="decsync_selection_description">Fájl alapú szinkronizálás</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Mégse</string>
-    <string name="accept">Elfogadás</string>
-    <string name="back">Vissza</string>
-    <string name="help">Súgó</string>
+    <string name="sign_in_to_tasks">Tasks.org bejelentkezés</string>
+    <string name="sign_in_with_google">Bejelentkezés Google fiókkal</string>
+    <string name="sign_in_with_github">Bejelentkezés GitHub fiókkal</string>
+    <string name="google_play_subscribers">Google Play előfizetők</string>
+    <string name="github_sponsors">GitHub szponzorok</string>
 </resources>

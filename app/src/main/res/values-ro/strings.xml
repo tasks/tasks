@@ -38,7 +38,6 @@
     <string name="app_passwords_more_info">Sincronizează sarcinile și calendarele cu aplicații desktop și mobile de la terți. Apasă aici pentru mai multe informații</string>
     <string name="app_passwords">Parolele aplicațiilor</string>
     <string name="app_password">Parola aplicației</string>
-    <string name="sign_in_to_tasks">Conectează-te la Tasks.org</string>
     <string name="save_percent">Salvează %d%%</string>
     <string name="above_average">Peste medie</string>
     <string name="migrate_count">Mută %s în Tasks.org</string>
@@ -49,7 +48,6 @@
     <string name="sign_in_with_github">Conectează-te cu GitHub</string>
     <string name="sign_in_with_google">Conectează-te cu Google</string>
     <string name="github_sponsors">Sponsorii GitHub</string>
-    <string name="google_play_subscribers">Abonații Google Play</string>
     <string name="authorization_cancelled">Autorizație anulată</string>
     <string name="privacy">Confidențialitate</string>
     <string name="open_source">Sursă deschisă</string>

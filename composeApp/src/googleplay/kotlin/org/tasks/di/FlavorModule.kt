@@ -5,8 +5,6 @@ import org.tasks.PlatformConfiguration
 
 val flavorModule = module {
     single {
-        PlatformConfiguration(
-            supportsBackupImport = false,
-        )
+        PlatformConfiguration()
     }
 }

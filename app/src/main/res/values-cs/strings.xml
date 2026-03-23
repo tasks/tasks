@@ -558,7 +558,6 @@
     <string name="app_passwords_more_info">Synchronizujte své úkoly a kalendáře s desktopovými a mobilními aplikacemi třetích stran. Pro více informací klepněte sem</string>
     <string name="app_passwords">Hesla k aplikaci</string>
     <string name="app_password">Heslo k aplikaci</string>
-    <string name="sign_in_to_tasks">Přihlásit se do Tasks.org</string>
     <string name="save_percent">Ušetříte %d%%</string>
     <string name="above_average">Nadprůměrné</string>
     <string name="migrate_count">Přesunout %s do Tasks.org</string>
@@ -569,7 +568,6 @@
     <string name="sign_in_with_github">Přihlášení přes GitHub</string>
     <string name="sign_in_with_google">Přihlášení přes Google</string>
     <string name="github_sponsors">sponzoři na GitHubu</string>
-    <string name="google_play_subscribers">předplatitelé Google Play</string>
     <string name="authorization_cancelled">Autorizace zrušena</string>
     <string name="privacy">Soukromí</string>
     <string name="open_source">Otevřený zdrojový kód</string>

@@ -448,7 +448,6 @@
     <string name="app_passwords_more_info">Synkronisera dina uppgifter och kalendrar med skrivbords- och mobilappar från tredje parter. Tryck här för mer information</string>
     <string name="app_passwords">Applösenord</string>
     <string name="app_password">Applösenord</string>
-    <string name="sign_in_to_tasks">Logga in på Tasks.org</string>
     <string name="save_percent">Spara %d%%</string>
     <string name="above_average">Över medel</string>
     <string name="migrate_count">Flytta %s till Tasks.org</string>
@@ -459,7 +458,6 @@
     <string name="sign_in_with_github">Logga in med GitHub</string>
     <string name="sign_in_with_google">Logga in med Google</string>
     <string name="github_sponsors">GitHub-sponsorer</string>
-    <string name="google_play_subscribers">Google Play-prenumeranter</string>
     <string name="authorization_cancelled">Auktorisationen upphävd</string>
     <string name="privacy">Integritet</string>
     <string name="open_source">Öppen källkod</string>

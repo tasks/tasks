@@ -73,9 +73,9 @@
     <string name="davx5_selection_description">Sinkroniziraj tvoje zadatke s DAVx⁵</string>
     <string name="etesync_selection_description">Obostrana šifrirana sinkronizacija</string>
     <string name="decsync_selection_description">Sinkronizacija pojedinačnih datoteka</string>
-    <string name="ok">U redu</string>
-    <string name="cancel">Prekini</string>
-    <string name="accept">Prihvati</string>
-    <string name="back">Natrag</string>
-    <string name="help">Pomoć</string>
+    <string name="sign_in_to_tasks">Prijavi se na Tasks.org</string>
+    <string name="sign_in_with_google">Google prijava</string>
+    <string name="sign_in_with_github">GitHub prijava</string>
+    <string name="google_play_subscribers">Google Play pretplatnici</string>
+    <string name="github_sponsors">GitHub sponzori</string>
 </resources>

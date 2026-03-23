@@ -46,6 +46,9 @@
     <string name="davx5_selection_description">DAVx⁵ යෙදුම සමඟ ඔබගේ කාර්යයන් සමමුහුර්ත කරන්න</string>
     <string name="etesync_selection_description">End-to-end encrypted සමමුහුර්තකරණය</string>
     <string name="decsync_selection_description">ගොනු මත පදනම් වූ සමමුහුර්තකරණය</string>
-    <string name="back">ආපසු</string>
-    <string name="help">උදව්</string>
+    <string name="sign_in_to_tasks">Tasks.org වෙත පුරනය වන්න</string>
+    <string name="sign_in_with_google">Google සමඟ පුරනය වන්න</string>
+    <string name="sign_in_with_github">GitHub සමඟ පුරනය වන්න</string>
+    <string name="google_play_subscribers">Google Play ග්‍රාහකයින්</string>
+    <string name="github_sponsors">GitHub අනුග්‍රාහකයන්</string>
 </resources>

@@ -279,7 +279,6 @@
     <string name="sign_in_with_github">使用 GitHub 登入</string>
     <string name="sign_in_with_google">使用 Google 登入</string>
     <string name="github_sponsors">GitHub 贊助者</string>
-    <string name="google_play_subscribers">Google Play 訂閱者</string>
     <string name="authorization_cancelled">取消授權</string>
     <string name="current_subscription">目前訂閱: %s</string>
     <string name="price_per_month">$%s/每月</string>
@@ -616,7 +615,6 @@
     <string name="sort_modified_group">修改於 %s</string>
     <string name="sort_list">依清單</string>
     <string name="subtasks_multilevel_google_task">Google Tasks 不支援多層次子任務</string>
-    <string name="sign_in_to_tasks">登入 Tasks.org</string>
     <string name="your_subscription_expired">您的訂閱已過期。立即訂閱以恢復服務。</string>
     <string name="social">社群</string>
     <string name="date_picker_multiple">多個</string>

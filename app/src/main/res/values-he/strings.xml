@@ -549,7 +549,6 @@
     <string name="app_passwords_more_info">סנכרון של המשימות והיומנים שלך עם יישומי צד שלישי לשולחן העבודה ולנייד. יש להקיש כאן למידע נוסף</string>
     <string name="app_passwords">סיסמאות יישום</string>
     <string name="app_password">סיסמת יישום</string>
-    <string name="sign_in_to_tasks">להיכנס אל Tasks.org</string>
     <string name="save_percent">חיסכון של %d%%</string>
     <string name="above_average">מעל הממוצע</string>
     <string name="migrate_count">העברת %s משימות אל Tasks.org</string>
@@ -558,7 +557,6 @@
     <string name="sign_in_with_github">להיכנס באמצעות GitHub</string>
     <string name="sign_in_with_google">להיכנס באמצעות Google</string>
     <string name="github_sponsors">נותני חסות GitHub</string>
-    <string name="google_play_subscribers">מנויי Google Play</string>
     <string name="authorization_cancelled">הרשאה בוטלה</string>
     <string name="no_google_play_subscription">לא נמצא מינוי Google Play זכאי</string>
     <string name="insufficient_sponsorship">לא נמצאה חסות GitHub זכאית</string>

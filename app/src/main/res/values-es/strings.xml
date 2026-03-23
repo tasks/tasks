@@ -549,13 +549,11 @@
     </plurals>
     <string name="sign_in_with_github">Acceder con GitHub</string>
     <string name="github_sponsors">Patrocinadores de GitHub</string>
-    <string name="google_play_subscribers">Suscriptores de Google Play</string>
     <string name="no_google_play_subscription">No se encontró ninguna suscripción de Google Play elegible</string>
     <string name="insufficient_sponsorship">No se encontró ningún patrocinio de GitHub elegible</string>
     <string name="above_average">Por encima del promedio</string>
     <string name="save_percent">Ahorre %d %%</string>
     <string name="decsync_selection_description">Sincronización basada en archivos</string>
-    <string name="sign_in_to_tasks">Ingrese a Tasks.org</string>
     <string name="copied_to_clipboard">Se copió %s en el portapapeles</string>
     <string name="app_password_save">Utilice estas credenciales para configurar una aplicación de terceros. Conceden un acceso completo a su cuenta de Tasks.org, ¡no las escriba ni las comparta con nadie!</string>
     <string name="app_password_delete_confirmation">Se cerrará la sesión de cualquier aplicación que utilice esta contraseña</string>

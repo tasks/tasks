@@ -425,7 +425,6 @@
     <string name="app_passwords_more_info">Sinkronkan tugas dan kalender Anda dengan aplikasi desktop dan seluler pihak ketiga. Ketuk di sini untuk info selengkapnya</string>
     <string name="app_passwords">Kata sandi aplikasi</string>
     <string name="app_password">Kata sandi aplikasi</string>
-    <string name="sign_in_to_tasks">Masuk ke Tasks.org</string>
     <string name="save_percent">Simpan %d%%</string>
     <string name="above_average">Diatas rata-rata</string>
     <string name="migrate_count">Pindahkan %s ke Tasks.org</string>
@@ -436,7 +435,6 @@
     <string name="sign_in_with_github">Masuk dengan GitHub</string>
     <string name="sign_in_with_google">Masuk dengan Google</string>
     <string name="github_sponsors">Sponsor GitHub</string>
-    <string name="google_play_subscribers">Pelanggan Google Play</string>
     <string name="authorization_cancelled">Otorisasi dibatalkan</string>
     <string name="follow_reddit">Gabung r/tasks</string>
     <string name="current_subscription">Langganan saat ini: %s</string>

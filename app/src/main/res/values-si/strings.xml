@@ -77,7 +77,6 @@
     <string name="app_passwords_more_info">තෙවන පාර්ශවීය ඩෙස්ක්ටොප් සහ ජංගම යෙදුම් සමඟ ඔබගේ කාර්යයන් සහ දින දර්ශන සමමුහුර්ත කරන්න. වැඩි විස්තර සඳහා මෙහි තට්ටු කරන්න</string>
     <string name="app_passwords">යෙදුම් මුරපද</string>
     <string name="app_password">යෙදුම් මුරපදය</string>
-    <string name="sign_in_to_tasks">Tasks.org වෙත පුරනය වන්න</string>
     <string name="save_percent">සුරැකීම %d %%</string>
     <string name="above_average">සාමාන්‍යයට වඩා ඉහළින්</string>
     <string name="migrate_count">%s Tasks.org වෙත ගෙන යන්න</string>
@@ -85,7 +84,6 @@
     <string name="sign_in_with_google">Google සමඟ පුරනය වන්න</string>
     <string name="sign_in_with_github">GitHub සමඟ පුරනය වන්න</string>
     <string name="github_sponsors">GitHub අනුග්‍රාහකයන්</string>
-    <string name="google_play_subscribers">Google Play ග්‍රාහකයින්</string>
     <string name="authorization_cancelled">අවසරය අවලංගු කරන ලදි</string>
     <string name="privacy">පෞද්ගලිකත්වය</string>
     <string name="open_source">විවෘත මූලාශ්‍රය</string>

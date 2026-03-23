@@ -514,7 +514,6 @@
     <string name="app_passwords_more_info">Synkronoi tehtävät ja kalenterit kolmansien osapuolten työpöytä- ja mobiilisovellusten kanssa. Napauta tästä saadaksesi lisätietoja</string>
     <string name="app_passwords">Sovelluksen salasana</string>
     <string name="app_password">Sovelluksen salasana</string>
-    <string name="sign_in_to_tasks">Kirjautuminen Tasks.org</string>
     <string name="save_percent">Tallenna %d%%</string>
     <string name="above_average">Keskimääräistä parempi</string>
     <string name="migrate_count">Siirrä %s osoitteeseen Tasks.org</string>
@@ -571,7 +570,6 @@
     <string name="SSD_sort_start">Aloituspäivän mukaan</string>
     <string name="astrid_sort_order">Astrid manuaalinen lajittelu</string>
     <string name="github_sponsors">GitHubin sponsorit</string>
-    <string name="google_play_subscribers">Google Play -tilaajat</string>
     <string name="authorization_cancelled">Lupa peruutettu</string>
     <string name="privacy">yksityisyys</string>
     <string name="open_source">Avoin lähdekoodi</string>

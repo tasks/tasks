@@ -645,7 +645,6 @@
     <string name="open_source">Codi obert</string>
     <string name="privacy">Privacitat</string>
     <string name="authorization_cancelled">Autorització cancel·lada</string>
-    <string name="google_play_subscribers">Subscriptors de Google Play</string>
     <string name="github_sponsors">Patrocinadors de GitHub</string>
     <string name="sign_in_with_google">Inicieu sessió amb Google</string>
     <string name="sign_in_with_github">Inicieu sessió amb GitHub</string>
@@ -656,7 +655,6 @@
     <string name="migrate_count">Mou %s a Tasks.org</string>
     <string name="above_average">Per sobre de la mitjana</string>
     <string name="save_percent">Desa %d%%</string>
-    <string name="sign_in_to_tasks">Inicieu la sessió a Tasks.org</string>
     <string name="app_password">Contrasenya de l\'aplicació</string>
     <string name="app_passwords">Contrasenyes d\'aplicacions</string>
     <string name="app_passwords_more_info">Sincronitzeu les vostres tasques i calendaris amb l\'escriptori de tercers i les aplicacions mòbils. Fes clic aquí per a més informació</string>

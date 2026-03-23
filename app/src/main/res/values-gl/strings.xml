@@ -240,7 +240,6 @@
     <string name="TEA_add_subtask">Engadir subtarefa</string>
     <string name="default_start_date">Data de inicio por defecto</string>
     <string name="filter_eisenhower_box_1">Importane e urxente</string>
-    <string name="sign_in_to_tasks">Acceder a Tasks.org</string>
     <string name="widget_show_title">Amosar título</string>
     <string name="repeat_monthly_first_week">primeiro</string>
     <string name="next_saturday">Próx Sáb</string>
@@ -603,7 +602,6 @@
     <string name="issue_tracker">Seguidor de problemas</string>
     <string name="open_source">Código aberto</string>
     <string name="privacy">Privacidade</string>
-    <string name="google_play_subscribers">Subscritores de Google Play</string>
     <string name="github_sponsors">Patrocinadores de GitHub</string>
     <string name="github_sponsor">Patrocinador</string>
     <string name="app_password_delete_confirmation">Calquera aplicación que use este contrasinal pechará sesión</string>

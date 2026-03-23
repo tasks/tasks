@@ -614,7 +614,6 @@
     <string name="follow_twitter">\@Tasks_org ஐப் பின்தொடரவும்</string>
     <string name="social">சமூக</string>
     <string name="github_sponsors">அறிவிலிமையம் ஒப்புரவாளர்கள்</string>
-    <string name="sign_in_to_tasks">Tasks.org இல் உள்நுழைக</string>
     <string name="copied_to_clipboard">இடைநிலைப்பலகைக்கு %s நகலெடுக்கப்பட்டது</string>
     <string name="enable_reminders_description">ஆண்ட்ராய்டு அமைப்புகளில் நினைவூட்டல்கள் முடக்கப்பட்டுள்ளன</string>
     <string name="enable_alarms">சரியான நேரத்தில் அறிவிக்கப்படுங்கள்</string>
@@ -698,7 +697,6 @@
     <string name="add_widget_to_home_screen">முகப்புத் திரையில் விட்செட்டைச் சேர்க்கவும்</string>
     <string name="button_learn_more">மேலும் அறிக</string>
     <string name="open_source">திறந்த மூல</string>
-    <string name="google_play_subscribers">கூகிள் பிளே சந்தாதாரர்கள்</string>
     <string name="upgrade_more_customization">மேலும் தனிப்பயனாக்கம்</string>
     <string name="banner_app_updated_title">பயன் புதுப்பிக்கப்பட்டது</string>
     <string name="multiline_title_off">பணியைச் சேமிக்க முடிந்தது என்பதை அழுத்தவும்</string>

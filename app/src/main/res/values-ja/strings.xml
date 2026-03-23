@@ -498,7 +498,6 @@
     <string name="reset_sort_order">並び順をリセット</string>
     <string name="backups_ignore_warnings">警告を無視する</string>
     <string name="insufficient_subscription">サブスクリプションのレベルが不十分です。サービスを引き続き利用するには、サブスクリプションをアップグレードしてください。</string>
-    <string name="sign_in_to_tasks">Tasks.org にサインイン</string>
     <string name="save_percent">%d%% オフ</string>
     <string name="github_sponsors">GitHub スポンサー</string>
     <string name="github_sponsor">スポンサー</string>
@@ -604,7 +603,6 @@
     <string name="sort_completion_group">完了: %s</string>
     <string name="automatic_backups">自動バックアップ</string>
     <string name="your_subscription_expired">サブスクリプションの有効期限が切れています。サービスを引き続き利用するには、サブスクリプションを更新してください。</string>
-    <string name="google_play_subscribers">Google Play 定期購入者</string>
     <string name="show_advanced_settings">詳細な設定を表示</string>
     <string name="filter_high_priority">優先度 高</string>
     <string name="compact">コンパクト</string>

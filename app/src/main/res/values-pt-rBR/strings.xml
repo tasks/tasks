@@ -568,7 +568,6 @@
     <string name="app_passwords_more_info">Sincronize suas tarefas e calendários com aplicativos móveis e de desktop de terceiros. Toque aqui para obter mais informações</string>
     <string name="app_passwords">Senhas do aplicativo</string>
     <string name="app_password">Senha do aplicativo</string>
-    <string name="sign_in_to_tasks">Entrar no Tasks.org</string>
     <string name="save_percent">Economize %d%%</string>
     <string name="above_average">Acima da média</string>
     <string name="migrate_count">Mover %s para Tasks.org</string>
@@ -579,7 +578,6 @@
     <string name="sign_in_with_github">Faça login com GitHub</string>
     <string name="sign_in_with_google">Faça login com Google</string>
     <string name="github_sponsors">Patrocinadores do GitHub</string>
-    <string name="google_play_subscribers">Assinantes do Google Play</string>
     <string name="authorization_cancelled">Autorização cancelada</string>
     <string name="privacy">Privacidade</string>
     <string name="open_source">Código aberto</string>

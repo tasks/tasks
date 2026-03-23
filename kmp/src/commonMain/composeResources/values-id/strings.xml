@@ -47,6 +47,9 @@
     <string name="davx5_selection_description">Sinkronkan tugas Anda dengan aplikasi DAVx⁵</string>
     <string name="etesync_selection_description">Enkripsi klien-ke-klien bersumber terbuka</string>
     <string name="decsync_selection_description">Sinkronisasi berdasarkan berkas</string>
-    <string name="back">Kembali</string>
-    <string name="help">Bantuan</string>
+    <string name="sign_in_to_tasks">Masuk ke Tasks.org</string>
+    <string name="sign_in_with_google">Masuk dengan Google</string>
+    <string name="sign_in_with_github">Masuk dengan GitHub</string>
+    <string name="google_play_subscribers">Pelanggan Google Play</string>
+    <string name="github_sponsors">Sponsor GitHub</string>
 </resources>

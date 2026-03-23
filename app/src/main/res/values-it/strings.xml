@@ -549,7 +549,6 @@
     <string name="above_average">Sopra la media</string>
     <string name="sign_in_with_github">Accedi con GitHub</string>
     <string name="github_sponsors">Sponsor di GitHub</string>
-    <string name="google_play_subscribers">Abbonati a Google Play</string>
     <string name="no_google_play_subscription">Nessun abbonamento Google Play idoneo trovato</string>
     <string name="insufficient_sponsorship">Nessuna sponsorizzazione GitHub idonea trovata</string>
     <string name="decsync_selection_description">Sincronizzazione basata sui file</string>
@@ -571,7 +570,6 @@
     <string name="generate_new_password">Genera una nuova password</string>
     <string name="app_passwords_more_info">Sincronizza le tue attività e i calendari con applicazioni di terze parti. Tocca qui per maggiori informazioni</string>
     <string name="app_password">Password dell\'app</string>
-    <string name="sign_in_to_tasks">Accedi a Tasks.org</string>
     <string name="copied_to_clipboard">%s copiato</string>
     <string name="local_lists">Liste locali</string>
     <string name="account_not_included">Non incluso negli abbonamenti con prezzo a scelta</string>

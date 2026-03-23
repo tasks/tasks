@@ -182,7 +182,6 @@
     <string name="app_passwords_more_info">Sinkroniziraj tvoje zadatke i kalendare s računalnim i mobilnim programima trećih strana. Dodirni ovdje za više informacija</string>
     <string name="app_passwords">Lozinke za program</string>
     <string name="app_password">Lozinka za program</string>
-    <string name="sign_in_to_tasks">Prijavi se na Tasks.org</string>
     <string name="save_percent">Spremi %d %%</string>
     <string name="above_average">Iznad prosjeka</string>
     <string name="migrate_count">Premjesti %s na Tasks.org</string>
@@ -193,7 +192,6 @@
     <string name="sign_in_with_github">GitHub prijava</string>
     <string name="sign_in_with_google">Google prijava</string>
     <string name="github_sponsors">GitHub sponzori</string>
-    <string name="google_play_subscribers">Google Play pretplatnici</string>
     <string name="authorization_cancelled">Autorizacija prekinuta</string>
     <string name="privacy">Privatnost</string>
     <string name="open_source">Otvoreni kod</string>

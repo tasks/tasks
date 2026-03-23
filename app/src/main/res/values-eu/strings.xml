@@ -539,7 +539,6 @@
     <string name="app_passwords_more_info">Sinkronizatu zure zeregin eta egutegiak hirugarrengoen mahaigaineko zein mugikorrerako aplikazioekin. Sakatu hemen gehiago jakiteko</string>
     <string name="app_passwords">Aplikazio-pasahitzak</string>
     <string name="app_password">Aplikazioaren pasahitza</string>
-    <string name="sign_in_to_tasks">Hasi saioa Tasks.org gunean</string>
     <string name="save_percent">Aurreztu %% %d</string>
     <string name="above_average">Batezbestekotik gora</string>
     <string name="migrate_count">Eraman %s Tasks.org gunera</string>
@@ -547,7 +546,6 @@
     <string name="migrate">Migratu</string>
     <string name="authentication_required">Autentifikazioa derrigorrezkoa</string>
     <string name="sign_in_with_github">Hasi saioa GitHub erabiliz</string>
-    <string name="google_play_subscribers">Google Play harpideak</string>
     <string name="no_google_play_subscription">Ez da Google Play harpidetza egokirik aurkitu</string>
     <string name="insufficient_sponsorship">Ez da GitHub sponsorship egokirik aurkitu</string>
     <string name="local_lists">Zerrenda lokalak</string>

@@ -55,8 +55,9 @@
     <string name="davx5_selection_description">Sincronize as suas tarefas com a aplicação DAVx⁵</string>
     <string name="etesync_selection_description">Sincronização com encriptação ponta-a-ponta</string>
     <string name="decsync_selection_description">Sincronização baseada em ficheiro</string>
-    <string name="ok">Aceitar</string>
-    <string name="cancel">Cancelar</string>
-    <string name="back">Voltar</string>
-    <string name="help">Ajuda</string>
+    <string name="sign_in_to_tasks">Iniciar sessão com o Tasks.org</string>
+    <string name="sign_in_with_google">Iniciar sessão com o Google</string>
+    <string name="sign_in_with_github">Iniciar sessão com o GitHub</string>
+    <string name="google_play_subscribers">Subscritores do Google Play</string>
+    <string name="github_sponsors">Patrocinadores do GitHub</string>
 </resources>

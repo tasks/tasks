@@ -543,7 +543,6 @@
     <string name="sign_in_with_github">Войти через GitHub</string>
     <string name="sign_in_with_google">Войти через Google</string>
     <string name="github_sponsors">Спонсоры GitHub</string>
-    <string name="google_play_subscribers">Подписчики Google Play</string>
     <string name="authorization_cancelled">Авторизация отменена</string>
     <string name="no_google_play_subscription">Подходящей подписки Google Play не найдено</string>
     <string name="insufficient_sponsorship">Подходящее спонсорство GitHub не найдено</string>
@@ -567,7 +566,6 @@
     <string name="app_passwords_more_info">Синхронизируйте свои задачи и календари со сторонними настольными и мобильными приложениями. Нажмите здесь, чтобы узнать больше</string>
     <string name="app_passwords">Пароли приложений</string>
     <string name="app_password">Пароль приложения</string>
-    <string name="sign_in_to_tasks">Войти в Tasks.org</string>
     <string name="local_lists">Локальные списки</string>
     <string name="default_due_date">Дата окончания по умолчанию</string>
     <string name="start_date">Дата начала</string>

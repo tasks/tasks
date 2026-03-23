@@ -1,8 +1,11 @@
 package org.tasks.di
 
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import org.tasks.data.db.Database
+import org.tasks.viewmodel.AddAccountViewModel
+import org.tasks.viewmodel.AppViewModel
 
 val commonModule = module {
     single { get<Database>().caldavDao() }
@@ -22,6 +25,8 @@ val commonModule = module {
     single { get<Database>().userActivityDao() }
     single { get<Database>().taskAttachmentDao() }
     single { get<Database>().taskListMetadataDao() }
+    viewModel { AppViewModel(get()) }
+    viewModel { AddAccountViewModel(get()) }
 }
 
 expect fun platformModule(): Module

@@ -64,9 +64,9 @@
     <string name="davx5_selection_description">Синхронизуј своје задатке са DAVx⁵ апликацијом</string>
     <string name="etesync_selection_description">End-to-end енкриптована синхронизација</string>
     <string name="decsync_selection_description">Синхронизација базирана на датотеци</string>
-    <string name="ok">У реду</string>
-    <string name="cancel">Откажи</string>
-    <string name="accept">Прихвати</string>
-    <string name="back">Назад</string>
-    <string name="help">Помоћ</string>
+    <string name="sign_in_to_tasks">Пријави се на Tasks.org</string>
+    <string name="sign_in_with_google">Пријави се путем Гугла</string>
+    <string name="sign_in_with_github">Пријави се путем GitHub-а</string>
+    <string name="google_play_subscribers">,,Google Play\'\' претплатници</string>
+    <string name="github_sponsors">,,GitHub\'\' спонзори</string>
 </resources>

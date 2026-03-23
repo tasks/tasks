@@ -338,7 +338,6 @@
     <string name="remove_user">إزالة المستعمل؟</string>
     <string name="list_members">أعضاء القائمة</string>
     <string name="tasks_org_account_required">حساب Tasks.org مطلوب</string>
-    <string name="sign_in_to_tasks">تسجيل الدخول إلى Tasks.org</string>
     <string name="support">دعم</string>
     <string name="follow_twitter">اتبع @tasks_org</string>
     <string name="follow_reddit">انضم إلى r/tasks</string>
@@ -398,7 +397,6 @@
     <string name="app_password_created_at">أنشأ: %s</string>
     <string name="generate_new_password">ولّّد كلمة سرٍّ جديدة</string>
     <string name="migrate_count">انقل %s إلى Tasks.org</string>
-    <string name="google_play_subscribers">مشتركي جوجل بلاي</string>
     <string name="open_source">مفتوح المصدر</string>
     <string name="social">اجتماعي</string>
     <string name="price_per_month">$%s شهريًا</string>

@@ -73,9 +73,9 @@
     <string name="davx5_selection_description">使用 DAVx⁵ 應用程式同步您的任務</string>
     <string name="etesync_selection_description">端對端加密同步</string>
     <string name="decsync_selection_description">基於檔案的同步</string>
-    <string name="ok">OK</string>
-    <string name="cancel">取消</string>
-    <string name="accept">接受</string>
-    <string name="back">返回</string>
-    <string name="help">幫助</string>
+    <string name="sign_in_to_tasks">登入 Tasks.org</string>
+    <string name="sign_in_with_google">使用 Google 登入</string>
+    <string name="sign_in_with_github">使用 GitHub 登入</string>
+    <string name="google_play_subscribers">Google Play 訂閱者</string>
+    <string name="github_sponsors">GitHub 贊助者</string>
 </resources>

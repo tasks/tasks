@@ -577,7 +577,6 @@
     <string name="social">Социални мрежи</string>
     <string name="permission_read_tasks">Пълен дистъп до банката данни на Task</string>
     <string name="github_sponsors">Дарители от GitHub</string>
-    <string name="sign_in_to_tasks">Вход в Tasks.org</string>
     <string name="markdown_description">Markdown в заглавията и описанията</string>
     <string name="completed_tasks_at_bottom">Преместване на завършените задачи отдолу</string>
     <string name="caldav_server_unknown">Неизвестен</string>
@@ -599,7 +598,6 @@
     <string name="follow_reddit">Присъединете се към r/tasks</string>
     <string name="open_source">Отворен код</string>
     <string name="privacy">Поверителност</string>
-    <string name="google_play_subscribers">Абонати на Google Play</string>
     <string name="upgrade_more_customization_description">Отключване на всички теми, цветове и пиктограми</string>
     <string name="snackbar_task_completed">Задачата е завършена</string>
     <string name="insufficient_sponsorship">Не е намерен подходящо спонсорство в GitHub</string>

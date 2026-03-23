@@ -65,9 +65,9 @@
     <string name="davx5_selection_description">DAVx⁵ でタスクを同期する</string>
     <string name="etesync_selection_description">エンドツーエンド暗号化による同期</string>
     <string name="decsync_selection_description">ファイルベースによる同期</string>
-    <string name="ok">OK</string>
-    <string name="cancel">キャンセル</string>
-    <string name="accept">了承</string>
-    <string name="back">戻る</string>
-    <string name="help">ヘルプ</string>
+    <string name="sign_in_to_tasks">Tasks.org にサインイン</string>
+    <string name="sign_in_with_google">Google でサインイン</string>
+    <string name="sign_in_with_github">GitHub でサインイン</string>
+    <string name="google_play_subscribers">Google Play 定期購入者</string>
+    <string name="github_sponsors">GitHub スポンサー</string>
 </resources>

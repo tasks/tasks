@@ -78,4 +78,9 @@
     <string name="accept">Accept</string>
     <string name="back">Back</string>
     <string name="help">Help</string>
+    <string name="sign_in_to_tasks">Sign in to Tasks.org</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_in_with_github">Sign in with GitHub</string>
+    <string name="google_play_subscribers">Google Play subscribers</string>
+    <string name="github_sponsors">GitHub Sponsors</string>
 </resources>

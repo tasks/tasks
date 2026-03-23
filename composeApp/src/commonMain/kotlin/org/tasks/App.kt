@@ -9,27 +9,33 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.window.Dialog
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
-import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
 import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
+import org.tasks.auth.OAuthProvider
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.compose.SignInProvider
+import org.tasks.compose.SignInProviderDialog
 import org.tasks.compose.WelcomeScreenLayout
 import org.tasks.compose.accounts.AddAccountScreen
 import org.tasks.compose.accounts.Platform
-import org.tasks.data.dao.CaldavDao
-import org.tasks.data.newLocalAccount
 import org.tasks.themes.TasksTheme
+import org.tasks.viewmodel.AddAccountViewModel
+import org.tasks.viewmodel.AppViewModel
 
 @Serializable
 data object WelcomeDestination : NavKey
@@ -49,13 +55,11 @@ fun App(
 ) {
     TasksTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            val caldavDao = koinInject<CaldavDao>()
+            val appViewModel = koinViewModel<AppViewModel>()
             val configuration = koinInject<PlatformConfiguration>()
-            val scope = rememberCoroutineScope()
-            val hasAccount by caldavDao.watchAccountExists().collectAsState(initial = null)
+            val hasAccount by appViewModel.hasAccount.collectAsState()
 
             if (hasAccount == null) {
-                // Loading — show nothing until we know whether to show welcome or task list
                 return@Surface
             }
 
@@ -102,7 +106,7 @@ fun App(
                                 backStack.add(AddAccountDestination)
                             },
                             onContinueWithoutSync = {
-                                scope.launch { caldavDao.newLocalAccount() }
+                                appViewModel.continueWithoutSync()
                             },
                             openLegalUrl = openUrl,
                             environments = environments,
@@ -111,6 +115,8 @@ fun App(
                         )
                     }
                     entry<AddAccountDestination> {
+                        val addAccountViewModel = koinViewModel<AddAccountViewModel>()
+                        var showProviderPicker by remember { mutableStateOf(false) }
                         AddAccountScreen(
                             configuration = configuration,
                             hasTasksAccount = false,
@@ -118,13 +124,39 @@ fun App(
                             needsConsent = false,
                             onBack = { backStack.removeLastOrNull() },
                             signIn = { platform ->
-                                // TODO: handle sign in for platform
+                                when (platform) {
+                                    Platform.TASKS_ORG -> showProviderPicker = true
+                                    else -> addAccountViewModel.signIn(platform)
+                                }
                             },
                             openUrl = { platform ->
                                 // TODO: handle open URL for platform
                             },
                             openLegalUrl = openUrl,
                         )
+                        if (showProviderPicker) {
+                            Dialog(onDismissRequest = { showProviderPicker = false }) {
+                                SignInProviderDialog(
+                                    onSelected = { provider ->
+                                        showProviderPicker = false
+                                        val oauthProvider = when (provider) {
+                                            SignInProvider.GOOGLE -> OAuthProvider.GOOGLE
+                                            SignInProvider.GITHUB -> OAuthProvider.GITHUB
+                                        }
+                                        addAccountViewModel.signIn(
+                                            platform = Platform.TASKS_ORG,
+                                            provider = oauthProvider,
+                                            openUrl = openUrl,
+                                        )
+                                    },
+                                    onHelp = {
+                                        showProviderPicker = false
+                                        openUrl("https://tasks.org/docs/sync")
+                                    },
+                                    onCancel = { showProviderPicker = false },
+                                )
+                            }
+                        }
                     }
                     entry<TaskListDestination> {
                         TaskListScreen()

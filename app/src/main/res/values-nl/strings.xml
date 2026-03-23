@@ -531,14 +531,12 @@
         <item quantity="other">%d lijsten</item>
     </plurals>
     <string name="github_sponsors">GitHub sponsors</string>
-    <string name="google_play_subscribers">Google Play abonnees</string>
     <string name="sign_in_with_github">Log in met GitHub</string>
     <string name="no_google_play_subscription">Geen in aanmerking komend Google Play abonnement gevonden</string>
     <string name="insufficient_sponsorship">Geen in aanmerking komend GitHub-sponsoring gevonden</string>
     <string name="save_percent">Bespaar %d%%</string>
     <string name="above_average">Bovengemiddeld</string>
     <string name="decsync_selection_description">Synchroniseren op de interne opslag</string>
-    <string name="sign_in_to_tasks">Log in bij Tasks.org</string>
     <string name="copied_to_clipboard">%s naar het klembord gekopiëerd</string>
     <string name="app_password_save">Gebruik deze inloggegevens om een app van derden te configureren. Ze geven volledige toegang tot jouw Tasks.org account, dus schrijf ze nergens op en deel ze met niemand!</string>
     <string name="app_password_delete_confirmation">Alle apps die dit wachtwoord gebruiken worden uitgelogd</string>

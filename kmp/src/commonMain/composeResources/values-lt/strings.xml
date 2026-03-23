@@ -48,6 +48,9 @@
     <string name="davx5_selection_description">Sinchronizuoti užduotis su DAVx⁵ programėle</string>
     <string name="etesync_selection_description">Sinchronizacija paremta abipusiu šifravimu</string>
     <string name="decsync_selection_description">Failais paremta sinchronizacija</string>
-    <string name="back">Atgal</string>
-    <string name="help">Pagalba</string>
+    <string name="sign_in_to_tasks">Prisijungti prie Tasks.org</string>
+    <string name="sign_in_with_google">Prisijungti naudojant Google</string>
+    <string name="sign_in_with_github">Prisijungti naudojant GitHub</string>
+    <string name="google_play_subscribers">Google Play prenumeratoriai</string>
+    <string name="github_sponsors">GitHub rėmėjai</string>
 </resources>

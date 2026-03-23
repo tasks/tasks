@@ -57,7 +57,6 @@
     <string name="app_passwords_more_info">ซิงโครไนซ์งานและปฏิทินของคุณกับเดสก์ท็อปและแอปสําหรับอุปกรณ์เคลื่อนที่ของบริษัทอื่น แตะที่นี่สําหรับข้อมูลเพิ่มเติม</string>
     <string name="app_passwords">รหัสผ่านของแอป</string>
     <string name="app_password">รหัสผ่านของแอป</string>
-    <string name="sign_in_to_tasks">ลงชื่อเข้าใช้ Tasks.org</string>
     <string name="save_percent">ประหยัด %d%%</string>
     <string name="above_average">สูงกว่าค่าเฉลี่ย</string>
     <string name="migrate_count">ย้าย %s ไปยัง Tasks.org</string>
@@ -68,7 +67,6 @@
     <string name="sign_in_with_github">เข้าสู่ระบบด้วย GitHub</string>
     <string name="sign_in_with_google">ลงชื่อเข้าใช้ด้วย Google</string>
     <string name="github_sponsors">ผู้สนับสนุน GitHub</string>
-    <string name="google_play_subscribers">สมาชิก Google Play</string>
     <string name="issue_tracker">ตัวติดตามปัญหา</string>
     <string name="social">สังคม</string>
     <string name="follow_reddit">เข้าร่วม r/tasks</string>
