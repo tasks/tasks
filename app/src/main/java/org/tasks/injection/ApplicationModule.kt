@@ -20,6 +20,8 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.analytics.Reporting
+import org.tasks.fcm.FcmTokenProvider
+import org.tasks.fcm.PushTokenManager
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
@@ -318,6 +320,18 @@ class ApplicationModule {
         refreshBroadcaster = refreshBroadcaster,
         coroutineContext = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),
     )
+
+    @Provides
+    fun providesFcmTokenProvider(firebase: Firebase): FcmTokenProvider = firebase
+
+    @Provides
+    @Singleton
+    fun providesPushTokenManager(
+        tokenProvider: FcmTokenProvider,
+        caldavDao: CaldavDao,
+        caldavClientProvider: CaldavClientProvider,
+        @ApplicationScope scope: CoroutineScope,
+    ) = PushTokenManager(tokenProvider, caldavDao, caldavClientProvider, scope)
 
     @Provides
     fun providesTaskCleanup(impl: AndroidCleanup): TaskCleanup = impl

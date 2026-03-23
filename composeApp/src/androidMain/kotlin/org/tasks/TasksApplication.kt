@@ -5,6 +5,7 @@ import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import co.touchlab.kermit.platformLogWriter
+import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.tasks.di.commonModule
@@ -34,5 +35,7 @@ class TasksApplication : Application() {
             androidContext(this@TasksApplication)
             modules(commonModule, platformModule())
         }
+        getKoin().getOrNull<org.tasks.fcm.PushTokenManager>()
+            ?.registerTokenForAllAccounts()
     }
 }

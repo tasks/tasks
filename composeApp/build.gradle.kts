@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlin.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
+    id("com.google.gms.google-services")
 }
 
 kotlin {
@@ -78,7 +79,7 @@ android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
     defaultConfig {
-        applicationId = "org.tasks.composeapp"
+        applicationId = "org.tasks"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
@@ -115,6 +116,8 @@ android {
     dependencies {
         coreLibraryDesugaring(libs.desugar.jdk.libs)
         debugImplementation(compose.uiTooling)
+        "googleplayImplementation"(platform(libs.firebase))
+        "googleplayImplementation"(libs.firebase.messaging)
     }
 }
 

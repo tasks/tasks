@@ -1,6 +1,7 @@
 package org.tasks.analytics
 
 import android.content.Context
+import org.tasks.fcm.FcmTokenProvider
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.preferences.Preferences
@@ -13,7 +14,7 @@ import javax.inject.Inject
 class Firebase @Inject constructor(
     @param:ApplicationContext val context: Context,
     private val preferences: Preferences
-) : Reporting {
+) : Reporting, FcmTokenProvider {
     override fun reportException(t: Throwable) = Timber.e(t)
 
     fun updateRemoteConfig() {}
@@ -56,6 +57,5 @@ class Firebase @Inject constructor(
 
     fun unregisterPrefChangeListener() {}
 
-    @Suppress("RedundantSuspendModifier")
-    suspend fun getToken(): String? = null
+    override suspend fun getToken(): String? = null
 }

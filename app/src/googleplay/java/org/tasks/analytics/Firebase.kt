@@ -1,6 +1,7 @@
 package org.tasks.analytics
 
 import android.content.Context
+import org.tasks.fcm.FcmTokenProvider
 import android.content.SharedPreferences
 import androidx.annotation.StringRes
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -29,7 +30,7 @@ import kotlin.coroutines.resumeWithException
 class Firebase @Inject constructor(
         @ApplicationContext private val context: Context,
         private val preferences: Preferences
-) : Reporting {
+) : Reporting, FcmTokenProvider {
     private val crashlytics by lazy {
         if (preferences.isTrackingEnabled) {
             FirebaseCrashlytics.getInstance().apply {
@@ -328,7 +329,7 @@ class Firebase @Inject constructor(
             ?: default
     }
 
-    suspend fun getToken(): String? {
+    override suspend fun getToken(): String? {
         return try {
             suspendCancellableCoroutine { cont ->
                 FirebaseMessaging.getInstance().token
