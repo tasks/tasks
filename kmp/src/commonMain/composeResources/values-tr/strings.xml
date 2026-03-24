@@ -3,7 +3,7 @@
     <string name="search">Ara</string>
     <string name="subscribe">Abone ol</string>
     <string name="search_no_results">Sonuç yok</string>
-    <string name="requires_pro_subscription">Pro özelliği</string>
+    <string name="requires_pro_subscription">Pro aboneliği gerektirir</string>
     <string name="subscription_required_description">Yılda 1$ gibi düşük bir ücretle tüm özelliklerin kilidini açın</string>
     <string name="filter_my_tasks">Görevlerim</string>
     <string name="filter_notifications">Bildirimler</string>
