@@ -5,6 +5,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
+import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
+import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -116,6 +122,7 @@ fun App(
                     }
                     entry<AddAccountDestination> {
                         val addAccountViewModel = koinViewModel<AddAccountViewModel>()
+                        val signInState by addAccountViewModel.signInState.collectAsState()
                         var showProviderPicker by remember { mutableStateOf(false) }
                         AddAccountScreen(
                             configuration = configuration,
@@ -155,6 +162,35 @@ fun App(
                                     },
                                     onCancel = { showProviderPicker = false },
                                 )
+                            }
+                        }
+                        val errorState = signInState as? AddAccountViewModel.SignInState.Error
+                        if (errorState != null) {
+                            Dialog(onDismissRequest = { addAccountViewModel.dismissError() }) {
+                                Surface(
+                                    shape = MaterialTheme.shapes.medium,
+                                    color = MaterialTheme.colorScheme.surface,
+                                ) {
+                                    Column(modifier = Modifier.padding(16.dp)) {
+                                        Text(
+                                            text = "Sign in failed",
+                                            style = MaterialTheme.typography.titleMedium,
+                                            color = MaterialTheme.colorScheme.onSurface,
+                                        )
+                                        Text(
+                                            text = errorState.message,
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            color = MaterialTheme.colorScheme.onSurface,
+                                            modifier = Modifier.padding(top = 8.dp),
+                                        )
+                                        TextButton(
+                                            onClick = { addAccountViewModel.dismissError() },
+                                            modifier = Modifier.align(Alignment.End).padding(top = 8.dp),
+                                        ) {
+                                            Text("OK")
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

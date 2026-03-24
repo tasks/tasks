@@ -63,7 +63,7 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
-            implementation("androidx.browser:browser:1.7.0")
+            implementation(libs.androidx.browser)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -112,6 +112,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     dependencies {
         coreLibraryDesugaring(libs.desugar.jdk.libs)

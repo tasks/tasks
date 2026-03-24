@@ -6,7 +6,6 @@ import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
-import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.tasks.PlatformConfiguration
 import org.tasks.caldav.FileStorage

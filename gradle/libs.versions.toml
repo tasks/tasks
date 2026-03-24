@@ -72,6 +72,7 @@ androidx-compose-material3-adaptive = { group = "androidx.compose.material3.adap
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core-remoteviews = { group = "androidx.core", name = "core-remoteviews", version = "1.1.0" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version = "1.2.0" }
+androidx-browser = { module = "androidx.browser:browser", version = "1.7.0" }
 androidx-datastore = { module = "androidx.datastore:datastore-preferences", version = "1.2.1" }
 androidx-fragment-compose = { module = "androidx.fragment:fragment-compose", version = "1.8.9" }
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt" }

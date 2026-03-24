@@ -2,6 +2,8 @@ package org.tasks.compose
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -44,7 +46,9 @@ fun SignInProviderDialog(
     onCancel: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.background(MaterialTheme.colorScheme.surface)
+        modifier = Modifier
+            .background(MaterialTheme.colorScheme.surface)
+            .verticalScroll(rememberScrollState())
     ) {
         Text(
             text = stringResource(Res.string.sign_in_to_tasks),

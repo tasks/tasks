@@ -1,6 +1,7 @@
 package org.tasks.auth
 
 import co.touchlab.kermit.Logger
+import org.tasks.extensions.htmlEscape
 import com.sun.net.httpserver.HttpServer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -8,6 +9,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.jsonPrimitive
 import java.net.InetSocketAddress
 import java.net.URLDecoder
+import java.util.concurrent.atomic.AtomicReference
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
@@ -39,8 +41,9 @@ class DesktopOAuthFlow(
 
         val codeVerifier = PKCE.generateVerifier()
         val codeChallenge = PKCE.generateChallenge(codeVerifier)
+        val state = PKCE.generateVerifier()
 
-        val (config, code) = listenForCallback { port ->
+        val (config, code) = listenForCallback(state) { port ->
             val redirectUri = "http://127.0.0.1:$port"
             val config = OAuthConfig(
                 authorizationEndpoint = authEndpoint,
@@ -48,8 +51,9 @@ class DesktopOAuthFlow(
                 clientId = clientId,
                 redirectUri = redirectUri,
                 scope = provider.scope,
+                state = state,
             )
-            val authUrl = oauthClient.buildAuthUrl(config, codeVerifier, codeChallenge)
+            val authUrl = oauthClient.buildAuthUrl(config, codeChallenge, state)
             Logger.d(TAG) { "Opening browser: $authUrl" }
             openUrl(authUrl)
             config
@@ -59,21 +63,13 @@ class DesktopOAuthFlow(
         oauthClient.exchangeCode(config, code, codeVerifier)
     }
 
-    private fun bringAppToForeground() {
-        java.awt.EventQueue.invokeLater {
-            java.awt.Frame.getFrames().forEach { frame ->
-                frame.toFront()
-                frame.requestFocus()
-            }
-        }
-    }
-
     private suspend fun listenForCallback(
-        onReady: (port: Int) -> OAuthConfig
+        expectedState: String,
+        onReady: (port: Int) -> OAuthConfig,
     ): Pair<OAuthConfig, String> = suspendCancellableCoroutine { cont ->
         val server = HttpServer.create(InetSocketAddress("127.0.0.1", 0), 0)
         val port = server.address.port
-        var config: OAuthConfig? = null
+        val config = AtomicReference<OAuthConfig?>(null)
 
         server.createContext("/") { exchange ->
             val query = exchange.requestURI.query ?: ""
@@ -86,6 +82,7 @@ class DesktopOAuthFlow(
 
             val code = params["code"]
             val error = params["error"]
+            val returnedState = params["state"]
 
             val responseBody = when {
                 code != null -> """
@@ -98,20 +95,27 @@ class DesktopOAuthFlow(
                 else -> """
                     <html><body>
                     <h2>Sign in failed</h2>
-                    <p>${error ?: "Unknown error"}</p>
+                    <p>${(error ?: "Unknown error").htmlEscape()}</p>
                     </body></html>
                 """.trimIndent()
             }
 
             exchange.responseHeaders.add("Content-Type", "text/html")
-            exchange.sendResponseHeaders(200, responseBody.length.toLong())
-            exchange.responseBody.use { it.write(responseBody.toByteArray()) }
+            val responseBytes = responseBody.toByteArray()
+            exchange.sendResponseHeaders(200, responseBytes.size.toLong())
+            exchange.responseBody.use { it.write(responseBytes) }
 
             server.stop(1)
 
-            if (code != null && config != null) {
-                bringAppToForeground()
-                cont.resume(config!! to code)
+            val currentConfig = config.get()
+            if (code != null && currentConfig != null) {
+                if (returnedState != expectedState) {
+                    cont.resumeWithException(
+                        Exception("OAuth state mismatch")
+                    )
+                } else {
+                    cont.resume(currentConfig to code)
+                }
             } else {
                 cont.resumeWithException(
                     Exception(error ?: "Authorization failed")
@@ -126,6 +130,6 @@ class DesktopOAuthFlow(
             server.stop(0)
         }
 
-        config = onReady(port)
+        config.set(onReady(port))
     }
 }

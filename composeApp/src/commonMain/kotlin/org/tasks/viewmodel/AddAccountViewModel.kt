@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import org.tasks.auth.OAuthProvider
 import org.tasks.auth.SignInHandler
 import org.tasks.compose.accounts.Platform
+import kotlin.coroutines.cancellation.CancellationException
 
 class AddAccountViewModel(
     private val signInHandler: SignInHandler,
@@ -32,6 +33,8 @@ class AddAccountViewModel(
             try {
                 signInHandler.signIn(platform, provider, openUrl)
                 _signInState.value = SignInState.Idle
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 _signInState.value = SignInState.Error(e.message ?: "Sign in failed")
             }

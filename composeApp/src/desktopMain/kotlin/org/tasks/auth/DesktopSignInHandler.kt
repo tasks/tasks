@@ -35,5 +35,15 @@ class DesktopSignInHandler(
         )
         Logger.i("DesktopSignInHandler") { "Account created successfully" }
         syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
+        bringAppToForeground()
+    }
+
+    private fun bringAppToForeground() {
+        java.awt.EventQueue.invokeLater {
+            java.awt.Frame.getFrames().forEach { frame ->
+                frame.toFront()
+                frame.requestFocus()
+            }
+        }
     }
 }

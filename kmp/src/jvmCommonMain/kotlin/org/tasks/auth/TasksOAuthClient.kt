@@ -7,6 +7,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.net.URLEncoder
 
 data class OAuthConfig(
     val authorizationEndpoint: String,
@@ -14,6 +15,7 @@ data class OAuthConfig(
     val clientId: String,
     val redirectUri: String,
     val scope: String,
+    val state: String = "",
 )
 
 data class OAuthResult(
@@ -28,18 +30,23 @@ class TasksOAuthClient(
         val request = Request.Builder().url(discoveryUrl).build()
         val response = httpClient.newCall(request).execute()
         val body = response.body?.string() ?: throw Exception("Empty discovery response")
+        if (!response.isSuccessful) {
+            throw Exception("Discovery request failed: ${response.code} $body")
+        }
         return Json.parseToJsonElement(body) as JsonObject
     }
 
-    fun buildAuthUrl(config: OAuthConfig, codeVerifier: String, codeChallenge: String): String {
+    fun buildAuthUrl(config: OAuthConfig, codeChallenge: String, state: String): String {
+        fun encode(value: String) = URLEncoder.encode(value, "UTF-8")
         return "${config.authorizationEndpoint}?" +
-            "client_id=${config.clientId}" +
-            "&redirect_uri=${config.redirectUri}" +
+            "client_id=${encode(config.clientId)}" +
+            "&redirect_uri=${encode(config.redirectUri)}" +
             "&response_type=code" +
-            "&scope=${config.scope}" +
-            "&code_challenge=$codeChallenge" +
+            "&scope=${encode(config.scope)}" +
+            "&code_challenge=${encode(codeChallenge)}" +
             "&code_challenge_method=S256" +
-            "&prompt=select_account"
+            "&prompt=select_account" +
+            "&state=${encode(state)}"
     }
 
     fun exchangeCode(
@@ -63,7 +70,7 @@ class TasksOAuthClient(
 
         val response = httpClient.newCall(request).execute()
         val body = response.body?.string() ?: throw Exception("Empty token response")
-        Logger.d("TasksOAuthClient") { "Token response: $body" }
+        Logger.v("TasksOAuthClient") { "Token response: $body" }
 
         if (!response.isSuccessful) {
             throw Exception("Token exchange failed: ${response.code} $body")

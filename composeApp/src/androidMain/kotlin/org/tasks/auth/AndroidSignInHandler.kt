@@ -3,6 +3,7 @@ package org.tasks.auth
 import android.content.Context
 import android.content.Intent
 import co.touchlab.kermit.Logger
+import org.tasks.extensions.htmlEscape
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
@@ -57,8 +58,9 @@ class AndroidSignInHandler(
 
         val codeVerifier = PKCE.generateVerifier()
         val codeChallenge = PKCE.generateChallenge(codeVerifier)
+        val state = PKCE.generateVerifier()
 
-        val (config, code) = listenForCallback { port ->
+        val (config, code) = listenForCallback(state) { port ->
             val redirectUri = "http://127.0.0.1:$port"
             val config = OAuthConfig(
                 authorizationEndpoint = authEndpoint,
@@ -66,8 +68,9 @@ class AndroidSignInHandler(
                 clientId = clientId,
                 redirectUri = redirectUri,
                 scope = oauthProvider.scope,
+                state = state,
             )
-            val authUrl = oauthClient.buildAuthUrl(config, codeVerifier, codeChallenge)
+            val authUrl = oauthClient.buildAuthUrl(config, codeChallenge, state)
             Logger.d(TAG) { "Opening browser: $authUrl" }
             openUrl(authUrl)
             config
@@ -98,9 +101,11 @@ class AndroidSignInHandler(
     }
 
     private suspend fun listenForCallback(
-        onReady: (port: Int) -> OAuthConfig
+        expectedState: String,
+        onReady: (port: Int) -> OAuthConfig,
     ): Pair<OAuthConfig, String> = suspendCancellableCoroutine { cont ->
         val serverSocket = ServerSocket(0, 1, InetAddress.getByName("127.0.0.1"))
+        serverSocket.soTimeout = 300_000 // 5 minute timeout
         val port = serverSocket.localPort
 
         cont.invokeOnCancellation {
@@ -125,6 +130,7 @@ class AndroidSignInHandler(
 
             val code = params["code"]
             val error = params["error"]
+            val returnedState = params["state"]
 
             val responseBody = if (code != null) {
                 "<html><body>" +
@@ -135,7 +141,7 @@ class AndroidSignInHandler(
             } else {
                 "<html><body>" +
                         "<h2>Sign in failed</h2>" +
-                        "<p>${error ?: "Unknown error"}</p>" +
+                        "<p>${(error ?: "Unknown error").htmlEscape()}</p>" +
                         "</body></html>"
             }
 
@@ -149,7 +155,11 @@ class AndroidSignInHandler(
             socket.getOutputStream().flush()
 
             if (code != null) {
-                cont.resume(config to code)
+                if (returnedState != expectedState) {
+                    cont.resumeWithException(Exception("OAuth state mismatch"))
+                } else {
+                    cont.resume(config to code)
+                }
             } else {
                 cont.resumeWithException(Exception(error ?: "Authorization failed"))
             }

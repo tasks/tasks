@@ -39,7 +39,7 @@ actual fun platformModule(): Module = module {
     factory<OkHttpClientFactory> {
         AndroidOkHttpClientFactory(
             context = androidContext(),
-            userAgent = "org.tasks/0.0.1 (okhttp3) Android/${android.os.Build.VERSION.RELEASE}",
+            userAgent = "${org.tasks.BuildConfig.APPLICATION_ID}/${org.tasks.BuildConfig.VERSION_NAME} (okhttp3) Android/${android.os.Build.VERSION.RELEASE}",
         )
     }
     factory { FileStorage(androidContext().filesDir.absolutePath) }
