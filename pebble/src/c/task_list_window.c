@@ -49,6 +49,9 @@ static uint32_t s_received_chunk_mask = 0;
 static uint8_t s_request_txn = 0;
 static int s_page_base = 0;
 static AppTimer *s_chunk_timer = NULL;
+static bool s_connection_error = false;
+static AppTimer *s_retry_timer = NULL;
+static bool s_got_response = false;
 
 // Tracks whether current request is paging down (appending) or up (prepending)
 static bool s_paging_up = false;
@@ -75,6 +78,8 @@ static void page_complete(void);
 static void chunk_timeout_handler(void *data);
 static void on_filter_selected(const char *filter_id, const char *filter_name, uint32_t color, uint32_t text_color);
 static void retry_refresh_handler(void *data);
+static void show_connection_error(void);
+static void retry_connection_handler(void *data);
 
 #ifdef PBL_MICROPHONE
 static DictationSession *s_dictation_session;
@@ -603,6 +608,8 @@ static void window_load(Window *window) {
     s_total_items = 0;
     s_first_load = true;
     s_paging_up = false;
+    s_connection_error = false;
+    s_got_response = false;
 #ifdef SCREENSHOT_MODE
     load_screenshot_data();
 #else
@@ -611,6 +618,10 @@ static void window_load(Window *window) {
 }
 
 static void window_unload(Window *window) {
+    if (s_retry_timer) {
+        app_timer_cancel(s_retry_timer);
+        s_retry_timer = NULL;
+    }
     if (s_chunk_timer) {
         app_timer_cancel(s_chunk_timer);
         s_chunk_timer = NULL;
@@ -633,17 +644,45 @@ static void window_unload(Window *window) {
 
 static void show_loading(bool show) {
     s_loading = show;
+    if (show) {
+        text_layer_set_text(s_loading_layer, "Loading...");
+    }
     layer_set_hidden(text_layer_get_layer(s_loading_layer), !show);
     layer_set_hidden(menu_layer_get_layer(s_menu_layer), show && s_num_items == 0);
+}
+
+static void show_connection_error(void) {
+    s_connection_error = true;
+    s_loading = false;
+    text_layer_set_text(s_loading_layer, "Not connected");
+    layer_set_hidden(text_layer_get_layer(s_loading_layer), false);
+    layer_set_hidden(menu_layer_get_layer(s_menu_layer), true);
+    if (s_retry_timer) {
+        app_timer_cancel(s_retry_timer);
+    }
+    s_retry_timer = app_timer_register(5000, retry_connection_handler, NULL);
+}
+
+static void retry_connection_handler(void *data) {
+    s_retry_timer = NULL;
+    s_connection_error = false;
+    request_tasks_page(0, INITIAL_PAGE_SIZE);
 }
 
 static void request_tasks_page(int position, int limit) {
     if (s_loading) return; // already loading
 
+    s_got_response = false;
     s_expected_chunks = 0;
     s_received_chunk_mask = 0;
     s_page_position = position;
     s_loading = true;
+
+    if (s_retry_timer) {
+        app_timer_cancel(s_retry_timer);
+        s_retry_timer = NULL;
+    }
+    s_connection_error = false;
 
     if (s_chunk_timer) {
         app_timer_cancel(s_chunk_timer);
@@ -667,11 +706,16 @@ static void request_tasks_page(int position, int limit) {
         s_request_txn = protocol_get_active_transaction_id();
         s_chunk_timer = app_timer_register(5000, chunk_timeout_handler, NULL);
     } else {
-        if (s_num_items == 0) {
-            show_loading(false);
+        if (s_first_load && s_num_items == 0) {
+            // First load send failure — let timeout show error
+            s_chunk_timer = app_timer_register(5000, chunk_timeout_handler, NULL);
+        } else {
+            if (s_num_items == 0) {
+                show_loading(false);
+            }
+            s_loading = false;
+            app_timer_register(200, retry_refresh_handler, NULL);
         }
-        s_loading = false;
-        app_timer_register(200, retry_refresh_handler, NULL);
     }
 }
 
@@ -736,6 +780,12 @@ static void page_complete(void) {
 
     // Paging or initial load completed
     s_loading = false;
+
+    if (s_first_load && s_total_items == 0 && !s_got_response) {
+        // No response received during first load — connection error
+        show_connection_error();
+        return;
+    }
 
     if (s_first_load) {
         show_loading(false);
@@ -832,6 +882,8 @@ void task_list_handle_tasks_response(DictionaryIterator *iter) {
     if (!s_loading && !s_refreshing) {
         return;
     }
+
+    s_got_response = true;
 
     Tuple *chunk_count_t = dict_find(iter, KEY_CHUNK_COUNT);
     s_expected_chunks = chunk_count_t ? (int)chunk_count_t->value->uint32 : 1;

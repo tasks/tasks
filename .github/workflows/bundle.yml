@@ -26,6 +26,7 @@ jobs:
           python-version: '3.13'
 
       - name: Cache Pebble SDK
+        id: cache-pebble
         uses: actions/cache@v4
         with:
           path: ~/.pebble-sdk
@@ -34,7 +35,9 @@ jobs:
       - name: Install Pebble SDK
         run: |
           pip install pebble-tool
-          pebble sdk install latest
+          if [ "${{ steps.cache-pebble.outputs.cache-hit }}" != "true" ]; then
+            pebble sdk install latest
+          fi
 
       - name: Install emulator dependencies
         run: |
