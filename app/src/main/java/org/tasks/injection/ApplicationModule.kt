@@ -20,6 +20,7 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseState
+import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.analytics.Reporting
 import org.tasks.fcm.FcmTokenProvider
@@ -225,6 +226,24 @@ class ApplicationModule {
 
     @Provides
     fun providesPurchaseState(inventory: Inventory): PurchaseState = inventory
+
+    @Provides
+    @Singleton
+    fun providesDrawerViewModel(
+        filterProvider: FilterProvider,
+        taskDao: TaskDao,
+        caldavDao: CaldavDao,
+        tasksPreferences: TasksPreferences,
+        purchaseState: PurchaseState,
+        composeRefreshBroadcaster: ComposeRefreshBroadcaster,
+    ) = DrawerViewModel(
+        filterProvider = filterProvider,
+        taskDao = taskDao,
+        caldavDao = caldavDao,
+        tasksPreferences = tasksPreferences,
+        purchaseState = purchaseState,
+        refreshFlow = composeRefreshBroadcaster.refreshes,
+    )
 
     @Provides
     fun providesCaldavClientProvider(

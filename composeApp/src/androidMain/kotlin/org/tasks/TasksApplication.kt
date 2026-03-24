@@ -31,6 +31,7 @@ class TasksApplication : Application() {
             }
         }
         Logger.setLogWriters(logcat, FileLogWriter(logDir))
+        org.tasks.caldav.CaldavSynchronizer.registerFactories()
         startKoin {
             androidContext(this@TasksApplication)
             modules(commonModule, platformModule())

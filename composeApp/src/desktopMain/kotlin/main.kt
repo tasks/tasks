@@ -21,6 +21,7 @@ import java.io.File
 import java.net.URI
 
 fun main() {
+    org.tasks.caldav.CaldavSynchronizer.registerFactories()
     val logDir = File(System.getProperty("user.home"), ".tasks.org/logs").apply { mkdirs() }
     Logger.setLogWriters(
         buildList {

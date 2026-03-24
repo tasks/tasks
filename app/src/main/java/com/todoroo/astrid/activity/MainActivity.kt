@@ -443,10 +443,6 @@ class MainActivity : AppCompatActivity() {
                         val state = viewModel.state.collectAsStateWithLifecycle().value
                         val drawerState = rememberDrawerState(
                             initialValue = DrawerValue.Closed,
-                            confirmStateChange = {
-                                viewModel.setDrawerState(it == DrawerValue.Open)
-                                true
-                            }
                         )
                         val navigator = rememberListDetailPaneScaffoldNavigator(
                             calculatePaneScaffoldDirectiveWithTwoPanesOnMediumWidth(

@@ -20,14 +20,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -67,42 +68,55 @@ import org.tasks.kmp.formatNumber
 import androidx.compose.foundation.isSystemInDarkTheme
 import org.tasks.themes.ColorTone
 import org.tasks.themes.tonalColor
-import org.tasks.kmp.org.tasks.compose.rememberImeState
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.search
 
 @Composable
 fun TaskListDrawer(
-    arrangement: Arrangement.Vertical,
-    filters: ImmutableList<DrawerItem>,
+    drawerOpen: Boolean,
+    drawerState: org.tasks.viewmodel.DrawerViewModel.State,
+    onQueryChange: (String) -> Unit,
     onClick: (DrawerItem) -> Unit,
     onAddClick: (DrawerItem.Header) -> Unit,
     onErrorClick: () -> Unit,
-    query: String,
-    onQueryChange: (String) -> Unit,
-    searchExpanded: Boolean,
-    onSearchExpandedChange: (Boolean) -> Unit,
 ) {
+    var searchExpanded by remember { mutableStateOf(false) }
+    var query by remember { mutableStateOf("") }
+
+    LaunchedEffect(drawerOpen) {
+        if (!drawerOpen) {
+            searchExpanded = false
+            query = ""
+            onQueryChange("")
+        }
+    }
+
+    val arrangement = if (searchExpanded && query.isNotBlank()) {
+        Arrangement.Bottom
+    } else {
+        Arrangement.Top
+    }
+    val displayedFilters = if (query.isNotBlank()) drawerState.searchItems else drawerState.drawerItems
     val systemBarPadding = WindowInsets.systemBars.asPaddingValues()
-    val keyboardOpen = rememberImeState().value
-    val bottomInset = if (keyboardOpen) 0.dp else systemBarPadding.calculateBottomPadding()
+    val bottomNavPadding = systemBarPadding.calculateBottomPadding()
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .consumeWindowInsets(PaddingValues(bottom = bottomNavPadding))
             .imePadding(),
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(
-                top = systemBarPadding.calculateTopPadding(),
-                bottom = 88.dp + bottomInset,
+                top = maxOf(systemBarPadding.calculateTopPadding(), 8.dp),
+                bottom = 88.dp + bottomNavPadding,
             ),
             verticalArrangement = arrangement,
         ) {
-            itemsIndexed(items = filters, key = { _, it -> it.key() }) { index, item ->
+            itemsIndexed(items = displayedFilters, key = { _, it -> it.key() }) { index, item ->
                 val isFirst = index == 0 || item is DrawerItem.Header
-                val isLast = index == filters.lastIndex ||
-                        filters[index + 1] is DrawerItem.Header
+                val isLast = index == displayedFilters.lastIndex ||
+                        displayedFilters[index + 1] is DrawerItem.Header
                 val cornerRadius = 16.dp
                 val shape = when {
                     isFirst && isLast -> RoundedCornerShape(cornerRadius)
@@ -138,14 +152,15 @@ fun TaskListDrawer(
         }
         SearchFab(
             expanded = searchExpanded,
-            onExpandedChange = onSearchExpandedChange,
+            onExpandedChange = { searchExpanded = it },
             query = query,
-            onQueryChange = onQueryChange,
+            onQueryChange = { newQuery ->
+                query = newQuery
+                onQueryChange(newQuery)
+            },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(
-                    bottom = 16.dp + bottomInset,
-                ),
+                .padding(bottom = 16.dp + bottomNavPadding),
         )
     }
 }

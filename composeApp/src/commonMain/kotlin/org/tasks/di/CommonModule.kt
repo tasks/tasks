@@ -35,8 +35,10 @@ import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskDeleter
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
+import org.tasks.filters.FilterProvider
 import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
+import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.TaskListViewModel
 
 val commonModule = module {
@@ -103,6 +105,9 @@ val commonModule = module {
         }
     }
     factory<TaskCleanup> { object : TaskCleanup {} }
+    factory<org.tasks.compose.drawer.DrawerConfiguration> {
+        object : org.tasks.compose.drawer.DrawerConfiguration {}
+    }
     factory<org.tasks.billing.PurchaseState> {
         object : org.tasks.billing.PurchaseState {
             override val hasPro = true // Tasks.org cloud users have pro
@@ -156,10 +161,21 @@ val commonModule = module {
     factoryOf(::TaskSaver)
     factoryOf(::iCalendar)
     factoryOf(::CaldavSynchronizer)
+    factory { FilterProvider(get(), get(), get(), get(), get(), get(), get()) }
 
     // ViewModels
     viewModelOf(::AppViewModel)
     viewModelOf(::AddAccountViewModel)
+    viewModel {
+        DrawerViewModel(
+            filterProvider = get(),
+            taskDao = get(),
+            caldavDao = get(),
+            tasksPreferences = get(),
+            purchaseState = get(),
+            refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
+        )
+    }
     viewModel {
         TaskListViewModel(
             taskDao = get(),

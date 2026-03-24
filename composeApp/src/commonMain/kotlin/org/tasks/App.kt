@@ -21,7 +21,12 @@ import androidx.compose.material.icons.outlined.SwapVert
 import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingToolbarDefaults
 import androidx.compose.material3.HorizontalFloatingToolbar
@@ -63,7 +68,10 @@ import kotlinx.serialization.modules.subclass
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.auth.OAuthProvider
+import org.tasks.compose.drawer.DrawerItem
+import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.SignInProvider
 import org.tasks.compose.SignInProviderDialog
 import org.tasks.compose.WelcomeScreenLayout
@@ -76,6 +84,7 @@ import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
+import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.TaskListViewModel
 
 @Serializable
@@ -231,10 +240,14 @@ fun App(
                     }
                     entry<TaskListDestination> {
                         val taskListViewModel = koinViewModel<TaskListViewModel>()
+                        val drawerViewModel = koinViewModel<DrawerViewModel>()
                         LaunchedEffect(Unit) {
                             taskListViewModel.setFilter(MyTasksFilter.create())
                         }
-                        TaskListScreen(viewModel = taskListViewModel)
+                        TaskListScreen(
+                            viewModel = taskListViewModel,
+                            drawerViewModel = drawerViewModel,
+                        )
                     }
                 },
             )
@@ -244,14 +257,55 @@ fun App(
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class, ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun TaskListScreen(viewModel: TaskListViewModel) {
+private fun TaskListScreen(
+    viewModel: TaskListViewModel,
+    drawerViewModel: DrawerViewModel,
+) {
     val state by viewModel.state.collectAsState()
+    val drawerState by drawerViewModel.state.collectAsState()
+    val materialDrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val navigator = rememberListDetailPaneScaffoldNavigator<Long>()
     val scope = androidx.compose.runtime.rememberCoroutineScope()
     val listState = androidx.compose.foundation.lazy.rememberLazyListState()
     val scrollBehavior = FloatingToolbarDefaults.exitAlwaysScrollBehavior(
         exitDirection = androidx.compose.material3.FloatingToolbarExitDirection.Bottom,
     )
+    LaunchedEffect(state.filter) {
+        drawerViewModel.setSelectedFilter(state.filter)
+    }
+
+    PlatformBackHandler(enabled = materialDrawerState.isOpen) {
+        scope.launch { materialDrawerState.close() }
+    }
+
+    ModalNavigationDrawer(
+        drawerState = materialDrawerState,
+        drawerContent = {
+            ModalDrawerSheet(
+                windowInsets = WindowInsets(0),
+            ) {
+                TaskListDrawer(
+                    drawerOpen = materialDrawerState.isOpen,
+                    drawerState = drawerState,
+                    onQueryChange = { drawerViewModel.setMenuQuery(it) },
+                    onClick = { item ->
+                        when (item) {
+                            is DrawerItem.Filter -> {
+                                viewModel.setFilter(item.filter)
+                                drawerViewModel.setSelectedFilter(item.filter)
+                                scope.launch { materialDrawerState.close() }
+                            }
+                            is DrawerItem.Header -> {
+                                drawerViewModel.toggleCollapsed(item.header)
+                            }
+                        }
+                    },
+                    onAddClick = { /* TODO: add new list/tag/place */ },
+                    onErrorClick = { /* TODO: show sync error */ },
+                )
+            }
+        },
+    ) {
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior),
@@ -305,7 +359,15 @@ private fun TaskListScreen(viewModel: TaskListViewModel) {
         )
 
             FloatingToolbar(
-                onMenuClick = { /* TODO: open drawer */ },
+                onMenuClick = {
+                    scope.launch {
+                        if (materialDrawerState.isOpen) {
+                            materialDrawerState.close()
+                        } else {
+                            materialDrawerState.open()
+                        }
+                    }
+                },
                 onSearchClick = { /* TODO: search */ },
                 onSortClick = { /* TODO: sort */ },
                 onMoreClick = { /* TODO: more options */ },
@@ -317,6 +379,7 @@ private fun TaskListScreen(viewModel: TaskListViewModel) {
             )
         }
     }
+    } // ModalNavigationDrawer
 }
 
 @Composable
