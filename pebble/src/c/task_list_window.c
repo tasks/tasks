@@ -546,8 +546,18 @@ static void load_screenshot_data(void) {
 
     show_loading(false);
     menu_layer_reload_data(s_menu_layer);
+    // On small round displays (chalk 180px), select the first data row
+    // to keep the filter bar visible within the circular clipping area.
+    // Larger round displays (gabbro) have enough room with row+1.
+    int sel_offset = 1;
+#ifdef PBL_ROUND
+    {
+        GRect mb = layer_get_bounds(menu_layer_get_layer(s_menu_layer));
+        if (mb.size.h <= 180) sel_offset = 0;
+    }
+#endif
     menu_layer_set_selected_index(s_menu_layer,
-        (MenuIndex){0, (uint16_t)(TASK_ROW_OFFSET + 1)},
+        (MenuIndex){0, (uint16_t)(TASK_ROW_OFFSET + sel_offset)},
         MenuRowAlignNone, false);
 }
 #endif
