@@ -11,6 +11,8 @@ import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
+import org.tasks.http.AndroidOkHttpClientFactory
+import org.tasks.http.OkHttpClientFactory
 import org.tasks.data.db.Database
 import org.tasks.kmp.createDataStore
 import org.tasks.preferences.TasksPreferences
@@ -33,6 +35,12 @@ actual fun platformModule(): Module = module {
     single {
         val context = androidContext()
         TasksPreferences(createDataStore(context))
+    }
+    factory<OkHttpClientFactory> {
+        AndroidOkHttpClientFactory(
+            context = androidContext(),
+            userAgent = "org.tasks/0.0.1 (okhttp3) Android/${android.os.Build.VERSION.RELEASE}",
+        )
     }
     factory { FileStorage(androidContext().filesDir.absolutePath) }
     factoryOf(::VtodoCache)

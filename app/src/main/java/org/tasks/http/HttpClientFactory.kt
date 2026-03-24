@@ -1,9 +1,6 @@
 package org.tasks.http
 
 import android.content.Context
-import at.bitfire.cert4android.CustomCertManager
-import at.bitfire.cert4android.CustomCertStore
-import at.bitfire.cert4android.SettingsProvider
 import at.bitfire.dav4jvm.okhttp.BasicDigestAuthHandler
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.HttpClient
@@ -22,9 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
-import okhttp3.internal.tls.OkHostnameVerifier
 import org.tasks.BuildConfig
-import org.tasks.caldav.TasksCookieJar
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.extensions.Context.cookiePersistor
 import org.tasks.security.KeyStoreEncryption
@@ -32,12 +27,14 @@ import org.tasks.sync.microsoft.MicrosoftService
 import org.tasks.sync.microsoft.MicrosoftTokenProvider
 import timber.log.Timber
 import javax.inject.Inject
-import javax.net.ssl.SSLContext
 
 class HttpClientFactory @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @ApplicationContext context: Context,
     private val encryption: KeyStoreEncryption,
     private val microsoftTokenProvider: MicrosoftTokenProvider,
+) : AndroidOkHttpClientFactory(
+    context = context,
+    userAgent = "${BuildConfig.APPLICATION_ID}/${BuildConfig.VERSION_NAME} (okhttp3) Android/${android.os.Build.VERSION.RELEASE}",
 ) {
     suspend fun newClient(foreground: Boolean) = newClient(
         foreground = foreground,
@@ -58,37 +55,6 @@ class HttpClientFactory @Inject constructor(
                 builder.authenticator(auth)
             }
         }
-    }
-
-    suspend fun newClient(
-        foreground: Boolean = false,
-        cookieKey: String? = null,
-        block: (OkHttpClient.Builder) -> Unit = {}
-    ): OkHttpClient {
-        val customCertManager = withContext(Dispatchers.Default) {
-            CustomCertManager(
-                certStore = CustomCertStore.getInstance(context),
-                settings = object : SettingsProvider {
-                    override val appInForeground = foreground
-                    override val trustSystemCerts = true
-                }
-            )
-        }
-        val hostnameVerifier = customCertManager.HostnameVerifier(OkHostnameVerifier)
-        val sslContext = SSLContext.getInstance("TLS")
-        sslContext.init(null, arrayOf(customCertManager), null)
-        val builder = OkHttpClient()
-            .newBuilder()
-            .followRedirects(false)
-            .followSslRedirects(true)
-            .sslSocketFactory(sslContext.socketFactory, customCertManager)
-            .hostnameVerifier(hostnameVerifier)
-            .addInterceptor(UserAgentInterceptor)
-            .cookieJar(TasksCookieJar(persistor = context.cookiePersistor(cookieKey)))
-
-        block(builder)
-
-        return builder.build()
     }
 
     suspend fun getMicrosoftService(account: CaldavAccount): MicrosoftService = withContext(Dispatchers.IO) {

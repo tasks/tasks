@@ -6,11 +6,14 @@ import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
+import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.tasks.PlatformConfiguration
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
 import org.tasks.auth.DesktopOAuthFlow
+import org.tasks.http.DefaultOkHttpClientFactory
+import org.tasks.http.OkHttpClientFactory
 import org.tasks.auth.DesktopSignInHandler
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksServerEnvironment
@@ -25,6 +28,7 @@ import java.io.File
 actual fun platformModule(): Module = module {
     singleOf(::TasksServerEnvironment)
     single { PlatformConfiguration() }
+    factory<OkHttpClientFactory> { DefaultOkHttpClientFactory() }
     factory { DesktopOAuthFlow(serverEnvironment = get()) }
     factoryOf(::DesktopSignInHandler) bind SignInHandler::class
     single {

@@ -29,6 +29,8 @@ kotlin {
             dependsOn(jvmCommonMain)
             dependencies {
                 implementation(libs.androidx.ui.tooling.preview.android)
+                implementation(libs.bitfire.cert4android)
+                implementation(libs.persistent.cookiejar)
             }
         }
         jvmMain {

@@ -28,7 +28,9 @@ import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavClientProvider
-import org.tasks.caldav.CaldavClientProviderImpl
+import org.tasks.caldav.TasksBasicAuth
+import org.tasks.http.HttpClientFactory
+import org.tasks.http.OkHttpClientFactory
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.VtodoCache
@@ -216,7 +218,25 @@ class ApplicationModule {
         localBroadcastManager
 
     @Provides
-    fun providesCaldavClientProvider(impl: CaldavClientProviderImpl): CaldavClientProvider = impl
+    fun providesCaldavClientProvider(
+        encryption: KeyStoreEncryption,
+        tasksPreferences: TasksPreferences,
+        environment: TasksServerEnvironment,
+        httpClientFactory: HttpClientFactory,
+        tokenProvider: FcmTokenProvider,
+        inventory: Inventory,
+    ): CaldavClientProvider = CaldavClientProvider(
+        encryption = encryption,
+        tasksPreferences = tasksPreferences,
+        environment = environment,
+        httpClientFactory = httpClientFactory,
+        tokenProvider = tokenProvider,
+        subscriptionProvider = {
+            inventory.subscription.value?.let {
+                TasksBasicAuth.SubscriptionInfo(it.sku, it.purchaseToken)
+            }
+        },
+    )
 
     @Provides
     @Singleton

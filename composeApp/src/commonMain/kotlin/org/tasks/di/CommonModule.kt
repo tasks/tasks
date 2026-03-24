@@ -14,7 +14,6 @@ import org.tasks.analytics.Reporting
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.CaldavSynchronizer
-import org.tasks.caldav.SimpleCaldavClientProvider
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.iCalendar
 import org.tasks.data.TaskSaver
@@ -133,10 +132,11 @@ val commonModule = module {
 
     // Stateless factories
     factory<CaldavClientProvider> {
-        SimpleCaldavClientProvider(
+        CaldavClientProvider(
             encryption = get(),
             tasksPreferences = get(),
             environment = get(),
+            httpClientFactory = get(),
             tokenProvider = getOrNull(),
         )
     }
