@@ -25,7 +25,7 @@ class Inventory @Inject constructor(
         private val signatureVerifier: SignatureVerifier,
         private val localBroadcastManager: LocalBroadcastManager,
         private val caldavDao: CaldavDao
-) {
+) : PurchaseState {
     val purchases: MutableMap<String, Purchase> = HashMap()
     val subscription = MutableLiveData<Purchase?>()
 
@@ -61,10 +61,10 @@ class Inventory @Inject constructor(
     val begForMoney: Boolean
         get() = if (IS_GENERIC) !hasTasksAccount else !hasPro
 
-    fun purchasedThemes() = hasPro || purchases.containsKey(SKU_THEMES)
+    override fun purchasedThemes() = hasPro || purchases.containsKey(SKU_THEMES)
 
     @Suppress("SimplifyBooleanWithConstants")
-    var hasPro = false
+    override var hasPro = false
         get() {
             @Suppress("KotlinConstantConditions")
             return IS_GENERIC

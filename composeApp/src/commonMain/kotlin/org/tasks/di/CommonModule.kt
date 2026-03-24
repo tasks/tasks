@@ -103,6 +103,11 @@ val commonModule = module {
         }
     }
     factory<TaskCleanup> { object : TaskCleanup {} }
+    factory<org.tasks.billing.PurchaseState> {
+        object : org.tasks.billing.PurchaseState {
+            override val hasPro = true // Tasks.org cloud users have pro
+        }
+    }
 
     // Stateful singletons
     single<BackgroundWork> {

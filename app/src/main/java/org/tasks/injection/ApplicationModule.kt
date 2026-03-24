@@ -19,6 +19,7 @@ import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
+import org.tasks.billing.PurchaseState
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.analytics.Reporting
 import org.tasks.fcm.FcmTokenProvider
@@ -221,6 +222,9 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun providesComposeRefreshBroadcaster() = ComposeRefreshBroadcaster()
+
+    @Provides
+    fun providesPurchaseState(inventory: Inventory): PurchaseState = inventory
 
     @Provides
     fun providesCaldavClientProvider(
