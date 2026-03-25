@@ -7,15 +7,19 @@ abstract class Criterion(val operator: Operator) {
     override fun toString() = "(${populate()})"
 
     companion object {
+        val all: Criterion = object : Criterion(Operator.and) {
+            override fun populate() = "1"
+        }
+
         fun and(criterion: Criterion?, vararg criterions: Criterion?): Criterion {
             return object : Criterion(Operator.and) {
-                override fun populate() = criterion.plus(criterions).joinToString(" AND ")
+                override fun populate() = criterion.plus(criterions).filterNotNull().joinToString(" AND ")
             }
         }
 
-        fun or(criterion: Criterion?, vararg criterions: Criterion): Criterion {
+        fun or(criterion: Criterion?, vararg criterions: Criterion?): Criterion {
             return object : Criterion(Operator.or) {
-                override fun populate() = criterion.plus(criterions).joinToString(" OR ")
+                override fun populate() = criterion.plus(criterions).filterNotNull().joinToString(" OR ")
             }
         }
 

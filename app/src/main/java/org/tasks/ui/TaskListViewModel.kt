@@ -165,8 +165,9 @@ class TaskListViewModel @Inject constructor(
             .map {
                 val filter = when {
                     it.searchQuery == null -> it.filter
-                    it.searchQuery.isBlank() -> MyTasksFilter.create()
-                    else -> applicationContext.createSearchQuery(it.searchQuery)
+                    else -> applicationContext.createSearchQuery(it.searchQuery,
+                        preferences.isSearchCurrentListOnly,
+                        it.filter.listId)
                 }
                 val prefs = if (preferences.isPerListSortEnabled) {
                     FilterPreferences(preferences, tasksPreferences, filter.key())
@@ -320,7 +321,8 @@ class TaskListViewModel @Inject constructor(
         (!inventory.hasPro && needsPro) || (isTasksOrg && isPaymentRequired())
 
     companion object {
-        fun Context.createSearchQuery(query: String): Filter =
-            SearchFilter(getString(R.string.FLA_search_filter, query), query)
+        fun Context.createSearchQuery(query: String, showCurrentListOnly: Boolean=false, listId: String? = null): Filter =
+            SearchFilter(getString(R.string.FLA_search_filter, query), query,
+                showCurrentListOnly, listId)
     }
 }
