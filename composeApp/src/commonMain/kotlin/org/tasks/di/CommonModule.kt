@@ -79,6 +79,8 @@ val commonModule = module {
     factory<Reporting> {
         object : Reporting {
             override fun logEvent(event: String, vararg params: Pair<String, Any>) {}
+            override fun addTask(source: String) {}
+            override fun completeTask(source: String) {}
             override fun reportException(t: Throwable) {}
         }
     }

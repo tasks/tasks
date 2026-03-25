@@ -21,15 +21,23 @@ import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SwapVert
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
+import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.rememberDrawerState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingToolbarDefaults
 import androidx.compose.material3.HorizontalFloatingToolbar
@@ -37,11 +45,11 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
@@ -54,9 +62,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.takeOrElse
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation3.runtime.NavKey
@@ -80,6 +94,8 @@ import org.tasks.compose.SignInProviderDialog
 import org.tasks.compose.WelcomeScreenLayout
 import org.tasks.compose.accounts.AddAccountScreen
 import org.tasks.compose.accounts.Platform
+import org.tasks.kmp.org.tasks.themes.ColorProvider
+import org.tasks.themes.BLUE
 import org.tasks.themes.TasksTheme
 import org.tasks.data.TaskContainer
 import org.tasks.filters.MyTasksFilter
@@ -270,11 +286,49 @@ private fun TaskListScreen(
     val navigator = rememberListDetailPaneScaffoldNavigator<Long>()
     val scope = androidx.compose.runtime.rememberCoroutineScope()
     val listState = androidx.compose.foundation.lazy.rememberLazyListState()
-    val scrollBehavior = FloatingToolbarDefaults.exitAlwaysScrollBehavior(
+    val floatingToolbarScrollBehavior = FloatingToolbarDefaults.exitAlwaysScrollBehavior(
         exitDirection = androidx.compose.material3.FloatingToolbarExitDirection.Bottom,
     )
+    val density = androidx.compose.ui.platform.LocalDensity.current
+    var topBarHeight by remember { mutableStateOf(0.dp) }
+    var topBarHeightPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
+    var topBarOffsetPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
+    val topBarScrollConnection = remember {
+        object : androidx.compose.ui.input.nestedscroll.NestedScrollConnection {
+            override fun onPreScroll(
+                available: androidx.compose.ui.geometry.Offset,
+                source: androidx.compose.ui.input.nestedscroll.NestedScrollSource,
+            ): androidx.compose.ui.geometry.Offset {
+                if (available.y > 0f) {
+                    topBarOffsetPx = (topBarOffsetPx + available.y).coerceIn(-topBarHeightPx, 0f)
+                }
+                return androidx.compose.ui.geometry.Offset.Zero
+            }
+
+            override fun onPostScroll(
+                consumed: androidx.compose.ui.geometry.Offset,
+                available: androidx.compose.ui.geometry.Offset,
+                source: androidx.compose.ui.input.nestedscroll.NestedScrollSource,
+            ): androidx.compose.ui.geometry.Offset {
+                if (consumed.y < 0f) {
+                    topBarOffsetPx = (topBarOffsetPx + consumed.y).coerceIn(-topBarHeightPx, 0f)
+                }
+                return androidx.compose.ui.geometry.Offset.Zero
+            }
+        }
+    }
     LaunchedEffect(state.filter) {
         drawerViewModel.setSelectedFilter(state.filter)
+    }
+
+    // TODO: use user's theme color preference instead of BLUE
+    val filterTint = state.filter.tint
+    val isDark = isSystemInDarkTheme()
+    val themeColor = remember(filterTint, isDark) {
+        ColorProvider.themeColor(
+            seedColor = if (filterTint != 0) filterTint else BLUE,
+            isDark = isDark,
+        )
     }
 
     PlatformBackHandler(enabled = materialDrawerState.isOpen) {
@@ -287,45 +341,53 @@ private fun TaskListScreen(
             ModalDrawerSheet(
                 windowInsets = WindowInsets(0),
             ) {
-                TaskListDrawer(
-                    drawerOpen = materialDrawerState.isOpen,
-                    drawerState = drawerState,
-                    onQueryChange = { drawerViewModel.setMenuQuery(it) },
-                    onClick = { item ->
-                        when (item) {
-                            is DrawerItem.Filter -> {
-                                viewModel.setFilter(item.filter)
-                                drawerViewModel.setSelectedFilter(item.filter)
-                                scope.launch { materialDrawerState.close() }
+                Box(modifier = Modifier.fillMaxSize()) {
+                    TaskListDrawer(
+                        drawerOpen = materialDrawerState.isOpen,
+                        drawerState = drawerState,
+                        onQueryChange = { drawerViewModel.setMenuQuery(it) },
+                        onClick = { item ->
+                            when (item) {
+                                is DrawerItem.Filter -> {
+                                    viewModel.setFilter(item.filter)
+                                    drawerViewModel.setSelectedFilter(item.filter)
+                                    scope.launch { materialDrawerState.close() }
+                                }
+                                is DrawerItem.Header -> {
+                                    drawerViewModel.toggleCollapsed(item.header)
+                                }
                             }
-                            is DrawerItem.Header -> {
-                                drawerViewModel.toggleCollapsed(item.header)
-                            }
-                        }
-                    },
-                    onAddClick = { /* TODO: add new list/tag/place */ },
-                    onErrorClick = { /* TODO: show sync error */ },
-                )
+                        },
+                        onAddClick = { /* TODO: add new list/tag/place */ },
+                        onErrorClick = { /* TODO: show sync error */ },
+                    )
+                    val drawerScrimColor = MaterialTheme.colorScheme.surfaceContainerLow.copy(alpha = 0.8f)
+                    Spacer(
+                        modifier = Modifier
+                            .align(Alignment.TopCenter)
+                            .fillMaxWidth()
+                            .windowInsetsTopHeight(WindowInsets.statusBars)
+                            .background(drawerScrimColor),
+                    )
+                    Spacer(
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .fillMaxWidth()
+                            .windowInsetsBottomHeight(WindowInsets.navigationBars)
+                            .background(drawerScrimColor),
+                    )
+                }
             }
         },
     ) {
 
-    Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior),
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = state.filter.title.ifEmpty { "Tasks" },
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                },
-            )
-        },
-    ) { padding ->
-        Box(modifier = Modifier.padding(padding).fillMaxSize()) {
-            ListDetailPaneScaffold(
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(topBarScrollConnection)
+            .nestedScroll(floatingToolbarScrollBehavior),
+    ) {
+        ListDetailPaneScaffold(
             directive = navigator.scaffoldDirective,
             value = navigator.scaffoldValue,
             listPane = {
@@ -342,6 +404,7 @@ private fun TaskListScreen(
                         TaskList(
                             tasks = results.tasks,
                             listState = listState,
+                            topPadding = topBarHeight,
                             onTaskClick = { task ->
                                 scope.launch {
                                     navigator.navigateTo(
@@ -364,26 +427,69 @@ private fun TaskListScreen(
             },
         )
 
-            FloatingToolbar(
-                onMenuClick = {
-                    scope.launch {
-                        if (materialDrawerState.isOpen) {
-                            materialDrawerState.close()
-                        } else {
-                            materialDrawerState.open()
-                        }
-                    }
+        TopAppBar(
+            modifier = Modifier
+                .onSizeChanged { size ->
+                    topBarHeightPx = size.height.toFloat()
+                    topBarHeight = with(density) { size.height.toDp() }
+                }
+                .graphicsLayer {
+                    translationY = topBarOffsetPx
                 },
-                onSearchClick = { /* TODO: search */ },
-                onSortClick = { /* TODO: sort */ },
-                onMoreClick = { /* TODO: more options */ },
-                onAddClick = { /* TODO: create task */ },
-                scrollBehavior = scrollBehavior,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(16.dp),
-            )
-        }
+            title = {
+                Text(
+                    text = state.filter.title.ifEmpty { "Tasks" },
+                    style = MaterialTheme.typography.headlineSmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.background,
+                scrolledContainerColor = MaterialTheme.colorScheme.background,
+                titleContentColor = Color(themeColor.primaryColor),
+            ),
+        )
+
+        // System bar scrims — 80% opacity background color
+        val scrimColor = MaterialTheme.colorScheme.background.copy(alpha = 0.8f)
+        Spacer(
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .fillMaxWidth()
+                .windowInsetsTopHeight(WindowInsets.statusBars)
+                .background(scrimColor),
+        )
+        Spacer(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .windowInsetsBottomHeight(WindowInsets.navigationBars)
+                .background(scrimColor),
+        )
+
+        FloatingToolbar(
+            onMenuClick = {
+                scope.launch {
+                    if (materialDrawerState.isOpen) {
+                        materialDrawerState.close()
+                    } else {
+                        materialDrawerState.open()
+                    }
+                }
+            },
+            onSearchClick = { /* TODO: search */ },
+            onSortClick = { /* TODO: sort */ },
+            onMoreClick = { /* TODO: more options */ },
+            onAddClick = { /* TODO: create task */ },
+            scrollBehavior = floatingToolbarScrollBehavior,
+            fabContainerColor = Color(themeColor.primaryColor),
+            fabContentColor = Color(themeColor.onPrimaryColor),
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .navigationBarsPadding()
+                .padding(16.dp),
+        )
     }
     } // ModalNavigationDrawer
 }
@@ -392,12 +498,17 @@ private fun TaskListScreen(
 private fun TaskList(
     tasks: SectionedDataSource,
     listState: androidx.compose.foundation.lazy.LazyListState = androidx.compose.foundation.lazy.rememberLazyListState(),
+    topPadding: Dp = 0.dp,
     onTaskClick: (TaskContainer) -> Unit,
     onCompleteTask: (TaskContainer, Boolean) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         state = listState,
+        contentPadding = androidx.compose.foundation.layout.PaddingValues(
+            top = topPadding,
+            bottom = 88.dp, // floating toolbar clearance
+        ),
     ) {
         items(
             count = tasks.size,
@@ -479,17 +590,27 @@ private fun FloatingToolbar(
     onMoreClick: () -> Unit,
     onAddClick: () -> Unit,
     scrollBehavior: androidx.compose.material3.FloatingToolbarScrollBehavior? = null,
+    fabContainerColor: Color = Color.Unspecified,
+    fabContentColor: Color = Color.Unspecified,
     modifier: Modifier = Modifier,
 ) {
+    val resolvedFabContainer = fabContainerColor.takeOrElse { MaterialTheme.colorScheme.primaryContainer }
+    val resolvedFabContent = fabContentColor.takeOrElse { MaterialTheme.colorScheme.onPrimaryContainer }
     HorizontalFloatingToolbar(
         expanded = true,
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onAddClick,
+                containerColor = resolvedFabContainer,
+                contentColor = resolvedFabContent,
             ) {
                 Icon(Icons.Filled.Add, contentDescription = "New task")
             }
         },
+        colors = FloatingToolbarDefaults.standardFloatingToolbarColors(
+            toolbarContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+            toolbarContentColor = MaterialTheme.colorScheme.onSurface,
+        ),
         scrollBehavior = scrollBehavior,
         modifier = modifier,
     ) {

@@ -18,6 +18,8 @@ object ColorTone {
     const val DARK_CHECKBOX = 70
     const val LIGHT_TITLE = -1
     const val DARK_TITLE = 80
+    const val LIGHT_APPBAR = 40
+    const val DARK_APPBAR = 80
 }
 
 fun tonalColor(seedColor: Int, tone: Int): Int =
