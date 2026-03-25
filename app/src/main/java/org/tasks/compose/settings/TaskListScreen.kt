@@ -34,6 +34,7 @@ fun TaskListScreen(
     showFullDescription: Boolean,
     showLinks: Boolean,
     perListSort: Boolean,
+    searchCurrentListOnly: Boolean,
     chipAppearanceSummary: String,
     subtaskChips: Boolean,
     startDateChips: Boolean,
@@ -47,6 +48,7 @@ fun TaskListScreen(
     onShowFullDescription: (Boolean) -> Unit,
     onShowLinks: (Boolean) -> Unit,
     onPerListSort: (Boolean) -> Unit,
+    onSearchCurrentListOnly: (Boolean) -> Unit,
     onChipAppearance: () -> Unit,
     onSubtaskChips: (Boolean) -> Unit,
     onStartDateChips: (Boolean) -> Unit,
@@ -139,6 +141,23 @@ fun TaskListScreen(
                     summary = stringResource(R.string.per_list_sort_summary),
                     checked = perListSort,
                     onCheckedChange = onPerListSort,
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
+
+        // Search options island
+        Column(
+            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+        ) {
+            SettingsItemCard(position = CardPosition.Only) {
+                SwitchPreferenceRow(
+                    title = stringResource(R.string.search_current_list_only_title),
+                    summary = stringResource(R.string.search_current_list_only_summary),
+                    checked = searchCurrentListOnly,
+                    onCheckedChange = onSearchCurrentListOnly,
                 )
             }
         }

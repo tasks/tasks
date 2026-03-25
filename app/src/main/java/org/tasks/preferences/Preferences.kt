@@ -495,6 +495,9 @@ class Preferences @JvmOverloads constructor(
     val isPerListSortEnabled: Boolean
         get() = getBoolean(R.string.p_per_list_sort, false)
 
+    val isSearchCurrentListOnly: Boolean
+        get() = getBoolean(R.string.p_search_current_list_only, false)
+
     override var isManualSort: Boolean
         get() = getBoolean(R.string.p_manual_sort, false)
         set(value) { setBoolean(R.string.p_manual_sort, value) }

@@ -48,6 +48,12 @@
         android:summary="@string/per_list_sort_summary"
         android:title="@string/per_list_sort_title" />
 
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/p_search_current_list_only"
+        android:summary="@string/search_current_list_only_summary"
+        android:title="@string/search_current_list_only_title" />
+
     <PreferenceCategory android:title="@string/chips">
 
         <ListPreference

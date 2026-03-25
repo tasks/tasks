@@ -29,6 +29,12 @@ abstract class Filter : FilterListItem, CommonParcelable {
         get() = false
     val isWritable: Boolean
         get() = !isReadOnly
+    val listId: String?
+        get() = when(this) {
+            is CaldavFilter -> calendar.uuid
+            is TagFilter -> tagData.remoteId
+            else -> null
+        }
 
     open fun supportsManualSort(): Boolean = false
     open fun supportsHiddenTasks(): Boolean = true
