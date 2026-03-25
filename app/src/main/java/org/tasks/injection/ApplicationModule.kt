@@ -40,6 +40,7 @@ import org.tasks.caldav.TasksBasicAuth
 import org.tasks.http.HttpClientFactory
 import org.tasks.http.OkHttpClientFactory
 import org.tasks.caldav.FileStorage
+import org.tasks.analytics.Analytics
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.VtodoCache
 import org.tasks.compose.drawer.DrawerConfiguration
@@ -68,6 +69,9 @@ import org.tasks.jobs.WorkManager
 import org.tasks.location.Geocoder
 import org.tasks.location.LocationService
 import org.tasks.notifications.Notifier
+import org.tasks.pebble.PebbleMessageHandler
+import org.tasks.pebble.PebbleRefresher
+import org.tasks.pebble.PebbleService
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
@@ -77,6 +81,7 @@ import org.tasks.security.KeyStoreEncryption
 import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskDeleter
 import org.tasks.sync.SyncAdapters
+import org.tasks.watch.WatchServiceLogic
 import java.util.Locale
 import java.util.concurrent.Executors
 import javax.inject.Singleton
@@ -97,6 +102,10 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun getReporting(firebase: Firebase): Reporting = firebase
+
+    @Provides
+    @Singleton
+    fun getAnalytics(reporting: Reporting): Analytics = reporting
 
     @Provides
     @Singleton
@@ -448,4 +457,26 @@ class ApplicationModule {
         caldavDao: CaldavDao,
         tasksPreferences: TasksPreferences,
     ) = TasksAccountDataRepository(provider, caldavDao, tasksPreferences)
+
+    @Provides
+    fun providesPebbleRefresher(
+        @ApplicationContext context: Context,
+    ) = PebbleRefresher(context)
+
+    @Provides
+    fun providesPebbleMessageHandler(
+        watchServiceLogic: WatchServiceLogic,
+        firebase: Firebase,
+    ) = PebbleMessageHandler(
+        watchService = watchServiceLogic,
+        analytics = firebase,
+    )
+
+    @Provides
+    @Singleton
+    fun providesPebbleService(
+        @ApplicationContext context: Context,
+        messageHandler: PebbleMessageHandler,
+        @ApplicationScope scope: CoroutineScope,
+    ) = PebbleService(context, messageHandler, scope)
 }

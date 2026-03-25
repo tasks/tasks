@@ -31,6 +31,7 @@ kotlin {
                 implementation(libs.androidx.ui.tooling.preview.android)
                 implementation(libs.bitfire.cert4android)
                 implementation(libs.persistent.cookiejar)
+                implementation(libs.pebblekit)
             }
         }
         jvmMain {

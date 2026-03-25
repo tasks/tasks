@@ -1,12 +1,17 @@
 package org.tasks.pebble
 
 import android.content.Context
+import co.touchlab.kermit.Logger
 import com.getpebble.android.kit.PebbleKit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.tasks.R
-import org.tasks.analytics.Firebase
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.getString
+import org.tasks.analytics.Analytics
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.event_pebble
+import tasks.kmp.generated.resources.param_device_model
 import org.tasks.pebble.PebbleProtocol.CHUNK_SIZE
 import org.tasks.pebble.PebbleProtocol.ITEM_COLLAPSED
 import org.tasks.pebble.PebbleProtocol.ITEM_COMPLETED
@@ -60,15 +65,13 @@ import org.tasks.pebble.PebbleProtocol.RESP_TOGGLE_GROUP
 import org.tasks.pebble.PebbleProtocol.TYPE_HEADER
 import org.tasks.pebble.PebbleProtocol.TYPE_TASK
 import org.tasks.watch.WatchListItem
-import org.tasks.watch.WatchServiceLogic
+import org.tasks.watch.WatchService
 import org.tasks.watch.WatchUiItem
-import timber.log.Timber
-import javax.inject.Inject
 import kotlin.math.ceil
 
-class PebbleMessageHandler @Inject constructor(
-    private val watchServiceLogic: WatchServiceLogic,
-    private val firebase: Firebase,
+class PebbleMessageHandler(
+    private val watchService: WatchService,
+    private val analytics: Analytics,
 ) {
     companion object {
         private const val CHUNK_DELAY_MS = 100L
@@ -103,11 +106,11 @@ class PebbleMessageHandler @Inject constructor(
                 // New session — clear old dedup cache
                 currentSessionId = sessionId
                 processedActions.clear()
-                Timber.d("PEBBLE new session: $sessionId")
+                Logger.d("PEBBLE") { "new session: $sessionId" }
             }
             val key = (msgType shl 8) or (protocolTxn and 0xFF)
             if (!processedActions.add(key)) {
-                Timber.d("PEBBLE ignoring replayed msg=$msgType txn=$protocolTxn session=$sessionId")
+                Logger.d("PEBBLE") { "ignoring replayed msg=$msgType txn=$protocolTxn session=$sessionId" }
                 return
             }
         }
@@ -123,10 +126,10 @@ class PebbleMessageHandler @Inject constructor(
                     MSG_GET_TASK -> handleGetTask(context, data, protocolTxn)
                     MSG_SAVE_TASK -> handleSaveTask(context, data, protocolTxn)
                     MSG_GET_TASK_COUNT -> handleGetTaskCount(context, data, protocolTxn)
-                    else -> Timber.w("Unknown Pebble message type: $msgType")
+                    else -> Logger.w("PEBBLE") { "Unknown Pebble message type: $msgType" }
                 }
             } catch (e: Exception) {
-                Timber.e(e, "Error handling Pebble message type $msgType")
+                Logger.e("PEBBLE", e) { "Error handling Pebble message type $msgType" }
             }
         }
     }
@@ -144,16 +147,16 @@ class PebbleMessageHandler @Inject constructor(
         val showHidden = (data[PebbleProtocol.KEY_SHOW_HIDDEN] as? Long)?.toInt() == 1
         val showCompleted = (data[PebbleProtocol.KEY_SHOW_COMPLETED] as? Long)?.toInt() == 1
 
-        if (VERBOSE_LOGGING) Timber.d("PEBBLE GET_TASKS: pos=$position limit=$limit filter=$filter sort=$sortMode group=$groupMode hidden=$showHidden completed=$showCompleted collapsed=$collapsedGroups txn=$transactionId")
+        if (VERBOSE_LOGGING) Logger.d("PEBBLE") { "GET_TASKS: pos=$position limit=$limit filter=$filter sort=$sortMode group=$groupMode hidden=$showHidden completed=$showCompleted collapsed=$collapsedGroups txn=$transactionId" }
 
         if (filter != lastFilter) {
             lastFilter = filter
             collapsedGroups.clear()
             collapsedGroups.add(HEADER_COMPLETED)
-            if (VERBOSE_LOGGING) Timber.d("PEBBLE filter changed, reset collapsed to $collapsedGroups")
+            if (VERBOSE_LOGGING) Logger.d("PEBBLE") { "filter changed, reset collapsed to $collapsedGroups" }
         }
 
-        val result = watchServiceLogic.getTasks(
+        val result = watchService.getTasks(
             filterPreference = filter,
             position = position,
             limit = limit,
@@ -165,11 +168,11 @@ class PebbleMessageHandler @Inject constructor(
         )
 
         if (VERBOSE_LOGGING) {
-            Timber.d("PEBBLE result: ${result.items.size} items, totalItems=${result.totalItems}")
+            Logger.d("PEBBLE") { "result: ${result.items.size} items, totalItems=${result.totalItems}" }
             result.items.forEachIndexed { i, item ->
                 when (item) {
-                    is WatchUiItem.Header -> Timber.d("PEBBLE   [$i] HEADER id=${item.id} title=${item.title} collapsed=${item.collapsed}")
-                    is WatchUiItem.Task -> Timber.d("PEBBLE   [$i] TASK id=${item.id} title=${item.title}")
+                    is WatchUiItem.Header -> Logger.d("PEBBLE") { "  [$i] HEADER id=${item.id} title=${item.title} collapsed=${item.collapsed}" }
+                    is WatchUiItem.Task -> Logger.d("PEBBLE") { "  [$i] TASK id=${item.id} title=${item.title}" }
                 }
             }
         }
@@ -177,7 +180,7 @@ class PebbleMessageHandler @Inject constructor(
         val chunkCount = ceil(result.items.size.toDouble() / CHUNK_SIZE).toInt()
             .coerceAtLeast(1)
 
-        if (VERBOSE_LOGGING) Timber.d("PEBBLE sending $chunkCount chunks")
+        if (VERBOSE_LOGGING) Logger.d("PEBBLE") { "sending $chunkCount chunks" }
 
         for (chunkIndex in 0 until chunkCount) {
             val start = chunkIndex * CHUNK_SIZE
@@ -238,7 +241,7 @@ class PebbleMessageHandler @Inject constructor(
         val taskId = PebbleProtocol.combineLong(high, low)
         val completed = (data[KEY_TASK_COMPLETED] as? Long)?.toInt() != 0
 
-        watchServiceLogic.completeTask(taskId, completed, "pebble")
+        watchService.completeTask(taskId, completed, "pebble")
 
         val dict = mapOf<Int, Any>(
             KEY_MSG_TYPE to RESP_COMPLETE_TASK,
@@ -279,7 +282,7 @@ class PebbleMessageHandler @Inject constructor(
         val position = (data[KEY_POSITION] as? Long)?.toInt() ?: 0
         val limit = (data[KEY_LIMIT] as? Long)?.toInt() ?: 0
 
-        val result = watchServiceLogic.getLists(position, limit)
+        val result = watchService.getLists(position, limit)
 
         val chunkCount = ceil(result.items.size.toDouble() / CHUNK_SIZE).toInt()
             .coerceAtLeast(1)
@@ -332,7 +335,7 @@ class PebbleMessageHandler @Inject constructor(
         val low = (data[KEY_TASK_ID_LOW] as? Long)?.toInt() ?: 0
         val taskId = PebbleProtocol.combineLong(high, low)
 
-        val task = watchServiceLogic.getTask(taskId)
+        val task = watchService.getTask(taskId)
 
         val dict = mapOf<Int, Any>(
             KEY_MSG_TYPE to RESP_TASK,
@@ -358,7 +361,7 @@ class PebbleMessageHandler @Inject constructor(
         val completed = (data[KEY_TASK_COMPLETED] as? Long)?.toInt() != 0
         val filter = data[KEY_FILTER] as? String
 
-        val resultId = watchServiceLogic.saveTask(
+        val resultId = watchService.saveTask(
             taskId = taskId,
             title = title,
             completed = completed,
@@ -383,7 +386,7 @@ class PebbleMessageHandler @Inject constructor(
     ) {
         val filter = data[KEY_FILTER] as? String
 
-        val result = watchServiceLogic.getTaskCount(
+        val result = watchService.getTaskCount(
             filterPreference = filter,
             showHidden = false,
             showCompleted = false,
@@ -402,13 +405,13 @@ class PebbleMessageHandler @Inject constructor(
         val params = try {
             val fw = PebbleKit.getWatchFWVersion(context)
             if (fw != null) {
-                arrayOf(R.string.param_device_model to fw.tag as Any)
+                arrayOf(runBlocking { getString(Res.string.param_device_model) } to fw.tag as Any)
             } else {
                 emptyArray()
             }
         } catch (e: Exception) {
-            emptyArray<Pair<Int, Any>>()
+            emptyArray<Pair<String, Any>>()
         }
-        firebase.logEventOncePerDay(R.string.event_pebble, *params)
+        analytics.logEvent(runBlocking { getString(Res.string.event_pebble) }, *params)
     }
 }

@@ -272,10 +272,10 @@ class Firebase @Inject constructor(
         }
     }
 
-    fun addTask(source: String) =
+    override fun addTask(source: String) =
         logEvent(R.string.event_add_task, R.string.param_type to source)
 
-    fun completeTask(source: String) =
+    override fun completeTask(source: String) =
         logEvent(R.string.event_complete_task, R.string.param_type to source)
 
     override fun logEvent(event: String, vararg params: Pair<String, Any>) {

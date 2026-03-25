@@ -1,12 +1,10 @@
 package org.tasks.pebble
 
 import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
-import timber.log.Timber
-import javax.inject.Inject
+import co.touchlab.kermit.Logger
 
-class PebbleRefresher @Inject constructor(
-    @ApplicationContext private val context: Context,
+class PebbleRefresher(
+    private val context: Context,
 ) {
     fun refresh() {
         try {
@@ -15,7 +13,7 @@ class PebbleRefresher @Inject constructor(
             )
             PebbleProtocol.sendToPebble(context, dict, 0)
         } catch (e: Exception) {
-            Timber.e(e, "Failed to send Pebble refresh")
+            Logger.e("PEBBLE", e) { "Failed to send Pebble refresh" }
         }
     }
 }

@@ -961,6 +961,7 @@
 +|    |    +--- androidx.compose.ui:ui-util:1.10.5 (c)
 +|    |    +--- androidx.compose.ui:ui-geometry:1.10.5 (c)
 +|    |    \--- androidx.compose.ui:ui-tooling-data:1.10.5 (c)
++|    +--- com.getpebble:pebblekit:4.0.1
 +|    +--- org.jetbrains.compose.components:components-resources:1.10.2 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.10 (*)
 +|    +--- project :data

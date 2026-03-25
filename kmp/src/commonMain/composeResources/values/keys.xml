@@ -11,4 +11,6 @@
     <string name="gtasks_GPr_header" translatable="false">Google Tasks</string>
     <string name="microsoft" translatable="false">Microsoft To&#xA0;Do</string>
     <string name="tasks_org_account" translatable="false">Tasks.org Cloud</string>
+    <string name="event_pebble" translatable="false">pebble</string>
+    <string name="param_device_model" translatable="false">device_model</string>
 </resources>

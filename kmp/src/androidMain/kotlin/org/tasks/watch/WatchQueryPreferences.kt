@@ -1,10 +1,9 @@
 package org.tasks.watch
 
-import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
 
-internal class WatchQueryPreferences(
-    private val delegate: Preferences,
+class WatchQueryPreferences(
+    private val delegate: QueryPreferences,
     private val overrideShowHidden: Boolean,
     private val overrideShowCompleted: Boolean,
     private val overrideSortMode: Int? = null,

@@ -2,19 +2,19 @@ package org.tasks.watch
 
 import android.content.Context
 import android.text.format.DateFormat
+import co.touchlab.kermit.Logger
 import com.todoroo.astrid.core.SortHelper.SORT_DUE
-import org.tasks.data.dao.TaskDao
+import com.todoroo.astrid.service.TaskCreator
+import dagger.hilt.android.qualifiers.ApplicationContext
+import org.tasks.analytics.Analytics
+import org.tasks.billing.PurchaseState
+import org.tasks.data.NO_COUNT
 import org.tasks.data.TaskSaver
 import org.tasks.data.count
 import org.tasks.data.countCompletedSql
 import org.tasks.data.countSql
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.fetchTasks
-import org.tasks.service.TaskCompleter
-import com.todoroo.astrid.service.TaskCreator
-import dagger.hilt.android.qualifiers.ApplicationContext
-import org.tasks.analytics.Firebase
-import org.tasks.billing.Inventory
-import org.tasks.data.NO_COUNT
 import org.tasks.data.isHidden
 import org.tasks.db.QueryUtils
 import org.tasks.filters.AstridOrderingFilter
@@ -26,31 +26,30 @@ import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.preferences.DefaultFilterProvider
-import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
+import org.tasks.service.TaskCompleter
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.UiItem
 import org.tasks.themes.ColorProvider
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
-import timber.log.Timber
 import javax.inject.Inject
 
 class WatchServiceLogic @Inject constructor(
     private val taskDao: TaskDao,
     private val taskSaver: TaskSaver,
-    private val appPreferences: Preferences,
+    private val appPreferences: QueryPreferences,
     private val taskCompleter: TaskCompleter,
     private val headerFormatter: HeaderFormatter,
-    private val firebase: Firebase,
+    private val analytics: Analytics,
     private val filterProvider: FilterProvider,
-    private val inventory: Inventory,
+    private val purchaseState: PurchaseState,
     private val colorProvider: ColorProvider,
     private val defaultFilterProvider: DefaultFilterProvider,
     private val taskCreator: TaskCreator,
     @param:ApplicationContext private val context: Context,
-) {
+) : WatchService {
     private val is24HourTime: Boolean
         get() = DateFormat.is24HourFormat(context)
 
@@ -59,15 +58,15 @@ class WatchServiceLogic @Inject constructor(
             filterPreference?.takeIf { it.isNotBlank() }
         )
 
-    suspend fun getTasks(
+    override suspend fun getTasks(
         filterPreference: String?,
         position: Int,
         limit: Int,
-        showHidden: Boolean = false,
-        showCompleted: Boolean = false,
-        sortMode: Int? = null,
-        groupMode: Int? = null,
-        collapsed: Set<Long> = emptySet(),
+        showHidden: Boolean,
+        showCompleted: Boolean,
+        sortMode: Int?,
+        groupMode: Int?,
+        collapsed: Set<Long>,
     ): WatchTaskList {
         val effectiveLimit = if (limit > 0) limit else Int.MAX_VALUE
         val filter = resolveFilter(filterPreference)
@@ -138,16 +137,16 @@ class WatchServiceLogic @Inject constructor(
         )
     }
 
-    suspend fun completeTask(taskId: Long, completed: Boolean, source: String) {
+    override suspend fun completeTask(taskId: Long, completed: Boolean, source: String) {
         taskCompleter.setComplete(taskId, completed)
-        firebase.completeTask(source)
+        analytics.completeTask(source)
     }
 
     suspend fun toggleGroup(value: Long, collapsed: Boolean) {
         taskSaver.setCollapsed(value, collapsed)
     }
 
-    suspend fun getLists(position: Int, limit: Int): WatchListItems {
+    override suspend fun getLists(position: Int, limit: Int): WatchListItems {
         val effectiveLimit = if (limit > 0) limit else Int.MAX_VALUE
         val filters = filterProvider.wearableFilters()
         return WatchListItems(
@@ -161,13 +160,13 @@ class WatchServiceLogic @Inject constructor(
                             WatchListItem.FilterItem(
                                 id = defaultFilterProvider.getFilterPreferenceValue(item) ?: "",
                                 title = item.title,
-                                icon = item.getIcon(inventory),
+                                icon = item.getIcon(purchaseState),
                                 color = bgColor,
                                 textColor = fgColor,
                                 taskCount = item.count.takeIf { it != NO_COUNT } ?: try {
                                     taskDao.count(item)
                                 } catch (e: Exception) {
-                                    Timber.e(e)
+                                    Logger.e(e) { "Failed to count tasks" }
                                     0
                                 },
                             )
@@ -185,7 +184,7 @@ class WatchServiceLogic @Inject constructor(
         )
     }
 
-    suspend fun getTask(taskId: Long): WatchTaskDetail {
+    override suspend fun getTask(taskId: Long): WatchTaskDetail {
         val task = taskDao.fetch(taskId)
             ?: throw IllegalArgumentException("Task $taskId not found")
         return WatchTaskDetail(
@@ -197,7 +196,7 @@ class WatchServiceLogic @Inject constructor(
         )
     }
 
-    suspend fun saveTask(
+    override suspend fun saveTask(
         taskId: Long,
         title: String,
         completed: Boolean,
@@ -210,7 +209,7 @@ class WatchServiceLogic @Inject constructor(
                 title = title,
                 filter = filter,
             )
-            firebase.addTask(source)
+            analytics.addTask(source)
             return task.id
         } else {
             taskDao.fetch(taskId)?.let { task ->
@@ -229,7 +228,7 @@ class WatchServiceLogic @Inject constructor(
         }
     }
 
-    suspend fun getTaskCount(
+    override suspend fun getTaskCount(
         filterPreference: String?,
         showHidden: Boolean,
         showCompleted: Boolean,
@@ -251,7 +250,7 @@ class WatchServiceLogic @Inject constructor(
     private fun getColors(filter: Filter): Pair<Int, Int> {
         if (filter.tint != 0) {
             val color = colorProvider.getThemeColor(filter.tint, true)
-            if (color.isFree || inventory.purchasedThemes()) {
+            if (color.isFree || purchaseState.purchasedThemes()) {
                 return color.primaryColor to color.colorOnPrimary
             }
         }
