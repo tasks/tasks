@@ -5,12 +5,13 @@
  */
 package com.todoroo.astrid.repeats
 
+import co.touchlab.kermit.Logger
 import com.todoroo.astrid.alarms.AlarmService
-import org.tasks.data.TaskSaver
-import com.todoroo.astrid.gcal.GCalHelper
 import net.fortuna.ical4j.model.Date
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
+import org.tasks.calendars.CalendarHelper
+import org.tasks.data.TaskSaver
 import org.tasks.data.createDueDate
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
@@ -23,15 +24,15 @@ import org.tasks.time.DateTime
 import org.tasks.time.ONE_HOUR
 import org.tasks.time.ONE_MINUTE
 import org.tasks.time.ONE_WEEK
-import timber.log.Timber
 import java.text.ParseException
 import java.util.*
-import javax.inject.Inject
 
-class RepeatTaskHelper @Inject constructor(
-        private val gcalHelper: GCalHelper,
-        private val alarmService: AlarmService,
-        private val taskSaver: TaskSaver,
+private const val TAG = "RepeatTaskHelper"
+
+class RepeatTaskHelper(
+    private val calendarHelper: CalendarHelper,
+    private val alarmService: AlarmService,
+    private val taskSaver: TaskSaver,
 ) {
     suspend fun handleRepeat(task: Task): Boolean {
         val recurrence = task.recurrence
@@ -53,7 +54,7 @@ class RepeatTaskHelper @Inject constructor(
                 return true
             }
         } catch (e: ParseException) {
-            Timber.e(e)
+            Logger.e(e, tag = TAG) { "" }
             return false
         }
         if (count > 1) {
@@ -64,7 +65,7 @@ class RepeatTaskHelper @Inject constructor(
         task.completionDate = 0L
         val oldDueDate = task.dueDate
         task.setDueDateAdjustingHideUntil(newDueDate)
-        gcalHelper.rescheduleRepeatingTask(task)
+        calendarHelper.rescheduleRepeatingTask(task)
         taskSaver.save(task)
         val previousDueDate = oldDueDate.takeIf { it > 0 } ?: computePreviousDueDate(task)
         rescheduleAlarms(task.id, previousDueDate, newDueDate)
@@ -94,7 +95,7 @@ class RepeatTaskHelper @Inject constructor(
             )
             rescheduleAlarms(task.id, newDueDate, task.dueDate)
         } catch (e: ParseException) {
-            Timber.e(e)
+            Logger.e(e, tag = TAG) { "" }
         }
         taskSaver.save(task)
     }
@@ -262,19 +263,10 @@ class RepeatTaskHelper @Inject constructor(
                 Recur.Frequency.HOURLY -> ONE_HOUR
                 Recur.Frequency.MINUTELY -> ONE_MINUTE
                 else -> throw RuntimeException(
-                        "Error handing subday repeat: " + recur.frequency) // $NON-NLS-1$
+                        "Error handing subday repeat: " + recur.frequency)
             }
             val newDueDate = startDate.millis + millis * recur.interval.coerceAtLeast(1)
             return createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDueDate)
         }
-
-        private val Task.repeatUntil: Long
-            get() = recurrence
-                ?.takeIf { it.isNotBlank() }
-                ?.let { newRecur(it) }
-                ?.until
-                ?.let { DateTime.from(it) }
-                ?.millis
-                ?: 0L
     }
 }

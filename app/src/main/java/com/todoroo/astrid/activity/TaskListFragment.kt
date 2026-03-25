@@ -79,7 +79,7 @@ import org.tasks.data.TaskSaver
 import org.tasks.data.fetchTasks
 import org.tasks.data.setCollapsed
 import com.todoroo.astrid.repeats.RepeatTaskHelper
-import com.todoroo.astrid.service.TaskCompleter
+import org.tasks.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskDuplicator
 import com.todoroo.astrid.service.TaskMover

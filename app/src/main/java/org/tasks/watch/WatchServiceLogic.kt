@@ -9,7 +9,7 @@ import org.tasks.data.count
 import org.tasks.data.countCompletedSql
 import org.tasks.data.countSql
 import org.tasks.data.fetchTasks
-import com.todoroo.astrid.service.TaskCompleter
+import org.tasks.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.analytics.Firebase

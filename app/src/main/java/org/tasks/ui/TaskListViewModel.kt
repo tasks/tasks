@@ -12,6 +12,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.broadcast.ComposeRefreshBroadcaster
+import org.tasks.data.TaskSaver
+import org.tasks.service.TaskCompleter
 import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import androidx.annotation.StringRes
@@ -56,6 +58,8 @@ class TaskListViewModel @Inject constructor(
     taskDao: TaskDao,
     taskDeleter: TaskDeleter,
     deletionDao: DeletionDao,
+    taskSaver: TaskSaver,
+    taskCompleter: TaskCompleter,
     private val tasksPreferences: TasksPreferences,
     composeRefreshBroadcaster: ComposeRefreshBroadcaster,
     private val inventory: Inventory,
@@ -66,6 +70,8 @@ class TaskListViewModel @Inject constructor(
     taskDao = taskDao,
     taskDeleter = taskDeleter,
     deletionDao = deletionDao,
+    taskSaver = taskSaver,
+    taskCompleter = taskCompleter,
     tasksPreferences = tasksPreferences,
     queryPreferences = preferences,
     isPerListSortEnabled = preferences.isPerListSortEnabled,

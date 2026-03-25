@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.activity.MainActivity.Companion.FINISH_AFFINITY
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.TaskSaver
-import com.todoroo.astrid.service.TaskCompleter
+import org.tasks.service.TaskCompleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch

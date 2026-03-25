@@ -16,6 +16,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.calendars.CalendarEventProvider
+import org.tasks.calendars.CalendarHelper
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
 import org.tasks.preferences.PermissionChecker
@@ -27,12 +28,12 @@ import java.util.TimeZone
 import javax.inject.Inject
 
 class GCalHelper @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val taskDao: TaskDao,
     private val preferences: Preferences,
     private val permissionChecker: PermissionChecker,
     private val calendarEventProvider: CalendarEventProvider,
-) {
+) : CalendarHelper {
     private val cr: ContentResolver = context.contentResolver
 
     private suspend fun getTaskEventUri(task: Task) =
@@ -96,7 +97,7 @@ class GCalHelper @Inject constructor(
         return null
     }
 
-    fun updateEvent(task: Task) {
+    override fun updateEvent(task: Task) {
         val uri = task.calendarURI?.takeIf { it.isNotBlank() } ?: return
         if (!permissionChecker.canAccessCalendars()) {
             return
@@ -116,7 +117,7 @@ class GCalHelper @Inject constructor(
         }
     }
 
-    suspend fun rescheduleRepeatingTask(task: Task) {
+    override suspend fun rescheduleRepeatingTask(task: Task) {
         val taskUri = getTaskEventUri(task)
         if (taskUri.isNullOrBlank()) {
             return

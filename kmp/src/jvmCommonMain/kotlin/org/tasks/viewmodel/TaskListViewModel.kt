@@ -13,9 +13,11 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.tasks.compose.throttleLatest
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
+import org.tasks.data.TaskSaver
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
@@ -32,6 +34,7 @@ import org.tasks.preferences.DefaultQueryPreferences
 import org.tasks.preferences.FilterPreferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.preferences.TasksPreferences
+import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import org.tasks.sync.SyncSource
 import org.tasks.tasklist.SectionedDataSource
@@ -42,6 +45,8 @@ open class TaskListViewModel(
     private val taskDao: TaskDao,
     private val taskDeleter: TaskDeleter,
     private val deletionDao: DeletionDao,
+    private val taskSaver: TaskSaver,
+    private val taskCompleter: TaskCompleter,
     private val tasksPreferences: TasksPreferences,
     private val queryPreferences: QueryPreferences = DefaultQueryPreferences(),
     private val isPerListSortEnabled: Boolean = false,
@@ -93,6 +98,12 @@ open class TaskListViewModel(
             .toMutableList()
         completed.removeAll(deletionDao.hasRecurringAncestors(completed))
         return completed
+    }
+
+    fun onCompleteTask(taskContainer: TaskContainer, newState: Boolean) {
+        viewModelScope.launch {
+            taskCompleter.setComplete(taskContainer.task, newState)
+        }
     }
 
     suspend fun markDeleted(tasks: List<Long>): List<Task> =

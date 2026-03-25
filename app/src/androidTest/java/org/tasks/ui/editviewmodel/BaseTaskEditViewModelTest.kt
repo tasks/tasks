@@ -6,7 +6,7 @@ import com.todoroo.astrid.alarms.AlarmService
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.TaskSaver
 import com.todoroo.astrid.gcal.GCalHelper
-import com.todoroo.astrid.service.TaskCompleter
+import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin

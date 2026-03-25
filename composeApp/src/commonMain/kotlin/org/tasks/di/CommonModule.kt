@@ -2,7 +2,11 @@ package org.tasks.di
 
 import com.todoroo.astrid.alarms.AlarmCalculator
 import com.todoroo.astrid.alarms.AlarmService
+import com.todoroo.astrid.repeats.RepeatTaskHelper
 import com.todoroo.astrid.timers.TimerPlugin
+import org.tasks.audio.SoundPlayer
+import org.tasks.calendars.CalendarHelper
+import org.tasks.service.TaskCompleter
 import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
@@ -105,6 +109,8 @@ val commonModule = module {
         }
     }
     factory<TaskCleanup> { object : TaskCleanup {} }
+    factory<CalendarHelper> { object : CalendarHelper {} }
+    factory<SoundPlayer> { object : SoundPlayer {} }
     factory<org.tasks.compose.drawer.DrawerConfiguration> {
         object : org.tasks.compose.drawer.DrawerConfiguration {}
     }
@@ -156,6 +162,8 @@ val commonModule = module {
     }
     factory { AlarmCalculator(Random(), 0) }
     factoryOf(::AlarmService)
+    factory { RepeatTaskHelper(get(), get(), get()) }
+    factory { TaskCompleter(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
     factoryOf(::TimerPlugin)
     factoryOf(::TaskDeleter)
     factoryOf(::TaskSaver)
@@ -181,6 +189,8 @@ val commonModule = module {
             taskDao = get(),
             taskDeleter = get(),
             deletionDao = get(),
+            taskSaver = get(),
+            taskCompleter = get(),
             tasksPreferences = get(),
             refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
         )

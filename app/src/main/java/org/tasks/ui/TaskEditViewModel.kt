@@ -15,7 +15,7 @@ import org.tasks.data.TaskSaver
 import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatControlSet
-import com.todoroo.astrid.service.TaskCompleter
+import org.tasks.service.TaskCompleter
 import org.tasks.data.getDefaultAlarms
 import org.tasks.service.TaskDeleter
 import com.todoroo.astrid.service.TaskMover

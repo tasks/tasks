@@ -18,7 +18,12 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
+import com.todoroo.astrid.gcal.GCalHelper
+import com.todoroo.astrid.repeats.RepeatTaskHelper
 import org.tasks.analytics.Firebase
+import org.tasks.audio.SoundPlayer
+import org.tasks.calendars.CalendarHelper
+import org.tasks.service.TaskCompleter
 import org.tasks.billing.PurchaseState
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.broadcast.ComposeRefreshBroadcaster
@@ -43,6 +48,7 @@ import org.tasks.data.TaskSaver
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.Astrid2ContentProviderDao
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.CompletionDao
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.GoogleTaskDao
@@ -226,6 +232,39 @@ class ApplicationModule {
 
     @Provides
     fun providesPurchaseState(inventory: Inventory): PurchaseState = inventory
+
+    @Provides
+    fun providesCalendarHelper(gcalHelper: GCalHelper): CalendarHelper = gcalHelper
+
+    @Provides
+    fun providesRepeatTaskHelper(
+        calendarHelper: CalendarHelper,
+        alarmService: AlarmService,
+        taskSaver: TaskSaver,
+    ) = RepeatTaskHelper(calendarHelper, alarmService, taskSaver)
+
+    @Provides
+    fun providesSoundPlayer(
+        @ApplicationContext context: Context,
+        preferences: Preferences,
+        notificationManager: org.tasks.notifications.NotificationManager,
+    ): SoundPlayer = org.tasks.audio.AndroidSoundPlayer(context, preferences, notificationManager)
+
+    @Provides
+    fun providesTaskCompleter(
+        taskDao: TaskDao,
+        taskSaver: TaskSaver,
+        notifier: Notifier,
+        refreshBroadcaster: RefreshBroadcaster,
+        repeatTaskHelper: RepeatTaskHelper,
+        caldavDao: CaldavDao,
+        calendarHelper: CalendarHelper,
+        completionDao: CompletionDao,
+        soundPlayer: SoundPlayer,
+    ) = TaskCompleter(
+        taskDao, taskSaver, notifier, refreshBroadcaster, repeatTaskHelper,
+        caldavDao, calendarHelper, completionDao, soundPlayer,
+    )
 
     @Provides
     @Singleton

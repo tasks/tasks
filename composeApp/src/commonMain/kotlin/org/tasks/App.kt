@@ -14,6 +14,9 @@ import androidx.compose.foundation.lazy.items
 import kotlinx.coroutines.launch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.outlined.RadioButtonUnchecked
+import androidx.compose.material.icons.outlined.Replay
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.Search
@@ -347,6 +350,9 @@ private fun TaskListScreen(
                                     )
                                 }
                             },
+                            onCompleteTask = { task, newState ->
+                                viewModel.onCompleteTask(task, newState)
+                            },
                         )
                     }
                 }
@@ -387,6 +393,7 @@ private fun TaskList(
     tasks: SectionedDataSource,
     listState: androidx.compose.foundation.lazy.LazyListState = androidx.compose.foundation.lazy.rememberLazyListState(),
     onTaskClick: (TaskContainer) -> Unit,
+    onCompleteTask: (TaskContainer, Boolean) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -403,6 +410,7 @@ private fun TaskList(
             TaskRow(
                 task = task,
                 onClick = { onTaskClick(task) },
+                onToggleComplete = { onCompleteTask(task, !task.isCompleted) },
             )
         }
     }
@@ -412,31 +420,40 @@ private fun TaskList(
 private fun TaskRow(
     task: TaskContainer,
     onClick: () -> Unit,
+    onToggleComplete: () -> Unit,
 ) {
+    val checkColor = if (task.isCompleted) {
+        MaterialTheme.colorScheme.outline
+    } else {
+        when (task.priority) {
+            0 -> MaterialTheme.colorScheme.error
+            1 -> MaterialTheme.colorScheme.tertiary
+            2 -> MaterialTheme.colorScheme.primary
+            else -> MaterialTheme.colorScheme.outline
+        }
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding(end = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        val checkColor = if (task.isCompleted) {
-            MaterialTheme.colorScheme.outline
-        } else {
-            when (task.priority) {
-                0 -> MaterialTheme.colorScheme.error
-                1 -> MaterialTheme.colorScheme.tertiary
-                2 -> MaterialTheme.colorScheme.primary
-                else -> MaterialTheme.colorScheme.outline
-            }
+        IconButton(
+            onClick = onToggleComplete,
+            modifier = Modifier.size(48.dp),
+        ) {
+            Icon(
+                imageVector = when {
+                    task.isCompleted -> Icons.Filled.CheckCircle
+                    task.task.isRecurring -> Icons.Outlined.Replay
+                    else -> Icons.Outlined.RadioButtonUnchecked
+                },
+                contentDescription = null,
+                tint = checkColor,
+                modifier = Modifier.size(24.dp),
+            )
         }
-        Text(
-            text = if (task.isCompleted) "●" else "○",
-            color = checkColor,
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.size(24.dp),
-        )
-        Spacer(modifier = Modifier.width(16.dp))
         Text(
             text = task.title ?: "",
             style = MaterialTheme.typography.bodyLarge,
@@ -448,6 +465,7 @@ private fun TaskRow(
             } else {
                 MaterialTheme.colorScheme.onSurface
             },
+            modifier = Modifier.weight(1f),
         )
     }
 }
