@@ -5,7 +5,6 @@ import android.text.format.DateFormat
 import co.touchlab.kermit.Logger
 import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import com.todoroo.astrid.service.TaskCreator
-import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.analytics.Analytics
 import org.tasks.billing.PurchaseState
 import org.tasks.data.NO_COUNT
@@ -34,9 +33,8 @@ import org.tasks.tasklist.UiItem
 import org.tasks.themes.ColorProvider
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
-import javax.inject.Inject
 
-class WatchServiceLogic @Inject constructor(
+class WatchServiceLogic(
     private val taskDao: TaskDao,
     private val taskSaver: TaskSaver,
     private val appPreferences: QueryPreferences,
@@ -48,7 +46,7 @@ class WatchServiceLogic @Inject constructor(
     private val colorProvider: ColorProvider,
     private val defaultFilterProvider: DefaultFilterProvider,
     private val taskCreator: TaskCreator,
-    @param:ApplicationContext private val context: Context,
+    private val context: Context,
 ) : WatchService {
     private val is24HourTime: Boolean
         get() = DateFormat.is24HourFormat(context)

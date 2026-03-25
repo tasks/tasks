@@ -81,7 +81,11 @@ import org.tasks.security.KeyStoreEncryption
 import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskDeleter
 import org.tasks.sync.SyncAdapters
+import org.tasks.preferences.DefaultFilterProvider
+import org.tasks.themes.ColorProvider
+import org.tasks.tasklist.HeaderFormatter
 import org.tasks.watch.WatchServiceLogic
+import com.todoroo.astrid.service.TaskCreator
 import java.util.Locale
 import java.util.concurrent.Executors
 import javax.inject.Singleton
@@ -462,6 +466,35 @@ class ApplicationModule {
     fun providesPebbleRefresher(
         @ApplicationContext context: Context,
     ) = PebbleRefresher(context)
+
+    @Provides
+    fun providesWatchServiceLogic(
+        taskDao: TaskDao,
+        taskSaver: TaskSaver,
+        preferences: Preferences,
+        taskCompleter: TaskCompleter,
+        headerFormatter: HeaderFormatter,
+        analytics: Analytics,
+        filterProvider: FilterProvider,
+        purchaseState: PurchaseState,
+        colorProvider: ColorProvider,
+        defaultFilterProvider: DefaultFilterProvider,
+        taskCreator: TaskCreator,
+        @ApplicationContext context: Context,
+    ) = WatchServiceLogic(
+        taskDao = taskDao,
+        taskSaver = taskSaver,
+        appPreferences = preferences,
+        taskCompleter = taskCompleter,
+        headerFormatter = headerFormatter,
+        analytics = analytics,
+        filterProvider = filterProvider,
+        purchaseState = purchaseState,
+        colorProvider = colorProvider,
+        defaultFilterProvider = defaultFilterProvider,
+        taskCreator = taskCreator,
+        context = context,
+    )
 
     @Provides
     fun providesPebbleMessageHandler(
