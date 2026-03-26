@@ -79,7 +79,10 @@ jobs:
             tasks-fdroid-*.apk
             tasks-googleplay-*.apk
             tasks-pebble-*.pbw
-            composeApp/output/*
+            composeApp/output/*.zip
+            composeApp/output/*.tar.gz
+            composeApp/output/*.msix
+            composeApp/output/*.deb
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -89,4 +92,7 @@ jobs:
             tasks-fdroid-*.apk
             tasks-googleplay-*.apk
             tasks-pebble-*.pbw
-            composeApp/output/*
+            composeApp/output/*.zip
+            composeApp/output/*.tar.gz
+            composeApp/output/*.msix
+            composeApp/output/*.deb

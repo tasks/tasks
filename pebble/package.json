@@ -1,6 +1,6 @@
 {
   "name": "tasks-pebble",
-  "version": "1.0.0",
+  "version": "15.2.0",
   "author": "Tasks.org",
   "pebble": {
     "displayName": "Tasks",
@@ -9,6 +9,10 @@
     "targetPlatforms": ["aplite", "basalt", "chalk", "diorite", "emery", "flint", "gabbro"],
     "watchapp": {
       "watchface": false
+    },
+    "companionApp": {
+      "android": true,
+      "ios": false
     },
     "resources": {
       "media": [
