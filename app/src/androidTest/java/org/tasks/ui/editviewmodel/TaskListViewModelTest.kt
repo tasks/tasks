@@ -7,9 +7,10 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
+import org.tasks.broadcast.ComposeRefreshBroadcaster
+import org.tasks.data.TaskSaver
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.TaskDao
@@ -19,6 +20,7 @@ import org.tasks.injection.InjectingTestCase
 import org.tasks.preferences.PermissivePermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
+import org.tasks.service.TaskCompleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.TaskListViewModel
 import javax.inject.Inject
@@ -30,7 +32,8 @@ class TaskListViewModelTest : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var deletionDao: DeletionDao
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var taskSaver: TaskSaver
+    @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var caldavDao: CaldavDao
@@ -45,7 +48,9 @@ class TaskListViewModelTest : InjectingTestCase() {
             taskDao = taskDao,
             deletionDao = deletionDao,
             taskDeleter = taskDeleter,
-            localBroadcastManager = localBroadcastManager,
+            taskSaver = taskSaver,
+            taskCompleter = taskCompleter,
+            composeRefreshBroadcaster = ComposeRefreshBroadcaster(),
             inventory = inventory,
             firebase = firebase,
             permissionChecker = PermissivePermissionChecker(context),

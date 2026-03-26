@@ -24,12 +24,17 @@ data class OAuthResult(
 )
 
 class TasksOAuthClient(
-    private val httpClient: OkHttpClient = OkHttpClient(),
+    private val httpClient: OkHttpClient = OkHttpClient.Builder()
+        .connectTimeout(15, java.util.concurrent.TimeUnit.SECONDS)
+        .readTimeout(15, java.util.concurrent.TimeUnit.SECONDS)
+        .build(),
 ) {
     fun fetchDiscovery(discoveryUrl: String): JsonObject {
         val request = Request.Builder().url(discoveryUrl).build()
+        Logger.d("TasksOAuthClient") { "Fetching: $discoveryUrl" }
         val response = httpClient.newCall(request).execute()
         val body = response.body?.string() ?: throw Exception("Empty discovery response")
+        Logger.d("TasksOAuthClient") { "Discovery response: ${response.code}" }
         if (!response.isSuccessful) {
             throw Exception("Discovery request failed: ${response.code} $body")
         }

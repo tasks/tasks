@@ -3,7 +3,8 @@
     <application
         android:name="org.tasks.TasksApplication"
         android:allowBackup="true"
-        android:label="Tasks KMP"
+        android:icon="@mipmap/ic_launcher_blue"
+        android:label="Tasks"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
         <activity

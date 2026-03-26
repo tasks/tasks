@@ -30,6 +30,12 @@ import org.tasks.sse.SseClient
 import org.tasks.sse.SseTokenProvider
 import java.io.File
 
+private fun dataDir(): File {
+    val path = System.getProperty("tasks.dataDir")
+        ?: File(System.getProperty("user.home"), ".tasks.org").absolutePath
+    return File(path).also { it.mkdirs() }
+}
+
 actual fun platformModule(): Module = module {
     singleOf(::TasksServerEnvironment)
     single { PlatformConfiguration() }
@@ -37,26 +43,20 @@ actual fun platformModule(): Module = module {
     factory { DesktopOAuthFlow(serverEnvironment = get()) }
     factoryOf(::DesktopSignInHandler) bind SignInHandler::class
     single {
-        val configDir = File(System.getProperty("user.home"), ".tasks.org")
-        KeyStoreEncryption(DesktopKeyProvider(File(configDir, ".key")))
+        KeyStoreEncryption(DesktopKeyProvider(File(dataDir(), ".key")))
     }
     single<Database> {
-        val dbDir = File(System.getProperty("user.home"), ".tasks.org")
-        dbDir.mkdirs()
-        val dbFile = File(dbDir, Database.NAME)
+        val dbFile = File(dataDir(), Database.NAME)
         Room.databaseBuilder<Database>(name = dbFile.absolutePath)
             .setDriver(BundledSQLiteDriver())
             .build()
     }
     single {
-        val configDir = File(System.getProperty("user.home"), ".tasks.org")
-        configDir.mkdirs()
-        val dataStoreFile = File(configDir, dataStoreFileName)
+        val dataStoreFile = File(dataDir(), dataStoreFileName)
         TasksPreferences(createDataStore { dataStoreFile.absolutePath })
     }
     factory {
-        val configDir = File(System.getProperty("user.home"), ".tasks.org")
-        FileStorage(configDir.absolutePath)
+        FileStorage(dataDir().absolutePath)
     }
     factoryOf(::VtodoCache)
     single { SseTokenProvider() } bind FcmTokenProvider::class

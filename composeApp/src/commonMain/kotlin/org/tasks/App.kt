@@ -3,7 +3,6 @@ package org.tasks
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,16 +20,8 @@ import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SwapVert
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.windowInsetsBottomHeight
-import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
@@ -72,7 +63,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
+import androidx.compose.material3.BasicAlertDialog
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
@@ -88,7 +79,10 @@ import org.tasks.auth.OAuthProvider
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.compose.NavigationBarScrim
 import org.tasks.compose.PlatformBackHandler
+import org.tasks.compose.StatusBarScrim
+import org.tasks.compose.platformNavigationBarsPadding
 import org.tasks.compose.SignInProvider
 import org.tasks.compose.SignInProviderDialog
 import org.tasks.compose.WelcomeScreenLayout
@@ -115,6 +109,7 @@ data object AddAccountDestination : NavKey
 @Serializable
 data object TaskListDestination : NavKey
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App(
     openUrl: (String) -> Unit = {},
@@ -205,7 +200,7 @@ fun App(
                             openLegalUrl = openUrl,
                         )
                         if (showProviderPicker) {
-                            Dialog(onDismissRequest = { showProviderPicker = false }) {
+                            BasicAlertDialog(onDismissRequest = { showProviderPicker = false }) {
                                 SignInProviderDialog(
                                     onSelected = { provider ->
                                         showProviderPicker = false
@@ -229,7 +224,7 @@ fun App(
                         }
                         val errorState = signInState as? AddAccountViewModel.SignInState.Error
                         if (errorState != null) {
-                            Dialog(onDismissRequest = { addAccountViewModel.dismissError() }) {
+                            BasicAlertDialog(onDismissRequest = { addAccountViewModel.dismissError() }) {
                                 Surface(
                                     shape = MaterialTheme.shapes.medium,
                                     color = MaterialTheme.colorScheme.surface,
@@ -362,19 +357,13 @@ private fun TaskListScreen(
                         onErrorClick = { /* TODO: show sync error */ },
                     )
                     val drawerScrimColor = MaterialTheme.colorScheme.surfaceContainerLow.copy(alpha = 0.8f)
-                    Spacer(
-                        modifier = Modifier
-                            .align(Alignment.TopCenter)
-                            .fillMaxWidth()
-                            .windowInsetsTopHeight(WindowInsets.statusBars)
-                            .background(drawerScrimColor),
+                    StatusBarScrim(
+                        color = drawerScrimColor,
+                        modifier = Modifier.align(Alignment.TopCenter),
                     )
-                    Spacer(
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .fillMaxWidth()
-                            .windowInsetsBottomHeight(WindowInsets.navigationBars)
-                            .background(drawerScrimColor),
+                    NavigationBarScrim(
+                        color = drawerScrimColor,
+                        modifier = Modifier.align(Alignment.BottomCenter),
                     )
                 }
             }
@@ -451,22 +440,9 @@ private fun TaskListScreen(
             ),
         )
 
-        // System bar scrims — 80% opacity background color
         val scrimColor = MaterialTheme.colorScheme.background.copy(alpha = 0.8f)
-        Spacer(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .fillMaxWidth()
-                .windowInsetsTopHeight(WindowInsets.statusBars)
-                .background(scrimColor),
-        )
-        Spacer(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .windowInsetsBottomHeight(WindowInsets.navigationBars)
-                .background(scrimColor),
-        )
+        StatusBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.TopCenter))
+        NavigationBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.BottomCenter))
 
         FloatingToolbar(
             onMenuClick = {
@@ -487,7 +463,7 @@ private fun TaskListScreen(
             fabContentColor = Color(themeColor.onPrimaryColor),
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .navigationBarsPadding()
+                .platformNavigationBarsPadding()
                 .padding(16.dp),
         )
     }

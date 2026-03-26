@@ -22,7 +22,7 @@ class DesktopOAuthFlow(
         val os = System.getProperty("os.name").lowercase()
         when {
             os.contains("mac") -> ProcessBuilder("open", url)
-            os.contains("win") -> ProcessBuilder("rundll32", "url.dll,FileProtocolHandler", url)
+            os.contains("win") -> ProcessBuilder("cmd", "/c", "start", "", url)
             else -> ProcessBuilder("xdg-open", url)
         }.start()
     },
