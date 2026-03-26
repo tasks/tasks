@@ -2,6 +2,9 @@ package org.tasks.di
 
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -11,6 +14,7 @@ import org.tasks.PlatformConfiguration
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
 import org.tasks.auth.DesktopOAuthFlow
+import org.tasks.fcm.FcmTokenProvider
 import org.tasks.http.DefaultOkHttpClientFactory
 import org.tasks.http.OkHttpClientFactory
 import org.tasks.auth.DesktopSignInHandler
@@ -22,6 +26,8 @@ import org.tasks.kmp.dataStoreFileName
 import org.tasks.preferences.TasksPreferences
 import org.tasks.security.DesktopKeyProvider
 import org.tasks.security.KeyStoreEncryption
+import org.tasks.sse.SseClient
+import org.tasks.sse.SseTokenProvider
 import java.io.File
 
 actual fun platformModule(): Module = module {
@@ -53,4 +59,16 @@ actual fun platformModule(): Module = module {
         FileStorage(configDir.absolutePath)
     }
     factoryOf(::VtodoCache)
+    single { SseTokenProvider() } bind FcmTokenProvider::class
+    single {
+        SseClient(
+            scope = CoroutineScope(SupervisorJob() + Dispatchers.IO),
+            backgroundWork = get(),
+            caldavDao = get(),
+            encryption = get(),
+            environment = get(),
+            httpClientFactory = get(),
+            tokenProvider = get(),
+        ).also { it.start() }
+    }
 }
