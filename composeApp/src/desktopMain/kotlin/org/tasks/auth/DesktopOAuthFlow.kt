@@ -19,12 +19,7 @@ class DesktopOAuthFlow(
     private val oauthClient: TasksOAuthClient = TasksOAuthClient(),
     private val serverEnvironment: TasksServerEnvironment,
     private val openUrl: (String) -> Unit = { url ->
-        val os = System.getProperty("os.name").lowercase()
-        when {
-            os.contains("mac") -> ProcessBuilder("open", url)
-            os.contains("win") -> ProcessBuilder("cmd", "/c", "start", "", url)
-            else -> ProcessBuilder("xdg-open", url)
-        }.start()
+        java.awt.Desktop.getDesktop().browse(java.net.URI(url))
     },
 ) {
     suspend fun signIn(provider: OAuthProvider): OAuthResult = withContext(Dispatchers.IO) {
