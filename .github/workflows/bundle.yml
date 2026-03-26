@@ -200,4 +200,8 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: desktop
-          path: composeApp/output/*
+          path: |
+            composeApp/output/*.zip
+            composeApp/output/*.tar.gz
+            composeApp/output/*.msix
+            composeApp/output/*.deb
