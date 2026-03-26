@@ -105,9 +105,26 @@ jobs:
           POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
         run: bundle exec fastlane bundle
 
+      - name: Decode generic keystore
+        run: echo "${{ secrets.GENERIC_KEY_STORE }}" | base64 -d > "${RUNNER_TEMP}/generic.jks"
+
+      - name: Build generic APK
+        run: >
+          ./gradlew :app:assembleGenericRelease
+          -PtasksKeyAlias=${{ secrets.GENERIC_KEY_ALIAS }}
+          -PtasksStoreFile=${{ runner.temp }}/generic.jks
+          -PtasksStorePassword=${{ secrets.GENERIC_KEY_STORE_PASSWORD }}
+          -PtasksKeyPassword=${{ secrets.GENERIC_KEY_PASSWORD }}
+          -Ptasks_mapbox_key=${{ secrets.MAPBOX_KEY }}
+
       - name: Build composeApp APK
         run: ./gradlew :composeApp:assembleGoogleplayDebug
 
+      - name: Upload generic APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: app-generic-release.apk
+          path: app/build/outputs/apk/generic/release/app-generic-release.apk
       - name: Upload app APK
         uses: actions/upload-artifact@v7
         with:
@@ -148,30 +165,22 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
 
+      - name: Build desktop jar
+        run: ./gradlew :composeApp:desktopJar
+
       - name: Install Conveyor
         run: npm install -g @hydraulic/conveyor
 
       - name: Build desktop archives
         working-directory: composeApp
+        env:
+          CONVEYOR_AGREE_TO_LICENSE: 1
+          SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
         run: |
-          conveyor make windows-zip
-          conveyor make linux-tarball
-          conveyor -Kapp.mac.sign=false -Kapp.mac.notarize=false make mac-zip
+          conveyor make site
 
-      - name: Upload Windows
+      - name: Upload desktop builds
         uses: actions/upload-artifact@v7
         with:
-          name: tasks-desktop-Windows
-          path: composeApp/output/windows-zip/*
-
-      - name: Upload Linux
-        uses: actions/upload-artifact@v7
-        with:
-          name: tasks-desktop-Linux
-          path: composeApp/output/linux-tarball/*
-
-      - name: Upload macOS
-        uses: actions/upload-artifact@v7
-        with:
-          name: tasks-desktop-macOS
-          path: composeApp/output/mac-zip/*
+          name: desktop
+          path: composeApp/output/*

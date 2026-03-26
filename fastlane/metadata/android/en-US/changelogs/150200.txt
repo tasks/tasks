@@ -1,0 +1,6 @@
+* Pre-alpha desktop release for macOS, Windows, and Linux!
+  * Currently only supports Tasks.org cloud sign in
+  * Early adopters only! This is a minimally useful product right now
+  * Not cryptographically signed yet
+* Obtainium support
+* Update translations

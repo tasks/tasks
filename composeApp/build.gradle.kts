@@ -138,7 +138,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "Tasks.org"
+            packageName = "tasks-org"
             packageVersion = libs.versions.versionName.get().let {
                 if (it.count { c -> c == '.' } < 2) "$it.0" else it
             }

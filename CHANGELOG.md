@@ -1,3 +1,22 @@
+### 15.2 (2026-02-26)
+
+* Pre-alpha desktop release for macOS, Windows, and Linux!
+  * Currently only supports Tasks.org cloud sign in
+  * Early adopters only! This is a minimally useful product right now
+  * Not cryptographically signed yet
+* Obtainium support
+* Update translations
+  * Afrikaans - @evangibson66
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Czech - @Fjuro
+  * Dutch - Bram Schoenmakers
+  * Esperanto - Don Zouras
+  * Finnish - @pHamala
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Japanese - Norara
+
 ### 15.1 (2026-03-17)
 
 * Add 'Per-list sorting' - @repparw
