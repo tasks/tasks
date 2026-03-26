@@ -2,6 +2,10 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
+version = libs.versions.versionName.get().let {
+    if (it.count { c -> c == '.' } < 2) "$it.0" else it
+}
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.application)
@@ -9,6 +13,7 @@ plugins {
     alias(libs.plugins.kotlin.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
     id("com.google.gms.google-services")
+    id("dev.hydraulic.conveyor") version "2.0"
 }
 
 kotlin {
@@ -133,8 +138,18 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "Tasks"
-            packageVersion = "1.0.0"
+            packageName = "Tasks.org"
+            packageVersion = libs.versions.versionName.get().let {
+                if (it.count { c -> c == '.' } < 2) "$it.0" else it
+            }
         }
     }
+}
+
+// Conveyor platform-specific Compose runtime dependencies
+dependencies {
+    "linuxAmd64"(compose.desktop.linux_x64)
+    "macAmd64"(compose.desktop.macos_x64)
+    "macAarch64"(compose.desktop.macos_arm64)
+    "windowsAmd64"(compose.desktop.windows_x64)
 }

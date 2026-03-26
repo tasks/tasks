@@ -50,6 +50,17 @@ platform :android do
       )
   end
 
+  desc "Download Play-signed universal APK"
+  lane :download_signed_apk do
+    version_code = File.read("../gradle/libs.versions.toml").match(/versionCode\s*=\s*"(\d+)"/)[1].to_i
+    download_universal_apk_from_google_play(
+      package_name: "org.tasks",
+      version_code: version_code,
+      json_key: "./fastlane.json",
+      destination: "tasks-googleplay-release.apk",
+    )
+  end
+
   desc "Lint"
   lane :lint do
     gradle(task: ":app:lintGoogleplayRelease :app:lintGenericRelease --no-configuration-cache")

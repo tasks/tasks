@@ -105,11 +105,19 @@ jobs:
           POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
         run: bundle exec fastlane bundle
 
+      - name: Build composeApp APK
+        run: ./gradlew :composeApp:assembleGoogleplayDebug
+
       - name: Upload app APK
         uses: actions/upload-artifact@v7
         with:
           name: app-googleplay-release.apk
           path: app/build/outputs/bundle/googleplayRelease/app-googleplay-release.apk
+      - name: Upload composeApp APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: composeApp-googleplay-debug.apk
+          path: composeApp/build/outputs/apk/googleplay/debug/composeApp-googleplay-debug.apk
       - name: Upload wear APK
         uses: actions/upload-artifact@v7
         with:
@@ -124,3 +132,46 @@ jobs:
             app/build/outputs/mapping/googleplayRelease/mapping.txt
             wear/build/outputs/bundle/release/wear-release.aab
             wear/build/outputs/mapping/release/mapping.txt
+
+  desktop:
+    runs-on: ubuntu-latest
+    needs: [ check ]
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Install Conveyor
+        run: npm install -g @hydraulic/conveyor
+
+      - name: Build desktop archives
+        working-directory: composeApp
+        run: |
+          conveyor make windows-zip
+          conveyor make linux-tarball
+          conveyor -Kapp.mac.sign=false -Kapp.mac.notarize=false make mac-zip
+
+      - name: Upload Windows
+        uses: actions/upload-artifact@v7
+        with:
+          name: tasks-desktop-Windows
+          path: composeApp/output/windows-zip/*
+
+      - name: Upload Linux
+        uses: actions/upload-artifact@v7
+        with:
+          name: tasks-desktop-Linux
+          path: composeApp/output/linux-tarball/*
+
+      - name: Upload macOS
+        uses: actions/upload-artifact@v7
+        with:
+          name: tasks-desktop-macOS
+          path: composeApp/output/mac-zip/*

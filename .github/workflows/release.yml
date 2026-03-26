@@ -1,0 +1,81 @@
+name: GitHub Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Decode generic keystore
+        run: echo "${{ secrets.GENERIC_KEY_STORE }}" | base64 -d > "${RUNNER_TEMP}/generic.jks"
+
+      - name: Build generic APK
+        run: ./gradlew :app:assembleGenericRelease
+        env:
+          tasksKeyAlias: ${{ secrets.GENERIC_KEY_ALIAS }}
+          tasksStoreFile: ${{ runner.temp }}/generic.jks
+          tasksStorePassword: ${{ secrets.GENERIC_KEY_STORE_PASSWORD }}
+          tasksKeyPassword: ${{ secrets.GENERIC_KEY_PASSWORD }}
+
+      - name: Download Play-signed APK
+        env:
+          FASTLANE: ${{ secrets.FASTLANE }}
+        run: |
+          echo "$FASTLANE" > ./fastlane.json
+          bundle exec fastlane download_signed_apk
+          rm ./fastlane.json
+
+      - name: Install Conveyor
+        run: npm install -g @hydraulic/conveyor
+
+      - name: Build desktop releases
+        working-directory: composeApp
+        env:
+          SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
+        run: conveyor make site
+
+      - name: Rename artifacts
+        run: |
+          TAG=${GITHUB_REF_NAME}
+          mv app/build/outputs/apk/generic/release/app-generic-release.apk "tasks-fdroid-${TAG}.apk"
+          mv tasks-googleplay-release.apk "tasks-googleplay-${TAG}.apk"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: release-artifacts
+          path: |
+            tasks-fdroid-*.apk
+            tasks-googleplay-*.apk
+            composeApp/output/*
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            tasks-fdroid-*.apk
+            tasks-googleplay-*.apk
+            composeApp/output/*
