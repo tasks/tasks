@@ -18,7 +18,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.todoroo.astrid.ui.StartDateControlSet.Companion.getRelativeDateString
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
 import org.tasks.compose.pickers.StartDateTimePicker.DAY_BEFORE_DUE
@@ -28,16 +27,18 @@ import org.tasks.compose.pickers.StartDateTimePicker.NO_DAY
 import org.tasks.compose.pickers.StartDateTimePicker.NO_TIME
 import org.tasks.compose.pickers.StartDateTimePicker.StartDateTimePicker
 import org.tasks.compose.pickers.StartDateTimePicker.WEEK_BEFORE_DUE
+import org.tasks.compose.pickers.StartDateTimePicker.decodeStartDay
+import org.tasks.compose.pickers.StartDateTimePicker.encodeDay
+import org.tasks.compose.pickers.StartDateTimePicker.encodeStartDay
+import org.tasks.compose.pickers.StartDateTimePicker.encodeTime
+import org.tasks.compose.pickers.StartDateTimePicker.getRelativeDateString
 import org.tasks.data.entity.Task
-import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import org.tasks.time.millisOfDay
-import org.tasks.time.startOfDay
 
 @Composable
 fun StartDateRow(
@@ -53,26 +54,15 @@ fun StartDateRow(
     // TODO: provide some standard way to get Properties in @Composable's
     val preferences = remember { Preferences(context) }
 
-    val initial = remember {
-        if (current <= 0) {
-            if (isNew) {
-                when (preferences.getIntegerFromString(
-                    R.string.p_default_hideUntil_key,
-                    Task.HIDE_UNTIL_NONE
-                )) {
-                    Task.HIDE_UNTIL_DUE -> DUE_DATE
-                    Task.HIDE_UNTIL_DUE_TIME -> DUE_TIME
-                    Task.HIDE_UNTIL_DAY_BEFORE -> DAY_BEFORE_DUE
-                    Task.HIDE_UNTIL_WEEK_BEFORE -> WEEK_BEFORE_DUE
-                    else -> 0L
-                }
-            } else 0L
-        } else current
+    val initial = remember { // to avoid recalculations on recompose
+        if (current > 0) current
+        else if (isNew) defaultStartDate(preferences)
+        else 0L
     }
 
-    // Note that these States are the primary storage for the startDate value,
+    // These States are the primary storage for the startDate values like a local viewModel,
     // e.g. StartDateRow sends changes to the viewModel, but not updates itself if/when "current"
-    // parameter is changed outside, like a local viewModel
+    // parameter is changed outside
     val selectedDay = rememberSaveable {
         mutableLongStateOf(encodeDay(initial, dueDate))
     }
@@ -80,7 +70,7 @@ fun StartDateRow(
         mutableIntStateOf(encodeTime(initial, selectedDay.longValue, dueDate))
     }
 
-    // This state variable is to prevent using "runBlocking" for formatting relative date text
+    // to prevent using "runBlocking" for formatting relative date text
     val currentText = remember { mutableStateOf("") }
     LaunchedEffect(dueDate, selectedDay.longValue, selectedTime.intValue) {
         currentText.value =
@@ -149,56 +139,15 @@ private fun StartDateRow(
     )
 }
 
-private fun encodeDay(current: Long, dueDate: Long): Long
-{
-    if (current <= 0L) return current
-    return encodeStartDay(
-        dueDate,
-        current.startOfDay(),
-        current.millisOfDay)
-}
-
-private fun encodeTime(current: Long, day: Long, dueDate: Long): Int =
-    if (current > 0L &&
-        day == dueDate.startOfDay() &&
-        current.millisOfDay == dueDate.millisOfDay)
-    {
-        NO_TIME
-    } else {
-        current.millisOfDay
-    }
-
-private fun encodeStartDay(
-    dueDate: Long,
-    selectedDay: Long,
-    selectedTime: Int
-): Long {
-    val dueDay = dueDate.startOfDay()
-    val dueTime = dueDate.millisOfDay
-    return when {
-        dueDate <= 0 -> selectedDay
-        dueDay == selectedDay -> if (selectedTime == dueTime) {
-            DUE_TIME
-        } else {
-            DUE_DATE
-        }
-        dueDay.toDateTime().minusDays(1).millis == selectedDay ->
-            DAY_BEFORE_DUE
-        dueDay.toDateTime().minusDays(7).millis == selectedDay ->
-            WEEK_BEFORE_DUE
-        else -> selectedDay
-    }
-}
-
-private fun decodeStartDay(dueDate: Long, selectedDay: Long, selectedTime: Int): Long {
-    val due = dueDate.takeIf { it > 0 }?.toDateTime()
-    return when (selectedDay) {
-        DUE_DATE -> due?.withMillisOfDay(selectedTime)?.millis ?: 0
-        DUE_TIME -> due?.millis ?: 0
-        DAY_BEFORE_DUE -> due?.minusDays(1)?.withMillisOfDay(selectedTime)?.millis ?: 0
-        WEEK_BEFORE_DUE -> due?.minusDays(7)?.withMillisOfDay(selectedTime)?.millis ?: 0
-        else -> selectedDay + selectedTime
-    }
+private fun defaultStartDate(preferences: Preferences): Long = when (preferences.getIntegerFromString(
+    R.string.p_default_hideUntil_key,
+    Task.HIDE_UNTIL_NONE
+)) {
+    Task.HIDE_UNTIL_DUE -> DUE_DATE
+    Task.HIDE_UNTIL_DUE_TIME -> DUE_TIME
+    Task.HIDE_UNTIL_DAY_BEFORE -> DAY_BEFORE_DUE
+    Task.HIDE_UNTIL_WEEK_BEFORE -> WEEK_BEFORE_DUE
+    else -> 0L
 }
 
 private suspend fun formatDateTimeText(
@@ -225,7 +174,7 @@ private suspend fun formatDateTimeText(
     }
 }
 
-// TODO: delete this code after migration together
+// TODO: delete the code below after migration together
 //  with StartDateControlSet and StartDatePicker
 @Composable
 fun StartDateRow(

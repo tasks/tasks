@@ -1,5 +1,6 @@
 package org.tasks.compose.pickers
 
+import android.content.Context
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -14,10 +15,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.dialogs.BaseDateTimePicker
 import org.tasks.extensions.Context.is24HourFormat
+import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.millisOfDay
+import org.tasks.time.startOfDay
+import org.tasks.time.withMillisOfDay
 
 object StartDateTimePicker {
     // This is a copy of special constants declarations from StartDatePicker
@@ -143,4 +150,60 @@ object StartDateTimePicker {
             }
         }
     }
+
+    fun encodeDay(current: Long, dueDate: Long): Long {
+        if (current <= 0L) return current
+        return encodeStartDay(
+            dueDate,
+            current.startOfDay(),
+            current.millisOfDay)
+    }
+
+    fun encodeTime(current: Long, day: Long, dueDate: Long): Int =
+        if (current > 0L &&
+            day == dueDate.startOfDay() &&
+            current.millisOfDay == dueDate.millisOfDay)
+        {
+            NO_TIME
+        } else {
+            current.millisOfDay
+        }
+
+    fun encodeStartDay(dueDate: Long, selectedDay: Long, selectedTime: Int): Long {
+        val dueDay = dueDate.startOfDay()
+        val dueTime = dueDate.millisOfDay
+        return when {
+            dueDate <= 0 -> selectedDay
+            dueDay == selectedDay -> if (selectedTime == dueTime) {
+                DUE_TIME
+            } else {
+                DUE_DATE
+            }
+            dueDay.toDateTime().minusDays(1).millis == selectedDay ->
+                DAY_BEFORE_DUE
+            dueDay.toDateTime().minusDays(7).millis == selectedDay ->
+                WEEK_BEFORE_DUE
+            else -> selectedDay
+        }
+    }
+
+    fun decodeStartDay(dueDate: Long, selectedDay: Long, selectedTime: Int): Long {
+        val due = dueDate.takeIf { it > 0 }?.toDateTime()
+        return when (selectedDay) {
+            DUE_DATE -> due?.withMillisOfDay(selectedTime)?.millis ?: 0
+            DUE_TIME -> due?.millis ?: 0
+            DAY_BEFORE_DUE -> due?.minusDays(1)?.withMillisOfDay(selectedTime)?.millis ?: 0
+            WEEK_BEFORE_DUE -> due?.minusDays(7)?.withMillisOfDay(selectedTime)?.millis ?: 0
+            else -> selectedDay + selectedTime
+        }
+    }
+
+    // copy from StartDateControlSet
+    internal fun Context.getRelativeDateString(resId: Int, time: Int) =
+        if (time == NO_TIME) {
+            getString(resId)
+        } else {
+            "${getString(resId)} ${getTimeString(currentTimeMillis().withMillisOfDay(time), this.is24HourFormat)}"
+        }
+
 }
