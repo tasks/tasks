@@ -204,7 +204,9 @@ jobs:
         env:
           CONVEYOR_AGREE_TO_LICENSE: 1
           SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
-        run: conveyor make ${{ matrix.target }}
+        run: |
+          [ -z "$SIGNING_KEY" ] && unset SIGNING_KEY
+          conveyor make ${{ matrix.target }}
 
       - name: Upload desktop-linux-deb
         if: matrix.platform == 'linux'
