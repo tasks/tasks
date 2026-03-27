@@ -164,6 +164,87 @@ private suspend fun formatDateTimeText(
     }
 }
 
+@Preview(showBackground = true, widthDp = 320)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
+@Composable
+fun NoStartDateAlarm() {
+    TasksTheme {
+        StartDateRow(
+            current = 0L,
+            setCurrent = {},
+            dueDate = 0L,
+            isNew = true,
+            hasStartAlarm = true,
+            showDueDate = false
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
+@Composable
+fun NoStartDateNoAlarm() {
+    TasksTheme {
+        StartDateRow(
+            current = 0L,
+            setCurrent = {},
+            dueDate = 0L,
+            isNew = true,
+            hasStartAlarm = false,
+            showDueDate = false
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
+@Composable
+fun PastStartDate() {
+    TasksTheme {
+        StartDateRow(
+            current = 1657080392000L,
+            setCurrent = {},
+            dueDate = 0L,
+            isNew = true,
+            hasStartAlarm = false,
+            showDueDate = false
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
+@Composable
+fun PastStartDueDate() {
+    TasksTheme {
+        StartDateRow(
+            current = 1657080392000L,
+            setCurrent = {},
+            dueDate = 1657080392000L,
+            isNew = false,
+            hasStartAlarm = false,
+            showDueDate = false
+        )
+    }
+}
+
+//189216000000L
+@Preview(showBackground = true, widthDp = 320)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
+@Composable
+fun FutureStartDate() {
+    TasksTheme {
+        StartDateRow(
+            current = 1892160000000L,
+            setCurrent = {},
+            dueDate = 1657080392000L,
+            isNew = false,
+            hasStartAlarm = false,
+            showDueDate = false
+        )
+    }
+}
+
 // TODO: delete the code below after migration together
 //  with StartDateControlSet and StartDatePicker
 @Composable
@@ -225,52 +306,4 @@ fun StartDate(
             .padding(vertical = 20.dp)
             .height(24.dp),
     )
-}
-
-@Preview(showBackground = true, widthDp = 320)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
-@Composable
-fun NoStartDate() {
-    TasksTheme {
-        StartDateRow(
-            startDate = 0L,
-            selectedDay = StartDateTimePicker.NO_DAY,
-            hasStartAlarm = true,
-            hasDueDate = false,
-            dateTimeText = stringResource(id = R.string.no_start_date),
-            onClick = {},
-        )
-    }
-}
-
-@Preview(showBackground = true, widthDp = 320)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
-@Composable
-fun FutureStartDate() {
-    TasksTheme {
-        StartDateRow(
-            startDate = 1657080392000L,
-            selectedDay = StartDateTimePicker.DUE_DATE,
-            hasStartAlarm = true,
-            hasDueDate = false,
-            dateTimeText = "July 6, 2022",
-            onClick = {},
-        )
-    }
-}
-
-@Preview(showBackground = true, widthDp = 320)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
-@Composable
-fun PastStartDate() {
-    TasksTheme {
-        StartDateRow(
-            startDate = 1657080392000L,
-            selectedDay = StartDateTimePicker.DUE_TIME,
-            hasStartAlarm = true,
-            hasDueDate = false,
-            dateTimeText = "Due time",
-            onClick = {},
-        )
-    }
 }
