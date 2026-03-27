@@ -96,6 +96,13 @@ import org.tasks.compose.accounts.AddAccountScreen
 import org.tasks.compose.accounts.Platform
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
+import org.tasks.compose.chips.ChipDataProvider
+import org.tasks.compose.chips.ChipGroup
+import org.tasks.compose.chips.Chip
+import org.tasks.compose.chips.StartDateChip
+import org.tasks.compose.chips.SubtaskChip
+import org.tasks.data.isHidden
+import org.tasks.time.startOfDay
 import org.tasks.compose.sort.BottomSheetContent
 import org.tasks.compose.sort.SortPicker
 import org.tasks.compose.sort.SortSheetContent
@@ -107,7 +114,11 @@ import org.tasks.kmp.org.tasks.themes.ColorProvider
 import org.tasks.themes.BLUE
 import org.tasks.themes.TasksTheme
 import org.tasks.data.TaskContainer
+import org.tasks.filters.CaldavFilter
+import org.tasks.filters.Filter
 import org.tasks.filters.MyTasksFilter
+import org.tasks.filters.PlaceFilter
+import org.tasks.filters.TagFilter
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
@@ -307,6 +318,7 @@ private fun TaskListScreen(
     val state by viewModel.state.collectAsState()
     val drawerState by drawerViewModel.state.collectAsState()
     val headerFormatter = koinInject<HeaderFormatter>()
+    val chipDataProvider = koinInject<ChipDataProvider>()
     val reporting = koinInject<Reporting>()
     val sortViewModel = koinViewModel<SortSettingsViewModel>()
     val sortState by sortViewModel.state.collectAsState()
@@ -426,7 +438,9 @@ private fun TaskListScreen(
                     is TasksResults.Results -> {
                         TaskList(
                             tasks = results.tasks,
+                            filter = state.filter,
                             headerFormatter = headerFormatter,
+                            chipDataProvider = chipDataProvider,
                             listState = listState,
                             topPadding = topBarHeight,
                             onTaskClick = { task ->
@@ -444,6 +458,13 @@ private fun TaskListScreen(
                                 }
                             },
                             onToggleGroup = { viewModel.toggleCollapsed(it) },
+                            onToggleSubtasks = { id, collapsed ->
+                                viewModel.toggleSubtasks(id, collapsed)
+                            },
+                            onFilterClick = { filter ->
+                                viewModel.setFilter(filter)
+                            },
+                            is24Hour = org.tasks.time.is24HourFormat(),
                         )
                     }
                 }
@@ -639,12 +660,17 @@ private fun TaskListScreen(
 @Composable
 private fun TaskList(
     tasks: SectionedDataSource,
+    filter: Filter,
     headerFormatter: HeaderFormatter,
+    chipDataProvider: ChipDataProvider,
     listState: androidx.compose.foundation.lazy.LazyListState = androidx.compose.foundation.lazy.rememberLazyListState(),
     topPadding: Dp = 0.dp,
     onTaskClick: (TaskContainer) -> Unit,
     onCompleteTask: (TaskContainer, Boolean) -> Unit,
     onToggleGroup: (Long) -> Unit = {},
+    onToggleSubtasks: (Long, Boolean) -> Unit = { _, _ -> },
+    onFilterClick: (Filter) -> Unit = {},
+    is24Hour: Boolean = false,
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -672,8 +698,13 @@ private fun TaskList(
             val task = tasks.getItem(index)
             TaskRow(
                 task = task,
+                filter = filter,
+                chipDataProvider = chipDataProvider,
+                is24Hour = is24Hour,
                 onClick = { onTaskClick(task) },
                 onToggleComplete = { onCompleteTask(task, !task.isCompleted) },
+                onToggleSubtasks = { onToggleSubtasks(task.id, !task.isCollapsed) },
+                onFilterClick = onFilterClick,
             )
         }
     }
@@ -721,9 +752,15 @@ private fun SectionHeader(
 @Composable
 private fun TaskRow(
     task: TaskContainer,
+    filter: Filter,
+    chipDataProvider: ChipDataProvider,
+    is24Hour: Boolean,
     onClick: () -> Unit,
     onToggleComplete: () -> Unit,
+    onToggleSubtasks: () -> Unit,
+    onFilterClick: (Filter) -> Unit,
 ) {
+    val isDark = isSystemInDarkTheme()
     val checkColor = if (task.isCompleted) {
         MaterialTheme.colorScheme.outline
     } else {
@@ -738,8 +775,11 @@ private fun TaskRow(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(start = (20 * task.indent).dp, end = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
+            .padding(
+                start = (20 * task.indent).dp,
+                end = 16.dp,
+            ),
+        verticalAlignment = Alignment.Top,
     ) {
         IconButton(
             onClick = onToggleComplete,
@@ -755,18 +795,100 @@ private fun TaskRow(
                 modifier = Modifier.size(24.dp),
             )
         }
-        Text(
-            text = task.title ?: "",
-            style = MaterialTheme.typography.bodyLarge,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            textDecoration = if (task.isCompleted) TextDecoration.LineThrough else null,
-            color = if (task.isCompleted) {
-                MaterialTheme.colorScheme.outline
-            } else {
-                MaterialTheme.colorScheme.onSurface
-            },
-            modifier = Modifier.weight(1f),
+        Column(modifier = Modifier.weight(1f).padding(top = 12.dp, bottom = 12.dp)) {
+            Text(
+                text = task.title ?: "",
+                style = MaterialTheme.typography.bodyLarge,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                textDecoration = if (task.isCompleted) TextDecoration.LineThrough else null,
+                color = if (task.isCompleted) {
+                    MaterialTheme.colorScheme.outline
+                } else {
+                    MaterialTheme.colorScheme.onSurface
+                },
+            )
+            val startDate = task.task.hideUntil
+            val showStartDate = task.task.isHidden
+                    && startDate != task.dueDate
+                    && startDate != task.dueDate.startOfDay()
+            val showList = task.indent == 0
+                    && filter !is CaldavFilter
+                    && chipDataProvider.getCaldavList(task.caldav) != null
+            val showPlace = task.hasLocation()
+                    && filter !is PlaceFilter
+            val tags = task.tagsString
+                ?.takeIf { it.isNotBlank() }
+                ?.split(",")
+                ?.let { uuids ->
+                    if (filter is TagFilter) uuids - filter.uuid else uuids
+                }
+                ?.mapNotNull { chipDataProvider.getTag(it) }
+                ?.sortedBy { it.title }
+                ?: emptyList()
+            val hasChips = task.hasChildren() || showStartDate || showList || showPlace || tags.isNotEmpty()
+            if (hasChips) {
+                ChipGroup(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)) {
+                    if (task.hasChildren()) {
+                        SubtaskChip(
+                            collapsed = task.isCollapsed,
+                            children = task.children,
+                            compact = true,
+                            onClick = onToggleSubtasks,
+                        )
+                    }
+                    if (showStartDate) {
+                        StartDateChip(
+                            sortGroup = task.sortGroup,
+                            startDate = startDate,
+                            compact = true,
+                            timeOnly = false,
+                            is24HourFormat = is24Hour,
+                            chipColor = chipColor(0, isDark),
+                        )
+                    }
+                    if (showPlace) {
+                        task.location?.let { location ->
+                            Chip(
+                                text = location.place.displayName,
+                                icon = location.place.icon ?: "place",
+                                color = chipColor(location.place.color, isDark),
+                                onClick = { onFilterClick(PlaceFilter(location.place)) },
+                            )
+                        }
+                    }
+                    if (showList) {
+                        chipDataProvider.getCaldavList(task.caldav)?.let { list ->
+                            Chip(
+                                text = list.title,
+                                icon = list.icon ?: "list",
+                                color = chipColor(list.tint, isDark),
+                                onClick = { onFilterClick(list) },
+                            )
+                        }
+                    }
+                    tags.forEach { tag ->
+                        Chip(
+                            text = tag.title,
+                            icon = tag.icon ?: "label",
+                            color = chipColor(tag.tint, isDark),
+                            onClick = { onFilterClick(tag) },
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun chipColor(seedColor: Int, isDark: Boolean): Color {
+    return if (seedColor == 0) {
+        MaterialTheme.colorScheme.surfaceContainerHighest
+    } else {
+        Color(
+            org.tasks.themes.chipColors(seedColor, isDark).backgroundColor
+                    or 0xFF000000.toInt()
         )
     }
 }

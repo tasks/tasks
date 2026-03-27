@@ -83,6 +83,7 @@ import org.tasks.service.TaskDeleter
 import org.tasks.sync.SyncAdapters
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.themes.ColorProvider
+import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.watch.WatchServiceLogic
 import com.todoroo.astrid.service.TaskCreator
@@ -470,6 +471,14 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun providesHeaderFormatter(caldavDao: CaldavDao) = HeaderFormatter(caldavDao)
+
+    @Provides
+    @Singleton
+    fun providesChipDataProvider(
+        caldavDao: CaldavDao,
+        tagDataDao: TagDataDao,
+        refreshBroadcaster: RefreshBroadcaster,
+    ) = ChipDataProvider(caldavDao, tagDataDao, refreshBroadcaster)
 
     @Provides
     fun providesWatchServiceLogic(

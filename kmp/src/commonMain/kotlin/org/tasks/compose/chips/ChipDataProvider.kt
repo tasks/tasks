@@ -1,13 +1,12 @@
-package org.tasks.ui
+package org.tasks.compose.chips
 
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.compose.throttleLatest
 import org.tasks.data.dao.CaldavDao
@@ -17,12 +16,8 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.TagData
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.TagFilter
-import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ChipListCache @Inject internal constructor(
+class ChipDataProvider(
     caldavDao: CaldavDao,
     tagDataDao: TagDataDao,
     private val refreshBroadcaster: RefreshBroadcaster,
@@ -30,13 +25,21 @@ class ChipListCache @Inject internal constructor(
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val lists: MutableMap<String?, CaldavFilter> = HashMap()
     private val tagDatas: MutableMap<String?, TagFilter> = HashMap()
-    private val _listsCount = mutableStateOf(0)
-    val listsCount: State<Int> = _listsCount
+
+    @Volatile
+    var listsCount: Int = 0
+        private set
+
+    fun getCaldavList(caldav: String?): CaldavFilter? =
+        if (lists.size <= 1) null else lists[caldav]
+
+    fun getTag(tag: String?): TagFilter? = tagDatas[tag]
+
     private fun updateCaldavCalendars(
         accounts: List<CaldavAccount>,
-        calendars: List<CaldavCalendar>
+        calendars: List<CaldavCalendar>,
     ) {
-        Timber.d("Updating lists")
+        Logger.d("ChipDataProvider") { "Updating lists" }
         calendars
             .mapNotNull { list ->
                 val account = accounts.find { it.uuid == list.account } ?: return@mapNotNull null
@@ -46,23 +49,18 @@ class ChipListCache @Inject internal constructor(
                 lists.clear()
                 it.associateByTo(lists) { filter -> filter.uuid }
             }
-        _listsCount.value = lists.size
+        listsCount = lists.size
         refreshBroadcaster.broadcastRefresh()
     }
 
     private fun updateTags(updated: List<TagData>) {
-        Timber.d("Updating tags")
+        Logger.d("ChipDataProvider") { "Updating tags" }
         tagDatas.clear()
         for (update in updated) {
             tagDatas[update.remoteId] = TagFilter(update)
         }
         refreshBroadcaster.broadcastRefresh()
     }
-
-    fun getCaldavList(caldav: String?): CaldavFilter? =
-        if (lists.size <= 1) null else lists[caldav]
-
-    fun getTag(tag: String?): TagFilter? = tagDatas[tag]
 
     init {
         combine(caldavDao.watchAccounts(), caldavDao.subscribeToCalendars()) { accounts, calendars ->

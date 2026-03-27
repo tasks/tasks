@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.tasks.R
-import org.tasks.compose.ChipGroup
-import org.tasks.compose.FilterChip
+import org.tasks.compose.chips.ChipGroup
+import org.tasks.compose.chips.FilterChip
 import org.tasks.compose.TaskEditRow
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterImpl

@@ -40,6 +40,7 @@ import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskDeleter
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
+import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.filters.FilterProvider
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.viewmodel.AddAccountViewModel
@@ -168,6 +169,7 @@ val commonModule = module {
     factoryOf(::CaldavSynchronizer)
     factory { FilterProvider(get(), get(), get(), get(), get(), get(), get()) }
     singleOf(::HeaderFormatter)
+    singleOf(::ChipDataProvider)
 
     // ViewModels
     viewModelOf(::AppViewModel)

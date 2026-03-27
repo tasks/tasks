@@ -19,10 +19,10 @@ import com.todoroo.astrid.core.SortHelper.SORT_START
 import com.todoroo.astrid.ui.CheckableImageView
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
-import org.tasks.compose.ChipGroup
-import org.tasks.compose.FilterChip
+import org.tasks.compose.chips.ChipGroup
+import org.tasks.compose.chips.FilterChip
 import org.tasks.compose.StartDateChip
-import org.tasks.compose.SubtaskChip
+import org.tasks.compose.chips.SubtaskChip
 import org.tasks.data.TaskContainer
 import org.tasks.data.hasNotes
 import org.tasks.data.isHidden
@@ -303,7 +303,7 @@ class TaskViewHolder internal constructor(
                         preferences.showListChip &&
                         filter !is CaldavFilter
                     ) {
-                        remember(list, chipProvider.lists.listsCount.value) {
+                        remember(list, chipProvider.lists.listsCount) {
                             chipProvider.lists.getCaldavList(list)
                         }?.let {
                             FilterChip(

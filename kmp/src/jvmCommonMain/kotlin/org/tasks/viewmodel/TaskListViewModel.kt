@@ -106,6 +106,12 @@ open class TaskListViewModel(
         }
     }
 
+    fun toggleSubtasks(taskId: Long, collapsed: Boolean) {
+        viewModelScope.launch {
+            taskSaver.setCollapsed(taskId, collapsed)
+        }
+    }
+
     suspend fun markDeleted(tasks: List<Long>): List<Task> =
         taskDeleter.markDeleted(tasks)
 

@@ -22,12 +22,12 @@ import org.tasks.filters.getIcon
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.time.startOfDay
-import org.tasks.ui.ChipListCache
+import org.tasks.compose.chips.ChipDataProvider
 import javax.inject.Inject
 
 class WidgetChipProvider @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val chipListCache: ChipListCache,
+    private val chipListCache: ChipDataProvider,
     private val inventory: Inventory,
 ) {
     var isDark = false

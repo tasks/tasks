@@ -3,6 +3,7 @@ package org.tasks.ui
 import android.app.Activity
 import org.tasks.R
 import org.tasks.billing.Inventory
+import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.chipColors
 import javax.inject.Inject
@@ -11,7 +12,7 @@ import javax.inject.Inject
 class ChipProvider @Inject constructor(
     private val activity: Activity,
     private val inventory: Inventory,
-    val lists: ChipListCache,
+    val lists: ChipDataProvider,
     private val colorProvider: ColorProvider,
 ) {
     private val isDark = activity.resources.getBoolean(R.bool.is_dark)
