@@ -514,10 +514,7 @@ private fun TaskListScreen(
         var showCompletedPicker by remember { mutableStateOf(false) }
         var showSubtaskPicker by remember { mutableStateOf(false) }
         ModalBottomSheet(
-            onDismissRequest = {
-                showSortSheet = false
-                viewModel.invalidate()
-            },
+            onDismissRequest = { showSortSheet = false },
             containerColor = MaterialTheme.colorScheme.surface,
         ) {
             Column(

@@ -6,6 +6,7 @@ import com.todoroo.astrid.core.SortHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.analytics.Firebase
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.dialogs.SortSettingsActivity.Companion.EXTRA_FILTER_KEY
 import org.tasks.dialogs.SortSettingsActivity.Companion.WIDGET_NONE
 import org.tasks.preferences.FilterPreferences
@@ -22,6 +23,7 @@ class SortSettingsViewModel @Inject constructor(
     appPreferences: Preferences,
     tasksPreferences: TasksPreferences,
     firebase: Firebase,
+    refreshBroadcaster: RefreshBroadcaster,
 ) : org.tasks.viewmodel.SortSettingsViewModel(
     preferences = savedStateHandle
         .get<Int>(SortSettingsActivity.EXTRA_WIDGET_ID)
@@ -32,6 +34,7 @@ class SortSettingsViewModel @Inject constructor(
             ?.let { FilterPreferences(appPreferences, tasksPreferences, it) }
         ?: appPreferences,
     reporting = firebase,
+    refreshBroadcaster = refreshBroadcaster,
 ) {
     private val widgetPreferences = savedStateHandle
         .get<Int>(SortSettingsActivity.EXTRA_WIDGET_ID)

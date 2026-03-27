@@ -7,11 +7,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.preferences.QueryPreferences
 
 open class SortSettingsViewModel(
     private val preferences: QueryPreferences,
     private val reporting: Reporting,
+    private val refreshBroadcaster: RefreshBroadcaster,
 ) : ViewModel() {
     data class ViewState(
         val manualSort: Boolean,
@@ -52,27 +54,27 @@ open class SortSettingsViewModel(
 
     fun setSortAscending(ascending: Boolean) {
         preferences.sortAscending = ascending
-        _viewState.update { it.copy(sortAscending = ascending) }
+        updateAndRefresh { it.copy(sortAscending = ascending) }
     }
 
     fun setGroupAscending(ascending: Boolean) {
         preferences.groupAscending = ascending
-        _viewState.update { it.copy(groupAscending = ascending) }
+        updateAndRefresh { it.copy(groupAscending = ascending) }
     }
 
     fun setCompletedAscending(ascending: Boolean) {
         preferences.completedAscending = ascending
-        _viewState.update { it.copy(completedAscending = ascending) }
+        updateAndRefresh { it.copy(completedAscending = ascending) }
     }
 
     fun setSubtaskAscending(ascending: Boolean) {
         preferences.subtaskAscending = ascending
-        _viewState.update { it.copy(subtaskAscending = ascending) }
+        updateAndRefresh { it.copy(subtaskAscending = ascending) }
     }
 
     fun setCompletedAtBottom(completedAtBottom: Boolean) {
         preferences.completedTasksAtBottom = completedAtBottom
-        _viewState.update { it.copy(completedAtBottom = completedAtBottom) }
+        updateAndRefresh { it.copy(completedAtBottom = completedAtBottom) }
     }
 
     open fun setGroupMode(groupMode: Int) {
@@ -91,7 +93,7 @@ open class SortSettingsViewModel(
             else -> true
         }
         preferences.groupAscending = ascending
-        _viewState.update {
+        updateAndRefresh {
             it.copy(
                 manualSort = preferences.isManualSort,
                 astridSort = preferences.isAstridSort,
@@ -110,7 +112,7 @@ open class SortSettingsViewModel(
             else -> true
         }
         preferences.completedAscending = ascending
-        _viewState.update {
+        updateAndRefresh {
             it.copy(
                 completedMode = completedMode,
                 completedAscending = ascending,
@@ -129,7 +131,7 @@ open class SortSettingsViewModel(
             else -> true
         }
         preferences.sortAscending = ascending
-        _viewState.update {
+        updateAndRefresh {
             it.copy(
                 manualSort = false,
                 astridSort = false,
@@ -148,7 +150,7 @@ open class SortSettingsViewModel(
             else -> true
         }
         preferences.subtaskAscending = ascending
-        _viewState.update {
+        updateAndRefresh {
             it.copy(
                 subtaskMode = subtaskMode,
                 subtaskAscending = ascending,
@@ -162,7 +164,7 @@ open class SortSettingsViewModel(
         if (value) {
             preferences.groupMode = SortHelper.GROUP_NONE
         }
-        _viewState.update {
+        updateAndRefresh {
             it.copy(
                 groupMode = if (value) SortHelper.GROUP_NONE else it.groupMode,
                 manualSort = value,
@@ -176,12 +178,17 @@ open class SortSettingsViewModel(
         if (value) {
             preferences.groupMode = SortHelper.GROUP_NONE
         }
-        _viewState.update {
+        updateAndRefresh {
             it.copy(
                 groupMode = if (value) SortHelper.GROUP_NONE else it.groupMode,
                 astridSort = value,
             )
         }
+    }
+
+    private fun updateAndRefresh(transform: (ViewState) -> ViewState) {
+        _viewState.update(transform)
+        refreshBroadcaster.broadcastRefresh()
     }
 
     private fun trackSortChange(setting: String, value: Any) {

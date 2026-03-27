@@ -199,6 +199,7 @@ val commonModule = module {
         SortSettingsViewModel(
             preferences = get(),
             reporting = get(),
+            refreshBroadcaster = get(),
         )
     }
 }
