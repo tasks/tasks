@@ -199,6 +199,14 @@ jobs:
       - name: Install Conveyor
         run: npm install -g @hydraulic/conveyor
 
+      - name: Generate signing key if absent
+        env:
+          SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
+        run: |
+          if [ -z "$SIGNING_KEY" ]; then
+            conveyor keys generate --passphrase ""
+          fi
+
       - name: Build ${{ matrix.platform }} desktop
         working-directory: composeApp
         env:
