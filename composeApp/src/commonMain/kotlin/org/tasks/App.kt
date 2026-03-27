@@ -580,7 +580,7 @@ private fun TaskRow(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(end = 16.dp),
+            .padding(start = (20 * task.indent).dp, end = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         IconButton(
