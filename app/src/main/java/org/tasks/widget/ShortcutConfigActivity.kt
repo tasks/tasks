@@ -2,8 +2,15 @@ package org.tasks.widget
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
@@ -48,6 +55,8 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         val binding = ActivityWidgetShortcutLayoutBinding.inflate(layoutInflater)
         binding.let {
             toolbar = it.toolbar.toolbar
@@ -61,6 +70,15 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
             it.body.color.colorRow.setOnClickListener { showThemePicker() }
         }
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            toolbar.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = systemBars.top
+            }
+            binding.body.root.updatePadding(bottom = systemBars.bottom)
+            insets
+        }
 
         toolbar.setTitle(R.string.FSA_label)
         toolbar.navigationIcon = getDrawable(R.drawable.ic_outline_save_24px)

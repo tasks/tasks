@@ -26,15 +26,15 @@ class Device @Inject constructor(
         val pm = context.packageManager
         val activities =
             pm.queryIntentActivities(Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0)
-        return (activities.size != 0)
+        return activities.isNotEmpty()
     }
 
-    private fun isDontKeepActivitiesEnabled(): Boolean {
+    private fun isDontKeepActivitiesEnabled(): Boolean? {
         return try {
             Settings.Global.getInt(context.contentResolver, Settings.Global.ALWAYS_FINISH_ACTIVITIES) == 1
         } catch (e: Exception) {
-            Timber.e(e)
-            false
+            Timber.e("failed to fetch ${Settings.Global.ALWAYS_FINISH_ACTIVITIES}: ${e.message}")
+            null
         }
     }
 

@@ -24,7 +24,7 @@ import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
 import androidx.compose.material3.adaptive.layout.PaneAdaptedValue
 import androidx.compose.material3.adaptive.layout.ThreePaneScaffoldRole
-import androidx.compose.material3.adaptive.layout.calculatePaneScaffoldDirective
+import androidx.compose.material3.adaptive.layout.calculatePaneScaffoldDirectiveWithTwoPanesOnMediumWidth
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.LaunchedEffect
@@ -241,7 +241,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         )
                         val navigator = rememberListDetailPaneScaffoldNavigator(
-                            calculatePaneScaffoldDirective(
+                            calculatePaneScaffoldDirectiveWithTwoPanesOnMediumWidth(
                                 windowAdaptiveInfo = currentWindowAdaptiveInfo(),
                             ).copy(
                                 horizontalPartitionSpacerSize = 0.dp,

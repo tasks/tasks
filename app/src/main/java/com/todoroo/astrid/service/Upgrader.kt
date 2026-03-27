@@ -3,6 +3,9 @@ package com.todoroo.astrid.service
 import android.content.Context
 import android.net.Uri
 import androidx.annotation.ColorRes
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.common.collect.ImmutableListMultimap
 import com.google.common.collect.ListMultimap
 import com.google.common.collect.Multimaps
@@ -34,6 +37,8 @@ import org.tasks.data.entity.Filter
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
 import org.tasks.filters.CaldavFilter
+import org.tasks.jobs.UpgradeIconSyncWork
+import org.tasks.jobs.networkConstraints
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -144,6 +149,15 @@ class Upgrader @Inject constructor(
                         preferences.groupMode = SortHelper.GROUP_NONE
                     }
                 }
+            }
+            run(from, V14_8) {
+                WorkManager.getInstance(context).enqueueUniqueWork(
+                    uniqueWorkName = "upload_icons",
+                    existingWorkPolicy = ExistingWorkPolicy.KEEP,
+                    request = OneTimeWorkRequestBuilder<UpgradeIconSyncWork>()
+                        .setConstraints(networkConstraints)
+                        .build()
+                )
             }
             preferences.setBoolean(R.string.p_just_updated, true)
         } else {
@@ -407,6 +421,7 @@ class Upgrader @Inject constructor(
         const val V12_8 = 120800
         const val V14_5_4 = 140516
         const val V14_6_1 = 140602
+        const val V14_8 = 140800
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {

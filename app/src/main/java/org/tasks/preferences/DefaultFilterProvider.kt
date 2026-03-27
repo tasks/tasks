@@ -56,7 +56,7 @@ class DefaultFilterProvider @Inject constructor(
 
     fun setLastViewedFilter(filter: Filter) = setFilterPreference(filter, R.string.p_last_viewed_list)
 
-    private suspend fun getLastViewedFilter() = getFilterFromPreference(R.string.p_last_viewed_list)
+    suspend fun getLastViewedFilter() = getFilterFromPreference(R.string.p_last_viewed_list)
 
     suspend fun getDefaultOpenFilter() = getFilterFromPreference(R.string.p_default_open_filter)
 
@@ -84,7 +84,7 @@ class DefaultFilterProvider @Inject constructor(
     private suspend fun getAnyList(): CaldavFilter {
         val filter = caldavDao
             .getCalendars()
-            .filterNot { it.access == ACCESS_READ_ONLY }
+            .filterNot { it.readOnly() }
             .getOrNull(0)
             ?.let { list ->
                 list.account

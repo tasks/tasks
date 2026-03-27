@@ -17,6 +17,8 @@ import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.dialogs.BaseDateTimePicker
+import org.tasks.dialogs.StartDatePicker.Companion.DUE_DATE
+import org.tasks.dialogs.StartDatePicker.Companion.DUE_TIME
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.preferences.Preferences

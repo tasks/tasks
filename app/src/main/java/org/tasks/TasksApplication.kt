@@ -17,6 +17,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.coroutineScope
 import androidx.work.Configuration
 import com.mikepenz.iconics.Iconics
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastAndroid15
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastR
 import com.todoroo.astrid.service.Upgrader
 import dagger.Lazy
@@ -102,9 +103,15 @@ class TasksApplication : Application(), Configuration.Provider {
         Timber.i("Astrid Startup. %s => %s", lastVersion, currentVersion)
         if (atLeastR()) {
             scope.launch {
-                val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+                val activityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
                 val exitReasons = activityManager.getHistoricalProcessExitReasons(null, 0, 1)
                 logExitReasons(exitReasons)
+            }
+        }
+        if (atLeastAndroid15()) {
+            val activityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+            activityManager.addApplicationStartInfoCompletionListener(mainExecutor) { startInfo ->
+                Timber.d("Application was force stopped: ${startInfo.wasForceStopped()}")
             }
         }
 

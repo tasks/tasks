@@ -84,7 +84,6 @@ fun DatePickerBottomSheet(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .fillMaxWidth(),
-                    shadowElevation = 8.dp,
                     color = MaterialTheme.colorScheme.surface,
                 ) {
                     Row(

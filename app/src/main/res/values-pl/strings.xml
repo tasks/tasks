@@ -7,7 +7,7 @@
     <string name="backup_BAc_export">Utwórz kopię zapasową teraz</string>
     <string name="export_toast">Zapisano %1$s do %2$s.</string>
     <string name="import_summary_title">Podsumowanie odzyskiwania</string>
-    <string name="import_summary_message">Plik %1$s zawiera %2$s.\n\n %3$s zaimportowanych,\n %4$s już istnieje\n %5$s zawiera błędy\n</string>
+    <string name="import_summary_message">Plik %1$s zawiera %2$s.\n\n %3$s zaimportowanych,\n %4$s już istnieje\n %5$s zawiera błędy</string>
     <string name="import_progress_read">Czytanie zadania %d…</string>
     <string name="read_permission_label">Uprawnienia Tasks</string>
     <string name="discard_confirmation">Czy jesteś pewien, że chcesz porzucić zmiany?</string>
@@ -703,4 +703,20 @@
     <string name="sort_ascending">Rosnąco</string>
     <string name="sort_descending">Malejąco</string>
     <string name="sort_completed">Wg czasu zakończenia</string>
+    <string name="app_settings">Ustawienia aplikacji</string>
+    <string name="swipe_to_snooze_title">Przesuń aby uśpić</string>
+    <string name="swipe_to_snooze_time_immediately">natychmiast</string>
+    <string name="swipe_to_snooze_time_15_minutes">po 15 minutach</string>
+    <string name="swipe_to_snooze_time_30_minutes">po 30 minutach</string>
+    <string name="swipe_to_snooze_time_1_hour">po 1 godzinie</string>
+    <string name="swipe_to_snooze_time_24_hours">po 24 godzinach</string>
+    <string name="swipe_to_snooze_description">Czas drzemki</string>
+    <string name="delete_comment">komentarz</string>
+    <string name="comment">Komentarz</string>
+    <string name="yesterday">Wczoraj</string>
+    <string name="send_application_logs">Wyślij logi aplikacji</string>
+    <string name="change_priority">Zmień priorytet</string>
+    <string name="theme_dynamic">Dynamiczny</string>
+    <string name="continue_without_sync">Kontynuuj bez synchronizacji</string>
+    <string name="help_me_choose">Pomóż mi wybrać</string>
 </resources>

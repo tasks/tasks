@@ -25,7 +25,7 @@ class WearRefresherImpl(
     init {
         phoneDataLayerAppHelper
             .connectedAndInstalledNodes
-            .catch { Timber.e(it) }
+            .catch { Timber.e("${it.message}") }
             .onEach { nodes ->
                 Timber.d("Connected nodes: ${nodes.joinToString()}")
                 watchConnected = nodes.isNotEmpty()

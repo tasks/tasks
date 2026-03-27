@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -66,6 +70,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
     private lateinit var loadingIndicator: ContentLoadingProgressBar
     private lateinit var chooseRecentLocation: View
     private lateinit var recyclerView: RecyclerView
+    private lateinit var selectThisLocation: View
 
     @Inject lateinit var theme: Theme
     @Inject lateinit var locationDao: LocationDao
@@ -88,6 +93,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
     private lateinit var search: MenuItem
     private var searchJob: Job? = null
     private val viewModel: PlaceSearchViewModel by viewModels()
+    private var systemBarsBottom = 0
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,6 +101,13 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
         window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         val binding = ActivityLocationPickerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            systemBarsBottom = systemBars.bottom
+            insets
+        }
+
         toolbar = binding.toolbar
         appBarLayout = binding.appBarLayout
         toolbarLayout = binding.collapsingToolbarLayout
@@ -105,6 +118,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
         loadingIndicator = binding.loadingIndicator
         chooseRecentLocation = binding.chooseRecentLocation
         recyclerView = binding.recentLocations
+        selectThisLocation = binding.selectThisLocation
         val configuration = resources.configuration
         if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
                 && configuration.smallestScreenWidthDp < 480) {
@@ -318,9 +332,15 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
             params.height = height
             chooseRecentLocation.visibility = View.GONE
             collapseToolbar()
+            selectThisLocation.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = systemBarsBottom
+            }
         } else {
             params.height = height * 75 / 100
             chooseRecentLocation.visibility = View.VISIBLE
+            selectThisLocation.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = 0
+            }
         }
     }
 

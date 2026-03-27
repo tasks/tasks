@@ -558,7 +558,7 @@
     <string name="device_settings">Настройки на устройството</string>
     <string name="support_development_subscribe">Отключване на допълнителни възможности и подкрепа на софтуера с отворен код</string>
     <string name="sort_start_group">Започната %s</string>
-    <string name="sort_due_group">Завършена %s</string>
+    <string name="sort_due_group">За %s</string>
     <string name="on_launch">При стартиране</string>
     <string name="sort_created_group">Създадена %s</string>
     <string name="sort_modified_group">Променена %s</string>
@@ -721,4 +721,5 @@
     <string name="delete_tasks_warning">Задачата %s ще бъде премахната. Действието е необратимо!</string>
     <string name="continue_without_sync">Без синхронизиране</string>
     <string name="help_me_choose">Помощ в избора</string>
+    <string name="widget_view_more_tasks">Повече задачи</string>
 </resources>

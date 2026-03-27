@@ -49,4 +49,6 @@ data class CaldavCalendar(
         @JvmField val NAME = TABLE.column("cdl_name")
         @JvmField val ORDER = TABLE.column("cdl_order")
     }
+
+    fun readOnly(): Boolean = access == ACCESS_READ_ONLY
 }

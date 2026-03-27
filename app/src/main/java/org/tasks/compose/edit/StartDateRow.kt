@@ -32,6 +32,109 @@ import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.millisOfDay
+import org.tasks.time.startOfDay
+
+@Composable
+fun StartDateRow(
+    current: Long,
+    setCurrent: (Long) -> Unit,
+    dueDate: Long,
+    isNew: Boolean,
+    hasStartAlarm: Boolean,
+    showDueDate: Boolean
+) {
+    val context = LocalContext.current
+    val preferences = remember { Preferences(context) }
+
+    val day =
+        if (current <= 0L) {
+            if (isNew) when (preferences.getIntegerFromString(R.string.p_default_hideUntil_key, Task.HIDE_UNTIL_NONE)) {
+                Task.HIDE_UNTIL_DUE -> StartDatePicker.DUE_DATE
+                Task.HIDE_UNTIL_DUE_TIME -> StartDatePicker.DUE_TIME
+                Task.HIDE_UNTIL_DAY_BEFORE -> StartDatePicker.DAY_BEFORE_DUE
+                Task.HIDE_UNTIL_WEEK_BEFORE -> StartDatePicker.WEEK_BEFORE_DUE
+                else -> 0L
+            }
+            else current
+        } else {
+            val dueDay = dueDate.startOfDay()
+            val dueTime = dueDate.millisOfDay
+            val hideUntil = current.toDateTime()
+            when (current) {
+                dueDay -> if (hideUntil.millisOfDay == dueTime) {
+                    StartDatePicker.DUE_TIME
+                } else {
+                    StartDatePicker.DUE_DATE
+                }
+                dueDay.toDateTime().minusDays(1).millis ->
+                    StartDatePicker.DAY_BEFORE_DUE
+                dueDay.toDateTime().minusDays(7).millis ->
+                    StartDatePicker.WEEK_BEFORE_DUE
+                else -> current
+            }
+        }
+
+    val time =
+        if (current > 0L &&
+            day == dueDate.startOfDay() &&
+            current.millisOfDay == dueDate.millisOfDay)
+            StartDatePicker.NO_TIME
+        else
+            current.millisOfDay
+
+    val selectedDay = rememberSaveable { mutableLongStateOf(day) }
+    val selectedTime = rememberSaveable { mutableIntStateOf(time) }
+
+    fun getSelectedValue(dueDate: Long): Long {
+        val due = dueDate.takeIf { it > 0 }?.toDateTime()
+        return when (selectedDay.longValue) {
+            StartDatePicker.DUE_DATE -> due?.withMillisOfDay(selectedTime.intValue)?.millis ?: 0
+            StartDatePicker.DUE_TIME -> due?.millis ?: 0
+            StartDatePicker.DAY_BEFORE_DUE -> due?.minusDays(1)?.withMillisOfDay(selectedTime.intValue)?.millis ?: 0
+            StartDatePicker.WEEK_BEFORE_DUE -> due?.minusDays(7)?.withMillisOfDay(selectedTime.intValue)?.millis ?: 0
+            else -> selectedDay.longValue + selectedTime.intValue
+        }
+    }
+
+    val showPicker = remember { mutableStateOf(false) }
+
+    StartDateRow(
+        startDate = current,
+        selectedDay = selectedDay.longValue,
+        selectedTime = selectedTime.intValue,
+        hasStartAlarm = hasStartAlarm,
+        hasDueDate = dueDate > 0L,
+        printDate = {
+            runBlocking {
+                getRelativeDateTime(
+                    selectedDay.longValue + selectedTime.intValue,
+                    context.is24HourFormat,
+                    DateStyle.FULL,
+                    alwaysDisplayFullDate = preferences.alwaysDisplayFullDate
+                )
+            }
+        },
+        onClick = { showPicker.value = true}
+    )
+
+    LaunchedEffect(dueDate) { setCurrent(getSelectedValue(dueDate)) }
+
+    if (showPicker.value) {
+        StartDateTimePicker(
+            selectedDay = selectedDay.longValue,
+            selectedTime = selectedTime.intValue,
+            updateValues = { day, time -> selectedDay.longValue = day; selectedTime.intValue = time },
+            accept = { setCurrent(getSelectedValue(dueDate)); showPicker.value = false },
+            dismiss = { showPicker.value = false },
+            autoclose = preferences.getBoolean(
+                R.string.p_auto_dismiss_datetime_edit_screen,
+                false
+            ),
+            showDueDate = showDueDate
+        )
+    }
+}
 
 @Composable
 fun StartDateRow(

@@ -285,7 +285,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             override fun handleOnBackPressed() {
                 if ((mainViewModel.state.value.filter as? SearchFilter)?.query?.isNotBlank() == true) {
                     lifecycleScope.launch {
-                        mainViewModel.resetFilter()
+                        mainViewModel.openLastViewedFilter()
                     }
                     if (search.isActionViewExpanded) {
                         search.collapseActionView()

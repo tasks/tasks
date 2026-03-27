@@ -41,7 +41,6 @@ import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.TagData
@@ -208,7 +207,7 @@ class iCalendar @Inject constructor(
         val task = existing?.task
             ?.let { taskDao.fetch(it) }
             ?: taskCreator.createWithValues("").apply {
-                readOnly = calendar.access == ACCESS_READ_ONLY
+                readOnly = calendar.readOnly()
                 taskDao.createNew(this)
             }
         val caldavTask =

@@ -4,15 +4,19 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
@@ -68,6 +72,8 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enableEdgeToEdge()
 
         val intent = intent
         taskIds = intent.getSerializableExtra(EXTRA_TASKS) as ArrayList<Long>?
@@ -140,8 +146,11 @@ internal fun TagPicker(
     getTagIcon: (TagData) -> String,
     getTagColor: (TagData) -> Color
 ) {
-    Box ( modifier = Modifier.fillMaxSize() )
-    {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .windowInsetsPadding(WindowInsets.systemBars)
+    ) {
         Column (modifier = Modifier.padding(horizontal = 12.dp)) {
             Box( modifier = Modifier.fillMaxWidth() ) {
                 SearchBar(viewModel, onBackClicked)

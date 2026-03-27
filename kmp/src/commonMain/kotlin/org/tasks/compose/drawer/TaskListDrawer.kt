@@ -94,7 +94,11 @@ fun TaskListDrawer(
             BottomAppBar(
                 modifier = Modifier
                     .layout { measurable, constraints ->
-                        val placeable = measurable.measure(constraints)
+                        val safeConstraints = constraints.copy(
+                            minHeight = constraints.minHeight.coerceAtLeast(0),
+                            maxHeight = constraints.maxHeight.coerceAtLeast(0)
+                        )
+                        val placeable = measurable.measure(safeConstraints)
                         bottomAppBarScrollBehavior.state.heightOffsetLimit =
                             -placeable.height.toFloat()
                         val height =

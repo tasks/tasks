@@ -12,8 +12,12 @@ import static java.util.Arrays.asList;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
-
+import android.view.ViewGroup;
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -84,11 +88,23 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    EdgeToEdge.enable(this);
 
     BeastModePrefActivityBinding binding = BeastModePrefActivityBinding.inflate(getLayoutInflater());
     Toolbar toolbar = binding.toolbar.toolbar;
     RecyclerView recyclerView = binding.recyclerView;
     setContentView(binding.getRoot());
+
+    ViewCompat.setOnApplyWindowInsetsListener(
+        binding.getRoot(),
+        (v, insets) -> {
+          Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+          ViewGroup.MarginLayoutParams toolbarParams =
+              (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+          toolbarParams.topMargin = systemBars.top;
+          recyclerView.setPadding(0, 0, 0, systemBars.bottom);
+          return insets;
+        });
 
     toolbar.setNavigationIcon(
         getDrawable(R.drawable.ic_outline_arrow_back_24px));

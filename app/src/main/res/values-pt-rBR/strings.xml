@@ -38,8 +38,8 @@
     <string name="TEA_timer_elap">Decorrido %s</string>
     <string name="due_date">Data de vencimento</string>
     <string name="due_time">Na hora de vencimento</string>
-    <string name="day_before_due">Dias antes do vencimento</string>
-    <string name="week_before_due">Semanas antes do vencimento</string>
+    <string name="day_before_due">Um dia antes do vencimento</string>
+    <string name="week_before_due">Semana antes do vencimento</string>
     <string name="TEA_control_repeat">Repetir</string>
     <string name="TEA_control_gcal">Calendário</string>
     <string name="TEA_control_importance">Prioridade</string>
@@ -392,7 +392,7 @@
     <string name="auto_dismiss_datetime_list_summary">Fechar automaticamente ao selecionar na lista de tarefas</string>
     <string name="auto_dismiss_datetime_list">Lista de tarefas</string>
     <string name="auto_dismiss_datetime">Fechar automaticamente o seletor de data e hora</string>
-    <string name="shortcut_pick_time">Escolha um horário</string>
+    <string name="shortcut_pick_time">Escolher hora</string>
     <string name="no_time">Sem horário</string>
     <string name="no_date">Sem data</string>
     <string name="chip_appearance_icon_only">Somente o ícone</string>

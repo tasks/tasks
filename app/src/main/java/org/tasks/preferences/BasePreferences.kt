@@ -3,7 +3,12 @@ package org.tasks.preferences
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -22,8 +27,21 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         val binding = ActivityPreferencesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val systemBars = insets.getSystemWindowInsets()
+            toolbar.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = systemBars.top
+            }
+            binding.settings.updatePadding(bottom = systemBars.bottom)
+            insets
+        }
+
         toolbar = binding.toolbar.toolbar
         if (savedInstanceState == null) {
             val rootPreference = getRootPreference()
