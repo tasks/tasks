@@ -79,6 +79,7 @@ kotlin {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.java.keyring)
+            implementation(libs.posthog)
         }
     }
 }
@@ -132,6 +133,24 @@ android {
         "googleplayImplementation"(libs.firebase.messaging)
     }
 }
+
+val generateDesktopConfig by tasks.registering {
+    val outputDir = layout.buildDirectory.dir("generated/desktop-config")
+    val posthogKey = providers.environmentVariable("POSTHOG_KEY")
+        .orElse(providers.gradleProperty("posthogKey"))
+        .orElse("")
+    inputs.property("posthogKey", posthogKey)
+    outputs.dir(outputDir)
+    doLast {
+        val file = outputDir.get().file("tasks.properties").asFile
+        file.parentFile.mkdirs()
+        file.writeText("posthog.key=${posthogKey.get()}\n")
+    }
+}
+
+kotlin.sourceSets.getByName("desktopMain").resources.srcDir(
+    generateDesktopConfig.map { it.outputs.files.singleFile }
+)
 
 compose.desktop {
     application {

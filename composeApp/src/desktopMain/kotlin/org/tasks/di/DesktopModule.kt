@@ -11,6 +11,8 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.tasks.PlatformConfiguration
+import org.tasks.analytics.PostHogReporting
+import org.tasks.analytics.Reporting
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
 import org.tasks.auth.DesktopOAuthFlow
@@ -29,6 +31,7 @@ import org.tasks.security.KeyStoreEncryption
 import org.tasks.sse.SseClient
 import org.tasks.sse.SseTokenProvider
 import java.io.File
+import java.util.Properties
 
 private fun dataDir(): File {
     val path = System.getProperty("tasks.dataDir")
@@ -36,9 +39,18 @@ private fun dataDir(): File {
     return File(path).also { it.mkdirs() }
 }
 
+private val config: Properties by lazy {
+    Properties().apply {
+        DesktopModule::class.java.getResourceAsStream("/tasks.properties")?.use { load(it) }
+    }
+}
+
+private object DesktopModule
+
 actual fun platformModule(): Module = module {
     singleOf(::TasksServerEnvironment)
     single { PlatformConfiguration() }
+    single<Reporting> { PostHogReporting(config.getProperty("posthog.key", "")) }
     factory<OkHttpClientFactory> { DefaultOkHttpClientFactory() }
     factory { DesktopOAuthFlow(serverEnvironment = get()) }
     factoryOf(::DesktopSignInHandler) bind SignInHandler::class

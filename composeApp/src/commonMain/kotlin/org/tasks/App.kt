@@ -92,6 +92,8 @@ import org.tasks.compose.SignInProviderDialog
 import org.tasks.compose.WelcomeScreenLayout
 import org.tasks.compose.accounts.AddAccountScreen
 import org.tasks.compose.accounts.Platform
+import org.tasks.analytics.AnalyticsEvents
+import org.tasks.analytics.Reporting
 import org.tasks.kmp.org.tasks.themes.ColorProvider
 import org.tasks.themes.BLUE
 import org.tasks.themes.TasksTheme
@@ -126,6 +128,7 @@ fun App(
         Surface(modifier = Modifier.fillMaxSize()) {
             val appViewModel = koinViewModel<AppViewModel>()
             val configuration = koinInject<PlatformConfiguration>()
+            val reporting = koinInject<Reporting>()
             val hasAccount by appViewModel.hasAccount.collectAsState()
 
             if (hasAccount == null) {
@@ -168,6 +171,9 @@ fun App(
                 backStack = backStack,
                 entryProvider = entryProvider {
                     entry<WelcomeDestination> {
+                        LaunchedEffect(Unit) {
+                            reporting.logEvent(AnalyticsEvents.SCREEN_WELCOME)
+                        }
                         WelcomeScreenLayout(
                             showLegalDisclosure = !configuration.isLibre,
                             showImportBackup = configuration.supportsBackupImport,
@@ -175,6 +181,7 @@ fun App(
                                 backStack.add(AddAccountDestination)
                             },
                             onContinueWithoutSync = {
+                                reporting.logEvent(AnalyticsEvents.ONBOARDING_COMPLETE, AnalyticsEvents.PARAM_SELECTION to "local")
                                 appViewModel.continueWithoutSync()
                             },
                             openLegalUrl = openUrl,
@@ -184,6 +191,9 @@ fun App(
                         )
                     }
                     entry<AddAccountDestination> {
+                        LaunchedEffect(Unit) {
+                            reporting.logEvent(AnalyticsEvents.SCREEN_ADD_ACCOUNT)
+                        }
                         val addAccountViewModel = koinViewModel<AddAccountViewModel>()
                         val signInState by addAccountViewModel.signInState.collectAsState()
                         var showProviderPicker by remember { mutableStateOf(false) }
@@ -194,6 +204,11 @@ fun App(
                             needsConsent = false,
                             onBack = { backStack.removeLastOrNull() },
                             signIn = { platform ->
+                                reporting.logEvent(
+                                    AnalyticsEvents.ADD_ACCOUNT,
+                                    AnalyticsEvents.PARAM_SOURCE to "onboarding",
+                                    AnalyticsEvents.PARAM_SELECTION to platform.name,
+                                )
                                 when (platform) {
                                     Platform.TASKS_ORG -> showProviderPicker = true
                                     else -> addAccountViewModel.signIn(platform)
@@ -283,6 +298,7 @@ private fun TaskListScreen(
     val state by viewModel.state.collectAsState()
     val drawerState by drawerViewModel.state.collectAsState()
     val headerFormatter = koinInject<HeaderFormatter>()
+    val reporting = koinInject<Reporting>()
     val materialDrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val navigator = rememberListDetailPaneScaffoldNavigator<Long>()
     val scope = androidx.compose.runtime.rememberCoroutineScope()
@@ -411,6 +427,9 @@ private fun TaskListScreen(
                             },
                             onCompleteTask = { task, newState ->
                                 viewModel.onCompleteTask(task, newState)
+                                if (newState) {
+                                    reporting.completeTask("task_list")
+                                }
                             },
                             onToggleGroup = { viewModel.toggleCollapsed(it) },
                         )

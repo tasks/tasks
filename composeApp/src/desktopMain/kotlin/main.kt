@@ -1,3 +1,4 @@
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -11,6 +12,9 @@ import kotlinx.coroutines.launch
 import org.tasks.kmp.IS_DEBUG
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
+import org.tasks.analytics.AnalyticsEvents
+import org.tasks.analytics.PostHogReporting
+import org.tasks.analytics.Reporting
 import org.tasks.App
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.di.commonModule
@@ -38,6 +42,14 @@ fun main() {
         KoinApplication(application = {
             modules(commonModule, platformModule())
         }) {
+            val reporting = koinInject<Reporting>()
+            LaunchedEffect(Unit) {
+                Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
+                    reporting.reportException(throwable)
+                    (reporting as? PostHogReporting)?.close()
+                }
+                reporting.logEvent(AnalyticsEvents.APP_OPENED)
+            }
             val serverEnv = koinInject<TasksServerEnvironment>()
             val scope = rememberCoroutineScope()
             var currentEnv by remember { mutableStateOf(serverEnv.currentEnvironment) }

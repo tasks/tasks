@@ -50,6 +50,8 @@ jobs:
         uses: gradle/actions/setup-gradle@v5
 
       - name: Build desktop jar
+        env:
+          POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
         run: ./gradlew :composeApp:desktopJar
 
       - name: Install Conveyor

@@ -16,7 +16,6 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.tasks.broadcast.ComposeRefreshBroadcaster
-import org.tasks.analytics.Reporting
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.CaldavSynchronizer
@@ -75,14 +74,6 @@ val commonModule = module {
             override suspend fun cancel(ids: Iterable<Long>) {}
             override fun triggerNotifications() {}
             override suspend fun updateTimerNotification() {}
-        }
-    }
-    factory<Reporting> {
-        object : Reporting {
-            override fun logEvent(event: String, vararg params: Pair<String, Any>) {}
-            override fun addTask(source: String) {}
-            override fun completeTask(source: String) {}
-            override fun reportException(t: Throwable) {}
         }
     }
     factory<LocationService> {

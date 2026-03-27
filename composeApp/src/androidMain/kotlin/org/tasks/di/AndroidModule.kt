@@ -6,6 +6,7 @@ import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
+import org.tasks.analytics.Reporting
 import org.tasks.auth.AndroidSignInHandler
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksServerEnvironment
@@ -22,6 +23,14 @@ import org.tasks.security.KeyStoreEncryption
 actual fun platformModule(): Module = module {
     includes(flavorModule)
     singleOf(::TasksServerEnvironment)
+    factory<Reporting> {
+        object : Reporting {
+            override fun logEvent(event: String, vararg params: Pair<String, Any>) {}
+            override fun addTask(source: String) {}
+            override fun completeTask(source: String) {}
+            override fun reportException(t: Throwable) {}
+        }
+    }
     single<KeyStoreEncryption> { AndroidKeyStoreEncryption() }
     factory<SignInHandler> { AndroidSignInHandler(androidContext(), get(), get(), get(), get(), get()) }
     single<Database> {
