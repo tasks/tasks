@@ -29,24 +29,19 @@ internal object TaskListQueryRecursive {
         val manualSort = preferences.isManualSort
         val groupPreference = preferences.groupMode
         
-        // Determine if this filter supports manual sorting and it's enabled
         val isManualSortableFilter = filter.supportsManualSort() && manualSort
-        
         val groupMode = when {
             filter is CaldavFilter && (manualSort || groupPreference == SortHelper.SORT_LIST) ->
                 SortHelper.GROUP_NONE
-            filter is SubtaskFilter && manualSort ->
+            isManualSortableFilter && filter is SubtaskFilter ->
                 SortHelper.GROUP_NONE
             else -> groupPreference
         }
-        
-        // Check if the filter is for Google Tasks
         val isGoogleTasksFilter = when (filter) {
             is CaldavFilter -> filter.isGoogleTasks
             is SubtaskFilter -> filter.isGoogleTasks
             else -> false
         }
-        
         val sortMode = when {
             !isManualSortableFilter -> preferences.sortMode
             isGoogleTasksFilter -> SortHelper.SORT_GTASKS

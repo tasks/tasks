@@ -45,8 +45,6 @@ class SubtaskControlSet : TaskEditControlFragment() {
         val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
         LaunchedEffect(viewState.task) {
             if (viewState.task.id > 0) {
-                // Pass calendar info to SubtaskFilter so it can use the same sorting as the parent list
-                // viewState.list is guaranteed to be a non-null CaldavFilter with valid uuid
                 val filter = viewState.list
                 listViewModel.setFilter(
                     SubtaskFilter(
