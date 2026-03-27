@@ -206,8 +206,37 @@ jobs:
           SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
         run: conveyor make ${{ matrix.target }}
 
-      - name: Upload ${{ matrix.platform }} desktop
+      - name: Upload desktop-linux-deb
+        if: matrix.platform == 'linux'
         uses: actions/upload-artifact@v7
         with:
-          name: desktop-${{ matrix.platform }}
-          path: composeApp/output/
+          name: desktop-linux-deb
+          path: composeApp/output/*.deb
+
+      - name: Upload desktop-linux-tar-gz
+        if: matrix.platform == 'linux'
+        uses: actions/upload-artifact@v7
+        with:
+          name: desktop-linux-tar-gz
+          path: composeApp/output/*.tar.gz
+
+      - name: Upload desktop-macos-zip
+        if: matrix.platform == 'macos'
+        uses: actions/upload-artifact@v7
+        with:
+          name: desktop-macos-zip
+          path: composeApp/output/*.zip
+
+      - name: Upload desktop-windows-msix
+        if: matrix.platform == 'windows'
+        uses: actions/upload-artifact@v7
+        with:
+          name: desktop-windows-msix
+          path: composeApp/output/*.msix
+
+      - name: Upload desktop-windows-zip
+        if: matrix.platform == 'windows'
+        uses: actions/upload-artifact@v7
+        with:
+          name: desktop-windows-zip
+          path: composeApp/output/*.zip
