@@ -32,8 +32,6 @@ import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import org.tasks.time.millisOfDay
-import org.tasks.time.startOfDay
 
 @Composable
 fun StartDateRow(
