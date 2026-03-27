@@ -70,6 +70,7 @@ import org.tasks.ui.SubtaskControlSet
 import org.tasks.ui.TaskEditViewModel
 import org.tasks.ui.TaskEditViewModel.Companion.TAG_CREATION
 import org.tasks.ui.TaskEditViewModel.Companion.TAG_DESCRIPTION
+import org.tasks.ui.TaskEditViewModel.Companion.TAG_START_DATE
 import org.tasks.ui.TaskEditViewModel.Companion.TAG_DUE_DATE
 import org.tasks.ui.TaskEditViewModel.Companion.TAG_LIST
 import org.tasks.ui.TaskEditViewModel.Companion.TAG_PRIORITY
@@ -270,8 +271,9 @@ fun TaskEditScreen(
                         )
 
                     CalendarControlSet.TAG -> AndroidFragment<CalendarControlSet>()
-                    StartDateControlSet.TAG -> {
+                    //StartDateControlSet.TAG -> {  TODO: delete after migration
                         //AndroidFragment<StartDateControlSet>()
+                    TAG_START_DATE -> {
                         StartDateRow(
                             current = editViewModel.startDate.collectAsStateWithLifecycle().value,
                             setCurrent = { editViewModel.setStartDate(it) },

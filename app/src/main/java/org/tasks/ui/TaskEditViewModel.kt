@@ -640,6 +640,7 @@ class TaskEditViewModel @Inject constructor(
 
         val TAG_TITLE = R.string.TEA_ctrl_title
         val TAG_DESCRIPTION = R.string.TEA_ctrl_notes_pref
+        val TAG_START_DATE = R.string.TEA_ctrl_hide_until_pref
         val TAG_CREATION = R.string.TEA_ctrl_creation_date
         val TAG_LIST = R.string.TEA_ctrl_google_task_list
         val TAG_PRIORITY = R.string.TEA_ctrl_importance_pref
@@ -652,7 +653,7 @@ class TaskEditViewModel @Inject constructor(
             TAG_DESCRIPTION,
             CalendarControlSet.TAG,
             TAG_PRIORITY,
-            StartDateControlSet.TAG,
+            TAG_START_DATE,
             ReminderControlSet.TAG,
             LocationControlSet.TAG,
             FilesControlSet.TAG,
