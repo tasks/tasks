@@ -87,6 +87,6 @@ actual fun platformModule(): Module = module {
             environment = get(),
             httpClientFactory = get(),
             tokenProvider = get(),
-        ).also { it.start() }
+        )
     }
 }

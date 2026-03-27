@@ -5,8 +5,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import org.tasks.auth.TasksServerEnvironment
@@ -16,7 +17,6 @@ import org.tasks.http.OkHttpClientFactory
 import org.tasks.jobs.BackgroundWork
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sync.SyncSource
-import java.io.BufferedReader
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
@@ -29,18 +29,31 @@ class SseClient(
     private val httpClientFactory: OkHttpClientFactory,
     private val tokenProvider: SseTokenProvider,
 ) {
-    private var job: Job? = null
+    private var connectionJob: Job? = null
     private var backoffMs = INITIAL_BACKOFF_MS
 
     fun start() {
-        if (job?.isActive == true) return
-        job = scope.launch(Dispatchers.IO) {
+        scope.launch {
+            caldavDao.watchAccounts()
+                .map { accounts -> accounts.any { it.accountType == CaldavAccount.TYPE_TASKS } }
+                .distinctUntilChanged()
+                .collect { hasTasksAccount ->
+                    if (hasTasksAccount) {
+                        startConnection()
+                    } else {
+                        stopConnection()
+                    }
+                }
+        }
+    }
+
+    private fun startConnection() {
+        if (connectionJob?.isActive == true) return
+        backoffMs = INITIAL_BACKOFF_MS
+        connectionJob = scope.launch(Dispatchers.IO) {
             while (true) {
                 val account = caldavDao.getAccounts(CaldavAccount.TYPE_TASKS).firstOrNull()
-                if (account == null) {
-                    delay(RETRY_NO_ACCOUNT_MS)
-                    continue
-                }
+                    ?: break
                 try {
                     connect(account)
                     backoffMs = INITIAL_BACKOFF_MS
@@ -55,9 +68,10 @@ class SseClient(
         }
     }
 
-    fun stop() {
-        job?.cancel()
-        job = null
+    private fun stopConnection() {
+        connectionJob?.cancel()
+        connectionJob = null
+        Logger.i(TAG) { "SSE stopped: no Tasks.org account" }
     }
 
     private suspend fun connect(account: CaldavAccount) {
@@ -126,6 +140,5 @@ class SseClient(
         private const val TAG = "SseClient"
         private const val INITIAL_BACKOFF_MS = 1_000L
         private const val MAX_BACKOFF_MS = 60_000L
-        private const val RETRY_NO_ACCOUNT_MS = 30_000L
     }
 }

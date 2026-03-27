@@ -17,6 +17,7 @@ import org.tasks.analytics.PostHogReporting
 import org.tasks.analytics.Reporting
 import org.tasks.App
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.sse.SseClient
 import org.tasks.di.commonModule
 import org.tasks.di.platformModule
 import org.tasks.logging.FileLogWriter
@@ -43,12 +44,14 @@ fun main() {
             modules(commonModule, platformModule())
         }) {
             val reporting = koinInject<Reporting>()
+            val sseClient = koinInject<SseClient>()
             LaunchedEffect(Unit) {
                 Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
                     reporting.reportException(throwable)
                     (reporting as? PostHogReporting)?.close()
                 }
                 reporting.logEvent(AnalyticsEvents.APP_OPENED)
+                sseClient.start()
             }
             val serverEnv = koinInject<TasksServerEnvironment>()
             val scope = rememberCoroutineScope()
