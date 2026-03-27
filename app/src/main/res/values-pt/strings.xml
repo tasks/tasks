@@ -596,7 +596,6 @@
     <string name="completion_sound">Reproduzir som de conclusão</string>
     <string name="completed">Terminado</string>
     <string name="snackbar_task_completed">Tarefa terminada</string>
-    <string name="completed_tasks_at_bottom">Mover as tarefas terminadas para o fundo</string>
     <string name="snackbar_tasks_completed">%d tarefas terminadas</string>
     <string name="alarm_before_start">%s antes de começar</string>
     <string name="alarm_after_start">%s após o início</string>
@@ -635,12 +634,6 @@
     <string name="TEA_creation_date">Data de criação</string>
     <string name="sign_in">Iniciar sessão</string>
     <string name="sort_list">Por lista</string>
-    <string name="sort_not_available">Não disponível para etiquetas, filtros ou locais</string>
-    <string name="sort_sorting">Ordenação</string>
-    <string name="sort_grouping">Agrupamento</string>
-    <string name="sort_ascending">Ascendente</string>
-    <string name="sort_descending">Descendente</string>
-    <string name="sort_completed">Por hora de finalização</string>
     <string name="change_priority">Mudar prioridade</string>
     <string name="repeats_every">Repete a cada</string>
     <string name="repeat_monthly_on_the_nth_weekday">Mensalmente na %1$s %2$s</string>

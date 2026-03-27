@@ -84,4 +84,21 @@
     <string name="filter_medium_priority">Normaali tärkeys</string>
     <string name="filter_low_priority">Alhainen tärkeys</string>
     <string name="filter_no_priority">Ei tärkeyttä</string>
+    <string name="SSD_sort_due">Eräpäivän mukaan</string>
+    <string name="SSD_sort_start">Aloituspäivän mukaan</string>
+    <string name="SSD_sort_importance">Prioriteetin mukaan</string>
+    <string name="SSD_sort_alpha">Otsikoittain</string>
+    <string name="SSD_sort_modified">Viimeisen muutoksen mukaan</string>
+    <string name="SSD_sort_auto">Älykäs järjestely</string>
+    <string name="SSD_sort_my_order">Oma järjestys</string>
+    <string name="astrid_sort_order">Astrid manuaalinen lajittelu</string>
+    <string name="sort_completed">Valmistumisajan mukaan</string>
+    <string name="sort_grouping">Ryhmittele</string>
+    <string name="sort_sorting">Järjestys</string>
+    <string name="sort_ascending">Nouseva</string>
+    <string name="sort_descending">Laskeva</string>
+    <string name="completed_tasks_at_bottom">Siirrä valmiit tehtävät alimmaiseksi</string>
+    <string name="subtasks">Alitehtävät</string>
+    <string name="sort_not_available">Ei käytettävissä tunnisteiden, suodattimien tai paikkojen kanssa</string>
+    <string name="none">Ei mitään</string>
 </resources>

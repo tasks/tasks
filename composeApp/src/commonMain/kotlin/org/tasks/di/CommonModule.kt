@@ -17,6 +17,8 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.broadcast.RefreshBroadcaster
+import org.tasks.preferences.DataStoreQueryPreferences
+import org.tasks.preferences.QueryPreferences
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.caldav.TasksAccountDataRepository
@@ -43,6 +45,7 @@ import org.tasks.tasklist.HeaderFormatter
 import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.DrawerViewModel
+import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.viewmodel.TaskListViewModel
 
 val commonModule = module {
@@ -179,6 +182,7 @@ val commonModule = module {
             refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
         )
     }
+    single<QueryPreferences> { DataStoreQueryPreferences(get()) }
     viewModel {
         TaskListViewModel(
             taskDao = get(),
@@ -187,7 +191,14 @@ val commonModule = module {
             taskSaver = get(),
             taskCompleter = get(),
             tasksPreferences = get(),
+            queryPreferences = get(),
             refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
+        )
+    }
+    viewModel {
+        SortSettingsViewModel(
+            preferences = get(),
+            reporting = get(),
         )
     }
 }

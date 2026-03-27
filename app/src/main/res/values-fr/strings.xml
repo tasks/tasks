@@ -612,7 +612,6 @@
     <string name="completion_sound">Jouer le son d\'achèvement</string>
     <string name="completed">Terminé</string>
     <string name="snackbar_task_completed">Tâche terminée</string>
-    <string name="completed_tasks_at_bottom">Déplacer les tâches terminées vers le bas</string>
     <string name="snackbar_tasks_completed">%d tâches terminées</string>
     <string name="alarm_before_start">%s avant le début</string>
     <string name="alarm_after_start">%s après le début</string>
@@ -655,12 +654,6 @@
     <string name="sort_completion_group">Achèvement %s</string>
     <string name="sign_in">Se connecter</string>
     <string name="sort_list">Par liste</string>
-    <string name="sort_grouping">Regroupement</string>
-    <string name="sort_sorting">Tri</string>
-    <string name="sort_ascending">Croissant</string>
-    <string name="sort_descending">Décroissant</string>
-    <string name="sort_completed">Par délai d\'achèvement</string>
-    <string name="sort_not_available">Non disponible pour les étiquettes, les filtres ou les lieux</string>
     <string name="repeats_on">Le</string>
     <string name="repeats_after">Après</string>
     <string name="repeats_ends">Se termine</string>

@@ -17,7 +17,6 @@
     <string name="SSD_sort_my_order">အစီအစဥ်</string>
     <string name="SSD_sort_importance">အရေးပါမှုအားဖြင့်</string>
     <string name="sort_list">စာရင်းဖြင့်</string>
-    <string name="sort_completed">အလုပ်ပြီးသောအချိန်ဖြင့်</string>
     <string name="FLA_search_filter">ကိုက်ညီသည် \'%s\'</string>
     <string name="FLA_new_filter">စစ်ထုတ်မည်</string>
     <string name="TEA_title_hint">အလုပ်ခေါင်းစဥ်</string>

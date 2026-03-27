@@ -463,7 +463,6 @@
     <string name="url">URL adresa</string>
     <string name="error_adding_account">Chyba: %s</string>
     <string name="sort_list">Podľa zoznamu</string>
-    <string name="sort_completed">Podľa času dokončenia</string>
     <plurals name="list_count">
         <item quantity="one">%d zoznam</item>
         <item quantity="few">%d zoznamy</item>
@@ -590,7 +589,6 @@
     <string name="above_average">Nadpriemerné</string>
     <string name="account_not_included">Nezahrnuté v predplatnom type „Zaplaťte koľko chcete“</string>
     <string name="markdown_description">Zapnúť Markdown v nadpise a popise</string>
-    <string name="completed_tasks_at_bottom">Presunúť dokončené úlohy nadol</string>
     <string name="snackbar_tasks_completed">%d úloh bolo dokončených</string>
     <string name="cost_money">Cena: $</string>
     <string name="cost_more_money">Cena: $$$</string>
@@ -680,7 +678,6 @@
     <string name="app_passwords_more_info">Synchronizujte svoje úlohy a kalendáre s desktopovými a mobilnými aplikáciami tretích strán. Pre viac informácii kliknite sem</string>
     <string name="invite_invalid">Neplatná pozvánka</string>
     <string name="caldav_server_unknown">Neznámy</string>
-    <string name="sort_sorting">Triedenie</string>
     <string name="add_shortcut_to_home_screen">Pridať skratku na domovskú obrazovku</string>
     <string name="multiline_title">Povoliť názvy na viac riadkov</string>
     <string name="multiline_title_on">Stlačením Enter pridáte konce riadkov</string>
@@ -699,7 +696,6 @@
     <string name="upgrade_more_customization_description">Odomknúť všetky motívy, farby a ikony</string>
     <string name="dismiss">Odmietnuť</string>
     <string name="enable_alarms">Dostaňte upozornenia včas</string>
-    <string name="sort_grouping">Zoskupovanie</string>
     <string name="sync_warning_microsoft_title">O synchronizácii Microsoft To Do</string>
     <string name="sync_warning_microsoft">Nie všetky podrobnosti pripomienok sa synchronizujú s Microsoft To Do.</string>
     <string name="sync_warning_google_tasks_title">O synchronizácií pripomienok Google</string>
@@ -708,9 +704,6 @@
     <string name="caldav_server_type">Typ servera</string>
     <string name="enable_alarms_description">Ak chcete byť informovaný včas, udeľte v nastaveniach oprávnenia k nastaveniu budíka a pripomienok</string>
     <string name="hint_customize_edit_title">Príliš veľa informácií?</string>
-    <string name="sort_ascending">Vzostupne</string>
-    <string name="sort_descending">Zostupne</string>
-    <string name="sort_not_available">Nie je k dispozícií pre štítky, filtre a miesta</string>
     <string name="help_and_feedback">Pomoc a spätná väzba</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do nepodporujú viacúrovňové podúlohy</string>
     <string name="app_settings">Nastavenia aplikácie</string>

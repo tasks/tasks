@@ -408,10 +408,6 @@
     <string name="sign_in_with_google">Ensaluti per Google</string>
     <string name="sign_in_with_github">Ensaluti per GitHub</string>
     <string name="invite_invalid">Nevalida invito</string>
-    <string name="sort_sorting">Ordigo</string>
-    <string name="sort_grouping">Grupigo</string>
-    <string name="sort_ascending">Kreskanta</string>
-    <string name="sort_descending">Malkreskanta</string>
     <string name="EPr_voiceRemindersEnabled_title">Voĉaj memorigoj</string>
     <string name="choose_new_location">Elekti novan lokon</string>
     <string name="auto_dismiss_datetime_widget">Fenestraĵo</string>
@@ -455,7 +451,6 @@
     <string name="places">Lokoj</string>
     <string name="hide_unused_places">Kaŝi neuzatajn lokojn</string>
     <string name="current_subscription">Aktuala abono: %s</string>
-    <string name="sort_not_available">Ne disponeblaj por etikedoj, filtriloj, aŭ lokoj</string>
     <string name="alarm_before_start">%s antaŭ komenco</string>
     <string name="caldav_server_type">Speco de servilo</string>
     <string name="hint_customize_edit_title">Tro da informo?</string>
@@ -463,7 +458,6 @@
     <string name="persistent_notifications">Daŭraj sciigoj</string>
     <string name="invite_declined">Malakceptis inviton</string>
     <string name="notification_disable_battery_optimizations_description">Optimumigoj de baterio povus prokrastigi sciigojn</string>
-    <string name="sort_completed">Laŭ fintempo</string>
     <string name="customize_edit_screen">Adapti redaktan ekranon</string>
     <string name="change_priority">Ŝanĝi prioritaton</string>
     <string name="filter_settings">Agordoj de filtrilo</string>
@@ -575,7 +569,6 @@
     <string name="background_location_permission_required">Tasks kolektas lokan datumon por ebligi lok-bazitajn memorigilojn, eĉ kiam la aplikaĵo estas fermita aŭ ne uzata.</string>
     <string name="dismiss">Fermi</string>
     <string name="completed">Finite</string>
-    <string name="completed_tasks_at_bottom">Movi finitajn taskojn al malsupro</string>
     <string name="hint_customize_edit_body">Vi povas adapti ĉi tiun ekranon per rearanĝi aŭ forigi kampojn</string>
     <string name="date_shortcut_hour">Unu horo</string>
     <string name="filter">Filtrilo</string>

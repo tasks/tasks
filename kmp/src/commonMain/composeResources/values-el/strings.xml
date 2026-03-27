@@ -73,4 +73,21 @@
     <string name="filter_medium_priority">Μεσαία προτεραιότητα</string>
     <string name="filter_low_priority">Χαμηλή προτεραιότητα</string>
     <string name="filter_no_priority">Καθόλου προτεραιότητα</string>
+    <string name="SSD_sort_due">Με βάση την ημερομηνία λήξης</string>
+    <string name="SSD_sort_start">Ανά ημερομηνία έναρξης</string>
+    <string name="SSD_sort_importance">Κατά προτεραιότητα</string>
+    <string name="SSD_sort_alpha">Με βάση τον τίτλο</string>
+    <string name="SSD_sort_modified">Με βάση τελευταία τροποποίηση</string>
+    <string name="SSD_sort_auto">Έξυπνη ταξινόμηση</string>
+    <string name="SSD_sort_my_order">Η παραγγελία μου</string>
+    <string name="astrid_sort_order">Μη αυτόματη ταξινόμηση Astrid</string>
+    <string name="sort_completed">Ανά ώρα ολοκλήρωσης</string>
+    <string name="sort_grouping">Δημιουργία γκρουπ</string>
+    <string name="sort_sorting">Ταξινόμηση ανά</string>
+    <string name="sort_ascending">Αύξουσα</string>
+    <string name="sort_descending">Φθίνουσα</string>
+    <string name="completed_tasks_at_bottom">Μετακίνηση ολοκληρωμένων εργασιών στο κάτω μέρος</string>
+    <string name="subtasks">Υποεργασίες</string>
+    <string name="sort_not_available">Δεν είναι διαθέσιμο για ετικέτες, φίλτρα ή μέρη</string>
+    <string name="none">Κανένα</string>
 </resources>

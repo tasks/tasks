@@ -505,7 +505,6 @@
     <string name="invite_declined">Convite rexeitado</string>
     <string name="invite_awaiting_response">Convite en agarda</string>
     <string name="completed">Finalizada</string>
-    <string name="completed_tasks_at_bottom">Mover as tarefas finalizadas ao fondo</string>
     <string name="snoozed_until">Posposta ata %s</string>
     <plurals name="reminder_minutes">
         <item quantity="one">Minuto</item>
@@ -527,7 +526,6 @@
     <string name="astrid_sort_order">Ordenación manual de Astrid</string>
     <string name="astrid_sort_order_summary">Activar o modo de ordenación manual de Astrid para \'As miñas tarefas\', \'Hoxe\' e as etiquetas. Este modo de ordenación será substituído por \'O meu pedido\' nunha actualización futura</string>
     <string name="sort_list">Por lista</string>
-    <string name="sort_completed">Por hora de finalización</string>
     <string name="TEA_creation_date">Data de creación</string>
     <string name="swipe_to_snooze_title">Deslizar para pospoñer</string>
     <string name="swipe_to_snooze_description">Hora de posposición</string>
@@ -619,11 +617,6 @@
     <string name="enable_alarms">Recibir notificacións no momento adecuado</string>
     <string name="enable_alarms_description">Para asegurarte de que recibes notificacións no momento adecuado, concede permiso para configurar alarmas e recordatorios na Configuración</string>
     <string name="sign_in">Iniciar sesión</string>
-    <string name="sort_sorting">Ordenación</string>
-    <string name="sort_grouping">Agrupación</string>
-    <string name="sort_ascending">Ascendente</string>
-    <string name="sort_descending">Descendente</string>
-    <string name="sort_not_available">Non dispoñible para etiquetas, filtros ou lugares</string>
     <string name="add_shortcut_to_home_screen">Engadir acceso directo á pantalla de inicio</string>
     <string name="add_widget_to_home_screen">Engadir widget á pantalla de inicio</string>
     <string name="cost_money">Custo: $</string>

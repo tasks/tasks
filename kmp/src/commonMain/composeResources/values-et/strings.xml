@@ -84,4 +84,21 @@
     <string name="filter_medium_priority">Keskmine prioriteet</string>
     <string name="filter_low_priority">Madal prioriteet</string>
     <string name="filter_no_priority">Prioriteedita</string>
+    <string name="SSD_sort_due">Tähtaja järgi</string>
+    <string name="SSD_sort_start">Alguskuupäeva alusel</string>
+    <string name="SSD_sort_importance">Tähtsuse järgi</string>
+    <string name="SSD_sort_alpha">Pealkirja järgi</string>
+    <string name="SSD_sort_modified">Viimase muutmise järgi</string>
+    <string name="SSD_sort_auto">Nutikas järjestus</string>
+    <string name="SSD_sort_my_order">Minu tellimus</string>
+    <string name="astrid_sort_order">Astridi käsitsi järjestamine</string>
+    <string name="sort_completed">Valmissaamise alusel</string>
+    <string name="sort_grouping">Grupeerimine</string>
+    <string name="sort_sorting">Sorteerimine</string>
+    <string name="sort_ascending">Kasvavalt</string>
+    <string name="sort_descending">Kahanevalt</string>
+    <string name="completed_tasks_at_bottom">Nihuta lõpetatud ülesanded alla</string>
+    <string name="subtasks">Alamülesanne</string>
+    <string name="sort_not_available">Pole saadaval siltide, filtrite ja asukohtade puhul</string>
+    <string name="none">Pole</string>
 </resources>

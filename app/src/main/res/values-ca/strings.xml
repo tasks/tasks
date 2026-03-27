@@ -279,7 +279,6 @@
         <item quantity="many">%d minuts</item>
         <item quantity="other">%d minuts</item>
     </plurals>
-    <string name="sort_completed">Per data de finalització</string>
     <string name="repeat_snackbar">%1$s reprogramat pel %2$s</string>
     <string name="repeat_type_completion_capitalized">Data de finalització</string>
     <string name="repeat_type_due">data de venciment</string>
@@ -682,7 +681,6 @@
     <string name="completion_sound">Reproduïu el so de finalització</string>
     <string name="completed">Completat</string>
     <string name="snackbar_task_completed">Tasca completada</string>
-    <string name="completed_tasks_at_bottom">Mou les tasques completades a la part inferior</string>
     <string name="snackbar_tasks_completed">%d tasques completades</string>
     <string name="alarm_before_start">%s abans d\'iniciar</string>
     <string name="alarm_after_start">%s després d\'iniciar</string>
@@ -701,11 +699,6 @@
     <string name="enable_alarms">Notifiqueu-vos en el moment adequat</string>
     <string name="enable_alarms_description">Per assegurar-vos que us notifiqueu en el moment adequat, concediu permís per establir alarmes i recordatoris a la configuració</string>
     <string name="sign_in">Inicieu la sessió</string>
-    <string name="sort_sorting">Ordenació</string>
-    <string name="sort_grouping">Agrupament</string>
-    <string name="sort_ascending">Ascendent</string>
-    <string name="sort_descending">Descendent</string>
-    <string name="sort_not_available">No disponible per a etiquetes, filtres o llocs</string>
     <string name="add_shortcut_to_home_screen">Afegiu una drecera a la pantalla d\'inici</string>
     <string name="add_widget_to_home_screen">Afegiu un giny a la pantalla d\'inici</string>
     <string name="cost_money">Cost: $</string>

@@ -66,4 +66,15 @@
     <string name="filter_medium_priority">Lehentasun ertaina</string>
     <string name="filter_low_priority">Lehentasun txikia</string>
     <string name="filter_no_priority">Lehentasunik ez</string>
+    <string name="SSD_sort_due">Epemugaren arabera</string>
+    <string name="SSD_sort_start">Hasiera dataren arabera</string>
+    <string name="SSD_sort_importance">Lehentasunaren arabera</string>
+    <string name="SSD_sort_alpha">Izenburuaren arabera</string>
+    <string name="SSD_sort_modified">Azken edizioaren arabera</string>
+    <string name="SSD_sort_auto">Ordenatze adimentsua</string>
+    <string name="SSD_sort_my_order">Nire eskaria</string>
+    <string name="astrid_sort_order">Eskuzko Astrid ordenatzea</string>
+    <string name="completed_tasks_at_bottom">Betetako atazak behealdera mugitu</string>
+    <string name="subtasks">Azpi-zereginak</string>
+    <string name="none">Bat ere ez</string>
 </resources>

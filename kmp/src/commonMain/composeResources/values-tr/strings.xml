@@ -91,4 +91,21 @@
     <string name="filter_medium_priority">Orta öncelik</string>
     <string name="filter_low_priority">Düşük öncelik</string>
     <string name="filter_no_priority">Önceliksiz</string>
+    <string name="SSD_sort_due">Bitiş tarihine göre</string>
+    <string name="SSD_sort_start">Başlangıç tarihine göre</string>
+    <string name="SSD_sort_importance">Önceliğe göre</string>
+    <string name="SSD_sort_alpha">Başlığa göre</string>
+    <string name="SSD_sort_modified">Son değiştirmeye göre</string>
+    <string name="SSD_sort_auto">Tasks akıllı sıralama</string>
+    <string name="SSD_sort_my_order">Düzenim</string>
+    <string name="astrid_sort_order">Astrid elle sıralama</string>
+    <string name="sort_completed">Tamamlanma zamanına göre</string>
+    <string name="sort_grouping">Kümeleme</string>
+    <string name="sort_sorting">Sıralama</string>
+    <string name="sort_ascending">Artan</string>
+    <string name="sort_descending">Azalan</string>
+    <string name="completed_tasks_at_bottom">Tamamlanan görevleri alta taşı</string>
+    <string name="subtasks">Alt görevler</string>
+    <string name="sort_not_available">Etiketler, süzgeçler veya yerler için kullanılamaz</string>
+    <string name="none">Hiçbiri</string>
 </resources>

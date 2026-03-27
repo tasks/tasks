@@ -91,4 +91,21 @@
     <string name="filter_medium_priority">עדיפות בינונית</string>
     <string name="filter_low_priority">עדיפות נמוכה</string>
     <string name="filter_no_priority">אין עדיפות</string>
+    <string name="SSD_sort_due">לפי תאריך יעד</string>
+    <string name="SSD_sort_start">לפי תאריך התחלה</string>
+    <string name="SSD_sort_importance">לפי עדיפות</string>
+    <string name="SSD_sort_alpha">לפי כותרת</string>
+    <string name="SSD_sort_modified">לפי שינוי אחרון</string>
+    <string name="SSD_sort_auto">מיון חכם</string>
+    <string name="SSD_sort_my_order">הסדר שלי</string>
+    <string name="astrid_sort_order">מיון ידני של Astrid</string>
+    <string name="sort_completed">לפי זמן השלמה</string>
+    <string name="sort_grouping">קיבוץ</string>
+    <string name="sort_sorting">מיון</string>
+    <string name="sort_ascending">עולה</string>
+    <string name="sort_descending">יורד</string>
+    <string name="completed_tasks_at_bottom">העברת משימות שהושלמו לתחתית</string>
+    <string name="subtasks">תתי־משימות</string>
+    <string name="sort_not_available">לא זמין עבור תגיות, מסננים, או מקומות</string>
+    <string name="none">ללא</string>
 </resources>

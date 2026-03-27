@@ -73,4 +73,21 @@
     <string name="filter_medium_priority">أولويّة متوسّطة</string>
     <string name="filter_low_priority">أولويّة منخفضة</string>
     <string name="filter_no_priority">لا أولويّة</string>
+    <string name="SSD_sort_due">بتاريخ الإستحقاق</string>
+    <string name="SSD_sort_start">بتاريخ البدأ</string>
+    <string name="SSD_sort_importance">بالأولويّة</string>
+    <string name="SSD_sort_alpha">بالعنوان</string>
+    <string name="SSD_sort_modified">بوقت آخر تعديل</string>
+    <string name="SSD_sort_auto">ترتيب ذكي</string>
+    <string name="SSD_sort_my_order">ترتيبي</string>
+    <string name="astrid_sort_order">ترتيب Astrid اليدوي</string>
+    <string name="sort_completed">بوقت الانتهاء</string>
+    <string name="sort_grouping">التجميع</string>
+    <string name="sort_sorting">الترتيب</string>
+    <string name="sort_ascending">تصاعدى</string>
+    <string name="sort_descending">تنازلى</string>
+    <string name="completed_tasks_at_bottom">انقل المهام المكتملة إلى الأسفل</string>
+    <string name="subtasks">مهام فرعيّة</string>
+    <string name="sort_not_available">غير متاح للعلامات أو المرشحات أو الأماكن</string>
+    <string name="none">لا شيء</string>
 </resources>

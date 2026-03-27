@@ -9,6 +9,7 @@ object AnalyticsEvents {
     const val ONBOARDING_COMPLETE = "onboarding_complete"
     const val SCREEN_ADD_ACCOUNT = "screen_add_account"
     const val SCREEN_WELCOME = "screen_welcome"
+    const val SORT_CHANGE = "sort_change"
     const val SYNC_UNKNOWN_ACCESS = "sync_unknown_access"
 
     const val PARAM_SELECTION = "selection"

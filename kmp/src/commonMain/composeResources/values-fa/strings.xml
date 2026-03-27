@@ -38,4 +38,14 @@
     <string name="no_due_date">مهلت پایان ندارد</string>
     <string name="no_start_date">تاریخ شروع ندارد</string>
     <string name="no_date">بدون تاریخ</string>
+    <string name="SSD_sort_due">براساس تاریخ موعود</string>
+    <string name="SSD_sort_start">براساس زمان شروع</string>
+    <string name="SSD_sort_importance">براساس اولیت</string>
+    <string name="SSD_sort_alpha">براساس موضوع</string>
+    <string name="SSD_sort_modified">براساس آخرین تغییرات</string>
+    <string name="SSD_sort_auto">چینش هوشمندانه</string>
+    <string name="SSD_sort_my_order">خرید من</string>
+    <string name="astrid_sort_order">راهنمای خودی آسترید</string>
+    <string name="sort_completed">براساس زمان تکمیل</string>
+    <string name="none">هیچکدام</string>
 </resources>

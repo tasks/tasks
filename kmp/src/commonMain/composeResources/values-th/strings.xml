@@ -63,4 +63,14 @@
     <string name="filter_medium_priority">ความสำคัญปานกลาง</string>
     <string name="filter_low_priority">ลําดับความสําคัญต่ํา</string>
     <string name="filter_no_priority">ไม่มีความสําคัญ</string>
+    <string name="SSD_sort_due">โดยเรียงตามวันที่ครบกําหนด</string>
+    <string name="SSD_sort_start">ตามวันที่เริ่มต้น</string>
+    <string name="SSD_sort_importance">ตามความสำคัญ</string>
+    <string name="SSD_sort_alpha">ตามชื่อ</string>
+    <string name="SSD_sort_modified">ตามวันที่แก้ไขล่าสุด</string>
+    <string name="SSD_sort_auto">จัดเรียงด้วย Tasks Smart</string>
+    <string name="SSD_sort_my_order">ใบสั่งของฉัน</string>
+    <string name="astrid_sort_order">การเรียงลําดับด้วยตนเองของ Astrid</string>
+    <string name="subtasks">งานย่อย</string>
+    <string name="none">ไม่มีใคร</string>
 </resources>

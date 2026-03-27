@@ -80,4 +80,21 @@
     <string name="filter_medium_priority">Gemiddelde prioriteit</string>
     <string name="filter_low_priority">Lage prioriteit</string>
     <string name="filter_no_priority">Geen prioriteit</string>
+    <string name="SSD_sort_due">Op vervaldatum</string>
+    <string name="SSD_sort_start">Op begindatum</string>
+    <string name="SSD_sort_importance">Op prioriteit</string>
+    <string name="SSD_sort_alpha">Op titel</string>
+    <string name="SSD_sort_modified">Op datum gewijzigd</string>
+    <string name="SSD_sort_auto">Slim sorteren</string>
+    <string name="SSD_sort_my_order">Mijn volgorde</string>
+    <string name="astrid_sort_order">Astrid\'s handmatig sorteren</string>
+    <string name="sort_completed">Op tijdstip voltooid</string>
+    <string name="sort_grouping">Groepering</string>
+    <string name="sort_sorting">Sorteren</string>
+    <string name="sort_ascending">Oplopend</string>
+    <string name="sort_descending">Aflopend</string>
+    <string name="completed_tasks_at_bottom">Plaats voltooide taken onderaan</string>
+    <string name="subtasks">Subtaken</string>
+    <string name="sort_not_available">Niet beschikbaar voor labels, filters, of locaties</string>
+    <string name="none">Geen</string>
 </resources>

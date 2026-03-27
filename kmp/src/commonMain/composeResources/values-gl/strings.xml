@@ -73,4 +73,21 @@
     <string name="filter_medium_priority">Prioridade intermedia</string>
     <string name="filter_low_priority">Prioridade baixa</string>
     <string name="filter_no_priority">Sen prioridade</string>
+    <string name="SSD_sort_due">Por data límite</string>
+    <string name="SSD_sort_start">Por data de inicio</string>
+    <string name="SSD_sort_importance">Por prioridade</string>
+    <string name="SSD_sort_alpha">Por título</string>
+    <string name="SSD_sort_modified">Por última modificación</string>
+    <string name="SSD_sort_auto">Ordenación intelixente</string>
+    <string name="SSD_sort_my_order">O meu pedido</string>
+    <string name="astrid_sort_order">Ordenación manual de Astrid</string>
+    <string name="sort_completed">Por hora de finalización</string>
+    <string name="sort_grouping">Agrupación</string>
+    <string name="sort_sorting">Ordenación</string>
+    <string name="sort_ascending">Ascendente</string>
+    <string name="sort_descending">Descendente</string>
+    <string name="completed_tasks_at_bottom">Mover as tarefas finalizadas ao fondo</string>
+    <string name="subtasks">Subtarefas</string>
+    <string name="sort_not_available">Non dispoñible para etiquetas, filtros ou lugares</string>
+    <string name="none">Ningunha</string>
 </resources>

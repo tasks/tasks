@@ -614,7 +614,6 @@
     <string name="completion_sound">Воспроизводить звук завершения</string>
     <string name="completed">Завершено</string>
     <string name="snackbar_task_completed">Задача выполнена</string>
-    <string name="completed_tasks_at_bottom">Переместить выполненные задачи вниз</string>
     <string name="snackbar_tasks_completed">%d задач выполнено</string>
     <string name="custom_filter_has_reminder">С напоминанием</string>
     <string name="snoozed_until">Отложено до %s</string>
@@ -675,13 +674,7 @@
         <item quantity="many">повторов</item>
         <item quantity="other">повторов</item>
     </plurals>
-    <string name="sort_not_available">Недоступно для меток, фильтров или мест</string>
     <string name="sort_list">Список</string>
-    <string name="sort_sorting">Сортировка</string>
-    <string name="sort_grouping">Группировка</string>
-    <string name="sort_ascending">По возрастанию</string>
-    <string name="sort_descending">По убыванию</string>
-    <string name="sort_completed">Время выполнения</string>
     <string name="comment">Комментарий</string>
     <string name="yesterday">Вчера</string>
     <string name="swipe_to_snooze_time_immediately">немедленно</string>

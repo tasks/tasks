@@ -599,7 +599,6 @@
     <string name="when_started">Når startet</string>
     <string name="completion_sound">Spill fullførelseslyd</string>
     <string name="snackbar_task_completed">Gjøremål fullført</string>
-    <string name="completed_tasks_at_bottom">Flytt fullførte gjøremål til bunnen</string>
     <string name="caldav_server_other">Annet</string>
     <string name="caldav_server_type">Tjenertype</string>
     <plurals name="reminder_minutes">
@@ -639,9 +638,6 @@
     <string name="dismiss">Avvis</string>
     <string name="enable_reminders">Skru på påminnelser</string>
     <string name="repeats_never">Aldri</string>
-    <string name="sort_not_available">Ikke tilgjengelig for tagger, filtre eller steder</string>
-    <string name="sort_ascending">Stigende</string>
-    <string name="sort_descending">Synkende</string>
     <string name="donate_nag">Vurder å vis din støtte med en donasjon!</string>
     <string name="repeats_custom_recurrence">Tilpasset gjentakelse</string>
     <string name="repeats_weekly_on">Gjentas på</string>
@@ -654,8 +650,6 @@
     <string name="repeats_on">På</string>
     <string name="repeats_after">Etter</string>
     <string name="repeats_ends">Avsluttes</string>
-    <string name="sort_sorting">Sortering</string>
-    <string name="sort_grouping">Gruppering</string>
     <string name="customize_drawer">Tilpass meny</string>
     <string name="customize_drawer_summary">Dra og slip for å omkonfigurere menyelementer</string>
     <string name="swipe_to_snooze_time_30_minutes">etter 30 minutter</string>
@@ -663,7 +657,6 @@
     <string name="show_edit_screen_without_unlock_summary">Aktiverer bruken av knapp i hurtiginnstillinger uten å låse opp enheten</string>
     <string name="theme_dynamic">Dynamisk</string>
     <string name="sort_list">Etter liste</string>
-    <string name="sort_completed">Etter fullført tidspunkt</string>
     <string name="swipe_to_snooze_title">Stryk for å utsette</string>
     <string name="swipe_to_snooze_time_15_minutes">etter 15 minutter</string>
     <string name="swipe_to_snooze_description">Utsettelsestid</string>

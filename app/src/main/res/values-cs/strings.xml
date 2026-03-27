@@ -643,7 +643,6 @@
     <string name="caldav_server_other">Další</string>
     <string name="snackbar_task_completed">Úkol splněn</string>
     <string name="completed">Splněný</string>
-    <string name="completed_tasks_at_bottom">Přesunout splněné úkoly naspod</string>
     <string name="snackbar_tasks_completed">%d úkolů splněno</string>
     <string name="caldav_server_type">Typ serveru</string>
     <string name="dismiss">Odmítnout</string>
@@ -654,13 +653,7 @@
     <string name="enable_reminders">Povolit připomínky</string>
     <string name="enable_reminders_description">Připomínky jsou zakázány v nastavení Android</string>
     <string name="sign_in">Přihlásit se</string>
-    <string name="sort_not_available">Není k dispozici pro štítky, filtry a místa</string>
     <string name="sort_list">Podle seznamu</string>
-    <string name="sort_sorting">Řazení</string>
-    <string name="sort_grouping">Seskupení</string>
-    <string name="sort_ascending">Vzestupně</string>
-    <string name="sort_descending">Sestupně</string>
-    <string name="sort_completed">Podle času dokončení</string>
     <string name="change_priority">Změnit prioritu</string>
     <string name="repeats_every">Opakuje se každý</string>
     <string name="repeat_monthly_on_the_nth_weekday">%1$s. %2$s v měsíci</string>

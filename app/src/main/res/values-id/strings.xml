@@ -591,7 +591,6 @@
         <item quantity="other">Minggu</item>
     </plurals>
     <string name="dismiss">Lewati</string>
-    <string name="completed_tasks_at_bottom">Pindahkan tugas selesai ke bawah</string>
     <plurals name="reminder_minutes">
         <item quantity="other">Menit</item>
     </plurals>

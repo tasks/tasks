@@ -65,4 +65,15 @@
     <string name="filter_medium_priority">Prioritas sedang</string>
     <string name="filter_low_priority">Prioritas rendah</string>
     <string name="filter_no_priority">Tanpa prioritas</string>
+    <string name="SSD_sort_due">Berdasarkan tanggal Jatuh tempo</string>
+    <string name="SSD_sort_start">Berdasarkan tanggal awal</string>
+    <string name="SSD_sort_importance">Berdasarkan prioritas</string>
+    <string name="SSD_sort_alpha">Berdasarkan judul</string>
+    <string name="SSD_sort_modified">Terakhir diubah</string>
+    <string name="SSD_sort_auto">Urutan cerdas</string>
+    <string name="SSD_sort_my_order">Urutan saya</string>
+    <string name="astrid_sort_order">Sortiran manual astrid</string>
+    <string name="completed_tasks_at_bottom">Pindahkan tugas selesai ke bawah</string>
+    <string name="subtasks">Subtugas</string>
+    <string name="none">Tidak Ada</string>
 </resources>

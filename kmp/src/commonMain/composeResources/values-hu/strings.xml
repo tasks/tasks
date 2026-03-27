@@ -83,4 +83,21 @@
     <string name="filter_medium_priority">Közepes prioritás</string>
     <string name="filter_low_priority">Alacsony prioritás</string>
     <string name="filter_no_priority">Nincs prioritás</string>
+    <string name="SSD_sort_due">Határidő alapján</string>
+    <string name="SSD_sort_start">Kezdés dátuma szerint</string>
+    <string name="SSD_sort_importance">Prioritás alapján</string>
+    <string name="SSD_sort_alpha">Név alapján</string>
+    <string name="SSD_sort_modified">Utolsó módosítás alapján</string>
+    <string name="SSD_sort_auto">Intelligens rendezés</string>
+    <string name="SSD_sort_my_order">Egyéni sorrend</string>
+    <string name="astrid_sort_order">Astrid egyéni sorbarendezés</string>
+    <string name="sort_completed">Befejezés ideje alapján</string>
+    <string name="sort_grouping">Csoportosítás</string>
+    <string name="sort_sorting">Sorbarendezés</string>
+    <string name="sort_ascending">Növekvő</string>
+    <string name="sort_descending">Csökkenő</string>
+    <string name="completed_tasks_at_bottom">Az elvégzett feladatok kerüljenek alulra</string>
+    <string name="subtasks">Részfeladatok</string>
+    <string name="sort_not_available">Nem elérhető címkékre, szűrőkre és helyekre</string>
+    <string name="none">Nincs</string>
 </resources>

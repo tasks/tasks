@@ -66,4 +66,15 @@
     <string name="filter_medium_priority">Vidutinis prioritetas</string>
     <string name="filter_low_priority">Žemas prioritetas</string>
     <string name="filter_no_priority">Jokio prioriteto</string>
+    <string name="SSD_sort_due">Pagal pabaigos datą</string>
+    <string name="SSD_sort_start">Pagal pradžios datą</string>
+    <string name="SSD_sort_importance">Pagal prioritetą</string>
+    <string name="SSD_sort_alpha">Pagal pavadinimą</string>
+    <string name="SSD_sort_modified">Pagal redagavimo datą</string>
+    <string name="SSD_sort_auto">Gudrus eiliškumas</string>
+    <string name="SSD_sort_my_order">Mano užsakymas</string>
+    <string name="astrid_sort_order">Astrid rankinis rūšiavimas</string>
+    <string name="completed_tasks_at_bottom">Perkelti užbaigtas užduotis į apačią</string>
+    <string name="subtasks">Antrinės užduotys</string>
+    <string name="none">Nėra</string>
 </resources>

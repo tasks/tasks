@@ -589,7 +589,6 @@
     <string name="completion_sound">播放完成声音</string>
     <string name="completed">已完成</string>
     <string name="snackbar_task_completed">任务已完成</string>
-    <string name="completed_tasks_at_bottom">将已完成任务移至底部</string>
     <string name="snackbar_tasks_completed">完成了 %d 个任务</string>
     <string name="alarm_after_start">开始后 %s</string>
     <string name="alarm_before_start">开始前 %s</string>
@@ -623,13 +622,7 @@
     <string name="TEA_creation_date">创建日期</string>
     <string name="sort_completion_group">完成 %s</string>
     <string name="sign_in">登录</string>
-    <string name="sort_not_available">不适用于标签、过滤器或地点</string>
     <string name="sort_list">按清单</string>
-    <string name="sort_sorting">排序</string>
-    <string name="sort_grouping">分组</string>
-    <string name="sort_ascending">升序</string>
-    <string name="sort_descending">降序</string>
-    <string name="sort_completed">按完成时间</string>
     <string name="repeats_every">重复频率</string>
     <string name="repeats_weekly_on">重复于</string>
     <string name="repeats_never">永不</string>

@@ -83,4 +83,21 @@
     <string name="filter_medium_priority">Meza prioritato</string>
     <string name="filter_low_priority">Malalta prioritato</string>
     <string name="filter_no_priority">Neniu prioritato</string>
+    <string name="SSD_sort_due">Laŭ limdato</string>
+    <string name="SSD_sort_start">Laŭ komencdato</string>
+    <string name="SSD_sort_importance">Laŭ prioritato</string>
+    <string name="SSD_sort_alpha">Laŭ titolo</string>
+    <string name="SSD_sort_modified">Laŭ laste modifita</string>
+    <string name="SSD_sort_auto">Saĝe</string>
+    <string name="SSD_sort_my_order">Propra ordo</string>
+    <string name="astrid_sort_order">Astrid mana ordigado</string>
+    <string name="sort_completed">Laŭ fintempo</string>
+    <string name="sort_grouping">Grupigo</string>
+    <string name="sort_sorting">Ordigo</string>
+    <string name="sort_ascending">Kreskanta</string>
+    <string name="sort_descending">Malkreskanta</string>
+    <string name="completed_tasks_at_bottom">Movi finitajn taskojn al malsupro</string>
+    <string name="subtasks">Subtaskoj</string>
+    <string name="sort_not_available">Ne disponeblaj por etikedoj, filtriloj, aŭ lokoj</string>
+    <string name="none">Neniu</string>
 </resources>

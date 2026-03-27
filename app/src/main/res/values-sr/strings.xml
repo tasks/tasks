@@ -59,7 +59,6 @@
     <string name="SSD_sort_start">По датуму почетка</string>
     <string name="sort_created">По времену креирања</string>
     <string name="sort_list">По листи</string>
-    <string name="sort_completed">По времену завршетка</string>
     <string name="FLA_search_filter">Поклапање \'%s\'</string>
     <string name="FLA_new_filter">Креирај нови филтер</string>
     <string name="TEA_add_subtask">Додај подзадатак</string>
@@ -679,7 +678,6 @@
     <string name="completion_sound">Произведи звук за завршетак</string>
     <string name="completed">Завршено</string>
     <string name="snackbar_task_completed">Задатак завршен</string>
-    <string name="completed_tasks_at_bottom">Премести завршене задатке на дно</string>
     <string name="snackbar_tasks_completed">%d задатака завршено</string>
     <string name="alarm_before_start">%s пре почетка</string>
     <string name="alarm_after_start">%s након почетка</string>
@@ -698,11 +696,6 @@
     <string name="enable_alarms">Обавести ме у право време</string>
     <string name="enable_alarms_description">За могућност обавештења у право време, дозволи подешавања аларма и подсетника у подешавањима уређаја</string>
     <string name="sign_in">Пријави се</string>
-    <string name="sort_sorting">Сортирање</string>
-    <string name="sort_grouping">Груписање</string>
-    <string name="sort_ascending">Растући редослед</string>
-    <string name="sort_descending">Опадајући редослед</string>
-    <string name="sort_not_available">Није доступно за тагове, филтере, или места</string>
     <string name="add_shortcut_to_home_screen">Додај пречицу на почетни екран</string>
     <string name="add_widget_to_home_screen">Додај виџет на почетни екран</string>
     <string name="cost_money">Цена: $</string>

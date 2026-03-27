@@ -73,4 +73,21 @@
     <string name="filter_medium_priority">Prioritate medie</string>
     <string name="filter_low_priority">Prioritate scăzută</string>
     <string name="filter_no_priority">Fără prioritate</string>
+    <string name="SSD_sort_due">După data scadenței</string>
+    <string name="SSD_sort_start">După data începerii</string>
+    <string name="SSD_sort_importance">După prioritate</string>
+    <string name="SSD_sort_alpha">După titlu</string>
+    <string name="SSD_sort_modified">După ultima modificare</string>
+    <string name="SSD_sort_auto">Sortare inteligentă</string>
+    <string name="SSD_sort_my_order">Sortarea mea</string>
+    <string name="astrid_sort_order">Sortare manuală Astrid</string>
+    <string name="sort_completed">După timpul de finalizare</string>
+    <string name="sort_grouping">Grupare</string>
+    <string name="sort_sorting">Sortare</string>
+    <string name="sort_ascending">Crescător</string>
+    <string name="sort_descending">Descrescător</string>
+    <string name="completed_tasks_at_bottom">Mută sarcinile finalizate în partea de jos</string>
+    <string name="subtasks">Sub-sarcini</string>
+    <string name="sort_not_available">Nu este disponibil pentru etichete, filtre sau locuri</string>
+    <string name="none">Niciuna</string>
 </resources>

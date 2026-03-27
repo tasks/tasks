@@ -96,7 +96,6 @@
     <string name="sort_list">ലിസ്റ്റ് പ്രകാരം</string>
     <string name="FLA_search_filter">യോജിക്കുന്നു \'%s\'</string>
     <string name="TEA_timer_est">ഏകദേശം %s</string>
-    <string name="sort_completed">പൂർത്തീകരണ സമയം അനുസരിച്ച്</string>
     <string name="none">ഒന്നുമില്ല</string>
     <string name="EPr_show_task_edit_comments">ടാസ്‌ക് എഡിറ്റിൽ കമന്റുകൾ കാണിക്കുക</string>
     <string name="show_completed">കഴിഞ്ഞവ കാണുക</string>

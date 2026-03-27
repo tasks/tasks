@@ -73,4 +73,21 @@
     <string name="filter_medium_priority">Середній пріоритет</string>
     <string name="filter_low_priority">Низький пріоритет</string>
     <string name="filter_no_priority">Без пріоритету</string>
+    <string name="SSD_sort_due">За кінцевою датою</string>
+    <string name="SSD_sort_start">За датою початку</string>
+    <string name="SSD_sort_importance">За пріоритетом</string>
+    <string name="SSD_sort_alpha">За назвою</string>
+    <string name="SSD_sort_modified">За датою останньої зміни</string>
+    <string name="SSD_sort_auto">Розумне сортування</string>
+    <string name="SSD_sort_my_order">Мій порядок</string>
+    <string name="astrid_sort_order">Ручне сортування Astrid</string>
+    <string name="sort_completed">За часом виконання</string>
+    <string name="sort_grouping">Групування</string>
+    <string name="sort_sorting">Сортування</string>
+    <string name="sort_ascending">За зростанням</string>
+    <string name="sort_descending">За спаданням</string>
+    <string name="completed_tasks_at_bottom">Перемістити виконані завдання вниз</string>
+    <string name="subtasks">Підзавдання</string>
+    <string name="sort_not_available">Недоступно для міток, фільтрів і місць</string>
+    <string name="none">Немає</string>
 </resources>

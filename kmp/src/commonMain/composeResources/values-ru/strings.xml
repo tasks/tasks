@@ -73,4 +73,21 @@
     <string name="filter_medium_priority">Средний приоритет</string>
     <string name="filter_low_priority">Низкий приоритет</string>
     <string name="filter_no_priority">Без приоритета</string>
+    <string name="SSD_sort_due">Дата завершения</string>
+    <string name="SSD_sort_start">Дата начала</string>
+    <string name="SSD_sort_importance">Приоритет</string>
+    <string name="SSD_sort_alpha">Название</string>
+    <string name="SSD_sort_modified">Дата изменения</string>
+    <string name="SSD_sort_auto">Умная сортировка</string>
+    <string name="SSD_sort_my_order">Мой порядок</string>
+    <string name="astrid_sort_order">Ручная сортировка Astrid</string>
+    <string name="sort_completed">Время выполнения</string>
+    <string name="sort_grouping">Группировка</string>
+    <string name="sort_sorting">Сортировка</string>
+    <string name="sort_ascending">По возрастанию</string>
+    <string name="sort_descending">По убыванию</string>
+    <string name="completed_tasks_at_bottom">Переместить выполненные задачи вниз</string>
+    <string name="subtasks">Подзадачи</string>
+    <string name="sort_not_available">Недоступно для меток, фильтров или мест</string>
+    <string name="none">Нет</string>
 </resources>

@@ -22,7 +22,6 @@
     <string name="SSD_sort_importance">Po bitnosti</string>
     <string name="SSD_sort_modified">Po zadnjoj izmjeni</string>
     <string name="sort_list">Po listi</string>
-    <string name="sort_completed">Po vremenu završetka</string>
     <string name="TEA_title_hint">Naziv zadatka</string>
     <string name="TEA_importance_label">Bitnost</string>
     <string name="TEA_note_label">Opis</string>

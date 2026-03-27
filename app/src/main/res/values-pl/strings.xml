@@ -635,7 +635,6 @@
     <string name="now">Teraz</string>
     <string name="custom_filter_has_reminder">Ma przypomnienie</string>
     <string name="snoozed_until">Uśpione do %s</string>
-    <string name="completed_tasks_at_bottom">Przenieś zakończone zadania na dół</string>
     <plurals name="reminder_hours">
         <item quantity="one">Godzina</item>
         <item quantity="few">Godziny</item>
@@ -659,7 +658,6 @@
     <string name="sort_completion_group">Ukończono %s</string>
     <string name="enable_reminders_description">Przypomnienia są wyłączone w Ustawieniach Androida</string>
     <string name="sign_in">Zaloguj się</string>
-    <string name="sort_not_available">Niedostępne dla tagów, filtrów lub miejsc</string>
     <plurals name="repeat_occurrence">
         <item quantity="one">zdarzenie</item>
         <item quantity="few">zdarzenia</item>
@@ -676,11 +674,6 @@
     <string name="repeat_monthly_on_the_nth_weekday">Co miesiąc %1$s %2$s</string>
     <string name="repeat_monthly_on_day_number">Co miesiąc w dniu %1d</string>
     <string name="sort_list">Wg listy</string>
-    <string name="sort_sorting">Sortowanie</string>
-    <string name="sort_grouping">Grupowanie</string>
-    <string name="sort_ascending">Rosnąco</string>
-    <string name="sort_descending">Malejąco</string>
-    <string name="sort_completed">Wg czasu zakończenia</string>
     <string name="app_settings">Ustawienia aplikacji</string>
     <string name="swipe_to_snooze_title">Przesuń aby uśpić</string>
     <string name="swipe_to_snooze_time_immediately">natychmiast</string>

@@ -211,7 +211,6 @@
     <string name="start_date">تاریخ شروع</string>
     <string name="EPr_show_task_edit_comments">نمایش نظرات در ویرایش وظیفه</string>
     <string name="EPr_reset_preferences_warning">ترجیحات به مقادیر پیشفرض برخواهند گشت</string>
-    <string name="sort_completed">براساس زمان تکمیل</string>
     <string name="sort_list">براساس لیست</string>
     <string name="always_display_full_date">نمایش تاریخ کامل</string>
     <string name="SSD_sort_start">براساس زمان شروع</string>

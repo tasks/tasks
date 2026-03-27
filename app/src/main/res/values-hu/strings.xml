@@ -595,7 +595,6 @@
     <string name="completion_sound">Hang lejátszása készre állításkor</string>
     <string name="completed">Elvégzett</string>
     <string name="snackbar_task_completed">Feladat elvégezve</string>
-    <string name="completed_tasks_at_bottom">Az elvégzett feladatok kerüljenek alulra</string>
     <string name="snackbar_tasks_completed">%d feladat elvégezve</string>
     <string name="alarm_before_start">%s kezdés előtt</string>
     <string name="alarm_after_start">%s kezdés után</string>
@@ -634,12 +633,6 @@
     <string name="sign_in">Bejelentkezés</string>
     <string name="enable_reminders">Emlékeztetők engedélyezése</string>
     <string name="sort_list">Lista szerint</string>
-    <string name="sort_sorting">Sorbarendezés</string>
-    <string name="sort_grouping">Csoportosítás</string>
-    <string name="sort_ascending">Növekvő</string>
-    <string name="sort_descending">Csökkenő</string>
-    <string name="sort_not_available">Nem elérhető címkékre, szűrőkre és helyekre</string>
-    <string name="sort_completed">Befejezés ideje alapján</string>
     <string name="change_priority">Sürgősség módosítása</string>
     <string name="repeats_every">Ismétlődik minden</string>
     <string name="repeats_after">Után</string>

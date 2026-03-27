@@ -612,7 +612,6 @@
     </plurals>
     <string name="completion_sound">Toista valmistumisääni</string>
     <string name="TEA_creation_date">Luontipäivä</string>
-    <string name="completed_tasks_at_bottom">Siirrä valmiit tehtävät alimmaiseksi</string>
     <string name="caldav_server_unknown">Tuntematon</string>
     <string name="caldav_server_other">Muu</string>
     <string name="caldav_server_type">Palvelimen tyyppi</string>
@@ -632,22 +631,17 @@
     <string name="alarm_before_start">%s ennen aloitusta</string>
     <string name="alarm_after_due">%s määräajan jälkeen</string>
     <string name="alarm_before_due">%s ennen määräaikaa</string>
-    <string name="sort_ascending">Nouseva</string>
     <string name="change_priority">Vaihda prioriteetti</string>
     <string name="repeats_every">Toistuu joka</string>
-    <string name="sort_completed">Valmistumisajan mukaan</string>
     <string name="repeat_monthly_on_the_nth_weekday">Kuukauden %1$s %2$s</string>
     <string name="repeats_after">Jälkeen</string>
     <string name="sort_list">Luettelojen mukaan</string>
     <string name="repeats_custom_recurrence">Mukautettu toisto</string>
-    <string name="sort_sorting">Järjestys</string>
     <string name="repeats_never">Ei koskaan</string>
     <string name="repeat_monthly_on_day_number">Kuukausittain %1d päivä</string>
     <string name="repeats_ends">Loppuu</string>
     <string name="repeats_on">Päällä</string>
     <string name="repeats_weekly_on">Toistaa</string>
-    <string name="sort_descending">Laskeva</string>
-    <string name="sort_grouping">Ryhmittele</string>
     <string name="customize_drawer_summary">Vedä ja pudota valikon kohteita järjestääksesi ne uudelleen</string>
     <string name="swipe_to_snooze_description">Torkutusaika</string>
     <string name="swipe_to_snooze_title">Pyyhkäise sivulle torkuttaaksesi</string>
@@ -665,7 +659,6 @@
     <string name="theme_dynamic">Dynaaminen</string>
     <string name="donate_nag">Harkitse tuen osoittamista lahjoituksella!</string>
     <string name="show_edit_screen_without_unlock_summary">Aktivoi pika-asetusten käyttö ilman laitteen lukituksen avaamista</string>
-    <string name="sort_not_available">Ei käytettävissä tunnisteiden, suodattimien tai paikkojen kanssa</string>
     <string name="customize_drawer">Muokkaa vetolaatikkoa</string>
     <string name="quiet_hours_in_effect">Hiljaiset tunnit käytössä</string>
     <string name="send_application_logs">Lähetä sovelluksen lokitiedot</string>

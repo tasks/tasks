@@ -47,4 +47,14 @@
     <string name="no_due_date">کوئی مقررہ تاریخ نہیں</string>
     <string name="no_start_date">کوئی تاریخ آغاز نہیں</string>
     <string name="no_date">کوئی تاریخ نہیں</string>
+    <string name="SSD_sort_due">بلحاظ مقررہ تاریخ</string>
+    <string name="SSD_sort_start">بلحاظ تاریخ آغاز</string>
+    <string name="SSD_sort_importance">بلحاظ ترجیح</string>
+    <string name="SSD_sort_alpha">بلحاظ عنوان</string>
+    <string name="SSD_sort_modified">بلحاظ آخری ترمیم</string>
+    <string name="SSD_sort_auto">سمارٹ ترتیب</string>
+    <string name="SSD_sort_my_order">میرا آرڈر</string>
+    <string name="astrid_sort_order">آسرڈ کی مینول ترتیب</string>
+    <string name="subtasks">ذیلی ٹاسکس</string>
+    <string name="none">کوئی نہیں</string>
 </resources>

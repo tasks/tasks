@@ -596,7 +596,6 @@
     <string name="completion_sound">Ton bei Erledigung abspielen</string>
     <string name="completed">Abgeschlossen</string>
     <string name="snackbar_task_completed">Aufgabe abgeschlossen</string>
-    <string name="completed_tasks_at_bottom">Erledigte Aufgaben nach unten verschieben</string>
     <string name="snackbar_tasks_completed">%d Aufgaben erledigt</string>
     <string name="alarm_before_start">%s vor dem Start</string>
     <string name="alarm_after_start">%s nach dem Start</string>
@@ -635,12 +634,6 @@
     <string name="enable_reminders_description">Erinnerungen sind in den Android-Einstellungen deaktiviert</string>
     <string name="sign_in">Anmelden</string>
     <string name="sort_list">Nach Listen</string>
-    <string name="sort_sorting">Sortierung</string>
-    <string name="sort_grouping">Gruppierung</string>
-    <string name="sort_ascending">Aufsteigend</string>
-    <string name="sort_descending">Absteigend</string>
-    <string name="sort_completed">Nach Erledigungszeit</string>
-    <string name="sort_not_available">Nicht auf Schlagwörter, Filter oder Orte anwendbar</string>
     <plurals name="repeat_occurrence">
         <item quantity="one">Wiederholung</item>
         <item quantity="other">Wiederholungen</item>

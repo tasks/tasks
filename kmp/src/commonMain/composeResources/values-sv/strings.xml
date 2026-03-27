@@ -82,4 +82,21 @@
     <string name="filter_medium_priority">Medium prioritet</string>
     <string name="filter_low_priority">Låg prioritet</string>
     <string name="filter_no_priority">Ingen prioritet</string>
+    <string name="SSD_sort_due">Efter förfallodatum</string>
+    <string name="SSD_sort_start">Efter startdatum</string>
+    <string name="SSD_sort_importance">Efter prioritet</string>
+    <string name="SSD_sort_alpha">Efter titel</string>
+    <string name="SSD_sort_modified">Efter senaste ändring</string>
+    <string name="SSD_sort_auto">Smart sortering</string>
+    <string name="SSD_sort_my_order">Min sortering</string>
+    <string name="astrid_sort_order">Manuell sortering från Astrid</string>
+    <string name="sort_completed">Efter färdigställd tid</string>
+    <string name="sort_grouping">Gruppering</string>
+    <string name="sort_sorting">Sortering</string>
+    <string name="sort_ascending">Stigande</string>
+    <string name="sort_descending">Fallande</string>
+    <string name="completed_tasks_at_bottom">Flytta slutförda uppgifter till botten</string>
+    <string name="subtasks">Deluppgifter</string>
+    <string name="sort_not_available">Inte tillgängligt för taggar, filter eller platser</string>
+    <string name="none">Ingen</string>
 </resources>

@@ -597,7 +597,6 @@
     <string name="completion_sound">완료 효과음 재생</string>
     <string name="alarm_before_start">시작 %s 전</string>
     <string name="alarm_before_due">마감 %s 전</string>
-    <string name="completed_tasks_at_bottom">완료한 할일을 하단으로 이동</string>
     <string name="snoozed_until">%s까지 알람 잠시 미루기</string>
     <string name="custom_notification">사용자정의 상태바 알림</string>
     <string name="randomly_every">매 %s마다 무작위로</string>
@@ -627,12 +626,6 @@
         <item quantity="other">주</item>
     </plurals>
     <string name="when_started">시작시</string>
-    <string name="sort_sorting">정렬</string>
-    <string name="sort_descending">내림차순</string>
-    <string name="sort_completed">완료일시 기준</string>
-    <string name="sort_not_available">태그, 필터, 장소는 사용 불가</string>
-    <string name="sort_ascending">오름차순</string>
-    <string name="sort_grouping">분류</string>
     <string name="repeats_custom_recurrence">반복 설정</string>
     <string name="repeats_after">다음</string>
     <string name="repeats_ends">종료</string>

@@ -16,4 +16,9 @@
     <string name="sort_priority">Prioriteta</string>
     <string name="no_due_date">Brez datuma dospelosti</string>
     <string name="no_date">Brez datuma</string>
+    <string name="SSD_sort_due">Po datumu roka</string>
+    <string name="SSD_sort_importance">Po prioriteti</string>
+    <string name="SSD_sort_alpha">Po naslovu</string>
+    <string name="SSD_sort_modified">Po zadnjih spremembah</string>
+    <string name="SSD_sort_auto">Pametno razvrščanje</string>
 </resources>

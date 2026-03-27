@@ -91,4 +91,21 @@
     <string name="filter_medium_priority">中優先級</string>
     <string name="filter_low_priority">低優先級</string>
     <string name="filter_no_priority">無優先級</string>
+    <string name="SSD_sort_due">依到期日</string>
+    <string name="SSD_sort_start">根據起始日期</string>
+    <string name="SSD_sort_importance">依優先權</string>
+    <string name="SSD_sort_alpha">依名稱</string>
+    <string name="SSD_sort_modified">依最後修改日</string>
+    <string name="SSD_sort_auto">智慧排序</string>
+    <string name="SSD_sort_my_order">我的排序</string>
+    <string name="astrid_sort_order">Astrid 手動排序</string>
+    <string name="sort_completed">依完成時間</string>
+    <string name="sort_grouping">分組</string>
+    <string name="sort_sorting">排序</string>
+    <string name="sort_ascending">升序</string>
+    <string name="sort_descending">遞減</string>
+    <string name="completed_tasks_at_bottom">將已完成的任務移至底部</string>
+    <string name="subtasks">子任務</string>
+    <string name="sort_not_available">不支援標籤、篩選或地點</string>
+    <string name="none">無</string>
 </resources>

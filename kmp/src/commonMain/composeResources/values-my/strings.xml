@@ -7,4 +7,12 @@
     <string name="sort_due_date">ဆုံးရက်</string>
     <string name="sort_priority">အရေးပါမှု</string>
     <string name="sort_start_date">စရက်</string>
+    <string name="SSD_sort_due">ဆုံးရက်ဖြင့်</string>
+    <string name="SSD_sort_start">စရက်ဖြင့်</string>
+    <string name="SSD_sort_importance">အရေးပါမှုအားဖြင့်</string>
+    <string name="SSD_sort_alpha">ခေါင်းစဥ်ဖြင့်</string>
+    <string name="SSD_sort_modified">နောက်ဆုံးပြုပြင်ခဲ့မှု</string>
+    <string name="SSD_sort_auto">စမတ် အစီအစဥ်</string>
+    <string name="SSD_sort_my_order">အစီအစဥ်</string>
+    <string name="sort_completed">အလုပ်ပြီးသောအချိန်ဖြင့်</string>
 </resources>

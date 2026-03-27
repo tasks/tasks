@@ -576,7 +576,6 @@
     <string name="permission_read_tasks">Пълен дистъп до банката данни на Task</string>
     <string name="github_sponsors">Дарители от GitHub</string>
     <string name="markdown_description">Markdown в заглавията и описанията</string>
-    <string name="completed_tasks_at_bottom">Преместване на завършените задачи отдолу</string>
     <string name="caldav_server_unknown">Неизвестен</string>
     <string name="caldav_server_other">Друг</string>
     <string name="app_password_created_at">Създадена: %s</string>
@@ -634,12 +633,6 @@
     <string name="sort_completion_group">Завършена %s</string>
     <string name="sign_in">Вход</string>
     <string name="sort_list">По списък</string>
-    <string name="sort_descending">Низходящо</string>
-    <string name="sort_sorting">Сортиране</string>
-    <string name="sort_grouping">Групиране</string>
-    <string name="sort_ascending">Възходящо</string>
-    <string name="sort_not_available">Не е налично за етикети, филтри или места</string>
-    <string name="sort_completed">По време на завършване</string>
     <string name="repeats_never">Никога</string>
     <string name="repeats_after">След</string>
     <string name="repeats_every">Повтаряне всеки</string>

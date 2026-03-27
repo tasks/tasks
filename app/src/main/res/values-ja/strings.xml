@@ -508,7 +508,6 @@
     <string name="markdown_description">タイトル欄と説明欄でマークダウン記法を有効にします</string>
     <string name="completion_sound">完了時に音を鳴らす</string>
     <string name="snackbar_task_completed">タスク完了</string>
-    <string name="completed_tasks_at_bottom">完了したタスクを一番下に移動</string>
     <string name="alarm_before_due">締切 %s 前</string>
     <string name="snoozed_until">%s までスヌーズ</string>
     <string name="hint_customize_edit_title">情報量が多すぎる？</string>
@@ -624,12 +623,6 @@
     <string name="open_source">オープンソース</string>
     <string name="app_password_save">これらの認証情報は、サードパーティアプリを設定するために使用します。あなたの Tasks.org アカウントへの完全なアクセスを許可するものであるため、書き留めたり、誰とも共有しないでください！</string>
     <string name="sort_list">リスト</string>
-    <string name="sort_not_available">タグ、フィルター、場所には使用できません</string>
-    <string name="sort_sorting">並べ替え</string>
-    <string name="sort_grouping">グループ化</string>
-    <string name="sort_ascending">昇順</string>
-    <string name="sort_descending">降順</string>
-    <string name="sort_completed">完了日時</string>
     <string name="repeat_monthly_on_day_number">毎月 %1d 日</string>
     <string name="repeats_on">日付</string>
     <plurals name="repeat_occurrence">

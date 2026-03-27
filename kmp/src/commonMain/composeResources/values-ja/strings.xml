@@ -83,4 +83,21 @@
     <string name="filter_medium_priority">優先度 中</string>
     <string name="filter_low_priority">優先度 低</string>
     <string name="filter_no_priority">優先度 なし</string>
+    <string name="SSD_sort_due">締切日時</string>
+    <string name="SSD_sort_start">着手日時</string>
+    <string name="SSD_sort_importance">優先度</string>
+    <string name="SSD_sort_alpha">タイトル</string>
+    <string name="SSD_sort_modified">変更日時</string>
+    <string name="SSD_sort_auto">自動</string>
+    <string name="SSD_sort_my_order">マイ設定</string>
+    <string name="astrid_sort_order">手動で並べ替え (Astrid)</string>
+    <string name="sort_completed">完了日時</string>
+    <string name="sort_grouping">グループ化</string>
+    <string name="sort_sorting">並べ替え</string>
+    <string name="sort_ascending">昇順</string>
+    <string name="sort_descending">降順</string>
+    <string name="completed_tasks_at_bottom">完了したタスクを一番下に移動</string>
+    <string name="subtasks">サブタスク</string>
+    <string name="sort_not_available">タグ、フィルター、場所には使用できません</string>
+    <string name="none">なし</string>
 </resources>

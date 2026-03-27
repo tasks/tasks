@@ -608,7 +608,6 @@
     <string name="markdown_description">Habilitar Markdown no título e descrição</string>
     <string name="markdown">Markdown</string>
     <string name="now">Agora</string>
-    <string name="completed_tasks_at_bottom">Mover tarefas concluídas para baixo</string>
     <string name="completed">Concluída</string>
     <string name="completion_sound">Reproduzir som após conclusão</string>
     <plurals name="reminder_minutes">
@@ -659,13 +658,10 @@
         <item quantity="many">ocorrências</item>
         <item quantity="other">ocorrências</item>
     </plurals>
-    <string name="sort_not_available">Não disponível por etiquetas, filtros, ou lugares</string>
     <string name="repeat_monthly_on_day_number">Mensalmente no dia %1d</string>
     <string name="change_priority">Mudar prioridade</string>
     <string name="sort_list">Por lista</string>
-    <string name="sort_sorting">Listagem</string>
     <string name="repeat_monthly_on_the_nth_weekday">Mensalmente na %1$s %2$s</string>
-    <string name="sort_completed">Por hora de conclusão</string>
     <string name="sort_completion_group">Conclusão %s</string>
     <string name="repeats_every">Repetir a cada</string>
     <string name="repeats_weekly_on">Repetir em</string>
@@ -673,9 +669,6 @@
     <string name="repeats_on">Em</string>
     <string name="repeats_after">Após</string>
     <string name="repeats_ends">Termina</string>
-    <string name="sort_grouping">Agrupamento</string>
-    <string name="sort_ascending">Ascendente</string>
-    <string name="sort_descending">Descendente</string>
     <string name="theme_dynamic">Dinâmico</string>
     <string name="show_edit_screen_without_unlock">Mostrar tela de edição sem desbloquear</string>
     <string name="show_edit_screen_without_unlock_summary">Permite o uso do bloco \"Configurações Rápidas\" sem desbloquear o dispositivo</string>

@@ -585,7 +585,6 @@
     <string name="custom_filter_has_reminder">Có lời nhắc</string>
     <string name="snoozed_until">Đã đặt báo lại cho đến %s</string>
     <string name="snackbar_task_completed">Công việc đã hoàn tất</string>
-    <string name="completed_tasks_at_bottom">Di chuyển công việc đã hoàn tất xuống dưới</string>
     <string name="snackbar_tasks_completed">%d công việc đã hoàn tất</string>
     <string name="alarm_before_start">%s trước bắt đầu</string>
     <string name="alarm_after_start">%s sau bắt đầu</string>
@@ -627,15 +626,9 @@
     <string name="repeats_ends">Kết thúc</string>
     <string name="repeat_monthly_on_day_number">Hàng tháng vào ngày %1d</string>
     <string name="repeat_monthly_on_the_nth_weekday">Hàng tháng vào %1$s %2$s</string>
-    <string name="sort_not_available">Không có sẵn cho tag, bộ lọc hay nơi chốn</string>
     <string name="repeats_custom_recurrence">Lặp lại tùy chỉnh</string>
     <string name="repeats_every">Lặp lại mỗi</string>
     <string name="sort_list">Theo danh sách</string>
-    <string name="sort_sorting">Sắp xếp</string>
-    <string name="sort_grouping">Gộp nhóm</string>
-    <string name="sort_ascending">Tăng dần</string>
-    <string name="sort_descending">Giảm dần</string>
-    <string name="sort_completed">Theo thời gian hoàn thành</string>
     <string name="change_priority">Thay đổi mức độ ưu tiên</string>
     <string name="app_settings">Cài đặt ứng dụng</string>
     <string name="customize_drawer">Tùy chỉnh ngăn kéo</string>

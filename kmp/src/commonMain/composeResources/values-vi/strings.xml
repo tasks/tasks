@@ -68,4 +68,21 @@
     <string name="filter_medium_priority">Ưu tiên trung bình</string>
     <string name="filter_low_priority">Ưu tiên thấp</string>
     <string name="filter_no_priority">Không ưu tiên</string>
+    <string name="SSD_sort_due">Theo ngày hạn</string>
+    <string name="SSD_sort_start">Theo ngày bắt đầu</string>
+    <string name="SSD_sort_importance">Theo sự ưu tiên</string>
+    <string name="SSD_sort_alpha">Theo tiêu đề</string>
+    <string name="SSD_sort_modified">Theo lần sửa đổi cuối</string>
+    <string name="SSD_sort_auto">Sắp xếp thông minh</string>
+    <string name="SSD_sort_my_order">Thứ tự của tôi</string>
+    <string name="astrid_sort_order">Sắp xếp thủ công của Astrid</string>
+    <string name="sort_completed">Theo thời gian hoàn thành</string>
+    <string name="sort_grouping">Gộp nhóm</string>
+    <string name="sort_sorting">Sắp xếp</string>
+    <string name="sort_ascending">Tăng dần</string>
+    <string name="sort_descending">Giảm dần</string>
+    <string name="completed_tasks_at_bottom">Di chuyển công việc đã hoàn tất xuống dưới</string>
+    <string name="subtasks">Công việc con</string>
+    <string name="sort_not_available">Không có sẵn cho tag, bộ lọc hay nơi chốn</string>
+    <string name="none">Không có</string>
 </resources>

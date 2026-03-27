@@ -16,4 +16,9 @@
     <string name="password_required">ପାସ୍‍ୱର୍ଡ଼ ଆଵଶ୍ୟକ</string>
     <string name="help">ସହାୟତା</string>
     <string name="filter_overdue">ଅତିଦେୟ</string>
+    <string name="SSD_sort_start">ଆରମ୍ଭ ତାରିଖ ଅନୁଯାୟୀ</string>
+    <string name="SSD_sort_importance">ପ୍ରାଥମିକତା ଅନୁଯାୟୀ</string>
+    <string name="SSD_sort_alpha">ଆଖ୍ୟା ଅନୁଯାୟୀ</string>
+    <string name="SSD_sort_modified">ଗତ ସଂଶୋଧନ ଅନୁଯାୟୀ</string>
+    <string name="SSD_sort_my_order">ମୋର କ୍ରମ</string>
 </resources>

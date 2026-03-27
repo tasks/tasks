@@ -41,4 +41,14 @@
     <string name="group_none">Няма</string>
     <string name="ok">Добра</string>
     <string name="cancel">Адмена</string>
+    <string name="SSD_sort_due">Па даце завяршэння</string>
+    <string name="SSD_sort_start">Па даце пачатку</string>
+    <string name="SSD_sort_importance">Па прыярытэту</string>
+    <string name="SSD_sort_alpha">Па назве</string>
+    <string name="SSD_sort_modified">Па даце апошняй змены</string>
+    <string name="SSD_sort_auto">Разумнае сартаванне</string>
+    <string name="SSD_sort_my_order">Мой парадак</string>
+    <string name="astrid_sort_order">Ручное сартаванне Astrid</string>
+    <string name="sort_completed">Па часу выканання</string>
+    <string name="none">Няма</string>
 </resources>

@@ -3,63 +3,40 @@ package org.tasks.dialogs
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowDownward
-import androidx.compose.material.icons.outlined.ArrowUpward
-import androidx.compose.material.icons.outlined.ExpandCircleDown
-import androidx.compose.material.icons.outlined.SubdirectoryArrowRight
-import androidx.compose.material.icons.outlined.SwapVert
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.Switch
-import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.todoroo.astrid.core.SortHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.tasks.R
+import org.tasks.compose.sort.BottomSheetContent
+import org.tasks.compose.sort.SortPicker
+import org.tasks.compose.sort.SortSheetContent
+import org.tasks.compose.sort.completedOptions
+import org.tasks.compose.sort.groupOptions
+import org.tasks.compose.sort.subtaskOptions
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import javax.inject.Inject
@@ -324,349 +301,5 @@ class SortSettingsActivity : ComponentActivity() {
                     putExtra(EXTRA_WIDGET_ID, it)
                 }
             }
-    }
-}
-
-@Composable
-fun SortSheetContent(
-    manualSortSelected: Boolean,
-    manualSortEnabled: Boolean,
-    astridSortEnabled: Boolean,
-    selected: Int,
-    setManualSort: (Boolean) -> Unit,
-    setAstridSort: (Boolean) -> Unit,
-    onSelected: (Int) -> Unit,
-) {
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .fillMaxWidth()
-    ) {
-        SortPicker(
-            selected = if (manualSortSelected) -1 else selected,
-            options = sortOptions,
-            onClick = { onSelected(it) },
-        )
-        if (astridSortEnabled) {
-            SortOption(
-                resId = R.string.astrid_sort_order,
-                selected = manualSortSelected,
-                onClick = { setAstridSort(true) }
-            )
-        }
-        SortOption(
-            resId = R.string.SSD_sort_my_order,
-            selected = manualSortSelected && !astridSortEnabled,
-            enabled = manualSortEnabled,
-            onClick = { setManualSort(true) },
-        )
-    }
-}
-
-val sortOptions = linkedMapOf(
-    R.string.SSD_sort_due to SortHelper.SORT_DUE,
-    R.string.SSD_sort_start to SortHelper.SORT_START,
-    R.string.SSD_sort_importance to SortHelper.SORT_IMPORTANCE,
-    R.string.SSD_sort_alpha to SortHelper.SORT_ALPHA,
-    R.string.SSD_sort_modified to SortHelper.SORT_MODIFIED,
-    R.string.SSD_sort_auto to SortHelper.SORT_AUTO,
-    R.string.sort_created to SortHelper.SORT_CREATED,
-)
-
-val subtaskOptions = linkedMapOf(
-    R.string.SSD_sort_my_order to SortHelper.SORT_MANUAL,
-    R.string.SSD_sort_due to SortHelper.SORT_DUE,
-    R.string.SSD_sort_start to SortHelper.SORT_START,
-    R.string.SSD_sort_importance to SortHelper.SORT_IMPORTANCE,
-    R.string.SSD_sort_alpha to SortHelper.SORT_ALPHA,
-    R.string.SSD_sort_modified to SortHelper.SORT_MODIFIED,
-    R.string.SSD_sort_auto to SortHelper.SORT_AUTO,
-    R.string.sort_created to SortHelper.SORT_CREATED,
-)
-
-val groupOptions = linkedMapOf(
-    R.string.none to SortHelper.GROUP_NONE,
-    R.string.SSD_sort_due to SortHelper.SORT_DUE,
-    R.string.SSD_sort_start to SortHelper.SORT_START,
-    R.string.SSD_sort_importance to SortHelper.SORT_IMPORTANCE,
-    R.string.SSD_sort_modified to SortHelper.SORT_MODIFIED,
-    R.string.sort_created to SortHelper.SORT_CREATED,
-    R.string.sort_list to SortHelper.SORT_LIST,
-)
-
-private val completedOptions = linkedMapOf(
-    R.string.sort_completed to SortHelper.SORT_COMPLETED,
-    R.string.SSD_sort_due to SortHelper.SORT_DUE,
-    R.string.SSD_sort_start to SortHelper.SORT_START,
-    R.string.SSD_sort_importance to SortHelper.SORT_IMPORTANCE,
-    R.string.SSD_sort_alpha to SortHelper.SORT_ALPHA,
-    R.string.SSD_sort_modified to SortHelper.SORT_MODIFIED,
-    R.string.sort_created to SortHelper.SORT_CREATED,
-)
-
-@Composable
-fun SortPicker(
-    selected: Int,
-    options: Map<Int, Int>,
-    onClick: (Int) -> Unit,
-) {
-    options.forEach { (resId, sortMode) ->
-        SortOption(
-            resId = resId,
-            selected = selected == sortMode,
-            onClick = { onClick(sortMode) },
-        )
-    }
-}
-
-@Composable
-fun SortOption(
-    resId: Int,
-    selected: Boolean,
-    enabled: Boolean = true,
-    onClick: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(enabled = enabled, onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-    ) {
-        Text(
-            text = stringResource(id = resId),
-            style = MaterialTheme.typography.titleLarge.copy(
-                color = when {
-                    selected -> MaterialTheme.colorScheme.primary
-                    enabled -> MaterialTheme.colorScheme.onSurface
-                    else -> MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled)
-                }
-            ),
-        )
-        if (!enabled) {
-            Text(
-                text = stringResource(id = R.string.sort_not_available),
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    color = MaterialTheme.colorScheme.error,
-                    fontStyle = FontStyle.Italic,
-                ),
-            )
-        }
-    }
-}
-
-@Composable
-fun BottomSheetContent(
-    groupMode: Int,
-    sortMode: Int,
-    completedMode: Int,
-    subtaskMode: Int,
-    sortAscending: Boolean,
-    groupAscending: Boolean,
-    completedAscending: Boolean,
-    subtaskAscending: Boolean,
-    manualSort: Boolean,
-    astridSort: Boolean,
-    completedAtBottom: Boolean,
-    setSortAscending: (Boolean) -> Unit,
-    setGroupAscending: (Boolean) -> Unit,
-    setCompletedAscending: (Boolean) -> Unit,
-    setSubtaskAscending: (Boolean) -> Unit,
-    setCompletedAtBottom: (Boolean) -> Unit,
-    clickGroupMode: () -> Unit,
-    clickSortMode: () -> Unit,
-    clickCompletedMode: () -> Unit,
-    clickSubtaskMode: () -> Unit,
-) {
-    SortRow(
-        title = R.string.sort_grouping,
-        icon = Icons.Outlined.ExpandCircleDown,
-        ascending = groupAscending,
-        sortMode = groupMode,
-        showAscending = groupMode != SortHelper.GROUP_NONE,
-        onClick = clickGroupMode,
-        setAscending = setGroupAscending
-    )
-    SortRow(
-        title = R.string.sort_sorting,
-        body = remember(manualSort, astridSort, sortMode) {
-            when {
-                manualSort -> R.string.SSD_sort_my_order
-                astridSort -> R.string.astrid_sort_order
-                else -> sortMode.modeString
-            }
-        },
-        ascending = sortAscending,
-        sortMode = sortMode,
-        showAscending = !(manualSort || astridSort),
-        onClick = clickSortMode,
-        setAscending = setSortAscending,
-    )
-    if (!astridSort) {
-        if (!manualSort) {
-            SortRow(
-                title = R.string.subtasks,
-                icon = Icons.Outlined.SubdirectoryArrowRight,
-                ascending = subtaskAscending,
-                sortMode = subtaskMode,
-                onClick = clickSubtaskMode,
-                setAscending = setSubtaskAscending,
-                showAscending = subtaskMode != SortHelper.SORT_MANUAL
-            )
-        }
-        Divider(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(1.dp)
-        )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .clickable { setCompletedAtBottom(!completedAtBottom) },
-        ) {
-            Text(
-                text = stringResource(R.string.completed_tasks_at_bottom),
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.weight(1f),
-            )
-            Switch(
-                checked = completedAtBottom,
-                onCheckedChange = { setCompletedAtBottom(it) }
-            )
-        }
-        if (completedAtBottom) {
-            Divider(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-            )
-            SortRow(
-                title = R.string.completed,
-                ascending = completedAscending,
-                sortMode = completedMode,
-                onClick = clickCompletedMode,
-                setAscending = setCompletedAscending,
-            )
-        }
-    }
-}
-
-@Composable
-fun SortRow(
-    icon: ImageVector = Icons.Outlined.SwapVert,
-    title: Int,
-    ascending: Boolean,
-    sortMode: Int,
-    body: Int = remember(sortMode) { sortMode.modeString },
-    showAscending: Boolean = true,
-    onClick: () -> Unit,
-    setAscending: (Boolean) -> Unit,
-) {
-    Row(
-        modifier = Modifier
-            .clickable { onClick() }
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            modifier = Modifier
-                .padding(end = 16.dp)
-                .size(24.dp)
-                .alpha(ContentAlpha.medium),
-        )
-        Column(modifier = Modifier.weight(1f)) {
-            Text(text = stringResource(id = title), style = MaterialTheme.typography.bodyLarge)
-            Text(text = stringResource(id = body), style = MaterialTheme.typography.bodyMedium)
-        }
-        if (showAscending) {
-            Spacer(modifier = Modifier.width(16.dp))
-            val displayAscending = when (sortMode) {
-                SortHelper.SORT_AUTO,
-                SortHelper.SORT_IMPORTANCE -> !ascending
-
-                else -> ascending
-            }
-            OrderingButton(
-                ascending = displayAscending,
-                onClick = { setAscending(!ascending) }
-            )
-        }
-    }
-}
-
-@Composable
-fun OrderingButton(
-    ascending: Boolean,
-    onClick: () -> Unit,
-) {
-    Row(
-        modifier = Modifier
-            .height(32.dp)
-            .clickable { onClick() },
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Divider(modifier = Modifier
-            .width(1.dp)
-            .fillMaxHeight())
-        Icon(
-            imageVector = if (ascending) Icons.Outlined.ArrowUpward else Icons.Outlined.ArrowDownward,
-            modifier = Modifier
-                .padding(horizontal = 8.dp)
-                .size(16.dp),
-            contentDescription = null,
-        )
-        Text(
-            text = stringResource(id = if (ascending) R.string.sort_ascending else R.string.sort_descending),
-            style = MaterialTheme.typography.bodyMedium,
-        )
-    }
-}
-
-private val Int.modeString: Int
-    get() = when (this) {
-        SortHelper.GROUP_NONE -> R.string.none
-        SortHelper.SORT_ALPHA -> R.string.SSD_sort_alpha
-        SortHelper.SORT_DUE -> R.string.SSD_sort_due
-        SortHelper.SORT_IMPORTANCE -> R.string.SSD_sort_importance
-        SortHelper.SORT_MODIFIED -> R.string.SSD_sort_modified
-        SortHelper.SORT_CREATED -> R.string.sort_created
-        SortHelper.SORT_START -> R.string.SSD_sort_start
-        SortHelper.SORT_LIST -> R.string.sort_list
-        SortHelper.SORT_COMPLETED -> R.string.sort_completed
-        SortHelper.SORT_MANUAL -> R.string.SSD_sort_my_order
-        else -> R.string.SSD_sort_auto
-    }
-
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
-@Composable
-fun PreviewSortBottomSheet() {
-    TasksTheme {
-        Column {
-            BottomSheetContent(
-                groupMode = SortHelper.GROUP_NONE,
-                sortMode = SortHelper.SORT_AUTO,
-                completedMode = SortHelper.SORT_ALPHA,
-                subtaskMode = SortHelper.SORT_MANUAL,
-                sortAscending = false,
-                groupAscending = false,
-                completedAscending = false,
-                subtaskAscending = false,
-                manualSort = false,
-                astridSort = false,
-                completedAtBottom = true,
-                clickGroupMode = {},
-                clickSortMode = {},
-                clickCompletedMode = {},
-                clickSubtaskMode = {},
-                setCompletedAtBottom = {},
-                setSortAscending = {},
-                setGroupAscending = {},
-                setCompletedAscending = {},
-                setSubtaskAscending = {},
-            )
-        }
     }
 }

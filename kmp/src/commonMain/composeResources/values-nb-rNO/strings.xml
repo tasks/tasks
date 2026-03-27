@@ -66,4 +66,21 @@
     <string name="filter_medium_priority">Middels prioritet</string>
     <string name="filter_low_priority">Lav prioritet</string>
     <string name="filter_no_priority">Ingen prioritet</string>
+    <string name="SSD_sort_due">Etter tidsfristsdato</string>
+    <string name="SSD_sort_start">I henhold til startdato</string>
+    <string name="SSD_sort_importance">Etter prioritet</string>
+    <string name="SSD_sort_alpha">Etter tittel</string>
+    <string name="SSD_sort_modified">Etter endringstidspunkt</string>
+    <string name="SSD_sort_auto">Smart sortering</string>
+    <string name="SSD_sort_my_order">Min bestilling</string>
+    <string name="astrid_sort_order">Astrids manuelle sorteringsmodus</string>
+    <string name="sort_completed">Etter fullført tidspunkt</string>
+    <string name="sort_grouping">Gruppering</string>
+    <string name="sort_sorting">Sortering</string>
+    <string name="sort_ascending">Stigende</string>
+    <string name="sort_descending">Synkende</string>
+    <string name="completed_tasks_at_bottom">Flytt fullførte gjøremål til bunnen</string>
+    <string name="subtasks">Gjøremålssteg</string>
+    <string name="sort_not_available">Ikke tilgjengelig for tagger, filtre eller steder</string>
+    <string name="none">Ingen</string>
 </resources>

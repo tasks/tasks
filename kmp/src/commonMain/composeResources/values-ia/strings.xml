@@ -11,4 +11,6 @@
     <string name="sort_mode">Ordinar</string>
     <string name="cancel">Cancellar</string>
     <string name="help">Adjuta</string>
+    <string name="SSD_sort_start">Per data de initio</string>
+    <string name="SSD_sort_alpha">Per titulo</string>
 </resources>

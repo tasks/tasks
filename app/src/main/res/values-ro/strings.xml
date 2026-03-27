@@ -615,7 +615,6 @@
     <string name="completion_sound">Redă sunetul de completare</string>
     <string name="completed">Finalizat</string>
     <string name="snackbar_task_completed">Sarcină îndeplinită</string>
-    <string name="completed_tasks_at_bottom">Mută sarcinile finalizate în partea de jos</string>
     <string name="snackbar_tasks_completed">%d sarcini finalizate</string>
     <string name="alarm_before_start">%s înainte de start</string>
     <string name="alarm_after_start">%s după pornire</string>
@@ -657,18 +656,14 @@
     <string name="enable_reminders_description">Reamintirile sunt dezactivate în Setări Android</string>
     <string name="TEA_creation_date">Data creării</string>
     <string name="sign_in">Conectează-te</string>
-    <string name="sort_ascending">Crescător</string>
     <string name="change_priority">Schimbă prioritatea</string>
     <string name="repeats_every">Se repetă fiecare</string>
-    <string name="sort_completed">După timpul de finalizare</string>
     <string name="repeat_monthly_on_the_nth_weekday">Lunar la %1$s %2$s</string>
     <string name="repeats_after">După</string>
     <string name="sort_list">După listă</string>
     <string name="ok">OK</string>
     <string name="repeats_custom_recurrence">Repetare personalizată</string>
-    <string name="sort_sorting">Sortare</string>
     <string name="repeats_never">Niciodată</string>
-    <string name="sort_not_available">Nu este disponibil pentru etichete, filtre sau locuri</string>
     <plurals name="repeat_occurrence">
         <item quantity="one">repetare</item>
         <item quantity="few">repetări</item>
@@ -679,8 +674,6 @@
     <string name="repeats_ends">Se încheie</string>
     <string name="repeats_on">La</string>
     <string name="repeats_weekly_on">Se repetă la</string>
-    <string name="sort_descending">Descrescător</string>
-    <string name="sort_grouping">Grupare</string>
     <string name="send_application_logs">Trimite jurnalele aplicației</string>
     <string name="show_edit_screen_without_unlock">Afișează ecranul de editare fără deblocare</string>
     <string name="app_settings">Setările aplicației</string>

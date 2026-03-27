@@ -595,7 +595,6 @@
     <string name="completion_sound">Tamamlandığında ses çal</string>
     <string name="completed">Tamamlandı</string>
     <string name="snackbar_task_completed">Görev tamamlandı</string>
-    <string name="completed_tasks_at_bottom">Tamamlanan görevleri alta taşı</string>
     <string name="snackbar_tasks_completed">%d görev tamamlandı</string>
     <string name="custom_filter_has_reminder">Anımsatıcılı</string>
     <plurals name="reminder_hours">
@@ -645,14 +644,8 @@
     <string name="repeats_never">Asla</string>
     <string name="repeats_on">Şunda</string>
     <string name="repeats_after">Sonra</string>
-    <string name="sort_completed">Tamamlanma zamanına göre</string>
     <string name="repeat_monthly_on_day_number">%1d. günde aylık</string>
     <string name="repeat_monthly_on_the_nth_weekday">%1$s %2$s günde aylık</string>
-    <string name="sort_not_available">Etiketler, süzgeçler veya yerler için kullanılamaz</string>
-    <string name="sort_sorting">Sıralama</string>
-    <string name="sort_ascending">Artan</string>
-    <string name="sort_descending">Azalan</string>
-    <string name="sort_grouping">Kümeleme</string>
     <string name="change_priority">Önceliği değiştir</string>
     <string name="theme_dynamic">Dinamik</string>
     <string name="swipe_to_snooze_time_immediately">hemen</string>

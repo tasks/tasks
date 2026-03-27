@@ -2,4 +2,9 @@
 <resources>
     <string name="show_completed">Wys voltooide</string>
     <string name="cancel">Kanselleer</string>
+    <string name="SSD_sort_due">Volgens datum</string>
+    <string name="SSD_sort_importance">Volgens prioriteit</string>
+    <string name="SSD_sort_alpha">Volgens titel</string>
+    <string name="SSD_sort_modified">Volgens laaste verander</string>
+    <string name="SSD_sort_auto">Slim sorteer</string>
 </resources>

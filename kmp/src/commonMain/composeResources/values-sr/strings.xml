@@ -82,4 +82,21 @@
     <string name="filter_medium_priority">Средњи приоритет</string>
     <string name="filter_low_priority">Низак приоритет</string>
     <string name="filter_no_priority">Без приоритета</string>
+    <string name="SSD_sort_due">По датуму доспећа</string>
+    <string name="SSD_sort_start">По датуму почетка</string>
+    <string name="SSD_sort_importance">По приоритету</string>
+    <string name="SSD_sort_alpha">По наслову</string>
+    <string name="SSD_sort_modified">По датуму модификације</string>
+    <string name="SSD_sort_auto">Паметно сортирање</string>
+    <string name="SSD_sort_my_order">Мој редослед</string>
+    <string name="astrid_sort_order">Астрид ручно сортирање</string>
+    <string name="sort_completed">По времену завршетка</string>
+    <string name="sort_grouping">Груписање</string>
+    <string name="sort_sorting">Сортирање</string>
+    <string name="sort_ascending">Растући редослед</string>
+    <string name="sort_descending">Опадајући редослед</string>
+    <string name="completed_tasks_at_bottom">Премести завршене задатке на дно</string>
+    <string name="subtasks">Подзадаци</string>
+    <string name="sort_not_available">Није доступно за тагове, филтере, или места</string>
+    <string name="none">Празно</string>
 </resources>

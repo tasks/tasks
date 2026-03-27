@@ -595,7 +595,6 @@
     <string name="completion_sound">Geluid afspelen bij afronden</string>
     <string name="completed">Voltooid</string>
     <string name="snackbar_task_completed">Taak voltooid</string>
-    <string name="completed_tasks_at_bottom">Plaats voltooide taken onderaan</string>
     <string name="snackbar_tasks_completed">%d taken voltooid</string>
     <string name="alarm_before_due">%s voor vervallen</string>
     <string name="alarm_after_due">%s na vervallen</string>
@@ -634,12 +633,6 @@
     <string name="sort_completion_group">Voltooid %s</string>
     <string name="sign_in">Log in</string>
     <string name="sort_list">Op lijstvolgorde</string>
-    <string name="sort_sorting">Sorteren</string>
-    <string name="sort_grouping">Groepering</string>
-    <string name="sort_ascending">Oplopend</string>
-    <string name="sort_descending">Aflopend</string>
-    <string name="sort_completed">Op tijdstip voltooid</string>
-    <string name="sort_not_available">Niet beschikbaar voor labels, filters, of locaties</string>
     <plurals name="repeat_occurrence">
         <item quantity="one">gebeurtenis</item>
         <item quantity="other">gebeurtenissen</item>

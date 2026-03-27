@@ -135,7 +135,6 @@
     <string name="SSD_sort_start">Ανά ημερομηνία έναρξης</string>
     <string name="sort_created">Ανά ώρα δημιουργίας</string>
     <string name="sort_list">Ανά λίστα</string>
-    <string name="sort_completed">Ανά ώρα ολοκλήρωσης</string>
     <string name="FLA_new_filter">Δημιουργία νέου φίλτρου</string>
     <string name="TEA_add_subtask">Προσθήκη υποεργασίας</string>
     <string name="save">Αποθήκευση</string>
@@ -585,7 +584,6 @@
     <string name="completion_sound">Αναπαραγωγή ήχου ολοκλήρωσης</string>
     <string name="completed">Ολοκληρώθηκε</string>
     <string name="snackbar_task_completed">Η εργασία ολοκληρώθηκε</string>
-    <string name="completed_tasks_at_bottom">Μετακίνηση ολοκληρωμένων εργασιών στο κάτω μέρος</string>
     <string name="snackbar_tasks_completed">%d ολοκληρωμένες εργασίες</string>
     <string name="alarm_before_start">%s πριν την έναρξη</string>
     <string name="alarm_after_start">%s μετά την έναρξη</string>
@@ -604,11 +602,6 @@
     <string name="enable_alarms">Ενημερωθείτε την κατάλληλη στιγμή</string>
     <string name="enable_alarms_description">Για να βεβαιωθείτε ότι θα ειδοποιηθείτε την κατάλληλη στιγμή, παραχωρήστε άδεια δημιουργίας υπενθυμίσεων και ειδοποιήσεων στις Ρυθμίσεις</string>
     <string name="sign_in">Συνδεθείτε</string>
-    <string name="sort_sorting">Ταξινόμηση ανά</string>
-    <string name="sort_grouping">Δημιουργία γκρουπ</string>
-    <string name="sort_ascending">Αύξουσα</string>
-    <string name="sort_descending">Φθίνουσα</string>
-    <string name="sort_not_available">Δεν είναι διαθέσιμο για ετικέτες, φίλτρα ή μέρη</string>
     <string name="add_shortcut_to_home_screen">Προσθήκη συντόμευσης στην αρχική οθόνη</string>
     <string name="add_widget_to_home_screen">Προσθήκη γραφικού στοιχείου στην αρχική οθόνη</string>
     <string name="cost_money">Κόστος: $</string>

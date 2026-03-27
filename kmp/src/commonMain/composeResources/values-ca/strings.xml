@@ -73,4 +73,21 @@
     <string name="filter_medium_priority">Prioritat mitjana</string>
     <string name="filter_low_priority">Prioritat baixa</string>
     <string name="filter_no_priority">Sense prioritat</string>
+    <string name="SSD_sort_due">Per data de venciment</string>
+    <string name="SSD_sort_start">Per data d\'inici</string>
+    <string name="SSD_sort_importance">Per prioritat</string>
+    <string name="SSD_sort_alpha">Per títol</string>
+    <string name="SSD_sort_modified">Per última modificació</string>
+    <string name="SSD_sort_auto">Ordenació intel·ligent</string>
+    <string name="SSD_sort_my_order">El meu ordre</string>
+    <string name="astrid_sort_order">Ordenació manual d\'Astrid</string>
+    <string name="sort_completed">Per data de finalització</string>
+    <string name="sort_grouping">Agrupament</string>
+    <string name="sort_sorting">Ordenació</string>
+    <string name="sort_ascending">Ascendent</string>
+    <string name="sort_descending">Descendent</string>
+    <string name="completed_tasks_at_bottom">Mou les tasques completades a la part inferior</string>
+    <string name="subtasks">Subtasques</string>
+    <string name="sort_not_available">No disponible per a etiquetes, filtres o llocs</string>
+    <string name="none">Cap</string>
 </resources>

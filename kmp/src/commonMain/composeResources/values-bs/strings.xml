@@ -13,4 +13,13 @@
     <string name="cancel">Otkaži</string>
     <string name="no_due_date">Bez datuma roka</string>
     <string name="no_start_date">Bez datuma početka</string>
+    <string name="SSD_sort_start">Po datumu početka</string>
+    <string name="SSD_sort_importance">Po bitnosti</string>
+    <string name="SSD_sort_alpha">Po naslovu</string>
+    <string name="SSD_sort_modified">Po zadnjoj izmjeni</string>
+    <string name="SSD_sort_auto">Pametni redoslijed</string>
+    <string name="SSD_sort_my_order">Moj redoslijed</string>
+    <string name="astrid_sort_order">Astridov ručni redoslijed</string>
+    <string name="sort_completed">Po vremenu završetka</string>
+    <string name="none">Ništa</string>
 </resources>

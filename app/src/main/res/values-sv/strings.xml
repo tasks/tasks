@@ -616,7 +616,6 @@
         <item quantity="other">Dagar</item>
     </plurals>
     <string name="snackbar_task_completed">Uppgiften slutförd</string>
-    <string name="completed_tasks_at_bottom">Flytta slutförda uppgifter till botten</string>
     <string name="snackbar_tasks_completed">%d uppgifter slutförda</string>
     <string name="custom_filter_has_reminder">Har påminnelse</string>
     <string name="caldav_server_unknown">Okänd</string>
@@ -631,13 +630,7 @@
     <string name="sort_completion_group">Slutfört %s</string>
     <string name="sign_in">Logga in</string>
     <string name="sort_list">Efter lista</string>
-    <string name="sort_not_available">Inte tillgängligt för taggar, filter eller platser</string>
     <string name="enable_reminders">Aktivera påminnelser</string>
-    <string name="sort_sorting">Sortering</string>
-    <string name="sort_grouping">Gruppering</string>
-    <string name="sort_ascending">Stigande</string>
-    <string name="sort_descending">Fallande</string>
-    <string name="sort_completed">Efter färdigställd tid</string>
     <string name="repeats_every">Upprepas varje</string>
     <string name="repeats_after">Efter</string>
     <string name="repeats_never">Aldrig</string>

@@ -73,4 +73,21 @@
     <string name="filter_medium_priority">நடுத்தர முன்னுரிமை</string>
     <string name="filter_low_priority">குறைந்த முன்னுரிமை</string>
     <string name="filter_no_priority">குறைந்த முன்னுரிமை</string>
+    <string name="SSD_sort_due">உரிய தேதிக்குள்</string>
+    <string name="SSD_sort_start">தொடங்கும் நாள் கொண்டு</string>
+    <string name="SSD_sort_importance">முன்னுரிமையால்</string>
+    <string name="SSD_sort_alpha">தலைப்பு மூலம்</string>
+    <string name="SSD_sort_modified">கடைசியாக மாற்றியமைக்கப்பட்டது</string>
+    <string name="SSD_sort_auto">ஸ்மார்ட் வகை</string>
+    <string name="SSD_sort_my_order">எனது ஆர்டர்</string>
+    <string name="astrid_sort_order">ஆஸ்ட்ரிட் கையேடு வரிசையாக்கம்</string>
+    <string name="sort_completed">நிறைவு நேரம்</string>
+    <string name="sort_grouping">தொகுத்தல்</string>
+    <string name="sort_sorting">வரிசைப்படுத்துதல்</string>
+    <string name="sort_ascending">ஏறுதல்</string>
+    <string name="sort_descending">இறங்கு</string>
+    <string name="completed_tasks_at_bottom">நிறைவு செய்யப்பட்ட பணிகளை கீழே நகர்த்தவும்</string>
+    <string name="subtasks">துணை பணிகள்</string>
+    <string name="sort_not_available">குறிச்சொற்கள், வடிப்பான்கள் அல்லது இடங்களுக்கு கிடைக்கவில்லை</string>
+    <string name="none">எதுவுமில்லை</string>
 </resources>

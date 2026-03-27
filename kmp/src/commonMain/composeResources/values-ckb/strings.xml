@@ -6,4 +6,10 @@
     <string name="sort_mode">ڕیزی بکە</string>
     <string name="sort_due_date">بەرواری جێبەجێکردن</string>
     <string name="sort_priority">گرنگی</string>
+    <string name="SSD_sort_due">بە بەرواری جێبەجێکردن</string>
+    <string name="SSD_sort_start">بە بەرواری دەستپێکردن</string>
+    <string name="SSD_sort_importance">بە گرنگی</string>
+    <string name="SSD_sort_alpha">بە ناونیشان</string>
+    <string name="SSD_sort_modified">بە کۆتا دەستکاری</string>
+    <string name="SSD_sort_auto">ڕیزکردنی ژیرانە</string>
 </resources>

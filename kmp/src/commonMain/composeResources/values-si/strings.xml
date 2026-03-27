@@ -63,4 +63,15 @@
     <string name="filter_medium_priority">මධ්‍යම ප්‍රමුඛතාවය</string>
     <string name="filter_low_priority">අඩු ප්‍රමුඛතාවය</string>
     <string name="filter_no_priority">ප්‍රමුඛතාවයක් නැති</string>
+    <string name="SSD_sort_due">නියමිත දිනය අනුව</string>
+    <string name="SSD_sort_start">ආරම්භක දිනය අනුව</string>
+    <string name="SSD_sort_importance">ප්‍රමුඛතාවය අනුව</string>
+    <string name="SSD_sort_alpha">මාතෘකාව අනුව</string>
+    <string name="SSD_sort_modified">අවසන් වරට වෙනස් කරන ලද දිනය අනුව</string>
+    <string name="SSD_sort_auto">ස්මාර්ට් වර්ග කිරීම</string>
+    <string name="SSD_sort_my_order">මාගේ පිලිවෙල</string>
+    <string name="astrid_sort_order">Astrid අතින් වර්ග කිරීම</string>
+    <string name="completed_tasks_at_bottom">සම්පුර්ණ කරන ලද කාර්යයන් පහළට ගෙන යන්න</string>
+    <string name="subtasks">උප කාර්යයන්</string>
+    <string name="none">කිසිවක් නැත</string>
 </resources>

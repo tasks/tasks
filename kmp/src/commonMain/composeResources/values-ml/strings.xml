@@ -42,4 +42,13 @@
     <string name="ok">ശരി</string>
     <string name="cancel">റദ്ധാക്കുക</string>
     <string name="no_date">തീയതിയില്ല</string>
+    <string name="SSD_sort_due">നിശ്ചിത തീയതി</string>
+    <string name="SSD_sort_start">ആരംഭ തീയതി പ്രകാരം</string>
+    <string name="SSD_sort_importance">മുൻ‌ഗണന പ്രകാരം</string>
+    <string name="SSD_sort_alpha">ശീർഷക പ്രകാരം</string>
+    <string name="SSD_sort_modified">അവസാനം പരിഷ്കരിച്ചത് പ്രകാരം</string>
+    <string name="SSD_sort_auto">സ്മാർട്ട് സോർട്ടിംഗ്</string>
+    <string name="SSD_sort_my_order">എന്റെ ക്രമം</string>
+    <string name="sort_completed">പൂർത്തീകരണ സമയം അനുസരിച്ച്</string>
+    <string name="none">ഒന്നുമില്ല</string>
 </resources>

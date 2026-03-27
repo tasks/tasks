@@ -236,7 +236,6 @@
     <string name="custom_filter_is_subtask">On alamülesanne</string>
     <string name="upgrade_more_customization">Rohkem kohandusi</string>
     <string name="more_options">Rohkem valikuid</string>
-    <string name="sort_sorting">Sorteerimine</string>
     <string name="default_random_reminder_daily">Iga päev</string>
     <string name="default_random_reminder_weekly">Igal nädalal</string>
     <string name="next_monday">Järgmine E</string>
@@ -366,8 +365,6 @@
     <string name="github_sponsor">Sponsor</string>
     <string name="custom_filter_has_subtask">Alamülesannetega</string>
     <string name="snackbar_task_completed">Ülesanne lõpetatud</string>
-    <string name="sort_grouping">Grupeerimine</string>
-    <string name="sort_ascending">Kasvavalt</string>
     <plurals name="repeat_months">
         <item quantity="one">kuu</item>
         <item quantity="other">kuud</item>
@@ -421,7 +418,6 @@
     <string name="notification_disable_battery_optimizations_description">Aku optimeerimine võib teavitusi edasi lükata</string>
     <string name="notification_troubleshooting_summary">Vajuta siia, kui sul on teavitustega probleeme</string>
     <string name="EPr_voiceRemindersEnabled_title">Hääl-meeldetuletused</string>
-    <string name="sort_descending">Kahanevalt</string>
     <plurals name="repeat_times">
         <item quantity="one">kord</item>
         <item quantity="other">korda</item>
@@ -516,7 +512,6 @@
     <string name="FLA_search_filter">Vasteks „%s“</string>
     <string name="day_before_due">Päev enne tähtaega</string>
     <string name="week_before_due">Nädal enne tähtaega</string>
-    <string name="sort_completed">Valmissaamise alusel</string>
     <string name="swipe_to_snooze_time_description">Eemaldatud teavitus on edasilükatud ja luuakse uuesti %s</string>
     <string name="swipe_to_snooze_description">Edasilükkamise aeg</string>
     <string name="tasker_list_notification">Teavituste loend</string>
@@ -640,7 +635,6 @@
     <string name="chips">Infosildid</string>
     <string name="auto_dismiss_datetime_edit">Ülesande muutmine</string>
     <string name="insufficient_subscription">Mittepiisav tellimuse tüüp. Teenuse jätkamiseks palun muuda tellimuse tüüpi.</string>
-    <string name="sort_not_available">Pole saadaval siltide, filtrite ja asukohtade puhul</string>
     <string name="auto_dismiss_datetime_edit_summary">Ülesande muutmisvaatest valimisel sulge automaatselt</string>
     <string name="auto_dismiss_datetime_list_summary">Ülesannete loendist valimisel sulge automaatselt</string>
     <string name="date_picker_multiple">Mitmikvalik</string>
@@ -684,7 +678,6 @@
     <string name="price_per_year_with_currency">%s aastas</string>
     <string name="backup_location_warning">HOIATUS: Tasks rakenduse eemaldamisel kustutatakse ka kõik „%s“ asuukohas leiduvad failid. Kui soovid, et Android sinu faile ei kustutaks, siis palun vali muu asukoht.</string>
     <string name="remove_user_confirmation">Kasutajal %1$s ei saa enam olema ligipääsu siia: %2$s</string>
-    <string name="completed_tasks_at_bottom">Nihuta lõpetatud ülesanded alla</string>
     <string name="hint_customize_edit_body">Sa võid seda vaadet kohendada väljade ümbertõstmise ja eemaldamise teel</string>
     <string name="enable_alarms">Taga õigeaegsed teavitused</string>
     <string name="foreground_location">Asukoht esiplaanil</string>

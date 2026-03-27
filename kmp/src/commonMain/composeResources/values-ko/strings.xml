@@ -73,4 +73,21 @@
     <string name="filter_medium_priority">중간 우선순위</string>
     <string name="filter_low_priority">낮은 우선순위</string>
     <string name="filter_no_priority">우선순위 없음</string>
+    <string name="SSD_sort_due">마감일 기준</string>
+    <string name="SSD_sort_start">시작일 기준</string>
+    <string name="SSD_sort_importance">우선순위 기준</string>
+    <string name="SSD_sort_alpha">제목 기준</string>
+    <string name="SSD_sort_modified">최종 변경일시 기준</string>
+    <string name="SSD_sort_auto">Tasks 스마트 정렬</string>
+    <string name="SSD_sort_my_order">순서 직접 정렬</string>
+    <string name="astrid_sort_order">Astrid 수동 정렬</string>
+    <string name="sort_completed">완료일시 기준</string>
+    <string name="sort_grouping">분류</string>
+    <string name="sort_sorting">정렬</string>
+    <string name="sort_ascending">오름차순</string>
+    <string name="sort_descending">내림차순</string>
+    <string name="completed_tasks_at_bottom">완료한 할일을 하단으로 이동</string>
+    <string name="subtasks">하위할일</string>
+    <string name="sort_not_available">태그, 필터, 장소는 사용 불가</string>
+    <string name="none">없음</string>
 </resources>

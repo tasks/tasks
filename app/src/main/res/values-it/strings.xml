@@ -612,7 +612,6 @@
     <string name="completion_sound">Suono di completamento</string>
     <string name="completed">Completate</string>
     <string name="snackbar_task_completed">Attività completata</string>
-    <string name="completed_tasks_at_bottom">Sposta le attività completate in basso</string>
     <string name="snackbar_tasks_completed">%d attività completate</string>
     <string name="alarm_after_due">%s dopo la scadenza</string>
     <string name="alarm_before_start">%s prima di iniziare</string>
@@ -655,12 +654,6 @@
     <string name="sort_completion_group">Completamento %s</string>
     <string name="sign_in">Accedi</string>
     <string name="sort_list">Per lista</string>
-    <string name="sort_sorting">Ordinamento</string>
-    <string name="sort_grouping">Raggruppamento</string>
-    <string name="sort_ascending">Crescente</string>
-    <string name="sort_descending">Decrescente</string>
-    <string name="sort_completed">Per tempo di completamento</string>
-    <string name="sort_not_available">Non disponibile per etichette, filtri o luoghi</string>
     <string name="repeats_never">Mai</string>
     <string name="repeats_custom_recurrence">Ricorrenza personalizzata</string>
     <plurals name="repeat_occurrence">

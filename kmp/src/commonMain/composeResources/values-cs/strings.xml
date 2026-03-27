@@ -91,4 +91,21 @@
     <string name="filter_medium_priority">Střední důležitost</string>
     <string name="filter_low_priority">Nízká důležitost</string>
     <string name="filter_no_priority">Bez nastavené důležitosti</string>
+    <string name="SSD_sort_due">Podle data ukončení</string>
+    <string name="SSD_sort_start">Podle data zahájení</string>
+    <string name="SSD_sort_importance">Podle důležitosti</string>
+    <string name="SSD_sort_alpha">Podle názvu</string>
+    <string name="SSD_sort_modified">Podle poslední změny</string>
+    <string name="SSD_sort_auto">Inteligentní řazení</string>
+    <string name="SSD_sort_my_order">Vlastní pořadí</string>
+    <string name="astrid_sort_order">Ruční řazení Astrid</string>
+    <string name="sort_completed">Podle času dokončení</string>
+    <string name="sort_grouping">Seskupení</string>
+    <string name="sort_sorting">Řazení</string>
+    <string name="sort_ascending">Vzestupně</string>
+    <string name="sort_descending">Sestupně</string>
+    <string name="completed_tasks_at_bottom">Přesunout splněné úkoly naspod</string>
+    <string name="subtasks">Podúkoly</string>
+    <string name="sort_not_available">Není k dispozici pro štítky, filtry a místa</string>
+    <string name="none">Žádný</string>
 </resources>

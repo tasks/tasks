@@ -609,7 +609,6 @@
     <string name="completion_sound">Afspil fuldførelseslyd</string>
     <string name="customize_edit_screen_summary">Omarranger eller fjern felter</string>
     <string name="completed">Fuldført</string>
-    <string name="completed_tasks_at_bottom">Flyt fuldførte opgaver til bunden</string>
     <string name="caldav_server_unknown">Ukendt</string>
     <string name="caldav_server_other">Andet</string>
     <string name="caldav_server_type">Servertype</string>
@@ -637,7 +636,6 @@
     <string name="customize_drawer_summary">Træk og slip for at omarrangere menupunkter</string>
     <string name="swipe_to_snooze_description">Udsættelsestid</string>
     <string name="sort_list">Efter liste</string>
-    <string name="sort_completed">Efter fuldførelsestidspunkt</string>
     <string name="swipe_to_snooze_title">Stryg for at udsætte</string>
     <string name="swipe_to_snooze_time_immediately">øjeblikkeligt</string>
     <string name="swipe_to_snooze_time_1_hour">efter 1 time</string>
@@ -649,15 +647,12 @@
     <string name="donate_today">Donér i dag</string>
     <string name="donate_maybe_later">Måske senere</string>
     <string name="add_shortcut_to_home_screen">Føj genvej til startskærm</string>
-    <string name="sort_descending">Faldende</string>
     <string name="comment">Kommentar</string>
     <string name="change_priority">Ændr prioritet</string>
     <string name="repeats_after">Efter</string>
     <string name="repeats_ends">Slutter</string>
-    <string name="sort_grouping">Gruppering</string>
     <string name="repeats_on">På</string>
     <string name="repeats_never">Aldrig</string>
-    <string name="sort_ascending">Stigende</string>
     <string name="theme_dynamic">Dynamisk</string>
     <string name="subtasks_multilevel_microsoft">Underopgaver på flere niveauer understøttes ikke af Microsoft To Do</string>
     <string name="donate_nag">Overvej at vise din støtte med en donation!</string>
@@ -673,7 +668,6 @@
     <string name="delete_comment">kommentar</string>
     <string name="repeats_every">Gentages hver</string>
     <string name="repeats_weekly_on">Gentages</string>
-    <string name="sort_not_available">Ikke tilgængelig for tags, filtre eller steder</string>
     <string name="quiet_hours_in_effect">Hviletid er i gang</string>
     <string name="repeats_custom_recurrence">Brugerdefineret gentagelse</string>
     <string name="yesterday">I går</string>
@@ -681,7 +675,6 @@
     <string name="sync_warning_microsoft">Ikke alle opgavedetaljer synkroniseres med Microsoft To Do.</string>
     <string name="sync_warning_google_tasks">Ikke alle opgavedetaljer synkroniseres med Google Huskeliste</string>
     <string name="button_learn_more">Få mere at vide</string>
-    <string name="sort_sorting">Sortering</string>
     <string name="repeat_monthly_on_the_nth_weekday">Månedligt på den %1$s %2$s</string>
     <string name="repeat_monthly_on_day_number">Månedligt på dag %1d</string>
     <string name="enable_alarms">Bliv underrettet på det rigtige tidspunkt</string>

@@ -41,4 +41,15 @@
     <string name="help">Aida</string>
     <string name="no_due_date">Ensin data de vencimientu</string>
     <string name="no_start_date">Ensin data d\'entamu</string>
+    <string name="SSD_sort_due">Por data de vencimientu</string>
+    <string name="SSD_sort_start">Por data d\'entamu</string>
+    <string name="SSD_sort_importance">Por prioridá</string>
+    <string name="SSD_sort_alpha">Por títulu</string>
+    <string name="SSD_sort_modified">Por última modificación</string>
+    <string name="SSD_sort_auto">Orden intelixente</string>
+    <string name="SSD_sort_my_order">El mio orden</string>
+    <string name="astrid_sort_order">Ordenación manual d\'Astrid</string>
+    <string name="sort_completed">Por data de terminación</string>
+    <string name="subtasks">Subxeres</string>
+    <string name="none">Denguna</string>
 </resources>

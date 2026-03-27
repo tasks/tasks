@@ -39,7 +39,6 @@
     <string name="SSD_sort_importance">Па прыярытэту</string>
     <string name="sort_created">Па даце стварэння</string>
     <string name="sort_list">Па спісу</string>
-    <string name="sort_completed">Па часу выканання</string>
     <string name="today">Сёння</string>
     <string name="yesterday">Учора</string>
     <string name="show_completed">Паказаць завершаныя</string>

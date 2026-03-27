@@ -616,14 +616,12 @@
     <string name="customize_drawer">התאמה אישית של מגירה</string>
     <string name="customize_drawer_summary">יש לגרור ולשחרר כדי לסדר מחדש את פריטי התפריט</string>
     <string name="sort_list">לפי רשימה</string>
-    <string name="sort_completed">לפי זמן השלמה</string>
     <string name="repeats_ends">מסתיים</string>
     <string name="alarm_before_due">%s לפני מועד יעד</string>
     <string name="hint_customize_edit_body">באפשרותך להתאים אישית את המסך הזה על ידי סידור מחדש או הסרה של שדות</string>
     <string name="enable_reminders">הפעלת תזכורות</string>
     <string name="snackbar_tasks_completed">%d משימות הושלמו</string>
     <string name="snoozed_until">בנמנום עד %s</string>
-    <string name="sort_grouping">קיבוץ</string>
     <string name="add_widget_to_home_screen">הוספת יישומון למסך הבית</string>
     <string name="sign_in">כניסה</string>
     <string name="randomly_every">באופן אקראי כל %s</string>
@@ -673,7 +671,6 @@
     <string name="caldav_server_other">אחר</string>
     <string name="caldav_server_type">סוג שרת</string>
     <string name="hint_customize_edit_title">יותר מדי מידע?</string>
-    <string name="sort_ascending">עולה</string>
     <string name="delete_comment">הערה</string>
     <string name="yesterday">אתמול</string>
     <string name="send_application_logs">שליחת יומני יישום</string>
@@ -682,7 +679,6 @@
     <string name="alarm_before_start">%s לפני מועד התחלה</string>
     <string name="button_learn_more">ללמוד עוד</string>
     <string name="dismiss">התעלמות</string>
-    <string name="sort_not_available">לא זמין עבור תגיות, מסננים, או מקומות</string>
     <plurals name="repeat_occurrence">
         <item quantity="one">התרחשות</item>
         <item quantity="two">התרחשויות</item>
@@ -705,15 +701,12 @@
     <string name="multiline_title">אפשור כותרות מרובות שורות</string>
     <string name="sync_warning_google_tasks_title">בנוגע לסנכרון Google Tasks</string>
     <string name="sync_warning_google_tasks">לא כל פרטי המשימה מסתנכרנים עם Google Tasks</string>
-    <string name="completed_tasks_at_bottom">העברת משימות שהושלמו לתחתית</string>
     <string name="show_edit_screen_without_unlock">הצגת מסך עריכה ללא ביטול נעילה</string>
     <string name="show_edit_screen_without_unlock_summary">מאפשר שימוש באריח הגדרות מהירות מבלי לבטל את נעילת המכשיר</string>
     <string name="theme_dynamic">דינמי</string>
     <string name="repeat_monthly_on_the_nth_weekday">מדי חודש ב%2$s ה%1$s</string>
     <string name="donate_today">לתרום היום</string>
     <string name="donate_maybe_later">אולי מאוחר יותר</string>
-    <string name="sort_sorting">מיון</string>
-    <string name="sort_descending">יורד</string>
     <string name="add_shortcut_to_home_screen">הוספת קיצור דרך למסך הבית</string>
     <string name="cost_money">עלות: $</string>
     <string name="repeats_every">חוזר כל</string>

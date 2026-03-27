@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import kotlinx.coroutines.launch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -33,6 +35,7 @@ import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.FloatingToolbarDefaults
 import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.FloatingActionButton
@@ -94,6 +97,13 @@ import org.tasks.compose.accounts.AddAccountScreen
 import org.tasks.compose.accounts.Platform
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
+import org.tasks.compose.sort.BottomSheetContent
+import org.tasks.compose.sort.SortPicker
+import org.tasks.compose.sort.SortSheetContent
+import org.tasks.compose.sort.completedOptions
+import org.tasks.compose.sort.groupOptions
+import org.tasks.compose.sort.subtaskOptions
+import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.kmp.org.tasks.themes.ColorProvider
 import org.tasks.themes.BLUE
 import org.tasks.themes.TasksTheme
@@ -299,6 +309,9 @@ private fun TaskListScreen(
     val drawerState by drawerViewModel.state.collectAsState()
     val headerFormatter = koinInject<HeaderFormatter>()
     val reporting = koinInject<Reporting>()
+    val sortViewModel = koinViewModel<SortSettingsViewModel>()
+    val sortState by sortViewModel.state.collectAsState()
+    var showSortSheet by remember { mutableStateOf(false) }
     val materialDrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val navigator = rememberListDetailPaneScaffoldNavigator<Long>()
     val scope = androidx.compose.runtime.rememberCoroutineScope()
@@ -482,7 +495,7 @@ private fun TaskListScreen(
                 }
             },
             onSearchClick = { /* TODO: search */ },
-            onSortClick = { /* TODO: sort */ },
+            onSortClick = { showSortSheet = true },
             onMoreClick = { /* TODO: more options */ },
             onAddClick = { /* TODO: create task */ },
             scrollBehavior = floatingToolbarScrollBehavior,
@@ -494,6 +507,136 @@ private fun TaskListScreen(
                 .padding(16.dp),
         )
     }
+
+    if (showSortSheet) {
+        var showGroupPicker by remember { mutableStateOf(false) }
+        var showSortPicker by remember { mutableStateOf(false) }
+        var showCompletedPicker by remember { mutableStateOf(false) }
+        var showSubtaskPicker by remember { mutableStateOf(false) }
+        ModalBottomSheet(
+            onDismissRequest = {
+                showSortSheet = false
+                viewModel.invalidate()
+            },
+            containerColor = MaterialTheme.colorScheme.surface,
+        ) {
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .fillMaxWidth()
+            ) {
+                BottomSheetContent(
+                    groupMode = sortState.groupMode,
+                    sortMode = sortState.sortMode,
+                    completedMode = sortState.completedMode,
+                    subtaskMode = sortState.subtaskMode,
+                    sortAscending = sortState.sortAscending,
+                    groupAscending = sortState.groupAscending,
+                    completedAscending = sortState.completedAscending,
+                    subtaskAscending = sortState.subtaskAscending,
+                    manualSort = false,
+                    astridSort = false,
+                    completedAtBottom = sortState.completedAtBottom,
+                    setSortAscending = { sortViewModel.setSortAscending(it) },
+                    setGroupAscending = { sortViewModel.setGroupAscending(it) },
+                    setCompletedAscending = { sortViewModel.setCompletedAscending(it) },
+                    setSubtaskAscending = { sortViewModel.setSubtaskAscending(it) },
+                    setCompletedAtBottom = { sortViewModel.setCompletedAtBottom(it) },
+                    clickGroupMode = { showGroupPicker = true },
+                    clickSortMode = { showSortPicker = true },
+                    clickCompletedMode = { showCompletedPicker = true },
+                    clickSubtaskMode = { showSubtaskPicker = true },
+                )
+            }
+        }
+        if (showGroupPicker) {
+            ModalBottomSheet(
+                onDismissRequest = { showGroupPicker = false },
+                containerColor = MaterialTheme.colorScheme.surface,
+                scrimColor = Color.Transparent,
+            ) {
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                ) {
+                    SortPicker(
+                        selected = sortState.groupMode,
+                        options = groupOptions,
+                        onClick = {
+                            sortViewModel.setGroupMode(it)
+                            showGroupPicker = false
+                        }
+                    )
+                }
+            }
+        }
+        if (showSortPicker) {
+            ModalBottomSheet(
+                onDismissRequest = { showSortPicker = false },
+                containerColor = MaterialTheme.colorScheme.surface,
+                scrimColor = Color.Transparent,
+            ) {
+                SortSheetContent(
+                    manualSortEnabled = false,
+                    astridSortEnabled = false,
+                    manualSortSelected = false,
+                    selected = sortState.sortMode,
+                    setManualSort = {},
+                    setAstridSort = {},
+                    onSelected = {
+                        sortViewModel.setSortMode(it)
+                        showSortPicker = false
+                    }
+                )
+            }
+        }
+        if (showCompletedPicker) {
+            ModalBottomSheet(
+                onDismissRequest = { showCompletedPicker = false },
+                containerColor = MaterialTheme.colorScheme.surface,
+                scrimColor = Color.Transparent,
+            ) {
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                ) {
+                    SortPicker(
+                        selected = sortState.completedMode,
+                        options = completedOptions,
+                        onClick = {
+                            sortViewModel.setCompletedMode(it)
+                            showCompletedPicker = false
+                        }
+                    )
+                }
+            }
+        }
+        if (showSubtaskPicker) {
+            ModalBottomSheet(
+                onDismissRequest = { showSubtaskPicker = false },
+                containerColor = MaterialTheme.colorScheme.surface,
+                scrimColor = Color.Transparent,
+            ) {
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                ) {
+                    SortPicker(
+                        selected = sortState.subtaskMode,
+                        options = subtaskOptions,
+                        onClick = {
+                            sortViewModel.setSubtaskMode(it)
+                            showSubtaskPicker = false
+                        }
+                    )
+                }
+            }
+        }
+    }
+
     } // ModalNavigationDrawer
 }
 

@@ -96,4 +96,21 @@
     <string name="filter_medium_priority">Medium priority</string>
     <string name="filter_low_priority">Low priority</string>
     <string name="filter_no_priority">No priority</string>
+    <string name="SSD_sort_due">By due date</string>
+    <string name="SSD_sort_start">By start date</string>
+    <string name="SSD_sort_importance">By priority</string>
+    <string name="SSD_sort_alpha">By title</string>
+    <string name="SSD_sort_modified">By last modified</string>
+    <string name="SSD_sort_auto">Smart sort</string>
+    <string name="SSD_sort_my_order">My order</string>
+    <string name="astrid_sort_order">Astrid manual sorting</string>
+    <string name="sort_completed">By completion time</string>
+    <string name="sort_grouping">Grouping</string>
+    <string name="sort_sorting">Sorting</string>
+    <string name="sort_ascending">Ascending</string>
+    <string name="sort_descending">Descending</string>
+    <string name="completed_tasks_at_bottom">Move completed tasks to bottom</string>
+    <string name="subtasks">Subtasks</string>
+    <string name="sort_not_available">Not available for tags, filters, or places</string>
+    <string name="none">None</string>
 </resources>

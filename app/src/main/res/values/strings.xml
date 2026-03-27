@@ -47,7 +47,6 @@ File %1$s contained %2$s.\n\n
   <string name="SSD_sort_modified">By last modified</string>
   <string name="sort_created">By creation time</string>
   <string name="sort_list">By list</string>
-  <string name="sort_completed">By completion time</string>
   <string name="FLA_search_filter">Matching \'%s\'</string>
   <string name="FLA_new_filter">Create new filter</string>
   <string name="TEA_title_hint">Task name</string>
@@ -707,7 +706,6 @@ File %1$s contained %2$s.\n\n
   <string name="completion_sound">Play completion sound</string>
   <string name="completed">Completed</string>
   <string name="snackbar_task_completed">Task completed</string>
-  <string name="completed_tasks_at_bottom">Move completed tasks to bottom</string>
   <string name="snackbar_tasks_completed">%d tasks completed</string>
   <string name="alarm_before_start">%s before start</string>
   <string name="alarm_after_start">%s after start</string>
@@ -738,11 +736,6 @@ File %1$s contained %2$s.\n\n
   <string name="accept">Accept</string>
   <string name="exit">Exit</string>
   <string name="returning_user">Returning user?</string>
-  <string name="sort_sorting">Sorting</string>
-  <string name="sort_grouping">Grouping</string>
-  <string name="sort_ascending">Ascending</string>
-  <string name="sort_descending">Descending</string>
-  <string name="sort_not_available">Not available for tags, filters, or places</string>
   <string name="add_shortcut_to_home_screen">Add shortcut to home screen</string>
   <string name="add_widget_to_home_screen">Add widget to home screen</string>
   <string name="cost_money">Cost: $</string>

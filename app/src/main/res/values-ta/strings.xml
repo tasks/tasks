@@ -586,7 +586,6 @@
     <string name="price_per_month_with_currency">%s/மாதம்</string>
     <string name="ok">சரி</string>
     <string name="cancel">கைவிடு</string>
-    <string name="sort_completed">நிறைவு நேரம்</string>
     <string name="TEA_creation_date">உருவாக்கும் தேதி</string>
     <string name="default_start_date">இயல்புநிலை தொடக்க தேதி</string>
     <string name="customize_edit_screen_summary">புலங்களை மறுசீரமைக்க அல்லது அகற்றவும்</string>
@@ -626,9 +625,6 @@
     <string name="completed">முடிந்தது</string>
     <string name="snackbar_task_completed">பணி முடிந்தது</string>
     <string name="custom_notification">தனிப்பயன் notification</string>
-    <string name="sort_sorting">வரிசைப்படுத்துதல்</string>
-    <string name="sort_grouping">தொகுத்தல்</string>
-    <string name="sort_ascending">ஏறுதல்</string>
     <string name="support">உதவி</string>
     <string name="app_password_delete_confirmation">இந்த கடவுச்சொல்லைப் பயன்படுத்தும் எந்த பயன்பாடும் பதிவு செய்யப்படும்</string>
     <string name="tasks_org_account_required">Tasks.org கணக்கு தேவை</string>
@@ -642,7 +638,6 @@
     <string name="caldav_server_type">சேவையக வகை</string>
     <string name="sign_in">விடுபதிகை</string>
     <string name="snoozed_until">%s வரை உறக்கநிலை</string>
-    <string name="completed_tasks_at_bottom">நிறைவு செய்யப்பட்ட பணிகளை கீழே நகர்த்தவும்</string>
     <string name="app_password">பயன்பாட்டு கடவுச்சொல்</string>
     <string name="sign_in_with_github">கிதுபுடன் உள்நுழைக</string>
     <string name="migrating_tasks">இடம்பெயரும் பணிகள்</string>
@@ -660,7 +655,6 @@
     <string name="markdown_description">தலைப்பு மற்றும் விளக்கத்தில் மார்க் டவுனை இயக்கவும்</string>
     <string name="alarm_before_start">தொடங்குவதற்கு முன் %s</string>
     <string name="alarm_after_start">தொடக்கத்திற்குப் பிறகு %s</string>
-    <string name="sort_not_available">குறிச்சொற்கள், வடிப்பான்கள் அல்லது இடங்களுக்கு கிடைக்கவில்லை</string>
     <string name="authorization_cancelled">ஏற்பு ரத்து செய்யப்பட்டது</string>
     <string name="above_average">சராசரிக்கு மேல்</string>
     <string name="app_passwords">பயன்பாட்டு கடவுச்சொற்கள்</string>
@@ -690,7 +684,6 @@
     <string name="hint_customize_edit_title">அதிகமான தகவல்கள்?</string>
     <string name="hint_customize_edit_body">புலங்களை மறுசீரமைப்பதன் மூலம் அல்லது அகற்றுவதன் மூலம் இந்தத் திரையைத் தனிப்பயனாக்கலாம்</string>
     <string name="enable_alarms_description">சரியான நேரத்தில் உங்களுக்கு அறிவிக்கப்பட்டிருப்பதை உறுதிப்படுத்த, அமைப்புகளில் அலாரங்கள் மற்றும் நினைவூட்டல்களை அமைக்க இசைவு வழங்கவும்</string>
-    <string name="sort_descending">இறங்கு</string>
     <string name="add_shortcut_to_home_screen">முகப்புத் திரையில் குறுக்குவழியைச் சேர்க்கவும்</string>
     <string name="add_widget_to_home_screen">முகப்புத் திரையில் விட்செட்டைச் சேர்க்கவும்</string>
     <string name="button_learn_more">மேலும் அறிக</string>
