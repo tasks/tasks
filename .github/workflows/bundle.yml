@@ -170,6 +170,15 @@ jobs:
   desktop:
     runs-on: ubuntu-latest
     needs: [ check ]
+    strategy:
+      matrix:
+        include:
+          - platform: linux
+            target: linux-app
+          - platform: macos
+            target: mac-zip
+          - platform: windows
+            target: windows-app
     steps:
       - uses: actions/checkout@v6
 
@@ -190,20 +199,15 @@ jobs:
       - name: Install Conveyor
         run: npm install -g @hydraulic/conveyor
 
-      - name: Build desktop archives
+      - name: Build ${{ matrix.platform }} desktop
         working-directory: composeApp
         env:
           CONVEYOR_AGREE_TO_LICENSE: 1
           SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
-        run: |
-          conveyor make site
+        run: conveyor make ${{ matrix.target }}
 
-      - name: Upload desktop builds
+      - name: Upload ${{ matrix.platform }} desktop
         uses: actions/upload-artifact@v7
         with:
-          name: desktop
-          path: |
-            composeApp/output/*.zip
-            composeApp/output/*.tar.gz
-            composeApp/output/*.msix
-            composeApp/output/*.deb
+          name: desktop-${{ matrix.platform }}
+          path: composeApp/output/
