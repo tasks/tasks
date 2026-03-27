@@ -20,7 +20,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.RadioButtonUnchecked
-import androidx.compose.material.icons.outlined.Replay
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.Search
@@ -747,11 +746,10 @@ private fun TaskRow(
             modifier = Modifier.size(48.dp),
         ) {
             Icon(
-                imageVector = when {
-                    task.isCompleted -> Icons.Filled.CheckCircle
-                    task.task.isRecurring -> Icons.Outlined.Replay
-                    else -> Icons.Outlined.RadioButtonUnchecked
-                },
+                imageVector = if (task.isCompleted)
+                    Icons.Filled.CheckCircle
+                else
+                    Icons.Outlined.RadioButtonUnchecked,
                 contentDescription = null,
                 tint = checkColor,
                 modifier = Modifier.size(24.dp),
