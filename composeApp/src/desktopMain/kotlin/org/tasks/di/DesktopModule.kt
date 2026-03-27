@@ -43,7 +43,13 @@ actual fun platformModule(): Module = module {
     factory { DesktopOAuthFlow(serverEnvironment = get()) }
     factoryOf(::DesktopSignInHandler) bind SignInHandler::class
     single {
-        KeyStoreEncryption(DesktopKeyProvider(File(dataDir(), ".key")))
+        KeyStoreEncryption(
+            DesktopKeyProvider(
+                serviceName = "Tasks.org",
+                accountName = "encryption-key",
+                fallbackKeyFile = File(dataDir(), ".key"),
+            )
+        )
     }
     single<Database> {
         val dbFile = File(dataDir(), Database.NAME)
