@@ -1,5 +1,7 @@
 package org.tasks
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +16,7 @@ import kotlinx.coroutines.launch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.RadioButtonUnchecked
 import androidx.compose.material.icons.outlined.Replay
 import androidx.compose.material.icons.outlined.Menu
@@ -50,6 +53,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -93,6 +97,7 @@ import org.tasks.themes.BLUE
 import org.tasks.themes.TasksTheme
 import org.tasks.data.TaskContainer
 import org.tasks.filters.MyTasksFilter
+import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.viewmodel.AddAccountViewModel
@@ -277,6 +282,7 @@ private fun TaskListScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val drawerState by drawerViewModel.state.collectAsState()
+    val headerFormatter = koinInject<HeaderFormatter>()
     val materialDrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val navigator = rememberListDetailPaneScaffoldNavigator<Long>()
     val scope = androidx.compose.runtime.rememberCoroutineScope()
@@ -392,6 +398,7 @@ private fun TaskListScreen(
                     is TasksResults.Results -> {
                         TaskList(
                             tasks = results.tasks,
+                            headerFormatter = headerFormatter,
                             listState = listState,
                             topPadding = topBarHeight,
                             onTaskClick = { task ->
@@ -405,6 +412,7 @@ private fun TaskListScreen(
                             onCompleteTask = { task, newState ->
                                 viewModel.onCompleteTask(task, newState)
                             },
+                            onToggleGroup = { viewModel.toggleCollapsed(it) },
                         )
                     }
                 }
@@ -473,10 +481,12 @@ private fun TaskListScreen(
 @Composable
 private fun TaskList(
     tasks: SectionedDataSource,
+    headerFormatter: HeaderFormatter,
     listState: androidx.compose.foundation.lazy.LazyListState = androidx.compose.foundation.lazy.rememberLazyListState(),
     topPadding: Dp = 0.dp,
     onTaskClick: (TaskContainer) -> Unit,
     onCompleteTask: (TaskContainer, Boolean) -> Unit,
+    onToggleGroup: (Long) -> Unit = {},
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -491,7 +501,15 @@ private fun TaskList(
             key = { if (tasks.isHeader(it)) -it.toLong() else tasks.getItem(it).id },
         ) { index ->
             if (tasks.isHeader(index)) {
-                return@items // TODO: render section headers
+                val section = tasks.getSection(index)
+                SectionHeader(
+                    headerValue = section.value,
+                    collapsed = section.collapsed,
+                    groupMode = tasks.groupMode,
+                    headerFormatter = headerFormatter,
+                    onToggle = { onToggleGroup(section.value) },
+                )
+                return@items
             }
             val task = tasks.getItem(index)
             TaskRow(
@@ -500,6 +518,45 @@ private fun TaskList(
                 onToggleComplete = { onCompleteTask(task, !task.isCompleted) },
             )
         }
+    }
+}
+
+@Composable
+private fun SectionHeader(
+    headerValue: Long,
+    collapsed: Boolean,
+    groupMode: Int,
+    headerFormatter: HeaderFormatter,
+    onToggle: () -> Unit,
+) {
+    val headerText by produceState("", headerValue, groupMode) {
+        value = headerFormatter.headerString(headerValue, groupMode)
+    }
+    val rotation by animateFloatAsState(
+        targetValue = if (collapsed) -180f else 0f,
+        animationSpec = tween(durationMillis = 250),
+    )
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onToggle)
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = headerText,
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.weight(1f),
+        )
+        Icon(
+            imageVector = Icons.Filled.KeyboardArrowDown,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier
+                .size(24.dp)
+                .graphicsLayer { rotationZ = rotation },
+        )
     }
 }
 

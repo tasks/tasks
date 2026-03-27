@@ -577,8 +577,6 @@
     <string name="CFC_startBefore_name">Дата начала…</string>
     <string name="CFC_startBefore_text">Дата начала: \?</string>
     <string name="filter_any_start_date">Любая дата начала</string>
-    <string name="sort_due_group">Завершение %s</string>
-    <string name="sort_start_group">Начало %s</string>
     <string name="account_not_included">Не включено в подписку \'Назовите свою цену\'</string>
     <string name="subscription">Подписка</string>
     <string name="widget_show_title">Показать заголовок</string>

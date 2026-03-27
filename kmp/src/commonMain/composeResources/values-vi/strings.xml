@@ -55,4 +55,17 @@
     <string name="sign_in_with_github">Đăng nhập bằng GitHub</string>
     <string name="google_play_subscribers">Người đăng ký trên Google Play</string>
     <string name="github_sponsors">Nhà tài trợ trên GitHub</string>
+    <string name="completed">Hoàn tất</string>
+    <string name="filter_overdue">Quá hạn</string>
+    <string name="no_due_date">Không có ngày hạn</string>
+    <string name="no_start_date">Không có ngày bắt đầu</string>
+    <string name="no_date">Không có ngày</string>
+    <string name="sort_due_group">Hạn %1$s</string>
+    <string name="sort_start_group">Bắt đầu %1$s</string>
+    <string name="sort_created_group">Đã tạo %1$s</string>
+    <string name="sort_modified_group">Đã sửa đổi %1$s</string>
+    <string name="filter_high_priority">Ưu tiên cao</string>
+    <string name="filter_medium_priority">Ưu tiên trung bình</string>
+    <string name="filter_low_priority">Ưu tiên thấp</string>
+    <string name="filter_no_priority">Không ưu tiên</string>
 </resources>

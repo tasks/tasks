@@ -11,4 +11,6 @@
     <string name="group_none">Ništa</string>
     <string name="ok">OK</string>
     <string name="cancel">Otkaži</string>
+    <string name="no_due_date">Bez datuma roka</string>
+    <string name="no_start_date">Bez datuma početka</string>
 </resources>

@@ -521,7 +521,6 @@
     <string name="collapse_subtasks">Zbaliť podúlohy</string>
     <string name="preferences_advanced">Pokročilé možnosti</string>
     <string name="account">Účet</string>
-    <string name="sort_start_group">Začiatok %s</string>
     <string name="your_subscription_expired">Platnosť vášho predplatného skončila. Ak chcete službu používať i naďalej, obnovte odber.</string>
     <string name="backup_location_warning">VAROVANIE: Súbory umiestnené v %s budú odstránené pri odinštalovaní aplikácie! Prosím, vyberte iné umiestnenie, aby ste tak predišli strate údajov.</string>
     <string name="subscription">Predplatné</string>
@@ -534,7 +533,6 @@
     <string name="name_your_price">Zaplaťte ľubovoľnú čiastku</string>
     <string name="expand_subtasks">Rozbaliť podúlohy</string>
     <string name="action_new_task">Nová úloha</string>
-    <string name="sort_due_group">Termín %s</string>
     <string name="repeats_custom_recurrence">Vlastné opakovanie</string>
     <string name="repeats_every">Opakuje sa každý</string>
     <string name="repeats_on">V</string>

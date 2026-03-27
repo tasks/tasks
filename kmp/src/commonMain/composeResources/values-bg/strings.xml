@@ -77,4 +77,17 @@
     <string name="sign_in_with_github">Вход с GitHub</string>
     <string name="google_play_subscribers">Абонати на Google Play</string>
     <string name="github_sponsors">Дарители от GitHub</string>
+    <string name="completed">Завършена</string>
+    <string name="filter_overdue">Просрочени</string>
+    <string name="no_due_date">Без крайна дата</string>
+    <string name="no_start_date">Без начална дата</string>
+    <string name="no_date">Без дата</string>
+    <string name="sort_due_group">За %1$s</string>
+    <string name="sort_start_group">Започната %1$s</string>
+    <string name="sort_created_group">Създадена %1$s</string>
+    <string name="sort_modified_group">Променена %1$s</string>
+    <string name="filter_high_priority">Висок приоритет</string>
+    <string name="filter_medium_priority">Среден приоритет</string>
+    <string name="filter_low_priority">Нисък приоритет</string>
+    <string name="filter_no_priority">Без приоритет</string>
 </resources>

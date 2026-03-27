@@ -69,4 +69,17 @@
     <string name="sign_in_with_github">Logga in med GitHub</string>
     <string name="google_play_subscribers">Google Play-prenumeranter</string>
     <string name="github_sponsors">GitHub-sponsorer</string>
+    <string name="completed">Slutförd</string>
+    <string name="filter_overdue">Försenad</string>
+    <string name="no_due_date">Inget förfallodatum</string>
+    <string name="no_start_date">Inget startdatum</string>
+    <string name="no_date">Inget datum</string>
+    <string name="sort_due_group">Förfaller %1$s</string>
+    <string name="sort_start_group">Starta %1$s</string>
+    <string name="sort_created_group">Skapad %1$s</string>
+    <string name="sort_modified_group">Ändrad %1$s</string>
+    <string name="filter_high_priority">Hög prioritet</string>
+    <string name="filter_medium_priority">Medium prioritet</string>
+    <string name="filter_low_priority">Låg prioritet</string>
+    <string name="filter_no_priority">Ingen prioritet</string>
 </resources>

@@ -41,4 +41,5 @@
     <string name="group_none">ഒന്നുമില്ല</string>
     <string name="ok">ശരി</string>
     <string name="cancel">റദ്ധാക്കുക</string>
+    <string name="no_date">തീയതിയില്ല</string>
 </resources>

@@ -593,8 +593,6 @@
     <string name="support">תמיכה</string>
     <string name="social">חברתי</string>
     <string name="follow_twitter">עקבו אחרי tasks_org@</string>
-    <string name="sort_due_group">יעד %s</string>
-    <string name="sort_start_group">התחלה %s</string>
     <string name="subscription">מינוי</string>
     <string name="show_unstarted">הצגת משימות שלא התחילו</string>
     <string name="widget_show_title">הצגת כותרת</string>

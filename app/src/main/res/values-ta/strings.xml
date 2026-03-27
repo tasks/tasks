@@ -567,7 +567,6 @@
     <string name="subscription">சந்தா</string>
     <string name="delete_comment">கருத்து</string>
     <string name="launcher_icon">துவக்கி படவுரு</string>
-    <string name="sort_due_group">காரணமாக %s</string>
     <string name="sort_list">பட்டியல் மூலம்</string>
     <plurals name="reminder_hours">
         <item quantity="one">மணி</item>
@@ -577,7 +576,6 @@
     <string name="swipe_to_snooze_time_24_hours">24 மணி நேரம் கழித்து</string>
     <string name="when_started">தொடங்கும்போது</string>
     <string name="change_priority">முன்னுரிமையை மாற்றவும்</string>
-    <string name="sort_start_group">தொடக்க %s</string>
     <string name="sort_completion_group">நிறைவு %s</string>
     <string name="backup_location_warning">எச்சரிக்கை: பணிகள் நிறுவல் நீக்கப்பட்டால் %s இல் அமைந்துள்ள கோப்புகள் நீக்கப்படும்! உங்கள் கோப்புகளை நீக்குவதைத் தடுக்க தனிப்பயன் இருப்பிடத்தைத் தேர்வுசெய்க.</string>
     <string name="date_picker_multiple">நான்கு</string>

@@ -567,8 +567,6 @@
     <string name="android_auto_backup">Serviço de cópia de segurança do Android</string>
     <string name="automatic_backups">Cópias de segurança automáticas</string>
     <string name="local_lists">Listas locais</string>
-    <string name="sort_due_group">Vencimento %s</string>
-    <string name="sort_start_group">Começar %s</string>
     <string name="decsync_selection_description">Sincronização baseada em ficheiro</string>
     <string name="subscription">Subscrição</string>
     <string name="repeat_monthly_fifth_week">quinto</string>

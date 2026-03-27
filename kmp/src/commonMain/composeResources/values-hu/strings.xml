@@ -70,4 +70,17 @@
     <string name="sign_in_with_github">Bejelentkezés GitHub fiókkal</string>
     <string name="google_play_subscribers">Google Play előfizetők</string>
     <string name="github_sponsors">GitHub szponzorok</string>
+    <string name="completed">Elvégzett</string>
+    <string name="filter_overdue">Határidőn túli</string>
+    <string name="no_due_date">Határidő nélkül</string>
+    <string name="no_start_date">Nincs kezdő dátum</string>
+    <string name="no_date">Dátum nélkül</string>
+    <string name="sort_due_group">Határidő %1$s</string>
+    <string name="sort_start_group">Kezdés %1$s</string>
+    <string name="sort_created_group">%1$s létrehozva</string>
+    <string name="sort_modified_group">%1$s módosítva</string>
+    <string name="filter_high_priority">Magas prioritás</string>
+    <string name="filter_medium_priority">Közepes prioritás</string>
+    <string name="filter_low_priority">Alacsony prioritás</string>
+    <string name="filter_no_priority">Nincs prioritás</string>
 </resources>

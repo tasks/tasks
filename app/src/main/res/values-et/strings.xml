@@ -253,7 +253,6 @@
     <string name="repeats_every">Kordub iga</string>
     <string name="button_unsubscribe">Tühista tellimus</string>
     <string name="filter_overdue">Üle tähtaja</string>
-    <string name="sort_due_group">Tähtaeg %s</string>
     <string name="sort_modified_group">Muudetud %s</string>
     <string name="device_settings">Nutiseadme seadistused</string>
     <string name="last_backup_never">mitte kunagi</string>
@@ -364,7 +363,6 @@
     <string name="donate_maybe_later">Võibolla hiljem</string>
     <string name="automatic_backups">Automaatvarundus</string>
     <string name="backups_ignore_warnings">Eira hoiatusi</string>
-    <string name="sort_start_group">Algusaeg %s</string>
     <string name="github_sponsor">Sponsor</string>
     <string name="custom_filter_has_subtask">Alamülesannetega</string>
     <string name="snackbar_task_completed">Ülesanne lõpetatud</string>

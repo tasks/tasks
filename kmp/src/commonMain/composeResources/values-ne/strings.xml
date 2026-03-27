@@ -12,4 +12,5 @@
     <string name="sort_start_date">सुरु मिति</string>
     <string name="ok">ठिक छ</string>
     <string name="cancel">रद्द गर्नुहोस्</string>
+    <string name="no_start_date">सुरु मिति छैन</string>
 </resources>

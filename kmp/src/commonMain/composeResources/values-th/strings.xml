@@ -51,4 +51,16 @@
     <string name="sign_in_with_github">เข้าสู่ระบบด้วย GitHub</string>
     <string name="google_play_subscribers">สมาชิก Google Play</string>
     <string name="github_sponsors">ผู้สนับสนุน GitHub</string>
+    <string name="filter_overdue">เกิน</string>
+    <string name="no_due_date">ไม่มีวันที่ครบกําหนด</string>
+    <string name="no_start_date">ไม่มีวันที่เริ่มต้น</string>
+    <string name="no_date">ไม่มีวันที่</string>
+    <string name="sort_due_group">ครบกําหนด %1$s</string>
+    <string name="sort_start_group">เริ่ม %1$s</string>
+    <string name="sort_created_group">สร้าง %1$s แล้ว</string>
+    <string name="sort_modified_group">แก้ไข %1$s</string>
+    <string name="filter_high_priority">ลําดับความสําคัญสูง</string>
+    <string name="filter_medium_priority">ความสำคัญปานกลาง</string>
+    <string name="filter_low_priority">ลําดับความสําคัญต่ํา</string>
+    <string name="filter_no_priority">ไม่มีความสําคัญ</string>
 </resources>

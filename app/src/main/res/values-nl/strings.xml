@@ -558,8 +558,6 @@
     <string name="filter_any_start_date">Elke begindatum</string>
     <string name="CFC_startBefore_name">Begint op…</string>
     <string name="CFC_startBefore_text">Begindatum: \?</string>
-    <string name="sort_due_group">Vervalt %s</string>
-    <string name="sort_start_group">Begin %s</string>
     <string name="account_not_included">Niet inbegrepen bij \"Bepaal je eigen prijs\" abonnementen</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Titel tonen</string>

@@ -60,4 +60,17 @@
     <string name="sign_in_with_github">Inicieu sessió amb GitHub</string>
     <string name="google_play_subscribers">Subscriptors de Google Play</string>
     <string name="github_sponsors">Patrocinadors de GitHub</string>
+    <string name="completed">Completat</string>
+    <string name="filter_overdue">Vençuda</string>
+    <string name="no_due_date">Sense data de venciment</string>
+    <string name="no_start_date">Sense data d\'inici</string>
+    <string name="no_date">Sense data</string>
+    <string name="sort_due_group">Venciment %1$s</string>
+    <string name="sort_start_group">Inici %1$s</string>
+    <string name="sort_created_group">S\'ha creat %1$s</string>
+    <string name="sort_modified_group">S\'ha modificat %1$s</string>
+    <string name="filter_high_priority">Prioritat alta</string>
+    <string name="filter_medium_priority">Prioritat mitjana</string>
+    <string name="filter_low_priority">Prioritat baixa</string>
+    <string name="filter_no_priority">Sense prioritat</string>
 </resources>

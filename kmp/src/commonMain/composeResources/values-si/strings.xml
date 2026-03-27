@@ -51,4 +51,16 @@
     <string name="sign_in_with_github">GitHub සමඟ පුරනය වන්න</string>
     <string name="google_play_subscribers">Google Play ග්‍රාහකයින්</string>
     <string name="github_sponsors">GitHub අනුග්‍රාහකයන්</string>
+    <string name="filter_overdue">නියමිත දිනය පසුවූ</string>
+    <string name="no_due_date">අවසාන දිනයක් නොමැත</string>
+    <string name="no_start_date">ආරම්භක දිනයක් නොමැත</string>
+    <string name="no_date">දිනයක් නැත</string>
+    <string name="sort_due_group">නියමිත %1$s</string>
+    <string name="sort_start_group">ආරම්භය %1$s</string>
+    <string name="sort_created_group">සැකසූ %1$s</string>
+    <string name="sort_modified_group">වෙනස් කරන ලද %1$s</string>
+    <string name="filter_high_priority">ඉහළ ප්‍රමුඛතාවය</string>
+    <string name="filter_medium_priority">මධ්‍යම ප්‍රමුඛතාවය</string>
+    <string name="filter_low_priority">අඩු ප්‍රමුඛතාවය</string>
+    <string name="filter_no_priority">ප්‍රමුඛතාවයක් නැති</string>
 </resources>

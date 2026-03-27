@@ -525,7 +525,6 @@
     <string name="customize_edit_screen_summary">重新排列或移除欄位</string>
     <string name="TEA_creation_date">建立日期</string>
     <string name="decsync_selection_description">基於檔案的同步</string>
-    <string name="sort_due_group">到期 %s</string>
     <string name="follow_twitter">追蹤 @tasks_org</string>
     <string name="remove_user">刪除使用者？</string>
     <string name="completion_sound">播放完成提示音</string>
@@ -580,7 +579,6 @@
     <string name="upgrade_open_source_description">你的訂閱支援持續開發</string>
     <string name="navigation_drawer">導覽側邊欄</string>
     <string name="sort_not_available">不支援標籤、篩選或地點</string>
-    <string name="sort_start_group">開始 %s</string>
     <plurals name="repeat_occurrence">
         <item quantity="other">事件發生次數</item>
     </plurals>

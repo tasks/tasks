@@ -275,7 +275,6 @@
     <string name="EPr_default_importance_title">الأولويّة الافتراضيّة</string>
     <string name="FLA_new_filter">أنشأ تصفيةً جديدة</string>
     <string name="sort_created">بتاريخ الإنشاء</string>
-    <string name="sort_start_group">تبدأ %s</string>
     <string name="email">البريد اﻹلكتروني</string>
     <string name="app_password_enter_description">أعط كلمة سرّك اسمًا (اختياري)</string>
     <string name="app_passwords">كلمات سرّ التطبيق</string>
@@ -609,7 +608,6 @@
     </plurals>
     <string name="background_location">موقع الخلفية</string>
     <string name="foreground_location">موقع المقدمة</string>
-    <string name="sort_due_group">مستحق %s</string>
     <string name="compact">المدمج</string>
     <string name="chip_appearance">مظهر الرقاقة</string>
     <plurals name="repeat_years">

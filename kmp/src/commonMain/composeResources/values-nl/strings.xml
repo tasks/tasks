@@ -67,4 +67,17 @@
     <string name="sign_in_with_github">Log in met GitHub</string>
     <string name="google_play_subscribers">Google Play abonnees</string>
     <string name="github_sponsors">GitHub sponsors</string>
+    <string name="completed">Voltooid</string>
+    <string name="filter_overdue">Vervallen</string>
+    <string name="no_due_date">Geen vervaldatum</string>
+    <string name="no_start_date">Geen begindatum</string>
+    <string name="no_date">Geen datum</string>
+    <string name="sort_due_group">Vervalt %1$s</string>
+    <string name="sort_start_group">Begin %1$s</string>
+    <string name="sort_created_group">Gemaakt %1$s</string>
+    <string name="sort_modified_group">Bewerkt %1$s</string>
+    <string name="filter_high_priority">Hoge prioriteit</string>
+    <string name="filter_medium_priority">Gemiddelde prioriteit</string>
+    <string name="filter_low_priority">Lage prioriteit</string>
+    <string name="filter_no_priority">Geen prioriteit</string>
 </resources>

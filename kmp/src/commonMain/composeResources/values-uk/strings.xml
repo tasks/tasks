@@ -60,4 +60,17 @@
     <string name="sign_in_with_github">Увійти через GitHub</string>
     <string name="google_play_subscribers">Підписники Google Play</string>
     <string name="github_sponsors">Спонсори GitHub</string>
+    <string name="completed">Виконано</string>
+    <string name="filter_overdue">Прострочені</string>
+    <string name="no_due_date">Немає дати завершення</string>
+    <string name="no_start_date">Немає дати початку</string>
+    <string name="no_date">Без дати</string>
+    <string name="sort_due_group">Завершення %1$s</string>
+    <string name="sort_start_group">Початок %1$s</string>
+    <string name="sort_created_group">Створено %1$s</string>
+    <string name="sort_modified_group">Змінено %1$s</string>
+    <string name="filter_high_priority">Високий пріоритет</string>
+    <string name="filter_medium_priority">Середній пріоритет</string>
+    <string name="filter_low_priority">Низький пріоритет</string>
+    <string name="filter_no_priority">Без пріоритету</string>
 </resources>

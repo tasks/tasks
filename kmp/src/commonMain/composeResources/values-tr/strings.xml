@@ -78,4 +78,17 @@
     <string name="sign_in_with_github">GitHub ile oturum aç</string>
     <string name="google_play_subscribers">Google Play aboneleri</string>
     <string name="github_sponsors">GitHub Sponsorları</string>
+    <string name="completed">Tamamlandı</string>
+    <string name="filter_overdue">Geciken</string>
+    <string name="no_due_date">Bitiş tarihi yok</string>
+    <string name="no_start_date">Başlangıç tarihi yok</string>
+    <string name="no_date">Tarih yok</string>
+    <string name="sort_due_group">%1$s biten</string>
+    <string name="sort_start_group">%1$s başlayan</string>
+    <string name="sort_created_group">%1$s oluşturulan</string>
+    <string name="sort_modified_group">%1$s değiştirilen</string>
+    <string name="filter_high_priority">Yüksek öncelik</string>
+    <string name="filter_medium_priority">Orta öncelik</string>
+    <string name="filter_low_priority">Düşük öncelik</string>
+    <string name="filter_no_priority">Önceliksiz</string>
 </resources>

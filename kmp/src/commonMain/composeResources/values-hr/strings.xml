@@ -78,4 +78,17 @@
     <string name="sign_in_with_github">GitHub prijava</string>
     <string name="google_play_subscribers">Google Play pretplatnici</string>
     <string name="github_sponsors">GitHub sponzori</string>
+    <string name="completed">Obavljeno</string>
+    <string name="filter_overdue">Prekoračen rok</string>
+    <string name="no_due_date">Bez datuma roka</string>
+    <string name="no_start_date">Bez datuma početka</string>
+    <string name="no_date">Bez datuma</string>
+    <string name="sort_due_group">Rok %1$s</string>
+    <string name="sort_start_group">Pokreni %1$s</string>
+    <string name="sort_created_group">Stvoreno %1$s</string>
+    <string name="sort_modified_group">Promijenjeno %1$s</string>
+    <string name="filter_high_priority">Visoki prioritet</string>
+    <string name="filter_medium_priority">Srednji prioritet</string>
+    <string name="filter_low_priority">Niski prioritet</string>
+    <string name="filter_no_priority">Bez prioriteta</string>
 </resources>

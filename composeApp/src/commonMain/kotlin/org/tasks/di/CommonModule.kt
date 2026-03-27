@@ -40,6 +40,7 @@ import org.tasks.service.TaskDeleter
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.filters.FilterProvider
+import org.tasks.tasklist.HeaderFormatter
 import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.DrawerViewModel
@@ -172,6 +173,7 @@ val commonModule = module {
     factoryOf(::iCalendar)
     factoryOf(::CaldavSynchronizer)
     factory { FilterProvider(get(), get(), get(), get(), get(), get(), get()) }
+    singleOf(::HeaderFormatter)
 
     // ViewModels
     viewModelOf(::AppViewModel)

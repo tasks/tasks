@@ -484,8 +484,6 @@
     <string name="filter_after_today">Despois de hoxe</string>
     <string name="filter_no_tags">Sen etiquetas</string>
     <string name="filter_eisenhower_box_3">Non importantes e urxentes</string>
-    <string name="sort_start_group">Comeza %s</string>
-    <string name="sort_due_group">Ata o %s</string>
     <string name="open_last_viewed_list">Abrir a última lista vista</string>
     <string name="local_lists">Listas locais</string>
     <string name="reset_sort_order">Reiniciar a forma de ordenar</string>

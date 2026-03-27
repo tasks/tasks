@@ -468,6 +468,10 @@ class ApplicationModule {
     ) = PebbleRefresher(context)
 
     @Provides
+    @Singleton
+    fun providesHeaderFormatter(caldavDao: CaldavDao) = HeaderFormatter(caldavDao)
+
+    @Provides
     fun providesWatchServiceLogic(
         taskDao: TaskDao,
         taskSaver: TaskSaver,

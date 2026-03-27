@@ -52,4 +52,17 @@
     <string name="sign_in_with_github">Masuk dengan GitHub</string>
     <string name="google_play_subscribers">Pelanggan Google Play</string>
     <string name="github_sponsors">Sponsor GitHub</string>
+    <string name="completed">Selesai</string>
+    <string name="filter_overdue">Lewat jatuh tempo</string>
+    <string name="no_due_date">Tidak ada tanggal jatuh tempo</string>
+    <string name="no_start_date">Tidak ada tanggal mulai</string>
+    <string name="no_date">Tidak ada tanggal</string>
+    <string name="sort_due_group">Jatuh tempo %1$s</string>
+    <string name="sort_start_group">Mulai %1$s</string>
+    <string name="sort_created_group">Dibuat %1$s</string>
+    <string name="sort_modified_group">Diubah %1$s</string>
+    <string name="filter_high_priority">Prioritas tinggi</string>
+    <string name="filter_medium_priority">Prioritas sedang</string>
+    <string name="filter_low_priority">Prioritas rendah</string>
+    <string name="filter_no_priority">Tanpa prioritas</string>
 </resources>

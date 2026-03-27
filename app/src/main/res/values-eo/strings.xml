@@ -589,12 +589,10 @@
     <string name="snackbar_task_completed">Tasko finita</string>
     <string name="snackbar_tasks_completed">%d taskoj estas finitaj</string>
     <string name="above_average">Super meznombra</string>
-    <string name="sort_due_group">Limdato %s</string>
     <string name="on_launch">Je lanĉi</string>
     <string name="save_percent">Ŝpari je %d%%</string>
     <string name="remove_user_confirmation">%1$s ne plu povos atingi %2$s</string>
     <string name="widget_id">Fenestraĵa ID: %d</string>
-    <string name="sort_start_group">Komenci %s</string>
     <string name="open_last_viewed_list">Malfermi liston de laste rigardita</string>
     <string name="permission_read_tasks">Tuta atingorajto al Tasks datumbazo</string>
     <string name="foreground_location">Malfona loko</string>

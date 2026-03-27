@@ -14,4 +14,6 @@
     <string name="sort_mode">Razvrsti</string>
     <string name="sort_due_date">Dospelost po datumu</string>
     <string name="sort_priority">Prioriteta</string>
+    <string name="no_due_date">Brez datuma dospelosti</string>
+    <string name="no_date">Brez datuma</string>
 </resources>

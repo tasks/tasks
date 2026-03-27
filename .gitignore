@@ -3,6 +3,7 @@
 *.iml
 .gradle
 build/
+/composeApp/output
 *.apk
 *.apks
 *.aab

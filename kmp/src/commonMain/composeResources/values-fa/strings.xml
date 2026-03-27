@@ -35,4 +35,7 @@
     <string name="sort_start_date">تاریخ شروع</string>
     <string name="group_none">هیچکدام</string>
     <string name="ok">تایید</string>
+    <string name="no_due_date">مهلت پایان ندارد</string>
+    <string name="no_start_date">تاریخ شروع ندارد</string>
+    <string name="no_date">بدون تاریخ</string>
 </resources>

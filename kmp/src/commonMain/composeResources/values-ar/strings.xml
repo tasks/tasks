@@ -60,4 +60,17 @@
     <string name="sign_in_with_github">تسجيل الدخول بGitHub</string>
     <string name="google_play_subscribers">مشتركي جوجل بلاي</string>
     <string name="github_sponsors">رعاة GitHub</string>
+    <string name="completed">مكتمل</string>
+    <string name="filter_overdue">متأخر</string>
+    <string name="no_due_date">بدون تاريخ استحقاق</string>
+    <string name="no_start_date">بدون تاريخ بدأ</string>
+    <string name="no_date">لا تاريخ</string>
+    <string name="sort_due_group">مستحق %1$s</string>
+    <string name="sort_start_group">تبدأ %1$s</string>
+    <string name="sort_created_group">أنشأ %1$s</string>
+    <string name="sort_modified_group">عُدّل %1$s</string>
+    <string name="filter_high_priority">أولويّة عالية</string>
+    <string name="filter_medium_priority">أولويّة متوسّطة</string>
+    <string name="filter_low_priority">أولويّة منخفضة</string>
+    <string name="filter_no_priority">لا أولويّة</string>
 </resources>

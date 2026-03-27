@@ -566,8 +566,6 @@
     <string name="your_subscription_expired">Twoja subskrypcja wygasła. Zasubskrybuj teraz, aby wznowić usługę.</string>
     <string name="decsync_selection_description">Synchronizacja oparta na plikach</string>
     <string name="local_lists">Listy lokalne</string>
-    <string name="sort_due_group">Termin %s</string>
-    <string name="sort_start_group">Początek %s</string>
     <string name="filter_criteria_unstarted">Nierozpoczęte</string>
     <string name="show_unstarted">Pokaż nierozpoczęte</string>
     <string name="filter_any_start_date">Dowolna data rozpoczęcia</string>

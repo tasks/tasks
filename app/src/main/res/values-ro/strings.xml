@@ -469,8 +469,6 @@
     <string name="on_launch">La lansare</string>
     <string name="sort_modified_group">Modificat %s</string>
     <string name="sort_created_group">Creat %s</string>
-    <string name="sort_due_group">Scadență %s</string>
-    <string name="sort_start_group">Start %s</string>
     <string name="support_development_subscribe">Deblochează funcții suplimentare și sprijină software-ul cu sursă deschisă</string>
     <string name="enjoying_tasks">Îți place Tasks\?</string>
     <string name="filter_eisenhower_box_4">Nu este important și nu este urgent</string>

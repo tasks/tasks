@@ -78,4 +78,17 @@
     <string name="sign_in_with_github">להיכנס באמצעות GitHub</string>
     <string name="google_play_subscribers">מנויי Google Play</string>
     <string name="github_sponsors">נותני חסות GitHub</string>
+    <string name="completed">הושלמו</string>
+    <string name="filter_overdue">היעד חלף</string>
+    <string name="no_due_date">אין תאריך יעד</string>
+    <string name="no_start_date">אין תאריך התחלה</string>
+    <string name="no_date">אין תאריך</string>
+    <string name="sort_due_group">יעד %1$s</string>
+    <string name="sort_start_group">התחלה %1$s</string>
+    <string name="sort_created_group">נוצר %1$s</string>
+    <string name="sort_modified_group">השתנה %1$s</string>
+    <string name="filter_high_priority">עדיפות גבוהה</string>
+    <string name="filter_medium_priority">עדיפות בינונית</string>
+    <string name="filter_low_priority">עדיפות נמוכה</string>
+    <string name="filter_no_priority">אין עדיפות</string>
 </resources>

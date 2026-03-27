@@ -549,8 +549,6 @@
     <string name="no_google_play_subscription">Ez da Google Play harpidetza egokirik aurkitu</string>
     <string name="insufficient_sponsorship">Ez da GitHub sponsorship egokirik aurkitu</string>
     <string name="local_lists">Zerrenda lokalak</string>
-    <string name="sort_due_group">Epemuga %s</string>
-    <string name="sort_start_group">Hasiera %s</string>
     <string name="decsync_selection_description">Fitxategietan oinarritutako sinkronizazioa</string>
     <string name="subscription">Harpidetza</string>
     <string name="show_unstarted">Erakutsi hasi gabeak</string>

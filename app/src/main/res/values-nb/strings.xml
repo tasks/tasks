@@ -565,8 +565,6 @@
     <string name="default_start_date">Forvalgt startdato</string>
     <string name="SSD_sort_start">I henhold til startdato</string>
     <string name="start_date">Startdato</string>
-    <string name="sort_start_group">Start %s</string>
-    <string name="sort_due_group">Frist %s</string>
     <string name="widget_show_title">Vis tittel</string>
     <string name="tasks_org_account_required">Tasks.org-konto kreves</string>
     <string name="list_members">Liste over medlemmer</string>

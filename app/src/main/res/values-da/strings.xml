@@ -562,8 +562,6 @@
     <string name="android_auto_backup_device_summary">Du skal også tilvælge backup-tjenesten via enhedens indstillinger. Ikke alle enheder tilbyder backup-tjeneste.</string>
     <string name="android_auto_backup">Android Backup-tjeneste</string>
     <string name="local_lists">Lokale lister</string>
-    <string name="sort_due_group">Forfalder %s</string>
-    <string name="sort_start_group">Start %s</string>
     <string name="decsync_selection_description">Filbaseret synkronisering</string>
     <string name="background_location_permission_required">Tasks indsamler lokationsdata for at kunne give lokationsbaserede påmindelser, selv når appen er lukket eller ikke er i brug.</string>
     <string name="subscription">Abonnement</string>

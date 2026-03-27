@@ -78,4 +78,17 @@
     <string name="sign_in_with_github">Přihlášení přes GitHub</string>
     <string name="google_play_subscribers">předplatitelé Google Play</string>
     <string name="github_sponsors">sponzoři na GitHubu</string>
+    <string name="completed">Splněný</string>
+    <string name="filter_overdue">Po termínu</string>
+    <string name="no_due_date">Bez termínu</string>
+    <string name="no_start_date">Bez data zahájení</string>
+    <string name="no_date">Bez data</string>
+    <string name="sort_due_group">Termín %1$s</string>
+    <string name="sort_start_group">Začátek %1$s</string>
+    <string name="sort_created_group">Vytvořeno %1$s</string>
+    <string name="sort_modified_group">Změněno %1$s</string>
+    <string name="filter_high_priority">Vysoká důležitost</string>
+    <string name="filter_medium_priority">Střední důležitost</string>
+    <string name="filter_low_priority">Nízká důležitost</string>
+    <string name="filter_no_priority">Bez nastavené důležitosti</string>
 </resources>

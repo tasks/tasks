@@ -575,8 +575,6 @@
     <string name="filter_any_start_date">N\'importe quelle date de début</string>
     <string name="CFC_startBefore_name">Débute par…</string>
     <string name="CFC_startBefore_text">Débute par : \?</string>
-    <string name="sort_due_group">Fin %s</string>
-    <string name="sort_start_group">Début %s</string>
     <string name="account_not_included">Non inclus avec les abonnements « Donnez votre prix »</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Afficher le titre</string>

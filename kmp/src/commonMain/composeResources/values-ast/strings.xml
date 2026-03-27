@@ -39,4 +39,6 @@
     <string name="etesync_selection_description">Sincronización con cifráu d\'estremu a estremu</string>
     <string name="decsync_selection_description">Sincronización basada en ficheros</string>
     <string name="help">Aida</string>
+    <string name="no_due_date">Ensin data de vencimientu</string>
+    <string name="no_start_date">Ensin data d\'entamu</string>
 </resources>

@@ -60,4 +60,17 @@
     <string name="sign_in_with_github">Conectează-te cu GitHub</string>
     <string name="google_play_subscribers">Abonații Google Play</string>
     <string name="github_sponsors">Sponsorii GitHub</string>
+    <string name="completed">Finalizat</string>
+    <string name="filter_overdue">Depășit</string>
+    <string name="no_due_date">Fără dată scadență</string>
+    <string name="no_start_date">Fără dată de începere</string>
+    <string name="no_date">Fără dată</string>
+    <string name="sort_due_group">Scadență %1$s</string>
+    <string name="sort_start_group">Start %1$s</string>
+    <string name="sort_created_group">Creat %1$s</string>
+    <string name="sort_modified_group">Modificat %1$s</string>
+    <string name="filter_high_priority">Prioritate ridicată</string>
+    <string name="filter_medium_priority">Prioritate medie</string>
+    <string name="filter_low_priority">Prioritate scăzută</string>
+    <string name="filter_no_priority">Fără prioritate</string>
 </resources>

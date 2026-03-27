@@ -600,8 +600,6 @@
     <string name="donate_today">Doneu avui</string>
     <string name="donate_maybe_later">Potser més tard</string>
     <string name="support_development_subscribe">Desbloquegeu funcionalitats addicionals i suporteu programari de codi obert</string>
-    <string name="sort_start_group">Inici %s</string>
-    <string name="sort_due_group">Venciment %s</string>
     <string name="sort_created_group">S\'ha creat %s</string>
     <string name="sort_modified_group">S\'ha modificat %s</string>
     <string name="sort_completion_group">Finalització %s</string>

@@ -60,4 +60,17 @@
     <string name="sign_in_with_github">Συνδεθείτε μέσω GitHub</string>
     <string name="google_play_subscribers">Συνδρομητές Google Play</string>
     <string name="github_sponsors">Χορηγοί GitHub</string>
+    <string name="completed">Ολοκληρώθηκε</string>
+    <string name="filter_overdue">Εκπρόθεσμα</string>
+    <string name="no_due_date">Χωρίς ημερομηνία λήξης</string>
+    <string name="no_start_date">Καθόλου ημερομηνία έναρξης</string>
+    <string name="no_date">Χωρίς ημερομηνία</string>
+    <string name="sort_due_group">Προθεσμία %1$s</string>
+    <string name="sort_start_group">Αρχή %1$s</string>
+    <string name="sort_created_group">Δημιουργήθηκε %1$s</string>
+    <string name="sort_modified_group">Τροποποιήθηκε %1$s</string>
+    <string name="filter_high_priority">Υψηλή προτεραιότητα</string>
+    <string name="filter_medium_priority">Μεσαία προτεραιότητα</string>
+    <string name="filter_low_priority">Χαμηλή προτεραιότητα</string>
+    <string name="filter_no_priority">Καθόλου προτεραιότητα</string>
 </resources>

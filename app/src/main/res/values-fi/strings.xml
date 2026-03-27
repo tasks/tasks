@@ -548,8 +548,6 @@
     <string name="android_auto_backup">Androidin varmuuskopiointipalvelu</string>
     <string name="automatic_backups">Maksimimäärä automaattisia varmuuskopioita</string>
     <string name="local_lists">Paikalliset luettelot</string>
-    <string name="sort_due_group">Erääntyy %s</string>
-    <string name="sort_start_group">Aloita %s</string>
     <string name="davx5_selection_description">Tehtävien synkronointi DAVx⁵sovelluksen kanssa</string>
     <string name="decsync_selection_description">Tiedostopohjainen synkronointi</string>
     <string name="subscription">Tilaus</string>

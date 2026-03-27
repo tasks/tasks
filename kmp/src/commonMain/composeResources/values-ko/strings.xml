@@ -60,4 +60,17 @@
     <string name="sign_in_with_github">깃허브를 이용해서 로그인</string>
     <string name="google_play_subscribers">구글 플레이 구독자</string>
     <string name="github_sponsors">깃허브 후원자</string>
+    <string name="completed">완료</string>
+    <string name="filter_overdue">마감일이 지난</string>
+    <string name="no_due_date">마감일 없음</string>
+    <string name="no_start_date">시작일 없음</string>
+    <string name="no_date">마감일 없음</string>
+    <string name="sort_due_group">%1$s 마감</string>
+    <string name="sort_start_group">%1$s 시작</string>
+    <string name="sort_created_group">%1$s 생성</string>
+    <string name="sort_modified_group">%1$s 변경</string>
+    <string name="filter_high_priority">높은 우선순위</string>
+    <string name="filter_medium_priority">중간 우선순위</string>
+    <string name="filter_low_priority">낮은 우선순위</string>
+    <string name="filter_no_priority">우선순위 없음</string>
 </resources>

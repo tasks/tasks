@@ -70,4 +70,17 @@
     <string name="sign_in_with_github">GitHub でサインイン</string>
     <string name="google_play_subscribers">Google Play 定期購入者</string>
     <string name="github_sponsors">GitHub スポンサー</string>
+    <string name="completed">完了</string>
+    <string name="filter_overdue">遅延</string>
+    <string name="no_due_date">締切日時なし</string>
+    <string name="no_start_date">着手日時なし</string>
+    <string name="no_date">日付なし</string>
+    <string name="sort_due_group">締切: %1$s</string>
+    <string name="sort_start_group">着手: %1$s</string>
+    <string name="sort_created_group">作成: %1$s</string>
+    <string name="sort_modified_group">変更: %1$s</string>
+    <string name="filter_high_priority">優先度 高</string>
+    <string name="filter_medium_priority">優先度 中</string>
+    <string name="filter_low_priority">優先度 低</string>
+    <string name="filter_no_priority">優先度 なし</string>
 </resources>

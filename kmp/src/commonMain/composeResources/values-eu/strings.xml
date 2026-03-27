@@ -53,4 +53,17 @@
     <string name="sign_in_with_github">Hasi saioa GitHub erabiliz</string>
     <string name="google_play_subscribers">Google Play harpideak</string>
     <string name="github_sponsors">GitHub babesleak</string>
+    <string name="completed">Amaituta</string>
+    <string name="filter_overdue">Gainditua</string>
+    <string name="no_due_date">Epemuga gabe</string>
+    <string name="no_start_date">Hasiera data gabe</string>
+    <string name="no_date">Datarik ez</string>
+    <string name="sort_due_group">Epemuga %1$s</string>
+    <string name="sort_start_group">Hasiera %1$s</string>
+    <string name="sort_created_group">Sorrera %1$s</string>
+    <string name="sort_modified_group">Aldaketa %1$s</string>
+    <string name="filter_high_priority">Lehentasun handia</string>
+    <string name="filter_medium_priority">Lehentasun ertaina</string>
+    <string name="filter_low_priority">Lehentasun txikia</string>
+    <string name="filter_no_priority">Lehentasunik ez</string>
 </resources>

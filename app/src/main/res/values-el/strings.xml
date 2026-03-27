@@ -503,8 +503,6 @@
     <string name="donate_today">Κάντε δωρεά σήμερα</string>
     <string name="donate_maybe_later">Ίσως αργότερα</string>
     <string name="support_development_subscribe">Ξεκλειδώστε πρόσθετες λειτουργίες και υποστηρίξτε λογισμικό ανοιχτού κώδικα</string>
-    <string name="sort_start_group">Αρχή %s</string>
-    <string name="sort_due_group">Προθεσμία %s</string>
     <string name="sort_created_group">Δημιουργήθηκε %s</string>
     <string name="sort_modified_group">Τροποποιήθηκε %s</string>
     <string name="sort_completion_group">Ολοκλήρωση %s</string>

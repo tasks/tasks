@@ -60,4 +60,17 @@
     <string name="sign_in_with_github">கிதுபுடன் உள்நுழைக</string>
     <string name="google_play_subscribers">கூகிள் பிளே சந்தாதாரர்கள்</string>
     <string name="github_sponsors">அறிவிலிமையம் ஒப்புரவாளர்கள்</string>
+    <string name="completed">முடிந்தது</string>
+    <string name="filter_overdue">காலம் கடந்த</string>
+    <string name="no_due_date">முடிக்கப்பட வேண்டிய தேதி இல்லை</string>
+    <string name="no_start_date">தொடங்கும் தேதி இல்லை</string>
+    <string name="no_date">தேதி இல்லை</string>
+    <string name="sort_due_group">காரணமாக %1$s</string>
+    <string name="sort_start_group">தொடக்க %1$s</string>
+    <string name="sort_created_group">%1$s உருவாக்கப்பட்டது</string>
+    <string name="sort_modified_group">மாற்றியமைக்கப்பட்ட %1$s</string>
+    <string name="filter_high_priority">அதி முக்கியத்துவம்</string>
+    <string name="filter_medium_priority">நடுத்தர முன்னுரிமை</string>
+    <string name="filter_low_priority">குறைந்த முன்னுரிமை</string>
+    <string name="filter_no_priority">குறைந்த முன்னுரிமை</string>
 </resources>

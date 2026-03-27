@@ -598,8 +598,6 @@
     <string name="upgrade_more_customization">Maggiore personalizzazione</string>
     <string name="pro_free_trial">I nuovi abbonati ricevono 7 giorni di prova gratuita. Puoi recedere in qualsiasi momento</string>
     <string name="list_members">Elenco dei membri</string>
-    <string name="sort_due_group">Scadenza %s</string>
-    <string name="sort_start_group">Inizio %s</string>
     <string name="next_saturday">Sabato prossimo</string>
     <string name="next_friday">Venerdì prossimo</string>
     <string name="next_thursday">Giovedì prossimo</string>

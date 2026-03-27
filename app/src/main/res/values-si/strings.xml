@@ -11,8 +11,6 @@
     <string name="on_launch">ආරම්භ කිරීමේදී</string>
     <string name="sort_modified_group">වෙනස් කරන ලද %s</string>
     <string name="sort_created_group">සැකසූ %s</string>
-    <string name="sort_due_group">නියමිත %s</string>
-    <string name="sort_start_group">ආරම්භය %s</string>
     <string name="filter_overdue">නියමිත දිනය පසුවූ</string>
     <string name="filter_any_due_date">ඕනෑම නියමිත දිනයක්</string>
     <string name="compact">සංගත</string>

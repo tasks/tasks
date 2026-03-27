@@ -60,4 +60,17 @@
     <string name="sign_in_with_github">Iniciar sessão com o GitHub</string>
     <string name="google_play_subscribers">Subscritores do Google Play</string>
     <string name="github_sponsors">Patrocinadores do GitHub</string>
+    <string name="completed">Terminado</string>
+    <string name="filter_overdue">Ultrapassado</string>
+    <string name="no_due_date">Sem data de fim</string>
+    <string name="no_start_date">Sem data de início</string>
+    <string name="no_date">Sem data</string>
+    <string name="sort_due_group">Vencimento %1$s</string>
+    <string name="sort_start_group">Começar %1$s</string>
+    <string name="sort_created_group">Criado %1$s</string>
+    <string name="sort_modified_group">Alterado %1$s</string>
+    <string name="filter_high_priority">Alta prioridade</string>
+    <string name="filter_medium_priority">Prioridade média</string>
+    <string name="filter_low_priority">Baixa prioridade</string>
+    <string name="filter_no_priority">Sem prioridade</string>
 </resources>

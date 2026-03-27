@@ -550,8 +550,6 @@
     <string name="app_passwords">App-Passwörter</string>
     <string name="app_password">App-Passwort</string>
     <string name="local_lists">Lokale Listen</string>
-    <string name="sort_due_group">%s fällig</string>
-    <string name="sort_start_group">%s gestartet</string>
     <string name="subscription">Abonnement</string>
     <string name="filter_criteria_unstarted">Nicht gestartet</string>
     <string name="show_unstarted">Nicht gestartete anzeigen</string>

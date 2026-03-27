@@ -78,4 +78,17 @@
     <string name="sign_in_with_github">使用 GitHub 登录</string>
     <string name="google_play_subscribers">Google Play 订阅者</string>
     <string name="github_sponsors">Github 赞助者</string>
+    <string name="completed">已完成</string>
+    <string name="filter_overdue">已过期</string>
+    <string name="no_due_date">无截止日期</string>
+    <string name="no_start_date">无开始日期</string>
+    <string name="no_date">无日期</string>
+    <string name="sort_due_group">%1$s截止</string>
+    <string name="sort_start_group">%1$s开始</string>
+    <string name="sort_created_group">%1$s创建</string>
+    <string name="sort_modified_group">%1$s修改</string>
+    <string name="filter_high_priority">高优先级</string>
+    <string name="filter_medium_priority">中等优先级</string>
+    <string name="filter_low_priority">低优先级</string>
+    <string name="filter_no_priority">无优先级</string>
 </resources>

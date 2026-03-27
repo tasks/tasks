@@ -70,4 +70,17 @@
     <string name="sign_in_with_github">Ensaluti per GitHub</string>
     <string name="google_play_subscribers">Abonantoj de Google Play</string>
     <string name="github_sponsors">GitHub Sponsoroj</string>
+    <string name="completed">Finite</string>
+    <string name="filter_overdue">Posttempa</string>
+    <string name="no_due_date">Sen limdato</string>
+    <string name="no_start_date">Sen komencdato</string>
+    <string name="no_date">Sen dato</string>
+    <string name="sort_due_group">Limdato %1$s</string>
+    <string name="sort_start_group">Komenci %1$s</string>
+    <string name="sort_created_group">Kreite: %1$s</string>
+    <string name="sort_modified_group">Modifita: %1$s</string>
+    <string name="filter_high_priority">Grava</string>
+    <string name="filter_medium_priority">Meza prioritato</string>
+    <string name="filter_low_priority">Malalta prioritato</string>
+    <string name="filter_no_priority">Neniu prioritato</string>
 </resources>

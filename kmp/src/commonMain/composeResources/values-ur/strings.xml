@@ -44,4 +44,7 @@
     <string name="etesync_selection_description">اینڈ ٹو اینڈ انکرپٹڈ سنکرونائزیشن</string>
     <string name="decsync_selection_description">فائل بیسڈ سنکرونائزیشن</string>
     <string name="help">مدد</string>
+    <string name="no_due_date">کوئی مقررہ تاریخ نہیں</string>
+    <string name="no_start_date">کوئی تاریخ آغاز نہیں</string>
+    <string name="no_date">کوئی تاریخ نہیں</string>
 </resources>

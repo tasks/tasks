@@ -531,8 +531,6 @@
     <string name="android_auto_backup">Serviço de backup do Android</string>
     <string name="automatic_backups">Backup automático</string>
     <string name="local_lists">Listas locais</string>
-    <string name="sort_due_group">Vencimento %s</string>
-    <string name="sort_start_group">Começa %s</string>
     <string name="decsync_selection_description">Sincronização baseada em arquivo</string>
     <string name="background_location_permission_required">Tasks coleta dados de localização para permitir lembretes baseados em localização, mesmo quando o aplicativo está fechado ou não estiver sendo usado.</string>
     <string name="subscription">Assinatura</string>

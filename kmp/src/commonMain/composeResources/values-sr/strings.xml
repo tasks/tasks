@@ -69,4 +69,17 @@
     <string name="sign_in_with_github">Пријави се путем GitHub-а</string>
     <string name="google_play_subscribers">,,Google Play\'\' претплатници</string>
     <string name="github_sponsors">,,GitHub\'\' спонзори</string>
+    <string name="completed">Завршено</string>
+    <string name="filter_overdue">После доспећа</string>
+    <string name="no_due_date">Без датума доспећа</string>
+    <string name="no_start_date">Без датума почетка</string>
+    <string name="no_date">Без датума</string>
+    <string name="sort_due_group">Доспеће %1$s</string>
+    <string name="sort_start_group">Старт %1$s</string>
+    <string name="sort_created_group">Креирано %1$s</string>
+    <string name="sort_modified_group">Модификовано %1$s</string>
+    <string name="filter_high_priority">Висок приоритет</string>
+    <string name="filter_medium_priority">Средњи приоритет</string>
+    <string name="filter_low_priority">Низак приоритет</string>
+    <string name="filter_no_priority">Без приоритета</string>
 </resources>

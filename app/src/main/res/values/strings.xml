@@ -599,8 +599,6 @@ File %1$s contained %2$s.\n\n
   <string name="p_per_list_sort">per_list_sort</string>
   <string name="per_list_sort_title">Per-list sorting</string>
   <string name="per_list_sort_summary">Remember sort and group settings for each list independently</string>
-  <string name="sort_start_group">Start %s</string>
-  <string name="sort_due_group">Due %s</string>
   <string name="sort_created_group">Created %s</string>
   <string name="sort_modified_group">Modified %s</string>
   <string name="sort_completion_group">Completion %s</string>

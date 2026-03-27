@@ -528,8 +528,6 @@
     <string name="always_display_full_date">일시 간략화하지 않고 그대로 표시</string>
     <string name="ok">확인</string>
     <string name="cancel">취소</string>
-    <string name="sort_due_group">%s 마감</string>
-    <string name="sort_start_group">%s 시작</string>
     <string name="default_due_date">기본 마감일</string>
     <string name="default_start_date">기본 시작일</string>
     <string name="start_date">시작일</string>

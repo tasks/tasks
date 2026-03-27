@@ -597,8 +597,6 @@
     <string name="filter_any_start_date">着手日時あり</string>
     <string name="chip_appearance">チップの外観</string>
     <string name="sort_modified_group">変更: %s</string>
-    <string name="sort_start_group">着手: %s</string>
-    <string name="sort_due_group">締切: %s</string>
     <string name="on_launch">起動時</string>
     <string name="sort_completion_group">完了: %s</string>
     <string name="automatic_backups">自動バックアップ</string>

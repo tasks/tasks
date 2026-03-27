@@ -71,4 +71,17 @@
     <string name="sign_in_with_github">Logi sisse GitHubi kasutajakontoga</string>
     <string name="google_play_subscribers">Tellijad Google Play teenuses</string>
     <string name="github_sponsors">Sponsorid GitHubis</string>
+    <string name="completed">Lõpetatud</string>
+    <string name="filter_overdue">Üle tähtaja</string>
+    <string name="no_due_date">Tähtaeg puudub</string>
+    <string name="no_start_date">Alguskuupäev puudub</string>
+    <string name="no_date">Kuupäeva pole</string>
+    <string name="sort_due_group">Tähtaeg %1$s</string>
+    <string name="sort_start_group">Algusaeg %1$s</string>
+    <string name="sort_created_group">Loodud %1$s</string>
+    <string name="sort_modified_group">Muudetud %1$s</string>
+    <string name="filter_high_priority">Kõrge prioriteet</string>
+    <string name="filter_medium_priority">Keskmine prioriteet</string>
+    <string name="filter_low_priority">Madal prioriteet</string>
+    <string name="filter_no_priority">Prioriteedita</string>
 </resources>

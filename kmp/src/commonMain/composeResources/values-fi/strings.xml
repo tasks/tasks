@@ -71,4 +71,17 @@
     <string name="sign_in_with_github">Kirjaudu sisään GitHubilla</string>
     <string name="google_play_subscribers">Google Play -tilaajat</string>
     <string name="github_sponsors">GitHubin sponsorit</string>
+    <string name="completed">Valmiit</string>
+    <string name="filter_overdue">Myöhässä oleva</string>
+    <string name="no_due_date">Ei eräpäivää</string>
+    <string name="no_start_date">Ei alkamispäivää</string>
+    <string name="no_date">Ei päivämäärää</string>
+    <string name="sort_due_group">Erääntyy %1$s</string>
+    <string name="sort_start_group">Aloita %1$s</string>
+    <string name="sort_created_group">Luotu %1$s</string>
+    <string name="sort_modified_group">Muutettu %1$s</string>
+    <string name="filter_high_priority">Suuri tärkeys</string>
+    <string name="filter_medium_priority">Normaali tärkeys</string>
+    <string name="filter_low_priority">Alhainen tärkeys</string>
+    <string name="filter_no_priority">Ei tärkeyttä</string>
 </resources>

@@ -53,4 +53,17 @@
     <string name="sign_in_with_github">Prisijungti naudojant GitHub</string>
     <string name="google_play_subscribers">Google Play prenumeratoriai</string>
     <string name="github_sponsors">GitHub rėmėjai</string>
+    <string name="completed">Įvykdyta</string>
+    <string name="filter_overdue">Pavėluota</string>
+    <string name="no_due_date">Be pabaigos datos</string>
+    <string name="no_start_date">Be pradžios datos</string>
+    <string name="no_date">Nėra datos</string>
+    <string name="sort_due_group">Terminas %1$s</string>
+    <string name="sort_start_group">Pradžia %1$s</string>
+    <string name="sort_created_group">Sukurta %1$s</string>
+    <string name="sort_modified_group">Modifikuota %1$s</string>
+    <string name="filter_high_priority">Aukštas prioritetas</string>
+    <string name="filter_medium_priority">Vidutinis prioritetas</string>
+    <string name="filter_low_priority">Žemas prioritetas</string>
+    <string name="filter_no_priority">Jokio prioriteto</string>
 </resources>
