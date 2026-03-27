@@ -10,10 +10,6 @@
     "watchapp": {
       "watchface": false
     },
-    "companionApp": {
-      "android": true,
-      "ios": false
-    },
     "resources": {
       "media": [
         {
