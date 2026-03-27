@@ -107,4 +107,5 @@
     <string name="subtasks">Задачи</string>
     <string name="sort_not_available">Не е налично за етикети, филтри или места</string>
     <string name="none">Без</string>
+    <string name="tasks_org_description">Включва споделяне със семейство и приятели и задачи от писмо</string>
 </resources>
