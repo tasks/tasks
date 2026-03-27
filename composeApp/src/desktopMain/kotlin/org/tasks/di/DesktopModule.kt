@@ -34,7 +34,7 @@ import java.io.File
 import java.util.Properties
 
 private fun dataDir(): File {
-    val path = System.getProperty("tasks.dataDir")
+    val path = config.getProperty("data.dir", "").ifBlank { null }
         ?: File(System.getProperty("user.home"), ".tasks.org").absolutePath
     return File(path).also { it.mkdirs() }
 }
