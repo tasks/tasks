@@ -8,9 +8,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -20,17 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
-import org.tasks.compose.pickers.StartDateTimePicker.DAY_BEFORE_DUE
-import org.tasks.compose.pickers.StartDateTimePicker.DUE_DATE
-import org.tasks.compose.pickers.StartDateTimePicker.DUE_TIME
-import org.tasks.compose.pickers.StartDateTimePicker.NO_DAY
-import org.tasks.compose.pickers.StartDateTimePicker.NO_TIME
+import org.tasks.compose.pickers.StartDateTimePicker
 import org.tasks.compose.pickers.StartDateTimePicker.StartDateTimePicker
-import org.tasks.compose.pickers.StartDateTimePicker.WEEK_BEFORE_DUE
-import org.tasks.compose.pickers.StartDateTimePicker.decodeStartDay
-import org.tasks.compose.pickers.StartDateTimePicker.encodeDay
-import org.tasks.compose.pickers.StartDateTimePicker.encodeStartDay
-import org.tasks.compose.pickers.StartDateTimePicker.encodeTime
 import org.tasks.compose.pickers.StartDateTimePicker.getRelativeDateString
 import org.tasks.data.entity.Task
 import org.tasks.extensions.Context.is24HourFormat
@@ -51,7 +44,6 @@ fun StartDateRow(
 ) {
     val showPicker = remember { mutableStateOf(false) }
     val context = LocalContext.current
-    // TODO: provide some standard way to get Properties in @Composable's
     val preferences = remember { Preferences(context) }
 
     val initial = remember { // to avoid recalculations on recompose
@@ -64,17 +56,15 @@ fun StartDateRow(
     // e.g. StartDateRow sends changes to the viewModel, but not updates itself if/when "current"
     // parameter is changed outside
     val selectedDay = rememberSaveable {
-        mutableLongStateOf(encodeDay(initial, dueDate))
+        mutableLongStateOf(StartDateTimePicker.encodeDay(initial, dueDate))
     }
     val selectedTime = rememberSaveable {
-        mutableIntStateOf(encodeTime(initial, selectedDay.longValue, dueDate))
+        mutableIntStateOf(StartDateTimePicker.encodeTime(initial, selectedDay.longValue, dueDate))
     }
 
     // to prevent using "runBlocking" for formatting relative date text
-    val currentText = remember { mutableStateOf("") }
-    LaunchedEffect(dueDate, selectedDay.longValue, selectedTime.intValue) {
-        currentText.value =
-            formatDateTimeText(selectedDay.longValue, selectedTime.intValue, dueDate, context, preferences)
+    val currentText by produceState(initialValue = "", dueDate, selectedDay.longValue, selectedTime.intValue) {
+        value = formatDateTimeText(selectedDay.longValue, selectedTime.intValue, dueDate, context, preferences)
     }
 
     StartDateRow(
@@ -82,25 +72,25 @@ fun StartDateRow(
         selectedDay = selectedDay.longValue,
         hasStartAlarm = hasStartAlarm,
         hasDueDate = dueDate > 0L,
-        dateTimeText = currentText.value,
+        dateTimeText = currentText,
         onClick = { showPicker.value = true}
     )
 
-    LaunchedEffect(dueDate) {
-        setCurrent(decodeStartDay(dueDate, selectedDay.longValue, selectedTime.intValue))
+    LaunchedEffect(dueDate, selectedDay.longValue, selectedTime.intValue) {
+        setCurrent(StartDateTimePicker.decodeStartDay(dueDate, selectedDay.longValue, selectedTime.intValue))
     }
 
     if (showPicker.value) {
         StartDateTimePicker(
             selectedDay = selectedDay.longValue,
             selectedTime = selectedTime.intValue,
-            updateValues = { day, time -> selectedDay.longValue = day; selectedTime.intValue = time },
-            accept = {
-                setCurrent(decodeStartDay(dueDate, selectedDay.longValue, selectedTime.intValue))
-                showPicker.value = false
+            updateValues = { day, time ->
+                selectedDay.longValue = day
+                selectedTime.intValue = time
             },
+            accept = { showPicker.value = false },
             dismiss = { showPicker.value = false },
-            autoclose = preferences.getBoolean(R.string.p_auto_dismiss_datetime_edit_screen,false),
+            autoclose = preferences.getBoolean(R.string.p_auto_dismiss_datetime_edit_screen, false),
             showDueDate = showDueDate
         )
     }
@@ -143,10 +133,10 @@ private fun defaultStartDate(preferences: Preferences): Long = when (preferences
     R.string.p_default_hideUntil_key,
     Task.HIDE_UNTIL_NONE
 )) {
-    Task.HIDE_UNTIL_DUE -> DUE_DATE
-    Task.HIDE_UNTIL_DUE_TIME -> DUE_TIME
-    Task.HIDE_UNTIL_DAY_BEFORE -> DAY_BEFORE_DUE
-    Task.HIDE_UNTIL_WEEK_BEFORE -> WEEK_BEFORE_DUE
+    Task.HIDE_UNTIL_DUE -> StartDateTimePicker.DUE_DATE
+    Task.HIDE_UNTIL_DUE_TIME -> StartDateTimePicker.DUE_TIME
+    Task.HIDE_UNTIL_DAY_BEFORE -> StartDateTimePicker.DAY_BEFORE_DUE
+    Task.HIDE_UNTIL_WEEK_BEFORE -> StartDateTimePicker.WEEK_BEFORE_DUE
     else -> 0L
 }
 
@@ -157,11 +147,11 @@ private suspend fun formatDateTimeText(
     context: Context,
     preferences: Preferences
 ): String {
-    return when (encodeStartDay(dueDate, selectedDay, selectedTime)) {
-        DUE_DATE -> context.getRelativeDateString(R.string.due_date, selectedTime)
-        DUE_TIME -> context.getString(R.string.due_time)
-        DAY_BEFORE_DUE -> context.getRelativeDateString(R.string.day_before_due, selectedTime)
-        WEEK_BEFORE_DUE -> context.getRelativeDateString(R.string.week_before_due, selectedTime)
+    return when (StartDateTimePicker.encodeStartDay(dueDate, selectedDay, selectedTime)) {
+        StartDateTimePicker.DUE_DATE -> context.getRelativeDateString(R.string.due_date, selectedTime)
+        StartDateTimePicker.DUE_TIME -> context.getString(R.string.due_time)
+        StartDateTimePicker.DAY_BEFORE_DUE -> context.getRelativeDateString(R.string.day_before_due, selectedTime)
+        StartDateTimePicker.WEEK_BEFORE_DUE -> context.getRelativeDateString(R.string.week_before_due, selectedTime)
         in 1..Long.MAX_VALUE -> {
             getRelativeDateTime(
                 selectedDay + selectedTime,
@@ -217,10 +207,10 @@ fun StartDate(
     val context = LocalContext.current
     Text(
         text = when (selectedDay) {
-            DUE_DATE -> context.getRelativeDateString(R.string.due_date, selectedTime)
-            DUE_TIME -> context.getString(R.string.due_time)
-            DAY_BEFORE_DUE -> context.getRelativeDateString(R.string.day_before_due, selectedTime)
-            WEEK_BEFORE_DUE -> context.getRelativeDateString(R.string.week_before_due, selectedTime)
+            StartDateTimePicker.DUE_DATE -> context.getRelativeDateString(R.string.due_date, selectedTime)
+            StartDateTimePicker.DUE_TIME -> context.getString(R.string.due_time)
+            StartDateTimePicker.DAY_BEFORE_DUE -> context.getRelativeDateString(R.string.day_before_due, selectedTime)
+            StartDateTimePicker.WEEK_BEFORE_DUE -> context.getRelativeDateString(R.string.week_before_due, selectedTime)
             in 1..Long.MAX_VALUE -> printDate()
             else -> stringResource(id = R.string.no_start_date)
         },
@@ -244,12 +234,10 @@ fun NoStartDate() {
     TasksTheme {
         StartDateRow(
             startDate = 0L,
-            selectedDay = NO_DAY,
-            selectedTime = NO_TIME,
-            currentTime = 1657080392000L,
+            selectedDay = StartDateTimePicker.NO_DAY,
             hasStartAlarm = true,
             hasDueDate = false,
-            printDate = { "" },
+            dateTimeText = stringResource(id = R.string.no_start_date),
             onClick = {},
         )
     }
@@ -262,12 +250,10 @@ fun FutureStartDate() {
     TasksTheme {
         StartDateRow(
             startDate = 1657080392000L,
-            selectedDay = DUE_DATE,
-            selectedTime = NO_TIME,
-            currentTime = 1657080392000L,
+            selectedDay = StartDateTimePicker.DUE_DATE,
             hasStartAlarm = true,
             hasDueDate = false,
-            printDate = { "" },
+            dateTimeText = "July 6, 2022",
             onClick = {},
         )
     }
@@ -280,12 +266,10 @@ fun PastStartDate() {
     TasksTheme {
         StartDateRow(
             startDate = 1657080392000L,
-            selectedDay = DUE_TIME,
-            selectedTime = NO_TIME,
-            currentTime = 1657080392001L,
+            selectedDay = StartDateTimePicker.DUE_TIME,
             hasStartAlarm = true,
             hasDueDate = false,
-            printDate = { "" },
+            dateTimeText = "Due time",
             onClick = {},
         )
     }
