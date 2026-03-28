@@ -175,10 +175,16 @@ jobs:
         include:
           - platform: linux
             target: linux-app
-          - platform: macos
+            flags: ""
+          - platform: macos-amd64
             target: unnotarized-mac-zip
+            flags: "-Kapp.machines=mac.amd64"
+          - platform: macos-aarch64
+            target: unnotarized-mac-zip
+            flags: "-Kapp.machines=mac.aarch64"
           - platform: windows
             target: windows-app
+            flags: ""
     steps:
       - uses: actions/checkout@v6
 
@@ -215,7 +221,7 @@ jobs:
           SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
         run: |
           [ -z "$SIGNING_KEY" ] && unset SIGNING_KEY
-          conveyor make ${{ matrix.target }}
+          conveyor make ${{ matrix.target }} ${{ matrix.flags }}
 
       - name: Upload desktop-linux-deb
         if: matrix.platform == 'linux'
@@ -232,10 +238,10 @@ jobs:
           path: composeApp/output/*.tar.gz
 
       - name: Upload desktop-macos-zip
-        if: matrix.platform == 'macos'
+        if: startsWith(matrix.platform, 'macos')
         uses: actions/upload-artifact@v7
         with:
-          name: desktop-macos-zip
+          name: desktop-${{ matrix.platform }}-zip
           path: composeApp/output/*.zip
 
       - name: Upload desktop-windows-msix
