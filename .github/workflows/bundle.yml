@@ -223,6 +223,10 @@ jobs:
           [ -z "$SIGNING_KEY" ] && unset SIGNING_KEY
           conveyor ${{ matrix.flags }} make ${{ matrix.target }}
 
+      - name: List output directory
+        run: find composeApp/output -type f 2>/dev/null || echo "No output directory found"
+
+
       - name: Upload desktop-linux-deb
         if: matrix.platform == 'linux'
         uses: actions/upload-artifact@v7
