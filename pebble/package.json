@@ -1,6 +1,6 @@
 {
   "name": "tasks-pebble",
-  "version": "15.5.0",
+  "version": "15.6.0",
   "author": "Tasks.org",
   "pebble": {
     "displayName": "Tasks",

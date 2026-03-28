@@ -10,6 +10,9 @@ on:
 permissions:
   contents: read
 
+env:
+  PEBBLE_SDK_VERSION: '4.9.127'
+
 jobs:
   check:
     uses: ./.github/workflows/check.yml
@@ -30,13 +33,13 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.pebble-sdk
-          key: pebble-sdk-${{ runner.os }}
+          key: pebble-sdk-${{ env.PEBBLE_SDK_VERSION }}-${{ runner.os }}
 
       - name: Install Pebble SDK
         run: |
           pip install pebble-tool
           if [ "${{ steps.cache-pebble.outputs.cache-hit }}" != "true" ]; then
-            pebble sdk install 4.9.127
+            pebble sdk install $PEBBLE_SDK_VERSION
           fi
 
       - name: Install emulator dependencies
