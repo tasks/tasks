@@ -36,7 +36,7 @@ jobs:
         run: |
           pip install pebble-tool
           if [ "${{ steps.cache-pebble.outputs.cache-hit }}" != "true" ]; then
-            pebble sdk install latest
+            pebble sdk install 4.9.127
           fi
 
       - name: Install emulator dependencies
