@@ -46,6 +46,7 @@ import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
+import org.tasks.viewmodel.TaskDetailViewModel
 import org.tasks.viewmodel.TaskListViewModel
 
 val commonModule = module {
@@ -171,6 +172,7 @@ val commonModule = module {
 
     // ViewModels
     viewModelOf(::AppViewModel)
+    viewModelOf(::TaskDetailViewModel)
     viewModelOf(::AddAccountViewModel)
     viewModel {
         DrawerViewModel(

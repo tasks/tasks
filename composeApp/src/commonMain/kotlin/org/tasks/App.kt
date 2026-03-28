@@ -5,6 +5,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,10 +27,12 @@ import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SwapVert
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.rememberDrawerState
@@ -57,6 +60,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -114,7 +118,9 @@ import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
+import org.tasks.compose.TaskDetailScreen
 import org.tasks.viewmodel.DrawerViewModel
+import org.tasks.viewmodel.TaskDetailViewModel
 import org.tasks.viewmodel.TaskListViewModel
 
 @Serializable
@@ -347,8 +353,11 @@ private fun TaskListScreen(
             }
         }
     }
+    var selectedTaskId by remember { mutableStateOf<Long?>(null) }
+
     LaunchedEffect(state.filter) {
         drawerViewModel.setSelectedFilter(state.filter)
+        selectedTaskId = null
     }
 
     // TODO: use user's theme color preference instead of BLUE
@@ -361,19 +370,16 @@ private fun TaskListScreen(
         )
     }
 
-    PlatformBackHandler(enabled = materialDrawerState.isOpen) {
-        scope.launch { materialDrawerState.close() }
-    }
-
-    ModalNavigationDrawer(
-        drawerState = materialDrawerState,
-        drawerContent = {
-            ModalDrawerSheet(
-                windowInsets = WindowInsets(0),
-            ) {
-                Box(modifier = Modifier.fillMaxSize()) {
+    BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+        if (maxWidth >= 840.dp) {
+            // === WIDE LAYOUT: permanent sidebar + equal-width list/detail ===
+            PlatformBackHandler(enabled = selectedTaskId != null) {
+                selectedTaskId = null
+            }
+            Row(modifier = Modifier.fillMaxSize()) {
+                Box(modifier = Modifier.width(280.dp).fillMaxHeight()) {
                     TaskListDrawer(
-                        drawerOpen = materialDrawerState.isOpen,
+                        drawerOpen = true,
                         drawerState = drawerState,
                         onQueryChange = { drawerViewModel.setMenuQuery(it) },
                         onClick = { item ->
@@ -381,260 +387,370 @@ private fun TaskListScreen(
                                 is DrawerItem.Filter -> {
                                     viewModel.setFilter(item.filter)
                                     drawerViewModel.setSelectedFilter(item.filter)
-                                    scope.launch { materialDrawerState.close() }
+                                    selectedTaskId = null
                                 }
-                                is DrawerItem.Header -> {
-                                    drawerViewModel.toggleCollapsed(item.header)
-                                }
+                                is DrawerItem.Header -> drawerViewModel.toggleCollapsed(item.header)
                             }
                         },
                         onAddClick = { /* TODO: add new list/tag/place */ },
                         onErrorClick = { /* TODO: show sync error */ },
                     )
-                    val drawerScrimColor = MaterialTheme.colorScheme.surfaceContainerLow.copy(alpha = 0.8f)
-                    StatusBarScrim(
-                        color = drawerScrimColor,
-                        modifier = Modifier.align(Alignment.TopCenter),
+                }
+                VerticalDivider()
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                        .nestedScroll(topBarScrollConnection)
+                        .nestedScroll(floatingToolbarScrollBehavior),
+                ) {
+                    Row(modifier = Modifier.fillMaxSize()) {
+                        // Task list (left half)
+                        Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+                            when (val results = state.tasks) {
+                                is TasksResults.Loading -> Box(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentAlignment = Alignment.Center,
+                                ) { CircularProgressIndicator() }
+                                is TasksResults.Results -> TaskList(
+                                    tasks = results.tasks,
+                                    headerFormatter = headerFormatter,
+                                    listState = listState,
+                                    topPadding = topBarHeight,
+                                    onTaskClick = { task -> selectedTaskId = task.id },
+                                    onCompleteTask = { task, newState ->
+                                        viewModel.onCompleteTask(task, newState)
+                                        if (newState) reporting.completeTask("task_list")
+                                    },
+                                    onToggleGroup = { viewModel.toggleCollapsed(it) },
+                                )
+                            }
+                        }
+                        // Task detail (right half, only when a task is selected)
+                        selectedTaskId?.let { id ->
+                            VerticalDivider()
+                            key(id) {
+                                val detailVm = koinViewModel<TaskDetailViewModel>()
+                                LaunchedEffect(id) { detailVm.load(id) }
+                                val detailState by detailVm.state.collectAsState()
+                                TaskDetailScreen(
+                                    title = detailState.title,
+                                    notes = detailState.notes,
+                                    priority = detailState.priority,
+                                    isCompleted = detailState.isCompleted,
+                                    dueDate = detailState.dueDate,
+                                    onTitleChange = detailVm::setTitle,
+                                    onNotesChange = detailVm::setNotes,
+                                    onPriorityChange = detailVm::setPriority,
+                                    onToggleComplete = detailVm::toggleComplete,
+                                    onSave = detailVm::save,
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .fillMaxHeight()
+                                        .padding(top = topBarHeight),
+                                )
+                            }
+                        }
+                    }
+                    TopAppBar(
+                        modifier = Modifier
+                            .onSizeChanged { size ->
+                                topBarHeightPx = size.height.toFloat()
+                                topBarHeight = with(density) { size.height.toDp() }
+                            }
+                            .graphicsLayer { translationY = topBarOffsetPx },
+                        title = {
+                            Text(
+                                text = state.filter.title.ifEmpty { "Tasks" },
+                                style = MaterialTheme.typography.headlineSmall,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.background,
+                            scrolledContainerColor = MaterialTheme.colorScheme.background,
+                            titleContentColor = Color(themeColor.primaryColor),
+                        ),
                     )
-                    NavigationBarScrim(
-                        color = drawerScrimColor,
-                        modifier = Modifier.align(Alignment.BottomCenter),
+                    val scrimColor = MaterialTheme.colorScheme.background.copy(alpha = 0.8f)
+                    StatusBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.TopCenter))
+                    NavigationBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.BottomCenter))
+                    FloatingToolbar(
+                        showMenuButton = false,
+                        onMenuClick = {},
+                        onSearchClick = { /* TODO: search */ },
+                        onSortClick = { showSortSheet = true },
+                        onMoreClick = { /* TODO: more options */ },
+                        onAddClick = { /* TODO: create task */ },
+                        scrollBehavior = floatingToolbarScrollBehavior,
+                        fabContainerColor = Color(themeColor.primaryColor),
+                        fabContentColor = Color(themeColor.onPrimaryColor),
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .platformNavigationBarsPadding()
+                            .padding(16.dp),
                     )
                 }
             }
-        },
-    ) {
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .nestedScroll(topBarScrollConnection)
-            .nestedScroll(floatingToolbarScrollBehavior),
-    ) {
-        ListDetailPaneScaffold(
-            directive = navigator.scaffoldDirective,
-            value = navigator.scaffoldValue,
-            listPane = {
-                when (val results = state.tasks) {
-                    is TasksResults.Loading -> {
-                        androidx.compose.foundation.layout.Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            CircularProgressIndicator()
+        } else {
+            // === NARROW LAYOUT: modal drawer ===
+            PlatformBackHandler(enabled = materialDrawerState.isOpen) {
+                scope.launch { materialDrawerState.close() }
+            }
+            ModalNavigationDrawer(
+                drawerState = materialDrawerState,
+                drawerContent = {
+                    ModalDrawerSheet(
+                        windowInsets = WindowInsets(0),
+                    ) {
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            TaskListDrawer(
+                                drawerOpen = materialDrawerState.isOpen,
+                                drawerState = drawerState,
+                                onQueryChange = { drawerViewModel.setMenuQuery(it) },
+                                onClick = { item ->
+                                    when (item) {
+                                        is DrawerItem.Filter -> {
+                                            viewModel.setFilter(item.filter)
+                                            drawerViewModel.setSelectedFilter(item.filter)
+                                            scope.launch { materialDrawerState.close() }
+                                        }
+                                        is DrawerItem.Header -> drawerViewModel.toggleCollapsed(item.header)
+                                    }
+                                },
+                                onAddClick = { /* TODO: add new list/tag/place */ },
+                                onErrorClick = { /* TODO: show sync error */ },
+                            )
+                            val drawerScrimColor = MaterialTheme.colorScheme.surfaceContainerLow.copy(alpha = 0.8f)
+                            StatusBarScrim(
+                                color = drawerScrimColor,
+                                modifier = Modifier.align(Alignment.TopCenter),
+                            )
+                            NavigationBarScrim(
+                                color = drawerScrimColor,
+                                modifier = Modifier.align(Alignment.BottomCenter),
+                            )
                         }
                     }
-                    is TasksResults.Results -> {
-                        TaskList(
-                            tasks = results.tasks,
-                            headerFormatter = headerFormatter,
-                            listState = listState,
-                            topPadding = topBarHeight,
-                            onTaskClick = { task ->
-                                scope.launch {
-                                    navigator.navigateTo(
-                                        ListDetailPaneScaffoldRole.Detail,
-                                        task.id,
-                                    )
-                                }
-                            },
-                            onCompleteTask = { task, newState ->
-                                viewModel.onCompleteTask(task, newState)
-                                if (newState) {
-                                    reporting.completeTask("task_list")
-                                }
-                            },
-                            onToggleGroup = { viewModel.toggleCollapsed(it) },
+                },
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .nestedScroll(topBarScrollConnection)
+                        .nestedScroll(floatingToolbarScrollBehavior),
+                ) {
+                    ListDetailPaneScaffold(
+                        directive = navigator.scaffoldDirective,
+                        value = navigator.scaffoldValue,
+                        listPane = {
+                            when (val results = state.tasks) {
+                                is TasksResults.Loading -> Box(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentAlignment = Alignment.Center,
+                                ) { CircularProgressIndicator() }
+                                is TasksResults.Results -> TaskList(
+                                    tasks = results.tasks,
+                                    headerFormatter = headerFormatter,
+                                    listState = listState,
+                                    topPadding = topBarHeight,
+                                    onTaskClick = { task ->
+                                        scope.launch {
+                                            navigator.navigateTo(
+                                                ListDetailPaneScaffoldRole.Detail,
+                                                task.id,
+                                            )
+                                        }
+                                    },
+                                    onCompleteTask = { task, newState ->
+                                        viewModel.onCompleteTask(task, newState)
+                                        if (newState) reporting.completeTask("task_list")
+                                    },
+                                    onToggleGroup = { viewModel.toggleCollapsed(it) },
+                                )
+                            }
+                        },
+                        detailPane = {
+                            navigator.currentDestination?.contentKey?.let { taskId ->
+                                TaskDetailPlaceholder(taskId)
+                            }
+                        },
+                    )
+                    TopAppBar(
+                        modifier = Modifier
+                            .onSizeChanged { size ->
+                                topBarHeightPx = size.height.toFloat()
+                                topBarHeight = with(density) { size.height.toDp() }
+                            }
+                            .graphicsLayer { translationY = topBarOffsetPx },
+                        title = {
+                            Text(
+                                text = state.filter.title.ifEmpty { "Tasks" },
+                                style = MaterialTheme.typography.headlineSmall,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.background,
+                            scrolledContainerColor = MaterialTheme.colorScheme.background,
+                            titleContentColor = Color(themeColor.primaryColor),
+                        ),
+                    )
+                    val scrimColor = MaterialTheme.colorScheme.background.copy(alpha = 0.8f)
+                    StatusBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.TopCenter))
+                    NavigationBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.BottomCenter))
+                    FloatingToolbar(
+                        showMenuButton = true,
+                        onMenuClick = {
+                            scope.launch {
+                                if (materialDrawerState.isOpen) materialDrawerState.close()
+                                else materialDrawerState.open()
+                            }
+                        },
+                        onSearchClick = { /* TODO: search */ },
+                        onSortClick = { showSortSheet = true },
+                        onMoreClick = { /* TODO: more options */ },
+                        onAddClick = { /* TODO: create task */ },
+                        scrollBehavior = floatingToolbarScrollBehavior,
+                        fabContainerColor = Color(themeColor.primaryColor),
+                        fabContentColor = Color(themeColor.onPrimaryColor),
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .platformNavigationBarsPadding()
+                            .padding(16.dp),
+                    )
+                }
+            }
+        }
+
+        if (showSortSheet) {
+            var showGroupPicker by remember { mutableStateOf(false) }
+            var showSortPicker by remember { mutableStateOf(false) }
+            var showCompletedPicker by remember { mutableStateOf(false) }
+            var showSubtaskPicker by remember { mutableStateOf(false) }
+            ModalBottomSheet(
+                onDismissRequest = { showSortSheet = false },
+                containerColor = MaterialTheme.colorScheme.surface,
+            ) {
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                ) {
+                    BottomSheetContent(
+                        groupMode = sortState.groupMode,
+                        sortMode = sortState.sortMode,
+                        completedMode = sortState.completedMode,
+                        subtaskMode = sortState.subtaskMode,
+                        sortAscending = sortState.sortAscending,
+                        groupAscending = sortState.groupAscending,
+                        completedAscending = sortState.completedAscending,
+                        subtaskAscending = sortState.subtaskAscending,
+                        manualSort = false,
+                        astridSort = false,
+                        completedAtBottom = sortState.completedAtBottom,
+                        setSortAscending = { sortViewModel.setSortAscending(it) },
+                        setGroupAscending = { sortViewModel.setGroupAscending(it) },
+                        setCompletedAscending = { sortViewModel.setCompletedAscending(it) },
+                        setSubtaskAscending = { sortViewModel.setSubtaskAscending(it) },
+                        setCompletedAtBottom = { sortViewModel.setCompletedAtBottom(it) },
+                        clickGroupMode = { showGroupPicker = true },
+                        clickSortMode = { showSortPicker = true },
+                        clickCompletedMode = { showCompletedPicker = true },
+                        clickSubtaskMode = { showSubtaskPicker = true },
+                    )
+                }
+            }
+            if (showGroupPicker) {
+                ModalBottomSheet(
+                    onDismissRequest = { showGroupPicker = false },
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    scrimColor = Color.Transparent,
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .verticalScroll(rememberScrollState())
+                            .fillMaxWidth()
+                    ) {
+                        SortPicker(
+                            selected = sortState.groupMode,
+                            options = groupOptions,
+                            onClick = {
+                                sortViewModel.setGroupMode(it)
+                                showGroupPicker = false
+                            }
                         )
                     }
                 }
-            },
-            detailPane = {
-                navigator.currentDestination?.contentKey?.let { taskId ->
-                    TaskDetailPlaceholder(taskId)
+            }
+            if (showSortPicker) {
+                ModalBottomSheet(
+                    onDismissRequest = { showSortPicker = false },
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    scrimColor = Color.Transparent,
+                ) {
+                    SortSheetContent(
+                        manualSortEnabled = false,
+                        astridSortEnabled = false,
+                        manualSortSelected = false,
+                        selected = sortState.sortMode,
+                        setManualSort = {},
+                        setAstridSort = {},
+                        onSelected = {
+                            sortViewModel.setSortMode(it)
+                            showSortPicker = false
+                        }
+                    )
                 }
-            },
-        )
-
-        TopAppBar(
-            modifier = Modifier
-                .onSizeChanged { size ->
-                    topBarHeightPx = size.height.toFloat()
-                    topBarHeight = with(density) { size.height.toDp() }
-                }
-                .graphicsLayer {
-                    translationY = topBarOffsetPx
-                },
-            title = {
-                Text(
-                    text = state.filter.title.ifEmpty { "Tasks" },
-                    style = MaterialTheme.typography.headlineSmall,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            },
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = MaterialTheme.colorScheme.background,
-                scrolledContainerColor = MaterialTheme.colorScheme.background,
-                titleContentColor = Color(themeColor.primaryColor),
-            ),
-        )
-
-        val scrimColor = MaterialTheme.colorScheme.background.copy(alpha = 0.8f)
-        StatusBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.TopCenter))
-        NavigationBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.BottomCenter))
-
-        FloatingToolbar(
-            onMenuClick = {
-                scope.launch {
-                    if (materialDrawerState.isOpen) {
-                        materialDrawerState.close()
-                    } else {
-                        materialDrawerState.open()
+            }
+            if (showCompletedPicker) {
+                ModalBottomSheet(
+                    onDismissRequest = { showCompletedPicker = false },
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    scrimColor = Color.Transparent,
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .verticalScroll(rememberScrollState())
+                            .fillMaxWidth()
+                    ) {
+                        SortPicker(
+                            selected = sortState.completedMode,
+                            options = completedOptions,
+                            onClick = {
+                                sortViewModel.setCompletedMode(it)
+                                showCompletedPicker = false
+                            }
+                        )
                     }
                 }
-            },
-            onSearchClick = { /* TODO: search */ },
-            onSortClick = { showSortSheet = true },
-            onMoreClick = { /* TODO: more options */ },
-            onAddClick = { /* TODO: create task */ },
-            scrollBehavior = floatingToolbarScrollBehavior,
-            fabContainerColor = Color(themeColor.primaryColor),
-            fabContentColor = Color(themeColor.onPrimaryColor),
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .platformNavigationBarsPadding()
-                .padding(16.dp),
-        )
-    }
-
-    if (showSortSheet) {
-        var showGroupPicker by remember { mutableStateOf(false) }
-        var showSortPicker by remember { mutableStateOf(false) }
-        var showCompletedPicker by remember { mutableStateOf(false) }
-        var showSubtaskPicker by remember { mutableStateOf(false) }
-        ModalBottomSheet(
-            onDismissRequest = { showSortSheet = false },
-            containerColor = MaterialTheme.colorScheme.surface,
-        ) {
-            Column(
-                modifier = Modifier
-                    .verticalScroll(rememberScrollState())
-                    .fillMaxWidth()
-            ) {
-                BottomSheetContent(
-                    groupMode = sortState.groupMode,
-                    sortMode = sortState.sortMode,
-                    completedMode = sortState.completedMode,
-                    subtaskMode = sortState.subtaskMode,
-                    sortAscending = sortState.sortAscending,
-                    groupAscending = sortState.groupAscending,
-                    completedAscending = sortState.completedAscending,
-                    subtaskAscending = sortState.subtaskAscending,
-                    manualSort = false,
-                    astridSort = false,
-                    completedAtBottom = sortState.completedAtBottom,
-                    setSortAscending = { sortViewModel.setSortAscending(it) },
-                    setGroupAscending = { sortViewModel.setGroupAscending(it) },
-                    setCompletedAscending = { sortViewModel.setCompletedAscending(it) },
-                    setSubtaskAscending = { sortViewModel.setSubtaskAscending(it) },
-                    setCompletedAtBottom = { sortViewModel.setCompletedAtBottom(it) },
-                    clickGroupMode = { showGroupPicker = true },
-                    clickSortMode = { showSortPicker = true },
-                    clickCompletedMode = { showCompletedPicker = true },
-                    clickSubtaskMode = { showSubtaskPicker = true },
-                )
             }
-        }
-        if (showGroupPicker) {
-            ModalBottomSheet(
-                onDismissRequest = { showGroupPicker = false },
-                containerColor = MaterialTheme.colorScheme.surface,
-                scrimColor = Color.Transparent,
-            ) {
-                Column(
-                    modifier = Modifier
-                        .verticalScroll(rememberScrollState())
-                        .fillMaxWidth()
+            if (showSubtaskPicker) {
+                ModalBottomSheet(
+                    onDismissRequest = { showSubtaskPicker = false },
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    scrimColor = Color.Transparent,
                 ) {
-                    SortPicker(
-                        selected = sortState.groupMode,
-                        options = groupOptions,
-                        onClick = {
-                            sortViewModel.setGroupMode(it)
-                            showGroupPicker = false
-                        }
-                    )
-                }
-            }
-        }
-        if (showSortPicker) {
-            ModalBottomSheet(
-                onDismissRequest = { showSortPicker = false },
-                containerColor = MaterialTheme.colorScheme.surface,
-                scrimColor = Color.Transparent,
-            ) {
-                SortSheetContent(
-                    manualSortEnabled = false,
-                    astridSortEnabled = false,
-                    manualSortSelected = false,
-                    selected = sortState.sortMode,
-                    setManualSort = {},
-                    setAstridSort = {},
-                    onSelected = {
-                        sortViewModel.setSortMode(it)
-                        showSortPicker = false
+                    Column(
+                        modifier = Modifier
+                            .verticalScroll(rememberScrollState())
+                            .fillMaxWidth()
+                    ) {
+                        SortPicker(
+                            selected = sortState.subtaskMode,
+                            options = subtaskOptions,
+                            onClick = {
+                                sortViewModel.setSubtaskMode(it)
+                                showSubtaskPicker = false
+                            }
+                        )
                     }
-                )
-            }
-        }
-        if (showCompletedPicker) {
-            ModalBottomSheet(
-                onDismissRequest = { showCompletedPicker = false },
-                containerColor = MaterialTheme.colorScheme.surface,
-                scrimColor = Color.Transparent,
-            ) {
-                Column(
-                    modifier = Modifier
-                        .verticalScroll(rememberScrollState())
-                        .fillMaxWidth()
-                ) {
-                    SortPicker(
-                        selected = sortState.completedMode,
-                        options = completedOptions,
-                        onClick = {
-                            sortViewModel.setCompletedMode(it)
-                            showCompletedPicker = false
-                        }
-                    )
-                }
-            }
-        }
-        if (showSubtaskPicker) {
-            ModalBottomSheet(
-                onDismissRequest = { showSubtaskPicker = false },
-                containerColor = MaterialTheme.colorScheme.surface,
-                scrimColor = Color.Transparent,
-            ) {
-                Column(
-                    modifier = Modifier
-                        .verticalScroll(rememberScrollState())
-                        .fillMaxWidth()
-                ) {
-                    SortPicker(
-                        selected = sortState.subtaskMode,
-                        options = subtaskOptions,
-                        onClick = {
-                            sortViewModel.setSubtaskMode(it)
-                            showSubtaskPicker = false
-                        }
-                    )
                 }
             }
         }
     }
-
-    } // ModalNavigationDrawer
 }
 
 @Composable
@@ -776,6 +892,7 @@ private fun TaskRow(
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun FloatingToolbar(
+    showMenuButton: Boolean = true,
     onMenuClick: () -> Unit,
     onSearchClick: () -> Unit,
     onSortClick: () -> Unit,
@@ -806,8 +923,10 @@ private fun FloatingToolbar(
         scrollBehavior = scrollBehavior,
         modifier = modifier,
     ) {
-        IconButton(onClick = onMenuClick) {
-            Icon(Icons.Outlined.Menu, contentDescription = "Menu")
+        if (showMenuButton) {
+            IconButton(onClick = onMenuClick) {
+                Icon(Icons.Outlined.Menu, contentDescription = "Menu")
+            }
         }
         IconButton(onClick = onSearchClick) {
             Icon(Icons.Outlined.Search, contentDescription = "Search")

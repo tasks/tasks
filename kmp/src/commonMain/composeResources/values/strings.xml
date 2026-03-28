@@ -113,4 +113,14 @@
     <string name="subtasks">Subtasks</string>
     <string name="sort_not_available">Not available for tags, filters, or places</string>
     <string name="none">None</string>
+    <string name="certificate_not_trusted">Untrusted certificate</string>
+    <string name="certificate_not_trusted_description">The server presented a certificate that cannot be verified. Do you want to trust it?</string>
+    <string name="trust">Trust</string>
+    <string name="add_caldav_account">Add CalDAV account</string>
+    <string name="server_url">Server URL</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="account_name">Account name</string>
+    <string name="optional">Optional</string>
+    <string name="task_notes_hint">Notes</string>
 </resources>
