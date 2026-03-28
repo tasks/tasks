@@ -44,15 +44,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y xvfb libsdl1.2debian libfdt1 librsvg2-bin
 
-      - name: Build Pebble app
-        run: cd pebble && pebble build
-
       - name: Generate screenshots
         run: |
           export DISPLAY=:99
           Xvfb :99 &
           sleep 2
           cd pebble && ./screenshots.sh
+
+      - name: Build Pebble app
+        run: cd pebble && pebble clean && pebble build
 
       - name: Generate store icons
         run: |

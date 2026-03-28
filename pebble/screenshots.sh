@@ -61,7 +61,7 @@ for scene in $SCENES; do
     echo "=== Building scene $scene: $scene_name ==="
     pebble clean
     SCREENSHOT_MODE=1 SCREENSHOT_SCENE="$scene" pebble build
-    cp build/pebble.pbw "$BUILD_DIR/scene_${scene}.pbw"
+    mv build/pebble.pbw "$BUILD_DIR/scene_${scene}.pbw"
 done
 
 # For each platform: boot emulator, take all scene screenshots, kill
