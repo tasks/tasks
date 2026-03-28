@@ -201,6 +201,7 @@ jobs:
 
       - name: Generate signing key if absent
         env:
+          CONVEYOR_AGREE_TO_LICENSE: 1
           SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
         run: |
           if [ -z "$SIGNING_KEY" ]; then
