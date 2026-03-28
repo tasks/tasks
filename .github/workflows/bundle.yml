@@ -173,17 +173,23 @@ jobs:
     strategy:
       matrix:
         include:
-          - platform: linux
-            targets: "debian-package linux-tarball"
+          - platform: linux-deb
+            target: debian-package
+            flags: ""
+          - platform: linux-tar-gz
+            target: linux-tarball
             flags: ""
           - platform: macos-amd64
-            targets: "unnotarized-mac-zip"
+            target: unnotarized-mac-zip
             flags: "-Kapp.machines=mac.amd64"
           - platform: macos-aarch64
-            targets: "unnotarized-mac-zip"
+            target: unnotarized-mac-zip
             flags: "-Kapp.machines=mac.aarch64"
-          - platform: windows
-            targets: "windows-msix windows-zip"
+          - platform: windows-msix
+            target: windows-msix
+            flags: ""
+          - platform: windows-zip
+            target: windows-zip
             flags: ""
     steps:
       - uses: actions/checkout@v6
@@ -221,45 +227,10 @@ jobs:
           SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
         run: |
           [ -z "$SIGNING_KEY" ] && unset SIGNING_KEY
-          for target in ${{ matrix.targets }}; do
-            conveyor ${{ matrix.flags }} make $target
-          done
+          conveyor ${{ matrix.flags }} make ${{ matrix.target }}
 
-      - name: List output directory
-        run: find composeApp/output -type f 2>/dev/null || echo "No output directory found"
-
-
-      - name: Upload desktop-linux-deb
-        if: matrix.platform == 'linux'
+      - name: Upload desktop-${{ matrix.platform }}
         uses: actions/upload-artifact@v7
         with:
-          name: desktop-linux-deb
-          path: composeApp/output/*.deb
-
-      - name: Upload desktop-linux-tar-gz
-        if: matrix.platform == 'linux'
-        uses: actions/upload-artifact@v7
-        with:
-          name: desktop-linux-tar-gz
-          path: composeApp/output/*.tar.gz
-
-      - name: Upload desktop-macos-zip
-        if: startsWith(matrix.platform, 'macos')
-        uses: actions/upload-artifact@v7
-        with:
-          name: desktop-${{ matrix.platform }}-zip
-          path: composeApp/output/*.zip
-
-      - name: Upload desktop-windows-msix
-        if: matrix.platform == 'windows'
-        uses: actions/upload-artifact@v7
-        with:
-          name: desktop-windows-msix
-          path: composeApp/output/*.msix
-
-      - name: Upload desktop-windows-zip
-        if: matrix.platform == 'windows'
-        uses: actions/upload-artifact@v7
-        with:
-          name: desktop-windows-zip
-          path: composeApp/output/*.zip
+          name: desktop-${{ matrix.platform }}
+          path: composeApp/output/
