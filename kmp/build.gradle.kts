@@ -40,6 +40,11 @@ kotlin {
                 implementation(libs.xpp3)
             }
         }
+        val jvmTest by getting {
+            dependencies {
+                implementation(libs.junit)
+            }
+        }
         jvmCommonMain.dependencies {
             api(libs.ical4j)
             api(libs.bitfire.dav4jvm.get().toString()) {
