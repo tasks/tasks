@@ -176,7 +176,7 @@ jobs:
           - platform: linux
             target: linux-app
           - platform: macos
-            target: mac-zip
+            target: unnotarized-mac-zip
           - platform: windows
             target: windows-app
     steps:
