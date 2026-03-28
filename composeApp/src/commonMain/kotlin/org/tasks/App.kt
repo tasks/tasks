@@ -3,6 +3,8 @@ package org.tasks
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -94,6 +96,10 @@ import org.tasks.compose.SignInProviderDialog
 import org.tasks.compose.WelcomeScreenLayout
 import org.tasks.compose.accounts.AddAccountScreen
 import org.tasks.compose.accounts.Platform
+import com.mikepenz.markdown.m3.Markdown
+import com.mikepenz.markdown.m3.markdownColor
+import com.mikepenz.markdown.m3.markdownTypography
+import com.mikepenz.markdown.model.markdownAnimations
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
 import org.tasks.compose.chips.ChipDataProvider
@@ -808,6 +814,18 @@ private fun TaskRow(
                     MaterialTheme.colorScheme.onSurface
                 },
             )
+            if (!task.notes.isNullOrBlank()) {
+                Markdown(
+                    content = task.notes!!.trim(),
+                    colors = markdownColor(
+                        text = MaterialTheme.colorScheme.onSurfaceVariant,
+                    ),
+                    typography = markdownTypography(
+                        paragraph = MaterialTheme.typography.bodyMedium,
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
             val startDate = task.task.hideUntil
             val showStartDate = task.task.isHidden
                     && startDate != task.dueDate

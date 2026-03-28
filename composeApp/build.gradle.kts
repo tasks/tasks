@@ -65,6 +65,7 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            implementation(libs.markdown.renderer.m3)
             implementation("org.jetbrains.compose.material3.adaptive:adaptive:1.1.2")
             implementation("org.jetbrains.compose.material3.adaptive:adaptive-layout:1.1.2")
             implementation("org.jetbrains.compose.material3.adaptive:adaptive-navigation:1.1.2")

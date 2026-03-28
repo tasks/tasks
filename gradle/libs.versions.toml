@@ -140,6 +140,7 @@ horologist-datalayer-watch = { group = "com.google.android.horologist", name = "
 jchronic = { module = "com.rubiconproject.oss:jchronic", version = "0.2.6" }
 junit = { module = "junit:junit", version.ref = "junit-junit" }
 kermit = { module = "co.touchlab:kermit", version = "2.1.0" }
+markdown-renderer-m3 = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.39.2" }
 jetbrains-navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version = "1.0.0-alpha06" }
 jetbrains-lifecycle-viewmodel-navigation3 = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3", version = "2.10.0" }
 koin-core = { module = "io.insert-koin:koin-core", version = "4.1.0" }
