@@ -204,7 +204,7 @@ jobs:
           SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
         run: |
           if [ -z "$SIGNING_KEY" ]; then
-            conveyor keys generate --passphrase ""
+            conveyor keys generate --no-passphrase
           fi
 
       - name: Build ${{ matrix.platform }} desktop
