@@ -174,16 +174,16 @@ jobs:
       matrix:
         include:
           - platform: linux
-            target: linux-app
+            targets: "debian-package linux-tarball"
             flags: ""
           - platform: macos-amd64
-            target: unnotarized-mac-zip
+            targets: "unnotarized-mac-zip"
             flags: "-Kapp.machines=mac.amd64"
           - platform: macos-aarch64
-            target: unnotarized-mac-zip
+            targets: "unnotarized-mac-zip"
             flags: "-Kapp.machines=mac.aarch64"
           - platform: windows
-            target: windows-app
+            targets: "windows-msix windows-zip"
             flags: ""
     steps:
       - uses: actions/checkout@v6
@@ -221,7 +221,9 @@ jobs:
           SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
         run: |
           [ -z "$SIGNING_KEY" ] && unset SIGNING_KEY
-          conveyor ${{ matrix.flags }} make ${{ matrix.target }}
+          for target in ${{ matrix.targets }}; do
+            conveyor ${{ matrix.flags }} make $target
+          done
 
       - name: List output directory
         run: find composeApp/output -type f 2>/dev/null || echo "No output directory found"
