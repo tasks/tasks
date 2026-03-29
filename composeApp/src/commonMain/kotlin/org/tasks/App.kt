@@ -6,6 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -100,6 +102,7 @@ import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownColor
 import com.mikepenz.markdown.m3.markdownTypography
 import com.mikepenz.markdown.model.markdownAnimations
+import org.jetbrains.compose.resources.stringResource
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
 import org.tasks.compose.chips.ChipDataProvider
@@ -132,6 +135,9 @@ import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.TaskListViewModel
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.show_less
+import tasks.kmp.generated.resources.show_more
 
 @Serializable
 data object WelcomeDestination : NavKey
@@ -815,16 +821,37 @@ private fun TaskRow(
                 },
             )
             if (!task.notes.isNullOrBlank()) {
+                val content = task.notes!!.trim()
+                var expanded by remember { mutableStateOf(false) }
+                val lines = content.lines()
+                val hasMore = lines.size > 2
+                val mdColors = markdownColor(
+                    text = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                val mdTypography = markdownTypography(
+                    paragraph = MaterialTheme.typography.bodyMedium,
+                )
                 Markdown(
-                    content = task.notes!!.trim(),
-                    colors = markdownColor(
-                        text = MaterialTheme.colorScheme.onSurfaceVariant,
-                    ),
-                    typography = markdownTypography(
-                        paragraph = MaterialTheme.typography.bodyMedium,
+                    content = if (expanded || !hasMore) content
+                              else lines.take(2).joinToString("\n"),
+                    colors = mdColors,
+                    typography = mdTypography,
+                    animations = markdownAnimations(
+                        animateTextSize = { this },
                     ),
                     modifier = Modifier.fillMaxWidth(),
                 )
+                if (hasMore) {
+                    Text(
+                        text = stringResource(if (expanded) Res.string.show_less else Res.string.show_more),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .defaultMinSize(minHeight = 36.dp)
+                            .clickable { expanded = !expanded }
+                            .wrapContentHeight(Alignment.CenterVertically),
+                    )
+                }
             }
             val startDate = task.task.hideUntil
             val showStartDate = task.task.isHidden

@@ -42,7 +42,7 @@
     <string name="enter_title">Enter title</string>
     <string name="sort_mode">Sort</string>
     <string name="group_mode">Group</string>
-<string name="sort_due_date">Due date</string>
+    <string name="sort_due_date">Due date</string>
     <string name="sort_priority">Priority</string>
     <string name="sort_alphabetical">Alphabetical</string>
     <string name="sort_created">Created</string>
@@ -113,4 +113,6 @@
     <string name="subtasks">Subtasks</string>
     <string name="sort_not_available">Not available for tags, filters, or places</string>
     <string name="none">None</string>
+    <string name="show_more">Show more</string>
+    <string name="show_less">Show less</string>
 </resources>
