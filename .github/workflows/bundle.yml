@@ -173,6 +173,27 @@ jobs:
   desktop:
     runs-on: ubuntu-latest
     needs: [ check ]
+    strategy:
+      matrix:
+        include:
+          - platform: linux-deb
+            target: debian-package
+            flags: ""
+          - platform: linux-tar-gz
+            target: linux-tarball
+            flags: ""
+          - platform: macos-amd64
+            target: unnotarized-mac-zip
+            flags: "-Kapp.machines=mac.amd64"
+          - platform: macos-aarch64
+            target: unnotarized-mac-zip
+            flags: "-Kapp.machines=mac.aarch64"
+          - platform: windows-msix
+            target: windows-msix
+            flags: ""
+          - platform: windows-zip
+            target: windows-zip
+            flags: ""
     steps:
       - uses: actions/checkout@v6
 
@@ -193,20 +214,26 @@ jobs:
       - name: Install Conveyor
         run: npm install -g @hydraulic/conveyor
 
-      - name: Build desktop archives
+      - name: Generate signing key if absent
+        env:
+          CONVEYOR_AGREE_TO_LICENSE: 1
+          SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
+        run: |
+          if [ -z "$SIGNING_KEY" ]; then
+            conveyor keys generate --no-passphrase
+          fi
+
+      - name: Build ${{ matrix.platform }} desktop
         working-directory: composeApp
         env:
           CONVEYOR_AGREE_TO_LICENSE: 1
           SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
         run: |
-          conveyor make site
+          [ -z "$SIGNING_KEY" ] && unset SIGNING_KEY
+          conveyor ${{ matrix.flags }} make ${{ matrix.target }}
 
-      - name: Upload desktop builds
+      - name: Upload desktop-${{ matrix.platform }}
         uses: actions/upload-artifact@v7
         with:
-          name: desktop
-          path: |
-            composeApp/output/*.zip
-            composeApp/output/*.tar.gz
-            composeApp/output/*.msix
-            composeApp/output/*.deb
+          name: desktop-${{ matrix.platform }}
+          path: composeApp/output/
