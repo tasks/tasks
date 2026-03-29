@@ -49,15 +49,21 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
 
-      - name: Build desktop jar
-        env:
-          POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
-        run: ./gradlew :composeApp:desktopJar
+      - name: Download desktop jars
+        uses: actions/download-artifact@v8
+        with:
+          name: desktop-jar
 
       - name: Install Conveyor
         run: npm install -g @hydraulic/conveyor
 
-      - name: Build desktop releases
+      - name: Cache Conveyor downloads
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/hydraulic/conveyor
+          key: conveyor-release
+
+      - name: Build notarized desktop releases
         working-directory: composeApp
         env:
           SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
