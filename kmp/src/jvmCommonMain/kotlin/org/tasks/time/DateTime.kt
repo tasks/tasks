@@ -323,6 +323,18 @@ class DateTime {
         val MAX_MILLIS_PER_DAY: Int = TimeUnit.DAYS.toMillis(1).toInt() - 1
         val UTC: TimeZone = TimeZone.getTimeZone("GMT")
 
+        /** Convert local start-of-day millis to midnight UTC of the same calendar date. */
+        fun toUtcDateMillis(localMillis: Long): Long {
+            val dt = DateTime(localMillis)
+            return DateTime(dt.year, dt.monthOfYear, dt.dayOfMonth, timeZone = UTC).millis
+        }
+
+        /** Convert midnight UTC millis to local start-of-day millis of the same calendar date. */
+        fun toLocalDateMillis(utcMillis: Long): Long {
+            val dt = DateTime(utcMillis, UTC)
+            return DateTime(dt.year, dt.monthOfYear, dt.dayOfMonth).millis
+        }
+
         fun from(date: java.util.Date?): DateTime {
             if (date == null) {
                 return DateTime(0)

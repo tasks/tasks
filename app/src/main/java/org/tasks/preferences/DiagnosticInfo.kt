@@ -51,6 +51,7 @@ class DiagnosticInfo @Inject constructor(
             Tasks: ${BuildConfig.VERSION_NAME} (${BuildConfig.FLAVOR} build ${BuildConfig.VERSION_CODE})
             Android: ${Build.VERSION.RELEASE} (${Build.DISPLAY})
             Locale: ${Locale.getDefault()}
+            Timezone: ${java.util.TimeZone.getDefault().id}
             Model: ${Build.MANUFACTURER} ${Build.MODEL}
             Product: ${Build.PRODUCT} (${Build.DEVICE})
             Kernel: ${System.getProperty("os.version")} (${Build.VERSION.INCREMENTAL})

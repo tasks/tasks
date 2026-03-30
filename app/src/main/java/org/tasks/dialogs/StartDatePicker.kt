@@ -165,17 +165,17 @@ class StartDatePicker : BaseDateTimePicker() {
             )
             LaunchedEffect(selectedDay) {
                 if (selectedDay > 0) {
-                    state.selectedDateMillis = selectedDay + (DateTime(selectedDay).offset)
+                    state.selectedDateMillis = DateTime.toUtcDateMillis(selectedDay)
                 } else {
                     state.selectedDateMillis = null
                 }
             }
             LaunchedEffect(state.selectedDateMillis) {
-                if (state.selectedDateMillis == selectedDay + (DateTime(selectedDay).offset)) {
+                if (selectedDay > 0 && state.selectedDateMillis == DateTime.toUtcDateMillis(selectedDay)) {
                     return@LaunchedEffect
                 }
                 state.selectedDateMillis?.let {
-                    returnDate(day = it - DateTime(it).offset)
+                    returnDate(day = DateTime.toLocalDateMillis(it))
                 }
             }
         }

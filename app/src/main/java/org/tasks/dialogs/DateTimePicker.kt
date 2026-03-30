@@ -174,7 +174,7 @@ class DateTimePicker : BaseDateTimePicker() {
             )
             LaunchedEffect(selectedDay) {
                 if (selectedDay > 0) {
-                    (selectedDay + (DateTime(selectedDay).offset)).let {
+                    DateTime.toUtcDateMillis(selectedDay).let {
                         datePickerState.displayedMonthMillis = it
                         datePickerState.selectedDateMillis = it
                     }
@@ -183,11 +183,11 @@ class DateTimePicker : BaseDateTimePicker() {
                 }
             }
             LaunchedEffect(datePickerState.selectedDateMillis) {
-                if (datePickerState.selectedDateMillis == selectedDay + (DateTime(selectedDay).offset)) {
+                if (selectedDay > 0 && datePickerState.selectedDateMillis == DateTime.toUtcDateMillis(selectedDay)) {
                     return@LaunchedEffect
                 }
                 datePickerState.selectedDateMillis?.let {
-                    returnDate(day = it - DateTime(it).offset)
+                    returnDate(day = DateTime.toLocalDateMillis(it))
                 }
             }
         }
