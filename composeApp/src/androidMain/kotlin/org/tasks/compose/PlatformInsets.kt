@@ -4,9 +4,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.runtime.Composable
@@ -35,3 +40,13 @@ actual fun NavigationBarScrim(color: Color, modifier: Modifier) {
 
 actual fun Modifier.platformNavigationBarsPadding(): Modifier =
     this.navigationBarsPadding()
+
+@Composable
+actual fun platformSidebarInsets(): PaddingValues =
+    WindowInsets.systemBars
+        .union(WindowInsets.displayCutout)
+        .asPaddingValues()
+
+@Composable
+actual fun platformStatusBarInsets(): PaddingValues =
+    WindowInsets.statusBars.asPaddingValues()

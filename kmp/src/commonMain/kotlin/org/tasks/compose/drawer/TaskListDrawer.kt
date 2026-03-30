@@ -1,6 +1,7 @@
 package org.tasks.compose.drawer
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
@@ -31,7 +32,9 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.PeopleOutline
@@ -79,6 +82,8 @@ fun TaskListDrawer(
     onClick: (DrawerItem) -> Unit,
     onAddClick: (DrawerItem.Header) -> Unit,
     onErrorClick: () -> Unit,
+    expanded: Boolean = true,
+    listState: LazyListState = rememberLazyListState(),
 ) {
     var searchExpanded by remember { mutableStateOf(false) }
     var query by remember { mutableStateOf("") }
@@ -107,6 +112,7 @@ fun TaskListDrawer(
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
+            state = listState,
             contentPadding = PaddingValues(
                 top = maxOf(systemBarPadding.calculateTopPadding(), 8.dp),
                 bottom = 88.dp + bottomNavPadding,
@@ -137,10 +143,12 @@ fun TaskListDrawer(
                     when (item) {
                         is DrawerItem.Filter -> FilterItem(
                             item = item,
+                            expanded = expanded,
                             onClick = { onClick(item) }
                         )
                         is DrawerItem.Header -> HeaderItem(
                             item = item,
+                            expanded = expanded,
                             canAdd = item.canAdd,
                             toggleCollapsed = { onClick(item) },
                             onAddClick = { onAddClick(item) },
@@ -150,6 +158,13 @@ fun TaskListDrawer(
                 }
             }
         }
+        AnimatedVisibility(
+            visible = expanded,
+            enter = fadeIn(),
+            exit = fadeOut(),
+            modifier = Modifier
+                .align(Alignment.BottomEnd),
+        ) {
         SearchFab(
             expanded = searchExpanded,
             onExpandedChange = { searchExpanded = it },
@@ -159,9 +174,9 @@ fun TaskListDrawer(
                 onQueryChange(newQuery)
             },
             modifier = Modifier
-                .align(Alignment.BottomEnd)
                 .padding(bottom = 16.dp + bottomNavPadding),
         )
+        }
     }
 }
 
@@ -255,6 +270,7 @@ private fun SearchFab(
 internal fun FilterItem(
     modifier: Modifier = Modifier,
     item: DrawerItem.Filter,
+    expanded: Boolean = true,
     onClick: () -> Unit,
 ) {
     MenuRow(
@@ -279,33 +295,41 @@ internal fun FilterItem(
                 else -> Color(item.color)
             }
         )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(
-            text = item.title,
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.weight(1f).padding(end = 8.dp),
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 1,
-        )
-        if (item.shareCount > 0) {
-            Icon(
-                imageVector = when (item.shareCount) {
-                    1 -> Icons.Outlined.PermIdentity
-                    else -> Icons.Outlined.PeopleOutline
-                },
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface,
-            )
-        }
-        Box(
-            contentAlignment = Alignment.CenterEnd,
+        AnimatedVisibility(
+            visible = expanded,
+            enter = fadeIn(),
+            exit = fadeOut(),
         ) {
-            if (item.count > 0) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(16.dp))
                 Text(
-                    text = formatNumber(item.count),
+                    text = item.title,
                     color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.weight(1f).padding(end = 8.dp),
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
                 )
+                if (item.shareCount > 0) {
+                    Icon(
+                        imageVector = when (item.shareCount) {
+                            1 -> Icons.Outlined.PermIdentity
+                            else -> Icons.Outlined.PeopleOutline
+                        },
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurface,
+                    )
+                }
+                Box(
+                    contentAlignment = Alignment.CenterEnd,
+                ) {
+                    if (item.count > 0) {
+                        Text(
+                            text = formatNumber(item.count),
+                            color = MaterialTheme.colorScheme.onSurface,
+                        )
+                    }
+                }
             }
         }
     }
@@ -315,6 +339,7 @@ internal fun FilterItem(
 internal fun HeaderItem(
     modifier: Modifier = Modifier,
     item: DrawerItem.Header,
+    expanded: Boolean = true,
     canAdd: Boolean,
     toggleCollapsed: () -> Unit,
     onAddClick: () -> Unit,
@@ -343,36 +368,44 @@ internal fun HeaderItem(
                     tint = MaterialTheme.colorScheme.onSurface,
                 )
             }
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(
-                modifier = Modifier.weight(1f),
-                text = item.title,
-                color = MaterialTheme.colorScheme.onSurface,
-                style = MaterialTheme.typography.titleMedium,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-            if (item.hasChildren) {
-                IconButton(onClick = toggleCollapsed) {
-                    Chevron(item.collapsed)
-                }
-            }
-            if (canAdd) {
-                IconButton(onClick = onAddClick) {
-                    Icon(
-                        imageVector = Icons.Outlined.Add,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurface,
+            AnimatedVisibility(
+                visible = expanded,
+                enter = fadeIn(),
+                exit = fadeOut(),
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Text(
+                        modifier = Modifier.weight(1f),
+                        text = item.title,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.titleMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                     )
-                }
-            }
-            if (item.hasError) {
-                IconButton(onClick = onErrorClick) {
-                    Icon(
-                        imageVector = Icons.Outlined.SyncProblem,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.error,
-                    )
+                    if (item.hasChildren) {
+                        IconButton(onClick = toggleCollapsed) {
+                            Chevron(item.collapsed)
+                        }
+                    }
+                    if (canAdd) {
+                        IconButton(onClick = onAddClick) {
+                            Icon(
+                                imageVector = Icons.Outlined.Add,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurface,
+                            )
+                        }
+                    }
+                    if (item.hasError) {
+                        IconButton(onClick = onErrorClick) {
+                            Icon(
+                                imageVector = Icons.Outlined.SyncProblem,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.error,
+                            )
+                        }
+                    }
                 }
             }
     }

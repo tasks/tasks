@@ -1,5 +1,8 @@
 package org.tasks
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
@@ -29,10 +32,14 @@ import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SwapVert
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
+
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.rememberDrawerState
@@ -88,10 +95,13 @@ import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.auth.OAuthProvider
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.drawer.TaskListDrawer
+
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.compose.NavigationBarScrim
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.StatusBarScrim
+import org.tasks.compose.platformSidebarInsets
+import org.tasks.compose.platformStatusBarInsets
 import org.tasks.compose.platformNavigationBarsPadding
 import org.tasks.compose.SignInProvider
 import org.tasks.compose.SignInProviderDialog
@@ -338,14 +348,227 @@ private fun TaskListScreen(
     val materialDrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val navigator = rememberListDetailPaneScaffoldNavigator<Long>()
     val scope = androidx.compose.runtime.rememberCoroutineScope()
+    LaunchedEffect(state.filter) {
+        drawerViewModel.setSelectedFilter(state.filter)
+    }
+
+    // TODO: use user's theme color preference instead of BLUE
+    val filterTint = state.filter.tint
+    val isDark = isSystemInDarkTheme()
+    val themeColor = remember(filterTint, isDark) {
+        ColorProvider.themeColor(
+            seedColor = if (filterTint != 0) filterTint else BLUE,
+            isDark = isDark,
+        )
+    }
+
+    var sidebarExpanded by remember { mutableStateOf(false) }
+    val selectedTaskId = navigator.currentDestination?.contentKey
+
+    val onDrawerItemClick: (DrawerItem) -> Unit = { item ->
+        when (item) {
+            is DrawerItem.Filter -> {
+                viewModel.setFilter(item.filter)
+                drawerViewModel.setSelectedFilter(item.filter)
+                if (materialDrawerState.isOpen) {
+                    scope.launch { materialDrawerState.close() }
+                }
+                scope.launch { if (navigator.canNavigateBack()) navigator.navigateBack() }
+            }
+            is DrawerItem.Header -> {
+                drawerViewModel.toggleCollapsed(item.header)
+            }
+        }
+    }
+
+    val hasDetailOpen = selectedTaskId != null
+    val listPaneHidden = navigator.canNavigateBack()
+
+    PlatformBackHandler(enabled = hasDetailOpen || sidebarExpanded) {
+        when {
+            hasDetailOpen -> scope.launch { navigator.navigateBack() }
+            sidebarExpanded -> sidebarExpanded = false
+        }
+    }
+
+    BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+        when {
+            // Wide/Medium: sidebar + list/detail content
+            maxWidth >= 600.dp -> {
+                val showSidebar = !listPaneHidden && !(hasDetailOpen && maxWidth < 840.dp)
+                val sidebarInsetsPadding = platformSidebarInsets()
+                val sidebarListState = androidx.compose.foundation.lazy.rememberLazyListState()
+                val sidebarWidth by androidx.compose.animation.core.animateDpAsState(
+                    targetValue = if (sidebarExpanded) 280.dp else 72.dp,
+                )
+                val cutoutPadding = sidebarInsetsPadding.calculateLeftPadding(LayoutDirection.Ltr)
+                Row(modifier = Modifier.fillMaxSize()) {
+                    AnimatedVisibility(
+                        visible = showSidebar,
+                        enter = expandHorizontally(),
+                        exit = shrinkHorizontally(),
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .width(sidebarWidth + cutoutPadding)
+                                .padding(start = cutoutPadding),
+                        ) {
+                            TaskListDrawer(
+                                drawerOpen = true,
+                                drawerState = drawerState,
+                                onQueryChange = { drawerViewModel.setMenuQuery(it) },
+                                onClick = onDrawerItemClick,
+                                onAddClick = { /* TODO: add new list/tag/place */ },
+                                onErrorClick = { /* TODO: show sync error */ },
+                                expanded = sidebarExpanded,
+                                listState = sidebarListState,
+                            )
+                            val sidebarScrimColor = MaterialTheme.colorScheme.background.copy(alpha = 0.8f)
+                            StatusBarScrim(
+                                color = sidebarScrimColor,
+                                modifier = Modifier.align(Alignment.TopCenter),
+                            )
+                            NavigationBarScrim(
+                                color = sidebarScrimColor,
+                                modifier = Modifier.align(Alignment.BottomCenter),
+                            )
+                        }
+                    }
+                    TaskListContent(
+                        state = state,
+                        navigator = navigator,
+                        selectedTaskId = selectedTaskId,
+                        headerFormatter = headerFormatter,
+                        chipDataProvider = chipDataProvider,
+                        reporting = reporting,
+                        viewModel = viewModel,
+                        themeColor = themeColor,
+                        onShowSortSheet = { showSortSheet = true },
+                        onTaskClick = { taskId ->
+                            scope.launch { navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, taskId) }
+                        },
+                        showMenuButton = true,
+                        onMenuClick = { sidebarExpanded = !sidebarExpanded },
+                        modifier = Modifier.weight(1f),
+                    )
+                }
+            }
+            // Narrow: modal drawer
+            else -> {
+                PlatformBackHandler(enabled = materialDrawerState.isOpen) {
+                    scope.launch { materialDrawerState.close() }
+                }
+                ModalNavigationDrawer(
+                    drawerState = materialDrawerState,
+                    drawerContent = {
+                        ModalDrawerSheet(
+                            windowInsets = WindowInsets(0),
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(
+                                        start = platformSidebarInsets()
+                                            .calculateLeftPadding(LayoutDirection.Ltr),
+                                    ),
+                            ) {
+                                TaskListDrawer(
+                                    drawerOpen = materialDrawerState.isOpen,
+                                    drawerState = drawerState,
+                                    onQueryChange = { drawerViewModel.setMenuQuery(it) },
+                                    onClick = onDrawerItemClick,
+                                    onAddClick = { /* TODO: add new list/tag/place */ },
+                                    onErrorClick = { /* TODO: show sync error */ },
+                                )
+                                val drawerScrimColor = MaterialTheme.colorScheme.surfaceContainerLow.copy(alpha = 0.8f)
+                                StatusBarScrim(
+                                    color = drawerScrimColor,
+                                    modifier = Modifier.align(Alignment.TopCenter),
+                                )
+                                NavigationBarScrim(
+                                    color = drawerScrimColor,
+                                    modifier = Modifier.align(Alignment.BottomCenter),
+                                )
+                            }
+                        }
+                    },
+                ) {
+                    TaskListContent(
+                        state = state,
+                        navigator = navigator,
+                        selectedTaskId = selectedTaskId,
+                        headerFormatter = headerFormatter,
+                        chipDataProvider = chipDataProvider,
+                        reporting = reporting,
+                        viewModel = viewModel,
+                        themeColor = themeColor,
+                        onShowSortSheet = { showSortSheet = true },
+                        onTaskClick = { taskId ->
+                            scope.launch { navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, taskId) }
+                        },
+                        showMenuButton = true,
+                        onMenuClick = {
+                            scope.launch {
+                                if (materialDrawerState.isOpen) materialDrawerState.close()
+                                else materialDrawerState.open()
+                            }
+                        },
+                    )
+                }
+            }
+        }
+    }
+
+    SortSheetHost(
+        showSortSheet = showSortSheet,
+        onDismiss = { showSortSheet = false },
+        sortState = sortState,
+        sortViewModel = sortViewModel,
+    )
+}
+
+@OptIn(ExperimentalMaterial3AdaptiveApi::class, ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+private fun TaskListContent(
+    state: TaskListViewModel.State,
+    navigator: androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator<Long>,
+    selectedTaskId: Long?,
+    headerFormatter: HeaderFormatter,
+    chipDataProvider: ChipDataProvider,
+    reporting: org.tasks.analytics.Reporting,
+    viewModel: TaskListViewModel,
+    themeColor: org.tasks.kmp.org.tasks.themes.ThemeColor,
+    onShowSortSheet: () -> Unit,
+    onTaskClick: (Long) -> Unit,
+    showMenuButton: Boolean,
+    onMenuClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val listPaneHidden = navigator.canNavigateBack()
     val listState = androidx.compose.foundation.lazy.rememberLazyListState()
     val floatingToolbarScrollBehavior = FloatingToolbarDefaults.exitAlwaysScrollBehavior(
         exitDirection = androidx.compose.material3.FloatingToolbarExitDirection.Bottom,
     )
     val density = androidx.compose.ui.platform.LocalDensity.current
+
+    // Workaround: ListDetailPaneScaffold pane transitions can leave the list in a stale
+    // layout state. Scrolling to the current position forces a re-layout.
+    LaunchedEffect(listPaneHidden) {
+        if (!listPaneHidden) {
+            listState.scrollToItem(
+                listState.firstVisibleItemIndex,
+                listState.firstVisibleItemScrollOffset,
+            )
+        }
+    }
+
     var topBarHeight by remember { mutableStateOf(0.dp) }
     var topBarHeightPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
     var topBarOffsetPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
+    // Custom scroll-to-hide for the overlaid TopAppBar. The TopAppBar is positioned as an
+    // overlay via graphicsLayer (rather than in a Scaffold topBar slot) so the list content
+    // draws underneath it as it scrolls off-screen. Built-in scroll behaviors require the
+    // Scaffold slot, which reserves space and pushes content down instead of overlapping.
     val topBarScrollConnection = remember {
         object : androidx.compose.ui.input.nestedscroll.NestedScrollConnection {
             override fun onPreScroll(
@@ -370,66 +593,9 @@ private fun TaskListScreen(
             }
         }
     }
-    LaunchedEffect(state.filter) {
-        drawerViewModel.setSelectedFilter(state.filter)
-    }
-
-    // TODO: use user's theme color preference instead of BLUE
-    val filterTint = state.filter.tint
-    val isDark = isSystemInDarkTheme()
-    val themeColor = remember(filterTint, isDark) {
-        ColorProvider.themeColor(
-            seedColor = if (filterTint != 0) filterTint else BLUE,
-            isDark = isDark,
-        )
-    }
-
-    PlatformBackHandler(enabled = materialDrawerState.isOpen) {
-        scope.launch { materialDrawerState.close() }
-    }
-
-    ModalNavigationDrawer(
-        drawerState = materialDrawerState,
-        drawerContent = {
-            ModalDrawerSheet(
-                windowInsets = WindowInsets(0),
-            ) {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    TaskListDrawer(
-                        drawerOpen = materialDrawerState.isOpen,
-                        drawerState = drawerState,
-                        onQueryChange = { drawerViewModel.setMenuQuery(it) },
-                        onClick = { item ->
-                            when (item) {
-                                is DrawerItem.Filter -> {
-                                    viewModel.setFilter(item.filter)
-                                    drawerViewModel.setSelectedFilter(item.filter)
-                                    scope.launch { materialDrawerState.close() }
-                                }
-                                is DrawerItem.Header -> {
-                                    drawerViewModel.toggleCollapsed(item.header)
-                                }
-                            }
-                        },
-                        onAddClick = { /* TODO: add new list/tag/place */ },
-                        onErrorClick = { /* TODO: show sync error */ },
-                    )
-                    val drawerScrimColor = MaterialTheme.colorScheme.surfaceContainerLow.copy(alpha = 0.8f)
-                    StatusBarScrim(
-                        color = drawerScrimColor,
-                        modifier = Modifier.align(Alignment.TopCenter),
-                    )
-                    NavigationBarScrim(
-                        color = drawerScrimColor,
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                    )
-                }
-            }
-        },
-    ) {
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .nestedScroll(topBarScrollConnection)
             .nestedScroll(floatingToolbarScrollBehavior),
@@ -439,64 +605,51 @@ private fun TaskListScreen(
             value = navigator.scaffoldValue,
             listPane = {
                 when (val results = state.tasks) {
-                    is TasksResults.Loading -> {
-                        androidx.compose.foundation.layout.Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            CircularProgressIndicator()
-                        }
-                    }
-                    is TasksResults.Results -> {
-                        TaskList(
-                            tasks = results.tasks,
-                            filter = state.filter,
-                            headerFormatter = headerFormatter,
-                            chipDataProvider = chipDataProvider,
-                            listState = listState,
-                            topPadding = topBarHeight,
-                            onTaskClick = { task ->
-                                scope.launch {
-                                    navigator.navigateTo(
-                                        ListDetailPaneScaffoldRole.Detail,
-                                        task.id,
-                                    )
-                                }
-                            },
-                            onCompleteTask = { task, newState ->
-                                viewModel.onCompleteTask(task, newState)
-                                if (newState) {
-                                    reporting.completeTask("task_list")
-                                }
-                            },
-                            onToggleGroup = { viewModel.toggleCollapsed(it) },
-                            onToggleSubtasks = { id, collapsed ->
-                                viewModel.toggleSubtasks(id, collapsed)
-                            },
-                            onFilterClick = { filter ->
-                                viewModel.setFilter(filter)
-                            },
-                            is24Hour = org.tasks.time.is24HourFormat(),
-                        )
-                    }
+                    is TasksResults.Loading -> Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center,
+                    ) { CircularProgressIndicator() }
+                    is TasksResults.Results -> TaskList(
+                        tasks = results.tasks,
+                        filter = state.filter,
+                        headerFormatter = headerFormatter,
+                        chipDataProvider = chipDataProvider,
+                        listState = listState,
+                        topPadding = topBarHeight,
+                        onTaskClick = { task -> onTaskClick(task.id) },
+                        onCompleteTask = { task, newState ->
+                            viewModel.onCompleteTask(task, newState)
+                            if (newState) {
+                                reporting.completeTask("task_list")
+                            }
+                        },
+                        onToggleGroup = { viewModel.toggleCollapsed(it) },
+                        onToggleSubtasks = { id, collapsed ->
+                            viewModel.toggleSubtasks(id, collapsed)
+                        },
+                        onFilterClick = { filter ->
+                            viewModel.setFilter(filter)
+                        },
+                        is24Hour = org.tasks.time.is24HourFormat(),
+                    )
                 }
             },
             detailPane = {
-                navigator.currentDestination?.contentKey?.let { taskId ->
+                selectedTaskId?.let { taskId ->
                     TaskDetailPlaceholder(taskId)
                 }
             },
         )
 
+        val statusBarTop = platformStatusBarInsets().calculateTopPadding()
         TopAppBar(
             modifier = Modifier
                 .onSizeChanged { size ->
                     topBarHeightPx = size.height.toFloat()
                     topBarHeight = with(density) { size.height.toDp() }
                 }
-                .graphicsLayer {
-                    translationY = topBarOffsetPx
-                },
+                .graphicsLayer { translationY = topBarOffsetPx },
+            windowInsets = WindowInsets(top = statusBarTop),
             title = {
                 Text(
                     text = state.filter.title.ifEmpty { "Tasks" },
@@ -516,157 +669,159 @@ private fun TaskListScreen(
         StatusBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.TopCenter))
         NavigationBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.BottomCenter))
 
-        FloatingToolbar(
-            onMenuClick = {
-                scope.launch {
-                    if (materialDrawerState.isOpen) {
-                        materialDrawerState.close()
-                    } else {
-                        materialDrawerState.open()
-                    }
-                }
-            },
-            onSearchClick = { /* TODO: search */ },
-            onSortClick = { showSortSheet = true },
-            onMoreClick = { /* TODO: more options */ },
-            onAddClick = { /* TODO: create task */ },
-            scrollBehavior = floatingToolbarScrollBehavior,
-            fabContainerColor = Color(themeColor.primaryColor),
-            fabContentColor = Color(themeColor.onPrimaryColor),
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .platformNavigationBarsPadding()
-                .padding(16.dp),
-        )
+        if (!listPaneHidden) {
+            FloatingToolbar(
+                showMenuButton = showMenuButton,
+                onMenuClick = onMenuClick,
+                onSearchClick = { /* TODO: search */ },
+                onSortClick = onShowSortSheet,
+                onMoreClick = { /* TODO: more options */ },
+                onAddClick = { /* TODO: create task */ },
+                scrollBehavior = floatingToolbarScrollBehavior,
+                fabContainerColor = Color(themeColor.primaryColor),
+                fabContentColor = Color(themeColor.onPrimaryColor),
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .platformNavigationBarsPadding()
+                    .padding(16.dp),
+            )
+        }
     }
+}
 
-    if (showSortSheet) {
-        var showGroupPicker by remember { mutableStateOf(false) }
-        var showSortPicker by remember { mutableStateOf(false) }
-        var showCompletedPicker by remember { mutableStateOf(false) }
-        var showSubtaskPicker by remember { mutableStateOf(false) }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SortSheetHost(
+    showSortSheet: Boolean,
+    onDismiss: () -> Unit,
+    sortState: SortSettingsViewModel.ViewState,
+    sortViewModel: SortSettingsViewModel,
+) {
+    if (!showSortSheet) return
+
+    var showGroupPicker by remember { mutableStateOf(false) }
+    var showSortPicker by remember { mutableStateOf(false) }
+    var showCompletedPicker by remember { mutableStateOf(false) }
+    var showSubtaskPicker by remember { mutableStateOf(false) }
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        containerColor = MaterialTheme.colorScheme.surface,
+    ) {
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
+        ) {
+            BottomSheetContent(
+                groupMode = sortState.groupMode,
+                sortMode = sortState.sortMode,
+                completedMode = sortState.completedMode,
+                subtaskMode = sortState.subtaskMode,
+                sortAscending = sortState.sortAscending,
+                groupAscending = sortState.groupAscending,
+                completedAscending = sortState.completedAscending,
+                subtaskAscending = sortState.subtaskAscending,
+                manualSort = false,
+                astridSort = false,
+                completedAtBottom = sortState.completedAtBottom,
+                setSortAscending = { sortViewModel.setSortAscending(it) },
+                setGroupAscending = { sortViewModel.setGroupAscending(it) },
+                setCompletedAscending = { sortViewModel.setCompletedAscending(it) },
+                setSubtaskAscending = { sortViewModel.setSubtaskAscending(it) },
+                setCompletedAtBottom = { sortViewModel.setCompletedAtBottom(it) },
+                clickGroupMode = { showGroupPicker = true },
+                clickSortMode = { showSortPicker = true },
+                clickCompletedMode = { showCompletedPicker = true },
+                clickSubtaskMode = { showSubtaskPicker = true },
+            )
+        }
+    }
+    if (showGroupPicker) {
         ModalBottomSheet(
-            onDismissRequest = { showSortSheet = false },
+            onDismissRequest = { showGroupPicker = false },
             containerColor = MaterialTheme.colorScheme.surface,
+            scrimColor = Color.Transparent,
         ) {
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
                     .fillMaxWidth()
             ) {
-                BottomSheetContent(
-                    groupMode = sortState.groupMode,
-                    sortMode = sortState.sortMode,
-                    completedMode = sortState.completedMode,
-                    subtaskMode = sortState.subtaskMode,
-                    sortAscending = sortState.sortAscending,
-                    groupAscending = sortState.groupAscending,
-                    completedAscending = sortState.completedAscending,
-                    subtaskAscending = sortState.subtaskAscending,
-                    manualSort = false,
-                    astridSort = false,
-                    completedAtBottom = sortState.completedAtBottom,
-                    setSortAscending = { sortViewModel.setSortAscending(it) },
-                    setGroupAscending = { sortViewModel.setGroupAscending(it) },
-                    setCompletedAscending = { sortViewModel.setCompletedAscending(it) },
-                    setSubtaskAscending = { sortViewModel.setSubtaskAscending(it) },
-                    setCompletedAtBottom = { sortViewModel.setCompletedAtBottom(it) },
-                    clickGroupMode = { showGroupPicker = true },
-                    clickSortMode = { showSortPicker = true },
-                    clickCompletedMode = { showCompletedPicker = true },
-                    clickSubtaskMode = { showSubtaskPicker = true },
-                )
-            }
-        }
-        if (showGroupPicker) {
-            ModalBottomSheet(
-                onDismissRequest = { showGroupPicker = false },
-                containerColor = MaterialTheme.colorScheme.surface,
-                scrimColor = Color.Transparent,
-            ) {
-                Column(
-                    modifier = Modifier
-                        .verticalScroll(rememberScrollState())
-                        .fillMaxWidth()
-                ) {
-                    SortPicker(
-                        selected = sortState.groupMode,
-                        options = groupOptions,
-                        onClick = {
-                            sortViewModel.setGroupMode(it)
-                            showGroupPicker = false
-                        }
-                    )
-                }
-            }
-        }
-        if (showSortPicker) {
-            ModalBottomSheet(
-                onDismissRequest = { showSortPicker = false },
-                containerColor = MaterialTheme.colorScheme.surface,
-                scrimColor = Color.Transparent,
-            ) {
-                SortSheetContent(
-                    manualSortEnabled = false,
-                    astridSortEnabled = false,
-                    manualSortSelected = false,
-                    selected = sortState.sortMode,
-                    setManualSort = {},
-                    setAstridSort = {},
-                    onSelected = {
-                        sortViewModel.setSortMode(it)
-                        showSortPicker = false
+                SortPicker(
+                    selected = sortState.groupMode,
+                    options = groupOptions,
+                    onClick = {
+                        sortViewModel.setGroupMode(it)
+                        showGroupPicker = false
                     }
                 )
             }
         }
-        if (showCompletedPicker) {
-            ModalBottomSheet(
-                onDismissRequest = { showCompletedPicker = false },
-                containerColor = MaterialTheme.colorScheme.surface,
-                scrimColor = Color.Transparent,
-            ) {
-                Column(
-                    modifier = Modifier
-                        .verticalScroll(rememberScrollState())
-                        .fillMaxWidth()
-                ) {
-                    SortPicker(
-                        selected = sortState.completedMode,
-                        options = completedOptions,
-                        onClick = {
-                            sortViewModel.setCompletedMode(it)
-                            showCompletedPicker = false
-                        }
-                    )
+    }
+    if (showSortPicker) {
+        ModalBottomSheet(
+            onDismissRequest = { showSortPicker = false },
+            containerColor = MaterialTheme.colorScheme.surface,
+            scrimColor = Color.Transparent,
+        ) {
+            SortSheetContent(
+                manualSortEnabled = false,
+                astridSortEnabled = false,
+                manualSortSelected = false,
+                selected = sortState.sortMode,
+                setManualSort = {},
+                setAstridSort = {},
+                onSelected = {
+                    sortViewModel.setSortMode(it)
+                    showSortPicker = false
                 }
-            }
+            )
         }
-        if (showSubtaskPicker) {
-            ModalBottomSheet(
-                onDismissRequest = { showSubtaskPicker = false },
-                containerColor = MaterialTheme.colorScheme.surface,
-                scrimColor = Color.Transparent,
+    }
+    if (showCompletedPicker) {
+        ModalBottomSheet(
+            onDismissRequest = { showCompletedPicker = false },
+            containerColor = MaterialTheme.colorScheme.surface,
+            scrimColor = Color.Transparent,
+        ) {
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .fillMaxWidth()
             ) {
-                Column(
-                    modifier = Modifier
-                        .verticalScroll(rememberScrollState())
-                        .fillMaxWidth()
-                ) {
-                    SortPicker(
-                        selected = sortState.subtaskMode,
-                        options = subtaskOptions,
-                        onClick = {
-                            sortViewModel.setSubtaskMode(it)
-                            showSubtaskPicker = false
-                        }
-                    )
-                }
+                SortPicker(
+                    selected = sortState.completedMode,
+                    options = completedOptions,
+                    onClick = {
+                        sortViewModel.setCompletedMode(it)
+                        showCompletedPicker = false
+                    }
+                )
             }
         }
     }
-
-    } // ModalNavigationDrawer
+    if (showSubtaskPicker) {
+        ModalBottomSheet(
+            onDismissRequest = { showSubtaskPicker = false },
+            containerColor = MaterialTheme.colorScheme.surface,
+            scrimColor = Color.Transparent,
+        ) {
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .fillMaxWidth()
+            ) {
+                SortPicker(
+                    selected = sortState.subtaskMode,
+                    options = subtaskOptions,
+                    onClick = {
+                        sortViewModel.setSubtaskMode(it)
+                        showSubtaskPicker = false
+                    }
+                )
+            }
+        }
+    }
 }
 
 @Composable
@@ -941,6 +1096,7 @@ private fun chipColor(seedColor: Int, isDark: Boolean): Color {
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun FloatingToolbar(
+    showMenuButton: Boolean = true,
     onMenuClick: () -> Unit,
     onSearchClick: () -> Unit,
     onSortClick: () -> Unit,
@@ -971,8 +1127,10 @@ private fun FloatingToolbar(
         scrollBehavior = scrollBehavior,
         modifier = modifier,
     ) {
-        IconButton(onClick = onMenuClick) {
-            Icon(Icons.Outlined.Menu, contentDescription = "Menu")
+        if (showMenuButton) {
+            IconButton(onClick = onMenuClick) {
+                Icon(Icons.Outlined.Menu, contentDescription = "Menu")
+            }
         }
         IconButton(onClick = onSearchClick) {
             Icon(Icons.Outlined.Search, contentDescription = "Search")
