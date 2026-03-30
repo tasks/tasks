@@ -4,10 +4,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberWindowState
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.platformLogWriter
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 import org.tasks.kmp.IS_DEBUG
 import org.koin.compose.KoinApplication
@@ -17,14 +25,22 @@ import org.tasks.analytics.PostHogReporting
 import org.tasks.analytics.Reporting
 import org.tasks.App
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.preferences.TasksPreferences
 import org.tasks.sse.SseClient
 import org.tasks.di.commonModule
 import org.tasks.di.platformModule
 import org.tasks.logging.FileLogWriter
 import java.awt.Desktop
+import java.awt.Dimension
 import java.io.File
 import java.net.URI
 
+private val MIN_WIDTH = 400.dp
+private val MIN_HEIGHT = 300.dp
+private val DEFAULT_WIDTH = 800.dp
+private val DEFAULT_HEIGHT = 600.dp
+
+@OptIn(FlowPreview::class)
 fun main() {
     org.tasks.caldav.CaldavSynchronizer.registerFactories()
     val logDir = File(System.getProperty("user.home"), ".tasks.org/logs").apply { mkdirs() }
@@ -36,13 +52,50 @@ fun main() {
     )
 
     application {
-    Window(
-        onCloseRequest = ::exitApplication,
-        title = "Tasks",
-    ) {
-        KoinApplication(application = {
-            modules(commonModule, platformModule())
-        }) {
+    KoinApplication(application = {
+        modules(commonModule, platformModule())
+    }) {
+        val preferences = koinInject<TasksPreferences>()
+        val windowState = rememberWindowState(size = DpSize(DEFAULT_WIDTH, DEFAULT_HEIGHT))
+        var windowReady by remember { mutableStateOf(false) }
+        // Restore saved window size and position before showing the window
+        LaunchedEffect(Unit) {
+            val w = preferences.get(TasksPreferences.windowWidth, 0)
+            val h = preferences.get(TasksPreferences.windowHeight, 0)
+            if (w > 0 && h > 0) {
+                windowState.size = DpSize(
+                    maxOf(w.dp, MIN_WIDTH),
+                    maxOf(h.dp, MIN_HEIGHT),
+                )
+            }
+            val x = preferences.get(TasksPreferences.windowX, Int.MIN_VALUE)
+            val y = preferences.get(TasksPreferences.windowY, Int.MIN_VALUE)
+            if (x != Int.MIN_VALUE && y != Int.MIN_VALUE) {
+                windowState.position = WindowPosition(x.dp, y.dp)
+            }
+            windowReady = true
+        }
+        // Persist window size and position on changes
+        LaunchedEffect(Unit) {
+            snapshotFlow { windowState.size to windowState.position }
+                .drop(1)
+                .debounce(500)
+                .collect { (size, position) ->
+                    preferences.set(TasksPreferences.windowWidth, size.width.value.toInt())
+                    preferences.set(TasksPreferences.windowHeight, size.height.value.toInt())
+                    if (position is WindowPosition.Absolute) {
+                        preferences.set(TasksPreferences.windowX, position.x.value.toInt())
+                        preferences.set(TasksPreferences.windowY, position.y.value.toInt())
+                    }
+                }
+        }
+        Window(
+            onCloseRequest = { this@application.exitApplication() },
+            title = "Tasks",
+            state = windowState,
+            visible = windowReady,
+        ) {
+            window.minimumSize = Dimension(MIN_WIDTH.value.toInt(), MIN_HEIGHT.value.toInt())
             val reporting = koinInject<Reporting>()
             val sseClient = koinInject<SseClient>()
             LaunchedEffect(Unit) {

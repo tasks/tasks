@@ -54,5 +54,9 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val serverEnvironment = stringPreferencesKey("server_environment")
         val syncOngoing = booleanPreferencesKey("sync_ongoing")
         val syncOngoingAndroid = booleanPreferencesKey("sync_ongoing_android")
+        val windowWidth = intPreferencesKey("window_width")
+        val windowHeight = intPreferencesKey("window_height")
+        val windowX = intPreferencesKey("window_x")
+        val windowY = intPreferencesKey("window_y")
     }
 }
