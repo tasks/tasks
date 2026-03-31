@@ -24,7 +24,7 @@ import org.tasks.db.Migrations
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManagerImpl
 import org.tasks.kmp.createDataStore
-import org.tasks.location.AndroidLocationManager
+import org.tasks.location.HiltAndroidLocationManager
 import org.tasks.location.LocationManager
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
@@ -64,7 +64,7 @@ internal class ProductionModule {
         TasksPreferences(createDataStore(context))
 
     @Provides
-    fun locationManager(locationManager: AndroidLocationManager): LocationManager = locationManager
+    fun locationManager(locationManager: HiltAndroidLocationManager): LocationManager = locationManager
 
     @Provides
     @Singleton

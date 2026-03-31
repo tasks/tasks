@@ -560,10 +560,14 @@
       android:permission="android.permission.BIND_JOB_SERVICE"/>
 
     <receiver android:name=".location.AndroidGeofenceTransitionIntentService$Broadcast"/>
-    <service
-      android:exported="false"
-      android:name=".location.AndroidGeofenceTransitionIntentService"
-      android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+    <receiver
+      android:name=".receivers.LocationProviderChangedReceiver"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="android.location.PROVIDERS_CHANGED" />
+      </intent-filter>
+    </receiver>
 
     <!-- DashClock extension -->
 

@@ -12,4 +12,5 @@ interface AppPreferences {
     suspend fun defaultPriority(): Int
     suspend fun isCurrentlyQuietHours(): Boolean
     suspend fun adjustForQuietHours(time: Long): Long
+    suspend fun locationUpdateIntervalMinutes(): Int = 15
 }

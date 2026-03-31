@@ -106,4 +106,12 @@
     android:title="@string/EPr_default_location_reminder_title"
     app:singleLineTitle="false" />
 
+  <ListPreference
+    android:defaultValue="15"
+    android:entries="@array/location_update_interval_entries"
+    android:entryValues="@array/location_update_interval_values"
+    android:key="@string/p_location_update_interval"
+    android:summary="%s"
+    android:title="@string/location_update_interval_title" />
+
 </PreferenceScreen>

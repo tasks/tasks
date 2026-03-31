@@ -14,4 +14,13 @@ interface LocationManager {
     )
 
     fun removeProximityAlert(intent: PendingIntent)
+
+    fun requestLocationUpdates(
+            provider: String,
+            minTimeMs: Long,
+            minDistanceM: Float,
+            intent: PendingIntent
+    )
+
+    fun removeLocationUpdates(intent: PendingIntent)
 }

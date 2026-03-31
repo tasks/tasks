@@ -25,10 +25,6 @@
     </service>
 
     <receiver android:name=".location.GoogleGeofenceTransitionIntentService$Broadcast"/>
-    <service
-      android:exported="false"
-      android:name=".location.GoogleGeofenceTransitionIntentService"
-      android:permission="android.permission.BIND_JOB_SERVICE"/>
 
     <service
         android:name=".wear.WearDataService"

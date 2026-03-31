@@ -51,6 +51,7 @@ fun TaskDefaultsScreen(
     locationName: String,
     hasDefaultLocation: Boolean,
     locationReminderSummary: String,
+    locationUpdateIntervalSummary: String,
     onAddToTop: (Boolean) -> Unit,
     onDefaultList: () -> Unit,
     onDefaultTags: () -> Unit,
@@ -66,6 +67,7 @@ fun TaskDefaultsScreen(
     onLocation: () -> Unit,
     onDeleteLocation: () -> Unit,
     onLocationReminder: () -> Unit,
+    onLocationUpdateInterval: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -232,11 +234,18 @@ fun TaskDefaultsScreen(
                     } else null,
                 )
             }
-            SettingsItemCard(position = CardPosition.Last) {
+            SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(R.string.EPr_default_location_reminder_title),
                     summary = locationReminderSummary,
                     onClick = onLocationReminder,
+                )
+            }
+            SettingsItemCard(position = CardPosition.Last) {
+                PreferenceRow(
+                    title = stringResource(R.string.location_update_interval_title),
+                    summary = locationUpdateIntervalSummary,
+                    onClick = onLocationUpdateInterval,
                 )
             }
         }

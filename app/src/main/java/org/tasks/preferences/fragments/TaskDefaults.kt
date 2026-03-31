@@ -111,6 +111,7 @@ class TaskDefaults : Fragment() {
             var showRandomReminderDialog by rememberSaveable { mutableStateOf(false) }
             var showRemindersModeDialog by rememberSaveable { mutableStateOf(false) }
             var showLocationReminderDialog by rememberSaveable { mutableStateOf(false) }
+            var showLocationUpdateIntervalDialog by rememberSaveable { mutableStateOf(false) }
 
             TaskDefaultsScreen(
                 addToTopEnabled = viewModel.addToTopEnabled,
@@ -128,6 +129,7 @@ class TaskDefaults : Fragment() {
                 locationName = viewModel.locationName,
                 hasDefaultLocation = viewModel.hasDefaultLocation,
                 locationReminderSummary = viewModel.locationReminderSummary,
+                locationUpdateIntervalSummary = viewModel.locationUpdateIntervalSummary,
                 onAddToTop = { viewModel.updateAddToTop(it) },
                 onDefaultList = {
                     lifecycleScope.launch {
@@ -182,6 +184,7 @@ class TaskDefaults : Fragment() {
                     viewModel.setDefaultLocation(null)
                 },
                 onLocationReminder = { showLocationReminderDialog = true },
+                onLocationUpdateInterval = { showLocationUpdateIntervalDialog = true },
             )
 
             if (showImportanceDialog) {
@@ -293,6 +296,21 @@ class TaskDefaults : Fragment() {
                         viewModel.refreshLocationReminder()
                     },
                     onDismiss = { showLocationReminderDialog = false },
+                )
+            }
+
+            if (showLocationUpdateIntervalDialog) {
+                ListPreferenceDialog(
+                    title = stringResource(R.string.location_update_interval_title),
+                    entries = viewModel.locationUpdateIntervalEntries,
+                    values = viewModel.locationUpdateIntervalValues,
+                    currentValue = viewModel.getListPrefCurrentValue(
+                        R.string.p_location_update_interval, 15
+                    ),
+                    onSelect = { value ->
+                        viewModel.setLocationUpdateInterval(value)
+                    },
+                    onDismiss = { showLocationUpdateIntervalDialog = false },
                 )
             }
         }

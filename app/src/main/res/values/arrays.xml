@@ -109,6 +109,22 @@
     <item>3</item>
   </string-array>
 
+  <string-array name="location_update_interval_entries">
+    <item>@string/location_update_interval_disabled</item>
+    <item>@string/location_update_interval_15_minutes</item>
+    <item>@string/location_update_interval_30_minutes</item>
+    <item>@string/location_update_interval_1_hour</item>
+    <item>@string/location_update_interval_2_hours</item>
+  </string-array>
+
+  <string-array name="location_update_interval_values">
+    <item>0</item>
+    <item>15</item>
+    <item>30</item>
+    <item>60</item>
+    <item>120</item>
+  </string-array>
+
   <string-array name="chip_appearance">
     <item>@string/chip_appearance_text_and_icon</item>
     <item>@string/chip_appearance_text_only</item>

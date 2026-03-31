@@ -109,6 +109,13 @@ File %1$s contained %2$s.\n\n
   <string name="default_location_reminder_on_arrival">On arrival</string>
   <string name="default_location_reminder_on_departure">On departure</string>
   <string name="default_location_reminder_on_arrival_or_departure">On arrival and departure</string>
+  <string name="location_update_interval_title">Background location updates</string>
+  <string name="location_update_interval_summary">Periodic location updates improve geofence reliability</string>
+  <string name="location_update_interval_disabled">Disabled</string>
+  <string name="location_update_interval_15_minutes">Every 15 minutes</string>
+  <string name="location_update_interval_30_minutes">Every 30 minutes</string>
+  <string name="location_update_interval_1_hour">Every hour</string>
+  <string name="location_update_interval_2_hours">Every 2 hours</string>
   <string name="BFE_Active">My Tasks</string>
   <string name="BFE_Recent">Recently modified</string>
   <string name="CFA_button_add">Add Criteria</string>

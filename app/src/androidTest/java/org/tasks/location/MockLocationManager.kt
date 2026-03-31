@@ -23,4 +23,13 @@ class MockLocationManager : LocationManager {
     ) {}
 
     override fun removeProximityAlert(intent: PendingIntent) {}
+
+    override fun requestLocationUpdates(
+            provider: String,
+            minTimeMs: Long,
+            minDistanceM: Float,
+            intent: PendingIntent
+    ) {}
+
+    override fun removeLocationUpdates(intent: PendingIntent) {}
 }
