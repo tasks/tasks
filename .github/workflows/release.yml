@@ -104,3 +104,6 @@ jobs:
             composeApp/output/*.tar.gz
             composeApp/output/*.msix
             composeApp/output/*.deb
+            composeApp/output/*.appinstaller
+            composeApp/output/metadata.properties
+            composeApp/output/appcast-*.rss
