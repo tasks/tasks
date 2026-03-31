@@ -138,7 +138,11 @@ import org.tasks.filters.Filter
 import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
+import com.todoroo.astrid.core.SortHelper
+import org.tasks.kmp.org.tasks.time.getRelativeDateTime
+import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.tasklist.HeaderFormatter
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.viewmodel.AddAccountViewModel
@@ -866,6 +870,7 @@ private fun TaskList(
             TaskRow(
                 task = task,
                 filter = filter,
+                groupMode = tasks.groupMode,
                 chipDataProvider = chipDataProvider,
                 is24Hour = is24Hour,
                 onClick = { onTaskClick(task) },
@@ -920,6 +925,7 @@ private fun SectionHeader(
 private fun TaskRow(
     task: TaskContainer,
     filter: Filter,
+    groupMode: Int,
     chipDataProvider: ChipDataProvider,
     is24Hour: Boolean,
     onClick: () -> Unit,
@@ -963,18 +969,44 @@ private fun TaskRow(
             )
         }
         Column(modifier = Modifier.weight(1f).padding(top = 12.dp, bottom = 12.dp)) {
-            Text(
-                text = task.title ?: "",
-                style = MaterialTheme.typography.bodyLarge,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                textDecoration = if (task.isCompleted) TextDecoration.LineThrough else null,
-                color = if (task.isCompleted) {
-                    MaterialTheme.colorScheme.outline
+            val dueDateText by produceState<String?>(null, task.dueDate, groupMode, is24Hour) {
+                value = if (!task.hasDueDate()) {
+                    null
+                } else if (groupMode == SortHelper.SORT_DUE
+                    && (task.sortGroup ?: 0) >= currentTimeMillis().startOfDay()
+                ) {
+                    if (task.hasDueTime()) getTimeString(task.dueDate, is24Hour) else null
                 } else {
-                    MaterialTheme.colorScheme.onSurface
-                },
-            )
+                    getRelativeDateTime(task.dueDate, is24Hour)
+                }
+            }
+            val isOverdue = task.hasDueDate() && !task.isCompleted
+                    && task.dueDate < (if (task.hasDueTime()) currentTimeMillis() else currentTimeMillis().startOfDay())
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = task.title ?: "",
+                    style = MaterialTheme.typography.bodyLarge,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    textDecoration = if (task.isCompleted) TextDecoration.LineThrough else null,
+                    color = if (task.isCompleted) {
+                        MaterialTheme.colorScheme.outline
+                    } else {
+                        MaterialTheme.colorScheme.onSurface
+                    },
+                    modifier = Modifier.weight(1f),
+                )
+                if (dueDateText != null) {
+                    Text(
+                        text = dueDateText!!,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = if (isOverdue) MaterialTheme.colorScheme.error
+                                else MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
+                        modifier = Modifier.padding(start = 8.dp),
+                    )
+                }
+            }
             if (!task.notes.isNullOrBlank()) {
                 val content = task.notes!!.trim()
                 var expanded by remember { mutableStateOf(false) }
