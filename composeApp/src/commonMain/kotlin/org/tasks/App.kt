@@ -140,7 +140,7 @@ import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import com.todoroo.astrid.core.SortHelper
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.tasklist.SectionedDataSource
@@ -975,7 +975,7 @@ private fun TaskRow(
                 } else if (groupMode == SortHelper.SORT_DUE
                     && (task.sortGroup ?: 0) >= currentTimeMillis().startOfDay()
                 ) {
-                    if (task.hasDueTime()) getTimeString(task.dueDate, is24Hour) else null
+                    if (task.hasDueTime()) formatTime(task.dueDate, is24Hour) else null
                 } else {
                     getRelativeDateTime(task.dueDate, is24Hour)
                 }

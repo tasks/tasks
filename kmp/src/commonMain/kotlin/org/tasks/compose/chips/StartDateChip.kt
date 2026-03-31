@@ -9,7 +9,7 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.data.entity.Task
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.themes.TasksIcons
 import org.tasks.time.startOfDay
 
@@ -30,7 +30,7 @@ fun StartDateChip(
             ) {
                 startDate
                     .takeIf { Task.hasDueTime(it) }
-                    ?.let { getTimeString(it, is24HourFormat) }
+                    ?.let { formatTime(it, is24HourFormat) }
             } else {
                 runBlocking {
                     getRelativeDateTime(

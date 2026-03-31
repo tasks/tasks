@@ -23,7 +23,7 @@ import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.getIcon
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.QueryPreferences
 import org.tasks.service.TaskCompleter
@@ -107,7 +107,7 @@ class WatchServiceLogic(
                                 (item.task.sortGroup ?: 0) >= currentTimeMillis().startOfDay()
                             ) {
                                 item.task.takeIf { it.hasDueTime() }?.let {
-                                    getTimeString(item.task.dueDate, is24HourTime)
+                                    formatTime(item.task.dueDate, is24HourTime)
                                 }
                             } else if (item.task.hasDueDate()) {
                                 getRelativeDateTime(

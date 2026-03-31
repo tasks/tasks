@@ -22,7 +22,7 @@ import org.tasks.dialogs.StartDatePicker.Companion.NO_TIME
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.withMillisOfDay
@@ -120,7 +120,7 @@ class StartDateControlSet : TaskEditControlFragment() {
             return if (time == NO_TIME) {
                 label
             } else {
-                "$label ${getTimeString(currentTimeMillis().withMillisOfDay(time), LocalContext.current.is24HourFormat)}"
+                "$label ${formatTime(currentTimeMillis().withMillisOfDay(time), LocalContext.current.is24HourFormat)}"
             }
         }
     }

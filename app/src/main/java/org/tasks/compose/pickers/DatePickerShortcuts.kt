@@ -55,7 +55,7 @@ import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getFullDate
 import org.tasks.kmp.org.tasks.time.getRelativeDay
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.minusDays
 import org.tasks.time.startOfDay
@@ -274,7 +274,7 @@ fun TimeShortcuts(
                 stringResource(R.string.date_picker_multiple)
             } else {
                 remember(custom) {
-                    getTimeString(now.withMillisOfDay(custom), is24HourFormat)
+                    formatTime(now.withMillisOfDay(custom), is24HourFormat)
                 }
             },
             selected = selected == custom,
@@ -284,7 +284,7 @@ fun TimeShortcuts(
     ShortcutButton(
         icon = Icons.Outlined.Coffee,
         text = remember {
-            getTimeString(now.withMillisOfDay(morning), is24HourFormat)
+            formatTime(now.withMillisOfDay(morning), is24HourFormat)
         },
         selected = selected == morning,
         onClick = { selectedMillisOfDay(morning) },
@@ -292,7 +292,7 @@ fun TimeShortcuts(
     ShortcutButton(
         icon = Icons.Outlined.WbSunny,
         text = remember {
-            getTimeString(now.withMillisOfDay(afternoon), is24HourFormat)
+            formatTime(now.withMillisOfDay(afternoon), is24HourFormat)
         },
         selected = selected == afternoon,
         onClick = { selectedMillisOfDay(afternoon) },
@@ -300,7 +300,7 @@ fun TimeShortcuts(
     ShortcutButton(
         icon = Icons.Outlined.WbTwilight,
         text = remember {
-            getTimeString(now.withMillisOfDay(evening), is24HourFormat)
+            formatTime(now.withMillisOfDay(evening), is24HourFormat)
         },
         selected = selected == evening,
         onClick = { selectedMillisOfDay(evening) },
@@ -308,7 +308,7 @@ fun TimeShortcuts(
     ShortcutButton(
         icon = Icons.Outlined.NightsStay,
         text = remember {
-            getTimeString(now.withMillisOfDay(night), is24HourFormat)
+            formatTime(now.withMillisOfDay(night), is24HourFormat)
         },
         selected = selected == night,
         onClick = { selectedMillisOfDay(night) },

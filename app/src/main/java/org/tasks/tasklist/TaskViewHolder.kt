@@ -35,7 +35,7 @@ import org.tasks.filters.Filter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.markdown.Markdown
 import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksIcons
@@ -220,7 +220,7 @@ class TaskViewHolder internal constructor(
                     && (task.sortGroup ?: 0) >= currentTimeMillis().startOfDay()
             ) {
                 task.takeIf { it.hasDueTime() }?.let {
-                    getTimeString(task.dueDate, context.is24HourFormat)
+                    formatTime(task.dueDate, context.is24HourFormat)
                 }
             } else {
                 runBlocking {

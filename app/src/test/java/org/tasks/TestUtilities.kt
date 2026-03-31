@@ -9,6 +9,7 @@ import org.tasks.caldav.iCalendar.Companion.reminders
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
+import org.tasks.extensions.Context.is24HourOverride
 import org.tasks.preferences.Preferences
 import org.tasks.sync.microsoft.MicrosoftConverter.applyRemote
 import org.tasks.sync.microsoft.Tasks
@@ -16,6 +17,11 @@ import org.tasks.time.DateTime
 import java.io.StringReader
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.time.chrono.IsoChronology
+import java.time.chrono.IsoChronology.INSTANCE
+import java.time.format.DateTimeFormatterBuilder
+import java.time.format.FormatStyle
+import java.time.format.FormatStyle.SHORT
 import java.util.Locale
 import java.util.TimeZone
 
@@ -41,11 +47,16 @@ object TestUtilities {
         val def = Locale.getDefault()
         try {
             Locale.setDefault(locale)
+            is24HourOverride = DateTimeFormatterBuilder
+                .getLocalizedDateTimePattern(null, SHORT, INSTANCE, locale)
+                .contains("H")
+
             runBlocking {
                 runnable()
             }
         } finally {
             Locale.setDefault(def)
+            is24HourOverride = null
         }
     }
 

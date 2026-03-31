@@ -30,7 +30,7 @@ import org.tasks.filters.Filter
 import org.tasks.kmp.org.tasks.themes.ColorProvider.priorityColor
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.markdown.Markdown
 import org.tasks.tasklist.AdapterSection
 import org.tasks.tasklist.HeaderFormatter
@@ -266,7 +266,7 @@ internal class TasksWidgetBuilder(
                 !disableGroups
             ) {
                 task.takeIf { it.hasDueTime() }?.let {
-                    getTimeString(task.dueDate, context.is24HourFormat)
+                    formatTime(task.dueDate, context.is24HourFormat)
                 }
             } else {
                 runBlocking {

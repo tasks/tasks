@@ -21,7 +21,7 @@ import org.tasks.compose.edit.TimerRow
 import org.tasks.data.entity.Task
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.is24HourFormat
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
@@ -102,7 +102,7 @@ class TimerControlSet : TaskEditControlFragment() {
         viewModel.addComment(String.format(
             "%s %s\n%s %s",  // $NON-NLS-1$
             getString(R.string.TEA_timer_comment_stopped),
-            getTimeString(currentTimeMillis(), requireContext().is24HourFormat),
+            formatTime(currentTimeMillis(), requireContext().is24HourFormat),
             getString(R.string.TEA_timer_comment_spent),
             elapsedTime
         ),
@@ -116,7 +116,7 @@ class TimerControlSet : TaskEditControlFragment() {
         viewModel.addComment(String.format(
             "%s %s",
             getString(R.string.TEA_timer_comment_started),
-            getTimeString(currentTimeMillis(), requireContext().is24HourFormat)
+            formatTime(currentTimeMillis(), requireContext().is24HourFormat)
         ),
             null)
         return model

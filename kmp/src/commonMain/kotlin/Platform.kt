@@ -24,8 +24,12 @@ const val dataStoreFileName = "tasks.preferences_pb"
 
 expect fun formatDate(timestamp: Long, style: DateStyle): String
 
-expect fun formatDateTime(timestamp: Long, style: DateStyle): String
+expect fun formatTime(timestamp: Long, is24HourFormat: Boolean): String
+
+expect fun formatFullDateTime(
+    timestamp: Long,
+    is24HourFormat: Boolean,
+    dateStyle: DateStyle,
+): String
 
 expect fun formatDayOfWeek(timestamp: Long, style: TextStyle): String
-
-expect fun formatDateTime(timestamp: Long, format: String): String

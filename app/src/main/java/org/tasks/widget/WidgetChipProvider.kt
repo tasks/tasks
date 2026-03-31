@@ -20,7 +20,7 @@ import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import org.tasks.filters.getIcon
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.time.startOfDay
 import org.tasks.compose.chips.ChipDataProvider
 import javax.inject.Inject
@@ -56,7 +56,7 @@ class WidgetChipProvider @Inject constructor(
             val time = if (sortByStartDate && task.sortGroup?.startOfDay() == task.task.hideUntil.startOfDay()) {
                 task.task.hideUntil
                     .takeIf { Task.hasDueTime(it) }
-                    ?.let { getTimeString(it, context.is24HourFormat) }
+                    ?.let { formatTime(it, context.is24HourFormat) }
                     ?: return null
             } else {
                 runBlocking {

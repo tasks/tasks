@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.kmp.org.tasks.time.DateUtilitiesKt;
+import org.tasks.kmp.Platform_androidKt;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
@@ -96,7 +96,7 @@ public class SnoozeDialog extends DialogFragment {
           String.format(
               "%s (%s)",
               getString(snoozeOption.getResId()),
-                  DateUtilitiesKt.getTimeString(
+                  Platform_androidKt.formatTime(
                           snoozeOption.getDateTime().getMillis(),
                           org.tasks.extensions.Context.INSTANCE.is24HourFormat(context))
           )

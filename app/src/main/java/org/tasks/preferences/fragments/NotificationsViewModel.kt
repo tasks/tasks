@@ -24,7 +24,7 @@ import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.extensions.Context.getResourceUri
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.filters.Filter
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.ShortcutBadger
@@ -151,7 +151,7 @@ class NotificationsViewModel @Inject constructor(
 
     private fun refreshTimeSummary(prefKey: Int, defaultRes: Int, setter: (String) -> Unit) {
         val millisOfDay = preferences.getInt(prefKey, context.resources.getInteger(defaultRes))
-        val timeString = getTimeString(
+        val timeString = formatTime(
             currentTimeMillis().withMillisOfDay(millisOfDay),
             context.is24HourFormat
         )

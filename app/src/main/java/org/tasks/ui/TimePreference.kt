@@ -7,7 +7,7 @@ import androidx.preference.Preference
 import org.tasks.R
 import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.extensions.Context.is24HourFormat
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.withMillisOfDay
@@ -40,7 +40,7 @@ class TimePreference(context: Context, attrs: AttributeSet) : Preference(context
 
     private fun updateMillisOfDay(millis: Int) {
         millisOfDay = millis
-        val setting = getTimeString(
+        val setting = formatTime(
             currentTimeMillis().withMillisOfDay(millis),
             context.is24HourFormat
         )

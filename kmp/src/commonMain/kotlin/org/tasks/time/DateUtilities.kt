@@ -3,11 +3,11 @@ package org.tasks.kmp.org.tasks.time
 import org.jetbrains.compose.resources.getString
 import org.tasks.data.entity.Task.Companion.hasDueTime
 import org.tasks.kmp.formatDate
-import org.tasks.kmp.formatDateTime
 import org.tasks.kmp.formatDayOfWeek
+import org.tasks.kmp.formatFullDateTime
+import org.tasks.kmp.formatTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.ONE_DAY
-import org.tasks.time.minuteOfHour
 import org.tasks.time.plusDays
 import org.tasks.time.startOfDay
 import org.tasks.time.year
@@ -23,16 +23,6 @@ import tasks.kmp.generated.resources.yesterday
 import tasks.kmp.generated.resources.yesterday_abbrev_lowercase
 import tasks.kmp.generated.resources.yesterday_lowercase
 import kotlin.math.abs
-
-fun getTimeString(date: Long, is24HourFormat: Boolean): String =
-    formatDateTime(
-        timestamp = date,
-        format = when {
-            is24HourFormat -> "HH:mm"
-            date.minuteOfHour == 0 -> "h a"
-            else -> "h:mm a"
-        }
-    )
 
 suspend fun getRelativeDateTime(
     date: Long,
@@ -50,7 +40,7 @@ suspend fun getRelativeDateTime(
 
     val day = getRelativeDay(date, isAbbreviated(style), lowercase)
     return if (hasDueTime(date)) {
-        val time = getTimeString(date, is24HourFormat)
+        val time = formatTime(date, is24HourFormat)
         if (currentTimeMillis().startOfDay() == date.startOfDay())
             time
         else
@@ -81,13 +71,13 @@ fun getFullDateTime(
     date: Long,
     is24HourFormat: Boolean,
     style: DateStyle = DateStyle.LONG,
-): String = "${getFullDate(date, style)} ${getTimeString(date, is24HourFormat)}"
+): String = stripYear(formatFullDateTime(date, is24HourFormat, style), currentTimeMillis().year)
 
 private fun isAbbreviated(style: DateStyle): Boolean =
     style == DateStyle.SHORT || style == DateStyle.MEDIUM
 
 private fun stripYear(date: String, year: Int): String =
-    date.replace("(?: de |, |/| )?$year(?:年|년 | г\\.)?".toRegex(), "")
+    date.replace("(?: de |, |/| |\\u00a0)?$year(?:年|년 |[\\s\\u00a0]г\\.)?".toRegex(), "")
 
 private suspend fun getRelativeDay(
     date: Long,

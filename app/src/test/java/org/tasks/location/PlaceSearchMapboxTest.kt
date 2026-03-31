@@ -29,8 +29,8 @@ class PlaceSearchMapboxTest {
 
         assertEquals("poi.472446436443", place.id)
         assertEquals("Portillo's", place.name)
-        assertEquals(-87.962508, place.place.longitude, 0.0)
-        assertEquals(41.895473, place.place.latitude, 0.0)
+        assertEquals(-87.962508, place.place!!.longitude, 0.0)
+        assertEquals(41.895473, place.place!!.latitude, 0.0)
         assertEquals(
                 "155 S Il Route 83, Elmhurst, Illinois 60126, United States",
                 place.address
