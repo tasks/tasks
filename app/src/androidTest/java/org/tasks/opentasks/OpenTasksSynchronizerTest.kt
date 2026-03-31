@@ -89,7 +89,7 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
 
         synchronizer.sync()
 
-        assertNotNull(openTaskDao.getTask(listId.toLong(), "1234"))
+        assertNotNull(openTaskDao.getTask(listId, "1234"))
     }
 
     @Test
