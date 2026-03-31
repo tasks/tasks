@@ -11,6 +11,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.files.FileHelper
+import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.kmp.org.tasks.time.getFullDateTime
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.PreferencesViewModel
@@ -155,7 +156,7 @@ class BackupsViewModel @Inject constructor(
     private fun formatLastBackup(timestamp: Long?): String {
         val time = timestamp
             ?.takeIf { it >= 0 }
-            ?.let { getFullDateTime(it) }
+            ?.let { getFullDateTime(it, context.is24HourFormat) }
             ?: context.getString(R.string.last_backup_never)
         return context.getString(R.string.last_backup, time)
     }

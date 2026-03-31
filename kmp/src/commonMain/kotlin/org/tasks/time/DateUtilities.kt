@@ -43,7 +43,7 @@ suspend fun getRelativeDateTime(
 ): String {
     if (alwaysDisplayFullDate || !isWithinSixDays(date)) {
         return if (hasDueTime(date))
-            getFullDateTime(date, style)
+            getFullDateTime(date, is24HourFormat, style)
         else
             getFullDate(date, style)
     }
@@ -79,8 +79,9 @@ fun getFullDate(
 
 fun getFullDateTime(
     date: Long,
+    is24HourFormat: Boolean,
     style: DateStyle = DateStyle.LONG,
-): String = stripYear(formatDateTime(date, style), currentTimeMillis().year)
+): String = "${getFullDate(date, style)} ${getTimeString(date, is24HourFormat)}"
 
 private fun isAbbreviated(style: DateStyle): Boolean =
     style == DateStyle.SHORT || style == DateStyle.MEDIUM

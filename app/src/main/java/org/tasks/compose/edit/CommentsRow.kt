@@ -22,6 +22,8 @@ import org.tasks.compose.DeleteButton
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.entity.UserActivity
 import org.tasks.data.pictureUri
+import androidx.compose.ui.platform.LocalContext
+import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.kmp.org.tasks.time.getFullDateTime
 
 @Composable
@@ -89,7 +91,7 @@ fun Comment(
                 )
             }
             Text(
-                text = getFullDateTime(comment.created!!),
+                text = getFullDateTime(comment.created!!, LocalContext.current.is24HourFormat),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurface,
             )
