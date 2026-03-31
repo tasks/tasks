@@ -30,6 +30,12 @@ kotlin {
             dependencies {
                 implementation(libs.androidx.ui.tooling.preview.android)
                 implementation(libs.bitfire.cert4android)
+                implementation(libs.bitfire.ical4android.get().toString()) {
+                    exclude(group = "commons-logging")
+                    exclude(group = "org.json", module = "json")
+                    exclude(group = "org.codehaus.groovy", module = "groovy")
+                    exclude(group = "org.codehaus.groovy", module = "groovy-dateutil")
+                }
                 implementation(libs.persistent.cookiejar)
                 implementation(libs.pebblekit)
             }
