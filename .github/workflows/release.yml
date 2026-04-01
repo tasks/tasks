@@ -107,3 +107,7 @@ jobs:
             composeApp/output/*.appinstaller
             composeApp/output/metadata.properties
             composeApp/output/appcast-*.rss
+            composeApp/output/Packages
+            composeApp/output/Packages.xz
+            composeApp/output/Release
+            composeApp/output/InRelease
