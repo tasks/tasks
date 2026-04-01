@@ -52,6 +52,7 @@ fun main() {
     )
 
     application {
+    var postHogReporting: PostHogReporting? = null
     KoinApplication(application = {
         modules(commonModule, platformModule())
     }) {
@@ -90,7 +91,10 @@ fun main() {
                 }
         }
         Window(
-            onCloseRequest = { this@application.exitApplication() },
+            onCloseRequest = {
+                postHogReporting?.close()
+                this@application.exitApplication()
+            },
             title = "Tasks",
             state = windowState,
             visible = windowReady,
@@ -98,10 +102,11 @@ fun main() {
             window.minimumSize = Dimension(MIN_WIDTH.value.toInt(), MIN_HEIGHT.value.toInt())
             val reporting = koinInject<Reporting>()
             val sseClient = koinInject<SseClient>()
+            postHogReporting = reporting as? PostHogReporting
             LaunchedEffect(Unit) {
                 Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
                     reporting.reportException(throwable)
-                    (reporting as? PostHogReporting)?.close()
+                    postHogReporting?.close()
                 }
                 reporting.logEvent(AnalyticsEvents.APP_OPENED)
                 sseClient.start()
