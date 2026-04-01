@@ -83,6 +83,7 @@ val commonModule = module {
     factory<LocationService> {
         object : LocationService {
             override val locationDao = get<org.tasks.data.dao.LocationDao>()
+            override val appPreferences = get<AppPreferences>()
             override suspend fun currentLocation(): MapPosition? = null
             override fun addGeofences(geofence: MergedGeofence) {}
             override fun removeGeofences(place: Place) {}
