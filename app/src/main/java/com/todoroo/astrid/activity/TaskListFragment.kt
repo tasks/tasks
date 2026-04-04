@@ -1294,17 +1294,20 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 }
                 if (isRecurringCompletion) {
                     val task = tasks.first()
-                    val title = markdown.markdown(force = true).toMarkdown(task.title)
-                    val text = getString(
-                        R.string.repeat_snackbar,
-                        title,
-                        getRelativeDateTime(
-                            task.dueDate,
-                            context.is24HourFormat,
-                            DateStyle.LONG,
-                            lowercase = true
-                        )
+                    val fullTitle = markdown.markdown(force = true).toMarkdown(task.title)?.toString() ?: ""
+                    val date = getRelativeDateTime(
+                        task.dueDate,
+                        context.is24HourFormat,
+                        DateStyle.LONG,
+                        lowercase = true
                     )
+                    val maxTitleLength = 30
+                    val title = if (fullTitle.length > maxTitleLength) {
+                        fullTitle.take(maxTitleLength - 1).trimEnd() + "…"
+                    } else {
+                        fullTitle
+                    }
+                    val text = getString(R.string.repeat_snackbar, title, date)
                     makeSnackbar(text)?.setAction(R.string.DLG_undo, undoCompletion)?.show()
                 } else {
                     val text = if (tasks.size == 1) {

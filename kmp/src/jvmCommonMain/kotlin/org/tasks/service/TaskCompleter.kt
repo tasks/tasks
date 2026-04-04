@@ -50,6 +50,9 @@ class TaskCompleter(
             .filterNot { it.readOnly }
             .let { tasks ->
                 setComplete(tasks, completionDate)
+                if (completed && !item.isRecurring) {
+                    refreshBroadcaster.broadcastTaskCompleted(tasks.map { it.id })
+                }
             }
     }
 
@@ -59,6 +62,7 @@ class TaskCompleter(
         }
         tasks.forEach { notifier.cancel(it.id) }
         val completed = completionDate > 0
+        val repeated = ArrayList<Task>()
         Logger.d(TAG) { "Completing $tasks" }
         completionDao.complete(
             tasks = tasks,
@@ -73,7 +77,9 @@ class TaskCompleter(
                         calendarHelper.updateEvent(task)
 
                         if (caldavDao.getAccountForTask(task.id)?.isSuppressRepeatingTasks != true) {
-                            repeatTaskHelper.handleRepeat(task)
+                            if (repeatTaskHelper.handleRepeat(task)) {
+                                repeated.add(task)
+                            }
                             if (task.completionDate == 0L) {
                                 setComplete(task, false)
                             }
@@ -82,6 +88,11 @@ class TaskCompleter(
                 }
             }
         )
+        repeated.lastOrNull()?.let { task ->
+            val oldDueDate = tasks.find { it.id == task.id }?.dueDate?.takeIf { it > 0 }
+                ?: computePreviousDueDate(task)
+            refreshBroadcaster.broadcastTaskCompleted(listOf(task.id), oldDueDate)
+        }
         if (completed) {
             soundPlayer.playCompletionSound()
         }
