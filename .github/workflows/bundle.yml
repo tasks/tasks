@@ -240,8 +240,7 @@ jobs:
         with:
           name: desktop-jar
 
-      - name: Install Conveyor
-        run: npm install -g @hydraulic/conveyor
+      - uses: ./.github/actions/install-conveyor
 
       - name: Cache Conveyor downloads
         uses: actions/cache@v4
