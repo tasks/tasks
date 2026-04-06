@@ -63,9 +63,9 @@ jobs:
           key: conveyor-release
 
       - name: Write Apple notarization key
-        if: ${{ secrets.APPLE_PRIVATE_KEY != '' }}
         env:
           APPLE_PRIVATE_KEY: ${{ secrets.APPLE_PRIVATE_KEY }}
+        if: ${{ env.APPLE_PRIVATE_KEY != '' }}
         run: echo "$APPLE_PRIVATE_KEY" > "$RUNNER_TEMP/apple_api_key.p8"
 
       - name: Build notarized desktop releases
