@@ -73,11 +73,12 @@ jobs:
         env:
           SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
           CONVEYOR_AGREE_TO_LICENSE: 1
-          APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
-          APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
-          APPLE_PRIVATE_KEY_PATH: ${{ runner.temp }}/apple_api_key.p8
-        run: |
-          conveyor make site
+        run: >
+          conveyor
+          -Kapp.mac.notarization.issuer-id=${{ secrets.APPLE_ISSUER_ID }}
+          -Kapp.mac.notarization.key-id=${{ secrets.APPLE_KEY_ID }}
+          -Kapp.mac.notarization.private-key=${{ runner.temp }}/apple_api_key.p8
+          make site
 
       - name: Rename artifacts
         run: |
