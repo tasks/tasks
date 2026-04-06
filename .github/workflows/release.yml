@@ -62,11 +62,20 @@ jobs:
           path: ~/.cache/hydraulic/conveyor
           key: conveyor-release
 
+      - name: Write Apple notarization key
+        if: ${{ secrets.APPLE_PRIVATE_KEY != '' }}
+        env:
+          APPLE_PRIVATE_KEY: ${{ secrets.APPLE_PRIVATE_KEY }}
+        run: echo "$APPLE_PRIVATE_KEY" > "$RUNNER_TEMP/apple_api_key.p8"
+
       - name: Build notarized desktop releases
         working-directory: composeApp
         env:
           SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
           CONVEYOR_AGREE_TO_LICENSE: 1
+          APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
+          APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
+          APPLE_PRIVATE_KEY_PATH: ${{ runner.temp }}/apple_api_key.p8
         run: |
           conveyor make site
 
