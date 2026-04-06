@@ -90,7 +90,7 @@ class WorkManagerImpl(
 
     @SuppressLint("EnqueueWork")
     override suspend fun sync(source: SyncSource) {
-        val immediate = source != SyncSource.TASK_CHANGE
+        val immediate = source.immediate
         val builder = OneTimeWorkRequest.Builder(SyncWork::class.java)
                 .setInputData(SyncWork.EXTRA_SOURCE to source.name)
         if (!openTaskDao.shouldSync()) {

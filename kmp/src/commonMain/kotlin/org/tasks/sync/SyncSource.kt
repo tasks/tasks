@@ -1,12 +1,12 @@
 package org.tasks.sync
 
-enum class SyncSource(val showIndicator: Boolean) {
+enum class SyncSource(val showIndicator: Boolean, val immediate: Boolean = true) {
     NONE(false),
     USER_INITIATED(true),
     PUSH_NOTIFICATION(false),
     CONTENT_OBSERVER(true),
     BACKGROUND(false),
-    TASK_CHANGE(true),
+    TASK_CHANGE(showIndicator = true, immediate = false),
     APP_BACKGROUND(false),
     APP_RESUME(false),
     ACCOUNT_ADDED(true),
@@ -14,8 +14,11 @@ enum class SyncSource(val showIndicator: Boolean) {
     SHARING_CHANGE(true),
     ;
 
-    fun upgrade(other: SyncSource): SyncSource =
-        if (other.showIndicator && !this.showIndicator) other else this
+    fun upgrade(other: SyncSource): SyncSource = when {
+        other.showIndicator && !this.showIndicator -> other
+        other.immediate && !this.immediate -> other
+        else -> this
+    }
 
     companion object {
         fun fromString(value: String?): SyncSource =
