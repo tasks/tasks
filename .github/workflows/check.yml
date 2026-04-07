@@ -35,7 +35,35 @@ jobs:
           name: lint-reports
           path: app/build/reports/*.html
 
-  test:
+  jvmTest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v6
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Run JVM tests
+        run: ./gradlew -Pcoverage app:createGoogleplayDebugUnitTestCoverageReport app:createGenericDebugUnitTestCoverageReport jvmTest
+
+      - name: Upload test reports
+        uses: actions/upload-artifact@v7
+        if: ${{ always() }}
+        with:
+          name: test-reports-jvm
+          path: |
+            app/build/reports/**
+            data/build/reports/**
+            kmp/build/reports/**
+
+  instrumentedTest:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -60,33 +88,14 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-#      - name: AVD cache
-#        uses: actions/cache@v4
-#        id: avd-cache
-#        with:
-#          path: |
-#            ~/.android/avd/*
-#            ~/.android/adb*
-#          key: avd-${{ matrix.api-level }}
-#
-#      - name: create AVD and generate snapshot for caching
-#        if: steps.avd-cache.outputs.cache-hit != 'true'
-#        uses: reactivecircus/android-emulator-runner@v2
-#        with:
-#          api-level: ${{ matrix.api-level }}
-#          force-avd-creation: false
-#          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-#          disable-animations: false
-#          script: echo "Generated AVD snapshot for caching."
-
-      - name: run tests
+      - name: Run instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./gradlew -Pcoverage app:test${{ matrix.flavor }}DebugUnitTest app:connected${{ matrix.flavor }}DebugAndroidTest kmp:jvmTest
+          script: ./gradlew -Pcoverage app:create${{ matrix.flavor }}DebugAndroidTestCoverageReport
 
       - name: Upload test reports
         uses: actions/upload-artifact@v7

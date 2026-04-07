@@ -92,6 +92,7 @@ android {
             resValue("string", "google_key", tasks_google_key_debug ?: "")
             resValue("string", "posthog_key", "")
             enableUnitTestCoverage = project.hasProperty("coverage")
+            enableAndroidTestCoverage = project.hasProperty("coverage")
         }
         release {
             val tasks_mapbox_key: String? by project
