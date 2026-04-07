@@ -21,6 +21,7 @@ import org.tasks.data.createHideUntil
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.CaldavDao.Companion.toAppleEpoch
 import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
@@ -269,11 +270,16 @@ open class TaskAdapter(
             calendar = list,
         )
         val newParentId = newParent?.id ?: 0
-        if (newParentId == 0L) {
-            caldavTask.remoteParent = ""
-        } else {
-            caldavTask.calendar = list
-            caldavTask.remoteParent = newParent?.caldavTask?.remoteId ?: return
+        // Don't update remoteParent for Microsoft tasks — the sync code
+        // compares task.parent with remoteParent to detect hierarchy changes
+        // between Task and ChecklistItem API objects
+        if (task.accountType != TYPE_MICROSOFT) {
+            if (newParentId == 0L) {
+                caldavTask.remoteParent = ""
+            } else {
+                caldavTask.calendar = list
+                caldavTask.remoteParent = newParent?.caldavTask?.remoteId ?: return
+            }
         }
         task.task.order = if (newTasksOnTop) {
             caldavDao.findFirstTask(list, newParentId)
@@ -422,14 +428,21 @@ open class TaskAdapter(
 
     private suspend fun changeCaldavParent(task: TaskContainer, newParent: Long) {
         val caldavTask = task.caldavTask ?: return
+        // Don't update remoteParent for Microsoft tasks — the sync code
+        // compares task.parent with remoteParent to detect hierarchy changes
+        val skipRemoteParentUpdate = task.accountType == TYPE_MICROSOFT
         if (newParent == 0L) {
-            caldavTask.remoteParent = ""
-            caldavDao.update(caldavTask.id, caldavTask.remoteParent)
+            if (!skipRemoteParentUpdate) {
+                caldavTask.remoteParent = ""
+                caldavDao.update(caldavTask.id, caldavTask.remoteParent)
+            }
         } else {
             val parentTask = caldavDao.getTask(newParent) ?: return
             if (parentTask.calendar == caldavTask.calendar) {
-                caldavTask.remoteParent = parentTask.remoteId
-                caldavDao.update(caldavTask.id, caldavTask.remoteParent)
+                if (!skipRemoteParentUpdate) {
+                    caldavTask.remoteParent = parentTask.remoteId
+                    caldavDao.update(caldavTask.id, caldavTask.remoteParent)
+                }
             } else {
                 caldavDao.markDeleted(listOf(task.id))
                 caldavDao.insert(

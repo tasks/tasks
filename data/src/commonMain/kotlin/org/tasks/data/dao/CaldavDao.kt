@@ -246,6 +246,9 @@ SELECT EXISTS(SELECT 1
     @Query("SELECT cd_remote_id FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0 AND cd_last_sync > 0")
     abstract suspend fun getRemoteIds(calendar: String): List<String>
 
+    @Query("SELECT cd_remote_id FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0 AND cd_last_sync > 0 AND (cd_remote_parent IS NULL OR cd_remote_parent = '')")
+    abstract suspend fun getTopLevelRemoteIds(calendar: String): List<String>
+
     suspend fun getTasksByRemoteId(calendar: String, remoteIds: List<String>): List<CaldavTask> =
             remoteIds.chunkedMap { getTasksByRemoteIdInternal(calendar, it) }
 

@@ -28,6 +28,9 @@ kotlin {
             implementation(libs.kotlinx.serialization)
             implementation(libs.kermit)
         }
+        jvmTest.dependencies {
+            implementation(libs.junit)
+        }
     }
     task("testClasses")
 }
