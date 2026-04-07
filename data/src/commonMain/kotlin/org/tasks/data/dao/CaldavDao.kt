@@ -314,7 +314,9 @@ GROUP BY caldav_lists.cdl_uuid
         WHERE _id IN (
             SELECT cd_task
             FROM caldav_tasks
+            INNER JOIN tasks ON _id = cd_task
             WHERE cd_deleted = 0
+                AND modified <= cd_last_sync
         )
     """)
     abstract suspend fun updateParents()
@@ -342,8 +344,10 @@ GROUP BY caldav_lists.cdl_uuid
         WHERE _id IN (
             SELECT cd_task
             FROM caldav_tasks
+            INNER JOIN tasks ON _id = cd_task
             WHERE cd_calendar = :calendar
                 AND cd_deleted = 0
+                AND modified <= cd_last_sync
         )
     """)
     abstract suspend fun updateParents(calendar: String)
