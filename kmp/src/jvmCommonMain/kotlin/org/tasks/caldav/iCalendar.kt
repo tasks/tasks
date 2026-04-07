@@ -506,7 +506,7 @@ class iCalendar(
                     if (priority < 5) max(1, priority) else 1
                 else -> if (priority > 5) min(9, priority) else 9
             }
-            parent = if (task.parent == 0L) null else caldavTask.remoteParent
+            parent = caldavTask.remoteParent?.takeIf { it.isNotBlank() }
             order = task.order
             collapsed = task.isCollapsed
         }
