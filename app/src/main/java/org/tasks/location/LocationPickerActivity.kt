@@ -34,6 +34,8 @@ import org.tasks.Event
 import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import com.todoroo.astrid.activity.MainActivity
+import com.todoroo.astrid.activity.TaskListFragment
 import org.tasks.activities.PlaceSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
@@ -41,6 +43,7 @@ import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.data.PlaceUsage
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Place
+import org.tasks.filters.PlaceFilter
 import org.tasks.data.mapPosition
 import org.tasks.databinding.ActivityLocationPickerBinding
 import org.tasks.dialogs.DialogBuilder
@@ -296,7 +299,12 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
                         firebase.logEvent(R.string.event_create_place)
                     }
             }
-            setResult(Activity.RESULT_OK, Intent().putExtra(EXTRA_PLACE, place as Parcelable?))
+            setResult(
+                Activity.RESULT_OK,
+                Intent(TaskListFragment.ACTION_RELOAD)
+                    .putExtra(EXTRA_PLACE, place as Parcelable?)
+                    .putExtra(MainActivity.OPEN_FILTER, PlaceFilter(place))
+            )
             finish()
         }
     }
