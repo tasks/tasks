@@ -69,7 +69,9 @@ class MicrosoftSyncTests : InjectingTestCase() {
         addTask(with(PARENT, tasks[0]))
         // Set a remoteParent to simulate a previously synced subtask
         val child = caldavDao.getTask(tasks[1].id)!!
-        caldavDao.update(child.copy(remoteParent = "remote-parent-id"))
+        val updatedChild = child.copy(remoteParent = "remote-parent-id")
+        caldavDao.update(updatedChild)
+        tasks[1] = tasks[1].copy(caldavTask = updatedChild)
 
         adapter.moved(1, 1, 0)
 
@@ -86,7 +88,9 @@ class MicrosoftSyncTests : InjectingTestCase() {
         addTask(with(PARENT, tasks[0]))
         // Set remoteParent to simulate synced state
         val child = caldavDao.getTask(tasks[2].id)!!
-        caldavDao.update(child.copy(remoteParent = "old-parent-remote-id"))
+        val updatedChild = child.copy(remoteParent = "old-parent-remote-id")
+        caldavDao.update(updatedChild)
+        tasks[2] = tasks[2].copy(caldavTask = updatedChild)
 
         // Move child from under tasks[0] to under tasks[1]
         adapter.moved(2, 2, 1)
