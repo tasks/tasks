@@ -56,7 +56,6 @@ import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
 import org.tasks.repeats.RecurrenceUtils.newRRule
 import org.tasks.time.DateTimeUtils.toDate
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
 import org.tasks.time.startOfMinute
 import co.touchlab.kermit.Logger
@@ -239,6 +238,7 @@ class iCalendar(
         val local = vtodoCache.getVtodo(calendar, caldavTask)?.let { fromVtodo(it) }
         task.applyRemote(remote, local)
         caldavTask.applyRemote(remote, local)
+        val remoteModificationDate = task.modificationDate
 
         if ((remote.lastAck ?: 0) > task.reminderLast) {
             notifier.cancel(task.id)
@@ -272,11 +272,7 @@ class iCalendar(
                 local?.reminders?.plus(randomReminders) ?: randomReminders
             if (alarms.toSet() == localReminders.toSet()) {
                 val remoteReminders = remote.reminders.plus(randomReminders)
-                val changed =
-                    alarmService.synchronizeAlarms(caldavTask.task, remoteReminders.toMutableSet())
-                if (changed) {
-                    task.modificationDate = currentTimeMillis()
-                }
+                alarmService.synchronizeAlarms(caldavTask.task, remoteReminders.toMutableSet())
             }
         }
 
@@ -286,6 +282,8 @@ class iCalendar(
         vtodoCache.putVtodo(calendar, caldavTask, vtodo)
         caldavTask.etag = eTag
         if (!dirty) {
+            task.modificationDate = remoteModificationDate
+            taskDao.touch(listOf(task.id), task.modificationDate)
             caldavTask.lastSync = task.modificationDate
         }
         if (isNew) {

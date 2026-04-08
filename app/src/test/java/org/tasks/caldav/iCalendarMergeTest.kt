@@ -27,6 +27,7 @@ import org.tasks.makers.iCalMaker.COMPLETED_AT
 import org.tasks.makers.iCalMaker.CREATED_AT
 import org.tasks.makers.iCalMaker.DESCRIPTION
 import org.tasks.makers.iCalMaker.DUE_DATE
+import org.tasks.makers.iCalMaker.LAST_MODIFIED
 import org.tasks.makers.iCalMaker.PARENT
 import org.tasks.makers.iCalMaker.PRIORITY
 import org.tasks.makers.iCalMaker.RRULE
@@ -358,6 +359,74 @@ class iCalendarMergeTest {
             )
             .let {
                 assertEquals(created.millis, it.creationDate)
+            }
+    }
+
+    @Test
+    fun remoteAddsModified() {
+        val modified = newDateTime().minusMinutes(5)
+        newTask(with(TaskMaker.MODIFICATION_TIME, modified.minusMinutes(1)))
+            .applyRemote(
+                remote = newIcal(with(LAST_MODIFIED, modified.toUTC())),
+                local = null
+            )
+            .let {
+                assertEquals(modified.millis, it.modificationDate)
+            }
+    }
+
+    @Test
+    fun remoteUpdatesModified() {
+        val modified = newDateTime().minusMinutes(10)
+        val updated = newDateTime().minusMinutes(5)
+        newTask(with(TaskMaker.MODIFICATION_TIME, modified))
+            .applyRemote(
+                remote = newIcal(with(LAST_MODIFIED, updated.toUTC())),
+                local = newIcal(with(LAST_MODIFIED, modified.toUTC()))
+            )
+            .let {
+                assertEquals(updated.millis, it.modificationDate)
+            }
+    }
+
+    @Test
+    fun localBeatsRemoteModified() {
+        val modified = newDateTime().minusMinutes(10)
+        val localEdit = newDateTime().minusMinutes(3)
+        val remoteUpdate = newDateTime().minusMinutes(5)
+        newTask(with(TaskMaker.MODIFICATION_TIME, localEdit))
+            .applyRemote(
+                remote = newIcal(with(LAST_MODIFIED, remoteUpdate.toUTC())),
+                local = newIcal(with(LAST_MODIFIED, modified.toUTC()))
+            )
+            .let {
+                assertEquals(localEdit.millis, it.modificationDate)
+            }
+    }
+
+    @Test
+    fun remoteModifiedClampedToNow() {
+        val future = newDateTime().plusDays(1)
+        newTask()
+            .applyRemote(
+                remote = newIcal(with(LAST_MODIFIED, future.toUTC())),
+                local = null
+            )
+            .let {
+                assertTrue(it.modificationDate <= org.tasks.time.DateTimeUtils2.currentTimeMillis())
+            }
+    }
+
+    @Test
+    fun remoteNullModifiedPreservesLocal() {
+        val modified = newDateTime()
+        newTask(with(TaskMaker.MODIFICATION_TIME, modified))
+            .applyRemote(
+                remote = newIcal(),
+                local = null
+            )
+            .let {
+                assertEquals(modified.millis, it.modificationDate)
             }
     }
 

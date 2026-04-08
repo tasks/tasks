@@ -23,6 +23,7 @@ fun org.tasks.data.entity.Task.applyRemote(
 ): org.tasks.data.entity.Task {
     applyCompletedAt(remote, local)
     applyCreatedAt(remote, local)
+    applyModified(remote, local)
     applyTitle(remote, local)
     applyDescription(remote, local)
     applyPriority(remote, local)
@@ -62,6 +63,15 @@ private fun org.tasks.data.entity.Task.applyCreatedAt(remote: VTodoTask, local: 
     if (localCreated == null || localCreated == creationDate) {
         remote.createdAt?.let {
             creationDate = newDateTime(it, UTC).toLocal().millis
+        }
+    }
+}
+
+private fun org.tasks.data.entity.Task.applyModified(remote: VTodoTask, local: VTodoTask?) {
+    val localModified = local?.lastModified?.let { newDateTime(it, UTC) }?.toLocal()?.millis
+    if (localModified == null || localModified == modificationDate) {
+        remote.lastModified?.let {
+            modificationDate = newDateTime(it, UTC).toLocal().millis.coerceAtMost(currentTimeMillis())
         }
     }
 }
