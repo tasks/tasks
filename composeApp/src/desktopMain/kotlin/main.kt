@@ -25,6 +25,8 @@ import org.tasks.analytics.PostHogReporting
 import org.tasks.analytics.Reporting
 import org.tasks.App
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.PlatformConfiguration
+import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.sse.SseClient
 import org.tasks.di.commonModule
@@ -103,10 +105,25 @@ fun main() {
             val reporting = koinInject<Reporting>()
             val sseClient = koinInject<SseClient>()
             postHogReporting = reporting as? PostHogReporting
+            val appPreferences = koinInject<AppPreferences>()
+            val platformConfig = koinInject<PlatformConfiguration>()
             LaunchedEffect(Unit) {
                 Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
                     reporting.reportException(throwable, fatal = true)
                     postHogReporting?.close()
+                }
+                val versionCode = platformConfig.versionCode
+                if (versionCode > 0) {
+                    if (appPreferences.getInstallVersion() == 0) {
+                        appPreferences.setInstallVersion(versionCode)
+                        appPreferences.setInstallDate(
+                            org.tasks.time.DateTimeUtils2.currentTimeMillis()
+                        )
+                    }
+                    if (appPreferences.getDeviceInstallVersion() == 0) {
+                        appPreferences.setDeviceInstallVersion(versionCode)
+                    }
+                    preferences.set(TasksPreferences.currentVersion, versionCode)
                 }
                 reporting.logEvent(AnalyticsEvents.APP_OPENED)
                 sseClient.start()

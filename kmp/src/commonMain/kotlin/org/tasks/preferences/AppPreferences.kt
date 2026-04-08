@@ -3,6 +3,12 @@ package org.tasks.preferences
 import org.tasks.data.entity.Alarm
 
 interface AppPreferences {
+    suspend fun getInstallVersion(): Int
+    suspend fun setInstallVersion(value: Int)
+    suspend fun getInstallDate(): Long
+    suspend fun setInstallDate(value: Long)
+    suspend fun getDeviceInstallVersion(): Int
+    suspend fun setDeviceInstallVersion(value: Int)
     suspend fun isDefaultDueTimeEnabled(): Boolean
     suspend fun defaultLocationReminder(): Int
     suspend fun defaultAlarms(): List<Alarm>

@@ -1,6 +1,8 @@
 package org.tasks
 
 data class PlatformConfiguration(
+    val versionCode: Int = 0,
+
     // Sync providers
     val supportsTasksOrg: Boolean = true,
     val supportsCaldav: Boolean = false,

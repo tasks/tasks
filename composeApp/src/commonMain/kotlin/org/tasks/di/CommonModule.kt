@@ -4,44 +4,44 @@ import com.todoroo.astrid.alarms.AlarmCalculator
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import com.todoroo.astrid.timers.TimerPlugin
-import org.tasks.audio.SoundPlayer
-import org.tasks.calendars.CalendarHelper
-import org.tasks.service.TaskCompleter
 import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
-import org.koin.dsl.bind
 import org.koin.dsl.module
+import org.tasks.audio.SoundPlayer
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.broadcast.RefreshBroadcaster
-import org.tasks.preferences.DataStoreQueryPreferences
-import org.tasks.preferences.QueryPreferences
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.iCalendar
+import org.tasks.calendars.CalendarHelper
+import org.tasks.compose.chips.ChipDataProvider
+import org.tasks.data.MergedGeofence
 import org.tasks.data.TaskSaver
 import org.tasks.data.db.Database
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Place
-import org.tasks.jobs.BackgroundWork
 import org.tasks.data.entity.Task
+import org.tasks.filters.FilterProvider
+import org.tasks.jobs.BackgroundWork
 import org.tasks.location.Geocoder
 import org.tasks.location.LocationService
 import org.tasks.location.MapPosition
-import org.tasks.data.MergedGeofence
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
+import org.tasks.preferences.DataStoreQueryPreferences
+import org.tasks.preferences.QueryPreferences
+import org.tasks.preferences.TasksPreferences
 import org.tasks.reminders.Random
 import org.tasks.service.TaskCleanup
+import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
-import org.tasks.compose.chips.ChipDataProvider
-import org.tasks.filters.FilterProvider
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
@@ -95,7 +95,20 @@ val commonModule = module {
         }
     }
     factory<AppPreferences> {
+        val tasksPreferences = get<TasksPreferences>()
         object : AppPreferences {
+            override suspend fun getInstallVersion() =
+                tasksPreferences.get(TasksPreferences.installVersion, 0)
+            override suspend fun setInstallVersion(value: Int) =
+                tasksPreferences.set(TasksPreferences.installVersion, value)
+            override suspend fun getInstallDate() =
+                tasksPreferences.get(TasksPreferences.installDate, 0L)
+            override suspend fun setInstallDate(value: Long) =
+                tasksPreferences.set(TasksPreferences.installDate, value)
+            override suspend fun getDeviceInstallVersion() =
+                tasksPreferences.get(TasksPreferences.deviceInstallVersion, 0)
+            override suspend fun setDeviceInstallVersion(value: Int) =
+                tasksPreferences.set(TasksPreferences.deviceInstallVersion, value)
             override suspend fun isDefaultDueTimeEnabled() = false
             override suspend fun defaultLocationReminder() = 0
             override suspend fun defaultAlarms() = emptyList<Alarm>()

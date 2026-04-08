@@ -374,6 +374,13 @@ class Preferences @JvmOverloads constructor(
         get() = getInt(R.string.p_device_install_version, 0)
         set(value) = setInt(R.string.p_device_install_version, value)
 
+    override suspend fun getInstallVersion() = installVersion
+    override suspend fun setInstallVersion(value: Int) { installVersion = value }
+    override suspend fun getInstallDate() = installDate
+    override suspend fun setInstallDate(value: Long) { installDate = value }
+    override suspend fun getDeviceInstallVersion() = deviceInstallVersion
+    override suspend fun setDeviceInstallVersion(value: Int) { deviceInstallVersion = value }
+
     override var sortMode: Int
         get() = getInt(R.string.p_sort_mode, SortHelper.SORT_DUE)
         set(value) { setInt(R.string.p_sort_mode, value) }

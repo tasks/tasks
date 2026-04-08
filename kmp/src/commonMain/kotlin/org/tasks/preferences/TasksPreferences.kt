@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import kotlinx.coroutines.flow.Flow
@@ -58,5 +59,13 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val windowHeight = intPreferencesKey("window_height")
         val windowX = intPreferencesKey("window_x")
         val windowY = intPreferencesKey("window_y")
+        val installVersion = intPreferencesKey("install_version")
+        val installDate = longPreferencesKey("install_date")
+        val deviceInstallVersion = intPreferencesKey("device_install_version")
+        val currentVersion = intPreferencesKey("current_version")
+        val blogLastChecked = longPreferencesKey("blog_last_checked")
+        val blogFeedMode = intPreferencesKey("blog_feed_mode")
+        val blogPendingPost = stringPreferencesKey("blog_pending_post")
+        val blogDismissedPostId = stringPreferencesKey("blog_dismissed_post_id")
     }
 }

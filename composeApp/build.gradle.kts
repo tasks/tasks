@@ -141,8 +141,10 @@ val generateDesktopConfig by tasks.registering {
         .orElse(providers.gradleProperty("posthogKey"))
         .orElse("")
     val dataDir = providers.gradleProperty("tasks.dataDir").orElse("")
+    val versionCode = libs.versions.versionCode
     inputs.property("posthogKey", posthogKey)
     inputs.property("dataDir", dataDir)
+    inputs.property("versionCode", versionCode)
     outputs.dir(outputDir)
     doLast {
         val file = outputDir.get().file("tasks.properties").asFile
@@ -151,6 +153,7 @@ val generateDesktopConfig by tasks.registering {
             buildString {
                 appendLine("posthog.key=${posthogKey.get()}")
                 appendLine("data.dir=${dataDir.get()}")
+                appendLine("version.code=${versionCode.get()}")
             }
         )
     }

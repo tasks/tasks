@@ -49,7 +49,11 @@ private object DesktopModule
 
 actual fun platformModule(): Module = module {
     singleOf(::TasksServerEnvironment)
-    single { PlatformConfiguration() }
+    single {
+        PlatformConfiguration(
+            versionCode = config.getProperty("version.code", "0").toIntOrNull() ?: 0,
+        )
+    }
     single<Reporting> { PostHogReporting(config.getProperty("posthog.key", "")) }
     factory<OkHttpClientFactory> { DefaultOkHttpClientFactory() }
     factory { DesktopOAuthFlow(serverEnvironment = get()) }
