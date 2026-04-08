@@ -284,7 +284,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     }
 
     private suspend fun markSynced(vararg taskIds: Long) {
-        val now = org.tasks.time.DateTimeUtils.currentTimeMillis()
+        val now = org.tasks.time.DateTimeUtils2.currentTimeMillis()
         taskIds.forEach { taskId ->
             caldavDao.getTask(taskId)?.let { caldavDao.update(it.copy(lastSync = now)) }
         }
