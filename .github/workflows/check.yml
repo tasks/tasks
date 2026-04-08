@@ -95,7 +95,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./gradlew -Pcoverage app:create${{ matrix.flavor }}DebugAndroidTestCoverageReport
+          script: ./gradlew app:connected${{ matrix.flavor }}DebugAndroidTest
 
       - name: Upload test reports
         uses: actions/upload-artifact@v7
