@@ -38,7 +38,7 @@ class PostHogReporting(apiKey: String) : Reporting {
     override fun completeTask(source: String) =
         logEvent(AnalyticsEvents.COMPLETE_TASK, AnalyticsEvents.PARAM_TYPE to source)
 
-    override fun reportException(t: Throwable) {
+    override fun reportException(t: Throwable, fatal: Boolean) {
         logger.e(t) { t.message ?: "" }
         if (enabled) {
             PostHog.capture(
@@ -47,6 +47,7 @@ class PostHogReporting(apiKey: String) : Reporting {
                     "message" to (t.message ?: ""),
                     "class" to t.javaClass.name,
                     "stacktrace" to t.stackTraceToString(),
+                    "fatal" to fatal,
                 ),
             )
         }

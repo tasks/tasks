@@ -105,7 +105,7 @@ fun main() {
             postHogReporting = reporting as? PostHogReporting
             LaunchedEffect(Unit) {
                 Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
-                    reporting.reportException(throwable)
+                    reporting.reportException(throwable, fatal = true)
                     postHogReporting?.close()
                 }
                 reporting.logEvent(AnalyticsEvents.APP_OPENED)

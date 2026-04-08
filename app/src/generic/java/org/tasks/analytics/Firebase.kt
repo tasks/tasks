@@ -15,7 +15,7 @@ class Firebase @Inject constructor(
     @param:ApplicationContext val context: Context,
     private val preferences: Preferences
 ) : Reporting, FcmTokenProvider {
-    override fun reportException(t: Throwable) = Timber.e(t)
+    override fun reportException(t: Throwable, fatal: Boolean) = Timber.e(t)
 
     fun updateRemoteConfig() {}
 

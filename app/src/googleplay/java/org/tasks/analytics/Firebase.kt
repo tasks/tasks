@@ -251,7 +251,7 @@ class Firebase @Inject constructor(
         }
     }
 
-    override fun reportException(t: Throwable) {
+    override fun reportException(t: Throwable, fatal: Boolean) {
         Timber.e(t)
         crashlytics?.recordException(t)
     }
