@@ -128,9 +128,12 @@ ORDER BY CASE cda_account_type
                 ?.plus(1)
         }
         val id = insert(caldavTask)
-        update(task)
+        setOrder(task.id, task.order)
         return id
     }
+
+    @Query("UPDATE tasks SET `order` = :order WHERE _id = :id")
+    abstract suspend fun setOrder(id: Long, order: Long?)
 
     @Query("""
 SELECT MIN(IFNULL(`order`, (created - $APPLE_EPOCH) / 1000))
