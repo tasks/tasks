@@ -37,10 +37,11 @@ import org.tasks.billing.Inventory
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.TasksBasicAuth
+import org.tasks.feed.BlogFeedChecker
 import org.tasks.http.HttpClientFactory
-import org.tasks.http.OkHttpClientFactory
 import org.tasks.caldav.FileStorage
 import org.tasks.analytics.Analytics
+import org.tasks.analytics.CrashReporting
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.VtodoCache
 import org.tasks.compose.drawer.DrawerConfiguration
@@ -111,6 +112,10 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun getAnalytics(reporting: Reporting): Analytics = reporting
+
+    @Provides
+    @Singleton
+    fun getCrashReporting(reporting: Reporting): CrashReporting = reporting
 
     @Provides
     @Singleton
@@ -347,6 +352,15 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun providesBackgroundWork(workManager: WorkManager): BackgroundWork = workManager
+
+    @Provides
+    @Singleton
+    fun providesBlogFeedChecker(
+        httpClientFactory: HttpClientFactory,
+        tasksPreferences: TasksPreferences,
+        appPreferences: AppPreferences,
+        crashReporting: CrashReporting,
+    ) = BlogFeedChecker(httpClientFactory, tasksPreferences, appPreferences, crashReporting)
 
     @Provides
     @Singleton

@@ -46,10 +46,12 @@ import org.tasks.jobs.WorkManager.Companion.TAG_MIGRATE_LOCAL
 import org.tasks.jobs.WorkManager.Companion.TAG_NOTIFICATIONS
 import org.tasks.jobs.WorkManager.Companion.TAG_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_REMOTE_CONFIG
+import org.tasks.jobs.WorkManager.Companion.TAG_BLOG_FEED
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_UPDATE_PURCHASES
 import org.tasks.notifications.Throttle
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.TasksPreferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.printTimestamp
 import timber.log.Timber
@@ -60,6 +62,7 @@ import kotlin.math.max
 class WorkManagerImpl(
     private val context: Context,
     private val preferences: Preferences,
+    private val tasksPreferences: TasksPreferences,
     private val caldavDao: CaldavDao,
     private val openTaskDao: OpenTaskDao,
 ): WorkManager {
@@ -198,12 +201,19 @@ class WorkManagerImpl(
     override fun updatePurchases() =
         enqueueUnique(TAG_UPDATE_PURCHASES, UpdatePurchaseWork::class.java)
 
+    override suspend fun scheduleBlogFeedCheck() {
+        val lastChecked = tasksPreferences.get(TasksPreferences.blogLastChecked, 0L)
+        val time = lastChecked + TimeUnit.HOURS.toMillis(WorkManager.BLOG_FEED_INTERVAL_HOURS)
+        enqueueUnique(TAG_BLOG_FEED, BlogFeedWork::class.java, time, constraints = blogFeedConstraints)
+    }
+
     @SuppressLint("EnqueueWork")
     private fun enqueueUnique(
         key: String,
         c: Class<out Worker?>,
         time: Long = 0,
         expedited: Boolean = false,
+        constraints: Constraints? = null,
     ) {
         val delay = time - currentTimeMillis()
         val builder = OneTimeWorkRequest.Builder(c)
@@ -213,7 +223,11 @@ class WorkManagerImpl(
         if (expedited) {
             builder.setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
         }
-        Timber.d("$key: expedited=$expedited ${printTimestamp(delay)} (${printDuration(delay)})")
+        if (constraints != null) {
+            builder.setConstraints(constraints)
+        }
+        val scheduledFor = if (delay > 0) time else currentTimeMillis()
+        Timber.d("$key: expedited=$expedited ${printTimestamp(scheduledFor)} (${printDuration(delay)})")
         enqueue(workManager.beginUniqueWork(key, REPLACE, builder.build()))
     }
 
@@ -256,3 +270,10 @@ private fun printDuration(millis: Long): String = if (BuildConfig.DEBUG) {
 
 val networkConstraints: Constraints
     get() = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+
+val blogFeedConstraints: Constraints
+    get() = Constraints.Builder()
+        .setRequiredNetworkType(NetworkType.UNMETERED)
+        .setRequiresBatteryNotLow(true)
+        .setRequiresDeviceIdle(true)
+        .build()

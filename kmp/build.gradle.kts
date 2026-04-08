@@ -57,6 +57,7 @@ kotlin {
                 exclude(group = "junit")
                 exclude(group = "org.ogce", module = "xpp3")
             }
+            compileOnly(libs.xpp3)
         }
         commonMain.dependencies {
             implementation(projects.data)

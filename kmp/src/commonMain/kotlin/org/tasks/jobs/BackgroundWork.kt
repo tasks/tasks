@@ -10,4 +10,6 @@ interface BackgroundWork {
     suspend fun scheduleRefresh(timestamp: Long = DateTimeUtils2.currentTimeMillis() + 5_000)
 
     suspend fun sync(source: SyncSource)
+
+    suspend fun scheduleBlogFeedCheck()
 }

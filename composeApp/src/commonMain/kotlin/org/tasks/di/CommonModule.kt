@@ -139,6 +139,7 @@ val commonModule = module {
         object : BackgroundWork {
             override fun updateCalendar(task: Task) {}
             override suspend fun scheduleRefresh(timestamp: Long) {}
+            override suspend fun scheduleBlogFeedCheck() {}
             override suspend fun sync(source: SyncSource) {
                 if (!mutex.tryLock()) {
                     pending.set(true)

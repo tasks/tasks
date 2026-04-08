@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>Tasks.org Blog</title>
+        <link>https://tasks.org/blog</link>
+        <description>Tasks.org Blog</description>
+        <lastBuildDate>Mon, 19 Jan 2026 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en</language>
+        <item>
+            <title>New Terms of Service</title>
+            <link>https://tasks.org/blog/tos</link>
+            <guid>https://tasks.org/blog/tos</guid>
+            <pubDate>Mon, 19 Jan 2026 00:00:00 GMT</pubDate>
+            <description>Updated terms</description>
+            <content:encoded>Updated terms</content:encoded>
+            <category>announcement</category>
+        </item>
+        <item>
+            <title>New Privacy Policy</title>
+            <link>https://tasks.org/blog/privacy</link>
+            <guid>https://tasks.org/blog/privacy</guid>
+            <pubDate>Tue, 30 Dec 2025 00:00:00 GMT</pubDate>
+            <description>Updated privacy policy</description>
+            <content:encoded>Updated privacy policy</content:encoded>
+            <category>announcement</category>
+        </item>
+        <item>
+            <title>Release v11.8</title>
+            <link>https://tasks.org/blog/v11-8</link>
+            <guid>https://tasks.org/blog/v11-8</guid>
+            <pubDate>Wed, 17 Mar 2021 00:00:00 GMT</pubDate>
+            <description>Bug fixes and improvements</description>
+            <content:encoded>Bug fixes and improvements</content:encoded>
+        </item>
+        <item>
+            <title>Release v11.7</title>
+            <link>https://tasks.org/blog/v11-7</link>
+            <guid>https://tasks.org/blog/v11-7</guid>
+            <pubDate>Wed, 10 Mar 2021 00:00:00 GMT</pubDate>
+            <description>Minor updates</description>
+            <content:encoded>Minor updates</content:encoded>
+        </item>
+        <item>
+            <title>Shared lists are coming!</title>
+            <link>https://tasks.org/blog/shared-lists</link>
+            <guid>https://tasks.org/blog/shared-lists</guid>
+            <pubDate>Tue, 02 Mar 2021 00:00:00 GMT</pubDate>
+            <description>Preview of shared lists</description>
+            <content:encoded>Preview of shared lists</content:encoded>
+            <category>announcement</category>
+        </item>
+    </channel>
+</rss>

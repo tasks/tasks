@@ -105,6 +105,7 @@ import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.compose.AlarmsDisabledBanner
 import org.tasks.compose.AppUpdatedBanner
+import org.tasks.compose.BlogBanner
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.compose.NotificationsDisabledBanner
@@ -608,6 +609,17 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                     whatsNew = {
                                         listViewModel.dismissBanner(tookAction = true)
                                         context.openUri(R.string.url_changelog)
+                                    },
+                                    dismiss = { listViewModel.dismissBanner() },
+                                )
+
+                            is Banner.BlogAnnouncement ->
+                                BlogBanner(
+                                    title = banner.post.title,
+                                    body = banner.post.description,
+                                    readMore = {
+                                        listViewModel.dismissBanner(tookAction = true)
+                                        context.openUri(banner.post.link)
                                     },
                                     dismiss = { listViewModel.dismissBanner() },
                                 )

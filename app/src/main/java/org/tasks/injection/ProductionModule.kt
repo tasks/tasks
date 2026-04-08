@@ -71,9 +71,10 @@ internal class ProductionModule {
     fun getWorkManager(
         @ApplicationContext context: Context,
         preferences: Preferences,
+        tasksPreferences: TasksPreferences,
         caldavDao: CaldavDao,
         openTaskDao: OpenTaskDao,
-    ): WorkManager = WorkManagerImpl(context, preferences, caldavDao, openTaskDao)
+    ): WorkManager = WorkManagerImpl(context, preferences, tasksPreferences, caldavDao, openTaskDao)
 }
 
 fun <T : RoomDatabase> RoomDatabase.Builder<T>.setDriver() =

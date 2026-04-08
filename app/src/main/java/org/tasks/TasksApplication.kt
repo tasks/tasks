@@ -154,6 +154,7 @@ class TasksApplication : Application(), Configuration.Provider {
             scheduleConfigRefresh()
             updatePurchases()
             scheduleRefresh()
+            scheduleBlogFeedCheck()
         }
         OpenTaskContentObserver.registerObserver(context, contentObserver.get())
         locationService.get().registerAllGeofences()

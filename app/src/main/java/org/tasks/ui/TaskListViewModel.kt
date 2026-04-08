@@ -25,12 +25,14 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.prefTitle
 import org.tasks.extensions.Context.canScheduleExactAlarms
+import org.tasks.feed.BlogPost
 import org.tasks.filters.SearchFilter
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 sealed class Banner(
@@ -49,6 +51,7 @@ sealed class Banner(
     data object WarnMicrosoft : Banner("microsoft", R.string.button_learn_more, R.string.dismiss)
     data object WarnGoogleTasks : Banner("google_tasks", R.string.button_learn_more, R.string.dismiss)
     data object AppUpdated : Banner("app_updated", R.string.whats_new, R.string.dismiss)
+    data class BlogAnnouncement(val post: BlogPost) : Banner("blog", R.string.read_more, R.string.dismiss)
 }
 
 @HiltViewModel
@@ -127,7 +130,7 @@ class TaskListViewModel @Inject constructor(
                     Banner.WarnMicrosoft
                 accounts.any { it.isGoogleTasks } && preferences.warnGoogleTasks ->
                     Banner.WarnGoogleTasks
-                else -> null
+                else -> pendingBlogPost()
             }
             if (banner != null && banner != _banner.value) {
                 firebase.logEvent(
@@ -165,6 +168,13 @@ class TaskListViewModel @Inject constructor(
                 Banner.WarnGoogleTasks -> preferences.warnGoogleTasks = false
                 Banner.WarnMicrosoft -> preferences.warnMicrosoft = false
                 Banner.AppUpdated -> preferences.setBoolean(R.string.p_just_updated, false)
+                is Banner.BlogAnnouncement -> {
+                    tasksPreferences.set(
+                        TasksPreferences.blogDismissedPostId,
+                        currentBanner.post.guid,
+                    )
+                    tasksPreferences.set(TasksPreferences.blogPendingPost, "")
+                }
             }
             val action = if (tookAction) "positive" else "negative"
             val labelResId = if (tookAction) currentBanner.positiveLabel else currentBanner.negativeLabel
@@ -175,6 +185,16 @@ class TaskListViewModel @Inject constructor(
                 R.string.param_label to applicationContext.resources.getResourceEntryName(labelResId),
             )
             updateBannerState()
+        }
+    }
+
+    private suspend fun pendingBlogPost(): Banner.BlogAnnouncement? {
+        val json = tasksPreferences.get(TasksPreferences.blogPendingPost, "")
+        if (json.isBlank()) return null
+        return try {
+            Banner.BlogAnnouncement(Json.decodeFromString<BlogPost>(json))
+        } catch (_: Exception) {
+            null
         }
     }
 
