@@ -1,0 +1,12 @@
+* Pre-alpha desktop release for macOS, Windows, and Linux!
+  * Currently only supports Tasks.org cloud sign in
+  * Early adopters only! This is a minimally useful product right now
+* Obtainium support
+* Location reminder improvements
+* Sync iCalendar modification times
+* Fix many Microsoft To Do sync bugs
+* Fix bug causing iCalendar parent loss on initial sync
+* Fix DST bug
+* Fix long sync indicators
+* Fix 24-hour mode for future due dates
+* Update translations

@@ -1,10 +1,18 @@
-### 15.2 (2026-02-26)
+### 15.2.1 (2026-04-08)
 
-* Pre-alpha desktop release for macOS, Windows, and Linux!
+* Pre-alpha desktop release for macOS, Windows, and Linux! [#1256](https://github.com/tasks/tasks/issues/1256)
   * Currently only supports Tasks.org cloud sign in
   * Early adopters only! This is a minimally useful product right now
-  * Not cryptographically signed yet
-* Obtainium support
+  * Windows release not cryptographically signed yet
+* Obtainium support [#2040](https://github.com/tasks/tasks/issues/2040)
+* Location reminder improvements
+  * Tasks.org can now register for background location updates to improve reliability
+* Sync iCalendar modification times [#2083](https://github.com/tasks/tasks/issues/2083)
+* Fix many Microsoft To Do sync bugs [#4273](https://github.com/tasks/tasks/issues/4273)
+* Fix bug causing iCalendar parent loss on initial sync [#3023](https://github.com/tasks/tasks/issues/3023)
+* Fix DST bug [#4265](https://github.com/tasks/tasks/issues/4265)
+* Fix long sync indicators
+* Fix 24-hour mode for future due dates
 * Update translations
   * Afrikaans - @evangibson66
   * Bulgarian - 109247019824
@@ -16,6 +24,8 @@
   * Hungarian - Kaci
   * Italian - @ppasserini
   * Japanese - Norara
+
+** 15.2 was a Google Play beta that accidentally released to F-Droid **
 
 ### 15.1 (2026-03-17)
 
