@@ -34,7 +34,7 @@ class HttpClientFactory @Inject constructor(
     private val microsoftTokenProvider: MicrosoftTokenProvider,
 ) : AndroidOkHttpClientFactory(
     context = context,
-    userAgent = "${BuildConfig.APPLICATION_ID}/${BuildConfig.VERSION_NAME} (okhttp3) Android/${android.os.Build.VERSION.RELEASE}",
+    userAgent = "${BuildConfig.APPLICATION_ID}/${BuildConfig.VERSION_NAME} (${BuildConfig.FLAVOR}) Android/${android.os.Build.VERSION.RELEASE}",
 ) {
     suspend fun newClient(foreground: Boolean) = newClient(
         foreground = foreground,
