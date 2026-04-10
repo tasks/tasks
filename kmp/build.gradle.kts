@@ -81,6 +81,7 @@ kotlin {
 val generateJvmBuildConfig by tasks.registering {
     val outputDir = layout.buildDirectory.dir("generated/jvmBuildConfig")
     val versionCode = libs.versions.versionCode.get()
+    val versionName = libs.versions.versionName.get()
     val tasks_dev_url: String? by project
     val devUrl = tasks_dev_url ?: ""
     val posthogKey = providers.environmentVariable("POSTHOG_KEY")
@@ -90,6 +91,7 @@ val generateJvmBuildConfig by tasks.registering {
         .map { it.isNotEmpty() && !it.toBoolean() }
         .orElse(true)
     inputs.property("versionCode", versionCode)
+    inputs.property("versionName", versionName)
     inputs.property("devUrl", devUrl)
     inputs.property("posthogKey", posthogKey)
     inputs.property("debug", debug)
@@ -102,6 +104,7 @@ val generateJvmBuildConfig by tasks.registering {
                 |
                 |object JvmBuildConfig {
                 |    const val VERSION_CODE = $versionCode
+                |    const val VERSION_NAME = "$versionName"
                 |    const val DEV_URL = "$devUrl"
                 |    const val POSTHOG_KEY = "${posthogKey.get()}"
                 |    const val DEBUG = ${debug.get()}
@@ -131,6 +134,7 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
         buildConfigField("int", "VERSION_CODE", libs.versions.versionCode.get())
+        buildConfigField("String", "VERSION_NAME", "\"${libs.versions.versionName.get()}\"")
         val tasks_dev_url: String? by project
         buildConfigField("String", "DEV_URL", "\"${tasks_dev_url ?: ""}\"")
     }

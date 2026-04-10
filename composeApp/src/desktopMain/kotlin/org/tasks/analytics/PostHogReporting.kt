@@ -3,23 +3,48 @@ package org.tasks.analytics
 import co.touchlab.kermit.Logger
 import com.posthog.PostHog
 import com.posthog.PostHogConfig
+import org.tasks.TasksBuildConfig
 import java.io.File
+import java.util.Locale
+import java.util.TimeZone
 
-class PostHogReporting(apiKey: String, dataDir: File) : Reporting {
+class PostHogReporting(
+    apiKey: String,
+    dataDir: File,
+) : Reporting {
     private val logger = Logger.withTag("PostHogReporting")
 
     private val enabled: Boolean = apiKey.isNotBlank().also { enabled ->
         if (enabled) {
-            PostHog.setup(
-                PostHogConfig(
-                    apiKey = apiKey,
-                    host = "https://us.i.posthog.com",
-                ).apply {
-                    preloadFeatureFlags = false
-                    sendFeatureFlagEvent = false
-                    storagePrefix = File(dataDir, "posthog").absolutePath
-                }
-            )
+            val config = PostHogConfig(
+                apiKey = apiKey,
+                host = "https://us.i.posthog.com",
+            ).apply {
+                preloadFeatureFlags = false
+                sendFeatureFlagEvent = false
+                remoteConfig = false
+                storagePrefix = File(dataDir, "posthog").absolutePath
+            }
+            PostHog.setup(config)
+            PostHog.register("\$lib", "posthog")
+            PostHog.register("\$lib_version", config.sdkVersion)
+            PostHog.register("\$app_name", "Tasks")
+            PostHog.register("\$app_namespace", "org.tasks")
+            PostHog.register("\$app_version", TasksBuildConfig.VERSION_NAME)
+            PostHog.register("\$app_build", TasksBuildConfig.VERSION_CODE)
+            System.getProperty("os.name")?.let {
+                PostHog.register("\$os_name", it)
+            }
+            System.getProperty("os.version")?.let {
+                PostHog.register("\$os_version", it)
+            }
+            System.getProperty("os.arch")?.let {
+                PostHog.register("arch", it)
+            }
+            with(Locale.getDefault()) {
+                PostHog.register("\$locale", "$language-$country")
+            }
+            PostHog.register("\$timezone", TimeZone.getDefault().id)
         }
     }
 
