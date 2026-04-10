@@ -113,4 +113,6 @@
     <string name="accept">Přijmout</string>
     <string name="back">Zpět</string>
     <string name="help">Nápověda</string>
+    <string name="show_more">Zobrazit více</string>
+    <string name="show_less">Zobrazit méně</string>
 </resources>
