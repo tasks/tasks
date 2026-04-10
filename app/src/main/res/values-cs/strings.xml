@@ -766,4 +766,16 @@
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="per_list_sort_title">Řazení dle seznamu</string>
     <string name="per_list_sort_summary">Zapamatovat si nastavení řazení a skupin zvlášť pro každý seznam</string>
+    <string name="location_update_interval_title">Aktualizace polohy na pozadí</string>
+    <string name="location_update_interval_summary">Pravidelné aktualizace polohy zvyšují spolehlivost geofence</string>
+    <string name="location_update_interval_disabled">Zakázáno</string>
+    <string name="location_update_interval_15_minutes">Každých 15 minut</string>
+    <string name="location_update_interval_30_minutes">Každých 30 minut</string>
+    <string name="location_update_interval_1_hour">Každou hodinu</string>
+    <string name="location_update_interval_2_hours">Každé 2 hodiny</string>
+    <string name="read_more">Více informací</string>
+    <string name="blog_notifications">Upozornění z blogu</string>
+    <string name="blog_feed_none">Žádné</string>
+    <string name="blog_feed_announcements">Pouze oznámení</string>
+    <string name="blog_feed_all">Všechny příspěvky</string>
 </resources>
