@@ -15,7 +15,17 @@ class DesktopKeyProvider(
 ) : KeyProvider {
     private val logger = Logger.withTag("DesktopKeyProvider")
 
+    @Volatile
+    private var cachedKey: SecretKey? = null
+
     override fun getKey(): SecretKey {
+        cachedKey?.let { return it }
+        return synchronized(this) {
+            cachedKey ?: loadKey().also { cachedKey = it }
+        }
+    }
+
+    private fun loadKey(): SecretKey {
         val encoded = readFromKeychain()
             ?: readFromFile()
             ?: generateKey().also { storeKey(it) }
