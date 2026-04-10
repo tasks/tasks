@@ -2,7 +2,7 @@ package org.tasks.caldav.property
 
 import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.XmlUtils.propertyName
-import org.tasks.kmp.IS_DEBUG
+import org.tasks.TasksBuildConfig
 import org.tasks.caldav.property.PropertyUtils.NS_OWNCLOUD
 import org.xmlpull.v1.XmlPullParser
 
@@ -20,7 +20,7 @@ class OCAccess(parser: XmlPullParser) : Property {
             }
             eventType = parser.next()
         }
-        if (IS_DEBUG && parser.depth != depth) {
+        if (TasksBuildConfig.DEBUG && parser.depth != depth) {
             error("Assertion failed")
         }
     }

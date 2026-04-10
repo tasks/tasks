@@ -188,7 +188,7 @@ jobs:
       - name: Build desktop jar
         env:
           POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
-        run: ./gradlew :composeApp:desktopJar
+        run: ./gradlew :composeApp:desktopJar -Prelease
 
       - name: Upload desktop jars
         uses: actions/upload-artifact@v7

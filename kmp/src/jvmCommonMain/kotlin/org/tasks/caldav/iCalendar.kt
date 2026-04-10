@@ -18,7 +18,7 @@ import net.fortuna.ical4j.model.property.Geo
 import net.fortuna.ical4j.model.property.RelatedTo
 import net.fortuna.ical4j.model.property.Status
 import net.fortuna.ical4j.model.property.XProperty
-import org.tasks.IS_DEBUG
+import org.tasks.TasksBuildConfig
 import org.tasks.caldav.GeoUtils.equalish
 import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.GeoUtils.toLikeString
@@ -184,7 +184,7 @@ class iCalendar(
         val categories = remoteModel.categories
         categories.clear()
         categories.addAll(tagDataDao.getTagDataForTask(task.id).map { it.name!! })
-        if (IS_DEBUG && caldavTask.remoteId.isNullOrBlank()) {
+        if (TasksBuildConfig.DEBUG && caldavTask.remoteId.isNullOrBlank()) {
             throw IllegalStateException()
         }
         remoteModel.uid = caldavTask.remoteId

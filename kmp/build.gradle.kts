@@ -86,11 +86,13 @@ val generateJvmBuildConfig by tasks.registering {
     val posthogKey = providers.environmentVariable("POSTHOG_KEY")
         .orElse(providers.gradleProperty("posthogKey"))
         .orElse("")
-    val dataDir = providers.gradleProperty("tasks.dataDir").orElse("")
+    val debug = providers.gradleProperty("release")
+        .map { it.isNotEmpty() && !it.toBoolean() }
+        .orElse(true)
     inputs.property("versionCode", versionCode)
     inputs.property("devUrl", devUrl)
     inputs.property("posthogKey", posthogKey)
-    inputs.property("dataDir", dataDir)
+    inputs.property("debug", debug)
     outputs.dir(outputDir)
     doLast {
         outputDir.get().asFile.resolve("JvmBuildConfig.kt").apply {
@@ -102,7 +104,7 @@ val generateJvmBuildConfig by tasks.registering {
                 |    const val VERSION_CODE = $versionCode
                 |    const val DEV_URL = "$devUrl"
                 |    const val POSTHOG_KEY = "${posthogKey.get()}"
-                |    const val DATA_DIR = "${dataDir.get()}"
+                |    const val DEBUG = ${debug.get()}
                 |}
             """.trimMargin())
         }

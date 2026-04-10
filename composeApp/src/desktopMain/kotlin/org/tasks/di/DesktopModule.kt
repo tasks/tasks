@@ -34,9 +34,11 @@ import org.tasks.sse.SseTokenProvider
 import java.io.File
 
 private fun dataDir(): File {
-    val path = JvmBuildConfig.DATA_DIR.ifBlank { null }
-        ?: File(System.getProperty("user.home"), ".tasks.org").absolutePath
-    return File(path).also { it.mkdirs() }
+    val override = System.getProperty("tasks.dataDir")?.takeIf { it.isNotBlank() }
+    val home = System.getProperty("user.home")
+    val file = override?.let { File(it) }
+        ?: File(home, if (JvmBuildConfig.DEBUG) ".tasks.org.debug" else ".tasks.org")
+    return file.also { it.mkdirs() }
 }
 
 actual fun platformModule(): Module = module {

@@ -6,7 +6,6 @@ import android.location.Location
 import android.os.Parcelable
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.RawValue
-import org.tasks.data.BuildConfig
 import java.util.Date
 import java.util.regex.Pattern
 import kotlin.math.abs
@@ -16,8 +15,6 @@ actual typealias CommonParcelable = Parcelable
 actual typealias CommonRawValue = RawValue
 
 actual typealias CommonIgnoredOnParcel = IgnoredOnParcel
-
-actual val IS_DEBUG = BuildConfig.DEBUG
 
 actual fun Long.printTimestamp(): String = Date(this).toString()
 

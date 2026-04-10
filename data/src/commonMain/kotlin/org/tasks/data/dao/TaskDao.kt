@@ -7,7 +7,6 @@ import androidx.room.RawQuery
 import androidx.room.RoomRawQuery
 import androidx.room.Update
 import co.touchlab.kermit.Logger
-import org.tasks.IS_DEBUG
 import org.tasks.data.TaskContainer
 import org.tasks.data.UUIDHelper
 import org.tasks.data.db.Database
@@ -207,9 +206,6 @@ FROM recursive_tasks
         }
         if (Task.isUuidEmpty(task.remoteId)) {
             task.remoteId = UUIDHelper.newUUID()
-        }
-        if (IS_DEBUG) {
-            require(task.remoteId?.isNotBlank() == true && task.remoteId != "0")
         }
         val insert = insert(task)
         task.id = insert

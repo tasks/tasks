@@ -9,8 +9,6 @@ import org.tasks.kmp.org.tasks.time.TextStyle
 
 expect fun formatNumber(number: Int): String
 
-expect val IS_DEBUG: Boolean
-
 expect val PROD_ID: String
 
 expect val DEV_URL: String

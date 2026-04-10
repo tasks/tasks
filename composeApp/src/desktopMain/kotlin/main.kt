@@ -18,10 +18,10 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.tasks.kmp.IS_DEBUG
 import org.koin.compose.koinInject
 import org.koin.core.context.startKoin
 import org.koin.mp.KoinPlatform
+import org.tasks.TasksBuildConfig
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.PostHogReporting
 import org.tasks.analytics.Reporting
@@ -51,7 +51,7 @@ fun main() {
     val logDir = File(System.getProperty("user.home"), ".tasks.org/logs").apply { mkdirs() }
     Logger.setLogWriters(
         buildList {
-            if (IS_DEBUG) add(platformLogWriter())
+            if (TasksBuildConfig.DEBUG) add(platformLogWriter())
             add(FileLogWriter(logDir))
         }
     )

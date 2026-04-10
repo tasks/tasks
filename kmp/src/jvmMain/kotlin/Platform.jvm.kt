@@ -11,8 +11,6 @@ import java.util.Locale
 
 actual fun formatNumber(number: Int) = number.toString()
 
-actual val IS_DEBUG = true
-
 actual val PROD_ID = "+//IDN tasks.org//desktop-${JvmBuildConfig.VERSION_CODE}//EN"
 
 actual val DEV_URL: String = JvmBuildConfig.DEV_URL

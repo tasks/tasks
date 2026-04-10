@@ -1,6 +1,5 @@
 package org.tasks.time
 
-import org.tasks.IS_DEBUG
 import org.tasks.printTimestamp
 
 object DateTimeUtils2 {
@@ -22,5 +21,4 @@ object DateTimeUtils2 {
     }
 }
 
-fun printTimestamp(timestamp: Long): String =
-    if (IS_DEBUG) timestamp.printTimestamp() else timestamp.toString()
+fun printTimestamp(timestamp: Long): String = timestamp.printTimestamp()
