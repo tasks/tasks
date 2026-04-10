@@ -64,9 +64,11 @@ fun main() {
         koin.get<AppPreferences>()
             .recordInstallIfNeeded(koin.get<PlatformConfiguration>().versionCode)
     }
+    Runtime.getRuntime().addShutdownHook(Thread {
+        (koin.get<Reporting>() as? PostHogReporting)?.close()
+    })
 
     application {
-        var postHogReporting: PostHogReporting? = null
         val preferences = koinInject<TasksPreferences>()
         val windowState = rememberWindowState(size = DpSize(DEFAULT_WIDTH, DEFAULT_HEIGHT))
         var windowReady by remember { mutableStateOf(false) }
@@ -102,10 +104,7 @@ fun main() {
                 }
         }
         Window(
-            onCloseRequest = {
-                postHogReporting?.close()
-                this@application.exitApplication()
-            },
+            onCloseRequest = ::exitApplication,
             title = "Tasks",
             state = windowState,
             visible = windowReady,
@@ -113,12 +112,10 @@ fun main() {
             window.minimumSize = Dimension(MIN_WIDTH.value.toInt(), MIN_HEIGHT.value.toInt())
             val reporting = koinInject<Reporting>()
             val sseClient = koinInject<SseClient>()
-            postHogReporting = reporting as? PostHogReporting
             val platformConfig = koinInject<PlatformConfiguration>()
             LaunchedEffect(Unit) {
                 Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
                     reporting.reportException(throwable, fatal = true)
-                    postHogReporting?.close()
                 }
                 val versionCode = platformConfig.versionCode
                 if (versionCode > 0) {

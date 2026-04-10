@@ -54,7 +54,12 @@ actual fun platformModule(): Module = module {
             versionCode = config.getProperty("version.code", "0").toIntOrNull() ?: 0,
         )
     }
-    single<Reporting> { PostHogReporting(config.getProperty("posthog.key", "")) }
+    single<Reporting> {
+        PostHogReporting(
+            apiKey = config.getProperty("posthog.key", ""),
+            dataDir = dataDir(),
+        )
+    }
     factory<OkHttpClientFactory> { DefaultOkHttpClientFactory() }
     factory { DesktopOAuthFlow(serverEnvironment = get()) }
     factoryOf(::DesktopSignInHandler) bind SignInHandler::class

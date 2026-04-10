@@ -3,8 +3,9 @@ package org.tasks.analytics
 import co.touchlab.kermit.Logger
 import com.posthog.PostHog
 import com.posthog.PostHogConfig
+import java.io.File
 
-class PostHogReporting(apiKey: String) : Reporting {
+class PostHogReporting(apiKey: String, dataDir: File) : Reporting {
     private val logger = Logger.withTag("PostHogReporting")
 
     private val enabled: Boolean = apiKey.isNotBlank().also { enabled ->
@@ -16,6 +17,7 @@ class PostHogReporting(apiKey: String) : Reporting {
                 ).apply {
                     preloadFeatureFlags = false
                     sendFeatureFlagEvent = false
+                    storagePrefix = File(dataDir, "posthog").absolutePath
                 }
             )
         }
