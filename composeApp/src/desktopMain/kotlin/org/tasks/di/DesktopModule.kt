@@ -23,6 +23,7 @@ import org.tasks.auth.DesktopSignInHandler
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.data.db.Database
+import org.tasks.kmp.JvmBuildConfig
 import org.tasks.kmp.createDataStore
 import org.tasks.kmp.dataStoreFileName
 import org.tasks.preferences.TasksPreferences
@@ -31,32 +32,21 @@ import org.tasks.security.KeyStoreEncryption
 import org.tasks.sse.SseClient
 import org.tasks.sse.SseTokenProvider
 import java.io.File
-import java.util.Properties
 
 private fun dataDir(): File {
-    val path = config.getProperty("data.dir", "").ifBlank { null }
+    val path = JvmBuildConfig.DATA_DIR.ifBlank { null }
         ?: File(System.getProperty("user.home"), ".tasks.org").absolutePath
     return File(path).also { it.mkdirs() }
 }
 
-private val config: Properties by lazy {
-    Properties().apply {
-        DesktopModule::class.java.getResourceAsStream("/tasks.properties")?.use { load(it) }
-    }
-}
-
-private object DesktopModule
-
 actual fun platformModule(): Module = module {
     singleOf(::TasksServerEnvironment)
     single {
-        PlatformConfiguration(
-            versionCode = config.getProperty("version.code", "0").toIntOrNull() ?: 0,
-        )
+        PlatformConfiguration(versionCode = JvmBuildConfig.VERSION_CODE)
     }
     single<Reporting> {
         PostHogReporting(
-            apiKey = config.getProperty("posthog.key", ""),
+            apiKey = JvmBuildConfig.POSTHOG_KEY,
             dataDir = dataDir(),
         )
     }

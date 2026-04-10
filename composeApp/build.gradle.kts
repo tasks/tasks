@@ -135,34 +135,6 @@ android {
     }
 }
 
-val generateDesktopConfig by tasks.registering {
-    val outputDir = layout.buildDirectory.dir("generated/desktop-config")
-    val posthogKey = providers.environmentVariable("POSTHOG_KEY")
-        .orElse(providers.gradleProperty("posthogKey"))
-        .orElse("")
-    val dataDir = providers.gradleProperty("tasks.dataDir").orElse("")
-    val versionCode = libs.versions.versionCode
-    inputs.property("posthogKey", posthogKey)
-    inputs.property("dataDir", dataDir)
-    inputs.property("versionCode", versionCode)
-    outputs.dir(outputDir)
-    doLast {
-        val file = outputDir.get().file("tasks.properties").asFile
-        file.parentFile.mkdirs()
-        file.writeText(
-            buildString {
-                appendLine("posthog.key=${posthogKey.get()}")
-                appendLine("data.dir=${dataDir.get()}")
-                appendLine("version.code=${versionCode.get()}")
-            }
-        )
-    }
-}
-
-kotlin.sourceSets.getByName("desktopMain").resources.srcDir(
-    generateDesktopConfig.map { it.outputs.files.singleFile }
-)
-
 compose.desktop {
     application {
         mainClass = "MainKt"
