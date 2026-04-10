@@ -5,6 +5,7 @@ import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import co.touchlab.kermit.platformLogWriter
+import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -12,6 +13,8 @@ import org.tasks.di.commonModule
 import org.tasks.di.platformModule
 import org.tasks.kmp.IS_DEBUG
 import org.tasks.logging.FileLogWriter
+import org.tasks.preferences.AppPreferences
+import org.tasks.preferences.recordInstallIfNeeded
 import java.io.File
 
 class TasksApplication : Application() {
@@ -36,7 +39,12 @@ class TasksApplication : Application() {
             androidContext(this@TasksApplication)
             modules(commonModule, platformModule())
         }
-        getKoin().getOrNull<org.tasks.fcm.PushTokenManager>()
+        val koin = getKoin()
+        runBlocking {
+            koin.get<AppPreferences>()
+                .recordInstallIfNeeded(koin.get<PlatformConfiguration>().versionCode)
+        }
+        koin.getOrNull<org.tasks.fcm.PushTokenManager>()
             ?.registerTokenForAllAccounts()
     }
 }

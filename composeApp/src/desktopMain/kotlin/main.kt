@@ -17,9 +17,11 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.tasks.kmp.IS_DEBUG
-import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
+import org.koin.core.context.startKoin
+import org.koin.mp.KoinPlatform
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.PostHogReporting
 import org.tasks.analytics.Reporting
@@ -28,6 +30,7 @@ import org.tasks.auth.TasksServerEnvironment
 import org.tasks.PlatformConfiguration
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.TasksPreferences
+import org.tasks.preferences.recordInstallIfNeeded
 import org.tasks.sse.SseClient
 import org.tasks.di.commonModule
 import org.tasks.di.platformModule
@@ -53,11 +56,17 @@ fun main() {
         }
     )
 
-    application {
-    var postHogReporting: PostHogReporting? = null
-    KoinApplication(application = {
+    startKoin {
         modules(commonModule, platformModule())
-    }) {
+    }
+    val koin = KoinPlatform.getKoin()
+    runBlocking {
+        koin.get<AppPreferences>()
+            .recordInstallIfNeeded(koin.get<PlatformConfiguration>().versionCode)
+    }
+
+    application {
+        var postHogReporting: PostHogReporting? = null
         val preferences = koinInject<TasksPreferences>()
         val windowState = rememberWindowState(size = DpSize(DEFAULT_WIDTH, DEFAULT_HEIGHT))
         var windowReady by remember { mutableStateOf(false) }
@@ -105,7 +114,6 @@ fun main() {
             val reporting = koinInject<Reporting>()
             val sseClient = koinInject<SseClient>()
             postHogReporting = reporting as? PostHogReporting
-            val appPreferences = koinInject<AppPreferences>()
             val platformConfig = koinInject<PlatformConfiguration>()
             LaunchedEffect(Unit) {
                 Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
@@ -114,15 +122,6 @@ fun main() {
                 }
                 val versionCode = platformConfig.versionCode
                 if (versionCode > 0) {
-                    if (appPreferences.getInstallVersion() == 0) {
-                        appPreferences.setInstallVersion(versionCode)
-                        appPreferences.setInstallDate(
-                            org.tasks.time.DateTimeUtils2.currentTimeMillis()
-                        )
-                    }
-                    if (appPreferences.getDeviceInstallVersion() == 0) {
-                        appPreferences.setDeviceInstallVersion(versionCode)
-                    }
                     preferences.set(TasksPreferences.currentVersion, versionCode)
                 }
                 reporting.logEvent(AnalyticsEvents.APP_OPENED)
@@ -146,5 +145,4 @@ fun main() {
             )
         }
     }
-}
 }
