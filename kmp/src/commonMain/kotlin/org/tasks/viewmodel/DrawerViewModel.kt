@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.billing.PurchaseState
 import org.tasks.compose.drawer.DrawerItem
+import org.tasks.compose.throttleLatest
 import org.tasks.data.NO_COUNT
 import org.tasks.data.count
 import org.tasks.data.dao.CaldavDao
@@ -53,6 +54,7 @@ open class DrawerViewModel(
         updateFilters()
 
         refreshFlow
+            .throttleLatest(1000)
             .onEach { updateFilters() }
             .launchIn(viewModelScope)
     }
