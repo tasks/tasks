@@ -108,4 +108,9 @@
     <string name="subtasks">Podúkoly</string>
     <string name="sort_not_available">Není k dispozici pro štítky, filtry a místa</string>
     <string name="none">Žádný</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Zrušit</string>
+    <string name="accept">Přijmout</string>
+    <string name="back">Zpět</string>
+    <string name="help">Nápověda</string>
 </resources>

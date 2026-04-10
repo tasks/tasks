@@ -108,4 +108,9 @@
     <string name="subtasks">Podzadaci</string>
     <string name="sort_not_available">Nije dostupno za oznake, filtre i mjesta</string>
     <string name="none">Ništa</string>
+    <string name="ok">U redu</string>
+    <string name="cancel">Prekini</string>
+    <string name="accept">Prihvati</string>
+    <string name="back">Natrag</string>
+    <string name="help">Pomoć</string>
 </resources>

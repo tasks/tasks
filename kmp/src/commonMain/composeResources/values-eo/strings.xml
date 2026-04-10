@@ -100,4 +100,9 @@
     <string name="subtasks">Subtaskoj</string>
     <string name="sort_not_available">Ne disponeblaj por etikedoj, filtriloj, aŭ lokoj</string>
     <string name="none">Neniu</string>
+    <string name="ok">Bone</string>
+    <string name="cancel">Nuligi</string>
+    <string name="accept">Akcepti</string>
+    <string name="back">Reen</string>
+    <string name="help">Helpo</string>
 </resources>

@@ -73,4 +73,6 @@
     <string name="astrid_sort_order">การเรียงลําดับด้วยตนเองของ Astrid</string>
     <string name="subtasks">งานย่อย</string>
     <string name="none">ไม่มีใคร</string>
+    <string name="back">กลับ</string>
+    <string name="help">วิธีใช้</string>
 </resources>

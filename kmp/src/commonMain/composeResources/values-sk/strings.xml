@@ -89,4 +89,8 @@
     <string name="subtasks">Podúlohy</string>
     <string name="sort_not_available">Nie je k dispozícií pre štítky, filtre a miesta</string>
     <string name="none">Žiadna</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Zrušiť</string>
+    <string name="back">Späť</string>
+    <string name="help">Pomoc</string>
 </resources>

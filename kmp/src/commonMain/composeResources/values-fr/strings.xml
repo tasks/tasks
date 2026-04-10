@@ -108,4 +108,9 @@
     <string name="subtasks">Sous-tâches</string>
     <string name="sort_not_available">Non disponible pour les étiquettes, les filtres ou les lieux</string>
     <string name="none">Aucun</string>
+    <string name="ok">Valider</string>
+    <string name="cancel">Annuler</string>
+    <string name="accept">Accepter</string>
+    <string name="back">Retour</string>
+    <string name="help">Aide</string>
 </resources>

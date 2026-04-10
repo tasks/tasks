@@ -100,4 +100,9 @@
     <string name="subtasks">サブタスク</string>
     <string name="sort_not_available">タグ、フィルター、場所には使用できません</string>
     <string name="none">なし</string>
+    <string name="ok">OK</string>
+    <string name="cancel">キャンセル</string>
+    <string name="accept">了承</string>
+    <string name="back">戻る</string>
+    <string name="help">ヘルプ</string>
 </resources>

@@ -90,4 +90,8 @@
     <string name="subtasks">Подзадачи</string>
     <string name="sort_not_available">Недоступно для меток, фильтров или мест</string>
     <string name="none">Нет</string>
+    <string name="ok">ОК</string>
+    <string name="cancel">Отмена</string>
+    <string name="back">Назад</string>
+    <string name="help">Помощь</string>
 </resources>

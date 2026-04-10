@@ -97,4 +97,9 @@
     <string name="subtasks">Subtaken</string>
     <string name="sort_not_available">Niet beschikbaar voor labels, filters, of locaties</string>
     <string name="none">Geen</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuleren</string>
+    <string name="accept">Accepteren</string>
+    <string name="back">Terug</string>
+    <string name="help">Hulp</string>
 </resources>

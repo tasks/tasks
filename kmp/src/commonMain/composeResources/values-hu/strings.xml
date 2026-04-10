@@ -100,4 +100,9 @@
     <string name="subtasks">Részfeladatok</string>
     <string name="sort_not_available">Nem elérhető címkékre, szűrőkre és helyekre</string>
     <string name="none">Nincs</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Mégse</string>
+    <string name="accept">Elfogadás</string>
+    <string name="back">Vissza</string>
+    <string name="help">Súgó</string>
 </resources>

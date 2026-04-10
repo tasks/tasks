@@ -101,4 +101,8 @@
     <string name="subtasks">Alitehtävät</string>
     <string name="sort_not_available">Ei käytettävissä tunnisteiden, suodattimien tai paikkojen kanssa</string>
     <string name="none">Ei mitään</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Peruuta</string>
+    <string name="back">Takaisin</string>
+    <string name="help">Apua</string>
 </resources>

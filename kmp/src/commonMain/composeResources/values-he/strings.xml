@@ -108,4 +108,9 @@
     <string name="subtasks">תתי־משימות</string>
     <string name="sort_not_available">לא זמין עבור תגיות, מסננים, או מקומות</string>
     <string name="none">ללא</string>
+    <string name="ok">אישור</string>
+    <string name="cancel">ביטול</string>
+    <string name="accept">הסכמה</string>
+    <string name="back">חזרה</string>
+    <string name="help">עזרה</string>
 </resources>

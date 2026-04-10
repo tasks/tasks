@@ -83,4 +83,8 @@
     <string name="subtasks">Gjøremålssteg</string>
     <string name="sort_not_available">Ikke tilgjengelig for tagger, filtre eller steder</string>
     <string name="none">Ingen</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Avbryt</string>
+    <string name="back">Tilbake</string>
+    <string name="help">Hjelp</string>
 </resources>

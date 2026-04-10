@@ -108,4 +108,9 @@
     <string name="subtasks">Attività secondaria</string>
     <string name="sort_not_available">Non disponibile per etichette, filtri o luoghi</string>
     <string name="none">Nessuno</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annulla</string>
+    <string name="accept">Accetta</string>
+    <string name="back">Indietro</string>
+    <string name="help">Aiuto</string>
 </resources>

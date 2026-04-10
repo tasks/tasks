@@ -108,4 +108,9 @@
     <string name="subtasks">Alt görevler</string>
     <string name="sort_not_available">Etiketler, süzgeçler veya yerler için kullanılamaz</string>
     <string name="none">Hiçbiri</string>
+    <string name="ok">Tamam</string>
+    <string name="cancel">İptal</string>
+    <string name="accept">Onayla</string>
+    <string name="back">Geri</string>
+    <string name="help">Yardım</string>
 </resources>

@@ -99,4 +99,9 @@
     <string name="subtasks">Underopgaver</string>
     <string name="sort_not_available">Ikke tilgængelig for tags, filtre eller steder</string>
     <string name="none">Ingen</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuller</string>
+    <string name="accept">Acceptér</string>
+    <string name="back">Tilbage</string>
+    <string name="help">Hjælp</string>
 </resources>

@@ -85,4 +85,8 @@
     <string name="subtasks">Công việc con</string>
     <string name="sort_not_available">Không có sẵn cho tag, bộ lọc hay nơi chốn</string>
     <string name="none">Không có</string>
+    <string name="ok">Ôkê</string>
+    <string name="cancel">Huỷ</string>
+    <string name="back">Quay lại</string>
+    <string name="help">Trợ giúp</string>
 </resources>

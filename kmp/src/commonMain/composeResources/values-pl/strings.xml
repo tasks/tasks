@@ -84,4 +84,8 @@
     <string name="subtasks">Podzadania</string>
     <string name="sort_not_available">Niedostępne dla tagów, filtrów lub miejsc</string>
     <string name="none">Brak</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Anuluj</string>
+    <string name="back">Wstecz</string>
+    <string name="help">Pomoc</string>
 </resources>

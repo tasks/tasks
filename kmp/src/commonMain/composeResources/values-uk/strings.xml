@@ -90,4 +90,8 @@
     <string name="subtasks">Підзавдання</string>
     <string name="sort_not_available">Недоступно для міток, фільтрів і місць</string>
     <string name="none">Немає</string>
+    <string name="ok">Гаразд</string>
+    <string name="cancel">Скасувати</string>
+    <string name="back">Назад</string>
+    <string name="help">Довідка</string>
 </resources>

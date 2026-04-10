@@ -99,4 +99,9 @@
     <string name="subtasks">Подзадаци</string>
     <string name="sort_not_available">Није доступно за тагове, филтере, или места</string>
     <string name="none">Празно</string>
+    <string name="ok">У реду</string>
+    <string name="cancel">Откажи</string>
+    <string name="accept">Прихвати</string>
+    <string name="back">Назад</string>
+    <string name="help">Помоћ</string>
 </resources>

@@ -90,4 +90,8 @@
     <string name="subtasks">مهام فرعيّة</string>
     <string name="sort_not_available">غير متاح للعلامات أو المرشحات أو الأماكن</string>
     <string name="none">لا شيء</string>
+    <string name="ok">حسنًا</string>
+    <string name="cancel">إلغاء</string>
+    <string name="back">عودة</string>
+    <string name="help">مساعدة</string>
 </resources>

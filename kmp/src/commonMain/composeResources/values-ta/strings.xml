@@ -90,4 +90,8 @@
     <string name="subtasks">துணை பணிகள்</string>
     <string name="sort_not_available">குறிச்சொற்கள், வடிப்பான்கள் அல்லது இடங்களுக்கு கிடைக்கவில்லை</string>
     <string name="none">எதுவுமில்லை</string>
+    <string name="ok">சரி</string>
+    <string name="cancel">கைவிடு</string>
+    <string name="back">மீண்டும்</string>
+    <string name="help">உதவி</string>
 </resources>

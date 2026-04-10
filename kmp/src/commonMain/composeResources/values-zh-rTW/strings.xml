@@ -108,4 +108,9 @@
     <string name="subtasks">子任務</string>
     <string name="sort_not_available">不支援標籤、篩選或地點</string>
     <string name="none">無</string>
+    <string name="ok">OK</string>
+    <string name="cancel">取消</string>
+    <string name="accept">接受</string>
+    <string name="back">返回</string>
+    <string name="help">幫助</string>
 </resources>

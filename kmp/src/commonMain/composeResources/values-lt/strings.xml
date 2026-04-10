@@ -77,4 +77,6 @@
     <string name="completed_tasks_at_bottom">Perkelti užbaigtas užduotis į apačią</string>
     <string name="subtasks">Antrinės užduotys</string>
     <string name="none">Nėra</string>
+    <string name="back">Atgal</string>
+    <string name="help">Pagalba</string>
 </resources>

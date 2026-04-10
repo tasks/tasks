@@ -108,4 +108,9 @@
     <string name="subtasks">Teilaufgaben</string>
     <string name="sort_not_available">Nicht auf Schlagwörter, Filter oder Orte anwendbar</string>
     <string name="none">Keine</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="accept">Annehmen</string>
+    <string name="back">Zurück</string>
+    <string name="help">Hilfe</string>
 </resources>

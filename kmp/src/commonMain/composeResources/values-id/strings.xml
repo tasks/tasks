@@ -76,4 +76,6 @@
     <string name="completed_tasks_at_bottom">Pindahkan tugas selesai ke bawah</string>
     <string name="subtasks">Subtugas</string>
     <string name="none">Tidak Ada</string>
+    <string name="back">Kembali</string>
+    <string name="help">Bantuan</string>
 </resources>

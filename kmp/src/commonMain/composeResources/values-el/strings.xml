@@ -90,4 +90,8 @@
     <string name="subtasks">Υποεργασίες</string>
     <string name="sort_not_available">Δεν είναι διαθέσιμο για ετικέτες, φίλτρα ή μέρη</string>
     <string name="none">Κανένα</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Ακύρωση</string>
+    <string name="back">Πίσω</string>
+    <string name="help">Βοήθεια</string>
 </resources>

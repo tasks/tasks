@@ -90,4 +90,8 @@
     <string name="subtasks">Subtareas</string>
     <string name="sort_not_available">No disponible para etiquetas, filtros, o sitios</string>
     <string name="none">Ninguna</string>
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="back">Volver</string>
+    <string name="help">Ayuda</string>
 </resources>

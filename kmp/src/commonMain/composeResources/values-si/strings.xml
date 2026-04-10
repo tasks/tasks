@@ -74,4 +74,6 @@
     <string name="completed_tasks_at_bottom">සම්පුර්ණ කරන ලද කාර්යයන් පහළට ගෙන යන්න</string>
     <string name="subtasks">උප කාර්යයන්</string>
     <string name="none">කිසිවක් නැත</string>
+    <string name="back">ආපසු</string>
+    <string name="help">උදව්</string>
 </resources>

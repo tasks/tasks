@@ -99,4 +99,9 @@
     <string name="subtasks">Deluppgifter</string>
     <string name="sort_not_available">Inte tillgängligt för taggar, filter eller platser</string>
     <string name="none">Ingen</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Avbryt</string>
+    <string name="accept">Acceptera</string>
+    <string name="back">Tillbaka</string>
+    <string name="help">Hjälp</string>
 </resources>
