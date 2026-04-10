@@ -548,23 +548,57 @@ private fun TaskListContent(
     onMenuClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val listPaneHidden = navigator.canNavigateBack()
+    ListDetailPaneScaffold(
+        modifier = modifier.fillMaxSize(),
+        directive = navigator.scaffoldDirective,
+        value = navigator.scaffoldValue,
+        listPane = {
+            TaskListPane(
+                state = state,
+                headerFormatter = headerFormatter,
+                chipDataProvider = chipDataProvider,
+                reporting = reporting,
+                viewModel = viewModel,
+                themeColor = themeColor,
+                showMenuButton = showMenuButton,
+                onShowSortSheet = onShowSortSheet,
+                onMenuClick = onMenuClick,
+                onTaskClick = onTaskClick,
+                onCreateTask = { /* TODO: create task */ },
+                modifier = Modifier.preferredWidth(TaskListPanePreferredWidth),
+            )
+        },
+        detailPane = {
+            selectedTaskId?.let { taskId ->
+                TaskDetailPlaceholder(taskId)
+            }
+        },
+    )
+}
+
+private val TaskListPanePreferredWidth = 400.dp
+
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+private fun TaskListPane(
+    state: TaskListViewModel.State,
+    headerFormatter: HeaderFormatter,
+    chipDataProvider: ChipDataProvider,
+    reporting: org.tasks.analytics.Reporting,
+    viewModel: TaskListViewModel,
+    themeColor: org.tasks.kmp.org.tasks.themes.ThemeColor,
+    showMenuButton: Boolean,
+    onShowSortSheet: () -> Unit,
+    onMenuClick: () -> Unit,
+    onTaskClick: (Long) -> Unit,
+    onCreateTask: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     val listState = androidx.compose.foundation.lazy.rememberLazyListState()
     val floatingToolbarScrollBehavior = FloatingToolbarDefaults.exitAlwaysScrollBehavior(
         exitDirection = androidx.compose.material3.FloatingToolbarExitDirection.Bottom,
     )
     val density = androidx.compose.ui.platform.LocalDensity.current
-
-    // Workaround: ListDetailPaneScaffold pane transitions can leave the list in a stale
-    // layout state. Scrolling to the current position forces a re-layout.
-    LaunchedEffect(listPaneHidden) {
-        if (!listPaneHidden) {
-            listState.scrollToItem(
-                listState.firstVisibleItemIndex,
-                listState.firstVisibleItemScrollOffset,
-            )
-        }
-    }
 
     var topBarHeight by remember { mutableStateOf(0.dp) }
     var topBarHeightPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
@@ -598,52 +632,46 @@ private fun TaskListContent(
         }
     }
 
-    Box(
+    BoxWithConstraints(
         modifier = modifier
             .fillMaxSize()
+            .clipToBounds()
             .nestedScroll(topBarScrollConnection)
             .nestedScroll(floatingToolbarScrollBehavior),
     ) {
-        ListDetailPaneScaffold(
-            directive = navigator.scaffoldDirective,
-            value = navigator.scaffoldValue,
-            listPane = {
-                when (val results = state.tasks) {
-                    is TasksResults.Loading -> Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center,
-                    ) { CircularProgressIndicator() }
-                    is TasksResults.Results -> TaskList(
-                        tasks = results.tasks,
-                        filter = state.filter,
-                        headerFormatter = headerFormatter,
-                        chipDataProvider = chipDataProvider,
-                        listState = listState,
-                        topPadding = topBarHeight,
-                        onTaskClick = { task -> onTaskClick(task.id) },
-                        onCompleteTask = { task, newState ->
-                            viewModel.onCompleteTask(task, newState)
-                            if (newState) {
-                                reporting.completeTask("task_list")
-                            }
-                        },
-                        onToggleGroup = { viewModel.toggleCollapsed(it) },
-                        onToggleSubtasks = { id, collapsed ->
-                            viewModel.toggleSubtasks(id, collapsed)
-                        },
-                        onFilterClick = { filter ->
-                            viewModel.setFilter(filter)
-                        },
-                        is24Hour = org.tasks.time.is24HourFormat(),
-                    )
-                }
-            },
-            detailPane = {
-                selectedTaskId?.let { taskId ->
-                    TaskDetailPlaceholder(taskId)
-                }
-            },
-        )
+        // During narrow-mode pane transitions the listPane can briefly be composed with
+        // a zero/near-zero width. Skip rendering in that window to avoid negative layout
+        // constraints from padded descendants (e.g. FloatingToolbar's 16.dp padding).
+        if (maxWidth < 48.dp) return@BoxWithConstraints
+        when (val results = state.tasks) {
+            is TasksResults.Loading -> Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) { CircularProgressIndicator() }
+            is TasksResults.Results -> TaskList(
+                tasks = results.tasks,
+                filter = state.filter,
+                headerFormatter = headerFormatter,
+                chipDataProvider = chipDataProvider,
+                listState = listState,
+                topPadding = topBarHeight,
+                onTaskClick = { task -> onTaskClick(task.id) },
+                onCompleteTask = { task, newState ->
+                    viewModel.onCompleteTask(task, newState)
+                    if (newState) {
+                        reporting.completeTask("task_list")
+                    }
+                },
+                onToggleGroup = { viewModel.toggleCollapsed(it) },
+                onToggleSubtasks = { id, collapsed ->
+                    viewModel.toggleSubtasks(id, collapsed)
+                },
+                onFilterClick = { filter ->
+                    viewModel.setFilter(filter)
+                },
+                is24Hour = org.tasks.time.is24HourFormat(),
+            )
+        }
 
         val statusBarTop = platformStatusBarInsets().calculateTopPadding()
         TopAppBar(
@@ -673,23 +701,21 @@ private fun TaskListContent(
         StatusBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.TopCenter))
         NavigationBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.BottomCenter))
 
-        if (!listPaneHidden) {
-            FloatingToolbar(
-                showMenuButton = showMenuButton,
-                onMenuClick = onMenuClick,
-                onSearchClick = { /* TODO: search */ },
-                onSortClick = onShowSortSheet,
-                onMoreClick = { /* TODO: more options */ },
-                onAddClick = { /* TODO: create task */ },
-                scrollBehavior = floatingToolbarScrollBehavior,
-                fabContainerColor = Color(themeColor.primaryColor),
-                fabContentColor = Color(themeColor.onPrimaryColor),
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .platformNavigationBarsPadding()
-                    .padding(16.dp),
-            )
-        }
+        FloatingToolbar(
+            showMenuButton = showMenuButton,
+            onMenuClick = onMenuClick,
+            onSearchClick = { /* TODO: search */ },
+            onSortClick = onShowSortSheet,
+            onMoreClick = { /* TODO: more options */ },
+            onAddClick = onCreateTask,
+            scrollBehavior = floatingToolbarScrollBehavior,
+            fabContainerColor = Color(themeColor.primaryColor),
+            fabContentColor = Color(themeColor.onPrimaryColor),
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .platformNavigationBarsPadding()
+                .padding(16.dp),
+        )
     }
 }
 
