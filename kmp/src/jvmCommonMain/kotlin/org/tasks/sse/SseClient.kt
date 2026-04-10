@@ -30,6 +30,7 @@ class SseClient(
     private val tokenProvider: SseTokenProvider,
 ) {
     private var connectionJob: Job? = null
+    private var currentCall: okhttp3.Call? = null
     private var backoffMs = INITIAL_BACKOFF_MS
 
     fun start() {
@@ -69,6 +70,8 @@ class SseClient(
     }
 
     private fun stopConnection() {
+        currentCall?.cancel()
+        currentCall = null
         connectionJob?.cancel()
         connectionJob = null
         Logger.i(TAG) { "SSE stopped: no Tasks.org account" }
@@ -103,21 +106,28 @@ class SseClient(
             .build()
 
         Logger.d(TAG) { "SSE connecting to $baseUrl" }
-        client.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) {
-                Logger.w(TAG) { "SSE connection rejected: ${response.code}" }
-                return
+        val call = client.newCall(request)
+        currentCall = call
+        try {
+            call.execute().use { response ->
+                if (!response.isSuccessful) {
+                    Logger.w(TAG) { "SSE connection rejected: ${response.code}" }
+                    return
+                }
+                Logger.i(TAG) { "SSE connected" }
+                readStream(response)
             }
-            Logger.i(TAG) { "SSE connected" }
-            readStream(response)
+        } finally {
+            currentCall = null
         }
     }
 
-    private suspend fun readStream(response: Response) {
+    private fun readStream(response: Response) {
         val reader = response.body?.source()?.inputStream()?.bufferedReader()
             ?: return
         reader.use {
-            it.forEachLine { line ->
+            var line = it.readLine()
+            while (line != null) {
                 when {
                     line.startsWith("data:") -> {
                         val data = line.removePrefix("data:").trim()
@@ -132,6 +142,7 @@ class SseClient(
                         // Comment (heartbeat), ignore
                     }
                 }
+                line = it.readLine()
             }
         }
     }
