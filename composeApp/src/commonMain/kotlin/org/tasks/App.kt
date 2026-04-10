@@ -632,6 +632,16 @@ private fun TaskListPane(
         }
     }
 
+    // When switching to another list, reveal the overlay top bar and floating toolbar
+    // again — otherwise a new list that doesn't fill the screen can leave them stuck
+    // hidden from a prior scroll.
+    LaunchedEffect(state.filter) {
+        topBarOffsetPx = 0f
+        floatingToolbarScrollBehavior.state.offset = 0f
+        floatingToolbarScrollBehavior.state.contentOffset = 0f
+        listState.scrollToItem(0)
+    }
+
     BoxWithConstraints(
         modifier = modifier
             .fillMaxSize()
