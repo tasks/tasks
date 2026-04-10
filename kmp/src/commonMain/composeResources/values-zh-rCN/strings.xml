@@ -113,4 +113,6 @@
     <string name="accept">接受</string>
     <string name="back">返回</string>
     <string name="help">帮助</string>
+    <string name="show_more">显示更多</string>
+    <string name="show_less">显示更少</string>
 </resources>
