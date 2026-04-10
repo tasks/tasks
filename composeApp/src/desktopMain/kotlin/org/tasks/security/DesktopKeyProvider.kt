@@ -44,6 +44,11 @@ class DesktopKeyProvider(
             logger.w(e) { "OS keychain unavailable, falling back to file" }
             fallbackKeyFile.parentFile?.mkdirs()
             fallbackKeyFile.writeText(key)
+            fallbackKeyFile.setReadable(false, false)
+            fallbackKeyFile.setReadable(true, true)
+            fallbackKeyFile.setWritable(false, false)
+            fallbackKeyFile.setWritable(true, true)
+            fallbackKeyFile.setExecutable(false, false)
         }
     }
 }
