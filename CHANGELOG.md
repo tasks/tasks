@@ -1,4 +1,4 @@
-### 15.2.1 (2026-04-08)
+### 15.2.1 (2026-04-10)
 
 * Pre-alpha desktop release for macOS, Windows, and Linux! [#1256](https://github.com/tasks/tasks/issues/1256)
   * Currently only supports Tasks.org cloud sign in
@@ -8,6 +8,7 @@
 * Location reminder improvements
   * Tasks.org can now register for background location updates to improve reliability
 * Sync iCalendar modification times [#2083](https://github.com/tasks/tasks/issues/2083)
+* Show announcements from the Tasks.org blog
 * Fix many Microsoft To Do sync bugs [#4273](https://github.com/tasks/tasks/issues/4273)
 * Fix bug causing iCalendar parent loss on initial sync [#3023](https://github.com/tasks/tasks/issues/3023)
 * Fix DST bug [#4265](https://github.com/tasks/tasks/issues/4265)
