@@ -37,6 +37,7 @@ class AndroidGeofenceTransitionWork @AssistedInject constructor(
             }
             notifier.triggerNotifications(place.id, geofences, arrival)
         } catch (e: Exception) {
+            firebase.reportException(e)
             Timber.e(e, "Error triggering geofence for place %d: %s", placeId, e.message)
         }
         return Result.success()
