@@ -468,8 +468,8 @@
     <string name="enjoying_tasks">享受Tasks\?</string>
     <string name="whats_new">更新日志</string>
     <string name="action_new_task">新任务</string>
-    <string name="sort_modified_group">%s修改</string>
-    <string name="sort_created_group">%s创建</string>
+    <string name="sort_modified_group">已修改的 %s</string>
+    <string name="sort_created_group">已创建的 %s</string>
     <string name="lists">清单</string>
     <string name="open_last_viewed_list">打开上次查看的清单</string>
     <string name="on_launch">启动时</string>
@@ -620,7 +620,7 @@
     <string name="enable_reminders">启用提醒</string>
     <string name="enable_reminders_description">提醒在 Android 设置中被禁用</string>
     <string name="TEA_creation_date">创建日期</string>
-    <string name="sort_completion_group">完成 %s</string>
+    <string name="sort_completion_group">已完成的 %s</string>
     <string name="sign_in">登录</string>
     <string name="sort_list">按清单</string>
     <string name="repeats_every">重复频率</string>
