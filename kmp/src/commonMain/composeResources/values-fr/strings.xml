@@ -113,4 +113,6 @@
     <string name="accept">Accepter</string>
     <string name="back">Retour</string>
     <string name="help">Aide</string>
+    <string name="show_more">Afficher plus</string>
+    <string name="show_less">Afficher moins</string>
 </resources>
