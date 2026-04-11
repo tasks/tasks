@@ -16,7 +16,7 @@
     <string name="drawer_places">Orte</string>
     <string name="drawer_local_lists">Lokale Listen</string>
     <string name="search_no_results">Keine Ergebnisse</string>
-    <string name="requires_pro_subscription">Pro-Funktion</string>
+    <string name="requires_pro_subscription">Benötigt ein Pro-Abo</string>
     <string name="tmrw">Mrg</string>
     <string name="tomorrow_abbrev_lowercase">mrg</string>
     <string name="tomorrow">Morgen</string>
@@ -113,4 +113,6 @@
     <string name="accept">Annehmen</string>
     <string name="back">Zurück</string>
     <string name="help">Hilfe</string>
+    <string name="show_more">Mehr anzeigen</string>
+    <string name="show_less">Weniger anzeigen</string>
 </resources>
