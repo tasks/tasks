@@ -766,4 +766,16 @@
     <string name="per_list_sort_title">Tri par liste</string>
     <string name="per_list_sort_summary">Mémoriser les paramètres de tri et de regroupement pour chaque liste séparément</string>
     <string name="p_per_list_sort">per_list_sort</string>
+    <string name="location_update_interval_title">Mises à jour de position en arrière-plan</string>
+    <string name="location_update_interval_summary">Les mises à jour périodiques de la position améliorent la fiabilité des zones de géorepérage</string>
+    <string name="location_update_interval_disabled">Désactivé</string>
+    <string name="location_update_interval_15_minutes">Toutes les 15 minutes</string>
+    <string name="location_update_interval_30_minutes">Toutes les 30 minutes</string>
+    <string name="location_update_interval_1_hour">Toutes les heures</string>
+    <string name="location_update_interval_2_hours">Toutes les 2 heures</string>
+    <string name="read_more">Lire la suite</string>
+    <string name="blog_feed_none">Aucun</string>
+    <string name="blog_feed_announcements">Annonces uniquement</string>
+    <string name="blog_feed_all">Tous les articles</string>
+    <string name="blog_notifications">Notifications du blog</string>
 </resources>
