@@ -47,6 +47,7 @@ import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
+import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.TaskListViewModel
 
 val commonModule = module {
@@ -210,6 +211,13 @@ val commonModule = module {
             tasksPreferences = get(),
             queryPreferences = get(),
             refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
+        )
+    }
+    viewModel {
+        TaskEditViewModel(
+            taskDao = get(),
+            taskSaver = get(),
+            caldavDao = get(),
         )
     }
     viewModel {

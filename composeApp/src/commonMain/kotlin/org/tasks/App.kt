@@ -148,6 +148,7 @@ import org.tasks.tasklist.TasksResults
 import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.DrawerViewModel
+import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.TaskListViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.show_less
@@ -170,7 +171,18 @@ fun App(
     currentEnvironment: String = TasksServerEnvironment.ENV_PRODUCTION,
     onSelectEnvironment: (String) -> Unit = {},
 ) {
+    val uriHandler = remember(openUrl) {
+        object : androidx.compose.ui.platform.UriHandler {
+            override fun openUri(uri: String) {
+                val normalized = if (uri.contains("://")) uri else "https://$uri"
+                openUrl(normalized)
+            }
+        }
+    }
     TasksTheme {
+        androidx.compose.runtime.CompositionLocalProvider(
+            androidx.compose.ui.platform.LocalUriHandler provides uriHandler,
+        ) {
         Surface(modifier = Modifier.fillMaxSize()) {
             val appViewModel = koinViewModel<AppViewModel>()
             val configuration = koinInject<PlatformConfiguration>()
@@ -333,6 +345,7 @@ fun App(
             )
         }
     }
+    } // CompositionLocalProvider
 }
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class, ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
@@ -388,11 +401,10 @@ private fun TaskListScreen(
     val hasDetailOpen = selectedTaskId != null
     val listPaneHidden = navigator.canNavigateBack()
 
-    PlatformBackHandler(enabled = hasDetailOpen || sidebarExpanded) {
-        when {
-            hasDetailOpen -> scope.launch { navigator.navigateBack() }
-            sidebarExpanded -> sidebarExpanded = false
-        }
+    // Note: when the detail pane is open, TaskEditScreen installs its own back handler
+    // so that back/escape saves the edit before navigating back.
+    PlatformBackHandler(enabled = sidebarExpanded && !hasDetailOpen) {
+        sidebarExpanded = false
     }
 
     BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
@@ -548,6 +560,9 @@ private fun TaskListContent(
     onMenuClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
+    val taskEditViewModel = koinViewModel<TaskEditViewModel>()
+
     ListDetailPaneScaffold(
         modifier = modifier.fillMaxSize(),
         directive = navigator.scaffoldDirective,
@@ -564,13 +579,23 @@ private fun TaskListContent(
                 onShowSortSheet = onShowSortSheet,
                 onMenuClick = onMenuClick,
                 onTaskClick = onTaskClick,
-                onCreateTask = { /* TODO: create task */ },
+                onCreateTask = {
+                    scope.launch {
+                        navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, 0L)
+                    }
+                },
                 modifier = Modifier.preferredWidth(TaskListPanePreferredWidth),
             )
         },
         detailPane = {
             selectedTaskId?.let { taskId ->
-                TaskDetailPlaceholder(taskId)
+                TaskEditScreen(
+                    viewModel = taskEditViewModel,
+                    taskId = taskId.takeIf { it > 0 },
+                    onClose = {
+                        scope.launch { navigator.navigateBack() }
+                    },
+                )
             }
         },
     )
@@ -1019,17 +1044,20 @@ private fun TaskRow(
             val isOverdue = task.hasDueDate() && !task.isCompleted
                     && task.dueDate < (if (task.hasDueTime()) currentTimeMillis() else currentTimeMillis().startOfDay())
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = task.title ?: "",
-                    style = MaterialTheme.typography.bodyLarge,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    textDecoration = if (task.isCompleted) TextDecoration.LineThrough else null,
-                    color = if (task.isCompleted) {
-                        MaterialTheme.colorScheme.outline
-                    } else {
-                        MaterialTheme.colorScheme.onSurface
-                    },
+                val titleColor = if (task.isCompleted) {
+                    MaterialTheme.colorScheme.outline
+                } else {
+                    MaterialTheme.colorScheme.onSurface
+                }
+                Markdown(
+                    content = task.title ?: "",
+                    colors = markdownColor(text = titleColor),
+                    typography = markdownTypography(
+                        paragraph = MaterialTheme.typography.bodyLarge.copy(
+                            textDecoration = if (task.isCompleted) TextDecoration.LineThrough else null,
+                        ),
+                    ),
+                    animations = markdownAnimations(animateTextSize = { this }),
                     modifier = Modifier.weight(1f),
                 )
                 if (dueDateText != null) {
@@ -1212,15 +1240,3 @@ private fun FloatingToolbar(
     }
 }
 
-@Composable
-private fun TaskDetailPlaceholder(taskId: Long) {
-    androidx.compose.foundation.layout.Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(
-            text = "Task #$taskId",
-            style = MaterialTheme.typography.headlineMedium,
-        )
-    }
-}
