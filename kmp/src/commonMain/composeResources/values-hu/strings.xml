@@ -25,8 +25,8 @@
     <string name="yesterday">Tegnap</string>
     <string name="yesterday_lowercase">tegnap</string>
     <string name="today_lowercase">ma</string>
-    <string name="search_no_results">nincs találat</string>
-    <string name="requires_pro_subscription">Pro funkció</string>
+    <string name="search_no_results">Nincs találat</string>
+    <string name="requires_pro_subscription">Előfizetés szükséges</string>
     <string name="subscription_required_description">Csupán 1$/év az összes funkcióért</string>
     <string name="add_task">Feladat létrehozása</string>
     <string name="show_unstarted">El nem kezdettek mutatása</string>
@@ -105,4 +105,14 @@
     <string name="accept">Elfogadás</string>
     <string name="back">Vissza</string>
     <string name="help">Súgó</string>
+    <string name="wear_phone_update_required">Telefon frissítés szükséges</string>
+    <string name="wear_connecting_to_phone">Csatlakozás a telefonhoz…</string>
+    <string name="enter_title">Cím</string>
+    <string name="group_mode">Csoport</string>
+    <string name="sort_alphabetical">ABC sorrend</string>
+    <string name="sort_created">Létrehozva</string>
+    <string name="sort_modified">Módosítva</string>
+    <string name="all_done">Minden kész!</string>
+    <string name="show_more">Több mutatása</string>
+    <string name="show_less">Kevesebb mutatása</string>
 </resources>
