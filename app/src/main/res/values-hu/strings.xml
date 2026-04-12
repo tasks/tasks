@@ -343,7 +343,7 @@
     <string name="about">Névjegy</string>
     <string name="license_summary">A Tasks nyílt forráskódú program, a GNU Általános Nyilvános Licenc v3.0 alapján licenszelve</string>
     <string name="pro_dashclock_extension">Dashclock kiterjesztés</string>
-    <string name="requires_pro_subscription">Pro előfizetést igényel</string>
+    <string name="requires_pro_subscription">Előfizetés szükséges</string>
     <string name="logout">Kijelentkezés</string>
     <string name="logout_warning">A fiókhoz tartozó összes adat törlésre kerül az eszközről</string>
     <string name="cannot_access_account">Fiók nem elérhető</string>
