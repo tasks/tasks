@@ -7,6 +7,7 @@ import androidx.room.RawQuery
 import androidx.room.RoomRawQuery
 import androidx.room.Update
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.flow.Flow
 import org.tasks.data.TaskContainer
 import org.tasks.data.UUIDHelper
 import org.tasks.data.db.Database
@@ -39,6 +40,9 @@ FROM (
 
     @Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
     abstract suspend fun fetch(id: Long): Task?
+
+    @Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
+    abstract fun watch(id: Long): Flow<Task?>
 
     suspend fun fetch(ids: List<Long>): List<Task> = ids.chunkedMap(this::fetchInternal)
 

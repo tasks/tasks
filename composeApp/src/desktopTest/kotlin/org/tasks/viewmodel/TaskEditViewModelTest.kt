@@ -3,6 +3,7 @@ package org.tasks.viewmodel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
@@ -52,6 +53,7 @@ class TaskEditViewModelTest {
         Dispatchers.setMain(testDispatcher)
         whenever(caldavDao.getCalendars()).thenReturn(listOf(testCalendar))
         whenever(caldavDao.getAccountByUuid("acct-1")).thenReturn(testAccount)
+        whenever(taskDao.watch(any())).thenReturn(MutableSharedFlow())
         viewModel = TaskEditViewModel(taskDao, taskSaver, caldavDao)
     }
 
@@ -341,6 +343,145 @@ class TaskEditViewModelTest {
             check { assertEquals("Original", it.title) },
         )
         assertEquals("Other Task", viewModel.state.value.task.title)
+    }
+
+    // endregion
+
+    // region watch / merge
+
+    @Test
+    fun mergeAdoptsUnmodifiedFieldFromDb() = runTest(testDispatcher) {
+        val watchFlow = MutableSharedFlow<Task?>()
+        whenever(taskDao.watch(42L)).thenReturn(watchFlow)
+        initializeExisting(id = 42, title = "Original")
+
+        watchFlow.emit(viewModel.state.value.task.copy(title = "Updated externally"))
+        advanceUntilIdle()
+
+        assertEquals("Updated externally", viewModel.state.value.task.title)
+    }
+
+    @Test
+    fun mergePreservesUserModifiedField() = runTest(testDispatcher) {
+        val watchFlow = MutableSharedFlow<Task?>()
+        whenever(taskDao.watch(42L)).thenReturn(watchFlow)
+        initializeExisting(id = 42, title = "Original")
+
+        viewModel.setTitle("User edit")
+        watchFlow.emit(viewModel.state.value.originalTask.copy(title = "DB edit"))
+        advanceUntilIdle()
+
+        assertEquals("User edit", viewModel.state.value.task.title)
+    }
+
+    @Test
+    fun mergeUpdatesOriginalTask() = runTest(testDispatcher) {
+        val watchFlow = MutableSharedFlow<Task?>()
+        whenever(taskDao.watch(42L)).thenReturn(watchFlow)
+        initializeExisting(id = 42, title = "Original")
+
+        val dbTask = viewModel.state.value.task.copy(priority = 3)
+        watchFlow.emit(dbTask)
+        advanceUntilIdle()
+
+        assertEquals(dbTask, viewModel.state.value.originalTask)
+    }
+
+    @Test
+    fun mergePreservesHasChangesForUserEdits() = runTest(testDispatcher) {
+        val watchFlow = MutableSharedFlow<Task?>()
+        whenever(taskDao.watch(42L)).thenReturn(watchFlow)
+        initializeExisting(id = 42, title = "Original")
+
+        viewModel.setTitle("User edit")
+        watchFlow.emit(viewModel.state.value.originalTask.copy(priority = 3))
+        advanceUntilIdle()
+
+        assertTrue(viewModel.state.value.hasChanges)
+        assertEquals("User edit", viewModel.state.value.task.title)
+        assertEquals(3, viewModel.state.value.task.priority)
+    }
+
+    @Test
+    fun mergeCoversAllTaskFields() = runTest(testDispatcher) {
+        val watchFlow = MutableSharedFlow<Task?>()
+        whenever(taskDao.watch(42L)).thenReturn(watchFlow)
+        initializeExisting(id = 42)
+
+        val original = viewModel.state.value.task
+        val dbTask = Task(
+            id = 42,
+            title = "db",
+            priority = 3,
+            dueDate = 100L,
+            hideUntil = 200L,
+            creationDate = 300L,
+            modificationDate = 400L,
+            completionDate = 500L,
+            deletionDate = 0L, // tested separately via externalDeletionClosesEditor
+            notes = "db notes",
+            estimatedSeconds = 600,
+            elapsedSeconds = 700,
+            timerStart = 800L,
+            ringFlags = 1,
+            reminderLast = 900L,
+            recurrence = "FREQ=DAILY",
+            repeatFrom = 1,
+            calendarURI = "content://cal/1",
+            remoteId = "db-uuid",
+            isCollapsed = true,
+            parent = 1000L,
+            order = 1100L,
+            readOnly = true,
+        )
+
+        watchFlow.emit(dbTask)
+        advanceUntilIdle()
+
+        val state = viewModel.state.value
+        // id, creationDate, and remoteId are intentionally not merged.
+        // A new Task field missing from mergeDbUpdate will fail here.
+        val expected = dbTask.copy(
+            creationDate = original.creationDate,
+            remoteId = original.remoteId,
+        )
+        assertEquals(expected, state.task)
+        assertEquals(dbTask, state.originalTask)
+    }
+
+    @Test
+    fun taskFieldCount() {
+        // If this fails, a field was added to Task — update mergeDbUpdate to handle it.
+        val fieldCount = Task::class.java.declaredFields.count {
+            !java.lang.reflect.Modifier.isStatic(it.modifiers)
+        }
+        assertEquals(24, fieldCount)
+    }
+
+    @Test
+    fun externalDeletionClosesEditor() = runTest(testDispatcher) {
+        val watchFlow = MutableSharedFlow<Task?>()
+        whenever(taskDao.watch(42L)).thenReturn(watchFlow)
+        initializeExisting(id = 42)
+        val closed = awaitClose()
+
+        watchFlow.emit(viewModel.state.value.task.copy(deletionDate = 1000L))
+        advanceUntilIdle()
+
+        assertTrue(closed())
+    }
+
+    @Test
+    fun externalDeletionDoesNotMerge() = runTest(testDispatcher) {
+        val watchFlow = MutableSharedFlow<Task?>()
+        whenever(taskDao.watch(42L)).thenReturn(watchFlow)
+        initializeExisting(id = 42)
+
+        val before = viewModel.state.value
+        watchFlow.emit(before.task.copy(deletionDate = 1000L, title = "changed"))
+        advanceUntilIdle()
+
+        assertEquals(before.task, viewModel.state.value.task)
     }
 
     // endregion
