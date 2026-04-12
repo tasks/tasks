@@ -75,6 +75,7 @@ jobs:
           CONVEYOR_AGREE_TO_LICENSE: 1
         run: >
           conveyor
+          --verbosity debug
           -Kapp.mac.notarization.issuer-id=${{ secrets.APPLE_ISSUER_ID }}
           -Kapp.mac.notarization.key-id=${{ secrets.APPLE_KEY_ID }}
           -Kapp.mac.notarization.private-key=${{ runner.temp }}/apple_api_key.p8
