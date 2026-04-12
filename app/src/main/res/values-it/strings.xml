@@ -765,4 +765,16 @@
     <string name="sign_in_subtitle">Sei già abbonato o sei stato invitato?</string>
     <string name="per_list_sort_title">Ordinamento per lista</string>
     <string name="per_list_sort_summary">Consente ordinamento e raggruppamento indipendenti per ogni lista</string>
+    <string name="location_update_interval_title">Aggiornamenti della posizione in background</string>
+    <string name="location_update_interval_summary">Gli aggiornamenti periodici della posizione migliorano l\'affidabilità del geofence</string>
+    <string name="location_update_interval_disabled">Disabilitato</string>
+    <string name="location_update_interval_15_minutes">Ogni 15 minuti</string>
+    <string name="location_update_interval_30_minutes">Ogni 30 minuti</string>
+    <string name="location_update_interval_1_hour">Ogni ora</string>
+    <string name="location_update_interval_2_hours">Ogni 2 ore</string>
+    <string name="read_more">Leggi di più</string>
+    <string name="blog_notifications">Notifiche del blog</string>
+    <string name="blog_feed_none">Nessuna</string>
+    <string name="blog_feed_announcements">Solo annunci</string>
+    <string name="blog_feed_all">Tutti i post</string>
 </resources>
