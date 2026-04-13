@@ -359,7 +359,7 @@
     <string name="about">О программе</string>
     <string name="license_summary">Tasks является свободным программным обеспечением с открытым исходным кодом, лицензированным под GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Расширение для Dashclock</string>
-    <string name="requires_pro_subscription">Требуется версия Про</string>
+    <string name="requires_pro_subscription">Требуется Pro‑подписка</string>
     <string name="logout">Отключиться</string>
     <string name="logout_warning">Все данные учётной записи на этом устройстве будут удалены</string>
     <string name="cannot_access_account">Учётная запись недоступна</string>
@@ -486,7 +486,7 @@
     <string name="custom_filter_and">И</string>
     <string name="custom_filter_criteria">Критерии фильтрации</string>
     <string name="sort_created">Дата создания</string>
-    <string name="support_development_subscribe">Разблокировать дополнительные функции и поддержать ПО с открытым исходным кодом</string>
+    <string name="support_development_subscribe">Разблокируйте дополнительные функции и поддержите программное обеспечение с открытым исходным кодом</string>
     <string name="enjoying_tasks">Нравится Tasks\?</string>
     <string name="whats_new">Что нового</string>
     <string name="action_new_task">Новая задача</string>
@@ -570,7 +570,7 @@
     <string name="default_due_date">Дата окончания по умолчанию</string>
     <string name="start_date">Дата начала</string>
     <string name="filter_criteria_unstarted">Не начавшиеся</string>
-    <string name="show_unstarted">Показать непочатые</string>
+    <string name="show_unstarted">Показать незавершенные</string>
     <string name="no_start_date">Нет даты начала</string>
     <string name="default_start_date">Дата начала по умолчанию</string>
     <string name="SSD_sort_start">Дата начала</string>
@@ -719,4 +719,16 @@
     <string name="multiline_title_off">Нажмите Done, чтобы сохранить задачу</string>
     <string name="delete_tasks_warning">%s будет удалена. Это нельзя отменить!</string>
     <string name="widget_view_more_tasks">Просмотреть больше задач</string>
+    <string name="import_failed">Не удалось импортировать</string>
+    <string name="import_failed_message">Не удалось прочитать файл резервной копии</string>
+    <string name="location_update_interval_title">Фоновое обновление местоположения</string>
+    <string name="location_update_interval_summary">Периодическое обновление местоположения повышает надёжность геозон</string>
+    <string name="location_update_interval_15_minutes">Каждые 15 минут</string>
+    <string name="location_update_interval_30_minutes">Каждые 30 минут</string>
+    <string name="location_update_interval_1_hour">Каждый час</string>
+    <string name="location_update_interval_2_hours">Каждые 2 часа</string>
+    <string name="location_update_interval_disabled">Отключено</string>
+    <string name="rmd_EPr_rmd_time_desc">Уведомления для задач на весь день появятся в %1$s</string>
+    <string name="local_list_title">Это локальный список</string>
+    <string name="donate">Пожертвовать</string>
 </resources>
