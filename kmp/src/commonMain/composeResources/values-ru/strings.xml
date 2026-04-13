@@ -25,10 +25,10 @@
     <string name="yesterday_lowercase">вчера</string>
     <string name="today">Сегодня</string>
     <string name="today_lowercase">сегодня</string>
-    <string name="show_unstarted">Показать непочатые</string>
+    <string name="show_unstarted">Показать незавершенные</string>
     <string name="show_completed">Показать завершённые</string>
     <string name="search_no_results">Нет результатов</string>
-    <string name="requires_pro_subscription">Профессиональная функциональность</string>
+    <string name="requires_pro_subscription">Требуется Pro‑подписка</string>
     <string name="wear_install_app">Установить на телефон</string>
     <string name="wear_unknown_error">Неизвестная ошибка</string>
     <string name="add_task">Добавить задачу</string>
@@ -94,4 +94,8 @@
     <string name="cancel">Отмена</string>
     <string name="back">Назад</string>
     <string name="help">Помощь</string>
+    <string name="wear_phone_update_required">Необходимо обновить телефон</string>
+    <string name="wear_connecting_to_phone">Подключение к телефону…</string>
+    <string name="enter_title">Введите название</string>
+    <string name="group_mode">Группа</string>
 </resources>
