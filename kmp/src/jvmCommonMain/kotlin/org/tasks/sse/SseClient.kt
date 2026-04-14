@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -77,6 +78,17 @@ class SseClient(
         Logger.i(TAG) { "SSE stopped: no Tasks.org account" }
     }
 
+    fun reconnect() {
+        scope.launch {
+            Logger.i(TAG) { "SSE reconnect requested" }
+            currentCall?.cancel()
+            currentCall = null
+            connectionJob?.cancelAndJoin()
+            connectionJob = null
+            startConnection()
+        }
+    }
+
     private suspend fun connect(account: CaldavAccount) {
         val password = encryption.decrypt(account.password) ?: return
         val baseUrl = environment.caldavUrl.trimEnd('/')
@@ -85,7 +97,7 @@ class SseClient(
         val client = httpClientFactory.newClient(foreground = false) { builder ->
             builder
                 .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(0, TimeUnit.SECONDS) // no read timeout for SSE
+                .readTimeout(READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 .writeTimeout(0, TimeUnit.SECONDS)
             builder.addNetworkInterceptor { chain ->
                 chain.proceed(
@@ -151,5 +163,6 @@ class SseClient(
         private const val TAG = "SseClient"
         private const val INITIAL_BACKOFF_MS = 1_000L
         private const val MAX_BACKOFF_MS = 60_000L
+        private const val READ_TIMEOUT_SECONDS = 90L
     }
 }

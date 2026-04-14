@@ -28,11 +28,13 @@ import org.tasks.analytics.PostHogReporting
 import org.tasks.analytics.Reporting
 import org.tasks.App
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.jobs.BackgroundWork
 import org.tasks.PlatformConfiguration
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.recordInstallIfNeeded
 import org.tasks.sse.SseClient
+import org.tasks.sync.SyncSource
 import org.tasks.di.commonModule
 import org.tasks.di.platformModule
 import org.tasks.logging.FileLogWriter
@@ -115,7 +117,9 @@ fun main() {
             window.minimumSize = Dimension(MIN_WIDTH.value.toInt(), MIN_HEIGHT.value.toInt())
             val reporting = koinInject<Reporting>()
             val sseClient = koinInject<SseClient>()
+            val backgroundWork = koinInject<BackgroundWork>()
             val platformConfig = koinInject<PlatformConfiguration>()
+            val lifecycleScope = rememberCoroutineScope()
             LaunchedEffect(Unit) {
                 Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
                     reporting.reportException(throwable, fatal = true)
@@ -140,6 +144,10 @@ fun main() {
                                 AnalyticsEvents.APP_OPENED,
                                 AnalyticsEvents.PARAM_FROM_BACKGROUND to true,
                             )
+                            sseClient.reconnect()
+                            lifecycleScope.launch {
+                                backgroundWork.sync(SyncSource.APP_RESUME)
+                            }
                         }
                     }
 
