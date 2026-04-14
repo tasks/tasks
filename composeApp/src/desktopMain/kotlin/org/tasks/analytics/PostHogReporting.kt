@@ -65,6 +65,13 @@ class PostHogReporting(
     override fun completeTask(source: String) =
         logEvent(AnalyticsEvents.COMPLETE_TASK, AnalyticsEvents.PARAM_TYPE to source)
 
+    override fun identify(distinctId: String) {
+        logger.d { "identify -> $distinctId" }
+        if (enabled) {
+            PostHog.identify(distinctId)
+        }
+    }
+
     override fun reportException(t: Throwable, fatal: Boolean) {
         logger.e(t) { t.message ?: "" }
         if (enabled) {

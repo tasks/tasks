@@ -1,3 +1,4 @@
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,6 +38,8 @@ import org.tasks.di.platformModule
 import org.tasks.logging.FileLogWriter
 import java.awt.Desktop
 import java.awt.Dimension
+import java.awt.event.WindowEvent
+import java.awt.event.WindowFocusListener
 import java.io.File
 import java.net.URI
 
@@ -121,8 +124,36 @@ fun main() {
                 if (versionCode > 0) {
                     preferences.set(TasksPreferences.currentVersion, versionCode)
                 }
-                reporting.logEvent(AnalyticsEvents.APP_OPENED)
+                reporting.logEvent(
+                    AnalyticsEvents.APP_OPENED,
+                    AnalyticsEvents.PARAM_FROM_BACKGROUND to false,
+                )
                 sseClient.start()
+            }
+            DisposableEffect(window) {
+                var backgrounded = false
+                val focusListener = object : WindowFocusListener {
+                    override fun windowGainedFocus(e: WindowEvent?) {
+                        if (backgrounded) {
+                            backgrounded = false
+                            reporting.logEvent(
+                                AnalyticsEvents.APP_OPENED,
+                                AnalyticsEvents.PARAM_FROM_BACKGROUND to true,
+                            )
+                        }
+                    }
+
+                    override fun windowLostFocus(e: WindowEvent?) {
+                        if (!backgrounded) {
+                            backgrounded = true
+                            reporting.logEvent(AnalyticsEvents.APP_BACKGROUNDED)
+                        }
+                    }
+                }
+                window.addWindowFocusListener(focusListener)
+                onDispose {
+                    window.removeWindowFocusListener(focusListener)
+                }
             }
             val serverEnv = koinInject<TasksServerEnvironment>()
             val scope = rememberCoroutineScope()

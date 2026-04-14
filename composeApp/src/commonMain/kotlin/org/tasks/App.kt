@@ -239,7 +239,6 @@ fun App(
                                 backStack.add(AddAccountDestination)
                             },
                             onContinueWithoutSync = {
-                                reporting.logEvent(AnalyticsEvents.ONBOARDING_COMPLETE, AnalyticsEvents.PARAM_SELECTION to "local")
                                 appViewModel.continueWithoutSync()
                             },
                             openLegalUrl = openUrl,
@@ -286,6 +285,10 @@ fun App(
                                             SignInProvider.GOOGLE -> OAuthProvider.GOOGLE
                                             SignInProvider.GITHUB -> OAuthProvider.GITHUB
                                         }
+                                        reporting.logEvent(
+                                            AnalyticsEvents.SIGN_IN_PROVIDER_SELECTED,
+                                            AnalyticsEvents.PARAM_PROVIDER to oauthProvider.name,
+                                        )
                                         addAccountViewModel.signIn(
                                             platform = Platform.TASKS_ORG,
                                             provider = oauthProvider,
@@ -302,6 +305,12 @@ fun App(
                         }
                         val errorState = signInState as? AddAccountViewModel.SignInState.Error
                         if (errorState != null) {
+                            LaunchedEffect(errorState) {
+                                reporting.logEvent(
+                                    AnalyticsEvents.SIGN_IN_ERROR,
+                                    AnalyticsEvents.PARAM_MESSAGE to errorState.message,
+                                )
+                            }
                             BasicAlertDialog(onDismissRequest = { addAccountViewModel.dismissError() }) {
                                 Surface(
                                     shape = MaterialTheme.shapes.medium,
@@ -580,6 +589,7 @@ private fun TaskListContent(
                 onMenuClick = onMenuClick,
                 onTaskClick = onTaskClick,
                 onCreateTask = {
+                    reporting.addTask("fab")
                     scope.launch {
                         navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, 0L)
                     }

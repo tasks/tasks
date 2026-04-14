@@ -278,6 +278,13 @@ class Firebase @Inject constructor(
     override fun completeTask(source: String) =
         logEvent(R.string.event_complete_task, R.string.param_type to source)
 
+    override fun identify(distinctId: String) {
+        Timber.d("identify -> $distinctId")
+        if (posthogEnabled) {
+            PostHog.identify(distinctId)
+        }
+    }
+
     override fun logEvent(event: String, vararg params: Pair<String, Any>) {
         val properties = params.toMap()
         Timber.d("$event -> $properties")

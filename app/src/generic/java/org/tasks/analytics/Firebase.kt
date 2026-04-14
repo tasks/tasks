@@ -40,6 +40,10 @@ class Firebase @Inject constructor(
     override fun completeTask(source: String) =
         logEvent(R.string.event_complete_task, R.string.param_type to source)
 
+    override fun identify(distinctId: String) {
+        Timber.d("identify -> $distinctId")
+    }
+
     val subscribeCooldown: Boolean
         get() = installCooldown
                 || preferences.lastSubscribeRequest + days(28L) > currentTimeMillis()
