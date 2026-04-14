@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="ok">ठीक</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="requires_pro_subscription">प्रो सब्सक्रिप्शन की ज़रूरत है</string>
+    <string name="actfm_picture_clear">तस्वीर साफ़ करें</string>
+    <string name="TVA_add_comment">टिप्पणी जोड़े…</string>
+    <string name="display_name">प्रदर्शित नाम</string>
 </resources>
