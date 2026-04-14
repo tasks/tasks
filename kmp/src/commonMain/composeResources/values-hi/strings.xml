@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="search">खोज</string>
+    <string name="ok">ठीक</string>
+    <string name="search_no_results">कोई नतीजे नही</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="requires_pro_subscription">प्रो सब्सक्रिप्शन की ज़रूरत है</string>
+    <string name="password_required">पासवर्ड आवश्यक है</string>
 </resources>
