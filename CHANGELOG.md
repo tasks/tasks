@@ -1,3 +1,33 @@
+### 15.3 (2026-04-22)
+
+Desktop:
+  * Create new tasks
+  * Add title and description support
+  * Added top level settings screen
+  * Tasks.org account settings
+  * Local account settings
+  * Improve push sync reliability
+
+Android:
+  * Clear notification when completed/deleted remotely [#4302](https://github.com/tasks/tasks/pull/4302)
+  * Geofence battery improvements
+  * Fix parent relationship lost when importing backups [#4301](https://github.com/tasks/tasks/issues/4301)
+  * Fix failure when importing older backups [#4293](https://github.com/tasks/tasks/issues/4293)
+
+Update translations:
+  * Chinese (Simplified) - Sketch6580, 大王叫我来巡山
+  * Czech - Fjuro
+  * French - @FlorianLeChat, @tlabartbarnagaud
+  * German - @ColorfulRhino, Carlo Kisser
+  * Hindi - Chandra Mohan Jha
+  * Hungarian - Kaci
+  * Indonesian - @arifpedia
+  * Italian - @albanobattistella
+  * Japanese - Norara
+  * Russian - @PONYATIN
+  * Swedish - Mona Lisa
+  * Turkish - @emintufan
+
 ### 15.2.1 (2026-04-10)
 
 * Pre-alpha desktop release for macOS, Windows, and Linux! [#1256](https://github.com/tasks/tasks/issues/1256)
@@ -18,7 +48,7 @@
   * Afrikaans - @evangibson66
   * Bulgarian - 109247019824
   * Chinese (Simplified) - 大王叫我来巡山
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Dutch - Bram Schoenmakers
   * Esperanto - Don Zouras
   * Finnish - @pHamala
@@ -37,7 +67,7 @@
   * Chinese (Simplified) - 大王叫我来巡山
   * Chinese (Traditional) - @xlionjuan
   * Croatian - @milotype
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Esperanto - Don Zouras
   * French - @FlorianLeChat
   * German - @Atalanttore, @Kachelkaiser, @ColorfulRhino
@@ -57,7 +87,7 @@
 * Update translations
   * Chinese (Simplified) - 大王叫我来巡山
   * Chinese (Traditional) - @xlionjuan
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Estonian - Priit Jõerüüt
   * Finnish - @pHamala
   * French - @FlorianLeChat
@@ -83,7 +113,7 @@
   * Bulgarian - 109247019824
   * Chinese (Simplified) - Sketch6580
   * Croatian - @milotype
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Dutch - Bram Schoenmakers
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
@@ -117,7 +147,7 @@
   * Bulgarian - 109247019824
   * Chinese (Simplified) - Sketch6580
   * Croatian - @milotype
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
   * German - @ColorfulRhino
@@ -137,7 +167,7 @@
 * Update translations
   * Bulgarian - 109247019824
   * Chinese (Simplified) - 大王叫我来巡山, Sketch6580
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * French - @FlorianLeChat
   * German - @ColorfulRhino
   * Hungarian - Kaci
@@ -185,7 +215,7 @@
 * Add banner when subscription required
 * Update translations
   * Bulgarian - 109247019824
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Danish - ERYpTION
   * Dutch - Bram Schoenmakers
   * Esperanto - Don Zouras
@@ -208,7 +238,7 @@
 * Update translations
   * Bulgarian - 109247019824
   * Chinese (Simplified) - 大王叫我来巡山, Sketch6580
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Esperanto - Don Zouras
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
@@ -306,7 +336,7 @@
 * Update translations
   * Bulgarian - 109247019824
   * Chinese (Simplified) - Sketch6580
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Dutch - @fvbommel
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
@@ -364,7 +394,7 @@
   * Arabic - abdelbasset jabrane
   * Bulgarian - 109247019824
   * Catalan - @Crashillo
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Danish - @catsnote
   * Dutch - @fvbommel
   * Esperanto - Don Zouras
@@ -402,7 +432,7 @@
 * Fix start date chip when grouping by start date [#3509](https://github.com/tasks/tasks/issues/3509)
 * Update translations
   * Brazilian Portuguese - @sobeitnow0, dedakir923
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Dutch - Jay Tromp
   * German - min7-i
   * Hebrew - Xo
