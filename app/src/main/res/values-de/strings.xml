@@ -743,4 +743,11 @@
     <string name="sign_in_subtitle">Schon abonniert oder als Gast eingeladen worden?</string>
     <string name="per_list_sort_summary">Sortier- und Gruppierungseinstellungen für jede Liste unabhängig speichern</string>
     <string name="per_list_sort_title">Individuelle Listen-Sortierung</string>
+    <string name="location_update_interval_title">Hintergrund-Standort-Updates</string>
+    <string name="location_update_interval_summary">Regelmäßige Standort-Updates verbessern die Standortgenauigkeit</string>
+    <string name="read_more">Mehr anzeigen</string>
+    <string name="blog_notifications">Blog-Benachrichtigungen</string>
+    <string name="blog_feed_none">Keine</string>
+    <string name="blog_feed_announcements">Nur Ankündigungen</string>
+    <string name="blog_feed_all">Alle Beiträge</string>
 </resources>
