@@ -750,4 +750,9 @@
     <string name="blog_feed_none">Keine</string>
     <string name="blog_feed_announcements">Nur Ankündigungen</string>
     <string name="blog_feed_all">Alle Beiträge</string>
+    <string name="location_update_interval_disabled">Deaktiviert</string>
+    <string name="location_update_interval_15_minutes">Alle 15 Minuten</string>
+    <string name="location_update_interval_30_minutes">Alle 30 Minuten</string>
+    <string name="location_update_interval_1_hour">Jede Stunde</string>
+    <string name="location_update_interval_2_hours">Alle 2 Stunden</string>
 </resources>
