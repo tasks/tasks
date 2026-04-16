@@ -741,4 +741,16 @@
     <string name="sign_in_subtitle">Halihazırda abone ya da davetli konuk musunuz?</string>
     <string name="per_list_sort_title">Liste başına sıralama</string>
     <string name="per_list_sort_summary">Her liste için sıra ve küme ayarlarını ayrı ayrı anımsa</string>
+    <string name="location_update_interval_title">Arka plan konum güncellemeleri</string>
+    <string name="location_update_interval_summary">Dönemsel konum güncellemeleri coğrafi sınır güvenirliğini iyileştirir</string>
+    <string name="location_update_interval_disabled">Devre dışı</string>
+    <string name="location_update_interval_15_minutes">Her 15 dakika</string>
+    <string name="location_update_interval_30_minutes">Her 30 dakika</string>
+    <string name="location_update_interval_1_hour">Her saat</string>
+    <string name="location_update_interval_2_hours">Her 2 saat</string>
+    <string name="read_more">Daha çoğunu oku</string>
+    <string name="blog_notifications">Blog bildirimleri</string>
+    <string name="blog_feed_none">Yok</string>
+    <string name="blog_feed_announcements">Yalnızca duyurular</string>
+    <string name="blog_feed_all">Tüm gönderiler</string>
 </resources>
