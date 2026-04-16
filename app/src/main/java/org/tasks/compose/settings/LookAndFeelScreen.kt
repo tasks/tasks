@@ -68,7 +68,7 @@ fun LookAndFeelScreen(
                     (if (showColor) 1 else 0) + 1
             var i = 0
 
-            SettingsItemCard(position = cardPosition(i++, total)) {
+            SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                 PreferenceRow(
                     title = stringResource(R.string.theme),
                     summary = themeName,
@@ -76,7 +76,7 @@ fun LookAndFeelScreen(
                 )
             }
             if (dynamicColorAvailable) {
-                SettingsItemCard(position = cardPosition(i++, total)) {
+                SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                     SwitchPreferenceRow(
                         title = stringResource(R.string.theme_dynamic),
                         checked = dynamicColorEnabled,
@@ -90,7 +90,7 @@ fun LookAndFeelScreen(
                 }
             }
             if (showColor) {
-                SettingsItemCard(position = cardPosition(i++, total)) {
+                SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                     PreferenceRow(
                         title = stringResource(R.string.color),
                         leading = { ColorIcon(Color(themeColor)) },
@@ -98,7 +98,7 @@ fun LookAndFeelScreen(
                     )
                 }
             }
-            SettingsItemCard(position = cardPosition(i, total)) {
+            SettingsItemCard(position = CardPosition.forIndex(i, total)) {
                 PreferenceRow(
                     title = stringResource(R.string.launcher_icon),
                     leading = { ColorIcon(Color(launcherColor)) },

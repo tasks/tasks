@@ -88,4 +88,5 @@
     <string name="cancel">Anuluj</string>
     <string name="back">Wstecz</string>
     <string name="help">Pomoc</string>
+    <string name="display_name">Nazwa wyświetlana</string>
 </resources>

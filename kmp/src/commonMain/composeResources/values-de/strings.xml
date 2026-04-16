@@ -115,4 +115,5 @@
     <string name="help">Hilfe</string>
     <string name="show_more">Mehr anzeigen</string>
     <string name="show_less">Weniger anzeigen</string>
+    <string name="display_name">Anzeigename</string>
 </resources>

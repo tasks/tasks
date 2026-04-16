@@ -58,7 +58,7 @@ fun WidgetsScreen(
                 verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
             ) {
                 widgets.forEachIndexed { index, widget ->
-                    SettingsItemCard(position = cardPosition(index, widgets.size)) {
+                    SettingsItemCard(position = CardPosition.forIndex(index, widgets.size)) {
                         val borderColor = colorResource(R.color.text_tertiary)
                         PreferenceRow(
                             title = widget.filterTitle,
@@ -91,7 +91,7 @@ fun WidgetsScreen(
                 verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
             ) {
                 if (showAddShortcut) {
-                    SettingsItemCard(position = cardPosition(i++, total)) {
+                    SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                         PreferenceRow(
                             title = stringResource(R.string.add_shortcut_to_home_screen),
                             icon = Icons.Outlined.Home,
@@ -100,7 +100,7 @@ fun WidgetsScreen(
                     }
                 }
                 if (showAddWidget) {
-                    SettingsItemCard(position = cardPosition(i, total)) {
+                    SettingsItemCard(position = CardPosition.forIndex(i, total)) {
                         PreferenceRow(
                             title = stringResource(R.string.add_widget_to_home_screen),
                             icon = Icons.Outlined.Widgets,

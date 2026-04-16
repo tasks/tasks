@@ -98,4 +98,5 @@
     <string name="wear_connecting_to_phone">Подключение к телефону…</string>
     <string name="enter_title">Введите название</string>
     <string name="group_mode">Группа</string>
+    <string name="display_name">Отображаемое название</string>
 </resources>

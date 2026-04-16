@@ -22,7 +22,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -30,7 +29,9 @@ import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
-import org.tasks.R
+import org.jetbrains.compose.resources.stringResource
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.display_name
 
 @Composable
 fun TitleInput(
@@ -39,7 +40,7 @@ fun TitleInput(
     requestKeyboard: Boolean,
     setText: (String) -> Unit,
     modifier: Modifier = Modifier,
-    label: String = stringResource(R.string.display_name),
+    label: String = stringResource(Res.string.display_name),
     errorState: Color = MaterialTheme.colorScheme.secondary,
     activeState: Color = LocalContentColor.current.copy(alpha = 0.75f),
     inactiveState: Color = LocalContentColor.current.copy(alpha = 0.3f),
@@ -55,8 +56,7 @@ fun TitleInput(
     val dividerColor = if (focused.value) errorState else labelColor
     val labelText = if (error != "") error else label
 
-    Row (modifier = modifier)
-    {
+    Row(modifier = modifier) {
         Column {
             Text(
                 modifier = Modifier.padding(top = 18.dp, bottom = 4.dp),
@@ -79,7 +79,7 @@ fun TitleInput(
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.Sentences
                 ),
-                cursorBrush = SolidColor(errorState), // SolidColor(LocalContentColor.current),
+                cursorBrush = SolidColor(errorState),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 3.dp)
@@ -96,7 +96,7 @@ fun TitleInput(
     if (requestKeyboard) {
         LaunchedEffect(null) {
             requester.requestFocus()
-            delay(30) // Workaround. Otherwise keyboard don't show in 4/5 tries
+            delay(30)
             keyboardController?.show()
         }
     }

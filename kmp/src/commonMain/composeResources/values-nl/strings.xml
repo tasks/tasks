@@ -102,4 +102,5 @@
     <string name="accept">Accepteren</string>
     <string name="back">Terug</string>
     <string name="help">Hulp</string>
+    <string name="display_name">Weergavenaam</string>
 </resources>

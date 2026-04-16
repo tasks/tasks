@@ -94,4 +94,5 @@
     <string name="cancel">Cancel·la</string>
     <string name="back">Enrere</string>
     <string name="help">Ajuda</string>
+    <string name="display_name">Nom de visualització</string>
 </resources>

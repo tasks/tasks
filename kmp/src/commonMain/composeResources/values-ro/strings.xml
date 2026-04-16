@@ -94,4 +94,5 @@
     <string name="cancel">Anulează</string>
     <string name="back">Înapoi</string>
     <string name="help">Ajutor</string>
+    <string name="display_name">Afișează numele</string>
 </resources>

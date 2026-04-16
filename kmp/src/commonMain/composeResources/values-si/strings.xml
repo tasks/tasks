@@ -76,4 +76,5 @@
     <string name="none">කිසිවක් නැත</string>
     <string name="back">ආපසු</string>
     <string name="help">උදව්</string>
+    <string name="display_name">ප්‍රදර්ශන නාමය</string>
 </resources>

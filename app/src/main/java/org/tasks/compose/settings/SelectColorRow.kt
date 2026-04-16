@@ -41,6 +41,13 @@ import org.tasks.themes.TasksTheme
 import org.tasks.themes.ThemeColor
 import org.tasks.themes.tonalColor
 
+private fun ThemeColor.toPickerColor() = PickerColor(
+    originalColor = originalColor,
+    primaryColor = pickerColor,
+    colorOnPrimary = colorOnPrimary,
+    isFree = isFree,
+)
+
 @Composable
 fun SelectColorRow(
     hasPro: Boolean,
@@ -49,6 +56,7 @@ fun SelectColorRow(
     purchase: () -> Unit,
     selectColor: (Int) -> Unit,
 ) {
+    val pickerColors = remember(colors) { colors.map { it.toPickerColor() } }
     var showColorPicker by rememberSaveable { mutableStateOf(false) }
     var showColorWheel by rememberSaveable { mutableStateOf(false) }
     if (showColorPicker) {
@@ -57,7 +65,7 @@ fun SelectColorRow(
         }
         ColorPickerDialog(
             hasPro = hasPro,
-            colors = colors,
+            colors = pickerColors,
             onDismiss = { showColorPicker = false },
             onColorSelected = {
                 if (hasPro || it.isFree) {

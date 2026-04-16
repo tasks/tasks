@@ -93,4 +93,5 @@
     <string name="cancel">Zrušiť</string>
     <string name="back">Späť</string>
     <string name="help">Pomoc</string>
+    <string name="display_name">Zobrazované meno</string>
 </resources>

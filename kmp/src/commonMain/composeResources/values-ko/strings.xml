@@ -94,4 +94,5 @@
     <string name="cancel">취소</string>
     <string name="back">이전</string>
     <string name="help">도움말</string>
+    <string name="display_name">표시 이름</string>
 </resources>

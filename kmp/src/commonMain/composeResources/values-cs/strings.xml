@@ -115,4 +115,5 @@
     <string name="help">Nápověda</string>
     <string name="show_more">Zobrazit více</string>
     <string name="show_less">Zobrazit méně</string>
+    <string name="display_name">Zobrazované jméno</string>
 </resources>

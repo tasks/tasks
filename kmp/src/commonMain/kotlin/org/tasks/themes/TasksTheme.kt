@@ -70,6 +70,8 @@ fun TasksTheme(
     }
 }
 
+val WarningColor = Color(0xFFFF9800)
+
 // Settings screen colors — referenced from ThemeBase.java for window background
 const val SETTINGS_SURFACE_LIGHT = 0xFFEFECF6.toInt()
 const val SETTINGS_SURFACE_DARK = 0xFF191920.toInt()

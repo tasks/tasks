@@ -24,13 +24,19 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import org.tasks.themes.ThemeColor
+
+data class PickerColor(
+    val originalColor: Int,
+    val primaryColor: Int,
+    val colorOnPrimary: Int,
+    val isFree: Boolean,
+)
 
 @Composable
 fun ColorPicker(
     hasPro: Boolean,
-    colors: List<ThemeColor>,
-    onSelected: (ThemeColor) -> Unit,
+    colors: List<PickerColor>,
+    onSelected: (PickerColor) -> Unit,
     onColorWheelSelected: () -> Unit = {},
 ) {
     LazyVerticalGrid(
@@ -58,7 +64,7 @@ fun ColorPicker(
 
 @Composable
 private fun ColorCircle(
-    color: ThemeColor,
+    color: PickerColor,
     locked: Boolean,
     onClick: () -> Unit
 ) {

@@ -93,7 +93,7 @@ fun MainSettingsScreen(
             ) {
                 accounts.forEachIndexed { index, account ->
                     SettingsItemCard(
-                        position = cardPosition(index, totalAccountItems),
+                        position = CardPosition.forIndex(index, totalAccountItems),
                     ) {
                         AccountRow(
                             account = account,

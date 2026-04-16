@@ -94,4 +94,5 @@
     <string name="cancel">Ακύρωση</string>
     <string name="back">Πίσω</string>
     <string name="help">Βοήθεια</string>
+    <string name="display_name">Εμφανιζόμενο όνομα</string>
 </resources>

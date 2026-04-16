@@ -229,7 +229,7 @@ fun TasksAccountScreen(
             ) {
                 sharedWithMe.forEachIndexed { index, shared ->
                     SettingsItemCard(
-                        position = cardPosition(index, sharedWithMe.size),
+                        position = CardPosition.forIndex(index, sharedWithMe.size),
                     ) {
                         PreferenceRow(
                             title = shared.name,
@@ -273,7 +273,7 @@ fun TasksAccountScreen(
             ) {
                 guests.forEachIndexed { index, guest ->
                     SettingsItemCard(
-                        position = cardPosition(index, guests.size),
+                        position = CardPosition.forIndex(index, guests.size),
                     ) {
                         PreferenceRow(
                             title = guest.displayName ?: guest.email ?: "",
@@ -297,7 +297,7 @@ fun TasksAccountScreen(
             appPasswords?.forEachIndexed { index, pw ->
                 val description = pw.description ?: stringResource(R.string.app_password)
                 SettingsItemCard(
-                    position = cardPosition(index, totalPasswordItems),
+                    position = CardPosition.forIndex(index, totalPasswordItems),
                 ) {
                     val createdAtText = formatRelativeDay(pw.createdAt)
                     val lastAccessText = formatRelativeDay(pw.lastAccess)

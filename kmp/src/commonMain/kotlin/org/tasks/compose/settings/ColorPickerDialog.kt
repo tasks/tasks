@@ -11,15 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import org.tasks.themes.ThemeColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ColorPickerDialog(
     hasPro: Boolean,
-    colors: List<ThemeColor>,
+    colors: List<PickerColor>,
     onDismiss: () -> Unit,
-    onColorSelected: (ThemeColor) -> Unit,
+    onColorSelected: (PickerColor) -> Unit,
     onColorWheelSelected: () -> Unit = {},
 ) {
     BasicAlertDialog(

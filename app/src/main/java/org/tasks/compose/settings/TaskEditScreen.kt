@@ -61,7 +61,7 @@ fun TaskEditScreen(
             val total = if (showWithoutUnlockVisible) 5 else 4
             var i = 0
 
-            SettingsItemCard(position = cardPosition(i++, total)) {
+            SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                 SwitchPreferenceRow(
                     title = stringResource(R.string.linkify),
                     summary = stringResource(R.string.linkify_description),
@@ -69,14 +69,14 @@ fun TaskEditScreen(
                     onCheckedChange = onShowLinks,
                 )
             }
-            SettingsItemCard(position = cardPosition(i++, total)) {
+            SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                 SwitchPreferenceRow(
                     title = stringResource(R.string.back_button_saves_task),
                     checked = backButtonSaves,
                     onCheckedChange = onBackButtonSaves,
                 )
             }
-            SettingsItemCard(position = cardPosition(i++, total)) {
+            SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                 SwitchPreferenceRow(
                     title = stringResource(R.string.multiline_title),
                     summary = if (multilineTitle)
@@ -87,7 +87,7 @@ fun TaskEditScreen(
                     onCheckedChange = onMultilineTitle,
                 )
             }
-            SettingsItemCard(position = cardPosition(i++, total)) {
+            SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                 SwitchPreferenceRow(
                     title = stringResource(R.string.EPr_show_task_edit_comments),
                     checked = showComments,
@@ -95,7 +95,7 @@ fun TaskEditScreen(
                 )
             }
             if (showWithoutUnlockVisible) {
-                SettingsItemCard(position = cardPosition(i, total)) {
+                SettingsItemCard(position = CardPosition.forIndex(i, total)) {
                     SwitchPreferenceRow(
                         title = stringResource(R.string.show_edit_screen_without_unlock),
                         summary = stringResource(R.string.show_edit_screen_without_unlock_summary),

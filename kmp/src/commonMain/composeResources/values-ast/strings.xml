@@ -52,4 +52,5 @@
     <string name="sort_completed">Por data de terminación</string>
     <string name="subtasks">Subxeres</string>
     <string name="none">Denguna</string>
+    <string name="display_name">Mostrar el nome</string>
 </resources>

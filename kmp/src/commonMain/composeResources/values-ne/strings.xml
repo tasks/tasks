@@ -14,4 +14,5 @@
     <string name="cancel">रद्द गर्नुहोस्</string>
     <string name="no_start_date">सुरु मिति छैन</string>
     <string name="subtasks">उपकार्यहरू</string>
+    <string name="display_name">डिस्प्ले नाम</string>
 </resources>

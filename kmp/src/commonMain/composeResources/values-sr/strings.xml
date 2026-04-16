@@ -104,4 +104,5 @@
     <string name="accept">Прихвати</string>
     <string name="back">Назад</string>
     <string name="help">Помоћ</string>
+    <string name="display_name">Прикажи име</string>
 </resources>

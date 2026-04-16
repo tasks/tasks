@@ -1,14 +1,10 @@
 package org.tasks.compose.settings
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.ui.draw.alpha
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -16,7 +12,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.ErrorOutline
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -26,16 +21,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import org.tasks.R
-
+import org.tasks.themes.WarningColor
 
 @Composable
 fun PreferenceRow(
@@ -43,7 +35,6 @@ fun PreferenceRow(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     icon: ImageVector? = null,
-    @DrawableRes iconRes: Int? = null,
     iconTint: Color? = null,
     leading: (@Composable () -> Unit)? = null,
     summary: String? = null,
@@ -55,9 +46,9 @@ fun PreferenceRow(
     trailing: (@Composable () -> Unit)? = null,
     onClick: (() -> Unit)? = null,
 ) {
-    val defaultTint = colorResource(R.color.icon_tint_with_alpha)
-    val errorColor = colorResource(R.color.overdue)
-    val warningColor = colorResource(org.tasks.kmp.R.color.orange_500)
+    val defaultTint = MaterialTheme.colorScheme.onSurfaceVariant
+    val errorColor = MaterialTheme.colorScheme.error
+    val warningColor = WarningColor
 
     Row(
         modifier = modifier
@@ -70,21 +61,11 @@ fun PreferenceRow(
             .padding(vertical = SettingsRowPadding),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Icon slot
         if (leading != null) {
             leading()
         } else if (icon != null) {
             Icon(
                 imageVector = icon,
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(start = SettingsContentPadding)
-                    .size(SettingsIconSize),
-                tint = iconTint ?: defaultTint
-            )
-        } else if (iconRes != null && iconRes != 0) {
-            Icon(
-                painter = painterResource(iconRes),
                 contentDescription = null,
                 modifier = Modifier
                     .padding(start = SettingsContentPadding)
@@ -97,7 +78,6 @@ fun PreferenceRow(
 
         Spacer(modifier = Modifier.width(SettingsContentPadding))
 
-        // Title and summary
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -122,7 +102,6 @@ fun PreferenceRow(
             }
         }
 
-        // Trailing content
         if (trailing != null) {
             trailing()
         } else {
@@ -151,26 +130,6 @@ fun PreferenceRow(
     }
 }
 
-fun cardPosition(index: Int, total: Int) = when {
-    total == 1 -> CardPosition.Only
-    index == 0 -> CardPosition.First
-    index == total - 1 -> CardPosition.Last
-    else -> CardPosition.Middle
-}
-
-@Composable
-fun SectionHeader(
-    @StringRes title: Int,
-    modifier: Modifier = Modifier,
-    onClick: (() -> Unit)? = null,
-) {
-    SectionHeader(
-        title = stringResource(id = title),
-        modifier = modifier,
-        onClick = onClick,
-    )
-}
-
 @Composable
 fun SwitchPreferenceRow(
     title: String,
@@ -179,7 +138,6 @@ fun SwitchPreferenceRow(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     icon: ImageVector? = null,
-    @DrawableRes iconRes: Int? = null,
     iconTint: Color? = null,
     summary: String? = null,
 ) {
@@ -188,7 +146,6 @@ fun SwitchPreferenceRow(
         modifier = modifier,
         enabled = enabled,
         icon = icon,
-        iconRes = iconRes,
         iconTint = iconTint,
         summary = summary,
         summaryMaxLines = Int.MAX_VALUE,
@@ -258,3 +215,4 @@ fun DangerCard(
         }
     }
 }
+

@@ -113,4 +113,5 @@
     <string name="accept">Accetta</string>
     <string name="back">Indietro</string>
     <string name="help">Aiuto</string>
+    <string name="display_name">Nome visualizzato</string>
 </resources>
