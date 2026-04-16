@@ -27,9 +27,11 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.RadioButtonUnchecked
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.SwapVert
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -45,6 +47,7 @@ import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.FloatingToolbarDefaults
 import androidx.compose.material3.HorizontalFloatingToolbar
@@ -151,6 +154,8 @@ import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.TaskListViewModel
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.back
+import tasks.kmp.generated.resources.settings
 import tasks.kmp.generated.resources.show_less
 import tasks.kmp.generated.resources.show_more
 
@@ -162,6 +167,9 @@ data object AddAccountDestination : NavKey
 
 @Serializable
 data object TaskListDestination : NavKey
+
+@Serializable
+data object SettingsDestination : NavKey
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -200,6 +208,7 @@ fun App(
                             subclass(WelcomeDestination::class, WelcomeDestination.serializer())
                             subclass(AddAccountDestination::class, AddAccountDestination.serializer())
                             subclass(TaskListDestination::class, TaskListDestination.serializer())
+                            subclass(SettingsDestination::class, SettingsDestination.serializer())
                         }
                     }
                 },
@@ -348,6 +357,12 @@ fun App(
                         TaskListScreen(
                             viewModel = taskListViewModel,
                             drawerViewModel = drawerViewModel,
+                            onSettingsClick = { backStack.add(SettingsDestination) },
+                        )
+                    }
+                    entry<SettingsDestination> {
+                        SettingsScreen(
+                            onBack = { backStack.removeLastOrNull() },
                         )
                     }
                 },
@@ -362,6 +377,7 @@ fun App(
 private fun TaskListScreen(
     viewModel: TaskListViewModel,
     drawerViewModel: DrawerViewModel,
+    onSettingsClick: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     val drawerState by drawerViewModel.state.collectAsState()
@@ -474,6 +490,7 @@ private fun TaskListScreen(
                         },
                         showMenuButton = true,
                         onMenuClick = { sidebarExpanded = !sidebarExpanded },
+                        onSettingsClick = onSettingsClick,
                         modifier = Modifier.weight(1f),
                     )
                 }
@@ -538,6 +555,7 @@ private fun TaskListScreen(
                                 else materialDrawerState.open()
                             }
                         },
+                        onSettingsClick = onSettingsClick,
                     )
                 }
             }
@@ -567,6 +585,7 @@ private fun TaskListContent(
     onTaskClick: (Long) -> Unit,
     showMenuButton: Boolean,
     onMenuClick: () -> Unit,
+    onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val scope = androidx.compose.runtime.rememberCoroutineScope()
@@ -587,6 +606,7 @@ private fun TaskListContent(
                 showMenuButton = showMenuButton,
                 onShowSortSheet = onShowSortSheet,
                 onMenuClick = onMenuClick,
+                onSettingsClick = onSettingsClick,
                 onTaskClick = onTaskClick,
                 onCreateTask = {
                     reporting.addTask("fab")
@@ -625,6 +645,7 @@ private fun TaskListPane(
     showMenuButton: Boolean,
     onShowSortSheet: () -> Unit,
     onMenuClick: () -> Unit,
+    onSettingsClick: () -> Unit,
     onTaskClick: (Long) -> Unit,
     onCreateTask: () -> Unit,
     modifier: Modifier = Modifier,
@@ -734,6 +755,14 @@ private fun TaskListPane(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
+            },
+            actions = {
+                IconButton(onClick = onSettingsClick) {
+                    Icon(
+                        imageVector = Icons.Outlined.Settings,
+                        contentDescription = stringResource(Res.string.settings),
+                    )
+                }
             },
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = MaterialTheme.colorScheme.background,
@@ -1247,6 +1276,34 @@ private fun FloatingToolbar(
         IconButton(onClick = onMoreClick) {
             Icon(Icons.Outlined.MoreVert, contentDescription = "More")
         }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SettingsScreen(
+    onBack: () -> Unit,
+) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(Res.string.settings)) },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(Res.string.back),
+                        )
+                    }
+                },
+            )
+        },
+    ) { padding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
+        )
     }
 }
 
