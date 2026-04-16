@@ -512,8 +512,6 @@
     <string name="custom_filter_is_subtask">Is subtaak</string>
     <string name="custom_filter_has_subtask">Heeft subtaken</string>
     <string name="current_subscription">Huidig abonnement: %s</string>
-    <string name="price_per_month">$%s/maand</string>
-    <string name="price_per_year">$%s/jaar</string>
     <string name="insufficient_subscription">Onvoldoende abonnementsniveau. Upgrade het abonnement om de service te hervatten.</string>
     <string name="your_subscription_expired">Je abonnement is verlopen. Abonneer nu om deze dienst te hervatten.</string>
     <string name="follow_reddit">Bij r/tasks aansluiten</string>

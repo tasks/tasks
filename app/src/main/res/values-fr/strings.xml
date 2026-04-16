@@ -528,8 +528,6 @@
     <string name="custom_filter_is_subtask">Est une sous-tâche</string>
     <string name="custom_filter_has_subtask">A des sous-tâches</string>
     <string name="current_subscription">Abonnement en cours : %s</string>
-    <string name="price_per_month">%s $/mois</string>
-    <string name="price_per_year">%s $ par an</string>
     <string name="insufficient_subscription">Niveau d\'abonnement insuffisant. Veuillez mettre à niveau votre abonnement pour reprendre le service.</string>
     <string name="your_subscription_expired">Votre abonnement a expiré. Veuillez vous réabonnez dès maintenant pour reprendre le service.</string>
     <string name="background_location_permission_required">Tasks collecte des données de localisation pour permettre des rappels basés sur les emplacements, même lorsque l\'application est fermée ou non utilisée.</string>

@@ -532,8 +532,6 @@
     <string name="insufficient_subscription">Ανεπαρκές επίπεδο συνδρομής. Παρακαλούμε αναβαθμίστε τη συνδρομή σας για να συνεχίσετε την υπηρεσία.</string>
     <string name="insufficient_sponsorship">Δεν βρέθηκε κατάλληλη χορηγία GitHub</string>
     <string name="no_google_play_subscription">Δεν βρέθηκε κατάλληλη συνδρομή στο Google Play</string>
-    <string name="price_per_year">$%s/χρόνο</string>
-    <string name="price_per_month">$%s/μήνα</string>
     <string name="price_per_month_with_currency">%s/μήνα</string>
     <string name="price_per_year_with_currency">%s/χρόνο</string>
     <string name="current_subscription">Τρέχουσα συνδρομή: %s</string>

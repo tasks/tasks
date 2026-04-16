@@ -530,8 +530,6 @@
     <string name="multi_select_reschedule">Перенести</string>
     <string name="follow_reddit">Присоединяйтесь к r/tasks</string>
     <string name="current_subscription">Текущая подписка: %s</string>
-    <string name="price_per_month">$%s/месяц</string>
-    <string name="price_per_year">$%s/год</string>
     <string name="insufficient_subscription">Недостаточный уровень подписки. Обновите подписку, чтобы возобновить обслуживание.</string>
     <string name="your_subscription_expired">Срок действия вашей подписки истек. Подпишитесь сейчас, чтобы возобновить обслуживание.</string>
     <string name="background_location_permission_required">Tasks собирает данные геолокации, чтобы активировать напоминания на основе местоположения, даже когда приложение закрыто или не используется.</string>

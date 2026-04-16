@@ -526,8 +526,6 @@
     <string name="custom_filter_has_subtask">Contiene attività secondarie</string>
     <string name="custom_filter_is_subtask">È un\'attività secondaria</string>
     <string name="current_subscription">Abbonamento attuale: %s</string>
-    <string name="price_per_month">%s $/mese</string>
-    <string name="price_per_year">%s $/anno</string>
     <string name="insufficient_subscription">Livello di abbonamento insufficiente. Per favore aggiornalo per riattivare il servizio.</string>
     <string name="your_subscription_expired">Il tuo abbonamento è scaduto. Abbonati ora per riattivare il servizio.</string>
     <string name="background_location_permission_required">Tasks raccoglie i dati di localizzazione per abilitare i promemoria basati sulla posizione, anche quando è chiusa o non è in uso.</string>

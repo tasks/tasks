@@ -102,8 +102,6 @@
     <string name="follow_twitter">Theo dõi @tasks_org</string>
     <string name="follow_reddit">Tham gia r/tasks</string>
     <string name="current_subscription">Đăng ký hiện tại: %s</string>
-    <string name="price_per_month">$%s/tháng</string>
-    <string name="price_per_year">$%s/năm</string>
     <string name="no_google_play_subscription">Không tìm thấy gói đăng ký Google Play đủ điều kiện</string>
     <string name="insufficient_sponsorship">Không tìm thấy sự tài trợ GitHub đủ điều kiện</string>
     <string name="insufficient_subscription">Không đủ cấp độ đăng ký. Vui lòng nâng cấp đăng ký của bạn để tiếp tục dịch vụ.</string>

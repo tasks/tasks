@@ -269,7 +269,6 @@
     <string name="app_password_enter_description">為您的密碼命名(選填)</string>
     <string name="generate_new_password">產生新密碼</string>
     <string name="app_passwords">應用程式密碼</string>
-    <string name="price_per_year">$%s/每年</string>
     <string name="app_password">應用程式密碼</string>
     <string name="migrate_count">移動 %s 至 Task.org</string>
     <string name="migrating_tasks">移入任務</string>
@@ -281,7 +280,6 @@
     <string name="github_sponsors">GitHub 贊助者</string>
     <string name="authorization_cancelled">取消授權</string>
     <string name="current_subscription">目前訂閱: %s</string>
-    <string name="price_per_month">$%s/每月</string>
     <string name="custom_filter_is_subtask">為副工作</string>
     <string name="custom_filter_has_subtask">有副工作</string>
     <string name="backups_ignore_warnings">忽略警告</string>

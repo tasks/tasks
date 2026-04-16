@@ -591,8 +591,6 @@
     <string name="foreground_location">Malfona loko</string>
     <string name="background_location">Fona loko</string>
     <string name="multi_select_reschedule">Replani</string>
-    <string name="price_per_year">$%s/jaro</string>
-    <string name="price_per_month">$%s/monato</string>
     <string name="authorization_cancelled">Nuligis rajtigon</string>
     <string name="github_sponsors">GitHub Sponsoroj</string>
     <string name="authentication_required">Bezonas aŭtentigon</string>

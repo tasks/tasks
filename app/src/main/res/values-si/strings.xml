@@ -89,8 +89,6 @@
     <string name="follow_twitter">\@tasks_org අනුගමනය කරන්න</string>
     <string name="follow_reddit">r/tasks හා සම්බන්ධ වන්න</string>
     <string name="current_subscription">වත්මන් දායකත්වය: %s</string>
-    <string name="price_per_month">$ %s / මසකට</string>
-    <string name="price_per_year">$ %s / වසරකට</string>
     <string name="no_google_play_subscription">සුදුසුකම් ලත් Google Play දායකත්වයක් හමු නොවීය</string>
     <string name="insufficient_sponsorship">සුදුසුකම් ලත් GitHub අනුග්‍රාහකත්වයක් හමු නොවීය</string>
     <string name="insufficient_subscription">දායකත්ව මට්ටම ප්‍රමාණවත් නොවේ. සේවාව නැවත ආරම්භ කිරීම සඳහා කරුණාකර ඔබගේ දායකත්වය යාවත්කාලීන කරන්න.</string>

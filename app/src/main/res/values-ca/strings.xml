@@ -629,8 +629,6 @@
     <string name="insufficient_subscription">Nivell de subscripció insuficient. Actualitzeu la vostra subscripció per reprendre el servei.</string>
     <string name="insufficient_sponsorship">No s\'ha trobat cap patrocini elegible de GitHub</string>
     <string name="no_google_play_subscription">No s\'ha trobat cap subscripció de Google Play elegible</string>
-    <string name="price_per_year">$%s/any</string>
-    <string name="price_per_month">$%s/mes</string>
     <string name="price_per_month_with_currency">%s/mes</string>
     <string name="price_per_year_with_currency">%s/any</string>
     <string name="current_subscription">Subscripció actual: %s</string>

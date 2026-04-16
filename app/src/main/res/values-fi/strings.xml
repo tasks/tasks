@@ -526,8 +526,6 @@
     <string name="follow_twitter">Seuraa @tasks_org</string>
     <string name="follow_reddit">Liity r/tasks</string>
     <string name="current_subscription">Nykyinen tilaus: %s</string>
-    <string name="price_per_month">$%s/kuukausi</string>
-    <string name="price_per_year">$%s/vuosi</string>
     <string name="no_google_play_subscription">Google Play -tilausta ei löytynyt</string>
     <string name="insufficient_sponsorship">Ei löydetty hyväksyttävää GitHub-sponsorointia</string>
     <string name="insufficient_subscription">Riittämätön tilaustaso. Päivitä tilauksesi palvelun jatkamiseksi.</string>

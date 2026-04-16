@@ -476,7 +476,6 @@
     <string name="migrating_tasks">タスクを移行する</string>
     <string name="migrate_count">%s を Tasks.org に移動</string>
     <string name="upgrade_blurb_2">私は何千時間もかけて Tasks を開発し、すべてのソースコードをオンラインで無料公開しています。私の仕事をサポートしていただくために、いくつかの機能は有料です</string>
-    <string name="price_per_month">$%s/月</string>
     <string name="enjoying_tasks">Tasks を気に入っていだだけましたか？</string>
     <string name="widget_show_dividers">区切り線を表示</string>
     <string name="whats_new">更新情報</string>
@@ -520,7 +519,6 @@
     <string name="choose_synchronization_service">プラットフォームを選択</string>
     <string name="upgrade_blurb_1">こんにちは！私は Alex です。Tasks のインディーディベロッパーです</string>
     <string name="no_google_play_subscription">対象の Google Play の定期購入がありません</string>
-    <string name="price_per_year">$%s/年</string>
     <string name="pro_free_trial">初回購入の方は、７日間の無料トライアルがあります。いつでも解約可能です</string>
     <string name="app_password">アプリパスワード</string>
     <string name="invite_declined">招待を辞退</string>

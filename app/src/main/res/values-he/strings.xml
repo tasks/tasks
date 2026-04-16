@@ -530,8 +530,6 @@
     <string name="background_location_permission_required">היישום Tasks אוסף נתוני מיקום כדי לאפשר תזכורות מבוססות מיקום, אפילו כאשר היישום סגור או לא בשימוש.</string>
     <string name="follow_reddit">הצטרפו אל r/tasks</string>
     <string name="current_subscription">מינוי נוכחי: %s</string>
-    <string name="price_per_month">$%s לחודש</string>
-    <string name="price_per_year">$%s לשנה</string>
     <string name="your_subscription_expired">תוקף המינוי שלך פג. יש להירשם למינוי כעת כדי להמשיך את השירות.</string>
     <string name="custom_filter_is_subtask">היא תת־משימה</string>
     <string name="custom_filter_has_subtask">יש תתי־משימות</string>

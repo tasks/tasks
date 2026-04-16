@@ -496,8 +496,6 @@
     <string name="authorization_cancelled">Autorização cancelada</string>
     <string name="follow_reddit">Entrar em r/tasks</string>
     <string name="current_subscription">Subscrição atual: %s</string>
-    <string name="price_per_month">$%s/mês</string>
-    <string name="price_per_year">$%s/ano</string>
     <string name="custom_filter_is_subtask">É uma subtarefa</string>
     <string name="backup_location_warning">AVISO: os ficheiros localizados em \"%s\" serão eliminados se o Tasks for desinstalado! Escolha outra localização para impedir que o Android elimine os seus ficheiros.</string>
     <string name="backups_ignore_warnings">Ignorar avisos</string>

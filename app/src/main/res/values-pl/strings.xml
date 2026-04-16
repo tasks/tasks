@@ -558,8 +558,6 @@
     <string name="authorization_cancelled">Autoryzacja anulowana</string>
     <string name="follow_reddit">Dołącz do r/tasks</string>
     <string name="current_subscription">Aktualna subskrypcja: %s</string>
-    <string name="price_per_month">$%s/miesiąc</string>
-    <string name="price_per_year">$%s/rok</string>
     <string name="no_google_play_subscription">Nie znaleziono kwalifikującej się subskrypcji Google Play</string>
     <string name="insufficient_sponsorship">Nie znaleziono kwalifikującego się sponsoringu GitHub</string>
     <string name="insufficient_subscription">Niewystarczający poziom subskrypcji. Zwiększ poziom subskrypcji, aby wznowić usługę.</string>

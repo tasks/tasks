@@ -518,8 +518,6 @@
     <string name="your_subscription_expired">Dein Abonnement ist abgelaufen. Abonniere jetzt, um den Dienst fortzusetzen.</string>
     <string name="background_location_permission_required">Tasks sammelt Standortdaten, um standortbezogene Erinnerungen zu ermöglichen, auch wenn die App geschlossen ist oder nicht verwendet wird.</string>
     <string name="repeat_monthly_fifth_week">fünften</string>
-    <string name="price_per_month">%s $/Monat</string>
-    <string name="price_per_year">%s $/Jahr</string>
     <string name="save_percent">%d %% sparen</string>
     <string name="no_google_play_subscription">Kein qualifiziertes Google Play-Abo gefunden</string>
     <string name="insufficient_sponsorship">Kein qualifiziertes GitHub-Sponsoring gefunden</string>

@@ -626,8 +626,6 @@
     <string name="insufficient_subscription">Недовољан пакет претплате. Молимо за претплату на виши пакет за наставак сервиса.</string>
     <string name="insufficient_sponsorship">Није пронађено одговарајуће спонзорство за ,,GitHub\'\'</string>
     <string name="no_google_play_subscription">Није пронађено одговарајуће спонзорство за ,,Google Play\'\'</string>
-    <string name="price_per_year">$%s/годишње</string>
-    <string name="price_per_month">$%s/месечно</string>
     <string name="price_per_month_with_currency">%s/месечно</string>
     <string name="price_per_year_with_currency">%s/годишње</string>
     <string name="current_subscription">Тренутна претплата: %s</string>

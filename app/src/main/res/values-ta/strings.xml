@@ -506,7 +506,6 @@
     <string name="auto_dismiss_datetime_widget_summary">விட்செட்டில் இருந்து எடுக்கும்போது ஆட்டோக்ளோச்</string>
     <string name="background_location">பின்னணி இடம்</string>
     <string name="backups_ignore_warnings">எச்சரிக்கைகளை புறக்கணிக்கவும்</string>
-    <string name="price_per_year">$%s/ஆண்டு</string>
     <string name="repeats_plural">ஒவ்வொரு %s ஐ மீண்டும் நிகழ்கிறது</string>
     <string name="last_backup_never">ஒருபோதும்</string>
     <string name="automatic_backups">தானியங்கி காப்புப்பிரதிகள்</string>
@@ -582,7 +581,6 @@
     <string name="your_subscription_expired">உங்கள் சந்தா காலாவதியானது. சேவையை மீண்டும் தொடங்க இப்போது குழுசேரவும்.</string>
     <string name="insufficient_subscription">போதுமான சந்தா நிலை. சேவையை மீண்டும் தொடங்க உங்கள் சந்தாவை மேம்படுத்தவும்.</string>
     <string name="insufficient_sponsorship">தகுதியான அறிவிலிமையம் ச்பான்சர்சிப் எதுவும் கிடைக்கவில்லை</string>
-    <string name="price_per_month">$%s/மாதம்</string>
     <string name="price_per_month_with_currency">%s/மாதம்</string>
     <string name="ok">சரி</string>
     <string name="cancel">கைவிடு</string>

@@ -398,8 +398,6 @@
     <string name="migrate_count">انقل %s إلى Tasks.org</string>
     <string name="open_source">مفتوح المصدر</string>
     <string name="social">اجتماعي</string>
-    <string name="price_per_month">$%s شهريًا</string>
-    <string name="price_per_year">$%s سنويًا</string>
     <string name="your_subscription_expired">لقد انتهى اشتراكك. اشترك الآن لإكمال الخدمة.</string>
     <string name="date_picker_multiple">متعدّد</string>
     <string name="multi_select_reschedule">غيّر التاريخ</string>

@@ -81,8 +81,6 @@
     <string name="support">สนับสนุน</string>
     <string name="follow_twitter">ติดตาม@tasks_org</string>
     <string name="current_subscription">การสมัครสมาชิกปัจจุบัน: %s</string>
-    <string name="price_per_month">$%s/เดือน</string>
-    <string name="price_per_year">$%s/ปี</string>
     <string name="no_google_play_subscription">ไม่พบการสมัครใช้บริการ Google Play ที่มีสิทธิ์</string>
     <string name="insufficient_sponsorship">ไม่พบผู้สนับสนุน GitHub ที่มีสิทธิ์</string>
     <string name="insufficient_subscription">ระดับการบอกรับเป็นสมาชิกไม่เพียงพอ โปรดปรับรุ่นการสมัครใช้งานของคุณให้กลับมาใช้บริการต่อ</string>

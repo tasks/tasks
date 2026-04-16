@@ -200,8 +200,6 @@
     <string name="social">Društvene mreže</string>
     <string name="follow_twitter">Slijedi @tasks_org</string>
     <string name="current_subscription">Trenutačna pretplata: %s</string>
-    <string name="price_per_month">$%s/mjesec</string>
-    <string name="price_per_year">$%s/godina</string>
     <string name="no_google_play_subscription">Nije pronađena nijedna odgovarajuća pretplata na Google Play</string>
     <string name="insufficient_sponsorship">Nije pronađeno nijedno odgovarajuće sponzorstvo za GitHub</string>
     <string name="insufficient_subscription">Nedovoljna razina pretplate. Nadogradi pretplatu za daljnju upotrebu usluge.</string>

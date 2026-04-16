@@ -410,7 +410,6 @@
     <string name="filter_no_priority">Prioriteedita</string>
     <string name="filter_criteria_unstarted">Alustamata</string>
     <string name="local_lists">Seadme loendid</string>
-    <string name="price_per_month">%s$ kuus</string>
     <string name="markdown">Markdown</string>
     <string name="open_last_viewed_list">Ava viimati vaadatud loend</string>
     <string name="backups_ignore_warnings_summary">Eira varundushoiatusi, kui sa koopiaid ei vaja või sul on varundamiseks enda lahendus</string>
@@ -448,7 +447,6 @@
     <string name="caldav_server_unknown">Tundmatu</string>
     <string name="ok">Ok</string>
     <string name="cancel">Tühista</string>
-    <string name="price_per_year">%s$ aastas</string>
     <string name="markdown_description">Luba Markdown pealkirjas ja kirjelduses</string>
     <string name="now">Kohe</string>
     <string name="sort_created_group">Loodud %s</string>

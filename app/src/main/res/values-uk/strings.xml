@@ -474,8 +474,6 @@
     <string name="authorization_cancelled">Авторизацію скасовано</string>
     <string name="follow_reddit">Долучитися до r/tasks</string>
     <string name="current_subscription">Поточна підписка: %s</string>
-    <string name="price_per_month">%s $ на місяць</string>
-    <string name="price_per_year">%s $ на рік</string>
     <string name="no_google_play_subscription">Відповідної вимогам підписки Google Play не знайдено</string>
     <string name="insufficient_sponsorship">Відповідного вимогам спонсорства GitHub не знайдено</string>
     <string name="insufficient_subscription">Недостатній рівень підписки. Будь ласка, оновіть свою підписку, щоб відновити обслуговування.</string>

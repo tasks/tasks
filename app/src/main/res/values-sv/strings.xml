@@ -467,8 +467,6 @@
     <string name="follow_reddit">Gå med i r/tasks</string>
     <string name="follow_twitter">Följ @tasks_org</string>
     <string name="current_subscription">Nuvarande abonnemang: %s</string>
-    <string name="price_per_year">$%s/år</string>
-    <string name="price_per_month">$%s/månad</string>
     <string name="no_google_play_subscription">Inget berättigade Google Play-abonnemang hittades</string>
     <string name="insufficient_sponsorship">Inga stödberättigade GitHub-sponsorer hittades</string>
     <string name="insufficient_subscription">Otillräcklig abonneringsnivå. Vänligen uppgradera ditt abonnemang för att återuppta tjänsten.</string>

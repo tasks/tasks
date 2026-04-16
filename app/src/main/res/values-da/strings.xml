@@ -509,7 +509,6 @@
     <string name="authorization_cancelled">Autorisation annulleret</string>
     <string name="follow_reddit">Følg r/tasks</string>
     <string name="current_subscription">Nuværende abonnement: %s</string>
-    <string name="price_per_month">$%s/måned</string>
     <string name="default_location">Standardplacering</string>
     <string name="start_date">Startdato</string>
     <string name="default_due_date">Standardforfaldsdato</string>
@@ -533,7 +532,6 @@
     <string name="your_subscription_expired">Dit abonnement er udløbet. Abonner nu for at fortsætte tjenesten.</string>
     <string name="custom_filter_is_subtask">Er underopgave</string>
     <string name="custom_filter_has_subtask">Har underopgaver</string>
-    <string name="price_per_year">$%s/år</string>
     <string name="no_google_play_subscription">Intet kvalificeret Google Play-abonnement fundet</string>
     <string name="email">E-mail</string>
     <string name="markdown_description">Aktivér Markdown i titel og beskrivelse</string>

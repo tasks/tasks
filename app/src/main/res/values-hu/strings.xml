@@ -508,8 +508,6 @@
     <string name="multi_select_reschedule">Újraütemezés</string>
     <string name="always_display_full_date">Teljes dátum mutatása</string>
     <string name="current_subscription">Jelenlegi előfizetés: %s</string>
-    <string name="price_per_month">%s $/hónap</string>
-    <string name="price_per_year">%s $/év</string>
     <string name="insufficient_subscription">Elégtelen előfizetési szint. Kérem, upgrade-elje az előfizetést a szolgáltatás folytatásához.</string>
     <string name="your_subscription_expired">Az előfizetés lejárt. Fizessen elő most a szolgáltatás folytatásához.</string>
     <string name="custom_filter_is_subtask">Alfeladat</string>

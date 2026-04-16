@@ -57,7 +57,7 @@ sealed class ProCardState {
     data object Upgrade : ProCardState()
     data class Subscribed(
         val isMonthly: Boolean,
-        val subscriptionPrice: Int,
+        val formattedPrice: String? = null,
     ) : ProCardState()
     data object SignIn : ProCardState()
     data class TasksOrgAccount(
@@ -111,16 +111,22 @@ fun AccountSettingsCard(
                 is ProCardState.Subscribed -> {
                     iconTint = ProGoldColor
                     title = stringResource(R.string.supporter)
-                    val interval = if (state.isMonthly) {
-                        R.string.price_per_month
-                    } else {
-                        R.string.price_per_year
+                    summary = when {
+                        state.formattedPrice == null -> null
+                        state.formattedPrice.isBlank() ->
+                            stringResource(R.string.supporter_summary_no_price)
+                        else -> {
+                            val interval = if (state.isMonthly) {
+                                R.string.price_per_month_with_currency
+                            } else {
+                                R.string.price_per_year_with_currency
+                            }
+                            stringResource(
+                                R.string.supporter_summary,
+                                stringResource(interval, state.formattedPrice)
+                            )
+                        }
                     }
-                    val price = (state.subscriptionPrice - .01).toString()
-                    summary = stringResource(
-                        R.string.supporter_summary,
-                        stringResource(interval, price)
-                    )
                     showError = false
                 }
                 is ProCardState.SignIn -> {
@@ -190,6 +196,9 @@ fun AccountSettingsCard(
 
             Spacer(modifier = Modifier.width(SettingsContentPadding))
 
+            val isLoading = (state is ProCardState.TasksOrgAccount && state.isLoading)
+                    || (state is ProCardState.Subscribed && state.formattedPrice == null)
+
             Column(
                 modifier = Modifier.weight(1f)
             ) {
@@ -201,16 +210,19 @@ fun AccountSettingsCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                if (!summary.isNullOrBlank()) {
+                if (!summary.isNullOrBlank() || isLoading) {
                     Text(
-                        text = summary,
+                        text = summary ?: " ",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = if (summary != null)
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        else
+                            Color.Transparent,
                     )
                 }
             }
 
-            if (state is ProCardState.TasksOrgAccount && state.isLoading) {
+            if (isLoading) {
                 CircularProgressIndicator(
                     modifier = Modifier
                         .padding(end = SettingsContentPadding)
@@ -264,7 +276,7 @@ private fun SubscribedMonthlyPreview() {
         AccountSettingsCard(
             state = ProCardState.Subscribed(
                 isMonthly = true,
-                subscriptionPrice = 3,
+                formattedPrice = "$2.99",
             ),
             onClick = {}
         )
@@ -278,7 +290,7 @@ private fun SubscribedAnnualPreview() {
         AccountSettingsCard(
             state = ProCardState.Subscribed(
                 isMonthly = false,
-                subscriptionPrice = 30,
+                formattedPrice = "$29.99",
             ),
             onClick = {}
         )

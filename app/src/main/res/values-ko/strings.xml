@@ -500,8 +500,6 @@
     <string name="astrid_sort_order">Astrid 수동 정렬</string>
     <string name="authorization_cancelled">인증 취소됨</string>
     <string name="current_subscription">현재 구독: %s</string>
-    <string name="price_per_year">$%s/년</string>
-    <string name="price_per_month">$%s/월</string>
     <string name="your_subscription_expired">구독이 만료되었습니다. 서비스를 재개하려면 지금 구독하세요.</string>
     <string name="background_location">백그라운드 위치정보</string>
     <string name="permission_read_tasks">Tasks 데이터베이스에 대한 전체 액세스</string>

@@ -514,8 +514,6 @@
     <string name="background_location_permission_required">Tasks, kapalıyken veya kullanılmazken de konuma dayalı anımsatmaları etkinleştirmek için konum verisi toplar.</string>
     <string name="follow_reddit">r/tasks topluluğuna katıl</string>
     <string name="current_subscription">Geçerli abonelik: %s</string>
-    <string name="price_per_month">%s$/ay</string>
-    <string name="price_per_year">%s$/yıl</string>
     <string name="insufficient_subscription">Yetersiz abonelik düzeyi. Hizmeti sürdürmek için lütfen aboneliğinizi yükseltin.</string>
     <string name="your_subscription_expired">Aboneliğinizin süresi doldu. Hizmeti sürdürmek için şimdi abone olun.</string>
     <string name="repeat_monthly_fifth_week">beşinci</string>

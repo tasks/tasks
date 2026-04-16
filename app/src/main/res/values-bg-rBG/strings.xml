@@ -554,7 +554,6 @@
     <string name="sort_modified_group">Променена %s</string>
     <string name="github_sponsor">Дарител</string>
     <string name="tasks_org_account_required">Необходим е профил в Tasks.org</string>
-    <string name="price_per_month">%s/месец</string>
     <string name="migrate">Преместване</string>
     <string name="sign_in_with_github">Вход с GitHub</string>
     <string name="sign_in_with_google">Вход с Google</string>
@@ -571,7 +570,6 @@
     <string name="invite_invalid">Поканата е недейсвителна</string>
     <string name="app_passwords">Пароли на приложениятя</string>
     <string name="current_subscription">Текущ абонамент: %s</string>
-    <string name="price_per_year">$%s/година</string>
     <string name="social">Социални мрежи</string>
     <string name="permission_read_tasks">Пълен дистъп до банката данни на Task</string>
     <string name="github_sponsors">Дарители от GitHub</string>

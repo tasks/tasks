@@ -349,7 +349,6 @@
         <item quantity="other">minutos</item>
     </plurals>
     <string name="settings_default">Predefinido</string>
-    <string name="price_per_year">$%s/ano</string>
     <string name="migrate_count">Mover %s a Tasks.org</string>
     <string name="list_members">Lista de participantes</string>
     <string name="caldav_server_unknown">Descoñecido</string>
@@ -493,7 +492,6 @@
     <string name="backups_ignore_warnings">Ignorar as advertencias</string>
     <string name="date_picker_multiple">Múltiple</string>
     <string name="custom_filter_has_reminder">Ten un recordatorio</string>
-    <string name="price_per_month">$%s/mes</string>
     <string name="authorization_cancelled">Cancelouse a autenticación</string>
     <string name="above_average">Por riba da media</string>
     <string name="save_percent">Gardar %d%%</string>

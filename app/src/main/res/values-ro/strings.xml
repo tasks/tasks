@@ -57,8 +57,6 @@
     <string name="follow_twitter">Urmărește @tasks_org</string>
     <string name="follow_reddit">Alătură-te la r/tasks</string>
     <string name="current_subscription">Abonamentul curent: %s</string>
-    <string name="price_per_month">$%s/lună</string>
-    <string name="price_per_year">$%s/an</string>
     <string name="no_google_play_subscription">Nu s-a găsit niciun abonament Google Play eligibil</string>
     <string name="insufficient_sponsorship">Nu s-au găsit sponsorizări GitHub eligibile</string>
     <string name="insufficient_subscription">Nivel de abonament insuficient. Actualizează abonamentul pentru a relua serviciul.</string>

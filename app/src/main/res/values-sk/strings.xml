@@ -579,8 +579,6 @@
     <string name="follow_twitter">Sledujte @tasks_org</string>
     <string name="caldav_account_description">Vyžaduje účet u poskytovateľa služby CalDAV alebo vlastný server. Vhodných poskytovateľov nájdete na tasks.org/caldav</string>
     <string name="insufficient_sponsorship">Nenájdené žiadne platné GitHub sponzorovanie</string>
-    <string name="price_per_year">$%s/rok</string>
-    <string name="price_per_month">$%s/mesiac</string>
     <string name="more_settings">Ďalšie nastavenia</string>
     <string name="open_source">Otvorený zdrojový kód</string>
     <string name="github_sponsor">Sponzor</string>

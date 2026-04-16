@@ -494,8 +494,6 @@
     <string name="authorization_cancelled">Autorizazioa ezeztatuta</string>
     <string name="follow_reddit">Egin bat r/task-ekin</string>
     <string name="current_subscription">Uneko harpidetza: %s</string>
-    <string name="price_per_month">$%s hilean</string>
-    <string name="price_per_year">$%s urtean</string>
     <string name="insufficient_subscription">Harpidetza maila ez da nahikoa. Hobetu zure harpidetza zerbitzua berrekiteko.</string>
     <string name="your_subscription_expired">Zure harpidetza agortu da. Harpidetu orain zerbitzua berrekiteko.</string>
     <string name="custom_filter_is_subtask">Azpizeregina da</string>

@@ -502,8 +502,6 @@
     <string name="multi_select_reschedule">Perplanuoti</string>
     <string name="save_percent">Sutaupykite %d%%</string>
     <string name="above_average">Virš vidurkio</string>
-    <string name="price_per_month">$%s/mėnesis</string>
-    <string name="price_per_year">$%s/metai</string>
     <string name="no_google_play_subscription">Nerasta tinkamos Google Play prenumeratos</string>
     <string name="insufficient_sponsorship">Nerasta tinkamo GitHub rėmimo</string>
     <string name="github_sponsor">Remti</string>

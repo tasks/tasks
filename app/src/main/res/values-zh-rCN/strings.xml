@@ -507,8 +507,6 @@
     <string name="custom_filter_is_subtask">是子任务</string>
     <string name="custom_filter_has_subtask">有子任务</string>
     <string name="current_subscription">当前订阅：%s</string>
-    <string name="price_per_month">$%s/月</string>
-    <string name="price_per_year">$%s/年</string>
     <string name="insufficient_subscription">订阅等级不够。请升级你的订阅来恢复服务。</string>
     <string name="your_subscription_expired">你的订阅已到期。现在订阅即可恢复服务。</string>
     <string name="follow_reddit">加入 r/tasks</string>

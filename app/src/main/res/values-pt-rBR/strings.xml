@@ -508,8 +508,6 @@
     <string name="cancel">Cancelar</string>
     <string name="ok">OK</string>
     <string name="current_subscription">Assinatura atual: %s</string>
-    <string name="price_per_month">US$ %s/por mês</string>
-    <string name="price_per_year">US$ %s/por ano</string>
     <string name="no_google_play_subscription">Nenhuma assinatura elegível do Google Play foi encontrada</string>
     <string name="insufficient_sponsorship">Nenhum patrocínio elegível do GitHub foi encontrado</string>
     <string name="insufficient_subscription">Nível de assinatura insuficiente. Por favor atualize sua assinatura para continuar o serviço.</string>

@@ -528,8 +528,6 @@
     <string name="custom_filter_is_subtask">Es una subtarea</string>
     <string name="custom_filter_has_subtask">Tiene subtareas</string>
     <string name="current_subscription">Suscripción actual: %s</string>
-    <string name="price_per_month">$%s/mes</string>
-    <string name="price_per_year">$%s/año</string>
     <string name="insufficient_subscription">Nivel de suscripción insuficiente. Actualice su suscripción para reanudar el servicio.</string>
     <string name="your_subscription_expired">Vuestra suscripción ha expirado. Suscribe ahora a resume servicio.</string>
     <string name="background_location_permission_required">Tasks recopila datos de ubicación para permitir los recordatorios basados en la ubicación aún cuando la aplicación está cerrada o no se utiliza.</string>

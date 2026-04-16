@@ -605,8 +605,6 @@
     <string name="remove_user_confirmation">%1$s už nebude mít přístup k %2$s</string>
     <string name="remove_user">Odebrat uživatele\?</string>
     <string name="list_members">Členové seznamu</string>
-    <string name="price_per_month">$%s/měsíc</string>
-    <string name="price_per_year">$%s/rok</string>
     <string name="now">Nyní</string>
     <string name="customize_edit_screen_summary">Přeuspořádejte nebo odstraňte pole</string>
     <string name="randomly_every">Náhodně každých %s</string>
