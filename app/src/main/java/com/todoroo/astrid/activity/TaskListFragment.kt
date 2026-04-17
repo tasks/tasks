@@ -220,6 +220,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private var onClickMenu: () -> Unit = {}
     private lateinit var binding: FragmentTaskListBinding
     private var windowInsets: PaddingValues? = null
+    private var recyclerViewState: Parcelable? = null
     private var hasWritableList = true
     private val listPickerLauncher = registerForListPickerResult {
         val selected = taskAdapter.getSelected()
@@ -283,6 +284,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 taskAdapter.setSelected(longArray.toList())
                 startActionMode()
             }
+            recyclerViewState = savedInstanceState.getParcelable(EXTRA_RECYCLER_STATE)
         }
     }
 
@@ -290,6 +292,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         super.onSaveInstanceState(outState)
         val selectedTaskIds: List<Long> = taskAdapter.getSelected()
         outState.putLongArray(EXTRA_SELECTED_TASK_IDS, selectedTaskIds.toLongArray())
+        val state = recyclerViewState
+            ?: binding.bodyStandard.recyclerView.layoutManager?.onSaveInstanceState()
+        outState.putParcelable(EXTRA_RECYCLER_STATE, state)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -888,6 +893,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         listViewModel.invalidate()
         localBroadcastManager.registerTaskCompletedReceiver(repeatConfirmationReceiver)
         recyclerAdapter?.let { it.notifyItemRangeChanged(0, it.itemCount) }
+        recyclerViewState?.let { state ->
+            binding.bodyStandard.recyclerView.layoutManager?.onRestoreInstanceState(state)
+            recyclerViewState = null
+        }
     }
 
     private fun makeSnackbar(@StringRes res: Int, vararg args: Any?): Snackbar? {
@@ -912,6 +921,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onPause() {
         super.onPause()
+        recyclerViewState = binding.bodyStandard.recyclerView.layoutManager?.onSaveInstanceState()
         localBroadcastManager.unregisterReceiver(repeatConfirmationReceiver)
     }
 
@@ -1337,6 +1347,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         const val ACTION_RELOAD = "action_reload"
         const val ACTION_DELETED = "action_deleted"
         private const val EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids"
+        private const val EXTRA_RECYCLER_STATE = "extra_recycler_state"
         private const val VOICE_RECOGNITION_REQUEST_CODE = 1234
         const val EXTRA_FILTER = "extra_filter"
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"
