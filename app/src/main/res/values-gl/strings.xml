@@ -337,7 +337,6 @@
     <string name="refresh_purchases">Anovar as compras</string>
     <string name="logout_warning">Todos dos datos desta conta vabse a borrar deste dispositivo</string>
     <string name="sign_in_with_google">Acceso con Google</string>
-    <string name="sign_in_with_github">Acceso con GitHub</string>
     <string name="authentication_required">Precísase autenticación</string>
     <string name="migrate">migrar</string>
     <string name="custom_notification">Notificación habitual</string>
@@ -388,9 +387,7 @@
     <string name="auto_dismiss_datetime">Pechar o selector de data automaticamente</string>
     <string name="lists">Listas</string>
     <string name="last_backup">Última copia de seguranza: %s</string>
-    <string name="app_passwords">Contrainais da app</string>
     <string name="app_passwords_more_info">Sincroniza as tarefas e os calendarios en aplicativos de terceiros para escritorio ou dispositivos móbiles. Preme aquí para máis información</string>
-    <string name="generate_new_password">Xerar novo contrasinal</string>
     <string name="repeats_weekly">por semana</string>
     <string name="version_string">Versión %s</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
@@ -494,9 +491,6 @@
     <string name="above_average">Por riba da media</string>
     <string name="save_percent">Gardar %d%%</string>
     <string name="app_password">Contrasinal da app</string>
-    <string name="app_password_enter_description">Dálle un nome ao contrasinal (opcional)</string>
-    <string name="app_password_created_at">Creouse: %s</string>
-    <string name="app_password_last_access">Último empregado: %s</string>
     <string name="copied_to_clipboard">%s copiadas ao portaretallos</string>
     <string name="invite_declined">Convite rexeitado</string>
     <string name="invite_awaiting_response">Convite en agarda</string>
@@ -581,8 +575,6 @@
     <string name="backups_ignore_warnings_summary">Ignora os avisos de copia de seguridade se non necesitas copias de seguridade ou tes a túa propia solución de copia de seguridade</string>
     <string name="backup_location_warning">ATENCIÓN: Eliminaranse os arquivos situados en %s se se desinstala Tasks! Por favor escolla unha ubicación personalizada para evitar que Android elimine os seus arquivos.</string>
     <string name="your_subscription_expired">A túa subscrición caducou. Subscríbete agora para retomar o servizo.</string>
-    <string name="insufficient_subscription">Nivel de subscrición insuficiente. Por favor actualiza a túa subscrición para reanudar o servizo.</string>
-    <string name="insufficient_sponsorship">Non se atopou ningún patrocinio de GitHub elixible</string>
     <string name="no_google_play_subscription">Non se atopou ningunha subscrición de Google Play elixible</string>
     <string name="price_per_month_with_currency">%s/mes</string>
     <string name="price_per_year_with_currency">%s/ano</string>
@@ -596,8 +588,6 @@
     <string name="privacy">Privacidade</string>
     <string name="github_sponsors">Patrocinadores de GitHub</string>
     <string name="github_sponsor">Patrocinador</string>
-    <string name="app_password_delete_confirmation">Calquera aplicación que use este contrasinal pechará sesión</string>
-    <string name="app_password_save">Usa estas credenciais para configurar unha aplicación de terceiros. Conceden acceso completo á túa conta de Tasks.org, non as escribas nin as compartas con ninguén!</string>
     <string name="account_not_included">Non incluído nas subscricións de \'Prezo flexible\'</string>
     <string name="remove_user_confirmation">%1$s xa non terá acceso a %2$s</string>
     <string name="pro_free_trial">Os novos subscritores reciben unha proba gratuíta de 7 días. Cancela en calquera momento</string>

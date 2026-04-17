@@ -624,8 +624,6 @@
     <string name="custom_filter_is_subtask">És una subtasca</string>
     <string name="custom_filter_has_reminder">Hi ha recordatori</string>
     <string name="your_subscription_expired">La vostra subscripció ha caducat. Subscriu-te ara per reprendre el servei.</string>
-    <string name="insufficient_subscription">Nivell de subscripció insuficient. Actualitzeu la vostra subscripció per reprendre el servei.</string>
-    <string name="insufficient_sponsorship">No s\'ha trobat cap patrocini elegible de GitHub</string>
     <string name="no_google_play_subscription">No s\'ha trobat cap subscripció de Google Play elegible</string>
     <string name="price_per_month_with_currency">%s/mes</string>
     <string name="price_per_year_with_currency">%s/any</string>
@@ -640,7 +638,6 @@
     <string name="authorization_cancelled">Autorització cancel·lada</string>
     <string name="github_sponsors">Patrocinadors de GitHub</string>
     <string name="sign_in_with_google">Inicieu sessió amb Google</string>
-    <string name="sign_in_with_github">Inicieu sessió amb GitHub</string>
     <string name="authentication_required">Es requereix autenticació</string>
     <string name="github_sponsor">Patrocinador</string>
     <string name="migrate">Migreu</string>
@@ -649,14 +646,7 @@
     <string name="above_average">Per sobre de la mitjana</string>
     <string name="save_percent">Desa %d%%</string>
     <string name="app_password">Contrasenya de l\'aplicació</string>
-    <string name="app_passwords">Contrasenyes d\'aplicacions</string>
     <string name="app_passwords_more_info">Sincronitzeu les vostres tasques i calendaris amb l\'escriptori de tercers i les aplicacions mòbils. Fes clic aquí per a més informació</string>
-    <string name="generate_new_password">Genereu una contrasenya nova</string>
-    <string name="app_password_enter_description">Doneu un nom a la vostra contrasenya (opcional)</string>
-    <string name="app_password_created_at">Creat: %s</string>
-    <string name="app_password_last_access">Darrera utilització: %s</string>
-    <string name="app_password_delete_confirmation">Qualsevol aplicació que utilitzi aquesta contrasenya serà eliminada</string>
-    <string name="app_password_save">Utilitzeu aquestes credencials per configurar una aplicació de tercers. Atorguen accés complet al vostre compte de Tasks.org, no els escriguis ni els comparteixis amb ningú!</string>
     <string name="copied_to_clipboard">%s copiat al porta-retalls</string>
     <string name="tasks_org_account_required">Cal un compte de Tasks.org</string>
     <string name="account_not_included">No inclòs amb les subscripcions \'Preu flexible\'</string>

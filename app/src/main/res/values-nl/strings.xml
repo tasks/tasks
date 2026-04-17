@@ -510,7 +510,6 @@
     <string name="custom_filter_is_subtask">Is subtaak</string>
     <string name="custom_filter_has_subtask">Heeft subtaken</string>
     <string name="current_subscription">Huidig abonnement: %s</string>
-    <string name="insufficient_subscription">Onvoldoende abonnementsniveau. Upgrade het abonnement om de service te hervatten.</string>
     <string name="your_subscription_expired">Je abonnement is verlopen. Abonneer nu om deze dienst te hervatten.</string>
     <string name="follow_reddit">Bij r/tasks aansluiten</string>
     <string name="background_location_permission_required">Tasks verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de app gesloten is of niet gebruikt wordt.</string>
@@ -527,21 +526,12 @@
         <item quantity="other">%d lijsten</item>
     </plurals>
     <string name="github_sponsors">GitHub sponsors</string>
-    <string name="sign_in_with_github">Log in met GitHub</string>
     <string name="no_google_play_subscription">Geen in aanmerking komend Google Play abonnement gevonden</string>
-    <string name="insufficient_sponsorship">Geen in aanmerking komend GitHub-sponsoring gevonden</string>
     <string name="save_percent">Bespaar %d%%</string>
     <string name="above_average">Bovengemiddeld</string>
     <string name="decsync_selection_description">Synchroniseren op de interne opslag</string>
     <string name="copied_to_clipboard">%s naar het klembord gekopiëerd</string>
-    <string name="app_password_save">Gebruik deze inloggegevens om een app van derden te configureren. Ze geven volledige toegang tot jouw Tasks.org account, dus schrijf ze nergens op en deel ze met niemand!</string>
-    <string name="app_password_delete_confirmation">Alle apps die dit wachtwoord gebruiken worden uitgelogd</string>
-    <string name="app_password_last_access">Laatst gebruikt: %s</string>
-    <string name="app_password_created_at">Aangemaakt: %s</string>
-    <string name="app_password_enter_description">Je wachtwoord een naam geven (optioneel)</string>
-    <string name="generate_new_password">Nieuw wachtwoord aanmaken</string>
     <string name="app_passwords_more_info">Taken en kalenders met andere desktop / mobiele apps synchroniseren. Tik hier voor meer info</string>
-    <string name="app_passwords">App wachtwoorden</string>
     <string name="app_password">App wachtwoord</string>
     <string name="local_lists">Lokale lijsten</string>
     <string name="default_due_date">Standaard vervaldatum</string>
@@ -694,14 +684,10 @@
     <string name="legal_disclosure_prefix_using">Door Tasks.org te gebruiken</string>
     <string name="terms_of_service">Gebruiksvoorwaarden</string>
     <string name="tos_updated_title">We hebben onze gebruikersvoorwaarden bijgewerkt</string>
-    <string name="view_tos">Gebruikersvoorwaarden bekijken</string>
     <string name="accept">Accepteren</string>
     <string name="exit">Afsluiten</string>
     <string name="returning_user">Terugkerende gebruiker?</string>
     <string name="invalid_email_address">Ongeldig e-mailadres</string>
-    <string name="regenerate_email_address">Nieuw e-mailadres genereren</string>
-    <string name="regenerate_email_address_confirmation">Je huidige e-mailadres zal niet meer werken</string>
-    <string name="email_to_task_calendar">Bestemmingslijst</string>
     <string name="email_to_task_address">Je e-mailadres</string>
     <string name="email_to_task">Taak maken per e-mail</string>
     <string name="rmd_EPr_rmd_time_desc">Meldingen voor taken zonder tijdsaanduiding worden om %1$s getoond</string>

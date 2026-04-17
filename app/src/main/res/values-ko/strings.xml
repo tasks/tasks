@@ -507,13 +507,10 @@
     <string name="migrating_tasks">할일 이전 중</string>
     <string name="github_sponsor">후원자</string>
     <string name="authentication_required">인증 필요</string>
-    <string name="sign_in_with_github">깃허브를 이용해서 로그인</string>
     <string name="sign_in_with_google">구글을 이용해서 로그인</string>
     <string name="github_sponsors">깃허브 후원자</string>
     <string name="follow_reddit">r/tasks 구독</string>
     <string name="no_google_play_subscription">적합한 구글 플레이 구독을 찾을 수 없습니다</string>
-    <string name="insufficient_sponsorship">적합한 깃허브 후원 자격을 찾을 수 없습니다</string>
-    <string name="insufficient_subscription">구독 수준이 적합하지 않습니다. 서비스를 재개하려면 구독을 업그레이드하세요.</string>
     <string name="custom_filter_is_subtask">하위할일</string>
     <string name="custom_filter_has_subtask">하위할일 있음</string>
     <string name="date_picker_multiple">각각 다양</string>
@@ -535,7 +532,6 @@
     <string name="email">이메일</string>
     <string name="show_unstarted">시작하지 않은 할일 표시</string>
     <string name="preferences_look_and_feel">외관</string>
-    <string name="app_password_save">이 정보를 타사 앱에 설정하세요. 이 정보만 있으면 귀하의 Tasks.org 계정에 완전하게 접근할 수 있으니, 어딘가에 적어두거나 다른 사람과 공유하지 마십시오!</string>
     <string name="save_percent">%d%% 절약</string>
     <string name="account_not_included">\'구독 금액 정하기\' 구독은 제외</string>
     <string name="markdown_description">제목과 설명에 마크다운 방식 가능</string>
@@ -554,13 +550,7 @@
     <string name="remove_user">사용자를 삭제할까요\?</string>
     <string name="tasks_org_account_required">Tasks.org 계정 필요</string>
     <string name="copied_to_clipboard">클립보드로 %s 건 복사</string>
-    <string name="app_password_delete_confirmation">이 비밀번호를 사용하는 모든 앱에서 로그아웃 됩니다</string>
-    <string name="app_password_last_access">마지막 사용: %s</string>
-    <string name="app_password_created_at">생성: %s</string>
-    <string name="app_password_enter_description">비밀번호에 이름 짓기 (선택사항)</string>
-    <string name="generate_new_password">새 비밀번호 생성</string>
     <string name="above_average">평균 이상</string>
-    <string name="app_passwords">앱 비밀번호</string>
     <string name="app_password">앱 비밀번호</string>
     <string name="privacy">개인정보</string>
     <string name="open_source">오픈 소스</string>

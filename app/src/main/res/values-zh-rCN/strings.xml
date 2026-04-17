@@ -505,7 +505,6 @@
     <string name="custom_filter_is_subtask">是子任务</string>
     <string name="custom_filter_has_subtask">有子任务</string>
     <string name="current_subscription">当前订阅：%s</string>
-    <string name="insufficient_subscription">订阅等级不够。请升级你的订阅来恢复服务。</string>
     <string name="your_subscription_expired">你的订阅已到期。现在订阅即可恢复服务。</string>
     <string name="follow_reddit">加入 r/tasks</string>
     <string name="background_location_permission_required">Tasks 收集位置数据，以启用基于位置的提醒，即使应用程序关闭或不使用。</string>
@@ -520,22 +519,13 @@
     <plurals name="list_count">
         <item quantity="other">%d 个清单</item>
     </plurals>
-    <string name="sign_in_with_github">使用 GitHub 登录</string>
     <string name="github_sponsors">Github 赞助者</string>
     <string name="no_google_play_subscription">找不到符合要求的 Google Play 订阅</string>
-    <string name="insufficient_sponsorship">找不到符合要求的 GitHub 赞助</string>
     <string name="above_average">高于平均</string>
     <string name="save_percent">节省 %d%%</string>
     <string name="decsync_selection_description">基于文件的同步</string>
     <string name="copied_to_clipboard">%s 已复制到剪贴板</string>
-    <string name="app_password_save">使用这些凭据配置第三方应用。它们允许对您的 Tasks.org 账号的完整访问权限，所以不要不要把它们写下来或与任何人分享！</string>
-    <string name="app_password_delete_confirmation">任何使用此密码的应用程序都会退出登录</string>
-    <string name="app_password_last_access">上次使用：%s</string>
-    <string name="app_password_created_at">创建于：%s</string>
-    <string name="app_password_enter_description">给你的密码一个名称 （可选）</string>
-    <string name="generate_new_password">生成新密码</string>
     <string name="app_passwords_more_info">用第三方桌面和移动应用程序同步你的任务和日历。点击此处了解更多信息</string>
-    <string name="app_passwords">多个应用程序密码</string>
     <string name="app_password">应用程序密码</string>
     <string name="local_lists">本地清单</string>
     <string name="default_due_date">默认截止日期</string>
@@ -683,7 +673,6 @@
     <string name="legal_disclosure_prefix_using">使用 Tasks.org</string>
     <string name="terms_of_service">服务条款</string>
     <string name="tos_updated_title">我们更新了服务条款</string>
-    <string name="view_tos">查看服务条款</string>
     <string name="accept">接受</string>
     <string name="exit">退出</string>
     <string name="returning_user">用过 Tasks.org 吗？</string>
@@ -697,9 +686,6 @@
     <string name="alarm_start">开始</string>
     <string name="alarm_due">到期</string>
     <string name="email_to_task_address">您的电子邮件地址</string>
-    <string name="regenerate_email_address">重新生成地址</string>
-    <string name="email_to_task_calendar">目标清单</string>
-    <string name="regenerate_email_address_confirmation">您当前的电子邮件地址将停止使用</string>
     <string name="email_to_task">邮件转任务</string>
     <string name="rmd_EPr_rmd_time_desc">全天任务的通知将显示在 %1$s</string>
     <string name="default_reminder">全天任务</string>
@@ -714,9 +700,6 @@
     <string name="already_subscribed">已是订阅者？</string>
     <string name="send">发送</string>
     <string name="guest_create_list_message">你当前有共享清单的来宾权限。要创建并同步自己的私人清单到云端需要 Tasks.org 订阅。也可以创建保留在此设备上的免费本地清单。</string>
-    <string name="guests">来宾 (%1$d/%2$d)</string>
-    <string name="shared_with_me">与我分享的</string>
-    <string name="shared_by">由 %s 共享</string>
     <string name="upgrade_friends_and_family">好友和家庭</string>
     <string name="upgrade_friends_and_family_description">共享清单可以有 5 位免费来宾。可与 Apple Reminders 配合使用</string>
     <string name="sign_in_subtitle">已是订阅者或受邀来宾？</string>

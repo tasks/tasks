@@ -336,7 +336,6 @@
     <string name="or_choose_a_location">Aŭ elekti lokon</string>
     <string name="shortcut_pick_time">Elekti horon</string>
     <string name="auto_dismiss_datetime_summary">Fermi data/hora elektilo post elekti daton aŭ horon</string>
-    <string name="app_password_created_at">Kreite: %s</string>
     <string name="task_defaults">Taskaj defaŭltoj</string>
     <string name="task_list_options">Taskolistaj agordoj</string>
     <string name="auto_dismiss_datetime">Aŭtomate fermi datan/horan elektilon</string>
@@ -356,7 +355,6 @@
     <string name="ring_once">Soni unufoje</string>
     <string name="default_location_reminder_on_arrival">Post alveno</string>
     <string name="CFC_importance_text">Prioritato almenaŭ estas ?</string>
-    <string name="generate_new_password">Generi novan pasvorton</string>
     <string name="gtasks_GLA_errorIOAuth">Bedaŭrinde ni spertis problemon dum komuniki kun serviloj de Google. Bonvolu repeni poste.</string>
     <string name="persistent_notifications_description">Daŭraj sciigoj ne povas esti forigitaj</string>
     <string name="action_new_task">Nova tasko</string>
@@ -403,9 +401,7 @@
     <string name="filter_eisenhower_box_1">Grava kaj urĝa</string>
     <string name="filter_eisenhower_box_2">Grava kaj ne urĝa</string>
     <string name="custom_filter_criteria">Filtrokriterioj</string>
-    <string name="app_password_enter_description">Nomi vian pasvorton (nedeviga)</string>
     <string name="sign_in_with_google">Ensaluti per Google</string>
-    <string name="sign_in_with_github">Ensaluti per GitHub</string>
     <string name="invite_invalid">Nevalida invito</string>
     <string name="EPr_voiceRemindersEnabled_title">Voĉaj memorigoj</string>
     <string name="choose_new_location">Elekti novan lokon</string>
@@ -593,12 +589,9 @@
     <string name="github_sponsors">GitHub Sponsoroj</string>
     <string name="authentication_required">Bezonas aŭtentigon</string>
     <string name="migrating_tasks">Transmetas taskojn</string>
-    <string name="app_password_last_access">Laste uzata: %s</string>
     <string name="tasks_org_account_required">Bezonas konton de Tasks.org</string>
     <string name="app_password">Pasvorto de aplikaĵo</string>
-    <string name="app_passwords">Pasvortoj de aplikaĵoj</string>
     <string name="app_passwords_more_info">Sinkronigi viajn taskojn kaj kalendarojn kun labortablaj kaj poŝtelefonaj programoj de ekstera liveranto. Tuŝetu ĉi tien por pli da informo</string>
-    <string name="app_password_delete_confirmation">Ajna aplikaĵo, uzante ĉi tiun pasvorton, elsalutiĝos</string>
     <string name="badges">Signoj</string>
     <string name="sort_completion_group">Finita: %s</string>
     <string name="wearable_notifications_summary">Vidigi sciigojn per via portebla aparato</string>
@@ -610,8 +603,6 @@
     <string name="repeats_custom_recurrence">Propra ripetiĝo</string>
     <string name="repeat_monthly_on_the_nth_weekday">Monate ĉe la %1$s%2$s</string>
     <string name="custom_filter_has_reminder">Kun memorigilo</string>
-    <string name="insufficient_subscription">Nesufiĉe da abona nivelo. Bonvolu altgradigi vian abonon por reaktivigi servon.</string>
-    <string name="insufficient_sponsorship">Ne trovis elekteblan GitHub sponsorecon</string>
     <string name="no_google_play_subscription">Ne trovis elekteblan Google Play abonon</string>
     <string name="completion_sound">Ludi plenumigan sonon</string>
     <string name="TEA_timer_comment_spent">Tempo pasigita:</string>
@@ -632,7 +623,6 @@
     <string name="date_picker_multiple">Pluraj</string>
     <string name="your_subscription_expired">Via abono finiĝis. Abonu tuj por reaktivigi servon.</string>
     <string name="upgrade_tasks_org_account_description">Sinkronigi kun Tasks.org kaj kunlabori kun aliaj uzantoj</string>
-    <string name="app_password_save">Uzu ĉi tiujn identigilojn por agordi aplikaĵon de ekstera liveranto. Ili permesas tutan atingorajton al via Tasks.org konto. Ne skribi ilin aŭ konigi ilin al iu ajn!</string>
     <string name="upgrade_more_customization_description">Malŝlosi ĉiujn etosojn, kolorojn, kaj piktogramojn</string>
     <string name="account_not_included">Ne inkluzivite per \'Elekti propran prezon\' abonoj</string>
     <string name="pro_dashclock_extension">Dashclock kromprogramo</string>
@@ -693,7 +683,6 @@
     <string name="legal_disclosure_prefix_using">Per uzi Tasks.org</string>
     <string name="terms_of_service">Kondiĉoj de uzado</string>
     <string name="tos_updated_title">Ni ĝisdatigis niajn Kondiĉojn de Uzado</string>
-    <string name="view_tos">Vidi Kondiĉojn de Uzado</string>
     <string name="accept">Akcepti</string>
     <string name="exit">Eliri</string>
     <string name="returning_user">Ĉu revena uzanto?</string>
@@ -715,7 +704,6 @@
     <string name="email_to_task_address">Via retpoŝtadreso</string>
     <string name="send">Sendi</string>
     <string name="invalid_email_address">Nevalida retpoŝtadreso</string>
-    <string name="guests">Gastoj (%1$d/%2$d)</string>
     <string name="upgrade_friends_and_family">Amikoj kaj Familianoj</string>
     <string name="advanced_tools">Altnivelaj iloj</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync, kaj pli!</string>
@@ -724,12 +712,7 @@
     <string name="rmd_time_enabled_on">Aldoni defaŭltajn memorigilojn al tuttagaj taskoj</string>
     <string name="rmd_time_enabled_off">Ne aldoni defaŭltajn memorigilojn al tuttagaj taskoj</string>
     <string name="email_to_task">Retpoŝto al tasko</string>
-    <string name="email_to_task_calendar">Listo de cellokoj</string>
-    <string name="regenerate_email_address">Regeneri adreson</string>
-    <string name="regenerate_email_address_confirmation">Via aktuala retpoŝtadreso ne plu funkcios</string>
     <string name="share_list">Komunigi \"%1$s\"</string>
-    <string name="shared_with_me">Komunaj kun mi</string>
-    <string name="shared_by">Komunigata de %s</string>
     <string name="upgrade_friends_and_family_description">5 senpagaj gastoj de komunaj listoj. Funkcias per Apple Reminders</string>
     <string name="upgrade_email_to_task_description">Krei taskojn el retpoŝtoj per antaŭsendi ilin al via privata enirkesto</string>
     <string name="guest_create_list_message">Vi nun havas aliron kiel gasto al komunaj listoj. Por krei kaj sinkronigi proprajn privatajn listojn al la nubo, vi bezonas abonon de Tasks.org. Vi povas ankaŭ krei senpagan lokan liston kiu restas en ĉi tiu aparato.</string>

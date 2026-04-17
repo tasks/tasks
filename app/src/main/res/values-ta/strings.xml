@@ -577,8 +577,6 @@
     <string name="backup_location_warning">எச்சரிக்கை: பணிகள் நிறுவல் நீக்கப்பட்டால் %s இல் அமைந்துள்ள கோப்புகள் நீக்கப்படும்! உங்கள் கோப்புகளை நீக்குவதைத் தடுக்க தனிப்பயன் இருப்பிடத்தைத் தேர்வுசெய்க.</string>
     <string name="date_picker_multiple">நான்கு</string>
     <string name="your_subscription_expired">உங்கள் சந்தா காலாவதியானது. சேவையை மீண்டும் தொடங்க இப்போது குழுசேரவும்.</string>
-    <string name="insufficient_subscription">போதுமான சந்தா நிலை. சேவையை மீண்டும் தொடங்க உங்கள் சந்தாவை மேம்படுத்தவும்.</string>
-    <string name="insufficient_sponsorship">தகுதியான அறிவிலிமையம் ச்பான்சர்சிப் எதுவும் கிடைக்கவில்லை</string>
     <string name="price_per_month_with_currency">%s/மாதம்</string>
     <string name="ok">சரி</string>
     <string name="cancel">கைவிடு</string>
@@ -622,7 +620,6 @@
     <string name="snackbar_task_completed">பணி முடிந்தது</string>
     <string name="custom_notification">தனிப்பயன் notification</string>
     <string name="support">உதவி</string>
-    <string name="app_password_delete_confirmation">இந்த கடவுச்சொல்லைப் பயன்படுத்தும் எந்த பயன்பாடும் பதிவு செய்யப்படும்</string>
     <string name="tasks_org_account_required">Tasks.org கணக்கு தேவை</string>
     <string name="list_members">உறுப்பினர்களை பட்டியலிடுங்கள்</string>
     <string name="remove_user">பயனரை அகற்றவா?</string>
@@ -635,10 +632,8 @@
     <string name="sign_in">விடுபதிகை</string>
     <string name="snoozed_until">%s வரை உறக்கநிலை</string>
     <string name="app_password">பயன்பாட்டு கடவுச்சொல்</string>
-    <string name="sign_in_with_github">கிதுபுடன் உள்நுழைக</string>
     <string name="migrating_tasks">இடம்பெயரும் பணிகள்</string>
     <string name="issue_tracker">வெளியீடு டிராக்கர்</string>
-    <string name="app_password_save">மூன்றாம் தரப்பு பயன்பாட்டை உள்ளமைக்க இந்த நற்சான்றிதழ்களைப் பயன்படுத்தவும். அவர்கள் உங்கள் டாச்க்ச்.org கணக்கிற்கு முழுமையான அணுகலை வழங்குகிறார்கள், அவற்றை எழுத வேண்டாம் அல்லது யாருடனும் பகிர்ந்து கொள்ள வேண்டாம்!</string>
     <string name="dismiss">தள்ளுபடி</string>
     <string name="sync_warning_microsoft_title">ஒத்திசைவு செய்ய மைக்ரோசாப்ட் பற்றி</string>
     <string name="sync_warning_microsoft">அனைத்து பணி விவரங்களும் மைக்ரோசாப்ட் உடன் ஒத்திசைக்கவில்லை.</string>
@@ -653,7 +648,6 @@
     <string name="alarm_after_start">தொடக்கத்திற்குப் பிறகு %s</string>
     <string name="authorization_cancelled">ஏற்பு ரத்து செய்யப்பட்டது</string>
     <string name="above_average">சராசரிக்கு மேல்</string>
-    <string name="app_passwords">பயன்பாட்டு கடவுச்சொற்கள்</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org உடன் ஒத்திசைத்து பிற பயனர்களுடன் ஒத்துழைக்கவும்</string>
     <string name="enable_reminders">நினைவூட்டல்களை இயக்கவும்</string>
     <string name="current_subscription">தற்போதைய சந்தா: %s</string>
@@ -661,10 +655,6 @@
     <string name="sign_in_with_google">Google உடன் உள்நுழைக</string>
     <string name="migrate_count">%s ஐ tasks.org க்கு நகர்த்தவும்</string>
     <string name="save_percent">%d %% சேமிக்கவும்</string>
-    <string name="generate_new_password">புதிய கடவுச்சொல்லை உருவாக்குங்கள்</string>
-    <string name="app_password_enter_description">உங்கள் கடவுச்சொல்லை ஒரு பெயரைக் கொடுங்கள் (விரும்பினால்)</string>
-    <string name="app_password_created_at">உருவாக்கப்பட்டது: %s</string>
-    <string name="app_password_last_access">கடைசியாக பயன்படுத்தப்பட்டது: %s</string>
     <string name="account_not_included">\'உங்கள் விலை பெயர்\' சந்தாக்களுடன் சேர்க்கப்படவில்லை</string>
     <string name="remove_user_confirmation">%1$s இனி %2$s அணுகல் இருக்காது</string>
     <string name="invite_declined">அழைப்பு மறுக்கப்பட்டது</string>

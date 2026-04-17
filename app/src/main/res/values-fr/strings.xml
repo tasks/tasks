@@ -526,7 +526,6 @@
     <string name="custom_filter_is_subtask">Est une sous-tâche</string>
     <string name="custom_filter_has_subtask">A des sous-tâches</string>
     <string name="current_subscription">Abonnement en cours : %s</string>
-    <string name="insufficient_subscription">Niveau d\'abonnement insuffisant. Veuillez mettre à niveau votre abonnement pour reprendre le service.</string>
     <string name="your_subscription_expired">Votre abonnement a expiré. Veuillez vous réabonnez dès maintenant pour reprendre le service.</string>
     <string name="background_location_permission_required">Tasks collecte des données de localisation pour permettre des rappels basés sur les emplacements, même lorsque l\'application est fermée ou non utilisée.</string>
     <string name="repeat_monthly_fifth_week">cinquième</string>
@@ -543,22 +542,13 @@
         <item quantity="many">%d listes</item>
         <item quantity="other">%d listes</item>
     </plurals>
-    <string name="sign_in_with_github">Connectez-vous avec « GitHub »</string>
     <string name="github_sponsors">Parrains « GitHub »</string>
     <string name="no_google_play_subscription">Aucun abonnement « Google Play » éligible n\'a été trouvé</string>
-    <string name="insufficient_sponsorship">Aucun parrainage « GitHub » éligible n\'a été trouvé</string>
     <string name="above_average">Au dessus de la moyenne</string>
     <string name="save_percent">Économisez %d%%</string>
     <string name="decsync_selection_description">Synchronisation basée sur les fichiers</string>
     <string name="copied_to_clipboard">%s copié dans le presse-papiers</string>
-    <string name="app_password_save">Utilisez ces informations d\'identification pour configurer une application tierce. Elles vous donnent un accès complet à votre compte « Tasks.org ». Veillez bien à ne pas les coucher sur papier ni à les partager !</string>
-    <string name="app_password_delete_confirmation">Toute application utilisant ce mot de passe sera déconnectée</string>
-    <string name="app_password_last_access">Dernière utilisation : %s</string>
-    <string name="app_password_created_at">Créé : %s</string>
-    <string name="app_password_enter_description">Donnez un nom à votre mot de passe (facultatif)</string>
-    <string name="generate_new_password">Générer un nouveau mot de passe</string>
     <string name="app_passwords_more_info">Synchronisez vos tâches et calendriers avec des applications de bureau et de mobile tierces. Appuyez ici pour plus d’informations</string>
-    <string name="app_passwords">Mots de passe des applications</string>
     <string name="app_password">Mot de passe de l\'application</string>
     <string name="local_lists">Listes locales</string>
     <string name="default_due_date">Date d’échéance par défaut</string>
@@ -715,7 +705,6 @@
     <string name="legal_disclosure_prefix_using">En utilisant Tasks.org</string>
     <string name="terms_of_service">Conditions d\'utilisation</string>
     <string name="tos_updated_title">Nous avons mis à jour nos conditions d\'utilisation</string>
-    <string name="view_tos">Voir les conditions d\'utilisation</string>
     <string name="accept">Accepter</string>
     <string name="legal">Mentions légales</string>
     <string name="exit">Sortir</string>
@@ -729,11 +718,8 @@
     <string name="alarm_after">après</string>
     <string name="alarm_start">début le</string>
     <string name="alarm_due">échéance le</string>
-    <string name="regenerate_email_address_confirmation">Votre adresse électronique actuelle cessera de fonctionner</string>
     <string name="email_to_task">Courriel en tâche</string>
     <string name="email_to_task_address">Votre adresse électronique</string>
-    <string name="email_to_task_calendar">Liste de destination</string>
-    <string name="regenerate_email_address">Regénérer l\'adresse</string>
     <string name="rmd_EPr_rmd_time_desc">Les notifications pour toutes les tâches quotidiennes apparaîtront à %1$s</string>
     <string name="default_reminder">Toutes les tâches quotidiennes</string>
     <string name="add_default_reminders">Ajouter des rappels par défaut</string>
@@ -746,9 +732,6 @@
     <string name="share_list">Partager « %1$s »</string>
     <string name="send">Envoyer</string>
     <string name="guest_create_list_message">Vous disposez actuellement d\'un accès invité aux listes partagées. Pour créer et synchroniser vos propres listes privées sur le cloud, vous devez souscrire un abonnement à Tasks.org. Vous pouvez également créer une liste locale gratuite qui restera sur cet appareil.</string>
-    <string name="guests">Invités (%1$d/%2$d)</string>
-    <string name="shared_with_me">Partagé avec moi</string>
-    <string name="shared_by">Partagé par %s</string>
     <string name="upgrade_friends_and_family">Amis et famille</string>
     <string name="upgrade_friends_and_family_description">5 invités gratuits sur des listes partagées. Fonctionne avec les rappels Apple</string>
     <string name="already_subscribed">Déjà abonné ?</string>

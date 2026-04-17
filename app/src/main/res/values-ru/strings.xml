@@ -528,7 +528,6 @@
     <string name="multi_select_reschedule">Перенести</string>
     <string name="follow_reddit">Присоединяйтесь к r/tasks</string>
     <string name="current_subscription">Текущая подписка: %s</string>
-    <string name="insufficient_subscription">Недостаточный уровень подписки. Обновите подписку, чтобы возобновить обслуживание.</string>
     <string name="your_subscription_expired">Срок действия вашей подписки истек. Подпишитесь сейчас, чтобы возобновить обслуживание.</string>
     <string name="background_location_permission_required">Tasks собирает данные геолокации, чтобы активировать напоминания на основе местоположения, даже когда приложение закрыто или не используется.</string>
     <string name="migrate_count">Переместить %s на Tasks.org</string>
@@ -536,12 +535,10 @@
     <string name="migrate">Перенести</string>
     <string name="github_sponsor">Спонсор</string>
     <string name="authentication_required">Необходима аутентификация</string>
-    <string name="sign_in_with_github">Войти через GitHub</string>
     <string name="sign_in_with_google">Войти через Google</string>
     <string name="github_sponsors">Спонсоры GitHub</string>
     <string name="authorization_cancelled">Авторизация отменена</string>
     <string name="no_google_play_subscription">Подходящей подписки Google Play не найдено</string>
-    <string name="insufficient_sponsorship">Подходящее спонсорство GitHub не найдено</string>
     <plurals name="list_count">
         <item quantity="one">%d список</item>
         <item quantity="few">%d списка</item>
@@ -553,14 +550,7 @@
     <string name="save_percent">Сохранить %d%%</string>
     <string name="decsync_selection_description">Синхронизация с использованием локального файла</string>
     <string name="copied_to_clipboard">%s скопировано в буфер обмена</string>
-    <string name="app_password_save">Используйте эти учетные данные для настройки стороннего приложения. Они предоставляют полный доступ к Вашей учетной записи Tasks.org, не записывайте их и не делитесь ими с кем-либо!</string>
-    <string name="app_password_delete_confirmation">Любое приложение, использующее этот пароль, выйдет из системы</string>
-    <string name="app_password_last_access">Последнее использование: %s</string>
-    <string name="app_password_created_at">Создано: %s</string>
-    <string name="app_password_enter_description">Присвойте вашему паролю имя (необязательно)</string>
-    <string name="generate_new_password">Создать новый пароль</string>
     <string name="app_passwords_more_info">Синхронизируйте свои задачи и календари со сторонними настольными и мобильными приложениями. Нажмите здесь, чтобы узнать больше</string>
-    <string name="app_passwords">Пароли приложений</string>
     <string name="app_password">Пароль приложения</string>
     <string name="local_lists">Локальные списки</string>
     <string name="default_due_date">Дата окончания по умолчанию</string>

@@ -501,11 +501,9 @@
     <string name="save_percent">Sutaupykite %d%%</string>
     <string name="above_average">Virš vidurkio</string>
     <string name="no_google_play_subscription">Nerasta tinkamos Google Play prenumeratos</string>
-    <string name="insufficient_sponsorship">Nerasta tinkamo GitHub rėmimo</string>
     <string name="github_sponsor">Remti</string>
     <string name="github_sponsors">GitHub rėmėjai</string>
     <string name="sign_in_with_google">Prisijungti naudojant Google</string>
-    <string name="sign_in_with_github">Prisijungti naudojant GitHub</string>
     <string name="follow_twitter">Sekti @tasks_org</string>
     <string name="follow_reddit">Prisijungti prie r/tasks</string>
     <string name="current_subscription">Dabartinė prenumerata: %s</string>
@@ -513,12 +511,6 @@
     <string name="migrating_tasks">Migruojamos užduotys</string>
     <string name="migrate">Migruoti</string>
     <string name="account_not_included">Neįtraukta į prenumeratas „Nustatykite savo kainą“</string>
-    <string name="app_password_save">Naudodami šiuos kredencialus sukonfigūruokite trečiosios šalies programėlę. Jie suteikia visišką prieigą prie jūsų Tasks.org paskyros, nerašykite jų ir nesidalykite jais su niekuo!</string>
-    <string name="app_password_delete_confirmation">Bet kuri programa, kuri naudoja šį slaptažodį, bus atjungta</string>
-    <string name="app_password_last_access">Paskutinį kartą naudota: %s</string>
-    <string name="app_password_created_at">Sukurta: %s</string>
-    <string name="app_password_enter_description">Suteikti savo slaptažodžiui vardą (neprivaloma)</string>
-    <string name="generate_new_password">Generuoti naują slaptažodį</string>
     <string name="name_your_price">Nustatykite savo kainą</string>
     <string name="background_location_permission_required">Tasks renka vietovės duomenis, kad įgalintų priminimus pagal vietovę, net kai programa uždaryta arba nenaudojama.</string>
     <string name="help_and_feedback">Pagalba ir atsiliepimai</string>
@@ -548,7 +540,6 @@
     <string name="default_due_date">Numatyta pabaigos data</string>
     <string name="astrid_sort_order_summary">Įgalinti rankinį Astrid rūšiavimo režimą „Mano užduotys“, „Šiandien“ ir etiketėms. Ateityje atnaujinant šis rūšiavimo režimas bus pakeistas į „Mano rūšiavimas“</string>
     <string name="app_passwords_more_info">Sinchronizuokite savo užduotis ir kalendorius su trečiųjų šalių darbalaukio ir mobiliųjų įrenginių programėlėmis. Bakstelėkite čia, jei reikia daugiau informacijos</string>
-    <string name="app_passwords">Programėlių slaptažodžiai</string>
     <string name="app_password">Programėlės slaptažodis</string>
     <string name="authentication_required">Autentifikacija privaloma</string>
     <string name="authorization_cancelled">Autorizavimas atšauktas</string>
@@ -558,7 +549,6 @@
     <string name="support">Pagalba</string>
     <string name="social">Socialiniai tinklai</string>
     <string name="tasks_org_account_required">Būtina Tasks.org paskyra</string>
-    <string name="insufficient_subscription">Nepakankamas prenumeratos lygis. Atnaujinkite savo prenumeratą, kad būtų tęsiama paslauga.</string>
     <string name="your_subscription_expired">Jūsų prenumeratos galiojimo laikas baigėsi. Prenumeruokite dabar, norėdami tęsti paslaugą.</string>
     <string name="custom_filter_is_subtask">Ar antrinė užduotis</string>
     <string name="custom_filter_has_subtask">Turi antrinių užduočių</string>

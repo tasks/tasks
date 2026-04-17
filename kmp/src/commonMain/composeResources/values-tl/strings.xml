@@ -8,4 +8,5 @@
     <string name="SSD_sort_importance">Ayon sa prayoridad</string>
     <string name="SSD_sort_alpha">Ayon sa pamagat</string>
     <string name="SSD_sort_modified">Ayon sa huling pagbago</string>
+    <string name="user">Gumagamit</string>
 </resources>

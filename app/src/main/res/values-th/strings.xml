@@ -48,14 +48,7 @@
     <string name="list_members">รายชื่อสมาชิก</string>
     <string name="tasks_org_account_required">Tasks.org บัญชีลูกค้า</string>
     <string name="copied_to_clipboard">%s คัดลอกไปยังคลิปบอร์ดแล้ว</string>
-    <string name="app_password_save">ใช้ข้อมูลรับรองเหล่านี้เพื่อกําหนดค่าแอปของบริษัทอื่น พวกเขาให้สิทธิ์การเข้าถึงบัญชี Tasks.org ของคุณอย่างสมบูรณ์อย่าจดหรือแบ่งปันกับใคร!</string>
-    <string name="app_password_delete_confirmation">แอปใดๆ ที่ใช้รหัสผ่านนี้จะออกจากระบบ</string>
-    <string name="app_password_last_access">ใช้ครั้งล่าสุด: %s</string>
-    <string name="app_password_created_at">สร้างแล้ว: %s</string>
-    <string name="app_password_enter_description">ตั้งชื่อรหัสผ่านของคุณ (ไม่บังคับ)</string>
-    <string name="generate_new_password">สร้างรหัสผ่านใหม่</string>
     <string name="app_passwords_more_info">ซิงโครไนซ์งานและปฏิทินของคุณกับเดสก์ท็อปและแอปสําหรับอุปกรณ์เคลื่อนที่ของบริษัทอื่น แตะที่นี่สําหรับข้อมูลเพิ่มเติม</string>
-    <string name="app_passwords">รหัสผ่านของแอป</string>
     <string name="app_password">รหัสผ่านของแอป</string>
     <string name="save_percent">ประหยัด %d%%</string>
     <string name="above_average">สูงกว่าค่าเฉลี่ย</string>
@@ -64,7 +57,6 @@
     <string name="migrate">อพยพ</string>
     <string name="github_sponsor">สปอนเซอร์</string>
     <string name="authentication_required">ต้องการการรับรองความถูกต้อง</string>
-    <string name="sign_in_with_github">เข้าสู่ระบบด้วย GitHub</string>
     <string name="sign_in_with_google">ลงชื่อเข้าใช้ด้วย Google</string>
     <string name="github_sponsors">ผู้สนับสนุน GitHub</string>
     <string name="issue_tracker">ตัวติดตามปัญหา</string>
@@ -82,8 +74,6 @@
     <string name="follow_twitter">ติดตาม@tasks_org</string>
     <string name="current_subscription">การสมัครสมาชิกปัจจุบัน: %s</string>
     <string name="no_google_play_subscription">ไม่พบการสมัครใช้บริการ Google Play ที่มีสิทธิ์</string>
-    <string name="insufficient_sponsorship">ไม่พบผู้สนับสนุน GitHub ที่มีสิทธิ์</string>
-    <string name="insufficient_subscription">ระดับการบอกรับเป็นสมาชิกไม่เพียงพอ โปรดปรับรุ่นการสมัครใช้งานของคุณให้กลับมาใช้บริการต่อ</string>
     <string name="your_subscription_expired">การสมัครใช้งานของคุณหมดอายุแล้ว สมัครสมาชิกตอนนี้เพื่อกลับมาใช้บริการต่อ</string>
     <string name="custom_filter_is_subtask">เป็นงานย่อย</string>
     <string name="custom_filter_has_subtask">มีงานย่อย</string>

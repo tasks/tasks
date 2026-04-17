@@ -627,8 +627,6 @@ File %1$s contained %2$s.\n\n
   <string name="custom_filter_is_subtask">Is subtask</string>
   <string name="custom_filter_has_reminder">Has reminder</string>
   <string name="your_subscription_expired">Your subscription has expired. Subscribe now to resume service.</string>
-  <string name="insufficient_subscription">Insufficient subscription level. Please upgrade your subscription to resume service.</string>
-  <string name="insufficient_sponsorship">No eligible GitHub sponsorship found</string>
   <string name="no_google_play_subscription">No eligible Google Play subscription found</string>
   <string name="subscription_required_fdroid">A subscription is required to use Tasks.org sync. Subscriptions must be initiated from the Google Play version of Tasks.</string>
   <string name="sponsorship_required_fdroid">A GitHub sponsorship is required to use Tasks.org sync. Click below to become a sponsor.</string>
@@ -646,7 +644,6 @@ File %1$s contained %2$s.\n\n
   <string name="authorization_cancelled">Authorization cancelled</string>
   <string name="github_sponsors">GitHub Sponsors</string>
   <string name="sign_in_with_google">Sign in with Google</string>
-  <string name="sign_in_with_github">Sign in with GitHub</string>
   <string name="authentication_required">Authentication required</string>
   <string name="github_sponsor">Sponsor</string>
   <string name="migrate">Migrate</string>
@@ -655,20 +652,10 @@ File %1$s contained %2$s.\n\n
   <string name="above_average">Above average</string>
   <string name="save_percent">Save %d%%</string>
   <string name="app_password">App password</string>
-  <string name="app_passwords">App passwords</string>
   <string name="app_passwords_more_info">Synchronize your tasks and calendars with third-party desktop and mobile apps. Tap here for more info</string>
-  <string name="generate_new_password">Generate new password</string>
-  <string name="app_password_enter_description">Give your password a name (optional)</string>
-  <string name="app_password_created_at">Created: %s</string>
-  <string name="app_password_last_access">Last used: %s</string>
-  <string name="app_password_delete_confirmation">Any app using this password will be signed out</string>
-  <string name="app_password_save">Use these credentials to configure a third-party app. They grant complete access to your Tasks.org account, don\'t write them down or share them with anyone!</string>
   <string name="copied_to_clipboard">%s copied to clipboard</string>
   <string name="email_to_task">Email to task</string>
   <string name="email_to_task_address">Your email address</string>
-  <string name="email_to_task_calendar">Destination list</string>
-  <string name="regenerate_email_address">Regenerate address</string>
-  <string name="regenerate_email_address_confirmation">Your current email address will stop working</string>
   <string name="tasks_org_account_required">Tasks.org account required</string>
   <string name="account_not_included">Not included with \'Name your price\' subscriptions</string>
   <string name="list_members">List members</string>
@@ -682,9 +669,6 @@ File %1$s contained %2$s.\n\n
   <string name="invite_awaiting_response">Invite awaiting response</string>
   <string name="invite_invalid">Invite invalid</string>
   <string name="guest_create_list_message">You currently have guest access to shared lists. To create and sync your own private lists to the cloud, you\'ll need a Tasks.org subscription. Or, you can create a free local list that stays on this device.</string>
-  <string name="guests">Guests (%1$d/%2$d)</string>
-  <string name="shared_with_me">Shared with me</string>
-  <string name="shared_by">Shared by %s</string>
   <string name="pro_free_trial">New subscribers receive a 7-day free trial. Cancel at any time</string>
   <string name="upgrade_friends_and_family">Friends &amp; Family</string>
   <string name="upgrade_friends_and_family_description">5 free guests on shared lists. Works with Apple Reminders</string>
@@ -729,7 +713,6 @@ File %1$s contained %2$s.\n\n
   <string name="legal_disclosure_prefix_using">By using Tasks.org</string>
   <string name="terms_of_service">Terms of service</string>
   <string name="tos_updated_title">We\'ve updated our Terms of Service</string>
-  <string name="view_tos">View Terms of Service</string>
   <string name="accept">Accept</string>
   <string name="exit">Exit</string>
   <string name="returning_user">Returning user?</string>

@@ -512,7 +512,6 @@
     <string name="background_location_permission_required">Tasks, kapalıyken veya kullanılmazken de konuma dayalı anımsatmaları etkinleştirmek için konum verisi toplar.</string>
     <string name="follow_reddit">r/tasks topluluğuna katıl</string>
     <string name="current_subscription">Geçerli abonelik: %s</string>
-    <string name="insufficient_subscription">Yetersiz abonelik düzeyi. Hizmeti sürdürmek için lütfen aboneliğinizi yükseltin.</string>
     <string name="your_subscription_expired">Aboneliğinizin süresi doldu. Hizmeti sürdürmek için şimdi abone olun.</string>
     <string name="repeat_monthly_fifth_week">beşinci</string>
     <string name="authorization_cancelled">Yetkilendirme iptal edildi</string>
@@ -526,22 +525,13 @@
         <item quantity="one">%d liste</item>
         <item quantity="other">%d liste</item>
     </plurals>
-    <string name="sign_in_with_github">GitHub ile oturum aç</string>
     <string name="github_sponsors">GitHub Sponsorları</string>
     <string name="no_google_play_subscription">Uygun Google Play aboneliği bulunamadı</string>
-    <string name="insufficient_sponsorship">Uygun GitHub sponsorluğu bulunamadı</string>
     <string name="save_percent">%%%d tasarruf</string>
     <string name="above_average">Ortalamanın üstü</string>
     <string name="decsync_selection_description">Dosya tabanlı eşzamanlama</string>
     <string name="copied_to_clipboard">%s panoya kopyalandı</string>
-    <string name="app_password_save">Bu kimlik bilgilerini üçüncü taraf uygulamayı yapılandırmakta kullan. Bunlar Tasks.org hesabınıza tam erişim sağlar, başka yere yazmayın veya biriyle paylaşmayın!</string>
-    <string name="app_password_delete_confirmation">Bu parolayı kullanan tüm uygulamaların oturumu kapatılacak</string>
-    <string name="app_password_last_access">Son kullanım: %s</string>
-    <string name="app_password_created_at">Oluşturulma: %s</string>
-    <string name="app_password_enter_description">Parolanızı adlandırın (isteğe bağlı)</string>
-    <string name="generate_new_password">Yeni parola yarat</string>
     <string name="app_passwords_more_info">Görevlerinizi ve takvimlerinizi üçüncü taraf masaüstü ve mobil uygulamalarla eşzamanlayın. Daha çok bilgi için dokun</string>
-    <string name="app_passwords">Uygulama parolaları</string>
     <string name="app_password">Uygulama parolası</string>
     <string name="local_lists">Yerel listeler</string>
     <string name="default_due_date">Öntanımlı bitiş tarihi</string>
@@ -694,7 +684,6 @@
     <string name="legal_disclosure_prefix_using">Tasks.org\'u kullanarak</string>
     <string name="terms_of_service">Hizmet koşulları</string>
     <string name="tos_updated_title">Hizmet Koşullarımızı güncelledik</string>
-    <string name="view_tos">Hizmet Koşullarını Görüntüle</string>
     <string name="accept">Onayla</string>
     <string name="exit">Çık</string>
     <string name="returning_user">Geri gelen kullanıcı mısınız?</string>
@@ -713,9 +702,6 @@
     <string name="rmd_time_enabled_off">Tüm gün görevlerine öntanımlı anımsatıcı ekleme</string>
     <string name="email_to_task">E-postayla görev</string>
     <string name="email_to_task_address">E-posta adresiniz</string>
-    <string name="email_to_task_calendar">Hedef liste</string>
-    <string name="regenerate_email_address">Adresi yeniden üret</string>
-    <string name="regenerate_email_address_confirmation">Geçerli e-posta adresiniz çalışmayı durduracak</string>
     <string name="upgrade_email_to_task_description">E-postaları özel gelen kutunuza yönlendirerek göreve çevirin</string>
     <string name="advanced_tools">Gelişmiş araçlar</string>
     <string name="advanced_tools_description">Google Yerler, CalDAV, EteSync ve dahası!</string>
@@ -724,9 +710,6 @@
     <string name="share_list">Paylaş \"%1$s\"</string>
     <string name="send">Gönder</string>
     <string name="guest_create_list_message">Bu paylaşılan listeye konuk erişiminiz var. Kendi özel listelerinizi oluşturmak ve buluta eşzamanlamak için Tasks.org aboneliğine gereksineceksiniz. Ya da bu aygıtta kalacak ücretsiz yerel liste oluştuabilirsiniz.</string>
-    <string name="guests">Konuklar (%1$d/%2$d)</string>
-    <string name="shared_with_me">Benimle paylaşıldı</string>
-    <string name="shared_by">%s tarafından paylaşıldı</string>
     <string name="upgrade_friends_and_family">Arkadaşlar &amp; Aile</string>
     <string name="upgrade_friends_and_family_description">Paylaşılan listelerde 5 ücretsiz konuk. Apple Anımsatıcılar ile çalışır</string>
     <string name="already_subscribed">Halihazırda abone misiniz?</string>

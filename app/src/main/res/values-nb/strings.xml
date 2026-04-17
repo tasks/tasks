@@ -514,7 +514,6 @@
     <string name="always_display_full_date">Vis full dato</string>
     <string name="cancel">Avbryt</string>
     <string name="ok">OK</string>
-    <string name="insufficient_subscription">Utilstrekkelig abonnementsnivå. Oppgrader ditt abonnement for å fortsette tjenesten.</string>
     <string name="current_subscription">Nåværende abonnement: %s</string>
     <string name="your_subscription_expired">Ditt abonnement har utløpt. Abonner nå for å fortsette tjenesten.</string>
     <string name="follow_reddit">Ta del i r/tasks</string>
@@ -528,9 +527,7 @@
     <string name="migrate">Flytt</string>
     <string name="github_sponsors">GitHub-sponsorer</string>
     <string name="no_google_play_subscription">Fant ikke noe Google Play-abonnement</string>
-    <string name="insufficient_sponsorship">Fant ikke noe GitHub-sponsorabonnement</string>
     <string name="migrate_count">Flytt %s til Tasks.org</string>
-    <string name="sign_in_with_github">Logg inn med GitHub</string>
     <plurals name="list_count">
         <item quantity="one">%d liste</item>
         <item quantity="other">%d lister</item>
@@ -538,18 +535,11 @@
     <string name="save_percent">Lagre %d%%</string>
     <string name="above_average">Over gjennomsnittet</string>
     <string name="decsync_selection_description">Filbasert synkronisering</string>
-    <string name="app_password_save">Bruk disse identitetsdetaljene for å sette opp tredjepartsprogrammer. De tilbyr full tilgang til din Tasks.org-konto. Ikke skriv dem ned eller del dem med noen!</string>
-    <string name="app_password_delete_confirmation">Ethvert program som bruker dette passordet vil bli utlogget</string>
-    <string name="app_password_enter_description">Gi ditt nye passord et navn (valgfritt)</string>
-    <string name="generate_new_password">Generer nytt passord</string>
     <string name="app_passwords_more_info">Synkroniser dine gjøremål og kalendre med tredjepartsprogrammer for skrivebord og mobil. Trykk her for mer info</string>
     <string name="app_password">Programpassord</string>
     <string name="local_lists">Lokale lister</string>
     <string name="default_due_date">Forvalgt fristdato</string>
     <string name="copied_to_clipboard">%s kopiert til utklippstavlen</string>
-    <string name="app_password_last_access">Sist brukt: %s</string>
-    <string name="app_password_created_at">Opprettet: %s</string>
-    <string name="app_passwords">Programpassord</string>
     <string name="account_not_included">Ikke inkludert i «Bestem prisen selv»-abonnementer</string>
     <string name="subscription">Abonnement</string>
     <string name="filter_criteria_unstarted">Ikke startet</string>

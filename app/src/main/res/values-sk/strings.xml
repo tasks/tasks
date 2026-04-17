@@ -554,7 +554,6 @@
     <string name="social">Sociálne siete</string>
     <string name="permission_read_tasks">Plný prístup do databázy Tasks</string>
     <string name="automatic_backups">Automatické zálohovanie</string>
-    <string name="insufficient_subscription">Nedostatočná úroveň predplatného. Ak chcete službu používať i naďalej, povýšte predplatné na vyššiu úroveň.</string>
     <string name="follow_reddit">Pripojte sa k r/tasks</string>
     <string name="custom_filter_has_reminder">Má pripomienku</string>
     <string name="etesync_account_description">Vyžaduje účet na EteSync.com alebo vlastný server</string>
@@ -576,7 +575,6 @@
     <string name="current_subscription">Súčasné predplatné: %s</string>
     <string name="follow_twitter">Sledujte @tasks_org</string>
     <string name="caldav_account_description">Vyžaduje účet u poskytovateľa služby CalDAV alebo vlastný server. Vhodných poskytovateľov nájdete na tasks.org/caldav</string>
-    <string name="insufficient_sponsorship">Nenájdené žiadne platné GitHub sponzorovanie</string>
     <string name="more_settings">Ďalšie nastavenia</string>
     <string name="open_source">Otvorený zdrojový kód</string>
     <string name="github_sponsor">Sponzor</string>
@@ -592,7 +590,6 @@
     <string name="auto_dismiss_datetime_widget">Widget</string>
     <string name="select_all">Vybrať všetko</string>
     <string name="issue_tracker">Hlásenie problémov</string>
-    <string name="app_password_created_at">Vytvorené: %s</string>
     <string name="more_options">Ďalšie možnosti</string>
     <string name="tasks_org_account_required">Vyžaduje sa účet na Tasks.org</string>
     <string name="upgrade_blurb_2">Prácou na Tasks som strávil tisíce hodín a bez nároku na odmenu zverejňujem všetok zdrojový kód online. Za účelom podpory mojej práce niektoré funkcie aplikácie vyžadujú predplatné</string>
@@ -606,7 +603,6 @@
     <string name="upgrade_open_source_description">Vaše predplatné podporí ďalší vývoj aplikácie</string>
     <string name="back">Späť</string>
     <string name="navigation_drawer">Postranná ponuka</string>
-    <string name="app_password_last_access">Naposledy použité: %s</string>
     <string name="github_sponsors">Sponzori na GitHube</string>
     <string name="list_members">Členovia zoznamu</string>
     <string name="save_percent">Ušetríte %d%%</string>
@@ -615,18 +611,14 @@
     <string name="add_tags">Pridať štítky</string>
     <string name="filter_high_priority">Vysoká dôležitosť</string>
     <string name="filter_medium_priority">Stredná dôležitosť</string>
-    <string name="app_password_delete_confirmation">Všetky aplikácie používajúce toto heslo budú odhlásené</string>
     <string name="markdown">Markdown</string>
     <string name="completion_sound">Prehrať zvuk dokončenia</string>
-    <string name="generate_new_password">Vytvoriť nové heslo</string>
-    <string name="app_password_enter_description">Pomenujte svoje heslo (nepovinné)</string>
     <string name="hide_unused_tags">Skryť nevyužívané štítky</string>
     <string name="place_settings">Nastavenia miesta</string>
     <string name="hide_unused_places">Skryť nevyužívané miesta</string>
     <string name="shortcut_pick_time">Vyberte čas</string>
     <string name="share">Zdieľať</string>
     <string name="widget_id">ID widgetu: %d</string>
-    <string name="app_password_save">Týmto menom a heslom sa môžete prihlásiť k vášmu účtu na Tasks.org aj v aplikáciach tretích strán. Udeľujú k nemu neobmedzený prístup - uchovávajte ho v tajnosti a nikomu ho neodovzdávajte!</string>
     <string name="copied_to_clipboard">%s skopírované do schránky</string>
     <string name="upgrade_blurb_1">Ahoj! Volám sa Alex a som nezávislý vývojár aplikácie Tasks</string>
     <string name="auto_dismiss_datetime_widget_summary">Automaticky zatvoriť pri výbere z widgetu</string>
@@ -652,7 +644,6 @@
     <string name="auto_dismiss_datetime_edit_summary">Automaticky zatvoriť pri výbere v editore úloh</string>
     <string name="filter_low_priority">Nízka dôležitosť</string>
     <string name="support">Podpora</string>
-    <string name="sign_in_with_github">Prihlásenie pomocou GitHubu</string>
     <string name="authentication_required">Vyžaduje sa overenie</string>
     <string name="alarm_after_due">%s po termíne</string>
     <string name="snoozed_until">Odložené do %s</string>
@@ -670,7 +661,6 @@
     <string name="filter_today_only">Iba dnešné</string>
     <string name="app_password">Heslo aplikácie</string>
     <string name="sign_in_with_google">Prihlásenie účtom Google</string>
-    <string name="app_passwords">Heslá aplikácie</string>
     <string name="app_passwords_more_info">Synchronizujte svoje úlohy a kalendáre s desktopovými a mobilnými aplikáciami tretích strán. Pre viac informácii kliknite sem</string>
     <string name="invite_invalid">Neplatná pozvánka</string>
     <string name="caldav_server_unknown">Neznámy</string>

@@ -545,14 +545,7 @@
     <string name="account_not_included">Nezahrnuto v předplatném typu „Zaplaťte kolik chcete“</string>
     <string name="tasks_org_account_required">Je vyžadován účet na Tasks.org</string>
     <string name="copied_to_clipboard">%s zkopírováno do schránky</string>
-    <string name="app_password_save">Tímto jménem a heslem se můžete přihlásit k Vašemu Tasks.org účtu i v aplikacích třetích stran. Udělují k němu neomezený přistup - uchovávejte je v tajnosti a nikomu je nesdělujte!</string>
-    <string name="app_password_delete_confirmation">Všechny aplikace používající toto heslo budou odhlášeny</string>
-    <string name="app_password_last_access">Naposledy použito: %s</string>
-    <string name="app_password_created_at">Vytvořeno: %s</string>
-    <string name="app_password_enter_description">Zadejte své heslo a (volitelně) jméno</string>
-    <string name="generate_new_password">Vytvořit nové heslo</string>
     <string name="app_passwords_more_info">Synchronizujte své úkoly a kalendáře s desktopovými a mobilními aplikacemi třetích stran. Pro více informací klepněte sem</string>
-    <string name="app_passwords">Hesla k aplikaci</string>
     <string name="app_password">Heslo k aplikaci</string>
     <string name="save_percent">Ušetříte %d%%</string>
     <string name="above_average">Nadprůměrné</string>
@@ -561,7 +554,6 @@
     <string name="migrate">Migrovat</string>
     <string name="github_sponsor">Sponzor</string>
     <string name="authentication_required">Je vyžadováno ověření se</string>
-    <string name="sign_in_with_github">Přihlášení přes GitHub</string>
     <string name="sign_in_with_google">Přihlášení přes Google</string>
     <string name="github_sponsors">sponzoři na GitHubu</string>
     <string name="authorization_cancelled">Autorizace zrušena</string>
@@ -574,8 +566,6 @@
     <string name="follow_reddit">Připojte se k r/tasks</string>
     <string name="current_subscription">Stávající předplatné: %s</string>
     <string name="no_google_play_subscription">Nenalezeno žádné Google Play předplatné</string>
-    <string name="insufficient_subscription">Nedostatečná úroveň předplatného. Pokud chcete službu dále využívat, prosím zvyšte své předplatné.</string>
-    <string name="insufficient_sponsorship">Nenalezeno žádné platné GitHub sponzorování</string>
     <string name="background_location">Umístění v pozadí</string>
     <string name="foreground_location">Umístění v popředí</string>
     <string name="location_departed">Odchod v %s</string>
@@ -716,7 +706,6 @@
     <string name="legal_disclosure_prefix_using">Používáním Tasks.org</string>
     <string name="terms_of_service">Podmínky služby</string>
     <string name="tos_updated_title">Upravili jsme naše Podmínky služby</string>
-    <string name="view_tos">Zobrazit Podmínky služby</string>
     <string name="accept">Přijmout</string>
     <string name="exit">Ukončit</string>
     <string name="returning_user">Už jste aplikaci používali?</string>
@@ -731,9 +720,6 @@
     <string name="alarm_due">konec</string>
     <string name="email_to_task">E-mail na úkol</string>
     <string name="email_to_task_address">Vaše e-mailová adresa</string>
-    <string name="email_to_task_calendar">Seznam cílů</string>
-    <string name="regenerate_email_address">Znovu vygenerovat adresu</string>
-    <string name="regenerate_email_address_confirmation">Vaše aktuální e-mailová adresa přestane fungovat</string>
     <string name="rmd_EPr_rmd_time_desc">Oznámení o celodenních úkolech se zobrazí v %1$s</string>
     <string name="default_reminder">Celodenní úkoly</string>
     <string name="add_default_reminders">Přidat výchozí připomínky</string>
@@ -746,9 +732,6 @@
     <string name="share_list">Sdílet „%1$s“</string>
     <string name="send">Odeslat</string>
     <string name="guest_create_list_message">V současné době máte přístup hosta ke sdíleným seznamům. Pro vytvoření a synchronizaci vašich vlastních soukromých seznamů budete potřebovat předplatné Tasks.org. Můžete si také vytvořit lokální seznam, který zůstane na vašem zařízení.</string>
-    <string name="guests">Hosté (%1$d/%2$d)</string>
-    <string name="shared_with_me">Sdíleno se mnou</string>
-    <string name="shared_by">Sdíleno uživatelem %s</string>
     <string name="upgrade_friends_and_family">Přátelé a rodina</string>
     <string name="upgrade_friends_and_family_description">5 bezplatných hostů ve sdílených seznamech. Funguje s Připomínkami Apple</string>
     <string name="already_subscribed">Již máte předplatné?</string>

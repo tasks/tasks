@@ -492,7 +492,6 @@
     <string name="authorization_cancelled">Autorizazioa ezeztatuta</string>
     <string name="follow_reddit">Egin bat r/task-ekin</string>
     <string name="current_subscription">Uneko harpidetza: %s</string>
-    <string name="insufficient_subscription">Harpidetza maila ez da nahikoa. Hobetu zure harpidetza zerbitzua berrekiteko.</string>
     <string name="your_subscription_expired">Zure harpidetza agortu da. Harpidetu orain zerbitzua berrekiteko.</string>
     <string name="custom_filter_is_subtask">Azpizeregina da</string>
     <string name="custom_filter_has_subtask">Azpizereginak dauzka</string>
@@ -526,14 +525,7 @@
     <string name="github_sponsors">GitHub babesleak</string>
     <string name="account_not_included">Ez dago \"hautatu zure prezioa\" harpidetzetan barne</string>
     <string name="copied_to_clipboard">%s arbelera kopiatuta</string>
-    <string name="app_password_save">Erabili kredentzial hauek hirugarrengoen aplikazio bat konfiguratzeko. Zure Tasks.org kontura sarbide osoa ematen dute, ez idatzi inon eta ez partekatu inorekin!</string>
-    <string name="app_password_delete_confirmation">Pasahitz hau darabiltzaten aplikazioen saioak amaituko dira</string>
-    <string name="app_password_last_access">Azken erabilera: %s</string>
-    <string name="app_password_created_at">Sorrera: %s</string>
-    <string name="app_password_enter_description">Eman izen bat zure pasahitzari (aukerazkoa)</string>
-    <string name="generate_new_password">Sortu pasahitz berria</string>
     <string name="app_passwords_more_info">Sinkronizatu zure zeregin eta egutegiak hirugarrengoen mahaigaineko zein mugikorrerako aplikazioekin. Sakatu hemen gehiago jakiteko</string>
-    <string name="app_passwords">Aplikazio-pasahitzak</string>
     <string name="app_password">Aplikazioaren pasahitza</string>
     <string name="save_percent">Aurreztu %% %d</string>
     <string name="above_average">Batezbestekotik gora</string>
@@ -541,9 +533,7 @@
     <string name="migrating_tasks">Zereginak migratzen</string>
     <string name="migrate">Migratu</string>
     <string name="authentication_required">Autentifikazioa derrigorrezkoa</string>
-    <string name="sign_in_with_github">Hasi saioa GitHub erabiliz</string>
     <string name="no_google_play_subscription">Ez da Google Play harpidetza egokirik aurkitu</string>
-    <string name="insufficient_sponsorship">Ez da GitHub sponsorship egokirik aurkitu</string>
     <string name="local_lists">Zerrenda lokalak</string>
     <string name="decsync_selection_description">Fitxategietan oinarritutako sinkronizazioa</string>
     <string name="subscription">Harpidetza</string>

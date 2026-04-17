@@ -506,7 +506,6 @@
     <string name="multi_select_reschedule">Újraütemezés</string>
     <string name="always_display_full_date">Teljes dátum mutatása</string>
     <string name="current_subscription">Jelenlegi előfizetés: %s</string>
-    <string name="insufficient_subscription">Elégtelen előfizetési szint. Kérem, upgrade-elje az előfizetést a szolgáltatás folytatásához.</string>
     <string name="your_subscription_expired">Az előfizetés lejárt. Fizessen elő most a szolgáltatás folytatásához.</string>
     <string name="custom_filter_is_subtask">Alfeladat</string>
     <string name="custom_filter_has_subtask">Van alfeladata</string>
@@ -526,22 +525,13 @@
         <item quantity="one">%d lista</item>
         <item quantity="other">%d listák</item>
     </plurals>
-    <string name="sign_in_with_github">Bejelentkezés GitHub fiókkal</string>
     <string name="github_sponsors">GitHub szponzorok</string>
     <string name="no_google_play_subscription">Nem található Google Play előfizetés</string>
-    <string name="insufficient_sponsorship">Nem található GitHub szponzorálás</string>
     <string name="save_percent">Mentés %d%%</string>
     <string name="above_average">Átlag felett</string>
     <string name="decsync_selection_description">Fájl alapú szinkronizálás</string>
-    <string name="app_passwords">Alkalmazás jelszavak</string>
     <string name="app_password">Alkalmazás jelszó</string>
     <string name="copied_to_clipboard">%s a vágólapra másolva</string>
-    <string name="app_password_save">Ezek a belépési adatok harmadik féltől származó alkalmazás beállítására használhatóak. Teljes hozzáférést biztosítanak a Tasks.org fiókhoz, leírása vagy másokkal való megosztása nem javasolt!</string>
-    <string name="app_password_delete_confirmation">Ezen jelszót használó alkalmazások kijelentkeztetésre kerülnek</string>
-    <string name="app_password_last_access">Utolsó használat: %s</string>
-    <string name="app_password_created_at">Létrehozva: %s</string>
-    <string name="app_password_enter_description">Jelszó elnevezése (opcionális)</string>
-    <string name="generate_new_password">Új jelszó generálása</string>
     <string name="app_passwords_more_info">Feladatok és naptárak szinkronizálása harmadik féltől származó asztali és mobil alkalmazásokkal. Részletes információért kattintson ide</string>
     <string name="local_lists">Helyi listák</string>
     <string name="default_due_date">Alapértelmezett határidő</string>
@@ -694,7 +684,6 @@
     <string name="legal_disclosure_prefix_using">A Tasks.org használata által</string>
     <string name="terms_of_service">Szolgáltatási feltételek</string>
     <string name="tos_updated_title">Frissítettük a Szolgáltatási feltételeket</string>
-    <string name="view_tos">Szolgáltatási feltételek megtekintése</string>
     <string name="accept">Elfogadás</string>
     <string name="exit">Kilépés</string>
     <string name="returning_user">Visszatérő felhasználó?</string>
@@ -709,9 +698,6 @@
     <string name="alarm_due">esedékes</string>
     <string name="email_to_task">Feladat e-mailből</string>
     <string name="email_to_task_address">E-mail cím</string>
-    <string name="email_to_task_calendar">Cél lista</string>
-    <string name="regenerate_email_address">Cím újragenerálása</string>
-    <string name="regenerate_email_address_confirmation">A jelenlegi e-mail címed megszűnik működni</string>
     <string name="rmd_EPr_rmd_time_desc">Az egész napos feladatok emlékeztetője %1$s jelenik meg</string>
     <string name="default_reminder">Egész napos feladatok</string>
     <string name="add_default_reminders">Alapértelmezett emlékeztető hozzáadása</string>
@@ -724,9 +710,6 @@
     <string name="share_list">\"%1$s\" megosztása</string>
     <string name="send">Küldés</string>
     <string name="guest_create_list_message">A megosztott listához jelenleg vendég hozzáféréssel rendelkezel. Saját privát listák létrehozásához és felhős szinkronizálásához Tasks.org előfizetésre van szükséged. Alternatívaként létrehozhatsz egy ingyenes helyi listát, ami ezen a készüléken tárolódik.</string>
-    <string name="guests">Vendégek (%1$d/%2$d)</string>
-    <string name="shared_with_me">Velem megosztva</string>
-    <string name="shared_by">%s által megosztva</string>
     <string name="upgrade_friends_and_family">Család és barátok</string>
     <string name="upgrade_friends_and_family_description">A megosztott listához 5 ingyenes vendég adható hozzá. Apple Reminders-el is működik</string>
     <string name="already_subscribed">Már előfizettél?</string>

@@ -524,7 +524,6 @@
     <string name="custom_filter_has_subtask">Contiene attività secondarie</string>
     <string name="custom_filter_is_subtask">È un\'attività secondaria</string>
     <string name="current_subscription">Abbonamento attuale: %s</string>
-    <string name="insufficient_subscription">Livello di abbonamento insufficiente. Per favore aggiornalo per riattivare il servizio.</string>
     <string name="your_subscription_expired">Il tuo abbonamento è scaduto. Abbonati ora per riattivare il servizio.</string>
     <string name="background_location_permission_required">Tasks raccoglie i dati di localizzazione per abilitare i promemoria basati sulla posizione, anche quando è chiusa o non è in uso.</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
@@ -543,10 +542,8 @@
     <string name="migrating_tasks">Migrazione delle attività in corso</string>
     <string name="save_percent">Risparmia il %d%%</string>
     <string name="above_average">Sopra la media</string>
-    <string name="sign_in_with_github">Accedi con GitHub</string>
     <string name="github_sponsors">Sponsor di GitHub</string>
     <string name="no_google_play_subscription">Nessun abbonamento Google Play idoneo trovato</string>
-    <string name="insufficient_sponsorship">Nessuna sponsorizzazione GitHub idonea trovata</string>
     <string name="decsync_selection_description">Sincronizzazione basata sui file</string>
     <string name="cancel">Annulla</string>
     <string name="ok">OK</string>
@@ -558,12 +555,6 @@
     <string name="default_start_date">Data di inizio predefinita</string>
     <string name="SSD_sort_start">Per data di inizio</string>
     <string name="start_date">Data di inizio</string>
-    <string name="app_password_save">Usa queste credenziali per configurare un\'app di terze parti. Esse daranno l\'accesso completo al tuo account di Tasks.org, non scriverle e non condividerle con nessuno!</string>
-    <string name="app_password_delete_confirmation">Uscirai da tutte le app che usano questa password</string>
-    <string name="app_password_last_access">Ultimo utilizzo: %s</string>
-    <string name="app_password_created_at">Creata il: %s</string>
-    <string name="app_password_enter_description">Assegna un nome alla password (opzionale)</string>
-    <string name="generate_new_password">Genera una nuova password</string>
     <string name="app_passwords_more_info">Sincronizza le tue attività e i calendari con applicazioni di terze parti. Tocca qui per maggiori informazioni</string>
     <string name="app_password">Password dell\'app</string>
     <string name="copied_to_clipboard">%s copiato</string>
@@ -572,7 +563,6 @@
     <string name="subscription">Abbonamento</string>
     <string name="CFC_startBefore_text">Inizia: \?</string>
     <string name="CFC_startBefore_name">Inizia…</string>
-    <string name="app_passwords">Password delle app</string>
     <string name="widget_show_title">Mostra titolo</string>
     <string name="remove_user_confirmation">%1$s non avrà più accesso a %2$s</string>
     <string name="remove_user">Vuoi rimuovere l\'utente\?</string>
@@ -716,7 +706,6 @@
     <string name="legal_disclosure_prefix_using">Utilizzando Tasks.org</string>
     <string name="terms_of_service">Termini del servizio</string>
     <string name="tos_updated_title">Abbiamo aggiornato i Termini di Servizio</string>
-    <string name="view_tos">Mostra i Termini di Servizio</string>
     <string name="accept">Accetta</string>
     <string name="exit">Esci</string>
     <string name="returning_user">Ripristino i dati?</string>
@@ -730,7 +719,6 @@
     <string name="alarm_start">inizio</string>
     <string name="alarm_due">fine</string>
     <string name="email_to_task_address">Il tuo indirizzo email</string>
-    <string name="regenerate_email_address_confirmation">L\'indirizzo email attuale smetterà di funzionare</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync ed altro ancora!</string>
     <string name="rmd_EPr_rmd_time_desc">Le notifiche delle attività per l\'intera giornata verranno visualizzate alle %1$s</string>
     <string name="default_reminder">Attività per l\'intera giornata</string>
@@ -738,17 +726,12 @@
     <string name="rmd_time_enabled_off">Non aggiungere promemoria predefiniti alle attività per l’intera giornata</string>
     <string name="add_default_reminders">Aggiungi promemoria predefiniti</string>
     <string name="email_to_task">Attività da email</string>
-    <string name="email_to_task_calendar">Lista di destinazione</string>
-    <string name="regenerate_email_address">Generazione nuovo indirizzo email</string>
     <string name="upgrade_email_to_task_description">Converti le email in attività inoltrandole alla tua casella privata</string>
     <string name="advanced_tools">Strumenti avanzati</string>
     <string name="invalid_email_address">Indirizzo e-mail non valido</string>
     <string name="share_list">Condividi \"%1$s\"</string>
     <string name="send">Invia</string>
     <string name="guest_create_list_message">Attualmente hai accesso agli elenchi condivisi in qualità di ospite. Per creare e sincronizzare le tue liste private sul cloud, è necessario un abbonamento a Tasks.org. In alternativa, puoi creare un elenco locale gratuito che rimarrà su questo dispositivo.</string>
-    <string name="guests">Ospiti (%1$d/%2$d)</string>
-    <string name="shared_with_me">Condivisi con me</string>
-    <string name="shared_by">Condivisi da %s</string>
     <string name="upgrade_friends_and_family">Amici e familiari</string>
     <string name="upgrade_friends_and_family_description">5 ospiti gratuiti su liste condivise. Funziona con Apple Reminders</string>
     <string name="already_subscribed">Sei già abbonato?</string>

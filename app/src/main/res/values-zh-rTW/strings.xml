@@ -263,19 +263,12 @@
     <string name="EPr_default_location_reminder_title">默認位置提醒</string>
     <string name="always_display_full_date">顯示完整日期</string>
     <string name="copied_to_clipboard">%s 已複製至剪貼簿</string>
-    <string name="app_password_delete_confirmation">任何使用此密碼的應用程式將會被登出</string>
-    <string name="app_password_last_access">最後使用: %s</string>
-    <string name="app_password_created_at">已建立: %s</string>
-    <string name="app_password_enter_description">為您的密碼命名(選填)</string>
-    <string name="generate_new_password">產生新密碼</string>
-    <string name="app_passwords">應用程式密碼</string>
     <string name="app_password">應用程式密碼</string>
     <string name="migrate_count">移動 %s 至 Task.org</string>
     <string name="migrating_tasks">移入任務</string>
     <string name="migrate">移入</string>
     <string name="github_sponsor">贊助</string>
     <string name="authentication_required">需要授權</string>
-    <string name="sign_in_with_github">使用 GitHub 登入</string>
     <string name="sign_in_with_google">使用 Google 登入</string>
     <string name="github_sponsors">GitHub 贊助者</string>
     <string name="authorization_cancelled">取消授權</string>
@@ -528,7 +521,6 @@
     <string name="markdown_description">在標題和描述中啟用 Markdown</string>
     <string name="more_options">更多選項</string>
     <string name="hint_customize_edit_body">您可以透過重新排列或移除欄位來自訂此畫面</string>
-    <string name="app_password_save">請使用這些憑證來設定第三方應用程式。它們授予您對 Tasks.org 帳戶的完全存取權限，請勿將其寫下或與他人分享！</string>
     <string name="repeats_every">每次重複</string>
     <string name="alarm_before_due">到期前 %s</string>
     <string name="alarm_after_start">開始後 %s</string>
@@ -553,7 +545,6 @@
     <string name="invite_awaiting_response">邀請等待回覆</string>
     <string name="backup_location_warning">警告：如果移除 Tasks 應用程式，位於%s的檔案將會被刪除！請選擇自訂位置，以防止 Android 刪除您的檔案。</string>
     <string name="multi_select_reschedule">重新安排</string>
-    <string name="insufficient_sponsorship">沒有符合資格的 GitHub 贊助</string>
     <string name="issue_tracker">問題追蹤</string>
     <string name="above_average">高於平均</string>
     <string name="dismiss">關閉</string>
@@ -590,7 +581,6 @@
     <string name="widget_id">小工具 ID：%d</string>
     <string name="permission_read_tasks">完全存取 Tasks 資料庫</string>
     <string name="sort_completion_group">完成於 %s</string>
-    <string name="insufficient_subscription">訂閱等級不足。請升級訂閱以恢復服務。</string>
     <string name="foreground_location">前景定位</string>
     <string name="support">支援</string>
     <string name="privacy">隱私</string>
@@ -665,9 +655,6 @@
     <string name="legal">法律</string>
     <string name="email_to_task">郵件轉任務</string>
     <string name="email_to_task_address">您的電子郵件地址</string>
-    <string name="email_to_task_calendar">目標清單</string>
-    <string name="regenerate_email_address">重新產生地址</string>
-    <string name="regenerate_email_address_confirmation">您目前的電子郵件地址將停止運作</string>
     <string name="upgrade_email_to_task_description">將電子郵件轉發至您的私人收件匣即可將其轉為任務</string>
     <string name="advanced_tools">進階工具</string>
     <string name="advanced_tools_description">Google Places、CalDAV、EteSync 等！</string>
@@ -700,13 +687,9 @@
     <string name="widget_view_more_tasks">檢視更多任務</string>
     <string name="banner_app_updated_title">應用程式已更新</string>
     <string name="invalid_email_address">電子郵件地址無效</string>
-    <string name="view_tos">查看服務條款</string>
     <string name="share_list">分享「%1$s」</string>
     <string name="send">傳送</string>
-    <string name="guests">訪客 (%1$d/%2$d)</string>
     <string name="guest_create_list_message">您目前擁有共享清單的訪客存取權限。若要建立並同步自己的私人清單至雲端，您需要 Tasks.org 訂閱。或者，您可以建立免費的本地清單，留在此裝置上。</string>
-    <string name="shared_with_me">與我共享</string>
-    <string name="shared_by">由 %s 共享</string>
     <string name="upgrade_friends_and_family">家人和朋友</string>
     <string name="upgrade_friends_and_family_description">共享清單 5 個免費訪客。支援 Apple Reminders</string>
     <string name="sign_in_subtitle">已經是訂閱者或受邀訪客？</string>

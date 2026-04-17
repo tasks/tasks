@@ -526,7 +526,6 @@
     <string name="custom_filter_is_subtask">Es una subtarea</string>
     <string name="custom_filter_has_subtask">Tiene subtareas</string>
     <string name="current_subscription">Suscripción actual: %s</string>
-    <string name="insufficient_subscription">Nivel de suscripción insuficiente. Actualice su suscripción para reanudar el servicio.</string>
     <string name="your_subscription_expired">Vuestra suscripción ha expirado. Suscribe ahora a resume servicio.</string>
     <string name="background_location_permission_required">Tasks recopila datos de ubicación para permitir los recordatorios basados en la ubicación aún cuando la aplicación está cerrada o no se utiliza.</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
@@ -543,22 +542,13 @@
         <item quantity="many">%d listas</item>
         <item quantity="other">%d listas</item>
     </plurals>
-    <string name="sign_in_with_github">Acceder con GitHub</string>
     <string name="github_sponsors">Patrocinadores de GitHub</string>
     <string name="no_google_play_subscription">No se encontró ninguna suscripción de Google Play elegible</string>
-    <string name="insufficient_sponsorship">No se encontró ningún patrocinio de GitHub elegible</string>
     <string name="above_average">Por encima del promedio</string>
     <string name="save_percent">Ahorre %d %%</string>
     <string name="decsync_selection_description">Sincronización basada en archivos</string>
     <string name="copied_to_clipboard">Se copió %s en el portapapeles</string>
-    <string name="app_password_save">Utilice estas credenciales para configurar una aplicación de terceros. Conceden un acceso completo a su cuenta de Tasks.org, ¡no las escriba ni las comparta con nadie!</string>
-    <string name="app_password_delete_confirmation">Se cerrará la sesión de cualquier aplicación que utilice esta contraseña</string>
-    <string name="app_password_last_access">Última utilización: %s</string>
-    <string name="app_password_created_at">Creación: %s</string>
-    <string name="app_password_enter_description">Dé un nombre a su contraseña (opcional)</string>
-    <string name="generate_new_password">Generar contraseña</string>
     <string name="app_passwords_more_info">Sincronice sus tareas y calendarios con aplicaciones móviles y de escritorio de terceros. Toque aquí para obtener más información</string>
-    <string name="app_passwords">Contraseñas de la aplicación</string>
     <string name="app_password">Contraseña de la aplicación</string>
     <string name="local_lists">Listas locales</string>
     <string name="default_due_date">Fecha límite predeterminada</string>

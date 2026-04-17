@@ -621,8 +621,6 @@
     <string name="custom_filter_is_subtask">Јесте подзадатак</string>
     <string name="custom_filter_has_reminder">Садржи подсетник</string>
     <string name="your_subscription_expired">Претплата је истекла. Претплати се поново за наставак сервиса.</string>
-    <string name="insufficient_subscription">Недовољан пакет претплате. Молимо за претплату на виши пакет за наставак сервиса.</string>
-    <string name="insufficient_sponsorship">Није пронађено одговарајуће спонзорство за ,,GitHub\'\'</string>
     <string name="no_google_play_subscription">Није пронађено одговарајуће спонзорство за ,,Google Play\'\'</string>
     <string name="price_per_month_with_currency">%s/месечно</string>
     <string name="price_per_year_with_currency">%s/годишње</string>
@@ -637,7 +635,6 @@
     <string name="authorization_cancelled">Отказана ауторизација</string>
     <string name="github_sponsors">,,GitHub\'\' спонзори</string>
     <string name="sign_in_with_google">Пријави се путем Гугла</string>
-    <string name="sign_in_with_github">Пријави се путем GitHub-а</string>
     <string name="authentication_required">Неопходна аутентикација</string>
     <string name="github_sponsor">Спонзор</string>
     <string name="migrate">Мигрирај</string>
@@ -646,14 +643,7 @@
     <string name="above_average">Изнад просека</string>
     <string name="save_percent">Усними %d%%</string>
     <string name="app_password">Шифра апликације</string>
-    <string name="app_passwords">Шифре апликације</string>
     <string name="app_passwords_more_info">Синхронизуј задатке и календар са десктоп и мобилним апликацијама треће стране. Тапни овде за додатне информације</string>
-    <string name="generate_new_password">Генериши нову шифру</string>
-    <string name="app_password_enter_description">Унеси име шифре (опционо)</string>
-    <string name="app_password_created_at">Креирано: %s</string>
-    <string name="app_password_last_access">Последњи пут коришћено: %s</string>
-    <string name="app_password_delete_confirmation">Свака апликација која користи ову шифру ће бити одјављена</string>
-    <string name="app_password_save">Користи ове креденцијале за конфигурацију апликације од треће стране. Они омогућавају потпуни приступ Tasks.org налогу, не записуј их нигде и не дели их ни са ким!</string>
     <string name="copied_to_clipboard">%s копирано у привремену меморију</string>
     <string name="tasks_org_account_required">Неопходан налог на Tasks.org</string>
     <string name="account_not_included">Није укључено у ,,Задај цену\'\' тип претплате</string>
@@ -716,7 +706,6 @@
     <string name="returning_user">Поновни корисник?</string>
     <string name="exit">Излаз</string>
     <string name="accept">Прихвати</string>
-    <string name="view_tos">Погледај услове коришћења</string>
     <string name="tos_updated_title">Ажурирали смо услове коришћења</string>
     <string name="terms_of_service">Услови коришћења</string>
     <string name="legal_disclosure_prefix_using">Коришћењем Tasks.org</string>
@@ -735,9 +724,6 @@
     <string name="rmd_time_enabled_off">Без додавања подразумеваних подсетника за целодневне задатке</string>
     <string name="rmd_time_enabled_on">Додај подразумеване подсетнике за целодневне задатке</string>
     <string name="add_default_reminders">Додај подразумеване подсетнике</string>
-    <string name="regenerate_email_address_confirmation">Твоја тренутна мејл адреса ће престати да ради</string>
-    <string name="regenerate_email_address">Регенериши адресу</string>
-    <string name="email_to_task_calendar">Листа дестинација</string>
     <string name="email_to_task_address">Твоја мејл адреса</string>
     <string name="email_to_task">Мејл у задатак</string>
 </resources>

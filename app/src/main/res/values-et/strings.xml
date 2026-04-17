@@ -256,7 +256,6 @@
     <string name="last_backup_never">mitte kunagi</string>
     <string name="account">Konto</string>
     <string name="above_average">Üle keskmise</string>
-    <string name="app_password_created_at">Loodud: %s</string>
     <string name="premium_record_audio">Salvesta audiomärge</string>
     <string name="default_location">Vaikeasukoht</string>
     <string name="expand_subtasks">Ava alamülesanded</string>
@@ -456,7 +455,6 @@
     <string name="tasks_org_account_required">Vajalik on Tasks.org-i konto</string>
     <string name="save_percent">Salvesta %d%%</string>
     <string name="repeats_from">Kordub alates</string>
-    <string name="generate_new_password">Loo uus salasõna</string>
     <string name="snoozed_until">Edasilükatud kuni %s</string>
     <string name="default_due_date">Vaikimisi tähtaeg</string>
     <string name="no_due_date">Tähtaeg puudub</string>
@@ -470,7 +468,6 @@
     <string name="third_party_licenses">Kolmandate osapoolte litsentsid</string>
     <string name="name_your_price">Ütle oma hind</string>
     <string name="hide_unused_places">Peida kasutamata asukohad</string>
-    <string name="app_password_last_access">Viimati kasutatud: %s</string>
     <string name="invite_awaiting_response">Kutse ootab vastust</string>
     <string name="completion_sound">Esita lõpetamise heli</string>
     <string name="widget_id">Vidina ID: %d</string>
@@ -584,7 +581,6 @@
     <string name="repeats_ends">Lõppeb</string>
     <string name="subscription">Tellimus</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ei võimalda mitmetasemeliste alamülesannete kasutamist</string>
-    <string name="app_passwords">Rakenduse salasõnad</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do ei võimalda mitmetasemeliste alamülesannete kasutamist</string>
     <string name="cost_more_money">Hind: $$$</string>
     <string name="multiline_title">Kasuta mitmerealisi pealkirju</string>
@@ -598,8 +594,6 @@
     <string name="error_adding_account">Viga: %s</string>
     <string name="dont_add_to_calendar">Ära lisa kalendrisse</string>
     <string name="license_summary">Tasks on avatud lähtekoodil põhinev tarkvara, mis on litsentseeritud GNU Üldise Avaliku Litsentsi versiooni 3.0 alusel</string>
-    <string name="app_password_delete_confirmation">Kõik seda salasõna kasutavad rakendused logitakse võrgust välja</string>
-    <string name="app_password_enter_description">Lisa salasõnale nimetus (valikuline)</string>
     <string name="sync_warning_google_tasks_title">Teave Google Tasksi sünkroniseerimise kohta</string>
     <string name="sync_warning_google_tasks">Ülesannete kõikide üksikasjade sünkroniseerimine ei toimi Google Tasksi liidestusega</string>
     <string name="app_passwords_more_info">Sünkroniseeri oma ülesandeid ja kalendreid kolmandate osapoolte töölaua- ja nutiseadme rakendustega. Lisateavet leiad siit</string>
@@ -614,7 +608,6 @@
     <string name="repeat_monthly_on_the_nth_weekday">Iga kuu %1$s %2$s</string>
     <string name="invalid_username_or_password">Vigane kasutajanimi või salasõna</string>
     <string name="disable_battery_optimizations">Lülita akukasutuse optimeerimine välja</string>
-    <string name="app_password_save">Kasuta neid salasõnu/kasutajanimesid kalendreid kolmandate osapoolte töölaua- ja nutiseadme rakenduste seadistamiseks. Nad annavad täisligipääsu sinu Tasks.org kasutajakontole, ära jaga neid kellegagi ega kirjuta üles mittekrüptitud viisil!</string>
     <string name="copy_multiple_tasks_confirmation">%s on kopeeritud</string>
     <string name="show_edit_screen_without_unlock">Näita muutmisvaadet ka ilma lukustust eemaldamata</string>
     <string name="sign_in_with_google">Logi sisse Google\'i kasutajakontoga</string>
@@ -630,14 +623,12 @@
     <string name="upgrade_blurb_1">Tere! Minu nimi on Alex ja ma olen sõltumatu arendaja, kes on Taski arendust juhtinud</string>
     <string name="chips">Infosildid</string>
     <string name="auto_dismiss_datetime_edit">Ülesande muutmine</string>
-    <string name="insufficient_subscription">Mittepiisav tellimuse tüüp. Teenuse jätkamiseks palun muuda tellimuse tüüpi.</string>
     <string name="auto_dismiss_datetime_edit_summary">Ülesande muutmisvaatest valimisel sulge automaatselt</string>
     <string name="auto_dismiss_datetime_list_summary">Ülesannete loendist valimisel sulge automaatselt</string>
     <string name="date_picker_multiple">Mitmikvalik</string>
     <string name="alarm_before_due">%s enne lõpptähtaega</string>
     <string name="auto_dismiss_datetime">Sulge kuupäevavalija automaatselt</string>
     <string name="android_auto_backup">Androidi varukoopiateenus</string>
-    <string name="sign_in_with_github">Logi sisse GitHubi kasutajakontoga</string>
     <string name="add_shortcut_to_home_screen">Lisa link avalehele</string>
     <string name="caldav_account_description">Eeldab, et sul on olemas kasutajakonto CalDAV-põhise teenusepakkuja serveris või sinu omas vastavas serveris. Teenusepakkujaid leiad tasks.org/caldav lehelt</string>
     <string name="calendar_event_created">Kalendrisündmus loodud %s jaoks</string>
@@ -652,7 +643,6 @@
     <string name="upgrade_tasks_org_account_description">Sünkroniseeri Tasks.org teenusega ja tee koostööd teiste kasutajatega</string>
     <string name="upgrade_more_customization_description">Muuda kõik kujundused, värvid ja ikoonid saadavaks</string>
     <string name="android_auto_backup_device_summary">Sa pead varukoopiateenusega nutiseadme seadistustes liituma. Kõikides nutiseadmetes sellist võimalust pole.</string>
-    <string name="insufficient_sponsorship">Ühtegi sobivat GitHubi sponsorlust ei leidunud</string>
     <string name="enable_alarms_description">Tagamaks, et alati saad õigel ajal teavitusi, palun luba nutiseadme seadistustest äratuste ja meeldetuletuste kasutamine</string>
     <string name="alarm_after_start">%s peale alustamise tähtaega</string>
     <string name="snackbar_tasks_completed">%d ülesannet on lõpetatud</string>
@@ -692,7 +682,6 @@
     <string name="sponsorship_required_fdroid">Tasks.org\'i sünkroonimisvõimaluste kasutamiseks on vajalik GitHubi sponsorlus. Sponsoriks hakkamiseks klõpsa järgnevat linki.</string>
     <string name="legal">Juriidiline teave</string>
     <string name="tos_updated_title">Me oleme uuendanud oma kasutustingimusi</string>
-    <string name="view_tos">Vaata kasutustingimusi</string>
     <string name="accept">Nõustu</string>
     <string name="exit">Välju</string>
     <string name="returning_user">Sa oled seda rakendust varem kasutanud?</string>
@@ -707,9 +696,6 @@
     <string name="alarm_due">tähtaeg</string>
     <string name="email_to_task">E-kiri ülesandeks</string>
     <string name="email_to_task_address">Sinu e-posti aadress</string>
-    <string name="email_to_task_calendar">Sihtkalendrite loend</string>
-    <string name="regenerate_email_address">Loo aadress uuesti</string>
-    <string name="regenerate_email_address_confirmation">Sinu senine e-posti aadress lõpetab toimimise</string>
     <string name="rmd_EPr_rmd_time_desc">Kogu päeva katvate ülesannete teavitused on nähtavad siin: %1$s</string>
     <string name="default_reminder">Kogu päeva katvad ülesanded</string>
     <string name="add_default_reminders">Lisa vaikimisi meeldetuletusi</string>

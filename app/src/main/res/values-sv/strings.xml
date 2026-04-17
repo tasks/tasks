@@ -438,13 +438,7 @@
     <string name="list_members">Förteckning över medlemmar</string>
     <string name="account_not_included">Ingår inte i abonnemangen \"Ange ditt pris\"</string>
     <string name="tasks_org_account_required">Tasks.org-konto krävs</string>
-    <string name="app_password_delete_confirmation">Alla appar som använder detta lösenord kommer att loggas ut</string>
-    <string name="app_password_last_access">Senast använt: %s</string>
-    <string name="app_password_created_at">Skapad: %s</string>
-    <string name="app_password_enter_description">Ge ditt lösenord ett namn (valfritt)</string>
-    <string name="generate_new_password">Skapa ett nytt lösenord</string>
     <string name="app_passwords_more_info">Synkronisera dina uppgifter och kalendrar med skrivbords- och mobilappar från tredje parter. Tryck här för mer information</string>
-    <string name="app_passwords">Applösenord</string>
     <string name="app_password">Applösenord</string>
     <string name="save_percent">Spara %d%%</string>
     <string name="above_average">Över medel</string>
@@ -453,7 +447,6 @@
     <string name="migrate">Migrera</string>
     <string name="github_sponsor">Sponsor</string>
     <string name="authentication_required">Autentisering krävs</string>
-    <string name="sign_in_with_github">Logga in med GitHub</string>
     <string name="sign_in_with_google">Logga in med Google</string>
     <string name="github_sponsors">GitHub-sponsorer</string>
     <string name="authorization_cancelled">Auktorisationen upphävd</string>
@@ -466,8 +459,6 @@
     <string name="follow_twitter">Följ @tasks_org</string>
     <string name="current_subscription">Nuvarande abonnemang: %s</string>
     <string name="no_google_play_subscription">Inget berättigade Google Play-abonnemang hittades</string>
-    <string name="insufficient_sponsorship">Inga stödberättigade GitHub-sponsorer hittades</string>
-    <string name="insufficient_subscription">Otillräcklig abonneringsnivå. Vänligen uppgradera ditt abonnemang för att återuppta tjänsten.</string>
     <string name="your_subscription_expired">Ditt abonnemang har löpt ut. Abonnera nu för att återuppta tjänsten.</string>
     <string name="custom_filter_is_subtask">Är en deluppgift</string>
     <string name="custom_filter_has_subtask">Har deluppgifter</string>
@@ -549,7 +540,6 @@
     <string name="header_spacing">Avstånd</string>
     <string name="subtasks">Deluppgifter</string>
     <string name="copied_to_clipboard">%s kopierat till urklipp</string>
-    <string name="app_password_save">Använd dessa uppgifter för att konfigurera en tredjepartsapp. De ger fullständig åtkomst till ditt Tasks.org-konto, skriv inte ner dem eller dela dem med någon!</string>
     <string name="background_location_permission_required">Tasks samlar in platsdata för att möjliggöra platsbaserade påminnelser, även när appen är stängd eller inte används.</string>
     <string name="repeat_monthly_fifth_week">femte</string>
     <string name="widget_show_dividers">Visa avdelare</string>
@@ -696,7 +686,6 @@
     <string name="legal_disclosure_prefix_using">Genom att använda Tasks.org</string>
     <string name="terms_of_service">Användarvillkor</string>
     <string name="tos_updated_title">Vi har uppdaterat våra användarvillkor</string>
-    <string name="view_tos">Visa användarvillkor</string>
     <string name="accept">Acceptera</string>
     <string name="exit">Avsluta</string>
     <string name="returning_user">Återvändande användare?</string>

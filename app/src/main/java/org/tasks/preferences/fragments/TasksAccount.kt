@@ -240,8 +240,8 @@ class TasksAccount : Fragment() {
                 onOpenAppPasswordsInfo = {
                     context?.openUri(R.string.url_app_passwords)
                 },
-                onCopyField = { labelRes, value ->
-                    copyToClipboard(requireContext(), labelRes, value)
+                onCopyField = { label, value ->
+                    copyToClipboard(requireContext(), label, value)
                 },
                 onClearNewPassword = {
                     viewModel.clearNewPassword()

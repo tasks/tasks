@@ -485,14 +485,7 @@
     <string name="keep_editing">Fortsæt redigering</string>
     <string name="discard_confirmation">Er du sikker på, at du vil kassere dine ændringer\?</string>
     <string name="copied_to_clipboard">%s kopieret til udklipsholder</string>
-    <string name="app_password_save">Brug disse loginoplysninger til at konfigurere en tredjepartsapp. De giver fuld adgang til din Tasks.org-konto, så skriv dem ikke ned, og del dem ikke med nogen!</string>
-    <string name="app_password_delete_confirmation">Enhver app, der bruger denne adgangskode, logges ud</string>
-    <string name="app_password_last_access">Sidst brugt: %s</string>
-    <string name="app_password_created_at">Oprettet: %s</string>
-    <string name="app_password_enter_description">Giv din adgangskode et navn (valgfrit)</string>
-    <string name="generate_new_password">Generér ny adgangskode</string>
     <string name="app_passwords_more_info">Synkroniser dine opgaver og kalendere med tredjeparts computer- og mobilapps. Tryk her for mere info</string>
-    <string name="app_passwords">App-adgangskoder</string>
     <string name="app_password">App-adgangskode</string>
     <string name="save_percent">Gem %d%%</string>
     <string name="above_average">Over gennemsnit</string>
@@ -501,7 +494,6 @@
     <string name="migrate">Migrer</string>
     <string name="github_sponsor">Sponsor</string>
     <string name="authentication_required">Godkendelse påkrævet</string>
-    <string name="sign_in_with_github">Log ind med GitHub</string>
     <string name="sign_in_with_google">Log ind med Google</string>
     <string name="github_sponsors">GitHub-sponsorer</string>
     <string name="authorization_cancelled">Autorisation annulleret</string>
@@ -525,8 +517,6 @@
     <string name="foreground_location">Forgrundsplacering</string>
     <string name="account">Konto</string>
     <string name="no_app_found">Ingen app kunne håndtere denne anmodning</string>
-    <string name="insufficient_sponsorship">Ingen kvalificeret GitHub-sponsorat fundet</string>
-    <string name="insufficient_subscription">Utilstrækkeligt abonnementsniveau. Opgrader venligst dit abonnement for at fortsætte tjenesten.</string>
     <string name="your_subscription_expired">Dit abonnement er udløbet. Abonner nu for at fortsætte tjenesten.</string>
     <string name="custom_filter_is_subtask">Er underopgave</string>
     <string name="custom_filter_has_subtask">Har underopgaver</string>
@@ -696,7 +686,6 @@
     <string name="legal_disclosure_prefix_using">Ved at bruge Tasks.org</string>
     <string name="terms_of_service">Servicevilkår</string>
     <string name="tos_updated_title">Vi har opdateret vores servicevilkår</string>
-    <string name="view_tos">Vis servicevilkår</string>
     <string name="accept">Acceptér</string>
     <string name="exit">Afslut</string>
     <string name="returning_user">Tilbagevendende bruger?</string>
@@ -709,9 +698,6 @@
     <string name="banner_subscription_required_body">Betal hvad du vil for at få adgang til %s-synkronisering</string>
     <string name="email_to_task">E-mail til opgave</string>
     <string name="email_to_task_address">Din e-mailadresse</string>
-    <string name="email_to_task_calendar">Destinationsliste</string>
-    <string name="regenerate_email_address">Regenerér adresse</string>
-    <string name="regenerate_email_address_confirmation">Din nuværende e-mailadresse vil ikke længere fungere</string>
     <string name="upgrade_email_to_task_description">Omdan e-mails til opgaver ved at videresende dem til din private indbakke</string>
     <string name="advanced_tools">Avancerede værktøjer</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync og flere!</string>

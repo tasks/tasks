@@ -414,14 +414,7 @@
     </plurals>
     <string name="account_not_included">Tidak termasuk dalam langganan \'Berikan penawaran harga Anda\'</string>
     <string name="copied_to_clipboard">%s disalin ke papan klip</string>
-    <string name="app_password_save">Gunakan kredensial ini untuk mengkonfigurasi aplikasi pihak ketiga. Mereka memberikan akses penuh ke akun Tasks.org Anda, jangan tuliskan ataupun berbagi dengan orang lain!</string>
-    <string name="app_password_delete_confirmation">Aplikasi apa pun yang menggunakan sandi ini akan keluar/sign out</string>
-    <string name="app_password_last_access">Terakhir digunakan: %s</string>
-    <string name="app_password_created_at">Dibuat: %s</string>
-    <string name="app_password_enter_description">Beri nama sandi Anda (opsional)</string>
-    <string name="generate_new_password">Buat kata sandi baru</string>
     <string name="app_passwords_more_info">Sinkronkan tugas dan kalender Anda dengan aplikasi desktop dan seluler pihak ketiga. Ketuk di sini untuk info selengkapnya</string>
-    <string name="app_passwords">Kata sandi aplikasi</string>
     <string name="app_password">Kata sandi aplikasi</string>
     <string name="save_percent">Simpan %d%%</string>
     <string name="above_average">Diatas rata-rata</string>
@@ -430,15 +423,12 @@
     <string name="migrate">Migrasi</string>
     <string name="github_sponsor">Sponsor</string>
     <string name="authentication_required">Otentikasi diperlukan</string>
-    <string name="sign_in_with_github">Masuk dengan GitHub</string>
     <string name="sign_in_with_google">Masuk dengan Google</string>
     <string name="github_sponsors">Sponsor GitHub</string>
     <string name="authorization_cancelled">Otorisasi dibatalkan</string>
     <string name="follow_reddit">Gabung r/tasks</string>
     <string name="current_subscription">Langganan saat ini: %s</string>
     <string name="no_google_play_subscription">Tidak ditemukan langganan Google Play yang memenuhi syarat</string>
-    <string name="insufficient_sponsorship">Tidak ditemukan sponsor GitHub yang memenuhi syarat</string>
-    <string name="insufficient_subscription">Tingkat langganan tidak mencukupi. Silahkan perbarui langganan Anda untuk melanjutkan layanan.</string>
     <string name="your_subscription_expired">Langganan Anda telah berakhir. Berlangganan kembali untuk melanjutkan layanan.</string>
     <string name="custom_filter_is_subtask">Adalah subtugas</string>
     <string name="custom_filter_has_subtask">Memiliki subtugas</string>
@@ -673,16 +663,10 @@
     <string name="legal">Hukum</string>
     <string name="email_to_task">Email ke tugas</string>
     <string name="email_to_task_address">Alamat email Anda</string>
-    <string name="email_to_task_calendar">Daftar tujuan</string>
-    <string name="regenerate_email_address">Buat ulang alamat</string>
-    <string name="regenerate_email_address_confirmation">Alamat email Anda saat ini akan berhenti berfungsi</string>
     <string name="share_list">Bagikan \"%1$s\"</string>
     <string name="send">Kirim</string>
     <string name="invalid_email_address">Alamat email tidak valid</string>
     <string name="guest_create_list_message">Saat ini Anda memiliki akses tamu ke daftar bersama. Untuk membuat dan menyinkronkan daftar pribadi Anda sendiri ke cloud, Anda memerlukan langganan Tasks.org. Atau, Anda dapat membuat daftar lokal gratis yang tetap berada di perangkat ini.</string>
-    <string name="guests">Tamu (%1$d/%2$d)</string>
-    <string name="shared_with_me">Dibagikan dengan saya</string>
-    <string name="shared_by">Dibagikan oleh %s</string>
     <string name="upgrade_friends_and_family">Keluarga &amp; Teman</string>
     <string name="upgrade_friends_and_family_description">5 tamu gratis di daftar bersama. Berfungsi dengan Apple Reminders</string>
     <string name="upgrade_email_to_task_description">Ubah email menjadi tugas dengan meneruskannya ke kotak masuk pribadi Anda</string>
@@ -707,7 +691,6 @@
     <string name="legal_disclosure_prefix_using">Dengan menggunakan Tasks.org</string>
     <string name="terms_of_service">Ketentuan layanan</string>
     <string name="tos_updated_title">Kami telah memperbarui Ketentuan Layanan kami</string>
-    <string name="view_tos">Lihat Ketentuan Layanan</string>
     <string name="accept">Terima</string>
     <string name="exit">Keluar</string>
     <string name="returning_user">Pengguna lama?</string>

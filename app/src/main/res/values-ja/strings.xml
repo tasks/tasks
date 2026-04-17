@@ -438,9 +438,7 @@
     <string name="places">場所</string>
     <string name="local_lists">ローカルリスト</string>
     <string name="sort_created_group">作成: %s</string>
-    <string name="app_password_created_at">作成: %s</string>
     <string name="calendar_event_created">%s のカレンダーイベントを作成しました</string>
-    <string name="sign_in_with_github">GitHub でサインイン</string>
     <string name="sign_in_with_google">Google でサインイン</string>
     <string name="share">共有</string>
     <string name="astrid_sort_order">手動で並べ替え (Astrid)</string>
@@ -494,13 +492,10 @@
     <string name="last_backup">最新のバックアップ: %s</string>
     <string name="reset_sort_order">並び順をリセット</string>
     <string name="backups_ignore_warnings">警告を無視する</string>
-    <string name="insufficient_subscription">サブスクリプションのレベルが不十分です。サービスを引き続き利用するには、サブスクリプションをアップグレードしてください。</string>
     <string name="save_percent">%d%% オフ</string>
     <string name="github_sponsors">GitHub スポンサー</string>
     <string name="github_sponsor">スポンサー</string>
     <string name="migrate">移行する</string>
-    <string name="app_password_enter_description">パスワードに名前を付けます（オプション）</string>
-    <string name="app_password_delete_confirmation">このパスワードを使用するアプリはすべてサインアウトされます</string>
     <string name="more_options">さらなるオプション</string>
     <string name="markdown_description">タイトル欄と説明欄でマークダウン記法を有効にします</string>
     <string name="completion_sound">完了時に音を鳴らす</string>
@@ -531,7 +526,6 @@
     <string name="wearable_notifications_summary">ウェアラブルデバイスに通知を表示する</string>
     <string name="auto_dismiss_datetime_list">タスクリスト</string>
     <string name="backup_location_warning">警告: Tasks を削除すると %s にあるファイルも削除されます。ファイルの削除を回避するには、別の場所を指定してください。</string>
-    <string name="insufficient_sponsorship">対象の GitHub スポンサーシップがありません</string>
     <string name="multi_select_reschedule">スケジュール変更</string>
     <string name="date_picker_multiple">複数</string>
     <string name="follow_reddit">参加: r/tasks</string>
@@ -551,7 +545,6 @@
     <string name="filter_eisenhower_box_4">重要でも緊急でもない</string>
     <string name="android_auto_backup">Android バックアップサービス</string>
     <string name="backups_ignore_warnings_summary">バックアップが不要な場合、または独自のバックアップ方法を使用している場合に、バックアップの警告を無視します</string>
-    <string name="generate_new_password">新しいパスワードを生成する</string>
     <string name="completed">完了</string>
     <string name="alarm_after_due">締切 %s 後</string>
     <string name="custom_notification">カスタム通知</string>
@@ -568,8 +561,6 @@
     <string name="account">アカウント</string>
     <string name="device_settings">デバイス設定</string>
     <string name="custom_filter_has_reminder">リマインダーあり</string>
-    <string name="app_passwords">アプリパスワード</string>
-    <string name="app_password_last_access">最後に使用: %s</string>
     <string name="remove_user">ユーザーを削除しますか？</string>
     <string name="invite_invalid">招待が無効</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org と同期し、他のユーザーと共同作業が可能</string>
@@ -617,7 +608,6 @@
     <string name="notification_troubleshooting_summary">通知に問題がある場合はこちらをタップ</string>
     <string name="filter_eisenhower_box_1">重要かつ緊急</string>
     <string name="open_source">オープンソース</string>
-    <string name="app_password_save">これらの認証情報は、サードパーティアプリを設定するために使用します。あなたの Tasks.org アカウントへの完全なアクセスを許可するものであるため、書き留めたり、誰とも共有しないでください！</string>
     <string name="sort_list">リスト</string>
     <string name="repeat_monthly_on_day_number">毎月 %1d 日</string>
     <string name="repeats_on">日付</string>
@@ -690,15 +680,11 @@
     <string name="alarm_due">期限</string>
     <string name="local_list_title">ローカルリスト（端末内に保存されたリスト）</string>
     <string name="email_to_task_address">あなたのメールアドレス</string>
-    <string name="regenerate_email_address_confirmation">現在のメールアドレスは使えなくなります</string>
     <string name="tos_updated_title">サービス規約を改定しました</string>
-    <string name="view_tos">サービス規約を読む</string>
     <string name="accept">了承</string>
     <string name="exit">終了する</string>
     <string name="returning_user">以前利用していましたか？</string>
     <string name="legal">法的事項</string>
-    <string name="email_to_task_calendar">送信先リスト</string>
-    <string name="regenerate_email_address">メールアドレスを再登録する</string>
     <string name="legal_disclosure_prefix_using">Tasks.orgを使用</string>
     <string name="email_to_task">メールでタスクを追加する</string>
     <string name="invalid_email_address">無効なメールアドレス</string>
@@ -716,9 +702,6 @@
     <string name="share_list">\"%1$s\"を共有</string>
     <string name="send">送る</string>
     <string name="guest_create_list_message">あなたは共有リストへのゲストアクセスがあります。自分の個人的なリストを作成してクラウドに同期するにはTasks.orgの購読が必要です。または、端末内に保存する無料のローカルリストを作成することができます。</string>
-    <string name="guests">ゲスト (%1$d/%2$d)</string>
-    <string name="shared_with_me">共有されたもの</string>
-    <string name="shared_by">%sからの共有</string>
     <string name="upgrade_friends_and_family">家族・友人</string>
     <string name="upgrade_friends_and_family_description">共有リストに無料のゲスト5名。Apple Remindersで利用可能</string>
     <string name="already_subscribed">すでに購読していますか？</string>

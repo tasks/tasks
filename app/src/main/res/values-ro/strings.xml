@@ -29,14 +29,7 @@
     <string name="account_not_included">Nu este inclus în abonamentele \'Spune prețul\'</string>
     <string name="tasks_org_account_required">Cont Tasks.org necesar</string>
     <string name="copied_to_clipboard">%s copiat în clipboard</string>
-    <string name="app_password_save">Utilizează aceste acreditări pentru a configura o aplicație terță. Acestea acordă acces complet la contul Tasks.org, nu le nota și nu le împărtăși cu nimeni!</string>
-    <string name="app_password_delete_confirmation">Orice aplicație care utilizează această parolă va fi deconectată</string>
-    <string name="app_password_last_access">Ultima utilizare: %s</string>
-    <string name="app_password_created_at">Creat: %s</string>
-    <string name="app_password_enter_description">Dă un nume parolei (opțional)</string>
-    <string name="generate_new_password">Generează o nouă parolă</string>
     <string name="app_passwords_more_info">Sincronizează sarcinile și calendarele cu aplicații desktop și mobile de la terți. Apasă aici pentru mai multe informații</string>
-    <string name="app_passwords">Parolele aplicațiilor</string>
     <string name="app_password">Parola aplicației</string>
     <string name="save_percent">Salvează %d%%</string>
     <string name="above_average">Peste medie</string>
@@ -45,7 +38,6 @@
     <string name="migrate">Migrare</string>
     <string name="github_sponsor">Sponsor</string>
     <string name="authentication_required">Autentificare necesară</string>
-    <string name="sign_in_with_github">Conectează-te cu GitHub</string>
     <string name="sign_in_with_google">Conectează-te cu Google</string>
     <string name="github_sponsors">Sponsorii GitHub</string>
     <string name="authorization_cancelled">Autorizație anulată</string>
@@ -58,8 +50,6 @@
     <string name="follow_reddit">Alătură-te la r/tasks</string>
     <string name="current_subscription">Abonamentul curent: %s</string>
     <string name="no_google_play_subscription">Nu s-a găsit niciun abonament Google Play eligibil</string>
-    <string name="insufficient_sponsorship">Nu s-au găsit sponsorizări GitHub eligibile</string>
-    <string name="insufficient_subscription">Nivel de abonament insuficient. Actualizează abonamentul pentru a relua serviciul.</string>
     <string name="your_subscription_expired">Abonamentul a expirat. Abonează-te acum pentru a relua serviciul.</string>
     <string name="custom_filter_is_subtask">Este o sarcină secundară</string>
     <string name="custom_filter_has_subtask">Are sarcini secundare</string>

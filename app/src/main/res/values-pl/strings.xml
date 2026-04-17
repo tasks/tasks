@@ -528,7 +528,6 @@
     <string name="migrate">Migruj</string>
     <string name="github_sponsor">Sponsor</string>
     <string name="authentication_required">Wymagane uwierzytelnienie</string>
-    <string name="sign_in_with_github">Zaloguj z GitHub</string>
     <string name="sign_in_with_google">Zaloguj z Google</string>
     <string name="repeat_monthly_fifth_week">piąty</string>
     <plurals name="list_count">
@@ -539,14 +538,7 @@
     </plurals>
     <string name="background_location_permission_required">Tasks zbiera dane o lokalizacji, nawet gdy aplikacja jest zamknięta lub nie jest używana - to jest potrzebne dla przypomnień opartych o lokalizację.</string>
     <string name="copied_to_clipboard">%s skopiowano do schowka</string>
-    <string name="app_password_save">Użyj tych poświadczeń, aby skonfigurować aplikację innej firmy. Dają pełny dostęp do Twojego konta Tasks.org, nie zapisuj ich ani nie udostępniaj nikomu!</string>
-    <string name="app_password_delete_confirmation">Każda aplikacja korzystająca z tego hasła zostanie wylogowana</string>
-    <string name="app_password_last_access">Ostatnio używane: %s</string>
-    <string name="app_password_created_at">Utworzono: %s</string>
-    <string name="app_password_enter_description">Nadaj swojemu hasłu nazwę (opcjonalnie)</string>
-    <string name="generate_new_password">Wygeneruj nowe hasło</string>
     <string name="app_passwords_more_info">Synchronizuj swoje zadania i kalendarze z aplikacjami komputerowymi i mobilnymi innych firm. Kliknij tutaj, aby uzyskać więcej informacji</string>
-    <string name="app_passwords">Hasła aplikacji</string>
     <string name="app_password">Hasło aplikacji</string>
     <string name="save_percent">Zapisano %d%%</string>
     <string name="above_average">Powyżej średniej</string>
@@ -557,8 +549,6 @@
     <string name="follow_reddit">Dołącz do r/tasks</string>
     <string name="current_subscription">Aktualna subskrypcja: %s</string>
     <string name="no_google_play_subscription">Nie znaleziono kwalifikującej się subskrypcji Google Play</string>
-    <string name="insufficient_sponsorship">Nie znaleziono kwalifikującego się sponsoringu GitHub</string>
-    <string name="insufficient_subscription">Niewystarczający poziom subskrypcji. Zwiększ poziom subskrypcji, aby wznowić usługę.</string>
     <string name="your_subscription_expired">Twoja subskrypcja wygasła. Zasubskrybuj teraz, aby wznowić usługę.</string>
     <string name="decsync_selection_description">Synchronizacja oparta na plikach</string>
     <string name="local_lists">Listy lokalne</string>

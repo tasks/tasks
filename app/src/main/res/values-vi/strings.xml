@@ -74,14 +74,7 @@
     <string name="account_not_included">Không được bao gồm với các gói đăng ký \'Đặt giá của bạn\'</string>
     <string name="tasks_org_account_required">Yêu cầu tài khoản Tasks.org</string>
     <string name="copied_to_clipboard">Đã sao chép %s vào bộ nhớ tạm</string>
-    <string name="app_password_save">Sử dụng thông tin này để thiết lập một ứng dụng bên thứ ba. Chúng cấp quyền truy cập toàn bộ vào tài khoản Tasks.org của bạn, đừng viết chúng ra hoặc chia sẻ chúng với bất kỳ ai!</string>
-    <string name="app_password_delete_confirmation">Bất kỳ ứng dụng nào đang sử dụng mật khẩu này sẽ bị đăng xuất</string>
-    <string name="app_password_last_access">Sử dụng lần cuối: %s</string>
-    <string name="app_password_created_at">Đã tạo: %s</string>
-    <string name="app_password_enter_description">Đặt tên cho mật khẩu của bạn (không bắt buộc)</string>
-    <string name="generate_new_password">Tạo mật khẩu mới</string>
     <string name="app_passwords_more_info">Đồng bộ hoá các công việc và lịch của bạn bằng các ứng dụng máy tính và di động của bên thứ ba. Nhấn vào đây để xem thêm thông tin</string>
-    <string name="app_passwords">Các mật khẩu ứng dụng</string>
     <string name="app_password">Mật khẩu ứng dụng</string>
     <string name="save_percent">Lưu %d%%</string>
     <string name="above_average">Trên trung bình</string>
@@ -90,7 +83,6 @@
     <string name="migrate">Di cư</string>
     <string name="github_sponsor">Tài trợ</string>
     <string name="authentication_required">Yêu cầu xác thực</string>
-    <string name="sign_in_with_github">Đăng nhập bằng GitHub</string>
     <string name="sign_in_with_google">Đăng nhập bằng Google</string>
     <string name="github_sponsors">Nhà tài trợ trên GitHub</string>
     <string name="authorization_cancelled">Đã huỷ xác thực</string>
@@ -103,8 +95,6 @@
     <string name="follow_reddit">Tham gia r/tasks</string>
     <string name="current_subscription">Đăng ký hiện tại: %s</string>
     <string name="no_google_play_subscription">Không tìm thấy gói đăng ký Google Play đủ điều kiện</string>
-    <string name="insufficient_sponsorship">Không tìm thấy sự tài trợ GitHub đủ điều kiện</string>
-    <string name="insufficient_subscription">Không đủ cấp độ đăng ký. Vui lòng nâng cấp đăng ký của bạn để tiếp tục dịch vụ.</string>
     <string name="your_subscription_expired">Đăng ký của bạn đã hết hạn. Đăng ký ngay để tiếp tục dịch vụ.</string>
     <string name="custom_filter_is_subtask">Là công việc con</string>
     <string name="custom_filter_has_subtask">Có công việc con</string>

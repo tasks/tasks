@@ -52,29 +52,77 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import org.tasks.BuildConfig
-import org.tasks.R
+import org.jetbrains.compose.resources.stringResource
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.accept
 import tasks.kmp.generated.resources.add_account
+import tasks.kmp.generated.resources.app_password
+import tasks.kmp.generated.resources.app_password_created_at
+import tasks.kmp.generated.resources.app_password_delete_confirmation
+import tasks.kmp.generated.resources.app_password_enter_description
+import tasks.kmp.generated.resources.app_password_last_access
+import tasks.kmp.generated.resources.app_password_save
+import tasks.kmp.generated.resources.app_passwords
+import tasks.kmp.generated.resources.authentication_required
+import tasks.kmp.generated.resources.button_subscribe
+import tasks.kmp.generated.resources.cancel
+import tasks.kmp.generated.resources.delete_tag_confirmation
+import tasks.kmp.generated.resources.email_to_task
+import tasks.kmp.generated.resources.email_to_task_address
+import tasks.kmp.generated.resources.email_to_task_calendar
+import tasks.kmp.generated.resources.generate_new_password
+import tasks.kmp.generated.resources.guests
+import tasks.kmp.generated.resources.help
+import tasks.kmp.generated.resources.insufficient_sponsorship
+import tasks.kmp.generated.resources.insufficient_subscription
+import tasks.kmp.generated.resources.last_backup_never
+import tasks.kmp.generated.resources.local_lists
+import tasks.kmp.generated.resources.logout
+import tasks.kmp.generated.resources.logout_warning
 import tasks.kmp.generated.resources.manage_subscription
-import androidx.compose.ui.graphics.Color
+import tasks.kmp.generated.resources.migrate
+import tasks.kmp.generated.resources.ok
+import tasks.kmp.generated.resources.password
+import tasks.kmp.generated.resources.regenerate_email_address
+import tasks.kmp.generated.resources.regenerate_email_address_confirmation
+import tasks.kmp.generated.resources.remove
+import tasks.kmp.generated.resources.shared_by
+import tasks.kmp.generated.resources.shared_with_me
+import tasks.kmp.generated.resources.sign_in_with_github
+import tasks.kmp.generated.resources.sign_in_with_google
+import tasks.kmp.generated.resources.tos_updated_title
+import tasks.kmp.generated.resources.url
+import tasks.kmp.generated.resources.user
+import tasks.kmp.generated.resources.view_tos
+import tasks.kmp.generated.resources.your_subscription_expired
+import org.tasks.caldav.TasksAccountResponse
+import org.tasks.caldav.TasksAccountResponse.Guest
 import org.tasks.compose.components.TasksIcon
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
-import org.tasks.caldav.TasksAccountResponse
-import org.tasks.caldav.TasksAccountResponse.Guest
-import org.tasks.preferences.fragments.TasksAccountViewModel.NewPassword
-import org.tasks.preferences.fragments.TasksAccountViewModel.SharedCalendarDisplay
+import org.tasks.kmp.org.tasks.time.DateStyle
+import org.tasks.kmp.org.tasks.time.getRelativeDay
 import org.tasks.themes.TasksIcons
 
 data class CalendarItem(
     val name: String,
     val calendarUri: String?,
+)
+
+data class NewPassword(
+    val username: String,
+    val password: String,
+)
+
+data class SharedCalendarDisplay(
+    val name: String,
+    val icon: String?,
+    val color: Int,
+    val ownerName: String?,
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -108,7 +156,7 @@ fun TasksAccountScreen(
     onDeletePassword: (Int, String) -> Unit,
     onGeneratePassword: (String) -> Unit,
     onOpenAppPasswordsInfo: () -> Unit,
-    onCopyField: (Int, String) -> Unit,
+    onCopyField: (String, String) -> Unit,
     onClearNewPassword: () -> Unit,
     onRefreshPasswords: () -> Unit,
     onOpenHelp: () -> Unit,
@@ -163,10 +211,10 @@ fun TasksAccountScreen(
 
         // Migrate card
         if (localListCount > 0) {
-            SectionHeader(R.string.migrate, modifier = Modifier.padding(horizontal = SettingsContentPadding))
+            SectionHeader(stringResource(Res.string.migrate), modifier = Modifier.padding(horizontal = SettingsContentPadding))
             SettingsItemCard(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
                 PreferenceRow(
-                    title = stringResource(R.string.local_lists),
+                    title = stringResource(Res.string.local_lists),
                     summary = localListSummary,
                     onClick = onMigrate,
                 )
@@ -176,14 +224,14 @@ fun TasksAccountScreen(
 
         // Email-to-task card
         if (inboundEmail != null) {
-            SectionHeader(R.string.email_to_task, modifier = Modifier.padding(horizontal = SettingsContentPadding))
+            SectionHeader(stringResource(Res.string.email_to_task), modifier = Modifier.padding(horizontal = SettingsContentPadding))
             Column(
                 modifier = Modifier.padding(horizontal = SettingsContentPadding),
                 verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
             ) {
                 SettingsItemCard(position = CardPosition.First) {
                     PreferenceRow(
-                        title = stringResource(R.string.email_to_task_address),
+                        title = stringResource(Res.string.email_to_task_address),
                         summary = inboundEmail,
                         icon = Icons.Outlined.Email,
                         onClick = onCopyEmail,
@@ -202,7 +250,7 @@ fun TasksAccountScreen(
                 if (inboundCalendarName != null) {
                     SettingsItemCard(position = CardPosition.Middle) {
                         PreferenceRow(
-                            title = stringResource(R.string.email_to_task_calendar),
+                            title = stringResource(Res.string.email_to_task_calendar),
                             summary = inboundCalendarName,
                             icon = Icons.AutoMirrored.Outlined.List,
                             onClick = { showCalendarDialog = true },
@@ -211,7 +259,7 @@ fun TasksAccountScreen(
                 }
                 SettingsItemCard(position = CardPosition.Last) {
                     PreferenceRow(
-                        title = stringResource(R.string.regenerate_email_address),
+                        title = stringResource(Res.string.regenerate_email_address),
                         icon = Icons.Outlined.Autorenew,
                         onClick = { showRegenerateDialog = true },
                     )
@@ -222,7 +270,7 @@ fun TasksAccountScreen(
 
         // Shared with me section (calendars shared by others)
         if (sharedWithMe.isNotEmpty()) {
-            SectionHeader(R.string.shared_with_me, modifier = Modifier.padding(horizontal = SettingsContentPadding))
+            SectionHeader(stringResource(Res.string.shared_with_me), modifier = Modifier.padding(horizontal = SettingsContentPadding))
             Column(
                 modifier = Modifier.padding(horizontal = SettingsContentPadding),
                 verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
@@ -233,7 +281,7 @@ fun TasksAccountScreen(
                     ) {
                         PreferenceRow(
                             title = shared.name,
-                            summary = shared.ownerName?.let { stringResource(R.string.shared_by, it) },
+                            summary = shared.ownerName?.let { stringResource(Res.string.shared_by, it) },
                             leading = {
                                 TasksIcon(
                                     modifier = Modifier
@@ -262,7 +310,7 @@ fun TasksAccountScreen(
                     .height(48.dp),
             ) {
                 Text(
-                    text = stringResource(R.string.guests, guests.size, maxGuests),
+                    text = stringResource(Res.string.guests, guests.size, maxGuests),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary,
                 )
@@ -287,7 +335,7 @@ fun TasksAccountScreen(
         }
 
         // App passwords card
-        SectionHeader(R.string.app_passwords, modifier = Modifier.padding(horizontal = SettingsContentPadding), onClick = onOpenAppPasswordsInfo)
+        SectionHeader(stringResource(Res.string.app_passwords), modifier = Modifier.padding(horizontal = SettingsContentPadding), onClick = onOpenAppPasswordsInfo)
         Column(
             modifier = Modifier.padding(horizontal = SettingsContentPadding),
             verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
@@ -295,15 +343,15 @@ fun TasksAccountScreen(
             val passwordCount = (appPasswords?.size ?: 0)
             val totalPasswordItems = passwordCount + 1 // +1 for generate button
             appPasswords?.forEachIndexed { index, pw ->
-                val description = pw.description ?: stringResource(R.string.app_password)
+                val description = pw.description ?: stringResource(Res.string.app_password)
                 SettingsItemCard(
                     position = CardPosition.forIndex(index, totalPasswordItems),
                 ) {
                     val createdAtText = formatRelativeDay(pw.createdAt)
                     val lastAccessText = formatRelativeDay(pw.lastAccess)
-                        ?: stringResource(R.string.last_backup_never)
-                    val summary = stringResource(R.string.app_password_created_at, createdAtText ?: "") + "\n" +
-                            stringResource(R.string.app_password_last_access, lastAccessText)
+                        ?: stringResource(Res.string.last_backup_never)
+                    val summary = stringResource(Res.string.app_password_created_at, createdAtText ?: "") + "\n" +
+                            stringResource(Res.string.app_password_last_access, lastAccessText)
                     PreferenceRow(
                         title = description,
                         summary = summary,
@@ -327,7 +375,7 @@ fun TasksAccountScreen(
                 position = if (passwordCount == 0) CardPosition.Only else CardPosition.Last,
             ) {
                 PreferenceRow(
-                    title = stringResource(R.string.generate_new_password),
+                    title = stringResource(Res.string.generate_new_password),
                     icon = Icons.Outlined.Add,
                     onClick = { showDescriptionDialog = true },
                 )
@@ -345,7 +393,7 @@ fun TasksAccountScreen(
                 position = if (showManageRow) CardPosition.First else CardPosition.Only,
             ) {
                 PreferenceRow(
-                    title = org.jetbrains.compose.resources.stringResource(Res.string.add_account),
+                    title = stringResource(Res.string.add_account),
                     icon = Icons.Outlined.Add,
                     onClick = onAddAccount,
                 )
@@ -353,7 +401,7 @@ fun TasksAccountScreen(
             if (showManageRow) {
                 SettingsItemCard(position = CardPosition.Last) {
                     PreferenceRow(
-                        title = org.jetbrains.compose.resources.stringResource(Res.string.manage_subscription),
+                        title = stringResource(Res.string.manage_subscription),
                         onClick = { showManageSheet = true },
                     )
                 }
@@ -364,7 +412,7 @@ fun TasksAccountScreen(
         Spacer(modifier = Modifier.height(SettingsContentPadding))
         DangerCard(
             icon = Icons.AutoMirrored.Outlined.Logout,
-            title = stringResource(R.string.logout),
+            title = stringResource(Res.string.logout),
             tint = MaterialTheme.colorScheme.error,
             onClick = { showLogoutDialog = true },
             modifier = Modifier.padding(horizontal = SettingsContentPadding),
@@ -379,18 +427,18 @@ fun TasksAccountScreen(
     if (showLogoutDialog) {
         AlertDialog(
             onDismissRequest = { showLogoutDialog = false },
-            text = { Text(stringResource(R.string.logout_warning)) },
+            text = { Text(stringResource(Res.string.logout_warning)) },
             confirmButton = {
                 TextButton(onClick = {
                     showLogoutDialog = false
                     onLogout()
                 }) {
-                    Text(stringResource(R.string.remove))
+                    Text(stringResource(Res.string.remove))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showLogoutDialog = false }) {
-                    Text(stringResource(R.string.cancel))
+                    Text(stringResource(Res.string.cancel))
                 }
             },
         )
@@ -399,19 +447,19 @@ fun TasksAccountScreen(
     if (showRegenerateDialog) {
         AlertDialog(
             onDismissRequest = { showRegenerateDialog = false },
-            title = { Text(stringResource(R.string.regenerate_email_address)) },
-            text = { Text(stringResource(R.string.regenerate_email_address_confirmation)) },
+            title = { Text(stringResource(Res.string.regenerate_email_address)) },
+            text = { Text(stringResource(Res.string.regenerate_email_address_confirmation)) },
             confirmButton = {
                 TextButton(onClick = {
                     showRegenerateDialog = false
                     onRegenerateEmail()
                 }) {
-                    Text(stringResource(R.string.ok))
+                    Text(stringResource(Res.string.ok))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showRegenerateDialog = false }) {
-                    Text(stringResource(R.string.cancel))
+                    Text(stringResource(Res.string.cancel))
                 }
             },
         )
@@ -423,8 +471,8 @@ fun TasksAccountScreen(
                 deletePasswordId = null
                 deletePasswordDescription = null
             },
-            title = { Text(stringResource(R.string.delete_tag_confirmation, deletePasswordDescription!!)) },
-            text = { Text(stringResource(R.string.app_password_delete_confirmation)) },
+            title = { Text(stringResource(Res.string.delete_tag_confirmation, deletePasswordDescription!!)) },
+            text = { Text(stringResource(Res.string.app_password_delete_confirmation)) },
             confirmButton = {
                 TextButton(onClick = {
                     val id = deletePasswordId!!
@@ -433,7 +481,7 @@ fun TasksAccountScreen(
                     deletePasswordDescription = null
                     onDeletePassword(id, desc)
                 }) {
-                    Text(stringResource(R.string.ok))
+                    Text(stringResource(Res.string.ok))
                 }
             },
             dismissButton = {
@@ -441,7 +489,7 @@ fun TasksAccountScreen(
                     deletePasswordId = null
                     deletePasswordDescription = null
                 }) {
-                    Text(stringResource(R.string.cancel))
+                    Text(stringResource(Res.string.cancel))
                 }
             },
         )
@@ -451,7 +499,7 @@ fun TasksAccountScreen(
         var description by remember { mutableStateOf("") }
         AlertDialog(
             onDismissRequest = { showDescriptionDialog = false },
-            title = { Text(stringResource(R.string.app_password_enter_description)) },
+            title = { Text(stringResource(Res.string.app_password_enter_description)) },
             text = {
                 OutlinedTextField(
                     value = description,
@@ -465,12 +513,12 @@ fun TasksAccountScreen(
                     showDescriptionDialog = false
                     onGeneratePassword(description)
                 }) {
-                    Text(stringResource(R.string.ok))
+                    Text(stringResource(Res.string.ok))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDescriptionDialog = false }) {
-                    Text(stringResource(R.string.cancel))
+                    Text(stringResource(Res.string.cancel))
                 }
             },
         )
@@ -505,20 +553,20 @@ fun TasksAccountScreen(
     if (showTosDialog) {
         AlertDialog(
             onDismissRequest = onDismissTos,
-            title = { Text(stringResource(R.string.tos_updated_title)) },
+            title = { Text(stringResource(Res.string.tos_updated_title)) },
             confirmButton = {
                 TextButton(onClick = onAcceptTos) {
-                    Text(stringResource(R.string.accept))
+                    Text(stringResource(Res.string.accept))
                 }
             },
             dismissButton = {
                 TextButton(onClick = onDismissTos) {
-                    Text(stringResource(R.string.cancel))
+                    Text(stringResource(Res.string.cancel))
                 }
             },
             text = {
                 TextButton(onClick = onViewTos) {
-                    Text(stringResource(R.string.view_tos))
+                    Text(stringResource(Res.string.view_tos))
                 }
             },
         )
@@ -569,28 +617,23 @@ private fun ErrorBannerCard(
         account.isPaymentRequired() -> {
             if (isGithub) {
                 title = null
-                summary = stringResource(R.string.insufficient_sponsorship)
-                @Suppress("KotlinConstantConditions")
-                onClick = if (BuildConfig.FLAVOR == "googleplay") {
-                    {}
-                } else {
-                    onOpenSponsor
-                }
+                summary = stringResource(Res.string.insufficient_sponsorship)
+                onClick = onOpenSponsor
             } else if (!hasSubscription || isTasksSubscription) {
-                title = stringResource(R.string.button_subscribe)
-                summary = stringResource(R.string.your_subscription_expired)
+                title = stringResource(Res.string.button_subscribe)
+                summary = stringResource(Res.string.your_subscription_expired)
                 onClick = onSubscribe
             } else {
-                title = org.jetbrains.compose.resources.stringResource(Res.string.manage_subscription)
-                summary = stringResource(R.string.insufficient_subscription)
+                title = stringResource(Res.string.manage_subscription)
+                summary = stringResource(Res.string.insufficient_subscription)
                 onClick = onSubscribe
             }
         }
         account.isLoggedOut() -> {
             title = stringResource(
-                if (isGithub) R.string.sign_in_with_github else R.string.sign_in_with_google
+                if (isGithub) Res.string.sign_in_with_github else Res.string.sign_in_with_google
             )
-            summary = stringResource(R.string.authentication_required)
+            summary = stringResource(Res.string.authentication_required)
             onClick = onSignIn
         }
         else -> {
@@ -651,9 +694,9 @@ private fun formatRelativeDay(timestamp: Long?): String? {
         initialValue = null,
         key1 = timestamp,
     ) {
-        value = org.tasks.kmp.org.tasks.time.getRelativeDay(
+        value = getRelativeDay(
             timestamp,
-            org.tasks.kmp.org.tasks.time.DateStyle.FULL,
+            DateStyle.FULL,
             lowercase = true,
         )
     }
@@ -665,46 +708,49 @@ private fun NewPasswordDialog(
     caldavUrl: String,
     username: String?,
     password: String?,
-    onCopyField: (Int, String) -> Unit,
+    onCopyField: (String, String) -> Unit,
     onDismiss: () -> Unit,
     onHelp: () -> Unit,
 ) {
+    val urlLabel = stringResource(Res.string.url)
+    val userLabel = stringResource(Res.string.user)
+    val passwordLabel = stringResource(Res.string.password)
     AlertDialog(
         onDismissRequest = {},
-        title = { Text(stringResource(R.string.app_password_save)) },
+        title = { Text(stringResource(Res.string.app_password_save)) },
         text = {
             Column {
                 CopyableField(
-                    label = stringResource(R.string.url),
+                    label = urlLabel,
                     value = caldavUrl,
-                    onCopy = { onCopyField(R.string.url, caldavUrl) },
+                    onCopy = { onCopyField(urlLabel, caldavUrl) },
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 CopyableField(
-                    label = stringResource(R.string.user),
+                    label = userLabel,
                     value = username ?: "",
                     onCopy = {
-                        username?.let { onCopyField(R.string.user, it) }
+                        username?.let { onCopyField(userLabel, it) }
                     },
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 CopyableField(
-                    label = stringResource(R.string.password),
+                    label = passwordLabel,
                     value = password ?: "",
                     onCopy = {
-                        password?.let { onCopyField(R.string.password, it) }
+                        password?.let { onCopyField(passwordLabel, it) }
                     },
                 )
             }
         },
         confirmButton = {
             TextButton(onClick = onDismiss) {
-                Text(stringResource(R.string.ok))
+                Text(stringResource(Res.string.ok))
             }
         },
         dismissButton = {
             TextButton(onClick = onHelp) {
-                Text(stringResource(R.string.help))
+                Text(stringResource(Res.string.help))
             }
         },
     )
@@ -744,7 +790,7 @@ private fun CalendarSelectionDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.email_to_task_calendar)) },
+        title = { Text(stringResource(Res.string.email_to_task_calendar)) },
         text = {
             Column(modifier = Modifier.selectableGroup()) {
                 calendars.forEach { calendar ->
@@ -776,7 +822,7 @@ private fun CalendarSelectionDialog(
         confirmButton = {},
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text(stringResource(R.string.cancel))
+                Text(stringResource(Res.string.cancel))
             }
         },
     )

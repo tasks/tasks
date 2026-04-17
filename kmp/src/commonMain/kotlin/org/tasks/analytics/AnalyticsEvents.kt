@@ -12,6 +12,7 @@ object AnalyticsEvents {
     const val SCREEN_WELCOME = "screen_welcome"
     const val SIGN_IN_ERROR = "sign_in_error"
     const val SIGN_IN_PROVIDER_SELECTED = "sign_in_provider_selected"
+    const val SETTINGS_CLICK = "settings_click"
     const val SORT_CHANGE = "sort_change"
     const val SYNC_UNKNOWN_ACCESS = "sync_unknown_access"
 

@@ -507,8 +507,6 @@
     <string name="ok">OK</string>
     <string name="current_subscription">Assinatura atual: %s</string>
     <string name="no_google_play_subscription">Nenhuma assinatura elegível do Google Play foi encontrada</string>
-    <string name="insufficient_sponsorship">Nenhum patrocínio elegível do GitHub foi encontrado</string>
-    <string name="insufficient_subscription">Nível de assinatura insuficiente. Por favor atualize sua assinatura para continuar o serviço.</string>
     <string name="your_subscription_expired">Sua assinatura expirou. Assine agora para continuar o serviço.</string>
     <string name="custom_filter_is_subtask">É uma subtarefa</string>
     <string name="custom_filter_has_subtask">Tem subtarefas</string>
@@ -553,14 +551,7 @@
     <string name="account_not_included">Não incluído nas assinaturas de \'Dê o seu preço\'</string>
     <string name="tasks_org_account_required">É necessária uma conta em Tasks.org</string>
     <string name="copied_to_clipboard">%s copiado para a área de transferência</string>
-    <string name="app_password_save">Use essas credenciais para configurar um aplicativo de terceiros. Ela garante acesso completo a sua conta Task.org, não os escreva ou compartilhe com ninguém!</string>
-    <string name="app_password_delete_confirmation">Qualquer aplicativo que usar esta senha será desconectado</string>
-    <string name="app_password_last_access">Usado pela última vez: %s</string>
-    <string name="app_password_created_at">Criado: %s</string>
-    <string name="app_password_enter_description">Dê um nome a sua senha (opcional)</string>
-    <string name="generate_new_password">Gerar nova senha</string>
     <string name="app_passwords_more_info">Sincronize suas tarefas e calendários com aplicativos móveis e de desktop de terceiros. Toque aqui para obter mais informações</string>
-    <string name="app_passwords">Senhas do aplicativo</string>
     <string name="app_password">Senha do aplicativo</string>
     <string name="save_percent">Economize %d%%</string>
     <string name="above_average">Acima da média</string>
@@ -569,7 +560,6 @@
     <string name="migrate">Migrar</string>
     <string name="github_sponsor">Patrocinador</string>
     <string name="authentication_required">Autorização necessária</string>
-    <string name="sign_in_with_github">Faça login com GitHub</string>
     <string name="sign_in_with_google">Faça login com Google</string>
     <string name="github_sponsors">Patrocinadores do GitHub</string>
     <string name="authorization_cancelled">Autorização cancelada</string>

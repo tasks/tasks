@@ -55,4 +55,12 @@
     <string name="display_name">Mostrar el nome</string>
     <string name="manage_subscription">Camudar soscripción</string>
     <string name="button_unsubscribe">Encaboxar soscripción</string>
+    <string name="logout">Zarrar sesión</string>
+    <string name="logout_warning">Tolos datos pa esta cuenta desaniciaranse del to dispositivu</string>
+    <string name="remove">Desaniciar</string>
+    <string name="delete_tag_confirmation">Desaniciar %s?</string>
+    <string name="button_subscribe">Soscribise</string>
+    <string name="url">URL</string>
+    <string name="user">Usuariu</string>
+    <string name="password">Conseña</string>
 </resources>
