@@ -22,7 +22,7 @@ import com.todoroo.astrid.service.Upgrader.Companion.getAndroidColor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
+import org.tasks.extensions.lenientJson
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.analytics.Firebase
@@ -216,23 +216,23 @@ class TasksJsonImporter @Inject constructor(
                                 }
                             }
                             "intPrefs" ->
-                                Json.decodeFromString<Map<String, Integer>>(reader.jsonString())
+                                lenientJson.decodeFromString<Map<String, Integer>>(reader.jsonString())
                                     .filterNot { (key, _) -> ignoreKeys.contains(key) }
                                     .forEach { (k, v) -> preferences.setInt(k, v as Int) }
                             "longPrefs" ->
-                                Json.decodeFromString<Map<String, java.lang.Long>>(reader.jsonString())
+                                lenientJson.decodeFromString<Map<String, java.lang.Long>>(reader.jsonString())
                                     .filterNot { (key, _) -> ignoreKeys.contains(key) }
                                     .forEach { (k, v) -> preferences.setLong(k, v as Long)}
                             "stringPrefs" ->
-                                Json.decodeFromString<Map<String, String>>(reader.jsonString())
+                                lenientJson.decodeFromString<Map<String, String>>(reader.jsonString())
                                     .filterNot { (k, _) -> ignoreKeys.contains(k) }
                                     .forEach { (k, v) -> preferences.setString(k, v)}
                             "boolPrefs" ->
-                                Json.decodeFromString<Map<String, java.lang.Boolean>>(reader.jsonString())
+                                lenientJson.decodeFromString<Map<String, java.lang.Boolean>>(reader.jsonString())
                                     .filterNot { (k, _) -> ignoreKeys.contains(k) }
                                     .forEach { (k, v) -> preferences.setBoolean(k, v as Boolean) }
                             "setPrefs" ->
-                                Json.decodeFromString<Map<String, Set<String>>>(reader.jsonString())
+                                lenientJson.decodeFromString<Map<String, Set<String>>>(reader.jsonString())
                                     .filterNot { (k, _) -> ignoreKeys.contains(k) }
                                     .forEach { (k, v) -> preferences.setStringSet(k, v as HashSet<String>)}
                             "googleTaskAccounts" -> reader.forEach<GoogleTaskAccount> { googleTaskAccount ->
@@ -504,10 +504,6 @@ class TasksJsonImporter @Inject constructor(
     }
 
     companion object {
-        private val json = Json {
-            isLenient = true
-            ignoreUnknownKeys = true
-        }
         private val ignorePrefs = intArrayOf(
                 R.string.p_current_version,
                 R.string.p_backups_android_backup_last,

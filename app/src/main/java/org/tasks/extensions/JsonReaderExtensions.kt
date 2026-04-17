@@ -5,9 +5,15 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.io.StringWriter
 
+@PublishedApi
+internal val lenientJson = Json {
+    isLenient = true
+    ignoreUnknownKeys = true
+}
+
 inline fun <reified T>JsonReader.forEach(callback: (@Serializable T) -> Unit) where T : Any {
     beginArray()
-    while (hasNext()) callback(Json.decodeFromString(jsonString()))
+    while (hasNext()) callback(lenientJson.decodeFromString(jsonString()))
     endArray()
 }
 
