@@ -337,7 +337,6 @@
     <string name="help">Súgó</string>
     <string name="network_error">Sikertelen kapcsolódás</string>
     <string name="upgrade_to_pro">Upgrade pro verzióra</string>
-    <string name="manage_subscription">Előfizetés módosítása</string>
     <string name="refresh_purchases">Vásárlások frissítése</string>
     <string name="button_subscribe">Előfizetés</string>
     <string name="about">Névjegy</string>
@@ -374,7 +373,6 @@
     <string name="location_radius_meters">%s m</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Ikon</string>
-    <string name="button_unsubscribe">Előfizetés lemondása</string>
     <string name="name_your_price">Nevezd meg az árat</string>
     <string name="SSD_sort_my_order">Egyéni sorrend</string>
     <string name="error_adding_account">Hiba: %s</string>
@@ -719,18 +717,12 @@
     <string name="add_default_reminders">Alapértelmezett emlékeztető hozzáadása</string>
     <string name="rmd_time_enabled_on">Alapértelmezett emlékeztető hozzáadása egész napos feladatokhoz</string>
     <string name="rmd_time_enabled_off">Egész napos feladatok emlékeztetőjének mellőzése</string>
-    <string name="supporter">Támogató</string>
-    <string name="donate">Adományozás</string>
-    <string name="supporter_summary">%s • Köszönöm!</string>
-    <string name="sign_in_to_connect">Jelentkezz be a Tasks.org fiókod csatolásához</string>
     <string name="upgrade_email_to_task_description">Feladatok létrehozásához küldd tovább a leveleidet a privát fiókodba</string>
     <string name="advanced_tools">Speciális eszközök</string>
     <string name="advanced_tools_description">Google Helyek, CalDAV, EteSync, és egyebek!</string>
     <string name="invalid_email_address">Érvénytelen e-mail cím</string>
-    <string name="upgrade_to_pro_card_description">Tasks.org felhős szinkronizálás, megosztás családdal és barátokkal, illetve Task e-mailből funkciók feloldása</string>
     <string name="share_list">\"%1$s\" megosztása</string>
     <string name="send">Küldés</string>
-    <string name="guest">Vendég</string>
     <string name="guest_create_list_message">A megosztott listához jelenleg vendég hozzáféréssel rendelkezel. Saját privát listák létrehozásához és felhős szinkronizálásához Tasks.org előfizetésre van szükséged. Alternatívaként létrehozhatsz egy ingyenes helyi listát, ami ezen a készüléken tárolódik.</string>
     <string name="guests">Vendégek (%1$d/%2$d)</string>
     <string name="shared_with_me">Velem megosztva</string>

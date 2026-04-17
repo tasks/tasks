@@ -373,9 +373,7 @@
     <string name="requires_pro_subscription">Edellyttää pro-tilauksen</string>
     <string name="license_summary">Tasks on vapaa avoimen ohjelmakoodin ohjelmisto lisensöity GNU General Public License v3.0 -lisenssillä</string>
     <string name="about">Tietoja sovelluksesta</string>
-    <string name="button_unsubscribe">Peruuta tilaus</string>
     <string name="button_subscribe">Tilaa</string>
-    <string name="manage_subscription">Muokkaa tilausta</string>
     <string name="network_error">Yhteyttä ei saatu</string>
     <string name="help_and_feedback">Apu &amp; palaute</string>
     <string name="list_separator_with_space">", "</string>
@@ -697,7 +695,5 @@
     <string name="add_default_reminders">Lisää oletusmuistutus</string>
     <string name="rmd_time_enabled_on">Lisää oletusmuistutus koko päivän tehtäville</string>
     <string name="rmd_time_enabled_off">Älä lisää oletusmuistutusta koko päivän tehtäville</string>
-    <string name="upgrade_to_pro_card_description">Avaa Tasks.org-pilvisynkronointi, perhe- ja ystäväjako sekä sähköpostista tehtäväksi -toiminto</string>
-    <string name="supporter">Tukija</string>
     <string name="banner_subscription_required_title">Tilaus vaaditaan</string>
 </resources>

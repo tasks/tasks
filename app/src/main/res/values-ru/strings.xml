@@ -353,7 +353,6 @@
     <string name="help">Помощь</string>
     <string name="network_error">Не удалось подключиться</string>
     <string name="upgrade_to_pro">Обновить до версии Про</string>
-    <string name="manage_subscription">Изменить подписку</string>
     <string name="refresh_purchases">Обновить покупки</string>
     <string name="button_subscribe">Подписаться</string>
     <string name="about">О программе</string>
@@ -384,7 +383,6 @@
     <string name="choose_new_location">Выберите новое местоположение</string>
     <string name="invalid_backup_file">Неверный файл резервной копии</string>
     <string name="icon">Иконка</string>
-    <string name="button_unsubscribe">Отменить подписку</string>
     <string name="name_your_price">Назовите свою цену</string>
     <string name="url">URL</string>
     <string name="error_adding_account">Ошибка: %s</string>
@@ -728,5 +726,4 @@
     <string name="location_update_interval_disabled">Отключено</string>
     <string name="rmd_EPr_rmd_time_desc">Уведомления для задач на весь день появятся в %1$s</string>
     <string name="local_list_title">Это локальный список</string>
-    <string name="donate">Пожертвовать</string>
 </resources>

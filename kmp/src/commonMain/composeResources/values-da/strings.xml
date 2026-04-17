@@ -105,4 +105,13 @@
     <string name="back">Tilbage</string>
     <string name="help">Hjælp</string>
     <string name="display_name">Visningsnavn</string>
+    <string name="supporter">Supporter</string>
+    <string name="price_per_month_with_currency">%s/måned</string>
+    <string name="price_per_year_with_currency">%s/år</string>
+    <string name="supporter_summary">%s • Tak!</string>
+    <string name="sign_in_to_connect">Log ind for at forbinde din Tasks.org-konto</string>
+    <string name="donate">Donér</string>
+    <string name="donate_nag">Overvej at vise din støtte med en donation!</string>
+    <string name="manage_subscription">Administrer abonnement</string>
+    <string name="button_unsubscribe">Opsig abonnement</string>
 </resources>

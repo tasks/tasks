@@ -313,7 +313,6 @@
     <string name="action_call">Ligar</string>
     <string name="action_open">Abrir</string>
     <string name="TEA_timer_est">Duração %s</string>
-    <string name="button_unsubscribe">Cancelar subscrição</string>
     <string name="icon">Ícone</string>
     <string name="google_tasks_add_to_top">Novas tarefas no topo</string>
     <string name="invalid_backup_file">O ficheiro de cópia de segurança é inválido</string>
@@ -347,7 +346,6 @@
     <string name="about">Sobre</string>
     <string name="button_subscribe">Subscrever</string>
     <string name="refresh_purchases">Atualizar compras</string>
-    <string name="manage_subscription">Alterar subscrição</string>
     <string name="upgrade_to_pro">Atualizar para pro</string>
     <string name="help">Ajuda</string>
     <string name="tasker_list_notification">Listar notificações</string>

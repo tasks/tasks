@@ -58,4 +58,6 @@
     <string name="subtasks">ذیلی ٹاسکس</string>
     <string name="none">کوئی نہیں</string>
     <string name="display_name">ظاہری نام</string>
+    <string name="manage_subscription">سبسکرپشن تبدیل کریں</string>
+    <string name="button_unsubscribe">سبسکرپسن کینسل کریں</string>
 </resources>

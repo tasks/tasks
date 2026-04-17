@@ -343,7 +343,6 @@
     <string name="help">Hjälp</string>
     <string name="network_error">Kunde inte ansluta</string>
     <string name="upgrade_to_pro">Uppgradera till Pro</string>
-    <string name="manage_subscription">Ändra abonnemang</string>
     <string name="refresh_purchases">Uppdatera inköp</string>
     <string name="button_subscribe">Prenumerera</string>
     <string name="about">Om</string>
@@ -377,7 +376,6 @@
     <string name="invalid_backup_file">Ogiltig säkerhetskopieringsfil</string>
     <string name="google_tasks_add_to_top">Nya uppgifter överst</string>
     <string name="icon">Ikon</string>
-    <string name="button_unsubscribe">Avbryt abonnemang</string>
     <string name="name_your_price">Namnge ditt pris</string>
     <string name="SSD_sort_my_order">Min sortering</string>
     <string name="error_adding_account">Fel: %s</string>

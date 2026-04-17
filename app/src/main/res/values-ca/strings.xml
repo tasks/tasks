@@ -324,7 +324,6 @@
     <string name="upgrade_to_pro">Actualitza a pro</string>
     <string name="network_error">No s\'ha pogut connectar</string>
     <string name="subscription">Subscripció</string>
-    <string name="manage_subscription">Modifica la subscripció</string>
     <string name="linkify">Mostra els enllaços</string>
     <string name="linkify_description">Afegeix enllaçaos a llocs web, adreces, i números de telèfon</string>
     <string name="location_remind_departure">Recordar a la sortida</string>
@@ -334,7 +333,6 @@
     <string name="repeat_monthly_fifth_week">cinquè</string>
     <string name="button_subscribe">Subscriu-te</string>
     <string name="refresh_purchases">Actualitza les compres</string>
-    <string name="button_unsubscribe">Cancel·leu la subscripció</string>
     <string name="missing_permissions">Falten permisos</string>
     <string name="choose_new_location">Escollir una nova ubicació</string>
     <string name="location_permission_required_location">Es necessiten els permisos de ubicació per trobar la teva ubicació actual</string>

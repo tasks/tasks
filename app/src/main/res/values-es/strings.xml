@@ -349,7 +349,6 @@
     <string name="help">Ayuda</string>
     <string name="network_error">No se pudo conectar</string>
     <string name="upgrade_to_pro">Actualizar a profesional</string>
-    <string name="manage_subscription">Modificar suscripción</string>
     <string name="refresh_purchases">Actualizar los acquisiciones</string>
     <string name="button_subscribe">Suscribe</string>
     <string name="about">Sobre</string>
@@ -390,7 +389,6 @@
     <string name="error_adding_account">Error : %s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Icono</string>
-    <string name="button_unsubscribe">Cancelar la suscripción</string>
     <string name="name_your_price">Precio flexible</string>
     <string name="SSD_sort_my_order">Mi orden</string>
     <plurals name="subtask_count">

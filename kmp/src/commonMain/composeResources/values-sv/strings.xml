@@ -105,4 +105,9 @@
     <string name="back">Tillbaka</string>
     <string name="help">Hjälp</string>
     <string name="display_name">Visa namnet</string>
+    <string name="price_per_month_with_currency">%s/månad</string>
+    <string name="price_per_year_with_currency">%s/år</string>
+    <string name="donate_nag">Överväg att visa ditt stöd med en donation!</string>
+    <string name="manage_subscription">Ändra abonnemang</string>
+    <string name="button_unsubscribe">Avbryt abonnemang</string>
 </resources>

@@ -114,4 +114,15 @@
     <string name="back">返回</string>
     <string name="help">幫助</string>
     <string name="display_name">顯示名稱</string>
+    <string name="upgrade_to_pro_card_description">解鎖 Tasks.org 雲端同步、家人和朋友共享，以及電子郵件轉任務</string>
+    <string name="supporter">支持者</string>
+    <string name="price_per_month_with_currency">每月 %s</string>
+    <string name="price_per_year_with_currency">每年 %s</string>
+    <string name="supporter_summary">%s • 感謝您！</string>
+    <string name="sign_in_to_connect">登入以連線您的 Tasks.org 帳戶</string>
+    <string name="guest">訪客</string>
+    <string name="donate">捐贈</string>
+    <string name="donate_nag">考慮透過捐款來表達您的支持！</string>
+    <string name="manage_subscription">變更訂閱</string>
+    <string name="button_unsubscribe">取消訂閱</string>
 </resources>

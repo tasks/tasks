@@ -116,4 +116,15 @@
     <string name="show_more">Több mutatása</string>
     <string name="show_less">Kevesebb mutatása</string>
     <string name="display_name">Megjelenített név</string>
+    <string name="upgrade_to_pro_card_description">Tasks.org felhős szinkronizálás, megosztás családdal és barátokkal, illetve Task e-mailből funkciók feloldása</string>
+    <string name="supporter">Támogató</string>
+    <string name="price_per_month_with_currency">%s/hónap</string>
+    <string name="price_per_year_with_currency">%s/év</string>
+    <string name="supporter_summary">%s • Köszönöm!</string>
+    <string name="sign_in_to_connect">Jelentkezz be a Tasks.org fiókod csatolásához</string>
+    <string name="guest">Vendég</string>
+    <string name="donate">Adományozás</string>
+    <string name="donate_nag">Gondolkodjon el rajta, hogy adományozással támogassa az alkalmazást!</string>
+    <string name="manage_subscription">Előfizetés módosítása</string>
+    <string name="button_unsubscribe">Előfizetés lemondása</string>
 </resources>

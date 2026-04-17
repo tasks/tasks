@@ -88,4 +88,7 @@
     <string name="back">Tilbake</string>
     <string name="help">Hjelp</string>
     <string name="display_name">Visningsnavn</string>
+    <string name="donate_nag">Vurder å vis din støtte med en donasjon!</string>
+    <string name="manage_subscription">Endre abonnement</string>
+    <string name="button_unsubscribe">Avbryt abonnement</string>
 </resources>

@@ -116,4 +116,15 @@
     <string name="show_more">Zobrazit více</string>
     <string name="show_less">Zobrazit méně</string>
     <string name="display_name">Zobrazované jméno</string>
+    <string name="upgrade_to_pro_card_description">Odemkněte cloudovou synchronizaci Tasks.org, sdílení s rodinou a přáteli a e-mail na úkol</string>
+    <string name="supporter">Podporovatel</string>
+    <string name="price_per_month_with_currency">%s měsíčně</string>
+    <string name="price_per_year_with_currency">%s ročně</string>
+    <string name="supporter_summary">%s • Děkujeme!</string>
+    <string name="sign_in_to_connect">Pro připojení účtu Tasks.org se přihlaste</string>
+    <string name="guest">Host</string>
+    <string name="donate">Přispět</string>
+    <string name="donate_nag">Zvažte podpoření projektu dobrovolným příspěvkem!</string>
+    <string name="manage_subscription">Upravit předplatné</string>
+    <string name="button_unsubscribe">Zrušit předplatné</string>
 </resources>

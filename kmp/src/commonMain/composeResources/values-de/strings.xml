@@ -116,4 +116,15 @@
     <string name="show_more">Mehr anzeigen</string>
     <string name="show_less">Weniger anzeigen</string>
     <string name="display_name">Anzeigename</string>
+    <string name="upgrade_to_pro_card_description">Tasks.org Cloud-Synchronisierung, Freigabe für Freunde &amp; Familie und E-Mail Aufgabenerstellung freischalten</string>
+    <string name="supporter">Unterstützer:in</string>
+    <string name="price_per_month_with_currency">%s/Monat</string>
+    <string name="price_per_year_with_currency">%s/Jahr</string>
+    <string name="supporter_summary">%s • Danke!</string>
+    <string name="sign_in_to_connect">Melde dich an, um dein Tasks.org Konto zu verbinden</string>
+    <string name="guest">Gast</string>
+    <string name="donate">Spenden</string>
+    <string name="donate_nag">Erwäge deine Unterstützung mit einer Spende zu zeigen!</string>
+    <string name="manage_subscription">Abonnement ändern</string>
+    <string name="button_unsubscribe">Abonnement kündigen</string>
 </resources>

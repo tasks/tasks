@@ -80,4 +80,6 @@
     <string name="back">Atzera</string>
     <string name="help">Laguntza</string>
     <string name="display_name">Erakutsi izena</string>
+    <string name="manage_subscription">Aldatu harpidetza</string>
+    <string name="button_unsubscribe">Ezeztatu harpidetza</string>
 </resources>

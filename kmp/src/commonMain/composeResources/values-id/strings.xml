@@ -116,4 +116,15 @@
     <string name="show_more">Tampilkan lebih banyak</string>
     <string name="show_less">Tampilkan lebih sedikit</string>
     <string name="display_name">Nama tampilan</string>
+    <string name="upgrade_to_pro_card_description">Buka kunci sinkronisasi Tasks.org Cloud, Berbagi Keluarga &amp; Teman, dan Email-ke-Tugas</string>
+    <string name="supporter">Pendukung</string>
+    <string name="price_per_month_with_currency">%s/bulan</string>
+    <string name="price_per_year_with_currency">%s/tahun</string>
+    <string name="supporter_summary">"%s -  Terima kasih!"</string>
+    <string name="sign_in_to_connect">Masuk untuk menghubungkan akun Tasks.org Anda</string>
+    <string name="guest">Tamu</string>
+    <string name="donate">Donasi</string>
+    <string name="donate_nag">Pertimbangkan untuk menunjukkan dukungan Anda dengan donasi!</string>
+    <string name="manage_subscription">Ubah/perbarui langganan</string>
+    <string name="button_unsubscribe">Batalkan langganan</string>
 </resources>

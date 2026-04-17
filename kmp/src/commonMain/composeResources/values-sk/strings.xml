@@ -94,4 +94,9 @@
     <string name="back">Späť</string>
     <string name="help">Pomoc</string>
     <string name="display_name">Zobrazované meno</string>
+    <string name="price_per_month_with_currency">%s mesačne</string>
+    <string name="price_per_year_with_currency">%s ročne</string>
+    <string name="donate_nag">Zvážte podporenie projektu dobrovoľným príspevkom!</string>
+    <string name="manage_subscription">Upraviť predplatné</string>
+    <string name="button_unsubscribe">Zrušiť predplatné</string>
 </resources>

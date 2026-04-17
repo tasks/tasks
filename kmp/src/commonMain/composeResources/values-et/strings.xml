@@ -107,4 +107,13 @@
     <string name="back">Tagasi</string>
     <string name="help">Abiinfo</string>
     <string name="display_name">Kuvatav nimi</string>
+    <string name="supporter">Toetaja</string>
+    <string name="price_per_month_with_currency">%s kuus</string>
+    <string name="price_per_year_with_currency">%s aastas</string>
+    <string name="supporter_summary">%s • Suur tänu!</string>
+    <string name="sign_in_to_connect">Ühendamaks oma Tasks.org-i kontot palun logi sisse</string>
+    <string name="donate">Toeta meid rahaliselt</string>
+    <string name="donate_nag">Rahalise toetusega saad edendada meie arendust!</string>
+    <string name="manage_subscription">Muuda tellimust</string>
+    <string name="button_unsubscribe">Tühista tellimus</string>
 </resources>

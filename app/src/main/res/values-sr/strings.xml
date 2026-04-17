@@ -396,9 +396,7 @@
     <string name="help">Помоћ</string>
     <string name="network_error">Повезивање безуспешно</string>
     <string name="subscription">Претплате</string>
-    <string name="manage_subscription">Модификуј претплате</string>
     <string name="button_subscribe">Претплати се</string>
-    <string name="button_unsubscribe">Откажи претплату</string>
     <string name="about">О нама</string>
     <string name="license_summary">,,Tasks.org\'\' је софтвер отвореног карактера, са лиценцом ,,GNU General Public License v3.0\'\'</string>
     <string name="requires_pro_subscription">Захтева претплату</string>
@@ -731,9 +729,6 @@
     <string name="alarm_after">након</string>
     <string name="alarm_before">пре</string>
     <string name="invalid_email_address">Невалидна мејл адреса</string>
-    <string name="sign_in_to_connect">Пријави се за повезивање Tasks.org налога</string>
-    <string name="supporter_summary">%s • Хвала!</string>
-    <string name="donate">Донирај</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync, и још тога!</string>
     <string name="advanced_tools">Напредна подешавања</string>
     <string name="upgrade_email_to_task_description">Претвори мејлове у задатке прослеђивањем истих у своје поштанско сандуче</string>
@@ -745,5 +740,4 @@
     <string name="email_to_task_calendar">Листа дестинација</string>
     <string name="email_to_task_address">Твоја мејл адреса</string>
     <string name="email_to_task">Мејл у задатак</string>
-    <string name="supporter">Подржавач</string>
 </resources>

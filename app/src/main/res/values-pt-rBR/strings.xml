@@ -349,7 +349,6 @@
     <string name="help">Ajuda</string>
     <string name="network_error">Não foi possível conectar</string>
     <string name="upgrade_to_pro">Comprar assinatura</string>
-    <string name="manage_subscription">Modificar assinatura</string>
     <string name="refresh_purchases">Atualizar compras</string>
     <string name="button_subscribe">Assinar</string>
     <string name="about">Sobre</string>
@@ -434,7 +433,6 @@
     <string name="third_party_licenses">Licenças de Terceiros</string>
     <string name="action_new_task">Nova tarefa</string>
     <string name="this_feature_requires_a_subscription">Essa função requer uma assinatura</string>
-    <string name="button_unsubscribe">Cancelar assinatura</string>
     <string name="help_and_feedback">Ajuda &amp; feedback</string>
     <string name="list_separator_with_space">", "</string>
     <string name="error_adding_account">Erro: %s</string>

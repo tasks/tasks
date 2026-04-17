@@ -332,7 +332,6 @@
     <string name="help">Hilfe</string>
     <string name="network_error">Verbindung fehlgeschlagen</string>
     <string name="upgrade_to_pro">Pro-Funktionen freischalten</string>
-    <string name="manage_subscription">Abonnement ändern</string>
     <string name="refresh_purchases">Einkäufe aktualisieren</string>
     <string name="button_subscribe">Abonnieren</string>
     <string name="about">Über</string>
@@ -376,7 +375,6 @@
     <string name="version_string">Version %s</string>
     <string name="error_adding_account">Fehler: %s</string>
     <string name="icon">Symbol</string>
-    <string name="button_unsubscribe">Abonnement kündigen</string>
     <string name="name_your_price">Nenn deinen Preis</string>
     <string name="SSD_sort_my_order">Eigene Sortierung</string>
     <string name="always_display_full_date">Datum ganz anzeigen</string>
@@ -722,18 +720,12 @@
     <string name="add_default_reminders">Standarderinnerungen hinzufügen</string>
     <string name="rmd_time_enabled_on">Standarderinnerungen für alle Aufgaben ohne Uhrzeit hinzufügen</string>
     <string name="rmd_time_enabled_off">Keine Standarderinnerungen für Aufgaben ohne Uhrzeit hinzufügen</string>
-    <string name="supporter">Unterstützer:in</string>
-    <string name="donate">Spenden</string>
-    <string name="supporter_summary">%s • Danke!</string>
-    <string name="sign_in_to_connect">Melde dich an, um dein Tasks.org Konto zu verbinden</string>
     <string name="invalid_email_address">Ungültige E-Mail-Adresse</string>
     <string name="upgrade_friends_and_family">Freunde &amp; Familie</string>
     <string name="send">Senden</string>
-    <string name="guest">Gast</string>
     <string name="guests">Gäste (%1$d/%2$d)</string>
     <string name="shared_with_me">Mit mir geteilt</string>
     <string name="shared_by">Geteilt von %s</string>
-    <string name="upgrade_to_pro_card_description">Tasks.org Cloud-Synchronisierung, Freigabe für Freunde &amp; Familie und E-Mail Aufgabenerstellung freischalten</string>
     <string name="share_list">„%1$s“ teilen</string>
     <string name="guest_create_list_message">Du hast derzeit Gastzugriff auf freigegebene Listen. Um deine eigenen privaten Listen zu erstellen und mit der Cloud zu synchronisieren, benötigst du ein Tasks.org-Abo. Alternativ kannst du kostenlos eine lokale Liste erstellen, die auf diesem Gerät gespeichert bleibt.</string>
     <string name="upgrade_friends_and_family_description">5 kostenlose Gäste auf gemeinsamen Listen. Funktioniert mit Apple Reminders</string>

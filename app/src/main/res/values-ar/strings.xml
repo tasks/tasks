@@ -212,7 +212,6 @@
     <string name="TEA_timer_est">تقريبًا %s</string>
     <string name="FLA_search_filter">موافقًا ل\'%s\'</string>
     <string name="logout">تسجيل الخروج</string>
-    <string name="button_unsubscribe">إلغاء الإشتراك</string>
     <string name="button_subscribe">اشترك</string>
     <string name="subscription">اشتراك</string>
     <string name="repeat_monthly_last_week">الأخير</string>
@@ -410,7 +409,6 @@
     <string name="location_remind_departure">تذكير عند الرحيل</string>
     <string name="location_remind_arrival">تذكير عند الوصول</string>
     <string name="refresh_purchases">تحديث عمليات الشراء</string>
-    <string name="manage_subscription">عدّل الاشتراك</string>
     <string name="delete_multiple_tasks_confirmation">%s حذفت</string>
     <string name="copy_multiple_tasks_confirmation">%s نسخت</string>
     <string name="launcher_icon">أيقونة المشغّل</string>

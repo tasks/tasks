@@ -105,4 +105,13 @@
     <string name="back">Назад</string>
     <string name="help">Помоћ</string>
     <string name="display_name">Прикажи име</string>
+    <string name="supporter">Подржавач</string>
+    <string name="price_per_month_with_currency">%s/месечно</string>
+    <string name="price_per_year_with_currency">%s/годишње</string>
+    <string name="supporter_summary">%s • Хвала!</string>
+    <string name="sign_in_to_connect">Пријави се за повезивање Tasks.org налога</string>
+    <string name="donate">Донирај</string>
+    <string name="donate_nag">Подржи нас донацијом!</string>
+    <string name="manage_subscription">Модификуј претплате</string>
+    <string name="button_unsubscribe">Откажи претплату</string>
 </resources>

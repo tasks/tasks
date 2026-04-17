@@ -114,4 +114,15 @@
     <string name="back">חזרה</string>
     <string name="help">עזרה</string>
     <string name="display_name">שם תצוגה</string>
+    <string name="upgrade_to_pro_card_description">פתיחת סנכרון בענן Tasks.org,שיתוף חברים ומשפחה, ודוא\"ל־למשימה</string>
+    <string name="supporter">תומך</string>
+    <string name="price_per_month_with_currency">%s לחודש</string>
+    <string name="price_per_year_with_currency">%s לשנה</string>
+    <string name="supporter_summary">%s • תודה לך!</string>
+    <string name="sign_in_to_connect">יש להיכנס כדי לחבר את חשבון ה־Tasks.org שלך</string>
+    <string name="guest">אורח</string>
+    <string name="donate">תרומה</string>
+    <string name="donate_nag">נא לשקול להראות את תמיכתך באמצעות תרומה!</string>
+    <string name="manage_subscription">שינוי מינוי</string>
+    <string name="button_unsubscribe">ביטול מינוי</string>
 </resources>

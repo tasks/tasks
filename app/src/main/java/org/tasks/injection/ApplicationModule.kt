@@ -193,6 +193,14 @@ class ApplicationModule {
         workManager: WorkManager,
     ): BillingClient = BillingClientImpl(context, inventory, firebase, workManager)
 
+    @Provides
+    @Singleton
+    fun provideSubscriptionProvider(
+        inventory: Inventory,
+        billingClient: BillingClient,
+    ): org.tasks.billing.SubscriptionProvider =
+        org.tasks.billing.AndroidSubscriptionProvider(inventory, billingClient)
+
     @Singleton
     @ApplicationScope
     @Provides

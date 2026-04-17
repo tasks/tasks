@@ -89,4 +89,6 @@
     <string name="back">Wstecz</string>
     <string name="help">Pomoc</string>
     <string name="display_name">Nazwa wyświetlana</string>
+    <string name="manage_subscription">Zmodyfikuj subskrypcję</string>
+    <string name="button_unsubscribe">Anuluj subskrypcję</string>
 </resources>

@@ -95,4 +95,9 @@
     <string name="back">عودة</string>
     <string name="help">مساعدة</string>
     <string name="display_name">اسم العرض</string>
+    <string name="price_per_month_with_currency">%s/شهر</string>
+    <string name="price_per_year_with_currency">%s/السنة</string>
+    <string name="donate_nag">فكِّر في إظهار دعمك بالتبرع!</string>
+    <string name="manage_subscription">عدّل الاشتراك</string>
+    <string name="button_unsubscribe">إلغاء الإشتراك</string>
 </resources>

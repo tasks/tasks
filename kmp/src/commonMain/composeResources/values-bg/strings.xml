@@ -114,4 +114,13 @@
     <string name="help">Помощ</string>
     <string name="tasks_org_description">Включва споделяне със семейство и приятели и задачи от писмо</string>
     <string name="display_name">Показвано име</string>
+    <string name="supporter">Поддръжник</string>
+    <string name="price_per_month_with_currency">%s/месец</string>
+    <string name="price_per_year_with_currency">%s/година</string>
+    <string name="supporter_summary">%s • Благодаря ви!</string>
+    <string name="sign_in_to_connect">Впишете се, за да свържете с профила в Tasks.org</string>
+    <string name="donate">Даряване</string>
+    <string name="donate_nag">Помислете дали да не покажете подкрепата си чрез дарение!</string>
+    <string name="manage_subscription">Управление на абонамент</string>
+    <string name="button_unsubscribe">Прекратяване на абонамент</string>
 </resources>

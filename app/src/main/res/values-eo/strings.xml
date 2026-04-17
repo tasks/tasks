@@ -353,7 +353,6 @@
     <string name="linkify">Vidigi ligilojn</string>
     <string name="show_advanced_settings">Vidigi altnivelajn agordojn</string>
     <string name="help_and_feedback">Helpo k pritakso</string>
-    <string name="button_unsubscribe">Nuligi abonon</string>
     <string name="ring_once">Soni unufoje</string>
     <string name="default_location_reminder_on_arrival">Post alveno</string>
     <string name="CFC_importance_text">Prioritato almenaŭ estas ?</string>
@@ -480,7 +479,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="tasker_create_task">Krei taskon</string>
     <string name="network_error">Ne povas konekti</string>
-    <string name="manage_subscription">Modifi abonon</string>
     <string name="button_subscribe">Aboni</string>
     <string name="this_feature_requires_a_subscription">Abono necesas por ĉi tiu funkcio</string>
     <string name="reinitialize_account">Repravalorizi</string>
@@ -712,16 +710,11 @@
     <string name="rmd_EPr_rmd_time_desc">Sciigoj de tuttagaj taskoj aperos je %1$s</string>
     <string name="default_reminder">Tuttagaj taskoj</string>
     <string name="add_default_reminders">Aldoni defaŭltajn memorigilojn</string>
-    <string name="supporter">Abonanto</string>
-    <string name="donate">Donaci</string>
     <string name="per_list_sort_title">Ordigi laŭ listo</string>
     <string name="per_list_sort_summary">Sendepende konservi ordigajn kaj grupajn agordojn de ĉiu listo</string>
-    <string name="supporter_summary">%s • Dankon!</string>
-    <string name="sign_in_to_connect">Ensalutu por konekti al via konto de Tasks.org</string>
     <string name="email_to_task_address">Via retpoŝtadreso</string>
     <string name="send">Sendi</string>
     <string name="invalid_email_address">Nevalida retpoŝtadreso</string>
-    <string name="guest">Gasto</string>
     <string name="guests">Gastoj (%1$d/%2$d)</string>
     <string name="upgrade_friends_and_family">Amikoj kaj Familianoj</string>
     <string name="advanced_tools">Altnivelaj iloj</string>
@@ -730,7 +723,6 @@
     <string name="sign_in_subtitle">Ĉu vi jam estas abonanto aŭ invitita gasto?</string>
     <string name="rmd_time_enabled_on">Aldoni defaŭltajn memorigilojn al tuttagaj taskoj</string>
     <string name="rmd_time_enabled_off">Ne aldoni defaŭltajn memorigilojn al tuttagaj taskoj</string>
-    <string name="upgrade_to_pro_card_description">Por malŝlosi sinkronigon de Tasks.org Cloud, komunigon de Amikoj kaj Familianoj, kaj Retpoŝto al Tasko</string>
     <string name="email_to_task">Retpoŝto al tasko</string>
     <string name="email_to_task_calendar">Listo de cellokoj</string>
     <string name="regenerate_email_address">Regeneri adreson</string>

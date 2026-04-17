@@ -114,4 +114,15 @@
     <string name="back">Geri</string>
     <string name="help">Yardım</string>
     <string name="display_name">Gösterim adı</string>
+    <string name="upgrade_to_pro_card_description">Tasks.org Cloud eşzamanlama, Arkadaşlar &amp; Aile Paylaşımı ve E-postayla Görev kilidini aç</string>
+    <string name="supporter">Destekçi</string>
+    <string name="price_per_month_with_currency">%s/ay</string>
+    <string name="price_per_year_with_currency">%s/yıl</string>
+    <string name="supporter_summary">%s • Sağ olun!</string>
+    <string name="sign_in_to_connect">Tasks.org hesabınıza bağlanmak için oturum açın</string>
+    <string name="guest">Konuk</string>
+    <string name="donate">Bağış Yap</string>
+    <string name="donate_nag">Desteğinizi bağış yaparak göstermeyi düşünün!</string>
+    <string name="manage_subscription">Aboneliği değiştir</string>
+    <string name="button_unsubscribe">Aboneliği iptal et</string>
 </resources>

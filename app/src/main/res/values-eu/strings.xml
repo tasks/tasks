@@ -345,7 +345,6 @@
     <string name="help">Laguntza</string>
     <string name="network_error">Ezin izan da konektatu</string>
     <string name="upgrade_to_pro">Aldatu pro bertsiora</string>
-    <string name="manage_subscription">Aldatu harpidetza</string>
     <string name="refresh_purchases">Freskatu erosketak</string>
     <string name="button_subscribe">Harpidetu</string>
     <string name="about">Honi buruz</string>
@@ -379,7 +378,6 @@
     <string name="invalid_backup_file">Baliogabeko babes-kopia fitxategia</string>
     <string name="google_tasks_add_to_top">Zeregin berriak goialdean</string>
     <string name="icon">Ikonoa</string>
-    <string name="button_unsubscribe">Ezeztatu harpidetza</string>
     <string name="name_your_price">Jarri zuk prezioa</string>
     <string name="error_adding_account">Errorea: %s</string>
     <string name="SSD_sort_my_order">Nire eskaria</string>

@@ -336,7 +336,6 @@
     <string name="help">Aide</string>
     <string name="network_error">Impossible de se connecter</string>
     <string name="upgrade_to_pro">Mise à niveau vers la version « pro »</string>
-    <string name="manage_subscription">Modifier l\'abonnement</string>
     <string name="refresh_purchases">Rafraîchir les achats</string>
     <string name="button_subscribe">S\'abonner</string>
     <string name="about">À propos</string>
@@ -389,7 +388,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="version_string">Version %s</string>
     <string name="icon">Icône</string>
-    <string name="button_unsubscribe">Annuler l\'abonnement</string>
     <string name="name_your_price">Donnez votre prix</string>
     <string name="error_adding_account">Erreur : %s</string>
     <string name="SSD_sort_my_order">Mon tri</string>
@@ -744,15 +742,9 @@
     <string name="upgrade_email_to_task_description">Transformez vos courriels en tâches en les transférant vers votre boîte de réception privée</string>
     <string name="advanced_tools">Outils avancés</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync, et plus encore !</string>
-    <string name="supporter">Supporter</string>
-    <string name="donate">Faire un don</string>
-    <string name="supporter_summary">%s • Merci !</string>
-    <string name="sign_in_to_connect">Authentifiez-vous pour connecter votre compte Tasks.org</string>
     <string name="invalid_email_address">Adresse électronique invalide</string>
-    <string name="upgrade_to_pro_card_description">Débloquez la synchronisation cloud Tasks.org, le partage entre amis et famille et la conversion de courriels en tâches</string>
     <string name="share_list">Partager « %1$s »</string>
     <string name="send">Envoyer</string>
-    <string name="guest">Invité</string>
     <string name="guest_create_list_message">Vous disposez actuellement d\'un accès invité aux listes partagées. Pour créer et synchroniser vos propres listes privées sur le cloud, vous devez souscrire un abonnement à Tasks.org. Vous pouvez également créer une liste locale gratuite qui restera sur cet appareil.</string>
     <string name="guests">Invités (%1$d/%2$d)</string>
     <string name="shared_with_me">Partagé avec moi</string>

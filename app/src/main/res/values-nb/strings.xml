@@ -345,7 +345,6 @@
     <string name="help">Hjelp</string>
     <string name="network_error">Kunne ikke koble til</string>
     <string name="upgrade_to_pro">Oppgrader til pro</string>
-    <string name="manage_subscription">Endre abonnement</string>
     <string name="refresh_purchases">Gjenoppfrisk kjøp</string>
     <string name="button_subscribe">Abonner</string>
     <string name="about">Om</string>
@@ -379,7 +378,6 @@
     <string name="invalid_backup_file">Ugyldig sikkerhetskopifil</string>
     <string name="google_tasks_add_to_top">Nye gjøremål øverst</string>
     <string name="icon">Ikon</string>
-    <string name="button_unsubscribe">Avbryt abonnement</string>
     <string name="name_your_price">Betal det du vil</string>
     <string name="error_adding_account">Feil: %s</string>
     <string name="SSD_sort_my_order">Min bestilling</string>

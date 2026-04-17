@@ -116,4 +116,15 @@
     <string name="show_less">隠す</string>
     <string name="group_mode">グループ</string>
     <string name="display_name">表示名</string>
+    <string name="upgrade_to_pro_card_description">Tasks.orgクラウド同期、家族・友人との共有、メールでタスク追加を可能にする</string>
+    <string name="supporter">支援者</string>
+    <string name="price_per_month_with_currency">%s/月</string>
+    <string name="price_per_year_with_currency">%s/年</string>
+    <string name="supporter_summary">%s •さん、ありがとうございます！</string>
+    <string name="sign_in_to_connect">サインインしてTasks.orgアカウントに接続する</string>
+    <string name="guest">ゲスト</string>
+    <string name="donate">寄付</string>
+    <string name="donate_nag">寄付で私たちをサポートしてください！</string>
+    <string name="manage_subscription">サブスクリプションの変更</string>
+    <string name="button_unsubscribe">サブスクリプションのキャンセル</string>
 </resources>

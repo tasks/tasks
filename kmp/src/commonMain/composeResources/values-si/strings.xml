@@ -77,4 +77,6 @@
     <string name="back">ආපසු</string>
     <string name="help">උදව්</string>
     <string name="display_name">ප්‍රදර්ශන නාමය</string>
+    <string name="manage_subscription">දායකත්වය වෙනස් කරන්න</string>
+    <string name="button_unsubscribe">දායකත්වය අවලංගු කරන්න</string>
 </resources>

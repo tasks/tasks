@@ -403,7 +403,6 @@
     <string name="next_sunday">اگلے اتوار</string>
     <string name="button_subscribe">سبسکرائب</string>
     <string name="refresh_purchases">خریداریوں کو ری فریش کریں</string>
-    <string name="manage_subscription">سبسکرپشن تبدیل کریں</string>
     <string name="subscription">سبسکرپشن</string>
     <string name="upgrade_to_pro">پرو پر اپ گریڈ کریں</string>
     <string name="network_error">رابطہ نہیں ہو سکا</string>
@@ -435,7 +434,6 @@
     <string name="pro_dashclock_extension">ڈیش لاک ایکسٹنشن</string>
     <string name="license_summary">ٹاسکس ایک لیبرے اوپن سورس سافٹ وئیر ہےجو کہ جی این یو لائسنس v3.0 کے تحت لائسنس شدہ ہے</string>
     <string name="about">متعلق</string>
-    <string name="button_unsubscribe">سبسکرپسن کینسل کریں</string>
     <string name="subtasks_multilevel_google_task">کثیر الدرجی ذیلی ٹاسکس کو گوگل ٹاسکس سپورٹ نہیں کرتا</string>
     <string name="collapse_subtasks">ذیلی ٹاسکس کو بند کریں</string>
     <string name="expand_subtasks">ذیلی ٹاسکس کو کھولیں</string>

@@ -250,7 +250,6 @@
     <string name="repeats_weekly">iga nädal</string>
     <string name="repeats_monthly">iga kuu</string>
     <string name="repeats_every">Kordub iga</string>
-    <string name="button_unsubscribe">Tühista tellimus</string>
     <string name="filter_overdue">Üle tähtaja</string>
     <string name="sort_modified_group">Muudetud %s</string>
     <string name="device_settings">Nutiseadme seadistused</string>
@@ -340,7 +339,6 @@
     <string name="repeats_never">Mitte kunagi</string>
     <string name="default_calendar">Vaikekalender</string>
     <string name="refresh_purchases">Värskenda ostud</string>
-    <string name="manage_subscription">Muuda tellimust</string>
     <string name="action_new_task">Uus ülesanne</string>
     <string name="location_remind_arrival">Tuleta saabudes meelde</string>
     <string name="cannot_access_account">Ei pääse kontole ligi</string>
@@ -717,10 +715,6 @@
     <string name="add_default_reminders">Lisa vaikimisi meeldetuletusi</string>
     <string name="rmd_time_enabled_on">Lisa vaikimisi meeldetuletused kogu päeva katvatele ülesannetele</string>
     <string name="rmd_time_enabled_off">Ära lisa vaikimisi meeldetuletusi kogu päeva katvatele ülesannetele</string>
-    <string name="supporter">Toetaja</string>
-    <string name="donate">Toeta meid rahaliselt</string>
-    <string name="supporter_summary">%s • Suur tänu!</string>
-    <string name="sign_in_to_connect">Ühendamaks oma Tasks.org-i kontot palun logi sisse</string>
     <string name="upgrade_email_to_task_description">Muuda e-kirjad ülesanneteks, kui edastad need oma privaatsesse postkasti</string>
     <string name="advanced_tools">Täiendavad tarvikud</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync ja palju muud!</string>

@@ -76,4 +76,6 @@
     <string name="back">กลับ</string>
     <string name="help">วิธีใช้</string>
     <string name="display_name">ชื่อที่ใช้แสดง</string>
+    <string name="manage_subscription">ปรับเปลี่ยนการบอกรับเป็นสมาชิก</string>
+    <string name="button_unsubscribe">ยกเลิกการบอกรับเป็นสมาชิก</string>
 </resources>

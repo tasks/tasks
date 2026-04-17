@@ -237,10 +237,8 @@
     <string name="pro_dashclock_extension">Phần mở rộng Dashclock</string>
     <string name="license_summary">Tasks là phần mềm tự do và mã nguồn mở, được cấp phép dưới GNU General Public License v3.0</string>
     <string name="about">Giới thiệu</string>
-    <string name="button_unsubscribe">Huỷ đăng ký</string>
     <string name="button_subscribe">Đăng ký</string>
     <string name="refresh_purchases">Làm mới các giao dịch</string>
-    <string name="manage_subscription">Sửa đổi đăng ký</string>
     <string name="subscription">Đăng ký</string>
     <string name="upgrade_to_pro">Nâng cấp lên pro</string>
     <string name="network_error">Không thể kết nối</string>

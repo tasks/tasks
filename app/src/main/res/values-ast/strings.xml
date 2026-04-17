@@ -456,10 +456,8 @@
     <string name="network_error">Nun se pudo coneutar</string>
     <string name="upgrade_to_pro">Anovar a pro</string>
     <string name="subscription">Soscripción</string>
-    <string name="manage_subscription">Camudar soscripción</string>
     <string name="refresh_purchases">Anovar les compres</string>
     <string name="button_subscribe">Soscribise</string>
-    <string name="button_unsubscribe">Encaboxar soscripción</string>
     <string name="about">Tocantes a</string>
     <string name="license_summary">Tasks ye un software llibre de códigu abiertu, llicenciáu baxu la Llicencia Pública Xeneral de GNU v3.0</string>
     <string name="pro_dashclock_extension">Estensión Dashclock</string>

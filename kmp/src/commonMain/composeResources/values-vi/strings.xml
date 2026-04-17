@@ -90,4 +90,6 @@
     <string name="back">Quay lại</string>
     <string name="help">Trợ giúp</string>
     <string name="display_name">Tên hiển thị</string>
+    <string name="manage_subscription">Sửa đổi đăng ký</string>
+    <string name="button_unsubscribe">Huỷ đăng ký</string>
 </resources>

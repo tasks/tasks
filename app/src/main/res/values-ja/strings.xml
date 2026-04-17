@@ -338,7 +338,6 @@
     <string name="help">ヘルプ</string>
     <string name="network_error">接続できません</string>
     <string name="upgrade_to_pro">プロ版にアップグレード</string>
-    <string name="manage_subscription">サブスクリプションの変更</string>
     <string name="refresh_purchases">購入を更新</string>
     <string name="button_subscribe">購入</string>
     <string name="about">アプリについて</string>
@@ -375,7 +374,6 @@
     <string name="url">URL</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">アイコン</string>
-    <string name="button_unsubscribe">サブスクリプションのキャンセル</string>
     <string name="name_your_price">価格はあなた次第</string>
     <string name="cancel">キャンセル</string>
     <string name="email">電子メール</string>
@@ -703,9 +701,6 @@
     <string name="regenerate_email_address">メールアドレスを再登録する</string>
     <string name="legal_disclosure_prefix_using">Tasks.orgを使用</string>
     <string name="email_to_task">メールでタスクを追加する</string>
-    <string name="donate">寄付</string>
-    <string name="supporter">支援者</string>
-    <string name="sign_in_to_connect">サインインしてTasks.orgアカウントに接続する</string>
     <string name="invalid_email_address">無効なメールアドレス</string>
     <string name="upgrade_email_to_task_description">あなたの私書箱に送ったメールをタスクに変換する</string>
     <string name="advanced_tools_description">Google Places、CalDAV、EteSyncなど！</string>
@@ -713,7 +708,6 @@
     <string name="default_reminder">時間指定のないタスク</string>
     <string name="rmd_time_enabled_on">時間指定のないタスクにデフォルトの通知を追加</string>
     <string name="rmd_time_enabled_off">時間指定のないタスクにデフォルトの通知を追加しない</string>
-    <string name="supporter_summary">%s •さん、ありがとうございます！</string>
     <string name="add_default_reminders">デフォルトの通知を追加する</string>
     <string name="advanced_tools">便利なツール</string>
     <string name="per_list_sort_summary">並べ替えやグループの設定を個別に保存する</string>
@@ -721,11 +715,9 @@
     <string name="p_per_list_sort">リストごとの並べ替え設定</string>
     <string name="share_list">\"%1$s\"を共有</string>
     <string name="send">送る</string>
-    <string name="guest">ゲスト</string>
     <string name="guest_create_list_message">あなたは共有リストへのゲストアクセスがあります。自分の個人的なリストを作成してクラウドに同期するにはTasks.orgの購読が必要です。または、端末内に保存する無料のローカルリストを作成することができます。</string>
     <string name="guests">ゲスト (%1$d/%2$d)</string>
     <string name="shared_with_me">共有されたもの</string>
-    <string name="upgrade_to_pro_card_description">Tasks.orgクラウド同期、家族・友人との共有、メールでタスク追加を可能にする</string>
     <string name="shared_by">%sからの共有</string>
     <string name="upgrade_friends_and_family">家族・友人</string>
     <string name="upgrade_friends_and_family_description">共有リストに無料のゲスト5名。Apple Remindersで利用可能</string>

@@ -52,7 +52,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -62,6 +61,7 @@ import org.tasks.BuildConfig
 import org.tasks.R
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.add_account
+import tasks.kmp.generated.resources.manage_subscription
 import androidx.compose.ui.graphics.Color
 import org.tasks.compose.components.TasksIcon
 import org.tasks.data.entity.CaldavAccount
@@ -194,7 +194,7 @@ fun TasksAccountScreen(
                                 modifier = Modifier
                                     .padding(end = SettingsContentPadding)
                                     .size(SettingsIconSize),
-                                tint = colorResource(R.color.icon_tint_with_alpha),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         },
                     )
@@ -316,7 +316,7 @@ fun TasksAccountScreen(
                                     imageVector = Icons.Outlined.Delete,
                                     contentDescription = null,
                                     modifier = Modifier.size(SettingsIconSize),
-                                    tint = colorResource(R.color.icon_tint_with_alpha),
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                 )
                             }
                         },
@@ -353,7 +353,7 @@ fun TasksAccountScreen(
             if (showManageRow) {
                 SettingsItemCard(position = CardPosition.Last) {
                     PreferenceRow(
-                        title = stringResource(R.string.manage_subscription),
+                        title = org.jetbrains.compose.resources.stringResource(Res.string.manage_subscription),
                         onClick = { showManageSheet = true },
                     )
                 }
@@ -365,7 +365,7 @@ fun TasksAccountScreen(
         DangerCard(
             icon = Icons.AutoMirrored.Outlined.Logout,
             title = stringResource(R.string.logout),
-            tint = colorResource(R.color.overdue),
+            tint = MaterialTheme.colorScheme.error,
             onClick = { showLogoutDialog = true },
             modifier = Modifier.padding(horizontal = SettingsContentPadding),
         )
@@ -558,8 +558,8 @@ private fun ErrorBannerCard(
     onOpenSponsor: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val errorColor = colorResource(R.color.overdue)
-    val defaultTint = colorResource(R.color.icon_tint_with_alpha)
+    val errorColor = MaterialTheme.colorScheme.error
+    val defaultTint = MaterialTheme.colorScheme.onSurfaceVariant
 
     val title: String?
     val summary: String
@@ -581,7 +581,7 @@ private fun ErrorBannerCard(
                 summary = stringResource(R.string.your_subscription_expired)
                 onClick = onSubscribe
             } else {
-                title = stringResource(R.string.manage_subscription)
+                title = org.jetbrains.compose.resources.stringResource(Res.string.manage_subscription)
                 summary = stringResource(R.string.insufficient_subscription)
                 onClick = onSubscribe
             }

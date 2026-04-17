@@ -41,7 +41,7 @@ class FlavorModule {
         supportsBackupImport = true,
         supportsGeofences = true,
         supportsCalendarEvents = true,
-        supportsInAppPurchase = true,
+        billingProvider = org.tasks.billing.BillingProvider.GOOGLE_PLAY,
     )
 
     @Provides

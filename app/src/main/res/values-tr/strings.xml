@@ -337,7 +337,6 @@
     <string name="help">Yardım</string>
     <string name="network_error">Bağlanamadı</string>
     <string name="upgrade_to_pro">Pro\'ya yükselt</string>
-    <string name="manage_subscription">Aboneliği değiştir</string>
     <string name="refresh_purchases">Satın alımları yenile</string>
     <string name="button_subscribe">Abone ol</string>
     <string name="about">Hakkında</string>
@@ -375,7 +374,6 @@
     <string name="error_adding_account">Hata: %s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Simge</string>
-    <string name="button_unsubscribe">Aboneliği iptal et</string>
     <string name="name_your_price">Fiyat belirle</string>
     <string name="SSD_sort_my_order">Düzenim</string>
     <plurals name="subtask_count">
@@ -713,10 +711,6 @@
     <string name="default_reminder">Tüm gün görevleri</string>
     <string name="rmd_time_enabled_on">Tüm gün görevlerine öntanımlı anımsatıcı ekle</string>
     <string name="rmd_time_enabled_off">Tüm gün görevlerine öntanımlı anımsatıcı ekleme</string>
-    <string name="supporter">Destekçi</string>
-    <string name="donate">Bağış Yap</string>
-    <string name="supporter_summary">%s • Sağ olun!</string>
-    <string name="sign_in_to_connect">Tasks.org hesabınıza bağlanmak için oturum açın</string>
     <string name="email_to_task">E-postayla görev</string>
     <string name="email_to_task_address">E-posta adresiniz</string>
     <string name="email_to_task_calendar">Hedef liste</string>
@@ -727,10 +721,8 @@
     <string name="advanced_tools_description">Google Yerler, CalDAV, EteSync ve dahası!</string>
     <string name="rmd_EPr_rmd_time_desc">Tüm gün görevleri için bildirimlerin görüneceği an: %1$s</string>
     <string name="invalid_email_address">Geçersiz e-posta adresi</string>
-    <string name="upgrade_to_pro_card_description">Tasks.org Cloud eşzamanlama, Arkadaşlar &amp; Aile Paylaşımı ve E-postayla Görev kilidini aç</string>
     <string name="share_list">Paylaş \"%1$s\"</string>
     <string name="send">Gönder</string>
-    <string name="guest">Konuk</string>
     <string name="guest_create_list_message">Bu paylaşılan listeye konuk erişiminiz var. Kendi özel listelerinizi oluşturmak ve buluta eşzamanlamak için Tasks.org aboneliğine gereksineceksiniz. Ya da bu aygıtta kalacak ücretsiz yerel liste oluştuabilirsiniz.</string>
     <string name="guests">Konuklar (%1$d/%2$d)</string>
     <string name="shared_with_me">Benimle paylaşıldı</string>

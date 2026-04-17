@@ -95,4 +95,9 @@
     <string name="back">மீண்டும்</string>
     <string name="help">உதவி</string>
     <string name="display_name">பெயர்</string>
+    <string name="price_per_month_with_currency">%s/மாதம்</string>
+    <string name="price_per_year_with_currency">%s/ஆண்டு</string>
+    <string name="donate_nag">நன்கொடை மூலம் உங்கள் ஆதரவைக் காண்பிப்பதைக் கவனியுங்கள்!</string>
+    <string name="manage_subscription">சந்தாவை மாற்றவும்</string>
+    <string name="button_unsubscribe">சந்தாவை ரத்துசெய்</string>
 </resources>

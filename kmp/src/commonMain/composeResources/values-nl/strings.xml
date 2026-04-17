@@ -103,4 +103,11 @@
     <string name="back">Terug</string>
     <string name="help">Hulp</string>
     <string name="display_name">Weergavenaam</string>
+    <string name="supporter">Supporter</string>
+    <string name="price_per_month_with_currency">%s per maand</string>
+    <string name="price_per_year_with_currency">%s per jaar</string>
+    <string name="donate">Doneren</string>
+    <string name="donate_nag">Overweeg om uw steun te tonen met een schenking!</string>
+    <string name="manage_subscription">Abonnement wijzigen</string>
+    <string name="button_unsubscribe">Abonnement opzeggen</string>
 </resources>

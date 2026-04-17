@@ -99,4 +99,10 @@
     <string name="enter_title">Введите название</string>
     <string name="group_mode">Группа</string>
     <string name="display_name">Отображаемое название</string>
+    <string name="price_per_month_with_currency">%s/месяц</string>
+    <string name="price_per_year_with_currency">%s/год</string>
+    <string name="donate">Пожертвовать</string>
+    <string name="donate_nag">Выразите свою поддержку с помощью пожертвования!</string>
+    <string name="manage_subscription">Изменить подписку</string>
+    <string name="button_unsubscribe">Отменить подписку</string>
 </resources>

@@ -95,4 +95,9 @@
     <string name="back">Atrás</string>
     <string name="help">Axuda</string>
     <string name="display_name">Mostrar o nome</string>
+    <string name="price_per_month_with_currency">%s/mes</string>
+    <string name="price_per_year_with_currency">%s/ano</string>
+    <string name="donate_nag">Considera mostrar o teu apoio cunha doazón!</string>
+    <string name="manage_subscription">Cambiar a suscrición</string>
+    <string name="button_unsubscribe">Cancelar a suscrición</string>
 </resources>

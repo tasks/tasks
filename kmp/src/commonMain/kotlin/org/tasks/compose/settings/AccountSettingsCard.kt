@@ -30,18 +30,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import org.tasks.R
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.button_unsubscribe
+import tasks.kmp.generated.resources.donate
+import tasks.kmp.generated.resources.donate_nag
+import tasks.kmp.generated.resources.guest
+import tasks.kmp.generated.resources.ic_round_icon
+import tasks.kmp.generated.resources.manage_subscription
+import tasks.kmp.generated.resources.price_per_month_with_currency
+import tasks.kmp.generated.resources.price_per_year_with_currency
+import tasks.kmp.generated.resources.sign_in_to_connect
+import tasks.kmp.generated.resources.supporter
+import tasks.kmp.generated.resources.supporter_summary
+import tasks.kmp.generated.resources.supporter_summary_no_price
 import tasks.kmp.generated.resources.tasks_org
+import tasks.kmp.generated.resources.upgrade_to_pro
+import tasks.kmp.generated.resources.upgrade_to_pro_card_description
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.themes.TasksTheme
 
 private val ProGoldColor = Color(0xFFFFB300)
 
@@ -91,11 +101,11 @@ fun AccountSettingsCard(
                 .padding(vertical = SettingsRowPadding),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            val defaultTint = colorResource(R.color.icon_tint_with_alpha)
-            val errorColor = colorResource(R.color.overdue)
+            val defaultTint = MaterialTheme.colorScheme.onSurfaceVariant
+            val errorColor = MaterialTheme.colorScheme.error
 
             var iconVector: ImageVector? = null
-            var iconRes: Int? = null
+            var useAppIcon = false
             val iconTint: Color
             val title: String
             val summary: String?
@@ -104,25 +114,25 @@ fun AccountSettingsCard(
             when (state) {
                 is ProCardState.Upgrade -> {
                     iconTint = ProGoldColor
-                    title = stringResource(R.string.upgrade_to_pro)
-                    summary = stringResource(R.string.upgrade_to_pro_card_description)
+                    title = stringResource(Res.string.upgrade_to_pro)
+                    summary = stringResource(Res.string.upgrade_to_pro_card_description)
                     showError = false
                 }
                 is ProCardState.Subscribed -> {
                     iconTint = ProGoldColor
-                    title = stringResource(R.string.supporter)
+                    title = stringResource(Res.string.supporter)
                     summary = when {
                         state.formattedPrice == null -> null
                         state.formattedPrice.isBlank() ->
-                            stringResource(R.string.supporter_summary_no_price)
+                            stringResource(Res.string.supporter_summary_no_price)
                         else -> {
                             val interval = if (state.isMonthly) {
-                                R.string.price_per_month_with_currency
+                                Res.string.price_per_month_with_currency
                             } else {
-                                R.string.price_per_year_with_currency
+                                Res.string.price_per_year_with_currency
                             }
                             stringResource(
-                                R.string.supporter_summary,
+                                Res.string.supporter_summary,
                                 stringResource(interval, state.formattedPrice)
                             )
                         }
@@ -130,23 +140,23 @@ fun AccountSettingsCard(
                     showError = false
                 }
                 is ProCardState.SignIn -> {
-                    iconRes = R.drawable.ic_round_icon
+                    useAppIcon = true
                     iconTint = Color.Unspecified
-                    val tasksOrgName = org.jetbrains.compose.resources.stringResource(Res.string.tasks_org)
+                    val tasksOrgName = stringResource(Res.string.tasks_org)
                     title = environmentLabel
                         ?.let { "$tasksOrgName \u2022 $it" }
                         ?: tasksOrgName
-                    summary = stringResource(R.string.sign_in_to_connect)
+                    summary = stringResource(Res.string.sign_in_to_connect)
                     showError = false
                 }
                 is ProCardState.TasksOrgAccount -> {
-                    iconRes = R.drawable.ic_round_icon
+                    useAppIcon = true
                     iconTint = Color.Unspecified
                     title = buildString {
-                        append(org.jetbrains.compose.resources.stringResource(Res.string.tasks_org))
+                        append(stringResource(Res.string.tasks_org))
                         environmentLabel?.let { append(" \u2022 $it") }
                         if (state.accountData?.guest == true) {
-                            append(" \u2022 ${stringResource(R.string.guest)}")
+                            append(" \u2022 ${stringResource(Res.string.guest)}")
                         }
                     }
                     summary = state.account.name
@@ -155,8 +165,8 @@ fun AccountSettingsCard(
                 is ProCardState.Donate -> {
                     iconVector = Icons.Outlined.FavoriteBorder
                     iconTint = defaultTint
-                    title = stringResource(R.string.donate)
-                    summary = stringResource(R.string.donate_nag)
+                    title = stringResource(Res.string.donate)
+                    summary = stringResource(Res.string.donate_nag)
                     showError = false
                 }
             }
@@ -178,9 +188,9 @@ fun AccountSettingsCard(
                     modifier = iconModifier,
                     tint = iconTint
                 )
-            } else if (iconRes != null) {
+            } else if (useAppIcon) {
                 Icon(
-                    painter = painterResource(iconRes!!),
+                    painter = painterResource(Res.drawable.ic_round_icon),
                     contentDescription = null,
                     modifier = iconModifier,
                     tint = iconTint
@@ -258,117 +268,6 @@ fun AccountSettingsCard(
     }
 }
 
-@PreviewLightDark
-@Composable
-private fun UpgradePreview() {
-    TasksTheme {
-        AccountSettingsCard(
-            state = ProCardState.Upgrade,
-            onClick = {}
-        )
-    }
-}
-
-@PreviewLightDark
-@Composable
-private fun SubscribedMonthlyPreview() {
-    TasksTheme {
-        AccountSettingsCard(
-            state = ProCardState.Subscribed(
-                isMonthly = true,
-                formattedPrice = "$2.99",
-            ),
-            onClick = {}
-        )
-    }
-}
-
-@PreviewLightDark
-@Composable
-private fun SubscribedAnnualPreview() {
-    TasksTheme {
-        AccountSettingsCard(
-            state = ProCardState.Subscribed(
-                isMonthly = false,
-                formattedPrice = "$29.99",
-            ),
-            onClick = {}
-        )
-    }
-}
-
-@PreviewLightDark
-@Composable
-private fun SignInPreview() {
-    TasksTheme {
-        AccountSettingsCard(
-            state = ProCardState.SignIn,
-            onClick = {}
-        )
-    }
-}
-
-@PreviewLightDark
-@Composable
-private fun TasksOrgAccountPreview() {
-    TasksTheme {
-        AccountSettingsCard(
-            state = ProCardState.TasksOrgAccount(
-                account = CaldavAccount(
-                    name = "user@tasks.org",
-                    accountType = CaldavAccount.TYPE_TASKS,
-                ),
-            ),
-            onClick = {}
-        )
-    }
-}
-
-@PreviewLightDark
-@Composable
-private fun TasksOrgAccountLoadingPreview() {
-    TasksTheme {
-        AccountSettingsCard(
-            state = ProCardState.TasksOrgAccount(
-                account = CaldavAccount(
-                    name = "user@tasks.org",
-                    accountType = CaldavAccount.TYPE_TASKS,
-                ),
-                isLoading = true,
-            ),
-            onClick = {}
-        )
-    }
-}
-
-@PreviewLightDark
-@Composable
-private fun TasksOrgAccountErrorPreview() {
-    TasksTheme {
-        AccountSettingsCard(
-            state = ProCardState.TasksOrgAccount(
-                account = CaldavAccount(
-                    name = "user@tasks.org",
-                    accountType = CaldavAccount.TYPE_TASKS,
-                    error = "Authentication failed",
-                ),
-            ),
-            onClick = {}
-        )
-    }
-}
-
-@PreviewLightDark
-@Composable
-private fun DonatePreview() {
-    TasksTheme {
-        AccountSettingsCard(
-            state = ProCardState.Donate,
-            onClick = {}
-        )
-    }
-}
-
 @Composable
 fun ManageSubscriptionSheetContent(
     onUpgrade: () -> Unit,
@@ -394,30 +293,18 @@ fun ManageSubscriptionSheetContent(
         }
         SettingsItemCard {
             PreferenceRow(
-                title = stringResource(R.string.manage_subscription),
+                title = stringResource(Res.string.manage_subscription),
                 icon = Icons.Outlined.Edit,
-                iconTint = colorResource(R.color.icon_tint_with_alpha),
+                iconTint = MaterialTheme.colorScheme.onSurfaceVariant,
                 onClick = onModify,
             )
         }
         DangerCard(
             icon = Icons.Outlined.RemoveCircleOutline,
-            title = stringResource(R.string.button_unsubscribe),
-            tint = colorResource(R.color.overdue),
+            title = stringResource(Res.string.button_unsubscribe),
+            tint = MaterialTheme.colorScheme.error,
             trailingIcon = Icons.AutoMirrored.Outlined.OpenInNew,
             onClick = onCancel,
-        )
-    }
-}
-
-@PreviewLightDark
-@Composable
-private fun ManageSubscriptionSheetPreview() {
-    TasksTheme {
-        ManageSubscriptionSheetContent(
-            onUpgrade = {},
-            onModify = {},
-            onCancel = {},
         )
     }
 }

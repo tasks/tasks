@@ -272,8 +272,6 @@
     <string name="tasker_list_notification">Última notificación</string>
     <string name="network_error">Non se puido conectar</string>
     <string name="subscription">Suscrición</string>
-    <string name="manage_subscription">Cambiar a suscrición</string>
-    <string name="button_unsubscribe">Cancelar a suscrición</string>
     <string name="about">Sobre de</string>
     <plurals name="list_count">
         <item quantity="one">%d lista</item>

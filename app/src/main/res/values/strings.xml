@@ -476,13 +476,9 @@ File %1$s contained %2$s.\n\n
   <string name="help_and_feedback">Help &amp; feedback</string>
   <string name="network_error">Could not connect</string>
   <string name="upgrade_to_pro">Upgrade to pro</string>
-  <string name="upgrade_to_pro_card_description">Unlock Tasks.org Cloud sync, Friends &amp; Family Sharing, and Email-to-Task</string>
   <string name="subscription">Subscription</string>
-  <string name="supporter">Supporter</string>
-  <string name="manage_subscription">Modify subscription</string>
   <string name="refresh_purchases">Refresh purchases</string>
   <string name="button_subscribe">Subscribe</string>
-  <string name="button_unsubscribe">Cancel subscription</string>
   <string name="about">About</string>
   <string name="license_summary">Tasks is libre open-source software, licensed under the GNU General Public License v3.0</string>
   <string name="pro_dashclock_extension">Dashclock extension</string>
@@ -597,7 +593,6 @@ File %1$s contained %2$s.\n\n
   <string name="banner_subscription_required_title">Subscription required</string>
   <string name="banner_subscription_required_body">Pay whatever you want to unlock %s synchronization</string>
   <string name="enjoying_tasks">Enjoying Tasks?</string>
-  <string name="donate">Donate</string>
   <string name="donate_nag">Consider showing your support with a donation!</string>
   <string name="donate_today">Donate today</string>
   <string name="donate_maybe_later">Maybe later</string>
@@ -640,8 +635,6 @@ File %1$s contained %2$s.\n\n
   <string name="price_per_month_with_currency">%s/month</string>
   <string name="price_per_year_with_currency">%s/year</string>
   <string name="current_subscription">Current subscription: %s</string>
-  <string name="supporter_summary">%s • Thank you!</string>
-  <string name="supporter_summary_no_price">Thank you!</string>
   <string name="follow_reddit">Join r/tasks</string>
   <string name="follow_twitter">Follow @tasks_org</string>
   <string name="social">Social</string>
@@ -661,7 +654,6 @@ File %1$s contained %2$s.\n\n
   <string name="migrate_count">Move %s to Tasks.org</string>
   <string name="above_average">Above average</string>
   <string name="save_percent">Save %d%%</string>
-  <string name="sign_in_to_connect">Sign in to connect your Tasks.org account</string>
   <string name="app_password">App password</string>
   <string name="app_passwords">App passwords</string>
   <string name="app_passwords_more_info">Synchronize your tasks and calendars with third-party desktop and mobile apps. Tap here for more info</string>
@@ -689,7 +681,6 @@ File %1$s contained %2$s.\n\n
   <string name="invite_declined">Invite declined</string>
   <string name="invite_awaiting_response">Invite awaiting response</string>
   <string name="invite_invalid">Invite invalid</string>
-  <string name="guest">Guest</string>
   <string name="guest_create_list_message">You currently have guest access to shared lists. To create and sync your own private lists to the cloud, you\'ll need a Tasks.org subscription. Or, you can create a free local list that stays on this device.</string>
   <string name="guests">Guests (%1$d/%2$d)</string>
   <string name="shared_with_me">Shared with me</string>

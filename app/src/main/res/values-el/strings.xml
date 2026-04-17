@@ -387,10 +387,8 @@
     <string name="network_error">Η σύνδεση απέτυχε</string>
     <string name="upgrade_to_pro">Αναβάθμιση σε συνδρομή</string>
     <string name="subscription">Συνδρομή εφαρμογής</string>
-    <string name="manage_subscription">Τροποποίηση συνδρομής</string>
     <string name="refresh_purchases">Ανανέωση συναλλαγών</string>
     <string name="button_subscribe">Εγγραφή στη συνδρομή</string>
-    <string name="button_unsubscribe">Ακύρωση συνδρομής</string>
     <string name="about">Σχετικά</string>
     <string name="license_summary">Η εφαρμογή Tasks είναι ελεύθερο λογισμικό ανοιχτού κώδικα, με άδεια χρήσης GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Επέκταση ρολογιού ταμπλό</string>

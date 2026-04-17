@@ -482,10 +482,8 @@
     <string name="requires_pro_subscription">Pro දායකත්වයක් අවශ්‍යයි</string>
     <string name="license_summary">Tasks යනු GNU පොදු මහජන බලපත්‍රය v3.0 යටතේ බලපත්‍ර ලබා දී ඇති විවෘත මෘදුකාංගයකි</string>
     <string name="about">පිළිබඳව</string>
-    <string name="button_unsubscribe">දායකත්වය අවලංගු කරන්න</string>
     <string name="button_subscribe">දායක වන්න</string>
     <string name="refresh_purchases">මිලදී ගැනීම් නැවුම් කරන්න</string>
-    <string name="manage_subscription">දායකත්වය වෙනස් කරන්න</string>
     <string name="subscription">දායකත්වය</string>
     <string name="network_error">සම්බන්ධ වීමට නොහැකි විය</string>
     <string name="help_and_feedback">උදව් සහ ප්‍රතිපෝෂණ</string>

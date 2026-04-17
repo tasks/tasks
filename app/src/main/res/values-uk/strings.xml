@@ -353,7 +353,6 @@
     <string name="help">Довідка</string>
     <string name="network_error">Не вдалося з’єднатися</string>
     <string name="upgrade_to_pro">Покращити до Преміум</string>
-    <string name="manage_subscription">Змінити підписку</string>
     <string name="refresh_purchases">Оновити покупки</string>
     <string name="button_subscribe">Підписатися</string>
     <string name="about">Про Tasks</string>
@@ -421,7 +420,6 @@
     <string name="expand_subtasks">Розгорнути підзавдання</string>
     <string name="name_your_price">Назвіть свою ціну</string>
     <string name="this_feature_requires_a_subscription">Ця функція потребує підписки</string>
-    <string name="button_unsubscribe">Скасувати підписку</string>
     <string name="share">Поділитися</string>
     <string name="select_all">Обрати всі</string>
     <string name="calendar_event_created">В календарі створено подію для %s</string>

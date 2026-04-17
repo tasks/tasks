@@ -181,9 +181,7 @@
     <string name="pro_dashclock_extension">ส่วนขยาย Dashclock</string>
     <string name="license_summary">งานคือซอฟต์แวร์โอลามไลซอร์ส libre ที่ได้รับอนุญาตภายใต้ใบอนุญาตสาธารณะทั่วไป GNU v3.0</string>
     <string name="about">เกี่ยวกับ</string>
-    <string name="button_unsubscribe">ยกเลิกการบอกรับเป็นสมาชิก</string>
     <string name="button_subscribe">ติดตาม</string>
-    <string name="manage_subscription">ปรับเปลี่ยนการบอกรับเป็นสมาชิก</string>
     <string name="subscription">การบอกรับสมาชิก</string>
     <string name="upgrade_to_pro">อัปเกรดเป็น Pro</string>
     <string name="refresh_purchases">รีเฟรชการซื้อ</string>

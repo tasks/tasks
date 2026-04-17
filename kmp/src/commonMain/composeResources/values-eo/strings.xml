@@ -106,4 +106,15 @@
     <string name="back">Reen</string>
     <string name="help">Helpo</string>
     <string name="display_name">Nomo</string>
+    <string name="upgrade_to_pro_card_description">Por malŝlosi sinkronigon de Tasks.org Cloud, komunigon de Amikoj kaj Familianoj, kaj Retpoŝto al Tasko</string>
+    <string name="supporter">Abonanto</string>
+    <string name="price_per_month_with_currency">%s/monato</string>
+    <string name="price_per_year_with_currency">%s/jaro</string>
+    <string name="supporter_summary">%s • Dankon!</string>
+    <string name="sign_in_to_connect">Ensalutu por konekti al via konto de Tasks.org</string>
+    <string name="guest">Gasto</string>
+    <string name="donate">Donaci</string>
+    <string name="donate_nag">Bonvolu doni subtenon per donaco!</string>
+    <string name="manage_subscription">Modifi abonon</string>
+    <string name="button_unsubscribe">Nuligi abonon</string>
 </resources>

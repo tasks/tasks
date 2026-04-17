@@ -290,10 +290,8 @@
     <string name="help">Bantuan</string>
     <string name="network_error">Tidak dapat terkoneksi</string>
     <string name="upgrade_to_pro">Tingkatkan ke pro</string>
-    <string name="manage_subscription">Ubah/perbarui langganan</string>
     <string name="refresh_purchases">Segarkan pembelian</string>
     <string name="button_subscribe">Langganan</string>
-    <string name="button_unsubscribe">Batalkan langganan</string>
     <string name="about">Tentang</string>
     <string name="license_summary">Tasks adalah perangkat lunak bebas bersumber terbuka, dilindungi Lisensi Publik Umum GNU v3.0</string>
     <string name="pro_dashclock_extension">Ekstensi Dashclock</string>
@@ -655,15 +653,12 @@
     <string name="rmd_time_enabled_off">Jangan tambah pengingat bawaan ke tugas sepanjang hari</string>
     <string name="repeat_monthly_on_day_number">Bulanan pada hari ke-%1d</string>
     <string name="repeat_monthly_on_the_nth_weekday">Bulanan pada %1$s %2$s</string>
-    <string name="upgrade_to_pro_card_description">Buka kunci sinkronisasi Tasks.org Cloud, Berbagi Keluarga &amp; Teman, dan Email-ke-Tugas</string>
-    <string name="supporter">Pendukung</string>
     <string name="delete_tasks_warning">%s akan dihapus. Ini tidak dapat dibatalkan!</string>
     <string name="banner_app_updated_title">Aplikasi diperbarui</string>
     <string name="banner_app_updated_description">Tasks baru saja diperbarui ke %s. Apakah Anda ingin melihat catatan rilis?</string>
     <string name="subtasks_multilevel_microsoft">Subtugas bertingkat tidak didukung oleh Microsoft To Do</string>
     <string name="banner_subscription_required_title">Langganan diperlukan</string>
     <string name="banner_subscription_required_body">Bayar sesuai keinginan Anda untuk membuka kunci sinkronisasi %s</string>
-    <string name="donate">Donasi</string>
     <string name="donate_nag">Pertimbangkan untuk menunjukkan dukungan Anda dengan donasi!</string>
     <string name="donate_today">Donasi sekarang</string>
     <string name="donate_maybe_later">Mungkin nanti</string>
@@ -675,9 +670,7 @@
     <string name="sponsorship_required_fdroid">Sponsor GitHub diperlukan untuk menggunakan sinkronisasi Tasks.org. Klik di bawah untuk menjadi sponsor.</string>
     <string name="price_per_month_with_currency">%s/bulan</string>
     <string name="price_per_year_with_currency">%s/tahun</string>
-    <string name="supporter_summary">"%s -  Terima kasih!"</string>
     <string name="legal">Hukum</string>
-    <string name="sign_in_to_connect">Masuk untuk menghubungkan akun Tasks.org Anda</string>
     <string name="email_to_task">Email ke tugas</string>
     <string name="email_to_task_address">Alamat email Anda</string>
     <string name="email_to_task_calendar">Daftar tujuan</string>
@@ -686,7 +679,6 @@
     <string name="share_list">Bagikan \"%1$s\"</string>
     <string name="send">Kirim</string>
     <string name="invalid_email_address">Alamat email tidak valid</string>
-    <string name="guest">Tamu</string>
     <string name="guest_create_list_message">Saat ini Anda memiliki akses tamu ke daftar bersama. Untuk membuat dan menyinkronkan daftar pribadi Anda sendiri ke cloud, Anda memerlukan langganan Tasks.org. Atau, Anda dapat membuat daftar lokal gratis yang tetap berada di perangkat ini.</string>
     <string name="guests">Tamu (%1$d/%2$d)</string>
     <string name="shared_with_me">Dibagikan dengan saya</string>

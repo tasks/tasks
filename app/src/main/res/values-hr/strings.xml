@@ -252,10 +252,8 @@
     <string name="this_feature_requires_a_subscription">Ova funkcija zahtijeva pretplata</string>
     <string name="requires_pro_subscription">Zahtijeva pretplatu na Pro verziju</string>
     <string name="pro_dashclock_extension">Proširenje sata na preglednoj ploči</string>
-    <string name="button_unsubscribe">Otkaži pretplatu</string>
     <string name="button_subscribe">Pretplati se</string>
     <string name="refresh_purchases">Osvježi kupnje</string>
-    <string name="manage_subscription">Promijeni pretplatu</string>
     <string name="subscription">Pretplata</string>
     <string name="upgrade_to_pro">Nadogradi na Pro verziju</string>
     <string name="network_error">Neuspjelo spajanje</string>
@@ -744,16 +742,10 @@
     <string name="upgrade_email_to_task_description">Pretvori e-mail poruke u zadatke prosljeđivanjem u tvoju privatnu dolaznu poštu</string>
     <string name="advanced_tools">Napredni alati</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync i još više!</string>
-    <string name="supporter">Podržavatelj</string>
-    <string name="donate">Doniraj</string>
-    <string name="supporter_summary">%s • Hvala!</string>
-    <string name="sign_in_to_connect">Prijavi se za povezivanje na tvoj Tasks.org račun</string>
     <string name="invalid_email_address">Nevaljana e-mail adresa</string>
-    <string name="upgrade_to_pro_card_description">Otključaj Tasks.org sinkronizaciju u oblaku, dijeljenje s prijateljima i obitelji te slanje e-maila u zadatak</string>
     <string name="share_list">Dijeli „%1$s”</string>
     <string name="already_subscribed">Već jesi pretplatnik?</string>
     <string name="send">Pošalji</string>
-    <string name="guest">Gost</string>
     <string name="guest_create_list_message">Trenutačno imaš pristup dijeljenim popisima kao gost. Za izradu i sinkronizaciju vlastitih privatnih popisa s oblakom moraš se pretplatiti na Tasks.org. Ili stvori besplatan lokalni popis koji ostaje na ovom uređaju.</string>
     <string name="guests">Gost (%1$d/%2$d)</string>
     <string name="shared_with_me">Dijeli sa mnom</string>

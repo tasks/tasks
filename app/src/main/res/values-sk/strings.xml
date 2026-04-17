@@ -356,7 +356,6 @@
     <string name="help">Pomoc</string>
     <string name="network_error">Chyba pripojenia</string>
     <string name="upgrade_to_pro">Rozšíriť na verziu pro</string>
-    <string name="manage_subscription">Upraviť predplatné</string>
     <string name="refresh_purchases">Obnoviť nákupy</string>
     <string name="button_subscribe">Prihlásiť sa</string>
     <string name="about">O</string>
@@ -562,7 +561,6 @@
     <string name="whats_new">Čo je nové</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeat_monthly_on_the_nth_weekday">%1$s. %2$s v mesiaci</string>
-    <string name="button_unsubscribe">Zrušiť predplatné</string>
     <string name="filter_eisenhower_box_4">Ani naliehavé, ani dôležité</string>
     <string name="enjoying_tasks">Páči sa vám Tasks?</string>
     <string name="donate_nag">Zvážte podporenie projektu dobrovoľným príspevkom!</string>

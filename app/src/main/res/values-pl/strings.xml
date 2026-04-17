@@ -351,7 +351,6 @@
     <string name="help">Pomoc</string>
     <string name="network_error">Błąd połączenia</string>
     <string name="upgrade_to_pro">Upgrade do pro</string>
-    <string name="manage_subscription">Zmodyfikuj subskrypcję</string>
     <string name="refresh_purchases">Odśwież zakupy</string>
     <string name="button_subscribe">Zasubskrybuj</string>
     <string name="about">O aplikacji</string>
@@ -390,7 +389,6 @@
     <string name="invalid_backup_file">Nieprawidłowy plik kopii zapasowej</string>
     <string name="google_tasks_add_to_top">Nowe zadania na górze</string>
     <string name="icon">Ikona</string>
-    <string name="button_unsubscribe">Anuluj subskrypcję</string>
     <string name="name_your_price">Nazwij swoją cenę</string>
     <string name="SSD_sort_my_order">Ręczne</string>
     <plurals name="subtask_count">

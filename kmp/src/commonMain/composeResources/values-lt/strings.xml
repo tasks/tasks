@@ -80,4 +80,6 @@
     <string name="back">Atgal</string>
     <string name="help">Pagalba</string>
     <string name="display_name">Rodomas pavadinimas</string>
+    <string name="manage_subscription">Keisti prenumeratą</string>
+    <string name="button_unsubscribe">Atšaukti prenumeratą</string>
 </resources>

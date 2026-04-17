@@ -1,5 +1,7 @@
 package org.tasks
 
+import org.tasks.billing.BillingProvider
+
 data class PlatformConfiguration(
     val versionCode: Int = 0,
 
@@ -15,6 +17,6 @@ data class PlatformConfiguration(
     val supportsBackupImport: Boolean = false,
     val supportsGeofences: Boolean = false,
     val supportsCalendarEvents: Boolean = false,
-    val supportsInAppPurchase: Boolean = false,
+    val billingProvider: BillingProvider? = null,
     val isLibre: Boolean = false,
 )

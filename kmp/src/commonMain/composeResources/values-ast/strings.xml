@@ -53,4 +53,6 @@
     <string name="subtasks">Subxeres</string>
     <string name="none">Denguna</string>
     <string name="display_name">Mostrar el nome</string>
+    <string name="manage_subscription">Camudar soscripción</string>
+    <string name="button_unsubscribe">Encaboxar soscripción</string>
 </resources>

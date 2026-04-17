@@ -188,7 +188,6 @@
     <string name="requires_pro_subscription">Kræver pro-abonnement</string>
     <string name="pro_dashclock_extension">Dashclock-udvidelse</string>
     <string name="about">Om</string>
-    <string name="button_unsubscribe">Opsig abonnement</string>
     <string name="button_subscribe">Abonnér</string>
     <string name="network_error">Kunne ikke oprette forbindelse</string>
     <string name="help_and_feedback">Hjælp og feedback</string>
@@ -322,7 +321,6 @@
     <string name="license_summary">Tasks er fri open source-software udgivet under GNU General Public License v3.0</string>
     <string name="upgrade_to_pro">Opgrader til pro</string>
     <string name="refresh_purchases">Opdater køb</string>
-    <string name="manage_subscription">Administrer abonnement</string>
     <string name="repeat_monthly_every_day_of_nth_week">hver %1$s i %2$s</string>
     <string name="repeats_plural_on_number_of_times">Gentages %2$s hver %1$s, stopper efter %3$d %4$s</string>
     <string name="repeats_plural_on_until">Gentages hver %1$s på %2$s, slutter på %3$s</string>
@@ -707,12 +705,8 @@
     <string name="add_default_reminders">Tilføj standardpåmindelser</string>
     <string name="rmd_time_enabled_on">Tilføj standardpåmindelser til heldagsopgaver</string>
     <string name="rmd_time_enabled_off">Tilføj ikke standardpåmindelser til heldagsopgaver</string>
-    <string name="supporter">Supporter</string>
     <string name="banner_subscription_required_title">Abonnement kræves</string>
     <string name="banner_subscription_required_body">Betal hvad du vil for at få adgang til %s-synkronisering</string>
-    <string name="donate">Donér</string>
-    <string name="supporter_summary">%s • Tak!</string>
-    <string name="sign_in_to_connect">Log ind for at forbinde din Tasks.org-konto</string>
     <string name="email_to_task">E-mail til opgave</string>
     <string name="email_to_task_address">Din e-mailadresse</string>
     <string name="email_to_task_calendar">Destinationsliste</string>

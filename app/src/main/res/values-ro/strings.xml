@@ -71,10 +71,8 @@
     <string name="background_location">Locația de fundal</string>
     <string name="foreground_location">Locația de prim-plan</string>
     <string name="about">Despre</string>
-    <string name="button_unsubscribe">Anulare abonament</string>
     <string name="button_subscribe">Abonează-te la</string>
     <string name="refresh_purchases">Reîmprospătează achizițiile</string>
-    <string name="manage_subscription">Modificarea abonamentului</string>
     <string name="subscription">Abonare</string>
     <string name="upgrade_to_pro">Actualizare la PRO</string>
     <string name="network_error">Nu s-a putut conecta</string>

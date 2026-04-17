@@ -50,7 +50,7 @@ fun AddAccountPreview() {
                 supportsMicrosoft = true,
                 supportsOpenTasks = true,
                 supportsEteSync = true,
-                supportsInAppPurchase = true,
+                billingProvider = org.tasks.billing.BillingProvider.GOOGLE_PLAY,
             ),
             hasTasksAccount = false,
             hasPro = false,

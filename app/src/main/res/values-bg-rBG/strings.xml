@@ -342,7 +342,6 @@
     <string name="help">Помощ</string>
     <string name="network_error">Не може да бъде осъществена връзка</string>
     <string name="upgrade_to_pro">Надграждане до версия Про</string>
-    <string name="manage_subscription">Управление на абонамент</string>
     <string name="refresh_purchases">Обновяване на покупките</string>
     <string name="button_subscribe">Абониране</string>
     <string name="about">Относно</string>
@@ -420,7 +419,6 @@
     <string name="markdown">Markdown</string>
     <string name="license_summary">Tasks е софтуер с отворен код, лицензиран под GNU General Public License v3.0</string>
     <string name="this_feature_requires_a_subscription">Тази възможност изисква абонамент</string>
-    <string name="button_unsubscribe">Прекратяване на абонамент</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeat_monthly_fifth_week">пета</string>
     <string name="subscription">Абонамент</string>
@@ -722,9 +720,5 @@
     <string name="rmd_time_enabled_off">Без добавяне на стандартно напомняне към целодневните задачи</string>
     <string name="upgrade_email_to_task_description">Създаване на задачи от ел. писма, чрез препращането им към личната ви входяща кутия</string>
     <string name="advanced_tools">Разширени инструменти</string>
-    <string name="supporter">Поддръжник</string>
-    <string name="donate">Даряване</string>
-    <string name="supporter_summary">%s • Благодаря ви!</string>
-    <string name="sign_in_to_connect">Впишете се, за да свържете с профила в Tasks.org</string>
     <string name="invalid_email_address">Неприемлив адрес на ел. поща</string>
 </resources>

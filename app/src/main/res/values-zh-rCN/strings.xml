@@ -350,7 +350,6 @@
     <string name="add_location">添加位置</string>
     <string name="geofence_radius">地理围栏半径</string>
     <string name="location_radius_meters">%s 米</string>
-    <string name="manage_subscription">修改订阅</string>
     <string name="location_remind_arrival">到达时提醒</string>
     <string name="location_remind_departure">出发时提醒</string>
     <string name="visit_website">访问网站</string>
@@ -369,7 +368,6 @@
     <string name="invalid_backup_file">备份文件无效</string>
     <string name="google_tasks_add_to_top">新任务显示在顶部</string>
     <string name="icon">图标</string>
-    <string name="button_unsubscribe">取消订阅</string>
     <string name="name_your_price">您愿意支付多少费用</string>
     <string name="list_separator_with_space">"， "</string>
     <string name="error_adding_account">错误：%s</string>
@@ -711,16 +709,10 @@
     <string name="upgrade_email_to_task_description">通过将邮件转发至您的专属收件箱即可将其转为任务</string>
     <string name="advanced_tools">高级工具</string>
     <string name="advanced_tools_description">Google Places、CalDAV、EteSync 等！</string>
-    <string name="donate">捐赠</string>
-    <string name="sign_in_to_connect">登录以连接您的 Tasks.org 账号</string>
-    <string name="supporter">支持者</string>
-    <string name="supporter_summary">%s • 谢谢！</string>
     <string name="invalid_email_address">电子邮件地址无效</string>
-    <string name="upgrade_to_pro_card_description">解锁 Tasks.org 云同步、好友和家庭共享、邮件转任务</string>
     <string name="share_list">共享 \"%1$s\"</string>
     <string name="already_subscribed">已是订阅者？</string>
     <string name="send">发送</string>
-    <string name="guest">来宾</string>
     <string name="guest_create_list_message">你当前有共享清单的来宾权限。要创建并同步自己的私人清单到云端需要 Tasks.org 订阅。也可以创建保留在此设备上的免费本地清单。</string>
     <string name="guests">来宾 (%1$d/%2$d)</string>
     <string name="shared_with_me">与我分享的</string>

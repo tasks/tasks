@@ -361,7 +361,6 @@
     <string name="help">Pagalba</string>
     <string name="network_error">Nepavyko prisijungti</string>
     <string name="upgrade_to_pro">Atnaujinti į pro versiją</string>
-    <string name="manage_subscription">Keisti prenumeratą</string>
     <string name="refresh_purchases">Atnaujinti pirkimus</string>
     <string name="button_subscribe">Prenumeruoti</string>
     <string name="about">Apie</string>
@@ -435,7 +434,6 @@
     <string name="select_all">Pasirinkti viską</string>
     <string name="filter_today_only">Tik šiandien</string>
     <string name="filter_no_tags">Be etikečių</string>
-    <string name="button_unsubscribe">Atšaukti prenumeratą</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="subscription">Prenumerata</string>
     <string name="repeat_monthly_fifth_week">penktą</string>
