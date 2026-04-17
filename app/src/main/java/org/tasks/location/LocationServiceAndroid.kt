@@ -13,6 +13,7 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Place
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.PermissionChecker
+import org.tasks.receivers.LocationProviderChangedReceiver
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -95,6 +96,10 @@ class LocationServiceAndroid @Inject constructor(
 
     override fun stopBackgroundLocationUpdates() {
         locationManager.removeLocationUpdates(LocationUpdateReceiver.pendingIntent(context))
+    }
+
+    override fun setLocationProviderReceiverEnabled(enabled: Boolean) {
+        LocationProviderChangedReceiver.setEnabled(context, enabled)
     }
 
     private fun createPendingIntent(place: Long) =

@@ -563,6 +563,7 @@
 
     <receiver
       android:name=".receivers.LocationProviderChangedReceiver"
+      android:enabled="false"
       android:exported="true">
       <intent-filter>
         <action android:name="android.location.PROVIDERS_CHANGED" />

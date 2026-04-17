@@ -20,6 +20,8 @@ interface LocationService {
 
     fun stopBackgroundLocationUpdates() {}
 
+    fun setLocationProviderReceiverEnabled(enabled: Boolean) {}
+
     suspend fun updateGeofences(place: Place?) {
         if (place == null) return
         updateGeofenceForPlace(place)
@@ -45,6 +47,7 @@ interface LocationService {
     }
 
     private suspend fun applyBackgroundLocationUpdates(hasGeofences: Boolean) {
+        setLocationProviderReceiverEnabled(hasGeofences)
         if (hasGeofences) {
             startBackgroundLocationUpdates(appPreferences.locationUpdateIntervalMinutes())
         } else {

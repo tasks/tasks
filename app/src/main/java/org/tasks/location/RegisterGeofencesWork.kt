@@ -41,7 +41,7 @@ class RegisterGeofencesWork @AssistedInject constructor(
                     WORK_NAME,
                     ExistingWorkPolicy.REPLACE,
                     OneTimeWorkRequestBuilder<RegisterGeofencesWork>()
-                        .setInitialDelay(5, TimeUnit.SECONDS)
+                        .setInitialDelay(60, TimeUnit.SECONDS)
                         .setBackoffCriteria(
                             BackoffPolicy.EXPONENTIAL,
                             1,
