@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">사진 제거하기</string>
     <string name="TVA_add_comment">댓글 쓰기…</string>
-    <string name="backup_BPr_header">백업</string>
     <string name="backup_BAc_import">백업 가져오기</string>
     <string name="backup_BAc_export">지금 백업하기</string>
     <string name="export_toast">%1$s 를 %2$s 로 백업함.</string>
@@ -52,11 +51,9 @@
     <string name="TEA_control_timer">타이머 조절</string>
     <string name="TEA_control_hidden_section">----항상 숨김----</string>
     <string name="none">없음</string>
-    <string name="EPr_edit_screen_options">화면 설정 편집하기</string>
     <string name="EPr_beastMode_reset">기본값으로 초기화하기</string>
     <string name="EPr_fullTask_title">할일 제목 전체 표시</string>
     <string name="EPr_show_task_edit_comments">할일 편집에서 댓글 표시</string>
-    <string name="task_list_options">할일 목록 옵션</string>
     <string name="EPr_cal_end_or_start_at_due_time">달력 일정 시간</string>
     <string name="EPr_cal_end_at_due_time">마감 시간에 달력 일정 종료</string>
     <string name="EPr_cal_start_at_due_time">마감 시간에 달력 일정 시작</string>
@@ -69,7 +66,6 @@
     <string name="EPr_manage_delete_gcal_status">%d 달력 일정을 삭제했습니다!</string>
     <string name="EPr_manage_delete_all_gcal">할일의 모든 달력 일정 삭제</string>
     <string name="EPr_manage_delete_all_gcal_message">할일의 모든 이벤트를 정말 삭제할까요?</string>
-    <string name="task_defaults">할일 기본값</string>
     <string name="EPr_default_importance_title">기본 우선순위</string>
     <string name="EPr_default_reminders_title">기본 알람</string>
     <string name="EPr_default_location_reminder_title">기본 위치 알람</string>
@@ -294,7 +290,6 @@
     <string name="delete_multiple_tasks_confirmation">%s 삭제 완료</string>
     <string name="delete_selected_tasks">선택한 할일을 삭제할까요?</string>
     <string name="copy_selected_tasks">선택한 할일을 복사할까요?</string>
-    <string name="date_and_time">날짜와 시간</string>
     <string name="user">사용자</string>
     <string name="password">비밀번호</string>
     <string name="notification_disable_battery_optimizations_description">배터리 최적화 시 알림이 지연될 수 있습니다</string>
@@ -337,7 +332,6 @@
     <string name="upgrade_to_pro">프로 서비스로 업그레이드</string>
     <string name="refresh_purchases">구매 새로고침</string>
     <string name="button_subscribe">신청</string>
-    <string name="about">정보</string>
     <string name="license_summary">Tasks는 GNU 일반공중사용권 3.0 (GPLv3)에 따라 사용이 허가된 리브레 오픈소스 소프트웨어입니다</string>
     <string name="pro_dashclock_extension">Dashclock 확장프로그램</string>
     <string name="requires_pro_subscription">프로 서비스 구독이 필요합니다</string>
@@ -400,7 +394,6 @@
     <string name="chip_appearance_text_and_icon">글자와 아이콘</string>
     <string name="hide_unused_places">사용하지 않는 장소 숨기기</string>
     <string name="hide_unused_tags">사용하지 않는 태그 숨기기</string>
-    <string name="navigation_drawer">네비게이션 서랍</string>
     <string name="place_settings">장소 설정</string>
     <string name="places">장소</string>
     <string name="upgrade_blurb_1">안녕하세요! Tasks의 1인 개발자 알렉스입니다</string>
@@ -531,7 +524,6 @@
     <string name="CFC_startBefore_text">시작일: \?</string>
     <string name="email">이메일</string>
     <string name="show_unstarted">시작하지 않은 할일 표시</string>
-    <string name="preferences_look_and_feel">외관</string>
     <string name="save_percent">%d%% 절약</string>
     <string name="account_not_included">\'구독 금액 정하기\' 구독은 제외</string>
     <string name="markdown_description">제목과 설명에 마크다운 방식 가능</string>

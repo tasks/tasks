@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">清除图片</string>
     <string name="TVA_add_comment">添加注释…</string>
-    <string name="backup_BPr_header">备份</string>
     <string name="backup_BAc_import">导入备份</string>
     <string name="backup_BAc_export">立即备份</string>
     <string name="export_toast">已将 %1$s 备份至 %2$s。</string>
@@ -51,11 +50,9 @@
     <string name="TEA_control_timer">定时器控件</string>
     <string name="TEA_control_hidden_section">----始终隐藏----</string>
     <string name="none">无</string>
-    <string name="EPr_edit_screen_options">编辑屏幕选项</string>
     <string name="EPr_beastMode_reset">恢复默认值</string>
     <string name="EPr_fullTask_title">显示完整的任务标题</string>
     <string name="EPr_show_task_edit_comments">在任务编辑中显示注释</string>
-    <string name="task_list_options">任务清单选项</string>
     <string name="EPr_cal_end_or_start_at_due_time">日历事件时间</string>
     <string name="EPr_cal_end_at_due_time">在截止时结束日历事件</string>
     <string name="EPr_cal_start_at_due_time">在截止时开始日历事件</string>
@@ -68,7 +65,6 @@
     <string name="EPr_manage_delete_gcal_status">已删除 %d 个日历事件！</string>
     <string name="EPr_manage_delete_all_gcal">删除所有的日历事件</string>
     <string name="EPr_manage_delete_all_gcal_message">您真的要删除所有任务的日历事件吗？</string>
-    <string name="task_defaults">任务默认值</string>
     <string name="EPr_default_importance_title">默认优先级</string>
     <string name="EPr_default_reminders_title">默认提醒</string>
     <string name="EPr_default_reminders_mode_title">默认铃声 / 振动类型</string>
@@ -282,7 +278,6 @@
     <string name="delete_multiple_tasks_confirmation">已删除 %s 项任务</string>
     <string name="delete_selected_tasks">删除已选的任务？</string>
     <string name="copy_selected_tasks">复制已选的任务？</string>
-    <string name="date_and_time">日期和时间</string>
     <string name="user">用户名</string>
     <string name="password">密码</string>
     <string name="url">网址</string>
@@ -326,7 +321,6 @@
     <string name="upgrade_to_pro">升级至专业版</string>
     <string name="refresh_purchases">刷新购买</string>
     <string name="button_subscribe">订阅</string>
-    <string name="about">关于</string>
     <string name="license_summary">Tasks 是遵循 GNU 通用公共许可证 v3.0 的自由开源软件</string>
     <string name="pro_dashclock_extension">Dashclock 扩展</string>
     <string name="requires_pro_subscription">需订阅专业版</string>
@@ -391,7 +385,6 @@
     <string name="etesync_account_description">需要一个 EteSync.com 账号或一个自托管服务器</string>
     <string name="help_and_feedback">帮助和反馈</string>
     <string name="documentation">文档</string>
-    <string name="preferences_look_and_feel">外观</string>
     <string name="preferences_advanced">高级</string>
     <string name="wearable_notifications">可穿戴设备提示</string>
     <string name="wearable_notifications_summary">在你的可穿戴设备上显示通知</string>
@@ -410,7 +403,6 @@
     <string name="chip_appearance">纸片外观</string>
     <string name="places">地点</string>
     <string name="place_settings">地点设置</string>
-    <string name="navigation_drawer">导航抽屉</string>
     <string name="hide_unused_tags">隐藏不用的标签</string>
     <string name="hide_unused_places">隐藏不用的地点</string>
     <string name="auto_dismiss_datetime_summary">在选择一个日期或时间后关闭日期时间选择器</string>

@@ -47,11 +47,9 @@
     <string name="TEA_control_timer">Controlos temporais</string>
     <string name="TEA_control_hidden_section">----Ocultar sempre----</string>
     <string name="none">Nenhum</string>
-    <string name="EPr_edit_screen_options">Opções do ecrã de edição</string>
     <string name="EPr_beastMode_reset">Restaurar definições originas</string>
     <string name="EPr_fullTask_title">Mostrar título completo</string>
     <string name="EPr_show_task_edit_comments">Ver comentários ao editar</string>
-    <string name="task_list_options">Opções da lista de tarefas</string>
     <string name="EPr_cal_end_or_start_at_due_time">Hora do evento de calendário</string>
     <string name="EPr_cal_end_at_due_time">Terminar evento do calendário na hora de fim</string>
     <string name="EPr_cal_start_at_due_time">Iniciar eventos de calendário na hora de fim</string>
@@ -64,7 +62,6 @@
     <string name="EPr_manage_delete_gcal_status">%d eventos do calendário eliminados!</string>
     <string name="EPr_manage_delete_all_gcal">Eliminar todos os eventos de tarefas do calendário</string>
     <string name="EPr_manage_delete_all_gcal_message">Quer mesmo eliminar todos os eventos das tarefas?</string>
-    <string name="task_defaults">Predefinições das tarefas</string>
     <string name="EPr_default_importance_title">Prioridade predefinida</string>
     <string name="EPr_default_reminders_title">Lembretes predefinidos</string>
     <string name="EPr_default_reminders_mode_title">Tipo de vibração/toque predefinido</string>
@@ -277,7 +274,6 @@
     <string name="delete_multiple_tasks_confirmation">%s eliminadas</string>
     <string name="delete_selected_tasks">Eliminar as tarefas selecionadas\?</string>
     <string name="copy_selected_tasks">Copiar as tarefas selecionadas?</string>
-    <string name="date_and_time">Data e hora</string>
     <string name="notification_disable_battery_optimizations_description">As otimizações da bateria podem atrasar as notificações</string>
     <string name="bundle_notifications">Agrupar notificações</string>
     <string name="list">Lista</string>
@@ -309,7 +305,6 @@
     <string name="repeat_monthly_third_week">terceiro</string>
     <string name="repeat_monthly_fourth_week">quarto</string>
     <string name="repeat_monthly_last_week">último</string>
-    <string name="backup_BPr_header">Cópias de segurança</string>
     <string name="action_call">Ligar</string>
     <string name="action_open">Abrir</string>
     <string name="TEA_timer_est">Duração %s</string>
@@ -343,7 +338,6 @@
     <string name="requires_pro_subscription">Requer assinatura Pro</string>
     <string name="pro_dashclock_extension">Extensão Dashclock</string>
     <string name="license_summary">O Tasks é um programa livre e de código-aberto disponibilizado sob a GNU General Public License v3.0</string>
-    <string name="about">Sobre</string>
     <string name="button_subscribe">Subscrever</string>
     <string name="refresh_purchases">Atualizar compras</string>
     <string name="upgrade_to_pro">Atualizar para pro</string>
@@ -424,7 +418,6 @@
     <string name="menu_discard_changes">Descartar alterações</string>
     <string name="hide_unused_places">Ocultar locais não usados</string>
     <string name="hide_unused_tags">Ocultar etiquetas não usadas</string>
-    <string name="navigation_drawer">Gaveta de navegação</string>
     <string name="place_settings">Configuração de locais</string>
     <string name="places">Locais</string>
     <string name="chip_appearance">Aparência da ficha</string>
@@ -443,7 +436,6 @@
     <string name="wearable_notifications_summary">Mostrar notificações no seu weareable como relógios, pulseiras, óculos de realidade virtual…</string>
     <string name="wearable_notifications">Notificações em weareables</string>
     <string name="preferences_advanced">Avançado</string>
-    <string name="preferences_look_and_feel">Aparência</string>
     <string name="documentation">Documentação</string>
     <string name="help_and_feedback">Ajuda &amp; sugestões</string>
     <string name="etesync_account_description">Precisa de uma conta no EteSync.com ou de um servidor auto-alojado</string>

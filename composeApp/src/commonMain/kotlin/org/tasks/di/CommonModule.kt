@@ -50,6 +50,8 @@ import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.viewmodel.TaskEditViewModel
+import org.tasks.viewmodel.MainSettingsViewModel
+import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.TaskListViewModel
 
 val commonModule = module {
@@ -227,6 +229,21 @@ val commonModule = module {
             preferences = get(),
             reporting = get(),
             refreshBroadcaster = get(),
+        )
+    }
+    viewModel {
+        MainSettingsViewModel(
+            platformConfiguration = get(),
+        )
+    }
+    viewModel {
+        ProCardViewModel(
+            caldavDao = get(),
+            subscriptionProvider = get(),
+            tasksPreferences = get(),
+            accountDataRepository = get(),
+            serverEnvironment = get(),
+            platformConfiguration = get(),
         )
     }
 }

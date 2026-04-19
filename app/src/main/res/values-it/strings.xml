@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Deseleziona immagine</string>
     <string name="TVA_add_comment">Aggiungi un commento…</string>
-    <string name="backup_BPr_header">Backup</string>
     <string name="backup_BAc_import">Importa backup</string>
     <string name="backup_BAc_export">Esegui backup</string>
     <string name="export_toast">Backup di %1$s su %2$s eseguito.</string>
@@ -52,11 +51,9 @@
     <string name="TEA_control_timer">Regolazione timer</string>
     <string name="TEA_control_hidden_section">----Nascondi sempre----</string>
     <string name="none">Nessuno</string>
-    <string name="EPr_edit_screen_options">Opzioni schermata di modifica</string>
     <string name="EPr_beastMode_reset">Ripristina predefiniti</string>
     <string name="EPr_fullTask_title">Mostra il titolo completo</string>
     <string name="EPr_show_task_edit_comments">Mostra i commenti nella schermata di modifica</string>
-    <string name="task_list_options">Opzioni elenco attività</string>
     <string name="EPr_cal_end_or_start_at_due_time">Orario eventi del calendario</string>
     <string name="EPr_cal_end_at_due_time">Interrompi eventi del calendario alla scadenza</string>
     <string name="EPr_cal_start_at_due_time">Inizia eventi del calendario alla scadenza</string>
@@ -69,7 +66,6 @@
     <string name="EPr_manage_delete_gcal_status">%d eventi del calendario sono stati eliminati!</string>
     <string name="EPr_manage_delete_all_gcal">Elimina tutti gli eventi del calendario in Tasks</string>
     <string name="EPr_manage_delete_all_gcal_message">Vuoi davvero eliminare tutti i tuoi eventi in programma\?</string>
-    <string name="task_defaults">Opzioni predefinite attività</string>
     <string name="EPr_default_importance_title">Priorità predefinita</string>
     <string name="EPr_default_reminders_title">Promemoria predefiniti</string>
     <string name="EPr_default_location_reminder_title">Posizione promemoria predefinita</string>
@@ -310,7 +306,6 @@
     <string name="delete_multiple_tasks_confirmation">%s eliminati</string>
     <string name="delete_selected_tasks">Eliminare le attività selezionate\?</string>
     <string name="copy_selected_tasks">Copio le attività selezionate\?</string>
-    <string name="date_and_time">Data e ora</string>
     <string name="user">Utente</string>
     <string name="notification_disable_battery_optimizations_description">L\'ottimizzazione della batteria può ritardare le notifiche</string>
     <string name="bundle_notifications">Raggruppa notifiche</string>
@@ -352,7 +347,6 @@
     <string name="upgrade_to_pro">Aggiorna alla versione Pro</string>
     <string name="refresh_purchases">Aggiorna acquisti</string>
     <string name="button_subscribe">Abbonati</string>
-    <string name="about">Informazioni</string>
     <string name="license_summary">Tasks è un software libero ed open-source, rilasciato sotto licenza GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Estensione Dashclock</string>
     <string name="requires_pro_subscription">Richiede versione premium</string>
@@ -394,7 +388,6 @@
     <string name="chip_appearance_text_and_icon">Testo e icona</string>
     <string name="hide_unused_places">Nascondi luoghi non usati</string>
     <string name="hide_unused_tags">Nascondi etichette non usate</string>
-    <string name="navigation_drawer">Menù laterale</string>
     <string name="place_settings">Impostazioni luogo</string>
     <string name="places">Luoghi</string>
     <string name="back">Indietro</string>
@@ -411,7 +404,6 @@
     <string name="wearable_notifications">Notifiche dispositivi indossabili</string>
     <string name="documentation">Documentazione (online)</string>
     <string name="preferences_advanced">Avanzate</string>
-    <string name="preferences_look_and_feel">Aspetto</string>
     <string name="etesync_account_description">Richiede un account EteSync.com o un server self-hosted</string>
     <string name="caldav_account_description">Richiede un account per un servizio CalDAV o un server self-hosted. Trova un fornitore visitando tasks.org/caldav</string>
     <string name="show_advanced_settings">Mostra impostazioni avanzate</string>

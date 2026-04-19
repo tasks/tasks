@@ -4,8 +4,6 @@
     <string name="import_summary_title">Obnovi sažetak</string>
     <string name="export_toast">Sigurnosna kopija za %1$s spremljena je u %2$s.</string>
     <string name="backup_BAc_export">Spremi sigurnosnu kopiju sada</string>
-    <string name="backup_BPr_header">Sigurnosne kopije</string>
-    <string name="EPr_edit_screen_options">Uredi opcije ekrana</string>
     <string name="backup_BAc_import">Uvezi sigurnosnu kopiju</string>
     <string name="always_display_full_date">Pokaži potpuni datum</string>
     <string name="EPr_fullTask_title">Pokaži potpuni naslov zadatka</string>
@@ -55,7 +53,6 @@
     <string name="logout_warning">Svi podaci za ovaj račun uklonit će se s uređaja</string>
     <string name="logout">Odjavi se</string>
     <string name="license_summary">Tasks je slobodan program otvorenog koda, licenciran pod GNU General Public License v3.0</string>
-    <string name="about">Informacije</string>
     <string name="no_time">Bez vremena</string>
     <string name="TEA_timer_elap">Proteklo %s</string>
     <string name="no_date">Bez datuma</string>
@@ -73,11 +70,7 @@
     <string name="delete_multiple_tasks_confirmation">%s izbrisano</string>
     <string name="preferences_advanced">Napredno</string>
     <string name="widget_settings">Postavke widgeta</string>
-    <string name="navigation_drawer">Ladica za navigaciju</string>
-    <string name="date_and_time">Datum i vrijeme</string>
-    <string name="task_defaults">Standardne postavke zadatka</string>
     <string name="notifications">Obavijesti</string>
-    <string name="preferences_look_and_feel">Izgled i ugođaj</string>
     <string name="privacy_policy">Politika privatnosti</string>
     <string name="whats_new">Nedavne promjene</string>
     <string name="follow_reddit">Pridruži se forumu r/tasks</string>
@@ -442,7 +435,6 @@
     <string name="EPr_cal_start_at_due_time">Počni kalendarske događaje u vrijeme roka</string>
     <string name="EPr_cal_end_at_due_time">Završi kalendarske događaje u vrijeme roka</string>
     <string name="EPr_cal_end_or_start_at_due_time">Vrijeme kalendarskog događaja</string>
-    <string name="task_list_options">Opcije za popis zadataka</string>
     <string name="EPr_show_task_edit_comments">Pokaži komentare u uređivanju zadatka</string>
     <string name="none">Ništa</string>
     <string name="TEA_control_timer">Funkcije mjerača vremena</string>

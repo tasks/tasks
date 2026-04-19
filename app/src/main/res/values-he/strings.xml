@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">ניקוי תמונה</string>
     <string name="TVA_add_comment">הוספת הערה…</string>
-    <string name="backup_BPr_header">גיבויים</string>
     <string name="backup_BAc_import">ייבוא גיבוי</string>
     <string name="backup_BAc_export">גיבוי כעת</string>
     <string name="export_toast">בוצע גיבוי של %1$s אל %2$s.</string>
@@ -52,11 +51,9 @@
     <string name="TEA_control_timer">פקדי קוצב זמן</string>
     <string name="TEA_control_hidden_section">----להסתיר תמיד----</string>
     <string name="none">ללא</string>
-    <string name="EPr_edit_screen_options">עריכת אפשרויות מסך</string>
     <string name="EPr_beastMode_reset">איפוס לברירות מחדל</string>
     <string name="EPr_fullTask_title">הצגת כותרת משימה מלאה</string>
     <string name="EPr_show_task_edit_comments">הצגת הערות בעריכת משימה</string>
-    <string name="task_list_options">אפשרויות רשימת משימות</string>
     <string name="EPr_cal_end_or_start_at_due_time">זמן אירוע יומן</string>
     <string name="EPr_cal_end_at_due_time">סיום אירועי יומן בזמן היעד</string>
     <string name="EPr_cal_start_at_due_time">התחלת אירועי יומן בזמן היעד</string>
@@ -69,7 +66,6 @@
     <string name="EPr_manage_delete_gcal_status">%d אירועי יומן נמחקו!</string>
     <string name="EPr_manage_delete_all_gcal">מחיקת כל אירועי היומן עבור משימות</string>
     <string name="EPr_manage_delete_all_gcal_message">האם באמת ברצונך למחוק את כל האירועים שלך עבור משימות?</string>
-    <string name="task_defaults">ברירות מחדל של משימות</string>
     <string name="EPr_default_importance_title">עדיפות ברירת מחדל</string>
     <string name="EPr_default_reminders_title">תזכורות ברירת מחדל</string>
     <string name="EPr_default_location_reminder_title">תזכורות מיקום ברירת מחדל</string>
@@ -314,7 +310,6 @@
     <string name="delete_multiple_tasks_confirmation">%s נמחקו</string>
     <string name="delete_selected_tasks">למחוק משימות שנבחרו?</string>
     <string name="copy_selected_tasks">להעתיק משימות שנבחרו?</string>
-    <string name="date_and_time">תאריך ושעה</string>
     <string name="user">משתמש</string>
     <string name="password">סיסמה</string>
     <string name="url">URL</string>
@@ -358,7 +353,6 @@
     <string name="upgrade_to_pro">שדרוג לגרסת פרו</string>
     <string name="refresh_purchases">ריענון רכישות</string>
     <string name="button_subscribe">הרשמה למינוי</string>
-    <string name="about">אודות</string>
     <string name="license_summary">היישום Tasks הוא תוכנה חופשית בקוד פתוח, המורשת תחת הרישיון הציבורי הכללי של GNU בגרסה 3.0</string>
     <string name="pro_dashclock_extension">הרחבת Dashclock</string>
     <string name="requires_pro_subscription">דורש מינוי פרו</string>
@@ -397,7 +391,6 @@
     <string name="chip_appearance_text_only">טקסט בלבד</string>
     <string name="more_settings">הגדרות נוספות</string>
     <string name="preferences_advanced">מתקדם</string>
-    <string name="preferences_look_and_feel">מראה ותחושה</string>
     <string name="whats_new">מה חדש</string>
     <plurals name="subtask_count">
         <item quantity="one">תת־משימה אחת</item>
@@ -484,7 +477,6 @@
     <string name="select_all">לבחור הכול</string>
     <string name="calendar_event_created">נוצר אירוע יומן עבור %s</string>
     <string name="place_settings">הגדרות מקום</string>
-    <string name="navigation_drawer">מגירת ניווט</string>
     <string name="hide_unused_tags">הסתרת תגיות שאינן בשימוש</string>
     <string name="hide_unused_places">הסתרת מקומות שאינן בשימוש</string>
     <string name="auto_dismiss_datetime_summary">לסגור את בוחר התאריך והשעה לאחר בחירת תאריך או שעה</string>

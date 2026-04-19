@@ -23,7 +23,6 @@
     <string name="export_toast">Копија сачувана од %1$s до %2$s.</string>
     <string name="backup_BAc_import">Увези задатке</string>
     <string name="backup_BAc_export">Извези задатке</string>
-    <string name="backup_BPr_header">Резервне копије</string>
     <string name="TVA_add_comment">Додај коментар…</string>
     <string name="cancel">Откажи</string>
     <string name="ok">У реду</string>
@@ -84,10 +83,8 @@
     <string name="TEA_control_hidden_section">----Увек сакриј----</string>
     <string name="TEA_creation_date">Датум креирања</string>
     <string name="none">Празно</string>
-    <string name="EPr_edit_screen_options">Измени подешавања екрана</string>
     <string name="EPr_beastMode_reset">Ресетуј на подразумевано</string>
     <string name="EPr_fullTask_title">Прикажи пуно име задатка</string>
-    <string name="task_list_options">Подешавања листе задатака</string>
     <string name="EPr_cal_end_or_start_at_due_time">Време догађаја календара</string>
     <string name="always_display_full_date">Прикажи пун датум</string>
     <string name="EPr_reset_preferences">Подешавања ресета</string>
@@ -360,7 +357,6 @@
     <string name="delete_multiple_tasks_confirmation">%s избрисано</string>
     <string name="delete_selected_tasks">Избрисати одабране задатке?</string>
     <string name="copy_selected_tasks">Копирати одабране задатке?</string>
-    <string name="date_and_time">Време и датум</string>
     <string name="user">Корисник</string>
     <string name="password">Шифра</string>
     <string name="url">URL</string>
@@ -397,7 +393,6 @@
     <string name="network_error">Повезивање безуспешно</string>
     <string name="subscription">Претплате</string>
     <string name="button_subscribe">Претплати се</string>
-    <string name="about">О нама</string>
     <string name="license_summary">,,Tasks.org\'\' је софтвер отвореног карактера, са лиценцом ,,GNU General Public License v3.0\'\'</string>
     <string name="requires_pro_subscription">Захтева претплату</string>
     <string name="this_feature_requires_a_subscription">Ова функционалност захтева претплату</string>
@@ -559,13 +554,11 @@
     <string name="caldav_selection_description">Синхронизација заснована на стандардима отвореног интернета</string>
     <string name="caldav_account_description">Захтева налог код ,,CalDAV\'\' провајдера или приватни сервер. Пронађи провајдера на страници tasks.org/caldav</string>
     <string name="etesync_account_description">Захтева налог код ,,EteSync.com\'\' или приватни сервер</string>
-    <string name="preferences_look_and_feel">Изглед и персонализација</string>
     <string name="troubleshooting">Решавање проблема</string>
     <string name="notification_troubleshooting_summary">Тапни овде уколико постоје проблеми са обавештењима</string>
     <string name="color_wheel">Палета боја</string>
     <string name="chips">Апликациони чипови</string>
     <string name="chip_appearance">Изглед апликационих чипова</string>
-    <string name="navigation_drawer">Навигациони мени</string>
     <string name="auto_dismiss_datetime_list_summary">Аутоматско затварање након одабира из листе задатака</string>
     <string name="auto_dismiss_datetime_edit">Измена задатка</string>
     <string name="auto_dismiss_datetime_edit_summary">Аутоматско затварање након бирања из измене задатка</string>
@@ -695,7 +688,6 @@
     <string name="sync_warning_google_tasks">Не синхронизују се сви детаљи задатка са ,,Google Tasks\'\'</string>
     <string name="button_learn_more">Више информација</string>
     <string name="EPr_cal_end_at_due_time">Окончај догађаје календара у време доспећа</string>
-    <string name="task_defaults">Подразумевано за задатке</string>
     <string name="CFC_importance_text">Минимум приоритета ?</string>
     <string name="widget_view_more_tasks">Погледај још задатака</string>
     <string name="upgrade_subscription_banner">Хвала на подршци! Унапреди претплату за омогућену Tasks.org Cloud синхронизацију</string>

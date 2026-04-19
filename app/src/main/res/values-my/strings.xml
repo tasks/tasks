@@ -40,7 +40,6 @@
     <string name="cancel">ပယ်ဖျက်ပါ</string>
     <string name="display_name">အမည်</string>
     <string name="read_permission_label">အက်ပ် ခွင့်ပြုချက်</string>
-    <string name="backup_BPr_header">အရန်သိမ်းထားသော</string>
     <string name="backup_BAc_export">အခု အရန်သိမ်္းပါ</string>
     <string name="import_summary_message">ဖိုင် %1$s ပါဝင်သည် %2$s.
 \n

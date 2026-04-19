@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Убрать изображение</string>
     <string name="TVA_add_comment">Добавить комментарий…</string>
-    <string name="backup_BPr_header">Резервные копии</string>
     <string name="backup_BAc_import">Импортировать резервную копию</string>
     <string name="backup_BAc_export">Создать резервную копию сейчас</string>
     <string name="export_toast">Сохранено %1$s в %2$s.</string>
@@ -52,11 +51,9 @@
     <string name="TEA_control_timer">Таймер</string>
     <string name="TEA_control_hidden_section">----Всегда скрывать----</string>
     <string name="none">Нет</string>
-    <string name="EPr_edit_screen_options">Настройки экрана редактирования</string>
     <string name="EPr_beastMode_reset">Сбросить настройки</string>
     <string name="EPr_fullTask_title">Показывать полное название задачи</string>
     <string name="EPr_show_task_edit_comments">Показывать комментарии в редакторе задачи</string>
-    <string name="task_list_options">Настройки списка задач</string>
     <string name="EPr_cal_end_or_start_at_due_time">Время события в календаре</string>
     <string name="EPr_cal_end_at_due_time">Завершать события в календаре при наступлении срока</string>
     <string name="EPr_cal_start_at_due_time">Начинать события в календаре при наступлении срока</string>
@@ -69,7 +66,6 @@
     <string name="EPr_manage_delete_gcal_status">Удалено %d календарных событий!</string>
     <string name="EPr_manage_delete_all_gcal">Удалить все календарные события для задач</string>
     <string name="EPr_manage_delete_all_gcal_message">Вы уверены, что хотите удалить все Ваши события для задач\?</string>
-    <string name="task_defaults">Параметры по умолчанию</string>
     <string name="EPr_default_importance_title">Приоритет по умолчанию</string>
     <string name="EPr_default_reminders_title">Напоминания по умолчанию</string>
     <string name="EPr_default_location_reminder_title">Напоминания о месте по умолчанию</string>
@@ -312,7 +308,6 @@
     <string name="delete_multiple_tasks_confirmation">%s удалено</string>
     <string name="delete_selected_tasks">Удалить выделенную(-ые) задачу(-и)?</string>
     <string name="copy_selected_tasks">Скопировать выделенные задачи?</string>
-    <string name="date_and_time">Дата и время</string>
     <string name="user">Пользователь</string>
     <string name="password">Пароль</string>
     <string name="notification_disable_battery_optimizations_description">Оптимизация расхода батареи может задерживать уведомления</string>
@@ -355,7 +350,6 @@
     <string name="upgrade_to_pro">Обновить до версии Про</string>
     <string name="refresh_purchases">Обновить покупки</string>
     <string name="button_subscribe">Подписаться</string>
-    <string name="about">О программе</string>
     <string name="license_summary">Tasks является свободным программным обеспечением с открытым исходным кодом, лицензированным под GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Расширение для Dashclock</string>
     <string name="requires_pro_subscription">Требуется Pro‑подписка</string>
@@ -413,7 +407,6 @@
     <string name="etesync_account_description">Требует аккаунта на EteSync.com или собственного сервера</string>
     <string name="help_and_feedback">Помощь и обратная связь</string>
     <string name="documentation">Документация</string>
-    <string name="preferences_look_and_feel">Внешний вид</string>
     <string name="preferences_advanced">Расширенные</string>
     <string name="wearable_notifications">Уведомления носимых устройств</string>
     <string name="wearable_notifications_summary">Отображать уведомления на Вашем носимом устройстве</string>
@@ -438,7 +431,6 @@
     <string name="chip_appearance_text_and_icon">Текст и иконка</string>
     <string name="hide_unused_places">Скрыть неиспользуемые места</string>
     <string name="hide_unused_tags">Скрыть неиспользуемые метки</string>
-    <string name="navigation_drawer">Панель навигации</string>
     <string name="place_settings">Настройки места</string>
     <string name="places">Места</string>
     <string name="menu_discard_changes">Отменить изменения</string>

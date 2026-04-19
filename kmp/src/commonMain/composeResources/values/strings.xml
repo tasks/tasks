@@ -163,4 +163,16 @@
     <string name="regenerate_email_address_confirmation">Your current email address will stop working</string>
     <string name="migrating_tasks">Migrating tasks</string>
     <string name="migrate_count">Move %1$s to Tasks.org</string>
+    <string name="preferences_look_and_feel">Look and feel</string>
+    <string name="notifications">Notifications</string>
+    <string name="task_defaults">Task defaults</string>
+    <string name="task_list_options">Task list options</string>
+    <string name="EPr_edit_screen_options">Edit screen options</string>
+    <string name="date_and_time">Date and time</string>
+    <string name="navigation_drawer">Navigation drawer</string>
+    <string name="backup_BPr_header">Backups</string>
+    <string name="preferences_advanced">Advanced</string>
+    <string name="debug">Debug</string>
+    <string name="about">About</string>
+    <string name="widget_settings">Widget settings</string>
 </resources>

@@ -125,4 +125,15 @@
     <string name="password">كلمة السّر</string>
     <string name="migrating_tasks">ترحيل المهام</string>
     <string name="migrate_count">انقل %1$s إلى Tasks.org</string>
+    <string name="preferences_look_and_feel">المظهر</string>
+    <string name="notifications">إشعارات</string>
+    <string name="task_defaults">افتراضيات المهام</string>
+    <string name="task_list_options">خيارات قائمة المهام</string>
+    <string name="EPr_edit_screen_options">تعديل خيارات الشاشة</string>
+    <string name="date_and_time">التاريخ والوقت</string>
+    <string name="navigation_drawer">درج التنقل</string>
+    <string name="backup_BPr_header">النّسَخ الاحتياطية</string>
+    <string name="preferences_advanced">متقدم</string>
+    <string name="about">حول</string>
+    <string name="widget_settings">إعدادات الودجيت</string>
 </resources>

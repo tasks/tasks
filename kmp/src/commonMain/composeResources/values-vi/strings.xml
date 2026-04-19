@@ -117,4 +117,15 @@
     <string name="password">Mật khẩu</string>
     <string name="migrating_tasks">Đang di cư các công việc</string>
     <string name="migrate_count">Di chuyển %1$s đến Tasks.org</string>
+    <string name="preferences_look_and_feel">Ngoại hình</string>
+    <string name="notifications">Thông báo</string>
+    <string name="task_defaults">Giá trị mặc định</string>
+    <string name="task_list_options">Tuỳ chọn danh sách công việc</string>
+    <string name="EPr_edit_screen_options">Chỉnh sửa các tuỳ chọn màn hình</string>
+    <string name="date_and_time">Ngày và thời gian</string>
+    <string name="navigation_drawer">Ngăn điều hướng</string>
+    <string name="backup_BPr_header">Sao lưu</string>
+    <string name="preferences_advanced">Nâng cao</string>
+    <string name="about">Giới thiệu</string>
+    <string name="widget_settings">Cài đặt tiện ích</string>
 </resources>

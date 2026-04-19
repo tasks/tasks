@@ -50,11 +50,9 @@
     <string name="TEA_control_timer">Temporizador</string>
     <string name="TEA_control_hidden_section">----Sempre ocultar----</string>
     <string name="none">Nenhuma</string>
-    <string name="EPr_edit_screen_options">Opções da tela de edição</string>
     <string name="EPr_beastMode_reset">Restaurar valores padrões</string>
     <string name="EPr_fullTask_title">Exibir título completo da tarefa</string>
     <string name="EPr_show_task_edit_comments">Mostrar comentários na edição de tarefas</string>
-    <string name="task_list_options">Opções da lista de tarefas</string>
     <string name="EPr_cal_end_or_start_at_due_time">Hora do evento do calendário</string>
     <string name="EPr_cal_end_at_due_time">Finalizar eventos do calendário no horário de vencimento</string>
     <string name="EPr_cal_start_at_due_time">Iniciar eventos do calendário no horário de vencimento</string>
@@ -67,7 +65,6 @@
     <string name="EPr_manage_delete_gcal_status">%d eventos do calendário excluídos!</string>
     <string name="EPr_manage_delete_all_gcal">Excluir todos os eventos de tarefas do calendário</string>
     <string name="EPr_manage_delete_all_gcal_message">Você realmente deseja excluir todos os seus eventos das tarefas?</string>
-    <string name="task_defaults">Padrões de tarefa</string>
     <string name="EPr_default_importance_title">Prioridade padrão</string>
     <string name="EPr_default_reminders_title">Lembretes padrões</string>
     <string name="EPr_default_location_reminder_title">Lembretes de localização padrão</string>
@@ -308,7 +305,6 @@
     <string name="delete_multiple_tasks_confirmation">%s excluídas</string>
     <string name="delete_selected_tasks">Excluir tarefas selecionadas?</string>
     <string name="copy_selected_tasks">Copiar tarefas selecionadas?</string>
-    <string name="date_and_time">Hora e data</string>
     <string name="user">Usuário</string>
     <string name="password">Senha</string>
     <string name="notification_disable_battery_optimizations_description">Otimizações da bateria podem atrasar as notificações</string>
@@ -351,7 +347,6 @@
     <string name="upgrade_to_pro">Comprar assinatura</string>
     <string name="refresh_purchases">Atualizar compras</string>
     <string name="button_subscribe">Assinar</string>
-    <string name="about">Sobre</string>
     <string name="license_summary">O Tasks é um software livre e de código aberto, licenciado sob a GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Extensão Dashclock</string>
     <string name="requires_pro_subscription">É necessária uma assinatura PRO</string>
@@ -395,7 +390,6 @@
     <string name="chip_appearance_text_and_icon">Texto e ícone</string>
     <string name="hide_unused_places">Ocultar lugares não utilizados</string>
     <string name="hide_unused_tags">Ocultar etiquetas não usadas</string>
-    <string name="navigation_drawer">Menu de navegação</string>
     <string name="place_settings">Configuração de lugares</string>
     <string name="places">Lugares</string>
     <string name="chip_appearance">Aparência da Pastilha</string>
@@ -414,7 +408,6 @@
     <string name="wearable_notifications">Notificações em dispositivos Weareables</string>
     <string name="documentation">Documentação</string>
     <string name="preferences_advanced">Avançado</string>
-    <string name="preferences_look_and_feel">Interface e experiência do usuário</string>
     <string name="etesync_account_description">Precisa de uma conta com EteSync.com ou uma instância desse serviço auto-hospedada</string>
     <string name="caldav_account_description">Precisa de uma conta com um provedor CalDAV. Encontre um provedor visitando tasks.org/caldav</string>
     <string name="show_advanced_settings">Mostrar configurações avançadas</string>
@@ -466,7 +459,6 @@
     <string name="astrid_sort_order_summary">Ativar ordenação manual do Astrid para \'Minhas tarefas\', \'Hoje\', e etiquetas. Esse modo de ordenação será substituído por \'Minhas ordenações\' em uma atualização futura</string>
     <string name="astrid_sort_order">Ordenação manual do Astrid</string>
     <string name="SSD_sort_my_order">Minhas ordenações</string>
-    <string name="backup_BPr_header">Backups</string>
     <string name="display_name">Nome de exibição</string>
     <string name="permission_read_tasks">Acesso completo à base de dados do Tasks</string>
     <string name="reset_sort_order">Redefinir ordenação</string>

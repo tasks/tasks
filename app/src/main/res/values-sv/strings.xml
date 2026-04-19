@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Rensa bild</string>
     <string name="TVA_add_comment">Lägg till en kommentar…</string>
-    <string name="backup_BPr_header">Säkerhetskopior</string>
     <string name="backup_BAc_import">Importera säkerhetskopia</string>
     <string name="backup_BAc_export">Säkerhetskopiera nu</string>
     <string name="export_toast">Säkerhetskopierade %1$s till %2$s.</string>
@@ -49,11 +48,9 @@
     <string name="TEA_control_timer">Tidtagarinställningar</string>
     <string name="TEA_control_hidden_section">----Dölj alltid----</string>
     <string name="none">Ingen</string>
-    <string name="EPr_edit_screen_options">Ändra skärminställningar</string>
     <string name="EPr_beastMode_reset">Återställ till standardvärden</string>
     <string name="EPr_fullTask_title">Visa hela namnet på uppgiften</string>
     <string name="EPr_show_task_edit_comments">Visa kommentarsfält i uppgiftsredigeringsvyn</string>
-    <string name="task_list_options">Visningsalternativ för lista</string>
     <string name="EPr_cal_end_or_start_at_due_time">Tid för kalenderhändelse</string>
     <string name="EPr_cal_end_at_due_time">Avsluta kalenderhändelser vid förfallotid</string>
     <string name="EPr_cal_start_at_due_time">Påbörja kalenderhändelser vid förfallotid</string>
@@ -66,7 +63,6 @@
     <string name="EPr_manage_delete_gcal_status">%d kalenderhändelser borttagna!</string>
     <string name="EPr_manage_delete_all_gcal">Ta bort alla kalenderhändelser för uppgifter</string>
     <string name="EPr_manage_delete_all_gcal_message">Vill du verkligen ta bort alla dina händelser i kalendern för uppgifter\?</string>
-    <string name="task_defaults">Förval för nya uppgifter</string>
     <string name="EPr_default_importance_title">Standard prioritet</string>
     <string name="EPr_default_reminders_title">Standardpåminnelser</string>
     <string name="EPr_default_reminders_mode_title">Standardtyp av ringsignal/vibration</string>
@@ -300,7 +296,6 @@
     <string name="delete_multiple_tasks_confirmation">%s borttagna</string>
     <string name="delete_selected_tasks">Ta bort valda uppgifter\?</string>
     <string name="copy_selected_tasks">Kopiera valda uppgifter\?</string>
-    <string name="date_and_time">Datum och tid</string>
     <string name="user">Användare</string>
     <string name="password">Lösenord</string>
     <string name="url">URL</string>
@@ -345,7 +340,6 @@
     <string name="upgrade_to_pro">Uppgradera till Pro</string>
     <string name="refresh_purchases">Uppdatera inköp</string>
     <string name="button_subscribe">Prenumerera</string>
-    <string name="about">Om</string>
     <string name="license_summary">Tasks är Libre Open-Source programvara, licensierad under GNU General Public License v 3.0</string>
     <string name="pro_dashclock_extension">DashClock extension</string>
     <string name="requires_pro_subscription">Kräver Pro-abonnemang</string>
@@ -505,7 +499,6 @@
     <string name="auto_dismiss_datetime">Automatisk stängning av datum- och tidsväljare</string>
     <string name="hide_unused_places">Dölj oanvända platser</string>
     <string name="hide_unused_tags">Dölj oanvända taggar</string>
-    <string name="navigation_drawer">Navigeringslåda</string>
     <string name="chip_appearance">Utseende av flis</string>
     <string name="chips">Pommes frites</string>
     <string name="upgrade_blurb_1">Hej! Jag heter Alex. Jag är den oberoende utvecklaren bakom Tasks</string>
@@ -513,7 +506,6 @@
     <string name="notification_troubleshooting_summary">Tryck här om du har problem med aviseringar</string>
     <string name="wearable_notifications_summary">Visa aviseringar på din wearable</string>
     <string name="wearable_notifications">Wearable-aviseringar</string>
-    <string name="preferences_look_and_feel">Utseende</string>
     <string name="davx5_selection_description">Synkronisera dina uppgifter med DAVx⁵-appen</string>
     <string name="decsync_selection_description">Filbaserad synkronisering</string>
     <string name="etesync_selection_description">Krypterad synkronisering från slut till slut</string>

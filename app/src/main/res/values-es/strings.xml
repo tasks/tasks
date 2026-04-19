@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Borrar imagen</string>
     <string name="TVA_add_comment">Añadir un comentario…</string>
-    <string name="backup_BPr_header">Copias de seguridad</string>
     <string name="backup_BAc_import">Importar copia de seguridad</string>
     <string name="backup_BAc_export">Respaldar ahora</string>
     <string name="export_toast">Respaldadas %1$s de %2$s.</string>
@@ -51,11 +50,9 @@
     <string name="TEA_control_timer">Controles de tiempo</string>
     <string name="TEA_control_hidden_section">---Ocultar siempre---</string>
     <string name="none">Ninguna</string>
-    <string name="EPr_edit_screen_options">Editar opciones de pantalla</string>
     <string name="EPr_beastMode_reset">Restablecer valores predeterminados</string>
     <string name="EPr_fullTask_title">Mostrar título completo de las tareas</string>
     <string name="EPr_show_task_edit_comments">Mostrar comentarios en la edición de tareas</string>
-    <string name="task_list_options">Opciones de la lista de tareas</string>
     <string name="EPr_cal_end_or_start_at_due_time">Momento del evento en calendario</string>
     <string name="EPr_cal_end_at_due_time">Finalizar eventos del calendario en la hora límite</string>
     <string name="EPr_cal_start_at_due_time">Iniciar eventos del calendario en la hora límite</string>
@@ -68,7 +65,6 @@
     <string name="EPr_manage_delete_gcal_status">¡Se eliminaron %d eventos del calendario!</string>
     <string name="EPr_manage_delete_all_gcal">Borrar todos los eventos del calendario de las tareas</string>
     <string name="EPr_manage_delete_all_gcal_message">¿Seguro que quieres borrar todos tus eventos para las tareas?</string>
-    <string name="task_defaults">Valores predets. de tareas</string>
     <string name="EPr_default_importance_title">Prioridad predeterminada</string>
     <string name="EPr_default_reminders_title">Recordatorios por defecto</string>
     <string name="EPr_default_location_reminder_title">Recordatorios de ubicación predeterminados</string>
@@ -308,7 +304,6 @@
     <string name="delete_multiple_tasks_confirmation">%s borrada(s)</string>
     <string name="delete_selected_tasks">¿Borrar tareas seleccionadas?</string>
     <string name="copy_selected_tasks">¿Copiar tareas seleccionadas?</string>
-    <string name="date_and_time">Fecha y hora</string>
     <string name="user">Usuario</string>
     <string name="password">Contraseña</string>
     <string name="notification_disable_battery_optimizations_description">Optimizaciones de batería pueden retrasar notificaciones</string>
@@ -351,7 +346,6 @@
     <string name="upgrade_to_pro">Actualizar a profesional</string>
     <string name="refresh_purchases">Actualizar los acquisiciones</string>
     <string name="button_subscribe">Suscribe</string>
-    <string name="about">Sobre</string>
     <string name="license_summary">Tasks es software libre de código abierto, licenciado bajo la GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Extensión Dashclock</string>
     <string name="requires_pro_subscription">Requiere suscripción Pro</string>
@@ -412,7 +406,6 @@
     <string name="etesync_account_description">Requiere una cuenta en EteSync.com o un servidor autoalojado</string>
     <string name="help_and_feedback">Ayuda y retroalimentación</string>
     <string name="documentation">Documentación</string>
-    <string name="preferences_look_and_feel">Apariencia</string>
     <string name="preferences_advanced">Avanzado</string>
     <string name="wearable_notifications">Notificaciones del reloj</string>
     <string name="wearable_notifications_summary">Mostrar las notificaciones en su reloj</string>
@@ -431,7 +424,6 @@
     <string name="chip_appearance">Apariencia de los distintivos</string>
     <string name="places">Lugares</string>
     <string name="place_settings">Ajustes de lugar</string>
-    <string name="navigation_drawer">Cajón de navegación</string>
     <string name="hide_unused_tags">Ocultar etiquetas no utilizadas</string>
     <string name="hide_unused_places">Ocultar lugares inusuales</string>
     <string name="menu_discard_changes">Descartar los cambios</string>

@@ -146,4 +146,15 @@
     <string name="regenerate_email_address_confirmation">Твоја тренутна мејл адреса ће престати да ради</string>
     <string name="migrating_tasks">Мигрирајући задаци</string>
     <string name="migrate_count">Премести %1$s на Tasks.org</string>
+    <string name="preferences_look_and_feel">Изглед и персонализација</string>
+    <string name="notifications">Обавештења</string>
+    <string name="task_defaults">Подразумевано за задатке</string>
+    <string name="task_list_options">Подешавања листе задатака</string>
+    <string name="EPr_edit_screen_options">Измени подешавања екрана</string>
+    <string name="date_and_time">Време и датум</string>
+    <string name="navigation_drawer">Навигациони мени</string>
+    <string name="backup_BPr_header">Резервне копије</string>
+    <string name="preferences_advanced">Напредно</string>
+    <string name="about">О нама</string>
+    <string name="widget_settings">Подешавања виџета</string>
 </resources>

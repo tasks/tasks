@@ -5,7 +5,6 @@
     <string name="actfm_picture_clear">Sary mazava</string>
     <string name="TVA_add_comment">Ambarao izay tianao lazaina…</string>
     <string name="display_name">Anaranao isehoana</string>
-    <string name="backup_BPr_header">Tahirin\'ny zava-bita</string>
     <string name="backup_BAc_export">Hitahiry ny zava-bitako izao</string>
     <string name="backup_BAc_import">Mampiditra ny zava-bita voatahiry</string>
     <string name="export_toast">Voatahiry ny %1$s hatramin\'ny %2$s</string>

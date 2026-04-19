@@ -137,4 +137,15 @@
     <string name="password">Lösenord</string>
     <string name="migrating_tasks">Migrerar uppgifter</string>
     <string name="migrate_count">Flytta %1$s till Tasks.org</string>
+    <string name="preferences_look_and_feel">Utseende</string>
+    <string name="notifications">Aviseringar</string>
+    <string name="task_defaults">Förval för nya uppgifter</string>
+    <string name="task_list_options">Visningsalternativ för lista</string>
+    <string name="EPr_edit_screen_options">Ändra skärminställningar</string>
+    <string name="date_and_time">Datum och tid</string>
+    <string name="navigation_drawer">Navigeringslåda</string>
+    <string name="backup_BPr_header">Säkerhetskopior</string>
+    <string name="preferences_advanced">Avancerat</string>
+    <string name="about">Om</string>
+    <string name="widget_settings">Inställningar för widget</string>
 </resources>

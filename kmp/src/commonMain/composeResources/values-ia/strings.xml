@@ -14,4 +14,8 @@
     <string name="SSD_sort_start">Per data de initio</string>
     <string name="SSD_sort_alpha">Per titulo</string>
     <string name="display_name">Monstrar le nomine</string>
+    <string name="notifications">Notificationes</string>
+    <string name="date_and_time">Data e hora</string>
+    <string name="backup_BPr_header">Copias de securitate</string>
+    <string name="about">A proposito de</string>
 </resources>

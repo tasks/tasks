@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Resmi sil</string>
     <string name="TVA_add_comment">Yorum gir…</string>
-    <string name="backup_BPr_header">Yedekler</string>
     <string name="backup_BAc_import">Yedeği içe aktar</string>
     <string name="backup_BAc_export">Şimdi yedekle</string>
     <string name="export_toast">%1$s şuraya yedeklendi: %2$s.</string>
@@ -52,11 +51,9 @@
     <string name="TEA_control_timer">Kronometre Denetimleri</string>
     <string name="TEA_control_hidden_section">----Sürekli Gizle----</string>
     <string name="none">Hiçbiri</string>
-    <string name="EPr_edit_screen_options">Düzenleme ekranı ayarları</string>
     <string name="EPr_beastMode_reset">Öntanımlılara sıfırla</string>
     <string name="EPr_fullTask_title">Tüm görev başlığını göster</string>
     <string name="EPr_show_task_edit_comments">Görev düzenlemede yorumları göster</string>
-    <string name="task_list_options">Görev listesi seçenekleri</string>
     <string name="EPr_cal_end_or_start_at_due_time">Takvim etkinlik zamanı</string>
     <string name="EPr_cal_end_at_due_time">Takvim etkinliklerini bitiş zamanında bitir</string>
     <string name="EPr_cal_start_at_due_time">Takvim etkinliklerini bitiş zamanında başlat</string>
@@ -69,7 +66,6 @@
     <string name="EPr_manage_delete_gcal_status">%d takvim olayı silindi!</string>
     <string name="EPr_manage_delete_all_gcal">Görevler için tüm takvim olaylarını sil</string>
     <string name="EPr_manage_delete_all_gcal_message">Görevlerdeki tüm olayları silmek istediğinize emin misiniz?</string>
-    <string name="task_defaults">Görev öntanımlıları</string>
     <string name="EPr_default_importance_title">Öntanımlı öncelik</string>
     <string name="EPr_default_reminders_title">Öntanımlı anımsatıcılar</string>
     <string name="EPr_default_location_reminder_title">Öntanımlı konum anımsatıcılar</string>
@@ -296,7 +292,6 @@
     <string name="delete_multiple_tasks_confirmation">%s silindi</string>
     <string name="delete_selected_tasks">Seçili görevleri sil?</string>
     <string name="copy_selected_tasks">Seçili görevleri kopyala?</string>
-    <string name="date_and_time">Tarih ve zaman</string>
     <string name="user">Kullanıcı</string>
     <string name="password">Parola</string>
     <string name="notification_disable_battery_optimizations_description">Pil optimizasyonları bildirimleri geciktirebilir</string>
@@ -339,7 +334,6 @@
     <string name="upgrade_to_pro">Pro\'ya yükselt</string>
     <string name="refresh_purchases">Satın alımları yenile</string>
     <string name="button_subscribe">Abone ol</string>
-    <string name="about">Hakkında</string>
     <string name="license_summary">Tasks özgür açık kaynaklı yazılımdır, GNU Genel Kamu Lisansı sürüm 3.0 altında lisanslanmıştır</string>
     <string name="pro_dashclock_extension">Dashclock eklentisi</string>
     <string name="requires_pro_subscription">Pro aboneliği gerektirir</string>
@@ -396,7 +390,6 @@
     <string name="etesync_account_description">EteSync.com hesabı veya kendi kendine barındırılan sunucu gerektirir</string>
     <string name="help_and_feedback">Yardım ve geri bildirim</string>
     <string name="documentation">Belgelendirme</string>
-    <string name="preferences_look_and_feel">Görünüm ve his</string>
     <string name="preferences_advanced">Gelişmiş</string>
     <string name="wearable_notifications">Giyilebilir bildirimleri</string>
     <string name="wearable_notifications_summary">Giyilebilirinizde bildirim gösterin</string>
@@ -415,7 +408,6 @@
     <string name="chip_appearance">Yonga görünümü</string>
     <string name="places">Yerler</string>
     <string name="place_settings">Yer ayarları</string>
-    <string name="navigation_drawer">Gezinim çekmecesi</string>
     <string name="hide_unused_tags">Kullanılmayan etiketleri gizle</string>
     <string name="hide_unused_places">Kullanılmayan yerleri gizle</string>
     <string name="auto_dismiss_datetime_summary">Tarih veya zaman seçince tarih zaman seçiciyi kapat</string>

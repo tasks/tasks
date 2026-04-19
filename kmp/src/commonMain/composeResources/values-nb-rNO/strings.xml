@@ -116,4 +116,15 @@
     <string name="password">Passord</string>
     <string name="migrating_tasks">Flytting av gjøremål</string>
     <string name="migrate_count">Flytt %1$s til Tasks.org</string>
+    <string name="preferences_look_and_feel">Utseende og oppførsel</string>
+    <string name="notifications">Varsler</string>
+    <string name="task_defaults">Gjøremålsforvalg</string>
+    <string name="task_list_options">Gjøremålslistevalg</string>
+    <string name="EPr_edit_screen_options">Rediger skjermvalg</string>
+    <string name="date_and_time">Dato og tid</string>
+    <string name="navigation_drawer">Navigasjonsskuff</string>
+    <string name="backup_BPr_header">Sikkerhetskopier</string>
+    <string name="preferences_advanced">Avansert</string>
+    <string name="about">Om</string>
+    <string name="widget_settings">Miniprogramsinnstillinger</string>
 </resources>

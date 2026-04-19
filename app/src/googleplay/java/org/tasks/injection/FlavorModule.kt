@@ -42,6 +42,7 @@ class FlavorModule {
         supportsGeofences = true,
         supportsCalendarEvents = true,
         billingProvider = org.tasks.billing.BillingProvider.GOOGLE_PLAY,
+        supportsWidgets = true,
     )
 
     @Provides

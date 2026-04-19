@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="backup_BPr_header">Sikkerhetskopier</string>
     <string name="backup_BAc_import">Importer sikkerhetskopi</string>
     <string name="backup_BAc_export">Sikkerhetskopier nå</string>
     <string name="export_toast">%1$s av %2$s sikkerhetskopiert.</string>
@@ -160,11 +159,9 @@
     <string name="TEA_control_location">Sted</string>
     <string name="TEA_control_timer">Tidtakingskontroller</string>
     <string name="none">Ingen</string>
-    <string name="EPr_edit_screen_options">Rediger skjermvalg</string>
     <string name="EPr_beastMode_reset">Tilbakestill til forvalg</string>
     <string name="EPr_fullTask_title">Vis full gjøremålstittel</string>
     <string name="EPr_show_task_edit_comments">Vis kommentarer i gjøremålsredigering</string>
-    <string name="task_list_options">Gjøremålslistevalg</string>
     <string name="EPr_cal_end_or_start_at_due_time">Kalenderhendelsestid</string>
     <string name="EPr_cal_end_at_due_time">Sluttfør kalenderhendelser ved tidsfrist</string>
     <string name="EPr_cal_start_at_due_time">Start kalenderhendelser ved tidsfrist</string>
@@ -177,7 +174,6 @@
     <string name="EPr_manage_delete_gcal_status">Slettet %d kalenderhendelser!</string>
     <string name="EPr_manage_delete_all_gcal">Slett alle kalenderhendelser for gjøremål</string>
     <string name="EPr_manage_delete_all_gcal_message">Ønsker du virkelig å slette alle dine hendelser for gjøremål\?</string>
-    <string name="task_defaults">Gjøremålsforvalg</string>
     <string name="EPr_default_location_reminder_title">Forvalgte stedspåminnelser</string>
     <string name="EPr_default_reminders_mode_title">Forvalgt ringe/vibrasjonstype</string>
     <string name="priority_high">Høy</string>
@@ -320,7 +316,6 @@
     <string name="delete_multiple_tasks_confirmation">%s slettet</string>
     <string name="delete_selected_tasks">Slett valgte gjøremål\?</string>
     <string name="copy_selected_tasks">Kopier valgte gjøremål\?</string>
-    <string name="date_and_time">Dato og tid</string>
     <string name="user">Bruker</string>
     <string name="password">Passord</string>
     <string name="url">Nettadresse</string>
@@ -347,7 +342,6 @@
     <string name="upgrade_to_pro">Oppgrader til pro</string>
     <string name="refresh_purchases">Gjenoppfrisk kjøp</string>
     <string name="button_subscribe">Abonner</string>
-    <string name="about">Om</string>
     <string name="license_summary">Tasks er fri programvare, lisensiert GPLv3+</string>
     <string name="pro_dashclock_extension">Dashclock-utvidelse</string>
     <string name="requires_pro_subscription">Krever pro-abonnement</string>
@@ -412,7 +406,6 @@
     <string name="widget_open_list">Åpne liste</string>
     <string name="menu_discard_changes">Forkast endringer</string>
     <string name="widget_show_menu">Vis meny</string>
-    <string name="preferences_look_and_feel">Utseende og oppførsel</string>
     <string name="filter_no_priority">Ingen prioritet</string>
     <string name="filter_low_priority">Lav prioritet</string>
     <string name="filter_medium_priority">Middels prioritet</string>
@@ -446,7 +439,6 @@
     <string name="auto_dismiss_datetime">Lukk datovelger automatisk</string>
     <string name="hide_unused_places">Skjul ubrukte steder</string>
     <string name="hide_unused_tags">Skjul ubrukte etiketter</string>
-    <string name="navigation_drawer">Navigasjonsskuff</string>
     <string name="chip_appearance">Flisutseende</string>
     <string name="chips">Flis</string>
     <string name="upgrade_blurb_2">Jeg har brukt tusenvis av timer på å jobbe med Tasks, og jeg offentliggjør all kildekoden på nettet gratis. For å støtte mitt arbeid krever noen funksjoner et abonnement</string>

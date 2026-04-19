@@ -8,9 +8,12 @@ import kotlinx.coroutines.SupervisorJob
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.tasks.PlatformConfiguration
+import org.tasks.billing.SubscriptionProvider
 import org.tasks.analytics.PostHogReporting
 import org.tasks.analytics.Reporting
 import org.tasks.caldav.FileStorage
@@ -78,6 +81,12 @@ actual fun platformModule(): Module = module {
         FileStorage(dataDir().absolutePath)
     }
     factoryOf(::VtodoCache)
+    single<SubscriptionProvider> {
+        object : SubscriptionProvider {
+            override val subscription: Flow<SubscriptionProvider.SubscriptionInfo?> = flowOf(null)
+            override suspend fun getFormattedPrice(sku: String): String? = null
+        }
+    }
     single { SseTokenProvider() } bind FcmTokenProvider::class
     single {
         SseClient(

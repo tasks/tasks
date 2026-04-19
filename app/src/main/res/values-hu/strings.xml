@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Kép törlése</string>
     <string name="TVA_add_comment">Hozzászólás írása…</string>
-    <string name="backup_BPr_header">Mentések</string>
     <string name="backup_BAc_import">Mentés importálása</string>
     <string name="backup_BAc_export">Mentés most</string>
     <string name="export_toast">%1$s lementve ide: %2$s.</string>
@@ -52,11 +51,9 @@
     <string name="TEA_control_timer">Időzítő Beállítása</string>
     <string name="TEA_control_hidden_section">---Elrejtve---</string>
     <string name="none">Nincs</string>
-    <string name="EPr_edit_screen_options">Szerkesztési képernyő beállításai</string>
     <string name="EPr_beastMode_reset">Visszaállítás alapértékre</string>
     <string name="EPr_fullTask_title">Feladat teljes nevének megjelenítése</string>
     <string name="EPr_show_task_edit_comments">Megjegyzések megjelenítése feladat szerkesztésekor</string>
-    <string name="task_list_options">Feladat lista opciók</string>
     <string name="EPr_cal_end_or_start_at_due_time">Naptáresemény időzítése</string>
     <string name="EPr_cal_end_at_due_time">Naptáresemények befejezése határidőkor</string>
     <string name="EPr_cal_start_at_due_time">Naptáresemények kezdése határidőkor</string>
@@ -69,7 +66,6 @@
     <string name="EPr_manage_delete_gcal_status">%d naptárbejegyzés törölve!</string>
     <string name="EPr_manage_delete_all_gcal">Feladatok naptárbejegyzésének törlése</string>
     <string name="EPr_manage_delete_all_gcal_message">Biztosan törölni akarja a feladatokhoz tartozó eseményeket?</string>
-    <string name="task_defaults">Feladat alapértelmezései</string>
     <string name="EPr_default_importance_title">Alapértelmezett prioritás</string>
     <string name="EPr_default_reminders_title">Alapértelmezett emlékeztetők</string>
     <string name="EPr_default_location_reminder_title">Alapértelmezett hely emlékeztetők</string>
@@ -295,7 +291,6 @@
     <string name="delete_multiple_tasks_confirmation">%s törölve</string>
     <string name="delete_selected_tasks">Kiválasztott feladatok törlése?</string>
     <string name="copy_selected_tasks">Kiválasztott feladatok másolása?</string>
-    <string name="date_and_time">Dátum és időpont</string>
     <string name="user">Felhasználónév</string>
     <string name="password">Jelszó</string>
     <string name="url">Link</string>
@@ -339,7 +334,6 @@
     <string name="upgrade_to_pro">Upgrade pro verzióra</string>
     <string name="refresh_purchases">Vásárlások frissítése</string>
     <string name="button_subscribe">Előfizetés</string>
-    <string name="about">Névjegy</string>
     <string name="license_summary">A Tasks nyílt forráskódú program, a GNU Általános Nyilvános Licenc v3.0 alapján licenszelve</string>
     <string name="pro_dashclock_extension">Dashclock kiterjesztés</string>
     <string name="requires_pro_subscription">Előfizetés szükséges</string>
@@ -396,7 +390,6 @@
     <string name="etesync_account_description">EteSync.com accountot, vagy saját szervert igényel</string>
     <string name="help_and_feedback">Segítség és visszajelzés</string>
     <string name="documentation">Dokumentáció</string>
-    <string name="preferences_look_and_feel">Kinézet</string>
     <string name="preferences_advanced">További lehetőségek</string>
     <string name="wearable_notifications">Hordozható eszköz értesítései</string>
     <string name="wearable_notifications_summary">Értesítés megjelenítése hordozható eszközön</string>
@@ -417,7 +410,6 @@
     <string name="place_settings">Hely beállítások</string>
     <string name="hide_unused_tags">Használaton kívüli címkék elrejtése</string>
     <string name="hide_unused_places">Használaton kívüli helyek elrejtése</string>
-    <string name="navigation_drawer">Hamburger menü</string>
     <string name="menu_discard_changes">Módosítások elvetése</string>
     <string name="chip_appearance_text_and_icon">Szöveg és ikon</string>
     <string name="chip_appearance_text_only">Csak szöveg</string>

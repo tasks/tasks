@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Foto wissen</string>
     <string name="TVA_add_comment">Voeg een opmerking toe…</string>
-    <string name="backup_BPr_header">Backups</string>
     <string name="backup_BAc_import">Backup importeren</string>
     <string name="backup_BAc_export">Nu een backup maken</string>
     <string name="export_toast">%1$s naar %2$s gebackupt.</string>
@@ -51,11 +50,9 @@
     <string name="TEA_control_timer">Instellingen timer</string>
     <string name="TEA_control_hidden_section">----Onzichtbaar----</string>
     <string name="none">Geen</string>
-    <string name="EPr_edit_screen_options">Schermopties bewerken</string>
     <string name="EPr_beastMode_reset">Beginwaarden herstellen</string>
     <string name="EPr_fullTask_title">Volledige taaktitel tonen</string>
     <string name="EPr_show_task_edit_comments">Toon opmerkingen bij taakbewerking</string>
-    <string name="task_list_options">Opties voor takenlijst</string>
     <string name="EPr_cal_end_or_start_at_due_time">Tijdstip voor kalender-item</string>
     <string name="EPr_cal_end_at_due_time">Items stoppen op vervaltijd</string>
     <string name="EPr_cal_start_at_due_time">Items starten op vervaltijd</string>
@@ -68,7 +65,6 @@
     <string name="EPr_manage_delete_gcal_status">%d kalender-items gewist!</string>
     <string name="EPr_manage_delete_all_gcal">Alle kalender-items voor taken wissen</string>
     <string name="EPr_manage_delete_all_gcal_message">Alle items voor taken permanent verwijderen?</string>
-    <string name="task_defaults">Specificaties</string>
     <string name="EPr_default_importance_title">Standaard prioriteit</string>
     <string name="EPr_default_reminders_title">Standaard herinneringen</string>
     <string name="EPr_default_location_reminder_title">Locatieherinneringen</string>
@@ -290,7 +286,6 @@
     <string name="delete_multiple_tasks_confirmation">%s gewist</string>
     <string name="delete_selected_tasks">Geselecteerde taken wissen\?</string>
     <string name="copy_selected_tasks">Geselecteerde taken kopiëren\?</string>
-    <string name="date_and_time">Datum en tijd</string>
     <string name="user">Gebruiker</string>
     <string name="password">Wachtwoord</string>
     <string name="notification_disable_battery_optimizations_description">Optimalisatie kan meldingen vertragen</string>
@@ -332,7 +327,6 @@
     <string name="upgrade_to_pro">Opwaarderen naar pro</string>
     <string name="refresh_purchases">Aankopen bijwerken</string>
     <string name="button_subscribe">Abonneren</string>
-    <string name="about">Over</string>
     <string name="license_summary">Tasks is vrije open-source software, onder de GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Dashclock extensie</string>
     <string name="requires_pro_subscription">Pro abonnement vereist</string>
@@ -396,7 +390,6 @@
     <string name="etesync_account_description">Voorwaarde is een account op www.EteSync.com of een eigen server</string>
     <string name="help_and_feedback">Hulp &amp; feedback</string>
     <string name="documentation">Documentatie (website)</string>
-    <string name="preferences_look_and_feel">Uiterlijk</string>
     <string name="preferences_advanced">Geavanceerd</string>
     <string name="wearable_notifications">Meldingen op \'Wearables\'</string>
     <string name="wearable_notifications_summary">Laat meldingen zien op \'Wearables\'</string>
@@ -415,7 +408,6 @@
     <string name="chip_appearance">Uiterlijk van chip</string>
     <string name="places">Locaties</string>
     <string name="place_settings">Locatie instellen</string>
-    <string name="navigation_drawer">Menu</string>
     <string name="hide_unused_tags">Ongebruikte labels verbergen</string>
     <string name="hide_unused_places">Ongebruikte locaties verbergen</string>
     <string name="menu_discard_changes">Veranderingen negeren</string>

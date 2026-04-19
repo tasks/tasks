@@ -89,7 +89,6 @@
     <string name="theme_light">ହାଲୁକା</string>
     <string name="theme_dark">ଗାଢ଼</string>
     <string name="theme_day_night">ଦିନ/ରାତି</string>
-    <string name="date_and_time">ତାରିଖ ଓ ସମୟ</string>
     <string name="user">ଉପଭୋକ୍ତା</string>
     <string name="password">ପାସ୍‍ୱର୍ଡ଼</string>
     <string name="url">URL</string>
@@ -154,10 +153,8 @@
     <string name="repeat_monthly_first_week">ପ୍ରଥମ</string>
     <string name="repeat_monthly_fifth_week">ପଞ୍ଚମ</string>
     <string name="network_error">ସଂଯୋଗ କରିହେଲା ନାହିଁ</string>
-    <string name="about">ସମ୍ବନ୍ଧରେ</string>
     <string name="show_description">ଵର୍ଣ୍ଣନା ଦେଖାଅ</string>
     <string name="show_full_description">ସମ୍ପୂର୍ଣ୍ଣ ଵର୍ଣ୍ଣନା ଦେଖାଅ</string>
-    <string name="preferences_look_and_feel">ରୂପ ଏଵଂ ଅନୁଭଵ</string>
     <string name="color_wheel">ରଙ୍ଗ ଚକ୍ର</string>
     <string name="custom_filter_and">ଏଵଂ</string>
     <string name="filter_overdue">ଅତିଦେୟ</string>

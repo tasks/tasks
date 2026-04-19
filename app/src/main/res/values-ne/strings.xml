@@ -33,9 +33,7 @@
     <string name="TEA_control_location">स्थान</string>
     <string name="TEA_control_notes">विवरण</string>
     <string name="TEA_creation_date">सिर्जना मिति</string>
-    <string name="task_list_options">कार्य सूचीका विकल्पहरू</string>
     <string name="always_display_full_date">पूरा मिति देखाउनुहोस्</string>
-    <string name="task_defaults">कार्य पूर्वनिर्धारितहरू</string>
     <string name="default_start_date">पूर्वनिर्धारित सुरु मिति</string>
     <string name="EPr_default_reminders_mode_title">पूर्वनिर्धारित घण्टी/कम्पन प्रकार</string>
     <string name="priority_high">उच्च</string>

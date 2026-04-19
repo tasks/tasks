@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">إزالة الصورة</string>
     <string name="TVA_add_comment">إضافة تعليق…</string>
-    <string name="backup_BPr_header">النّسَخ الاحتياطية</string>
     <string name="backup_BAc_import">استعادة نسخة احتياطية</string>
     <string name="import_summary_title"> إستعادة المُلخَّص</string>
     <string name="read_permission_label">إذن المهام</string>
@@ -35,14 +34,11 @@
     <string name="TEA_control_files">الملفات</string>
     <string name="TEA_control_reminders">تذكيرات</string>
     <string name="TEA_control_hidden_section">---إخفاء دائمًا---</string>
-    <string name="EPr_edit_screen_options">تعديل خيارات الشاشة</string>
     <string name="EPr_beastMode_reset">إعادة التعيين إلى الإعدادات الافتراضية</string>
     <string name="EPr_fullTask_title">إظهار عنوان المهمة الكامل</string>
-    <string name="task_list_options">خيارات قائمة المهام</string>
     <string name="EPr_manage_delete_completed_gcal">حذف أحداث التقويم للمهام المُتَممه</string>
     <string name="EPr_manage_delete_all_gcal">حذف جميع أحداث المهام من التقوييم</string>
     <string name="EPr_manage_delete_all_gcal_message">هل فعلا تريد حذف جميع الأحداث للمهام؟</string>
-    <string name="task_defaults">افتراضيات المهام</string>
     <string name="EPr_default_reminders_title">التذكير الافتراضى</string>
     <string name="EPr_default_reminders_mode_title">نوع رنين/اهتزاز افتراضي</string>
     <string name="day_after_tomorrow">بعد غد</string>
@@ -120,7 +116,6 @@
     <string name="theme_dark">داكن</string>
     <string name="theme_light">فاتح</string>
     <string name="theme">المظهر</string>
-    <string name="preferences_look_and_feel">المظهر</string>
     <string name="keep_editing">استمر في التعديل</string>
     <string name="discard_confirmation">هل أنت متأكد أنك تريد تجاهل تغييراتك؟</string>
     <string name="language">اللغة</string>
@@ -171,7 +166,6 @@
     <string name="priority_low">منخفض</string>
     <string name="priority_medium">متوسط</string>
     <string name="priority_high">عال</string>
-    <string name="date_and_time">التاريخ والوقت</string>
     <plurals name="task_count">
         <item quantity="zero">%d مهمة</item>
         <item quantity="one">%d مهمة</item>
@@ -457,7 +451,6 @@
     <string name="issue_tracker">تعقب المشكلة</string>
     <string name="no_google_play_subscription">لم يتم العثور على اشتراك Google Play مقبول</string>
     <string name="chip_appearance_text_and_icon">النص والايقونة</string>
-    <string name="navigation_drawer">درج التنقل</string>
     <string name="chips">رقائق</string>
     <string name="back">عودة</string>
     <string name="upgrade_blurb_2">لقد أمضيت آلاف الساعات في العمل على \"مهام\" ، وأنا أنشر جميع التعليمات البرمجية المصدر عبر الإنترنت مجانًا. من أجل دعم عملي ، ولذلك تتطلب بعض الميزات اشتراكًا</string>
@@ -483,7 +476,6 @@
     <string name="cannot_access_account">لا يمكن الوصول الى الحساب</string>
     <string name="requires_pro_subscription">يتطلب اشتراك احترافي</string>
     <string name="license_summary">التطبيق \"مهامي\" هي برنامج مفتوح المصدر حر ، ومرخص بموجب رخصة جنو العمومية العامة v3.0</string>
-    <string name="about">حول</string>
     <string name="upgrade_to_pro">طور لاصدار متقدم</string>
     <string name="help_and_feedback">مساعدة وتبليغات</string>
     <string name="tasker_list_notification">قائمة الاشعارات</string>

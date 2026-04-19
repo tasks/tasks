@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">پاک کردن عکس</string>
     <string name="TVA_add_comment">اضافه کردن نظر</string>
-    <string name="backup_BPr_header">پشتیبان ها</string>
     <string name="backup_BAc_import">لود کردن بکاپ</string>
     <string name="backup_BAc_export">بکاپ از تسک ها</string>
     <string name="import_summary_title">بازگرداندن خلاصه</string>
@@ -43,15 +42,12 @@
     <string name="TEA_control_timer">کنترل تایمر</string>
     <string name="TEA_control_hidden_section">----همیشه مخفی----</string>
     <string name="none">هیچکدام</string>
-    <string name="EPr_edit_screen_options">ویرایش تنظیمات صفحه</string>
     <string name="EPr_beastMode_reset">برگرداندن به پیش فرض</string>
     <string name="EPr_fullTask_title">نمایش عنوان کامل وظیفه</string>
-    <string name="task_list_options">اختیارات لیست وظیفه</string>
     <string name="EPr_cal_end_or_start_at_due_time">زمان رویداد تقویم</string>
     <string name="EPr_cal_end_at_due_time">اتمام رویدادهای تقویم در موعود</string>
     <string name="EPr_cal_start_at_due_time">شروع رویدادهای تقویم در موعود</string>
     <string name="EPr_delete_task_data">حذف داده وظیفه</string>
-    <string name="task_defaults">پیش فرض های وظیفه</string>
     <string name="EPr_default_importance_title">اولویت پیش فرض</string>
     <string name="EPr_default_reminders_title">یادآورهای پیش فرض</string>
     <string name="priority_high">زیاد</string>

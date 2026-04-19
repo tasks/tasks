@@ -50,4 +50,9 @@
     <string name="none">هیچکدام</string>
     <string name="display_name">نام نمایشی</string>
     <string name="remove">حذف</string>
+    <string name="notifications">اعلان ها</string>
+    <string name="task_defaults">پیش فرض های وظیفه</string>
+    <string name="task_list_options">اختیارات لیست وظیفه</string>
+    <string name="EPr_edit_screen_options">ویرایش تنظیمات صفحه</string>
+    <string name="backup_BPr_header">پشتیبان ها</string>
 </resources>

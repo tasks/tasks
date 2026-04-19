@@ -104,4 +104,15 @@
     <string name="password">මුරපදය</string>
     <string name="migrating_tasks">සංක්‍රමණික කාර්යයන්</string>
     <string name="migrate_count">%1$s Tasks.org වෙත ගෙන යන්න</string>
+    <string name="preferences_look_and_feel">පෙනුම හා පහසුව</string>
+    <string name="notifications">දැනුම්දීම්</string>
+    <string name="task_defaults">කාර්යය පෙරනිමි</string>
+    <string name="task_list_options">කාර්ය ලැයිස්තු විකල්ප</string>
+    <string name="EPr_edit_screen_options">තිර විකල්ප සංස්කරණය කරන්න</string>
+    <string name="date_and_time">දිනය සහ වේලාව</string>
+    <string name="navigation_drawer">මෙනුව</string>
+    <string name="backup_BPr_header">උපස්ථ</string>
+    <string name="preferences_advanced">උසස්</string>
+    <string name="about">පිළිබඳව</string>
+    <string name="widget_settings">විජට් සැකසුම්</string>
 </resources>

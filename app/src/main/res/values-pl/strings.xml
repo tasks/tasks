@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Usuń obrazek</string>
     <string name="TVA_add_comment">Dodaj komentarz…</string>
-    <string name="backup_BPr_header">Kopie zapasowe</string>
     <string name="backup_BAc_import">Importuj kopię zapasową</string>
     <string name="backup_BAc_export">Utwórz kopię zapasową teraz</string>
     <string name="export_toast">Zapisano %1$s do %2$s.</string>
@@ -52,11 +51,9 @@
     <string name="TEA_control_timer">Sterowanie zegara</string>
     <string name="TEA_control_hidden_section">----Zawsze ukrywaj----</string>
     <string name="none">Brak</string>
-    <string name="EPr_edit_screen_options">Edytuj ustawienia ekranu</string>
     <string name="EPr_beastMode_reset">Przywróć domyślne</string>
     <string name="EPr_fullTask_title">Pokaż pełny tytuł zadania</string>
     <string name="EPr_show_task_edit_comments">Pokaż komentarze w edycji zadania</string>
-    <string name="task_list_options">Opcje listy zadań</string>
     <string name="EPr_cal_end_or_start_at_due_time">Czas zdarzenia kalendarza</string>
     <string name="EPr_cal_end_at_due_time">Zakończ zadania kalendarza w ustalonym czasie</string>
     <string name="EPr_cal_start_at_due_time">Rozpocznij zadania kalendarza w ustalonym czasie</string>
@@ -69,7 +66,6 @@
     <string name="EPr_manage_delete_gcal_status">Usunięto %d wydarzeń kalendarza!</string>
     <string name="EPr_manage_delete_all_gcal">Usuń wszystkie zdarzenia kalendarza dla zadań</string>
     <string name="EPr_manage_delete_all_gcal_message">Na pewno chcesz usunąć wszystkie wydarzenia dla zadań?</string>
-    <string name="task_defaults">Domyślne ustawienia zadań</string>
     <string name="EPr_default_importance_title">Domyślny priorytet</string>
     <string name="EPr_default_reminders_title">Przypomnienia (domyślnie)</string>
     <string name="EPr_default_location_reminder_title">Domyślne powiadomienia o lokalizacji</string>
@@ -310,7 +306,6 @@
     <string name="delete_multiple_tasks_confirmation">%s usuniętych</string>
     <string name="delete_selected_tasks">Usunąć zaznaczone zadania?</string>
     <string name="copy_selected_tasks">Skopiować zaznaczone zadania?</string>
-    <string name="date_and_time">Data i czas</string>
     <string name="user">Użytkownik</string>
     <string name="password">Hasło</string>
     <string name="notification_disable_battery_optimizations_description">Optymalizacja zużycia energii może opóźniać powiadomienia</string>
@@ -353,7 +348,6 @@
     <string name="upgrade_to_pro">Upgrade do pro</string>
     <string name="refresh_purchases">Odśwież zakupy</string>
     <string name="button_subscribe">Zasubskrybuj</string>
-    <string name="about">O aplikacji</string>
     <string name="license_summary">Tasks jest aplikacją darmową/libre z otwartym kodem źródłowym, na licencji GNU General Public License v3.0</string>
     <string name="requires_pro_subscription">Wymaga subskrypcji pro</string>
     <string name="logout">Wyloguj</string>
@@ -412,7 +406,6 @@
     <string name="etesync_account_description">Wymaga konta na EteSync.com lub własnego serwera</string>
     <string name="help_and_feedback">Pomoc i opinie</string>
     <string name="documentation">Dokumentacja</string>
-    <string name="preferences_look_and_feel">Wygląd</string>
     <string name="preferences_advanced">Zaawansowane</string>
     <string name="wearable_notifications">Powiadomienia wearable</string>
     <string name="wearable_notifications_summary">Wyświetlanie powiadomień na urządzeniu do noszenia</string>
@@ -437,7 +430,6 @@
     <string name="chip_appearance_text_and_icon">Tekst i ikona</string>
     <string name="hide_unused_places">Ukryj nieużywane miejsca</string>
     <string name="hide_unused_tags">Ukryj nieużywane tagi</string>
-    <string name="navigation_drawer">Panel nawigacji</string>
     <string name="place_settings">Ustawienia miejsca</string>
     <string name="places">Miejsca</string>
     <string name="menu_discard_changes">Odrzuć zmiany</string>

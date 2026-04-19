@@ -23,4 +23,6 @@
     <string name="sort_completed">Po vremenu završetka</string>
     <string name="none">Ništa</string>
     <string name="display_name">Prikazano ime</string>
+    <string name="task_defaults">Uobičajene postavke zadatka</string>
+    <string name="backup_BPr_header">Sigurnosne kopije</string>
 </resources>

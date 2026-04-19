@@ -162,4 +162,15 @@
     <string name="regenerate_email_address_confirmation">Alamat email Anda saat ini akan berhenti berfungsi</string>
     <string name="migrating_tasks">Memindahkan tugas</string>
     <string name="migrate_count">Pindahkan %1$s ke Tasks.org</string>
+    <string name="preferences_look_and_feel">Tampilan dan gaya</string>
+    <string name="notifications">Notifikasi</string>
+    <string name="task_defaults">Bawaan tugas</string>
+    <string name="task_list_options">Opsi daftar tugas</string>
+    <string name="EPr_edit_screen_options">Opsi layar sunting</string>
+    <string name="date_and_time">Tanggal dan waktu</string>
+    <string name="navigation_drawer">Panel navigasi</string>
+    <string name="backup_BPr_header">Cadangan</string>
+    <string name="preferences_advanced">Lanjutan</string>
+    <string name="about">Tentang</string>
+    <string name="widget_settings">Pengaturan wisaya</string>
 </resources>

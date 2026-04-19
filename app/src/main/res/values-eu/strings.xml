@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Garbitu irudia</string>
     <string name="TVA_add_comment">Gehitu iruzkin bat…</string>
-    <string name="backup_BPr_header">Babes-kopiak</string>
     <string name="backup_BAc_import">Inportatu babeskopia</string>
     <string name="backup_BAc_export">Egin babeskopia orain</string>
     <string name="export_toast">%1$s zereginen babeskopia hemen egin da: %2$s.</string>
@@ -57,11 +56,9 @@
     <string name="TEA_control_timer">Kronometroaren kontrolak</string>
     <string name="TEA_control_hidden_section">----Ezkutatu beti----</string>
     <string name="none">Bat ere ez</string>
-    <string name="EPr_edit_screen_options">Edizio pantailaren aukerak</string>
     <string name="EPr_beastMode_reset">Berrezarri lehenetsitakoak</string>
     <string name="EPr_fullTask_title">Erakutsi zereginaren izenburu osoa</string>
     <string name="EPr_show_task_edit_comments">Erakutsi iruzkinak zereginaren edizioan</string>
-    <string name="task_list_options">Zeregin-zerrendaren aukerak</string>
     <string name="EPr_cal_end_or_start_at_due_time">Egutegiko gertaeraren ordua</string>
     <string name="EPr_cal_end_at_due_time">Amaitu egutegiko gertaerak epemuga-orduan</string>
     <string name="EPr_cal_start_at_due_time">Hasi egutegiko gertaerak epemuga-orduan</string>
@@ -74,7 +71,6 @@
     <string name="EPr_manage_delete_gcal_status">%d gertaera ezabatuta egutegitik!</string>
     <string name="EPr_manage_delete_all_gcal">Ezabatu zereginen gertaera guztiak egutegitik</string>
     <string name="EPr_manage_delete_all_gcal_message">Ziur zure zereginen gertaera guztiak ezabatu nahi dituzula egutegitik\?</string>
-    <string name="task_defaults">Zereginen lehenespenak</string>
     <string name="EPr_default_importance_title">Lehenetsitako lehentasuna</string>
     <string name="EPr_default_reminders_title">Lehenetsitako oroigarriak</string>
     <string name="EPr_default_location_reminder_title">Lehenetsitako kokaleku-oroigarriak</string>
@@ -302,7 +298,6 @@
     <string name="delete_multiple_tasks_confirmation">%s ezabatuta</string>
     <string name="delete_selected_tasks">Ezabatu hautatutako zereginak\?</string>
     <string name="copy_selected_tasks">Kopiatu hautatutako zereginak\?</string>
-    <string name="date_and_time">Data eta ordua</string>
     <string name="user">Erabiltzailea</string>
     <string name="password">Pasahitza</string>
     <string name="url">URL-a</string>
@@ -347,7 +342,6 @@
     <string name="upgrade_to_pro">Aldatu pro bertsiora</string>
     <string name="refresh_purchases">Freskatu erosketak</string>
     <string name="button_subscribe">Harpidetu</string>
-    <string name="about">Honi buruz</string>
     <string name="license_summary">Tasks aplikazioa software librea eta kode irekikoa da, GNU General Public License v3.0 lizentziapean</string>
     <string name="pro_dashclock_extension">Dashclock luzapena</string>
     <string name="requires_pro_subscription">Pro harpidetza eskatzen du</string>
@@ -401,7 +395,6 @@
     <string name="etesync_account_description">EteSync.com zerbitzuko edo zuk zeuk ostatatutako zerbitzari bateko kontua behar du</string>
     <string name="help_and_feedback">Feedback eta laguntza</string>
     <string name="documentation">Dokumentazioa</string>
-    <string name="preferences_look_and_feel">Itxura</string>
     <string name="preferences_advanced">Aurreratua</string>
     <string name="wearable_notifications">Erlojuaren jakinarazpenak</string>
     <string name="wearable_notifications_summary">Erakutsi jakinarazpenak erlojuan</string>
@@ -420,7 +413,6 @@
     <string name="chip_appearance">Txip itxura</string>
     <string name="places">Tokiak</string>
     <string name="place_settings">Toki-ezarpenak</string>
-    <string name="navigation_drawer">Nabigazio tiradera</string>
     <string name="hide_unused_tags">Ezkutatu erabili gabeko etiketak</string>
     <string name="hide_unused_places">Ezkutatu erabili gabeko tokiak</string>
     <string name="menu_discard_changes">Baztertu aldaketak</string>

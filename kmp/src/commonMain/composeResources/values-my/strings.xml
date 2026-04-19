@@ -16,4 +16,5 @@
     <string name="SSD_sort_my_order">အစီအစဥ်</string>
     <string name="sort_completed">အလုပ်ပြီးသောအချိန်ဖြင့်</string>
     <string name="display_name">အမည်</string>
+    <string name="backup_BPr_header">အရန်သိမ်းထားသော</string>
 </resources>

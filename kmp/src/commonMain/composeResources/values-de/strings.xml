@@ -162,4 +162,15 @@
     <string name="regenerate_email_address_confirmation">Deine derzeitige E-Mail-Adresse wird nicht mehr funktionieren</string>
     <string name="migrating_tasks">Aufgaben werden migriert</string>
     <string name="migrate_count">Verschiebe %1$s zu Tasks.org</string>
+    <string name="preferences_look_and_feel">Erscheinungsbild</string>
+    <string name="notifications">Benachrichtigungen</string>
+    <string name="task_defaults">Vorgaben für Aufgaben</string>
+    <string name="task_list_options">Aufgabenlisten-Optionen</string>
+    <string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
+    <string name="date_and_time">Datum und Uhrzeit</string>
+    <string name="navigation_drawer">Navigationsmenü</string>
+    <string name="backup_BPr_header">Sicherungen</string>
+    <string name="preferences_advanced">Erweitert</string>
+    <string name="about">Über</string>
+    <string name="widget_settings">Widget-Einstellungen</string>
 </resources>

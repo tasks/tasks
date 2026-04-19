@@ -6,7 +6,6 @@
     <string name="export_toast">Захавана %1$s у %2$s.</string>
     <string name="import_summary_title">Аднавіць зводку</string>
     <string name="import_progress_read">Чытанне задачы %d…</string>
-    <string name="backup_BPr_header">Рэзервовыя копіі</string>
     <string name="actfm_picture_clear">Ачысціць карцінку</string>
     <string name="backup_BAc_import">Імпартаваць рэзервовую копію</string>
     <string name="import_summary_message">Файл %1$s утрымліваў %2$s.\n\n%3$s імпартавана,\n%4$s ужо існуюць,\n%5$s з памылкамі</string>
@@ -51,7 +50,6 @@
     <string name="start_date">Дата пачатку</string>
     <string name="TEA_control_hidden_section">----Заўсёды хаваць----</string>
     <string name="TEA_control_timer">Кіраванне таймерам</string>
-    <string name="EPr_edit_screen_options">Налады экрану рэдагавання</string>
     <string name="none">Няма</string>
     <string name="tomorrow">Заўтра</string>
     <string name="show_unstarted">Паказаць непачатыя</string>
@@ -82,7 +80,6 @@
     <string name="EPr_delete_task_data_warning">Усе заданні будуць выдаленыя назаўсёды</string>
     <string name="EPr_cal_start_at_due_time">Пачынаць падзеі ў календары з часу выканання</string>
     <string name="EPr_show_task_edit_comments">Паказваць каментарыі ў рэдактары задання</string>
-    <string name="task_list_options">Налады спісу заданняў</string>
     <string name="EPr_cal_end_or_start_at_due_time">Час падзеі ў календары</string>
     <string name="EPr_fullTask_title">Паказваць поўную назву задання</string>
     <string name="week_before_due">Тыдзень да даты выканання</string>

@@ -130,4 +130,15 @@
     <string name="password">Пароль</string>
     <string name="migrating_tasks">Перенос задач</string>
     <string name="migrate_count">Переместить %1$s на Tasks.org</string>
+    <string name="preferences_look_and_feel">Внешний вид</string>
+    <string name="notifications">Уведомления</string>
+    <string name="task_defaults">Параметры по умолчанию</string>
+    <string name="task_list_options">Настройки списка задач</string>
+    <string name="EPr_edit_screen_options">Настройки экрана редактирования</string>
+    <string name="date_and_time">Дата и время</string>
+    <string name="navigation_drawer">Панель навигации</string>
+    <string name="backup_BPr_header">Резервные копии</string>
+    <string name="preferences_advanced">Расширенные</string>
+    <string name="about">О программе</string>
+    <string name="widget_settings">Настройки виджета</string>
 </resources>

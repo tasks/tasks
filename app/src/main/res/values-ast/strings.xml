@@ -4,7 +4,6 @@
     <string name="cancel">Encaboxar</string>
     <string name="TVA_add_comment">Amestar un comentariu…</string>
     <string name="display_name">Mostrar el nome</string>
-    <string name="backup_BPr_header">Copies de seguranza</string>
     <string name="backup_BAc_export">Facer una copia de seguranza agora</string>
     <string name="backup_BAc_import">Importar copia de seguranza</string>
     <string name="export_toast">Respaldaes %1$s de %2$s.</string>
@@ -67,11 +66,9 @@
     <string name="TEA_control_hidden_section">----Esconder siempres----</string>
     <string name="TEA_creation_date">Data de creación</string>
     <string name="none">Denguna</string>
-    <string name="EPr_edit_screen_options">Editar opciones de pantalla</string>
     <string name="EPr_beastMode_reset">Restablecer valores predeterminaos</string>
     <string name="EPr_fullTask_title">Amosar el títulu completu de la xera</string>
     <string name="EPr_show_task_edit_comments">Amosar comentarios na edición de la xera</string>
-    <string name="task_list_options">Opciones de la llista de xeres</string>
     <string name="EPr_cal_end_or_start_at_due_time">Momentu del eventu nel calendariu</string>
     <string name="EPr_cal_end_at_due_time">Acabar eventos del calendariu al vencimientu</string>
     <string name="EPr_cal_start_at_due_time">Entamar eventos del calendariu nel momentu oportunu</string>
@@ -85,7 +82,6 @@
     <string name="EPr_manage_delete_gcal_status">¡Desaniciaronse %d xeres del calendariu!</string>
     <string name="EPr_manage_delete_all_gcal">Desaniciar tolos eventos de calendariu de les xeres</string>
     <string name="EPr_manage_delete_all_gcal_message">¿De xuru que quies desaniciar tolos tos eventos pa les xeres?</string>
-    <string name="task_defaults">Valores predeterminaos de la xera</string>
     <string name="EPr_default_importance_title">Prioridá predeterminada</string>
     <string name="default_start_date">Data d\'entamu predeterminada</string>
     <string name="default_due_date">Data de vencimientu predeterminada</string>
@@ -400,7 +396,6 @@
     <string name="delete_multiple_tasks_confirmation">%s desaniciáu</string>
     <string name="delete_selected_tasks">¿Desaniciar les xeres seleccionaes?</string>
     <string name="copy_selected_tasks">¿Copiar les xeres seleccionaes?</string>
-    <string name="date_and_time">Data y hora</string>
     <string name="user">Usuariu</string>
     <string name="password">Conseña</string>
     <string name="url">URL</string>
@@ -458,7 +453,6 @@
     <string name="subscription">Soscripción</string>
     <string name="refresh_purchases">Anovar les compres</string>
     <string name="button_subscribe">Soscribise</string>
-    <string name="about">Tocantes a</string>
     <string name="license_summary">Tasks ye un software llibre de códigu abiertu, llicenciáu baxu la Llicencia Pública Xeneral de GNU v3.0</string>
     <string name="pro_dashclock_extension">Estensión Dashclock</string>
     <string name="requires_pro_subscription">Requier soscripción pro</string>

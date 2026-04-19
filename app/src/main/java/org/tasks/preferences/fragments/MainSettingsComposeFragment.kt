@@ -20,7 +20,8 @@ import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.runBlocking
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import org.tasks.R
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.tasks_org
@@ -32,7 +33,7 @@ import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SHOW_MORE_OPT
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.compose.accounts.AddAccountActivity
-import org.tasks.compose.settings.MainSettingsScreen
+import org.tasks.compose.settings.AndroidMainSettingsScreen
 import org.tasks.compose.settings.ManageSubscriptionSheetContent
 import org.tasks.compose.settings.ProCardState
 import org.tasks.compose.settings.SettingsDestination
@@ -45,8 +46,8 @@ import org.tasks.preferences.BasePreferences
 import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.MainSettingsViewModel
 import org.tasks.preferences.Preferences
-import org.tasks.preferences.ProCardViewModel
 import org.tasks.preferences.PreferencesViewModel
+import org.tasks.preferences.ProCardViewModel
 import org.tasks.preferences.fragments.GoogleTasksAccount.Companion.newGoogleTasksAccountPreference
 import org.tasks.preferences.fragments.MicrosoftAccount.Companion.newMicrosoftAccountPreference
 import org.tasks.preferences.fragments.TasksAccount.Companion.newTasksAccountPreference
@@ -85,12 +86,12 @@ class MainSettingsComposeFragment : Fragment() {
                             preferencesViewModel.staleLocalBackup ||
                             preferencesViewModel.staleRemoteBackup)
 
-            MainSettingsScreen(
+            AndroidMainSettingsScreen(
                 accounts = filteredAccounts,
                 proCardState = proCardState,
                 environmentLabel = environmentLabel,
                 showBackupWarning = showBackupWarning,
-                showWidgets = viewModel.showWidgets,
+                showWidgets = viewModel.supportsWidgets,
                 onAccountClick = { account -> handleAccountClick(account) },
                 onAddAccountClick = { addAccount() },
                 onSettingsClick = { destination -> navigateToSettings(destination) },
@@ -203,10 +204,12 @@ class MainSettingsComposeFragment : Fragment() {
         val activity = activity as? MainPreferences ?: return
         when {
             account.isTasksOrg -> {
-                activity.startPreference(
-                    newTasksAccountPreference(account),
-                    runBlocking { org.jetbrains.compose.resources.getString(Res.string.tasks_org) }
-                )
+                viewLifecycleOwner.lifecycleScope.launch {
+                    activity.startPreference(
+                        newTasksAccountPreference(account),
+                        org.jetbrains.compose.resources.getString(Res.string.tasks_org)
+                    )
+                }
             }
             account.isMicrosoft -> {
                 activity.startPreference(
@@ -252,7 +255,12 @@ class MainSettingsComposeFragment : Fragment() {
             SettingsDestination.HelpAndFeedback -> HelpAndFeedback()
             SettingsDestination.Debug -> Debug()
         }
-        activity.startPreference(fragment, getString(destination.titleRes))
+        viewLifecycleOwner.lifecycleScope.launch {
+            activity.startPreference(
+                fragment,
+                org.jetbrains.compose.resources.getString(destination.titleRes)
+            )
+        }
     }
 
     @OptIn(ExperimentalMaterial3Api::class)

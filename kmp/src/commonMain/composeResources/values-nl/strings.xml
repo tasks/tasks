@@ -142,4 +142,15 @@
     <string name="regenerate_email_address_confirmation">Je huidige e-mailadres zal niet meer werken</string>
     <string name="migrating_tasks">Migreert taken</string>
     <string name="migrate_count">Verplaats %1$s naar Tasks.org</string>
+    <string name="preferences_look_and_feel">Uiterlijk</string>
+    <string name="notifications">Meldingen</string>
+    <string name="task_defaults">Specificaties</string>
+    <string name="task_list_options">Opties voor takenlijst</string>
+    <string name="EPr_edit_screen_options">Schermopties bewerken</string>
+    <string name="date_and_time">Datum en tijd</string>
+    <string name="navigation_drawer">Menu</string>
+    <string name="backup_BPr_header">Backups</string>
+    <string name="preferences_advanced">Geavanceerd</string>
+    <string name="about">Over</string>
+    <string name="widget_settings">Widget instellingen</string>
 </resources>

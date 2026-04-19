@@ -163,4 +163,15 @@
     <string name="migrating_tasks">正在迁移任务</string>
     <string name="migrate_count">移动 %1$s 到 Tasks.org</string>
     <string name="supporter_summary_no_price">感谢！</string>
+    <string name="preferences_look_and_feel">外观</string>
+    <string name="notifications">通知</string>
+    <string name="task_defaults">任务默认值</string>
+    <string name="task_list_options">任务清单选项</string>
+    <string name="EPr_edit_screen_options">编辑屏幕选项</string>
+    <string name="date_and_time">日期和时间</string>
+    <string name="navigation_drawer">导航抽屉</string>
+    <string name="backup_BPr_header">备份</string>
+    <string name="preferences_advanced">高级</string>
+    <string name="about">关于</string>
+    <string name="widget_settings">插件设置</string>
 </resources>

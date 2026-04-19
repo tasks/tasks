@@ -162,4 +162,15 @@
     <string name="regenerate_email_address_confirmation">A jelenlegi e-mail címed megszűnik működni</string>
     <string name="migrating_tasks">Feladatok migrálása</string>
     <string name="migrate_count">%1$s mozgatása a Tasks.org-ra</string>
+    <string name="preferences_look_and_feel">Kinézet</string>
+    <string name="notifications">Értesítések</string>
+    <string name="task_defaults">Feladat alapértelmezései</string>
+    <string name="task_list_options">Feladat lista opciók</string>
+    <string name="EPr_edit_screen_options">Szerkesztési képernyő beállításai</string>
+    <string name="date_and_time">Dátum és időpont</string>
+    <string name="navigation_drawer">Hamburger menü</string>
+    <string name="backup_BPr_header">Mentések</string>
+    <string name="preferences_advanced">További lehetőségek</string>
+    <string name="about">Névjegy</string>
+    <string name="widget_settings">Widget beállításai</string>
 </resources>

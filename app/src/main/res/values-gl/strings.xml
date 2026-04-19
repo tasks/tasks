@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Borrar imaxe</string>
     <string name="TVA_add_comment">Engadir un comentario…</string>
-    <string name="backup_BPr_header">Copias de seguranza</string>
     <string name="backup_BAc_import">Importar tarefas</string>
     <string name="backup_BAc_export">Facer copia de seguridade</string>
     <string name="export_toast">Respaldadas %1$s de %2$s.</string>
@@ -50,11 +49,9 @@
     <string name="TEA_control_timer">Controles de tempo</string>
     <string name="TEA_control_hidden_section">---Agochar sempre---</string>
     <string name="none">Ningunha</string>
-    <string name="EPr_edit_screen_options">Editar opcións de pantalla</string>
     <string name="EPr_beastMode_reset">Restablecer valores predeterminados</string>
     <string name="EPr_fullTask_title">Amosar o título completo da tarefa</string>
     <string name="EPr_show_task_edit_comments">Amosar os comentarios editando tarefas</string>
-    <string name="task_list_options">Opcións de listas de tarefas</string>
     <string name="EPr_cal_end_or_start_at_due_time">Momento do evento no calendario</string>
     <string name="EPr_cal_end_at_due_time">Finalizar eventos do calendario co vencemento</string>
     <string name="EPr_cal_start_at_due_time">Iniciar eventos do calendario co vencemento</string>
@@ -67,7 +64,6 @@
     <string name="EPr_manage_delete_gcal_status">Borráronse %d eventos do calendario!</string>
     <string name="EPr_manage_delete_all_gcal">Borrar todos os eventos do calendario das tarefas</string>
     <string name="EPr_manage_delete_all_gcal_message">Seguro que queres borrar todos os teus eventos para as tarefas\?</string>
-    <string name="task_defaults">Predefinicións das tarefas</string>
     <string name="EPr_default_importance_title">Prioridade por defecto</string>
     <string name="EPr_default_reminders_title">Recordatorios por defecto</string>
     <string name="EPr_default_reminders_mode_title">Tipo predeterminado de timbre/vibración</string>
@@ -233,7 +229,6 @@
     <string name="pro_dashclock_extension">Engadido de reloxo</string>
     <string name="widget_show_dividers">Amosar divisores</string>
     <string name="widget_show_menu">Amosar menú</string>
-    <string name="date_and_time">Data e hora</string>
     <string name="custom_filter_is_subtask">É unha subtarefa</string>
     <string name="start_date">Data de inicio</string>
     <string name="SSD_sort_start">Por data de inicio</string>
@@ -272,7 +267,6 @@
     <string name="tasker_list_notification">Última notificación</string>
     <string name="network_error">Non se puido conectar</string>
     <string name="subscription">Suscrición</string>
-    <string name="about">Sobre de</string>
     <plurals name="list_count">
         <item quantity="one">%d lista</item>
         <item quantity="other">%d listas</item>
@@ -369,7 +363,6 @@
     <string name="this_feature_requires_a_subscription">Esta característica necesita dunha suscrición</string>
     <string name="enter_tag_name">Introduce nome de etiqueta</string>
     <string name="show_advanced_settings">Amosar configuración avanzada</string>
-    <string name="preferences_look_and_feel">Estilo e apariencia</string>
     <string name="preferences_advanced">Avanzada</string>
     <string name="places">Lugares</string>
     <string name="place_settings">Configuración de posición</string>
@@ -464,7 +457,6 @@
     <string name="troubleshooting">Soporte técnico</string>
     <string name="more_settings">Máis opcións</string>
     <string name="color_wheel">Roda de cores</string>
-    <string name="navigation_drawer">Xestionar a navegación</string>
     <string name="chip_appearance_text_and_icon">Texto e iconas</string>
     <string name="chip_appearance_text_only">Só texto</string>
     <string name="auto_dismiss_datetime_widget">Trebello</string>

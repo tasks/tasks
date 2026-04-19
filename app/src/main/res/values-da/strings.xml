@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Ryd billede</string>
     <string name="TVA_add_comment">Tilføj en kommentar…</string>
-    <string name="backup_BPr_header">Sikkerhedskopier</string>
     <string name="backup_BAc_import">Importér sikkerhedskopi</string>
     <string name="backup_BAc_export">Sikkerhedskopiér nu</string>
     <string name="export_toast">Sikkerhedskopierede %1$s til %2$s.</string>
@@ -126,7 +125,6 @@
     <string name="chip_appearance_text_and_icon">Tekst og ikon</string>
     <string name="hide_unused_places">Skjul ubrugte steder</string>
     <string name="hide_unused_tags">Skjul ubrugte tags</string>
-    <string name="navigation_drawer">Navigationsmenu</string>
     <string name="place_settings">Indstillinger for steder</string>
     <string name="places">Steder</string>
     <string name="chip_appearance">Boble-udseende</string>
@@ -143,7 +141,6 @@
     <string name="wearable_notifications">Wearables-meddelelser</string>
     <string name="documentation">Dokumentation</string>
     <string name="preferences_advanced">Avanceret</string>
-    <string name="preferences_look_and_feel">Udseende</string>
     <string name="etesync_account_description">Kræver en konto hos EteSync.com eller en selvhostet server</string>
     <string name="caldav_account_description">Kræver en konto hos en CalDAV-tjenesteudbyder eller en selvhostet server. Find en tjenesteudbyder ved at besøge tasks.org/caldav</string>
     <string name="show_advanced_settings">Vis avancerede indstillinger</string>
@@ -187,7 +184,6 @@
     <string name="this_feature_requires_a_subscription">Denne funktion kræver et abonnement</string>
     <string name="requires_pro_subscription">Kræver pro-abonnement</string>
     <string name="pro_dashclock_extension">Dashclock-udvidelse</string>
-    <string name="about">Om</string>
     <string name="button_subscribe">Abonnér</string>
     <string name="network_error">Kunne ikke oprette forbindelse</string>
     <string name="help_and_feedback">Hjælp og feedback</string>
@@ -225,7 +221,6 @@
     <string name="url">URL</string>
     <string name="password">Adgangskode</string>
     <string name="user">Bruger</string>
-    <string name="date_and_time">Dato og tidspunkt</string>
     <string name="delete_selected_tasks">Slet valgte opgaver?</string>
     <string name="copy_selected_tasks">Kopiér valgte opgaver?</string>
     <string name="delete_multiple_tasks_confirmation">%s slettet</string>
@@ -443,7 +438,6 @@
     <string name="priority_high">Høj</string>
     <string name="EPr_default_reminders_mode_title">Standard for ring-/vibrationstype</string>
     <string name="EPr_default_location_reminder_title">Standardplaceringspåmindelser</string>
-    <string name="task_defaults">Standardindstillinger for opgaver</string>
     <string name="EPr_manage_delete_all_gcal_message">Vil du virkelig slette alle dine begivenheder for opgaver?</string>
     <string name="EPr_manage_delete_all_gcal">Slet alle kalenderbegivenheder for opgaver</string>
     <string name="EPr_manage_delete_gcal_status">Slettede %d kalenderbegivenheder!</string>
@@ -456,9 +450,7 @@
     <string name="EPr_cal_start_at_due_time">Start kalenderbegivenheder på forfaldstid</string>
     <string name="EPr_cal_end_at_due_time">Afslut kalenderbegivenheder på forfaldstid</string>
     <string name="EPr_cal_end_or_start_at_due_time">Tid for kalenderbegivenhed</string>
-    <string name="task_list_options">Indstillinger for opgavelister</string>
     <string name="EPr_beastMode_reset">Gendan standardindstillinger</string>
-    <string name="EPr_edit_screen_options">Rediger skærmindstillinger</string>
     <string name="none">Ingen</string>
     <string name="TEA_control_timer">Timerkontroller</string>
     <string name="TEA_control_location">Placering</string>

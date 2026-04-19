@@ -21,4 +21,6 @@
     <string name="SSD_sort_alpha">Po naslovu</string>
     <string name="SSD_sort_modified">Po zadnjih spremembah</string>
     <string name="SSD_sort_auto">Pametno razvrščanje</string>
+    <string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>
+    <string name="backup_BPr_header">Varnostne kopije</string>
 </resources>

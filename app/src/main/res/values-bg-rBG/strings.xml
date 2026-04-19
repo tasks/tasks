@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Изчистване изображение</string>
     <string name="TVA_add_comment">Добавяне на коментар…</string>
-    <string name="backup_BPr_header">Резервни копия</string>
     <string name="backup_BAc_import">Внасяне от резервно копие</string>
     <string name="backup_BAc_export">Създаване на резервно копие</string>
     <string name="export_toast">Създадено е резервно копие %1$s на %2$s.</string>
@@ -54,11 +53,9 @@
     <string name="TEA_control_timer">Отчитане на времето</string>
     <string name="TEA_control_hidden_section">----Винаги скрито----</string>
     <string name="none">Без</string>
-    <string name="EPr_edit_screen_options">Настройки на екрана за редактиране</string>
     <string name="EPr_beastMode_reset">Подразбирани настройки</string>
     <string name="EPr_fullTask_title">Пълно заглавие на задачата</string>
     <string name="EPr_show_task_edit_comments">Показване на коментари при редакция на задачи</string>
-    <string name="task_list_options">Настройки на списъка със задачи</string>
     <string name="EPr_cal_end_or_start_at_due_time">Час на събитието в календара</string>
     <string name="EPr_cal_end_at_due_time">Прекратяване на събитията в календара в определеното време</string>
     <string name="EPr_cal_start_at_due_time">Започване на събитията в календара в определеното време</string>
@@ -71,7 +68,6 @@
     <string name="EPr_manage_delete_gcal_status">От календара са премахнати %d събития!</string>
     <string name="EPr_manage_delete_all_gcal">Премахвне от календара на всички събития към задачи</string>
     <string name="EPr_manage_delete_all_gcal_message">Наистина ли желаете всички събития към задачи да бъдат премахнати\?</string>
-    <string name="task_defaults">Стойности по подразбиране</string>
     <string name="EPr_default_importance_title">Подразбиран приоритет</string>
     <string name="EPr_default_reminders_title">Напомняния по подразбиране</string>
     <string name="EPr_default_location_reminder_title">Напомняния за място по подразбиране</string>
@@ -301,7 +297,6 @@
     <string name="delete_multiple_tasks_confirmation">%s изтрити</string>
     <string name="delete_selected_tasks">Изтриване на избраните задачи?</string>
     <string name="copy_selected_tasks">Копиране на избраните задачи?</string>
-    <string name="date_and_time">Дата и час</string>
     <string name="user">Потребител</string>
     <string name="password">Парола</string>
     <string name="notification_disable_battery_optimizations_description">Оптимизацията на батерията може да забави известията</string>
@@ -344,7 +339,6 @@
     <string name="upgrade_to_pro">Надграждане до версия Про</string>
     <string name="refresh_purchases">Обновяване на покупките</string>
     <string name="button_subscribe">Абониране</string>
-    <string name="about">Относно</string>
     <string name="pro_dashclock_extension">Разширение за Dashclock</string>
     <string name="requires_pro_subscription">Изисква абонамент Про</string>
     <string name="logout">Изход</string>
@@ -468,7 +462,6 @@
     <string name="auto_dismiss_datetime_list">Списък със задачи</string>
     <string name="chip_appearance_text_only">Само текст</string>
     <string name="chip_appearance_text_and_icon">Текст и икона</string>
-    <string name="navigation_drawer">Меню</string>
     <string name="invalid_username_or_password">Невалидно потребителско име или парола</string>
     <string name="more_notification_settings_summary">Звънене, вибрация и други</string>
     <string name="disable_battery_optimizations">Изключване на оптимизацията на батерията</string>
@@ -482,7 +475,6 @@
     <string name="whats_new">Какво е новото</string>
     <string name="no_app_found">Липсва приложение, което да обработи тази заявка</string>
     <string name="etesync_selection_description">Синхронизация, шифрована от край до край</string>
-    <string name="preferences_look_and_feel">Външен вид и усещане</string>
     <string name="troubleshooting">Отстраняване на неизправности</string>
     <string name="back">Назад</string>
     <string name="now">Сега</string>

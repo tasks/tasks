@@ -5,7 +5,6 @@
   <string name="actfm_picture_clear">Clear Picture</string>
   <string name="TVA_add_comment">Add a comment…</string>
   <string name="display_name">Display name</string>
-  <string name="backup_BPr_header">Backups</string>
   <string name="backup_BAc_export">Backup now</string>
   <string name="backup_BAc_import">Import backup</string>
   <string name="export_toast">Backed up %1$s to %2$s.</string>
@@ -74,11 +73,9 @@ File %1$s contained %2$s.\n\n
   <string name="TEA_control_hidden_section">----Hide Always----</string>
   <string name="TEA_creation_date">Creation date</string>
   <string name="none">None</string>
-  <string name="EPr_edit_screen_options">Edit screen options</string>
   <string name="EPr_beastMode_reset">Reset to defaults</string>
   <string name="EPr_fullTask_title">Show full task title</string>
   <string name="EPr_show_task_edit_comments">Show comments in task edit</string>
-  <string name="task_list_options">Task list options</string>
   <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
   <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
   <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
@@ -92,7 +89,6 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_manage_delete_gcal_status">Deleted %d calendar events!</string>
   <string name="EPr_manage_delete_all_gcal">Delete all calendar events for tasks</string>
   <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
-  <string name="task_defaults">Task defaults</string>
   <string name="EPr_default_importance_title">Default priority</string>
   <string name="default_start_date">Default start date</string>
   <string name="default_due_date">Default due date</string>
@@ -417,7 +413,6 @@ File %1$s contained %2$s.\n\n
   <string name="delete_multiple_tasks_confirmation">%s deleted</string>
   <string name="delete_selected_tasks">Delete selected tasks?</string>
   <string name="copy_selected_tasks">Copy selected tasks?</string>
-  <string name="date_and_time">Date and time</string>
   <string name="user">User</string>
   <string name="password">Password</string>
   <string name="url">URL</string>
@@ -479,7 +474,6 @@ File %1$s contained %2$s.\n\n
   <string name="subscription">Subscription</string>
   <string name="refresh_purchases">Refresh purchases</string>
   <string name="button_subscribe">Subscribe</string>
-  <string name="about">About</string>
   <string name="license_summary">Tasks is libre open-source software, licensed under the GNU General Public License v3.0</string>
   <string name="pro_dashclock_extension">Dashclock extension</string>
   <string name="requires_pro_subscription">Requires pro subscription</string>
@@ -530,7 +524,6 @@ File %1$s contained %2$s.\n\n
   <string name="show_advanced_settings">Show advanced settings</string>
   <string name="caldav_account_description">Requires an account with a CalDAV service provider or a self-hosted server. Find a service provider by visiting tasks.org/caldav</string>
   <string name="etesync_account_description">Requires an account with EteSync.com or a self-hosted server</string>
-  <string name="preferences_look_and_feel">Look and feel</string>
   <string name="preferences_advanced">Advanced</string>
   <string name="documentation">Documentation</string>
   <string name="wearable_notifications">Wearable notifications</string>
@@ -549,7 +542,6 @@ File %1$s contained %2$s.\n\n
   <string name="chip_appearance">Chip appearance</string>
   <string name="places">Places</string>
   <string name="place_settings">Place settings</string>
-  <string name="navigation_drawer">Navigation drawer</string>
   <string name="hide_unused_tags">Hide unused tags</string>
   <string name="hide_unused_places">Hide unused places</string>
   <string name="chip_appearance_text_and_icon">Text and icon</string>

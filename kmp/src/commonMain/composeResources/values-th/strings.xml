@@ -103,4 +103,15 @@
     <string name="password">รหัสผ่าน</string>
     <string name="migrating_tasks">กําลังโยกย้ายงาน</string>
     <string name="migrate_count">ย้าย %1$s ไปยัง Tasks.org</string>
+    <string name="preferences_look_and_feel">ลักษณะและความรู้สึก</string>
+    <string name="notifications">แจ้ง เตือน</string>
+    <string name="task_defaults">ค่าเริ่มต้นของงาน</string>
+    <string name="task_list_options">ตัวเลือกรายการงาน</string>
+    <string name="EPr_edit_screen_options">แก้ไขตัวเลือกหน้าจอ</string>
+    <string name="date_and_time">วันที่และเวลา</string>
+    <string name="navigation_drawer">ลิ้นชักนําทาง</string>
+    <string name="backup_BPr_header">สำรองข้อมูล</string>
+    <string name="preferences_advanced">ดึก</string>
+    <string name="about">เกี่ยวกับ</string>
+    <string name="widget_settings">การตั้งค่าวิดเจ็ต</string>
 </resources>

@@ -19,4 +19,5 @@ data class PlatformConfiguration(
     val supportsCalendarEvents: Boolean = false,
     val billingProvider: BillingProvider? = null,
     val isLibre: Boolean = false,
+    val supportsWidgets: Boolean = false,
 )

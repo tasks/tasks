@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Очистити картинку</string>
     <string name="TVA_add_comment">Додати коментар…</string>
-    <string name="backup_BPr_header">Резервні копії</string>
     <string name="backup_BAc_import">Імпортувати резервну копію</string>
     <string name="backup_BAc_export">Створити резервну копію зараз</string>
     <string name="export_toast">Збережено %1$s в %2$s.</string>
@@ -52,11 +51,9 @@
     <string name="TEA_control_timer">Управління таймером</string>
     <string name="TEA_control_hidden_section">----Завжди ховати----</string>
     <string name="none">Немає</string>
-    <string name="EPr_edit_screen_options">Налаштування екрана редагування</string>
     <string name="EPr_beastMode_reset">Скинути налаштування</string>
     <string name="EPr_fullTask_title">Показувати повну назву завдання</string>
     <string name="EPr_show_task_edit_comments">Показувати коментарі в редакторі завдання</string>
-    <string name="task_list_options">Налаштування списку завдань</string>
     <string name="EPr_cal_end_or_start_at_due_time">Час події в календарі</string>
     <string name="EPr_cal_end_at_due_time">Завершувати події у календарі після досягання часу виконання</string>
     <string name="EPr_cal_start_at_due_time">Починати події у календарі з часу виконання</string>
@@ -69,7 +66,6 @@
     <string name="EPr_manage_delete_gcal_status">Видалено %d подій у календарі!</string>
     <string name="EPr_manage_delete_all_gcal">Видалити усі події у календарі, що стосуються завдань</string>
     <string name="EPr_manage_delete_all_gcal_message">Ви дійсно хочете видалити всі події для завдань?</string>
-    <string name="task_defaults">Типові налаштування завдань</string>
     <string name="EPr_default_importance_title">Типовий пріоритет</string>
     <string name="EPr_default_reminders_title">Типові нагадування</string>
     <string name="EPr_default_location_reminder_title">Типові нагадування про розташування</string>
@@ -312,7 +308,6 @@
     <string name="delete_multiple_tasks_confirmation">%s видалено</string>
     <string name="delete_selected_tasks">Видалити вибрані завдання?</string>
     <string name="copy_selected_tasks">Копіювати вибрані завдання?</string>
-    <string name="date_and_time">Дата й час</string>
     <string name="user">Користувач</string>
     <string name="password">Пароль</string>
     <string name="notification_disable_battery_optimizations_description">Оптимізація енергоспоживання може спричинити затримку сповіщень</string>
@@ -355,7 +350,6 @@
     <string name="upgrade_to_pro">Покращити до Преміум</string>
     <string name="refresh_purchases">Оновити покупки</string>
     <string name="button_subscribe">Підписатися</string>
-    <string name="about">Про Tasks</string>
     <string name="license_summary">Tasks — це програмне забезпечення з відкритим кодом, ліцензоване GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Розширення Dashclock</string>
     <string name="requires_pro_subscription">Потребує передплати pro</string>
@@ -395,7 +389,6 @@
     <string name="TEA_add_subtask">Додати підзавдання</string>
     <string name="SSD_sort_my_order">Мій порядок</string>
     <string name="display_name">Показувана назва</string>
-    <string name="preferences_look_and_feel">Зовнішній вигляд</string>
     <string name="preferences_advanced">Розширені</string>
     <string name="show_advanced_settings">Показати розширені налаштування</string>
     <string name="theme_system_default">За системними налаштуваннями</string>
@@ -433,7 +426,6 @@
     <string name="chip_appearance_text_and_icon">Текст та піктограма</string>
     <string name="hide_unused_places">Сховати місця, що не використовуються</string>
     <string name="hide_unused_tags">Сховати не використовувані мітки</string>
-    <string name="navigation_drawer">Панель навігації</string>
     <string name="place_settings">Надаштування місць</string>
     <string name="places">Місця</string>
     <string name="chip_appearance">Вигляд індикаторів списків</string>

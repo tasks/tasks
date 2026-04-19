@@ -107,4 +107,15 @@
     <string name="password">Slaptažodis</string>
     <string name="migrating_tasks">Migruojamos užduotys</string>
     <string name="migrate_count">Migruoti %1$s į Tasks.org</string>
+    <string name="preferences_look_and_feel">Išvaizda</string>
+    <string name="notifications">Pranešimai</string>
+    <string name="task_defaults">Užduoties numatyti nustatymai</string>
+    <string name="task_list_options">Užduočių sąrašo parinktys</string>
+    <string name="EPr_edit_screen_options">Redaguoti ekrano parinktys</string>
+    <string name="date_and_time">Data ir laikas</string>
+    <string name="navigation_drawer">Navigacijos parankinės juosta</string>
+    <string name="backup_BPr_header">Atsarginės kopijos</string>
+    <string name="preferences_advanced">Išplėstiniai</string>
+    <string name="about">Apie</string>
+    <string name="widget_settings">Valdiklio nustatymai</string>
 </resources>

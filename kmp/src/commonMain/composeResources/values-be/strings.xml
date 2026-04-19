@@ -52,4 +52,7 @@
     <string name="sort_completed">Па часу выканання</string>
     <string name="none">Няма</string>
     <string name="display_name">Адлюстраванае імя</string>
+    <string name="task_list_options">Налады спісу заданняў</string>
+    <string name="EPr_edit_screen_options">Налады экрану рэдагавання</string>
+    <string name="backup_BPr_header">Рэзервовыя копіі</string>
 </resources>

@@ -54,7 +54,6 @@
     <string name="export_toast">Đã sao lưu %1$s vào %2$s.</string>
     <string name="backup_BAc_import">Nhập bản sao lưu</string>
     <string name="backup_BAc_export">Sao lưu ngay</string>
-    <string name="backup_BPr_header">Sao lưu</string>
     <string name="TVA_add_comment">Thêm bình luận…</string>
     <string name="actfm_picture_clear">Xoá ảnh</string>
     <string name="markdown">Markdown</string>
@@ -164,7 +163,6 @@
     <string name="chip_appearance_text_and_icon">Văn bản và biểu tượng</string>
     <string name="hide_unused_places">Ẩn các địa điểm chưa sử dụng</string>
     <string name="hide_unused_tags">Ẩn các thẻ chưa sử dụng</string>
-    <string name="navigation_drawer">Ngăn điều hướng</string>
     <string name="place_settings">Cài đặt địa điểm</string>
     <string name="places">Địa điểm</string>
     <string name="chip_appearance">Ngoại hình nhãn</string>
@@ -226,7 +224,6 @@
     <string name="requires_pro_subscription">Yêu cầu đăng ký pro</string>
     <string name="pro_dashclock_extension">Phần mở rộng Dashclock</string>
     <string name="license_summary">Tasks là phần mềm tự do và mã nguồn mở, được cấp phép dưới GNU General Public License v3.0</string>
-    <string name="about">Giới thiệu</string>
     <string name="button_subscribe">Đăng ký</string>
     <string name="refresh_purchases">Làm mới các giao dịch</string>
     <string name="subscription">Đăng ký</string>
@@ -275,7 +272,6 @@
     <string name="url">URL</string>
     <string name="password">Mật khẩu</string>
     <string name="user">Người dùng</string>
-    <string name="date_and_time">Ngày và thời gian</string>
     <string name="copy_selected_tasks">Sao chép các công việc đã chọn\?</string>
     <string name="delete_selected_tasks">Xoá các công việc đã chọn\?</string>
     <string name="delete_multiple_tasks_confirmation">Đã xoá %s</string>
@@ -522,7 +518,6 @@
     <string name="default_location_reminder_on_arrival">Khi đến</string>
     <string name="no_reminders">Không có lời nhắc</string>
     <string name="preferences_advanced">Nâng cao</string>
-    <string name="preferences_look_and_feel">Ngoại hình</string>
     <string name="etesync_account_description">Yêu cầu một tài khoản trên EteSync.com hoặc một máy chủ mà bạn vận hành</string>
     <string name="caldav_account_description">Yêu cầu một tài khoản với một nhà cung cấp dịch vụ CalDAV hoặc một máy chủ mà bạn vận hành. Hãy tìm một nhà cung cấp dịch vụ bằng cách đi đến tasks.org/caldav</string>
     <string name="next_week">Tuần sau</string>
@@ -537,7 +532,6 @@
     <string name="default_due_date">Ngày hạn mặc định</string>
     <string name="default_start_date">Ngày bắt đầu mặc định</string>
     <string name="EPr_default_importance_title">Sự ưu tiên mặc định</string>
-    <string name="task_defaults">Giá trị mặc định</string>
     <string name="EPr_manage_delete_all_gcal_message">Bạn có thực sự muốn xoá tất cả các sự kiện đối với các công việc không\?</string>
     <string name="EPr_manage_delete_all_gcal">Xoá tất cả sự kiện trong lịch đối với các công việc</string>
     <string name="EPr_manage_delete_gcal_status">Đã xoá %d sự kiện trong lịch!</string>
@@ -551,11 +545,9 @@
     <string name="EPr_cal_start_at_due_time">Bắt đầu các sự kiện trong lịch khi đến hạn</string>
     <string name="EPr_cal_end_at_due_time">Kết thúc các sự kiện trong lịch khi đến hạn</string>
     <string name="EPr_cal_end_or_start_at_due_time">Thời gian sự kiện trong lịch</string>
-    <string name="task_list_options">Tuỳ chọn danh sách công việc</string>
     <string name="EPr_show_task_edit_comments">Hiện bình luận trong mục chỉnh sửa công việc</string>
     <string name="EPr_fullTask_title">Hiện tiêu đề công việc đầy đủ</string>
     <string name="EPr_beastMode_reset">Đặt lại về mặc định</string>
-    <string name="EPr_edit_screen_options">Chỉnh sửa các tuỳ chọn màn hình</string>
     <string name="none">Không có</string>
     <string name="TEA_control_hidden_section">----Luôn ẩn----</string>
     <string name="TEA_control_timer">Điều khiển hẹn giờ</string>

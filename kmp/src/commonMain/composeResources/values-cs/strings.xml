@@ -162,4 +162,15 @@
     <string name="regenerate_email_address_confirmation">Vaše aktuální e-mailová adresa přestane fungovat</string>
     <string name="migrating_tasks">Probíhá přesouvání úkolů</string>
     <string name="migrate_count">Přesunout %1$s do Tasks.org</string>
+    <string name="preferences_look_and_feel">Vzhled a chování</string>
+    <string name="notifications">Oznámení</string>
+    <string name="task_defaults">Výchozí hodnoty úkolu</string>
+    <string name="task_list_options">Možnosti seznamu úkolů</string>
+    <string name="EPr_edit_screen_options">Upravit možnosti zobrazení</string>
+    <string name="date_and_time">Datum a čas</string>
+    <string name="navigation_drawer">Postranní nabídka</string>
+    <string name="backup_BPr_header">Zálohy</string>
+    <string name="preferences_advanced">Pokročilé možnosti</string>
+    <string name="about">O aplikaci</string>
+    <string name="widget_settings">Nastavení ovládacího prvku</string>
 </resources>

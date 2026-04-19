@@ -146,4 +146,15 @@
     <string name="regenerate_email_address_confirmation">Din nuværende e-mailadresse vil ikke længere fungere</string>
     <string name="migrating_tasks">Migrerer opgaver</string>
     <string name="migrate_count">Flyt %1$s til Tasks.org</string>
+    <string name="preferences_look_and_feel">Udseende</string>
+    <string name="notifications">Meddelelser</string>
+    <string name="task_defaults">Standardindstillinger for opgaver</string>
+    <string name="task_list_options">Indstillinger for opgavelister</string>
+    <string name="EPr_edit_screen_options">Rediger skærmindstillinger</string>
+    <string name="date_and_time">Dato og tidspunkt</string>
+    <string name="navigation_drawer">Navigationsmenu</string>
+    <string name="backup_BPr_header">Sikkerhedskopier</string>
+    <string name="preferences_advanced">Avanceret</string>
+    <string name="about">Om</string>
+    <string name="widget_settings">Widget-indstillinger</string>
 </resources>

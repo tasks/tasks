@@ -139,7 +139,6 @@
     <string name="url">URL</string>
     <string name="password">මුරපදය</string>
     <string name="user">පරිශීලක</string>
-    <string name="date_and_time">දිනය සහ වේලාව</string>
     <string name="copy_selected_tasks">තෝරාගත් කාර්යයන් පිටපත් කරන්නද\?</string>
     <string name="delete_selected_tasks">තෝරාගත් කාර්යයන් මකාදමන්න ද\?</string>
     <string name="delete_multiple_tasks_confirmation">%s මකා දමන ලදි</string>
@@ -179,7 +178,6 @@
     <string name="troubleshooting">දෝෂගවේෂණය</string>
     <string name="documentation">ප්‍රලේඛනය</string>
     <string name="preferences_advanced">උසස්</string>
-    <string name="preferences_look_and_feel">පෙනුම හා පහසුව</string>
     <string name="etesync_account_description">EteSync.com හෝ ස්වයං සත්කාරක සේවාදායකයක් සමඟ ගිණුමක් අවශ්‍ය වේ</string>
     <string name="caldav_account_description">CalDAV සේවා සැපයුම්කරුවෙකු හෝ ස්වයං සත්කාරක සේවාදායකයක් සමඟ ගිණුමක් අවශ්‍ය වේ. tasks.org/caldav වෙත පිවිසීමෙන් සේවා සපයන්නෙකු සොයා ගන්න</string>
     <string name="show_advanced_settings">උසස් සැකසුම් පෙන්වන්න</string>
@@ -320,7 +318,6 @@
     <string name="default_due_date">පෙරනිමි නියමිත දිනය</string>
     <string name="default_start_date">පෙරනිමි ආරම්භක දිනය</string>
     <string name="EPr_default_importance_title">පෙරනිමි ප්‍රමුඛතාවය</string>
-    <string name="task_defaults">කාර්යය පෙරනිමි</string>
     <string name="EPr_manage_delete_all_gcal_message">කාර්යයන් සඳහා ඔබගේ සියලු සිදුවීම් මකා දැමීමට ඔබට අවශ්‍යමද\?</string>
     <string name="EPr_manage_delete_all_gcal">කාර්යයන් සඳහා සියලුම දින දර්ශන සිදුවීම් මකන්න</string>
     <string name="EPr_manage_delete_gcal_status">දින දර්ශන සිදුවීම් %d මකා දමන ලදී!</string>
@@ -373,11 +370,9 @@
     <string name="always_display_full_date">සම්පූර්ණ දිනය පෙන්වන්න</string>
     <string name="EPr_cal_end_at_due_time">කැලැන්ඩරයේ සිදුවීම් නියමිත වේලාවට අවසන් කරන්න</string>
     <string name="EPr_cal_end_or_start_at_due_time">දින දර්ශන සිදුවීම් වේලාව</string>
-    <string name="task_list_options">කාර්ය ලැයිස්තු විකල්ප</string>
     <string name="EPr_show_task_edit_comments">කාර්ය සංස්කරණයේ අදහස් (comments) පෙන්වන්න</string>
     <string name="EPr_fullTask_title">සම්පූර්ණ කාර්ය මාතෘකාව පෙන්වන්න</string>
     <string name="EPr_beastMode_reset">පෙරනිමි වෙත යළි පිහිටුවන්න</string>
-    <string name="EPr_edit_screen_options">තිර විකල්ප සංස්කරණය කරන්න</string>
     <string name="none">කිසිවක් නැත</string>
     <string name="TEA_control_hidden_section">---- සැමවිටම සඟවන්න ----</string>
     <string name="TEA_control_reminders">මතක් කිරීම්</string>
@@ -433,7 +428,6 @@
     <string name="export_toast">%1$s ක් %2$s ගොනුවට උපස්ථ කරන ලදී.</string>
     <string name="backup_BAc_import">උපස්ථය ආයාත කරන්න</string>
     <string name="backup_BAc_export">උපස්ථ කරන්න</string>
-    <string name="backup_BPr_header">උපස්ථ</string>
     <string name="cancel">අවලංගු කරන්න</string>
     <string name="ok">හරි</string>
     <string name="choose_synchronization_service">සේවාවක් තෝරන්න</string>
@@ -471,7 +465,6 @@
     <string name="this_feature_requires_a_subscription">මෙම අංගයට දායකත්වයක් අවශ්‍ය වේ</string>
     <string name="requires_pro_subscription">Pro දායකත්වයක් අවශ්‍යයි</string>
     <string name="license_summary">Tasks යනු GNU පොදු මහජන බලපත්‍රය v3.0 යටතේ බලපත්‍ර ලබා දී ඇති විවෘත මෘදුකාංගයකි</string>
-    <string name="about">පිළිබඳව</string>
     <string name="button_subscribe">දායක වන්න</string>
     <string name="refresh_purchases">මිලදී ගැනීම් නැවුම් කරන්න</string>
     <string name="subscription">දායකත්වය</string>
@@ -577,7 +570,6 @@
     <string name="social">සමාජ මාධ්‍ය</string>
     <string name="background_location">පසුබිම් ස්ථානය</string>
     <string name="foreground_location">පෙරබිම ස්ථානය</string>
-    <string name="navigation_drawer">මෙනුව</string>
     <string name="place_settings">ස්ථාන සැකසුම්</string>
     <string name="repeat_snackbar">%1$s, %2$s සඳහා නැවත සකස් කරන ලදි</string>
     <string name="CFC_importance_text">අවම වශයෙන් ප්‍රමුඛතාවය \?</string>

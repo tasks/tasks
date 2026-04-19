@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="TVA_add_comment">Lisa kommentaar…</string>
-    <string name="backup_BPr_header">Varukoopiad</string>
     <string name="backup_BAc_import">Impordi varukoopia</string>
     <string name="backup_BAc_export">Varunda kohe</string>
     <string name="read_permission_label">Ülesande õigused</string>
@@ -44,10 +43,8 @@
     <string name="TEA_control_reminders">Meeldetuletused</string>
     <string name="TEA_control_hidden_section">----Peida alati----</string>
     <string name="none">Pole</string>
-    <string name="EPr_edit_screen_options">Muutmise vaate valikud</string>
     <string name="EPr_beastMode_reset">Taasta vaikeväärtused</string>
     <string name="EPr_show_task_edit_comments">Näita kommentaare ülesande muutmisel</string>
-    <string name="task_list_options">Ülesannete nimekirja valikud</string>
     <string name="EPr_cal_end_or_start_at_due_time">Kalendri sündmuse aeg</string>
     <string name="EPr_cal_end_at_due_time">Lõpeta kalendri sündmus tähtajal</string>
     <string name="EPr_cal_start_at_due_time">Alusta kalendri sündmust tähtajal</string>
@@ -57,7 +54,6 @@
     <string name="EPr_delete_task_data_warning">Kõik ülesanded kustutatakse jäädavalt</string>
     <string name="EPr_manage_delete_completed_gcal_message">Kas sa tõesti soovid kustutada kõigi lõpetatud ülesannete sündmused\?</string>
     <string name="EPr_manage_delete_gcal_status">Kustutasime kalendrist %d sündmust!</string>
-    <string name="task_defaults">Ülesande vaikeväärtused</string>
     <string name="EPr_default_importance_title">Vaikimisi tähtsus</string>
     <string name="EPr_default_reminders_title">Vaikimisi meeldetuletused</string>
     <string name="EPr_default_location_reminder_title">Vaikimisi asukohapõhised meeldetuletused</string>
@@ -196,7 +192,6 @@
     <string name="delete_multiple_tasks_confirmation">%s on kustutatud</string>
     <string name="delete_selected_tasks">Kas kustutame valitud ülesanded?</string>
     <string name="copy_selected_tasks">Kas kopeerime valitud ülesanded?</string>
-    <string name="date_and_time">Kuupäev ja kellaaeg</string>
     <string name="user">Kasutaja</string>
     <string name="password">Salasõna</string>
     <string name="url">URL</string>
@@ -211,7 +206,6 @@
     <string name="help">Abiinfo</string>
     <string name="network_error">Ühenduse loomine ei õnnestunud</string>
     <string name="button_subscribe">Telli</string>
-    <string name="about">Info</string>
     <string name="pro_dashclock_extension">Dashclock laiendused</string>
     <string name="requires_pro_subscription">Eeldab Pro-taseme tellimust</string>
     <string name="logout">Logi välja</string>
@@ -342,10 +336,8 @@
     <string name="location_remind_arrival">Tuleta saabudes meelde</string>
     <string name="cannot_access_account">Ei pääse kontole ligi</string>
     <string name="collapse_subtasks">Sulge alamülesanded</string>
-    <string name="preferences_look_and_feel">Välimus ja käitumine</string>
     <string name="enter_tag_name">Sisesta sildi nimi</string>
     <string name="places">Asukohad</string>
-    <string name="navigation_drawer">Navigeerimisriba</string>
     <string name="wearable_notifications">Nutikella teavitused</string>
     <string name="back">Tagasi</string>
     <string name="more_settings">Rohkem seadistusi</string>

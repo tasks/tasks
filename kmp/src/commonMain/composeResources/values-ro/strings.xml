@@ -125,4 +125,15 @@
     <string name="password">Parolă</string>
     <string name="migrating_tasks">Mutarea sarcinilor</string>
     <string name="migrate_count">Mută %1$s în Tasks.org</string>
+    <string name="preferences_look_and_feel">Aspect și senzație</string>
+    <string name="notifications">Notificări</string>
+    <string name="task_defaults">Sarcini implicite</string>
+    <string name="task_list_options">Opțiunile listei de sarcini</string>
+    <string name="EPr_edit_screen_options">Editarea opțiunilor de afișare</string>
+    <string name="date_and_time">Data și ora</string>
+    <string name="navigation_drawer">Sertar de navigare</string>
+    <string name="backup_BPr_header">Copii de rezervă</string>
+    <string name="preferences_advanced">Avansat</string>
+    <string name="about">Despre</string>
+    <string name="widget_settings">Setări Widget</string>
 </resources>

@@ -155,4 +155,15 @@
     <string name="regenerate_email_address_confirmation">Текущия ел. адрес ще спре да работи</string>
     <string name="migrating_tasks">Преместване на задачи</string>
     <string name="migrate_count">Преместване на %1$s в Tasks.org</string>
+    <string name="preferences_look_and_feel">Външен вид и усещане</string>
+    <string name="notifications">Известия</string>
+    <string name="task_defaults">Стойности по подразбиране</string>
+    <string name="task_list_options">Настройки на списъка със задачи</string>
+    <string name="EPr_edit_screen_options">Настройки на екрана за редактиране</string>
+    <string name="date_and_time">Дата и час</string>
+    <string name="navigation_drawer">Меню</string>
+    <string name="backup_BPr_header">Резервни копия</string>
+    <string name="preferences_advanced">Разширени</string>
+    <string name="about">Относно</string>
+    <string name="widget_settings">Настройки на приспособления</string>
 </resources>

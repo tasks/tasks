@@ -125,4 +125,15 @@
     <string name="password">비밀번호</string>
     <string name="migrating_tasks">할일 이전 중</string>
     <string name="migrate_count">Tasks.org 로 %1$s 개 이동</string>
+    <string name="preferences_look_and_feel">외관</string>
+    <string name="notifications">알림</string>
+    <string name="task_defaults">할일 기본값</string>
+    <string name="task_list_options">할일 목록 옵션</string>
+    <string name="EPr_edit_screen_options">화면 설정 편집하기</string>
+    <string name="date_and_time">날짜와 시간</string>
+    <string name="navigation_drawer">네비게이션 서랍</string>
+    <string name="backup_BPr_header">백업</string>
+    <string name="preferences_advanced">고급</string>
+    <string name="about">정보</string>
+    <string name="widget_settings">위젯 설정</string>
 </resources>

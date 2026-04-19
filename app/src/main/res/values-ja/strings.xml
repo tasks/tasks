@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">写真を削除</string>
     <string name="TVA_add_comment">コメントを追加…</string>
-    <string name="backup_BPr_header">バックアップ</string>
     <string name="backup_BAc_import">バックアップをインポート</string>
     <string name="backup_BAc_export">今すぐバックアップ</string>
     <string name="export_toast">%1$s を %2$s にバックアップしました。</string>
@@ -54,11 +53,9 @@
     <string name="TEA_control_timer">タイマー設定</string>
     <string name="TEA_control_hidden_section">----常に隠す----</string>
     <string name="none">なし</string>
-    <string name="EPr_edit_screen_options">編集画面</string>
     <string name="EPr_beastMode_reset">デフォルトにリセット</string>
     <string name="EPr_fullTask_title">完全なタスク名を表示</string>
     <string name="EPr_show_task_edit_comments">編集画面でコメントを表示</string>
-    <string name="task_list_options">タスクリスト</string>
     <string name="EPr_cal_end_or_start_at_due_time">カレンダーの予定の時間</string>
     <string name="EPr_cal_end_at_due_time">カレンダーの予定を締切時刻に終了</string>
     <string name="EPr_cal_start_at_due_time">カレンダーの予定を締切時刻に開始</string>
@@ -71,7 +68,6 @@
     <string name="EPr_manage_delete_gcal_status">カレンダーの予定 %d 件を削除しました！</string>
     <string name="EPr_manage_delete_all_gcal">タスクのカレンダーイベントをすべて削除</string>
     <string name="EPr_manage_delete_all_gcal_message">本当にタスクのイベントをすべて削除しますか？</string>
-    <string name="task_defaults">タスクのデフォルト</string>
     <string name="EPr_default_importance_title">デフォルトの優先度</string>
     <string name="EPr_default_reminders_title">デフォルトのリマインダー</string>
     <string name="EPr_default_location_reminder_title">デフォルトの場所リマインダー</string>
@@ -297,7 +293,6 @@
     <string name="delete_multiple_tasks_confirmation">%s 削除しました</string>
     <string name="delete_selected_tasks">選択したタスクを削除しますか？</string>
     <string name="copy_selected_tasks">選択したタスクをコピーしますか？</string>
-    <string name="date_and_time">日付と時刻</string>
     <string name="user">ユーザー</string>
     <string name="password">パスワード</string>
     <string name="notification_disable_battery_optimizations_description">バッテリー最適化をすると通知が遅れることがあります</string>
@@ -340,7 +335,6 @@
     <string name="upgrade_to_pro">プロ版にアップグレード</string>
     <string name="refresh_purchases">購入を更新</string>
     <string name="button_subscribe">購入</string>
-    <string name="about">アプリについて</string>
     <string name="license_summary">Tasks は、GNU General Public License v3.0 でライセンスされる、自由オープンソースソフトウェアです</string>
     <string name="pro_dashclock_extension">Dashclock 拡張</string>
     <string name="requires_pro_subscription">プロサブスクリプションが必要</string>
@@ -380,7 +374,6 @@
     <string name="add_tags">タグを追加</string>
     <string name="filter_no_tags">タグなし</string>
     <string name="hide_unused_tags">使われていないタグを隠す</string>
-    <string name="navigation_drawer">ドロワーメニュー</string>
     <string name="invalid_username_or_password">不正なユーザー名やパスワードです</string>
     <string name="enter_tag_name">タグの名前を入力</string>
     <string name="action_new_task">新しいタスク</string>
@@ -416,7 +409,6 @@
     <string name="start_date">着手日時</string>
     <string name="SSD_sort_start">着手日時</string>
     <string name="preferences_advanced">上級者向け</string>
-    <string name="preferences_look_and_feel">外観</string>
     <string name="default_start_date">デフォルトの着手日時</string>
     <string name="default_location">デフォルトの場所</string>
     <string name="default_due_date">デフォルトの締切日時</string>

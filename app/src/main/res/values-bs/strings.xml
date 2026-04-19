@@ -38,7 +38,6 @@
     <string name="EPr_manage_delete_completed_gcal_message">Da li stvarno želiš izbrisati sve događaje za završene zadatke?</string>
     <string name="EPr_manage_delete_gcal_status">Izbrisano %d kalendarskih događaja!</string>
     <string name="EPr_manage_delete_all_gcal_message">Da li stvarno želiš izbrisati sve svoje događaje za zadatke?</string>
-    <string name="task_defaults">Uobičajene postavke zadatka</string>
     <string name="EPr_default_importance_title">Uobičajeni prioritet</string>
     <string name="EPr_manage_delete_all_gcal">Izbriši sve kalendarske događaje za zadatke</string>
     <string name="default_start_date">Uobičajeni datum početka</string>
@@ -60,7 +59,6 @@
     <string name="cancel">Otkaži</string>
     <string name="actfm_picture_clear">Ukloni sliku</string>
     <string name="TVA_add_comment">Dodaj komentar…</string>
-    <string name="backup_BPr_header">Sigurnosne kopije</string>
     <string name="premium_record_audio">Snimi bilješku</string>
     <string name="ring_once">Zvoni jednom</string>
     <string name="ring_nonstop">Zvoni neprekidno</string>

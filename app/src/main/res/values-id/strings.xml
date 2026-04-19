@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="TVA_add_comment">Tambahkan komentar…</string>
-    <string name="backup_BPr_header">Cadangan</string>
     <string name="backup_BAc_import">Impor Cadangan</string>
     <string name="backup_BAc_export">Cadangkan Sekarang</string>
     <string name="export_toast">Cadangkan %1$s ke %2$s.</string>
@@ -42,11 +41,9 @@
     <string name="due_time">Waktu jatuh tempo</string>
     <string name="TEA_control_hidden_section">----Selalu Sembunyi----</string>
     <string name="none">Tidak Ada</string>
-    <string name="EPr_edit_screen_options">Opsi layar sunting</string>
     <string name="EPr_beastMode_reset">Setel ulang ke bawaan</string>
     <string name="EPr_fullTask_title">Tampilkan seluruh judul tugas</string>
     <string name="EPr_show_task_edit_comments">Tampilkan komentar di penyunting tugas</string>
-    <string name="task_list_options">Opsi daftar tugas</string>
     <string name="EPr_cal_end_or_start_at_due_time">Waktu acara kalender</string>
     <string name="EPr_reset_preferences">Setel ulang preferensi</string>
     <string name="EPr_reset_preferences_warning">Preferensi akan disetel ulang ke nilai bawaannya</string>
@@ -55,7 +52,6 @@
     <string name="EPr_manage_delete_completed_gcal">Hapus acara kalender untuk tugas yang telah selesai</string>
     <string name="EPr_manage_delete_completed_gcal_message">Apakah anda benar-benar ingin menghapus semua acara untuk tugas yang telah selesai\?</string>
     <string name="EPr_manage_delete_gcal_status">Menghapus %d acara kalender!</string>
-    <string name="task_defaults">Bawaan tugas</string>
     <string name="EPr_default_importance_title">Prioritas bawaan</string>
     <string name="EPr_default_reminders_title">Pengingat bawaan</string>
     <string name="priority_high">Tinggi</string>
@@ -235,7 +231,6 @@
     <string name="delete_multiple_tasks_confirmation">%s dihapus</string>
     <string name="delete_selected_tasks">Hapus tugas yang dipilih\?</string>
     <string name="copy_selected_tasks">Salin tugas yang dipilih\?</string>
-    <string name="date_and_time">Tanggal dan waktu</string>
     <string name="user">Pengguna</string>
     <string name="password">Kata sandi</string>
     <string name="url">URL</string>
@@ -292,7 +287,6 @@
     <string name="upgrade_to_pro">Tingkatkan ke pro</string>
     <string name="refresh_purchases">Segarkan pembelian</string>
     <string name="button_subscribe">Langganan</string>
-    <string name="about">Tentang</string>
     <string name="license_summary">Tasks adalah perangkat lunak bebas bersumber terbuka, dilindungi Lisensi Publik Umum GNU v3.0</string>
     <string name="pro_dashclock_extension">Ekstensi Dashclock</string>
     <string name="requires_pro_subscription">Memerlukan langganan pro</string>
@@ -329,7 +323,6 @@
     <string name="etesync_account_description">Membutuhkan akun EteSync.com atau server hosting-mandiri</string>
     <string name="help_and_feedback">Bantuan &amp; umpanbalik</string>
     <string name="documentation">Dokumentasi</string>
-    <string name="preferences_look_and_feel">Tampilan dan gaya</string>
     <string name="preferences_advanced">Lanjutan</string>
     <string name="troubleshooting">Penyelesaian masalah</string>
     <string name="notification_troubleshooting_summary">Ketuk di sini jika anda mengalami masalah dengan notifikasi</string>
@@ -351,7 +344,6 @@
     <string name="chip_appearance_text_only">Hanya Teks</string>
     <string name="chip_appearance_text_and_icon">Teks dan ikon</string>
     <string name="hide_unused_tags">Sembunyikan tag yang tidak digunakan</string>
-    <string name="navigation_drawer">Panel navigasi</string>
     <string name="chip_appearance">Penampilan chip</string>
     <string name="back">Kembali</string>
     <string name="invalid_username_or_password">Nama pengguna dan kata sandi salah</string>

@@ -54,7 +54,6 @@
     <string name="import_summary_title">سمری بحال کریں</string>
     <string name="backup_BAc_import">بیک اپ امپورٹ کریں</string>
     <string name="backup_BAc_export">بیک اپ کریں</string>
-    <string name="backup_BPr_header">بیک اپس</string>
     <string name="display_name">ظاہری نام</string>
     <string name="TVA_add_comment">تبصرہ کریں…</string>
     <string name="actfm_picture_clear">تصویر کلئیر کریں</string>
@@ -77,7 +76,6 @@
     <string name="EPr_default_location_reminder_title">ڈیفالٹ لوکیشن کی یاد دہانیاں</string>
     <string name="EPr_default_reminders_title">ڈیفالٹ یاددہانی</string>
     <string name="EPr_default_importance_title">ڈیفالٹ ترجیح</string>
-    <string name="task_defaults">ٹاسک کے ڈیفالٹس</string>
     <string name="EPr_manage_delete_all_gcal_message">کیا آپ واقعی ٹاسکس کیلئے تمام ایونٹس ڈیلیٹ کرنا چاہتے ہیں؟</string>
     <string name="EPr_manage_delete_all_gcal">ٹاسکس کیلئے تمام کیلنڈر ایونٹس ڈیلیٹ کریں</string>
     <string name="EPr_manage_delete_gcal_status">%d کیلنڈر ایونٹس ڈیلیٹ ہو گئے!</string>
@@ -98,11 +96,9 @@
     <string name="EPr_cal_start_at_due_time">مقررہ وقت پر کیلنڈر ایونٹس شروع کریں</string>
     <string name="EPr_cal_end_at_due_time">مقررہ وقت پر کیلنڈر ایونٹس ختم کریں</string>
     <string name="EPr_cal_end_or_start_at_due_time">کیلنڈر ایونٹ کا وقت</string>
-    <string name="task_list_options">ٹاسک لسٹ آپشنز</string>
     <string name="EPr_show_task_edit_comments">ٹاسک ایڈیٹ میں تبصرے دکھائیں</string>
     <string name="EPr_fullTask_title">ٹاسک کا پورا ٹائٹل دکھائیں</string>
     <string name="EPr_beastMode_reset">ڈیفالٹ پر ری سیٹ کریں</string>
-    <string name="EPr_edit_screen_options">اسکرین آپشنز میں ترمیم کریں</string>
     <string name="none">کوئی نہیں</string>
     <string name="TEA_timer_est">تقریبا %s</string>
     <string name="CFC_title_contains_text">عنوان مشتمل ہے:?</string>
@@ -354,7 +350,6 @@
     <string name="url">یو آر ایل</string>
     <string name="password">پاسورڈ</string>
     <string name="user">صارف</string>
-    <string name="date_and_time">وقت اور تاریخ</string>
     <string name="copy_selected_tasks">منتخب ٹاسکس کاپی کریں؟</string>
     <string name="delete_selected_tasks">منتخب ٹاسکس ڈٰیلیٹ کریں؟</string>
     <string name="delete_multiple_tasks_confirmation">%s ڈیلیٹ ہو گیا</string>
@@ -433,7 +428,6 @@
     <string name="requires_pro_subscription">پرو سبسکرپشن کی ضرورت ہے</string>
     <string name="pro_dashclock_extension">ڈیش لاک ایکسٹنشن</string>
     <string name="license_summary">ٹاسکس ایک لیبرے اوپن سورس سافٹ وئیر ہےجو کہ جی این یو لائسنس v3.0 کے تحت لائسنس شدہ ہے</string>
-    <string name="about">متعلق</string>
     <string name="subtasks_multilevel_google_task">کثیر الدرجی ذیلی ٹاسکس کو گوگل ٹاسکس سپورٹ نہیں کرتا</string>
     <string name="collapse_subtasks">ذیلی ٹاسکس کو بند کریں</string>
     <string name="expand_subtasks">ذیلی ٹاسکس کو کھولیں</string>

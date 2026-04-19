@@ -160,4 +160,15 @@
     <string name="regenerate_email_address_confirmation">Tvoja će trenutačna e-mail adresa prestati raditi</string>
     <string name="migrating_tasks">Migriranje zadataka</string>
     <string name="migrate_count">Premjesti %1$s na Tasks.org</string>
+    <string name="preferences_look_and_feel">Izgled i ugođaj</string>
+    <string name="notifications">Obavijesti</string>
+    <string name="task_defaults">Standardne postavke zadatka</string>
+    <string name="task_list_options">Opcije za popis zadataka</string>
+    <string name="EPr_edit_screen_options">Uredi opcije ekrana</string>
+    <string name="date_and_time">Datum i vrijeme</string>
+    <string name="navigation_drawer">Ladica za navigaciju</string>
+    <string name="backup_BPr_header">Sigurnosne kopije</string>
+    <string name="preferences_advanced">Napredno</string>
+    <string name="about">Informacije</string>
+    <string name="widget_settings">Postavke widgeta</string>
 </resources>

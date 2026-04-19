@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Išvalyti paveikslėlį</string>
     <string name="TVA_add_comment">Pridėti komentarą…</string>
-    <string name="backup_BPr_header">Atsarginės kopijos</string>
     <string name="backup_BAc_import">Importuoti atsarginę kopiją</string>
     <string name="backup_BAc_export">Kurti atsarginę kopiją dabar</string>
     <string name="export_toast">Atsarginė kopija padaryta %1$s iki %2$s.</string>
@@ -59,11 +58,9 @@
     <string name="TEA_control_timer">Laikmačio nustatymai</string>
     <string name="TEA_control_hidden_section">----Visada slėpti----</string>
     <string name="none">Nėra</string>
-    <string name="EPr_edit_screen_options">Redaguoti ekrano parinktys</string>
     <string name="EPr_beastMode_reset">Ištrinti numatytus</string>
     <string name="EPr_fullTask_title">Rodyti visą užduoties pavadinimą</string>
     <string name="EPr_show_task_edit_comments">Redaguojant užduotį rodyti komentarus</string>
-    <string name="task_list_options">Užduočių sąrašo parinktys</string>
     <string name="EPr_cal_end_or_start_at_due_time">Kalendoriaus įvykio laikas</string>
     <string name="EPr_cal_end_at_due_time">Baigti kalendoriaus įvykius atėjus terminui</string>
     <string name="EPr_cal_start_at_due_time">Pradėti kalendoriaus įvykius atėjus terminui</string>
@@ -76,7 +73,6 @@
     <string name="EPr_manage_delete_gcal_status">Ištrinta %d kalendoriaus įvykių!</string>
     <string name="EPr_manage_delete_all_gcal">Ištrinti visus kalendoriaus įvykius skirtus užduotims</string>
     <string name="EPr_manage_delete_all_gcal_message">Ar tikrai norite ištrinti visus įvykius, skirtus užduotims?</string>
-    <string name="task_defaults">Užduoties numatyti nustatymai</string>
     <string name="EPr_default_importance_title">Numatytas prioritetas</string>
     <string name="EPr_default_reminders_title">Numatyti priminimai</string>
     <string name="EPr_default_location_reminder_title">Numatyti vietų priminimai</string>
@@ -320,7 +316,6 @@
     <string name="delete_multiple_tasks_confirmation">%s ištrinta</string>
     <string name="delete_selected_tasks">Ištrinti pažymėtas užduotis?</string>
     <string name="copy_selected_tasks">Nukopijuoti pažymėtas užduotis?</string>
-    <string name="date_and_time">Data ir laikas</string>
     <string name="user">Vartotojas</string>
     <string name="password">Slaptažodis</string>
     <string name="notification_disable_battery_optimizations_description">Baterijos optimizacijos gali uždelsti pranešimus</string>
@@ -363,7 +358,6 @@
     <string name="upgrade_to_pro">Atnaujinti į pro versiją</string>
     <string name="refresh_purchases">Atnaujinti pirkimus</string>
     <string name="button_subscribe">Prenumeruoti</string>
-    <string name="about">Apie</string>
     <string name="license_summary">Tasks yra laisva atviro kodo programinė įranga, licencijuota pagal GNU General Public License v3.0 licenciją</string>
     <string name="pro_dashclock_extension">Dashclock plėtinys</string>
     <string name="requires_pro_subscription">Reikalinga „pro“ prenumerata</string>
@@ -423,7 +417,6 @@
     <string name="more_notification_settings_summary">Skambučiai, vibracija ir kita</string>
     <string name="more_settings">Papildomi nustatymai</string>
     <string name="disable_battery_optimizations">Išjungti baterijos optimizaciją</string>
-    <string name="preferences_look_and_feel">Išvaizda</string>
     <string name="this_feature_requires_a_subscription">Šiai funkcijai reikalinga prenumerata</string>
     <string name="icon">Piktograma</string>
     <string name="chip_appearance_icon_only">Tik piktograma</string>
@@ -494,7 +487,6 @@
     <string name="display_name">Rodomas pavadinimas</string>
     <string name="date_picker_multiple">Keleta</string>
     <string name="compact">Kompaktiška</string>
-    <string name="navigation_drawer">Navigacijos parankinės juosta</string>
     <string name="foreground_location">Vietos nustatymas</string>
     <string name="background_location">Foninis vietos nustatymas</string>
     <string name="multi_select_reschedule">Perplanuoti</string>

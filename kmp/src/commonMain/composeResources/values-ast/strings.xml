@@ -63,4 +63,12 @@
     <string name="url">URL</string>
     <string name="user">Usuariu</string>
     <string name="password">Conseña</string>
+    <string name="notifications">Avisos</string>
+    <string name="task_defaults">Valores predeterminaos de la xera</string>
+    <string name="task_list_options">Opciones de la llista de xeres</string>
+    <string name="EPr_edit_screen_options">Editar opciones de pantalla</string>
+    <string name="date_and_time">Data y hora</string>
+    <string name="backup_BPr_header">Copies de seguranza</string>
+    <string name="about">Tocantes a</string>
+    <string name="widget_settings">Axustes de widget</string>
 </resources>

@@ -60,7 +60,6 @@
     <string name="backups_ignore_warnings">Ignoră avertismentele</string>
     <string name="background_location">Locația de fundal</string>
     <string name="foreground_location">Locația de prim-plan</string>
-    <string name="about">Despre</string>
     <string name="button_subscribe">Abonează-te la</string>
     <string name="refresh_purchases">Reîmprospătează achizițiile</string>
     <string name="subscription">Abonare</string>
@@ -109,7 +108,6 @@
     <string name="url">URL</string>
     <string name="password">Parolă</string>
     <string name="user">Utilizator</string>
-    <string name="date_and_time">Data și ora</string>
     <string name="copy_selected_tasks">Copiezi sarcinile selectate\?</string>
     <string name="delete_selected_tasks">Ștergi sarcinile selectate\?</string>
     <string name="delete_multiple_tasks_confirmation">%s șters</string>
@@ -378,11 +376,9 @@
     <string name="EPr_cal_start_at_due_time">Începe evenimentele din calendar la timpul util</string>
     <string name="EPr_cal_end_at_due_time">Încheie evenimentele din calendar la timpul util</string>
     <string name="EPr_cal_end_or_start_at_due_time">Ora evenimentului din calendar</string>
-    <string name="task_list_options">Opțiunile listei de sarcini</string>
     <string name="EPr_show_task_edit_comments">Afișarea comentariilor la editarea sarcinii</string>
     <string name="EPr_fullTask_title">Afișați titlul complet al sarcinii</string>
     <string name="EPr_beastMode_reset">Resetare la valorile implicite</string>
-    <string name="EPr_edit_screen_options">Editarea opțiunilor de afișare</string>
     <string name="none">Niciuna</string>
     <string name="TEA_control_hidden_section">----Ascunde mereu----</string>
     <string name="TEA_control_timer">Controalele temporizatorului</string>
@@ -437,7 +433,6 @@
     <string name="import_summary_title">Rezumatul restaurării</string>
     <string name="backup_BAc_import">Import din copia de rezervă</string>
     <string name="backup_BAc_export">Fă copie de rezervă acum</string>
-    <string name="backup_BPr_header">Copii de rezervă</string>
     <string name="display_name">Afișează numele</string>
     <string name="TVA_add_comment">Adaugă un comentariu…</string>
     <string name="account">Cont</string>
@@ -495,7 +490,6 @@
     <string name="chip_appearance_text_and_icon">Text și pictogramă</string>
     <string name="hide_unused_places">Ascunde locurile nefolosite</string>
     <string name="hide_unused_tags">Ascunde etichetele nefolosite</string>
-    <string name="navigation_drawer">Sertar de navigare</string>
     <string name="place_settings">Setări de locație</string>
     <string name="places">Locuri</string>
     <string name="chip_appearance">Aspect fragmentat</string>
@@ -514,7 +508,6 @@
     <string name="wearable_notifications">Notificări pe dispozitive portabile</string>
     <string name="documentation">Documentație</string>
     <string name="preferences_advanced">Avansat</string>
-    <string name="preferences_look_and_feel">Aspect și senzație</string>
     <string name="etesync_account_description">Necesită un cont cu EteSync.com sau un server auto-găzduit</string>
     <string name="caldav_account_description">Necesită un cont la un furnizor de servicii CalDAV sau un server găzduit de sine stătător. Găsește un furnizor de servicii vizitând tasks.org/caldav</string>
     <string name="show_advanced_settings">Afișează setările avansate</string>
@@ -586,7 +579,6 @@
     </plurals>
     <string name="default_location_reminder_on_departure">La plecare</string>
     <string name="default_location_reminder_on_arrival">La sosire</string>
-    <string name="task_defaults">Sarcini implicite</string>
     <string name="EPr_manage_delete_all_gcal_message">Dorești cu adevărat să ștergi toate evenimentele pentru sarcini\?</string>
     <string name="EPr_manage_delete_gcal_status">Ai eliminat %d evenimente din calendar!</string>
     <string name="EPr_manage_delete_completed_gcal_message">Dorești cu adevărat să ștergi toate evenimentele pentru sarcinile finalizate\?</string>

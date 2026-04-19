@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Odstrániť obrázok</string>
     <string name="TVA_add_comment">Pridať poznámku…</string>
-    <string name="backup_BPr_header">Zálohy</string>
     <string name="backup_BAc_import">Importovať zálohu</string>
     <string name="backup_BAc_export">Vytvoriť zálohu</string>
     <string name="export_toast">Zálohovaný %1$s do %2$s.</string>
@@ -54,11 +53,9 @@
     <string name="TEA_control_timer">Stopky - nastavenie</string>
     <string name="TEA_control_hidden_section">----Skryť vždy----</string>
     <string name="none">Žiadna</string>
-    <string name="EPr_edit_screen_options">Možnosti úprav zobrazenia</string>
     <string name="EPr_beastMode_reset">Obnoviť na predvolené</string>
     <string name="EPr_fullTask_title">Zobraziť celý názov úlohy</string>
     <string name="EPr_show_task_edit_comments">Zobraziť komentáre pri úprave úlohy</string>
-    <string name="task_list_options">Nastavenia zoznamu úloh</string>
     <string name="EPr_cal_end_or_start_at_due_time">Čas udalosti kalendára</string>
     <string name="EPr_cal_end_at_due_time">Ukončiť udalosť kalendára v danom čase</string>
     <string name="EPr_cal_start_at_due_time">Začať udalosti  kalendár v danom čase</string>
@@ -71,7 +68,6 @@
     <string name="EPr_manage_delete_gcal_status">Zmazaných %d udalostí v kalendári!</string>
     <string name="EPr_manage_delete_all_gcal">Zmazať všetky úlohy z kalendára</string>
     <string name="EPr_manage_delete_all_gcal_message">Naozaj chcete zmazať všetky svoje udalosti úloh?</string>
-    <string name="task_defaults">Predvoľby úloh</string>
     <string name="EPr_default_importance_title">Predvolená dôležitosť</string>
     <string name="EPr_default_reminders_title">Predvolené pripomienky</string>
     <string name="EPr_default_location_reminder_title">Predvolené upozornenia podľa polohy</string>
@@ -315,7 +311,6 @@
     <string name="delete_multiple_tasks_confirmation">%s zmazaných</string>
     <string name="delete_selected_tasks">Vymazať vybrané úlohy?</string>
     <string name="copy_selected_tasks">Kopírovať vybrané úlohy?</string>
-    <string name="date_and_time">Dátum a čas</string>
     <string name="user">Užívateľ</string>
     <string name="password">Heslo</string>
     <string name="notification_disable_battery_optimizations_description">Zníženie spotreby môže spôsobiť oneskorenie upozornení</string>
@@ -358,7 +353,6 @@
     <string name="upgrade_to_pro">Rozšíriť na verziu pro</string>
     <string name="refresh_purchases">Obnoviť nákupy</string>
     <string name="button_subscribe">Prihlásiť sa</string>
-    <string name="about">O</string>
     <string name="license_summary">Tasks je slobodný softvér s otvoreným zdrojovým kódom uvoľnený pod licenciou GNU Public Licence v3.0</string>
     <string name="pro_dashclock_extension">Rozšírenie Dashclock</string>
     <string name="requires_pro_subscription">Vyžaduje platenú verziu pro</string>
@@ -544,7 +538,6 @@
     <string name="decsync_selection_description">Synchronizácia založená na súboroch</string>
     <string name="davx5_selection_description">Synchronizujte svoje úlohy pomocou aplikácie DAVx⁵</string>
     <string name="show_advanced_settings">Zobraziť pokročilé možnosti</string>
-    <string name="preferences_look_and_feel">Vzhľad a správanie</string>
     <string name="filter_eisenhower_box_2">Dôležité, ale nie naliehavé</string>
     <string name="support_development_subscribe">Odomknite si ďalšie funkcie a podporte softvér s otvoreným kódom</string>
     <string name="android_auto_backup_device_summary">Službu zálohovania musíte tiež zapnúť v nastaveniach. Nie všetky zariadenia to však umožňujú.</string>
@@ -602,7 +595,6 @@
     <string name="completed">Dokončené</string>
     <string name="upgrade_open_source_description">Vaše predplatné podporí ďalší vývoj aplikácie</string>
     <string name="back">Späť</string>
-    <string name="navigation_drawer">Postranná ponuka</string>
     <string name="github_sponsors">Sponzori na GitHube</string>
     <string name="list_members">Členovia zoznamu</string>
     <string name="save_percent">Ušetríte %d%%</string>

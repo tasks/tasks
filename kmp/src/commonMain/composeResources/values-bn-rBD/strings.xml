@@ -6,4 +6,5 @@
     <string name="SSD_sort_my_order">আমার তালিকা</string>
     <string name="astrid_sort_order">অ্যাস্ট্রিড ম্যানুয়াল সাজানো</string>
     <string name="display_name">নাম দেখান</string>
+    <string name="backup_BPr_header">ব্যাকআপ সমূহ</string>
 </resources>

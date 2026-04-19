@@ -15,4 +15,6 @@
     <string name="no_start_date">सुरु मिति छैन</string>
     <string name="subtasks">उपकार्यहरू</string>
     <string name="display_name">डिस्प्ले नाम</string>
+    <string name="task_defaults">कार्य पूर्वनिर्धारितहरू</string>
+    <string name="task_list_options">कार्य सूचीका विकल्पहरू</string>
 </resources>

@@ -125,4 +125,15 @@
     <string name="password">Contrasenya</string>
     <string name="migrating_tasks">Migració de tasques</string>
     <string name="migrate_count">Mou %1$s a Tasks.org</string>
+    <string name="preferences_look_and_feel">Aspecte i comportament</string>
+    <string name="notifications">Notificacions</string>
+    <string name="task_defaults">Valors predeterminats de la tasca</string>
+    <string name="task_list_options">Opcions de la llista de tasques</string>
+    <string name="EPr_edit_screen_options">Edita les opcions de la pantalla</string>
+    <string name="date_and_time">Data i temps</string>
+    <string name="navigation_drawer">Calaix de navegació</string>
+    <string name="backup_BPr_header">Còpies de seguretat</string>
+    <string name="preferences_advanced">Avançat</string>
+    <string name="about">Sobre</string>
+    <string name="widget_settings">Preferències del giny</string>
 </resources>

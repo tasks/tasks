@@ -162,4 +162,15 @@
     <string name="regenerate_email_address_confirmation">現在のメールアドレスは使えなくなります</string>
     <string name="migrating_tasks">タスクを移行する</string>
     <string name="migrate_count">%1$s を Tasks.org に移動</string>
+    <string name="preferences_look_and_feel">外観</string>
+    <string name="notifications">通知</string>
+    <string name="task_defaults">タスクのデフォルト</string>
+    <string name="task_list_options">タスクリスト</string>
+    <string name="EPr_edit_screen_options">編集画面</string>
+    <string name="date_and_time">日付と時刻</string>
+    <string name="navigation_drawer">ドロワーメニュー</string>
+    <string name="backup_BPr_header">バックアップ</string>
+    <string name="preferences_advanced">上級者向け</string>
+    <string name="about">アプリについて</string>
+    <string name="widget_settings">ウィジェット設定</string>
 </resources>

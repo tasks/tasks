@@ -17,4 +17,5 @@
     <string name="astrid_sort_order">ಆಸ್ಟ್ರಿಡ್ ಹಸ್ತಚಾಲಿತ ವಿಂಗಡಣೆ</string>
     <string name="sort_completed">ಪೂರ್ಣಗೊಂಡ ಸಮಯದಿಂದ</string>
     <string name="display_name">ಹೆಸರನ್ನು ತೋರಿಸು</string>
+    <string name="backup_BPr_header">ಕಾದಿಟ್ಟವುಗಳು</string>
 </resources>

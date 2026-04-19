@@ -125,4 +125,15 @@
     <string name="password">Senha</string>
     <string name="migrating_tasks">Migrando tarefas</string>
     <string name="migrate_count">Mover %1$s para Tasks.org</string>
+    <string name="preferences_look_and_feel">Interface e experiência do usuário</string>
+    <string name="notifications">Notificações</string>
+    <string name="task_defaults">Padrões de tarefa</string>
+    <string name="task_list_options">Opções da lista de tarefas</string>
+    <string name="EPr_edit_screen_options">Opções da tela de edição</string>
+    <string name="date_and_time">Hora e data</string>
+    <string name="navigation_drawer">Menu de navegação</string>
+    <string name="backup_BPr_header">Backups</string>
+    <string name="preferences_advanced">Avançado</string>
+    <string name="about">Sobre</string>
+    <string name="widget_settings">Configurações de Widget</string>
 </resources>

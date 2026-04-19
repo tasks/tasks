@@ -160,4 +160,15 @@
     <string name="regenerate_email_address_confirmation">כתובת הדוא"ל הנוכחית שלך תפסיק לעבוד</string>
     <string name="migrating_tasks">העברת משימות</string>
     <string name="migrate_count">העברת %1$s משימות אל Tasks.org</string>
+    <string name="preferences_look_and_feel">מראה ותחושה</string>
+    <string name="notifications">התראות</string>
+    <string name="task_defaults">ברירות מחדל של משימות</string>
+    <string name="task_list_options">אפשרויות רשימת משימות</string>
+    <string name="EPr_edit_screen_options">עריכת אפשרויות מסך</string>
+    <string name="date_and_time">תאריך ושעה</string>
+    <string name="navigation_drawer">מגירת ניווט</string>
+    <string name="backup_BPr_header">גיבויים</string>
+    <string name="preferences_advanced">מתקדם</string>
+    <string name="about">אודות</string>
+    <string name="widget_settings">הגדרות יישומון</string>
 </resources>

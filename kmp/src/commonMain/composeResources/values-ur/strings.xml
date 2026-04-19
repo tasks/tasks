@@ -68,4 +68,12 @@
     <string name="url">یو آر ایل</string>
     <string name="user">صارف</string>
     <string name="password">پاسورڈ</string>
+    <string name="notifications">نوٹیفیکیشنز</string>
+    <string name="task_defaults">ٹاسک کے ڈیفالٹس</string>
+    <string name="task_list_options">ٹاسک لسٹ آپشنز</string>
+    <string name="EPr_edit_screen_options">اسکرین آپشنز میں ترمیم کریں</string>
+    <string name="date_and_time">وقت اور تاریخ</string>
+    <string name="backup_BPr_header">بیک اپس</string>
+    <string name="about">متعلق</string>
+    <string name="widget_settings">ویجٹ سیٹنگ</string>
 </resources>

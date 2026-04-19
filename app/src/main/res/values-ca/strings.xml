@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Elimina la imatge</string>
     <string name="TVA_add_comment">Afegeix un comentari…</string>
-    <string name="backup_BPr_header">Còpies de seguretat</string>
     <string name="backup_BAc_import">Importa una còpia de seguretat</string>
     <string name="backup_BAc_export">Fes una còpia de seguretat ara</string>
     <string name="import_summary_title">Resum de la restauració</string>
@@ -112,7 +111,6 @@
     <string name="default_due_date">Data de venciment predeterminada</string>
     <string name="default_start_date">Data d\'inici predeterminada</string>
     <string name="EPr_default_importance_title">Prioritat predeterminada</string>
-    <string name="task_defaults">Valors predeterminats de la tasca</string>
     <string name="EPr_manage_delete_all_gcal_message">Esteu segur que voleu suprimir tots els esdeveniments per a les tasques\?</string>
     <string name="EPr_manage_delete_all_gcal">Suprimeix tots els esdeveniments del calendari de les tasques</string>
     <string name="EPr_manage_delete_gcal_status">S\'han eliminat %d esdeveniments de calendari!</string>
@@ -125,9 +123,7 @@
     <string name="EPr_cal_start_at_due_time">Inicia els esdeveniments del calendari en el moment oportú</string>
     <string name="EPr_cal_end_at_due_time">Finalitza els esdeveniments del calendari a la data de venciment</string>
     <string name="EPr_cal_end_or_start_at_due_time">Hora d\'esdeveniment del calendari</string>
-    <string name="task_list_options">Opcions de la llista de tasques</string>
     <string name="EPr_show_task_edit_comments">Mostra els comentaris en l\'edició de la tasca</string>
-    <string name="EPr_edit_screen_options">Edita les opcions de la pantalla</string>
     <string name="none">Cap</string>
     <string name="start_date">Data d\'inici</string>
     <string name="sort_created">Per data de creació</string>
@@ -307,7 +303,6 @@
     <string name="TEA_timer_controls">Temporitzador</string>
     <string name="customize_drawer">Personalitza el calaix</string>
     <string name="customize_drawer_summary">Arrossegueu i deixeu anar per reordenar els elements del menú</string>
-    <string name="about">Sobre</string>
     <string name="license_summary">Tasks és un programari lliure de codi obert, amb llicència sota la Llicència Pública General de GNU v3.0</string>
     <string name="default_calendar">Calendari predeterminat</string>
     <string name="bundle_notifications_summary">Combina diferents notificacions en una sola</string>
@@ -396,7 +391,6 @@
     <string name="notifications">Notificacions</string>
     <string name="date_shortcut_tomorrow_afternoon">Demà per la tarda</string>
     <string name="date_shortcut_evening">Vespre</string>
-    <string name="date_and_time">Data i temps</string>
     <string name="repeats_minutely">cada minut</string>
     <string name="repeats_plural_until">Es repeteix cada %1$s, finalitza el %2$s</string>
     <string name="list_separator_with_space">", "</string>
@@ -537,7 +531,6 @@
     <string name="show_advanced_settings">Mostreu la configuració avançada</string>
     <string name="caldav_account_description">Requereix un compte amb un proveïdor de servei CalDAV o un servidor allotjat per si mateix. Cerqueu un proveïdor de serveis visitant tasks.org/caldav</string>
     <string name="etesync_account_description">Requereix un compte amb EteSync.com o un servidor allotjat</string>
-    <string name="preferences_look_and_feel">Aspecte i comportament</string>
     <string name="preferences_advanced">Avançat</string>
     <string name="documentation">Documentació</string>
     <string name="wearable_notifications">Notificacions de rellotge intel·ligent</string>
@@ -556,7 +549,6 @@
     <string name="chip_appearance">Aparença del distintiu</string>
     <string name="places">Llocs</string>
     <string name="place_settings">Paràmetres del lloc</string>
-    <string name="navigation_drawer">Calaix de navegació</string>
     <string name="hide_unused_tags">Amagueu les etiquetes no utilitzades</string>
     <string name="hide_unused_places">Amagueu els llocs no utilitzats</string>
     <string name="chip_appearance_text_and_icon">Text i icona</string>

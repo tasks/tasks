@@ -28,6 +28,7 @@ class FlavorModule {
         supportsGeofences = true,
         supportsCalendarEvents = true,
         isLibre = true,
+        supportsWidgets = true,
     )
 
     @Provides

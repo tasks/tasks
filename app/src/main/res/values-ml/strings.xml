@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="TVA_add_comment">ഒരു അഭിപ്രായം ചേർക്കുക…</string>
-    <string name="backup_BPr_header">ബാക്കപ്പുകൾ</string>
     <string name="backup_BAc_export">ഇപ്പോൾ ബാക്കപ്പ് ചെയ്യുക</string>
     <string name="EPr_fullTask_title">പൂർണ്ണമായ ടാസ്കിന്റെ ശീർഷകം കാണിക്കുക</string>
     <string name="EPr_delete_task_data">ടാസ്‌ക് ഡാറ്റ ഇല്ലാതാക്കുക</string>
@@ -54,17 +53,14 @@
     <string name="TEA_control_timer">ടൈമർ നിയന്ത്രണങ്ങൾ</string>
     <string name="astrid_sort_order_summary">എന്റെ ടാസ്‌ക്കുകൾ\', \'ഇന്ന്\', ടാഗുകൾ എന്നിവയ്‌ക്കായി ആസ്ട്രിഡിന്റെ മാനുവൽ സോർട്ട് മോഡ് പ്രവർത്തനക്ഷമമാക്കുക. ഭാവിയിലെ അപ്‌ഡേറ്റിൽ ഈ സോർട്ട് മോഡ് \'എന്റെ ഓർഡർ\' ഉപയോഗിച്ച് മാറ്റിസ്ഥാപിക്കും</string>
     <string name="week_before_due">തികയുന്നതിനു ഒരാഴ്ച മുൻപ്</string>
-    <string name="EPr_edit_screen_options">സ്ക്രീൻ ഓപ്ഷനുകൾ എഡിറ്റ് ചെയ്യുക</string>
     <string name="EPr_beastMode_reset">സ്ഥിരസ്ഥിതിയിലേക്ക് പുനഃസജ്ജമാക്കുക</string>
     <string name="EPr_reset_preferences_warning">മുൻഗണനകൾ ഡിഫോൾട്ട് മൂല്യങ്ങളിലേക്ക് പുനഃസജ്ജമാക്കും</string>
     <string name="yesterday">ഇന്നലെ.</string>
-    <string name="task_list_options">ടാസ്‌ക് ലിസ്റ്റ് ഓപ്ഷനുകൾ</string>
     <string name="EPr_cal_end_or_start_at_due_time">കലണ്ടർ ഇവന്റ് സമയം</string>
     <string name="show_unstarted">സ്റ്റാർ ചെയ്യാത്തവ കാണിക്കുക</string>
     <string name="tomorrow">നാളെ</string>
     <string name="TLA_menu_sort">അടുക്കുക</string>
     <string name="import_progress_read">ജോലികൾ വഴിക്കുന്ന %d…</string>
-    <string name="task_defaults">ടാസ്‌ക് ഡിഫോൾട്ടുകൾ</string>
     <string name="display_name">പ്രദർശന നാമം</string>
     <string name="actfm_picture_clear">ചിത്രം ഒഴിവാക്കുക</string>
     <string name="app_settings">ആപ്പ് ക്രമീകരണങ്ങൾ</string>

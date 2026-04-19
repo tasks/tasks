@@ -124,4 +124,15 @@
     <string name="password">Heslo</string>
     <string name="migrating_tasks">Prebieha presúvanie úloh</string>
     <string name="migrate_count">Presunúť %1$s do Tasks.org</string>
+    <string name="preferences_look_and_feel">Vzhľad a správanie</string>
+    <string name="notifications">Oznámenia</string>
+    <string name="task_defaults">Predvoľby úloh</string>
+    <string name="task_list_options">Nastavenia zoznamu úloh</string>
+    <string name="EPr_edit_screen_options">Možnosti úprav zobrazenia</string>
+    <string name="date_and_time">Dátum a čas</string>
+    <string name="navigation_drawer">Postranná ponuka</string>
+    <string name="backup_BPr_header">Zálohy</string>
+    <string name="preferences_advanced">Pokročilé možnosti</string>
+    <string name="about">O</string>
+    <string name="widget_settings">Widget - nastavenia</string>
 </resources>

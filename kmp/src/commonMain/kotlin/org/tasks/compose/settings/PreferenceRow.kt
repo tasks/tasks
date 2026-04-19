@@ -27,6 +27,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 import org.tasks.themes.WarningColor
 
 @Composable
@@ -35,6 +37,7 @@ fun PreferenceRow(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     icon: ImageVector? = null,
+    iconDrawable: DrawableResource? = null,
     iconTint: Color? = null,
     leading: (@Composable () -> Unit)? = null,
     summary: String? = null,
@@ -61,19 +64,33 @@ fun PreferenceRow(
             .padding(vertical = SettingsRowPadding),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (leading != null) {
-            leading()
-        } else if (icon != null) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(start = SettingsContentPadding)
-                    .size(SettingsIconSize),
-                tint = iconTint ?: defaultTint
-            )
-        } else {
-            Spacer(modifier = Modifier.width(SettingsContentPadding + SettingsIconSize))
+        when {
+            leading != null -> {
+                leading()
+            }
+            icon != null -> {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(start = SettingsContentPadding)
+                        .size(SettingsIconSize),
+                    tint = iconTint ?: defaultTint
+                )
+            }
+            iconDrawable != null -> {
+                Icon(
+                    painter = painterResource(iconDrawable),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(start = SettingsContentPadding)
+                        .size(SettingsIconSize),
+                    tint = iconTint ?: defaultTint
+                )
+            }
+            else -> {
+                Spacer(modifier = Modifier.width(SettingsContentPadding + SettingsIconSize))
+            }
         }
 
         Spacer(modifier = Modifier.width(SettingsContentPadding))

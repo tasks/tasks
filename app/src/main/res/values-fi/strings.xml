@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Tyhjennä kuva</string>
     <string name="TVA_add_comment">Lisää kommentti…</string>
-    <string name="backup_BPr_header">Varmuuskopiot</string>
     <string name="backup_BAc_import">Tuo varmuuskopio</string>
     <string name="backup_BAc_export">Varmuuskopiointi nyt</string>
     <string name="export_toast">Varmuuskopioitu %1$s - %2$s.</string>
@@ -49,11 +48,9 @@
     <string name="TEA_control_timer">Ajastuksen säätimet</string>
     <string name="TEA_control_hidden_section">----Piilota aina----</string>
     <string name="none">Ei mitään</string>
-    <string name="EPr_edit_screen_options">Muokkaa näytön vaihtoehtoja</string>
     <string name="EPr_beastMode_reset">Palauta oletukset</string>
     <string name="EPr_fullTask_title">Näytä tehtävän koko otsikko</string>
     <string name="EPr_show_task_edit_comments">Näytä kommentit tehtävän muokkauksessa</string>
-    <string name="task_list_options">Tehtävälistan valinnat</string>
     <string name="EPr_cal_end_or_start_at_due_time">Kalenteritapahtuman aika</string>
     <string name="EPr_cal_end_at_due_time">Lopeta kalenteritapahtuma määräaikana</string>
     <string name="EPr_cal_start_at_due_time">Aloita kalenteritapahtumat määräaikana</string>
@@ -66,7 +63,6 @@
     <string name="EPr_manage_delete_gcal_status">Poistettu %d kanteritapahtumaa!</string>
     <string name="EPr_manage_delete_all_gcal">Poista kaikki kalenteritapahtumat tehtäville</string>
     <string name="EPr_manage_delete_all_gcal_message">Haluatko todella poistaa kaikki tapahtumat tehtävistä?</string>
-    <string name="task_defaults">Tehtävän oletukset</string>
     <string name="EPr_default_importance_title">Oletusprioriteetti</string>
     <string name="EPr_default_reminders_title">Oletusmuistutukset</string>
     <string name="EPr_default_reminders_mode_title">Oletussoittoääni/värinä -tyyppi</string>
@@ -279,7 +275,6 @@
     <string name="delete_multiple_tasks_confirmation">%s poistettu</string>
     <string name="delete_selected_tasks">Poistetaanko valitut tehtävät?</string>
     <string name="copy_selected_tasks">Kopioi valitut tehtävät?</string>
-    <string name="date_and_time">Päivä ja aika</string>
     <string name="notification_disable_battery_optimizations_description">Akun optimointi voi viivästyttää ilmoituksia</string>
     <string name="bundle_notifications">Niputa ilmoitukset</string>
     <string name="badges">Merkit</string>
@@ -338,7 +333,6 @@
     <string name="disable_battery_optimizations">Älä säästä virtaa</string>
     <string name="notification_troubleshooting_summary">Paina tästä jos ilmoitusten kanssa on ongelmia</string>
     <string name="documentation">Dokumentaatio</string>
-    <string name="preferences_look_and_feel">Ulkonäkö ja tunnelma</string>
     <string name="etesync_selection_description">End-to-end-salattu synkronointi</string>
     <string name="caldav_selection_description">Avoimiin verkkostandardeihin pohjautuva synkronointi</string>
     <string name="choose_synchronization_service">Valitse alusta</string>
@@ -372,7 +366,6 @@
     <string name="this_feature_requires_a_subscription">Tämä ominaisuus vaatii tilauksen</string>
     <string name="requires_pro_subscription">Edellyttää pro-tilauksen</string>
     <string name="license_summary">Tasks on vapaa avoimen ohjelmakoodin ohjelmisto lisensöity GNU General Public License v3.0 -lisenssillä</string>
-    <string name="about">Tietoja sovelluksesta</string>
     <string name="button_subscribe">Tilaa</string>
     <string name="network_error">Yhteyttä ei saatu</string>
     <string name="help_and_feedback">Apu &amp; palaute</string>
@@ -430,7 +423,6 @@
     <string name="filter_overdue">Myöhässä oleva</string>
     <string name="custom_filter_criteria">Suodin kriteerit</string>
     <string name="auto_dismiss_datetime_list">Tehtävä lista</string>
-    <string name="navigation_drawer">Navigointi valikko</string>
     <string name="show_advanced_settings">Näytä lisäasetukset</string>
     <string name="opacity_footer">Alatunnisteen läpinäkyvyys</string>
     <string name="support_development_subscribe">Avaa lisäominaisuuksia ja tue avoimen lähdekoodin ohjelmistoa</string>

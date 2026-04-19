@@ -159,7 +159,6 @@
     <string name="EPr_manage_delete_gcal_status">Forigis %d kalendarajn eventojn!</string>
     <string name="EPr_delete_task_data">Forigi taskan datumon</string>
     <string name="EPr_fullTask_title">Vidigi tutan tasknomon</string>
-    <string name="EPr_edit_screen_options">Redakti ekranajn agordojn</string>
     <string name="TEA_control_reminders">Memorigiloj</string>
     <string name="TEA_control_importance">Prioritato</string>
     <string name="TEA_control_repeat">Ripeti</string>
@@ -182,7 +181,6 @@
     <string name="export_toast">Savkopiis %1$s al %2$s.</string>
     <string name="backup_BAc_import">Importi savkopion</string>
     <string name="backup_BAc_export">Savkopii tuj</string>
-    <string name="backup_BPr_header">Savkopioj</string>
     <string name="email">Retpoŝto</string>
     <string name="filter_overdue">Posttempa</string>
     <string name="TEA_control_timer">Tempokontroliloj</string>
@@ -195,7 +193,6 @@
     <string name="import_progress_read">Legas taskon, %d…</string>
     <string name="password">Pasvorto</string>
     <string name="user">Uzanto</string>
-    <string name="date_and_time">Dato kaj tempo</string>
     <string name="copy_selected_tasks">Ĉu kopii elektitajn taskojn\?</string>
     <string name="delete_selected_tasks">Ĉu forigi elektitajn taskojn\?</string>
     <string name="delete_multiple_tasks_confirmation">%s forigitaj</string>
@@ -336,8 +333,6 @@
     <string name="or_choose_a_location">Aŭ elekti lokon</string>
     <string name="shortcut_pick_time">Elekti horon</string>
     <string name="auto_dismiss_datetime_summary">Fermi data/hora elektilo post elekti daton aŭ horon</string>
-    <string name="task_defaults">Taskaj defaŭltoj</string>
-    <string name="task_list_options">Taskolistaj agordoj</string>
     <string name="auto_dismiss_datetime">Aŭtomate fermi datan/horan elektilon</string>
     <string name="filters">Filtriloj</string>
     <string name="filter_after_today">Post hodiaŭ</string>
@@ -432,7 +427,6 @@
     <string name="repeats_never">Neniam</string>
     <string name="bundle_notifications_summary">Unuigi multajn sciigojn kiel unu</string>
     <string name="help">Helpo</string>
-    <string name="about">Pri</string>
     <string name="enter_tag_name">Entajpu etikedonomon</string>
     <string name="building_notifications">Generas sciigojn</string>
     <string name="whats_new">Novaĵoj</string>
@@ -442,7 +436,6 @@
     <string name="location_remind_arrival">Memorigi post alveno</string>
     <string name="missing_permissions">Permesoj mankas</string>
     <string name="documentation">Dokumentado</string>
-    <string name="preferences_look_and_feel">Fasado</string>
     <string name="places">Lokoj</string>
     <string name="hide_unused_places">Kaŝi neuzatajn lokojn</string>
     <string name="current_subscription">Aktuala abono: %s</string>
@@ -547,7 +540,6 @@
     <string name="caldav_selection_description">Sinkronigo bazite el malfermaj interretaj normoj</string>
     <string name="invalid_backup_file">Nevalida savkopio</string>
     <string name="davx5_selection_description">Sinkronigi viajn taskojn kun la DAVx⁵ aplikaĵo</string>
-    <string name="navigation_drawer">Naviga tirkesto</string>
     <string name="filter_any_due_date">Ajna limdato</string>
     <string name="filter_high_priority">Grava</string>
     <string name="filter_medium_priority">Meza prioritato</string>

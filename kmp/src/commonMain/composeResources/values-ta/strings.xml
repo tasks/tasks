@@ -125,4 +125,15 @@
     <string name="password">கடவுச்சொல்</string>
     <string name="migrating_tasks">இடம்பெயரும் பணிகள்</string>
     <string name="migrate_count">%1$s ஐ tasks.org க்கு நகர்த்தவும்</string>
+    <string name="preferences_look_and_feel">பார்க்கவும் உணரவும்</string>
+    <string name="notifications">அறிவிப்புகள்</string>
+    <string name="task_defaults">பணி இயல்புநிலை</string>
+    <string name="task_list_options">பணி பட்டியல் விருப்பங்கள்</string>
+    <string name="EPr_edit_screen_options">திரை விருப்பங்களைத் திருத்து</string>
+    <string name="date_and_time">தேதி மற்றும் நேரம்</string>
+    <string name="navigation_drawer">வழிசெலுத்தல் டிராயர்</string>
+    <string name="backup_BPr_header">காப்புப்பிரதிகள்</string>
+    <string name="preferences_advanced">மேம்படுத்தபட்ட</string>
+    <string name="about">பற்றி</string>
+    <string name="widget_settings">விட்ஜெட் அமைப்புகள்</string>
 </resources>

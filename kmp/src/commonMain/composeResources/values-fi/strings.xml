@@ -138,4 +138,15 @@
     <string name="password">Salasana</string>
     <string name="migrating_tasks">Tehtävien siirtäminen</string>
     <string name="migrate_count">Siirrä %1$s osoitteeseen Tasks.org</string>
+    <string name="preferences_look_and_feel">Ulkonäkö ja tunnelma</string>
+    <string name="notifications">Ilmoitukset</string>
+    <string name="task_defaults">Tehtävän oletukset</string>
+    <string name="task_list_options">Tehtävälistan valinnat</string>
+    <string name="EPr_edit_screen_options">Muokkaa näytön vaihtoehtoja</string>
+    <string name="date_and_time">Päivä ja aika</string>
+    <string name="navigation_drawer">Navigointi valikko</string>
+    <string name="backup_BPr_header">Varmuuskopiot</string>
+    <string name="preferences_advanced">Kehittyneet</string>
+    <string name="about">Tietoja sovelluksesta</string>
+    <string name="widget_settings">Widgetin asetukset</string>
 </resources>

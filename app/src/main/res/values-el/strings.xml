@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Καθαρή εικόνα</string>
     <string name="TVA_add_comment">Προσθήκη σχόλιου…</string>
-    <string name="backup_BPr_header">Αντίγραφα ασφαλείας</string>
     <string name="backup_BAc_import">Εισαγωγή backup</string>
     <string name="backup_BAc_export">Δημιουργία backup</string>
     <string name="export_toast">Αποθηκεύση ασφαλείας %1$s στο %2$s.</string>
@@ -48,7 +47,6 @@
     <string name="TEA_control_reminders">Υπενθυμίσεις</string>
     <string name="TEA_control_timer">Χειριστήρια χρονοδιακόπτη</string>
     <string name="TEA_control_hidden_section">-----Απόκρυψη πάντα-----</string>
-    <string name="EPr_edit_screen_options">Επεξεργασία επιλογών εμφάνισης</string>
     <string name="EPr_beastMode_reset">Επαναφορά προεπιλογών</string>
     <string name="EPr_fullTask_title">Εμφάνισε πλήρη τίτλο εργασίας</string>
     <string name="EPr_show_task_edit_comments">Εμφάνιση σχόλιων στην επεξεργασία εργασίας</string>
@@ -144,13 +142,11 @@
     <string name="TEA_control_location">Τοποθεσία</string>
     <string name="TEA_creation_date">Ημερομηνία Δημιουργίας</string>
     <string name="none">Κανένα</string>
-    <string name="task_list_options">Επιλογές λίστας Εργασιών</string>
     <string name="always_display_full_date">Εμφάνιση Πλήρους Ημερομηνίας</string>
     <string name="EPr_reset_preferences">Επαναφορά προτιμήσεων</string>
     <string name="EPr_reset_preferences_warning">Θα γίνει επαναφορά των προτιμήσεων στις προεπιλεγμένες τιμές</string>
     <string name="EPr_delete_task_data">Διαγραφή δεδομένων εργασίας</string>
     <string name="EPr_delete_task_data_warning">Όλες οι εργασίες θα διαγραφούν μόνιμα</string>
-    <string name="task_defaults">Προεπιλογές Εργασιών</string>
     <string name="default_start_date">Προεπιλεγμένη Ημερομηνία έναρξης</string>
     <string name="default_due_date">Προεπιλεγμένη προθεσμία ολοκλήρωσης</string>
     <string name="EPr_default_location_reminder_title">Υπενθυμίσεις προεπιλεγμένης τοποθεσίας</string>
@@ -332,7 +328,6 @@
     <string name="delete_multiple_tasks_confirmation">%s διαγράφηκε</string>
     <string name="delete_selected_tasks">Διαγραφή επιλεγμένων εργασιών;</string>
     <string name="copy_selected_tasks">Αντιγραφή επιλεγμένων εργασιών;</string>
-    <string name="date_and_time">Ημερομηνία και ώρα</string>
     <string name="user">Χρήστης</string>
     <string name="password">Κωδικός</string>
     <string name="url">Ηλεκτρονική διεύθυνση (URL)</string>
@@ -389,7 +384,6 @@
     <string name="subscription">Συνδρομή εφαρμογής</string>
     <string name="refresh_purchases">Ανανέωση συναλλαγών</string>
     <string name="button_subscribe">Εγγραφή στη συνδρομή</string>
-    <string name="about">Σχετικά</string>
     <string name="license_summary">Η εφαρμογή Tasks είναι ελεύθερο λογισμικό ανοιχτού κώδικα, με άδεια χρήσης GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Επέκταση ρολογιού ταμπλό</string>
     <string name="requires_pro_subscription">Χρειάζεται συνδρομή (pro)</string>
@@ -440,7 +434,6 @@
     <string name="show_advanced_settings">Εμφάνιση σύνθετων ρυθμίσεων</string>
     <string name="caldav_account_description">Απαιτείται λογαριασμός σε πάροχο υπηρεσιών CalDAV ή σε αυτοφιλοξενούμενο διακομιστή. Βρείτε έναν πάροχο υπηρεσιών μεταβαίνοντας στη διεύθυνση tasks.org/caldav</string>
     <string name="etesync_account_description">Απαιτείται λογαριασμός στο EteSync.com ή σε αυτο-φιλοξενούμενο διακομιστή</string>
-    <string name="preferences_look_and_feel">Όψη και αίσθηση</string>
     <string name="preferences_advanced">Συνθέτες</string>
     <string name="documentation">Έγγραφα</string>
     <string name="wearable_notifications">Ενημερώσεις φορητών συσκευών</string>
@@ -459,7 +452,6 @@
     <string name="chip_appearance">Εμφάνιση τσιπ</string>
     <string name="places">Μέρη/ τοποθεσίες</string>
     <string name="place_settings">Ρυθμίσεις μέρους/ τοποθεσίας</string>
-    <string name="navigation_drawer">Συρτάρι πλοήγησης</string>
     <string name="hide_unused_tags">Απόκρυψη μη χρησιμοποιημένων ετικετών</string>
     <string name="hide_unused_places">Απόκρυψη μη χρησιμοποιημένων μερών/ τοποθεσιών</string>
     <string name="chip_appearance_text_and_icon">Κείμενο και εικονίδιο</string>

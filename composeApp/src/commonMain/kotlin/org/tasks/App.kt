@@ -102,6 +102,8 @@ import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.compose.NavigationBarScrim
 import org.tasks.compose.PlatformBackHandler
+import org.tasks.compose.settings.MainSettingsScreen
+import org.tasks.compose.settings.SettingsDestination as SettingsPane
 import org.tasks.compose.StatusBarScrim
 import org.tasks.compose.platformSidebarInsets
 import org.tasks.compose.platformStatusBarInsets
@@ -152,6 +154,8 @@ import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.TaskEditViewModel
+import org.tasks.viewmodel.MainSettingsViewModel
+import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.TaskListViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
@@ -1279,31 +1283,114 @@ private fun FloatingToolbar(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3AdaptiveApi::class)
 @Composable
 private fun SettingsScreen(
     onBack: () -> Unit,
 ) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(Res.string.settings)) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(Res.string.back),
+    val viewModel = koinViewModel<MainSettingsViewModel>()
+    val proCardViewModel = koinViewModel<ProCardViewModel>()
+    val accounts by proCardViewModel.filteredAccounts.collectAsState()
+    val proCardState by proCardViewModel.proCardState.collectAsState()
+    val environmentLabel by proCardViewModel.environmentLabel.collectAsState()
+    val navigator = rememberListDetailPaneScaffoldNavigator<SettingsPane>()
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
+    val selectedDestination = navigator.currentDestination
+        ?.takeIf { it.pane == ListDetailPaneScaffoldRole.Detail }
+        ?.contentKey
+
+    PlatformBackHandler(enabled = selectedDestination != null) {
+        scope.launch {
+            if (!navigator.navigateBack()) {
+                onBack()
+            }
+        }
+    }
+
+    ListDetailPaneScaffold(
+        modifier = Modifier.fillMaxSize(),
+        directive = navigator.scaffoldDirective,
+        value = navigator.scaffoldValue,
+        listPane = {
+            Scaffold(
+                topBar = {
+                    TopAppBar(
+                        title = { Text(stringResource(Res.string.settings)) },
+                        navigationIcon = {
+                            IconButton(onClick = onBack) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                    contentDescription = stringResource(Res.string.back),
+                                )
+                            }
+                        },
+                    )
+                },
+            ) { padding ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding),
+                ) {
+                    MainSettingsScreen(
+                        accounts = accounts,
+                        proCardState = proCardState,
+                        environmentLabel = environmentLabel,
+                        showBackupWarning = false,
+                        showWidgets = viewModel.supportsWidgets,
+                        isDebug = viewModel.isDebug,
+                        onAccountClick = {},
+                        onAddAccountClick = {},
+                        onSettingsClick = { destination ->
+                            scope.launch {
+                                navigator.navigateTo(
+                                    ListDetailPaneScaffoldRole.Detail,
+                                    destination,
+                                )
+                            }
+                        },
+                        onProCardClick = {},
+                    )
+                }
+            }
+        },
+        detailPane = {
+            val destination = selectedDestination
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.surface,
+            ) {
+                if (destination != null) {
+                    Scaffold(
+                        topBar = {
+                            TopAppBar(
+                                title = {
+                                    Text(stringResource(destination.titleRes))
+                                },
+                                navigationIcon = {
+                                    IconButton(
+                                        onClick = {
+                                            scope.launch { navigator.navigateBack() }
+                                        }
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                            contentDescription = stringResource(Res.string.back),
+                                        )
+                                    }
+                                },
+                            )
+                        },
+                    ) { padding ->
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(padding),
                         )
                     }
-                },
-            )
+                }
+            }
         },
-    ) { padding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
-        )
-    }
+    )
 }
 

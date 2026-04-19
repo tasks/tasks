@@ -125,4 +125,15 @@
     <string name="password">Κωδικός</string>
     <string name="migrating_tasks">Εργασίες μετακίνησης</string>
     <string name="migrate_count">Μετακίνηση %1$s στο Tasks.org</string>
+    <string name="preferences_look_and_feel">Όψη και αίσθηση</string>
+    <string name="notifications">Ειδοποιήσεις</string>
+    <string name="task_defaults">Προεπιλογές Εργασιών</string>
+    <string name="task_list_options">Επιλογές λίστας Εργασιών</string>
+    <string name="EPr_edit_screen_options">Επεξεργασία επιλογών εμφάνισης</string>
+    <string name="date_and_time">Ημερομηνία και ώρα</string>
+    <string name="navigation_drawer">Συρτάρι πλοήγησης</string>
+    <string name="backup_BPr_header">Αντίγραφα ασφαλείας</string>
+    <string name="preferences_advanced">Συνθέτες</string>
+    <string name="about">Σχετικά</string>
+    <string name="widget_settings">Ρυθμίσεις γραφικού στοιχείου</string>
 </resources>
