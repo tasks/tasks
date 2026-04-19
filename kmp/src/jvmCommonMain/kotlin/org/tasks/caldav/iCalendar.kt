@@ -240,7 +240,7 @@ class iCalendar(
         caldavTask.applyRemote(remote, local)
         val remoteModificationDate = task.modificationDate
 
-        if ((remote.lastAck ?: 0) > task.reminderLast) {
+        if ((remote.lastAck ?: 0) > task.reminderLast || task.isCompleted || task.isDeleted) {
             notifier.cancel(task.id)
         }
 
