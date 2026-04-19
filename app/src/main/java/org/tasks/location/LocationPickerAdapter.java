@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import com.google.android.material.color.MaterialColors;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -79,7 +80,7 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
         return color.getPrimaryColor();
       }
     }
-    return context.getColor(R.color.text_primary);
+    return MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurface, 0);
   }
 
   public interface OnLocationPicked {

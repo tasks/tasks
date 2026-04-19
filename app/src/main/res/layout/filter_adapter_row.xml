@@ -34,7 +34,7 @@
       android:scaleType="center"
       android:src="@drawable/ic_outline_people_outline_24"
       android:visibility="gone"
-      app:tint="@color/icon_tint_with_alpha" />
+      app:tint="?attr/colorOnSurfaceVariant" />
 
   <androidx.compose.ui.platform.ComposeView
       android:id="@+id/icon"

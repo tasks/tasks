@@ -12,6 +12,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import com.todoroo.andlib.utility.AndroidUtilities.preS
+import androidx.core.graphics.ColorUtils
+import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
@@ -59,13 +61,11 @@ class ThemePickerDialog : DialogFragment() {
         adapter = object : ArrayAdapter<String>(requireActivity(), R.layout.simple_list_item_single_choice, themes) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
-                val textColor = if (isAvailable(position)) {
-                    R.color.text_primary
-                } else {
-                    R.color.text_tertiary
-                }
+                val onSurface = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurface, 0)
+                val textColor = if (isAvailable(position)) onSurface
+                    else ColorUtils.setAlphaComponent(onSurface, 0x61)
                 val text: TextView = view.findViewById(R.id.text1)
-                text.setTextColor(context.getColor(textColor))
+                text.setTextColor(textColor)
                 return view
             }
         }

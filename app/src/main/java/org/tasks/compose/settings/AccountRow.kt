@@ -1,9 +1,9 @@
 package org.tasks.compose.settings
 
 import androidx.compose.runtime.Composable
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import org.tasks.R
 import org.tasks.data.entity.CaldavAccount
@@ -19,7 +19,7 @@ fun AccountRow(
     onClick: () -> Unit,
 ) {
     val iconTint = if (account.isCaldavAccount || account.isLocalList) {
-        colorResource(R.color.icon_tint_with_alpha)
+        MaterialTheme.colorScheme.onSurfaceVariant
     } else {
         Color.Unspecified
     }

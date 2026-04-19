@@ -16,13 +16,11 @@
       android:paddingEnd="@dimen/keyline_first"
       android:paddingBottom="@dimen/half_keyline_first"
       tools:src="@drawable/ic_keyboard_arrow_down_black_18dp"
-      android:tint="@color/icon_tint_light_alpha"
-      android:layout_alignParentEnd="true"
-      tools:ignore="UseAppTint" />
+      android:layout_alignParentEnd="true" />
 
     <TextView
       android:id="@+id/header"
-      style="@style/TextAppearance"
+      android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
       android:paddingTop="@dimen/half_keyline_first"
       android:paddingBottom="@dimen/half_keyline_first"
       android:layout_width="match_parent"

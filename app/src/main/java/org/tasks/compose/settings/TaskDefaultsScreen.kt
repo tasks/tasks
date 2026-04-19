@@ -30,7 +30,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import org.tasks.R
 
@@ -228,7 +227,7 @@ fun TaskDefaultsScreen(
                                     .padding(end = SettingsContentPadding)
                                     .size(SettingsIconSize)
                                     .clickable(onClick = onDeleteLocation),
-                                tint = colorResource(R.color.icon_tint_with_alpha),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         }
                     } else null,

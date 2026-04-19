@@ -14,7 +14,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,7 +29,7 @@ fun ServerSelector(selected: Int, onSelected: (Int) -> Unit) {
         Text(
             text = stringResource(id = R.string.caldav_server_type),
             style = MaterialTheme.typography.bodySmall.copy(
-                color = colorResource(id = R.color.text_secondary)
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             ),
         )
         Spinner(

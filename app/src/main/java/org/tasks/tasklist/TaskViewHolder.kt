@@ -17,6 +17,8 @@ import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import com.todoroo.astrid.core.SortHelper.SORT_LIST
 import com.todoroo.astrid.core.SortHelper.SORT_START
 import com.todoroo.astrid.ui.CheckableImageView
+import androidx.core.graphics.ColorUtils
+import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.compose.chips.ChipGroup
@@ -196,12 +198,13 @@ class TaskViewHolder internal constructor(
     }
 
     private fun setupTitleAndCheckbox() {
+        val onSurface = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurface, 0)
+        val onSurfaceDim = ColorUtils.setAlphaComponent(onSurface, 0x61)
         if (task.isCompleted) {
-            nameView.setTextColor(context.getColor(R.color.text_tertiary))
+            nameView.setTextColor(onSurfaceDim)
             nameView.paintFlags = nameView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
-            nameView.setTextColor(
-                    context.getColor(if (task.task.isHidden) R.color.text_tertiary else R.color.text_primary))
+            nameView.setTextColor(if (task.task.isHidden) onSurfaceDim else onSurface)
             nameView.paintFlags = nameView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         }
         completeBox.isChecked = task.isCompleted

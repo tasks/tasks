@@ -68,6 +68,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.adapter.TaskAdapter
@@ -907,7 +908,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         Snackbar.make(binding.taskListCoordinator, text, 4000)
                 .setAnchorView(R.id.fab)
                 .setBackgroundTint(it.getColor(R.color.dialog_background))
-                .setTextColor(it.getColor(R.color.text_primary))
+                .setTextColor(MaterialColors.getColor(it, com.google.android.material.R.attr.colorOnSurface, 0))
                 .setActionTextColor(themeColor.primaryColor)
             .apply {
                 val offset = TypedValue.applyDimension(

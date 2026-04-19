@@ -24,7 +24,7 @@
         android:layout_gravity="center"
         android:alpha="@dimen/alpha_disabled"
         android:src="@drawable/ic_outline_inbox_168px"
-        app:tint="@color/icon_tint"/>
+        app:tint="?attr/colorOnSurface"/>
 
       <TextView
         android:layout_width="wrap_content"

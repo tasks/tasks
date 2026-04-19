@@ -31,10 +31,8 @@
 
   <style name="ToolbarTheme" parent="ThemeOverlay.Material3.Light">
     <item name="toolbarNavigationButtonStyle">@style/BlackNavigation</item>
-    <item name="iconTint">@color/text_primary</item>
+    <item name="iconTint">?attr/colorOnSurface</item>
     <item name="android:actionOverflowButtonStyle">@style/BlackOverflow</item>
-    <item name="android:editTextColor">@color/text_primary</item>
-    <item name="android:textColorHint">@color/text_secondary</item>
   </style>
 
   <style name="WhiteNavigation" parent="Widget.AppCompat.Toolbar.Button.Navigation">
@@ -51,20 +49,20 @@
   </style>
 
   <style name="ActionModeTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionMode.Title">
-    <item name="android:textColor">@color/text_primary</item>
+    <item name="android:textColor">?attr/colorOnSurface</item>
   </style>
 
   <style name="ActionModeTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-    <item name="iconTint">@color/text_primary</item>
+    <item name="iconTint">?attr/colorOnSurface</item>
     <item name="android:actionOverflowButtonStyle">@style/ActionModeOverflowButton</item>
   </style>
 
   <style name="ActionModeOverflowButton" parent="Widget.AppCompat.Light.ActionButton.Overflow">
-    <item name="android:tint">@color/text_primary</item>
+    <item name="android:tint">?attr/colorOnSurface</item>
   </style>
 
   <style name="ActionModeCloseButton" parent="Widget.AppCompat.ActionButton.CloseMode">
-    <item name="android:tint">@color/text_primary</item>
+    <item name="android:tint">?attr/colorOnSurface</item>
   </style>
 
   <style name="BlackNavigation" parent="Widget.AppCompat.Toolbar.Button.Navigation">
@@ -90,12 +88,6 @@
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:imeOptions">flagNoExtractUi</item>
-  </style>
-
-  <!--================================================== General == -->
-
-  <style name="TextAppearance" parent="TextAppearance.Material3.BodyMedium">
-    <item name="android:textColor">@color/text_primary</item>
   </style>
 
   <!--=============================================== MainActivity == -->
@@ -127,7 +119,7 @@
     <item name="android:textColor">?attr/colorSecondary</item>
   </style>
 
-  <style name="WidgetTitle" parent="TextAppearance">
+  <style name="WidgetTitle" parent="TextAppearance.Material3.BodyMedium">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_centerVertical">true</item>
     <item name="android:ellipsize">end</item>
@@ -152,15 +144,7 @@
 
   <!-- Location picker -->
 
-  <style name="popup_overlay" parent="ThemeOverlay.MaterialComponents.Light"/>
-
-  <style name="LegacyToolbarTheme" parent="ThemeOverlay.MaterialComponents.Light">
-    <item name="toolbarNavigationButtonStyle">@style/BlackNavigation</item>
-    <item name="iconTint">@color/text_primary</item>
-    <item name="android:actionOverflowButtonStyle">@style/BlackOverflow</item>
-    <item name="android:editTextColor">@color/text_primary</item>
-    <item name="android:textColorHint">@color/text_secondary</item>
-  </style>
+  <style name="popup_overlay" parent="ThemeOverlay.Material3.Light"/>
 
   <!---->
 

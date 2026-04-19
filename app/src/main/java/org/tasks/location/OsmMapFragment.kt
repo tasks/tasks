@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.material.color.MaterialColors
 import androidx.preference.PreferenceManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.osmdroid.config.Configuration
@@ -45,7 +46,7 @@ class OsmMapFragment @Inject constructor(
                 overlayManager.tilesOverlay.setColorFilter(TilesOverlay.INVERT_COLORS)
             }
             val copyright = CopyrightOverlay(activity)
-            copyright.setTextColor(ContextCompat.getColor(activity, R.color.text_primary))
+            copyright.setTextColor(MaterialColors.getColor(activity, com.google.android.material.R.attr.colorOnSurface, 0))
             overlays.add(copyright)
             if (parent != null) parent.addView(this)
             else activity.findViewById<ViewGroup>(R.id.map).addView(this)

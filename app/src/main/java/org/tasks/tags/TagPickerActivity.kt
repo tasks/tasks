@@ -35,7 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.colorResource
+import com.google.android.material.color.MaterialColors
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.state.ToggleableState
@@ -70,6 +70,7 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
 
     private val viewModel: TagPickerViewModel by viewModels()
     private var taskIds: ArrayList<Long>? = null
+    private var defaultTagColor = Color.Unspecified
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +87,8 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
                 )
             }
         }
+
+        defaultTagColor = Color(MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnSurfaceVariant, 0))
 
         addBackPressedCallback { handleBackPressed() }
 
@@ -126,7 +129,7 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
                 return Color(themeColor.primaryColor)
             }
         }
-        return Color(getColor(R.color.icon_tint_with_alpha))
+        return defaultTagColor
     }
 
     private fun getIcon(tagData: TagData): String =
@@ -234,7 +237,7 @@ internal fun PickerBox (
             item(key = -1) {
                 TagRow(
                     icon = TasksIcons.ADD,
-                    iconColor = colorResource(R.color.icon_tint_with_alpha),
+                    iconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     text = "${stringResource(R.string.new_tag)} \"${viewModel.tagToCreate.value}\"",
                     onClick = { newItem(viewModel.searchText.value) }
                 )

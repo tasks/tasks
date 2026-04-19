@@ -95,7 +95,7 @@ fun EditTextView(
                 freezesText = true
                 setHorizontallyScrolling(false)
                 setHint(hint)
-                setHintTextColor(context.getColor(R.color.text_tertiary))
+
                 setTextSize(
                     TypedValue.COMPLEX_UNIT_PX,
                     context.resources.getDimension(R.dimen.task_edit_text_size)

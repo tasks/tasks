@@ -10,4 +10,4 @@
   android:alpha="@dimen/alpha_secondary"
   android:background="?attr/selectableItemBackgroundBorderless"
   android:src="@drawable/ic_outline_clear_24px"
-  app:tint="@color/icon_tint" />
+  app:tint="?attr/colorOnSurface" />

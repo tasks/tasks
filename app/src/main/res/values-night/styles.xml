@@ -9,21 +9,11 @@
     <item name="toolbarNavigationButtonStyle">@style/WhiteNavigation</item>
     <item name="iconTint">?attr/colorOnSurface</item>
     <item name="android:actionOverflowButtonStyle">@style/WhiteOverflow</item>
-    <item name="android:editTextColor">@color/text_primary</item>
-    <item name="android:textColorHint">@color/text_secondary</item>
   </style>
 
   <!-- Location picker -->
 
-  <style name="popup_overlay" parent="ThemeOverlay.MaterialComponents.Dark"/>
-
-  <style name="LegacyToolbarTheme" parent="ThemeOverlay.MaterialComponents.Dark">
-    <item name="toolbarNavigationButtonStyle">@style/WhiteNavigation</item>
-    <item name="iconTint">?attr/colorOnSurface</item>
-    <item name="android:actionOverflowButtonStyle">@style/WhiteOverflow</item>
-    <item name="android:editTextColor">@color/text_primary</item>
-    <item name="android:textColorHint">@color/text_secondary</item>
-  </style>
+  <style name="popup_overlay" parent="ThemeOverlay.Material3.Dark"/>
 
   <!-- -->
 </resources>

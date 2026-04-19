@@ -20,7 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
+
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -121,13 +121,13 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
                         colors = SliderDefaults.colors(
                             thumbColor = MaterialTheme.colorScheme.secondary,
                             activeTrackColor = MaterialTheme.colorScheme.secondary,
-                            inactiveTrackColor = colorResource(id = R.color.text_tertiary),
+                            inactiveTrackColor = MaterialTheme.colorScheme.outline,
                             activeTickColor = MaterialTheme.colorScheme.secondary,
-                            inactiveTickColor = colorResource(id = R.color.text_tertiary),
+                            inactiveTickColor = MaterialTheme.colorScheme.outline,
                             disabledActiveTrackColor = MaterialTheme.colorScheme.secondary,
-                            disabledInactiveTrackColor = colorResource(id = R.color.text_tertiary),
+                            disabledInactiveTrackColor = MaterialTheme.colorScheme.outline,
                             disabledActiveTickColor = MaterialTheme.colorScheme.secondary,
-                            disabledInactiveTickColor = colorResource(id = R.color.text_tertiary)
+                            disabledInactiveTickColor = MaterialTheme.colorScheme.outline
                         )
                     )
                     val dark = isSystemInDarkTheme()

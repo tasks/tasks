@@ -28,6 +28,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import com.franmontiel.persistentcookiejar.persistence.CookiePersistor
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import org.tasks.service.TaskDeleter
@@ -336,7 +337,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     private fun newSnackbar(message: String?): Snackbar {
         val snackbar = Snackbar.make(binding.rootLayout, message!!, 8000)
             .setBackgroundTint(getColor(R.color.dialog_background))
-                .setTextColor(getColor(R.color.text_primary))
+                .setTextColor(MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnSurface, 0))
                 .setActionTextColor(getColor(R.color.snackbar_action_color))
         snackbar
                 .view

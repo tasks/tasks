@@ -11,15 +11,14 @@
     android:id="@+id/app_bar_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fitsSystemWindows="true"
-    android:theme="?attr/overlay_theme">
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.CollapsingToolbarLayout
       android:id="@+id/collapsing_toolbar_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:fitsSystemWindows="true"
-      android:theme="@style/LegacyToolbarTheme"
+      android:theme="@style/ToolbarTheme"
       app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
       app:contentScrim="@color/content_background"
       app:statusBarScrim="@color/content_background"
@@ -88,7 +87,7 @@
             android:paddingBottom="@dimen/keyline_first"
             android:contentDescription="@string/pick_this_location"
             android:src="@drawable/ic_outline_place_24px"
-            app:tint="@color/icon_tint"/>
+            app:tint="?attr/colorOnSurface"/>
 
           <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/loading_indicator"
@@ -113,8 +112,7 @@
             android:gravity="start|center_vertical"
             android:text="@string/pick_this_location"
             android:textAlignment="viewStart"
-            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-            android:textColor="@color/text_primary"/>
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
 
           <TextView
             android:id="@+id/choose_recent_location"
@@ -127,8 +125,7 @@
             android:gravity="start"
             android:text="@string/or_choose_a_location"
             android:textAlignment="viewStart"
-            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-            android:textColor="@color/text_primary"/>
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
 
         </RelativeLayout>
 
@@ -138,7 +135,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:theme="@style/LegacyToolbarTheme"
+        android:theme="@style/ToolbarTheme"
         app:layout_collapseMode="pin"
         app:popupTheme="@style/popup_overlay"
         app:title="@string/choose_a_location"/>
@@ -163,7 +160,7 @@
           android:layout_gravity="start|center_vertical"
           android:contentDescription="@string/TLA_menu_search"
           android:src="@drawable/ic_outline_search_24px"
-          app:tint="@color/icon_tint"/>
+          app:tint="?attr/colorOnSurface"/>
 
         <TextView
           android:layout_width="match_parent"
@@ -174,7 +171,7 @@
           android:text="@string/TLA_menu_search"
           android:textAlignment="viewStart"
           android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-          android:textColor="@color/text_primary"/>
+          android:textColor="?android:attr/textColorPrimary"/>
 
       </com.google.android.material.card.MaterialCardView>
 

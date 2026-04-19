@@ -62,7 +62,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
+
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -518,7 +518,7 @@ object PurchaseText {
                     IconStyle.GRAYSCALE -> ColorFilter.colorMatrix(
                         ColorMatrix().apply { setToSaturation(0f) }
                     )
-                    IconStyle.TINT -> ColorFilter.tint(colorResource(R.color.icon_tint_with_alpha))
+                    IconStyle.TINT -> ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant)
                     IconStyle.ORIGINAL -> null
                 }
             )
@@ -637,7 +637,7 @@ object PurchaseText {
                     colors = SliderDefaults.colors(
                         thumbColor = MaterialTheme.colorScheme.secondary,
                         activeTrackColor = MaterialTheme.colorScheme.secondary,
-                        inactiveTrackColor = colorResource(R.color.text_tertiary),
+                        inactiveTrackColor = MaterialTheme.colorScheme.outline,
                         activeTickColor = Color.Transparent,
                         inactiveTickColor = Color.Transparent
                     )
