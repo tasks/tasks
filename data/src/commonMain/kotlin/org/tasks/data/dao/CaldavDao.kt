@@ -319,10 +319,10 @@ GROUP BY caldav_lists.cdl_uuid
             FROM caldav_tasks
             INNER JOIN tasks ON _id = cd_task
             WHERE cd_deleted = 0
-                AND modified <= cd_last_sync
+                AND (:force OR modified <= cd_last_sync)
         )
     """)
-    abstract suspend fun updateParents()
+    abstract suspend fun updateParents(force: Boolean = false)
 
     @Query("""
         WITH parent_map AS (

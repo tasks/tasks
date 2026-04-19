@@ -105,7 +105,7 @@ class TasksJsonImporter @Inject constructor(
                 taskMover.migrateLocalTasks()
             }
             Timber.d("Updating parents")
-            caldavDao.updateParents()
+            caldavDao.updateParents(force = true)
             firebase.logEvent(
                 R.string.event_settings_click,
                 R.string.param_type to "import_backup_success",
