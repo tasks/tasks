@@ -108,8 +108,8 @@
     <string name="display_name">Näytetään nimellä</string>
     <string name="upgrade_to_pro_card_description">Avaa Tasks.org-pilvisynkronointi, perhe- ja ystäväjako sekä sähköpostista tehtäväksi -toiminto</string>
     <string name="supporter">Tukija</string>
-    <string name="price_per_month_with_currency">%s/kuukausi</string>
-    <string name="price_per_year_with_currency">%s/vuosi</string>
+    <string name="price_per_month_with_currency">%1$s/kuukausi</string>
+    <string name="price_per_year_with_currency">%1$s/vuosi</string>
     <string name="donate_nag">Harkitse tuen osoittamista lahjoituksella!</string>
     <string name="manage_subscription">Muokkaa tilausta</string>
     <string name="button_unsubscribe">Peruuta tilaus</string>
@@ -118,13 +118,13 @@
     <string name="app_passwords">Sovelluksen salasana</string>
     <string name="app_password">Sovelluksen salasana</string>
     <string name="last_backup_never">ei koskaan</string>
-    <string name="app_password_created_at">Luotu: %s</string>
-    <string name="app_password_last_access">Viimeksi käytetty: %s</string>
+    <string name="app_password_created_at">Luotu: %1$s</string>
+    <string name="app_password_last_access">Viimeksi käytetty: %1$s</string>
     <string name="generate_new_password">Luo uusi salasana</string>
     <string name="logout">Kirjaudu ulos</string>
     <string name="logout_warning">Kaikki tälle tilille tallennetut tiedot poistetaan laitteeltasi</string>
     <string name="remove">Poista</string>
-    <string name="delete_tag_confirmation">Poista %s?</string>
+    <string name="delete_tag_confirmation">Poista %1$s?</string>
     <string name="app_password_delete_confirmation">Kaikki tätä salasanaa käyttävät sovellukset kirjautuvat ulos</string>
     <string name="app_password_enter_description">Anna salasanalle nimi (valinnainen)</string>
     <string name="insufficient_sponsorship">Ei löydetty hyväksyttävää GitHub-sponsorointia</string>
@@ -137,5 +137,5 @@
     <string name="user">Käyttäjä</string>
     <string name="password">Salasana</string>
     <string name="migrating_tasks">Tehtävien siirtäminen</string>
-    <string name="migrate_count">Siirrä %s osoitteeseen Tasks.org</string>
+    <string name="migrate_count">Siirrä %1$s osoitteeseen Tasks.org</string>
 </resources>

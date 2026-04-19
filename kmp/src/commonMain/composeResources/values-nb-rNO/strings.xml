@@ -96,13 +96,13 @@
     <string name="app_passwords">Programpassord</string>
     <string name="app_password">Programpassord</string>
     <string name="last_backup_never">aldri</string>
-    <string name="app_password_created_at">Opprettet: %s</string>
-    <string name="app_password_last_access">Sist brukt: %s</string>
+    <string name="app_password_created_at">Opprettet: %1$s</string>
+    <string name="app_password_last_access">Sist brukt: %1$s</string>
     <string name="generate_new_password">Generer nytt passord</string>
     <string name="logout">Logg ut</string>
     <string name="logout_warning">All data tilknyttet denne kontoen vil bli fjernet fra enheten din</string>
     <string name="remove">Fjern</string>
-    <string name="delete_tag_confirmation">Slett %s\?</string>
+    <string name="delete_tag_confirmation">Slett %1$s?</string>
     <string name="app_password_delete_confirmation">Ethvert program som bruker dette passordet vil bli utlogget</string>
     <string name="app_password_enter_description">Gi ditt nye passord et navn (valgfritt)</string>
     <string name="insufficient_sponsorship">Fant ikke noe GitHub-sponsorabonnement</string>
@@ -115,5 +115,5 @@
     <string name="user">Bruker</string>
     <string name="password">Passord</string>
     <string name="migrating_tasks">Flytting av gjøremål</string>
-    <string name="migrate_count">Flytt %s til Tasks.org</string>
+    <string name="migrate_count">Flytt %1$s til Tasks.org</string>
 </resources>

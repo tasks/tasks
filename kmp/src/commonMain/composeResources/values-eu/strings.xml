@@ -87,13 +87,13 @@
     <string name="app_passwords">Aplikazio-pasahitzak</string>
     <string name="app_password">Aplikazioaren pasahitza</string>
     <string name="last_backup_never">inoiz ez</string>
-    <string name="app_password_created_at">Sorrera: %s</string>
-    <string name="app_password_last_access">Azken erabilera: %s</string>
+    <string name="app_password_created_at">Sorrera: %1$s</string>
+    <string name="app_password_last_access">Azken erabilera: %1$s</string>
     <string name="generate_new_password">Sortu pasahitz berria</string>
     <string name="logout">Amaitu saioa</string>
     <string name="logout_warning">Kontu honetako datu guztiak zure gailutik kenduko dira</string>
     <string name="remove">Kendu</string>
-    <string name="delete_tag_confirmation">Ezabatu %s\?</string>
+    <string name="delete_tag_confirmation">Ezabatu %1$s?</string>
     <string name="app_password_delete_confirmation">Pasahitz hau darabiltzaten aplikazioen saioak amaituko dira</string>
     <string name="app_password_enter_description">Eman izen bat zure pasahitzari (aukerazkoa)</string>
     <string name="insufficient_sponsorship">Ez da GitHub sponsorship egokirik aurkitu</string>
@@ -106,5 +106,5 @@
     <string name="user">Erabiltzailea</string>
     <string name="password">Pasahitza</string>
     <string name="migrating_tasks">Zereginak migratzen</string>
-    <string name="migrate_count">Eraman %s Tasks.org gunera</string>
+    <string name="migrate_count">Eraman %1$s Tasks.org gunera</string>
 </resources>

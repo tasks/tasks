@@ -95,8 +95,8 @@
     <string name="back">Înapoi</string>
     <string name="help">Ajutor</string>
     <string name="display_name">Afișează numele</string>
-    <string name="price_per_month_with_currency">%s/lună</string>
-    <string name="price_per_year_with_currency">%s/an</string>
+    <string name="price_per_month_with_currency">%1$s/lună</string>
+    <string name="price_per_year_with_currency">%1$s/an</string>
     <string name="donate_nag">Exprimă-ți sprijinul cu ajutorul unei donații!</string>
     <string name="manage_subscription">Modificarea abonamentului</string>
     <string name="button_unsubscribe">Anulare abonament</string>
@@ -105,13 +105,13 @@
     <string name="app_passwords">Parolele aplicațiilor</string>
     <string name="app_password">Parola aplicației</string>
     <string name="last_backup_never">niciodată</string>
-    <string name="app_password_created_at">Creat: %s</string>
-    <string name="app_password_last_access">Ultima utilizare: %s</string>
+    <string name="app_password_created_at">Creat: %1$s</string>
+    <string name="app_password_last_access">Ultima utilizare: %1$s</string>
     <string name="generate_new_password">Generează o nouă parolă</string>
     <string name="logout">Deconectează-te</string>
     <string name="logout_warning">Toate datele pentru acest cont vor fi eliminate de pe dispozitiv</string>
     <string name="remove">Elimină</string>
-    <string name="delete_tag_confirmation">Ștergi %s\?</string>
+    <string name="delete_tag_confirmation">Ștergi %1$s?</string>
     <string name="app_password_delete_confirmation">Orice aplicație care utilizează această parolă va fi deconectată</string>
     <string name="app_password_enter_description">Dă un nume parolei (opțional)</string>
     <string name="insufficient_sponsorship">Nu s-au găsit sponsorizări GitHub eligibile</string>
@@ -124,5 +124,5 @@
     <string name="user">Utilizator</string>
     <string name="password">Parolă</string>
     <string name="migrating_tasks">Mutarea sarcinilor</string>
-    <string name="migrate_count">Mută %s în Tasks.org</string>
+    <string name="migrate_count">Mută %1$s în Tasks.org</string>
 </resources>

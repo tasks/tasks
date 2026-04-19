@@ -115,9 +115,9 @@
     <string name="tasks_org_description">Включва споделяне със семейство и приятели и задачи от писмо</string>
     <string name="display_name">Показвано име</string>
     <string name="supporter">Поддръжник</string>
-    <string name="price_per_month_with_currency">%s/месец</string>
-    <string name="price_per_year_with_currency">%s/година</string>
-    <string name="supporter_summary">%s • Благодаря ви!</string>
+    <string name="price_per_month_with_currency">%1$s/месец</string>
+    <string name="price_per_year_with_currency">%1$s/година</string>
+    <string name="supporter_summary">%1$s • Благодаря ви!</string>
     <string name="sign_in_to_connect">Впишете се, за да свържете с профила в Tasks.org</string>
     <string name="donate">Даряване</string>
     <string name="donate_nag">Помислете дали да не покажете подкрепата си чрез дарение!</string>
@@ -132,13 +132,13 @@
     <string name="app_passwords">Пароли на приложениятя</string>
     <string name="app_password">Парола на приложението</string>
     <string name="last_backup_never">никога</string>
-    <string name="app_password_created_at">Създадена: %s</string>
-    <string name="app_password_last_access">Последно използвана: %s</string>
+    <string name="app_password_created_at">Създадена: %1$s</string>
+    <string name="app_password_last_access">Последно използвана: %1$s</string>
     <string name="generate_new_password">Създаване на нова парола</string>
     <string name="logout">Изход</string>
     <string name="logout_warning">Всички данни за този профил ще бъдат изтрити от устройството</string>
     <string name="remove">Премахване</string>
-    <string name="delete_tag_confirmation">Изтриване на %s\?</string>
+    <string name="delete_tag_confirmation">Изтриване на %1$s?</string>
     <string name="app_password_delete_confirmation">Всички приложения, които използват паролата ще бъдат отписани</string>
     <string name="app_password_enter_description">Дайте име на паролата (по избор)</string>
     <string name="tos_updated_title">Променихме условията за използване на услугата</string>
@@ -154,5 +154,5 @@
     <string name="password">Парола</string>
     <string name="regenerate_email_address_confirmation">Текущия ел. адрес ще спре да работи</string>
     <string name="migrating_tasks">Преместване на задачи</string>
-    <string name="migrate_count">Преместване на %s в Tasks.org</string>
+    <string name="migrate_count">Преместване на %1$s в Tasks.org</string>
 </resources>

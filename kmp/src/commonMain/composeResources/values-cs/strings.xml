@@ -118,9 +118,9 @@
     <string name="display_name">Zobrazované jméno</string>
     <string name="upgrade_to_pro_card_description">Odemkněte cloudovou synchronizaci Tasks.org, sdílení s rodinou a přáteli a e-mail na úkol</string>
     <string name="supporter">Podporovatel</string>
-    <string name="price_per_month_with_currency">%s měsíčně</string>
-    <string name="price_per_year_with_currency">%s ročně</string>
-    <string name="supporter_summary">%s • Děkujeme!</string>
+    <string name="price_per_month_with_currency">%1$s měsíčně</string>
+    <string name="price_per_year_with_currency">%1$s ročně</string>
+    <string name="supporter_summary">%1$s • Děkujeme!</string>
     <string name="sign_in_to_connect">Pro připojení účtu Tasks.org se přihlaste</string>
     <string name="guest">Host</string>
     <string name="donate">Přispět</string>
@@ -134,18 +134,18 @@
     <string name="email_to_task_calendar">Seznam cílů</string>
     <string name="regenerate_email_address">Znovu vygenerovat adresu</string>
     <string name="shared_with_me">Sdíleno se mnou</string>
-    <string name="shared_by">Sdíleno uživatelem %s</string>
+    <string name="shared_by">Sdíleno uživatelem %1$s</string>
     <string name="guests">Hosté (%1$d/%2$d)</string>
     <string name="app_passwords">Hesla k aplikaci</string>
     <string name="app_password">Heslo k aplikaci</string>
     <string name="last_backup_never">nikdy</string>
-    <string name="app_password_created_at">Vytvořeno: %s</string>
-    <string name="app_password_last_access">Naposledy použito: %s</string>
+    <string name="app_password_created_at">Vytvořeno: %1$s</string>
+    <string name="app_password_last_access">Naposledy použito: %1$s</string>
     <string name="generate_new_password">Vytvořit nové heslo</string>
     <string name="logout">Odhlásit se</string>
     <string name="logout_warning">Všechna data daného účtu budou z tohoto zařízení odstraněna</string>
     <string name="remove">Odstranit</string>
-    <string name="delete_tag_confirmation">Smazat %s?</string>
+    <string name="delete_tag_confirmation">Smazat %1$s?</string>
     <string name="app_password_delete_confirmation">Všechny aplikace používající toto heslo budou odhlášeny</string>
     <string name="app_password_enter_description">Zadejte své heslo a (volitelně) jméno</string>
     <string name="tos_updated_title">Upravili jsme naše Podmínky služby</string>
@@ -161,5 +161,5 @@
     <string name="password">Heslo</string>
     <string name="regenerate_email_address_confirmation">Vaše aktuální e-mailová adresa přestane fungovat</string>
     <string name="migrating_tasks">Probíhá přesouvání úkolů</string>
-    <string name="migrate_count">Přesunout %s do Tasks.org</string>
+    <string name="migrate_count">Přesunout %1$s do Tasks.org</string>
 </resources>

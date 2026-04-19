@@ -2,7 +2,7 @@
 <resources>
     <string name="search">Fitadiavana</string>
     <string name="search_no_results">Tsy misy</string>
-    <string name="subscription_required_description">Vahao ireo fampiasa rehetra amin\'ny sarany 1$ Amerikana isan-taona fotsiny</string>
+    <string name="subscription_required_description">Vahao ireo fampiasa rehetra amin'ny sarany 1$ Amerikana isan-taona fotsiny</string>
     <string name="subscribe">Raiso ny tolotra</string>
     <string name="filter_my_tasks">Ny asako</string>
     <string name="filter_notifications">Fampahatsiahivana</string>

@@ -95,8 +95,8 @@
     <string name="back">Назад</string>
     <string name="help">Довідка</string>
     <string name="display_name">Показувана назва</string>
-    <string name="price_per_month_with_currency">%s/місяць</string>
-    <string name="price_per_year_with_currency">%s/рік</string>
+    <string name="price_per_month_with_currency">%1$s/місяць</string>
+    <string name="price_per_year_with_currency">%1$s/рік</string>
     <string name="donate_nag">Розгляньте можливість підтримати нас внеском!</string>
     <string name="manage_subscription">Змінити підписку</string>
     <string name="button_unsubscribe">Скасувати підписку</string>
@@ -105,13 +105,13 @@
     <string name="app_passwords">Паролі застосунку</string>
     <string name="app_password">Пароль застосунку</string>
     <string name="last_backup_never">ніколи</string>
-    <string name="app_password_created_at">Створено: %s</string>
-    <string name="app_password_last_access">Останнє використання: %s</string>
+    <string name="app_password_created_at">Створено: %1$s</string>
+    <string name="app_password_last_access">Останнє використання: %1$s</string>
     <string name="generate_new_password">Створити новий пароль</string>
     <string name="logout">Вийти</string>
     <string name="logout_warning">Всі дані цього облікового запису буде видалено з пристрою</string>
     <string name="remove">Вилучити</string>
-    <string name="delete_tag_confirmation">Видалити %s?</string>
+    <string name="delete_tag_confirmation">Видалити %1$s?</string>
     <string name="app_password_delete_confirmation">Будь-який застосунок, що використовує цей пароль, вийде з облікового запису</string>
     <string name="app_password_enter_description">Дайте назву своєму паролю (необов’язково)</string>
     <string name="insufficient_sponsorship">Відповідного вимогам спонсорства GitHub не знайдено</string>
@@ -124,5 +124,5 @@
     <string name="user">Користувач</string>
     <string name="password">Пароль</string>
     <string name="migrating_tasks">Перенесення завдань</string>
-    <string name="migrate_count">Перемістити %s на Tasks.org</string>
+    <string name="migrate_count">Перемістити %1$s на Tasks.org</string>
 </resources>

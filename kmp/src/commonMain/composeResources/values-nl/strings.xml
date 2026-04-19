@@ -54,7 +54,7 @@
     <string name="microsoft_selection_description">Synchroniseer met je persoonlijke Microsoft-account</string>
     <string name="cost_free">Gratis</string>
     <string name="microsoft_selection_description_googleplay">Synchroniseer met je werk-, school- of persoonlijk Microsoft-account</string>
-    <string name="name_your_price_blurb">Betaal een bedrag naar keuze om thema\'s, pictogrammen en geavanceerde sync-mogelijkheden te verkrijgen</string>
+    <string name="name_your_price_blurb">Betaal een bedrag naar keuze om thema's, pictogrammen en geavanceerde sync-mogelijkheden te verkrijgen</string>
     <string name="name_your_price">Bepaal je eigen prijs</string>
     <string name="upgrade_to_pro">Opwaarderen naar pro</string>
     <string name="legal_disclosure_prefix_using">Door Tasks.org te gebruiken</string>
@@ -87,7 +87,7 @@
     <string name="SSD_sort_modified">Op datum gewijzigd</string>
     <string name="SSD_sort_auto">Slim sorteren</string>
     <string name="SSD_sort_my_order">Mijn volgorde</string>
-    <string name="astrid_sort_order">Astrid\'s handmatig sorteren</string>
+    <string name="astrid_sort_order">Astrid's handmatig sorteren</string>
     <string name="sort_completed">Op tijdstip voltooid</string>
     <string name="sort_grouping">Groepering</string>
     <string name="sort_sorting">Sorteren</string>
@@ -104,8 +104,8 @@
     <string name="help">Hulp</string>
     <string name="display_name">Weergavenaam</string>
     <string name="supporter">Supporter</string>
-    <string name="price_per_month_with_currency">%s per maand</string>
-    <string name="price_per_year_with_currency">%s per jaar</string>
+    <string name="price_per_month_with_currency">%1$s per maand</string>
+    <string name="price_per_year_with_currency">%1$s per jaar</string>
     <string name="donate">Doneren</string>
     <string name="donate_nag">Overweeg om uw steun te tonen met een schenking!</string>
     <string name="manage_subscription">Abonnement wijzigen</string>
@@ -119,13 +119,13 @@
     <string name="app_passwords">App wachtwoorden</string>
     <string name="app_password">App wachtwoord</string>
     <string name="last_backup_never">nooit</string>
-    <string name="app_password_created_at">Aangemaakt: %s</string>
-    <string name="app_password_last_access">Laatst gebruikt: %s</string>
+    <string name="app_password_created_at">Aangemaakt: %1$s</string>
+    <string name="app_password_last_access">Laatst gebruikt: %1$s</string>
     <string name="generate_new_password">Nieuw wachtwoord aanmaken</string>
     <string name="logout">Uitloggen</string>
     <string name="logout_warning">Alle gegevens van deze account zullen van dit toestel worden verwijderd</string>
     <string name="remove">Verwijderen</string>
-    <string name="delete_tag_confirmation">%s wissen\?</string>
+    <string name="delete_tag_confirmation">%1$s wissen?</string>
     <string name="app_password_delete_confirmation">Alle apps die dit wachtwoord gebruiken worden uitgelogd</string>
     <string name="app_password_enter_description">Je wachtwoord een naam geven (optioneel)</string>
     <string name="tos_updated_title">We hebben onze gebruikersvoorwaarden bijgewerkt</string>
@@ -141,5 +141,5 @@
     <string name="password">Wachtwoord</string>
     <string name="regenerate_email_address_confirmation">Je huidige e-mailadres zal niet meer werken</string>
     <string name="migrating_tasks">Migreert taken</string>
-    <string name="migrate_count">Verplaats %s naar Tasks.org</string>
+    <string name="migrate_count">Verplaats %1$s naar Tasks.org</string>
 </resources>

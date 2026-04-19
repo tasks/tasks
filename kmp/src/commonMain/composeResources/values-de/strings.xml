@@ -118,9 +118,9 @@
     <string name="display_name">Anzeigename</string>
     <string name="upgrade_to_pro_card_description">Tasks.org Cloud-Synchronisierung, Freigabe für Freunde &amp; Familie und E-Mail Aufgabenerstellung freischalten</string>
     <string name="supporter">Unterstützer:in</string>
-    <string name="price_per_month_with_currency">%s/Monat</string>
-    <string name="price_per_year_with_currency">%s/Jahr</string>
-    <string name="supporter_summary">%s • Danke!</string>
+    <string name="price_per_month_with_currency">%1$s/Monat</string>
+    <string name="price_per_year_with_currency">%1$s/Jahr</string>
+    <string name="supporter_summary">%1$s • Danke!</string>
     <string name="sign_in_to_connect">Melde dich an, um dein Tasks.org Konto zu verbinden</string>
     <string name="guest">Gast</string>
     <string name="donate">Spenden</string>
@@ -134,18 +134,18 @@
     <string name="email_to_task_calendar">Zielliste</string>
     <string name="regenerate_email_address">Neue E-Mail-Adresse generieren</string>
     <string name="shared_with_me">Mit mir geteilt</string>
-    <string name="shared_by">Geteilt von %s</string>
+    <string name="shared_by">Geteilt von %1$s</string>
     <string name="guests">Gäste (%1$d/%2$d)</string>
     <string name="app_passwords">App-Passwörter</string>
     <string name="app_password">App-Passwort</string>
     <string name="last_backup_never">nie</string>
-    <string name="app_password_created_at">Erstellt: %s</string>
-    <string name="app_password_last_access">Zuletzt genutzt: %s</string>
+    <string name="app_password_created_at">Erstellt: %1$s</string>
+    <string name="app_password_last_access">Zuletzt genutzt: %1$s</string>
     <string name="generate_new_password">Neues Passwort generieren</string>
     <string name="logout">Abmelden</string>
     <string name="logout_warning">Dies wird alle Daten dieses Kontos von diesem Gerät löschen</string>
     <string name="remove">Entfernen</string>
-    <string name="delete_tag_confirmation">%s löschen?</string>
+    <string name="delete_tag_confirmation">%1$s löschen?</string>
     <string name="app_password_delete_confirmation">Jede App, die dieses Passwort benutzt, wird abgemeldet</string>
     <string name="app_password_enter_description">Gib deinem Passwort einen Namen (optional)</string>
     <string name="tos_updated_title">Wir haben unsere Nutzungsbedingungen aktualisiert</string>
@@ -161,5 +161,5 @@
     <string name="password">Passwort</string>
     <string name="regenerate_email_address_confirmation">Deine derzeitige E-Mail-Adresse wird nicht mehr funktionieren</string>
     <string name="migrating_tasks">Aufgaben werden migriert</string>
-    <string name="migrate_count">Verschiebe %s zu Tasks.org</string>
+    <string name="migrate_count">Verschiebe %1$s zu Tasks.org</string>
 </resources>

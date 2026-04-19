@@ -118,9 +118,9 @@
     <string name="display_name">Nama tampilan</string>
     <string name="upgrade_to_pro_card_description">Buka kunci sinkronisasi Tasks.org Cloud, Berbagi Keluarga &amp; Teman, dan Email-ke-Tugas</string>
     <string name="supporter">Pendukung</string>
-    <string name="price_per_month_with_currency">%s/bulan</string>
-    <string name="price_per_year_with_currency">%s/tahun</string>
-    <string name="supporter_summary">"%s -  Terima kasih!"</string>
+    <string name="price_per_month_with_currency">%1$s/bulan</string>
+    <string name="price_per_year_with_currency">%1$s/tahun</string>
+    <string name="supporter_summary">"%1$s -  Terima kasih!"</string>
     <string name="sign_in_to_connect">Masuk untuk menghubungkan akun Tasks.org Anda</string>
     <string name="guest">Tamu</string>
     <string name="donate">Donasi</string>
@@ -134,18 +134,18 @@
     <string name="email_to_task_calendar">Daftar tujuan</string>
     <string name="regenerate_email_address">Buat ulang alamat</string>
     <string name="shared_with_me">Dibagikan dengan saya</string>
-    <string name="shared_by">Dibagikan oleh %s</string>
+    <string name="shared_by">Dibagikan oleh %1$s</string>
     <string name="guests">Tamu (%1$d/%2$d)</string>
     <string name="app_passwords">Kata sandi aplikasi</string>
     <string name="app_password">Kata sandi aplikasi</string>
     <string name="last_backup_never">tidak pernah</string>
-    <string name="app_password_created_at">Dibuat: %s</string>
-    <string name="app_password_last_access">Terakhir digunakan: %s</string>
+    <string name="app_password_created_at">Dibuat: %1$s</string>
+    <string name="app_password_last_access">Terakhir digunakan: %1$s</string>
     <string name="generate_new_password">Buat kata sandi baru</string>
     <string name="logout">Keluar</string>
     <string name="logout_warning">Semua data akun ini akan dihapus dari perangkat Anda</string>
     <string name="remove">Hapus</string>
-    <string name="delete_tag_confirmation">Hapus %s\?</string>
+    <string name="delete_tag_confirmation">Hapus %1$s?</string>
     <string name="app_password_delete_confirmation">Aplikasi apa pun yang menggunakan sandi ini akan keluar/sign out</string>
     <string name="app_password_enter_description">Beri nama sandi Anda (opsional)</string>
     <string name="tos_updated_title">Kami telah memperbarui Ketentuan Layanan kami</string>
@@ -161,5 +161,5 @@
     <string name="password">Kata sandi</string>
     <string name="regenerate_email_address_confirmation">Alamat email Anda saat ini akan berhenti berfungsi</string>
     <string name="migrating_tasks">Memindahkan tugas</string>
-    <string name="migrate_count">Pindahkan %s ke Tasks.org</string>
+    <string name="migrate_count">Pindahkan %1$s ke Tasks.org</string>
 </resources>

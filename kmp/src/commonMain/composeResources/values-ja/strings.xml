@@ -118,9 +118,9 @@
     <string name="display_name">表示名</string>
     <string name="upgrade_to_pro_card_description">Tasks.orgクラウド同期、家族・友人との共有、メールでタスク追加を可能にする</string>
     <string name="supporter">支援者</string>
-    <string name="price_per_month_with_currency">%s/月</string>
-    <string name="price_per_year_with_currency">%s/年</string>
-    <string name="supporter_summary">%s •さん、ありがとうございます！</string>
+    <string name="price_per_month_with_currency">%1$s/月</string>
+    <string name="price_per_year_with_currency">%1$s/年</string>
+    <string name="supporter_summary">%1$s •さん、ありがとうございます！</string>
     <string name="sign_in_to_connect">サインインしてTasks.orgアカウントに接続する</string>
     <string name="guest">ゲスト</string>
     <string name="donate">寄付</string>
@@ -134,18 +134,18 @@
     <string name="email_to_task_calendar">送信先リスト</string>
     <string name="regenerate_email_address">メールアドレスを再登録する</string>
     <string name="shared_with_me">共有されたもの</string>
-    <string name="shared_by">%sからの共有</string>
+    <string name="shared_by">%1$sからの共有</string>
     <string name="guests">ゲスト (%1$d/%2$d)</string>
     <string name="app_passwords">アプリパスワード</string>
     <string name="app_password">アプリパスワード</string>
     <string name="last_backup_never">なし</string>
-    <string name="app_password_created_at">作成: %s</string>
-    <string name="app_password_last_access">最後に使用: %s</string>
+    <string name="app_password_created_at">作成: %1$s</string>
+    <string name="app_password_last_access">最後に使用: %1$s</string>
     <string name="generate_new_password">新しいパスワードを生成する</string>
     <string name="logout">ログアウト</string>
     <string name="logout_warning">このアカウントのデータがお使いの端末からすべて削除されます</string>
     <string name="remove">削除</string>
-    <string name="delete_tag_confirmation">%s を削除しますか？</string>
+    <string name="delete_tag_confirmation">%1$s を削除しますか？</string>
     <string name="app_password_delete_confirmation">このパスワードを使用するアプリはすべてサインアウトされます</string>
     <string name="app_password_enter_description">パスワードに名前を付けます（オプション）</string>
     <string name="tos_updated_title">サービス規約を改定しました</string>
@@ -161,5 +161,5 @@
     <string name="password">パスワード</string>
     <string name="regenerate_email_address_confirmation">現在のメールアドレスは使えなくなります</string>
     <string name="migrating_tasks">タスクを移行する</string>
-    <string name="migrate_count">%s を Tasks.org に移動</string>
+    <string name="migrate_count">%1$s を Tasks.org に移動</string>
 </resources>

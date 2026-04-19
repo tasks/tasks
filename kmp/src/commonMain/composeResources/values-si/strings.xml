@@ -84,13 +84,13 @@
     <string name="app_passwords">යෙදුම් මුරපද</string>
     <string name="app_password">යෙදුම් මුරපදය</string>
     <string name="last_backup_never">කිසිදා නැත</string>
-    <string name="app_password_created_at">නිර්මාණය කරන ලද්දේ: %s</string>
-    <string name="app_password_last_access">අවසන් වරට භාවිතා කළේ: %s</string>
+    <string name="app_password_created_at">නිර්මාණය කරන ලද්දේ: %1$s</string>
+    <string name="app_password_last_access">අවසන් වරට භාවිතා කළේ: %1$s</string>
     <string name="generate_new_password">නව මුරපදයක් ජනනය කරන්න</string>
     <string name="logout">ඉවත් වන්න</string>
     <string name="logout_warning">මෙම ගිණුම සඳහා වන සියලුම දත්ත ඔබගේ උපාංගයෙන් ඉවත් වනු ඇත</string>
     <string name="remove">ඉවත් කරන්න</string>
-    <string name="delete_tag_confirmation">%s මකාදමනවාද\?</string>
+    <string name="delete_tag_confirmation">%1$s මකාදමනවාද?</string>
     <string name="app_password_delete_confirmation">මෙම මුරපදය භාවිතා කරන ඕනෑම යෙදුමක් ඉවත්වනු (signed out) ඇත</string>
     <string name="app_password_enter_description">ඔබගේ මුරපදයට නමක් දෙන්න (අත්‍යවශ්‍ය නොවේ)</string>
     <string name="insufficient_sponsorship">සුදුසුකම් ලත් GitHub අනුග්‍රාහකත්වයක් හමු නොවීය</string>
@@ -103,5 +103,5 @@
     <string name="user">පරිශීලක</string>
     <string name="password">මුරපදය</string>
     <string name="migrating_tasks">සංක්‍රමණික කාර්යයන්</string>
-    <string name="migrate_count">%s Tasks.org වෙත ගෙන යන්න</string>
+    <string name="migrate_count">%1$s Tasks.org වෙත ගෙන යන්න</string>
 </resources>

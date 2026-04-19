@@ -95,8 +95,8 @@
     <string name="back">Volver</string>
     <string name="help">Ayuda</string>
     <string name="display_name">Mostrar el nombre</string>
-    <string name="price_per_month_with_currency">%s/mes</string>
-    <string name="price_per_year_with_currency">%s/año</string>
+    <string name="price_per_month_with_currency">%1$s/mes</string>
+    <string name="price_per_year_with_currency">%1$s/año</string>
     <string name="donate_nag">¡Considera mostrar tu apoyo con una donación!</string>
     <string name="manage_subscription">Modificar suscripción</string>
     <string name="button_unsubscribe">Cancelar la suscripción</string>
@@ -105,13 +105,13 @@
     <string name="app_passwords">Contraseñas de la aplicación</string>
     <string name="app_password">Contraseña de la aplicación</string>
     <string name="last_backup_never">nunca</string>
-    <string name="app_password_created_at">Creación: %s</string>
-    <string name="app_password_last_access">Última utilización: %s</string>
+    <string name="app_password_created_at">Creación: %1$s</string>
+    <string name="app_password_last_access">Última utilización: %1$s</string>
     <string name="generate_new_password">Generar contraseña</string>
     <string name="logout">Cerrar sesión</string>
     <string name="logout_warning">Todos los datos de esta cuenta se borrarán del dispositivo</string>
     <string name="remove">Eliminar</string>
-    <string name="delete_tag_confirmation">¿Eliminar %s?</string>
+    <string name="delete_tag_confirmation">¿Eliminar %1$s?</string>
     <string name="app_password_delete_confirmation">Se cerrará la sesión de cualquier aplicación que utilice esta contraseña</string>
     <string name="app_password_enter_description">Dé un nombre a su contraseña (opcional)</string>
     <string name="insufficient_sponsorship">No se encontró ningún patrocinio de GitHub elegible</string>
@@ -124,5 +124,5 @@
     <string name="user">Usuario</string>
     <string name="password">Contraseña</string>
     <string name="migrating_tasks">Migración de tareas</string>
-    <string name="migrate_count">Mueve %s a Tasks.org</string>
+    <string name="migrate_count">Mueve %1$s a Tasks.org</string>
 </resources>

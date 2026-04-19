@@ -108,9 +108,9 @@
     <string name="display_name">Nomo</string>
     <string name="upgrade_to_pro_card_description">Por malŝlosi sinkronigon de Tasks.org Cloud, komunigon de Amikoj kaj Familianoj, kaj Retpoŝto al Tasko</string>
     <string name="supporter">Abonanto</string>
-    <string name="price_per_month_with_currency">%s/monato</string>
-    <string name="price_per_year_with_currency">%s/jaro</string>
-    <string name="supporter_summary">%s • Dankon!</string>
+    <string name="price_per_month_with_currency">%1$s/monato</string>
+    <string name="price_per_year_with_currency">%1$s/jaro</string>
+    <string name="supporter_summary">%1$s • Dankon!</string>
     <string name="sign_in_to_connect">Ensalutu por konekti al via konto de Tasks.org</string>
     <string name="guest">Gasto</string>
     <string name="donate">Donaci</string>
@@ -124,18 +124,18 @@
     <string name="email_to_task_calendar">Listo de cellokoj</string>
     <string name="regenerate_email_address">Regeneri adreson</string>
     <string name="shared_with_me">Komunaj kun mi</string>
-    <string name="shared_by">Komunigata de %s</string>
+    <string name="shared_by">Komunigata de %1$s</string>
     <string name="guests">Gastoj (%1$d/%2$d)</string>
     <string name="app_passwords">Pasvortoj de aplikaĵoj</string>
     <string name="app_password">Pasvorto de aplikaĵo</string>
     <string name="last_backup_never">neniam</string>
-    <string name="app_password_created_at">Kreite: %s</string>
-    <string name="app_password_last_access">Laste uzata: %s</string>
+    <string name="app_password_created_at">Kreite: %1$s</string>
+    <string name="app_password_last_access">Laste uzata: %1$s</string>
     <string name="generate_new_password">Generi novan pasvorton</string>
     <string name="logout">Elsaluti</string>
     <string name="logout_warning">Ĉiu de la datumo de ĉi tiu konto foriĝos el via aparato</string>
     <string name="remove">Forigi</string>
-    <string name="delete_tag_confirmation">Forigi %s\?</string>
+    <string name="delete_tag_confirmation">Forigi %1$s?</string>
     <string name="app_password_delete_confirmation">Ajna aplikaĵo, uzante ĉi tiun pasvorton, elsalutiĝos</string>
     <string name="app_password_enter_description">Nomi vian pasvorton (nedeviga)</string>
     <string name="tos_updated_title">Ni ĝisdatigis niajn Kondiĉojn de Uzado</string>
@@ -151,5 +151,5 @@
     <string name="password">Pasvorto</string>
     <string name="regenerate_email_address_confirmation">Via aktuala retpoŝtadreso ne plu funkcios</string>
     <string name="migrating_tasks">Transmetas taskojn</string>
-    <string name="migrate_count">Movi %s al Tasks.org</string>
+    <string name="migrate_count">Movi %1$s al Tasks.org</string>
 </resources>

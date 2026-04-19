@@ -56,7 +56,7 @@
     <string name="continue_without_sync">Jätka ilma sünkroniseerimata</string>
     <string name="returning_user_import_backup">Impordi Tasks.org-i varukoopia</string>
     <string name="cost_free">Tasuta</string>
-    <string name="google_tasks_selection_description">Google\'i kasutajakontoga lihtsustatud andmete sünkroniseerimise võimalus</string>
+    <string name="google_tasks_selection_description">Google'i kasutajakontoga lihtsustatud andmete sünkroniseerimise võimalus</string>
     <string name="microsoft_selection_description">Microsofti isikliku kasutajakontoga andmete sünkroniseerimise võimalus</string>
     <string name="name_your_price_blurb">Maksa nii palju kui saad ja võid kasutada kujundusi, ikoone ja detailsemaid sünkroonimisvõimalusi</string>
     <string name="microsoft_selection_description_googleplay">Sünkrooni oma töö-, kooli- või isikliku Microsofti kasutajakontoga</string>
@@ -67,7 +67,7 @@
     <string name="etesync_selection_description">Sünkroniseerimine, mis kasutab läbivat krüptimist</string>
     <string name="decsync_selection_description">Failipõhine sünkrooniseerimine</string>
     <string name="sign_in_to_tasks">Logi sisse teenusesse Tasks.org</string>
-    <string name="sign_in_with_google">Logi sisse Google\'i kasutajakontoga</string>
+    <string name="sign_in_with_google">Logi sisse Google'i kasutajakontoga</string>
     <string name="sign_in_with_github">Logi sisse GitHubi kasutajakontoga</string>
     <string name="google_play_subscribers">Tellijad Google Play teenuses</string>
     <string name="github_sponsors">Sponsorid GitHubis</string>
@@ -108,9 +108,9 @@
     <string name="help">Abiinfo</string>
     <string name="display_name">Kuvatav nimi</string>
     <string name="supporter">Toetaja</string>
-    <string name="price_per_month_with_currency">%s kuus</string>
-    <string name="price_per_year_with_currency">%s aastas</string>
-    <string name="supporter_summary">%s • Suur tänu!</string>
+    <string name="price_per_month_with_currency">%1$s kuus</string>
+    <string name="price_per_year_with_currency">%1$s aastas</string>
+    <string name="supporter_summary">%1$s • Suur tänu!</string>
     <string name="sign_in_to_connect">Ühendamaks oma Tasks.org-i kontot palun logi sisse</string>
     <string name="donate">Toeta meid rahaliselt</string>
     <string name="donate_nag">Rahalise toetusega saad edendada meie arendust!</string>
@@ -125,13 +125,13 @@
     <string name="app_passwords">Rakenduse salasõnad</string>
     <string name="app_password">Rakenduse salasõna</string>
     <string name="last_backup_never">mitte kunagi</string>
-    <string name="app_password_created_at">Loodud: %s</string>
-    <string name="app_password_last_access">Viimati kasutatud: %s</string>
+    <string name="app_password_created_at">Loodud: %1$s</string>
+    <string name="app_password_last_access">Viimati kasutatud: %1$s</string>
     <string name="generate_new_password">Loo uus salasõna</string>
     <string name="logout">Logi välja</string>
     <string name="logout_warning">Kõik selle kasutajakonto andmed eemaldatakse sellest seadmest</string>
     <string name="remove">Eemalda</string>
-    <string name="delete_tag_confirmation">Kas kustutame %s?</string>
+    <string name="delete_tag_confirmation">Kas kustutame %1$s?</string>
     <string name="app_password_delete_confirmation">Kõik seda salasõna kasutavad rakendused logitakse võrgust välja</string>
     <string name="app_password_enter_description">Lisa salasõnale nimetus (valikuline)</string>
     <string name="tos_updated_title">Me oleme uuendanud oma kasutustingimusi</string>
@@ -147,5 +147,5 @@
     <string name="password">Salasõna</string>
     <string name="regenerate_email_address_confirmation">Sinu senine e-posti aadress lõpetab toimimise</string>
     <string name="migrating_tasks">Ülesanded on kolimisel</string>
-    <string name="migrate_count">Teisalda %s teenusesse Tasks.org</string>
+    <string name="migrate_count">Teisalda %1$s teenusesse Tasks.org</string>
 </resources>

@@ -95,8 +95,8 @@
     <string name="back">عودة</string>
     <string name="help">مساعدة</string>
     <string name="display_name">اسم العرض</string>
-    <string name="price_per_month_with_currency">%s/شهر</string>
-    <string name="price_per_year_with_currency">%s/السنة</string>
+    <string name="price_per_month_with_currency">%1$s/شهر</string>
+    <string name="price_per_year_with_currency">%1$s/السنة</string>
     <string name="donate_nag">فكِّر في إظهار دعمك بالتبرع!</string>
     <string name="manage_subscription">عدّل الاشتراك</string>
     <string name="button_unsubscribe">إلغاء الإشتراك</string>
@@ -105,13 +105,13 @@
     <string name="app_passwords">كلمات سرّ التطبيق</string>
     <string name="app_password">كلمة سرّ التطبيق</string>
     <string name="last_backup_never">ابدا</string>
-    <string name="app_password_created_at">أنشأ: %s</string>
-    <string name="app_password_last_access">آخر استعمال: %s</string>
+    <string name="app_password_created_at">أنشأ: %1$s</string>
+    <string name="app_password_last_access">آخر استعمال: %1$s</string>
     <string name="generate_new_password">ولّّد كلمة سرٍّ جديدة</string>
     <string name="logout">تسجيل الخروج</string>
     <string name="logout_warning">ستحذف كل بيانات هذا الحساب من جهازك</string>
     <string name="remove">حذف</string>
-    <string name="delete_tag_confirmation">احذف %s؟</string>
+    <string name="delete_tag_confirmation">احذف %1$s؟</string>
     <string name="app_password_delete_confirmation">سيسجَّل خروج أي تطبيق يستعمل كلمة السرّ هذه</string>
     <string name="app_password_enter_description">أعط كلمة سرّك اسمًا (اختياري)</string>
     <string name="insufficient_sponsorship">لم يتم العثور على رعاية من GitHub</string>
@@ -124,5 +124,5 @@
     <string name="user">المستعمل</string>
     <string name="password">كلمة السّر</string>
     <string name="migrating_tasks">ترحيل المهام</string>
-    <string name="migrate_count">انقل %s إلى Tasks.org</string>
+    <string name="migrate_count">انقل %1$s إلى Tasks.org</string>
 </resources>

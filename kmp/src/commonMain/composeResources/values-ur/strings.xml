@@ -63,7 +63,7 @@
     <string name="logout">لاگ آؤٹ</string>
     <string name="logout_warning">اس اکاؤنٹ کاتمام ڈیٹا آپ کی ڈٰوائس سے ختم ہو جائے گا</string>
     <string name="remove">ختم کریں</string>
-    <string name="delete_tag_confirmation">%s کو ڈیلیٹ کریں؟</string>
+    <string name="delete_tag_confirmation">%1$s کو ڈیلیٹ کریں؟</string>
     <string name="button_subscribe">سبسکرائب</string>
     <string name="url">یو آر ایل</string>
     <string name="user">صارف</string>

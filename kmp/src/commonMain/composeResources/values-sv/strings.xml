@@ -105,8 +105,8 @@
     <string name="back">Tillbaka</string>
     <string name="help">Hjälp</string>
     <string name="display_name">Visa namnet</string>
-    <string name="price_per_month_with_currency">%s/månad</string>
-    <string name="price_per_year_with_currency">%s/år</string>
+    <string name="price_per_month_with_currency">%1$s/månad</string>
+    <string name="price_per_year_with_currency">%1$s/år</string>
     <string name="donate_nag">Överväg att visa ditt stöd med en donation!</string>
     <string name="manage_subscription">Ändra abonnemang</string>
     <string name="button_unsubscribe">Avbryt abonnemang</string>
@@ -115,13 +115,13 @@
     <string name="app_passwords">Applösenord</string>
     <string name="app_password">Applösenord</string>
     <string name="last_backup_never">aldrig</string>
-    <string name="app_password_created_at">Skapad: %s</string>
-    <string name="app_password_last_access">Senast använt: %s</string>
+    <string name="app_password_created_at">Skapad: %1$s</string>
+    <string name="app_password_last_access">Senast använt: %1$s</string>
     <string name="generate_new_password">Skapa ett nytt lösenord</string>
     <string name="logout">Logga ut</string>
     <string name="logout_warning">Alla data för det här kontot tas bort från enheten</string>
     <string name="remove">Ta bort</string>
-    <string name="delete_tag_confirmation">Ta bort %s?</string>
+    <string name="delete_tag_confirmation">Ta bort %1$s?</string>
     <string name="app_password_delete_confirmation">Alla appar som använder detta lösenord kommer att loggas ut</string>
     <string name="app_password_enter_description">Ge ditt lösenord ett namn (valfritt)</string>
     <string name="tos_updated_title">Vi har uppdaterat våra användarvillkor</string>
@@ -136,5 +136,5 @@
     <string name="user">Användare</string>
     <string name="password">Lösenord</string>
     <string name="migrating_tasks">Migrerar uppgifter</string>
-    <string name="migrate_count">Flytta %s till Tasks.org</string>
+    <string name="migrate_count">Flytta %1$s till Tasks.org</string>
 </resources>

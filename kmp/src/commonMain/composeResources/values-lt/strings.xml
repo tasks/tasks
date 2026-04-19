@@ -87,13 +87,13 @@
     <string name="app_passwords">Programėlių slaptažodžiai</string>
     <string name="app_password">Programėlės slaptažodis</string>
     <string name="last_backup_never">niekada</string>
-    <string name="app_password_created_at">Sukurta: %s</string>
-    <string name="app_password_last_access">Paskutinį kartą naudota: %s</string>
+    <string name="app_password_created_at">Sukurta: %1$s</string>
+    <string name="app_password_last_access">Paskutinį kartą naudota: %1$s</string>
     <string name="generate_new_password">Generuoti naują slaptažodį</string>
     <string name="logout">Atsijungti</string>
     <string name="logout_warning">Visi šios paskyros duomenys iš šio įrenginio bus pašalinti</string>
     <string name="remove">Išmesti</string>
-    <string name="delete_tag_confirmation">Ištrinti %s?</string>
+    <string name="delete_tag_confirmation">Ištrinti %1$s?</string>
     <string name="app_password_delete_confirmation">Bet kuri programa, kuri naudoja šį slaptažodį, bus atjungta</string>
     <string name="app_password_enter_description">Suteikti savo slaptažodžiui vardą (neprivaloma)</string>
     <string name="insufficient_sponsorship">Nerasta tinkamo GitHub rėmimo</string>
@@ -106,5 +106,5 @@
     <string name="user">Vartotojas</string>
     <string name="password">Slaptažodis</string>
     <string name="migrating_tasks">Migruojamos užduotys</string>
-    <string name="migrate_count">Migruoti %s į Tasks.org</string>
+    <string name="migrate_count">Migruoti %1$s į Tasks.org</string>
 </resources>

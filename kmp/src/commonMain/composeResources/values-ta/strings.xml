@@ -95,8 +95,8 @@
     <string name="back">மீண்டும்</string>
     <string name="help">உதவி</string>
     <string name="display_name">பெயர்</string>
-    <string name="price_per_month_with_currency">%s/மாதம்</string>
-    <string name="price_per_year_with_currency">%s/ஆண்டு</string>
+    <string name="price_per_month_with_currency">%1$s/மாதம்</string>
+    <string name="price_per_year_with_currency">%1$s/ஆண்டு</string>
     <string name="donate_nag">நன்கொடை மூலம் உங்கள் ஆதரவைக் காண்பிப்பதைக் கவனியுங்கள்!</string>
     <string name="manage_subscription">சந்தாவை மாற்றவும்</string>
     <string name="button_unsubscribe">சந்தாவை ரத்துசெய்</string>
@@ -105,13 +105,13 @@
     <string name="app_passwords">பயன்பாட்டு கடவுச்சொற்கள்</string>
     <string name="app_password">பயன்பாட்டு கடவுச்சொல்</string>
     <string name="last_backup_never">ஒருபோதும்</string>
-    <string name="app_password_created_at">உருவாக்கப்பட்டது: %s</string>
-    <string name="app_password_last_access">கடைசியாக பயன்படுத்தப்பட்டது: %s</string>
+    <string name="app_password_created_at">உருவாக்கப்பட்டது: %1$s</string>
+    <string name="app_password_last_access">கடைசியாக பயன்படுத்தப்பட்டது: %1$s</string>
     <string name="generate_new_password">புதிய கடவுச்சொல்லை உருவாக்குங்கள்</string>
     <string name="logout">வெளியேறு</string>
     <string name="logout_warning">இந்தக் கணக்கிற்கான எல்லா தரவும் உங்கள் சாதனத்திலிருந்து அகற்றப்படும்</string>
     <string name="remove">அகற்று</string>
-    <string name="delete_tag_confirmation">%s ஐ நீக்கவா\?</string>
+    <string name="delete_tag_confirmation">%1$s ஐ நீக்கவா?</string>
     <string name="app_password_delete_confirmation">இந்த கடவுச்சொல்லைப் பயன்படுத்தும் எந்த பயன்பாடும் பதிவு செய்யப்படும்</string>
     <string name="app_password_enter_description">உங்கள் கடவுச்சொல்லை ஒரு பெயரைக் கொடுங்கள் (விரும்பினால்)</string>
     <string name="insufficient_sponsorship">தகுதியான அறிவிலிமையம் ச்பான்சர்சிப் எதுவும் கிடைக்கவில்லை</string>
@@ -124,5 +124,5 @@
     <string name="user">பயனர்</string>
     <string name="password">கடவுச்சொல்</string>
     <string name="migrating_tasks">இடம்பெயரும் பணிகள்</string>
-    <string name="migrate_count">%s ஐ tasks.org க்கு நகர்த்தவும்</string>
+    <string name="migrate_count">%1$s ஐ tasks.org க்கு நகர்த்தவும்</string>
 </resources>

@@ -118,9 +118,9 @@
     <string name="display_name">Megjelenített név</string>
     <string name="upgrade_to_pro_card_description">Tasks.org felhős szinkronizálás, megosztás családdal és barátokkal, illetve Task e-mailből funkciók feloldása</string>
     <string name="supporter">Támogató</string>
-    <string name="price_per_month_with_currency">%s/hónap</string>
-    <string name="price_per_year_with_currency">%s/év</string>
-    <string name="supporter_summary">%s • Köszönöm!</string>
+    <string name="price_per_month_with_currency">%1$s/hónap</string>
+    <string name="price_per_year_with_currency">%1$s/év</string>
+    <string name="supporter_summary">%1$s • Köszönöm!</string>
     <string name="sign_in_to_connect">Jelentkezz be a Tasks.org fiókod csatolásához</string>
     <string name="guest">Vendég</string>
     <string name="donate">Adományozás</string>
@@ -134,18 +134,18 @@
     <string name="email_to_task_calendar">Cél lista</string>
     <string name="regenerate_email_address">Cím újragenerálása</string>
     <string name="shared_with_me">Velem megosztva</string>
-    <string name="shared_by">%s által megosztva</string>
+    <string name="shared_by">%1$s által megosztva</string>
     <string name="guests">Vendégek (%1$d/%2$d)</string>
     <string name="app_passwords">Alkalmazás jelszavak</string>
     <string name="app_password">Alkalmazás jelszó</string>
     <string name="last_backup_never">soha</string>
-    <string name="app_password_created_at">Létrehozva: %s</string>
-    <string name="app_password_last_access">Utolsó használat: %s</string>
+    <string name="app_password_created_at">Létrehozva: %1$s</string>
+    <string name="app_password_last_access">Utolsó használat: %1$s</string>
     <string name="generate_new_password">Új jelszó generálása</string>
     <string name="logout">Kijelentkezés</string>
     <string name="logout_warning">A fiókhoz tartozó összes adat törlésre kerül az eszközről</string>
     <string name="remove">Eltávolítás</string>
-    <string name="delete_tag_confirmation">%s törlése?</string>
+    <string name="delete_tag_confirmation">%1$s törlése?</string>
     <string name="app_password_delete_confirmation">Ezen jelszót használó alkalmazások kijelentkeztetésre kerülnek</string>
     <string name="app_password_enter_description">Jelszó elnevezése (opcionális)</string>
     <string name="tos_updated_title">Frissítettük a Szolgáltatási feltételeket</string>
@@ -161,5 +161,5 @@
     <string name="password">Jelszó</string>
     <string name="regenerate_email_address_confirmation">A jelenlegi e-mail címed megszűnik működni</string>
     <string name="migrating_tasks">Feladatok migrálása</string>
-    <string name="migrate_count">%s mozgatása a Tasks.org-ra</string>
+    <string name="migrate_count">%1$s mozgatása a Tasks.org-ra</string>
 </resources>

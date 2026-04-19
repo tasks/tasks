@@ -95,8 +95,8 @@
     <string name="back">Atrás</string>
     <string name="help">Axuda</string>
     <string name="display_name">Mostrar o nome</string>
-    <string name="price_per_month_with_currency">%s/mes</string>
-    <string name="price_per_year_with_currency">%s/ano</string>
+    <string name="price_per_month_with_currency">%1$s/mes</string>
+    <string name="price_per_year_with_currency">%1$s/ano</string>
     <string name="donate_nag">Considera mostrar o teu apoio cunha doazón!</string>
     <string name="manage_subscription">Cambiar a suscrición</string>
     <string name="button_unsubscribe">Cancelar a suscrición</string>
@@ -105,13 +105,13 @@
     <string name="app_passwords">Contrainais da app</string>
     <string name="app_password">Contrasinal da app</string>
     <string name="last_backup_never">nunca</string>
-    <string name="app_password_created_at">Creouse: %s</string>
-    <string name="app_password_last_access">Último empregado: %s</string>
+    <string name="app_password_created_at">Creouse: %1$s</string>
+    <string name="app_password_last_access">Último empregado: %1$s</string>
     <string name="generate_new_password">Xerar novo contrasinal</string>
     <string name="logout">Saír</string>
     <string name="logout_warning">Todos dos datos desta conta vabse a borrar deste dispositivo</string>
     <string name="remove">Borrar</string>
-    <string name="delete_tag_confirmation">Borrar %s\?</string>
+    <string name="delete_tag_confirmation">Borrar %1$s?</string>
     <string name="app_password_delete_confirmation">Calquera aplicación que use este contrasinal pechará sesión</string>
     <string name="app_password_enter_description">Dálle un nome ao contrasinal (opcional)</string>
     <string name="insufficient_sponsorship">Non se atopou ningún patrocinio de GitHub elixible</string>
@@ -124,5 +124,5 @@
     <string name="user">Usuario/a</string>
     <string name="password">Contrasinal</string>
     <string name="migrating_tasks">Migrando as tarefas</string>
-    <string name="migrate_count">Mover %s a Tasks.org</string>
+    <string name="migrate_count">Mover %1$s a Tasks.org</string>
 </resources>

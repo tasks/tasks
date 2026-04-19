@@ -95,8 +95,8 @@
     <string name="back">Πίσω</string>
     <string name="help">Βοήθεια</string>
     <string name="display_name">Εμφανιζόμενο όνομα</string>
-    <string name="price_per_month_with_currency">%s/μήνα</string>
-    <string name="price_per_year_with_currency">%s/χρόνο</string>
+    <string name="price_per_month_with_currency">%1$s/μήνα</string>
+    <string name="price_per_year_with_currency">%1$s/χρόνο</string>
     <string name="donate_nag">Σκεφτείτε να δείξετε την υποστήριξη σας με μια δωρεά!</string>
     <string name="manage_subscription">Τροποποίηση συνδρομής</string>
     <string name="button_unsubscribe">Ακύρωση συνδρομής</string>
@@ -105,13 +105,13 @@
     <string name="app_passwords">Κωδικοί εφαρμογής</string>
     <string name="app_password">Κωδικός εφαρμογής</string>
     <string name="last_backup_never">ποτέ</string>
-    <string name="app_password_created_at">Δημιουργήθηκε: %s</string>
-    <string name="app_password_last_access">Τελευταία χρήση: %s</string>
+    <string name="app_password_created_at">Δημιουργήθηκε: %1$s</string>
+    <string name="app_password_last_access">Τελευταία χρήση: %1$s</string>
     <string name="generate_new_password">Δημιουργία νέου κωδικού</string>
     <string name="logout">Αποσύνδεση</string>
     <string name="logout_warning">Όλα τα δεδομένα για αυτό το λογαριασμό θα αφαιρεθούν από τη συσκευή σας</string>
     <string name="remove">Αφαίρεση</string>
-    <string name="delete_tag_confirmation">Διαγραφή %s?</string>
+    <string name="delete_tag_confirmation">Διαγραφή %1$s?</string>
     <string name="app_password_delete_confirmation">Οποιαδήποτε εφαρμογή χρησιμοποιεί αυτόν τον κωδικό θα αποσυνδεθεί</string>
     <string name="app_password_enter_description">Δώστε ένα όνομα στον κωδικό σας (προαιρετικό)</string>
     <string name="insufficient_sponsorship">Δεν βρέθηκε κατάλληλη χορηγία GitHub</string>
@@ -124,5 +124,5 @@
     <string name="user">Χρήστης</string>
     <string name="password">Κωδικός</string>
     <string name="migrating_tasks">Εργασίες μετακίνησης</string>
-    <string name="migrate_count">Μετακίνηση %s στο Tasks.org</string>
+    <string name="migrate_count">Μετακίνηση %1$s στο Tasks.org</string>
 </resources>

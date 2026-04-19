@@ -67,8 +67,8 @@
     <string name="sign_in_to_tasks">Пријави се на Tasks.org</string>
     <string name="sign_in_with_google">Пријави се путем Гугла</string>
     <string name="sign_in_with_github">Пријави се путем GitHub-а</string>
-    <string name="google_play_subscribers">,,Google Play\'\' претплатници</string>
-    <string name="github_sponsors">,,GitHub\'\' спонзори</string>
+    <string name="google_play_subscribers">,,Google Play'' претплатници</string>
+    <string name="github_sponsors">,,GitHub'' спонзори</string>
     <string name="completed">Завршено</string>
     <string name="filter_overdue">После доспећа</string>
     <string name="no_due_date">Без датума доспећа</string>
@@ -106,9 +106,9 @@
     <string name="help">Помоћ</string>
     <string name="display_name">Прикажи име</string>
     <string name="supporter">Подржавач</string>
-    <string name="price_per_month_with_currency">%s/месечно</string>
-    <string name="price_per_year_with_currency">%s/годишње</string>
-    <string name="supporter_summary">%s • Хвала!</string>
+    <string name="price_per_month_with_currency">%1$s/месечно</string>
+    <string name="price_per_year_with_currency">%1$s/годишње</string>
+    <string name="supporter_summary">%1$s • Хвала!</string>
     <string name="sign_in_to_connect">Пријави се за повезивање Tasks.org налога</string>
     <string name="donate">Донирај</string>
     <string name="donate_nag">Подржи нас донацијом!</string>
@@ -123,18 +123,18 @@
     <string name="app_passwords">Шифре апликације</string>
     <string name="app_password">Шифра апликације</string>
     <string name="last_backup_never">никада</string>
-    <string name="app_password_created_at">Креирано: %s</string>
-    <string name="app_password_last_access">Последњи пут коришћено: %s</string>
+    <string name="app_password_created_at">Креирано: %1$s</string>
+    <string name="app_password_last_access">Последњи пут коришћено: %1$s</string>
     <string name="generate_new_password">Генериши нову шифру</string>
     <string name="logout">Одјави се</string>
     <string name="logout_warning">Сви подаци везани за овај налог ће бити обрисани са уређаја</string>
     <string name="remove">Избриши</string>
-    <string name="delete_tag_confirmation">Обриши %s?</string>
+    <string name="delete_tag_confirmation">Обриши %1$s?</string>
     <string name="app_password_delete_confirmation">Свака апликација која користи ову шифру ће бити одјављена</string>
     <string name="app_password_enter_description">Унеси име шифре (опционо)</string>
     <string name="tos_updated_title">Ажурирали смо услове коришћења</string>
     <string name="view_tos">Погледај услове коришћења</string>
-    <string name="insufficient_sponsorship">Није пронађено одговарајуће спонзорство за ,,GitHub\'\'</string>
+    <string name="insufficient_sponsorship">Није пронађено одговарајуће спонзорство за ,,GitHub''</string>
     <string name="button_subscribe">Претплати се</string>
     <string name="your_subscription_expired">Претплата је истекла. Претплати се поново за наставак сервиса.</string>
     <string name="insufficient_subscription">Недовољан пакет претплате. Молимо за претплату на виши пакет за наставак сервиса.</string>
@@ -145,5 +145,5 @@
     <string name="password">Шифра</string>
     <string name="regenerate_email_address_confirmation">Твоја тренутна мејл адреса ће престати да ради</string>
     <string name="migrating_tasks">Мигрирајући задаци</string>
-    <string name="migrate_count">Премести %s на Tasks.org</string>
+    <string name="migrate_count">Премести %1$s на Tasks.org</string>
 </resources>

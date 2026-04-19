@@ -116,9 +116,9 @@
     <string name="display_name">Prikaži ime</string>
     <string name="upgrade_to_pro_card_description">Otključaj Tasks.org sinkronizaciju u oblaku, dijeljenje s prijateljima i obitelji te slanje e-maila u zadatak</string>
     <string name="supporter">Podržavatelj</string>
-    <string name="price_per_month_with_currency">%s/mjesec</string>
-    <string name="price_per_year_with_currency">%s/godina</string>
-    <string name="supporter_summary">%s • Hvala!</string>
+    <string name="price_per_month_with_currency">%1$s/mjesec</string>
+    <string name="price_per_year_with_currency">%1$s/godina</string>
+    <string name="supporter_summary">%1$s • Hvala!</string>
     <string name="sign_in_to_connect">Prijavi se za povezivanje na tvoj Tasks.org račun</string>
     <string name="guest">Gost</string>
     <string name="donate">Doniraj</string>
@@ -132,18 +132,18 @@
     <string name="email_to_task_calendar">Popis odredišta</string>
     <string name="regenerate_email_address">Ponovo generiraj adresu</string>
     <string name="shared_with_me">Dijeli sa mnom</string>
-    <string name="shared_by">Dijeli %s</string>
+    <string name="shared_by">Dijeli %1$s</string>
     <string name="guests">Gost (%1$d/%2$d)</string>
     <string name="app_passwords">Lozinke za program</string>
     <string name="app_password">Lozinka za program</string>
     <string name="last_backup_never">nikada</string>
-    <string name="app_password_created_at">Stvoreno: %s</string>
-    <string name="app_password_last_access">Zadnji put korišteno: %s</string>
+    <string name="app_password_created_at">Stvoreno: %1$s</string>
+    <string name="app_password_last_access">Zadnji put korišteno: %1$s</string>
     <string name="generate_new_password">Generiraj novu lozinku</string>
     <string name="logout">Odjavi se</string>
     <string name="logout_warning">Svi podaci za ovaj račun uklonit će se s uređaja</string>
     <string name="remove">Ukloni</string>
-    <string name="delete_tag_confirmation">Izbrisati %s\?</string>
+    <string name="delete_tag_confirmation">Izbrisati %1$s?</string>
     <string name="app_password_delete_confirmation">Bilo koji program koji koristi lozinku bit će odjavljen</string>
     <string name="app_password_enter_description">Imenuj lozinku (opcionalno)</string>
     <string name="tos_updated_title">Aktualizirali smo naše uvjete pružanja usluge</string>
@@ -159,5 +159,5 @@
     <string name="password">Lozinka</string>
     <string name="regenerate_email_address_confirmation">Tvoja će trenutačna e-mail adresa prestati raditi</string>
     <string name="migrating_tasks">Migriranje zadataka</string>
-    <string name="migrate_count">Premjesti %s na Tasks.org</string>
+    <string name="migrate_count">Premjesti %1$s na Tasks.org</string>
 </resources>

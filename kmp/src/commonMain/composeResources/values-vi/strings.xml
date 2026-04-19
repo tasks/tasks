@@ -97,13 +97,13 @@
     <string name="app_passwords">Các mật khẩu ứng dụng</string>
     <string name="app_password">Mật khẩu ứng dụng</string>
     <string name="last_backup_never">không bao giờ</string>
-    <string name="app_password_created_at">Đã tạo: %s</string>
-    <string name="app_password_last_access">Sử dụng lần cuối: %s</string>
+    <string name="app_password_created_at">Đã tạo: %1$s</string>
+    <string name="app_password_last_access">Sử dụng lần cuối: %1$s</string>
     <string name="generate_new_password">Tạo mật khẩu mới</string>
     <string name="logout">Đăng xuất</string>
     <string name="logout_warning">Tất cả dữ liệu của tài khoản này sẽ bị xoá khỏi thiết bị của bạn</string>
     <string name="remove">Xoá</string>
-    <string name="delete_tag_confirmation">Xoá %s\?</string>
+    <string name="delete_tag_confirmation">Xoá %1$s?</string>
     <string name="app_password_delete_confirmation">Bất kỳ ứng dụng nào đang sử dụng mật khẩu này sẽ bị đăng xuất</string>
     <string name="app_password_enter_description">Đặt tên cho mật khẩu của bạn (không bắt buộc)</string>
     <string name="insufficient_sponsorship">Không tìm thấy sự tài trợ GitHub đủ điều kiện</string>
@@ -116,5 +116,5 @@
     <string name="user">Người dùng</string>
     <string name="password">Mật khẩu</string>
     <string name="migrating_tasks">Đang di cư các công việc</string>
-    <string name="migrate_count">Di chuyển %s đến Tasks.org</string>
+    <string name="migrate_count">Di chuyển %1$s đến Tasks.org</string>
 </resources>

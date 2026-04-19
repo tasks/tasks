@@ -118,9 +118,9 @@
     <string name="display_name">显示名称</string>
     <string name="upgrade_to_pro_card_description">解锁 Tasks.org 云同步、好友和家庭共享、邮件转任务</string>
     <string name="supporter">支持者</string>
-    <string name="price_per_month_with_currency">每月%s</string>
-    <string name="price_per_year_with_currency">每年%s</string>
-    <string name="supporter_summary">%s • 谢谢！</string>
+    <string name="price_per_month_with_currency">每月%1$s</string>
+    <string name="price_per_year_with_currency">每年%1$s</string>
+    <string name="supporter_summary">%1$s • 谢谢！</string>
     <string name="sign_in_to_connect">登录以连接您的 Tasks.org 账号</string>
     <string name="guest">来宾</string>
     <string name="donate">捐赠</string>
@@ -134,18 +134,18 @@
     <string name="email_to_task_calendar">目标清单</string>
     <string name="regenerate_email_address">重新生成地址</string>
     <string name="shared_with_me">与我分享的</string>
-    <string name="shared_by">由 %s 共享</string>
+    <string name="shared_by">由 %1$s 共享</string>
     <string name="guests">来宾 (%1$d/%2$d)</string>
     <string name="app_passwords">多个应用程序密码</string>
     <string name="app_password">应用程序密码</string>
     <string name="last_backup_never">从未</string>
-    <string name="app_password_created_at">创建于：%s</string>
-    <string name="app_password_last_access">上次使用：%s</string>
+    <string name="app_password_created_at">创建于：%1$s</string>
+    <string name="app_password_last_access">上次使用：%1$s</string>
     <string name="generate_new_password">生成新密码</string>
     <string name="logout">登出</string>
     <string name="logout_warning">此账号的所有数据都将从您的设备中移除</string>
     <string name="remove">移除</string>
-    <string name="delete_tag_confirmation">是否删除 %s？</string>
+    <string name="delete_tag_confirmation">是否删除 %1$s？</string>
     <string name="app_password_delete_confirmation">任何使用此密码的应用程序都会退出登录</string>
     <string name="app_password_enter_description">给你的密码一个名称 （可选）</string>
     <string name="tos_updated_title">我们更新了服务条款</string>
@@ -161,5 +161,5 @@
     <string name="password">密码</string>
     <string name="regenerate_email_address_confirmation">您当前的电子邮件地址将停止使用</string>
     <string name="migrating_tasks">正在迁移任务</string>
-    <string name="migrate_count">移动 %s 到 Tasks.org</string>
+    <string name="migrate_count">移动 %1$s 到 Tasks.org</string>
 </resources>

@@ -106,9 +106,9 @@
     <string name="help">Hjælp</string>
     <string name="display_name">Visningsnavn</string>
     <string name="supporter">Supporter</string>
-    <string name="price_per_month_with_currency">%s/måned</string>
-    <string name="price_per_year_with_currency">%s/år</string>
-    <string name="supporter_summary">%s • Tak!</string>
+    <string name="price_per_month_with_currency">%1$s/måned</string>
+    <string name="price_per_year_with_currency">%1$s/år</string>
+    <string name="supporter_summary">%1$s • Tak!</string>
     <string name="sign_in_to_connect">Log ind for at forbinde din Tasks.org-konto</string>
     <string name="donate">Donér</string>
     <string name="donate_nag">Overvej at vise din støtte med en donation!</string>
@@ -123,13 +123,13 @@
     <string name="app_passwords">App-adgangskoder</string>
     <string name="app_password">App-adgangskode</string>
     <string name="last_backup_never">aldrig</string>
-    <string name="app_password_created_at">Oprettet: %s</string>
-    <string name="app_password_last_access">Sidst brugt: %s</string>
+    <string name="app_password_created_at">Oprettet: %1$s</string>
+    <string name="app_password_last_access">Sidst brugt: %1$s</string>
     <string name="generate_new_password">Generér ny adgangskode</string>
     <string name="logout">Log ud</string>
     <string name="logout_warning">Alle data for denne konto fjernes fra din enhed</string>
     <string name="remove">Fjern</string>
-    <string name="delete_tag_confirmation">Slet %s\?</string>
+    <string name="delete_tag_confirmation">Slet %1$s?</string>
     <string name="app_password_delete_confirmation">Enhver app, der bruger denne adgangskode, logges ud</string>
     <string name="app_password_enter_description">Giv din adgangskode et navn (valgfrit)</string>
     <string name="tos_updated_title">Vi har opdateret vores servicevilkår</string>
@@ -145,5 +145,5 @@
     <string name="password">Adgangskode</string>
     <string name="regenerate_email_address_confirmation">Din nuværende e-mailadresse vil ikke længere fungere</string>
     <string name="migrating_tasks">Migrerer opgaver</string>
-    <string name="migrate_count">Flyt %s til Tasks.org</string>
+    <string name="migrate_count">Flyt %1$s til Tasks.org</string>
 </resources>
