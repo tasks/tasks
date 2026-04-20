@@ -60,6 +60,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
+import androidx.compose.material3.adaptive.navigation.BackNavigationBehavior
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -625,7 +626,9 @@ private fun TaskListContent(
                     viewModel = taskEditViewModel,
                     taskId = taskId.takeIf { it > 0 },
                     onClose = {
-                        scope.launch { navigator.navigateBack() }
+                        scope.launch {
+                            navigator.navigateBack(BackNavigationBehavior.PopLatest)
+                        }
                     },
                 )
             }
