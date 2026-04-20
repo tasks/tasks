@@ -24,6 +24,8 @@ import org.tasks.data.MergedGeofence
 import org.tasks.data.TaskSaver
 import org.tasks.data.db.Database
 import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
 import org.tasks.filters.FilterProvider
@@ -151,7 +153,7 @@ val commonModule = module {
                         pending.set(false)
                         val synchronizer = get<CaldavSynchronizer>()
                         val caldavDao = get<org.tasks.data.dao.CaldavDao>()
-                        caldavDao.getAccounts().forEach { account ->
+                        caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS).forEach { account ->
                             synchronizer.sync(account, hasPro = account.isTasksOrg)
                         }
                     } while (pending.getAndSet(false))
