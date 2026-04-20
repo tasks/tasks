@@ -28,6 +28,7 @@ kotlin {
         androidMain {
             dependsOn(jvmCommonMain)
             dependencies {
+                implementation(libs.androidx.activity.compose)
                 implementation(libs.androidx.ui.tooling.preview.android)
                 implementation(libs.bitfire.cert4android)
                 implementation(libs.bitfire.ical4android.get().toString()) {

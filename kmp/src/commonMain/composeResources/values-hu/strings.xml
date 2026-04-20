@@ -173,4 +173,13 @@
     <string name="preferences_advanced">További lehetőségek</string>
     <string name="about">Névjegy</string>
     <string name="widget_settings">Widget beállításai</string>
+    <plurals name="task_count">
+        <item quantity="one">%d feladat</item>
+        <item quantity="other">%d feladat</item>
+    </plurals>
+    <string name="delete_tasks_warning">A(z) %s törlésre kerül. Ez a művelet nem visszavonható!</string>
+    <string name="name_cannot_be_empty">A cím nem lehet üres</string>
+    <string name="discard_changes">Változások elvetése?</string>
+    <string name="discard">Elvetés</string>
+    <string name="delete">Törlés</string>
 </resources>

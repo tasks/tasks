@@ -171,4 +171,12 @@
     <string name="preferences_advanced">進階</string>
     <string name="about">關於</string>
     <string name="widget_settings">小工具設定</string>
+    <plurals name="task_count">
+        <item quantity="other">%d 個工作</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s 將被刪除。此操作無法撤銷！</string>
+    <string name="name_cannot_be_empty">名稱不能為空白</string>
+    <string name="discard_changes">要捨棄更改嗎 ?</string>
+    <string name="discard">捨棄</string>
+    <string name="delete">刪除</string>
 </resources>

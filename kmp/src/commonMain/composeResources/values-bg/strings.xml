@@ -166,4 +166,13 @@
     <string name="preferences_advanced">Разширени</string>
     <string name="about">Относно</string>
     <string name="widget_settings">Настройки на приспособления</string>
+    <plurals name="task_count">
+        <item quantity="one">%d задача</item>
+        <item quantity="other">%d задачи</item>
+    </plurals>
+    <string name="delete_tasks_warning">Задачата %s ще бъде премахната. Действието е необратимо!</string>
+    <string name="name_cannot_be_empty">Името не може да е празно</string>
+    <string name="discard_changes">Отказ от промените?</string>
+    <string name="discard">Отказ</string>
+    <string name="delete">Премахване</string>
 </resources>

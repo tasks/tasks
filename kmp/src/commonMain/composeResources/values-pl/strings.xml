@@ -127,4 +127,13 @@
     <string name="preferences_advanced">Zaawansowane</string>
     <string name="about">O aplikacji</string>
     <string name="widget_settings">Ustawienie widgetu</string>
+    <plurals name="task_count">
+        <item quantity="one">%d zadań</item>
+        <item quantity="few">%d zadania</item>
+        <item quantity="many">%d zadań</item>
+    </plurals>
+    <string name="name_cannot_be_empty">Nazwa nie może być pusta</string>
+    <string name="discard_changes">Odrzuć zmiany?</string>
+    <string name="discard">Odrzuć</string>
+    <string name="delete">Usuń</string>
 </resources>

@@ -141,4 +141,14 @@
     <string name="preferences_advanced">Расширенные</string>
     <string name="about">О программе</string>
     <string name="widget_settings">Настройки виджета</string>
+    <plurals name="task_count">
+        <item quantity="one">%d задача</item>
+        <item quantity="few">%d задачи</item>
+        <item quantity="many">%d задач</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s будет удалена. Это нельзя отменить!</string>
+    <string name="name_cannot_be_empty">Необходимо задать имя</string>
+    <string name="discard_changes">Отменить изменения?</string>
+    <string name="discard">Отменить</string>
+    <string name="delete">Удалить</string>
 </resources>

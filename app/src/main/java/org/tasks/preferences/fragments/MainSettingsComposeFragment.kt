@@ -49,6 +49,7 @@ import org.tasks.preferences.Preferences
 import org.tasks.preferences.PreferencesViewModel
 import org.tasks.preferences.ProCardViewModel
 import org.tasks.preferences.fragments.GoogleTasksAccount.Companion.newGoogleTasksAccountPreference
+import org.tasks.preferences.fragments.LocalAccount.Companion.newLocalAccountPreference
 import org.tasks.preferences.fragments.MicrosoftAccount.Companion.newMicrosoftAccountPreference
 import org.tasks.preferences.fragments.TasksAccount.Companion.newTasksAccountPreference
 import org.tasks.analytics.Firebase
@@ -221,6 +222,12 @@ class MainSettingsComposeFragment : Fragment() {
                 activity.startPreference(
                     newGoogleTasksAccountPreference(account),
                     getString(R.string.gtasks_GPr_header)
+                )
+            }
+            account.isLocalList -> {
+                activity.startPreference(
+                    newLocalAccountPreference(account),
+                    getString(R.string.local_lists)
                 )
             }
             else -> {

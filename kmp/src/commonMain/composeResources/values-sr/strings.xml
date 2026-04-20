@@ -157,4 +157,14 @@
     <string name="preferences_advanced">Напредно</string>
     <string name="about">О нама</string>
     <string name="widget_settings">Подешавања виџета</string>
+    <plurals name="task_count">
+        <item quantity="one">%d задатак</item>
+        <item quantity="few">%d задатка</item>
+        <item quantity="other">%d задатака</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s ће бити избрисан. Ово се не може опозвати!</string>
+    <string name="name_cannot_be_empty">Поље имена не може бити празно</string>
+    <string name="discard_changes">Одбаци измене?</string>
+    <string name="discard">Обустави</string>
+    <string name="delete">Обриши</string>
 </resources>

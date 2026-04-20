@@ -135,4 +135,13 @@
     <string name="preferences_advanced">Pokročilé možnosti</string>
     <string name="about">O</string>
     <string name="widget_settings">Widget - nastavenia</string>
+    <plurals name="task_count">
+        <item quantity="one">%d úloha</item>
+        <item quantity="few">%d úlohy</item>
+        <item quantity="other">%d úloh</item>
+    </plurals>
+    <string name="name_cannot_be_empty">Názov nesmie ostať prázdny </string>
+    <string name="discard_changes">Zahodiť zmeny?</string>
+    <string name="discard">Zahodiť</string>
+    <string name="delete">Zmazať</string>
 </resources>

@@ -136,4 +136,14 @@
     <string name="preferences_advanced">Avansat</string>
     <string name="about">Despre</string>
     <string name="widget_settings">Setări Widget</string>
+    <plurals name="task_count">
+        <item quantity="one">%d sarcină</item>
+        <item quantity="few">%d sarcini</item>
+        <item quantity="other">%d sarcini</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s va fi șters. Acest lucru nu poate fi anulat!</string>
+    <string name="name_cannot_be_empty">Numele nu poate fi gol</string>
+    <string name="discard_changes">Renunți la modificări?</string>
+    <string name="discard">Modificări</string>
+    <string name="delete">Șterge</string>
 </resources>

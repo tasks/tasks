@@ -136,4 +136,13 @@
     <string name="preferences_advanced">மேம்படுத்தபட்ட</string>
     <string name="about">பற்றி</string>
     <string name="widget_settings">விட்ஜெட் அமைப்புகள்</string>
+    <plurals name="task_count">
+        <item quantity="one">%d பணி</item>
+        <item quantity="other">%d பணிகள்</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s நீக்கப்படும். இதை செயல்தவிர்க்க முடியாது!</string>
+    <string name="name_cannot_be_empty">பெயர் காலியாக இருக்க முடியாது</string>
+    <string name="discard_changes">மாற்றங்களை கைவிடலாமா?</string>
+    <string name="discard">நிராகரி</string>
+    <string name="delete">அழி</string>
 </resources>

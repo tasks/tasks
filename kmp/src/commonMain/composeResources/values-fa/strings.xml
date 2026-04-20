@@ -55,4 +55,7 @@
     <string name="task_list_options">اختیارات لیست وظیفه</string>
     <string name="EPr_edit_screen_options">ویرایش تنظیمات صفحه</string>
     <string name="backup_BPr_header">پشتیبان ها</string>
+    <string name="discard_changes">چشم پوشی از تغییرات؟</string>
+    <string name="discard">چشم پوشی</string>
+    <string name="delete">حذف</string>
 </resources>

@@ -30,4 +30,5 @@
     <string name="date_and_time">ତାରିଖ ଓ ସମୟ</string>
     <string name="preferences_advanced">ଵିକଶିତ</string>
     <string name="about">ସମ୍ବନ୍ଧରେ</string>
+    <string name="name_cannot_be_empty">ନାମ ଖାଲି ଛଡ଼ା ଯାଇପାରିବ ନାହିଁ</string>
 </resources>

@@ -127,4 +127,12 @@
     <string name="preferences_advanced">Avansert</string>
     <string name="about">Om</string>
     <string name="widget_settings">Miniprogramsinnstillinger</string>
+    <plurals name="task_count">
+        <item quantity="one">%d gjøremål</item>
+        <item quantity="other">%d gjøremål</item>
+    </plurals>
+    <string name="name_cannot_be_empty">Navn kan ikke stå tomt</string>
+    <string name="discard_changes">Forkast endringer?</string>
+    <string name="discard">Forkast</string>
+    <string name="delete">Slett</string>
 </resources>

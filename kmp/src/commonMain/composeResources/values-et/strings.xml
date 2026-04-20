@@ -159,4 +159,13 @@
     <string name="preferences_advanced">Edasijõudnutele</string>
     <string name="about">Info</string>
     <string name="widget_settings">Vidina seadistused</string>
+    <plurals name="task_count">
+        <item quantity="one">%d ülesanne</item>
+        <item quantity="other">%d ülesannet</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s saab olema kustutatud. Seda tegevust ei saa tagasi pöörata!</string>
+    <string name="name_cannot_be_empty">Nimi ei saa olla tühi</string>
+    <string name="discard_changes">Loobud muudatustest?</string>
+    <string name="discard">Loobu</string>
+    <string name="delete">Kustuta</string>
 </resources>

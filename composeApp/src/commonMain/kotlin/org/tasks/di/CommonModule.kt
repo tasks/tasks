@@ -50,6 +50,7 @@ import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.viewmodel.TaskEditViewModel
+import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.TaskListViewModel
@@ -234,6 +235,12 @@ val commonModule = module {
     viewModel {
         MainSettingsViewModel(
             platformConfiguration = get(),
+        )
+    }
+    viewModel {
+        LocalAccountViewModel(
+            caldavDao = get(),
+            taskDeleter = get(),
         )
     }
     viewModel {

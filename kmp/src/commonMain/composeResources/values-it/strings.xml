@@ -171,4 +171,14 @@
     <string name="preferences_advanced">Avanzate</string>
     <string name="about">Informazioni</string>
     <string name="widget_settings">Impostazioni widget</string>
+    <plurals name="task_count">
+        <item quantity="one">%d attività</item>
+        <item quantity="many">%d attività</item>
+        <item quantity="other">%d attività</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s verrà cancellato. L'operazione non può essere annullata!</string>
+    <string name="name_cannot_be_empty">Il nome non può essere vuoto</string>
+    <string name="discard_changes">Annullare le modifiche?</string>
+    <string name="discard">Sì, annulla</string>
+    <string name="delete">Elimina</string>
 </resources>

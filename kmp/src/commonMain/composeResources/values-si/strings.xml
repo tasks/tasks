@@ -115,4 +115,12 @@
     <string name="preferences_advanced">උසස්</string>
     <string name="about">පිළිබඳව</string>
     <string name="widget_settings">විජට් සැකසුම්</string>
+    <plurals name="task_count">
+        <item quantity="one">කාර්යය %d</item>
+        <item quantity="other">කාර්යයන් %d</item>
+    </plurals>
+    <string name="name_cannot_be_empty">නම හිස්ව තැබිය නොහැකිය</string>
+    <string name="discard_changes">වෙනස්කම් අහෝසිකරනවාද?</string>
+    <string name="discard">අහෝසිකරන්න</string>
+    <string name="delete">මකන්න</string>
 </resources>

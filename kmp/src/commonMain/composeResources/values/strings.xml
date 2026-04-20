@@ -175,4 +175,13 @@
     <string name="debug">Debug</string>
     <string name="about">About</string>
     <string name="widget_settings">Widget settings</string>
+    <string name="name_cannot_be_empty">Name cannot be empty</string>
+    <string name="discard_changes">Discard changes?</string>
+    <string name="discard">Discard</string>
+    <string name="delete">Delete</string>
+    <string name="delete_tasks_warning">%1$s will be deleted. This cannot be undone!</string>
+    <plurals name="task_count">
+        <item quantity="one">%1$d task</item>
+        <item quantity="other">%1$d tasks</item>
+    </plurals>
 </resources>

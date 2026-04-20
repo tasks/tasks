@@ -171,4 +171,14 @@
     <string name="preferences_advanced">Napredno</string>
     <string name="about">Informacije</string>
     <string name="widget_settings">Postavke widgeta</string>
+    <plurals name="task_count">
+        <item quantity="one">%d zadatak</item>
+        <item quantity="few">%d zadatka</item>
+        <item quantity="other">%d zadataka</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s će se izbrisati. Ovo se ne može opozvati!</string>
+    <string name="name_cannot_be_empty">Ime ne smije biti prazno</string>
+    <string name="discard_changes">Odbaciti promjene?</string>
+    <string name="discard">Odbaci</string>
+    <string name="delete">Izbriši</string>
 </resources>

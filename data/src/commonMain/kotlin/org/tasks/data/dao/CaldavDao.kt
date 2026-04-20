@@ -441,6 +441,15 @@ ORDER BY primary_sort
     """)
     abstract suspend fun countTasks(account: String): Int
 
+    @Query("""
+        SELECT COUNT(*)
+        FROM caldav_tasks
+        INNER JOIN caldav_lists ON cd_calendar = cdl_uuid
+        WHERE cdl_account = :account
+        AND cd_deleted = 0
+    """)
+    abstract fun watchTaskCount(account: String): Flow<Int>
+
     companion object {
         fun Long.toAppleEpoch(): Long = (this - APPLE_EPOCH) / 1000
     }

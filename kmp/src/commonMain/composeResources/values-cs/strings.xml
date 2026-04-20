@@ -173,4 +173,14 @@
     <string name="preferences_advanced">Pokročilé možnosti</string>
     <string name="about">O aplikaci</string>
     <string name="widget_settings">Nastavení ovládacího prvku</string>
+    <plurals name="task_count">
+        <item quantity="one">%d úkol</item>
+        <item quantity="few">%d úkoly</item>
+        <item quantity="other">%d úkolů</item>
+    </plurals>
+    <string name="delete_tasks_warning">Úkol %s bude odstraněn. Tato akce je nevratná!</string>
+    <string name="name_cannot_be_empty">Název nemůže být prázdný</string>
+    <string name="discard_changes">Zahodit změny?</string>
+    <string name="discard">Zahodit</string>
+    <string name="delete">Smazat</string>
 </resources>

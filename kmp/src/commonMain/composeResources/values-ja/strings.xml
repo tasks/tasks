@@ -173,4 +173,12 @@
     <string name="preferences_advanced">上級者向け</string>
     <string name="about">アプリについて</string>
     <string name="widget_settings">ウィジェット設定</string>
+    <plurals name="task_count">
+        <item quantity="other">タスク %d 件</item>
+    </plurals>
+    <string name="delete_tasks_warning">%sは削除されます。これは元に戻せません！</string>
+    <string name="name_cannot_be_empty">名前は空にできません</string>
+    <string name="discard_changes">変更を破棄しますか？</string>
+    <string name="discard">破棄</string>
+    <string name="delete">削除</string>
 </resources>

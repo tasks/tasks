@@ -171,4 +171,14 @@
     <string name="preferences_advanced">מתקדם</string>
     <string name="about">אודות</string>
     <string name="widget_settings">הגדרות יישומון</string>
+    <plurals name="task_count">
+        <item quantity="one">משימה אחת</item>
+        <item quantity="two">%d משימות</item>
+        <item quantity="other">%d משימות</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s יימחק. לא ניתן לבטל זאת!</string>
+    <string name="name_cannot_be_empty">השם לא יכול להיות ריק</string>
+    <string name="discard_changes">להשליך שינויים?</string>
+    <string name="discard">השלכה</string>
+    <string name="delete">מחיקה</string>
 </resources>

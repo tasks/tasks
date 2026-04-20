@@ -173,4 +173,13 @@
     <string name="preferences_advanced">Erweitert</string>
     <string name="about">Über</string>
     <string name="widget_settings">Widget-Einstellungen</string>
+    <plurals name="task_count">
+        <item quantity="one">%d Aufgabe</item>
+        <item quantity="other">%d Aufgaben</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s wird/werden gelöscht. Dies kann nicht rückgängig gemacht werden!</string>
+    <string name="name_cannot_be_empty">Name darf nicht leer sein</string>
+    <string name="discard_changes">Änderungen verwerfen?</string>
+    <string name="discard">Verwerfen</string>
+    <string name="delete">Löschen</string>
 </resources>

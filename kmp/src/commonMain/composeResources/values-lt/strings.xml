@@ -118,4 +118,13 @@
     <string name="preferences_advanced">Išplėstiniai</string>
     <string name="about">Apie</string>
     <string name="widget_settings">Valdiklio nustatymai</string>
+    <plurals name="task_count">
+        <item quantity="one">%d užduotis</item>
+        <item quantity="few">%d užduotys</item>
+        <item quantity="other">%d užduočių</item>
+    </plurals>
+    <string name="name_cannot_be_empty">Pavadinimas negali būti tuščias</string>
+    <string name="discard_changes">Atmesti pakeitimus?</string>
+    <string name="discard">Atmesti</string>
+    <string name="delete">Ištrinti</string>
 </resources>

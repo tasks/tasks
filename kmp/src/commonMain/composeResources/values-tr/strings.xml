@@ -171,4 +171,13 @@
     <string name="preferences_advanced">Gelişmiş</string>
     <string name="about">Hakkında</string>
     <string name="widget_settings">Widget ayarları</string>
+    <plurals name="task_count">
+        <item quantity="one">%d görev</item>
+        <item quantity="other">%d görev</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s silinecek. Bu geri alınamaz!</string>
+    <string name="name_cannot_be_empty">Ad boş olamaz</string>
+    <string name="discard_changes">Değişiklikleri gözden çıkar?</string>
+    <string name="discard">Gözden çıkar</string>
+    <string name="delete">Sil</string>
 </resources>

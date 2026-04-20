@@ -6,7 +6,6 @@ import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
@@ -18,7 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import kotlinx.coroutines.launch
@@ -35,7 +33,6 @@ import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.SwapVert
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -92,7 +89,6 @@ import androidx.savedstate.serialization.SavedStateConfiguration
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
-import kotlinx.serialization.modules.subclass
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.auth.OAuthProvider
@@ -102,8 +98,10 @@ import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.compose.NavigationBarScrim
 import org.tasks.compose.PlatformBackHandler
+import org.tasks.compose.settings.LocalAccountSettingsDetail
+import org.tasks.compose.settings.LocalAccountSettingsPane
 import org.tasks.compose.settings.MainSettingsScreen
-import org.tasks.compose.settings.SettingsDestination as SettingsPane
+import org.tasks.compose.settings.SettingsPane
 import org.tasks.compose.StatusBarScrim
 import org.tasks.compose.platformSidebarInsets
 import org.tasks.compose.platformStatusBarInsets
@@ -1295,11 +1293,11 @@ private fun SettingsScreen(
     val environmentLabel by proCardViewModel.environmentLabel.collectAsState()
     val navigator = rememberListDetailPaneScaffoldNavigator<SettingsPane>()
     val scope = androidx.compose.runtime.rememberCoroutineScope()
-    val selectedDestination = navigator.currentDestination
+    val selectedContent = navigator.currentDestination
         ?.takeIf { it.pane == ListDetailPaneScaffoldRole.Detail }
         ?.contentKey
 
-    PlatformBackHandler(enabled = selectedDestination != null) {
+    PlatformBackHandler(enabled = selectedContent != null) {
         scope.launch {
             if (!navigator.navigateBack()) {
                 onBack()
@@ -1339,7 +1337,16 @@ private fun SettingsScreen(
                         showBackupWarning = false,
                         showWidgets = viewModel.supportsWidgets,
                         isDebug = viewModel.isDebug,
-                        onAccountClick = {},
+                        onAccountClick = { account ->
+                            if (account.isLocalList) {
+                                scope.launch {
+                                    navigator.navigateTo(
+                                        ListDetailPaneScaffoldRole.Detail,
+                                        LocalAccountSettingsPane(account),
+                                    )
+                                }
+                            }
+                        },
                         onAddAccountClick = {},
                         onSettingsClick = { destination ->
                             scope.launch {
@@ -1355,39 +1362,50 @@ private fun SettingsScreen(
             }
         },
         detailPane = {
-            val destination = selectedDestination
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.surface,
             ) {
-                if (destination != null) {
-                    Scaffold(
-                        topBar = {
-                            TopAppBar(
-                                title = {
-                                    Text(stringResource(destination.titleRes))
-                                },
-                                navigationIcon = {
-                                    IconButton(
-                                        onClick = {
-                                            scope.launch { navigator.navigateBack() }
+                when (selectedContent) {
+                    is org.tasks.compose.settings.SettingsDestination -> {
+                        Scaffold(
+                            topBar = {
+                                TopAppBar(
+                                    title = {
+                                        Text(stringResource(selectedContent.titleRes))
+                                    },
+                                    navigationIcon = {
+                                        IconButton(
+                                            onClick = {
+                                                scope.launch { navigator.navigateBack() }
+                                            }
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                                contentDescription = stringResource(Res.string.back),
+                                            )
                                         }
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                            contentDescription = stringResource(Res.string.back),
-                                        )
-                                    }
-                                },
+                                    },
+                                )
+                            },
+                        ) { padding ->
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(padding),
                             )
-                        },
-                    ) { padding ->
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(padding),
+                        }
+                    }
+                    is LocalAccountSettingsPane -> {
+                        LocalAccountSettingsDetail(
+                            pane = selectedContent,
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
                         )
                     }
+
+                    null -> {}
                 }
             }
         },

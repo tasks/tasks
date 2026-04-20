@@ -76,4 +76,12 @@
     <string name="backup_BPr_header">بیک اپس</string>
     <string name="about">متعلق</string>
     <string name="widget_settings">ویجٹ سیٹنگ</string>
+    <plurals name="task_count">
+        <item quantity="one">%d ٹاسک</item>
+        <item quantity="other">%d ٹاسکس</item>
+    </plurals>
+    <string name="name_cannot_be_empty">نام خالی نہیں ہو سکتا</string>
+    <string name="discard_changes">تبدیلیاں مسترد کریں؟</string>
+    <string name="discard">مسترد کریں</string>
+    <string name="delete">ڈیلیٹ کریں</string>
 </resources>

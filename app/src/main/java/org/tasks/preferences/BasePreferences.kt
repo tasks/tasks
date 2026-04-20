@@ -73,10 +73,11 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
             if (supportFragmentManager.backStackEntryCount == 0) {
                 toolbar.title = getString(getRootTitle())
             }
+            setupMenu()
         }
         toolbar.navigationIcon =
             getDrawable(R.drawable.ic_outline_arrow_back_24px)
-        toolbar.setNavigationOnClickListener { onBackPressed() }
+        toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
         toolbar.setOnMenuItemClickListener(this)
     }
 
@@ -97,14 +98,6 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putCharSequence(EXTRA_TITLE, toolbar.title)
-    }
-
-    override fun onBackPressed() {
-        if (supportFragmentManager.popBackStackImmediate()) {
-            setupMenu()
-        } else {
-            super.onBackPressed()
-        }
     }
 
     override fun onPreferenceStartFragment(

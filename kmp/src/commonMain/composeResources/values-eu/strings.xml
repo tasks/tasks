@@ -118,4 +118,12 @@
     <string name="preferences_advanced">Aurreratua</string>
     <string name="about">Honi buruz</string>
     <string name="widget_settings">Trepetaren ezarpenak</string>
+    <plurals name="task_count">
+        <item quantity="one">Zeregin %d</item>
+        <item quantity="other">%d zeregin</item>
+    </plurals>
+    <string name="name_cannot_be_empty">Izena ezin da hutsik egon</string>
+    <string name="discard_changes">Baztertu aldaketak?</string>
+    <string name="discard">Baztertu</string>
+    <string name="delete">Ezabatu</string>
 </resources>

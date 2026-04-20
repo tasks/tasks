@@ -71,4 +71,13 @@
     <string name="backup_BPr_header">Copies de seguranza</string>
     <string name="about">Tocantes a</string>
     <string name="widget_settings">Axustes de widget</string>
+    <plurals name="task_count">
+        <item quantity="one">%d xera</item>
+        <item quantity="other">%d xeres</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s desaniciarase. ¡Esto nun se puee desfacer!</string>
+    <string name="name_cannot_be_empty">El nome nun puee tar baleru</string>
+    <string name="discard_changes">¿Escartar cambeos?</string>
+    <string name="discard">Escartar</string>
+    <string name="delete">Esborriar</string>
 </resources>

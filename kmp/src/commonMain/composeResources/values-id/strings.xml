@@ -173,4 +173,12 @@
     <string name="preferences_advanced">Lanjutan</string>
     <string name="about">Tentang</string>
     <string name="widget_settings">Pengaturan wisaya</string>
+    <plurals name="task_count">
+        <item quantity="other">%d tugas</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s akan dihapus. Ini tidak dapat dibatalkan!</string>
+    <string name="name_cannot_be_empty">Nama tidak boleh kosong</string>
+    <string name="discard_changes">Buang perubahan?</string>
+    <string name="discard">Buang</string>
+    <string name="delete">Hapus</string>
 </resources>

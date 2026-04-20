@@ -136,4 +136,13 @@
     <string name="preferences_advanced">Συνθέτες</string>
     <string name="about">Σχετικά</string>
     <string name="widget_settings">Ρυθμίσεις γραφικού στοιχείου</string>
+    <plurals name="task_count">
+        <item quantity="one">%d εργασία</item>
+        <item quantity="other">%d εργασίες</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s θα διαγραφεί. Αυτό δεν γίνεται να αναιρεθεί!</string>
+    <string name="name_cannot_be_empty">Το όνομα δεν μπορεί να είναι κενό</string>
+    <string name="discard_changes">Απόρριψη αλλαγών;</string>
+    <string name="discard">Απόρριψη</string>
+    <string name="delete">Διαγραφή</string>
 </resources>

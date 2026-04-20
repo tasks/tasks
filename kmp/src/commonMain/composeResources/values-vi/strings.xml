@@ -128,4 +128,11 @@
     <string name="preferences_advanced">Nâng cao</string>
     <string name="about">Giới thiệu</string>
     <string name="widget_settings">Cài đặt tiện ích</string>
+    <plurals name="task_count">
+        <item quantity="other">%d công việc</item>
+    </plurals>
+    <string name="name_cannot_be_empty">Tên không thể trống</string>
+    <string name="discard_changes">Bỏ các thay đổi?</string>
+    <string name="discard">Bỏ</string>
+    <string name="delete">Xoá</string>
 </resources>

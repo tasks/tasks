@@ -38,6 +38,7 @@ import tasks.kmp.generated.resources.backup_BPr_header
 import tasks.kmp.generated.resources.date_and_time
 import tasks.kmp.generated.resources.debug
 import tasks.kmp.generated.resources.about
+import tasks.kmp.generated.resources.local_lists
 import tasks.kmp.generated.resources.navigation_drawer
 import tasks.kmp.generated.resources.notifications
 import tasks.kmp.generated.resources.preferences_advanced
@@ -46,7 +47,11 @@ import tasks.kmp.generated.resources.task_defaults
 import tasks.kmp.generated.resources.task_list_options
 import tasks.kmp.generated.resources.widget_settings
 
-sealed class SettingsDestination(val titleRes: StringResource) {
+sealed interface SettingsPane {
+    val titleRes: StringResource
+}
+
+sealed class SettingsDestination(override val titleRes: StringResource) : SettingsPane {
     data object LookAndFeel : SettingsDestination(Res.string.preferences_look_and_feel)
     data object Notifications : SettingsDestination(Res.string.notifications)
     data object TaskDefaults : SettingsDestination(Res.string.task_defaults)
@@ -59,6 +64,12 @@ sealed class SettingsDestination(val titleRes: StringResource) {
     data object Advanced : SettingsDestination(Res.string.preferences_advanced)
     data object HelpAndFeedback : SettingsDestination(Res.string.about)
     data object Debug : SettingsDestination(Res.string.debug)
+}
+
+data class LocalAccountSettingsPane(
+    val account: CaldavAccount,
+) : SettingsPane {
+    override val titleRes: StringResource = Res.string.local_lists
 }
 
 @Composable

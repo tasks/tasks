@@ -136,4 +136,14 @@
     <string name="preferences_advanced">Розширені</string>
     <string name="about">Про Tasks</string>
     <string name="widget_settings">Налаштування віджету</string>
+    <plurals name="task_count">
+        <item quantity="one">%d завдання</item>
+        <item quantity="few">%d завдання</item>
+        <item quantity="many">%d завдань</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s буде видалено. Дію неможливо скасувати!</string>
+    <string name="name_cannot_be_empty">Ім'я не може бути порожнє</string>
+    <string name="discard_changes">Скасувати зміни?</string>
+    <string name="discard">Скасувати</string>
+    <string name="delete">Видалити</string>
 </resources>

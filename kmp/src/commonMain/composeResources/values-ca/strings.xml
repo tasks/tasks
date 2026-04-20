@@ -136,4 +136,14 @@
     <string name="preferences_advanced">Avançat</string>
     <string name="about">Sobre</string>
     <string name="widget_settings">Preferències del giny</string>
+    <plurals name="task_count">
+        <item quantity="one">%d tasca</item>
+        <item quantity="many">%d tasques</item>
+        <item quantity="other">%d tasques</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s serà eliminat. Això no es pot desfer!</string>
+    <string name="name_cannot_be_empty">El nom no pot ser buit</string>
+    <string name="discard_changes">Descarta els canvis?</string>
+    <string name="discard">Descarta</string>
+    <string name="delete">Esborra</string>
 </resources>

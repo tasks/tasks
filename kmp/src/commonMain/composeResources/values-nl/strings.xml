@@ -153,4 +153,13 @@
     <string name="preferences_advanced">Geavanceerd</string>
     <string name="about">Over</string>
     <string name="widget_settings">Widget instellingen</string>
+    <plurals name="task_count">
+        <item quantity="one">%d taak</item>
+        <item quantity="other">%d taken</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s wordt verwijderd. Dit kan niet ongedaan worden gemaakt!</string>
+    <string name="name_cannot_be_empty">Naam mag niet leeg zijn</string>
+    <string name="discard_changes">Veranderingen negeren?</string>
+    <string name="discard">Negeren</string>
+    <string name="delete">Wissen</string>
 </resources>

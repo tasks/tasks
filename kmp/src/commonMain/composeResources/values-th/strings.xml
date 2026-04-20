@@ -114,4 +114,11 @@
     <string name="preferences_advanced">ดึก</string>
     <string name="about">เกี่ยวกับ</string>
     <string name="widget_settings">การตั้งค่าวิดเจ็ต</string>
+    <plurals name="task_count">
+        <item quantity="other">%d งาน</item>
+    </plurals>
+    <string name="name_cannot_be_empty">ชื่อไม่สามารถปล่อยให้ว่างได้</string>
+    <string name="discard_changes">ละทิ้งการเปลี่ยนแปลงหรือไม่?</string>
+    <string name="discard">ทิ้ง</string>
+    <string name="delete">ลบ</string>
 </resources>

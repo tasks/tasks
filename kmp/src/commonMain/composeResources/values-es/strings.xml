@@ -136,4 +136,14 @@
     <string name="preferences_advanced">Avanzado</string>
     <string name="about">Sobre</string>
     <string name="widget_settings">Configuración de widget</string>
+    <plurals name="task_count">
+        <item quantity="one">%d tarea</item>
+        <item quantity="many">%d tareas</item>
+        <item quantity="other">%d tareas</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s será eliminado. ¡Esto no se puede deshacer!</string>
+    <string name="name_cannot_be_empty">El nombre no puede estar vacío</string>
+    <string name="discard_changes">¿Descartar cambios?</string>
+    <string name="discard">Descartar</string>
+    <string name="delete">Eliminar</string>
 </resources>

@@ -174,4 +174,12 @@
     <string name="preferences_advanced">高级</string>
     <string name="about">关于</string>
     <string name="widget_settings">插件设置</string>
+    <plurals name="task_count">
+        <item quantity="other">%d 个任务</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s 将会删除。此操作无法撤销！</string>
+    <string name="name_cannot_be_empty">名字不能为空</string>
+    <string name="discard_changes">是否放弃修改？</string>
+    <string name="discard">放弃</string>
+    <string name="delete">删除</string>
 </resources>

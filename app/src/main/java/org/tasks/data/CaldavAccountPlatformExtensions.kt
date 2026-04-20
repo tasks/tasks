@@ -7,7 +7,6 @@ import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavCalendarSettingsActivity
-import org.tasks.caldav.LocalAccountSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.isDavx5
@@ -66,7 +65,6 @@ val CaldavAccount.accountSettingsClass: Class<out BaseCaldavAccountSettingsActiv
         isCaldavAccount -> CaldavAccountSettingsActivity::class.java
         isEtebaseAccount -> EtebaseAccountSettingsActivity::class.java
         isOpenTasks -> OpenTaskAccountSettingsActivity::class.java
-        isLocalList -> LocalAccountSettingsActivity::class.java
         else -> throw IllegalArgumentException("Unexpected account type: $this")
     }
 

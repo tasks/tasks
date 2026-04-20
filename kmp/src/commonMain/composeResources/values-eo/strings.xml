@@ -163,4 +163,13 @@
     <string name="preferences_advanced">Altnivela</string>
     <string name="about">Pri</string>
     <string name="widget_settings">Agordoj de fenestraĵo</string>
+    <plurals name="task_count">
+        <item quantity="one">%d tasko</item>
+        <item quantity="other">%d taskoj</item>
+    </plurals>
+    <string name="delete_tasks_warning">Forigas %s. Ne eblas malfari tion!</string>
+    <string name="name_cannot_be_empty">Nomo ne povas malpleni</string>
+    <string name="discard_changes">Ĉu forĵeti ŝanĝojn?</string>
+    <string name="discard">Forĵeti</string>
+    <string name="delete">Forigi</string>
 </resources>

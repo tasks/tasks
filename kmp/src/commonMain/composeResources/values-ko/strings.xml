@@ -136,4 +136,13 @@
     <string name="preferences_advanced">고급</string>
     <string name="about">정보</string>
     <string name="widget_settings">위젯 설정</string>
+    <plurals name="task_count">
+        <item quantity="one">%d 할일</item>
+        <item quantity="other">%d 할일들</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s 를 삭제합니다. 삭제 후 되돌릴 수 없습니다!</string>
+    <string name="name_cannot_be_empty">이름은 필수 입력항목입니다</string>
+    <string name="discard_changes">변경 사항을 폐기할까요?</string>
+    <string name="discard">변경사항 폐기</string>
+    <string name="delete">삭제</string>
 </resources>

@@ -136,4 +136,17 @@
     <string name="preferences_advanced">متقدم</string>
     <string name="about">حول</string>
     <string name="widget_settings">إعدادات الودجيت</string>
+    <plurals name="task_count">
+        <item quantity="zero">%d مهمة</item>
+        <item quantity="one">%d مهمة</item>
+        <item quantity="two">مهمتين</item>
+        <item quantity="few">%d مهام</item>
+        <item quantity="many">%d مهمة</item>
+        <item quantity="other">%d مهمة</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s سيتم حذفها. لا يمكن التراجع عن ذلك!</string>
+    <string name="name_cannot_be_empty">لا يمكن أن يكون الاسم فارغًا</string>
+    <string name="discard_changes">تجاهل التغييرات؟</string>
+    <string name="discard">تجاهل</string>
+    <string name="delete">حذف</string>
 </resources>

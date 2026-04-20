@@ -173,4 +173,14 @@
     <string name="preferences_advanced">Avancé</string>
     <string name="about">À propos</string>
     <string name="widget_settings">Paramètres du widget</string>
+    <plurals name="task_count">
+        <item quantity="one">%d tâche</item>
+        <item quantity="many">%d tâches</item>
+        <item quantity="other">%d tâches</item>
+    </plurals>
+    <string name="delete_tasks_warning">%s sera supprimé. Cette opération est irréversible !</string>
+    <string name="name_cannot_be_empty">Le nom doit être renseigné</string>
+    <string name="discard_changes">Ignorer les modifications ?</string>
+    <string name="discard">Ignorer</string>
+    <string name="delete">Supprimer</string>
 </resources>
