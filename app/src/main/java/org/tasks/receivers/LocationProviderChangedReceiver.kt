@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
+import android.os.Build
 import org.tasks.location.RegisterGeofencesWork
 import timber.log.Timber
 
@@ -15,7 +16,7 @@ class LocationProviderChangedReceiver : BroadcastReceiver() {
         if (intent.action != LocationManager.PROVIDERS_CHANGED_ACTION) return
         val locationManager =
             context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (!locationManager.isLocationEnabled) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && !locationManager.isLocationEnabled) {
             Timber.d("Location providers changed, but location is disabled")
             return
         }
