@@ -162,6 +162,7 @@
     <string name="regenerate_email_address_confirmation">Vaše aktuální e-mailová adresa přestane fungovat</string>
     <string name="migrating_tasks">Probíhá přesouvání úkolů</string>
     <string name="migrate_count">Přesunout %1$s do Tasks.org</string>
+    <string name="supporter_summary_no_price">Děkujeme!</string>
     <string name="preferences_look_and_feel">Vzhled a chování</string>
     <string name="notifications">Oznámení</string>
     <string name="task_defaults">Výchozí hodnoty úkolu</string>
