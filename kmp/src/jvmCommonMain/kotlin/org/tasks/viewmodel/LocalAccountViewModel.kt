@@ -42,11 +42,9 @@ open class LocalAccountViewModel(
     }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
     fun setAccount(account: CaldavAccount) {
-        if (accountId.value != null) return
         accountId.value = account.id
-        if (displayName.value.isEmpty()) {
-            displayName.value = account.name.orEmpty()
-        }
+        displayName.value = account.name.orEmpty()
+        nameError.value = null
     }
 
     open fun setDisplayName(name: String) {
