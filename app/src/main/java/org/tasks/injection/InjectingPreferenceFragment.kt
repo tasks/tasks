@@ -107,8 +107,6 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
         }
     }
 
-    open fun getMenu() = R.menu.menu_preferences
-
     abstract fun getPreferenceXml(): Int
 
     abstract suspend fun setupPreferences(savedInstanceState: Bundle?)
