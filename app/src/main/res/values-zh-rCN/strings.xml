@@ -644,7 +644,7 @@
     <string name="enable_alarms_description">确保你在正确的时间收到通知，在设置中授予设置闹铃和提醒的权限</string>
     <string name="yesterday">昨天</string>
     <string name="delete_comment">注释</string>
-    <string name="price_per_month_with_currency">每月%s</string>
+    <string name="price_per_month_with_currency">每月 %s</string>
     <string name="price_per_year_with_currency">每年%s</string>
     <string name="add_widget_to_home_screen">添加小部件到主屏幕</string>
     <string name="add_shortcut_to_home_screen">添加快捷方式到主屏幕</string>
