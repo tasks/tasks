@@ -4,7 +4,11 @@ import com.todoroo.astrid.alarms.AlarmCalculator
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import com.todoroo.astrid.timers.TimerPlugin
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -45,7 +49,7 @@ import org.tasks.service.TaskDeleter
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.tasklist.HeaderFormatter
-import org.tasks.viewmodel.AddAccountViewModel
+import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
@@ -56,6 +60,8 @@ import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.TaskListViewModel
 
 val commonModule = module {
+    single { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
+
     // DAOs - singletons (from Database singleton)
     single { get<Database>().caldavDao() }
     single { get<Database>().taskDao() }
@@ -132,9 +138,18 @@ val commonModule = module {
     factory<org.tasks.compose.drawer.DrawerConfiguration> {
         object : org.tasks.compose.drawer.DrawerConfiguration {}
     }
-    factory<org.tasks.billing.PurchaseState> {
+    single<org.tasks.billing.PurchaseState> {
+        val caldavDao = get<org.tasks.data.dao.CaldavDao>()
+        val _hasTasksAccount = MutableStateFlow(false)
+        get<CoroutineScope>().launch {
+            caldavDao.watchAccounts()
+                .collect { accounts ->
+                    _hasTasksAccount.value = accounts.any { it.isTasksOrg }
+                }
+        }
         object : org.tasks.billing.PurchaseState {
-            override val hasPro = true // Tasks.org cloud users have pro
+            override val hasTasksAccount: Boolean get() = _hasTasksAccount.value
+            override val hasPro: Boolean get() = hasTasksAccount
         }
     }
 

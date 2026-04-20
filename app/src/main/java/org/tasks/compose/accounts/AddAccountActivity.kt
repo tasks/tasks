@@ -11,9 +11,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,13 +23,9 @@ import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_FEATURE
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
 import org.tasks.caldav.CaldavAccountSettingsActivity
-import org.tasks.data.dao.CaldavDao
 import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.extensions.Context.openUri
-import org.tasks.jobs.WorkManager
 import org.tasks.preferences.TasksPreferences
-import org.tasks.sync.SyncAdapters
-import org.tasks.sync.SyncSource
 import org.tasks.sync.microsoft.MicrosoftSignInViewModel
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
@@ -43,10 +36,7 @@ class AddAccountActivity : ComponentActivity() {
     @Inject lateinit var theme: Theme
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var firebase: Firebase
-    @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var tasksPreferences: TasksPreferences
-    @Inject lateinit var syncAdapters: SyncAdapters
-    @Inject lateinit var workManager: WorkManager
     @Inject lateinit var configuration: PlatformConfiguration
 
     private val viewModel: AddAccountViewModel by viewModels()
@@ -76,12 +66,7 @@ class AddAccountActivity : ComponentActivity() {
     private val syncLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
-            workManager.updateBackgroundSync()
-            setResult(Activity.RESULT_OK)
-            finish()
-        } else {
+        if (result.resultCode != Activity.RESULT_OK) {
             result.data
                 ?.getStringExtra(GtasksLoginActivity.EXTRA_ERROR)
                 ?.let { /* ignore error, user can try again */ }
@@ -104,9 +89,7 @@ class AddAccountActivity : ComponentActivity() {
         }
     }
 
-    private fun doOpenUrl(platform: Platform) {
-        viewModel.openUrl(this, platform)
-    }
+    private fun doOpenUrl(platform: Platform) = openUrl(platform)
 
     private fun requirePurchase(platform: Platform, nameYourPrice: Boolean = true) {
         pendingPlatform = platform
@@ -123,24 +106,12 @@ class AddAccountActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            val accounts by caldavDao
-                .watchAccounts()
-                .collectAsStateWithLifecycle(initialValue = emptyList())
-            var initialAccountCount by remember { mutableStateOf<Int?>(null) }
-            var hasTasksAccount by remember { mutableStateOf(inventory.hasTasksAccount) }
             val currentTosVersion = firebase.getTosVersion()
             val acceptedTosVersion by tasksPreferences
                 .flow(TasksPreferences.acceptedTosVersion, 0)
                 .collectAsStateWithLifecycle(0)
             LaunchedEffect(Unit) {
-                inventory.updateTasksAccount()
-                hasTasksAccount = inventory.hasTasksAccount
-                initialAccountCount = caldavDao.getAccounts().size
-            }
-            LaunchedEffect(accounts, initialAccountCount) {
-                if (initialAccountCount != null && accounts.size > initialAccountCount!!) {
-                    syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
-                    workManager.updateBackgroundSync()
+                viewModel.accountAdded.collect {
                     setResult(Activity.RESULT_OK)
                     finish()
                 }
@@ -151,8 +122,8 @@ class AddAccountActivity : ComponentActivity() {
             ) {
                 AddAccountScreenWrapper(
                     configuration = configuration,
-                    hasTasksAccount = hasTasksAccount,
-                    hasPro = inventory.hasPro,
+                    hasTasksAccount = viewModel.hasTasksAccount,
+                    hasPro = viewModel.hasPro,
                     needsConsent = acceptedTosVersion < currentTosVersion,
                     onBack = { finish() },
                     signIn = { platform ->

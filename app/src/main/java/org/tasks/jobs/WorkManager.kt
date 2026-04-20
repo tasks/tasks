@@ -17,7 +17,7 @@ interface WorkManager : BackgroundWork {
 
     suspend fun startEnqueuedSync()
 
-    fun updateBackgroundSync()
+    override fun updateBackgroundSync()
 
     override suspend fun scheduleRefresh(timestamp: Long)
 

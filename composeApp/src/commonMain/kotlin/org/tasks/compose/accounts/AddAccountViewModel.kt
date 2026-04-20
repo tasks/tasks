@@ -1,18 +1,25 @@
-package org.tasks.viewmodel
+package org.tasks.compose.accounts
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.tasks.auth.OAuthProvider
 import org.tasks.auth.SignInHandler
-import org.tasks.compose.accounts.Platform
+import org.tasks.billing.PurchaseState
+import org.tasks.data.dao.CaldavDao
+import org.tasks.jobs.BackgroundWork
+import org.tasks.sync.SyncAdapters
+import org.tasks.viewmodel.AddAccountViewModel as BaseAddAccountViewModel
 import kotlin.coroutines.cancellation.CancellationException
 
 class AddAccountViewModel(
+    caldavDao: CaldavDao,
+    purchaseState: PurchaseState,
+    syncAdapters: SyncAdapters,
+    backgroundWork: BackgroundWork,
     private val signInHandler: SignInHandler,
-) : ViewModel() {
+) : BaseAddAccountViewModel(caldavDao, purchaseState, syncAdapters, backgroundWork) {
 
     sealed interface SignInState {
         data object Idle : SignInState

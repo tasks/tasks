@@ -29,7 +29,7 @@ class Inventory @Inject constructor(
     val purchases: MutableMap<String, Purchase> = HashMap()
     val subscription = MutableLiveData<Purchase?>()
 
-    var hasTasksAccount = false
+    override var hasTasksAccount = false
         private set
 
     fun clear() {

@@ -111,6 +111,7 @@ import org.tasks.compose.SignInProvider
 import org.tasks.compose.SignInProviderDialog
 import org.tasks.compose.WelcomeScreenLayout
 import org.tasks.compose.accounts.AddAccountScreen
+import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.accounts.Platform
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownColor
@@ -149,7 +150,6 @@ import org.tasks.tasklist.HeaderFormatter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
-import org.tasks.viewmodel.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.TaskEditViewModel
@@ -264,12 +264,17 @@ fun App(
                             reporting.logEvent(AnalyticsEvents.SCREEN_ADD_ACCOUNT)
                         }
                         val addAccountViewModel = koinViewModel<AddAccountViewModel>()
+                        LaunchedEffect(Unit) {
+                            addAccountViewModel.accountAdded.collect {
+                                backStack.removeLastOrNull()
+                            }
+                        }
                         val signInState by addAccountViewModel.signInState.collectAsState()
                         var showProviderPicker by remember { mutableStateOf(false) }
                         AddAccountScreen(
                             configuration = configuration,
-                            hasTasksAccount = false,
-                            hasPro = false,
+                            hasTasksAccount = addAccountViewModel.hasTasksAccount,
+                            hasPro = addAccountViewModel.hasPro,
                             needsConsent = false,
                             onBack = { backStack.removeLastOrNull() },
                             signIn = { platform ->
@@ -366,6 +371,7 @@ fun App(
                     entry<SettingsDestination> {
                         SettingsScreen(
                             onBack = { backStack.removeLastOrNull() },
+                            onAddAccountClick = { backStack.add(AddAccountDestination) },
                         )
                     }
                 },
@@ -1288,6 +1294,7 @@ private fun FloatingToolbar(
 @Composable
 private fun SettingsScreen(
     onBack: () -> Unit,
+    onAddAccountClick: () -> Unit,
 ) {
     val viewModel = koinViewModel<MainSettingsViewModel>()
     val proCardViewModel = koinViewModel<ProCardViewModel>()
@@ -1350,7 +1357,7 @@ private fun SettingsScreen(
                                 }
                             }
                         },
-                        onAddAccountClick = {},
+                        onAddAccountClick = onAddAccountClick,
                         onSettingsClick = { destination ->
                             scope.launch {
                                 navigator.navigateTo(

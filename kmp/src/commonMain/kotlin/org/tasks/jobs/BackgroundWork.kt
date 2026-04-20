@@ -12,4 +12,6 @@ interface BackgroundWork {
     suspend fun sync(source: SyncSource)
 
     suspend fun scheduleBlogFeedCheck()
+
+    fun updateBackgroundSync() {}
 }

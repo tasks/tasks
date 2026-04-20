@@ -54,6 +54,7 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
+import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.auth.SignInActivity
 import org.tasks.auth.TasksServerEnvironment
@@ -68,13 +69,15 @@ import org.tasks.compose.TosUpdateDialog
 import org.tasks.compose.WelcomeDestination
 import org.tasks.compose.WelcomeScreen
 import org.tasks.compose.accounts.AddAccountScreenWrapper
-import org.tasks.compose.accounts.featureTitle
 import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.accounts.Platform
+import org.tasks.compose.accounts.featureTitle
+import org.tasks.compose.accounts.openUrl
 import org.tasks.compose.home.HomeScreen
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
+import org.tasks.data.newLocalAccount
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Task
 import org.tasks.dialogs.NewFilterDialog
@@ -228,7 +231,6 @@ class MainActivity : AppCompatActivity() {
                         LaunchedEffect(Unit) {
                             firebase.logEvent(R.string.event_screen_welcome)
                         }
-                        val addAccountViewModel: AddAccountViewModel = hiltViewModel()
                         WelcomeScreen(
                             importViewModel = importViewModel,
                             filePickerIntent = FileHelper.newFilePickerIntent(
@@ -252,7 +254,8 @@ class MainActivity : AppCompatActivity() {
                                         setAcceptedTosVersion(currentTosVersion)
                                     }
                                     firebase.logEvent(R.string.event_add_account, R.string.param_source to "onboarding", R.string.param_selection to "local")
-                                    addAccountViewModel.createLocalAccount()
+                                    firebase.logEvent(R.string.event_sync_add_account, R.string.param_type to Constants.SYNC_TYPE_LOCAL)
+                                    caldavDao.newLocalAccount()
                                 }
                             },
                             onImportBackup = {
@@ -284,12 +287,14 @@ class MainActivity : AppCompatActivity() {
                         }
                         val addAccountViewModel: AddAccountViewModel = hiltViewModel()
                         val microsoftVM: MicrosoftSignInViewModel = hiltViewModel()
+                        LaunchedEffect(Unit) {
+                            addAccountViewModel.accountAdded.collect {
+                                navController.popBackStack()
+                            }
+                        }
                         val syncLauncher =
                             rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                                if (result.resultCode == RESULT_OK) {
-                                    syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
-                                    workManager.updateBackgroundSync()
-                                } else {
+                                if (result.resultCode != RESULT_OK) {
                                     result.data
                                         ?.getStringExtra(GtasksLoginActivity.EXTRA_ERROR)
                                         ?.let { toast(it) }
@@ -327,9 +332,7 @@ class MainActivity : AppCompatActivity() {
                                 else -> throw IllegalArgumentException()
                             }
                         }
-                        fun doOpenUrl(platform: Platform) {
-                            addAccountViewModel.openUrl(this@MainActivity, platform)
-                        }
+                        fun doOpenUrl(platform: Platform) = openUrl(platform)
                         fun requirePurchase(platform: Platform, nameYourPrice: Boolean = true) {
                             pendingPlatform = platform.name
                             navController.navigate(
@@ -358,8 +361,8 @@ class MainActivity : AppCompatActivity() {
                         }
                         AddAccountScreenWrapper(
                             configuration = configuration,
-                            hasTasksAccount = inventory.hasTasksAccount,
-                            hasPro = inventory.hasPro,
+                            hasTasksAccount = addAccountViewModel.hasTasksAccount,
+                            hasPro = addAccountViewModel.hasPro,
                             needsConsent = acceptedTosVersion < currentTosVersion,
                             onBack = { navController.popBackStack() },
                             signIn = { platform ->
