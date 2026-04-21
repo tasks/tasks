@@ -84,4 +84,8 @@
     <string name="discard_changes">تبدیلیاں مسترد کریں؟</string>
     <string name="discard">مسترد کریں</string>
     <string name="delete">ڈیلیٹ کریں</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d فہرست</item>
+        <item quantity="other">%1$d فہسرتیں</item>
+    </plurals>
 </resources>

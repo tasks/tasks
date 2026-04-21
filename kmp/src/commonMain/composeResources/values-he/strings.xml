@@ -181,4 +181,9 @@
     <string name="discard_changes">להשליך שינויים?</string>
     <string name="discard">השלכה</string>
     <string name="delete">מחיקה</string>
+    <plurals name="list_count">
+        <item quantity="one">רשימה אחת</item>
+        <item quantity="two">%1$d רשימות</item>
+        <item quantity="other">%1$d רשימות</item>
+    </plurals>
 </resources>

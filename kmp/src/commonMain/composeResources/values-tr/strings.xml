@@ -180,4 +180,8 @@
     <string name="discard_changes">Değişiklikleri gözden çıkar?</string>
     <string name="discard">Gözden çıkar</string>
     <string name="delete">Sil</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d liste</item>
+        <item quantity="other">%1$d liste</item>
+    </plurals>
 </resources>

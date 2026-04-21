@@ -497,10 +497,6 @@
     <string name="ok">Aceitar</string>
     <string name="repeat_type_completion_capitalized">Data de término</string>
     <string name="always_display_full_date">Mostrar data completa</string>
-    <plurals name="list_count">
-        <item quantity="one">%d lista</item>
-        <item quantity="other">%d listas</item>
-    </plurals>
     <string name="email">Correio eletrónico</string>
     <string name="markdown_description">Ativar código Markdown no título e descrição</string>
     <string name="markdown">Código Markdown</string>

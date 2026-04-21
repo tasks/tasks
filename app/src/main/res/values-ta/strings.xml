@@ -460,10 +460,6 @@
     <string name="no_start_date">தொடங்கும் தேதி இல்லை</string>
     <string name="always_display_full_date">முழு தேதியை காண்பி</string>
     <string name="widget_show_title">தலைப்பு காட்டு</string>
-    <plurals name="list_count">
-        <item quantity="one">%d பட்டியல்</item>
-        <item quantity="other">%d பட்டியல்கள்</item>
-    </plurals>
     <string name="repeat_type_completion_capitalized">முடியும் தேதி</string>
     <string name="export_toast">%1$s முதல் %2$s வரை நகல் எடுக்கப்பட்டது.</string>
     <string name="SSD_sort_start">தொடங்கும் நாள் கொண்டு</string>

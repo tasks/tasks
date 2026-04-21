@@ -166,4 +166,8 @@
     <string name="discard_changes">Kassér ændringer?</string>
     <string name="discard">Kassér</string>
     <string name="delete">Slet</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d liste</item>
+        <item quantity="other">%1$d lister</item>
+    </plurals>
 </resources>

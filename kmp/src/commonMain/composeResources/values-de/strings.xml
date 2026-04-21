@@ -182,4 +182,8 @@
     <string name="discard_changes">Änderungen verwerfen?</string>
     <string name="discard">Verwerfen</string>
     <string name="delete">Löschen</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d Liste</item>
+        <item quantity="other">%1$d Listen</item>
+    </plurals>
 </resources>

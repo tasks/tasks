@@ -449,9 +449,6 @@
     <plurals name="repeat_times">
         <item quantity="other">lần</item>
     </plurals>
-    <plurals name="list_count">
-        <item quantity="other">%d danh sách</item>
-    </plurals>
     <plurals name="subtask_count">
         <item quantity="other">%d công việc con</item>
     </plurals>

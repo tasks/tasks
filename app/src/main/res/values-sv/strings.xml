@@ -544,10 +544,6 @@
     <string name="next_monday">Nästa mån</string>
     <string name="next_sunday">Nästa sön</string>
     <string name="repeat_type_completion_capitalized">Slutdatum</string>
-    <plurals name="list_count">
-        <item quantity="one">%d lista</item>
-        <item quantity="other">%d listor</item>
-    </plurals>
     <plurals name="subtask_count">
         <item quantity="one">%d deluppgift</item>
         <item quantity="other">%d deluppgifter</item>

@@ -145,4 +145,8 @@
     <string name="discard_changes">மாற்றங்களை கைவிடலாமா?</string>
     <string name="discard">நிராகரி</string>
     <string name="delete">அழி</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d பட்டியல்</item>
+        <item quantity="other">%1$d பட்டியல்கள்</item>
+    </plurals>
 </resources>

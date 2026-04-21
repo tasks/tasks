@@ -172,4 +172,8 @@
     <string name="discard_changes">Ĉu forĵeti ŝanĝojn?</string>
     <string name="discard">Forĵeti</string>
     <string name="delete">Forigi</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d listo</item>
+        <item quantity="other">%1$d listoj</item>
+    </plurals>
 </resources>

@@ -529,11 +529,6 @@
     <string name="migrate_count">Mueve %s a Tasks.org</string>
     <string name="migrating_tasks">Migración de tareas</string>
     <string name="migrate">Migrar</string>
-    <plurals name="list_count">
-        <item quantity="one">%d lista</item>
-        <item quantity="many">%d listas</item>
-        <item quantity="other">%d listas</item>
-    </plurals>
     <string name="github_sponsors">Patrocinadores de GitHub</string>
     <string name="no_google_play_subscription">No se encontró ninguna suscripción de Google Play elegible</string>
     <string name="above_average">Por encima del promedio</string>

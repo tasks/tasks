@@ -145,4 +145,8 @@
     <string name="discard_changes">Απόρριψη αλλαγών;</string>
     <string name="discard">Απόρριψη</string>
     <string name="delete">Διαγραφή</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d λίστα</item>
+        <item quantity="other">%1$d λίστες</item>
+    </plurals>
 </resources>

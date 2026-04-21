@@ -157,4 +157,8 @@
     <string name="discard_changes">Ta bort ändringar?</string>
     <string name="discard">Ta bort</string>
     <string name="delete">Ta bort</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d lista</item>
+        <item quantity="other">%1$d listor</item>
+    </plurals>
 </resources>

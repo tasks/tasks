@@ -522,12 +522,6 @@
     <string name="authentication_required">Wymagane uwierzytelnienie</string>
     <string name="sign_in_with_google">Zaloguj z Google</string>
     <string name="repeat_monthly_fifth_week">piąty</string>
-    <plurals name="list_count">
-        <item quantity="one">%d lista</item>
-        <item quantity="few">%d listy</item>
-        <item quantity="many">%d list</item>
-        <item quantity="other">%d list</item>
-    </plurals>
     <string name="background_location_permission_required">Tasks zbiera dane o lokalizacji, nawet gdy aplikacja jest zamknięta lub nie jest używana - to jest potrzebne dla przypomnień opartych o lokalizację.</string>
     <string name="copied_to_clipboard">%s skopiowano do schowka</string>
     <string name="app_passwords_more_info">Synchronizuj swoje zadania i kalendarze z aplikacjami komputerowymi i mobilnymi innych firm. Kliknij tutaj, aby uzyskać więcej informacji</string>

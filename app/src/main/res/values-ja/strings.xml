@@ -400,9 +400,6 @@
     <string name="next_monday">次の月曜日</string>
     <string name="next_sunday">次の日曜日</string>
     <string name="repeat_type_completion_capitalized">完了日</string>
-    <plurals name="list_count">
-        <item quantity="other">リスト %d 件</item>
-    </plurals>
     <string name="CFC_list_name">リストに含む…</string>
     <string name="no_start_date">着手日時なし</string>
     <string name="CFC_startBefore_text">着手: \?</string>

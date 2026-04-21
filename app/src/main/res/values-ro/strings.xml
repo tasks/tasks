@@ -289,11 +289,6 @@
         <item quantity="few">ori</item>
         <item quantity="other">ori</item>
     </plurals>
-    <plurals name="list_count">
-        <item quantity="one">%d listă</item>
-        <item quantity="few">%d liste</item>
-        <item quantity="other">%d liste</item>
-    </plurals>
     <plurals name="subtask_count">
         <item quantity="one">%d sub-sarcină</item>
         <item quantity="few">%d sub-sarcini</item>

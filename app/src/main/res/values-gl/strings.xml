@@ -267,10 +267,6 @@
     <string name="tasker_list_notification">Última notificación</string>
     <string name="network_error">Non se puido conectar</string>
     <string name="subscription">Suscrición</string>
-    <plurals name="list_count">
-        <item quantity="one">%d lista</item>
-        <item quantity="other">%d listas</item>
-    </plurals>
     <string name="action_open">Abrir</string>
     <string name="auto_dismiss_datetime_edit">Edición de tarefas</string>
     <string name="CFC_list_name">Na lista.…</string>

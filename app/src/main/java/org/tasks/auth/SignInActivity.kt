@@ -34,6 +34,10 @@ import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.getString
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.url_sponsor
 import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationRequest
@@ -212,7 +216,7 @@ class SignInActivity : ComponentActivity() {
             confirmButton = {
                 TextButton(onClick = {
                     if (isGitHub) {
-                        openUri(R.string.url_sponsor)
+                        openUri(runBlocking { getString(Res.string.url_sponsor) })
                     }
                     onDismiss()
                 }) {

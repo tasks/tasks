@@ -456,11 +456,6 @@
     <string name="url">URL adresa</string>
     <string name="error_adding_account">Chyba: %s</string>
     <string name="sort_list">Podľa zoznamu</string>
-    <plurals name="list_count">
-        <item quantity="one">%d zoznam</item>
-        <item quantity="few">%d zoznamy</item>
-        <item quantity="other">%d zoznamov</item>
-    </plurals>
     <string name="swipe_to_snooze_title">Prejdením prstom odložíte</string>
     <string name="swipe_to_snooze_description">Čas odloženia</string>
     <string name="swipe_to_snooze_time_description">Zrušené oznámenie bude odložené a opätovne vytvorené %s</string>

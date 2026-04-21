@@ -488,11 +488,6 @@
     <string name="default_recurrence">Výchozí opakování</string>
     <string name="default_tags">Výchozí štítky</string>
     <string name="header_spacing">Mezery</string>
-    <plurals name="list_count">
-        <item quantity="one">%d seznam</item>
-        <item quantity="few">%d seznamy</item>
-        <item quantity="other">%d seznamů</item>
-    </plurals>
     <string name="always_display_full_date">Zobrazit celé datum</string>
     <string name="no_app_found">Nenalezena žádná vhodná aplikace</string>
     <string name="widget_show_title">Zobrazit název</string>

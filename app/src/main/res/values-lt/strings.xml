@@ -519,11 +519,6 @@
     <string name="next_tuesday">Kitą antradienį</string>
     <string name="next_monday">Kitą pirmadienį</string>
     <string name="next_sunday">Kitą sekmadienį</string>
-    <plurals name="list_count">
-        <item quantity="one">%d sąrašas</item>
-        <item quantity="few">%d sąrašai</item>
-        <item quantity="other">%d sąrašų</item>
-    </plurals>
     <plurals name="subtask_count">
         <item quantity="one">%d antrinė užduotis</item>
         <item quantity="few">%d antrinės užduotys</item>

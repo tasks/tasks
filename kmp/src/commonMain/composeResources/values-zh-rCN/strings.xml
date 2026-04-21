@@ -182,4 +182,7 @@
     <string name="discard_changes">是否放弃修改？</string>
     <string name="discard">放弃</string>
     <string name="delete">删除</string>
+    <plurals name="list_count">
+        <item quantity="other">%1$d 个清单</item>
+    </plurals>
 </resources>

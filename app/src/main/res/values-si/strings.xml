@@ -20,10 +20,6 @@
     <string name="auto_dismiss_datetime_edit">කාර්ය සංස්කරණය</string>
     <string name="chip_appearance">චිප් පෙනුම</string>
     <string name="TEA_timer_est">කාලය %s</string>
-    <plurals name="list_count">
-        <item quantity="one">ලැයිස්තු %d</item>
-        <item quantity="other">ලැයිස්තුන් %d</item>
-    </plurals>
     <string name="astrid_sort_order_summary">\'මගේ කාර්යයන්\', \'අද\' සහ ටැග් සඳහා Astrid හි අතින් වර්ග කිරීමේ මාදිලිය සක්‍රීය කරන්න. මෙම වර්ග කිරීමේ මාදිලිය අනාගත යාවත්කාලීනයකදී \'මාගේ පිලිවෙල\' මගින් ප්‍රතිස්ථාපනය වනු ඇත</string>
     <string name="error_adding_account">දෝෂය: %s</string>
     <string name="widget_due_date_hidden">සඟවන්න</string>

@@ -532,10 +532,6 @@
     <string name="show_unstarted">Erakutsi hasi gabeak</string>
     <string name="filter_criteria_unstarted">Hasi gabea</string>
     <string name="widget_show_title">Erakutsi izenburua</string>
-    <plurals name="list_count">
-        <item quantity="one">Zerrenda %d</item>
-        <item quantity="other">%d zerrenda</item>
-    </plurals>
     <string name="filter_any_start_date">Edozein hasiera data</string>
     <string name="no_start_date">Hasiera data gabe</string>
     <string name="CFC_startBefore_name">Hasiera…</string>

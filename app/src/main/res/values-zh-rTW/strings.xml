@@ -415,9 +415,6 @@
     <string name="filter_criteria_unstarted">尚未開始</string>
     <string name="show_unstarted">顯示未開始項</string>
     <string name="widget_show_title">顯示標題</string>
-    <plurals name="list_count">
-        <item quantity="other">%d 個清單</item>
-    </plurals>
     <plurals name="subtask_count">
         <item quantity="other">%d 個副工作</item>
     </plurals>

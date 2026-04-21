@@ -540,11 +540,6 @@
     <string name="no_google_play_subscription">לא נמצא מינוי Google Play זכאי</string>
     <string name="local_lists">רשימות מקומיות</string>
     <string name="decsync_selection_description">סנכרון מבוסס קובץ</string>
-    <plurals name="list_count">
-        <item quantity="one">רשימה אחת</item>
-        <item quantity="two">%d רשימות</item>
-        <item quantity="other">%d רשימות</item>
-    </plurals>
     <string name="default_due_date">תאריך יעד ברירת מחדל</string>
     <string name="start_date">תאריך התחלה</string>
     <string name="email">דוא\"ל</string>

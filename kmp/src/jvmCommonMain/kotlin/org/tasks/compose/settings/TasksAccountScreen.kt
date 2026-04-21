@@ -56,6 +56,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.accept
@@ -84,7 +85,9 @@ import tasks.kmp.generated.resources.local_lists
 import tasks.kmp.generated.resources.logout
 import tasks.kmp.generated.resources.logout_warning
 import tasks.kmp.generated.resources.manage_subscription
+import tasks.kmp.generated.resources.list_count
 import tasks.kmp.generated.resources.migrate
+import tasks.kmp.generated.resources.migrate_count
 import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.password
 import tasks.kmp.generated.resources.regenerate_email_address
@@ -104,6 +107,7 @@ import org.tasks.caldav.TasksAccountResponse.Guest
 import org.tasks.compose.components.TasksIcon
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
+import org.tasks.viewmodel.TasksAccountState
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDay
 import org.tasks.themes.TasksIcons
@@ -128,24 +132,7 @@ data class SharedCalendarDisplay(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TasksAccountScreen(
-    account: CaldavAccount?,
-    isGithub: Boolean,
-    isGuest: Boolean,
-    hasSubscription: Boolean,
-    isTasksSubscription: Boolean,
-    localListCount: Int,
-    localListSummary: String,
-    inboundEmail: String?,
-    inboundCalendarName: String?,
-    appPasswords: List<TasksAccountResponse.AppPassword>?,
-    sharedWithMe: List<SharedCalendarDisplay>,
-    guests: List<Guest>,
-    maxGuests: Int,
-    newPassword: NewPassword?,
-    calendars: List<CalendarItem>,
-    inboundCalendarUri: String?,
-    caldavUrl: String,
-    showTosDialog: Boolean,
+    state: TasksAccountState,
     onSignIn: () -> Unit,
     onSubscribe: () -> Unit,
     onOpenSponsor: () -> Unit,
@@ -185,7 +172,7 @@ fun TasksAccountScreen(
         Spacer(modifier = Modifier.height(SettingsContentPadding))
 
         // Upgrade card for guests
-        if (isGuest && !isTasksSubscription) {
+        if (state.isGuest && !state.isTasksSubscription) {
             AccountSettingsCard(
                 state = ProCardState.Upgrade,
                 onClick = onSubscribe,
@@ -195,12 +182,12 @@ fun TasksAccountScreen(
         }
 
         // Error banner card
-        if (account != null && !account.error.isNullOrBlank()) {
+        state.account?.takeIf { !it.error.isNullOrBlank() }?.let { account ->
             ErrorBannerCard(
                 account = account,
-                isGithub = isGithub,
-                hasSubscription = hasSubscription,
-                isTasksSubscription = isTasksSubscription,
+                isGithub = state.isGithub,
+                hasSubscription = state.hasSubscription,
+                isTasksSubscription = state.isTasksSubscription,
                 onSignIn = onSignIn,
                 onSubscribe = onSubscribe,
                 onOpenSponsor = onOpenSponsor,
@@ -210,12 +197,19 @@ fun TasksAccountScreen(
         }
 
         // Migrate card
-        if (localListCount > 0) {
+        if (state.localListCount > 0) {
             SectionHeader(stringResource(Res.string.migrate), modifier = Modifier.padding(horizontal = SettingsContentPadding))
             SettingsItemCard(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
                 PreferenceRow(
                     title = stringResource(Res.string.local_lists),
-                    summary = localListSummary,
+                    summary = stringResource(
+                        Res.string.migrate_count,
+                        pluralStringResource(
+                            Res.plurals.list_count,
+                            state.localListCount,
+                            state.localListCount,
+                        ),
+                    ),
                     onClick = onMigrate,
                 )
             }
@@ -223,7 +217,7 @@ fun TasksAccountScreen(
         }
 
         // Email-to-task card
-        if (inboundEmail != null) {
+        if (state.inboundEmail != null) {
             SectionHeader(stringResource(Res.string.email_to_task), modifier = Modifier.padding(horizontal = SettingsContentPadding))
             Column(
                 modifier = Modifier.padding(horizontal = SettingsContentPadding),
@@ -232,7 +226,7 @@ fun TasksAccountScreen(
                 SettingsItemCard(position = CardPosition.First) {
                     PreferenceRow(
                         title = stringResource(Res.string.email_to_task_address),
-                        summary = inboundEmail,
+                        summary = state.inboundEmail,
                         icon = Icons.Outlined.Email,
                         onClick = onCopyEmail,
                         trailing = {
@@ -247,11 +241,11 @@ fun TasksAccountScreen(
                         },
                     )
                 }
-                if (inboundCalendarName != null) {
+                if (state.inboundCalendarName != null) {
                     SettingsItemCard(position = CardPosition.Middle) {
                         PreferenceRow(
                             title = stringResource(Res.string.email_to_task_calendar),
-                            summary = inboundCalendarName,
+                            summary = state.inboundCalendarName,
                             icon = Icons.AutoMirrored.Outlined.List,
                             onClick = { showCalendarDialog = true },
                         )
@@ -269,15 +263,15 @@ fun TasksAccountScreen(
         }
 
         // Shared with me section (calendars shared by others)
-        if (sharedWithMe.isNotEmpty()) {
+        if (state.sharedWithMe.isNotEmpty()) {
             SectionHeader(stringResource(Res.string.shared_with_me), modifier = Modifier.padding(horizontal = SettingsContentPadding))
             Column(
                 modifier = Modifier.padding(horizontal = SettingsContentPadding),
                 verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
             ) {
-                sharedWithMe.forEachIndexed { index, shared ->
+                state.sharedWithMe.forEachIndexed { index, shared ->
                     SettingsItemCard(
-                        position = CardPosition.forIndex(index, sharedWithMe.size),
+                        position = CardPosition.forIndex(index, state.sharedWithMe.size),
                     ) {
                         PreferenceRow(
                             title = shared.name,
@@ -302,7 +296,7 @@ fun TasksAccountScreen(
         }
 
         // Guests section (people using this user's guest slots)
-        if (guests.isNotEmpty()) {
+        if (state.guests.isNotEmpty()) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
@@ -310,7 +304,7 @@ fun TasksAccountScreen(
                     .height(48.dp),
             ) {
                 Text(
-                    text = stringResource(Res.string.guests, guests.size, maxGuests),
+                    text = stringResource(Res.string.guests, state.guests.size, state.maxGuests),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary,
                 )
@@ -319,9 +313,9 @@ fun TasksAccountScreen(
                 modifier = Modifier.padding(horizontal = SettingsContentPadding),
                 verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
             ) {
-                guests.forEachIndexed { index, guest ->
+                state.guests.forEachIndexed { index, guest ->
                     SettingsItemCard(
-                        position = CardPosition.forIndex(index, guests.size),
+                        position = CardPosition.forIndex(index, state.guests.size),
                     ) {
                         PreferenceRow(
                             title = guest.displayName ?: guest.email ?: "",
@@ -340,9 +334,9 @@ fun TasksAccountScreen(
             modifier = Modifier.padding(horizontal = SettingsContentPadding),
             verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
         ) {
-            val passwordCount = (appPasswords?.size ?: 0)
+            val passwordCount = (state.appPasswords?.size ?: 0)
             val totalPasswordItems = passwordCount + 1 // +1 for generate button
-            appPasswords?.forEachIndexed { index, pw ->
+            state.appPasswords?.forEachIndexed { index, pw ->
                 val description = pw.description ?: stringResource(Res.string.app_password)
                 SettingsItemCard(
                     position = CardPosition.forIndex(index, totalPasswordItems),
@@ -384,7 +378,7 @@ fun TasksAccountScreen(
 
         // Bottom actions card
         Spacer(modifier = Modifier.height(SettingsContentPadding))
-        val showManageRow = hasSubscription && !isGithub && !isGuest
+        val showManageRow = state.hasSubscription && !state.isGithub && !state.isGuest
         Column(
             modifier = Modifier.padding(horizontal = SettingsContentPadding),
             verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
@@ -524,11 +518,11 @@ fun TasksAccountScreen(
         )
     }
 
-    if (newPassword != null) {
+    if (state.newPassword != null) {
         NewPasswordDialog(
-            caldavUrl = caldavUrl,
-            username = newPassword.username,
-            password = newPassword.password,
+            caldavUrl = state.caldavUrl,
+            username = state.newPassword!!.username,
+            password = state.newPassword!!.password,
             onCopyField = onCopyField,
             onDismiss = {
                 onClearNewPassword()
@@ -538,10 +532,10 @@ fun TasksAccountScreen(
         )
     }
 
-    if (showCalendarDialog && calendars.isNotEmpty()) {
+    if (showCalendarDialog && state.calendars.isNotEmpty()) {
         CalendarSelectionDialog(
-            calendars = calendars,
-            currentUri = inboundCalendarUri,
+            calendars = state.calendars,
+            currentUri = state.inboundCalendarUri,
             onSelect = { uri ->
                 showCalendarDialog = false
                 onSelectCalendar(uri)
@@ -550,7 +544,7 @@ fun TasksAccountScreen(
         )
     }
 
-    if (showTosDialog) {
+    if (state.showTosDialog) {
         AlertDialog(
             onDismissRequest = onDismissTos,
             title = { Text(stringResource(Res.string.tos_updated_title)) },

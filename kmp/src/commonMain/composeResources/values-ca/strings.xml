@@ -146,4 +146,9 @@
     <string name="discard_changes">Descarta els canvis?</string>
     <string name="discard">Descarta</string>
     <string name="delete">Esborra</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d llista</item>
+        <item quantity="many">%1$d llistes</item>
+        <item quantity="other">%1$d llistes</item>
+    </plurals>
 </resources>

@@ -3,39 +3,65 @@ package org.tasks.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.json.jsonPrimitive
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
+import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.TasksAccountResponse
+import org.tasks.compose.settings.CalendarItem
 import org.tasks.compose.settings.NewPassword
 import org.tasks.compose.settings.SharedCalendarDisplay
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 
+data class TasksAccountState(
+    val account: CaldavAccount? = null,
+    val isGithub: Boolean = false,
+    val isGuest: Boolean = false,
+    val hasSubscription: Boolean = false,
+    val isTasksSubscription: Boolean = false,
+    val localListCount: Int = 0,
+    val showTosDialog: Boolean = false,
+    val inboundEmail: String? = null,
+    val inboundCalendarName: String? = null,
+    val appPasswords: List<TasksAccountResponse.AppPassword>? = null,
+    val sharedWithMe: List<SharedCalendarDisplay> = emptyList(),
+    val guests: List<TasksAccountResponse.Guest> = emptyList(),
+    val maxGuests: Int = 5,
+    val newPassword: NewPassword? = null,
+    val calendars: List<CalendarItem> = emptyList(),
+    val inboundCalendarUri: String? = null,
+    val caldavUrl: String = "",
+)
+
+@OptIn(ExperimentalCoroutinesApi::class)
 open class TasksAccountViewModel(
     private val provider: CaldavClientProvider,
     private val reporting: Reporting,
     private val accountDataRepository: TasksAccountDataRepository,
     private val caldavDao: CaldavDao,
     private val principalDao: PrincipalDao,
+    subscriptionProvider: SubscriptionProvider,
+    caldavUrl: String,
 ) : ViewModel() {
-    val newPassword = MutableStateFlow<NewPassword?>(null)
+    private val _newPassword = MutableStateFlow<NewPassword?>(null)
+    private val _tosDismissed = MutableStateFlow(false)
     private val accountUuid = MutableStateFlow<String?>(null)
 
     fun setAccountUuid(uuid: String) {
@@ -50,54 +76,96 @@ open class TasksAccountViewModel(
         accountDataRepository.accountResponseFlow
             .stateIn(viewModelScope, SharingStarted.Eagerly, initialResponse)
 
-    val appPasswords: StateFlow<List<TasksAccountResponse.AppPassword>?> = accountResponse
-        .map { it?.appPasswords }
+    private val account: StateFlow<CaldavAccount?> = accountUuid
+        .filterNotNull()
+        .flatMapLatest { uuid ->
+            caldavDao.watchAccounts().map { accounts ->
+                accounts.firstOrNull { it.uuid == uuid }
+            }
+        }
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val sharedWithMe: StateFlow<List<SharedCalendarDisplay>> =
-        accountResponse
-            .combine(caldavDao.subscribeToCalendars()) { response, calendars ->
-                response to calendars
-            }
-            .combine(accountUuid.filterNotNull()) { (response, calendars), uuid ->
-                Triple(response, calendars.filter { it.account == uuid }, uuid)
-            }
-            .mapLatest { (response, calendars, _) ->
-                val uris = response?.sharedWithMe ?: emptyList()
-                uris.mapNotNull { uri ->
-                    val cal = calendars.find { it.calendarUri == uri }
-                        ?: return@mapNotNull null
-                    val ownerName = principalDao.getOwnerName(cal.id)
-                    SharedCalendarDisplay(
-                        name = cal.name ?: uri,
-                        icon = cal.icon,
-                        color = cal.color,
-                        ownerName = ownerName,
-                    )
-                }
-            }
-            .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+    private val allCalendars = caldavDao.subscribeToCalendars()
 
-    val inboundEmail: StateFlow<String?> = accountResponse
-        .map { it?.inboundEmail?.email?.takeIf(String::isNotEmpty) }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, null)
+    private val accountCalendars = allCalendars
+        .combine(accountUuid.filterNotNull()) { calendars, uuid ->
+            calendars.filter { it.account == uuid }
+        }
 
-    val inboundCalendar: StateFlow<String?> = accountResponse
+    private val inboundCalendarUri = accountResponse
         .map { it?.inboundEmail?.calendar?.takeIf(String::isNotEmpty) }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
-    val isGuest: StateFlow<Boolean> = accountResponse
-        .map { it?.guest ?: false }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    private val localListCount = accountUuid
+        .filterNotNull()
+        .flatMapLatest {
+            caldavDao.watchAccounts().map { accounts ->
+                val localAccount = accounts.firstOrNull { it.accountType == TYPE_LOCAL }
+                localAccount?.uuid?.let { uuid -> caldavDao.listCount(uuid) } ?: 0
+            }
+        }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, 0)
 
-    val guests: StateFlow<List<TasksAccountResponse.Guest>> = accountResponse
-        .map { it?.guests ?: emptyList() }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+    val state: StateFlow<TasksAccountState> = combine(
+        account,
+        accountResponse,
+        subscriptionProvider.subscription,
+        accountCalendars,
+        inboundCalendarUri,
+        localListCount,
+        _newPassword,
+        _tosDismissed,
+    ) { values ->
+        val account = values[0] as CaldavAccount?
+        val response = values[1] as TasksAccountResponse?
+        val subscription = values[2] as SubscriptionProvider.SubscriptionInfo?
+        @Suppress("UNCHECKED_CAST")
+        val calendars = values[3] as List<org.tasks.data.entity.CaldavCalendar>
+        val inboundUri = values[4] as String?
+        val localCount = values[5] as Int
+        val newPassword = values[6] as NewPassword?
+        val tosDismissed = values[7] as Boolean
 
-    val maxGuests: StateFlow<Int> = accountResponse
-        .map { it?.maxGuests ?: 5 }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, 5)
+        TasksAccountState(
+            account = account,
+            isGithub = account?.username?.startsWith("github") == true,
+            isGuest = response?.guest ?: false,
+            hasSubscription = subscription != null,
+            isTasksSubscription = subscription?.isTasksSubscription == true,
+            localListCount = localCount,
+            showTosDialog = !tosDismissed && account?.isTosRequired() == true,
+            inboundEmail = response?.inboundEmail?.email?.takeIf(String::isNotEmpty),
+            inboundCalendarName = calendars
+                .find { it.calendarUri == inboundUri }?.name,
+            appPasswords = response?.appPasswords,
+            sharedWithMe = buildSharedWithMe(response, calendars),
+            guests = response?.guests ?: emptyList(),
+            maxGuests = response?.maxGuests ?: 5,
+            newPassword = newPassword,
+            calendars = calendars
+                .filter { !it.readOnly() }
+                .map { CalendarItem(it.name ?: it.uuid ?: "", it.calendarUri) },
+            inboundCalendarUri = inboundUri,
+            caldavUrl = caldavUrl,
+        )
+    }.stateIn(viewModelScope, SharingStarted.Eagerly, TasksAccountState(caldavUrl = caldavUrl))
+
+    private suspend fun buildSharedWithMe(
+        response: TasksAccountResponse?,
+        calendars: List<org.tasks.data.entity.CaldavCalendar>,
+    ): List<SharedCalendarDisplay> {
+        val uris = response?.sharedWithMe ?: return emptyList()
+        return uris.mapNotNull { uri ->
+            val cal = calendars.find { it.calendarUri == uri }
+                ?: return@mapNotNull null
+            val ownerName = principalDao.getOwnerName(cal.id)
+            SharedCalendarDisplay(
+                name = cal.name ?: uri,
+                icon = cal.icon,
+                color = cal.color,
+                ownerName = ownerName,
+            )
+        }
+    }
 
     private val passwordMutex = Mutex()
 
@@ -109,25 +177,25 @@ open class TasksAccountViewModel(
         }
     }
 
-    fun refreshAccount(account: CaldavAccount) = viewModelScope.launch {
-        refreshAccountData(account)
+    fun refreshAccount() {
+        viewModelScope.launch {
+            account.value?.let { refreshAccountData(it) }
+        }
     }
 
-    fun requestNewPassword(account: CaldavAccount, description: String) = viewModelScope.launch {
-        if (!passwordMutex.tryLock()) {
-            return@launch
-        }
+    fun requestNewPassword(description: String) = viewModelScope.launch {
+        val account = account.value ?: return@launch
+        if (!passwordMutex.tryLock()) return@launch
         try {
             provider
-                    .forTasksAccount(account)
-                    .generateNewPassword(description.takeIf { it.isNotBlank() })
-                    ?.let {
-                        newPassword.value =
-                                NewPassword(
-                                        username = it["username"]!!.jsonPrimitive.content,
-                                        password = it["password"]!!.jsonPrimitive.content,
-                                )
-                    }
+                .forTasksAccount(account)
+                .generateNewPassword(description.takeIf { it.isNotBlank() })
+                ?.let {
+                    _newPassword.value = NewPassword(
+                        username = it["username"]!!.jsonPrimitive.content,
+                        password = it["password"]!!.jsonPrimitive.content,
+                    )
+                }
         } catch (e: Exception) {
             Logger.e(e) { "Failed to request new password" }
         } finally {
@@ -135,7 +203,8 @@ open class TasksAccountViewModel(
         }
     }
 
-    fun deletePassword(account: CaldavAccount, id: Int) = viewModelScope.launch {
+    fun deletePassword(id: Int) = viewModelScope.launch {
+        val account = account.value ?: return@launch
         try {
             provider.forTasksAccount(account).deletePassword(id)
             refreshAccountData(account)
@@ -145,10 +214,15 @@ open class TasksAccountViewModel(
     }
 
     fun clearNewPassword() {
-        newPassword.value = null
+        _newPassword.value = null
     }
 
-    fun regenerateInboundEmail(account: CaldavAccount) = viewModelScope.launch {
+    fun dismissTos() {
+        _tosDismissed.value = true
+    }
+
+    fun regenerateInboundEmail() = viewModelScope.launch {
+        val account = account.value ?: return@launch
         try {
             provider.forTasksAccount(account).regenerateInboundEmail()
             refreshAccountData(account)
@@ -161,7 +235,8 @@ open class TasksAccountViewModel(
         }
     }
 
-    fun setInboundCalendar(account: CaldavAccount, calendar: String?) = viewModelScope.launch {
+    fun setInboundCalendar(calendar: String?) = viewModelScope.launch {
+        val account = account.value ?: return@launch
         try {
             provider.forTasksAccount(account).setInboundCalendar(calendar)
             refreshAccountData(account)

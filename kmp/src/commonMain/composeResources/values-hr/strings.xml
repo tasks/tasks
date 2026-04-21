@@ -181,4 +181,9 @@
     <string name="discard_changes">Odbaciti promjene?</string>
     <string name="discard">Odbaci</string>
     <string name="delete">Izbriši</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d popis</item>
+        <item quantity="few">%1$d popisa</item>
+        <item quantity="other">%1$d popisa</item>
+    </plurals>
 </resources>

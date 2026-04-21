@@ -428,10 +428,6 @@
     <string name="next_monday">Следващият понеделник</string>
     <string name="next_sunday">Следващата неделя</string>
     <string name="repeat_type_completion_capitalized">Дата на завършване</string>
-    <plurals name="list_count">
-        <item quantity="one">%d списък</item>
-        <item quantity="other">%d списъка</item>
-    </plurals>
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="CFC_list_name">В списъка…</string>
     <string name="filter_any_start_date">Всяка начална дата</string>

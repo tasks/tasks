@@ -557,10 +557,6 @@
     <string name="next_monday">Næste man</string>
     <string name="next_sunday">Næste søn</string>
     <string name="repeat_type_completion_capitalized">Fuldførelsesdato</string>
-    <plurals name="list_count">
-        <item quantity="one">%d liste</item>
-        <item quantity="other">%d lister</item>
-    </plurals>
     <string name="filter_any_start_date">Enhver startdato</string>
     <string name="no_start_date">Ingen startdato</string>
     <string name="CFC_startBefore_name">Starter…</string>

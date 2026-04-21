@@ -145,4 +145,7 @@
     <string name="discard_changes">변경 사항을 폐기할까요?</string>
     <string name="discard">변경사항 폐기</string>
     <string name="delete">삭제</string>
+    <plurals name="list_count">
+        <item quantity="other">%1$d 목록</item>
+    </plurals>
 </resources>

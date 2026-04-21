@@ -144,4 +144,9 @@
     <string name="discard_changes">Zahodiť zmeny?</string>
     <string name="discard">Zahodiť</string>
     <string name="delete">Zmazať</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d zoznam</item>
+        <item quantity="few">%1$d zoznamy</item>
+        <item quantity="other">%1$d zoznamov</item>
+    </plurals>
 </resources>

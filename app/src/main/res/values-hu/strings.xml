@@ -513,10 +513,6 @@
     <string name="migrate_count">%s mozgatása a Tasks.org-ra</string>
     <string name="migrating_tasks">Feladatok migrálása</string>
     <string name="migrate">Migrálás</string>
-    <plurals name="list_count">
-        <item quantity="one">%d lista</item>
-        <item quantity="other">%d listák</item>
-    </plurals>
     <string name="github_sponsors">GitHub szponzorok</string>
     <string name="no_google_play_subscription">Nem található Google Play előfizetés</string>
     <string name="save_percent">Mentés %d%%</string>

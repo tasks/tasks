@@ -127,4 +127,9 @@
     <string name="discard_changes">Atmesti pakeitimus?</string>
     <string name="discard">Atmesti</string>
     <string name="delete">Ištrinti</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d sąrašas</item>
+        <item quantity="few">%1$d sąrašai</item>
+        <item quantity="other">%1$d sąrašų</item>
+    </plurals>
 </resources>

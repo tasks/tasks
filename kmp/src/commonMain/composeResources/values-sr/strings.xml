@@ -167,4 +167,9 @@
     <string name="discard_changes">Одбаци измене?</string>
     <string name="discard">Обустави</string>
     <string name="delete">Обриши</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d листа</item>
+        <item quantity="few">%1$d листе</item>
+        <item quantity="other">%1$d листи</item>
+    </plurals>
 </resources>

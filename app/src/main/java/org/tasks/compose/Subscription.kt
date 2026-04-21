@@ -72,6 +72,10 @@ import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.getString
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.url_sponsor
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import org.tasks.R
@@ -352,7 +356,7 @@ object PurchaseText {
     fun SponsorButton() {
         val context = LocalContext.current
         OutlinedButton(
-            onClick = { context.openUri(R.string.url_sponsor) },
+            onClick = { context.openUri(runBlocking { getString(Res.string.url_sponsor) }) },
             colors = ButtonDefaults.outlinedButtonColors(
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary

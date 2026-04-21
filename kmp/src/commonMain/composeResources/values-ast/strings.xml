@@ -80,4 +80,8 @@
     <string name="discard_changes">¿Escartar cambeos?</string>
     <string name="discard">Escartar</string>
     <string name="delete">Esborriar</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d llista</item>
+        <item quantity="other">%1$d llistes</item>
+    </plurals>
 </resources>

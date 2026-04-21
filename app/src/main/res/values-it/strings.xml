@@ -523,11 +523,6 @@
     <string name="authorization_cancelled">Autorizzazione annullata</string>
     <string name="authentication_required">Autenticazione richiesta</string>
     <string name="sign_in_with_google">Accedi con Google</string>
-    <plurals name="list_count">
-        <item quantity="one">%d lista</item>
-        <item quantity="many">%d liste</item>
-        <item quantity="other">%d liste</item>
-    </plurals>
     <string name="migrate">Migra</string>
     <string name="github_sponsor">Diventa uno sponsor</string>
     <string name="migrate_count">Sposta %s su Tasks.org</string>

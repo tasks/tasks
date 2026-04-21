@@ -121,4 +121,7 @@
     <string name="discard_changes">ละทิ้งการเปลี่ยนแปลงหรือไม่?</string>
     <string name="discard">ทิ้ง</string>
     <string name="delete">ลบ</string>
+    <plurals name="list_count">
+        <item quantity="other">รายการ %1$d</item>
+    </plurals>
 </resources>

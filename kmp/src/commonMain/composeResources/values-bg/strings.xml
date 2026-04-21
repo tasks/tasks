@@ -175,4 +175,8 @@
     <string name="discard_changes">Отказ от промените?</string>
     <string name="discard">Отказ</string>
     <string name="delete">Премахване</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d списък</item>
+        <item quantity="other">%1$d списъка</item>
+    </plurals>
 </resources>

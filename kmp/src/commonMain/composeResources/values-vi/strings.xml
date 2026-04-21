@@ -135,4 +135,7 @@
     <string name="discard_changes">Bỏ các thay đổi?</string>
     <string name="discard">Bỏ</string>
     <string name="delete">Xoá</string>
+    <plurals name="list_count">
+        <item quantity="other">%1$d danh sách</item>
+    </plurals>
 </resources>

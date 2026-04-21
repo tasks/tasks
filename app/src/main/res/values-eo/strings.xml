@@ -43,10 +43,6 @@
         <item quantity="one">fojo</item>
         <item quantity="other">fojoj</item>
     </plurals>
-    <plurals name="list_count">
-        <item quantity="one">%d listo</item>
-        <item quantity="other">%d listoj</item>
-    </plurals>
     <plurals name="task_count">
         <item quantity="one">%d tasko</item>
         <item quantity="other">%d taskoj</item>

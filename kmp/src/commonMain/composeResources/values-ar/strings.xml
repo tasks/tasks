@@ -149,4 +149,12 @@
     <string name="discard_changes">تجاهل التغييرات؟</string>
     <string name="discard">تجاهل</string>
     <string name="delete">حذف</string>
+    <plurals name="list_count">
+        <item quantity="zero">%1$d قائمة</item>
+        <item quantity="one">%1$d قائمة</item>
+        <item quantity="two">قائمتين</item>
+        <item quantity="few">%1$d قوائم</item>
+        <item quantity="many">%1$d قائمة</item>
+        <item quantity="other">%1$d قائمة</item>
+    </plurals>
 </resources>

@@ -135,4 +135,8 @@
     <string name="discard_changes">Forkast endringer?</string>
     <string name="discard">Forkast</string>
     <string name="delete">Slett</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d liste</item>
+        <item quantity="other">%1$d lister</item>
+    </plurals>
 </resources>

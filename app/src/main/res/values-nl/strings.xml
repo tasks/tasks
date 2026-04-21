@@ -513,10 +513,6 @@
     <string name="migrate_count">Verplaats %s naar Tasks.org</string>
     <string name="migrating_tasks">Migreert taken</string>
     <string name="migrate">Migreren</string>
-    <plurals name="list_count">
-        <item quantity="one">%d lijst</item>
-        <item quantity="other">%d lijsten</item>
-    </plurals>
     <string name="github_sponsors">GitHub sponsors</string>
     <string name="no_google_play_subscription">Geen in aanmerking komend Google Play abonnement gevonden</string>
     <string name="save_percent">Bespaar %d%%</string>

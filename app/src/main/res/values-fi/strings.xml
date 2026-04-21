@@ -471,10 +471,6 @@
     <string name="email">Sähköposti</string>
     <string name="date_shortcut_tomorrow_night">Huomenna illalla</string>
     <string name="backups_ignore_warnings_summary">Jätä varmuuskopiointivaroitukset huomiotta, jos et tarvitse varmuuskopioita tai sinulla on oma varmuuskopiointiratkaisu</string>
-    <plurals name="list_count">
-        <item quantity="one">%d list</item>
-        <item quantity="other">%d lista</item>
-    </plurals>
     <string name="astrid_sort_order_summary">Ota käyttöön Astridin manuaalinen lajittelutila \'Omat tehtävät\', \'Tänään\' ja tunnisteet. Tämä lajittelutila korvataan \'Oma järjestys\'-tilalla tulevassa päivityksessä</string>
     <string name="url_host_name_required">Isäntänimi vaaditaan</string>
     <string name="date_shortcut_tomorrow_evening">Huomenna illalla</string>

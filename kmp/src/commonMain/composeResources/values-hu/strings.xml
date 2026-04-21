@@ -182,4 +182,8 @@
     <string name="discard_changes">Változások elvetése?</string>
     <string name="discard">Elvetés</string>
     <string name="delete">Törlés</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d lista</item>
+        <item quantity="other">%1$d listák</item>
+    </plurals>
 </resources>

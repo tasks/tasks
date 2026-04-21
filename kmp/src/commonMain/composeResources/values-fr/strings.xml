@@ -184,4 +184,9 @@
     <string name="discard_changes">Ignorer les modifications ?</string>
     <string name="discard">Ignorer</string>
     <string name="delete">Supprimer</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d liste</item>
+        <item quantity="many">%1$d listes</item>
+        <item quantity="other">%1$d listes</item>
+    </plurals>
 </resources>

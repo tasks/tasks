@@ -126,4 +126,8 @@
     <string name="discard_changes">Baztertu aldaketak?</string>
     <string name="discard">Baztertu</string>
     <string name="delete">Ezabatu</string>
+    <plurals name="list_count">
+        <item quantity="one">Zerrenda %1$d</item>
+        <item quantity="other">%1$d zerrenda</item>
+    </plurals>
 </resources>

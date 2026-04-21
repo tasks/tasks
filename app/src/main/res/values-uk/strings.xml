@@ -535,12 +535,6 @@
     <string name="widget_show_dividers">Показати розділювачі</string>
     <string name="widget_show_menu">Показати меню</string>
     <string name="repeat_type_completion_capitalized">Дата завершення</string>
-    <plurals name="list_count">
-        <item quantity="one">%d список</item>
-        <item quantity="few">%d списка</item>
-        <item quantity="many">%d списків</item>
-        <item quantity="other">%d списків</item>
-    </plurals>
     <string name="CFC_list_name">У списку…</string>
     <string name="no_start_date">Немає дати початку</string>
     <string name="default_location">Типове розташування</string>

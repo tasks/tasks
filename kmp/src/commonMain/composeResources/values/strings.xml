@@ -184,4 +184,8 @@
         <item quantity="one">%1$d task</item>
         <item quantity="other">%1$d tasks</item>
     </plurals>
+    <plurals name="list_count">
+        <item quantity="one">%1$d list</item>
+        <item quantity="other">%1$d lists</item>
+    </plurals>
 </resources>

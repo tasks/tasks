@@ -575,11 +575,6 @@
         <item quantity="few">puta</item>
         <item quantity="other">puta</item>
     </plurals>
-    <plurals name="list_count">
-        <item quantity="one">%d popis</item>
-        <item quantity="few">%d popisa</item>
-        <item quantity="other">%d popisa</item>
-    </plurals>
     <plurals name="subtask_count">
         <item quantity="one">%d podzadatak</item>
         <item quantity="few">%d podzadatka</item>

@@ -181,4 +181,7 @@
     <string name="discard_changes">Buang perubahan?</string>
     <string name="discard">Buang</string>
     <string name="delete">Hapus</string>
+    <plurals name="list_count">
+        <item quantity="other">daftar %1$d</item>
+    </plurals>
 </resources>

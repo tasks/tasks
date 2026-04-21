@@ -168,4 +168,8 @@
     <string name="discard_changes">Loobud muudatustest?</string>
     <string name="discard">Loobu</string>
     <string name="delete">Kustuta</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d loend</item>
+        <item quantity="other">%1$d loendit</item>
+    </plurals>
 </resources>

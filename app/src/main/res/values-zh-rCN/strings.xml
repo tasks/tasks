@@ -508,9 +508,6 @@
     <string name="migrate_count">移动 %s 到 Tasks.org</string>
     <string name="migrating_tasks">正在迁移任务</string>
     <string name="migrate">迁移</string>
-    <plurals name="list_count">
-        <item quantity="other">%d 个清单</item>
-    </plurals>
     <string name="github_sponsors">Github 赞助者</string>
     <string name="no_google_play_subscription">找不到符合要求的 Google Play 订阅</string>
     <string name="above_average">高于平均</string>

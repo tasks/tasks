@@ -181,4 +181,9 @@
     <string name="discard_changes">Annullare le modifiche?</string>
     <string name="discard">Sì, annulla</string>
     <string name="delete">Elimina</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d lista</item>
+        <item quantity="many">%1$d liste</item>
+        <item quantity="other">%1$d liste</item>
+    </plurals>
 </resources>

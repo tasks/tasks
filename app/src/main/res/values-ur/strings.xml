@@ -176,10 +176,6 @@
         <item quantity="one">%d مہینہ</item>
         <item quantity="other">%d مہینے</item>
     </plurals>
-    <plurals name="list_count">
-        <item quantity="one">%d فہرست</item>
-        <item quantity="other">%d فہسرتیں</item>
-    </plurals>
     <plurals name="repeat_months">
         <item quantity="one">مہینہ</item>
         <item quantity="other">مہینے</item>

@@ -297,14 +297,6 @@
     <string name="filter">تصفية</string>
     <string name="move">نقل</string>
     <string name="subtasks">مهام فرعيّة</string>
-    <plurals name="list_count">
-        <item quantity="zero">%d قائمة</item>
-        <item quantity="one">%d قائمة</item>
-        <item quantity="two">قائمتين</item>
-        <item quantity="few">%d قوائم</item>
-        <item quantity="many">%d قائمة</item>
-        <item quantity="other">%d قائمة</item>
-    </plurals>
     <plurals name="subtask_count">
         <item quantity="zero">%d مهمّة فرعيّة</item>
         <item quantity="one">%d مهمّة فرعيّة</item>

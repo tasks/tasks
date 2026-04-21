@@ -513,10 +513,6 @@
     <string name="delete_tag_confirmation">Kas kustutame %s?</string>
     <string name="TEA_timer_comment_stopped">lõpetas selle ülesande täitmise:</string>
     <string name="voice_create_prompt">Ülesande lisamiseks räägi</string>
-    <plurals name="list_count">
-        <item quantity="one">%d loend</item>
-        <item quantity="other">%d loendit</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d päev</item>
         <item quantity="other">%d päeva</item>

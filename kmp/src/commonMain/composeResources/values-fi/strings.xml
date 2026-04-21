@@ -158,4 +158,8 @@
     <string name="discard_changes">Hylkää muutokset?</string>
     <string name="discard">Hylkää</string>
     <string name="delete">Poista</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d list</item>
+        <item quantity="other">%1$d lista</item>
+    </plurals>
 </resources>

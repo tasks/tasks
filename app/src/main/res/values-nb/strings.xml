@@ -520,10 +520,6 @@
     <string name="github_sponsors">GitHub-sponsorer</string>
     <string name="no_google_play_subscription">Fant ikke noe Google Play-abonnement</string>
     <string name="migrate_count">Flytt %s til Tasks.org</string>
-    <plurals name="list_count">
-        <item quantity="one">%d liste</item>
-        <item quantity="other">%d lister</item>
-    </plurals>
     <string name="save_percent">Lagre %d%%</string>
     <string name="above_average">Over gjennomsnittet</string>
     <string name="decsync_selection_description">Filbasert synkronisering</string>

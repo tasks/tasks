@@ -510,10 +510,6 @@
     <string name="save_percent">%d %% sparen</string>
     <string name="no_google_play_subscription">Kein qualifiziertes Google Play-Abo gefunden</string>
     <string name="decsync_selection_description">Dateibasierte Synchronisierung</string>
-    <plurals name="list_count">
-        <item quantity="one">%d Liste</item>
-        <item quantity="other">%d Listen</item>
-    </plurals>
     <string name="above_average">Überdurchschnittlich</string>
     <string name="migrate_count">Verschiebe %s zu Tasks.org</string>
     <string name="migrating_tasks">Aufgaben werden migriert</string>

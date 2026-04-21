@@ -181,4 +181,7 @@
     <string name="discard_changes">変更を破棄しますか？</string>
     <string name="discard">破棄</string>
     <string name="delete">削除</string>
+    <plurals name="list_count">
+        <item quantity="other">リスト %1$d 件</item>
+    </plurals>
 </resources>

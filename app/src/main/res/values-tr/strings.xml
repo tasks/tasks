@@ -513,10 +513,6 @@
     <string name="migrate_count">%s taneyi Tasks.org\'a taşı</string>
     <string name="migrating_tasks">Görevler göç ediliyor</string>
     <string name="migrate">Göç et</string>
-    <plurals name="list_count">
-        <item quantity="one">%d liste</item>
-        <item quantity="other">%d liste</item>
-    </plurals>
     <string name="github_sponsors">GitHub Sponsorları</string>
     <string name="no_google_play_subscription">Uygun Google Play aboneliği bulunamadı</string>
     <string name="save_percent">%%%d tasarruf</string>

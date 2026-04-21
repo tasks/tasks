@@ -146,4 +146,9 @@
     <string name="discard_changes">Renunți la modificări?</string>
     <string name="discard">Modificări</string>
     <string name="delete">Șterge</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d listă</item>
+        <item quantity="few">%1$d liste</item>
+        <item quantity="other">%1$d liste</item>
+    </plurals>
 </resources>

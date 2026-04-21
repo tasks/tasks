@@ -123,4 +123,8 @@
     <string name="discard_changes">වෙනස්කම් අහෝසිකරනවාද?</string>
     <string name="discard">අහෝසිකරන්න</string>
     <string name="delete">මකන්න</string>
+    <plurals name="list_count">
+        <item quantity="one">ලැයිස්තු %1$d</item>
+        <item quantity="other">ලැයිස්තුන් %1$d</item>
+    </plurals>
 </resources>

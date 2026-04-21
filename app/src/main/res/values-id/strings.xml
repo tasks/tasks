@@ -401,9 +401,6 @@
     <string name="repeats_plural_until">Berulang setiap %1$s, berakhir pada %2$s</string>
     <string name="repeats_single_on_number_of_times">Ulangi %1$s pada %2$s, terjadi %3$d %4$s</string>
     <string name="repeats_single_number_of_times">Ulangi %1$s, terjadi %2$d %3$s</string>
-    <plurals name="list_count">
-        <item quantity="other">daftar %d</item>
-    </plurals>
     <string name="account_not_included">Tidak termasuk dalam langganan \'Berikan penawaran harga Anda\'</string>
     <string name="copied_to_clipboard">%s disalin ke papan klip</string>
     <string name="app_passwords_more_info">Sinkronkan tugas dan kalender Anda dengan aplikasi desktop dan seluler pihak ketiga. Ketuk di sini untuk info selengkapnya</string>

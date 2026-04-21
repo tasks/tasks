@@ -531,12 +531,6 @@
     <string name="github_sponsors">Спонсоры GitHub</string>
     <string name="authorization_cancelled">Авторизация отменена</string>
     <string name="no_google_play_subscription">Подходящей подписки Google Play не найдено</string>
-    <plurals name="list_count">
-        <item quantity="one">%d список</item>
-        <item quantity="few">%d списка</item>
-        <item quantity="many">%d списков</item>
-        <item quantity="other">%d списков</item>
-    </plurals>
     <string name="repeat_monthly_fifth_week">пятая</string>
     <string name="above_average">Выше среднего</string>
     <string name="save_percent">Сохранить %d%%</string>

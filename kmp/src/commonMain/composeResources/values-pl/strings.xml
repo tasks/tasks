@@ -136,4 +136,10 @@
     <string name="discard_changes">Odrzuć zmiany?</string>
     <string name="discard">Odrzuć</string>
     <string name="delete">Usuń</string>
+    <plurals name="list_count">
+        <item quantity="one">%1$d lista</item>
+        <item quantity="few">%1$d listy</item>
+        <item quantity="many">%1$d list</item>
+        <item quantity="other">%1$d list</item>
+    </plurals>
 </resources>

@@ -209,11 +209,6 @@
         <item quantity="many">hores</item>
         <item quantity="other">hores</item>
     </plurals>
-    <plurals name="list_count">
-        <item quantity="one">%d llista</item>
-        <item quantity="many">%d llistes</item>
-        <item quantity="other">%d llistes</item>
-    </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d setmana</item>
         <item quantity="many">%d setmanes</item>
