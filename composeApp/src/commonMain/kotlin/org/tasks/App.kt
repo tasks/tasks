@@ -102,7 +102,10 @@ import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.settings.LocalAccountSettingsDetail
 import org.tasks.compose.settings.LocalAccountSettingsPane
 import org.tasks.compose.settings.MainSettingsScreen
+import org.tasks.compose.settings.ProCardState
 import org.tasks.compose.settings.SettingsPane
+import org.tasks.compose.settings.TasksAccountSettingsDetail
+import org.tasks.compose.settings.TasksAccountSettingsPane
 import org.tasks.compose.StatusBarScrim
 import org.tasks.compose.platformSidebarInsets
 import org.tasks.compose.platformStatusBarInsets
@@ -161,6 +164,7 @@ import tasks.kmp.generated.resources.back
 import tasks.kmp.generated.resources.settings
 import tasks.kmp.generated.resources.show_less
 import tasks.kmp.generated.resources.show_more
+import tasks.kmp.generated.resources.url_donate
 
 @Serializable
 data object WelcomeDestination : NavKey
@@ -1301,6 +1305,8 @@ private fun SettingsScreen(
     val accounts by proCardViewModel.filteredAccounts.collectAsState()
     val proCardState by proCardViewModel.proCardState.collectAsState()
     val environmentLabel by proCardViewModel.environmentLabel.collectAsState()
+    val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
+    val donateUrl = stringResource(Res.string.url_donate)
     val navigator = rememberListDetailPaneScaffoldNavigator<SettingsPane>()
     val scope = androidx.compose.runtime.rememberCoroutineScope()
     val selectedContent = navigator.currentDestination
@@ -1366,7 +1372,24 @@ private fun SettingsScreen(
                                 )
                             }
                         },
-                        onProCardClick = {},
+                        onProCardClick = {
+                            when (val state = proCardState) {
+                                is ProCardState.TasksOrgAccount -> {
+                                    scope.launch {
+                                        navigator.navigateTo(
+                                            ListDetailPaneScaffoldRole.Detail,
+                                            TasksAccountSettingsPane(state.account),
+                                        )
+                                    }
+                                }
+                                is ProCardState.Upgrade -> {
+                                    uriHandler.openUri(donateUrl)
+                                }
+                                is ProCardState.Subscribed -> {}
+                                is ProCardState.SignIn -> {}
+                                is ProCardState.Donate -> {}
+                            }
+                        },
                     )
                 }
             }
@@ -1412,6 +1435,15 @@ private fun SettingsScreen(
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }
                             },
+                        )
+                    }
+                    is TasksAccountSettingsPane -> {
+                        TasksAccountSettingsDetail(
+                            pane = selectedContent,
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                            onAddAccountClick = onAddAccountClick,
                         )
                     }
 

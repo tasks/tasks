@@ -17,7 +17,6 @@ import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import org.tasks.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.runBlocking
@@ -46,11 +45,8 @@ import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.caldav.TasksAccountDataRepository
-import org.tasks.fcm.PushTokenManager
 import org.tasks.jobs.WorkManager
-import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.fragments.MainSettingsComposeFragment.Companion.REQUEST_TASKS_ORG
-import org.tasks.sync.SyncSource
 import org.tasks.themes.Theme
 import org.tasks.utility.copyToClipboard
 import javax.inject.Inject
@@ -62,11 +58,8 @@ class TasksAccount : Fragment() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var firebase: Firebase
-    @Inject lateinit var tasksPreferences: TasksPreferences
-    @Inject lateinit var pushTokenManager: PushTokenManager
     @Inject lateinit var billingClient: BillingClient
     @Inject lateinit var caldavDao: CaldavDao
-    @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var theme: Theme
     @Inject lateinit var accountDataRepository: TasksAccountDataRepository
 
@@ -191,28 +184,14 @@ class TasksAccount : Fragment() {
                 onLogout = {
                     lifecycleScope.launch {
                         withContext(NonCancellable) {
-                            val acct = account ?: initialAccount
-                            pushTokenManager.unregisterToken(acct)
-                            taskDeleter.delete(acct)
-                            accountDataRepository.clear()
+                            viewModel.logout(account ?: initialAccount)
                             inventory.updateTasksAccount()
                         }
                         activity?.onBackPressed()
                     }
                 },
                 onAcceptTos = {
-                    viewModel.dismissTos()
-                    lifecycleScope.launch {
-                        val currentTosVersion = firebase.getTosVersion()
-                        tasksPreferences.set(
-                            TasksPreferences.acceptedTosVersion,
-                            currentTosVersion,
-                        )
-                        state.account?.let {
-                            caldavDao.update(it.copy(error = null))
-                        }
-                        workManager.sync(SyncSource.ACCOUNT_ADDED)
-                    }
+                    viewModel.acceptTos(firebase.getTosVersion())
                 },
                 onViewTos = {
                     context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_tos) })

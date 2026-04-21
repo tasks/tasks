@@ -4,6 +4,7 @@
     <string name="url_tos" translatable="false">https://tasks.org/terms</string>
     <string name="url_sponsor" translatable="false">https://github.com/sponsors/abaker</string>
     <string name="url_app_passwords" translatable="false">https://tasks.org/passwords</string>
+    <string name="url_donate" translatable="false">https://tasks.org/donate</string>
     <string name="url_privacy_policy" translatable="false">https://tasks.org/privacy</string>
     <string name="url_license" translatable="false">https://tasks.org/license</string>
     <string name="caldav" translatable="false">CalDAV</string>

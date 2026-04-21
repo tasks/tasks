@@ -16,6 +16,7 @@ import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
+import org.tasks.viewmodel.TasksAccountViewModel.Companion.DEFAULT_TOS_VERSION
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -328,12 +329,11 @@ class Firebase @Inject constructor(
             TimeUnit.DAYS.toMillis(remoteConfig?.getLong(key) ?: default)
 
     fun getTosVersion(): Int {
-        val default = context.resources.getInteger(R.integer.default_tos_version)
         return remoteConfig
             ?.getLong(context.getString(R.string.remote_config_tos_version))
             ?.toInt()
-            ?.takeIf { it >= default }
-            ?: default
+            ?.takeIf { it >= DEFAULT_TOS_VERSION }
+            ?: DEFAULT_TOS_VERSION
     }
 
     override suspend fun getToken(): String? {

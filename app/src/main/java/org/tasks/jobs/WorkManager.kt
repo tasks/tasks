@@ -11,7 +11,7 @@ interface WorkManager : BackgroundWork {
 
     override fun updateCalendar(task: Task)
 
-    fun migrateLocalTasks(caldavAccount: CaldavAccount)
+    override fun migrateLocalTasks(caldavAccount: CaldavAccount)
 
     override suspend fun sync(source: SyncSource)
 

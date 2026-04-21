@@ -46,6 +46,7 @@ import org.tasks.reminders.Random
 import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
+import org.tasks.service.TaskMigrator
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.tasklist.HeaderFormatter
@@ -57,6 +58,7 @@ import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.ProCardViewModel
+import org.tasks.viewmodel.TasksAccountViewModel
 import org.tasks.viewmodel.TaskListViewModel
 
 val commonModule = module {
@@ -155,12 +157,18 @@ val commonModule = module {
 
     // Stateful singletons
     single<BackgroundWork> {
+        val scope = get<CoroutineScope>()
         val mutex = kotlinx.coroutines.sync.Mutex()
         val pending = java.util.concurrent.atomic.AtomicBoolean(false)
         object : BackgroundWork {
             override fun updateCalendar(task: Task) {}
             override suspend fun scheduleRefresh(timestamp: Long) {}
             override suspend fun scheduleBlogFeedCheck() {}
+            override fun migrateLocalTasks(account: org.tasks.data.entity.CaldavAccount) {
+                scope.launch {
+                    get<org.tasks.service.TaskMigrator>().migrateLocalTasks(account)
+                }
+            }
             override suspend fun sync(source: SyncSource) {
                 if (!mutex.tryLock()) {
                     pending.set(true)
@@ -200,6 +208,7 @@ val commonModule = module {
     factory { TaskCompleter(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
     factoryOf(::TimerPlugin)
     factoryOf(::TaskDeleter)
+    factoryOf(::TaskMigrator)
     factoryOf(::TaskSaver)
     factoryOf(::iCalendar)
     factoryOf(::CaldavSynchronizer)
@@ -256,6 +265,21 @@ val commonModule = module {
         LocalAccountViewModel(
             caldavDao = get(),
             taskDeleter = get(),
+        )
+    }
+    viewModel {
+        TasksAccountViewModel(
+            provider = get(),
+            reporting = get(),
+            accountDataRepository = get(),
+            caldavDao = get(),
+            principalDao = get(),
+            backgroundWork = get(),
+            pushTokenManager = get(),
+            taskDeleter = get(),
+            tasksPreferences = get(),
+            subscriptionProvider = get(),
+            caldavUrl = get<org.tasks.auth.TasksServerEnvironment>().caldavUrl,
         )
     }
     viewModel {

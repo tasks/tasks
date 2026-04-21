@@ -29,6 +29,11 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
+import org.tasks.fcm.PushTokenManager
+import org.tasks.jobs.BackgroundWork
+import org.tasks.preferences.TasksPreferences
+import org.tasks.service.TaskDeleter
+import org.tasks.sync.SyncSource
 
 data class TasksAccountState(
     val account: CaldavAccount? = null,
@@ -57,6 +62,10 @@ open class TasksAccountViewModel(
     private val accountDataRepository: TasksAccountDataRepository,
     private val caldavDao: CaldavDao,
     private val principalDao: PrincipalDao,
+    private val backgroundWork: BackgroundWork,
+    private val pushTokenManager: PushTokenManager,
+    private val taskDeleter: TaskDeleter,
+    private val tasksPreferences: TasksPreferences,
     subscriptionProvider: SubscriptionProvider,
     caldavUrl: String,
 ) : ViewModel() {
@@ -217,6 +226,17 @@ open class TasksAccountViewModel(
         _newPassword.value = null
     }
 
+    fun acceptTos(tosVersion: Int) {
+        _tosDismissed.value = true
+        viewModelScope.launch {
+            tasksPreferences.set(TasksPreferences.acceptedTosVersion, tosVersion)
+            account.value?.let {
+                caldavDao.update(it.copy(error = null))
+            }
+            backgroundWork.sync(SyncSource.ACCOUNT_ADDED)
+        }
+    }
+
     fun dismissTos() {
         _tosDismissed.value = true
     }
@@ -235,6 +255,16 @@ open class TasksAccountViewModel(
         }
     }
 
+    fun migrateLocalTasks() {
+        account.value?.let { backgroundWork.migrateLocalTasks(it) }
+    }
+
+    suspend fun logout(account: CaldavAccount) {
+        pushTokenManager.unregisterToken(account)
+        taskDeleter.delete(account)
+        accountDataRepository.clear()
+    }
+
     fun setInboundCalendar(calendar: String?) = viewModelScope.launch {
         val account = account.value ?: return@launch
         try {
@@ -247,5 +277,9 @@ open class TasksAccountViewModel(
         } catch (e: Exception) {
             Logger.e(e) { "Failed to set inbound calendar" }
         }
+    }
+
+    companion object {
+        const val DEFAULT_TOS_VERSION = 1
     }
 }

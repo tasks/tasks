@@ -455,5 +455,4 @@
   <string name="p_multiline_title">multiline_title</string>
   <string name="p_dynamic_color">dynamic_color</string>
   <string name="remote_config_tos_version">tos_version</string>
-  <integer name="default_tos_version">1</integer>
 </resources>

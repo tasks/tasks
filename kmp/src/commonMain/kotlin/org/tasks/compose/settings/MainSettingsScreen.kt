@@ -39,6 +39,7 @@ import tasks.kmp.generated.resources.date_and_time
 import tasks.kmp.generated.resources.debug
 import tasks.kmp.generated.resources.about
 import tasks.kmp.generated.resources.local_lists
+import tasks.kmp.generated.resources.tasks_org
 import tasks.kmp.generated.resources.navigation_drawer
 import tasks.kmp.generated.resources.notifications
 import tasks.kmp.generated.resources.preferences_advanced
@@ -70,6 +71,12 @@ data class LocalAccountSettingsPane(
     val account: CaldavAccount,
 ) : SettingsPane {
     override val titleRes: StringResource = Res.string.local_lists
+}
+
+data class TasksAccountSettingsPane(
+    val account: CaldavAccount,
+) : SettingsPane {
+    override val titleRes: StringResource = Res.string.tasks_org
 }
 
 @Composable
