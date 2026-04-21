@@ -966,6 +966,30 @@
 +|    +--- androidx.datastore:datastore-preferences:1.2.1 (*)
 +|    \--- com.google.protobuf:protobuf-kotlin-lite:4.33.2 (*)
 ++--- project :kmp
++|    +--- androidx.activity:activity-compose:1.13.0
++|    |    +--- androidx.activity:activity:1.13.0 (*)
++|    |    +--- androidx.compose.runtime:runtime:1.7.0 -> 1.10.5 (*)
++|    |    +--- androidx.compose.runtime:runtime-saveable:1.7.0 -> 1.10.5 (*)
++|    |    +--- androidx.compose.ui:ui:1.0.1 -> 1.10.5 (*)
++|    |    +--- androidx.core:core-ktx:1.18.0 (*)
++|    |    +--- androidx.lifecycle:lifecycle-common:2.9.4 -> 2.10.0 (*)
++|    |    +--- androidx.lifecycle:lifecycle-runtime:2.9.4 -> 2.10.0 (*)
++|    |    +--- androidx.lifecycle:lifecycle-runtime-compose:2.9.4 -> 2.10.0 (*)
++|    |    +--- androidx.lifecycle:lifecycle-viewmodel:2.9.4 -> 2.10.0 (*)
++|    |    +--- androidx.navigationevent:navigationevent-compose:1.0.0
++|    |    |    \--- androidx.navigationevent:navigationevent-compose-android:1.0.0
++|    |    |         +--- androidx.compose.runtime:runtime:1.9.2 -> 1.10.5 (*)
++|    |    |         +--- androidx.compose.ui:ui:1.9.2 -> 1.10.5 (*)
++|    |    |         +--- androidx.navigationevent:navigationevent:1.0.0 (*)
++|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.3.10 (*)
++|    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.10.2 (*)
++|    |    |         +--- androidx.navigationevent:navigationevent:1.0.0 (c)
++|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.3.10 (c)
++|    |    +--- androidx.savedstate:savedstate:1.2.1 -> 1.4.0 (*)
++|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.3.10 (*)
++|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.10.2 (*)
++|    |    +--- androidx.activity:activity:1.13.0 (c)
++|    |    \--- androidx.activity:activity-ktx:1.13.0 (c)
 +|    +--- androidx.compose.ui:ui-tooling-preview-android:1.9.5 -> 1.10.5
 +|    |    +--- androidx.annotation:annotation:1.9.1 (*)
 +|    |    +--- androidx.compose.runtime:runtime:1.10.5 (*)
@@ -1040,30 +1064,7 @@
 +|    |    |    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.10.0 (c)
 +|    |    |    \--- androidx.lifecycle:lifecycle-livedata-core:2.10.0 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0 (*)
-+|    |    +--- androidx.activity:activity-compose:1.12.4 -> 1.13.0
-+|    |    |    +--- androidx.activity:activity:1.13.0 (*)
-+|    |    |    +--- androidx.compose.runtime:runtime:1.7.0 -> 1.10.5 (*)
-+|    |    |    +--- androidx.compose.runtime:runtime-saveable:1.7.0 -> 1.10.5 (*)
-+|    |    |    +--- androidx.compose.ui:ui:1.0.1 -> 1.10.5 (*)
-+|    |    |    +--- androidx.core:core-ktx:1.18.0 (*)
-+|    |    |    +--- androidx.lifecycle:lifecycle-common:2.9.4 -> 2.10.0 (*)
-+|    |    |    +--- androidx.lifecycle:lifecycle-runtime:2.9.4 -> 2.10.0 (*)
-+|    |    |    +--- androidx.lifecycle:lifecycle-runtime-compose:2.9.4 -> 2.10.0 (*)
-+|    |    |    +--- androidx.lifecycle:lifecycle-viewmodel:2.9.4 -> 2.10.0 (*)
-+|    |    |    +--- androidx.navigationevent:navigationevent-compose:1.0.0
-+|    |    |    |    \--- androidx.navigationevent:navigationevent-compose-android:1.0.0
-+|    |    |    |         +--- androidx.compose.runtime:runtime:1.9.2 -> 1.10.5 (*)
-+|    |    |    |         +--- androidx.compose.ui:ui:1.9.2 -> 1.10.5 (*)
-+|    |    |    |         +--- androidx.navigationevent:navigationevent:1.0.0 (*)
-+|    |    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.3.10 (*)
-+|    |    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.10.2 (*)
-+|    |    |    |         +--- androidx.navigationevent:navigationevent:1.0.0 (c)
-+|    |    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.3.10 (c)
-+|    |    |    +--- androidx.savedstate:savedstate:1.2.1 -> 1.4.0 (*)
-+|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.3.10 (*)
-+|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.10.2 (*)
-+|    |    |    +--- androidx.activity:activity:1.13.0 (c)
-+|    |    |    \--- androidx.activity:activity-ktx:1.13.0 (c)
++|    |    +--- androidx.activity:activity-compose:1.12.4 -> 1.13.0 (*)
 +|    |    +--- androidx.compose:compose-bom:2026.02.01 -> 2026.03.00 (*)
 +|    |    +--- androidx.compose.material3:material3 -> 1.5.0-alpha08
 +|    |    |    \--- androidx.compose.material3:material3-android:1.5.0-alpha08
