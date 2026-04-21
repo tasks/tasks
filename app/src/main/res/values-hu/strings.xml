@@ -709,4 +709,16 @@
     <string name="per_list_sort_title">Listánkénti rendezés</string>
     <string name="p_per_list_sort">listánkénti_rendezés</string>
     <string name="per_list_sort_summary">Listánként eltérő rendezési és csoportosítási beállítások eltárolása</string>
+    <string name="location_update_interval_title">Helyadatok frissítése a háttérben</string>
+    <string name="location_update_interval_summary">A rendszeres helyadat frissítés javítja a geokerítés megbízhatóságát</string>
+    <string name="location_update_interval_disabled">Letiltva</string>
+    <string name="location_update_interval_15_minutes">15 percenként</string>
+    <string name="location_update_interval_30_minutes">30 percenként</string>
+    <string name="location_update_interval_1_hour">Óránként</string>
+    <string name="location_update_interval_2_hours">2 óránként</string>
+    <string name="read_more">Mutass többet</string>
+    <string name="blog_notifications">Blog értesítések</string>
+    <string name="blog_feed_none">Nincs</string>
+    <string name="blog_feed_announcements">Csak a bejelentések</string>
+    <string name="blog_feed_all">Minden bejegyzés</string>
 </resources>
