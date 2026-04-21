@@ -9,6 +9,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import okhttp3.Request
 import okhttp3.Response
 import org.tasks.auth.TasksServerEnvironment
@@ -30,8 +32,9 @@ class SseClient(
     private val httpClientFactory: OkHttpClientFactory,
     private val tokenProvider: SseTokenProvider,
 ) {
+    private val mutex = Mutex()
     private var connectionJob: Job? = null
-    private var currentCall: okhttp3.Call? = null
+    @Volatile private var currentCall: okhttp3.Call? = null
     private var backoffMs = INITIAL_BACKOFF_MS
 
     fun start() {
@@ -41,15 +44,18 @@ class SseClient(
                 .distinctUntilChanged()
                 .collect { hasTasksAccount ->
                     if (hasTasksAccount) {
-                        startConnection()
+                        mutex.withLock { startConnectionLocked() }
                     } else {
-                        stopConnection()
+                        mutex.withLock {
+                            stopConnectionLocked()
+                            Logger.i(TAG) { "SSE stopped: no Tasks.org account" }
+                        }
                     }
                 }
         }
     }
 
-    private fun startConnection() {
+    private fun startConnectionLocked() {
         if (connectionJob?.isActive == true) return
         backoffMs = INITIAL_BACKOFF_MS
         connectionJob = scope.launch(Dispatchers.IO) {
@@ -70,22 +76,20 @@ class SseClient(
         }
     }
 
-    private fun stopConnection() {
+    private suspend fun stopConnectionLocked() {
         currentCall?.cancel()
         currentCall = null
-        connectionJob?.cancel()
+        connectionJob?.cancelAndJoin()
         connectionJob = null
-        Logger.i(TAG) { "SSE stopped: no Tasks.org account" }
     }
 
     fun reconnect() {
         scope.launch {
-            Logger.i(TAG) { "SSE reconnect requested" }
-            currentCall?.cancel()
-            currentCall = null
-            connectionJob?.cancelAndJoin()
-            connectionJob = null
-            startConnection()
+            mutex.withLock {
+                Logger.i(TAG) { "SSE reconnect requested" }
+                stopConnectionLocked()
+                startConnectionLocked()
+            }
         }
     }
 
