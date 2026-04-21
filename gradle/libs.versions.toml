@@ -173,6 +173,7 @@ material-kolor = { module = "com.materialkolor:material-kolor", version.ref = "m
 microsoft-authentication = { module = "com.microsoft.identity.client:msal", version = "8.2.3" }
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version = "5.4.0" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
 osmdroid = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroid" }

@@ -470,6 +470,14 @@ class ApplicationModule {
     ) = TaskDeleter(deletionDao, taskDao, refreshBroadcaster, vtodoCache, tasksPreferences, taskCleanup)
 
     @Provides
+    fun providesTaskMigrator(
+        clientProvider: org.tasks.caldav.CaldavClientProvider,
+        caldavDao: CaldavDao,
+        syncAdapters: org.tasks.sync.SyncAdapters,
+        taskDeleter: TaskDeleter,
+    ) = org.tasks.service.TaskMigrator(clientProvider, caldavDao, syncAdapters, taskDeleter)
+
+    @Provides
     @Singleton
     fun providesTasksServerEnvironment(
         tasksPreferences: TasksPreferences,

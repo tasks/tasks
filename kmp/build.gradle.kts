@@ -50,6 +50,10 @@ kotlin {
         val jvmTest by getting {
             dependencies {
                 implementation(libs.junit)
+                implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.mockito.kotlin)
+                implementation(libs.androidx.room)
+                implementation(libs.androidx.sqlite)
             }
         }
         jvmCommonMain.dependencies {
