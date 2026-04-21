@@ -187,7 +187,7 @@ class TasksAccount : Fragment() {
                             viewModel.logout(account ?: initialAccount)
                             inventory.updateTasksAccount()
                         }
-                        activity?.onBackPressed()
+                        activity?.onBackPressedDispatcher?.onBackPressed()
                     }
                 },
                 onAcceptTos = {
