@@ -14,7 +14,7 @@
     <string name="DLG_delete_this_task_question">Ta bort denna uppgift\?</string>
     <string name="DLG_hour_minutes">Tid (timmar : minuter)</string>
     <string name="DLG_undo">Ångra</string>
-    <string name="WID_dateButtonUnset">Klicka för att ställa</string>
+    <string name="WID_dateButtonUnset">Klicka för att ställa in</string>
     <string name="TLA_no_items">Det finns inga uppgifter att visa.</string>
     <string name="TLA_menu_sort">Sortera</string>
     <string name="TLA_menu_search">Sök</string>
@@ -31,7 +31,7 @@
     <string name="TEA_importance_label">Prioritet</string>
     <string name="TEA_note_label">Beskrivning</string>
     <string name="TEA_estimatedDuration_label">Hur lång tid kommer det att ta?</string>
-    <string name="TEA_elapsedDuration_label">Tid redan spenderad på uppgiften</string>
+    <string name="TEA_elapsedDuration_label">Tid som redan lagts på uppgiften</string>
     <string name="save">Spara</string>
     <string name="TEA_timer_est">Ung. %s</string>
     <string name="TEA_timer_elap">Förfluten %s</string>
@@ -89,7 +89,7 @@
     <string name="CFC_tag_contains_text">Etikettens namn innehåller: ?</string>
     <string name="CFC_title_contains_name">Titeln innehåller…</string>
     <string name="CFC_title_contains_text">Titeln innehåller: ?</string>
-    <string name="gcal_TEA_error">Misslyckades med att lägga uppgift till kalender!</string>
+    <string name="gcal_TEA_error">Det gick inte att lägga till uppgiften i kalendern!</string>
     <string name="gcal_TEA_showCalendar_label">Öppna kalenderhändelse</string>
     <string name="calendar_event_not_found">Kalenderhändelsen hittades inte</string>
     <string name="gcal_completed_title">%s (slutförd)</string>
@@ -97,7 +97,7 @@
     <string name="gtasks_GTA_clear_completed">Rensa slutförda</string>
     <string name="gtasks_GLA_authenticating">Autentiserar…</string>
     <string name="gtasks_GLA_errorIOAuth">Tyvärr, vi hade problem med att kommunicera med Googles servrar. Vänligen försök igen senare.</string>
-    <string name="gtasks_GPr_header">Google Uppgifter</string>
+    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_error_accountNotFound">Kontot %s hittades inte— vänligen logga ut och in igen från inställningarna för Google Tasks.</string>
     <string name="premium_record_audio">Spela in en anteckning</string>
     <string name="ring_once">Ring en gång</string>
@@ -117,7 +117,7 @@
     <string name="default_random_reminder_weekly">varje vecka</string>
     <string name="default_random_reminder_bi_weekly">varannan vecka</string>
     <string name="repeat_snackbar">%1$s omplanerat till %2$s</string>
-    <string name="new_tag">Skapa en ny ettikett</string>
+    <string name="new_tag">Skapa en ny etikett</string>
     <string name="new_list">Skapa en ny lista</string>
     <string name="delete_tag_confirmation">Ta bort %s?</string>
     <string name="TPl_notification">Tidtagare aktiva för %s!</string>
@@ -169,7 +169,7 @@
     <string name="date_shortcut_tomorrow_afternoon">Imorgon på eftermiddagen</string>
     <string name="date_shortcut_must_come_before">%1$s måste komma före %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s måste komma efter %2$s</string>
-    <string name="discard_changes">Ta bort ändringar?</string>
+    <string name="discard_changes">Ignorera ändringarna?</string>
     <string name="discard">Ta bort</string>
     <string name="tag_settings">Tagginställningar</string>
     <string name="list_settings">Listinställningar</string>
@@ -182,7 +182,7 @@
     <string name="pick_from_storage">Välj från lagring</string>
     <string name="privacy_policy">Integritetspolicy</string>
     <string name="send_anonymous_statistics">Förbättra Tasks</string>
-    <string name="send_anonymous_statistics_summary">Skicka anonym användarstatistik och crashrapporter för att hjälpa till att förbättra Tasks. Ingen personlig information kommer samlas in.</string>
+    <string name="send_anonymous_statistics_summary">Skicka anonym användarstatistik och kraschrapporter för att hjälpa till att förbättra Tasks. Ingen personlig information kommer samlas in.</string>
     <string name="tag_already_exists">Etiketten finns redan</string>
     <string name="name_cannot_be_empty">Namn måste anges</string>
     <string name="no_title">(Ingen titel)</string>
@@ -403,7 +403,7 @@
     <string name="preferences_advanced">Avancerat</string>
     <string name="show_advanced_settings">Visa avancerade inställningar</string>
     <string name="action_new_task">Ny uppgift</string>
-    <string name="help_and_feedback">Hjälp &amp; återkoppling</string>
+    <string name="help_and_feedback">Hjälp &amp; synpunkter</string>
     <string name="widget_due_date_hidden">Dold</string>
     <string name="widget_open_list">Öppna lista</string>
     <string name="date_shortcut_tomorrow_night">Imorgon natt</string>
@@ -411,7 +411,7 @@
     <string name="widget_show_menu">Visa meny</string>
     <string name="CFC_list_name">I lista…</string>
     <string name="email">E-post</string>
-    <string name="upgrade_blurb_2">Jag har ägnat tusentals timmar på Tasks och jag publicerar all källkod fritt på nätet. För att stöda mitt arbete kräver vissa funktioner ett abonnemang</string>
+    <string name="upgrade_blurb_2">Jag har ägnat tusentals timmar åt Tasks och jag publicerar all källkod fritt på nätet. För att stöda mitt arbete kräver vissa funktioner ett abonnemang</string>
     <string name="etesync_account_description">Kräver ett konto hos EteSync.com eller en egen värdserver</string>
     <string name="caldav_account_description">Kräver ett konto hos en CalDAV-tjänsteleverantör eller en egen server. Hitta en tjänsteleverantör genom att besöka tasks.org/caldav</string>
     <string name="menu_discard_changes">Ignorera ändringar</string>
