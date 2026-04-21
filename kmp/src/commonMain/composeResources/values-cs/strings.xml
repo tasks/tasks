@@ -189,4 +189,5 @@
         <item quantity="few">%1$d seznamy</item>
         <item quantity="other">%1$d seznamů</item>
     </plurals>
+    <string name="debug">Ladění</string>
 </resources>
