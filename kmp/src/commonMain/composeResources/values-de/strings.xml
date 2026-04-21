@@ -125,8 +125,8 @@
     <string name="guest">Gast</string>
     <string name="donate">Spenden</string>
     <string name="donate_nag">Erwäge deine Unterstützung mit einer Spende zu zeigen!</string>
-    <string name="manage_subscription">Abonnement ändern</string>
-    <string name="button_unsubscribe">Abonnement kündigen</string>
+    <string name="manage_subscription">Abo ändern</string>
+    <string name="button_unsubscribe">Abo kündigen</string>
     <string name="migrate">Migrieren</string>
     <string name="local_lists">Lokale Listen</string>
     <string name="email_to_task">E-Mail Aufgabenerstellung</string>
@@ -152,8 +152,8 @@
     <string name="view_tos">Nutzungsbedingungen ansehen</string>
     <string name="insufficient_sponsorship">Kein qualifiziertes GitHub-Sponsoring gefunden</string>
     <string name="button_subscribe">Abonnieren</string>
-    <string name="your_subscription_expired">Dein Abonnement ist abgelaufen. Abonniere jetzt, um den Dienst fortzusetzen.</string>
-    <string name="insufficient_subscription">Unzureichende Abonnementstufe. Bitte aktualisiere dein Abonnement, um den Dienst fortzusetzen.</string>
+    <string name="your_subscription_expired">Dein Abo ist abgelaufen. Abonniere jetzt, um den Dienst fortzusetzen.</string>
+    <string name="insufficient_subscription">Unzureichende Abonnementstufe. Bitte aktualisiere dein Abo, um den Dienst fortzusetzen.</string>
     <string name="authentication_required">Authentifizierung erforderlich</string>
     <string name="app_password_save">Nutze diese Anmeldedaten, um eine Drittanbieter-App zu konfigurieren. Diese erlauben vollen Zugriff auf deinen Task.org-Konto. Schreib sie nicht auf und teile sie mit niemandem!</string>
     <string name="url">URL</string>
