@@ -504,7 +504,7 @@
     <string name="android_auto_backup_device_summary">Du musst den Sicherungsdienst auch in den Geräteeinstellungen aktivieren. Nicht alle Geräte bieten einen Sicherungsdienst.</string>
     <string name="follow_reddit">r/tasks beitreten</string>
     <string name="current_subscription">Aktuelles Abonnement: %s</string>
-    <string name="your_subscription_expired">Dein Abonnement ist abgelaufen. Abonniere jetzt, um den Dienst fortzusetzen.</string>
+    <string name="your_subscription_expired">Dein Abo ist abgelaufen. Abonniere jetzt, um den Dienst fortzusetzen.</string>
     <string name="background_location_permission_required">Tasks sammelt Standortdaten, um standortbezogene Erinnerungen zu ermöglichen, auch wenn die App geschlossen ist oder nicht verwendet wird.</string>
     <string name="repeat_monthly_fifth_week">fünften</string>
     <string name="save_percent">%d %% sparen</string>
