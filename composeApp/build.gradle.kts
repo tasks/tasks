@@ -42,6 +42,13 @@ kotlin {
 
     sourceSets {
         val desktopMain by getting
+        val desktopTest by getting
+
+        desktopTest.dependencies {
+            implementation(libs.junit)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.mockito.kotlin)
+        }
 
         commonMain.dependencies {
             implementation(projects.data)
