@@ -39,6 +39,7 @@ kotlin {
                 }
                 implementation(libs.persistent.cookiejar)
                 implementation(libs.pebblekit)
+                api(libs.etebase)
             }
         }
         jvmMain {

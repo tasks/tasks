@@ -1,6 +1,6 @@
 package org.tasks.etebase
 
-import android.content.Context
+import co.touchlab.kermit.Logger
 import com.etebase.client.Account
 import com.etebase.client.Collection
 import com.etebase.client.FetchOptions
@@ -12,15 +12,14 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import timber.log.Timber
 
 class EtebaseClient(
-        private val context: Context,
+        private val filesDir: String,
         private val username: String,
         private val etebase: Account,
         private val caldavDao: CaldavDao
 ) {
-    private val cache = EtebaseLocalCache.getInstance(context, username)
+    private val cache = EtebaseLocalCache.getInstance(filesDir, username)
 
     fun getSession(): String = etebase.save(null)
 
@@ -66,7 +65,7 @@ class EtebaseClient(
         val itemManager = etebase.collectionManager.getItemManager(collection)
         val obj = task.obj
             ?: run {
-                Timber.e("null obj for caldavTask.id=${task.id}")
+                Logger.e("EtebaseClient") { "null obj for caldavTask.id=${task.id}" }
                 task.obj = task.remoteId
                 task.obj
             }
@@ -87,7 +86,7 @@ class EtebaseClient(
         val itemManager = etebase.collectionManager.getItemManager(collection)
         val objId = task.obj
             ?: run {
-                Timber.e("null obj for caldavTask.id=${task.id}")
+                Logger.e("EtebaseClient") { "null obj for caldavTask.id=${task.id}" }
                 task.obj = task.remoteId
                 task.obj
             }
@@ -119,12 +118,12 @@ class EtebaseClient(
 
     suspend fun logout() {
         try {
-            EtebaseLocalCache.clear(context, username)
+            EtebaseLocalCache.clear(filesDir, username)
             withContext(Dispatchers.IO) {
                 etebase.logout()
             }
         } catch (e: Exception) {
-            Timber.e(e)
+            Logger.e("EtebaseClient", e) { "logout failed" }
         }
     }
 

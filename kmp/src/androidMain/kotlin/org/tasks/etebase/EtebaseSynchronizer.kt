@@ -1,7 +1,6 @@
 package org.tasks.etebase
 
-import android.content.Context
-import android.graphics.Color
+import co.touchlab.kermit.Logger
 import com.etebase.client.Collection
 import com.etebase.client.Item
 import com.etebase.client.exceptions.ConnectionException
@@ -9,16 +8,13 @@ import com.etebase.client.exceptions.PermissionDeniedException
 import com.etebase.client.exceptions.ServerErrorException
 import com.etebase.client.exceptions.TemporaryServerErrorException
 import com.etebase.client.exceptions.UnauthorizedException
-import org.tasks.service.TaskDeleter
-import dagger.hilt.android.qualifiers.ApplicationContext
 import net.fortuna.ical4j.model.property.ProdId
 import org.jetbrains.compose.resources.getString
-import org.tasks.kmp.PROD_ID
-import org.tasks.R
-import org.tasks.Strings.isNullOrEmpty
+import org.tasks.analytics.AnalyticsEvents.INITIAL_SYNC_COMPLETE
+import org.tasks.analytics.AnalyticsEvents.PARAM_TASK_COUNT
+import org.tasks.analytics.AnalyticsEvents.PARAM_TYPE
 import org.tasks.analytics.Constants
-import org.tasks.analytics.Firebase
-import org.tasks.billing.Inventory
+import org.tasks.analytics.Reporting
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.Task.Companion.prodId
 import org.tasks.caldav.VtodoCache
@@ -28,22 +24,21 @@ import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.kmp.PROD_ID
+import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.password_required
-import timber.log.Timber
-import javax.inject.Inject
+import tasks.kmp.generated.resources.requires_pro_subscription
 
-class EtebaseSynchronizer @Inject constructor(
-    @param:ApplicationContext private val context: Context,
+class EtebaseSynchronizer(
     private val caldavDao: CaldavDao,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val taskDeleter: TaskDeleter,
-    private val inventory: Inventory,
     private val clientProvider: EtebaseClientProvider,
     private val iCal: iCalendar,
     private val vtodoCache: VtodoCache,
-    private val firebase: Firebase,
+    private val reporting: Reporting,
 ) {
     companion object {
         init {
@@ -51,13 +46,13 @@ class EtebaseSynchronizer @Inject constructor(
         }
     }
 
-    suspend fun sync(account: CaldavAccount) {
-        Timber.d("Synchronizing $account")
-        if (!inventory.hasPro) {
-            setError(account, context.getString(R.string.requires_pro_subscription))
+    suspend fun sync(account: CaldavAccount, hasPro: Boolean) {
+        Logger.d("EtebaseSynchronizer") { "Synchronizing $account" }
+        if (!hasPro) {
+            setError(account, getString(Res.string.requires_pro_subscription))
             return
         }
-        if (isNullOrEmpty(account.password)) {
+        if (account.password.isNullOrEmpty()) {
             setError(account, getString(Res.string.password_required))
             return
         }
@@ -65,10 +60,10 @@ class EtebaseSynchronizer @Inject constructor(
             synchronize(account)
             if (account.lastSync == 0L) {
                 val taskCount = caldavDao.getTaskCountForAccount(account.uuid!!)
-                firebase.logEvent(
-                    R.string.event_initial_sync_complete,
-                    R.string.param_type to Constants.SYNC_TYPE_ETEBASE,
-                    R.string.param_task_count to taskCount
+                reporting.logEvent(
+                    INITIAL_SYNC_COMPLETE,
+                    PARAM_TYPE to Constants.SYNC_TYPE_ETEBASE,
+                    PARAM_TASK_COUNT to taskCount
                 )
             }
             account.lastSync = currentTimeMillis()
@@ -90,7 +85,7 @@ class EtebaseSynchronizer @Inject constructor(
         val client = clientProvider.forAccount(account)
         val collections = client.getCollections()
         val uids = collections.map { it.uid }
-        Timber.d("Found uids: %s", uids)
+        Logger.d("EtebaseSynchronizer") { "Found uids: $uids" }
         for (calendar in caldavDao.findDeletedCalendars(account.uuid!!, uids)) {
             taskDeleter.delete(calendar)
         }
@@ -98,7 +93,13 @@ class EtebaseSynchronizer @Inject constructor(
             val uid = collection.uid
             var calendar = caldavDao.getCalendarByUrl(account.uuid!!, uid)
             val meta = collection.meta
-            val color = meta.color?.takeIf { it.isNotBlank() }?.let { Color.parseColor(it) } ?: 0
+            val color = meta.color
+                ?.takeIf { it.isNotBlank() }
+                ?.let {
+                    val parsed = java.lang.Long.decode(it).toInt()
+                    if (it.length == 7) parsed or 0xFF000000.toInt() else parsed
+                }
+                ?: 0
             if (calendar == null) {
                 calendar = CaldavCalendar(
                     name = meta.name,
@@ -126,8 +127,8 @@ class EtebaseSynchronizer @Inject constructor(
         account.error = message
         caldavDao.update(account)
         refreshBroadcaster.broadcastRefresh()
-        if (!isNullOrEmpty(message)) {
-            Timber.e(message)
+        if (!message.isNullOrEmpty()) {
+            Logger.e("EtebaseSynchronizer") { message }
         }
     }
 
@@ -138,17 +139,17 @@ class EtebaseSynchronizer @Inject constructor(
         collection: Collection
     ) {
         if (caldavCalendar.ctag?.equals(collection.stoken) == true) {
-            Timber.d("${caldavCalendar.name} up to date")
+            Logger.d("EtebaseSynchronizer") { "${caldavCalendar.name} up to date" }
             return
         }
-        Timber.d("updating $caldavCalendar")
+        Logger.d("EtebaseSynchronizer") { "updating $caldavCalendar" }
         client.fetchItems(collection, caldavCalendar) { (stoken, items) ->
             applyEntries(account, caldavCalendar, items, stoken)
             client.updateCache(collection, items)
         }
-        Timber.d("UPDATE %s", caldavCalendar)
+        Logger.d("EtebaseSynchronizer") { "UPDATE $caldavCalendar" }
         caldavDao.update(caldavCalendar)
-        Timber.d("Updating parents for ${caldavCalendar.uuid}")
+        Logger.d("EtebaseSynchronizer") { "Updating parents for ${caldavCalendar.uuid}" }
         caldavDao.updateParents(caldavCalendar.uuid!!)
         refreshBroadcaster.broadcastRefresh()
     }

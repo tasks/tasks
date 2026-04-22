@@ -1,6 +1,5 @@
 package org.tasks.etebase
 
-import android.content.Context
 import com.etebase.client.*
 import com.etebase.client.Collection
 import com.etebase.client.exceptions.EtebaseException
@@ -10,8 +9,8 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.util.*
 
-class EtebaseLocalCache private constructor(context: Context, username: String) {
-    private val fsCache: FileSystemCache = FileSystemCache.create(context.filesDir.absolutePath, username)
+class EtebaseLocalCache private constructor(filesDir: String, username: String) {
+    private val fsCache: FileSystemCache = FileSystemCache.create(filesDir, username)
 
     private suspend fun clearUserCache() {
         withContext(Dispatchers.IO) {
@@ -90,28 +89,28 @@ class EtebaseLocalCache private constructor(context: Context, username: String) 
     companion object {
         private val localCacheCache: HashMap<String, EtebaseLocalCache> = HashMap()
 
-        fun getInstance(context: Context, username: String): EtebaseLocalCache {
+        fun getInstance(filesDir: String, username: String): EtebaseLocalCache {
             synchronized(localCacheCache) {
                 val cached = localCacheCache[username]
                 return if (cached != null) {
                     cached
                 } else {
-                    val ret = EtebaseLocalCache(context, username)
+                    val ret = EtebaseLocalCache(filesDir, username)
                     localCacheCache[username] = ret
                     ret
                 }
             }
         }
 
-        fun clear(context: Context) = runBlocking {
+        fun clear(filesDir: String) = runBlocking {
             val users = synchronized(localCacheCache) {
                 localCacheCache.keys.toList()
             }
-            users.forEach { clear(context, it) }
+            users.forEach { clear(filesDir, it) }
         }
 
-        suspend fun clear(context: Context, username: String) {
-            val localCache = getInstance(context, username)
+        suspend fun clear(filesDir: String, username: String) {
+            val localCache = getInstance(filesDir, username)
             localCache.clearUserCache()
             localCacheCache.remove(username)
         }

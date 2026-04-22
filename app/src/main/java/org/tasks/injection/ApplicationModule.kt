@@ -36,6 +36,8 @@ import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavClientProvider
+import org.tasks.etebase.EtebaseClientProvider
+import org.tasks.etebase.EtebaseSynchronizer
 import org.tasks.caldav.TasksBasicAuth
 import org.tasks.feed.BlogFeedChecker
 import org.tasks.http.HttpClientFactory
@@ -309,6 +311,38 @@ class ApplicationModule {
         tasksPreferences = tasksPreferences,
         purchaseState = purchaseState,
         refreshFlow = composeRefreshBroadcaster.refreshes,
+    )
+
+    @Provides
+    fun providesEtebaseSynchronizer(
+        caldavDao: CaldavDao,
+        refreshBroadcaster: RefreshBroadcaster,
+        taskDeleter: TaskDeleter,
+        clientProvider: EtebaseClientProvider,
+        iCal: org.tasks.caldav.iCalendar,
+        vtodoCache: VtodoCache,
+        reporting: Reporting,
+    ): EtebaseSynchronizer = EtebaseSynchronizer(
+        caldavDao = caldavDao,
+        refreshBroadcaster = refreshBroadcaster,
+        taskDeleter = taskDeleter,
+        clientProvider = clientProvider,
+        iCal = iCal,
+        vtodoCache = vtodoCache,
+        reporting = reporting,
+    )
+
+    @Provides
+    fun providesEtebaseClientProvider(
+        @ApplicationContext context: Context,
+        encryption: KeyStoreEncryption,
+        caldavDao: CaldavDao,
+        httpClientFactory: HttpClientFactory,
+    ): EtebaseClientProvider = EtebaseClientProvider(
+        filesDir = context.filesDir.absolutePath,
+        encryption = encryption,
+        caldavDao = caldavDao,
+        httpClientFactory = httpClientFactory,
     )
 
     @Provides
