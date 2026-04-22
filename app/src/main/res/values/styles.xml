@@ -144,6 +144,12 @@
 
   <!-- Location picker -->
 
+  <style name="LocationPickerTheme" parent="ThemeOverlay.MaterialComponents.Light">
+    <item name="toolbarNavigationButtonStyle">@style/BlackNavigation</item>
+    <item name="iconTint">?attr/colorOnSurface</item>
+    <item name="android:actionOverflowButtonStyle">@style/BlackOverflow</item>
+  </style>
+
   <style name="popup_overlay" parent="ThemeOverlay.Material3.Light"/>
 
   <!---->

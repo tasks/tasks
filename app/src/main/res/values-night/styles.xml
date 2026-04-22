@@ -11,6 +11,12 @@
     <item name="android:actionOverflowButtonStyle">@style/WhiteOverflow</item>
   </style>
 
+  <style name="LocationPickerTheme" parent="ThemeOverlay.MaterialComponents.Dark">
+    <item name="toolbarNavigationButtonStyle">@style/WhiteNavigation</item>
+    <item name="iconTint">?attr/colorOnSurface</item>
+    <item name="android:actionOverflowButtonStyle">@style/WhiteOverflow</item>
+  </style>
+
   <!-- Location picker -->
 
   <style name="popup_overlay" parent="ThemeOverlay.Material3.Dark"/>

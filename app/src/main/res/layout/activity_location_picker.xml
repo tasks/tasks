@@ -18,7 +18,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:fitsSystemWindows="true"
-      android:theme="@style/ToolbarTheme"
+      android:theme="@style/LocationPickerTheme"
       app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
       app:contentScrim="@color/content_background"
       app:statusBarScrim="@color/content_background"
@@ -135,7 +135,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:theme="@style/ToolbarTheme"
+        android:theme="@style/LocationPickerTheme"
         app:layout_collapseMode="pin"
         app:popupTheme="@style/popup_overlay"
         app:title="@string/choose_a_location"/>
