@@ -707,4 +707,6 @@
     <string name="blog_feed_none">无</string>
     <string name="blog_feed_announcements">仅公告</string>
     <string name="blog_feed_all">所有帖子</string>
+    <string name="upgrade_desktop_app">Tasks.org 桌面版</string>
+    <string name="upgrade_desktop_app_description">提前使用新的桌面版应用</string>
 </resources>
