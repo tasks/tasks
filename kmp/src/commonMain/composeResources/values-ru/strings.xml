@@ -157,4 +157,10 @@
         <item quantity="many">%1$d списков</item>
         <item quantity="other">%1$d списков</item>
     </plurals>
+    <string name="sort_alphabetical">По алфавиту</string>
+    <string name="sort_created">По созданию</string>
+    <string name="sort_modified">По изменению</string>
+    <string name="all_done">Всё готово!</string>
+    <string name="returning_user_import_backup">Импорт резервной копии Tasks.org</string>
+    <string name="legal_disclosure">%1$s, вы соглашаетесь с %2$s и %3$s. Tasks — это программное обеспечение с открытым исходным кодом, предоставляемое на условиях %4$s.</string>
 </resources>
