@@ -1,6 +1,7 @@
 package org.tasks.widget
 
 import android.content.Context
+import androidx.core.content.ContextCompat
 import android.content.Intent
 import android.text.format.Formatter
 import android.view.View
@@ -107,7 +108,7 @@ internal class TasksWidgetBuilder(
                 section.headerColor(
                     context,
                     settings.groupMode,
-                    if (settings.isDark) R.color.white_60 else R.color.black_60
+                    ContextCompat.getColor(context, if (settings.isDark) R.color.white_60 else R.color.black_60)
                 )
             )
             if (!settings.showDividers) {
