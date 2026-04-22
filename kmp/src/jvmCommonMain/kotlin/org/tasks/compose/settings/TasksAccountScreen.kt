@@ -786,7 +786,7 @@ private fun CalendarSelectionDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(Res.string.email_to_task_calendar)) },
         text = {
-            Column(modifier = Modifier.selectableGroup()) {
+            Column(modifier = Modifier.selectableGroup().verticalScroll(rememberScrollState())) {
                 calendars.forEach { calendar ->
                     val selected = calendar.calendarUri == currentUri
                     Row(
