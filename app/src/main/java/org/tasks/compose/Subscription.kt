@@ -143,20 +143,25 @@ object PurchaseText {
 
     private val tasksOrgFeatureList = listOf(
         CarouselItem(
+            title = R.string.upgrade_desktop_app,
+            icon = R.drawable.ic_outline_computer_24px,
+            description = R.string.upgrade_desktop_app_description,
+        ),
+        CarouselItem(
             title = R.string.upgrade_friends_and_family,
             icon = R.drawable.outline_groups_24,
             description = R.string.upgrade_friends_and_family_description,
+        ),
+        CarouselItem(
+            R.string.email_to_task,
+            R.drawable.ic_outline_email_24px,
+            R.string.upgrade_email_to_task_description
         ),
         CarouselItem(
             R.string.tasks_org_account,
             R.drawable.ic_round_icon,
             R.string.upgrade_tasks_org_account_description,
             iconStyle = IconStyle.ORIGINAL
-        ),
-        CarouselItem(
-            R.string.email_to_task,
-            R.drawable.ic_outline_email_24px,
-            R.string.upgrade_email_to_task_description
         ),
         CarouselItem(
             R.string.upgrade_more_customization,
