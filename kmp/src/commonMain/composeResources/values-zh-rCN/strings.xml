@@ -186,4 +186,5 @@
         <item quantity="other">%1$d 个清单</item>
     </plurals>
     <string name="debug">调试</string>
+    <string name="failed_to_save_task">保存任务失败</string>
 </resources>
