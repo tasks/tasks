@@ -175,11 +175,12 @@
     <string name="about">O aplikaci</string>
     <string name="widget_settings">Nastavení ovládacího prvku</string>
     <plurals name="task_count">
-        <item quantity="one">%d úkol</item>
-        <item quantity="few">%d úkoly</item>
-        <item quantity="other">%d úkolů</item>
+        <item quantity="one">%1$d úkol</item>
+        <item quantity="few">%1$d úkoly</item>
+        <item quantity="many">%1$d úkolů</item>
+        <item quantity="other">%1$d úkolů</item>
     </plurals>
-    <string name="delete_tasks_warning">Úkol %s bude odstraněn. Tato akce je nevratná!</string>
+    <string name="delete_tasks_warning">Úkol %1$s bude odstraněn. Tato akce je nevratná!</string>
     <string name="name_cannot_be_empty">Název nemůže být prázdný</string>
     <string name="discard_changes">Zahodit změny?</string>
     <string name="discard">Zahodit</string>
@@ -190,4 +191,5 @@
         <item quantity="other">%1$d seznamů</item>
     </plurals>
     <string name="debug">Ladění</string>
+    <string name="failed_to_save_task">Nepodařilo se uložit úlohu</string>
 </resources>
