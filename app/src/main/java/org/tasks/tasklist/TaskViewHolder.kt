@@ -58,7 +58,6 @@ class TaskViewHolder internal constructor(
     private val chipProvider: ChipProvider,
     private val checkBoxProvider: CheckBoxProvider,
     private val textColorOverdue: Int,
-    private val textColorSecondary: Int,
     private val callback: ViewHolderCallbacks,
     private val metrics: DisplayMetrics,
     private val background: Int,
@@ -217,7 +216,7 @@ class TaskViewHolder internal constructor(
             if (task.task.isOverdue) {
                 dueDate.setTextColor(textColorOverdue)
             } else {
-                dueDate.setTextColor(textColorSecondary)
+                dueDate.setTextColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant, 0))
             }
             val dateValue: String? = if (sortByDueDate
                     && (task.sortGroup ?: 0) >= currentTimeMillis().startOfDay()
