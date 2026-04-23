@@ -190,4 +190,5 @@
         <item quantity="other">%1$d listes</item>
     </plurals>
     <string name="debug">Débogage</string>
+    <string name="failed_to_save_task">Échec de l\'enregistrement de la tâche</string>
 </resources>
