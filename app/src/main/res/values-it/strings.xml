@@ -737,4 +737,6 @@
     <string name="blog_feed_none">Nessuna</string>
     <string name="blog_feed_announcements">Solo annunci</string>
     <string name="blog_feed_all">Tutti i post</string>
+    <string name="upgrade_desktop_app">Tasks.org per desktop</string>
+    <string name="upgrade_desktop_app_description">Accesso in anteprima alla nuova app per desktop</string>
 </resources>
