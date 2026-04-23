@@ -18,6 +18,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.flow.updateAndGet
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TaskDao
