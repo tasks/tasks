@@ -738,4 +738,6 @@
     <string name="blog_feed_announcements">Annonces uniquement</string>
     <string name="blog_feed_all">Tous les articles</string>
     <string name="blog_notifications">Notifications du blog</string>
+    <string name="upgrade_desktop_app">Tasks.org pour bureau</string>
+    <string name="upgrade_desktop_app_description">Accès anticipé à la nouvelle application de bureau</string>
 </resources>
