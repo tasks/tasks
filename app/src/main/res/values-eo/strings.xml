@@ -705,4 +705,6 @@
     <string name="upgrade_email_to_task_description">Krei taskojn el retpoŝtoj per antaŭsendi ilin al via privata enirkesto</string>
     <string name="guest_create_list_message">Vi nun havas aliron kiel gasto al komunaj listoj. Por krei kaj sinkronigi proprajn privatajn listojn al la nubo, vi bezonas abonon de Tasks.org. Vi povas ankaŭ krei senpagan lokan liston kiu restas en ĉi tiu aparato.</string>
     <string name="p_per_list_sort">ordigi_laŭ_listo</string>
+    <string name="location_update_interval_title">Fona aktualigo de loko</string>
+    <string name="location_update_interval_summary">Perioda aktualigo de loko plibonigas fidindecon de geografia barilo</string>
 </resources>
