@@ -16,7 +16,7 @@
     <string name="yesterday">Eile</string>
     <string name="today">Täna</string>
     <string name="search_no_results">Tulemusi pole</string>
-    <string name="requires_pro_subscription">Pro-versiooni funktsionaalsus</string>
+    <string name="requires_pro_subscription">Eeldab Pro-taseme tellimust</string>
     <string name="tomorrow_lowercase">homme</string>
     <string name="tomorrow_abbrev_lowercase">hom.</string>
     <string name="today_lowercase">täna</string>
@@ -49,7 +49,7 @@
     <string name="sort_created">Loomise aja alusel</string>
     <string name="sort_modified">Muutmise aja alusel</string>
     <string name="all_done">Saigi valmis!</string>
-    <string name="sort_list">Nimekiri</string>
+    <string name="sort_list">Loend</string>
     <string name="password_required">Salasõna on kohustuslik</string>
     <string name="caldav_home_set_not_found">Avakomplekti ei leidu</string>
     <string name="add_account">Lisa konto</string>
@@ -160,10 +160,10 @@
     <string name="about">Info</string>
     <string name="widget_settings">Vidina seadistused</string>
     <plurals name="task_count">
-        <item quantity="one">%d ülesanne</item>
-        <item quantity="other">%d ülesannet</item>
+        <item quantity="one">%1$d ülesanne</item>
+        <item quantity="other">%1$d ülesannet</item>
     </plurals>
-    <string name="delete_tasks_warning">%s saab olema kustutatud. Seda tegevust ei saa tagasi pöörata!</string>
+    <string name="delete_tasks_warning">%1$s saab olema kustutatud. Seda tegevust ei saa tagasi pöörata!</string>
     <string name="name_cannot_be_empty">Nimi ei saa olla tühi</string>
     <string name="discard_changes">Loobud muudatustest?</string>
     <string name="discard">Loobu</string>
@@ -172,4 +172,15 @@
         <item quantity="one">%1$d loend</item>
         <item quantity="other">%1$d loendit</item>
     </plurals>
+    <string name="failed_to_save_task">Ülesande salvestamine ei õnnestunud</string>
+    <string name="show_more">Näita rohkem</string>
+    <string name="show_less">Näita vähem</string>
+    <string name="tasks_org_description">Sisaldab jagamist pere ja sõpradega ning e-kirjast ülesande koostamist</string>
+    <string name="upgrade_to_pro_card_description">Saad kasutusele võtta sünkroonimise Tasks.org pilve, jagamise pere ja sõpradega ning e-kirjast ülesande koostamise</string>
+    <string name="supporter_summary_no_price">Täname!</string>
+    <string name="guest">Külaline</string>
+    <string name="shared_with_me">Jagatud minuga</string>
+    <string name="shared_by">Jagaja: %1$s</string>
+    <string name="guests">Külalised (%1$d/%2$d)</string>
+    <string name="debug">Silumine ja veaotsing</string>
 </resources>
