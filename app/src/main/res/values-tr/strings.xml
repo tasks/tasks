@@ -716,4 +716,7 @@
     <string name="blog_feed_none">Yok</string>
     <string name="blog_feed_announcements">Yalnızca duyurular</string>
     <string name="blog_feed_all">Tüm gönderiler</string>
+    <string name="p_per_list_sort">per_list_sort</string>
+    <string name="upgrade_desktop_app">Masaüstü için Tasks.org</string>
+    <string name="upgrade_desktop_app_description">Yeni masaüstü uygulamasına erken erişim</string>
 </resources>
