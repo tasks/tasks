@@ -184,4 +184,9 @@
         <item quantity="one">%1$d liste</item>
         <item quantity="other">%1$d liste</item>
     </plurals>
+    <string name="failed_to_save_task">Görev kaydedilemedi</string>
+    <string name="show_more">Daha fazla göster</string>
+    <string name="show_less">Daha az göster</string>
+    <string name="supporter_summary_no_price">Teşekkürler!</string>
+    <string name="debug">Hata ayıkla</string>
 </resources>
