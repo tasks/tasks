@@ -393,7 +393,7 @@
     <string name="custom_filter_has_reminder">Meeldetuletusega</string>
     <string name="privacy">Privaatsus</string>
     <string name="TEA_add_subtask">Lisa alamülesanne</string>
-    <string name="sort_list">Nimekirja alusel</string>
+    <string name="sort_list">Loendi alusel</string>
     <string name="due_time">Tähtaeg</string>
     <string name="filter_today_only">Ainult täna</string>
     <string name="filter_no_priority">Prioriteedita</string>
@@ -693,4 +693,27 @@
     <string name="advanced_tools">Täiendavad tarvikud</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync ja palju muud!</string>
     <string name="invalid_email_address">Vigane e-posti aadress</string>
+    <string name="share_list">Jaga „%1$s“ loendit</string>
+    <string name="already_subscribed">Kas juba oled tellija?</string>
+    <string name="location_update_interval_title">Asukoha uuendused taustal</string>
+    <string name="location_update_interval_summary">Aeg-ajalt toimuvad asukoha uuendused parandavad geotarastuse töökindlust</string>
+    <string name="location_update_interval_disabled">Pole kasutusel</string>
+    <string name="location_update_interval_15_minutes">Iga 15 minuti järel</string>
+    <string name="location_update_interval_30_minutes">Iga 30 minuti järel</string>
+    <string name="location_update_interval_1_hour">Kord tunnis</string>
+    <string name="location_update_interval_2_hours">Kord kahe tunni jooksul</string>
+    <string name="per_list_sort_title">Loendikohane järjestus</string>
+    <string name="per_list_sort_summary">Järjestuse ja rühmitamise seadistused jäävad salvestuvad iga loendi puhul eraldi</string>
+    <string name="send">Saada</string>
+    <string name="guest_create_list_message">Sul on praegu külaliskasutaja juurdepääs jagatud loenditele. Oma isiklike loendite loomiseks ja pilvega sünkroonimiseks on vaja Tasks.org-i tellimust. Või võid luua tasuta kohaliku nimekirja, mis jääb sellesse seadmesse.</string>
+    <string name="upgrade_desktop_app">Tasks.org töölaua jaoks</string>
+    <string name="upgrade_desktop_app_description">Varajane ligipääs töölauarakendusele</string>
+    <string name="upgrade_friends_and_family">Sõbrad ja pere</string>
+    <string name="upgrade_friends_and_family_description">5 tasuta külalist jagatud loendites. Töötab ka „Apple Reminders“ rakendusega</string>
+    <string name="sign_in_subtitle">Kas oled juba tellija või kutsud külaline?</string>
+    <string name="blog_feed_announcements">Vaid teated</string>
+    <string name="blog_feed_all">Kõik postitused</string>
+    <string name="blog_notifications">Ajaveebi teavitused</string>
+    <string name="blog_feed_none">Puudub</string>
+    <string name="read_more">Loe lisaks</string>
 </resources>
