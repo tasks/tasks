@@ -306,6 +306,17 @@
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 -> 2.3.10 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.3.10 (*)
 ++--- project :kmp
++|    +--- com.etebase:client:2.3.2
++|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
++|    |    \--- com.squareup.okhttp3:logging-interceptor:3.12.1
++|    |         \--- com.squareup.okhttp3:okhttp:3.12.1 -> 5.3.2
++|    |              \--- com.squareup.okhttp3:okhttp-android:5.3.2
++|    |                   +--- androidx.annotation:annotation:1.9.1 (*)
++|    |                   +--- androidx.startup:startup-runtime:1.2.0 (*)
++|    |                   +--- com.squareup.okio:okio:3.16.4
++|    |                   |    \--- com.squareup.okio:okio-jvm:3.16.4
++|    |                   |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.3.10 (*)
++|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.21 -> 2.3.10 (*)
 +|    +--- androidx.activity:activity-compose:1.13.0
 +|    |    +--- androidx.activity:activity:1.13.0
 +|    |    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
@@ -935,14 +946,7 @@
 +|    |              +--- commons-digester:commons-digester:2.1
 +|    |              \--- commons-logging:commons-logging:1.2
 +|    +--- com.github.franmontiel:PersistentCookieJar:1.0.1
-+|    |    \--- com.squareup.okhttp3:okhttp:3.1.2 -> 5.3.2
-+|    |         \--- com.squareup.okhttp3:okhttp-android:5.3.2
-+|    |              +--- androidx.annotation:annotation:1.9.1 (*)
-+|    |              +--- androidx.startup:startup-runtime:1.2.0 (*)
-+|    |              +--- com.squareup.okio:okio:3.16.4
-+|    |              |    \--- com.squareup.okio:okio-jvm:3.16.4
-+|    |              |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.3.10 (*)
-+|    |              \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.21 -> 2.3.10 (*)
++|    |    \--- com.squareup.okhttp3:okhttp:3.1.2 -> 5.3.2 (*)
 +|    +--- com.getpebble:pebblekit:4.0.1
 +|    +--- org.jetbrains.compose.components:components-resources:1.10.2
 +|    |    \--- org.jetbrains.compose.components:components-resources-android:1.10.2
@@ -1666,10 +1670,7 @@
 ++--- androidx.work:work-runtime-ktx:2.11.0
 +|    +--- androidx.work:work-runtime:2.11.0 (*)
 +|    \--- androidx.work:work-runtime:2.11.0 (c)
-++--- com.etebase:client:2.3.2
-+|    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
-+|    \--- com.squareup.okhttp3:logging-interceptor:3.12.1
-+|         \--- com.squareup.okhttp3:okhttp:3.12.1 -> 5.3.2 (*)
+++--- com.etebase:client:2.3.2 (*)
 ++--- com.github.jheld:colorpicker:a0c2fd2125
 +|    \--- androidx.appcompat:appcompat:1.1.0 -> 1.7.1 (*)
 ++--- net.openid:appauth:0.11.1

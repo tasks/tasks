@@ -966,6 +966,19 @@
 +|    +--- androidx.datastore:datastore-preferences:1.2.1 (*)
 +|    \--- com.google.protobuf:protobuf-kotlin-lite:4.33.2 (*)
 ++--- project :kmp
++|    +--- com.etebase:client:2.3.2
++|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
++|    |    \--- com.squareup.okhttp3:logging-interceptor:3.12.1 -> 4.11.0
++|    |         +--- com.squareup.okhttp3:okhttp:4.11.0 -> 5.3.2
++|    |         |    \--- com.squareup.okhttp3:okhttp-android:5.3.2
++|    |         |         +--- androidx.annotation:annotation:1.9.1 (*)
++|    |         |         +--- androidx.startup:startup-runtime:1.2.0 (*)
++|    |         |         +--- com.squareup.okio:okio:3.16.4 (*)
++|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.21 -> 2.3.10 (*)
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10 -> 1.8.22
++|    |              +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.3.10 (*)
++|    |              \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22
++|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.3.10 (*)
 +|    +--- androidx.activity:activity-compose:1.13.0
 +|    |    +--- androidx.activity:activity:1.13.0 (*)
 +|    |    +--- androidx.compose.runtime:runtime:1.7.0 -> 1.10.5 (*)
@@ -1141,12 +1154,7 @@
 +|    |              +--- commons-digester:commons-digester:2.1
 +|    |              \--- commons-logging:commons-logging:1.2
 +|    +--- com.github.franmontiel:PersistentCookieJar:1.0.1
-+|    |    \--- com.squareup.okhttp3:okhttp:3.1.2 -> 5.3.2
-+|    |         \--- com.squareup.okhttp3:okhttp-android:5.3.2
-+|    |              +--- androidx.annotation:annotation:1.9.1 (*)
-+|    |              +--- androidx.startup:startup-runtime:1.2.0 (*)
-+|    |              +--- com.squareup.okio:okio:3.16.4 (*)
-+|    |              \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.21 -> 2.3.10 (*)
++|    |    \--- com.squareup.okhttp3:okhttp:3.1.2 -> 5.3.2 (*)
 +|    +--- com.getpebble:pebblekit:4.0.1
 +|    +--- org.jetbrains.compose.components:components-resources:1.10.2 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.10 (*)
@@ -1435,10 +1443,7 @@
 +|    |    +--- com.google.firebase:firebase-encoders:17.0.0
 +|    |    |    \--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|    |    +--- com.google.firebase:firebase-encoders-json:18.0.1
-+|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10 -> 1.8.22
-+|    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.3.10 (*)
-+|    |    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22
-+|    |    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.3.10 (*)
++|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10 -> 1.8.22 (*)
 +|    |    |    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|    |    |    \--- com.google.firebase:firebase-encoders:17.0.0 (*)
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.3.10 (*)
@@ -1503,7 +1508,8 @@
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 (*)
 +|         +--- com.google.code.gson:gson:2.10.1 -> 2.11.0 (*)
 +|         +--- com.squareup.okhttp3:okhttp-bom:4.11.0
-+|         |    \--- com.squareup.okhttp3:okhttp:4.11.0 -> 5.3.2 (c)
++|         |    +--- com.squareup.okhttp3:okhttp:4.11.0 -> 5.3.2 (c)
++|         |    \--- com.squareup.okhttp3:logging-interceptor:4.11.0 (c)
 +|         \--- com.squareup.okhttp3:okhttp -> 5.3.2 (*)
 ++--- androidx.wear.watchface:watchface-complications-data-source-ktx:1.2.1
 +|    +--- androidx.core:core:1.1.0 -> 1.18.0 (*)
