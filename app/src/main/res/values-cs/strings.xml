@@ -738,4 +738,6 @@
     <string name="blog_feed_none">Žádné</string>
     <string name="blog_feed_announcements">Pouze oznámení</string>
     <string name="blog_feed_all">Všechny příspěvky</string>
+    <string name="upgrade_desktop_app">Tasks.org pro počítače</string>
+    <string name="upgrade_desktop_app_description">Předběžný přístup k nové aplikaci pro počítače</string>
 </resources>
