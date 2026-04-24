@@ -707,4 +707,9 @@
     <string name="p_per_list_sort">ordigi_laŭ_listo</string>
     <string name="location_update_interval_title">Fona aktualigo de loko</string>
     <string name="location_update_interval_summary">Perioda aktualigo de loko plibonigas fidindecon de geografia barilo</string>
+    <string name="location_update_interval_disabled">malŝaltita</string>
+    <string name="location_update_interval_15_minutes">Ĉiu 15 minutoj</string>
+    <string name="location_update_interval_30_minutes">Ĉiu 30 minutoj</string>
+    <string name="location_update_interval_1_hour">Ĉiu 1 horo</string>
+    <string name="location_update_interval_2_hours">Ĉiu 2 horoj</string>
 </resources>
