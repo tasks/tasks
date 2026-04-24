@@ -15,6 +15,7 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
+import kotlinx.serialization.json.Json
 import org.tasks.audio.SoundPlayer
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.broadcast.RefreshBroadcaster
@@ -63,6 +64,7 @@ import org.tasks.viewmodel.TaskListViewModel
 
 val commonModule = module {
     single { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
+    single { Json { ignoreUnknownKeys = true } }
 
     // DAOs - singletons (from Database singleton)
     single { get<Database>().caldavDao() }
@@ -142,16 +144,23 @@ val commonModule = module {
     }
     single<org.tasks.billing.PurchaseState> {
         val caldavDao = get<org.tasks.data.dao.CaldavDao>()
+        val subscriptionProvider = get<org.tasks.billing.SubscriptionProvider>()
         val _hasTasksAccount = MutableStateFlow(false)
+        val _hasSubscription = MutableStateFlow(false)
         get<CoroutineScope>().launch {
             caldavDao.watchAccounts()
                 .collect { accounts ->
                     _hasTasksAccount.value = accounts.any { it.isTasksOrg }
                 }
         }
+        get<CoroutineScope>().launch {
+            subscriptionProvider.subscription.collect { sub ->
+                _hasSubscription.value = sub != null
+            }
+        }
         object : org.tasks.billing.PurchaseState {
             override val hasTasksAccount: Boolean get() = _hasTasksAccount.value
-            override val hasPro: Boolean get() = hasTasksAccount
+            override val hasPro: Boolean get() = hasTasksAccount || _hasSubscription.value
         }
     }
 
@@ -179,8 +188,9 @@ val commonModule = module {
                         pending.set(false)
                         val synchronizer = get<CaldavSynchronizer>()
                         val caldavDao = get<org.tasks.data.dao.CaldavDao>()
+                        val purchaseState = get<org.tasks.billing.PurchaseState>()
                         caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS).forEach { account ->
-                            synchronizer.sync(account, hasPro = account.isTasksOrg)
+                            synchronizer.sync(account, hasPro = purchaseState.hasPro)
                         }
                     } while (pending.getAndSet(false))
                 } finally {

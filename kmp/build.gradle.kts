@@ -79,6 +79,7 @@ kotlin {
             implementation(libs.kotlinx.immutable)
             implementation(libs.kotlinx.serialization)
             implementation(libs.material.kolor)
+            implementation(libs.qrose)
         }
     }
     tasks.register("testClasses")

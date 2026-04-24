@@ -265,6 +265,7 @@ dependencies {
     googleplayImplementation(libs.horologist.datalayer.grpc)
     googleplayImplementation(libs.horologist.datalayer.core)
     googleplayImplementation(libs.play.services.wearable)
+    googleplayImplementation(libs.play.services.code.scanner)
     googleplayImplementation(libs.microsoft.authentication) {
         exclude("com.microsoft.device.display", "display-mask")
     }

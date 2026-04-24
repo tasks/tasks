@@ -52,7 +52,10 @@ import org.tasks.preferences.fragments.GoogleTasksAccount.Companion.newGoogleTas
 import org.tasks.preferences.fragments.LocalAccount.Companion.newLocalAccountPreference
 import org.tasks.preferences.fragments.MicrosoftAccount.Companion.newMicrosoftAccountPreference
 import org.tasks.preferences.fragments.TasksAccount.Companion.newTasksAccountPreference
+import org.tasks.PlatformConfiguration
 import org.tasks.analytics.Firebase
+import org.tasks.billing.Inventory
+import org.tasks.billing.LinkDesktopActivity
 import org.tasks.themes.Theme
 import javax.inject.Inject
 
@@ -62,6 +65,8 @@ class MainSettingsComposeFragment : Fragment() {
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var theme: Theme
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var configuration: PlatformConfiguration
+    @Inject lateinit var inventory: Inventory
 
     private val viewModel: MainSettingsViewModel by viewModels()
     private val proCardViewModel: ProCardViewModel by viewModels()
@@ -96,6 +101,8 @@ class MainSettingsComposeFragment : Fragment() {
                 onAccountClick = { account -> handleAccountClick(account) },
                 onAddAccountClick = { addAccount() },
                 onSettingsClick = { destination -> navigateToSettings(destination) },
+                showDesktopLinking = configuration.supportsDesktopLinking && !inventory.hasTasksAccount,
+                onLinkDesktopClick = { linkDesktop() },
                 onProCardClick = {
                     val type = when (proCardState) {
                         is ProCardState.Subscribed -> "manage"
@@ -244,6 +251,19 @@ class MainSettingsComposeFragment : Fragment() {
             Intent(requireContext(), AddAccountActivity::class.java),
             REQUEST_ADD_ACCOUNT
         )
+    }
+
+    private fun linkDesktop() {
+        if (inventory.hasPro) {
+            startActivity(Intent(requireContext(), LinkDesktopActivity::class.java))
+        } else {
+            startActivity(
+                Intent(requireContext(), PurchaseActivity::class.java)
+                    .putExtra(EXTRA_NAME_YOUR_PRICE, true)
+                    .putExtra(EXTRA_SHOW_MORE_OPTIONS, true)
+                    .putExtra(EXTRA_SOURCE, "link_desktop")
+            )
+        }
     }
 
     private fun navigateToSettings(destination: SettingsDestination) {

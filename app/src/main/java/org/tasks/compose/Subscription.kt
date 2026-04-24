@@ -62,7 +62,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.platform.LocalContext
-
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -72,12 +71,10 @@ import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.runBlocking
-import org.jetbrains.compose.resources.getString
-import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.url_sponsor
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.billing.Sku
 import org.tasks.compose.Constants.HALF_KEYLINE
@@ -86,6 +83,8 @@ import org.tasks.compose.PurchaseText.SubscriptionScreen
 import org.tasks.compose.settings.SettingsCardRadius
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.url_sponsor
 
 object PurchaseText {
     private const val POPPER = "\uD83C\uDF89"
@@ -101,20 +100,25 @@ object PurchaseText {
 
     private val nameYourPriceFeatureList = listOf(
         CarouselItem(
+            title = R.string.upgrade_desktop_app,
+            icon = R.drawable.ic_outline_computer_24px,
+            description = R.string.upgrade_desktop_app_description,
+        ),
+        CarouselItem(
             R.string.upgrade_more_customization,
             R.drawable.ic_outline_palette_24px,
             R.string.upgrade_more_customization_description
-        ),
-        CarouselItem(
-            R.string.open_source,
-            R.drawable.ic_outline_favorite_border_24px,
-            R.string.upgrade_open_source_description
         ),
         CarouselItem(
             R.string.tasks_org_account,
             R.drawable.ic_round_icon,
             R.string.account_not_included,
             iconStyle = IconStyle.GRAYSCALE
+        ),
+        CarouselItem(
+            R.string.open_source,
+            R.drawable.ic_outline_favorite_border_24px,
+            R.string.upgrade_open_source_description
         ),
         CarouselItem(
             R.string.davx5,

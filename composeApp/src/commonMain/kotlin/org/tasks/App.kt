@@ -106,6 +106,8 @@ import org.tasks.compose.settings.ProCardState
 import org.tasks.compose.settings.SettingsPane
 import org.tasks.compose.settings.TasksAccountSettingsDetail
 import org.tasks.compose.settings.TasksAccountSettingsPane
+import org.tasks.compose.settings.DesktopProScreen
+import org.tasks.compose.settings.LinkDesktopScreen
 import org.tasks.compose.StatusBarScrim
 import org.tasks.compose.platformSidebarInsets
 import org.tasks.compose.platformStatusBarInsets
@@ -178,6 +180,12 @@ data object TaskListDestination : NavKey
 @Serializable
 data object SettingsDestination : NavKey
 
+@Serializable
+data object LinkDesktopDestination : NavKey
+
+@Serializable
+data object DesktopProDestination : NavKey
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App(
@@ -216,6 +224,8 @@ fun App(
                             subclass(AddAccountDestination::class, AddAccountDestination.serializer())
                             subclass(TaskListDestination::class, TaskListDestination.serializer())
                             subclass(SettingsDestination::class, SettingsDestination.serializer())
+                            subclass(LinkDesktopDestination::class, LinkDesktopDestination.serializer())
+                            subclass(DesktopProDestination::class, DesktopProDestination.serializer())
                         }
                     }
                 },
@@ -287,6 +297,14 @@ fun App(
                                     AnalyticsEvents.PARAM_SOURCE to "onboarding",
                                     AnalyticsEvents.PARAM_SELECTION to platform.name,
                                 )
+                                // On desktop, gate CalDAV/EteSync behind pro
+                                if (configuration.billingProvider == org.tasks.billing.BillingProvider.PADDLE
+                                    && (platform == Platform.CALDAV || platform == Platform.ETEBASE)
+                                    && !addAccountViewModel.hasPro
+                                ) {
+                                    backStack.add(DesktopProDestination)
+                                    return@AddAccountScreen
+                                }
                                 when (platform) {
                                     Platform.TASKS_ORG -> showProviderPicker = true
                                     else -> addAccountViewModel.signIn(platform)
@@ -373,9 +391,38 @@ fun App(
                         )
                     }
                     entry<SettingsDestination> {
+                        val purchaseState = koinInject<org.tasks.billing.PurchaseState>()
                         SettingsScreen(
                             onBack = { backStack.removeLastOrNull() },
                             onAddAccountClick = { backStack.add(AddAccountDestination) },
+                            onLinkDesktopClick = {
+                                if (purchaseState.hasPro) {
+                                    backStack.add(LinkDesktopDestination)
+                                } else {
+                                    co.touchlab.kermit.Logger.withTag("App")
+                                        .e { "Link desktop clicked without pro subscription" }
+                                }
+                            },
+                        )
+                    }
+                    entry<LinkDesktopDestination> {
+                        val qrScanner = koinInject<org.tasks.billing.QrScanner>()
+                        val desktopLinkService = koinInject<org.tasks.billing.DesktopLinkService>()
+                        LinkDesktopScreen(
+                            onBack = { backStack.removeLastOrNull() },
+                            onScan = { qrScanner.scan() },
+                            onConfirm = { code -> desktopLinkService.confirmLink(code) },
+                        )
+                    }
+                    entry<DesktopProDestination> {
+                        val desktopLinkClient = koinInject<org.tasks.billing.DesktopLinkClient>()
+                        DesktopProScreen(
+                            onBack = { backStack.removeLastOrNull() },
+                            onCreateLink = { desktopLinkClient.createLink() },
+                            onPollStatus = { code -> desktopLinkClient.pollStatus(code) },
+                            onLinkSuccess = { jwt, refreshToken, sku, formattedPrice ->
+                                desktopLinkClient.onLinkSuccess(jwt, refreshToken, sku, formattedPrice)
+                            },
                         )
                     }
                 },
@@ -1299,6 +1346,7 @@ private fun FloatingToolbar(
 private fun SettingsScreen(
     onBack: () -> Unit,
     onAddAccountClick: () -> Unit,
+    onLinkDesktopClick: () -> Unit = {},
 ) {
     val viewModel = koinViewModel<MainSettingsViewModel>()
     val proCardViewModel = koinViewModel<ProCardViewModel>()
@@ -1346,6 +1394,8 @@ private fun SettingsScreen(
                         .fillMaxSize()
                         .padding(padding),
                 ) {
+                    val configuration = koinInject<PlatformConfiguration>()
+                    val purchaseState = koinInject<org.tasks.billing.PurchaseState>()
                     MainSettingsScreen(
                         accounts = accounts,
                         proCardState = proCardState,
@@ -1353,6 +1403,9 @@ private fun SettingsScreen(
                         showBackupWarning = false,
                         showWidgets = viewModel.supportsWidgets,
                         isDebug = viewModel.isDebug,
+                        showDesktopLinking = configuration.supportsDesktopLinking
+                                && !purchaseState.hasTasksAccount,
+                        onLinkDesktopClick = onLinkDesktopClick,
                         onAccountClick = { account ->
                             if (account.isLocalList) {
                                 scope.launch {

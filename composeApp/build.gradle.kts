@@ -139,6 +139,7 @@ android {
         debugImplementation(compose.uiTooling)
         "googleplayImplementation"(platform(libs.firebase))
         "googleplayImplementation"(libs.firebase.messaging)
+        "googleplayImplementation"(libs.play.services.code.scanner)
     }
 }
 

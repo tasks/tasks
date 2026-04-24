@@ -20,4 +20,5 @@ data class PlatformConfiguration(
     val billingProvider: BillingProvider? = null,
     val isLibre: Boolean = false,
     val supportsWidgets: Boolean = false,
+    val supportsDesktopLinking: Boolean = false,
 )

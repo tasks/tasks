@@ -320,6 +320,10 @@
         android:name=".compose.accounts.AddAccountActivity"
         android:theme="@style/Tasks" />
 
+    <activity
+        android:name=".billing.LinkDesktopActivity"
+        android:theme="@style/Tasks" />
+
     <!-- ======================================================= Receivers = -->
 
     <!-- widgets -->

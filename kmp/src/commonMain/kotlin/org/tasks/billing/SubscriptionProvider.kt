@@ -7,6 +7,7 @@ interface SubscriptionProvider {
         val sku: String,
         val isMonthly: Boolean,
         val isTasksSubscription: Boolean,
+        val purchaseToken: String? = null,
     )
 
     val subscription: Flow<SubscriptionInfo?>

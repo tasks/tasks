@@ -90,6 +90,7 @@ import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.watch.WatchServiceLogic
 import com.todoroo.astrid.service.TaskCreator
+import kotlinx.serialization.json.Json
 import java.util.Locale
 import java.util.concurrent.Executors
 import javax.inject.Singleton
@@ -97,6 +98,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class ApplicationModule {
+    @Provides
+    @Singleton
+    fun getJson(): Json = Json { ignoreUnknownKeys = true }
+
     @Provides
     fun getLocale(): Locale {
         return AppCompatDelegate.getApplicationLocales()

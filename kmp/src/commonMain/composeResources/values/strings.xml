@@ -189,4 +189,18 @@
         <item quantity="one">%1$d list</item>
         <item quantity="other">%1$d lists</item>
     </plurals>
+    <string name="link_desktop">Link desktop app</string>
+    <string name="link_desktop_description">Unlock the desktop app with your Google Play subscription</string>
+    <string name="link_desktop_instructions">Open the Tasks.org desktop app and go to Add Account to see the QR code. Then tap the button below to scan it.</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="link_desktop_success">Desktop linked successfully!</string>
+    <string name="link_desktop_error">Failed to link desktop. Please try again.</string>
+    <string name="unlock_pro">Unlock Pro</string>
+    <string name="unlock_pro_instructions">Scan the QR code below with the Tasks.org Android app to unlock Pro features</string>
+    <string name="done">Done</string>
+    <string name="retry">Retry</string>
+    <string name="qr_code">QR Code</string>
+    <string name="error_create_link_failed">Failed to create link. Please check your internet connection and try again.</string>
+    <string name="error_confirmation_failed">Failed to confirm link. The code may be invalid or expired.</string>
+    <string name="error_network">Unable to connect. Please check your internet connection.</string>
 </resources>

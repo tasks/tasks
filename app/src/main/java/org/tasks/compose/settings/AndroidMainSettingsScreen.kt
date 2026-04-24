@@ -21,6 +21,8 @@ fun AndroidMainSettingsScreen(
     onAddAccountClick: () -> Unit,
     onSettingsClick: (SettingsDestination) -> Unit,
     onProCardClick: () -> Unit,
+    showDesktopLinking: Boolean = false,
+    onLinkDesktopClick: () -> Unit = {},
 ) {
     MainSettingsScreen(
         accounts = accounts,
@@ -33,6 +35,8 @@ fun AndroidMainSettingsScreen(
         onAddAccountClick = onAddAccountClick,
         onSettingsClick = onSettingsClick,
         onProCardClick = onProCardClick,
+        showDesktopLinking = showDesktopLinking,
+        onLinkDesktopClick = onLinkDesktopClick,
         bottomContent = {
             Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
         },

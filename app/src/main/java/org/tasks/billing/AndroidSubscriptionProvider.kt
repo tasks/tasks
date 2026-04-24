@@ -15,6 +15,7 @@ class AndroidSubscriptionProvider(
                     sku = it.sku,
                     isMonthly = it.isMonthly,
                     isTasksSubscription = it.isTasksSubscription,
+                    purchaseToken = it.purchaseToken,
                 )
             }
         }

@@ -45,9 +45,11 @@ opentasks = "562fec5"
 osmdroid = "6.1.20"
 oss-licenses-plugin = "0.10.10"
 persistent-cookiejar = "1.0.1"
+play-services-code-scanner = "16.1.0"
 play-services-maps = "20.0.0"
 play-services-location = "21.3.0"
 play-services-oss-licenses = "17.3.0"
+qrose = "1.0.1"
 preference = "1.2.1"
 protobuf = "4.33.2"
 recyclerview = "1.4.0"
@@ -182,9 +184,11 @@ pebblekit = { module = "com.getpebble:pebblekit", version = "4.0.1" }
 persistent-cookiejar = { module = "com.github.franmontiel:PersistentCookieJar", version.ref = "persistent-cookiejar" }
 play-billing-ktx = { module = "com.android.billingclient:billing-ktx", version = "7.1.1" }
 play-review = { module = "com.google.android.play:review-ktx", version = "2.0.2" }
+play-services-code-scanner = { module = "com.google.android.gms:play-services-code-scanner", version.ref = "play-services-code-scanner" }
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "play-services-maps" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "play-services-location" }
 play-services-oss-licenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "play-services-oss-licenses" }
+qrose = { module = "io.github.alexzhirkevich:qrose", version.ref = "qrose" }
 java-keyring = { module = "com.github.javakeyring:java-keyring", version = "1.0.4" }
 posthog = { module = "com.posthog:posthog", version = "3.19.1" }
 posthog-android = { module = "com.posthog:posthog-android", version = "3.28.0" }

@@ -5,6 +5,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.tasks.billing.DesktopLinkService
+import org.tasks.billing.QrScanner
 import org.tasks.location.Geocoder
 import org.tasks.location.GeocoderNominatim
 import org.tasks.location.LocationService
@@ -43,5 +45,15 @@ class FlavorModule {
     @Provides
     fun getWearRefresher(): WearRefresher = object : WearRefresher {
         override suspend fun refresh() = Unit
+    }
+
+    @Provides
+    fun getQrScanner(): QrScanner = object : QrScanner {
+        override suspend fun scan(): String? = null
+    }
+
+    @Provides
+    fun getDesktopLinkService(): DesktopLinkService = object : DesktopLinkService {
+        override suspend fun confirmLink(code: String) = false
     }
 }

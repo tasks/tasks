@@ -21,6 +21,7 @@ import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.SdStorage
 import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material.icons.outlined.Laptop
 import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -46,6 +47,8 @@ import tasks.kmp.generated.resources.preferences_advanced
 import tasks.kmp.generated.resources.preferences_look_and_feel
 import tasks.kmp.generated.resources.task_defaults
 import tasks.kmp.generated.resources.task_list_options
+import tasks.kmp.generated.resources.link_desktop
+import tasks.kmp.generated.resources.link_desktop_description
 import tasks.kmp.generated.resources.widget_settings
 
 sealed interface SettingsPane {
@@ -91,6 +94,8 @@ fun MainSettingsScreen(
     onAddAccountClick: () -> Unit,
     onSettingsClick: (SettingsDestination) -> Unit,
     onProCardClick: () -> Unit,
+    showDesktopLinking: Boolean = false,
+    onLinkDesktopClick: () -> Unit = {},
     bottomContent: @Composable () -> Unit = {},
 ) {
     Column(
@@ -140,6 +145,22 @@ fun MainSettingsScreen(
                             onClick = onAddAccountClick
                         )
                     }
+                }
+            }
+            Spacer(modifier = Modifier.height(SettingsContentPadding))
+        }
+
+        if (showDesktopLinking) {
+            Column(
+                modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            ) {
+                SettingsItemCard(position = CardPosition.Only) {
+                    PreferenceRow(
+                        title = stringResource(Res.string.link_desktop),
+                        summary = stringResource(Res.string.link_desktop_description),
+                        icon = Icons.Outlined.Laptop,
+                        onClick = onLinkDesktopClick,
+                    )
                 }
             }
             Spacer(modifier = Modifier.height(SettingsContentPadding))

@@ -2,29 +2,33 @@ package org.tasks.di
 
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.tasks.PlatformConfiguration
-import org.tasks.billing.BillingProvider
-import org.tasks.billing.SubscriptionProvider
 import org.tasks.analytics.PostHogReporting
 import org.tasks.analytics.Reporting
+import org.tasks.auth.DesktopOAuthFlow
+import org.tasks.auth.DesktopSignInHandler
+import org.tasks.auth.SignInHandler
+import org.tasks.auth.TasksServerEnvironment
+import org.tasks.billing.BillingProvider
+import org.tasks.billing.DesktopEntitlement
+import org.tasks.billing.DesktopLinkClient
+import org.tasks.billing.DesktopLinkClientImpl
+import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
-import org.tasks.auth.DesktopOAuthFlow
+import org.tasks.data.db.Database
 import org.tasks.fcm.FcmTokenProvider
 import org.tasks.fcm.PushTokenManager
 import org.tasks.http.DefaultOkHttpClientFactory
 import org.tasks.http.OkHttpClientFactory
-import org.tasks.auth.DesktopSignInHandler
-import org.tasks.auth.SignInHandler
-import org.tasks.auth.TasksServerEnvironment
-import org.tasks.data.db.Database
 import org.tasks.kmp.JvmBuildConfig
 import org.tasks.kmp.createDataStore
 import org.tasks.kmp.dataStoreFileName
@@ -49,6 +53,7 @@ actual fun platformModule(): Module = module {
         PlatformConfiguration(
             versionCode = JvmBuildConfig.VERSION_CODE,
             billingProvider = BillingProvider.PADDLE,
+            supportsCaldav = true,
         )
     }
     single<Reporting> {
@@ -83,11 +88,42 @@ actual fun platformModule(): Module = module {
         FileStorage(dataDir().absolutePath)
     }
     factoryOf(::VtodoCache)
+    single {
+        DesktopEntitlement(
+            dataDir = dataDir(),
+            httpClientFactory = get(),
+            serverEnvironment = get(),
+            scope = get(),
+            json = get(),
+            encryption = get(),
+        ).also { it.initialize() }
+    }
     single<SubscriptionProvider> {
+        val entitlement: DesktopEntitlement = get()
         object : SubscriptionProvider {
-            override val subscription: Flow<SubscriptionProvider.SubscriptionInfo?> = flowOf(null)
-            override suspend fun getFormattedPrice(sku: String): String? = null
+            override val subscription: Flow<SubscriptionProvider.SubscriptionInfo?> =
+                kotlinx.coroutines.flow.combine(entitlement.hasPro, entitlement.sku) { hasPro, sku ->
+                    if (hasPro) {
+                        SubscriptionProvider.SubscriptionInfo(
+                            sku = sku ?: "desktop_play",
+                            isMonthly = sku?.startsWith("monthly") == true,
+                            isTasksSubscription = false,
+                        )
+                    } else {
+                        null
+                    }
+                }
+            override suspend fun getFormattedPrice(sku: String): String? =
+                entitlement.formattedPrice.first()
         }
+    }
+    single<DesktopLinkClient> {
+        DesktopLinkClientImpl(
+            httpClientFactory = get(),
+            serverEnvironment = get(),
+            desktopEntitlement = get(),
+            json = get(),
+        )
     }
     single { SseTokenProvider() } bind FcmTokenProvider::class
     single {
