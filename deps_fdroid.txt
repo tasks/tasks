@@ -1228,6 +1228,14 @@
 +|    |         \--- com.github.ajalt.colormath:colormath:3.6.1
 +|    |              \--- com.github.ajalt.colormath:colormath-jvm:3.6.1
 +|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.3.10 (*)
++|    +--- io.github.alexzhirkevich:qrose:1.0.1
++|    |    \--- io.github.alexzhirkevich:qrose-android:1.0.1
++|    |         +--- io.github.alexzhirkevich:qrose-core:1.0.1
++|    |         |    \--- io.github.alexzhirkevich:qrose-core-android:1.0.1
++|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.22 -> 2.3.10 (*)
++|    |         |         \--- org.jetbrains.compose.ui:ui:1.6.0 -> 1.10.2 (*)
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.22 -> 2.3.10 (*)
++|    |         \--- org.jetbrains.compose.ui:ui:1.6.0 -> 1.10.2 (*)
 +|    +--- org.mnode.ical4j:ical4j:3.2.19 (*)
 +|    +--- com.github.bitfireAT:dav4jvm:ffb83c7aca
 +|    |    +--- io.ktor:ktor-client-encoding:3.4.1
