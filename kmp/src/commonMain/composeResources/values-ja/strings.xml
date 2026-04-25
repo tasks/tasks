@@ -174,9 +174,9 @@
     <string name="about">アプリについて</string>
     <string name="widget_settings">ウィジェット設定</string>
     <plurals name="task_count">
-        <item quantity="other">タスク %d 件</item>
+        <item quantity="other">タスク %1$d 件</item>
     </plurals>
-    <string name="delete_tasks_warning">%sは削除されます。これは元に戻せません！</string>
+    <string name="delete_tasks_warning">%1$sは削除されます。これは元に戻せません！</string>
     <string name="name_cannot_be_empty">名前は空にできません</string>
     <string name="discard_changes">変更を破棄しますか？</string>
     <string name="discard">破棄</string>
@@ -184,4 +184,21 @@
     <plurals name="list_count">
         <item quantity="other">リスト %1$d 件</item>
     </plurals>
+    <string name="failed_to_save_task">タスクを保存できませんでした</string>
+    <string name="supporter_summary_no_price">ありがとうございます！</string>
+    <string name="debug">デバッグ</string>
+    <string name="link_desktop">デスクトップアプリと接続</string>
+    <string name="link_desktop_description">デスクトップアプリをGoogle Playサブスクリプションで使用可能にする</string>
+    <string name="link_desktop_instructions">Tasks.orgデスクトップアプリのアカウント追加を開いてQRコードを表示します。次に下のボタンを押してコードを読み取ります。</string>
+    <string name="scan_qr_code">QRコード読み取り</string>
+    <string name="link_desktop_success">デスクトップアプリと接続できました！</string>
+    <string name="link_desktop_error">デスクトップアプリとの接続ができませんでした。もう一度お試しください。</string>
+    <string name="unlock_pro">プロ版を使用可能にする</string>
+    <string name="unlock_pro_instructions">プロ版の機能を使用可能にするため、下のQRコードをTasks.orgのAndroidアプリで読み取ってください</string>
+    <string name="done">完了</string>
+    <string name="retry">再試行</string>
+    <string name="qr_code">QRコード</string>
+    <string name="error_create_link_failed">リンクが作成できませんでした。インターネット接続を確認して再試行ください。</string>
+    <string name="error_confirmation_failed">リンクが確認できませんでした。コードが無効か期限切れの可能性があります。</string>
+    <string name="error_network">接続できませんでした。インターネット接続を確認ください。</string>
 </resources>
