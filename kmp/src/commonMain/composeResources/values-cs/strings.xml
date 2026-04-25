@@ -192,4 +192,18 @@
     </plurals>
     <string name="debug">Ladění</string>
     <string name="failed_to_save_task">Nepodařilo se uložit úlohu</string>
+    <string name="link_desktop">Propojit s aplikací pro počítače</string>
+    <string name="link_desktop_description">Odemkněte aplikaci pro počítače předplatným na Google Play</string>
+    <string name="link_desktop_instructions">Otevřete na počítači aplikaci Tasks.org a přejděte do nabídky Přidat účet pro zobrazení QR kódu. Poté klepněte na tlačítko níže pro jeho naskenování.</string>
+    <string name="scan_qr_code">Naksenovat QR kód</string>
+    <string name="link_desktop_success">Aplikace úspěšně propojena!</string>
+    <string name="link_desktop_error">Nepodařilo se propojit aplikaci. Zkuste to prosím znovu.</string>
+    <string name="unlock_pro">Odemknout verzi Pro</string>
+    <string name="unlock_pro_instructions">Naskenujte QR kód níže pomocí aplikace Tasks.org pro Android pro odemčení funkcí Pro</string>
+    <string name="done">Hotovo</string>
+    <string name="retry">Zkusit znovu</string>
+    <string name="qr_code">QR kód</string>
+    <string name="error_create_link_failed">Nepodařilo se vytvořit propojení. Zkontrolujte prosím vaše připojení k internetu a zkuste to znovu.</string>
+    <string name="error_confirmation_failed">Nepodařilo se potvrdit propojení. Kód je možná neplatný nebo vypršel.</string>
+    <string name="error_network">Nepodařilo se připojit. Zkontrolujte prosím vaše připojení k internetu.</string>
 </resources>
