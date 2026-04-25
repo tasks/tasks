@@ -712,4 +712,11 @@
     <string name="location_update_interval_30_minutes">Ĉiu 30 minutoj</string>
     <string name="location_update_interval_1_hour">Ĉiu 1 horo</string>
     <string name="location_update_interval_2_hours">Ĉiu 2 horoj</string>
+    <string name="blog_feed_none">Neniu</string>
+    <string name="blog_feed_announcements">Nur anoncoj</string>
+    <string name="blog_feed_all">Ĉiuj afiŝoj</string>
+    <string name="upgrade_desktop_app">Tasks.org por labortablo</string>
+    <string name="upgrade_desktop_app_description">Frua atingo de la nova labortabla aplikaĵo</string>
+    <string name="read_more">Legi pli</string>
+    <string name="blog_notifications">Sciigoj de blogo</string>
 </resources>
