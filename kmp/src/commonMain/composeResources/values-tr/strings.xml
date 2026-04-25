@@ -172,10 +172,10 @@
     <string name="about">Hakkında</string>
     <string name="widget_settings">Widget ayarları</string>
     <plurals name="task_count">
-        <item quantity="one">%d görev</item>
-        <item quantity="other">%d görev</item>
+        <item quantity="one">%1$d görev</item>
+        <item quantity="other">%1$d görev</item>
     </plurals>
-    <string name="delete_tasks_warning">%s silinecek. Bu geri alınamaz!</string>
+    <string name="delete_tasks_warning">%1$s silinecek. Bu geri alınamaz!</string>
     <string name="name_cannot_be_empty">Ad boş olamaz</string>
     <string name="discard_changes">Değişiklikleri gözden çıkar?</string>
     <string name="discard">Gözden çıkar</string>
@@ -189,4 +189,18 @@
     <string name="show_less">Daha az göster</string>
     <string name="supporter_summary_no_price">Teşekkürler!</string>
     <string name="debug">Hata ayıkla</string>
+    <string name="link_desktop">Masaüstü uygulamasını bağla</string>
+    <string name="link_desktop_description">Google Play aboneliğinizle masaüstü uygulamasının kilidini açın</string>
+    <string name="link_desktop_instructions">Tasks.org masaüstü uygulamasını açın ve QR kodunu görmek için \"Hesap Ekle\" seçeneğine gidin. Ardından, kodu taramak için aşağıdaki düğmeye dokunun.</string>
+    <string name="scan_qr_code">QR Kodunu Tara</string>
+    <string name="link_desktop_success">Masaüstü başarıyla bağlandı!</string>
+    <string name="link_desktop_error">Masaüstü bağlanamadı. Lütfen tekrar deneyin.</string>
+    <string name="unlock_pro">Pro Kilidini Aç</string>
+    <string name="unlock_pro_instructions">Tasks.org Android uygulamasıyla aşağıdaki QR kodunu tarayarak Pro özelliklerinin kilidini açın</string>
+    <string name="done">Bitti</string>
+    <string name="retry">Yeniden Dene</string>
+    <string name="qr_code">QR Kodu</string>
+    <string name="error_create_link_failed">Bağlantı oluşturulamadı. Lütfen internet bağlantınızı gözden geçirin ve tekrar deneyin.</string>
+    <string name="error_confirmation_failed">Bağlantı doğrulanamadı. Kod geçersiz veya süresi dolmuş olabilir.</string>
+    <string name="error_network">Bağlanılamıyor. Lütfen internet bağlantınızı gözden geçirin.</string>
 </resources>
