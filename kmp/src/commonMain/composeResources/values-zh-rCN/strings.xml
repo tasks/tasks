@@ -187,4 +187,18 @@
     </plurals>
     <string name="debug">调试</string>
     <string name="failed_to_save_task">保存任务失败</string>
+    <string name="scan_qr_code">扫描二维码</string>
+    <string name="done">完成</string>
+    <string name="retry">重试</string>
+    <string name="qr_code">二维码</string>
+    <string name="error_network">无法连接。请检查您的互联网连接。</string>
+    <string name="link_desktop">关联桌面应用</string>
+    <string name="link_desktop_description">使用您的 Google Play 订阅解锁桌面应用</string>
+    <string name="link_desktop_instructions">打开 Tasks.org 桌面应用，前往“添加账号”查看二维码。然后点击下方按钮进行扫描。</string>
+    <string name="link_desktop_success">桌面应用已成功关联！</string>
+    <string name="link_desktop_error">桌面应用关联失败。请重试。</string>
+    <string name="unlock_pro">解锁专业版</string>
+    <string name="unlock_pro_instructions">使用 Tasks.org Android 应用扫描下方二维码，解锁专业版功能</string>
+    <string name="error_create_link_failed">创建关联失败。请检查您的互联网连接并重试。</string>
+    <string name="error_confirmation_failed">确认关联失败。二维码可能无效或已过期。</string>
 </resources>
