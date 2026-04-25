@@ -174,10 +174,10 @@
     <string name="about">Über</string>
     <string name="widget_settings">Widget-Einstellungen</string>
     <plurals name="task_count">
-        <item quantity="one">%d Aufgabe</item>
-        <item quantity="other">%d Aufgaben</item>
+        <item quantity="one">%1$d Aufgabe</item>
+        <item quantity="other">%1$d Aufgaben</item>
     </plurals>
-    <string name="delete_tasks_warning">%s wird/werden gelöscht. Dies kann nicht rückgängig gemacht werden!</string>
+    <string name="delete_tasks_warning">%1$s wird/werden gelöscht. Dies kann nicht rückgängig gemacht werden!</string>
     <string name="name_cannot_be_empty">Name darf nicht leer sein</string>
     <string name="discard_changes">Änderungen verwerfen?</string>
     <string name="discard">Verwerfen</string>
@@ -186,4 +186,7 @@
         <item quantity="one">%1$d Liste</item>
         <item quantity="other">%1$d Listen</item>
     </plurals>
+    <string name="supporter_summary_no_price">Dankeschön!</string>
+    <string name="failed_to_save_task">Aufgabe konnte nicht gespeichert werden</string>
+    <string name="debug">Debug</string>
 </resources>
