@@ -117,7 +117,7 @@
     <string name="show_less">Afficher moins</string>
     <string name="display_name">Afficher le nom</string>
     <string name="upgrade_to_pro_card_description">Débloquez la synchronisation cloud Tasks.org, le partage entre amis et famille et la conversion de courriels en tâches</string>
-    <string name="supporter">Supporter</string>
+    <string name="supporter">Soutenir</string>
     <string name="price_per_month_with_currency">%1$s/mois</string>
     <string name="price_per_year_with_currency">%1$s/an</string>
     <string name="supporter_summary">%1$s • Merci !</string>
@@ -175,11 +175,11 @@
     <string name="about">À propos</string>
     <string name="widget_settings">Paramètres du widget</string>
     <plurals name="task_count">
-        <item quantity="one">%d tâche</item>
-        <item quantity="many">%d tâches</item>
-        <item quantity="other">%d tâches</item>
+        <item quantity="one">%1$d tâche</item>
+        <item quantity="many">%1$d tâches</item>
+        <item quantity="other">%1$d tâches</item>
     </plurals>
-    <string name="delete_tasks_warning">%s sera supprimé. Cette opération est irréversible !</string>
+    <string name="delete_tasks_warning">%1$s sera supprimé. Cette opération est irréversible !</string>
     <string name="name_cannot_be_empty">Le nom doit être renseigné</string>
     <string name="discard_changes">Ignorer les modifications ?</string>
     <string name="discard">Ignorer</string>
@@ -191,4 +191,18 @@
     </plurals>
     <string name="debug">Débogage</string>
     <string name="failed_to_save_task">Échec de l\'enregistrement de la tâche</string>
+    <string name="link_desktop">Associer l\'application de bureau</string>
+    <string name="link_desktop_description">Débloquez l\'application de bureau grâce à votre abonnement Google Play</string>
+    <string name="link_desktop_instructions">Ouvrez l\'application de bureau Tasks.org et rendez-vous dans « Ajouter un compte » pour afficher le code QR. Appuyez ensuite sur le bouton ci-dessous pour le scanner.</string>
+    <string name="scan_qr_code">Scanner le code QR</string>
+    <string name="link_desktop_success">Le bureau a été connecté avec succès !</string>
+    <string name="link_desktop_error">Échec de la connexion au bureau. Veuillez réessayer.</string>
+    <string name="unlock_pro_instructions">Scannez le code QR ci-dessous à l\'aide de l\'application Android Tasks.org pour débloquer les fonctionnalités Pro</string>
+    <string name="unlock_pro">Déverrouiller Pro</string>
+    <string name="done">Terminer</string>
+    <string name="retry">Réessayer</string>
+    <string name="qr_code">Code QR</string>
+    <string name="error_create_link_failed">Échec de la création du lien. Vérifiez votre connexion Internet et réessayez.</string>
+    <string name="error_confirmation_failed">Impossible de valider le lien. Le code est peut-être invalide ou a expiré.</string>
+    <string name="error_network">Impossible de se connecter. Veuillez vérifier votre connexion Internet.</string>
 </resources>
