@@ -10,6 +10,9 @@ import org.tasks.analytics.Reporting
 import org.tasks.auth.AndroidSignInHandler
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksServerEnvironment
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
+import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
 import org.tasks.http.AndroidOkHttpClientFactory
@@ -51,6 +54,12 @@ actual fun platformModule(): Module = module {
             context = androidContext(),
             userAgent = "${org.tasks.BuildConfig.APPLICATION_ID}/${org.tasks.BuildConfig.VERSION_NAME} (okhttp3) Android/${android.os.Build.VERSION.RELEASE}",
         )
+    }
+    single<SubscriptionProvider> {
+        object : SubscriptionProvider {
+            override val subscription: Flow<SubscriptionProvider.SubscriptionInfo?> = flowOf(null)
+            override suspend fun getFormattedPrice(sku: String): String? = null
+        }
     }
     factory { FileStorage(androidContext().filesDir.absolutePath) }
     factoryOf(::VtodoCache)
