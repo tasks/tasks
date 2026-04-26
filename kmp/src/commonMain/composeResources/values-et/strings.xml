@@ -183,4 +183,5 @@
     <string name="shared_by">Jagaja: %1$s</string>
     <string name="guests">Külalised (%1$d/%2$d)</string>
     <string name="debug">Silumine ja veaotsing</string>
+    <string name="legal_disclosure_prefix_using">Tasks.org-i kasutamisel</string>
 </resources>
