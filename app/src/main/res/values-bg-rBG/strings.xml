@@ -695,4 +695,5 @@
     <string name="upgrade_email_to_task_description">Създаване на задачи от ел. писма, чрез препращането им към личната ви входяща кутия</string>
     <string name="advanced_tools">Разширени инструменти</string>
     <string name="invalid_email_address">Неприемлив адрес на ел. поща</string>
+    <string name="location_update_interval_title">Обновяване на местоположението във фонов режим</string>
 </resources>
