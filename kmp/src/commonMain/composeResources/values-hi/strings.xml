@@ -7,4 +7,25 @@
     <string name="requires_pro_subscription">प्रो सब्सक्रिप्शन की ज़रूरत है</string>
     <string name="password_required">पासवर्ड आवश्यक है</string>
     <string name="display_name">प्रदर्शित नाम</string>
+    <string name="caldav_home_set_not_found">होम सेट नहीं मिला</string>
+    <string name="subscription_required_description">कम से कम $1 डॉलर/हर साल में सभी सुविधाओं को अनलॉक करें</string>
+    <string name="subscribe">सदस्यता लें</string>
+    <string name="filter_my_tasks">मेरे कार्य</string>
+    <string name="filter_notifications">नोटिफ़िकेशन</string>
+    <string name="filter_snoozed">स्नूज़ किया गया</string>
+    <string name="filter_timer">कार्य समयबद्ध किया जा रहा है</string>
+    <string name="filter_today">आज</string>
+    <string name="filter_recently_modified">हाल ही में संशोधित</string>
+    <string name="default_list">डिफ़ॉल्ट सूची</string>
+    <string name="help_and_feedback">मदद और फ़ीडबैक</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="drawer_filters">फ़िल्टर</string>
+    <string name="drawer_tags">टैग</string>
+    <string name="drawer_places">जगहें</string>
+    <string name="drawer_local_lists">स्थानीय सूचियाँ</string>
+    <string name="tmrw">कल</string>
+    <string name="tomorrow_abbrev_lowercase">कल</string>
+    <string name="tomorrow">कल</string>
+    <string name="tomorrow_lowercase">कल</string>
+    <string name="yesterday">कल</string>
 </resources>
