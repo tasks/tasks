@@ -696,4 +696,19 @@
     <string name="advanced_tools">Разширени инструменти</string>
     <string name="invalid_email_address">Неприемлив адрес на ел. поща</string>
     <string name="location_update_interval_title">Обновяване на местоположението във фонов режим</string>
+    <string name="location_update_interval_summary">Периодичното обновяване на местоположението подобрява надеждността на ограниченията по местоположение</string>
+    <string name="location_update_interval_disabled">Изключено</string>
+    <string name="location_update_interval_15_minutes">На всеки 15 минути</string>
+    <string name="location_update_interval_30_minutes">На всеки 30 минути</string>
+    <string name="location_update_interval_1_hour">На всеки час</string>
+    <string name="location_update_interval_2_hours">На всеки 2 часа</string>
+    <string name="p_per_list_sort">per_list_sort</string>
+    <string name="per_list_sort_title">Запомняне на сортирането по списък</string>
+    <string name="per_list_sort_summary">Запазване на настройките на сортиране и групиране за всеки списък поотделно</string>
+    <string name="share_list">Споделяне на „%1$s“</string>
+    <string name="send">Изпращане</string>
+    <string name="guest_create_list_message">В момента имате достъп като гост до споделените списъци. За да създавате и синхронизирате свои списъци в облака, ще ви е необходим абонамент за Tasks.org. Можете и да създадете безплатен местен списък, който остава на това устройство. Периодичните обновявания на местоположението подобряват надеждността на ограниченията по местоположение.</string>
+    <string name="upgrade_desktop_app">Tasks.org за настолно у-во</string>
+    <string name="upgrade_desktop_app_description">Ранен достъп до новото приложение за настолни устройства</string>
+    <string name="upgrade_friends_and_family">Приятели и семейство</string>
 </resources>
