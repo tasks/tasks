@@ -716,4 +716,7 @@
     <string name="location_update_interval_30_minutes">Alle 30 Minuten</string>
     <string name="location_update_interval_1_hour">Jede Stunde</string>
     <string name="location_update_interval_2_hours">Alle 2 Stunden</string>
+    <string name="upgrade_desktop_app">Tasks.org für den PC</string>
+    <string name="upgrade_desktop_app_description">Vorabzugang zur neuen Desktop-App</string>
+    <string name="p_per_list_sort">sortierung_nach_liste</string>
 </resources>
