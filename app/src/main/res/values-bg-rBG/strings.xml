@@ -711,4 +711,12 @@
     <string name="upgrade_desktop_app">Tasks.org за настолно у-во</string>
     <string name="upgrade_desktop_app_description">Ранен достъп до новото приложение за настолни устройства</string>
     <string name="upgrade_friends_and_family">Приятели и семейство</string>
+    <string name="upgrade_friends_and_family_description">5 безплатни достъпа като гост на споделени листове. Работи с Apple Reminders</string>
+    <string name="already_subscribed">Вече имате абонамент?</string>
+    <string name="sign_in_subtitle">Имате абонамент или покана?</string>
+    <string name="read_more">Прочетете повече</string>
+    <string name="blog_notifications">Известия от блога</string>
+    <string name="blog_feed_none">Няма</string>
+    <string name="blog_feed_announcements">Само обявления</string>
+    <string name="blog_feed_all">Всички постове</string>
 </resources>
