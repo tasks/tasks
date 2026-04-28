@@ -717,4 +717,6 @@
     <string name="blog_feed_none">Nincs</string>
     <string name="blog_feed_announcements">Csak a bejelentések</string>
     <string name="blog_feed_all">Minden bejegyzés</string>
+    <string name="upgrade_desktop_app">Tasks.org PC-re</string>
+    <string name="upgrade_desktop_app_description">Korai hozzáférés az új PC-s alkalmazáshoz</string>
 </resources>
