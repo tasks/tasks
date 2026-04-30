@@ -106,6 +106,7 @@ import org.tasks.compose.settings.CaldavAccountSettingsDetail
 import org.tasks.compose.settings.CaldavAccountSettingsPane
 import org.tasks.compose.settings.EtebaseAccountSettingsDetail
 import org.tasks.compose.settings.EtebaseAccountSettingsPane
+import org.tasks.compose.settings.HelpAndFeedbackScreen
 import org.tasks.compose.settings.LocalAccountSettingsDetail
 import org.tasks.compose.settings.LocalAccountSettingsPane
 import org.tasks.compose.settings.MainSettingsScreen
@@ -1657,32 +1658,45 @@ private fun SettingsScreen(
             ) {
                 when (selectedContent) {
                     is org.tasks.compose.settings.SettingsDestination -> {
-                        Scaffold(
-                            topBar = {
-                                TopAppBar(
-                                    title = {
-                                        Text(stringResource(selectedContent.titleRes))
-                                    },
-                                    navigationIcon = {
-                                        IconButton(
-                                            onClick = {
-                                                scope.launch { navigator.navigateBack() }
-                                            }
-                                        ) {
-                                            Icon(
-                                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                                contentDescription = stringResource(Res.string.back),
-                                            )
-                                        }
-                                    },
+                        when (selectedContent) {
+                            org.tasks.compose.settings.SettingsDestination.HelpAndFeedback -> {
+                                HelpAndFeedbackScreen(
+                                    onDocumentation = { uriHandler.openUri("https://tasks.org/docs") },
+                                    onIssueTracker = { uriHandler.openUri("https://github.com/tasks/tasks/issues") },
+                                    onContactDeveloper = { uriHandler.openUri("mailto:tasks@tasks.org") },
+                                    onSourceCode = { uriHandler.openUri("https://github.com/tasks/tasks") },
+                                    onPrivacyPolicy = { uriHandler.openUri("https://tasks.org/privacy") },
                                 )
-                            },
-                        ) { padding ->
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(padding),
-                            )
+                            }
+                            else -> {
+                                Scaffold(
+                                    topBar = {
+                                        TopAppBar(
+                                            title = {
+                                                Text(stringResource(selectedContent.titleRes))
+                                            },
+                                            navigationIcon = {
+                                                IconButton(
+                                                    onClick = {
+                                                        scope.launch { navigator.navigateBack() }
+                                                    }
+                                                ) {
+                                                    Icon(
+                                                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                                        contentDescription = stringResource(Res.string.back),
+                                                    )
+                                                }
+                                            },
+                                        )
+                                    },
+                                ) { padding ->
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(padding),
+                                    )
+                                }
+                            }
                         }
                     }
                     is LocalAccountSettingsPane -> {
