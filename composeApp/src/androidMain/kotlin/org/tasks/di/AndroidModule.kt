@@ -1,6 +1,6 @@
 package org.tasks.di
 
-import androidx.room.Room
+import androidx.room3.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf

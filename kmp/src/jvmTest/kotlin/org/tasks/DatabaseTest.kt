@@ -1,6 +1,6 @@
 package org.tasks
 
-import androidx.room.Room
+import androidx.room3.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import org.junit.After
 import org.tasks.data.db.Database

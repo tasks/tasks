@@ -1,10 +1,10 @@
 package org.tasks.data.dao
 
-import androidx.room.ColumnInfo
-import androidx.room.Dao
-import androidx.room.Embedded
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room3.ColumnInfo
+import androidx.room3.Dao
+import androidx.room3.Embedded
+import androidx.room3.Query
+import androidx.room3.Transaction
 import kotlinx.coroutines.flow.Flow
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.db.SuspendDbUtils.eachChunk

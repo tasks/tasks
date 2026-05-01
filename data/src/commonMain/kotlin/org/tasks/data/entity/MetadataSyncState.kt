@@ -1,7 +1,7 @@
 package org.tasks.data.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
+import androidx.room3.ColumnInfo
+import androidx.room3.Entity
 
 @Entity(tableName = "metadata_sync_state", primaryKeys = ["category", "local_id"])
 data class MetadataSyncState(

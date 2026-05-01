@@ -1,8 +1,10 @@
 package org.tasks.data.db
 
-import androidx.room.AutoMigration
-import androidx.room.Database
-import androidx.room.RoomDatabase
+import androidx.room3.AutoMigration
+import androidx.room3.ConstructedBy
+import androidx.room3.Database
+import androidx.room3.RoomDatabase
+import androidx.room3.RoomDatabaseConstructor
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.execSQL
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -81,6 +83,7 @@ import org.tasks.data.entity.UserActivity
     ],
     version = 98
 )
+@ConstructedBy(DatabaseConstructor::class)
 abstract class Database : RoomDatabase() {
     abstract fun notificationDao(): NotificationDao
     abstract fun tagDataDao(): TagDataDao
@@ -143,11 +146,16 @@ abstract class Database : RoomDatabase() {
         val opened: StateFlow<Boolean> = _opened.asStateFlow()
 
         val CALLBACK = object : RoomDatabase.Callback() {
-            override fun onOpen(connection: SQLiteConnection) {
+            override suspend fun onOpen(connection: SQLiteConnection) {
                 connection.execSQL(TASK_DIRTY_TRIGGER)
                 connection.execSQL(TAG_METADATA_STATE_CLEANUP_TRIGGER)
                 _opened.value = true
             }
         }
     }
+}
+
+@Suppress("KotlinNoActualForExpect", "NO_ACTUAL_FOR_EXPECT")
+expect object DatabaseConstructor : RoomDatabaseConstructor<org.tasks.data.db.Database> {
+    override fun initialize(): org.tasks.data.db.Database
 }

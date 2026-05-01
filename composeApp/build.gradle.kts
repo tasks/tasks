@@ -60,7 +60,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.data)
             implementation(projects.kmp)
-            implementation(libs.androidx.room)
+            implementation(libs.androidx.room3)
             implementation(libs.androidx.sqlite)
             implementation(libs.androidx.datastore)
             implementation(compose.components.resources)

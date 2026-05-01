@@ -1,6 +1,6 @@
 package org.tasks.data
 
-import androidx.room.Embedded
+import androidx.room3.Embedded
 import org.tasks.data.entity.Place
 
 class MergedGeofence {

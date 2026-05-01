@@ -1,10 +1,11 @@
 package org.tasks.data.db
 
-import androidx.room.migration.Migration
-import androidx.room.testing.MigrationTestHelper
+import androidx.room3.migration.Migration
+import androidx.room3.testing.MigrationTestHelper
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import androidx.sqlite.execSQL
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -31,12 +32,12 @@ class CommonMigrationsTest {
         to: Int,
         migration: Migration,
         seed: SQLiteConnection.() -> Unit,
-    ): SQLiteConnection {
+    ): SQLiteConnection = runBlocking {
         helper.createDatabase(from).use { db ->
             db.execSQL("PRAGMA foreign_keys = OFF")
             db.seed()
         }
-        return helper.runMigrationsAndValidate(to, listOf(migration))
+        helper.runMigrationsAndValidate(to, listOf(migration))
     }
 
     @Test

@@ -1,8 +1,8 @@
 package org.tasks.data.db
 
-import androidx.room.DeleteColumn
-import androidx.room.RenameColumn
-import androidx.room.migration.AutoMigrationSpec
+import androidx.room3.DeleteColumn
+import androidx.room3.RenameColumn
+import androidx.room3.migration.AutoMigrationSpec
 
 @DeleteColumn(tableName = "caldav_accounts", columnName = "cda_encryption_key")
 @DeleteColumn(tableName = "caldav_accounts", columnName = "cda_repeat")

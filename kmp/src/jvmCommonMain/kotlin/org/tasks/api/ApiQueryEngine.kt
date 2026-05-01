@@ -1,8 +1,8 @@
 package org.tasks.api
 
-import androidx.room.immediateTransaction
-import androidx.room.useReaderConnection
-import androidx.room.useWriterConnection
+import androidx.room3.immediateTransaction
+import androidx.room3.useReaderConnection
+import androidx.room3.useWriterConnection
 import org.jetbrains.compose.resources.getString
 import org.tasks.api.TasksContract.Accounts
 import org.tasks.api.TasksContract.Reminders

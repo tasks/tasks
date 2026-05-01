@@ -704,44 +704,51 @@
 +|    +--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations:1.18.0
 +|    |    \--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations-jvm:1.18.0
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.10 (*)
-+|    +--- androidx.room:room-runtime:2.8.4
-+|    |    \--- androidx.room:room-runtime-android:2.8.4
++|    +--- androidx.room3:room3-runtime:3.0.3
++|    |    \--- androidx.room3:room3-runtime-android:3.0.3
 +|    |         +--- androidx.annotation:annotation:1.9.1 (*)
 +|    |         +--- androidx.annotation:annotation-experimental:1.5.0 -> 1.5.1 (*)
-+|    |         +--- androidx.arch.core:core-runtime:2.2.0 (*)
 +|    |         +--- androidx.collection:collection:1.5.0 (*)
-+|    |         +--- androidx.room:room-common:2.8.4
-+|    |         |    \--- androidx.room:room-common-jvm:2.8.4
-+|    |         |         +--- androidx.annotation:annotation:1.9.1 (*)
-+|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.10 (*)
-+|    |         |         +--- androidx.room:room-runtime:2.8.4 (c)
-+|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (c)
-+|    |         +--- androidx.sqlite:sqlite:2.6.2 -> 2.7.0
-+|    |         |    \--- androidx.sqlite:sqlite-android:2.7.0
++|    |         +--- androidx.room3:room3-common:3.0.3
++|    |         |    \--- androidx.room3:room3-common-jvm:3.0.3
 +|    |         |         +--- androidx.annotation:annotation:1.9.1 (*)
 +|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
-+|    |         |         +--- androidx.sqlite:sqlite-framework:2.7.0 (c)
-+|    |         |         \--- androidx.sqlite:sqlite-bundled:2.7.0 (c)
-+|    |         +--- androidx.sqlite:sqlite-framework:2.6.2 -> 2.7.0
-+|    |         |    \--- androidx.sqlite:sqlite-framework-android:2.7.0
++|    |         |         \--- androidx.room3:room3-runtime:3.0.3 (c)
++|    |         +--- androidx.sqlite:sqlite:2.7.1
++|    |         |    \--- androidx.sqlite:sqlite-android:2.7.1
++|    |         |         +--- androidx.annotation:annotation:1.9.1 (*)
++|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
++|    |         |         +--- androidx.sqlite:sqlite-async:2.7.1 (c)
++|    |         |         +--- androidx.sqlite:sqlite-framework:2.7.1 (c)
++|    |         |         \--- androidx.sqlite:sqlite-bundled:2.7.1 (c)
++|    |         +--- androidx.sqlite:sqlite-async:2.7.1
++|    |         |    \--- androidx.sqlite:sqlite-async-android:2.7.1
++|    |         |         +--- androidx.sqlite:sqlite:2.7.1 (*)
++|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
++|    |         |         +--- androidx.sqlite:sqlite:2.7.1 (c)
++|    |         |         +--- androidx.sqlite:sqlite-framework:2.7.1 (c)
++|    |         |         \--- androidx.sqlite:sqlite-bundled:2.7.1 (c)
++|    |         +--- androidx.sqlite:sqlite-framework:2.7.1
++|    |         |    \--- androidx.sqlite:sqlite-framework-android:2.7.1
 +|    |         |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
-+|    |         |         +--- androidx.sqlite:sqlite:2.7.0 (*)
++|    |         |         +--- androidx.sqlite:sqlite:2.7.1 (*)
 +|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
-+|    |         |         +--- androidx.sqlite:sqlite:2.7.0 (c)
-+|    |         |         \--- androidx.sqlite:sqlite-bundled:2.7.0 (c)
-+|    |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.10 (*)
-+|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1 -> 1.11.0 (*)
-+|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1 -> 1.11.0 (*)
-+|    |         +--- org.jspecify:jspecify:1.0.0
-+|    |         +--- androidx.room:room-common:2.8.4 (c)
-+|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (c)
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
-+|    +--- androidx.sqlite:sqlite-bundled:2.7.0
-+|    |    \--- androidx.sqlite:sqlite-bundled-android:2.7.0
-+|    |         +--- androidx.sqlite:sqlite:2.7.0 (*)
++|    |         |         +--- androidx.sqlite:sqlite:2.7.1 (c)
++|    |         |         +--- androidx.sqlite:sqlite-async:2.7.1 (c)
++|    |         |         \--- androidx.sqlite:sqlite-bundled:2.7.1 (c)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
-+|    |         +--- androidx.sqlite:sqlite:2.7.0 (c)
-+|    |         \--- androidx.sqlite:sqlite-framework:2.7.0 (c)
++|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0 -> 1.11.0 (*)
++|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
++|    |         +--- org.jspecify:jspecify:1.0.0
++|    |         \--- androidx.room3:room3-common:3.0.3 (c)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
++|    +--- androidx.sqlite:sqlite-bundled:2.7.1
++|    |    \--- androidx.sqlite:sqlite-bundled-android:2.7.1
++|    |         +--- androidx.sqlite:sqlite:2.7.1 (*)
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
++|    |         +--- androidx.sqlite:sqlite:2.7.1 (c)
++|    |         +--- androidx.sqlite:sqlite-async:2.7.1 (c)
++|    |         \--- androidx.sqlite:sqlite-framework:2.7.1 (c)
 +|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.8.0-0.6.x-compat
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.8.0-0.6.x-compat
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
@@ -771,7 +778,7 @@
 +|    |                   |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.10 (*)
 +|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.21 -> 2.4.10 (*)
 +|    +--- androidx.activity:activity-compose:1.13.0 (*)
-+|    +--- androidx.sqlite:sqlite-bundled:2.7.0 (*)
++|    +--- androidx.sqlite:sqlite-bundled:2.7.1 (*)
 +|    +--- androidx.compose.ui:ui-tooling-preview-android:1.9.5 -> 1.12.0 (*)
 +|    +--- com.github.tasks:ical4android:fcb0311ca7
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
@@ -1452,8 +1459,8 @@
 +|    |         |         \--- org.jetbrains.kotlinx:kotlinx-io-core:0.6.0 -> 0.9.1 (*)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.4.10 (*)
-++--- androidx.room:room-runtime:2.8.4 (*)
-++--- androidx.sqlite:sqlite-bundled:2.7.0 (*)
+++--- androidx.room3:room3-runtime:3.0.3 (*)
+++--- androidx.sqlite:sqlite-bundled:2.7.1 (*)
 ++--- androidx.datastore:datastore-preferences:1.2.1 (*)
 ++--- org.jetbrains.compose.components:components-resources:1.12.0 (*)
 ++--- org.jetbrains.compose.foundation:foundation:1.12.0 (*)

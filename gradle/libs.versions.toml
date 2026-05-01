@@ -63,7 +63,7 @@ qrose = "1.1.2"
 preference = "1.2.1"
 protobuf = "4.33.2"
 recyclerview = "1.4.0"
-room = "2.8.4"
+room = "3.0.3"
 shortcut-badger = "1.1.22"
 timber = "5.0.1"
 swiperefreshlayout = "1.2.0"
@@ -103,10 +103,10 @@ androidx-navigation = { module = "androidx.navigation:navigation-compose", versi
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version = "3.5.1" }
 androidx-preference = { module = "androidx.preference:preference", version.ref = "preference" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
-androidx-room = { module = "androidx.room:room-runtime", version.ref = "room" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room"}
-androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
-androidx-sqlite = { module = "androidx.sqlite:sqlite-bundled", version = "2.7.0" }
+androidx-room3 = { module = "androidx.room3:room3-runtime", version.ref = "room" }
+androidx-room3-compiler = { module = "androidx.room3:room3-compiler", version.ref = "room" }
+androidx-room3-testing = { module = "androidx.room3:room3-testing", version.ref = "room" }
+androidx-sqlite = { module = "androidx.sqlite:sqlite-bundled", version = "2.7.1" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test" }
 androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
@@ -270,3 +270,4 @@ jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin"
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 protobuf = { id = "com.google.protobuf", version = "0.9.6" }
 redacted = { id = "dev.zacsweers.redacted", version = "1.18.0" }
+room = { id = "androidx.room3", version.ref = "room" }

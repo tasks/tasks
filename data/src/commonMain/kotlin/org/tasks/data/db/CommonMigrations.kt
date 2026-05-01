@@ -1,6 +1,6 @@
 package org.tasks.data.db
 
-import androidx.room.migration.Migration
+import androidx.room3.migration.Migration
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.execSQL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
@@ -9,7 +9,7 @@ import org.tasks.data.getTextOrNull
 
 object CommonMigrations {
     val MIGRATION_92_93 = object : Migration(92, 93) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("CREATE TABLE IF NOT EXISTS `task_dirty` (`caldav_task_id` INTEGER NOT NULL PRIMARY KEY, `dirty_version` INTEGER NOT NULL DEFAULT 0, `synced_version` INTEGER NOT NULL DEFAULT 0, FOREIGN KEY(`caldav_task_id`) REFERENCES `caldav_tasks`(`cd_id`) ON UPDATE NO ACTION ON DELETE CASCADE)")
             connection.execSQL("CREATE INDEX IF NOT EXISTS `index_task_dirty_dirty_version_synced_version` ON `task_dirty` (`dirty_version`, `synced_version`)")
             // The CASE below is the SQL mirror of
@@ -35,7 +35,7 @@ object CommonMigrations {
     }
 
     val MIGRATION_94_95 = object : Migration(94, 95) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `tagdata` ADD COLUMN `normalized_name` TEXT NOT NULL DEFAULT ''")
 
             data class Row(
@@ -113,7 +113,7 @@ object CommonMigrations {
     }
 
     val MIGRATION_95_96 = object : Migration(95, 96) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("DELETE FROM `tags` WHERE `task` NOT IN (SELECT `_id` FROM `tasks`)")
             connection.execSQL("CREATE TABLE IF NOT EXISTS `metadata_sync_state` (`category` TEXT NOT NULL, `local_id` INTEGER NOT NULL, `dirty_version` INTEGER NOT NULL DEFAULT 0, `synced_version` INTEGER NOT NULL DEFAULT 0, `reaped` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`category`, `local_id`))")
             connection.execSQL("CREATE TABLE IF NOT EXISTS `metadata_tombstone` (`category` TEXT NOT NULL, `entity_key` TEXT NOT NULL, `ts` INTEGER NOT NULL, PRIMARY KEY(`category`, `entity_key`))")
@@ -122,13 +122,13 @@ object CommonMigrations {
     }
 
     val MIGRATION_96_97 = object : Migration(96, 97) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `notification` ADD COLUMN `platform_id` INTEGER")
         }
     }
 
     val MIGRATION_97_98 = object : Migration(97, 98) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `tasks` ADD COLUMN `reminderDismissed` INTEGER NOT NULL DEFAULT 0")
         }
     }

@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
     alias(libs.plugins.redacted)
 }
 
@@ -24,9 +25,11 @@ kotlin {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(libs.versions.jdk.get()))
         }
     }
+    iosArm64()
+    iosSimulatorArm64()
     sourceSets {
         commonMain.dependencies {
-            api(libs.androidx.room)
+            api(libs.androidx.room3)
             implementation(libs.androidx.sqlite)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization)
@@ -34,7 +37,7 @@ kotlin {
         }
         jvmTest.dependencies {
             implementation(libs.junit)
-            implementation(libs.androidx.room.testing)
+            implementation(libs.androidx.room3.testing)
         }
     }
     task("testClasses")
@@ -56,7 +59,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
 
         ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
             arg("room.incremental", "true")
             arg("room.generateKotlin", "true")
         }
@@ -83,7 +85,13 @@ redacted {
         providers.gradleProperty("release").isPresent
 }
 
+room3 {
+    schemaDirectory("$projectDir/schemas")
+}
+
 dependencies {
-    add("kspAndroid", libs.androidx.room.compiler)
-    add("kspJvm", libs.androidx.room.compiler)
+    add("kspAndroid", libs.androidx.room3.compiler)
+    add("kspJvm", libs.androidx.room3.compiler)
+    add("kspIosArm64", libs.androidx.room3.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room3.compiler)
 }

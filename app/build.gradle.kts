@@ -192,7 +192,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel)
-    implementation(libs.androidx.room)
+    implementation(libs.androidx.room3)
     implementation(libs.androidx.sqlite)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.appfunctions)
