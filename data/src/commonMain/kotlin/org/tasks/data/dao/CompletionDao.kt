@@ -1,7 +1,7 @@
 package org.tasks.data.dao
 
-import androidx.room.Dao
-import androidx.room.Transaction
+import androidx.room3.Dao
+import androidx.room3.Transaction
 import co.touchlab.kermit.Logger
 import org.tasks.data.db.Database
 import org.tasks.data.entity.Task

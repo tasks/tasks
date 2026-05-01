@@ -1,10 +1,10 @@
 package org.tasks.data.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room3.Dao
+import androidx.room3.Delete
+import androidx.room3.Insert
+import androidx.room3.Query
+import androidx.room3.Transaction
 import co.touchlab.kermit.Logger
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData

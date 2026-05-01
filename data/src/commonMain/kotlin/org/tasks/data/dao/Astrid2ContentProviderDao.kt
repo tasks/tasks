@@ -1,7 +1,7 @@
 package org.tasks.data.dao
 
-import androidx.room.Dao
-import androidx.room.Query
+import androidx.room3.Dao
+import androidx.room3.Query
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 

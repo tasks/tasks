@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.edit
-import androidx.room.Room
+import androidx.room3.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -40,7 +40,9 @@ class TestModule {
         Room
             .inMemoryDatabaseBuilder(context, Database::class.java)
             .fallbackToDestructiveMigration(dropAllTables = true)
-            .setDriver()
+            .allowMainThreadQueries()
+            .setDriver(androidx.sqlite.driver.bundled.BundledSQLiteDriver())
+            .setQueryCoroutineContext(kotlinx.coroutines.Dispatchers.IO)
             .build()
 
     @Provides

@@ -1,11 +1,11 @@
 package org.tasks.data.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.RawQuery
-import androidx.room.RoomRawQuery
-import androidx.room.Update
+import androidx.room3.Dao
+import androidx.room3.Insert
+import androidx.room3.Query
+import androidx.room3.RawQuery
+import androidx.room3.RoomRawQuery
+import androidx.room3.Update
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import org.tasks.data.TaskContainer

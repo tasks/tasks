@@ -1,6 +1,6 @@
 package org.tasks.service
 
-import androidx.room.Room
+import androidx.room3.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.runBlocking
 import org.junit.After

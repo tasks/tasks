@@ -6,17 +6,17 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import org.tasks.data.entity.Task
-import org.tasks.service.TaskDeleter
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.Task
 import org.tasks.injection.InjectingTestCase
 import org.tasks.makers.TaskMaker.PARENT
 import org.tasks.makers.TaskMaker.newTask
+import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 

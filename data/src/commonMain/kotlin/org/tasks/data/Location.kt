@@ -1,6 +1,6 @@
 package org.tasks.data
 
-import androidx.room.Embedded
+import androidx.room3.Embedded
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
 import org.tasks.data.entity.Geofence

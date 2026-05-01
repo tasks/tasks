@@ -1,6 +1,6 @@
 package org.tasks.data
 
-import androidx.room.ColumnInfo
+import androidx.room3.ColumnInfo
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_UNKNOWN
 import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
 

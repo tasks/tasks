@@ -1,8 +1,8 @@
 package org.tasks.injection
 
 import android.content.Context
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room3.Room
+import androidx.room3.RoomDatabase
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.SQLiteDriver
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
@@ -79,14 +79,7 @@ internal class ProductionModule {
 
 fun <T : RoomDatabase> RoomDatabase.Builder<T>.setDriver() =
     if (atLeastR()) {
-        if (BuildConfig.DEBUG) {
-            setQueryCallback(
-                queryCallback = { sql, args -> Timber.tag("SQL").v("[sql=${sql.replace(Regex("\\s+"), " ").trim()}] [args=$args]") },
-                executor = { it.run() },
-            )
-        } else {
-            this
-        }
+        this
     } else {
         val driver = BundledSQLiteDriver() // need bundled sqlite for window functions
         this

@@ -5,15 +5,17 @@
  */
 package com.todoroo.astrid.dao
 
+import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotSame
+import org.junit.Assert.assertNull
+import org.junit.Test
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
-import org.tasks.service.TaskDeleter
-import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
-import org.junit.Test
 import org.tasks.injection.InjectingTestCase
+import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 

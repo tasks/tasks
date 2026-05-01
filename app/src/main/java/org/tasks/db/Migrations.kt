@@ -2,7 +2,7 @@ package org.tasks.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteException
-import androidx.room.migration.Migration
+import androidx.room3.migration.Migration
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.execSQL
 import kotlinx.coroutines.runBlocking
@@ -33,19 +33,19 @@ import java.util.concurrent.TimeUnit.HOURS
 object Migrations {
 
     private val MIGRATION_35_36: Migration = object : Migration(35, 36) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `tagdata` ADD COLUMN `color` INTEGER DEFAULT -1")
         }
     }
 
     private val MIGRATION_36_37: Migration = object : Migration(36, 37) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `store` ADD COLUMN `deleted` INTEGER DEFAULT 0")
         }
     }
 
     private val MIGRATION_37_38: Migration = object : Migration(37, 38) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             try {
                 connection.execSQL("ALTER TABLE `store` ADD COLUMN `value4` TEXT DEFAULT -1")
             } catch (e: SQLiteException) {
@@ -55,7 +55,7 @@ object Migrations {
     }
 
     private val MIGRATION_38_39: Migration = object : Migration(38, 39) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "CREATE TABLE IF NOT EXISTS `notification` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL, `type` INTEGER NOT NULL)")
             connection.execSQL(
@@ -64,7 +64,7 @@ object Migrations {
     }
 
     private val MIGRATION_46_47: Migration = object : Migration(46, 47) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "CREATE TABLE IF NOT EXISTS `alarms` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `time` INTEGER NOT NULL)")
             connection.execSQL(
@@ -74,7 +74,7 @@ object Migrations {
     }
 
     private val MIGRATION_47_48: Migration = object : Migration(47, 48) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "CREATE TABLE IF NOT EXISTS `locations` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `name` TEXT, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `radius` INTEGER NOT NULL)")
             connection.execSQL("INSERT INTO `locations` (`task`, `name`, `latitude`, `longitude`, `radius`) "
@@ -84,7 +84,7 @@ object Migrations {
     }
 
     private val MIGRATION_48_49: Migration = object : Migration(48, 49) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "CREATE TABLE IF NOT EXISTS `tags` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `name` TEXT, `tag_uid` TEXT, `task_uid` TEXT)")
             connection.execSQL("INSERT INTO `tags` (`task`, `name`, `tag_uid`, `task_uid`) "
@@ -94,7 +94,7 @@ object Migrations {
     }
 
     private val MIGRATION_49_50: Migration = object : Migration(49, 50) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "CREATE TABLE IF NOT EXISTS `google_tasks` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `remote_id` TEXT, `list_id` TEXT, `parent` INTEGER NOT NULL, `indent` INTEGER NOT NULL, `order` INTEGER NOT NULL, `remote_order` INTEGER NOT NULL, `last_sync` INTEGER NOT NULL, `deleted` INTEGER NOT NULL)")
             connection.execSQL("INSERT INTO `google_tasks` (`task`, `remote_id`, `list_id`, `parent`, `indent`, `order`, `remote_order`, `last_sync`, `deleted`) "
@@ -104,7 +104,7 @@ object Migrations {
     }
 
     private val MIGRATION_50_51: Migration = object : Migration(50, 51) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "CREATE TABLE IF NOT EXISTS `filters` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `sql` TEXT, `values` TEXT, `criterion` TEXT)")
             connection.execSQL("INSERT INTO `filters` (`title`, `sql`, `values`, `criterion`) "
@@ -113,7 +113,7 @@ object Migrations {
         }
     }
     private val MIGRATION_51_52: Migration = object : Migration(51, 52) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "CREATE TABLE IF NOT EXISTS `google_task_lists` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `remote_id` TEXT, `title` TEXT, `remote_order` INTEGER NOT NULL, `last_sync` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `color` INTEGER)")
             connection.execSQL("INSERT INTO `google_task_lists` (`remote_id`, `title`, `remote_order`, `last_sync`, `color`, `deleted`) "
@@ -123,7 +123,7 @@ object Migrations {
     }
 
     private val MIGRATION_52_53: Migration = object : Migration(52, 53) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `tagdata` RENAME TO `tagdata-temp`")
             connection.execSQL(
                     "CREATE TABLE `tagdata` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `remoteId` TEXT, `name` TEXT, `color` INTEGER, `tagOrdering` TEXT)")
@@ -146,7 +146,7 @@ object Migrations {
     }
 
     private val MIGRATION_53_54: Migration = object : Migration(53, 54) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             // need to drop columns that were removed in the past
             connection.execSQL("ALTER TABLE `task_list_metadata` RENAME TO `task_list_metadata-temp`")
             connection.execSQL(
@@ -166,7 +166,7 @@ object Migrations {
     }
 
     private val MIGRATION_54_58: Migration = object : Migration(54, 58) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "CREATE TABLE IF NOT EXISTS `caldav_account` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uuid` TEXT, `name` TEXT, `url` TEXT, `username` TEXT, `password` TEXT)")
             connection.execSQL(
@@ -177,7 +177,7 @@ object Migrations {
     }
 
     private val MIGRATION_58_59: Migration = object : Migration(58, 59) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "CREATE TABLE IF NOT EXISTS `google_task_accounts` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `account` TEXT, `error` TEXT)")
             connection.execSQL("ALTER TABLE `google_task_lists` ADD COLUMN `account` TEXT")
@@ -186,7 +186,7 @@ object Migrations {
     }
 
     private val MIGRATION_59_60: Migration = object : Migration(59, 60) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `locations` ADD COLUMN `address` TEXT")
             connection.execSQL("ALTER TABLE `locations` ADD COLUMN `phone` TEXT")
             connection.execSQL("ALTER TABLE `locations` ADD COLUMN `url` TEXT")
@@ -199,7 +199,7 @@ object Migrations {
     }
 
     private val MIGRATION_60_61: Migration = object : Migration(60, 61) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "CREATE TABLE IF NOT EXISTS `places` (`place_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uid` TEXT, `name` TEXT, `address` TEXT, `phone` TEXT, `url` TEXT, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL)")
             connection.execSQL(
@@ -213,13 +213,13 @@ object Migrations {
     }
 
     private val MIGRATION_61_62: Migration = object : Migration(61, 62) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `google_task_accounts` ADD COLUMN `etag` TEXT")
         }
     }
 
     private val MIGRATION_62_63: Migration = object : Migration(62, 63) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `google_tasks` RENAME TO `gt-temp`")
             connection.execSQL(
                     "CREATE TABLE IF NOT EXISTS `google_tasks` (`gt_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gt_task` INTEGER NOT NULL, `gt_remote_id` TEXT, `gt_list_id` TEXT, `gt_parent` INTEGER NOT NULL, `gt_remote_parent` TEXT, `gt_moved` INTEGER NOT NULL, `gt_order` INTEGER NOT NULL, `gt_remote_order` INTEGER NOT NULL, `gt_last_sync` INTEGER NOT NULL, `gt_deleted` INTEGER NOT NULL)")
@@ -231,7 +231,7 @@ object Migrations {
     }
 
     private val MIGRATION_63_64: Migration = object : Migration(63, 64) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `caldav_tasks` RENAME TO `caldav-temp`")
             connection.execSQL(
                     "CREATE TABLE IF NOT EXISTS `caldav_tasks` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_vtodo` TEXT)")
@@ -267,7 +267,7 @@ object Migrations {
     }
 
     private val MIGRATION_64_65: Migration = object : Migration(64, 65) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "ALTER TABLE `caldav_tasks` ADD COLUMN `cd_parent` INTEGER NOT NULL DEFAULT 0")
             connection.execSQL("ALTER TABLE `caldav_tasks` ADD COLUMN `cd_remote_parent` TEXT")
@@ -275,7 +275,7 @@ object Migrations {
     }
 
     private val MIGRATION_65_66: Migration = object : Migration(65, 66) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("CREATE UNIQUE INDEX `place_uid` ON `places` (`uid`)")
             connection.execSQL("CREATE INDEX `geo_task` ON `geofences` (`task`)")
             connection.execSQL("CREATE INDEX `tag_task` ON `tags` (`task`)")
@@ -287,28 +287,28 @@ object Migrations {
     }
 
     private val MIGRATION_66_67: Migration = object : Migration(66, 67) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "ALTER TABLE `caldav_accounts` ADD COLUMN `cda_repeat` INTEGER NOT NULL DEFAULT 0")
         }
     }
 
     private val MIGRATION_67_68: Migration = object : Migration(67, 68) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "CREATE INDEX `active_and_visible` ON `tasks` (`completed`, `deleted`, `hideUntil`)")
         }
     }
 
     private val MIGRATION_68_69: Migration = object : Migration(68, 69) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "ALTER TABLE `tasks` ADD COLUMN `collapsed` INTEGER NOT NULL DEFAULT 0")
         }
     }
 
     private val MIGRATION_69_70: Migration = object : Migration(69, 70) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `tasks` ADD COLUMN `parent` INTEGER NOT NULL DEFAULT 0")
             connection.execSQL("ALTER TABLE `tasks` ADD COLUMN `parent_uuid` TEXT")
             connection.execSQL(
@@ -330,7 +330,7 @@ object Migrations {
     }
 
     private val MIGRATION_70_71: Migration = object : Migration(70, 71) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `caldav_accounts` ADD COLUMN `cda_encryption_key` TEXT")
             connection.execSQL(
                     "ALTER TABLE `caldav_accounts` ADD COLUMN `cda_account_type` INTEGER NOT NULL DEFAULT 0")
@@ -338,7 +338,7 @@ object Migrations {
     }
 
     private val MIGRATION_71_72: Migration = object : Migration(71, 72) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "ALTER TABLE `caldav_accounts` ADD COLUMN `cda_collapsed` INTEGER NOT NULL DEFAULT 0")
             connection.execSQL(
@@ -347,14 +347,14 @@ object Migrations {
     }
 
     private val MIGRATION_72_73: Migration = object : Migration(72, 73) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `places` ADD COLUMN `place_color` INTEGER NOT NULL DEFAULT 0")
             connection.execSQL("ALTER TABLE `places` ADD COLUMN `place_icon` INTEGER NOT NULL DEFAULT -1")
         }
     }
 
     private val MIGRATION_73_74: Migration = object : Migration(73, 74) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `tasks` RENAME TO `tasks-temp`")
             connection.execSQL("DROP INDEX `t_rid`")
             connection.execSQL("DROP INDEX `active_and_visible`")
@@ -368,13 +368,13 @@ object Migrations {
     }
 
     private val MIGRATION_74_75: Migration = object : Migration(74, 75) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `caldav_tasks` ADD COLUMN `cd_order` INTEGER")
         }
     }
 
     private val MIGRATION_75_76: Migration = object : Migration(75, 76) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `tagdata` ADD COLUMN `td_order` INTEGER NOT NULL DEFAULT $NO_ORDER")
             connection.execSQL("ALTER TABLE `caldav_lists` ADD COLUMN `cdl_order` INTEGER NOT NULL DEFAULT $NO_ORDER")
             connection.execSQL("ALTER TABLE `filters` ADD COLUMN `f_order` INTEGER NOT NULL DEFAULT $NO_ORDER")
@@ -383,14 +383,14 @@ object Migrations {
     }
 
     private val MIGRATION_76_77: Migration = object : Migration(76, 77) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "ALTER TABLE `caldav_lists` ADD COLUMN `cdl_access` INTEGER NOT NULL DEFAULT 0")
         }
     }
 
     private val MIGRATION_77_78: Migration = object : Migration(77, 78) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                     "CREATE TABLE IF NOT EXISTS `principals` (`principal_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `principal_list` INTEGER NOT NULL, `principal` TEXT, `display_name` TEXT, `invite` INTEGER NOT NULL, `access` INTEGER NOT NULL, FOREIGN KEY(`principal_list`) REFERENCES `caldav_lists`(`cdl_id`) ON UPDATE NO ACTION ON DELETE CASCADE )")
             connection.execSQL(
@@ -400,7 +400,7 @@ object Migrations {
     }
 
     private val MIGRATION_78_79: Migration = object : Migration(78, 79) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL(
                 "ALTER TABLE `caldav_accounts` ADD COLUMN `cda_server_type` INTEGER NOT NULL DEFAULT $SERVER_UNKNOWN"
             )
@@ -408,7 +408,7 @@ object Migrations {
     }
 
     private val MIGRATION_79_80 = object : Migration(79, 80) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("DROP TABLE `principals`")
             connection.execSQL(
                 "CREATE TABLE IF NOT EXISTS `principals` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `account` INTEGER NOT NULL, `href` TEXT NOT NULL, `email` TEXT, `display_name` TEXT, FOREIGN KEY(`account`) REFERENCES `caldav_accounts`(`cda_id`) ON UPDATE NO ACTION ON DELETE CASCADE )"
@@ -429,7 +429,7 @@ object Migrations {
     }
 
     private val MIGRATION_80_81 = object : Migration(80, 81) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `alarms` ADD COLUMN `type` INTEGER NOT NULL DEFAULT 0")
             connection.execSQL("ALTER TABLE `alarms` ADD COLUMN `repeat` INTEGER NOT NULL DEFAULT 0")
             connection.execSQL("ALTER TABLE `alarms` ADD COLUMN `interval` INTEGER NOT NULL DEFAULT 0")
@@ -453,7 +453,7 @@ object Migrations {
 
     @Suppress("FunctionName")
     private fun migration_81_82(fileStorage: FileStorage) = object : Migration(81, 82) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection
                 .prepare("SELECT `cdl_account`, `cd_calendar`, `cd_object`, `cd_vtodo` FROM `caldav_tasks` INNER JOIN `caldav_lists` ON `cdl_uuid` = `cd_calendar`")
                 .use {
@@ -485,7 +485,7 @@ object Migrations {
     }
 
     private val MIGRATION_82_83 = object : Migration(82, 83) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `places` ADD COLUMN `radius` INTEGER NOT NULL DEFAULT 250")
             connection.execSQL("CREATE TABLE IF NOT EXISTS `_new_alarms` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `time` INTEGER NOT NULL, `type` INTEGER NOT NULL DEFAULT 0, `repeat` INTEGER NOT NULL DEFAULT 0, `interval` INTEGER NOT NULL DEFAULT 0, FOREIGN KEY(`task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )")
             connection.execSQL("INSERT INTO `_new_alarms` (`task`,`repeat`,`interval`,`_id`,`time`,`type`) SELECT `task`,`repeat`,`interval`,`alarms`.`_id`,`time`,`type` FROM `alarms` INNER JOIN `tasks` ON `tasks`.`_id` = `task`")
@@ -538,7 +538,7 @@ object Migrations {
     }
 
     private val MIGRATION_84_85 = object : Migration(84, 85) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `tasks` ADD COLUMN `repeat_from` INTEGER NOT NULL DEFAULT ${Task.RepeatFrom.DUE_DATE}")
             connection
                 .prepare("SELECT `_id`, `repeatUntil`, `recurrence` FROM `tasks` WHERE `recurrence` IS NOT NULL AND `recurrence` != ''")
@@ -568,7 +568,7 @@ object Migrations {
     }
 
     private val MIGRATION_85_86 = object : Migration(85, 86) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("CREATE TABLE IF NOT EXISTS `attachment_file` (`file_id` INTEGER PRIMARY KEY AUTOINCREMENT, `file_uuid` TEXT NOT NULL, `filename` TEXT NOT NULL, `uri` TEXT NOT NULL)")
             connection.execSQL("INSERT INTO `attachment_file` (`file_id`, `uri`,`filename`,`file_id`,`file_uuid`) SELECT `_id`, `path`,`name`,`_id`,`remoteId` FROM `task_attachments`")
 
@@ -586,14 +586,14 @@ object Migrations {
     }
 
     private val MIGRATION_86_87 = object : Migration(86, 87) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("ALTER TABLE `tasks` ADD COLUMN `read_only` INTEGER NOT NULL DEFAULT 0")
             connection.execSQL("UPDATE `tasks` SET `read_only` = 1 WHERE `_id` IN (SELECT `cd_task` FROM `caldav_tasks` INNER JOIN `caldav_lists` ON `caldav_tasks`.`cd_calendar` = `caldav_lists`.`cdl_uuid` WHERE `cdl_access` = $ACCESS_READ_ONLY)")
         }
     }
 
     private val MIGRATION_89_90 = object : Migration(89, 90) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_remote_id` ON `caldav_tasks` (`cd_remote_id`)")
             connection.execSQL("CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_calendar_cd_remote_id` ON `caldav_tasks` (`cd_calendar`, `cd_remote_id`)")
             connection.execSQL("CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_calendar_cd_remote_parent` ON `caldav_tasks` (`cd_calendar`, `cd_remote_parent`)")
@@ -601,7 +601,7 @@ object Migrations {
     }
 
     private val MIGRATION_90_91 = object : Migration(90, 91) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             connection.execSQL("CREATE INDEX IF NOT EXISTS `index_tasks_parent` ON `tasks` (`parent`)")
             connection.execSQL("DELETE FROM `caldav_tasks` WHERE `cd_task` NOT IN (SELECT `_id` FROM `tasks`)")
             connection.execSQL("CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_calendar_cd_object` ON `caldav_tasks` (`cd_calendar`, `cd_object`)")
@@ -609,7 +609,7 @@ object Migrations {
     }
 
     private fun migration_87_88(context: Context) = object : Migration(87, 88) {
-        override fun migrate(connection: SQLiteConnection) {
+        override suspend fun migrate(connection: SQLiteConnection) {
             val prefs = Preferences(context)
             val defaultList = prefs.getStringValue(R.string.p_default_list)?.split(":")
             if (
@@ -696,7 +696,7 @@ object Migrations {
     )
 
     private fun noop(from: Int, to: Int): Migration = object : Migration(from, to) {
-        override fun migrate(connection: SQLiteConnection) {}
+        override suspend fun migrate(connection: SQLiteConnection) {}
     }
 
     fun String?.repeatFrom() = if (this?.contains("FROM=COMPLETION") == true) {

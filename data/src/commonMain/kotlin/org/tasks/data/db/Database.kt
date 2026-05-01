@@ -1,8 +1,9 @@
 package org.tasks.data.db
 
-import androidx.room.AutoMigration
-import androidx.room.Database
-import androidx.room.RoomDatabase
+import androidx.room3.AutoMigration
+import androidx.room3.Database
+import androidx.room3.RoomDatabase
+import androidx.room3.RoomWarnings
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.Astrid2ContentProviderDao
 import org.tasks.data.dao.CaldavDao
@@ -65,6 +66,8 @@ import org.tasks.data.entity.UserActivity
     ],
     version = 92
 )
+@OptIn(androidx.room3.ExperimentalRoomApi::class)
+@Suppress(RoomWarnings.NO_DATABASE_CONSTRUCTOR)
 abstract class Database : RoomDatabase() {
     abstract fun notificationDao(): NotificationDao
     abstract fun tagDataDao(): TagDataDao
