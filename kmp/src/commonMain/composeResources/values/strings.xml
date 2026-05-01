@@ -259,4 +259,13 @@
     <string name="pricing_sponsor">Or sponsor on GitHub for %1$s</string>
     <string name="already_subscribed">Already a subscriber?</string>
     <string name="sign_in_subtitle">Already a subscriber or invited guest?</string>
+    <string name="whats_new">What's New</string>
+    <string name="version_string">Version %s</string>
+    <string name="support">Support</string>
+    <string name="documentation">Documentation</string>
+    <string name="issue_tracker">Issue tracker</string>
+    <string name="contact_developer">Contact developer</string>
+    <string name="source_code">Source code</string>
+    <string name="legal">Legal</string>
+    <string name="privacy_policy">Privacy policy</string>
 </resources>
