@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.compose.settings.BlogFeedModeDialog
+import org.tasks.compose.settings.HelpAndFeedbackCallbacks
 import org.tasks.compose.settings.HelpAndFeedbackScreen
 import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.BasePreferences
@@ -52,83 +53,85 @@ class HelpAndFeedback : Fragment() {
                 isGooglePlay = viewModel.isGooglePlay,
                 showTermsOfService = viewModel.showTermsOfService,
                 collectStatistics = viewModel.collectStatistics,
-                onWhatsNew = {
-                    viewModel.logEvent("whats_new")
-                    context?.openUri(R.string.url_changelog)
-                },
-                onRateTasks = {
-                    viewModel.logEvent("rate_tasks")
-                    context?.openUri(R.string.market_url)
-                },
-                onDocumentation = {
-                    viewModel.logEvent("documentation")
-                    context?.openUri(R.string.url_documentation)
-                },
-                onIssueTracker = {
-                    viewModel.logEvent("issue_tracker")
-                    context?.openUri(R.string.url_issue_tracker)
-                },
-                onContactDeveloper = {
-                    viewModel.logEvent("contact_developer")
-                    val uri = Uri.fromParts(
-                        "mailto",
-                        "Alex <${getString(R.string.support_email)}>",
-                        null
-                    )
-                    val intent = Intent(Intent.ACTION_SENDTO, uri)
-                        .putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback")
-                        .putExtra(Intent.EXTRA_TEXT, viewModel.debugInfo)
-                    startActivity(intent)
-                },
-                onSendLogs = {
-                    viewModel.logEvent("send_logs")
-                    lifecycleScope.launch {
-                        val file = FileProvider.getUriForFile(
-                            requireContext(),
-                            Constants.FILE_PROVIDER_AUTHORITY,
-                            viewModel.getLogZipFile()
-                        )
-                        val intent = Intent(Intent.ACTION_SEND)
-                            .setType("message/rfc822")
-                            .putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.support_email)))
-                            .putExtra(Intent.EXTRA_SUBJECT, "Tasks logs")
-                            .putExtra(Intent.EXTRA_TEXT, viewModel.debugInfo)
-                            .putExtra(Intent.EXTRA_STREAM, file)
-                            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                        startActivity(intent)
-                    }
-                },
-                onReddit = {
-                    viewModel.logEvent("reddit")
-                    context?.openUri(R.string.url_reddit)
-                },
-                onTwitter = {
-                    viewModel.logEvent("twitter")
-                    context?.openUri(R.string.url_twitter)
-                },
-                onSourceCode = {
-                    viewModel.logEvent("source_code")
-                    context?.openUri(R.string.url_source_code)
-                },
-                onThirdPartyLicenses = {
-                    viewModel.logEvent("third_party_licenses")
-                    val intent = Intent()
-                        .setClassName(requireContext(), "com.google.android.gms.oss.licenses.OssLicensesMenuActivity")
-                    startActivity(intent)
-                },
-                onTermsOfService = {
-                    viewModel.logEvent("tos")
-                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_tos) })
-                },
-                onPrivacyPolicy = {
-                    viewModel.logEvent("privacy_policy")
-                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_privacy_policy) })
-                },
                 blogFeedMode = viewModel.blogFeedMode,
-                onBlogFeedModeClick = { viewModel.showBlogFeedModeDialog() },
-                onCollectStatisticsChanged = { enabled ->
-                    viewModel.updateCollectStatistics(enabled)
-                },
+                callbacks = HelpAndFeedbackCallbacks(
+                    onWhatsNew = {
+                        viewModel.logEvent("whats_new")
+                        context?.openUri(R.string.url_changelog)
+                    },
+                    onRateTasks = {
+                        viewModel.logEvent("rate_tasks")
+                        context?.openUri(R.string.market_url)
+                    },
+                    onDocumentation = {
+                        viewModel.logEvent("documentation")
+                        context?.openUri(R.string.url_documentation)
+                    },
+                    onIssueTracker = {
+                        viewModel.logEvent("issue_tracker")
+                        context?.openUri(R.string.url_issue_tracker)
+                    },
+                    onContactDeveloper = {
+                        viewModel.logEvent("contact_developer")
+                        val uri = Uri.fromParts(
+                            "mailto",
+                            "Alex <${getString(R.string.support_email)}>",
+                            null
+                        )
+                        val intent = Intent(Intent.ACTION_SENDTO, uri)
+                            .putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback")
+                            .putExtra(Intent.EXTRA_TEXT, viewModel.debugInfo)
+                        startActivity(intent)
+                    },
+                    onSendLogs = {
+                        viewModel.logEvent("send_logs")
+                        lifecycleScope.launch {
+                            val file = FileProvider.getUriForFile(
+                                requireContext(),
+                                Constants.FILE_PROVIDER_AUTHORITY,
+                                viewModel.getLogZipFile()
+                            )
+                            val intent = Intent(Intent.ACTION_SEND)
+                                .setType("message/rfc822")
+                                .putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.support_email)))
+                                .putExtra(Intent.EXTRA_SUBJECT, "Tasks logs")
+                                .putExtra(Intent.EXTRA_TEXT, viewModel.debugInfo)
+                                .putExtra(Intent.EXTRA_STREAM, file)
+                                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            startActivity(intent)
+                        }
+                    },
+                    onReddit = {
+                        viewModel.logEvent("reddit")
+                        context?.openUri(R.string.url_reddit)
+                    },
+                    onTwitter = {
+                        viewModel.logEvent("twitter")
+                        context?.openUri(R.string.url_twitter)
+                    },
+                    onSourceCode = {
+                        viewModel.logEvent("source_code")
+                        context?.openUri(R.string.url_source_code)
+                    },
+                    onThirdPartyLicenses = {
+                        viewModel.logEvent("third_party_licenses")
+                        val intent = Intent()
+                            .setClassName(requireContext(), "com.google.android.gms.oss.licenses.OssLicensesMenuActivity")
+                        startActivity(intent)
+                    },
+                    onTermsOfService = {
+                        viewModel.logEvent("tos")
+                        context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_tos) })
+                    },
+                    onPrivacyPolicy = {
+                        viewModel.logEvent("privacy_policy")
+                        context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_privacy_policy) })
+                    },
+                    onBlogFeedModeClick = { viewModel.showBlogFeedModeDialog() },
+                    onCollectStatisticsChanged = { enabled ->
+                        viewModel.updateCollectStatistics(enabled)
+                    },
+                ),
             )
 
             if (viewModel.showRestartDialog) {

@@ -35,14 +35,18 @@ import tasks.kmp.generated.resources.support
 import tasks.kmp.generated.resources.version_string
 import tasks.kmp.generated.resources.whats_new
 
+data class HelpAndFeedbackCallbacks(
+    val onDocumentation: () -> Unit = {},
+    val onIssueTracker: () -> Unit = {},
+    val onContactDeveloper: () -> Unit = {},
+    val onSourceCode: () -> Unit = {},
+    val onPrivacyPolicy: () -> Unit = {},
+)
+
 @Composable
 fun HelpAndFeedbackScreen(
     versionName: String = JvmBuildConfig.VERSION_NAME,
-    onDocumentation: () -> Unit = {},
-    onIssueTracker: () -> Unit = {},
-    onContactDeveloper: () -> Unit = {},
-    onSourceCode: () -> Unit = {},
-    onPrivacyPolicy: () -> Unit = {},
+    callbacks: HelpAndFeedbackCallbacks = HelpAndFeedbackCallbacks(),
 ) {
     Column(
         modifier = Modifier
@@ -51,80 +55,93 @@ fun HelpAndFeedbackScreen(
             .verticalScroll(rememberScrollState())
     ) {
         Spacer(modifier = Modifier.height(16.dp))
-
-        // Version info
-        Column(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-        ) {
-            SettingsItemCard(position = CardPosition.Only) {
-                PreferenceRow(
-                    title = stringResource(Res.string.whats_new),
-                    icon = Icons.Outlined.NewReleases,
-                    summary = stringResource(Res.string.version_string, versionName),
-                    onClick = onDocumentation,
-                )
-            }
-        }
-
-        // Support section
-        SectionHeader(
-            stringResource(Res.string.support),
-            modifier = Modifier.padding(horizontal = 16.dp),
-        )
-        Column(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-        ) {
-            SettingsItemCard(position = CardPosition.First) {
-                PreferenceRow(
-                    title = stringResource(Res.string.documentation),
-                    icon = Icons.Outlined.HelpOutline,
-                    onClick = onDocumentation,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
-                PreferenceRow(
-                    title = stringResource(Res.string.issue_tracker),
-                    icon = Icons.Outlined.BugReport,
-                    onClick = onIssueTracker,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
-                PreferenceRow(
-                    title = stringResource(Res.string.contact_developer),
-                    icon = Icons.Outlined.Email,
-                    onClick = onContactDeveloper,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Last) {
-                PreferenceRow(
-                    title = stringResource(Res.string.source_code),
-                    icon = Icons.Outlined.NewReleases,
-                    summary = stringResource(Res.string.gplv3_license),
-                    onClick = onSourceCode,
-                )
-            }
-        }
-
-        // Legal section
-        SectionHeader(
-            stringResource(Res.string.legal),
-            modifier = Modifier.padding(horizontal = 16.dp),
-        )
-        Column(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-        ) {
-            SettingsItemCard(position = CardPosition.Only) {
-                PreferenceRow(
-                    title = stringResource(Res.string.privacy_policy),
-                    icon = Icons.Outlined.PermIdentity,
-                    onClick = onPrivacyPolicy,
-                )
-            }
-        }
-
+        VersionInfo(versionName, callbacks.onDocumentation)
+        SupportSection(callbacks.onDocumentation, callbacks.onIssueTracker, callbacks.onContactDeveloper, callbacks.onSourceCode)
+        LegalSection(callbacks.onPrivacyPolicy)
         Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
+@Composable
+private fun VersionInfo(versionName: String, onDocumentation: () -> Unit) {
+    Column(
+        modifier = Modifier.padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+    ) {
+        SettingsItemCard(position = CardPosition.Only) {
+            PreferenceRow(
+                title = stringResource(Res.string.whats_new),
+                icon = Icons.Outlined.NewReleases,
+                summary = stringResource(Res.string.version_string, versionName),
+                onClick = onDocumentation,
+            )
+        }
+    }
+}
+
+@Composable
+private fun SupportSection(
+    onDocumentation: () -> Unit,
+    onIssueTracker: () -> Unit,
+    onContactDeveloper: () -> Unit,
+    onSourceCode: () -> Unit,
+) {
+    SectionHeader(
+        stringResource(Res.string.support),
+        modifier = Modifier.padding(horizontal = 16.dp),
+    )
+    Column(
+        modifier = Modifier.padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+    ) {
+        SettingsItemCard(position = CardPosition.First) {
+            PreferenceRow(
+                title = stringResource(Res.string.documentation),
+                icon = Icons.Outlined.HelpOutline,
+                onClick = onDocumentation,
+            )
+        }
+        SettingsItemCard(position = CardPosition.Middle) {
+            PreferenceRow(
+                title = stringResource(Res.string.issue_tracker),
+                icon = Icons.Outlined.BugReport,
+                onClick = onIssueTracker,
+            )
+        }
+        SettingsItemCard(position = CardPosition.Middle) {
+            PreferenceRow(
+                title = stringResource(Res.string.contact_developer),
+                icon = Icons.Outlined.Email,
+                onClick = onContactDeveloper,
+            )
+        }
+        SettingsItemCard(position = CardPosition.Last) {
+            PreferenceRow(
+                title = stringResource(Res.string.source_code),
+                icon = Icons.Outlined.NewReleases,
+                summary = stringResource(Res.string.gplv3_license),
+                onClick = onSourceCode,
+            )
+        }
+    }
+}
+
+@Composable
+private fun LegalSection(onPrivacyPolicy: () -> Unit) {
+    SectionHeader(
+        stringResource(Res.string.legal),
+        modifier = Modifier.padding(horizontal = 16.dp),
+    )
+    Column(
+        modifier = Modifier.padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+    ) {
+        SettingsItemCard(position = CardPosition.Only) {
+            PreferenceRow(
+                title = stringResource(Res.string.privacy_policy),
+                icon = Icons.Outlined.PermIdentity,
+                onClick = onPrivacyPolicy,
+            )
+        }
     }
 }

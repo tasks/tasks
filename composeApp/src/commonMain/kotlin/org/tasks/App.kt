@@ -106,6 +106,7 @@ import org.tasks.compose.settings.CaldavAccountSettingsDetail
 import org.tasks.compose.settings.CaldavAccountSettingsPane
 import org.tasks.compose.settings.EtebaseAccountSettingsDetail
 import org.tasks.compose.settings.EtebaseAccountSettingsPane
+import org.tasks.compose.settings.HelpAndFeedbackCallbacks
 import org.tasks.compose.settings.HelpAndFeedbackScreen
 import org.tasks.compose.settings.LocalAccountSettingsDetail
 import org.tasks.compose.settings.LocalAccountSettingsPane
@@ -1661,11 +1662,13 @@ private fun SettingsScreen(
                         when (selectedContent) {
                             org.tasks.compose.settings.SettingsDestination.HelpAndFeedback -> {
                                 HelpAndFeedbackScreen(
-                                    onDocumentation = { uriHandler.openUri("https://tasks.org/docs") },
-                                    onIssueTracker = { uriHandler.openUri("https://github.com/tasks/tasks/issues") },
-                                    onContactDeveloper = { uriHandler.openUri("mailto:tasks@tasks.org") },
-                                    onSourceCode = { uriHandler.openUri("https://github.com/tasks/tasks") },
-                                    onPrivacyPolicy = { uriHandler.openUri("https://tasks.org/privacy") },
+                                    callbacks = HelpAndFeedbackCallbacks(
+                                        onDocumentation = { uriHandler.openUri("https://tasks.org/docs") },
+                                        onIssueTracker = { uriHandler.openUri("https://github.com/tasks/tasks/issues") },
+                                        onContactDeveloper = { uriHandler.openUri("mailto:tasks@tasks.org") },
+                                        onSourceCode = { uriHandler.openUri("https://github.com/tasks/tasks") },
+                                        onPrivacyPolicy = { uriHandler.openUri("https://tasks.org/privacy") },
+                                    )
                                 )
                             }
                             else -> {
