@@ -237,7 +237,7 @@
     <string name="pricing_cloud_monthly_note">按月计费</string>
     <string name="pricing_cloud_feature_1">Android 和桌面端间的即时同步</string>
     <string name="pricing_cloud_feature_2">好友和家人清单共享</string>
-    <string name="pricing_cloud_feature_3">使用私密收件箱发邮件创建任务</string>
+    <string name="pricing_cloud_feature_3">使用私密收件箱将邮件转换为任务</string>
     <string name="pricing_cloud_feature_4">连接到 iOS 上的 Apple Reminders</string>
     <string name="pricing_nyp_feature_1">自定义主题和图标</string>
     <string name="pricing_nyp_feature_2">借助 CalDAV 和 EteSync 的自托管同步</string>
@@ -245,4 +245,16 @@
     <string name="pricing_subscribe_google_play">在 Google Play 订阅</string>
     <string name="pricing_sponsor">或在 GitHub 上以 %1$s 赞助</string>
     <string name="app_settings">应用设置</string>
+    <string name="link_desktop_step_1">打开 Tasks.org 桌面应用</string>
+    <string name="link_desktop_step_2">单击 \'%1$s\' 选择 \'%2$s\'</string>
+    <string name="link_desktop_step_3">选择 \'%1$s\'</string>
+    <string name="unlock_pro_scan_heading">在 Tasks.org 安卓应用中扫描二维码</string>
+    <string name="unlock_pro_step_1">在手机上打开 Tasks.org</string>
+    <string name="unlock_pro_step_2">轻触 \'%1$s\'，然后轻触 \'%2$s\'</string>
+    <string name="unlock_pro_step_3">轻触 \'%1$s\'</string>
+    <string name="error_no_sponsorship">未发现赞助</string>
+    <string name="error_sponsorship_delay">新赞助可能不会立即可用，请几分钟后重试。</string>
+    <string name="error_contact_support">如果问题持续，请联系 %1$s</string>
+    <string name="google_play_subscription">Google Play 订阅</string>
+    <string name="github_sponsorship">GitHub Sponsorship</string>
 </resources>
