@@ -244,4 +244,5 @@
     <string name="pricing_nyp_feature_3">支持开源软件</string>
     <string name="pricing_subscribe_google_play">在 Google Play 订阅</string>
     <string name="pricing_sponsor">或在 GitHub 上以 %1$s 赞助</string>
+    <string name="app_settings">应用设置</string>
 </resources>

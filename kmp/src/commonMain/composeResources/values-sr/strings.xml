@@ -185,4 +185,5 @@
     <string name="username_required">Корисничко име је неопходно</string>
     <string name="etesync_account_description">Захтева налог код ,,EteSync.com\'\' или приватни сервер</string>
     <string name="show_advanced_settings">Прикажи напредна подешавања</string>
+    <string name="app_settings">Подешавања апликације</string>
 </resources>

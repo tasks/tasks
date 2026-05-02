@@ -216,4 +216,5 @@
     <string name="already_subscribed">Halihazırda abone misiniz?</string>
     <string name="sign_in_subtitle">Halihazırda abone ya da davetli konuk musunuz?</string>
     <string name="show_advanced_settings">Gelişmiş ayarları göster</string>
+    <string name="app_settings">Uygulama ayarları</string>
 </resources>

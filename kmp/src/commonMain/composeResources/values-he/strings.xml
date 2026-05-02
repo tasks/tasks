@@ -201,4 +201,5 @@
     <string name="already_subscribed">כבר מנוי/ה?</string>
     <string name="sign_in_subtitle">כבר מנוי/ה או אורח/ת מוזמן/ת?</string>
     <string name="show_advanced_settings">הצגת הגדרות מתקדמות</string>
+    <string name="app_settings">הגדרות יישום</string>
 </resources>

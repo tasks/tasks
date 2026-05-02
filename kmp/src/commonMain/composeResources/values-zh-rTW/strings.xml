@@ -197,4 +197,5 @@
     <string name="already_subscribed">已經是訂閱者了嗎？</string>
     <string name="sign_in_subtitle">已經是訂閱者或受邀訪客？</string>
     <string name="show_advanced_settings">顯示進階設定</string>
+    <string name="app_settings">應用程式設定</string>
 </resources>

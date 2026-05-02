@@ -214,4 +214,5 @@
     <string name="already_subscribed">すでにサブスクリプションを購入していますか？</string>
     <string name="sign_in_subtitle">すでに購読しているか、招待されたゲストですか？</string>
     <string name="show_advanced_settings">詳細な設定を表示</string>
+    <string name="app_settings">アプリ設定</string>
 </resources>

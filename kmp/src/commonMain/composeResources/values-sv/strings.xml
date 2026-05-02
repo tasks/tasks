@@ -174,4 +174,5 @@
     <string name="username_required">Användarnamn krävs</string>
     <string name="etesync_account_description">Kräver ett konto hos EteSync.com eller en egen värdserver</string>
     <string name="show_advanced_settings">Visa avancerade inställningar</string>
+    <string name="app_settings">Appinställningar</string>
 </resources>

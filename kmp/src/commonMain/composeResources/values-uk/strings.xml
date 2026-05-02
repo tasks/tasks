@@ -165,4 +165,5 @@
     <string name="username_required">Потрібне ім\\'я користувача</string>
     <string name="etesync_account_description">Потрібний обліковий запис у EteSync.com або власний сервер</string>
     <string name="show_advanced_settings">Показати розширені налаштування</string>
+    <string name="app_settings">Налаштування застосунку</string>
 </resources>

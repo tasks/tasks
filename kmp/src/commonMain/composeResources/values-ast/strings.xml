@@ -91,4 +91,5 @@
     <string name="url_required">Precísase la URL</string>
     <string name="username_required">Precísase un nome d\\'usuariu</string>
     <string name="show_advanced_settings">Amosar axustes avanzaos</string>
+    <string name="app_settings">Axustes de l\'aplicación</string>
 </resources>

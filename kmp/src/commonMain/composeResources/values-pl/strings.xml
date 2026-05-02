@@ -155,4 +155,5 @@
     <string name="username_required">Wymagana nazwa użytkownika</string>
     <string name="etesync_account_description">Wymaga konta na EteSync.com lub własnego serwera</string>
     <string name="show_advanced_settings">Pokaż ustawienia zaawansowane</string>
+    <string name="app_settings">Ustawienia aplikacji</string>
 </resources>

@@ -162,4 +162,5 @@
     <string name="username_required">Vyžaduje sa meno užívateľa </string>
     <string name="etesync_account_description">Vyžaduje účet na EteSync.com alebo vlastný server</string>
     <string name="show_advanced_settings">Zobraziť pokročilé možnosti</string>
+    <string name="app_settings">Nastavenia aplikácie</string>
 </resources>

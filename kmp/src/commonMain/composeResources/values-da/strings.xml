@@ -183,4 +183,5 @@
     <string name="username_required">Brugernavn påkrævet</string>
     <string name="etesync_account_description">Kræver en konto hos EteSync.com eller en selvhostet server</string>
     <string name="show_advanced_settings">Vis avancerede indstillinger</string>
+    <string name="app_settings">App-indstillinger</string>
 </resources>

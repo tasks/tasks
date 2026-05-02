@@ -199,4 +199,5 @@
     <string name="already_subscribed">Sudah berlangganan?</string>
     <string name="sign_in_subtitle">Sudah berlangganan atau diundang sebagai tamu?</string>
     <string name="show_advanced_settings">Tampilkan pengaturan lanjutan</string>
+    <string name="app_settings">Pengaturan aplikasi</string>
 </resources>
