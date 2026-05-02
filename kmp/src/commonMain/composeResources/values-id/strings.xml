@@ -198,4 +198,5 @@
     <string name="etesync_account_description">Membutuhkan akun EteSync.com atau server hosting-mandiri</string>
     <string name="already_subscribed">Sudah berlangganan?</string>
     <string name="sign_in_subtitle">Sudah berlangganan atau diundang sebagai tamu?</string>
+    <string name="show_advanced_settings">Tampilkan pengaturan lanjutan</string>
 </resources>

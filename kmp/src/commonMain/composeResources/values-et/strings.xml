@@ -198,4 +198,5 @@
     <string name="etesync_account_description">Eeldab, et sul on olemas kasutajakonto EteSync.com teenusepakkuja serveris või sinu omas vastavas serveris</string>
     <string name="already_subscribed">Kas juba oled tellija?</string>
     <string name="sign_in_subtitle">Kas oled juba tellija või kutsud külaline?</string>
+    <string name="show_advanced_settings">Näita üksikasjalikke seadistusi</string>
 </resources>

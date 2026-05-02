@@ -200,4 +200,5 @@
     <string name="etesync_account_description">EteSync.com accountot, vagy saját szervert igényel</string>
     <string name="already_subscribed">Már előfizettél?</string>
     <string name="sign_in_subtitle">Már előfizettél vagy meghívtak, mint vendéget?</string>
+    <string name="show_advanced_settings">Haladó beállítások mutatása</string>
 </resources>
