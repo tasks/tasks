@@ -162,4 +162,5 @@
     <string name="username_required">Απαιτείται όνομα χρήστη</string>
     <string name="etesync_account_description">Απαιτείται λογαριασμός στο EteSync.com ή σε αυτο-φιλοξενούμενο διακομιστή</string>
     <string name="show_advanced_settings">Εμφάνιση σύνθετων ρυθμίσεων</string>
+    <string name="app_settings">Ρυθμίσεις Εφαρμογής</string>
 </resources>

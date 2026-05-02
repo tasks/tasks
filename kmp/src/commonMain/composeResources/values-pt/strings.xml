@@ -162,4 +162,5 @@
     <string name="username_required">É necessário o nome de utilizador</string>
     <string name="etesync_account_description">Precisa de uma conta no EteSync.com ou de um servidor auto-alojado</string>
     <string name="show_advanced_settings">Mostrar configurações avançadas</string>
+    <string name="app_settings">Configurações da aplicação</string>
 </resources>

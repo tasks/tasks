@@ -161,4 +161,5 @@
     <string name="username_required">계정명 필수</string>
     <string name="etesync_account_description">EteSync.com이나 자체호스팅 서버의 계정 필요</string>
     <string name="show_advanced_settings">고급 설정 표시</string>
+    <string name="app_settings">앱 설정</string>
 </resources>

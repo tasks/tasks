@@ -194,4 +194,5 @@
     <string name="already_subscribed">Вече имате абонамент?</string>
     <string name="sign_in_subtitle">Имате абонамент или покана?</string>
     <string name="show_advanced_settings">Разширени настройки</string>
+    <string name="app_settings">Настройки на приложението</string>
 </resources>

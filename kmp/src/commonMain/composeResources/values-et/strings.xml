@@ -199,4 +199,5 @@
     <string name="already_subscribed">Kas juba oled tellija?</string>
     <string name="sign_in_subtitle">Kas oled juba tellija või kutsud külaline?</string>
     <string name="show_advanced_settings">Näita üksikasjalikke seadistusi</string>
+    <string name="app_settings">Rakenduse seadistused</string>
 </resources>

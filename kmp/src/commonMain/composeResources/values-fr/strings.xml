@@ -218,4 +218,5 @@
     <string name="already_subscribed">Déjà abonné ?</string>
     <string name="sign_in_subtitle">Déjà abonné ou invité ?</string>
     <string name="show_advanced_settings">Afficher les paramètres avancés</string>
+    <string name="app_settings">Paramètres de l\'application</string>
 </resources>

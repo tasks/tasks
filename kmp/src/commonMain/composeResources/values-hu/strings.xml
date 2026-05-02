@@ -201,4 +201,5 @@
     <string name="already_subscribed">Már előfizettél?</string>
     <string name="sign_in_subtitle">Már előfizettél vagy meghívtak, mint vendéget?</string>
     <string name="show_advanced_settings">Haladó beállítások mutatása</string>
+    <string name="app_settings">Alkalmazás beállításai</string>
 </resources>
