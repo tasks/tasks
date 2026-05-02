@@ -207,7 +207,7 @@
     <string name="caldav_server_other">Další</string>
     <string name="caldav_server_type">Typ serveru</string>
     <string name="caldav_server_unknown">Neznámý</string>
-    <string name="error_adding_account">Chyba: %s</string>
+    <string name="error_adding_account">Chyba: %1$s</string>
     <string name="invalid_username_or_password">Neplatné uživatelské jméno nebo heslo</string>
     <string name="network_error">Nepodařilo se připojit</string>
     <string name="sign_in">Přihlásit se</string>
@@ -220,4 +220,20 @@
     <string name="sign_in_subtitle">Již máte předplatné nebo jste pozvaným hostem?</string>
     <string name="show_advanced_settings">Zobrazit pokročilé možnosti</string>
     <string name="app_settings">Nastavení aplikace</string>
+    <string name="logout_confirmation">Odhlásit se z %1$s?</string>
+    <string name="caldav_server_owncloud">ownCloud</string>
+    <string name="caldav_server_sabredav">sabre/dav</string>
+    <string name="caldav_server_openxchange">Open-Xchange</string>
+    <string name="caldav_server_nextcloud">Nextcloud</string>
+    <string name="caldav_server_synology_calendar">Kalendář Synology</string>
+    <string name="caldav_server_mailbox_org">Mailbox.org</string>
+    <string name="link_desktop_step_1">Otevřít počítačovou aplikaci Tasks.org</string>
+    <string name="link_desktop_step_2">Klikněte na „%1$s“ a vyberte „%2$s“</string>
+    <string name="link_desktop_step_3">Vyberte „%1$s“</string>
+    <string name="unlock_pro_scan_heading">Naskenujte QR kód pomocí aplikace Tasks.org pro Android</string>
+    <string name="unlock_pro_step_1">Otevřete Tasks.org na vašem telefonu</string>
+    <string name="unlock_pro_step_2">Klepněte na „%1$s“, poté klepněte na „%2$s“</string>
+    <string name="unlock_pro_step_3">Klepněte na „%1$s“</string>
+    <string name="error_no_sponsorship">Nenalezeno žádné sponzorství</string>
+    <string name="error_sponsorship_delay">Nová sponzorství nemusí být okamžitě dostupná, zkuste to znovu za několik minut.</string>
 </resources>
