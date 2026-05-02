@@ -203,4 +203,5 @@
     <string name="etesync_account_description">Richiede un account EteSync.com o un server self-hosted</string>
     <string name="already_subscribed">Sei già abbonato?</string>
     <string name="sign_in_subtitle">Sei già abbonato o sei stato invitato?</string>
+    <string name="show_advanced_settings">Mostra impostazioni avanzate</string>
 </resources>

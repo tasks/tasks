@@ -190,4 +190,5 @@
     <string name="etesync_account_description">Bezonas konton de EteSync.com aŭ memgastigan servilon</string>
     <string name="already_subscribed">Ĉu vi jam abonis?</string>
     <string name="sign_in_subtitle">Ĉu vi jam estas abonanto aŭ invitita gasto?</string>
+    <string name="show_advanced_settings">Vidigi altnivelajn agordojn</string>
 </resources>

@@ -175,4 +175,6 @@
     <string name="url_required">Требуется URL</string>
     <string name="username_required">Требуется имя пользователя</string>
     <string name="etesync_account_description">Требует аккаунта на EteSync.com или собственного сервера</string>
+    <string name="show_advanced_settings">Показать расширенные настройки</string>
+    <string name="app_settings">Настройки приложения</string>
 </resources>

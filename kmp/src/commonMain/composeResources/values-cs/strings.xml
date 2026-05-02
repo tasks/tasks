@@ -218,4 +218,6 @@
     <string name="etesync_account_description">Vyžaduje účet na EteSync.com nebo vlastní server</string>
     <string name="already_subscribed">Již máte předplatné?</string>
     <string name="sign_in_subtitle">Již máte předplatné nebo jste pozvaným hostem?</string>
+    <string name="show_advanced_settings">Zobrazit pokročilé možnosti</string>
+    <string name="app_settings">Nastavení aplikace</string>
 </resources>

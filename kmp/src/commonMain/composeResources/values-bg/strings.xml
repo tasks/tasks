@@ -193,4 +193,5 @@
     <string name="etesync_account_description">Необходим е профил при доставчик на услуга за EteSync.com или собствен сървър</string>
     <string name="already_subscribed">Вече имате абонамент?</string>
     <string name="sign_in_subtitle">Имате абонамент или покана?</string>
+    <string name="show_advanced_settings">Разширени настройки</string>
 </resources>

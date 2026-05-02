@@ -221,13 +221,8 @@
     <string name="caldav_server_nextcloud">Nextcloud</string>
     <string name="caldav_server_synology_calendar">Synology 日历</string>
     <string name="caldav_server_mailbox_org">Mailbox.org</string>
-    <string name="unlock_pro_with_github">用 GitHub 登录</string>
-    <string name="unlock_pro_github_instructions">在 https://github.com/sponsors/abaker 赞助 tasks.org，然后用你的 GitHub 账户登录解锁专业版。</string>
-    <string name="error_not_a_sponsor">验证失败。请确保你在 https://github.com/sponsors/abaker 有活跃的赞助。如果继续遇到问题，请联系 support@tasks.org</string>
     <string name="sponsor_on_github">在GitHub 上赞助</string>
     <string name="unlock_pro_opening_browser">正在打开浏览器…</string>
-    <string name="unlock_pro_via_mobile">通过手机应用</string>
-    <string name="unlock_pro_via_github">通过 GitHub Sponsor</string>
     <string name="error_github_verification_failed">验证失败。请重试。</string>
     <string name="pricing_subtitle">自由且开源。订阅支持开发并解锁额外功能。</string>
     <string name="pricing_cloud_description">解锁所有应用内功能并连接到 Tasks.org 云同步。</string>

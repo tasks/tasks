@@ -132,4 +132,5 @@
     <string name="url_required">URL ที่ต้องการ</string>
     <string name="username_required">ต้องการชื่อผู้ใช้</string>
     <string name="etesync_account_description">ต้องการบัญชีผู้ใช้ที่มี EteSync.com หรือเซิร์ฟเวอร์ที่โฮสต์ด้วยตนเอง</string>
+    <string name="show_advanced_settings">แสดงการตั้งค่าขั้นสูง</string>
 </resources>

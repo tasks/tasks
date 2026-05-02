@@ -163,4 +163,6 @@
     <string name="url_required">Se requiere un URL</string>
     <string name="username_required">Nombre de usuario requerido</string>
     <string name="etesync_account_description">Requiere una cuenta en EteSync.com o un servidor autoalojado</string>
+    <string name="show_advanced_settings">Mostrar la configuración avanzada</string>
+    <string name="app_settings">Ajustes de la aplicación</string>
 </resources>

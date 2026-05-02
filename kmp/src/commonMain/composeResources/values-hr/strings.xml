@@ -200,4 +200,5 @@
     <string name="etesync_account_description">Zahtijeva račun na EteSync.com ili vlastiti poslužitelj</string>
     <string name="already_subscribed">Već jesi pretplatnik?</string>
     <string name="sign_in_subtitle">Već jesi pretplatnik ili pozvani gost?</string>
+    <string name="show_advanced_settings">Pokaži napredne postavke</string>
 </resources>

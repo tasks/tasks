@@ -150,4 +150,5 @@
     <string name="url_required">Yêu cầu URL</string>
     <string name="username_required">Yêu cầu tên người dùng</string>
     <string name="etesync_account_description">Yêu cầu một tài khoản trên EteSync.com hoặc một máy chủ mà bạn vận hành</string>
+    <string name="show_advanced_settings">Hiện cài đặt nâng cao</string>
 </resources>

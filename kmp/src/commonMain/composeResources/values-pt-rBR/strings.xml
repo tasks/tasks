@@ -217,4 +217,5 @@
     <string name="error_network">Erro ao conectar. Verifique sua conexão com a internet.</string>
     <string name="already_subscribed">Já tem inscrição?</string>
     <string name="sign_in_subtitle">Já tem inscrição ou é um convidado?</string>
+    <string name="show_advanced_settings">Mostrar configurações avançadas</string>
 </resources>

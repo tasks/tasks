@@ -28,4 +28,5 @@
     <string name="tomorrow">कल</string>
     <string name="tomorrow_lowercase">कल</string>
     <string name="yesterday">कल</string>
+    <string name="sort_mode">सॉर्ट करें</string>
 </resources>
