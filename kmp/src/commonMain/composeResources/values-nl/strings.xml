@@ -179,4 +179,5 @@
     <string name="username_required">Gebruikersnaam vereist</string>
     <string name="etesync_account_description">Voorwaarde is een account op www.EteSync.com of een eigen server</string>
     <string name="show_advanced_settings">Geavanceerde instellingen tonen</string>
+    <string name="app_settings">App-instellingen</string>
 </resources>

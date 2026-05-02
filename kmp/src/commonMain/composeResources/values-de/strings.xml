@@ -204,4 +204,5 @@
     <string name="already_subscribed">Schon abonniert?</string>
     <string name="sign_in_subtitle">Schon abonniert oder als Gast eingeladen worden?</string>
     <string name="show_advanced_settings">Erweiterte Einstellungen anzeigen</string>
+    <string name="app_settings">App-Einstellungen</string>
 </resources>
