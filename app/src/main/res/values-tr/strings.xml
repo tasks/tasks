@@ -361,7 +361,7 @@
     <string name="url">URL</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Simge</string>
-    <string name="name_your_price">Fiyat belirle</string>
+    <string name="name_your_price">Gönlünüzden kopan</string>
     <string name="SSD_sort_my_order">Düzenim</string>
     <plurals name="subtask_count">
         <item quantity="one">%d alt görev</item>
