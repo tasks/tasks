@@ -3,11 +3,11 @@ package org.tasks.compose.settings
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.tasks.R
@@ -25,7 +25,7 @@ fun SelectIconRow(icon: String, selectIcon: () -> Unit) =
             IconButton(onClick = selectIcon) {
                 TasksIcon(
                     label = icon,
-                    tint = colorResource(R.color.icon_tint_with_alpha)
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         },

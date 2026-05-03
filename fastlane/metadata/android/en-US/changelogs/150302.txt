@@ -1,0 +1,5 @@
+* Clear notification when completed/deleted remotely
+* Geofence battery improvements
+* Fix parent relationship lost when importing backups
+* Fix failure when importing older backups
+* Update translations

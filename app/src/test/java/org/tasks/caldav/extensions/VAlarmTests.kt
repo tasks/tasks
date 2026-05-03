@@ -1,6 +1,6 @@
 package org.tasks.caldav.extensions
 
-import at.bitfire.ical4android.Task.Companion.tasksFromReader
+import org.tasks.caldav.Task.Companion.tasksFromReader
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.caldav.iCalendar.Companion.applyLocal
@@ -120,7 +120,7 @@ class VAlarmTests {
 
     @Test
     fun serializeAlarms() {
-        val remoteTask = at.bitfire.ical4android.Task()
+        val remoteTask = org.tasks.caldav.Task()
         remoteTask.applyLocal(
             CaldavTask(
                 calendar = "",

@@ -22,7 +22,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
         val (_, list) = withVtodo(ALL_DAY_DUE)
 
         withTZ(BERLIN) {
-            synchronizer.sync()
+            synchronizer.sync(hasPro = true)
         }
 
         val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "3863299529704302692")
@@ -45,7 +45,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
                 with(CaldavTaskMaker.TASK, taskId)
         ))
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = true)
 
         assertEquals(
                 1612137600000,
@@ -58,7 +58,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
         val (_, list) = withVtodo(ALL_DAY_DUE)
 
         withTZ(LONDON) {
-            synchronizer.sync()
+            synchronizer.sync(hasPro = true)
         }
 
         val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "3863299529704302692")
@@ -81,7 +81,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
                 with(CaldavTaskMaker.TASK, taskId)
         ))
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = true)
 
         assertEquals(
                 1612137600000,
@@ -94,7 +94,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
         val (_, list) = withVtodo(ALL_DAY_DUE)
 
         withTZ(NEW_YORK) {
-            synchronizer.sync()
+            synchronizer.sync(hasPro = true)
         }
 
         val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "3863299529704302692")
@@ -117,7 +117,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
                 with(CaldavTaskMaker.TASK, taskId)
         ))
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = true)
 
         assertEquals(
                 1612137600000,
@@ -139,7 +139,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
                 with(CaldavTaskMaker.TASK, task.id)
         ))
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = true)
 
         assertEquals(
                 1612216800000,
@@ -156,7 +156,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
         val (_, list) = withVtodo(START_TIME_DUE_TIME)
 
         withTZ(CHICAGO) {
-            synchronizer.sync()
+            synchronizer.sync(hasPro = true)
         }
 
         val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "2009955511573185442")
@@ -170,7 +170,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
         val (_, list) = withVtodo(START_TIME_DUE_TIME_NO_OFFSET)
 
         withTZ(CHICAGO) {
-            synchronizer.sync()
+            synchronizer.sync(hasPro = true)
         }
 
         val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "2009955511573185442")

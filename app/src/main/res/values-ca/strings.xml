@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Elimina la imatge</string>
     <string name="TVA_add_comment">Afegeix un comentari…</string>
-    <string name="backup_BPr_header">Còpies de seguretat</string>
     <string name="backup_BAc_import">Importa una còpia de seguretat</string>
     <string name="backup_BAc_export">Fes una còpia de seguretat ara</string>
     <string name="import_summary_title">Resum de la restauració</string>
@@ -112,7 +111,6 @@
     <string name="default_due_date">Data de venciment predeterminada</string>
     <string name="default_start_date">Data d\'inici predeterminada</string>
     <string name="EPr_default_importance_title">Prioritat predeterminada</string>
-    <string name="task_defaults">Valors predeterminats de la tasca</string>
     <string name="EPr_manage_delete_all_gcal_message">Esteu segur que voleu suprimir tots els esdeveniments per a les tasques\?</string>
     <string name="EPr_manage_delete_all_gcal">Suprimeix tots els esdeveniments del calendari de les tasques</string>
     <string name="EPr_manage_delete_gcal_status">S\'han eliminat %d esdeveniments de calendari!</string>
@@ -125,9 +123,7 @@
     <string name="EPr_cal_start_at_due_time">Inicia els esdeveniments del calendari en el moment oportú</string>
     <string name="EPr_cal_end_at_due_time">Finalitza els esdeveniments del calendari a la data de venciment</string>
     <string name="EPr_cal_end_or_start_at_due_time">Hora d\'esdeveniment del calendari</string>
-    <string name="task_list_options">Opcions de la llista de tasques</string>
     <string name="EPr_show_task_edit_comments">Mostra els comentaris en l\'edició de la tasca</string>
-    <string name="EPr_edit_screen_options">Edita les opcions de la pantalla</string>
     <string name="none">Cap</string>
     <string name="start_date">Data d\'inici</string>
     <string name="sort_created">Per data de creació</string>
@@ -213,11 +209,6 @@
         <item quantity="many">hores</item>
         <item quantity="other">hores</item>
     </plurals>
-    <plurals name="list_count">
-        <item quantity="one">%d llista</item>
-        <item quantity="many">%d llistes</item>
-        <item quantity="other">%d llistes</item>
-    </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d setmana</item>
         <item quantity="many">%d setmanes</item>
@@ -279,7 +270,6 @@
         <item quantity="many">%d minuts</item>
         <item quantity="other">%d minuts</item>
     </plurals>
-    <string name="sort_completed">Per data de finalització</string>
     <string name="repeat_snackbar">%1$s reprogramat pel %2$s</string>
     <string name="repeat_type_completion_capitalized">Data de finalització</string>
     <string name="repeat_type_due">data de venciment</string>
@@ -308,7 +298,6 @@
     <string name="TEA_timer_controls">Temporitzador</string>
     <string name="customize_drawer">Personalitza el calaix</string>
     <string name="customize_drawer_summary">Arrossegueu i deixeu anar per reordenar els elements del menú</string>
-    <string name="about">Sobre</string>
     <string name="license_summary">Tasks és un programari lliure de codi obert, amb llicència sota la Llicència Pública General de GNU v3.0</string>
     <string name="default_calendar">Calendari predeterminat</string>
     <string name="bundle_notifications_summary">Combina diferents notificacions en una sola</string>
@@ -323,9 +312,7 @@
     <string name="tasker_create_task">Crear tasca</string>
     <string name="tasker_list_notification">Notificació de llista</string>
     <string name="upgrade_to_pro">Actualitza a pro</string>
-    <string name="network_error">No s\'ha pogut connectar</string>
     <string name="subscription">Subscripció</string>
-    <string name="manage_subscription">Modifica la subscripció</string>
     <string name="linkify">Mostra els enllaços</string>
     <string name="linkify_description">Afegeix enllaçaos a llocs web, adreces, i números de telèfon</string>
     <string name="location_remind_departure">Recordar a la sortida</string>
@@ -335,7 +322,6 @@
     <string name="repeat_monthly_fifth_week">cinquè</string>
     <string name="button_subscribe">Subscriu-te</string>
     <string name="refresh_purchases">Actualitza les compres</string>
-    <string name="button_unsubscribe">Cancel·leu la subscripció</string>
     <string name="missing_permissions">Falten permisos</string>
     <string name="choose_new_location">Escollir una nova ubicació</string>
     <string name="location_permission_required_location">Es necessiten els permisos de ubicació per trobar la teva ubicació actual</string>
@@ -399,13 +385,11 @@
     <string name="notifications">Notificacions</string>
     <string name="date_shortcut_tomorrow_afternoon">Demà per la tarda</string>
     <string name="date_shortcut_evening">Vespre</string>
-    <string name="date_and_time">Data i temps</string>
     <string name="repeats_minutely">cada minut</string>
     <string name="repeats_plural_until">Es repeteix cada %1$s, finalitza el %2$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeats_plural_on">Es repeteix cada %1$s el %2$s</string>
     <string name="swipe_to_snooze_title">Llisca per posposar</string>
-    <string name="error_adding_account">Error: %s</string>
     <string name="add_reminder">Afegeix un recordatori</string>
     <string name="google_drive_backup">Còpia de seguretat a Google Drive</string>
     <string name="pick_a_date_and_time">Escull una data i hora</string>
@@ -447,9 +431,6 @@
     <string name="show_edit_screen_without_unlock">Mostra la pantalla d\'edició sense desbloquejar</string>
     <string name="customize_edit_screen_summary">Reorganitza o elimina camps</string>
     <string name="name_cannot_be_empty">El nom no pot ser buit</string>
-    <string name="username_required">El nom d\'usuari és necessari</string>
-    <string name="password_required">La paraula de pas és necessària</string>
-    <string name="url_invalid_scheme">Ha de començar amb http(s)://</string>
     <string name="back_button_saves_task">El botó enrere guarda la tasca</string>
     <string name="add_location">Afegeix un lloc</string>
     <string name="swipe_to_snooze_description">Posposa</string>
@@ -458,8 +439,6 @@
     <string name="list_settings">Preferències de les llistes</string>
     <string name="delete">Esborra</string>
     <string name="no_app_found">No hi ha cap aplicació que pugui gestionar aquesta sol·licitud</string>
-    <string name="url_required">La URL és necessària</string>
-    <string name="url_host_name_required">El hostname és necessari</string>
     <string name="date_shortcut_must_come_after">%1$s ha d\'anar després de %2$s</string>
     <string name="discard_changes">Descarta els canvis?</string>
     <string name="default_list">Llista per defecte</string>
@@ -505,8 +484,6 @@
     <string name="delete_comment">comentari</string>
     <string name="yesterday">Ahir</string>
     <string name="delete_selected_tasks">Voleu suprimir les tasques seleccionades?</string>
-    <string name="add_account">Afegeiu un compte</string>
-    <string name="continue_without_sync">Continua sense sincronitzar</string>
     <string name="bundle_notifications">Notificacions del paquet</string>
     <string name="badges">Insígnies</string>
     <string name="repeats_from">Repeteix des de</string>
@@ -522,13 +499,11 @@
     <string name="repeats_after">Després</string>
     <string name="dont_add_to_calendar">No afegiu al calendari</string>
     <string name="badges_description">Mostreu un recompte de tasques a la icona del llançador de tasques. No tots els llançadors suporten insígnies.</string>
-    <string name="caldav_home_set_not_found">No s\'ha trobat la configuració d\'inici</string>
     <string name="pro_dashclock_extension">Extensió Dashclock</string>
     <string name="requires_pro_subscription">Requereix una subscripció pro</string>
     <string name="this_feature_requires_a_subscription">Aquesta característica requereix una subscripció</string>
     <string name="logout">Surt</string>
     <string name="delete_tasks_warning">%s serà eliminat. Això no es pot desfer!</string>
-    <string name="logout_warning">Totes les dades d\'aquest compte s\'eliminaran del vostre dispositiu</string>
     <string name="cannot_access_account">No es pot accedir al compte</string>
     <string name="reinitialize_account">Reinicialitzeu</string>
     <string name="banner_app_updated_title">S\'ha actualitzat l\'aplicació</string>
@@ -537,16 +512,11 @@
     <string name="subtasks_multilevel_microsoft">Les subtasques multinivell no són compatibles amb Microsoft To Do</string>
     <string name="enter_tag_name">Introduïu el nom de l\'etiqueta</string>
     <string name="choose_synchronization_service">Seleccioneu una plataforma</string>
-    <string name="google_tasks_selection_description">Servei bàsic que es sincronitza amb el vostre compte de Google</string>
     <string name="caldav_selection_description">Sincronització basada en estàndards oberts d\'Internet</string>
     <string name="etesync_selection_description">Sincronització xifrada d\'extrem a extrem</string>
     <string name="decsync_selection_description">Sincronització per fitxers</string>
-    <string name="microsoft_selection_description">Sincronitza amb el teu compte personal de Microsoft</string>
     <string name="davx5_selection_description">Sincronitza les teves tasques amb l\'aplicació DAVx5</string>
     <string name="show_advanced_settings">Mostreu la configuració avançada</string>
-    <string name="caldav_account_description">Requereix un compte amb un proveïdor de servei CalDAV o un servidor allotjat per si mateix. Cerqueu un proveïdor de serveis visitant tasks.org/caldav</string>
-    <string name="etesync_account_description">Requereix un compte amb EteSync.com o un servidor allotjat</string>
-    <string name="preferences_look_and_feel">Aspecte i comportament</string>
     <string name="preferences_advanced">Avançat</string>
     <string name="documentation">Documentació</string>
     <string name="wearable_notifications">Notificacions de rellotge intel·ligent</string>
@@ -556,7 +526,6 @@
     <string name="disable_battery_optimizations">Desactiveu les optimitzacions de la bateria</string>
     <string name="more_settings">Més configuracions</string>
     <string name="more_notification_settings_summary">To de trucada, vibracions i més</string>
-    <string name="invalid_username_or_password">Nom d\'usuari o contrasenya no vàlids</string>
     <string name="color_wheel">Roda de color</string>
     <string name="upgrade_blurb_1">Hola! Em dic Alex. Soc el desenvolupador independent darrere de les tasques</string>
     <string name="upgrade_blurb_2">He passat milers d\'hores treballant en tasques, i publico tot el codi font en internet de forma gratuïta. Per tal de donar suport al meu treball algunes funcions requereixen una subscripció</string>
@@ -565,7 +534,6 @@
     <string name="chip_appearance">Aparença del distintiu</string>
     <string name="places">Llocs</string>
     <string name="place_settings">Paràmetres del lloc</string>
-    <string name="navigation_drawer">Calaix de navegació</string>
     <string name="hide_unused_tags">Amagueu les etiquetes no utilitzades</string>
     <string name="hide_unused_places">Amagueu els llocs no utilitzats</string>
     <string name="chip_appearance_text_and_icon">Text i icona</string>
@@ -606,8 +574,6 @@
     <string name="donate_today">Doneu avui</string>
     <string name="donate_maybe_later">Potser més tard</string>
     <string name="support_development_subscribe">Desbloquegeu funcionalitats addicionals i suporteu programari de codi obert</string>
-    <string name="sort_start_group">Inici %s</string>
-    <string name="sort_due_group">Venciment %s</string>
     <string name="sort_created_group">S\'ha creat %s</string>
     <string name="sort_modified_group">S\'ha modificat %s</string>
     <string name="sort_completion_group">Finalització %s</string>
@@ -635,11 +601,7 @@
     <string name="custom_filter_is_subtask">És una subtasca</string>
     <string name="custom_filter_has_reminder">Hi ha recordatori</string>
     <string name="your_subscription_expired">La vostra subscripció ha caducat. Subscriu-te ara per reprendre el servei.</string>
-    <string name="insufficient_subscription">Nivell de subscripció insuficient. Actualitzeu la vostra subscripció per reprendre el servei.</string>
-    <string name="insufficient_sponsorship">No s\'ha trobat cap patrocini elegible de GitHub</string>
     <string name="no_google_play_subscription">No s\'ha trobat cap subscripció de Google Play elegible</string>
-    <string name="price_per_year">$%s/any</string>
-    <string name="price_per_month">$%s/mes</string>
     <string name="price_per_month_with_currency">%s/mes</string>
     <string name="price_per_year_with_currency">%s/any</string>
     <string name="current_subscription">Subscripció actual: %s</string>
@@ -651,10 +613,8 @@
     <string name="open_source">Codi obert</string>
     <string name="privacy">Privacitat</string>
     <string name="authorization_cancelled">Autorització cancel·lada</string>
-    <string name="google_play_subscribers">Subscriptors de Google Play</string>
     <string name="github_sponsors">Patrocinadors de GitHub</string>
     <string name="sign_in_with_google">Inicieu sessió amb Google</string>
-    <string name="sign_in_with_github">Inicieu sessió amb GitHub</string>
     <string name="authentication_required">Es requereix autenticació</string>
     <string name="github_sponsor">Patrocinador</string>
     <string name="migrate">Migreu</string>
@@ -662,16 +622,8 @@
     <string name="migrate_count">Mou %s a Tasks.org</string>
     <string name="above_average">Per sobre de la mitjana</string>
     <string name="save_percent">Desa %d%%</string>
-    <string name="sign_in_to_tasks">Inicieu la sessió a Tasks.org</string>
     <string name="app_password">Contrasenya de l\'aplicació</string>
-    <string name="app_passwords">Contrasenyes d\'aplicacions</string>
     <string name="app_passwords_more_info">Sincronitzeu les vostres tasques i calendaris amb l\'escriptori de tercers i les aplicacions mòbils. Fes clic aquí per a més informació</string>
-    <string name="generate_new_password">Genereu una contrasenya nova</string>
-    <string name="app_password_enter_description">Doneu un nom a la vostra contrasenya (opcional)</string>
-    <string name="app_password_created_at">Creat: %s</string>
-    <string name="app_password_last_access">Darrera utilització: %s</string>
-    <string name="app_password_delete_confirmation">Qualsevol aplicació que utilitzi aquesta contrasenya serà eliminada</string>
-    <string name="app_password_save">Utilitzeu aquestes credencials per configurar una aplicació de tercers. Atorguen accés complet al vostre compte de Tasks.org, no els escriguis ni els comparteixis amb ningú!</string>
     <string name="copied_to_clipboard">%s copiat al porta-retalls</string>
     <string name="tasks_org_account_required">Cal un compte de Tasks.org</string>
     <string name="account_not_included">No inclòs amb les subscripcions \'Preu flexible\'</string>
@@ -692,7 +644,6 @@
     <string name="completion_sound">Reproduïu el so de finalització</string>
     <string name="completed">Completat</string>
     <string name="snackbar_task_completed">Tasca completada</string>
-    <string name="completed_tasks_at_bottom">Mou les tasques completades a la part inferior</string>
     <string name="snackbar_tasks_completed">%d tasques completades</string>
     <string name="alarm_before_start">%s abans d\'iniciar</string>
     <string name="alarm_after_start">%s després d\'iniciar</string>
@@ -700,9 +651,6 @@
     <string name="alarm_after_due">%s després de venciment</string>
     <string name="snoozed_until">Posposat fins a %s</string>
     <string name="custom_notification">Notificació personalitzada</string>
-    <string name="caldav_server_unknown">Desconegut</string>
-    <string name="caldav_server_other">Altres</string>
-    <string name="caldav_server_type">Tipus de servidor</string>
     <string name="dismiss">Descarteu</string>
     <string name="hint_customize_edit_title">Massa informació?</string>
     <string name="hint_customize_edit_body">Podeu personalitzar aquesta pantalla reordenant o eliminant camps</string>
@@ -710,15 +658,8 @@
     <string name="enable_reminders_description">Els recordatoris estan desactivats a la configuració de l\'Android</string>
     <string name="enable_alarms">Notifiqueu-vos en el moment adequat</string>
     <string name="enable_alarms_description">Per assegurar-vos que us notifiqueu en el moment adequat, concediu permís per establir alarmes i recordatoris a la configuració</string>
-    <string name="sign_in">Inicieu la sessió</string>
-    <string name="sort_sorting">Ordenació</string>
-    <string name="sort_grouping">Agrupament</string>
-    <string name="sort_ascending">Ascendent</string>
-    <string name="sort_descending">Descendent</string>
-    <string name="sort_not_available">No disponible per a etiquetes, filtres o llocs</string>
     <string name="add_shortcut_to_home_screen">Afegiu una drecera a la pantalla d\'inici</string>
     <string name="add_widget_to_home_screen">Afegiu un giny a la pantalla d\'inici</string>
-    <string name="cost_free">Gratuït</string>
     <string name="cost_money">Cost: $</string>
     <string name="cost_more_money">Cost: $$$</string>
     <string name="multiline_title">Permeteu títols multilínies</string>

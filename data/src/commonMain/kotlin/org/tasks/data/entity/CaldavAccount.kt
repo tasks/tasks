@@ -9,7 +9,6 @@ import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
 import org.tasks.data.Redacted
 import org.tasks.data.db.Table
-import java.net.HttpURLConnection
 
 @Serializable
 @CommonParcelize
@@ -113,8 +112,8 @@ data class CaldavAccount(
         const val SERVER_MAILBOX_ORG = 6
         const val SERVER_OTHER = 99
 
-        const val ERROR_UNAUTHORIZED = "HTTP ${HttpURLConnection.HTTP_UNAUTHORIZED}"
-        const val ERROR_PAYMENT_REQUIRED = "HTTP ${HttpURLConnection.HTTP_PAYMENT_REQUIRED}"
+        const val ERROR_UNAUTHORIZED = "HTTP 401"
+        const val ERROR_PAYMENT_REQUIRED = "HTTP 402"
         const val ERROR_TOS_REQUIRED = "HTTP 451"
 
         const val ACCOUNT_TYPE_DAVX5 = "bitfire.at.davdroid"

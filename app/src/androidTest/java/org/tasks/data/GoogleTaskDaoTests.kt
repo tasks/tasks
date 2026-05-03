@@ -1,7 +1,7 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -199,6 +199,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     fun updateParents() = runBlocking {
         insert(newCaldavTask(with(TASK, 1), with(REMOTE_ID, "123")))
         insert(newCaldavTask(with(TASK, 2), with(REMOTE_PARENT, "123")))
+        markSynced(1, 2)
 
         caldavDao.updateParents()
 
@@ -209,6 +210,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     fun updateParentsByList() = runBlocking {
         insert(newCaldavTask(with(TASK, 1), with(REMOTE_ID, "123")))
         insert(newCaldavTask(with(TASK, 2), with(REMOTE_PARENT, "123")))
+        markSynced(1, 2)
 
         caldavDao.updateParents("calendar")
 
@@ -279,5 +281,12 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     private suspend fun getByRemoteId(remoteId: String): CaldavTask {
         return googleTaskDao.getByRemoteId(remoteId, "calendar")!!
+    }
+
+    private suspend fun markSynced(vararg taskIds: Long) {
+        val now = org.tasks.time.DateTimeUtils2.currentTimeMillis()
+        taskIds.forEach { taskId ->
+            caldavDao.getTask(taskId)?.let { caldavDao.update(it.copy(lastSync = now)) }
+        }
     }
 }

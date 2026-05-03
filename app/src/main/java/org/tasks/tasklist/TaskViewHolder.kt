@@ -17,12 +17,14 @@ import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import com.todoroo.astrid.core.SortHelper.SORT_LIST
 import com.todoroo.astrid.core.SortHelper.SORT_START
 import com.todoroo.astrid.ui.CheckableImageView
+import androidx.core.graphics.ColorUtils
+import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
-import org.tasks.compose.ChipGroup
-import org.tasks.compose.FilterChip
+import org.tasks.compose.chips.ChipGroup
+import org.tasks.compose.chips.FilterChip
 import org.tasks.compose.StartDateChip
-import org.tasks.compose.SubtaskChip
+import org.tasks.compose.chips.SubtaskChip
 import org.tasks.data.TaskContainer
 import org.tasks.data.hasNotes
 import org.tasks.data.isHidden
@@ -35,7 +37,7 @@ import org.tasks.filters.Filter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.markdown.Markdown
 import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksIcons
@@ -56,7 +58,6 @@ class TaskViewHolder internal constructor(
     private val chipProvider: ChipProvider,
     private val checkBoxProvider: CheckBoxProvider,
     private val textColorOverdue: Int,
-    private val textColorSecondary: Int,
     private val callback: ViewHolderCallbacks,
     private val metrics: DisplayMetrics,
     private val background: Int,
@@ -196,12 +197,13 @@ class TaskViewHolder internal constructor(
     }
 
     private fun setupTitleAndCheckbox() {
+        val onSurface = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurface, 0)
+        val onSurfaceDim = ColorUtils.setAlphaComponent(onSurface, 0x61)
         if (task.isCompleted) {
-            nameView.setTextColor(context.getColor(R.color.text_tertiary))
+            nameView.setTextColor(onSurfaceDim)
             nameView.paintFlags = nameView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
-            nameView.setTextColor(
-                    context.getColor(if (task.task.isHidden) R.color.text_tertiary else R.color.text_primary))
+            nameView.setTextColor(if (task.task.isHidden) onSurfaceDim else onSurface)
             nameView.paintFlags = nameView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         }
         completeBox.isChecked = task.isCompleted
@@ -214,13 +216,13 @@ class TaskViewHolder internal constructor(
             if (task.task.isOverdue) {
                 dueDate.setTextColor(textColorOverdue)
             } else {
-                dueDate.setTextColor(textColorSecondary)
+                dueDate.setTextColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant, 0))
             }
             val dateValue: String? = if (sortByDueDate
                     && (task.sortGroup ?: 0) >= currentTimeMillis().startOfDay()
             ) {
                 task.takeIf { it.hasDueTime() }?.let {
-                    getTimeString(task.dueDate, context.is24HourFormat)
+                    formatTime(task.dueDate, context.is24HourFormat)
                 }
             } else {
                 runBlocking {
@@ -303,7 +305,7 @@ class TaskViewHolder internal constructor(
                         preferences.showListChip &&
                         filter !is CaldavFilter
                     ) {
-                        remember(list, chipProvider.lists.listsCount.value) {
+                        remember(list, chipProvider.lists.listsCount) {
                             chipProvider.lists.getCaldavList(list)
                         }?.let {
                             FilterChip(

@@ -31,9 +31,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
-import at.bitfire.dav4jvm.exception.HttpException
+import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.getString
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.url_sponsor
 import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationRequest
@@ -52,7 +56,6 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_GITHUB
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
-import org.tasks.compose.SignInDialog
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
@@ -142,13 +145,20 @@ class SignInActivity : ComponentActivity() {
                             )
                         } else {
                             Dialog(onDismissRequest = { finish() }) {
-                                SignInDialog(
-                                    selected = { selectService(it) },
-                                    help = {
+                                org.tasks.compose.SignInProviderDialog(
+                                    onSelected = { provider ->
+                                        selectService(
+                                            when (provider) {
+                                                org.tasks.compose.SignInProvider.GOOGLE -> Platform.GOOGLE
+                                                org.tasks.compose.SignInProvider.GITHUB -> Platform.GITHUB
+                                            }
+                                        )
+                                    },
+                                    onHelp = {
                                         openUri(R.string.help_url_sync)
                                         finish()
                                     },
-                                    cancel = { finish() }
+                                    onCancel = { finish() },
                                 )
                             }
                         }
@@ -206,7 +216,7 @@ class SignInActivity : ComponentActivity() {
             confirmButton = {
                 TextButton(onClick = {
                     if (isGitHub) {
-                        openUri(R.string.url_sponsor)
+                        openUri(runBlocking { getString(Res.string.url_sponsor) })
                     }
                     onDismiss()
                 }) {
@@ -248,7 +258,7 @@ class SignInActivity : ComponentActivity() {
     }
 
     private fun handleError(e: Throwable) {
-        if (e is HttpException && e.code == 402) {
+        if (e is HttpException && e.statusCode == 402) {
             if (IS_GOOGLE_PLAY) {
                 startActivityForResult(
                     Intent(this, PurchaseActivity::class.java)

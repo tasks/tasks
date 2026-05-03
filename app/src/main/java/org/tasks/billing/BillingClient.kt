@@ -14,4 +14,5 @@ interface BillingClient {
     )
     suspend fun acknowledge(purchase: Purchase)
     suspend fun getSkus(skus: List<String>): List<Sku>
+    suspend fun getSku(sku: String): Sku? = getSkus(listOf(sku)).firstOrNull()
 }

@@ -30,7 +30,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import org.tasks.R
 
@@ -51,6 +50,7 @@ fun TaskDefaultsScreen(
     locationName: String,
     hasDefaultLocation: Boolean,
     locationReminderSummary: String,
+    locationUpdateIntervalSummary: String,
     onAddToTop: (Boolean) -> Unit,
     onDefaultList: () -> Unit,
     onDefaultTags: () -> Unit,
@@ -66,6 +66,7 @@ fun TaskDefaultsScreen(
     onLocation: () -> Unit,
     onDeleteLocation: () -> Unit,
     onLocationReminder: () -> Unit,
+    onLocationUpdateInterval: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -226,17 +227,24 @@ fun TaskDefaultsScreen(
                                     .padding(end = SettingsContentPadding)
                                     .size(SettingsIconSize)
                                     .clickable(onClick = onDeleteLocation),
-                                tint = colorResource(R.color.icon_tint_with_alpha),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         }
                     } else null,
                 )
             }
-            SettingsItemCard(position = CardPosition.Last) {
+            SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(R.string.EPr_default_location_reminder_title),
                     summary = locationReminderSummary,
                     onClick = onLocationReminder,
+                )
+            }
+            SettingsItemCard(position = CardPosition.Last) {
+                PreferenceRow(
+                    title = stringResource(R.string.location_update_interval_title),
+                    summary = locationUpdateIntervalSummary,
+                    onClick = onLocationUpdateInterval,
                 )
             }
         }

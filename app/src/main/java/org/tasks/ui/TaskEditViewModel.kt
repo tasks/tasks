@@ -10,13 +10,14 @@ import androidx.lifecycle.viewModelScope
 import com.todoroo.astrid.activity.BeastModePreferences
 import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatControlSet
-import com.todoroo.astrid.service.TaskCompleter
-import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskCompleter
+import org.tasks.data.getDefaultAlarms
+import org.tasks.service.TaskDeleter
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.tags.TagsControlSet
 import com.todoroo.astrid.timers.TimerControlSet
@@ -73,7 +74,7 @@ import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.files.FileHelper
 import org.tasks.filters.CaldavFilter
 import org.tasks.kmp.org.tasks.taskedit.TaskEditViewState
-import org.tasks.location.GeofenceApi
+import org.tasks.location.LocationService
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
@@ -91,6 +92,7 @@ class TaskEditViewModel @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val savedStateHandle: SavedStateHandle,
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val taskDeleter: TaskDeleter,
     private val timerPlugin: TimerPlugin,
     private val permissionChecker: PermissionChecker,
@@ -98,7 +100,7 @@ class TaskEditViewModel @Inject constructor(
     private val gCalHelper: GCalHelper,
     private val taskMover: TaskMover,
     private val locationDao: LocationDao,
-    private val geofenceApi: GeofenceApi,
+    private val locationService: LocationService,
     private val tagDao: TagDao,
     private val tagDataDao: TagDataDao,
     private val preferences: Preferences,
@@ -171,7 +173,7 @@ class TaskEditViewModel @Inject constructor(
             alarms = if (task.isNew) {
                 val defaults = task.getTransitory<List<Alarm>>(Task.TRANS_DEFAULT_ALARMS)
                     ?: emptyList()
-                val defaultRemindersEnabled = preferences.isDefaultDueTimeEnabled
+                val defaultRemindersEnabled = runBlocking { preferences.isDefaultDueTimeEnabled() }
                 buildList {
                     for (alarm in defaults) {
                         when (alarm.type) {
@@ -230,14 +232,14 @@ class TaskEditViewModel @Inject constructor(
         val hasDueTimeNow = hasDueTime(dueDate.value)
         val addedDueDate = !hadDueDate && dueDate.value > 0
         val addedDueTime = hadDueDate && !hadDueTime && hasDueTimeNow
+        val isDefaultDueTimeEnabled = runBlocking { preferences.isDefaultDueTimeEnabled() }
         val shouldAddReminders = when {
-            addedDueDate -> hasDueTimeNow || preferences.isDefaultDueTimeEnabled
-            addedDueTime -> !preferences.isDefaultDueTimeEnabled
+            addedDueDate -> hasDueTimeNow || isDefaultDueTimeEnabled
+            addedDueTime -> !isDefaultDueTimeEnabled
             else -> false
         }
         if (shouldAddReminders) {
-            preferences
-                .defaultAlarms
+            runBlocking { preferences.defaultAlarms() }
                 .filter { it.type == TYPE_REL_END }
                 .forEach { alarm ->
                     _viewState.update { state ->
@@ -261,14 +263,14 @@ class TaskEditViewModel @Inject constructor(
         val hasStartTimeNow = hasDueTime(startDate.value)
         val addedStartDate = !hadStartDate && startDate.value > 0
         val addedStartTime = hadStartDate && !hadStartTime && hasStartTimeNow
+        val isDefaultDueTimeEnabled = runBlocking { preferences.isDefaultDueTimeEnabled() }
         val shouldAddReminders = when {
-            addedStartDate -> hasStartTimeNow || preferences.isDefaultDueTimeEnabled
-            addedStartTime -> !preferences.isDefaultDueTimeEnabled
+            addedStartDate -> hasStartTimeNow || isDefaultDueTimeEnabled
+            addedStartTime -> !isDefaultDueTimeEnabled
             else -> false
         }
         if (shouldAddReminders) {
-            preferences
-                .defaultAlarms
+            runBlocking { preferences.defaultAlarms() }
                 .filter { it.type == TYPE_REL_START }
                 .forEach { alarm ->
                     _viewState.update { state ->
@@ -350,7 +352,7 @@ class TaskEditViewModel @Inject constructor(
             originalState.value.location?.let { location ->
                 if (location.geofence.id > 0) {
                     locationDao.delete(location.geofence)
-                    geofenceApi.update(location.place)
+                    locationService.updateGeofences(location.place)
                 }
             }
             selectedLocation?.let { location ->
@@ -361,7 +363,7 @@ class TaskEditViewModel @Inject constructor(
                         place = place.uid,
                     )
                 )
-                geofenceApi.update(place)
+                locationService.updateGeofences(place)
             }
             task.putTransitory(FORCE_CALDAV_SYNC, true)
             task.putTransitory(FORCE_MICROSOFT_SYNC, true)
@@ -398,7 +400,7 @@ class TaskEditViewModel @Inject constructor(
             task.modificationDate = currentTimeMillis()
         }
 
-        taskDao.save(task, null)
+        taskSaver.save(task, null)
         val selectedList = _viewState.value.list
         if (isNew || originalState.value.list != selectedList) {
             task.parent = 0
@@ -413,7 +415,7 @@ class TaskEditViewModel @Inject constructor(
                 subtask.completionDate = task.completionDate
             }
             taskDao.createNew(subtask)
-            alarmDao.insert(subtask.getDefaultAlarms(preferences.isDefaultDueTimeEnabled))
+            alarmDao.insert(subtask.getDefaultAlarms(preferences.isDefaultDueTimeEnabled()))
             firebase?.addTask("subtasks")
             when {
                 selectedList.isGoogleTasks -> {
@@ -437,7 +439,7 @@ class TaskEditViewModel @Inject constructor(
                     )
                     subtask.parent = task.id
                     caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.id)
-                    taskDao.save(subtask)
+                    taskSaver.save(subtask)
                     caldavDao.insert(
                         task = subtask,
                         caldavTask = caldavTask,

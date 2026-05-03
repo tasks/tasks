@@ -23,6 +23,7 @@ import org.tasks.data.entity.Notification
 import org.tasks.filters.NotificationsFilter
 import org.tasks.filters.TimerFilter
 import org.tasks.intents.TaskIntents
+import org.tasks.jobs.WorkManager
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
@@ -49,7 +50,8 @@ class NotificationManager @Inject constructor(
     private val notificationManager: ThrottledNotificationManager,
     private val markdownProvider: MarkdownProvider,
     private val permissionChecker: PermissionChecker,
-) {
+    private val workManager: WorkManager,
+) : Notifier {
     @InterruptionFilter
     val currentInterruptionFilter: Int
         get() = notificationManager.currentInterruptionFilter
@@ -58,7 +60,7 @@ class NotificationManager @Inject constructor(
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
 
     @SuppressLint("CheckResult")
-    suspend fun cancel(id: Long) {
+    override suspend fun cancel(id: Long) {
         if (id == SUMMARY_NOTIFICATION_ID.toLong()) {
             cancel(notificationDao.getAll() + id)
         } else {
@@ -67,7 +69,7 @@ class NotificationManager @Inject constructor(
     }
 
     @SuppressLint("CheckResult")
-    suspend fun cancel(ids: Iterable<Long>) {
+    override suspend fun cancel(ids: Iterable<Long>) {
         coroutineScope {
             launch {
                 for (id in ids) {
@@ -82,6 +84,10 @@ class NotificationManager @Inject constructor(
                 notifyTasks(emptyList(), alert = false, nonstop = false, fiveTimes = false)
             }
         }
+    }
+
+    override fun triggerNotifications() {
+        workManager.triggerNotifications()
     }
 
     @SuppressLint("MissingPermission")
@@ -434,7 +440,7 @@ class NotificationManager @Inject constructor(
     }
 
     @SuppressLint("MissingPermission")
-    suspend fun updateTimerNotification() {
+    override suspend fun updateTimerNotification() {
         if (!permissionChecker.hasNotificationPermission()) {
             return
         }

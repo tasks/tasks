@@ -21,8 +21,8 @@ sealed class DrawerItem {
     data class Header(
         val title: String,
         val collapsed: Boolean,
-        val hasError: Boolean,
-        val canAdd: Boolean,
+        val hasError: Boolean = false,
+        val canAdd: Boolean = false,
         val hasChildren: Boolean = true,
         val openTaskApp: OpenTaskApp? = null,
         val header: NavigationDrawerSubheader,

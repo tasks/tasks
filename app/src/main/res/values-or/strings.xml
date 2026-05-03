@@ -84,17 +84,13 @@
     <string name="date_shortcut_tomorrow_morning">ଆସନ୍ତାକାଲି ସକାଳ</string>
     <string name="filters">ଶୋଧକ</string>
     <string name="name_cannot_be_empty">ନାମ ଖାଲି ଛଡ଼ା ଯାଇପାରିବ ନାହିଁ</string>
-    <string name="password_required">ପାସ୍‍ୱର୍ଡ଼ ଆଵଶ୍ୟକ</string>
-    <string name="url_required">URL ଆଵଶ୍ୟକ</string>
     <string name="theme">ଥିମ୍</string>
     <string name="theme_light">ହାଲୁକା</string>
     <string name="theme_dark">ଗାଢ଼</string>
     <string name="theme_day_night">ଦିନ/ରାତି</string>
-    <string name="date_and_time">ତାରିଖ ଓ ସମୟ</string>
     <string name="user">ଉପଭୋକ୍ତା</string>
     <string name="password">ପାସ୍‍ୱର୍ଡ଼</string>
     <string name="url">URL</string>
-    <string name="error_adding_account">ତ୍ରୁଟି: %s</string>
     <string name="repeats_hourly">ପ୍ରତି ଘଣ୍ଟା</string>
     <string name="repeat_monthly_second_week">ଦ୍ୱିତୀୟ</string>
     <string name="repeat_monthly_third_week">ତୃତୀୟ</string>
@@ -143,8 +139,6 @@
     <string name="privacy_policy">ଗୋପନୀୟତା ନୀତି</string>
     <string name="date_shortcut_hour">ଘଣ୍ଟାଏ ପାଇଁ</string>
     <string name="date_shortcut_tomorrow_afternoon">ଆସନ୍ତାକାଲି ଅପରାହ୍ଣ</string>
-    <string name="username_required">ଉପଭୋକ୍ତା ନାମ ଆଵଶ୍ୟକ</string>
-    <string name="url_invalid_scheme">http(s):// ସହ ଆରମ୍ଭ ହେବା ଦରକାର</string>
     <string name="theme_black">କଳା</string>
     <string name="language">ଭାଷା</string>
     <string name="theme_system_default">ସିଷ୍ଟମ୍ ଡିଫଲ୍ଟ</string>
@@ -154,11 +148,8 @@
     <string name="repeats_minutely">ପ୍ରତି ମିନିଟ୍</string>
     <string name="repeat_monthly_first_week">ପ୍ରଥମ</string>
     <string name="repeat_monthly_fifth_week">ପଞ୍ଚମ</string>
-    <string name="network_error">ସଂଯୋଗ କରିହେଲା ନାହିଁ</string>
-    <string name="about">ସମ୍ବନ୍ଧରେ</string>
     <string name="show_description">ଵର୍ଣ୍ଣନା ଦେଖାଅ</string>
     <string name="show_full_description">ସମ୍ପୂର୍ଣ୍ଣ ଵର୍ଣ୍ଣନା ଦେଖାଅ</string>
-    <string name="preferences_look_and_feel">ରୂପ ଏଵଂ ଅନୁଭଵ</string>
     <string name="color_wheel">ରଙ୍ଗ ଚକ୍ର</string>
     <string name="custom_filter_and">ଏଵଂ</string>
     <string name="filter_overdue">ଅତିଦେୟ</string>
@@ -173,5 +164,4 @@
     <string name="privacy">ଗୋପନୀୟତା</string>
     <string name="app_password">ଆପ୍ ପାସ୍‍ୱର୍ଡ଼</string>
     <string name="email">ଇମେଲ୍</string>
-    <string name="app_passwords">ଆପ୍ ପାସ୍‍ୱର୍ଡ଼</string>
 </resources>

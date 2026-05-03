@@ -1,6 +1,7 @@
 package org.tasks.compose.drawer
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
@@ -20,44 +21,63 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.PeopleOutline
 import androidx.compose.material.icons.outlined.PermIdentity
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SyncProblem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntRect
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.PopupPositionProvider
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.components.Chevron
@@ -67,42 +87,58 @@ import org.tasks.kmp.formatNumber
 import androidx.compose.foundation.isSystemInDarkTheme
 import org.tasks.themes.ColorTone
 import org.tasks.themes.tonalColor
-import org.tasks.kmp.org.tasks.compose.rememberImeState
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.search
 
 @Composable
 fun TaskListDrawer(
-    arrangement: Arrangement.Vertical,
-    filters: ImmutableList<DrawerItem>,
+    drawerOpen: Boolean,
+    drawerState: org.tasks.viewmodel.DrawerViewModel.State,
+    onQueryChange: (String) -> Unit,
     onClick: (DrawerItem) -> Unit,
     onAddClick: (DrawerItem.Header) -> Unit,
     onErrorClick: () -> Unit,
-    query: String,
-    onQueryChange: (String) -> Unit,
-    searchExpanded: Boolean,
-    onSearchExpandedChange: (Boolean) -> Unit,
+    expanded: Boolean = true,
+    listState: LazyListState = rememberLazyListState(),
 ) {
+    var searchExpanded by remember { mutableStateOf(false) }
+    var query by remember { mutableStateOf("") }
+
+    LaunchedEffect(drawerOpen) {
+        if (!drawerOpen) {
+            searchExpanded = false
+            query = ""
+            onQueryChange("")
+        }
+    }
+
+    val arrangement = if (searchExpanded && query.isNotBlank()) {
+        Arrangement.Bottom
+    } else {
+        Arrangement.Top
+    }
+    val displayedFilters = if (query.isNotBlank()) drawerState.searchItems else drawerState.drawerItems
     val systemBarPadding = WindowInsets.systemBars.asPaddingValues()
-    val keyboardOpen = rememberImeState().value
-    val bottomInset = if (keyboardOpen) 0.dp else systemBarPadding.calculateBottomPadding()
+    val bottomNavPadding = systemBarPadding.calculateBottomPadding()
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .consumeWindowInsets(PaddingValues(bottom = bottomNavPadding))
             .imePadding(),
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
+            state = listState,
             contentPadding = PaddingValues(
-                top = systemBarPadding.calculateTopPadding(),
-                bottom = 88.dp + bottomInset,
+                top = maxOf(systemBarPadding.calculateTopPadding(), 8.dp),
+                bottom = 88.dp + bottomNavPadding,
             ),
             verticalArrangement = arrangement,
         ) {
-            itemsIndexed(items = filters, key = { _, it -> it.key() }) { index, item ->
+            itemsIndexed(items = displayedFilters, key = { _, it -> it.key() }) { index, item ->
                 val isFirst = index == 0 || item is DrawerItem.Header
-                val isLast = index == filters.lastIndex ||
-                        filters[index + 1] is DrawerItem.Header
+                val isLast = index == displayedFilters.lastIndex ||
+                        displayedFilters[index + 1] is DrawerItem.Header
                 val cornerRadius = 16.dp
                 val shape = when {
                     isFirst && isLast -> RoundedCornerShape(cornerRadius)
@@ -123,10 +159,12 @@ fun TaskListDrawer(
                     when (item) {
                         is DrawerItem.Filter -> FilterItem(
                             item = item,
+                            expanded = expanded,
                             onClick = { onClick(item) }
                         )
                         is DrawerItem.Header -> HeaderItem(
                             item = item,
+                            expanded = expanded,
                             canAdd = item.canAdd,
                             toggleCollapsed = { onClick(item) },
                             onAddClick = { onAddClick(item) },
@@ -136,17 +174,25 @@ fun TaskListDrawer(
                 }
             }
         }
+        AnimatedVisibility(
+            visible = expanded,
+            enter = fadeIn(),
+            exit = fadeOut(),
+            modifier = Modifier
+                .align(Alignment.BottomEnd),
+        ) {
         SearchFab(
             expanded = searchExpanded,
-            onExpandedChange = onSearchExpandedChange,
+            onExpandedChange = { searchExpanded = it },
             query = query,
-            onQueryChange = onQueryChange,
+            onQueryChange = { newQuery ->
+                query = newQuery
+                onQueryChange(newQuery)
+            },
             modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(
-                    bottom = 16.dp + bottomInset,
-                ),
+                .padding(bottom = 16.dp + bottomNavPadding),
         )
+        }
     }
 }
 
@@ -236,14 +282,45 @@ private fun SearchFab(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun FilterItem(
     modifier: Modifier = Modifier,
     item: DrawerItem.Filter,
+    expanded: Boolean = true,
     onClick: () -> Unit,
 ) {
+    val tooltipState = rememberTooltipState()
+    val scope = rememberCoroutineScope()
+    var hoverJob by remember { mutableStateOf<Job?>(null) }
+    TooltipBox(
+        positionProvider = endTooltipPositionProvider(LocalLayoutDirection.current),
+        tooltip = { if (!expanded) PlainTooltip { Text(item.title) } },
+        state = tooltipState,
+        enableUserInput = false,
+    ) {
     MenuRow(
         modifier = modifier
+            .pointerInput(expanded) {
+                if (expanded) return@pointerInput
+                awaitPointerEventScope {
+                    while (true) {
+                        val event = awaitPointerEvent()
+                        when (event.type) {
+                            PointerEventType.Enter -> {
+                                hoverJob = scope.launch {
+                                    delay(1000)
+                                    tooltipState.show()
+                                }
+                            }
+                            PointerEventType.Exit -> {
+                                hoverJob?.cancel()
+                                tooltipState.dismiss()
+                            }
+                        }
+                    }
+                }
+            }
             .background(
                 if (item.selected)
                     MaterialTheme.colorScheme.surfaceContainerHigh
@@ -264,35 +341,44 @@ internal fun FilterItem(
                 else -> Color(item.color)
             }
         )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(
-            text = item.title,
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.weight(1f).padding(end = 8.dp),
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 1,
-        )
-        if (item.shareCount > 0) {
-            Icon(
-                imageVector = when (item.shareCount) {
-                    1 -> Icons.Outlined.PermIdentity
-                    else -> Icons.Outlined.PeopleOutline
-                },
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface,
-            )
-        }
-        Box(
-            contentAlignment = Alignment.CenterEnd,
+        AnimatedVisibility(
+            visible = expanded,
+            enter = fadeIn(),
+            exit = fadeOut(),
         ) {
-            if (item.count > 0) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(16.dp))
                 Text(
-                    text = formatNumber(item.count),
+                    text = item.title,
                     color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.weight(1f).padding(end = 8.dp),
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
                 )
+                if (item.shareCount > 0) {
+                    Icon(
+                        imageVector = when (item.shareCount) {
+                            1 -> Icons.Outlined.PermIdentity
+                            else -> Icons.Outlined.PeopleOutline
+                        },
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurface,
+                    )
+                }
+                Box(
+                    contentAlignment = Alignment.CenterEnd,
+                ) {
+                    if (item.count > 0) {
+                        Text(
+                            text = formatNumber(item.count),
+                            color = MaterialTheme.colorScheme.onSurface,
+                        )
+                    }
+                }
             }
         }
+    }
     }
 }
 
@@ -300,6 +386,7 @@ internal fun FilterItem(
 internal fun HeaderItem(
     modifier: Modifier = Modifier,
     item: DrawerItem.Header,
+    expanded: Boolean = true,
     canAdd: Boolean,
     toggleCollapsed: () -> Unit,
     onAddClick: () -> Unit,
@@ -328,36 +415,44 @@ internal fun HeaderItem(
                     tint = MaterialTheme.colorScheme.onSurface,
                 )
             }
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(
-                modifier = Modifier.weight(1f),
-                text = item.title,
-                color = MaterialTheme.colorScheme.onSurface,
-                style = MaterialTheme.typography.titleMedium,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-            if (item.hasChildren) {
-                IconButton(onClick = toggleCollapsed) {
-                    Chevron(item.collapsed)
-                }
-            }
-            if (canAdd) {
-                IconButton(onClick = onAddClick) {
-                    Icon(
-                        imageVector = Icons.Outlined.Add,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurface,
+            AnimatedVisibility(
+                visible = expanded,
+                enter = fadeIn(),
+                exit = fadeOut(),
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Text(
+                        modifier = Modifier.weight(1f),
+                        text = item.title,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.titleMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                     )
-                }
-            }
-            if (item.hasError) {
-                IconButton(onClick = onErrorClick) {
-                    Icon(
-                        imageVector = Icons.Outlined.SyncProblem,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.error,
-                    )
+                    if (item.hasChildren) {
+                        IconButton(onClick = toggleCollapsed) {
+                            Chevron(item.collapsed)
+                        }
+                    }
+                    if (canAdd) {
+                        IconButton(onClick = onAddClick) {
+                            Icon(
+                                imageVector = Icons.Outlined.Add,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurface,
+                            )
+                        }
+                    }
+                    if (item.hasError) {
+                        IconButton(onClick = onErrorClick) {
+                            Icon(
+                                imageVector = Icons.Outlined.SyncProblem,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.error,
+                            )
+                        }
+                    }
                 }
             }
     }
@@ -380,3 +475,20 @@ private fun MenuRow(
         content = content
     )
 }
+
+private fun endTooltipPositionProvider(layoutDirection: LayoutDirection) =
+    object : PopupPositionProvider {
+        override fun calculatePosition(
+            anchorBounds: IntRect,
+            windowSize: IntSize,
+            layoutDirection: LayoutDirection,
+            popupContentSize: IntSize,
+        ): IntOffset {
+            val x = if (layoutDirection == LayoutDirection.Ltr)
+                anchorBounds.right
+            else
+                anchorBounds.left - popupContentSize.width
+            val y = anchorBounds.top + (anchorBounds.height - popupContentSize.height) / 2
+            return IntOffset(x, y)
+        }
+    }

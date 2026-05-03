@@ -32,8 +32,8 @@ data class UserActivity(
     var created: Long? = 0L,
 ) : CommonParcelable {
     companion object {
-        @JvmField val TABLE = Table("userActivity")
-        @JvmField val TASK = TABLE.column("target_id")
-        @JvmField val MESSAGE = TABLE.column("message")
+        val TABLE = Table("userActivity")
+        val TASK = TABLE.column("target_id")
+        val MESSAGE = TABLE.column("message")
     }
 }

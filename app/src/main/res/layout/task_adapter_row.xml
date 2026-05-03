@@ -57,9 +57,9 @@
           android:textColor="?android:attr/textColorPrimary"
           android:textSize="@dimen/task_edit_text_size"
           android:drawablePadding="2dp"
-          app:drawableTint="@color/icon_tint_with_alpha"
+          app:drawableTint="?attr/colorOnSurfaceVariant"
           tools:text="Task title"
-          tools:textColor="@color/text_primary" />
+          />
 
         <TextView
           android:id="@+id/description"

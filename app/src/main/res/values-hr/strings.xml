@@ -4,8 +4,6 @@
     <string name="import_summary_title">Obnovi sažetak</string>
     <string name="export_toast">Sigurnosna kopija za %1$s spremljena je u %2$s.</string>
     <string name="backup_BAc_export">Spremi sigurnosnu kopiju sada</string>
-    <string name="backup_BPr_header">Sigurnosne kopije</string>
-    <string name="EPr_edit_screen_options">Uredi opcije ekrana</string>
     <string name="backup_BAc_import">Uvezi sigurnosnu kopiju</string>
     <string name="always_display_full_date">Pokaži potpuni datum</string>
     <string name="EPr_fullTask_title">Pokaži potpuni naslov zadatka</string>
@@ -52,10 +50,8 @@
     <string name="show_description">Pokaži opis</string>
     <string name="action_create_new_task">Stvori novi zadatak</string>
     <string name="cannot_access_account">Nije moguće pristupiti računu</string>
-    <string name="logout_warning">Svi podaci za ovaj račun uklonit će se s uređaja</string>
     <string name="logout">Odjavi se</string>
     <string name="license_summary">Tasks je slobodan program otvorenog koda, licenciran pod GNU General Public License v3.0</string>
-    <string name="about">Informacije</string>
     <string name="no_time">Bez vremena</string>
     <string name="TEA_timer_elap">Proteklo %s</string>
     <string name="no_date">Bez datuma</string>
@@ -73,11 +69,7 @@
     <string name="delete_multiple_tasks_confirmation">%s izbrisano</string>
     <string name="preferences_advanced">Napredno</string>
     <string name="widget_settings">Postavke widgeta</string>
-    <string name="navigation_drawer">Ladica za navigaciju</string>
-    <string name="date_and_time">Datum i vrijeme</string>
-    <string name="task_defaults">Standardne postavke zadatka</string>
     <string name="notifications">Obavijesti</string>
-    <string name="preferences_look_and_feel">Izgled i ugođaj</string>
     <string name="privacy_policy">Politika privatnosti</string>
     <string name="whats_new">Nedavne promjene</string>
     <string name="follow_reddit">Pridruži se forumu r/tasks</string>
@@ -173,16 +165,8 @@
     <string name="account_not_included">Nije uključeno s pretplatama „Odredi tvoju cijenu”</string>
     <string name="tasks_org_account_required">Potreban je Tasks.org račun</string>
     <string name="copied_to_clipboard">%s kopirano u međuspremnik</string>
-    <string name="app_password_save">Koristi ove podatke za prijavu za konfiguriranje programa treće strane. Oni odobravaju potpuni pristup tvom Tasks.org računu, nemoj ih zapisivati niti dijeliti s bilo kime!</string>
-    <string name="app_password_delete_confirmation">Bilo koji program koji koristi lozinku bit će odjavljen</string>
-    <string name="app_password_last_access">Zadnji put korišteno: %s</string>
-    <string name="app_password_created_at">Stvoreno: %s</string>
-    <string name="app_password_enter_description">Imenuj lozinku (opcionalno)</string>
-    <string name="generate_new_password">Generiraj novu lozinku</string>
     <string name="app_passwords_more_info">Sinkroniziraj tvoje zadatke i kalendare s računalnim i mobilnim programima trećih strana. Dodirni ovdje za više informacija</string>
-    <string name="app_passwords">Lozinke za program</string>
     <string name="app_password">Lozinka za program</string>
-    <string name="sign_in_to_tasks">Prijavi se na Tasks.org</string>
     <string name="save_percent">Spremi %d %%</string>
     <string name="above_average">Iznad prosjeka</string>
     <string name="migrate_count">Premjesti %s na Tasks.org</string>
@@ -190,10 +174,8 @@
     <string name="migrate">Migriraj</string>
     <string name="github_sponsor">Sponzor</string>
     <string name="authentication_required">Autentifikacija je obavezna</string>
-    <string name="sign_in_with_github">GitHub prijava</string>
     <string name="sign_in_with_google">Google prijava</string>
     <string name="github_sponsors">GitHub sponzori</string>
-    <string name="google_play_subscribers">Google Play pretplatnici</string>
     <string name="authorization_cancelled">Autorizacija prekinuta</string>
     <string name="privacy">Privatnost</string>
     <string name="open_source">Otvoreni kod</string>
@@ -202,11 +184,7 @@
     <string name="social">Društvene mreže</string>
     <string name="follow_twitter">Slijedi @tasks_org</string>
     <string name="current_subscription">Trenutačna pretplata: %s</string>
-    <string name="price_per_month">$%s/mjesec</string>
-    <string name="price_per_year">$%s/godina</string>
     <string name="no_google_play_subscription">Nije pronađena nijedna odgovarajuća pretplata na Google Play</string>
-    <string name="insufficient_sponsorship">Nije pronađeno nijedno odgovarajuće sponzorstvo za GitHub</string>
-    <string name="insufficient_subscription">Nedovoljna razina pretplate. Nadogradi pretplatu za daljnju upotrebu usluge.</string>
     <string name="your_subscription_expired">Tvoja je pretplata istekla. Pretplati se za nastavljanje korištenja usluge.</string>
     <string name="custom_filter_is_subtask">Je podzadatak</string>
     <string name="custom_filter_has_subtask">Sadrži podzadatke</string>
@@ -226,13 +204,11 @@
     <string name="automatic_backups">Automatsko spremanje sigurnosnih kopija</string>
     <string name="permission_read_tasks">Potpuni pristup bazi podataka programa Tasks</string>
     <string name="reset_sort_order">Obnovi redoslijed razvrstavanja</string>
-    <string name="caldav_account_description">Zahtijeva račun pri pružatelju CalDAV-usluga ili vlastiti poslužitelj. Pronađi pružatelja usluga na tasks.org/caldav</string>
     <string name="show_advanced_settings">Pokaži napredne postavke</string>
     <string name="davx5_selection_description">Sinkroniziraj tvoje zadatke s DAVx⁵</string>
     <string name="decsync_selection_description">Sinkronizacija pojedinačnih datoteka</string>
     <string name="etesync_selection_description">Obostrana šifrirana sinkronizacija</string>
     <string name="caldav_selection_description">Sinkronizacija temeljena na otvorenim internetskim standardima</string>
-    <string name="google_tasks_selection_description">Osnovna usluga koja sinkronizira s tvojim Google računom</string>
     <string name="enter_tag_name">Upiši ime oznake</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ne podržava višerazinske podzadatke</string>
     <string name="collapse_subtasks">Sklopi podzadatke</string>
@@ -257,14 +233,10 @@
     <string name="this_feature_requires_a_subscription">Ova funkcija zahtijeva pretplata</string>
     <string name="requires_pro_subscription">Zahtijeva pretplatu na Pro verziju</string>
     <string name="pro_dashclock_extension">Proširenje sata na preglednoj ploči</string>
-    <string name="button_unsubscribe">Otkaži pretplatu</string>
     <string name="button_subscribe">Pretplati se</string>
     <string name="refresh_purchases">Osvježi kupnje</string>
-    <string name="manage_subscription">Promijeni pretplatu</string>
     <string name="subscription">Pretplata</string>
     <string name="upgrade_to_pro">Nadogradi na Pro verziju</string>
-    <string name="network_error">Neuspjelo spajanje</string>
-    <string name="caldav_home_set_not_found">Početni skup nije pronađen</string>
     <string name="tasker_list_notification">Obavijest popisa</string>
     <string name="tasker_create_task">Stvori zadatak</string>
     <string name="repeat_monthly_last_week">zadnji</string>
@@ -302,11 +274,9 @@
     <string name="badges">Značke</string>
     <string name="bundle_notifications">Grupiraj obavijesti</string>
     <string name="notification_disable_battery_optimizations_description">Optimiranje baterije može odgoditi obavijesti</string>
-    <string name="error_adding_account">Greška: %s</string>
     <string name="url">URL</string>
     <string name="password">Lozinka</string>
     <string name="user">Korisnik</string>
-    <string name="add_account">Dodaj račun</string>
     <string name="copy_selected_tasks">Kopirati odabrane zadatke\?</string>
     <string name="delete_selected_tasks">Izbrisati odabrane zadatke\?</string>
     <string name="copy_multiple_tasks_confirmation">%s kopirano</string>
@@ -341,11 +311,6 @@
     <string name="default_list">Standardni popis</string>
     <string name="back_button_saves_task">Gumb za natrag sprema zadatak</string>
     <string name="no_title">(bez naslova)</string>
-    <string name="url_invalid_scheme">Mora početi s http(s)://</string>
-    <string name="url_host_name_required">Naziv računala je obavezno</string>
-    <string name="url_required">URL-adresa je obavezna</string>
-    <string name="password_required">Lozinka je obavezna</string>
-    <string name="username_required">Korisničko ime je obavezno</string>
     <string name="name_cannot_be_empty">Ime ne smije biti prazno</string>
     <string name="tag_already_exists">Oznaka već postoji</string>
     <string name="send_anonymous_statistics_summary">Šalji anonimnu statistiku korištenja i izvještaje o prekidima programa radi poboljšanja programa Tasks. Osobni podaci se ne prikupljaju.</string>
@@ -462,7 +427,6 @@
     <string name="EPr_cal_start_at_due_time">Počni kalendarske događaje u vrijeme roka</string>
     <string name="EPr_cal_end_at_due_time">Završi kalendarske događaje u vrijeme roka</string>
     <string name="EPr_cal_end_or_start_at_due_time">Vrijeme kalendarskog događaja</string>
-    <string name="task_list_options">Opcije za popis zadataka</string>
     <string name="EPr_show_task_edit_comments">Pokaži komentare u uređivanju zadatka</string>
     <string name="none">Ništa</string>
     <string name="TEA_control_timer">Funkcije mjerača vremena</string>
@@ -470,8 +434,6 @@
     <string name="on_launch">Pri pokretanju</string>
     <string name="sort_modified_group">Promijenjeno %s</string>
     <string name="sort_created_group">Stvoreno %s</string>
-    <string name="sort_due_group">Rok %s</string>
-    <string name="sort_start_group">Pokreni %s</string>
     <string name="support_development_subscribe">Otključaj dodatne funkcije i podrži softver otvorenog koda</string>
     <string name="enjoying_tasks">Sviđa ti se Tasks\?</string>
     <string name="filter_eisenhower_box_4">Nije važno i nije hitno</string>
@@ -508,7 +470,6 @@
     <string name="back">Natrag</string>
     <string name="upgrade_blurb_2">Proveo sam tisuće sati radeći na programu Tasks, a sav izvorni kod objavljujem na mreži besplatno. U svrhu podržavanja mog rada, neke funkcije zahtijevaju pretplatu</string>
     <string name="upgrade_blurb_1">Bok! Moje ime je Alex. Ja sam neovisan programer programa Tasks</string>
-    <string name="invalid_username_or_password">Neispravno korisničko ime ili lozinka</string>
     <string name="more_notification_settings_summary">Zvona, vibracije i više</string>
     <string name="more_settings">Daljnje postavke</string>
     <string name="disable_battery_optimizations">Deaktiviraj optimiranja baterije</string>
@@ -516,7 +477,6 @@
     <string name="troubleshooting">Rješavanje problema</string>
     <string name="wearable_notifications_summary">Prikaži obavijesti na nosivim uređajima</string>
     <string name="wearable_notifications">Obavijesti nosivih uređaja</string>
-    <string name="etesync_account_description">Zahtijeva račun na EteSync.com ili vlastiti poslužitelj</string>
     <string name="widget_show_header">Pokaži zaglavlje</string>
     <string name="widget_show_checkboxes">Pokaži potvrdne okvire</string>
     <plurals name="Ntasks">
@@ -605,11 +565,6 @@
         <item quantity="few">puta</item>
         <item quantity="other">puta</item>
     </plurals>
-    <plurals name="list_count">
-        <item quantity="one">%d popis</item>
-        <item quantity="few">%d popisa</item>
-        <item quantity="other">%d popisa</item>
-    </plurals>
     <plurals name="subtask_count">
         <item quantity="one">%d podzadatak</item>
         <item quantity="few">%d podzadatka</item>
@@ -620,7 +575,6 @@
     <string name="completion_sound">Odsviraj zvuk obavljanja</string>
     <string name="completed">Obavljeno</string>
     <string name="snackbar_task_completed">Zadatak obavljen</string>
-    <string name="completed_tasks_at_bottom">Premjesti obavljene zadatke na kraj</string>
     <string name="snackbar_tasks_completed">%d zadaci obavljeni</string>
     <string name="alarm_before_start">%s prije početka</string>
     <string name="alarm_after_start">%s nakon početka</string>
@@ -650,9 +604,6 @@
         <item quantity="other">Minuta</item>
     </plurals>
     <string name="randomly_every">Slučajno svakih %s</string>
-    <string name="caldav_server_unknown">Nepoznato</string>
-    <string name="caldav_server_other">Drugi</string>
-    <string name="caldav_server_type">Vrsta poslužitelja</string>
     <string name="dismiss">Odbaci</string>
     <string name="hint_customize_edit_body">Ovaj ekran možeš prilagoditi mijenjanjem rasporeda polja ili uklanjanjem polja</string>
     <string name="customize_edit_screen_summary">Prerasporedi ili ukloni polja</string>
@@ -661,15 +612,7 @@
     <string name="enable_reminders_description">Podsjetnici su deaktivirani u Android postavkama</string>
     <string name="sort_completion_group">Završeno %s</string>
     <string name="TEA_creation_date">Datum stvaranja</string>
-    <string name="microsoft_selection_description">Sinkroniziraj s tvojim osobnim Microsoft računom</string>
-    <string name="sign_in">Prijavi se</string>
     <string name="sort_list">Po popisu</string>
-    <string name="sort_sorting">Razvrstavanje</string>
-    <string name="sort_grouping">Grupiranje</string>
-    <string name="sort_ascending">Uzlazno</string>
-    <string name="sort_descending">Silazno</string>
-    <string name="sort_completed">Po vremenu završavanja</string>
-    <string name="sort_not_available">Nije dostupno za oznake, filtre i mjesta</string>
     <string name="repeats_never">Nikada</string>
     <string name="repeats_after">Nakon</string>
     <string name="repeats_every">Ponavlja se svaki</string>
@@ -715,7 +658,6 @@
     <string name="button_learn_more">Saznaj više</string>
     <string name="sync_warning_google_tasks">S Google Tasks se ne sinkroniziraju svi detalji zadataka.</string>
     <string name="delete_comment">komentar</string>
-    <string name="cost_free">Besplatno</string>
     <string name="sync_warning_microsoft">S Microsoft To Do se ne sinkroniziraju se svi detalji zadataka.</string>
     <string name="yesterday">Jučer</string>
     <string name="price_per_month_with_currency">%s/mjesec</string>
@@ -724,7 +666,6 @@
     <string name="add_widget_to_home_screen">Dodaj widget na početni ekran</string>
     <string name="comment">Komentar</string>
     <string name="app_settings">Postavke aplikacije</string>
-    <string name="continue_without_sync">Nastavi bez sinkronizacije</string>
     <string name="delete_tasks_warning">%s će se izbrisati. Ovo se ne može opozvati!</string>
     <string name="banner_app_updated_title">Aplikacija je aktualizirana</string>
     <string name="banner_app_updated_description">Aplikacija Tasks je upravo aktualizirana na %s. Želiš li vidjeti bilješke o izdanju?</string>
@@ -734,8 +675,6 @@
     <string name="import_failed_message">Nije moguće čitati datoteku sigurnosne kopije</string>
     <string name="local_list_title">Ovo je lokalni popis</string>
     <string name="local_list_description">Zadaci na ovom popisu su spremljeni samo na ovom uređaju. Poveži račun i zaštiti svoje podatke te im pristupi bilo gdje.</string>
-    <string name="name_your_price_blurb">Plati koliko želiš za otključavanje teme, ikone i ove napredne opcije sinkronizacije</string>
-    <string name="microsoft_selection_description_googleplay">Sinkroniziraj sa svojim poslovnim, školskim ili osobnim Microsoft računom</string>
     <string name="banner_subscription_required_title">Potrebna je pretplata</string>
     <string name="banner_subscription_required_body">Plati koliko god želiš za otključavanje %s sinkronizacije</string>
     <string name="subscription_required_fdroid">Za korištenje Tasks.org sinkronizacije je potrebna pretplata. Pretplata se mora pokrenuti putem Tasks verzije na Google Playu.</string>
@@ -746,19 +685,12 @@
     <string name="alarm_after">nakon</string>
     <string name="alarm_start">početak</string>
     <string name="alarm_due">rok</string>
-    <string name="legal_disclosure">%1$s, slažeš se s %2$s i %3$s. Tasks je softver otvorenog koda koji se pruža pod %4$s.</string>
     <string name="legal_disclosure_prefix_using">Korištenjem Tasks.org-a</string>
-    <string name="legal_disclosure_prefix_continuing">Nastavljanje klikom na bilo koji donji gumb</string>
     <string name="terms_of_service">Uvjeti pružanja usluge</string>
-    <string name="terms_of_service_proper">Uvjeti pružanja usluge</string>
-    <string name="privacy_policy_proper">Politika privatnosti</string>
-    <string name="gplv3_license">GPLv3 licenca</string>
     <string name="tos_updated_title">Aktualizirali smo naše uvjete pružanja usluge</string>
-    <string name="view_tos">Pogledaj uvjete pružanja usluge</string>
     <string name="accept">Prihvati</string>
     <string name="exit">Zatvori</string>
     <string name="returning_user">Povratni korisnik?</string>
-    <string name="returning_user_import_backup">Uvezi Tasks.org sigurnosnu kopiju</string>
     <string name="rmd_EPr_rmd_time_desc">Obavijesti za cjelodnevne zadatke će se prikazati u %s</string>
     <string name="default_reminder">Cjelodnevni zadaci</string>
     <string name="add_default_reminders">Dodaj standardne podsjetnike</string>
@@ -766,15 +698,13 @@
     <string name="rmd_time_enabled_off">Nemoj dodavati standardne podsjetnike cjelodnevnim zadacima</string>
     <string name="email_to_task">E-mail u zadatak</string>
     <string name="email_to_task_address">Tvoja e-mail adresa</string>
-    <string name="email_to_task_calendar">Popis odredišta</string>
-    <string name="regenerate_email_address">Ponovo generiraj adresu</string>
-    <string name="regenerate_email_address_confirmation">Tvoja će trenutačna e-mail adresa prestati raditi</string>
     <string name="upgrade_email_to_task_description">Pretvori e-mail poruke u zadatke prosljeđivanjem u tvoju privatnu dolaznu poštu</string>
     <string name="advanced_tools">Napredni alati</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync i još više!</string>
-    <string name="supporter">Podržavatelj</string>
-    <string name="donate">Doniraj</string>
-    <string name="supporter_summary">%s • Hvala!</string>
-    <string name="sign_in_to_connect">Prijavi se za povezivanje na tvoj Tasks.org račun</string>
     <string name="invalid_email_address">Nevaljana e-mail adresa</string>
+    <string name="share_list">Dijeli „%1$s”</string>
+    <string name="send">Pošalji</string>
+    <string name="guest_create_list_message">Trenutačno imaš pristup dijeljenim popisima kao gost. Za izradu i sinkronizaciju vlastitih privatnih popisa s oblakom moraš se pretplatiti na Tasks.org. Ili stvori besplatan lokalni popis koji ostaje na ovom uređaju.</string>
+    <string name="upgrade_friends_and_family">Prijatelji i obitelj</string>
+    <string name="upgrade_friends_and_family_description">5 besplatnih gostiju na dijeljenim popisima. Radi s Apple aplikacijom „Podsjetnici”</string>
 </resources>

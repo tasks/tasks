@@ -2,4 +2,15 @@
 <resources>
     <string name="show_completed">Ipakita ang natapos</string>
     <string name="sort_priority">Prayoridad</string>
+    <string name="password_required">Password kailangan</string>
+    <string name="add_account">Magdagdag ng account</string>
+    <string name="SSD_sort_due">Ayon sa ukol na petsa</string>
+    <string name="SSD_sort_importance">Ayon sa prayoridad</string>
+    <string name="SSD_sort_alpha">Ayon sa pamagat</string>
+    <string name="SSD_sort_modified">Ayon sa huling pagbago</string>
+    <string name="user">Gumagamit</string>
+    <string name="url_host_name_required">Pangalan ng host kailangan</string>
+    <string name="url_invalid_scheme">Kailangan magsimula na may http(s)://</string>
+    <string name="url_required">URL kailangan</string>
+    <string name="username_required">Pangalan ng gumagamit kailangan</string>
 </resources>

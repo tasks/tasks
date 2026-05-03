@@ -47,11 +47,9 @@
     <string name="TEA_control_timer">Controlos temporais</string>
     <string name="TEA_control_hidden_section">----Ocultar sempre----</string>
     <string name="none">Nenhum</string>
-    <string name="EPr_edit_screen_options">Opções do ecrã de edição</string>
     <string name="EPr_beastMode_reset">Restaurar definições originas</string>
     <string name="EPr_fullTask_title">Mostrar título completo</string>
     <string name="EPr_show_task_edit_comments">Ver comentários ao editar</string>
-    <string name="task_list_options">Opções da lista de tarefas</string>
     <string name="EPr_cal_end_or_start_at_due_time">Hora do evento de calendário</string>
     <string name="EPr_cal_end_at_due_time">Terminar evento do calendário na hora de fim</string>
     <string name="EPr_cal_start_at_due_time">Iniciar eventos de calendário na hora de fim</string>
@@ -64,7 +62,6 @@
     <string name="EPr_manage_delete_gcal_status">%d eventos do calendário eliminados!</string>
     <string name="EPr_manage_delete_all_gcal">Eliminar todos os eventos de tarefas do calendário</string>
     <string name="EPr_manage_delete_all_gcal_message">Quer mesmo eliminar todos os eventos das tarefas?</string>
-    <string name="task_defaults">Predefinições das tarefas</string>
     <string name="EPr_default_importance_title">Prioridade predefinida</string>
     <string name="EPr_default_reminders_title">Lembretes predefinidos</string>
     <string name="EPr_default_reminders_mode_title">Tipo de vibração/toque predefinido</string>
@@ -277,7 +274,6 @@
     <string name="delete_multiple_tasks_confirmation">%s eliminadas</string>
     <string name="delete_selected_tasks">Eliminar as tarefas selecionadas\?</string>
     <string name="copy_selected_tasks">Copiar as tarefas selecionadas?</string>
-    <string name="date_and_time">Data e hora</string>
     <string name="notification_disable_battery_optimizations_description">As otimizações da bateria podem atrasar as notificações</string>
     <string name="bundle_notifications">Agrupar notificações</string>
     <string name="list">Lista</string>
@@ -309,11 +305,9 @@
     <string name="repeat_monthly_third_week">terceiro</string>
     <string name="repeat_monthly_fourth_week">quarto</string>
     <string name="repeat_monthly_last_week">último</string>
-    <string name="backup_BPr_header">Cópias de segurança</string>
     <string name="action_call">Ligar</string>
     <string name="action_open">Abrir</string>
     <string name="TEA_timer_est">Duração %s</string>
-    <string name="button_unsubscribe">Cancelar subscrição</string>
     <string name="icon">Ícone</string>
     <string name="google_tasks_add_to_top">Novas tarefas no topo</string>
     <string name="invalid_backup_file">O ficheiro de cópia de segurança é inválido</string>
@@ -339,34 +333,23 @@
     <string name="action_create_new_task">Criar nova tarefa</string>
     <string name="reinitialize_account">Reinicializar</string>
     <string name="cannot_access_account">Não é possível aceder à conta</string>
-    <string name="logout_warning">Todos os dados desta conta serão removidos do seu aparelho</string>
     <string name="logout">Sair</string>
     <string name="requires_pro_subscription">Requer assinatura Pro</string>
     <string name="pro_dashclock_extension">Extensão Dashclock</string>
     <string name="license_summary">O Tasks é um programa livre e de código-aberto disponibilizado sob a GNU General Public License v3.0</string>
-    <string name="about">Sobre</string>
     <string name="button_subscribe">Subscrever</string>
     <string name="refresh_purchases">Atualizar compras</string>
-    <string name="manage_subscription">Alterar subscrição</string>
     <string name="upgrade_to_pro">Atualizar para pro</string>
-    <string name="caldav_home_set_not_found">Não foi encontrado o conjunto inicial</string>
     <string name="help">Ajuda</string>
     <string name="tasker_list_notification">Listar notificações</string>
     <string name="tasker_create_task">Criar tarefa</string>
     <string name="badges_description">Mostrar a contagem de tarefas no ícone do Tasks no lançador. Nem todos os lançadores suportam emblemas.</string>
     <string name="list_separator_with_space">", "</string>
     <string name="badges">Emblemas</string>
-    <string name="error_adding_account">Erro: %s</string>
     <string name="url">URL</string>
     <string name="password">Palavra-passe</string>
     <string name="user">Utilizador</string>
-    <string name="add_account">Adicionar conta</string>
     <string name="launcher_icon">Ícone do lançador</string>
-    <string name="url_invalid_scheme">Deve iniciar com http(s)://</string>
-    <string name="url_host_name_required">É necessário o nome do host</string>
-    <string name="url_required">É necessário o URL</string>
-    <string name="password_required">É necessária a palavra-passe</string>
-    <string name="username_required">É necessário o nome de utilizador</string>
     <string name="move">Mover</string>
     <string name="geofence_radius">Raio da cerca geográfica</string>
     <string name="add_location">Adicionar local</string>
@@ -429,7 +412,6 @@
     <string name="menu_discard_changes">Descartar alterações</string>
     <string name="hide_unused_places">Ocultar locais não usados</string>
     <string name="hide_unused_tags">Ocultar etiquetas não usadas</string>
-    <string name="navigation_drawer">Gaveta de navegação</string>
     <string name="place_settings">Configuração de locais</string>
     <string name="places">Locais</string>
     <string name="chip_appearance">Aparência da ficha</string>
@@ -439,7 +421,6 @@
     <string name="upgrade_blurb_1">Olá! O meu nome é Alex e sou o programador independente por trás do Tasks</string>
     <string name="color_wheel">Roda de cores</string>
     <string name="theme_system_default">Predefinição do sistema</string>
-    <string name="invalid_username_or_password">Nome de utilizador ou palavra-passe inválido</string>
     <string name="more_notification_settings_summary">Toque, vibrações e mais</string>
     <string name="more_settings">Mais configurações</string>
     <string name="disable_battery_optimizations">Desativar otimizações da bateria</string>
@@ -448,14 +429,10 @@
     <string name="wearable_notifications_summary">Mostrar notificações no seu weareable como relógios, pulseiras, óculos de realidade virtual…</string>
     <string name="wearable_notifications">Notificações em weareables</string>
     <string name="preferences_advanced">Avançado</string>
-    <string name="preferences_look_and_feel">Aparência</string>
     <string name="documentation">Documentação</string>
     <string name="help_and_feedback">Ajuda &amp; sugestões</string>
-    <string name="etesync_account_description">Precisa de uma conta no EteSync.com ou de um servidor auto-alojado</string>
-    <string name="caldav_account_description">Precisa de uma conta com um fornecedor CalDAV ou de um servidor auto-alojado. Encontre um fornecedor visitando tasks.org/caldav</string>
     <string name="show_advanced_settings">Mostrar configurações avançadas</string>
     <string name="etesync_selection_description">Sincronização com encriptação ponta-a-ponta</string>
-    <string name="google_tasks_selection_description">Serviço básico que sincroniza com a sua conta Google</string>
     <string name="choose_synchronization_service">Selecione uma plataforma</string>
     <string name="this_feature_requires_a_subscription">Este recurso necessita de uma subscrição</string>
     <string name="display_name">Mostrar nome</string>
@@ -471,7 +448,6 @@
     </plurals>
     <string name="SSD_sort_my_order">Minha ordem</string>
     <string name="name_your_price">Dê o seu valor</string>
-    <string name="network_error">Não foi possível conectar</string>
     <string name="location_radius_meters">%s m</string>
     <string name="davx5_selection_description">Sincronize as suas tarefas com a aplicação DAVx⁵</string>
     <string name="permission_read_tasks">Acesso completo à base de dados do Tasks</string>
@@ -500,8 +476,6 @@
     <string name="authorization_cancelled">Autorização cancelada</string>
     <string name="follow_reddit">Entrar em r/tasks</string>
     <string name="current_subscription">Subscrição atual: %s</string>
-    <string name="price_per_month">$%s/mês</string>
-    <string name="price_per_year">$%s/ano</string>
     <string name="custom_filter_is_subtask">É uma subtarefa</string>
     <string name="backup_location_warning">AVISO: os ficheiros localizados em \"%s\" serão eliminados se o Tasks for desinstalado! Escolha outra localização para impedir que o Android elimine os seus ficheiros.</string>
     <string name="backups_ignore_warnings">Ignorar avisos</string>
@@ -513,10 +487,6 @@
     <string name="ok">Aceitar</string>
     <string name="repeat_type_completion_capitalized">Data de término</string>
     <string name="always_display_full_date">Mostrar data completa</string>
-    <plurals name="list_count">
-        <item quantity="one">%d lista</item>
-        <item quantity="other">%d listas</item>
-    </plurals>
     <string name="email">Correio eletrónico</string>
     <string name="markdown_description">Ativar código Markdown no título e descrição</string>
     <string name="markdown">Código Markdown</string>
@@ -535,22 +505,12 @@
     <string name="account_not_included">Não incluído nas subscrições de \'Dê o seu preço\'</string>
     <string name="tasks_org_account_required">É necessária uma conta no Tasks.org</string>
     <string name="copied_to_clipboard">%s copiado para a área de transferência</string>
-    <string name="app_password_save">Use estas credenciais para configurar uma aplicação de terceiros. Elas garantem o acesso completo à sua conta em Task.org, não as escreva nem as partilhe com ninguém!</string>
-    <string name="app_password_delete_confirmation">Qualquer aplicação que usar esta palavra-passe será desconectada</string>
-    <string name="app_password_last_access">Último usado: %s</string>
-    <string name="app_password_created_at">Criado: %s</string>
-    <string name="app_password_enter_description">Atribua um nome à sua palavra-passe (opcional)</string>
-    <string name="generate_new_password">Gerar nova palavra-passe</string>
     <string name="app_passwords_more_info">Sincroniza as suas tarefas e calendários com aplicações de terceiros em computadores de mesa e aplicações de telemóveis de terceiros. Clique aqui para mais detalhes</string>
-    <string name="app_passwords">Palavras-passe da aplicação</string>
     <string name="app_password">Palavra-passe da aplicação</string>
-    <string name="sign_in_to_tasks">Iniciar sessão com o Tasks.org</string>
     <string name="migrate">Migrar</string>
     <string name="authentication_required">É necessário iniciar sessão</string>
-    <string name="sign_in_with_github">Iniciar sessão com o GitHub</string>
     <string name="sign_in_with_google">Iniciar sessão com o Google</string>
     <string name="github_sponsors">Patrocinadores do GitHub</string>
-    <string name="google_play_subscribers">Subscritores do Google Play</string>
     <string name="privacy">Privacidade</string>
     <string name="open_source">Código-fonte aberto</string>
     <string name="issue_tracker">Reportar problemas</string>
@@ -558,8 +518,6 @@
     <string name="social">Social</string>
     <string name="follow_twitter">Seguir @tasks_org</string>
     <string name="no_google_play_subscription">Não foi encontrada nenhuma subscrição elegível do Google Play</string>
-    <string name="insufficient_sponsorship">Não foi encontrado nenhum patrocínio GitHub elegível</string>
-    <string name="insufficient_subscription">Nível de subscrição insuficiente. Por favor atualize a sua subscrição para continuar o serviço.</string>
     <string name="your_subscription_expired">A sua subscrição expirou. Renova agora a subscrição para continuar a usar o serviço.</string>
     <string name="custom_filter_has_subtask">Tem subtarefas</string>
     <string name="date_picker_multiple">Várias</string>
@@ -573,8 +531,6 @@
     <string name="android_auto_backup">Serviço de cópia de segurança do Android</string>
     <string name="automatic_backups">Cópias de segurança automáticas</string>
     <string name="local_lists">Listas locais</string>
-    <string name="sort_due_group">Vencimento %s</string>
-    <string name="sort_start_group">Começar %s</string>
     <string name="decsync_selection_description">Sincronização baseada em ficheiro</string>
     <string name="subscription">Subscrição</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
@@ -604,7 +560,6 @@
     <string name="completion_sound">Reproduzir som de conclusão</string>
     <string name="completed">Terminado</string>
     <string name="snackbar_task_completed">Tarefa terminada</string>
-    <string name="completed_tasks_at_bottom">Mover as tarefas terminadas para o fundo</string>
     <string name="snackbar_tasks_completed">%d tarefas terminadas</string>
     <string name="alarm_before_start">%s antes de começar</string>
     <string name="alarm_after_start">%s após o início</string>
@@ -630,9 +585,6 @@
         <item quantity="other">Semanas</item>
     </plurals>
     <string name="custom_notification">Notificação personalizada</string>
-    <string name="caldav_server_unknown">Desconhecido</string>
-    <string name="caldav_server_other">Outro</string>
-    <string name="caldav_server_type">Tipo de servidor</string>
     <string name="customize_edit_screen_summary">Reorganizar ou remover campos</string>
     <string name="hint_customize_edit_title">Demasiada informação\?</string>
     <string name="hint_customize_edit_body">Pode personalizar este ecrã reorganizando ou removendo campos</string>
@@ -641,15 +593,7 @@
     <string name="enable_reminders_description">Os lembretes estão desativados nas configurações do Android</string>
     <string name="sort_completion_group">Concluído %s</string>
     <string name="TEA_creation_date">Data de criação</string>
-    <string name="microsoft_selection_description">Sincronize com a sua conta pessoal Microsoft</string>
-    <string name="sign_in">Iniciar sessão</string>
     <string name="sort_list">Por lista</string>
-    <string name="sort_not_available">Não disponível para etiquetas, filtros ou locais</string>
-    <string name="sort_sorting">Ordenação</string>
-    <string name="sort_grouping">Agrupamento</string>
-    <string name="sort_ascending">Ascendente</string>
-    <string name="sort_descending">Descendente</string>
-    <string name="sort_completed">Por hora de finalização</string>
     <string name="change_priority">Mudar prioridade</string>
     <string name="repeats_every">Repete a cada</string>
     <string name="repeat_monthly_on_the_nth_weekday">Mensalmente na %1$s %2$s</string>
@@ -705,9 +649,7 @@
     <string name="app_settings">Configurações da aplicação</string>
     <string name="comment">Comentário</string>
     <string name="add_shortcut_to_home_screen">Adicionar atalho para a tela inicial</string>
-    <string name="cost_free">Grátis</string>
     <string name="send_application_logs">Enviar logs da aplicação</string>
-    <string name="continue_without_sync">Continuar sem sync</string>
     <string name="delete_tasks_warning">%s será apagado. Isso não poderá ser desfeito!</string>
     <string name="widget_view_more_tasks">Ver mais tarefas</string>
 </resources>

@@ -46,8 +46,8 @@ data class CaldavCalendar(
         val TABLE = Table("caldav_lists")
         val ACCOUNT = TABLE.column("cdl_account")
         val UUID = TABLE.column("cdl_uuid")
-        @JvmField val NAME = TABLE.column("cdl_name")
-        @JvmField val ORDER = TABLE.column("cdl_order")
+        val NAME = TABLE.column("cdl_name")
+        val ORDER = TABLE.column("cdl_order")
     }
 
     fun readOnly(): Boolean = access == ACCESS_READ_ONLY

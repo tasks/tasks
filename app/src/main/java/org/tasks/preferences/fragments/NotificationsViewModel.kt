@@ -18,12 +18,13 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.extensions.Context.getResourceUri
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.filters.Filter
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.ShortcutBadger
@@ -107,7 +108,7 @@ class NotificationsViewModel @Inject constructor(
             badgeFilterName = filter.title ?: ""
         }
         quietHoursEnabled = preferences.getBoolean(R.string.p_rmd_enable_quiet, false)
-        isCurrentlyQuietHours = preferences.isCurrentlyQuietHours
+        isCurrentlyQuietHours = runBlocking { preferences.isCurrentlyQuietHours() }
         refreshTimeSummary(R.string.p_rmd_quietStart, R.integer.default_quiet_hours_start) { quietStartSummary = it }
         refreshTimeSummary(R.string.p_rmd_quietEnd, R.integer.default_quiet_hours_end) { quietEndSummary = it }
         scheduleQuietHoursRefresh()
@@ -150,7 +151,7 @@ class NotificationsViewModel @Inject constructor(
 
     private fun refreshTimeSummary(prefKey: Int, defaultRes: Int, setter: (String) -> Unit) {
         val millisOfDay = preferences.getInt(prefKey, context.resources.getInteger(defaultRes))
-        val timeString = getTimeString(
+        val timeString = formatTime(
             currentTimeMillis().withMillisOfDay(millisOfDay),
             context.is24HourFormat
         )
@@ -268,7 +269,7 @@ class NotificationsViewModel @Inject constructor(
     fun updateQuietHours(enabled: Boolean) {
         preferences.setBoolean(R.string.p_rmd_enable_quiet, enabled)
         quietHoursEnabled = enabled
-        isCurrentlyQuietHours = preferences.isCurrentlyQuietHours
+        isCurrentlyQuietHours = runBlocking { preferences.isCurrentlyQuietHours() }
         rescheduleNotifications(false)
         scheduleQuietHoursRefresh()
     }
@@ -309,7 +310,7 @@ class NotificationsViewModel @Inject constructor(
         handleTimePickerResult(
             timestamp, R.string.p_rmd_quietStart, R.integer.default_quiet_hours_start
         ) { quietStartSummary = it }
-        isCurrentlyQuietHours = preferences.isCurrentlyQuietHours
+        isCurrentlyQuietHours = runBlocking { preferences.isCurrentlyQuietHours() }
         rescheduleNotifications(false)
         scheduleQuietHoursRefresh()
     }
@@ -318,7 +319,7 @@ class NotificationsViewModel @Inject constructor(
         handleTimePickerResult(
             timestamp, R.string.p_rmd_quietEnd, R.integer.default_quiet_hours_end
         ) { quietEndSummary = it }
-        isCurrentlyQuietHours = preferences.isCurrentlyQuietHours
+        isCurrentlyQuietHours = runBlocking { preferences.isCurrentlyQuietHours() }
         rescheduleNotifications(false)
         scheduleQuietHoursRefresh()
     }
@@ -356,7 +357,7 @@ class NotificationsViewModel @Inject constructor(
             if (delayMs > 0) {
                 delay(delayMs)
             }
-            isCurrentlyQuietHours = preferences.isCurrentlyQuietHours
+            isCurrentlyQuietHours = preferences.isCurrentlyQuietHours()
             scheduleQuietHoursRefresh()
         }
     }

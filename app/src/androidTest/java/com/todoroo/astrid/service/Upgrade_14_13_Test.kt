@@ -3,7 +3,7 @@
 package com.todoroo.astrid.service
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

@@ -2,7 +2,7 @@ package com.todoroo.astrid.gtasks
 
 import com.google.api.services.tasks.model.TaskList
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

@@ -9,8 +9,8 @@ import kotlinx.serialization.Transient
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
 import org.tasks.data.db.Table
+import org.tasks.time.ONE_DAY
 import org.tasks.time.printTimestamp
-import java.util.concurrent.TimeUnit
 
 @CommonParcelize
 @Serializable
@@ -55,10 +55,10 @@ data class Alarm(
 
     companion object {
         const val TABLE_NAME = "alarms"
-        @JvmField val TABLE = Table(TABLE_NAME)
-        @JvmField val TASK = TABLE.column("task")
-        @JvmField val TYPE = TABLE.column("type")
-        @JvmField val TIME = TABLE.column("time")
+        val TABLE = Table(TABLE_NAME)
+        val TASK = TABLE.column("task")
+        val TYPE = TABLE.column("type")
+        val TIME = TABLE.column("time")
 
         const val TYPE_DATE_TIME = 0
         const val TYPE_REL_START = 1
@@ -75,10 +75,10 @@ data class Alarm(
         fun whenOverdue(task: Long) =
             Alarm(
                 task = task,
-                time = TimeUnit.DAYS.toMillis(1),
+                time = ONE_DAY,
                 type = TYPE_REL_END,
                 repeat = 6,
-                interval = TimeUnit.DAYS.toMillis(1)
+                interval = ONE_DAY
             )
 
     }

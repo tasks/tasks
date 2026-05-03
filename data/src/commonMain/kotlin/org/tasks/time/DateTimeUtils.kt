@@ -1,17 +1,15 @@
 package org.tasks.time
 
-import org.tasks.IS_DEBUG
 import org.tasks.printTimestamp
 
 object DateTimeUtils2 {
-    @JvmStatic
     fun currentTimeMillis(): Long {
         return MILLIS_PROVIDER.millis
     }
 
     private val SYSTEM_MILLIS_PROVIDER = SystemMillisProvider()
 
-    @Volatile
+    @kotlin.concurrent.Volatile
     private var MILLIS_PROVIDER: MillisProvider = SYSTEM_MILLIS_PROVIDER
 
     fun setCurrentMillisFixed(millis: Long) {
@@ -23,5 +21,4 @@ object DateTimeUtils2 {
     }
 }
 
-fun printTimestamp(timestamp: Long): String =
-    if (IS_DEBUG) timestamp.printTimestamp() else timestamp.toString()
+fun printTimestamp(timestamp: Long): String = timestamp.printTimestamp()

@@ -4,6 +4,6 @@ import androidx.room.Embedded
 import org.tasks.data.entity.TagData
 
 data class TagFilters(
-    @JvmField @Embedded var tagData: TagData,
-    @JvmField var count: Int,
+    @Embedded var tagData: TagData,
+    var count: Int,
 )

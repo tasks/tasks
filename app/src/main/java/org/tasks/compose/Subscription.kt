@@ -62,9 +62,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import tasks.kmp.generated.resources.sign_in
+import tasks.kmp.generated.resources.sign_in_subtitle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -74,6 +75,8 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.billing.Sku
 import org.tasks.compose.Constants.HALF_KEYLINE
@@ -82,6 +85,8 @@ import org.tasks.compose.PurchaseText.SubscriptionScreen
 import org.tasks.compose.settings.SettingsCardRadius
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.url_sponsor
 
 object PurchaseText {
     private const val POPPER = "\uD83C\uDF89"
@@ -97,20 +102,25 @@ object PurchaseText {
 
     private val nameYourPriceFeatureList = listOf(
         CarouselItem(
+            title = R.string.upgrade_desktop_app,
+            icon = R.drawable.ic_outline_computer_24px,
+            description = R.string.upgrade_desktop_app_description,
+        ),
+        CarouselItem(
             R.string.upgrade_more_customization,
             R.drawable.ic_outline_palette_24px,
             R.string.upgrade_more_customization_description
-        ),
-        CarouselItem(
-            R.string.open_source,
-            R.drawable.ic_outline_favorite_border_24px,
-            R.string.upgrade_open_source_description
         ),
         CarouselItem(
             R.string.tasks_org_account,
             R.drawable.ic_round_icon,
             R.string.account_not_included,
             iconStyle = IconStyle.GRAYSCALE
+        ),
+        CarouselItem(
+            R.string.open_source,
+            R.drawable.ic_outline_favorite_border_24px,
+            R.string.upgrade_open_source_description
         ),
         CarouselItem(
             R.string.davx5,
@@ -139,20 +149,25 @@ object PurchaseText {
 
     private val tasksOrgFeatureList = listOf(
         CarouselItem(
+            title = R.string.upgrade_desktop_app,
+            icon = R.drawable.ic_outline_computer_24px,
+            description = R.string.upgrade_desktop_app_description,
+        ),
+        CarouselItem(
             title = R.string.upgrade_friends_and_family,
             icon = R.drawable.outline_groups_24,
             description = R.string.upgrade_friends_and_family_description,
+        ),
+        CarouselItem(
+            R.string.email_to_task,
+            R.drawable.ic_outline_email_24px,
+            R.string.upgrade_email_to_task_description
         ),
         CarouselItem(
             R.string.tasks_org_account,
             R.drawable.ic_round_icon,
             R.string.upgrade_tasks_org_account_description,
             iconStyle = IconStyle.ORIGINAL
-        ),
-        CarouselItem(
-            R.string.email_to_task,
-            R.drawable.ic_outline_email_24px,
-            R.string.upgrade_email_to_task_description
         ),
         CarouselItem(
             R.string.upgrade_more_customization,
@@ -226,7 +241,7 @@ object PurchaseText {
                                 onDismissRequest = { expanded = false },
                             ) {
                                 DropdownMenuItem(
-                                    text = { Text(stringResource(R.string.sign_in)) },
+                                    text = { Text(org.jetbrains.compose.resources.stringResource(Res.string.sign_in)) },
                                     onClick = {
                                         expanded = false
                                         onSignIn()
@@ -323,7 +338,7 @@ object PurchaseText {
                         )
                     ) {
                         Text(
-                            text = stringResource(R.string.sign_in),
+                            text = org.jetbrains.compose.resources.stringResource(Res.string.sign_in),
                             style = MaterialTheme.typography.bodyLarge
                         )
                     }
@@ -352,7 +367,7 @@ object PurchaseText {
     fun SponsorButton() {
         val context = LocalContext.current
         OutlinedButton(
-            onClick = { context.openUri(R.string.url_sponsor) },
+            onClick = { context.openUri(runBlocking { getString(Res.string.url_sponsor) }) },
             colors = ButtonDefaults.outlinedButtonColors(
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary
@@ -480,7 +495,7 @@ object PurchaseText {
             if (!showMoreOptions && !existingSubscriber && !hasTasksAccount) {
                 Spacer(Modifier.height(32.dp))
                 Text(
-                    text = stringResource(R.string.sign_in_subtitle),
+                    text = org.jetbrains.compose.resources.stringResource(Res.string.sign_in_subtitle),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -493,7 +508,7 @@ object PurchaseText {
                     )
                 ) {
                     Text(
-                        text = stringResource(R.string.sign_in),
+                        text = org.jetbrains.compose.resources.stringResource(Res.string.sign_in),
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
@@ -518,7 +533,7 @@ object PurchaseText {
                     IconStyle.GRAYSCALE -> ColorFilter.colorMatrix(
                         ColorMatrix().apply { setToSaturation(0f) }
                     )
-                    IconStyle.TINT -> ColorFilter.tint(colorResource(R.color.icon_tint_with_alpha))
+                    IconStyle.TINT -> ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant)
                     IconStyle.ORIGINAL -> null
                 }
             )
@@ -637,7 +652,7 @@ object PurchaseText {
                     colors = SliderDefaults.colors(
                         thumbColor = MaterialTheme.colorScheme.secondary,
                         activeTrackColor = MaterialTheme.colorScheme.secondary,
-                        inactiveTrackColor = colorResource(R.color.text_tertiary),
+                        inactiveTrackColor = MaterialTheme.colorScheme.outline,
                         activeTickColor = Color.Transparent,
                         inactiveTickColor = Color.Transparent
                     )

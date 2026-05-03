@@ -1,0 +1,22 @@
+name: Install Conveyor
+description: Download and verify Conveyor binary
+
+inputs:
+  version:
+    description: Conveyor version
+    required: true
+    default: "22.0"
+  sha256:
+    description: Expected SHA-256 hash of the tarball
+    required: true
+    default: "768ea002e99149deb502a9177c11f2f00dcbffa976e505f7f424a5492287ee3c"
+
+runs:
+  using: composite
+  steps:
+    - name: Install Conveyor
+      shell: bash
+      run: |
+        curl -fsSL -o /tmp/conveyor.tar.gz "https://downloads.hydraulic.dev/conveyor/conveyor-${{ inputs.version }}-linux-amd64.tar.gz"
+        echo "${{ inputs.sha256 }}  /tmp/conveyor.tar.gz" | sha256sum -c
+        sudo tar xf /tmp/conveyor.tar.gz -C /usr/local --strip-components=1

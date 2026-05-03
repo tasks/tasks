@@ -1,6 +1,8 @@
 package org.tasks.compose.home
 
 import android.content.Intent
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
@@ -10,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity.RESULT_OK
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -94,6 +97,8 @@ fun HomeScreen(
     showNewFilterDialog: () -> Unit,
     navigator: ThreePaneScaffoldNavigator<Any>,
 ) {
+    val drawerViewModel = viewModel.drawerViewModel
+    val drawerViewModelState by drawerViewModel.state.collectAsStateWithLifecycle()
     val currentWindowInsets = WindowInsets.systemBars.asPaddingValues()
     val windowInsets = remember { mutableStateOf(currentWindowInsets) }
     val keyboard = LocalSoftwareKeyboardController.current
@@ -187,24 +192,11 @@ fun HomeScreen(
                 ) {
                     val context = LocalContext.current
                     val scope = rememberCoroutineScope()
-                    val searchExpanded = remember { mutableStateOf(false) }
-                    LaunchedEffect(drawerState.isClosed) {
-                        if (drawerState.isClosed) {
-                            searchExpanded.value = false
-                        }
-                    }
-                    BackHandler(enabled = searchExpanded.value) {
-                        if (state.menuQuery.isNotEmpty()) {
-                            viewModel.queryMenu("")
-                        } else {
-                            searchExpanded.value = false
-                            scope.launch { drawerState.close() }
-                        }
-                    }
                     Box(modifier = Modifier.fillMaxSize()) {
                         TaskListDrawer(
-                            arrangement = if (state.menuQuery.isBlank()) Arrangement.Top else Arrangement.Bottom,
-                            filters = if (state.menuQuery.isNotEmpty()) state.searchItems else state.drawerItems,
+                            drawerOpen = drawerState.isOpen,
+                            drawerState = drawerViewModelState,
+                            onQueryChange = { drawerViewModel.setMenuQuery(it) },
                             onClick = {
                                 when (it) {
                                     is DrawerItem.Filter -> {
@@ -216,7 +208,7 @@ fun HomeScreen(
                                     }
 
                                     is DrawerItem.Header -> {
-                                        viewModel.toggleCollapsed(it.header)
+                                        drawerViewModel.toggleCollapsed(it.header)
                                     }
                                 }
                             },
@@ -271,10 +263,6 @@ fun HomeScreen(
                             onErrorClick = {
                                 context.startActivity(Intent(context, MainPreferences::class.java))
                             },
-                            query = state.menuQuery,
-                            onQueryChange = { viewModel.queryMenu(it) },
-                            searchExpanded = searchExpanded.value,
-                            onSearchExpandedChange = { searchExpanded.value = it },
                         )
 
                         SystemBarScrim(

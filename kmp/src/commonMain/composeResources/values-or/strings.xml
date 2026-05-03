@@ -13,4 +13,27 @@
     <string name="today_lowercase">ଆଜି</string>
     <string name="sort_mode">ସଜାନ୍ତୁ</string>
     <string name="sort_priority">ପ୍ରାଥମିକତା</string>
+    <string name="password_required">ପାସ୍‍ୱର୍ଡ଼ ଆଵଶ୍ୟକ</string>
+    <string name="help">ସହାୟତା</string>
+    <string name="filter_overdue">ଅତିଦେୟ</string>
+    <string name="SSD_sort_start">ଆରମ୍ଭ ତାରିଖ ଅନୁଯାୟୀ</string>
+    <string name="SSD_sort_importance">ପ୍ରାଥମିକତା ଅନୁଯାୟୀ</string>
+    <string name="SSD_sort_alpha">ଆଖ୍ୟା ଅନୁଯାୟୀ</string>
+    <string name="SSD_sort_modified">ଗତ ସଂଶୋଧନ ଅନୁଯାୟୀ</string>
+    <string name="SSD_sort_my_order">ମୋର କ୍ରମ</string>
+    <string name="app_passwords">ଆପ୍ ପାସ୍‍ୱର୍ଡ଼</string>
+    <string name="app_password">ଆପ୍ ପାସ୍‍ୱର୍ଡ଼</string>
+    <string name="url">URL</string>
+    <string name="user">ଉପଭୋକ୍ତା</string>
+    <string name="password">ପାସ୍‍ୱର୍ଡ଼</string>
+    <string name="preferences_look_and_feel">ରୂପ ଏଵଂ ଅନୁଭଵ</string>
+    <string name="date_and_time">ତାରିଖ ଓ ସମୟ</string>
+    <string name="preferences_advanced">ଵିକଶିତ</string>
+    <string name="about">ସମ୍ବନ୍ଧରେ</string>
+    <string name="name_cannot_be_empty">ନାମ ଖାଲି ଛଡ଼ା ଯାଇପାରିବ ନାହିଁ</string>
+    <string name="error_adding_account">ତ୍ରୁଟି: %s</string>
+    <string name="network_error">ସଂଯୋଗ କରିହେଲା ନାହିଁ</string>
+    <string name="url_invalid_scheme">http(s):// ସହ ଆରମ୍ଭ ହେବା ଦରକାର</string>
+    <string name="url_required">URL ଆଵଶ୍ୟକ</string>
+    <string name="username_required">ଉପଭୋକ୍ତା ନାମ ଆଵଶ୍ୟକ</string>
 </resources>

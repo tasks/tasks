@@ -9,8 +9,12 @@ import android.net.Uri
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.data.MergedGeofence
+import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Place
+import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.PermissionChecker
+import org.tasks.receivers.LocationProviderChangedReceiver
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -18,6 +22,8 @@ class LocationServiceAndroid @Inject constructor(
         @ApplicationContext private val context: Context,
         private val locationManager: LocationManager,
         private val permissionChecker: PermissionChecker,
+        override val locationDao: LocationDao,
+        override val appPreferences: AppPreferences,
 ) : LocationService {
 
     private var cached: Location? = null
@@ -39,6 +45,8 @@ class LocationServiceAndroid @Inject constructor(
 
     @SuppressLint("MissingPermission")
     override fun addGeofences(geofence: MergedGeofence) {
+        if (!permissionChecker.canAccessBackgroundLocation()) return
+        Timber.d("Adding proximity alert for %s", geofence.uid)
         locationManager.addProximityAlert(
                 geofence.latitude,
                 geofence.longitude,
@@ -48,7 +56,50 @@ class LocationServiceAndroid @Inject constructor(
     }
 
     override fun removeGeofences(place: Place) {
+        if (!permissionChecker.canAccessBackgroundLocation()) return
+        Timber.d("Removing proximity alert for %s", place.uid)
         locationManager.removeProximityAlert(createPendingIntent(place.id))
+    }
+
+    @SuppressLint("MissingPermission")
+    override fun startBackgroundLocationUpdates(intervalMinutes: Int) {
+        if (!permissionChecker.canAccessBackgroundLocation()) return
+        val pendingIntent = LocationUpdateReceiver.pendingIntent(context)
+        locationManager.removeLocationUpdates(pendingIntent)
+        if (intervalMinutes > 0) {
+            val intervalMs = TimeUnit.MINUTES.toMillis(intervalMinutes.toLong())
+            val systemLocationManager =
+                context.getSystemService(android.location.LocationManager::class.java)
+            val provider = when {
+                systemLocationManager.isProviderEnabled(android.location.LocationManager.NETWORK_PROVIDER) ->
+                    android.location.LocationManager.NETWORK_PROVIDER
+                systemLocationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER) ->
+                    android.location.LocationManager.GPS_PROVIDER
+                else -> {
+                    Timber.w("No location provider available for background updates")
+                    return
+                }
+            }
+            try {
+                locationManager.requestLocationUpdates(
+                    provider,
+                    intervalMs,
+                    0f,
+                    pendingIntent
+                )
+                Timber.d("Background location updates started (provider=%s, interval=%dm)", provider, intervalMinutes)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to start background location updates")
+            }
+        }
+    }
+
+    override fun stopBackgroundLocationUpdates() {
+        locationManager.removeLocationUpdates(LocationUpdateReceiver.pendingIntent(context))
+    }
+
+    override fun setLocationProviderReceiverEnabled(enabled: Boolean) {
+        LocationProviderChangedReceiver.setEnabled(context, enabled)
     }
 
     private fun createPendingIntent(place: Long) =

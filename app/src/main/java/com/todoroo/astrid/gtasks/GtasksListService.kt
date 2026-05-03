@@ -6,7 +6,7 @@
 package com.todoroo.astrid.gtasks
 
 import com.google.api.services.tasks.model.TaskList
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount

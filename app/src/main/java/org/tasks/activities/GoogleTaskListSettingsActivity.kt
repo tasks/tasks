@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch

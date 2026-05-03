@@ -10,4 +10,11 @@
     <string name="save">सुरक्षित गर्नुहोस्</string>
     <string name="sort_priority">प्राथमिकता</string>
     <string name="sort_start_date">सुरु मिति</string>
+    <string name="ok">ठिक छ</string>
+    <string name="cancel">रद्द गर्नुहोस्</string>
+    <string name="no_start_date">सुरु मिति छैन</string>
+    <string name="subtasks">उपकार्यहरू</string>
+    <string name="display_name">डिस्प्ले नाम</string>
+    <string name="task_defaults">कार्य पूर्वनिर्धारितहरू</string>
+    <string name="task_list_options">कार्य सूचीका विकल्पहरू</string>
 </resources>

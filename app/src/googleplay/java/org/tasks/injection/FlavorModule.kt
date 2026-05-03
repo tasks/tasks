@@ -12,7 +12,16 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.serialization.json.Json
+import org.tasks.PlatformConfiguration
+import org.tasks.auth.TasksServerEnvironment
+import org.tasks.billing.DesktopLinkService
+import org.tasks.billing.DesktopLinkServiceImpl
+import org.tasks.billing.GooglePlayQrScanner
+import org.tasks.billing.QrScanner
+import org.tasks.billing.SubscriptionProvider
 import org.tasks.extensions.wearDataLayerRegistry
+import org.tasks.http.HttpClientFactory
 import org.tasks.location.Geocoder
 import org.tasks.location.GeocoderMapbox
 import org.tasks.location.GoogleMapFragment
@@ -29,6 +38,22 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class FlavorModule {
+    @Provides
+    fun getPlatformConfiguration() = PlatformConfiguration(
+        supportsTasksOrg = true,
+        supportsCaldav = true,
+        supportsGoogleTasks = true,
+        supportsMicrosoft = true,
+        supportsOpenTasks = true,
+        supportsEteSync = true,
+        supportsBackupImport = true,
+        supportsGeofences = true,
+        supportsCalendarEvents = true,
+        billingProvider = org.tasks.billing.BillingProvider.GOOGLE_PLAY,
+        supportsWidgets = true,
+        supportsDesktopLinking = true,
+    )
+
     @Provides
     fun getLocationService(
         google: Lazy<LocationServiceGooglePlay>,
@@ -74,5 +99,22 @@ class FlavorModule {
         phoneDataLayerAppHelper,
         Wearable.getMessageClient(applicationContext),
         scope,
+    )
+
+    @Provides
+    fun getQrScanner(@ApplicationContext context: Context): QrScanner =
+        GooglePlayQrScanner(context)
+
+    @Provides
+    fun getDesktopLinkService(
+        httpClientFactory: HttpClientFactory,
+        serverEnvironment: TasksServerEnvironment,
+        subscriptionProvider: SubscriptionProvider,
+        json: Json,
+    ): DesktopLinkService = DesktopLinkServiceImpl(
+        httpClientFactory = httpClientFactory,
+        serverEnvironment = serverEnvironment,
+        subscriptionProvider = subscriptionProvider,
+        json = json,
     )
 }

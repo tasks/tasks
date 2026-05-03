@@ -4,7 +4,6 @@
     <string name="cancel">Encaboxar</string>
     <string name="TVA_add_comment">Amestar un comentariu…</string>
     <string name="display_name">Mostrar el nome</string>
-    <string name="backup_BPr_header">Copies de seguranza</string>
     <string name="backup_BAc_export">Facer una copia de seguranza agora</string>
     <string name="backup_BAc_import">Importar copia de seguranza</string>
     <string name="export_toast">Respaldaes %1$s de %2$s.</string>
@@ -39,7 +38,6 @@
     <string name="SSD_sort_modified">Por última modificación</string>
     <string name="sort_created">Por data de creación</string>
     <string name="sort_list">Por llista</string>
-    <string name="sort_completed">Por data de terminación</string>
     <string name="FLA_search_filter">Coincidencia de \'%s\'</string>
     <string name="FLA_new_filter">Crear nuevu filtru</string>
     <string name="TEA_title_hint">Nome de la xera</string>
@@ -68,11 +66,9 @@
     <string name="TEA_control_hidden_section">----Esconder siempres----</string>
     <string name="TEA_creation_date">Data de creación</string>
     <string name="none">Denguna</string>
-    <string name="EPr_edit_screen_options">Editar opciones de pantalla</string>
     <string name="EPr_beastMode_reset">Restablecer valores predeterminaos</string>
     <string name="EPr_fullTask_title">Amosar el títulu completu de la xera</string>
     <string name="EPr_show_task_edit_comments">Amosar comentarios na edición de la xera</string>
-    <string name="task_list_options">Opciones de la llista de xeres</string>
     <string name="EPr_cal_end_or_start_at_due_time">Momentu del eventu nel calendariu</string>
     <string name="EPr_cal_end_at_due_time">Acabar eventos del calendariu al vencimientu</string>
     <string name="EPr_cal_start_at_due_time">Entamar eventos del calendariu nel momentu oportunu</string>
@@ -86,7 +82,6 @@
     <string name="EPr_manage_delete_gcal_status">¡Desaniciaronse %d xeres del calendariu!</string>
     <string name="EPr_manage_delete_all_gcal">Desaniciar tolos eventos de calendariu de les xeres</string>
     <string name="EPr_manage_delete_all_gcal_message">¿De xuru que quies desaniciar tolos tos eventos pa les xeres?</string>
-    <string name="task_defaults">Valores predeterminaos de la xera</string>
     <string name="EPr_default_importance_title">Prioridá predeterminada</string>
     <string name="default_start_date">Data d\'entamu predeterminada</string>
     <string name="default_due_date">Data de vencimientu predeterminada</string>
@@ -176,10 +171,6 @@
     <plurals name="subtask_count">
         <item quantity="one">%d subxera</item>
         <item quantity="other">%d subxeres</item>
-    </plurals>
-    <plurals name="list_count">
-        <item quantity="one">%d llista</item>
-        <item quantity="other">%d llistes</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">vuelta</item>
@@ -357,11 +348,6 @@
     <string name="send_anonymous_statistics_summary">Unvia estadístiques anónimes d\'usu ya informes d\'error p\'aidar a ameyorar Tasks. Dengún datu personal sedrá recoyíu.</string>
     <string name="tag_already_exists">L\'etiqueta yá esiste</string>
     <string name="name_cannot_be_empty">El nome nun puee tar baleru</string>
-    <string name="username_required">Precísase un nome d\'usuariu</string>
-    <string name="password_required">Precísase una conseña</string>
-    <string name="url_required">Precísase la URL</string>
-    <string name="url_host_name_required">Precísase un hostname</string>
-    <string name="url_invalid_scheme">Tien d\'entamar con http(s)://</string>
     <string name="no_title">(Ensin títulu)</string>
     <string name="back_button_saves_task">El botón Atrás guarda la xera</string>
     <string name="show_edit_screen_without_unlock">Amosar la pantalla d\'edición ensin desbloquiar</string>
@@ -402,13 +388,9 @@
     <string name="delete_multiple_tasks_confirmation">%s desaniciáu</string>
     <string name="delete_selected_tasks">¿Desaniciar les xeres seleccionaes?</string>
     <string name="copy_selected_tasks">¿Copiar les xeres seleccionaes?</string>
-    <string name="date_and_time">Data y hora</string>
-    <string name="add_account">Amestar cuenta</string>
-    <string name="continue_without_sync">Continuar ensin sincronizar</string>
     <string name="user">Usuariu</string>
     <string name="password">Conseña</string>
     <string name="url">URL</string>
-    <string name="error_adding_account">Error:%s</string>
     <string name="notification_disable_battery_optimizations_description">L\'optimización de batería puee retrasar avisos</string>
     <string name="bundle_notifications">Axuntar avisos</string>
     <string name="badges">Insignies</string>
@@ -457,22 +439,16 @@
     <string name="tasker_list_notification">Llistar avisu</string>
     <string name="help">Aida</string>
     <string name="help_and_feedback">Aida y comentarios</string>
-    <string name="caldav_home_set_not_found">Nun se atopen los axustes d\'aniciu</string>
-    <string name="network_error">Nun se pudo coneutar</string>
     <string name="upgrade_to_pro">Anovar a pro</string>
     <string name="subscription">Soscripción</string>
-    <string name="manage_subscription">Camudar soscripción</string>
     <string name="refresh_purchases">Anovar les compres</string>
     <string name="button_subscribe">Soscribise</string>
-    <string name="button_unsubscribe">Encaboxar soscripción</string>
-    <string name="about">Tocantes a</string>
     <string name="license_summary">Tasks ye un software llibre de códigu abiertu, llicenciáu baxu la Llicencia Pública Xeneral de GNU v3.0</string>
     <string name="pro_dashclock_extension">Estensión Dashclock</string>
     <string name="requires_pro_subscription">Requier soscripción pro</string>
     <string name="this_feature_requires_a_subscription">Esta carauteristica requier una soscripción</string>
     <string name="logout">Zarrar sesión</string>
     <string name="delete_tasks_warning">%s desaniciarase. ¡Esto nun se puee desfacer!</string>
-    <string name="logout_warning">Tolos datos pa esta cuenta desaniciaranse del to dispositivu</string>
     <string name="cannot_access_account">Nun se puee acceder a la cuenta</string>
     <string name="reinitialize_account">Reaniciar</string>
     <string name="action_create_new_task">Amestar nueva xera</string>
@@ -509,11 +485,9 @@
     <string name="subtasks_multilevel_microsoft">Subxeres multi-nivel non soportaes por Microsoft To Do</string>
     <string name="enter_tag_name">Introduz nome de etiqueta</string>
     <string name="choose_synchronization_service">Selecciona una plataforma</string>
-    <string name="google_tasks_selection_description">Serviciu básicu que sincroniza cola to cuenta de Google</string>
     <string name="caldav_selection_description">Sincronización basada en estándares abiertos d\'internet</string>
     <string name="etesync_selection_description">Sincronización con cifráu d\'estremu a estremu</string>
     <string name="decsync_selection_description">Sincronización basada en ficheros</string>
-    <string name="microsoft_selection_description">Sincroniza cola to cuenta personal de Microsoft</string>
     <string name="davx5_selection_description">Sincroniza les tos xeres cola aplicación DAVx⁵</string>
     <string name="show_advanced_settings">Amosar axustes avanzaos</string>
 </resources>

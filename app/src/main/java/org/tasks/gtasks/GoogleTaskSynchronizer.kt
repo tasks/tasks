@@ -6,14 +6,15 @@ import com.google.api.client.util.DateTime
 import com.google.api.services.tasks.model.Task
 import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.Tasks
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import com.todoroo.astrid.gtasks.GtasksListService
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities
 import com.todoroo.astrid.gtasks.api.GtasksInvoker
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException
 import com.todoroo.astrid.service.TaskCreator
-import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.data.getDefaultAlarms
+import org.tasks.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import org.tasks.broadcast.RefreshBroadcaster
@@ -52,6 +53,7 @@ class GoogleTaskSynchronizer @Inject constructor(
     private val gtasksListService: GtasksListService,
     private val preferences: Preferences,
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val firebase: Firebase,
     private val googleTaskDao: GoogleTaskDao,
     private val taskCreator: TaskCreator,
@@ -437,9 +439,9 @@ class GoogleTaskSynchronizer @Inject constructor(
         task.suppressRefresh()
         if (task.isNew) {
             taskDao.createNew(task)
-            alarmDao.insert(task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled))
+            alarmDao.insert(task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled()))
         }
-        taskDao.save(task)
+        taskSaver.save(task)
         googleTask
             .copy(
                 task = task.id,

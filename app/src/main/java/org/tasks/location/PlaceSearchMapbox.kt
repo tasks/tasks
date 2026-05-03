@@ -45,7 +45,7 @@ class PlaceSearchMapbox @Inject constructor(
             }
 
     override suspend fun fetch(placeSearchResult: PlaceSearchResult): Place =
-            placeSearchResult.place
+            checkNotNull(placeSearchResult.place) { "Missing place for ${placeSearchResult.id}" }
 
     companion object {
         internal fun jsonToSearchResults(json: String): List<PlaceSearchResult> =

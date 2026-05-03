@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import com.todoroo.astrid.core.SortHelper.SORT_START
+import timber.log.Timber
 
 internal class DiffCallback(
     private val old: SectionedDataSource,
@@ -27,19 +28,30 @@ internal class DiffCallback(
         if (wasHeader != isHeader) {
             return false
         }
-        return if (isHeader) {
-            old.groupMode == new.groupMode && old.getHeaderValue(oldPosition) == new.getHeaderValue(newPosition)
-        } else {
-            old.getItem(oldPosition).id == new.getItem(newPosition).id
+        return try {
+            if (isHeader) {
+                old.groupMode == new.groupMode && old.getHeaderValue(oldPosition) == new.getHeaderValue(newPosition)
+            } else {
+                old.getItem(oldPosition).id == new.getItem(newPosition).id
+            }
+        } catch (e: IndexOutOfBoundsException) {
+            Timber.w(e, "areItemsTheSame: old=$oldPosition/${old.size} new=$newPosition/${new.size}")
+            false
         }
     }
 
     override fun areContentsTheSame(oldPosition: Int, newPosition: Int): Boolean {
-        if (new.isHeader(newPosition)) {
-            return old.getSection(oldPosition).collapsed == new.getSection(newPosition).collapsed
+        return try {
+            if (new.isHeader(newPosition)) {
+                old.getSection(oldPosition).collapsed == new.getSection(newPosition).collapsed
+            } else {
+                val oldItem = old.getItem(oldPosition)
+                val newItem = new.getItem(newPosition)
+                !refreshDates && oldItem == newItem && oldItem.indent == adapter.getIndent(newItem)
+            }
+        } catch (e: IndexOutOfBoundsException) {
+            Timber.w(e, "areContentsTheSame: old=$oldPosition/${old.size} new=$newPosition/${new.size}")
+            false
         }
-        val oldItem = old.getItem(oldPosition)
-        val newItem = new.getItem(newPosition)
-        return !refreshDates && oldItem == newItem && oldItem.indent == adapter.getIndent(newItem)
     }
 }

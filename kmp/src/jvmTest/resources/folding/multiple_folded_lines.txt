@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:+//IDN tasks.org//android-150200//EN
+BEGIN:VTODO
+DTSTAMP:20260328T173336Z
+UID:folding-test-multiple
+CREATED:20260324T212202Z
+LAST-MODIFIED:20260328T173332Z
+SUMMARY:This is a very long task title that will definitely need to be folde
+ d across multiple lines because it exceeds the seventy-five byte line limit
+  that RFC 5545 specifies for iCalendar content lines
+DESCRIPTION:First paragraph with enough text to trigger folding in the descr
+ iption property as well.\n\nSecond paragraph with **markdown** and _italic_
+  formatting.\n\nThird paragraph.
+PRIORITY:9
+END:VTODO
+END:VCALENDAR

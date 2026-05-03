@@ -1,9 +1,7 @@
 package org.tasks.preferences
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
@@ -16,19 +14,17 @@ import androidx.preference.PreferenceFragmentCompat
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.databinding.ActivityPreferencesBinding
-import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import javax.inject.Inject
 
 private const val EXTRA_TITLE = "extra_title"
 
 abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
-    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback, Toolbar.OnMenuItemClickListener {
+    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     @Inject lateinit var firebase: Firebase
 
     lateinit var toolbar: Toolbar
-    var menu: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,16 +54,13 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
 
         toolbar = binding.toolbar.toolbar
         if (savedInstanceState == null) {
-            val rootPreference = getRootPreference()
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.settings, rootPreference)
+                .replace(R.id.settings, getRootPreference())
                 .commit()
             toolbar.title = getString(getRootTitle())
-            setupMenu(rootPreference)
         } else {
             toolbar.title = savedInstanceState.getCharSequence(EXTRA_TITLE)
-            setupMenu()
         }
         supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount == 0) {
@@ -76,18 +69,7 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
         }
         toolbar.navigationIcon =
             getDrawable(R.drawable.ic_outline_arrow_back_24px)
-        toolbar.setNavigationOnClickListener { onBackPressed() }
-        toolbar.setOnMenuItemClickListener(this)
-    }
-
-    private fun setupMenu() = setupMenu(supportFragmentManager.findFragmentById(R.id.settings))
-
-    private fun setupMenu(fragment: Fragment?) {
-        menu = if (fragment is InjectingPreferenceFragment) fragment.getMenu() else 0
-        toolbar.menu.clear()
-        if (menu > 0) {
-            toolbar.inflateMenu(menu)
-        }
+        toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
     }
 
     abstract fun getRootTitle(): Int
@@ -97,14 +79,6 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putCharSequence(EXTRA_TITLE, toolbar.title)
-    }
-
-    override fun onBackPressed() {
-        if (supportFragmentManager.popBackStackImmediate()) {
-            setupMenu()
-        } else {
-            super.onBackPressed()
-        }
     }
 
     override fun onPreferenceStartFragment(
@@ -135,7 +109,6 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
                 .addToBackStack(null)
                 .commit()
         toolbar.title = title
-        setupMenu(fragment)
         return true
     }
 
@@ -152,16 +125,6 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
                 .addToBackStack(null)
                 .commit()
         toolbar.title = title
-        setupMenu(fragment)
         return true
     }
-
-    override fun onMenuItemClick(item: MenuItem?): Boolean =
-            if (item?.itemId == R.id.menu_help_and_feedback) {
-                startActivity(
-                    Intent(this, HelpAndFeedback::class.java)
-                        .putExtra(HelpAndFeedback.EXTRA_SOURCE, "settings_overflow")
-                )
-                true
-            } else false
 }

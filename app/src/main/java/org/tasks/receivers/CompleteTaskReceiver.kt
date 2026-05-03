@@ -3,7 +3,7 @@ package org.tasks.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.todoroo.astrid.service.TaskCompleter
+import org.tasks.service.TaskCompleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

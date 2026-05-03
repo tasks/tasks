@@ -28,3 +28,6 @@ update_deps() {
 update_deps deps_googleplay.txt googleplayReleaseRuntimeClasspath :app
 update_deps deps_fdroid.txt genericReleaseRuntimeClasspath :app
 update_deps deps_wear.txt releaseRuntimeClasspath :wear
+update_deps deps_composeApp_googleplay.txt googleplayReleaseRuntimeClasspath :composeApp
+update_deps deps_composeApp_fdroid.txt fdroidReleaseRuntimeClasspath :composeApp
+update_deps deps_composeApp_desktop.txt desktopRuntimeClasspath :composeApp

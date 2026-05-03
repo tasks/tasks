@@ -9,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.extensions.Context.is24HourFormat
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.withMillisOfDay
@@ -144,7 +144,7 @@ class DateAndTimeViewModel @Inject constructor(
     }
 
     private fun formatTime(millisOfDay: Int): String =
-        getTimeString(
+        formatTime(
             currentTimeMillis().withMillisOfDay(millisOfDay),
             context.is24HourFormat,
         )

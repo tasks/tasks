@@ -1,12 +1,13 @@
 package org.tasks.analytics
 
 import android.content.Context
+import org.tasks.fcm.FcmTokenProvider
 import android.content.SharedPreferences
 import androidx.annotation.StringRes
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.google.firebase.remoteconfig.remoteConfigSettings
 import com.posthog.PostHog
 import com.posthog.android.PostHogAndroid
 import com.posthog.android.PostHogAndroidConfig
@@ -15,6 +16,7 @@ import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
+import org.tasks.viewmodel.TasksAccountViewModel.Companion.DEFAULT_TOS_VERSION
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -29,7 +31,7 @@ import kotlin.coroutines.resumeWithException
 class Firebase @Inject constructor(
         @ApplicationContext private val context: Context,
         private val preferences: Preferences
-) {
+) : Reporting, FcmTokenProvider {
     private val crashlytics by lazy {
         if (preferences.isTrackingEnabled) {
             FirebaseCrashlytics.getInstance().apply {
@@ -250,7 +252,7 @@ class Firebase @Inject constructor(
         }
     }
 
-    fun reportException(t: Throwable) {
+    override fun reportException(t: Throwable, fatal: Boolean) {
         Timber.e(t)
         crashlytics?.recordException(t)
     }
@@ -271,22 +273,35 @@ class Firebase @Inject constructor(
         }
     }
 
-    fun addTask(source: String) =
+    override fun addTask(source: String) =
         logEvent(R.string.event_add_task, R.string.param_type to source)
 
-    fun completeTask(source: String) =
+    override fun completeTask(source: String) =
         logEvent(R.string.event_complete_task, R.string.param_type to source)
 
-    fun logEvent(@StringRes event: Int, vararg p: Pair<Int, Any>) {
-        val eventName = context.getString(event)
-        val properties = p.associate { context.getString(it.first) to it.second }
-        Timber.d("$eventName -> $properties")
+    override fun identify(distinctId: String) {
+        Timber.d("identify -> $distinctId")
+        if (posthogEnabled) {
+            PostHog.identify(distinctId)
+        }
+    }
+
+    override fun logEvent(event: String, vararg params: Pair<String, Any>) {
+        val properties = params.toMap()
+        Timber.d("$event -> $properties")
         if (posthogEnabled) {
             PostHog.capture(
-                event = eventName,
+                event = event,
                 properties = properties
             )
         }
+    }
+
+    fun logEvent(@StringRes event: Int, vararg p: Pair<Int, Any>) {
+        logEvent(
+            event = context.getString(event),
+            params = p.map { context.getString(it.first) to it.second }.toTypedArray()
+        )
     }
 
     fun logEventOncePerDay(@StringRes event: Int, vararg p: Pair<Int, Any>) {
@@ -314,15 +329,14 @@ class Firebase @Inject constructor(
             TimeUnit.DAYS.toMillis(remoteConfig?.getLong(key) ?: default)
 
     fun getTosVersion(): Int {
-        val default = context.resources.getInteger(R.integer.default_tos_version)
         return remoteConfig
             ?.getLong(context.getString(R.string.remote_config_tos_version))
             ?.toInt()
-            ?.takeIf { it >= default }
-            ?: default
+            ?.takeIf { it >= DEFAULT_TOS_VERSION }
+            ?: DEFAULT_TOS_VERSION
     }
 
-    suspend fun getToken(): String? {
+    override suspend fun getToken(): String? {
         return try {
             suspendCancellableCoroutine { cont ->
                 FirebaseMessaging.getInstance().token

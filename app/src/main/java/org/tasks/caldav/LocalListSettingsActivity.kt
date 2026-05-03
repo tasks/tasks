@@ -12,6 +12,8 @@ import com.todoroo.astrid.activity.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.add_account
 import org.tasks.compose.DeleteButton
 import org.tasks.compose.components.AnimatedBanner
 import org.tasks.data.entity.CaldavAccount
@@ -51,7 +53,7 @@ class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                                 bannerVisible = false
                                 preferences.setBoolean(R.string.p_local_list_banner_dismissed, true)
                             },
-                            action = stringResource(R.string.add_account),
+                            action = org.jetbrains.compose.resources.stringResource(Res.string.add_account),
                             onAction = {
                                 startActivity(
                                     Intent(this@LocalListSettingsActivity, MainActivity::class.java)

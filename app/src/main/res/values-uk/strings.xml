@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Очистити картинку</string>
     <string name="TVA_add_comment">Додати коментар…</string>
-    <string name="backup_BPr_header">Резервні копії</string>
     <string name="backup_BAc_import">Імпортувати резервну копію</string>
     <string name="backup_BAc_export">Створити резервну копію зараз</string>
     <string name="export_toast">Збережено %1$s в %2$s.</string>
@@ -52,11 +51,9 @@
     <string name="TEA_control_timer">Управління таймером</string>
     <string name="TEA_control_hidden_section">----Завжди ховати----</string>
     <string name="none">Немає</string>
-    <string name="EPr_edit_screen_options">Налаштування екрана редагування</string>
     <string name="EPr_beastMode_reset">Скинути налаштування</string>
     <string name="EPr_fullTask_title">Показувати повну назву завдання</string>
     <string name="EPr_show_task_edit_comments">Показувати коментарі в редакторі завдання</string>
-    <string name="task_list_options">Налаштування списку завдань</string>
     <string name="EPr_cal_end_or_start_at_due_time">Час події в календарі</string>
     <string name="EPr_cal_end_at_due_time">Завершувати події у календарі після досягання часу виконання</string>
     <string name="EPr_cal_start_at_due_time">Починати події у календарі з часу виконання</string>
@@ -69,7 +66,6 @@
     <string name="EPr_manage_delete_gcal_status">Видалено %d подій у календарі!</string>
     <string name="EPr_manage_delete_all_gcal">Видалити усі події у календарі, що стосуються завдань</string>
     <string name="EPr_manage_delete_all_gcal_message">Ви дійсно хочете видалити всі події для завдань?</string>
-    <string name="task_defaults">Типові налаштування завдань</string>
     <string name="EPr_default_importance_title">Типовий пріоритет</string>
     <string name="EPr_default_reminders_title">Типові нагадування</string>
     <string name="EPr_default_location_reminder_title">Типові нагадування про розташування</string>
@@ -282,11 +278,6 @@
     <string name="send_anonymous_statistics_summary">Надсилати анонімну статистику використання та звіти про помилки щоб вдосконалити Tasks. Жодних персональних даних не буде зібрано.</string>
     <string name="tag_already_exists">Мітка вже існує</string>
     <string name="name_cannot_be_empty">Ім\'я не може бути порожнє</string>
-    <string name="username_required">Потрібне ім\'я користувача</string>
-    <string name="password_required">Потрібний пароль</string>
-    <string name="url_required">Потрібний URL</string>
-    <string name="url_host_name_required">Потрібне ім\'я хоста</string>
-    <string name="url_invalid_scheme">Має починатися з http(s)://</string>
     <string name="no_title">(без назви)</string>
     <string name="back_button_saves_task">Зберігати завдання кнопкою Назад</string>
     <string name="default_list">Типовий список</string>
@@ -313,8 +304,6 @@
     <string name="delete_multiple_tasks_confirmation">%s видалено</string>
     <string name="delete_selected_tasks">Видалити вибрані завдання?</string>
     <string name="copy_selected_tasks">Копіювати вибрані завдання?</string>
-    <string name="date_and_time">Дата й час</string>
-    <string name="add_account">Додати обліковий запис</string>
     <string name="user">Користувач</string>
     <string name="password">Пароль</string>
     <string name="notification_disable_battery_optimizations_description">Оптимізація енергоспоживання може спричинити затримку сповіщень</string>
@@ -353,18 +342,13 @@
     <string name="tasker_create_task">Створити завдання</string>
     <string name="tasker_list_notification">Список повідомлень</string>
     <string name="help">Довідка</string>
-    <string name="caldav_home_set_not_found">Домашній список не знайдено</string>
-    <string name="network_error">Не вдалося з’єднатися</string>
     <string name="upgrade_to_pro">Покращити до Преміум</string>
-    <string name="manage_subscription">Змінити підписку</string>
     <string name="refresh_purchases">Оновити покупки</string>
     <string name="button_subscribe">Підписатися</string>
-    <string name="about">Про Tasks</string>
     <string name="license_summary">Tasks — це програмне забезпечення з відкритим кодом, ліцензоване GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Розширення Dashclock</string>
     <string name="requires_pro_subscription">Потребує передплати pro</string>
     <string name="logout">Вийти</string>
-    <string name="logout_warning">Всі дані цього облікового запису буде видалено з пристрою</string>
     <string name="cannot_access_account">Немає доступу до облікового запису</string>
     <string name="reinitialize_account">Ініціалізувати ще раз</string>
     <string name="action_create_new_task">Створити нове завдання</string>
@@ -391,7 +375,6 @@
     <string name="google_tasks_add_to_top">Нові завдання зверху</string>
     <string name="help_and_feedback">Довідка і зворотний зв\'язок</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="error_adding_account">Помилка: %s</string>
     <string name="url">URL</string>
     <string name="icon">Піктограма</string>
     <string name="menu_discard_changes">Скасувати зміни</string>
@@ -399,7 +382,6 @@
     <string name="TEA_add_subtask">Додати підзавдання</string>
     <string name="SSD_sort_my_order">Мій порядок</string>
     <string name="display_name">Показувана назва</string>
-    <string name="preferences_look_and_feel">Зовнішній вигляд</string>
     <string name="preferences_advanced">Розширені</string>
     <string name="show_advanced_settings">Показати розширені налаштування</string>
     <string name="theme_system_default">За системними налаштуваннями</string>
@@ -413,11 +395,8 @@
     <string name="wearable_notifications_summary">Показувати повідомлення на натільних пристроях</string>
     <string name="wearable_notifications">Повідомлення на натільні пристрої</string>
     <string name="documentation">Документація</string>
-    <string name="etesync_account_description">Потрібний обліковий запис у EteSync.com або власний сервер</string>
-    <string name="caldav_account_description">Потрібний обліковий запис у провайдера сервісу CalDAV або власний сервер. Відвідайте tasks.org/caldav, щоб переглянути список провайдерів</string>
     <string name="etesync_selection_description">Захищена наскрізним шифруванням синхронізація</string>
     <string name="caldav_selection_description">Синхронізація на основі стандартів відкритого інтернету</string>
-    <string name="google_tasks_selection_description">Базовий сервіс, що синхронізується з вашим обліковим записом Google</string>
     <string name="choose_synchronization_service">Обрати платформу</string>
     <string name="enter_tag_name">Введіть назву мітки</string>
     <string name="subtasks_multilevel_google_task">Багаторівневі підзавдання не підтримуються Google Tasks</string>
@@ -425,7 +404,6 @@
     <string name="expand_subtasks">Розгорнути підзавдання</string>
     <string name="name_your_price">Назвіть свою ціну</string>
     <string name="this_feature_requires_a_subscription">Ця функція потребує підписки</string>
-    <string name="button_unsubscribe">Скасувати підписку</string>
     <string name="share">Поділитися</string>
     <string name="select_all">Обрати всі</string>
     <string name="calendar_event_created">В календарі створено подію для %s</string>
@@ -439,7 +417,6 @@
     <string name="chip_appearance_text_and_icon">Текст та піктограма</string>
     <string name="hide_unused_places">Сховати місця, що не використовуються</string>
     <string name="hide_unused_tags">Сховати не використовувані мітки</string>
-    <string name="navigation_drawer">Панель навігації</string>
     <string name="place_settings">Надаштування місць</string>
     <string name="places">Місця</string>
     <string name="chip_appearance">Вигляд індикаторів списків</string>
@@ -448,7 +425,6 @@
     <string name="upgrade_blurb_2">Я витратив тисячі годин, працюючи над Tasks, і я публікую весь код онлайн безоплатно. Щоб підтримати мою роботу, деякі функції потребують підписки</string>
     <string name="upgrade_blurb_1">Привіт! Моє ім\'я Алекс. Я - незалежний розробник Tasks</string>
     <string name="color_wheel">Палітра</string>
-    <string name="invalid_username_or_password">Невірне ім\'я користувача або пароль</string>
     <string name="more_notification_settings_summary">Мелодія, вібрація та інше</string>
     <string name="more_settings">Більше налаштувань</string>
     <string name="disable_battery_optimizations">Вимкнути оптимізацію енергоспоживання</string>
@@ -456,16 +432,8 @@
     <string name="troubleshooting">Розв\'язання проблем</string>
     <string name="sort_created">За часом створення</string>
     <string name="copied_to_clipboard">%s скопійовано в буфер обміну</string>
-    <string name="app_password_save">Використовуйте ці дані для налаштування стороннього застосунку. Вони надають повний доступ до вашого облікового запису Tasks.org, не записуйте їх та нікому не повідомляйте!</string>
-    <string name="app_password_delete_confirmation">Будь-який застосунок, що використовує цей пароль, вийде з облікового запису</string>
-    <string name="app_password_last_access">Останнє використання: %s</string>
-    <string name="app_password_created_at">Створено: %s</string>
-    <string name="app_password_enter_description">Дайте назву своєму паролю (необов’язково)</string>
-    <string name="generate_new_password">Створити новий пароль</string>
     <string name="app_passwords_more_info">Синхронізуйте свої завдання та календарі зі сторонніми настільними та мобільними застосунками. Натисніть тут, щоб дізнатися більше</string>
-    <string name="app_passwords">Паролі застосунку</string>
     <string name="app_password">Пароль застосунку</string>
-    <string name="sign_in_to_tasks">Увійти на Tasks.org</string>
     <string name="save_percent">Зберегти %d%%</string>
     <string name="above_average">Вище середнього</string>
     <string name="migrate_count">Перемістити %s на Tasks.org</string>
@@ -473,18 +441,12 @@
     <string name="migrate">Перенести</string>
     <string name="github_sponsor">Спонсор</string>
     <string name="authentication_required">Необхідна аутентифікація</string>
-    <string name="sign_in_with_github">Увійти через GitHub</string>
     <string name="sign_in_with_google">Увійти через Google</string>
     <string name="github_sponsors">Спонсори GitHub</string>
-    <string name="google_play_subscribers">Підписники Google Play</string>
     <string name="authorization_cancelled">Авторизацію скасовано</string>
     <string name="follow_reddit">Долучитися до r/tasks</string>
     <string name="current_subscription">Поточна підписка: %s</string>
-    <string name="price_per_month">%s $ на місяць</string>
-    <string name="price_per_year">%s $ на рік</string>
     <string name="no_google_play_subscription">Відповідної вимогам підписки Google Play не знайдено</string>
-    <string name="insufficient_sponsorship">Відповідного вимогам спонсорства GitHub не знайдено</string>
-    <string name="insufficient_subscription">Недостатній рівень підписки. Будь ласка, оновіть свою підписку, щоб відновити обслуговування.</string>
     <string name="your_subscription_expired">Термін дії вашої підписки закінчився. Підпишіться зараз, щоб відновити обслуговування.</string>
     <string name="custom_filter_is_subtask">Підзавдання</string>
     <string name="custom_filter_has_subtask">Є підзавдання</string>
@@ -563,12 +525,6 @@
     <string name="widget_show_dividers">Показати розділювачі</string>
     <string name="widget_show_menu">Показати меню</string>
     <string name="repeat_type_completion_capitalized">Дата завершення</string>
-    <plurals name="list_count">
-        <item quantity="one">%d список</item>
-        <item quantity="few">%d списка</item>
-        <item quantity="many">%d списків</item>
-        <item quantity="other">%d списків</item>
-    </plurals>
     <string name="CFC_list_name">У списку…</string>
     <string name="no_start_date">Немає дати початку</string>
     <string name="default_location">Типове розташування</string>
@@ -582,8 +538,6 @@
     <string name="filter_any_start_date">Будь-яка дата початку</string>
     <string name="CFC_startBefore_name">Дата початку…</string>
     <string name="CFC_startBefore_text">Дата початку: \?</string>
-    <string name="sort_due_group">Завершення %s</string>
-    <string name="sort_start_group">Початок %s</string>
     <string name="account_not_included">Не входить до передплати \"Назвіть свою ціну\"</string>
     <string name="subscription">Підписка</string>
     <string name="widget_show_title">Показати заголовок</string>
@@ -623,7 +577,6 @@
     <string name="completion_sound">Відтворювати звук завершення</string>
     <string name="completed">Виконано</string>
     <string name="snackbar_task_completed">Завдання виконано</string>
-    <string name="completed_tasks_at_bottom">Перемістити виконані завдання вниз</string>
     <string name="alarm_before_start">%s до початку</string>
     <string name="alarm_after_start">%s після початку</string>
     <string name="snackbar_tasks_completed">%d завдань виконано</string>
@@ -657,9 +610,6 @@
     </plurals>
     <string name="custom_notification">Користувацькі сповіщення</string>
     <string name="randomly_every">Випадково кожні %s</string>
-    <string name="caldav_server_unknown">Невідомий</string>
-    <string name="caldav_server_other">Інший</string>
-    <string name="caldav_server_type">Тип сервера</string>
     <string name="customize_edit_screen_summary">Перевпорядкувати або вилучити поля</string>
     <string name="dismiss">Відхилити</string>
     <string name="hint_customize_edit_title">Забагато інформації\?</string>
@@ -668,15 +618,7 @@
     <string name="enable_reminders_description">Нагадування вимкнено в налаштуваннях Android</string>
     <string name="TEA_creation_date">Дата створення</string>
     <string name="sort_completion_group">Завершення %s</string>
-    <string name="microsoft_selection_description">Синхронізація з особистим обліковим записом Microsoft</string>
-    <string name="sign_in">Увійти</string>
     <string name="sort_list">За списком</string>
-    <string name="sort_sorting">Сортування</string>
-    <string name="sort_grouping">Групування</string>
-    <string name="sort_ascending">За зростанням</string>
-    <string name="sort_descending">За спаданням</string>
-    <string name="sort_completed">За часом виконання</string>
-    <string name="sort_not_available">Недоступно для міток, фільтрів і місць</string>
     <plurals name="repeat_occurrence">
         <item quantity="one">повторення</item>
         <item quantity="few">повторення</item>
@@ -715,7 +657,6 @@
     <string name="comment">Коментар</string>
     <string name="yesterday">Учора</string>
     <string name="subtasks_multilevel_microsoft">Багаторівневі підзавдання, які не підтримуються Microsoft To Do</string>
-    <string name="cost_free">Безплатно</string>
     <string name="cost_more_money">Вартість: $$$</string>
     <string name="multiline_title">Дозволити багаторядкові заголовки</string>
     <string name="multiline_title_on">Натисніть Enter, щоб перенести рядок</string>
@@ -735,7 +676,6 @@
     <string name="banner_app_updated_title">Застосунок оновлено</string>
     <string name="banner_app_updated_description">Tasks щойно оновлено до %s. Переглянете примітки до випуску?</string>
     <string name="multiline_title_off">Натисніть готово, щоб зберегти завдання</string>
-    <string name="continue_without_sync">Продовжити без синхронізації</string>
     <string name="delete_tasks_warning">%s буде видалено. Дію неможливо скасувати!</string>
     <string name="widget_view_more_tasks">Переглянути інші завдання</string>
 </resources>

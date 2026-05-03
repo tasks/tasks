@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
-import at.bitfire.cert4android.CustomCertManager.Companion.resetCertificates
+import at.bitfire.cert4android.CustomCertStore
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.compose.settings.DebugScreen
@@ -53,7 +53,7 @@ class Debug : Fragment() {
                 onUnlockPro = { viewModel.updateUnlockPro(it) },
                 onShowDebugFilters = { viewModel.updateShowDebugFilters(it) },
                 onResetSsl = {
-                    resetCertificates(requireContext())
+                    CustomCertStore.getInstance(requireContext()).clearUserDecisions()
                     context?.toast("SSL certificates reset")
                 },
                 onCrashApp = {

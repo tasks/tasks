@@ -1,6 +1,7 @@
 package org.tasks.data
 
 import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.StringResource
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.PACKAGE_DAVX5
 import org.tasks.data.entity.CaldavAccount.Companion.PACKAGE_DAVX5_MANAGED
@@ -11,6 +12,11 @@ import org.tasks.data.entity.CaldavAccount.Companion.isDavx5
 import org.tasks.data.entity.CaldavAccount.Companion.isDavx5Managed
 import org.tasks.data.entity.CaldavAccount.Companion.isEteSync
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.caldav
+import tasks.kmp.generated.resources.davx5
+import tasks.kmp.generated.resources.decsync
+import tasks.kmp.generated.resources.etesync
+import tasks.kmp.generated.resources.gtasks_GPr_header
 import tasks.kmp.generated.resources.ic_davx5_icon_blue_bg
 import tasks.kmp.generated.resources.ic_davx5_icon_green_bg
 import tasks.kmp.generated.resources.ic_decsync
@@ -20,6 +26,9 @@ import tasks.kmp.generated.resources.ic_microsoft_tasks
 import tasks.kmp.generated.resources.ic_outline_cloud_off_24px
 import tasks.kmp.generated.resources.ic_round_icon
 import tasks.kmp.generated.resources.ic_webdav_logo
+import tasks.kmp.generated.resources.local_lists
+import tasks.kmp.generated.resources.microsoft
+import tasks.kmp.generated.resources.tasks_org
 
 data class AccountIcon(val drawable: DrawableResource, val tinted: Boolean)
 
@@ -31,6 +40,19 @@ val CaldavAccount.openTaskApp: OpenTaskApp?
         uuid.isDavx5Managed() -> OpenTaskApp("DAVx\u2075", PACKAGE_DAVX5_MANAGED)
         uuid.isEteSync() -> OpenTaskApp("EteSync", PACKAGE_ETESYNC)
         uuid.isDecSync() -> OpenTaskApp("DecSync CC", PACKAGE_DECSYNC)
+        else -> null
+    }
+
+val CaldavAccount.composeTitle: StringResource?
+    get() = when {
+        isTasksOrg -> Res.string.tasks_org
+        isCaldavAccount -> Res.string.caldav
+        isEtebaseAccount || uuid.isEteSync() -> Res.string.etesync
+        uuid.isDavx5() || uuid.isDavx5Managed() -> Res.string.davx5
+        uuid.isDecSync() -> Res.string.decsync
+        isMicrosoft -> Res.string.microsoft
+        isGoogleTasks -> Res.string.gtasks_GPr_header
+        isLocalList -> Res.string.local_lists
         else -> null
     }
 

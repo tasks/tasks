@@ -1,6 +1,6 @@
 package org.tasks.caldav.extensions
 
-import at.bitfire.ical4android.Task
+import org.tasks.caldav.Task
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test

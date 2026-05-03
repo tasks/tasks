@@ -1,6 +1,6 @@
 package com.todoroo.astrid.subtasks
 
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull

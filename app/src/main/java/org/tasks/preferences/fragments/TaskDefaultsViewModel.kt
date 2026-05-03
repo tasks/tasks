@@ -9,12 +9,14 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.calendars.CalendarProvider
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.TagData
+import org.tasks.location.LocationService
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.reminders.AlarmToString
@@ -31,6 +33,7 @@ class TaskDefaultsViewModel @Inject constructor(
     private val repeatRuleToString: RepeatRuleToString,
     private val locationDao: LocationDao,
     private val tagDataDao: TagDataDao,
+    private val locationService: dagger.Lazy<LocationService>,
 ) : ViewModel() {
 
     var addToTopEnabled by mutableStateOf(false)
@@ -63,6 +66,8 @@ class TaskDefaultsViewModel @Inject constructor(
         private set
     var locationReminderSummary by mutableStateOf("")
         private set
+    var locationUpdateIntervalSummary by mutableStateOf("")
+        private set
 
     val importanceEntries: Array<String> = context.resources.getStringArray(R.array.EPr_default_importance)
     val importanceValues: Array<String> = context.resources.getStringArray(R.array.EPr_default_importance_values)
@@ -78,6 +83,8 @@ class TaskDefaultsViewModel @Inject constructor(
     val remindersModeValues: Array<String> = context.resources.getStringArray(R.array.EPr_default_reminders_mode_values)
     val locationReminderEntries: Array<String> = context.resources.getStringArray(R.array.EPr_default_location_reminder)
     val locationReminderValues: Array<String> = context.resources.getStringArray(R.array.EPR_default_location_reminder_values)
+    val locationUpdateIntervalEntries: Array<String> = context.resources.getStringArray(R.array.location_update_interval_entries)
+    val locationUpdateIntervalValues: Array<String> = context.resources.getStringArray(R.array.location_update_interval_values)
 
     init {
         refreshState()
@@ -98,6 +105,7 @@ class TaskDefaultsViewModel @Inject constructor(
         refreshRemindersMode()
         refreshLocation()
         refreshLocationReminder()
+        refreshLocationUpdateInterval()
     }
 
     fun updateAddToTop(enabled: Boolean) {
@@ -212,6 +220,22 @@ class TaskDefaultsViewModel @Inject constructor(
         locationReminderSummary = locationReminderEntries[index]
     }
 
+    fun refreshLocationUpdateInterval() {
+        val currentValue = preferences.getIntegerFromString(
+            R.string.p_location_update_interval, 15
+        ).toString()
+        val index = locationUpdateIntervalValues.indexOf(currentValue).coerceAtLeast(0)
+        locationUpdateIntervalSummary = locationUpdateIntervalEntries[index]
+    }
+
+    fun setLocationUpdateInterval(value: String) {
+        setListPreference(R.string.p_location_update_interval, value)
+        refreshLocationUpdateInterval()
+        viewModelScope.launch {
+            locationService.get().refreshBackgroundLocationUpdates()
+        }
+    }
+
     private fun refreshDefaultList() = viewModelScope.launch {
         val defaultFilter = defaultFilterProvider.getDefaultList()
         defaultListName = defaultFilter.title ?: ""
@@ -246,7 +270,7 @@ class TaskDefaultsViewModel @Inject constructor(
     }
 
     fun refreshReminders() {
-        val alarms = preferences.defaultAlarms
+        val alarms = runBlocking { preferences.defaultAlarms() }
         remindersSummary = if (alarms.isEmpty()) {
             context.getString(R.string.no_reminders)
         } else {

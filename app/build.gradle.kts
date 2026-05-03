@@ -88,12 +88,11 @@ android {
             }
             val tasks_mapbox_key_debug: String? by project
             val tasks_google_key_debug: String? by project
-            val tasks_dev_url: String? by project
             resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
             resValue("string", "google_key", tasks_google_key_debug ?: "")
             resValue("string", "posthog_key", "")
-            resValue("string", "tasks_dev_url", tasks_dev_url ?: "")
             enableUnitTestCoverage = project.hasProperty("coverage")
+            enableAndroidTestCoverage = project.hasProperty("coverage")
         }
         release {
             val tasks_mapbox_key: String? by project
@@ -102,7 +101,6 @@ android {
             resValue("string", "mapbox_key", tasks_mapbox_key ?: "")
             resValue("string", "google_key", tasks_google_key ?: "")
             resValue("string", "posthog_key", tasks_posthog_key ?: "")
-            resValue("string", "tasks_dev_url", "")
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard.pro")
             signingConfig = signingConfigs.getByName("release")
@@ -155,14 +153,11 @@ val googleplayImplementation by configurations
 dependencies {
     implementation(projects.data)
     implementation(projects.kmp)
+    implementation(libs.kermit)
     implementation(projects.icons)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.adaptive.navigation.android)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
-    implementation(libs.bitfire.dav4jvm) {
-        exclude(group = "junit")
-        exclude(group = "org.ogce", module = "xpp3")
-    }
     implementation(libs.bitfire.ical4android) {
         exclude(group = "commons-logging")
         exclude(group = "org.json", module = "json")
@@ -259,7 +254,7 @@ dependencies {
     googleplayImplementation(platform(libs.firebase))
     googleplayImplementation(libs.firebase.crashlytics)
     googleplayImplementation(libs.posthog.android)
-    googleplayImplementation(libs.firebase.config.ktx)
+    googleplayImplementation(libs.firebase.config)
     googleplayImplementation(libs.firebase.messaging)
     googleplayImplementation(libs.play.services.location)
     googleplayImplementation(libs.play.services.maps)
@@ -270,6 +265,7 @@ dependencies {
     googleplayImplementation(libs.horologist.datalayer.grpc)
     googleplayImplementation(libs.horologist.datalayer.core)
     googleplayImplementation(libs.play.services.wearable)
+    googleplayImplementation(libs.play.services.code.scanner)
     googleplayImplementation(libs.microsoft.authentication) {
         exclude("com.microsoft.device.display", "display-mask")
     }

@@ -3,6 +3,7 @@ package org.tasks.preferences
 import android.annotation.SuppressLint
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -24,7 +25,7 @@ class PreferenceTests {
     }
 
     @Test
-    fun testNotQuietWhenQuietHoursDisabled() {
+    fun testNotQuietWhenQuietHoursDisabled() = runBlocking {
         preferences.setBoolean(R.string.p_rmd_enable_quiet, false)
         setQuietHoursStart(22)
         setQuietHoursEnd(10)
@@ -33,7 +34,7 @@ class PreferenceTests {
     }
 
     @Test
-    fun testIsQuietAtStartOfQuietHoursNoWrap() {
+    fun testIsQuietAtStartOfQuietHoursNoWrap() = runBlocking {
         setQuietHoursStart(18)
         setQuietHoursEnd(19)
         val dueDate = DateTime(2015, 12, 29, 18, 0, 1).millis
@@ -42,7 +43,7 @@ class PreferenceTests {
     }
 
     @Test
-    fun testIsQuietAtStartOfQuietHoursWrap() {
+    fun testIsQuietAtStartOfQuietHoursWrap() = runBlocking {
         setQuietHoursStart(22)
         setQuietHoursEnd(10)
         val dueDate = DateTime(2015, 12, 29, 22, 0, 1).millis
@@ -51,7 +52,7 @@ class PreferenceTests {
     }
 
     @Test
-    fun testAdjustForQuietHoursNightWrap() {
+    fun testAdjustForQuietHoursNightWrap() = runBlocking {
         setQuietHoursStart(22)
         setQuietHoursEnd(10)
         val dueDate = DateTime(2015, 12, 29, 23, 30).millis
@@ -60,7 +61,7 @@ class PreferenceTests {
     }
 
     @Test
-    fun testAdjustForQuietHoursMorningWrap() {
+    fun testAdjustForQuietHoursMorningWrap() = runBlocking {
         setQuietHoursStart(22)
         setQuietHoursEnd(10)
         val dueDate = DateTime(2015, 12, 30, 7, 15).millis
@@ -69,7 +70,7 @@ class PreferenceTests {
     }
 
     @Test
-    fun testAdjustForQuietHoursWhenStartAndEndAreSame() {
+    fun testAdjustForQuietHoursWhenStartAndEndAreSame() = runBlocking {
         setQuietHoursStart(18)
         setQuietHoursEnd(18)
         val dueDate = DateTime(2015, 12, 29, 18, 0, 0).millis
@@ -77,7 +78,7 @@ class PreferenceTests {
     }
 
     @Test
-    fun testIsNotQuietAtEndOfQuietHoursNoWrap() {
+    fun testIsNotQuietAtEndOfQuietHoursNoWrap() = runBlocking {
         setQuietHoursStart(17)
         setQuietHoursEnd(18)
         val dueDate = DateTime(2015, 12, 29, 18, 0).millis
@@ -85,7 +86,7 @@ class PreferenceTests {
     }
 
     @Test
-    fun testIsNotQuietAtEndOfQuietHoursWrap() {
+    fun testIsNotQuietAtEndOfQuietHoursWrap() = runBlocking {
         setQuietHoursStart(22)
         setQuietHoursEnd(10)
         val dueDate = DateTime(2015, 12, 29, 10, 0).millis
@@ -93,7 +94,7 @@ class PreferenceTests {
     }
 
     @Test
-    fun testIsNotQuietBeforeNoWrap() {
+    fun testIsNotQuietBeforeNoWrap() = runBlocking {
         setQuietHoursStart(17)
         setQuietHoursEnd(18)
         val dueDate = DateTime(2015, 12, 29, 11, 30).millis
@@ -101,7 +102,7 @@ class PreferenceTests {
     }
 
     @Test
-    fun testIsNotQuietAfterNoWrap() {
+    fun testIsNotQuietAfterNoWrap() = runBlocking {
         setQuietHoursStart(17)
         setQuietHoursEnd(18)
         val dueDate = DateTime(2015, 12, 29, 22, 15).millis
@@ -109,7 +110,7 @@ class PreferenceTests {
     }
 
     @Test
-    fun testIsNotQuietWrap() {
+    fun testIsNotQuietWrap() = runBlocking {
         setQuietHoursStart(22)
         setQuietHoursEnd(10)
         val dueDate = DateTime(2015, 12, 29, 13, 45).millis

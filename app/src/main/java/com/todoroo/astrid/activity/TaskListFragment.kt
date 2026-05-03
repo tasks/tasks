@@ -68,15 +68,19 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_TASK_ID
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
+import org.tasks.data.fetchTasks
+import org.tasks.data.setCollapsed
 import com.todoroo.astrid.repeats.RepeatTaskHelper
-import com.todoroo.astrid.service.TaskCompleter
+import org.tasks.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskDuplicator
 import com.todoroo.astrid.service.TaskMover
@@ -102,6 +106,7 @@ import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.compose.AlarmsDisabledBanner
 import org.tasks.compose.AppUpdatedBanner
+import org.tasks.compose.BlogBanner
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.compose.NotificationsDisabledBanner
@@ -140,6 +145,7 @@ import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.SearchFilter
 import org.tasks.filters.TagFilter
+import org.tasks.filters.key
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.markdown.MarkdownProvider
@@ -166,7 +172,6 @@ import org.tasks.ui.Banner
 import org.tasks.ui.TaskListEvent
 import org.tasks.ui.TaskListEventBus
 import org.tasks.ui.TaskListViewModel
-import org.tasks.ui.TaskListViewModel.Companion.createSearchQuery
 import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
@@ -189,6 +194,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var taskMover: TaskMover
     @Inject lateinit var taskAdapterProvider: TaskAdapterProvider
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskSaver: TaskSaver
     @Inject lateinit var taskDuplicator: TaskDuplicator
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var caldavDao: CaldavDao
@@ -215,6 +221,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private var onClickMenu: () -> Unit = {}
     private lateinit var binding: FragmentTaskListBinding
     private var windowInsets: PaddingValues? = null
+    private var recyclerViewState: Parcelable? = null
     private var hasWritableList = true
     private val listPickerLauncher = registerForListPickerResult {
         val selected = taskAdapter.getSelected()
@@ -278,6 +285,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 taskAdapter.setSelected(longArray.toList())
                 startActionMode()
             }
+            recyclerViewState = savedInstanceState.getParcelable(EXTRA_RECYCLER_STATE)
         }
     }
 
@@ -285,6 +293,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         super.onSaveInstanceState(outState)
         val selectedTaskIds: List<Long> = taskAdapter.getSelected()
         outState.putLongArray(EXTRA_SELECTED_TASK_IDS, selectedTaskIds.toLongArray())
+        val state = recyclerViewState
+            ?: binding.bodyStandard.recyclerView.layoutManager?.onSaveInstanceState()
+        outState.putParcelable(EXTRA_RECYCLER_STATE, state)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -395,11 +406,16 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 listViewModel.updateBannerState()
+                launch {
+                    listViewModel.banner.collect { banner ->
+                        bannerAdapter.showBanner = banner != null
+                    }
+                }
                 listViewModel.state.collect {
-                    bannerAdapter.showBanner = it.banner != null
-                    if (it.tasks is TasksResults.Results) {
-                        submitList(it.tasks.tasks)
-                        if (it.tasks.tasks.isEmpty()) {
+                    val results = it.tasks
+                    if (results is TasksResults.Results) {
+                        submitList(results.tasks)
+                        if (results.tasks.isEmpty()) {
                             swipeRefreshLayout.visibility = View.GONE
                             emptyRefreshLayout.visibility = View.VISIBLE
                         } else {
@@ -444,6 +460,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             val context = LocalContext.current
             val mainActivityState = mainViewModel.state.collectAsStateWithLifecycle().value
             val state = listViewModel.state.collectAsStateWithLifecycle().value
+            val banner = listViewModel.banner.collectAsStateWithLifecycle().value
             BackHandler(enabled = state.searchQuery != null && mainActivityState.task == null) {
                 Timber.d("onBackPressed")
                 if (search.isActionViewExpanded) {
@@ -468,14 +485,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     null
                 }
 
-                if (state.banner != null) {
-                    val offsetX = remember(state.banner) { Animatable(0f) }
+                if (banner != null) {
+                    val offsetX = remember(banner) { Animatable(0f) }
                     val scope = rememberCoroutineScope()
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .offset { IntOffset(offsetX.value.roundToInt(), 0) }
-                            .pointerInput(state.banner) {
+                            .pointerInput(banner) {
                                 detectHorizontalDragGestures(
                                     onDragEnd = {
                                         scope.launch {
@@ -504,7 +521,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                 )
                             }
                     ) {
-                        when (state.banner) {
+                        when (banner) {
                             is Banner.NotificationsDisabled ->
                                 NotificationsDisabledBanner(
                                     settings = {
@@ -529,10 +546,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
                             is Banner.SubscriptionRequired ->
                                 SubscriptionRequiredBanner(
-                                    nameRes = state.banner.nameRes,
-                                    isTasksOrg = state.banner.isTasksOrg,
+                                    nameRes = banner.nameRes,
+                                    isTasksOrg = banner.isTasksOrg,
                                     subscribe = {
-                                        val isTasksOrg = state.banner.isTasksOrg
+                                        val isTasksOrg = banner.isTasksOrg
                                         listViewModel.dismissBanner(tookAction = true)
                                         context.startActivity(
                                             Intent(
@@ -598,6 +615,17 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                     whatsNew = {
                                         listViewModel.dismissBanner(tookAction = true)
                                         context.openUri(R.string.url_changelog)
+                                    },
+                                    dismiss = { listViewModel.dismissBanner() },
+                                )
+
+                            is Banner.BlogAnnouncement ->
+                                BlogBanner(
+                                    title = banner.post.title,
+                                    body = banner.post.description,
+                                    readMore = {
+                                        listViewModel.dismissBanner(tookAction = true)
+                                        context.openUri(banner.post.link)
                                     },
                                     dismiss = { listViewModel.dismissBanner() },
                                 )
@@ -727,6 +755,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         requireActivity(),
                         filter.supportsManualSort(),
                         filter is AstridOrderingFilter && preferences.isAstridSortEnabled,
+                        filterKey = filter.key()
                     )
                 )
                 true
@@ -801,15 +830,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
             R.id.menu_expand_subtasks -> {
                 lifecycleScope.launch {
-                    taskDao.setCollapsed(preferences, filter, false)
-                    localBroadcastManager.broadcastRefresh()
+                    taskSaver.setCollapsed(preferences, filter, false)
                 }
                 true
             }
             R.id.menu_collapse_subtasks -> {
                 lifecycleScope.launch {
-                    taskDao.setCollapsed(preferences, filter, true)
-                    localBroadcastManager.broadcastRefresh()
+                    taskSaver.setCollapsed(preferences, filter, true)
                 }
                 true
             }
@@ -862,12 +889,15 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 colorProvider.getPriorityColor(3))
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onResume() {
         super.onResume()
         listViewModel.invalidate()
         localBroadcastManager.registerTaskCompletedReceiver(repeatConfirmationReceiver)
-        recyclerAdapter?.notifyDataSetChanged() // force rebind to update timestamps (hidden/overdue)
+        recyclerAdapter?.let { it.notifyItemRangeChanged(0, it.itemCount) }
+        recyclerViewState?.let { state ->
+            binding.bodyStandard.recyclerView.layoutManager?.onRestoreInstanceState(state)
+            recyclerViewState = null
+        }
     }
 
     private fun makeSnackbar(@StringRes res: Int, vararg args: Any?): Snackbar? {
@@ -878,7 +908,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         Snackbar.make(binding.taskListCoordinator, text, 4000)
                 .setAnchorView(R.id.fab)
                 .setBackgroundTint(it.getColor(R.color.dialog_background))
-                .setTextColor(it.getColor(R.color.text_primary))
+                .setTextColor(MaterialColors.getColor(it, com.google.android.material.R.attr.colorOnSurface, 0))
                 .setActionTextColor(themeColor.primaryColor)
             .apply {
                 val offset = TypedValue.applyDimension(
@@ -892,6 +922,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onPause() {
         super.onPause()
+        recyclerViewState = binding.bodyStandard.recyclerView.layoutManager?.onSaveInstanceState()
         localBroadcastManager.unregisterReceiver(repeatConfirmationReceiver)
     }
 
@@ -941,7 +972,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                             data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_PARTIALLY_SELECTED)!!,
                             data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED)!!
                     )
-                    taskDao.touch(modified)
+                    taskSaver.touch(modified)
                 }
                 finishActionMode()
             }
@@ -969,7 +1000,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onQueryTextSubmit(query: String): Boolean {
-        mainViewModel.setFilter(requireContext().createSearchQuery(query.trim()))
+        mainViewModel.setFilter(SearchFilter(getString(R.string.FLA_search_filter, query.trim()), query.trim()))
         search.collapseActionView()
         return true
     }
@@ -1251,7 +1282,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun toggleSubtasks(task: Long, collapsed: Boolean) {
         lifecycleScope.launch {
-            taskDao.setCollapsed(task, collapsed)
+            taskSaver.setCollapsed(task, collapsed)
         }
     }
 
@@ -1286,17 +1317,20 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 }
                 if (isRecurringCompletion) {
                     val task = tasks.first()
-                    val title = markdown.markdown(force = true).toMarkdown(task.title)
-                    val text = getString(
-                        R.string.repeat_snackbar,
-                        title,
-                        getRelativeDateTime(
-                            task.dueDate,
-                            context.is24HourFormat,
-                            DateStyle.LONG,
-                            lowercase = true
-                        )
+                    val fullTitle = markdown.markdown(force = true).toMarkdown(task.title)?.toString() ?: ""
+                    val date = getRelativeDateTime(
+                        task.dueDate,
+                        context.is24HourFormat,
+                        DateStyle.LONG,
+                        lowercase = true
                     )
+                    val maxTitleLength = 30
+                    val title = if (fullTitle.length > maxTitleLength) {
+                        fullTitle.take(maxTitleLength - 1).trimEnd() + "…"
+                    } else {
+                        fullTitle
+                    }
+                    val text = getString(R.string.repeat_snackbar, title, date)
                     makeSnackbar(text)?.setAction(R.string.DLG_undo, undoCompletion)?.show()
                 } else {
                     val text = if (tasks.size == 1) {
@@ -1314,6 +1348,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         const val ACTION_RELOAD = "action_reload"
         const val ACTION_DELETED = "action_deleted"
         private const val EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids"
+        private const val EXTRA_RECYCLER_STATE = "extra_recycler_state"
         private const val VOICE_RECOGNITION_REQUEST_CODE = 1234
         const val EXTRA_FILTER = "extra_filter"
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"

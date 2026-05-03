@@ -18,7 +18,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.toLocationFilter
 import org.tasks.data.toTagFilter
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
-import org.tasks.kmp.IS_DEBUG
+import org.tasks.TasksBuildConfig
 import org.tasks.themes.TasksIcons
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.TasksPreferences.Companion.showDebugFilters
@@ -65,7 +65,7 @@ class FilterProvider(
             getAllFilters(showBuiltIn = false, showCreate = true)
 
     private suspend fun getDebugFilters(): List<FilterListItem> =
-            if (IS_DEBUG && tasksPreferences.get(showDebugFilters, false)) {
+            if (TasksBuildConfig.DEBUG && tasksPreferences.get(showDebugFilters, false)) {
                 val collapsed = tasksPreferences.get(collapseDebug, false)
                 val filters = listOf(
                     DebugFilters.getNoListFilter(),
@@ -201,7 +201,7 @@ class FilterProvider(
                     .plus(addPlaces(showCreate, hideUnused, forceExpand))
                     .plus(caldavFilters(showCreate, forceExpand))
                     .toList()
-                    .plusAllIf(IS_DEBUG) { getDebugFilters() }
+                    .plusAllIf(TasksBuildConfig.DEBUG) { getDebugFilters() }
 
     private suspend fun caldavFilters(
         showCreate: Boolean,

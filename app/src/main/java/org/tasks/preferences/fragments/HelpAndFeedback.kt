@@ -18,12 +18,17 @@ import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
+import org.tasks.compose.settings.BlogFeedModeDialog
 import org.tasks.compose.settings.HelpAndFeedbackScreen
 import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.BasePreferences
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.url_privacy_policy
+import tasks.kmp.generated.resources.url_tos
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -113,12 +118,14 @@ class HelpAndFeedback : Fragment() {
                 },
                 onTermsOfService = {
                     viewModel.logEvent("tos")
-                    context?.openUri(R.string.url_tos)
+                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_tos) })
                 },
                 onPrivacyPolicy = {
                     viewModel.logEvent("privacy_policy")
-                    context?.openUri(R.string.url_privacy_policy)
+                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_privacy_policy) })
                 },
+                blogFeedMode = viewModel.blogFeedMode,
+                onBlogFeedModeClick = { viewModel.showBlogFeedModeDialog() },
                 onCollectStatisticsChanged = { enabled ->
                     viewModel.updateCollectStatistics(enabled)
                 },
@@ -138,6 +145,14 @@ class HelpAndFeedback : Fragment() {
                             Text(stringResource(R.string.restart_later))
                         }
                     },
+                )
+            }
+
+            if (viewModel.showBlogFeedModeDialog) {
+                BlogFeedModeDialog(
+                    selected = viewModel.blogFeedMode,
+                    onSelect = { viewModel.updateBlogFeedMode(it) },
+                    onDismiss = { viewModel.dismissBlogFeedModeDialog() },
                 )
             }
         }

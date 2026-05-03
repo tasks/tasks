@@ -4,6 +4,6 @@ import androidx.room.Embedded
 import org.tasks.data.entity.CaldavCalendar
 
 data class GoogleTaskFilters(
-    @JvmField @Embedded val googleTaskList: CaldavCalendar,
-    @JvmField val count: Int,
+    @Embedded val googleTaskList: CaldavCalendar,
+    val count: Int,
 )

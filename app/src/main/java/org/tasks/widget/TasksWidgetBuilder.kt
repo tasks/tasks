@@ -1,6 +1,7 @@
 package org.tasks.widget
 
 import android.content.Context
+import androidx.core.content.ContextCompat
 import android.content.Intent
 import android.text.format.Formatter
 import android.view.View
@@ -30,7 +31,7 @@ import org.tasks.filters.Filter
 import org.tasks.kmp.org.tasks.themes.ColorProvider.priorityColor
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.markdown.Markdown
 import org.tasks.tasklist.AdapterSection
 import org.tasks.tasklist.HeaderFormatter
@@ -107,7 +108,7 @@ internal class TasksWidgetBuilder(
                 section.headerColor(
                     context,
                     settings.groupMode,
-                    if (settings.isDark) R.color.white_60 else R.color.black_60
+                    ContextCompat.getColor(context, if (settings.isDark) R.color.white_60 else R.color.black_60)
                 )
             )
             if (!settings.showDividers) {
@@ -266,7 +267,7 @@ internal class TasksWidgetBuilder(
                 !disableGroups
             ) {
                 task.takeIf { it.hasDueTime() }?.let {
-                    getTimeString(task.dueDate, context.is24HourFormat)
+                    formatTime(task.dueDate, context.is24HourFormat)
                 }
             } else {
                 runBlocking {

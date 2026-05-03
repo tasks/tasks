@@ -20,21 +20,23 @@ import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.tasks_org
 import org.tasks.auth.SignInActivity
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_FEATURE
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SHOW_MORE_OPTIONS
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
-import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.compose.accounts.AddAccountActivity
-import org.tasks.compose.settings.MainSettingsScreen
+import org.tasks.compose.settings.AndroidMainSettingsScreen
 import org.tasks.compose.settings.ManageSubscriptionSheetContent
 import org.tasks.compose.settings.ProCardState
 import org.tasks.compose.settings.SettingsDestination
 import org.tasks.themes.TasksSettingsTheme
-import org.tasks.data.accountSettingsClass
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.extensions.Context.openUri
 import android.view.View
@@ -42,12 +44,19 @@ import org.tasks.preferences.BasePreferences
 import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.MainSettingsViewModel
 import org.tasks.preferences.Preferences
-import org.tasks.preferences.ProCardViewModel
 import org.tasks.preferences.PreferencesViewModel
+import org.tasks.preferences.ProCardViewModel
 import org.tasks.preferences.fragments.GoogleTasksAccount.Companion.newGoogleTasksAccountPreference
+import org.tasks.preferences.fragments.CaldavAccountFragment.Companion.newCaldavAccountFragment
+import org.tasks.preferences.fragments.EtebaseAccountFragment.Companion.newEtebaseAccountFragment
+import org.tasks.preferences.fragments.LocalAccount.Companion.newLocalAccountPreference
+import org.tasks.preferences.fragments.OpenTaskAccountFragment.Companion.newOpenTaskAccountFragment
 import org.tasks.preferences.fragments.MicrosoftAccount.Companion.newMicrosoftAccountPreference
 import org.tasks.preferences.fragments.TasksAccount.Companion.newTasksAccountPreference
+import org.tasks.PlatformConfiguration
 import org.tasks.analytics.Firebase
+import org.tasks.billing.Inventory
+import org.tasks.billing.LinkDesktopActivity
 import org.tasks.themes.Theme
 import javax.inject.Inject
 
@@ -57,6 +66,8 @@ class MainSettingsComposeFragment : Fragment() {
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var theme: Theme
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var configuration: PlatformConfiguration
+    @Inject lateinit var inventory: Inventory
 
     private val viewModel: MainSettingsViewModel by viewModels()
     private val proCardViewModel: ProCardViewModel by viewModels()
@@ -82,15 +93,17 @@ class MainSettingsComposeFragment : Fragment() {
                             preferencesViewModel.staleLocalBackup ||
                             preferencesViewModel.staleRemoteBackup)
 
-            MainSettingsScreen(
+            AndroidMainSettingsScreen(
                 accounts = filteredAccounts,
                 proCardState = proCardState,
                 environmentLabel = environmentLabel,
                 showBackupWarning = showBackupWarning,
-                showWidgets = viewModel.showWidgets,
+                showWidgets = viewModel.supportsWidgets,
                 onAccountClick = { account -> handleAccountClick(account) },
                 onAddAccountClick = { addAccount() },
                 onSettingsClick = { destination -> navigateToSettings(destination) },
+                showDesktopLinking = configuration.supportsDesktopLinking && !inventory.hasTasksAccount,
+                onLinkDesktopClick = { linkDesktop() },
                 onProCardClick = {
                     val type = when (proCardState) {
                         is ProCardState.Subscribed -> "manage"
@@ -200,10 +213,12 @@ class MainSettingsComposeFragment : Fragment() {
         val activity = activity as? MainPreferences ?: return
         when {
             account.isTasksOrg -> {
-                activity.startPreference(
-                    newTasksAccountPreference(account),
-                    getString(R.string.tasks_org)
-                )
+                viewLifecycleOwner.lifecycleScope.launch {
+                    activity.startPreference(
+                        newTasksAccountPreference(account),
+                        org.jetbrains.compose.resources.getString(Res.string.tasks_org)
+                    )
+                }
             }
             account.isMicrosoft -> {
                 activity.startPreference(
@@ -217,12 +232,31 @@ class MainSettingsComposeFragment : Fragment() {
                     getString(R.string.gtasks_GPr_header)
                 )
             }
-            else -> {
-                val intent = Intent(context, account.accountSettingsClass).apply {
-                    putExtra(BaseCaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, account)
-                }
-                startActivityForResult(intent, REQUEST_CALDAV_SETTINGS)
+            account.isLocalList -> {
+                activity.startPreference(
+                    newLocalAccountPreference(account),
+                    getString(R.string.local_lists)
+                )
             }
+            account.isCaldavAccount -> {
+                activity.startPreference(
+                    newCaldavAccountFragment(account),
+                    getString(R.string.caldav)
+                )
+            }
+            account.isEtebaseAccount -> {
+                activity.startPreference(
+                    newEtebaseAccountFragment(account),
+                    getString(R.string.etesync)
+                )
+            }
+            account.isOpenTasks -> {
+                activity.startPreference(
+                    newOpenTaskAccountFragment(account),
+                    account.name ?: ""
+                )
+            }
+            else -> {}
         }
     }
 
@@ -231,6 +265,19 @@ class MainSettingsComposeFragment : Fragment() {
             Intent(requireContext(), AddAccountActivity::class.java),
             REQUEST_ADD_ACCOUNT
         )
+    }
+
+    private fun linkDesktop() {
+        if (inventory.hasPro) {
+            startActivity(Intent(requireContext(), LinkDesktopActivity::class.java))
+        } else {
+            startActivity(
+                Intent(requireContext(), PurchaseActivity::class.java)
+                    .putExtra(EXTRA_NAME_YOUR_PRICE, true)
+                    .putExtra(EXTRA_SHOW_MORE_OPTIONS, true)
+                    .putExtra(EXTRA_SOURCE, "link_desktop")
+            )
+        }
     }
 
     private fun navigateToSettings(destination: SettingsDestination) {
@@ -249,7 +296,12 @@ class MainSettingsComposeFragment : Fragment() {
             SettingsDestination.HelpAndFeedback -> HelpAndFeedback()
             SettingsDestination.Debug -> Debug()
         }
-        activity.startPreference(fragment, getString(destination.titleRes))
+        viewLifecycleOwner.lifecycleScope.launch {
+            activity.startPreference(
+                fragment,
+                org.jetbrains.compose.resources.getString(destination.titleRes)
+            )
+        }
     }
 
     @OptIn(ExperimentalMaterial3Api::class)

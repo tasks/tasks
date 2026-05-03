@@ -11,27 +11,25 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.url_app_passwords
+import tasks.kmp.generated.resources.url_sponsor
+import tasks.kmp.generated.resources.url_tos
 import org.tasks.analytics.Firebase
 import org.tasks.auth.SignInActivity
-import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
@@ -39,21 +37,16 @@ import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRI
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SHOW_MORE_OPTIONS
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
 import org.tasks.compose.accounts.AddAccountActivity
-import org.tasks.compose.settings.CalendarItem
 import org.tasks.compose.settings.TasksAccountScreen
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
-import org.tasks.data.entity.CaldavAccount.Companion.isTosRequired
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.caldav.TasksAccountDataRepository
-import org.tasks.fcm.PushTokenManager
 import org.tasks.jobs.WorkManager
-import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.fragments.MainSettingsComposeFragment.Companion.REQUEST_TASKS_ORG
-import org.tasks.sync.SyncSource
 import org.tasks.themes.Theme
 import org.tasks.utility.copyToClipboard
 import javax.inject.Inject
@@ -65,22 +58,15 @@ class TasksAccount : Fragment() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var firebase: Firebase
-    @Inject lateinit var tasksPreferences: TasksPreferences
-    @Inject lateinit var pushTokenManager: PushTokenManager
     @Inject lateinit var billingClient: BillingClient
     @Inject lateinit var caldavDao: CaldavDao
-    @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var theme: Theme
-    @Inject lateinit var environment: TasksServerEnvironment
     @Inject lateinit var accountDataRepository: TasksAccountDataRepository
 
     private val viewModel: TasksAccountViewModel by viewModels()
 
     private val initialAccount: CaldavAccount
         get() = requireArguments().getParcelable(EXTRA_ACCOUNT)!!
-
-    private val isGithub: Boolean
-        get() = initialAccount.username?.startsWith("github") == true
 
     private var refreshTrigger = mutableIntStateOf(0)
 
@@ -100,45 +86,15 @@ class TasksAccount : Fragment() {
             theme = theme.themeBase.index,
             primary = theme.themeColor.primaryColor,
         ) {
-            val account by caldavDao.watchAccount(initialAccount.id)
-                .collectAsStateWithLifecycle(initialValue = initialAccount)
+            val state by viewModel.state.collectAsStateWithLifecycle()
+            val account = state.account
             val subscription by inventory.subscription.observeAsState()
-            val newPassword by viewModel.newPassword.collectAsStateWithLifecycle()
-            val appPasswords by viewModel.appPasswords.collectAsStateWithLifecycle()
-            val sharedWithMe by viewModel.sharedWithMe.collectAsStateWithLifecycle()
-            val guests by viewModel.guests.collectAsStateWithLifecycle()
-            val maxGuests by viewModel.maxGuests.collectAsStateWithLifecycle()
-            val inboundEmail by viewModel.inboundEmail.collectAsStateWithLifecycle()
-            val inboundCalendarUri by viewModel.inboundCalendar.collectAsStateWithLifecycle()
-            val isGuest by viewModel.isGuest.collectAsStateWithLifecycle()
-
-            // Derive calendar name reactively
-            val calendarName by remember {
-                caldavDao.subscribeToCalendars()
-                    .map { calendars ->
-                        calendars.filter { it.account == initialAccount.uuid }
-                    }
-                    .combine(viewModel.inboundCalendar) { calendars, calendarUri ->
-                        calendars.find { it.calendarUri == calendarUri }?.name
-                    }
-            }.collectAsStateWithLifecycle(initialValue = null)
-
-            // Local list count
-            var localListCount by remember { mutableStateOf(0) }
-            var localListSummary by remember { mutableStateOf("") }
 
             // Trigger re-reads on refresh events
             val trigger by refreshTrigger
 
             LaunchedEffect(trigger) {
-                viewModel.refreshAccount(initialAccount)
-                val localAccount = caldavDao.getAccounts(CaldavAccount.TYPE_LOCAL).firstOrNull()
-                val count = localAccount?.uuid?.let { caldavDao.listCount(it) } ?: 0
-                localListCount = count
-                val quantityString = resources.getQuantityString(
-                    R.plurals.list_count, count, count
-                )
-                localListSummary = getString(R.string.migrate_count, quantityString)
+                viewModel.refreshAccount()
             }
 
             // Clear payment error when subscription arrives
@@ -151,42 +107,8 @@ class TasksAccount : Fragment() {
                 }
             }
 
-            // TOS dialog
-            var showTosDialog by rememberSaveable { mutableStateOf(false) }
-            LaunchedEffect(account?.error) {
-                if (account?.isTosRequired() == true && !showTosDialog) {
-                    showTosDialog = true
-                }
-            }
-
-            // Calendar items for the dialog
-            val calendars by remember {
-                caldavDao.subscribeToCalendars()
-                    .map { cals ->
-                        cals.filter { it.account == initialAccount.uuid && !it.readOnly() }
-                            .map { CalendarItem(it.name ?: it.uuid ?: "", it.calendarUri) }
-                    }
-            }.collectAsStateWithLifecycle(initialValue = emptyList())
-
             TasksAccountScreen(
-                account = account,
-                isGithub = isGithub,
-                isGuest = isGuest,
-                hasSubscription = subscription != null,
-                isTasksSubscription = subscription?.isTasksSubscription == true,
-                localListCount = localListCount,
-                localListSummary = localListSummary,
-                inboundEmail = inboundEmail,
-                inboundCalendarName = calendarName,
-                appPasswords = appPasswords,
-                sharedWithMe = sharedWithMe,
-                guests = guests,
-                maxGuests = maxGuests,
-                newPassword = newPassword,
-                calendars = calendars,
-                inboundCalendarUri = inboundCalendarUri,
-                caldavUrl = environment.caldavUrl,
-                showTosDialog = showTosDialog,
+                state = state,
                 onSignIn = {
                     activity?.startActivityForResult(
                         Intent(activity, SignInActivity::class.java),
@@ -202,7 +124,7 @@ class TasksAccount : Fragment() {
                     )
                 },
                 onOpenSponsor = {
-                    context?.openUri(R.string.url_sponsor)
+                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_sponsor) })
                 },
                 onMigrate = {
                     val currentAccount = account ?: return@TasksAccountScreen
@@ -210,7 +132,7 @@ class TasksAccount : Fragment() {
                     context?.toast(R.string.migrating_tasks)
                 },
                 onCopyEmail = {
-                    inboundEmail?.let {
+                    state.inboundEmail?.let {
                         copyToClipboard(requireContext(), R.string.email_to_task_address, it)
                         firebase.logEvent(
                             R.string.event_settings_click,
@@ -219,36 +141,31 @@ class TasksAccount : Fragment() {
                     }
                 },
                 onRegenerateEmail = {
-                    val currentAccount = account ?: return@TasksAccountScreen
-                    viewModel.regenerateInboundEmail(currentAccount)
+                    viewModel.regenerateInboundEmail()
                 },
                 onSelectCalendar = { calendarUri ->
-                    val currentAccount = account ?: return@TasksAccountScreen
-                    viewModel.setInboundCalendar(currentAccount, calendarUri)
+                    viewModel.setInboundCalendar(calendarUri)
                 },
                 onDeletePassword = { id, _ ->
-                    val currentAccount = account ?: return@TasksAccountScreen
-                    viewModel.deletePassword(currentAccount, id)
+                    viewModel.deletePassword(id)
                 },
                 onGeneratePassword = { description ->
-                    val currentAccount = account ?: return@TasksAccountScreen
-                    viewModel.requestNewPassword(currentAccount, description)
+                    viewModel.requestNewPassword(description)
                 },
                 onOpenAppPasswordsInfo = {
-                    context?.openUri(R.string.url_app_passwords)
+                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_app_passwords) })
                 },
-                onCopyField = { labelRes, value ->
-                    copyToClipboard(requireContext(), labelRes, value)
+                onCopyField = { label, value ->
+                    copyToClipboard(requireContext(), label, value)
                 },
                 onClearNewPassword = {
                     viewModel.clearNewPassword()
                 },
                 onRefreshPasswords = {
-                    val currentAccount = account ?: return@TasksAccountScreen
-                    viewModel.refreshAccount(currentAccount)
+                    viewModel.refreshAccount()
                 },
                 onOpenHelp = {
-                    context?.openUri(R.string.url_app_passwords)
+                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_app_passwords) })
                 },
                 onAddAccount = {
                     startActivity(Intent(requireContext(), AddAccountActivity::class.java))
@@ -267,34 +184,20 @@ class TasksAccount : Fragment() {
                 onLogout = {
                     lifecycleScope.launch {
                         withContext(NonCancellable) {
-                            val acct = account ?: initialAccount
-                            pushTokenManager.unregisterToken(acct)
-                            taskDeleter.delete(acct)
-                            accountDataRepository.clear()
+                            viewModel.logout(account ?: initialAccount)
                             inventory.updateTasksAccount()
                         }
-                        activity?.onBackPressed()
+                        activity?.onBackPressedDispatcher?.onBackPressed()
                     }
                 },
                 onAcceptTos = {
-                    showTosDialog = false
-                    lifecycleScope.launch {
-                        val currentTosVersion = firebase.getTosVersion()
-                        tasksPreferences.set(
-                            TasksPreferences.acceptedTosVersion,
-                            currentTosVersion,
-                        )
-                        account?.let {
-                            caldavDao.update(it.copy(error = null))
-                        }
-                        workManager.sync(SyncSource.ACCOUNT_ADDED)
-                    }
+                    viewModel.acceptTos(firebase.getTosVersion())
                 },
                 onViewTos = {
-                    context?.openUri(R.string.url_tos)
+                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_tos) })
                 },
                 onDismissTos = {
-                    showTosDialog = false
+                    viewModel.dismissTos()
                 },
             )
         }
@@ -303,7 +206,7 @@ class TasksAccount : Fragment() {
     override fun onResume() {
         super.onResume()
         localBroadcastManager.registerRefreshListReceiver(refreshReceiver)
-        viewModel.refreshAccount(initialAccount)
+        viewModel.refreshAccount()
         val surfaceColor = theme.themeBase.getSettingsSurfaceColor(requireActivity())
         (activity as? org.tasks.preferences.BasePreferences)?.toolbar?.let { toolbar ->
             toolbar.setBackgroundColor(surfaceColor)

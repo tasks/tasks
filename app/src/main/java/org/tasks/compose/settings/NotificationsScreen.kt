@@ -81,7 +81,7 @@ fun NotificationsScreen(
             val topTotal = if (showBatteryOptimization) 2 else 1
             var topI = 0
 
-            SettingsItemCard(position = cardPosition(topI++, topTotal)) {
+            SettingsItemCard(position = CardPosition.forIndex(topI++, topTotal)) {
                 PreferenceRow(
                     title = stringResource(R.string.troubleshooting),
                     summary = stringResource(R.string.notification_troubleshooting_summary),
@@ -90,7 +90,7 @@ fun NotificationsScreen(
                 )
             }
             if (showBatteryOptimization) {
-                SettingsItemCard(position = cardPosition(topI, topTotal)) {
+                SettingsItemCard(position = CardPosition.forIndex(topI, topTotal)) {
                     PreferenceRow(
                         title = stringResource(R.string.disable_battery_optimizations),
                         summary = stringResource(R.string.notification_disable_battery_optimizations_description),
@@ -111,7 +111,7 @@ fun NotificationsScreen(
             val total = 3 + (if (showPreUpsideDownCake) 2 else 0)
             var i = 0
 
-            SettingsItemCard(position = cardPosition(i++, total)) {
+            SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                 PreferenceRow(
                     title = stringResource(R.string.completion_sound),
                     summary = completionSoundName,
@@ -119,7 +119,7 @@ fun NotificationsScreen(
                 )
             }
             if (showPreUpsideDownCake) {
-                SettingsItemCard(position = cardPosition(i++, total)) {
+                SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                     SwitchPreferenceRow(
                         title = stringResource(R.string.persistent_notifications),
                         summary = stringResource(R.string.persistent_notifications_description),
@@ -127,7 +127,7 @@ fun NotificationsScreen(
                         onCheckedChange = onPersistent,
                     )
                 }
-                SettingsItemCard(position = cardPosition(i++, total)) {
+                SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                     SwitchPreferenceRow(
                         title = stringResource(R.string.wearable_notifications),
                         summary = stringResource(R.string.wearable_notifications_summary),
@@ -136,7 +136,7 @@ fun NotificationsScreen(
                     )
                 }
             }
-            SettingsItemCard(position = cardPosition(i++, total)) {
+            SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                 SwitchPreferenceRow(
                     title = stringResource(R.string.bundle_notifications),
                     summary = stringResource(R.string.bundle_notifications_summary),
@@ -144,7 +144,7 @@ fun NotificationsScreen(
                     onCheckedChange = onBundle,
                 )
             }
-            SettingsItemCard(position = cardPosition(i, total)) {
+            SettingsItemCard(position = CardPosition.forIndex(i, total)) {
                 SwitchPreferenceRow(
                     title = stringResource(R.string.EPr_voiceRemindersEnabled_title),
                     summary = stringResource(R.string.EPr_voiceRemindersEnabled_desc_enabled),

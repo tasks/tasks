@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper.UP
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.adapter.TaskAdapter
+import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.utility.Flags
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -52,7 +53,7 @@ class DragAndDropRecyclerAdapter(
         val viewType = getItemViewType(position)
         if (viewType == 1) {
             val headerSection = items.getSection(position)
-            (holder as HeaderViewHolder).bind(taskList.getFilter(), preferences.groupMode, headerSection)
+            (holder as HeaderViewHolder).bind(taskList.getFilter(), groupMode, headerSection)
         } else {
             super.onBindViewHolder(holder, position)
         }
@@ -60,6 +61,9 @@ class DragAndDropRecyclerAdapter(
 
     override val sortMode: Int
         get() = items.groupMode
+
+    override val groupMode: Int
+        get() = if (items.groupsEnabled) items.groupMode else SortHelper.GROUP_NONE
 
     override val subtaskSortMode: Int
         get() = items.subtaskMode

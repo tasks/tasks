@@ -8,7 +8,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
@@ -22,6 +23,7 @@ import javax.inject.Inject
 class PriorityPicker : DialogFragment() {
 
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskSaver: TaskSaver
 
     private val taskIds: LongArray
         get() = arguments?.getLongArray(EXTRA_TASKS) ?: longArrayOf()
@@ -66,7 +68,7 @@ class PriorityPicker : DialogFragment() {
             taskDao
                 .fetch(taskIds.toList())
                 .forEach {
-                    taskDao.save(it.copy(priority = priorityPickerViewModel.priority.value))
+                    taskSaver.save(it.copy(priority = priorityPickerViewModel.priority.value))
                 }
         }
         dismiss()

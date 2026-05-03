@@ -6,24 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
+import android.util.TypedValue;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
 import java.util.List;
 import org.tasks.R;
 
 public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
 
   @NonNull private final Context context;
-  private final int alpha;
   private final int tint;
 
   public SingleCheckedArrayAdapter(@NonNull Context context, @NonNull List<String> items) {
     super(context, R.layout.simple_list_item_single_checkmark, items);
     this.context = context;
-    this.alpha =
-        (int) (255 * ResourcesCompat.getFloat(context.getResources(), R.dimen.alpha_secondary));
-    this.tint = context.getColor(R.color.icon_tint);
+    TypedValue typedValue = new TypedValue();
+    context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnSurfaceVariant, typedValue, true);
+    this.tint = typedValue.data;
   }
 
   @NonNull
@@ -37,7 +36,6 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
       int color = getDrawableColor(position);
       if (color == 0) {
         color = tint;
-        wrapped.setAlpha(alpha);
       } else if (color == -1) {
         wrapped.setAlpha(0);
       }

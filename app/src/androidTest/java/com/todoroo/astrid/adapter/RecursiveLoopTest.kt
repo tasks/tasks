@@ -2,7 +2,7 @@ package com.todoroo.astrid.adapter
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

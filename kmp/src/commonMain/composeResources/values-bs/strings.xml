@@ -9,4 +9,20 @@
     <string name="sort_priority">Prioritet</string>
     <string name="sort_start_date">Datum početka</string>
     <string name="group_none">Ništa</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Otkaži</string>
+    <string name="no_due_date">Bez datuma roka</string>
+    <string name="no_start_date">Bez datuma početka</string>
+    <string name="SSD_sort_start">Po datumu početka</string>
+    <string name="SSD_sort_importance">Po bitnosti</string>
+    <string name="SSD_sort_alpha">Po naslovu</string>
+    <string name="SSD_sort_modified">Po zadnjoj izmjeni</string>
+    <string name="SSD_sort_auto">Pametni redoslijed</string>
+    <string name="SSD_sort_my_order">Moj redoslijed</string>
+    <string name="astrid_sort_order">Astridov ručni redoslijed</string>
+    <string name="sort_completed">Po vremenu završetka</string>
+    <string name="none">Ništa</string>
+    <string name="display_name">Prikazano ime</string>
+    <string name="task_defaults">Uobičajene postavke zadatka</string>
+    <string name="backup_BPr_header">Sigurnosne kopije</string>
 </resources>

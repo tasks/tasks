@@ -21,10 +21,6 @@
 
   <color name="md_background_light">@color/design_default_color_background</color>
   <color name="md_background_dark">#202124</color>
-  <color name="icon_tint_light">@android:color/black</color>
-  <color name="icon_tint_dark">@android:color/white</color>
-  <color name="icon_tint_light_alpha">@color/black_60</color>
-  <color name="icon_tint_dark_alpha">@color/white_60</color>
 
   <color name="drawer_background_light_selected">#e8e8e8</color>
   <color name="drawer_background_dark_selected">#303030</color>
@@ -39,11 +35,7 @@
   <color name="content_background">@color/md_background_light</color>
   <color name="dialog_background">#FFEAEFF1</color>
   <color name="widget_background_follow_system">@color/md_background_light</color>
-  <color name="icon_tint">@color/icon_tint_light</color>
-  <color name="icon_tint_with_alpha">@color/icon_tint_light_alpha</color>
   <color name="drawer_color_selected">@color/drawer_background_light_selected</color>
-  <color name="text_secondary">@color/black_60</color>
-  <color name="text_tertiary">@color/black_38</color>
   <color name="divider">@color/black_12</color>
   <color name="map_circle_stroke">#2196f3</color>
   <color name="map_circle_fill">#332196f3</color>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="actfm_picture_clear">ล้างภาพ</string>
-    <string name="backup_BPr_header">สำรองข้อมูล</string>
     <string name="import_progress_read">กำลังอ่านแผนงาน %d…</string>
     <string name="DLG_delete_this_task_question">ลบงานนี้?</string>
     <string name="DLG_hour_minutes">เวลา (ชั่วโมง : นาที)</string>
@@ -48,16 +47,8 @@
     <string name="list_members">รายชื่อสมาชิก</string>
     <string name="tasks_org_account_required">Tasks.org บัญชีลูกค้า</string>
     <string name="copied_to_clipboard">%s คัดลอกไปยังคลิปบอร์ดแล้ว</string>
-    <string name="app_password_save">ใช้ข้อมูลรับรองเหล่านี้เพื่อกําหนดค่าแอปของบริษัทอื่น พวกเขาให้สิทธิ์การเข้าถึงบัญชี Tasks.org ของคุณอย่างสมบูรณ์อย่าจดหรือแบ่งปันกับใคร!</string>
-    <string name="app_password_delete_confirmation">แอปใดๆ ที่ใช้รหัสผ่านนี้จะออกจากระบบ</string>
-    <string name="app_password_last_access">ใช้ครั้งล่าสุด: %s</string>
-    <string name="app_password_created_at">สร้างแล้ว: %s</string>
-    <string name="app_password_enter_description">ตั้งชื่อรหัสผ่านของคุณ (ไม่บังคับ)</string>
-    <string name="generate_new_password">สร้างรหัสผ่านใหม่</string>
     <string name="app_passwords_more_info">ซิงโครไนซ์งานและปฏิทินของคุณกับเดสก์ท็อปและแอปสําหรับอุปกรณ์เคลื่อนที่ของบริษัทอื่น แตะที่นี่สําหรับข้อมูลเพิ่มเติม</string>
-    <string name="app_passwords">รหัสผ่านของแอป</string>
     <string name="app_password">รหัสผ่านของแอป</string>
-    <string name="sign_in_to_tasks">ลงชื่อเข้าใช้ Tasks.org</string>
     <string name="save_percent">ประหยัด %d%%</string>
     <string name="above_average">สูงกว่าค่าเฉลี่ย</string>
     <string name="migrate_count">ย้าย %s ไปยัง Tasks.org</string>
@@ -65,29 +56,21 @@
     <string name="migrate">อพยพ</string>
     <string name="github_sponsor">สปอนเซอร์</string>
     <string name="authentication_required">ต้องการการรับรองความถูกต้อง</string>
-    <string name="sign_in_with_github">เข้าสู่ระบบด้วย GitHub</string>
     <string name="sign_in_with_google">ลงชื่อเข้าใช้ด้วย Google</string>
     <string name="github_sponsors">ผู้สนับสนุน GitHub</string>
-    <string name="google_play_subscribers">สมาชิก Google Play</string>
     <string name="issue_tracker">ตัวติดตามปัญหา</string>
     <string name="social">สังคม</string>
     <string name="follow_reddit">เข้าร่วม r/tasks</string>
     <string name="cannot_access_account">ไม่สามารถเข้าถึงบัญชี</string>
-    <string name="logout_warning">ข้อมูลทั้งหมดสําหรับบัญชีนี้จะถูกลบออกจากอุปกรณ์ของคุณ</string>
     <string name="logout">ออกจากระบบ</string>
     <string name="this_feature_requires_a_subscription">คุณลักษณะนี้ต้องการการสมัครใช้งาน</string>
-    <string name="network_error">ไม่สามารถเชื่อมต่อได้</string>
     <string name="authorization_cancelled">ยกเลิกการตรวจสอบแล้ว</string>
     <string name="privacy">ข้อมูลส่วนบุคคล</string>
     <string name="open_source">เปิดแหล่งที่มา</string>
     <string name="support">สนับสนุน</string>
     <string name="follow_twitter">ติดตาม@tasks_org</string>
     <string name="current_subscription">การสมัครสมาชิกปัจจุบัน: %s</string>
-    <string name="price_per_month">$%s/เดือน</string>
-    <string name="price_per_year">$%s/ปี</string>
     <string name="no_google_play_subscription">ไม่พบการสมัครใช้บริการ Google Play ที่มีสิทธิ์</string>
-    <string name="insufficient_sponsorship">ไม่พบผู้สนับสนุน GitHub ที่มีสิทธิ์</string>
-    <string name="insufficient_subscription">ระดับการบอกรับเป็นสมาชิกไม่เพียงพอ โปรดปรับรุ่นการสมัครใช้งานของคุณให้กลับมาใช้บริการต่อ</string>
     <string name="your_subscription_expired">การสมัครใช้งานของคุณหมดอายุแล้ว สมัครสมาชิกตอนนี้เพื่อกลับมาใช้บริการต่อ</string>
     <string name="custom_filter_is_subtask">เป็นงานย่อย</string>
     <string name="custom_filter_has_subtask">มีงานย่อย</string>
@@ -113,8 +96,6 @@
     <string name="on_launch">เปิดตัว</string>
     <string name="sort_modified_group">แก้ไข %s</string>
     <string name="sort_created_group">สร้าง %s แล้ว</string>
-    <string name="sort_due_group">ครบกําหนด %s</string>
-    <string name="sort_start_group">เริ่ม %s</string>
     <string name="support_development_subscribe">ปลดล็อกคุณสมบัติเพิ่มเติมและสนับสนุนซอฟต์แวร์โอเพ่นซอร์ส</string>
     <string name="enjoying_tasks">สนุกกับงาน\?</string>
     <string name="filter_eisenhower_box_4">ไม่สําคัญและไม่เร่งด่วน</string>
@@ -133,7 +114,6 @@
     <string name="upgrade_blurb_2">ฉันใช้เวลาหลายพันชั่วโมงในการทํางานและฉันเผยแพร่ซอร์สโค้ดทั้งหมดออนไลน์ฟรี เพื่อสนับสนุนงานของฉันคุณสมบัติบางอย่างต้องมีการสมัครสมาชิก</string>
     <string name="upgrade_blurb_1">สวัสดี! ฉันชื่ออเล็กซ์ ฉันเป็นนักพัฒนาอิสระที่อยู่เบื้องหลังงาน</string>
     <string name="color_wheel">วงล้อสี</string>
-    <string name="invalid_username_or_password">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
     <string name="more_notification_settings_summary">เสียงเรียกเข้า การสั่นสะเทือน และอื่นๆ</string>
     <string name="more_settings">การตั้งค่าเพิ่มเติม</string>
     <string name="disable_battery_optimizations">ปิดใช้งานการเพิ่มประสิทธิภาพแบตเตอรี่</string>
@@ -143,15 +123,11 @@
     <string name="wearable_notifications">การแจ้งเตือนที่สวมใส่ได้</string>
     <string name="documentation">เอกสาร</string>
     <string name="preferences_advanced">ดึก</string>
-    <string name="preferences_look_and_feel">ลักษณะและความรู้สึก</string>
-    <string name="etesync_account_description">ต้องการบัญชีผู้ใช้ที่มี EteSync.com หรือเซิร์ฟเวอร์ที่โฮสต์ด้วยตนเอง</string>
-    <string name="caldav_account_description">จําเป็นต้องมีบัญชีผู้ใช้กับผู้ให้บริการ CalDAV หรือเซิร์ฟเวอร์ที่โฮสต์ด้วยตนเอง ค้นหาผู้ให้บริการโดยไปที่ tasks.org/caldav</string>
     <string name="show_advanced_settings">แสดงการตั้งค่าขั้นสูง</string>
     <string name="davx5_selection_description">ซิงโครไนซ์งานของคุณกับแอป davx⁵ของคุณ</string>
     <string name="decsync_selection_description">การซิงโครไนส์ตามไฟล์</string>
     <string name="etesync_selection_description">การทําข้อมูลให้ตรงกันที่เข้ารหัสตั้งแต่ต้นจนจบ</string>
     <string name="caldav_selection_description">การซิงโครไนซ์ตามมาตรฐานอินเทอร์เน็ตแบบเปิด</string>
-    <string name="google_tasks_selection_description">บริการพื้นฐานที่ซิงโครไนซ์กับบัญชี Google ของคุณ</string>
     <string name="choose_synchronization_service">เลือกแพลตฟอร์ม</string>
     <string name="enter_tag_name">ป้อนชื่อแท็ก</string>
     <string name="subtasks_multilevel_google_task">งานย่อยหลายระดับไม่ได้รับการสนับสนุนโดย Google Tasks</string>
@@ -187,14 +163,10 @@
     <string name="requires_pro_subscription">ต้องสมัครสมาชิกแบบโปร</string>
     <string name="pro_dashclock_extension">ส่วนขยาย Dashclock</string>
     <string name="license_summary">งานคือซอฟต์แวร์โอลามไลซอร์ส libre ที่ได้รับอนุญาตภายใต้ใบอนุญาตสาธารณะทั่วไป GNU v3.0</string>
-    <string name="about">เกี่ยวกับ</string>
-    <string name="button_unsubscribe">ยกเลิกการบอกรับเป็นสมาชิก</string>
     <string name="button_subscribe">ติดตาม</string>
-    <string name="manage_subscription">ปรับเปลี่ยนการบอกรับเป็นสมาชิก</string>
     <string name="subscription">การบอกรับสมาชิก</string>
     <string name="upgrade_to_pro">อัปเกรดเป็น Pro</string>
     <string name="refresh_purchases">รีเฟรชการซื้อ</string>
-    <string name="caldav_home_set_not_found">ไม่พบชุดบ้าน</string>
     <string name="help_and_feedback">ความช่วยเหลือและคําติชม</string>
     <string name="help">วิธีใช้</string>
     <string name="tasker_list_notification">รายการแจ้งเตือน</string>
@@ -240,12 +212,9 @@
     <string name="badges">ป้าย</string>
     <string name="bundle_notifications">การแจ้งเตือนบันเดิล</string>
     <string name="notification_disable_battery_optimizations_description">การเพิ่มประสิทธิภาพแบตเตอรี่อาจทําให้การแจ้งเตือนล่าช้า</string>
-    <string name="error_adding_account">ข้อผิดพลาด: %s</string>
     <string name="url">URL</string>
     <string name="password">รหัสผ่าน</string>
     <string name="user">ผู้ใช้</string>
-    <string name="add_account">เพิ่มบัญชี</string>
-    <string name="date_and_time">วันที่และเวลา</string>
     <string name="copy_selected_tasks">คัดลอกงานที่เลือกหรือไม่\?</string>
     <string name="delete_selected_tasks">ลบงานที่เลือก\?</string>
     <string name="delete_multiple_tasks_confirmation">%s ถูกลบ</string>
@@ -283,11 +252,6 @@
     <string name="default_list">รายการเริ่มต้น</string>
     <string name="back_button_saves_task">ปุ่มย้อนกลับจะบันทึกงาน</string>
     <string name="no_title">(ไม่มีชื่อเรื่อง)</string>
-    <string name="url_invalid_scheme">ต้องเริ่มต้นด้วย http(s)://</string>
-    <string name="url_host_name_required">ต้องการชื่อโฮสต์</string>
-    <string name="url_required">URL ที่ต้องการ</string>
-    <string name="password_required">ต้องใช้รหัสผ่าน</string>
-    <string name="username_required">ต้องการชื่อผู้ใช้</string>
     <string name="name_cannot_be_empty">ชื่อไม่สามารถปล่อยให้ว่างได้</string>
     <string name="tag_already_exists">มีแท็กอยู่แล้ว</string>
     <string name="send_anonymous_statistics_summary">ส่งสถิติการใช้งานแบบไม่ระบุชื่อและรายงานข้อขัดข้องเพื่อช่วยปรับปรุงงาน จะไม่มีการเก็บรวบรวมข้อมูลส่วนบุคคล</string>
@@ -411,9 +375,6 @@
     <plurals name="repeat_times">
         <item quantity="other">เวลา</item>
     </plurals>
-    <plurals name="list_count">
-        <item quantity="other">รายการ %d</item>
-    </plurals>
     <plurals name="subtask_count">
         <item quantity="other">%d งานย่อย</item>
     </plurals>
@@ -478,7 +439,6 @@
     <string name="pro_free_trial">สมาชิกใหม่ได้รับการทดลองใช้ฟรี 7 วัน ยกเลิกได้ตลอดเวลา</string>
     <string name="gtasks_GLA_errorIOAuth">ขออภัย เรามีปัญหาในการสื่อสารกับเซิร์ฟเวอร์ของ Google โปรดลองอีกครั้งในภายหลัง.</string>
     <string name="gtasks_error_accountNotFound">ไม่พบบัญชี %s โปรดออกจากระบบและเข้าสู่ระบบอีกครั้งจากการตั้งค่างานของ Google.</string>
-    <string name="task_defaults">ค่าเริ่มต้นของงาน</string>
     <string name="EPr_manage_delete_all_gcal_message">คุณต้องการลบเหตุการณ์ทั้งหมดสําหรับงานหรือไม่\?</string>
     <string name="EPr_manage_delete_all_gcal">ลบเหตุการณ์ในปฏิทินทั้งหมดสําหรับงาน</string>
     <string name="EPr_manage_delete_completed_gcal_message">คุณต้องการลบเหตุการณ์ทั้งหมดสําหรับงานที่เสร็จสมบูรณ์หรือไม่\?</string>
@@ -513,7 +473,6 @@
     <string name="chip_appearance_text_and_icon">ข้อความและไอคอน</string>
     <string name="hide_unused_places">ซ่อนสถานที่ที่ไม่ได้ใช้</string>
     <string name="hide_unused_tags">ซ่อนแท็กที่ไม่ได้ใช้</string>
-    <string name="navigation_drawer">ลิ้นชักนําทาง</string>
     <string name="place_settings">การตั้งค่าสถานที่</string>
     <string name="EPr_reset_preferences_warning">การกําหนดลักษณะจะถูกรีเซ็ตเป็นค่าเริ่มต้น</string>
     <string name="EPr_reset_preferences">รีเซ็ตการกําหนดลักษณะ</string>
@@ -521,11 +480,9 @@
     <string name="EPr_cal_start_at_due_time">เริ่มกิจกรรมในปฏิทินเมื่อถึงกําหนด</string>
     <string name="EPr_cal_end_at_due_time">สิ้นสุดกิจกรรมในปฏิทินเมื่อถึงกําหนด</string>
     <string name="EPr_cal_end_or_start_at_due_time">เวลากิจกรรมในปฏิทิน</string>
-    <string name="task_list_options">ตัวเลือกรายการงาน</string>
     <string name="EPr_show_task_edit_comments">แสดงข้อคิดเห็นในการแก้ไขงาน</string>
     <string name="EPr_fullTask_title">แสดงชื่องานแบบเต็ม</string>
     <string name="EPr_beastMode_reset">รีเซ็ตเป็นค่าเริ่มต้น</string>
-    <string name="EPr_edit_screen_options">แก้ไขตัวเลือกหน้าจอ</string>
     <string name="none">ไม่มีใคร</string>
     <string name="date_shortcut_tomorrow_night">คืนพรุ่งนี้</string>
     <string name="date_shortcut_tomorrow_evening">พรุ่งนี้เย็น</string>

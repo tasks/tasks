@@ -32,7 +32,6 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
-import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
@@ -47,11 +46,12 @@ import org.tasks.jobs.WorkManager.Companion.TAG_MIGRATE_LOCAL
 import org.tasks.jobs.WorkManager.Companion.TAG_NOTIFICATIONS
 import org.tasks.jobs.WorkManager.Companion.TAG_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_REMOTE_CONFIG
+import org.tasks.jobs.WorkManager.Companion.TAG_BLOG_FEED
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_UPDATE_PURCHASES
 import org.tasks.notifications.Throttle
 import org.tasks.preferences.Preferences
-import org.tasks.time.DateTimeUtils
+import org.tasks.preferences.TasksPreferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.printTimestamp
 import timber.log.Timber
@@ -62,6 +62,7 @@ import kotlin.math.max
 class WorkManagerImpl(
     private val context: Context,
     private val preferences: Preferences,
+    private val tasksPreferences: TasksPreferences,
     private val caldavDao: CaldavDao,
     private val openTaskDao: OpenTaskDao,
 ): WorkManager {
@@ -92,7 +93,7 @@ class WorkManagerImpl(
 
     @SuppressLint("EnqueueWork")
     override suspend fun sync(source: SyncSource) {
-        val immediate = source != SyncSource.TASK_CHANGE
+        val immediate = source.immediate
         val builder = OneTimeWorkRequest.Builder(SyncWork::class.java)
                 .setInputData(SyncWork.EXTRA_SOURCE to source.name)
         if (!openTaskDao.shouldSync()) {
@@ -108,16 +109,6 @@ class WorkManagerImpl(
                 if (append) APPEND_OR_REPLACE else REPLACE,
                 builder.build())
         )
-    }
-
-    override fun reverseGeocode(place: Place) {
-        if (BuildConfig.DEBUG && place.id == 0L) {
-            throw RuntimeException("Missing id")
-        }
-        enqueue(
-                OneTimeWorkRequest.Builder(ReverseGeocodeWork::class.java)
-                        .setInputData(ReverseGeocodeWork.PLACE_ID to place.id)
-                        .setConstraints(networkConstraints))
     }
 
     override fun updateBackgroundSync() {
@@ -210,12 +201,19 @@ class WorkManagerImpl(
     override fun updatePurchases() =
         enqueueUnique(TAG_UPDATE_PURCHASES, UpdatePurchaseWork::class.java)
 
+    override suspend fun scheduleBlogFeedCheck() {
+        val lastChecked = tasksPreferences.get(TasksPreferences.blogLastChecked, 0L)
+        val time = lastChecked + TimeUnit.HOURS.toMillis(WorkManager.BLOG_FEED_INTERVAL_HOURS)
+        enqueueUnique(TAG_BLOG_FEED, BlogFeedWork::class.java, time, constraints = blogFeedConstraints)
+    }
+
     @SuppressLint("EnqueueWork")
     private fun enqueueUnique(
         key: String,
         c: Class<out Worker?>,
         time: Long = 0,
         expedited: Boolean = false,
+        constraints: Constraints? = null,
     ) {
         val delay = time - currentTimeMillis()
         val builder = OneTimeWorkRequest.Builder(c)
@@ -225,7 +223,11 @@ class WorkManagerImpl(
         if (expedited) {
             builder.setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
         }
-        Timber.d("$key: expedited=$expedited ${printTimestamp(delay)} (${DateTimeUtils.printDuration(delay)})")
+        if (constraints != null) {
+            builder.setConstraints(constraints)
+        }
+        val scheduledFor = if (delay > 0) time else currentTimeMillis()
+        Timber.d("$key: expedited=$expedited ${printTimestamp(scheduledFor)} (${printDuration(delay)})")
         enqueue(workManager.beginUniqueWork(key, REPLACE, builder.build()))
     }
 
@@ -258,5 +260,20 @@ private fun <B : WorkRequest.Builder<B, *>, W : WorkRequest> WorkRequest.Builder
     vararg pairs: Pair<String, Any?>
 ): B = setInputData(workDataOf(*pairs))
 
+private fun printDuration(millis: Long): String = if (BuildConfig.DEBUG) {
+    val seconds = millis / 1000
+    String.format(
+        "%dh %dm %ds", seconds / 3600L, (seconds % 3600L / 60L).toInt(), (seconds % 60L).toInt())
+} else {
+    millis.toString()
+}
+
 val networkConstraints: Constraints
     get() = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+
+val blogFeedConstraints: Constraints
+    get() = Constraints.Builder()
+        .setRequiredNetworkType(NetworkType.UNMETERED)
+        .setRequiresBatteryNotLow(true)
+        .setRequiresDeviceIdle(true)
+        .build()

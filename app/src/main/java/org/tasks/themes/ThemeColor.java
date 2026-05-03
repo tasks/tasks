@@ -64,51 +64,6 @@ public class ThemeColor implements Pickable {
         ".Grey"
       };
 
-  public static final int[] COLORS =
-      new int[] {
-              org.tasks.kmp.R.color.tomato,
-              org.tasks.kmp.R.color.red_500,
-              org.tasks.kmp.R.color.deep_orange_500,
-              org.tasks.kmp.R.color.tangerine,
-              org.tasks.kmp.R.color.pumpkin,
-              org.tasks.kmp.R.color.orange_500,
-              org.tasks.kmp.R.color.mango,
-              org.tasks.kmp.R.color.banana,
-              org.tasks.kmp.R.color.amber_500,
-              org.tasks.kmp.R.color.citron,
-              org.tasks.kmp.R.color.yellow_500,
-              org.tasks.kmp.R.color.lime_500,
-              org.tasks.kmp.R.color.avocado,
-              org.tasks.kmp.R.color.light_green_500,
-              org.tasks.kmp.R.color.pistachio,
-              org.tasks.kmp.R.color.green_500,
-              org.tasks.kmp.R.color.basil,
-              org.tasks.kmp.R.color.teal_500,
-              org.tasks.kmp.R.color.sage,
-              org.tasks.kmp.R.color.cyan_500,
-              org.tasks.kmp.R.color.light_blue_500,
-              org.tasks.kmp.R.color.peacock,
-              org.tasks.kmp.R.color.blue_500,
-              org.tasks.kmp.R.color.cobalt,
-              org.tasks.kmp.R.color.indigo_500,
-              org.tasks.kmp.R.color.lavender,
-              org.tasks.kmp.R.color.wisteria,
-              org.tasks.kmp.R.color.amethyst,
-              org.tasks.kmp.R.color.deep_purple_500,
-              org.tasks.kmp.R.color.grape,
-              org.tasks.kmp.R.color.purple_500,
-              org.tasks.kmp.R.color.radicchio,
-              org.tasks.kmp.R.color.pink_500,
-              org.tasks.kmp.R.color.cherry_blossom,
-              org.tasks.kmp.R.color.flamingo,
-              org.tasks.kmp.R.color.brown_500,
-              org.tasks.kmp.R.color.graphite,
-              org.tasks.kmp.R.color.birch,
-              org.tasks.kmp.R.color.grey_500,
-              org.tasks.kmp.R.color.blue_grey_500,
-              R.color.white_100,
-      };
-
   public static final int[] LAUNCHER_COLORS =
       new int[] {
         org.tasks.kmp.R.color.blue_grey_500,

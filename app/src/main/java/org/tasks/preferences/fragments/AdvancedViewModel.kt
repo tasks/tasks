@@ -166,7 +166,7 @@ class AdvancedViewModel @Inject constructor(
         viewModelScope.launch(NonCancellable) {
             context.deleteDatabase(database.name)
             vtodoCache.clear()
-            EtebaseLocalCache.clear(context)
+            EtebaseLocalCache.clear(context.filesDir.absolutePath)
             kotlin.system.exitProcess(0)
         }
     }

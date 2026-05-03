@@ -10,13 +10,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.lifecycleScope
-import at.bitfire.dav4jvm.exception.HttpException
+import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.error_adding_account
+import tasks.kmp.generated.resources.network_error
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.BaseListSettingsActivity
 import org.tasks.compose.DeleteButton
@@ -107,9 +110,11 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         when (t) {
             is HttpException -> showSnackbar(t.message)
             is org.tasks.http.HttpException -> showSnackbar(t.message ?: "HTTP ${t.code}")
-            is DisplayableException -> showSnackbar(t.resId)
-            is ConnectException -> showSnackbar(R.string.network_error)
-            else -> showSnackbar(R.string.error_adding_account, t.message!!)
+            is DisplayableException -> lifecycleScope.launch {
+                snackbar.showSnackbar(org.jetbrains.compose.resources.getString(t.resource))
+            }
+            is ConnectException -> showSnackbar(runBlocking { org.jetbrains.compose.resources.getString(Res.string.network_error) })
+            else -> showSnackbar(runBlocking { org.jetbrains.compose.resources.getString(Res.string.error_adding_account, t.message!!) })
         }
         return
     }

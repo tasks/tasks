@@ -17,7 +17,7 @@
     android:paddingStart="@dimen/keyline_first"
     android:paddingEnd="@dimen/keyline_second"
     android:src="@drawable/ic_outline_place_24px"
-    app:tint="@color/icon_tint"/>
+    app:tint="?attr/colorOnSurface"/>
 
   <ImageView
     android:contentDescription="@string/place_settings"
@@ -28,7 +28,7 @@
     android:paddingStart="@dimen/keyline_first"
     android:paddingEnd="@dimen/keyline_first"
     android:src="@drawable/ic_outline_edit_24px"
-    app:tint="@color/icon_tint" />
+    app:tint="?attr/colorOnSurface" />
 
   <TextView
     android:id="@+id/name"
