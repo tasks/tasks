@@ -65,6 +65,7 @@ actual fun platformModule(): Module = module {
         PostHogReporting(
             apiKey = JvmBuildConfig.POSTHOG_KEY,
             dataDir = dataDir(),
+            tasksPreferences = get(),
         )
     }
     factory<OkHttpClientFactory> { DefaultOkHttpClientFactory() }

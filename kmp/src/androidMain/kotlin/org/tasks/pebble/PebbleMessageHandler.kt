@@ -6,7 +6,6 @@ import com.getpebble.android.kit.PebbleKit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Analytics
 import tasks.kmp.generated.resources.Res
@@ -115,8 +114,8 @@ class PebbleMessageHandler(
             }
         }
 
-        logPebbleEvent(context)
         scope.launch {
+            logPebbleEvent(context)
             try {
                 when (msgType) {
                     MSG_GET_TASKS -> handleGetTasks(context, data, protocolTxn)
@@ -401,17 +400,17 @@ class PebbleMessageHandler(
         PebbleProtocol.sendToPebble(context, dict, transactionId)
     }
 
-    private fun logPebbleEvent(context: Context) {
+    private suspend fun logPebbleEvent(context: Context) {
         val params = try {
             val fw = PebbleKit.getWatchFWVersion(context)
             if (fw != null) {
-                arrayOf(runBlocking { getString(Res.string.param_device_model) } to fw.tag as Any)
+                arrayOf(getString(Res.string.param_device_model) to fw.tag as Any)
             } else {
                 emptyArray()
             }
         } catch (e: Exception) {
             emptyArray<Pair<String, Any>>()
         }
-        analytics.logEvent(runBlocking { getString(Res.string.event_pebble) }, *params)
+        analytics.logEventOncePerDay(getString(Res.string.event_pebble), *params)
     }
 }

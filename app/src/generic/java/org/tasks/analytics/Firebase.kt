@@ -5,6 +5,7 @@ import org.tasks.fcm.FcmTokenProvider
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.TasksPreferences
 import org.tasks.viewmodel.TasksAccountViewModel.Companion.DEFAULT_TOS_VERSION
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
@@ -14,7 +15,8 @@ import javax.inject.Inject
 @Suppress("UNUSED_PARAMETER")
 class Firebase @Inject constructor(
     @param:ApplicationContext val context: Context,
-    private val preferences: Preferences
+    private val preferences: Preferences,
+    override val tasksPreferences: TasksPreferences,
 ) : Reporting, FcmTokenProvider {
     override fun reportException(t: Throwable, fatal: Boolean) = Timber.e(t)
 

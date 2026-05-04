@@ -31,7 +31,9 @@ actual fun platformModule(): Module = module {
     includes(flavorModule)
     singleOf(::TasksServerEnvironment)
     factory<Reporting> {
+        val tasksPreferences = get<TasksPreferences>()
         object : Reporting {
+            override val tasksPreferences = tasksPreferences
             override fun logEvent(event: String, vararg params: Pair<String, Any>) {}
             override fun addTask(source: String) {}
             override fun completeTask(source: String) {}

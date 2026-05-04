@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import com.posthog.PostHog
 import com.posthog.PostHogConfig
 import org.tasks.TasksBuildConfig
+import org.tasks.preferences.TasksPreferences
 import java.io.File
 import java.util.Locale
 import java.util.TimeZone
@@ -11,6 +12,7 @@ import java.util.TimeZone
 class PostHogReporting(
     apiKey: String,
     dataDir: File,
+    override val tasksPreferences: TasksPreferences,
 ) : Reporting {
     private val logger = Logger.withTag("PostHogReporting")
 

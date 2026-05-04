@@ -17,16 +17,19 @@ import org.tasks.GrpcProto.Tasks
 import org.tasks.GrpcProto.ToggleGroupRequest
 import org.tasks.GrpcProto.ToggleGroupResponse
 import org.tasks.WearServiceGrpcKt
+import org.tasks.analytics.Analytics
 import org.tasks.watch.WatchListItem
 import org.tasks.watch.WatchServiceLogic
 import org.tasks.watch.WatchUiItem
 
 class WearService(
     private val logic: WatchServiceLogic,
+    private val analytics: Analytics,
     private val versionCode: Int,
 ) : WearServiceGrpcKt.WearServiceCoroutineImplBase() {
 
     override suspend fun getTasks(request: GetTasksRequest): Tasks {
+        analytics.logEventOncePerDay("wear")
         val result = logic.getTasks(
             filterPreference = request.filter.takeIf { request.hasFilter() },
             position = request.position,

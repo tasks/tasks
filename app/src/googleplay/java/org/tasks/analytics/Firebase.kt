@@ -16,6 +16,7 @@ import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.TasksPreferences
 import org.tasks.viewmodel.TasksAccountViewModel.Companion.DEFAULT_TOS_VERSION
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
@@ -30,7 +31,8 @@ import kotlin.coroutines.resumeWithException
 @Singleton
 class Firebase @Inject constructor(
         @ApplicationContext private val context: Context,
-        private val preferences: Preferences
+        private val preferences: Preferences,
+        override val tasksPreferences: TasksPreferences,
 ) : Reporting, FcmTokenProvider {
     private val crashlytics by lazy {
         if (preferences.isTrackingEnabled) {
