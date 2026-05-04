@@ -11,6 +11,7 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.CompletionDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
+import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
@@ -60,7 +61,7 @@ class TaskCompleter(
         if (tasks.isEmpty()) {
             return
         }
-        tasks.forEach { notifier.cancel(it.id) }
+        tasks.forEach { notifier.cancel(it.id, CancelReason.COMPLETE) }
         val completed = completionDate > 0
         val repeated = ArrayList<Task>()
         Logger.d(TAG) { "Completing $tasks" }

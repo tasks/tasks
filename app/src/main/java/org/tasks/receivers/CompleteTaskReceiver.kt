@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import org.tasks.analytics.Firebase
 import org.tasks.data.dao.NotificationDao
 import org.tasks.injection.ApplicationScope
+import org.tasks.notifications.CancelReason
 import org.tasks.notifications.NotificationManager
 import timber.log.Timber
 import javax.inject.Inject
@@ -30,7 +31,7 @@ class CompleteTaskReceiver : BroadcastReceiver() {
                 Timber.e("No notification found for $taskId")
                 return@launch
             }
-            notificationManager.cancel(taskId)
+            notificationManager.cancel(taskId, CancelReason.COMPLETE)
             taskCompleter.setComplete(taskId)
             firebase.completeTask("notification")
         }

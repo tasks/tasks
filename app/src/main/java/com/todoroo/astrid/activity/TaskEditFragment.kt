@@ -30,6 +30,7 @@ import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
 import org.tasks.extensions.hideKeyboard
 import org.tasks.markdown.MarkdownProvider
+import org.tasks.notifications.CancelReason
 import org.tasks.notifications.NotificationManager
 import org.tasks.play.PlayServices
 import org.tasks.preferences.Preferences
@@ -84,7 +85,7 @@ class TaskEditFragment : Fragment() {
             val viewState = editViewModel.viewState.collectAsStateWithLifecycle().value
             LaunchedEffect(viewState.isNew) {
                 if (!viewState.isNew) {
-                    notificationManager.cancel(viewState.task.id)
+                    notificationManager.cancel(viewState.task.id, CancelReason.EDIT)
                 }
             }
             val context = LocalContext.current

@@ -41,6 +41,7 @@ import org.tasks.jobs.BackgroundWork
 import org.tasks.location.Geocoder
 import org.tasks.location.LocationService
 import org.tasks.location.MapPosition
+import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DataStoreQueryPreferences
@@ -96,8 +97,8 @@ val commonModule = module {
     factory<RefreshBroadcaster> { get<ComposeRefreshBroadcaster>() }
     factory<Notifier> {
         object : Notifier {
-            override suspend fun cancel(id: Long) {}
-            override suspend fun cancel(ids: Iterable<Long>) {}
+            override suspend fun cancel(id: Long, reason: CancelReason) {}
+            override suspend fun cancel(ids: List<Long>, reason: CancelReason) {}
             override fun triggerNotifications() {}
             override suspend fun updateTimerNotification() {}
         }

@@ -11,6 +11,7 @@ import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.data.dao.TaskDao
 import org.tasks.intents.TaskIntents
+import org.tasks.notifications.CancelReason
 import org.tasks.notifications.NotificationManager
 import org.tasks.receivers.CompleteTaskReceiver
 import timber.log.Timber
@@ -48,7 +49,7 @@ class NotificationActivity : AppCompatActivity(), NotificationDialog.Notificatio
     override fun edit() {
         firebase.logEvent(R.string.event_notification, R.string.param_type to "edit")
         lifecycleScope.launch {
-            notificationManager.cancel(taskId)
+            notificationManager.cancel(taskId, CancelReason.EDIT)
             taskDao.fetch(taskId)
                     ?.let {
                         startActivity(

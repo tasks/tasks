@@ -11,6 +11,7 @@ import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.pictureUri
 import org.tasks.files.FileHelper
 import org.tasks.location.LocationService
+import org.tasks.notifications.CancelReason
 import org.tasks.notifications.NotificationManager
 import org.tasks.service.TaskCleanup
 import org.tasks.sync.SyncAdapters
@@ -31,7 +32,7 @@ class AndroidCleanup @Inject constructor(
         if (tasks.isEmpty()) {
             return
         }
-        notificationManager.cancel(tasks)
+        notificationManager.cancel(tasks, CancelReason.CLEANUP)
         tasks.forEach { task ->
             locationDao.getGeofencesForTask(task).forEach {
                 locationDao.delete(it)

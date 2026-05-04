@@ -60,16 +60,17 @@ class NotificationManager @Inject constructor(
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
 
     @SuppressLint("CheckResult")
-    override suspend fun cancel(id: Long) {
+    override suspend fun cancel(id: Long, reason: CancelReason) {
         if (id == SUMMARY_NOTIFICATION_ID.toLong()) {
-            cancel(notificationDao.getAll() + id)
+            cancel(notificationDao.getAll() + id, reason)
         } else {
-            cancel(listOf(id))
+            cancel(listOf(id), reason)
         }
     }
 
     @SuppressLint("CheckResult")
-    override suspend fun cancel(ids: Iterable<Long>) {
+    override suspend fun cancel(ids: List<Long>, reason: CancelReason) {
+        Timber.d("Cancelling notifications for $ids reason=$reason")
         coroutineScope {
             launch {
                 for (id in ids) {
@@ -78,7 +79,7 @@ class NotificationManager @Inject constructor(
             }
         }
         queue.remove(ids)
-        notificationDao.deleteAll(ids.toList())
+        notificationDao.deleteAll(ids)
         coroutineScope {
             launch {
                 notifyTasks(emptyList(), alert = false, nonstop = false, fiveTimes = false)
@@ -208,6 +209,7 @@ class NotificationManager @Inject constructor(
         for (notification in notifications) {
             val builder = getTaskNotification(notification)
             if (builder == null) {
+                Timber.d("Cancelling notification for ${notification.taskId} reason=${CancelReason.STALE}")
                 notificationManager.cancel(notification.taskId.toInt())
                 notificationDao.delete(notification.taskId)
             } else {
@@ -258,7 +260,7 @@ class NotificationManager @Inject constructor(
         )
         val evicted = queue.add(notificationId)
         if (evicted.size > 0) {
-            cancel(evicted)
+            cancel(evicted, CancelReason.EVICTED)
         }
         for (i in 0 until ringTimes) {
             if (i > 0) {
@@ -446,7 +448,7 @@ class NotificationManager @Inject constructor(
         }
         val count = taskDao.activeTimers()
         if (count == 0) {
-            cancel(Constants.NOTIFICATION_TIMER.toLong())
+            cancel(Constants.NOTIFICATION_TIMER.toLong(), CancelReason.TIMER)
         } else {
             val filter = TimerFilter.create()
             val notifyIntent = TaskIntents.getTaskListIntent(context, filter)

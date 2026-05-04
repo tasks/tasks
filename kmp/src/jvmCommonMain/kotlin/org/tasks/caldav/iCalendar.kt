@@ -1,6 +1,7 @@
 package org.tasks.caldav
 
 import com.todoroo.astrid.alarms.AlarmService
+import org.tasks.notifications.CancelReason
 import org.tasks.data.getDefaultAlarms
 import org.tasks.data.setDefaultReminders
 import net.fortuna.ical4j.model.DateTime
@@ -240,8 +241,12 @@ class iCalendar(
         caldavTask.applyRemote(remote, local)
         val remoteModificationDate = task.modificationDate
 
-        if ((remote.lastAck ?: 0) > task.reminderLast || task.isCompleted || task.isDeleted) {
-            notifier.cancel(task.id)
+        if (task.isCompleted) {
+            notifier.cancel(task.id, CancelReason.REMOTE_COMPLETION)
+        } else if (task.isDeleted) {
+            notifier.cancel(task.id, CancelReason.REMOTE_DELETION)
+        } else if ((remote.lastAck ?: 0) > task.reminderLast) {
+            notifier.cancel(task.id, CancelReason.REMOTE_CLEAR)
         }
 
         val place = locationDao.getPlaceForTask(task.id)

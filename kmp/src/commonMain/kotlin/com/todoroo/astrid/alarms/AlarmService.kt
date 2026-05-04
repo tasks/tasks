@@ -13,6 +13,7 @@ import org.tasks.data.db.DbUtils
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.Notification
+import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -52,7 +53,7 @@ class AlarmService(
     }
 
     suspend fun snooze(time: Long, taskIds: List<Long>) {
-        notifier.cancel(taskIds)
+        notifier.cancel(taskIds, CancelReason.SNOOZE)
         alarmDao.deleteSnoozed(taskIds)
         alarmDao.insert(taskIds.map { Alarm(task = it, time = time, type = TYPE_SNOOZE) })
         taskDao.touch(taskIds)

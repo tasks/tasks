@@ -10,6 +10,7 @@ import org.tasks.filters.Filter
 import org.tasks.preferences.QueryPreferences
 import org.tasks.jobs.BackgroundWork
 import org.tasks.location.LocationService
+import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
@@ -44,7 +45,7 @@ class TaskSaver(
             }
         }
         if (task.dueDate != original?.dueDate && task.dueDate > currentTimeMillis()) {
-            notifier.cancel(task.id)
+            notifier.cancel(task.id, CancelReason.DUE_DATE_CHANGE)
         }
         if (completionDateModified || deletionDateModified) {
             locationService.updateGeofences(task.id)
