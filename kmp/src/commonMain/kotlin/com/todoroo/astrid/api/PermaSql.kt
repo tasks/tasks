@@ -36,8 +36,14 @@ object PermaSql {
     /** value to be replaced by end of day next week as long  */
     const val VALUE_EOD_NEXT_WEEK: String = "EODW()" // $NON-NLS-1$
 
+    /** value to be replaced by end of day next 2 weeks as long  */
+    const val VALUE_EOD_NEXT_2_WEEKS: String = "EOD2W()" // $NON-NLS-1$
+
     /** value to be replaced by approximate end of day next month as long  */
     const val VALUE_EOD_NEXT_MONTH: String = "EODM()" // $NON-NLS-1$
+
+    /** value to be replaced by approximate end of day next 3 months as long  */
+    const val VALUE_EOD_NEXT_3_MONTHS: String = "EOD3M()" // $NON-NLS-1$
 
     /** value to be replaced with the current time as long  */
     const val VALUE_NOW: String = "NOW()" // $NON-NLS-1$
@@ -54,8 +60,14 @@ object PermaSql {
     /** value to be replaced by noon next week as long  */
     private const val VALUE_NOON_NEXT_WEEK = "NOONW()" // $NON-NLS-1$
 
+    /** value to be replaced by noon next 2 weeks as long  */
+    private const val VALUE_NOON_NEXT_2_WEEKS = "NOON2W()" // $NON-NLS-1$
+
     /** value to be replaced by approximate noon next month as long  */
     private const val VALUE_NOON_NEXT_MONTH = "NOONM()" // $NON-NLS-1$
+
+    /** value to be replaced by approximate noon next 3 months as long  */
+    private const val VALUE_NOON_NEXT_3_MONTHS = "NOON3M()" // $NON-NLS-1$
 
     /** Replace placeholder strings with actual  */
     fun replacePlaceholdersForQuery(value: String): String {
@@ -66,18 +78,22 @@ object PermaSql {
         if (value.contains(VALUE_EOD)
             || value.contains(VALUE_EOD_DAY_AFTER)
             || value.contains(VALUE_EOD_NEXT_WEEK)
+            || value.contains(VALUE_EOD_NEXT_2_WEEKS)
             || value.contains(VALUE_EOD_TOMORROW)
             || value.contains(VALUE_EOD_YESTERDAY)
             || value.contains(VALUE_EOD_NEXT_MONTH)
+            || value.contains(VALUE_EOD_NEXT_3_MONTHS)
         ) {
             value = replaceEodValues(value)
         }
         if (value.contains(VALUE_NOON)
             || value.contains(VALUE_NOON_DAY_AFTER)
             || value.contains(VALUE_NOON_NEXT_WEEK)
+            || value.contains(VALUE_NOON_NEXT_2_WEEKS)
             || value.contains(VALUE_NOON_TOMORROW)
             || value.contains(VALUE_NOON_YESTERDAY)
             || value.contains(VALUE_NOON_NEXT_MONTH)
+            || value.contains(VALUE_NOON_NEXT_3_MONTHS)
         ) {
             value = replaceNoonValues(value)
         }
@@ -92,18 +108,22 @@ object PermaSql {
         if (value.contains(VALUE_EOD)
             || value.contains(VALUE_EOD_DAY_AFTER)
             || value.contains(VALUE_EOD_NEXT_WEEK)
+            || value.contains(VALUE_EOD_NEXT_2_WEEKS)
             || value.contains(VALUE_EOD_TOMORROW)
             || value.contains(VALUE_EOD_YESTERDAY)
             || value.contains(VALUE_EOD_NEXT_MONTH)
+            || value.contains(VALUE_EOD_NEXT_3_MONTHS)
         ) {
             value = replaceEodValues(value, currentTimeMillis().noon())
         }
         if (value.contains(VALUE_NOON)
             || value.contains(VALUE_NOON_DAY_AFTER)
             || value.contains(VALUE_NOON_NEXT_WEEK)
+            || value.contains(VALUE_NOON_NEXT_2_WEEKS)
             || value.contains(VALUE_NOON_TOMORROW)
             || value.contains(VALUE_NOON_YESTERDAY)
             || value.contains(VALUE_NOON_NEXT_MONTH)
+            || value.contains(VALUE_NOON_NEXT_3_MONTHS)
         ) {
             value = replaceNoonValues(value)
         }
@@ -120,7 +140,9 @@ object PermaSql {
         value = value.replace(VALUE_EOD_TOMORROW, (dateTime + ONE_DAY).toString())
         value = value.replace(VALUE_EOD_DAY_AFTER, (dateTime + 2 * ONE_DAY).toString())
         value = value.replace(VALUE_EOD_NEXT_WEEK, (dateTime + 7 * ONE_DAY).toString())
+        value = value.replace(VALUE_EOD_NEXT_2_WEEKS, (dateTime + 14 * ONE_DAY).toString())
         value = value.replace(VALUE_EOD_NEXT_MONTH, (dateTime + 30 * ONE_DAY).toString())
+        value = value.replace(VALUE_EOD_NEXT_3_MONTHS, (dateTime + 90 * ONE_DAY).toString())
         return value
     }
 
@@ -132,7 +154,9 @@ object PermaSql {
         value = value.replace(VALUE_NOON_TOMORROW, (time + ONE_DAY).toString())
         value = value.replace(VALUE_NOON_DAY_AFTER, (time + 2 * ONE_DAY).toString())
         value = value.replace(VALUE_NOON_NEXT_WEEK, (time + 7 * ONE_DAY).toString())
+        value = value.replace(VALUE_NOON_NEXT_2_WEEKS, (time + 14 * ONE_DAY).toString())
         value = value.replace(VALUE_NOON_NEXT_MONTH, (time + 30 * ONE_DAY).toString())
+        value = value.replace(VALUE_NOON_NEXT_3_MONTHS, (time + 90 * ONE_DAY).toString())
         return value
     }
 }
