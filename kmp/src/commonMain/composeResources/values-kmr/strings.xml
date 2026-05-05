@@ -7,4 +7,19 @@
     <string name="backup_BPr_header">Hilanîn</string>
     <string name="ok">Baş e</string>
     <string name="cancel">Têk bibe</string>
+    <string name="save">Tomar bike</string>
+    <string name="none">Ne yek</string>
+    <string name="today">Îro</string>
+    <string name="tomorrow">Siba</string>
+    <string name="yesterday">Duh</string>
+    <string name="notifications">Agahdarî</string>
+    <string name="filter">Parzûn</string>
+    <string name="user">Bikarhêner</string>
+    <string name="password">Borînpeyv</string>
+    <string name="url">Girêdan</string>
+    <string name="help">Alîkarî</string>
+    <string name="preferences_advanced">Pêşketî</string>
+    <string name="back">Vegere</string>
+    <string name="last_backup_never">Ti carî</string>
+    <string name="completed">Qediya</string>
 </resources>
