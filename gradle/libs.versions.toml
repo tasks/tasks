@@ -1,7 +1,7 @@
 [versions]
 versionCode = "150302" # increment by 2
 versionName = "15.3"
-agp = "9.1.0"
+agp = "9.2.1"
 android-compileSdk = "36"
 android-minSdk = "26"
 android-targetSdk = "35"
