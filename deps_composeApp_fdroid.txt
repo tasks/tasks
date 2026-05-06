@@ -1536,7 +1536,7 @@
 +|    +--- org.jetbrains.compose.material3.adaptive:adaptive-layout:1.1.2 (*)
 +|    +--- org.jetbrains.compose.ui:ui-util:1.8.2 -> 1.10.2 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib -> 2.3.10 (*)
-+\--- org.jetbrains.compose.desktop:desktop-jvm-macos-arm64:1.10.2
++\--- org.jetbrains.compose.desktop:desktop-jvm-linux-x64:1.10.2
 +     +--- org.jetbrains.compose.desktop:desktop:1.10.2
 +     |    \--- org.jetbrains.compose.desktop:desktop-jvm:1.10.2
 +     |         +--- org.jetbrains.compose.foundation:foundation:1.10.2 (*)
@@ -1581,7 +1581,7 @@
 +     |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.10.2 (*)
 +     |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.3.10 (c)
 +     |         \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.20 (c)
-+     \--- org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.9.37.4
++     \--- org.jetbrains.skiko:skiko-awt-runtime-linux-x64:0.9.37.4
 +          \--- org.jetbrains.skiko:skiko-awt:0.9.37.4
 +               +--- org.jetbrains.runtime:jbr-api:1.5.0
 +               +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.10 -> 2.3.10 (*)
