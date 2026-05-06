@@ -59,6 +59,7 @@ import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.ERROR_PURCHASE_TOKEN_IN_USE
 import org.tasks.data.entity.CaldavAccount.Companion.ERROR_UNAUTHORIZED
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_NEXTCLOUD
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OPEN_XCHANGE
@@ -125,6 +126,8 @@ class CaldavSynchronizer(
             }
             account.lastSync = currentTimeMillis()
             setError(account, "")
+        } catch (e: PurchaseTokenInUseException) {
+            setError(account, "${ERROR_PURCHASE_TOKEN_IN_USE}${e.existingAccount}")
         } catch (e: IOException) {
             setError(account, e)
         } catch (e: UnauthorizedException) {

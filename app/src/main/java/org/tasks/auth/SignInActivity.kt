@@ -25,10 +25,8 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource as kmpStringResource
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.okhttp.exception.HttpException
@@ -38,6 +36,9 @@ import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.url_sponsor
+import tasks.kmp.generated.resources.support_email
+import tasks.kmp.generated.resources.wrong_account
+import tasks.kmp.generated.resources.wrong_account_message
 import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationRequest
@@ -63,6 +64,7 @@ import org.tasks.fcm.PushTokenManager
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
+import tasks.kmp.generated.resources.ok
 import timber.log.Timber
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutorService
@@ -94,7 +96,6 @@ class SignInActivity : ComponentActivity() {
     private val mAuthIntent = AtomicReference<CustomTabsIntent>()
     private var mAuthIntentLatch = CountDownLatch(1)
     private val mExecutor: ExecutorService = newSingleThreadExecutor()
-    private var showSubscriptionRequiredDialog by mutableStateOf<Boolean?>(null)
 
     private val authService: AuthorizationService
         get() = viewModel.authService!!
@@ -123,12 +124,7 @@ class SignInActivity : ComponentActivity() {
                         theme = theme.themeBase.index,
                         primary = theme.themeColor.primaryColor,
                     ) {
-                        showSubscriptionRequiredDialog?.let { isGitHub ->
-                            SubscriptionRequiredDialog(
-                                isGitHub = isGitHub,
-                                onDismiss = { finish() },
-                            )
-                        }
+                        ErrorDialogs()
                     }
                 }
                 selectService(autoSelect)
@@ -138,12 +134,8 @@ class SignInActivity : ComponentActivity() {
                         theme = theme.themeBase.index,
                         primary = theme.themeColor.primaryColor,
                     ) {
-                        if (showSubscriptionRequiredDialog != null) {
-                            SubscriptionRequiredDialog(
-                                isGitHub = showSubscriptionRequiredDialog!!,
-                                onDismiss = { finish() },
-                            )
-                        } else {
+                        ErrorDialogs()
+                        if (viewModel.showWrongAccountEmail == null && viewModel.showSubscriptionRequiredDialog == null) {
                             Dialog(onDismissRequest = { finish() }) {
                                 org.tasks.compose.SignInProviderDialog(
                                     onSelected = { provider ->
@@ -179,6 +171,21 @@ class SignInActivity : ComponentActivity() {
             inventory.subscription.value?.isTasksSubscription == true ->
                 Platform.GOOGLE
             else -> null
+        }
+    }
+
+    @Composable
+    private fun ErrorDialogs() {
+        if (viewModel.showWrongAccountEmail != null) {
+            WrongAccountDialog(
+                maskedEmail = viewModel.showWrongAccountEmail!!,
+                onDismiss = { finish() },
+            )
+        } else if (viewModel.showSubscriptionRequiredDialog != null) {
+            SubscriptionRequiredDialog(
+                isGitHub = viewModel.showSubscriptionRequiredDialog!!,
+                onDismiss = { finish() },
+            )
         }
     }
 
@@ -230,6 +237,31 @@ class SignInActivity : ComponentActivity() {
         )
     }
 
+    @Composable
+    private fun WrongAccountDialog(
+        maskedEmail: String,
+        onDismiss: () -> Unit,
+    ) {
+        AlertDialog(
+            onDismissRequest = onDismiss,
+            title = {
+                Text(kmpStringResource(Res.string.wrong_account))
+            },
+            text = {
+                Text(kmpStringResource(
+                    Res.string.wrong_account_message,
+                    maskedEmail,
+                    kmpStringResource(Res.string.support_email),
+                ))
+            },
+            confirmButton = {
+                TextButton(onClick = onDismiss) {
+                    Text(kmpStringResource(Res.string.ok))
+                }
+            },
+        )
+    }
+
     private fun selectService(which: Platform) {
         viewModel.initializeAuthService(when (which) {
             Platform.GOOGLE -> AuthorizationService.ISS_GOOGLE
@@ -268,7 +300,7 @@ class SignInActivity : ComponentActivity() {
                     RC_PURCHASE
                 )
             } else {
-                showSubscriptionRequiredDialog = viewModel.authService?.isGitHub ?: false
+                viewModel.showSubscriptionRequired(viewModel.authService?.isGitHub ?: false)
             }
         } else {
             returnError(e)

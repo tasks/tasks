@@ -114,6 +114,7 @@ data class CaldavAccount(
 
         const val ERROR_UNAUTHORIZED = "HTTP 401"
         const val ERROR_PAYMENT_REQUIRED = "HTTP 402"
+        const val ERROR_PURCHASE_TOKEN_IN_USE = "purchase_token_in_use:"
         const val ERROR_TOS_REQUIRED = "HTTP 451"
 
         const val ACCOUNT_TYPE_DAVX5 = "bitfire.at.davdroid"
@@ -137,6 +138,11 @@ data class CaldavAccount(
         fun String?.isDecSync(): Boolean = this?.startsWith(ACCOUNT_TYPE_DECSYNC) == true
 
         fun String?.isPaymentRequired(): Boolean = this?.startsWith(ERROR_PAYMENT_REQUIRED) == true
+
+        fun String?.isPurchaseTokenInUse(): Boolean = this?.startsWith(ERROR_PURCHASE_TOKEN_IN_USE) == true
+
+        fun String?.purchaseTokenInUseAccount(): String? =
+            if (isPurchaseTokenInUse()) this?.removePrefix(ERROR_PURCHASE_TOKEN_IN_USE) else null
 
         fun String?.isTosRequired(): Boolean = this?.startsWith(ERROR_TOS_REQUIRED) == true
     }

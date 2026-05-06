@@ -2,6 +2,9 @@ package org.tasks.auth
 
 import android.content.Context
 import android.content.Intent
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,6 +15,7 @@ import net.openid.appauth.ClientAuthentication.UnsupportedAuthenticationMethod
 import net.openid.appauth.GrantTypeValues
 import net.openid.appauth.TokenRequest
 import org.tasks.caldav.CaldavClientProvider
+import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
@@ -28,9 +32,25 @@ class SignInViewModel @Inject constructor(
     private val debugConnectionBuilder: DebugConnectionBuilder,
     private val environment: TasksServerEnvironment,
 ) : ViewModel() {
+    var showSubscriptionRequiredDialog by mutableStateOf<Boolean?>(null)
+        private set
+    var showWrongAccountEmail by mutableStateOf<String?>(null)
+        private set
     val error = MutableLiveData<Throwable>()
 
     var authService: AuthorizationService? = null
+
+    fun handleError(e: Throwable) {
+        if (e is PurchaseTokenInUseException) {
+            showWrongAccountEmail = e.existingAccount
+        } else {
+            error.value = e
+        }
+    }
+
+    fun showSubscriptionRequired(isGitHub: Boolean) {
+        showSubscriptionRequiredDialog = isGitHub
+    }
 
     fun initializeAuthService(iss: String) {
         authService?.dispose()
@@ -52,7 +72,7 @@ class SignInViewModel @Inject constructor(
         }
 
         ex?.let {
-            error.value = it
+            handleError(it)
         }
     }
 
@@ -88,7 +108,7 @@ class SignInViewModel @Inject constructor(
                     }
         } catch (e: Exception) {
             Timber.d("setupAccount: caught ${e.javaClass.simpleName} - ${e.message}")
-            error.postValue(e)
+            handleError(e)
             null
         }
     }

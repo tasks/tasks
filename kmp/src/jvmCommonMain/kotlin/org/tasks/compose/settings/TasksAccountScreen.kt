@@ -101,12 +101,17 @@ import tasks.kmp.generated.resources.tos_updated_title
 import tasks.kmp.generated.resources.url
 import tasks.kmp.generated.resources.user
 import tasks.kmp.generated.resources.view_tos
+import tasks.kmp.generated.resources.support_email
+import tasks.kmp.generated.resources.wrong_account
+import tasks.kmp.generated.resources.wrong_account_message
 import tasks.kmp.generated.resources.your_subscription_expired
 import org.tasks.caldav.TasksAccountResponse
 import org.tasks.caldav.TasksAccountResponse.Guest
 import org.tasks.compose.components.TasksIcon
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
+import org.tasks.data.entity.CaldavAccount.Companion.isPurchaseTokenInUse
+import org.tasks.data.entity.CaldavAccount.Companion.purchaseTokenInUseAccount
 import org.tasks.viewmodel.TasksAccountState
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDay
@@ -608,6 +613,15 @@ private fun ErrorBannerCard(
     val onClick: () -> Unit
 
     when {
+        account.error.isPurchaseTokenInUse() -> {
+            title = stringResource(Res.string.wrong_account)
+            summary = stringResource(
+                Res.string.wrong_account_message,
+                account.error.purchaseTokenInUseAccount() ?: "",
+                stringResource(Res.string.support_email),
+            )
+            onClick = onSignIn
+        }
         account.isPaymentRequired() -> {
             if (isGithub) {
                 title = null
