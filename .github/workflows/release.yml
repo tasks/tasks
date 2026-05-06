@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   bundle:
@@ -130,3 +132,24 @@ jobs:
           composeApp/output/InRelease
           artifacts/*.AppImage
           artifacts/*.AppImage.zsync
+
+      - name: Prepare download page
+        run: |
+          mkdir -p pages
+          cp composeApp/output/download.html pages/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: pages
+
+  deploy-download-page:
+    runs-on: ubuntu-latest
+    needs: [ release ]
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
