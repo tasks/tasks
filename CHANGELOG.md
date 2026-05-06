@@ -1,3 +1,31 @@
+### 15.4 (2026-05-06)
+
+Desktop:
+  * Add CalDAV support
+  * Add EteSync support
+  * Unlock desktop app with Google Play subscription or GitHub Sponsorship
+  * Fix opening URLs on some platforms [#4326](https://github.com/tasks/tasks/issues/4326)
+  * Generate AppImage for Linux [#4327](https://github.com/tasks/tasks/issues/4327)
+
+Android:
+  * QR code scanner to unlock desktop (Google Play only)
+  * Updated DAVx5, CalDAV, and EteSync settings screens
+
+Update translations:
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580, 大王叫我来巡山
+  * Czech - Fjuro, Odweta
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @ColorfulRhino, @CrUsHoR
+  * Hindi - Chandra Mohan Jha
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Japanese - Norara
+  * Kurdish (Northern) - @CYAXXX
+  * Turkish - @oersen, @emintufan
+
 ### 15.3 (2026-04-23)
 
 Desktop:
