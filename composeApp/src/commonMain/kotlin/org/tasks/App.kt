@@ -174,6 +174,7 @@ import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.TaskListViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
+import tasks.kmp.generated.resources.not_available_desktop
 import tasks.kmp.generated.resources.settings
 import tasks.kmp.generated.resources.show_less
 import tasks.kmp.generated.resources.show_more
@@ -1682,7 +1683,13 @@ private fun SettingsScreen(
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .padding(padding),
-                            )
+                                contentAlignment = androidx.compose.ui.Alignment.Center,
+                            ) {
+                                Text(
+                                    text = stringResource(Res.string.not_available_desktop),
+                                    style = MaterialTheme.typography.headlineLarge,
+                                )
+                            }
                         }
                     }
                     is LocalAccountSettingsPane -> {
