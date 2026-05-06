@@ -44,7 +44,7 @@ class SignInViewModel @Inject constructor(
         if (e is PurchaseTokenInUseException) {
             showWrongAccountEmail = e.existingAccount
         } else {
-            error.value = e
+            error.postValue(e)
         }
     }
 
