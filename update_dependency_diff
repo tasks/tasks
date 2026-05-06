@@ -22,7 +22,9 @@ update_deps() {
     java -jar "$JAR" "$output_file" <( ./gradlew $gradle_project:dependencies \
         --no-configuration-cache \
         --configuration "$gradle_config" \
-        < /dev/null ) > "$output_file"
+        < /dev/null ) \
+        | sed 's/macos-arm64/linux-x64/g; s/macos-x64/linux-x64/g; s/windows-x64/linux-x64/g' \
+        > "$output_file"
 }
 
 update_deps deps_googleplay.txt googleplayReleaseRuntimeClasspath :app
