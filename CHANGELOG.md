@@ -1,3 +1,9 @@
+### 15.4.1 (2026-05-06)
+
+Desktop:
+  * Fix Windows exe download link
+  * Add AppImage download link
+
 ### 15.4 (2026-05-06)
 
 Desktop:
