@@ -262,4 +262,6 @@
     <string name="pricing_nyp_feature_3">Podpořit software s otevřeným zdrojovým kódem</string>
     <string name="pricing_subscribe_google_play">Odebírat na Google Play</string>
     <string name="pricing_sponsor">Nebo sponzorovat na GitHubu za %1$s</string>
+    <string name="wrong_account">Přihlášení selhalo</string>
+    <string name="wrong_account_message">Vaše předplatné je již propojené s %1$s. Pokud si myslíte, že se jedná o chybu, kontaktujte prosím %2$s</string>
 </resources>
