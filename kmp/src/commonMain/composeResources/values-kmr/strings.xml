@@ -22,4 +22,9 @@
     <string name="back">Vegere</string>
     <string name="last_backup_never">Ti carî</string>
     <string name="completed">Qediya</string>
+    <string name="filter_notifications">Agahdarî</string>
+    <string name="filter_today">Îro</string>
+    <string name="drawer_places">Cih</string>
+    <string name="group_none">Ne yek</string>
+    <string name="sort_list">Lîste</string>
 </resources>
