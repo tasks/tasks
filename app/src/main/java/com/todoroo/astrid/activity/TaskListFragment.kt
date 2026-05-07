@@ -95,6 +95,7 @@ import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
+import org.tasks.TasksUrls
 import org.tasks.TasksApplication
 import org.tasks.activities.FilterSettingsActivity
 import org.tasks.activities.PlaceSettingsActivity
@@ -614,7 +615,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                 AppUpdatedBanner(
                                     whatsNew = {
                                         listViewModel.dismissBanner(tookAction = true)
-                                        context.openUri(R.string.url_changelog)
+                                        context.openUri(TasksUrls.CHANGELOG)
                                     },
                                     dismiss = { listViewModel.dismissBanner() },
                                 )

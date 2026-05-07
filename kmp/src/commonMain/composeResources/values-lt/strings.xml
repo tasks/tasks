@@ -145,4 +145,24 @@
     <string name="username_required">Reikalingas vartotojo vardas</string>
     <string name="etesync_account_description">Reikia paskyros EteSync.com arba asmeninis serveris</string>
     <string name="show_advanced_settings">Rodyti išplėstinius nustatymus</string>
+    <string name="whats_new">Kas naujo</string>
+    <string name="version_string">Versija %1$s</string>
+    <string name="rate_tasks">Įvertinti Tasks</string>
+    <string name="documentation">Dokumentacija</string>
+    <string name="issue_tracker">Problemų seklys</string>
+    <string name="contact_developer">Susisiekti su kūrėju</string>
+    <string name="follow_reddit">Prisijungti prie r/tasks</string>
+    <string name="follow_twitter">Sekti @tasks_org</string>
+    <string name="source_code">Pirminis kodas</string>
+    <string name="third_party_licenses">Trečiųjų šalių licencijos</string>
+    <string name="privacy_policy">Privatumo politika</string>
+    <string name="send_anonymous_statistics">Pagerinti Tasks</string>
+    <string name="send_anonymous_statistics_summary">Siųsti anoniminę naudojimo statistiką ir strigčių ataskaitas, kad padėtumėte patobulinti Tasks. Asmens duomenys nebus renkami.</string>
+    <string name="license_summary">Tasks yra laisva atviro kodo programinė įranga, licencijuota pagal GNU General Public License v3.0 licenciją</string>
+    <string name="support">Pagalba</string>
+    <string name="social">Socialiniai tinklai</string>
+    <string name="open_source">Atviras kodas</string>
+    <string name="restart_required">Iš naujo paleiskite Tasks, kad šis pakeitimas įsigaliotų</string>
+    <string name="restart_now">Perkrauti dabar</string>
+    <string name="restart_later">Vėliau</string>
 </resources>

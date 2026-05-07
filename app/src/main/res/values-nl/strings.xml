@@ -217,10 +217,7 @@
     <string name="font_size">Lettergrootte</string>
     <string name="row_spacing">Regelafstand</string>
     <string name="customize_edit_screen">Taakscherm aanpassen</string>
-    <string name="source_code">Broncode</string>
     <string name="translations">Vertalingen toevoegen</string>
-    <string name="contact_developer">Contact met ontwikkelaar</string>
-    <string name="rate_tasks">Tasks waarderen</string>
     <string name="quiet_hours_summary">Geen herinneringen tijdens rusttijd</string>
     <string name="add_reminder">Herinnering toevoegen</string>
     <string name="add_location">Locatie toevoegen</string>
@@ -253,9 +250,6 @@
     <string name="take_a_picture">Foto maken</string>
     <string name="pick_from_gallery">Uit galerij kiezen</string>
     <string name="pick_from_storage">Uit opslag kiezen</string>
-    <string name="privacy_policy">Privacy regels</string>
-    <string name="send_anonymous_statistics">Tasks verbeteren</string>
-    <string name="send_anonymous_statistics_summary">Anonieme gebruiksstatistieken en crashrapporten versturen om Tasks te verbeteren. Persoonlijke gegevens worden niet verzameld.</string>
     <string name="tag_already_exists">Label bestaat reeds</string>
     <string name="name_cannot_be_empty">Naam mag niet leeg zijn</string>
     <string name="no_title">(geen titel)</string>
@@ -322,7 +316,6 @@
     <string name="upgrade_to_pro">Opwaarderen naar pro</string>
     <string name="refresh_purchases">Aankopen bijwerken</string>
     <string name="button_subscribe">Abonneren</string>
-    <string name="license_summary">Tasks is vrije open-source software, onder de GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Dashclock extensie</string>
     <string name="requires_pro_subscription">Pro abonnement vereist</string>
     <string name="logout">Uitloggen</string>
@@ -346,8 +339,6 @@
     <string name="location_permission_required_location">App-recht Locatie is vereist voor de actuele locatie</string>
     <string name="open_map">Kaart openen</string>
     <string name="choose_new_location">Nieuwe locatie kiezen</string>
-    <string name="third_party_licenses">Licenties van derden</string>
-    <string name="version_string">Versie %s</string>
     <string name="invalid_backup_file">Ongeldig backupbestand</string>
     <string name="google_tasks_add_to_top">Nieuwe taken boven</string>
     <string name="action_open">Openen</string>
@@ -493,7 +484,6 @@
     <string name="custom_filter_has_subtask">Heeft subtaken</string>
     <string name="current_subscription">Huidig abonnement: %s</string>
     <string name="your_subscription_expired">Je abonnement is verlopen. Abonneer nu om deze dienst te hervatten.</string>
-    <string name="follow_reddit">Bij r/tasks aansluiten</string>
     <string name="background_location_permission_required">Tasks verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de app gesloten is of niet gebruikt wordt.</string>
     <string name="repeat_monthly_fifth_week">vijfde</string>
     <string name="authorization_cancelled">Verificatie geannuleerd</string>
@@ -529,9 +519,6 @@
     <string name="support">Ondersteuning</string>
     <string name="privacy">Privacy</string>
     <string name="open_source">Open source</string>
-    <string name="issue_tracker">Probleem tracker</string>
-    <string name="social">Sociaal</string>
-    <string name="follow_twitter">Volg @tasks_org</string>
     <string name="list_members">Leden op de lijst</string>
     <string name="remove_user_confirmation">%1$s krijgt geen toegang meer tot %2$s</string>
     <string name="remove_user">Gebruiker verwijderen\?</string>
@@ -623,7 +610,6 @@
     <string name="swipe_to_snooze_time_15_minutes">na 15 minuten</string>
     <string name="show_edit_screen_without_unlock_summary">Laat gebruik van Snelle Bewerkingstegel toe zonder ontgrendeling toestel</string>
     <string name="swipe_to_snooze_time_immediately">Onmiddellijk</string>
-    <string name="send_application_logs">Stuur applicatielogboeken</string>
     <string name="quiet_hours_in_effect">Rusttijd staat aan</string>
     <string name="add_widget_to_home_screen">Widget aan startscherm toevoegen</string>
     <string name="add_shortcut_to_home_screen">Snelkoppeling aan startscherm toevoegen</string>
@@ -654,9 +640,7 @@
     <string name="import_failed_message">Kon het backupbestand niet lezen</string>
     <string name="local_list_title">Dit is een lokale lijst</string>
     <string name="local_list_description">Taken in deze lijst worden uitsluitend op dit apparaat opgeslagen. Maak verbinding met een account om uw data veilig te stellen en het overal te kunnen benaderen.</string>
-    <string name="legal">Juridische informatie</string>
     <string name="legal_disclosure_prefix_using">Door Tasks.org te gebruiken</string>
-    <string name="terms_of_service">Gebruiksvoorwaarden</string>
     <string name="tos_updated_title">We hebben onze gebruikersvoorwaarden bijgewerkt</string>
     <string name="accept">Accepteren</string>
     <string name="exit">Afsluiten</string>

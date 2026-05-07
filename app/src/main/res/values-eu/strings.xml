@@ -225,10 +225,7 @@
     <string name="font_size">Letraren tamaina</string>
     <string name="row_spacing">Errenkaden banatze espazioa</string>
     <string name="customize_edit_screen">Pertsonalizatu edizio pantaila</string>
-    <string name="source_code">Iturburu kodea</string>
     <string name="translations">Lagundu itzulpenekin</string>
-    <string name="contact_developer">Jarri garatzailearekin kontaktuan</string>
-    <string name="rate_tasks">Baloratu Tasks</string>
     <string name="quiet_hours_summary">Oroigarririk ez isilune orduetan</string>
     <string name="add_reminder">Gehitu oroigarria</string>
     <string name="add_location">Gehitu kokalekua</string>
@@ -263,9 +260,6 @@
     <string name="take_a_picture">Atera argazkia</string>
     <string name="pick_from_gallery">Hautatu galeriatik</string>
     <string name="pick_from_storage">Hautatu biltegiratzetik</string>
-    <string name="privacy_policy">pribatutasun politika</string>
-    <string name="send_anonymous_statistics">Hobetu Tasks</string>
-    <string name="send_anonymous_statistics_summary">Bidali erabilera estatistika anonimoak eta kraskatze txostenak Tasks hobetzen laguntzeko. Ez da datu pertsonalik jasoko.</string>
     <string name="tag_already_exists">Etiketa hau badago aurretik</string>
     <string name="name_cannot_be_empty">Izena ezin da hutsik egon</string>
     <string name="no_title">(Izenbururik ez)</string>
@@ -337,7 +331,6 @@
     <string name="upgrade_to_pro">Aldatu pro bertsiora</string>
     <string name="refresh_purchases">Freskatu erosketak</string>
     <string name="button_subscribe">Harpidetu</string>
-    <string name="license_summary">Tasks aplikazioa software librea eta kode irekikoa da, GNU General Public License v3.0 lizentziapean</string>
     <string name="pro_dashclock_extension">Dashclock luzapena</string>
     <string name="requires_pro_subscription">Pro harpidetza eskatzen du</string>
     <string name="logout">Amaitu saioa</string>
@@ -361,8 +354,6 @@
     <string name="location_permission_required_location">Kokapen baimena behar da zure uneko kokalekua aurkitzeko</string>
     <string name="open_map">Ireki mapa</string>
     <string name="choose_new_location">Hautatu kokaleku berria</string>
-    <string name="third_party_licenses">Hirugarrengoen lizentziak</string>
-    <string name="version_string">%s bertsioa</string>
     <string name="invalid_backup_file">Baliogabeko babes-kopia fitxategia</string>
     <string name="google_tasks_add_to_top">Zeregin berriak goialdean</string>
     <string name="icon">Ikonoa</string>
@@ -472,7 +463,6 @@
     <string name="permission_read_tasks">Tasks datu-basera sarbide osoa</string>
     <string name="sign_in_with_google">Hasi saioa Google-n</string>
     <string name="authorization_cancelled">Autorizazioa ezeztatuta</string>
-    <string name="follow_reddit">Egin bat r/task-ekin</string>
     <string name="current_subscription">Uneko harpidetza: %s</string>
     <string name="your_subscription_expired">Zure harpidetza agortu da. Harpidetu orain zerbitzua berrekiteko.</string>
     <string name="custom_filter_is_subtask">Azpizeregina da</string>
@@ -531,10 +521,7 @@
     <string name="tasks_org_account_required">Tasks.org kontua behar da</string>
     <string name="privacy">Pribatutasuna</string>
     <string name="open_source">Kode irekia</string>
-    <string name="issue_tracker">Gorabeheren arakatzailea</string>
     <string name="support">Euskarria</string>
-    <string name="social">Soziala</string>
-    <string name="follow_twitter">Jarraitu @tasks_org</string>
     <string name="remove_user_confirmation">%1$s jada ez du sarbiderik izango %2$s</string>
     <string name="remove_user">Erabiltzailea ezabatu\?</string>
     <string name="list_members">Kideen zerrenda</string>

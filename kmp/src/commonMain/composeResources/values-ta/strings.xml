@@ -163,4 +163,25 @@
     <string name="etesync_account_description">EteSync.com அல்லது சுய ஹோஸ்ட் செய்த சேவையகத்துடன் கணக்கு தேவை</string>
     <string name="show_advanced_settings">மேம்பட்ட அமைப்புகளைக் காட்டு</string>
     <string name="app_settings">பயன்பாட்டு அமைப்புகள்</string>
+    <string name="whats_new">புதியது என்ன</string>
+    <string name="version_string">பதிப்பு %1$s</string>
+    <string name="rate_tasks">விகித பணிகள்</string>
+    <string name="documentation">ஆவணம்</string>
+    <string name="issue_tracker">வெளியீடு டிராக்கர்</string>
+    <string name="contact_developer">டெவலப்பரைத் தொடர்பு கொள்ளுங்கள்</string>
+    <string name="send_application_logs">பயன்பாட்டு பதிவுகளை அனுப்பவும்</string>
+    <string name="follow_reddit">ஆர்/பணிகளில் சேரவும்</string>
+    <string name="follow_twitter">\@Tasks_org ஐப் பின்தொடரவும்</string>
+    <string name="source_code">மூல குறியீடு</string>
+    <string name="third_party_licenses">மூன்றாம் தரப்பு உரிமங்கள்</string>
+    <string name="privacy_policy">தனியுரிமைக் கொள்கை</string>
+    <string name="send_anonymous_statistics">பணிகளை மேம்படுத்தவும்</string>
+    <string name="send_anonymous_statistics_summary">பணிகளை மேம்படுத்த உதவ அநாமதேய பயன்பாட்டு புள்ளிவிவரங்கள் மற்றும் செயலிழப்பு அறிக்கைகளை அனுப்பவும். தனிப்பட்ட தரவு எதுவும் சேகரிக்கப்படாது.</string>
+    <string name="license_summary">பணிகள் லிப்ரே ஓப்பன் சோர்ஸ் மென்பொருளாகும், இது குனு GPLv3.0 இன் கீழ் உரிமம் பெற்றது</string>
+    <string name="support">உதவி</string>
+    <string name="social">சமூக</string>
+    <string name="open_source">திறந்த மூல</string>
+    <string name="restart_required">இந்த மாற்றம் நடைமுறைக்கு வருவதற்கான பணிகளை மறுதொடக்கம் செய்யுங்கள்</string>
+    <string name="restart_now">இப்போது மறுதொடக்கம் செய்யுங்கள்</string>
+    <string name="restart_later">பின்னர்</string>
 </resources>

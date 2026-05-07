@@ -152,4 +152,24 @@
     <string name="username_required">Brukernavn kreves</string>
     <string name="etesync_account_description">Krever en konto hos EteSync.com eller selvdrevet tjener</string>
     <string name="show_advanced_settings">Vis avanserte innstillinger</string>
+    <string name="whats_new">Hva er nytt</string>
+    <string name="version_string">Versjon %1$s</string>
+    <string name="rate_tasks">Gi Tasks din vurdering</string>
+    <string name="documentation">Dokumentasjon</string>
+    <string name="issue_tracker">Problemsporer</string>
+    <string name="contact_developer">Kontakt utvikler</string>
+    <string name="follow_reddit">Ta del i r/tasks</string>
+    <string name="follow_twitter">Følg @tasks_org</string>
+    <string name="source_code">Kildekode</string>
+    <string name="third_party_licenses">Tredjepartslisenser</string>
+    <string name="privacy_policy">Personvernspraksis</string>
+    <string name="send_anonymous_statistics">Forbedre Tasks</string>
+    <string name="send_anonymous_statistics_summary">Send anonym bruksstatistkk og krasjrapporter for å hjelpe til å forbedre Tasks. Ingen personlig data vil bli samlet inn.</string>
+    <string name="license_summary">Tasks er fri programvare, lisensiert GPLv3+</string>
+    <string name="support">Støtte</string>
+    <string name="social">Sosialt</string>
+    <string name="open_source">Åpen kilde</string>
+    <string name="restart_required">Start Tasks om igjen for å ta i bruk endringene</string>
+    <string name="restart_now">Restart nå</string>
+    <string name="restart_later">Senere</string>
 </resources>

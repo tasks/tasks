@@ -244,10 +244,7 @@
     <string name="font_size">Šrifto dydis</string>
     <string name="row_spacing">Eilutės plotis</string>
     <string name="customize_edit_screen">Pritaikyti redagavimo ekraną</string>
-    <string name="source_code">Pirminis kodas</string>
     <string name="translations">Padėti išversti</string>
-    <string name="contact_developer">Susisiekti su kūrėju</string>
-    <string name="rate_tasks">Įvertinti Tasks</string>
     <string name="quiet_hours_summary">Tylos valandomis - be priminimų</string>
     <string name="add_reminder">Pridėti priminimą</string>
     <string name="add_location">Pridėti vietą</string>
@@ -281,9 +278,6 @@
     <string name="take_a_picture">Nufotografuoti</string>
     <string name="pick_from_gallery">Pasirinkti iš galerijos</string>
     <string name="pick_from_storage">Pasirinkti iš saugyklos</string>
-    <string name="privacy_policy">Privatumo politika</string>
-    <string name="send_anonymous_statistics">Pagerinti Tasks</string>
-    <string name="send_anonymous_statistics_summary">Siųsti anoniminę naudojimo statistiką ir strigčių ataskaitas, kad padėtumėte patobulinti Tasks. Asmens duomenys nebus renkami.</string>
     <string name="tag_already_exists">Etiketė jau egzistuoja</string>
     <string name="name_cannot_be_empty">Pavadinimas negali būti tuščias</string>
     <string name="no_title">(Be pavadinimo)</string>
@@ -353,7 +347,6 @@
     <string name="upgrade_to_pro">Atnaujinti į pro versiją</string>
     <string name="refresh_purchases">Atnaujinti pirkimus</string>
     <string name="button_subscribe">Prenumeruoti</string>
-    <string name="license_summary">Tasks yra laisva atviro kodo programinė įranga, licencijuota pagal GNU General Public License v3.0 licenciją</string>
     <string name="pro_dashclock_extension">Dashclock plėtinys</string>
     <string name="requires_pro_subscription">Reikalinga „pro“ prenumerata</string>
     <string name="logout">Atsijungti</string>
@@ -377,8 +370,6 @@
     <string name="location_permission_required_location">Vietos leidimai reikalingi surasti jūsų esamą vietą</string>
     <string name="open_map">Atidaryti žemėlapį</string>
     <string name="choose_new_location">Pasirinkti naują vietą</string>
-    <string name="third_party_licenses">Trečiųjų šalių licencijos</string>
-    <string name="version_string">Versija %s</string>
     <string name="invalid_backup_file">Blogas atsarginės kopijos failas</string>
     <string name="google_tasks_add_to_top">Naujos užduotys viršuje</string>
     <string name="email">El. paštas</string>
@@ -489,8 +480,6 @@
     <string name="github_sponsor">Remti</string>
     <string name="github_sponsors">GitHub rėmėjai</string>
     <string name="sign_in_with_google">Prisijungti naudojant Google</string>
-    <string name="follow_twitter">Sekti @tasks_org</string>
-    <string name="follow_reddit">Prisijungti prie r/tasks</string>
     <string name="current_subscription">Dabartinė prenumerata: %s</string>
     <string name="migrate_count">Migruoti %s į Tasks.org</string>
     <string name="migrating_tasks">Migruojamos užduotys</string>
@@ -524,9 +513,7 @@
     <string name="authorization_cancelled">Autorizavimas atšauktas</string>
     <string name="privacy">Privatumas</string>
     <string name="open_source">Atviras kodas</string>
-    <string name="issue_tracker">Problemų seklys</string>
     <string name="support">Pagalba</string>
-    <string name="social">Socialiniai tinklai</string>
     <string name="tasks_org_account_required">Būtina Tasks.org paskyra</string>
     <string name="your_subscription_expired">Jūsų prenumeratos galiojimo laikas baigėsi. Prenumeruokite dabar, norėdami tęsti paslaugą.</string>
     <string name="custom_filter_is_subtask">Ar antrinė užduotis</string>

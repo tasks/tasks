@@ -87,11 +87,7 @@
     <string name="authorization_cancelled">Đã huỷ xác thực</string>
     <string name="privacy">Riêng tư</string>
     <string name="open_source">Mã nguồn mở</string>
-    <string name="issue_tracker">Trình theo dõi vấn đề</string>
     <string name="support">Hỗ trợ</string>
-    <string name="social">Xã hội</string>
-    <string name="follow_twitter">Theo dõi @tasks_org</string>
-    <string name="follow_reddit">Tham gia r/tasks</string>
     <string name="current_subscription">Đăng ký hiện tại: %s</string>
     <string name="no_google_play_subscription">Không tìm thấy gói đăng ký Google Play đủ điều kiện</string>
     <string name="your_subscription_expired">Đăng ký của bạn đã hết hạn. Đăng ký ngay để tiếp tục dịch vụ.</string>
@@ -192,9 +188,7 @@
     <string name="name_your_price">Đặt giá của bạn</string>
     <string name="google_tasks_add_to_top">Công việc mới ở trên đầu</string>
     <string name="invalid_backup_file">Tệp sao lưu không hợp lệ</string>
-    <string name="version_string">Phiên bản %s</string>
     <string name="whats_new">Có gì mới</string>
-    <string name="third_party_licenses">Giấy phép bên thứ ba</string>
     <string name="choose_new_location">Chọn vị trí mới</string>
     <string name="open_map">Mở bản đồ</string>
     <string name="location_permission_required_location">Quyền vị trí là cần thiết để tìm vị trí hiện tại của bạn</string>
@@ -221,7 +215,6 @@
     <string name="this_feature_requires_a_subscription">Tính năng này yêu cầu đăng ký</string>
     <string name="requires_pro_subscription">Yêu cầu đăng ký pro</string>
     <string name="pro_dashclock_extension">Phần mở rộng Dashclock</string>
-    <string name="license_summary">Tasks là phần mềm tự do và mã nguồn mở, được cấp phép dưới GNU General Public License v3.0</string>
     <string name="button_subscribe">Đăng ký</string>
     <string name="refresh_purchases">Làm mới các giao dịch</string>
     <string name="subscription">Đăng ký</string>
@@ -307,9 +300,6 @@
     <string name="no_title">(Không có tiêu đề)</string>
     <string name="name_cannot_be_empty">Tên không thể trống</string>
     <string name="tag_already_exists">Thẻ đã tồn tại</string>
-    <string name="send_anonymous_statistics_summary">Gửi thống kê sử dụng và báo cáo crash nặc danh để giúp cải thiện Tasks. Không có dữ liệu cá nhân nào sẽ được thu thập.</string>
-    <string name="send_anonymous_statistics">Cải thiện Tasks</string>
-    <string name="privacy_policy">Chính sách riêng tư</string>
     <string name="pick_from_storage">Chọn từ bộ nhớ</string>
     <string name="pick_from_gallery">Chọn từ thư viện</string>
     <string name="take_a_picture">Chụp ảnh</string>
@@ -350,10 +340,7 @@
     <string name="add_location">Thêm vị trí</string>
     <string name="add_reminder">Thêm lời nhắc</string>
     <string name="quiet_hours_summary">Không có lời nhắc trong giờ im lặng</string>
-    <string name="rate_tasks">Đánh giá Tasks</string>
-    <string name="contact_developer">Liên hệ với nhà phát triển</string>
     <string name="translations">Đóng góp bản dịch</string>
-    <string name="source_code">Mã nguồn</string>
     <string name="customize_edit_screen">Tuỳ biến màn hình chỉnh sửa</string>
     <string name="row_spacing">Khoảng cách hàng</string>
     <string name="header_spacing">Khoảng cách</string>

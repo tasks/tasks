@@ -18,4 +18,6 @@
     <string name="date_and_time">Data e hora</string>
     <string name="backup_BPr_header">Copias de securitate</string>
     <string name="about">A proposito de</string>
+    <string name="privacy_policy">Politica de confidentialitate</string>
+    <string name="open_source">Codice aperte</string>
 </resources>

@@ -233,10 +233,7 @@
     <string name="font_size">Tamanho do texto</string>
     <string name="row_spacing">Espaçamento da linha</string>
     <string name="customize_edit_screen">Personalizar tela de edição</string>
-    <string name="source_code">Código-fonte</string>
     <string name="translations">Ajude com as traduções</string>
-    <string name="contact_developer">Contate o desenvolvedor</string>
-    <string name="rate_tasks">Avalie o Tasks</string>
     <string name="quiet_hours_summary">Sem lembretes nas horas de silêncio</string>
     <string name="add_reminder">Adicionar lembrete</string>
     <string name="add_location">Adicionar localização</string>
@@ -270,9 +267,6 @@
     <string name="take_a_picture">Tirar uma foto</string>
     <string name="pick_from_gallery">Selecionar da galeria</string>
     <string name="pick_from_storage">Selecionar do armazenamento</string>
-    <string name="privacy_policy">Política de Privacidade</string>
-    <string name="send_anonymous_statistics">Ajude a melhorar o Tasks</string>
-    <string name="send_anonymous_statistics_summary">Enviar estatísticas de uso e relatórios de falha anonimamente para ajudar a melhorar o Tasks. Nenhuma informação pessoal será coletada.</string>
     <string name="tag_already_exists">Etiqueta já existe</string>
     <string name="name_cannot_be_empty">Nome não pode ser vazio</string>
     <string name="no_title">(Sem título)</string>
@@ -342,7 +336,6 @@
     <string name="upgrade_to_pro">Comprar assinatura</string>
     <string name="refresh_purchases">Atualizar compras</string>
     <string name="button_subscribe">Assinar</string>
-    <string name="license_summary">O Tasks é um software livre e de código aberto, licenciado sob a GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Extensão Dashclock</string>
     <string name="requires_pro_subscription">Requer inscrição Pro</string>
     <string name="logout">Sair</string>
@@ -412,9 +405,7 @@
     <string name="name_your_price">Dê o seu preço</string>
     <string name="google_tasks_add_to_top">Novas tarefas no topo</string>
     <string name="invalid_backup_file">Arquivo de backup inválido</string>
-    <string name="version_string">Versão %s</string>
     <string name="whats_new">Novidades</string>
-    <string name="third_party_licenses">Licenças de Terceiros</string>
     <string name="action_new_task">Nova tarefa</string>
     <string name="this_feature_requires_a_subscription">Essa função requer uma assinatura</string>
     <string name="help_and_feedback">Ajuda &amp; feedback</string>
@@ -547,11 +538,7 @@
     <string name="authorization_cancelled">Autorização cancelada</string>
     <string name="privacy">Privacidade</string>
     <string name="open_source">Código aberto</string>
-    <string name="issue_tracker">Publicações de relatórios</string>
     <string name="support">Suporte</string>
-    <string name="social">Mídias sociais</string>
-    <string name="follow_twitter">\@tasks_org (𝕏)</string>
-    <string name="follow_reddit">r/tasks (reddit)</string>
     <string name="header_spacing">Espaçamento</string>
     <string name="widget_show_title">Mostrar título</string>
     <string name="next_saturday">Próximo sábado</string>
@@ -665,7 +652,6 @@
     <string name="add_widget_to_home_screen">Adicionar Widget à tela inicial</string>
     <string name="multiline_title">Permitir títulos com múltiplas linhas</string>
     <string name="sync_warning_microsoft_title">Sobre a sincronização do Microsoft To Do</string>
-    <string name="send_application_logs">Enviar registros do aplicativo</string>
     <string name="banner_app_updated_title">Aplicativo atualizado</string>
     <string name="banner_app_updated_description">As tarefas acabaram de ser atualizadas para %s. Gostaria de ver as notas de atualização?</string>
     <string name="multiline_title_off">Pressione \'Concluir\' para salvar a tarefa</string>
@@ -698,7 +684,6 @@
     <string name="per_list_sort_summary">Lembrar configurações de classificação e grupo para cada lista independentemente</string>
     <string name="subscription_required_fdroid">Uma inscrição é necessária para usar sincronização Tasks.org. Inscrições devem ser iniciadas da versão Google Play do Tasks.</string>
     <string name="sponsorship_required_fdroid">É necessário ser um patrocinador do GitHub para usar a sincronização do Tasks.org. Clique abaixo para se tornar um patrocinador.</string>
-    <string name="legal">Legal</string>
     <string name="share_list">Compartilhar \"%1$s\"</string>
     <string name="send">Enviar</string>
     <string name="invalid_email_address">Email inválido</string>
@@ -715,13 +700,8 @@
     <string name="alarm_after">depois</string>
     <string name="alarm_start">iniciar</string>
     <string name="alarm_due">vencimento</string>
-    <string name="terms_of_service">Termos de serviço</string>
     <string name="exit">Sair</string>
     <string name="returning_user">Usuário retornando?</string>
     <string name="widget_view_more_tasks">Ver mais tarefas</string>
     <string name="read_more">Ler mais</string>
-    <string name="blog_notifications">Notificações do blog</string>
-    <string name="blog_feed_none">Nenhum</string>
-    <string name="blog_feed_announcements">Apenas anúncios</string>
-    <string name="blog_feed_all">Todos posts</string>
 </resources>

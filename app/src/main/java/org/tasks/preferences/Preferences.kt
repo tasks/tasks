@@ -189,7 +189,6 @@ class Preferences @JvmOverloads constructor(
         PreferenceManager.setDefaultValues(context, R.xml.preferences_navigation_drawer, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_backups, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_advanced, true)
-        PreferenceManager.setDefaultValues(context, R.xml.help_and_feedback, true)
         BeastModePreferences.setDefaultOrder(this, context)
     }
 

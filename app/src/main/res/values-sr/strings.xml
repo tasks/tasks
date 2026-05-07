@@ -15,8 +15,6 @@
     <string name="gcal_completed_title">%s (завршено)</string>
     <string name="rmd_EPr_defaultRemind_title">Насумични подсетници</string>
     <string name="delete_task">Обриши задатак</string>
-    <string name="contact_developer">Контактирај развојни тим</string>
-    <string name="rate_tasks">Оцени апликацију</string>
     <string name="quiet_hours_summary">Без подсетника у мирним сатима</string>
     <string name="filter_settings">Подешавања филтера</string>
     <string name="import_summary_title">Обнови сажетак</string>
@@ -282,7 +280,6 @@
     <string name="header_spacing">Размак</string>
     <string name="row_spacing">Размак између редова</string>
     <string name="customize_edit_screen_summary">Премести или обриши поља</string>
-    <string name="source_code">Изворни кôд</string>
     <string name="add_reminder">Додај подсетник</string>
     <string name="add_location">Додај локацију</string>
     <string name="remove">Избриши</string>
@@ -311,9 +308,6 @@
     <string name="take_a_picture">Направи фотографију</string>
     <string name="pick_from_gallery">Одабери из галерије</string>
     <string name="pick_from_storage">Одабери из меморије</string>
-    <string name="privacy_policy">Полиса приватности</string>
-    <string name="send_anonymous_statistics">Побољшај Задатке</string>
-    <string name="send_anonymous_statistics_summary">Пошаљи анонимне статистике коришћења и извештаје падова апликације ради побољшања. Лични подаци неће бити прикупљени.</string>
     <string name="tag_already_exists">Таг већ постоји</string>
     <string name="name_cannot_be_empty">Поље имена не може бити празно</string>
     <string name="no_title">(Без назива)</string>
@@ -383,7 +377,6 @@
     <string name="help">Помоћ</string>
     <string name="subscription">Претплате</string>
     <string name="button_subscribe">Претплати се</string>
-    <string name="license_summary">,,Tasks.org\'\' је софтвер отвореног карактера, са лиценцом ,,GNU General Public License v3.0\'\'</string>
     <string name="requires_pro_subscription">Захтева претплату</string>
     <string name="this_feature_requires_a_subscription">Ова функционалност захтева претплату</string>
     <string name="logout">Одјави се</string>
@@ -406,7 +399,6 @@
     <string name="choose_new_location">Одабери нову локацију</string>
     <string name="banner_app_updated_title">Апликација је ажурирана</string>
     <string name="whats_new">Шта је ново</string>
-    <string name="version_string">Верзија %s</string>
     <string name="invalid_backup_file">Невалидна датотека резерве</string>
     <string name="google_tasks_add_to_top">Нови задаци на врх</string>
     <string name="expand_subtasks">Прошири подзадатке</string>
@@ -487,7 +479,6 @@
     <string name="attachment_directory">Директоријум са прилозима</string>
     <string name="customize_edit_screen">Подеси екран измене</string>
     <string name="translations">Допринеси преводима</string>
-    <string name="send_application_logs">Пошаљи извештај апликације</string>
     <string name="when_overdue">Након доспећа</string>
     <string name="when_due">До доспећа</string>
     <string name="when_started">Након стартовања</string>
@@ -532,7 +523,6 @@
     <string name="location_departed">Одлазак у %s</string>
     <string name="building_notifications">Генерисање обавештења</string>
     <string name="missing_permissions">Недостају дозволе</string>
-    <string name="third_party_licenses">Лиценце треће стране</string>
     <string name="banner_app_updated_description">Апликација је ажурирана на %s. Приказати белешке о ажурирању?</string>
     <string name="name_your_price">Наведи цену</string>
     <string name="collapse_subtasks">Споји подзадатке</string>
@@ -603,11 +593,7 @@
     <string name="price_per_month_with_currency">%s/месечно</string>
     <string name="price_per_year_with_currency">%s/годишње</string>
     <string name="current_subscription">Тренутна претплата: %s</string>
-    <string name="follow_reddit">Придружи се r/tasks</string>
-    <string name="follow_twitter">Запрати @tasks_org</string>
-    <string name="social">Друштвене мреже</string>
     <string name="support">Подршка</string>
-    <string name="issue_tracker">Праћење проблема</string>
     <string name="open_source">Кôд отвореног типа</string>
     <string name="privacy">Приватност</string>
     <string name="authorization_cancelled">Отказана ауторизација</string>
@@ -680,9 +666,7 @@
     <string name="exit">Излаз</string>
     <string name="accept">Прихвати</string>
     <string name="tos_updated_title">Ажурирали смо услове коришћења</string>
-    <string name="terms_of_service">Услови коришћења</string>
     <string name="legal_disclosure_prefix_using">Коришћењем Tasks.org</string>
-    <string name="legal">Правни</string>
     <string name="sponsorship_required_fdroid">Потребно је GitHub спонзорство за коришћење Tasks.org синхронизације. Кликни испод да постанеш спонзор.</string>
     <string name="local_list_description">Задаци у овој листи су смештени на овом уређају. Повежи налог како би заштитио своје податке и приступао њима било где.</string>
     <string name="local_list_title">Ово је локална листа</string>

@@ -133,4 +133,24 @@
     <string name="username_required">ต้องการชื่อผู้ใช้</string>
     <string name="etesync_account_description">ต้องการบัญชีผู้ใช้ที่มี EteSync.com หรือเซิร์ฟเวอร์ที่โฮสต์ด้วยตนเอง</string>
     <string name="show_advanced_settings">แสดงการตั้งค่าขั้นสูง</string>
+    <string name="whats_new">มีอะไรใหม่</string>
+    <string name="version_string">เวอร์ชั่น %1$s</string>
+    <string name="rate_tasks">จัดอันดับงาน</string>
+    <string name="documentation">เอกสาร</string>
+    <string name="issue_tracker">ตัวติดตามปัญหา</string>
+    <string name="contact_developer">ติดต่อนักพัฒนาซอฟต์แวร์</string>
+    <string name="follow_reddit">เข้าร่วม r/tasks</string>
+    <string name="follow_twitter">ติดตาม@tasks_org</string>
+    <string name="source_code">รหัสแหล่งที่มา</string>
+    <string name="third_party_licenses">ใบอนุญาตบุคคลที่สาม</string>
+    <string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
+    <string name="send_anonymous_statistics">ปรับปรุงงาน</string>
+    <string name="send_anonymous_statistics_summary">ส่งสถิติการใช้งานแบบไม่ระบุชื่อและรายงานข้อขัดข้องเพื่อช่วยปรับปรุงงาน จะไม่มีการเก็บรวบรวมข้อมูลส่วนบุคคล</string>
+    <string name="license_summary">งานคือซอฟต์แวร์โอลามไลซอร์ส libre ที่ได้รับอนุญาตภายใต้ใบอนุญาตสาธารณะทั่วไป GNU v3.0</string>
+    <string name="support">สนับสนุน</string>
+    <string name="social">สังคม</string>
+    <string name="open_source">เปิดแหล่งที่มา</string>
+    <string name="restart_required">เริ่มงานใหม่เพื่อให้การเปลี่ยนแปลงนี้มีผล</string>
+    <string name="restart_now">เริ่มการทํางานใหม่เดี๋ยวนี้</string>
+    <string name="restart_later">หลัง</string>
 </resources>

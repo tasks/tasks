@@ -78,9 +78,7 @@
     </plurals>
     <string name="today">Avui</string>
     <string name="tomorrow">Demà</string>
-    <string name="source_code">Codi font</string>
     <string name="translations">Contribuir traduccions</string>
-    <string name="contact_developer">Contacta amb el desenvolupador</string>
     <string name="quiet_hours_summary">Sense recordatoris durant les hores de silenci</string>
     <string name="filters">Filtres</string>
     <string name="filter_settings">Configuració dels filtres</string>
@@ -298,7 +296,6 @@
     <string name="TEA_timer_controls">Temporitzador</string>
     <string name="customize_drawer">Personalitza el calaix</string>
     <string name="customize_drawer_summary">Arrossegueu i deixeu anar per reordenar els elements del menú</string>
-    <string name="license_summary">Tasks és un programari lliure de codi obert, amb llicència sota la Llicència Pública General de GNU v3.0</string>
     <string name="default_calendar">Calendari predeterminat</string>
     <string name="bundle_notifications_summary">Combina diferents notificacions en una sola</string>
     <string name="or_choose_a_location">O escollir una ubicació</string>
@@ -329,7 +326,6 @@
     <string name="help">Ajuda</string>
     <string name="list">Llista</string>
     <string name="show_description">Mostra la descripció</string>
-    <string name="third_party_licenses">Llicències de tercers</string>
     <string name="widget_show_menu">Mostra el menú</string>
     <string name="repeat_monthly_every_day_of_nth_week">cada %1$s %2$s</string>
     <string name="change_priority">Canvia la prioritat</string>
@@ -351,7 +347,6 @@
     <string name="building_notifications">Generant notificacions</string>
     <string name="choose_a_location">Escolleix una ubicació</string>
     <string name="pick_this_location">Selecciona aquesta ubicació</string>
-    <string name="version_string">Versió %s</string>
     <string name="collapse_subtasks">Contraure subtasques</string>
     <string name="invalid_backup_file">Archiu de còpia de seguretat no vàlid</string>
     <string name="repeat_monthly_third_week">tercer</string>
@@ -365,7 +360,6 @@
     <string name="swipe_to_snooze_time_24_hours">després de 24 hores</string>
     <string name="swipe_to_snooze_time_immediately">immediatament</string>
     <string name="next_tuesday">Proper dm</string>
-    <string name="rate_tasks">Valora Tasks</string>
     <string name="tags">Etiquetes</string>
     <string name="date_shortcut_tomorrow_morning">Demà pel matí</string>
     <string name="date_shortcut_tomorrow_evening">Demà pel vespre</string>
@@ -407,7 +401,6 @@
     <string name="tag_already_exists">L\'etiqueta ja existeix</string>
     <string name="no_title">(Sense títol)</string>
     <string name="copy">Copia</string>
-    <string name="send_anonymous_statistics_summary">Envia estadístiques d\'ús anònimes i informes de fallada per ajudar a millorar Tasks. No es recolliran dades personals.</string>
     <string name="widget_show_dividers">Mostra el divisors</string>
     <string name="quiet_hours">Temps de tranquil·litat</string>
     <string name="attachment_directory">Carpeta d\'adjunts</string>
@@ -426,8 +419,6 @@
     <string name="take_a_picture">Pren una foto</string>
     <string name="pick_from_gallery">Agafa de la galeria</string>
     <string name="pick_from_storage">Agafa del magatzem</string>
-    <string name="privacy_policy">Política de privacitat</string>
-    <string name="send_anonymous_statistics">Millora Tasks</string>
     <string name="show_edit_screen_without_unlock">Mostra la pantalla d\'edició sense desbloquejar</string>
     <string name="customize_edit_screen_summary">Reorganitza o elimina camps</string>
     <string name="name_cannot_be_empty">El nom no pot ser buit</string>
@@ -448,7 +439,6 @@
     <string name="default_tags">Etiquetes per defecte</string>
     <string name="default_recurrence">Recurrència predeterminada</string>
     <string name="filter">Filtre</string>
-    <string name="send_application_logs">Envie els registres de l\'aplicació</string>
     <string name="show_edit_screen_without_unlock_summary">Habilita l\'ús de la fitxa de configuració ràpida sense desbloquejar el dispositiu</string>
     <string name="theme_light">Clar</string>
     <string name="widget_header_settings">Preferències de la capçalera</string>
@@ -605,11 +595,7 @@
     <string name="price_per_month_with_currency">%s/mes</string>
     <string name="price_per_year_with_currency">%s/any</string>
     <string name="current_subscription">Subscripció actual: %s</string>
-    <string name="follow_reddit">Uniu-vos a r/tasques</string>
-    <string name="follow_twitter">Seguiu a @tasks_org</string>
-    <string name="social">Social</string>
     <string name="support">Suport</string>
-    <string name="issue_tracker">Seguidor d\'incidències</string>
     <string name="open_source">Codi obert</string>
     <string name="privacy">Privacitat</string>
     <string name="authorization_cancelled">Autorització cancel·lada</string>

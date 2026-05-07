@@ -262,10 +262,7 @@
     <string name="add_location">لوکیشن لگائیں</string>
     <string name="add_reminder">ہاد دہانی لگائیں</string>
     <string name="quiet_hours_summary">خاموش گھنٹوں کے دوران کوئی یاد دہانی نہیں</string>
-    <string name="rate_tasks">ٹاسکس کو ریٹ کریں</string>
-    <string name="contact_developer">ڈیویلپر سے رابطہ</string>
     <string name="translations">ترجمہ کریں</string>
-    <string name="source_code">سورس کوڈ</string>
     <string name="customize_edit_screen">ایڈٹ سکرین کسٹمائز کریں</string>
     <string name="row_spacing">قطاروں کی سپیسنگ</string>
     <string name="header_spacing">سپیسنگ</string>
@@ -333,9 +330,6 @@
     <string name="no_title">(کوئی عنوان نہیں)</string>
     <string name="name_cannot_be_empty">نام خالی نہیں ہو سکتا</string>
     <string name="tag_already_exists">ٹیگ پہلے ہی موجود ہے</string>
-    <string name="send_anonymous_statistics_summary">ٹاسکس ایپ کو بہتر بنانے کیلئے استعمال کے اعدادوشمار اور کریش رپورٹس گمنام طریقے سے بھیجیں۔ کوئی ذاتی ڈیٹا اکٹھا نہیں کیا جائے گا۔</string>
-    <string name="send_anonymous_statistics">ٹاسکس ایپ کو بہتر بنائیں</string>
-    <string name="privacy_policy">رازداری کی پالیسی</string>
     <string name="bundle_notifications">بنڈل نوٹٰیفیکیشنز</string>
     <string name="notification_disable_battery_optimizations_description">بیٹری کی بچت نوٹیفیکیشنز کو ملتوی کر سکتی ہے</string>
     <string name="url">یو آر ایل</string>
@@ -416,16 +410,13 @@
     <string name="this_feature_requires_a_subscription">یہ فیچر سبسکرپشن سے چلے گا</string>
     <string name="requires_pro_subscription">پرو سبسکرپشن کی ضرورت ہے</string>
     <string name="pro_dashclock_extension">ڈیش لاک ایکسٹنشن</string>
-    <string name="license_summary">ٹاسکس ایک لیبرے اوپن سورس سافٹ وئیر ہےجو کہ جی این یو لائسنس v3.0 کے تحت لائسنس شدہ ہے</string>
     <string name="subtasks_multilevel_google_task">کثیر الدرجی ذیلی ٹاسکس کو گوگل ٹاسکس سپورٹ نہیں کرتا</string>
     <string name="collapse_subtasks">ذیلی ٹاسکس کو بند کریں</string>
     <string name="expand_subtasks">ذیلی ٹاسکس کو کھولیں</string>
     <string name="name_your_price">اپنی قیمت بتائیں</string>
     <string name="google_tasks_add_to_top">نئے ٹاسکس اوپر رکھیں</string>
     <string name="invalid_backup_file">غلط بیک اپ فائل</string>
-    <string name="version_string">%s ورژن</string>
     <string name="whats_new">نیا کیا ہے</string>
-    <string name="third_party_licenses">تھرڈ پارٹی لائسنسز</string>
     <string name="choose_new_location">نئی لوکیشن منتخب کریں</string>
     <string name="open_map">نقشہ کھولیں</string>
     <string name="location_permission_required_location">آپ کی موجودہ لوکیشن معلوم کرنےکیلے لوکیشن کی اجازت مطلوب ہے</string>

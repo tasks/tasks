@@ -235,10 +235,7 @@
     <string name="font_size">Розмір шрифту</string>
     <string name="row_spacing">Відстань між рядками</string>
     <string name="customize_edit_screen">Налаштувати вікно редагування</string>
-    <string name="source_code">Відкритий код</string>
     <string name="translations">Допомогти перекласти</string>
-    <string name="contact_developer">Зв\'язатися з розробником</string>
-    <string name="rate_tasks">Оцінити Tasks</string>
     <string name="quiet_hours_summary">Без нагадувань під час тихих годин</string>
     <string name="add_reminder">Додати нагадування</string>
     <string name="add_location">Додати місце</string>
@@ -273,9 +270,6 @@
     <string name="take_a_picture">Зробити знімок</string>
     <string name="pick_from_gallery">Обрати з галереї</string>
     <string name="pick_from_storage">Обрати зі сховища</string>
-    <string name="privacy_policy">Політика приватності</string>
-    <string name="send_anonymous_statistics">Поліпшити Tasks</string>
-    <string name="send_anonymous_statistics_summary">Надсилати анонімну статистику використання та звіти про помилки щоб вдосконалити Tasks. Жодних персональних даних не буде зібрано.</string>
     <string name="tag_already_exists">Мітка вже існує</string>
     <string name="name_cannot_be_empty">Ім\'я не може бути порожнє</string>
     <string name="no_title">(без назви)</string>
@@ -345,7 +339,6 @@
     <string name="upgrade_to_pro">Покращити до Преміум</string>
     <string name="refresh_purchases">Оновити покупки</string>
     <string name="button_subscribe">Підписатися</string>
-    <string name="license_summary">Tasks — це програмне забезпечення з відкритим кодом, ліцензоване GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Розширення Dashclock</string>
     <string name="requires_pro_subscription">Потребує передплати pro</string>
     <string name="logout">Вийти</string>
@@ -369,8 +362,6 @@
     <string name="location_permission_required_location">Щоб визначити ваше місцезнаходження необхідний дозвіл на перегляд місцезнаходження </string>
     <string name="open_map">Відкрити карту</string>
     <string name="choose_new_location">Обрати нове місце</string>
-    <string name="third_party_licenses">Ліцензії третіх сторін</string>
-    <string name="version_string">Версія %s</string>
     <string name="invalid_backup_file">Невірний формат файлу резервної копії</string>
     <string name="google_tasks_add_to_top">Нові завдання зверху</string>
     <string name="help_and_feedback">Довідка і зворотний зв\'язок</string>
@@ -444,7 +435,6 @@
     <string name="sign_in_with_google">Увійти через Google</string>
     <string name="github_sponsors">Спонсори GitHub</string>
     <string name="authorization_cancelled">Авторизацію скасовано</string>
-    <string name="follow_reddit">Долучитися до r/tasks</string>
     <string name="current_subscription">Поточна підписка: %s</string>
     <string name="no_google_play_subscription">Відповідної вимогам підписки Google Play не знайдено</string>
     <string name="your_subscription_expired">Термін дії вашої підписки закінчився. Підпишіться зараз, щоб відновити обслуговування.</string>
@@ -546,10 +536,7 @@
     <string name="ok">Гаразд</string>
     <string name="privacy">Приватність</string>
     <string name="open_source">Відкритий джерельний код</string>
-    <string name="issue_tracker">Відстеження помилок</string>
     <string name="support">Підтримка</string>
-    <string name="social">Суспільні</string>
-    <string name="follow_twitter">Стежити за @tasks_org</string>
     <string name="remove_user_confirmation">%1$s надалі не матиме доступу до %2$s</string>
     <string name="remove_user">Вилучити користувача\?</string>
     <string name="list_members">Перелік учасників</string>
@@ -652,7 +639,6 @@
     <string name="swipe_to_snooze_time_24_hours">за 24 години</string>
     <string name="show_edit_screen_without_unlock_summary">Дозволяє використовувати плитку швидких налаштувань без розблокування пристрою</string>
     <string name="quiet_hours_in_effect">Активовано тихі години</string>
-    <string name="send_application_logs">Надіслати журнал застосунку</string>
     <string name="delete_comment">коментар</string>
     <string name="comment">Коментар</string>
     <string name="yesterday">Учора</string>

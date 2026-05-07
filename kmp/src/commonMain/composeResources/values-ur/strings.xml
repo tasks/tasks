@@ -94,4 +94,17 @@
     <string name="url_invalid_scheme">http(s):// کے ساتھ شروع ہونا ضروری ہے</string>
     <string name="url_required">یو آر ایل مطلوب ہے</string>
     <string name="username_required">صارف کا نام مطلوب ہے</string>
+    <string name="whats_new">نیا کیا ہے</string>
+    <string name="version_string">%1$s ورژن</string>
+    <string name="rate_tasks">ٹاسکس کو ریٹ کریں</string>
+    <string name="contact_developer">ڈیویلپر سے رابطہ</string>
+    <string name="source_code">سورس کوڈ</string>
+    <string name="third_party_licenses">تھرڈ پارٹی لائسنسز</string>
+    <string name="privacy_policy">رازداری کی پالیسی</string>
+    <string name="send_anonymous_statistics">ٹاسکس ایپ کو بہتر بنائیں</string>
+    <string name="send_anonymous_statistics_summary">ٹاسکس ایپ کو بہتر بنانے کیلئے استعمال کے اعدادوشمار اور کریش رپورٹس گمنام طریقے سے بھیجیں۔ کوئی ذاتی ڈیٹا اکٹھا نہیں کیا جائے گا۔</string>
+    <string name="license_summary">ٹاسکس ایک لیبرے اوپن سورس سافٹ وئیر ہےجو کہ جی این یو لائسنس v3.0 کے تحت لائسنس شدہ ہے</string>
+    <string name="restart_required">اس تبدیلی کو اثردار بنانے کیلئے ایپ ری سٹارٹ کریں</string>
+    <string name="restart_now">ابھی ری سٹارٹ کریں</string>
+    <string name="restart_later">بعد میں</string>
 </resources>

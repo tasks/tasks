@@ -130,9 +130,7 @@
     <string name="font_size">Teksti suurus</string>
     <string name="row_spacing">Reavahed</string>
     <string name="customize_edit_screen">Kohanda muutmise vaadet</string>
-    <string name="source_code">Lähtekood</string>
     <string name="translations">Aita tõlkida</string>
-    <string name="contact_developer">Võta ühendust arendajaga</string>
     <string name="add_reminder">Lisa meeldetuletus</string>
     <string name="add_location">Lisa asukoht</string>
     <string name="remove">Eemalda</string>
@@ -163,7 +161,6 @@
     <string name="take_a_picture">Tee pilt</string>
     <string name="pick_from_gallery">Vali galeriist</string>
     <string name="pick_from_storage">Vali seadmest</string>
-    <string name="privacy_policy">Privaatsus</string>
     <string name="tag_already_exists">Silt on juba olemas</string>
     <string name="name_cannot_be_empty">Nimi ei saa olla tühi</string>
     <string name="no_title">(Pealkirjata)</string>
@@ -214,14 +211,12 @@
     <string name="missing_permissions">Puuduvad õigused</string>
     <string name="open_map">Ava kaart</string>
     <string name="choose_new_location">Vali uus asukoht</string>
-    <string name="version_string">Versioon %s</string>
     <string name="invalid_backup_file">Vigane varukoopia fail</string>
     <string name="google_tasks_add_to_top">Uued ülesanded üleval</string>
     <string name="email">E-post</string>
     <string name="start_date">Alguskuupäev</string>
     <string name="import_summary_title">Taasta kokkuvõte</string>
     <string name="SSD_sort_my_order">Minu tellimus</string>
-    <string name="issue_tracker">Probleemijälgija</string>
     <string name="custom_filter_is_subtask">On alamülesanne</string>
     <string name="upgrade_more_customization">Rohkem kohandusi</string>
     <string name="more_options">Rohkem valikuid</string>
@@ -359,7 +354,6 @@
     <string name="shortcut_pick_time">Vali aeg</string>
     <string name="custom_filter_criteria">Filtreerimise alus</string>
     <string name="settings_default">Vaikimisi</string>
-    <string name="follow_reddit">Liitu grupiga r/tasks</string>
     <string name="support">Tugi</string>
     <string name="invite_invalid">Vigane kutse</string>
     <string name="completed">Lõpetatud</string>
@@ -416,7 +410,6 @@
     <string name="migrating_tasks">Ülesanded on kolimisel</string>
     <string name="decsync_selection_description">Failipõhine sünkrooniseerimine</string>
     <string name="app_password">Rakenduse salasõna</string>
-    <string name="follow_twitter">Jälgi @tasks_org</string>
     <string name="TEA_creation_date">Loomise kuupäev</string>
     <string name="default_random_reminder_bi_weekly">Igal teisel nädalal</string>
     <string name="next_friday">Järgmine R</string>
@@ -448,7 +441,6 @@
     <string name="display_name">Kuvatav nimi</string>
     <string name="show_advanced_settings">Näita üksikasjalikke seadistusi</string>
     <string name="hide_unused_tags">Peida kasutamata sildid</string>
-    <string name="third_party_licenses">Kolmandate osapoolte litsentsid</string>
     <string name="name_your_price">Ütle oma hind</string>
     <string name="hide_unused_places">Peida kasutamata asukohad</string>
     <string name="invite_awaiting_response">Kutse ootab vastust</string>
@@ -497,10 +489,8 @@
     <string name="TEA_timer_comment_started">alustas selle ülesande täitmist:</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Meeldetuletamise ajal ütlevad ülesanded oma nime</string>
     <string name="customize_edit_screen_summary">Eemalda väljad või muuda nende järjekorda</string>
-    <string name="rate_tasks">Hinda rakendust Tasks</string>
     <string name="date_shortcut_must_come_before">%1$s peab olema enne %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s peab olema peale %2$s</string>
-    <string name="send_anonymous_statistics_summary">Tasksi parandamiseks saada meile anonüümset kasutusstatistikat ja võimalikke vigade logisid. Isiklikke andmeid me ei kogu.</string>
     <string name="delete_tag_confirmation">Kas kustutame %s?</string>
     <string name="TEA_timer_comment_stopped">lõpetas selle ülesande täitmise:</string>
     <string name="voice_create_prompt">Ülesande lisamiseks räägi</string>
@@ -518,7 +508,6 @@
     </plurals>
     <string name="when_started">Kui on alustatud</string>
     <string name="quiet_hours_in_effect">Vaiksed tunnid on kasutusel</string>
-    <string name="send_application_logs">Saada rakenduste logid</string>
     <string name="delete_comment">kommentaar</string>
     <string name="button_learn_more">Loe lisaks</string>
     <plurals name="subtask_count">
@@ -535,7 +524,6 @@
         <item quantity="one">%d aasta</item>
         <item quantity="other">%d aastat</item>
     </plurals>
-    <string name="send_anonymous_statistics">Paranda rakendust Tasks</string>
     <string name="no_app_found">Rakendus ei osanud selle päringuga midagi ette võtta</string>
     <string name="this_feature_requires_a_subscription">See funktsionaalsus eeldab tellimuse olemasolu</string>
     <string name="repeats_single">Kordub %s</string>
@@ -570,7 +558,6 @@
     <string name="astrid_sort_order">Astridi käsitsi järjestamine</string>
     <string name="astrid_sort_order_summary">Kasuta Astridi käsitsi järjestamist „Minu ülesanded“, „Täna“ ja siltide puhul. Tulevases rakenduse uuenduses see järjestuse viis asendub vaatega „Minu järjestus“</string>
     <string name="dont_add_to_calendar">Ära lisa kalendrisse</string>
-    <string name="license_summary">Tasks on avatud lähtekoodil põhinev tarkvara, mis on litsentseeritud GNU Üldise Avaliku Litsentsi versiooni 3.0 alusel</string>
     <string name="sync_warning_google_tasks_title">Teave Google Tasksi sünkroniseerimise kohta</string>
     <string name="sync_warning_google_tasks">Ülesannete kõikide üksikasjade sünkroniseerimine ei toimi Google Tasksi liidestusega</string>
     <string name="app_passwords_more_info">Sünkroniseeri oma ülesandeid ja kalendreid kolmandate osapoolte töölaua- ja nutiseadme rakendustega. Lisateavet leiad siit</string>
@@ -621,7 +608,6 @@
     <string name="enable_alarms_description">Tagamaks, et alati saad õigel ajal teavitusi, palun luba nutiseadme seadistustest äratuste ja meeldetuletuste kasutamine</string>
     <string name="alarm_after_start">%s peale alustamise tähtaega</string>
     <string name="snackbar_tasks_completed">%d ülesannet on lõpetatud</string>
-    <string name="social">Sotsiaalmeedia</string>
     <string name="background_location_permission_required">Selleks, et kasutada asukohapõhiseid meeldetuletusi ka siis, kui rakendus on suletud või pole kasutusel, kogub Tasks asukohaandmeid.</string>
     <string name="location_permission_required_location">Sinu praeguse asukoha tuvastamiseks on vaja õiguseid asukohateenuste kasutamiseks</string>
     <string name="etesync_selection_description">Sünkroniseerimine, mis kasutab läbivat krüptimist</string>
@@ -654,7 +640,6 @@
     <string name="local_list_description">Selle loendi ülesanded on salvestatud vaid selles nutiseadmes. Kui tahad, et andmed oleks ligipääsetavad kõikjalt ja nende hoidmine paremini tagatud, siis lisa vastav kasutajakonto.</string>
     <string name="subscription_required_fdroid">Tasks.org\'i sünkroonimisvõimaluste kasutamiseks on vajalik tellimus. Tellimused peavad olema lisatud Tasks-rakenduse Google Play versioonis.</string>
     <string name="sponsorship_required_fdroid">Tasks.org\'i sünkroonimisvõimaluste kasutamiseks on vajalik GitHubi sponsorlus. Sponsoriks hakkamiseks klõpsa järgnevat linki.</string>
-    <string name="legal">Juriidiline teave</string>
     <string name="tos_updated_title">Me oleme uuendanud oma kasutustingimusi</string>
     <string name="accept">Nõustu</string>
     <string name="exit">Välju</string>
@@ -695,12 +680,7 @@
     <string name="upgrade_desktop_app_description">Varajane ligipääs töölauarakendusele</string>
     <string name="upgrade_friends_and_family">Sõbrad ja pere</string>
     <string name="upgrade_friends_and_family_description">5 tasuta külalist jagatud loendites. Töötab ka „Apple Reminders“ rakendusega</string>
-    <string name="blog_feed_announcements">Vaid teated</string>
-    <string name="blog_feed_all">Kõik postitused</string>
-    <string name="blog_notifications">Ajaveebi teavitused</string>
-    <string name="blog_feed_none">Puudub</string>
     <string name="read_more">Loe lisaks</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="legal_disclosure_prefix_using">Tasks.org-i kasutamisel</string>
-    <string name="terms_of_service">Kasutustingimused</string>
 </resources>

@@ -105,6 +105,7 @@ import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.settings.CaldavAccountSettingsDetail
 import org.tasks.compose.settings.CaldavAccountSettingsPane
 import org.tasks.compose.settings.EtebaseAccountSettingsDetail
+import org.tasks.compose.settings.HelpAndFeedbackDetail
 import org.tasks.compose.settings.EtebaseAccountSettingsPane
 import org.tasks.compose.settings.LocalAccountSettingsDetail
 import org.tasks.compose.settings.LocalAccountSettingsPane
@@ -222,7 +223,10 @@ fun App(
     val uriHandler = remember(openUrl) {
         object : androidx.compose.ui.platform.UriHandler {
             override fun openUri(uri: String) {
-                val normalized = if (uri.contains("://")) uri else "https://$uri"
+                val normalized = when {
+                    uri.contains("://") || uri.startsWith("mailto:") -> uri
+                    else -> "https://$uri"
+                }
                 openUrl(normalized)
             }
         }
@@ -1657,6 +1661,13 @@ private fun SettingsScreen(
                 color = MaterialTheme.colorScheme.surface,
             ) {
                 when (selectedContent) {
+                    is org.tasks.compose.settings.SettingsDestination.HelpAndFeedback -> {
+                        HelpAndFeedbackDetail(
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                        )
+                    }
                     is org.tasks.compose.settings.SettingsDestination -> {
                         Scaffold(
                             topBar = {

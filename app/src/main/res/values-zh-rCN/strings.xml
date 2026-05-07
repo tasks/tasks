@@ -208,10 +208,7 @@
     <string name="font_size">字体大小</string>
     <string name="row_spacing">行间距</string>
     <string name="customize_edit_screen">自定义编辑屏幕</string>
-    <string name="source_code">源代码</string>
     <string name="translations">贡献翻译</string>
-    <string name="contact_developer">联系开发者</string>
-    <string name="rate_tasks">给 Tasks 打分</string>
     <string name="quiet_hours_summary">静音期间不提醒</string>
     <string name="add_reminder">添加提醒</string>
     <string name="remove">移除</string>
@@ -243,9 +240,6 @@
     <string name="take_a_picture">拍张照片</string>
     <string name="pick_from_gallery">从相册选一张</string>
     <string name="pick_from_storage">从存储中挑选</string>
-    <string name="privacy_policy">隐私政策</string>
-    <string name="send_anonymous_statistics">改进 Tasks</string>
-    <string name="send_anonymous_statistics_summary">发送匿名使用情况统计信息和崩溃报告，以帮助改进 Tasks。不会收集任何个人数据。</string>
     <string name="tag_already_exists">标签已存在</string>
     <string name="name_cannot_be_empty">名字不能为空</string>
     <string name="no_title">（无标题）</string>
@@ -316,7 +310,6 @@
     <string name="upgrade_to_pro">升级至专业版</string>
     <string name="refresh_purchases">刷新购买</string>
     <string name="button_subscribe">订阅</string>
-    <string name="license_summary">Tasks 是遵循 GNU 通用公共许可证 v3.0 的自由开源软件</string>
     <string name="pro_dashclock_extension">Dashclock 扩展</string>
     <string name="requires_pro_subscription">需订阅专业版</string>
     <string name="logout">登出</string>
@@ -351,8 +344,6 @@
     <string name="location_permission_required_location">需要位置权限来发现您当前位置</string>
     <string name="open_map">打开地图</string>
     <string name="choose_new_location">选择新位置</string>
-    <string name="third_party_licenses">第三方许可证</string>
-    <string name="version_string">版本 %s</string>
     <string name="invalid_backup_file">备份文件无效</string>
     <string name="google_tasks_add_to_top">新任务显示在顶部</string>
     <string name="icon">图标</string>
@@ -488,7 +479,6 @@
     <string name="custom_filter_has_subtask">有子任务</string>
     <string name="current_subscription">当前订阅：%s</string>
     <string name="your_subscription_expired">你的订阅已到期。现在订阅即可恢复服务。</string>
-    <string name="follow_reddit">加入 r/tasks</string>
     <string name="background_location_permission_required">Tasks 收集位置数据，以启用基于位置的提醒，即使应用程序关闭或不使用。</string>
     <string name="repeat_monthly_fifth_week">第五</string>
     <string name="authorization_cancelled">授权被取消</string>
@@ -523,10 +513,7 @@
     <string name="tasks_org_account_required">需要 Tasks.org 账号</string>
     <string name="privacy">隐私</string>
     <string name="open_source">开源</string>
-    <string name="issue_tracker">问题跟踪器</string>
     <string name="support">支持</string>
-    <string name="social">社交</string>
-    <string name="follow_twitter">关注 @tasks_org</string>
     <string name="remove_user_confirmation">%1$s 将无法再访问 %2$s</string>
     <string name="remove_user">是否移除用户？</string>
     <string name="list_members">清单成员</string>
@@ -613,7 +600,6 @@
     <string name="donate_maybe_later">也许以后</string>
     <string name="donate_nag">考虑用捐赠显示您的支持！</string>
     <string name="donate_today">现在捐赠</string>
-    <string name="send_application_logs">发送程序日志</string>
     <string name="quiet_hours_in_effect">静音时段生效中</string>
     <string name="enable_alarms">在正确的时间收到通知</string>
     <string name="enable_alarms_description">确保你在正确的时间收到通知，在设置中授予设置闹铃和提醒的权限</string>
@@ -644,9 +630,7 @@
     <string name="local_list_description">此清单中的任务只存储在这台设备上。连接账号保护数据，在任何地方访问它。</string>
     <string name="subscription_required_fdroid">使用 Tasks.org 同步需要订阅。订阅必须通过 Google Play 版本的 Tasks 应用进行。</string>
     <string name="sponsorship_required_fdroid">使用 Tasks.org 同步功能需要成为 GitHub 赞助者。单击下方成为赞助者。</string>
-    <string name="legal">法律</string>
     <string name="legal_disclosure_prefix_using">使用 Tasks.org</string>
-    <string name="terms_of_service">服务条款</string>
     <string name="tos_updated_title">我们更新了服务条款</string>
     <string name="accept">接受</string>
     <string name="exit">退出</string>
@@ -687,10 +671,6 @@
     <string name="location_update_interval_1_hour">每小时</string>
     <string name="location_update_interval_2_hours">每 2 小时</string>
     <string name="read_more">阅读更多</string>
-    <string name="blog_notifications">博客通知</string>
-    <string name="blog_feed_none">无</string>
-    <string name="blog_feed_announcements">仅公告</string>
-    <string name="blog_feed_all">所有帖子</string>
     <string name="upgrade_desktop_app">Tasks.org 桌面版</string>
     <string name="upgrade_desktop_app_description">提前使用新的桌面版应用</string>
 </resources>

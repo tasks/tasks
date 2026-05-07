@@ -177,4 +177,25 @@
     <string name="etesync_account_description">Требует аккаунта на EteSync.com или собственного сервера</string>
     <string name="show_advanced_settings">Показать расширенные настройки</string>
     <string name="app_settings">Настройки приложения</string>
+    <string name="whats_new">Что нового</string>
+    <string name="version_string">Версия %1$s</string>
+    <string name="rate_tasks">Оцените Tasks</string>
+    <string name="documentation">Документация</string>
+    <string name="issue_tracker">Отслеживание ошибок</string>
+    <string name="contact_developer">Связь с разработчиком</string>
+    <string name="send_application_logs">Отправить логи приложения</string>
+    <string name="follow_reddit">Присоединяйтесь к r/tasks</string>
+    <string name="follow_twitter">Следите за @task_org</string>
+    <string name="source_code">Исходный код</string>
+    <string name="third_party_licenses">Сторонние лицензии</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="send_anonymous_statistics">Отправлять статистику</string>
+    <string name="send_anonymous_statistics_summary">Отправлять анонимную статистику и отчёты об ошибках для содействия улучшению программы. Персональная информация не собирается.</string>
+    <string name="license_summary">Tasks является свободным программным обеспечением с открытым исходным кодом, лицензированным под GNU General Public License v3.0</string>
+    <string name="support">Поддержка</string>
+    <string name="social">Социальные сети</string>
+    <string name="open_source">Открытый исходный код</string>
+    <string name="restart_required">Перезапустите Tasks для применения изменений</string>
+    <string name="restart_now">Перезапустить сейчас</string>
+    <string name="restart_later">Позже</string>
 </resources>

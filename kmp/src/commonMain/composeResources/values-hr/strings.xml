@@ -202,4 +202,27 @@
     <string name="sign_in_subtitle">Već jesi pretplatnik ili pozvani gost?</string>
     <string name="show_advanced_settings">Pokaži napredne postavke</string>
     <string name="app_settings">Postavke aplikacije</string>
+    <string name="whats_new">Nedavne promjene</string>
+    <string name="version_string">Verzija %1$s</string>
+    <string name="rate_tasks">Ocijeni Tasks</string>
+    <string name="documentation">Dokumentacija</string>
+    <string name="issue_tracker">Sustav za praćenja grešaka</string>
+    <string name="contact_developer">Kontaktiraj programera</string>
+    <string name="send_application_logs">Šalji zapisnike aplikacije</string>
+    <string name="follow_reddit">Pridruži se forumu r/tasks</string>
+    <string name="follow_twitter">Slijedi @tasks_org</string>
+    <string name="source_code">Izvorni kod</string>
+    <string name="third_party_licenses">Licence trećih strana</string>
+    <string name="terms_of_service">Uvjeti pružanja usluge</string>
+    <string name="privacy_policy">Politika privatnosti</string>
+    <string name="send_anonymous_statistics">Poboljšaj Tasks</string>
+    <string name="send_anonymous_statistics_summary">Šalji anonimnu statistiku korištenja i izvještaje o prekidima programa radi poboljšanja programa Tasks. Osobni podaci se ne prikupljaju.</string>
+    <string name="license_summary">Tasks je slobodan program otvorenog koda, licenciran pod GNU General Public License v3.0</string>
+    <string name="support">Podrška</string>
+    <string name="social">Društvene mreže</string>
+    <string name="open_source">Otvoreni kod</string>
+    <string name="legal">Pravno</string>
+    <string name="restart_required">Za primjenu promjene ponovo pokreni Tasks</string>
+    <string name="restart_now">Pokreni ponovo</string>
+    <string name="restart_later">Kasnije</string>
 </resources>

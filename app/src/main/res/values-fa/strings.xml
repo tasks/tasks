@@ -142,10 +142,7 @@
     <string name="enabled">فعال شده</string>
     <string name="font_size">اندازه فونت</string>
     <string name="row_spacing">فاصله سطرها</string>
-    <string name="source_code">کد مبدا</string>
     <string name="translations">مشارکت در ترجمه</string>
-    <string name="contact_developer">تماس با توسعه دهنده</string>
-    <string name="rate_tasks">ارزیابی وظیفه</string>
     <string name="quiet_hours_summary">بدون یادآور در ساعات سکوت</string>
     <string name="add_reminder">اضافه کردن یادآورد</string>
     <string name="remove">حذف</string>
@@ -170,7 +167,6 @@
     <string name="show_completed">نمایش انجام شده ها</string>
     <string name="add_attachment">الصاق پیوست</string>
     <string name="take_a_picture">گرفتن عکس</string>
-    <string name="send_anonymous_statistics">بهبود وظیفه</string>
     <string name="tag_already_exists">این تگ قبلاً ایجاد شده است</string>
     <string name="no_title">(بدون عنوان)</string>
     <string name="default_list">لیست پیش فرض</string>

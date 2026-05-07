@@ -198,4 +198,27 @@
     <string name="sign_in_subtitle">已經是訂閱者或受邀訪客？</string>
     <string name="show_advanced_settings">顯示進階設定</string>
     <string name="app_settings">應用程式設定</string>
+    <string name="whats_new">有什麼新鮮事</string>
+    <string name="version_string">版本 %1$s</string>
+    <string name="rate_tasks">為 Tasks 評分</string>
+    <string name="documentation">檔案</string>
+    <string name="issue_tracker">問題追蹤</string>
+    <string name="contact_developer">聯絡開發人員</string>
+    <string name="send_application_logs">傳送應用程式日誌</string>
+    <string name="follow_reddit">加入 r/tasks</string>
+    <string name="follow_twitter">追蹤 @tasks_org</string>
+    <string name="source_code">源碼</string>
+    <string name="third_party_licenses">第三方許可證</string>
+    <string name="terms_of_service">服務條款</string>
+    <string name="privacy_policy">隱私政策</string>
+    <string name="send_anonymous_statistics">改善 Tasks</string>
+    <string name="send_anonymous_statistics_summary">傳送匿名使用情況紀錄和崩潰報告來幫助改善 Tasks。不會傳送任何個人資訊。</string>
+    <string name="license_summary">Tasks 是自由開源軟體，根據GNU通用公眾授權條款v3.0許可</string>
+    <string name="support">支援</string>
+    <string name="social">社群</string>
+    <string name="open_source">開源</string>
+    <string name="legal">法律</string>
+    <string name="restart_required">重新啟動 Tasks以使變更生效</string>
+    <string name="restart_now">馬上重新啟動</string>
+    <string name="restart_later">稍後</string>
 </resources>

@@ -27,4 +27,7 @@
     <string name="drawer_places">Cih</string>
     <string name="group_none">Ne yek</string>
     <string name="sort_list">Lîste</string>
+    <string name="support">Piştgirî</string>
+    <string name="social">Civakî</string>
+    <string name="restart_later">Paşê</string>
 </resources>

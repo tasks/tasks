@@ -52,6 +52,7 @@ class FlavorModule {
         billingProvider = org.tasks.billing.BillingProvider.GOOGLE_PLAY,
         supportsWidgets = true,
         supportsDesktopLinking = true,
+        supportsLogExport = true,
     )
 
     @Provides

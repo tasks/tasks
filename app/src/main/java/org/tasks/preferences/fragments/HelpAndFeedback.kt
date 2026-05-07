@@ -6,10 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.ui.res.stringResource
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
+import androidx.compose.ui.Modifier
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,25 +19,28 @@ import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.tasks.R
-import org.tasks.compose.settings.BlogFeedModeDialog
-import org.tasks.compose.settings.HelpAndFeedbackScreen
+import org.tasks.TasksUrls
+import org.tasks.compose.settings.HelpAndFeedbackContent
 import org.tasks.extensions.Context.openUri
+import org.tasks.logging.FileLogger
 import org.tasks.preferences.BasePreferences
+import org.tasks.preferences.DiagnosticInfo
+import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
-import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.url_privacy_policy
-import tasks.kmp.generated.resources.url_tos
 import javax.inject.Inject
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class HelpAndFeedback : Fragment() {
 
     @Inject lateinit var theme: Theme
+    @Inject lateinit var diagnosticInfo: DiagnosticInfo
+    @Inject lateinit var fileLogger: FileLogger
+    @Inject lateinit var preferences: Preferences
 
-    private val viewModel: HelpAndFeedbackViewModel by viewModels()
+    private val viewModel: HelpAndFeedbackHiltViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,114 +51,53 @@ class HelpAndFeedback : Fragment() {
             theme = theme.themeBase.index,
             primary = theme.themeColor.primaryColor,
         ) {
-            HelpAndFeedbackScreen(
-                versionName = viewModel.versionName,
-                isGooglePlay = viewModel.isGooglePlay,
-                showTermsOfService = viewModel.showTermsOfService,
-                collectStatistics = viewModel.collectStatistics,
-                onWhatsNew = {
-                    viewModel.logEvent("whats_new")
-                    context?.openUri(R.string.url_changelog)
-                },
+            HelpAndFeedbackContent(
+                viewModel = viewModel,
+                openUri = { context?.openUri(it) },
+                onRestartApplication = { exitProcess(0) },
                 onRateTasks = {
-                    viewModel.logEvent("rate_tasks")
                     context?.openUri(R.string.market_url)
                 },
-                onDocumentation = {
-                    viewModel.logEvent("documentation")
-                    context?.openUri(R.string.url_documentation)
-                },
-                onIssueTracker = {
-                    viewModel.logEvent("issue_tracker")
-                    context?.openUri(R.string.url_issue_tracker)
-                },
                 onContactDeveloper = {
-                    viewModel.logEvent("contact_developer")
                     val uri = Uri.fromParts(
                         "mailto",
-                        "Alex <${getString(R.string.support_email)}>",
+                        "Alex <${TasksUrls.SUPPORT_EMAIL}>",
                         null
                     )
                     val intent = Intent(Intent.ACTION_SENDTO, uri)
                         .putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback")
-                        .putExtra(Intent.EXTRA_TEXT, viewModel.debugInfo)
+                        .putExtra(Intent.EXTRA_TEXT, diagnosticInfo.debugInfo)
                     startActivity(intent)
                 },
                 onSendLogs = {
-                    viewModel.logEvent("send_logs")
                     lifecycleScope.launch {
                         val file = FileProvider.getUriForFile(
                             requireContext(),
                             Constants.FILE_PROVIDER_AUTHORITY,
-                            viewModel.getLogZipFile()
+                            fileLogger.getZipFile()
                         )
                         val intent = Intent(Intent.ACTION_SEND)
                             .setType("message/rfc822")
-                            .putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.support_email)))
+                            .putExtra(Intent.EXTRA_EMAIL, arrayOf(TasksUrls.SUPPORT_EMAIL))
                             .putExtra(Intent.EXTRA_SUBJECT, "Tasks logs")
-                            .putExtra(Intent.EXTRA_TEXT, viewModel.debugInfo)
+                            .putExtra(Intent.EXTRA_TEXT, diagnosticInfo.debugInfo)
                             .putExtra(Intent.EXTRA_STREAM, file)
                             .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                         startActivity(intent)
                     }
                 },
-                onReddit = {
-                    viewModel.logEvent("reddit")
-                    context?.openUri(R.string.url_reddit)
-                },
-                onTwitter = {
-                    viewModel.logEvent("twitter")
-                    context?.openUri(R.string.url_twitter)
-                },
-                onSourceCode = {
-                    viewModel.logEvent("source_code")
-                    context?.openUri(R.string.url_source_code)
-                },
                 onThirdPartyLicenses = {
-                    viewModel.logEvent("third_party_licenses")
                     val intent = Intent()
                         .setClassName(requireContext(), "com.google.android.gms.oss.licenses.OssLicensesMenuActivity")
                     startActivity(intent)
                 },
-                onTermsOfService = {
-                    viewModel.logEvent("tos")
-                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_tos) })
-                },
-                onPrivacyPolicy = {
-                    viewModel.logEvent("privacy_policy")
-                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_privacy_policy) })
-                },
-                blogFeedMode = viewModel.blogFeedMode,
-                onBlogFeedModeClick = { viewModel.showBlogFeedModeDialog() },
                 onCollectStatisticsChanged = { enabled ->
-                    viewModel.updateCollectStatistics(enabled)
+                    preferences.setBoolean(R.string.p_collect_statistics, enabled)
+                },
+                bottomInsets = {
+                    Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
                 },
             )
-
-            if (viewModel.showRestartDialog) {
-                AlertDialog(
-                    onDismissRequest = { viewModel.dismissRestartDialog() },
-                    text = { Text(stringResource(R.string.restart_required)) },
-                    confirmButton = {
-                        TextButton(onClick = { kotlin.system.exitProcess(0) }) {
-                            Text(stringResource(R.string.restart_now))
-                        }
-                    },
-                    dismissButton = {
-                        TextButton(onClick = { viewModel.dismissRestartDialog() }) {
-                            Text(stringResource(R.string.restart_later))
-                        }
-                    },
-                )
-            }
-
-            if (viewModel.showBlogFeedModeDialog) {
-                BlogFeedModeDialog(
-                    selected = viewModel.blogFeedMode,
-                    onSelect = { viewModel.updateBlogFeedMode(it) },
-                    onDismiss = { viewModel.dismissBlogFeedModeDialog() },
-                )
-            }
         }
     }
 

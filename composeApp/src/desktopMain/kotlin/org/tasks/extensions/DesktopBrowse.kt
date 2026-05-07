@@ -7,13 +7,21 @@ import java.net.URI
 private val logger = Logger.withTag("DesktopBrowse")
 
 fun openInBrowser(url: String) {
+    val uri = URI(url)
     try {
-        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-            Desktop.getDesktop().browse(URI(url))
-            return
+        if (Desktop.isDesktopSupported()) {
+            val desktop = Desktop.getDesktop()
+            if (uri.scheme == "mailto" && desktop.isSupported(Desktop.Action.MAIL)) {
+                desktop.mail(uri)
+                return
+            }
+            if (desktop.isSupported(Desktop.Action.BROWSE)) {
+                desktop.browse(uri)
+                return
+            }
         }
     } catch (e: Exception) {
-        logger.w(e) { "Desktop.browse() failed, falling back to command line" }
+        logger.w(e) { "Desktop action failed, falling back to command line" }
     }
     val os = System.getProperty("os.name").lowercase()
     val command = when {

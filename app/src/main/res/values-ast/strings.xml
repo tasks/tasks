@@ -295,11 +295,7 @@
     <string name="row_spacing">Espaciáu de fila</string>
     <string name="customize_edit_screen">Personalizar pantalla d\'edición</string>
     <string name="customize_edit_screen_summary">Reorganizar o desaniciar campos</string>
-    <string name="source_code">Códigu fonte</string>
     <string name="translations">Contribuyi cola torna</string>
-    <string name="contact_developer">Contauta col desendolcador</string>
-    <string name="send_application_logs">Unviar rexistros de l\'aplicación</string>
-    <string name="rate_tasks">Valora Tasks</string>
     <string name="quiet_hours_summary">Ensin recordatorios durante les hores de tranquilidá</string>
     <string name="add_reminder">Amestar recordatoriu</string>
     <string name="add_location">Amestar allugamientu</string>
@@ -343,9 +339,6 @@
     <string name="take_a_picture">Tomar una semeya</string>
     <string name="pick_from_gallery">Escueye dende la galería</string>
     <string name="pick_from_storage">Escueye dende\'l almacenamientu</string>
-    <string name="privacy_policy">Política de privacidá</string>
-    <string name="send_anonymous_statistics">Ameyorar Tasks</string>
-    <string name="send_anonymous_statistics_summary">Unvia estadístiques anónimes d\'usu ya informes d\'error p\'aidar a ameyorar Tasks. Dengún datu personal sedrá recoyíu.</string>
     <string name="tag_already_exists">L\'etiqueta yá esiste</string>
     <string name="name_cannot_be_empty">El nome nun puee tar baleru</string>
     <string name="no_title">(Ensin títulu)</string>
@@ -443,7 +436,6 @@
     <string name="subscription">Soscripción</string>
     <string name="refresh_purchases">Anovar les compres</string>
     <string name="button_subscribe">Soscribise</string>
-    <string name="license_summary">Tasks ye un software llibre de códigu abiertu, llicenciáu baxu la Llicencia Pública Xeneral de GNU v3.0</string>
     <string name="pro_dashclock_extension">Estensión Dashclock</string>
     <string name="requires_pro_subscription">Requier soscripción pro</string>
     <string name="this_feature_requires_a_subscription">Esta carauteristica requier una soscripción</string>
@@ -471,11 +463,9 @@
     <string name="location_permission_required_location">Son necesarios permisos d\'allugamientu p\'atopar el to allugamientu actual</string>
     <string name="open_map">Abrir mapa</string>
     <string name="choose_new_location">Escueye nuevu allugamientu</string>
-    <string name="third_party_licenses">Llicencies de terceros</string>
     <string name="banner_app_updated_title">Aplicación anovada</string>
     <string name="banner_app_updated_description">Tasks ta acabantes d\'anovase a %s. Quies ver les notes de la versión?</string>
     <string name="whats_new">Novedaes</string>
-    <string name="version_string">Versión %s</string>
     <string name="invalid_backup_file">Copia de seguranza invalida</string>
     <string name="google_tasks_add_to_top">Nueves xeres enrriba</string>
     <string name="name_your_price">Preciu flexible</string>

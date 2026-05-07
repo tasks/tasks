@@ -165,4 +165,25 @@
     <string name="etesync_account_description">Requereix un compte amb EteSync.com o un servidor allotjat</string>
     <string name="show_advanced_settings">Mostreu la configuració avançada</string>
     <string name="app_settings">Configuració de l\'aplicació</string>
+    <string name="whats_new">Què hi ha de nou</string>
+    <string name="version_string">Versió %1$s</string>
+    <string name="rate_tasks">Valora Tasks</string>
+    <string name="documentation">Documentació</string>
+    <string name="issue_tracker">Seguidor d'incidències</string>
+    <string name="contact_developer">Contacta amb el desenvolupador</string>
+    <string name="send_application_logs">Envie els registres de l'aplicació</string>
+    <string name="follow_reddit">Uniu-vos a r/tasques</string>
+    <string name="follow_twitter">Seguiu a @tasks_org</string>
+    <string name="source_code">Codi font</string>
+    <string name="third_party_licenses">Llicències de tercers</string>
+    <string name="privacy_policy">Política de privacitat</string>
+    <string name="send_anonymous_statistics">Millora Tasks</string>
+    <string name="send_anonymous_statistics_summary">Envia estadístiques d'ús anònimes i informes de fallada per ajudar a millorar Tasks. No es recolliran dades personals.</string>
+    <string name="license_summary">Tasks és un programari lliure de codi obert, amb llicència sota la Llicència Pública General de GNU v3.0</string>
+    <string name="support">Suport</string>
+    <string name="social">Social</string>
+    <string name="open_source">Codi obert</string>
+    <string name="restart_required">Reinicia Tasks per aplicar els canvis</string>
+    <string name="restart_now">Reinicia ara</string>
+    <string name="restart_later">Després</string>
 </resources>

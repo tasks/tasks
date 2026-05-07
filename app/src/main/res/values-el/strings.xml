@@ -378,7 +378,6 @@
     <string name="subscription">Συνδρομή εφαρμογής</string>
     <string name="refresh_purchases">Ανανέωση συναλλαγών</string>
     <string name="button_subscribe">Εγγραφή στη συνδρομή</string>
-    <string name="license_summary">Η εφαρμογή Tasks είναι ελεύθερο λογισμικό ανοιχτού κώδικα, με άδεια χρήσης GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Επέκταση ρολογιού ταμπλό</string>
     <string name="requires_pro_subscription">Χρειάζεται συνδρομή (pro)</string>
     <string name="this_feature_requires_a_subscription">Αυτό το χαρακτηριστικό χρειάζεται συνδρομή</string>
@@ -406,11 +405,9 @@
     <string name="location_permission_required_location">Χρειάζονται άδειες τοποθεσίας για την εύρεση της τωρινής σας τοποθεσίας</string>
     <string name="open_map">Άνοιγμα χάρτη</string>
     <string name="choose_new_location">Επιλογή νέας τοποθεσίας</string>
-    <string name="third_party_licenses">Άδειες τρίτων</string>
     <string name="banner_app_updated_title">Η εφαρμογή ενημερώθηκε</string>
     <string name="banner_app_updated_description">Η Tasks μόλις ενημερώθηκε στο %s. Θα θέλατε να δείτε της σημειώσεις έκδοσης;</string>
     <string name="whats_new">Τι καινούργιο υπάρχει</string>
-    <string name="version_string">Έκδοση %s</string>
     <string name="invalid_backup_file">Μη έγκυρο αρχείο αντιγράφου ασφαλείας</string>
     <string name="google_tasks_add_to_top">Νέες εργασίες στο πάνω μέρος</string>
     <string name="name_your_price">Καθορίστε την τιμή σας</string>
@@ -513,11 +510,7 @@
     <string name="price_per_month_with_currency">%s/μήνα</string>
     <string name="price_per_year_with_currency">%s/χρόνο</string>
     <string name="current_subscription">Τρέχουσα συνδρομή: %s</string>
-    <string name="follow_reddit">Γίνετε μέλος του r/tasks</string>
-    <string name="follow_twitter">Ακολουθήστε το @tasks_org</string>
-    <string name="social">Κοινωνικά δίκτυα</string>
     <string name="support">Υποστήριξη</string>
-    <string name="issue_tracker">Παρακολούθηση ζητημάτων</string>
     <string name="open_source">Ανοιχτός κώδικας</string>
     <string name="privacy">Ιδιωτικότητα</string>
     <string name="authorization_cancelled">Η εξουσιοδότηση ακυρώθηκε</string>
@@ -583,11 +576,7 @@
     <string name="widget_show_checkboxes">Εμφάνιση πλαισίων ελέγχου (κουτάκια)</string>
     <string name="customize_edit_screen">Προσαρμογή οθόνης επεξεργασίας</string>
     <string name="customize_edit_screen_summary">Αναδιάταξη ή κατάργηση πεδίων</string>
-    <string name="source_code">Πηγαίος κώδικας</string>
     <string name="translations">Συνεισφέρετε μεταφράσεις</string>
-    <string name="contact_developer">Επικοινωνία με τον προγραμματιστή</string>
-    <string name="send_application_logs">Αποστολή αρχείων καταγραφής εφαρμογών</string>
-    <string name="rate_tasks">Βαθμολογήστε το Tasks</string>
     <string name="quiet_hours_summary">Καθόλου υπενθυμίσεις κατά τη διάρκεια των ωρών ησυχίας</string>
     <string name="randomly_every">Τυχαία κάθε %s</string>
     <string name="randomly">Τυχαία</string>
@@ -626,9 +615,6 @@
     <string name="take_a_picture">Βγάλτε μια φωτογραφία</string>
     <string name="pick_from_gallery">Επιλογή από τη συλλογή</string>
     <string name="pick_from_storage">Επιλογή από την αποθήκη αρχείων</string>
-    <string name="privacy_policy">Πολιτική απορρήτου</string>
-    <string name="send_anonymous_statistics">Βελτιώστε το Tasks</string>
-    <string name="send_anonymous_statistics_summary">Στείλτε ανώνυμα στατιστικά στοιχεία χρήσης και αναφορές σφαλμάτων για να συμβάλετε στη βελτίωση του Tasks. Δεν θα συλλεχθούν προσωπικά δεδομένα.</string>
     <string name="tag_already_exists">Η ετικέτα υπάρχει ήδη</string>
     <string name="name_cannot_be_empty">Το όνομα δεν μπορεί να είναι κενό</string>
     <string name="no_title">(Χωρίς τίτλο)</string>

@@ -224,10 +224,7 @@
     <string name="font_size">Размер на шрифта</string>
     <string name="row_spacing">Междуредие</string>
     <string name="customize_edit_screen">Настройване на екрана за редактиране</string>
-    <string name="source_code">Изходен код</string>
     <string name="translations">Допринасяне с превод</string>
-    <string name="contact_developer">Връзка с разработчика</string>
-    <string name="rate_tasks">Оценете Tasks</string>
     <string name="quiet_hours_summary">Без напомняния по време на тихите часове</string>
     <string name="add_reminder">Добавяне на напомняне</string>
     <string name="add_location">Добавяне на място</string>
@@ -262,9 +259,6 @@
     <string name="take_a_picture">Заснемане</string>
     <string name="pick_from_gallery">Изберете от галерия</string>
     <string name="pick_from_storage">Избиране на файл</string>
-    <string name="privacy_policy">Декларация за поверителност</string>
-    <string name="send_anonymous_statistics">Подобряване на Tasks</string>
-    <string name="send_anonymous_statistics_summary">Изпращане на анонимна статистика и доклади за грешки с цел подобряване на Tasks. Няма да бъдат събирани лични данни.</string>
     <string name="tag_already_exists">Етикетът вече съществува</string>
     <string name="name_cannot_be_empty">Името не може да е празно</string>
     <string name="no_title">(Без заглавие)</string>
@@ -357,8 +351,6 @@
     <string name="location_permission_required_location">За да бъде определено текущото местоположение е необходимо разрешение за местоположението</string>
     <string name="open_map">Отваряне на картата</string>
     <string name="choose_new_location">Избиране на ново местоположение</string>
-    <string name="third_party_licenses">Лицензи на трети страни</string>
-    <string name="version_string">Издание %s</string>
     <string name="invalid_backup_file">Невалидно резервно копие</string>
     <string name="google_tasks_add_to_top">Нови задачи отгоре</string>
     <string name="action_new_task">Нова задача</string>
@@ -404,7 +396,6 @@
     <string name="astrid_sort_order">Ръчно сортиране на Astrid</string>
     <string name="SSD_sort_my_order">Моя подредба</string>
     <string name="markdown">Markdown</string>
-    <string name="license_summary">Tasks е софтуер с отворен код, лицензиран под GNU General Public License v3.0</string>
     <string name="this_feature_requires_a_subscription">Тази възможност изисква абонамент</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeat_monthly_fifth_week">пета</string>
@@ -538,13 +529,11 @@
     <string name="save_percent">Спестявате %d%%</string>
     <string name="app_password">Парола на приложението</string>
     <string name="custom_filter_has_reminder">Има напомняне</string>
-    <string name="follow_twitter">Следвайте @tasks_org</string>
     <string name="remove_user">Премахване на потребителя\?</string>
     <string name="invite_declined">Поканата е отхвърлена</string>
     <string name="invite_awaiting_response">Поканата очаква орговор</string>
     <string name="invite_invalid">Поканата е недейсвителна</string>
     <string name="current_subscription">Текущ абонамент: %s</string>
-    <string name="social">Социални мрежи</string>
     <string name="permission_read_tasks">Пълен дистъп до банката данни на Task</string>
     <string name="github_sponsors">Дарители от GitHub</string>
     <string name="markdown_description">Markdown в заглавията и описанията</string>
@@ -558,7 +547,6 @@
     <string name="snoozed_until">Отложено до %s</string>
     <string name="open_last_viewed_list">Отваряне на последно прегледания списък</string>
     <string name="reset_sort_order">Нулиране на сортирането</string>
-    <string name="follow_reddit">Присъединете се към r/tasks</string>
     <string name="open_source">Отворен код</string>
     <string name="privacy">Поверителност</string>
     <string name="upgrade_more_customization_description">Отключване на всички теми, цветове и пиктограми</string>
@@ -583,7 +571,6 @@
     <string name="copied_to_clipboard">%s копирано в междинната памет</string>
     <string name="backup_location_warning">ВНИМАНИЕ: Файловете, намиращи се в %s ще бъдат загубени с премахване на приложението. Изберете друго място, така че Android да не може да ги премахне.</string>
     <string name="backups_ignore_warnings_summary">Пренебрегнете предупреждението за резервно копие ако не ви е необходимо или имате собствено решение за резервни копия</string>
-    <string name="issue_tracker">Управление на дефекти</string>
     <string name="app_passwords_more_info">Синхронизирайте задачите и календарите си с други настолни и мобилни приложения. Докоснете за повече информация</string>
     <string name="authorization_cancelled">Удостоверяването е спряно</string>
     <string name="background_location">Местоположение във фонов режим</string>
@@ -623,7 +610,6 @@
     <string name="donate_nag">Помислете дали да не покажете подкрепата си чрез дарение!</string>
     <string name="donate_today">Даряване днес</string>
     <string name="donate_maybe_later">Може би после</string>
-    <string name="send_application_logs">Изпращане на дневника</string>
     <string name="quiet_hours_in_effect">В момента е време за тишина</string>
     <string name="enable_alarms">Получавайте напомнянията навреме</string>
     <string name="enable_alarms_description">За да бъдете сигурни, че ще получите напомняне в точното време дайте разрешение за задаване на будилници и напомняния в настройките</string>
@@ -654,9 +640,7 @@
     <string name="local_list_description">Задачите в този списък се пазят само на това устройство. Свържете профил, за да запазите задачите си и да имате достъп до тях отвсякъде.</string>
     <string name="subscription_required_fdroid">За да използвате синхронизацията на Tasks.org е необходим абонамент. Абонаментите трябва да се започват от версията на Tasks в Google Play.</string>
     <string name="sponsorship_required_fdroid">За да използвате синхронизацията на Tasks.org е необходимо даряване чрез Гитхъб. Докоснете отдолу, за да станете дарител.</string>
-    <string name="legal">Правни въпроси</string>
     <string name="legal_disclosure_prefix_using">Използвайки Tasks.org</string>
-    <string name="terms_of_service">Условия за използване на услугата</string>
     <string name="tos_updated_title">Променихме условията за използване на услугата</string>
     <string name="accept">Приемане</string>
     <string name="exit">Изход</string>
@@ -699,8 +683,4 @@
     <string name="upgrade_friends_and_family">Приятели и семейство</string>
     <string name="upgrade_friends_and_family_description">5 безплатни достъпа като гост на споделени листове. Работи с Apple Reminders</string>
     <string name="read_more">Прочетете повече</string>
-    <string name="blog_notifications">Известия от блога</string>
-    <string name="blog_feed_none">Няма</string>
-    <string name="blog_feed_announcements">Само обявления</string>
-    <string name="blog_feed_all">Всички постове</string>
 </resources>

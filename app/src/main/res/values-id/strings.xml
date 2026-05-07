@@ -164,9 +164,7 @@
     <string name="font_size">Ukuran huruf</string>
     <string name="row_spacing">Spasi baris</string>
     <string name="customize_edit_screen">Kostumisasi layar sunting</string>
-    <string name="source_code">Kode sumber</string>
     <string name="translations">Kontribusi terjemahan</string>
-    <string name="contact_developer">Hubungi pengembang</string>
     <string name="add_reminder">Tambah pengingat</string>
     <string name="add_location">Tambah lokasi</string>
     <string name="remove">Hapus</string>
@@ -196,9 +194,6 @@
     <string name="take_a_picture">Ambil gambar</string>
     <string name="pick_from_gallery">Pilih dari galeri</string>
     <string name="pick_from_storage">Pilih dari penyimpanan</string>
-    <string name="privacy_policy">Kebijakan privasi</string>
-    <string name="send_anonymous_statistics">Buat Tasks lebih baik</string>
-    <string name="send_anonymous_statistics_summary">Kirim statistik penggunaan dan laporan kerusakan secara anonim untuk membantu membuat Tasks menjadi lebih baik. Tidak ada data personal yang dikumpulkan.</string>
     <string name="tag_already_exists">Tag sudah ada</string>
     <string name="name_cannot_be_empty">Nama tidak boleh kosong</string>
     <string name="no_title">(Tanpa judul)</string>
@@ -281,7 +276,6 @@
     <string name="upgrade_to_pro">Tingkatkan ke pro</string>
     <string name="refresh_purchases">Segarkan pembelian</string>
     <string name="button_subscribe">Langganan</string>
-    <string name="license_summary">Tasks adalah perangkat lunak bebas bersumber terbuka, dilindungi Lisensi Publik Umum GNU v3.0</string>
     <string name="pro_dashclock_extension">Ekstensi Dashclock</string>
     <string name="requires_pro_subscription">Memerlukan langganan pro</string>
     <string name="logout">Keluar</string>
@@ -299,8 +293,6 @@
     <string name="location_permission_required_location">Izin akses lokasi diperlukan untuk mencari lokasi Anda saat ini</string>
     <string name="open_map">Buka peta</string>
     <string name="choose_new_location">Pilih lokasi baru</string>
-    <string name="third_party_licenses">Lisensi pihak ketiga</string>
-    <string name="version_string">Versi %s</string>
     <string name="invalid_backup_file">Berkas cadangan tidak valid</string>
     <string name="google_tasks_add_to_top">Tugas baru di atas</string>
     <string name="expand_subtasks">Lebarkan subtugas</string>
@@ -358,7 +350,6 @@
     <string name="date_shortcut_tomorrow_evening">Besok petang</string>
     <string name="date_shortcut_hour">Selama satu jam</string>
     <string name="quiet_hours_summary">Tidak ada pengingat selama jam tenang</string>
-    <string name="rate_tasks">Nilai Tasks</string>
     <string name="header_spacing">Jarak spasi</string>
     <string name="quiet_hours">Jam Tenang</string>
     <string name="widget_show_menu">Tampilkan menu</string>
@@ -405,7 +396,6 @@
     <string name="sign_in_with_google">Masuk dengan Google</string>
     <string name="github_sponsors">Sponsor GitHub</string>
     <string name="authorization_cancelled">Otorisasi dibatalkan</string>
-    <string name="follow_reddit">Gabung r/tasks</string>
     <string name="current_subscription">Langganan saat ini: %s</string>
     <string name="no_google_play_subscription">Tidak ditemukan langganan Google Play yang memenuhi syarat</string>
     <string name="your_subscription_expired">Langganan Anda telah berakhir. Berlangganan kembali untuk melanjutkan layanan.</string>
@@ -515,10 +505,7 @@
     <string name="tasks_org_account_required">Akun Tasks.org Dibutuhkan</string>
     <string name="privacy">Privasi</string>
     <string name="open_source">Sumber Terbuka</string>
-    <string name="issue_tracker">Pelacak isu</string>
     <string name="support">Dukung</string>
-    <string name="social">Sosial</string>
-    <string name="follow_twitter">Ikuti @tasks_org</string>
     <string name="remove_user_confirmation">%1$s tidak akan mempunyai akses lagi pada %2$s</string>
     <string name="remove_user">Hapus pengguna\?</string>
     <string name="list_members">Daftar anggota</string>
@@ -601,7 +588,6 @@
     <string name="yesterday">Kemarin</string>
     <string name="quiet_hours_in_effect">Jam hening sedang berlaku</string>
     <string name="customize_edit_screen_summary">Atur ulang atau hapus kolom</string>
-    <string name="send_application_logs">Kirim log aplikasi</string>
     <string name="change_priority">Ubah prioritas</string>
     <string name="show_edit_screen_without_unlock">Tampilkan layar edit tanpa membuka kunci</string>
     <string name="show_edit_screen_without_unlock_summary">Memungkinkan penggunaan ubin Pengaturan Cepat tanpa membuka kunci perangkat</string>
@@ -636,7 +622,6 @@
     <string name="sponsorship_required_fdroid">Sponsor GitHub diperlukan untuk menggunakan sinkronisasi Tasks.org. Klik di bawah untuk menjadi sponsor.</string>
     <string name="price_per_month_with_currency">%s/bulan</string>
     <string name="price_per_year_with_currency">%s/tahun</string>
-    <string name="legal">Hukum</string>
     <string name="email_to_task">Email ke tugas</string>
     <string name="email_to_task_address">Alamat email Anda</string>
     <string name="share_list">Bagikan \"%1$s\"</string>
@@ -662,7 +647,6 @@
     <string name="enable_alarms">Dapatkan notifikasi pada waktu yang tepat</string>
     <string name="enable_alarms_description">Untuk memastikan Anda mendapat notifikasi pada waktu yang tepat, berikan izin untuk mengatur alarm dan pengingat di Pengaturan</string>
     <string name="legal_disclosure_prefix_using">Dengan menggunakan Tasks.org</string>
-    <string name="terms_of_service">Ketentuan layanan</string>
     <string name="tos_updated_title">Kami telah memperbarui Ketentuan Layanan kami</string>
     <string name="accept">Terima</string>
     <string name="exit">Keluar</string>
@@ -681,8 +665,4 @@
     <string name="button_learn_more">Pelajari lebih lanjut</string>
     <string name="widget_view_more_tasks">Lihat lebih banyak tugas</string>
     <string name="read_more">Baca selengkapnya</string>
-    <string name="blog_notifications">Notifikasi blog</string>
-    <string name="blog_feed_none">Tidak ada</string>
-    <string name="blog_feed_announcements">Pengumuman saja</string>
-    <string name="blog_feed_all">Semua postingan</string>
 </resources>

@@ -92,4 +92,18 @@
     <string name="username_required">Precísase un nome d\\'usuariu</string>
     <string name="show_advanced_settings">Amosar axustes avanzaos</string>
     <string name="app_settings">Axustes de l\'aplicación</string>
+    <string name="whats_new">Novedaes</string>
+    <string name="version_string">Versión %1$s</string>
+    <string name="rate_tasks">Valora Tasks</string>
+    <string name="contact_developer">Contauta col desendolcador</string>
+    <string name="send_application_logs">Unviar rexistros de l'aplicación</string>
+    <string name="source_code">Códigu fonte</string>
+    <string name="third_party_licenses">Llicencies de terceros</string>
+    <string name="privacy_policy">Política de privacidá</string>
+    <string name="send_anonymous_statistics">Ameyorar Tasks</string>
+    <string name="send_anonymous_statistics_summary">Unvia estadístiques anónimes d'usu ya informes d'error p'aidar a ameyorar Tasks. Dengún datu personal sedrá recoyíu.</string>
+    <string name="license_summary">Tasks ye un software llibre de códigu abiertu, llicenciáu baxu la Llicencia Pública Xeneral de GNU v3.0</string>
+    <string name="restart_required">Reanicia Tasks pa qu'esti cambeu tenga efeutu</string>
+    <string name="restart_now">Reaniciar agora</string>
+    <string name="restart_later">Dempués</string>
 </resources>

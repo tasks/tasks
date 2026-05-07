@@ -43,11 +43,7 @@
     <string name="authorization_cancelled">Autorizație anulată</string>
     <string name="privacy">Confidențialitate</string>
     <string name="open_source">Sursă deschisă</string>
-    <string name="issue_tracker">Urmărirea problemelor</string>
     <string name="support">Suport</string>
-    <string name="social">Social</string>
-    <string name="follow_twitter">Urmărește @tasks_org</string>
-    <string name="follow_reddit">Alătură-te la r/tasks</string>
     <string name="current_subscription">Abonamentul curent: %s</string>
     <string name="no_google_play_subscription">Nu s-a găsit niciun abonament Google Play eligibil</string>
     <string name="your_subscription_expired">Abonamentul a expirat. Abonează-te acum pentru a relua serviciul.</string>
@@ -145,9 +141,6 @@
     <string name="no_title">(Fără titlu)</string>
     <string name="name_cannot_be_empty">Numele nu poate fi gol</string>
     <string name="tag_already_exists">Etichetă deja existentă</string>
-    <string name="send_anonymous_statistics_summary">Se trimit statistici anonime de utilizare și rapoarte de accident pentru a ajuta la îmbunătățirea Tasks. Nu vor fi colectate date cu caracter personal.</string>
-    <string name="send_anonymous_statistics">Îmbunătățire Tasks</string>
-    <string name="privacy_policy">Politica de confidențialitate</string>
     <string name="pick_from_storage">Alege de pe stocare</string>
     <string name="pick_from_gallery">Alege din galerie</string>
     <string name="take_a_picture">Fă o fotografie</string>
@@ -187,10 +180,7 @@
     <string name="add_location">Adaugă locația</string>
     <string name="add_reminder">Adaugă un memento</string>
     <string name="quiet_hours_summary">Nu există memento-uri în timpul orelor de liniște</string>
-    <string name="rate_tasks">Evaluează Tasks (sarcini)</string>
-    <string name="contact_developer">Contactează dezvoltatorul</string>
     <string name="translations">Contribuie la traduceri</string>
-    <string name="source_code">Codul sursă</string>
     <string name="customize_edit_screen">Personalizează ecranul de editare</string>
     <string name="row_spacing">Distanța dintre rânduri</string>
     <string name="header_spacing">Distanțare</string>
@@ -509,9 +499,7 @@
     <string name="name_your_price">Spune prețul</string>
     <string name="google_tasks_add_to_top">Sarcini noi în partea de sus</string>
     <string name="invalid_backup_file">Fișier de backup invalid</string>
-    <string name="version_string">Versiunea %s</string>
     <string name="whats_new">Ce este nou</string>
-    <string name="third_party_licenses">Licențe de la terți</string>
     <string name="choose_new_location">Alege o nouă locație</string>
     <string name="open_map">Deschide harta</string>
     <string name="location_permission_required_location">Permisiunile de localizare sunt necesare pentru a găsi locația curentă</string>
@@ -538,7 +526,6 @@
     <string name="this_feature_requires_a_subscription">Această funcție necesită un abonament</string>
     <string name="requires_pro_subscription">Necesită un abonament pro</string>
     <string name="pro_dashclock_extension">Extinderea ceasului de bord</string>
-    <string name="license_summary">Tasks este un software libre open-source, licențiat sub licența GNU General Public License v3.0</string>
     <string name="TPl_notification">Cronometre active pentru %s!</string>
     <string name="delete_tag_confirmation">Ștergi %s\?</string>
     <string name="new_list">Crează o nouă listă</string>
@@ -633,7 +620,6 @@
     <string name="repeats_ends">Se încheie</string>
     <string name="repeats_on">La</string>
     <string name="repeats_weekly_on">Se repetă la</string>
-    <string name="send_application_logs">Trimite jurnalele aplicației</string>
     <string name="show_edit_screen_without_unlock">Afișează ecranul de editare fără deblocare</string>
     <string name="app_settings">Setările aplicației</string>
     <string name="swipe_to_snooze_time_description">O notificare eliminată va fi amânată și recreată %s</string>

@@ -202,4 +202,27 @@
     <string name="sign_in_subtitle">כבר מנוי/ה או אורח/ת מוזמן/ת?</string>
     <string name="show_advanced_settings">הצגת הגדרות מתקדמות</string>
     <string name="app_settings">הגדרות יישום</string>
+    <string name="whats_new">מה חדש</string>
+    <string name="version_string">גרסה %1$s</string>
+    <string name="rate_tasks">דרגו את Tasks</string>
+    <string name="documentation">תיעוד</string>
+    <string name="issue_tracker">עוקב בעיות</string>
+    <string name="contact_developer">יצירת קשר עם המפתח</string>
+    <string name="send_application_logs">שליחת יומני יישום</string>
+    <string name="follow_reddit">הצטרפו אל r/tasks</string>
+    <string name="follow_twitter">עקבו אחרי tasks_org@</string>
+    <string name="source_code">קוד מקור</string>
+    <string name="third_party_licenses">רישיונות צד שלישי</string>
+    <string name="terms_of_service">תנאי השירות</string>
+    <string name="privacy_policy">מדיניות פרטיות</string>
+    <string name="send_anonymous_statistics">שיפור Tasks</string>
+    <string name="send_anonymous_statistics_summary">ניתן לשלוח סטטיסטיקת שימוש ודוחות קריסה אנונימיים כדי לעזור לשפר את Tasks. לא ייאסף מידע אישי.</string>
+    <string name="license_summary">היישום Tasks הוא תוכנה חופשית בקוד פתוח, המורשת תחת הרישיון הציבורי הכללי של GNU בגרסה 3.0</string>
+    <string name="support">תמיכה</string>
+    <string name="social">חברתי</string>
+    <string name="open_source">קוד פתוח</string>
+    <string name="legal">משפטי</string>
+    <string name="restart_required">יש להפעיל מחדש את Tasks כדי ששינוי זה ייכנס לתוקף</string>
+    <string name="restart_now">הפעלה מחדש כעת</string>
+    <string name="restart_later">מאוחר יותר</string>
 </resources>

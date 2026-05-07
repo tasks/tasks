@@ -101,7 +101,7 @@ import tasks.kmp.generated.resources.tos_updated_title
 import tasks.kmp.generated.resources.url
 import tasks.kmp.generated.resources.user
 import tasks.kmp.generated.resources.view_tos
-import tasks.kmp.generated.resources.support_email
+import org.tasks.TasksUrls
 import tasks.kmp.generated.resources.wrong_account
 import tasks.kmp.generated.resources.wrong_account_message
 import tasks.kmp.generated.resources.your_subscription_expired
@@ -618,7 +618,7 @@ private fun ErrorBannerCard(
             summary = stringResource(
                 Res.string.wrong_account_message,
                 account.error.purchaseTokenInUseAccount() ?: "",
-                stringResource(Res.string.support_email),
+                TasksUrls.SUPPORT_EMAIL,
             )
             onClick = onSignIn
         }

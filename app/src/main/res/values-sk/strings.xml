@@ -240,10 +240,7 @@
     <string name="font_size">Veľkosť písma</string>
     <string name="row_spacing">Šírka riadkov</string>
     <string name="customize_edit_screen">Prispôsobiť zobrazenie úprav</string>
-    <string name="source_code">Zdrojový kód</string>
     <string name="translations">Prispieť prekladom</string>
-    <string name="contact_developer">Spojiť sa s vývojárom</string>
-    <string name="rate_tasks">Ohodnotiť Úlohy</string>
     <string name="quiet_hours_summary">Žiadne upozornenia počas obdobia ticha</string>
     <string name="add_reminder">Pridať pripomienku</string>
     <string name="add_location">Pridať polohu</string>
@@ -277,9 +274,6 @@
     <string name="take_a_picture">Spraviť obrázok</string>
     <string name="pick_from_gallery">Vybrať z galérie</string>
     <string name="pick_from_storage">Vybrať z uložených</string>
-    <string name="privacy_policy">Ochrana súkromia</string>
-    <string name="send_anonymous_statistics">Pomôžte vylepšiť Tasks</string>
-    <string name="send_anonymous_statistics_summary">Zasielať anonymné štatistiky používania a správy o zlyhaní aplikácie pre zlepšenia Úloh. Žiadne osobné údaje nebudú zhromažďované.</string>
     <string name="tag_already_exists">Štítok už jestvuje</string>
     <string name="name_cannot_be_empty">Názov nesmie ostať prázdny </string>
     <string name="no_title">Bez názvu</string>
@@ -348,7 +342,6 @@
     <string name="upgrade_to_pro">Rozšíriť na verziu pro</string>
     <string name="refresh_purchases">Obnoviť nákupy</string>
     <string name="button_subscribe">Prihlásiť sa</string>
-    <string name="license_summary">Tasks je slobodný softvér s otvoreným zdrojovým kódom uvoľnený pod licenciou GNU Public Licence v3.0</string>
     <string name="pro_dashclock_extension">Rozšírenie Dashclock</string>
     <string name="requires_pro_subscription">Vyžaduje platenú verziu pro</string>
     <string name="logout">Odhlásiť sa</string>
@@ -372,8 +365,6 @@
     <string name="location_permission_required_location">Pre učenie súčasnej polohy sú potrebné povolenia</string>
     <string name="open_map">Otvoriť mapu</string>
     <string name="choose_new_location">Zvoliť novú polohu</string>
-    <string name="third_party_licenses">Licencie tretích strán</string>
-    <string name="version_string">Verzia %s</string>
     <string name="TEA_add_subtask">Pridať podúlohu</string>
     <string name="SSD_sort_my_order">Vlastné poradie</string>
     <string name="email">E-mail</string>
@@ -419,7 +410,6 @@
         <item quantity="few">%d podúlohy</item>
         <item quantity="other">%d podúloh</item>
     </plurals>
-    <string name="send_application_logs">Odoslať záznamy z aplikácie</string>
     <plurals name="reminder_minutes">
         <item quantity="one">minúta</item>
         <item quantity="few">minúty</item>
@@ -532,10 +522,8 @@
     <string name="backups_ignore_warnings">Ignorovať varovania</string>
     <string name="custom_filter_is_subtask">Je podúloha</string>
     <string name="price_per_month_with_currency">%s mesačne</string>
-    <string name="social">Sociálne siete</string>
     <string name="permission_read_tasks">Plný prístup do databázy Tasks</string>
     <string name="automatic_backups">Automatické zálohovanie</string>
-    <string name="follow_reddit">Pripojte sa k r/tasks</string>
     <string name="custom_filter_has_reminder">Má pripomienku</string>
     <string name="whats_new">Čo je nové</string>
     <string name="list_separator_with_space">", "</string>
@@ -553,7 +541,6 @@
     <string name="foreground_location">Umiestnenie na popredí</string>
     <string name="price_per_year_with_currency">%s ročne</string>
     <string name="current_subscription">Súčasné predplatné: %s</string>
-    <string name="follow_twitter">Sledujte @tasks_org</string>
     <string name="more_settings">Ďalšie nastavenia</string>
     <string name="open_source">Otvorený zdrojový kód</string>
     <string name="github_sponsor">Sponzor</string>
@@ -568,7 +555,6 @@
     <string name="auto_dismiss_datetime_edit">Úprava úlohy</string>
     <string name="auto_dismiss_datetime_widget">Widget</string>
     <string name="select_all">Vybrať všetko</string>
-    <string name="issue_tracker">Hlásenie problémov</string>
     <string name="more_options">Ďalšie možnosti</string>
     <string name="tasks_org_account_required">Vyžaduje sa účet na Tasks.org</string>
     <string name="upgrade_blurb_2">Prácou na Tasks som strávil tisíce hodín a bez nároku na odmenu zverejňujem všetok zdrojový kód online. Za účelom podpory mojej práce niektoré funkcie aplikácie vyžadujú predplatné</string>

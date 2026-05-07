@@ -152,4 +152,24 @@
     <string name="etesync_account_description">Yêu cầu một tài khoản trên EteSync.com hoặc một máy chủ mà bạn vận hành</string>
     <string name="show_advanced_settings">Hiện cài đặt nâng cao</string>
     <string name="app_settings">Cài đặt ứng dụng</string>
+    <string name="whats_new">Có gì mới</string>
+    <string name="version_string">Phiên bản %1$s</string>
+    <string name="rate_tasks">Đánh giá Tasks</string>
+    <string name="documentation">Tài liệu</string>
+    <string name="issue_tracker">Trình theo dõi vấn đề</string>
+    <string name="contact_developer">Liên hệ với nhà phát triển</string>
+    <string name="follow_reddit">Tham gia r/tasks</string>
+    <string name="follow_twitter">Theo dõi @tasks_org</string>
+    <string name="source_code">Mã nguồn</string>
+    <string name="third_party_licenses">Giấy phép bên thứ ba</string>
+    <string name="privacy_policy">Chính sách riêng tư</string>
+    <string name="send_anonymous_statistics">Cải thiện Tasks</string>
+    <string name="send_anonymous_statistics_summary">Gửi thống kê sử dụng và báo cáo crash nặc danh để giúp cải thiện Tasks. Không có dữ liệu cá nhân nào sẽ được thu thập.</string>
+    <string name="license_summary">Tasks là phần mềm tự do và mã nguồn mở, được cấp phép dưới GNU General Public License v3.0</string>
+    <string name="support">Hỗ trợ</string>
+    <string name="social">Xã hội</string>
+    <string name="open_source">Mã nguồn mở</string>
+    <string name="restart_required">Khởi động lại Tasks để thay đổi này có hiệu lực</string>
+    <string name="restart_now">Khởi động lại ngay</string>
+    <string name="restart_later">Để sau</string>
 </resources>

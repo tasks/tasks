@@ -234,10 +234,7 @@
     <string name="font_size">Rozmiar czcionki</string>
     <string name="row_spacing">Odstęp wierszy</string>
     <string name="customize_edit_screen">Dostosuj ekran edycji</string>
-    <string name="source_code">Kod źródłowy</string>
     <string name="translations">Wspomóż tłumaczenie</string>
-    <string name="contact_developer">Skontaktuj się z twórcą</string>
-    <string name="rate_tasks">Oceń Tasks</string>
     <string name="quiet_hours_summary">Brak przypomnień w czasie wyciszenia</string>
     <string name="add_reminder">Dodaj przypomnienie</string>
     <string name="add_location">Dodaj lokalizację</string>
@@ -271,9 +268,6 @@
     <string name="take_a_picture">Wybierz obrazek</string>
     <string name="pick_from_gallery">Wybierz z galerii</string>
     <string name="pick_from_storage">Wybierz z pamięci</string>
-    <string name="privacy_policy">Polityka prywatności</string>
-    <string name="send_anonymous_statistics">Ulepsz Tasks</string>
-    <string name="send_anonymous_statistics_summary">Wyślij anonimowe statyki użycia i raporty o awariach celem ulepszenia Tasks. Żadne prywatne dane nie będą gromadzone.</string>
     <string name="tag_already_exists">Tag już istnieje</string>
     <string name="name_cannot_be_empty">Nazwa nie może być pusta</string>
     <string name="no_title">(Bez tytułu)</string>
@@ -343,7 +337,6 @@
     <string name="upgrade_to_pro">Upgrade do pro</string>
     <string name="refresh_purchases">Odśwież zakupy</string>
     <string name="button_subscribe">Zasubskrybuj</string>
-    <string name="license_summary">Tasks jest aplikacją darmową/libre z otwartym kodem źródłowym, na licencji GNU General Public License v3.0</string>
     <string name="requires_pro_subscription">Wymaga subskrypcji pro</string>
     <string name="logout">Wyloguj</string>
     <string name="cannot_access_account">Brak dostępu do konta</string>
@@ -366,8 +359,6 @@
     <string name="location_permission_required_location">Uprawnienia lokalizacji są wymagane do ustalenia twojej aktualnej lokalizacji</string>
     <string name="open_map">Otwórz mapę</string>
     <string name="choose_new_location">Wybierz nową lokalizację</string>
-    <string name="third_party_licenses">Licencje innych podmiotów</string>
-    <string name="version_string">Wersja %s</string>
     <string name="CFC_tag_text">Tag; \?</string>
     <string name="location_radius_meters">%s m</string>
     <string name="url">URL</string>
@@ -522,7 +513,6 @@
     <string name="migrating_tasks">Migrowanie zadań</string>
     <string name="github_sponsors">Sponsorzy GitHub</string>
     <string name="authorization_cancelled">Autoryzacja anulowana</string>
-    <string name="follow_reddit">Dołącz do r/tasks</string>
     <string name="current_subscription">Aktualna subskrypcja: %s</string>
     <string name="no_google_play_subscription">Nie znaleziono kwalifikującej się subskrypcji Google Play</string>
     <string name="your_subscription_expired">Twoja subskrypcja wygasła. Zasubskrybuj teraz, aby wznowić usługę.</string>
@@ -543,8 +533,6 @@
     <string name="widget_show_title">Pokaż tytuł</string>
     <string name="tasks_org_account_required">Wymagane konto Tasks.org</string>
     <string name="privacy">Prywatność</string>
-    <string name="social">Media społecznościowe</string>
-    <string name="follow_twitter">Obserwuj @tasks_org</string>
     <string name="remove_user">Usunąć użytkownika\?</string>
     <string name="support">Wsparcie</string>
     <string name="email">Poczta elektroniczna</string>
@@ -562,7 +550,6 @@
     <string name="remove_user_confirmation">%1$s nie będzie miał już dostępu do %2$s</string>
     <string name="list_members">Członkowie listy</string>
     <string name="open_source">Open source</string>
-    <string name="issue_tracker">Śledzenie problemów</string>
     <string name="next_saturday">Następna sobota</string>
     <string name="next_friday">Następny piątek</string>
     <string name="next_thursday">Następny czwartek</string>
@@ -643,7 +630,6 @@
     <string name="delete_comment">komentarz</string>
     <string name="comment">Komentarz</string>
     <string name="yesterday">Wczoraj</string>
-    <string name="send_application_logs">Wyślij logi aplikacji</string>
     <string name="change_priority">Zmień priorytet</string>
     <string name="theme_dynamic">Dynamiczny</string>
 </resources>

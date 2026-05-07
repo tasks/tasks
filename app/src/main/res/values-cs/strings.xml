@@ -130,10 +130,7 @@
     <string name="miscellaneous">Různé</string>
     <string name="enabled">Povoleno</string>
     <string name="font_size">Velikost písma</string>
-    <string name="source_code">Zdrojové kódy</string>
     <string name="translations">Přispějte k překladu</string>
-    <string name="contact_developer">Kontaktujte vývojáře</string>
-    <string name="rate_tasks">Ohodnotit Tasks</string>
     <string name="quiet_hours_summary">Žádné připomínky v období nerušení</string>
     <string name="remove">Odstranit</string>
     <string name="randomly">Náhodně</string>
@@ -151,9 +148,6 @@
     <string name="filter_settings">Nastavení filtru</string>
     <string name="show_completed">Zobrazit dokončené</string>
     <string name="add_attachment">Přidat přílohu</string>
-    <string name="privacy_policy">Zásady ochrany osobních údajů</string>
-    <string name="send_anonymous_statistics">Vylepšit Tasks</string>
-    <string name="send_anonymous_statistics_summary">Odesílat anonymní statistiky využití a hlášení o pádu, které pomohou vylepšit Tasks. Nebudou shromažďovány žádné osobní údaje.</string>
     <string name="tag_already_exists">Štítek již existuje</string>
     <string name="no_title">(Bez názvu)</string>
     <string name="back_button_saves_task">Tlačítko zpět uloží úkol</string>
@@ -347,7 +341,6 @@
     <string name="upgrade_to_pro">Získat verzi Pro</string>
     <string name="refresh_purchases">Obnovit nákupy</string>
     <string name="button_subscribe">Předplatit</string>
-    <string name="license_summary">Aplikace Tasks je svobodný software s otevřeným zdrojovým kódem licencovaný pod GNU General Public License v3.0</string>
     <string name="icon">Ikona</string>
     <string name="help_and_feedback">Nápověda a zpětná vazba</string>
     <string name="pro_dashclock_extension">Dashclock rozšíření</string>
@@ -372,8 +365,6 @@
     <string name="location_permission_required_location">Oprávnění k přístupu k poloze je nutné pro zjištění vaší aktuální polohy</string>
     <string name="open_map">Otevřít mapu</string>
     <string name="choose_new_location">Vybrat novou polohu</string>
-    <string name="third_party_licenses">Licence třetích stran</string>
-    <string name="version_string">Verze %s</string>
     <string name="invalid_backup_file">Zvolený soubor neobsahuje zálohu</string>
     <string name="google_tasks_add_to_top">Nové úkoly nahoře</string>
     <string name="name_your_price">Zaplaťte libovolnou částku</string>
@@ -536,11 +527,7 @@
     <string name="authorization_cancelled">Autorizace zrušena</string>
     <string name="privacy">Soukromí</string>
     <string name="open_source">Otevřený zdrojový kód</string>
-    <string name="issue_tracker">Hlášení problémů</string>
     <string name="support">Podpora a nápověda</string>
-    <string name="social">Sociální sítě</string>
-    <string name="follow_twitter">Sledujte @tasks_org</string>
-    <string name="follow_reddit">Připojte se k r/tasks</string>
     <string name="current_subscription">Stávající předplatné: %s</string>
     <string name="no_google_play_subscription">Nenalezeno žádné Google Play předplatné</string>
     <string name="background_location">Umístění v pozadí</string>
@@ -645,7 +632,6 @@
     <string name="swipe_to_snooze_title">Přejetím prstu odložíte</string>
     <string name="swipe_to_snooze_description">Čas odložení</string>
     <string name="yesterday">Včera</string>
-    <string name="send_application_logs">Poslat záznamy problémů</string>
     <string name="quiet_hours_in_effect">Režim nerušit je zapnutý</string>
     <string name="delete_comment">komentář</string>
     <string name="price_per_month_with_currency">%s měsíčně</string>
@@ -675,9 +661,7 @@
     <string name="local_list_description">Úkoly v tomto seznamu jsou uloženy pouze na tomto zařízení. Připojte účet pro zabezpečení vašich dat a přístup k nim odkudkoli.</string>
     <string name="subscription_required_fdroid">Pro využití synchronizace Tasks.org je vyžadováno předplatné. Předplatná lze pořídit v Google Play verzi aplikace Tasks.</string>
     <string name="sponsorship_required_fdroid">Sponzorství na GitHubu je vyžadováno pro synchronizaci Tasks.org. Kliknutím níže se stanete sponzorem.</string>
-    <string name="legal">Právní informace</string>
     <string name="legal_disclosure_prefix_using">Používáním Tasks.org</string>
-    <string name="terms_of_service">Podmínky služby</string>
     <string name="tos_updated_title">Upravili jsme naše Podmínky služby</string>
     <string name="accept">Přijmout</string>
     <string name="exit">Ukončit</string>
@@ -718,10 +702,6 @@
     <string name="location_update_interval_1_hour">Každou hodinu</string>
     <string name="location_update_interval_2_hours">Každé 2 hodiny</string>
     <string name="read_more">Více informací</string>
-    <string name="blog_notifications">Upozornění z blogu</string>
-    <string name="blog_feed_none">Žádné</string>
-    <string name="blog_feed_announcements">Pouze oznámení</string>
-    <string name="blog_feed_all">Všechny příspěvky</string>
     <string name="upgrade_desktop_app">Tasks.org pro počítače</string>
     <string name="upgrade_desktop_app_description">Předběžný přístup k nové aplikaci pro počítače</string>
 </resources>

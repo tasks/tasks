@@ -180,4 +180,27 @@
     <string name="etesync_account_description">Voorwaarde is een account op www.EteSync.com of een eigen server</string>
     <string name="show_advanced_settings">Geavanceerde instellingen tonen</string>
     <string name="app_settings">App-instellingen</string>
+    <string name="whats_new">Wat is nieuw</string>
+    <string name="version_string">Versie %1$s</string>
+    <string name="rate_tasks">Tasks waarderen</string>
+    <string name="documentation">Documentatie (website)</string>
+    <string name="issue_tracker">Probleem tracker</string>
+    <string name="contact_developer">Contact met ontwikkelaar</string>
+    <string name="send_application_logs">Stuur applicatielogboeken</string>
+    <string name="follow_reddit">Bij r/tasks aansluiten</string>
+    <string name="follow_twitter">Volg @tasks_org</string>
+    <string name="source_code">Broncode</string>
+    <string name="third_party_licenses">Licenties van derden</string>
+    <string name="terms_of_service">Gebruiksvoorwaarden</string>
+    <string name="privacy_policy">Privacy regels</string>
+    <string name="send_anonymous_statistics">Tasks verbeteren</string>
+    <string name="send_anonymous_statistics_summary">Anonieme gebruiksstatistieken en crashrapporten versturen om Tasks te verbeteren. Persoonlijke gegevens worden niet verzameld.</string>
+    <string name="license_summary">Tasks is vrije open-source software, onder de GNU General Public License v3.0</string>
+    <string name="support">Ondersteuning</string>
+    <string name="social">Sociaal</string>
+    <string name="open_source">Open source</string>
+    <string name="legal">Juridische informatie</string>
+    <string name="restart_required">Start Tasks opnieuw om wijzigingen door te voeren</string>
+    <string name="restart_now">Herstart nu</string>
+    <string name="restart_later">Later</string>
 </resources>

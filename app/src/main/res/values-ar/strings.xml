@@ -94,10 +94,7 @@
     <string name="enabled">مفعّل</string>
     <string name="font_size">حجم الخط</string>
     <string name="customize_edit_screen">تعديل الشاشة</string>
-    <string name="source_code">الكود المصدرى</string>
     <string name="translations">ساهم في الترجمة</string>
-    <string name="contact_developer">تواصل مع المطور</string>
-    <string name="rate_tasks">قيّم تاسكس</string>
     <string name="quiet_hours_summary">لا منبهات أثناء أوقات الراحة</string>
     <string name="add_reminder">أضف منبه</string>
     <string name="remove">حذف</string>
@@ -227,8 +224,6 @@
     <string name="delete_selected_tasks">حذف المهام المختارة؟</string>
     <string name="restart_now">إعادة التشغيل الآن</string>
     <string name="name_cannot_be_empty">لا يمكن أن يكون الاسم فارغًا</string>
-    <string name="send_anonymous_statistics">طوّر Tasks</string>
-    <string name="privacy_policy">سياسة الخصوصية</string>
     <string name="add_attachment">أضف مرفقًا</string>
     <string name="filter_criteria_unstarted">غير مبدوء</string>
     <string name="delete">حذف</string>
@@ -319,8 +314,6 @@
     <string name="list_members">أعضاء القائمة</string>
     <string name="tasks_org_account_required">حساب Tasks.org مطلوب</string>
     <string name="support">دعم</string>
-    <string name="follow_twitter">اتبع @tasks_org</string>
-    <string name="follow_reddit">انضم إلى r/tasks</string>
     <string name="backups_ignore_warnings">تجاهل التحذيرات</string>
     <string name="device_settings">إعدادات الجهاز</string>
     <string name="last_backup">آخر نسخة احتياطية: %s</string>
@@ -332,8 +325,6 @@
     <string name="place_settings">إعدادات الأماكن</string>
     <string name="upgrade_blurb_1">أهلًا! أنا أليكس (Alex). أنا المطور المستقل وراء Tasks</string>
     <string name="enter_tag_name">أدخل اسم العلامة</string>
-    <string name="version_string">نسخة %s</string>
-    <string name="third_party_licenses">رخص طرف ثالث</string>
     <string name="choose_new_location">اختر موقعًا جديدًا</string>
     <string name="or_choose_a_location">أو اختر موقعًا</string>
     <string name="pick_this_location">اختر هذا الموقع</string>
@@ -369,7 +360,6 @@
     <string name="copied_to_clipboard">تم نسخ %s إلى الحافظة</string>
     <string name="migrate_count">انقل %s إلى Tasks.org</string>
     <string name="open_source">مفتوح المصدر</string>
-    <string name="social">اجتماعي</string>
     <string name="your_subscription_expired">لقد انتهى اشتراكك. اشترك الآن لإكمال الخدمة.</string>
     <string name="date_picker_multiple">متعدّد</string>
     <string name="multi_select_reschedule">غيّر التاريخ</string>
@@ -434,7 +424,6 @@
     <string name="authentication_required">يستلزم التوثيق</string>
     <string name="github_sponsors">رعاة GitHub</string>
     <string name="authorization_cancelled">تم إلغاء التخويل</string>
-    <string name="issue_tracker">تعقب المشكلة</string>
     <string name="no_google_play_subscription">لم يتم العثور على اشتراك Google Play مقبول</string>
     <string name="chip_appearance_text_and_icon">النص والايقونة</string>
     <string name="chips">رقائق</string>
@@ -458,7 +447,6 @@
     <string name="reinitialize_account">إعادة التهيئة</string>
     <string name="cannot_access_account">لا يمكن الوصول الى الحساب</string>
     <string name="requires_pro_subscription">يتطلب اشتراك احترافي</string>
-    <string name="license_summary">التطبيق \"مهامي\" هي برنامج مفتوح المصدر حر ، ومرخص بموجب رخصة جنو العمومية العامة v3.0</string>
     <string name="upgrade_to_pro">طور لاصدار متقدم</string>
     <string name="help_and_feedback">مساعدة وتبليغات</string>
     <string name="tasker_list_notification">قائمة الاشعارات</string>
@@ -478,7 +466,6 @@
     <string name="opacity_footer">عتمة التذييل</string>
     <string name="opacity_header">عتمة العنوان</string>
     <string name="opacity_row">عتمة الصف</string>
-    <string name="send_anonymous_statistics_summary">أرسل إحصاءات الاستخدام المجهولة وتقارير الأعطال للمساعدة في تحسين التطبيق. لن يتم جمع أي بيانات شخصية.</string>
     <string name="pick_from_gallery">التقط من المعرض</string>
     <string name="no_app_found">لا تطبيق يستطيع ادارة هذا الطلب</string>
     <string name="date_shortcut_tomorrow_afternoon">غدًا بعد الظهر</string>
@@ -697,7 +684,6 @@
     <string name="swipe_to_snooze_time_description">سيتم تأجيل الإشعار الذي تم مسحه وإعادة إنشائه %s</string>
     <string name="yesterday">الأمس</string>
     <string name="comment">التعليق</string>
-    <string name="send_application_logs">إرسال سجلات التطبيق</string>
     <string name="repeats_on">على</string>
     <string name="repeat_monthly_on_the_nth_weekday">شهرياً على %1$s %2$s</string>
     <string name="repeat_monthly_on_day_number">شهرياً في اليوم %1d</string>

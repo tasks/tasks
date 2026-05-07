@@ -237,10 +237,7 @@
     <string name="font_size">גודל גופן</string>
     <string name="row_spacing">מרווח בין שורות</string>
     <string name="customize_edit_screen">התאמה אישית של מסך העריכה</string>
-    <string name="source_code">קוד מקור</string>
     <string name="translations">לתרום תרגומים</string>
-    <string name="contact_developer">יצירת קשר עם המפתח</string>
-    <string name="rate_tasks">דרגו את Tasks</string>
     <string name="quiet_hours_summary">לא היו תזכורות במהלך השעות השקטות</string>
     <string name="add_reminder">הוספת תזכורת</string>
     <string name="add_location">הוספת מיקום</string>
@@ -275,9 +272,6 @@
     <string name="take_a_picture">צילום תמונה</string>
     <string name="pick_from_gallery">בחירה מגלריה</string>
     <string name="pick_from_storage">בחירה מאחסון</string>
-    <string name="privacy_policy">מדיניות פרטיות</string>
-    <string name="send_anonymous_statistics">שיפור Tasks</string>
-    <string name="send_anonymous_statistics_summary">ניתן לשלוח סטטיסטיקת שימוש ודוחות קריסה אנונימיים כדי לעזור לשפר את Tasks. לא ייאסף מידע אישי.</string>
     <string name="tag_already_exists">תגית כבר קיימת</string>
     <string name="name_cannot_be_empty">השם לא יכול להיות ריק</string>
     <string name="no_title">(אין כותרת)</string>
@@ -348,7 +342,6 @@
     <string name="upgrade_to_pro">שדרוג לגרסת פרו</string>
     <string name="refresh_purchases">ריענון רכישות</string>
     <string name="button_subscribe">הרשמה למינוי</string>
-    <string name="license_summary">היישום Tasks הוא תוכנה חופשית בקוד פתוח, המורשת תחת הרישיון הציבורי הכללי של GNU בגרסה 3.0</string>
     <string name="pro_dashclock_extension">הרחבת Dashclock</string>
     <string name="requires_pro_subscription">דורש מינוי פרו</string>
     <string name="logout">התנתקות</string>
@@ -372,8 +365,6 @@
     <string name="location_permission_required_location">יש צורך בהרשאות מיקום כדי למצוא את מיקומך הנוכחי</string>
     <string name="open_map">פתיחת מפה</string>
     <string name="choose_new_location">בחירת מיקום חדש</string>
-    <string name="third_party_licenses">רישיונות צד שלישי</string>
-    <string name="version_string">גרסה %s</string>
     <string name="invalid_backup_file">קובץ גיבוי לא תקין</string>
     <string name="google_tasks_add_to_top">משימות חדשות למעלה</string>
     <string name="list_separator_with_space">", "</string>
@@ -507,7 +498,6 @@
     <string name="cancel">ביטול</string>
     <string name="ok">אישור</string>
     <string name="background_location_permission_required">היישום Tasks אוסף נתוני מיקום כדי לאפשר תזכורות מבוססות מיקום, אפילו כאשר היישום סגור או לא בשימוש.</string>
-    <string name="follow_reddit">הצטרפו אל r/tasks</string>
     <string name="current_subscription">מינוי נוכחי: %s</string>
     <string name="your_subscription_expired">תוקף המינוי שלך פג. יש להירשם למינוי כעת כדי להמשיך את השירות.</string>
     <string name="custom_filter_is_subtask">היא תת־משימה</string>
@@ -552,10 +542,7 @@
     <string name="tasks_org_account_required">נדרש חשבון Tasks.org</string>
     <string name="privacy">פרטיות</string>
     <string name="open_source">קוד פתוח</string>
-    <string name="issue_tracker">עוקב בעיות</string>
     <string name="support">תמיכה</string>
-    <string name="social">חברתי</string>
-    <string name="follow_twitter">עקבו אחרי tasks_org@</string>
     <string name="subscription">מינוי</string>
     <string name="show_unstarted">הצגת משימות שלא התחילו</string>
     <string name="widget_show_title">הצגת כותרת</string>
@@ -632,7 +619,6 @@
     <string name="hint_customize_edit_title">יותר מדי מידע?</string>
     <string name="delete_comment">הערה</string>
     <string name="yesterday">אתמול</string>
-    <string name="send_application_logs">שליחת יומני יישום</string>
     <string name="change_priority">שינוי עדיפות</string>
     <string name="repeats_on">מופעל</string>
     <string name="alarm_before_start">%s לפני מועד התחלה</string>
@@ -686,7 +672,6 @@
     <string name="banner_subscription_required_body">שלם כפי רצונך כדי לפתוח סנכרון %s</string>
     <string name="subscription_required_fdroid">נדרש מינוי כדי להשתמש בסנכרון Tasks.org. מינויים מוכרחים להיות מותחלים מגרסת ה־Google Play של Tasks.</string>
     <string name="sponsorship_required_fdroid">נדרשת חסות GitHub כדי להשתמש בסנכרון Tasks.org. יש ללחוץ למטה כדי לתת חסות.</string>
-    <string name="legal">משפטי</string>
     <string name="email_to_task">דוא\"ל למשימה</string>
     <string name="email_to_task_address">כתובת הדוא\"ל שלך</string>
     <string name="share_list">שיתוף \"%1$s\"</string>
@@ -704,7 +689,6 @@
     <string name="alarm_start">התחלה</string>
     <string name="alarm_due">יעד</string>
     <string name="legal_disclosure_prefix_using">על ידי שימוש ב־Tasks.org</string>
-    <string name="terms_of_service">תנאי השירות</string>
     <string name="tos_updated_title">עדכנו את תנאי השירות שלנו</string>
     <string name="accept">הסכמה</string>
     <string name="exit">יציאה</string>

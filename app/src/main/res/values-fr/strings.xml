@@ -220,10 +220,7 @@
     <string name="font_size">Taille de police</string>
     <string name="row_spacing">Espacement des lignes</string>
     <string name="customize_edit_screen">Personnaliser l\'écran d\'édition</string>
-    <string name="source_code">Code source</string>
     <string name="translations">Contribuer aux traductions</string>
-    <string name="contact_developer">Contacter le développeur</string>
-    <string name="rate_tasks">Évaluer Tasks</string>
     <string name="quiet_hours_summary">Aucun rappel durant les heures de repos</string>
     <string name="add_reminder">Ajouter un rappel</string>
     <string name="add_location">Ajouter un emplacement</string>
@@ -256,9 +253,6 @@
     <string name="take_a_picture">Prendre une photo</string>
     <string name="pick_from_gallery">Choisir depuis la galerie</string>
     <string name="pick_from_storage">Choisir depuis le stockage</string>
-    <string name="privacy_policy">Politique de confidentialité</string>
-    <string name="send_anonymous_statistics">Améliorer Tasks</string>
-    <string name="send_anonymous_statistics_summary">Envoyer des statistiques d\'utilisation anonymes et des rapports d\'erreur pour améliorer Tasks. Aucune donnée personnelle ne sera collectée.</string>
     <string name="tag_already_exists">L\'étiquette existe déjà</string>
     <string name="name_cannot_be_empty">Le nom doit être renseigné</string>
     <string name="no_title">(Sans titre)</string>
@@ -328,7 +322,6 @@
     <string name="upgrade_to_pro">Mise à niveau vers la version « pro »</string>
     <string name="refresh_purchases">Rafraîchir les achats</string>
     <string name="button_subscribe">S\'abonner</string>
-    <string name="license_summary">Tasks est un logiciel libre à code source ouvert, codé sous licence « GNU », « General Public License » version 3.0</string>
     <string name="pro_dashclock_extension">Extension du tableau de bord</string>
     <string name="requires_pro_subscription">Nécessite un abonnement pro</string>
     <string name="logout">Se déconnecter</string>
@@ -352,7 +345,6 @@
     <string name="location_permission_required_location">Des autorisations de localisation sont nécessaires pour trouver votre position actuelle</string>
     <string name="open_map">Ouvrir la carte</string>
     <string name="choose_new_location">Choisir un nouvel emplacement</string>
-    <string name="third_party_licenses">Licences tierces</string>
     <string name="invalid_backup_file">Fichier de sauvegarde non valide</string>
     <string name="google_tasks_add_to_top">Nouvelles tâches en haut</string>
     <string name="TEA_note_label">Description</string>
@@ -374,7 +366,6 @@
     <string name="tags">Étiquettes</string>
     <string name="badges">Badges</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="version_string">Version %s</string>
     <string name="icon">Icône</string>
     <string name="name_your_price">Donnez votre prix</string>
     <string name="SSD_sort_my_order">Mon tri</string>
@@ -511,7 +502,6 @@
     <string name="your_subscription_expired">Votre abonnement a expiré. Veuillez vous réabonnez dès maintenant pour reprendre le service.</string>
     <string name="background_location_permission_required">Tasks collecte des données de localisation pour permettre des rappels basés sur les emplacements, même lorsque l\'application est fermée ou non utilisée.</string>
     <string name="repeat_monthly_fifth_week">cinquième</string>
-    <string name="follow_reddit">Rejoindre r/tasks</string>
     <string name="authorization_cancelled">Autorisation annulée</string>
     <string name="sign_in_with_google">Connectez-vous avec « Google »</string>
     <string name="github_sponsor">Parrainer</string>
@@ -544,10 +534,7 @@
     <string name="tasks_org_account_required">Compte « Tasks.org » requis</string>
     <string name="privacy">Confidentialité</string>
     <string name="open_source">Code source ouvert</string>
-    <string name="issue_tracker">Suivi des problèmes</string>
     <string name="support">Aide</string>
-    <string name="social">Réseaux sociaux</string>
-    <string name="follow_twitter">Suivre @tasks_org</string>
     <string name="remove_user_confirmation">%1$s n’aura plus accès à %2$s</string>
     <string name="remove_user">Supprimer l’utilisatrice ou l\'utilisateur \?</string>
     <string name="list_members">Lister les membres</string>
@@ -644,7 +631,6 @@
     <string name="show_edit_screen_without_unlock">Afficher l\'écran d\'édition sans déverrouillage</string>
     <string name="show_edit_screen_without_unlock_summary">Permet d\'utiliser la fenêtre des réglages rapides sans déverrouiller l\'appareil</string>
     <string name="customize_drawer_summary">Glisser-déposer pour réorganiser les éléments du menu</string>
-    <string name="send_application_logs">Envoyer les journaux de l\'application</string>
     <string name="quiet_hours_in_effect">Les heures de tranquillité sont en vigueur</string>
     <string name="add_widget_to_home_screen">Ajouter le widget à l\'écran d\'accueil</string>
     <string name="add_shortcut_to_home_screen">Ajouter le raccourci à l\'écran d\'accueil</string>
@@ -676,10 +662,8 @@
     <string name="subscription_required_fdroid">Un abonnement est nécessaire pour utiliser la synchronisation avec Tasks.org. Les abonnements doivent être initiés à partir de la version Google Play de Tasks.</string>
     <string name="sponsorship_required_fdroid">Un parrainage GitHub est nécessaire pour utiliser la synchronisation avec Tasks.org. Cliquez ci-dessous pour devenir un parrain.</string>
     <string name="legal_disclosure_prefix_using">En utilisant Tasks.org</string>
-    <string name="terms_of_service">Conditions d\'utilisation</string>
     <string name="tos_updated_title">Nous avons mis à jour nos conditions d\'utilisation</string>
     <string name="accept">Accepter</string>
-    <string name="legal">Mentions légales</string>
     <string name="exit">Sortir</string>
     <string name="returning_user">Restaurer les données ?</string>
     <string name="import_failed_message">Impossible de lire le fichier de sauvegarde</string>
@@ -718,10 +702,6 @@
     <string name="location_update_interval_1_hour">Toutes les heures</string>
     <string name="location_update_interval_2_hours">Toutes les 2 heures</string>
     <string name="read_more">Lire la suite</string>
-    <string name="blog_feed_none">Aucun</string>
-    <string name="blog_feed_announcements">Annonces uniquement</string>
-    <string name="blog_feed_all">Tous les articles</string>
-    <string name="blog_notifications">Notifications du blog</string>
     <string name="upgrade_desktop_app">Tasks.org pour bureau</string>
     <string name="upgrade_desktop_app_description">Accès anticipé à la nouvelle application de bureau</string>
 </resources>

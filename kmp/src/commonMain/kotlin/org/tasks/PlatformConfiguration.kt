@@ -21,4 +21,5 @@ data class PlatformConfiguration(
     val isLibre: Boolean = false,
     val supportsWidgets: Boolean = false,
     val supportsDesktopLinking: Boolean = false,
+    val supportsLogExport: Boolean = false,
 )

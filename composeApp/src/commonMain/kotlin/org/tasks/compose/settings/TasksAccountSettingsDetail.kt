@@ -28,6 +28,7 @@ import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.auth.SignInHandler
 import org.tasks.compose.accounts.Platform
+import org.tasks.TasksUrls
 import org.tasks.viewmodel.TasksAccountViewModel
 import org.tasks.viewmodel.TasksAccountViewModel.Companion.DEFAULT_TOS_VERSION
 import tasks.kmp.generated.resources.Res
@@ -36,7 +37,6 @@ import tasks.kmp.generated.resources.tasks_org
 import tasks.kmp.generated.resources.url_app_passwords
 import tasks.kmp.generated.resources.url_donate
 import tasks.kmp.generated.resources.url_sponsor
-import tasks.kmp.generated.resources.url_tos
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,7 +60,6 @@ fun TasksAccountSettingsDetail(
     val state by viewModel.state.collectAsState()
     val sponsorUrl = stringResource(Res.string.url_sponsor)
     val appPasswordsUrl = stringResource(Res.string.url_app_passwords)
-    val tosUrl = stringResource(Res.string.url_tos)
     val donateUrl = stringResource(Res.string.url_donate)
 
     Scaffold(
@@ -147,7 +146,7 @@ fun TasksAccountSettingsDetail(
                 },
                 onAcceptTos = { viewModel.acceptTos(DEFAULT_TOS_VERSION) },
                 onViewTos = {
-                    uriHandler.openUri(tosUrl)
+                    uriHandler.openUri(TasksUrls.TOS)
                 },
                 onDismissTos = { viewModel.dismissTos() },
             )

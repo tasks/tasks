@@ -194,9 +194,7 @@
     <string name="name_your_price">உங்கள் விலைக்கு பெயரிடுங்கள்</string>
     <string name="google_tasks_add_to_top">மேலே புதிய பணிகள்</string>
     <string name="invalid_backup_file">தவறான காப்பு கோப்பு</string>
-    <string name="version_string">பதிப்பு %s</string>
     <string name="whats_new">புதியது என்ன</string>
-    <string name="third_party_licenses">மூன்றாம் தரப்பு உரிமங்கள்</string>
     <string name="choose_new_location">புதிய இருப்பிடத்தைத் தேர்வுசெய்க</string>
     <string name="open_map">வரைபடத்தைத் திறக்கவும்</string>
     <string name="location_permission_required_location">உங்கள் தற்போதைய இருப்பிடத்தைக் கண்டுபிடிக்க இருப்பிட அனுமதிகள் தேவை</string>
@@ -222,7 +220,6 @@
     <string name="this_feature_requires_a_subscription">இந்த அம்சத்திற்கு சந்தா தேவை</string>
     <string name="requires_pro_subscription">சார்பு சந்தா தேவை</string>
     <string name="pro_dashclock_extension">டாஷ்க்லாக் நீட்டிப்பு</string>
-    <string name="license_summary">பணிகள் லிப்ரே ஓப்பன் சோர்ஸ் மென்பொருளாகும், இது குனு GPLv3.0 இன் கீழ் உரிமம் பெற்றது</string>
     <string name="button_subscribe">பதிவு</string>
     <string name="refresh_purchases">வாங்குதல்களைப் புதுப்பிக்கவும்</string>
     <string name="upgrade_to_pro">சார்புக்கு மேம்படுத்தவும்</string>
@@ -292,9 +289,6 @@
     <string name="no_title">(தலைப்பு இல்லை)</string>
     <string name="name_cannot_be_empty">பெயர் காலியாக இருக்க முடியாது</string>
     <string name="tag_already_exists">குறிச்சொல் ஏற்கனவே உள்ளது</string>
-    <string name="send_anonymous_statistics_summary">பணிகளை மேம்படுத்த உதவ அநாமதேய பயன்பாட்டு புள்ளிவிவரங்கள் மற்றும் செயலிழப்பு அறிக்கைகளை அனுப்பவும். தனிப்பட்ட தரவு எதுவும் சேகரிக்கப்படாது.</string>
-    <string name="send_anonymous_statistics">பணிகளை மேம்படுத்தவும்</string>
-    <string name="privacy_policy">தனியுரிமைக் கொள்கை</string>
     <string name="pick_from_storage">சேமிப்பிலிருந்து எடுக்கவும்</string>
     <string name="pick_from_gallery">கேலரியில் இருந்து எடுக்கவும்</string>
     <string name="take_a_picture">படம் எடுக்கவும்</string>
@@ -331,10 +325,7 @@
     <string name="add_location">இருப்பிடத்தைச் சேர்க்கவும்</string>
     <string name="add_reminder">நினைவூட்டலைச் சேர்க்கவும்</string>
     <string name="quiet_hours_summary">அமைதியான நேரங்களில் நினைவூட்டல்கள் இல்லை</string>
-    <string name="rate_tasks">விகித பணிகள்</string>
-    <string name="contact_developer">டெவலப்பரைத் தொடர்பு கொள்ளுங்கள்</string>
     <string name="translations">மொழிபெயர்ப்புகளை பங்களிக்கவும்</string>
-    <string name="source_code">மூல குறியீடு</string>
     <string name="customize_edit_screen">திருத்து திரையைத் தனிப்பயனாக்குங்கள்</string>
     <string name="row_spacing">வரிசை இடைவெளி</string>
     <string name="font_size">எழுத்துரு அளவு</string>
@@ -561,7 +552,6 @@
     <string name="TEA_creation_date">உருவாக்கும் தேதி</string>
     <string name="default_start_date">இயல்புநிலை தொடக்க தேதி</string>
     <string name="customize_edit_screen_summary">புலங்களை மறுசீரமைக்க அல்லது அகற்றவும்</string>
-    <string name="send_application_logs">பயன்பாட்டு பதிவுகளை அனுப்பவும்</string>
     <string name="repeats_plural_on_until">%2$s இல் ஒவ்வொரு %1$s ஐ மீண்டும் மீண்டும், %3$s இல் முடிகிறது</string>
     <string name="no_app_found">இந்த கோரிக்கையை எந்த பயன்பாடும் கையாள முடியாது</string>
     <string name="default_recurrence">இயல்புநிலை மீண்டும் நிகழ்கிறது</string>
@@ -580,8 +570,6 @@
     <string name="repeats_every">ஒவ்வொன்றும் மீண்டும்</string>
     <string name="repeats_never">ஒருபோதும்</string>
     <string name="price_per_year_with_currency">%s/ஆண்டு</string>
-    <string name="follow_twitter">\@Tasks_org ஐப் பின்தொடரவும்</string>
-    <string name="social">சமூக</string>
     <string name="github_sponsors">அறிவிலிமையம் ஒப்புரவாளர்கள்</string>
     <string name="copied_to_clipboard">இடைநிலைப்பலகைக்கு %s நகலெடுக்கப்பட்டது</string>
     <string name="enable_reminders_description">ஆண்ட்ராய்டு அமைப்புகளில் நினைவூட்டல்கள் முடக்கப்பட்டுள்ளன</string>
@@ -607,7 +595,6 @@
     <string name="snoozed_until">%s வரை உறக்கநிலை</string>
     <string name="app_password">பயன்பாட்டு கடவுச்சொல்</string>
     <string name="migrating_tasks">இடம்பெயரும் பணிகள்</string>
-    <string name="issue_tracker">வெளியீடு டிராக்கர்</string>
     <string name="dismiss">தள்ளுபடி</string>
     <string name="sync_warning_microsoft_title">ஒத்திசைவு செய்ய மைக்ரோசாப்ட் பற்றி</string>
     <string name="sync_warning_microsoft">அனைத்து பணி விவரங்களும் மைக்ரோசாப்ட் உடன் ஒத்திசைக்கவில்லை.</string>
@@ -625,7 +612,6 @@
     <string name="upgrade_tasks_org_account_description">Tasks.org உடன் ஒத்திசைத்து பிற பயனர்களுடன் ஒத்துழைக்கவும்</string>
     <string name="enable_reminders">நினைவூட்டல்களை இயக்கவும்</string>
     <string name="current_subscription">தற்போதைய சந்தா: %s</string>
-    <string name="follow_reddit">ஆர்/பணிகளில் சேரவும்</string>
     <string name="sign_in_with_google">Google உடன் உள்நுழைக</string>
     <string name="migrate_count">%s ஐ tasks.org க்கு நகர்த்தவும்</string>
     <string name="save_percent">%d %% சேமிக்கவும்</string>

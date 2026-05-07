@@ -19,15 +19,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.TasksUrls
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.url_app_passwords
 import tasks.kmp.generated.resources.url_sponsor
-import tasks.kmp.generated.resources.url_tos
 import org.tasks.analytics.Firebase
 import org.tasks.auth.SignInActivity
 import org.tasks.billing.BillingClient
@@ -194,7 +194,7 @@ class TasksAccount : Fragment() {
                     viewModel.acceptTos(firebase.getTosVersion())
                 },
                 onViewTos = {
-                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_tos) })
+                    context?.openUri(TasksUrls.TOS)
                 },
                 onDismissTos = {
                     viewModel.dismissTos()

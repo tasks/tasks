@@ -218,10 +218,7 @@
     <string name="font_size">Schriftgröße</string>
     <string name="row_spacing">Zeilenabstand</string>
     <string name="customize_edit_screen">Bearbeitungsbildschirm anpassen</string>
-    <string name="source_code">Quelltext</string>
     <string name="translations">Zur Übersetzung beitragen</string>
-    <string name="contact_developer">Entwickler kontaktieren</string>
-    <string name="rate_tasks">Bewerte Tasks</string>
     <string name="quiet_hours_summary">Keine Erinnerungen während der Ruhezeit</string>
     <string name="add_reminder">Erinnerung hinzufügen</string>
     <string name="add_location">Ort hinzufügen</string>
@@ -255,9 +252,6 @@
     <string name="take_a_picture">Bild aufnehmen</string>
     <string name="pick_from_gallery">Aus Galerie wählen</string>
     <string name="pick_from_storage">Von Speicher auswählen</string>
-    <string name="privacy_policy">Datenschutzerklärung</string>
-    <string name="send_anonymous_statistics">Tasks verbessern</string>
-    <string name="send_anonymous_statistics_summary">Anonyme Nutzungsstatistiken und Absturzberichte zur Verbesserung von Tasks senden. Es werden keine persönlichen Daten gesammelt.</string>
     <string name="tag_already_exists">Schlagwort existiert bereits</string>
     <string name="name_cannot_be_empty">Name darf nicht leer sein</string>
     <string name="no_title">(kein Titel)</string>
@@ -325,7 +319,6 @@
     <string name="upgrade_to_pro">Pro-Funktionen freischalten</string>
     <string name="refresh_purchases">Einkäufe aktualisieren</string>
     <string name="button_subscribe">Abonnieren</string>
-    <string name="license_summary">Tasks ist freie, quelloffene Software, die unter der GNU General Public License v3.0 lizenziert ist</string>
     <string name="pro_dashclock_extension">Dashclock-Erweiterung</string>
     <string name="requires_pro_subscription">Benötigt ein Pro-Abo</string>
     <string name="logout">Abmelden</string>
@@ -349,7 +342,6 @@
     <string name="location_permission_required_location">Standortberechtigung wird zur Ermittlung des aktuellen Standortes benötigt</string>
     <string name="open_map">Karte öffnen</string>
     <string name="choose_new_location">Neuen Ort auswählen</string>
-    <string name="third_party_licenses">Drittsoftware-Lizenzen</string>
     <string name="invalid_backup_file">Ungültige Sicherungsdatei</string>
     <string name="google_tasks_add_to_top">Neue Aufgaben oben</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
@@ -360,7 +352,6 @@
     <string name="theme">Design</string>
     <string name="url">URL</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="version_string">Version %s</string>
     <string name="icon">Symbol</string>
     <string name="name_your_price">Nenn deinen Preis</string>
     <string name="SSD_sort_my_order">Eigene Sortierung</string>
@@ -492,7 +483,6 @@
     <string name="backup_location_warning">WARNUNG: Bei der Deinstallation von Tasks werden alle Dateien in %s gelöscht! Bitte wähle einen eigenen Speicherort, um zu verhindern dass Android deine Daten löscht.</string>
     <string name="backups_ignore_warnings_summary">Ignoriere Warnungen zu Sicherungen, wenn du keine Sicherungen brauchst oder deine eigene Sicherungslösung nutzt</string>
     <string name="android_auto_backup_device_summary">Du musst den Sicherungsdienst auch in den Geräteeinstellungen aktivieren. Nicht alle Geräte bieten einen Sicherungsdienst.</string>
-    <string name="follow_reddit">r/tasks beitreten</string>
     <string name="current_subscription">Aktuelles Abonnement: %s</string>
     <string name="your_subscription_expired">Dein Abo ist abgelaufen. Abonniere jetzt, um den Dienst fortzusetzen.</string>
     <string name="background_location_permission_required">Tasks sammelt Standortdaten, um standortbezogene Erinnerungen zu ermöglichen, auch wenn die App geschlossen ist oder nicht verwendet wird.</string>
@@ -527,10 +517,7 @@
     <string name="start_date">Starttermin</string>
     <string name="SSD_sort_start">Nach Startdatum</string>
     <string name="open_source">Open-Source</string>
-    <string name="issue_tracker">Support-Tickets</string>
     <string name="support">Support</string>
-    <string name="social">Social Media</string>
-    <string name="follow_twitter">\@tasks_org folgen</string>
     <string name="tasks_org_account_required">Tasks.org-Konto erforderlich</string>
     <string name="invite_awaiting_response">Einladung wartet auf Antwort</string>
     <string name="remove_user_confirmation">%1$s wird keinen Zugriff mehr auf %2$s haben</string>
@@ -624,7 +611,6 @@
     <string name="show_edit_screen_without_unlock">Bearbeitungsbildschirm ohne Entsperren anzeigen</string>
     <string name="swipe_to_snooze_time_description">Eine gelöschte Benachrichtigung wird pausiert und %s wiederholt</string>
     <string name="quiet_hours_in_effect">Ruhezeit aktiviert</string>
-    <string name="send_application_logs">Diagnoseprotokolle senden</string>
     <string name="enable_alarms">Rechtzeitig benachrichtigt werden</string>
     <string name="enable_alarms_description">Um rechtzeitig benachrichtigt zu werden, musst du in den Einstellungen die Berechtigung erteilen, dass Alarme und Erinnerungen eingerichtet werden dürfen</string>
     <string name="price_per_month_with_currency">%s/Monat</string>
@@ -652,7 +638,6 @@
     <string name="widget_view_more_tasks">Mehr Aufgaben anzeigen</string>
     <string name="local_list_title">Dies ist eine lokale Liste</string>
     <string name="legal_disclosure_prefix_using">Durch die Nutzung von Tasks.org</string>
-    <string name="terms_of_service">Nutzungsbedingungen</string>
     <string name="tos_updated_title">Wir haben unsere Nutzungsbedingungen aktualisiert</string>
     <string name="accept">Annehmen</string>
     <string name="exit">Beenden</string>
@@ -662,7 +647,6 @@
     <string name="local_list_description">Aufgaben in dieser Liste werden nur auf diesem Gerät gespeichert. Verbinde ein Konto, um deine Daten zu sichern und von überall darauf zuzugreifen.</string>
     <string name="subscription_required_fdroid">Ein Abo ist erforderlich, um die Tasks.org-Synchronisierung zu nutzen. Abos müssen über die Google Play-Version von Tasks gekauft werden.</string>
     <string name="sponsorship_required_fdroid">Ein GitHub-Sponsoring ist erforderlich, um die Tasks.org-Synchronisierung zu nutzen. Klicke unten, um Sponsor:in zu werden.</string>
-    <string name="legal">Rechtliches</string>
     <string name="banner_subscription_required_body">Bezahle, was du möchtest, um die Synchronisierung von %s freizuschalten</string>
     <string name="banner_subscription_required_title">Abo erforderlich</string>
     <string name="upgrade_subscription_banner">Vielen Dank für deine Unterstützung! Aktualisiere dein Abo, um Tasks.org Cloud Sync zu aktivieren</string>
@@ -691,10 +675,6 @@
     <string name="location_update_interval_title">Hintergrund-Standort-Updates</string>
     <string name="location_update_interval_summary">Regelmäßige Standort-Updates verbessern die Standortgenauigkeit</string>
     <string name="read_more">Mehr anzeigen</string>
-    <string name="blog_notifications">Blog-Benachrichtigungen</string>
-    <string name="blog_feed_none">Keine</string>
-    <string name="blog_feed_announcements">Nur Ankündigungen</string>
-    <string name="blog_feed_all">Alle Beiträge</string>
     <string name="location_update_interval_disabled">Deaktiviert</string>
     <string name="location_update_interval_15_minutes">Alle 15 Minuten</string>
     <string name="location_update_interval_30_minutes">Alle 30 Minuten</string>

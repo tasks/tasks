@@ -81,7 +81,7 @@ import tasks.kmp.generated.resources.restore_purchases
 import tasks.kmp.generated.resources.retry
 import tasks.kmp.generated.resources.scan_qr_code
 import tasks.kmp.generated.resources.sponsor_on_github
-import tasks.kmp.generated.resources.support_email
+import org.tasks.TasksUrls
 import tasks.kmp.generated.resources.unlock_pro_opening_browser
 import tasks.kmp.generated.resources.unlock_pro_scan_heading
 import tasks.kmp.generated.resources.unlock_pro_step_1
@@ -512,7 +512,7 @@ private fun GitHubTab(
                     Text(
                         text = stringResource(
                             Res.string.error_contact_support,
-                            stringResource(Res.string.support_email),
+                            TasksUrls.SUPPORT_EMAIL,
                         ),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onErrorContainer,

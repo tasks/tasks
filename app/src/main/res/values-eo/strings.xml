@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="remove">Forigi</string>
-    <string name="rate_tasks">Pritaksi Tasks</string>
     <string name="translations">Helpi traduki</string>
     <string name="font_size">Tipara grando</string>
     <string name="notifications">Sciigoj</string>
@@ -210,7 +209,6 @@
     <string name="no_title">(Sen titolo)</string>
     <string name="name_cannot_be_empty">Nomo ne povas malpleni</string>
     <string name="tag_already_exists">Etikedo jam ekzistas</string>
-    <string name="privacy_policy">Regularo pri privateco</string>
     <string name="pick_from_storage">Elekti de konservejo</string>
     <string name="pick_from_gallery">Elekti de galerio</string>
     <string name="add_attachment">Aldoni aldonaĵon</string>
@@ -237,7 +235,6 @@
     <string name="pick_a_date_and_time">Elekti daton kaj horon</string>
     <string name="add_location">Aldoni lokon</string>
     <string name="add_reminder">Memorigi</string>
-    <string name="source_code">Fontkodo</string>
     <string name="row_spacing">Intervica spaco</string>
     <string name="header_spacing">Interspaco</string>
     <string name="enabled">Ŝaltita</string>
@@ -374,8 +371,6 @@
     <string name="filter_no_tags">Neniu etikedoj</string>
     <string name="support">Helpo</string>
     <string name="upgrade_open_source_description">Via abono subtenas daŭratan programadon</string>
-    <string name="license_summary">Tasks estas libre malfermitkoda programaro, rajtigite per la GNU General Public License v3.0</string>
-    <string name="send_anonymous_statistics_summary">Permesi sendi anonimajn statistikon kaj prikolapsajn raportojn. Neniu persona datumo estos kolektita.</string>
     <string name="collapse_subtasks">Maletendi subtaskojn</string>
     <string name="repeats_on">Ĉe</string>
     <string name="repeats_ends">Finiĝas</string>
@@ -398,10 +393,8 @@
     <string name="widget_show_header">Vidigi kapon</string>
     <string name="quiet_hours_summary">Neniu memorigoj dum kviethoroj</string>
     <string name="settings_localization">Traduko</string>
-    <string name="version_string">Versio %s</string>
     <string name="device_settings">Agordoj de aparato</string>
     <string name="account">Konto</string>
-    <string name="social">Sociaj Komunikiloj</string>
     <string name="more_options">Pli da opcioj</string>
     <string name="ring_nonstop">Soni daŭre</string>
     <string name="EPr_show_task_edit_comments">Vidigi komentojn en taskredaktilo</string>
@@ -441,7 +434,6 @@
     <string name="customize_edit_screen">Adapti redaktan ekranon</string>
     <string name="change_priority">Ŝanĝi prioritaton</string>
     <string name="filter_settings">Agordoj de filtrilo</string>
-    <string name="send_anonymous_statistics">Plibonigi Tasks</string>
     <string name="filter_any_start_date">Ajna komencodato</string>
     <string name="rmd_EPr_quiet_hours_start_title">Komenco de kviethoroj</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fino de Kviethoroj</string>
@@ -453,9 +445,7 @@
     <string name="repeat_type_completion">plenumiga dato</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks elparolos tasknomojn dum memorigi</string>
     <string name="attachment_directory">Dosierujo de Aldonaĵoj</string>
-    <string name="contact_developer">Kontakti programiston</string>
     <string name="subtasks_multilevel_google_task">Multnivelaj subtaskoj ne estas subtenataj per Google Tasks</string>
-    <string name="third_party_licenses">Licencoj de ekstera liveranto</string>
     <string name="expand_subtasks">Etendi subtaskojn</string>
     <string name="list_separator_with_space">", "</string>
     <string name="tasker_create_task">Krei taskon</string>
@@ -477,15 +467,12 @@
     <string name="compact">Kompakta</string>
     <string name="filter_eisenhower_box_3">Ne grava kaj urĝa</string>
     <string name="support_development_subscribe">Malŝlosi pliajn funkciojn kaj subteni malfermitkodan programaron</string>
-    <string name="issue_tracker">Problem-spurado</string>
     <string name="open_source">Malfermitkoda</string>
     <string name="filter_eisenhower_box_4">Ne grava kaj ne urĝa</string>
     <string name="enjoying_tasks">Ĝuas Tasks?</string>
     <string name="lists">Listoj</string>
     <string name="last_backup_never">neniam</string>
     <string name="backups_ignore_warnings">Ignori avertojn</string>
-    <string name="follow_reddit">Aniĝi al r/tasks</string>
-    <string name="follow_twitter">Sekvi @tasks_org</string>
     <string name="privacy">Privateco</string>
     <string name="github_sponsor">Sponsoro</string>
     <string name="migrate">Migri</string>
@@ -624,7 +611,6 @@
     <string name="customize_drawer">Adapti tirkeston</string>
     <string name="customize_drawer_summary">Ŝovu kaj demetu por rearanĝi menuerojn</string>
     <string name="quiet_hours_in_effect">Senperturbaj horoj aktivas</string>
-    <string name="send_application_logs">Sendi protokoladon</string>
     <string name="delete_comment">komento</string>
     <string name="yesterday">Hieraŭ</string>
     <string name="enable_alarms_description">Por certigi ke vi sciiĝos je la ĝusta horo, permesu agordi alarmojn kaj memorigilojn per Agordoj</string>
@@ -653,9 +639,7 @@
     <string name="local_list_title">Ĉi tiu estas loka listo</string>
     <string name="local_list_description">Taskoj en ĉi tiu listo estas konservitaj nur en ĉi tiu aparato. Konektu konton por sekurigi vian datumojn kaj atingi ĝin de ĉie.</string>
     <string name="subscription_required_fdroid">Uzi sinkronigon de Tasks.org bezonas abonon. Oni devas iniciati abonon per Google Play versio de Tasks.</string>
-    <string name="legal">Leĝa</string>
     <string name="legal_disclosure_prefix_using">Per uzi Tasks.org</string>
-    <string name="terms_of_service">Kondiĉoj de uzado</string>
     <string name="tos_updated_title">Ni ĝisdatigis niajn Kondiĉojn de Uzado</string>
     <string name="accept">Akcepti</string>
     <string name="exit">Eliri</string>
@@ -696,11 +680,7 @@
     <string name="location_update_interval_30_minutes">Ĉiu 30 minutoj</string>
     <string name="location_update_interval_1_hour">Ĉiu 1 horo</string>
     <string name="location_update_interval_2_hours">Ĉiu 2 horoj</string>
-    <string name="blog_feed_none">Neniu</string>
-    <string name="blog_feed_announcements">Nur anoncoj</string>
-    <string name="blog_feed_all">Ĉiuj afiŝoj</string>
     <string name="upgrade_desktop_app">Tasks.org por labortablo</string>
     <string name="upgrade_desktop_app_description">Frua atingo de la nova labortabla aplikaĵo</string>
     <string name="read_more">Legi pli</string>
-    <string name="blog_notifications">Sciigoj de blogo</string>
 </resources>

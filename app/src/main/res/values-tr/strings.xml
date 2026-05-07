@@ -220,10 +220,7 @@
     <string name="font_size">Yazı tipi boyutu</string>
     <string name="row_spacing">Satır aralığı</string>
     <string name="customize_edit_screen">Düzenleme ekranını özelleştir</string>
-    <string name="source_code">Kaynak kodu</string>
     <string name="translations">Çeviri katkıları</string>
-    <string name="contact_developer">Geliştiriciyle iletişime geç</string>
-    <string name="rate_tasks">Tasks\'i oyla</string>
     <string name="quiet_hours_summary">Sessiz saatlerde anımsatıcı yok</string>
     <string name="add_reminder">Anımsatıcı ekle</string>
     <string name="add_location">Konum ekle</string>
@@ -257,9 +254,6 @@
     <string name="take_a_picture">Bir fotoğraf çek</string>
     <string name="pick_from_gallery">Galeriden seç</string>
     <string name="pick_from_storage">Depolamadan seç</string>
-    <string name="privacy_policy">Gizlilik politikası</string>
-    <string name="send_anonymous_statistics">Tasks\'ı iyileştir</string>
-    <string name="send_anonymous_statistics_summary">Tasks\'ı iyileştirmeye yardımcı olmak için anonim kullanım istatistiklerini ve çökme raporlarını gönderin. Hiçbir kişisel veri toplanmayacak.</string>
     <string name="tag_already_exists">Etiket zaten var</string>
     <string name="name_cannot_be_empty">Ad boş olamaz</string>
     <string name="no_title">(Başlıksız)</string>
@@ -329,7 +323,6 @@
     <string name="upgrade_to_pro">Pro\'ya yükselt</string>
     <string name="refresh_purchases">Satın alımları yenile</string>
     <string name="button_subscribe">Abone ol</string>
-    <string name="license_summary">Tasks özgür açık kaynaklı yazılımdır, GNU Genel Kamu Lisansı sürüm 3.0 altında lisanslanmıştır</string>
     <string name="pro_dashclock_extension">Dashclock eklentisi</string>
     <string name="requires_pro_subscription">Pro aboneliği gerektirir</string>
     <string name="logout">Oturumu kapat</string>
@@ -353,8 +346,6 @@
     <string name="location_permission_required_location">Geçerli konumunuzu bulmak için konum izinleri gereklidir</string>
     <string name="open_map">Haritayı aç</string>
     <string name="choose_new_location">Yeni konum seç</string>
-    <string name="third_party_licenses">Üçüncü taraf lisanslar</string>
-    <string name="version_string">Sürüm %s</string>
     <string name="invalid_backup_file">Geçersiz yedek dosyası</string>
     <string name="google_tasks_add_to_top">Yeni görevler üstte</string>
     <string name="location_radius_meters">%s m</string>
@@ -492,7 +483,6 @@
     <string name="custom_filter_is_subtask">Alt görev</string>
     <string name="custom_filter_has_subtask">Alt görevleri olan</string>
     <string name="background_location_permission_required">Tasks, kapalıyken veya kullanılmazken de konuma dayalı anımsatmaları etkinleştirmek için konum verisi toplar.</string>
-    <string name="follow_reddit">r/tasks topluluğuna katıl</string>
     <string name="current_subscription">Geçerli abonelik: %s</string>
     <string name="your_subscription_expired">Aboneliğinizin süresi doldu. Hizmeti sürdürmek için şimdi abone olun.</string>
     <string name="repeat_monthly_fifth_week">beşinci</string>
@@ -528,10 +518,7 @@
     <string name="tasks_org_account_required">Tasks.org hesabı gerekli</string>
     <string name="privacy">Gizlilik</string>
     <string name="open_source">Açık kaynak</string>
-    <string name="issue_tracker">Sorun izleyicisi</string>
     <string name="support">Destek</string>
-    <string name="social">Sosyal</string>
-    <string name="follow_twitter">\@tasks_org hesabını takip et</string>
     <string name="remove_user_confirmation">%1$s, artık %2$s erişimini yitirecek</string>
     <string name="remove_user">Kullanıcıyı kaldır\?</string>
     <string name="list_members">Üyeleri listele</string>
@@ -639,7 +626,6 @@
     <string name="enable_alarms_description">Doğru zamanda bildirim aldığınızdan emin olmak için, alarm ve anımsatıcı kurmak için Ayarlar\'da izin verin</string>
     <string name="add_shortcut_to_home_screen">Ana ekrana kısayol ekle</string>
     <string name="add_widget_to_home_screen">Ana ekrana parçacık ekle</string>
-    <string name="send_application_logs">Uygulama günlüklerini gönder</string>
     <string name="cost_more_money">Ücret: $$$</string>
     <string name="multiline_title">Çok satırlı başlıklara izin ver</string>
     <string name="multiline_title_on">Satır eklemek için Enter tuşuna bas</string>
@@ -654,9 +640,7 @@
     <string name="local_list_description">Bu listedeki görevler yalnızca bu aygıtta saklanır. Verinizi korumak ve her yerden erişmek için hesaba bağlanın.</string>
     <string name="subscription_required_fdroid">Tasks.org eşzamanlamasını kullanmak için abonelik gerekir. Abonelikler, Tasks\'ın Google Play sürümünden başlatılmalıdır.</string>
     <string name="sponsorship_required_fdroid">Tasks.org eşzamanlamasını kullanmak için GitHub sponsorluğu gerekir. Sponsor olmak için aşağıya tıklayın.</string>
-    <string name="legal">Yasal</string>
     <string name="legal_disclosure_prefix_using">Tasks.org\'u kullanarak</string>
-    <string name="terms_of_service">Hizmet koşulları</string>
     <string name="tos_updated_title">Hizmet Koşullarımızı güncelledik</string>
     <string name="accept">Onayla</string>
     <string name="exit">Çık</string>
@@ -696,10 +680,6 @@
     <string name="location_update_interval_1_hour">Her saat</string>
     <string name="location_update_interval_2_hours">Her 2 saat</string>
     <string name="read_more">Daha çoğunu oku</string>
-    <string name="blog_notifications">Blog bildirimleri</string>
-    <string name="blog_feed_none">Yok</string>
-    <string name="blog_feed_announcements">Yalnızca duyurular</string>
-    <string name="blog_feed_all">Tüm gönderiler</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="upgrade_desktop_app">Masaüstü için Tasks.org</string>
     <string name="upgrade_desktop_app_description">Yeni masaüstü uygulamasına erken erişim</string>

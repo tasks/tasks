@@ -44,4 +44,19 @@ object AnalyticsEvents {
     const val SOURCE_SETTINGS = "settings"
     const val TIER_CLOUD = "cloud"
     const val TIER_NYP = "nyp"
+
+    object SettingsClick {
+        const val WHATS_NEW = "whats_new"
+        const val RATE_TASKS = "rate_tasks"
+        const val DOCUMENTATION = "documentation"
+        const val ISSUE_TRACKER = "issue_tracker"
+        const val CONTACT_DEVELOPER = "contact_developer"
+        const val SEND_LOGS = "send_logs"
+        const val REDDIT = "reddit"
+        const val TWITTER = "twitter"
+        const val SOURCE_CODE = "source_code"
+        const val THIRD_PARTY_LICENSES = "third_party_licenses"
+        const val TOS = "tos"
+        const val PRIVACY_POLICY = "privacy_policy"
+    }
 }

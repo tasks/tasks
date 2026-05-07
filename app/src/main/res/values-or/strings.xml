@@ -97,7 +97,6 @@
     <string name="repeat_monthly_fourth_week">ଚତୁର୍ଥ</string>
     <string name="help">ସହାୟତା</string>
     <string name="help_and_feedback">ସାହାଯ୍ୟ ଓ ମତାମତ</string>
-    <string name="version_string">ସଂସ୍କରଣ %s</string>
     <string name="preferences_advanced">ଵିକଶିତ</string>
     <string name="more_settings">ଅଧିକ ସେଟିଂ</string>
     <string name="custom_filter_or">କିମ୍ବା</string>
@@ -136,7 +135,6 @@
     </plurals>
     <string name="widget_show_menu">ମେନୁ ଦେଖାଅ</string>
     <string name="translations">ଅନୁଵାଦରେ ଯୋଗଦାନ କରନ୍ତୁ</string>
-    <string name="privacy_policy">ଗୋପନୀୟତା ନୀତି</string>
     <string name="date_shortcut_hour">ଘଣ୍ଟାଏ ପାଇଁ</string>
     <string name="date_shortcut_tomorrow_afternoon">ଆସନ୍ତାକାଲି ଅପରାହ୍ଣ</string>
     <string name="theme_black">କଳା</string>
@@ -156,7 +154,6 @@
     <string name="last_backup">ଗତ ବ୍ୟାକଅପ୍: %s</string>
     <string name="invite_awaiting_response">ନିମନ୍ତ୍ରଣ ପ୍ରତିକ୍ରିୟାର ଅପେକ୍ଷାରେ</string>
     <string name="TVA_add_comment">ଏକ ମନ୍ତଵ୍ୟ ଯୋଡ଼ନ୍ତୁ…</string>
-    <string name="social">ସାମାଜିକ</string>
     <string name="github_sponsor">ପ୍ରାୟୋଜକ</string>
     <string name="invite_declined">ନିମନ୍ତ୍ରଣ ପ୍ରତ୍ୟାଖ୍ୟାନ ହୋଇଛି</string>
     <string name="more_options">ଅଧିକ ଵିକଳ୍ପ</string>

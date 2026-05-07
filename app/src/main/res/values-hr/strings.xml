@@ -51,7 +51,6 @@
     <string name="action_create_new_task">Stvori novi zadatak</string>
     <string name="cannot_access_account">Nije moguće pristupiti računu</string>
     <string name="logout">Odjavi se</string>
-    <string name="license_summary">Tasks je slobodan program otvorenog koda, licenciran pod GNU General Public License v3.0</string>
     <string name="no_time">Bez vremena</string>
     <string name="TEA_timer_elap">Proteklo %s</string>
     <string name="no_date">Bez datuma</string>
@@ -70,11 +69,7 @@
     <string name="preferences_advanced">Napredno</string>
     <string name="widget_settings">Postavke widgeta</string>
     <string name="notifications">Obavijesti</string>
-    <string name="privacy_policy">Politika privatnosti</string>
     <string name="whats_new">Nedavne promjene</string>
-    <string name="follow_reddit">Pridruži se forumu r/tasks</string>
-    <string name="source_code">Izvorni kod</string>
-    <string name="third_party_licenses">Licence trećih strana</string>
     <string name="documentation">Dokumentacija</string>
     <string name="BFE_Active">Moji zadaci</string>
     <string name="lists">Popisi</string>
@@ -131,7 +126,6 @@
     <string name="local_lists">Popisi na uređaju</string>
     <string name="help">Pomoć</string>
     <string name="choose_synchronization_service">Odaberi platformu</string>
-    <string name="contact_developer">Kontaktiraj programera</string>
     <string name="hide_unused_places">Sakrij nekorištena mjesta</string>
     <string name="place_settings">Postavke mjesta</string>
     <string name="places">Mjesta</string>
@@ -179,10 +173,7 @@
     <string name="authorization_cancelled">Autorizacija prekinuta</string>
     <string name="privacy">Privatnost</string>
     <string name="open_source">Otvoreni kod</string>
-    <string name="issue_tracker">Sustav za praćenja grešaka</string>
     <string name="support">Podrška</string>
-    <string name="social">Društvene mreže</string>
-    <string name="follow_twitter">Slijedi @tasks_org</string>
     <string name="current_subscription">Trenutačna pretplata: %s</string>
     <string name="no_google_play_subscription">Nije pronađena nijedna odgovarajuća pretplata na Google Play</string>
     <string name="your_subscription_expired">Tvoja je pretplata istekla. Pretplati se za nastavljanje korištenja usluge.</string>
@@ -216,7 +207,6 @@
     <string name="name_your_price">Odredi tvoju cijenu</string>
     <string name="google_tasks_add_to_top">Novi zadaci na vrh popisa</string>
     <string name="invalid_backup_file">Neispravna datoteka sigurnosne kopije</string>
-    <string name="version_string">Verzija %s</string>
     <string name="choose_new_location">Odaberi novu lokaciju</string>
     <string name="open_map">Otvori kartu</string>
     <string name="location_permission_required_location">Za utvrđivanje tvoje trenutačne lokacije potrebne su dozvole za lokacije</string>
@@ -313,8 +303,6 @@
     <string name="no_title">(bez naslova)</string>
     <string name="name_cannot_be_empty">Ime ne smije biti prazno</string>
     <string name="tag_already_exists">Oznaka već postoji</string>
-    <string name="send_anonymous_statistics_summary">Šalji anonimnu statistiku korištenja i izvještaje o prekidima programa radi poboljšanja programa Tasks. Osobni podaci se ne prikupljaju.</string>
-    <string name="send_anonymous_statistics">Poboljšaj Tasks</string>
     <string name="pick_from_storage">Odaberi iz spremišta</string>
     <string name="pick_from_gallery">Odaberi iz galerije</string>
     <string name="take_a_picture">Snimi sliku</string>
@@ -345,7 +333,6 @@
     <string name="randomly">Slučajno</string>
     <string name="remove">Ukloni</string>
     <string name="quiet_hours_summary">Bez podsjetnika tijekom vremena neobavještavanja</string>
-    <string name="rate_tasks">Ocijeni Tasks</string>
     <string name="translations">Doprinesi prijevodima</string>
     <string name="row_spacing">Razmak između redaka</string>
     <string name="header_spacing">Razmak</string>
@@ -644,7 +631,6 @@
     <string name="donate_nag">Podrži projekt donacijom!</string>
     <string name="donate_today">Doniraj danas</string>
     <string name="donate_maybe_later">Možda kasnije</string>
-    <string name="send_application_logs">Šalji zapisnike aplikacije</string>
     <string name="quiet_hours_in_effect">Vrijeme neobavještavanja aktivirano</string>
     <string name="enable_alarms_description">Za pravovremeno dobivanje obavijesti dozvoli postavljanje alarma i podsjetnika u postavkama Dobij obavijest pravovremeno</string>
     <string name="enable_alarms">Dobij obavijest pravovremeno</string>
@@ -679,14 +665,12 @@
     <string name="banner_subscription_required_body">Plati koliko god želiš za otključavanje %s sinkronizacije</string>
     <string name="subscription_required_fdroid">Za korištenje Tasks.org sinkronizacije je potrebna pretplata. Pretplata se mora pokrenuti putem Tasks verzije na Google Playu.</string>
     <string name="sponsorship_required_fdroid">Za korištenje Tasks.org sinkronizacije je potrebno GitHub sponzorstvo. Klikni dolje da postaneš sponzor.</string>
-    <string name="legal">Pravno</string>
     <string name="upgrade_subscription_banner">Hvala ti na podršci! Nadogradi svoju pretplatu i na taj način omogući Tasks.org Cloud sinkronizaciju</string>
     <string name="alarm_before">prije</string>
     <string name="alarm_after">nakon</string>
     <string name="alarm_start">početak</string>
     <string name="alarm_due">rok</string>
     <string name="legal_disclosure_prefix_using">Korištenjem Tasks.org-a</string>
-    <string name="terms_of_service">Uvjeti pružanja usluge</string>
     <string name="tos_updated_title">Aktualizirali smo naše uvjete pružanja usluge</string>
     <string name="accept">Prihvati</string>
     <string name="exit">Zatvori</string>

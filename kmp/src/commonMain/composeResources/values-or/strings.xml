@@ -36,4 +36,10 @@
     <string name="url_invalid_scheme">http(s):// ସହ ଆରମ୍ଭ ହେବା ଦରକାର</string>
     <string name="url_required">URL ଆଵଶ୍ୟକ</string>
     <string name="username_required">ଉପଭୋକ୍ତା ନାମ ଆଵଶ୍ୟକ</string>
+    <string name="version_string">ସଂସ୍କରଣ %1$s</string>
+    <string name="privacy_policy">ଗୋପନୀୟତା ନୀତି</string>
+    <string name="support">ସମର୍ଥନ</string>
+    <string name="social">ସାମାଜିକ</string>
+    <string name="open_source">ଖୋଲା ଉତ୍ସ</string>
+    <string name="restart_later">ପରେ</string>
 </resources>

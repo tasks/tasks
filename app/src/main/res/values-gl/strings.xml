@@ -149,10 +149,7 @@
     <string name="font_size">Tamaño da fonte</string>
     <string name="row_spacing">Espazado de fila</string>
     <string name="customize_edit_screen">Personalizar pantalla de edición</string>
-    <string name="source_code">Código fonte</string>
     <string name="translations">Contribúe coa tradución</string>
-    <string name="contact_developer">Contactar co desenvolvedor</string>
-    <string name="rate_tasks">Valorar Tasks</string>
     <string name="quiet_hours_summary">Sen avisos en horario silencioso</string>
     <string name="add_reminder">Engadir recordatorio</string>
     <string name="remove">Borrar</string>
@@ -183,9 +180,6 @@
     <string name="take_a_picture">Tomar fotografía</string>
     <string name="pick_from_gallery">Elixir desde a galería</string>
     <string name="pick_from_storage">Elixir desde o almacenamento</string>
-    <string name="privacy_policy">Política de privacidade</string>
-    <string name="send_anonymous_statistics">Mellorar Tasks</string>
-    <string name="send_anonymous_statistics_summary">Enviar de forma anónima estatísticas de uso e informes de erro para axudar a mellorar Tasks. Os datos personais non serán compilados.</string>
     <string name="tag_already_exists">A etiqueta xa existe</string>
     <string name="name_cannot_be_empty">O nome non pode quedar valeiro</string>
     <string name="no_title">(Sen título)</string>
@@ -345,7 +339,6 @@
     <string name="repeats_hourly">por hora</string>
     <string name="repeats_plural_on_until">Repítese cada %1$s o %2$s, remata o %3$s</string>
     <string name="repeats_plural_on_number_of_times">Repetir cada %1$s o %2$s, ocorre que %3$d %4$s</string>
-    <string name="license_summary">Tasks é software de código aberto, con licenza baixo a GNU General Public License v3.0</string>
     <string name="requires_pro_subscription">Precísase dunha subscrición pro</string>
     <string name="this_feature_requires_a_subscription">Esta característica necesita dunha suscrición</string>
     <string name="enter_tag_name">Introduce nome de etiqueta</string>
@@ -369,7 +362,6 @@
     <string name="last_backup">Última copia de seguranza: %s</string>
     <string name="app_passwords_more_info">Sincroniza as tarefas e os calendarios en aplicativos de terceiros para escritorio ou dispositivos móbiles. Preme aquí para máis información</string>
     <string name="repeats_weekly">por semana</string>
-    <string name="version_string">Versión %s</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="TEA_timer_est">Est. %s</string>
     <string name="sort_created">Por data de creación</string>
@@ -429,7 +421,6 @@
     <string name="dont_add_to_calendar">Non engadir ao calendario</string>
     <string name="background_location_permission_required">Tasks recolle información de posicións para ser quen de amosar os recordatorios con información de posicións, incluído cando o aplicativo non estea aberto.</string>
     <string name="location_permission_required_location">Non se precisa de permisos de posición para facer a busca da posición actual</string>
-    <string name="third_party_licenses">Licenzas de terceiros</string>
     <string name="whats_new">Que hai novo</string>
     <string name="invalid_backup_file">Copia de seguranza non válida</string>
     <string name="google_tasks_add_to_top">Novas tarefas na cima</string>
@@ -507,7 +498,6 @@
     <string name="yesterday">Onte</string>
     <string name="quiet_hours_in_effect">As horas de silencio están en vigor</string>
     <string name="customize_edit_screen_summary">Reorganizar ou eliminar campos</string>
-    <string name="send_application_logs">Enviar rexistros de aplicacións</string>
     <string name="change_priority">Cambiar prioridade</string>
     <string name="show_edit_screen_without_unlock">Mostrar pantalla de edición sen desbloquear</string>
     <string name="show_edit_screen_without_unlock_summary">Activa o uso do mosaico Configuración rápida sen desbloquear o dispositivo</string>
@@ -554,11 +544,7 @@
     <string name="price_per_month_with_currency">%s/mes</string>
     <string name="price_per_year_with_currency">%s/ano</string>
     <string name="current_subscription">Subscrición actual: %s</string>
-    <string name="follow_reddit">Únete a r/tasks</string>
-    <string name="follow_twitter">Seguir a @tasks_org</string>
-    <string name="social">Social</string>
     <string name="support">Asistencia</string>
-    <string name="issue_tracker">Seguidor de problemas</string>
     <string name="open_source">Código aberto</string>
     <string name="privacy">Privacidade</string>
     <string name="github_sponsors">Patrocinadores de GitHub</string>

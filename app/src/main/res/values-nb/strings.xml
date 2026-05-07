@@ -107,9 +107,6 @@
     <string name="widget_show_settings">Vis innstillinger</string>
     <string name="notifications"> Varsler</string>
     <string name="row_spacing">Radmellomrom</string>
-    <string name="source_code">Kildekode</string>
-    <string name="contact_developer">Kontakt utvikler</string>
-    <string name="rate_tasks">Gi Tasks din vurdering</string>
     <string name="tags">Etiketter</string>
     <string name="filters">Filtre</string>
     <string name="filter_settings">Filterinnstillinger</string>
@@ -288,9 +285,6 @@
     <string name="take_a_picture">Ta et bilde</string>
     <string name="pick_from_gallery">Velg fra galleri</string>
     <string name="pick_from_storage">Velg fra lagring</string>
-    <string name="privacy_policy">Personvernspraksis</string>
-    <string name="send_anonymous_statistics">Forbedre Tasks</string>
-    <string name="send_anonymous_statistics_summary">Send anonym bruksstatistkk og krasjrapporter for å hjelpe til å forbedre Tasks. Ingen personlig data vil bli samlet inn.</string>
     <string name="name_cannot_be_empty">Navn kan ikke stå tomt</string>
     <string name="no_title">(Ingen tittel)</string>
     <string name="back_button_saves_task">Tilbakeknapp lagrer gjøremål</string>
@@ -337,7 +331,6 @@
     <string name="upgrade_to_pro">Oppgrader til pro</string>
     <string name="refresh_purchases">Gjenoppfrisk kjøp</string>
     <string name="button_subscribe">Abonner</string>
-    <string name="license_summary">Tasks er fri programvare, lisensiert GPLv3+</string>
     <string name="pro_dashclock_extension">Dashclock-utvidelse</string>
     <string name="requires_pro_subscription">Krever pro-abonnement</string>
     <string name="logout">Logg ut</string>
@@ -361,8 +354,6 @@
     <string name="location_permission_required_location">Plasseringstilganger trengs for å finne ditt nåværende sted</string>
     <string name="open_map">Åpne kart</string>
     <string name="choose_new_location">Velg nytt sted</string>
-    <string name="third_party_licenses">Tredjepartslisenser</string>
-    <string name="version_string">Versjon %s</string>
     <string name="invalid_backup_file">Ugyldig sikkerhetskopifil</string>
     <string name="google_tasks_add_to_top">Nye gjøremål øverst</string>
     <string name="icon">Ikon</string>
@@ -498,7 +489,6 @@
     <string name="ok">OK</string>
     <string name="current_subscription">Nåværende abonnement: %s</string>
     <string name="your_subscription_expired">Ditt abonnement har utløpt. Abonner nå for å fortsette tjenesten.</string>
-    <string name="follow_reddit">Ta del i r/tasks</string>
     <string name="background_location_permission_required">Tasks samler posisjonsdata for å kunne utløse posisjonsbaserte påminnelser, selv når programmet er lukket eller ikke i bruk.</string>
     <string name="repeat_monthly_fifth_week">femte</string>
     <string name="sign_in_with_google">Logg inn med Google</string>
@@ -532,14 +522,11 @@
     <string name="widget_show_title">Vis tittel</string>
     <string name="tasks_org_account_required">Tasks.org-konto kreves</string>
     <string name="list_members">Liste over medlemmer</string>
-    <string name="social">Sosialt</string>
     <string name="remove_user_confirmation">%1$s vil ikke lenger ha tilgang til %2$s</string>
     <string name="remove_user">Fjern bruker\?</string>
     <string name="privacy">Personvern</string>
     <string name="open_source">Åpen kilde</string>
-    <string name="issue_tracker">Problemsporer</string>
     <string name="support">Støtte</string>
-    <string name="follow_twitter">Følg @tasks_org</string>
     <string name="email">E-post</string>
     <string name="markdown_description">Aktiver Markdown i tittel og beskrivelse</string>
     <string name="markdown">Markdown</string>

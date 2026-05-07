@@ -165,4 +165,25 @@
     <string name="etesync_account_description">Necesită un cont cu EteSync.com sau un server auto-găzduit</string>
     <string name="show_advanced_settings">Afișează setările avansate</string>
     <string name="app_settings">Setările aplicației</string>
+    <string name="whats_new">Ce este nou</string>
+    <string name="version_string">Versiunea %1$s</string>
+    <string name="rate_tasks">Evaluează Tasks (sarcini)</string>
+    <string name="documentation">Documentație</string>
+    <string name="issue_tracker">Urmărirea problemelor</string>
+    <string name="contact_developer">Contactează dezvoltatorul</string>
+    <string name="send_application_logs">Trimite jurnalele aplicației</string>
+    <string name="follow_reddit">Alătură-te la r/tasks</string>
+    <string name="follow_twitter">Urmărește @tasks_org</string>
+    <string name="source_code">Codul sursă</string>
+    <string name="third_party_licenses">Licențe de la terți</string>
+    <string name="privacy_policy">Politica de confidențialitate</string>
+    <string name="send_anonymous_statistics">Îmbunătățire Tasks</string>
+    <string name="send_anonymous_statistics_summary">Se trimit statistici anonime de utilizare și rapoarte de accident pentru a ajuta la îmbunătățirea Tasks. Nu vor fi colectate date cu caracter personal.</string>
+    <string name="license_summary">Tasks este un software libre open-source, licențiat sub licența GNU General Public License v3.0</string>
+    <string name="support">Suport</string>
+    <string name="social">Social</string>
+    <string name="open_source">Sursă deschisă</string>
+    <string name="restart_required">Repornește Tasks pentru ca această modificare să intre în vigoare</string>
+    <string name="restart_now">Repornește acum</string>
+    <string name="restart_later">Mai târziu</string>
 </resources>

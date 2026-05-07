@@ -163,4 +163,25 @@
     <string name="etesync_account_description">Precisa de uma conta no EteSync.com ou de um servidor auto-alojado</string>
     <string name="show_advanced_settings">Mostrar configurações avançadas</string>
     <string name="app_settings">Configurações da aplicação</string>
+    <string name="whats_new">Novidades</string>
+    <string name="version_string">Versão %1$s</string>
+    <string name="rate_tasks">Avaliar o Tasks</string>
+    <string name="documentation">Documentação</string>
+    <string name="issue_tracker">Reportar problemas</string>
+    <string name="contact_developer">Contactar o programador</string>
+    <string name="send_application_logs">Enviar logs da aplicação</string>
+    <string name="follow_reddit">Entrar em r/tasks</string>
+    <string name="follow_twitter">Seguir @tasks_org</string>
+    <string name="source_code">Código-fonte</string>
+    <string name="third_party_licenses">Licenças de terceiros</string>
+    <string name="privacy_policy">Política de privacidade</string>
+    <string name="send_anonymous_statistics">Melhorar o Tasks</string>
+    <string name="send_anonymous_statistics_summary">Envie estatísticas de uso anónimo e relatórios de falhas para ajudar a melhorar o Tasks. Não serão recolhidos dados pessoais.</string>
+    <string name="license_summary">O Tasks é um programa livre e de código-aberto disponibilizado sob a GNU General Public License v3.0</string>
+    <string name="support">Suporte</string>
+    <string name="social">Social</string>
+    <string name="open_source">Código-fonte aberto</string>
+    <string name="restart_required">Reinicie o Tasks para que esta alteração tenha efeito</string>
+    <string name="restart_now">Reiniciar agora</string>
+    <string name="restart_later">Mais tarde</string>
 </resources>

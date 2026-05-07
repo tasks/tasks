@@ -163,4 +163,25 @@
     <string name="etesync_account_description">Vyžaduje účet na EteSync.com alebo vlastný server</string>
     <string name="show_advanced_settings">Zobraziť pokročilé možnosti</string>
     <string name="app_settings">Nastavenia aplikácie</string>
+    <string name="whats_new">Čo je nové</string>
+    <string name="version_string">Verzia %1$s</string>
+    <string name="rate_tasks">Ohodnotiť Úlohy</string>
+    <string name="documentation">Dokumentácia</string>
+    <string name="issue_tracker">Hlásenie problémov</string>
+    <string name="contact_developer">Spojiť sa s vývojárom</string>
+    <string name="send_application_logs">Odoslať záznamy z aplikácie</string>
+    <string name="follow_reddit">Pripojte sa k r/tasks</string>
+    <string name="follow_twitter">Sledujte @tasks_org</string>
+    <string name="source_code">Zdrojový kód</string>
+    <string name="third_party_licenses">Licencie tretích strán</string>
+    <string name="privacy_policy">Ochrana súkromia</string>
+    <string name="send_anonymous_statistics">Pomôžte vylepšiť Tasks</string>
+    <string name="send_anonymous_statistics_summary">Zasielať anonymné štatistiky používania a správy o zlyhaní aplikácie pre zlepšenia Úloh. Žiadne osobné údaje nebudú zhromažďované.</string>
+    <string name="license_summary">Tasks je slobodný softvér s otvoreným zdrojovým kódom uvoľnený pod licenciou GNU Public Licence v3.0</string>
+    <string name="support">Podpora</string>
+    <string name="social">Sociálne siete</string>
+    <string name="open_source">Otvorený zdrojový kód</string>
+    <string name="restart_required">Reštartujte aplikáciu, aby sa zmena prejavila</string>
+    <string name="restart_now">Reštartovať teraz</string>
+    <string name="restart_later">Neskôr</string>
 </resources>

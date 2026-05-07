@@ -162,4 +162,25 @@
     <string name="etesync_account_description">EteSync.com이나 자체호스팅 서버의 계정 필요</string>
     <string name="show_advanced_settings">고급 설정 표시</string>
     <string name="app_settings">앱 설정</string>
+    <string name="whats_new">새 기능</string>
+    <string name="version_string">버전 %1$s</string>
+    <string name="rate_tasks">Tasks 평가하기</string>
+    <string name="documentation">문서</string>
+    <string name="issue_tracker">이슈 트래커</string>
+    <string name="contact_developer">개발자에게 연락</string>
+    <string name="send_application_logs">앱 로그 보내기</string>
+    <string name="follow_reddit">r/tasks 구독</string>
+    <string name="follow_twitter">\@tasks_org 팔로우</string>
+    <string name="source_code">소스 코드</string>
+    <string name="third_party_licenses">타사 라이센스</string>
+    <string name="privacy_policy">개인정보 보호정책</string>
+    <string name="send_anonymous_statistics">Tasks 향상</string>
+    <string name="send_anonymous_statistics_summary">Tasks를 향상시키기 위해 사용 기록과 충돌 보고서를 익명으로 전송합니다. 개인 정보는 수집되지 않습니다.</string>
+    <string name="license_summary">Tasks는 GNU 일반공중사용권 3.0 (GPLv3)에 따라 사용이 허가된 리브레 오픈소스 소프트웨어입니다</string>
+    <string name="support">지원</string>
+    <string name="social">소셜 미디어</string>
+    <string name="open_source">오픈 소스</string>
+    <string name="restart_required">이 변경사항을 적용하려면 Tasks 앱을 재시작하세요</string>
+    <string name="restart_now">지금 재시작하기</string>
+    <string name="restart_later">나중에</string>
 </resources>

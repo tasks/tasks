@@ -176,4 +176,25 @@
     <string name="etesync_account_description">Vaatii tilin Etesync.com :ssa tai itsehallinnoidun serverin</string>
     <string name="show_advanced_settings">Näytä lisäasetukset</string>
     <string name="app_settings">Sovellusasetukset</string>
+    <string name="whats_new">Mitä uutta</string>
+    <string name="version_string">Versio %1$s</string>
+    <string name="rate_tasks">Arvostele Tasks</string>
+    <string name="documentation">Dokumentaatio</string>
+    <string name="issue_tracker">Ongelmien seuranta</string>
+    <string name="contact_developer">Ota yhteyttä kehittäjään</string>
+    <string name="send_application_logs">Lähetä sovelluksen lokitiedot</string>
+    <string name="follow_reddit">Liity r/tasks</string>
+    <string name="follow_twitter">Seuraa @tasks_org</string>
+    <string name="source_code">Lähdekoodi</string>
+    <string name="third_party_licenses">Kolmannen osapuolen lisenssit</string>
+    <string name="privacy_policy">Rekisteriseloste</string>
+    <string name="send_anonymous_statistics">Paranna tehtäviä</string>
+    <string name="send_anonymous_statistics_summary">Lähetä nimettömästi käyttäjätilastoja ja virheilmoituksia Tasks -ohjelman parantamiseksi. Mitään henkilökohtaisia tietoja ei kerätä.</string>
+    <string name="license_summary">Tasks on vapaa avoimen ohjelmakoodin ohjelmisto lisensöity GNU General Public License v3.0 -lisenssillä</string>
+    <string name="support">Tuki</string>
+    <string name="social">Sosiaalinen</string>
+    <string name="open_source">Avoin lähdekoodi</string>
+    <string name="restart_required">Käynnistä Tasks uusiksi jotta muutos tulee voimaan</string>
+    <string name="restart_now">Käynnistä uudelleen nyt</string>
+    <string name="restart_later">Myöhemmin</string>
 </resources>

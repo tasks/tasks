@@ -31,6 +31,7 @@ class FlavorModule {
         supportsCalendarEvents = true,
         isLibre = true,
         supportsWidgets = true,
+        supportsLogExport = true,
     )
 
     @Provides

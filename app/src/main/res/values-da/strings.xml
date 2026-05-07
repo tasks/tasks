@@ -58,7 +58,6 @@
     </plurals>
     <string name="today">I dag</string>
     <string name="tomorrow">I morgen</string>
-    <string name="source_code">Kildekode</string>
     <string name="repeats_single_on_until">Gentages %1$s hver %2$s, slutter på %3$s</string>
     <string name="repeats_single_on">Gentages %1$s hver %2$s</string>
     <string name="opacity_header">Header-opacitet</string>
@@ -152,9 +151,7 @@
     <string name="name_your_price">Bestem din pris</string>
     <string name="google_tasks_add_to_top">Nye opgaver øverst</string>
     <string name="invalid_backup_file">Ugyldig sikkerhedskopi-fil</string>
-    <string name="version_string">Version %s</string>
     <string name="whats_new">Hvad er nyt</string>
-    <string name="third_party_licenses">Tredjepartslicenser</string>
     <string name="choose_new_location">Vælg ny placering</string>
     <string name="open_map">Åbn kort</string>
     <string name="location_permission_required_location">Lokationstilladelser er påkrævet for at finde din nuværende placering</string>
@@ -250,9 +247,6 @@
     <string name="no_title">(Ingen titel)</string>
     <string name="name_cannot_be_empty">Navnet må ikke være tomt</string>
     <string name="tag_already_exists">Tagget findes allerede</string>
-    <string name="send_anonymous_statistics_summary">Send anonyme brugerstatistik og fejlrapporter for at hjælpe med at forbedre Tasks. Ingen personlige data indsamles.</string>
-    <string name="send_anonymous_statistics">Forbedr Tasks</string>
-    <string name="privacy_policy">Fortrolighedspolitik</string>
     <string name="pick_from_storage">Vælg fra lager</string>
     <string name="pick_from_gallery">Vælg fra galleri</string>
     <string name="take_a_picture">Tag et billede</string>
@@ -283,8 +277,6 @@
     <string name="remove">Fjern</string>
     <string name="add_location">Tilføj placering</string>
     <string name="add_reminder">Tilføj påmindelse</string>
-    <string name="rate_tasks">Bedøm Tasks</string>
-    <string name="contact_developer">Kontakt udvikleren</string>
     <string name="translations">Bidrag med oversættelser</string>
     <string name="customize_edit_screen">Tilpas redigeringsskærm</string>
     <string name="row_spacing">Linjeafstand</string>
@@ -303,7 +295,6 @@
     <string name="sort_created_group">Oprettet %s</string>
     <string name="disable_battery_optimizations">Deaktiver batterioptimeringer</string>
     <string name="wearable_notifications_summary">Vis meddelelser på din wearable</string>
-    <string name="license_summary">Tasks er fri open source-software udgivet under GNU General Public License v3.0</string>
     <string name="upgrade_to_pro">Opgrader til pro</string>
     <string name="refresh_purchases">Opdater køb</string>
     <string name="repeat_monthly_every_day_of_nth_week">hver %1$s i %2$s</string>
@@ -479,7 +470,6 @@
     <string name="sign_in_with_google">Log ind med Google</string>
     <string name="github_sponsors">GitHub-sponsorer</string>
     <string name="authorization_cancelled">Autorisation annulleret</string>
-    <string name="follow_reddit">Følg r/tasks</string>
     <string name="current_subscription">Nuværende abonnement: %s</string>
     <string name="default_location">Standardplacering</string>
     <string name="start_date">Startdato</string>
@@ -521,10 +511,7 @@
     <string name="tasks_org_account_required">Tasks.org-konto påkrævet</string>
     <string name="privacy">Privatliv</string>
     <string name="open_source">Open source</string>
-    <string name="issue_tracker">Problemsporing</string>
     <string name="support">Støtte</string>
-    <string name="social">Social</string>
-    <string name="follow_twitter">Følg @tasks_org</string>
     <string name="date_picker_multiple">Flere</string>
     <string name="multi_select_reschedule">Omlæg</string>
     <string name="android_auto_backup_device_summary">Du skal også tilvælge backup-tjenesten via enhedens indstillinger. Ikke alle enheder tilbyder backup-tjeneste.</string>
@@ -631,7 +618,6 @@
     <string name="quiet_hours_in_effect">Hviletid er i gang</string>
     <string name="repeats_custom_recurrence">Brugerdefineret gentagelse</string>
     <string name="yesterday">I går</string>
-    <string name="send_application_logs">Send applikationslogfiler</string>
     <string name="sync_warning_microsoft">Ikke alle opgavedetaljer synkroniseres med Microsoft To Do.</string>
     <string name="sync_warning_google_tasks">Ikke alle opgavedetaljer synkroniseres med Google Huskeliste</string>
     <string name="button_learn_more">Få mere at vide</string>
@@ -656,9 +642,7 @@
     <string name="local_list_description">Opgaver på denne liste gemmes kun på denne enhed. Tilknyt en konto for at beskytte dine data og få adgang til dem hvor som helst.</string>
     <string name="subscription_required_fdroid">Der kræves et abonnement for at kunne bruge Tasks.org-synkronisering. Abonnementer skal oprettes fra Google Play-versionen af Tasks.</string>
     <string name="sponsorship_required_fdroid">Der kræves et GitHub-sponsorat for at kunne bruge Tasks.org-synkronisering. Klik nedenfor for at blive sponsor.</string>
-    <string name="legal">Juridisk</string>
     <string name="legal_disclosure_prefix_using">Ved at bruge Tasks.org</string>
-    <string name="terms_of_service">Servicevilkår</string>
     <string name="tos_updated_title">Vi har opdateret vores servicevilkår</string>
     <string name="accept">Acceptér</string>
     <string name="exit">Afslut</string>

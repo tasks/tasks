@@ -136,4 +136,24 @@
     <string name="username_required">පරිශීලක නාමය අවශ්‍යයි</string>
     <string name="etesync_account_description">EteSync.com හෝ ස්වයං සත්කාරක සේවාදායකයක් සමඟ ගිණුමක් අවශ්‍ය වේ</string>
     <string name="show_advanced_settings">උසස් සැකසුම් පෙන්වන්න</string>
+    <string name="whats_new">නව විශේෂාංග</string>
+    <string name="version_string">%1$s වන අනුවාදය</string>
+    <string name="rate_tasks">Tasks අගයන්න</string>
+    <string name="documentation">ප්‍රලේඛනය</string>
+    <string name="issue_tracker">දෝෂ සෙවීම</string>
+    <string name="contact_developer">සංවර්ධකයා අමතන්න</string>
+    <string name="follow_reddit">r/tasks හා සම්බන්ධ වන්න</string>
+    <string name="follow_twitter">\@tasks_org අනුගමනය කරන්න</string>
+    <string name="source_code">ප්‍රභව කේතය</string>
+    <string name="third_party_licenses">තෙවන පාර්ශවීය බලපත්‍ර</string>
+    <string name="privacy_policy">රහස්‍යතා ප්‍රතිපත්තිය</string>
+    <string name="send_anonymous_statistics">Tasks වැඩි දියුණු කිරීම</string>
+    <string name="send_anonymous_statistics_summary">Tasks වැඩි දියුණු කිරීම සඳහා නිර්නාමික භාවිත තොරතුරු සහ බිඳ වැටීම් වාර්තා (crash reports) යවන්න. පුද්ගලික දත්ත එකතු නොකෙරේ.</string>
+    <string name="license_summary">Tasks යනු GNU පොදු මහජන බලපත්‍රය v3.0 යටතේ බලපත්‍ර ලබා දී ඇති විවෘත මෘදුකාංගයකි</string>
+    <string name="support">සහාය</string>
+    <string name="social">සමාජ මාධ්‍ය</string>
+    <string name="open_source">විවෘත මූලාශ්‍රය</string>
+    <string name="restart_required">මෙම වෙනස බලාත්මක කිරීම සඳහා Tasks නැවත අරඹන්න</string>
+    <string name="restart_now">නැවත ආරම්භ කරන්න</string>
+    <string name="restart_later">පසුව</string>
 </resources>

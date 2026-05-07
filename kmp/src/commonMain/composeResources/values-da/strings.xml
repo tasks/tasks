@@ -184,4 +184,27 @@
     <string name="etesync_account_description">Kræver en konto hos EteSync.com eller en selvhostet server</string>
     <string name="show_advanced_settings">Vis avancerede indstillinger</string>
     <string name="app_settings">App-indstillinger</string>
+    <string name="whats_new">Hvad er nyt</string>
+    <string name="version_string">Version %1$s</string>
+    <string name="rate_tasks">Bedøm Tasks</string>
+    <string name="documentation">Dokumentation</string>
+    <string name="issue_tracker">Problemsporing</string>
+    <string name="contact_developer">Kontakt udvikleren</string>
+    <string name="send_application_logs">Send applikationslogfiler</string>
+    <string name="follow_reddit">Følg r/tasks</string>
+    <string name="follow_twitter">Følg @tasks_org</string>
+    <string name="source_code">Kildekode</string>
+    <string name="third_party_licenses">Tredjepartslicenser</string>
+    <string name="terms_of_service">Servicevilkår</string>
+    <string name="privacy_policy">Fortrolighedspolitik</string>
+    <string name="send_anonymous_statistics">Forbedr Tasks</string>
+    <string name="send_anonymous_statistics_summary">Send anonyme brugerstatistik og fejlrapporter for at hjælpe med at forbedre Tasks. Ingen personlige data indsamles.</string>
+    <string name="license_summary">Tasks er fri open source-software udgivet under GNU General Public License v3.0</string>
+    <string name="support">Støtte</string>
+    <string name="social">Social</string>
+    <string name="open_source">Open source</string>
+    <string name="legal">Juridisk</string>
+    <string name="restart_required">Genstart Tasks for at ændringerne træder i kraft</string>
+    <string name="restart_now">Genstart nu</string>
+    <string name="restart_later">Senere</string>
 </resources>

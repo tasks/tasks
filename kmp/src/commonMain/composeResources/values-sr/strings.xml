@@ -186,4 +186,27 @@
     <string name="etesync_account_description">Захтева налог код ,,EteSync.com\'\' или приватни сервер</string>
     <string name="show_advanced_settings">Прикажи напредна подешавања</string>
     <string name="app_settings">Подешавања апликације</string>
+    <string name="whats_new">Шта је ново</string>
+    <string name="version_string">Верзија %1$s</string>
+    <string name="rate_tasks">Оцени апликацију</string>
+    <string name="documentation">Документација</string>
+    <string name="issue_tracker">Праћење проблема</string>
+    <string name="contact_developer">Контактирај развојни тим</string>
+    <string name="send_application_logs">Пошаљи извештај апликације</string>
+    <string name="follow_reddit">Придружи се r/tasks</string>
+    <string name="follow_twitter">Запрати @tasks_org</string>
+    <string name="source_code">Изворни кôд</string>
+    <string name="third_party_licenses">Лиценце треће стране</string>
+    <string name="terms_of_service">Услови коришћења</string>
+    <string name="privacy_policy">Полиса приватности</string>
+    <string name="send_anonymous_statistics">Побољшај Задатке</string>
+    <string name="send_anonymous_statistics_summary">Пошаљи анонимне статистике коришћења и извештаје падова апликације ради побољшања. Лични подаци неће бити прикупљени.</string>
+    <string name="license_summary">,,Tasks.org'' је софтвер отвореног карактера, са лиценцом ,,GNU General Public License v3.0''</string>
+    <string name="support">Подршка</string>
+    <string name="social">Друштвене мреже</string>
+    <string name="open_source">Кôд отвореног типа</string>
+    <string name="legal">Правни</string>
+    <string name="restart_required">Рестартуј Задатке како би се промене виделе</string>
+    <string name="restart_now">Рестартуј сада</string>
+    <string name="restart_later">Касније</string>
 </resources>

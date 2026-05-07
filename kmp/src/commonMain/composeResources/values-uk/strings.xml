@@ -166,4 +166,25 @@
     <string name="etesync_account_description">Потрібний обліковий запис у EteSync.com або власний сервер</string>
     <string name="show_advanced_settings">Показати розширені налаштування</string>
     <string name="app_settings">Налаштування застосунку</string>
+    <string name="whats_new">Що нового</string>
+    <string name="version_string">Версія %1$s</string>
+    <string name="rate_tasks">Оцінити Tasks</string>
+    <string name="documentation">Документація</string>
+    <string name="issue_tracker">Відстеження помилок</string>
+    <string name="contact_developer">Зв'язатися з розробником</string>
+    <string name="send_application_logs">Надіслати журнал застосунку</string>
+    <string name="follow_reddit">Долучитися до r/tasks</string>
+    <string name="follow_twitter">Стежити за @tasks_org</string>
+    <string name="source_code">Відкритий код</string>
+    <string name="third_party_licenses">Ліцензії третіх сторін</string>
+    <string name="privacy_policy">Політика приватності</string>
+    <string name="send_anonymous_statistics">Поліпшити Tasks</string>
+    <string name="send_anonymous_statistics_summary">Надсилати анонімну статистику використання та звіти про помилки щоб вдосконалити Tasks. Жодних персональних даних не буде зібрано.</string>
+    <string name="license_summary">Tasks — це програмне забезпечення з відкритим кодом, ліцензоване GNU General Public License v3.0</string>
+    <string name="support">Підтримка</string>
+    <string name="social">Суспільні</string>
+    <string name="open_source">Відкритий джерельний код</string>
+    <string name="restart_required">Перезапустіть Tasks для вступу змін в дію</string>
+    <string name="restart_now">Перезапустити зараз</string>
+    <string name="restart_later">Пізніше</string>
 </resources>

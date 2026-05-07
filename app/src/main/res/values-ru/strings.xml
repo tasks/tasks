@@ -235,10 +235,7 @@
     <string name="font_size">Размер шрифта</string>
     <string name="row_spacing">Межстрочный интервал</string>
     <string name="customize_edit_screen">Настроить экран редактирования</string>
-    <string name="source_code">Исходный код</string>
     <string name="translations">Участвовать в переводе программы</string>
-    <string name="contact_developer">Связь с разработчиком</string>
-    <string name="rate_tasks">Оцените Tasks</string>
     <string name="quiet_hours_summary">Выкл. напоминания в тихие часы</string>
     <string name="add_reminder">Добавить напоминание</string>
     <string name="add_location">Добавить место</string>
@@ -273,9 +270,6 @@
     <string name="take_a_picture">Сделать снимок</string>
     <string name="pick_from_gallery">Выбрать из галереи</string>
     <string name="pick_from_storage">Выбрать файл с диска</string>
-    <string name="privacy_policy">Политика конфиденциальности</string>
-    <string name="send_anonymous_statistics">Отправлять статистику</string>
-    <string name="send_anonymous_statistics_summary">Отправлять анонимную статистику и отчёты об ошибках для содействия улучшению программы. Персональная информация не собирается.</string>
     <string name="tag_already_exists">Тег уже существует</string>
     <string name="name_cannot_be_empty">Необходимо задать имя</string>
     <string name="no_title">(Без заголовка)</string>
@@ -345,7 +339,6 @@
     <string name="upgrade_to_pro">Обновить до версии Про</string>
     <string name="refresh_purchases">Обновить покупки</string>
     <string name="button_subscribe">Подписаться</string>
-    <string name="license_summary">Tasks является свободным программным обеспечением с открытым исходным кодом, лицензированным под GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Расширение для Dashclock</string>
     <string name="requires_pro_subscription">Требуется Pro‑подписка</string>
     <string name="logout">Отключиться</string>
@@ -365,7 +358,6 @@
     <string name="pick_this_location">Выбрать это местоположение</string>
     <string name="or_choose_a_location">Или выбрать местоположение</string>
     <string name="missing_permissions">Отсутствующие разрешения</string>
-    <string name="version_string">Версия %s</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="open_map">Открыть карту</string>
     <string name="choose_new_location">Выберите новое местоположение</string>
@@ -384,7 +376,6 @@
     <string name="TEA_add_subtask">Добавить подзадачу</string>
     <string name="subtasks">Подзадачи</string>
     <string name="location_permission_required_location">Доступ к данным геолокации нужен, чтобы определить ваше текущее местоположение</string>
-    <string name="third_party_licenses">Сторонние лицензии</string>
     <string name="google_tasks_add_to_top">Новые задачи наверху</string>
     <string name="expand_subtasks">Развернуть подзадачи</string>
     <string name="collapse_subtasks">Свернуть подзадачи</string>
@@ -508,7 +499,6 @@
     <string name="ok">ОК</string>
     <string name="date_picker_multiple">Несколько</string>
     <string name="multi_select_reschedule">Перенести</string>
-    <string name="follow_reddit">Присоединяйтесь к r/tasks</string>
     <string name="current_subscription">Текущая подписка: %s</string>
     <string name="your_subscription_expired">Срок действия вашей подписки истек. Подпишитесь сейчас, чтобы возобновить обслуживание.</string>
     <string name="background_location_permission_required">Tasks собирает данные геолокации, чтобы активировать напоминания на основе местоположения, даже когда приложение закрыто или не используется.</string>
@@ -543,10 +533,8 @@
     <string name="subscription">Подписка</string>
     <string name="widget_show_title">Показать заголовок</string>
     <string name="tasks_org_account_required">Требуется учетная запись Tasks.org</string>
-    <string name="follow_twitter">Следите за @task_org</string>
     <string name="privacy">Конфиденциальность</string>
     <string name="open_source">Открытый исходный код</string>
-    <string name="issue_tracker">Отслеживание ошибок</string>
     <string name="support">Поддержка</string>
     <string name="email">Эл. почта</string>
     <string name="remove_user_confirmation">%1$s больше не будет иметь доступа к %2$s</string>
@@ -567,7 +555,6 @@
     <string name="next_monday">Следующий Пн</string>
     <string name="next_sunday">Следующее Вс</string>
     <string name="next_tuesday">Следующий Вт</string>
-    <string name="social">Социальные сети</string>
     <string name="next_wednesday">Следующая Ср</string>
     <string name="markdown_description">Включить Markdown в названии и описании</string>
     <string name="markdown">Markdown</string>
@@ -637,7 +624,6 @@
     <string name="yesterday">Вчера</string>
     <string name="swipe_to_snooze_time_immediately">немедленно</string>
     <string name="swipe_to_snooze_time_24_hours">через 24 часа</string>
-    <string name="send_application_logs">Отправить логи приложения</string>
     <string name="swipe_to_snooze_time_1_hour">через 1 час</string>
     <string name="customize_drawer_summary">Перетаскивайте элементы меню, чтобы изменить их порядок</string>
     <string name="donate_maybe_later">Возможно, позже</string>

@@ -16,7 +16,12 @@ class PostHogReporting(
 ) : Reporting {
     private val logger = Logger.withTag("PostHogReporting")
 
-    private val enabled: Boolean = apiKey.isNotBlank().also { enabled ->
+    private val collectStatistics: Boolean =
+        kotlinx.coroutines.runBlocking {
+            tasksPreferences.get(TasksPreferences.collectStatistics, true)
+        }
+
+    private val enabled: Boolean = (apiKey.isNotBlank() && collectStatistics).also { enabled ->
         if (enabled) {
             val config = PostHogConfig(
                 apiKey = apiKey,
@@ -53,7 +58,7 @@ class PostHogReporting(
     override fun logEvent(event: String, vararg params: Pair<String, Any>) {
         val properties = params.toMap()
         logger.d { "$event -> $properties" }
-        if (enabled) {
+        if (enabled && collectStatistics) {
             PostHog.capture(
                 event = event,
                 properties = properties,
@@ -69,14 +74,14 @@ class PostHogReporting(
 
     override fun identify(distinctId: String) {
         logger.d { "identify -> $distinctId" }
-        if (enabled) {
+        if (enabled && collectStatistics) {
             PostHog.identify(distinctId)
         }
     }
 
     override fun reportException(t: Throwable, fatal: Boolean) {
         logger.e(t) { t.message ?: "" }
-        if (enabled) {
+        if (enabled && collectStatistics) {
             PostHog.capture(
                 event = "exception",
                 properties = mapOf(

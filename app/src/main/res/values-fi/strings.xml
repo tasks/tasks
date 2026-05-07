@@ -211,10 +211,7 @@
     <string name="font_size">Kirjasimen koko</string>
     <string name="row_spacing">Rivinväli</string>
     <string name="customize_edit_screen">Saadä muokkausnäkymää</string>
-    <string name="source_code">Lähdekoodi</string>
     <string name="translations">Osallistu kääntämiseen</string>
-    <string name="contact_developer">Ota yhteyttä kehittäjään</string>
-    <string name="rate_tasks">Arvostele Tasks</string>
     <string name="quiet_hours_summary">Ei ilmoituksia hiljaisena aikana</string>
     <string name="add_reminder">Lisää muistutus</string>
     <string name="remove">Poista</string>
@@ -245,9 +242,6 @@
     <string name="take_a_picture">Ota kuva</string>
     <string name="pick_from_gallery">Valitse galleriasta</string>
     <string name="pick_from_storage">Valitse muistista</string>
-    <string name="privacy_policy">Rekisteriseloste</string>
-    <string name="send_anonymous_statistics">Paranna tehtäviä</string>
-    <string name="send_anonymous_statistics_summary">Lähetä nimettömästi käyttäjätilastoja ja virheilmoituksia Tasks -ohjelman parantamiseksi. Mitään henkilökohtaisia tietoja ei kerätä.</string>
     <string name="tag_already_exists">Tunniste on jo olemassa</string>
     <string name="name_cannot_be_empty">Nimi ei voi olla tyhjä</string>
     <string name="no_title">(Ei nimikettä)</string>
@@ -342,8 +336,6 @@
     <string name="name_your_price">Nimeä hintasi</string>
     <string name="google_tasks_add_to_top">Uudet tehtävät ylimmäisenä</string>
     <string name="invalid_backup_file">Epäsopiva varmuuskopiotiedosto</string>
-    <string name="version_string">Versio %s</string>
-    <string name="third_party_licenses">Kolmannen osapuolen lisenssit</string>
     <string name="choose_new_location">Valitse uusi sijainti</string>
     <string name="open_map">Avaa kartta</string>
     <string name="location_permission_required_location">Sijaintioikeudet tarvitaan nykysijainnin paikannukseen</string>
@@ -364,7 +356,6 @@
     <string name="logout">Kirjaudu ulos</string>
     <string name="this_feature_requires_a_subscription">Tämä ominaisuus vaatii tilauksen</string>
     <string name="requires_pro_subscription">Edellyttää pro-tilauksen</string>
-    <string name="license_summary">Tasks on vapaa avoimen ohjelmakoodin ohjelmisto lisensöity GNU General Public License v3.0 -lisenssillä</string>
     <string name="button_subscribe">Tilaa</string>
     <string name="help_and_feedback">Apu &amp; palaute</string>
     <string name="list_separator_with_space">", "</string>
@@ -491,8 +482,6 @@
     <string name="github_sponsor">Sponsori</string>
     <string name="authentication_required">Vaadittu tunnistautuminen</string>
     <string name="sign_in_with_google">Kirjaudu sisään Googlen avulla</string>
-    <string name="follow_twitter">Seuraa @tasks_org</string>
-    <string name="follow_reddit">Liity r/tasks</string>
     <string name="current_subscription">Nykyinen tilaus: %s</string>
     <string name="no_google_play_subscription">Google Play -tilausta ei löytynyt</string>
     <string name="your_subscription_expired">Tilauksesi on päättynyt. Tilaa nyt jatkaaksesi palvelua.</string>
@@ -535,9 +524,7 @@
     <string name="authorization_cancelled">Lupa peruutettu</string>
     <string name="privacy">yksityisyys</string>
     <string name="open_source">Avoin lähdekoodi</string>
-    <string name="issue_tracker">Ongelmien seuranta</string>
     <string name="support">Tuki</string>
-    <string name="social">Sosiaalinen</string>
     <string name="permission_read_tasks">Täysi pääsy Tehtävät-tietokantaan</string>
     <string name="reset_sort_order">Palauta järjestys</string>
     <string name="background_location_permission_required">Tasks kerää sijaintitietoja, jotta se voi lähettää sijaintiin perustuvia muistutuksia, vaikka sovellus olisi suljettu tai sitä ei käytettäisi.</string>
@@ -621,7 +608,6 @@
     <string name="show_edit_screen_without_unlock_summary">Aktivoi pika-asetusten käyttö ilman laitteen lukituksen avaamista</string>
     <string name="customize_drawer">Muokkaa vetolaatikkoa</string>
     <string name="quiet_hours_in_effect">Hiljaiset tunnit käytössä</string>
-    <string name="send_application_logs">Lähetä sovelluksen lokitiedot</string>
     <string name="sort_completion_group">Valmis %s</string>
     <string name="swipe_to_snooze_time_description">Kuitattu ilmoitus torkutetaan ja luodaan uudelleen %s</string>
     <string name="swipe_to_snooze_time_immediately">välittömästi</string>

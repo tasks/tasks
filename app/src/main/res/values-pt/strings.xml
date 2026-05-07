@@ -210,10 +210,7 @@
     <string name="font_size">Tamanho das letras</string>
     <string name="row_spacing">Espaçamento entre linhas</string>
     <string name="customize_edit_screen">Personalizar ecrã de edição</string>
-    <string name="source_code">Código-fonte</string>
     <string name="translations">Contribuir nas traduções</string>
-    <string name="contact_developer">Contactar o programador</string>
-    <string name="rate_tasks">Avaliar o Tasks</string>
     <string name="quiet_hours_summary">Sem lembretes nas horas de silêncio</string>
     <string name="add_reminder">Adicionar lembrete</string>
     <string name="remove">Remover</string>
@@ -244,9 +241,6 @@
     <string name="take_a_picture">Tirar uma fotografia</string>
     <string name="pick_from_gallery">Escolher da galeria de imagens</string>
     <string name="pick_from_storage">Escolher do armazenamento</string>
-    <string name="privacy_policy">Política de privacidade</string>
-    <string name="send_anonymous_statistics">Melhorar o Tasks</string>
-    <string name="send_anonymous_statistics_summary">Envie estatísticas de uso anónimo e relatórios de falhas para ajudar a melhorar o Tasks. Não serão recolhidos dados pessoais.</string>
     <string name="tag_already_exists">A etiqueta já existe</string>
     <string name="name_cannot_be_empty">O nome não pode estar vazio</string>
     <string name="no_title">(sem título)</string>
@@ -311,8 +305,6 @@
     <string name="icon">Ícone</string>
     <string name="google_tasks_add_to_top">Novas tarefas no topo</string>
     <string name="invalid_backup_file">O ficheiro de cópia de segurança é inválido</string>
-    <string name="version_string">Versão %s</string>
-    <string name="third_party_licenses">Licenças de terceiros</string>
     <string name="choose_new_location">Escolher nova localização</string>
     <string name="open_map">Abrir mapa</string>
     <string name="location_permission_required_location">É necessária a permissão de localização para encontrar a sua localização atual</string>
@@ -336,7 +328,6 @@
     <string name="logout">Sair</string>
     <string name="requires_pro_subscription">Requer assinatura Pro</string>
     <string name="pro_dashclock_extension">Extensão Dashclock</string>
-    <string name="license_summary">O Tasks é um programa livre e de código-aberto disponibilizado sob a GNU General Public License v3.0</string>
     <string name="button_subscribe">Subscrever</string>
     <string name="refresh_purchases">Atualizar compras</string>
     <string name="upgrade_to_pro">Atualizar para pro</string>
@@ -474,7 +465,6 @@
     <string name="save_percent">Guardar %d%%</string>
     <string name="migrate_count">Mover %s para Tasks.org</string>
     <string name="authorization_cancelled">Autorização cancelada</string>
-    <string name="follow_reddit">Entrar em r/tasks</string>
     <string name="current_subscription">Subscrição atual: %s</string>
     <string name="custom_filter_is_subtask">É uma subtarefa</string>
     <string name="backup_location_warning">AVISO: os ficheiros localizados em \"%s\" serão eliminados se o Tasks for desinstalado! Escolha outra localização para impedir que o Android elimine os seus ficheiros.</string>
@@ -513,10 +503,7 @@
     <string name="github_sponsors">Patrocinadores do GitHub</string>
     <string name="privacy">Privacidade</string>
     <string name="open_source">Código-fonte aberto</string>
-    <string name="issue_tracker">Reportar problemas</string>
     <string name="support">Suporte</string>
-    <string name="social">Social</string>
-    <string name="follow_twitter">Seguir @tasks_org</string>
     <string name="no_google_play_subscription">Não foi encontrada nenhuma subscrição elegível do Google Play</string>
     <string name="your_subscription_expired">A sua subscrição expirou. Renova agora a subscrição para continuar a usar o serviço.</string>
     <string name="custom_filter_has_subtask">Tem subtarefas</string>
@@ -649,7 +636,6 @@
     <string name="app_settings">Configurações da aplicação</string>
     <string name="comment">Comentário</string>
     <string name="add_shortcut_to_home_screen">Adicionar atalho para a tela inicial</string>
-    <string name="send_application_logs">Enviar logs da aplicação</string>
     <string name="delete_tasks_warning">%s será apagado. Isso não poderá ser desfeito!</string>
     <string name="widget_view_more_tasks">Ver mais tarefas</string>
 </resources>

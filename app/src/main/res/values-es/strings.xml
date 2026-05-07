@@ -233,10 +233,7 @@
     <string name="font_size">Tamaño de letra</string>
     <string name="row_spacing">Espaciado de fila</string>
     <string name="customize_edit_screen">Personalizar pantalla de edición</string>
-    <string name="source_code">Código fuente</string>
     <string name="translations">Contribuir con la traducción</string>
-    <string name="contact_developer">Contactar con el desarrollador </string>
-    <string name="rate_tasks">Valorar Tasks</string>
     <string name="quiet_hours_summary">Sin avisos en horario silencioso</string>
     <string name="add_reminder">Añadir recordatorio</string>
     <string name="add_location">Añadir ubicación</string>
@@ -270,9 +267,6 @@
     <string name="take_a_picture">Tomar fotografía</string>
     <string name="pick_from_gallery">Elegir desde la galería</string>
     <string name="pick_from_storage">Elegir desde almacenamiento</string>
-    <string name="privacy_policy">Política de privacidad</string>
-    <string name="send_anonymous_statistics">Mejorar Tasks</string>
-    <string name="send_anonymous_statistics_summary">Enviar de forma anónima estadísticas de uso e informes de error para ayudar a mejorar Task. No se recogerán datos personales.</string>
     <string name="tag_already_exists">La etiqueta ya existe</string>
     <string name="name_cannot_be_empty">El nombre no puede estar vacío</string>
     <string name="no_title">(Sin título)</string>
@@ -341,7 +335,6 @@
     <string name="upgrade_to_pro">Actualizar a profesional</string>
     <string name="refresh_purchases">Actualizar los acquisiciones</string>
     <string name="button_subscribe">Suscribe</string>
-    <string name="license_summary">Tasks es software libre de código abierto, licenciado bajo la GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Extensión Dashclock</string>
     <string name="requires_pro_subscription">Requiere suscripción Pro</string>
     <string name="logout">Cerrar sesión</string>
@@ -365,8 +358,6 @@
     <string name="location_permission_required_location">Se necesitan los permisos de ubicación para hallar su ubicación actual</string>
     <string name="open_map">Abrir mapa</string>
     <string name="choose_new_location">Elegir ubicación nueva</string>
-    <string name="third_party_licenses">Licencias de terceros</string>
-    <string name="version_string">Versión %s</string>
     <string name="invalid_backup_file">Archivo de copia de seguridad no válido</string>
     <string name="google_tasks_add_to_top">Nuevas tareas encima</string>
     <string name="TEA_timer_est">Est. %s</string>
@@ -511,7 +502,6 @@
     <string name="your_subscription_expired">Vuestra suscripción ha expirado. Suscribe ahora a resume servicio.</string>
     <string name="background_location_permission_required">Tasks recopila datos de ubicación para permitir los recordatorios basados en la ubicación aún cuando la aplicación está cerrada o no se utiliza.</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
-    <string name="follow_reddit">Únase a r/tasks</string>
     <string name="authorization_cancelled">Autorización cancelada</string>
     <string name="sign_in_with_google">Acceder con Google</string>
     <string name="github_sponsor">Patrocinador</string>
@@ -544,10 +534,7 @@
     <string name="tasks_org_account_required">Se requiere una cuenta de Tasks.org</string>
     <string name="privacy">Privacidad</string>
     <string name="open_source">Código abierto</string>
-    <string name="issue_tracker">Seguimiento de problemas</string>
     <string name="support">Asistencia</string>
-    <string name="social">Social</string>
-    <string name="follow_twitter">Seguir @tasks_org</string>
     <string name="remove_user_confirmation">%1$s ya no tendrá acceso a %2$s</string>
     <string name="remove_user">¿Quiere quitar al usuario\?</string>
     <string name="list_members">Lista de miembros</string>
@@ -644,7 +631,6 @@
     <string name="donate_nag">¡Considera mostrar tu apoyo con una donación!</string>
     <string name="donate_today">Donar ahora</string>
     <string name="donate_maybe_later">Quizas mas tarde</string>
-    <string name="send_application_logs">Enviar registros de aplicaciones</string>
     <string name="quiet_hours_in_effect">Es el momento de descansar</string>
     <string name="enable_alarms_description">Para asegurarse de recibir notificaciones en el momento adecuado, otorgue permiso para configurar alarmas y recordatorios en Configuración</string>
     <string name="enable_alarms">Recibe notificaciones en el momento adecuado</string>

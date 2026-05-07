@@ -147,10 +147,7 @@
     <string name="enabled">Aktiverad</string>
     <string name="font_size">Teckenstorlek</string>
     <string name="customize_edit_screen">Anpassa redigeringsvyn</string>
-    <string name="source_code">Källkod</string>
     <string name="translations">Hjälp till med översättning</string>
-    <string name="contact_developer">Kontakta utvecklaren</string>
-    <string name="rate_tasks">Betygsätt Tasks</string>
     <string name="quiet_hours_summary">Inga påminnelser under tysta timmar</string>
     <string name="add_reminder">Lägg till en påminnelse</string>
     <string name="remove">Ta bort</string>
@@ -180,9 +177,6 @@
     <string name="take_a_picture">Ta en bild</string>
     <string name="pick_from_gallery">Välj från album</string>
     <string name="pick_from_storage">Välj från lagring</string>
-    <string name="privacy_policy">Integritetspolicy</string>
-    <string name="send_anonymous_statistics">Förbättra Tasks</string>
-    <string name="send_anonymous_statistics_summary">Skicka anonym användarstatistik och kraschrapporter för att hjälpa till att förbättra Tasks. Ingen personlig information kommer samlas in.</string>
     <string name="tag_already_exists">Etiketten finns redan</string>
     <string name="name_cannot_be_empty">Namn måste anges</string>
     <string name="no_title">(Ingen titel)</string>
@@ -335,7 +329,6 @@
     <string name="upgrade_to_pro">Uppgradera till Pro</string>
     <string name="refresh_purchases">Uppdatera inköp</string>
     <string name="button_subscribe">Prenumerera</string>
-    <string name="license_summary">Tasks är Libre Open-Source programvara, licensierad under GNU General Public License v 3.0</string>
     <string name="pro_dashclock_extension">DashClock extension</string>
     <string name="requires_pro_subscription">Kräver Pro-abonnemang</string>
     <string name="logout">Logga ut</string>
@@ -359,8 +352,6 @@
     <string name="location_permission_required_location">Platsbehörigheter krävs för att hitta din aktuella plats</string>
     <string name="open_map">Öppna karta</string>
     <string name="choose_new_location">Välj ny plats</string>
-    <string name="third_party_licenses">Licenser från tredje part</string>
-    <string name="version_string">Version %s</string>
     <string name="invalid_backup_file">Ogiltig säkerhetskopieringsfil</string>
     <string name="google_tasks_add_to_top">Nya uppgifter överst</string>
     <string name="icon">Ikon</string>
@@ -436,11 +427,7 @@
     <string name="authorization_cancelled">Auktorisationen upphävd</string>
     <string name="privacy">Integritet</string>
     <string name="open_source">Öppen källkod</string>
-    <string name="issue_tracker">Problemlösare</string>
     <string name="support">Stöd</string>
-    <string name="social">Sociala</string>
-    <string name="follow_reddit">Gå med i r/tasks</string>
-    <string name="follow_twitter">Följ @tasks_org</string>
     <string name="current_subscription">Nuvarande abonnemang: %s</string>
     <string name="no_google_play_subscription">Inget berättigade Google Play-abonnemang hittades</string>
     <string name="your_subscription_expired">Ditt abonnemang har löpt ut. Abonnera nu för att återuppta tjänsten.</string>
@@ -623,7 +610,6 @@
     <string name="swipe_to_snooze_time_1_hour">efter 1 timme</string>
     <string name="swipe_to_snooze_time_24_hours">efter 24 timmar</string>
     <string name="customize_drawer">Anpassa låda</string>
-    <string name="send_application_logs">Skicka applikationsloggar</string>
     <string name="quiet_hours_in_effect">Tysta timmar är i kraft</string>
     <string name="enable_alarms">Få besked vid rätt tidpunkt</string>
     <string name="enable_alarms_description">För att se till att du aviseras vid rätt tidpunkt, ge tillstånd att ställa in larm och påminnelser i Inställningar</string>
@@ -656,9 +642,7 @@
     <string name="local_list_description">Uppgifter i den här listan lagras endast på den här enheten. Anslut ett konto för att skydda dina data och komma åt dem var som helst.</string>
     <string name="subscription_required_fdroid">En prenumeration krävs för att använda Tasks.org-synkronisering. Prenumerationer måste startas från Google Play-versionen av Tasks.</string>
     <string name="sponsorship_required_fdroid">Ett GitHub-sponsorskap krävs för att använda Tasks.org-synkronisering. Klicka nedan för att bli sponsor.</string>
-    <string name="legal">Juridisk</string>
     <string name="legal_disclosure_prefix_using">Genom att använda Tasks.org</string>
-    <string name="terms_of_service">Användarvillkor</string>
     <string name="tos_updated_title">Vi har uppdaterat våra användarvillkor</string>
     <string name="accept">Acceptera</string>
     <string name="exit">Avsluta</string>

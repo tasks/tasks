@@ -171,4 +171,25 @@
     <string name="etesync_account_description">يتطلب حسابًا مع EteSync.com أو خادمًا مستضافًا ذاتيًا</string>
     <string name="show_advanced_settings">عرض الإعدادات المتقدمة</string>
     <string name="app_settings">إعدادات التطبيق</string>
+    <string name="whats_new">ما الجديد</string>
+    <string name="version_string">نسخة %1$s</string>
+    <string name="rate_tasks">قيّم تاسكس</string>
+    <string name="documentation">التوثيق</string>
+    <string name="issue_tracker">تعقب المشكلة</string>
+    <string name="contact_developer">تواصل مع المطور</string>
+    <string name="send_application_logs">إرسال سجلات التطبيق</string>
+    <string name="follow_reddit">انضم إلى r/tasks</string>
+    <string name="follow_twitter">اتبع @tasks_org</string>
+    <string name="source_code">الكود المصدرى</string>
+    <string name="third_party_licenses">رخص طرف ثالث</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="send_anonymous_statistics">طوّر Tasks</string>
+    <string name="send_anonymous_statistics_summary">أرسل إحصاءات الاستخدام المجهولة وتقارير الأعطال للمساعدة في تحسين التطبيق. لن يتم جمع أي بيانات شخصية.</string>
+    <string name="license_summary">التطبيق "مهامي" هي برنامج مفتوح المصدر حر ، ومرخص بموجب رخصة جنو العمومية العامة v3.0</string>
+    <string name="support">دعم</string>
+    <string name="social">اجتماعي</string>
+    <string name="open_source">مفتوح المصدر</string>
+    <string name="restart_required">أعد تشغيل التطبيق ليأخذ هذا التغيير تأثيره</string>
+    <string name="restart_now">إعادة التشغيل الآن</string>
+    <string name="restart_later">لاحقاً</string>
 </resources>

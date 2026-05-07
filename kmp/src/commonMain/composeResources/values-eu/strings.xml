@@ -143,4 +143,24 @@
     <string name="username_required">Erabiltzaile-izena ezinbestekoa da</string>
     <string name="etesync_account_description">EteSync.com zerbitzuko edo zuk zeuk ostatatutako zerbitzari bateko kontua behar du</string>
     <string name="show_advanced_settings">Erakutsi ezarpen aurreratuak</string>
+    <string name="whats_new">Zer dago berri</string>
+    <string name="version_string">%1$s bertsioa</string>
+    <string name="rate_tasks">Baloratu Tasks</string>
+    <string name="documentation">Dokumentazioa</string>
+    <string name="issue_tracker">Gorabeheren arakatzailea</string>
+    <string name="contact_developer">Jarri garatzailearekin kontaktuan</string>
+    <string name="follow_reddit">Egin bat r/task-ekin</string>
+    <string name="follow_twitter">Jarraitu @tasks_org</string>
+    <string name="source_code">Iturburu kodea</string>
+    <string name="third_party_licenses">Hirugarrengoen lizentziak</string>
+    <string name="privacy_policy">pribatutasun politika</string>
+    <string name="send_anonymous_statistics">Hobetu Tasks</string>
+    <string name="send_anonymous_statistics_summary">Bidali erabilera estatistika anonimoak eta kraskatze txostenak Tasks hobetzen laguntzeko. Ez da datu pertsonalik jasoko.</string>
+    <string name="license_summary">Tasks aplikazioa software librea eta kode irekikoa da, GNU General Public License v3.0 lizentziapean</string>
+    <string name="support">Euskarria</string>
+    <string name="social">Soziala</string>
+    <string name="open_source">Kode irekia</string>
+    <string name="restart_required">Berrabiarazi Tasks aldaketa aplikatzeko</string>
+    <string name="restart_now">Berrabiarazi orain</string>
+    <string name="restart_later">Geroago</string>
 </resources>

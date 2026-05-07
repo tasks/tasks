@@ -55,10 +55,8 @@ import tasks.kmp.generated.resources.privacy_policy_proper
 import tasks.kmp.generated.resources.returning_user_import_backup
 import tasks.kmp.generated.resources.tasks_org
 import tasks.kmp.generated.resources.terms_of_service_proper
-import tasks.kmp.generated.resources.url_license
-import tasks.kmp.generated.resources.url_privacy_policy
+import org.tasks.TasksUrls
 import org.tasks.auth.TasksServerEnvironment
-import tasks.kmp.generated.resources.url_tos
 
 @Composable
 fun WelcomeScreenLayout(
@@ -331,18 +329,14 @@ fun LegalDisclosure(
     val licenseStart = formatted.indexOf(licenseText)
     val licenseEnd = licenseStart + licenseText.length
 
-    val tosUrl = stringResource(Res.string.url_tos)
-    val privacyUrl = stringResource(Res.string.url_privacy_policy)
-    val licenseUrl = stringResource(Res.string.url_license)
-
     val annotatedText = buildAnnotatedString {
         append(formatted)
         addStyle(linkStyle, tosStart, tosEnd)
-        addStringAnnotation(tag = "url", annotation = tosUrl, start = tosStart, end = tosEnd)
+        addStringAnnotation(tag = "url", annotation = TasksUrls.TOS, start = tosStart, end = tosEnd)
         addStyle(linkStyle, privacyStart, privacyEnd)
-        addStringAnnotation(tag = "url", annotation = privacyUrl, start = privacyStart, end = privacyEnd)
+        addStringAnnotation(tag = "url", annotation = TasksUrls.PRIVACY_POLICY, start = privacyStart, end = privacyEnd)
         addStyle(linkStyle, licenseStart, licenseEnd)
-        addStringAnnotation(tag = "url", annotation = licenseUrl, start = licenseStart, end = licenseEnd)
+        addStringAnnotation(tag = "url", annotation = TasksUrls.LICENSE, start = licenseStart, end = licenseEnd)
     }
 
     ClickableText(

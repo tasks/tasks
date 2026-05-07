@@ -219,10 +219,7 @@
     <string name="font_size">Karakter méret</string>
     <string name="row_spacing">Sorköz</string>
     <string name="customize_edit_screen">Szerkesztő képernyő testreszabása</string>
-    <string name="source_code">Forráskód</string>
     <string name="translations">Részvétel a fordításban</string>
-    <string name="contact_developer">Kapcsolatfelvétel a fejlesztővel</string>
-    <string name="rate_tasks">A Tasks értékelése</string>
     <string name="quiet_hours_summary">Emlékeztetők mellőzése csendes órák alatt</string>
     <string name="add_reminder">Emlékeztető hozzáadása</string>
     <string name="add_location">Hely hozzáadása</string>
@@ -256,9 +253,6 @@
     <string name="take_a_picture">Kép készítése</string>
     <string name="pick_from_gallery">Kiválasztás a galériából</string>
     <string name="pick_from_storage">Kiválasztás a tárhelyről</string>
-    <string name="privacy_policy">Adatvédelmi irányelv</string>
-    <string name="send_anonymous_statistics">Tasks fejlesztése</string>
-    <string name="send_anonymous_statistics_summary">Anonim felhasználási statisztikák és hibajelentések küldése a Tasks fejlesztése érdekében. Személyes adatok gyűjtése nem történik.</string>
     <string name="tag_already_exists">A címke már létezik</string>
     <string name="name_cannot_be_empty">A cím nem lehet üres</string>
     <string name="no_title">(Név nélkül)</string>
@@ -329,7 +323,6 @@
     <string name="upgrade_to_pro">Upgrade pro verzióra</string>
     <string name="refresh_purchases">Vásárlások frissítése</string>
     <string name="button_subscribe">Előfizetés</string>
-    <string name="license_summary">A Tasks nyílt forráskódú program, a GNU Általános Nyilvános Licenc v3.0 alapján licenszelve</string>
     <string name="pro_dashclock_extension">Dashclock kiterjesztés</string>
     <string name="requires_pro_subscription">Előfizetés szükséges</string>
     <string name="logout">Kijelentkezés</string>
@@ -353,8 +346,6 @@
     <string name="location_permission_required_location">A jelenlegi pozíció meghatározásához helymeghatározási jogosultság szükséges</string>
     <string name="open_map">Térkép megnyitása</string>
     <string name="choose_new_location">Új hely kiválasztása</string>
-    <string name="third_party_licenses">Harmadik fél licenszei</string>
-    <string name="version_string">Verzió %s</string>
     <string name="invalid_backup_file">Érvénytelen mentési file</string>
     <string name="google_tasks_add_to_top">Az új feladatok felül</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
@@ -493,7 +484,6 @@
     <string name="custom_filter_has_subtask">Van alfeladata</string>
     <string name="cancel">Mégse</string>
     <string name="ok">OK</string>
-    <string name="follow_reddit">Csatlakozás r/tasks</string>
     <string name="background_location_permission_required">A Tasks a helyinformációkat a helyalapú emlékeztetőkhöz használja fel, még akkor is, ha az app be van zárva vagy nincs használatban.</string>
     <string name="repeat_monthly_fifth_week">ötödik</string>
     <string name="authorization_cancelled">Azonosítás megszakítva</string>
@@ -528,10 +518,7 @@
     <string name="tasks_org_account_required">Tasks.org fiók szükséges</string>
     <string name="privacy">Adatvédelem</string>
     <string name="open_source">Nyílt forráskódú</string>
-    <string name="issue_tracker">Hibakövető</string>
     <string name="support">Támogatás</string>
-    <string name="social">Közösségi</string>
-    <string name="follow_twitter">\@tasks_org követése</string>
     <string name="remove_user_confirmation">%1$s nem fog hozzáférni ehhez: %2$s</string>
     <string name="remove_user">Felhasználó eltávolítása\?</string>
     <string name="list_members">Listatagok</string>
@@ -622,7 +609,6 @@
     <string name="swipe_to_snooze_time_immediately">azonnal</string>
     <string name="show_edit_screen_without_unlock">A szerkesztőképernyő megjelenítése feloldás nélkül</string>
     <string name="theme_dynamic">Dinamikus</string>
-    <string name="send_application_logs">Alkalmazás logok küldése</string>
     <string name="swipe_to_snooze_time_30_minutes">30 perc múlva</string>
     <string name="swipe_to_snooze_time_description">Egy törölt értesítés annyi idő múlva lesz újra megjelenítve: %s</string>
     <string name="customize_drawer_summary">A menüelemek húzással történő átrendezése</string>
@@ -654,9 +640,7 @@
     <string name="local_list_description">Az ebben a listában található feladatok csak erzen a készüléken kerülnek mentésre. Kapcsolódj egy fiókhoz, hogy az adataid biztonságban legyenek és bárhonnan elérd őket.</string>
     <string name="subscription_required_fdroid">A Tasks.org szinkronizáláshoz előfizetés szükséges. Az előfizetést a Tasks alkalmazás Google Play verziójából lehet kezdeményezni.</string>
     <string name="sponsorship_required_fdroid">A Tasks.org szinkronizáláshoz GitHub szponzori előfizetés szükséges. A szponzori tagsághoz kattints az alábbi linkre.</string>
-    <string name="legal">Jogi tudnivalók</string>
     <string name="legal_disclosure_prefix_using">A Tasks.org használata által</string>
-    <string name="terms_of_service">Szolgáltatási feltételek</string>
     <string name="tos_updated_title">Frissítettük a Szolgáltatási feltételeket</string>
     <string name="accept">Elfogadás</string>
     <string name="exit">Kilépés</string>
@@ -697,10 +681,6 @@
     <string name="location_update_interval_1_hour">Óránként</string>
     <string name="location_update_interval_2_hours">2 óránként</string>
     <string name="read_more">Mutass többet</string>
-    <string name="blog_notifications">Blog értesítések</string>
-    <string name="blog_feed_none">Nincs</string>
-    <string name="blog_feed_announcements">Csak a bejelentések</string>
-    <string name="blog_feed_all">Minden bejegyzés</string>
     <string name="upgrade_desktop_app">Tasks.org PC-re</string>
     <string name="upgrade_desktop_app_description">Korai hozzáférés az új PC-s alkalmazáshoz</string>
 </resources>
