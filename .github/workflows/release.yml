@@ -137,6 +137,8 @@ jobs:
         run: |
           mkdir -p pages
           cp composeApp/output/download.html pages/index.html
+          cp composeApp/output/icon.png pages/icon.png
+          sed -i '/<div class="linux-all"><br><\/div>/r composeApp/appimage-button.html' pages/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

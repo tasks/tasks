@@ -7,7 +7,7 @@ Astrid was a popular cross-platform productivity service that was [acquired](htt
     alt="Get it on F-Droid"
     height="80">](https://f-droid.org/packages/org.tasks)
 
-**Desktop (alpha):** [latest release on GitHub](https://github.com/tasks/tasks/releases/latest)
+**Desktop (alpha):** [tasks.org/download](https://tasks.org/download)
 
 **Pebble:**
 [Rebble store](https://apps.rebble.io/en_US/application/69c598c0f20a0a0009e54acf) ·
