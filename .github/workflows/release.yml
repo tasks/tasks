@@ -124,6 +124,7 @@ jobs:
           composeApp/output/*.msix
           composeApp/output/*.deb
           composeApp/output/*.exe
+          composeApp/output/*.crt
           composeApp/output/*.appinstaller
           composeApp/output/metadata.properties
           composeApp/output/appcast-*.rss
