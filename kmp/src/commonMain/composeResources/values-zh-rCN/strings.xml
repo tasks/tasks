@@ -257,4 +257,6 @@
     <string name="error_contact_support">如果问题持续，请联系 %1$s</string>
     <string name="google_play_subscription">Google Play 订阅</string>
     <string name="github_sponsorship">GitHub Sponsorship</string>
+    <string name="wrong_account">登录失败</string>
+    <string name="wrong_account_message">您的订阅已关联到 %1$s。如果您认为这是一个错误，请联系 %2$s</string>
 </resources>
