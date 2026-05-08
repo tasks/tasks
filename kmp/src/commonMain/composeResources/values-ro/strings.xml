@@ -186,4 +186,5 @@
     <string name="restart_required">Repornește Tasks pentru ca această modificare să intre în vigoare</string>
     <string name="restart_now">Repornește acum</string>
     <string name="restart_later">Mai târziu</string>
+    <string name="blog_feed_none">Niciuna</string>
 </resources>
