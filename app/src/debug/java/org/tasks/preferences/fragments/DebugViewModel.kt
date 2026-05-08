@@ -33,8 +33,6 @@ class DebugViewModel @Inject constructor(
     private val taskSaver: org.tasks.data.TaskSaver,
 ) : ViewModel() {
 
-    var leakCanaryEnabled by mutableStateOf(false)
-        private set
     var strictModeVmEnabled by mutableStateOf(false)
         private set
     var strictModeThreadEnabled by mutableStateOf(false)
@@ -51,7 +49,6 @@ class DebugViewModel @Inject constructor(
         private set
 
     fun refreshState() {
-        leakCanaryEnabled = preferences.getBoolean(R.string.p_leakcanary, false)
         strictModeVmEnabled = preferences.getBoolean(R.string.p_strict_mode_vm, false)
         strictModeThreadEnabled = preferences.getBoolean(R.string.p_strict_mode_thread, false)
         crashOnViolationEnabled = preferences.getBoolean(R.string.p_crash_main_queries, false)
@@ -60,12 +57,6 @@ class DebugViewModel @Inject constructor(
         viewModelScope.launch {
             showDebugFilters = tasksPreferences.get(TasksPreferences.showDebugFilters, false)
         }
-    }
-
-    fun updateLeakCanary(enabled: Boolean) {
-        preferences.setBoolean(R.string.p_leakcanary, enabled)
-        leakCanaryEnabled = enabled
-        showRestartDialog = true
     }
 
     fun updateStrictModeVm(enabled: Boolean) {

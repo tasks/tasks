@@ -39,14 +39,12 @@ class Debug : Fragment() {
             primary = theme.themeColor.primaryColor,
         ) {
             DebugScreen(
-                leakCanaryEnabled = viewModel.leakCanaryEnabled,
                 strictModeVmEnabled = viewModel.strictModeVmEnabled,
                 strictModeThreadEnabled = viewModel.strictModeThreadEnabled,
                 crashOnViolationEnabled = viewModel.crashOnViolationEnabled,
                 unlockProEnabled = viewModel.unlockProEnabled,
                 showDebugFilters = viewModel.showDebugFilters,
                 iapTitle = viewModel.iapTitle,
-                onLeakCanary = { viewModel.updateLeakCanary(it) },
                 onStrictModeVm = { viewModel.updateStrictModeVm(it) },
                 onStrictModeThread = { viewModel.updateStrictModeThread(it) },
                 onCrashOnViolation = { viewModel.updateCrashOnViolation(it) },
