@@ -354,8 +354,8 @@ class NotificationManager @Inject constructor(
 
         // read properties
         val markdown = markdownProvider.markdown(force = true)
-        val taskTitle = markdown.toMarkdown(task.title)
-        val taskDescription = markdown.toMarkdown(task.notes)
+        val taskTitle = markdown.toMarkdown(task.title)?.toString()
+        val taskDescription = markdown.toMarkdown(task.notes)?.toString()
 
         val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
