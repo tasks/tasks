@@ -261,4 +261,6 @@
     <string name="annual">Annuel</string>
     <string name="monthly">Mensuel</string>
     <string name="pricing_cloud_feature_2">Partage de liste d\'amis et de famille</string>
+    <string name="wrong_account">Échec de la connexion</string>
+    <string name="wrong_account_message">Votre abonnement est déjà associé à %1$s. Si vous pensez qu\'il s\'agit d\'une erreur, veuillez contacter %2$s</string>
 </resources>
