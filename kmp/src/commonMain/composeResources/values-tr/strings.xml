@@ -259,4 +259,6 @@
     <string name="pricing_nyp_feature_3">Açık kaynaklı yazılımı destekle</string>
     <string name="pricing_subscribe_google_play">Google Play\'de abone ol</string>
     <string name="pricing_sponsor">Ya da şu fiyata GitHub\'da sponsor ol: %1$s</string>
+    <string name="wrong_account">Oturum açılamadı</string>
+    <string name="wrong_account_message">Aboneliğiniz zaten %1$s ile bağlantılı. Bunun bir hata olduğunu düşünüyorsanız, lütfen %2$s ile iletişime geçin</string>
 </resources>
