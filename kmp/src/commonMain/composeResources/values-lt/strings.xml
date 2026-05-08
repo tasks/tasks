@@ -165,4 +165,5 @@
     <string name="restart_required">Iš naujo paleiskite Tasks, kad šis pakeitimas įsigaliotų</string>
     <string name="restart_now">Perkrauti dabar</string>
     <string name="restart_later">Vėliau</string>
+    <string name="blog_feed_none">Nėra</string>
 </resources>
