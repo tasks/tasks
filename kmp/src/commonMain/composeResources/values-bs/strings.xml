@@ -26,4 +26,5 @@
     <string name="task_defaults">Uobičajene postavke zadatka</string>
     <string name="backup_BPr_header">Sigurnosne kopije</string>
     <string name="app_settings">Postavke aplikacije</string>
+    <string name="blog_feed_none">Ništa</string>
 </resources>
