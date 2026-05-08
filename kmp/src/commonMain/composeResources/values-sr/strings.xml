@@ -209,4 +209,5 @@
     <string name="restart_required">Рестартуј Задатке како би се промене виделе</string>
     <string name="restart_now">Рестартуј сада</string>
     <string name="restart_later">Касније</string>
+    <string name="blog_feed_none">Празно</string>
 </resources>
