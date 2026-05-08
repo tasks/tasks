@@ -107,4 +107,5 @@
     <string name="restart_required">اس تبدیلی کو اثردار بنانے کیلئے ایپ ری سٹارٹ کریں</string>
     <string name="restart_now">ابھی ری سٹارٹ کریں</string>
     <string name="restart_later">بعد میں</string>
+    <string name="blog_feed_none">کوئی نہیں</string>
 </resources>
