@@ -172,4 +172,5 @@
     <string name="restart_required">Start Tasks om igjen for å ta i bruk endringene</string>
     <string name="restart_now">Restart nå</string>
     <string name="restart_later">Senere</string>
+    <string name="blog_feed_none">Ingen</string>
 </resources>
