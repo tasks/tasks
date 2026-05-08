@@ -156,4 +156,5 @@
     <string name="restart_required">මෙම වෙනස බලාත්මක කිරීම සඳහා Tasks නැවත අරඹන්න</string>
     <string name="restart_now">නැවත ආරම්භ කරන්න</string>
     <string name="restart_later">පසුව</string>
+    <string name="blog_feed_none">කිසිවක් නැත</string>
 </resources>
