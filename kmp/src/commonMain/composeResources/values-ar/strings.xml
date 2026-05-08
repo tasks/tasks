@@ -192,4 +192,5 @@
     <string name="restart_required">أعد تشغيل التطبيق ليأخذ هذا التغيير تأثيره</string>
     <string name="restart_now">إعادة التشغيل الآن</string>
     <string name="restart_later">لاحقاً</string>
+    <string name="blog_feed_none">لا شيء</string>
 </resources>
