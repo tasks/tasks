@@ -1,3 +1,18 @@
+### 15.4.2 (2026-05-08)
+
+Desktop:
+  * Fix EteSync setup
+  * Add 'About' screen
+
+Android:
+  * Improve notifications on wearables
+
+Update translations:
+  * Chinese (Simplified) - Sketch6580
+  * Czech - Fjuro
+  * French - @FlorianLeChat
+  * Turkish - @oersen
+
 ### 15.4.1 (2026-05-06)
 
 Desktop:
