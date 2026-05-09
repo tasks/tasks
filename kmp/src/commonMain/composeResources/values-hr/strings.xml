@@ -172,11 +172,11 @@
     <string name="about">Informacije</string>
     <string name="widget_settings">Postavke widgeta</string>
     <plurals name="task_count">
-        <item quantity="one">%d zadatak</item>
-        <item quantity="few">%d zadatka</item>
-        <item quantity="other">%d zadataka</item>
+        <item quantity="one">%1$d zadatak</item>
+        <item quantity="few">%1$d zadatka</item>
+        <item quantity="other">%1$d zadatka</item>
     </plurals>
-    <string name="delete_tasks_warning">%s će se izbrisati. Ovo se ne može opozvati!</string>
+    <string name="delete_tasks_warning">%1$s će se izbrisati. Ovo se ne može opozvati!</string>
     <string name="name_cannot_be_empty">Ime ne smije biti prazno</string>
     <string name="discard_changes">Odbaciti promjene?</string>
     <string name="discard">Odbaci</string>
@@ -189,7 +189,7 @@
     <string name="caldav_server_other">Drugi</string>
     <string name="caldav_server_type">Vrsta poslužitelja</string>
     <string name="caldav_server_unknown">Nepoznato</string>
-    <string name="error_adding_account">Greška: %s</string>
+    <string name="error_adding_account">Greška: %1$s</string>
     <string name="invalid_username_or_password">Neispravno korisničko ime ili lozinka</string>
     <string name="network_error">Neuspjelo spajanje</string>
     <string name="sign_in">Prijavi se</string>
@@ -226,4 +226,5 @@
     <string name="restart_now">Pokreni ponovo</string>
     <string name="restart_later">Kasnije</string>
     <string name="blog_feed_none">Ništa</string>
+    <string name="supporter_summary_no_price">Hvala!</string>
 </resources>
