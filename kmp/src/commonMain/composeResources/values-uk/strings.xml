@@ -187,4 +187,5 @@
     <string name="restart_required">Перезапустіть Tasks для вступу змін в дію</string>
     <string name="restart_now">Перезапустити зараз</string>
     <string name="restart_later">Пізніше</string>
+    <string name="blog_feed_none">Немає</string>
 </resources>

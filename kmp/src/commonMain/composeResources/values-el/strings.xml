@@ -184,4 +184,5 @@
     <string name="restart_required">Επανεκκινήστε τις Εργασίες για να εφαρμοστεί αυτή η αλλαγή</string>
     <string name="restart_now">Επανεκκίνηση τώρα</string>
     <string name="restart_later">Αργότερα</string>
+    <string name="blog_feed_none">Κανένα</string>
 </resources>

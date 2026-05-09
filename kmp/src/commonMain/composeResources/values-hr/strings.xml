@@ -225,4 +225,5 @@
     <string name="restart_required">Za primjenu promjene ponovo pokreni Tasks</string>
     <string name="restart_now">Pokreni ponovo</string>
     <string name="restart_later">Kasnije</string>
+    <string name="blog_feed_none">Ništa</string>
 </resources>

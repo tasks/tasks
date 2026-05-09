@@ -221,4 +221,5 @@
     <string name="restart_required">重新啟動 Tasks以使變更生效</string>
     <string name="restart_now">馬上重新啟動</string>
     <string name="restart_later">稍後</string>
+    <string name="blog_feed_none">無</string>
 </resources>
