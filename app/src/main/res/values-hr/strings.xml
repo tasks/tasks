@@ -221,7 +221,7 @@
     <string name="linkify_description">Dodaj poveznice na web-stranice, adrese i telefonske brojeve</string>
     <string name="reinitialize_account">Vrati na početne vrijednosti</string>
     <string name="this_feature_requires_a_subscription">Ova funkcija zahtijeva pretplata</string>
-    <string name="requires_pro_subscription">Zahtijeva pretplatu na Pro verziju</string>
+    <string name="requires_pro_subscription">Zahtijeva „Pro” pretplatu</string>
     <string name="pro_dashclock_extension">Proširenje sata na preglednoj ploči</string>
     <string name="button_subscribe">Pretplati se</string>
     <string name="refresh_purchases">Osvježi kupnje</string>
