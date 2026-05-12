@@ -167,7 +167,7 @@
     <string name="date_shortcut_must_come_before">%1$s måste komma före %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s måste komma efter %2$s</string>
     <string name="discard_changes">Släng ändringar?</string>
-    <string name="discard">Ta bort</string>
+    <string name="discard">Släng</string>
     <string name="tag_settings">Tagginställningar</string>
     <string name="list_settings">Listinställningar</string>
     <string name="delete">Ta bort</string>
@@ -330,7 +330,7 @@
     <string name="refresh_purchases">Uppdatera inköp</string>
     <string name="button_subscribe">Prenumerera</string>
     <string name="pro_dashclock_extension">DashClock extension</string>
-    <string name="requires_pro_subscription">Kräver pro-prenumeration</string>
+    <string name="requires_pro_subscription">Kräver Pro-prenumeration</string>
     <string name="logout">Logga ut</string>
     <string name="cannot_access_account">Kan inte komma åt kontot</string>
     <string name="reinitialize_account">Ominitiera</string>
@@ -355,7 +355,7 @@
     <string name="invalid_backup_file">Ogiltig säkerhetskopieringsfil</string>
     <string name="google_tasks_add_to_top">Nya uppgifter överst</string>
     <string name="icon">Ikon</string>
-    <string name="name_your_price">Namnge ditt pris</string>
+    <string name="name_your_price">Ange ditt pris</string>
     <string name="SSD_sort_my_order">Min ordning</string>
     <string name="lists">Listor</string>
     <string name="sort_modified_group">Ändrad %s</string>
@@ -417,7 +417,7 @@
     <string name="app_password">Applösenord</string>
     <string name="save_percent">Spara %d%%</string>
     <string name="above_average">Över medel</string>
-    <string name="migrate_count">Flytta %s till Tasks.org</string>
+    <string name="migrate_count">Migrera %s till Tasks.org</string>
     <string name="migrating_tasks">Migrerar uppgifter</string>
     <string name="migrate">Migrera</string>
     <string name="github_sponsor">Sponsor</string>
@@ -430,7 +430,7 @@
     <string name="support">Stöd</string>
     <string name="current_subscription">Nuvarande abonnemang: %s</string>
     <string name="no_google_play_subscription">Inget berättigade Google Play-abonnemang hittades</string>
-    <string name="your_subscription_expired">Ditt abonnemang har löpt ut. Abonnera nu för att återuppta tjänsten.</string>
+    <string name="your_subscription_expired">Din prenumeration har löpt ut. Prenumerera nu för att återuppta tjänsten.</string>
     <string name="custom_filter_is_subtask">Är en deluppgift</string>
     <string name="custom_filter_has_subtask">Har deluppgifter</string>
     <string name="date_picker_multiple">Flera</string>
@@ -485,7 +485,7 @@
     <string name="wearable_notifications">Wearable-aviseringar</string>
     <string name="davx5_selection_description">Synkronisera dina uppgifter med DAVx⁵-appen</string>
     <string name="decsync_selection_description">Filbaserad synkronisering</string>
-    <string name="etesync_selection_description">Krypterad synkronisering från slut till slut</string>
+    <string name="etesync_selection_description">Ände-till-ände-krypterad synkronisering</string>
     <string name="caldav_selection_description">Synkronisering baserad på öppna internetstandarder</string>
     <string name="choose_synchronization_service">Välj en plattform</string>
     <string name="enter_tag_name">Ange taggnamn</string>
@@ -595,7 +595,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Avbryt</string>
     <string name="theme_dynamic">Dynamisk</string>
-    <string name="donate_nag">Överväg att visa ditt stöd med en donation!</string>
+    <string name="donate_nag">Överväg att stödja oss med en donation!</string>
     <string name="donate_today">Donera idag</string>
     <string name="donate_maybe_later">Kanske senare</string>
     <string name="show_edit_screen_without_unlock">Visa redigeringsskärm utan upplåsning</string>
