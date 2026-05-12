@@ -166,7 +166,7 @@
     <string name="date_shortcut_tomorrow_afternoon">Imorgon på eftermiddagen</string>
     <string name="date_shortcut_must_come_before">%1$s måste komma före %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s måste komma efter %2$s</string>
-    <string name="discard_changes">Ignorera ändringarna?</string>
+    <string name="discard_changes">Släng ändringar?</string>
     <string name="discard">Ta bort</string>
     <string name="tag_settings">Tagginställningar</string>
     <string name="list_settings">Listinställningar</string>
@@ -195,7 +195,7 @@
     <string name="restart_now">Starta om nu</string>
     <string name="restart_later">Senare</string>
     <string name="settings_localization">Språk</string>
-    <string name="widget_settings">Inställningar för widget</string>
+    <string name="widget_settings">Inställningar för gränssnittskomponent</string>
     <string name="clear_completed_tasks_confirmation">Rensa bort slutförda uppgifter?</string>
     <string name="action_call">Ring</string>
     <string name="action_open">Öppna</string>
@@ -356,7 +356,7 @@
     <string name="google_tasks_add_to_top">Nya uppgifter överst</string>
     <string name="icon">Ikon</string>
     <string name="name_your_price">Namnge ditt pris</string>
-    <string name="SSD_sort_my_order">Min sortering</string>
+    <string name="SSD_sort_my_order">Min ordning</string>
     <string name="lists">Listor</string>
     <string name="sort_modified_group">Ändrad %s</string>
     <string name="sort_created_group">Skapad %s</string>
@@ -458,7 +458,7 @@
     <string name="filter_eisenhower_box_3">Inte viktigt och brådskande</string>
     <string name="filter_eisenhower_box_2">Viktigt och inte brådskande</string>
     <string name="filter_eisenhower_box_1">Viktigt och brådskande</string>
-    <string name="filter_medium_priority">Medium prioritet</string>
+    <string name="filter_medium_priority">Medelhög prioritet</string>
     <string name="add_tags">Lägg till taggar</string>
     <string name="filter_no_tags">Inga taggar</string>
     <string name="filter_any_due_date">Alla förfallodagar</string>
@@ -538,7 +538,7 @@
     <string name="sort_created">Efter skapandetid</string>
     <string name="SSD_sort_start">Efter startdatum</string>
     <string name="astrid_sort_order">Manuell sortering från Astrid</string>
-    <string name="display_name">Visa namnet</string>
+    <string name="display_name">Visningsnamn</string>
     <string name="now">Nu</string>
     <string name="completed">Slutförd</string>
     <string name="when_started">Vid start</string>
@@ -663,7 +663,7 @@
     <string name="rmd_time_enabled_off">Lägg inte till standardpåminnelser till heldagsuppgifter</string>
     <string name="banner_subscription_required_title">Prenumeration krävs</string>
     <string name="banner_subscription_required_body">Betala vad du vill för att låsa upp %s-synkroniseringen</string>
-    <string name="p_per_list_sort"></string>
+    <string name="p_per_list_sort"/>
     <string name="per_list_sort_summary">Kom ihåg sorterings- och gruppinställningar för varje lista oberoende av varandra</string>
     <string name="share_list">Dela \"%1$s\"</string>
     <string name="send">Skicka</string>
