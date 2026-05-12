@@ -15,8 +15,8 @@
     <string name="settings">Inställningar</string>
     <string name="drawer_filters">Filter</string>
     <string name="drawer_local_lists">Lokala listor</string>
-    <string name="tmrw">Imorgon</string>
-    <string name="tomorrow_abbrev_lowercase">imorgon</string>
+    <string name="tmrw">Imorg</string>
+    <string name="tomorrow_abbrev_lowercase">imorg</string>
     <string name="tomorrow">Imorgon</string>
     <string name="tomorrow_lowercase">imorgon</string>
     <string name="yest">Igår</string>
@@ -70,7 +70,7 @@
     <string name="google_play_subscribers">Google Play-prenumeranter</string>
     <string name="github_sponsors">GitHub-sponsorer</string>
     <string name="completed">Slutförd</string>
-    <string name="filter_overdue">Försenad</string>
+    <string name="filter_overdue">Förfallen</string>
     <string name="no_due_date">Inget förfallodatum</string>
     <string name="no_start_date">Inget startdatum</string>
     <string name="no_date">Inget datum</string>
@@ -90,7 +90,7 @@
     <string name="SSD_sort_auto">Smart sortering</string>
     <string name="SSD_sort_my_order">Min ordning</string>
     <string name="astrid_sort_order">Manuell sortering från Astrid</string>
-    <string name="sort_completed">Efter färdigställd tid</string>
+    <string name="sort_completed">Efter slutförandetid</string>
     <string name="sort_grouping">Gruppering</string>
     <string name="sort_sorting">Sortering</string>
     <string name="sort_ascending">Stigande</string>
@@ -161,7 +161,7 @@
         <item quantity="one">%1$d lista</item>
         <item quantity="other">%1$d listor</item>
     </plurals>
-    <string name="caldav_server_other">Övrig</string>
+    <string name="caldav_server_other">Annan</string>
     <string name="caldav_server_type">Servertyp</string>
     <string name="caldav_server_unknown">Okänd</string>
     <string name="error_adding_account">Fel: %s</string>
@@ -212,7 +212,7 @@
     <string name="show_more">Visa mer</string>
     <string name="show_less">Visa mindre</string>
     <string name="upgrade_to_pro_card_description">Lås upp Tasks.org-molnsynkronisering, delning med vänner och familj och e-post-till-uppgift</string>
-    <string name="supporter">Understödjare</string>
+    <string name="supporter">Stödjare</string>
     <string name="supporter_summary_no_price">Tack!</string>
     <string name="supporter_summary">%1$s • Tack!</string>
     <string name="sign_in_to_connect">Logga in för att ansluta ditt Tasks.org-konto</string>
@@ -261,7 +261,7 @@
     <string name="google_play_subscription">Google Play-prenumeration</string>
     <string name="github_sponsorship">GitHub-sponsring</string>
     <string name="error_github_verification_failed">Verifieringen misslyckades. Försök igen.</string>
-    <string name="pricing_subtitle">Gratis och öppen källkod. Prenumerationer stöder utveckling och låser upp ytterligare funktioner.</string>
+    <string name="pricing_subtitle">Gratis och öppen källkod. Prenumerationer stödjer utvecklingen och låser upp ytterligare funktioner.</string>
     <string name="pricing_cloud_description">Lås upp alla funktioner i appen och synkronisera med Tasks.org Cloud.</string>
     <string name="pricing_nyp_title">Ange-ditt-pris</string>
     <string name="pricing_from">Från %1$s</string>
@@ -277,7 +277,7 @@
     <string name="pricing_cloud_feature_3">E-post-till-uppgift med en privat inkorg</string>
     <string name="pricing_cloud_feature_4">Anslut till Apple-påminnelser på iOS</string>
     <string name="pricing_nyp_feature_1">Anpassade teman och ikoner</string>
-    <string name="pricing_nyp_feature_2">Självhostad synkronisering med CalDAV och EteSync</string>
+    <string name="pricing_nyp_feature_2">Egenhostad synkronisering med CalDAV och EteSync</string>
     <string name="pricing_nyp_feature_3">Stöd programvara med öppen källkod</string>
     <string name="pricing_subscribe_google_play">Prenumerera på Google Play</string>
     <string name="pricing_sponsor">Eller sponsra på GitHub för %1$s</string>
