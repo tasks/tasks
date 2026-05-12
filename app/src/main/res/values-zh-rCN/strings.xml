@@ -313,7 +313,6 @@
     <string name="pro_dashclock_extension">Dashclock 扩展</string>
     <string name="requires_pro_subscription">需订阅专业版</string>
     <string name="logout">登出</string>
-    <string name="cannot_access_account">无法访问账号</string>
     <string name="reinitialize_account">重新初始化</string>
     <string name="action_create_new_task">新建任务</string>
     <string name="show_description">显示描述</string>

@@ -288,4 +288,5 @@
     <string name="restart_required">Bu değişikliğin etkinleşmesi için Tasks'ı yeniden başlat</string>
     <string name="restart_now">Şimdi yeniden başlat</string>
     <string name="restart_later">Sonra</string>
+    <string name="cannot_access_account">Hesaba erişilemedi</string>
 </resources>

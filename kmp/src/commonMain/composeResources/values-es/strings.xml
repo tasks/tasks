@@ -187,4 +187,5 @@
     <string name="restart_now">Reiniciar ahora</string>
     <string name="restart_later">Más tarde</string>
     <string name="blog_feed_none">Ninguna</string>
+    <string name="cannot_access_account">No se puede acceder a la cuenta</string>
 </resources>

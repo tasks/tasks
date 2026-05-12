@@ -154,4 +154,5 @@
     <string name="restart_now">เริ่มการทํางานใหม่เดี๋ยวนี้</string>
     <string name="restart_later">หลัง</string>
     <string name="blog_feed_none">ไม่มีใคร</string>
+    <string name="cannot_access_account">ไม่สามารถเข้าถึงบัญชี</string>
 </resources>

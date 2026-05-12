@@ -108,4 +108,5 @@
     <string name="restart_now">ابھی ری سٹارٹ کریں</string>
     <string name="restart_later">بعد میں</string>
     <string name="blog_feed_none">کوئی نہیں</string>
+    <string name="cannot_access_account">اکاونٹ تک رسائی نہیں ہو سکتی</string>
 </resources>

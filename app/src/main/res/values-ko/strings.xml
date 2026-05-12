@@ -324,7 +324,6 @@
     <string name="pro_dashclock_extension">Dashclock 확장프로그램</string>
     <string name="requires_pro_subscription">프로 서비스 구독이 필요합니다</string>
     <string name="logout">로그아웃</string>
-    <string name="cannot_access_account">계정에 접근할 수 없습니다</string>
     <string name="reinitialize_account">다시 초기화하기</string>
     <string name="action_create_new_task">새 할일 만들기</string>
     <string name="show_description">설명 표시</string>

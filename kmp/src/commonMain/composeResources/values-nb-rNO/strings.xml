@@ -173,4 +173,5 @@
     <string name="restart_now">Restart nå</string>
     <string name="restart_later">Senere</string>
     <string name="blog_feed_none">Ingen</string>
+    <string name="cannot_access_account">Får ikke tilgang til konto</string>
 </resources>

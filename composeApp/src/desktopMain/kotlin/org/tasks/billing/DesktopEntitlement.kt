@@ -91,6 +91,8 @@ class DesktopEntitlement(
         private const val RETRY_INTERVAL_SECONDS = 15 * 60L
     }
 
+    fun getJwt(): String? = load()?.jwt
+
     fun initialize() {
         val stored = load() ?: return
         if (!verifySignature(stored.jwt)) return

@@ -184,4 +184,5 @@
     <string name="restart_now">지금 재시작하기</string>
     <string name="restart_later">나중에</string>
     <string name="blog_feed_none">없음</string>
+    <string name="cannot_access_account">계정에 접근할 수 없습니다</string>
 </resources>

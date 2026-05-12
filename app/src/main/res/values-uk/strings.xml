@@ -342,7 +342,6 @@
     <string name="pro_dashclock_extension">Розширення Dashclock</string>
     <string name="requires_pro_subscription">Потребує передплати pro</string>
     <string name="logout">Вийти</string>
-    <string name="cannot_access_account">Немає доступу до облікового запису</string>
     <string name="reinitialize_account">Ініціалізувати ще раз</string>
     <string name="action_create_new_task">Створити нове завдання</string>
     <string name="show_description">Показувати опис</string>

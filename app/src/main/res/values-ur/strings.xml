@@ -405,7 +405,6 @@
     <string name="action_new_task">نیا ٹاسک</string>
     <string name="action_create_new_task">نیا ٹاسک بنائیں</string>
     <string name="reinitialize_account">دوبارہ شروع کریں</string>
-    <string name="cannot_access_account">اکاونٹ تک رسائی نہیں ہو سکتی</string>
     <string name="logout">لاگ آؤٹ</string>
     <string name="this_feature_requires_a_subscription">یہ فیچر سبسکرپشن سے چلے گا</string>
     <string name="requires_pro_subscription">پرو سبسکرپشن کی ضرورت ہے</string>

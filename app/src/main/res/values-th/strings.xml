@@ -58,7 +58,6 @@
     <string name="authentication_required">ต้องการการรับรองความถูกต้อง</string>
     <string name="sign_in_with_google">ลงชื่อเข้าใช้ด้วย Google</string>
     <string name="github_sponsors">ผู้สนับสนุน GitHub</string>
-    <string name="cannot_access_account">ไม่สามารถเข้าถึงบัญชี</string>
     <string name="logout">ออกจากระบบ</string>
     <string name="this_feature_requires_a_subscription">คุณลักษณะนี้ต้องการการสมัครใช้งาน</string>
     <string name="authorization_cancelled">ยกเลิกการตรวจสอบแล้ว</string>

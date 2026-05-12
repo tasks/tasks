@@ -59,6 +59,7 @@ actual fun platformModule(): Module = module {
             billingProvider = BillingProvider.PADDLE,
             supportsCaldav = true,
             supportsEteSync = true,
+            supportsGoogleTasks = true,
         )
     }
     single<Reporting> {
@@ -71,6 +72,13 @@ actual fun platformModule(): Module = module {
     factory<OkHttpClientFactory> { DefaultOkHttpClientFactory() }
     factory { DesktopOAuthFlow(serverEnvironment = get()) }
     factoryOf(::DesktopSignInHandler) bind SignInHandler::class
+    factory {
+        org.tasks.googleapis.ProxyAuthProvider(
+            caldavDao = get(),
+            encryption = get(),
+            jwtProvider = { get<DesktopEntitlement>().getJwt() },
+        )
+    }
     single {
         KeyStoreEncryption(
             DesktopKeyProvider(

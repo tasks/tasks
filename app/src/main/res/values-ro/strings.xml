@@ -521,7 +521,6 @@
     <string name="action_new_task">Sarcină nouă</string>
     <string name="action_create_new_task">Creează o nouă sarcină</string>
     <string name="reinitialize_account">Reinițializare</string>
-    <string name="cannot_access_account">Nu se poate accesa contul</string>
     <string name="logout">Deconectează-te</string>
     <string name="this_feature_requires_a_subscription">Această funcție necesită un abonament</string>
     <string name="requires_pro_subscription">Necesită un abonament pro</string>

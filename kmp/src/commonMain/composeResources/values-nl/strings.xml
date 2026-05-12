@@ -204,4 +204,5 @@
     <string name="restart_now">Herstart nu</string>
     <string name="restart_later">Later</string>
     <string name="blog_feed_none">Geen</string>
+    <string name="cannot_access_account">Krijgt geen toegang tot account</string>
 </resources>

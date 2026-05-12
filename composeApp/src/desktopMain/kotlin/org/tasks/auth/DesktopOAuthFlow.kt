@@ -21,11 +21,15 @@ class DesktopOAuthFlow(
     private val serverEnvironment: TasksServerEnvironment,
     private val openUrl: (String) -> Unit = { url -> openInBrowser(url) },
 ) {
-    suspend fun signIn(provider: OAuthProvider): OAuthResult = withContext(Dispatchers.IO) {
+    suspend fun signIn(
+        provider: OAuthProvider,
+        extraAuthParams: Map<String, String> = provider.extraAuthParams,
+        authHeader: String? = null,
+    ): OAuthResult = withContext(Dispatchers.IO) {
         val discoveryUrl = "${serverEnvironment.caldavUrl}${provider.discoveryPath}"
 
         Logger.d(TAG) { "Fetching discovery from $discoveryUrl" }
-        val discovery = oauthClient.fetchDiscovery(discoveryUrl)
+        val discovery = oauthClient.fetchDiscovery(discoveryUrl, authHeader)
         val authEndpoint = discovery["authorization_endpoint"]!!.jsonPrimitive.content
         val tokenEndpoint = discovery["token_endpoint"]!!.jsonPrimitive.content
         val clientId = provider.clientId.ifEmpty {
@@ -47,14 +51,18 @@ class DesktopOAuthFlow(
                 scope = provider.scope,
                 state = state,
             )
-            val authUrl = oauthClient.buildAuthUrl(config, codeChallenge, state)
+            val defaultParams = if (extraAuthParams.containsKey("prompt")) emptyMap()
+                else mapOf("prompt" to "select_account")
+            val authUrl = oauthClient.buildAuthUrl(
+                config, codeChallenge, state, defaultParams + extraAuthParams
+            )
             Logger.d(TAG) { "Opening browser: $authUrl" }
             openUrl(authUrl)
             config
         }
 
         Logger.d(TAG) { "Got authorization code, exchanging..." }
-        oauthClient.exchangeCode(config, code, codeVerifier)
+        oauthClient.exchangeCode(config, code, codeVerifier, authHeader)
     }
 
     private suspend fun listenForCallback(

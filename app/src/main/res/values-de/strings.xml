@@ -322,7 +322,6 @@
     <string name="pro_dashclock_extension">Dashclock-Erweiterung</string>
     <string name="requires_pro_subscription">Benötigt ein Pro-Abo</string>
     <string name="logout">Abmelden</string>
-    <string name="cannot_access_account">Zugriff auf Konto fehlgeschlagen</string>
     <string name="reinitialize_account">Neu initialisieren</string>
     <string name="action_create_new_task">Neue Aufgabe erstellen</string>
     <string name="show_description">Beschreibung anzeigen</string>

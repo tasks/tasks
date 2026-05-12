@@ -339,7 +339,6 @@
     <string name="pro_dashclock_extension">Extensão Dashclock</string>
     <string name="requires_pro_subscription">Requer inscrição Pro</string>
     <string name="logout">Sair</string>
-    <string name="cannot_access_account">Não é possível acessar a conta</string>
     <string name="reinitialize_account">Reinicializar</string>
     <string name="action_create_new_task">Criar nova tarefa</string>
     <string name="show_description">Mostrar descrição</string>

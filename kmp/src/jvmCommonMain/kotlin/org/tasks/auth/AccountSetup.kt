@@ -14,7 +14,9 @@ suspend fun setupTasksAccount(
     encryption: KeyStoreEncryption,
     provider: CaldavClientProvider,
 ): CaldavAccount {
-    val username = "${issuer}_${oauthResult.idToken.sub}"
+    val idToken = oauthResult.idToken
+        ?: throw IllegalStateException("id_token required for tasks.org account setup")
+    val username = "${issuer}_${idToken.sub}"
     val tokenString = oauthResult.accessToken
     val password = encryption.encrypt(tokenString)
     return caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)
@@ -32,7 +34,7 @@ suspend fun setupTasksAccount(
                 username = username,
                 password = password,
                 url = homeSet,
-                name = oauthResult.idToken.email ?: oauthResult.idToken.login,
+                name = idToken.email ?: idToken.login,
                 serverType = CaldavAccount.SERVER_TASKS,
             ).let {
                 it.copy(id = caldavDao.insert(it))

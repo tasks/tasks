@@ -70,6 +70,7 @@ kotlin {
                 exclude(group = "junit")
                 exclude(group = "org.ogce", module = "xpp3")
             }
+            api(libs.google.api.tasks)
             compileOnly(libs.xpp3)
             compileOnly(files("../libs/client-jvm-2.3.2.jar"))
         }

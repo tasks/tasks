@@ -381,7 +381,6 @@
     <string name="this_feature_requires_a_subscription">Ова функционалност захтева претплату</string>
     <string name="logout">Одјави се</string>
     <string name="delete_tasks_warning">%s ће бити избрисан. Ово се не може опозвати!</string>
-    <string name="cannot_access_account">Не може се приступити налогу</string>
     <string name="reinitialize_account">Поново иницијализуј</string>
     <string name="action_create_new_task">Креирај нови задатак</string>
     <string name="action_new_task">Нови задатак</string>

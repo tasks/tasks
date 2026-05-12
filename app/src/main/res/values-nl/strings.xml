@@ -319,7 +319,6 @@
     <string name="pro_dashclock_extension">Dashclock extensie</string>
     <string name="requires_pro_subscription">Pro abonnement vereist</string>
     <string name="logout">Uitloggen</string>
-    <string name="cannot_access_account">Krijgt geen toegang tot account</string>
     <string name="reinitialize_account">Herinitialiseren</string>
     <string name="action_create_new_task">Nieuwe taak maken</string>
     <string name="show_description">Beschrijving tonen</string>

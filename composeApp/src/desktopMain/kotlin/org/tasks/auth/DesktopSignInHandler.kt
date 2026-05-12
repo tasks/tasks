@@ -4,9 +4,13 @@ import co.touchlab.kermit.Logger
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.googleapis.GoogleTasksTokenData
+import org.tasks.googleapis.ProxyAuthProvider
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 class DesktopSignInHandler(
     private val oauthFlow: DesktopOAuthFlow,
@@ -15,27 +19,75 @@ class DesktopSignInHandler(
     private val serverEnvironment: TasksServerEnvironment,
     private val syncAdapters: SyncAdapters,
     private val caldavClientProvider: CaldavClientProvider,
+    private val proxyAuthProvider: ProxyAuthProvider,
 ) : SignInHandler {
 
     override suspend fun signIn(platform: Platform, provider: OAuthProvider?, openUrl: (String) -> Unit) {
         val oauthProvider = provider ?: when (platform) {
             Platform.TASKS_ORG -> OAuthProvider.GOOGLE
+            Platform.GOOGLE_TASKS -> OAuthProvider.GOOGLE_TASKS
             else -> throw UnsupportedOperationException("$platform not supported on desktop")
         }
 
-        val result = oauthFlow.signIn(oauthProvider)
+        val authHeader = when (platform) {
+            Platform.GOOGLE_TASKS -> proxyAuthProvider.getAuthHeader()
+                ?: throw Exception("Sign in to tasks.org or link your desktop to use Google Tasks")
+            else -> null
+        }
 
-        setupTasksAccount(
-            oauthResult = result,
-            issuer = oauthProvider.issuer,
-            caldavUrl = serverEnvironment.caldavUrl,
-            caldavDao = caldavDao,
-            encryption = encryption,
-            provider = caldavClientProvider,
-        )
-        Logger.i("DesktopSignInHandler") { "Account created successfully" }
+        val result = oauthFlow.signIn(oauthProvider, authHeader = authHeader)
+
+        when (platform) {
+            Platform.GOOGLE_TASKS -> setupGoogleTasksAccount(result)
+            else -> setupTasksAccount(
+                oauthResult = result,
+                issuer = oauthProvider.issuer,
+                caldavUrl = serverEnvironment.caldavUrl,
+                caldavDao = caldavDao,
+                encryption = encryption,
+                provider = caldavClientProvider,
+            )
+        }
+        Logger.i(TAG) { "Account created successfully" }
         syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
         bringAppToForeground()
+    }
+
+    private suspend fun setupGoogleTasksAccount(result: OAuthResult) {
+        val email = result.idToken?.email
+            ?: throw Exception("No email in Google Tasks OAuth response")
+        val refreshToken = result.refreshToken
+            ?: throw Exception("No refresh_token — consent may not have been granted")
+
+        val tokenData = GoogleTasksTokenData(
+            accessToken = result.accessToken,
+            refreshToken = refreshToken,
+            tokenEndpoint = result.tokenEndpoint
+                ?: throw Exception("No token_endpoint in OAuth result"),
+            clientId = result.clientId
+                ?: throw Exception("No client_id in OAuth result"),
+            expiresAt = result.expiresIn
+                ?.let { currentTimeMillis() + it * 1000 }
+                ?: 0,
+        )
+        val encrypted = encryption.encrypt(tokenData.serialize())
+
+        val existing = caldavDao.getAccount(CaldavAccount.TYPE_GOOGLE_TASKS, email)
+        if (existing != null) {
+            caldavDao.update(existing.copy(
+                password = encrypted,
+                error = "",
+            ))
+        } else {
+            val account = CaldavAccount(
+                accountType = CaldavAccount.TYPE_GOOGLE_TASKS,
+                uuid = email,
+                name = email,
+                username = email,
+                password = encrypted,
+            )
+            caldavDao.insert(account)
+        }
     }
 
     private fun bringAppToForeground() {
@@ -45,5 +97,9 @@ class DesktopSignInHandler(
                 frame.requestFocus()
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "DesktopSignInHandler"
     }
 }

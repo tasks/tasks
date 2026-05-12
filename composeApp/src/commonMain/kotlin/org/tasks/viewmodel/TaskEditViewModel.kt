@@ -19,18 +19,19 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.updateAndGet
+import org.tasks.data.TaskCreator
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import org.tasks.filters.CaldavFilter
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 class TaskEditViewModel(
     private val taskDao: TaskDao,
     private val taskSaver: TaskSaver,
     private val caldavDao: CaldavDao,
+    private val taskCreator: TaskCreator = TaskCreator(),
 ) : ViewModel() {
 
     private val log = Logger.withTag("TaskEditViewModel")
@@ -78,10 +79,10 @@ class TaskEditViewModel(
             val loaded: Task
             val list: CaldavFilter?
             if (normalized == null) {
-                loaded = Task(creationDate = currentTimeMillis())
+                loaded = taskCreator.createBlankTask()
                 list = firstCaldavList()
             } else {
-                loaded = taskDao.fetch(normalized) ?: Task(creationDate = currentTimeMillis())
+                loaded = taskDao.fetch(normalized) ?: taskCreator.createBlankTask()
                 val caldavTask = caldavDao.getTask(normalized)
                 val calendar = caldavTask?.calendar?.let { caldavDao.getCalendarByUuid(it) }
                 val account = calendar?.account?.let { caldavDao.getAccountByUuid(it) }

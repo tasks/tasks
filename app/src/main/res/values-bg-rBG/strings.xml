@@ -331,7 +331,6 @@
     <string name="pro_dashclock_extension">Разширение за Dashclock</string>
     <string name="requires_pro_subscription">Изисква абонамент Про</string>
     <string name="logout">Изход</string>
-    <string name="cannot_access_account">Няма достъп до профила</string>
     <string name="reinitialize_account">Повторно инициализиране</string>
     <string name="action_create_new_task">Създаване на задача</string>
     <string name="show_description">Описание</string>

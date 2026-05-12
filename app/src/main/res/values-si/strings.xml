@@ -446,7 +446,6 @@
     <string name="action_new_task">නව කාර්යයක්</string>
     <string name="action_create_new_task">නව කාර්යයක් සාදන්න</string>
     <string name="reinitialize_account">නැවත ආරම්භ කරන්න</string>
-    <string name="cannot_access_account">ගිණුමට ප්‍රවේශ විය නොහැක</string>
     <string name="logout">ඉවත් වන්න</string>
     <string name="this_feature_requires_a_subscription">මෙම අංගයට දායකත්වයක් අවශ්‍ය වේ</string>
     <string name="requires_pro_subscription">Pro දායකත්වයක් අවශ්‍යයි</string>

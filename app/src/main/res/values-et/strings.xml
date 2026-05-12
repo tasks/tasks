@@ -324,7 +324,6 @@
     <string name="refresh_purchases">Värskenda ostud</string>
     <string name="action_new_task">Uus ülesanne</string>
     <string name="location_remind_arrival">Tuleta saabudes meelde</string>
-    <string name="cannot_access_account">Ei pääse kontole ligi</string>
     <string name="collapse_subtasks">Sulge alamülesanded</string>
     <string name="enter_tag_name">Sisesta sildi nimi</string>
     <string name="places">Asukohad</string>

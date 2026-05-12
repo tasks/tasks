@@ -499,7 +499,7 @@
 +|    |         \--- org.jetbrains.compose.ui:ui:1.6.0 -> 1.10.2 (*)
 +|    +--- org.mnode.ical4j:ical4j:3.2.19
 +|    |    +--- org.slf4j:slf4j-api:2.0.9 -> 2.0.17
-+|    |    +--- commons-codec:commons-codec:1.15
++|    |    +--- commons-codec:commons-codec:1.15 -> 1.17.1
 +|    |    +--- org.apache.commons:commons-lang3:3.12.0
 +|    |    +--- org.apache.commons:commons-collections4:4.4
 +|    |    \--- commons-validator:commons-validator:1.7
@@ -597,6 +597,56 @@
 +|    |    |    +--- org.junit:junit-bom:5.14.0
 +|    |    |    \--- com.google.code.findbugs:jsr305:3.0.2
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.10 (*)
++|    +--- com.google.apis:google-api-services-tasks:v1-rev20251102-2.0.0
++|    |    \--- com.google.api-client:google-api-client:2.7.2
++|    |         +--- commons-codec:commons-codec:1.17.1
++|    |         +--- com.google.oauth-client:google-oauth-client:1.36.0
++|    |         |    +--- com.google.http-client:google-http-client:1.43.3 -> 1.45.2
++|    |         |    |    +--- org.apache.httpcomponents:httpclient:4.5.14
++|    |         |    |    |    +--- org.apache.httpcomponents:httpcore:4.4.16
++|    |         |    |    |    +--- commons-logging:commons-logging:1.2
++|    |         |    |    |    \--- commons-codec:commons-codec:1.11 -> 1.17.1
++|    |         |    |    +--- org.apache.httpcomponents:httpcore:4.4.16
++|    |         |    |    +--- com.google.code.findbugs:jsr305:3.0.2
++|    |         |    |    +--- com.google.errorprone:error_prone_annotations:2.36.0
++|    |         |    |    +--- com.google.guava:guava:30.1.1-android -> 33.3.1-android
++|    |         |    |    |    +--- com.google.guava:failureaccess:1.0.2
++|    |         |    |    |    +--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
++|    |         |    |    |    +--- com.google.code.findbugs:jsr305:3.0.2
++|    |         |    |    |    +--- org.checkerframework:checker-qual:3.43.0
++|    |         |    |    |    +--- com.google.errorprone:error_prone_annotations:2.28.0 -> 2.36.0
++|    |         |    |    |    \--- com.google.j2objc:j2objc-annotations:3.0.0
++|    |         |    |    +--- com.google.j2objc:j2objc-annotations:3.0.0
++|    |         |    |    +--- io.grpc:grpc-context:1.68.2
++|    |         |    |    |    \--- io.grpc:grpc-api:1.68.2
++|    |         |    |    +--- io.opencensus:opencensus-api:0.31.1
++|    |         |    |    |    \--- io.grpc:grpc-context:1.27.2 -> 1.68.2 (*)
++|    |         |    |    \--- io.opencensus:opencensus-contrib-http-util:0.31.1
++|    |         |    |         +--- io.opencensus:opencensus-api:0.31.1 (*)
++|    |         |    |         \--- com.google.guava:guava:29.0-android -> 33.3.1-android (*)
++|    |         |    +--- com.google.http-client:google-http-client-gson:1.43.3 -> 1.45.2
++|    |         |    |    +--- com.google.http-client:google-http-client:1.45.2 (*)
++|    |         |    |    \--- com.google.code.gson:gson:2.11.0
++|    |         |    |         \--- com.google.errorprone:error_prone_annotations:2.27.0 -> 2.36.0
++|    |         |    \--- com.google.guava:guava:31.1-android -> 33.3.1-android (*)
++|    |         +--- com.google.auth:google-auth-library-credentials:1.30.0
++|    |         +--- com.google.auth:google-auth-library-oauth2-http:1.30.0
++|    |         |    +--- com.google.auto.value:auto-value-annotations:1.11.0
++|    |         |    +--- com.google.code.findbugs:jsr305:3.0.2
++|    |         |    +--- com.google.auth:google-auth-library-credentials:1.30.0
++|    |         |    +--- com.google.http-client:google-http-client:1.45.0 -> 1.45.2 (*)
++|    |         |    +--- com.google.http-client:google-http-client-gson:1.45.0 -> 1.45.2 (*)
++|    |         |    +--- com.google.guava:guava:33.3.1-android (*)
++|    |         |    \--- com.google.errorprone:error_prone_annotations:2.35.1 -> 2.36.0
++|    |         +--- com.google.http-client:google-http-client-gson:1.45.2 (*)
++|    |         +--- com.google.guava:guava:33.1.0-jre -> 33.3.1-android (*)
++|    |         +--- com.google.http-client:google-http-client-apache-v2:1.45.2
++|    |         |    +--- com.google.http-client:google-http-client:1.45.2 (*)
++|    |         |    +--- org.apache.httpcomponents:httpclient:4.5.14 (*)
++|    |         |    \--- org.apache.httpcomponents:httpcore:4.4.16
++|    |         +--- org.apache.httpcomponents:httpcore:4.4.16
++|    |         +--- org.apache.httpcomponents:httpclient:4.5.14 (*)
++|    |         \--- com.google.http-client:google-http-client:1.45.2 (*)
 +|    \--- org.ogce:xpp3:1.1.6
 +|         +--- junit:junit:4.7
 +|         \--- jakarta-regexp:jakarta-regexp:1.4
@@ -931,7 +981,7 @@
 +|    \--- pt.davidafsilva.apple:jkeychain:1.1.0
 +\--- com.posthog:posthog:3.19.1
 +     +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 -> 2.2.20 (*)
-+     +--- com.google.code.gson:gson:2.10.1
++     +--- com.google.code.gson:gson:2.10.1 -> 2.11.0 (*)
 +     +--- com.squareup.okhttp3:okhttp-bom:4.11.0
 +     |    \--- com.squareup.okhttp3:okhttp:4.11.0 -> 5.3.2 (c)
 +     \--- com.squareup.okhttp3:okhttp -> 5.3.2 (*)

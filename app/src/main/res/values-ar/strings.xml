@@ -445,7 +445,6 @@
     <string name="location_arrived">وصل عند %s</string>
     <string name="location_departed">غادر عند %s</string>
     <string name="reinitialize_account">إعادة التهيئة</string>
-    <string name="cannot_access_account">لا يمكن الوصول الى الحساب</string>
     <string name="requires_pro_subscription">يتطلب اشتراك احترافي</string>
     <string name="upgrade_to_pro">طور لاصدار متقدم</string>
     <string name="help_and_feedback">مساعدة وتبليغات</string>

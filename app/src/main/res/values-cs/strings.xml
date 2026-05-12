@@ -348,7 +348,6 @@
     <string name="logout">Odhlásit se</string>
     <string name="this_feature_requires_a_subscription">Tato funkce vyžaduje předplatné</string>
     <string name="when_overdue">Po termínu</string>
-    <string name="cannot_access_account">Nepodařilo se připojit k účtu</string>
     <string name="action_create_new_task">Vytvořit nový úkol</string>
     <string name="show_description">Zobrazit popis</string>
     <string name="show_full_description">Zobrazit celý popis</string>

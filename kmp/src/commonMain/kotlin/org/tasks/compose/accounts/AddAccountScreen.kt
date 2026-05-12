@@ -1,5 +1,6 @@
 package org.tasks.compose.accounts
 
+import org.tasks.billing.BillingProvider
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -207,9 +208,10 @@ fun AddAccountScreen(
                     Spacer(modifier = Modifier.height(SettingsSectionGap))
                 }
 
+                val isDesktop = configuration.billingProvider == BillingProvider.PADDLE
                 val freeAccounts = buildList {
                     if (configuration.supportsMicrosoft) add(Platform.MICROSOFT)
-                    if (configuration.supportsGoogleTasks) add(Platform.GOOGLE_TASKS)
+                    if (configuration.supportsGoogleTasks && !isDesktop) add(Platform.GOOGLE_TASKS)
                 }
                 if (freeAccounts.isNotEmpty()) {
                     if (!hasPro) {
@@ -248,6 +250,7 @@ fun AddAccountScreen(
                 }
 
                 val proAccounts = buildList {
+                    if (configuration.supportsGoogleTasks && isDesktop) add(Platform.GOOGLE_TASKS)
                     if (configuration.supportsOpenTasks) add(Platform.DAVX5)
                     if (configuration.supportsCaldav) add(Platform.CALDAV)
                     if (configuration.supportsEteSync) add(Platform.ETEBASE)
@@ -273,6 +276,12 @@ fun AddAccountScreen(
                                 position = CardPosition.forIndex(index, proAccounts.size),
                             ) {
                                 when (platform) {
+                                    Platform.GOOGLE_TASKS -> AccountTypeRow(
+                                        title = stringResource(Res.string.gtasks_GPr_header),
+                                        icon = Res.drawable.ic_google,
+                                        description = stringResource(Res.string.google_tasks_selection_description),
+                                        onClick = { signIn(Platform.GOOGLE_TASKS) },
+                                    )
                                     Platform.DAVX5 -> AccountTypeRow(
                                         title = stringResource(Res.string.davx5),
                                         icon = Res.drawable.ic_davx5_icon_green_bg,

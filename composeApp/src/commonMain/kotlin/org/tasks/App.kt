@@ -334,13 +334,21 @@ fun App(
                                     AnalyticsEvents.PARAM_SOURCE to "onboarding",
                                     AnalyticsEvents.PARAM_SELECTION to platform.name,
                                 )
-                                // On desktop, gate CalDAV/EteSync behind pro
+                                // On desktop, gate CalDAV/EteSync/Google Tasks behind pro
                                 if (configuration.billingProvider == org.tasks.billing.BillingProvider.PADDLE
-                                    && (platform == Platform.CALDAV || platform == Platform.ETEBASE)
                                     && !addAccountViewModel.hasPro
                                 ) {
-                                    backStack.add(PricingDestination(mode = PricingMode.NYP_ONLY, source = platform.name))
-                                    return@AddAccountScreen
+                                    when (platform) {
+                                        Platform.CALDAV, Platform.ETEBASE -> {
+                                            backStack.add(PricingDestination(mode = PricingMode.NYP_ONLY, source = platform.name))
+                                            return@AddAccountScreen
+                                        }
+                                        Platform.GOOGLE_TASKS -> {
+                                            backStack.add(DesktopProDestination)
+                                            return@AddAccountScreen
+                                        }
+                                        else -> {}
+                                    }
                                 }
                                 when (platform) {
                                     Platform.TASKS_ORG -> {

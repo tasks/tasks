@@ -222,4 +222,5 @@
     <string name="restart_required">За да влязат промените в сила Tasks трябва да рестартира</string>
     <string name="restart_now">Рестартиране</string>
     <string name="restart_later">По-късно</string>
+    <string name="cannot_access_account">Няма достъп до профила</string>
 </resources>

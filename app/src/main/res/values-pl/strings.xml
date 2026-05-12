@@ -339,7 +339,6 @@
     <string name="button_subscribe">Zasubskrybuj</string>
     <string name="requires_pro_subscription">Wymaga subskrypcji pro</string>
     <string name="logout">Wyloguj</string>
-    <string name="cannot_access_account">Brak dostępu do konta</string>
     <string name="reinitialize_account">Powiąż ponownie</string>
     <string name="action_create_new_task">Stwórz nowe zadanie</string>
     <string name="show_description">Pokaż opis</string>

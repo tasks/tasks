@@ -383,7 +383,6 @@
     <string name="this_feature_requires_a_subscription">Αυτό το χαρακτηριστικό χρειάζεται συνδρομή</string>
     <string name="logout">Αποσύνδεση</string>
     <string name="delete_tasks_warning">%s θα διαγραφεί. Αυτό δεν γίνεται να αναιρεθεί!</string>
-    <string name="cannot_access_account">Δεν υπάρχει πρόσβαση στο λογαριασμό</string>
     <string name="reinitialize_account">Εκ νέου αρχικοποίηση</string>
     <string name="action_create_new_task">Δημιουργία νέας εργασίας</string>
     <string name="action_new_task">Νέα εργασία</string>

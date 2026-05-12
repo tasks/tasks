@@ -5,6 +5,7 @@ enum class OAuthProvider(
     val discoveryPath: String,
     val clientId: String,
     val scope: String,
+    val extraAuthParams: Map<String, String> = emptyMap(),
 ) {
     GOOGLE(
         issuer = "google",
@@ -17,5 +18,15 @@ enum class OAuthProvider(
         discoveryPath = "/oauth/github-localhost-configuration",
         clientId = "",
         scope = "none",
+    ),
+    GOOGLE_TASKS(
+        issuer = "google_tasks",
+        discoveryPath = "/oauth/google-api-configuration",
+        clientId = "",
+        scope = "https://www.googleapis.com/auth/tasks openid email",
+        extraAuthParams = mapOf(
+            "access_type" to "offline",
+            "prompt" to "consent",
+        ),
     ),
 }

@@ -210,7 +210,6 @@
     <string name="action_new_task">Công việc mới</string>
     <string name="action_create_new_task">Tạo công việc mới</string>
     <string name="reinitialize_account">Khởi tạo lại</string>
-    <string name="cannot_access_account">Không thể truy cập tài khoản</string>
     <string name="logout">Đăng xuất</string>
     <string name="this_feature_requires_a_subscription">Tính năng này yêu cầu đăng ký</string>
     <string name="requires_pro_subscription">Yêu cầu đăng ký pro</string>

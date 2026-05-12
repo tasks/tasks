@@ -341,7 +341,6 @@
     <string name="show_description">顯示訂閱</string>
     <string name="action_new_task">新工作</string>
     <string name="action_create_new_task">建立新工作</string>
-    <string name="cannot_access_account">無法存取帳號</string>
     <string name="this_feature_requires_a_subscription">此功能需要訂閱</string>
     <string name="logout">登出</string>
     <string name="requires_pro_subscription">需要訂閱專業版</string>

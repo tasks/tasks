@@ -198,4 +198,5 @@
     <string name="restart_now">Käynnistä uudelleen nyt</string>
     <string name="restart_later">Myöhemmin</string>
     <string name="blog_feed_none">Ei mitään</string>
+    <string name="cannot_access_account">Tiliin ei päästä käsiksi</string>
 </resources>

@@ -178,4 +178,5 @@
     <string name="restart_now">Zrestartuj teraz</string>
     <string name="restart_later">Póżniej</string>
     <string name="blog_feed_none">Brak</string>
+    <string name="cannot_access_account">Brak dostępu do konta</string>
 </resources>

@@ -31,8 +31,13 @@ import org.tasks.data.db.Database
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
+import org.tasks.data.TaskCreator
+import org.tasks.data.getLocalList
 import org.tasks.etebase.EtebaseSynchronizer
+import org.tasks.googleapis.DefaultListProvider
+import org.tasks.googleapis.DesktopGoogleTasksSynchronizer
 import org.tasks.opentasks.OpenTasksSyncer
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
@@ -205,6 +210,9 @@ val commonModule = module {
                             caldavDao.getAccounts(TYPE_ETEBASE).forEach { account ->
                                 etebaseSynchronizer.sync(account, hasPro = hasPro)
                             }
+                            caldavDao.getAccounts(TYPE_GOOGLE_TASKS).forEach { account ->
+                                get<DesktopGoogleTasksSynchronizer>().sync(account)
+                            }
                             get<OpenTasksSyncer>().sync(hasPro = hasPro)
                         } while (pending.getAndSet(false))
                     } finally {
@@ -238,6 +246,48 @@ val commonModule = module {
     factoryOf(::iCalendar)
     factoryOf(::CaldavSynchronizer)
     factoryOf(::EtebaseSynchronizer)
+    factory {
+        DesktopGoogleTasksSynchronizer(
+            caldavDao = get(),
+            taskDao = get(),
+            taskSaver = get(),
+            reporting = get(),
+            googleTaskDao = get(),
+            defaultListProvider = get(),
+            refreshBroadcaster = get(),
+            taskDeleter = get(),
+            alarmDao = get(),
+            appPreferences = get(),
+            encryption = get(),
+            createTask = { TaskCreator().createBlankTask() },
+            proxyAuthProvider = get(),
+        )
+    }
+    factory<DefaultListProvider> {
+        val caldavDao = get<org.tasks.data.dao.CaldavDao>()
+        object : DefaultListProvider {
+            override suspend fun getDefaultList(): org.tasks.filters.CaldavFilter {
+                val calendar = caldavDao.getCalendars()
+                    .filterNot { it.readOnly() }
+                    .firstOrNull()
+                    ?.let { list ->
+                        list.account
+                            ?.let { caldavDao.getAccountByUuid(it) }
+                            ?.let { account ->
+                                org.tasks.filters.CaldavFilter(calendar = list, account = account)
+                            }
+                    }
+                if (calendar != null) return calendar
+                val localList = caldavDao.getLocalList()
+                val localAccount = caldavDao.getAccountByUuid(localList.account!!)!!
+                return org.tasks.filters.CaldavFilter(
+                    calendar = localList,
+                    account = localAccount,
+                )
+            }
+            override suspend fun clearDefaultList() {}
+        }
+    }
     factory { FilterProvider(get(), get(), get(), get(), get(), get(), get()) }
     singleOf(::HeaderFormatter)
     singleOf(::ChipDataProvider)

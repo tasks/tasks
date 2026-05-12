@@ -326,7 +326,6 @@
     <string name="pro_dashclock_extension">Dashclock eklentisi</string>
     <string name="requires_pro_subscription">Pro aboneliği gerektirir</string>
     <string name="logout">Oturumu kapat</string>
-    <string name="cannot_access_account">Hesaba erişilemedi</string>
     <string name="reinitialize_account">Yeniden başlat</string>
     <string name="action_create_new_task">Yeni görev oluştur</string>
     <string name="show_description">Açıklamayı göster</string>

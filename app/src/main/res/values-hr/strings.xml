@@ -49,7 +49,6 @@
     <string name="show_full_description">Pokaži potpuni opis</string>
     <string name="show_description">Pokaži opis</string>
     <string name="action_create_new_task">Stvori novi zadatak</string>
-    <string name="cannot_access_account">Nije moguće pristupiti računu</string>
     <string name="logout">Odjavi se</string>
     <string name="no_time">Bez vremena</string>
     <string name="TEA_timer_elap">Proteklo %s</string>

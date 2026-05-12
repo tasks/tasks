@@ -210,4 +210,5 @@
     <string name="restart_now">Рестартуј сада</string>
     <string name="restart_later">Касније</string>
     <string name="blog_feed_none">Празно</string>
+    <string name="cannot_access_account">Не може се приступити налогу</string>
 </resources>

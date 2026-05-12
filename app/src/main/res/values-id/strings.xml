@@ -279,7 +279,6 @@
     <string name="pro_dashclock_extension">Ekstensi Dashclock</string>
     <string name="requires_pro_subscription">Memerlukan langganan pro</string>
     <string name="logout">Keluar</string>
-    <string name="cannot_access_account">Tidak bisa mengakses akun</string>
     <string name="reinitialize_account">Inisialisasi ulang</string>
     <string name="action_create_new_task">Buat tugas baru</string>
     <string name="show_description">Tampilkan deskripsi</string>

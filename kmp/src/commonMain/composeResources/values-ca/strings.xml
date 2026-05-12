@@ -187,4 +187,5 @@
     <string name="restart_now">Reinicia ara</string>
     <string name="restart_later">Després</string>
     <string name="blog_feed_none">Cap</string>
+    <string name="cannot_access_account">No es pot accedir al compte</string>
 </resources>

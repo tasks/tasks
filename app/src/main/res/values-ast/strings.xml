@@ -441,7 +441,6 @@
     <string name="this_feature_requires_a_subscription">Esta carauteristica requier una soscripción</string>
     <string name="logout">Zarrar sesión</string>
     <string name="delete_tasks_warning">%s desaniciarase. ¡Esto nun se puee desfacer!</string>
-    <string name="cannot_access_account">Nun se puee acceder a la cuenta</string>
     <string name="reinitialize_account">Reaniciar</string>
     <string name="action_create_new_task">Amestar nueva xera</string>
     <string name="action_new_task">Nueva xera</string>

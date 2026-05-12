@@ -219,4 +219,5 @@
     <string name="restart_required">Restartigu Tasks por efikigi ĉi tiun ŝanĝon</string>
     <string name="restart_now">Restartigi tuj</string>
     <string name="restart_later">Poste</string>
+    <string name="cannot_access_account">Ne povas atingi konton</string>
 </resources>

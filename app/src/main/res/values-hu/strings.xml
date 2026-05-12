@@ -326,7 +326,6 @@
     <string name="pro_dashclock_extension">Dashclock kiterjesztés</string>
     <string name="requires_pro_subscription">Előfizetés szükséges</string>
     <string name="logout">Kijelentkezés</string>
-    <string name="cannot_access_account">Fiók nem elérhető</string>
     <string name="reinitialize_account">Újrainicializálás</string>
     <string name="action_create_new_task">Új feladat létrehozása</string>
     <string name="show_description">Leírás megjelenítése</string>

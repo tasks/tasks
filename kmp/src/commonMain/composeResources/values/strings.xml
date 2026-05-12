@@ -288,4 +288,5 @@
     <string name="restart_required">Restart Tasks for this change to take effect</string>
     <string name="restart_now">Restart now</string>
     <string name="restart_later">Later</string>
+    <string name="cannot_access_account">Cannot access account</string>
 </resources>

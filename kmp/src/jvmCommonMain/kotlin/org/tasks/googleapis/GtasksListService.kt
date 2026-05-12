@@ -1,29 +1,17 @@
-/*
- * Copyright (c) 2012 Todoroo Inc
- *
- * See the file "LICENSE" for the full license governing this code.
- */
-package com.todoroo.astrid.gtasks
+package org.tasks.googleapis
 
 import com.google.api.services.tasks.model.TaskList
-import org.tasks.service.TaskDeleter
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import javax.inject.Inject
+import org.tasks.service.TaskDeleter
 
-class GtasksListService @Inject constructor(
+class GtasksListService(
     private val caldavDao: CaldavDao,
     private val taskDeleter: TaskDeleter,
     private val refreshBroadcaster: RefreshBroadcaster,
 ) {
-
-    /**
-     * Reads in remote list information and updates local list objects.
-     *
-     * @param remoteLists remote information about your lists
-     */
     suspend fun updateLists(account: CaldavAccount, remoteLists: List<TaskList>) {
         val lists = caldavDao.getCalendarsByAccount(account.uuid!!)
         val previousLists: MutableSet<Long> = HashSet()
@@ -51,7 +39,6 @@ class GtasksListService @Inject constructor(
             previousLists.remove(local.id)
         }
 
-        // check for lists that aren't on remote server
         for (listId in previousLists) {
             taskDeleter.delete(caldavDao.getCalendarById(listId)!!)
         }

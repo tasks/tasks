@@ -199,4 +199,5 @@
     <string name="restart_now">Перезапустить сейчас</string>
     <string name="restart_later">Позже</string>
     <string name="blog_feed_none">Нет</string>
+    <string name="cannot_access_account">Учётная запись недоступна</string>
 </resources>

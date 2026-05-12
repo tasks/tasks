@@ -219,7 +219,6 @@ dependencies {
         isTransitive = false
     }
     implementation(libs.shortcut.badger)
-    implementation(libs.google.api.tasks)
     implementation(libs.google.api.drive)
     implementation(libs.google.oauth2)
     implementation(libs.androidx.work)

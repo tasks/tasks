@@ -227,4 +227,5 @@
     <string name="restart_required">Mulai ulang Tasks supaya perubahan ini diterapkan</string>
     <string name="restart_now">Mulai ulang sekarang</string>
     <string name="restart_later">Nanti</string>
+    <string name="cannot_access_account">Tidak bisa mengakses akun</string>
 </resources>

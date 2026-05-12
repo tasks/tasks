@@ -31,7 +31,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.etebase.EtebaseSynchronizer
 import org.tasks.extensions.Context.hasNetworkConnectivity
-import org.tasks.gtasks.GoogleTaskSynchronizer
+import org.tasks.gtasks.AndroidGoogleTaskSynchronizer
 import org.tasks.injection.BaseWorker
 import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.preferences.Preferences
@@ -51,7 +51,7 @@ class SyncWork @AssistedInject constructor(
     private val caldavDao: CaldavDao,
     private val caldavSynchronizer: Lazy<CaldavSynchronizer>,
     private val etebaseSynchronizer: Lazy<EtebaseSynchronizer>,
-    private val googleTaskSynchronizer: Lazy<GoogleTaskSynchronizer>,
+    private val googleTaskSynchronizer: Lazy<AndroidGoogleTaskSynchronizer>,
     private val openTasksSynchronizer: Lazy<OpenTasksSynchronizer>,
     private val microsoftSynchronizer: Lazy<MicrosoftSynchronizer>,
     private val openTaskDao: OpenTaskDao,

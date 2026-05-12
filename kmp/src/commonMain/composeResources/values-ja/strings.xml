@@ -242,4 +242,5 @@
     <string name="restart_required">変更を反映するために Tasks を再起動します</string>
     <string name="restart_now">今すぐ再起動</string>
     <string name="restart_later">あとで</string>
+    <string name="cannot_access_account">アカウントにアクセスできません</string>
 </resources>
