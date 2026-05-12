@@ -143,7 +143,7 @@
     <string name="quiet_hours">Tyst period</string>
     <string name="attachment_directory">Lagringsplats för bilagor</string>
     <string name="backup_directory">Säkerhetskopieringsmapp</string>
-    <string name="miscellaneous">Övrigt</string>
+    <string name="miscellaneous">Diverse</string>
     <string name="enabled">Aktiverad</string>
     <string name="font_size">Teckenstorlek</string>
     <string name="customize_edit_screen">Anpassa redigeringsvyn</string>
@@ -462,7 +462,7 @@
     <string name="add_tags">Lägg till taggar</string>
     <string name="filter_no_tags">Inga taggar</string>
     <string name="filter_any_due_date">Alla förfallodagar</string>
-    <string name="filter_overdue">Försenad</string>
+    <string name="filter_overdue">Förfallen</string>
     <string name="custom_filter_criteria">Filterkriterier</string>
     <string name="widget_id">Widget-ID: %d</string>
     <string name="calendar_event_created">Kalenderhändelse skapad för %s</string>
