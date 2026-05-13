@@ -86,7 +86,7 @@
     <string name="CFC_dueBefore_name">Termin wykonania…</string>
     <string name="no_due_date">Bez terminu</string>
     <string name="next_month">Przyszły miesiąc</string>
-    <string name="CFC_importance_text">Priorytet przynajmniej \?</string>
+    <string name="CFC_importance_text">Priorytet przynajmniej ?</string>
     <string name="CFC_importance_name">Priorytet…</string>
     <string name="CFC_tag_name">Tag…</string>
     <string name="CFC_tag_contains_name">Nazwa taga zawiera…</string>
@@ -131,71 +131,85 @@
         <item quantity="one">%d zadań</item>
         <item quantity="few">%d zadania</item>
         <item quantity="many">%d zadań</item>
+        <item quantity="other">%d zadań</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">raz</item>
         <item quantity="few">razy</item>
         <item quantity="many">razy</item>
+        <item quantity="other">razy</item>
     </plurals>
     <plurals name="repeat_minutes">
         <item quantity="one">minuta</item>
         <item quantity="few">minuty</item>
         <item quantity="many">minut</item>
+        <item quantity="other">minut</item>
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minutę</item>
         <item quantity="few">%d minuty</item>
         <item quantity="many">%d minut</item>
+        <item quantity="other">%d minut</item>
     </plurals>
     <plurals name="repeat_hours">
         <item quantity="one">godzina</item>
         <item quantity="few">godziny</item>
         <item quantity="many">godzin</item>
+        <item quantity="other">godzin</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d godzinę</item>
         <item quantity="few">%d godziny</item>
         <item quantity="many">%d godzin</item>
+        <item quantity="other">%d godzin</item>
     </plurals>
     <plurals name="repeat_days">
         <item quantity="one">dzień</item>
         <item quantity="few">dni</item>
         <item quantity="many">dni</item>
+        <item quantity="other">dni</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d dzień</item>
         <item quantity="few">%d dni</item>
         <item quantity="many">%d dni</item>
+        <item quantity="other">%d dni</item>
     </plurals>
     <plurals name="repeat_weeks">
         <item quantity="one">tydzień</item>
         <item quantity="few">tygodnie</item>
         <item quantity="many">tygodni</item>
+        <item quantity="other">tygodni</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d tydzień</item>
         <item quantity="few">%d tygodnie</item>
         <item quantity="many">%d tygodni</item>
+        <item quantity="other">%d tygodni</item>
     </plurals>
     <plurals name="repeat_months">
         <item quantity="one">miesiąc</item>
         <item quantity="few">miesiące</item>
         <item quantity="many">miesięcy</item>
+        <item quantity="other">miesięcy</item>
     </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d miesiąc</item>
         <item quantity="few">%d miesiące</item>
         <item quantity="many">%d miesięcy</item>
+        <item quantity="other">%d miesięcy</item>
     </plurals>
     <plurals name="repeat_years">
         <item quantity="one">rok</item>
         <item quantity="few">lat</item>
         <item quantity="many">lat</item>
+        <item quantity="other">lat</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d rok</item>
         <item quantity="few">%d lat</item>
         <item quantity="many">%d lat</item>
+        <item quantity="other">%d lat</item>
     </plurals>
     <string name="repeat_type_due">w terminie</string>
     <string name="repeat_type_completion">data zakończenia</string>
@@ -218,6 +232,7 @@
         <item quantity="one">1 zadanie</item>
         <item quantity="few">%d zadania</item>
         <item quantity="many">%d zadań</item>
+        <item quantity="other">%d zadań</item>
     </plurals>
     <string name="today">Dzisiaj</string>
     <string name="tomorrow">Jutro</string>
@@ -358,7 +373,7 @@
     <string name="location_permission_required_location">Uprawnienia lokalizacji są wymagane do ustalenia twojej aktualnej lokalizacji</string>
     <string name="open_map">Otwórz mapę</string>
     <string name="choose_new_location">Wybierz nową lokalizację</string>
-    <string name="CFC_tag_text">Tag; \?</string>
+    <string name="CFC_tag_text">Tag; ?</string>
     <string name="location_radius_meters">%s m</string>
     <string name="url">URL</string>
     <string name="list_separator_with_space">", "</string>
@@ -372,6 +387,7 @@
         <item quantity="one">%d podzadanie</item>
         <item quantity="few">%d podzadania</item>
         <item quantity="many">%d podzadań</item>
+        <item quantity="other">%d podzadań</item>
     </plurals>
     <string name="expand_subtasks">Rozwiń podzadania</string>
     <string name="collapse_subtasks">Zwiń podzadania</string>
@@ -456,7 +472,7 @@
     <string name="custom_filter_criteria">Kryteria filtrowania</string>
     <string name="sort_created">Wg czasu utworzenia</string>
     <string name="support_development_subscribe">Odblokuj dodatkowe funkcje i wesprzyj oprogramowanie open source</string>
-    <string name="enjoying_tasks">Podoba Ci się Tasks\?</string>
+    <string name="enjoying_tasks">Podoba Ci się Tasks?</string>
     <string name="whats_new">Co nowego</string>
     <string name="sort_modified_group">Zmienione %s</string>
     <string name="sort_created_group">Stworzone %s</string>
@@ -522,7 +538,7 @@
     <string name="filter_any_start_date">Dowolna data rozpoczęcia</string>
     <string name="no_start_date">Bez daty rozpoczęcia</string>
     <string name="CFC_startBefore_name">Początek przed…</string>
-    <string name="CFC_startBefore_text">Początek przed: \?</string>
+    <string name="CFC_startBefore_text">Początek przed: ?</string>
     <string name="default_due_date">Domyślny termin</string>
     <string name="default_start_date">Domyślna data rozpoczęcia</string>
     <string name="start_date">Data rozpoczęcia</string>
@@ -631,4 +647,5 @@
     <string name="yesterday">Wczoraj</string>
     <string name="change_priority">Zmień priorytet</string>
     <string name="theme_dynamic">Dynamiczny</string>
+    <string name="share_list"></string>
 </resources>
