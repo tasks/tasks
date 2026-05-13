@@ -647,8 +647,8 @@
     <string name="button_learn_more">Voir plus</string>
     <string name="enable_alarms">Sois notifié au bon moment</string>
     <string name="enable_alarms_description">Pour être sûr d\'être notifié au bon moment, autorisez la permission d\'ajouter des alarmes et des rappels dans Paramètres</string>
-    <string name="cost_money">Coût : $</string>
-    <string name="cost_more_money">Coût : $$$</string>
+    <string name="cost_money">Coût : $</string>
+    <string name="cost_more_money">Coût : $$$</string>
     <string name="subtasks_multilevel_microsoft">Les sous-tâches à plusieurs niveaux ne sont pas prises en charge par Microsoft To Do</string>
     <string name="app_settings">Paramètres de l\'application</string>
     <string name="banner_app_updated_description">Tasks vient d\'être mis à jour vers %s. Souhaitez-vous consulter les notes de mise à jour ?</string>
