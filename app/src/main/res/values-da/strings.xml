@@ -568,7 +568,7 @@
         <item quantity="one">Uge</item>
         <item quantity="other">Uger</item>
     </plurals>
-    <string name="hint_customize_edit_title">For meget information\?</string>
+    <string name="hint_customize_edit_title">For meget information?</string>
     <string name="hint_customize_edit_body">Du kan tilpasse denne skærm ved at omarrangere eller fjerne felter</string>
     <string name="alarm_before_start">%s før start</string>
     <string name="alarm_after_start">%s efter start</string>
