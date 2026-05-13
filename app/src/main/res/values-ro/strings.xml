@@ -24,7 +24,7 @@
     <string name="invite_awaiting_response">Invitație în așteptarea răspunsului</string>
     <string name="invite_declined">Invitație refuzată</string>
     <string name="remove_user_confirmation">%1$s nu va mai avea acces la %2$s</string>
-    <string name="remove_user">Elimini utilizatorul\?</string>
+    <string name="remove_user">Elimini utilizatorul?</string>
     <string name="list_members">Lista membrilor</string>
     <string name="account_not_included">Nu este inclus în abonamentele \'Spune prețul\'</string>
     <string name="tasks_org_account_required">Cont Tasks.org necesar</string>
@@ -102,11 +102,11 @@
     <string name="url">URL</string>
     <string name="password">Parolă</string>
     <string name="user">Utilizator</string>
-    <string name="copy_selected_tasks">Copiezi sarcinile selectate\?</string>
-    <string name="delete_selected_tasks">Ștergi sarcinile selectate\?</string>
+    <string name="copy_selected_tasks">Copiezi sarcinile selectate?</string>
+    <string name="delete_selected_tasks">Ștergi sarcinile selectate?</string>
     <string name="delete_multiple_tasks_confirmation">%s șters</string>
     <string name="copy_multiple_tasks_confirmation">%s copiat</string>
-    <string name="clear_completed_tasks_confirmation">Ștergi sarcinile finalizate\?</string>
+    <string name="clear_completed_tasks_confirmation">Ștergi sarcinile finalizate?</string>
     <string name="widget_due_date_hidden">Ascuns</string>
     <string name="widget_due_date_below_title">Sub titlul</string>
     <string name="widget_due_date_after_title">După titlu</string>
@@ -157,7 +157,7 @@
     <string name="tag_settings">Setări etichetă</string>
     <string name="discard">Modificări</string>
     <string name="menu_discard_changes">Renunță la modificări</string>
-    <string name="discard_changes">Renunți la modificări\?</string>
+    <string name="discard_changes">Renunți la modificări?</string>
     <string name="date_shortcut_must_come_after">%1$s trebuie să vină după %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s trebuie să vină înainte de %2$s</string>
     <string name="date_shortcut_tomorrow_night">Mâine noaptea</string>
@@ -323,7 +323,7 @@
     <string name="CFC_tag_contains_text">Eticheta conține: ?</string>
     <string name="CFC_tag_contains_name">Eticheta conține…</string>
     <string name="CFC_tag_name">Etichetă…</string>
-    <string name="CFC_tag_text">Etichetă:\?</string>
+    <string name="CFC_tag_text">Etichetă:?</string>
     <string name="CFC_importance_name">Prioritate…</string>
     <string name="CFC_importance_text">Prioritate minimă ?</string>
     <string name="next_month">Luna viitoare</string>
@@ -398,17 +398,12 @@
     <string name="WID_dateButtonUnset">Clic pentru setare</string>
     <string name="DLG_undo">Anulare</string>
     <string name="DLG_hour_minutes">Timp (oră : minute)</string>
-    <string name="DLG_delete_this_task_question">Ștergi sarcina\?</string>
+    <string name="DLG_delete_this_task_question">Ștergi sarcina?</string>
     <string name="keep_editing">Continuă editarea</string>
-    <string name="discard_confirmation">Ești siguri că vrei să renunți la modificările făcute\?</string>
+    <string name="discard_confirmation">Ești siguri că vrei să renunți la modificările făcute?</string>
     <string name="read_permission_label">Permisiune sarcini</string>
     <string name="import_progress_read">Citirea sarcinii %d…</string>
-    <string name="import_summary_message">Fișierul %1$s conținea %2$s.
-\n
-\n %3$s importat,
-\n %4$s există deja
-\n %5$s cu erori
-\n</string>
+    <string name="import_summary_message">Fișierul %1$s conținea %2$s. \n \n %3$s importat, \n %4$s există deja \n %5$s cu erori \n</string>
     <string name="import_summary_title">Rezumatul restaurării</string>
     <string name="backup_BAc_import">Import din copia de rezervă</string>
     <string name="backup_BAc_export">Fă copie de rezervă acum</string>
@@ -526,7 +521,7 @@
     <string name="requires_pro_subscription">Necesită un abonament pro</string>
     <string name="pro_dashclock_extension">Extinderea ceasului de bord</string>
     <string name="TPl_notification">Cronometre active pentru %s!</string>
-    <string name="delete_tag_confirmation">Ștergi %s\?</string>
+    <string name="delete_tag_confirmation">Ștergi %s?</string>
     <string name="new_list">Crează o nouă listă</string>
     <string name="new_tag">Crează o nouă etichetă</string>
     <string name="repeat_snackbar">%1$s reprogramat pentru %2$s</string>
@@ -550,9 +545,9 @@
     </plurals>
     <string name="default_location_reminder_on_departure">La plecare</string>
     <string name="default_location_reminder_on_arrival">La sosire</string>
-    <string name="EPr_manage_delete_all_gcal_message">Dorești cu adevărat să ștergi toate evenimentele pentru sarcini\?</string>
+    <string name="EPr_manage_delete_all_gcal_message">Dorești cu adevărat să ștergi toate evenimentele pentru sarcini?</string>
     <string name="EPr_manage_delete_gcal_status">Ai eliminat %d evenimente din calendar!</string>
-    <string name="EPr_manage_delete_completed_gcal_message">Dorești cu adevărat să ștergi toate evenimentele pentru sarcinile finalizate\?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Dorești cu adevărat să ștergi toate evenimentele pentru sarcinile finalizate?</string>
     <string name="EPr_manage_delete_completed_gcal">Șterge evenimentele din calendar pentru sarcinile finalizate</string>
     <string name="EPr_delete_task_data_warning">Toate sarcinile vor fi șterse definitiv</string>
     <string name="EPr_delete_task_data">Șterge datele sarcinii</string>
@@ -661,4 +656,50 @@
     <string name="banner_app_updated_title">Aplicație actualizată</string>
     <string name="banner_app_updated_description">Tasks a fost actualizată la versiunea %s. Dorești să vezi modificările făcute?</string>
     <string name="widget_view_more_tasks">Vezi mai multe sarcini</string>
+    <string name="per_list_sort_title">Sortare pe listă</string>
+    <string name="legal_disclosure_prefix_using">Prin utilizarea Tasks.org</string>
+    <string name="email_to_task_address">Adresa ta de e-mail</string>
+    <string name="location_update_interval_30_minutes">La fiecare 30 de minute</string>
+    <string name="per_list_sort_summary">Memorizează setările de sortare și grupare pentru fiecare listă în mod independent</string>
+    <string name="alarm_after">după</string>
+    <string name="upgrade_friends_and_family_description">5 invitați gratuiti pe listele partajate. Funcționează cu mementouri Apple</string>
+    <string name="alarm_before">înainte</string>
+    <string name="advanced_tools">Instrumente avansate</string>
+    <string name="upgrade_subscription_banner">Îți mulțumim pentru suport! Actualizează-ți abonamentul pentru a activa Tasks.org Cloud Sync</string>
+    <string name="upgrade_desktop_app">Tasks.org pentru desktop</string>
+    <string name="share_list">Distribuie „%1$s”</string>
+    <string name="subscription_required_fdroid">Este necesar un abonament pentru a utiliza sincronizarea Tasks.org. Abonamentele trebuie să fie inițiate din versiunea Google Play a Tasks.</string>
+    <string name="upgrade_desktop_app_description">Acces anticipat la noua aplicație desktop</string>
+    <string name="location_update_interval_15_minutes">La fiecare 15 minute</string>
+    <string name="upgrade_friends_and_family">Prieteni și familie</string>
+    <string name="returning_user">Utilizator care revine?</string>
+    <string name="local_list_description">Sarcinile din această listă sunt stocate numai pe acest dispozitiv. Conectează un cont pentru a-ți proteja datele și pentru a le accesa de oriunde.</string>
+    <string name="location_update_interval_summary">Actualizările periodice ale locației îmbunătățesc fiabilitatea geofence-ului</string>
+    <string name="rmd_time_enabled_off">Nu adăuga mementouri implicite la sarcinile zilnice</string>
+    <string name="import_failed">Importul a eșuat</string>
+    <string name="alarm_start">pornește</string>
+    <string name="invalid_email_address">Adresă de e-mail nevalidă</string>
+    <string name="exit">Ieșire</string>
+    <string name="send">Trimite</string>
+    <string name="guest_create_list_message">În prezent, ai acces pentru invitați la listele partajate. Pentru a crea și sincroniza propriile liste private în cloud, vei avea nevoie de un abonament la Tasks.org. Sau poți crea o listă locală gratuită care rămâne pe acest dispozitiv.</string>
+    <string name="location_update_interval_disabled">Dezactivat</string>
+    <string name="import_failed_message">Nu s-a putut citi fișierul copiei de rezervă</string>
+    <string name="location_update_interval_2_hours">La fiecare 2 ore</string>
+    <string name="banner_subscription_required_title">Este necesar un abonament</string>
+    <string name="default_reminder">Sarcini pentru tot parcursul zilei</string>
+    <string name="upgrade_email_to_task_description">Transformă e-mailurile în sarcini, redirecționându-le către căsuța de e-mail privată</string>
+    <string name="location_update_interval_1_hour">În fiecare oră</string>
+    <string name="local_list_title">Aceasta este o listă locală</string>
+    <string name="advanced_tools_description">Locații Google, CalDAV, EteSync și multe altele!</string>
+    <string name="read_more">Citeşte mai mult</string>
+    <string name="add_default_reminders">Adaugă mementouri implicite</string>
+    <string name="alarm_due">scadență</string>
+    <string name="rmd_EPr_rmd_time_desc">Notificările pentru sarcinile pentru tot parcursul zilei vor apărea la %1$s</string>
+    <string name="sponsorship_required_fdroid">Este necesară o sponsorizare GitHub pentru a utiliza sincronizarea Tasks.org. Clic mai jos pentru a deveni sponsor.</string>
+    <string name="email_to_task">E-mail către sarcină</string>
+    <string name="tos_updated_title">Am actualizat Termenii și condițiile</string>
+    <string name="rmd_time_enabled_on">Adaugă mementouri implicite la sarcinile pe tot parcursul zilei</string>
+    <string name="accept">Acceptă</string>
+    <string name="banner_subscription_required_body">Plătește oricât dorești pentru a debloca sincronizarea %s</string>
+    <string name="location_update_interval_title">Actualizări ale locației de fundal</string>
 </resources>
