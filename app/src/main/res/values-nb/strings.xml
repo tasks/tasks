@@ -4,15 +4,10 @@
     <string name="backup_BAc_export">Sikkerhetskopier nå</string>
     <string name="export_toast">%1$s av %2$s sikkerhetskopiert.</string>
     <string name="import_summary_title">Gjennopprettingssammendrag</string>
-    <string name="import_summary_message">Filen %1$s inneholder %2$s.
-\n
-\n %3$s importert,
-\n %4$s finnes allerede
-\n %5$s inneholdt feil
-\n</string>
+    <string name="import_summary_message">Filen %1$s inneholder %2$s. \n \n %3$s importert, \n %4$s finnes allerede \n %5$s inneholdt feil \n</string>
     <string name="import_progress_read">Leser gjøremål %d…</string>
     <string name="read_permission_label">Tasks-tillatelse</string>
-    <string name="DLG_delete_this_task_question">Slett dette gjøremålet\?</string>
+    <string name="DLG_delete_this_task_question">Slett dette gjøremålet?</string>
     <string name="DLG_hour_minutes">Tid (timer : minutter)</string>
     <string name="WID_dateButtonUnset">Klikk for å sette</string>
     <string name="TLA_menu_sort">Sorter</string>
@@ -43,14 +38,14 @@
     <string name="CFA_button_add">Legg til kriterium</string>
     <string name="CFC_dueBefore_text">Frist til: ?</string>
     <string name="CFC_dueBefore_name">Frist til…</string>
-    <string name="CFC_importance_text">Minste prioritet\?</string>
+    <string name="CFC_importance_text">Minste prioritet?</string>
     <string name="CFC_importance_name">Prioritet…</string>
     <string name="CFC_title_contains_name">Tittel inneholder…</string>
     <string name="CFC_title_contains_text">Tittel inneholder: ?</string>
     <string name="gcal_TEA_error">Klarte ikke å legge gjøremål til i kalender!</string>
     <string name="gcal_TEA_showCalendar_label">Åpne kalenderhendelse</string>
     <string name="gcal_completed_title">%s (fullført)</string>
-    <string name="CFC_gtasks_list_text">I listen\?</string>
+    <string name="CFC_gtasks_list_text">I listen?</string>
     <string name="gtasks_GTA_clear_completed">Fjern fullførte</string>
     <string name="gtasks_GLA_errorIOAuth">Kunne ikke kommunisere med Google-tjenerne. Prøv igjen senere.</string>
     <string name="rmd_NoA_done">Utført</string>
@@ -138,7 +133,7 @@
     <string name="bundle_notifications_summary">Kombiner flere merknader sammen til én</string>
     <string name="actfm_picture_clear">Tøm bilde</string>
     <string name="TVA_add_comment">Legg til kommentar…</string>
-    <string name="discard_confirmation">Er du sikker på at du vil forkaste dine endringer\?</string>
+    <string name="discard_confirmation">Er du sikker på at du vil forkaste dine endringer?</string>
     <string name="keep_editing">Fortsett å redigere</string>
     <string name="DLG_undo">Angre</string>
     <string name="TLA_no_items">Det er ingen gjøremål her.</string>
@@ -167,10 +162,10 @@
     <string name="EPr_delete_task_data">Slett gjøremålsdata</string>
     <string name="EPr_delete_task_data_warning">Alle gjøremål vil bli slettet for godt</string>
     <string name="EPr_manage_delete_completed_gcal">Slett kalenderhendelser for fullførte gjøremål</string>
-    <string name="EPr_manage_delete_completed_gcal_message">Ønsker du virkelig å slette alle dine hendelser for fullførte gjøremål\?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Ønsker du virkelig å slette alle dine hendelser for fullførte gjøremål?</string>
     <string name="EPr_manage_delete_gcal_status">Slettet %d kalenderhendelser!</string>
     <string name="EPr_manage_delete_all_gcal">Slett alle kalenderhendelser for gjøremål</string>
-    <string name="EPr_manage_delete_all_gcal_message">Ønsker du virkelig å slette alle dine hendelser for gjøremål\?</string>
+    <string name="EPr_manage_delete_all_gcal_message">Ønsker du virkelig å slette alle dine hendelser for gjøremål?</string>
     <string name="EPr_default_location_reminder_title">Forvalgte stedspåminnelser</string>
     <string name="EPr_default_reminders_mode_title">Forvalgt ringe/vibrasjonstype</string>
     <string name="priority_high">Høy</string>
@@ -184,10 +179,10 @@
     <string name="default_location_reminder_on_arrival_or_departure">Ved ankomst og avgang</string>
     <string name="no_due_date">Ingen tidsfristdato</string>
     <string name="next_month">Neste måned</string>
-    <string name="CFC_tag_text">Etikett: \?</string>
+    <string name="CFC_tag_text">Etikett: ?</string>
     <string name="CFC_tag_name">Etikett…</string>
     <string name="CFC_tag_contains_name">Etikettnavn inneholder…</string>
-    <string name="CFC_tag_contains_text">Etikettnavn inneholder: \?</string>
+    <string name="CFC_tag_contains_text">Etikettnavn inneholder: ?</string>
     <string name="calendar_event_not_found">Fant ikke kalenderhendelsen</string>
     <string name="gtasks_GLA_authenticating">Identitetsbekrefter…</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
@@ -242,7 +237,7 @@
     <string name="repeat_snackbar">%1$s flyttet til %2$s</string>
     <string name="new_tag">Opprett en ny etikett</string>
     <string name="new_list">Opprett en ny liste</string>
-    <string name="delete_tag_confirmation">Slett %s\?</string>
+    <string name="delete_tag_confirmation">Slett %s?</string>
     <string name="TEA_timer_comment_stopped">stoppet arbeid med dette gjøremålet:</string>
     <string name="voice_command_added_task">La til gjøremål</string>
     <string name="widget_show_header">Vis hode</string>
@@ -274,7 +269,7 @@
     <string name="date_shortcut_tomorrow_afternoon">I morgen på ettermiddagen</string>
     <string name="date_shortcut_must_come_before">%1$s må komme før %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s må komme etter %2$s</string>
-    <string name="discard_changes">Forkast endringer\?</string>
+    <string name="discard_changes">Forkast endringer?</string>
     <string name="discard">Forkast</string>
     <string name="tag_settings">Etikettinnstillinger</string>
     <string name="list_settings">Listeinnstillinger</string>
@@ -301,11 +296,11 @@
     <string name="widget_settings">Miniprogramsinnstillinger</string>
     <string name="widget_header_settings">Hodeinnstillinger</string>
     <string name="widget_row_settings">Radinnstillinger</string>
-    <string name="clear_completed_tasks_confirmation">Tøm fullførte gjøremål\?</string>
+    <string name="clear_completed_tasks_confirmation">Tøm fullførte gjøremål?</string>
     <string name="copy_multiple_tasks_confirmation">%s kopiert</string>
     <string name="delete_multiple_tasks_confirmation">%s slettet</string>
-    <string name="delete_selected_tasks">Slett valgte gjøremål\?</string>
-    <string name="copy_selected_tasks">Kopier valgte gjøremål\?</string>
+    <string name="delete_selected_tasks">Slett valgte gjøremål?</string>
+    <string name="copy_selected_tasks">Kopier valgte gjøremål?</string>
     <string name="user">Bruker</string>
     <string name="password">Passord</string>
     <string name="url">Nettadresse</string>
@@ -449,7 +444,7 @@
     <string name="reset_sort_order">Tilbakestill sorteringsrekkefølge</string>
     <string name="lists">Lister</string>
     <string name="on_launch">Ved oppstart</string>
-    <string name="enjoying_tasks">Liker du Tasks\?</string>
+    <string name="enjoying_tasks">Liker du Tasks?</string>
     <string name="whats_new">Hva er nytt</string>
     <string name="CFC_list_name">På listen…</string>
     <string name="date_shortcut_tomorrow_evening">I morgen på kvelden</string>
@@ -514,7 +509,7 @@
     <string name="filter_any_start_date">Vilkårlig startdato</string>
     <string name="no_start_date">Ingen startdato</string>
     <string name="CFC_startBefore_name">Start innen …</string>
-    <string name="CFC_startBefore_text">Start innen: \?</string>
+    <string name="CFC_startBefore_text">Start innen: ?</string>
     <string name="default_start_date">Forvalgt startdato</string>
     <string name="SSD_sort_start">I henhold til startdato</string>
     <string name="start_date">Startdato</string>
@@ -522,7 +517,7 @@
     <string name="tasks_org_account_required">Tasks.org-konto kreves</string>
     <string name="list_members">Liste over medlemmer</string>
     <string name="remove_user_confirmation">%1$s vil ikke lenger ha tilgang til %2$s</string>
-    <string name="remove_user">Fjern bruker\?</string>
+    <string name="remove_user">Fjern bruker?</string>
     <string name="privacy">Personvern</string>
     <string name="open_source">Åpen kilde</string>
     <string name="support">Støtte</string>
@@ -614,4 +609,5 @@
     <string name="change_priority">Endre prioritet</string>
     <string name="repeat_monthly_on_day_number">Månedlig på dag %1d</string>
     <string name="repeat_monthly_on_the_nth_weekday">Månedlig på %1$s %2$s</string>
+    <string name="rmd_EPr_rmd_time_desc"></string>
 </resources>
