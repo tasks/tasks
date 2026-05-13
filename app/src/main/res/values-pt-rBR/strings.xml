@@ -329,7 +329,7 @@
     <string name="repeat_monthly_second_week">segundo</string>
     <string name="repeat_monthly_third_week">terceiro</string>
     <string name="repeat_monthly_fourth_week">quarto</string>
-    <string name="repeat_monthly_last_week">ultimo </string>
+    <string name="repeat_monthly_last_week">ultimo</string>
     <string name="tasker_create_task">Criar tarefa</string>
     <string name="tasker_list_notification">Listar notificações</string>
     <string name="help">Ajuda</string>
