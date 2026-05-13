@@ -25,7 +25,7 @@
     <string name="TEA_importance_label">Prioritat</string>
     <string name="no_date">Sense data</string>
     <string name="TEA_note_label">Descripció</string>
-    <string name="TEA_estimatedDuration_label">Quant de temps us portarà\?</string>
+    <string name="TEA_estimatedDuration_label">Quant de temps us portarà?</string>
     <string name="TEA_elapsedDuration_label">Temps que ja s\'hi ha invertit</string>
     <string name="no_time">Sense hora</string>
     <string name="due_date">Data de venciment</string>
@@ -87,7 +87,7 @@
     <string name="settings_localization">Localització</string>
     <string name="export_toast">Recolzades %1$s de %2$s.</string>
     <string name="import_summary_message">El fitxer %1$s contenia %2$s. \n \n %3$s importades \n %4$s ja existien \n %5$s tenien errors</string>
-    <string name="discard_confirmation">Esteu segur que voleu descartar els canvis\?</string>
+    <string name="discard_confirmation">Esteu segur que voleu descartar els canvis?</string>
     <string name="keep_editing">Continua l\'edició</string>
     <string name="TLA_no_items">No hi ha cap tasca aquí.</string>
     <string name="action_call">Truca</string>
