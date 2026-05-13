@@ -635,4 +635,5 @@
         <item quantity="one">%d ano</item>
         <item quantity="other">%d anos</item>
     </plurals>
+    <string name="default_reminder"></string>
 </resources>
