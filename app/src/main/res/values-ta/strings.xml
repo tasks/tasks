@@ -55,7 +55,7 @@
     <string name="actfm_picture_clear">தெளிவான படம்</string>
     <string name="save">சேமி</string>
     <string name="TEA_elapsedDuration_label">ஏற்கனவே செலவழித்த நேரம்</string>
-    <string name="TEA_estimatedDuration_label">இது எவ்வளவு நேரம் எடுக்கும்\?</string>
+    <string name="TEA_estimatedDuration_label">இது எவ்வளவு நேரம் எடுக்கும்?</string>
     <string name="TEA_note_label">விவரிப்பு</string>
     <string name="TEA_importance_label">முன்னுரிமை</string>
     <string name="TEA_title_hint">வேலை பெயர்</string>
@@ -68,7 +68,7 @@
     <string name="TLA_no_items">இங்கு எந்த வேலைகளும் இல்லை.</string>
     <string name="DLG_undo">பின்வாங்கு</string>
     <string name="DLG_hour_minutes">நேரம் (மணி : நிமிடங்கள்)</string>
-    <string name="DLG_delete_this_task_question">இந்த வேலையை நீக்கலாமா\?</string>
+    <string name="DLG_delete_this_task_question">இந்த வேலையை நீக்கலாமா?</string>
     <string name="read_permission_label">வேலைகள் அனுமதி</string>
     <string name="backup_BAc_export">இப்போதே நகல் எடு</string>
     <string name="backup_BAc_import">நகலை இறக்குமதி செய்</string>
