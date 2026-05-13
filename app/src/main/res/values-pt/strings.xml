@@ -73,11 +73,11 @@
     <string name="BFE_Active">Minhas tarefas</string>
     <string name="BFE_Recent">Alteradas recentemente</string>
     <string name="CFA_button_add">Adicionar critério</string>
-    <string name="CFC_dueBefore_text">Data de fim: \?</string>
+    <string name="CFC_dueBefore_text">Data de fim: ?</string>
     <string name="CFC_dueBefore_name">Data de fim…</string>
     <string name="no_due_date">Sem data de fim</string>
     <string name="next_month">Próximo mês</string>
-    <string name="CFC_importance_text">Prioridade mínima\?</string>
+    <string name="CFC_importance_text">Prioridade mínima?</string>
     <string name="CFC_importance_name">Importância…</string>
     <string name="CFC_tag_text">Etiqueta: ?</string>
     <string name="CFC_tag_name">Etiqueta…</string>
@@ -179,7 +179,7 @@
     <string name="repeat_snackbar">%1$s agendada para %2$s</string>
     <string name="new_tag">Criar nova etiqueta</string>
     <string name="new_list">Criar nova lista</string>
-    <string name="delete_tag_confirmation">Eliminar %s\?</string>
+    <string name="delete_tag_confirmation">Eliminar %s?</string>
     <string name="TPl_notification">Cronómetro ativo para %s!</string>
     <string name="TEA_timer_controls">Cronómetro</string>
     <string name="TEA_timer_comment_started">iniciou esta tarefa:</string>
@@ -263,10 +263,10 @@
     <string name="widget_settings">Definições do widget</string>
     <string name="widget_header_settings">Definições de cabeçalho</string>
     <string name="widget_row_settings">Definições de linhas</string>
-    <string name="clear_completed_tasks_confirmation">Eliminar tarefas concluídas\?</string>
+    <string name="clear_completed_tasks_confirmation">Eliminar tarefas concluídas?</string>
     <string name="copy_multiple_tasks_confirmation">%s copiadas</string>
     <string name="delete_multiple_tasks_confirmation">%s eliminadas</string>
-    <string name="delete_selected_tasks">Eliminar as tarefas selecionadas\?</string>
+    <string name="delete_selected_tasks">Eliminar as tarefas selecionadas?</string>
     <string name="copy_selected_tasks">Copiar as tarefas selecionadas?</string>
     <string name="notification_disable_battery_optimizations_description">As otimizações da bateria podem atrasar as notificações</string>
     <string name="bundle_notifications">Agrupar notificações</string>
@@ -444,7 +444,7 @@
     <string name="reset_sort_order">Repor ordenação</string>
     <string name="open_last_viewed_list">Abrir a última lista vista</string>
     <string name="support_development_subscribe">Desbloqueie funcionalidades adicionais e apoie programas de código-fonte aberto</string>
-    <string name="enjoying_tasks">Gosta do Tasks\?</string>
+    <string name="enjoying_tasks">Gosta do Tasks?</string>
     <string name="filter_eisenhower_box_4">Não é importante e não é urgente</string>
     <string name="filter_eisenhower_box_3">Não é importante e urgente</string>
     <string name="filter_eisenhower_box_2">Importante e não urgente</string>
@@ -535,7 +535,7 @@
     <string name="filter_any_start_date">Qualquer data de início</string>
     <string name="no_start_date">Sem data de início</string>
     <string name="CFC_startBefore_name">Iniciar por…</string>
-    <string name="CFC_startBefore_text">Iniciar por: \?</string>
+    <string name="CFC_startBefore_text">Iniciar por: ?</string>
     <string name="default_location">Localização predefinida</string>
     <string name="default_due_date">Data de fim predefinida</string>
     <string name="default_start_date">Data de início predefinida</string>
@@ -637,4 +637,6 @@
     <string name="add_shortcut_to_home_screen">Adicionar atalho para a tela inicial</string>
     <string name="delete_tasks_warning">%s será apagado. Isso não poderá ser desfeito!</string>
     <string name="widget_view_more_tasks">Ver mais tarefas</string>
+    <string name="share_list"></string>
+    <string name="rmd_EPr_rmd_time_desc"></string>
 </resources>
