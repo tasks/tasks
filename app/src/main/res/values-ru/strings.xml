@@ -9,7 +9,7 @@
     <string name="import_summary_message">Файл %1$s содержал %2$s.\n\n %3$s импортировано,\n%4$s уже существовуют,\n%5$s с ошибками</string>
     <string name="import_progress_read">Чтение задачи %d…</string>
     <string name="read_permission_label">Разрешения Tasks</string>
-    <string name="discard_confirmation">Отменить сделанные изменения\?</string>
+    <string name="discard_confirmation">Отменить сделанные изменения?</string>
     <string name="keep_editing">Нет</string>
     <string name="DLG_delete_this_task_question">Удалить эту задачу?</string>
     <string name="DLG_hour_minutes">Время (часы : минуты)</string>
@@ -82,7 +82,7 @@
     <string name="BFE_Active">Мои задачи</string>
     <string name="BFE_Recent">Недавно изменённые</string>
     <string name="CFA_button_add">Добавить условие</string>
-    <string name="CFC_dueBefore_text">Дата завершения: \?</string>
+    <string name="CFC_dueBefore_text">Дата завершения: ?</string>
     <string name="CFC_dueBefore_name">Дата завершения…</string>
     <string name="no_due_date">Нет даты завершения</string>
     <string name="next_month">Следующий месяц</string>
@@ -271,7 +271,7 @@
     <string name="date_shortcut_tomorrow_afternoon">Завтра в обед</string>
     <string name="date_shortcut_must_come_before">%1$s должно идти перед %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s должно идти после %2$s</string>
-    <string name="discard_changes">Отменить изменения\?</string>
+    <string name="discard_changes">Отменить изменения?</string>
     <string name="discard">Отменить</string>
     <string name="tag_settings">Настройки метки</string>
     <string name="list_settings">Настройки списка</string>
