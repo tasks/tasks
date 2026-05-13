@@ -573,7 +573,7 @@
     <string name="randomly_every">Zufällig alle %s</string>
     <string name="customize_edit_screen_summary">Felder neu anordnen oder entfernen</string>
     <string name="dismiss">Schließen</string>
-    <string name="hint_customize_edit_title">Zu viele Informationen\?</string>
+    <string name="hint_customize_edit_title">Zu viele Informationen?</string>
     <string name="hint_customize_edit_body">Du kannst diese Ansicht anpassen, indem du Felder neu anordnest oder verschiebst</string>
     <string name="sort_completion_group">Vervollständigung %s</string>
     <string name="TEA_creation_date">Erstellungsdatum</string>
