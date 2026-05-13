@@ -13,7 +13,7 @@
         <item quantity="other">%d taskoj</item>
     </plurals>
     <string name="delete_task">Forigi taskon</string>
-    <string name="delete_tag_confirmation">Forigi %s\?</string>
+    <string name="delete_tag_confirmation">Forigi %s?</string>
     <plurals name="repeat_years">
         <item quantity="one">jaro</item>
         <item quantity="other">jaroj</item>
@@ -74,7 +74,7 @@
     <string name="WID_dateButtonUnset">Alklaku por ŝanĝi</string>
     <string name="DLG_undo">Malfari</string>
     <string name="DLG_hour_minutes">Tempo (horoj : minutoj)</string>
-    <string name="DLG_delete_this_task_question">Forigi la taskon\?</string>
+    <string name="DLG_delete_this_task_question">Forigi la taskon?</string>
     <string name="display_name">Nomo</string>
     <string name="TVA_add_comment">Aldoni komenton…</string>
     <string name="cancel">Nuligi</string>
@@ -126,21 +126,21 @@
     <string name="rmd_EPr_defaultRemind_title">Hazardaj memorigiloj</string>
     <string name="rmd_EPr_rmd_time_title">Memorigo-horo</string>
     <string name="CFC_list_name">En listo…</string>
-    <string name="CFC_gtasks_list_text">En Listo: \?</string>
+    <string name="CFC_gtasks_list_text">En Listo: ?</string>
     <string name="calendar_event_not_found">Kalendara evento ne trovita</string>
     <string name="gcal_TEA_showCalendar_label">Malfermi Kalendara Evento</string>
-    <string name="CFC_title_contains_text">Titolo enhavas: \?</string>
+    <string name="CFC_title_contains_text">Titolo enhavas: ?</string>
     <string name="CFC_title_contains_name">Titolo enhavas…</string>
-    <string name="CFC_tag_contains_text">Etikeda nomo enhavas: \?</string>
+    <string name="CFC_tag_contains_text">Etikeda nomo enhavas: ?</string>
     <string name="CFC_tag_contains_name">Etikeda nomo enhavas…</string>
     <string name="CFC_tag_name">Etikedo…</string>
-    <string name="CFC_tag_text">Etikedo: \?</string>
+    <string name="CFC_tag_text">Etikedo: ?</string>
     <string name="CFC_importance_name">Prioritato…</string>
     <string name="next_month">Venontmonate</string>
     <string name="CFC_startBefore_name">Ek…</string>
-    <string name="CFC_startBefore_text">Ek: \?</string>
+    <string name="CFC_startBefore_text">Ek: ?</string>
     <string name="CFC_dueBefore_name">Ĝis…</string>
-    <string name="CFC_dueBefore_text">Ĝis: \?</string>
+    <string name="CFC_dueBefore_text">Ĝis: ?</string>
     <string name="CFA_button_add">Aldoni Kriteriojn</string>
     <string name="BFE_Recent">Lastatempe ŝanĝitaj</string>
     <string name="default_location_reminder_on_departure">Je foriro</string>
@@ -171,7 +171,7 @@
     <string name="SSD_sort_auto">Saĝe</string>
     <string name="TLA_menu_sort">Ordigi</string>
     <string name="keep_editing">Plu redakti</string>
-    <string name="discard_confirmation">Ĉu vi certas ke vi volas nuligi viajn ŝanĝojn\?</string>
+    <string name="discard_confirmation">Ĉu vi certas ke vi volas nuligi viajn ŝanĝojn?</string>
     <string name="import_summary_message">Dosiero %1$s enhavis %2$s.\n\n%3$s importitaj,\n%4$s jam ekzistas\n%5$s havis erarojn</string>
     <string name="export_toast">Savkopiis %1$s al %2$s.</string>
     <string name="backup_BAc_import">Importi savkopion</string>
@@ -188,8 +188,8 @@
     <string name="import_progress_read">Legas taskon, %d…</string>
     <string name="password">Pasvorto</string>
     <string name="user">Uzanto</string>
-    <string name="copy_selected_tasks">Ĉu kopii elektitajn taskojn\?</string>
-    <string name="delete_selected_tasks">Ĉu forigi elektitajn taskojn\?</string>
+    <string name="copy_selected_tasks">Ĉu kopii elektitajn taskojn?</string>
+    <string name="delete_selected_tasks">Ĉu forigi elektitajn taskojn?</string>
     <string name="delete_multiple_tasks_confirmation">%s forigitaj</string>
     <string name="copy_multiple_tasks_confirmation">%s kopitaj</string>
     <string name="widget_open_list">Malfermi liston</string>
@@ -220,7 +220,7 @@
     <string name="tag_settings">Agordoj de etikedo</string>
     <string name="discard">Forĵeti</string>
     <string name="menu_discard_changes">Forĵeti ŝanĝojn</string>
-    <string name="discard_changes">Ĉu forĵeti ŝanĝojn\?</string>
+    <string name="discard_changes">Ĉu forĵeti ŝanĝojn?</string>
     <string name="date_shortcut_tomorrow_night">Morgaŭ nokte</string>
     <string name="date_shortcut_tomorrow_evening">Morgaŭ vespere</string>
     <string name="date_shortcut_tomorrow_afternoon">Morgaŭ posttagmeze</string>
