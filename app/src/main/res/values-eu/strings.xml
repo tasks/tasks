@@ -565,7 +565,7 @@
         <item quantity="one">Aste</item>
         <item quantity="other">Aste</item>
     </plurals>
-    <string name="hint_customize_edit_title">Informazio gehiegi\?</string>
+    <string name="hint_customize_edit_title">Informazio gehiegi?</string>
     <string name="cancel">Ezeztatu</string>
     <string name="ok">Ados</string>
     <string name="custom_filter_has_reminder">Oroigarria dauka</string>
