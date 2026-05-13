@@ -370,7 +370,7 @@
     <string name="delete_selected_tasks">刪除所選工作？</string>
     <string name="delete_multiple_tasks_confirmation">%s 個已刪除</string>
     <string name="copy_multiple_tasks_confirmation">%s 個已複製</string>
-    <string name="clear_completed_tasks_confirmation">清除已完成工作\?</string>
+    <string name="clear_completed_tasks_confirmation">清除已完成工作?</string>
     <string name="widget_due_date_hidden">隱藏</string>
     <string name="widget_due_date_below_title">標題之下</string>
     <string name="widget_due_date_after_title">標題之後</string>
