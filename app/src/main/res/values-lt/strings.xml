@@ -6,12 +6,7 @@
     <string name="backup_BAc_export">Kurti atsarginę kopiją dabar</string>
     <string name="export_toast">Atsarginė kopija padaryta %1$s iki %2$s.</string>
     <string name="import_summary_title">Atkurti suvestinę</string>
-    <string name="import_summary_message">Faile %1$s buvo %2$s.
-\n
-\n %3$s importuota,
-\n %4$s jau egzistuoja
-\n %5$s turėjo klaidų
-\n</string>
+    <string name="import_summary_message">Faile %1$s buvo %2$s. \n \n %3$s importuota, \n %4$s jau egzistuoja \n %5$s turėjo klaidų \n</string>
     <string name="import_progress_read">Nuskaitoma užduotis %d…</string>
     <string name="read_permission_label">Tasks leidimas</string>
     <string name="discard_confirmation">Ar tikrai norite atmesti pakeitimus?</string>
@@ -92,11 +87,11 @@
     <string name="custom_filter_not">NE</string>
     <string name="custom_filter_and">IR</string>
     <string name="CFA_button_add">Pridėti kriterijų</string>
-    <string name="CFC_dueBefore_text">Pabaigos terminas iki: \?</string>
+    <string name="CFC_dueBefore_text">Pabaigos terminas iki: ?</string>
     <string name="CFC_dueBefore_name">Terminas iki…</string>
     <string name="no_due_date">Be pabaigos datos</string>
     <string name="next_month">Kitas mėnuo</string>
-    <string name="CFC_importance_text">Prioritetas bent jau \?</string>
+    <string name="CFC_importance_text">Prioritetas bent jau ?</string>
     <string name="CFC_importance_name">Prioritetas…</string>
     <string name="CFC_tag_text">Etiketė: ?</string>
     <string name="CFC_tag_name">Etiketė…</string>
@@ -140,71 +135,85 @@
     <plurals name="task_count">
         <item quantity="one">%d užduotis</item>
         <item quantity="few">%d užduotys</item>
+        <item quantity="many">%d užduočių</item>
         <item quantity="other">%d užduočių</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">kartą</item>
         <item quantity="few">kartus</item>
+        <item quantity="many">kartų</item>
         <item quantity="other">kartų</item>
     </plurals>
     <plurals name="repeat_minutes">
         <item quantity="one">minutė</item>
         <item quantity="few">minutės</item>
+        <item quantity="many">minučių</item>
         <item quantity="other">minučių</item>
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minutę</item>
         <item quantity="few">%d minutes</item>
+        <item quantity="many">%d minučių</item>
         <item quantity="other">%d minučių</item>
     </plurals>
     <plurals name="repeat_hours">
         <item quantity="one">valanda</item>
         <item quantity="few">valandos</item>
+        <item quantity="many">valandų</item>
         <item quantity="other">valandų</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d valandą</item>
         <item quantity="few">%d valandas</item>
+        <item quantity="many">%d valandų</item>
         <item quantity="other">%d valandų</item>
     </plurals>
     <plurals name="repeat_days">
         <item quantity="one">diena</item>
         <item quantity="few">dienos</item>
+        <item quantity="many">dienų</item>
         <item quantity="other">dienų</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d dieną</item>
         <item quantity="few">%d dienas</item>
+        <item quantity="many">%d dienų</item>
         <item quantity="other">%d dienų</item>
     </plurals>
     <plurals name="repeat_weeks">
         <item quantity="one">savaitė</item>
         <item quantity="few">savaitės</item>
+        <item quantity="many">savaičių</item>
         <item quantity="other">savaičių</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d savaitę</item>
         <item quantity="few">%d savaites</item>
+        <item quantity="many">%d savaičių</item>
         <item quantity="other">%d savaičių</item>
     </plurals>
     <plurals name="repeat_months">
         <item quantity="one">mėnesis</item>
         <item quantity="few">mėnesiai</item>
+        <item quantity="many">mėnesių</item>
         <item quantity="other">mėnesių</item>
     </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d mėnesį</item>
         <item quantity="few">%d mėnesius</item>
+        <item quantity="many">%d mėnesių</item>
         <item quantity="other">%d mėnesių</item>
     </plurals>
     <plurals name="repeat_years">
         <item quantity="one">metai</item>
         <item quantity="few">metai</item>
+        <item quantity="many">metų</item>
         <item quantity="other">metų</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d metus</item>
         <item quantity="few">%d metus</item>
+        <item quantity="many">%d metų</item>
         <item quantity="other">%d metų</item>
     </plurals>
     <string name="repeat_type_due">termino data</string>
@@ -227,6 +236,7 @@
     <plurals name="Ntasks">
         <item quantity="one">1 užduotis</item>
         <item quantity="few">%d užduotys</item>
+        <item quantity="many">%d užduočių</item>
         <item quantity="other">%d užduočių</item>
     </plurals>
     <string name="today">Šiandien</string>
@@ -265,7 +275,7 @@
     <string name="date_shortcut_tomorrow_afternoon">Rytojaus popietė</string>
     <string name="date_shortcut_must_come_before">%1$s turi būti prieš %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s turi būti po %2$s</string>
-    <string name="discard_changes">Atmesti pakeitimus\?</string>
+    <string name="discard_changes">Atmesti pakeitimus?</string>
     <string name="discard">Atmesti</string>
     <string name="tag_settings">Etikečių nustatymai</string>
     <string name="list_settings">Sąrašo nustatymai</string>
@@ -436,7 +446,7 @@
     <string name="CFC_list_name">Yra sąraše…</string>
     <string name="no_start_date">Be pradžios datos</string>
     <string name="CFC_startBefore_name">Pradėti iki…</string>
-    <string name="CFC_startBefore_text">Pradėti iki: \?</string>
+    <string name="CFC_startBefore_text">Pradėti iki: ?</string>
     <string name="default_location">Numatyta geografinė vieta</string>
     <string name="default_start_date">Numatyta pradžios data</string>
     <string name="TEA_add_subtask">Pridėti antrinę užduotį</string>
@@ -444,7 +454,7 @@
     <string name="cancel">Atšaukti</string>
     <string name="ok">Patvirtinti</string>
     <string name="list_members">Sąrašo nariai</string>
-    <string name="remove_user">Pašalinti vartotoją\?</string>
+    <string name="remove_user">Pašalinti vartotoją?</string>
     <string name="remove_user_confirmation">%1$s nebeturės prieigos prie %2$s</string>
     <string name="invite_declined">Kvietimas atmestas</string>
     <string name="invite_awaiting_response">Kvietimas laukia atsakymo</string>
@@ -502,6 +512,7 @@
     <plurals name="subtask_count">
         <item quantity="one">%d antrinė užduotis</item>
         <item quantity="few">%d antrinės užduotys</item>
+        <item quantity="many">%d antrinių užduočių</item>
         <item quantity="other">%d antrinių užduočių</item>
     </plurals>
     <string name="default_due_date">Numatyta pabaigos data</string>
@@ -533,7 +544,7 @@
     <string name="sort_modified_group">Modifikuota %s</string>
     <string name="sort_created_group">Sukurta %s</string>
     <string name="support_development_subscribe">Atrakinkite papildomas funkcijas ir palaikykite atvirojo kodo programinę įrangą</string>
-    <string name="enjoying_tasks">Ar jums patinka Tasks\?</string>
+    <string name="enjoying_tasks">Ar jums patinka Tasks?</string>
     <string name="calendar_event_created">Kalendoriaus įvykis sukurtas %s</string>
     <string name="auto_dismiss_datetime_summary">Uždaryti datos laiko rinkiklį pasirinkus datą ar laiką</string>
     <string name="auto_dismiss_datetime_widget_summary">Automatiškai uždaryti renkantis iš valdiklio</string>
@@ -565,7 +576,7 @@
     <string name="when_started">Kai pradedama</string>
     <string name="enable_reminders">Įgalinti priminimus</string>
     <string name="hint_customize_edit_body">Galite tinkinti šį ekraną pertvarkydami arba pašalindami laukus</string>
-    <string name="hint_customize_edit_title">Per daug informacijos\?</string>
+    <string name="hint_customize_edit_title">Per daug informacijos?</string>
     <string name="enable_reminders_description">Priminimai išjungti Android nustatymuose</string>
     <string name="custom_filter_has_reminder">Turi priminimą</string>
     <string name="randomly_every">Atsitiktinai kas %s</string>
@@ -574,22 +585,26 @@
     <plurals name="reminder_days">
         <item quantity="one">Diena</item>
         <item quantity="few">Dienos</item>
+        <item quantity="many">Dienų</item>
         <item quantity="other">Dienų</item>
     </plurals>
     <plurals name="reminder_minutes">
         <item quantity="one">Minutė</item>
         <item quantity="few">Minutės</item>
+        <item quantity="many">Minučių</item>
         <item quantity="other">Minučių</item>
     </plurals>
     <string name="customize_edit_screen_summary">Pertvarkyti arba pašalinti laukus</string>
     <plurals name="reminder_hours">
         <item quantity="one">Valanda</item>
         <item quantity="few">Valandos</item>
+        <item quantity="many">Valandų</item>
         <item quantity="other">Valandų</item>
     </plurals>
     <plurals name="reminder_week">
         <item quantity="one">Savaitė</item>
         <item quantity="few">Savaitės</item>
+        <item quantity="many">Savaičių</item>
         <item quantity="other">Savaičių</item>
     </plurals>
     <string name="custom_notification">Pasirinktinis pranešimas</string>
@@ -603,4 +618,5 @@
     <string name="alarm_after_start">%s po pradžios</string>
     <string name="snackbar_task_completed">Užduotis įvykdyta</string>
     <string name="snackbar_tasks_completed">%d užduotys įvykdytos</string>
+    <string name="share_list"></string>
 </resources>
