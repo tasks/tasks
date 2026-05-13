@@ -78,7 +78,7 @@
     <string name="CFC_dueBefore_name">Mennessä…</string>
     <string name="no_due_date">Ei eräpäivää</string>
     <string name="next_month">Ensi kuukausi</string>
-    <string name="CFC_importance_text">Tärkeys vähintään \?</string>
+    <string name="CFC_importance_text">Tärkeys vähintään ?</string>
     <string name="CFC_importance_name">Prioriteetti…</string>
     <string name="CFC_tag_text">Tunniste: ?</string>
     <string name="CFC_tag_name">Tunn…</string>
