@@ -188,4 +188,9 @@
     <string name="restart_later">Mai târziu</string>
     <string name="blog_feed_none">Niciuna</string>
     <string name="cannot_access_account">Nu se poate accesa contul</string>
+    <string name="email_to_task_address">Adresa ta de e-mail</string>
+    <string name="legal_disclosure_prefix_using">Prin utilizarea Tasks.org</string>
+    <string name="tos_updated_title">Am actualizat Termenii și condițiile</string>
+    <string name="accept">Acceptă</string>
+    <string name="email_to_task">E-mail către sarcină</string>
 </resources>
