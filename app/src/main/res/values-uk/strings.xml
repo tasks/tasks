@@ -131,71 +131,85 @@
         <item quantity="one">%d завдання</item>
         <item quantity="few">%d завдання</item>
         <item quantity="many">%d завдань</item>
+        <item quantity="other">%d завдань</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">раз</item>
         <item quantity="few">рази</item>
         <item quantity="many">разів</item>
+        <item quantity="other">разів</item>
     </plurals>
     <plurals name="repeat_minutes">
         <item quantity="one">хвилина</item>
         <item quantity="few">хвилини</item>
         <item quantity="many">хвилин</item>
+        <item quantity="other">хвилин</item>
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d хвилина</item>
         <item quantity="few">%d хвилини</item>
         <item quantity="many">%d хвилин</item>
+        <item quantity="other">%d хвилин</item>
     </plurals>
     <plurals name="repeat_hours">
         <item quantity="one">година</item>
         <item quantity="few">години</item>
         <item quantity="many">годин</item>
+        <item quantity="other">годин</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d година</item>
         <item quantity="few">%d години</item>
         <item quantity="many">%d годин</item>
+        <item quantity="other">%d годин</item>
     </plurals>
     <plurals name="repeat_days">
         <item quantity="one">день</item>
         <item quantity="few">дні</item>
         <item quantity="many">днів</item>
+        <item quantity="other">днів</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d день</item>
         <item quantity="few">%d дні</item>
         <item quantity="many">%d днів</item>
+        <item quantity="other">%d днів</item>
     </plurals>
     <plurals name="repeat_weeks">
         <item quantity="one">тиждень</item>
         <item quantity="few">тижні</item>
         <item quantity="many">тижнів</item>
+        <item quantity="other">тижнів</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d тиждень</item>
         <item quantity="few">%d тижні</item>
         <item quantity="many">%d тижнів</item>
+        <item quantity="other">%d тижнів</item>
     </plurals>
     <plurals name="repeat_months">
         <item quantity="one">місяць</item>
         <item quantity="few">місяці</item>
         <item quantity="many">місяців</item>
+        <item quantity="other">місяців</item>
     </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d місяць</item>
         <item quantity="few">%d місяці</item>
         <item quantity="many">%d місяців</item>
+        <item quantity="other">%d місяців</item>
     </plurals>
     <plurals name="repeat_years">
         <item quantity="one">рік</item>
         <item quantity="few">роки</item>
         <item quantity="many">років</item>
+        <item quantity="other">років</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d рік</item>
         <item quantity="few">%d роки</item>
         <item quantity="many">%d років</item>
+        <item quantity="other">%d років</item>
     </plurals>
     <string name="repeat_type_due">призначеної дати</string>
     <string name="repeat_type_completion">дати виконання</string>
