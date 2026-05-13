@@ -408,7 +408,7 @@
     <string name="invite_awaiting_response">Inbjudan väntar på svar</string>
     <string name="invite_declined">Inbjudan avfärdad</string>
     <string name="remove_user_confirmation">%1$s kommer inte längre att ha tillgång till %2$s</string>
-    <string name="remove_user">Ta bort användaren\?</string>
+    <string name="remove_user">Ta bort användaren?</string>
     <string name="list_members">Förteckning över medlemmar</string>
     <string name="account_not_included">Ingår inte i abonnemangen \"Ange ditt pris\"</string>
     <string name="tasks_org_account_required">Tasks.org-konto krävs</string>
