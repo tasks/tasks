@@ -409,7 +409,7 @@
     <string name="show_advanced_settings">Näytä lisäasetukset</string>
     <string name="opacity_footer">Alatunnisteen läpinäkyvyys</string>
     <string name="support_development_subscribe">Avaa lisäominaisuuksia ja tue avoimen lähdekoodin ohjelmistoa</string>
-    <string name="enjoying_tasks">Pidätkö Tasks ohjelmasta\?</string>
+    <string name="enjoying_tasks">Pidätkö Tasks ohjelmasta?</string>
     <string name="filter_low_priority">Alhainen tärkeys</string>
     <string name="filter_high_priority">Suuri tärkeys</string>
     <string name="filter_no_tags">Ei tunnisteita</string>
