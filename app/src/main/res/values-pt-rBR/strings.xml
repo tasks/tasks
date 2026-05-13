@@ -592,7 +592,7 @@
     <string name="customize_edit_screen_summary">Reordenar ou remover campos</string>
     <string name="randomly_every">Aleatório a cada %s</string>
     <string name="dismiss">Dispensar</string>
-    <string name="hint_customize_edit_title">Informação demais\?</string>
+    <string name="hint_customize_edit_title">Informação demais?</string>
     <string name="hint_customize_edit_body">Você pode personalizar esta tela reordenamento ou removendo campos</string>
     <string name="enable_reminders">Ativar lembretes</string>
     <string name="enable_reminders_description">Os lembretes estão desabilitados nas configurações do Android</string>
