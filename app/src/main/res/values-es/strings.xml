@@ -85,7 +85,7 @@
     <string name="CFC_dueBefore_name">Vence el…</string>
     <string name="no_due_date">Sin fecha límite</string>
     <string name="next_month">Próximo mes</string>
-    <string name="CFC_importance_text">¿ Prioridad mínima \?</string>
+    <string name="CFC_importance_text">¿ Prioridad mínima ?</string>
     <string name="CFC_importance_name">Prioridad…</string>
     <string name="CFC_tag_text">Etiqueta: ?</string>
     <string name="CFC_tag_name">Etiqueta…</string>
@@ -592,7 +592,7 @@
     <string name="randomly_every">Aleatoriamente cada %s</string>
     <string name="dismiss">Descartar</string>
     <string name="customize_edit_screen_summary">Reorganizar o quitar campos</string>
-    <string name="hint_customize_edit_title">¿Demasiada información\?</string>
+    <string name="hint_customize_edit_title">¿Demasiada información?</string>
     <string name="hint_customize_edit_body">Puede personalizar esta pantalla reorganizando o eliminando campos</string>
     <string name="enable_reminders">Activar los recordatorios</string>
     <string name="enable_reminders_description">Los recordatorios están deshabilitados en la configuración de Android</string>
