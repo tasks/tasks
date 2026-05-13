@@ -15,21 +15,16 @@
     <string name="WID_dateButtonUnset">ঠিক করতে ক্লিক করো</string>
     <string name="DLG_undo">পূর্বাবস্থা</string>
     <string name="DLG_hour_minutes">সময় (ঘন্টা : মিনিট)</string>
-    <string name="DLG_delete_this_task_question">এই কাজটি মুছবে\?</string>
+    <string name="DLG_delete_this_task_question">এই কাজটি মুছবে?</string>
     <string name="keep_editing">সম্পাদনা করতে থাকো</string>
-    <string name="discard_confirmation">তুমি নিশ্চিত যে তুমি নিজের পরিবর্তনগুলো বাতিল করতে চাও\?</string>
+    <string name="discard_confirmation">তুমি নিশ্চিত যে তুমি নিজের পরিবর্তনগুলো বাতিল করতে চাও?</string>
     <string name="read_permission_label">কাজের অনুমতি</string>
     <string name="import_progress_read">%d কাজ পড়া হচ্ছে…</string>
     <string name="import_summary_title">সারাংশ পুনরুদ্ধার করো</string>
     <string name="export_toast">%1$s থেকে %2$s-এ ব্যাকআপকৃত।</string>
     <string name="actfm_picture_clear">স্পষ্ট ছবি</string>
     <string name="astrid_sort_order">অ্যাস্ট্রিড ম্যানুয়াল সাজানো</string>
-    <string name="import_summary_message">%1$s ফাইলটিতে %2$s রয়েছে।
-\n
-\n %3$s আমদানি করা,
-\n %4$s ইতিমধ্যে বিদ্যমান
-\n %5$s এর ত্রুটি ছিল
-\n</string>
+    <string name="import_summary_message">%1$s ফাইলটিতে %2$s রয়েছে। \n \n %3$s আমদানি করা, \n %4$s ইতিমধ্যে বিদ্যমান \n %5$s এর ত্রুটি ছিল \n</string>
     <string name="email">ইমেইল</string>
     <string name="sort_completion_group"></string>
     <string name="list_separator_with_space"></string>
