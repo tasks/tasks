@@ -38,7 +38,7 @@
     <string name="rmd_NoA_done">සම්පූර්ණයි</string>
     <string name="gtasks_GTA_clear_completed">ඉවත්කිරීම සම්පූර්ණයි</string>
     <string name="CFC_tag_name">ටැගය…</string>
-    <string name="CFC_tag_text">ටැගය:\?</string>
+    <string name="CFC_tag_text">ටැගය:?</string>
     <string name="CFC_startBefore_name">ආරම්භ කරන්න…</string>
     <string name="default_location_reminder_on_arrival_or_departure">පැමිණිවිට සහ පිටත්වනවිට</string>
     <string name="default_location_reminder_on_departure">පිටත්ව යන විට</string>
@@ -56,7 +56,7 @@
     <string name="invite_declined">ආරාධනය ප්‍රතික්ෂේප විය</string>
     <string name="email">විද්යුත් තැපෑල</string>
     <string name="remove_user_confirmation">%1$s හට තවදුරටත් %2$s වෙත ප්‍රවේශය නොලැබේ</string>
-    <string name="remove_user">පරිශීලකයා ඉවත් කරන්නද\?</string>
+    <string name="remove_user">පරිශීලකයා ඉවත් කරන්නද?</string>
     <string name="account_not_included">\'ඔබේ මිල නම් කරන්න\' (\'Name your price\') දායකත්වයන් සමඟ ඇතුළත් නොවේ</string>
     <string name="tasks_org_account_required">Tasks.org ගිණුම අවශ්‍යයි</string>
     <string name="copied_to_clipboard">%s ක්ලිප් පුවරුවට පිටපත් කරන ලදි</string>
@@ -90,7 +90,7 @@
     <string name="reset_sort_order">වර්ග කිරීමේ අනුපිළිවෙල නැවත සකසන්න</string>
     <string name="lists">ලැයිස්තු</string>
     <string name="support_development_subscribe">අමතර විශේෂාංග අගුළු ඇරීම සහ විවෘත මෘදුකාංග සඳහා සහාය වීම</string>
-    <string name="enjoying_tasks">Tasks සතුටුදායකද\?</string>
+    <string name="enjoying_tasks">Tasks සතුටුදායකද?</string>
     <string name="filter_eisenhower_box_4">වැදගත් නොවන සහ හදිසි නොවන</string>
     <string name="filter_eisenhower_box_3">හදිසි හා වැදගත් නොවන</string>
     <string name="filter_eisenhower_box_2">වැදගත් සහ හදිසි නොවන</string>
@@ -131,11 +131,11 @@
     <string name="url">URL</string>
     <string name="password">මුරපදය</string>
     <string name="user">පරිශීලක</string>
-    <string name="copy_selected_tasks">තෝරාගත් කාර්යයන් පිටපත් කරන්නද\?</string>
-    <string name="delete_selected_tasks">තෝරාගත් කාර්යයන් මකාදමන්න ද\?</string>
+    <string name="copy_selected_tasks">තෝරාගත් කාර්යයන් පිටපත් කරන්නද?</string>
+    <string name="delete_selected_tasks">තෝරාගත් කාර්යයන් මකාදමන්න ද?</string>
     <string name="delete_multiple_tasks_confirmation">%s මකා දමන ලදි</string>
     <string name="copy_multiple_tasks_confirmation">%s පිටපත් කරන ලදි</string>
-    <string name="clear_completed_tasks_confirmation">සම්පුර්ණ කරන ලද කාර්යයන් ඉවත් කරනවාද\?</string>
+    <string name="clear_completed_tasks_confirmation">සම්පුර්ණ කරන ලද කාර්යයන් ඉවත් කරනවාද?</string>
     <string name="widget_open_list">ලැයිස්තුව විවෘත කරන්න</string>
     <string name="widget_row_settings">පේළි සැකසුම්</string>
     <string name="widget_header_settings">ශීර්ෂ සැකසුම්</string>
@@ -195,7 +195,7 @@
     <string name="TEA_timer_comment_stopped">මෙම කාර්යය කිරීම නැවැත්වීය:</string>
     <string name="TEA_timer_controls">ටයිමර්</string>
     <string name="TPl_notification">%s සඳහා ටයිමර්ස් සක්‍රීයයි!</string>
-    <string name="delete_tag_confirmation">%s මකාදමනවාද\?</string>
+    <string name="delete_tag_confirmation">%s මකාදමනවාද?</string>
     <string name="new_list">නව ලැයිස්තුවක් සාදන්න</string>
     <string name="new_tag">නව ටැගයක් සාදන්න</string>
     <string name="repeat_type_completion_capitalized">සම්පූර්ණ කරන දිනය</string>
@@ -307,10 +307,10 @@
     <string name="default_due_date">පෙරනිමි නියමිත දිනය</string>
     <string name="default_start_date">පෙරනිමි ආරම්භක දිනය</string>
     <string name="EPr_default_importance_title">පෙරනිමි ප්‍රමුඛතාවය</string>
-    <string name="EPr_manage_delete_all_gcal_message">කාර්යයන් සඳහා ඔබගේ සියලු සිදුවීම් මකා දැමීමට ඔබට අවශ්‍යමද\?</string>
+    <string name="EPr_manage_delete_all_gcal_message">කාර්යයන් සඳහා ඔබගේ සියලු සිදුවීම් මකා දැමීමට ඔබට අවශ්‍යමද?</string>
     <string name="EPr_manage_delete_all_gcal">කාර්යයන් සඳහා සියලුම දින දර්ශන සිදුවීම් මකන්න</string>
     <string name="EPr_manage_delete_gcal_status">දින දර්ශන සිදුවීම් %d මකා දමන ලදී!</string>
-    <string name="EPr_manage_delete_completed_gcal_message">සම්පුර්ණ කරන ලද කාර්යයන් සඳහා ඔබගේ සියලු සිදුවීම් මකා දැමීමට ඔබට අවශ්‍යමද\?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">සම්පුර්ණ කරන ලද කාර්යයන් සඳහා ඔබගේ සියලු සිදුවීම් මකා දැමීමට ඔබට අවශ්‍යමද?</string>
     <string name="EPr_manage_delete_completed_gcal">සම්පුර්ණ කරන ලද කාර්යයන් සඳහා දින දර්ශන සිදුවීම් මකාදමන්න</string>
     <string name="EPr_delete_task_data_warning">සියලුම කාර්යයන් ස්ථිරවම මකා දැමෙනු ඇත</string>
     <string name="EPr_delete_task_data">කාර්යය දත්ත මකන්න</string>
@@ -348,14 +348,14 @@
     <string name="date_shortcut_must_come_before">%2$s පෙර %1$s පැමිණිය යුතුය</string>
     <string name="rmd_EPr_quiet_hours_end_title">නිහඬ කාලය අවසානය</string>
     <string name="rmd_EPr_quiet_hours_start_title">නිහඬ කාලය ආරම්භ වේ</string>
-    <string name="CFC_gtasks_list_text">ලැයිස්තුවේ :\?</string>
-    <string name="CFC_title_contains_text">මාතෘකාවෙහි අඩංගු වන්නේ :\?</string>
+    <string name="CFC_gtasks_list_text">ලැයිස්තුවේ :?</string>
+    <string name="CFC_title_contains_text">මාතෘකාවෙහි අඩංගු වන්නේ :?</string>
     <string name="CFC_title_contains_name">මාතෘකාව තුළ…</string>
-    <string name="CFC_tag_contains_text">ටැග් නාමයේ අඩංගු වන්නේ :\?</string>
+    <string name="CFC_tag_contains_text">ටැග් නාමයේ අඩංගු වන්නේ :?</string>
     <string name="CFC_tag_contains_name">ටැග් නාමයේ…</string>
-    <string name="CFC_startBefore_text">ආරම්භ වනුයේ:\?</string>
+    <string name="CFC_startBefore_text">ආරම්භ වනුයේ:?</string>
     <string name="CFC_dueBefore_name">අවසාන වනුයේ…</string>
-    <string name="CFC_dueBefore_text">අවසාන වනුයේ: \?</string>
+    <string name="CFC_dueBefore_text">අවසාන වනුයේ: ?</string>
     <string name="always_display_full_date">සම්පූර්ණ දිනය පෙන්වන්න</string>
     <string name="EPr_cal_end_at_due_time">කැලැන්ඩරයේ සිදුවීම් නියමිත වේලාවට අවසන් කරන්න</string>
     <string name="EPr_cal_end_or_start_at_due_time">දින දර්ශන සිදුවීම් වේලාව</string>
@@ -379,7 +379,7 @@
     <string name="TEA_timer_elap">%s අවසන්</string>
     <string name="save">සුරකින්න</string>
     <string name="TEA_elapsedDuration_label">දැනටමත් ගත කළ කාලය</string>
-    <string name="TEA_estimatedDuration_label">එයට කොපමණ වේලාවක් ගතවේ ද\?</string>
+    <string name="TEA_estimatedDuration_label">එයට කොපමණ වේලාවක් ගතවේ ද?</string>
     <string name="TEA_note_label">විස්තර</string>
     <string name="TEA_add_subtask">උප කාර්යයක් එක් කරන්න</string>
     <string name="TEA_importance_label">ප්‍රමුඛතාවය</string>
@@ -402,17 +402,12 @@
     <string name="WID_dateButtonUnset">සැකසීමට ක්ලික් කරන්න</string>
     <string name="DLG_undo">අහෝසි කරන්න</string>
     <string name="DLG_hour_minutes">කාලය (පැය: මිනිත්තු)</string>
-    <string name="DLG_delete_this_task_question">මෙම කාර්යය ඉවත්කරනවාද\?</string>
+    <string name="DLG_delete_this_task_question">මෙම කාර්යය ඉවත්කරනවාද?</string>
     <string name="keep_editing">දිගටම සංස්කරණය කරන්න</string>
-    <string name="discard_confirmation">ඔබගේ වෙනස්කම් ඉවත දැමීමට ඔබට අවශ්‍යද\?</string>
+    <string name="discard_confirmation">ඔබගේ වෙනස්කම් ඉවත දැමීමට ඔබට අවශ්‍යද?</string>
     <string name="read_permission_label">කාර්ය අවසරය</string>
     <string name="import_progress_read">කියවීමේ කාර්යය %d…</string>
-    <string name="import_summary_message">%1$s ගොනුවේ %2$s අඩංගු වේ.
-\n
-\n %3$s ආනයනය කරන ලදී
-\n %4$s දැනටමත් පවතී
-\n %5$s දෝෂ සහිත විය
-\n</string>
+    <string name="import_summary_message">%1$s ගොනුවේ %2$s අඩංගු වේ. \n \n %3$s ආනයනය කරන ලදී \n %4$s දැනටමත් පවතී \n %5$s දෝෂ සහිත විය \n</string>
     <string name="import_summary_title">ප්‍රතිස්ථාපන සාරාංශය</string>
     <string name="export_toast">%1$s ක් %2$s ගොනුවට උපස්ථ කරන ලදී.</string>
     <string name="backup_BAc_import">උපස්ථය ආයාත කරන්න</string>
@@ -494,7 +489,7 @@
     <string name="tag_settings">ටැග් සැකසුම්</string>
     <string name="discard">අහෝසිකරන්න</string>
     <string name="menu_discard_changes">වෙනස්කම් අහෝසිකිරීම</string>
-    <string name="discard_changes">වෙනස්කම් අහෝසිකරනවාද\?</string>
+    <string name="discard_changes">වෙනස්කම් අහෝසිකරනවාද?</string>
     <string name="date_shortcut_tomorrow_night">හෙට රාත්‍රී</string>
     <string name="date_shortcut_tomorrow_evening">හෙට හවස</string>
     <string name="date_shortcut_tomorrow_afternoon">හෙට හවස</string>
@@ -544,7 +539,7 @@
     <string name="foreground_location">පෙරබිම ස්ථානය</string>
     <string name="place_settings">ස්ථාන සැකසුම්</string>
     <string name="repeat_snackbar">%1$s, %2$s සඳහා නැවත සකස් කරන ලදි</string>
-    <string name="CFC_importance_text">අවම වශයෙන් ප්‍රමුඛතාවය \?</string>
+    <string name="CFC_importance_text">අවම වශයෙන් ප්‍රමුඛතාවය ?</string>
     <string name="now">දැන්</string>
     <plurals name="reminder_hours">
         <item quantity="one">පැය</item>
@@ -572,4 +567,7 @@
     </plurals>
     <string name="alarm_before_start">%s ආරම්භයට පෙර</string>
     <string name="alarm_after_start">%s ආරම්භයෙන් පසුව</string>
+    <string name="share_list"></string>
+    <string name="yesterday"></string>
+    <string name="rmd_EPr_rmd_time_desc"></string>
 </resources>
