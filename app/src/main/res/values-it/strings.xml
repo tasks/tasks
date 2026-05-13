@@ -27,7 +27,7 @@
     <string name="SSD_sort_due">Per scadenza</string>
     <string name="SSD_sort_importance">Per priorità</string>
     <string name="SSD_sort_modified">Per ultima modifica</string>
-    <string name="FLA_search_filter">Uguale a  \'%s\'</string>
+    <string name="FLA_search_filter">Uguale a \'%s\'</string>
     <string name="FLA_new_filter">Crea nuovo filtro</string>
     <string name="TEA_title_hint">Nome attività</string>
     <string name="TEA_importance_label">Priorità</string>
@@ -86,7 +86,7 @@
     <string name="CFC_dueBefore_name">Entro…</string>
     <string name="no_due_date">Nessuna scadenza</string>
     <string name="next_month">Mese successivo</string>
-    <string name="CFC_importance_text">Priorità minima\?</string>
+    <string name="CFC_importance_text">Priorità minima?</string>
     <string name="CFC_importance_name">Priorità…</string>
     <string name="CFC_tag_text">Etichetta: ?</string>
     <string name="CFC_tag_name">Etichetta…</string>
@@ -320,7 +320,7 @@
     <string name="repeats_plural_number_of_times">Ripetuta ogni %1$s, cade il %2$d %3$s</string>
     <string name="repeats_plural_on_until">Ripeti ogni %1$s il %2$s fino al %3$s</string>
     <string name="repeats_plural_on_number_of_times">Ripetuta ogni %1$s il %2$s, cade il %3$d %4$s</string>
-    <string name="dont_add_to_calendar">Non  aggiungere al calendario</string>
+    <string name="dont_add_to_calendar">Non aggiungere al calendario</string>
     <string name="default_calendar">Calendario predefinito</string>
     <string name="badges_description">Mostra il contatore delle notifiche sull\'icona di Tasks. Non tutti i launcher supportano questa funzionalità.</string>
     <string name="bundle_notifications_summary">Combina diverse notifiche in una sola</string>
@@ -702,4 +702,5 @@
     <string name="read_more">Leggi di più</string>
     <string name="upgrade_desktop_app">Tasks.org per desktop</string>
     <string name="upgrade_desktop_app_description">Accesso in anteprima alla nuova app per desktop</string>
+    <string name="p_per_list_sort"></string>
 </resources>
