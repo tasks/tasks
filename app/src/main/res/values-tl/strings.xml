@@ -650,4 +650,6 @@
     <string name="import_summary_message"></string>
     <string name="geofence_radius"></string>
     <string name="no_due_date"></string>
+    <string name="CFC_importance_text"></string>
+    <string name="TEA_control_hidden_section"></string>
 </resources>
