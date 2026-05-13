@@ -62,6 +62,11 @@ android {
         compose = true
         buildConfig = true
     }
+    packaging {
+        resources {
+            excludes += setOf("META-INF/INDEX.LIST", "META-INF/DEPENDENCIES")
+        }
+    }
 
     tasks.register("testClasses")
 }
