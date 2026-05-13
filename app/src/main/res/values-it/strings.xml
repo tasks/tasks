@@ -9,7 +9,7 @@
     <string name="import_summary_message">Il file %1$s contiene %2$s. \n \n %3$s importate, \n %4$s già esistenti \n %5$s con errori</string>
     <string name="import_progress_read">Lettura attività %d…</string>
     <string name="read_permission_label">Permessi di Tasks</string>
-    <string name="discard_confirmation">Vuoi davvero annullare tutte le modifiche\?</string>
+    <string name="discard_confirmation">Vuoi davvero annullare tutte le modifiche?</string>
     <string name="keep_editing">No, continua la modifica</string>
     <string name="DLG_delete_this_task_question">Eliminare questa attività\?</string>
     <string name="DLG_hour_minutes">Tempo (ore : minuti)</string>
@@ -65,7 +65,7 @@
     <string name="EPr_manage_delete_completed_gcal_message">Vuoi davvero eliminare tutti gli eventi delle attività completate?</string>
     <string name="EPr_manage_delete_gcal_status">%d eventi del calendario sono stati eliminati!</string>
     <string name="EPr_manage_delete_all_gcal">Elimina tutti gli eventi del calendario in Tasks</string>
-    <string name="EPr_manage_delete_all_gcal_message">Vuoi davvero eliminare tutti i tuoi eventi in programma\?</string>
+    <string name="EPr_manage_delete_all_gcal_message">Vuoi davvero eliminare tutti i tuoi eventi in programma?</string>
     <string name="EPr_default_importance_title">Priorità predefinita</string>
     <string name="EPr_default_reminders_title">Promemoria predefiniti</string>
     <string name="EPr_default_location_reminder_title">Posizione promemoria predefinita</string>
@@ -295,7 +295,7 @@
     <string name="copy_multiple_tasks_confirmation">%s copiati</string>
     <string name="delete_multiple_tasks_confirmation">%s eliminati</string>
     <string name="delete_selected_tasks">Eliminare le attività selezionate\?</string>
-    <string name="copy_selected_tasks">Copio le attività selezionate\?</string>
+    <string name="copy_selected_tasks">Copio le attività selezionate?</string>
     <string name="user">Utente</string>
     <string name="notification_disable_battery_optimizations_description">L\'ottimizzazione della batteria può ritardare le notifiche</string>
     <string name="bundle_notifications">Raggruppa notifiche</string>
@@ -456,7 +456,7 @@
     <string name="sort_modified_group">Modificato %s</string>
     <string name="sort_created_group">Creato %s</string>
     <string name="support_development_subscribe">Sblocca funzionalità aggiuntive e supporta il software open source</string>
-    <string name="enjoying_tasks">Ti piace Tasks\?</string>
+    <string name="enjoying_tasks">Ti piace Tasks?</string>
     <string name="filter_no_priority">Senza priorità</string>
     <string name="filter_low_priority">Bassa priorità</string>
     <string name="filter_medium_priority">Media priorità</string>
@@ -591,7 +591,7 @@
     <string name="custom_notification">Notifica personalizzata</string>
     <string name="randomly_every">Casualmente ogni %s</string>
     <string name="dismiss">Ignora</string>
-    <string name="hint_customize_edit_title">Troppe informazioni\?</string>
+    <string name="hint_customize_edit_title">Troppe informazioni?</string>
     <string name="customize_edit_screen_summary">Riordina o rimuovi i campi</string>
     <string name="hint_customize_edit_body">Puoi personalizzare questa schermata riorganizzando o rimuovendo i campi</string>
     <string name="enable_reminders">Abilitare i promemoria</string>
