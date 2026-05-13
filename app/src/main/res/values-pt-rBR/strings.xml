@@ -416,7 +416,7 @@
     <string name="widget_open_list">Abrir lista</string>
     <string name="theme_system_default">Padrão do Sistema</string>
     <string name="menu_discard_changes">Descartar mudanças</string>
-    <string name="CFC_tag_text">Etiqueta: \?</string>
+    <string name="CFC_tag_text">Etiqueta: ?</string>
     <string name="icon">Ícone</string>
     <string name="opacity_footer">Opacidade do rodapé</string>
     <string name="opacity_row">Opacidade da linha</string>
