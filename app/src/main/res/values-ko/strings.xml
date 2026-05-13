@@ -129,59 +129,45 @@
     <string name="repeat_option_every_year">매년</string>
     <string name="repeat_option_custom">사용자설정…</string>
     <plurals name="task_count">
-        <item quantity="one">%d 할일</item>
         <item quantity="other">%d 할일들</item>
     </plurals>
     <plurals name="repeat_times">
-        <item quantity="one">회</item>
         <item quantity="other">회</item>
     </plurals>
     <plurals name="repeat_minutes">
-        <item quantity="one">분</item>
         <item quantity="other">분</item>
     </plurals>
     <plurals name="repeat_n_minutes">
-        <item quantity="one">%d 분</item>
         <item quantity="other">%d 분</item>
     </plurals>
     <plurals name="repeat_hours">
-        <item quantity="one">시간</item>
         <item quantity="other">시간</item>
     </plurals>
     <plurals name="repeat_n_hours">
-        <item quantity="one">%d 시간</item>
         <item quantity="other">%d 시간</item>
     </plurals>
     <plurals name="repeat_days">
-        <item quantity="one">일</item>
         <item quantity="other">일</item>
     </plurals>
     <plurals name="repeat_n_days">
-        <item quantity="one">%d 일</item>
         <item quantity="other">%d 일</item>
     </plurals>
     <plurals name="repeat_weeks">
-        <item quantity="one">주</item>
         <item quantity="other">주</item>
     </plurals>
     <plurals name="repeat_n_weeks">
-        <item quantity="one">%d 주</item>
         <item quantity="other">%d 주</item>
     </plurals>
     <plurals name="repeat_months">
-        <item quantity="one">개월</item>
         <item quantity="other">개월</item>
     </plurals>
     <plurals name="repeat_n_months">
-        <item quantity="one">%d 개월</item>
         <item quantity="other">%d 개월</item>
     </plurals>
     <plurals name="repeat_years">
-        <item quantity="one">년</item>
         <item quantity="other">년</item>
     </plurals>
     <plurals name="repeat_n_years">
-        <item quantity="one">%d 년</item>
         <item quantity="other">%d 년</item>
     </plurals>
     <string name="repeat_type_due">마감일</string>
@@ -629,4 +615,50 @@
     <string name="sync_warning_google_tasks">모든 할 일이 Google Tasks와 동기화되진 않습니다.</string>
     <string name="share_list"></string>
     <string name="rmd_EPr_rmd_time_desc"></string>
+    <string name="per_list_sort_title"></string>
+    <string name="legal_disclosure_prefix_using"></string>
+    <string name="email_to_task_address"></string>
+    <string name="location_update_interval_30_minutes"></string>
+    <string name="widget_view_more_tasks"></string>
+    <string name="per_list_sort_summary"></string>
+    <string name="alarm_after"></string>
+    <string name="upgrade_friends_and_family_description"></string>
+    <string name="alarm_before"></string>
+    <string name="advanced_tools"></string>
+    <string name="p_per_list_sort"></string>
+    <string name="upgrade_subscription_banner"></string>
+    <string name="upgrade_desktop_app"></string>
+    <string name="subscription_required_fdroid"></string>
+    <string name="upgrade_desktop_app_description"></string>
+    <string name="location_update_interval_15_minutes"></string>
+    <string name="upgrade_friends_and_family"></string>
+    <string name="returning_user"></string>
+    <string name="local_list_description"></string>
+    <string name="location_update_interval_summary"></string>
+    <string name="rmd_time_enabled_off"></string>
+    <string name="import_failed"></string>
+    <string name="alarm_start"></string>
+    <string name="invalid_email_address"></string>
+    <string name="exit"></string>
+    <string name="send"></string>
+    <string name="guest_create_list_message"></string>
+    <string name="location_update_interval_disabled"></string>
+    <string name="import_failed_message"></string>
+    <string name="location_update_interval_2_hours"></string>
+    <string name="banner_subscription_required_title"></string>
+    <string name="default_reminder"></string>
+    <string name="upgrade_email_to_task_description"></string>
+    <string name="location_update_interval_1_hour"></string>
+    <string name="local_list_title"></string>
+    <string name="advanced_tools_description"></string>
+    <string name="read_more"></string>
+    <string name="add_default_reminders"></string>
+    <string name="alarm_due"></string>
+    <string name="sponsorship_required_fdroid"></string>
+    <string name="email_to_task"></string>
+    <string name="tos_updated_title"></string>
+    <string name="rmd_time_enabled_on"></string>
+    <string name="accept"></string>
+    <string name="banner_subscription_required_body"></string>
+    <string name="location_update_interval_title"></string>
 </resources>
