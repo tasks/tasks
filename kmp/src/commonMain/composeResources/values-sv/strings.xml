@@ -199,7 +199,6 @@
     <string name="restart_now">Starta om nu</string>
     <string name="restart_later">Senare</string>
     <string name="blog_feed_none">Ingen</string>
-<<<<<<< HEAD
     <string name="wear_phone_update_required">Telefonuppdatering krävs</string>
     <string name="wear_connecting_to_phone">Ansluter till telefon…</string>
     <string name="failed_to_save_task">Det gick inte att spara uppgiften</string>
