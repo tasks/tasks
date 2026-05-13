@@ -9,9 +9,9 @@
     <string name="EPr_default_location_reminder_title">இயல்புநிலை இருப்பிட நினைவூட்டல்கள்</string>
     <string name="EPr_default_reminders_title">இயல்புநிலை நினைவூட்டல்கள்</string>
     <string name="EPr_default_importance_title">இயல்புநிலை முன்னுரிமை</string>
-    <string name="EPr_manage_delete_all_gcal_message">பணிகளுக்காக உங்கள் எல்லா நிகழ்வுகளையும் நீக்க விரும்புகிறீர்களா\?</string>
+    <string name="EPr_manage_delete_all_gcal_message">பணிகளுக்காக உங்கள் எல்லா நிகழ்வுகளையும் நீக்க விரும்புகிறீர்களா?</string>
     <string name="EPr_manage_delete_all_gcal">பணிகளுக்கான அனைத்து நாள்காட்டி நிகழ்வுகளையும் நீக்கு</string>
-    <string name="EPr_manage_delete_completed_gcal_message">பூர்த்தி செய்யப்பட்ட பணிகளுக்காக உங்கள் எல்லா நிகழ்வுகளையும் நீக்க விரும்புகிறீர்களா\?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">பூர்த்தி செய்யப்பட்ட பணிகளுக்காக உங்கள் எல்லா நிகழ்வுகளையும் நீக்க விரும்புகிறீர்களா?</string>
     <string name="EPr_manage_delete_completed_gcal">பூர்த்தி செய்யப்பட்ட பணிகளுக்கு நாள்காட்டி நிகழ்வுகளை நீக்கு</string>
     <string name="EPr_delete_task_data_warning">அனைத்து பணிகளும் நிரந்தரமாக நீக்கப்படும்</string>
     <string name="EPr_delete_task_data">பணி தரவை நீக்கு</string>
@@ -49,7 +49,7 @@
     <string name="SSD_sort_my_order">எனது ஆர்டர்</string>
     <string name="WID_dateButtonUnset">கிளிக் செய்து அமைக்கவும்</string>
     <string name="keep_editing">திருத்துவதைத் தொடருங்கள்</string>
-    <string name="discard_confirmation">உங்கள் மாற்றங்களை நிராகரிக்க விரும்புகிறீர்களா\?</string>
+    <string name="discard_confirmation">உங்கள் மாற்றங்களை நிராகரிக்க விரும்புகிறீர்களா?</string>
     <string name="import_summary_title">சுருக்கத்தை மீட்டமை</string>
     <string name="TVA_add_comment">ஒரு கருத்தைச் சேர்க்கவும்…</string>
     <string name="actfm_picture_clear">தெளிவான படம்</string>
@@ -100,22 +100,22 @@
     <string name="gtasks_GLA_authenticating">அங்கீகரிக்கிறது…</string>
     <string name="gtasks_GTA_clear_completed">தெளிவான நிறைவு</string>
     <string name="CFC_list_name">பட்டியலில்…</string>
-    <string name="CFC_gtasks_list_text">பட்டியலில் :\?</string>
+    <string name="CFC_gtasks_list_text">பட்டியலில் :?</string>
     <string name="gcal_completed_title">%s (முடிந்தது)</string>
     <string name="calendar_event_not_found">நாள்காட்டி நிகழ்வு கிடைக்கவில்லை</string>
     <string name="gcal_TEA_showCalendar_label">நாள்காட்டி நிகழ்வைத் திறக்கவும்</string>
-    <string name="CFC_title_contains_text">தலைப்பில்:\?</string>
+    <string name="CFC_title_contains_text">தலைப்பில்:?</string>
     <string name="CFC_title_contains_name">தலைப்பில்…</string>
-    <string name="CFC_tag_contains_text">குறிச்சொல் பெயர் பின்வருமாறு:\?</string>
+    <string name="CFC_tag_contains_text">குறிச்சொல் பெயர் பின்வருமாறு:?</string>
     <string name="CFC_tag_contains_name">குறிச்சொல் பெயர் உள்ளது…</string>
     <string name="CFC_tag_name">குறிச்சொல்…</string>
-    <string name="CFC_tag_text">குறிச்சொல் :\?</string>
+    <string name="CFC_tag_text">குறிச்சொல் :?</string>
     <string name="CFC_importance_name">முன்னுரிமை…</string>
-    <string name="CFC_importance_text">குறைந்தபட்சம் முன்னுரிமை\?</string>
+    <string name="CFC_importance_text">குறைந்தபட்சம் முன்னுரிமை?</string>
     <string name="next_month">அடுத்த மாதம்</string>
     <string name="no_due_date">முடிக்கப்பட வேண்டிய தேதி இல்லை</string>
     <string name="CFC_dueBefore_name">காரணமாக…</string>
-    <string name="CFC_dueBefore_text">காரணமாக :\?</string>
+    <string name="CFC_dueBefore_text">காரணமாக :?</string>
     <string name="CFA_button_add">அளவுகோல்களைச் சேர்க்கவும்</string>
     <string name="default_location_reminder_on_arrival_or_departure">வருகை மற்றும் புறப்படும் போது</string>
     <string name="default_location_reminder_on_departure">புறப்படும் போது</string>
@@ -132,7 +132,7 @@
     <string name="on_launch">தொடங்கும்போது</string>
     <string name="sort_modified_group">மாற்றியமைக்கப்பட்ட %s</string>
     <string name="sort_created_group">%s உருவாக்கப்பட்டது</string>
-    <string name="enjoying_tasks">பணிகளை அனுபவிக்கிறீர்களா\?</string>
+    <string name="enjoying_tasks">பணிகளை அனுபவிக்கிறீர்களா?</string>
     <string name="filter_eisenhower_box_4">முக்கியமற்றது மற்றும் அவசரமற்றது</string>
     <string name="filter_eisenhower_box_3">முக்கியமற்றது மற்றும் அவசரமானது</string>
     <string name="filter_eisenhower_box_2">முக்கியமானது மற்றும் அவசரமற்றது</string>
@@ -243,7 +243,7 @@
     <string name="repeats_hourly">மணிநேர</string>
     <string name="repeats_minutely">மிகச்சிறிய</string>
     <string name="repeats_single_until">%1$s ஐ மீண்டும் நிகழ்வது, %2$s அன்று முடிகிறது</string>
-    <string name="repeats_single">"%s மீண்டும் செய்கிறது"</string>
+    <string name="repeats_single">%s மீண்டும் செய்கிறது</string>
     <string name="repeats_from">இருந்து மீண்டும்</string>
     <string name="list">பட்டியல்</string>
     <string name="badges">அடையாளக்குறிகள்</string>
@@ -252,11 +252,11 @@
     <string name="url">URL</string>
     <string name="password">கடவுச்சொல்</string>
     <string name="user">பயனர்</string>
-    <string name="copy_selected_tasks">தேர்ந்தெடுக்கப்பட்ட பணிகளை நகலெடுக்கவா\?</string>
-    <string name="delete_selected_tasks">தேர்ந்தெடுக்கப்பட்ட பணிகளை நீக்கவா\?</string>
+    <string name="copy_selected_tasks">தேர்ந்தெடுக்கப்பட்ட பணிகளை நகலெடுக்கவா?</string>
+    <string name="delete_selected_tasks">தேர்ந்தெடுக்கப்பட்ட பணிகளை நீக்கவா?</string>
     <string name="delete_multiple_tasks_confirmation">%s நீக்கப்பட்டது</string>
     <string name="copy_multiple_tasks_confirmation">%s நகலெடுக்கப்பட்டது</string>
-    <string name="clear_completed_tasks_confirmation">பூர்த்தி செய்யப்பட்ட பணிகளை அழிக்கவா\?</string>
+    <string name="clear_completed_tasks_confirmation">பூர்த்தி செய்யப்பட்ட பணிகளை அழிக்கவா?</string>
     <string name="widget_due_date_hidden">மறைக்கப்பட்டுள்ளது</string>
     <string name="widget_due_date_below_title">தலைப்புக்கு கீழே</string>
     <string name="widget_due_date_after_title">தலைப்புக்குப் பிறகு</string>
@@ -301,7 +301,7 @@
     <string name="tag_settings">குறிச்சொல் அமைப்புகள்</string>
     <string name="discard">நிராகரி</string>
     <string name="menu_discard_changes">மாற்றங்களை கைவிடலாமா</string>
-    <string name="discard_changes">மாற்றங்களை கைவிடலாமா\?</string>
+    <string name="discard_changes">மாற்றங்களை கைவிடலாமா?</string>
     <string name="date_shortcut_must_come_after">%1$s %2$s க்குப் பிறகு வர வேண்டும்</string>
     <string name="date_shortcut_tomorrow_night">நாளை இரவு</string>
     <string name="date_shortcut_tomorrow_evening">நாளை மாலை</string>
@@ -358,7 +358,7 @@
     <string name="TEA_timer_comment_started">இந்த பணியைத் தொடங்கினார்:</string>
     <string name="TEA_timer_controls">டைமர்</string>
     <string name="TPl_notification">டைமர்கள் %s க்கு செயலில் உள்ளன!</string>
-    <string name="delete_tag_confirmation">%s ஐ நீக்கவா\?</string>
+    <string name="delete_tag_confirmation">%s ஐ நீக்கவா?</string>
     <string name="new_list">புதிய பட்டியலை உருவாக்கவும்</string>
     <string name="new_tag">புதிய குறிச்சொல்லை உருவாக்கவும்</string>
     <string name="repeat_type_completion">நிறைவு தேதி</string>
@@ -640,4 +640,5 @@
     <string name="delete_tasks_warning">%s நீக்கப்படும். இதை செயல்தவிர்க்க முடியாது!</string>
     <string name="share_list"></string>
     <string name="default_reminder"></string>
+    <string name="rmd_EPr_rmd_time_desc"></string>
 </resources>
