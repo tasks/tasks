@@ -8,9 +8,9 @@
     <string name="day_after_tomorrow">മറ്റന്നാൾ</string>
     <string name="next_week">അടുത്ത ആഴ്ച</string>
     <string name="no_reminders">ഓർമ്മപ്പെടുത്തലുകളൊന്നുമില്ല</string>
-    <string name="discard_confirmation">നിങ്ങളുടെ മാറ്റങ്ങൾ നിരസിക്കണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ\?</string>
+    <string name="discard_confirmation">നിങ്ങളുടെ മാറ്റങ്ങൾ നിരസിക്കണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ?</string>
     <string name="keep_editing">എഡിറ്റുചെയ്യുന്നത് തുടരുക</string>
-    <string name="DLG_delete_this_task_question">ഈ ടാസ്ക് ഇല്ലാതാക്കണോ\?</string>
+    <string name="DLG_delete_this_task_question">ഈ ടാസ്ക് ഇല്ലാതാക്കണോ?</string>
     <string name="DLG_hour_minutes">സമയം (മണിക്കൂർ: മിനിറ്റ്)</string>
     <string name="WID_dateButtonUnset">സജ്ജമാക്കാൻ ക്ലിക്കുചെയ്യുക</string>
     <string name="TLA_no_items">ഇവിടെ ടാസ്‌ക്കുകളൊന്നുമില്ല.</string>
@@ -26,7 +26,7 @@
     <string name="TEA_add_subtask">ഉപ ടാസ്‌ക് ചേർക്കുക</string>
     <string name="no_date">തീയതിയില്ല</string>
     <string name="TEA_note_label">വിവരണം</string>
-    <string name="TEA_estimatedDuration_label">എത്ര സമയമെടുക്കും\?</string>
+    <string name="TEA_estimatedDuration_label">എത്ര സമയമെടുക്കും?</string>
     <string name="save">സംരക്ഷിക്കുക</string>
     <string name="no_time">സമയമില്ല</string>
     <string name="TEA_control_repeat">ആവർത്തിക്കുക</string>
