@@ -6,9 +6,9 @@
     <string name="export_toast">Cadangkan %1$s ke %2$s.</string>
     <string name="import_summary_title">Pulihkan ringkasan</string>
     <string name="import_progress_read">Membaca tugas %d …</string>
-    <string name="discard_confirmation">Apakah anda yakin ingin membatalkan perubahan yang anda buat\?</string>
+    <string name="discard_confirmation">Apakah anda yakin ingin membatalkan perubahan yang anda buat?</string>
     <string name="keep_editing">Tetap menyunting</string>
-    <string name="DLG_delete_this_task_question">Hapus tugas ini\?</string>
+    <string name="DLG_delete_this_task_question">Hapus tugas ini?</string>
     <string name="DLG_hour_minutes">Waktu (jam : menit)</string>
     <string name="DLG_undo">Urungkan</string>
     <string name="TLA_menu_sort">Urutkan</string>
@@ -50,7 +50,7 @@
     <string name="EPr_delete_task_data">Hapus data tugas</string>
     <string name="EPr_delete_task_data_warning">Semua tugas akan dihapus secara permanen</string>
     <string name="EPr_manage_delete_completed_gcal">Hapus acara kalender untuk tugas yang telah selesai</string>
-    <string name="EPr_manage_delete_completed_gcal_message">Apakah anda benar-benar ingin menghapus semua acara untuk tugas yang telah selesai\?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Apakah anda benar-benar ingin menghapus semua acara untuk tugas yang telah selesai?</string>
     <string name="EPr_manage_delete_gcal_status">Menghapus %d acara kalender!</string>
     <string name="EPr_default_importance_title">Prioritas bawaan</string>
     <string name="EPr_default_reminders_title">Pengingat bawaan</string>
@@ -65,15 +65,15 @@
     <string name="CFA_button_add">Tambah Kriteria</string>
     <string name="next_month">Bulan Depan</string>
     <string name="CFC_importance_name">Prioritas…</string>
-    <string name="CFC_tag_text">Tag: \?</string>
+    <string name="CFC_tag_text">Tag: ?</string>
     <string name="CFC_tag_name">Tag…</string>
     <string name="CFC_tag_contains_name">Nama tag memuat…</string>
-    <string name="CFC_tag_contains_text">Nama tag memuat: \?</string>
+    <string name="CFC_tag_contains_text">Nama tag memuat: ?</string>
     <string name="gcal_TEA_error">Terjadi kesalahan saat menambahkan tugas ke kalender!</string>
     <string name="gcal_TEA_showCalendar_label">Buka Acara Kalender</string>
     <string name="calendar_event_not_found">Acara kalender tidak ditemukan</string>
     <string name="gcal_completed_title">%s (selesai)</string>
-    <string name="CFC_gtasks_list_text">Dalam Daftar: \?</string>
+    <string name="CFC_gtasks_list_text">Dalam Daftar: ?</string>
     <string name="gtasks_GLA_authenticating">Mengotentikasi…</string>
     <string name="gtasks_GLA_errorIOAuth">Maaf, terjadi kesalahan komunikasi dengan server Google. Silakan coba lagi nanti.</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
@@ -144,7 +144,7 @@
     <string name="repeat_type_completion">tanggal selesai</string>
     <string name="new_tag">Buat tag baru</string>
     <string name="new_list">Buat daftar baru</string>
-    <string name="delete_tag_confirmation">Hapus %s\?</string>
+    <string name="delete_tag_confirmation">Hapus %s?</string>
     <string name="delete_task">Hapus tugas</string>
     <plurals name="Ntasks">
         <item quantity="other">%d tugas</item>
@@ -181,7 +181,7 @@
     <string name="date_shortcut_night">Malam</string>
     <string name="date_shortcut_tomorrow_morning">Besok pagi</string>
     <string name="date_shortcut_tomorrow_afternoon">Besok siang</string>
-    <string name="discard_changes">Buang perubahan\?</string>
+    <string name="discard_changes">Buang perubahan?</string>
     <string name="discard">Buang</string>
     <string name="tag_settings">Pengaturan tag</string>
     <string name="list_settings">Pengaturan daftar</string>
@@ -217,11 +217,11 @@
     <string name="widget_settings">Pengaturan wisaya</string>
     <string name="widget_header_settings">Pengaturan tajuk</string>
     <string name="widget_row_settings">Pengaturan baris</string>
-    <string name="clear_completed_tasks_confirmation">Kosongkan tugas yang sudah selesai\?</string>
+    <string name="clear_completed_tasks_confirmation">Kosongkan tugas yang sudah selesai?</string>
     <string name="copy_multiple_tasks_confirmation">%s disalin</string>
     <string name="delete_multiple_tasks_confirmation">%s dihapus</string>
-    <string name="delete_selected_tasks">Hapus tugas yang dipilih\?</string>
-    <string name="copy_selected_tasks">Salin tugas yang dipilih\?</string>
+    <string name="delete_selected_tasks">Hapus tugas yang dipilih?</string>
+    <string name="copy_selected_tasks">Salin tugas yang dipilih?</string>
     <string name="user">Pengguna</string>
     <string name="password">Kata sandi</string>
     <string name="url">URL</string>
@@ -243,17 +243,12 @@
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Jangan tambahkan ke kalender</string>
     <string name="default_calendar">Bawaan kalender</string>
-    <string name="import_summary_message">Berkas %1$s berisi %2$s.
-\n
-\n %3$s diimpor,
-\n %4$s sudah ada
-\n %5$s memiliki kesalahan
-\n</string>
+    <string name="import_summary_message">Berkas %1$s berisi %2$s. \n \n %3$s diimpor, \n %4$s sudah ada \n %5$s memiliki kesalahan \n</string>
     <string name="read_permission_label">Perizinan Tugas</string>
     <string name="EPr_cal_end_at_due_time">Akhiri acara kelender pada waktu jatuh tempo</string>
     <string name="EPr_cal_start_at_due_time">Mulai acara kalender pada waktu jatuh tempo</string>
     <string name="EPr_manage_delete_all_gcal">Hapus semua acara kalender untuk tugas</string>
-    <string name="EPr_manage_delete_all_gcal_message">Apakah anda benar-benar ingin menghapus semua acara untuk tugas\?</string>
+    <string name="EPr_manage_delete_all_gcal_message">Apakah anda benar-benar ingin menghapus semua acara untuk tugas?</string>
     <string name="persistent_notifications">Notifikasi tetap</string>
     <plurals name="repeat_times">
         <item quantity="other">kali</item>
