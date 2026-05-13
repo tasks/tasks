@@ -28,7 +28,7 @@
     <string name="TEA_title_hint">Název úkolu</string>
     <string name="TEA_importance_label">Důležitost</string>
     <string name="TEA_note_label">Popis</string>
-    <string name="TEA_estimatedDuration_label">Kolik času to zabere\?</string>
+    <string name="TEA_estimatedDuration_label">Kolik času to zabere?</string>
     <string name="TEA_elapsedDuration_label">Již strávený čas</string>
     <string name="save">Uložit</string>
     <string name="TEA_timer_est">Zal. %s</string>
@@ -143,7 +143,7 @@
     <string name="date_shortcut_night">Noc</string>
     <string name="date_shortcut_tomorrow_morning">Zítra ráno</string>
     <string name="date_shortcut_tomorrow_afternoon">Zítra odpoledne</string>
-    <string name="discard_changes">Zahodit změny\?</string>
+    <string name="discard_changes">Zahodit změny?</string>
     <string name="tag_settings">Nastavení štítku</string>
     <string name="delete">Smazat</string>
     <string name="filter_settings">Nastavení filtru</string>
