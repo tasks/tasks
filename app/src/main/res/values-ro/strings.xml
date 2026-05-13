@@ -595,7 +595,7 @@
     </plurals>
     <string name="customize_edit_screen_summary">Rearanjarea sau eliminarea câmpurilor</string>
     <string name="sort_completion_group">Finalizare %s</string>
-    <string name="hint_customize_edit_title">Prea multe informații\?</string>
+    <string name="hint_customize_edit_title">Prea multe informații?</string>
     <string name="hint_customize_edit_body">Poți personaliza acest ecran prin rearanjarea sau eliminarea câmpurilor</string>
     <string name="dismiss">Respinge</string>
     <string name="enable_reminders">Activează memento-uri</string>
