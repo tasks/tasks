@@ -483,7 +483,7 @@
     <string name="filter_any_start_date">시작일 있음</string>
     <string name="no_start_date">시작일 없음</string>
     <string name="CFC_startBefore_name">시작일…</string>
-    <string name="CFC_startBefore_text">시작일: \?</string>
+    <string name="CFC_startBefore_text">시작일: ?</string>
     <string name="email">이메일</string>
     <string name="show_unstarted">시작하지 않은 할일 표시</string>
     <string name="save_percent">%d%% 절약</string>
