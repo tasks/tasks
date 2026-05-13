@@ -52,7 +52,7 @@
     <string name="CFC_dueBefore_name">Venciment per…</string>
     <string name="no_due_date">Sense data de venciment</string>
     <string name="next_month">El mes que ve</string>
-    <string name="CFC_importance_text">Com a mínim prioritat \?</string>
+    <string name="CFC_importance_text">Com a mínim prioritat ?</string>
     <string name="CFC_importance_name">Importància…</string>
     <string name="CFC_title_contains_name">El títol conté…</string>
     <string name="CFC_title_contains_text">Títol conté: ?</string>
