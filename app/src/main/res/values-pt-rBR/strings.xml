@@ -85,7 +85,7 @@
     <string name="CFC_dueBefore_name">Vencimento…</string>
     <string name="no_due_date">Sem data de vencimento</string>
     <string name="next_month">Próximo mês</string>
-    <string name="CFC_importance_text">Mínima prioridade \?</string>
+    <string name="CFC_importance_text">Mínima prioridade ?</string>
     <string name="CFC_importance_name">Prioridade…</string>
     <string name="CFC_tag_name">Estiqueta…</string>
     <string name="CFC_tag_contains_name">Nome da etiqueta contém…</string>
@@ -448,7 +448,7 @@
     <string name="sort_modified_group">Modificado em %s</string>
     <string name="sort_created_group">Criado em %s</string>
     <string name="support_development_subscribe">Desbloquear funcionalidades adicionais e oferecer suporte a software de código aberto</string>
-    <string name="enjoying_tasks">Curtindo Tasks\?</string>
+    <string name="enjoying_tasks">Curtindo Tasks?</string>
     <string name="filter_eisenhower_box_4">Não é importante e não é urgente</string>
     <string name="filter_eisenhower_box_3">Não é importante e urgente</string>
     <string name="filter_eisenhower_box_2">Importante e não urgente</string>
