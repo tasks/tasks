@@ -90,7 +90,6 @@
     <string name="default_random_reminder_weekly">每週</string>
     <string name="default_random_reminder_bi_weekly">每2週</string>
     <plurals name="repeat_n_minutes">
-        <item quantity="one">%d 分鐘</item>
         <item quantity="other">%d 分鐘</item>
     </plurals>
     <string name="new_tag">新增標籤</string>
@@ -649,4 +648,17 @@
     <string name="guest_create_list_message">您目前擁有共享清單的訪客存取權限。若要建立並同步自己的私人清單至雲端，您需要 Tasks.org 訂閱。或者，您可以建立免費的本地清單，留在此裝置上。</string>
     <string name="upgrade_friends_and_family">家人和朋友</string>
     <string name="upgrade_friends_and_family_description">共享清單 5 個免費訪客。支援 Apple Reminders</string>
+    <string name="per_list_sort_title"></string>
+    <string name="location_update_interval_30_minutes"></string>
+    <string name="per_list_sort_summary"></string>
+    <string name="p_per_list_sort"></string>
+    <string name="upgrade_desktop_app"></string>
+    <string name="upgrade_desktop_app_description"></string>
+    <string name="location_update_interval_15_minutes"></string>
+    <string name="location_update_interval_summary"></string>
+    <string name="location_update_interval_disabled"></string>
+    <string name="location_update_interval_2_hours"></string>
+    <string name="location_update_interval_1_hour"></string>
+    <string name="read_more"></string>
+    <string name="location_update_interval_title"></string>
 </resources>
