@@ -4,10 +4,14 @@ import com.natpryce.makeiteasy.MakeItEasy.with
 import org.tasks.data.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
+import okhttp3.mockwebserver.MockResponse
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.tasks.data.dao.TagDao
+import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.TagData
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.ETAG
@@ -15,9 +19,13 @@ import org.tasks.makers.CaldavTaskMaker.OBJECT
 import org.tasks.makers.CaldavTaskMaker.TASK
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TaskMaker.newTask
+import javax.inject.Inject
 
 @HiltAndroidTest
 class CaldavSynchronizerTest : CaldavTest() {
+
+    @Inject lateinit var tagDao: TagDao
+    @Inject lateinit var tagDataDao: TagDataDao
 
     @Before
     override fun setUp() = runBlocking {
@@ -85,7 +93,90 @@ class CaldavSynchronizerTest : CaldavTest() {
         assertEquals("Test task", taskDao.fetch(caldavTask.task)!!.title)
     }
 
+    @Test
+    fun addRemoteTagToExistingTask() = runBlocking {
+        enqueueRemoteTagUpdate(initial = "Tag1", updated = "Tag1,Tag2")
+
+        sync()
+        sync()
+
+        assertTags("Tag1", "Tag2")
+    }
+
+    @Test
+    fun removeRemoteTagFromExistingTask() = runBlocking {
+        enqueueRemoteTagUpdate(initial = "Tag1,Tag2", updated = "Tag1")
+
+        sync()
+        sync()
+
+        assertTags("Tag1")
+    }
+
+    @Test
+    fun replaceRemoteTagOnExistingTask() = runBlocking {
+        enqueueRemoteTagUpdate(initial = "Tag1", updated = "Tag3")
+
+        sync()
+        sync()
+
+        assertTags("Tag3")
+    }
+
+    @Test
+    fun preserveLocalTagChanges() = runBlocking {
+        enqueueRemoteTagUpdate(initial = "Tag1", updated = "Tag3")
+
+        sync()
+
+        val caldavTask = caldavDao.getTaskByRemoteId(
+            caldavDao.getCalendars().first().uuid!!, TASK_UID
+        )!!
+        val task = taskDao.fetch(caldavTask.task)!!
+        val tag2 = TagData(name = "Tag2").let { it.copy(id = tagDataDao.insert(it)) }
+        tagDao.applyTags(task, tagDataDao, listOf(tag2))
+        taskDao.touch(listOf(task.id))
+
+        sync()
+
+        assertTags("Tag2")
+    }
+
+    private fun enqueueRemoteTagUpdate(initial: String, updated: String) {
+        enqueueAll(
+            OC_SHARE_PROPFIND, REPORT_ETAG1, task("etag1", initial),
+            propfind("http://sabre.io/ns/sync/2"), REPORT_ETAG2, task("etag2", updated),
+        )
+    }
+
+    private suspend fun assertTags(vararg expectedTags: String) {
+        val calendar = caldavDao.getCalendars().first()
+        val task = caldavDao.getTaskByRemoteId(calendar.uuid!!, TASK_UID)!!
+        assertEquals(
+            expectedTags.toSet(),
+            tagDao.getTagsForTask(task.task).mapNotNull { it.name }.toSet()
+        )
+    }
+
+    private fun enqueueAll(vararg responses: String) {
+        responses.forEach {
+            server.enqueue(
+                MockResponse()
+                    .setResponseCode(207)
+                    .setHeader("Content-Type", "text/xml; charset=\"utf-8\"")
+                    .setBody(it)
+            )
+        }
+        server.enqueue(MockResponse().setResponseCode(500))
+    }
+
+    private fun propfind(ctag: String) =
+        OC_SHARE_PROPFIND
+            .replace("http://sabre.io/ns/sync/1", ctag)
+
     companion object {
+        private const val TASK_UID = "3164728546640386952"
+
         private val OC_SHARE_PROPFIND = """
             <?xml version="1.0"?>
             <d:multistatus xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav"
@@ -216,5 +307,71 @@ class CaldavSynchronizerTest : CaldavTest() {
                 </d:response>
             </d:multistatus>
         """.trimIndent()
+
+        private val REPORT_ETAG1 = """
+            <?xml version="1.0"?>
+            <d:multistatus xmlns:d="DAV:">
+                <d:response>
+                    <d:href>/remote.php/dav/calendars/user1/test-shared/3164728546640386952.ics</d:href>
+                    <d:propstat>
+                        <d:prop>
+                            <d:getetag>&quot;etag1&quot;</d:getetag>
+                        </d:prop>
+                        <d:status>HTTP/1.1 200 OK</d:status>
+                    </d:propstat>
+                </d:response>
+            </d:multistatus>
+        """.trimIndent()
+
+        private val REPORT_ETAG2 = """
+            <?xml version="1.0"?>
+            <d:multistatus xmlns:d="DAV:">
+                <d:response>
+                    <d:href>/remote.php/dav/calendars/user1/test-shared/3164728546640386952.ics</d:href>
+                    <d:propstat>
+                        <d:prop>
+                            <d:getetag>&quot;etag2&quot;</d:getetag>
+                        </d:prop>
+                        <d:status>HTTP/1.1 200 OK</d:status>
+                    </d:propstat>
+                </d:response>
+            </d:multistatus>
+        """.trimIndent()
+
+        private fun task(etag: String, categories: String) = """
+            <?xml version="1.0"?>
+            <d:multistatus xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
+                <d:response>
+                    <d:href>/remote.php/dav/calendars/user1/test-shared/3164728546640386952.ics</d:href>
+                    <d:propstat>
+                        <d:prop>
+                            <d:getcontenttype>text/calendar; charset=utf-8; component=vtodo</d:getcontenttype>
+                            <d:getetag>&quot;$etag&quot;</d:getetag>
+                            <cal:calendar-data>BEGIN:VCALENDAR
+            VERSION:2.0
+            PRODID:+//IDN tasks.org//android-110500//EN
+            BEGIN:VTODO
+            DTSTAMP:20210223T154147Z
+            UID:3164728546640386952
+            CREATED:20210223T154134Z
+            LAST-MODIFIED:20210223T154140Z
+            SUMMARY:Test task
+            PRIORITY:9
+            CATEGORIES:$categories
+            END:VTODO
+            END:VCALENDAR</cal:calendar-data>
+                        </d:prop>
+                        <d:status>HTTP/1.1 200 OK</d:status>
+                    </d:propstat>
+                    <d:propstat>
+                        <d:prop>
+                            <cal:schedule-tag />
+                        </d:prop>
+                        <d:status>HTTP/1.1 404 Not Found</d:status>
+                    </d:propstat>
+                </d:response>
+            </d:multistatus>
+        """.trimIndent()
+
     }
 }

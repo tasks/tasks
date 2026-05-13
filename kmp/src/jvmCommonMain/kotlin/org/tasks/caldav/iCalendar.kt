@@ -249,14 +249,22 @@ class iCalendar(
             notifier.cancel(task.id, CancelReason.REMOTE_CLEAR)
         }
 
-        val place = locationDao.getPlaceForTask(task.id)
-        if (place?.toGeo() == local?.geoPosition) {
+        if (local != null) {
+            val place = locationDao.getPlaceForTask(task.id)
+            if (place?.toGeo() == local.geoPosition) {
+                setPlace(task.id, remote.geoPosition)
+            }
+        } else {
             setPlace(task.id, remote.geoPosition)
         }
 
-        val tags = tagDataDao.getTagDataForTask(task.id)
-        val localTags = getTags(local?.categories ?: emptyList())
-        if (tags.toSet() == localTags.toSet()) {
+        if (local != null) {
+            val tags = tagDataDao.getTagDataForTask(task.id)
+            val localTags = getTags(local.categories)
+            if (tags.toSet() == localTags.toSet()) {
+                tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
+            }
+        } else {
             tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
         }
 

@@ -15,6 +15,7 @@ import org.tasks.caldav.iCalendar.Companion.collapsed
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
 import org.tasks.caldav.iCalendar.Companion.snooze
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
@@ -299,12 +300,65 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
         )
     }
 
+    @Test
+    fun addRemoteTagToExistingTask() = runBlocking {
+        val (listId, list) = syncTaskWithTags("Tag1")
+
+        replaceRemoteTask(listId, vtodo("Tag1,Tag2"))
+        synchronizer.sync(hasPro = true)
+
+        assertTags(list, "Tag1", "Tag2")
+    }
+
+    @Test
+    fun removeRemoteTagFromExistingTask() = runBlocking {
+        val (listId, list) = syncTaskWithTags("Tag1,Tag2")
+
+        replaceRemoteTask(listId, vtodo("Tag1"))
+        synchronizer.sync(hasPro = true)
+
+        assertTags(list, "Tag1")
+    }
+
+    @Test
+    fun replaceRemoteTagOnExistingTask() = runBlocking {
+        val (listId, list) = syncTaskWithTags("Tag1")
+
+        replaceRemoteTask(listId, vtodo("Tag3"))
+        synchronizer.sync(hasPro = true)
+
+        assertTags(list, "Tag3")
+    }
+
+    private suspend fun syncTaskWithTags(categories: String): Pair<Long, CaldavCalendar> {
+        val result = withVtodo(vtodo(categories))
+        synchronizer.sync(hasPro = true)
+        return result
+    }
+
+    private suspend fun replaceRemoteTask(listId: Long, vtodo: String) {
+        openTaskDao.batch(listOf(openTaskDao.delete(listId, TASK_UID)))
+        openTaskDao.insertTask(listId, vtodo)
+    }
+
+    private suspend fun assertTags(list: CaldavCalendar, vararg expectedTags: String) {
+        assertEquals(
+            expectedTags.toSet(),
+            caldavDao.getTaskByRemoteId(list.uuid!!, TASK_UID)
+                ?.task
+                ?.let { tagDao.getTagsForTask(it) }
+                ?.mapNotNull { it.name }
+                ?.toSet()
+        )
+    }
+
     private suspend fun insertTag(task: Task, name: String) =
         TagData(name = name)
             .apply { tagDataDao.insert(this) }
             .let { tagDao.insert(Tag(task = task.id, taskUid = task.uuid, tagUid = it.remoteId)) }
 
     companion object {
+        private const val TASK_UID = "3076145036806467726"
         private val CHICAGO = TimeZone.getTimeZone("America/Chicago")
 
         private val SUBTASK = """
@@ -350,6 +404,21 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
             SUMMARY:Tags
             CATEGORIES:Tag1,Tag2
             X-APPLE-SORT-ORDER:633734058
+            END:VTODO
+            END:VCALENDAR
+        """.trimIndent()
+
+        private fun vtodo(categories: String) = """
+            BEGIN:VCALENDAR
+            VERSION:2.0
+            PRODID:+//IDN tasks.org//android-110304//EN
+            BEGIN:VTODO
+            DTSTAMP:20210201T204211Z
+            UID:$TASK_UID
+            CREATED:20210201T204143Z
+            LAST-MODIFIED:20210201T204209Z
+            SUMMARY:Tags
+            CATEGORIES:$categories
             END:VTODO
             END:VCALENDAR
         """.trimIndent()
