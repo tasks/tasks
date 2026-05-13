@@ -273,13 +273,14 @@ class TaskEditViewModelTest {
 
     // endregion
 
-    // region switch task (auto-save on initialize)
+    // region switch task (saveCurrentTask + initialize)
 
     @Test
     fun switchSavesDirtyEdits() = runTest(testDispatcher) {
         initializeNew()
         viewModel.setTitle("Unsaved work")
 
+        viewModel.saveCurrentTask()
         viewModel.initialize(null)
         advanceUntilIdle()
 
@@ -291,6 +292,7 @@ class TaskEditViewModelTest {
     fun switchSkippedWithoutChanges() = runTest(testDispatcher) {
         initializeNew()
 
+        viewModel.saveCurrentTask()
         viewModel.initialize(null)
         advanceUntilIdle()
 
@@ -302,6 +304,7 @@ class TaskEditViewModelTest {
         initializeNew()
         viewModel.setDescription("Some notes")
 
+        viewModel.saveCurrentTask()
         viewModel.initialize(null)
         advanceUntilIdle()
 
@@ -312,6 +315,7 @@ class TaskEditViewModelTest {
     fun switchFailureSetsSaveError() = runTest(testDispatcher) {
         initializeNewWithFailingSave()
 
+        viewModel.saveCurrentTask()
         viewModel.initialize(null)
         advanceUntilIdle()
 
@@ -322,6 +326,7 @@ class TaskEditViewModelTest {
     fun switchLoadsNewTaskAfterFailure() = runTest(testDispatcher) {
         initializeNewWithFailingSave()
 
+        viewModel.saveCurrentTask()
         viewModel.initialize(null)
         advanceUntilIdle()
 
@@ -336,6 +341,7 @@ class TaskEditViewModelTest {
         initializeExisting(id = 42, title = "Original")
         viewModel.setTitle("Modified")
 
+        viewModel.saveCurrentTask()
         initializeExisting(id = 99, title = "Other Task")
 
         verify(taskSaver).save(

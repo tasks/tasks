@@ -63,6 +63,7 @@ import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
 import androidx.compose.material3.adaptive.navigation.BackNavigationBehavior
+import androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -160,6 +161,7 @@ import org.tasks.kmp.org.tasks.themes.ColorProvider
 import org.tasks.themes.BLUE
 import org.tasks.themes.TasksTheme
 import org.tasks.data.TaskContainer
+import org.tasks.data.UUIDHelper
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.MyTasksFilter
@@ -701,7 +703,8 @@ private fun TaskListScreen(
     val sortState by sortViewModel.state.collectAsState()
     var showSortSheet by remember { mutableStateOf(false) }
     val materialDrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val navigator = rememberListDetailPaneScaffoldNavigator<Long>()
+    val navigator = rememberListDetailPaneScaffoldNavigator<TaskKey>()
+    val taskEditViewModel = koinViewModel<TaskEditViewModel>()
     val scope = androidx.compose.runtime.rememberCoroutineScope()
     LaunchedEffect(state.filter) {
         drawerViewModel.setSelectedFilter(state.filter)
@@ -718,7 +721,8 @@ private fun TaskListScreen(
     }
 
     var sidebarExpanded by remember { mutableStateOf(false) }
-    val selectedTaskId = navigator.currentDestination?.contentKey
+    val selectedTask = navigator.currentDestination?.contentKey
+    val selectedTaskId = selectedTask?.taskId
 
     val onDrawerItemClick: (DrawerItem) -> Unit = { item ->
         when (item) {
@@ -728,7 +732,7 @@ private fun TaskListScreen(
                 if (materialDrawerState.isOpen) {
                     scope.launch { materialDrawerState.close() }
                 }
-                scope.launch { if (navigator.canNavigateBack()) navigator.navigateBack() }
+                scope.launch { popBackStack(navigator, taskEditViewModel) }
             }
             is DrawerItem.Header -> {
                 drawerViewModel.toggleCollapsed(item.header)
@@ -738,6 +742,13 @@ private fun TaskListScreen(
 
     val hasDetailOpen = selectedTaskId != null
     val listPaneHidden = navigator.canNavigateBack()
+
+    val onTaskClick: (TaskKey) -> Unit = { key ->
+        scope.launch {
+            popBackStack(navigator, taskEditViewModel)
+            navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, key)
+        }
+    }
 
     // Note: when the detail pane is open, TaskEditScreen installs its own back handler
     // so that back/escape saves the edit before navigating back.
@@ -791,18 +802,17 @@ private fun TaskListScreen(
                     TaskListContent(
                         state = state,
                         navigator = navigator,
-                        selectedTaskId = selectedTaskId,
+                        selectedTask = selectedTask,
                         headerFormatter = headerFormatter,
                         chipDataProvider = chipDataProvider,
                         reporting = reporting,
                         viewModel = viewModel,
                         themeColor = themeColor,
                         onShowSortSheet = { showSortSheet = true },
-                        onTaskClick = { taskId ->
-                            scope.launch { navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, taskId) }
-                        },
+                        onTaskClick = onTaskClick,
                         showMenuButton = true,
                         onMenuClick = { sidebarExpanded = !sidebarExpanded },
+                        taskEditViewModel = taskEditViewModel,
                         onSettingsClick = onSettingsClick,
                         modifier = Modifier.weight(1f),
                     )
@@ -851,16 +861,14 @@ private fun TaskListScreen(
                     TaskListContent(
                         state = state,
                         navigator = navigator,
-                        selectedTaskId = selectedTaskId,
+                        selectedTask = selectedTask,
                         headerFormatter = headerFormatter,
                         chipDataProvider = chipDataProvider,
                         reporting = reporting,
                         viewModel = viewModel,
                         themeColor = themeColor,
                         onShowSortSheet = { showSortSheet = true },
-                        onTaskClick = { taskId ->
-                            scope.launch { navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, taskId) }
-                        },
+                        onTaskClick = onTaskClick,
                         showMenuButton = true,
                         onMenuClick = {
                             scope.launch {
@@ -868,6 +876,7 @@ private fun TaskListScreen(
                                 else materialDrawerState.open()
                             }
                         },
+                        taskEditViewModel = taskEditViewModel,
                         onSettingsClick = onSettingsClick,
                     )
                 }
@@ -887,22 +896,22 @@ private fun TaskListScreen(
 @Composable
 private fun TaskListContent(
     state: TaskListViewModel.State,
-    navigator: androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator<Long>,
-    selectedTaskId: Long?,
+    navigator: androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator<TaskKey>,
+    selectedTask: TaskKey?,
     headerFormatter: HeaderFormatter,
     chipDataProvider: ChipDataProvider,
     reporting: org.tasks.analytics.Reporting,
     viewModel: TaskListViewModel,
     themeColor: org.tasks.kmp.org.tasks.themes.ThemeColor,
     onShowSortSheet: () -> Unit,
-    onTaskClick: (Long) -> Unit,
+    onTaskClick: (TaskKey) -> Unit,
     showMenuButton: Boolean,
     onMenuClick: () -> Unit,
+    taskEditViewModel: TaskEditViewModel,
     onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val scope = androidx.compose.runtime.rememberCoroutineScope()
-    val taskEditViewModel = koinViewModel<TaskEditViewModel>()
 
     ListDetailPaneScaffold(
         modifier = modifier.fillMaxSize(),
@@ -924,17 +933,22 @@ private fun TaskListContent(
                 onCreateTask = {
                     reporting.addTask("fab")
                     scope.launch {
-                        navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, 0L)
+                        popBackStack(navigator, taskEditViewModel)
+                        navigator.navigateTo(
+                            ListDetailPaneScaffoldRole.Detail,
+                            TaskKey(taskId = 0L, remoteId = UUIDHelper.newUUID()),
+                        )
                     }
                 },
                 modifier = Modifier.preferredWidth(TaskListPanePreferredWidth),
             )
         },
         detailPane = {
-            selectedTaskId?.let { taskId ->
+            selectedTask?.let { key ->
                 TaskEditScreen(
                     viewModel = taskEditViewModel,
-                    taskId = taskId.takeIf { it > 0 },
+                    taskId = key.taskId.takeIf { it > 0 },
+                    remoteId = key.remoteId,
                     onClose = {
                         scope.launch {
                             navigator.navigateBack(BackNavigationBehavior.PopLatest)
@@ -945,6 +959,19 @@ private fun TaskListContent(
         },
     )
 }
+
+@OptIn(ExperimentalMaterial3AdaptiveApi::class)
+private suspend fun <T> popBackStack(
+    navigator: ThreePaneScaffoldNavigator<T>,
+    taskEditViewModel: TaskEditViewModel,
+) {
+    taskEditViewModel.saveCurrentTask()
+    if (navigator.canNavigateBack(BackNavigationBehavior.PopLatest)) {
+        navigator.navigateBack(BackNavigationBehavior.PopLatest)
+    }
+}
+
+private data class TaskKey(val taskId: Long, val remoteId: String)
 
 private val TaskListPanePreferredWidth = 400.dp
 
@@ -961,7 +988,7 @@ private fun TaskListPane(
     onShowSortSheet: () -> Unit,
     onMenuClick: () -> Unit,
     onSettingsClick: () -> Unit,
-    onTaskClick: (Long) -> Unit,
+    onTaskClick: (TaskKey) -> Unit,
     onCreateTask: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -1036,7 +1063,7 @@ private fun TaskListPane(
                 chipDataProvider = chipDataProvider,
                 listState = listState,
                 topPadding = topBarHeight,
-                onTaskClick = { task -> onTaskClick(task.id) },
+                onTaskClick = { task -> onTaskClick(TaskKey(task.id, task.uuid)) },
                 onCompleteTask = { task, newState ->
                     viewModel.onCompleteTask(task, newState)
                     if (newState) {

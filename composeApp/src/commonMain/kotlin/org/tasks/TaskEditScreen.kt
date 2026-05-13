@@ -47,9 +47,10 @@ import org.tasks.viewmodel.TaskEditViewModel
 fun TaskEditScreen(
     viewModel: TaskEditViewModel,
     taskId: Long?,
+    remoteId: String,
     onClose: () -> Unit,
 ) {
-    LaunchedEffect(taskId) {
+    LaunchedEffect(taskId, remoteId) {
         viewModel.initialize(taskId)
     }
     val state by viewModel.state.collectAsState()
