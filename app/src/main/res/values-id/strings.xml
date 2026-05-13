@@ -418,7 +418,7 @@
     <string name="sort_modified_group">Diubah %s</string>
     <string name="sort_created_group">Dibuat %s</string>
     <string name="support_development_subscribe">Temukan fitur tambahan dan dukung perangkat lunak sumber terbuka</string>
-    <string name="enjoying_tasks">Menikmati Tasks\?</string>
+    <string name="enjoying_tasks">Menikmati Tasks?</string>
     <string name="filter_eisenhower_box_4">Tidak penting dan tidak mendesak</string>
     <string name="filter_eisenhower_box_3">Tidak penting tapi mendesak</string>
     <string name="filter_eisenhower_box_2">Penting tapi tidak mendesak</string>
@@ -483,11 +483,11 @@
     <string name="CFC_list_name">Dalam daftar…</string>
     <string name="CFC_title_contains_text">Judul mengandung: \?</string>
     <string name="CFC_title_contains_name">Judul berisi …</string>
-    <string name="CFC_importance_text">Prioritas setidaknya \?</string>
+    <string name="CFC_importance_text">Prioritas setidaknya ?</string>
     <string name="filter_any_start_date">Tanggal mulai kapanpun</string>
     <string name="no_start_date">Tidak ada tanggal mulai</string>
     <string name="CFC_startBefore_name">Mulai pada…</string>
-    <string name="CFC_startBefore_text">Mulai pada: \?</string>
+    <string name="CFC_startBefore_text">Mulai pada: ?</string>
     <string name="CFC_dueBefore_text">Jatuh tempo pada:\?</string>
     <string name="default_location_reminder_on_departure">Saat keberangkatan</string>
     <string name="default_location_reminder_on_arrival">Pada kedatangan</string>
