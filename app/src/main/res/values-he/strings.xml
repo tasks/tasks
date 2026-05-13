@@ -690,4 +690,17 @@
     <string name="accept">הסכמה</string>
     <string name="exit">יציאה</string>
     <string name="returning_user">משתמש/ת חוזר/ת?</string>
+    <string name="per_list_sort_title"></string>
+    <string name="location_update_interval_30_minutes"></string>
+    <string name="per_list_sort_summary"></string>
+    <string name="p_per_list_sort"></string>
+    <string name="upgrade_desktop_app"></string>
+    <string name="upgrade_desktop_app_description"></string>
+    <string name="location_update_interval_15_minutes"></string>
+    <string name="location_update_interval_summary"></string>
+    <string name="location_update_interval_disabled"></string>
+    <string name="location_update_interval_2_hours"></string>
+    <string name="location_update_interval_1_hour"></string>
+    <string name="read_more"></string>
+    <string name="location_update_interval_title"></string>
 </resources>
