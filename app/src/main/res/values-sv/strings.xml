@@ -11,7 +11,7 @@
     <string name="read_permission_label">Tasks Tillstånd</string>
     <string name="discard_confirmation">Är du säker på att du inte vill spara dina ändringar?</string>
     <string name="keep_editing">Fortsätt redigera</string>
-    <string name="DLG_delete_this_task_question">Ta bort denna uppgift\?</string>
+    <string name="DLG_delete_this_task_question">Ta bort denna uppgift?</string>
     <string name="DLG_hour_minutes">Tid (timmar : minuter)</string>
     <string name="DLG_undo">Ångra</string>
     <string name="WID_dateButtonUnset">Klicka för att ställa in</string>
@@ -59,10 +59,10 @@
     <string name="EPr_delete_task_data">Ta bort alla data</string>
     <string name="EPr_delete_task_data_warning">Alla uppgifter kommer tas bort permanent</string>
     <string name="EPr_manage_delete_completed_gcal">Ta bort kalenderhändelser för slutförda uppgifter</string>
-    <string name="EPr_manage_delete_completed_gcal_message">Vill du verkligen ta bort alla dina händelser för slutförda uppgifter\?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Vill du verkligen ta bort alla dina händelser för slutförda uppgifter?</string>
     <string name="EPr_manage_delete_gcal_status">%d kalenderhändelser borttagna!</string>
     <string name="EPr_manage_delete_all_gcal">Ta bort alla kalenderhändelser för uppgifter</string>
-    <string name="EPr_manage_delete_all_gcal_message">Vill du verkligen ta bort alla dina händelser i kalendern för uppgifter\?</string>
+    <string name="EPr_manage_delete_all_gcal_message">Vill du verkligen ta bort alla dina händelser i kalendern för uppgifter?</string>
     <string name="EPr_default_importance_title">Standard prioritet</string>
     <string name="EPr_default_reminders_title">Standardpåminnelser</string>
     <string name="EPr_default_reminders_mode_title">Standardtyp av ringsignal/vibration</string>
@@ -284,7 +284,7 @@
     <string name="widget_row_settings">Radinställningar</string>
     <string name="copy_multiple_tasks_confirmation">%s kopierade</string>
     <string name="delete_multiple_tasks_confirmation">%s borttagna</string>
-    <string name="delete_selected_tasks">Ta bort valda uppgifter\?</string>
+    <string name="delete_selected_tasks">Ta bort valda uppgifter?</string>
     <string name="copy_selected_tasks">Kopiera valda uppgifter?</string>
     <string name="user">Användare</string>
     <string name="password">Lösenord</string>
@@ -452,7 +452,7 @@
     <string name="open_last_viewed_list">Öppna senast visade lista</string>
     <string name="on_launch">Vid start</string>
     <string name="support_development_subscribe">Lås upp ytterligare funktioner och stöd programvara med öppen källkod</string>
-    <string name="enjoying_tasks">Gillar du Tasks\?</string>
+    <string name="enjoying_tasks">Gillar du Tasks?</string>
     <string name="filter_eisenhower_box_4">Inte viktigt och inte brådskande</string>
     <string name="filter_eisenhower_box_3">Inte viktigt och brådskande</string>
     <string name="filter_eisenhower_box_2">Viktigt och inte brådskande</string>
@@ -570,7 +570,7 @@
     <string name="custom_filter_has_reminder">Har påminnelse</string>
     <string name="dismiss">Avfärda</string>
     <string name="customize_edit_screen_summary">Ordna om eller ta bort fält</string>
-    <string name="hint_customize_edit_title">För mycket information\?</string>
+    <string name="hint_customize_edit_title">För mycket information?</string>
     <string name="hint_customize_edit_body">Du kan anpassa den här skärmen genom att ordna om eller ta bort fält</string>
     <string name="enable_reminders_description">Påminnelser är avstängda i Android-inställningarna</string>
     <string name="TEA_creation_date">Skapatdatum</string>
@@ -662,7 +662,7 @@
     <string name="rmd_time_enabled_off">Lägg inte till standardpåminnelser till heldagsuppgifter</string>
     <string name="banner_subscription_required_title">Prenumeration krävs</string>
     <string name="banner_subscription_required_body">Betala vad du vill för att låsa upp %s-synkroniseringen</string>
-    <string name="p_per_list_sort"/>
+    <string name="p_per_list_sort"></string>
     <string name="per_list_sort_summary">Kom ihåg sorterings- och gruppinställningar för varje lista oberoende av varandra</string>
     <string name="share_list">Dela \"%1$s\"</string>
     <string name="send">Skicka</string>
@@ -681,4 +681,5 @@
     <string name="alarm_start">start</string>
     <string name="alarm_due">förfaller</string>
     <string name="read_more">Läs mer</string>
+    <string name="per_list_sort_title">Sortering per lista</string>
 </resources>
