@@ -62,10 +62,10 @@
     <string name="EPr_delete_task_data">Удалить все задачи</string>
     <string name="EPr_delete_task_data_warning">Все задачи будут удалены навсегда</string>
     <string name="EPr_manage_delete_completed_gcal">Удалить календарные события для завершенных задач</string>
-    <string name="EPr_manage_delete_completed_gcal_message">Вы уверены, что хотите удалить все Ваши события для завершенных задач\?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Вы уверены, что хотите удалить все Ваши события для завершенных задач?</string>
     <string name="EPr_manage_delete_gcal_status">Удалено %d календарных событий!</string>
     <string name="EPr_manage_delete_all_gcal">Удалить все календарные события для задач</string>
-    <string name="EPr_manage_delete_all_gcal_message">Вы уверены, что хотите удалить все Ваши события для задач\?</string>
+    <string name="EPr_manage_delete_all_gcal_message">Вы уверены, что хотите удалить все Ваши события для задач?</string>
     <string name="EPr_default_importance_title">Приоритет по умолчанию</string>
     <string name="EPr_default_reminders_title">Напоминания по умолчанию</string>
     <string name="EPr_default_location_reminder_title">Напоминания о месте по умолчанию</string>
@@ -98,7 +98,7 @@
     <string name="gcal_TEA_showCalendar_label">Открыть событие календаря</string>
     <string name="calendar_event_not_found">Событие календаря не найдено</string>
     <string name="gcal_completed_title">%s (выполнено)</string>
-    <string name="CFC_gtasks_list_text">В списке: \?</string>
+    <string name="CFC_gtasks_list_text">В списке: ?</string>
     <string name="gtasks_GTA_clear_completed">Удалить завершенные</string>
     <string name="gtasks_GLA_authenticating">Аутентификация…</string>
     <string name="gtasks_GLA_errorIOAuth">При обращении к серверам Google возникли проблемы. Пожалуйста, попробуйте позже.</string>
@@ -131,71 +131,85 @@
         <item quantity="one">%d задача</item>
         <item quantity="few">%d задачи</item>
         <item quantity="many">%d задач</item>
+        <item quantity="other">%d задач</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">раз</item>
         <item quantity="few">раза</item>
         <item quantity="many">раз</item>
+        <item quantity="other">раз</item>
     </plurals>
     <plurals name="repeat_minutes">
         <item quantity="one">минута</item>
         <item quantity="few">минуты</item>
         <item quantity="many">минут</item>
+        <item quantity="other">минут</item>
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d минуту</item>
         <item quantity="few">%d минуты</item>
         <item quantity="many">%d минут</item>
+        <item quantity="other">%d минут</item>
     </plurals>
     <plurals name="repeat_hours">
         <item quantity="one">час</item>
         <item quantity="few">часа</item>
         <item quantity="many">часов</item>
+        <item quantity="other">часов</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d час</item>
         <item quantity="few">%d часа</item>
         <item quantity="many">%d часов</item>
+        <item quantity="other">%d часов</item>
     </plurals>
     <plurals name="repeat_days">
         <item quantity="one">день</item>
         <item quantity="few">дня</item>
         <item quantity="many">дней</item>
+        <item quantity="other">дней</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d день</item>
         <item quantity="few">%d дня</item>
         <item quantity="many">%d дней</item>
+        <item quantity="other">%d дней</item>
     </plurals>
     <plurals name="repeat_weeks">
         <item quantity="one">неделю</item>
         <item quantity="few">недели</item>
         <item quantity="many">недель</item>
+        <item quantity="other">недель</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d неделя</item>
         <item quantity="few">%d недели</item>
         <item quantity="many">%d недель</item>
+        <item quantity="other">%d недель</item>
     </plurals>
     <plurals name="repeat_months">
         <item quantity="one">месяц</item>
         <item quantity="few">месяца</item>
         <item quantity="many">месяцев</item>
+        <item quantity="other">месяцев</item>
     </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d месяц</item>
         <item quantity="few">%d месяца</item>
         <item quantity="many">%d месяцев</item>
+        <item quantity="other">%d месяцев</item>
     </plurals>
     <plurals name="repeat_years">
         <item quantity="one">год</item>
         <item quantity="few">года</item>
         <item quantity="many">лет</item>
+        <item quantity="other">лет</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d год</item>
         <item quantity="few">%d года</item>
         <item quantity="many">%d лет</item>
+        <item quantity="other">%d лет</item>
     </plurals>
     <string name="repeat_type_due">намеченной даты</string>
     <string name="repeat_type_completion">даты завершения</string>
@@ -371,6 +385,7 @@
         <item quantity="one">%d подзадача</item>
         <item quantity="few">%d подзадачи</item>
         <item quantity="many">%d подзадач</item>
+        <item quantity="other">%d подзадач</item>
     </plurals>
     <string name="TEA_add_subtask">Добавить подзадачу</string>
     <string name="subtasks">Подзадачи</string>
@@ -457,7 +472,7 @@
     <string name="custom_filter_criteria">Критерии фильтрации</string>
     <string name="sort_created">Дата создания</string>
     <string name="support_development_subscribe">Разблокируйте дополнительные функции и поддержите программное обеспечение с открытым исходным кодом</string>
-    <string name="enjoying_tasks">Нравится Tasks\?</string>
+    <string name="enjoying_tasks">Нравится Tasks?</string>
     <string name="whats_new">Что нового</string>
     <string name="action_new_task">Новая задача</string>
     <string name="sort_modified_group">Модифицировано %s</string>
