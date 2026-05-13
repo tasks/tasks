@@ -11,7 +11,7 @@
     <string name="read_permission_label">Permessi di Tasks</string>
     <string name="discard_confirmation">Vuoi davvero annullare tutte le modifiche?</string>
     <string name="keep_editing">No, continua la modifica</string>
-    <string name="DLG_delete_this_task_question">Eliminare questa attività\?</string>
+    <string name="DLG_delete_this_task_question">Eliminare questa attività?</string>
     <string name="DLG_hour_minutes">Tempo (ore : minuti)</string>
     <string name="DLG_undo">Annulla l\'ultima azione</string>
     <string name="WID_dateButtonUnset">Clicca per impostare</string>
