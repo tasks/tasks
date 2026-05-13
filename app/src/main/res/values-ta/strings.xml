@@ -638,4 +638,6 @@
     <string name="multiline_title_off">பணியைச் சேமிக்க முடிந்தது என்பதை அழுத்தவும்</string>
     <string name="banner_app_updated_description">பணிகள் இப்போதுதான் %s ஆகப் புதுப்பிக்கப்பட்டது. வெளியீட்டுக் குறிப்புகளைப் பார்க்க விரும்புகிறீர்களா?</string>
     <string name="delete_tasks_warning">%s நீக்கப்படும். இதை செயல்தவிர்க்க முடியாது!</string>
+    <string name="share_list"></string>
+    <string name="default_reminder"></string>
 </resources>
