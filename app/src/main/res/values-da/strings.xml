@@ -663,4 +663,5 @@
     <string name="alarm_after">efter</string>
     <string name="alarm_start">start</string>
     <string name="alarm_due">forfalden</string>
+    <string name="share_list"></string>
 </resources>
