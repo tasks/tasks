@@ -294,7 +294,7 @@
     <string name="default_location">Defaŭlta loko</string>
     <string name="EPr_default_reminders_mode_title">Defaŭlta vokosono/vibrado</string>
     <string name="EPr_default_importance_title">Defaŭlta prioritato</string>
-    <string name="EPr_manage_delete_all_gcal_message">Ĉu vi certe volas forigi ĉiujn de viaj eventoj de taskoj\?</string>
+    <string name="EPr_manage_delete_all_gcal_message">Ĉu vi certe volas forigi ĉiujn de viaj eventoj de taskoj?</string>
     <string name="EPr_manage_delete_all_gcal">Forigi ĉiujn kalendarajn eventojn de taskoj</string>
     <string name="EPr_reset_preferences">Restarigi agordojn</string>
     <string name="EPr_cal_end_or_start_at_due_time">Tempo de kalendara evento</string>
