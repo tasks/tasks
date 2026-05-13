@@ -9,9 +9,9 @@
     <string name="import_summary_message">Bestand %1$s bevat %2$s.\n\n%3$s geïmporteerd,\n%4$s bestaan al\n%5$s bevatten fouten</string>
     <string name="import_progress_read">Taak %d lezen…</string>
     <string name="read_permission_label">App-recht Taken</string>
-    <string name="discard_confirmation">Afbreken en wijzigingen negeren\?</string>
+    <string name="discard_confirmation">Afbreken en wijzigingen negeren?</string>
     <string name="keep_editing">Blijf bewerken</string>
-    <string name="DLG_delete_this_task_question">Deze taak wissen\?</string>
+    <string name="DLG_delete_this_task_question">Deze taak wissen?</string>
     <string name="DLG_hour_minutes">Tijd (uren : minuten)</string>
     <string name="DLG_undo">Ongedaan maken</string>
     <string name="WID_dateButtonUnset">Tik om in te stellen</string>
@@ -81,7 +81,7 @@
     <string name="BFE_Active">Mijn Taken</string>
     <string name="BFE_Recent">Onlangs aangepast</string>
     <string name="CFA_button_add">Criteria toevoegen</string>
-    <string name="CFC_dueBefore_text">Vervalt op: \?</string>
+    <string name="CFC_dueBefore_text">Vervalt op: ?</string>
     <string name="CFC_dueBefore_name">Vervalt op …</string>
     <string name="no_due_date">Geen vervaldatum</string>
     <string name="next_month">Volgende maand</string>
@@ -97,7 +97,7 @@
     <string name="gcal_TEA_showCalendar_label">Kalender-item openen</string>
     <string name="calendar_event_not_found">Kalender-item niet gevonden</string>
     <string name="gcal_completed_title">%s (voltooid)</string>
-    <string name="CFC_gtasks_list_text">In de lijst: \?</string>
+    <string name="CFC_gtasks_list_text">In de lijst: ?</string>
     <string name="gtasks_GTA_clear_completed">Voltooide taken wissen</string>
     <string name="gtasks_GLA_authenticating">Verifiëren…</string>
     <string name="gtasks_GLA_errorIOAuth">Sorry, er zijn problemen opgetreden bij de communicatie met de servers van Google. Probeer het later nog een keer.</string>
@@ -188,7 +188,7 @@
     <string name="repeat_snackbar">%1$s verplaatst naar %2$s</string>
     <string name="new_tag">Nieuw label aanmaken</string>
     <string name="new_list">Nieuwe lijst maken</string>
-    <string name="delete_tag_confirmation">%s wissen\?</string>
+    <string name="delete_tag_confirmation">%s wissen?</string>
     <string name="TPl_notification">Tijdklok is actief voor %s!</string>
     <string name="TEA_timer_comment_started">aan deze taak begonnen:</string>
     <string name="TEA_timer_comment_stopped">deze taak is gestopt:</string>
@@ -237,7 +237,7 @@
     <string name="date_shortcut_tomorrow_afternoon">Morgenmiddag</string>
     <string name="date_shortcut_must_come_before">%1$s moet voor %2$s komen</string>
     <string name="date_shortcut_must_come_after">%1$s moet na %2$s komen</string>
-    <string name="discard_changes">Veranderingen negeren\?</string>
+    <string name="discard_changes">Veranderingen negeren?</string>
     <string name="discard">Negeren</string>
     <string name="tag_settings">Label instellen</string>
     <string name="list_settings">Lijst instellen</string>
@@ -271,11 +271,11 @@
     <string name="widget_settings">Widget instellingen</string>
     <string name="widget_header_settings">Koptekst instellingen</string>
     <string name="widget_row_settings">Regel instellingen</string>
-    <string name="clear_completed_tasks_confirmation">Voltooide taken wissen\?</string>
+    <string name="clear_completed_tasks_confirmation">Voltooide taken wissen?</string>
     <string name="copy_multiple_tasks_confirmation">%s gekopieerd</string>
     <string name="delete_multiple_tasks_confirmation">%s gewist</string>
-    <string name="delete_selected_tasks">Geselecteerde taken wissen\?</string>
-    <string name="copy_selected_tasks">Geselecteerde taken kopiëren\?</string>
+    <string name="delete_selected_tasks">Geselecteerde taken wissen?</string>
+    <string name="copy_selected_tasks">Geselecteerde taken kopiëren?</string>
     <string name="user">Gebruiker</string>
     <string name="password">Wachtwoord</string>
     <string name="notification_disable_battery_optimizations_description">Optimalisatie kan meldingen vertragen</string>
@@ -510,7 +510,7 @@
     <string name="SSD_sort_start">Op begindatum</string>
     <string name="filter_any_start_date">Elke begindatum</string>
     <string name="CFC_startBefore_name">Begint op…</string>
-    <string name="CFC_startBefore_text">Begindatum: \?</string>
+    <string name="CFC_startBefore_text">Begindatum: ?</string>
     <string name="account_not_included">Niet inbegrepen bij \"Bepaal je eigen prijs\" abonnementen</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Titel tonen</string>
