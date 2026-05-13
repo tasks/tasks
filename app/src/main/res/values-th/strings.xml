@@ -22,7 +22,7 @@
     <string name="custom_filter_not">ไม่ใช่</string>
     <string name="custom_filter_and">รวมถึง</string>
     <string name="CFA_button_add">เพิ่มข้อกำหนด</string>
-    <string name="CFC_importance_text">ลําดับความสําคัญอย่างน้อย \?</string>
+    <string name="CFC_importance_text">ลําดับความสําคัญอย่างน้อย ?</string>
     <string name="CFC_importance_name">ความสำคัญ…</string>
     <string name="CFC_title_contains_name">ชื่อที่มีคำว่า…</string>
     <string name="CFC_title_contains_text">ชื่อที่มีคำว่า: ?</string>
@@ -33,7 +33,7 @@
     <string name="today">วันนี้</string>
     <string name="tomorrow">พรุ่งนี้</string>
     <string name="repeat_option_custom">กำหนดเอง…</string>
-    <string name="delete_tag_confirmation">ลบ %s หรือไม่\?</string>
+    <string name="delete_tag_confirmation">ลบ %s หรือไม่?</string>
     <string name="markdown_description">เปิดใช้งานการทําเครื่องหมายในชื่อและคําอธิบาย</string>
     <string name="markdown">มาร์กดาวน์</string>
     <string name="more_options">ตัวเลือกเพิ่มเติม</string>
@@ -43,7 +43,7 @@
     <string name="invite_declined">ปฏิเสธคำเชิญ</string>
     <string name="email">อีเมล</string>
     <string name="remove_user_confirmation">%1$s จะไม่สามารถเข้าถึง %2$s ได้อีกต่อไป</string>
-    <string name="remove_user">ลบผู้ใช้หรือไม่\?</string>
+    <string name="remove_user">ลบผู้ใช้หรือไม่?</string>
     <string name="list_members">รายชื่อสมาชิก</string>
     <string name="tasks_org_account_required">Tasks.org บัญชีลูกค้า</string>
     <string name="copied_to_clipboard">%s คัดลอกไปยังคลิปบอร์ดแล้ว</string>
@@ -92,7 +92,7 @@
     <string name="sort_modified_group">แก้ไข %s</string>
     <string name="sort_created_group">สร้าง %s แล้ว</string>
     <string name="support_development_subscribe">ปลดล็อกคุณสมบัติเพิ่มเติมและสนับสนุนซอฟต์แวร์โอเพ่นซอร์ส</string>
-    <string name="enjoying_tasks">สนุกกับงาน\?</string>
+    <string name="enjoying_tasks">สนุกกับงาน?</string>
     <string name="filter_eisenhower_box_4">ไม่สําคัญและไม่เร่งด่วน</string>
     <string name="filter_eisenhower_box_3">ไม่สําคัญและเร่งด่วน</string>
     <string name="filter_eisenhower_box_2">สําคัญและไม่เร่งด่วน</string>
@@ -207,11 +207,11 @@
     <string name="url">URL</string>
     <string name="password">รหัสผ่าน</string>
     <string name="user">ผู้ใช้</string>
-    <string name="copy_selected_tasks">คัดลอกงานที่เลือกหรือไม่\?</string>
-    <string name="delete_selected_tasks">ลบงานที่เลือก\?</string>
+    <string name="copy_selected_tasks">คัดลอกงานที่เลือกหรือไม่?</string>
+    <string name="delete_selected_tasks">ลบงานที่เลือก?</string>
     <string name="delete_multiple_tasks_confirmation">%s ถูกลบ</string>
     <string name="copy_multiple_tasks_confirmation">คัดลอก %s</string>
-    <string name="clear_completed_tasks_confirmation">ล้างข้อมูลงานที่เสร็จสมบูรณ์แล้วหรือไม่\?</string>
+    <string name="clear_completed_tasks_confirmation">ล้างข้อมูลงานที่เสร็จสมบูรณ์แล้วหรือไม่?</string>
     <string name="widget_due_date_hidden">ซ่อนเร้น</string>
     <string name="widget_due_date_below_title">ใต้ชื่อเรื่อง</string>
     <string name="widget_due_date_after_title">หลังชื่อเรื่อง</string>
@@ -262,7 +262,7 @@
     <string name="tag_settings">การตั้งค่าแท็ก</string>
     <string name="discard">ทิ้ง</string>
     <string name="menu_discard_changes">ละทิ้งการเปลี่ยนแปลง</string>
-    <string name="discard_changes">ละทิ้งการเปลี่ยนแปลงหรือไม่\?</string>
+    <string name="discard_changes">ละทิ้งการเปลี่ยนแปลงหรือไม่?</string>
     <string name="date_shortcut_must_come_after">%1$s ต้องมาหลังจาก %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s ต้องมาก่อน %2$s</string>
     <string name="tags">แท็ก</string>
@@ -392,21 +392,21 @@
     <string name="gtasks_GLA_authenticating">กําลังรับรองความถูกต้อง…</string>
     <string name="gtasks_GTA_clear_completed">ล้างเสร็จสมบูรณ์</string>
     <string name="CFC_list_name">ในรายการ…</string>
-    <string name="CFC_gtasks_list_text">ในรายการ: \?</string>
+    <string name="CFC_gtasks_list_text">ในรายการ: ?</string>
     <string name="calendar_event_not_found">ไม่พบเหตุการณ์ในปฏิทิน</string>
     <string name="gcal_TEA_error">เกิดข้อผิดพลาดในการเพิ่มงานในปฏิทิน!</string>
-    <string name="CFC_tag_contains_text">ชื่อแท็กประกอบด้วย: \?</string>
+    <string name="CFC_tag_contains_text">ชื่อแท็กประกอบด้วย: ?</string>
     <string name="CFC_tag_contains_name">ชื่อแท็กมี…</string>
     <string name="CFC_tag_name">แท็ก…</string>
-    <string name="CFC_tag_text">แท็ก: \?</string>
+    <string name="CFC_tag_text">แท็ก: ?</string>
     <string name="next_month">เดือนถัดไป</string>
     <string name="filter_any_start_date">วันที่เริ่มต้นใดๆ</string>
     <string name="no_start_date">ไม่มีวันที่เริ่มต้น</string>
     <string name="no_due_date">ไม่มีวันที่ครบกําหนด</string>
     <string name="CFC_startBefore_name">เริ่มโดย…</string>
-    <string name="CFC_startBefore_text">เริ่มโดย: \?</string>
+    <string name="CFC_startBefore_text">เริ่มโดย: ?</string>
     <string name="CFC_dueBefore_name">ครบกําหนดเมื่อ…</string>
-    <string name="CFC_dueBefore_text">ครบกําหนดเมื่อ: \?</string>
+    <string name="CFC_dueBefore_text">ครบกําหนดเมื่อ: ?</string>
     <string name="default_location_reminder_on_arrival_or_departure">เมื่อมาถึงและออกเดินทาง</string>
     <string name="default_location_reminder_on_departure">เมื่อออกเดินทาง</string>
     <string name="default_location_reminder_on_arrival">เมื่อมาถึง</string>
@@ -425,9 +425,9 @@
     <string name="pro_free_trial">สมาชิกใหม่ได้รับการทดลองใช้ฟรี 7 วัน ยกเลิกได้ตลอดเวลา</string>
     <string name="gtasks_GLA_errorIOAuth">ขออภัย เรามีปัญหาในการสื่อสารกับเซิร์ฟเวอร์ของ Google โปรดลองอีกครั้งในภายหลัง.</string>
     <string name="gtasks_error_accountNotFound">ไม่พบบัญชี %s โปรดออกจากระบบและเข้าสู่ระบบอีกครั้งจากการตั้งค่างานของ Google.</string>
-    <string name="EPr_manage_delete_all_gcal_message">คุณต้องการลบเหตุการณ์ทั้งหมดสําหรับงานหรือไม่\?</string>
+    <string name="EPr_manage_delete_all_gcal_message">คุณต้องการลบเหตุการณ์ทั้งหมดสําหรับงานหรือไม่?</string>
     <string name="EPr_manage_delete_all_gcal">ลบเหตุการณ์ในปฏิทินทั้งหมดสําหรับงาน</string>
-    <string name="EPr_manage_delete_completed_gcal_message">คุณต้องการลบเหตุการณ์ทั้งหมดสําหรับงานที่เสร็จสมบูรณ์หรือไม่\?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">คุณต้องการลบเหตุการณ์ทั้งหมดสําหรับงานที่เสร็จสมบูรณ์หรือไม่?</string>
     <string name="EPr_manage_delete_completed_gcal">ลบเหตุการณ์ในปฏิทินสําหรับงานที่เสร็จสมบูรณ์</string>
     <string name="EPr_delete_task_data_warning">งานทั้งหมดจะถูกลบอย่างถาวร</string>
     <string name="EPr_delete_task_data">ลบข้อมูลงาน</string>
@@ -496,7 +496,7 @@
     <string name="TEA_timer_est">ประมาณ %s</string>
     <string name="save">บันทึก</string>
     <string name="TEA_elapsedDuration_label">เวลาที่ใช้ไปแล้ว</string>
-    <string name="TEA_estimatedDuration_label">ใช้เวลานานแค่ไหน\?</string>
+    <string name="TEA_estimatedDuration_label">ใช้เวลานานแค่ไหน?</string>
     <string name="TEA_add_subtask">เพิ่มงานย่อย</string>
     <string name="FLA_new_filter">สร้างตัวกรองข้อมูลใหม่</string>
     <string name="FLA_search_filter">การจับคู่ \'%s\'</string>
@@ -513,14 +513,9 @@
     <string name="TLA_no_items">ไม่มีงานที่นี่</string>
     <string name="DLG_undo">เลิกทำ</string>
     <string name="keep_editing">แก้ไขต่อไป</string>
-    <string name="discard_confirmation">คุณแน่ใจหรือไม่ว่าคุณต้องการละทิ้งการเปลี่ยนแปลงของคุณ\?</string>
+    <string name="discard_confirmation">คุณแน่ใจหรือไม่ว่าคุณต้องการละทิ้งการเปลี่ยนแปลงของคุณ?</string>
     <string name="read_permission_label">สิทธิ์ของงาน</string>
-    <string name="import_summary_message">แฟ้ม %1$s มี %2$s อักขระ [3] อักขระ และแฟ้ม [3]
-\n
-\nนําเข้า%3$s
-\n %4$s มีอยู่แล้ว
-\n %5$s มีข้อผิดพลาด%5$s
-\n</string>
+    <string name="import_summary_message">แฟ้ม %1$s มี %2$s อักขระ [3] อักขระ และแฟ้ม [3] \n \nนําเข้า%3$s \n %4$s มีอยู่แล้ว \n %5$s มีข้อผิดพลาด%5$s \n</string>
     <string name="import_summary_title">เรียกคืนข้อมูลสรุป</string>
     <string name="export_toast">สํารองไว้ %1$s ถึง %2$s</string>
     <string name="backup_BAc_import">นําเข้าสําเนาสํารอง</string>
@@ -657,4 +652,8 @@
     <string name="custom_filter_has_reminder"></string>
     <string name="sync_warning_google_tasks"></string>
     <string name="location_update_interval_title"></string>
+    <string name="share_list"></string>
+    <string name="ok"></string>
+    <string name="cancel"></string>
+    <string name="rmd_EPr_rmd_time_desc"></string>
 </resources>
