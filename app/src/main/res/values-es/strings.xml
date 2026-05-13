@@ -61,7 +61,7 @@
     <string name="EPr_delete_task_data">Eliminar datos de la tarea</string>
     <string name="EPr_delete_task_data_warning">Se eliminarán todas las tareas permanentemente</string>
     <string name="EPr_manage_delete_completed_gcal">Borrar eventos del calendario para las tareas completadas</string>
-    <string name="EPr_manage_delete_completed_gcal_message">¿Confirma que quiere eliminar todos los eventos de las tareas completadas\?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">¿Confirma que quiere eliminar todos los eventos de las tareas completadas?</string>
     <string name="EPr_manage_delete_gcal_status">¡Se eliminaron %d eventos del calendario!</string>
     <string name="EPr_manage_delete_all_gcal">Borrar todos los eventos del calendario de las tareas</string>
     <string name="EPr_manage_delete_all_gcal_message">¿Seguro que quieres borrar todos tus eventos para las tareas?</string>
@@ -456,7 +456,7 @@
     <string name="filter_overdue">Atrasada</string>
     <string name="sort_created">En el momento de la creación</string>
     <string name="support_development_subscribe">Desbloquee funciones adicionales y apoye el software de código abierto</string>
-    <string name="enjoying_tasks">¿Disfruta Tasks\?</string>
+    <string name="enjoying_tasks">¿Disfruta Tasks?</string>
     <string name="whats_new">Qué hay de nuevo</string>
     <string name="action_new_task">Nueva tarea</string>
     <string name="sort_modified_group">Modificado %s</string>
@@ -535,7 +535,7 @@
     <string name="open_source">Código abierto</string>
     <string name="support">Asistencia</string>
     <string name="remove_user_confirmation">%1$s ya no tendrá acceso a %2$s</string>
-    <string name="remove_user">¿Quiere quitar al usuario\?</string>
+    <string name="remove_user">¿Quiere quitar al usuario?</string>
     <string name="list_members">Lista de miembros</string>
     <string name="invite_invalid">Invitación no válida</string>
     <string name="invite_awaiting_response">Invitación en espera de respuesta</string>
@@ -701,4 +701,5 @@
     <string name="banner_subscription_required_body"></string>
     <string name="location_update_interval_title"></string>
     <string name="rmd_EPr_rmd_time_desc"></string>
+    <string name="share_list"></string>
 </resources>
