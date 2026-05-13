@@ -520,7 +520,7 @@
     <string name="tasks_org_account_required">Tasks.org-Konto erforderlich</string>
     <string name="invite_awaiting_response">Einladung wartet auf Antwort</string>
     <string name="remove_user_confirmation">%1$s wird keinen Zugriff mehr auf %2$s haben</string>
-    <string name="remove_user">Benutzer entfernen\?</string>
+    <string name="remove_user">Benutzer entfernen?</string>
     <string name="list_members">Listenmitglieder</string>
     <string name="privacy">Datenschutz</string>
     <string name="invite_invalid">Einladung ungültig</string>
