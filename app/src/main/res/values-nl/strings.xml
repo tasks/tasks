@@ -441,7 +441,7 @@
     <string name="sort_created">Op aanmaaktijd</string>
     <string name="support_development_subscribe">Ontgrendel extra mogelijkheden en ondersteun opensource software</string>
     <string name="whats_new">Wat is nieuw</string>
-    <string name="enjoying_tasks">Gebruik je Tasks graag\?</string>
+    <string name="enjoying_tasks">Gebruik je Tasks graag?</string>
     <string name="action_new_task">Nieuwe taak</string>
     <string name="sort_created_group">Gemaakt %s</string>
     <string name="sort_modified_group">Bewerkt %s</string>
@@ -520,7 +520,7 @@
     <string name="open_source">Open source</string>
     <string name="list_members">Leden op de lijst</string>
     <string name="remove_user_confirmation">%1$s krijgt geen toegang meer tot %2$s</string>
-    <string name="remove_user">Gebruiker verwijderen\?</string>
+    <string name="remove_user">Gebruiker verwijderen?</string>
     <string name="invite_invalid">Uitnodiging ongeldig</string>
     <string name="invite_awaiting_response">Uitnodiging wacht op reactie</string>
     <string name="invite_declined">Uitnodiging afgewezen</string>
@@ -572,7 +572,7 @@
     <string name="randomly_every">Willekeurig elke %s</string>
     <string name="customize_edit_screen_summary">Velden herschikken of verwijderen</string>
     <string name="dismiss">Sluiten</string>
-    <string name="hint_customize_edit_title">Teveel informatie\?</string>
+    <string name="hint_customize_edit_title">Teveel informatie?</string>
     <string name="hint_customize_edit_body">Taakscherm aanpassen door velden te verschuiven of onderaan te verbergen</string>
     <string name="enable_reminders">Herinneringen aanzetten</string>
     <string name="enable_reminders_description">Herinneringen staan uit in Android Instellingen</string>
@@ -654,4 +654,5 @@
     <string name="rmd_time_enabled_off">Geen standaardherinnering toevoegen aan taken zonder tijdsaanduiding</string>
     <string name="per_list_sort_summary">Instellingen voor sorteren en groeperen voor iedere lijst apart bewaren</string>
     <string name="per_list_sort_title">Sorteren per lijst</string>
+    <string name="share_list"></string>
 </resources>
