@@ -385,7 +385,7 @@
     <string name="caldav_selection_description">Synchronisation basée sur des normes d\'Internet ouvertes</string>
     <string name="etesync_selection_description">Synchronisation du chiffrement de bout en bout</string>
     <string name="show_advanced_settings">Afficher les paramètres avancés</string>
-    <string name="help_and_feedback">Aide et remarques</string>
+    <string name="help_and_feedback">Aide et remarques</string>
     <string name="documentation">Documentation</string>
     <string name="preferences_advanced">Avancé</string>
     <string name="wearable_notifications">Notifications de la montre</string>
@@ -615,7 +615,7 @@
     <string name="repeats_never">Jamais</string>
     <string name="change_priority">Modifier la priorité</string>
     <string name="theme_dynamic">Dynamique</string>
-    <string name="donate_nag">Pensez à manifester votre soutien en faisant un don !</string>
+    <string name="donate_nag">Pensez à manifester votre soutien en faisant un don !</string>
     <string name="donate_today">Faites un don aujourd\'hui</string>
     <string name="donate_maybe_later">Peut-être plus tard</string>
     <string name="customize_drawer">Personnaliser le tiroir</string>
@@ -651,9 +651,9 @@
     <string name="cost_more_money">Coût : $$$</string>
     <string name="subtasks_multilevel_microsoft">Les sous-tâches à plusieurs niveaux ne sont pas prises en charge par Microsoft To Do</string>
     <string name="app_settings">Paramètres de l\'application</string>
-    <string name="banner_app_updated_description">Tasks vient d\'être mis à jour vers %s. Souhaitez-vous consulter les notes de mise à jour ?</string>
+    <string name="banner_app_updated_description">Tasks vient d\'être mis à jour vers %s. Souhaitez-vous consulter les notes de mise à jour ?</string>
     <string name="banner_app_updated_title">Application mise à jour</string>
-    <string name="delete_tasks_warning">%s sera supprimé. Cette opération est irréversible !</string>
+    <string name="delete_tasks_warning">%s sera supprimé. Cette opération est irréversible !</string>
     <string name="multiline_title_off">Appuyer sur Terminé pour enregistrer la tâche</string>
     <string name="widget_view_more_tasks">Voir plus de tâches</string>
     <string name="local_list_title">C\'est une liste locale</string>
@@ -664,10 +664,10 @@
     <string name="tos_updated_title">Nous avons mis à jour nos conditions d\'utilisation</string>
     <string name="accept">Accepter</string>
     <string name="exit">Sortir</string>
-    <string name="returning_user">Restaurer les données ?</string>
+    <string name="returning_user">Restaurer les données ?</string>
     <string name="import_failed_message">Impossible de lire le fichier de sauvegarde</string>
     <string name="import_failed">Échec de l\'importation</string>
-    <string name="upgrade_subscription_banner">Merci pour votre soutien ! Mettez à niveau votre abonnement pour activer la synchronisation cloud Tasks.org</string>
+    <string name="upgrade_subscription_banner">Merci pour votre soutien ! Mettez à niveau votre abonnement pour activer la synchronisation cloud Tasks.org</string>
     <string name="banner_subscription_required_title">Abonnement requis</string>
     <string name="banner_subscription_required_body">Payez ce que vous voulez pour déverrouiller la synchronisation %s</string>
     <string name="alarm_before">avant</string>
@@ -683,7 +683,7 @@
     <string name="rmd_time_enabled_off">Ne pas ajouter de rappels par défaut aux tâches quotidiennes</string>
     <string name="upgrade_email_to_task_description">Transformez vos courriels en tâches en les transférant vers votre boîte de réception privée</string>
     <string name="advanced_tools">Outils avancés</string>
-    <string name="advanced_tools_description">Google Places, CalDAV, EteSync, et plus encore !</string>
+    <string name="advanced_tools_description">Google Places, CalDAV, EteSync, et plus encore !</string>
     <string name="invalid_email_address">Adresse électronique invalide</string>
     <string name="share_list">Partager « %1$s »</string>
     <string name="send">Envoyer</string>
