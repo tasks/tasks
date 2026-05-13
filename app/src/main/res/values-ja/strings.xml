@@ -98,7 +98,7 @@
     <string name="CFC_tag_contains_name">タグ名に含む:…</string>
     <string name="CFC_tag_contains_text">タグ名に含む: ?</string>
     <string name="CFC_title_contains_name">タイトルに含む…</string>
-    <string name="CFC_title_contains_text">タイトルに含む: \?</string>
+    <string name="CFC_title_contains_text">タイトルに含む: ?</string>
     <string name="gcal_TEA_error">カレンダーに登録できませんでした！</string>
     <string name="gcal_TEA_showCalendar_label">カレンダーイベントを開く</string>
     <string name="calendar_event_not_found">カレンダーイベントが見つかりません</string>
