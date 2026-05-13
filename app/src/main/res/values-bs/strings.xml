@@ -639,4 +639,5 @@
     <string name="device_settings"></string>
     <string name="tasker_create_task"></string>
     <string name="geofence_radius"></string>
+    <string name="rmd_EPr_rmd_time_desc"></string>
 </resources>
