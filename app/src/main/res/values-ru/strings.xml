@@ -32,7 +32,7 @@
     <string name="TEA_title_hint">Название задачи</string>
     <string name="TEA_importance_label">Приоритет</string>
     <string name="TEA_note_label">Описание</string>
-    <string name="TEA_estimatedDuration_label">Сколько времени это займёт\?</string>
+    <string name="TEA_estimatedDuration_label">Сколько времени это займёт?</string>
     <string name="TEA_elapsedDuration_label">Времени уже потрачено</string>
     <string name="save">Сохранить</string>
     <string name="TEA_timer_est">Прибл. %s</string>
@@ -541,7 +541,7 @@
     <string name="default_start_date">Дата начала по умолчанию</string>
     <string name="SSD_sort_start">Дата начала</string>
     <string name="CFC_startBefore_name">Дата начала…</string>
-    <string name="CFC_startBefore_text">Дата начала: \?</string>
+    <string name="CFC_startBefore_text">Дата начала: ?</string>
     <string name="filter_any_start_date">Любая дата начала</string>
     <string name="account_not_included">Не включено в подписку \'Назовите свою цену\'</string>
     <string name="subscription">Подписка</string>
