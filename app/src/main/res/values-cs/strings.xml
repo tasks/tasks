@@ -117,6 +117,7 @@
     <plurals name="Ntasks">
         <item quantity="one">1 úkol</item>
         <item quantity="few">%d úkoly</item>
+        <item quantity="many">%d úkolů</item>
         <item quantity="other">%d úkolů</item>
     </plurals>
     <string name="today">Dnes</string>
