@@ -561,7 +561,7 @@
     <string name="invite_invalid">Приглашение недействительно</string>
     <string name="invite_awaiting_response">Приглашение в ожидании ответа</string>
     <string name="invite_declined">Приглашение отклонено</string>
-    <string name="remove_user">Удалить пользователя\?</string>
+    <string name="remove_user">Удалить пользователя?</string>
     <string name="list_members">Список участников</string>
     <string name="next_saturday">Следующая Сб</string>
     <string name="next_friday">Следующая Пт</string>
@@ -723,4 +723,5 @@
     <string name="accept"></string>
     <string name="banner_subscription_required_body"></string>
     <string name="default_reminder"></string>
+    <string name="share_list"></string>
 </resources>
