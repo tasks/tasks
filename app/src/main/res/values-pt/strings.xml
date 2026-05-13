@@ -489,7 +489,7 @@
     <string name="invite_awaiting_response">Convite a aguardar resposta</string>
     <string name="invite_declined">Convite cancelado</string>
     <string name="remove_user_confirmation">%1$s deixará de ter acesso a %2$s</string>
-    <string name="remove_user">Remover utilizador\?</string>
+    <string name="remove_user">Remover utilizador?</string>
     <string name="list_members">Lista de membros</string>
     <string name="account_not_included">Não incluído nas subscrições de \'Dê o seu preço\'</string>
     <string name="tasks_org_account_required">É necessária uma conta no Tasks.org</string>
