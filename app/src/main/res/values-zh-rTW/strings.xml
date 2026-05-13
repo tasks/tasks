@@ -188,7 +188,7 @@
     <string name="delete">刪除</string>
     <string name="list_settings">清單設定</string>
     <string name="tag_settings">標籤設定</string>
-    <string name="discard_changes">要捨棄更改嗎 \?</string>
+    <string name="discard_changes">要捨棄更改嗎 ?</string>
     <string name="menu_discard_changes">捨棄更改</string>
     <string name="discard">捨棄</string>
     <string name="date_shortcut_tomorrow_night">明天晚上</string>
@@ -218,7 +218,7 @@
     <string name="widget_show_dividers">顯示分隔線</string>
     <string name="widget_show_menu">顯示清單</string>
     <string name="voice_command_added_task">已新增的任務</string>
-    <string name="delete_tag_confirmation">要刪除 %s 嗎 \?</string>
+    <string name="delete_tag_confirmation">要刪除 %s 嗎 ?</string>
     <string name="repeat_snackbar">%1$s 重新安排至 %2$s</string>
     <string name="repeat_type_completion_capitalized">完成日期</string>
     <string name="repeat_type_completion">完成日期</string>
@@ -238,10 +238,10 @@
     <string name="snooze_all">全部延遲提醒</string>
     <string name="CFC_list_name">在清單中…</string>
     <string name="calendar_event_not_found">找不到日曆活動</string>
-    <string name="CFC_tag_contains_text">標註名稱包含: \?</string>
+    <string name="CFC_tag_contains_text">標註名稱包含: ?</string>
     <string name="CFC_tag_contains_name">標註名稱包含…</string>
     <string name="CFC_tag_name">標籤…</string>
-    <string name="CFC_tag_text">標籤: \?</string>
+    <string name="CFC_tag_text">標籤: ?</string>
     <string name="CFC_importance_name">優先級…</string>
     <string name="CFC_importance_text">優先級至少是？</string>
     <string name="default_location_reminder_on_arrival_or_departure">於出發與抵達時</string>
