@@ -2,7 +2,7 @@
 <resources>
     <string name="actfm_picture_clear">Puhastua Kuvan</string>
     <string name="read_permission_label">Tehtävien Luba</string>
-    <string name="discard_confirmation">Ihan ku tahot hüllätä sinun vaitamizet\?</string>
+    <string name="discard_confirmation">Ihan ku tahot hüllätä sinun vaitamizet?</string>
     <string name="keep_editing">Jata korjata</string>
     <string name="DLG_hour_minutes">Aiga (tunnet : minutit)</string>
     <string name="DLG_undo">Hällätä</string>
@@ -13,7 +13,7 @@
     <string name="action_call">Kučču</string>
     <string name="TVA_add_comment">Ližätä selitüxen</string>
     <string name="import_progress_read">Lugemine tehtävä %d…</string>
-    <string name="DLG_delete_this_task_question">Hävittiägö tämän tehtävän\?</string>
+    <string name="DLG_delete_this_task_question">Hävittiägö tämän tehtävän?</string>
     <string name="TLA_menu_search">Eččo</string>
     <string name="sort_completion_group"></string>
     <string name="list_separator_with_space"></string>
@@ -638,4 +638,6 @@
     <string name="import_summary_message"></string>
     <string name="geofence_radius"></string>
     <string name="no_due_date"></string>
+    <string name="ok"></string>
+    <string name="cancel"></string>
 </resources>
