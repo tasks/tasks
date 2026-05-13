@@ -82,7 +82,7 @@
     <string name="BFE_Active">Görevlerim</string>
     <string name="BFE_Recent">Yakında değiştirilenler</string>
     <string name="CFA_button_add">Ölçüt Ekle</string>
-    <string name="CFC_dueBefore_text">Bitiş: \?</string>
+    <string name="CFC_dueBefore_text">Bitiş: ?</string>
     <string name="CFC_dueBefore_name">Bitiş…</string>
     <string name="no_due_date">Bitiş tarihi yok</string>
     <string name="next_month">Gelecek Ay</string>
@@ -440,7 +440,7 @@
     <string name="custom_filter_criteria">Süzme ölçütü</string>
     <string name="sort_created">Oluşturulma zamanına göre</string>
     <string name="support_development_subscribe">Ek özellikleri açın ve açık kaynaklı yazılımı destekleyin</string>
-    <string name="enjoying_tasks">Tasks\'ı Beğeniyor Musunuz\?</string>
+    <string name="enjoying_tasks">Tasks\'ı Beğeniyor Musunuz?</string>
     <string name="whats_new">Yenilikler</string>
     <string name="action_new_task">Yeni görev</string>
     <string name="sort_created_group">%s oluşturulan</string>
@@ -509,7 +509,7 @@
     <string name="default_start_date">Öntanımlı başlangıç tarihi</string>
     <string name="SSD_sort_start">Başlangıç tarihine göre</string>
     <string name="CFC_startBefore_name">Başlangıç…</string>
-    <string name="CFC_startBefore_text">Başlangıç: \?</string>
+    <string name="CFC_startBefore_text">Başlangıç: ?</string>
     <string name="filter_any_start_date">Herhangi başlangıç tarihi</string>
     <string name="account_not_included">\'Fiyat belirle\' aboneliklerini içermez</string>
     <string name="subscription">Abonelik</string>
@@ -519,7 +519,7 @@
     <string name="open_source">Açık kaynak</string>
     <string name="support">Destek</string>
     <string name="remove_user_confirmation">%1$s, artık %2$s erişimini yitirecek</string>
-    <string name="remove_user">Kullanıcıyı kaldır\?</string>
+    <string name="remove_user">Kullanıcıyı kaldır?</string>
     <string name="list_members">Üyeleri listele</string>
     <string name="invite_invalid">Davet geçersiz</string>
     <string name="invite_awaiting_response">Davet yanıt bekliyor</string>
@@ -572,7 +572,7 @@
     <string name="randomly_every">Rastgele her %s</string>
     <string name="customize_edit_screen_summary">Alanları yeniden düzenle veya kaldır</string>
     <string name="dismiss">Kapat</string>
-    <string name="hint_customize_edit_title">Çok bilgi mi var\?</string>
+    <string name="hint_customize_edit_title">Çok bilgi mi var?</string>
     <string name="hint_customize_edit_body">Alanları yeniden düzenleyerek veya kaldırarak bu ekranı özelleştirebilirsiniz</string>
     <string name="enable_reminders">Anımsatıcıları etkinleştir</string>
     <string name="enable_reminders_description">Anımsatıcılar Android ayarlarında devre dışı bırakıldı</string>
