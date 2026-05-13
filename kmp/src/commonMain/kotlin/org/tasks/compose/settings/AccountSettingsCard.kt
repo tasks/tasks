@@ -275,6 +275,7 @@ fun ManageSubscriptionSheetContent(
     onCancel: () -> Unit,
     modifier: Modifier = Modifier,
     showUpgrade: Boolean = true,
+    showModify: Boolean = true,
 ) {
     Column(
         modifier = modifier
@@ -291,13 +292,15 @@ fun ManageSubscriptionSheetContent(
                 showChevron = false,
             )
         }
-        SettingsItemCard {
-            PreferenceRow(
-                title = stringResource(Res.string.manage_subscription),
-                icon = Icons.Outlined.Edit,
-                iconTint = MaterialTheme.colorScheme.onSurfaceVariant,
-                onClick = onModify,
-            )
+        if (showModify) {
+            SettingsItemCard {
+                PreferenceRow(
+                    title = stringResource(Res.string.manage_subscription),
+                    icon = Icons.Outlined.Edit,
+                    iconTint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    onClick = onModify,
+                )
+            }
         }
         DangerCard(
             icon = Icons.Outlined.RemoveCircleOutline,

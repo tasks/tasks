@@ -694,7 +694,6 @@
     <string name="upgrade_email_to_task_description">Transforme emails em tarefas encaminhando-os para sua caixa de entrada privada</string>
     <string name="advanced_tools">Ferramentas avançadas</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync e mais!</string>
-    <string name="upgrade_subscription_banner">Obrigado pelo apoio! Atualize sua inscrição para ativar sincronização em nuvem Tasks.org</string>
     <string name="alarm_before">antes</string>
     <string name="alarm_after">depois</string>
     <string name="alarm_start">iniciar</string>

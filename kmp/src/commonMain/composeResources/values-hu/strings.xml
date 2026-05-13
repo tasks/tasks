@@ -230,4 +230,5 @@
     <string name="restart_now">Újraindítás most</string>
     <string name="restart_later">Később</string>
     <string name="cannot_access_account">Fiók nem elérhető</string>
+    <string name="upgrade_subscription_banner">Köszönjük a támogatást. Frissítse az előfizetését a Tasks.org felhős szinkronizáció engedélyezéséhez</string>
 </resources>

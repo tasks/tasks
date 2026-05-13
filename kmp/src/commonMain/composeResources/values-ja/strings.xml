@@ -243,4 +243,5 @@
     <string name="restart_now">今すぐ再起動</string>
     <string name="restart_later">あとで</string>
     <string name="cannot_access_account">アカウントにアクセスできません</string>
+    <string name="upgrade_subscription_banner">ご支援ありがとうございます！ Tasks.org Cloudと同期するために、定期購入をアップグレードしましょう</string>
 </resources>

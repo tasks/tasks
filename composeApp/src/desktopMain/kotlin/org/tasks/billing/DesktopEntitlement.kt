@@ -46,6 +46,9 @@ class DesktopEntitlement(
     private val _formattedPrice = MutableStateFlow<String?>(null)
     val formattedPrice: Flow<String?> = _formattedPrice
 
+    private val _provider = MutableStateFlow<EntitlementProvider?>(null)
+    val provider: Flow<EntitlementProvider?> = _provider
+
     private val publicKey by lazy {
         val keyBase64 =
             "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE1ZGBhWUqfRRg78YGyVchzC0y9Ugh" +
@@ -103,6 +106,7 @@ class DesktopEntitlement(
             _hasPro.value = true
             _sku.value = stored.sku
             _formattedPrice.value = stored.formattedPrice
+            _provider.value = stored.provider
             scheduleRefresh(stored, exp)
         }
     }
@@ -119,6 +123,7 @@ class DesktopEntitlement(
         _hasPro.value = true
         _sku.value = sku
         _formattedPrice.value = formattedPrice
+        _provider.value = provider
         val exp = payload.exp
         if (exp != null) {
             scheduleRefresh(entitlement, exp)

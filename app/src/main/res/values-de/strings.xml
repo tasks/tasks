@@ -648,7 +648,6 @@
     <string name="sponsorship_required_fdroid">Ein GitHub-Sponsoring ist erforderlich, um die Tasks.org-Synchronisierung zu nutzen. Klicke unten, um Sponsor:in zu werden.</string>
     <string name="banner_subscription_required_body">Bezahle, was du möchtest, um die Synchronisierung von %s freizuschalten</string>
     <string name="banner_subscription_required_title">Abo erforderlich</string>
-    <string name="upgrade_subscription_banner">Vielen Dank für deine Unterstützung! Aktualisiere dein Abo, um Tasks.org Cloud Sync zu aktivieren</string>
     <string name="alarm_after">nach</string>
     <string name="alarm_start">Start</string>
     <string name="alarm_due">fällig</string>

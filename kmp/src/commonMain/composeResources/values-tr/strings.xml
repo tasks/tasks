@@ -289,4 +289,5 @@
     <string name="restart_now">Şimdi yeniden başlat</string>
     <string name="restart_later">Sonra</string>
     <string name="cannot_access_account">Hesaba erişilemedi</string>
+    <string name="upgrade_subscription_banner">Desteğiniz için sağ olun! Tasks.org Bulut Eşzamanlamasını etkinleştirmek için aboneliğinizi yükseltin</string>
 </resources>

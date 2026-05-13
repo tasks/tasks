@@ -644,7 +644,6 @@ File %1$s contained %2$s.\n\n
   <string name="advanced_tools">Advanced tools</string>
   <string name="advanced_tools_description">Google Places, CalDAV, EteSync, and more!</string>
   <string name="more_options">More options</string>
-  <string name="upgrade_subscription_banner">Thanks for your support! Upgrade your subscription to enable Tasks.org Cloud Sync</string>
   <string name="markdown">Markdown</string>
   <string name="markdown_description">Enable Markdown in title and description</string>
   <string name="completion_sound">Play completion sound</string>

@@ -223,4 +223,5 @@
     <string name="restart_later">稍後</string>
     <string name="blog_feed_none">無</string>
     <string name="cannot_access_account">無法存取帳號</string>
+    <string name="upgrade_subscription_banner">感謝您的支持！升級您的訂閱以啟用 Tasks.org 雲端同步</string>
 </resources>

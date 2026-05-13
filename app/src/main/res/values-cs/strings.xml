@@ -669,7 +669,6 @@
     <string name="import_failed_message">Nepodařilo se přečíst soubor zálohy</string>
     <string name="banner_subscription_required_title">Vyžadováno předplatné</string>
     <string name="banner_subscription_required_body">Zaplaťte, kolik chcete, pro odemknutí synchronizace %s</string>
-    <string name="upgrade_subscription_banner">Děkujeme za vaší podporu! Zvyšte své předplatné pro zapnutí cloudové synchronizace Tasks.org</string>
     <string name="alarm_before">před</string>
     <string name="alarm_after">po</string>
     <string name="alarm_start">začátek</string>

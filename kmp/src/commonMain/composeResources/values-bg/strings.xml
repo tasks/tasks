@@ -223,4 +223,5 @@
     <string name="restart_now">Рестартиране</string>
     <string name="restart_later">По-късно</string>
     <string name="cannot_access_account">Няма достъп до профила</string>
+    <string name="upgrade_subscription_banner">Благодаря за подкрепата! Надградете абонамента си, за да включва и облачното сонхронизиране на Tasks.org</string>
 </resources>

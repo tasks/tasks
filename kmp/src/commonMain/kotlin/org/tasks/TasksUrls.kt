@@ -11,4 +11,5 @@ object TasksUrls {
     const val PRIVACY_POLICY = "https://tasks.org/privacy"
     const val LICENSE = "https://tasks.org/license"
     const val SUPPORT_EMAIL = "support@tasks.org"
+    const val GOOGLE_PLAY_SUBSCRIPTIONS = "https://play.google.com/store/account/subscriptions"
 }

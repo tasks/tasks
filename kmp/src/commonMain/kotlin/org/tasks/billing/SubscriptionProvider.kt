@@ -8,6 +8,7 @@ interface SubscriptionProvider {
         val isMonthly: Boolean,
         val isTasksSubscription: Boolean,
         val purchaseToken: String? = null,
+        val isGitHubSponsor: Boolean = false,
     )
 
     val subscription: Flow<SubscriptionInfo?>

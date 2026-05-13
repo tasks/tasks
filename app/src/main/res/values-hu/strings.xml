@@ -648,7 +648,6 @@
     <string name="import_failed">Sikertelen importálás</string>
     <string name="banner_subscription_required_title">Előfizetés szükséges</string>
     <string name="banner_subscription_required_body">A %s szinkronizáció tetszőleges összeg fizetésével feloldható</string>
-    <string name="upgrade_subscription_banner">Köszönjük a támogatást. Frissítse az előfizetését a Tasks.org felhős szinkronizáció engedélyezéséhez</string>
     <string name="alarm_before">előtte</string>
     <string name="alarm_after">utána</string>
     <string name="alarm_start">kezdet</string>

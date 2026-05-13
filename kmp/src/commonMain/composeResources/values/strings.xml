@@ -261,6 +261,8 @@
     <string name="pricing_sponsor">Or sponsor on GitHub for %1$s</string>
     <string name="already_subscribed">Already a subscriber?</string>
     <string name="sign_in_subtitle">Already a subscriber or invited guest?</string>
+    <string name="upgrade_subscription_banner">Thanks for your support! Upgrade your subscription to enable Tasks.org Cloud Sync</string>
+    <string name="subscription_not_found">Your Tasks.org cloud subscription was not found. If you believe this is an error, contact %1$s</string>
     <string name="whats_new">What's New</string>
     <string name="version_string">Version %1$s</string>
     <string name="blog_notifications">Blog notifications</string>

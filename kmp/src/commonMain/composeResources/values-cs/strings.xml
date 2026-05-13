@@ -292,4 +292,5 @@
     <string name="restart_now">Restartovat nyní</string>
     <string name="restart_later">Později</string>
     <string name="cannot_access_account">Nepodařilo se připojit k účtu</string>
+    <string name="upgrade_subscription_banner">Děkujeme za vaší podporu! Zvyšte své předplatné pro zapnutí cloudové synchronizace Tasks.org</string>
 </resources>

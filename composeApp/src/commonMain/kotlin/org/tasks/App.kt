@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -94,7 +96,9 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
+import org.tasks.TasksUrls
 import org.tasks.auth.OAuthProvider
+import org.tasks.billing.SubscriptionProvider
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.drawer.TaskListDrawer
 
@@ -146,6 +150,7 @@ import org.tasks.data.isHidden
 import org.tasks.time.startOfDay
 import org.tasks.compose.sort.BottomSheetContent
 import org.tasks.compose.sort.SortPicker
+import org.tasks.compose.settings.ManageSubscriptionSheetContent
 import org.tasks.compose.sort.SortSheetContent
 import org.tasks.compose.sort.completedOptions
 import org.tasks.compose.sort.groupOptions
@@ -176,11 +181,14 @@ import org.tasks.viewmodel.TaskListViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
 import tasks.kmp.generated.resources.not_available_desktop
+import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.settings
 import tasks.kmp.generated.resources.show_less
 import tasks.kmp.generated.resources.show_more
+import tasks.kmp.generated.resources.subscription_not_found
 import tasks.kmp.generated.resources.url_google_play
 import tasks.kmp.generated.resources.url_sponsor
+import tasks.kmp.generated.resources.wrong_account
 
 @Serializable
 data object WelcomeDestination : NavKey
@@ -240,6 +248,8 @@ fun App(
             val configuration = koinInject<PlatformConfiguration>()
             val reporting = koinInject<Reporting>()
             val hasAccount by appViewModel.hasAccount.collectAsState()
+            val subscriptionProvider = koinInject<SubscriptionProvider>()
+            val subscriptionInfo by subscriptionProvider.subscription.collectAsState(initial = null)
 
             if (hasAccount == null) {
                 return@Surface
@@ -368,6 +378,9 @@ fun App(
                             signInState = signInState,
                             onDismiss = { addAccountViewModel.dismissError() },
                             reporting = reporting,
+                            onPaymentRequired = {
+                                backStack.add(PricingDestination(mode = PricingMode.CLOUD_ONLY, source = "sign_in_402"))
+                            },
                         )
                     }
                     entry<CaldavSignInDestination> {
@@ -396,6 +409,7 @@ fun App(
                     }
                     entry<SettingsDestination> {
                         val purchaseState = koinInject<org.tasks.billing.PurchaseState>()
+                        var showManageSheet by remember { mutableStateOf(false) }
                         SettingsScreen(
                             onBack = { backStack.removeLastOrNull() },
                             onAddAccountClick = { backStack.add(AddAccountDestination) },
@@ -408,7 +422,36 @@ fun App(
                                 }
                             },
                             onUpgradeClick = { backStack.add(PricingDestination()) },
+                            onSignInClick = {
+                                backStack.add(PricingDestination(mode = PricingMode.CLOUD_ONLY, source = "sign_in"))
+                            },
+                            onSubscribedClick = { showManageSheet = true },
                         )
+                        if (showManageSheet) {
+                            val isGitHubSponsor = subscriptionInfo?.isGitHubSponsor == true
+                            val sponsorUrl = stringResource(Res.string.url_sponsor)
+                            val googlePlayUrl = TasksUrls.GOOGLE_PLAY_SUBSCRIPTIONS
+                            ModalBottomSheet(
+                                onDismissRequest = { showManageSheet = false },
+                                containerColor = MaterialTheme.colorScheme.surface,
+                            ) {
+                                ManageSubscriptionSheetContent(
+                                    onUpgrade = {
+                                        showManageSheet = false
+                                        backStack.add(PricingDestination(mode = PricingMode.CLOUD_ONLY, source = "subscribed"))
+                                    },
+                                    onModify = {
+                                        showManageSheet = false
+                                        openUrl(sponsorUrl)
+                                    },
+                                    onCancel = {
+                                        showManageSheet = false
+                                        openUrl(if (isGitHubSponsor) sponsorUrl else googlePlayUrl)
+                                    },
+                                    showModify = isGitHubSponsor,
+                                )
+                            }
+                        }
                     }
                     entry<LinkDesktopDestination> {
                         val qrScanner = koinInject<org.tasks.billing.QrScanner>()
@@ -490,6 +533,16 @@ fun App(
                                 backStack.removeLastOrNull()
                             }
                         }
+                        LaunchedEffect(Unit) {
+                            subscriptionProvider.subscription
+                                .distinctUntilChanged()
+                                .drop(1)
+                                .collect {
+                                    if (it != null) {
+                                        backStack.removeLastOrNull()
+                                    }
+                                }
+                        }
                         val googlePlayUrl = stringResource(Res.string.url_google_play)
                         val sponsorUrl = stringResource(Res.string.url_sponsor)
                         PricingScreen(
@@ -534,6 +587,7 @@ fun App(
                                     AnalyticsEvents.PARAM_PERIOD to if (isAnnual) AnalyticsEvents.PERIOD_ANNUAL else AnalyticsEvents.PERIOD_MONTHLY,
                                 )
                             },
+                            showSupporterBanner = subscriptionInfo?.isTasksSubscription == false,
                         )
                         if (showSignInDialog) {
                             BasicAlertDialog(onDismissRequest = { showSignInDialog = false }) {
@@ -566,6 +620,7 @@ fun App(
                             signInState = signInState,
                             onDismiss = { addAccountViewModel.dismissError() },
                             reporting = reporting,
+                            onPaymentRequired = {},
                         )
                     }
                 },
@@ -581,6 +636,7 @@ private fun SignInErrorDialog(
     signInState: AddAccountViewModel.SignInState?,
     onDismiss: () -> Unit,
     reporting: Reporting,
+    onPaymentRequired: () -> Unit,
 ) {
     val errorState = signInState as? AddAccountViewModel.SignInState.Error ?: return
     LaunchedEffect(errorState) {
@@ -596,21 +652,33 @@ private fun SignInErrorDialog(
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    text = "Sign in failed",
+                    text = stringResource(Res.string.wrong_account),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
                 Text(
-                    text = errorState.message,
+                    text = if (errorState.isPaymentRequired) {
+                        stringResource(
+                            Res.string.subscription_not_found,
+                            TasksUrls.SUPPORT_EMAIL,
+                        )
+                    } else {
+                        errorState.message
+                    },
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(top = 8.dp),
                 )
                 TextButton(
-                    onClick = onDismiss,
+                    onClick = {
+                        onDismiss()
+                        if (errorState.isPaymentRequired) {
+                            onPaymentRequired()
+                        }
+                    },
                     modifier = Modifier.align(Alignment.End).padding(top = 8.dp),
                 ) {
-                    Text("OK")
+                    Text(stringResource(Res.string.ok))
                 }
             }
         }
@@ -1533,6 +1601,8 @@ private fun SettingsScreen(
     onAddAccountClick: () -> Unit,
     onLinkDesktopClick: () -> Unit = {},
     onUpgradeClick: () -> Unit,
+    onSignInClick: () -> Unit = {},
+    onSubscribedClick: () -> Unit = {},
 ) {
     val viewModel = koinViewModel<MainSettingsViewModel>()
     val proCardViewModel = koinViewModel<ProCardViewModel>()
@@ -1652,8 +1722,12 @@ private fun SettingsScreen(
                                 is ProCardState.Upgrade -> {
                                     onUpgradeClick()
                                 }
-                                is ProCardState.Subscribed -> {}
-                                is ProCardState.SignIn -> {}
+                                is ProCardState.Subscribed -> {
+                                    onSubscribedClick()
+                                }
+                                is ProCardState.SignIn -> {
+                                    onSignInClick()
+                                }
                                 is ProCardState.Donate -> {
                                     onUpgradeClick()
                                 }

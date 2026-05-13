@@ -72,6 +72,7 @@ fun PricingScreen(
     onNypSubscribeClick: () -> Unit = {},
     onNypSponsorClick: () -> Unit = {},
     onBillingToggle: (isAnnual: Boolean) -> Unit = {},
+    showSupporterBanner: Boolean = false,
 ) {
     Scaffold(
         topBar = {
@@ -103,6 +104,27 @@ fun PricingScreen(
                     .padding(horizontal = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
+                if (showSupporterBanner) {
+                    Card(
+                        modifier = Modifier
+                            .widthIn(max = 600.dp)
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp),
+                        shape = CardShape,
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                        ),
+                    ) {
+                        Text(
+                            text = stringResource(Res.string.upgrade_subscription_banner),
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            style = MaterialTheme.typography.bodyLarge,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+                }
+
                 Text(
                     text = stringResource(Res.string.pricing_subtitle),
                     style = MaterialTheme.typography.bodyLarge,
