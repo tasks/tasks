@@ -49,12 +49,12 @@
     <string name="custom_filter_not">ليس</string>
     <string name="custom_filter_and">أيضا</string>
     <string name="CFA_button_add">إضافة معايير</string>
-    <string name="CFC_dueBefore_text">مستحق بحسب: \?</string>
+    <string name="CFC_dueBefore_text">مستحق بحسب: ?</string>
     <string name="next_month">الشهر القادم</string>
     <string name="CFC_title_contains_name">العنوان يحتوي على…</string>
-    <string name="CFC_title_contains_text">العنوان يحتوي على: \?</string>
+    <string name="CFC_title_contains_text">العنوان يحتوي على: ?</string>
     <string name="gcal_TEA_showCalendar_label">افتح أحداث التقويم</string>
-    <string name="CFC_gtasks_list_text">في القائمة: \?</string>
+    <string name="CFC_gtasks_list_text">في القائمة: ?</string>
     <string name="gtasks_GTA_clear_completed">حذف المتمم</string>
     <string name="gtasks_GLA_errorIOAuth">عذرا، لم نتمكن من الاتصال مع مزود الخدمة جوجل. أعد المحاولة مرة أخرى لاحقًًا.</string>
     <string name="gtasks_GPr_header">مهام قوقل</string>
@@ -301,7 +301,7 @@
     </plurals>
     <string name="CFC_list_name">في القائمة…</string>
     <string name="calendar_event_not_found">لم يوجد حدث التقويم</string>
-    <string name="CFC_tag_contains_text">اسم العلامة يحتوي: \?</string>
+    <string name="CFC_tag_contains_text">اسم العلامة يحتوي: ?</string>
     <string name="default_location_reminder_on_arrival_or_departure">عند الوصول والمغادرة</string>
     <string name="default_location_reminder_on_departure">عند المغادرة</string>
     <string name="default_location_reminder_on_arrival">عند الوصول</string>
@@ -352,8 +352,8 @@
     <string name="location_radius_meters">%s م</string>
     <string name="header_spacing">التباعد</string>
     <string name="miscellaneous">متنوّع</string>
-    <string name="CFC_tag_text">علامة: \?</string>
-    <string name="CFC_importance_text">الأولويّة على الأقل \?</string>
+    <string name="CFC_tag_text">علامة: ?</string>
+    <string name="CFC_importance_text">الأولويّة على الأقل ?</string>
     <string name="TEA_control_timer">ضوابط المؤقت</string>
     <string name="more_options">خيارات أكثر</string>
     <string name="upgrade_open_source_description">اشتراكك يدعم التطور المستمر</string>
@@ -378,7 +378,7 @@
     <string name="tag_already_exists">العلامة موجودة مسبقًا</string>
     <string name="gtasks_error_accountNotFound">لم يتم العثور على الحساب %s، الرجاء تسجيل الخروج ثم تسجيل الدخول من إعدادات Google Tasks.</string>
     <string name="CFC_startBefore_name">بدأ عند…</string>
-    <string name="CFC_startBefore_text">بدأ عند: \?</string>
+    <string name="CFC_startBefore_text">بدأ عند: ?</string>
     <string name="astrid_sort_order_summary">تشغيل وضع ترتيب Astrid اليدوي ل\'مهامي\' و\'اليوم\' والعلامات. وضع الترتيب هذا سيستبدل ب\'ترتيبي\' في تحديثٍ مستقبلي</string>
     <string name="markdown_description">تشغيل الماركداون في العنوان والوصف</string>
     <plurals name="repeat_minutes">
@@ -719,4 +719,6 @@
     <string name="enable_alarms_description">للتأكد من إخطارك في الوقت المناسب، امنح الإذن لضبط التنبيهات والتذكيرات في الإعدادات</string>
     <string name="delete_tasks_warning">%s سيتم حذفها. لا يمكن التراجع عن ذلك!</string>
     <string name="widget_view_more_tasks">عرض المزيد من المهام</string>
+    <string name="share_list"></string>
+    <string name="rmd_EPr_rmd_time_desc"></string>
 </resources>
