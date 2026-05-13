@@ -27,7 +27,7 @@
     <string name="SSD_sort_due">Par date d\'échéance</string>
     <string name="SSD_sort_importance">Par priorité</string>
     <string name="SSD_sort_modified">Par date de dernière modification</string>
-    <string name="FLA_search_filter">Résultats pour « %s »</string>
+    <string name="FLA_search_filter">Résultats pour « %s »</string>
     <string name="FLA_new_filter">Créer un nouveau filtre</string>
     <string name="TEA_title_hint">Nom de la tâche</string>
     <string name="TEA_importance_label">Priorité</string>
@@ -192,8 +192,8 @@
     <string name="delete_tag_confirmation">Supprimer « %s » \?</string>
     <string name="TPl_notification">Minuteries actives pour « %s » !</string>
     <string name="TEA_timer_controls">Minuteur</string>
-    <string name="TEA_timer_comment_started">a commencé cette tâche :</string>
-    <string name="TEA_timer_comment_stopped">a arrêté d\'effectuer cette tâche :</string>
+    <string name="TEA_timer_comment_started">a commencé cette tâche :</string>
+    <string name="TEA_timer_comment_stopped">a arrêté d\'effectuer cette tâche :</string>
     <string name="TEA_timer_comment_spent">Temps écoulé :</string>
     <string name="voice_create_prompt">Parler pour créer une nouvelle tâche</string>
     <string name="EPr_voiceInputEnabled_title">Saisie vocale</string>
