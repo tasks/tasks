@@ -685,4 +685,22 @@
     <string name="share_list"></string>
     <string name="default_reminder"></string>
     <string name="rmd_EPr_rmd_time_desc"></string>
+    <string name="per_list_sort_title"></string>
+    <string name="location_update_interval_30_minutes"></string>
+    <string name="per_list_sort_summary"></string>
+    <string name="upgrade_friends_and_family_description"></string>
+    <string name="p_per_list_sort"></string>
+    <string name="upgrade_desktop_app"></string>
+    <string name="subscription_required_fdroid"></string>
+    <string name="upgrade_desktop_app_description"></string>
+    <string name="location_update_interval_15_minutes"></string>
+    <string name="upgrade_friends_and_family"></string>
+    <string name="location_update_interval_summary"></string>
+    <string name="send"></string>
+    <string name="guest_create_list_message"></string>
+    <string name="location_update_interval_disabled"></string>
+    <string name="location_update_interval_2_hours"></string>
+    <string name="location_update_interval_1_hour"></string>
+    <string name="read_more"></string>
+    <string name="location_update_interval_title"></string>
 </resources>
