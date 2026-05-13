@@ -35,7 +35,6 @@ android {
 
     buildFeatures {
         viewBinding = true
-        dataBinding = true
         compose = true
         buildConfig = true
     }
@@ -88,15 +87,11 @@ android {
             }
             val tasks_mapbox_key_debug: String? by project
             val tasks_google_key_debug: String? by project
-            val tasks_posthog_key: String? by project
-            val tasks_caldav_url: String? by project
             resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
             resValue("string", "google_key", tasks_google_key_debug ?: "")
-            resValue("string", "posthog_key", tasks_posthog_key ?: "")
-            resValue("string", "tasks_caldav_url", tasks_caldav_url ?: "https://caldav.tasks.org")
-            resValue("string", "tasks_nominatim_url", tasks_caldav_url ?: "https://nominatim.tasks.org")
-            resValue("string", "tasks_places_url", tasks_caldav_url ?: "https://places.tasks.org")
+            resValue("string", "posthog_key", "")
             enableUnitTestCoverage = project.hasProperty("coverage")
+            enableAndroidTestCoverage = project.hasProperty("coverage")
         }
         release {
             val tasks_mapbox_key: String? by project
@@ -157,14 +152,11 @@ val googleplayImplementation by configurations
 dependencies {
     implementation(projects.data)
     implementation(projects.kmp)
+    implementation(libs.kermit)
     implementation(projects.icons)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.adaptive.navigation.android)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
-    implementation(libs.bitfire.dav4jvm) {
-        exclude(group = "junit")
-        exclude(group = "org.ogce", module = "xpp3")
-    }
     implementation(libs.bitfire.ical4android) {
         exclude(group = "commons-logging")
         exclude(group = "org.json", module = "json")
@@ -189,6 +181,7 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.fragment.compose)
+    implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel)
@@ -203,7 +196,6 @@ dependencies {
     implementation(libs.markwon.tables)
     implementation(libs.markwon.tasklist)
 
-    debugImplementation(libs.leakcanary)
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation(libs.kotlin.reflect)
 
@@ -227,7 +219,6 @@ dependencies {
         isTransitive = false
     }
     implementation(libs.shortcut.badger)
-    implementation(libs.google.api.tasks)
     implementation(libs.google.api.drive)
     implementation(libs.google.oauth2)
     implementation(libs.androidx.work)
@@ -261,7 +252,7 @@ dependencies {
     googleplayImplementation(platform(libs.firebase))
     googleplayImplementation(libs.firebase.crashlytics)
     googleplayImplementation(libs.posthog.android)
-    googleplayImplementation(libs.firebase.config.ktx)
+    googleplayImplementation(libs.firebase.config)
     googleplayImplementation(libs.firebase.messaging)
     googleplayImplementation(libs.play.services.location)
     googleplayImplementation(libs.play.services.maps)
@@ -272,6 +263,7 @@ dependencies {
     googleplayImplementation(libs.horologist.datalayer.grpc)
     googleplayImplementation(libs.horologist.datalayer.core)
     googleplayImplementation(libs.play.services.wearable)
+    googleplayImplementation(libs.play.services.code.scanner)
     googleplayImplementation(libs.microsoft.authentication) {
         exclude("com.microsoft.device.display", "display-mask")
     }

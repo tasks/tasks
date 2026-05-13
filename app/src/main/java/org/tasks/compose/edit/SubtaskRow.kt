@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.dp
 import org.tasks.compose.CheckBox
 import org.tasks.compose.ClearButton
 import org.tasks.compose.DisabledText
-import org.tasks.compose.SubtaskChip
+import org.tasks.compose.chips.SubtaskChip
 import org.tasks.compose.TaskEditIcon
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.TaskContainer

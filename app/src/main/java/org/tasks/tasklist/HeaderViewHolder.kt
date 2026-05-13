@@ -23,7 +23,7 @@ class HeaderViewHolder(
     fun bind(filter: Filter, groupMode: Int, section: AdapterSection) {
         sortGroup = section.value
         val header = if (filter.supportsSorting()) {
-            headerFormatter.headerStringBlocking(section.value)
+            headerFormatter.headerStringBlocking(section.value, groupMode)
         } else {
             null
         }

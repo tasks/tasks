@@ -37,7 +37,7 @@ class MicrosoftService(
 
     suspend fun deleteList(listId: String) = client.delete("$baseUrl/lists/$listId")
 
-    suspend fun getTasks(listId: String) = client.get("$baseUrl/lists/$listId/tasks/delta")
+    suspend fun getTasks(listId: String) = client.get("$baseUrl/lists/$listId/tasks/delta?\$expand=checklistItems")
 
     suspend fun paginateTasks(nextPage: String) = client.get(nextPage)
 

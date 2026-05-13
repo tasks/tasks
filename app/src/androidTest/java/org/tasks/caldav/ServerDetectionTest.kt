@@ -13,6 +13,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_UNKNOWN
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
+import okhttp3.mockwebserver.MockResponse
 
 @HiltAndroidTest
 class ServerDetectionTest : CaldavTest() {
@@ -86,6 +87,14 @@ class ServerDetectionTest : CaldavTest() {
             it.copy(id = caldavDao.insert(it))
         }
         this.headers.putAll(headers)
+        if (accountType == TYPE_TASKS) {
+            server.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setHeader("Content-Type", "application/json")
+                    .setBody("""{"guest": false}""")
+            )
+        }
         enqueue(NO_CALENDARS)
     }
 

@@ -1,0 +1,11 @@
+* Wear OS improvements
+  * Wear OS app works over WiFi now
+  * Configure group and sort mode
+  * Fix connection issues
+* Add Wear OS complications
+  * 'Progress' complication
+  * 'Next task' complication
+  * 'Add task' complication
+  * 'Task count' complication
+  * 'Shortcut' complication
+* Default to calendar picker when autoclose is enabled

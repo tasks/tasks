@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -91,14 +92,14 @@ class FilterPickerViewModel @Inject constructor(
 
     fun getIcon(filter: Filter): String? = filter.getIcon(inventory)
 
-    fun getColor(filter: Filter): Int {
+    fun getColor(context: Context, filter: Filter): Int {
         if (filter.tint != 0) {
             val color = colorProvider.getThemeColor(filter.tint, true)
             if (color.isFree || inventory.purchasedThemes()) {
                 return color.primaryColor
             }
         }
-        return context.getColor(R.color.text_primary)
+        return MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurface, 0)
     }
 
     override fun onCleared() {

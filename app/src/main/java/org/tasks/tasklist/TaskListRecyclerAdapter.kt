@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterDataSource
-import com.todoroo.astrid.core.SortHelper
-import org.tasks.filters.AstridOrderingFilter
 import org.tasks.preferences.Preferences
 
 abstract class TaskListRecyclerAdapter internal constructor(
@@ -22,13 +20,10 @@ abstract class TaskListRecyclerAdapter internal constructor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val filter = taskList.getFilter()
-        val groupsEnabled = filter.supportsSorting()
-                && !(filter.supportsManualSort() && preferences.isManualSort)
-                && !(filter is AstridOrderingFilter && preferences.isAstridSort)
         val task = getItem(position)
         if (task != null) {
             (holder as TaskViewHolder)
-                    .bindView(task, filter, if (groupsEnabled) preferences.groupMode else SortHelper.GROUP_NONE)
+                    .bindView(task, filter, groupMode)
             holder.moving = false
             val indent = adapter.getIndent(task)
             task.indent = indent
@@ -51,6 +46,8 @@ abstract class TaskListRecyclerAdapter internal constructor(
     abstract fun dragAndDropEnabled(): Boolean
 
     abstract fun submitList(list: SectionedDataSource)
+
+    abstract val groupMode: Int
 
     override fun onInserted(position: Int, count: Int) {
         notifyItemRangeInserted(position, count)

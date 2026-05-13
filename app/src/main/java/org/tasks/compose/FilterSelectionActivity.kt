@@ -76,7 +76,7 @@ class FilterSelectionActivity : AppCompatActivity() {
                         query = state.query,
                         onQueryChange = { viewModel.onQueryChange(it) },
                         getIcon = { viewModel.getIcon(it) },
-                        getColor = { viewModel.getColor(it) },
+                        getColor = { viewModel.getColor(this@FilterSelectionActivity, it) },
                         selected = selected,
                         onClick = { filter ->
                             when (filter) {

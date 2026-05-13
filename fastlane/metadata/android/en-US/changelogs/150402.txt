@@ -1,0 +1,3 @@
+* QR code scanner to unlock desktop (Google Play only)
+* Updated DAVx5, CalDAV, and EteSync settings screens
+* Update translations

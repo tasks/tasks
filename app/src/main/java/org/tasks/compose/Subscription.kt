@@ -11,20 +11,25 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
@@ -36,7 +41,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
@@ -58,9 +62,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import tasks.kmp.generated.resources.sign_in
+import tasks.kmp.generated.resources.sign_in_subtitle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -70,13 +75,18 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.billing.Sku
 import org.tasks.compose.Constants.HALF_KEYLINE
 import org.tasks.compose.Constants.KEYLINE_FIRST
 import org.tasks.compose.PurchaseText.SubscriptionScreen
+import org.tasks.compose.settings.SettingsCardRadius
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.url_sponsor
 
 object PurchaseText {
     private const val POPPER = "\uD83C\uDF89"
@@ -92,20 +102,25 @@ object PurchaseText {
 
     private val nameYourPriceFeatureList = listOf(
         CarouselItem(
+            title = R.string.upgrade_desktop_app,
+            icon = R.drawable.ic_outline_computer_24px,
+            description = R.string.upgrade_desktop_app_description,
+        ),
+        CarouselItem(
             R.string.upgrade_more_customization,
             R.drawable.ic_outline_palette_24px,
             R.string.upgrade_more_customization_description
-        ),
-        CarouselItem(
-            R.string.open_source,
-            R.drawable.ic_outline_favorite_border_24px,
-            R.string.upgrade_open_source_description
         ),
         CarouselItem(
             R.string.tasks_org_account,
             R.drawable.ic_round_icon,
             R.string.account_not_included,
             iconStyle = IconStyle.GRAYSCALE
+        ),
+        CarouselItem(
+            R.string.open_source,
+            R.drawable.ic_outline_favorite_border_24px,
+            R.string.upgrade_open_source_description
         ),
         CarouselItem(
             R.string.davx5,
@@ -134,10 +149,14 @@ object PurchaseText {
 
     private val tasksOrgFeatureList = listOf(
         CarouselItem(
-            R.string.tasks_org_account,
-            R.drawable.ic_round_icon,
-            R.string.upgrade_tasks_org_account_description,
-            iconStyle = IconStyle.ORIGINAL
+            title = R.string.upgrade_desktop_app,
+            icon = R.drawable.ic_outline_computer_24px,
+            description = R.string.upgrade_desktop_app_description,
+        ),
+        CarouselItem(
+            title = R.string.upgrade_friends_and_family,
+            icon = R.drawable.outline_groups_24,
+            description = R.string.upgrade_friends_and_family_description,
         ),
         CarouselItem(
             R.string.email_to_task,
@@ -145,14 +164,15 @@ object PurchaseText {
             R.string.upgrade_email_to_task_description
         ),
         CarouselItem(
+            R.string.tasks_org_account,
+            R.drawable.ic_round_icon,
+            R.string.upgrade_tasks_org_account_description,
+            iconStyle = IconStyle.ORIGINAL
+        ),
+        CarouselItem(
             R.string.upgrade_more_customization,
             R.drawable.ic_outline_palette_24px,
             R.string.upgrade_more_customization_description
-        ),
-        CarouselItem(
-            R.string.upgrade_desktop_access,
-            R.drawable.ic_outline_computer_24px,
-            R.string.upgrade_desktop_access_description
         ),
         CarouselItem(
             R.string.open_source,
@@ -175,6 +195,7 @@ object PurchaseText {
         github: Boolean = false,
         showMoreOptions: Boolean = true,
         existingSubscriber: Boolean = false,
+        hasTasksAccount: Boolean = false,
         onSignIn: () -> Unit = {},
         snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
         setPrice: (Float) -> Unit,
@@ -184,6 +205,8 @@ object PurchaseText {
         onBack: () -> Unit,
     ) {
         Scaffold(
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentWindowInsets = WindowInsets(0, 0, 0, 0),
             topBar = {
                 TopAppBar(
                     title = {
@@ -205,7 +228,7 @@ object PurchaseText {
                         }
                     },
                     actions = {
-                        if (existingSubscriber) {
+                        if (existingSubscriber && !github && !hasTasksAccount) {
                             var expanded by remember { mutableStateOf(false) }
                             IconButton(onClick = { expanded = true }) {
                                 Icon(
@@ -218,7 +241,7 @@ object PurchaseText {
                                 onDismissRequest = { expanded = false },
                             ) {
                                 DropdownMenuItem(
-                                    text = { Text(stringResource(R.string.sign_in)) },
+                                    text = { Text(org.jetbrains.compose.resources.stringResource(Res.string.sign_in)) },
                                     onClick = {
                                         expanded = false
                                         onSignIn()
@@ -228,7 +251,7 @@ object PurchaseText {
                         }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.background
+                        containerColor = MaterialTheme.colorScheme.surface
                     )
                 )
             },
@@ -239,10 +262,10 @@ object PurchaseText {
                     .padding(paddingValues)
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
-                    .background(color = colorResource(R.color.content_background)),
+                    .background(color = MaterialTheme.colorScheme.surface),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                if (existingSubscriber) {
+                if (existingSubscriber && !nameYourPrice && !showMoreOptions && !github) {
                     ElevatedCard(
                         modifier = Modifier
                             .widthIn(max = 480.dp)
@@ -261,12 +284,15 @@ object PurchaseText {
                         )
                     }
                 }
-                OutlinedCard(
+                Card(
                     modifier = Modifier
                         .widthIn(max = 480.dp)
                         .fillMaxWidth()
                         .padding(KEYLINE_FIRST, KEYLINE_FIRST, KEYLINE_FIRST, 0.dp),
-                    shape = MaterialTheme.shapes.large,
+                    shape = RoundedCornerShape(SettingsCardRadius),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+                    ),
                 ) {
                     GreetingText(R.string.upgrade_blurb_1)
                     GreetingText(R.string.upgrade_blurb_2)
@@ -301,7 +327,21 @@ object PurchaseText {
                     }
                 }
                 if (github) {
+                    Spacer(Modifier.height(KEYLINE_FIRST))
                     SponsorButton()
+                    Spacer(Modifier.height(KEYLINE_FIRST))
+                    Button(
+                        onClick = onSignIn,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                    ) {
+                        Text(
+                            text = org.jetbrains.compose.resources.stringResource(Res.string.sign_in),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
                 } else {
                     GooglePlayButtons(
                         nameYourPrice = nameYourPrice,
@@ -309,6 +349,7 @@ object PurchaseText {
                         scrollState = scrollState,
                         showMoreOptions = showMoreOptions,
                         existingSubscriber = existingSubscriber,
+                        hasTasksAccount = hasTasksAccount,
                         onSignIn = onSignIn,
                         setNameYourPrice = setNameYourPrice,
                         setPrice = setPrice,
@@ -316,6 +357,8 @@ object PurchaseText {
                         skus = skus,
                     )
                 }
+                Spacer(Modifier.height(KEYLINE_FIRST))
+                Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
             }
         }
     }
@@ -324,10 +367,10 @@ object PurchaseText {
     fun SponsorButton() {
         val context = LocalContext.current
         OutlinedButton(
-            onClick = { context.openUri(R.string.url_sponsor) },
+            onClick = { context.openUri(runBlocking { getString(Res.string.url_sponsor) }) },
             colors = ButtonDefaults.outlinedButtonColors(
-                containerColor = MaterialTheme.colorScheme.secondary,
-                contentColor = MaterialTheme.colorScheme.onSecondary
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
             ),
             modifier = Modifier.padding(KEYLINE_FIRST, 0.dp, KEYLINE_FIRST, KEYLINE_FIRST)
         ) {
@@ -338,7 +381,7 @@ object PurchaseText {
                 )
                 Text(
                     text = stringResource(R.string.github_sponsor),
-                    color = MaterialTheme.colorScheme.onSecondary,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
@@ -365,6 +408,7 @@ object PurchaseText {
         scrollState: ScrollState,
         showMoreOptions: Boolean = true,
         existingSubscriber: Boolean = false,
+        hasTasksAccount: Boolean = false,
         onSignIn: () -> Unit = {},
         setNameYourPrice: (Boolean) -> Unit,
         setPrice: (Float) -> Unit,
@@ -444,21 +488,27 @@ object PurchaseText {
                             )
                     )
                     CircularProgressIndicator(
-                        color = MaterialTheme.colorScheme.secondary,
+                        color = MaterialTheme.colorScheme.primary,
                     )
                 }
             }
-            if (!showMoreOptions && !existingSubscriber) {
-                Spacer(Modifier.height(KEYLINE_FIRST))
-                OutlinedButton(
+            if (!showMoreOptions && !existingSubscriber && !hasTasksAccount) {
+                Spacer(Modifier.height(32.dp))
+                Text(
+                    text = org.jetbrains.compose.resources.stringResource(Res.string.sign_in_subtitle),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Spacer(Modifier.height(4.dp))
+                Button(
                     onClick = onSignIn,
-                    colors = ButtonDefaults.textButtonColors(
-                        containerColor = Color.Transparent
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                 ) {
                     Text(
-                        text = stringResource(R.string.already_subscribed),
-                        color = MaterialTheme.colorScheme.onSurface,
+                        text = org.jetbrains.compose.resources.stringResource(Res.string.sign_in),
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
@@ -483,7 +533,7 @@ object PurchaseText {
                     IconStyle.GRAYSCALE -> ColorFilter.colorMatrix(
                         ColorMatrix().apply { setToSaturation(0f) }
                     )
-                    IconStyle.TINT -> ColorFilter.tint(colorResource(R.color.icon_tint_with_alpha))
+                    IconStyle.TINT -> ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant)
                     IconStyle.ORIGINAL -> null
                 }
             )
@@ -561,7 +611,7 @@ object PurchaseText {
             Button(
                 onClick = { onClick() },
                 colors = ButtonDefaults.textButtonColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
+                    containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
                 Text(
@@ -569,7 +619,7 @@ object PurchaseText {
                         if (monthly) R.string.price_per_month_with_currency else R.string.price_per_year_with_currency,
                         price
                     ),
-                    color = MaterialTheme.colorScheme.onSecondary,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
@@ -602,7 +652,7 @@ object PurchaseText {
                     colors = SliderDefaults.colors(
                         thumbColor = MaterialTheme.colorScheme.secondary,
                         activeTrackColor = MaterialTheme.colorScheme.secondary,
-                        inactiveTrackColor = colorResource(R.color.text_tertiary),
+                        inactiveTrackColor = MaterialTheme.colorScheme.outline,
                         activeTickColor = Color.Transparent,
                         inactiveTickColor = Color.Transparent
                     )

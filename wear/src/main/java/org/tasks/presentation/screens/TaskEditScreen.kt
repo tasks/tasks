@@ -29,8 +29,13 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.fillMaxRectangle
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
+import org.jetbrains.compose.resources.stringResource
 import org.tasks.presentation.components.Card
 import org.tasks.presentation.components.Checkbox
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.enter_title
+import tasks.kmp.generated.resources.new_task
+import tasks.kmp.generated.resources.save
 
 @OptIn(ExperimentalHorologistApi::class)
 @Composable
@@ -56,9 +61,10 @@ fun TaskEditScreen(
             back()
         }
     }
+    val enterTitleLabel = stringResource(Res.string.enter_title)
     LaunchedEffect(uiState.taskId) {
         if (uiState.taskId == 0L) {
-            keyboardInputRequest.openKeyboard()
+            keyboardInputRequest.openKeyboard(enterTitleLabel)
         }
     }
     if (!uiState.loaded) {
@@ -79,8 +85,10 @@ fun TaskEditScreen(
                 modifier = Modifier.fillMaxSize(),
                 columnState = columnState,
             ) {
-                item {
-                    Text("New task")
+                if (uiState.taskId == 0L) {
+                    item {
+                        Text(stringResource(Res.string.new_task))
+                    }
                 }
                 item {
                     Card(
@@ -95,11 +103,21 @@ fun TaskEditScreen(
                         content = {
                             Text(
                                 text = uiState.title,
-                                modifier = Modifier.padding(vertical = 4.dp),
+                                modifier = Modifier.padding(top = 4.dp, end = 8.dp, bottom = 4.dp),
                             )
                         },
-                        onClick = { keyboardInputRequest.openKeyboard() },
+                        onClick = { keyboardInputRequest.openKeyboard(enterTitleLabel) },
                     )
+                }
+                if (uiState.description.isNotBlank()) {
+                    item {
+                        Text(
+                            text = uiState.description,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 8.dp),
+                        )
+                    }
                 }
                 item {
                     Button(
@@ -107,7 +125,7 @@ fun TaskEditScreen(
                         colors = ButtonDefaults.buttonColors(),
                         modifier = Modifier.fillMaxWidth(),
                     ) {
-                        Text("Save")
+                        Text(stringResource(Res.string.save))
                     }
                 }
             }
@@ -115,12 +133,12 @@ fun TaskEditScreen(
     }
 }
 
-private fun ManagedActivityResultLauncher<Intent, ActivityResult>.openKeyboard() {
+private fun ManagedActivityResultLauncher<Intent, ActivityResult>.openKeyboard(label: String) {
     val intent: Intent = RemoteInputIntentHelper.createActionRemoteInputIntent()
     val remoteInputs: List<RemoteInput> = listOf(
         RemoteInput
             .Builder("input")
-            .setLabel("Enter title")
+            .setLabel(label)
             .setAllowFreeFormInput(true)
             .wearableExtender {
                 setInputActionType(EditorInfo.IME_ACTION_DONE)

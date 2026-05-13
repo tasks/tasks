@@ -40,7 +40,6 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.http.HttpClientFactory
 import org.tasks.jobs.WorkManager
-import org.tasks.preferences.fragments.TasksAccountViewModel.Companion.getStringOrNull
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
@@ -144,7 +143,7 @@ class MicrosoftAuthenticationActivity : ComponentActivity() {
             )
             .execute()
         val response = userInfo.body?.string() ?: return@withContext null
-        JSONObject(response).getStringOrNull("email")
+        JSONObject(response).optString("email", null)
     }
 
     private fun error(message: String) {

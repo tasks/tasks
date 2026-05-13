@@ -4,25 +4,22 @@ import android.net.Uri
 import org.tasks.data.entity.Task
 import org.tasks.BuildConfig
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.Place
 import org.tasks.sync.SyncSource
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
-interface WorkManager {
+interface WorkManager : BackgroundWork {
 
-    fun updateCalendar(task: Task)
+    override fun updateCalendar(task: Task)
 
-    fun migrateLocalTasks(caldavAccount: CaldavAccount)
+    override fun migrateLocalTasks(caldavAccount: CaldavAccount)
 
-    suspend fun sync(source: SyncSource)
+    override suspend fun sync(source: SyncSource)
 
     suspend fun startEnqueuedSync()
 
-    fun reverseGeocode(place: Place)
+    override fun updateBackgroundSync()
 
-    fun updateBackgroundSync()
-
-    suspend fun scheduleRefresh(timestamp: Long = currentTimeMillis() + 5_000)
+    override suspend fun scheduleRefresh(timestamp: Long)
 
     fun triggerNotifications(expedited: Boolean = false)
 
@@ -36,6 +33,8 @@ interface WorkManager {
 
     fun updatePurchases()
 
+    override suspend fun scheduleBlogFeedCheck()
+
     companion object {
         val REMOTE_CONFIG_INTERVAL_HOURS = if (BuildConfig.DEBUG) 1 else 12.toLong()
         const val TAG_BACKUP = "tag_backup"
@@ -46,5 +45,7 @@ interface WorkManager {
         const val TAG_MIGRATE_LOCAL = "tag_migrate_local"
         const val TAG_UPDATE_PURCHASES = "tag_update_purchases"
         const val TAG_NOTIFICATIONS = "tag_notifications"
+        const val TAG_BLOG_FEED = "tag_blog_feed"
+        const val BLOG_FEED_INTERVAL_HOURS = 24.toLong()
     }
 }

@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:+//IDN tasks.org//android-150200//EN
+BEGIN:VTODO
+DTSTAMP:20260328T173336Z
+UID:folding-test-description
+CREATED:20260324T212202Z
+LAST-MODIFIED:20260328T173332Z
+SUMMARY:Test task
+DESCRIPTION:[Google](www.google.com) link with *bold*\n\nLet's make this lo
+ ngerrrr\, shall we? Here is _underline_ and **bold**\n\nAnd another line.
+PRIORITY:9
+END:VTODO
+END:VCALENDAR

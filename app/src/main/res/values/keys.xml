@@ -3,9 +3,8 @@
   This file contains preference keys and preference list values.
   These should not be translated 
 -->
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
   <string name="app_package">org.tasks</string>
-  <string name="opentasks_authority" tools:node="replace">org.tasks.opentasks</string>
   <string name="backup_api_key">AEdPqrEAAAAI49v5bBusi_bq1bgLBB1LIsepNV0eBrFkQrBZkw</string>
   <string name="FSA_label">Tasks Shortcut</string>
   <string name="caldav">CalDAV</string>
@@ -17,12 +16,6 @@
   <string name="microsoft">Microsoft To&#xA0;Do</string>
   <string name="etebase_url">https://api.etebase.com/partner/tasksorg/</string>
   <string name="help_url_sync">https://tasks.org/sync</string>
-  <string name="caldav_server_owncloud">ownCloud</string>
-  <string name="caldav_server_nextcloud">Nextcloud</string>
-  <string name="caldav_server_sabredav">sabre/dav</string>
-  <string name="caldav_server_openxchange">Open-Xchange</string>
-  <string name="caldav_server_synology_calendar">Synology Calendar</string>
-  <string name="caldav_server_mailbox_org">Mailbox.org</string>
 
   <string name="url_davx5">https://tasks.org/davx5</string>
   <string name="url_caldav">https://tasks.org/caldav</string>
@@ -30,18 +23,7 @@
   <string name="url_decsync">https://tasks.org/decsync</string>
   <string name="url_tasker">https://tasks.org/help/tasker</string>
   <string name="url_donate">https://tasks.org/donate</string>
-  <string name="url_reddit">https://reddit.com/r/tasks</string>
-  <string name="url_twitter">https://twitter.com/tasks_org</string>
-  <string name="url_sponsor">https://github.com/sponsors/abaker</string>
-  <string name="url_app_passwords">https://tasks.org/passwords</string>
   <string name="url_filters">https://tasks.org/filters</string>
-  <string name="url_documentation">https://tasks.org/</string>
-  <string name="url_issue_tracker">https://github.com/tasks/tasks/issues</string>
-  <string name="url_changelog">https://tasks.org/changelog</string>
-  <string name="url_source_code">https://tasks.org/source</string>
-  <string name="url_license">https://tasks.org/license</string>
-  <string name="url_tos">https://tasks.org/terms</string>
-  <string name="url_privacy_policy">https://tasks.org/privacy</string>
   <string name="url_backups">https://tasks.org/backups</string>
   <string name="url_translations">https://tasks.org/translations</string>
   <string name="url_notifications">https://tasks.org/notifications</string>
@@ -199,6 +181,7 @@
   <string name="p_default_reminders_key">p_def_reminders_v2</string>
   <string name="p_default_alarms">p_default_alarms</string>
   <string name="p_default_location_reminder_key">p_def_location_reminders</string>
+  <string name="p_location_update_interval">p_location_update_interval</string>
 
   <!-- default reminder mode setting (corresponds to entry in TEA_reminder_mode_once, TEA_reminder_mode_five, TEA_reminder_mode_nonstop) -->
   <string name="p_default_reminders_mode_key">rmd_default_reminder_mode</string>
@@ -353,11 +336,8 @@
   <string name="p_bundle_notifications">bundle_notifications</string>
   <string name="p_strict_mode_vm">strict_mode_vm</string>
   <string name="p_strict_mode_thread">strict_mode_thread</string>
-  <string name="p_leakcanary">p_leakcanary</string>
   <string name="p_debug_pro">debug_pro</string>
   <string name="p_crash_main_queries">debug_crash_main_queries</string>
-  <string name="p_sync_ongoing">sync_ongoing</string>
-  <string name="p_sync_ongoing_android">sync_ongoing_android</string>
   <string name="p_last_backup">last_backup</string>
   <string name="p_show_description">show_description</string>
   <string name="p_show_full_description">show_full_description</string>
@@ -392,7 +372,6 @@
   <string name="p_default_location">default_location</string>
   <string name="p_warn_notifications_disabled">warn_notifications_disabled</string>
   <string name="p_warn_alarms_disabled">warn_alarms_disabled</string>
-  <string name="p_warn_quiet_hours_enabled">warn_quiet_hours_enabled</string>
   <string name="p_warn_microsoft">warn_microsoft</string>
   <string name="p_warn_google_tasks">warn_google_Tasks</string>
   <string name="p_local_list_banner_dismissed">local_list_banner_dismissed</string>
@@ -411,8 +390,12 @@
   <string name="event_sync_add_account">sync_add_account</string>
   <string name="event_initial_sync_complete">initial_sync_complete</string>
   <string name="param_task_count">task_count</string>
+  <string name="param_import_count">import_count</string>
+  <string name="param_skip_count">skip_count</string>
   <string name="event_sync_unknown_access">sync_unknown_access</string>
   <string name="event_banner">banner</string>
+  <string name="event_pebble">pebble</string>
+  <string name="param_device_model">device_model</string>
   <string name="event_add_task">add_task</string>
   <string name="event_complete_task">complete_task</string>
   <string name="event_request_review">request_review</string>
@@ -434,6 +417,7 @@
   <string name="event_settings_click">settings_click</string>
   <string name="event_help_and_feedback">help_and_feedback</string>
   <string name="event_notification">notification</string>
+  <string name="event_preference_changed">preference_changed</string>
   <string name="event_widget_click">widget_click</string>
   <string name="param_widget_id">widget_id</string>
   <string name="event_multi_select">multi_select</string>
@@ -441,6 +425,8 @@
   <string name="event_screen_welcome">screen_welcome</string>
   <string name="event_screen_add_account">screen_add_account</string>
   <string name="event_settings_navigation">settings_navigation</string>
+  <string name="event_pro_card">pro_card</string>
+  <string name="param_key">key</string>
   <string name="param_type">type</string>
   <string name="param_screen">screen</string>
   <string name="param_error">error</string>
@@ -455,5 +441,4 @@
   <string name="p_multiline_title">multiline_title</string>
   <string name="p_dynamic_color">dynamic_color</string>
   <string name="remote_config_tos_version">tos_version</string>
-  <integer name="default_tos_version">1</integer>
 </resources>

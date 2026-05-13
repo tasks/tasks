@@ -28,7 +28,6 @@ class ViewHolderFactory @Inject constructor(
     private val headerFormatter: HeaderFormatter,
     private val theme: Theme,
 ) {
-    private val textColorSecondary: Int = ResourceResolver.getData(context, android.R.attr.textColorSecondary)
     private val textColorOverdue: Int = context.getColor(R.color.overdue)
     private val fontSize: Int = preferences.fontSize
     private val metrics: DisplayMetrics = context.resources.displayMetrics
@@ -56,7 +55,6 @@ class ViewHolderFactory @Inject constructor(
                 chipProvider,
                 checkBoxProvider,
                 textColorOverdue,
-                textColorSecondary,
                 callbacks,
                 metrics,
                 background,

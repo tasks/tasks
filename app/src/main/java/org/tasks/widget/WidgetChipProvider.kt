@@ -13,20 +13,21 @@ import org.tasks.data.entity.Task
 import org.tasks.data.isHidden
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.extensions.setColorFilter
+import org.tasks.themes.chipColors
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import org.tasks.filters.getIcon
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.time.startOfDay
-import org.tasks.ui.ChipListCache
+import org.tasks.compose.chips.ChipDataProvider
 import javax.inject.Inject
 
 class WidgetChipProvider @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val chipListCache: ChipListCache,
+    private val chipListCache: ChipDataProvider,
     private val inventory: Inventory,
 ) {
     var isDark = false
@@ -55,7 +56,7 @@ class WidgetChipProvider @Inject constructor(
             val time = if (sortByStartDate && task.sortGroup?.startOfDay() == task.task.hideUntil.startOfDay()) {
                 task.task.hideUntil
                     .takeIf { Task.hasDueTime(it) }
-                    ?.let { getTimeString(it, context.is24HourFormat) }
+                    ?.let { formatTime(it, context.is24HourFormat) }
                     ?: return null
             } else {
                 runBlocking {
@@ -127,15 +128,14 @@ class WidgetChipProvider @Inject constructor(
         }
 
     private fun newChip(@ColorInt color: Int = 0) = RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_chip).apply {
-        val tint = if (color == 0) {
-            context.getColor(
-                if (isDark) R.color.icon_tint_dark_alpha else R.color.icon_tint_light_alpha
-            )
+        val seedColor = if (color == 0) {
+            context.getColor(org.tasks.kmp.R.color.grey_300)
         } else {
             color
         }
-        setColorFilter(R.id.chip_icon, tint)
-        setColorFilter(R.id.chip_background, tint)
-        setTextColor(R.id.chip_text, tint)
+        val colors = chipColors(seedColor, isDark)
+        setColorFilter(R.id.chip_icon, colors.contentColor)
+        setColorFilter(R.id.chip_background, colors.backgroundColor)
+        setTextColor(R.id.chip_text, colors.contentColor)
     }
 }

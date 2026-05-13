@@ -1,65 +1,99 @@
 package org.tasks.kmp.org.tasks.themes
 
 import org.tasks.data.entity.Task
+import org.tasks.themes.ColorTone
+import org.tasks.themes.contentColor
+import org.tasks.themes.tonalColor
+
+data class ThemeColor(
+    val originalColor: Int,
+    val primaryColor: Int,
+    val onPrimaryColor: Int,
+)
 
 object ColorProvider {
     const val BLUE_500 = -14575885
     private const val RED_500 = -769226
     private const val AMBER_500 = -16121
     private const val GREY_500 = -6381922
-    private const val GREY_900 = -14606047
     const val WHITE = -1
     const val BLACK = -16777216
 
-    val saturated: Map<Int, Int> = hashMapOf(
-        // 2014 material design palette
-        -10453621 to -7297874, // blue_grey
-        RED_500 to -1739917, // red
-        -1499549 to -1023342, // pink
-        -6543440 to -4560696, // purple
-        -10011977 to -6982195, // deep purple
-//                -12627531 to -8812853, // indigo
-        BLUE_500 to -10177034, // blue
-        -16537100 to -11549705, // light blue
-        -16728876 to -11677471, // cyan
-//                -16738680 to -11684180, // teal
-        -11751600 to -8271996, // green
-        -7617718 to -5319295, // light green
-        -3285959 to -2300043, // lime
-        -5317 to -3722, // yellow
-        AMBER_500 to -10929, // amber
-        -26624 to -18611, // orange
-        -43230 to -30107, // deep orange
-//                -8825528 to -6190977, // brown
-        GREY_500 to -2039584, // grey
-        GREY_900 to WHITE, // GREY_900 removed from palette
-
-        // 2019 google calendar
-        -2818048 to -3397335, // tomato
-        -765666 to -2136512, // tangerine
-        -1086464 to -2459092, // pumpkin
-        -1010944 to -2254804, // mango
-        -606426 to -2050234, // banana
-        -1784767 to -2769834, // citron
-        -4142541 to -4274613, // avocado
-        -8604862 to -7817131, // pistachio
-        -16023485 to -14116514, // basil
-        -16738680 to -14571622, // eucalyptus
-        -13388167 to -11879802, // sage
-        -16540699 to -13787178, // peacock
-        -12417548 to -10974241, // cobalt
-        -12627531 to -11312199, // blueberry
-        -8812853 to -8615738, // lavender
-        -5005861 to -5597744, // wisteria
-        -6395473 to -5934410, // amethyst
-        -7461718 to -6668365, // grape
-        -5434281 to -4967572, // radicchio
-        -2614432 to -3261327, // cherry blossom
-        -1672077 to -2654344, // flamingo
-        -8825528 to -6984611, // cocoa
-        -10395295 to -7895161, // graphite
-        -5792882 to -5135210 // birch
+    // Preset colors from the color picker (hex values from kmp/src/androidMain/res/values/colors.xml)
+    val PRESET_COLORS: Set<Int> = setOf(
+        0xFFD50000.toInt(), // tomato
+        0xFFF44336.toInt(), // red_500
+        0xFFFF5722.toInt(), // deep_orange_500
+        0xFFF4511E.toInt(), // tangerine
+        0xFFEF6C00.toInt(), // pumpkin
+        0xFFFF9800.toInt(), // orange_500
+        0xFFF09300.toInt(), // mango
+        0xFFF6BF26.toInt(), // banana
+        0xFFFFC107.toInt(), // amber_500
+        0xFFE4C441.toInt(), // citron
+        0xFFFFEB3B.toInt(), // yellow_500
+        0xFFCDDC39.toInt(), // lime_500
+        0xFFC0CA33.toInt(), // avocado
+        0xFF8BC34A.toInt(), // light_green_500
+        0xFF7CB342.toInt(), // pistachio
+        0xFF4CAF50.toInt(), // green_500
+        0xFF0B8043.toInt(), // basil
+        0xFF009688.toInt(), // teal_500
+        0xFF33B679.toInt(), // sage
+        0xFF00BCD4.toInt(), // cyan_500
+        0xFF03A9F4.toInt(), // light_blue_500
+        0xFF039BE5.toInt(), // peacock
+        0xFF2196F3.toInt(), // blue_500
+        0xFF4285F4.toInt(), // cobalt
+        0xFF3F51B5.toInt(), // indigo_500
+        0xFF7986CB.toInt(), // lavender
+        0xFFB39DDB.toInt(), // wisteria
+        0xFF9E69AF.toInt(), // amethyst
+        0xFF673AB7.toInt(), // deep_purple_500
+        0xFF8E24AA.toInt(), // grape
+        0xFF9C27B0.toInt(), // purple_500
+        0xFFAD1457.toInt(), // radicchio
+        0xFFE91E63.toInt(), // pink_500
+        0xFFD81B60.toInt(), // cherry_blossom
+        0xFFE67C73.toInt(), // flamingo
+        0xFF795548.toInt(), // brown_500
+        0xFF616161.toInt(), // graphite
+        0xFFA79B8E.toInt(), // birch
+        0xFF9E9E9E.toInt(), // grey_500
+        0xFF607D8B.toInt(), // blue_grey_500
     )
+
+    fun themeColor(
+        seedColor: Int,
+        isDark: Boolean,
+        adjust: Boolean = true,
+    ): ThemeColor {
+        val color = getColor(
+            color = seedColor,
+            isDark = isDark,
+            adjust = adjust,
+        )
+        return ThemeColor(
+            originalColor = seedColor,
+            primaryColor = color,
+            onPrimaryColor = contentColor(color),
+        )
+    }
+
+    fun isPresetColor(color: Int) = color in PRESET_COLORS
+
+    fun getColor(
+        color: Int,
+        isDark: Boolean,
+        adjust: Boolean,
+        lightTone: Int = ColorTone.LIGHT_TITLE,
+        darkTone: Int = ColorTone.DARK_TITLE,
+    ): Int = when {
+        adjust && color in PRESET_COLORS && isDark -> tonalColor(color, darkTone)
+        adjust && color in PRESET_COLORS && !isDark -> tonalColor(color, lightTone)
+        !isDark && color == WHITE -> BLACK
+        else -> color
+    }
 
     fun priorityColor(priority: Int, isDarkMode: Boolean = false): Int {
         val color = when (priority) {
@@ -68,10 +102,9 @@ object ColorProvider {
             Task.Priority.LOW -> BLUE_500
             else -> GREY_500
         }
-        return if (isDarkMode) {
-            saturated[color] ?: color
-        } else {
-            color
-        }
+        return tonalColor(
+            seedColor = color,
+            tone = if (isDarkMode) ColorTone.DARK_CHECKBOX else ColorTone.LIGHT_CHECKBOX
+        )
     }
 }

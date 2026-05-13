@@ -1,7 +1,5 @@
 package org.tasks.location
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -10,7 +8,7 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.Request
 import org.tasks.BuildConfig
-import org.tasks.R
+import org.tasks.auth.TasksServerEnvironment
 import org.tasks.data.entity.Place
 import org.tasks.http.HttpClientFactory
 import org.tasks.http.HttpException
@@ -18,15 +16,14 @@ import org.tasks.location.GeocoderMapbox.Companion.asCoordinates
 import javax.inject.Inject
 
 class GeocoderNominatim @Inject constructor(
-        @ApplicationContext context: Context,
         private val httpClientFactory: HttpClientFactory,
+        private val environment: TasksServerEnvironment,
 ) : Geocoder {
-    private val url = context.getString(R.string.tasks_nominatim_url)
 
     override suspend fun reverseGeocode(mapPosition: MapPosition): Place? =
             withContext(Dispatchers.IO) {
                 val client = httpClientFactory.newClient(foreground = true)
-                val url = "$url/reverse?format=geocodejson&lat=${mapPosition.latitude}&lon=${mapPosition.longitude}"
+                val url = "${environment.nominatimUrl}/reverse?format=geocodejson&lat=${mapPosition.latitude}&lon=${mapPosition.longitude}"
                 val response = client.newCall(
                         Request.Builder().get().url(url).addHeader(USER_AGENT, UA_VALUE).build()
                 ).execute()

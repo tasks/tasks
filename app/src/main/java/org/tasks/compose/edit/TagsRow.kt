@@ -10,8 +10,8 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableSet
 import kotlinx.collections.immutable.persistentSetOf
 import org.tasks.R
-import org.tasks.compose.Chip
-import org.tasks.compose.ChipGroup
+import org.tasks.compose.chips.Chip
+import org.tasks.compose.chips.ChipGroup
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.entity.TagData

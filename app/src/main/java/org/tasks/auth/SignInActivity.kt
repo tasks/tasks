@@ -25,15 +25,20 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource as kmpStringResource
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
-import at.bitfire.dav4jvm.exception.HttpException
+import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.getString
+import tasks.kmp.generated.resources.Res
+import org.tasks.TasksUrls
+import tasks.kmp.generated.resources.url_sponsor
+import tasks.kmp.generated.resources.wrong_account
+import tasks.kmp.generated.resources.wrong_account_message
 import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationRequest
@@ -52,12 +57,14 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_GITHUB
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
-import org.tasks.compose.SignInDialog
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.fcm.PushTokenManager
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
+import tasks.kmp.generated.resources.ok
 import timber.log.Timber
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutorService
@@ -80,6 +87,7 @@ class SignInActivity : ComponentActivity() {
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var pushTokenManager: PushTokenManager
+    @Inject lateinit var caldavDao: CaldavDao
 
     private val viewModel: SignInViewModel by viewModels()
 
@@ -88,7 +96,6 @@ class SignInActivity : ComponentActivity() {
     private val mAuthIntent = AtomicReference<CustomTabsIntent>()
     private var mAuthIntentLatch = CountDownLatch(1)
     private val mExecutor: ExecutorService = newSingleThreadExecutor()
-    private var showSubscriptionRequiredDialog by mutableStateOf<Boolean?>(null)
 
     private val authService: AuthorizationService
         get() = viewModel.authService!!
@@ -109,47 +116,76 @@ class SignInActivity : ComponentActivity() {
 
         viewModel.error.observe(this, this::handleError)
 
-        val autoSelect = intent.getSerializableExtra(EXTRA_SELECT_SERVICE) as Platform?
-        if (autoSelect != null) {
-            setContent {
-                TasksTheme(
-                    theme = theme.themeBase.index,
-                    primary = theme.themeColor.primaryColor,
-                ) {
-                    showSubscriptionRequiredDialog?.let { isGitHub ->
-                        SubscriptionRequiredDialog(
-                            isGitHub = isGitHub,
-                            onDismiss = { finish() },
-                        )
+        lifecycleScope.launch {
+            val autoSelect = getAutoSelectPlatform()
+            if (autoSelect != null) {
+                setContent {
+                    TasksTheme(
+                        theme = theme.themeBase.index,
+                        primary = theme.themeColor.primaryColor,
+                    ) {
+                        ErrorDialogs()
                     }
                 }
-            }
-            selectService(autoSelect)
-        } else {
-            setContent {
-                TasksTheme(
-                    theme = theme.themeBase.index,
-                    primary = theme.themeColor.primaryColor,
-                ) {
-                    if (showSubscriptionRequiredDialog != null) {
-                        SubscriptionRequiredDialog(
-                            isGitHub = showSubscriptionRequiredDialog!!,
-                            onDismiss = { finish() },
-                        )
-                    } else {
-                        Dialog(onDismissRequest = { finish() }) {
-                            SignInDialog(
-                                selected = { selectService(it) },
-                                help = {
-                                    openUri(R.string.help_url_sync)
-                                    finish()
-                                },
-                                cancel = { finish() }
-                            )
+                selectService(autoSelect)
+            } else {
+                setContent {
+                    TasksTheme(
+                        theme = theme.themeBase.index,
+                        primary = theme.themeColor.primaryColor,
+                    ) {
+                        ErrorDialogs()
+                        if (viewModel.showWrongAccountEmail == null && viewModel.showSubscriptionRequiredDialog == null) {
+                            Dialog(onDismissRequest = { finish() }) {
+                                org.tasks.compose.SignInProviderDialog(
+                                    onSelected = { provider ->
+                                        selectService(
+                                            when (provider) {
+                                                org.tasks.compose.SignInProvider.GOOGLE -> Platform.GOOGLE
+                                                org.tasks.compose.SignInProvider.GITHUB -> Platform.GITHUB
+                                            }
+                                        )
+                                    },
+                                    onHelp = {
+                                        openUri(R.string.help_url_sync)
+                                        finish()
+                                    },
+                                    onCancel = { finish() },
+                                )
+                            }
                         }
                     }
                 }
             }
+        }
+    }
+
+    private suspend fun getAutoSelectPlatform(): Platform? {
+        val existingAccount = caldavDao.getAccounts(TYPE_TASKS).firstOrNull()
+        return when {
+            existingAccount != null ->
+                if (existingAccount.username?.startsWith("github") == true)
+                    Platform.GITHUB
+                else
+                    Platform.GOOGLE
+            inventory.subscription.value?.isTasksSubscription == true ->
+                Platform.GOOGLE
+            else -> null
+        }
+    }
+
+    @Composable
+    private fun ErrorDialogs() {
+        if (viewModel.showWrongAccountEmail != null) {
+            WrongAccountDialog(
+                maskedEmail = viewModel.showWrongAccountEmail!!,
+                onDismiss = { finish() },
+            )
+        } else if (viewModel.showSubscriptionRequiredDialog != null) {
+            SubscriptionRequiredDialog(
+                isGitHub = viewModel.showSubscriptionRequiredDialog!!,
+                onDismiss = { finish() },
+            )
         }
     }
 
@@ -187,7 +223,7 @@ class SignInActivity : ComponentActivity() {
             confirmButton = {
                 TextButton(onClick = {
                     if (isGitHub) {
-                        openUri(R.string.url_sponsor)
+                        openUri(runBlocking { getString(Res.string.url_sponsor) })
                     }
                     onDismiss()
                 }) {
@@ -196,6 +232,31 @@ class SignInActivity : ComponentActivity() {
                             if (isGitHub) R.string.github_sponsor else R.string.ok
                         )
                     )
+                }
+            },
+        )
+    }
+
+    @Composable
+    private fun WrongAccountDialog(
+        maskedEmail: String,
+        onDismiss: () -> Unit,
+    ) {
+        AlertDialog(
+            onDismissRequest = onDismiss,
+            title = {
+                Text(kmpStringResource(Res.string.wrong_account))
+            },
+            text = {
+                Text(kmpStringResource(
+                    Res.string.wrong_account_message,
+                    maskedEmail,
+                    TasksUrls.SUPPORT_EMAIL,
+                ))
+            },
+            confirmButton = {
+                TextButton(onClick = onDismiss) {
+                    Text(kmpStringResource(Res.string.ok))
                 }
             },
         )
@@ -229,7 +290,7 @@ class SignInActivity : ComponentActivity() {
     }
 
     private fun handleError(e: Throwable) {
-        if (e is HttpException && e.code == 402) {
+        if (e is HttpException && e.statusCode == 402) {
             if (IS_GOOGLE_PLAY) {
                 startActivityForResult(
                     Intent(this, PurchaseActivity::class.java)
@@ -239,7 +300,7 @@ class SignInActivity : ComponentActivity() {
                     RC_PURCHASE
                 )
             } else {
-                showSubscriptionRequiredDialog = viewModel.authService?.isGitHub ?: false
+                viewModel.showSubscriptionRequired(viewModel.authService?.isGitHub ?: false)
             }
         } else {
             returnError(e)
@@ -473,7 +534,6 @@ class SignInActivity : ComponentActivity() {
 
     companion object {
         const val EXTRA_ERROR = "extra_error"
-        const val EXTRA_SELECT_SERVICE = "extra_select_service"
         private const val RC_AUTH = 100
         private const val RC_PURCHASE = 101
     }

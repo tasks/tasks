@@ -21,6 +21,7 @@ fun PurchaseScreen(
     onPurchased: () -> Unit = onBack,
     onSignIn: () -> Unit = {},
     existingSubscriber: Boolean = false,
+    hasTasksAccount: Boolean = false,
 ) {
     BackHandler { onBack() }
     val viewModel: PurchaseActivityViewModel = hiltViewModel()
@@ -39,6 +40,7 @@ fun PurchaseScreen(
         github = state.isGithub,
         showMoreOptions = state.showMoreOptions,
         existingSubscriber = existingSubscriber,
+        hasTasksAccount = hasTasksAccount,
         onSignIn = onSignIn,
         subscribe = { price, isMonthly ->
             context.findActivity()?.let { viewModel.purchase(it, price, isMonthly) }

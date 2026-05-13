@@ -1,0 +1,6 @@
+* Friends & Family Sharing
+  * Tasks.org cloud users can invite five guests to access shared lists for free
+  * Guests can use Tasks.org, Apple Reminders, or any third-party CalDAV client
+* Updated chip styles
+* Fix group by list headers on WearOS
+* Update translations

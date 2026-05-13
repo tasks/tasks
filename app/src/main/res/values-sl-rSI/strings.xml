@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Zbriši fotografijo</string>
     <string name="TVA_add_comment">Dodaj komentar…</string>
-    <string name="backup_BPr_header">Varnostne kopije</string>
     <string name="backup_BAc_import">Uvozi opravke</string>
     <string name="backup_BAc_export">Izvozi opravke</string>
     <string name="export_toast">Varnostna kopija za %1$s shranjena v %2$s.</string>
@@ -43,7 +42,6 @@
     <string name="TEA_control_reminders">Opomniki</string>
     <string name="TEA_control_timer">Upravljanje s štoparico</string>
     <string name="TEA_control_hidden_section">----Vedno skrij----</string>
-    <string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>
     <string name="EPr_beastMode_reset">Povrni privzeto nastavitev</string>
     <string name="EPr_fullTask_title">Prikaži celoten naziv opravka</string>
     <string name="EPr_show_task_edit_comments">Prikaži opombe pri urejanju opravkov</string>
@@ -89,7 +87,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Tihe ure se začnejo ob</string>
     <string name="rmd_EPr_quiet_hours_end_title">Tihe ure se končajo ob</string>
     <string name="rmd_EPr_rmd_time_title">Privzeti opomnik ob</string>
-    <string name="rmd_EPr_rmd_time_desc">Obvestila o opravkih brez dospelosti se prikažejo ob %s</string>
     <string name="rmd_EPr_defaultRemind_title">Naključni opomniki</string>
     <string name="default_random_reminder_disabled">onemogočen</string>
     <string name="default_random_reminder_hourly">vsako uro</string>

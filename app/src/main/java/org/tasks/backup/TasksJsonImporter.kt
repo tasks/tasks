@@ -3,7 +3,8 @@ package org.tasks.backup
 import android.content.Context
 import android.net.Uri
 import android.util.JsonReader
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
@@ -12,6 +13,7 @@ import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.service.Upgrade_13_11.Companion.migrateLegacyIcon
 import com.todoroo.astrid.service.Upgrade_13_2
 import com.todoroo.astrid.service.Upgrade_14_11
+import com.todoroo.astrid.service.Upgrade_14_13
 import com.todoroo.astrid.service.Upgrader
 import com.todoroo.astrid.service.Upgrader.Companion.V12_4
 import com.todoroo.astrid.service.Upgrader.Companion.V12_8
@@ -20,7 +22,7 @@ import com.todoroo.astrid.service.Upgrader.Companion.getAndroidColor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
+import org.tasks.extensions.lenientJson
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.analytics.Firebase
@@ -67,6 +69,7 @@ class TasksJsonImporter @Inject constructor(
     private val tagDataDao: TagDataDao,
     private val userActivityDao: UserActivityDao,
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val locationDao: LocationDao,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val alarmDao: AlarmDao,
@@ -102,8 +105,15 @@ class TasksJsonImporter @Inject constructor(
                 taskMover.migrateLocalTasks()
             }
             Timber.d("Updating parents")
-            caldavDao.updateParents()
-            firebase.logEvent(R.string.event_settings_click, R.string.param_type to "import_backup_success")
+            caldavDao.updateParents(force = true)
+            firebase.logEvent(
+                R.string.event_settings_click,
+                R.string.param_type to "import_backup_success",
+                R.string.param_value to version.toString(),
+                R.string.param_task_count to result.taskCount,
+                R.string.param_import_count to result.importCount,
+                R.string.param_skip_count to result.skipCount,
+            )
         } catch (e: Exception) {
             Timber.e(e)
             firebase.logEvent(
@@ -128,7 +138,7 @@ class TasksJsonImporter @Inject constructor(
         } catch (e: FileNotFoundException) {
             throw IllegalStateException(e)
         }
-        val bufferedReader = `is`!!.bufferedReader()
+        val bufferedReader = `is`!!.bufferedReader(Charsets.UTF_8)
         val reader = JsonReader(bufferedReader)
         reader.isLenient = true
         val ignoreKeys = ignorePrefs.map { context.getString(it) }
@@ -206,23 +216,23 @@ class TasksJsonImporter @Inject constructor(
                                 }
                             }
                             "intPrefs" ->
-                                Json.decodeFromString<Map<String, Integer>>(reader.jsonString())
+                                lenientJson.decodeFromString<Map<String, Integer>>(reader.jsonString())
                                     .filterNot { (key, _) -> ignoreKeys.contains(key) }
                                     .forEach { (k, v) -> preferences.setInt(k, v as Int) }
                             "longPrefs" ->
-                                Json.decodeFromString<Map<String, java.lang.Long>>(reader.jsonString())
+                                lenientJson.decodeFromString<Map<String, java.lang.Long>>(reader.jsonString())
                                     .filterNot { (key, _) -> ignoreKeys.contains(key) }
                                     .forEach { (k, v) -> preferences.setLong(k, v as Long)}
                             "stringPrefs" ->
-                                Json.decodeFromString<Map<String, String>>(reader.jsonString())
+                                lenientJson.decodeFromString<Map<String, String>>(reader.jsonString())
                                     .filterNot { (k, _) -> ignoreKeys.contains(k) }
                                     .forEach { (k, v) -> preferences.setString(k, v)}
                             "boolPrefs" ->
-                                Json.decodeFromString<Map<String, java.lang.Boolean>>(reader.jsonString())
+                                lenientJson.decodeFromString<Map<String, java.lang.Boolean>>(reader.jsonString())
                                     .filterNot { (k, _) -> ignoreKeys.contains(k) }
                                     .forEach { (k, v) -> preferences.setBoolean(k, v as Boolean) }
                             "setPrefs" ->
-                                Json.decodeFromString<Map<String, Set<String>>>(reader.jsonString())
+                                lenientJson.decodeFromString<Map<String, Set<String>>>(reader.jsonString())
                                     .filterNot { (k, _) -> ignoreKeys.contains(k) }
                                     .forEach { (k, v) -> preferences.setStringSet(k, v as HashSet<String>)}
                             "googleTaskAccounts" -> reader.forEach<GoogleTaskAccount> { googleTaskAccount ->
@@ -280,7 +290,7 @@ class TasksJsonImporter @Inject constructor(
         } catch (e: FileNotFoundException) {
             throw IllegalStateException(e)
         }
-        val bufferedReader = `is`!!.bufferedReader()
+        val bufferedReader = `is`!!.bufferedReader(Charsets.UTF_8)
         val reader = JsonReader(bufferedReader)
         reader.isLenient = true
         reader.beginObject()
@@ -350,7 +360,14 @@ class TasksJsonImporter @Inject constructor(
         taskDao.createNew(task)
         val taskId = task.id
         val taskUuid = task.uuid
-        backup.alarms?.map { it.copy(task = taskId) }?.let { alarmDao.insert(it) }
+        val skipAllDayAlarms = version < Upgrade_14_13.VERSION
+                && task.hasDueDate()
+                && !task.hasDueTime()
+                && !preferences.isDefaultDueTimeEnabled()
+        backup.alarms
+            ?.map { it.copy(task = taskId) }
+            ?.let { if (skipAllDayAlarms) emptyList() else it }
+            ?.let { alarmDao.insert(it) }
         if (version < V12_4) {
             val alarms = Upgrade_14_11.fromLegacyFlags(task.ringFlags, task.id)
                 .filter { alarm ->
@@ -360,6 +377,7 @@ class TasksJsonImporter @Inject constructor(
                         else -> true
                     }
                 }
+                .let { if (skipAllDayAlarms) emptyList() else it }
                 .let {
                     if (task.randomReminder > 0) {
                         it + Alarm(task = task.id, time = task.randomReminder, type = TYPE_RANDOM)
@@ -373,7 +391,7 @@ class TasksJsonImporter @Inject constructor(
                 task.isNotifyModeNonstop -> Task.NOTIFY_MODE_NONSTOP
                 else -> 0
             }
-            taskDao.save(task)
+            taskSaver.save(task)
         }
         if (version < V12_8) {
             task.repeatFrom = task.recurrence.repeatFrom()
@@ -486,10 +504,6 @@ class TasksJsonImporter @Inject constructor(
     }
 
     companion object {
-        private val json = Json {
-            isLenient = true
-            ignoreUnknownKeys = true
-        }
         private val ignorePrefs = intArrayOf(
                 R.string.p_current_version,
                 R.string.p_backups_android_backup_last,

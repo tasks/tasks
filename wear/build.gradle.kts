@@ -35,8 +35,7 @@ android {
 
     buildTypes {
         debug {
-            val tasks_posthog_key: String? by project
-            resValue("string", "posthog_key", tasks_posthog_key ?: "")
+            resValue("string", "posthog_key", "")
         }
         release {
             val tasks_posthog_key: String? by project
@@ -69,6 +68,7 @@ android {
 
 dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.libs)
+    implementation(platform(libs.androidx.compose))
     implementation(compose.components.resources)
     implementation(projects.wearDatalayer)
     implementation(projects.kmp)
@@ -81,6 +81,7 @@ dependencies {
     implementation(platform(libs.firebase))
     implementation(libs.firebase.crashlytics)
     implementation(libs.posthog.android)
+    implementation(libs.wear.complications.data.source)
     implementation(libs.wear.compose.material)
     implementation(libs.wear.compose.foundation)
     implementation(libs.wear.compose.navigation)
@@ -90,11 +91,11 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.horologist.compose.layout)
     implementation(libs.horologist.compose.material)
-    implementation(libs.horologist.compose.tools)
     implementation(libs.horologist.datalayer.watch)
     implementation(libs.horologist.datalayer.core)
     implementation(libs.horologist.datalayer.grpc)
     implementation(libs.timber)
+    implementation(libs.androidx.work)
 
     implementation(libs.wear.tiles.proto) // https://nvd.nist.gov/vuln/detail/CVE-2024-7254
 

@@ -3,10 +3,11 @@ package org.tasks.ui.editviewmodel
 import androidx.lifecycle.SavedStateHandle
 import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import com.todoroo.astrid.gcal.GCalHelper
-import com.todoroo.astrid.service.TaskCompleter
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskCompleter
+import org.tasks.service.TaskDeleter
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
 import kotlinx.coroutines.Dispatchers
@@ -20,10 +21,11 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.db.Database
+import org.tasks.R
 import org.tasks.data.entity.Task
 import org.tasks.data.newLocalAccount
 import org.tasks.injection.InjectingTestCase
-import org.tasks.location.GeofenceApi
+import org.tasks.location.LocationService
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.PermissivePermissionChecker
 import org.tasks.preferences.Preferences
@@ -33,12 +35,13 @@ import javax.inject.Inject
 open class BaseTaskEditViewModelTest : InjectingTestCase() {
     @Inject lateinit var db: Database
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskSaver: TaskSaver
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var timerPlugin: TimerPlugin
     @Inject lateinit var calendarEventProvider: CalendarEventProvider
     @Inject lateinit var gCalHelper: GCalHelper
     @Inject lateinit var taskMover: TaskMover
-    @Inject lateinit var geofenceApi: GeofenceApi
+    @Inject lateinit var locationService: LocationService
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var alarmService: AlarmService
@@ -57,6 +60,7 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
             super.setUp()
             caldavDao.newLocalAccount()
         }
+        preferences.setBoolean(R.string.p_rmd_time_enabled, true)
     }
 
     protected fun setup(task: Task) = runBlocking {
@@ -66,6 +70,7 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
                 set(TaskEditFragment.EXTRA_TASK, task)
             },
             taskDao,
+            taskSaver,
             taskDeleter,
             timerPlugin,
             PermissivePermissionChecker(context),
@@ -73,7 +78,7 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
             gCalHelper,
             taskMover,
             db.locationDao(),
-            geofenceApi,
+            locationService,
             db.tagDao(),
             db.tagDataDao(),
             preferences,

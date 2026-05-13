@@ -7,7 +7,7 @@ import androidx.room.RawQuery
 import androidx.room.RoomRawQuery
 import androidx.room.Update
 import co.touchlab.kermit.Logger
-import org.tasks.IS_DEBUG
+import kotlinx.coroutines.flow.Flow
 import org.tasks.data.TaskContainer
 import org.tasks.data.UUIDHelper
 import org.tasks.data.db.Database
@@ -40,6 +40,9 @@ FROM (
 
     @Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
     abstract suspend fun fetch(id: Long): Task?
+
+    @Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
+    abstract fun watch(id: Long): Flow<Task?>
 
     suspend fun fetch(ids: List<Long>): List<Task> = ids.chunkedMap(this::fetchInternal)
 
@@ -208,9 +211,6 @@ FROM recursive_tasks
         if (Task.isUuidEmpty(task.remoteId)) {
             task.remoteId = UUIDHelper.newUUID()
         }
-        if (IS_DEBUG) {
-            require(task.remoteId?.isNotBlank() == true && task.remoteId != "0")
-        }
         val insert = insert(task)
         task.id = insert
         return task.id
@@ -229,7 +229,7 @@ WHERE cd_id IS NULL
     object TaskCriteria {
         /** @return tasks that have not yet been completed or deleted
          */
-        @JvmStatic fun activeAndVisible(): Criterion = Criterion.and(
+        fun activeAndVisible(): Criterion = Criterion.and(
             Task.COMPLETION_DATE.lte(0),
             Task.DELETION_DATE.lte(0),
             Task.HIDE_UNTIL.lte(Functions.now())

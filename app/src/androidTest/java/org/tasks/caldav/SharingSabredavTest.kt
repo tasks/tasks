@@ -104,7 +104,7 @@ class SharingSabredavTest : CaldavTest() {
         assertEquals("mailto:user@example.com", principal.href)
         assertEquals("Example User", principal.displayName)
         assertEquals(INVITE_ACCEPTED, principal.inviteStatus)
-        assertEquals(ACCESS_READ_WRITE, principal.access.access)
+        assertEquals(ACCESS_READ_WRITE, principal.access)
     }
 
     @Test
@@ -128,7 +128,7 @@ class SharingSabredavTest : CaldavTest() {
         assertEquals("/principals/user1", principal.href)
         assertEquals(null, principal.displayName)
         assertEquals(INVITE_ACCEPTED, principal.inviteStatus)
-        assertEquals(ACCESS_OWNER, principal.access.access)
+        assertEquals(ACCESS_OWNER, principal.access)
     }
 
     companion object {

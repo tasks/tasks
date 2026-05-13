@@ -128,7 +128,7 @@ ORDER BY CASE cda_account_type
                 ?.plus(1)
         }
         val id = insert(caldavTask)
-        update(task)
+        setTaskOrder(task.id, task.order)
         return id
     }
 
@@ -246,6 +246,9 @@ SELECT EXISTS(SELECT 1
     @Query("SELECT cd_remote_id FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0 AND cd_last_sync > 0")
     abstract suspend fun getRemoteIds(calendar: String): List<String>
 
+    @Query("SELECT cd_remote_id FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0 AND cd_last_sync > 0 AND (cd_remote_parent IS NULL OR cd_remote_parent = '')")
+    abstract suspend fun getTopLevelRemoteIds(calendar: String): List<String>
+
     suspend fun getTasksByRemoteId(calendar: String, remoteIds: List<String>): List<CaldavTask> =
             remoteIds.chunkedMap { getTasksByRemoteIdInternal(calendar, it) }
 
@@ -314,10 +317,12 @@ GROUP BY caldav_lists.cdl_uuid
         WHERE _id IN (
             SELECT cd_task
             FROM caldav_tasks
+            INNER JOIN tasks ON _id = cd_task
             WHERE cd_deleted = 0
+                AND (:force OR modified <= cd_last_sync)
         )
     """)
-    abstract suspend fun updateParents()
+    abstract suspend fun updateParents(force: Boolean = false)
 
     @Query("""
         WITH parent_map AS (
@@ -342,8 +347,10 @@ GROUP BY caldav_lists.cdl_uuid
         WHERE _id IN (
             SELECT cd_task
             FROM caldav_tasks
+            INNER JOIN tasks ON _id = cd_task
             WHERE cd_calendar = :calendar
                 AND cd_deleted = 0
+                AND modified <= cd_last_sync
         )
     """)
     abstract suspend fun updateParents(calendar: String)
@@ -433,6 +440,15 @@ ORDER BY primary_sort
         AND cd_deleted = 0
     """)
     abstract suspend fun countTasks(account: String): Int
+
+    @Query("""
+        SELECT COUNT(*)
+        FROM caldav_tasks
+        INNER JOIN caldav_lists ON cd_calendar = cdl_uuid
+        WHERE cdl_account = :account
+        AND cd_deleted = 0
+    """)
+    abstract fun watchTaskCount(account: String): Flow<Int>
 
     companion object {
         fun Long.toAppleEpoch(): Long = (this - APPLE_EPOCH) / 1000

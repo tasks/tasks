@@ -40,18 +40,9 @@
         <item quantity="other">mga taon</item>
     </plurals>
     <string name="delete_task">Tanggalin gawain</string>
-    <string name="source_code">Pinagmulang code</string>
     <string name="translations">Umambag ng pagsasalin</string>
-    <string name="contact_developer">Kontakin ang developer</string>
-    <string name="rate_tasks">Halagahan ang Tasks</string>
     <string name="quiet_hours_summary">Walang paalala sa tahimik na mga oras</string>
     <string name="show_completed">Ipakita ang natapos</string>
-    <string name="username_required">Pangalan ng gumagamit kailangan</string>
-    <string name="password_required">Password kailangan</string>
-    <string name="url_required">URL kailangan</string>
-    <string name="url_host_name_required">Pangalan ng host kailangan</string>
-    <string name="url_invalid_scheme">Kailangan magsimula na may http(s)://</string>
-    <string name="add_account">Magdagdag ng account</string>
     <string name="user">Gumagamit</string>
     <string name="notification_disable_battery_optimizations_description">Mga baterya optimization ay maaaring antalahin ang mga notification</string>
     <string name="location_remind_departure">Ipaalala sa pagdating</string>

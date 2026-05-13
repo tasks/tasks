@@ -3,6 +3,7 @@ package org.tasks.compose.settings
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.NotInterested
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,7 +28,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,9 +36,17 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import org.tasks.R
 import org.tasks.compose.Constants
 import org.tasks.kmp.org.tasks.compose.settings.SettingRow
-import org.tasks.themes.ColorProvider
+import org.tasks.themes.ColorTone
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.ThemeColor
+import org.tasks.themes.tonalColor
+
+private fun ThemeColor.toPickerColor() = PickerColor(
+    originalColor = originalColor,
+    primaryColor = pickerColor,
+    colorOnPrimary = colorOnPrimary,
+    isFree = isFree,
+)
 
 @Composable
 fun SelectColorRow(
@@ -47,6 +56,7 @@ fun SelectColorRow(
     purchase: () -> Unit,
     selectColor: (Int) -> Unit,
 ) {
+    val pickerColors = remember(colors) { colors.map { it.toPickerColor() } }
     var showColorPicker by rememberSaveable { mutableStateOf(false) }
     var showColorWheel by rememberSaveable { mutableStateOf(false) }
     if (showColorPicker) {
@@ -55,11 +65,11 @@ fun SelectColorRow(
         }
         ColorPickerDialog(
             hasPro = hasPro,
-            colors = colors,
+            colors = pickerColors,
             onDismiss = { showColorPicker = false },
             onColorSelected = {
                 if (hasPro || it.isFree) {
-                    selectColor(it.primaryColor)
+                    selectColor(it.originalColor)
                 } else {
                     purchase()
                 }
@@ -117,9 +127,16 @@ fun SelectColorRow(
     SettingRow(
         modifier = Modifier.clickable(onClick = { showColorPicker = true }),
         left = {
-            val context = LocalContext.current
-            val adjusted = remember(color) {
-                ColorProvider(context).getThemeColor(color).primaryColor
+            val isPreset = remember(color, colors) {
+                colors.any { it.originalColor == color }
+            }
+            val isDark = isSystemInDarkTheme()
+            val adjusted = remember(color, isDark, isPreset) {
+                if (isPreset) {
+                    tonalColor(color, if (isDark) ColorTone.DARK_TITLE else ColorTone.LIGHT_TITLE)
+                } else {
+                    color
+                }
             }
             Box(
                 modifier = Modifier.size(56.dp),
@@ -128,12 +145,12 @@ fun SelectColorRow(
                 if (color == 0) {
                     Icon(
                         imageVector = Icons.Outlined.NotInterested,
-                        tint = colorResource(R.color.icon_tint_with_alpha),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         contentDescription = null
                     )
                 } else {
                     val borderColor =
-                        colorResource(R.color.icon_tint_with_alpha)  // colorResource(R.color.text_tertiary)
+                        MaterialTheme.colorScheme.onSurfaceVariant
                     Canvas(modifier = Modifier.size(24.dp)) {
                         drawCircle(color = Color(adjusted))
                         drawCircle(color = borderColor, style = Stroke(width = 4.0f))

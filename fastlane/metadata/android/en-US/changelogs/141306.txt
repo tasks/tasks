@@ -1,0 +1,8 @@
+* New design for settings screens
+* Improve notifications for all day tasks
+  * Updated 'Settings > Notifications > All day tasks' section
+* Don't configure notification channels to bypass DnD
+  * Only applies to new installs going forward
+* Moved 'Badges' preference to 'Advanced'
+* Fix rotation bug
+* Update translations

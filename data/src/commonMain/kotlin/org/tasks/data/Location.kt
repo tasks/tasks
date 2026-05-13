@@ -5,13 +5,11 @@ import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
 import org.tasks.data.entity.Geofence
 import org.tasks.data.entity.Place
-import java.io.Serializable
-
 @CommonParcelize
 data class Location(
     @Embedded val geofence: Geofence,
     @Embedded val place: Place,
-) : Serializable, CommonParcelable {
+) : CommonParcelable {
 
     val task: Long
         get() = geofence.task

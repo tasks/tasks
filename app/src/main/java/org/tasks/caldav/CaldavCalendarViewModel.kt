@@ -3,7 +3,7 @@ package org.tasks.caldav
 import android.content.Intent
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -16,6 +16,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.SERVER_NEXTCLOUD
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OWNCLOUD
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_WRITE
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_NO_RESPONSE
 import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
 import org.tasks.filters.CaldavFilter
 import org.tasks.sync.SyncAdapters
@@ -53,7 +54,7 @@ class CaldavCalendarViewModel @Inject constructor(
                 caldavDao.insert(this)
             }
             if (!ignoreFinish) {
-                finish.value = Intent().putExtra(
+                finish.value = Intent(TaskListFragment.ACTION_RELOAD).putExtra(
                     MainActivity.OPEN_FILTER,
                     CaldavFilter(calendar = calendar, account = caldavAccount)
                 )
@@ -107,8 +108,9 @@ class CaldavCalendarViewModel @Inject constructor(
             provider.forAccount(account, list.url!!).share(account, href)
         }
         val principal = principalDao.getOrCreatePrincipal(account, href)
-        principalDao.getOrCreateAccess(list, principal, INVITE_UNKNOWN, ACCESS_READ_WRITE)
-        syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
+        val invite = if (href.startsWith("mailto:")) INVITE_NO_RESPONSE else INVITE_UNKNOWN
+        principalDao.getOrCreateAccess(list, principal, invite, ACCESS_READ_WRITE)
+        syncAdapters.sync(SyncSource.SHARING_CHANGE)
     }
 
     suspend fun removeUser(account: CaldavAccount, list: CaldavCalendar, principal: PrincipalWithAccess) =
@@ -116,6 +118,7 @@ class CaldavCalendarViewModel @Inject constructor(
             withContext(Dispatchers.IO) {
                 provider.forAccount(account).removePrincipal(account, list, principal.href)
             }
-            principalDao.delete(principal.access)
+            principalDao.deleteAccessById(principal.id)
+            syncAdapters.sync(SyncSource.SHARING_CHANGE)
         }
 }

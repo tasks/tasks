@@ -16,8 +16,6 @@ expect annotation class CommonIgnoredOnParcel()
 
 expect interface CommonParcelable
 
-expect val IS_DEBUG: Boolean
-
 expect fun Long.printTimestamp(): String
 
 expect fun formatCoordinates(coordinates: Double, latitude: Boolean): String

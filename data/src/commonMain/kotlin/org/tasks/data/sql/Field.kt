@@ -49,7 +49,7 @@ open class Field(expression: String) : DBObject(expression) {
     }
 
     companion object {
-        @JvmStatic fun field(expression: String): Field = Field(expression)
-        @JvmStatic val COUNT = Field("COUNT(*)")
+        fun field(expression: String): Field = Field(expression)
+        val COUNT = Field("COUNT(*)")
     }
 }

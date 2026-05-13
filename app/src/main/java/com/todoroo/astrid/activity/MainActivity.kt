@@ -35,6 +35,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
+import org.tasks.PlatformConfiguration
 import androidx.core.content.IntentCompat.getParcelableExtra
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -45,7 +46,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.todoroo.astrid.adapter.SubheaderClickHandler
-import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,10 +54,12 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
+import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.auth.SignInActivity
+import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.Inventory
-import org.tasks.caldav.CaldavAccountSettingsActivity
+import org.tasks.caldav.CaldavSignInActivity
 import org.tasks.compose.AddAccountDestination
 import org.tasks.compose.HomeDestination
 import org.tasks.compose.ImportTasksViewModel
@@ -66,17 +68,20 @@ import org.tasks.compose.PurchaseScreen
 import org.tasks.compose.TosUpdateDialog
 import org.tasks.compose.WelcomeDestination
 import org.tasks.compose.WelcomeScreen
-import org.tasks.compose.accounts.AddAccountScreen
+import org.tasks.compose.accounts.AddAccountScreenWrapper
 import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.accounts.Platform
+import org.tasks.compose.accounts.featureTitle
+import org.tasks.compose.accounts.openUrl
 import org.tasks.compose.home.HomeScreen
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
+import org.tasks.data.newLocalAccount
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Task
 import org.tasks.dialogs.NewFilterDialog
-import org.tasks.etebase.EtebaseAccountSettingsActivity
+import org.tasks.etebase.EtebaseSignInActivity
 import org.tasks.extensions.Context.nightMode
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
@@ -104,7 +109,6 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var theme: Theme
-    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var taskCreator: TaskCreator
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var colorProvider: ColorProvider
@@ -116,6 +120,8 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var syncAdapters: SyncAdapters
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var tasksPreferences: TasksPreferences
+    @Inject lateinit var serverEnvironment: TasksServerEnvironment
+    @Inject lateinit var configuration: PlatformConfiguration
 
     private val viewModel: MainActivityViewModel by viewModels()
     private var currentNightMode = 0
@@ -163,6 +169,10 @@ class MainActivity : AppCompatActivity() {
                     tasksPreferences.set(TasksPreferences.acceptedTosVersion, version)
                 }
 
+                val currentEnv by tasksPreferences
+                    .flow(TasksPreferences.serverEnvironment, TasksServerEnvironment.ENV_PRODUCTION)
+                    .collectAsStateWithLifecycle(TasksServerEnvironment.ENV_PRODUCTION)
+
                 var wasInOnboarding by rememberSaveable { mutableStateOf(false) }
                 val importViewModel: ImportTasksViewModel = hiltViewModel()
                 val importState by importViewModel.state.collectAsStateWithLifecycle()
@@ -195,9 +205,9 @@ class MainActivity : AppCompatActivity() {
                                     )
                                 }
                                 wasInOnboarding = false
-                            }
-                            navController.navigate(HomeDestination) {
-                                popUpTo(0) { inclusive = true }
+                                navController.navigate(HomeDestination) {
+                                    popUpTo(0) { inclusive = true }
+                                }
                             }
                         }
                         else -> {}
@@ -221,7 +231,6 @@ class MainActivity : AppCompatActivity() {
                         LaunchedEffect(Unit) {
                             firebase.logEvent(R.string.event_screen_welcome)
                         }
-                        val addAccountViewModel: AddAccountViewModel = hiltViewModel()
                         WelcomeScreen(
                             importViewModel = importViewModel,
                             filePickerIntent = FileHelper.newFilePickerIntent(
@@ -245,7 +254,8 @@ class MainActivity : AppCompatActivity() {
                                         setAcceptedTosVersion(currentTosVersion)
                                     }
                                     firebase.logEvent(R.string.event_add_account, R.string.param_source to "onboarding", R.string.param_selection to "local")
-                                    addAccountViewModel.createLocalAccount()
+                                    firebase.logEvent(R.string.event_sync_add_account, R.string.param_type to Constants.SYNC_TYPE_LOCAL)
+                                    caldavDao.newLocalAccount()
                                 }
                             },
                             onImportBackup = {
@@ -261,7 +271,14 @@ class MainActivity : AppCompatActivity() {
                                     )
                                 }
                             },
-                            openLegalUrl = { url -> openUri(url) }
+                            openLegalUrl = { url -> openUri(url) },
+                            environments = serverEnvironment.environments,
+                            currentEnvironment = currentEnv,
+                            onSelectEnvironment = { env ->
+                                lifecycleScope.launch {
+                                    serverEnvironment.setEnvironment(env)
+                                }
+                            },
                         )
                     }
                     composable<AddAccountDestination> { backStackEntry ->
@@ -270,12 +287,14 @@ class MainActivity : AppCompatActivity() {
                         }
                         val addAccountViewModel: AddAccountViewModel = hiltViewModel()
                         val microsoftVM: MicrosoftSignInViewModel = hiltViewModel()
+                        LaunchedEffect(Unit) {
+                            addAccountViewModel.accountAdded.collect {
+                                navController.popBackStack()
+                            }
+                        }
                         val syncLauncher =
                             rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                                if (result.resultCode == RESULT_OK) {
-                                    syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
-                                    workManager.updateBackgroundSync()
-                                } else {
+                                if (result.resultCode != RESULT_OK) {
                                     result.data
                                         ?.getStringExtra(GtasksLoginActivity.EXTRA_ERROR)
                                         ?.let { toast(it) }
@@ -302,20 +321,18 @@ class MainActivity : AppCompatActivity() {
 
                                 Platform.CALDAV ->
                                     syncLauncher.launch(
-                                        Intent(this@MainActivity, CaldavAccountSettingsActivity::class.java)
+                                        Intent(this@MainActivity, CaldavSignInActivity::class.java)
                                     )
 
                                 Platform.ETEBASE ->
                                     syncLauncher.launch(
-                                        Intent(this@MainActivity, EtebaseAccountSettingsActivity::class.java)
+                                        Intent(this@MainActivity, EtebaseSignInActivity::class.java)
                                     )
 
                                 else -> throw IllegalArgumentException()
                             }
                         }
-                        fun doOpenUrl(platform: Platform) {
-                            addAccountViewModel.openUrl(this@MainActivity, platform)
-                        }
+                        fun doOpenUrl(platform: Platform) = openUrl(platform)
                         fun requirePurchase(platform: Platform, nameYourPrice: Boolean = true) {
                             pendingPlatform = platform.name
                             navController.navigate(
@@ -342,9 +359,10 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }
                         }
-                        AddAccountScreen(
-                            hasTasksAccount = inventory.hasTasksAccount,
-                            hasPro = inventory.hasPro,
+                        AddAccountScreenWrapper(
+                            configuration = configuration,
+                            hasTasksAccount = addAccountViewModel.hasTasksAccount,
+                            hasPro = addAccountViewModel.hasPro,
                             needsConsent = acceptedTosVersion < currentTosVersion,
                             onBack = { navController.popBackStack() },
                             signIn = { platform ->
@@ -428,10 +446,6 @@ class MainActivity : AppCompatActivity() {
                         val state = viewModel.state.collectAsStateWithLifecycle().value
                         val drawerState = rememberDrawerState(
                             initialValue = DrawerValue.Closed,
-                            confirmStateChange = {
-                                viewModel.setDrawerState(it == DrawerValue.Open)
-                                true
-                            }
                         )
                         val navigator = rememberListDetailPaneScaffoldNavigator(
                             calculatePaneScaffoldDirectiveWithTwoPanesOnMediumWidth(

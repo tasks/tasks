@@ -4,12 +4,14 @@ import android.content.Context
 import android.content.res.Resources
 import org.tasks.R
 import org.tasks.data.entity.Alarm
+import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.kmp.org.tasks.time.getFullDateTime
 import java.util.concurrent.TimeUnit
 import kotlin.math.absoluteValue
 
 class AlarmToString(context: Context) {
     private val resources = context.resources
+    private val is24HourFormat = context.is24HourFormat
 
     fun toString(alarm: Alarm): String {
         val reminder = when (alarm.type) {
@@ -40,10 +42,10 @@ class AlarmToString(context: Context) {
             Alarm.TYPE_SNOOZE ->
                 resources.getString(
                     R.string.snoozed_until,
-                    getFullDateTime(alarm.time)
+                    getFullDateTime(alarm.time, is24HourFormat)
                 )
             else ->
-                getFullDateTime(alarm.time)
+                getFullDateTime(alarm.time, is24HourFormat)
         }
         return if (alarm.repeat > 0) {
             reminder + "\n" + resources.getRepeatString(alarm.repeat, alarm.interval)

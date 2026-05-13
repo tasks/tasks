@@ -2,17 +2,18 @@ package com.todoroo.astrid.gtasks
 
 import com.google.api.services.tasks.model.TaskList
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
-import org.tasks.LocalBroadcastManager
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.googleapis.GtasksListService
 import org.tasks.injection.InjectingTestCase
 import org.tasks.makers.RemoteGtaskListMaker
 import org.tasks.makers.RemoteGtaskListMaker.newRemoteList
@@ -21,7 +22,7 @@ import javax.inject.Inject
 @HiltAndroidTest
 class GtasksListServiceTest : InjectingTestCase() {
     @Inject lateinit var taskDeleter: TaskDeleter
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
     @Inject lateinit var caldavDao: CaldavDao
 
     private lateinit var gtasksListService: GtasksListService
@@ -29,7 +30,7 @@ class GtasksListServiceTest : InjectingTestCase() {
     @Before
     override fun setUp() {
         super.setUp()
-        gtasksListService = GtasksListService(caldavDao, taskDeleter, localBroadcastManager)
+        gtasksListService = GtasksListService(caldavDao, taskDeleter, refreshBroadcaster)
     }
 
     @Test

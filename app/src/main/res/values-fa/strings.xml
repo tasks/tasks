@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">پاک کردن عکس</string>
     <string name="TVA_add_comment">اضافه کردن نظر</string>
-    <string name="backup_BPr_header">پشتیبان ها</string>
     <string name="backup_BAc_import">لود کردن بکاپ</string>
     <string name="backup_BAc_export">بکاپ از تسک ها</string>
     <string name="import_summary_title">بازگرداندن خلاصه</string>
@@ -43,15 +42,12 @@
     <string name="TEA_control_timer">کنترل تایمر</string>
     <string name="TEA_control_hidden_section">----همیشه مخفی----</string>
     <string name="none">هیچکدام</string>
-    <string name="EPr_edit_screen_options">ویرایش تنظیمات صفحه</string>
     <string name="EPr_beastMode_reset">برگرداندن به پیش فرض</string>
     <string name="EPr_fullTask_title">نمایش عنوان کامل وظیفه</string>
-    <string name="task_list_options">اختیارات لیست وظیفه</string>
     <string name="EPr_cal_end_or_start_at_due_time">زمان رویداد تقویم</string>
     <string name="EPr_cal_end_at_due_time">اتمام رویدادهای تقویم در موعود</string>
     <string name="EPr_cal_start_at_due_time">شروع رویدادهای تقویم در موعود</string>
     <string name="EPr_delete_task_data">حذف داده وظیفه</string>
-    <string name="task_defaults">پیش فرض های وظیفه</string>
     <string name="EPr_default_importance_title">اولویت پیش فرض</string>
     <string name="EPr_default_reminders_title">یادآورهای پیش فرض</string>
     <string name="priority_high">زیاد</string>
@@ -146,10 +142,7 @@
     <string name="enabled">فعال شده</string>
     <string name="font_size">اندازه فونت</string>
     <string name="row_spacing">فاصله سطرها</string>
-    <string name="source_code">کد مبدا</string>
     <string name="translations">مشارکت در ترجمه</string>
-    <string name="contact_developer">تماس با توسعه دهنده</string>
-    <string name="rate_tasks">ارزیابی وظیفه</string>
     <string name="quiet_hours_summary">بدون یادآور در ساعات سکوت</string>
     <string name="add_reminder">اضافه کردن یادآورد</string>
     <string name="remove">حذف</string>
@@ -174,7 +167,6 @@
     <string name="show_completed">نمایش انجام شده ها</string>
     <string name="add_attachment">الصاق پیوست</string>
     <string name="take_a_picture">گرفتن عکس</string>
-    <string name="send_anonymous_statistics">بهبود وظیفه</string>
     <string name="tag_already_exists">این تگ قبلاً ایجاد شده است</string>
     <string name="no_title">(بدون عنوان)</string>
     <string name="default_list">لیست پیش فرض</string>
@@ -211,7 +203,6 @@
     <string name="start_date">تاریخ شروع</string>
     <string name="EPr_show_task_edit_comments">نمایش نظرات در ویرایش وظیفه</string>
     <string name="EPr_reset_preferences_warning">ترجیحات به مقادیر پیشفرض برخواهند گشت</string>
-    <string name="sort_completed">براساس زمان تکمیل</string>
     <string name="sort_list">براساس لیست</string>
     <string name="always_display_full_date">نمایش تاریخ کامل</string>
     <string name="SSD_sort_start">براساس زمان شروع</string>

@@ -6,6 +6,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
+import org.tasks.googleapis.GtasksApiUtilities
 import java.util.*
 
 class GtasksApiUtilitiesTest {
@@ -24,7 +25,7 @@ class GtasksApiUtilitiesTest {
     @Test
     fun testConvertUnixToGoogleCompletionTime() {
         val now = org.tasks.time.DateTime(2014, 1, 8, 8, 53, 20, 109).millis
-        assertEquals(now, GtasksApiUtilities.unixTimeToGtasksCompletionTime(now).value)
+        assertEquals(now, GtasksApiUtilities.unixTimeToGtasksCompletionTime(now)!!.value)
     }
 
     @Test
@@ -39,7 +40,7 @@ class GtasksApiUtilitiesTest {
         val now = org.tasks.time.DateTime(2014, 1, 8, 8, 53, 20, 109)
         assertEquals(
                 org.tasks.time.DateTime(2014, 1, 8, 0, 0, 0, 0, TimeZone.getTimeZone("GMT")).millis,
-                GtasksApiUtilities.unixTimeToGtasksDueDate(now.millis).value)
+                GtasksApiUtilities.unixTimeToGtasksDueDate(now.millis)!!.value)
     }
 
     @Test

@@ -320,6 +320,10 @@
         android:name=".compose.accounts.AddAccountActivity"
         android:theme="@style/Tasks" />
 
+    <activity
+        android:name=".billing.LinkDesktopActivity"
+        android:theme="@style/Tasks" />
+
     <!-- ======================================================= Receivers = -->
 
     <!-- widgets -->
@@ -459,19 +463,11 @@
     <activity android:name=".activities.FilterSettingsActivity"/>
 
     <activity
-      android:name=".caldav.CaldavAccountSettingsActivity"
+      android:name=".caldav.CaldavSignInActivity"
       android:theme="@style/Tasks"/>
 
     <activity
-        android:name=".caldav.LocalAccountSettingsActivity"
-        android:theme="@style/Tasks" />
-
-    <activity
-      android:name=".etebase.EtebaseAccountSettingsActivity"
-      android:theme="@style/Tasks" />
-
-    <activity
-      android:name=".opentasks.OpenTaskAccountSettingsActivity"
+      android:name=".etebase.EtebaseSignInActivity"
       android:theme="@style/Tasks" />
 
     <activity
@@ -560,10 +556,15 @@
       android:permission="android.permission.BIND_JOB_SERVICE"/>
 
     <receiver android:name=".location.AndroidGeofenceTransitionIntentService$Broadcast"/>
-    <service
-      android:exported="false"
-      android:name=".location.AndroidGeofenceTransitionIntentService"
-      android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+    <receiver
+      android:name=".receivers.LocationProviderChangedReceiver"
+      android:enabled="false"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="android.location.PROVIDERS_CHANGED" />
+      </intent-filter>
+    </receiver>
 
     <!-- DashClock extension -->
 

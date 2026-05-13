@@ -113,7 +113,7 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
     }
 
     private fun showThemePicker() {
-        newColorPalette(null, 0, Palette.LAUNCHERS)
+        newColorPalette("shortcut_launcher_picker", palette = Palette.LAUNCHERS)
                 .show(supportFragmentManager, FRAG_TAG_COLOR_PICKER)
     }
 

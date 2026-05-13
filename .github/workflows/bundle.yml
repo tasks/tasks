@@ -10,10 +10,75 @@ on:
 permissions:
   contents: read
 
+env:
+  PEBBLE_SDK_VERSION: '4.9.127'
+  PEBBLE_PYTHON_VERSION: '3.13.12'
+
 jobs:
   check:
     uses: ./.github/workflows/check.yml
-  bundle:
+
+  pebble:
+    runs-on: ubuntu-latest
+    needs: [ check ]
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PEBBLE_PYTHON_VERSION }}
+
+      - name: Cache Pebble SDK
+        id: cache-pebble
+        uses: actions/cache@v4
+        with:
+          path: ~/.pebble-sdk
+          key: pebble-sdk-${{ env.PEBBLE_SDK_VERSION }}-py${{ env.PEBBLE_PYTHON_VERSION }}-${{ runner.os }}
+
+      - name: Install Pebble SDK
+        run: |
+          pip install pebble-tool
+          if [ "${{ steps.cache-pebble.outputs.cache-hit }}" != "true" ]; then
+            pebble sdk install $PEBBLE_SDK_VERSION
+          fi
+
+      - name: Install emulator dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libsdl1.2debian libfdt1 librsvg2-bin
+
+      - name: Generate screenshots
+        run: |
+          export DISPLAY=:99
+          Xvfb :99 &
+          sleep 2
+          cd pebble && ./screenshots.sh
+
+      - name: Build Pebble app
+        run: cd pebble && pebble clean && pebble build
+
+      - name: Generate store icons
+        run: |
+          mkdir -p pebble/screenshots
+          rsvg-convert -w 48 -h 48 graphics/icon.svg -o pebble/screenshots/icon_48.png
+          rsvg-convert -w 80 -h 80 graphics/icon.svg -o pebble/screenshots/icon_80.png
+          rsvg-convert -w 144 -h 144 graphics/icon.svg -o pebble/screenshots/icon_144.png
+          rsvg-convert -w 720 -h 320 graphics/promo.svg -o pebble/screenshots/banner_720x320.png
+
+      - name: Upload Pebble app
+        uses: actions/upload-artifact@v7
+        with:
+          name: pebble.pbw
+          path: pebble/build/pebble.pbw
+
+      - name: Upload store assets
+        uses: actions/upload-artifact@v7
+        with:
+          name: pebble-store-assets
+          path: pebble/screenshots/
+
+  android:
     runs-on: ubuntu-latest
     needs: [ check ]
     steps:
@@ -25,7 +90,7 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
@@ -44,10 +109,208 @@ jobs:
           GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
           POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
         run: bundle exec fastlane bundle
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v6
+
+      - name: Upload app APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: app-googleplay-release.apk
+          path: app/build/outputs/bundle/googleplayRelease/app-googleplay-release.apk
+      - name: Upload wear APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: wear-release.apk
+          path: wear/build/outputs/bundle/release/wear-release.apk
+      - name: Upload release bundles
+        uses: actions/upload-artifact@v7
         with:
           name: release
           path: |
-            app/build/outputs/**
-            wear/build/outputs/**
+            app/build/outputs/bundle/googleplayRelease/app-googleplay-release.aab
+            app/build/outputs/mapping/googleplayRelease/mapping.txt
+            wear/build/outputs/bundle/release/wear-release.aab
+            wear/build/outputs/mapping/release/mapping.txt
+
+  android-other:
+    runs-on: ubuntu-latest
+    needs: [ check ]
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Decode generic keystore
+        run: echo "${{ secrets.GENERIC_KEY_STORE }}" | base64 -d > "${RUNNER_TEMP}/generic.jks"
+
+      - name: Build generic and composeApp APKs
+        run: >
+          ./gradlew
+          :app:assembleGenericRelease
+          :composeApp:assembleGoogleplayRelease
+          -PtasksKeyAlias=${{ secrets.GENERIC_KEY_ALIAS }}
+          -PtasksStoreFile=${{ runner.temp }}/generic.jks
+          -PtasksStorePassword=${{ secrets.GENERIC_KEY_STORE_PASSWORD }}
+          -PtasksKeyPassword=${{ secrets.GENERIC_KEY_PASSWORD }}
+          -Ptasks_mapbox_key=${{ secrets.MAPBOX_KEY }}
+
+      - name: Upload generic APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: app-generic-release.apk
+          path: app/build/outputs/apk/generic/release/app-generic-release.apk
+
+      - name: Upload composeApp APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: composeApp-googleplay-release.apk
+          path: composeApp/build/outputs/apk/googleplay/release/composeApp-googleplay-release.apk
+
+  desktop-jar:
+    runs-on: ubuntu-latest
+    needs: [ check ]
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Build desktop jar
+        env:
+          POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
+        run: ./gradlew :composeApp:desktopJar -Prelease
+
+      - name: Upload desktop jars
+        uses: actions/upload-artifact@v7
+        with:
+          name: desktop-jar
+          path: |
+            composeApp/build/libs/composeApp-desktop*.jar
+            data/build/libs/data-jvm.jar
+            kmp/build/libs/kmp-jvm.jar
+
+  desktop:
+    runs-on: ubuntu-latest
+    needs: [ desktop-jar ]
+    strategy:
+      matrix:
+        include:
+          - platform: linux-deb
+            target: debian-package
+            flags: ""
+          - platform: linux-tar-gz
+            target: linux-tarball
+            flags: ""
+          - platform: macos-amd64
+            target: unnotarized-mac-zip
+            flags: "-Kapp.machines=mac.amd64"
+          - platform: macos-aarch64
+            target: unnotarized-mac-zip
+            flags: "-Kapp.machines=mac.aarch64"
+          - platform: windows-msix
+            target: windows-msix
+            flags: ""
+          - platform: windows-zip
+            target: windows-zip
+            flags: ""
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Download desktop jars
+        uses: actions/download-artifact@v8
+        with:
+          name: desktop-jar
+
+      - uses: ./.github/actions/install-conveyor
+
+      - name: Cache Conveyor downloads
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/hydraulic/conveyor
+          key: conveyor-${{ matrix.platform }}
+
+      - name: Generate signing key if absent
+        env:
+          CONVEYOR_AGREE_TO_LICENSE: 1
+          SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
+        run: |
+          if [ -z "$SIGNING_KEY" ]; then
+            conveyor keys generate --no-passphrase
+          fi
+
+      - name: Build ${{ matrix.platform }} desktop
+        working-directory: composeApp
+        env:
+          CONVEYOR_AGREE_TO_LICENSE: 1
+          SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
+        run: |
+          [ -z "$SIGNING_KEY" ] && unset SIGNING_KEY
+          conveyor ${{ matrix.flags }} make ${{ matrix.target }}
+
+      - name: Upload desktop-${{ matrix.platform }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: desktop-${{ matrix.platform }}
+          path: composeApp/output/
+
+  appimage:
+    runs-on: ubuntu-latest
+    needs: [ desktop ]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          sparse-checkout: composeApp/AppRun
+
+      - name: Download linux tarball
+        uses: actions/download-artifact@v8
+        with:
+          name: desktop-linux-tar-gz
+
+      - name: Create AppDir from tarball
+        run: |
+          tarball=$(ls tasks-org-*-linux-amd64.tar.gz)
+          mkdir -p AppDir
+          tar -xzf "$tarball" --strip-components=1 -C AppDir
+          cp composeApp/AppRun AppDir/
+          sed 's|Exec=.*|Exec=tasks-org|' AppDir/share/applications/org.tasks.desktop > AppDir/org.tasks.desktop
+          cp AppDir/share/icons/hicolor/256x256/apps/tasksorg-llc-tasks-org.png AppDir/tasksorg-llc-tasks-org.png
+
+      - name: Download appimagetool
+        run: |
+          curl -fsSL -o appimagetool https://github.com/AppImage/appimagetool/releases/download/1.9.1/appimagetool-x86_64.AppImage
+          echo "ed4ce84f0d9caff66f50bcca6ff6f35aae54ce8135408b3fa33abfc3cb384eb0  appimagetool" | sha256sum -c
+          chmod +x appimagetool
+
+      - name: Build AppImage
+        run: >
+          ARCH=x86_64 ./appimagetool --appimage-extract-and-run
+          -u "gh-releases-zsync|tasks|tasks|latest|tasks-org-linux-x86_64.AppImage.zsync"
+          AppDir tasks-org-linux-x86_64.AppImage
+
+      - name: Upload AppImage
+        uses: actions/upload-artifact@v7
+        with:
+          name: desktop-linux-appimage
+          path: |
+            tasks-org-linux-x86_64.AppImage
+            tasks-org-linux-x86_64.AppImage.zsync

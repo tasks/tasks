@@ -1,6 +1,5 @@
 package org.tasks.data.entity
 
-import androidx.annotation.IntDef
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -214,12 +213,10 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
     val isSaved: Boolean
         get() = id != NO_ID
 
-    @Synchronized
     fun suppressSync() {
         putTransitory(SUPPRESS_SYNC, true)
     }
 
-    @Synchronized
     fun suppressRefresh() {
         putTransitory(TRANS_SUPPRESS_REFRESH, true)
     }
@@ -230,7 +227,6 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
         get() = getTransitory(TRANS_RANDOM) ?: 0L
         set(value) = putTransitory(TRANS_RANDOM, value)
 
-    @Synchronized
     fun putTransitory(key: String, value: Any) {
         if (transitoryData == null) {
             transitoryData = HashMap()
@@ -256,7 +252,6 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
     }
 
     @Retention(AnnotationRetention.SOURCE)
-    @IntDef(Priority.HIGH, Priority.MEDIUM, Priority.LOW, Priority.NONE)
     annotation class Priority {
         companion object {
             const val HIGH = 0
@@ -268,7 +263,6 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
 
     @Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.TYPE)
     @Retention(AnnotationRetention.SOURCE)
-    @IntDef(RepeatFrom.DUE_DATE, RepeatFrom.COMPLETION_DATE)
     annotation class RepeatFrom {
         companion object {
             const val DUE_DATE = 0
@@ -285,15 +279,15 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
         const val NO_ID: Long = 0
 
         // --- properties
-        @JvmField val ID = TABLE.column("_id")
-        @JvmField val TITLE = TABLE.column("title")
+        val ID = TABLE.column("_id")
+        val TITLE = TABLE.column("title")
         val IMPORTANCE = TABLE.column("importance")
         val DUE_DATE = TABLE.column("dueDate")
         val HIDE_UNTIL = TABLE.column("hideUntil")
-        @JvmField val MODIFICATION_DATE = TABLE.column("modified")
-        @JvmField val CREATION_DATE = TABLE.column("created")
+        val MODIFICATION_DATE = TABLE.column("modified")
+        val CREATION_DATE = TABLE.column("created")
         val COMPLETION_DATE = TABLE.column("completed")
-        @JvmField val DELETION_DATE = TABLE.column("deleted")
+        val DELETION_DATE = TABLE.column("deleted")
         val NOTES = TABLE.column("notes")
         val TIMER_START = TABLE.column("timerStart")
         val PARENT = TABLE.column("parent")
@@ -347,7 +341,7 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
         private val INVALID_COUNT = ";?COUNT=(-1|0)".toRegex()
 
         /** Checks whether provided due date has a due time or only a date  */
-        @JvmStatic fun hasDueTime(dueDate: Long): Boolean {
+        fun hasDueTime(dueDate: Long): Boolean {
             return dueDate > 0 && dueDate % 60000 > 0
         }
 

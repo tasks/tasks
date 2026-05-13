@@ -50,7 +50,7 @@ class GoogleTasksAccount : BaseAccountPreference() {
     private fun requestLogin(): Boolean {
         activity?.startActivityForResult(
                 Intent(activity, GtasksLoginActivity::class.java),
-                MainSettingsFragment.REQUEST_GOOGLE_TASKS
+                MainSettingsComposeFragment.REQUEST_GOOGLE_TASKS
         )
         return false
     }

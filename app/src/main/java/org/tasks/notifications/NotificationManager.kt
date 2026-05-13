@@ -23,6 +23,7 @@ import org.tasks.data.entity.Notification
 import org.tasks.filters.NotificationsFilter
 import org.tasks.filters.TimerFilter
 import org.tasks.intents.TaskIntents
+import org.tasks.jobs.WorkManager
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
@@ -49,7 +50,8 @@ class NotificationManager @Inject constructor(
     private val notificationManager: ThrottledNotificationManager,
     private val markdownProvider: MarkdownProvider,
     private val permissionChecker: PermissionChecker,
-) {
+    private val workManager: WorkManager,
+) : Notifier {
     @InterruptionFilter
     val currentInterruptionFilter: Int
         get() = notificationManager.currentInterruptionFilter
@@ -58,16 +60,17 @@ class NotificationManager @Inject constructor(
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
 
     @SuppressLint("CheckResult")
-    suspend fun cancel(id: Long) {
+    override suspend fun cancel(id: Long, reason: CancelReason) {
         if (id == SUMMARY_NOTIFICATION_ID.toLong()) {
-            cancel(notificationDao.getAll() + id)
+            cancel(notificationDao.getAll() + id, reason)
         } else {
-            cancel(listOf(id))
+            cancel(listOf(id), reason)
         }
     }
 
     @SuppressLint("CheckResult")
-    suspend fun cancel(ids: Iterable<Long>) {
+    override suspend fun cancel(ids: List<Long>, reason: CancelReason) {
+        Timber.d("Cancelling notifications for $ids reason=$reason")
         coroutineScope {
             launch {
                 for (id in ids) {
@@ -76,12 +79,16 @@ class NotificationManager @Inject constructor(
             }
         }
         queue.remove(ids)
-        notificationDao.deleteAll(ids.toList())
+        notificationDao.deleteAll(ids)
         coroutineScope {
             launch {
                 notifyTasks(emptyList(), alert = false, nonstop = false, fiveTimes = false)
             }
         }
+    }
+
+    override fun triggerNotifications() {
+        workManager.triggerNotifications()
     }
 
     @SuppressLint("MissingPermission")
@@ -202,6 +209,7 @@ class NotificationManager @Inject constructor(
         for (notification in notifications) {
             val builder = getTaskNotification(notification)
             if (builder == null) {
+                Timber.d("Cancelling notification for ${notification.taskId} reason=${CancelReason.STALE}")
                 notificationManager.cancel(notification.taskId.toInt())
                 notificationDao.delete(notification.taskId)
             } else {
@@ -252,7 +260,7 @@ class NotificationManager @Inject constructor(
         )
         val evicted = queue.add(notificationId)
         if (evicted.size > 0) {
-            cancel(evicted)
+            cancel(evicted, CancelReason.EVICTED)
         }
         for (i in 0 until ringTimes) {
             if (i > 0) {
@@ -346,8 +354,8 @@ class NotificationManager @Inject constructor(
 
         // read properties
         val markdown = markdownProvider.markdown(force = true)
-        val taskTitle = markdown.toMarkdown(task.title)
-        val taskDescription = markdown.toMarkdown(task.notes)
+        val taskTitle = markdown.toMarkdown(task.title)?.toString()
+        val taskDescription = markdown.toMarkdown(task.notes)?.toString()
 
         val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
@@ -434,13 +442,13 @@ class NotificationManager @Inject constructor(
     }
 
     @SuppressLint("MissingPermission")
-    suspend fun updateTimerNotification() {
+    override suspend fun updateTimerNotification() {
         if (!permissionChecker.hasNotificationPermission()) {
             return
         }
         val count = taskDao.activeTimers()
         if (count == 0) {
-            cancel(Constants.NOTIFICATION_TIMER.toLong())
+            cancel(Constants.NOTIFICATION_TIMER.toLong(), CancelReason.TIMER)
         } else {
             val filter = TimerFilter.create()
             val notifyIntent = TaskIntents.getTaskListIntent(context, filter)

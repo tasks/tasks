@@ -14,7 +14,7 @@ Before opening an issue, please make sure that your issue:
 
 #### To get started with development:
 1. [Fork](https://help.github.com/articles/fork-a-repo/) and [clone](https://help.github.com/articles/cloning-a-repository/) the repository
-2. Install and launch [Android Studio's canary build](https://developer.android.com/studio/preview) (Tasks depends on some bleeding-edge features of the canary build, but in the future when those features are stabilized, you will be able to use the stable release of Android Studio)
+2. Install and launch [Android Studio](https://developer.android.com/studio)
 3. Select `File > Open`, select the Tasks directory, and accept prompts to install missing SDK components
 
 #### Set up Mapbox
@@ -26,9 +26,9 @@ Before opening an issue, please make sure that your issue:
 2. Enable [Google Tasks API](https://console.cloud.google.com/apis/library/tasks.googleapis.com) and [Google Drive API](https://console.cloud.google.com/apis/library/drive.googleapis.com)
 3. [Create android authorization credentials](https://developers.google.com/identity/protocols/OAuth2InstalledApp#creatingcred)
 
-#### Set up Google Maps and Google Places
+#### Set up Google Maps
 1. Register at [cloud.google.com](https://cloud.google.com)
-2. Enable [Google Maps SDK](https://console.cloud.google.com/apis/library/maps-android-backend.googleapis.com) and [Google Places API](https://console.cloud.google.com/apis/library/places-backend.googleapis.com)
+2. Enable [Google Maps SDK](https://console.cloud.google.com/apis/library/maps-android-backend.googleapis.com)
 3. [Set up an API key](https://cloud.google.com/video-intelligence/docs/common/auth#set_up_an_api_key)
 4. Add `tasks_google_key_debug="<your_api_key>"` to your [`gradle.properties`](https://docs.gradle.org/current/userguide/build_environment.html#sec:gradle_configuration_properties) file
 5. Select `Build > Select Build Variant` and choose the `googleplay` variant

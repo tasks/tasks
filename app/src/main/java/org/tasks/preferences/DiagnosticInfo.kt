@@ -2,8 +2,10 @@ package org.tasks.preferences
 
 import android.content.Context
 import android.os.Build
+import android.os.PowerManager
 import android.provider.Settings
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.fetchTasks
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.data.dao.CaldavDao
@@ -38,12 +40,18 @@ class DiagnosticInfo @Inject constructor(
         }
     }
 
+    private fun isIgnoringBatteryOptimizations(): Boolean {
+        val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+        return powerManager.isIgnoringBatteryOptimizations(context.packageName)
+    }
+
     val debugInfo: String
         get() = """
             ----------
             Tasks: ${BuildConfig.VERSION_NAME} (${BuildConfig.FLAVOR} build ${BuildConfig.VERSION_CODE})
             Android: ${Build.VERSION.RELEASE} (${Build.DISPLAY})
             Locale: ${Locale.getDefault()}
+            Timezone: ${java.util.TimeZone.getDefault().id}
             Model: ${Build.MANUFACTURER} ${Build.MODEL}
             Product: ${Build.PRODUCT} (${Build.DEVICE})
             Kernel: ${System.getProperty("os.version")} (${Build.VERSION.INCREMENTAL})
@@ -55,6 +63,7 @@ class DiagnosticInfo @Inject constructor(
             calendar: ${permissionChecker.canAccessCalendars()}
             ----------
             dont keep activities: ${isDontKeepActivitiesEnabled()}
+            ignoring battery optimizations: ${isIgnoringBatteryOptimizations()}
             ----------
         """.trimIndent()
 

@@ -36,19 +36,23 @@ import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_DECLINED
 import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_INVALID
 import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_NO_RESPONSE
 import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
-import org.tasks.data.entity.Principal
-import org.tasks.data.entity.PrincipalAccess
 import org.tasks.themes.TasksTheme
 
 private val principals = listOf(
     PrincipalWithAccess(
-        PrincipalAccess(list = 0, invite = INVITE_INVALID),
-        Principal(account = 0, href = "", displayName = "user1")
+        invite = INVITE_INVALID,
+        href = "mailto:user1@example.com",
+        displayName = "User One",
     ),
     PrincipalWithAccess(
-        PrincipalAccess(list = 0, invite = INVITE_ACCEPTED),
-        Principal(account = 0, href = "", displayName = "a really really really really really long display name")
-    )
+        invite = INVITE_ACCEPTED,
+        href = "mailto:user2@example.com",
+        displayName = "A Really Long Display Name",
+    ),
+    PrincipalWithAccess(
+        invite = INVITE_NO_RESPONSE,
+        href = "mailto:noreply@example.com",
+    ),
 )
 
 @Preview(showBackground = true)
@@ -62,7 +66,7 @@ private fun Owner() = TasksTheme {
 @Preview(showBackground = true, backgroundColor = 0x202124, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 private fun NotOwner() = TasksTheme {
-    ListSettingsComposables.PrincipalList(principals, null)
+    ListSettingsComposables.PrincipalList(principals, onRemove = null)
 }
 
 object ListSettingsComposables {
@@ -120,12 +124,20 @@ object ListSettingsComposables {
                 Modifier.weight(1f),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                val email = principal.email
                 Column {
                     Text(
-                        principal.name,
+                        principal.displayName ?: email ?: principal.name,
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
+                    if (principal.displayName != null && email != null) {
+                        Text(
+                            email,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
                     if (principal.inviteStatus != INVITE_ACCEPTED) {
                         Text(
                             stringResource(when (principal.inviteStatus) {

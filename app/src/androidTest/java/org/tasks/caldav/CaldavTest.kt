@@ -1,6 +1,6 @@
 package org.tasks.caldav
 
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
 import junit.framework.Assert.assertFalse
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -41,7 +41,7 @@ abstract class CaldavTest : InjectingTestCase() {
     fun after() = server.shutdown()
 
     protected suspend fun sync(account: CaldavAccount = this.account) {
-        synchronizer.sync(account)
+        synchronizer.sync(account, hasPro = true)
 
         assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
     }

@@ -23,11 +23,11 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
-import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.dialogs.SortSettingsActivity
+import org.tasks.dialogs.ThemePickerDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
 import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.Filter
@@ -42,12 +42,11 @@ import javax.inject.Inject
 class WidgetSettings : InjectingPreferenceFragment() {
 
     companion object {
-        private const val REQUEST_THEME_SELECTION = 1006
-        private const val REQUEST_COLOR_SELECTION = 1007
         private const val REQUEST_SORT = 1008
 
         const val EXTRA_WIDGET_ID = "extra_widget_id"
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
+        private const val REQUEST_KEY_COLOR = "widget_color_picker_result"
 
         fun newWidgetSettings(appWidgetId: Int): WidgetSettings {
             val widget = WidgetSettings()
@@ -70,6 +69,25 @@ class WidgetSettings : InjectingPreferenceFragment() {
     }
 
     override fun getPreferenceXml() = R.xml.preferences_widget
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        parentFragmentManager.setFragmentResultListener(
+            ThemePickerDialog.REQUEST_KEY, this
+        ) { _, bundle ->
+            val selected = bundle.getInt(ThemePickerDialog.EXTRA_SELECTED, widgetPreferences.themeIndex)
+            widgetPreferences.setTheme(selected)
+            updateTheme()
+        }
+        parentFragmentManager.setFragmentResultListener(
+            REQUEST_KEY_COLOR, this
+        ) { _, bundle ->
+            val selected = bundle.getInt(ColorWheelPicker.EXTRA_SELECTED, 0)
+            widgetPreferences.setColor(selected)
+            updateColor()
+        }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -147,7 +165,7 @@ class WidgetSettings : InjectingPreferenceFragment() {
 
         findPreference(R.string.p_widget_theme)
             .setOnPreferenceClickListener {
-                newThemePickerDialog(this, REQUEST_THEME_SELECTION, widgetPreferences.themeIndex, true)
+                newThemePickerDialog(widgetPreferences.themeIndex, widget = true)
                     .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
                 false
             }
@@ -155,7 +173,7 @@ class WidgetSettings : InjectingPreferenceFragment() {
         val colorPreference = findPreference(R.string.p_widget_color_v2)
         colorPreference.dependency = showHeader.key
         colorPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            newColorPalette(this, REQUEST_COLOR_SELECTION, widgetPreferences.color, Palette.WIDGET)
+            newColorPalette(REQUEST_KEY_COLOR, widgetPreferences.color, Palette.WIDGET)
                 .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
             false
         }
@@ -167,21 +185,6 @@ class WidgetSettings : InjectingPreferenceFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            REQUEST_THEME_SELECTION -> if (resultCode == Activity.RESULT_OK) {
-                widgetPreferences.setTheme(
-                        data?.getIntExtra(
-                                ColorPalettePicker.EXTRA_SELECTED,
-                                0
-                        ) ?: widgetPreferences.themeIndex
-                )
-                updateTheme()
-            }
-            REQUEST_COLOR_SELECTION -> if (resultCode == Activity.RESULT_OK) {
-                widgetPreferences.setColor(
-                    data!!.getIntExtra(ColorWheelPicker.EXTRA_SELECTED, 0)
-                )
-                updateColor()
-            }
             REQUEST_SORT -> if (resultCode == Activity.RESULT_OK) updateSort()
             else -> super.onActivityResult(requestCode, resultCode, data)
         }

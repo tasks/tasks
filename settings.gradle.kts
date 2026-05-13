@@ -12,7 +12,11 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        maven("https://maven.hq.hydraulic.software")
     }
+}
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 dependencyResolutionManagement {
@@ -45,3 +49,4 @@ include(":kmp")
 include(":icons")
 include(":wear")
 include(":wear-datalayer")
+include(":composeApp")

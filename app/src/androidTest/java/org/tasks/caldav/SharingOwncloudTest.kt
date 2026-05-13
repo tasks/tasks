@@ -81,7 +81,7 @@ class SharingOwncloudTest : CaldavTest() {
         assertEquals("principal:principals/users/user2", principal.href)
         assertEquals("user2", principal.name)
         assertEquals(CaldavCalendar.INVITE_ACCEPTED, principal.inviteStatus)
-        assertEquals(ACCESS_READ_ONLY, principal.access.access)
+        assertEquals(ACCESS_READ_ONLY, principal.access)
     }
 
     @Test
@@ -105,7 +105,7 @@ class SharingOwncloudTest : CaldavTest() {
         assertEquals("principals/users/user1", principal.href)
         assertEquals(null, principal.displayName)
         assertEquals(CaldavCalendar.INVITE_ACCEPTED, principal.inviteStatus)
-        assertEquals(ACCESS_OWNER, principal.access.access)
+        assertEquals(ACCESS_OWNER, principal.access)
     }
 
     companion object {

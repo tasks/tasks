@@ -3,9 +3,13 @@
 *.iml
 .gradle
 build/
+/composeApp/output
 *.apk
 *.apks
 *.aab
+*.pbw
+*.AppImage
+*.AppImage.zsync
 local.properties
 Thumbs.db
 /captures/

@@ -22,8 +22,7 @@
   <Preference
       android:defaultValue="content://settings/system/notification_sound"
       android:key="@string/p_completion_ringtone"
-      android:title="@string/completion_sound"
-      app:allowDividerAbove="true" />
+      android:title="@string/completion_sound" />
 
   <SwitchPreferenceCompat
     android:defaultValue="true"
@@ -77,11 +76,11 @@
     <SwitchPreferenceCompat
         android:defaultValue="true"
         android:key="@string/p_rmd_time_enabled"
-        android:summary="@string/rmd_time_description"
-        android:title="@string/enabled" />
+        android:summaryOn="@string/rmd_time_enabled_on"
+        android:summaryOff="@string/rmd_time_enabled_off"
+        android:title="@string/add_default_reminders" />
 
     <org.tasks.ui.TimePreference
-        android:dependency="@string/p_rmd_time_enabled"
         android:defaultValue="@integer/default_remind_time"
         android:key="@string/p_rmd_time"
         android:title="@string/rmd_EPr_rmd_time_title"

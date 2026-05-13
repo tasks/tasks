@@ -5,8 +5,7 @@
  */
 package com.todoroo.astrid.repeats
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
+import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -29,14 +28,14 @@ class RepeatControlSet : TaskEditControlFragment() {
     @Inject lateinit var repeatRuleToString: RepeatRuleToString
     @Inject lateinit var caldavDao: CaldavDao
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_RECURRENCE) {
-            if (resultCode == RESULT_OK) {
-                val result = data?.getStringExtra(BasicRecurrenceDialog.EXTRA_RRULE)
-                viewModel.setRecurrence(result)
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        parentFragmentManager.setFragmentResultListener(
+            BasicRecurrenceDialog.REQUEST_KEY, this
+        ) { _, bundle ->
+            val result = bundle.getString(BasicRecurrenceDialog.EXTRA_RRULE)
+            viewModel.setRecurrence(result)
         }
     }
 
@@ -77,8 +76,6 @@ class RepeatControlSet : TaskEditControlFragment() {
             onClick = {
                 val accountType = viewState.list.account.accountType
                 BasicRecurrenceDialog.newBasicRecurrenceDialog(
-                    target = this@RepeatControlSet,
-                    rc = REQUEST_RECURRENCE,
                     rrule = viewState.task.recurrence,
                     dueDate = dueDate,
                     accountType = accountType,
@@ -92,6 +89,5 @@ class RepeatControlSet : TaskEditControlFragment() {
     companion object {
         val TAG = R.string.TEA_ctrl_repeat_pref
         private const val FRAG_TAG_BASIC_RECURRENCE = "frag_tag_basic_recurrence"
-        private const val REQUEST_RECURRENCE = 10000
     }
 }

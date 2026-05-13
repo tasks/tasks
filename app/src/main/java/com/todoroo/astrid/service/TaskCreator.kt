@@ -1,7 +1,8 @@
 package com.todoroo.astrid.service
 
 import com.todoroo.astrid.api.PermaSql
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.utility.TitleParser.parse
 import org.tasks.R
@@ -11,6 +12,8 @@ import org.tasks.data.UUIDHelper
 import org.tasks.data.createDueDate
 import org.tasks.data.createGeofence
 import org.tasks.data.createHideUntil
+import org.tasks.data.getDefaultAlarms
+import org.tasks.data.setDefaultReminders
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
@@ -33,6 +36,7 @@ import org.tasks.data.entity.Task.Companion.IMPORTANCE
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.mapFromSerializedString
+import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -46,6 +50,7 @@ class TaskCreator @Inject constructor(
     private val preferences: Preferences,
     private val tagDataDao: TagDataDao,
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val tagDao: TagDao,
     private val googleTaskDao: GoogleTaskDao,
     private val defaultFilterProvider: DefaultFilterProvider,
@@ -115,8 +120,8 @@ class TaskCreator @Inject constructor(
                 locationDao.insert(createGeofence(place.uid, preferences))
             }
         }
-        taskDao.save(task, null)
-        alarmDao.insert(task.getDefaultAlarms())
+        taskSaver.save(task, null)
+        alarmDao.insert(task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled()))
         return task
     }
 
@@ -137,7 +142,7 @@ class TaskCreator @Inject constructor(
             creationDate = currentTimeMillis(),
             modificationDate = currentTimeMillis(),
             remoteId = UUIDHelper.newUUID(),
-            priority = preferences.defaultPriority,
+            priority = preferences.defaultPriority(),
         )
         preferences.getStringValue(R.string.p_default_recurrence)
                 ?.takeIf { it.isNotBlank() }
@@ -208,29 +213,7 @@ class TaskCreator @Inject constructor(
     }
 
     companion object {
-        fun Task.setDefaultReminders(preferences: Preferences) {
-            randomReminder = ONE_HOUR * preferences.getIntegerFromString(
-                R.string.p_rmd_default_random_hours,
-                0
-            )
-            putTransitory(Task.TRANS_DEFAULT_ALARMS, preferences.defaultAlarms)
-            ringFlags = preferences.defaultRingMode
-        }
-
         private fun Any?.substitute(): String? =
             (this as? String)?.let { PermaSql.replacePlaceholdersForNewTask(it) }
-
-        fun Task.getDefaultAlarms(): List<Alarm> = buildList {
-            val defaults = getTransitory<List<Alarm>>(Task.TRANS_DEFAULT_ALARMS) ?: emptyList()
-            for (alarm in defaults) {
-                when (alarm.type) {
-                    TYPE_REL_START -> if (hasStartDate()) add(alarm.copy(task = id))
-                    TYPE_REL_END -> if (hasDueDate()) add(alarm.copy(task = id))
-                }
-            }
-            if (randomReminder > 0) {
-                add(Alarm(task = id, time = randomReminder, type = TYPE_RANDOM))
-            }
-        }
     }
 }

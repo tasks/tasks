@@ -4,15 +4,19 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.astrid.service.TaskDeleter
+import org.tasks.service.TaskDeleter
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.billing.BillingClient
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.logout_warning
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.data.dao.CaldavDao
@@ -45,7 +49,7 @@ abstract class BaseAccountPreference : InjectingPreferenceFragment() {
         findPreference(R.string.logout).setOnPreferenceClickListener {
             dialogBuilder
                     .newDialog()
-                    .setMessage(R.string.logout_warning)
+                    .setMessage(runBlocking { getString(Res.string.logout_warning) })
                     .setPositiveButton(R.string.remove) { _, _ ->
                         lifecycleScope.launch {
                             withContext(NonCancellable) {
@@ -65,15 +69,6 @@ abstract class BaseAccountPreference : InjectingPreferenceFragment() {
     }
 
     protected abstract suspend fun refreshUi(account: CaldavAccount)
-
-    protected fun showPurchaseDialog(): Boolean {
-        startActivityForResult(
-            Intent(context, PurchaseActivity::class.java)
-                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "account_settings"),
-            REQUEST_PURCHASE
-        )
-        return false
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_PURCHASE) {

@@ -1,13 +1,18 @@
 package org.tasks.injection
 
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.StringRes
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceGroup
 import androidx.preference.PreferenceScreen
 import kotlinx.coroutines.launch
+import com.google.android.material.color.MaterialColors
 import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.openUri
@@ -37,10 +42,22 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
     @Inject lateinit var device: Device
     @Inject lateinit var dialogBuilder: DialogBuilder
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listView?.let { rv ->
+            rv.clipToPadding = false
+            ViewCompat.setOnApplyWindowInsetsListener(rv) { v, insets ->
+                val navBar = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+                v.updatePadding(bottom = navBar.bottom)
+                insets
+            }
+        }
+    }
+
     final override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(getPreferenceXml(), rootKey)
 
-        tintIcons(preferenceScreen, requireContext().getColor(R.color.icon_tint_with_alpha))
+        tintIcons(preferenceScreen, MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorOnSurfaceVariant, 0))
 
         lifecycleScope.launch {
             setupPreferences(savedInstanceState)
@@ -89,8 +106,6 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
             preference?.parent?.removePreference(preference)
         }
     }
-
-    open fun getMenu() = R.menu.menu_preferences
 
     abstract fun getPreferenceXml(): Int
 

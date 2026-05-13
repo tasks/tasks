@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper.UP
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.adapter.TaskAdapter
+import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.utility.Flags
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -52,7 +53,7 @@ class DragAndDropRecyclerAdapter(
         val viewType = getItemViewType(position)
         if (viewType == 1) {
             val headerSection = items.getSection(position)
-            (holder as HeaderViewHolder).bind(taskList.getFilter(), preferences.groupMode, headerSection)
+            (holder as HeaderViewHolder).bind(taskList.getFilter(), groupMode, headerSection)
         } else {
             super.onBindViewHolder(holder, position)
         }
@@ -60,6 +61,9 @@ class DragAndDropRecyclerAdapter(
 
     override val sortMode: Int
         get() = items.groupMode
+
+    override val groupMode: Int
+        get() = if (items.groupsEnabled) items.groupMode else SortHelper.GROUP_NONE
 
     override val subtaskSortMode: Int
         get() = items.subtaskMode
@@ -122,8 +126,8 @@ class DragAndDropRecyclerAdapter(
 
         override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
             return when {
+                viewHolder !is TaskViewHolder -> NO_MOVEMENT
                 !dragAndDropEnabled() -> NO_MOVEMENT
-                adapter.isHeader(viewHolder.bindingAdapterPosition) -> NO_MOVEMENT
                 adapter.numSelected > 0 -> NO_MOVEMENT
                 else -> ALLOW_DRAGGING
             }
@@ -133,6 +137,7 @@ class DragAndDropRecyclerAdapter(
                 recyclerView: RecyclerView,
                 src: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder): Boolean {
+            if (target !is TaskViewHolder && target !is HeaderViewHolder) return false
             taskList.finishActionMode()
             val fromPosition = src.bindingAdapterPosition
             val toPosition = target.bindingAdapterPosition

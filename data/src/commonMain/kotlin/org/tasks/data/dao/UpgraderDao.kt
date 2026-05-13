@@ -35,4 +35,10 @@ WHERE cd_deleted = 0
 
     @Query("UPDATE tasks SET hideUntil = :startDate WHERE _id = :task")
     suspend fun setStartDate(task: Long, startDate: Long)
+
+    @Query("""
+DELETE FROM alarms
+WHERE task IN (SELECT _id FROM tasks WHERE dueDate > 0 AND dueDate % 60000 = 0)
+    """)
+    suspend fun deleteAlarmsForAllDayTasks()
 }

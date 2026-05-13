@@ -2,10 +2,11 @@ package org.tasks.caldav.property
 
 import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.XmlUtils
+import at.bitfire.dav4jvm.property.webdav.WebDAV
 import java.io.StringReader
 
 object TestPropertyUtils {
-    private val DAV = "d" to XmlUtils.NS_WEBDAV
+    private val DAV = "d" to WebDAV.NS_WEBDAV
 
     fun <T: Property> String.toProperty(vararg ns: Pair<String, String>): T =
             toProperties(*ns)

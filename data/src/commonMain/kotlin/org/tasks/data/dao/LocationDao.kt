@@ -75,6 +75,12 @@ interface LocationDao {
     @Query("SELECT COUNT(*) FROM geofences")
     suspend fun geofenceCount(): Int
 
+    @Query("SELECT COUNT(*) FROM geofences"
+            + " INNER JOIN tasks ON geofences.task = tasks._id"
+            + " WHERE tasks.completed = 0 AND tasks.deleted = 0"
+            + " AND (geofences.arrival > 0 OR geofences.departure > 0)")
+    suspend fun activeGeofenceCount(): Int
+
     @Delete
     suspend fun delete(location: Geofence)
 

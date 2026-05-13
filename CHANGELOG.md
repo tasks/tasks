@@ -1,3 +1,209 @@
+### 15.4.2 (2026-05-08)
+
+Desktop:
+  * Fix EteSync setup
+  * Add 'About' screen
+
+Android:
+  * Improve notifications on wearables
+
+Update translations:
+  * Chinese (Simplified) - Sketch6580
+  * Czech - Fjuro
+  * French - @FlorianLeChat
+  * Turkish - @oersen
+
+### 15.4.1 (2026-05-06)
+
+Desktop:
+  * Fix Windows exe download link
+  * Add AppImage download link
+
+### 15.4 (2026-05-06)
+
+Desktop:
+  * Add CalDAV support
+  * Add EteSync support
+  * Unlock desktop app with Google Play subscription or GitHub Sponsorship
+  * Fix opening URLs on some platforms [#4326](https://github.com/tasks/tasks/issues/4326)
+  * Generate AppImage for Linux [#4327](https://github.com/tasks/tasks/issues/4327)
+
+Android:
+  * QR code scanner to unlock desktop (Google Play only)
+  * Updated DAVx5, CalDAV, and EteSync settings screens
+
+Update translations:
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580, 大王叫我来巡山
+  * Czech - Fjuro, Odweta
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @ColorfulRhino, @CrUsHoR
+  * Hindi - Chandra Mohan Jha
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Japanese - Norara
+  * Kurdish (Northern) - @CYAXXX
+  * Turkish - @oersen, @emintufan
+
+### 15.3 (2026-04-23)
+
+Desktop:
+  * Create new tasks
+  * Add title and description support
+  * Added top level settings screen
+  * Tasks.org account settings
+  * Local account settings
+  * Improve push sync reliability
+
+Android:
+  * Clear notification when completed/deleted remotely [#4302](https://github.com/tasks/tasks/pull/4302)
+  * Geofence battery improvements
+  * Fix parent relationship lost when importing backups [#4301](https://github.com/tasks/tasks/issues/4301)
+  * Fix failure when importing older backups [#4293](https://github.com/tasks/tasks/issues/4293)
+
+Update translations:
+  * Chinese (Simplified) - Sketch6580, 大王叫我来巡山
+  * Czech - Fjuro
+  * French - @FlorianLeChat, @tlabartbarnagaud
+  * German - @ColorfulRhino, Carlo Kisser
+  * Hindi - Chandra Mohan Jha
+  * Hungarian - Kaci
+  * Indonesian - @arifpedia
+  * Italian - @albanobattistella
+  * Japanese - Norara
+  * Russian - @PONYATIN
+  * Swedish - Mona Lisa
+  * Turkish - @emintufan
+
+### 15.2.1 (2026-04-10)
+
+* Pre-alpha desktop release for macOS, Windows, and Linux! [#1256](https://github.com/tasks/tasks/issues/1256)
+  * Currently only supports Tasks.org cloud sign in
+  * Early adopters only! This is a minimally useful product right now
+  * Windows release not cryptographically signed yet
+* Obtainium support [#2040](https://github.com/tasks/tasks/issues/2040)
+* Location reminder improvements
+  * Tasks.org can now register for background location updates to improve reliability
+* Sync iCalendar modification times [#2083](https://github.com/tasks/tasks/issues/2083)
+* Show announcements from the Tasks.org blog
+* Fix many Microsoft To Do sync bugs [#4273](https://github.com/tasks/tasks/issues/4273)
+* Fix bug causing iCalendar parent loss on initial sync [#3023](https://github.com/tasks/tasks/issues/3023)
+* Fix DST bug [#4265](https://github.com/tasks/tasks/issues/4265)
+* Fix long sync indicators
+* Fix 24-hour mode for future due dates
+* Update translations
+  * Afrikaans - @evangibson66
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Czech - Fjuro
+  * Dutch - Bram Schoenmakers
+  * Esperanto - Don Zouras
+  * Finnish - @pHamala
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Japanese - Norara
+
+** 15.2 was a Google Play beta that accidentally released to F-Droid **
+
+### 15.1 (2026-03-17)
+
+* Add 'Per-list sorting' - @repparw
+  * Toggle on '⚙ > App settings > Task list options > Per-list sorting'
+* Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Chinese (Traditional) - @xlionjuan
+  * Croatian - @milotype
+  * Czech - Fjuro
+  * Esperanto - Don Zouras
+  * French - @FlorianLeChat
+  * German - @Atalanttore, @Kachelkaiser, @ColorfulRhino
+  * Hebrew - Xo
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Malagasy - @HairEureka160
+  * Turkish - @emintufan
+
+### 15.0 (2026-03-04)
+
+* Friends & Family Sharing
+  * Tasks.org cloud users can invite five guests to access shared lists for free
+  * Guests can use Tasks.org, Apple Reminders, or any third-party CalDAV client
+* Updated chip styles
+* Fix group by list headers on WearOS
+* Update translations
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Chinese (Traditional) - @xlionjuan
+  * Czech - Fjuro
+  * Estonian - Priit Jõerüüt
+  * Finnish - @pHamala
+  * French - @FlorianLeChat
+  * German - @ColorfulRhino
+  * Italian - @ppasserini
+  * Japanese - Norara
+  * Serbian - @vale-decem
+
+### 14.15 (2026-02-25)
+
+* Wear OS improvements
+  * Wear OS app works over WiFi now [#3960](https://github.com/tasks/tasks/issues/3960)
+  * Configure group and sort mode
+  * Fix connection issues [#3604](https://github.com/tasks/tasks/issues/3604)
+* Add Wear OS complications [#3765](https://github.com/tasks/tasks/issues/3765)
+  * 'Progress' complication
+  * 'Next task' complication
+  * 'Add task' complication
+  * 'Task count' complication
+  * 'Shortcut' complication
+* Default to calendar picker when autoclose is enabled
+* Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580
+  * Croatian - @milotype
+  * Czech - Fjuro
+  * Dutch - Bram Schoenmakers
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @ColorfulRhino
+  * Hungarian - Kaci
+  * Japanese - Norara
+  * Turkish - @oersen
+
+### 14.14 (2026-02-21)
+
+* Update navigation drawer design
+* Update color palettes
+* Swipe to dismiss banners
+* Improved sharing for new lists
+* Update translations
+  * Croatian - @milotype
+  * Danish - ERYpTION
+  * Estonian - Priit Jõerüüt
+  * Turkish - @emintufan
+
+### 14.13 (2026-02-16)
+
+* New design for app settings screens
+* Improve notifications for all day tasks [#4152](https://github.com/tasks/tasks/issues/4152)
+  * Updated 'Settings > Notifications > All day tasks' section
+* Don't configure notification channels to bypass DnD [#4030](https://github.com/tasks/tasks/discussions/4030)
+  * Only applies to new installs going forward
+* Moved 'Badges' preference to 'Advanced'
+* Fix rotation bug [#3009](https://github.com/tasks/tasks/issues/3009)
+* Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580
+  * Croatian - @milotype
+  * Czech - Fjuro
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @ColorfulRhino
+  * Hungarian - Kaci
+  * Italian - @ppasserini, @glemco
+  * Japanese - @array
+
 ### 14.12 (2026-02-11)
 
 * Email-to-task for Tasks.org accounts
@@ -10,7 +216,7 @@
 * Update translations
   * Bulgarian - 109247019824
   * Chinese (Simplified) - 大王叫我来巡山, Sketch6580
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * French - @FlorianLeChat
   * German - @ColorfulRhino
   * Hungarian - Kaci
@@ -58,7 +264,7 @@
 * Add banner when subscription required
 * Update translations
   * Bulgarian - 109247019824
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Danish - ERYpTION
   * Dutch - Bram Schoenmakers
   * Esperanto - Don Zouras
@@ -81,7 +287,7 @@
 * Update translations
   * Bulgarian - 109247019824
   * Chinese (Simplified) - 大王叫我来巡山, Sketch6580
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Esperanto - Don Zouras
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
@@ -179,7 +385,7 @@
 * Update translations
   * Bulgarian - 109247019824
   * Chinese (Simplified) - Sketch6580
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Dutch - @fvbommel
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
@@ -237,7 +443,7 @@
   * Arabic - abdelbasset jabrane
   * Bulgarian - 109247019824
   * Catalan - @Crashillo
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Danish - @catsnote
   * Dutch - @fvbommel
   * Esperanto - Don Zouras
@@ -275,7 +481,7 @@
 * Fix start date chip when grouping by start date [#3509](https://github.com/tasks/tasks/issues/3509)
 * Update translations
   * Brazilian Portuguese - @sobeitnow0, dedakir923
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Dutch - Jay Tromp
   * German - min7-i
   * Hebrew - Xo

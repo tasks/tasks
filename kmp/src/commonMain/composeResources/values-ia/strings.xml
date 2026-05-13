@@ -7,4 +7,17 @@
     <string name="settings">Parametros</string>
     <string name="today">Hodie</string>
     <string name="today_lowercase">hodie</string>
+    <string name="save">Salvar</string>
+    <string name="sort_mode">Ordinar</string>
+    <string name="cancel">Cancellar</string>
+    <string name="help">Adjuta</string>
+    <string name="SSD_sort_start">Per data de initio</string>
+    <string name="SSD_sort_alpha">Per titulo</string>
+    <string name="display_name">Monstrar le nomine</string>
+    <string name="notifications">Notificationes</string>
+    <string name="date_and_time">Data e hora</string>
+    <string name="backup_BPr_header">Copias de securitate</string>
+    <string name="about">A proposito de</string>
+    <string name="privacy_policy">Politica de confidentialitate</string>
+    <string name="open_source">Codice aperte</string>
 </resources>

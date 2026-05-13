@@ -3,7 +3,6 @@
   <string name="app_name" tools:ignore="PrivateResource">Tasks Debug</string>
   <string name="debug_strict_mode_thread">Strict mode - Thread</string>
   <string name="debug_strict_mode_vm">Strict mode - VM</string>
-  <string name="debug_leakcanary">LeakCanary</string>
   <string name="debug_pro">Unlock pro</string>
   <string name="debug_purchase">Purchase %s</string>
   <string name="debug_consume">Consume %s</string>
@@ -14,6 +13,7 @@
   <string name="debug_main_queries">Crash on violation</string>
   <string name="debug_force_restart">Restart app</string>
   <string name="debug_clear_hints">Clear hints</string>
+  <string name="debug_show_filters">Show debug filters</string>
   <string name="google_oauth_scheme">com.googleusercontent.apps.1006257750459-vf4mvft1b3rfda8b4c4bl4k4418abqlf</string>
   <string name="microsoft_oauth_path">/8wnYBRqh5nnQgFzbIXfxXSs41xE=</string>
 </resources>

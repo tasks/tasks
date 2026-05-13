@@ -2,7 +2,7 @@ package com.todoroo.astrid.adapter
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
 import com.todoroo.astrid.service.TaskMover
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
@@ -12,6 +12,7 @@ import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.TaskContainer
+import org.tasks.data.TaskSaver
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
@@ -32,6 +33,7 @@ import javax.inject.Inject
 @HiltAndroidTest
 class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskSaver: TaskSaver
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var preferences: Preferences
@@ -418,7 +420,7 @@ class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
         preferences.clear()
         preferences.setBoolean(R.string.p_manual_sort, true)
         tasks.clear()
-        adapter = GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
+        adapter = GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, taskSaver, localBroadcastManager, taskMover)
         adapter.setDataSource(dataSource)
     }
 

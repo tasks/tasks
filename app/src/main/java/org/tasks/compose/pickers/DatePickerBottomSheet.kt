@@ -109,7 +109,8 @@ fun DatePickerBottomSheet(
                                 } else {
                                     Icons.Outlined.Keyboard
                                 },
-                                contentDescription = null
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
                             )
                         }
                         Spacer(modifier = Modifier.weight(1f))

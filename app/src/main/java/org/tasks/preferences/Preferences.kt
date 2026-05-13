@@ -36,20 +36,19 @@ import java.util.concurrent.TimeUnit
 class Preferences @JvmOverloads constructor(
         private val context: Context,
         name: String? = getSharedPreferencesName(context)
-) : QueryPreferences {
-    private val listeners = ArrayList<SharedPreferences.OnSharedPreferenceChangeListener>()
-    private val proxyListener =
-        SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
-            listeners.forEach { it.onSharedPreferenceChanged(prefs, key) }
-        }
-    private val prefs: SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE).apply {
-        registerOnSharedPreferenceChangeListener(proxyListener)
-    }
+) : QueryPreferences, AppPreferences {
+    private val prefs: SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
     fun registerOnSharedPreferenceChangeListener(
         listener: SharedPreferences.OnSharedPreferenceChangeListener
     ) {
-        listeners.add(listener)
+        prefs.registerOnSharedPreferenceChangeListener(listener)
+    }
+
+    fun unregisterOnSharedPreferenceChangeListener(
+        listener: SharedPreferences.OnSharedPreferenceChangeListener
+    ) {
+        prefs.unregisterOnSharedPreferenceChangeListener(listener)
     }
 
     fun androidBackupServiceEnabled() = getBoolean(R.string.p_backups_android_backup_enabled, true)
@@ -60,8 +59,7 @@ class Preferences @JvmOverloads constructor(
 
     fun backButtonSavesTask(): Boolean = getBoolean(R.string.p_back_button_saves_task, false)
 
-    val isCurrentlyQuietHours: Boolean
-        get() {
+    override suspend fun isCurrentlyQuietHours(): Boolean {
             if (quietHoursEnabled()) {
                 val dateTime = DateTime()
                 val start = dateTime.withMillisOfDay(quietHoursStart)
@@ -75,7 +73,7 @@ class Preferences @JvmOverloads constructor(
             return false
         }
 
-    fun adjustForQuietHours(time: Long): Long {
+    override suspend fun adjustForQuietHours(time: Long): Long {
         if (quietHoursEnabled()) {
             val dateTime = DateTime(time)
             val start = dateTime.withMillisOfDay(quietHoursStart)
@@ -97,11 +95,11 @@ class Preferences @JvmOverloads constructor(
 
     private fun quietHoursEnabled(): Boolean = getBoolean(R.string.p_rmd_enable_quiet, false)
 
-    val isDefaultDueTimeEnabled: Boolean
-        get() = getBoolean(R.string.p_rmd_time_enabled, true)
+    override suspend fun isDefaultDueTimeEnabled(): Boolean =
+        getBoolean(R.string.p_rmd_time_enabled, true)
 
-    val defaultDueTime: Int
-        get() = getInt(R.string.p_rmd_time, TimeUnit.HOURS.toMillis(18).toInt())
+    override suspend fun defaultDueTime(): Int =
+        getInt(R.string.p_rmd_time, TimeUnit.HOURS.toMillis(18).toInt())
 
     private val quietHoursStart: Int
         get() = getMillisPerDayPref(R.string.p_rmd_quietStart, R.integer.default_quiet_hours_start)
@@ -184,8 +182,6 @@ class Preferences @JvmOverloads constructor(
     }
 
     fun setDefaults() {
-        prefs.unregisterOnSharedPreferenceChangeListener(proxyListener)
-        PreferenceManager.setDefaultValues(context, R.xml.preferences, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_look_and_feel, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_notifications, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_task_defaults, true)
@@ -193,13 +189,10 @@ class Preferences @JvmOverloads constructor(
         PreferenceManager.setDefaultValues(context, R.xml.preferences_navigation_drawer, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_backups, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_advanced, true)
-        PreferenceManager.setDefaultValues(context, R.xml.help_and_feedback, true)
         BeastModePreferences.setDefaultOrder(this, context)
-        prefs.registerOnSharedPreferenceChangeListener(proxyListener)
     }
 
     fun reset() {
-        prefs.unregisterOnSharedPreferenceChangeListener(proxyListener)
         clear()
         setDefaults()
     }
@@ -213,8 +206,8 @@ class Preferences @JvmOverloads constructor(
         null
     }
 
-    val defaultAlarms: List<Alarm>
-        get() = getStringSet(R.string.p_default_alarms, DEFAULT_ALARMS)
+    override suspend fun defaultAlarms(): List<Alarm> =
+        getStringSet(R.string.p_default_alarms, DEFAULT_ALARMS)
             .mapNotNull {
                 try {
                     Json.decodeFromString<Alarm>(it)
@@ -232,8 +225,17 @@ class Preferences @JvmOverloads constructor(
         )
     }
 
-    val defaultRingMode: Int
-        get() = getIntegerFromString(R.string.p_default_reminders_mode_key, 0)
+    override suspend fun defaultRingMode(): Int =
+        getIntegerFromString(R.string.p_default_reminders_mode_key, 0)
+
+    override suspend fun defaultLocationReminder(): Int =
+        getIntegerFromString(R.string.p_default_location_reminder_key, 1)
+
+    override suspend fun locationUpdateIntervalMinutes(): Int =
+        getIntegerFromString(R.string.p_location_update_interval, 15)
+
+    override suspend fun defaultRandomHours(): Int =
+        getIntegerFromString(R.string.p_rmd_default_random_hours, 0)
 
     val fontSize: Int
         get() = getInt(R.string.p_fontSize, 16)
@@ -371,6 +373,13 @@ class Preferences @JvmOverloads constructor(
         get() = getInt(R.string.p_device_install_version, 0)
         set(value) = setInt(R.string.p_device_install_version, value)
 
+    override suspend fun getInstallVersion() = installVersion
+    override suspend fun setInstallVersion(value: Int) { installVersion = value }
+    override suspend fun getInstallDate() = installDate
+    override suspend fun setInstallDate(value: Long) { installDate = value }
+    override suspend fun getDeviceInstallVersion() = deviceInstallVersion
+    override suspend fun setDeviceInstallVersion(value: Int) { deviceInstallVersion = value }
+
     override var sortMode: Int
         get() = getInt(R.string.p_sort_mode, SortHelper.SORT_DUE)
         set(value) { setInt(R.string.p_sort_mode, value) }
@@ -462,6 +471,14 @@ class Preferences @JvmOverloads constructor(
         editor.apply()
     }
 
+    fun removeByPrefix(prefix: String) {
+        val editor = prefs.edit()
+        prefs.all.keys
+            .filter { it.startsWith(prefix) }
+            .forEach { editor.remove(it) }
+        editor.apply()
+    }
+
     fun bundleNotifications(): Boolean = getBoolean(R.string.p_bundle_notifications, true)
 
     fun usePersistentReminders(): Boolean =
@@ -483,6 +500,9 @@ class Preferences @JvmOverloads constructor(
 
     fun <T> getPrefs(c: Class<T>): Map<String, T> =
         prefs.all.filter { (_, value) -> c.isInstance(value) } as Map<String, T>
+
+    val isPerListSortEnabled: Boolean
+        get() = getBoolean(R.string.p_per_list_sort, false)
 
     override var isManualSort: Boolean
         get() = getBoolean(R.string.p_manual_sort, false)
@@ -513,8 +533,8 @@ class Preferences @JvmOverloads constructor(
         get() = getBoolean(R.string.p_subtask_ascending, false)
         set(value) { setBoolean(R.string.p_subtask_ascending, value) }
 
-    val defaultPriority: Int
-        get() = getIntegerFromString(R.string.p_default_importance_key, Task.Priority.LOW)
+    override suspend fun defaultPriority(): Int =
+        getIntegerFromString(R.string.p_default_importance_key, Task.Priority.LOW)
 
     val themeBase: Int
         get() = getInt(R.string.p_theme, ThemeBase.DEFAULT_BASE_THEME)
@@ -561,10 +581,6 @@ class Preferences @JvmOverloads constructor(
     var warnAlarmsDisabled: Boolean
         get() = getBoolean(R.string.p_warn_alarms_disabled, true)
         set(value) = setBoolean(R.string.p_warn_alarms_disabled, value)
-
-    var warnQuietHoursDisabled: Boolean
-        get() = getBoolean(R.string.p_warn_quiet_hours_enabled, true)
-        set(value) = setBoolean(R.string.p_warn_quiet_hours_enabled, value)
 
     var warnMicrosoft: Boolean
         get() = getBoolean(R.string.p_warn_microsoft, true)

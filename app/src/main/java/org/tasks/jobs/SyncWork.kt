@@ -18,7 +18,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.tasks.broadcast.RefreshBroadcaster
-import org.tasks.R
 import org.tasks.TasksApplication
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
@@ -32,7 +31,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.etebase.EtebaseSynchronizer
 import org.tasks.extensions.Context.hasNetworkConnectivity
-import org.tasks.gtasks.GoogleTaskSynchronizer
+import org.tasks.gtasks.AndroidGoogleTaskSynchronizer
 import org.tasks.injection.BaseWorker
 import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.preferences.Preferences
@@ -52,7 +51,7 @@ class SyncWork @AssistedInject constructor(
     private val caldavDao: CaldavDao,
     private val caldavSynchronizer: Lazy<CaldavSynchronizer>,
     private val etebaseSynchronizer: Lazy<EtebaseSynchronizer>,
-    private val googleTaskSynchronizer: Lazy<GoogleTaskSynchronizer>,
+    private val googleTaskSynchronizer: Lazy<AndroidGoogleTaskSynchronizer>,
     private val openTasksSynchronizer: Lazy<OpenTasksSynchronizer>,
     private val microsoftSynchronizer: Lazy<MicrosoftSynchronizer>,
     private val openTaskDao: OpenTaskDao,
@@ -72,14 +71,7 @@ class SyncWork @AssistedInject constructor(
             }
         }
 
-        val alreadySyncing = synchronized(LOCK) {
-            if (preferences.getBoolean(syncStatus, false)) {
-                true
-            } else {
-                preferences.setBoolean(syncStatus, true)
-                false
-            }
-        }
+        val alreadySyncing = tasksPreferences.getAndSet(TasksPreferences.syncOngoing, true) ?: false
         if (alreadySyncing) {
             Timber.d("Sync ongoing, source=$source")
             setSyncSource(getSyncSource().upgrade(source))
@@ -95,7 +87,7 @@ class SyncWork @AssistedInject constructor(
         } catch (e: Exception) {
             firebase.reportException(e)
         } finally {
-            preferences.setBoolean(syncStatus, false)
+            tasksPreferences.set(TasksPreferences.syncOngoing, false)
             setSyncSource(SyncSource.NONE)
             refreshBroadcaster.broadcastRefresh()
         }
@@ -104,8 +96,6 @@ class SyncWork @AssistedInject constructor(
 
     private val source: SyncSource
         get() = SyncSource.fromString(inputData.getString(EXTRA_SOURCE))
-
-    private val syncStatus = R.string.p_sync_ongoing
 
     private suspend fun getSyncSource(): SyncSource =
         SyncSource.fromString(tasksPreferences.get(TasksPreferences.syncSource, SyncSource.NONE.name))
@@ -129,7 +119,7 @@ class SyncWork @AssistedInject constructor(
         }
         inventory.updateTasksAccount()
         if (openTaskDao.shouldSync()) {
-            openTasksSynchronizer.get().sync()
+            openTasksSynchronizer.get().sync(hasPro = inventory.hasPro)
 
             if (source == SyncSource.USER_INITIATED) {
                 AccountManager
@@ -163,10 +153,11 @@ class SyncWork @AssistedInject constructor(
     private suspend fun caldavJobs(): List<Deferred<Unit>> = coroutineScope {
         getCaldavAccounts().map {
             async(Dispatchers.IO) {
+                Thread.currentThread().contextClassLoader = context.classLoader
                 when (it.accountType) {
-                    TYPE_ETEBASE -> etebaseSynchronizer.get().sync(it)
+                    TYPE_ETEBASE -> etebaseSynchronizer.get().sync(it, inventory.hasPro)
                     TYPE_TASKS,
-                    TYPE_CALDAV -> caldavSynchronizer.get().sync(it)
+                    TYPE_CALDAV -> caldavSynchronizer.get().sync(it, inventory.hasPro)
                     TYPE_MICROSOFT -> microsoftSynchronizer.get().sync(it)
                 }
             }
@@ -180,8 +171,6 @@ class SyncWork @AssistedInject constructor(
             caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_MICROSOFT)
 
     companion object {
-        private val LOCK = Any()
-
         const val EXTRA_SOURCE = "extra_source"
     }
 }

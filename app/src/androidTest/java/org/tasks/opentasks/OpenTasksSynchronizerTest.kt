@@ -24,7 +24,7 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
     fun createNewAccounts() = runBlocking {
         openTaskDao.insertList()
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = true)
 
         val accounts = caldavDao.getAccounts()
         assertEquals(1, accounts.size)
@@ -44,7 +44,7 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
             )
         )
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = true)
 
         assertTrue(caldavDao.getAccounts().isEmpty())
     }
@@ -53,7 +53,7 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
     fun createNewLists() = runBlocking {
         openTaskDao.insertList()
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = true)
 
         val lists = caldavDao.getCalendarsByAccount("bitfire.at.davdroid:test_account")
         assertEquals(1, lists.size)
@@ -72,7 +72,7 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
             )
         )
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = true)
 
         assertEquals(listOf(list), caldavDao.getCalendars())
     }
@@ -87,9 +87,9 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
                 with(TASK, taskId)
         ))
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = true)
 
-        assertNotNull(openTaskDao.getTask(listId.toLong(), "1234"))
+        assertNotNull(openTaskDao.getTask(listId, "1234"))
     }
 
     @Test
@@ -101,7 +101,7 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
                 with(TASK, taskId)
         ))
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = true)
 
         val task = openTaskDao.getTasks().first()
         assertEquals("FREQ=WEEKLY", task.rRule?.value)

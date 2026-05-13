@@ -4,8 +4,11 @@ import android.os.Bundle
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.data.entity.CaldavAccount
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.sign_in
 import org.tasks.preferences.IconPreference
 import org.tasks.sync.microsoft.MicrosoftSignInViewModel
 import javax.inject.Inject
@@ -35,7 +38,7 @@ class MicrosoftAccount : BaseAccountPreference() {
             isVisible = true
             when {
                 account.error.isUnauthorized() -> {
-                    setTitle(R.string.sign_in)
+                    title = runBlocking { org.jetbrains.compose.resources.getString(Res.string.sign_in) }
                     setSummary(R.string.authentication_required)
                     setOnPreferenceClickListener { requestLogin() }
                 }

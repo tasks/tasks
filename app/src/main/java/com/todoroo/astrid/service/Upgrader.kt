@@ -10,7 +10,8 @@ import com.google.common.collect.ImmutableListMultimap
 import com.google.common.collect.ListMultimap
 import com.google.common.collect.Multimaps
 import com.todoroo.astrid.core.SortHelper
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import dagger.Lazy
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
@@ -59,6 +60,7 @@ class Upgrader @Inject constructor(
     private val taskAttachmentDao: TaskAttachmentDao,
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val locationDao: LocationDao,
     private val iCal: iCalendar,
     private val widgetManager: AppWidgetManager,
@@ -71,6 +73,7 @@ class Upgrader @Inject constructor(
     private val upgrade_13_2: Lazy<Upgrade_13_2>,
     private val upgrade_13_11: Lazy<Upgrade_13_11>,
     private val upgrade_14_11: Lazy<Upgrade_14_11>,
+    private val upgrade_14_13: Lazy<Upgrade_14_13>,
 ) {
 
     fun upgrade(from: Int, to: Int) {
@@ -162,6 +165,9 @@ class Upgrader @Inject constructor(
             run(from, Upgrade_14_11.VERSION) {
                 upgrade_14_11.get().migrateDefaultAlarms()
             }
+            run(from, Upgrade_14_13.VERSION) {
+                upgrade_14_13.get().deleteAlarmsForAllDayTasks()
+            }
             preferences.setBoolean(R.string.p_just_updated, true)
         } else {
             setInstallDetails(to)
@@ -241,7 +247,7 @@ class Upgrader @Inject constructor(
             val geo = remoteTask.geoPosition ?: continue
             iCal.setPlace(taskId, geo)
         }
-        taskDao.touch(tasksWithLocations)
+        taskSaver.touch(tasksWithLocations)
     }
 
     private suspend fun applyCaldavSubtasks() {
@@ -265,7 +271,7 @@ class Upgrader @Inject constructor(
                 vtodoCache.getVtodo(container.caldavTask)?.let { fromVtodo(it) } ?: continue
             tagDao.insert(container.task, iCal.getTags(remoteTask.categories))
         }
-        taskDao.touch(tasksWithTags)
+        taskSaver.touch(tasksWithTags)
     }
 
     private suspend fun removeDuplicateTags() {

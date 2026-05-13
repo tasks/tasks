@@ -1,15 +1,14 @@
 package org.tasks.dialogs
 
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
@@ -28,27 +27,26 @@ class ColorPalettePicker : DialogFragment() {
     companion object {
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
         private const val EXTRA_PALETTE = "extra_palette"
+        private const val EXTRA_REQUEST_KEY = "extra_request_key"
         const val EXTRA_SELECTED = ColorWheelPicker.EXTRA_SELECTED
 
         fun newColorPalette(
-            target: Fragment?,
-            rc: Int,
+            requestKey: String,
             palette: Palette
         ): ColorPalettePicker {
-            return newColorPalette(target, rc, 0, palette)
+            return newColorPalette(requestKey, 0, palette)
         }
 
         fun newColorPalette(
-            target: Fragment?,
-            rc: Int,
+            requestKey: String,
             selected: Int,
             palette: Palette = Palette.COLORS
         ): ColorPalettePicker {
             val args = Bundle()
             args.putSerializable(EXTRA_PALETTE, palette)
             args.putInt(EXTRA_SELECTED, selected)
+            args.putString(EXTRA_REQUEST_KEY, requestKey)
             val dialog = ColorPalettePicker()
-            dialog.setTargetFragment(target, rc)
             dialog.arguments = args
             return dialog
         }
@@ -70,6 +68,9 @@ class ColorPalettePicker : DialogFragment() {
     private lateinit var colors: List<Pickable>
     private lateinit var palette: Palette
     var callback: ColorPickedCallback? = null
+
+    private val requestKey: String
+        get() = requireArguments().getString(EXTRA_REQUEST_KEY)!!
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val binding = DialogIconPickerBinding.inflate(LayoutInflater.from(context))
@@ -95,7 +96,7 @@ class ColorPalettePicker : DialogFragment() {
         if (palette == Palette.COLORS || palette == Palette.WIDGET) {
             builder.setNeutralButton(R.string.color_wheel) { _, _ ->
                 val selected = arguments?.getInt(EXTRA_SELECTED) ?: 0
-                newColorWheel(targetFragment, targetRequestCode, selected)
+                newColorWheel(requestKey, selected)
                     .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
             }
         }
@@ -126,11 +127,13 @@ class ColorPalettePicker : DialogFragment() {
             else -> index
         }
         dialog?.dismiss()
-        if (targetFragment == null) {
+        if (callback != null) {
             callback?.onColorPicked(result)
         } else {
-            val data = Intent().putExtra(EXTRA_SELECTED, result)
-            targetFragment?.onActivityResult(targetRequestCode, RESULT_OK, data)
+            parentFragmentManager.setFragmentResult(
+                requestKey,
+                bundleOf(EXTRA_SELECTED to result)
+            )
         }
     }
 }

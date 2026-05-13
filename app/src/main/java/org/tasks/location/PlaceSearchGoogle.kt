@@ -13,6 +13,7 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.Request
 import org.tasks.R
+import org.tasks.auth.TasksServerEnvironment
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.Place
@@ -25,9 +26,9 @@ import javax.inject.Inject
 class PlaceSearchGoogle @Inject constructor(
         @ApplicationContext private val context: Context,
         private val httpClientFactory: HttpClientFactory,
-        private val caldavDao: CaldavDao
+        private val caldavDao: CaldavDao,
+        private val environment: TasksServerEnvironment,
 ) : PlaceSearch {
-    private val url = context.getString(R.string.tasks_places_url)
     private var token: String? = null
 
     override fun restoreState(savedInstanceState: Bundle?) {
@@ -52,14 +53,14 @@ class PlaceSearchGoogle @Inject constructor(
             "&location=${bias.latitude},${bias.longitude}&radius=25000"
         }
         val jsonObject = execute(
-                "${this.url}/maps/api/place/queryautocomplete/json?input=$query&sessiontoken=$token$proximity"
+                "${environment.placesUrl}/maps/api/place/queryautocomplete/json?input=$query&sessiontoken=$token$proximity"
         )
         return toSearchResults(jsonObject)
     }
 
     override suspend fun fetch(placeSearchResult: PlaceSearchResult): Place {
         val jsonObject = execute(
-                "${this.url}/maps/api/place/details/json?place_id=${placeSearchResult.id}&fields=$FIELDS&sessiontoken=$token"
+                "${environment.placesUrl}/maps/api/place/details/json?place_id=${placeSearchResult.id}&fields=$FIELDS&sessiontoken=$token"
         )
         return toPlace(jsonObject)
     }

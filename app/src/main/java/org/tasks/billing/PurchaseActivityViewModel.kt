@@ -14,7 +14,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
+import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import java.util.Locale
 import javax.inject.Inject
 
@@ -24,6 +27,7 @@ class PurchaseActivityViewModel @Inject constructor(
     private val inventory: Inventory,
     private val billingClient: BillingClient,
     private val localBroadcastManager: LocalBroadcastManager,
+    private val syncAdapters: SyncAdapters,
     firebase: Firebase,
 ) : ViewModel() {
 
@@ -32,7 +36,7 @@ class PurchaseActivityViewModel @Inject constructor(
         val isGithub: Boolean,
         val feature: Int = 0,
         val source: String = "",
-        val showMoreOptions: Boolean = nameYourPrice,
+        val showMoreOptions: Boolean,
         val price: Float = -1f,
         val subscription: Purchase? = null,
         val error: String? = null,
@@ -59,12 +63,16 @@ class PurchaseActivityViewModel @Inject constructor(
     }
 
     private val _viewState = MutableStateFlow(
-        ViewState(
-            nameYourPrice = savedStateHandle.get<Boolean>(EXTRA_NAME_YOUR_PRICE) ?: true,
-            isGithub = savedStateHandle.get<Boolean>(EXTRA_GITHUB) ?: false,
-            feature = savedStateHandle.get<Int>(EXTRA_FEATURE) ?: 0,
-            source = savedStateHandle.get<String>(EXTRA_SOURCE) ?: "",
-        )
+        run {
+            val nameYourPrice = savedStateHandle.get<Boolean>(EXTRA_NAME_YOUR_PRICE) ?: true
+            ViewState(
+                nameYourPrice = nameYourPrice,
+                isGithub = savedStateHandle.get<Boolean>(EXTRA_GITHUB) ?: IS_GENERIC,
+                feature = savedStateHandle.get<Int>(EXTRA_FEATURE) ?: 0,
+                source = savedStateHandle.get<String>(EXTRA_SOURCE) ?: "",
+                showMoreOptions = savedStateHandle.get<Boolean>(EXTRA_SHOW_MORE_OPTIONS) ?: nameYourPrice,
+            )
+        }
     )
     val viewState: StateFlow<ViewState> = _viewState
 
@@ -115,6 +123,7 @@ class PurchaseActivityViewModel @Inject constructor(
                 _viewState.value.subscription?.takeIf { it.sku != newSku },
                 onPurchased = {
                     _viewState.update { it.copy(purchased = true) }
+                    syncAdapters.sync(SyncSource.PURCHASE_COMPLETED)
                 },
             )
         } catch (e: Exception) {
@@ -135,6 +144,7 @@ class PurchaseActivityViewModel @Inject constructor(
     companion object {
         const val EXTRA_GITHUB = "github"
         const val EXTRA_NAME_YOUR_PRICE = "nameYourPrice"
+        const val EXTRA_SHOW_MORE_OPTIONS = "showMoreOptions"
         const val EXTRA_FEATURE = "feature"
         const val EXTRA_SOURCE = "source"
 

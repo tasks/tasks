@@ -2,6 +2,9 @@ package org.tasks.auth
 
 import android.content.Context
 import android.content.Intent
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,8 +14,8 @@ import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.ClientAuthentication.UnsupportedAuthenticationMethod
 import net.openid.appauth.GrantTypeValues
 import net.openid.appauth.TokenRequest
-import org.tasks.R
 import org.tasks.caldav.CaldavClientProvider
+import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
@@ -26,15 +29,32 @@ class SignInViewModel @Inject constructor(
     private val provider: CaldavClientProvider,
     private val caldavDao: CaldavDao,
     private val encryption: KeyStoreEncryption,
-    private val debugConnectionBuilder: DebugConnectionBuilder
+    private val debugConnectionBuilder: DebugConnectionBuilder,
+    private val environment: TasksServerEnvironment,
 ) : ViewModel() {
+    var showSubscriptionRequiredDialog by mutableStateOf<Boolean?>(null)
+        private set
+    var showWrongAccountEmail by mutableStateOf<String?>(null)
+        private set
     val error = MutableLiveData<Throwable>()
 
     var authService: AuthorizationService? = null
 
+    fun handleError(e: Throwable) {
+        if (e is PurchaseTokenInUseException) {
+            showWrongAccountEmail = e.existingAccount
+        } else {
+            error.postValue(e)
+        }
+    }
+
+    fun showSubscriptionRequired(isGitHub: Boolean) {
+        showSubscriptionRequiredDialog = isGitHub
+    }
+
     fun initializeAuthService(iss: String) {
         authService?.dispose()
-        authService = AuthorizationService(iss, context, debugConnectionBuilder)
+        authService = AuthorizationService(iss, context, debugConnectionBuilder, environment.caldavUrl)
     }
 
     suspend fun handleResult(authService: AuthorizationService, intent: Intent) {
@@ -52,7 +72,7 @@ class SignInViewModel @Inject constructor(
         }
 
         ex?.let {
-            error.value = it
+            handleError(it)
         }
     }
 
@@ -64,7 +84,7 @@ class SignInViewModel @Inject constructor(
         return try {
             val homeSet = provider
                     .forUrl(
-                            context.getString(R.string.tasks_caldav_url),
+                            environment.caldavUrl,
                             username,
                             tokenString
                     )
@@ -82,12 +102,13 @@ class SignInViewModel @Inject constructor(
                         password = password,
                         url = homeSet,
                         name = idToken.email ?: idToken.login,
+                        serverType = CaldavAccount.SERVER_TASKS,
                     ).let {
                         it.copy(id = caldavDao.insert(it))
                     }
         } catch (e: Exception) {
             Timber.d("setupAccount: caught ${e.javaClass.simpleName} - ${e.message}")
-            error.postValue(e)
+            handleError(e)
             null
         }
     }
