@@ -181,7 +181,7 @@
     <string name="TEA_control_timer">Tempokontroliloj</string>
     <string name="TEA_control_location">Loko</string>
     <string name="TEA_elapsedDuration_label">Tempo jam pasinta</string>
-    <string name="TEA_estimatedDuration_label">Kiom da tempo ĝi daŭros\?</string>
+    <string name="TEA_estimatedDuration_label">Kiom da tempo ĝi daŭros?</string>
     <string name="FLA_new_filter">Krei novan filtrilon</string>
     <string name="read_permission_label">Permesoj de Tasks</string>
     <string name="import_summary_title">Restaŭri resumon</string>
