@@ -659,4 +659,6 @@
     <string name="button_learn_more">Pelajari lebih lanjut</string>
     <string name="widget_view_more_tasks">Lihat lebih banyak tugas</string>
     <string name="read_more">Baca selengkapnya</string>
+    <string name="upgrade_desktop_app"></string>
+    <string name="upgrade_desktop_app_description"></string>
 </resources>
