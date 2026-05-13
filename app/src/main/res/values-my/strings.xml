@@ -41,12 +41,7 @@
     <string name="display_name">အမည်</string>
     <string name="read_permission_label">အက်ပ် ခွင့်ပြုချက်</string>
     <string name="backup_BAc_export">အခု အရန်သိမ်္းပါ</string>
-    <string name="import_summary_message">ဖိုင် %1$s ပါဝင်သည် %2$s.
-\n
-\n %3$s သွင်းပြီး,
-\n %4$s ရိှပြီးသား
-\n %5$s ချို့ယွင်းမှုများရိှ
-\n</string>
+    <string name="import_summary_message">ဖိုင် %1$s ပါဝင်သည် %2$s. \n \n %3$s သွင်းပြီး, \n %4$s ရိှပြီးသား \n %5$s ချို့ယွင်းမှုများရိှ \n</string>
     <string name="discard_confirmation">သင်ပြောင်းလဲထားတာတွေကို ပယ်ဖျက်မှာလား</string>
     <string name="action_call">ဖုန်းခေါ်မည်</string>
     <string name="action_open">ဖွင့်မည်</string>
@@ -60,7 +55,7 @@
     <string name="sort_created">ဖန်တီးသောအချိန်ဖြင့်</string>
     <string name="TEA_note_label">ဖော်ပြချက်</string>
     <string name="TEA_control_notes">ဖော်ပြချက်</string>
-    <string name="TEA_estimatedDuration_label">အချိန်ဘယ်လောက်ယူမှာလဲ\?</string>
+    <string name="TEA_estimatedDuration_label">အချိန်ဘယ်လောက်ယူမှာလဲ?</string>
     <string name="day_before_due">မပြီးဆုံးမီတစ်ရက်အလို</string>
     <string name="TEA_control_hidden_section">----အမြဲတမ်းဝှက်ထားမည်----</string>
     <string name="TEA_control_files">ဖိုင်များ</string>
@@ -644,4 +639,5 @@
     <string name="tasker_create_task"></string>
     <string name="geofence_radius"></string>
     <string name="no_due_date"></string>
+    <string name="astrid_sort_order"></string>
 </resources>
