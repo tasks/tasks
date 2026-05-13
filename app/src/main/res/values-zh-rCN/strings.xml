@@ -80,7 +80,7 @@
     <string name="CFC_dueBefore_name">截止于…</string>
     <string name="no_due_date">无截止日期</string>
     <string name="next_month">下个月</string>
-    <string name="CFC_importance_text">最低的优先级\?</string>
+    <string name="CFC_importance_text">最低的优先级?</string>
     <string name="CFC_importance_name">优先级…</string>
     <string name="CFC_tag_text">标签：?</string>
     <string name="CFC_tag_name">标签…</string>
@@ -435,7 +435,7 @@
     <string name="filter_overdue">已过期</string>
     <string name="sort_created">按创建时间</string>
     <string name="support_development_subscribe">解锁额外功能并支持开源软件</string>
-    <string name="enjoying_tasks">享受Tasks\?</string>
+    <string name="enjoying_tasks">享受Tasks?</string>
     <string name="whats_new">更新日志</string>
     <string name="action_new_task">新任务</string>
     <string name="sort_modified_group">已修改的 %s</string>
