@@ -109,7 +109,7 @@
     <string name="default_due_date">Data de venciment predeterminada</string>
     <string name="default_start_date">Data d\'inici predeterminada</string>
     <string name="EPr_default_importance_title">Prioritat predeterminada</string>
-    <string name="EPr_manage_delete_all_gcal_message">Esteu segur que voleu suprimir tots els esdeveniments per a les tasques\?</string>
+    <string name="EPr_manage_delete_all_gcal_message">Esteu segur que voleu suprimir tots els esdeveniments per a les tasques?</string>
     <string name="EPr_manage_delete_all_gcal">Suprimeix tots els esdeveniments del calendari de les tasques</string>
     <string name="EPr_manage_delete_gcal_status">S\'han eliminat %d esdeveniments de calendari!</string>
     <string name="EPr_manage_delete_completed_gcal">Suprimeix els esdeveniments del calendari per a les tasques finalitzades</string>
