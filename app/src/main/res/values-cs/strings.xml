@@ -628,6 +628,7 @@
     <plurals name="repeat_occurrence">
         <item quantity="one">výskyt</item>
         <item quantity="few">výskyty</item>
+        <item quantity="many">výskytů</item>
         <item quantity="other">výskytů</item>
     </plurals>
     <string name="repeat_monthly_on_day_number">%1d. den v měsíci</string>
