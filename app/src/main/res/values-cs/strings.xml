@@ -562,21 +562,25 @@
     <plurals name="reminder_minutes">
         <item quantity="one">Minuta</item>
         <item quantity="few">Minuty</item>
+        <item quantity="many">Minut</item>
         <item quantity="other">Minut</item>
     </plurals>
     <plurals name="reminder_hours">
         <item quantity="one">Hodina</item>
         <item quantity="few">Hodiny</item>
+        <item quantity="many">Hodin</item>
         <item quantity="other">Hodin</item>
     </plurals>
     <plurals name="reminder_days">
         <item quantity="one">Den</item>
         <item quantity="few">Dny</item>
+        <item quantity="many">Dní</item>
         <item quantity="other">Dní</item>
     </plurals>
     <plurals name="reminder_week">
         <item quantity="one">Týden</item>
         <item quantity="few">Týdny</item>
+        <item quantity="many">Týdnů</item>
         <item quantity="other">Týdnů</item>
     </plurals>
     <string name="when_started">Když začne</string>
@@ -592,7 +596,7 @@
     <string name="completed">Splněný</string>
     <string name="snackbar_tasks_completed">%d úkolů splněno</string>
     <string name="dismiss">Odmítnout</string>
-    <string name="hint_customize_edit_title">Příliš mnoho informací\?</string>
+    <string name="hint_customize_edit_title">Příliš mnoho informací?</string>
     <string name="hint_customize_edit_body">Tuto obrazovku si můžete přizpůsobit přeskupením nebo odebráním polí</string>
     <string name="TEA_creation_date">Datum vytvoření</string>
     <string name="sort_completion_group">Dokončeno %s</string>
