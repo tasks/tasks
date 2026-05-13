@@ -149,10 +149,10 @@
     <string name="default_random_reminder_bi_weekly">Cada dues setmanes</string>
     <string name="repeat_option_every_week">Setmanalment</string>
     <string name="repeat_option_every_year">Anualment</string>
-    <string name="CFC_startBefore_text">Comença per: \?</string>
+    <string name="CFC_startBefore_text">Comença per: ?</string>
     <string name="CFC_startBefore_name">Comença per…</string>
-    <string name="CFC_tag_contains_text">El nom de l\'etiqueta conté: \?</string>
-    <string name="CFC_gtasks_list_text">En la Llista: \?</string>
+    <string name="CFC_tag_contains_text">El nom de l\'etiqueta conté: ?</string>
+    <string name="CFC_gtasks_list_text">En la Llista: ?</string>
     <string name="CFC_list_name">En la llista…</string>
     <string name="ring_once">Sona un cop</string>
     <string name="persistent_notifications">Notificacions persistents</string>
@@ -161,7 +161,7 @@
     <string name="default_random_reminder_weekly">Setmanalment</string>
     <string name="repeat_option_custom">Personalitza…</string>
     <string name="no_start_date">Sense data d\'inici</string>
-    <string name="CFC_tag_text">Etiqueta: \?</string>
+    <string name="CFC_tag_text">Etiqueta: ?</string>
     <string name="CFC_tag_contains_name">El nom de l\'etiqueta conté…</string>
     <string name="calendar_event_not_found">Esdeveniment de calendari no trobat</string>
     <string name="rmd_EPr_rmd_time_title">Hora del recordatori</string>
@@ -702,4 +702,5 @@
     <string name="accept"></string>
     <string name="banner_subscription_required_body"></string>
     <string name="location_update_interval_title"></string>
+    <string name="rmd_EPr_rmd_time_desc"></string>
 </resources>
