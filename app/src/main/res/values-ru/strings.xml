@@ -612,7 +612,7 @@
     <string name="randomly_every">Случайно каждые %s</string>
     <string name="customize_edit_screen_summary">Переупорядочить или удалить поля</string>
     <string name="dismiss">Отклонить</string>
-    <string name="hint_customize_edit_title">Слишком много информации\?</string>
+    <string name="hint_customize_edit_title">Слишком много информации?</string>
     <string name="hint_customize_edit_body">Вы можете настроить этот экран, переставляя или удаляя поля</string>
     <string name="enable_reminders">Включить напоминания</string>
     <string name="enable_reminders_description">Напоминания отключены в настройках Android</string>
