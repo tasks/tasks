@@ -505,7 +505,7 @@
     <string name="invite_awaiting_response">Invitation afventer svar</string>
     <string name="invite_declined">Invitation afvist</string>
     <string name="remove_user_confirmation">%1$s vil ikke længere have adgang til %2$s</string>
-    <string name="remove_user">Fjern bruger\?</string>
+    <string name="remove_user">Fjern bruger?</string>
     <string name="list_members">Liste over medlemmer</string>
     <string name="tasks_org_account_required">Tasks.org-konto påkrævet</string>
     <string name="privacy">Privatliv</string>
