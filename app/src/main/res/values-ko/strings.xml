@@ -9,7 +9,7 @@
     <string name="import_summary_message">파일 %1$s: %2$s 개의 할일 포함.\n\n %3$s 개 가져오기 성공,\n %4$s 개 이미 존재,\n %5$s 개 에러 발생</string>
     <string name="import_progress_read">할일 %d 읽는 중…</string>
     <string name="read_permission_label">Tasks 권한</string>
-    <string name="discard_confirmation">변경 사항을 폐기할까요\?</string>
+    <string name="discard_confirmation">변경 사항을 폐기할까요?</string>
     <string name="keep_editing">계속 편집</string>
     <string name="DLG_delete_this_task_question">이 할일을 삭제할까요?</string>
     <string name="DLG_hour_minutes">시간 (시 : 분)</string>
@@ -32,7 +32,7 @@
     <string name="TEA_title_hint">할일 제목</string>
     <string name="TEA_importance_label">우선순위</string>
     <string name="TEA_note_label">설명</string>
-    <string name="TEA_estimatedDuration_label">완료 예상 시간은\?</string>
+    <string name="TEA_estimatedDuration_label">완료 예상 시간은?</string>
     <string name="TEA_elapsedDuration_label">할일 처리에 쓰인 시간</string>
     <string name="save">저장</string>
     <string name="TEA_timer_est">%s 예정</string>
@@ -62,7 +62,7 @@
     <string name="EPr_delete_task_data">할일 데이터 지우기</string>
     <string name="EPr_delete_task_data_warning">모든 할일이 영구적으로 삭제될 것입니다</string>
     <string name="EPr_manage_delete_completed_gcal">완료한 할일의 달력 일정 삭제</string>
-    <string name="EPr_manage_delete_completed_gcal_message">완료한 할일의 모든 이벤트를 삭제할까요\?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">완료한 할일의 모든 이벤트를 삭제할까요?</string>
     <string name="EPr_manage_delete_gcal_status">%d 달력 일정을 삭제했습니다!</string>
     <string name="EPr_manage_delete_all_gcal">할일의 모든 달력 일정 삭제</string>
     <string name="EPr_manage_delete_all_gcal_message">할일의 모든 이벤트를 정말 삭제할까요?</string>
@@ -86,12 +86,12 @@
     <string name="CFC_dueBefore_name">마감일…</string>
     <string name="no_due_date">마감일 없음</string>
     <string name="next_month">다음 달</string>
-    <string name="CFC_importance_text">가장 낮은 우선순위\?</string>
+    <string name="CFC_importance_text">가장 낮은 우선순위?</string>
     <string name="CFC_importance_name">우선순위…</string>
     <string name="CFC_tag_text">태그: ?</string>
     <string name="CFC_tag_name">태그…</string>
     <string name="CFC_tag_contains_name">특정문구를 포함하는 태그…</string>
-    <string name="CFC_tag_contains_text">다음을 포함하는 태그: \?</string>
+    <string name="CFC_tag_contains_text">다음을 포함하는 태그: ?</string>
     <string name="CFC_title_contains_name">다음을 포함하는 제목…</string>
     <string name="CFC_title_contains_text">제목이 다음을 포함: ?</string>
     <string name="gcal_TEA_error">달력에 할일 추가 실패!</string>
@@ -239,7 +239,7 @@
     <string name="date_shortcut_tomorrow_afternoon">내일 오후</string>
     <string name="date_shortcut_must_come_before">%1$s 는 %2$s 보다 이전에 위치해야 합니다</string>
     <string name="date_shortcut_must_come_after">%1$s 는 %2$s 보다 이후에 위치해야 합니다</string>
-    <string name="discard_changes">변경 사항을 폐기할까요\?</string>
+    <string name="discard_changes">변경 사항을 폐기할까요?</string>
     <string name="discard">변경사항 폐기</string>
     <string name="tag_settings">태그 설정</string>
     <string name="list_settings">목록 설정</string>
@@ -307,7 +307,7 @@
     <string name="repeats_plural_on_number_of_times">%1$s 주기로 %2$s에 %3$d %4$s 더 반복</string>
     <string name="dont_add_to_calendar">달력에 일정 추가하지 않기</string>
     <string name="default_calendar">기본 달력</string>
-    <string name="badges_description">Tasks 앱 아이콘 위에 할일 개수를 표시합니다. 모든 런처가 배지 기능을 지원하지는 않습니다. </string>
+    <string name="badges_description">Tasks 앱 아이콘 위에 할일 개수를 표시합니다. 모든 런처가 배지 기능을 지원하지는 않습니다.</string>
     <string name="bundle_notifications_summary">여러 상태바 알림을 하나로 묶어서 표시합니다</string>
     <string name="repeat_monthly_every_day_of_nth_week">매 %1$s %2$s</string>
     <string name="repeat_monthly_first_week">첫번째</string>
@@ -399,7 +399,7 @@
     <string name="settings_default">기본값</string>
     <string name="sort_modified_group">%s 변경</string>
     <string name="sort_created_group">%s 생성</string>
-    <string name="enjoying_tasks">Tasks 잘 쓰고 계십니까\?</string>
+    <string name="enjoying_tasks">Tasks 잘 쓰고 계십니까?</string>
     <string name="filter_eisenhower_box_4">중요하지 않고 급하지 않은 일</string>
     <string name="filter_eisenhower_box_3">중요하지 않지만 긴급한 일</string>
     <string name="filter_eisenhower_box_2">중요하지만 급하지 않은 일</string>
@@ -515,7 +515,7 @@
     <string name="invite_awaiting_response">응답 대기중인 초대</string>
     <string name="invite_declined">초대 거절</string>
     <string name="remove_user_confirmation">%1$s는 이제 %2$s에 접근할 수 없습니다</string>
-    <string name="remove_user">사용자를 삭제할까요\?</string>
+    <string name="remove_user">사용자를 삭제할까요?</string>
     <string name="tasks_org_account_required">Tasks.org 계정 필요</string>
     <string name="copied_to_clipboard">클립보드로 %s 건 복사</string>
     <string name="above_average">평균 이상</string>
@@ -557,7 +557,7 @@
     <string name="customize_edit_screen_summary">필드 순서 변경 또는 삭제</string>
     <string name="sort_completion_group">%s 완료</string>
     <string name="dismiss">닫기</string>
-    <string name="hint_customize_edit_title">정보가 너무 많은가요\?</string>
+    <string name="hint_customize_edit_title">정보가 너무 많은가요?</string>
     <string name="completed">완료</string>
     <string name="snackbar_task_completed">할일 완료</string>
     <string name="enable_reminders_description">안드로이드 설정에 알람이 비활성화 되어있습니다</string>
@@ -627,4 +627,6 @@
     <string name="multiline_title_off">할 일을 저장하려면 완료를 누르세요</string>
     <string name="sync_warning_microsoft">모든 할 일이 Microsoft To Do와 동기화되지는 않습니다.</string>
     <string name="sync_warning_google_tasks">모든 할 일이 Google Tasks와 동기화되진 않습니다.</string>
+    <string name="share_list"></string>
+    <string name="rmd_EPr_rmd_time_desc"></string>
 </resources>
