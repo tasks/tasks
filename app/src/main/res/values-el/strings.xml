@@ -640,4 +640,6 @@
     <string name="widget_due_date_below_title">Κάτω από τον τίτλο</string>
     <string name="widget_due_date_hidden">Κρυμμένο</string>
     <string name="clear_completed_tasks_confirmation">Διαγραφή ολοκληρωμένων εργασιών;</string>
+    <string name="share_list"></string>
+    <string name="default_reminder"></string>
 </resources>
