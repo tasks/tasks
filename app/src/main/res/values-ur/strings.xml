@@ -84,12 +84,7 @@
     <string name="EPr_delete_task_data_warning">تمام ٹاسکس مستقل طور پر ڈیلیٹ کردیئے جائیں گے</string>
     <string name="EPr_delete_task_data">ٹاسک کا ڈیٹا ڈیلیٹ کریں</string>
     <string name="astrid_sort_order_summary">\'میرے ٹاسکس\' ، \'آج\' اور ٹیگز کیلئے ایسٹرڈ کے مینوئل ترتیب کو فعال کریں۔ اس ترتیب کو آئندہ اپ ڈیٹ میں \'میرا آرڈر\' کے ذریعہ تبدیل کیا جائے گا</string>
-    <string name="import_summary_message">فائل%1$s میں%2$sشامل ہے۔
-\n
-\n%3$s درآمد ہو گیا،
-\n%4$s پہلے سے موجود ہے
-\n%5$s میں خرابیاں تھیں
-\n</string>
+    <string name="import_summary_message">فائل%1$s میں%2$sشامل ہے۔ \n \n%3$s درآمد ہو گیا، \n%4$s پہلے سے موجود ہے \n%5$s میں خرابیاں تھیں \n</string>
     <string name="EPr_reset_preferences_warning">ترجیحات کو ڈیفالٹ پر دوبارہ ترتیب دیا جائے گا</string>
     <string name="EPr_reset_preferences">ترجیحات کو دوبارہ ترتیب دیں</string>
     <string name="always_display_full_date">پوری تاریخ دکھائیں</string>
@@ -675,4 +670,6 @@
     <string name="remove_user"></string>
     <string name="chips"></string>
     <string name="device_settings"></string>
+    <string name="yesterday"></string>
+    <string name="rmd_EPr_rmd_time_desc"></string>
 </resources>
