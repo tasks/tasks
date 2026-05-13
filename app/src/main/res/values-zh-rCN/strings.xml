@@ -128,50 +128,39 @@
         <item quantity="other">次</item>
     </plurals>
     <plurals name="repeat_minutes">
-        <item quantity="one">分钟</item>
         <item quantity="other">分钟</item>
     </plurals>
     <plurals name="repeat_n_minutes">
-        <item quantity="one">%d 分钟</item>
         <item quantity="other">%d 分钟</item>
     </plurals>
     <plurals name="repeat_hours">
-        <item quantity="one">小时</item>
         <item quantity="other">小时</item>
     </plurals>
     <plurals name="repeat_n_hours">
-        <item quantity="one">%d 个小时</item>
         <item quantity="other">%d 个小时</item>
     </plurals>
     <plurals name="repeat_days">
-        <item quantity="one">天</item>
         <item quantity="other">天</item>
     </plurals>
     <plurals name="repeat_n_days">
-        <item quantity="one">%d 天</item>
         <item quantity="other">%d 天</item>
     </plurals>
     <plurals name="repeat_weeks">
-        <item quantity="one">周</item>
         <item quantity="other">周</item>
     </plurals>
     <plurals name="repeat_n_weeks">
-        <item quantity="one">%d 周</item>
         <item quantity="other">%d 周</item>
     </plurals>
     <plurals name="repeat_months">
-        <item quantity="one">月</item>
         <item quantity="other">月</item>
     </plurals>
     <plurals name="repeat_n_months">
         <item quantity="other">%d 个月</item>
     </plurals>
     <plurals name="repeat_years">
-        <item quantity="one">年</item>
         <item quantity="other">年</item>
     </plurals>
     <plurals name="repeat_n_years">
-        <item quantity="one">%d 年</item>
         <item quantity="other">%d 年</item>
     </plurals>
     <string name="repeat_type_due">截止日期</string>
