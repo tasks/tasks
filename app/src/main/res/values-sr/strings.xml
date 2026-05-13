@@ -682,4 +682,7 @@
     <string name="add_default_reminders">Додај подразумеване подсетнике</string>
     <string name="email_to_task_address">Твоја мејл адреса</string>
     <string name="email_to_task">Мејл у задатак</string>
+    <string name="share_list"></string>
+    <string name="default_reminder"></string>
+    <string name="rmd_EPr_rmd_time_desc"></string>
 </resources>
