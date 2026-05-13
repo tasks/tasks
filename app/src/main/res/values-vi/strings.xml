@@ -15,7 +15,7 @@
     <string name="TEA_timer_elap">Đã qua %s</string>
     <string name="save">Lưu</string>
     <string name="TEA_elapsedDuration_label">Thời gian đã tiêu tốn</string>
-    <string name="TEA_estimatedDuration_label">Sẽ mất bao lâu\?</string>
+    <string name="TEA_estimatedDuration_label">Sẽ mất bao lâu?</string>
     <string name="TEA_note_label">Mô tả</string>
     <string name="TEA_add_subtask">Thêm công việc con</string>
     <string name="TEA_importance_label">Sự ưu tiên</string>
@@ -40,17 +40,12 @@
     <string name="WID_dateButtonUnset">Nhấn để đặt</string>
     <string name="DLG_undo">Hoàn tác</string>
     <string name="DLG_hour_minutes">Thời gian (giờ : phút)</string>
-    <string name="DLG_delete_this_task_question">Xoá công việc này\?</string>
+    <string name="DLG_delete_this_task_question">Xoá công việc này?</string>
     <string name="keep_editing">Tiếp tục chỉnh sửa</string>
-    <string name="discard_confirmation">Bạn có chắc bạn muốn bỏ những thay đổi của bạn không\?</string>
+    <string name="discard_confirmation">Bạn có chắc bạn muốn bỏ những thay đổi của bạn không?</string>
     <string name="read_permission_label">Quyền Tasks</string>
     <string name="import_progress_read">Đang đọc công việc %d…</string>
-    <string name="import_summary_message">Tệp %1$s đã chứa %2$s.
-\n
-\n%3$s đã được nhập,
-\n%4$s đã tồn tại
-\n%5$s đã có lỗi
-\n</string>
+    <string name="import_summary_message">Tệp %1$s đã chứa %2$s. \n \n%3$s đã được nhập, \n%4$s đã tồn tại \n%5$s đã có lỗi \n</string>
     <string name="export_toast">Đã sao lưu %1$s vào %2$s.</string>
     <string name="backup_BAc_import">Nhập bản sao lưu</string>
     <string name="backup_BAc_export">Sao lưu ngay</string>
@@ -68,7 +63,7 @@
     <string name="invite_declined">Lời mời bị từ chối</string>
     <string name="email">Thư điện tử</string>
     <string name="remove_user_confirmation">%1$s sẽ không còn quyền truy cập vào %2$s nữa</string>
-    <string name="remove_user">Xoá người dùng\?</string>
+    <string name="remove_user">Xoá người dùng?</string>
     <string name="list_members">Liệt kê các thành viên</string>
     <string name="account_not_included">Không được bao gồm với các gói đăng ký \'Đặt giá của bạn\'</string>
     <string name="tasks_org_account_required">Yêu cầu tài khoản Tasks.org</string>
@@ -116,7 +111,7 @@
     <string name="sort_modified_group">Đã sửa đổi %s</string>
     <string name="sort_created_group">Đã tạo %s</string>
     <string name="support_development_subscribe">Mở khoá các tính năng bổ sung và hỗ trợ phần mềm mã nguồn mở</string>
-    <string name="enjoying_tasks">Đang tận hưởng Tasks\?</string>
+    <string name="enjoying_tasks">Đang tận hưởng Tasks?</string>
     <string name="filter_eisenhower_box_4">Không quan trọng và không gấp</string>
     <string name="filter_eisenhower_box_3">Không quan trọng và gấp</string>
     <string name="filter_eisenhower_box_2">Quan trọng và không gấp</string>
@@ -260,11 +255,11 @@
     <string name="url">URL</string>
     <string name="password">Mật khẩu</string>
     <string name="user">Người dùng</string>
-    <string name="copy_selected_tasks">Sao chép các công việc đã chọn\?</string>
-    <string name="delete_selected_tasks">Xoá các công việc đã chọn\?</string>
+    <string name="copy_selected_tasks">Sao chép các công việc đã chọn?</string>
+    <string name="delete_selected_tasks">Xoá các công việc đã chọn?</string>
     <string name="delete_multiple_tasks_confirmation">Đã xoá %s</string>
     <string name="copy_multiple_tasks_confirmation">Đã sao chép %s</string>
-    <string name="clear_completed_tasks_confirmation">Xoá các công việc đã hoàn thành\?</string>
+    <string name="clear_completed_tasks_confirmation">Xoá các công việc đã hoàn thành?</string>
     <string name="widget_due_date_hidden">Ẩn</string>
     <string name="widget_due_date_below_title">Dưới tiêu đề</string>
     <string name="widget_due_date_after_title">Sau tiêu đề</string>
@@ -315,7 +310,7 @@
     <string name="tag_settings">Cài đặt thẻ</string>
     <string name="discard">Bỏ</string>
     <string name="menu_discard_changes">Bỏ các thay đổi</string>
-    <string name="discard_changes">Bỏ các thay đổi\?</string>
+    <string name="discard_changes">Bỏ các thay đổi?</string>
     <string name="date_shortcut_must_come_after">%1$s phải đến sau %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s phải đến trước %2$s</string>
     <string name="date_shortcut_tomorrow_night">Đêm mai</string>
@@ -381,7 +376,7 @@
     <string name="TEA_timer_comment_started">đã bắt đầu công việc này:</string>
     <string name="TEA_timer_controls">Hẹn giờ</string>
     <string name="TPl_notification">Hẹn giờ đang hoạt động đối với %s!</string>
-    <string name="delete_tag_confirmation">Xoá %s\?</string>
+    <string name="delete_tag_confirmation">Xoá %s?</string>
     <string name="new_list">Tạo danh sách mới</string>
     <string name="new_tag">Tạo thẻ mới</string>
     <string name="repeat_snackbar">%1$s đã được lên lịch lại cho %2$s</string>
@@ -454,9 +449,9 @@
     <string name="rmd_NoA_snooze">Báo lại</string>
     <string name="rmd_NoA_done">Hoàn thành</string>
     <string name="CFC_startBefore_name">Bắt đầu trước…</string>
-    <string name="CFC_startBefore_text">Bắt đầu trước: \?</string>
+    <string name="CFC_startBefore_text">Bắt đầu trước: ?</string>
     <string name="CFC_dueBefore_name">Hạn trước…</string>
-    <string name="CFC_dueBefore_text">Hạn trước: \?</string>
+    <string name="CFC_dueBefore_text">Hạn trước: ?</string>
     <string name="display_name">Tên hiển thị</string>
     <string name="ring_nonstop">Đổ chuông không ngừng</string>
     <string name="ring_five_times">Đổ chuông năm lần</string>
@@ -468,19 +463,19 @@
     <string name="gtasks_GLA_authenticating">Đang xác thực…</string>
     <string name="gtasks_GTA_clear_completed">Xoá công việc đã hoàn thành</string>
     <string name="CFC_list_name">Trong danh sách…</string>
-    <string name="CFC_gtasks_list_text">Trong danh sách: \?</string>
+    <string name="CFC_gtasks_list_text">Trong danh sách: ?</string>
     <string name="gcal_completed_title">%s (đã hoàn thành)</string>
     <string name="calendar_event_not_found">Không tìm thấy sự kiện trong lịch</string>
     <string name="gcal_TEA_showCalendar_label">Mở sự kiện trong lịch</string>
     <string name="gcal_TEA_error">Lỗi khi thêm công việc vào lịch!</string>
-    <string name="CFC_title_contains_text">Tiêu đề chứa: \?</string>
+    <string name="CFC_title_contains_text">Tiêu đề chứa: ?</string>
     <string name="CFC_title_contains_name">Tiêu đề chứa…</string>
-    <string name="CFC_tag_contains_text">Tên thẻ chứa: \?</string>
+    <string name="CFC_tag_contains_text">Tên thẻ chứa: ?</string>
     <string name="CFC_tag_contains_name">Tên thẻ chứa…</string>
     <string name="CFC_tag_name">Thẻ…</string>
-    <string name="CFC_tag_text">Thẻ: \?</string>
+    <string name="CFC_tag_text">Thẻ: ?</string>
     <string name="CFC_importance_name">Sự ưu tiên…</string>
-    <string name="CFC_importance_text">Sự ưu tiên ít nhất \?</string>
+    <string name="CFC_importance_text">Sự ưu tiên ít nhất ?</string>
     <string name="next_month">Tháng sau</string>
     <string name="filter_any_start_date">Bất kỳ ngày bắt đầu nào</string>
     <string name="no_start_date">Không có ngày bắt đầu</string>
@@ -505,10 +500,10 @@
     <string name="default_due_date">Ngày hạn mặc định</string>
     <string name="default_start_date">Ngày bắt đầu mặc định</string>
     <string name="EPr_default_importance_title">Sự ưu tiên mặc định</string>
-    <string name="EPr_manage_delete_all_gcal_message">Bạn có thực sự muốn xoá tất cả các sự kiện đối với các công việc không\?</string>
+    <string name="EPr_manage_delete_all_gcal_message">Bạn có thực sự muốn xoá tất cả các sự kiện đối với các công việc không?</string>
     <string name="EPr_manage_delete_all_gcal">Xoá tất cả sự kiện trong lịch đối với các công việc</string>
     <string name="EPr_manage_delete_gcal_status">Đã xoá %d sự kiện trong lịch!</string>
-    <string name="EPr_manage_delete_completed_gcal_message">Bạn có thực sự muốn xoá tất cả các sự kiện đối với các công việc đã hoàn thành không\?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Bạn có thực sự muốn xoá tất cả các sự kiện đối với các công việc đã hoàn thành không?</string>
     <string name="EPr_manage_delete_completed_gcal">Xoá các sự kiện trong lịch đối với các công việc đã hoàn thành</string>
     <string name="EPr_delete_task_data_warning">Tất cả công việc sẽ bị xoá vĩnh viễn</string>
     <string name="EPr_delete_task_data">Xoá dữ liệu công việc</string>
@@ -557,7 +552,7 @@
     <string name="randomly_every">Ngẫu nhiên mỗi %s</string>
     <string name="customize_edit_screen_summary">Sắp xếp lại hoặc xóa các trường</string>
     <string name="dismiss">Bỏ qua</string>
-    <string name="hint_customize_edit_title">Quá nhiều thông tin\?</string>
+    <string name="hint_customize_edit_title">Quá nhiều thông tin?</string>
     <string name="hint_customize_edit_body">Bạn có thể tùy biến màn hình này bằng cách sắp xếp lại hoặc xóa các trường</string>
     <string name="sort_completion_group">Hoàn thành %s</string>
     <string name="enable_reminders_description">Lời nhắc bị tắt trong cài đặt Android</string>
@@ -580,4 +575,7 @@
     <string name="app_settings">Cài đặt ứng dụng</string>
     <string name="customize_drawer">Tùy chỉnh ngăn kéo</string>
     <string name="customize_drawer_summary">Kéo và thả để sắp xếp lại các mục danh sách</string>
+    <string name="share_list"></string>
+    <string name="yesterday"></string>
+    <string name="rmd_EPr_rmd_time_desc"></string>
 </resources>
