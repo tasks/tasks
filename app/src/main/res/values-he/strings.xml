@@ -141,7 +141,6 @@
     <plurals name="repeat_minutes">
         <item quantity="one">דקה</item>
         <item quantity="two">דקות</item>
-        <item quantity="many">דקות</item>
         <item quantity="other">דקות</item>
     </plurals>
     <plurals name="repeat_n_minutes">
@@ -219,7 +218,6 @@
     <plurals name="Ntasks">
         <item quantity="one">משימה אחת</item>
         <item quantity="two">%d משימות</item>
-        <item quantity="many">%d משימות</item>
         <item quantity="other">%d משימות</item>
     </plurals>
     <string name="today">היום</string>
