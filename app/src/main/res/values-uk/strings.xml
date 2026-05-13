@@ -11,7 +11,7 @@
     <string name="read_permission_label">Дозволи Tasks</string>
     <string name="discard_confirmation">Дійсно хочете скасувати ваші зміни?</string>
     <string name="keep_editing">Продовжити редагування</string>
-    <string name="DLG_delete_this_task_question">Видалити це завдання\?</string>
+    <string name="DLG_delete_this_task_question">Видалити це завдання?</string>
     <string name="DLG_hour_minutes">Час (години : хвилини)</string>
     <string name="DLG_undo">Повернути</string>
     <string name="WID_dateButtonUnset">Натисніть для встановлення</string>
@@ -88,10 +88,10 @@
     <string name="next_month">Наступного місяця</string>
     <string name="CFC_importance_text">Пріоритет щонайменше \?</string>
     <string name="CFC_importance_name">Пріоритет…</string>
-    <string name="CFC_tag_text">Мітка: \?</string>
+    <string name="CFC_tag_text">Мітка: ?</string>
     <string name="CFC_tag_name">Мітка…</string>
     <string name="CFC_tag_contains_name">Назва мітки містить…</string>
-    <string name="CFC_tag_contains_text">Назва мітки містить: \?</string>
+    <string name="CFC_tag_contains_text">Назва мітки містить: ?</string>
     <string name="CFC_title_contains_name">Назва містить…</string>
     <string name="CFC_title_contains_text">Заголовок містить: ?</string>
     <string name="gcal_TEA_error">Помилка додавання завдання до календаря!</string>
@@ -537,7 +537,7 @@
     <string name="open_source">Відкритий джерельний код</string>
     <string name="support">Підтримка</string>
     <string name="remove_user_confirmation">%1$s надалі не матиме доступу до %2$s</string>
-    <string name="remove_user">Вилучити користувача\?</string>
+    <string name="remove_user">Вилучити користувача?</string>
     <string name="list_members">Перелік учасників</string>
     <string name="invite_invalid">Запрошення недійсне</string>
     <string name="invite_awaiting_response">Запрошення в очікуванні відповіді</string>
@@ -598,7 +598,7 @@
     <string name="randomly_every">Випадково кожні %s</string>
     <string name="customize_edit_screen_summary">Перевпорядкувати або вилучити поля</string>
     <string name="dismiss">Відхилити</string>
-    <string name="hint_customize_edit_title">Забагато інформації\?</string>
+    <string name="hint_customize_edit_title">Забагато інформації?</string>
     <string name="hint_customize_edit_body">Ви можете налаштувати цей екран, змінивши порядок або прибравши поля</string>
     <string name="enable_reminders">Увімкнути нагадування</string>
     <string name="enable_reminders_description">Нагадування вимкнено в налаштуваннях Android</string>
@@ -663,4 +663,6 @@
     <string name="multiline_title_off">Натисніть готово, щоб зберегти завдання</string>
     <string name="delete_tasks_warning">%s буде видалено. Дію неможливо скасувати!</string>
     <string name="widget_view_more_tasks">Переглянути інші завдання</string>
+    <string name="share_list"></string>
+    <string name="default_reminder"></string>
 </resources>
