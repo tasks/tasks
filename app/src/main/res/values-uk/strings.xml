@@ -32,7 +32,7 @@
     <string name="TEA_title_hint">Назва завдання</string>
     <string name="TEA_importance_label">Пріоритет</string>
     <string name="TEA_note_label">Опис</string>
-    <string name="TEA_estimatedDuration_label">Скільки часу це займе\?</string>
+    <string name="TEA_estimatedDuration_label">Скільки часу це займе?</string>
     <string name="TEA_elapsedDuration_label">Часу вже витрачено</string>
     <string name="save">Зберегти</string>
     <string name="TEA_timer_est">Прибл. %s</string>
@@ -62,7 +62,7 @@
     <string name="EPr_delete_task_data">Видалити дані про завдання</string>
     <string name="EPr_delete_task_data_warning">Всі завдання буде видалено назавжди</string>
     <string name="EPr_manage_delete_completed_gcal">Видалити календарні події для завершених завдань</string>
-    <string name="EPr_manage_delete_completed_gcal_message">Ви дійсно бажаєте видалити усі події, що стосуються завершених завдань\?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Ви дійсно бажаєте видалити усі події, що стосуються завершених завдань?</string>
     <string name="EPr_manage_delete_gcal_status">Видалено %d подій у календарі!</string>
     <string name="EPr_manage_delete_all_gcal">Видалити усі події у календарі, що стосуються завдань</string>
     <string name="EPr_manage_delete_all_gcal_message">Ви дійсно хочете видалити всі події для завдань?</string>
@@ -82,11 +82,11 @@
     <string name="BFE_Active">Мої завдання</string>
     <string name="BFE_Recent">Недавно змінені</string>
     <string name="CFA_button_add">Додати критерій</string>
-    <string name="CFC_dueBefore_text">Дата завершення: \?</string>
+    <string name="CFC_dueBefore_text">Дата завершення: ?</string>
     <string name="CFC_dueBefore_name">Дата завершення…</string>
     <string name="no_due_date">Немає дати завершення</string>
     <string name="next_month">Наступного місяця</string>
-    <string name="CFC_importance_text">Пріоритет щонайменше \?</string>
+    <string name="CFC_importance_text">Пріоритет щонайменше ?</string>
     <string name="CFC_importance_name">Пріоритет…</string>
     <string name="CFC_tag_text">Мітка: ?</string>
     <string name="CFC_tag_name">Мітка…</string>
@@ -98,7 +98,7 @@
     <string name="gcal_TEA_showCalendar_label">Відкрити подію у календарі</string>
     <string name="calendar_event_not_found">Подію у календарі не знайдено</string>
     <string name="gcal_completed_title">%s (завершено)</string>
-    <string name="CFC_gtasks_list_text">У списку: \?</string>
+    <string name="CFC_gtasks_list_text">У списку: ?</string>
     <string name="gtasks_GTA_clear_completed">Очистити завершені</string>
     <string name="gtasks_GLA_authenticating">Авторизація…</string>
     <string name="gtasks_GLA_errorIOAuth">Вибачте, виникли проблеми звернення до серверів Google. Будь ласка, спробуйте пізніше.</string>
@@ -476,7 +476,7 @@
     <string name="sort_modified_group">Змінено %s</string>
     <string name="sort_created_group">Створено %s</string>
     <string name="support_development_subscribe">Розблокувати додаткові функції та підтримати програмне забезпечення з відкритим джерельним кодом</string>
-    <string name="enjoying_tasks">Подобається Tasks\?</string>
+    <string name="enjoying_tasks">Подобається Tasks?</string>
     <string name="filter_eisenhower_box_4">Не важливе і не термінове</string>
     <string name="filter_eisenhower_box_3">Не важливе і термінове</string>
     <string name="filter_eisenhower_box_2">Важливе і не термінове</string>
@@ -540,7 +540,7 @@
     <string name="astrid_sort_order">Ручне сортування Astrid</string>
     <string name="filter_any_start_date">Будь-яка дата початку</string>
     <string name="CFC_startBefore_name">Дата початку…</string>
-    <string name="CFC_startBefore_text">Дата початку: \?</string>
+    <string name="CFC_startBefore_text">Дата початку: ?</string>
     <string name="account_not_included">Не входить до передплати \"Назвіть свою ціну\"</string>
     <string name="subscription">Підписка</string>
     <string name="widget_show_title">Показати заголовок</string>
@@ -723,4 +723,5 @@
     <string name="accept"></string>
     <string name="banner_subscription_required_body"></string>
     <string name="location_update_interval_title"></string>
+    <string name="rmd_EPr_rmd_time_desc"></string>
 </resources>
