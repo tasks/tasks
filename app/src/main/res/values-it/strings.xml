@@ -203,7 +203,7 @@
     <string name="repeat_snackbar">%1$s ripianificata per %2$s</string>
     <string name="new_tag">Crea nuova etichetta</string>
     <string name="new_list">Crea nuova lista</string>
-    <string name="delete_tag_confirmation">Eliminare %s\?</string>
+    <string name="delete_tag_confirmation">Eliminare %s?</string>
     <string name="TPl_notification">Timer attivi per %s!</string>
     <string name="TEA_timer_comment_started">attività iniziata:</string>
     <string name="TEA_timer_comment_stopped">attività terminata:</string>
@@ -255,7 +255,7 @@
     <string name="date_shortcut_tomorrow_afternoon">Domani pomeriggio</string>
     <string name="date_shortcut_must_come_before">%1$s deve precedere %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s deve essere successiva a %2$s</string>
-    <string name="discard_changes">Annullare le modifiche\?</string>
+    <string name="discard_changes">Annullare le modifiche?</string>
     <string name="discard">Sì, annulla</string>
     <string name="tag_settings">Impostazioni etichetta</string>
     <string name="list_settings">Impostazioni lista</string>
@@ -291,10 +291,10 @@
     <string name="widget_settings">Impostazioni widget</string>
     <string name="widget_header_settings">Impostazioni intestazione</string>
     <string name="widget_row_settings">Impostazioni riga</string>
-    <string name="clear_completed_tasks_confirmation">Eliminare le attività completate\?</string>
+    <string name="clear_completed_tasks_confirmation">Eliminare le attività completate?</string>
     <string name="copy_multiple_tasks_confirmation">%s copiati</string>
     <string name="delete_multiple_tasks_confirmation">%s eliminati</string>
-    <string name="delete_selected_tasks">Eliminare le attività selezionate\?</string>
+    <string name="delete_selected_tasks">Eliminare le attività selezionate?</string>
     <string name="copy_selected_tasks">Copio le attività selezionate?</string>
     <string name="user">Utente</string>
     <string name="notification_disable_battery_optimizations_description">L\'ottimizzazione della batteria può ritardare le notifiche</string>
@@ -527,11 +527,11 @@
     <string name="local_lists">Liste locali</string>
     <string name="account_not_included">Non incluso negli abbonamenti con prezzo a scelta</string>
     <string name="subscription">Abbonamento</string>
-    <string name="CFC_startBefore_text">Inizia: \?</string>
+    <string name="CFC_startBefore_text">Inizia: ?</string>
     <string name="CFC_startBefore_name">Inizia…</string>
     <string name="widget_show_title">Mostra titolo</string>
     <string name="remove_user_confirmation">%1$s non avrà più accesso a %2$s</string>
-    <string name="remove_user">Vuoi rimuovere l\'utente\?</string>
+    <string name="remove_user">Vuoi rimuovere l\'utente?</string>
     <string name="invite_invalid">Invito non valido</string>
     <string name="invite_awaiting_response">Invito in attesa di risposta</string>
     <string name="invite_declined">Invito rifiutato</string>
