@@ -239,7 +239,7 @@
     <string name="date_shortcut_tomorrow_morning">Holnap reggel</string>
     <string name="date_shortcut_tomorrow_afternoon">Holnap délután</string>
     <string name="date_shortcut_must_come_before">%1$s-nek %2$s előtt kell jönnie</string>
-    <string name="date_shortcut_must_come_after">	%1$s-nek %2$s után kell jönnie</string>
+    <string name="date_shortcut_must_come_after">%1$s-nek %2$s után kell jönnie</string>
     <string name="discard_changes">Változások elvetése?</string>
     <string name="discard">Elvetés</string>
     <string name="tag_settings">Címkék beállításai</string>
