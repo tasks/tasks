@@ -440,7 +440,7 @@
     <string name="filter_overdue">Határidőn túli</string>
     <string name="sort_created">Létrehozás ideje alapján</string>
     <string name="support_development_subscribe">További finkciók feloldása és a nyílt szoftver támogatása</string>
-    <string name="enjoying_tasks">Tetszik a Tasks\?</string>
+    <string name="enjoying_tasks">Tetszik a Tasks?</string>
     <string name="whats_new">Újdonságok</string>
     <string name="action_new_task">Új feladat</string>
     <string name="sort_modified_group">%s módosítva</string>
@@ -510,7 +510,7 @@
     <string name="filter_any_start_date">Tetszőleges kezdő dátum</string>
     <string name="no_start_date">Nincs kezdő dátum</string>
     <string name="CFC_startBefore_name">Kezdés…</string>
-    <string name="CFC_startBefore_text">Kezdés: \?</string>
+    <string name="CFC_startBefore_text">Kezdés: ?</string>
     <string name="default_start_date">Alapértelmezett kezdő dátum</string>
     <string name="SSD_sort_start">Kezdés dátuma szerint</string>
     <string name="widget_show_title">Cím megjelenítése</string>
@@ -519,7 +519,7 @@
     <string name="open_source">Nyílt forráskódú</string>
     <string name="support">Támogatás</string>
     <string name="remove_user_confirmation">%1$s nem fog hozzáférni ehhez: %2$s</string>
-    <string name="remove_user">Felhasználó eltávolítása\?</string>
+    <string name="remove_user">Felhasználó eltávolítása?</string>
     <string name="list_members">Listatagok</string>
     <string name="invite_invalid">Érvénytelen meghívás</string>
     <string name="invite_awaiting_response">Válaszra váró meghívás</string>
@@ -572,7 +572,7 @@
     <string name="randomly_every">Véletlenszerűen minden %s</string>
     <string name="dismiss">Nyugtáz</string>
     <string name="customize_edit_screen_summary">Mezők átrendezése vagy törlése</string>
-    <string name="hint_customize_edit_title">Túl sok információ\?</string>
+    <string name="hint_customize_edit_title">Túl sok információ?</string>
     <string name="hint_customize_edit_body">Ez a képernyő a mezők átrendezésével vagy eltávolításával testre szabható</string>
     <string name="TEA_creation_date">Létrehozás dátuma</string>
     <string name="sort_completion_group">Elkészültség %s</string>
