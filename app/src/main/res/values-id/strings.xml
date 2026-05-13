@@ -501,7 +501,7 @@
     <string name="open_source">Sumber Terbuka</string>
     <string name="support">Dukung</string>
     <string name="remove_user_confirmation">%1$s tidak akan mempunyai akses lagi pada %2$s</string>
-    <string name="remove_user">Hapus pengguna\?</string>
+    <string name="remove_user">Hapus pengguna?</string>
     <string name="list_members">Daftar anggota</string>
     <string name="invite_invalid">Undangan tidak valid</string>
     <string name="invite_awaiting_response">Undangan menunggu respon</string>
