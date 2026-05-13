@@ -466,7 +466,7 @@
     <string name="invite_awaiting_response">Kutsu odottaa vastausta</string>
     <string name="invite_declined">Kutsu hylätty</string>
     <string name="remove_user_confirmation">%1$s ei enää pääse %2$s:een</string>
-    <string name="remove_user">Poista käyttäjä\?</string>
+    <string name="remove_user">Poista käyttäjä?</string>
     <string name="list_members">Luettelo jäsenistä</string>
     <string name="account_not_included">Ei sisälly \"Nimeä hintasi\" -tilauksiin</string>
     <string name="tasks_org_account_required">Tarvitaan Tasks.org-tili</string>
@@ -534,7 +534,7 @@
     <string name="filter_any_start_date">Mikä tahansa aloituspäivä</string>
     <string name="no_start_date">Ei alkamispäivää</string>
     <string name="CFC_startBefore_name">Aloita…</string>
-    <string name="CFC_startBefore_text">Aloita: \?</string>
+    <string name="CFC_startBefore_text">Aloita: ?</string>
     <string name="default_location">Oletussijainti</string>
     <string name="default_due_date">Eräpäivä oletusarvoisesti</string>
     <string name="default_start_date">Oletusarvoinen alkamispäivä</string>
@@ -681,4 +681,5 @@
     <string name="accept"></string>
     <string name="banner_subscription_required_body"></string>
     <string name="location_update_interval_title"></string>
+    <string name="share_list"></string>
 </resources>
