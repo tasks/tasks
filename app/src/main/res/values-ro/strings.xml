@@ -702,4 +702,5 @@
     <string name="accept">Acceptă</string>
     <string name="banner_subscription_required_body">Plătește oricât dorești pentru a debloca sincronizarea %s</string>
     <string name="location_update_interval_title">Actualizări ale locației de fundal</string>
+    <string name="p_per_list_sort"></string>
 </resources>
