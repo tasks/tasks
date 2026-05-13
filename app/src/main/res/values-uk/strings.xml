@@ -271,7 +271,7 @@
     <string name="date_shortcut_tomorrow_afternoon">Завтра вдень</string>
     <string name="date_shortcut_must_come_before">%1$s має бути до %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s має бути після %2$s</string>
-    <string name="discard_changes">Скасувати зміни\?</string>
+    <string name="discard_changes">Скасувати зміни?</string>
     <string name="discard">Скасувати</string>
     <string name="tag_settings">Налаштування міток</string>
     <string name="list_settings">Налаштування списку</string>
