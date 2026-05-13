@@ -82,7 +82,7 @@
     <string name="BFE_Active">Meine Aufgaben</string>
     <string name="BFE_Recent">Kürzlich bearbeitet</string>
     <string name="CFA_button_add">Kriterium hinzufügen</string>
-    <string name="CFC_dueBefore_text">Fällig: \?</string>
+    <string name="CFC_dueBefore_text">Fällig: ?</string>
     <string name="CFC_dueBefore_name">Fällig …</string>
     <string name="no_due_date">Ohne Fälligkeit</string>
     <string name="next_month">Nächster Monat</string>
