@@ -681,4 +681,5 @@
     <string name="multiline_title_off"></string>
     <string name="sync_warning_google_tasks"></string>
     <string name="location_update_interval_title"></string>
+    <string name="share_list"></string>
 </resources>
