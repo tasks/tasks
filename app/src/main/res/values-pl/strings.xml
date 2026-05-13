@@ -548,7 +548,7 @@
     <string name="widget_show_title">Pokaż tytuł</string>
     <string name="tasks_org_account_required">Wymagane konto Tasks.org</string>
     <string name="privacy">Prywatność</string>
-    <string name="remove_user">Usunąć użytkownika\?</string>
+    <string name="remove_user">Usunąć użytkownika?</string>
     <string name="support">Wsparcie</string>
     <string name="email">Poczta elektroniczna</string>
     <string name="markdown_description">Włącz Markdown w tytule i opisie</string>
