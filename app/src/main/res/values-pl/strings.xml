@@ -270,7 +270,7 @@
     <string name="date_shortcut_tomorrow_afternoon">Jutro po południu</string>
     <string name="date_shortcut_must_come_before">%1$s musi być przed %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s musi być po %2$s</string>
-    <string name="discard_changes">Odrzuć zmiany\?</string>
+    <string name="discard_changes">Odrzuć zmiany?</string>
     <string name="discard">Odrzuć</string>
     <string name="tag_settings">Ustawienia taga</string>
     <string name="list_settings">Ustawienie listy</string>
