@@ -87,7 +87,7 @@
     <string name="custom_filter_not">除外</string>
     <string name="custom_filter_and">かつ</string>
     <string name="CFA_button_add">条件を追加</string>
-    <string name="CFC_dueBefore_text">締切: \?</string>
+    <string name="CFC_dueBefore_text">締切: ?</string>
     <string name="CFC_dueBefore_name">期限は…</string>
     <string name="no_due_date">締切日時なし</string>
     <string name="next_month">1 か月後</string>
@@ -103,7 +103,7 @@
     <string name="gcal_TEA_showCalendar_label">カレンダーイベントを開く</string>
     <string name="calendar_event_not_found">カレンダーイベントが見つかりません</string>
     <string name="gcal_completed_title">%s (完了)</string>
-    <string name="CFC_gtasks_list_text">リストに含む: \?</string>
+    <string name="CFC_gtasks_list_text">リストに含む: ?</string>
     <string name="gtasks_GTA_clear_completed">完了したタスクをクリア</string>
     <string name="gtasks_GLA_authenticating">認証中…</string>
     <string name="gtasks_GLA_errorIOAuth">すみません、Google のサーバーとの通信で問題が発生しました。しばらくしてからもう一度お試しください。</string>
@@ -374,7 +374,7 @@
     <string name="repeat_type_completion_capitalized">完了日</string>
     <string name="CFC_list_name">リストに含む…</string>
     <string name="no_start_date">着手日時なし</string>
-    <string name="CFC_startBefore_text">着手: \?</string>
+    <string name="CFC_startBefore_text">着手: ?</string>
     <string name="start_date">着手日時</string>
     <string name="SSD_sort_start">着手日時</string>
     <string name="preferences_advanced">上級者向け</string>
