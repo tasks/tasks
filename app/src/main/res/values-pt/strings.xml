@@ -683,4 +683,5 @@
     <string name="accept"></string>
     <string name="banner_subscription_required_body"></string>
     <string name="location_update_interval_title"></string>
+    <string name="default_reminder"></string>
 </resources>
