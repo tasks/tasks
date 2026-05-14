@@ -286,6 +286,6 @@
     <string name="restart_required">必须重新启动 Tasks 才能使更改生效</string>
     <string name="restart_now">马上重启</string>
     <string name="restart_later">稍后</string>
-    <string name="cannot_access_account">无法访问账号</string>
+    <string name="cannot_access_account">无法访问账户</string>
     <string name="upgrade_subscription_banner">感谢支持！升级订阅启用 Tasks.org 云同步</string>
 </resources>
