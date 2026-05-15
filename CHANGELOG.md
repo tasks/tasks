@@ -1,3 +1,23 @@
+### 15.5 (2026-05-15)
+
+Desktop:
+  * Add Google Tasks support
+  * Close task before opening another one
+  * Focus keyboard on title when creating new task
+
+Android:
+  * Fix tag sync for DAVx5/EteSync/DecSync CC
+
+Update translations:
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山, Sketch6580
+  * Croatian - @milotype
+  * Czech - Fjuro
+  * French - @FlorianLeChat
+  * Romanian - @ygorigor
+  * Swedish - Mona Lisa
+  * Turkish - @emintufan
+
 ### 15.4.2 (2026-05-08)
 
 Desktop:
