@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -111,21 +112,30 @@ fun TaskEditScreen(
                         .align(Alignment.Center)
                         .padding(16.dp),
                 )
-                else -> Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
-                        .padding(16.dp),
-                ) {
-                    TitleField(
-                        title = state.task.title.orEmpty(),
-                        onTitleChange = viewModel::setTitle,
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    DescriptionRow(
-                        description = state.task.notes.orEmpty(),
-                        onDescriptionChange = viewModel::setDescription,
-                    )
+                else -> {
+                    val titleFocusRequester = remember { FocusRequester() }
+                    if (state.isNew) {
+                        LaunchedEffect(Unit) {
+                            titleFocusRequester.requestFocus()
+                        }
+                    }
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
+                            .padding(16.dp),
+                    ) {
+                        TitleField(
+                            title = state.task.title.orEmpty(),
+                            onTitleChange = viewModel::setTitle,
+                            focusRequester = titleFocusRequester,
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        DescriptionRow(
+                            description = state.task.notes.orEmpty(),
+                            onDescriptionChange = viewModel::setDescription,
+                        )
+                    }
                 }
             }
         }
@@ -137,6 +147,7 @@ private fun TitleField(
     title: String,
     onTitleChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    focusRequester: FocusRequester = remember { FocusRequester() },
 ) {
     val titleStyle = MaterialTheme.typography.headlineSmall.copy(
         color = MaterialTheme.colorScheme.onSurface,
@@ -148,6 +159,7 @@ private fun TitleField(
         onValueChange = onTitleChange,
         textStyle = titleStyle,
         placeholder = "Task title",
+        focusRequester = focusRequester,
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 4.dp),
