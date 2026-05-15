@@ -289,4 +289,22 @@
     <string name="cannot_access_account">无法访问账号</string>
     <string name="upgrade_subscription_banner">感谢您的支持！升级您的订阅即可启用 Tasks.org 云同步</string>
     <string name="subscription_not_found">未找到您的 Tasks.org 云订阅。如果您认为这是一个错误，请联系 %1$s</string>
-</resources>
+    <string name="language">语言</string>
+    <string name="theme">主题</string>
+    <string name="theme_light">亮色</string>
+    <string name="theme_black">黑色</string>
+    <string name="theme_dark">暗色</string>
+    <string name="theme_wallpaper">壁纸</string>
+    <string name="theme_day_night">日/夜</string>
+    <string name="theme_system_default">系统默认</string>
+    <string name="theme_dynamic">动态</string>
+    <string name="launcher_icon">启动器图标</string>
+    <string name="color">颜色</string>
+    <string name="on_launch">启动时</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">在任务标题和描述中启用 Markdown</string>
+    <string name="settings_localization">本地化</string>
+    <string name="translations">贡献翻译</string>
+    <string name="open_last_viewed_list">打开上次查看的清单</string>
+    <string name="widget_open_list">打开清单</string>
+  </resources>

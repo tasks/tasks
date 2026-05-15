@@ -199,4 +199,22 @@
     <string name="restart_later">Myöhemmin</string>
     <string name="blog_feed_none">Ei mitään</string>
     <string name="cannot_access_account">Tiliin ei päästä käsiksi</string>
+    <string name="language">Kieli</string>
+    <string name="theme">Teema</string>
+    <string name="theme_light">Vaalea</string>
+    <string name="theme_black">Musta</string>
+    <string name="theme_dark">Tumma</string>
+    <string name="theme_wallpaper">Taustakuva</string>
+    <string name="theme_day_night">Päivä/Yö</string>
+    <string name="theme_system_default">Järjestelmän oletus</string>
+    <string name="theme_dynamic">Dynaaminen</string>
+    <string name="launcher_icon">Käynnistyskuvake</string>
+    <string name="color">Väri</string>
+    <string name="on_launch">Käynnistettäessä</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Ota Markdown käyttöön otsikossa ja kuvauksessa</string>
+    <string name="settings_localization">Paikallistaminen</string>
+    <string name="translations">Osallistu kääntämiseen</string>
+    <string name="open_last_viewed_list">Avaa viimeksi katsottu lista</string>
+    <string name="widget_open_list">Avaa lista</string>
 </resources>

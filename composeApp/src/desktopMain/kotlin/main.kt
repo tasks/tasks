@@ -43,6 +43,7 @@ import java.awt.Dimension
 import java.awt.event.WindowEvent
 import java.awt.event.WindowFocusListener
 import java.io.File
+import java.util.Locale
 import org.tasks.extensions.openInBrowser
 
 private val MIN_WIDTH = 400.dp
@@ -68,6 +69,11 @@ fun main() {
     runBlocking {
         koin.get<AppPreferences>()
             .recordInstallIfNeeded(koin.get<PlatformConfiguration>().versionCode)
+        val languageTag = koin.get<TasksPreferences>()
+            .get(TasksPreferences.languageTag, "")
+        if (languageTag.isNotBlank()) {
+            Locale.setDefault(Locale.forLanguageTag(languageTag))
+        }
     }
     Runtime.getRuntime().addShutdownHook(Thread {
         (koin.get<Reporting>() as? PostHogReporting)?.close()

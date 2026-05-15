@@ -294,4 +294,22 @@
     <string name="cannot_access_account">Nepodařilo se připojit k účtu</string>
     <string name="upgrade_subscription_banner">Děkujeme za vaší podporu! Zvyšte své předplatné pro zapnutí cloudové synchronizace Tasks.org</string>
     <string name="subscription_not_found">Vaše cloudové předplatné Tasks.org nebylo nalezeno. Pokud si myslíte, že se jedná o chybu, kontaktujte %1$s</string>
+    <string name="language">Jazyk</string>
+    <string name="theme">Vzhled</string>
+    <string name="theme_light">Světlý</string>
+    <string name="theme_black">Černý</string>
+    <string name="theme_dark">Tmavý</string>
+    <string name="theme_wallpaper">Tapeta</string>
+    <string name="theme_day_night">Den/Noc</string>
+    <string name="theme_system_default">Podle systému</string>
+    <string name="theme_dynamic">Dynamické</string>
+    <string name="launcher_icon">Ikona na domovské obrazovce</string>
+    <string name="color">Barva</string>
+    <string name="on_launch">Při spuštění</string>
+    <string name="markdown">Značkovací jazyk</string>
+    <string name="markdown_description">Zapnout Markdown v nadpisu a popisu</string>
+    <string name="settings_localization">Překlad</string>
+    <string name="translations">Přispějte k překladu</string>
+    <string name="open_last_viewed_list">Otevřít poslední prohlížený seznam</string>
+    <string name="widget_open_list">Otevřít seznam</string>
 </resources>

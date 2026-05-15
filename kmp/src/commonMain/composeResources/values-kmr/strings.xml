@@ -31,4 +31,13 @@
     <string name="social">Civakî</string>
     <string name="restart_later">Paşê</string>
     <string name="blog_feed_none">Ne yek</string>
+        <string name="language">Ziman</string>
+        <string name="theme">Rûkar</string>
+        <string name="theme_light">Ron</string>
+        <string name="theme_black">Reş</string>
+        <string name="theme_dark">Tarî</string>
+        <string name="theme_wallpaper">Wêneya dîwêr</string>
+        <string name="theme_day_night">Roj/Êvar</string>
+        <string name="color">Reng</string>
+        <string name="settings_localization">Herêmîkirin</string>
 </resources>

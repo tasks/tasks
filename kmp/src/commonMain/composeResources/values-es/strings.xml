@@ -188,4 +188,22 @@
     <string name="restart_later">Más tarde</string>
     <string name="blog_feed_none">Ninguna</string>
     <string name="cannot_access_account">No se puede acceder a la cuenta</string>
+    <string name="language">Idioma</string>
+    <string name="theme">Tema</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_black">Negro</string>
+    <string name="theme_dark">Oscuro</string>
+    <string name="theme_wallpaper">Fondo de pantalla</string>
+    <string name="theme_day_night">Día/noche</string>
+    <string name="theme_system_default">Valor predeterminado del sistema</string>
+    <string name="theme_dynamic">Dinámico</string>
+    <string name="launcher_icon">Icono del iniciador</string>
+    <string name="color">Color</string>
+    <string name="on_launch">En lanzador</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Activar Markdown en el título y la descripción</string>
+    <string name="settings_localization">Configuración regional</string>
+    <string name="translations">Contribuir con la traducción</string>
+    <string name="open_last_viewed_list">Última lista vista abierta</string>
+    <string name="widget_open_list">Lista abierta</string>
 </resources>

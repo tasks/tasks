@@ -155,4 +155,21 @@
     <string name="restart_later">หลัง</string>
     <string name="blog_feed_none">ไม่มีใคร</string>
     <string name="cannot_access_account">ไม่สามารถเข้าถึงบัญชี</string>
+        <string name="language">ภาษา</string>
+        <string name="theme">หัวข้อ</string>
+        <string name="theme_light">แสง</string>
+        <string name="theme_black">ดำ</string>
+        <string name="theme_dark">รูปแบบสีดำ</string>
+        <string name="theme_wallpaper">วอลเปเปอร์</string>
+        <string name="theme_day_night">กลางวัน/กลางคืน</string>
+        <string name="theme_system_default">ค่าเริ่มต้นของระบบ</string>
+        <string name="launcher_icon">ไอคอนตัวเปิดใช้</string>
+        <string name="color">สี</string>
+        <string name="on_launch">เปิดตัว</string>
+        <string name="markdown">มาร์กดาวน์</string>
+        <string name="markdown_description">เปิดใช้งานการทําเครื่องหมายในชื่อและคําอธิบาย</string>
+        <string name="settings_localization">แปล</string>
+        <string name="translations">สนับสนุนการแปล</string>
+        <string name="open_last_viewed_list">เปิดรายการที่ดูล่าสุด</string>
+        <string name="widget_open_list">เปิดรายการ</string>
 </resources>

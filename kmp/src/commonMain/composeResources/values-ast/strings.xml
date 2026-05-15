@@ -108,4 +108,18 @@
     <string name="restart_later">Dempués</string>
     <string name="blog_feed_none">Denguna</string>
     <string name="cannot_access_account">Nun se puee acceder a la cuenta</string>
+        <string name="language">Llingua</string>
+        <string name="theme">Tema</string>
+        <string name="theme_light">Claru</string>
+        <string name="theme_black">Prietu</string>
+        <string name="theme_dark">Escuru</string>
+        <string name="theme_wallpaper">Fondu de pantalla</string>
+        <string name="theme_day_night">Día/Nueche</string>
+        <string name="theme_system_default">Predetermináu pol sistema</string>
+        <string name="theme_dynamic">Dinámicu</string>
+        <string name="launcher_icon">Iconu del llanzador</string>
+        <string name="color">Color</string>
+        <string name="settings_localization">Llocalización</string>
+        <string name="translations">Contribuyi cola torna</string>
+        <string name="widget_open_list">Abrir llista</string>
 </resources>

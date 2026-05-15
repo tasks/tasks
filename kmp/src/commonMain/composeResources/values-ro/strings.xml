@@ -194,4 +194,22 @@
     <string name="accept">Acceptă</string>
     <string name="email_to_task">E-mail către sarcină</string>
     <string name="upgrade_subscription_banner">Îți mulțumim pentru suport! Actualizează-ți abonamentul pentru a activa Tasks.org Cloud Sync</string>
-</resources>
+    <string name="language">Limbă</string>
+    <string name="theme">Temă</string>
+    <string name="theme_light">Luminoasă</string>
+    <string name="theme_black">Neagră</string>
+    <string name="theme_dark">Întunecată</string>
+    <string name="theme_wallpaper">Imagine de fundal</string>
+    <string name="theme_day_night">Zi/Noapte</string>
+    <string name="theme_system_default">Implicit</string>
+    <string name="theme_dynamic">Dinamic</string>
+    <string name="launcher_icon">Pictograma lansatorului</string>
+    <string name="color">Culoare</string>
+    <string name="on_launch">La lansare</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Activează Markdown în titlu și descriere</string>
+    <string name="settings_localization">Localizare</string>
+    <string name="translations">Contribuie la traduceri</string>
+    <string name="open_last_viewed_list">Deschide ultima listă vizualizată</string>
+    <string name="widget_open_list">Listă deschisă</string>
+  </resources>

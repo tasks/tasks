@@ -174,4 +174,21 @@
     <string name="restart_later">Để sau</string>
     <string name="blog_feed_none">Không có</string>
     <string name="cannot_access_account">Không thể truy cập tài khoản</string>
+        <string name="language">Ngôn ngữ</string>
+        <string name="theme">Chủ đề</string>
+        <string name="theme_light">Sáng</string>
+        <string name="theme_black">Đen</string>
+        <string name="theme_dark">Tối</string>
+        <string name="theme_wallpaper">Hình nền</string>
+        <string name="theme_day_night">Ngày/Đêm</string>
+        <string name="theme_system_default">Mặc định hệ thống</string>
+        <string name="launcher_icon">Biểu tượng trên launcher</string>
+        <string name="color">Màu</string>
+        <string name="on_launch">Khi khởi động</string>
+        <string name="markdown">Markdown</string>
+        <string name="markdown_description">Bật Markdown trong tiêu đề và mô tả</string>
+        <string name="settings_localization">Ngôn ngữ</string>
+        <string name="translations">Đóng góp bản dịch</string>
+        <string name="open_last_viewed_list">Mở danh sách đã xem lần cuối</string>
+        <string name="widget_open_list">Mở danh sách</string>
 </resources>

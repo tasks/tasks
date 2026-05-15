@@ -294,3 +294,22 @@
     <string name="upgrade_subscription_banner">Merci pour votre soutien ! Mettez à niveau votre abonnement pour activer la synchronisation cloud Tasks.org</string>
     <string name="subscription_not_found">Votre abonnement au cloud Tasks.org est introuvable. Si vous pensez qu\'il s\'agit d\'une erreur, veuillez contacter %1$s</string>
 </resources>
+    <string name="language">Langue</string>
+    <string name="theme">Thème</string>
+    <string name="theme_light">Clair</string>
+    <string name="theme_black">Noir</string>
+    <string name="theme_dark">Sombre</string>
+    <string name="theme_wallpaper">Fond d'écran</string>
+    <string name="theme_day_night">Jour/Nuit</string>
+    <string name="theme_system_default">Valeur par défaut du système</string>
+    <string name="theme_dynamic">Dynamique</string>
+    <string name="launcher_icon">Icône du lanceur</string>
+    <string name="color">Couleur</string>
+    <string name="on_launch">Au lancement</string>
+    <string name="markdown">« Markdown »</string>
+    <string name="markdown_description">Activer « Markdown » dans le titre et la description</string>
+    <string name="settings_localization">Localisation</string>
+    <string name="translations">Contribuer aux traductions</string>
+    <string name="open_last_viewed_list">Ouvrir la dernière liste consultée</string>
+    <string name="widget_open_list">Ouvrir la liste</string>
+  </resources>

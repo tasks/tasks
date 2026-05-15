@@ -224,4 +224,22 @@
     <string name="blog_feed_none">無</string>
     <string name="cannot_access_account">無法存取帳號</string>
     <string name="upgrade_subscription_banner">感謝您的支持！升級您的訂閱以啟用 Tasks.org 雲端同步</string>
-</resources>
+    <string name="language">語言</string>
+    <string name="theme">主題</string>
+    <string name="theme_light">亮色</string>
+    <string name="theme_black">黑色</string>
+    <string name="theme_dark">深色</string>
+    <string name="theme_wallpaper">桌布</string>
+    <string name="theme_day_night">日/夜</string>
+    <string name="theme_system_default">系統預設</string>
+    <string name="theme_dynamic">動態</string>
+    <string name="launcher_icon">啟動器圖示</string>
+    <string name="color">色彩</string>
+    <string name="on_launch">啟動時</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">在標題和描述中啟用 Markdown</string>
+    <string name="settings_localization">在地化</string>
+    <string name="translations">貢獻翻譯</string>
+    <string name="open_last_viewed_list">開器最後觀看的清單</string>
+    <string name="widget_open_list">開啟清單</string>
+    </resources>

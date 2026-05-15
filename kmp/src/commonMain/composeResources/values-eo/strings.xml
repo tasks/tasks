@@ -221,4 +221,22 @@
     <string name="restart_later">Poste</string>
     <string name="cannot_access_account">Ne povas atingi konton</string>
     <string name="upgrade_subscription_banner">Dankon pro via subteno! Altgradigu vian abonon por ŝalti sinkronigon de Tasks.org Cloud</string>
-</resources>
+    <string name="language">Lingvo</string>
+    <string name="theme">Etoso</string>
+    <string name="theme_light">Hela</string>
+    <string name="theme_black">Nigra</string>
+    <string name="theme_dark">Malhela</string>
+    <string name="theme_wallpaper">Ekranfono</string>
+    <string name="theme_day_night">Tago/Nokto</string>
+    <string name="theme_system_default">Laŭ operaciumo</string>
+    <string name="theme_dynamic">Dinamika</string>
+    <string name="launcher_icon">Lanĉila piktogramo</string>
+    <string name="color">Koloro</string>
+    <string name="on_launch">Je lanĉi</string>
+    <string name="markdown">Simpla Marklingo</string>
+    <string name="markdown_description">Ebligi simplan markadon en titolo kaj priskribo</string>
+    <string name="settings_localization">Traduko</string>
+    <string name="translations">Helpi traduki</string>
+    <string name="open_last_viewed_list">Malfermi liston de laste rigardita</string>
+    <string name="widget_open_list">Malfermi liston</string>
+  </resources>

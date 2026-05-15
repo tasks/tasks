@@ -186,4 +186,22 @@
     <string name="restart_later">Αργότερα</string>
     <string name="blog_feed_none">Κανένα</string>
     <string name="cannot_access_account">Δεν υπάρχει πρόσβαση στο λογαριασμό</string>
+        <string name="language">Γλώσσα</string>
+        <string name="theme">Θέμα</string>
+        <string name="theme_light">Λευκό</string>
+        <string name="theme_black">Μαύρο</string>
+        <string name="theme_dark">Σκοτεινό</string>
+        <string name="theme_wallpaper">Ταπετσαρία</string>
+        <string name="theme_day_night">Μέρα/Νύχτα</string>
+        <string name="theme_system_default">Προεπιλογή Συστήματος</string>
+        <string name="theme_dynamic">Δυναμικό</string>
+        <string name="launcher_icon">Εικονίδιο Launcher (προωθητή)</string>
+        <string name="color">Χρώμα</string>
+        <string name="on_launch">Κατά την εκκίνηση</string>
+        <string name="markdown">Αποτίμηση (Markdown)</string>
+        <string name="markdown_description">Ενεργοποίηση αποτίμησης (Markdown) στον τίτλο και την περιγραφή</string>
+        <string name="settings_localization">Εντοπισμός</string>
+        <string name="translations">Συνεισφέρετε μεταφράσεις</string>
+        <string name="open_last_viewed_list">Άνοιγμα λίστας όσων προβλήθηκαν τελευταία</string>
+        <string name="widget_open_list">Άνοιγμα λίστας</string>
 </resources>

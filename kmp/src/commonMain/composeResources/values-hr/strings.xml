@@ -292,4 +292,22 @@
     <string name="pricing_nyp_feature_2">Sinkronizacija s CalDAV-om i EteSync-om za samostalni hosting</string>
     <string name="cannot_access_account">Nije moguće pristupiti računu</string>
     <string name="upgrade_subscription_banner">Hvala ti na podršci! Nadogradi svoju pretplatu i na taj način omogući Tasks.org Cloud sinkronizaciju</string>
-</resources>
+    <string name="language">Jezik</string>
+    <string name="theme">Tema</string>
+    <string name="theme_light">Svjetla</string>
+    <string name="theme_black">Crna</string>
+    <string name="theme_dark">Tamna</string>
+    <string name="theme_wallpaper">Pozadinska slika</string>
+    <string name="theme_day_night">Dan/Noć</string>
+    <string name="theme_system_default">Standardne postavke sustava</string>
+    <string name="theme_dynamic">Dinamično</string>
+    <string name="launcher_icon">Ikona pokretača</string>
+    <string name="color">Boja</string>
+    <string name="on_launch">Pri pokretanju</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Omogući Markdown u naslovu i opisu</string>
+    <string name="settings_localization">Lokalizacija</string>
+    <string name="translations">Doprinesi prijevodima</string>
+    <string name="open_last_viewed_list">Otvori zadnji pogledani popis</string>
+    <string name="widget_open_list">Otvori popis</string>
+  </resources>

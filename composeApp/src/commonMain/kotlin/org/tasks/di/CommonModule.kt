@@ -70,6 +70,7 @@ import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.HelpAndFeedbackViewModel
+import org.tasks.viewmodel.LookAndFeelViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.TasksAccountViewModel
@@ -335,6 +336,11 @@ val commonModule = module {
     viewModel {
         MainSettingsViewModel(
             platformConfiguration = get(),
+        )
+    }
+    viewModel {
+        LookAndFeelViewModel(
+            tasksPreferences = get(),
         )
     }
     viewModel {

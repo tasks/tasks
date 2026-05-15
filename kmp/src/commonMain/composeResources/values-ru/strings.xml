@@ -200,4 +200,22 @@
     <string name="restart_later">Позже</string>
     <string name="blog_feed_none">Нет</string>
     <string name="cannot_access_account">Учётная запись недоступна</string>
+        <string name="language">Язык</string>
+        <string name="theme">Цветовая тема</string>
+        <string name="theme_light">Светлая</string>
+        <string name="theme_black">Чёрная</string>
+        <string name="theme_dark">Тёмная</string>
+        <string name="theme_wallpaper">Как обои</string>
+        <string name="theme_day_night">День / ночь</string>
+        <string name="theme_system_default">Как в системе</string>
+        <string name="theme_dynamic">Динамическая</string>
+        <string name="launcher_icon">Иконка запуска</string>
+        <string name="color">Цвет</string>
+        <string name="on_launch">При запуске</string>
+        <string name="markdown">Markdown</string>
+        <string name="markdown_description">Включить Markdown в названии и описании</string>
+        <string name="settings_localization">Локализация</string>
+        <string name="translations">Участвовать в переводе программы</string>
+        <string name="open_last_viewed_list">Открыть последний просмотренный список</string>
+        <string name="widget_open_list">Открыть список</string>
 </resources>

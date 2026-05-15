@@ -42,4 +42,13 @@
     <string name="social">ସାମାଜିକ</string>
     <string name="open_source">ଖୋଲା ଉତ୍ସ</string>
     <string name="restart_later">ପରେ</string>
+        <string name="language">ଭାଷା</string>
+        <string name="theme">ଥିମ୍</string>
+        <string name="theme_light">ହାଲୁକା</string>
+        <string name="theme_black">କଳା</string>
+        <string name="theme_dark">ଗାଢ଼</string>
+        <string name="theme_day_night">ଦିନ/ରାତି</string>
+        <string name="theme_system_default">ସିଷ୍ଟମ୍ ଡିଫଲ୍ଟ</string>
+        <string name="color">ରଙ୍ଗ</string>
+        <string name="translations">ଅନୁଵାଦରେ ଯୋଗଦାନ କରନ୍ତୁ</string>
 </resources>

@@ -229,4 +229,22 @@
     <string name="restart_later">Nanti</string>
     <string name="cannot_access_account">Tidak bisa mengakses akun</string>
     <string name="upgrade_subscription_banner">Terima kasih atas dukungan Anda! Tingkatkan langganan Anda untuk mengaktifkan Sinkronisasi Cloud Tasks.org</string>
-</resources>
+    <string name="language">Bahasa</string>
+    <string name="theme">Tema</string>
+    <string name="theme_light">Cerah</string>
+    <string name="theme_black">Hitam</string>
+    <string name="theme_dark">Gelap</string>
+    <string name="theme_wallpaper">Latar</string>
+    <string name="theme_day_night">Siang/Malam</string>
+    <string name="theme_system_default">Bawaan sistem</string>
+    <string name="theme_dynamic">Dinamis</string>
+    <string name="launcher_icon">Ikon peluncur</string>
+    <string name="color">Warna</string>
+    <string name="on_launch">Pada awal peluncuran</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Aktifkan Markdown di judul dan keterangan</string>
+    <string name="settings_localization">Pelokalan bahasa</string>
+    <string name="translations">Kontribusi terjemahan</string>
+    <string name="open_last_viewed_list">Buka daftar yang terakhir dilihat</string>
+    <string name="widget_open_list">Buka daftar</string>
+  </resources>
