@@ -234,4 +234,5 @@
     <string name="restart_later">Später</string>
     <string name="cannot_access_account">Zugriff auf Konto fehlgeschlagen</string>
     <string name="upgrade_subscription_banner">Vielen Dank für deine Unterstützung! Aktualisiere dein Abo, um Tasks.org Cloud Sync zu aktivieren</string>
+    <string name="subscription_not_found">Dein Abo für die Cloud von Tasks.org wurde nicht gefunden. Wenn du glaubst , dass dies ein Irrtum ist, kontaktiere %1$s</string>
 </resources>
