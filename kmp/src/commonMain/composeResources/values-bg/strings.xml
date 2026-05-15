@@ -235,4 +235,23 @@
     <string name="guests">Гост (%1$d/%2$d)</string>
     <string name="logout_confirmation">Излизане от %1$s?</string>
     <string name="wrong_account">Грешка при влизане</string>
+    <string name="wrong_account_message">Абонаментът ви вече е свързан към %1$s. Ако смятате, че е грешка, моля, свържете се с %2$s</string>
+    <string name="debug">Отстраняване на грешки</string>
+    <string name="caldav_server_owncloud">ownCloud</string>
+    <string name="caldav_server_sabredav">sabre/dav</string>
+    <string name="caldav_server_openxchange">Open-Xchange</string>
+    <string name="caldav_server_nextcloud">Nextcloud</string>
+    <string name="caldav_server_synology_calendar">Synology Calendar</string>
+    <string name="caldav_server_mailbox_org">Mailbox.org</string>
+    <string name="link_desktop">Свързване на настолно приложение</string>
+    <string name="link_desktop_description">Отключете настолното приложение с абонамента в Google Play</string>
+    <string name="link_desktop_step_2">Докоснете „%1$s“ и изберете „%2$s“</string>
+    <string name="link_desktop_step_3">Изберете „%1$s“</string>
+    <string name="scan_qr_code">Сканирайте QR-кода</string>
+    <string name="unlock_pro_step_1">Отворете Tasks.org на мобилното устройство</string>
+    <string name="unlock_pro_step_2">Докоснете „%1$s“ и после „%2$s“</string>
+    <string name="unlock_pro_step_3">Докоснете „%1$s“</string>
+    <string name="done">Готово</string>
+    <string name="retry">Повторен опит</string>
+    <string name="qr_code">Код за QR</string>
 </resources>
