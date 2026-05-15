@@ -188,4 +188,22 @@
     <string name="restart_later">Després</string>
     <string name="blog_feed_none">Cap</string>
     <string name="cannot_access_account">No es pot accedir al compte</string>
-</resources>
+    <string name="language">Idioma</string>
+    <string name="theme">Tema</string>
+    <string name="theme_light">Clar</string>
+    <string name="theme_black">Negre</string>
+    <string name="theme_dark">Fosc</string>
+    <string name="theme_wallpaper">Fons de pantalla</string>
+    <string name="theme_day_night">Dia/Nit</string>
+    <string name="theme_system_default">Predeterminat del sistema</string>
+    <string name="theme_dynamic">Dinàmic</string>
+    <string name="launcher_icon">Icona del llançador</string>
+    <string name="color">Color</string>
+    <string name="on_launch">En iniciar</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Habiliteu el Markdown en el títol i la descripció</string>
+    <string name="settings_localization">Localització</string>
+    <string name="translations">Contribuir traduccions</string>
+    <string name="open_last_viewed_list">Obriu la darrera llista vista</string>
+    <string name="widget_open_list">Llista oberta</string>
+  </resources>

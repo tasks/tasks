@@ -186,4 +186,22 @@
     <string name="restart_later">பின்னர்</string>
     <string name="blog_feed_none">எதுவுமில்லை</string>
     <string name="cannot_access_account">கணக்கை அணுக முடியாது</string>
+        <string name="language">மொழி</string>
+        <string name="theme">பேசும்</string>
+        <string name="theme_light">ஒளி</string>
+        <string name="theme_black">கருப்பு</string>
+        <string name="theme_dark">இருள்</string>
+        <string name="theme_wallpaper">சுவர்</string>
+        <string name="theme_day_night">பகல் / இரவு</string>
+        <string name="theme_system_default">கணினி இயல்புநிலை</string>
+        <string name="theme_dynamic">மாறும்</string>
+        <string name="launcher_icon">துவக்கி படவுரு</string>
+        <string name="color">நிறம்</string>
+        <string name="on_launch">தொடங்கும்போது</string>
+        <string name="markdown">மார்க் பேரூர்</string>
+        <string name="markdown_description">தலைப்பு மற்றும் விளக்கத்தில் மார்க் டவுனை இயக்கவும்</string>
+        <string name="settings_localization">உள்ளூர்மயமாக்கல்</string>
+        <string name="translations">மொழிபெயர்ப்புகளை பங்களிக்கவும்</string>
+        <string name="open_last_viewed_list">கடைசியாகப் பார்த்த பட்டியலைத் திறக்கவும்</string>
+        <string name="widget_open_list">திறந்த பட்டியல்</string>
 </resources>

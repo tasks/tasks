@@ -291,4 +291,24 @@
     <string name="restart_now">Restart now</string>
     <string name="restart_later">Later</string>
     <string name="cannot_access_account">Cannot access account</string>
+    <!-- Look and feel settings -->
+    <string name="theme">Theme</string>
+    <string name="theme_dynamic">Dynamic color</string>
+    <string name="color">Color</string>
+    <string name="launcher_icon">Launcher icon</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Enable Markdown formatting for task descriptions</string>
+    <string name="on_launch">On launch</string>
+    <string name="open_last_viewed_list">Open last viewed list</string>
+    <string name="widget_open_list">Default list</string>
+    <string name="settings_localization">Localization</string>
+    <string name="language">Language</string>
+    <string name="translations">Translations</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_black">Black</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_wallpaper">Wallpaper</string>
+    <string name="theme_day_night">Day/Night</string>
+    <string name="theme_system">System default</string>
+    <string name="theme_system_default">System default</string>
 </resources>

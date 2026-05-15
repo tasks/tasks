@@ -194,4 +194,22 @@
     <string name="restart_later">لاحقاً</string>
     <string name="blog_feed_none">لا شيء</string>
     <string name="cannot_access_account">لا يمكن الوصول الى الحساب</string>
+    <string name="language">اللغة</string>
+    <string name="theme">المظهر</string>
+    <string name="theme_light">فاتح</string>
+    <string name="theme_black">أسود</string>
+    <string name="theme_dark">داكن</string>
+    <string name="theme_wallpaper">خلفية</string>
+    <string name="theme_day_night">صباحي/مسائي</string>
+    <string name="theme_system_default">افتراضيات النظام</string>
+    <string name="theme_dynamic">ديناميكى</string>
+    <string name="launcher_icon">أيقونة المشغّل</string>
+    <string name="color">اللون</string>
+    <string name="on_launch">عند فتح التطبيق</string>
+    <string name="markdown">ماركداون</string>
+    <string name="markdown_description">تشغيل الماركداون في العنوان والوصف</string>
+    <string name="settings_localization">تخصيص اللغة و الجهة</string>
+    <string name="translations">ساهم في الترجمة</string>
+    <string name="open_last_viewed_list">فتح آخر قائمة تم عرضها</string>
+    <string name="widget_open_list">فتح قائمة</string>
 </resources>

@@ -210,4 +210,22 @@
     <string name="blog_feed_none">Ingen</string>
     <string name="cannot_access_account">Kunne ikke tilgå konto</string>
     <string name="upgrade_subscription_banner">Tak for din støtte! Opgrader dit abonnement for at aktivere Tasks.org Cloud Sync</string>
+    <string name="language">Sprog</string>
+    <string name="theme">Tema</string>
+    <string name="theme_light">Lys</string>
+    <string name="theme_black">Sort</string>
+    <string name="theme_dark">Mørk</string>
+    <string name="theme_wallpaper">Baggrund</string>
+    <string name="theme_day_night">Dag/nat</string>
+    <string name="theme_system_default">Systemstandard</string>
+    <string name="theme_dynamic">Dynamisk</string>
+    <string name="launcher_icon">App-ikon</string>
+    <string name="color">Farve</string>
+    <string name="on_launch">Ved opstart</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Aktivér Markdown i titel og beskrivelse</string>
+    <string name="settings_localization">Oversættelse</string>
+    <string name="translations">Bidrag med oversættelser</string>
+    <string name="open_last_viewed_list">Åbn sidst viste liste</string>
+    <string name="widget_open_list">Åbn liste</string>
 </resources>

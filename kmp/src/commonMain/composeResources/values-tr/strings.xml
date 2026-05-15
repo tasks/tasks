@@ -291,4 +291,22 @@
     <string name="cannot_access_account">Hesaba erişilemedi</string>
     <string name="upgrade_subscription_banner">Desteğiniz için sağ olun! Tasks.org Bulut Eşzamanlamasını etkinleştirmek için aboneliğinizi yükseltin</string>
     <string name="subscription_not_found">Tasks.org bulut aboneliğiniz bulunamadı. Bunun hata olduğuna inanıyorsanız, iletişime geçin: %1$s</string>
-</resources>
+    <string name="language">Dil</string>
+    <string name="theme">Gövde</string>
+    <string name="theme_light">Açık</string>
+    <string name="theme_black">Siyah</string>
+    <string name="theme_dark">Koyu</string>
+    <string name="theme_wallpaper">Duvar kağıdı</string>
+    <string name="theme_day_night">Gündüz/Gece</string>
+    <string name="theme_system_default">Sistem öntanımlısı</string>
+    <string name="theme_dynamic">Dinamik</string>
+    <string name="launcher_icon">Başlatıcı simgesi</string>
+    <string name="color">Renk</string>
+    <string name="on_launch">Başlangıçta</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Başlık ve açıklamada Markdown'ı etkinleştir</string>
+    <string name="settings_localization">Yerelleştirme</string>
+    <string name="translations">Çeviri katkıları</string>
+    <string name="open_last_viewed_list">Son görülen listeyi aç</string>
+    <string name="widget_open_list">Listeyi aç</string>
+  </resources>

@@ -229,4 +229,22 @@
     <string name="restart_later">Hiljem</string>
     <string name="cannot_access_account">Ei pääse kontole ligi</string>
     <string name="upgrade_subscription_banner">Tänud sinu toetuse eest! Kasutamaks Tasks.org-i pilvesünkroonimise võimalus palun uuenda oma tellimust</string>
-</resources>
+    <string name="language">Keel</string>
+    <string name="theme">Teema</string>
+    <string name="theme_light">Hele</string>
+    <string name="theme_black">Must</string>
+    <string name="theme_dark">Tume</string>
+    <string name="theme_wallpaper">Taustapilt</string>
+    <string name="theme_day_night">Päev/Öö</string>
+    <string name="theme_system_default">Süsteemi vaikeseade</string>
+    <string name="theme_dynamic">Dünaamiline</string>
+    <string name="launcher_icon">Rakenduse ikoon</string>
+    <string name="color">Värv</string>
+    <string name="on_launch">Käivitamisel</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Luba Markdown pealkirjas ja kirjelduses</string>
+    <string name="settings_localization">Kohalikustamine</string>
+    <string name="translations">Aita tõlkida</string>
+    <string name="open_last_viewed_list">Ava viimati vaadatud loend</string>
+    <string name="widget_open_list">Ava loend</string>
+  </resources>

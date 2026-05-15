@@ -234,4 +234,22 @@
     <string name="restart_later">Dopo</string>
     <string name="cannot_access_account">Impossibile accedere all'account</string>
     <string name="upgrade_subscription_banner">Grazie per il tuo sostegno! Aggiorna il tuo abbonamento per abilitare Tasks.org Cloud Sync</string>
-</resources>
+    <string name="language">Lingua</string>
+    <string name="theme">Tema</string>
+    <string name="theme_light">Chiaro</string>
+    <string name="theme_black">Nero</string>
+    <string name="theme_dark">Scuro</string>
+    <string name="theme_wallpaper">Sfondo</string>
+    <string name="theme_day_night">Giorno/Notte</string>
+    <string name="theme_system_default">Predefinito del sistema</string>
+    <string name="theme_dynamic">Dinamico</string>
+    <string name="launcher_icon">Icona del launcher</string>
+    <string name="color">Colore</string>
+    <string name="on_launch">All'avvio</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Abilita la formattazione Markdown nel titolo e nella descrizione</string>
+    <string name="settings_localization">Localizzazione</string>
+    <string name="translations">Contribuisci alla traduzione</string>
+    <string name="open_last_viewed_list">Apri l'ultima lista visualizzata</string>
+    <string name="widget_open_list">Apri lista</string>
+  </resources>

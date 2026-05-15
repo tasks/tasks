@@ -109,4 +109,17 @@
     <string name="restart_later">بعد میں</string>
     <string name="blog_feed_none">کوئی نہیں</string>
     <string name="cannot_access_account">اکاونٹ تک رسائی نہیں ہو سکتی</string>
+    <string name="language">زبان</string>
+    <string name="theme">تھیم</string>
+    <string name="theme_light">سفید</string>
+    <string name="theme_black">سیاہ</string>
+    <string name="theme_dark">ڈارک</string>
+    <string name="theme_wallpaper">وال پیپر</string>
+    <string name="theme_day_night">دن/رات</string>
+    <string name="theme_system_default">سسٹم ڈیفالٹ</string>
+    <string name="launcher_icon">لانچر آئیکن</string>
+    <string name="color">رنگ</string>
+    <string name="settings_localization">لوکلائزیشن</string>
+    <string name="translations">ترجمہ کریں</string>
+    <string name="widget_open_list">فہرست کھولیں</string>
 </resources>

@@ -186,4 +186,22 @@
     <string name="restart_later">Neskôr</string>
     <string name="blog_feed_none">Žiadna</string>
     <string name="cannot_access_account">Chyba v prístupe k účtu</string>
+        <string name="language">Jazyk</string>
+        <string name="theme">Téma</string>
+        <string name="theme_light">Svetlá</string>
+        <string name="theme_black">Čierna</string>
+        <string name="theme_dark">Tmavá</string>
+        <string name="theme_wallpaper">Tapeta</string>
+        <string name="theme_day_night">Deň/Noc</string>
+        <string name="theme_system_default">Podľa systému</string>
+        <string name="theme_dynamic">Dynamické</string>
+        <string name="launcher_icon">Ikona</string>
+        <string name="color">Farba</string>
+        <string name="on_launch">Pri spustení</string>
+        <string name="markdown">Markdown</string>
+        <string name="markdown_description">Zapnúť Markdown v nadpise a popise</string>
+        <string name="settings_localization">Preklad</string>
+        <string name="translations">Prispieť prekladom</string>
+        <string name="open_last_viewed_list">Otvoriť posledný zobr. zoznam</string>
+        <string name="widget_open_list">Otvoriť zoznam</string>
 </resources>

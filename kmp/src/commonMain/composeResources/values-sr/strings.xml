@@ -212,4 +212,22 @@
     <string name="blog_feed_none">Празно</string>
     <string name="cannot_access_account">Не може се приступити налогу</string>
     <string name="upgrade_subscription_banner">Хвала на подршци! Унапреди претплату за омогућену Tasks.org Cloud синхронизацију</string>
+        <string name="language">Језик</string>
+        <string name="theme">Тема</string>
+        <string name="theme_light">Светло</string>
+        <string name="theme_black">Црно</string>
+        <string name="theme_dark">Тамно</string>
+        <string name="theme_wallpaper">Позадина</string>
+        <string name="theme_day_night">Дан/Ноћ</string>
+        <string name="theme_system_default">Системски подразумевано</string>
+        <string name="theme_dynamic">Динамично</string>
+        <string name="launcher_icon">Иконица за покретање</string>
+        <string name="color">Боја</string>
+        <string name="on_launch">При покретању</string>
+        <string name="markdown">Редукција</string>
+        <string name="markdown_description">Омогући Редукцију у називу и опису</string>
+        <string name="settings_localization">Локализација</string>
+        <string name="translations">Допринеси преводима</string>
+        <string name="open_last_viewed_list">Отвори последње прегледану листу</string>
+        <string name="widget_open_list">Отвори листу</string>
 </resources>

@@ -167,4 +167,21 @@
     <string name="restart_later">Vėliau</string>
     <string name="blog_feed_none">Nėra</string>
     <string name="cannot_access_account">Paskyra nepasiekiama</string>
+        <string name="language">Kalba</string>
+        <string name="theme">Tema</string>
+        <string name="theme_light">Šviesi</string>
+        <string name="theme_black">Juoda</string>
+        <string name="theme_dark">Tamsi</string>
+        <string name="theme_wallpaper">Fono vaizdas</string>
+        <string name="theme_day_night">Diena/Naktis</string>
+        <string name="theme_system_default">Sistemos numatyta</string>
+        <string name="launcher_icon">Paleidimo piktograma</string>
+        <string name="color">Spalva</string>
+        <string name="on_launch">Paleidžiant</string>
+        <string name="markdown">Markdown</string>
+        <string name="markdown_description">Įgalinti Markdown pavadinime ir aprašyme</string>
+        <string name="settings_localization">Lokalizacija</string>
+        <string name="translations">Padėti išversti</string>
+        <string name="open_last_viewed_list">Atidaryti paskutinį peržiūrėtą sąrašą</string>
+        <string name="widget_open_list">Atidaryti sąrašą</string>
 </resources>

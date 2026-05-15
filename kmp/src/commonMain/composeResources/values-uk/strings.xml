@@ -189,4 +189,22 @@
     <string name="restart_later">Пізніше</string>
     <string name="blog_feed_none">Немає</string>
     <string name="cannot_access_account">Немає доступу до облікового запису</string>
+        <string name="language">Мова</string>
+        <string name="theme">Тема</string>
+        <string name="theme_light">Світла</string>
+        <string name="theme_black">Чорна</string>
+        <string name="theme_dark">Темна</string>
+        <string name="theme_wallpaper">Шпалери</string>
+        <string name="theme_day_night">День/Ніч</string>
+        <string name="theme_system_default">За системними налаштуваннями</string>
+        <string name="theme_dynamic">Динамічна</string>
+        <string name="launcher_icon">Піктограма запуску</string>
+        <string name="color">Колір</string>
+        <string name="on_launch">Під час запуску</string>
+        <string name="markdown">Markdown</string>
+        <string name="markdown_description">Увімкнути Markdown у заголовку та описі</string>
+        <string name="settings_localization">Локалізація</string>
+        <string name="translations">Допомогти перекласти</string>
+        <string name="open_last_viewed_list">Відкрити останній переглянутий список</string>
+        <string name="widget_open_list">Відкрити список</string>
 </resources>

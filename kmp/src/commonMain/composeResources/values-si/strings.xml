@@ -158,4 +158,21 @@
     <string name="restart_later">පසුව</string>
     <string name="blog_feed_none">කිසිවක් නැත</string>
     <string name="cannot_access_account">ගිණුමට ප්‍රවේශ විය නොහැක</string>
+    <string name="language">භාෂාව</string>
+    <string name="theme">තේමාව</string>
+    <string name="theme_light">ලා පැහැති</string>
+    <string name="theme_black">කලු පැහැය</string>
+    <string name="theme_dark">අඳුරු පැහැති</string>
+    <string name="theme_wallpaper">බිතුපත (Wallpaper)</string>
+    <string name="theme_day_night">දිවා / රාත්‍රි</string>
+    <string name="theme_system_default">පද්ධති පෙරනිමිය</string>
+    <string name="launcher_icon">දියත් කිරීමේ අයිකනය</string>
+    <string name="color">වර්ණය</string>
+    <string name="on_launch">ආරම්භ කිරීමේදී</string>
+    <string name="markdown">ලකුණු කිරීම</string>
+    <string name="markdown_description">මාතෘකාව සහ විස්තරය තුළ ලකුණු කිරීම සක්‍රිය කරන්න</string>
+    <string name="settings_localization">ප්‍රාදේශීයකරණය</string>
+    <string name="translations">පරිවර්තන සඳහා දායක වන්න</string>
+    <string name="open_last_viewed_list">අවසන් වරට බැලූ ලැයිස්තුව විවෘත කරන්න</string>
+    <string name="widget_open_list">ලැයිස්තුව විවෘත කරන්න</string>
 </resources>

@@ -288,4 +288,22 @@
     <string name="blog_feed_announcements">Endast tillkännagivanden</string>
     <string name="blog_feed_all">Alla inlägg</string>
     <string name="cannot_access_account">Kan inte komma åt kontot</string>
+        <string name="language">Språk</string>
+        <string name="theme">Tema</string>
+        <string name="theme_light">Ljust</string>
+        <string name="theme_black">Svart</string>
+        <string name="theme_dark">Mörkt</string>
+        <string name="theme_wallpaper">Bakgrundsbild</string>
+        <string name="theme_day_night">Dag/Natt</string>
+        <string name="theme_system_default">Systemets standardinställning</string>
+        <string name="theme_dynamic">Dynamisk</string>
+        <string name="launcher_icon">Hemskärmsikon</string>
+        <string name="color">Färg</string>
+        <string name="on_launch">Vid start</string>
+        <string name="markdown">Markdown</string>
+        <string name="markdown_description">Aktivera Markdown i titel och beskrivning</string>
+        <string name="settings_localization">Språk</string>
+        <string name="translations">Hjälp till med översättning</string>
+        <string name="open_last_viewed_list">Öppna senast visade lista</string>
+        <string name="widget_open_list">Öppna lista</string>
 </resources>

@@ -24,4 +24,12 @@
     <string name="event_pebble" translatable="false">pebble</string>
     <string name="param_device_model" translatable="false">device_model</string>
     <string name="not_available_desktop" translatable="false">🚧🚧🚧</string>
+    <string-array name="base_theme_names">
+        <item>@string/theme_light</item>
+        <item>@string/theme_black</item>
+        <item>@string/theme_dark</item>
+        <item>@string/theme_wallpaper</item>
+        <item>@string/theme_day_night</item>
+        <item>@string/theme_system_default</item>
+    </string-array>
 </resources>

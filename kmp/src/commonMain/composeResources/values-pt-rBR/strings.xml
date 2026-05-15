@@ -248,4 +248,22 @@
     <string name="restart_later">Depois</string>
     <string name="cannot_access_account">Não é possível acessar a conta</string>
     <string name="upgrade_subscription_banner">Obrigado pelo apoio! Atualize sua inscrição para ativar sincronização em nuvem Tasks.org</string>
-</resources>
+    <string name="language">Idioma</string>
+    <string name="theme">Tema</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_black">Preto</string>
+    <string name="theme_dark">Escuro</string>
+    <string name="theme_wallpaper">Plano de fundo</string>
+    <string name="theme_day_night">Dia/Noite</string>
+    <string name="theme_system_default">Padrão do Sistema</string>
+    <string name="theme_dynamic">Dinâmico</string>
+    <string name="launcher_icon">Ícone do lançador</string>
+    <string name="color">Cor</string>
+    <string name="on_launch">Ao iniciar</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Habilitar Markdown no título e descrição</string>
+    <string name="settings_localization">Localização</string>
+    <string name="translations">Ajude com as traduções</string>
+    <string name="open_last_viewed_list">Abrir a última lista visualizada</string>
+    <string name="widget_open_list">Abrir lista</string>
+  </resources>

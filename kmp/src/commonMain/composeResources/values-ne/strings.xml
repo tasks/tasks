@@ -19,4 +19,5 @@
     <string name="task_list_options">कार्य सूचीका विकल्पहरू</string>
     <string name="contact_developer">विकासकर्तालाई सम्पर्क गर्नुहोस्</string>
     <string name="source_code">श्रोत कोड</string>
+        <string name="translations">अनुवादहरू योगदान गर्नुहोस्</string>
 </resources>

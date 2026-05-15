@@ -114,11 +114,13 @@ import org.tasks.compose.settings.HelpAndFeedbackDetail
 import org.tasks.compose.settings.EtebaseAccountSettingsPane
 import org.tasks.compose.settings.LocalAccountSettingsDetail
 import org.tasks.compose.settings.LocalAccountSettingsPane
+import org.tasks.compose.settings.LookAndFeelContent
 import org.tasks.compose.settings.MainSettingsScreen
 import org.tasks.compose.settings.OpenTaskAccountSettingsDetail
 import org.tasks.compose.settings.OpenTaskAccountSettingsPane
 import org.tasks.compose.settings.ProCardState
 import org.tasks.compose.settings.SettingsPane
+import org.tasks.extensions.restartApplication
 import org.tasks.compose.settings.TasksAccountSettingsDetail
 import org.tasks.compose.settings.TasksAccountSettingsPane
 import org.tasks.compose.settings.DesktopProScreen
@@ -160,6 +162,7 @@ import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.kmp.org.tasks.themes.ColorProvider
 import org.tasks.themes.BLUE
 import org.tasks.themes.TasksTheme
+import org.tasks.preferences.TasksPreferences
 import org.tasks.data.TaskContainer
 import org.tasks.data.UUIDHelper
 import org.tasks.filters.CaldavFilter
@@ -180,6 +183,7 @@ import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.TaskListViewModel
+import org.tasks.viewmodel.LookAndFeelViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
 import tasks.kmp.generated.resources.not_available_desktop
@@ -241,7 +245,10 @@ fun App(
             }
         }
     }
-    TasksTheme {
+    val tasksPreferences = koinInject<TasksPreferences>()
+    val themeFlow = remember { tasksPreferences.flow<Int>(TasksPreferences.theme, 5) }
+    val theme by themeFlow.collectAsState(initial = 5)
+    TasksTheme(theme = theme) {
         androidx.compose.runtime.CompositionLocalProvider(
             androidx.compose.ui.platform.LocalUriHandler provides uriHandler,
         ) {
@@ -1777,6 +1784,18 @@ private fun SettingsScreen(
                             },
                         )
                     }
+
+                    is org.tasks.compose.settings.SettingsDestination.LookAndFeel -> {
+                        val viewModel = koinViewModel<LookAndFeelViewModel>()
+                        LookAndFeelContent(
+                            viewModel = viewModel,
+                            onColor = { /* TODO */ },
+                            onDefaultFilter = { /* TODO */ },
+                            onTranslations = { /* TODO */ },
+                            onRestartApplication = { restartApplication() },
+                        )
+                    }
+
                     is org.tasks.compose.settings.SettingsDestination -> {
                         Scaffold(
                             topBar = {

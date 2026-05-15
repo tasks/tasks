@@ -165,4 +165,21 @@
     <string name="restart_later">Geroago</string>
     <string name="blog_feed_none">Bat ere ez</string>
     <string name="cannot_access_account">Ezin izan da kontua atzitu</string>
+        <string name="language">Hizkuntza</string>
+        <string name="theme">Azala</string>
+        <string name="theme_light">Argia</string>
+        <string name="theme_black">Beltza</string>
+        <string name="theme_dark">Iluna</string>
+        <string name="theme_wallpaper">Horma-papera</string>
+        <string name="theme_day_night">Eguna/Gaua</string>
+        <string name="theme_system_default">Sisteman lehenetsia</string>
+        <string name="launcher_icon">Abiarazlearen ikonoa</string>
+        <string name="color">Kolorea</string>
+        <string name="on_launch">Abioan</string>
+        <string name="markdown">Markdown</string>
+        <string name="markdown_description">Markdown gaitu izenburuan eta deskribapenean</string>
+        <string name="settings_localization">Lokalizazioa</string>
+        <string name="translations">Lagundu itzulpenekin</string>
+        <string name="open_last_viewed_list">Ireki ikusitako azkenen zerrenda</string>
+        <string name="widget_open_list">Ireki zerrenda</string>
 </resources>

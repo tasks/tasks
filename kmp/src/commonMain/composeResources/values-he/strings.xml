@@ -228,4 +228,22 @@
     <string name="blog_feed_none">ללא</string>
     <string name="cannot_access_account">לא ניתן לגשת לחשבון</string>
     <string name="upgrade_subscription_banner">תודה על תמיכתך! יש לשדרג את המינוי שלך כדי להפעיל גיבוי בענן Tasks.org</string>
-</resources>
+    <string name="language">שפה</string>
+    <string name="theme">ערכת נושא</string>
+    <string name="theme_light">בהיר</string>
+    <string name="theme_black">שחור</string>
+    <string name="theme_dark">כהה</string>
+    <string name="theme_wallpaper">תמונת רקע</string>
+    <string name="theme_day_night">יום/לילה</string>
+    <string name="theme_system_default">ברירת מחדל של המערכת</string>
+    <string name="theme_dynamic">דינמי</string>
+    <string name="launcher_icon">סמל משגר</string>
+    <string name="color">צבע</string>
+    <string name="on_launch">בעת שיגור</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">אפשור Markdown בכותרת ובתיאור</string>
+    <string name="settings_localization">לוקליזציה</string>
+    <string name="translations">לתרום תרגומים</string>
+    <string name="open_last_viewed_list">פתיחת הרשימה האחרונה שנצפתה</string>
+    <string name="widget_open_list">פתיחת רשימה</string>
+  </resources>

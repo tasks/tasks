@@ -179,4 +179,22 @@
     <string name="restart_later">Póżniej</string>
     <string name="blog_feed_none">Brak</string>
     <string name="cannot_access_account">Brak dostępu do konta</string>
+        <string name="language">Język</string>
+        <string name="theme">Motyw</string>
+        <string name="theme_light">Jasny</string>
+        <string name="theme_black">Czarny</string>
+        <string name="theme_dark">Ciemny</string>
+        <string name="theme_wallpaper">Tapeta</string>
+        <string name="theme_day_night">Dzień/noc</string>
+        <string name="theme_system_default">Domyślny systemowy</string>
+        <string name="theme_dynamic">Dynamiczny</string>
+        <string name="launcher_icon">Ikona programu startowego</string>
+        <string name="color">Kolor</string>
+        <string name="on_launch">Przy uruchomieniu</string>
+        <string name="markdown">Markdown</string>
+        <string name="markdown_description">Włącz Markdown w tytule i opisie</string>
+        <string name="settings_localization">Ustawienia regionalne</string>
+        <string name="translations">Wspomóż tłumaczenie</string>
+        <string name="open_last_viewed_list">Otwórz ostatnio przeglądaną listę</string>
+        <string name="widget_open_list">Otwórz listę</string>
 </resources>

@@ -231,4 +231,22 @@
     <string name="restart_later">Később</string>
     <string name="cannot_access_account">Fiók nem elérhető</string>
     <string name="upgrade_subscription_banner">Köszönjük a támogatást. Frissítse az előfizetését a Tasks.org felhős szinkronizáció engedélyezéséhez</string>
-</resources>
+    <string name="language">Nyelv</string>
+    <string name="theme">Téma</string>
+    <string name="theme_light">Világos</string>
+    <string name="theme_black">Fekete</string>
+    <string name="theme_dark">Sötét</string>
+    <string name="theme_wallpaper">Háttérkép</string>
+    <string name="theme_day_night">Nappal/Éjszaka</string>
+    <string name="theme_system_default">Alapértelmezett</string>
+    <string name="theme_dynamic">Dinamikus</string>
+    <string name="launcher_icon">Launcher ikon</string>
+    <string name="color">Szín</string>
+    <string name="on_launch">Indításkor</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Markdown engedélyezése címben és leírásban</string>
+    <string name="settings_localization">Lokalizáció</string>
+    <string name="translations">Részvétel a fordításban</string>
+    <string name="open_last_viewed_list">Utoljára használt lista megnyitása</string>
+    <string name="widget_open_list">Lista megnyitása</string>
+  </resources>
