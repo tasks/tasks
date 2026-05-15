@@ -293,4 +293,5 @@
     <string name="restart_later">Později</string>
     <string name="cannot_access_account">Nepodařilo se připojit k účtu</string>
     <string name="upgrade_subscription_banner">Děkujeme za vaší podporu! Zvyšte své předplatné pro zapnutí cloudové synchronizace Tasks.org</string>
+    <string name="subscription_not_found">Vaše cloudové předplatné Tasks.org nebylo nalezeno. Pokud si myslíte, že se jedná o chybu, kontaktujte %1$s</string>
 </resources>
