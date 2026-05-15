@@ -483,4 +483,15 @@
     <string name="customize_drawer_summary">Trage și plasează pentru a rearanja elementele din meniu</string>
     <string name="hide_unused_tags">Ascunde etichetele nefolosite</string>
     <string name="hide_unused_places">Ascunde locurile nefolosite</string>
+    <string name="language">Limbă</string>
+    <string name="launcher_icon">Pictograma lansatorului</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Activează Markdown în titlu și descriere</string>
+    <string name="on_launch">La lansare</string>
+    <string name="open_last_viewed_list">Deschide ultima listă vizualizată</string>
+    <string name="settings_localization">Localizare</string>
+    <string name="theme">Temă</string>
+    <string name="theme_dynamic">Dinamic</string>
+    <string name="translations">Contribuie la traduceri</string>
+    <string name="widget_open_list">Listă deschisă</string>
 </resources>

@@ -587,4 +587,15 @@
     <string name="customize_drawer_summary">Превуци и пусти за прерасподелу ставки менија</string>
     <string name="hide_unused_tags">Сакриј некоришћене тагове</string>
     <string name="hide_unused_places">Сакриј некоришћена места</string>
+    <string name="language">Језик</string>
+    <string name="launcher_icon">Иконица за покретање</string>
+    <string name="markdown">Редукција</string>
+    <string name="markdown_description">Омогући Редукцију у називу и опису</string>
+    <string name="on_launch">При покретању</string>
+    <string name="open_last_viewed_list">Отвори последње прегледану листу</string>
+    <string name="settings_localization">Локализација</string>
+    <string name="theme">Тема</string>
+    <string name="theme_dynamic">Динамично</string>
+    <string name="translations">Допринеси преводима</string>
+    <string name="widget_open_list">Отвори листу</string>
 </resources>

@@ -464,4 +464,15 @@
     <string name="customize_drawer_summary">Versleep om menu-items opnieuw te ordenen</string>
     <string name="hide_unused_tags">Ongebruikte labels verbergen</string>
     <string name="hide_unused_places">Ongebruikte locaties verbergen</string>
+    <string name="language">Taal</string>
+    <string name="launcher_icon">Startpictogram</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Sta Markdown toe in titel en beschrijving</string>
+    <string name="on_launch">Bij het starten</string>
+    <string name="open_last_viewed_list">Laatst bekeken lijst openen</string>
+    <string name="settings_localization">Localisatie</string>
+    <string name="theme">Thema</string>
+    <string name="theme_dynamic">Dynamisch</string>
+    <string name="translations">Vertalingen toevoegen</string>
+    <string name="widget_open_list">Lijst openen</string>
 </resources>

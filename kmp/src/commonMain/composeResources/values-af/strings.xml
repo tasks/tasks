@@ -10,4 +10,5 @@
     <string name="email">E-pos</string>
     <string name="notification_disable_battery_optimizations_description">Batteryoptimalisering kan kennisgewings vertraag</string>
     <string name="quiet_hours_summary">Geen herinneringe gedurende stil ure nie</string>
+    <string name="translations">Dra by tot vertalings</string>
 </resources>

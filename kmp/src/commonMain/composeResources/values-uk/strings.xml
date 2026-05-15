@@ -464,4 +464,15 @@
     <string name="customize_drawer_summary">Перетягніть елементи меню, щоб перевпорядкувати їх</string>
     <string name="hide_unused_tags">Сховати не використовувані мітки</string>
     <string name="hide_unused_places">Сховати місця, що не використовуються</string>
+    <string name="language">Мова</string>
+    <string name="launcher_icon">Піктограма запуску</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Увімкнути Markdown у заголовку та описі</string>
+    <string name="on_launch">Під час запуску</string>
+    <string name="open_last_viewed_list">Відкрити останній переглянутий список</string>
+    <string name="settings_localization">Локалізація</string>
+    <string name="theme">Тема</string>
+    <string name="theme_dynamic">Динамічна</string>
+    <string name="translations">Допомогти перекласти</string>
+    <string name="widget_open_list">Відкрити список</string>
 </resources>

@@ -458,4 +458,15 @@
     <string name="customize_drawer_summary">Arrossegueu i deixeu anar per reordenar els elements del menú</string>
     <string name="hide_unused_tags">Amagueu les etiquetes no utilitzades</string>
     <string name="hide_unused_places">Amagueu els llocs no utilitzats</string>
+    <string name="language">Idioma</string>
+    <string name="launcher_icon">Icona del llançador</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Habiliteu el Markdown en el títol i la descripció</string>
+    <string name="on_launch">En iniciar</string>
+    <string name="open_last_viewed_list">Obriu la darrera llista vista</string>
+    <string name="settings_localization">Localització</string>
+    <string name="theme">Tema</string>
+    <string name="theme_dynamic">Dinàmic</string>
+    <string name="translations">Contribuir traduccions</string>
+    <string name="widget_open_list">Llista oberta</string>
 </resources>

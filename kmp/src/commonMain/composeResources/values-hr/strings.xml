@@ -602,4 +602,15 @@
     <string name="customize_drawer_summary">Povuci i ispusti stavke za mijenjanje rasporeda u izborniku</string>
     <string name="hide_unused_tags">Sakrij nekorištene oznake</string>
     <string name="hide_unused_places">Sakrij nekorištena mjesta</string>
+    <string name="language">Jezik</string>
+    <string name="launcher_icon">Ikona pokretača</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Omogući Markdown u naslovu i opisu</string>
+    <string name="on_launch">Pri pokretanju</string>
+    <string name="open_last_viewed_list">Otvori zadnji pogledani popis</string>
+    <string name="settings_localization">Lokalizacija</string>
+    <string name="theme">Tema</string>
+    <string name="theme_dynamic">Dinamično</string>
+    <string name="translations">Doprinesi prijevodima</string>
+    <string name="widget_open_list">Otvori popis</string>
 </resources>

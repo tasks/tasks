@@ -604,4 +604,15 @@
     <string name="subtasks_multilevel_microsoft">Multi-level subtasks not supported by Microsoft To Do</string>
     <string name="subtasks_will_be_flattened">This list doesn't support nested subtasks. Saving will move them all to the top level.</string>
     <string name="subtask_list_locked">New subtasks use the parent's list</string>
+    <string name="language">Language</string>
+    <string name="launcher_icon">Launcher icon</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Enable Markdown in title and description</string>
+    <string name="on_launch">On launch</string>
+    <string name="open_last_viewed_list">Open last viewed list</string>
+    <string name="settings_localization">Localization</string>
+    <string name="theme">Theme</string>
+    <string name="theme_dynamic">Dynamic</string>
+    <string name="translations">Contribute translations</string>
+    <string name="widget_open_list">Open list</string>
 </resources>

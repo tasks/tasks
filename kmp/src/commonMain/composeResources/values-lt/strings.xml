@@ -411,4 +411,14 @@
     <string name="subtasks_multilevel_google_task">„Google Tasks“ nepalaiko kelių lygių antrinių užduočių</string>
     <string name="hide_unused_tags">Slėpti nenaudojamas etiketes</string>
     <string name="hide_unused_places">Slėpti nenaudojamas vietas</string>
+    <string name="language">Kalba</string>
+    <string name="launcher_icon">Paleidimo piktograma</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Įgalinti Markdown pavadinime ir aprašyme</string>
+    <string name="on_launch">Paleidžiant</string>
+    <string name="open_last_viewed_list">Atidaryti paskutinį peržiūrėtą sąrašą</string>
+    <string name="settings_localization">Lokalizacija</string>
+    <string name="theme">Tema</string>
+    <string name="translations">Padėti išversti</string>
+    <string name="widget_open_list">Atidaryti sąrašą</string>
 </resources>

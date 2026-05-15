@@ -287,4 +287,10 @@
     <string name="DLG_delete_this_task_question">اس ٹاسک کو ڈیلیٹ کریں؟</string>
     <string name="TEA_add_subtask">ذیلی ٹاسک بنائیں</string>
     <string name="subtasks_multilevel_google_task">کثیر الدرجی ذیلی ٹاسکس کو گوگل ٹاسکس سپورٹ نہیں کرتا</string>
+    <string name="language">زبان</string>
+    <string name="launcher_icon">لانچر آئیکن</string>
+    <string name="settings_localization">لوکلائزیشن</string>
+    <string name="theme">تھیم</string>
+    <string name="translations">ترجمہ کریں</string>
+    <string name="widget_open_list">فہرست کھولیں</string>
 </resources>

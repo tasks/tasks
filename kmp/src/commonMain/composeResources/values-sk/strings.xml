@@ -456,4 +456,15 @@
     <string name="customize_drawer_summary">Ťahaním zmeníte usporiadanie položiek v ponuke</string>
     <string name="hide_unused_tags">Skryť nevyužívané štítky</string>
     <string name="hide_unused_places">Skryť nevyužívané miesta</string>
+    <string name="language">Jazyk</string>
+    <string name="launcher_icon">Ikona</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Zapnúť Markdown v nadpise a popise</string>
+    <string name="on_launch">Pri spustení</string>
+    <string name="open_last_viewed_list">Otvoriť posledný zobr. zoznam</string>
+    <string name="settings_localization">Preklad</string>
+    <string name="theme">Téma</string>
+    <string name="theme_dynamic">Dynamické</string>
+    <string name="translations">Prispieť prekladom</string>
+    <string name="widget_open_list">Otvoriť zoznam</string>
 </resources>

@@ -396,4 +396,14 @@
     <string name="customize_drawer_summary">Kéo và thả để sắp xếp lại các mục danh sách</string>
     <string name="hide_unused_tags">Ẩn các thẻ chưa sử dụng</string>
     <string name="hide_unused_places">Ẩn các địa điểm chưa sử dụng</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="launcher_icon">Biểu tượng trên launcher</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Bật Markdown trong tiêu đề và mô tả</string>
+    <string name="on_launch">Khi khởi động</string>
+    <string name="open_last_viewed_list">Mở danh sách đã xem lần cuối</string>
+    <string name="settings_localization">Ngôn ngữ</string>
+    <string name="theme">Chủ đề</string>
+    <string name="translations">Đóng góp bản dịch</string>
+    <string name="widget_open_list">Mở danh sách</string>
 </resources>

@@ -167,4 +167,8 @@
     <string name="TEA_add_subtask">اضافه کردن زیر وظیفه</string>
     <string name="customize_drawer">شخصی سازی منوی کشویی</string>
     <string name="customize_drawer_summary">با کشیدن و رها کردن آیتم های منو را تغییر دهید</string>
+    <string name="language">زبان</string>
+    <string name="settings_localization">محلی‌سازی</string>
+    <string name="theme">تم</string>
+    <string name="translations">مشارکت در ترجمه</string>
 </resources>

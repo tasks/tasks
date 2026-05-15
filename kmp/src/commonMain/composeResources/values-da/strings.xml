@@ -478,4 +478,15 @@
     <string name="customize_drawer_summary">Træk og slip for at omarrangere menupunkter</string>
     <string name="hide_unused_tags">Skjul ubrugte tags</string>
     <string name="hide_unused_places">Skjul ubrugte steder</string>
+    <string name="language">Sprog</string>
+    <string name="launcher_icon">App-ikon</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Aktivér Markdown i titel og beskrivelse</string>
+    <string name="on_launch">Ved opstart</string>
+    <string name="open_last_viewed_list">Åbn sidst viste liste</string>
+    <string name="settings_localization">Oversættelse</string>
+    <string name="theme">Tema</string>
+    <string name="theme_dynamic">Dynamisk</string>
+    <string name="translations">Bidrag med oversættelser</string>
+    <string name="widget_open_list">Åbn liste</string>
 </resources>

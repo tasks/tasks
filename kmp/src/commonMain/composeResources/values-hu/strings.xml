@@ -502,4 +502,15 @@
     <string name="customize_drawer_summary">A menüelemek húzással történő átrendezése</string>
     <string name="hide_unused_tags">Használaton kívüli címkék elrejtése</string>
     <string name="hide_unused_places">Használaton kívüli helyek elrejtése</string>
+    <string name="language">Nyelv</string>
+    <string name="launcher_icon">Launcher ikon</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Markdown engedélyezése címben és leírásban</string>
+    <string name="on_launch">Indításkor</string>
+    <string name="open_last_viewed_list">Utoljára használt lista megnyitása</string>
+    <string name="settings_localization">Lokalizáció</string>
+    <string name="theme">Téma</string>
+    <string name="theme_dynamic">Dinamikus</string>
+    <string name="translations">Részvétel a fordításban</string>
+    <string name="widget_open_list">Lista megnyitása</string>
 </resources>

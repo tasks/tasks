@@ -549,4 +549,15 @@
     <string name="customize_drawer_summary">Ŝovu kaj demetu por rearanĝi menuerojn</string>
     <string name="hide_unused_tags">Kaŝi neuzatajn etikedojn</string>
     <string name="hide_unused_places">Kaŝi neuzatajn lokojn</string>
+    <string name="language">Lingvo</string>
+    <string name="launcher_icon">Lanĉila piktogramo</string>
+    <string name="markdown">Simpla Marklingo</string>
+    <string name="markdown_description">Ebligi simplan markadon en titolo kaj priskribo</string>
+    <string name="on_launch">Je lanĉi</string>
+    <string name="open_last_viewed_list">Malfermi liston de laste rigardita</string>
+    <string name="settings_localization">Traduko</string>
+    <string name="theme">Etoso</string>
+    <string name="theme_dynamic">Dinamika</string>
+    <string name="translations">Helpi traduki</string>
+    <string name="widget_open_list">Malfermi liston</string>
 </resources>

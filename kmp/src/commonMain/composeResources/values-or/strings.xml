@@ -145,4 +145,7 @@
     <string name="date_shortcut_tomorrow_afternoon">ଆସନ୍ତାକାଲି ଅପରାହ୍ଣ</string>
     <string name="date_shortcut_tomorrow_evening">ଆସନ୍ତାକାଲି ସଞ୍ଜ</string>
     <string name="date_shortcut_tomorrow_night">ଆସନ୍ତାକାଲି ରାତି</string>
+    <string name="language">ଭାଷା</string>
+    <string name="theme">ଥିମ୍</string>
+    <string name="translations">ଅନୁଵାଦରେ ଯୋଗଦାନ କରନ୍ତୁ</string>
 </resources>

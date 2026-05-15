@@ -330,4 +330,11 @@
     <string name="subtasks_multilevel_microsoft">Subxeres multi-nivel non soportaes por Microsoft To Do</string>
     <string name="customize_drawer">Personalizar caxón</string>
     <string name="customize_drawer_summary">Arrastrar y soltar pa reorganizar los elementos del menú</string>
+    <string name="language">Llingua</string>
+    <string name="launcher_icon">Iconu del llanzador</string>
+    <string name="settings_localization">Llocalización</string>
+    <string name="theme">Tema</string>
+    <string name="theme_dynamic">Dinámicu</string>
+    <string name="translations">Contribuyi cola torna</string>
+    <string name="widget_open_list">Abrir llista</string>
 </resources>

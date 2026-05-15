@@ -582,4 +582,15 @@
     <string name="customize_drawer_summary">Seret dan lepas untuk mengatur ulang item menu</string>
     <string name="hide_unused_tags">Sembunyikan tag yang tidak digunakan</string>
     <string name="hide_unused_places">Sembunyikan tempat yang tidak digunakan</string>
+    <string name="language">Bahasa</string>
+    <string name="launcher_icon">Ikon peluncur</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Aktifkan Markdown di judul dan keterangan</string>
+    <string name="on_launch">Pada awal peluncuran</string>
+    <string name="open_last_viewed_list">Buka daftar yang terakhir dilihat</string>
+    <string name="settings_localization">Pelokalan bahasa</string>
+    <string name="theme">Tema</string>
+    <string name="theme_dynamic">Dinamis</string>
+    <string name="translations">Kontribusi terjemahan</string>
+    <string name="widget_open_list">Buka daftar</string>
 </resources>

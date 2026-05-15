@@ -518,4 +518,15 @@
     <string name="customize_drawer_summary">اسحب وأفلِت لإعادة ترتيب عناصر القائمة</string>
     <string name="hide_unused_tags">أخفِ العلامات الغير مستعملة</string>
     <string name="hide_unused_places">أخفِ الأماكن الغير مستخدمة</string>
+    <string name="language">اللغة</string>
+    <string name="launcher_icon">أيقونة المشغّل</string>
+    <string name="markdown">ماركداون</string>
+    <string name="markdown_description">تشغيل الماركداون في العنوان والوصف</string>
+    <string name="on_launch">عند فتح التطبيق</string>
+    <string name="open_last_viewed_list">فتح آخر قائمة تم عرضها</string>
+    <string name="settings_localization">تخصيص اللغة و الجهة</string>
+    <string name="theme">المظهر</string>
+    <string name="theme_dynamic">ديناميكى</string>
+    <string name="translations">ساهم في الترجمة</string>
+    <string name="widget_open_list">فتح قائمة</string>
 </resources>

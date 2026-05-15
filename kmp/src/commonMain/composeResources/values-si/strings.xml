@@ -378,4 +378,14 @@
     <string name="subtasks_multilevel_google_task">Google Tasks විසින් බහු මට්ටමේ උප කාර්යයන් සඳහා සහාය නොදක්වයි</string>
     <string name="hide_unused_tags">භාවිතයට නොගත් ටැග් සඟවන්න</string>
     <string name="hide_unused_places">භාවිතයට නොගත් ස්ථාන සඟවන්න</string>
+    <string name="language">භාෂාව</string>
+    <string name="launcher_icon">දියත් කිරීමේ අයිකනය</string>
+    <string name="markdown">ලකුණු කිරීම</string>
+    <string name="markdown_description">මාතෘකාව සහ විස්තරය තුළ ලකුණු කිරීම සක්‍රිය කරන්න</string>
+    <string name="on_launch">ආරම්භ කිරීමේදී</string>
+    <string name="open_last_viewed_list">අවසන් වරට බැලූ ලැයිස්තුව විවෘත කරන්න</string>
+    <string name="settings_localization">ප්‍රාදේශීයකරණය</string>
+    <string name="theme">තේමාව</string>
+    <string name="translations">පරිවර්තන සඳහා දායක වන්න</string>
+    <string name="widget_open_list">ලැයිස්තුව විවෘත කරන්න</string>
 </resources>

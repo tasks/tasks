@@ -438,4 +438,15 @@
     <string name="customize_drawer_summary">Τραβήξτε και αφήστε για ανακατάταξη των αντικειμένων του μενού</string>
     <string name="hide_unused_tags">Απόκρυψη μη χρησιμοποιημένων ετικετών</string>
     <string name="hide_unused_places">Απόκρυψη μη χρησιμοποιημένων μερών/ τοποθεσιών</string>
+    <string name="language">Γλώσσα</string>
+    <string name="launcher_icon">Εικονίδιο Launcher (προωθητή)</string>
+    <string name="markdown">Αποτίμηση (Markdown)</string>
+    <string name="markdown_description">Ενεργοποίηση αποτίμησης (Markdown) στον τίτλο και την περιγραφή</string>
+    <string name="on_launch">Κατά την εκκίνηση</string>
+    <string name="open_last_viewed_list">Άνοιγμα λίστας όσων προβλήθηκαν τελευταία</string>
+    <string name="settings_localization">Εντοπισμός</string>
+    <string name="theme">Θέμα</string>
+    <string name="theme_dynamic">Δυναμικό</string>
+    <string name="translations">Συνεισφέρετε μεταφράσεις</string>
+    <string name="widget_open_list">Άνοιγμα λίστας</string>
 </resources>

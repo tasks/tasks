@@ -63,4 +63,7 @@
     <string name="TEA_control_location">Cih</string>
     <string name="rmd_NoA_done">Qediya</string>
     <string name="action_open">Veke</string>
+    <string name="language">Ziman</string>
+    <string name="settings_localization">Herêmîkirin</string>
+    <string name="theme">Rûkar</string>
 </resources>

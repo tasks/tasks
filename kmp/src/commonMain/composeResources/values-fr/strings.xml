@@ -622,4 +622,15 @@
     <string name="customize_drawer_summary">Glisser-déposer pour réorganiser les éléments du menu</string>
     <string name="hide_unused_tags">Masquer les étiquettes inutilisées</string>
     <string name="hide_unused_places">Masquer les lieux inutilisés</string>
+    <string name="language">Langue</string>
+    <string name="launcher_icon">Icône du lanceur</string>
+    <string name="markdown">« Markdown »</string>
+    <string name="markdown_description">Activer « Markdown » dans le titre et la description</string>
+    <string name="on_launch">Au lancement</string>
+    <string name="open_last_viewed_list">Ouvrir la dernière liste consultée</string>
+    <string name="settings_localization">Localisation</string>
+    <string name="theme">Thème</string>
+    <string name="theme_dynamic">Dynamique</string>
+    <string name="translations">Contribuer aux traductions</string>
+    <string name="widget_open_list">Ouvrir la liste</string>
 </resources>

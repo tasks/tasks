@@ -619,4 +619,15 @@
     <string name="customize_drawer_summary">Arraste e solte para reorganizar os itens do menu</string>
     <string name="hide_unused_tags">Ocultar etiquetas não usadas</string>
     <string name="hide_unused_places">Ocultar lugares não utilizados</string>
+    <string name="language">Idioma</string>
+    <string name="launcher_icon">Ícone do lançador</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Habilitar Markdown no título e descrição</string>
+    <string name="on_launch">Ao iniciar</string>
+    <string name="open_last_viewed_list">Abrir a última lista visualizada</string>
+    <string name="settings_localization">Localização</string>
+    <string name="theme">Tema</string>
+    <string name="theme_dynamic">Dinâmico</string>
+    <string name="translations">Ajude com as traduções</string>
+    <string name="widget_open_list">Abrir lista</string>
 </resources>

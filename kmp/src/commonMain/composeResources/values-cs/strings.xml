@@ -603,4 +603,15 @@
     <string name="customize_drawer_summary">Přetažením změníte uspořádání položek nabídky</string>
     <string name="hide_unused_tags">Skrýt nevyužité štítky</string>
     <string name="hide_unused_places">Skrýt nevyužitá místa</string>
+    <string name="language">Jazyk</string>
+    <string name="launcher_icon">Ikona na domovské obrazovce</string>
+    <string name="markdown">Značkovací jazyk</string>
+    <string name="markdown_description">Zapnout Markdown v nadpisu a popisu</string>
+    <string name="on_launch">Při spuštění</string>
+    <string name="open_last_viewed_list">Otevřít poslední prohlížený seznam</string>
+    <string name="settings_localization">Překlad</string>
+    <string name="theme">Vzhled</string>
+    <string name="theme_dynamic">Dynamické</string>
+    <string name="translations">Přispějte k překladu</string>
+    <string name="widget_open_list">Otevřít seznam</string>
 </resources>

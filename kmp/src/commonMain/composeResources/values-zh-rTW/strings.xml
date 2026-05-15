@@ -472,4 +472,15 @@
     <string name="customize_drawer_summary">拖放以重新排列選單項目</string>
     <string name="hide_unused_tags">隱藏未使用標籤</string>
     <string name="hide_unused_places">隱藏未使用地點</string>
+    <string name="language">語言</string>
+    <string name="launcher_icon">啟動器圖示</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">在標題和描述中啟用 Markdown</string>
+    <string name="on_launch">啟動時</string>
+    <string name="open_last_viewed_list">開器最後觀看的清單</string>
+    <string name="settings_localization">在地化</string>
+    <string name="theme">主題</string>
+    <string name="theme_dynamic">動態</string>
+    <string name="translations">貢獻翻譯</string>
+    <string name="widget_open_list">開啟清單</string>
 </resources>

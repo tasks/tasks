@@ -602,4 +602,15 @@
     <string name="customize_drawer_summary">Menüükirjeid saad muuta lohistades</string>
     <string name="hide_unused_tags">Peida kasutamata sildid</string>
     <string name="hide_unused_places">Peida kasutamata asukohad</string>
+    <string name="language">Keel</string>
+    <string name="launcher_icon">Rakenduse ikoon</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Luba Markdown pealkirjas ja kirjelduses</string>
+    <string name="on_launch">Käivitamisel</string>
+    <string name="open_last_viewed_list">Ava viimati vaadatud loend</string>
+    <string name="settings_localization">Kohalikustamine</string>
+    <string name="theme">Teema</string>
+    <string name="theme_dynamic">Dünaamiline</string>
+    <string name="translations">Aita tõlkida</string>
+    <string name="widget_open_list">Ava loend</string>
 </resources>

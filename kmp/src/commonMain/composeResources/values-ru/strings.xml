@@ -491,4 +491,15 @@
     <string name="customize_drawer_summary">Перетаскивайте элементы меню, чтобы изменить их порядок</string>
     <string name="hide_unused_tags">Скрыть неиспользуемые метки</string>
     <string name="hide_unused_places">Скрыть неиспользуемые места</string>
+    <string name="language">Язык</string>
+    <string name="launcher_icon">Иконка запуска</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Включить Markdown в названии и описании</string>
+    <string name="on_launch">При запуске</string>
+    <string name="open_last_viewed_list">Открыть последний просмотренный список</string>
+    <string name="settings_localization">Локализация</string>
+    <string name="theme">Цветовая тема</string>
+    <string name="theme_dynamic">Динамическая</string>
+    <string name="translations">Участвовать в переводе программы</string>
+    <string name="widget_open_list">Открыть список</string>
 </resources>

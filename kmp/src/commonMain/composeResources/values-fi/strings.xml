@@ -457,4 +457,15 @@
     <string name="customize_drawer_summary">Vedä ja pudota valikon kohteita järjestääksesi ne uudelleen</string>
     <string name="hide_unused_tags">Piilota käyttämättömät tunnistimet</string>
     <string name="hide_unused_places">Piilota käyttämättömät paikat</string>
+    <string name="language">Kieli</string>
+    <string name="launcher_icon">Käynnistyskuvake</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Ota Markdown käyttöön otsikossa ja kuvauksessa</string>
+    <string name="on_launch">Käynnistettäessä</string>
+    <string name="open_last_viewed_list">Avaa viimeksi katsottu lista</string>
+    <string name="settings_localization">Paikallistaminen</string>
+    <string name="theme">Teema</string>
+    <string name="theme_dynamic">Dynaaminen</string>
+    <string name="translations">Osallistu kääntämiseen</string>
+    <string name="widget_open_list">Avaa lista</string>
 </resources>

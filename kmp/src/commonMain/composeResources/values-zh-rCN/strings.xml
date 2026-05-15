@@ -593,4 +593,15 @@
     <string name="customize_drawer_summary">通过拖放重新安排菜单项</string>
     <string name="hide_unused_tags">隐藏不用的标签</string>
     <string name="hide_unused_places">隐藏不用的地点</string>
+    <string name="language">语言</string>
+    <string name="launcher_icon">启动器图标</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">在任务标题和描述中启用 Markdown</string>
+    <string name="on_launch">启动时</string>
+    <string name="open_last_viewed_list">打开上次查看的清单</string>
+    <string name="settings_localization">本地化</string>
+    <string name="theme">主题</string>
+    <string name="theme_dynamic">动态</string>
+    <string name="translations">贡献翻译</string>
+    <string name="widget_open_list">打开清单</string>
 </resources>

@@ -602,4 +602,15 @@
     <string name="customize_drawer_summary">Menü ögelerini yeniden düzenlemek için sürükleyip bırakın</string>
     <string name="hide_unused_tags">Kullanılmayan etiketleri gizle</string>
     <string name="hide_unused_places">Kullanılmayan yerleri gizle</string>
+    <string name="language">Dil</string>
+    <string name="launcher_icon">Başlatıcı simgesi</string>
+    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Başlık ve açıklamada Markdown'ı etkinleştir</string>
+    <string name="on_launch">Başlangıçta</string>
+    <string name="open_last_viewed_list">Son görülen listeyi aç</string>
+    <string name="settings_localization">Yerelleştirme</string>
+    <string name="theme">Gövde</string>
+    <string name="theme_dynamic">Dinamik</string>
+    <string name="translations">Çeviri katkıları</string>
+    <string name="widget_open_list">Listeyi aç</string>
 </resources>

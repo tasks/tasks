@@ -432,4 +432,15 @@
     <string name="customize_drawer_summary">끌어다 놓기로 메뉴 항목 재배열</string>
     <string name="hide_unused_tags">사용하지 않는 태그 숨기기</string>
     <string name="hide_unused_places">사용하지 않는 장소 숨기기</string>
+    <string name="language">언어</string>
+    <string name="launcher_icon">런처 아이콘</string>
+    <string name="markdown">마크 다운</string>
+    <string name="markdown_description">제목과 설명에 마크다운 방식 가능</string>
+    <string name="on_launch">앱 구동 시</string>
+    <string name="open_last_viewed_list">마지막으로 보던 목록 열기</string>
+    <string name="settings_localization">현지화</string>
+    <string name="theme">테마</string>
+    <string name="theme_dynamic">동적</string>
+    <string name="translations">번역 참여하기</string>
+    <string name="widget_open_list">목록 열기</string>
 </resources>

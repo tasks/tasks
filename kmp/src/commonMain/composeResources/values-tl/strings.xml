@@ -45,4 +45,5 @@
     <string name="quiet_hours_summary">Walang paalala sa tahimik na mga oras</string>
     <string name="no_reminders">Walang paalala</string>
     <string name="default_location_reminder_on_arrival">Sa pagdating</string>
+    <string name="translations">Umambag ng pagsasalin</string>
 </resources>
