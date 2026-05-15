@@ -193,4 +193,5 @@
     <string name="tos_updated_title">Am actualizat Termenii și condițiile</string>
     <string name="accept">Acceptă</string>
     <string name="email_to_task">E-mail către sarcină</string>
+    <string name="upgrade_subscription_banner">Îți mulțumim pentru suport! Actualizează-ți abonamentul pentru a activa Tasks.org Cloud Sync</string>
 </resources>

@@ -695,7 +695,6 @@
     <string name="upgrade_email_to_task_description">Transformă e-mailurile în sarcini, redirecționându-le către căsuța de e-mail privată</string>
     <string name="advanced_tools">Instrumente avansate</string>
     <string name="advanced_tools_description">Locații Google, CalDAV, EteSync și multe altele!</string>
-    <string name="upgrade_subscription_banner">Îți mulțumim pentru suport! Actualizează-ți abonamentul pentru a activa Tasks.org Cloud Sync</string>
     <string name="alarm_before">înainte</string>
     <string name="alarm_after">după</string>
     <string name="alarm_start">pornește</string>
