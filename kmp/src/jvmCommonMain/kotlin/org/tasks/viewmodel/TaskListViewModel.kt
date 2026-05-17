@@ -2,6 +2,7 @@ package org.tasks.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,6 +31,8 @@ import org.tasks.filters.FilterImpl
 import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.SearchFilter
 import org.tasks.filters.key
+import org.tasks.kmp.formatTime
+import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.preferences.DefaultQueryPreferences
 import org.tasks.preferences.FilterPreferences
 import org.tasks.preferences.QueryPreferences
@@ -40,6 +43,7 @@ import org.tasks.sync.SyncSource
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 
 open class TaskListViewModel(
     private val taskDao: TaskDao,
@@ -53,6 +57,7 @@ open class TaskListViewModel(
     private val createSearchFilter: (String) -> Filter = { query ->
         SearchFilter(title = query, query = query)
     },
+    private val is24HourFormat: () -> Boolean = { false },
     refreshFlow: Flow<Unit> = emptyFlow(),
 ) : ViewModel() {
 
@@ -160,7 +165,25 @@ open class TaskListViewModel(
                 } else {
                     queryPreferences
                 }
-                Pair(taskDao.fetchTasks(getQuery(prefs, filter)), prefs)
+                val tasks = taskDao.fetchTasks(getQuery(prefs, filter))
+                val is24Hour = is24HourFormat()
+                val startOfToday = currentTimeMillis().startOfDay()
+                tasks.forEach { task ->
+                    task.dueDateText = if (!task.hasDueDate()) {
+                        null
+                    } else if (prefs.groupMode == SORT_DUE && (task.sortGroup ?: 0) >= startOfToday) {
+                        task.takeIf { it.hasDueTime() }?.let {
+                            formatTime(task.dueDate, is24Hour)
+                        }
+                    } else {
+                        getRelativeDateTime(
+                            task.dueDate,
+                            is24Hour,
+                            alwaysDisplayFullDate = prefs.alwaysDisplayFullDate
+                        )
+                    }
+                }
+                Pair(tasks, prefs)
             }
             .onEach { (tasks, prefs) ->
                 _state.update {

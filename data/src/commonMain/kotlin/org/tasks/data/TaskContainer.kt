@@ -19,6 +19,7 @@ data class TaskContainer(
     @ColumnInfo(name = "sort_group") val sortGroup: Long? = null,
     @ColumnInfo(name = "primary_sort") val primarySort: Long = 0,
     @ColumnInfo(name = "secondary_sort") val secondarySort: Long = 0,
+    var dueDateText: String? = null,
     var indent: Int = 0,
     var targetIndent: Int = 0,
 ){
