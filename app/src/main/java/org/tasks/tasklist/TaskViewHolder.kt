@@ -144,8 +144,7 @@ class TaskViewHolder internal constructor(
         }
     }
 
-    val shiftSize: Float
-        get() = 20 * metrics.density
+    val shiftSize: Float = 20 * metrics.density
 
     private fun getIndentSize(indent: Int) = (indent * shiftSize).roundToInt()
 
