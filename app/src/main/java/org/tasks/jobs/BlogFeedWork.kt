@@ -5,8 +5,10 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.runBlocking
 import org.tasks.analytics.Firebase
 import org.tasks.feed.BlogFeedChecker
+import org.tasks.injection.BaseWorker
 import timber.log.Timber
 
 @HiltWorker
@@ -16,7 +18,15 @@ class BlogFeedWork @AssistedInject constructor(
     firebase: Firebase,
     private val blogFeedChecker: BlogFeedChecker,
     private val workManager: WorkManager,
-) : RepeatingWorker(context, workerParams, firebase) {
+) : BaseWorker(context, workerParams, firebase) {
+
+    override fun doWork(): Result {
+        val result = super.doWork()
+        if (result != Result.retry()) {
+            runBlocking { workManager.scheduleBlogFeedCheck() }
+        }
+        return result
+    }
 
     override suspend fun run(): Result {
         val result = try {
@@ -26,8 +36,6 @@ class BlogFeedWork @AssistedInject constructor(
             WorkResult.Fail
         }
         Timber.d("BlogFeedWork: $result")
-        return Result.success()
+        return if (result == WorkResult.Fail) Result.retry() else Result.success()
     }
-
-    override suspend fun scheduleNext() = workManager.scheduleBlogFeedCheck()
 }
