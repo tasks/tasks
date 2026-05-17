@@ -254,4 +254,8 @@
     <string name="done">Готово</string>
     <string name="retry">Повторен опит</string>
     <string name="qr_code">Код за QR</string>
+    <string name="link_desktop_instructions">Отворете настолното приложение на Tasks.org и отворете Добавяне на профил, за да видите кода за QR. След това за да го сканирате докоснете бутона под него.</string>
+    <string name="link_desktop_step_1">Отворяне настолното приложение на Tasks.org</string>
+    <string name="link_desktop_success">Настолното устройство е свързано!</string>
+    <string name="link_desktop_error">Грешка при свързване на настолното устройство. Опитайте отново.</string>
 </resources>
