@@ -227,4 +227,5 @@
     <string name="restart_later">מאוחר יותר</string>
     <string name="blog_feed_none">ללא</string>
     <string name="cannot_access_account">לא ניתן לגשת לחשבון</string>
+    <string name="upgrade_subscription_banner">תודה על תמיכתך! יש לשדרג את המינוי שלך כדי להפעיל גיבוי בענן Tasks.org</string>
 </resources>

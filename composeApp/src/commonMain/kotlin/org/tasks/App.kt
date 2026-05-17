@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -61,6 +63,7 @@ import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
 import androidx.compose.material3.adaptive.navigation.BackNavigationBehavior
+import androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -94,7 +97,9 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
+import org.tasks.TasksUrls
 import org.tasks.auth.OAuthProvider
+import org.tasks.billing.SubscriptionProvider
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.drawer.TaskListDrawer
 
@@ -146,6 +151,7 @@ import org.tasks.data.isHidden
 import org.tasks.time.startOfDay
 import org.tasks.compose.sort.BottomSheetContent
 import org.tasks.compose.sort.SortPicker
+import org.tasks.compose.settings.ManageSubscriptionSheetContent
 import org.tasks.compose.sort.SortSheetContent
 import org.tasks.compose.sort.completedOptions
 import org.tasks.compose.sort.groupOptions
@@ -155,6 +161,7 @@ import org.tasks.kmp.org.tasks.themes.ColorProvider
 import org.tasks.themes.BLUE
 import org.tasks.themes.TasksTheme
 import org.tasks.data.TaskContainer
+import org.tasks.data.UUIDHelper
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.MyTasksFilter
@@ -176,11 +183,14 @@ import org.tasks.viewmodel.TaskListViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
 import tasks.kmp.generated.resources.not_available_desktop
+import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.settings
 import tasks.kmp.generated.resources.show_less
 import tasks.kmp.generated.resources.show_more
+import tasks.kmp.generated.resources.subscription_not_found
 import tasks.kmp.generated.resources.url_google_play
 import tasks.kmp.generated.resources.url_sponsor
+import tasks.kmp.generated.resources.wrong_account
 
 @Serializable
 data object WelcomeDestination : NavKey
@@ -240,6 +250,8 @@ fun App(
             val configuration = koinInject<PlatformConfiguration>()
             val reporting = koinInject<Reporting>()
             val hasAccount by appViewModel.hasAccount.collectAsState()
+            val subscriptionProvider = koinInject<SubscriptionProvider>()
+            val subscriptionInfo by subscriptionProvider.subscription.collectAsState(initial = null)
 
             if (hasAccount == null) {
                 return@Surface
@@ -368,6 +380,9 @@ fun App(
                             signInState = signInState,
                             onDismiss = { addAccountViewModel.dismissError() },
                             reporting = reporting,
+                            onPaymentRequired = {
+                                backStack.add(PricingDestination(mode = PricingMode.CLOUD_ONLY, source = "sign_in_402"))
+                            },
                         )
                     }
                     entry<CaldavSignInDestination> {
@@ -396,6 +411,7 @@ fun App(
                     }
                     entry<SettingsDestination> {
                         val purchaseState = koinInject<org.tasks.billing.PurchaseState>()
+                        var showManageSheet by remember { mutableStateOf(false) }
                         SettingsScreen(
                             onBack = { backStack.removeLastOrNull() },
                             onAddAccountClick = { backStack.add(AddAccountDestination) },
@@ -408,7 +424,36 @@ fun App(
                                 }
                             },
                             onUpgradeClick = { backStack.add(PricingDestination()) },
+                            onSignInClick = {
+                                backStack.add(PricingDestination(mode = PricingMode.CLOUD_ONLY, source = "sign_in"))
+                            },
+                            onSubscribedClick = { showManageSheet = true },
                         )
+                        if (showManageSheet) {
+                            val isGitHubSponsor = subscriptionInfo?.isGitHubSponsor == true
+                            val sponsorUrl = stringResource(Res.string.url_sponsor)
+                            val googlePlayUrl = TasksUrls.GOOGLE_PLAY_SUBSCRIPTIONS
+                            ModalBottomSheet(
+                                onDismissRequest = { showManageSheet = false },
+                                containerColor = MaterialTheme.colorScheme.surface,
+                            ) {
+                                ManageSubscriptionSheetContent(
+                                    onUpgrade = {
+                                        showManageSheet = false
+                                        backStack.add(PricingDestination(mode = PricingMode.CLOUD_ONLY, source = "subscribed"))
+                                    },
+                                    onModify = {
+                                        showManageSheet = false
+                                        openUrl(sponsorUrl)
+                                    },
+                                    onCancel = {
+                                        showManageSheet = false
+                                        openUrl(if (isGitHubSponsor) sponsorUrl else googlePlayUrl)
+                                    },
+                                    showModify = isGitHubSponsor,
+                                )
+                            }
+                        }
                     }
                     entry<LinkDesktopDestination> {
                         val qrScanner = koinInject<org.tasks.billing.QrScanner>()
@@ -490,6 +535,16 @@ fun App(
                                 backStack.removeLastOrNull()
                             }
                         }
+                        LaunchedEffect(Unit) {
+                            subscriptionProvider.subscription
+                                .distinctUntilChanged()
+                                .drop(1)
+                                .collect {
+                                    if (it != null) {
+                                        backStack.removeLastOrNull()
+                                    }
+                                }
+                        }
                         val googlePlayUrl = stringResource(Res.string.url_google_play)
                         val sponsorUrl = stringResource(Res.string.url_sponsor)
                         PricingScreen(
@@ -534,6 +589,7 @@ fun App(
                                     AnalyticsEvents.PARAM_PERIOD to if (isAnnual) AnalyticsEvents.PERIOD_ANNUAL else AnalyticsEvents.PERIOD_MONTHLY,
                                 )
                             },
+                            showSupporterBanner = subscriptionInfo?.isTasksSubscription == false,
                         )
                         if (showSignInDialog) {
                             BasicAlertDialog(onDismissRequest = { showSignInDialog = false }) {
@@ -566,6 +622,7 @@ fun App(
                             signInState = signInState,
                             onDismiss = { addAccountViewModel.dismissError() },
                             reporting = reporting,
+                            onPaymentRequired = {},
                         )
                     }
                 },
@@ -581,6 +638,7 @@ private fun SignInErrorDialog(
     signInState: AddAccountViewModel.SignInState?,
     onDismiss: () -> Unit,
     reporting: Reporting,
+    onPaymentRequired: () -> Unit,
 ) {
     val errorState = signInState as? AddAccountViewModel.SignInState.Error ?: return
     LaunchedEffect(errorState) {
@@ -596,21 +654,33 @@ private fun SignInErrorDialog(
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    text = "Sign in failed",
+                    text = stringResource(Res.string.wrong_account),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
                 Text(
-                    text = errorState.message,
+                    text = if (errorState.isPaymentRequired) {
+                        stringResource(
+                            Res.string.subscription_not_found,
+                            TasksUrls.SUPPORT_EMAIL,
+                        )
+                    } else {
+                        errorState.message
+                    },
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(top = 8.dp),
                 )
                 TextButton(
-                    onClick = onDismiss,
+                    onClick = {
+                        onDismiss()
+                        if (errorState.isPaymentRequired) {
+                            onPaymentRequired()
+                        }
+                    },
                     modifier = Modifier.align(Alignment.End).padding(top = 8.dp),
                 ) {
-                    Text("OK")
+                    Text(stringResource(Res.string.ok))
                 }
             }
         }
@@ -633,7 +703,8 @@ private fun TaskListScreen(
     val sortState by sortViewModel.state.collectAsState()
     var showSortSheet by remember { mutableStateOf(false) }
     val materialDrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val navigator = rememberListDetailPaneScaffoldNavigator<Long>()
+    val navigator = rememberListDetailPaneScaffoldNavigator<TaskKey>()
+    val taskEditViewModel = koinViewModel<TaskEditViewModel>()
     val scope = androidx.compose.runtime.rememberCoroutineScope()
     LaunchedEffect(state.filter) {
         drawerViewModel.setSelectedFilter(state.filter)
@@ -650,7 +721,8 @@ private fun TaskListScreen(
     }
 
     var sidebarExpanded by remember { mutableStateOf(false) }
-    val selectedTaskId = navigator.currentDestination?.contentKey
+    val selectedTask = navigator.currentDestination?.contentKey
+    val selectedTaskId = selectedTask?.taskId
 
     val onDrawerItemClick: (DrawerItem) -> Unit = { item ->
         when (item) {
@@ -660,7 +732,7 @@ private fun TaskListScreen(
                 if (materialDrawerState.isOpen) {
                     scope.launch { materialDrawerState.close() }
                 }
-                scope.launch { if (navigator.canNavigateBack()) navigator.navigateBack() }
+                scope.launch { popBackStack(navigator, taskEditViewModel) }
             }
             is DrawerItem.Header -> {
                 drawerViewModel.toggleCollapsed(item.header)
@@ -670,6 +742,13 @@ private fun TaskListScreen(
 
     val hasDetailOpen = selectedTaskId != null
     val listPaneHidden = navigator.canNavigateBack()
+
+    val onTaskClick: (TaskKey) -> Unit = { key ->
+        scope.launch {
+            popBackStack(navigator, taskEditViewModel)
+            navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, key)
+        }
+    }
 
     // Note: when the detail pane is open, TaskEditScreen installs its own back handler
     // so that back/escape saves the edit before navigating back.
@@ -723,18 +802,17 @@ private fun TaskListScreen(
                     TaskListContent(
                         state = state,
                         navigator = navigator,
-                        selectedTaskId = selectedTaskId,
+                        selectedTask = selectedTask,
                         headerFormatter = headerFormatter,
                         chipDataProvider = chipDataProvider,
                         reporting = reporting,
                         viewModel = viewModel,
                         themeColor = themeColor,
                         onShowSortSheet = { showSortSheet = true },
-                        onTaskClick = { taskId ->
-                            scope.launch { navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, taskId) }
-                        },
+                        onTaskClick = onTaskClick,
                         showMenuButton = true,
                         onMenuClick = { sidebarExpanded = !sidebarExpanded },
+                        taskEditViewModel = taskEditViewModel,
                         onSettingsClick = onSettingsClick,
                         modifier = Modifier.weight(1f),
                     )
@@ -783,16 +861,14 @@ private fun TaskListScreen(
                     TaskListContent(
                         state = state,
                         navigator = navigator,
-                        selectedTaskId = selectedTaskId,
+                        selectedTask = selectedTask,
                         headerFormatter = headerFormatter,
                         chipDataProvider = chipDataProvider,
                         reporting = reporting,
                         viewModel = viewModel,
                         themeColor = themeColor,
                         onShowSortSheet = { showSortSheet = true },
-                        onTaskClick = { taskId ->
-                            scope.launch { navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, taskId) }
-                        },
+                        onTaskClick = onTaskClick,
                         showMenuButton = true,
                         onMenuClick = {
                             scope.launch {
@@ -800,6 +876,7 @@ private fun TaskListScreen(
                                 else materialDrawerState.open()
                             }
                         },
+                        taskEditViewModel = taskEditViewModel,
                         onSettingsClick = onSettingsClick,
                     )
                 }
@@ -819,22 +896,22 @@ private fun TaskListScreen(
 @Composable
 private fun TaskListContent(
     state: TaskListViewModel.State,
-    navigator: androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator<Long>,
-    selectedTaskId: Long?,
+    navigator: androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator<TaskKey>,
+    selectedTask: TaskKey?,
     headerFormatter: HeaderFormatter,
     chipDataProvider: ChipDataProvider,
     reporting: org.tasks.analytics.Reporting,
     viewModel: TaskListViewModel,
     themeColor: org.tasks.kmp.org.tasks.themes.ThemeColor,
     onShowSortSheet: () -> Unit,
-    onTaskClick: (Long) -> Unit,
+    onTaskClick: (TaskKey) -> Unit,
     showMenuButton: Boolean,
     onMenuClick: () -> Unit,
+    taskEditViewModel: TaskEditViewModel,
     onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val scope = androidx.compose.runtime.rememberCoroutineScope()
-    val taskEditViewModel = koinViewModel<TaskEditViewModel>()
 
     ListDetailPaneScaffold(
         modifier = modifier.fillMaxSize(),
@@ -856,17 +933,22 @@ private fun TaskListContent(
                 onCreateTask = {
                     reporting.addTask("fab")
                     scope.launch {
-                        navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, 0L)
+                        popBackStack(navigator, taskEditViewModel)
+                        navigator.navigateTo(
+                            ListDetailPaneScaffoldRole.Detail,
+                            TaskKey(taskId = 0L, remoteId = UUIDHelper.newUUID()),
+                        )
                     }
                 },
                 modifier = Modifier.preferredWidth(TaskListPanePreferredWidth),
             )
         },
         detailPane = {
-            selectedTaskId?.let { taskId ->
+            selectedTask?.let { key ->
                 TaskEditScreen(
                     viewModel = taskEditViewModel,
-                    taskId = taskId.takeIf { it > 0 },
+                    taskId = key.taskId.takeIf { it > 0 },
+                    remoteId = key.remoteId,
                     onClose = {
                         scope.launch {
                             navigator.navigateBack(BackNavigationBehavior.PopLatest)
@@ -877,6 +959,19 @@ private fun TaskListContent(
         },
     )
 }
+
+@OptIn(ExperimentalMaterial3AdaptiveApi::class)
+private suspend fun <T> popBackStack(
+    navigator: ThreePaneScaffoldNavigator<T>,
+    taskEditViewModel: TaskEditViewModel,
+) {
+    taskEditViewModel.saveCurrentTask()
+    if (navigator.canNavigateBack(BackNavigationBehavior.PopLatest)) {
+        navigator.navigateBack(BackNavigationBehavior.PopLatest)
+    }
+}
+
+private data class TaskKey(val taskId: Long, val remoteId: String)
 
 private val TaskListPanePreferredWidth = 400.dp
 
@@ -893,7 +988,7 @@ private fun TaskListPane(
     onShowSortSheet: () -> Unit,
     onMenuClick: () -> Unit,
     onSettingsClick: () -> Unit,
-    onTaskClick: (Long) -> Unit,
+    onTaskClick: (TaskKey) -> Unit,
     onCreateTask: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -968,7 +1063,7 @@ private fun TaskListPane(
                 chipDataProvider = chipDataProvider,
                 listState = listState,
                 topPadding = topBarHeight,
-                onTaskClick = { task -> onTaskClick(task.id) },
+                onTaskClick = { task -> onTaskClick(TaskKey(task.id, task.uuid)) },
                 onCompleteTask = { task, newState ->
                     viewModel.onCompleteTask(task, newState)
                     if (newState) {
@@ -1533,6 +1628,8 @@ private fun SettingsScreen(
     onAddAccountClick: () -> Unit,
     onLinkDesktopClick: () -> Unit = {},
     onUpgradeClick: () -> Unit,
+    onSignInClick: () -> Unit = {},
+    onSubscribedClick: () -> Unit = {},
 ) {
     val viewModel = koinViewModel<MainSettingsViewModel>()
     val proCardViewModel = koinViewModel<ProCardViewModel>()
@@ -1652,8 +1749,12 @@ private fun SettingsScreen(
                                 is ProCardState.Upgrade -> {
                                     onUpgradeClick()
                                 }
-                                is ProCardState.Subscribed -> {}
-                                is ProCardState.SignIn -> {}
+                                is ProCardState.Subscribed -> {
+                                    onSubscribedClick()
+                                }
+                                is ProCardState.SignIn -> {
+                                    onSignInClick()
+                                }
                                 is ProCardState.Donate -> {
                                     onUpgradeClick()
                                 }

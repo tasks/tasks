@@ -675,7 +675,6 @@
     <string name="upgrade_email_to_task_description">Förvandla e-postmeddelanden till uppgifter genom att vidarebefordra dem till din privata inkorg</string>
     <string name="advanced_tools">Avancerade verktyg</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync och mer!</string>
-    <string name="upgrade_subscription_banner">Tack för ditt stöd! Uppgradera din prenumeration för att aktivera Tasks.org Cloud Sync</string>
     <string name="alarm_before">före</string>
     <string name="alarm_after">efter</string>
     <string name="alarm_start">start</string>

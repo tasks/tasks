@@ -283,6 +283,7 @@
     <string name="pricing_sponsor">Eller sponsra på GitHub för %1$s</string>
     <string name="already_subscribed">Redan prenumerant?</string>
     <string name="sign_in_subtitle">Redan prenumerant eller inbjuden gäst?</string>
+    <string name="upgrade_subscription_banner">Tack för ditt stöd! Uppgradera din prenumeration för att aktivera Tasks.org Cloud Sync</string>
     <string name="blog_notifications">Bloggaviseringar</string>
     <string name="blog_feed_announcements">Endast tillkännagivanden</string>
     <string name="blog_feed_all">Alla inlägg</string>

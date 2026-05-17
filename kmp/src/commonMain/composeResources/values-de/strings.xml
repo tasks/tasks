@@ -233,4 +233,5 @@
     <string name="restart_now">Jetzt neustarten</string>
     <string name="restart_later">Später</string>
     <string name="cannot_access_account">Zugriff auf Konto fehlgeschlagen</string>
+    <string name="upgrade_subscription_banner">Vielen Dank für deine Unterstützung! Aktualisiere dein Abo, um Tasks.org Cloud Sync zu aktivieren</string>
 </resources>

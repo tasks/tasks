@@ -86,6 +86,7 @@ import org.tasks.compose.settings.SettingsCardRadius
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.upgrade_subscription_banner
 import tasks.kmp.generated.resources.url_sponsor
 
 object PurchaseText {
@@ -276,7 +277,7 @@ object PurchaseText {
                         ),
                     ) {
                         Text(
-                            text = stringResource(R.string.upgrade_subscription_banner),
+                            text = org.jetbrains.compose.resources.stringResource(Res.string.upgrade_subscription_banner),
                             modifier = Modifier.padding(KEYLINE_FIRST),
                             color = MaterialTheme.colorScheme.onPrimary,
                             style = MaterialTheme.typography.bodyMedium,

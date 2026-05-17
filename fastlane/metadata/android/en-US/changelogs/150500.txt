@@ -1,0 +1,2 @@
+* Fix tag sync for DAVx5/EteSync/DecSync CC
+* Update translations

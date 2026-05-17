@@ -228,4 +228,5 @@
     <string name="restart_now">Mulai ulang sekarang</string>
     <string name="restart_later">Nanti</string>
     <string name="cannot_access_account">Tidak bisa mengakses akun</string>
+    <string name="upgrade_subscription_banner">Terima kasih atas dukungan Anda! Tingkatkan langganan Anda untuk mengaktifkan Sinkronisasi Cloud Tasks.org</string>
 </resources>

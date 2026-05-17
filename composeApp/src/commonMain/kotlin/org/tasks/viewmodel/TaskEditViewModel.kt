@@ -65,17 +65,7 @@ class TaskEditViewModel(
         val normalized = taskId?.takeIf { it != Task.NO_ID }
         initializeJob?.cancel()
         initializeJob = viewModelScope.launch {
-            withContext(NonCancellable) {
-                saveMutex.withLock {
-                    try {
-                        saveIfNeeded(_state.value)
-                    } catch (e: Exception) {
-                        log.e(e) { "Failed to save task" }
-                        _saveError.value = true
-                    }
-                    _state.value = State(isLoading = true)
-                }
-            }
+            _state.value = State(isLoading = true)
             val loaded: Task
             val list: CaldavFilter?
             if (normalized == null) {
@@ -104,6 +94,23 @@ class TaskEditViewModel(
                         .filterNotNull()
                         .distinctUntilChanged()
                         .collect { dbTask -> mergeDbUpdate(dbTask) }
+                }
+            }
+        }
+    }
+
+    suspend fun saveCurrentTask() {
+        withContext(NonCancellable) {
+            saveMutex.withLock {
+                val snapshot = _state.value
+                if (!snapshot.isLoading) {
+                    try {
+                        saveIfNeeded(snapshot)
+                        _state.update { it.copy(originalTask = snapshot.task.copy()) }
+                    } catch (e: Exception) {
+                        log.e(e) { "Failed to save task" }
+                        _saveError.value = true
+                    }
                 }
             }
         }

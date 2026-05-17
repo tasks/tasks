@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.tasks.auth.OAuthProvider
+import org.tasks.auth.PaymentRequiredException
 import org.tasks.auth.SignInHandler
 import org.tasks.billing.PurchaseState
 import org.tasks.data.dao.CaldavDao
@@ -24,7 +25,10 @@ class AddAccountViewModel(
     sealed interface SignInState {
         data object Idle : SignInState
         data object Loading : SignInState
-        data class Error(val message: String) : SignInState
+        data class Error(
+            val message: String,
+            val isPaymentRequired: Boolean = false,
+        ) : SignInState
     }
 
     private val _signInState = MutableStateFlow<SignInState>(SignInState.Idle)
@@ -42,6 +46,11 @@ class AddAccountViewModel(
                 _signInState.value = SignInState.Idle
             } catch (e: CancellationException) {
                 throw e
+            } catch (e: PaymentRequiredException) {
+                _signInState.value = SignInState.Error(
+                    message = e.message ?: "Payment required",
+                    isPaymentRequired = true,
+                )
             } catch (e: Exception) {
                 _signInState.value = SignInState.Error(e.message ?: "Sign in failed")
             }

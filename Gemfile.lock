@@ -233,7 +233,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  abbrev
   fastlane
 
 CHECKSUMS

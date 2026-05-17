@@ -228,4 +228,5 @@
     <string name="restart_now">Taaskäivita kohe</string>
     <string name="restart_later">Hiljem</string>
     <string name="cannot_access_account">Ei pääse kontole ligi</string>
+    <string name="upgrade_subscription_banner">Tänud sinu toetuse eest! Kasutamaks Tasks.org-i pilvesünkroonimise võimalus palun uuenda oma tellimust</string>
 </resources>

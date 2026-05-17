@@ -291,4 +291,6 @@
     <string name="restart_now">Redémarrer maintenant</string>
     <string name="restart_later">Plus tard</string>
     <string name="cannot_access_account">Impossible d'accéder au compte</string>
+    <string name="upgrade_subscription_banner">Merci pour votre soutien ! Mettez à niveau votre abonnement pour activer la synchronisation cloud Tasks.org</string>
+    <string name="subscription_not_found">Votre abonnement au cloud Tasks.org est introuvable. Si vous pensez qu\'il s\'agit d\'une erreur, veuillez contacter %1$s</string>
 </resources>

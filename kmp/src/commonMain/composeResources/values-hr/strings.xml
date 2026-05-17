@@ -291,4 +291,5 @@
     <string name="link_desktop_instructions">Otvori desktop aplikaciju Tasks.org, idi na „Dodaj račun” i pojavit će se QR kod. Zatim snimi QR kod dodirom donjeg gumba.</string>
     <string name="pricing_nyp_feature_2">Sinkronizacija s CalDAV-om i EteSync-om za samostalni hosting</string>
     <string name="cannot_access_account">Nije moguće pristupiti računu</string>
+    <string name="upgrade_subscription_banner">Hvala ti na podršci! Nadogradi svoju pretplatu i na taj način omogući Tasks.org Cloud sinkronizaciju</string>
 </resources>

@@ -656,7 +656,6 @@
     <string name="EPr_cal_end_at_due_time">Окончај догађаје календара у време доспећа</string>
     <string name="CFC_importance_text">Минимум приоритета ?</string>
     <string name="widget_view_more_tasks">Погледај још задатака</string>
-    <string name="upgrade_subscription_banner">Хвала на подршци! Унапреди претплату за омогућену Tasks.org Cloud синхронизацију</string>
     <string name="banner_subscription_required_body">Плати колико желиш за откључавање %s синхронизације</string>
     <string name="banner_subscription_required_title">Потребна је претплата</string>
     <string name="import_failed_message">Неуспело читање резервног фајла</string>

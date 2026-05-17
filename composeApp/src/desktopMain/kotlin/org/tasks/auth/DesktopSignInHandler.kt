@@ -1,5 +1,6 @@
 package org.tasks.auth
 
+import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import co.touchlab.kermit.Logger
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.compose.accounts.Platform
@@ -39,14 +40,21 @@ class DesktopSignInHandler(
 
         when (platform) {
             Platform.GOOGLE_TASKS -> setupGoogleTasksAccount(result)
-            else -> setupTasksAccount(
-                oauthResult = result,
-                issuer = oauthProvider.issuer,
-                caldavUrl = serverEnvironment.caldavUrl,
-                caldavDao = caldavDao,
-                encryption = encryption,
-                provider = caldavClientProvider,
-            )
+            else -> try {
+                setupTasksAccount(
+                    oauthResult = result,
+                    issuer = oauthProvider.issuer,
+                    caldavUrl = serverEnvironment.caldavUrl,
+                    caldavDao = caldavDao,
+                    encryption = encryption,
+                    provider = caldavClientProvider,
+                )
+            } catch (e: HttpException) {
+                if (e.statusCode == 402) {
+                    throw PaymentRequiredException()
+                }
+                throw e
+            }
         }
         Logger.i(TAG) { "Account created successfully" }
         syncAdapters.sync(SyncSource.ACCOUNT_ADDED)

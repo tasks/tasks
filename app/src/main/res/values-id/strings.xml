@@ -632,7 +632,6 @@
     <string name="upgrade_email_to_task_description">Ubah email menjadi tugas dengan meneruskannya ke kotak masuk pribadi Anda</string>
     <string name="advanced_tools">Alat lanjutan</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync, dan lainnya!</string>
-    <string name="upgrade_subscription_banner">Terima kasih atas dukungan Anda! Tingkatkan langganan Anda untuk mengaktifkan Sinkronisasi Cloud Tasks.org</string>
     <string name="snackbar_tasks_completed">%d tugas diselesaikan</string>
     <string name="alarm_before_due">%s sebelum jatuh tempo</string>
     <string name="alarm_after_due">%s setelah jatuh tempo</string>

@@ -648,7 +648,6 @@
     <string name="import_failed_message">Файлът с резервното копие не може да бъде прочетен</string>
     <string name="banner_subscription_required_title">Изисква абонамент</string>
     <string name="banner_subscription_required_body">Платете сума по желание, за да отключите синхронизиране чрез %s</string>
-    <string name="upgrade_subscription_banner">Благодаря за подкрепата! Надградете абонамента си, за да включва и облачното сонхронизиране на Tasks.org</string>
     <string name="alarm_before">преди</string>
     <string name="alarm_after">след</string>
     <string name="alarm_start">начало</string>

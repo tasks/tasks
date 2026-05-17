@@ -682,7 +682,6 @@
     <string name="upgrade_email_to_task_description">הפיכת הודעות דוא\"ל למשימות על ידי העברתן לדואר הנכנס הפרטי שלך</string>
     <string name="advanced_tools">כלים מתקדמים</string>
     <string name="advanced_tools_description">‪Google Places, CalDAV, EteSync‬, ועוד!</string>
-    <string name="upgrade_subscription_banner">תודה על תמיכתך! יש לשדרג את המינוי שלך כדי להפעיל גיבוי בענן Tasks.org</string>
     <string name="alarm_before">לפני</string>
     <string name="alarm_after">אחרי</string>
     <string name="alarm_start">התחלה</string>

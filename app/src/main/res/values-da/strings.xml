@@ -658,7 +658,6 @@
     <string name="upgrade_email_to_task_description">Omdan e-mails til opgaver ved at videresende dem til din private indbakke</string>
     <string name="advanced_tools">Avancerede værktøjer</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync og flere!</string>
-    <string name="upgrade_subscription_banner">Tak for din støtte! Opgrader dit abonnement for at aktivere Tasks.org Cloud Sync</string>
     <string name="alarm_before">før</string>
     <string name="alarm_after">efter</string>
     <string name="alarm_start">start</string>

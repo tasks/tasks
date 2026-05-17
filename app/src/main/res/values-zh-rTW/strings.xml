@@ -617,7 +617,6 @@
     <string name="upgrade_email_to_task_description">將電子郵件轉發至您的私人收件匣即可將其轉為任務</string>
     <string name="advanced_tools">進階工具</string>
     <string name="advanced_tools_description">Google Places、CalDAV、EteSync 等！</string>
-    <string name="upgrade_subscription_banner">感謝您的支持！升級您的訂閱以啟用 Tasks.org 雲端同步</string>
     <string name="alarm_before">之前</string>
     <string name="alarm_after">之後</string>
     <string name="alarm_start">開始</string>

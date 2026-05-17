@@ -223,4 +223,16 @@
     <string name="restart_now">Рестартиране</string>
     <string name="restart_later">По-късно</string>
     <string name="cannot_access_account">Няма достъп до профила</string>
+    <string name="upgrade_subscription_banner">Благодаря за подкрепата! Надградете абонамента си, за да включва и облачното сонхронизиране на Tasks.org</string>
+    <string name="failed_to_save_task">Грешка при запаване на задачата</string>
+    <string name="show_more">Повече</string>
+    <string name="show_less">По-малко</string>
+    <string name="upgrade_to_pro_card_description">Отключване на облачната синхронизация на Tasks.org, споделяне със семейство и приятели, и задачи от писмо</string>
+    <string name="supporter_summary_no_price">Благодаря ви!</string>
+    <string name="guest">Гост</string>
+    <string name="shared_with_me">Споделено с мен</string>
+    <string name="shared_by">Споделено от %1$s</string>
+    <string name="guests">Гост (%1$d/%2$d)</string>
+    <string name="logout_confirmation">Излизане от %1$s?</string>
+    <string name="wrong_account">Грешка при влизане</string>
 </resources>

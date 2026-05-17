@@ -39,6 +39,14 @@ Submit a new Beta Build to Crashlytics Beta
 
 Deploy to internal track
 
+### android download_signed_apk
+
+```sh
+[bundle exec] fastlane android download_signed_apk
+```
+
+Download Play-signed universal APK
+
 ### android lint
 
 ```sh

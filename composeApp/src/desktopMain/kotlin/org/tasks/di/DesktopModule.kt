@@ -20,6 +20,7 @@ import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.DesktopEntitlement
 import org.tasks.billing.DesktopLinkClient
+import org.tasks.billing.EntitlementProvider
 import org.tasks.billing.DesktopLinkClientImpl
 import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.GitHubSponsorClientImpl
@@ -137,12 +138,14 @@ actual fun platformModule(): Module = module {
         val entitlement: DesktopEntitlement = get()
         object : SubscriptionProvider {
             override val subscription: Flow<SubscriptionProvider.SubscriptionInfo?> =
-                kotlinx.coroutines.flow.combine(entitlement.hasPro, entitlement.sku) { hasPro, sku ->
+                kotlinx.coroutines.flow.combine(entitlement.hasPro, entitlement.sku, entitlement.provider) { hasPro, sku, provider ->
                     if (hasPro) {
+                        val isMonthly = sku?.startsWith("monthly") == true
                         SubscriptionProvider.SubscriptionInfo(
                             sku = sku ?: "desktop_play",
-                            isMonthly = sku?.startsWith("monthly") == true,
-                            isTasksSubscription = false,
+                            isMonthly = isMonthly,
+                            isTasksSubscription = isTasksSubscription(sku, isMonthly),
+                            isGitHubSponsor = provider == EntitlementProvider.GITHUB_SPONSOR,
                         )
                     } else {
                         null
@@ -188,4 +191,14 @@ actual fun platformModule(): Module = module {
             tokenProvider = get(),
         )
     }
+}
+
+private val SKU_PATTERN = Regex("^(annual|monthly)_(\\d+)$")
+
+private fun isTasksSubscription(sku: String?, isMonthly: Boolean): Boolean {
+    if (sku == null) return false
+    val match = SKU_PATTERN.matchEntire(sku) ?: return false
+    val price = match.groupValues[2].toIntOrNull() ?: return false
+    val effectivePrice = if (price == 499) 5 else price
+    return if (isMonthly) effectivePrice >= 3 else effectivePrice >= 30
 }

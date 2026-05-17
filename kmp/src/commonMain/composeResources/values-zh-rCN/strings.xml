@@ -269,7 +269,7 @@
     <string name="documentation">文档</string>
     <string name="issue_tracker">问题跟踪器</string>
     <string name="contact_developer">联系开发者</string>
-    <string name="send_application_logs">发送程序日志</string>
+    <string name="send_application_logs">发送应用程序日志</string>
     <string name="follow_reddit">加入 r/tasks</string>
     <string name="follow_twitter">关注 @tasks_org</string>
     <string name="source_code">源代码</string>
@@ -287,4 +287,6 @@
     <string name="restart_now">马上重启</string>
     <string name="restart_later">稍后</string>
     <string name="cannot_access_account">无法访问账号</string>
+    <string name="upgrade_subscription_banner">感谢您的支持！升级您的订阅即可启用 Tasks.org 云同步</string>
+    <string name="subscription_not_found">未找到您的 Tasks.org 云订阅。如果您认为这是一个错误，请联系 %1$s</string>
 </resources>
