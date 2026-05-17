@@ -336,7 +336,7 @@
     <string name="refresh_purchases">Actualizar los acquisiciones</string>
     <string name="button_subscribe">Suscribe</string>
     <string name="pro_dashclock_extension">Extensión Dashclock</string>
-    <string name="requires_pro_subscription">Requiere suscripción Pro</string>
+    <string name="requires_pro_subscription">Requiere subscripción profesional</string>
     <string name="logout">Cerrar sesión</string>
     <string name="reinitialize_account">Reinicializar</string>
     <string name="action_create_new_task">Crear nueva tarea</string>
@@ -656,4 +656,14 @@
     <string name="comment">Comentario</string>
     <string name="delete_tasks_warning">%s será eliminado. ¡Esto no se puede deshacer!</string>
     <string name="widget_view_more_tasks">Ver más tareas</string>
+    <string name="import_failed">Importación fallida</string>
+    <string name="import_failed_message">No se pudo leer el archivo de respaldo</string>
+    <string name="legal_disclosure_prefix_using">Al utilizar Tasks.org</string>
+    <string name="accept">Aceptar</string>
+    <string name="rmd_EPr_rmd_time_desc">Las notificaciones de las tareas de todo el día aparecerán a las %1$s</string>
+    <string name="default_reminder">Todas las tareas diarias</string>
+    <string name="share_list">Compartir “%1$s”</string>
+    <string name="email_to_task">Correo electrónico a tarea</string>
+    <string name="email_to_task_address">Tu dirección de correo electrónico</string>
+    <string name="tos_updated_title">Hemos actualizado nuestras condiciones de uso</string>
 </resources>
