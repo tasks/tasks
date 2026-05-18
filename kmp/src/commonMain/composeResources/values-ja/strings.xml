@@ -244,4 +244,20 @@
     <string name="restart_later">あとで</string>
     <string name="cannot_access_account">アカウントにアクセスできません</string>
     <string name="upgrade_subscription_banner">ご支援ありがとうございます！ Tasks.org Cloudと同期するために、定期購入をアップグレードしましょう</string>
+    <string name="logout_confirmation">%1$sからログアウトしますか？</string>
+    <string name="wrong_account">サインインできませんでした</string>
+    <string name="wrong_account_message">あなたのサブスクリプションは %1$sにひもづいています。これが誤りだと思う場合は、%2$sにご連絡ください</string>
+    <string name="caldav_server_owncloud">自分のクラウド</string>
+    <string name="caldav_server_sabredav">sabre/dav</string>
+    <string name="caldav_server_openxchange">Open-Xchange</string>
+    <string name="caldav_server_nextcloud">Nextcloud</string>
+    <string name="caldav_server_synology_calendar">Synology Calendar</string>
+    <string name="caldav_server_mailbox_org">Mailbox.org</string>
+    <string name="link_desktop_step_1">Tasks.orgデスクトップアプリを開く</string>
+    <string name="link_desktop_step_2">\'%1$s\'をクリックして\'%2$s\'を選択</string>
+    <string name="link_desktop_step_3">\'%1$s\'を選択</string>
+    <string name="unlock_pro_scan_heading">Tasks.org AndroidアプリのQRコードを読み込んでください</string>
+    <string name="unlock_pro_step_1">スマホでTasks.orgを開いてください</string>
+    <string name="unlock_pro_step_2">「%1$s」をタップして開け、「%2$s」をタップします</string>
+    <string name="unlock_pro_step_3">「%1$s」をタップ</string>
 </resources>
