@@ -66,6 +66,7 @@ import org.tasks.viewmodel.CaldavAccountSettingsViewModel
 import org.tasks.viewmodel.EtebaseAccountSettingsViewModel
 import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.DrawerViewModel
+import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.LocalAccountViewModel
@@ -302,6 +303,17 @@ val commonModule = module {
             caldavDao = get(),
             tasksPreferences = get(),
             purchaseState = get(),
+            refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
+        )
+    }
+    viewModel { params ->
+        FilterPickerViewModel(
+            filterProvider = get(),
+            caldavDao = get(),
+            tasksPreferences = get(),
+            purchaseState = get(),
+            refreshBroadcaster = get<ComposeRefreshBroadcaster>(),
+            listsOnly = params.get(),
             refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
         )
     }

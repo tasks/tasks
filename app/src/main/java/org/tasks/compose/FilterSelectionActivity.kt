@@ -21,28 +21,21 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.core.content.IntentCompat
 import androidx.fragment.app.Fragment
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
-import org.tasks.LocalBroadcastManager
 import org.tasks.compose.pickers.SearchableFilterPicker
-import org.tasks.dialogs.FilterPickerViewModel
+import org.tasks.dialogs.FilterPickerHiltViewModel
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.NavigationDrawerSubheader
-import org.tasks.preferences.DefaultFilterProvider
-import org.tasks.preferences.Preferences
-import org.tasks.widget.WidgetPreferences
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class FilterSelectionActivity : AppCompatActivity() {
-    @Inject lateinit var preferences: Preferences
-    @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +46,7 @@ class FilterSelectionActivity : AppCompatActivity() {
             MaterialTheme(
                 colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
             ) {
-                val viewModel: FilterPickerViewModel = viewModel()
+                val viewModel: FilterPickerHiltViewModel = hiltViewModel()
                 val state = viewModel.viewState.collectAsStateWithLifecycle().value
                 BasicAlertDialog(
                     onDismissRequest = { finish() },
@@ -71,12 +64,16 @@ class FilterSelectionActivity : AppCompatActivity() {
                             finish()
                         }
                     }
+                    val isDark = isSystemInDarkTheme()
+                    val onSurface = MaterialTheme.colorScheme.onSurface.toArgb()
                     SearchableFilterPicker(
                         filters = if (searching) state.searchResults else state.filters,
                         query = state.query,
                         onQueryChange = { viewModel.onQueryChange(it) },
                         getIcon = { viewModel.getIcon(it) },
-                        getColor = { viewModel.getColor(this@FilterSelectionActivity, it) },
+                        getColor = { filter ->
+                            viewModel.getColor(filter.tint, isDark) ?: onSurface
+                        },
                         selected = selected,
                         onClick = { filter ->
                             when (filter) {
@@ -88,13 +85,7 @@ class FilterSelectionActivity : AppCompatActivity() {
                                     val data = Bundle()
                                     data.putParcelable(EXTRA_FILTER, filter)
                                     if (widgetId != -1) {
-                                        WidgetPreferences(this, preferences, widgetId)
-                                            .setFilter(
-                                                defaultFilterProvider.getFilterPreferenceValue(
-                                                    filter
-                                                )
-                                            )
-                                        localBroadcastManager.reconfigureWidget(widgetId)
+                                        viewModel.updateWidget(widgetId, filter)
                                     }
                                     setResult(RESULT_OK, Intent().putExtras(data))
                                     finish()

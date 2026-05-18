@@ -13,11 +13,17 @@ data class ThemeColor(
 
 object ColorProvider {
     const val BLUE_500 = -14575885
+    private const val BLUE_GREY_500 = -10453621
+    private const val GREY_900 = -14606047
     private const val RED_500 = -769226
     private const val AMBER_500 = -16121
     private const val GREY_500 = -6381922
     const val WHITE = -1
     const val BLACK = -16777216
+
+    private val FREE_COLORS = setOf(BLUE_500, BLUE_GREY_500, GREY_900)
+
+    fun isFreeColor(color: Int) = color in FREE_COLORS
 
     // Preset colors from the color picker (hex values from kmp/src/androidMain/res/values/colors.xml)
     val PRESET_COLORS: Set<Int> = setOf(
