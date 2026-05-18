@@ -38,13 +38,6 @@
     <string name="markdown">มาร์กดาวน์</string>
     <string name="more_options">ตัวเลือกเพิ่มเติม</string>
     <string name="upgrade_tasks_org_account_description">ซิงค์กับ Tasks.org และทํางานร่วมกับผู้ใช้รายอื่น</string>
-    <string name="invite_invalid">การเชิญไม่ถูกต้อง</string>
-    <string name="invite_awaiting_response">คําเชิญที่กําลังรอการตอบกลับ</string>
-    <string name="invite_declined">ปฏิเสธคำเชิญ</string>
-    <string name="email">อีเมล</string>
-    <string name="remove_user_confirmation">%1$s จะไม่สามารถเข้าถึง %2$s ได้อีกต่อไป</string>
-    <string name="remove_user">ลบผู้ใช้หรือไม่\?</string>
-    <string name="list_members">รายชื่อสมาชิก</string>
     <string name="tasks_org_account_required">Tasks.org บัญชีลูกค้า</string>
     <string name="copied_to_clipboard">%s คัดลอกไปยังคลิปบอร์ดแล้ว</string>
     <string name="app_passwords_more_info">ซิงโครไนซ์งานและปฏิทินของคุณกับเดสก์ท็อปและแอปสําหรับอุปกรณ์เคลื่อนที่ของบริษัทอื่น แตะที่นี่สําหรับข้อมูลเพิ่มเติม</string>

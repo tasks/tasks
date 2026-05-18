@@ -366,7 +366,6 @@
     <string name="choose_new_location">Zvoliť novú polohu</string>
     <string name="TEA_add_subtask">Pridať podúlohu</string>
     <string name="SSD_sort_my_order">Vlastné poradie</string>
-    <string name="email">E-mail</string>
     <string name="ok">OK</string>
     <string name="cancel">Zrušiť</string>
     <string name="CFC_startBefore_text">Spustenie pred: ?</string>
@@ -567,7 +566,6 @@
     <string name="upgrade_open_source_description">Vaše predplatné podporí ďalší vývoj aplikácie</string>
     <string name="back">Späť</string>
     <string name="github_sponsors">Sponzori na GitHube</string>
-    <string name="list_members">Členovia zoznamu</string>
     <string name="save_percent">Ušetríte %d%%</string>
     <string name="calendar_event_created">Udalosť v kalendári vytvorená pre %s</string>
     <string name="compact">Kompaktný</string>
@@ -624,7 +622,6 @@
     <string name="app_password">Heslo aplikácie</string>
     <string name="sign_in_with_google">Prihlásenie účtom Google</string>
     <string name="app_passwords_more_info">Synchronizujte svoje úlohy a kalendáre s desktopovými a mobilnými aplikáciami tretích strán. Pre viac informácii kliknite sem</string>
-    <string name="invite_invalid">Neplatná pozvánka</string>
     <string name="add_shortcut_to_home_screen">Pridať skratku na domovskú obrazovku</string>
     <string name="multiline_title">Povoliť názvy na viac riadkov</string>
     <string name="multiline_title_on">Stlačením Enter pridáte konce riadkov</string>
@@ -632,11 +629,7 @@
     <string name="enable_reminders">Povoliť pripomienky</string>
     <string name="hint_customize_edit_body">Túto obrazovku si môžete prispôsobiť preskupením alebo odobraním polí</string>
     <string name="add_widget_to_home_screen">Pridať widget na domovskú obrazovku</string>
-    <string name="remove_user_confirmation">%1$s už nebude mať prístup k %2$s</string>
-    <string name="invite_awaiting_response">Pozvánka čaká na odpoveď</string>
-    <string name="invite_declined">Pozvánka bola odmietnutá</string>
     <string name="upgrade_tasks_org_account_description">Synchronizujte s Tasks.org a spolupracujte s ostatnými používateľmi</string>
-    <string name="remove_user">Odobrať používateľa?</string>
     <string name="pro_free_trial">Noví predplatitelia dostanú 7 dní na bezplatné otestovanie. Predplatné je možné kedykoľvek zrušiť</string>
     <string name="upgrade_more_customization">Ďalšie prispôsobenie</string>
     <string name="upgrade_more_customization_description">Odomknúť všetky motívy, farby a ikony</string>

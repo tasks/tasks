@@ -520,13 +520,9 @@
     <string name="start_date">Startdato</string>
     <string name="widget_show_title">Vis tittel</string>
     <string name="tasks_org_account_required">Tasks.org-konto kreves</string>
-    <string name="list_members">Liste over medlemmer</string>
-    <string name="remove_user_confirmation">%1$s vil ikke lenger ha tilgang til %2$s</string>
-    <string name="remove_user">Fjern bruker\?</string>
     <string name="privacy">Personvern</string>
     <string name="open_source">Åpen kilde</string>
     <string name="support">Støtte</string>
-    <string name="email">E-post</string>
     <string name="markdown_description">Aktiver Markdown i tittel og beskrivelse</string>
     <string name="markdown">Markdown</string>
     <string name="more_options">Flere innstillinger</string>
@@ -535,9 +531,6 @@
     <string name="upgrade_more_customization_description">Lås opp alle temaer, farger og ikoner</string>
     <string name="upgrade_more_customization">Mer tilpasning</string>
     <string name="pro_free_trial">Nye abonnenter får en 7-dagers gratis prøveperiode. Avbryt når som helst</string>
-    <string name="invite_invalid">Invitasjon ugyldig</string>
-    <string name="invite_awaiting_response">Inviter venter på svar</string>
-    <string name="invite_declined">Invitasjon avslått</string>
     <string name="next_saturday">Neste lør</string>
     <string name="next_friday">Neste fre</string>
     <string name="next_thursday">Neste tor</string>

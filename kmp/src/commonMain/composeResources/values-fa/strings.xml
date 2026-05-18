@@ -66,4 +66,6 @@
     <string name="restart_now">اکنون ریست کن</string>
     <string name="restart_later">بعدا</string>
     <string name="blog_feed_none">هیچکدام</string>
+    <string name="new_list">ایجاد لیست جدید</string>
+    <string name="color">رنگ</string>
 </resources>

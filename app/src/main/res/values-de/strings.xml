@@ -518,14 +518,7 @@
     <string name="open_source">Open-Source</string>
     <string name="support">Support</string>
     <string name="tasks_org_account_required">Tasks.org-Konto erforderlich</string>
-    <string name="invite_awaiting_response">Einladung wartet auf Antwort</string>
-    <string name="remove_user_confirmation">%1$s wird keinen Zugriff mehr auf %2$s haben</string>
-    <string name="remove_user">Benutzer entfernen\?</string>
-    <string name="list_members">Listenmitglieder</string>
     <string name="privacy">Datenschutz</string>
-    <string name="invite_invalid">Einladung ungültig</string>
-    <string name="invite_declined">Einladung abgelehnt</string>
-    <string name="email">E-Mail</string>
     <string name="more_options">Weitere Optionen</string>
     <string name="upgrade_open_source_description">Dein Abonnement unterstützt die Weiterentwicklung</string>
     <string name="upgrade_tasks_org_account_description">Mit Tasks.org synchronisieren und mit anderen zusammenarbeiten</string>
@@ -662,10 +655,7 @@
     <string name="add_default_reminders">Standarderinnerungen hinzufügen</string>
     <string name="rmd_time_enabled_on">Standarderinnerungen für alle Aufgaben ohne Uhrzeit hinzufügen</string>
     <string name="rmd_time_enabled_off">Keine Standarderinnerungen für Aufgaben ohne Uhrzeit hinzufügen</string>
-    <string name="invalid_email_address">Ungültige E-Mail-Adresse</string>
     <string name="upgrade_friends_and_family">Freunde &amp; Familie</string>
-    <string name="send">Senden</string>
-    <string name="share_list">„%1$s“ teilen</string>
     <string name="guest_create_list_message">Du hast derzeit Gastzugriff auf freigegebene Listen. Um deine eigenen privaten Listen zu erstellen und mit der Cloud zu synchronisieren, benötigst du ein Tasks.org-Abo. Alternativ kannst du kostenlos eine lokale Liste erstellen, die auf diesem Gerät gespeichert bleibt.</string>
     <string name="upgrade_friends_and_family_description">5 kostenlose Gäste auf gemeinsamen Listen. Funktioniert mit Apple Reminders</string>
     <string name="per_list_sort_summary">Sortier- und Gruppierungseinstellungen für jede Liste unabhängig speichern</string>

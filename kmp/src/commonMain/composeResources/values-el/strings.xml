@@ -186,4 +186,16 @@
     <string name="restart_later">Αργότερα</string>
     <string name="blog_feed_none">Κανένα</string>
     <string name="cannot_access_account">Δεν υπάρχει πρόσβαση στο λογαριασμό</string>
+    <string name="new_list">Δημιουργία νέας λίστας</string>
+    <string name="list_members">Μέλη λίστας</string>
+    <string name="remove_user">Αφαίρεση χρήστη;</string>
+    <string name="remove_user_confirmation">%1$s δεν θα έχει πλέον πρόσβαση στο %2$s</string>
+    <string name="invite_declined">Η πρόσκληση απορρίφθηκε</string>
+    <string name="invite_awaiting_response">Αναμένεται απάντηση στην πρόσκληση</string>
+    <string name="invite_invalid">Μη έγκυρη πρόσκληση</string>
+    <string name="email">Ηλε. ταχυδρομείο</string>
+    <string name="color">Χρώμα</string>
+    <string name="icon">Εικονίδιο</string>
+    <string name="share">Μοιραστείτε το</string>
+    <string name="list_settings">Ρυθμίσεις λίστας</string>
 </resources>

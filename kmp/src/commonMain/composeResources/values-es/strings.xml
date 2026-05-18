@@ -248,4 +248,17 @@
     <string name="link_desktop_error">No se ha podido vincular el escritorio. Inténtalo de nuevo.</string>
     <string name="unlock_pro_scan_heading">Escanea el código QR en la aplicación de Tasks.org para Android</string>
     <string name="unlock_pro_step_1">Abre Tasks.org en tu teléfono</string>
+    <string name="new_list">Crea una nueva lista</string>
+    <string name="list_members">Lista de miembros</string>
+    <string name="remove_user">¿Quiere quitar al usuario?</string>
+    <string name="remove_user_confirmation">%1$s ya no tendrá acceso a %2$s</string>
+    <string name="share_list">Compartir “%1$s”</string>
+    <string name="invite_declined">Invitación declinada</string>
+    <string name="invite_awaiting_response">Invitación en espera de respuesta</string>
+    <string name="invite_invalid">Invitación no válida</string>
+    <string name="email">Correo electrónico</string>
+    <string name="color">Color</string>
+    <string name="icon">Icono</string>
+    <string name="share">Compartir</string>
+    <string name="list_settings">Configuración de lista</string>
 </resources>

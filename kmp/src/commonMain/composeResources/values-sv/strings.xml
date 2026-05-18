@@ -288,4 +288,19 @@
     <string name="blog_feed_announcements">Endast tillkännagivanden</string>
     <string name="blog_feed_all">Alla inlägg</string>
     <string name="cannot_access_account">Kan inte komma åt kontot</string>
+    <string name="new_list">Skapa en ny lista</string>
+    <string name="list_members">Förteckning över medlemmar</string>
+    <string name="remove_user">Ta bort användaren?</string>
+    <string name="remove_user_confirmation">%1$s kommer inte längre att ha tillgång till %2$s</string>
+    <string name="share_list">Dela "%1$s"</string>
+    <string name="invalid_email_address">Ogiltig e-postadress</string>
+    <string name="invite_declined">Inbjudan avfärdad</string>
+    <string name="invite_awaiting_response">Inbjudan väntar på svar</string>
+    <string name="invite_invalid">Inbjudan ogiltig</string>
+    <string name="send">Skicka</string>
+    <string name="email">E-post</string>
+    <string name="color">Färg</string>
+    <string name="icon">Ikon</string>
+    <string name="share">Dela</string>
+    <string name="list_settings">Listinställningar</string>
 </resources>

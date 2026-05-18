@@ -449,7 +449,6 @@
     <string name="open_last_viewed_list">Avaa viimeksi katsottu lista</string>
     <string name="on_launch">Käynnistettäessä</string>
     <string name="CFC_list_name">listalla…</string>
-    <string name="email">Sähköposti</string>
     <string name="date_shortcut_tomorrow_night">Huomenna illalla</string>
     <string name="backups_ignore_warnings_summary">Jätä varmuuskopiointivaroitukset huomiotta, jos et tarvitse varmuuskopioita tai sinulla on oma varmuuskopiointiratkaisu</string>
     <string name="astrid_sort_order_summary">Ota käyttöön Astridin manuaalinen lajittelutila \'Omat tehtävät\', \'Tänään\' ja tunnisteet. Tämä lajittelutila korvataan \'Oma järjestys\'-tilalla tulevassa päivityksessä</string>
@@ -462,12 +461,6 @@
     <string name="upgrade_more_customization_description">Avaa kaikki teemat, värit ja kuvakkeet</string>
     <string name="upgrade_more_customization">Lisää räätälöintiä</string>
     <string name="pro_free_trial">Uudet tilaajat saavat 7 päivän ilmaisen kokeilujakson. Peruuta milloin tahansa</string>
-    <string name="invite_invalid">Kutsu on mitätön</string>
-    <string name="invite_awaiting_response">Kutsu odottaa vastausta</string>
-    <string name="invite_declined">Kutsu hylätty</string>
-    <string name="remove_user_confirmation">%1$s ei enää pääse %2$s:een</string>
-    <string name="remove_user">Poista käyttäjä\?</string>
-    <string name="list_members">Luettelo jäsenistä</string>
     <string name="account_not_included">Ei sisälly \"Nimeä hintasi\" -tilauksiin</string>
     <string name="tasks_org_account_required">Tarvitaan Tasks.org-tili</string>
     <string name="copied_to_clipboard">%s kopioitu leikepöydälle</string>

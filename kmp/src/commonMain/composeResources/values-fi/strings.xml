@@ -199,4 +199,16 @@
     <string name="restart_later">Myöhemmin</string>
     <string name="blog_feed_none">Ei mitään</string>
     <string name="cannot_access_account">Tiliin ei päästä käsiksi</string>
+    <string name="new_list">Luo uusi lista</string>
+    <string name="list_members">Luettelo jäsenistä</string>
+    <string name="remove_user">Poista käyttäjä?</string>
+    <string name="remove_user_confirmation">%1$s ei enää pääse %2$s:een</string>
+    <string name="invite_declined">Kutsu hylätty</string>
+    <string name="invite_awaiting_response">Kutsu odottaa vastausta</string>
+    <string name="invite_invalid">Kutsu on mitätön</string>
+    <string name="email">Sähköposti</string>
+    <string name="color">Väri</string>
+    <string name="icon">Kuvake</string>
+    <string name="share">Jaa</string>
+    <string name="list_settings">Listan asetukset</string>
 </resources>

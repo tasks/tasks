@@ -476,7 +476,6 @@
     <string name="ok">Aceitar</string>
     <string name="repeat_type_completion_capitalized">Data de término</string>
     <string name="always_display_full_date">Mostrar data completa</string>
-    <string name="email">Correio eletrónico</string>
     <string name="markdown_description">Ativar código Markdown no título e descrição</string>
     <string name="markdown">Código Markdown</string>
     <string name="more_options">Mais opções</string>
@@ -485,12 +484,6 @@
     <string name="upgrade_more_customization_description">Desbloqueie todos os temas, cores e ícones</string>
     <string name="upgrade_more_customization">Mais personalizações</string>
     <string name="pro_free_trial">Os novos subscritores recebem 7 dias de teste grátis. Cancele a qualquer momento</string>
-    <string name="invite_invalid">Convite inválido</string>
-    <string name="invite_awaiting_response">Convite a aguardar resposta</string>
-    <string name="invite_declined">Convite cancelado</string>
-    <string name="remove_user_confirmation">%1$s deixará de ter acesso a %2$s</string>
-    <string name="remove_user">Remover utilizador\?</string>
-    <string name="list_members">Lista de membros</string>
     <string name="account_not_included">Não incluído nas subscrições de \'Dê o seu preço\'</string>
     <string name="tasks_org_account_required">É necessária uma conta no Tasks.org</string>
     <string name="copied_to_clipboard">%s copiado para a área de transferência</string>

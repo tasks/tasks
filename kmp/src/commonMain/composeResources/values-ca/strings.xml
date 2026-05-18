@@ -188,4 +188,16 @@
     <string name="restart_later">Després</string>
     <string name="blog_feed_none">Cap</string>
     <string name="cannot_access_account">No es pot accedir al compte</string>
+    <string name="new_list">Creeu una nova llista</string>
+    <string name="list_members">Llista de membres</string>
+    <string name="remove_user">Voleu suprimir l'usuari?</string>
+    <string name="remove_user_confirmation">%1$s ja no tindrà accés a %2$s</string>
+    <string name="invite_declined">Invitació rebutjada</string>
+    <string name="invite_awaiting_response">Convideu a esperar resposta</string>
+    <string name="invite_invalid">Convida no vàlida</string>
+    <string name="email">Correu-e</string>
+    <string name="color">Color</string>
+    <string name="icon">Icona</string>
+    <string name="share">Compartiu</string>
+    <string name="list_settings">Preferències de les llistes</string>
 </resources>

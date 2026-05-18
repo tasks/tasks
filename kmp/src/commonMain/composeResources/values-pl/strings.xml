@@ -179,4 +179,16 @@
     <string name="restart_later">Póżniej</string>
     <string name="blog_feed_none">Brak</string>
     <string name="cannot_access_account">Brak dostępu do konta</string>
+    <string name="new_list">Utwórz nową listę</string>
+    <string name="list_members">Członkowie listy</string>
+    <string name="remove_user">Usunąć użytkownika?</string>
+    <string name="remove_user_confirmation">%1$s nie będzie miał już dostępu do %2$s</string>
+    <string name="invite_declined">Zaproszenie odrzucone</string>
+    <string name="invite_awaiting_response">Zaproszenie oczekuje na odpowiedź</string>
+    <string name="invite_invalid">Zaproszenie nieważne</string>
+    <string name="email">Poczta elektroniczna</string>
+    <string name="color">Kolor</string>
+    <string name="icon">Ikona</string>
+    <string name="share">Udostępnij</string>
+    <string name="list_settings">Ustawienie listy</string>
 </resources>

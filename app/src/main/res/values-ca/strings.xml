@@ -103,7 +103,6 @@
     <string name="TEA_control_repeat">Repeteix</string>
     <string name="due_time">Hora de venciment</string>
     <string name="TEA_timer_elap">Transcorregut %s</string>
-    <string name="email">Correu-e</string>
     <string name="EPr_default_location_reminder_title">Recordatoris d\'ubicació per defecte</string>
     <string name="EPr_default_reminders_title">Recordatoris predeterminats</string>
     <string name="default_due_date">Data de venciment predeterminada</string>
@@ -612,12 +611,6 @@
     <string name="copied_to_clipboard">%s copiat al porta-retalls</string>
     <string name="tasks_org_account_required">Cal un compte de Tasks.org</string>
     <string name="account_not_included">No inclòs amb les subscripcions \'Preu flexible\'</string>
-    <string name="list_members">Llista de membres</string>
-    <string name="remove_user">Voleu suprimir l\'usuari?</string>
-    <string name="remove_user_confirmation">%1$s ja no tindrà accés a %2$s</string>
-    <string name="invite_declined">Invitació rebutjada</string>
-    <string name="invite_awaiting_response">Convideu a esperar resposta</string>
-    <string name="invite_invalid">Convida no vàlida</string>
     <string name="pro_free_trial">Els nous abonats reben una prova gratuïta de 7 dies. Cancel·leu en qualsevol moment</string>
     <string name="upgrade_more_customization">Més personalització</string>
     <string name="upgrade_more_customization_description">Desbloquegeu tots els temes, colors i icones</string>

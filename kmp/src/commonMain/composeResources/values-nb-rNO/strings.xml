@@ -174,4 +174,16 @@
     <string name="restart_later">Senere</string>
     <string name="blog_feed_none">Ingen</string>
     <string name="cannot_access_account">Får ikke tilgang til konto</string>
+    <string name="new_list">Opprett en ny liste</string>
+    <string name="list_members">Liste over medlemmer</string>
+    <string name="remove_user">Fjern bruker?</string>
+    <string name="remove_user_confirmation">%1$s vil ikke lenger ha tilgang til %2$s</string>
+    <string name="invite_declined">Invitasjon avslått</string>
+    <string name="invite_awaiting_response">Inviter venter på svar</string>
+    <string name="invite_invalid">Invitasjon ugyldig</string>
+    <string name="email">E-post</string>
+    <string name="color">Farge</string>
+    <string name="icon">Ikon</string>
+    <string name="share">Del</string>
+    <string name="list_settings">Listeinnstillinger</string>
 </resources>

@@ -23,4 +23,5 @@
     <string name="SSD_sort_auto">Pametno razvrščanje</string>
     <string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>
     <string name="backup_BPr_header">Varnostne kopije</string>
+    <string name="email">E-pošta</string>
 </resources>

@@ -441,7 +441,6 @@
     <string name="default_start_date">預設起始日期</string>
     <string name="start_date">起始日期</string>
     <string name="SSD_sort_start">根據起始日期</string>
-    <string name="email">電子郵件</string>
     <string name="repeats_from">重複開始</string>
     <string name="list">清單</string>
     <string name="opacity_row">行列透明度</string>
@@ -486,7 +485,6 @@
     <string name="customize_edit_screen_summary">重新排列或移除欄位</string>
     <string name="TEA_creation_date">建立日期</string>
     <string name="decsync_selection_description">基於檔案的同步</string>
-    <string name="remove_user">刪除使用者？</string>
     <string name="completion_sound">播放完成提示音</string>
     <string name="markdown">Markdown</string>
     <string name="markdown_description">在標題和描述中啟用 Markdown</string>
@@ -507,11 +505,8 @@
     <string name="places">地點</string>
     <string name="pro_dashclock_extension">Dashclock 擴充</string>
     <string name="auto_dismiss_datetime_edit_summary">選擇任務編輯時自動關閉</string>
-    <string name="remove_user_confirmation">%1$s 將不再存取 %2$s 的資料庫</string>
     <string name="snackbar_task_completed">任務已完成</string>
     <string name="sort_created_group">建立於 %s</string>
-    <string name="invite_declined">邀請已拒絕</string>
-    <string name="invite_awaiting_response">邀請等待回覆</string>
     <string name="backup_location_warning">警告：如果移除 Tasks 應用程式，位於%s的檔案將會被刪除！請選擇自訂位置，以防止 Android 刪除您的檔案。</string>
     <string name="multi_select_reschedule">重新安排</string>
     <string name="above_average">高於平均</string>
@@ -553,8 +548,6 @@
     <string name="account_not_included">並不包含「隨意價格」訂閱</string>
     <string name="alarm_after_due">到期後 %s</string>
     <string name="pro_free_trial">新訂閱者享有 7 天免費試用。隨時取消</string>
-    <string name="list_members">清單成員</string>
-    <string name="invite_invalid">邀請無效</string>
     <string name="upgrade_tasks_org_account_description">與 Tasks.org 同步，並與其他用戶協作</string>
     <string name="upgrade_more_customization">更多自訂</string>
     <string name="local_lists">本機清單</string>
@@ -642,9 +635,6 @@
     <string name="button_learn_more">深入了解</string>
     <string name="widget_view_more_tasks">檢視更多任務</string>
     <string name="banner_app_updated_title">應用程式已更新</string>
-    <string name="invalid_email_address">電子郵件地址無效</string>
-    <string name="share_list">分享「%1$s」</string>
-    <string name="send">傳送</string>
     <string name="guest_create_list_message">您目前擁有共享清單的訪客存取權限。若要建立並同步自己的私人清單至雲端，您需要 Tasks.org 訂閱。或者，您可以建立免費的本地清單，留在此裝置上。</string>
     <string name="upgrade_friends_and_family">家人和朋友</string>
     <string name="upgrade_friends_and_family_description">共享清單 5 個免費訪客。支援 Apple Reminders</string>

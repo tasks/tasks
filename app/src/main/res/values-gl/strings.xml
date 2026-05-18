@@ -207,7 +207,6 @@
     <string name="delete_multiple_tasks_confirmation">%s borradas</string>
     <string name="delete_selected_tasks">Borrar as tarefas seleccionadas\?</string>
     <string name="copy_selected_tasks">Copiar as tareas seleccionadas\?</string>
-    <string name="email">Correo electrónico</string>
     <string name="ok">Aceptar</string>
     <string name="default_due_date">Data de fin por defecto</string>
     <string name="upgrade_to_pro">Anovar a pro</string>
@@ -325,7 +324,6 @@
     </plurals>
     <string name="settings_default">Predefinido</string>
     <string name="migrate_count">Mover %s a Tasks.org</string>
-    <string name="list_members">Lista de participantes</string>
     <string name="more_options">Máis opcións</string>
     <string name="snackbar_tasks_completed">%d tarefas finalizadas</string>
     <string name="next_sunday">Próx Dom</string>
@@ -350,8 +348,6 @@
     <string name="account">Conta</string>
     <string name="custom_filter_has_subtask">Ten subtarefas</string>
     <string name="tasks_org_account_required">Precísase de conta en Tasks.org</string>
-    <string name="remove_user">Borrar usuario\?</string>
-    <string name="invite_invalid">Convite non válido</string>
     <string name="upgrade_more_customization">Máis opcións</string>
     <string name="upgrade_more_customization_description">Desbloquear todos os temas, cores e iconas</string>
     <string name="markdown">Markdown</string>
@@ -459,8 +455,6 @@
     <string name="save_percent">Gardar %d%%</string>
     <string name="app_password">Contrasinal da app</string>
     <string name="copied_to_clipboard">%s copiadas ao portaretallos</string>
-    <string name="invite_declined">Convite rexeitado</string>
-    <string name="invite_awaiting_response">Convite en agarda</string>
     <string name="completed">Finalizada</string>
     <string name="snoozed_until">Posposta ata %s</string>
     <plurals name="reminder_minutes">
@@ -549,7 +543,6 @@
     <string name="github_sponsors">Patrocinadores de GitHub</string>
     <string name="github_sponsor">Patrocinador</string>
     <string name="account_not_included">Non incluído nas subscricións de \'Prezo flexible\'</string>
-    <string name="remove_user_confirmation">%1$s xa non terá acceso a %2$s</string>
     <string name="pro_free_trial">Os novos subscritores reciben unha proba gratuíta de 7 días. Cancela en calquera momento</string>
     <string name="upgrade_tasks_org_account_description">Sincroniza con Tasks.org e colabora con outros usuarios</string>
     <string name="upgrade_open_source_description">A túa subscrición apoia o desenvolvemento continuo</string>

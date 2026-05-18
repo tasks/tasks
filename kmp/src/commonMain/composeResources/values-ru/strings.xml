@@ -200,4 +200,16 @@
     <string name="restart_later">Позже</string>
     <string name="blog_feed_none">Нет</string>
     <string name="cannot_access_account">Учётная запись недоступна</string>
+    <string name="new_list">Создать новый список</string>
+    <string name="list_members">Список участников</string>
+    <string name="remove_user">Удалить пользователя?</string>
+    <string name="remove_user_confirmation">%1$s больше не будет иметь доступа к %2$s</string>
+    <string name="invite_declined">Приглашение отклонено</string>
+    <string name="invite_awaiting_response">Приглашение в ожидании ответа</string>
+    <string name="invite_invalid">Приглашение недействительно</string>
+    <string name="email">Эл. почта</string>
+    <string name="color">Цвет</string>
+    <string name="icon">Иконка</string>
+    <string name="share">Поделиться</string>
+    <string name="list_settings">Настройки списка</string>
 </resources>

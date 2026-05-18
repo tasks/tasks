@@ -212,4 +212,17 @@
     <string name="blog_feed_none">Празно</string>
     <string name="cannot_access_account">Не може се приступити налогу</string>
     <string name="upgrade_subscription_banner">Хвала на подршци! Унапреди претплату за омогућену Tasks.org Cloud синхронизацију</string>
+    <string name="new_list">Креирај нову листу</string>
+    <string name="list_members">Чланови листе</string>
+    <string name="remove_user">Уклонити корисника?</string>
+    <string name="remove_user_confirmation">%1$s више нема приступ до %2$s</string>
+    <string name="invalid_email_address">Невалидна мејл адреса</string>
+    <string name="invite_declined">Позив одбијен</string>
+    <string name="invite_awaiting_response">Чека се на одговор</string>
+    <string name="invite_invalid">Невалидан позив</string>
+    <string name="email">Е-пошта</string>
+    <string name="color">Боја</string>
+    <string name="icon">Иконица</string>
+    <string name="share">Подели</string>
+    <string name="list_settings">Подешавања листе</string>
 </resources>

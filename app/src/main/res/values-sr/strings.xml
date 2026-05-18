@@ -27,7 +27,6 @@
     <string name="read_permission_label">Дозволе задатака</string>
     <string name="import_progress_read">Учитавам задатак %d…</string>
     <string name="TLA_menu_settings">Подешавања</string>
-    <string name="email">Е-пошта</string>
     <string name="import_summary_message">Датотека %1$s садржи %2$s.\n\n %3$s увезених,\n %4$s већ постојећих\n %5$s са грешкама</string>
     <string name="default_list">Подразумевана листа</string>
     <string name="help_and_feedback">Помоћ и повратне информације</string>
@@ -610,12 +609,6 @@
     <string name="copied_to_clipboard">%s копирано у привремену меморију</string>
     <string name="tasks_org_account_required">Неопходан налог на Tasks.org</string>
     <string name="account_not_included">Није укључено у ,,Задај цену\'\' тип претплате</string>
-    <string name="list_members">Чланови листе</string>
-    <string name="remove_user">Уклонити корисника?</string>
-    <string name="remove_user_confirmation">%1$s више нема приступ до %2$s</string>
-    <string name="invite_declined">Позив одбијен</string>
-    <string name="invite_awaiting_response">Чека се на одговор</string>
-    <string name="invite_invalid">Невалидан позив</string>
     <string name="pro_free_trial">Нови претплатници добијају 7-дневно бесплатно коришћење. Може се отказати у било ком тренутку</string>
     <string name="upgrade_more_customization">Додатно прилагоди</string>
     <string name="upgrade_more_customization_description">Откључај све теме, боје, и иконице</string>
@@ -672,7 +665,6 @@
     <string name="alarm_start">старт</string>
     <string name="alarm_after">након</string>
     <string name="alarm_before">пре</string>
-    <string name="invalid_email_address">Невалидна мејл адреса</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync, и још тога!</string>
     <string name="advanced_tools">Напредна подешавања</string>
     <string name="upgrade_email_to_task_description">Претвори мејлове у задатке прослеђивањем истих у своје поштанско сандуче</string>

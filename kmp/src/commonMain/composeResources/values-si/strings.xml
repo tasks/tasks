@@ -158,4 +158,16 @@
     <string name="restart_later">පසුව</string>
     <string name="blog_feed_none">කිසිවක් නැත</string>
     <string name="cannot_access_account">ගිණුමට ප්‍රවේශ විය නොහැක</string>
+    <string name="new_list">නව ලැයිස්තුවක් සාදන්න</string>
+    <string name="list_members">සාමාජික ලැයිස්තුව</string>
+    <string name="remove_user">පරිශීලකයා ඉවත් කරන්නද?</string>
+    <string name="remove_user_confirmation">%1$s හට තවදුරටත් %2$s වෙත ප්‍රවේශය නොලැබේ</string>
+    <string name="invite_declined">ආරාධනය ප්‍රතික්ෂේප විය</string>
+    <string name="invite_awaiting_response">ප්‍රතිචාරයක් බලාපොරොත්තුවෙන් ඇති ආරාධන</string>
+    <string name="invite_invalid">ආරාධනය අවලංගුයි</string>
+    <string name="email">විද්යුත් තැපෑල</string>
+    <string name="color">වර්ණය</string>
+    <string name="icon">අයිකනය</string>
+    <string name="share">බෙදාගන්න</string>
+    <string name="list_settings">ලැයිස්තු සැකසුම්</string>
 </resources>

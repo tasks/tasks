@@ -518,13 +518,6 @@
     <string name="privacy">Gizlilik</string>
     <string name="open_source">Açık kaynak</string>
     <string name="support">Destek</string>
-    <string name="remove_user_confirmation">%1$s, artık %2$s erişimini yitirecek</string>
-    <string name="remove_user">Kullanıcıyı kaldır\?</string>
-    <string name="list_members">Üyeleri listele</string>
-    <string name="invite_invalid">Davet geçersiz</string>
-    <string name="invite_awaiting_response">Davet yanıt bekliyor</string>
-    <string name="invite_declined">Davet reddedildi</string>
-    <string name="email">E-posta</string>
     <string name="more_options">Daha çok seçenek</string>
     <string name="upgrade_open_source_description">Aboneliğiniz geliştirmenin sürekliliğini destekler</string>
     <string name="upgrade_more_customization_description">Tüm gövdeler, renkler ve simgeler kullanılabilir</string>
@@ -662,9 +655,6 @@
     <string name="advanced_tools">Gelişmiş araçlar</string>
     <string name="advanced_tools_description">Google Yerler, CalDAV, EteSync ve dahası!</string>
     <string name="rmd_EPr_rmd_time_desc">Tüm gün görevleri için bildirimlerin görüneceği an: %1$s</string>
-    <string name="invalid_email_address">Geçersiz e-posta adresi</string>
-    <string name="share_list">Paylaş \"%1$s\"</string>
-    <string name="send">Gönder</string>
     <string name="guest_create_list_message">Bu paylaşılan listeye konuk erişiminiz var. Kendi özel listelerinizi oluşturmak ve buluta eşzamanlamak için Tasks.org aboneliğine gereksineceksiniz. Ya da bu aygıtta kalacak ücretsiz yerel liste oluştuabilirsiniz.</string>
     <string name="upgrade_friends_and_family">Arkadaşlar &amp; Aile</string>
     <string name="upgrade_friends_and_family_description">Paylaşılan listelerde 5 ücretsiz konuk. Apple Anımsatıcılar ile çalışır</string>

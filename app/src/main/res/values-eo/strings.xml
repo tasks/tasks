@@ -176,7 +176,6 @@
     <string name="export_toast">Savkopiis %1$s al %2$s.</string>
     <string name="backup_BAc_import">Importi savkopion</string>
     <string name="backup_BAc_export">Savkopii tuj</string>
-    <string name="email">Retpoŝto</string>
     <string name="filter_overdue">Posttempa</string>
     <string name="TEA_control_timer">Tempokontroliloj</string>
     <string name="TEA_control_location">Loko</string>
@@ -385,7 +384,6 @@
     <string name="filter_eisenhower_box_2">Grava kaj ne urĝa</string>
     <string name="custom_filter_criteria">Filtrokriterioj</string>
     <string name="sign_in_with_google">Ensaluti per Google</string>
-    <string name="invite_invalid">Nevalida invito</string>
     <string name="EPr_voiceRemindersEnabled_title">Voĉaj memorigoj</string>
     <string name="choose_new_location">Elekti novan lokon</string>
     <string name="auto_dismiss_datetime_widget">Fenestraĵo</string>
@@ -429,7 +427,6 @@
     <string name="hint_customize_edit_title">Tro da informo?</string>
     <string name="sort_list">Laŭ listo</string>
     <string name="persistent_notifications">Daŭraj sciigoj</string>
-    <string name="invite_declined">Malakceptis inviton</string>
     <string name="notification_disable_battery_optimizations_description">Optimumigoj de baterio povus prokrastigi sciigojn</string>
     <string name="customize_edit_screen">Adapti redaktan ekranon</string>
     <string name="change_priority">Ŝanĝi prioritaton</string>
@@ -479,8 +476,6 @@
     <string name="migrate_count">Movi %s al Tasks.org</string>
     <string name="enable_reminders_description">Memorigoj estas malŝaltitaj en Agordoj de Android</string>
     <string name="copied_to_clipboard">%s kopiiĝis al tondujo</string>
-    <string name="remove_user">Forigi uzanton?</string>
-    <string name="invite_awaiting_response">Invito atendas respondon</string>
     <string name="pro_free_trial">Novaj abonantoj ricevas provperiodon de 7 tagoj. Iam ajn nuligi ĝin</string>
     <string name="upgrade_more_customization">Pli da adapto</string>
     <string name="enable_reminders">Ŝalti memorigojn</string>
@@ -540,7 +535,6 @@
     <string name="above_average">Super meznombra</string>
     <string name="on_launch">Je lanĉi</string>
     <string name="save_percent">Ŝpari je %d%%</string>
-    <string name="remove_user_confirmation">%1$s ne plu povos atingi %2$s</string>
     <string name="widget_id">Fenestraĵa ID: %d</string>
     <string name="open_last_viewed_list">Malfermi liston de laste rigardita</string>
     <string name="permission_read_tasks">Tuta atingorajto al Tasks datumbazo</string>
@@ -587,7 +581,6 @@
     <string name="account_not_included">Ne inkluzivite per \'Elekti propran prezon\' abonoj</string>
     <string name="pro_dashclock_extension">Dashclock kromprogramo</string>
     <string name="tasker_list_notification">Sciigo de listo</string>
-    <string name="list_members">Anoj de la listo</string>
     <string name="auto_dismiss_datetime_edit">Redakti taskon</string>
     <string name="markdown">Simpla Marklingo</string>
     <string name="markdown_description">Ebligi simplan markadon en titolo kaj priskribo</string>
@@ -658,15 +651,12 @@
     <string name="per_list_sort_title">Ordigi laŭ listo</string>
     <string name="per_list_sort_summary">Sendepende konservi ordigajn kaj grupajn agordojn de ĉiu listo</string>
     <string name="email_to_task_address">Via retpoŝtadreso</string>
-    <string name="send">Sendi</string>
-    <string name="invalid_email_address">Nevalida retpoŝtadreso</string>
     <string name="upgrade_friends_and_family">Amikoj kaj Familianoj</string>
     <string name="advanced_tools">Altnivelaj iloj</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync, kaj pli!</string>
     <string name="rmd_time_enabled_on">Aldoni defaŭltajn memorigilojn al tuttagaj taskoj</string>
     <string name="rmd_time_enabled_off">Ne aldoni defaŭltajn memorigilojn al tuttagaj taskoj</string>
     <string name="email_to_task">Retpoŝto al tasko</string>
-    <string name="share_list">Komunigi \"%1$s\"</string>
     <string name="upgrade_friends_and_family_description">5 senpagaj gastoj de komunaj listoj. Funkcias per Apple Reminders</string>
     <string name="upgrade_email_to_task_description">Krei taskojn el retpoŝtoj per antaŭsendi ilin al via privata enirkesto</string>
     <string name="guest_create_list_message">Vi nun havas aliron kiel gasto al komunaj listoj. Por krei kaj sinkronigi proprajn privatajn listojn al la nubo, vi bezonas abonon de Tasks.org. Vi povas ankaŭ krei senpagan lokan liston kiu restas en ĉi tiu aparato.</string>

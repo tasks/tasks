@@ -205,4 +205,17 @@
     <string name="restart_later">Later</string>
     <string name="blog_feed_none">Geen</string>
     <string name="cannot_access_account">Krijgt geen toegang tot account</string>
+    <string name="new_list">Nieuwe lijst maken</string>
+    <string name="list_members">Leden op de lijst</string>
+    <string name="remove_user">Gebruiker verwijderen?</string>
+    <string name="remove_user_confirmation">%1$s krijgt geen toegang meer tot %2$s</string>
+    <string name="invalid_email_address">Ongeldig e-mailadres</string>
+    <string name="invite_declined">Uitnodiging afgewezen</string>
+    <string name="invite_awaiting_response">Uitnodiging wacht op reactie</string>
+    <string name="invite_invalid">Uitnodiging ongeldig</string>
+    <string name="email">E-mail</string>
+    <string name="color">Kleur</string>
+    <string name="icon">Pictogram</string>
+    <string name="share">Taken delen</string>
+    <string name="list_settings">Lijst instellen</string>
 </resources>

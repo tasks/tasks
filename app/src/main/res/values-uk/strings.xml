@@ -536,13 +536,6 @@
     <string name="privacy">Приватність</string>
     <string name="open_source">Відкритий джерельний код</string>
     <string name="support">Підтримка</string>
-    <string name="remove_user_confirmation">%1$s надалі не матиме доступу до %2$s</string>
-    <string name="remove_user">Вилучити користувача\?</string>
-    <string name="list_members">Перелік учасників</string>
-    <string name="invite_invalid">Запрошення недійсне</string>
-    <string name="invite_awaiting_response">Запрошення в очікуванні відповіді</string>
-    <string name="invite_declined">Запрошення відхилено</string>
-    <string name="email">Е-пошта</string>
     <string name="more_options">Додаткові параметри</string>
     <string name="upgrade_open_source_description">Ваша передплата підтримує постійний розвиток</string>
     <string name="upgrade_tasks_org_account_description">Синхронізація з Tasks.org та співпраця з іншими користувачами</string>

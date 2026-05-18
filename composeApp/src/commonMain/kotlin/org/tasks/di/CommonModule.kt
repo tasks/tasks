@@ -63,6 +63,7 @@ import org.tasks.tasklist.HeaderFormatter
 import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.CaldavAccountSettingsViewModel
+import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.EtebaseAccountSettingsViewModel
 import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.DrawerViewModel
@@ -154,7 +155,15 @@ val commonModule = module {
     factory<CalendarHelper> { object : CalendarHelper {} }
     factory<SoundPlayer> { object : SoundPlayer {} }
     factory<org.tasks.compose.drawer.DrawerConfiguration> {
-        object : org.tasks.compose.drawer.DrawerConfiguration {}
+        object : org.tasks.compose.drawer.DrawerConfiguration {
+            override val canCreateFilters: Boolean get() = false
+            override val canCreateTags: Boolean get() = false
+            override val canCreatePlaces: Boolean get() = false
+            override fun canCreateLists(account: org.tasks.data.entity.CaldavAccount): Boolean =
+                account.isCaldavAccount || account.isTasksOrg
+            override fun canEditList(account: org.tasks.data.entity.CaldavAccount): Boolean =
+                account.isCaldavAccount || account.isTasksOrg
+        }
     }
     single<org.tasks.billing.PurchaseState> {
         val caldavDao = get<org.tasks.data.dao.CaldavDao>()
@@ -391,6 +400,18 @@ val commonModule = module {
             taskDeleter = get(),
             backgroundWork = get(),
             reporting = get(),
+        )
+    }
+    viewModel { params ->
+        CaldavCalendarSettingsViewModel(
+            caldavDao = get(),
+            caldavClientProvider = get(),
+            principalDao = get(),
+            taskDeleter = get(),
+            syncAdapters = get(),
+            reporting = get(),
+            purchaseState = get(),
+            isDark = params.get(),
         )
     }
     viewModel {

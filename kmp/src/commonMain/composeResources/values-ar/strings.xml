@@ -194,4 +194,16 @@
     <string name="restart_later">لاحقاً</string>
     <string name="blog_feed_none">لا شيء</string>
     <string name="cannot_access_account">لا يمكن الوصول الى الحساب</string>
+    <string name="new_list">أنشأ قائمةً جديدة</string>
+    <string name="list_members">أعضاء القائمة</string>
+    <string name="remove_user">إزالة المستعمل؟</string>
+    <string name="remove_user_confirmation">%1$s لا يملك حق الوصول ل%2$s</string>
+    <string name="invite_declined">رفضت الدعوة</string>
+    <string name="invite_awaiting_response">الدعوة تنتظر الرد</string>
+    <string name="invite_invalid">الدعوة غير صالحة</string>
+    <string name="email">البريد اﻹلكتروني</string>
+    <string name="color">اللون</string>
+    <string name="icon">الأيقونة</string>
+    <string name="share">مشاركة</string>
+    <string name="list_settings">إعدادات القوائم</string>
 </resources>

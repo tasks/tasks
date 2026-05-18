@@ -293,4 +293,19 @@
     <string name="cannot_access_account">Impossible d'accéder au compte</string>
     <string name="upgrade_subscription_banner">Merci pour votre soutien ! Mettez à niveau votre abonnement pour activer la synchronisation cloud Tasks.org</string>
     <string name="subscription_not_found">Votre abonnement au cloud Tasks.org est introuvable. Si vous pensez qu\'il s\'agit d\'une erreur, veuillez contacter %1$s</string>
+    <string name="new_list">Créer une nouvelle liste</string>
+    <string name="list_members">Lister les membres</string>
+    <string name="remove_user">Supprimer l’utilisatrice ou l'utilisateur ?</string>
+    <string name="remove_user_confirmation">%1$s n’aura plus accès à %2$s</string>
+    <string name="share_list">Partager « %1$s »</string>
+    <string name="invalid_email_address">Adresse électronique invalide</string>
+    <string name="invite_declined">Invitation déclinée</string>
+    <string name="invite_awaiting_response">Invitation en attente de réponse</string>
+    <string name="invite_invalid">Invitation non valide</string>
+    <string name="send">Envoyer</string>
+    <string name="email">Courriel</string>
+    <string name="color">Couleur</string>
+    <string name="icon">Icône</string>
+    <string name="share">Partager</string>
+    <string name="list_settings">Paramètres de la liste</string>
 </resources>

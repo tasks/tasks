@@ -186,4 +186,16 @@
     <string name="restart_later">பின்னர்</string>
     <string name="blog_feed_none">எதுவுமில்லை</string>
     <string name="cannot_access_account">கணக்கை அணுக முடியாது</string>
+    <string name="new_list">புதிய பட்டியலை உருவாக்கவும்</string>
+    <string name="list_members">உறுப்பினர்களை பட்டியலிடுங்கள்</string>
+    <string name="remove_user">பயனரை அகற்றவா?</string>
+    <string name="remove_user_confirmation">%1$s இனி %2$s அணுகல் இருக்காது</string>
+    <string name="invite_declined">அழைப்பு மறுக்கப்பட்டது</string>
+    <string name="invite_awaiting_response">காத்திருக்கும் பதிலுக்காக அழைக்கவும்</string>
+    <string name="invite_invalid">செல்லாது என்று அழைக்கவும்</string>
+    <string name="email">மின்னஞ்சல்</string>
+    <string name="color">நிறம்</string>
+    <string name="icon">உருவம்</string>
+    <string name="share">பகிர்</string>
+    <string name="list_settings">பட்டியல் அமைப்புகள்</string>
 </resources>

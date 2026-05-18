@@ -354,7 +354,6 @@
     <string name="icon">アイコン</string>
     <string name="name_your_price">価格はあなた次第</string>
     <string name="cancel">キャンセル</string>
-    <string name="email">電子メール</string>
     <string name="add_tags">タグを追加</string>
     <string name="filter_no_tags">タグなし</string>
     <string name="hide_unused_tags">使われていないタグを隠す</string>
@@ -483,7 +482,6 @@
     <string name="no_google_play_subscription">Google Play で有効なサブスクリプションがありません</string>
     <string name="pro_free_trial">初回購入の方は、７日間の無料トライアルがあります。いつでも解約可能です</string>
     <string name="app_password">アプリパスワード</string>
-    <string name="invite_declined">招待を辞退</string>
     <string name="upgrade_more_customization">さらなるカスタマイズ</string>
     <string name="customize_edit_screen_summary">フィールドの並び替えや削除</string>
     <string name="widget_due_date_below_title">タイトルの下</string>
@@ -500,9 +498,6 @@
     <string name="authorization_cancelled">認証が取り消されました</string>
     <string name="tasks_org_account_required">Tasks.org のアカウントが必要です</string>
     <string name="account_not_included">「価格はあなた次第」でのサブスクリプションには含まれていません</string>
-    <string name="list_members">リストメンバー</string>
-    <string name="remove_user_confirmation">%1$s は %2$s にアクセスできなくなります</string>
-    <string name="invite_awaiting_response">応答待ちの招待</string>
     <string name="enable_reminders">リマインダーを有効にする</string>
     <string name="decsync_selection_description">ファイルベースによる同期</string>
     <string name="filter_no_priority">優先度 なし</string>
@@ -526,8 +521,6 @@
     <string name="account">アカウント</string>
     <string name="device_settings">デバイス設定</string>
     <string name="custom_filter_has_reminder">リマインダーあり</string>
-    <string name="remove_user">ユーザーを削除しますか？</string>
-    <string name="invite_invalid">招待が無効</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org と同期し、他のユーザーと共同作業が可能</string>
     <string name="upgrade_open_source_description">あなたの支援が継続的な開発を支えます</string>
     <string name="snackbar_tasks_completed">完了したタスク: %d</string>
@@ -644,7 +637,6 @@
     <string name="returning_user">以前利用していましたか？</string>
     <string name="legal_disclosure_prefix_using">Tasks.orgを使用</string>
     <string name="email_to_task">メールでタスクを追加する</string>
-    <string name="invalid_email_address">無効なメールアドレス</string>
     <string name="upgrade_email_to_task_description">あなたの私書箱に送ったメールをタスクに変換する</string>
     <string name="advanced_tools_description">Google Places、CalDAV、EteSyncなど！</string>
     <string name="rmd_EPr_rmd_time_desc">時間指定のないタスクの通知は%1$sに表示されます</string>
@@ -656,8 +648,6 @@
     <string name="per_list_sort_summary">並べ替えやグループの設定を個別に保存する</string>
     <string name="per_list_sort_title">リストごとの並べ替え設定</string>
     <string name="p_per_list_sort">リストごとの並べ替え設定</string>
-    <string name="share_list">\"%1$s\"を共有</string>
-    <string name="send">送る</string>
     <string name="guest_create_list_message">あなたは共有リストへのゲストアクセスがあります。自分の個人的なリストを作成してクラウドに同期するにはTasks.orgの購読が必要です。または、端末内に保存する無料のローカルリストを作成することができます。</string>
     <string name="upgrade_friends_and_family">家族・友人</string>
     <string name="upgrade_friends_and_family_description">共有リストに無料のゲスト5名。Apple Remindersで利用可能</string>

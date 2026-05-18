@@ -392,7 +392,6 @@
     <string name="date_shortcut_tomorrow_evening">Imorgon kväll</string>
     <string name="widget_show_menu">Visa meny</string>
     <string name="CFC_list_name">I lista…</string>
-    <string name="email">E-post</string>
     <string name="upgrade_blurb_2">Jag har ägnat tusentals timmar åt Tasks och jag publicerar all källkod fritt på nätet. För att stöda mitt arbete kräver vissa funktioner ett abonnemang</string>
     <string name="menu_discard_changes">Ignorera ändringar</string>
     <string name="astrid_sort_order_summary">Aktivera Astrids manuella sorteringsläge för \"Mina uppgifter\", \"Idag\" och taggar. Detta sorteringsläge kommer att ersättas av \"Min sortering\" i en framtida uppdatering.</string>
@@ -404,12 +403,6 @@
     <string name="upgrade_more_customization_description">Lås upp alla teman, färger och ikoner</string>
     <string name="upgrade_more_customization">Mer anpassning</string>
     <string name="pro_free_trial">Nya prenumeranter får en gratis provperiod på 7 dagar. Avbryt när som helst</string>
-    <string name="invite_invalid">Inbjudan ogiltig</string>
-    <string name="invite_awaiting_response">Inbjudan väntar på svar</string>
-    <string name="invite_declined">Inbjudan avfärdad</string>
-    <string name="remove_user_confirmation">%1$s kommer inte längre att ha tillgång till %2$s</string>
-    <string name="remove_user">Ta bort användaren\?</string>
-    <string name="list_members">Förteckning över medlemmar</string>
     <string name="account_not_included">Ingår inte i abonnemangen \"Ange ditt pris\"</string>
     <string name="tasks_org_account_required">Tasks.org-konto krävs</string>
     <string name="app_passwords_more_info">Synkronisera dina uppgifter och kalendrar med skrivbords- och mobilappar från tredje parter. Tryck här för mer information</string>
@@ -664,9 +657,6 @@
     <string name="banner_subscription_required_body">Betala vad du vill för att låsa upp %s-synkroniseringen</string>
     <string name="p_per_list_sort"/>
     <string name="per_list_sort_summary">Kom ihåg sorterings- och gruppinställningar för varje lista oberoende av varandra</string>
-    <string name="share_list">Dela \"%1$s\"</string>
-    <string name="send">Skicka</string>
-    <string name="invalid_email_address">Ogiltig e-postadress</string>
     <string name="guest_create_list_message">Du har för närvarande gäståtkomst till delade listor. För att skapa och synkronisera dina egna privata listor till molnet behöver du en Tasks.org-prenumeration. Eller så kan du skapa en gratis lokal lista som lagras på den här enheten.</string>
     <string name="upgrade_desktop_app">Tasks.org för datorer</string>
     <string name="upgrade_desktop_app_description">Tidig åtkomst till den nya skrivbordsappen</string>

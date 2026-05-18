@@ -213,7 +213,6 @@
     <string name="choose_new_location">Vali uus asukoht</string>
     <string name="invalid_backup_file">Vigane varukoopia fail</string>
     <string name="google_tasks_add_to_top">Uued ülesanded üleval</string>
-    <string name="email">E-post</string>
     <string name="start_date">Alguskuupäev</string>
     <string name="import_summary_title">Taasta kokkuvõte</string>
     <string name="SSD_sort_my_order">Minu tellimus</string>
@@ -300,9 +299,6 @@
     <string name="filter_medium_priority">Keskmine prioriteet</string>
     <string name="open_source">Avatud lähtekood</string>
     <string name="authentication_required">Vajalik on autoriseerimine</string>
-    <string name="remove_user">Eemaldan kasutaja?</string>
-    <string name="list_members">Nimekirja liikmed</string>
-    <string name="invite_declined">Kutsest keelduti</string>
     <string name="subtasks">Alamülesanne</string>
     <string name="widget_show_menu">Kuva menüü</string>
     <string name="widget_show_title">Kuva pealkirja</string>
@@ -354,7 +350,6 @@
     <string name="custom_filter_criteria">Filtreerimise alus</string>
     <string name="settings_default">Vaikimisi</string>
     <string name="support">Tugi</string>
-    <string name="invite_invalid">Vigane kutse</string>
     <string name="completed">Lõpetatud</string>
     <string name="enable_reminders">Luba meeldetuletused</string>
     <string name="custom_notification">Kohandatud teavitused</string>
@@ -442,7 +437,6 @@
     <string name="hide_unused_tags">Peida kasutamata sildid</string>
     <string name="name_your_price">Ütle oma hind</string>
     <string name="hide_unused_places">Peida kasutamata asukohad</string>
-    <string name="invite_awaiting_response">Kutse ootab vastust</string>
     <string name="completion_sound">Esita lõpetamise heli</string>
     <string name="widget_id">Vidina ID: %d</string>
     <string name="current_subscription">Pregune tellimus:%s</string>
@@ -622,7 +616,6 @@
     <string name="price_per_month_with_currency">%s kuus</string>
     <string name="price_per_year_with_currency">%s aastas</string>
     <string name="backup_location_warning">HOIATUS: Tasks rakenduse eemaldamisel kustutatakse ka kõik „%s“ asuukohas leiduvad failid. Kui soovid, et Android sinu faile ei kustutaks, siis palun vali muu asukoht.</string>
-    <string name="remove_user_confirmation">Kasutajal %1$s ei saa enam olema ligipääsu siia: %2$s</string>
     <string name="hint_customize_edit_body">Sa võid seda vaadet kohendada väljade ümbertõstmise ja eemaldamise teel</string>
     <string name="enable_alarms">Taga õigeaegsed teavitused</string>
     <string name="foreground_location">Asukoht esiplaanil</string>
@@ -661,8 +654,6 @@
     <string name="upgrade_email_to_task_description">Muuda e-kirjad ülesanneteks, kui edastad need oma privaatsesse postkasti</string>
     <string name="advanced_tools">Täiendavad tarvikud</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync ja palju muud!</string>
-    <string name="invalid_email_address">Vigane e-posti aadress</string>
-    <string name="share_list">Jaga „%1$s“ loendit</string>
     <string name="location_update_interval_title">Asukoha uuendused taustal</string>
     <string name="location_update_interval_summary">Aeg-ajalt toimuvad asukoha uuendused parandavad geotarastuse töökindlust</string>
     <string name="location_update_interval_disabled">Pole kasutusel</string>
@@ -672,7 +663,6 @@
     <string name="location_update_interval_2_hours">Kord kahe tunni jooksul</string>
     <string name="per_list_sort_title">Loendikohane järjestus</string>
     <string name="per_list_sort_summary">Järjestuse ja rühmitamise seadistused jäävad salvestuvad iga loendi puhul eraldi</string>
-    <string name="send">Saada</string>
     <string name="guest_create_list_message">Sul on praegu külaliskasutaja juurdepääs jagatud loenditele. Oma isiklike loendite loomiseks ja pilvega sünkroonimiseks on vaja Tasks.org-i tellimust. Või võid luua tasuta kohaliku nimekirja, mis jääb sellesse seadmesse.</string>
     <string name="upgrade_desktop_app">Tasks.org töölaua jaoks</string>
     <string name="upgrade_desktop_app_description">Varajane ligipääs töölauarakendusele</string>

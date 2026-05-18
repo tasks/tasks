@@ -258,4 +258,19 @@
     <string name="link_desktop_step_1">Отворяне настолното приложение на Tasks.org</string>
     <string name="link_desktop_success">Настолното устройство е свързано!</string>
     <string name="link_desktop_error">Грешка при свързване на настолното устройство. Опитайте отново.</string>
+    <string name="new_list">Създаване на списък</string>
+    <string name="list_members">Списък на участниците</string>
+    <string name="remove_user">Премахване на потребителя?</string>
+    <string name="remove_user_confirmation">%1$s вече няма да има достъп до %2$s</string>
+    <string name="share_list">Споделяне на „%1$s“</string>
+    <string name="invalid_email_address">Неприемлив адрес на ел. поща</string>
+    <string name="invite_declined">Поканата е отхвърлена</string>
+    <string name="invite_awaiting_response">Поканата очаква орговор</string>
+    <string name="invite_invalid">Поканата е недейсвителна</string>
+    <string name="send">Изпращане</string>
+    <string name="email">Е-поща</string>
+    <string name="color">Цвят</string>
+    <string name="icon">Икона</string>
+    <string name="share">Споделяне</string>
+    <string name="list_settings">Настройки на списъка</string>
 </resources>

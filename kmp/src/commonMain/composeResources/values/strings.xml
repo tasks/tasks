@@ -292,4 +292,19 @@
     <string name="restart_now">Restart now</string>
     <string name="restart_later">Later</string>
     <string name="cannot_access_account">Cannot access account</string>
+    <string name="new_list">Create new list</string>
+    <string name="list_members">List members</string>
+    <string name="remove_user">Remove user?</string>
+    <string name="remove_user_confirmation">%1$s will no longer have access to %2$s</string>
+    <string name="share_list">Share "%1$s"</string>
+    <string name="invalid_email_address">Invalid email address</string>
+    <string name="invite_declined">Invite declined</string>
+    <string name="invite_awaiting_response">Invite awaiting response</string>
+    <string name="invite_invalid">Invite invalid</string>
+    <string name="send">Send</string>
+    <string name="email">Email</string>
+    <string name="color">Color</string>
+    <string name="icon">Icon</string>
+    <string name="share">Share</string>
+    <string name="list_settings">List settings</string>
 </resources>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="github_sponsor">අනුග්‍රාහකයා</string>
-    <string name="invite_invalid">ආරාධනය අවලංගුයි</string>
     <string name="custom_filter_is_subtask">උප කාර්යයක්වේද</string>
     <string name="custom_filter_has_subtask">උප කාර්යයන් ඇත</string>
     <string name="date_picker_multiple">බහු</string>
@@ -53,10 +52,6 @@
     <string name="upgrade_more_customization_description">සියලුම තේමාවන්, වර්ණ සහ අයිකන අගුළු ඇරීම</string>
     <string name="upgrade_more_customization">තවත් අභිරුචිකරණය</string>
     <string name="pro_free_trial">නව ග්‍රාහකයින්ට දින 7 ක නොමිලේ අත්හදා බැලීම් කාලයක් ලැබේ. ඕනෑම වේලාවක අවලංගු කරන්න</string>
-    <string name="invite_declined">ආරාධනය ප්‍රතික්ෂේප විය</string>
-    <string name="email">විද්යුත් තැපෑල</string>
-    <string name="remove_user_confirmation">%1$s හට තවදුරටත් %2$s වෙත ප්‍රවේශය නොලැබේ</string>
-    <string name="remove_user">පරිශීලකයා ඉවත් කරන්නද\?</string>
     <string name="account_not_included">\'ඔබේ මිල නම් කරන්න\' (\'Name your price\') දායකත්වයන් සමඟ ඇතුළත් නොවේ</string>
     <string name="tasks_org_account_required">Tasks.org ගිණුම අවශ්‍යයි</string>
     <string name="copied_to_clipboard">%s ක්ලිප් පුවරුවට පිටපත් කරන ලදි</string>
@@ -536,8 +531,6 @@
     <string name="repeats_single_on">%1$s, %2$s පුනරාවර්තනය වේ</string>
     <string name="markdown_description">මාතෘකාව සහ විස්තරය තුළ ලකුණු කිරීම සක්‍රිය කරන්න</string>
     <string name="markdown">ලකුණු කිරීම</string>
-    <string name="invite_awaiting_response">ප්‍රතිචාරයක් බලාපොරොත්තුවෙන් ඇති ආරාධන</string>
-    <string name="list_members">සාමාජික ලැයිස්තුව</string>
     <string name="migrating_tasks">සංක්‍රමණික කාර්යයන්</string>
     <string name="migrate">සංක්‍රමණය</string>
     <string name="background_location">පසුබිම් ස්ථානය</string>

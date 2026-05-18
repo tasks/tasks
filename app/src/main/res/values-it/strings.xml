@@ -530,12 +530,6 @@
     <string name="CFC_startBefore_text">Inizia: \?</string>
     <string name="CFC_startBefore_name">Inizia…</string>
     <string name="widget_show_title">Mostra titolo</string>
-    <string name="remove_user_confirmation">%1$s non avrà più accesso a %2$s</string>
-    <string name="remove_user">Vuoi rimuovere l\'utente\?</string>
-    <string name="invite_invalid">Invito non valido</string>
-    <string name="invite_awaiting_response">Invito in attesa di risposta</string>
-    <string name="invite_declined">Invito rifiutato</string>
-    <string name="email">E-mail</string>
     <string name="support">Supporto</string>
     <string name="more_options">Altre opzioni</string>
     <string name="tasks_org_account_required">È richiesto un account Tasks.org</string>
@@ -546,7 +540,6 @@
     <string name="upgrade_more_customization_description">Sblocca tutti i temi, i colori e le icone</string>
     <string name="upgrade_more_customization">Maggiore personalizzazione</string>
     <string name="pro_free_trial">I nuovi abbonati ricevono 7 giorni di prova gratuita. Puoi recedere in qualsiasi momento</string>
-    <string name="list_members">Elenco dei membri</string>
     <string name="next_saturday">Sabato prossimo</string>
     <string name="next_friday">Venerdì prossimo</string>
     <string name="next_thursday">Giovedì prossimo</string>
@@ -683,9 +676,6 @@
     <string name="email_to_task">Attività da email</string>
     <string name="upgrade_email_to_task_description">Converti le email in attività inoltrandole alla tua casella privata</string>
     <string name="advanced_tools">Strumenti avanzati</string>
-    <string name="invalid_email_address">Indirizzo e-mail non valido</string>
-    <string name="share_list">Condividi \"%1$s\"</string>
-    <string name="send">Invia</string>
     <string name="guest_create_list_message">Attualmente hai accesso agli elenchi condivisi in qualità di ospite. Per creare e sincronizzare le tue liste private sul cloud, è necessario un abbonamento a Tasks.org. In alternativa, puoi creare un elenco locale gratuito che rimarrà su questo dispositivo.</string>
     <string name="upgrade_friends_and_family">Amici e familiari</string>
     <string name="upgrade_friends_and_family_description">5 ospiti gratuiti su liste condivise. Funziona con Apple Reminders</string>

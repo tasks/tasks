@@ -492,7 +492,6 @@
     <string name="custom_filter_is_subtask">Er underopgave</string>
     <string name="custom_filter_has_subtask">Har underopgaver</string>
     <string name="no_google_play_subscription">Intet kvalificeret Google Play-abonnement fundet</string>
-    <string name="email">E-mail</string>
     <string name="markdown_description">Aktivér Markdown i titel og beskrivelse</string>
     <string name="markdown">Markdown</string>
     <string name="more_options">Flere muligheder</string>
@@ -501,12 +500,6 @@
     <string name="upgrade_more_customization_description">Lås op for alle temaer, farver og ikoner</string>
     <string name="upgrade_more_customization">Mere tilpasning</string>
     <string name="pro_free_trial">Nye abonnenter får en 7-dages gratis prøveperiode. Opsig når som helst</string>
-    <string name="invite_invalid">Invitation ugyldig</string>
-    <string name="invite_awaiting_response">Invitation afventer svar</string>
-    <string name="invite_declined">Invitation afvist</string>
-    <string name="remove_user_confirmation">%1$s vil ikke længere have adgang til %2$s</string>
-    <string name="remove_user">Fjern bruger\?</string>
-    <string name="list_members">Liste over medlemmer</string>
     <string name="tasks_org_account_required">Tasks.org-konto påkrævet</string>
     <string name="privacy">Privatliv</string>
     <string name="open_source">Open source</string>

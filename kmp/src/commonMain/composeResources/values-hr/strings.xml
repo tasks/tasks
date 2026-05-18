@@ -292,4 +292,19 @@
     <string name="pricing_nyp_feature_2">Sinkronizacija s CalDAV-om i EteSync-om za samostalni hosting</string>
     <string name="cannot_access_account">Nije moguće pristupiti računu</string>
     <string name="upgrade_subscription_banner">Hvala ti na podršci! Nadogradi svoju pretplatu i na taj način omogući Tasks.org Cloud sinkronizaciju</string>
+    <string name="new_list">Stvori popis</string>
+    <string name="list_members">Članovi popisa</string>
+    <string name="remove_user">Ukloniti korisnika?</string>
+    <string name="remove_user_confirmation">%1$s više neće moći pristup na %2$s</string>
+    <string name="share_list">Dijeli „%1$s”</string>
+    <string name="invalid_email_address">Nevaljana e-mail adresa</string>
+    <string name="invite_declined">Poziv odbijen</string>
+    <string name="invite_awaiting_response">Poziv čeka odgovor</string>
+    <string name="invite_invalid">Poziv nevaljan</string>
+    <string name="send">Pošalji</string>
+    <string name="email">E-mail adresa</string>
+    <string name="color">Boja</string>
+    <string name="icon">Ikona</string>
+    <string name="share">Dijeli</string>
+    <string name="list_settings">Postavke popisa</string>
 </resources>

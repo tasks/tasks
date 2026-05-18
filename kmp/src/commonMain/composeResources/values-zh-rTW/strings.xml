@@ -224,4 +224,19 @@
     <string name="blog_feed_none">無</string>
     <string name="cannot_access_account">無法存取帳號</string>
     <string name="upgrade_subscription_banner">感謝您的支持！升級您的訂閱以啟用 Tasks.org 雲端同步</string>
+    <string name="new_list">新增清單</string>
+    <string name="list_members">清單成員</string>
+    <string name="remove_user">刪除使用者？</string>
+    <string name="remove_user_confirmation">%1$s 將不再存取 %2$s 的資料庫</string>
+    <string name="share_list">分享「%1$s」</string>
+    <string name="invalid_email_address">電子郵件地址無效</string>
+    <string name="invite_declined">邀請已拒絕</string>
+    <string name="invite_awaiting_response">邀請等待回覆</string>
+    <string name="invite_invalid">邀請無效</string>
+    <string name="send">傳送</string>
+    <string name="email">電子郵件</string>
+    <string name="color">色彩</string>
+    <string name="icon">圖示</string>
+    <string name="share">分享</string>
+    <string name="list_settings">清單設定</string>
 </resources>

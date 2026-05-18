@@ -41,6 +41,7 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.failed_to_save_task
 import org.tasks.compose.edit.DescriptionRow
 import org.tasks.compose.edit.MarkdownEditField
+import org.tasks.filters.CaldavFilter
 import org.tasks.viewmodel.TaskEditViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,10 +50,11 @@ fun TaskEditScreen(
     viewModel: TaskEditViewModel,
     taskId: Long?,
     remoteId: String,
+    currentFilter: CaldavFilter? = null,
     onClose: () -> Unit,
 ) {
     LaunchedEffect(taskId, remoteId) {
-        viewModel.initialize(taskId)
+        viewModel.initialize(taskId, currentFilter)
     }
     val state by viewModel.state.collectAsState()
     val currentOnClose by rememberUpdatedState(onClose)

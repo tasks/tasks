@@ -112,7 +112,6 @@
     <string name="remove">Αφαίρεση</string>
     <string name="add_location">Προσθήκη τοποθεσίας</string>
     <string name="add_reminder">Προσθήκη υπενθύμισης</string>
-    <string name="email">Ηλε. ταχυδρομείο</string>
     <string name="repeat_option_does_not_repeat">Δεν επαναλαμβάνεται</string>
     <string name="astrid_sort_order">Μη αυτόματη ταξινόμηση Astrid</string>
     <string name="SSD_sort_my_order">Η παραγγελία μου</string>
@@ -527,12 +526,6 @@
     <string name="copied_to_clipboard">%s αντιγράφηκε στο πρόχειρο</string>
     <string name="tasks_org_account_required">Χρειάζεται λογαριασμός Tasks.org</string>
     <string name="account_not_included">Δεν περιλαμβάνεται με τις συνδρομές \"Ονομάστε την τιμή σας\"</string>
-    <string name="list_members">Μέλη λίστας</string>
-    <string name="remove_user">Αφαίρεση χρήστη;</string>
-    <string name="remove_user_confirmation">%1$s δεν θα έχει πλέον πρόσβαση στο %2$s</string>
-    <string name="invite_declined">Η πρόσκληση απορρίφθηκε</string>
-    <string name="invite_awaiting_response">Αναμένεται απάντηση στην πρόσκληση</string>
-    <string name="invite_invalid">Μη έγκυρη πρόσκληση</string>
     <string name="pro_free_trial">Οι νέοι συνδρομητές λαμβάνουν δωρεάν δοκιμή 7 ημερών. Ακυρώστε ανά πάσα στιγμή</string>
     <string name="upgrade_more_customization">Περισσότερη προσαρμογή</string>
     <string name="upgrade_more_customization_description">Ξεκλειδώστε όλα τα θέματα, χρώματα και εικονίδια</string>

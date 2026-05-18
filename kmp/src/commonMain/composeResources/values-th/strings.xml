@@ -155,4 +155,16 @@
     <string name="restart_later">หลัง</string>
     <string name="blog_feed_none">ไม่มีใคร</string>
     <string name="cannot_access_account">ไม่สามารถเข้าถึงบัญชี</string>
+    <string name="new_list">สร้างรายการใหม่</string>
+    <string name="list_members">รายชื่อสมาชิก</string>
+    <string name="remove_user">ลบผู้ใช้หรือไม่?</string>
+    <string name="remove_user_confirmation">%1$s จะไม่สามารถเข้าถึง %2$s ได้อีกต่อไป</string>
+    <string name="invite_declined">ปฏิเสธคำเชิญ</string>
+    <string name="invite_awaiting_response">คําเชิญที่กําลังรอการตอบกลับ</string>
+    <string name="invite_invalid">การเชิญไม่ถูกต้อง</string>
+    <string name="email">อีเมล</string>
+    <string name="color">สี</string>
+    <string name="icon">ไอคอน</string>
+    <string name="share">ใช้ร่วมกัน</string>
+    <string name="list_settings">การตั้งค่ารายการ</string>
 </resources>

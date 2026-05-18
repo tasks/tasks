@@ -371,7 +371,6 @@
     <string name="choose_new_location">Pasirinkti naują vietą</string>
     <string name="invalid_backup_file">Blogas atsarginės kopijos failas</string>
     <string name="google_tasks_add_to_top">Naujos užduotys viršuje</string>
-    <string name="email">El. paštas</string>
     <string name="SSD_sort_start">Pagal pradžios datą</string>
     <string name="filter_any_start_date">Bet kokia pradžios data</string>
     <string name="filter_criteria_unstarted">Nepradėtos</string>
@@ -443,12 +442,6 @@
     <string name="astrid_sort_order">Astrid rankinis rūšiavimas</string>
     <string name="cancel">Atšaukti</string>
     <string name="ok">Patvirtinti</string>
-    <string name="list_members">Sąrašo nariai</string>
-    <string name="remove_user">Pašalinti vartotoją\?</string>
-    <string name="remove_user_confirmation">%1$s nebeturės prieigos prie %2$s</string>
-    <string name="invite_declined">Kvietimas atmestas</string>
-    <string name="invite_awaiting_response">Kvietimas laukia atsakymo</string>
-    <string name="invite_invalid">Kvietimas negalioja</string>
     <string name="pro_free_trial">Naujiems prenumeratoriams suteikiamas 7 dienų nemokamas bandomasis laikotarpis. Atšaukite bet kuriuo metu</string>
     <string name="upgrade_more_customization">Daugiau tinkinimo</string>
     <string name="upgrade_tasks_org_account_description">Sinchronizuokite su Tasks.org ir bendradarbiaukite su kitais naudotojais</string>

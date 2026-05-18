@@ -260,4 +260,19 @@
     <string name="unlock_pro_step_1">スマホでTasks.orgを開いてください</string>
     <string name="unlock_pro_step_2">「%1$s」をタップして開け、「%2$s」をタップします</string>
     <string name="unlock_pro_step_3">「%1$s」をタップ</string>
+    <string name="new_list">新しいリストを作成</string>
+    <string name="list_members">リストメンバー</string>
+    <string name="remove_user">ユーザーを削除しますか？</string>
+    <string name="remove_user_confirmation">%1$s は %2$s にアクセスできなくなります</string>
+    <string name="share_list">"%1$s"を共有</string>
+    <string name="invalid_email_address">無効なメールアドレス</string>
+    <string name="invite_declined">招待を辞退</string>
+    <string name="invite_awaiting_response">応答待ちの招待</string>
+    <string name="invite_invalid">招待が無効</string>
+    <string name="send">送る</string>
+    <string name="email">電子メール</string>
+    <string name="color">色</string>
+    <string name="icon">アイコン</string>
+    <string name="share">共有</string>
+    <string name="list_settings">リスト設定</string>
 </resources>

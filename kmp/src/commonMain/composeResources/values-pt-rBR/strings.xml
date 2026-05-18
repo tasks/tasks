@@ -248,4 +248,19 @@
     <string name="restart_later">Depois</string>
     <string name="cannot_access_account">Não é possível acessar a conta</string>
     <string name="upgrade_subscription_banner">Obrigado pelo apoio! Atualize sua inscrição para ativar sincronização em nuvem Tasks.org</string>
+    <string name="new_list">Criar nova lista</string>
+    <string name="list_members">Lista de membros</string>
+    <string name="remove_user">Remover usuário?</string>
+    <string name="remove_user_confirmation">%1$s não terá mais acesso a %2$s</string>
+    <string name="share_list">Compartilhar "%1$s"</string>
+    <string name="invalid_email_address">Email inválido</string>
+    <string name="invite_declined">Convite cancelado</string>
+    <string name="invite_awaiting_response">Convite aguardando resposta</string>
+    <string name="invite_invalid">Convite inválido</string>
+    <string name="send">Enviar</string>
+    <string name="email">E-mail</string>
+    <string name="color">Cor</string>
+    <string name="icon">Ícone</string>
+    <string name="share">Compartilhar</string>
+    <string name="list_settings">Configurações da lista</string>
 </resources>

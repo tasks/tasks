@@ -229,4 +229,19 @@
     <string name="restart_later">Hiljem</string>
     <string name="cannot_access_account">Ei pääse kontole ligi</string>
     <string name="upgrade_subscription_banner">Tänud sinu toetuse eest! Kasutamaks Tasks.org-i pilvesünkroonimise võimalus palun uuenda oma tellimust</string>
+    <string name="new_list">Loo uus nimekiri</string>
+    <string name="list_members">Nimekirja liikmed</string>
+    <string name="remove_user">Eemaldan kasutaja?</string>
+    <string name="remove_user_confirmation">Kasutajal %1$s ei saa enam olema ligipääsu siia: %2$s</string>
+    <string name="share_list">Jaga „%1$s“ loendit</string>
+    <string name="invalid_email_address">Vigane e-posti aadress</string>
+    <string name="invite_declined">Kutsest keelduti</string>
+    <string name="invite_awaiting_response">Kutse ootab vastust</string>
+    <string name="invite_invalid">Vigane kutse</string>
+    <string name="send">Saada</string>
+    <string name="email">E-post</string>
+    <string name="color">Värv</string>
+    <string name="icon">Ikoon</string>
+    <string name="share">Jaga</string>
+    <string name="list_settings">Loendi seadistused</string>
 </resources>

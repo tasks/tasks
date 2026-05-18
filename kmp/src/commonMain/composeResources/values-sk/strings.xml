@@ -186,4 +186,16 @@
     <string name="restart_later">Neskôr</string>
     <string name="blog_feed_none">Žiadna</string>
     <string name="cannot_access_account">Chyba v prístupe k účtu</string>
+    <string name="new_list">Vytvoriť nový zoznam</string>
+    <string name="list_members">Členovia zoznamu</string>
+    <string name="remove_user">Odobrať používateľa?</string>
+    <string name="remove_user_confirmation">%1$s už nebude mať prístup k %2$s</string>
+    <string name="invite_declined">Pozvánka bola odmietnutá</string>
+    <string name="invite_awaiting_response">Pozvánka čaká na odpoveď</string>
+    <string name="invite_invalid">Neplatná pozvánka</string>
+    <string name="email">E-mail</string>
+    <string name="color">Farba</string>
+    <string name="icon">Ikona</string>
+    <string name="share">Zdieľať</string>
+    <string name="list_settings">Nastavenia zoznamu</string>
 </resources>

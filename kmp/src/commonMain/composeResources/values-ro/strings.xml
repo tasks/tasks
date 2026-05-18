@@ -194,4 +194,19 @@
     <string name="accept">Acceptă</string>
     <string name="email_to_task">E-mail către sarcină</string>
     <string name="upgrade_subscription_banner">Îți mulțumim pentru suport! Actualizează-ți abonamentul pentru a activa Tasks.org Cloud Sync</string>
+    <string name="new_list">Crează o nouă listă</string>
+    <string name="list_members">Lista membrilor</string>
+    <string name="remove_user">Elimini utilizatorul?</string>
+    <string name="remove_user_confirmation">%1$s nu va mai avea acces la %2$s</string>
+    <string name="share_list">Distribuie „%1$s”</string>
+    <string name="invalid_email_address">Adresă de e-mail nevalidă</string>
+    <string name="invite_declined">Invitație refuzată</string>
+    <string name="invite_awaiting_response">Invitație în așteptarea răspunsului</string>
+    <string name="invite_invalid">Invitație nevalabilă</string>
+    <string name="send">Trimite</string>
+    <string name="email">E-mail</string>
+    <string name="color">Culoare</string>
+    <string name="icon">Pictogramă</string>
+    <string name="share">Distribuie</string>
+    <string name="list_settings">Setări listă</string>
 </resources>

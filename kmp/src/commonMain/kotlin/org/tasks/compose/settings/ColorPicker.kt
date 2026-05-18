@@ -38,6 +38,7 @@ fun ColorPicker(
     colors: List<PickerColor>,
     onSelected: (PickerColor) -> Unit,
     onColorWheelSelected: () -> Unit = {},
+    showColorWheel: Boolean = true,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 48.dp),
@@ -46,11 +47,13 @@ fun ColorPicker(
         verticalArrangement = Arrangement.spacedBy(4.dp),
         modifier = Modifier.fillMaxWidth()
     ) {
-        item {
-            ColorWheelCircle(
-                onClick = onColorWheelSelected,
-                hasPro = hasPro,
-            )
+        if (showColorWheel) {
+            item {
+                ColorWheelCircle(
+                    onClick = onColorWheelSelected,
+                    hasPro = hasPro,
+                )
+            }
         }
         items(colors) { color ->
             ColorCircle(

@@ -70,6 +70,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -147,10 +148,15 @@ import org.tasks.compose.chips.ChipGroup
 import org.tasks.compose.chips.Chip
 import org.tasks.compose.chips.StartDateChip
 import org.tasks.compose.chips.SubtaskChip
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.isHidden
 import org.tasks.time.startOfDay
 import org.tasks.compose.sort.BottomSheetContent
 import org.tasks.compose.sort.SortPicker
+import org.tasks.compose.settings.CaldavCalendarSettingsScreen
+import org.tasks.compose.settings.SettingsMenuButton
 import org.tasks.compose.settings.ManageSubscriptionSheetContent
 import org.tasks.compose.sort.SortSheetContent
 import org.tasks.compose.sort.completedOptions
@@ -175,6 +181,7 @@ import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.viewmodel.AppViewModel
+import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
@@ -721,6 +728,7 @@ private fun TaskListScreen(
     viewModel: TaskListViewModel,
     drawerViewModel: DrawerViewModel,
     onSettingsClick: () -> Unit,
+    onSubscribe: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     val drawerState by drawerViewModel.state.collectAsState()
@@ -749,8 +757,22 @@ private fun TaskListScreen(
     }
 
     var sidebarExpanded by remember { mutableStateOf(false) }
+    var newListAccountId by rememberSaveable { mutableStateOf<Long?>(null) }
+    var editListCalendarId by rememberSaveable { mutableStateOf<Long?>(null) }
+    val caldavDao = koinInject<CaldavDao>()
+    val drawerConfiguration = koinInject<org.tasks.compose.drawer.DrawerConfiguration>()
     val selectedTask = navigator.currentDestination?.contentKey
     val selectedTaskId = selectedTask?.taskId
+
+    val onAddClick: (DrawerItem.Header) -> Unit = { header ->
+        val accountId = header.header.id.toLongOrNull()
+        if (accountId != null) {
+            newListAccountId = accountId
+        }
+    }
+
+    val editableCaldavFilter = (state.filter as? CaldavFilter)
+        ?.takeIf { drawerConfiguration.canEditList(it.account) }
 
     val onDrawerItemClick: (DrawerItem) -> Unit = { item ->
         when (item) {
@@ -811,7 +833,7 @@ private fun TaskListScreen(
                                 drawerState = drawerState,
                                 onQueryChange = { drawerViewModel.setMenuQuery(it) },
                                 onClick = onDrawerItemClick,
-                                onAddClick = { /* TODO: add new list/tag/place */ },
+                                onAddClick = onAddClick,
                                 onErrorClick = { /* TODO: show sync error */ },
                                 expanded = sidebarExpanded,
                                 listState = sidebarListState,
@@ -842,6 +864,8 @@ private fun TaskListScreen(
                         onMenuClick = { sidebarExpanded = !sidebarExpanded },
                         taskEditViewModel = taskEditViewModel,
                         onSettingsClick = onSettingsClick,
+                        showListSettings = editableCaldavFilter != null,
+                        onListSettingsClick = { editableCaldavFilter?.let { editListCalendarId = it.calendar.id } },
                         modifier = Modifier.weight(1f),
                     )
                 }
@@ -870,7 +894,7 @@ private fun TaskListScreen(
                                     drawerState = drawerState,
                                     onQueryChange = { drawerViewModel.setMenuQuery(it) },
                                     onClick = onDrawerItemClick,
-                                    onAddClick = { /* TODO: add new list/tag/place */ },
+                                    onAddClick = onAddClick,
                                     onErrorClick = { /* TODO: show sync error */ },
                                 )
                                 val drawerScrimColor = MaterialTheme.colorScheme.surfaceContainerLow.copy(alpha = 0.8f)
@@ -906,6 +930,8 @@ private fun TaskListScreen(
                         },
                         taskEditViewModel = taskEditViewModel,
                         onSettingsClick = onSettingsClick,
+                        showListSettings = editableCaldavFilter != null,
+                        onListSettingsClick = { editableCaldavFilter?.let { editListCalendarId = it.calendar.id } },
                     )
                 }
             }
@@ -918,6 +944,68 @@ private fun TaskListScreen(
         sortState = sortState,
         sortViewModel = sortViewModel,
     )
+
+    newListAccountId?.let { accountId ->
+        val account by produceState<CaldavAccount?>(null) {
+            value = caldavDao.getAccount(accountId)
+                ?: run { newListAccountId = null; return@produceState }
+        }
+        account?.let {
+            ListSettingsDialog(
+                account = it,
+                calendar = null,
+                isDark = isDark,
+                onDismiss = { created ->
+                    newListAccountId = null
+                    drawerViewModel.updateFilters()
+                    created?.let { cal ->
+                        val newFilter = CaldavFilter(calendar = cal, account = it)
+                        viewModel.setFilter(newFilter)
+                        drawerViewModel.setSelectedFilter(newFilter)
+                    }
+                },
+                onSubscribe = onSubscribe,
+            )
+        }
+    }
+
+    editListCalendarId?.let { calendarId ->
+        val filter by produceState<CaldavFilter?>(null) {
+            val calendar = caldavDao.getCalendarById(calendarId)
+                ?: run { editListCalendarId = null; return@produceState }
+            val account = caldavDao.getAccountByUuid(calendar.account!!)
+                ?: run { editListCalendarId = null; return@produceState }
+            value = CaldavFilter(calendar = calendar, account = account)
+        }
+        filter?.let { f ->
+            ListSettingsDialog(
+                account = f.account,
+                calendar = f.calendar,
+                isDark = isDark,
+                onDismiss = { updated ->
+                    editListCalendarId = null
+                    drawerViewModel.updateFilters()
+                    val calendar = updated ?: f.calendar
+                    val newFilter = CaldavFilter(
+                        calendar = calendar,
+                        account = f.account,
+                    )
+                    viewModel.setFilter(newFilter)
+                    drawerViewModel.setSelectedFilter(newFilter)
+                },
+                onDeleted = {
+                    editListCalendarId = null
+                    drawerViewModel.updateFilters()
+                    scope.launch {
+                        val myTasks = MyTasksFilter.create()
+                        viewModel.setFilter(myTasks)
+                        drawerViewModel.setSelectedFilter(myTasks)
+                    }
+                },
+                onSubscribe = onSubscribe,
+            )
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class, ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
@@ -937,6 +1025,8 @@ private fun TaskListContent(
     onMenuClick: () -> Unit,
     taskEditViewModel: TaskEditViewModel,
     onSettingsClick: () -> Unit,
+    showListSettings: Boolean = false,
+    onListSettingsClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val scope = androidx.compose.runtime.rememberCoroutineScope()
@@ -957,6 +1047,8 @@ private fun TaskListContent(
                 onShowSortSheet = onShowSortSheet,
                 onMenuClick = onMenuClick,
                 onSettingsClick = onSettingsClick,
+                showListSettings = showListSettings,
+                onListSettingsClick = onListSettingsClick,
                 onTaskClick = onTaskClick,
                 onCreateTask = {
                     reporting.addTask("fab")
@@ -977,6 +1069,7 @@ private fun TaskListContent(
                     viewModel = taskEditViewModel,
                     taskId = key.taskId.takeIf { it > 0 },
                     remoteId = key.remoteId,
+                    currentFilter = state.filter as? CaldavFilter,
                     onClose = {
                         scope.launch {
                             navigator.navigateBack(BackNavigationBehavior.PopLatest)
@@ -1016,6 +1109,8 @@ private fun TaskListPane(
     onShowSortSheet: () -> Unit,
     onMenuClick: () -> Unit,
     onSettingsClick: () -> Unit,
+    showListSettings: Boolean = false,
+    onListSettingsClick: () -> Unit = {},
     onTaskClick: (TaskKey) -> Unit,
     onCreateTask: () -> Unit,
     modifier: Modifier = Modifier,
@@ -1127,12 +1222,11 @@ private fun TaskListPane(
                 )
             },
             actions = {
-                IconButton(onClick = onSettingsClick) {
-                    Icon(
-                        imageVector = Icons.Outlined.Settings,
-                        contentDescription = stringResource(Res.string.settings),
-                    )
-                }
+                SettingsMenuButton(
+                    showListSettings = showListSettings,
+                    onSettingsClick = onSettingsClick,
+                    onListSettingsClick = onListSettingsClick,
+                )
             },
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = MaterialTheme.colorScheme.background,
@@ -1159,6 +1253,59 @@ private fun TaskListPane(
                 .align(Alignment.BottomCenter)
                 .platformNavigationBarsPadding()
                 .padding(16.dp),
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ListSettingsDialog(
+    account: CaldavAccount,
+    calendar: CaldavCalendar?,
+    isDark: Boolean,
+    onDismiss: (CaldavCalendar?) -> Unit,
+    onDeleted: () -> Unit = {},
+    onSubscribe: () -> Unit,
+) {
+    val viewModel = koinViewModel<CaldavCalendarSettingsViewModel>(
+        key = "list_settings_${account.id}_${calendar?.id}",
+        parameters = { org.koin.core.parameter.parametersOf(isDark) },
+    )
+    LaunchedEffect(Unit) {
+        viewModel.setCalendar(account, calendar)
+    }
+    val state by viewModel.state.collectAsState()
+
+    val dismiss = { onDismiss(null) }
+
+    BasicAlertDialog(
+        onDismissRequest = {
+            if (state.hasChanges) {
+                viewModel.showDiscardDialog()
+            } else {
+                dismiss()
+            }
+        },
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        CaldavCalendarSettingsScreen(
+            viewModel = viewModel,
+            onSave = { viewModel.save { calendar -> onDismiss(calendar) } },
+            onDelete = { viewModel.delete { onDeleted() } },
+            onNavigateBack = dismiss,
+            onSelectColor = {
+                if (state.hasPro || it.isFree) {
+                    viewModel.selectColor(it.originalColor)
+                } else {
+                    viewModel.closeColorPicker()
+                    onSubscribe()
+                }
+            },
+            onColorWheelSelected = {
+                viewModel.closeColorPicker()
+                onSubscribe()
+            },
+            onSubscribe = onSubscribe,
         )
     }
 }

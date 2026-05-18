@@ -63,13 +63,6 @@
     <string name="upgrade_more_customization_description">Mở khoá tất cả chủ đề, màu sắc, và biểu tượng</string>
     <string name="upgrade_more_customization">Nhiều tuỳ biến hơn</string>
     <string name="pro_free_trial">Những người đăng ký mới sẽ nhận khoảng thời gian dùng thử 7 ngày miễn phí. Huỷ vào bất kỳ lúc nào</string>
-    <string name="invite_invalid">Lời mời không hợp lệ</string>
-    <string name="invite_awaiting_response">Lời mời đang chờ phản hồi</string>
-    <string name="invite_declined">Lời mời bị từ chối</string>
-    <string name="email">Thư điện tử</string>
-    <string name="remove_user_confirmation">%1$s sẽ không còn quyền truy cập vào %2$s nữa</string>
-    <string name="remove_user">Xoá người dùng\?</string>
-    <string name="list_members">Liệt kê các thành viên</string>
     <string name="account_not_included">Không được bao gồm với các gói đăng ký \'Đặt giá của bạn\'</string>
     <string name="tasks_org_account_required">Yêu cầu tài khoản Tasks.org</string>
     <string name="copied_to_clipboard">Đã sao chép %s vào bộ nhớ tạm</string>

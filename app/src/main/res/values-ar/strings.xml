@@ -262,7 +262,6 @@
     <string name="EPr_default_importance_title">الأولويّة الافتراضيّة</string>
     <string name="FLA_new_filter">أنشأ تصفيةً جديدة</string>
     <string name="sort_created">بتاريخ الإنشاء</string>
-    <string name="email">البريد اﻹلكتروني</string>
     <string name="app_password">كلمة سرّ التطبيق</string>
     <string name="sign_in_with_google">تسجيل الدخول بجوجل</string>
     <string name="privacy">الخصوصيّة</string>
@@ -307,11 +306,6 @@
     <string name="default_location_reminder_on_arrival">عند الوصول</string>
     <string name="EPr_manage_delete_completed_gcal_message">هل حقًّا تريد حذف كل أحداثك للمهام المتمّمة؟</string>
     <string name="TEA_add_subtask">أضف مهمّة فرعيّة</string>
-    <string name="invite_invalid">الدعوة غير صالحة</string>
-    <string name="invite_awaiting_response">الدعوة تنتظر الرد</string>
-    <string name="invite_declined">رفضت الدعوة</string>
-    <string name="remove_user">إزالة المستعمل؟</string>
-    <string name="list_members">أعضاء القائمة</string>
     <string name="tasks_org_account_required">حساب Tasks.org مطلوب</string>
     <string name="support">دعم</string>
     <string name="backups_ignore_warnings">تجاهل التحذيرات</string>
@@ -414,7 +408,6 @@
     <string name="upgrade_more_customization_description">افتح جميع الثيمات والألوان والرموز</string>
     <string name="upgrade_more_customization">المزيد من التخصيص</string>
     <string name="pro_free_trial">يحصل المشتركون الجدد على نسخة تجريبية مجانية مدتها 7 أيام. تلغى في أي وقت</string>
-    <string name="remove_user_confirmation">%1$s لا يملك حق الوصول ل%2$s</string>
     <string name="account_not_included">غير مشمول في اشتراكات \"ضع سعرك\"</string>
     <string name="app_passwords_more_info">قم بمزامنة المهام والتقويمات الخاصة بك مع تطبيقات سطح المكتب والأجهزة المحمولة التابعة لجهات خارجية. اضغط هنا لمزيد من المعلومات</string>
     <string name="save_percent">حفظ%d%%</string>

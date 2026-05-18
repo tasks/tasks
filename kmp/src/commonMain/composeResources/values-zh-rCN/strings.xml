@@ -289,4 +289,19 @@
     <string name="cannot_access_account">无法访问账号</string>
     <string name="upgrade_subscription_banner">感谢您的支持！升级您的订阅即可启用 Tasks.org 云同步</string>
     <string name="subscription_not_found">未找到您的 Tasks.org 云订阅。如果您认为这是一个错误，请联系 %1$s</string>
+    <string name="new_list">新建清单</string>
+    <string name="list_members">清单成员</string>
+    <string name="remove_user">是否移除用户？</string>
+    <string name="remove_user_confirmation">%1$s 将无法再访问 %2$s</string>
+    <string name="share_list">共享 "%1$s"</string>
+    <string name="invalid_email_address">电子邮件地址无效</string>
+    <string name="invite_declined">邀请被拒绝</string>
+    <string name="invite_awaiting_response">邀请等待回应</string>
+    <string name="invite_invalid">邀请无效</string>
+    <string name="send">发送</string>
+    <string name="email">电子邮件</string>
+    <string name="color">颜色</string>
+    <string name="icon">图标</string>
+    <string name="share">分享</string>
+    <string name="list_settings">清单设置</string>
 </resources>

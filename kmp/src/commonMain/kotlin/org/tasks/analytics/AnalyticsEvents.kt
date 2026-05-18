@@ -45,7 +45,10 @@ object AnalyticsEvents {
     const val TIER_CLOUD = "cloud"
     const val TIER_NYP = "nyp"
 
+    const val CREATE_LIST = "create_list"
+
     object SettingsClick {
+        const val DELETE_LIST = "delete_list"
         const val WHATS_NEW = "whats_new"
         const val RATE_TASKS = "rate_tasks"
         const val DOCUMENTATION = "documentation"

@@ -228,4 +228,19 @@
     <string name="blog_feed_none">ללא</string>
     <string name="cannot_access_account">לא ניתן לגשת לחשבון</string>
     <string name="upgrade_subscription_banner">תודה על תמיכתך! יש לשדרג את המינוי שלך כדי להפעיל גיבוי בענן Tasks.org</string>
+    <string name="new_list">יצירת רשימה חדשה</string>
+    <string name="list_members">חברי הרשימה</string>
+    <string name="remove_user">להסיר משתמש?</string>
+    <string name="remove_user_confirmation">למשתמש %1$s לא תהיה יותר גישה אל %2$s</string>
+    <string name="share_list">שיתוף "%1$s"</string>
+    <string name="invalid_email_address">כתובת דוא"ל אינה תקנית</string>
+    <string name="invite_declined">ההזמנה נדחתה</string>
+    <string name="invite_awaiting_response">ההזמנה ממתינה למענה</string>
+    <string name="invite_invalid">הזמנה לא חוקית</string>
+    <string name="send">שליחה</string>
+    <string name="email">דוא"ל</string>
+    <string name="color">צבע</string>
+    <string name="icon">סמל</string>
+    <string name="share">שיתוף</string>
+    <string name="list_settings">הגדרות רשימה</string>
 </resources>

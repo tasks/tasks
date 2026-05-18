@@ -234,4 +234,19 @@
     <string name="restart_later">Dopo</string>
     <string name="cannot_access_account">Impossibile accedere all'account</string>
     <string name="upgrade_subscription_banner">Grazie per il tuo sostegno! Aggiorna il tuo abbonamento per abilitare Tasks.org Cloud Sync</string>
+    <string name="new_list">Crea nuova lista</string>
+    <string name="list_members">Elenco dei membri</string>
+    <string name="remove_user">Vuoi rimuovere l'utente?</string>
+    <string name="remove_user_confirmation">%1$s non avrà più accesso a %2$s</string>
+    <string name="share_list">Condividi "%1$s"</string>
+    <string name="invalid_email_address">Indirizzo e-mail non valido</string>
+    <string name="invite_declined">Invito rifiutato</string>
+    <string name="invite_awaiting_response">Invito in attesa di risposta</string>
+    <string name="invite_invalid">Invito non valido</string>
+    <string name="send">Invia</string>
+    <string name="email">E-mail</string>
+    <string name="color">Colore</string>
+    <string name="icon">Icona</string>
+    <string name="share">Condividi</string>
+    <string name="list_settings">Impostazioni lista</string>
 </resources>

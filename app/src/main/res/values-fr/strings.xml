@@ -534,13 +534,6 @@
     <string name="privacy">Confidentialité</string>
     <string name="open_source">Code source ouvert</string>
     <string name="support">Aide</string>
-    <string name="remove_user_confirmation">%1$s n’aura plus accès à %2$s</string>
-    <string name="remove_user">Supprimer l’utilisatrice ou l\'utilisateur \?</string>
-    <string name="list_members">Lister les membres</string>
-    <string name="invite_invalid">Invitation non valide</string>
-    <string name="invite_awaiting_response">Invitation en attente de réponse</string>
-    <string name="invite_declined">Invitation déclinée</string>
-    <string name="email">Courriel</string>
     <string name="more_options">Plus d’options</string>
     <string name="upgrade_open_source_description">Votre abonnement soutient le développement continu</string>
     <string name="upgrade_tasks_org_account_description">Synchronisez avec « Tasks.org » et collaborez avec les autres utilisateurs</string>
@@ -683,9 +676,6 @@
     <string name="upgrade_email_to_task_description">Transformez vos courriels en tâches en les transférant vers votre boîte de réception privée</string>
     <string name="advanced_tools">Outils avancés</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync, et plus encore !</string>
-    <string name="invalid_email_address">Adresse électronique invalide</string>
-    <string name="share_list">Partager « %1$s »</string>
-    <string name="send">Envoyer</string>
     <string name="guest_create_list_message">Vous disposez actuellement d\'un accès invité aux listes partagées. Pour créer et synchroniser vos propres listes privées sur le cloud, vous devez souscrire un abonnement à Tasks.org. Vous pouvez également créer une liste locale gratuite qui restera sur cet appareil.</string>
     <string name="upgrade_friends_and_family">Amis et famille</string>
     <string name="upgrade_friends_and_family_description">5 invités gratuits sur des listes partagées. Fonctionne avec les rappels Apple</string>

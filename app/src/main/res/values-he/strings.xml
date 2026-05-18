@@ -521,7 +521,6 @@
     <string name="decsync_selection_description">סנכרון מבוסס קובץ</string>
     <string name="default_due_date">תאריך יעד ברירת מחדל</string>
     <string name="start_date">תאריך התחלה</string>
-    <string name="email">דוא\"ל</string>
     <string name="filter_criteria_unstarted">לא התחילו</string>
     <string name="markdown_description">אפשור Markdown בכותרת ובתיאור</string>
     <string name="markdown">Markdown</string>
@@ -531,12 +530,6 @@
     <string name="upgrade_more_customization_description">ביטול נעילה של כל ערכות הנושא, הצבעים, והסמלים</string>
     <string name="upgrade_more_customization">התאמה אישית נוספת</string>
     <string name="pro_free_trial">מנויים חדשים מקבלים 7 ימי ניסיון בחינם. ניתן לבטל בכל עת</string>
-    <string name="invite_invalid">הזמנה לא חוקית</string>
-    <string name="invite_awaiting_response">ההזמנה ממתינה למענה</string>
-    <string name="invite_declined">ההזמנה נדחתה</string>
-    <string name="remove_user_confirmation">למשתמש %1$s לא תהיה יותר גישה אל %2$s</string>
-    <string name="remove_user">להסיר משתמש?</string>
-    <string name="list_members">חברי הרשימה</string>
     <string name="account_not_included">לא כלול במינויי \'מה המחיר שלך\'</string>
     <string name="tasks_org_account_required">נדרש חשבון Tasks.org</string>
     <string name="privacy">פרטיות</string>
@@ -673,9 +666,6 @@
     <string name="sponsorship_required_fdroid">נדרשת חסות GitHub כדי להשתמש בסנכרון Tasks.org. יש ללחוץ למטה כדי לתת חסות.</string>
     <string name="email_to_task">דוא\"ל למשימה</string>
     <string name="email_to_task_address">כתובת הדוא\"ל שלך</string>
-    <string name="share_list">שיתוף \"%1$s\"</string>
-    <string name="send">שליחה</string>
-    <string name="invalid_email_address">כתובת דוא\"ל אינה תקנית</string>
     <string name="guest_create_list_message">כרגע יש לך גישת אורח לרשימות משותפות. כדי ליצור ולסנכרן את הרשימות הפרטיות שלך לענן, יש צורך במינוי Tasks.org. או שבאפשרותך ליצור רשימה מקומית חינמית אשר נשארת במכשיר זה.</string>
     <string name="upgrade_friends_and_family">חברים ומשפחה</string>
     <string name="upgrade_friends_and_family_description">5 אורחים חינמיים ברשימות משותפות. עובד עם Apple Reminders</string>

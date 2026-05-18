@@ -620,16 +620,6 @@ File %1$s contained %2$s.\n\n
   <string name="email_to_task_address">Your email address</string>
   <string name="tasks_org_account_required">Tasks.org account required</string>
   <string name="account_not_included">Not included with \'Name your price\' subscriptions</string>
-  <string name="list_members">List members</string>
-  <string name="remove_user">Remove user?</string>
-  <string name="remove_user_confirmation">%1$s will no longer have access to %2$s</string>
-  <string name="share_list">Share \"%1$s\"</string>
-  <string name="send">Send</string>
-  <string name="email">Email</string>
-  <string name="invalid_email_address">Invalid email address</string>
-  <string name="invite_declined">Invite declined</string>
-  <string name="invite_awaiting_response">Invite awaiting response</string>
-  <string name="invite_invalid">Invite invalid</string>
   <string name="guest_create_list_message">You currently have guest access to shared lists. To create and sync your own private lists to the cloud, you\'ll need a Tasks.org subscription. Or, you can create a free local list that stays on this device.</string>
   <string name="pro_free_trial">New subscribers receive a 7-day free trial. Cancel at any time</string>
   <string name="upgrade_desktop_app">Tasks.org for desktop</string>

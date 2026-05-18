@@ -505,13 +505,6 @@
     <string name="privacy">Privasi</string>
     <string name="open_source">Sumber Terbuka</string>
     <string name="support">Dukung</string>
-    <string name="remove_user_confirmation">%1$s tidak akan mempunyai akses lagi pada %2$s</string>
-    <string name="remove_user">Hapus pengguna\?</string>
-    <string name="list_members">Daftar anggota</string>
-    <string name="invite_invalid">Undangan tidak valid</string>
-    <string name="invite_awaiting_response">Undangan menunggu respon</string>
-    <string name="invite_declined">Undangan ditolak</string>
-    <string name="email">Surel</string>
     <string name="more_options">Opsi lebih banyak</string>
     <string name="upgrade_open_source_description">Langganan Anda mendukung kelanjutan pengembangan aplikasi ini</string>
     <string name="upgrade_tasks_org_account_description">Sinkronkan dengan Tasks.org dan kolaborasi dengan pengguna lain</string>
@@ -623,9 +616,6 @@
     <string name="price_per_year_with_currency">%s/tahun</string>
     <string name="email_to_task">Email ke tugas</string>
     <string name="email_to_task_address">Alamat email Anda</string>
-    <string name="share_list">Bagikan \"%1$s\"</string>
-    <string name="send">Kirim</string>
-    <string name="invalid_email_address">Alamat email tidak valid</string>
     <string name="guest_create_list_message">Saat ini Anda memiliki akses tamu ke daftar bersama. Untuk membuat dan menyinkronkan daftar pribadi Anda sendiri ke cloud, Anda memerlukan langganan Tasks.org. Atau, Anda dapat membuat daftar lokal gratis yang tetap berada di perangkat ini.</string>
     <string name="upgrade_friends_and_family">Keluarga &amp; Teman</string>
     <string name="upgrade_friends_and_family_description">5 tamu gratis di daftar bersama. Berfungsi dengan Apple Reminders</string>

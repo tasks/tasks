@@ -291,4 +291,19 @@
     <string name="cannot_access_account">Hesaba erişilemedi</string>
     <string name="upgrade_subscription_banner">Desteğiniz için sağ olun! Tasks.org Bulut Eşzamanlamasını etkinleştirmek için aboneliğinizi yükseltin</string>
     <string name="subscription_not_found">Tasks.org bulut aboneliğiniz bulunamadı. Bunun hata olduğuna inanıyorsanız, iletişime geçin: %1$s</string>
+    <string name="new_list">Yeni liste oluştur</string>
+    <string name="list_members">Üyeleri listele</string>
+    <string name="remove_user">Kullanıcıyı kaldır?</string>
+    <string name="remove_user_confirmation">%1$s, artık %2$s erişimini yitirecek</string>
+    <string name="share_list">Paylaş "%1$s"</string>
+    <string name="invalid_email_address">Geçersiz e-posta adresi</string>
+    <string name="invite_declined">Davet reddedildi</string>
+    <string name="invite_awaiting_response">Davet yanıt bekliyor</string>
+    <string name="invite_invalid">Davet geçersiz</string>
+    <string name="send">Gönder</string>
+    <string name="email">E-posta</string>
+    <string name="color">Renk</string>
+    <string name="icon">Simge</string>
+    <string name="share">Paylaş</string>
+    <string name="list_settings">Liste ayarları</string>
 </resources>

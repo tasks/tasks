@@ -60,7 +60,7 @@ class TaskEditViewModel(
     private var initializeJob: Job? = null
     private var watchJob: Job? = null
 
-    fun initialize(taskId: Long?) {
+    fun initialize(taskId: Long?, currentFilter: CaldavFilter? = null) {
         watchJob?.cancel()
         val normalized = taskId?.takeIf { it != Task.NO_ID }
         initializeJob?.cancel()
@@ -70,7 +70,7 @@ class TaskEditViewModel(
             val list: CaldavFilter?
             if (normalized == null) {
                 loaded = taskCreator.createBlankTask()
-                list = firstCaldavList()
+                list = currentFilter ?: firstCaldavList()
             } else {
                 loaded = taskDao.fetch(normalized) ?: taskCreator.createBlankTask()
                 val caldavTask = caldavDao.getTask(normalized)

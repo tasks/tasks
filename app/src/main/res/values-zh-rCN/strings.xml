@@ -513,13 +513,6 @@
     <string name="privacy">隐私</string>
     <string name="open_source">开源</string>
     <string name="support">支持</string>
-    <string name="remove_user_confirmation">%1$s 将无法再访问 %2$s</string>
-    <string name="remove_user">是否移除用户？</string>
-    <string name="list_members">清单成员</string>
-    <string name="invite_invalid">邀请无效</string>
-    <string name="invite_awaiting_response">邀请等待回应</string>
-    <string name="invite_declined">邀请被拒绝</string>
-    <string name="email">电子邮件</string>
     <string name="more_options">更多选项</string>
     <string name="upgrade_open_source_description">你的订阅支持持续开发</string>
     <string name="upgrade_tasks_org_account_description">与 Tasks.org 同步并与其他用户协作</string>
@@ -652,9 +645,6 @@
     <string name="upgrade_email_to_task_description">通过将邮件转发至您的专属收件箱即可将其转为任务</string>
     <string name="advanced_tools">高级工具</string>
     <string name="advanced_tools_description">Google Places、CalDAV、EteSync 等！</string>
-    <string name="invalid_email_address">电子邮件地址无效</string>
-    <string name="share_list">共享 \"%1$s\"</string>
-    <string name="send">发送</string>
     <string name="guest_create_list_message">你当前有共享清单的来宾权限。要创建并同步自己的私人清单到云端需要 Tasks.org 订阅。也可以创建保留在此设备上的免费本地清单。</string>
     <string name="upgrade_friends_and_family">好友和家庭</string>
     <string name="upgrade_friends_and_family_description">共享清单可以有 5 位免费来宾。可与 Apple Reminders 配合使用</string>

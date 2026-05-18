@@ -210,4 +210,16 @@
     <string name="blog_feed_none">Ingen</string>
     <string name="cannot_access_account">Kunne ikke tilgå konto</string>
     <string name="upgrade_subscription_banner">Tak for din støtte! Opgrader dit abonnement for at aktivere Tasks.org Cloud Sync</string>
+    <string name="new_list">Opret ny liste</string>
+    <string name="list_members">Liste over medlemmer</string>
+    <string name="remove_user">Fjern bruger?</string>
+    <string name="remove_user_confirmation">%1$s vil ikke længere have adgang til %2$s</string>
+    <string name="invite_declined">Invitation afvist</string>
+    <string name="invite_awaiting_response">Invitation afventer svar</string>
+    <string name="invite_invalid">Invitation ugyldig</string>
+    <string name="email">E-mail</string>
+    <string name="color">Farve</string>
+    <string name="icon">Ikon</string>
+    <string name="share">Del</string>
+    <string name="list_settings">Listeindstillinger</string>
 </resources>

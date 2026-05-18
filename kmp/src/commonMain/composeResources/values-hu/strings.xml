@@ -231,4 +231,19 @@
     <string name="restart_later">Később</string>
     <string name="cannot_access_account">Fiók nem elérhető</string>
     <string name="upgrade_subscription_banner">Köszönjük a támogatást. Frissítse az előfizetését a Tasks.org felhős szinkronizáció engedélyezéséhez</string>
+    <string name="new_list">Új lista létrehozása</string>
+    <string name="list_members">Listatagok</string>
+    <string name="remove_user">Felhasználó eltávolítása?</string>
+    <string name="remove_user_confirmation">%1$s nem fog hozzáférni ehhez: %2$s</string>
+    <string name="share_list">"%1$s" megosztása</string>
+    <string name="invalid_email_address">Érvénytelen e-mail cím</string>
+    <string name="invite_declined">Meghívás visszautasítva</string>
+    <string name="invite_awaiting_response">Válaszra váró meghívás</string>
+    <string name="invite_invalid">Érvénytelen meghívás</string>
+    <string name="send">Küldés</string>
+    <string name="email">E-mail</string>
+    <string name="color">Szín</string>
+    <string name="icon">Ikon</string>
+    <string name="share">Megosztás</string>
+    <string name="list_settings">Lista beállításai</string>
 </resources>

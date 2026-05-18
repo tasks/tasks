@@ -186,4 +186,16 @@
     <string name="restart_later">Máis tarde</string>
     <string name="blog_feed_none">Ningunha</string>
     <string name="cannot_access_account">Non se pode acceder á conta</string>
+    <string name="new_list">Crea unha nova lista</string>
+    <string name="list_members">Lista de participantes</string>
+    <string name="remove_user">Borrar usuario?</string>
+    <string name="remove_user_confirmation">%1$s xa non terá acceso a %2$s</string>
+    <string name="invite_declined">Convite rexeitado</string>
+    <string name="invite_awaiting_response">Convite en agarda</string>
+    <string name="invite_invalid">Convite non válido</string>
+    <string name="email">Correo electrónico</string>
+    <string name="color">Cor</string>
+    <string name="icon">Icona</string>
+    <string name="share">Compartir</string>
+    <string name="list_settings">Configuracións de lista</string>
 </resources>

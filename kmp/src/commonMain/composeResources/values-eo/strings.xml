@@ -221,4 +221,19 @@
     <string name="restart_later">Poste</string>
     <string name="cannot_access_account">Ne povas atingi konton</string>
     <string name="upgrade_subscription_banner">Dankon pro via subteno! Altgradigu vian abonon por ŝalti sinkronigon de Tasks.org Cloud</string>
+    <string name="new_list">Krei novan liston</string>
+    <string name="list_members">Anoj de la listo</string>
+    <string name="remove_user">Forigi uzanton?</string>
+    <string name="remove_user_confirmation">%1$s ne plu povos atingi %2$s</string>
+    <string name="share_list">Komunigi "%1$s"</string>
+    <string name="invalid_email_address">Nevalida retpoŝtadreso</string>
+    <string name="invite_declined">Malakceptis inviton</string>
+    <string name="invite_awaiting_response">Invito atendas respondon</string>
+    <string name="invite_invalid">Nevalida invito</string>
+    <string name="send">Sendi</string>
+    <string name="email">Retpoŝto</string>
+    <string name="color">Koloro</string>
+    <string name="icon">Piktogramo</string>
+    <string name="share">Kunhavigi</string>
+    <string name="list_settings">Agordoj de listo</string>
 </resources>

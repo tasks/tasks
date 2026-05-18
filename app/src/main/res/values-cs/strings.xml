@@ -475,7 +475,6 @@
     <string name="default_due_date">Výchozí termín</string>
     <string name="repeat_type_completion_capitalized">Okamžik dokončení</string>
     <string name="cancel">Zrušit</string>
-    <string name="email">E-mail</string>
     <string name="location_arrived">Příchod v %s</string>
     <string name="subscription">Předplatné</string>
     <string name="next_saturday">Příští sobota</string>
@@ -550,12 +549,6 @@
     <string name="upgrade_more_customization_description">Odemknout všechny vzhledy, barvy a ikony</string>
     <string name="upgrade_more_customization">Další přizpůsobení</string>
     <string name="pro_free_trial">Noví předplatitelé dostanou 7 dnů na vyzkoušení zdarma. Předplatné je možné kdykoli zrušit</string>
-    <string name="invite_invalid">Neplatné pozvání</string>
-    <string name="invite_awaiting_response">Pozvání čeká na odpověď</string>
-    <string name="invite_declined">Pozvání odmítnuto</string>
-    <string name="remove_user_confirmation">%1$s už nebude mít přístup k %2$s</string>
-    <string name="remove_user">Odebrat uživatele\?</string>
-    <string name="list_members">Členové seznamu</string>
     <string name="now">Nyní</string>
     <string name="customize_edit_screen_summary">Přeuspořádejte nebo odstraňte pole</string>
     <string name="randomly_every">Náhodně každých %s</string>
@@ -683,9 +676,6 @@
     <string name="upgrade_email_to_task_description">Přeměňte e-maily na úkoly jejich přesměrováním do vaší soukromé schránky</string>
     <string name="advanced_tools">Pokročilé nástroje</string>
     <string name="advanced_tools_description">Místa Google, CalDAV, EteSync a další!</string>
-    <string name="invalid_email_address">Neplatná e-mailová adresa</string>
-    <string name="share_list">Sdílet „%1$s“</string>
-    <string name="send">Odeslat</string>
     <string name="guest_create_list_message">V současné době máte přístup hosta ke sdíleným seznamům. Pro vytvoření a synchronizaci vašich vlastních soukromých seznamů budete potřebovat předplatné Tasks.org. Můžete si také vytvořit lokální seznam, který zůstane na vašem zařízení.</string>
     <string name="upgrade_friends_and_family">Přátelé a rodina</string>
     <string name="upgrade_friends_and_family_description">5 bezplatných hostů ve sdílených seznamech. Funguje s Připomínkami Apple</string>

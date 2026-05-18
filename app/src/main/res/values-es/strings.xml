@@ -534,13 +534,6 @@
     <string name="privacy">Privacidad</string>
     <string name="open_source">Código abierto</string>
     <string name="support">Asistencia</string>
-    <string name="remove_user_confirmation">%1$s ya no tendrá acceso a %2$s</string>
-    <string name="remove_user">¿Quiere quitar al usuario\?</string>
-    <string name="list_members">Lista de miembros</string>
-    <string name="invite_invalid">Invitación no válida</string>
-    <string name="invite_awaiting_response">Invitación en espera de respuesta</string>
-    <string name="invite_declined">Invitación declinada</string>
-    <string name="email">Correo electrónico</string>
     <string name="more_options">Más opciones</string>
     <string name="upgrade_open_source_description">Su suscripción apoya el desarrollo continuo</string>
     <string name="upgrade_tasks_org_account_description">Sincronizar con Tasks.org y colaborar con otros usuarios</string>
@@ -662,7 +655,6 @@
     <string name="accept">Aceptar</string>
     <string name="rmd_EPr_rmd_time_desc">Las notificaciones de las tareas de todo el día aparecerán a las %1$s</string>
     <string name="default_reminder">Todas las tareas diarias</string>
-    <string name="share_list">Compartir “%1$s”</string>
     <string name="email_to_task">Correo electrónico a tarea</string>
     <string name="email_to_task_address">Tu dirección de correo electrónico</string>
     <string name="tos_updated_title">Hemos actualizado nuestras condiciones de uso</string>

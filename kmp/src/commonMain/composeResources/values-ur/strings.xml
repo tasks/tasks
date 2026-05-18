@@ -109,4 +109,8 @@
     <string name="restart_later">بعد میں</string>
     <string name="blog_feed_none">کوئی نہیں</string>
     <string name="cannot_access_account">اکاونٹ تک رسائی نہیں ہو سکتی</string>
+    <string name="new_list">نئی فہرست بنائیں</string>
+    <string name="color">رنگ</string>
+    <string name="icon">آئیکن</string>
+    <string name="list_settings">لسٹ سیٹنگ</string>
 </resources>

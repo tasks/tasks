@@ -472,7 +472,6 @@
     <string name="auto_dismiss_datetime_widget_summary">Fechar automaticamente ao selecionar o Widget</string>
     <string name="auto_dismiss_datetime_widget">Widget</string>
     <string name="davx5_selection_description">Sincronize suas tarefas com o aplicativo DAVx⁵</string>
-    <string name="email">E-mail</string>
     <string name="start_date">Data inicial</string>
     <string name="SSD_sort_start">Por data inicial</string>
     <string name="cancel">Cancelar</string>
@@ -514,12 +513,6 @@
     <string name="upgrade_more_customization_description">Desbloqueie todos os temas, cores e ícones</string>
     <string name="upgrade_more_customization">Mais customização</string>
     <string name="pro_free_trial">Novos assinantes recebem 7 dias de teste grátis. Cancele a qualquer momento</string>
-    <string name="invite_invalid">Convite inválido</string>
-    <string name="invite_awaiting_response">Convite aguardando resposta</string>
-    <string name="invite_declined">Convite cancelado</string>
-    <string name="remove_user_confirmation">%1$s não terá mais acesso a %2$s</string>
-    <string name="remove_user">Remover usuário\?</string>
-    <string name="list_members">Lista de membros</string>
     <string name="account_not_included">Não incluído nas assinaturas de \'Dê o seu preço\'</string>
     <string name="tasks_org_account_required">É necessária uma conta em Tasks.org</string>
     <string name="copied_to_clipboard">%s copiado para a área de transferência</string>
@@ -683,9 +676,6 @@
     <string name="per_list_sort_summary">Lembrar configurações de classificação e grupo para cada lista independentemente</string>
     <string name="subscription_required_fdroid">Uma inscrição é necessária para usar sincronização Tasks.org. Inscrições devem ser iniciadas da versão Google Play do Tasks.</string>
     <string name="sponsorship_required_fdroid">É necessário ser um patrocinador do GitHub para usar a sincronização do Tasks.org. Clique abaixo para se tornar um patrocinador.</string>
-    <string name="share_list">Compartilhar \"%1$s\"</string>
-    <string name="send">Enviar</string>
-    <string name="invalid_email_address">Email inválido</string>
     <string name="guest_create_list_message">Você tem acesso de convidado a listas compartilhadas. Para criar e compartilhar suas próprias listas privadas na nuvem, é necessário uma inscrição Tasks.org. Ou, você pode criar uma lista local de graça que fica nesse dispositivo.</string>
     <string name="upgrade_desktop_app">Tasks.org para desktop</string>
     <string name="upgrade_desktop_app_description">Acesso antecipado para o novo app de desktop</string>

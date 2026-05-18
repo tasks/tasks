@@ -167,4 +167,16 @@
     <string name="restart_later">Vėliau</string>
     <string name="blog_feed_none">Nėra</string>
     <string name="cannot_access_account">Paskyra nepasiekiama</string>
+    <string name="new_list">Sukurti naują sąrašą</string>
+    <string name="list_members">Sąrašo nariai</string>
+    <string name="remove_user">Pašalinti vartotoją?</string>
+    <string name="remove_user_confirmation">%1$s nebeturės prieigos prie %2$s</string>
+    <string name="invite_declined">Kvietimas atmestas</string>
+    <string name="invite_awaiting_response">Kvietimas laukia atsakymo</string>
+    <string name="invite_invalid">Kvietimas negalioja</string>
+    <string name="email">El. paštas</string>
+    <string name="color">Spalva</string>
+    <string name="icon">Piktograma</string>
+    <string name="share">Dalintis</string>
+    <string name="list_settings">Sąrašo nustatymai</string>
 </resources>

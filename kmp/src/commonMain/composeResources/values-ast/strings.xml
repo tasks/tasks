@@ -108,4 +108,8 @@
     <string name="restart_later">Dempués</string>
     <string name="blog_feed_none">Denguna</string>
     <string name="cannot_access_account">Nun se puee acceder a la cuenta</string>
+    <string name="new_list">Amestar nueva llista</string>
+    <string name="color">Color</string>
+    <string name="icon">Iconu</string>
+    <string name="list_settings">Axustes de llistes</string>
 </resources>

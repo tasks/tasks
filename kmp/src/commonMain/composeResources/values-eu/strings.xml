@@ -165,4 +165,16 @@
     <string name="restart_later">Geroago</string>
     <string name="blog_feed_none">Bat ere ez</string>
     <string name="cannot_access_account">Ezin izan da kontua atzitu</string>
+    <string name="new_list">Sortu zerrenda berria</string>
+    <string name="list_members">Kideen zerrenda</string>
+    <string name="remove_user">Erabiltzailea ezabatu?</string>
+    <string name="remove_user_confirmation">%1$s jada ez du sarbiderik izango %2$s</string>
+    <string name="invite_declined">Gonbidapena atzera bota da</string>
+    <string name="invite_awaiting_response">Gonbidapena erantzunaren zain</string>
+    <string name="invite_invalid">Gonbidapen baliogabea</string>
+    <string name="email">Posta elektronikoa</string>
+    <string name="color">Kolorea</string>
+    <string name="icon">Ikonoa</string>
+    <string name="share">Partekatu</string>
+    <string name="list_settings">Zerrenda-ezarpenak</string>
 </resources>

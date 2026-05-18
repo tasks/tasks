@@ -518,13 +518,6 @@
     <string name="support">Ondersteuning</string>
     <string name="privacy">Privacy</string>
     <string name="open_source">Open source</string>
-    <string name="list_members">Leden op de lijst</string>
-    <string name="remove_user_confirmation">%1$s krijgt geen toegang meer tot %2$s</string>
-    <string name="remove_user">Gebruiker verwijderen\?</string>
-    <string name="invite_invalid">Uitnodiging ongeldig</string>
-    <string name="invite_awaiting_response">Uitnodiging wacht op reactie</string>
-    <string name="invite_declined">Uitnodiging afgewezen</string>
-    <string name="email">E-mail</string>
     <string name="upgrade_more_customization">Meer maatwerk</string>
     <string name="upgrade_more_customization_description">Alle thema\'s, kleuren en pictogrammen ontgrendelen</string>
     <string name="more_options">Meer opties</string>
@@ -644,7 +637,6 @@
     <string name="accept">Accepteren</string>
     <string name="exit">Afsluiten</string>
     <string name="returning_user">Terugkerende gebruiker?</string>
-    <string name="invalid_email_address">Ongeldig e-mailadres</string>
     <string name="email_to_task_address">Je e-mailadres</string>
     <string name="email_to_task">Taak maken per e-mail</string>
     <string name="rmd_EPr_rmd_time_desc">Meldingen voor taken zonder tijdsaanduiding worden om %1$s getoond</string>

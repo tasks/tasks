@@ -174,4 +174,16 @@
     <string name="restart_later">Để sau</string>
     <string name="blog_feed_none">Không có</string>
     <string name="cannot_access_account">Không thể truy cập tài khoản</string>
+    <string name="new_list">Tạo danh sách mới</string>
+    <string name="list_members">Liệt kê các thành viên</string>
+    <string name="remove_user">Xoá người dùng?</string>
+    <string name="remove_user_confirmation">%1$s sẽ không còn quyền truy cập vào %2$s nữa</string>
+    <string name="invite_declined">Lời mời bị từ chối</string>
+    <string name="invite_awaiting_response">Lời mời đang chờ phản hồi</string>
+    <string name="invite_invalid">Lời mời không hợp lệ</string>
+    <string name="email">Thư điện tử</string>
+    <string name="color">Màu</string>
+    <string name="icon">Biểu tượng</string>
+    <string name="share">Chia sẻ</string>
+    <string name="list_settings">Cài đặt danh sách</string>
 </resources>

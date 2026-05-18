@@ -42,4 +42,9 @@
     <string name="social">ସାମାଜିକ</string>
     <string name="open_source">ଖୋଲା ଉତ୍ସ</string>
     <string name="restart_later">ପରେ</string>
+    <string name="invite_declined">ନିମନ୍ତ୍ରଣ ପ୍ରତ୍ୟାଖ୍ୟାନ ହୋଇଛି</string>
+    <string name="invite_awaiting_response">ନିମନ୍ତ୍ରଣ ପ୍ରତିକ୍ରିୟାର ଅପେକ୍ଷାରେ</string>
+    <string name="invite_invalid">ନିମନ୍ତ୍ରଣ ଅମାନ୍ୟ ଅଟେ</string>
+    <string name="email">ଇମେଲ୍</string>
+    <string name="color">ରଙ୍ଗ</string>
 </resources>

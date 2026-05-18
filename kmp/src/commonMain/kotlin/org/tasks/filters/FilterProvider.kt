@@ -113,7 +113,7 @@ class FilterProvider(
                         collapsed,
                         SubheaderType.PREFERENCE,
                         collapseFilters.name,
-                        if (showCreate) REQUEST_NEW_FILTER else 0,
+                        if (showCreate && configuration.canCreateFilters) REQUEST_NEW_FILTER else 0,
                         icon = TasksIcons.FILTER_LIST,
                         childCount = children.size,
                     )
@@ -144,7 +144,7 @@ class FilterProvider(
                         collapsed,
                         SubheaderType.PREFERENCE,
                         collapseTags.name,
-                        if (showCreate) REQUEST_NEW_TAGS else 0,
+                        if (showCreate && configuration.canCreateTags) REQUEST_NEW_TAGS else 0,
                         icon = TasksIcons.LABEL,
                         childCount = children.size,
                     )
@@ -175,7 +175,7 @@ class FilterProvider(
                         collapsed,
                         SubheaderType.PREFERENCE,
                         collapsePlaces.name,
-                        if (showCreate) REQUEST_NEW_PLACE else 0,
+                        if (showCreate && configuration.canCreatePlaces) REQUEST_NEW_PLACE else 0,
                         icon = TasksIcons.PLACE,
                         childCount = children.size,
                     )
@@ -253,7 +253,7 @@ class FilterProvider(
                     else -> SubheaderType.CALDAV
                 },
                 account.id.toString(),
-                if (showCreate) REQUEST_NEW_LIST else 0,
+                if (showCreate && configuration.canCreateLists(account)) REQUEST_NEW_LIST else 0,
                 accountIcon = account.composeIcon,
                 childCount = children.size,
                 openTaskApp = openTaskApp,

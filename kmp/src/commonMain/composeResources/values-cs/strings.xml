@@ -294,4 +294,19 @@
     <string name="cannot_access_account">Nepodařilo se připojit k účtu</string>
     <string name="upgrade_subscription_banner">Děkujeme za vaší podporu! Zvyšte své předplatné pro zapnutí cloudové synchronizace Tasks.org</string>
     <string name="subscription_not_found">Vaše cloudové předplatné Tasks.org nebylo nalezeno. Pokud si myslíte, že se jedná o chybu, kontaktujte %1$s</string>
+    <string name="new_list">Vytvořit nový seznam</string>
+    <string name="list_members">Členové seznamu</string>
+    <string name="remove_user">Odebrat uživatele?</string>
+    <string name="remove_user_confirmation">%1$s už nebude mít přístup k %2$s</string>
+    <string name="share_list">Sdílet „%1$s“</string>
+    <string name="invalid_email_address">Neplatná e-mailová adresa</string>
+    <string name="invite_declined">Pozvání odmítnuto</string>
+    <string name="invite_awaiting_response">Pozvání čeká na odpověď</string>
+    <string name="invite_invalid">Neplatné pozvání</string>
+    <string name="send">Odeslat</string>
+    <string name="email">E-mail</string>
+    <string name="color">Barva</string>
+    <string name="icon">Ikona</string>
+    <string name="share">Sdílet</string>
+    <string name="list_settings">Nastavení seznamu</string>
 </resources>

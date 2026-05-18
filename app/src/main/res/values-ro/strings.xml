@@ -6,7 +6,6 @@
     <string name="TEA_control_files">Fișiere</string>
     <string name="custom_filter_or">SAU</string>
     <string name="filters">Filtre</string>
-    <string name="email">E-mail</string>
     <string name="compact">Compact</string>
     <string name="TEA_timer_est">Estim. %s</string>
     <string name="TEA_control_gcal">Calendar</string>
@@ -20,12 +19,6 @@
     <string name="upgrade_more_customization_description">Deblochează toate temele, culorile și pictogramele</string>
     <string name="upgrade_more_customization">Mai multă personalizare</string>
     <string name="pro_free_trial">Noii abonați beneficiază de o perioadă de încercare gratuită de 7 zile. Anulare în orice moment</string>
-    <string name="invite_invalid">Invitație nevalabilă</string>
-    <string name="invite_awaiting_response">Invitație în așteptarea răspunsului</string>
-    <string name="invite_declined">Invitație refuzată</string>
-    <string name="remove_user_confirmation">%1$s nu va mai avea acces la %2$s</string>
-    <string name="remove_user">Elimini utilizatorul\?</string>
-    <string name="list_members">Lista membrilor</string>
     <string name="account_not_included">Nu este inclus în abonamentele \'Spune prețul\'</string>
     <string name="tasks_org_account_required">Cont Tasks.org necesar</string>
     <string name="copied_to_clipboard">%s copiat în clipboard</string>
@@ -684,9 +677,6 @@
     <string name="subscription_required_fdroid">Este necesar un abonament pentru a utiliza sincronizarea Tasks.org. Abonamentele trebuie să fie inițiate din versiunea Google Play a Tasks.</string>
     <string name="sponsorship_required_fdroid">Este necesară o sponsorizare GitHub pentru a utiliza sincronizarea Tasks.org. Clic mai jos pentru a deveni sponsor.</string>
     <string name="email_to_task_address">Adresa ta de e-mail</string>
-    <string name="share_list">Distribuie „%1$s”</string>
-    <string name="send">Trimite</string>
-    <string name="invalid_email_address">Adresă de e-mail nevalidă</string>
     <string name="guest_create_list_message">În prezent, ai acces pentru invitați la listele partajate. Pentru a crea și sincroniza propriile liste private în cloud, vei avea nevoie de un abonament la Tasks.org. Sau poți crea o listă locală gratuită care rămâne pe acest dispozitiv.</string>
     <string name="upgrade_desktop_app">Tasks.org pentru desktop</string>
     <string name="upgrade_desktop_app_description">Acces anticipat la noua aplicație desktop</string>

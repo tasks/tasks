@@ -518,13 +518,6 @@
     <string name="privacy">Adatvédelem</string>
     <string name="open_source">Nyílt forráskódú</string>
     <string name="support">Támogatás</string>
-    <string name="remove_user_confirmation">%1$s nem fog hozzáférni ehhez: %2$s</string>
-    <string name="remove_user">Felhasználó eltávolítása\?</string>
-    <string name="list_members">Listatagok</string>
-    <string name="invite_invalid">Érvénytelen meghívás</string>
-    <string name="invite_awaiting_response">Válaszra váró meghívás</string>
-    <string name="invite_declined">Meghívás visszautasítva</string>
-    <string name="email">E-mail</string>
     <string name="more_options">Több opció</string>
     <string name="upgrade_open_source_description">Az előfizetéseddel a folyamatos fejlesztést támogatod</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org szinkronizáció és együttműködés más felhasználókkal</string>
@@ -662,9 +655,6 @@
     <string name="upgrade_email_to_task_description">Feladatok létrehozásához küldd tovább a leveleidet a privát fiókodba</string>
     <string name="advanced_tools">Speciális eszközök</string>
     <string name="advanced_tools_description">Google Helyek, CalDAV, EteSync, és egyebek!</string>
-    <string name="invalid_email_address">Érvénytelen e-mail cím</string>
-    <string name="share_list">\"%1$s\" megosztása</string>
-    <string name="send">Küldés</string>
     <string name="guest_create_list_message">A megosztott listához jelenleg vendég hozzáféréssel rendelkezel. Saját privát listák létrehozásához és felhős szinkronizálásához Tasks.org előfizetésre van szükséged. Alternatívaként létrehozhatsz egy ingyenes helyi listát, ami ezen a készüléken tárolódik.</string>
     <string name="upgrade_friends_and_family">Család és barátok</string>
     <string name="upgrade_friends_and_family_description">A megosztott listához 5 ingyenes vendég adható hozzá. Apple Reminders-el is működik</string>

@@ -20,6 +20,7 @@ fun ColorPickerDialog(
     onDismiss: () -> Unit,
     onColorSelected: (PickerColor) -> Unit,
     onColorWheelSelected: () -> Unit = {},
+    showColorWheel: Boolean = true,
 ) {
     BasicAlertDialog(
         onDismissRequest = onDismiss,
@@ -44,6 +45,7 @@ fun ColorPickerDialog(
                         onDismiss()
                     },
                     hasPro = hasPro,
+                    showColorWheel = showColorWheel,
                 )
             }
         }

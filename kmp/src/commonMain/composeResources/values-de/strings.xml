@@ -235,4 +235,19 @@
     <string name="cannot_access_account">Zugriff auf Konto fehlgeschlagen</string>
     <string name="upgrade_subscription_banner">Vielen Dank für deine Unterstützung! Aktualisiere dein Abo, um Tasks.org Cloud Sync zu aktivieren</string>
     <string name="subscription_not_found">Dein Abo für die Cloud von Tasks.org wurde nicht gefunden. Wenn du glaubst , dass dies ein Irrtum ist, kontaktiere %1$s</string>
+    <string name="new_list">Neue Liste erstellen</string>
+    <string name="list_members">Listenmitglieder</string>
+    <string name="remove_user">Benutzer entfernen?</string>
+    <string name="remove_user_confirmation">%1$s wird keinen Zugriff mehr auf %2$s haben</string>
+    <string name="share_list">„%1$s“ teilen</string>
+    <string name="invalid_email_address">Ungültige E-Mail-Adresse</string>
+    <string name="invite_declined">Einladung abgelehnt</string>
+    <string name="invite_awaiting_response">Einladung wartet auf Antwort</string>
+    <string name="invite_invalid">Einladung ungültig</string>
+    <string name="send">Senden</string>
+    <string name="email">E-Mail</string>
+    <string name="color">Farbe</string>
+    <string name="icon">Symbol</string>
+    <string name="share">Teilen</string>
+    <string name="list_settings">Listeneinstellungen</string>
 </resources>
