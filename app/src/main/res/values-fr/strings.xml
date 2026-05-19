@@ -349,7 +349,6 @@
     <string name="TEA_note_label">Description</string>
     <string name="TEA_control_notes">Description</string>
     <string name="CFC_tag_text">Étiquette : \?</string>
-    <string name="gtasks_GPr_header">« Google Tasks »</string>
     <plurals name="repeat_minutes">
         <item quantity="one">minute</item>
         <item quantity="many">minutes</item>

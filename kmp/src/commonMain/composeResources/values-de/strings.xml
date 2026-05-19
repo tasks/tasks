@@ -250,4 +250,5 @@
     <string name="icon">Symbol</string>
     <string name="share">Teilen</string>
     <string name="list_settings">Listeneinstellungen</string>
+    <string name="reinitialize_account">Neu initialisieren</string>
 </resources>

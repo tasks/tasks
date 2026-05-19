@@ -343,7 +343,6 @@
     <string name="choose_new_location">Neuen Ort auswählen</string>
     <string name="invalid_backup_file">Ungültige Sicherungsdatei</string>
     <string name="google_tasks_add_to_top">Neue Aufgaben oben</string>
-    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="TEA_timer_controls">Stoppuhr</string>
     <string name="geofence_radius">Geofence-Radius</string>
     <string name="location_radius_meters">%s m</string>

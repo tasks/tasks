@@ -273,4 +273,5 @@
     <string name="icon">Икона</string>
     <string name="share">Споделяне</string>
     <string name="list_settings">Настройки на списъка</string>
+    <string name="reinitialize_account">Повторно инициализиране</string>
 </resources>

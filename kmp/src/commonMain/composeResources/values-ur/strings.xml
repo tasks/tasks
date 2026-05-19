@@ -113,4 +113,5 @@
     <string name="color">رنگ</string>
     <string name="icon">آئیکن</string>
     <string name="list_settings">لسٹ سیٹنگ</string>
+    <string name="reinitialize_account">دوبارہ شروع کریں</string>
 </resources>

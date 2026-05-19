@@ -307,4 +307,5 @@
     <string name="icon">Ikona</string>
     <string name="share">Dijeli</string>
     <string name="list_settings">Postavke popisa</string>
+    <string name="reinitialize_account">Vrati na početne vrijednosti</string>
 </resources>

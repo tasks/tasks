@@ -261,4 +261,5 @@
     <string name="icon">Icono</string>
     <string name="share">Compartir</string>
     <string name="list_settings">Configuración de lista</string>
+    <string name="reinitialize_account">Reinicializar</string>
 </resources>

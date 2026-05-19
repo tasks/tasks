@@ -170,7 +170,6 @@
         <item quantity="other">%d tasques</item>
     </plurals>
     <string name="gtasks_GLA_errorIOAuth">Perdoneu, hem tingut un problema connectant-nos als servidors de Google. Si us plau proveu un altre cop més tard.</string>
-    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_error_accountNotFound">Compte %s no trobat-si us plau desconnecta i torna a connectar-te des de la configuració de Google Tasks.</string>
     <string name="premium_record_audio">Grava una nota de veu</string>
     <string name="ring_five_times">Sona cinc cops</string>

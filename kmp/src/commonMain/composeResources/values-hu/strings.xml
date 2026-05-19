@@ -246,4 +246,5 @@
     <string name="icon">Ikon</string>
     <string name="share">Megosztás</string>
     <string name="list_settings">Lista beállításai</string>
+    <string name="reinitialize_account">Újrainicializálás</string>
 </resources>

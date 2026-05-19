@@ -307,4 +307,5 @@
     <string name="icon">Icon</string>
     <string name="share">Share</string>
     <string name="list_settings">List settings</string>
+    <string name="reinitialize_account">Reinitialize</string>
 </resources>

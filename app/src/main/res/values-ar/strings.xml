@@ -57,7 +57,6 @@
     <string name="CFC_gtasks_list_text">في القائمة: \?</string>
     <string name="gtasks_GTA_clear_completed">حذف المتمم</string>
     <string name="gtasks_GLA_errorIOAuth">عذرا، لم نتمكن من الاتصال مع مزود الخدمة جوجل. أعد المحاولة مرة أخرى لاحقًًا.</string>
-    <string name="gtasks_GPr_header">مهام قوقل</string>
     <string name="premium_record_audio">تسجيل ملاحظة</string>
     <string name="rmd_NoA_done">أكمل</string>
     <string name="rmd_NoA_snooze">غفوة</string>

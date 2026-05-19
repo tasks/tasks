@@ -198,4 +198,5 @@
     <string name="icon">உருவம்</string>
     <string name="share">பகிர்</string>
     <string name="list_settings">பட்டியல் அமைப்புகள்</string>
+    <string name="reinitialize_account">மீண்டும் துவக்கு</string>
 </resources>

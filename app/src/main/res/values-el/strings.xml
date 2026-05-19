@@ -82,7 +82,6 @@
     <string name="gtasks_GTA_clear_completed">Καθαρισμός ολοκληρωμένων</string>
     <string name="gtasks_GLA_authenticating">Αυθεντικοποίηση…</string>
     <string name="gtasks_GLA_errorIOAuth">Συγγνώμη, υπήρξε σφάλμα επικοινωνίας με τους διακομιστές της Google. Παρακαλουμε δοκιμάστε πάλι μετά.</string>
-    <string name="gtasks_GPr_header">Εργασίες Google</string>
     <string name="gtasks_error_accountNotFound">Λογαριασμός %s δεν βρέθηκε - παρακαλώ αποσυνδεθείτε και συνδεθείτε πάλι απο τις ρυθμίσεις του Google Tasks.</string>
     <string name="premium_record_audio">Ηχογράφηση σημείωσης</string>
     <string name="rmd_NoA_done">Ολοκληρωμένο</string>

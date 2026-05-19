@@ -222,4 +222,5 @@
     <string name="icon">Ikon</string>
     <string name="share">Del</string>
     <string name="list_settings">Listeindstillinger</string>
+    <string name="reinitialize_account">Geninitialiser</string>
 </resources>

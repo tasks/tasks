@@ -212,4 +212,5 @@
     <string name="icon">Иконка</string>
     <string name="share">Поделиться</string>
     <string name="list_settings">Настройки списка</string>
+    <string name="reinitialize_account">Инициализировать заново</string>
 </resources>

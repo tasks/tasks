@@ -274,7 +274,6 @@
     <string name="TVA_add_comment">අදහස දක්වන්න…</string>
     <string name="premium_record_audio">සටහනක් පටිගත කරන්න</string>
     <string name="gtasks_error_accountNotFound">%s ගිණුම සොයාගත නොහැකිවිය - කරුණාකර Log out වී Google Tasks සැකසුම් වලින් නැවත ලොග් වන්න.</string>
-    <string name="gtasks_GPr_header">Google කාර්යයන්</string>
     <string name="gtasks_GLA_errorIOAuth">කණගාටුයි, අපට Google සේවාදායකයන් සමඟ සන්නිවේදනය කිරීමේ අපහසුතාවයක් ඇති විය. කරුණාකර පසුව නැවත උත්සාහ කරන්න.</string>
     <string name="gtasks_GLA_authenticating">සත්‍යාපනය…</string>
     <string name="gcal_completed_title">%s (සම්පූර්ණයි)</string>

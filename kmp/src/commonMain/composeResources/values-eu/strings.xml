@@ -177,4 +177,5 @@
     <string name="icon">Ikonoa</string>
     <string name="share">Partekatu</string>
     <string name="list_settings">Zerrenda-ezarpenak</string>
+    <string name="reinitialize_account">Berrhasi</string>
 </resources>

@@ -200,4 +200,5 @@
     <string name="icon">Icona</string>
     <string name="share">Compartiu</string>
     <string name="list_settings">Preferències de les llistes</string>
+    <string name="reinitialize_account">Reinicialitzeu</string>
 </resources>

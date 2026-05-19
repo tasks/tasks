@@ -239,4 +239,5 @@
     <string name="icon">圖示</string>
     <string name="share">分享</string>
     <string name="list_settings">清單設定</string>
+    <string name="reinitialize_account">重新初始化</string>
 </resources>

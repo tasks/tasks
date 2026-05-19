@@ -201,4 +201,5 @@
     <string name="icon">Піктограма</string>
     <string name="share">Поділитися</string>
     <string name="list_settings">Налаштування списку</string>
+    <string name="reinitialize_account">Ініціалізувати ще раз</string>
 </resources>

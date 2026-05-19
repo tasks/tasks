@@ -244,4 +244,5 @@
     <string name="icon">Ikoon</string>
     <string name="share">Jaga</string>
     <string name="list_settings">Loendi seadistused</string>
+    <string name="reinitialize_account">Initsialiseeri uuesti</string>
 </resources>

@@ -381,7 +381,6 @@
         <item quantity="many">%d підзавдань</item>
         <item quantity="other">%d підзавдань</item>
     </plurals>
-    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="wearable_notifications_summary">Показувати повідомлення на натільних пристроях</string>
     <string name="wearable_notifications">Повідомлення на натільні пристрої</string>
     <string name="documentation">Документація</string>

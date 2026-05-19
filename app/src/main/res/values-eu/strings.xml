@@ -107,7 +107,6 @@
     <string name="gtasks_GTA_clear_completed">Kendu burututakoak</string>
     <string name="gtasks_GLA_authenticating">Autentifikatzen…</string>
     <string name="gtasks_GLA_errorIOAuth">Google zerbitzariekin komunikatzeko arazo bat izan dugu. Saiatu geroago.</string>
-    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_error_accountNotFound">Ez da %s kontua aurkitu, amaitu saioa eta hasi saioa berriro Google Tasks ezarpenetatik.</string>
     <string name="premium_record_audio">Grabatu ohar bat</string>
     <string name="ring_once">Doinua behin</string>

@@ -186,4 +186,5 @@
     <string name="icon">Ikon</string>
     <string name="share">Del</string>
     <string name="list_settings">Listeinnstillinger</string>
+    <string name="reinitialize_account">Last inn på ny</string>
 </resources>

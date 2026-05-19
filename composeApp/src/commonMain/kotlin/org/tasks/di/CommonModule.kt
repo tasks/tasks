@@ -65,6 +65,7 @@ import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.CaldavAccountSettingsViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.EtebaseAccountSettingsViewModel
+import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.FilterPickerViewModel
@@ -390,6 +391,12 @@ val commonModule = module {
             tasksPreferences = get(),
             subscriptionProvider = get(),
             caldavUrl = get<org.tasks.auth.TasksServerEnvironment>().caldavUrl,
+        )
+    }
+    viewModel {
+        GoogleTasksAccountViewModel(
+            caldavDao = get(),
+            taskDeleter = get(),
         )
     }
     viewModel {

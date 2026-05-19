@@ -306,4 +306,5 @@
     <string name="icon">Simge</string>
     <string name="share">Paylaş</string>
     <string name="list_settings">Liste ayarları</string>
+    <string name="reinitialize_account">Yeniden başlat</string>
 </resources>

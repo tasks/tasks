@@ -218,4 +218,5 @@
     <string name="icon">Pictogram</string>
     <string name="share">Taken delen</string>
     <string name="list_settings">Lijst instellen</string>
+    <string name="reinitialize_account">Herinitialiseren</string>
 </resources>

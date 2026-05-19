@@ -360,7 +360,6 @@
     <string name="invalid_backup_file">Archivo de copia de seguridad no válido</string>
     <string name="google_tasks_add_to_top">Nuevas tareas encima</string>
     <string name="TEA_timer_est">Est. %s</string>
-    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="location_radius_meters">%s m</string>
     <string name="color">Color</string>
     <string name="url">URL</string>

@@ -244,4 +244,5 @@
     <string name="icon">Ikon</string>
     <string name="share">Bagikan</string>
     <string name="list_settings">Pengaturan daftar</string>
+    <string name="reinitialize_account">Inisialisasi ulang</string>
 </resources>

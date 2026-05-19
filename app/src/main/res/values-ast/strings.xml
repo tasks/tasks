@@ -126,7 +126,6 @@
     <string name="gtasks_GTA_clear_completed">Llimpiar xeres acabaes</string>
     <string name="gtasks_GLA_authenticating">Autenticando…</string>
     <string name="gtasks_GLA_errorIOAuth">Hebo un problema comunicándose colos servidores de Google. Por favor, intentalo más tarde.</string>
-    <string name="gtasks_GPr_header"></string>
     <string name="gtasks_error_accountNotFound">Cuenta %s non atopada—por favor, pieslla sesión y vuelve a aniciala dende los axustes de Google Tasks.</string>
     <string name="premium_record_audio">Grabar una nota</string>
     <string name="ring_once">Sonar una vuelta</string>

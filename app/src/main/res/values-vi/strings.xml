@@ -456,7 +456,6 @@
     <string name="ring_once">Đổ chuông một lần</string>
     <string name="premium_record_audio">Ghi lại một bản ghi chú</string>
     <string name="gtasks_error_accountNotFound">Không tìm thấy tài khoản %s—vui lòng đăng xuất và đăng nhập lại trong cài đặt của Google Tasks.</string>
-    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_GLA_errorIOAuth">Xin lỗi, chúng tôi đã gặp rắc rối khi giao tiếp với máy chủ của Google. Vui lòng thử lại sau.</string>
     <string name="gtasks_GLA_authenticating">Đang xác thực…</string>
     <string name="gtasks_GTA_clear_completed">Xoá công việc đã hoàn thành</string>

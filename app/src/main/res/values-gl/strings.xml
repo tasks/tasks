@@ -357,7 +357,6 @@
     <string name="last_backup">Última copia de seguranza: %s</string>
     <string name="app_passwords_more_info">Sincroniza as tarefas e os calendarios en aplicativos de terceiros para escritorio ou dispositivos móbiles. Preme aquí para máis información</string>
     <string name="repeats_weekly">por semana</string>
-    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="TEA_timer_est">Est. %s</string>
     <string name="sort_created">Por data de creación</string>
     <string name="action_call">Chamar</string>

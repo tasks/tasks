@@ -285,7 +285,6 @@
     <string name="rmd_NoA_snooze">Paŭzigi</string>
     <string name="rmd_NoA_done">Finite</string>
     <string name="premium_record_audio">Registri noton</string>
-    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_GLA_authenticating">Aŭtentikigas…</string>
     <string name="gtasks_GTA_clear_completed">Forigi finitajn</string>
     <string name="gcal_completed_title">%s (finita)</string>

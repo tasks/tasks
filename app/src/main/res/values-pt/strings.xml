@@ -93,7 +93,6 @@
     <string name="gtasks_GTA_clear_completed">Eliminar terminadas</string>
     <string name="gtasks_GLA_authenticating">Autenticação…</string>
     <string name="gtasks_GLA_errorIOAuth">Ocorreu um erro ao comunicar com os servidores do Google. Tente mais tarde.</string>
-    <string name="gtasks_GPr_header">Tarefas Google</string>
     <string name="gtasks_error_accountNotFound">Não foi encontrada a conta %s. Termine a sessão e inicie-a novamente nas definições das tarefas Google.</string>
     <string name="premium_record_audio">Gravar uma nota áudio</string>
     <string name="ring_once">Tocar uma vez</string>

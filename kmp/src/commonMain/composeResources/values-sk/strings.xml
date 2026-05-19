@@ -198,4 +198,5 @@
     <string name="icon">Ikona</string>
     <string name="share">Zdieľať</string>
     <string name="list_settings">Nastavenia zoznamu</string>
+    <string name="reinitialize_account">Znovu aktivovať</string>
 </resources>

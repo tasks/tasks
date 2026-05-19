@@ -111,6 +111,8 @@ import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.settings.CaldavAccountSettingsDetail
 import org.tasks.compose.settings.CaldavAccountSettingsPane
 import org.tasks.compose.settings.EtebaseAccountSettingsDetail
+import org.tasks.compose.settings.GoogleTasksAccountSettingsDetail
+import org.tasks.compose.settings.GoogleTasksAccountSettingsPane
 import org.tasks.compose.settings.HelpAndFeedbackDetail
 import org.tasks.compose.settings.EtebaseAccountSettingsPane
 import org.tasks.compose.settings.LocalAccountSettingsDetail
@@ -1889,6 +1891,14 @@ private fun SettingsScreen(
                                         )
                                     }
                                 }
+                                account.isGoogleTasks -> {
+                                    scope.launch {
+                                        navigator.navigateTo(
+                                            ListDetailPaneScaffoldRole.Detail,
+                                            GoogleTasksAccountSettingsPane(account),
+                                        )
+                                    }
+                                }
                                 account.isOpenTasks -> {
                                     scope.launch {
                                         navigator.navigateTo(
@@ -2014,6 +2024,14 @@ private fun SettingsScreen(
                     }
                     is EtebaseAccountSettingsPane -> {
                         EtebaseAccountSettingsDetail(
+                            pane = selectedContent,
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                        )
+                    }
+                    is GoogleTasksAccountSettingsPane -> {
+                        GoogleTasksAccountSettingsDetail(
                             pane = selectedContent,
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }

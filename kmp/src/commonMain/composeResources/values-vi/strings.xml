@@ -186,4 +186,5 @@
     <string name="icon">Biểu tượng</string>
     <string name="share">Chia sẻ</string>
     <string name="list_settings">Cài đặt danh sách</string>
+    <string name="reinitialize_account">Khởi tạo lại</string>
 </resources>

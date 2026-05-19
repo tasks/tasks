@@ -308,4 +308,5 @@
     <string name="icon">Icône</string>
     <string name="share">Partager</string>
     <string name="list_settings">Paramètres de la liste</string>
+    <string name="reinitialize_account">Réinitialiser</string>
 </resources>

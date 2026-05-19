@@ -243,4 +243,5 @@
     <string name="icon">סמל</string>
     <string name="share">שיתוף</string>
     <string name="list_settings">הגדרות רשימה</string>
+    <string name="reinitialize_account">אתחול מחדש</string>
 </resources>

@@ -197,4 +197,5 @@
     <string name="icon">아이콘</string>
     <string name="share">공유</string>
     <string name="list_settings">목록 설정</string>
+    <string name="reinitialize_account">다시 초기화하기</string>
 </resources>

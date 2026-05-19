@@ -325,7 +325,6 @@
     <string name="default_location_reminder_on_arrival">到达时</string>
     <string name="default_location_reminder_on_departure">出发时</string>
     <string name="default_location_reminder_on_arrival_or_departure">出发和到达时</string>
-    <string name="gtasks_GPr_header">谷歌任务</string>
     <string name="google_drive_backup">备份到 Google Drive</string>
     <string name="add_location">添加位置</string>
     <string name="geofence_radius">地理围栏半径</string>

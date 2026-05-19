@@ -101,7 +101,6 @@
     <string name="gtasks_GTA_clear_completed">Voltooide taken wissen</string>
     <string name="gtasks_GLA_authenticating">Verifiëren…</string>
     <string name="gtasks_GLA_errorIOAuth">Sorry, er zijn problemen opgetreden bij de communicatie met de servers van Google. Probeer het later nog een keer.</string>
-    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_error_accountNotFound">Account %s niet gevonden—probeer opnieuw in te loggen via de instellingen van Google Tasks.</string>
     <string name="premium_record_audio">Notitie opnemen</string>
     <string name="ring_once">Een keer bellen</string>

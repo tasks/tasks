@@ -102,7 +102,6 @@
     <string name="gtasks_GTA_clear_completed">Tamamlanları Temizle</string>
     <string name="gtasks_GLA_authenticating">Kimlik doğrulanıyor…</string>
     <string name="gtasks_GLA_errorIOAuth">Üzgünüm, Google sunucuları ile bağlanmakta sıkıntı yaşıyoruz. Lütfen daha sonra yeniden deneyin.</string>
-    <string name="gtasks_GPr_header">Google Görevler</string>
     <string name="gtasks_error_accountNotFound">%s hesabı bulunamadı—lütfen çıkış yapıp Google Görevler ayarlarından yeniden oturum açın.</string>
     <string name="premium_record_audio">Bir not kaydet</string>
     <string name="ring_once">Bir kez çal</string>

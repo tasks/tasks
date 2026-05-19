@@ -211,4 +211,5 @@
     <string name="icon">Kuvake</string>
     <string name="share">Jaa</string>
     <string name="list_settings">Listan asetukset</string>
+    <string name="reinitialize_account">Uudelleenalustus</string>
 </resources>

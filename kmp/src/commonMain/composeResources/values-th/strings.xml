@@ -167,4 +167,5 @@
     <string name="icon">ไอคอน</string>
     <string name="share">ใช้ร่วมกัน</string>
     <string name="list_settings">การตั้งค่ารายการ</string>
+    <string name="reinitialize_account">เตรียมใช้งานใหม่</string>
 </resources>

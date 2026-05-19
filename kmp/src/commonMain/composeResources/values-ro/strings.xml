@@ -209,4 +209,5 @@
     <string name="icon">Pictogramă</string>
     <string name="share">Distribuie</string>
     <string name="list_settings">Setări listă</string>
+    <string name="reinitialize_account">Reinițializare</string>
 </resources>

@@ -198,4 +198,5 @@
     <string name="icon">Εικονίδιο</string>
     <string name="share">Μοιραστείτε το</string>
     <string name="list_settings">Ρυθμίσεις λίστας</string>
+    <string name="reinitialize_account">Εκ νέου αρχικοποίηση</string>
 </resources>

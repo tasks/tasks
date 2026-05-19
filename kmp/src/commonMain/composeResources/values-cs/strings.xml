@@ -309,4 +309,5 @@
     <string name="icon">Ikona</string>
     <string name="share">Sdílet</string>
     <string name="list_settings">Nastavení seznamu</string>
+    <string name="reinitialize_account">Znovu inicializovat</string>
 </resources>

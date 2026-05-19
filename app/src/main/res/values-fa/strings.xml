@@ -73,7 +73,6 @@
     <string name="gtasks_GTA_clear_completed">حذف انجام شد</string>
     <string name="gtasks_GLA_authenticating">اعتبارسنجی…</string>
     <string name="gtasks_GLA_errorIOAuth">پوزش، ارتباط با سرورهای گوگل میسر نشد. لطفا دوباره تلاش نمایید.</string>
-    <string name="gtasks_GPr_header">وظایف گوگل</string>
     <string name="premium_record_audio">ذخیره یادداشت</string>
     <string name="ring_once">یک بار زنگ بزن</string>
     <string name="ring_five_times">پنج بار زنگ بزن</string>

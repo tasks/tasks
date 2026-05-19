@@ -102,7 +102,6 @@
     <string name="gtasks_GTA_clear_completed">ניקוי משימות שהושלמו</string>
     <string name="gtasks_GLA_authenticating">מאמת…</string>
     <string name="gtasks_GLA_errorIOAuth">מצטערים, התקשינו לתקשר עם השרתים של Google. נא לנסות שוב מאוחר יותר.</string>
-    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_error_accountNotFound">החשבון %s לא נמצא—נא לצאת ולהיכנס בחזרה מההגדרות של Google Tasks.</string>
     <string name="premium_record_audio">הקלטת הערה</string>
     <string name="ring_once">צלצל פעם אחת</string>

@@ -225,4 +225,5 @@
     <string name="icon">Иконица</string>
     <string name="share">Подели</string>
     <string name="list_settings">Подешавања листе</string>
+    <string name="reinitialize_account">Поново иницијализуј</string>
 </resources>

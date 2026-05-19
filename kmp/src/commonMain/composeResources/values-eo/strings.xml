@@ -236,4 +236,5 @@
     <string name="icon">Piktogramo</string>
     <string name="share">Kunhavigi</string>
     <string name="list_settings">Agordoj de listo</string>
+    <string name="reinitialize_account">Repravalorizi</string>
 </resources>

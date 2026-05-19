@@ -347,7 +347,6 @@
     <string name="choose_new_location">Új hely kiválasztása</string>
     <string name="invalid_backup_file">Érvénytelen mentési file</string>
     <string name="google_tasks_add_to_top">Az új feladatok felül</string>
-    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="location_radius_meters">%s m</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Ikon</string>
