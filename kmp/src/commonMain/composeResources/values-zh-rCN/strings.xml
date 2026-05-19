@@ -304,4 +304,5 @@
     <string name="icon">图标</string>
     <string name="share">分享</string>
     <string name="list_settings">清单设置</string>
+    <string name="add_platform_account">添加 %1$s 账户</string>
 </resources>
