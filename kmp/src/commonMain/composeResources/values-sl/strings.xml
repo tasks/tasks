@@ -24,4 +24,5 @@
     <string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>
     <string name="backup_BPr_header">Varnostne kopije</string>
     <string name="email">E-pošta</string>
+    <string name="gtasks_GLA_errorIOAuth">Žal smo imeli težave pri povezovanju z Google strežniki. Prosimo, poskusite ponovno kasneje.</string>
 </resources>

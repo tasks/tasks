@@ -251,4 +251,5 @@
     <string name="share">Teilen</string>
     <string name="list_settings">Listeneinstellungen</string>
     <string name="reinitialize_account">Neu initialisieren</string>
+    <string name="gtasks_GLA_errorIOAuth">Leider ist während der Kommunikation mit den Google-Servern ein Problem aufgetreten. Bitte versuche es später erneut.</string>
 </resources>

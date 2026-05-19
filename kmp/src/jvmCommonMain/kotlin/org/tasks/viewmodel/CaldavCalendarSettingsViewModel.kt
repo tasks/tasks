@@ -23,7 +23,7 @@ import org.tasks.analytics.Reporting
 import org.tasks.billing.PurchaseState
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.compose.settings.CaldavCalendarSettingsState
-import org.tasks.compose.settings.PickerColor
+import org.tasks.compose.settings.buildPickerColors
 import org.tasks.data.PrincipalWithAccess
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
@@ -38,9 +38,7 @@ import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
 import org.tasks.service.TaskDeleter
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
-import org.tasks.kmp.org.tasks.themes.ColorProvider as KmpColorProvider
 import org.tasks.themes.TasksIcons
-import org.tasks.themes.contentColor
 import org.tasks.ui.DisplayableException
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.error_adding_account
@@ -61,7 +59,7 @@ open class CaldavCalendarSettingsViewModel(
     private val hasColorWheel: Boolean = false,
 ) : ViewModel() {
 
-    private val pickerColors: List<PickerColor> = buildPickerColors()
+    private val pickerColors = buildPickerColors(isDark)
 
     private val _state = MutableStateFlow(
         CaldavCalendarSettingsState(
@@ -338,14 +336,4 @@ open class CaldavCalendarSettingsViewModel(
         }
     }
 
-    private fun buildPickerColors(): List<PickerColor> =
-        (KmpColorProvider.PRESET_COLORS + KmpColorProvider.WHITE).map { originalColor ->
-            val adjusted = KmpColorProvider.getColor(originalColor, isDark, adjust = true)
-            PickerColor(
-                originalColor = originalColor,
-                primaryColor = adjusted,
-                colorOnPrimary = contentColor(adjusted),
-                isFree = KmpColorProvider.isFreeColor(originalColor),
-            )
-        }
 }

@@ -97,7 +97,6 @@
     <string name="CFC_gtasks_list_text">Na lista: \?</string>
     <string name="gtasks_GTA_clear_completed">Limpar as finalizadas</string>
     <string name="gtasks_GLA_authenticating">Autenticando…</string>
-    <string name="gtasks_GLA_errorIOAuth">Houbo un problema ao comunicarse cos servidores de Google. Inténtao máis tarde.</string>
     <string name="gtasks_error_accountNotFound">Non se atopou a conta %s — pecha a sesión e iníciaa de novo desde a configuración de Google Tasks.</string>
     <string name="premium_record_audio">Gravar unha nota</string>
     <string name="ring_once">Soar unha vez</string>

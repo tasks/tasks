@@ -247,4 +247,5 @@
     <string name="share">Megosztás</string>
     <string name="list_settings">Lista beállításai</string>
     <string name="reinitialize_account">Újrainicializálás</string>
+    <string name="gtasks_GLA_errorIOAuth">Sajnáljuk, de hiba történt a Google szervereivel való kommunikálás során. Próbáld újra később.</string>
 </resources>

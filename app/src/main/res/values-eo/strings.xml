@@ -339,7 +339,6 @@
     <string name="ring_once">Soni unufoje</string>
     <string name="default_location_reminder_on_arrival">Post alveno</string>
     <string name="CFC_importance_text">Prioritato almenaŭ estas ?</string>
-    <string name="gtasks_GLA_errorIOAuth">Bedaŭrinde ni spertis problemon dum komuniki kun serviloj de Google. Bonvolu repeni poste.</string>
     <string name="persistent_notifications_description">Daŭraj sciigoj ne povas esti forigitaj</string>
     <string name="action_new_task">Nova tasko</string>
     <string name="alarm_after_start">%s post komenco</string>

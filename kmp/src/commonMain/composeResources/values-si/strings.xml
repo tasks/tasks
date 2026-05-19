@@ -171,4 +171,5 @@
     <string name="share">බෙදාගන්න</string>
     <string name="list_settings">ලැයිස්තු සැකසුම්</string>
     <string name="reinitialize_account">නැවත ආරම්භ කරන්න</string>
+    <string name="gtasks_GLA_errorIOAuth">කණගාටුයි, අපට Google සේවාදායකයන් සමඟ සන්නිවේදනය කිරීමේ අපහසුතාවයක් ඇති විය. කරුණාකර පසුව නැවත උත්සාහ කරන්න.</string>
 </resources>

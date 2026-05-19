@@ -245,4 +245,5 @@
     <string name="share">Bagikan</string>
     <string name="list_settings">Pengaturan daftar</string>
     <string name="reinitialize_account">Inisialisasi ulang</string>
+    <string name="gtasks_GLA_errorIOAuth">Maaf, terjadi kesalahan komunikasi dengan server Google. Silakan coba lagi nanti.</string>
 </resources>

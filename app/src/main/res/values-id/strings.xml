@@ -75,7 +75,6 @@
     <string name="gcal_completed_title">%s (selesai)</string>
     <string name="CFC_gtasks_list_text">Dalam Daftar: \?</string>
     <string name="gtasks_GLA_authenticating">Mengotentikasi…</string>
-    <string name="gtasks_GLA_errorIOAuth">Maaf, terjadi kesalahan komunikasi dengan server Google. Silakan coba lagi nanti.</string>
     <string name="gtasks_error_accountNotFound">Akun %s tidak ditemukan—silakan keluar dan masuk kembali dari pengaturan Google Tasks.</string>
     <string name="premium_record_audio">Rekam catatan</string>
     <string name="ring_once">Dering sekali</string>

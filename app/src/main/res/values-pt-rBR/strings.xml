@@ -99,7 +99,6 @@
     <string name="CFC_gtasks_list_text">Na lista: ?</string>
     <string name="gtasks_GTA_clear_completed">Limpar tarefas concluídas</string>
     <string name="gtasks_GLA_authenticating">Autenticando…</string>
-    <string name="gtasks_GLA_errorIOAuth">Lamentamos, mas tivemos problemas na comunicação com os servidores do Google. Por favor, tente novamente mais tarde.</string>
     <string name="gtasks_error_accountNotFound">Conta %s não encontrada—Desconecte e faça login novamente nas configurações do Google Tarefas.</string>
     <string name="premium_record_audio">Gravar uma nota de áudio</string>
     <string name="ring_once">Reproduzir uma vez</string>

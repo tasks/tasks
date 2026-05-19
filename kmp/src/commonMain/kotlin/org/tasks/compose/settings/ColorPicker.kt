@@ -1,5 +1,7 @@
 package org.tasks.compose.settings
 
+import org.tasks.kmp.org.tasks.themes.ColorProvider as KmpColorProvider
+import org.tasks.themes.contentColor
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -31,6 +33,17 @@ data class PickerColor(
     val colorOnPrimary: Int,
     val isFree: Boolean,
 )
+
+fun buildPickerColors(isDark: Boolean): List<PickerColor> =
+    (KmpColorProvider.PRESET_COLORS + KmpColorProvider.WHITE).map { originalColor ->
+        val adjusted = KmpColorProvider.getColor(originalColor, isDark, adjust = true)
+        PickerColor(
+            originalColor = originalColor,
+            primaryColor = adjusted,
+            colorOnPrimary = contentColor(adjusted),
+            isFree = KmpColorProvider.isFreeColor(originalColor),
+        )
+    }
 
 @Composable
 fun ColorPicker(

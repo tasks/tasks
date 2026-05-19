@@ -250,4 +250,5 @@
     <string name="share">Condividi</string>
     <string name="list_settings">Impostazioni lista</string>
     <string name="reinitialize_account">Reinizializza</string>
+    <string name="gtasks_GLA_errorIOAuth">Ci scusiamo per il disagio, abbiamo dei problemi a comunicare con i server di Google. Per favore riprovare più tardi.</string>
 </resources>

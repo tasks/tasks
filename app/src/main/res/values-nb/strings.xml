@@ -52,7 +52,6 @@
     <string name="gcal_completed_title">%s (fullført)</string>
     <string name="CFC_gtasks_list_text">I listen\?</string>
     <string name="gtasks_GTA_clear_completed">Fjern fullførte</string>
-    <string name="gtasks_GLA_errorIOAuth">Kunne ikke kommunisere med Google-tjenerne. Prøv igjen senere.</string>
     <string name="rmd_NoA_done">Utført</string>
     <string name="rmd_NoA_snooze">Slumre</string>
     <string name="rmd_EPr_quiet_hours_start_title">Stilletimer start</string>

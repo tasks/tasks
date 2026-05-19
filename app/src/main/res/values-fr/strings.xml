@@ -98,7 +98,6 @@
     <string name="CFC_gtasks_list_text">Dans la liste : \?</string>
     <string name="gtasks_GTA_clear_completed">Effacer les tâches terminées</string>
     <string name="gtasks_GLA_authenticating">Authentification en cours…</string>
-    <string name="gtasks_GLA_errorIOAuth">Désolé, une erreur de communication avec les serveurs de Google s\'est produite. Veuillez réessayer ultérieurement.</string>
     <string name="gtasks_error_accountNotFound">Le compte « %s » est introuvable. Veuillez vous déconnecter et vous reconnecter à partir des paramètres Google Tasks.</string>
     <string name="premium_record_audio">Enregistrer une note</string>
     <string name="ring_once">Sonner une fois</string>

@@ -207,4 +207,5 @@
     <string name="share">مشاركة</string>
     <string name="list_settings">إعدادات القوائم</string>
     <string name="reinitialize_account">إعادة التهيئة</string>
+    <string name="gtasks_GLA_errorIOAuth">عذرا، لم نتمكن من الاتصال مع مزود الخدمة جوجل. أعد المحاولة مرة أخرى لاحقًًا.</string>
 </resources>

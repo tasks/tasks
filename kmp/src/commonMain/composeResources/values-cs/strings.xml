@@ -310,4 +310,5 @@
     <string name="share">Sdílet</string>
     <string name="list_settings">Nastavení seznamu</string>
     <string name="reinitialize_account">Znovu inicializovat</string>
+    <string name="gtasks_GLA_errorIOAuth">Nastal problém při komunikaci se servery Google. Zkuste to prosím později.</string>
 </resources>

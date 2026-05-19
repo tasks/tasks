@@ -468,7 +468,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Kas sa tõesti soovid kustutada kõikide ülesannete kalendrisse märgitud sündmused?</string>
     <string name="CFC_dueBefore_name">Tähtajaks…</string>
     <string name="CFC_startBefore_text">Algusajaks: ?</string>
-    <string name="gtasks_GLA_errorIOAuth">Vabandust, Google\'i serveri ühendusega on probleeme. Palun proovi hiljem uuesti.</string>
     <string name="FLA_search_filter">Vasteks „%s“</string>
     <string name="day_before_due">Päev enne tähtaega</string>
     <string name="week_before_due">Nädal enne tähtaega</string>

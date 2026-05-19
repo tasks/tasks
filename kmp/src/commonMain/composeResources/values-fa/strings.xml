@@ -68,4 +68,5 @@
     <string name="blog_feed_none">هیچکدام</string>
     <string name="new_list">ایجاد لیست جدید</string>
     <string name="color">رنگ</string>
+    <string name="gtasks_GLA_errorIOAuth">پوزش، ارتباط با سرورهای گوگل میسر نشد. لطفا دوباره تلاش نمایید.</string>
 </resources>

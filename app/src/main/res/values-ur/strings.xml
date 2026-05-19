@@ -114,7 +114,6 @@
     <string name="CFC_dueBefore_name">آخری تاریخ…</string>
     <string name="CFC_dueBefore_text">اتنے وقت تک مکمل کریں:?</string>
     <string name="CFA_button_add">معیار داخل کریں</string>
-    <string name="gtasks_GLA_errorIOAuth">معذرت ، گوگل سرورز کے ساتھ رابطہ نہیں ہو سکا براہ کرم کچھ دیر بعد کوشش کریں.</string>
     <string name="gtasks_GLA_authenticating">تصدیق ہو رہی…</string>
     <string name="gtasks_GTA_clear_completed">کلئیر مکمل ہو گیا</string>
     <string name="CFC_list_name">لسٹ میں…</string>

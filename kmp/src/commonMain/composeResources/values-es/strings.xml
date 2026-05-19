@@ -262,4 +262,5 @@
     <string name="share">Compartir</string>
     <string name="list_settings">Configuración de lista</string>
     <string name="reinitialize_account">Reinicializar</string>
+    <string name="gtasks_GLA_errorIOAuth">Perdón, hubo un problema al comunicarse con los servidores de Google. Por favor inténtalo mas tarde.</string>
 </resources>

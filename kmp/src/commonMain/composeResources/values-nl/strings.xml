@@ -219,4 +219,5 @@
     <string name="share">Taken delen</string>
     <string name="list_settings">Lijst instellen</string>
     <string name="reinitialize_account">Herinitialiseren</string>
+    <string name="gtasks_GLA_errorIOAuth">Sorry, er zijn problemen opgetreden bij de communicatie met de servers van Google. Probeer het later nog een keer.</string>
 </resources>

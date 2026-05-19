@@ -3,228 +3,140 @@ package org.tasks.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.material3.SnackbarHostState
-import androidx.lifecycle.lifecycleScope
-import com.google.api.services.tasks.model.TaskList
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import com.flask.colorpicker.ColorPickerView
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import org.tasks.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
-import org.tasks.Strings.isNullOrEmpty
-import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
-import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_CALENDAR
-import org.tasks.compose.settings.Toaster
-import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavCalendar
+import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
+import org.tasks.compose.settings.GoogleTaskListSettingsScreen
 import org.tasks.filters.CaldavFilter
-import org.tasks.filters.Filter
-import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
-import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
-    @Inject lateinit var caldavDao: CaldavDao
-    @Inject lateinit var taskDeleter: TaskDeleter
-    @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
+class GoogleTaskListSettingsActivity : AppCompatActivity() {
 
-    private val account: CaldavAccount
-        get() = intent.getParcelableExtra(EXTRA_CALDAV_ACCOUNT)!!
-
-    private val list: CaldavCalendar?
-        get() = intent.getParcelableExtra(EXTRA_CALDAV_CALENDAR)
-
-    private var isNewList = false
-    private lateinit var gtasksList: CaldavCalendar
-    private val createListViewModel: CreateListViewModel by viewModels()
-    private val renameListViewModel: RenameListViewModel by viewModels()
-    private val deleteListViewModel: DeleteListViewModel by viewModels()
-    override val defaultIcon = TasksIcons.LIST
-
-    val snackbar = SnackbarHostState()
+    private val viewModel: GoogleTaskListSettingsHiltViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        gtasksList = list ?: CaldavCalendar(account = account.username).apply { isNewList = true }
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
-            baseViewModel.setColor(gtasksList.color)
-            baseViewModel.setIcon(gtasksList.icon ?: defaultIcon)
-        }
-
-        if (!isNewList) baseViewModel.setTitle(gtasksList.name!!)
-
-        if (createListViewModel.inProgress
-                || renameListViewModel.inProgress
-                || deleteListViewModel.inProgress) {
-            showProgressIndicator()
-        }
-
-        createListViewModel.observe(this, this::onListCreated, this::requestFailed)
-        renameListViewModel.observe(this, this::onListRenamed, this::requestFailed)
-        deleteListViewModel.observe(this, this::onListDeleted, this::requestFailed)
+        enableEdgeToEdge()
 
         setContent {
             TasksTheme {
-                BaseSettingsContent()
-                Toaster(state = snackbar)
-            }
-        }
-    }
+                var showColorWheel by rememberSaveable { mutableStateOf(false) }
 
-    override val filter: Filter?
-        get() = if (isNewList) null else CaldavFilter(calendar = gtasksList, account = account)
-
-    override val toolbarTitle: String
-        get() = if (isNew) getString(R.string.new_list) else gtasksList.name!!
-
-    private fun showProgressIndicator() {
-        baseViewModel.showProgress(true)
-    }
-
-    private fun hideProgressIndicator() {
-        baseViewModel.showProgress(false)
-    }
-
-    private fun requestInProgress() = baseViewModel.viewState.value.showProgress
-
-    override suspend fun save() {
-        if (requestInProgress()) {
-            return
-        }
-        val newName = newName
-        if (isNullOrEmpty(newName)) {
-            baseViewModel.setError(getString(R.string.name_cannot_be_empty))
-            return
-        }
-        when {
-            isNewList -> {
-                showProgressIndicator()
-                createListViewModel.createList(gtasksList.account!!, newName)
-            }
-            nameChanged() -> {
-                showProgressIndicator()
-                renameListViewModel.renameList(gtasksList, newName)
-            }
-            else -> {
-                if (colorChanged() || iconChanged()) {
-                    gtasksList.color = baseViewModel.color
-                    caldavDao.insertOrReplace(
-                        gtasksList.copy(
-                            icon = baseViewModel.icon
-                        )
-                    )
-                    refreshBroadcaster.broadcastRefresh()
-                    setResult(
-                            Activity.RESULT_OK,
-                            Intent(TaskListFragment.ACTION_RELOAD)
-                                    .putExtra(
-                                        MainActivity.OPEN_FILTER,
-                                        CaldavFilter(calendar = gtasksList, account = account)
+                GoogleTaskListSettingsScreen(
+                    viewModel = viewModel,
+                    onSave = {
+                        viewModel.save(
+                            onDismiss = { finish() },
+                            onComplete = { calendar ->
+                                val account = viewModel.state.value.account
+                                if (account != null) {
+                                    setResult(
+                                        Activity.RESULT_OK,
+                                        Intent(TaskListFragment.ACTION_RELOAD).putExtra(
+                                            MainActivity.OPEN_FILTER,
+                                            CaldavFilter(calendar = calendar, account = account),
+                                        )
                                     )
-                    )
+                                }
+                                finish()
+                            },
+                        )
+                    },
+                    onDelete = {
+                        viewModel.delete {
+                            setResult(
+                                Activity.RESULT_OK,
+                                Intent(TaskListFragment.ACTION_DELETED),
+                            )
+                            finish()
+                        }
+                    },
+                    onNavigateBack = { finish() },
+                    onSelectColor = {
+                        if (viewModel.state.value.hasPro || it.isFree) {
+                            viewModel.selectColor(it.originalColor)
+                        } else {
+                            viewModel.closeColorPicker()
+                            startActivity(
+                                Intent(this, PurchaseActivity::class.java)
+                                    .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "list_colors")
+                            )
+                        }
+                    },
+                    onColorWheelSelected = {
+                        viewModel.closeColorPicker()
+                        if (viewModel.state.value.hasPro) {
+                            showColorWheel = true
+                        } else {
+                            startActivity(
+                                Intent(this, PurchaseActivity::class.java)
+                                    .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "list_colors")
+                            )
+                        }
+                    },
+                    onSubscribe = {
+                        startActivity(
+                            Intent(this, PurchaseActivity::class.java)
+                                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "icons")
+                        )
+                    },
+                )
+
+                if (showColorWheel) {
+                    BackHandler {
+                        showColorWheel = false
+                        viewModel.openColorPicker()
+                    }
+                    val context = LocalContext.current
+                    var selected by remember { mutableIntStateOf(0) }
+                    val initialColor = viewModel.state.value.color
+                    DisposableEffect(Unit) {
+                        val dialog = ColorPickerDialogBuilder
+                            .with(context)
+                            .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
+                            .density(7)
+                            .setOnColorChangedListener { which -> selected = which }
+                            .setOnColorSelectedListener { which -> selected = which }
+                            .lightnessSliderOnly()
+                            .setPositiveButton(R.string.ok) { _, _, _ ->
+                                viewModel.setColor(selected)
+                            }
+                            .setNegativeButton(R.string.cancel) { _, _ ->
+                                viewModel.openColorPicker()
+                            }
+                            .apply {
+                                if (initialColor != 0) {
+                                    initialColor(initialColor)
+                                }
+                            }
+                            .build()
+                            .apply {
+                                setOnDismissListener { showColorWheel = false }
+                            }
+                        dialog.show()
+                        onDispose { dialog.dismiss() }
+                    }
                 }
-                finish()
             }
         }
-    }
-
-    override fun promptDelete() {
-        if (!requestInProgress()) {
-            super.promptDelete()
-        }
-    }
-
-    override suspend fun delete() {
-        showProgressIndicator()
-        deleteListViewModel.deleteList(gtasksList)
-    }
-
-    override fun discard() {
-        if (!requestInProgress()) {
-            super.discard()
-        }
-    }
-
-    private val newName: String
-        get() = baseViewModel.title.trim { it <= ' ' }
-
-    override fun hasChanges(): Boolean =
-        if (isNewList) {
-            baseViewModel.color != 0 || !isNullOrEmpty(newName)
-        } else colorChanged() || nameChanged() || iconChanged()
-
-    private fun colorChanged() = baseViewModel.color != gtasksList.color
-
-    private fun iconChanged() = baseViewModel.icon != (gtasksList.icon ?: TasksIcons.LIST)
-
-    private fun nameChanged() = newName != gtasksList.name
-
-    private suspend fun onListCreated(taskList: TaskList) {
-        val result = gtasksList.copy(
-            uuid = taskList.id,
-            name = taskList.title,
-            color = baseViewModel.color,
-            icon = baseViewModel.icon,
-        )
-        val id = caldavDao.insertOrReplace(result)
-        firebase.logEvent(R.string.event_create_list)
-
-        setResult(
-            Activity.RESULT_OK,
-            Intent().putExtra(
-                MainActivity.OPEN_FILTER,
-                CaldavFilter(calendar = result.copy(id = id), account = account)
-            )
-        )
-        finish()
-    }
-
-    private fun onListDeleted(deleted: Boolean) {
-        if (deleted) {
-            firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_list")
-            lifecycleScope.launch {
-                withContext(NonCancellable) {
-                    taskDeleter.delete(gtasksList)
-                }
-                setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))
-                finish()
-            }
-        }
-    }
-
-    private suspend fun onListRenamed(taskList: TaskList) {
-        val result = gtasksList.copy(
-            name = taskList.title,
-            color = baseViewModel.color,
-            icon = baseViewModel.icon,
-        )
-        caldavDao.insertOrReplace(result)
-
-        setResult(
-                Activity.RESULT_OK,
-                Intent(TaskListFragment.ACTION_RELOAD)
-                    .putExtra(
-                        MainActivity.OPEN_FILTER,
-                        CaldavFilter(calendar = result, account = account)
-                    )
-        )
-        finish()
-    }
-
-    private fun requestFailed(error: Throwable) {
-        Timber.e(error)
-        hideProgressIndicator()
-        lifecycleScope.launch { snackbar.showSnackbar(getString(R.string.gtasks_GLA_errorIOAuth)) }
-        //toast(R.string.gtasks_GLA_errorIOAuth)
-        return
     }
 }

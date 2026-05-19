@@ -240,4 +240,5 @@
     <string name="share">分享</string>
     <string name="list_settings">清單設定</string>
     <string name="reinitialize_account">重新初始化</string>
+    <string name="gtasks_GLA_errorIOAuth">對不起，我們在與Google 服務器通訊時遇到了問題。請稍後再嘗試。</string>
 </resources>

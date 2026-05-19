@@ -100,7 +100,6 @@
     <string name="CFC_gtasks_list_text">En la Lista: ?</string>
     <string name="gtasks_GTA_clear_completed">Quitar finalizadas</string>
     <string name="gtasks_GLA_authenticating">Autenticando…</string>
-    <string name="gtasks_GLA_errorIOAuth">Perdón, hubo un problema al comunicarse con los servidores de Google. Por favor inténtalo mas tarde.</string>
     <string name="gtasks_error_accountNotFound">No se ha encontrado la cuenta %s — por favor, cierra sesión y vuelve a iniciarla desde la configuración de Google Tasks.</string>
     <string name="premium_record_audio">Grabar una nota</string>
     <string name="ring_once">Sonar una vez</string>

@@ -110,7 +110,6 @@ abstract class BaseListSettingsActivity : AppCompatActivity() {
             is TagSettingsActivity -> "tag"
             is FilterSettingsActivity -> "filter"
             is PlaceSettingsActivity -> "place"
-            is GoogleTaskListSettingsActivity -> "google_task_list"
             is BaseCaldavCalendarSettingsActivity -> "list"
             else -> "unknown"
         }

@@ -180,4 +180,5 @@
     <string name="share">Dalintis</string>
     <string name="list_settings">Sąrašo nustatymai</string>
     <string name="reinitialize_account">Inicijuoti iš naujo</string>
+    <string name="gtasks_GLA_errorIOAuth">Atsiprašome, turime bėdų susisiekiant su Google serveriais. Prašome pabandyti vėliau.</string>
 </resources>

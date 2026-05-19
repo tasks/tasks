@@ -223,4 +223,5 @@
     <string name="share">Del</string>
     <string name="list_settings">Listeindstillinger</string>
     <string name="reinitialize_account">Geninitialiser</string>
+    <string name="gtasks_GLA_errorIOAuth">Beklager, noget gik galt i kommunikationen med Googles servere. Prøv igen senere.</string>
 </resources>

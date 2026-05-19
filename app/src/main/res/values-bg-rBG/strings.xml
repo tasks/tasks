@@ -106,7 +106,6 @@
     <string name="CFC_gtasks_list_text">В списъка: \?</string>
     <string name="gtasks_GTA_clear_completed">Изчистване на завършените</string>
     <string name="gtasks_GLA_authenticating">Удостоверяване…</string>
-    <string name="gtasks_GLA_errorIOAuth">Има проблем с връзката до сървърите на Google. Опитайте отново по-късно.</string>
     <string name="gtasks_error_accountNotFound">Профилът %s не е намерен. Излезте и влезте отново от настройките на Google Tasks.</string>
     <string name="premium_record_audio">Записване на бележка</string>
     <string name="ring_once">Звънене веднъж</string>

@@ -111,7 +111,6 @@
     <string name="CFC_gtasks_list_text">Yra sąraše ?</string>
     <string name="gtasks_GTA_clear_completed">Išvalyti užbaigtas</string>
     <string name="gtasks_GLA_authenticating">Autorizuojama…</string>
-    <string name="gtasks_GLA_errorIOAuth">Atsiprašome, turime bėdų susisiekiant su Google serveriais. Prašome pabandyti vėliau.</string>
     <string name="gtasks_error_accountNotFound">Paskyra %s nerasta - prašome atsijungti ir prisijungti iš Google Tasks nustatymų.</string>
     <string name="premium_record_audio">Įrašyti pastabą</string>
     <string name="ring_once">Suskambėti vieną kartą</string>

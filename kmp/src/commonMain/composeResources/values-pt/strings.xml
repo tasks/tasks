@@ -199,4 +199,5 @@
     <string name="share">Partilhar</string>
     <string name="list_settings">Definições de lista</string>
     <string name="reinitialize_account">Reinicializar</string>
+    <string name="gtasks_GLA_errorIOAuth">Ocorreu um erro ao comunicar com os servidores do Google. Tente mais tarde.</string>
 </resources>

@@ -199,4 +199,5 @@
     <string name="share">Zdieľať</string>
     <string name="list_settings">Nastavenia zoznamu</string>
     <string name="reinitialize_account">Znovu aktivovať</string>
+    <string name="gtasks_GLA_errorIOAuth">Prepáčte, nastal problém v komunikácii s Google serverom. Prosím, skúste to znovu neskôr.</string>
 </resources>

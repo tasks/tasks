@@ -307,4 +307,5 @@
     <string name="share">Paylaş</string>
     <string name="list_settings">Liste ayarları</string>
     <string name="reinitialize_account">Yeniden başlat</string>
+    <string name="gtasks_GLA_errorIOAuth">Üzgünüm, Google sunucuları ile bağlanmakta sıkıntı yaşıyoruz. Lütfen daha sonra yeniden deneyin.</string>
 </resources>

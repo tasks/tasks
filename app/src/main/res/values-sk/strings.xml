@@ -106,7 +106,6 @@
     <string name="CFC_gtasks_list_text">V zozname: ?</string>
     <string name="gtasks_GTA_clear_completed">Vymazať dokončené</string>
     <string name="gtasks_GLA_authenticating">Overovanie…</string>
-    <string name="gtasks_GLA_errorIOAuth">Prepáčte, nastal problém v komunikácii s Google serverom. Prosím, skúste to znovu neskôr.</string>
     <string name="gtasks_error_accountNotFound">Účet %s sa nenašiel – prosím, odhláste sa a znovu prihláste v nastaveniach Úlohy Google.</string>
     <string name="premium_record_audio">Nahrať poznámku</string>
     <string name="ring_once">Zvoniť raz</string>

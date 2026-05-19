@@ -308,4 +308,5 @@
     <string name="share">Share</string>
     <string name="list_settings">List settings</string>
     <string name="reinitialize_account">Reinitialize</string>
+    <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
 </resources>

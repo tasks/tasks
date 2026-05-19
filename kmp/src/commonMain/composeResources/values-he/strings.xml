@@ -244,4 +244,5 @@
     <string name="share">שיתוף</string>
     <string name="list_settings">הגדרות רשימה</string>
     <string name="reinitialize_account">אתחול מחדש</string>
+    <string name="gtasks_GLA_errorIOAuth">מצטערים, התקשינו לתקשר עם השרתים של Google. נא לנסות שוב מאוחר יותר.</string>
 </resources>

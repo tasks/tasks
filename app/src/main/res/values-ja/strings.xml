@@ -106,7 +106,6 @@
     <string name="CFC_gtasks_list_text">リストに含む: \?</string>
     <string name="gtasks_GTA_clear_completed">完了したタスクをクリア</string>
     <string name="gtasks_GLA_authenticating">認証中…</string>
-    <string name="gtasks_GLA_errorIOAuth">すみません、Google のサーバーとの通信で問題が発生しました。しばらくしてからもう一度お試しください。</string>
     <string name="gtasks_error_accountNotFound">アカウント %s が見つかりません－ログアウトして、もう一度 Google ToDo リスト設定からログインしてください。</string>
     <string name="premium_record_audio">録音する</string>
     <string name="ring_once">通知音を 1 回鳴らす</string>

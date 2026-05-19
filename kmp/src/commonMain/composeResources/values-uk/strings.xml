@@ -202,4 +202,5 @@
     <string name="share">Поділитися</string>
     <string name="list_settings">Налаштування списку</string>
     <string name="reinitialize_account">Ініціалізувати ще раз</string>
+    <string name="gtasks_GLA_errorIOAuth">Вибачте, виникли проблеми звернення до серверів Google. Будь ласка, спробуйте пізніше.</string>
 </resources>

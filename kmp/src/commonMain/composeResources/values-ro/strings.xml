@@ -210,4 +210,5 @@
     <string name="share">Distribuie</string>
     <string name="list_settings">Setări listă</string>
     <string name="reinitialize_account">Reinițializare</string>
+    <string name="gtasks_GLA_errorIOAuth">Ne pare rău, am avut probleme de comunicare cu serverele Google.Încearcă din nou mai târziu.</string>
 </resources>

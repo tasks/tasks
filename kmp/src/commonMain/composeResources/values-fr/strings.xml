@@ -309,4 +309,5 @@
     <string name="share">Partager</string>
     <string name="list_settings">Paramètres de la liste</string>
     <string name="reinitialize_account">Réinitialiser</string>
+    <string name="gtasks_GLA_errorIOAuth">Désolé, une erreur de communication avec les serveurs de Google s'est produite. Veuillez réessayer ultérieurement.</string>
 </resources>

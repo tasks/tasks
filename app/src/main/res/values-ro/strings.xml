@@ -301,7 +301,6 @@
     <string name="ring_once">Sună o dată</string>
     <string name="premium_record_audio">Înregistrare notă</string>
     <string name="gtasks_error_accountNotFound">Contul %s nu a fost găsit - deconectează-te și conectează-te din nou din setările Google Tasks.</string>
-    <string name="gtasks_GLA_errorIOAuth">Ne pare rău, am avut probleme de comunicare cu serverele Google.Încearcă din nou mai târziu.</string>
     <string name="gtasks_GLA_authenticating">Autentificare…</string>
     <string name="gtasks_GTA_clear_completed">Eliminare finalizată</string>
     <string name="CFC_list_name">În lista…</string>

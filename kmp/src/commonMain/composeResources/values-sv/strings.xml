@@ -304,4 +304,5 @@
     <string name="share">Dela</string>
     <string name="list_settings">Listinställningar</string>
     <string name="reinitialize_account">Ominitiera</string>
+    <string name="gtasks_GLA_errorIOAuth">Tyvärr, vi hade problem med att kommunicera med Googles servrar. Vänligen försök igen senare.</string>
 </resources>

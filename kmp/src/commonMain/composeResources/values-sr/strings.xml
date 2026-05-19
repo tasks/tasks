@@ -226,4 +226,5 @@
     <string name="share">Подели</string>
     <string name="list_settings">Подешавања листе</string>
     <string name="reinitialize_account">Поново иницијализуј</string>
+    <string name="gtasks_GLA_errorIOAuth">Грешка при комуникацији са Гугл серверима. Молимо покушај касније.</string>
 </resources>

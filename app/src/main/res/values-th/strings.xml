@@ -415,7 +415,6 @@
     <string name="upgrade_more_customization_description">ปลดล็อกธีม สี และไอคอนทั้งหมด</string>
     <string name="upgrade_more_customization">การปรับแต่งเพิ่มเติม</string>
     <string name="pro_free_trial">สมาชิกใหม่ได้รับการทดลองใช้ฟรี 7 วัน ยกเลิกได้ตลอดเวลา</string>
-    <string name="gtasks_GLA_errorIOAuth">ขออภัย เรามีปัญหาในการสื่อสารกับเซิร์ฟเวอร์ของ Google โปรดลองอีกครั้งในภายหลัง.</string>
     <string name="gtasks_error_accountNotFound">ไม่พบบัญชี %s โปรดออกจากระบบและเข้าสู่ระบบอีกครั้งจากการตั้งค่างานของ Google.</string>
     <string name="EPr_manage_delete_all_gcal_message">คุณต้องการลบเหตุการณ์ทั้งหมดสําหรับงานหรือไม่\?</string>
     <string name="EPr_manage_delete_all_gcal">ลบเหตุการณ์ในปฏิทินทั้งหมดสําหรับงาน</string>

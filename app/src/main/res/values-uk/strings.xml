@@ -101,7 +101,6 @@
     <string name="CFC_gtasks_list_text">У списку: \?</string>
     <string name="gtasks_GTA_clear_completed">Очистити завершені</string>
     <string name="gtasks_GLA_authenticating">Авторизація…</string>
-    <string name="gtasks_GLA_errorIOAuth">Вибачте, виникли проблеми звернення до серверів Google. Будь ласка, спробуйте пізніше.</string>
     <string name="gtasks_error_accountNotFound">Обліковий запис %s не знайдено — будь ласка, вийдіть і увійдіть знову через налаштування Google Tasks.</string>
     <string name="premium_record_audio">Записати голосову замітку</string>
     <string name="ring_once">Звучати один раз</string>

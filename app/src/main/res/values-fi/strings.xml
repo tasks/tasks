@@ -93,7 +93,6 @@
     <string name="CFC_gtasks_list_text">Listalla: ?</string>
     <string name="gtasks_GTA_clear_completed">Poista valmiit</string>
     <string name="gtasks_GLA_authenticating">Todennetaan…</string>
-    <string name="gtasks_GLA_errorIOAuth">Valitettavasti meillä on yhteysongelmia Google palvelimiin.  Ole hyvä ja yritä myöhemmin uudestaa.</string>
     <string name="gtasks_error_accountNotFound">Tiliä %s ei löydy – kirjaudu ulos ja kirjaudu uudelleen Google Tehtävien asetuksiin.</string>
     <string name="premium_record_audio">Nauhoita äänimuistio</string>
     <string name="ring_once">Soi kerran</string>

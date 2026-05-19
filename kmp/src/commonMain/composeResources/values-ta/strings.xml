@@ -199,4 +199,5 @@
     <string name="share">பகிர்</string>
     <string name="list_settings">பட்டியல் அமைப்புகள்</string>
     <string name="reinitialize_account">மீண்டும் துவக்கு</string>
+    <string name="gtasks_GLA_errorIOAuth">மன்னிக்கவும், Google சேவையகங்களுடன் தொடர்புகொள்வதில் சிக்கல் ஏற்பட்டது. பின்னர் மீண்டும் முயற்சிக்கவும்.</string>
 </resources>

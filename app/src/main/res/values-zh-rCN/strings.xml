@@ -95,7 +95,6 @@
     <string name="CFC_gtasks_list_text">清单内容：?</string>
     <string name="gtasks_GTA_clear_completed">清除已完成项</string>
     <string name="gtasks_GLA_authenticating">正在认证…</string>
-    <string name="gtasks_GLA_errorIOAuth">对不起，我们在与 Google 服务器通讯时遇到了问题。请稍后再尝试。</string>
     <string name="gtasks_error_accountNotFound">未找到账号 %s —请先退出，再从 Google Tasks 设置中重新登录。</string>
     <string name="premium_record_audio">录制一条便笺</string>
     <string name="ring_once">响铃一次</string>

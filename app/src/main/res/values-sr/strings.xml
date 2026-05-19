@@ -111,7 +111,6 @@
     <string name="gcal_TEA_error">Грешка при додавању задатка!</string>
     <string name="gtasks_GTA_clear_completed">Брисање завршено</string>
     <string name="gtasks_GLA_authenticating">Аутентификација…</string>
-    <string name="gtasks_GLA_errorIOAuth">Грешка при комуникацији са Гугл серверима. Молимо покушај касније.</string>
     <string name="gtasks_error_accountNotFound">Налог %s није пронађен—одјави се и пријави се поново из подешавања Гугл Задатака.</string>
     <string name="ring_once">Зазвони једном</string>
     <string name="ring_five_times">Зазвони пет пута</string>

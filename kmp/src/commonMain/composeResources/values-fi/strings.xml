@@ -212,4 +212,5 @@
     <string name="share">Jaa</string>
     <string name="list_settings">Listan asetukset</string>
     <string name="reinitialize_account">Uudelleenalustus</string>
+    <string name="gtasks_GLA_errorIOAuth">Valitettavasti meillä on yhteysongelmia Google palvelimiin.  Ole hyvä ja yritä myöhemmin uudestaa.</string>
 </resources>

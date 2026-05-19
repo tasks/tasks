@@ -113,4 +113,5 @@
     <string name="icon">Iconu</string>
     <string name="list_settings">Axustes de llistes</string>
     <string name="reinitialize_account">Reaniciar</string>
+    <string name="gtasks_GLA_errorIOAuth">Hebo un problema comunicándose colos servidores de Google. Por favor, intentalo más tarde.</string>
 </resources>

@@ -158,6 +158,7 @@ import org.tasks.time.startOfDay
 import org.tasks.compose.sort.BottomSheetContent
 import org.tasks.compose.sort.SortPicker
 import org.tasks.compose.settings.CaldavCalendarSettingsScreen
+import org.tasks.compose.settings.GoogleTaskListSettingsScreen
 import org.tasks.compose.settings.SettingsMenuButton
 import org.tasks.compose.settings.ManageSubscriptionSheetContent
 import org.tasks.compose.sort.SortSheetContent
@@ -184,6 +185,7 @@ import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
+import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
@@ -1269,6 +1271,37 @@ private fun ListSettingsDialog(
     onDeleted: () -> Unit = {},
     onSubscribe: () -> Unit,
 ) {
+    if (account.isGoogleTasks) {
+        GoogleTaskListSettingsDialog(
+            account = account,
+            calendar = calendar,
+            isDark = isDark,
+            onDismiss = onDismiss,
+            onDeleted = onDeleted,
+            onSubscribe = onSubscribe,
+        )
+    } else {
+        CaldavListSettingsDialog(
+            account = account,
+            calendar = calendar,
+            isDark = isDark,
+            onDismiss = onDismiss,
+            onDeleted = onDeleted,
+            onSubscribe = onSubscribe,
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun CaldavListSettingsDialog(
+    account: CaldavAccount,
+    calendar: CaldavCalendar?,
+    isDark: Boolean,
+    onDismiss: (CaldavCalendar?) -> Unit,
+    onDeleted: () -> Unit = {},
+    onSubscribe: () -> Unit,
+) {
     val viewModel = koinViewModel<CaldavCalendarSettingsViewModel>(
         key = "list_settings_${account.id}_${calendar?.id}",
         parameters = { org.koin.core.parameter.parametersOf(isDark) },
@@ -1293,6 +1326,64 @@ private fun ListSettingsDialog(
         CaldavCalendarSettingsScreen(
             viewModel = viewModel,
             onSave = { viewModel.save { calendar -> onDismiss(calendar) } },
+            onDelete = { viewModel.delete { onDeleted() } },
+            onNavigateBack = dismiss,
+            onSelectColor = {
+                if (state.hasPro || it.isFree) {
+                    viewModel.selectColor(it.originalColor)
+                } else {
+                    viewModel.closeColorPicker()
+                    onSubscribe()
+                }
+            },
+            onColorWheelSelected = {
+                viewModel.closeColorPicker()
+                onSubscribe()
+            },
+            onSubscribe = onSubscribe,
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun GoogleTaskListSettingsDialog(
+    account: CaldavAccount,
+    calendar: CaldavCalendar?,
+    isDark: Boolean,
+    onDismiss: (CaldavCalendar?) -> Unit,
+    onDeleted: () -> Unit = {},
+    onSubscribe: () -> Unit,
+) {
+    val viewModel = koinViewModel<GoogleTaskListSettingsViewModel>(
+        key = "gtask_list_settings_${account.id}_${calendar?.id}",
+        parameters = { org.koin.core.parameter.parametersOf(isDark) },
+    )
+    LaunchedEffect(Unit) {
+        viewModel.setCalendar(account, calendar)
+    }
+    val state by viewModel.state.collectAsState()
+
+    val dismiss = { onDismiss(null) }
+
+    BasicAlertDialog(
+        onDismissRequest = {
+            if (state.hasChanges) {
+                viewModel.showDiscardDialog()
+            } else {
+                dismiss()
+            }
+        },
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        GoogleTaskListSettingsScreen(
+            viewModel = viewModel,
+            onSave = {
+                viewModel.save(
+                    onDismiss = { onDismiss(null) },
+                    onComplete = { calendar -> onDismiss(calendar) },
+                )
+            },
             onDelete = { viewModel.delete { onDeleted() } },
             onNavigateBack = dismiss,
             onSelectColor = {

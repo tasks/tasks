@@ -65,6 +65,7 @@ import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.CaldavAccountSettingsViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.EtebaseAccountSettingsViewModel
+import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.DrawerViewModel
@@ -160,10 +161,6 @@ val commonModule = module {
             override val canCreateFilters: Boolean get() = false
             override val canCreateTags: Boolean get() = false
             override val canCreatePlaces: Boolean get() = false
-            override fun canCreateLists(account: org.tasks.data.entity.CaldavAccount): Boolean =
-                account.isCaldavAccount || account.isTasksOrg
-            override fun canEditList(account: org.tasks.data.entity.CaldavAccount): Boolean =
-                account.isCaldavAccount || account.isTasksOrg
         }
     }
     single<org.tasks.billing.PurchaseState> {
@@ -418,6 +415,25 @@ val commonModule = module {
             syncAdapters = get(),
             reporting = get(),
             purchaseState = get(),
+            isDark = params.get(),
+        )
+    }
+    viewModel { params ->
+        GoogleTaskListSettingsViewModel(
+            caldavDao = get(),
+            taskDeleter = get(),
+            reporting = get(),
+            purchaseState = get(),
+            invokerFactory = { account ->
+                org.tasks.googleapis.GtasksInvoker(
+                    org.tasks.googleapis.GoogleTasksCredentialsAdapter(
+                        account = account,
+                        encryption = get(),
+                        proxyAuthProvider = get(),
+                        caldavDao = get(),
+                    )
+                )
+            },
             isDark = params.get(),
         )
     }

@@ -237,4 +237,5 @@
     <string name="share">Kunhavigi</string>
     <string name="list_settings">Agordoj de listo</string>
     <string name="reinitialize_account">Repravalorizi</string>
+    <string name="gtasks_GLA_errorIOAuth">Bedaŭrinde ni spertis problemon dum komuniki kun serviloj de Google. Bonvolu repeni poste.</string>
 </resources>
