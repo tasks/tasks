@@ -172,7 +172,8 @@ class TaskEditViewModel(
         if (current == original) db else current
 
     private suspend fun firstCaldavList(): CaldavFilter? {
-        val calendar = caldavDao.getCalendars().firstOrNull() ?: return null
+        val calendar = caldavDao.getCalendars()
+            .firstOrNull { !it.readOnly() } ?: return null
         val account = calendar.account?.let { caldavDao.getAccountByUuid(it) } ?: return null
         return CaldavFilter(calendar = calendar, account = account)
     }

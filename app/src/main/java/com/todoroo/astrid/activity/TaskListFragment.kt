@@ -34,19 +34,16 @@ import androidx.appcompat.widget.Toolbar
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.unit.IntOffset
-import kotlin.math.abs
-import kotlin.math.roundToInt
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.ui.platform.LocalContext
-import androidx.recyclerview.widget.ConcatAdapter
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.core.app.ShareCompat
 import androidx.core.content.IntentCompat
@@ -60,6 +57,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -75,12 +73,7 @@ import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_TASK_ID
-import org.tasks.data.dao.TaskDao
-import org.tasks.data.TaskSaver
-import org.tasks.data.fetchTasks
-import org.tasks.data.setCollapsed
 import com.todoroo.astrid.repeats.RepeatTaskHelper
-import org.tasks.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskDuplicator
 import com.todoroo.astrid.service.TaskMover
@@ -95,8 +88,8 @@ import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
-import org.tasks.TasksUrls
 import org.tasks.TasksApplication
+import org.tasks.TasksUrls
 import org.tasks.activities.FilterSettingsActivity
 import org.tasks.activities.PlaceSettingsActivity
 import org.tasks.activities.TagSettingsActivity
@@ -105,7 +98,7 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
-import org.tasks.data.getOrCreateLocalAccount
+import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.compose.AlarmsDisabledBanner
 import org.tasks.compose.AppUpdatedBanner
 import org.tasks.compose.BlogBanner
@@ -117,11 +110,16 @@ import org.tasks.compose.SubscriptionRequiredBanner
 import org.tasks.compose.SyncWarningGoogleTasks
 import org.tasks.compose.SyncWarningMicrosoft
 import org.tasks.data.TaskContainer
+import org.tasks.data.TaskSaver
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDataDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.db.Database
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.entity.Task
+import org.tasks.data.fetchTasks
+import org.tasks.data.getAccountForNewList
+import org.tasks.data.getOrCreateLocalAccount
 import org.tasks.data.listSettingsClass
 import org.tasks.data.open
 import org.tasks.data.sql.QueryTemplate
@@ -156,6 +154,7 @@ import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.ResourceResolver.getData
 import org.tasks.scheduling.NotificationSchedulerIntentService
+import org.tasks.service.TaskCompleter
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.tags.TagPickerActivity
@@ -177,7 +176,9 @@ import org.tasks.ui.TaskListViewModel
 import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
+import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickListener,
@@ -210,6 +211,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var database: Database
     @Inject lateinit var markdown: MarkdownProvider
     @Inject lateinit var theme: Theme
+    @Inject lateinit var tasksAccountDataRepository: TasksAccountDataRepository
 
     private val listViewModel: TaskListViewModel by viewModels()
     private val mainViewModel: MainActivityViewModel by activityViewModels()
@@ -863,8 +865,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             firebase.addTask("fab")
         } else {
             Timber.e("createNewTask(): No writable list")
-            val account = caldavDao.getAccounts()
-                .firstOrNull { !it.isOpenTasks }
+            val account = caldavDao.getAccountForNewList(tasksAccountDataRepository)
             if (account != null) {
                 listSettingsRequest.launch(
                     Intent(activity, account.listSettingsClass())

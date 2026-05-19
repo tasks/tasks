@@ -1,59 +1,52 @@
 package org.tasks
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandHorizontally
-import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.clickable
-import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.drop
-import kotlinx.coroutines.launch
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.outlined.RadioButtonUnchecked
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.MoreVert
+import androidx.compose.material.icons.outlined.RadioButtonUnchecked
 import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.SwapVert
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
-
-import androidx.compose.material3.ModalDrawerSheet
-import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingToolbarDefaults
 import androidx.compose.material3.HorizontalFloatingToolbar
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -65,27 +58,29 @@ import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
 import androidx.compose.material3.adaptive.navigation.BackNavigationBehavior
 import androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.takeOrElse
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.material3.BasicAlertDialog
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
@@ -93,117 +88,121 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.polymorphic
-import org.koin.compose.koinInject
-import org.koin.compose.viewmodel.koinViewModel
-import org.tasks.TasksUrls
-import org.tasks.auth.OAuthProvider
-import org.tasks.billing.SubscriptionProvider
-import org.tasks.compose.drawer.DrawerItem
-import org.tasks.compose.drawer.TaskListDrawer
-
 import co.touchlab.kermit.Logger
-import org.tasks.auth.TasksServerEnvironment
-import org.tasks.compose.NavigationBarScrim
-import org.tasks.compose.PlatformBackHandler
-import org.tasks.compose.settings.CaldavAccountSettingsDetail
-import org.tasks.compose.settings.CaldavAccountSettingsPane
-import org.tasks.compose.settings.EtebaseAccountSettingsDetail
-import org.tasks.compose.settings.GoogleTasksAccountSettingsDetail
-import org.tasks.compose.settings.GoogleTasksAccountSettingsPane
-import org.tasks.compose.settings.HelpAndFeedbackDetail
-import org.tasks.compose.settings.EtebaseAccountSettingsPane
-import org.tasks.compose.settings.LocalAccountSettingsDetail
-import org.tasks.compose.settings.LocalAccountSettingsPane
-import org.tasks.compose.settings.MainSettingsScreen
-import org.tasks.compose.settings.OpenTaskAccountSettingsDetail
-import org.tasks.compose.settings.OpenTaskAccountSettingsPane
-import org.tasks.compose.settings.ProCardState
-import org.tasks.compose.settings.SettingsPane
-import org.tasks.compose.settings.TasksAccountSettingsDetail
-import org.tasks.compose.settings.TasksAccountSettingsPane
-import org.tasks.compose.settings.DesktopProScreen
-import org.tasks.compose.settings.LinkDesktopScreen
-import org.tasks.compose.StatusBarScrim
-import org.tasks.compose.platformSidebarInsets
-import org.tasks.compose.platformStatusBarInsets
-import org.tasks.compose.platformNavigationBarsPadding
-import org.tasks.compose.SignInProvider
-import org.tasks.compose.SignInProviderDialog
-import org.tasks.compose.WelcomeScreenLayout
-import org.tasks.compose.accounts.AddAccountScreen
-import org.tasks.compose.accounts.AddAccountViewModel
-import org.tasks.compose.accounts.Platform
-import org.tasks.compose.pricing.PricingMode
-import org.tasks.compose.pricing.PricingScreen
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownColor
 import com.mikepenz.markdown.m3.markdownTypography
 import com.mikepenz.markdown.model.markdownAnimations
+import com.todoroo.astrid.core.SortHelper
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
+import org.tasks.auth.OAuthProvider
+import org.tasks.auth.TasksServerEnvironment
+import org.tasks.billing.SubscriptionProvider
+import org.tasks.caldav.TasksAccountDataRepository
+import org.tasks.compose.NavigationBarScrim
+import org.tasks.compose.PlatformBackHandler
+import org.tasks.compose.SignInProvider
+import org.tasks.compose.SignInProviderDialog
+import org.tasks.compose.StatusBarScrim
+import org.tasks.compose.WelcomeScreenLayout
+import org.tasks.compose.accounts.AddAccountScreen
+import org.tasks.compose.accounts.AddAccountViewModel
+import org.tasks.compose.accounts.Platform
+import org.tasks.compose.chips.Chip
 import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.compose.chips.ChipGroup
-import org.tasks.compose.chips.Chip
 import org.tasks.compose.chips.StartDateChip
 import org.tasks.compose.chips.SubtaskChip
-import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.isHidden
-import org.tasks.time.startOfDay
+import org.tasks.compose.drawer.DrawerItem
+import org.tasks.compose.drawer.TaskListDrawer
+import org.tasks.compose.platformNavigationBarsPadding
+import org.tasks.compose.platformSidebarInsets
+import org.tasks.compose.platformStatusBarInsets
+import org.tasks.compose.pricing.PricingMode
+import org.tasks.compose.pricing.PricingScreen
+import org.tasks.compose.settings.CaldavAccountSettingsDetail
+import org.tasks.compose.settings.CaldavAccountSettingsPane
+import org.tasks.compose.settings.DesktopProScreen
+import org.tasks.compose.settings.EtebaseAccountSettingsDetail
+import org.tasks.compose.settings.EtebaseAccountSettingsPane
+import org.tasks.compose.settings.GoogleTasksAccountSettingsDetail
+import org.tasks.compose.settings.GoogleTasksAccountSettingsPane
+import org.tasks.compose.settings.HelpAndFeedbackDetail
+import org.tasks.compose.settings.LinkDesktopScreen
+import org.tasks.compose.settings.ListSettingsScreen
+import org.tasks.compose.settings.LocalAccountSettingsDetail
+import org.tasks.compose.settings.LocalAccountSettingsPane
+import org.tasks.compose.settings.MainSettingsScreen
+import org.tasks.compose.settings.ManageSubscriptionSheetContent
+import org.tasks.compose.settings.OpenTaskAccountSettingsDetail
+import org.tasks.compose.settings.OpenTaskAccountSettingsPane
+import org.tasks.compose.settings.ProCardState
+import org.tasks.compose.settings.SettingsMenuButton
+import org.tasks.compose.settings.SettingsPane
+import org.tasks.compose.settings.TasksAccountSettingsDetail
+import org.tasks.compose.settings.TasksAccountSettingsPane
 import org.tasks.compose.sort.BottomSheetContent
 import org.tasks.compose.sort.SortPicker
-import org.tasks.compose.settings.ListSettingsScreen
-import org.tasks.compose.settings.SettingsMenuButton
-import org.tasks.compose.settings.ManageSubscriptionSheetContent
 import org.tasks.compose.sort.SortSheetContent
 import org.tasks.compose.sort.completedOptions
 import org.tasks.compose.sort.groupOptions
 import org.tasks.compose.sort.subtaskOptions
-import org.tasks.viewmodel.SortSettingsViewModel
-import org.tasks.kmp.org.tasks.themes.ColorProvider
-import org.tasks.themes.BLUE
-import org.tasks.themes.TasksTheme
 import org.tasks.data.TaskContainer
 import org.tasks.data.UUIDHelper
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.getAccountForNewList
+import org.tasks.data.getLocalList
+import org.tasks.data.isHidden
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
-import com.todoroo.astrid.core.SortHelper
-import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.kmp.formatTime
+import org.tasks.kmp.org.tasks.themes.ColorProvider
+import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.tasklist.HeaderFormatter
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
+import org.tasks.themes.BLUE
+import org.tasks.themes.TasksTheme
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
-import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
-import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.viewmodel.DrawerViewModel
+import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
 import org.tasks.viewmodel.FilterPickerViewModel
-import org.tasks.viewmodel.TaskEditViewModel
+import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.ProCardViewModel
+import org.tasks.viewmodel.SortSettingsViewModel
+import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.TaskListViewModel
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.add_platform_account
 import tasks.kmp.generated.resources.back
+import tasks.kmp.generated.resources.caldav
+import tasks.kmp.generated.resources.etesync
+import tasks.kmp.generated.resources.gtasks_GPr_header
 import tasks.kmp.generated.resources.not_available_desktop
 import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.settings
 import tasks.kmp.generated.resources.show_less
 import tasks.kmp.generated.resources.show_more
 import tasks.kmp.generated.resources.subscription_not_found
-import tasks.kmp.generated.resources.add_platform_account
-import tasks.kmp.generated.resources.caldav
-import tasks.kmp.generated.resources.etesync
-import tasks.kmp.generated.resources.gtasks_GPr_header
 import tasks.kmp.generated.resources.url_google_play
 import tasks.kmp.generated.resources.url_sponsor
 import tasks.kmp.generated.resources.wrong_account
@@ -768,8 +767,10 @@ private fun TaskListScreen(
     var sidebarExpanded by remember { mutableStateOf(false) }
     var newListAccountId by rememberSaveable { mutableStateOf<Long?>(null) }
     var selectCreatedList by remember { mutableStateOf(false) }
+    var createTaskAfterList by rememberSaveable { mutableStateOf(false) }
     var editListCalendarId by rememberSaveable { mutableStateOf<Long?>(null) }
     val caldavDao = koinInject<CaldavDao>()
+    val tasksAccountDataRepository = koinInject<TasksAccountDataRepository>()
     val drawerConfiguration = koinInject<org.tasks.compose.drawer.DrawerConfiguration>()
     val selectedTask = navigator.currentDestination?.contentKey
     val selectedTaskId = selectedTask?.taskId
@@ -811,6 +812,35 @@ private fun TaskListScreen(
         scope.launch {
             popBackStack(navigator, taskEditViewModel)
             navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, key)
+        }
+    }
+
+    val hasWritableList by caldavDao.watchHasWritableList()
+        .collectAsState(initial = true)
+
+    suspend fun navigateToNewTask() {
+        reporting.addTask("fab")
+        popBackStack(navigator, taskEditViewModel)
+        navigator.navigateTo(
+            ListDetailPaneScaffoldRole.Detail,
+            TaskKey(taskId = 0L, remoteId = UUIDHelper.newUUID()),
+        )
+    }
+
+    val onCreateTask: () -> Unit = {
+        scope.launch {
+            if (hasWritableList) {
+                navigateToNewTask()
+            } else {
+                val account = caldavDao.getAccountForNewList(tasksAccountDataRepository)
+                if (account != null) {
+                    createTaskAfterList = true
+                    newListAccountId = account.id
+                } else {
+                    caldavDao.getLocalList()
+                    navigateToNewTask()
+                }
+            }
         }
     }
 
@@ -882,6 +912,7 @@ private fun TaskListScreen(
                         onSettingsClick = onSettingsClick,
                         showListSettings = editableCaldavFilter != null,
                         onListSettingsClick = { editableCaldavFilter?.let { editListCalendarId = it.calendar.id } },
+                        onCreateTask = onCreateTask,
                         modifier = Modifier.weight(1f),
                     )
                 }
@@ -950,6 +981,7 @@ private fun TaskListScreen(
                         onSettingsClick = onSettingsClick,
                         showListSettings = editableCaldavFilter != null,
                         onListSettingsClick = { editableCaldavFilter?.let { editListCalendarId = it.calendar.id } },
+                        onCreateTask = onCreateTask,
                     )
                 }
             }
@@ -976,8 +1008,10 @@ private fun TaskListScreen(
                 isDark = isDark,
                 onDismiss = { created ->
                     val shouldSelectList = selectCreatedList
+                    val shouldCreateTask = createTaskAfterList
                     newListAccountId = null
                     selectCreatedList = false
+                    createTaskAfterList = false
                     drawerViewModel.updateFilters()
                     created?.let { cal ->
                         val newFilter = CaldavFilter(calendar = cal, account = it)
@@ -986,6 +1020,9 @@ private fun TaskListScreen(
                         } else {
                             viewModel.setFilter(newFilter)
                             drawerViewModel.setSelectedFilter(newFilter)
+                        }
+                        if (shouldCreateTask) {
+                            scope.launch { navigateToNewTask() }
                         }
                     }
                 },
@@ -1054,6 +1091,7 @@ private fun TaskListContent(
     onSettingsClick: () -> Unit,
     showListSettings: Boolean = false,
     onListSettingsClick: () -> Unit = {},
+    onCreateTask: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val scope = androidx.compose.runtime.rememberCoroutineScope()
@@ -1077,16 +1115,7 @@ private fun TaskListContent(
                 showListSettings = showListSettings,
                 onListSettingsClick = onListSettingsClick,
                 onTaskClick = onTaskClick,
-                onCreateTask = {
-                    reporting.addTask("fab")
-                    scope.launch {
-                        popBackStack(navigator, taskEditViewModel)
-                        navigator.navigateTo(
-                            ListDetailPaneScaffoldRole.Detail,
-                            TaskKey(taskId = 0L, remoteId = UUIDHelper.newUUID()),
-                        )
-                    }
-                },
+                onCreateTask = onCreateTask,
                 modifier = Modifier.preferredWidth(TaskListPanePreferredWidth),
             )
         },
