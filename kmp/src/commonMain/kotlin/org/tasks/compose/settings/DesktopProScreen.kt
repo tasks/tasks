@@ -120,6 +120,7 @@ fun DesktopProScreen(
     onLinkError: () -> Unit = {},
     onGitHubSuccess: () -> Unit = {},
     onGitHubFailed: () -> Unit = {},
+    successButtonText: String? = null,
 ) {
     var selection by remember { mutableStateOf(Selection.None) }
     var qrState by remember { mutableStateOf<DesktopProState>(DesktopProState.Loading) }
@@ -244,6 +245,7 @@ fun DesktopProScreen(
                         state = qrState,
                         onBack = onBack,
                         onRetry = { linkGeneration++ },
+                        successButtonText = successButtonText,
                     )
                 }
                 Selection.GitHub -> {
@@ -256,6 +258,7 @@ fun DesktopProScreen(
                             onBack = onBack,
                             onRetry = { startGitHubSignIn() },
                             onOpenSponsorPage = onOpenSponsorPage,
+                            successButtonText = successButtonText,
                         )
                     }
                 }
@@ -359,6 +362,7 @@ private fun QrTab(
     state: DesktopProState,
     onBack: () -> Unit,
     onRetry: () -> Unit,
+    successButtonText: String? = null,
 ) {
     when (val s = state) {
         is DesktopProState.Loading -> {
@@ -393,7 +397,7 @@ private fun QrTab(
             }
         }
         is DesktopProState.Success -> {
-            SuccessContent(onBack = onBack)
+            SuccessContent(onBack = onBack, buttonText = successButtonText)
         }
         is DesktopProState.Error -> {
             Text(
@@ -466,6 +470,7 @@ private fun GitHubTab(
     onBack: () -> Unit,
     onRetry: () -> Unit,
     onOpenSponsorPage: () -> Unit,
+    successButtonText: String? = null,
 ) {
     when (state) {
         is GitHubProState.Idle,
@@ -482,7 +487,7 @@ private fun GitHubTab(
             )
         }
         is GitHubProState.Success -> {
-            SuccessContent(onBack = onBack)
+            SuccessContent(onBack = onBack, buttonText = successButtonText)
         }
         is GitHubProState.NotSponsor -> {
             Card(
@@ -549,7 +554,7 @@ private fun GitHubTab(
 }
 
 @Composable
-private fun SuccessContent(onBack: () -> Unit) {
+private fun SuccessContent(onBack: () -> Unit, buttonText: String? = null) {
     Text(
         text = stringResource(Res.string.link_desktop_success),
         style = MaterialTheme.typography.titleMedium,
@@ -558,6 +563,6 @@ private fun SuccessContent(onBack: () -> Unit) {
     )
     Spacer(modifier = Modifier.height(24.dp))
     Button(onClick = onBack) {
-        Text(stringResource(Res.string.done))
+        Text(buttonText ?: stringResource(Res.string.done))
     }
 }

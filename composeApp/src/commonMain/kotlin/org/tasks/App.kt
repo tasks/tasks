@@ -188,6 +188,10 @@ import tasks.kmp.generated.resources.settings
 import tasks.kmp.generated.resources.show_less
 import tasks.kmp.generated.resources.show_more
 import tasks.kmp.generated.resources.subscription_not_found
+import tasks.kmp.generated.resources.add_platform_account
+import tasks.kmp.generated.resources.caldav
+import tasks.kmp.generated.resources.etesync
+import tasks.kmp.generated.resources.gtasks_GPr_header
 import tasks.kmp.generated.resources.url_google_play
 import tasks.kmp.generated.resources.url_sponsor
 import tasks.kmp.generated.resources.wrong_account
@@ -214,7 +218,7 @@ data object SettingsDestination : NavKey
 data object LinkDesktopDestination : NavKey
 
 @Serializable
-data object DesktopProDestination : NavKey
+data class DesktopProDestination(val source: String? = null) : NavKey
 
 @Serializable
 data class PricingDestination(
@@ -351,12 +355,8 @@ fun App(
                                     && !addAccountViewModel.hasPro
                                 ) {
                                     when (platform) {
-                                        Platform.CALDAV, Platform.ETEBASE -> {
+                                        Platform.CALDAV, Platform.ETEBASE, Platform.GOOGLE_TASKS -> {
                                             backStack.add(PricingDestination(mode = PricingMode.NYP_ONLY, source = platform.name))
-                                            return@AddAccountScreen
-                                        }
-                                        Platform.GOOGLE_TASKS -> {
-                                            backStack.add(DesktopProDestination)
                                             return@AddAccountScreen
                                         }
                                         else -> {}
@@ -407,6 +407,7 @@ fun App(
                             viewModel = taskListViewModel,
                             drawerViewModel = drawerViewModel,
                             onSettingsClick = { backStack.add(SettingsDestination) },
+                            onSubscribe = { backStack.add(DesktopProDestination()) },
                         )
                     }
                     entry<SettingsDestination> {
@@ -464,11 +465,17 @@ fun App(
                             onConfirm = { code -> desktopLinkService.confirmLink(code) },
                         )
                     }
-                    entry<DesktopProDestination> {
+                    entry<DesktopProDestination> { destination ->
                         val desktopLinkClient = koinInject<org.tasks.billing.DesktopLinkClient>()
                         val gitHubSponsorClient = koinInject<org.tasks.billing.GitHubSponsorClient>()
                         LaunchedEffect(Unit) {
                             reporting.logEvent(AnalyticsEvents.SCREEN_RESTORE_PURCHASES)
+                        }
+                        val successButtonText = when (destination.source) {
+                            Platform.CALDAV.name -> stringResource(Res.string.add_platform_account, stringResource(Res.string.caldav))
+                            Platform.ETEBASE.name -> stringResource(Res.string.add_platform_account, stringResource(Res.string.etesync))
+                            Platform.GOOGLE_TASKS.name -> stringResource(Res.string.add_platform_account, stringResource(Res.string.gtasks_GPr_header))
+                            else -> null
                         }
                         DesktopProScreen(
                             onBack = { backStack.removeLastOrNull() },
@@ -519,6 +526,7 @@ fun App(
                                     AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GITHUB,
                                 )
                             },
+                            successButtonText = successButtonText,
                         )
                     }
                     entry<PricingDestination> { destination ->
@@ -535,15 +543,35 @@ fun App(
                                 backStack.removeLastOrNull()
                             }
                         }
-                        LaunchedEffect(Unit) {
-                            subscriptionProvider.subscription
-                                .distinctUntilChanged()
-                                .drop(1)
-                                .collect {
-                                    if (it != null) {
-                                        backStack.removeLastOrNull()
+                        if (destination.mode == PricingMode.NYP_ONLY) {
+                            LaunchedEffect(subscriptionInfo) {
+                                if (subscriptionInfo != null) {
+                                    when (destination.source) {
+                                        Platform.CALDAV.name -> {
+                                            backStack.removeLastOrNull()
+                                            backStack.add(CaldavSignInDestination)
+                                        }
+                                        Platform.ETEBASE.name -> {
+                                            backStack.removeLastOrNull()
+                                            backStack.add(EtebaseSignInDestination)
+                                        }
+                                        Platform.GOOGLE_TASKS.name ->
+                                            addAccountViewModel.signIn(Platform.GOOGLE_TASKS)
+                                        else -> backStack.removeLastOrNull()
                                     }
                                 }
+                            }
+                        } else {
+                            LaunchedEffect(Unit) {
+                                subscriptionProvider.subscription
+                                    .distinctUntilChanged()
+                                    .drop(1)
+                                    .collect {
+                                        if (it != null) {
+                                            backStack.removeLastOrNull()
+                                        }
+                                    }
+                            }
                         }
                         val googlePlayUrl = stringResource(Res.string.url_google_play)
                         val sponsorUrl = stringResource(Res.string.url_sponsor)
@@ -554,7 +582,7 @@ fun App(
                                 reporting.logEvent(AnalyticsEvents.PRICING_SIGN_IN_CLICK)
                                 showSignInDialog = true
                             },
-                            onRestorePurchases = { backStack.add(DesktopProDestination) },
+                            onRestorePurchases = { backStack.add(DesktopProDestination(source = destination.source)) },
                             onCloudSubscribeClick = {
                                 reporting.logEvent(
                                     AnalyticsEvents.PRICING_SUBSCRIBE_CLICK,
@@ -589,7 +617,7 @@ fun App(
                                     AnalyticsEvents.PARAM_PERIOD to if (isAnnual) AnalyticsEvents.PERIOD_ANNUAL else AnalyticsEvents.PERIOD_MONTHLY,
                                 )
                             },
-                            showSupporterBanner = subscriptionInfo?.isTasksSubscription == false,
+                            showSupporterBanner = destination.mode != PricingMode.NYP_ONLY && subscriptionInfo?.isTasksSubscription == false,
                         )
                         if (showSignInDialog) {
                             BasicAlertDialog(onDismissRequest = { showSignInDialog = false }) {
