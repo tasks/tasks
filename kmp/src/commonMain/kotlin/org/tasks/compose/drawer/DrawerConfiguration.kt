@@ -1,6 +1,5 @@
 package org.tasks.compose.drawer
 
-import org.tasks.data.entity.CaldavAccount
 
 interface DrawerConfiguration {
     val filtersEnabled: Boolean
@@ -32,8 +31,4 @@ interface DrawerConfiguration {
 
     val canCreatePlaces: Boolean
         get() = true
-
-    fun canCreateLists(account: CaldavAccount): Boolean = true
-
-    fun canEditList(account: CaldavAccount): Boolean = true
 }

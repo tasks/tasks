@@ -10,11 +10,9 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.getString
@@ -22,8 +20,6 @@ import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
 import org.tasks.billing.PurchaseState
 import org.tasks.caldav.CaldavClientProvider
-import org.tasks.compose.settings.CaldavCalendarSettingsState
-import org.tasks.compose.settings.buildPickerColors
 import org.tasks.data.PrincipalWithAccess
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
@@ -38,7 +34,6 @@ import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
 import org.tasks.service.TaskDeleter
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
-import org.tasks.themes.TasksIcons
 import org.tasks.ui.DisplayableException
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.error_adding_account
@@ -54,21 +49,11 @@ open class CaldavCalendarSettingsViewModel(
     private val taskDeleter: TaskDeleter,
     private val syncAdapters: SyncAdapters,
     private val reporting: Reporting,
-    private val purchaseState: PurchaseState,
-    private val isDark: Boolean,
-    private val hasColorWheel: Boolean = false,
-) : ViewModel() {
-
-    private val pickerColors = buildPickerColors(isDark)
-
-    private val _state = MutableStateFlow(
-        CaldavCalendarSettingsState(
-            pickerColors = pickerColors,
-            hasPro = purchaseState.purchasedThemes(),
-            hasColorWheel = hasColorWheel,
-        )
-    )
-    val state: StateFlow<CaldavCalendarSettingsState> = _state
+    purchaseState: PurchaseState,
+    isDark: Boolean,
+    hasColorWheel: Boolean = false,
+    internal val stateManager: ListSettingsStateManager = ListSettingsStateManager(isDark, purchaseState, hasColorWheel),
+) : ViewModel(), ListSettingsCallbacks by stateManager {
 
     private val calendarId = MutableStateFlow<Long?>(null)
 
@@ -81,92 +66,38 @@ open class CaldavCalendarSettingsViewModel(
     init {
         viewModelScope.launch {
             principals.collect { list ->
-                _state.update { it.copy(principals = list) }
+                stateManager.update { it.copy(principals = list) }
             }
         }
     }
 
-    fun setCalendar(account: CaldavAccount, calendar: CaldavCalendar?) {
-        if (_state.value.account != null) return
-        _state.value = CaldavCalendarSettingsState(
-            name = calendar?.name ?: "",
-            color = calendar?.color ?: 0,
-            icon = calendar?.icon ?: TasksIcons.LIST,
-            calendar = calendar,
-            account = account,
-            pickerColors = pickerColors,
-            hasPro = purchaseState.purchasedThemes(),
-            hasColorWheel = hasColorWheel,
-        )
+    open override fun setName(value: String) = stateManager.setName(value)
+    open override fun setColor(value: Int) = stateManager.setColor(value)
+    open override fun setIcon(value: String) = stateManager.setIcon(value)
+
+    override fun setCalendar(account: CaldavAccount, calendar: CaldavCalendar?) {
+        stateManager.setCalendar(account, calendar)
         calendarId.value = calendar?.id
     }
 
-    open fun setName(value: String) {
-        _state.update { it.copy(name = value, nameError = null) }
+    override fun openShareDialog() {
+        stateManager.update { it.copy(shareDialogOpen = true) }
     }
 
-    open fun setColor(value: Int) {
-        _state.update { it.copy(color = value) }
+    override fun closeShareDialog() {
+        stateManager.update { it.copy(shareDialogOpen = false) }
     }
 
-    open fun setIcon(value: String) {
-        _state.update { it.copy(icon = value) }
+    override fun confirmRemovePrincipal(principal: PrincipalWithAccess?) {
+        stateManager.update { it.copy(confirmRemovePrincipal = principal) }
     }
 
-    fun openColorPicker() {
-        _state.update { it.copy(showColorPicker = true, hasPro = purchaseState.purchasedThemes()) }
-    }
-
-    fun closeColorPicker() {
-        _state.update { it.copy(showColorPicker = false) }
-    }
-
-    fun selectColor(color: Int) {
-        _state.update { it.copy(color = color, showColorPicker = false) }
-    }
-
-    fun openIconPicker() {
-        _state.update { it.copy(showIconPicker = true, hasPro = purchaseState.purchasedThemes()) }
-    }
-
-    fun closeIconPicker() {
-        _state.update { it.copy(showIconPicker = false) }
-    }
-
-    fun selectIcon(name: String) {
-        _state.update { it.copy(icon = name, showIconPicker = false) }
-    }
-
-    fun dismissSnackbar() {
-        _state.update { it.copy(snackbar = null) }
-    }
-
-    fun showDiscardDialog() {
-        _state.update { it.copy(showDiscardDialog = true) }
-    }
-
-    fun dismissDiscardDialog() {
-        _state.update { it.copy(showDiscardDialog = false) }
-    }
-
-    fun openShareDialog() {
-        _state.update { it.copy(shareDialogOpen = true) }
-    }
-
-    fun closeShareDialog() {
-        _state.update { it.copy(shareDialogOpen = false) }
-    }
-
-    fun confirmRemovePrincipal(principal: PrincipalWithAccess?) {
-        _state.update { it.copy(confirmRemovePrincipal = principal) }
-    }
-
-    fun removePrincipal(principal: PrincipalWithAccess) {
-        val s = _state.value
+    override fun removePrincipal(principal: PrincipalWithAccess) {
+        val s = state.value
         val account = s.account ?: return
         val calendar = s.calendar ?: return
         viewModelScope.launch {
-            _state.update { it.copy(confirmRemovePrincipal = null, isLoading = true) }
+            stateManager.update { it.copy(confirmRemovePrincipal = null, isLoading = true) }
             try {
                 withContext(NonCancellable) {
                     withContext(Dispatchers.IO) {
@@ -178,22 +109,22 @@ open class CaldavCalendarSettingsViewModel(
             } catch (e: Exception) {
                 handleError(e)
             } finally {
-                _state.update { it.copy(isLoading = false) }
+                stateManager.update { it.copy(isLoading = false) }
             }
         }
     }
 
-    fun share(input: String) {
-        val s = _state.value
+    override fun share(input: String) {
+        val s = state.value
         val account = s.account ?: return
         viewModelScope.launch {
-            _state.update { it.copy(shareLoading = true) }
+            stateManager.update { it.copy(shareLoading = true) }
             try {
                 withContext(NonCancellable) {
                     if (s.isNew) {
                         createCalendar(skipFinish = true) ?: return@withContext
                     }
-                    val calendar = _state.value.calendar ?: return@withContext
+                    val calendar = state.value.calendar ?: return@withContext
                     val href = when (account.serverType) {
                         SERVER_OWNCLOUD, SERVER_NEXTCLOUD -> "principal:principals/users/$input"
                         else -> "mailto:$input"
@@ -205,23 +136,24 @@ open class CaldavCalendarSettingsViewModel(
                     val invite = if (href.startsWith("mailto:")) INVITE_NO_RESPONSE else INVITE_UNKNOWN
                     principalDao.getOrCreateAccess(calendar, principal, invite, ACCESS_READ_WRITE)
                     syncAdapters.sync(SyncSource.SHARING_CHANGE)
-                    _state.update { it.copy(shareDialogOpen = false) }
+                    stateManager.update { it.copy(shareDialogOpen = false) }
                 }
             } catch (e: Exception) {
                 handleError(e)
             } finally {
-                _state.update { it.copy(shareLoading = false) }
+                stateManager.update { it.copy(shareLoading = false) }
             }
         }
     }
 
     fun save(onComplete: (CaldavCalendar) -> Unit) {
-        if (_state.value.isLoading) return
+        if (state.value.isLoading) return
         viewModelScope.launch {
-            val s = _state.value
+            val s = state.value
             val name = s.name.trim()
             if (name.isEmpty()) {
-                _state.update { it.copy(nameError = getString(Res.string.name_cannot_be_empty)) }
+                val error = getString(Res.string.name_cannot_be_empty)
+                stateManager.update { it.copy(nameError = error) }
                 return@launch
             }
             if (s.isNew) {
@@ -235,10 +167,10 @@ open class CaldavCalendarSettingsViewModel(
     }
 
     private suspend fun createCalendar(skipFinish: Boolean): CaldavCalendar? {
-        val s = _state.value
+        val s = state.value
         val account = s.account ?: return null
         val name = s.name.trim()
-        _state.update { it.copy(isLoading = true) }
+        stateManager.update { it.copy(isLoading = true) }
         return try {
             withContext(NonCancellable) {
                 val url = withContext(Dispatchers.IO) {
@@ -255,7 +187,7 @@ open class CaldavCalendarSettingsViewModel(
                 caldavDao.insert(calendar)
                 reporting.logEvent(AnalyticsEvents.CREATE_LIST)
                 val inserted = caldavDao.getCalendarByUuid(calendar.uuid!!)
-                _state.update { it.copy(calendar = inserted) }
+                stateManager.update { it.copy(calendar = inserted) }
                 calendarId.value = inserted?.id
                 inserted
             }
@@ -263,16 +195,16 @@ open class CaldavCalendarSettingsViewModel(
             handleError(e)
             null
         } finally {
-            _state.update { it.copy(isLoading = false) }
+            stateManager.update { it.copy(isLoading = false) }
         }
     }
 
     private suspend fun updateCalendar(): CaldavCalendar? {
-        val s = _state.value
+        val s = state.value
         val account = s.account ?: return null
         val calendar = s.calendar ?: return null
         val name = s.name.trim()
-        _state.update { it.copy(isLoading = true) }
+        stateManager.update { it.copy(isLoading = true) }
         return try {
             withContext(NonCancellable) {
                 withContext(Dispatchers.IO) {
@@ -285,23 +217,24 @@ open class CaldavCalendarSettingsViewModel(
                     icon = s.icon,
                 )
                 caldavDao.update(result)
-                _state.update { it.copy(calendar = result) }
+                stateManager.update { it.copy(calendar = result) }
                 result
             }
         } catch (e: Exception) {
             handleError(e)
             null
         } finally {
-            _state.update { it.copy(isLoading = false) }
+            stateManager.update { it.copy(isLoading = false) }
         }
     }
 
     fun delete(onComplete: () -> Unit) {
-        val s = _state.value
+        val s = state.value
         val account = s.account ?: return
         val calendar = s.calendar ?: return
+        if (s.isLoading) return
         viewModelScope.launch {
-            _state.update { it.copy(isLoading = true) }
+            stateManager.update { it.copy(isLoading = true) }
             try {
                 withContext(NonCancellable) {
                     withContext(Dispatchers.IO) {
@@ -315,25 +248,19 @@ open class CaldavCalendarSettingsViewModel(
             } catch (e: Exception) {
                 handleError(e)
             } finally {
-                _state.update { it.copy(isLoading = false) }
+                stateManager.update { it.copy(isLoading = false) }
             }
         }
     }
 
     private suspend fun handleError(e: Exception) {
         Logger.e(e) { "CalDAV calendar operation failed" }
-        _state.update {
-            it.copy(
-                snackbar = when (e) {
-                    is HttpException -> {
-                        e.message
-                    }
-                    is DisplayableException -> getString(e.resource)
-                    is ConnectException -> getString(Res.string.network_error)
-                    else -> getString(Res.string.error_adding_account, e.message ?: "")
-                }
-            )
+        val message = when (e) {
+            is HttpException -> e.message
+            is DisplayableException -> getString(e.resource)
+            is ConnectException -> getString(Res.string.network_error)
+            else -> getString(Res.string.error_adding_account, e.message ?: "")
         }
+        stateManager.update { it.copy(snackbar = message) }
     }
-
 }

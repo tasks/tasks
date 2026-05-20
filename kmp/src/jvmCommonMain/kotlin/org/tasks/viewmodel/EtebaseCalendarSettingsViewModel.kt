@@ -11,20 +11,22 @@ import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
 import org.tasks.billing.PurchaseState
+import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.googleapis.GtasksInvoker
+import org.tasks.etebase.EtebaseClientProvider
 import org.tasks.service.TaskDeleter
 import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.gtasks_GLA_errorIOAuth
+import tasks.kmp.generated.resources.error_adding_account
 import tasks.kmp.generated.resources.name_cannot_be_empty
+import tasks.kmp.generated.resources.network_error
+import java.net.ConnectException
 
-open class GoogleTaskListSettingsViewModel(
+open class EtebaseCalendarSettingsViewModel(
     private val caldavDao: CaldavDao,
+    private val clientProvider: EtebaseClientProvider,
     private val taskDeleter: TaskDeleter,
     private val reporting: Reporting,
-    private val invokerFactory: suspend (CaldavAccount) -> GtasksInvoker,
     purchaseState: PurchaseState,
     isDark: Boolean,
     hasColorWheel: Boolean = false,
@@ -35,7 +37,7 @@ open class GoogleTaskListSettingsViewModel(
     open override fun setColor(value: Int) = stateManager.setColor(value)
     open override fun setIcon(value: String) = stateManager.setIcon(value)
 
-    fun save(onDismiss: () -> Unit = {}, onComplete: (CaldavCalendar) -> Unit) {
+    fun save(onComplete: (CaldavCalendar) -> Unit) {
         if (state.value.isLoading) return
         viewModelScope.launch {
             val s = state.value
@@ -46,35 +48,36 @@ open class GoogleTaskListSettingsViewModel(
                 return@launch
             }
             if (s.isNew) {
-                createList()?.let { onComplete(it) }
+                createCalendar()?.let { onComplete(it) }
             } else if (s.hasChanges) {
-                updateList()?.let { onComplete(it) }
+                updateCalendar()?.let { onComplete(it) }
             } else {
-                onDismiss()
+                s.calendar?.let { onComplete(it) }
             }
         }
     }
 
-    private suspend fun createList(): CaldavCalendar? {
+    private suspend fun createCalendar(): CaldavCalendar? {
         val s = state.value
         val account = s.account ?: return null
         val name = s.name.trim()
         stateManager.update { it.copy(isLoading = true) }
         return try {
             withContext(NonCancellable) {
-                val taskList = withContext(Dispatchers.IO) {
-                    invokerFactory(account).createGtaskList(name)!!
+                val url = withContext(Dispatchers.IO) {
+                    clientProvider.forAccount(account).makeCollection(name, s.color)
                 }
                 val calendar = CaldavCalendar(
-                    uuid = taskList.id,
-                    account = account.username,
-                    name = taskList.title,
+                    uuid = UUIDHelper.newUUID(),
+                    account = account.uuid,
+                    url = url,
+                    name = name,
                     color = s.color,
                     icon = s.icon,
                 )
-                val id = caldavDao.insertOrReplace(calendar)
+                caldavDao.insert(calendar)
                 reporting.logEvent(AnalyticsEvents.CREATE_LIST)
-                val inserted = calendar.copy(id = id)
+                val inserted = caldavDao.getCalendarByUuid(calendar.uuid!!)
                 stateManager.update { it.copy(calendar = inserted) }
                 inserted
             }
@@ -86,7 +89,7 @@ open class GoogleTaskListSettingsViewModel(
         }
     }
 
-    private suspend fun updateList(): CaldavCalendar? {
+    private suspend fun updateCalendar(): CaldavCalendar? {
         val s = state.value
         val account = s.account ?: return null
         val calendar = s.calendar ?: return null
@@ -94,18 +97,15 @@ open class GoogleTaskListSettingsViewModel(
         stateManager.update { it.copy(isLoading = true) }
         return try {
             withContext(NonCancellable) {
-                val nameChanged = name != calendar.name
-                if (nameChanged) {
-                    withContext(Dispatchers.IO) {
-                        invokerFactory(account).renameGtaskList(calendar.uuid, name)
-                    }
+                withContext(Dispatchers.IO) {
+                    clientProvider.forAccount(account).updateCollection(calendar, name, s.color)
                 }
                 val result = calendar.copy(
                     name = name,
                     color = s.color,
                     icon = s.icon,
                 )
-                caldavDao.insertOrReplace(result)
+                caldavDao.update(result)
                 stateManager.update { it.copy(calendar = result) }
                 result
             }
@@ -127,7 +127,7 @@ open class GoogleTaskListSettingsViewModel(
             try {
                 withContext(NonCancellable) {
                     withContext(Dispatchers.IO) {
-                        invokerFactory(account).deleteGtaskList(calendar.uuid)
+                        clientProvider.forAccount(account).deleteCollection(calendar)
                     }
                     reporting.logEvent(
                         AnalyticsEvents.SETTINGS_CLICK,
@@ -145,8 +145,11 @@ open class GoogleTaskListSettingsViewModel(
     }
 
     private suspend fun handleError(e: Exception) {
-        Logger.e(e) { "Google Tasks list operation failed" }
-        val message = getString(Res.string.gtasks_GLA_errorIOAuth)
+        Logger.e(e) { "Etebase calendar operation failed" }
+        val message = when (e) {
+            is ConnectException -> getString(Res.string.network_error)
+            else -> getString(Res.string.error_adding_account, e.message ?: "")
+        }
         stateManager.update { it.copy(snackbar = message) }
     }
 }

@@ -253,7 +253,7 @@ class FilterProvider(
                     else -> SubheaderType.CALDAV
                 },
                 account.id.toString(),
-                if (showCreate && configuration.canCreateLists(account)) REQUEST_NEW_LIST else 0,
+                if (showCreate) REQUEST_NEW_LIST else 0,
                 accountIcon = account.composeIcon,
                 childCount = children.size,
                 openTaskApp = openTaskApp,

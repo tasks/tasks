@@ -3,28 +3,22 @@ package org.tasks.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
-import com.flask.colorpicker.ColorPickerView
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
-import org.tasks.R
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel
-import org.tasks.compose.settings.GoogleTaskListSettingsScreen
+import org.tasks.compose.ColorWheelDialog
+import org.tasks.compose.settings.ListSettingsScreen
 import org.tasks.filters.CaldavFilter
 import org.tasks.themes.TasksTheme
 
@@ -41,7 +35,9 @@ class GoogleTaskListSettingsActivity : AppCompatActivity() {
             TasksTheme {
                 var showColorWheel by rememberSaveable { mutableStateOf(false) }
 
-                GoogleTaskListSettingsScreen(
+                val state by viewModel.state.collectAsStateWithLifecycle()
+
+                ListSettingsScreen(
                     viewModel = viewModel,
                     onSave = {
                         viewModel.save(
@@ -72,7 +68,7 @@ class GoogleTaskListSettingsActivity : AppCompatActivity() {
                     },
                     onNavigateBack = { finish() },
                     onSelectColor = {
-                        if (viewModel.state.value.hasPro || it.isFree) {
+                        if (state.hasPro || it.isFree) {
                             viewModel.selectColor(it.originalColor)
                         } else {
                             viewModel.closeColorPicker()
@@ -84,7 +80,7 @@ class GoogleTaskListSettingsActivity : AppCompatActivity() {
                     },
                     onColorWheelSelected = {
                         viewModel.closeColorPicker()
-                        if (viewModel.state.value.hasPro) {
+                        if (state.hasPro) {
                             showColorWheel = true
                         } else {
                             startActivity(
@@ -102,39 +98,15 @@ class GoogleTaskListSettingsActivity : AppCompatActivity() {
                 )
 
                 if (showColorWheel) {
-                    BackHandler {
-                        showColorWheel = false
-                        viewModel.openColorPicker()
-                    }
-                    val context = LocalContext.current
-                    var selected by remember { mutableIntStateOf(0) }
-                    val initialColor = viewModel.state.value.color
-                    DisposableEffect(Unit) {
-                        val dialog = ColorPickerDialogBuilder
-                            .with(context)
-                            .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
-                            .density(7)
-                            .setOnColorChangedListener { which -> selected = which }
-                            .setOnColorSelectedListener { which -> selected = which }
-                            .lightnessSliderOnly()
-                            .setPositiveButton(R.string.ok) { _, _, _ ->
-                                viewModel.setColor(selected)
-                            }
-                            .setNegativeButton(R.string.cancel) { _, _ ->
-                                viewModel.openColorPicker()
-                            }
-                            .apply {
-                                if (initialColor != 0) {
-                                    initialColor(initialColor)
-                                }
-                            }
-                            .build()
-                            .apply {
-                                setOnDismissListener { showColorWheel = false }
-                            }
-                        dialog.show()
-                        onDispose { dialog.dismiss() }
-                    }
+                    ColorWheelDialog(
+                        initialColor = state.color,
+                        onColorSelected = viewModel::setColor,
+                        onCancel = {
+                            showColorWheel = false
+                            viewModel.openColorPicker()
+                        },
+                        onDismiss = { showColorWheel = false },
+                    )
                 }
             }
         }

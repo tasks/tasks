@@ -49,7 +49,7 @@ import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.filters.mapToSerializedString
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
-import java.util.Locale
+import androidx.compose.ui.text.intl.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -177,7 +177,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                         IconButton(onClick = { help() }) {
                             // Cancel the mirroring of the help icon when the locale is Hebrew.
                             val modifier =
-                                if (Locale.getDefault().language == Locale.forLanguageTag("he").language) {
+                                if (Locale.current.language == "he") {
                                     Modifier.scale(scaleX = -1f, scaleY = 1f)
                                 } else {
                                     Modifier

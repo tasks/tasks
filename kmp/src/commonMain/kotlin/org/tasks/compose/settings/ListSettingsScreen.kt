@@ -97,7 +97,7 @@ import tasks.kmp.generated.resources.share
 import tasks.kmp.generated.resources.share_list
 import tasks.kmp.generated.resources.user
 
-data class CaldavCalendarSettingsState(
+data class ListSettingsState(
     val name: String = "",
     val color: Int = 0,
     val icon: String = TasksIcons.LIST,
@@ -148,8 +148,8 @@ private val CaldavAccount.canRemovePrincipal: Boolean
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CaldavCalendarSettingsScreen(
-    state: CaldavCalendarSettingsState,
+fun ListSettingsScreen(
+    state: ListSettingsState,
     onNameChange: (String) -> Unit,
     onSave: () -> Unit,
     onDelete: () -> Unit,

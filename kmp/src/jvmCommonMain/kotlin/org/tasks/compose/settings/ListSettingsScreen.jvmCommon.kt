@@ -3,11 +3,11 @@ package org.tasks.compose.settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
+import org.tasks.viewmodel.ListSettingsCallbacks
 
 @Composable
-fun GoogleTaskListSettingsScreen(
-    viewModel: GoogleTaskListSettingsViewModel,
+fun ListSettingsScreen(
+    viewModel: ListSettingsCallbacks,
     onSave: () -> Unit,
     onDelete: () -> Unit,
     onNavigateBack: () -> Unit,
@@ -17,7 +17,7 @@ fun GoogleTaskListSettingsScreen(
 ) {
     val state by viewModel.state.collectAsState()
 
-    CaldavCalendarSettingsScreen(
+    ListSettingsScreen(
         state = state,
         onNameChange = viewModel::setName,
         onSave = onSave,
@@ -27,11 +27,11 @@ fun GoogleTaskListSettingsScreen(
             if (show) viewModel.showDiscardDialog() else viewModel.dismissDiscardDialog()
         },
         onDismissSnackbar = viewModel::dismissSnackbar,
-        onOpenShareDialog = {},
-        onCloseShareDialog = {},
-        onShare = {},
-        onConfirmRemovePrincipal = {},
-        onRemovePrincipal = {},
+        onOpenShareDialog = viewModel::openShareDialog,
+        onCloseShareDialog = viewModel::closeShareDialog,
+        onShare = { input -> viewModel.share(input) },
+        onConfirmRemovePrincipal = viewModel::confirmRemovePrincipal,
+        onRemovePrincipal = viewModel::removePrincipal,
         onOpenColorPicker = viewModel::openColorPicker,
         onCloseColorPicker = viewModel::closeColorPicker,
         onSelectColor = onSelectColor,

@@ -8,8 +8,9 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
-import java.util.Locale
 
 object Constants {
     const val ICON_ALPHA = 0.54f
@@ -24,7 +25,7 @@ object Constants {
             enabled = enabled,
         ) {
             Text(
-                stringResource(text).uppercase(Locale.getDefault()),
+                stringResource(text).toUpperCase(Locale.current),
                 style = MaterialTheme.typography.labelLarge
             )
         }
