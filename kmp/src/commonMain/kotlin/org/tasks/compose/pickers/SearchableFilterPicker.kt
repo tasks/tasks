@@ -1,17 +1,27 @@
 package org.tasks.compose.pickers
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.components.SearchBar
@@ -23,6 +33,7 @@ import org.tasks.filters.Filter
 import org.tasks.filters.FilterListItem
 import org.tasks.filters.NavigationDrawerSubheader
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.no_lists_yet
 import tasks.kmp.generated.resources.search
 
 @Composable
@@ -37,13 +48,14 @@ fun SearchableFilterPicker(
     onAddClick: ((NavigationDrawerSubheader) -> Unit)? = null,
 ) {
     val cornerRadius = 16.dp
+    val islandSpacing = 8.dp
     LazyColumn(
-        contentPadding = PaddingValues(top = 16.dp, start = 8.dp, end = 8.dp, bottom = 8.dp),
+        contentPadding = PaddingValues(top = 16.dp, start = 8.dp, end = 8.dp, bottom = islandSpacing),
     ) {
         item(key = "search") {
             SearchBar(
                 modifier = Modifier
-                    .padding(bottom = 4.dp)
+                    .padding(bottom = islandSpacing)
                     .fillMaxWidth(),
                 text = query,
                 onTextChange = { onQueryChange(it) },
@@ -65,8 +77,11 @@ fun SearchableFilterPicker(
             val isFirst = index == 0 || item is NavigationDrawerSubheader
             val isLast = index == filters.lastIndex ||
                     filters[index + 1] is NavigationDrawerSubheader
+            val showEmptyRow = item is NavigationDrawerSubheader &&
+                    item.childCount == 0 &&
+                    item.addIntentRc != 0
             val shape = when {
-                isFirst && isLast -> RoundedCornerShape(cornerRadius)
+                isFirst && isLast && !showEmptyRow -> RoundedCornerShape(cornerRadius)
                 isFirst -> RoundedCornerShape(
                     topStart = cornerRadius,
                     topEnd = cornerRadius,
@@ -79,7 +94,7 @@ fun SearchableFilterPicker(
             }
             Surface(
                 modifier = Modifier.padding(
-                    top = if (isFirst && index > 0) 8.dp else 0.dp,
+                    top = if (isFirst && index > 0) islandSpacing else 0.dp,
                 ),
                 shape = shape,
                 color = MaterialTheme.colorScheme.surfaceContainerLowest,
@@ -126,6 +141,47 @@ fun SearchableFilterPicker(
                     }
                 }
             }
+            if (showEmptyRow) {
+                Surface(
+                    shape = RoundedCornerShape(
+                        bottomStart = cornerRadius,
+                        bottomEnd = cornerRadius,
+                    ),
+                    color = MaterialTheme.colorScheme.surfaceContainerLowest,
+                ) {
+                    EmptyListRow(
+                        onClick = { onAddClick?.invoke(item as NavigationDrawerSubheader) },
+                    )
+                }
+            }
         }
+    }
+}
+
+@Composable
+private fun EmptyListRow(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier
+            .clickable(onClick = onClick)
+            .height(48.dp)
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = Icons.Outlined.Add,
+            contentDescription = null,
+            modifier = Modifier.size(24.dp),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Text(
+            text = stringResource(Res.string.no_lists_yet),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.bodyLarge,
+        )
     }
 }

@@ -88,6 +88,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import org.tasks.themes.ColorTone
 import org.tasks.themes.tonalColor
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.no_lists_yet
 import tasks.kmp.generated.resources.search
 
 @Composable
@@ -139,9 +140,12 @@ fun TaskListDrawer(
                 val isFirst = index == 0 || item is DrawerItem.Header
                 val isLast = index == displayedFilters.lastIndex ||
                         displayedFilters[index + 1] is DrawerItem.Header
+                val showEmptyRow = item is DrawerItem.Header &&
+                        !item.hasChildren &&
+                        item.canAdd
                 val cornerRadius = 16.dp
                 val shape = when {
-                    isFirst && isLast -> RoundedCornerShape(cornerRadius)
+                    isFirst && isLast && !showEmptyRow -> RoundedCornerShape(cornerRadius)
                     isFirst -> RoundedCornerShape(topStart = cornerRadius, topEnd = cornerRadius)
                     isLast -> RoundedCornerShape(bottomStart = cornerRadius, bottomEnd = cornerRadius)
                     else -> RoundedCornerShape(0.dp)
@@ -169,6 +173,22 @@ fun TaskListDrawer(
                             toggleCollapsed = { onClick(item) },
                             onAddClick = { onAddClick(item) },
                             onErrorClick = onErrorClick,
+                        )
+                    }
+                }
+                if (showEmptyRow) {
+                    Surface(
+                        modifier = Modifier
+                            .padding(horizontal = 8.dp),
+                        shape = RoundedCornerShape(
+                            bottomStart = cornerRadius,
+                            bottomEnd = cornerRadius,
+                        ),
+                        color = MaterialTheme.colorScheme.surfaceContainerLowest,
+                    ) {
+                        EmptyListRow(
+                            expanded = expanded,
+                            onClick = { onAddClick(item as DrawerItem.Header) },
                         )
                     }
                 }
@@ -437,12 +457,32 @@ fun HeaderItem(
                         }
                     }
                     if (canAdd) {
-                        IconButton(onClick = onAddClick) {
-                            Icon(
-                                imageVector = Icons.Outlined.Add,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onSurface,
-                            )
+                        if (item.hasChildren) {
+                            IconButton(onClick = onAddClick) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Add,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onSurface,
+                                )
+                            }
+                        } else {
+                            IconButton(onClick = onAddClick) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                        .background(
+                                            color = MaterialTheme.colorScheme.primary,
+                                            shape = androidx.compose.foundation.shape.CircleShape,
+                                        ),
+                                    contentAlignment = Alignment.Center,
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Add,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.onPrimary,
+                                    )
+                                }
+                            }
                         }
                     }
                     if (item.hasError) {
@@ -456,6 +496,38 @@ fun HeaderItem(
                     }
                 }
             }
+    }
+}
+
+@Composable
+private fun EmptyListRow(
+    expanded: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    MenuRow(
+        modifier = modifier.clickable(onClick = onClick),
+    ) {
+        Icon(
+            imageVector = Icons.Outlined.Add,
+            contentDescription = null,
+            modifier = Modifier.size(24.dp),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        AnimatedVisibility(
+            visible = expanded,
+            enter = fadeIn(),
+            exit = fadeOut(),
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = stringResource(Res.string.no_lists_yet),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
+        }
     }
 }
 
