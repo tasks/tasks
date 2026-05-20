@@ -767,6 +767,7 @@ private fun TaskListScreen(
 
     var sidebarExpanded by remember { mutableStateOf(false) }
     var newListAccountId by rememberSaveable { mutableStateOf<Long?>(null) }
+    var selectCreatedList by remember { mutableStateOf(false) }
     var editListCalendarId by rememberSaveable { mutableStateOf<Long?>(null) }
     val caldavDao = koinInject<CaldavDao>()
     val drawerConfiguration = koinInject<org.tasks.compose.drawer.DrawerConfiguration>()
@@ -778,6 +779,11 @@ private fun TaskListScreen(
         if (accountId != null) {
             newListAccountId = accountId
         }
+    }
+
+    val onCreateList: (Long) -> Unit = { accountId ->
+        newListAccountId = accountId
+        selectCreatedList = true
     }
 
     val editableCaldavFilter = state.filter as? CaldavFilter
@@ -872,6 +878,7 @@ private fun TaskListScreen(
                         onMenuClick = { sidebarExpanded = !sidebarExpanded },
                         taskEditViewModel = taskEditViewModel,
                         listPickerViewModel = listPickerViewModel,
+                        onCreateList = onCreateList,
                         onSettingsClick = onSettingsClick,
                         showListSettings = editableCaldavFilter != null,
                         onListSettingsClick = { editableCaldavFilter?.let { editListCalendarId = it.calendar.id } },
@@ -939,6 +946,7 @@ private fun TaskListScreen(
                         },
                         taskEditViewModel = taskEditViewModel,
                         listPickerViewModel = listPickerViewModel,
+                        onCreateList = onCreateList,
                         onSettingsClick = onSettingsClick,
                         showListSettings = editableCaldavFilter != null,
                         onListSettingsClick = { editableCaldavFilter?.let { editListCalendarId = it.calendar.id } },
@@ -966,12 +974,18 @@ private fun TaskListScreen(
                 calendar = null,
                 isDark = isDark,
                 onDismiss = { created ->
+                    val shouldSelectList = selectCreatedList
                     newListAccountId = null
+                    selectCreatedList = false
                     drawerViewModel.updateFilters()
                     created?.let { cal ->
                         val newFilter = CaldavFilter(calendar = cal, account = it)
-                        viewModel.setFilter(newFilter)
-                        drawerViewModel.setSelectedFilter(newFilter)
+                        if (shouldSelectList) {
+                            taskEditViewModel.setList(newFilter)
+                        } else {
+                            viewModel.setFilter(newFilter)
+                            drawerViewModel.setSelectedFilter(newFilter)
+                        }
                     }
                 },
                 onSubscribe = onSubscribe,
@@ -1035,6 +1049,7 @@ private fun TaskListContent(
     onMenuClick: () -> Unit,
     taskEditViewModel: TaskEditViewModel,
     listPickerViewModel: FilterPickerViewModel,
+    onCreateList: (accountId: Long) -> Unit,
     onSettingsClick: () -> Unit,
     showListSettings: Boolean = false,
     onListSettingsClick: () -> Unit = {},
@@ -1082,6 +1097,7 @@ private fun TaskListContent(
                     taskId = key.taskId.takeIf { it > 0 },
                     remoteId = key.remoteId,
                     currentFilter = state.filter as? CaldavFilter,
+                    onCreateList = onCreateList,
                     onClose = {
                         scope.launch {
                             navigator.navigateBack(BackNavigationBehavior.PopLatest)

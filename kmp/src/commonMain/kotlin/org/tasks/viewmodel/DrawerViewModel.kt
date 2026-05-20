@@ -26,7 +26,6 @@ import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
-import org.tasks.filters.getIcon
 import org.tasks.preferences.TasksPreferences
 
 private const val TAG = "DrawerViewModel"
@@ -96,7 +95,7 @@ open class DrawerViewModel(
             .map { item ->
                 DrawerItem.Filter(
                     title = item.title,
-                    icon = item.getIcon(purchaseState),
+                    icon = item.resolveIcon(purchaseState),
                     color = if (purchaseState.purchasedThemes()) item.tint else 0,
                     adjustColor = item.tint != 0,
                     count = item.count.takeIf { it != NO_COUNT } ?: try {
@@ -117,19 +116,7 @@ open class DrawerViewModel(
 
     fun toggleCollapsed(subheader: NavigationDrawerSubheader) {
         viewModelScope.launch(Dispatchers.IO) {
-            val collapsed = !subheader.isCollapsed
-            when (subheader.subheaderType) {
-                NavigationDrawerSubheader.SubheaderType.PREFERENCE -> {
-                    tasksPreferences.set(
-                        androidx.datastore.preferences.core.booleanPreferencesKey(subheader.id),
-                        collapsed,
-                    )
-                }
-                NavigationDrawerSubheader.SubheaderType.CALDAV,
-                NavigationDrawerSubheader.SubheaderType.TASKS -> {
-                    caldavDao.setCollapsed(subheader.id, collapsed)
-                }
-            }
+            toggleCollapsed(subheader, caldavDao, tasksPreferences)
             updateFilters()
         }
     }
@@ -139,7 +126,7 @@ open class DrawerViewModel(
     ): DrawerItem = when (this) {
         is Filter -> DrawerItem.Filter(
             title = title,
-            icon = getIcon(purchaseState),
+            icon = resolveIcon(purchaseState),
             color = if (purchaseState.purchasedThemes()) tint else 0,
             adjustColor = tint != 0,
             count = count.takeIf { it != NO_COUNT } ?: try {

@@ -14,6 +14,7 @@ data class NavigationDrawerSubheader(
     val accountIcon: AccountIcon? = null,
     val childCount: Int = 0,
     val openTaskApp: OpenTaskApp? = null,
+    val collapsible: Boolean = true,
 ) : FilterListItem {
     override fun areItemsTheSame(other: FilterListItem): Boolean {
         return other is NavigationDrawerSubheader && subheaderType == other.subheaderType && id == other.id

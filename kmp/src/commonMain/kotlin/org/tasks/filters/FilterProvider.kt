@@ -41,8 +41,18 @@ class FilterProvider(
     private val taskDao: TaskDao,
     private val tasksPreferences: TasksPreferences,
 ) {
-    suspend fun listPickerItems(): List<FilterListItem> =
-            caldavFilters(showCreate = false, forceExpand = false)
+    suspend fun listPickerItems(): List<FilterListItem> {
+        val accounts = caldavDao.getAccounts()
+        val singleAccount = accounts.size == 1
+        return accounts.flatMap { account ->
+            caldavFilter(
+                account = account,
+                showCreate = true,
+                forceExpand = singleAccount,
+                hideCollapse = singleAccount,
+            )
+        }
+    }
 
     suspend fun drawerItems(): List<FilterListItem> =
         getAllFilters(showCreate = true, hideUnused = true)
@@ -221,6 +231,7 @@ class FilterProvider(
         account: CaldavAccount,
         showCreate: Boolean,
         forceExpand: Boolean,
+        hideCollapse: Boolean = false,
     ): List<FilterListItem> {
         val collapsed = !forceExpand && account.isCollapsed
         val children = caldavDao
@@ -257,6 +268,7 @@ class FilterProvider(
                 accountIcon = account.composeIcon,
                 childCount = children.size,
                 openTaskApp = openTaskApp,
+                collapsible = !hideCollapse,
             )
         )
             .apply { if (collapsed) return this }

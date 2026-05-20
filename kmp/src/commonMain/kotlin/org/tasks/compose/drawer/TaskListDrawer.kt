@@ -284,7 +284,7 @@ private fun SearchFab(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun FilterItem(
+fun FilterItem(
     modifier: Modifier = Modifier,
     item: DrawerItem.Filter,
     expanded: Boolean = true,
@@ -383,7 +383,7 @@ internal fun FilterItem(
 }
 
 @Composable
-internal fun HeaderItem(
+fun HeaderItem(
     modifier: Modifier = Modifier,
     item: DrawerItem.Header,
     expanded: Boolean = true,
@@ -392,10 +392,11 @@ internal fun HeaderItem(
     onAddClick: () -> Unit,
     onErrorClick: () -> Unit,
 ) {
+    val collapsible = item.header.collapsible && item.hasChildren
     MenuRow(
         modifier = modifier,
         padding = PaddingValues(start = 16.dp),
-        onClick = if (item.hasChildren) toggleCollapsed else null,
+        onClick = if (collapsible) toggleCollapsed else null,
     ) {
             val accountIcon = item.header.accountIcon
             if (accountIcon != null) {
@@ -430,7 +431,7 @@ internal fun HeaderItem(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
-                    if (item.hasChildren) {
+                    if (collapsible) {
                         IconButton(onClick = toggleCollapsed) {
                             Chevron(item.collapsed)
                         }
@@ -459,7 +460,7 @@ internal fun HeaderItem(
 }
 
 @Composable
-private fun MenuRow(
+fun MenuRow(
     modifier: Modifier = Modifier,
     padding: PaddingValues = PaddingValues(horizontal = 16.dp),
     onClick: (() -> Unit)? = null,

@@ -61,6 +61,7 @@ fun TaskEditScreen(
     taskId: Long?,
     remoteId: String,
     currentFilter: CaldavFilter? = null,
+    onCreateList: (accountId: Long) -> Unit = {},
     onClose: () -> Unit,
 ) {
     LaunchedEffect(taskId, remoteId) {
@@ -190,6 +191,13 @@ fun TaskEditScreen(
                             getColor = { filter ->
                                 filterPickerViewModel.getColor(filter.tint, isDark)
                                     ?: onSurfaceArgb
+                            },
+                            onAddClick = { header ->
+                                header.id.toLongOrNull()?.let { accountId ->
+                                    showListPicker = false
+                                    filterPickerViewModel.onQueryChange("")
+                                    onCreateList(accountId)
+                                }
                             },
                             onDismiss = {
                                 showListPicker = false
