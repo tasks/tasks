@@ -1996,7 +1996,7 @@ private fun SettingsScreen(
 
     PlatformBackHandler(enabled = selectedContent != null) {
         scope.launch {
-            if (!navigator.navigateBack()) {
+            if (!navigator.navigateBack(BackNavigationBehavior.PopLatest)) {
                 onBack()
             }
         }
