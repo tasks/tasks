@@ -1,5 +1,6 @@
 package org.tasks
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,31 +24,40 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.flow.collect
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.PlatformBackHandler
+import org.tasks.compose.edit.DescriptionRow
+import org.tasks.compose.edit.ListPickerDialog
+import org.tasks.compose.edit.ListPickerRow
+import org.tasks.compose.edit.MarkdownEditField
 import org.tasks.compose.settings.Toaster
+import org.tasks.filters.CaldavFilter
+import org.tasks.filters.NavigationDrawerSubheader
+import org.tasks.viewmodel.FilterPickerViewModel
+import org.tasks.viewmodel.TaskEditViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.failed_to_save_task
-import org.tasks.compose.edit.DescriptionRow
-import org.tasks.compose.edit.MarkdownEditField
-import org.tasks.filters.CaldavFilter
-import org.tasks.viewmodel.TaskEditViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskEditScreen(
     viewModel: TaskEditViewModel,
+    filterPickerViewModel: FilterPickerViewModel,
     taskId: Long?,
     remoteId: String,
     currentFilter: CaldavFilter? = null,
@@ -121,6 +131,15 @@ fun TaskEditScreen(
                             titleFocusRequester.requestFocus()
                         }
                     }
+                    val list = state.list!!
+                    val isDark = isSystemInDarkTheme()
+                    val onSurface = MaterialTheme.colorScheme.onSurface
+                    val listTint = remember(list, isDark) {
+                        val color = filterPickerViewModel.getColor(list.tint, isDark)
+                        if (color != null) Color(color) else onSurface
+                    }
+                    val listIcon = filterPickerViewModel.getIcon(list)
+                    var showListPicker by remember { mutableStateOf(false) }
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
@@ -133,9 +152,49 @@ fun TaskEditScreen(
                             focusRequester = titleFocusRequester,
                         )
                         Spacer(modifier = Modifier.height(16.dp))
+                        ListPickerRow(
+                            listName = list.title,
+                            icon = listIcon,
+                            tint = listTint,
+                            onClick = { showListPicker = true },
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
                         DescriptionRow(
                             description = state.task.notes.orEmpty(),
                             onDescriptionChange = viewModel::setDescription,
+                        )
+                    }
+                    if (showListPicker) {
+                        val pickerState by filterPickerViewModel.viewState.collectAsState()
+                        val searching by remember(pickerState.query) {
+                            derivedStateOf { pickerState.query.isNotBlank() }
+                        }
+                        val onSurfaceArgb = onSurface.toArgb()
+                        ListPickerDialog(
+                            filters = if (searching) pickerState.searchResults else pickerState.filters,
+                            query = pickerState.query,
+                            onQueryChange = filterPickerViewModel::onQueryChange,
+                            selected = list,
+                            onClick = { filter ->
+                                when (filter) {
+                                    is NavigationDrawerSubheader ->
+                                        filterPickerViewModel.onClick(filter)
+                                    is CaldavFilter -> {
+                                        viewModel.setList(filter)
+                                        showListPicker = false
+                                        filterPickerViewModel.onQueryChange("")
+                                    }
+                                }
+                            },
+                            getIcon = { filterPickerViewModel.getIcon(it) },
+                            getColor = { filter ->
+                                filterPickerViewModel.getColor(filter.tint, isDark)
+                                    ?: onSurfaceArgb
+                            },
+                            onDismiss = {
+                                showListPicker = false
+                                filterPickerViewModel.onQueryChange("")
+                            },
                         )
                     }
                 }

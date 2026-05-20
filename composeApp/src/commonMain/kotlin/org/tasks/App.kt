@@ -187,6 +187,7 @@ import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
 import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.viewmodel.DrawerViewModel
+import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.ProCardViewModel
@@ -745,6 +746,10 @@ private fun TaskListScreen(
     val materialDrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val navigator = rememberListDetailPaneScaffoldNavigator<TaskKey>()
     val taskEditViewModel = koinViewModel<TaskEditViewModel>()
+    val listPickerViewModel = koinViewModel<FilterPickerViewModel>(
+        key = "list_picker",
+        parameters = { org.koin.core.parameter.parametersOf(true) },
+    )
     val scope = androidx.compose.runtime.rememberCoroutineScope()
     LaunchedEffect(state.filter) {
         drawerViewModel.setSelectedFilter(state.filter)
@@ -866,6 +871,7 @@ private fun TaskListScreen(
                         showMenuButton = true,
                         onMenuClick = { sidebarExpanded = !sidebarExpanded },
                         taskEditViewModel = taskEditViewModel,
+                        listPickerViewModel = listPickerViewModel,
                         onSettingsClick = onSettingsClick,
                         showListSettings = editableCaldavFilter != null,
                         onListSettingsClick = { editableCaldavFilter?.let { editListCalendarId = it.calendar.id } },
@@ -932,6 +938,7 @@ private fun TaskListScreen(
                             }
                         },
                         taskEditViewModel = taskEditViewModel,
+                        listPickerViewModel = listPickerViewModel,
                         onSettingsClick = onSettingsClick,
                         showListSettings = editableCaldavFilter != null,
                         onListSettingsClick = { editableCaldavFilter?.let { editListCalendarId = it.calendar.id } },
@@ -1027,6 +1034,7 @@ private fun TaskListContent(
     showMenuButton: Boolean,
     onMenuClick: () -> Unit,
     taskEditViewModel: TaskEditViewModel,
+    listPickerViewModel: FilterPickerViewModel,
     onSettingsClick: () -> Unit,
     showListSettings: Boolean = false,
     onListSettingsClick: () -> Unit = {},
@@ -1070,6 +1078,7 @@ private fun TaskListContent(
             selectedTask?.let { key ->
                 TaskEditScreen(
                     viewModel = taskEditViewModel,
+                    filterPickerViewModel = listPickerViewModel,
                     taskId = key.taskId.takeIf { it > 0 },
                     remoteId = key.remoteId,
                     currentFilter = state.filter as? CaldavFilter,

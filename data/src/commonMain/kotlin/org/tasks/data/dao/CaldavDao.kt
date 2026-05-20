@@ -187,6 +187,12 @@ WHERE cd_calendar = :calendar
     @Query("UPDATE caldav_tasks SET cd_deleted = :now WHERE cd_task IN (:tasks)")
     abstract suspend fun markDeleted(tasks: List<Long>, now: Long = currentTimeMillis())
 
+    @Transaction
+    open suspend fun moveToList(task: Task, calendar: String, addToTop: Boolean = false) {
+        markDeleted(listOf(task.id))
+        insert(task = task, caldavTask = CaldavTask(task = task.id, calendar = calendar), addToTop = addToTop)
+    }
+
     @Query("SELECT * FROM caldav_tasks WHERE cd_task = :taskId AND cd_deleted = 0 LIMIT 1")
     abstract suspend fun getTask(taskId: Long): CaldavTask?
 

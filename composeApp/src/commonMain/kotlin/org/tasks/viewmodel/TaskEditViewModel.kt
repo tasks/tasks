@@ -41,10 +41,11 @@ class TaskEditViewModel(
         val task: Task = Task(),
         val originalTask: Task = Task(),
         val list: CaldavFilter? = null,
+        val originalList: CaldavFilter? = null,
         val deleted: Boolean = false,
     ) {
         val isNew: Boolean get() = originalTask.isNew
-        val hasChanges: Boolean get() = task != originalTask
+        val hasChanges: Boolean get() = task != originalTask || list != originalList
     }
 
     private val _state = MutableStateFlow(State())
@@ -87,6 +88,7 @@ class TaskEditViewModel(
                 task = loaded,
                 originalTask = loaded.copy(),
                 list = list,
+                originalList = list,
             )
             if (normalized != null) {
                 watchJob = viewModelScope.launch {
@@ -106,7 +108,12 @@ class TaskEditViewModel(
                 if (!snapshot.isLoading) {
                     try {
                         saveIfNeeded(snapshot)
-                        _state.update { it.copy(originalTask = snapshot.task.copy()) }
+                        _state.update {
+                            it.copy(
+                                originalTask = snapshot.task.copy(),
+                                originalList = snapshot.list,
+                            )
+                        }
                     } catch (e: Exception) {
                         log.e(e) { "Failed to save task" }
                         _saveError.value = true
@@ -182,6 +189,10 @@ class TaskEditViewModel(
         _state.update { it.copy(task = it.task.copy(notes = description)) }
     }
 
+    fun setList(list: CaldavFilter) {
+        _state.update { it.copy(list = list) }
+    }
+
     fun save() {
         viewModelScope.launch {
             var success = true
@@ -191,7 +202,12 @@ class TaskEditViewModel(
                     if (!snapshot.isLoading) {
                         try {
                             saveIfNeeded(snapshot)
-                            _state.update { it.copy(originalTask = snapshot.task.copy()) }
+                            _state.update {
+                                it.copy(
+                                    originalTask = snapshot.task.copy(),
+                                    originalList = snapshot.list,
+                                )
+                            }
                         } catch (e: Exception) {
                             log.e(e) { "Failed to save task" }
                             _saveError.value = true
@@ -219,6 +235,9 @@ class TaskEditViewModel(
             )
             taskSaver.save(task, null)
         } else {
+            if (snapshot.list != snapshot.originalList) {
+                caldavDao.moveToList(task, list.uuid)
+            }
             taskSaver.save(task, snapshot.originalTask)
         }
     }
