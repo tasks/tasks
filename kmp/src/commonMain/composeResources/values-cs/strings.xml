@@ -311,4 +311,5 @@
     <string name="list_settings">Nastavení seznamu</string>
     <string name="reinitialize_account">Znovu inicializovat</string>
     <string name="gtasks_GLA_errorIOAuth">Nastal problém při komunikaci se servery Google. Zkuste to prosím později.</string>
+    <string name="add_platform_account">Přidat účet %1$s</string>
 </resources>
