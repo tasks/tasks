@@ -68,6 +68,7 @@ import org.tasks.viewmodel.EtebaseAccountSettingsViewModel
 import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
 import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
+import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.FilterPickerViewModel
@@ -442,6 +443,15 @@ val commonModule = module {
         EtebaseCalendarSettingsViewModel(
             caldavDao = get(),
             clientProvider = get(),
+            taskDeleter = get(),
+            reporting = get(),
+            purchaseState = get(),
+            isDark = params.get(),
+        )
+    }
+    viewModel { params ->
+        LocalListSettingsViewModel(
+            caldavDao = get(),
             taskDeleter = get(),
             reporting = get(),
             purchaseState = get(),

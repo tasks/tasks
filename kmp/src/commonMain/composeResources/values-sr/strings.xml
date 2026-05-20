@@ -227,4 +227,7 @@
     <string name="list_settings">Подешавања листе</string>
     <string name="reinitialize_account">Поново иницијализуј</string>
     <string name="gtasks_GLA_errorIOAuth">Грешка при комуникацији са Гугл серверима. Молимо покушај касније.</string>
+    <string name="local_list_title">Ово је локална листа</string>
+    <string name="local_list_description">Задаци у овој листи су смештени на овом уређају. Повежи налог како би заштитио своје податке и приступао њима било где.</string>
+    <string name="dismiss">Одбаци</string>
 </resources>

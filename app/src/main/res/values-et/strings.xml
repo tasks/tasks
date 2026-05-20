@@ -626,8 +626,6 @@
     <string name="multiline_title_off">Ülesande salvestamiseks vajuta nuppu „Valmis“</string>
     <string name="delete_tasks_warning">%s saab olema kustutatud. Seda tegevust ei saa tagasi pöörata!</string>
     <string name="widget_view_more_tasks">Vaata veel ülesandeid</string>
-    <string name="local_list_title">See on kohalik loend</string>
-    <string name="local_list_description">Selle loendi ülesanded on salvestatud vaid selles nutiseadmes. Kui tahad, et andmed oleks ligipääsetavad kõikjalt ja nende hoidmine paremini tagatud, siis lisa vastav kasutajakonto.</string>
     <string name="subscription_required_fdroid">Tasks.org\'i sünkroonimisvõimaluste kasutamiseks on vajalik tellimus. Tellimused peavad olema lisatud Tasks-rakenduse Google Play versioonis.</string>
     <string name="sponsorship_required_fdroid">Tasks.org\'i sünkroonimisvõimaluste kasutamiseks on vajalik GitHubi sponsorlus. Sponsoriks hakkamiseks klõpsa järgnevat linki.</string>
     <string name="tos_updated_title">Me oleme uuendanud oma kasutustingimusi</string>

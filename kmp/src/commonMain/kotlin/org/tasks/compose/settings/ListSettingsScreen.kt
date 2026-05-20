@@ -169,6 +169,7 @@ fun ListSettingsScreen(
     onCloseIconPicker: () -> Unit,
     onSelectIcon: (String) -> Unit,
     onSubscribe: () -> Unit,
+    headerContent: @Composable () -> Unit = {},
 ) {
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -224,6 +225,8 @@ fun ListSettingsScreen(
             if (state.isLoading) {
                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
+
+            headerContent()
 
             Spacer(modifier = Modifier.height(SettingsContentPadding))
 

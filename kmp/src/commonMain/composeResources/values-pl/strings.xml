@@ -193,4 +193,5 @@
     <string name="list_settings">Ustawienie listy</string>
     <string name="reinitialize_account">Powiąż ponownie</string>
     <string name="gtasks_GLA_errorIOAuth">Przepraszamy, mieliśmy problem z porozumieniem się z serwerami Google. Prosimy spróbować ponownie.</string>
+    <string name="dismiss">Odrzuć</string>
 </resources>

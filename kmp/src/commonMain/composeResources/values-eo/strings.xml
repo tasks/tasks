@@ -238,4 +238,7 @@
     <string name="list_settings">Agordoj de listo</string>
     <string name="reinitialize_account">Repravalorizi</string>
     <string name="gtasks_GLA_errorIOAuth">Bedaŭrinde ni spertis problemon dum komuniki kun serviloj de Google. Bonvolu repeni poste.</string>
+    <string name="local_list_title">Ĉi tiu estas loka listo</string>
+    <string name="local_list_description">Taskoj en ĉi tiu listo estas konservitaj nur en ĉi tiu aparato. Konektu konton por sekurigi vian datumojn kaj atingi ĝin de ĉie.</string>
+    <string name="dismiss">Fermi</string>
 </resources>

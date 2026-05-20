@@ -626,7 +626,6 @@
     <string name="multiline_title_off">Erledigt drücken, um Aufgabe zu speichern</string>
     <string name="delete_tasks_warning">%s wird/werden gelöscht. Dies kann nicht rückgängig gemacht werden!</string>
     <string name="widget_view_more_tasks">Mehr Aufgaben anzeigen</string>
-    <string name="local_list_title">Dies ist eine lokale Liste</string>
     <string name="legal_disclosure_prefix_using">Durch die Nutzung von Tasks.org</string>
     <string name="tos_updated_title">Wir haben unsere Nutzungsbedingungen aktualisiert</string>
     <string name="accept">Annehmen</string>
@@ -634,7 +633,6 @@
     <string name="returning_user">Wiederkehrender Benutzer?</string>
     <string name="import_failed">Import fehlgeschlagen</string>
     <string name="import_failed_message">Sicherungsdatei konnte nicht gelesen werden</string>
-    <string name="local_list_description">Aufgaben in dieser Liste werden nur auf diesem Gerät gespeichert. Verbinde ein Konto, um deine Daten zu sichern und von überall darauf zuzugreifen.</string>
     <string name="subscription_required_fdroid">Ein Abo ist erforderlich, um die Tasks.org-Synchronisierung zu nutzen. Abos müssen über die Google Play-Version von Tasks gekauft werden.</string>
     <string name="sponsorship_required_fdroid">Ein GitHub-Sponsoring ist erforderlich, um die Tasks.org-Synchronisierung zu nutzen. Klicke unten, um Sponsor:in zu werden.</string>
     <string name="banner_subscription_required_body">Bezahle, was du möchtest, um die Synchronisierung von %s freizuschalten</string>

@@ -584,8 +584,6 @@
     <string name="import_failed_message">無法讀取備份檔案</string>
     <string name="app_settings">應用程式設定</string>
     <string name="rmd_EPr_rmd_time_desc">全天任務的通知將顯示於 %1$s</string>
-    <string name="local_list_title">這是本地清單</string>
-    <string name="local_list_description">此清單中的任務只會儲存在此裝置上。連線帳戶以保護您的資料，並隨時存取。</string>
     <string name="delete_comment">評論</string>
     <string name="comment">注釋</string>
     <string name="yesterday">昨天</string>

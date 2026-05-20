@@ -628,8 +628,6 @@
     <string name="widget_view_more_tasks">Meer taken zien</string>
     <string name="import_failed">Import mislukt</string>
     <string name="import_failed_message">Kon het backupbestand niet lezen</string>
-    <string name="local_list_title">Dit is een lokale lijst</string>
-    <string name="local_list_description">Taken in deze lijst worden uitsluitend op dit apparaat opgeslagen. Maak verbinding met een account om uw data veilig te stellen en het overal te kunnen benaderen.</string>
     <string name="legal_disclosure_prefix_using">Door Tasks.org te gebruiken</string>
     <string name="tos_updated_title">We hebben onze gebruikersvoorwaarden bijgewerkt</string>
     <string name="accept">Accepteren</string>

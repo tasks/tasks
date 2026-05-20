@@ -647,8 +647,6 @@
     <string name="banner_app_updated_description">Aplikace Tasks byla aktualizována na %s. Chcete zobrazit seznam změn?</string>
     <string name="delete_tasks_warning">Úkol %s bude odstraněn. Tato akce je nevratná!</string>
     <string name="widget_view_more_tasks">Zobrazit další úkoly</string>
-    <string name="local_list_title">Toto je lokální seznam</string>
-    <string name="local_list_description">Úkoly v tomto seznamu jsou uloženy pouze na tomto zařízení. Připojte účet pro zabezpečení vašich dat a přístup k nim odkudkoli.</string>
     <string name="subscription_required_fdroid">Pro využití synchronizace Tasks.org je vyžadováno předplatné. Předplatná lze pořídit v Google Play verzi aplikace Tasks.</string>
     <string name="sponsorship_required_fdroid">Sponzorství na GitHubu je vyžadováno pro synchronizaci Tasks.org. Kliknutím níže se stanete sponzorem.</string>
     <string name="legal_disclosure_prefix_using">Používáním Tasks.org</string>

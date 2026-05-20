@@ -248,4 +248,7 @@
     <string name="list_settings">Lista beállításai</string>
     <string name="reinitialize_account">Újrainicializálás</string>
     <string name="gtasks_GLA_errorIOAuth">Sajnáljuk, de hiba történt a Google szervereivel való kommunikálás során. Próbáld újra később.</string>
+    <string name="local_list_title">Ez egy helyi lista</string>
+    <string name="local_list_description">Az ebben a listában található feladatok csak erzen a készüléken kerülnek mentésre. Kapcsolódj egy fiókhoz, hogy az adataid biztonságban legyenek és bárhonnan elérd őket.</string>
+    <string name="dismiss">Nyugtáz</string>
 </resources>

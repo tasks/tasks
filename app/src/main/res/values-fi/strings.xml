@@ -629,8 +629,6 @@
     <string name="import_failed">Tuonti epäonnistui</string>
     <string name="import_failed_message">Varmuuskopiota ei voitu lukea</string>
     <string name="rmd_EPr_rmd_time_desc">Koko päivän tehtävien ilmoitukset näkyvät klo %1$s</string>
-    <string name="local_list_title">Tämä on paikallinen lista</string>
-    <string name="local_list_description">Tämän listan tehtävät tallennetaan vain tälle laitteelle. Yhdistä tili varmistaaksesi tietosi ja käyttääksesi niitä missä tahansa.</string>
     <string name="default_reminder">Koko päivän tehtävät</string>
     <string name="add_default_reminders">Lisää oletusmuistutus</string>
     <string name="rmd_time_enabled_on">Lisää oletusmuistutus koko päivän tehtäville</string>

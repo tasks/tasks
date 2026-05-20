@@ -308,4 +308,7 @@
     <string name="list_settings">Liste ayarları</string>
     <string name="reinitialize_account">Yeniden başlat</string>
     <string name="gtasks_GLA_errorIOAuth">Üzgünüm, Google sunucuları ile bağlanmakta sıkıntı yaşıyoruz. Lütfen daha sonra yeniden deneyin.</string>
+    <string name="local_list_title">Bu yerel listedir</string>
+    <string name="local_list_description">Bu listedeki görevler yalnızca bu aygıtta saklanır. Verinizi korumak ve her yerden erişmek için hesaba bağlanın.</string>
+    <string name="dismiss">Kapat</string>
 </resources>

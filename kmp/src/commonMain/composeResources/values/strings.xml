@@ -309,4 +309,7 @@
     <string name="list_settings">List settings</string>
     <string name="reinitialize_account">Reinitialize</string>
     <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
+    <string name="local_list_title">This is a local list</string>
+    <string name="local_list_description">Tasks in this list are stored only on this device. Connect an account to safeguard your data and access it anywhere.</string>
+    <string name="dismiss">Dismiss</string>
 </resources>

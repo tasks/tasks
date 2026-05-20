@@ -310,4 +310,7 @@
     <string name="list_settings">Paramètres de la liste</string>
     <string name="reinitialize_account">Réinitialiser</string>
     <string name="gtasks_GLA_errorIOAuth">Désolé, une erreur de communication avec les serveurs de Google s'est produite. Veuillez réessayer ultérieurement.</string>
+    <string name="local_list_title">C'est une liste locale</string>
+    <string name="local_list_description">Les tâches dans cette liste ne sont enregistrées que sur cet appareil. Connectez un compte pour sauvegarder vos données et y accéder n'importe où.</string>
+    <string name="dismiss">Rejeter</string>
 </resources>

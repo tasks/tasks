@@ -657,8 +657,6 @@
     <string name="tos_updated_title">Ажурирали смо услове коришћења</string>
     <string name="legal_disclosure_prefix_using">Коришћењем Tasks.org</string>
     <string name="sponsorship_required_fdroid">Потребно је GitHub спонзорство за коришћење Tasks.org синхронизације. Кликни испод да постанеш спонзор.</string>
-    <string name="local_list_description">Задаци у овој листи су смештени на овом уређају. Повежи налог како би заштитио своје податке и приступао њима било где.</string>
-    <string name="local_list_title">Ово је локална листа</string>
     <string name="alarm_due">доспеће</string>
     <string name="alarm_start">старт</string>
     <string name="alarm_after">након</string>

@@ -265,4 +265,7 @@
     <string name="list_settings">Configurações da lista</string>
     <string name="reinitialize_account">Reinicializar</string>
     <string name="gtasks_GLA_errorIOAuth">Lamentamos, mas tivemos problemas na comunicação com os servidores do Google. Por favor, tente novamente mais tarde.</string>
+    <string name="local_list_title">Essa é uma lista local</string>
+    <string name="local_list_description">Tarefas nessa lista são armazenadas apenas nesse dispositivo. Conecte uma conta para fazer backup dos seus dados e acessá-los de qualquer lugar.</string>
+    <string name="dismiss">Dispensar</string>
 </resources>

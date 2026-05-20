@@ -663,5 +663,4 @@
     <string name="location_update_interval_2_hours">Каждые 2 часа</string>
     <string name="location_update_interval_disabled">Отключено</string>
     <string name="rmd_EPr_rmd_time_desc">Уведомления для задач на весь день появятся в %1$s</string>
-    <string name="local_list_title">Это локальный список</string>
 </resources>

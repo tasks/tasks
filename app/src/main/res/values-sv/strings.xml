@@ -628,8 +628,6 @@
     <string name="widget_view_more_tasks">Visa mer uppgifter</string>
     <string name="import_failed">Importeringen misslyckades</string>
     <string name="import_failed_message">Kunde inte läsa säkerhetskopian</string>
-    <string name="local_list_title">Det här är en lokal lista</string>
-    <string name="local_list_description">Uppgifter i den här listan lagras endast på den här enheten. Anslut ett konto för att skydda dina data och komma åt dem var som helst.</string>
     <string name="subscription_required_fdroid">En prenumeration krävs för att använda Tasks.org-synkronisering. Prenumerationer måste startas från Google Play-versionen av Tasks.</string>
     <string name="sponsorship_required_fdroid">Ett GitHub-sponsorskap krävs för att använda Tasks.org-synkronisering. Klicka nedan för att bli sponsor.</string>
     <string name="legal_disclosure_prefix_using">Genom att använda Tasks.org</string>

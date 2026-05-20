@@ -188,4 +188,5 @@
     <string name="list_settings">Listeinnstillinger</string>
     <string name="reinitialize_account">Last inn på ny</string>
     <string name="gtasks_GLA_errorIOAuth">Kunne ikke kommunisere med Google-tjenerne. Prøv igjen senere.</string>
+    <string name="dismiss">Avvis</string>
 </resources>

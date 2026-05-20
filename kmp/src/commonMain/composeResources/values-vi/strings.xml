@@ -188,4 +188,5 @@
     <string name="list_settings">Cài đặt danh sách</string>
     <string name="reinitialize_account">Khởi tạo lại</string>
     <string name="gtasks_GLA_errorIOAuth">Xin lỗi, chúng tôi đã gặp rắc rối khi giao tiếp với máy chủ của Google. Vui lòng thử lại sau.</string>
+    <string name="dismiss">Bỏ qua</string>
 </resources>

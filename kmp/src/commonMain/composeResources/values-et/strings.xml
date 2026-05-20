@@ -246,4 +246,7 @@
     <string name="list_settings">Loendi seadistused</string>
     <string name="reinitialize_account">Initsialiseeri uuesti</string>
     <string name="gtasks_GLA_errorIOAuth">Vabandust, Google'i serveri ühendusega on probleeme. Palun proovi hiljem uuesti.</string>
+    <string name="local_list_title">See on kohalik loend</string>
+    <string name="local_list_description">Selle loendi ülesanded on salvestatud vaid selles nutiseadmes. Kui tahad, et andmed oleks ligipääsetavad kõikjalt ja nende hoidmine paremini tagatud, siis lisa vastav kasutajakonto.</string>
+    <string name="dismiss">Loobu</string>
 </resources>

@@ -626,8 +626,6 @@
     <string name="multiline_title_off">Tamamlandıya basarak görevi kaydet</string>
     <string name="delete_tasks_warning">%s silinecek. Bu geri alınamaz!</string>
     <string name="widget_view_more_tasks">Daha çok görev gör</string>
-    <string name="local_list_title">Bu yerel listedir</string>
-    <string name="local_list_description">Bu listedeki görevler yalnızca bu aygıtta saklanır. Verinizi korumak ve her yerden erişmek için hesaba bağlanın.</string>
     <string name="subscription_required_fdroid">Tasks.org eşzamanlamasını kullanmak için abonelik gerekir. Abonelikler, Tasks\'ın Google Play sürümünden başlatılmalıdır.</string>
     <string name="sponsorship_required_fdroid">Tasks.org eşzamanlamasını kullanmak için GitHub sponsorluğu gerekir. Sponsor olmak için aşağıya tıklayın.</string>
     <string name="legal_disclosure_prefix_using">Tasks.org\'u kullanarak</string>

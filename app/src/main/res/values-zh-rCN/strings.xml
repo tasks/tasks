@@ -616,8 +616,6 @@
     <string name="multiline_title_off">按完成保存任务</string>
     <string name="delete_tasks_warning">%s 将会删除。此操作无法撤销！</string>
     <string name="widget_view_more_tasks">查看更多任务</string>
-    <string name="local_list_title">这是本地清单</string>
-    <string name="local_list_description">此清单中的任务只存储在这台设备上。连接账号保护数据，在任何地方访问它。</string>
     <string name="subscription_required_fdroid">使用 Tasks.org 同步需要订阅。订阅必须通过 Google Play 版本的 Tasks 应用进行。</string>
     <string name="sponsorship_required_fdroid">使用 Tasks.org 同步功能需要成为 GitHub 赞助者。单击下方成为赞助者。</string>
     <string name="legal_disclosure_prefix_using">使用 Tasks.org</string>

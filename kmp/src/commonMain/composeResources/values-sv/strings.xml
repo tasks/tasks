@@ -305,4 +305,7 @@
     <string name="list_settings">Listinställningar</string>
     <string name="reinitialize_account">Ominitiera</string>
     <string name="gtasks_GLA_errorIOAuth">Tyvärr, vi hade problem med att kommunicera med Googles servrar. Vänligen försök igen senare.</string>
+    <string name="local_list_title">Det här är en lokal lista</string>
+    <string name="local_list_description">Uppgifter i den här listan lagras endast på den här enheten. Anslut ett konto för att skydda dina data och komma åt dem var som helst.</string>
+    <string name="dismiss">Avfärda</string>
 </resources>

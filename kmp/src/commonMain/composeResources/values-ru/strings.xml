@@ -214,4 +214,6 @@
     <string name="list_settings">Настройки списка</string>
     <string name="reinitialize_account">Инициализировать заново</string>
     <string name="gtasks_GLA_errorIOAuth">При обращении к серверам Google возникли проблемы. Пожалуйста, попробуйте позже.</string>
+    <string name="local_list_title">Это локальный список</string>
+    <string name="dismiss">Отклонить</string>
 </resources>

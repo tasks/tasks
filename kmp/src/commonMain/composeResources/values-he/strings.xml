@@ -245,4 +245,7 @@
     <string name="list_settings">הגדרות רשימה</string>
     <string name="reinitialize_account">אתחול מחדש</string>
     <string name="gtasks_GLA_errorIOAuth">מצטערים, התקשינו לתקשר עם השרתים של Google. נא לנסות שוב מאוחר יותר.</string>
+    <string name="local_list_title">זוהי רשימה מקומית</string>
+    <string name="local_list_description">משימות ברשימה זו מאוחסנות רק במכשיר זה. יש לחבר חשבון כדי להגן על הנתונים שלך ולגשת אליהם מכל מקום.</string>
+    <string name="dismiss">התעלמות</string>
 </resources>

@@ -277,4 +277,7 @@
     <string name="list_settings">リスト設定</string>
     <string name="reinitialize_account">再初期化</string>
     <string name="gtasks_GLA_errorIOAuth">すみません、Google のサーバーとの通信で問題が発生しました。しばらくしてからもう一度お試しください。</string>
+    <string name="local_list_title">ローカルリスト（端末内に保存されたリスト）</string>
+    <string name="local_list_description">このリストのタスクは端末内だけに保存されています。保存先アカウントを登録して、データを安全な場所に保存し、どこからでもアクセスできるようにしましょう。</string>
+    <string name="dismiss">閉じる</string>
 </resources>

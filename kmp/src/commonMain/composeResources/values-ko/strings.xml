@@ -199,4 +199,5 @@
     <string name="list_settings">목록 설정</string>
     <string name="reinitialize_account">다시 초기화하기</string>
     <string name="gtasks_GLA_errorIOAuth">죄송합니다, 구글 서버와 통신하는 데 문제가 있습니다. 잠시 후 다시 시도하세요.</string>
+    <string name="dismiss">닫기</string>
 </resources>

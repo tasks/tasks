@@ -5,12 +5,10 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity.RESULT_OK
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,7 +18,6 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.ime
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
@@ -63,7 +60,6 @@ import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.EXTRA_TASK
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.activity.TaskListFragment.Companion.EXTRA_FILTER
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.activities.TagSettingsActivity
@@ -153,6 +149,7 @@ fun HomeScreen(
         )
     }
 
+    val scope = rememberCoroutineScope()
     if (guestDialog.value) {
         AlertDialog(
             onDismissRequest = { guestDialog.value = false },
@@ -161,9 +158,13 @@ fun HomeScreen(
             dismissButton = {
                 TextButton(onClick = {
                     guestDialog.value = false
-                    newList.launch(
-                        Intent(context, LocalListSettingsActivity::class.java)
-                    )
+                    scope.launch {
+                        val account = viewModel.getOrCreateLocalAccount()
+                        newList.launch(
+                            Intent(context, LocalListSettingsActivity::class.java)
+                                .putExtra(EXTRA_CALDAV_ACCOUNT, account)
+                        )
+                    }
                 }) { Text(stringResource(R.string.local_lists)) }
             },
             confirmButton = {

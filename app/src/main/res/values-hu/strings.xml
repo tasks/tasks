@@ -626,8 +626,6 @@
     <string name="delete_tasks_warning">A(z) %s törlésre kerül. Ez a művelet nem visszavonható!</string>
     <string name="multiline_title_off">Kattints a Kész gombra a feladat elmentéséhez</string>
     <string name="widget_view_more_tasks">További feladatok megtekintése</string>
-    <string name="local_list_title">Ez egy helyi lista</string>
-    <string name="local_list_description">Az ebben a listában található feladatok csak erzen a készüléken kerülnek mentésre. Kapcsolódj egy fiókhoz, hogy az adataid biztonságban legyenek és bárhonnan elérd őket.</string>
     <string name="subscription_required_fdroid">A Tasks.org szinkronizáláshoz előfizetés szükséges. Az előfizetést a Tasks alkalmazás Google Play verziójából lehet kezdeményezni.</string>
     <string name="sponsorship_required_fdroid">A Tasks.org szinkronizáláshoz GitHub szponzori előfizetés szükséges. A szponzori tagsághoz kattints az alábbi linkre.</string>
     <string name="legal_disclosure_prefix_using">A Tasks.org használata által</string>

@@ -312,4 +312,7 @@
     <string name="reinitialize_account">Znovu inicializovat</string>
     <string name="gtasks_GLA_errorIOAuth">Nastal problém při komunikaci se servery Google. Zkuste to prosím později.</string>
     <string name="add_platform_account">Přidat účet %1$s</string>
+    <string name="local_list_title">Toto je lokální seznam</string>
+    <string name="local_list_description">Úkoly v tomto seznamu jsou uloženy pouze na tomto zařízení. Připojte účet pro zabezpečení vašich dat a přístup k nim odkudkoli.</string>
+    <string name="dismiss">Odmítnout</string>
 </resources>

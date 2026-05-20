@@ -652,8 +652,6 @@
     <string name="import_failed">הייבוא נכשל</string>
     <string name="import_failed_message">לא היה ניתן לקרוא קובץ גיבוי</string>
     <string name="rmd_EPr_rmd_time_desc">התראות עבור משימות של יום שלם יופיעו ב־%1$s</string>
-    <string name="local_list_title">זוהי רשימה מקומית</string>
-    <string name="local_list_description">משימות ברשימה זו מאוחסנות רק במכשיר זה. יש לחבר חשבון כדי להגן על הנתונים שלך ולגשת אליהם מכל מקום.</string>
     <string name="default_reminder">משימות של יום שלם</string>
     <string name="add_default_reminders">הוספת תזכורות ברירת מחדל</string>
     <string name="rmd_time_enabled_on">הוספת תזכורות ברירת מחדל למשימות של יום שלם</string>

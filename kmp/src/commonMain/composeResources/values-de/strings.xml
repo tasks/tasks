@@ -252,4 +252,7 @@
     <string name="list_settings">Listeneinstellungen</string>
     <string name="reinitialize_account">Neu initialisieren</string>
     <string name="gtasks_GLA_errorIOAuth">Leider ist während der Kommunikation mit den Google-Servern ein Problem aufgetreten. Bitte versuche es später erneut.</string>
+    <string name="local_list_title">Dies ist eine lokale Liste</string>
+    <string name="local_list_description">Aufgaben in dieser Liste werden nur auf diesem Gerät gespeichert. Verbinde ein Konto, um deine Daten zu sichern und von überall darauf zuzugreifen.</string>
+    <string name="dismiss">Schließen</string>
 </resources>

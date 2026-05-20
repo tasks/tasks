@@ -649,8 +649,6 @@
     <string name="widget_view_more_tasks">Prikaži više zadataka</string>
     <string name="import_failed">Uvoz neuspio</string>
     <string name="import_failed_message">Nije moguće čitati datoteku sigurnosne kopije</string>
-    <string name="local_list_title">Ovo je lokalni popis</string>
-    <string name="local_list_description">Zadaci na ovom popisu su spremljeni samo na ovom uređaju. Poveži račun i zaštiti svoje podatke te im pristupi bilo gdje.</string>
     <string name="banner_subscription_required_title">Potrebna je pretplata</string>
     <string name="banner_subscription_required_body">Plati koliko god želiš za otključavanje %s sinkronizacije</string>
     <string name="subscription_required_fdroid">Za korištenje Tasks.org sinkronizacije je potrebna pretplata. Pretplata se mora pokrenuti putem Tasks verzije na Google Playu.</string>

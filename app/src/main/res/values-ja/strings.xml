@@ -622,12 +622,10 @@
     <string name="banner_subscription_required_body">%sとの同期をするため、お好みの金額をお支払いください</string>
     <string name="sponsorship_required_fdroid">Tasks.orgと同期するには GitHubへの寄付が必要です。寄付をするには下をクリックしてください。</string>
     <string name="subscription_required_fdroid">Tasks.orgと同期するには定期購入が必要です。定期購入はGoogle Play版のTasksアプリからお申し込みください。</string>
-    <string name="local_list_description">このリストのタスクは端末内だけに保存されています。保存先アカウントを登録して、データを安全な場所に保存し、どこからでもアクセスできるようにしましょう。</string>
     <string name="alarm_before">前に</string>
     <string name="alarm_after">後に</string>
     <string name="alarm_start">着手時間に対して</string>
     <string name="alarm_due">期限</string>
-    <string name="local_list_title">ローカルリスト（端末内に保存されたリスト）</string>
     <string name="email_to_task_address">あなたのメールアドレス</string>
     <string name="tos_updated_title">サービス規約を改定しました</string>
     <string name="accept">了承</string>

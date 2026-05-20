@@ -647,8 +647,6 @@
     <string name="multiline_title_off">Premi il tasto di conferma per salvare l\'attività</string>
     <string name="delete_tasks_warning">%s verrà cancellato. L\'operazione non può essere annullata!</string>
     <string name="widget_view_more_tasks">Visualizza ulteriori attività</string>
-    <string name="local_list_title">Questa è una lista locale</string>
-    <string name="local_list_description">Le attività in questa lista sono memorizzate solo su questo dispositivo. Collega un account per sincronizzarle in sicurezza ed accedervi da qualsiasi dispositivo.</string>
     <string name="subscription_required_fdroid">Per utilizzare la sincronizzazione di Tasks.org è necessaria una sottoscrizione. Le sottoscrizioni devono essere avviate dalla versione di Tasks su Google Play.</string>
     <string name="sponsorship_required_fdroid">Per utilizzare la sincronizzazione di Tasks.org serve essere sponsor su GitHub. Clicca sotto per aderire.</string>
     <string name="legal_disclosure_prefix_using">Utilizzando Tasks.org</string>

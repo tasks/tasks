@@ -16,7 +16,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.Task
+import org.tasks.data.getOrCreateLocalAccount
 import org.tasks.filters.Filter
 import org.tasks.filters.SearchFilter
 import org.tasks.preferences.DefaultFilterProvider
@@ -92,6 +94,8 @@ class MainActivityViewModel @Inject constructor(
     }
 
     suspend fun getAccount(id: Long) = caldavDao.getAccount(id)
+
+    suspend fun getOrCreateLocalAccount(): CaldavAccount = caldavDao.getOrCreateLocalAccount()
 
     suspend fun isTasksGuest(): Boolean =
         try {

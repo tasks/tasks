@@ -662,8 +662,6 @@
     <string name="location_update_interval_1_hour">În fiecare oră</string>
     <string name="location_update_interval_2_hours">La fiecare 2 ore</string>
     <string name="rmd_EPr_rmd_time_desc">Notificările pentru sarcinile pentru tot parcursul zilei vor apărea la %1$s</string>
-    <string name="local_list_title">Aceasta este o listă locală</string>
-    <string name="local_list_description">Sarcinile din această listă sunt stocate numai pe acest dispozitiv. Conectează un cont pentru a-ți proteja datele și pentru a le accesa de oriunde.</string>
     <string name="default_reminder">Sarcini pentru tot parcursul zilei</string>
     <string name="add_default_reminders">Adaugă mementouri implicite</string>
     <string name="rmd_time_enabled_on">Adaugă mementouri implicite la sarcinile pe tot parcursul zilei</string>

@@ -105,6 +105,7 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
+import org.tasks.data.getOrCreateLocalAccount
 import org.tasks.compose.AlarmsDisabledBanner
 import org.tasks.compose.AppUpdatedBanner
 import org.tasks.compose.BlogBanner
@@ -870,8 +871,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, account)
                 )
             } else {
+                val localAccount = caldavDao.getOrCreateLocalAccount()
                 listSettingsRequest.launch(
                     Intent(activity, LocalListSettingsActivity::class.java)
+                        .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, localAccount)
                 )
             }
         }

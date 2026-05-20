@@ -661,8 +661,6 @@
     <string name="email_to_task_address">Seu email</string>
     <string name="rmd_EPr_rmd_time_desc">Notificações para tarefas de dia todo aparecerão as %1$s</string>
     <string name="tos_updated_title">Nós atualizamos nossos Termos de serviço</string>
-    <string name="local_list_title">Essa é uma lista local</string>
-    <string name="local_list_description">Tarefas nessa lista são armazenadas apenas nesse dispositivo. Conecte uma conta para fazer backup dos seus dados e acessá-los de qualquer lugar.</string>
     <string name="default_reminder">Tarefas de dia todo</string>
     <string name="add_default_reminders">Todos lembretes padrão</string>
     <string name="rmd_time_enabled_on">Adicionar lembretes padrão para tarefas de dia todo</string>

@@ -307,4 +307,7 @@
     <string name="add_platform_account">添加 %1$s 账户</string>
     <string name="reinitialize_account">重新初始化</string>
     <string name="gtasks_GLA_errorIOAuth">对不起，我们在与 Google 服务器通讯时遇到了问题。请稍后再尝试。</string>
+    <string name="local_list_title">这是本地清单</string>
+    <string name="local_list_description">此清单中的任务只存储在这台设备上。连接账号保护数据，在任何地方访问它。</string>
+    <string name="dismiss">关闭</string>
 </resources>

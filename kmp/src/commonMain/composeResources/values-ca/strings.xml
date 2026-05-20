@@ -202,4 +202,5 @@
     <string name="list_settings">Preferències de les llistes</string>
     <string name="reinitialize_account">Reinicialitzeu</string>
     <string name="gtasks_GLA_errorIOAuth">Perdoneu, hem tingut un problema connectant-nos als servidors de Google. Si us plau proveu un altre cop més tard.</string>
+    <string name="dismiss">Descarteu</string>
 </resources>

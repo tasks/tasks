@@ -211,4 +211,7 @@
     <string name="list_settings">Setări listă</string>
     <string name="reinitialize_account">Reinițializare</string>
     <string name="gtasks_GLA_errorIOAuth">Ne pare rău, am avut probleme de comunicare cu serverele Google.Încearcă din nou mai târziu.</string>
+    <string name="local_list_title">Aceasta este o listă locală</string>
+    <string name="local_list_description">Sarcinile din această listă sunt stocate numai pe acest dispozitiv. Conectează un cont pentru a-ți proteja datele și pentru a le accesa de oriunde.</string>
+    <string name="dismiss">Respinge</string>
 </resources>

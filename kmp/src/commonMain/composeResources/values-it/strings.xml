@@ -251,4 +251,7 @@
     <string name="list_settings">Impostazioni lista</string>
     <string name="reinitialize_account">Reinizializza</string>
     <string name="gtasks_GLA_errorIOAuth">Ci scusiamo per il disagio, abbiamo dei problemi a comunicare con i server di Google. Per favore riprovare più tardi.</string>
+    <string name="local_list_title">Questa è una lista locale</string>
+    <string name="local_list_description">Le attività in questa lista sono memorizzate solo su questo dispositivo. Collega un account per sincronizzarle in sicurezza ed accedervi da qualsiasi dispositivo.</string>
+    <string name="dismiss">Ignora</string>
 </resources>

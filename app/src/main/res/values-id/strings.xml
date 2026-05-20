@@ -571,8 +571,6 @@
     <plurals name="repeat_occurrence">
         <item quantity="other">kemunculan</item>
     </plurals>
-    <string name="local_list_title">Ini adalah daftar lokal</string>
-    <string name="local_list_description">Tugas dalam daftar ini hanya disimpan di perangkat ini. Hubungkan akun untuk mengamankan data Anda dan mengaksesnya dari mana saja.</string>
     <string name="delete_comment">komentar</string>
     <string name="comment">Komentar</string>
     <string name="yesterday">Kemarin</string>

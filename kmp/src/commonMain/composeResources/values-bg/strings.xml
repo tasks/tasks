@@ -275,4 +275,7 @@
     <string name="list_settings">Настройки на списъка</string>
     <string name="reinitialize_account">Повторно инициализиране</string>
     <string name="gtasks_GLA_errorIOAuth">Има проблем с връзката до сървърите на Google. Опитайте отново по-късно.</string>
+    <string name="local_list_title">Това е местен списък</string>
+    <string name="local_list_description">Задачите в този списък се пазят само на това устройство. Свържете профил, за да запазите задачите си и да имате достъп до тях отвсякъде.</string>
+    <string name="dismiss">Отхвърляне</string>
 </resources>

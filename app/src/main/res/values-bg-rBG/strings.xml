@@ -626,8 +626,6 @@
     <string name="multiline_title_off">Докоснете „Готово“ за запазване на задачата</string>
     <string name="delete_tasks_warning">Задачата %s ще бъде премахната. Действието е необратимо!</string>
     <string name="widget_view_more_tasks">Повече задачи</string>
-    <string name="local_list_title">Това е местен списък</string>
-    <string name="local_list_description">Задачите в този списък се пазят само на това устройство. Свържете профил, за да запазите задачите си и да имате достъп до тях отвсякъде.</string>
     <string name="subscription_required_fdroid">За да използвате синхронизацията на Tasks.org е необходим абонамент. Абонаментите трябва да се започват от версията на Tasks в Google Play.</string>
     <string name="sponsorship_required_fdroid">За да използвате синхронизацията на Tasks.org е необходимо даряване чрез Гитхъб. Докоснете отдолу, за да станете дарител.</string>
     <string name="legal_disclosure_prefix_using">Използвайки Tasks.org</string>
