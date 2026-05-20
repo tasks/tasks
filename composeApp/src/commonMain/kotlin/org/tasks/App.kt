@@ -969,9 +969,10 @@ private fun TaskListScreen(
                 ?: run { newListAccountId = null; return@produceState }
         }
         account?.let {
+            val newCalendar = remember { CaldavCalendar(uuid = UUIDHelper.newUUID()) }
             ListSettingsDialog(
                 account = it,
-                calendar = null,
+                calendar = newCalendar,
                 isDark = isDark,
                 onDismiss = { created ->
                     val shouldSelectList = selectCreatedList
@@ -1289,11 +1290,12 @@ private fun TaskListPane(
 @Composable
 private fun ListSettingsDialog(
     account: CaldavAccount,
-    calendar: CaldavCalendar?,
+    calendar: CaldavCalendar,
     isDark: Boolean,
     onDismiss: (CaldavCalendar?) -> Unit,
     onDeleted: () -> Unit = {},
     onSubscribe: () -> Unit,
+    viewModelKey: String = "list_settings_${account.id}_${calendar.uuid}",
 ) {
     when {
         account.isGoogleTasks -> GoogleTaskListSettingsDialog(
@@ -1303,6 +1305,7 @@ private fun ListSettingsDialog(
             onDismiss = onDismiss,
             onDeleted = onDeleted,
             onSubscribe = onSubscribe,
+            viewModelKey = viewModelKey,
         )
         account.isEtebaseAccount -> EtebaseListSettingsDialog(
             account = account,
@@ -1311,6 +1314,7 @@ private fun ListSettingsDialog(
             onDismiss = onDismiss,
             onDeleted = onDeleted,
             onSubscribe = onSubscribe,
+            viewModelKey = viewModelKey,
         )
         else -> CaldavListSettingsDialog(
             account = account,
@@ -1319,6 +1323,7 @@ private fun ListSettingsDialog(
             onDismiss = onDismiss,
             onDeleted = onDeleted,
             onSubscribe = onSubscribe,
+            viewModelKey = viewModelKey,
         )
     }
 }
@@ -1327,19 +1332,17 @@ private fun ListSettingsDialog(
 @Composable
 private fun CaldavListSettingsDialog(
     account: CaldavAccount,
-    calendar: CaldavCalendar?,
+    calendar: CaldavCalendar,
     isDark: Boolean,
     onDismiss: (CaldavCalendar?) -> Unit,
     onDeleted: () -> Unit = {},
     onSubscribe: () -> Unit,
+    viewModelKey: String,
 ) {
     val viewModel = koinViewModel<CaldavCalendarSettingsViewModel>(
-        key = "list_settings_${account.id}_${calendar?.id}",
-        parameters = { org.koin.core.parameter.parametersOf(isDark) },
+        key = viewModelKey,
+        parameters = { org.koin.core.parameter.parametersOf(isDark, account, calendar) },
     )
-    LaunchedEffect(Unit) {
-        viewModel.setCalendar(account, calendar)
-    }
     val state by viewModel.state.collectAsState()
 
     val dismiss = { onDismiss(null) }
@@ -1380,19 +1383,17 @@ private fun CaldavListSettingsDialog(
 @Composable
 private fun GoogleTaskListSettingsDialog(
     account: CaldavAccount,
-    calendar: CaldavCalendar?,
+    calendar: CaldavCalendar,
     isDark: Boolean,
     onDismiss: (CaldavCalendar?) -> Unit,
     onDeleted: () -> Unit = {},
     onSubscribe: () -> Unit,
+    viewModelKey: String,
 ) {
     val viewModel = koinViewModel<GoogleTaskListSettingsViewModel>(
-        key = "gtask_list_settings_${account.id}_${calendar?.id}",
-        parameters = { org.koin.core.parameter.parametersOf(isDark) },
+        key = viewModelKey,
+        parameters = { org.koin.core.parameter.parametersOf(isDark, account, calendar) },
     )
-    LaunchedEffect(Unit) {
-        viewModel.setCalendar(account, calendar)
-    }
     val state by viewModel.state.collectAsState()
 
     val dismiss = { onDismiss(null) }
@@ -1438,19 +1439,17 @@ private fun GoogleTaskListSettingsDialog(
 @Composable
 private fun EtebaseListSettingsDialog(
     account: CaldavAccount,
-    calendar: CaldavCalendar?,
+    calendar: CaldavCalendar,
     isDark: Boolean,
     onDismiss: (CaldavCalendar?) -> Unit,
     onDeleted: () -> Unit = {},
     onSubscribe: () -> Unit,
+    viewModelKey: String,
 ) {
     val viewModel = koinViewModel<EtebaseCalendarSettingsViewModel>(
-        key = "etebase_list_settings_${account.id}_${calendar?.id}",
-        parameters = { org.koin.core.parameter.parametersOf(isDark) },
+        key = viewModelKey,
+        parameters = { org.koin.core.parameter.parametersOf(isDark, account, calendar) },
     )
-    LaunchedEffect(Unit) {
-        viewModel.setCalendar(account, calendar)
-    }
     val state by viewModel.state.collectAsState()
 
     val dismiss = { onDismiss(null) }

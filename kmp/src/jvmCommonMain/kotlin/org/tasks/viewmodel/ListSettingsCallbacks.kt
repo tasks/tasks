@@ -3,13 +3,10 @@ package org.tasks.viewmodel
 import kotlinx.coroutines.flow.StateFlow
 import org.tasks.compose.settings.ListSettingsState
 import org.tasks.data.PrincipalWithAccess
-import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavCalendar
 
 interface ListSettingsCallbacks {
     val state: StateFlow<ListSettingsState>
 
-    fun setCalendar(account: CaldavAccount, calendar: CaldavCalendar?)
     fun setName(value: String)
     fun setColor(value: Int)
     fun setIcon(value: String)

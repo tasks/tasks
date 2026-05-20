@@ -69,6 +69,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.SERVER_SABREDAV
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
+import org.tasks.data.entity.Task
 import org.tasks.themes.TasksIcons
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
@@ -117,7 +118,7 @@ data class ListSettingsState(
     val hasColorWheel: Boolean = false,
     val showDiscardDialog: Boolean = false,
 ) {
-    val isNew: Boolean get() = calendar == null
+    val isNew: Boolean get() = calendar?.id == null || calendar.id == Task.NO_ID
 
     val canShare: Boolean
         get() = account?.let { a ->
@@ -128,12 +129,11 @@ data class ListSettingsState(
         get() = calendar?.access == ACCESS_OWNER && account?.canRemovePrincipal == true
 
     val hasChanges: Boolean
-        get() = if (calendar == null) {
-            name.isNotBlank() || color != 0 || icon != TasksIcons.LIST
-        } else {
-            name.trim() != (calendar.name ?: "") ||
-                    color != calendar.color ||
-                    icon != (calendar.icon ?: TasksIcons.LIST)
+        get() {
+            val cal = calendar ?: return name.isNotBlank() || color != 0 || icon != TasksIcons.LIST
+            return name.trim() != (cal.name ?: "") ||
+                    color != cal.color ||
+                    icon != (cal.icon ?: TasksIcons.LIST)
         }
 
     val useEmailForSharing: Boolean

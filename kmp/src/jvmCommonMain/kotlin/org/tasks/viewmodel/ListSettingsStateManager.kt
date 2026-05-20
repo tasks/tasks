@@ -14,6 +14,8 @@ import org.tasks.themes.TasksIcons
 class ListSettingsStateManager(
     isDark: Boolean,
     private val purchaseState: PurchaseState,
+    account: CaldavAccount,
+    calendar: CaldavCalendar,
     hasColorWheel: Boolean = false,
 ) : ListSettingsCallbacks {
 
@@ -21,6 +23,11 @@ class ListSettingsStateManager(
 
     private val _state = MutableStateFlow(
         ListSettingsState(
+            name = calendar.name ?: "",
+            color = calendar.color,
+            icon = calendar.icon ?: TasksIcons.LIST,
+            calendar = calendar,
+            account = account,
             pickerColors = pickerColors,
             hasPro = purchaseState.purchasedThemes(),
             hasColorWheel = hasColorWheel,
@@ -30,20 +37,6 @@ class ListSettingsStateManager(
 
     fun update(transform: (ListSettingsState) -> ListSettingsState) {
         _state.update(transform)
-    }
-
-    override fun setCalendar(account: CaldavAccount, calendar: CaldavCalendar?) {
-        if (_state.value.account != null) return
-        _state.value = ListSettingsState(
-            name = calendar?.name ?: "",
-            color = calendar?.color ?: 0,
-            icon = calendar?.icon ?: TasksIcons.LIST,
-            calendar = calendar,
-            account = account,
-            pickerColors = pickerColors,
-            hasPro = purchaseState.purchasedThemes(),
-            hasColorWheel = _state.value.hasColorWheel,
-        )
     }
 
     override fun setName(value: String) {

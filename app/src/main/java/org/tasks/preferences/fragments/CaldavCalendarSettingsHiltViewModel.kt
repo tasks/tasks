@@ -38,14 +38,12 @@ class CaldavCalendarSettingsHiltViewModel @Inject constructor(
     reporting = reporting,
     purchaseState = purchaseState,
     isDark = context.resources.getBoolean(R.bool.is_dark),
+    account = savedStateHandle.get<CaldavAccount>(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT)!!,
+    calendar = savedStateHandle[BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR]
+        ?: CaldavCalendar(uuid = org.tasks.data.UUIDHelper.newUUID()),
     hasColorWheel = true,
 ) {
     init {
-        val account: CaldavAccount =
-            savedStateHandle[BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT]!!
-        val calendar: CaldavCalendar? =
-            savedStateHandle[BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR]
-        setCalendar(account, calendar)
         savedStateHandle.get<String>(KEY_NAME)?.let { setName(it) }
         savedStateHandle.get<Int>(KEY_COLOR)?.let { setColor(it) }
         savedStateHandle.get<String>(KEY_ICON)?.let { setIcon(it) }

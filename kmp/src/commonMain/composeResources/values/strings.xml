@@ -38,6 +38,9 @@
     <string name="wear_unknown_error">Unknown error</string>
     <string name="wear_connecting_to_phone">Connecting to phone…</string>
     <string name="new_task">New task</string>
+    <string name="edit_task">Edit task</string>
+    <string name="task_title">Task title</string>
+    <string name="no_list_available">No list available</string>
     <string name="save">Save</string>
     <string name="failed_to_save_task">Failed to save task</string>
     <string name="enter_title">Enter title</string>

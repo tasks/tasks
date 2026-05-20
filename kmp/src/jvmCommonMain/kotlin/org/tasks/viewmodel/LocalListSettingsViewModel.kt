@@ -23,8 +23,10 @@ open class LocalListSettingsViewModel(
     private val reporting: Reporting,
     purchaseState: PurchaseState,
     isDark: Boolean,
+    account: CaldavAccount,
+    calendar: CaldavCalendar,
     hasColorWheel: Boolean = false,
-    internal val stateManager: ListSettingsStateManager = ListSettingsStateManager(isDark, purchaseState, hasColorWheel),
+    internal val stateManager: ListSettingsStateManager = ListSettingsStateManager(isDark, purchaseState, account, calendar, hasColorWheel),
 ) : ViewModel(), ListSettingsCallbacks by stateManager {
 
     open override fun setName(value: String) = stateManager.setName(value)

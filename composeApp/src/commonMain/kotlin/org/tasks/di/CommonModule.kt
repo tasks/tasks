@@ -418,6 +418,8 @@ val commonModule = module {
             reporting = get(),
             purchaseState = get(),
             isDark = params.get(),
+            account = params.get(),
+            calendar = params.get(),
         )
     }
     viewModel { params ->
@@ -437,6 +439,8 @@ val commonModule = module {
                 )
             },
             isDark = params.get(),
+            account = params.get(),
+            calendar = params.get(),
         )
     }
     viewModel { params ->
@@ -447,6 +451,8 @@ val commonModule = module {
             reporting = get(),
             purchaseState = get(),
             isDark = params.get(),
+            account = params.get(),
+            calendar = params.get(),
         )
     }
     viewModel { params ->
@@ -456,6 +462,8 @@ val commonModule = module {
             reporting = get(),
             purchaseState = get(),
             isDark = params.get(),
+            account = params.get(),
+            calendar = params.get(),
         )
     }
     viewModel {

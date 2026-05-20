@@ -24,7 +24,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -51,7 +50,12 @@ import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.back
+import tasks.kmp.generated.resources.edit_task
 import tasks.kmp.generated.resources.failed_to_save_task
+import tasks.kmp.generated.resources.new_task
+import tasks.kmp.generated.resources.no_list_available
+import tasks.kmp.generated.resources.task_title
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -93,7 +97,7 @@ fun TaskEditScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = if (state.isNew) "New task" else "Edit task",
+                        text = stringResource(if (state.isNew) Res.string.new_task else Res.string.edit_task),
                         style = MaterialTheme.typography.titleLarge,
                     )
                 },
@@ -101,7 +105,7 @@ fun TaskEditScreen(
                     IconButton(onClick = saveAndClose) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = stringResource(Res.string.back),
                         )
                     }
                 },
@@ -118,7 +122,7 @@ fun TaskEditScreen(
                     modifier = Modifier.align(Alignment.Center),
                 )
                 state.list == null -> Text(
-                    text = "No CalDAV list available",
+                    text = stringResource(Res.string.no_list_available),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier
@@ -139,7 +143,7 @@ fun TaskEditScreen(
                         val color = filterPickerViewModel.getColor(list.tint, isDark)
                         if (color != null) Color(color) else onSurface
                     }
-                    val listIcon = filterPickerViewModel.getIcon(list)
+                    val listIcon = remember(list) { filterPickerViewModel.getIcon(list) }
                     var showListPicker by remember { mutableStateOf(false) }
                     Column(
                         modifier = Modifier
@@ -167,10 +171,8 @@ fun TaskEditScreen(
                     }
                     if (showListPicker) {
                         val pickerState by filterPickerViewModel.viewState.collectAsState()
-                        val searching by remember(pickerState.query) {
-                            derivedStateOf { pickerState.query.isNotBlank() }
-                        }
-                        val onSurfaceArgb = onSurface.toArgb()
+                        val searching = pickerState.query.isNotBlank()
+                        val onSurfaceArgb = remember(onSurface) { onSurface.toArgb() }
                         ListPickerDialog(
                             filters = if (searching) pickerState.searchResults else pickerState.filters,
                             query = pickerState.query,
@@ -227,7 +229,7 @@ private fun TitleField(
         value = title,
         onValueChange = onTitleChange,
         textStyle = titleStyle,
-        placeholder = "Task title",
+        placeholder = stringResource(Res.string.task_title),
         focusRequester = focusRequester,
         modifier = modifier
             .fillMaxWidth()

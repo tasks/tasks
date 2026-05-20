@@ -51,11 +51,13 @@ open class CaldavCalendarSettingsViewModel(
     private val reporting: Reporting,
     purchaseState: PurchaseState,
     isDark: Boolean,
+    account: CaldavAccount,
+    calendar: CaldavCalendar,
     hasColorWheel: Boolean = false,
-    internal val stateManager: ListSettingsStateManager = ListSettingsStateManager(isDark, purchaseState, hasColorWheel),
+    internal val stateManager: ListSettingsStateManager = ListSettingsStateManager(isDark, purchaseState, account, calendar, hasColorWheel),
 ) : ViewModel(), ListSettingsCallbacks by stateManager {
 
-    private val calendarId = MutableStateFlow<Long?>(null)
+    private val calendarId = MutableStateFlow(calendar.id.takeIf { it != 0L })
 
     val principals: StateFlow<List<PrincipalWithAccess>> = calendarId
         .flatMapLatest { id ->
@@ -74,11 +76,6 @@ open class CaldavCalendarSettingsViewModel(
     open override fun setName(value: String) = stateManager.setName(value)
     open override fun setColor(value: Int) = stateManager.setColor(value)
     open override fun setIcon(value: String) = stateManager.setIcon(value)
-
-    override fun setCalendar(account: CaldavAccount, calendar: CaldavCalendar?) {
-        stateManager.setCalendar(account, calendar)
-        calendarId.value = calendar?.id
-    }
 
     override fun openShareDialog() {
         stateManager.update { it.copy(shareDialogOpen = true) }
