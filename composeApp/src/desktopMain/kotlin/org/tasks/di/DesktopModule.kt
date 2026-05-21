@@ -4,7 +4,6 @@ import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -44,12 +43,51 @@ import org.tasks.sse.SseClient
 import org.tasks.sse.SseTokenProvider
 import java.io.File
 
-fun dataDir(): File {
+private val appName: String =
+    if (JvmBuildConfig.DEBUG) "Tasks.org.debug" else "Tasks.org"
+
+private enum class Platform { MAC, WINDOWS, LINUX }
+
+private fun platform(): Platform {
+    val os = System.getProperty("os.name").lowercase()
+    return when {
+        "mac" in os || "darwin" in os -> Platform.MAC
+        "win" in os -> Platform.WINDOWS
+        else -> Platform.LINUX
+    }
+}
+
+val dataDir: File by lazy {
     val override = System.getProperty("tasks.dataDir")?.takeIf { it.isNotBlank() }
+    if (override != null) return@lazy File(override).also { it.mkdirs() }
     val home = System.getProperty("user.home")
-    val file = override?.let { File(it) }
-        ?: File(home, if (JvmBuildConfig.DEBUG) ".tasks.org.debug" else ".tasks.org")
-    return file.also { it.mkdirs() }
+    val legacyDir = File(home, ".tasks.org")
+    if (legacyDir.exists()) return@lazy legacyDir
+    val dir = when (platform()) {
+        Platform.MAC -> File(home, "Library/Application Support/$appName")
+        Platform.WINDOWS ->
+            File(System.getenv("LOCALAPPDATA") ?: "$home/AppData/Local", appName)
+        Platform.LINUX -> {
+            val xdgData = System.getenv("XDG_DATA_HOME") ?: "$home/.local/share"
+            File(xdgData, appName.lowercase())
+        }
+    }
+    dir.also { it.mkdirs() }
+}
+
+val logDir: File by lazy {
+    val override = System.getProperty("tasks.dataDir")?.takeIf { it.isNotBlank() }
+    if (override != null) return@lazy File(override, "logs").also { it.mkdirs() }
+    val home = System.getProperty("user.home")
+    val dir = when (platform()) {
+        Platform.MAC -> File(home, "Library/Logs/$appName")
+        Platform.WINDOWS -> File(dataDir, "logs")
+        Platform.LINUX -> {
+            val xdgState = System.getenv("XDG_STATE_HOME") ?: "$home/.local/state"
+            File(xdgState, "${appName.lowercase()}/logs")
+        }
+    }
+    dir.also { it.mkdirs() }
 }
 
 actual fun platformModule(): Module = module {
@@ -66,7 +104,7 @@ actual fun platformModule(): Module = module {
     single<Reporting> {
         PostHogReporting(
             apiKey = JvmBuildConfig.POSTHOG_KEY,
-            dataDir = dataDir(),
+            dataDir = dataDir,
             tasksPreferences = get(),
         )
     }
@@ -85,26 +123,26 @@ actual fun platformModule(): Module = module {
             DesktopKeyProvider(
                 serviceName = "Tasks.org",
                 accountName = "encryption-key",
-                fallbackKeyFile = File(dataDir(), ".key"),
+                fallbackKeyFile = File(dataDir, ".key"),
             )
         )
     }
     single<Database> {
-        val dbFile = File(dataDir(), Database.NAME)
+        val dbFile = File(dataDir, Database.NAME)
         Room.databaseBuilder<Database>(name = dbFile.absolutePath)
             .setDriver(BundledSQLiteDriver())
             .build()
     }
     single {
-        val dataStoreFile = File(dataDir(), dataStoreFileName)
+        val dataStoreFile = File(dataDir, dataStoreFileName)
         TasksPreferences(createDataStore { dataStoreFile.absolutePath })
     }
     factory {
-        FileStorage(dataDir().absolutePath)
+        FileStorage(dataDir.absolutePath)
     }
     factory {
         EtebaseClientProvider(
-            filesDir = dataDir().absolutePath,
+            filesDir = dataDir.absolutePath,
             encryption = get(),
             caldavDao = get(),
             httpClientFactory = get(),
@@ -126,7 +164,7 @@ actual fun platformModule(): Module = module {
     factoryOf(::VtodoCache)
     single {
         DesktopEntitlement(
-            dataDir = dataDir(),
+            dataDir = dataDir,
             httpClientFactory = get(),
             serverEnvironment = get(),
             scope = get(),

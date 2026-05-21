@@ -37,6 +37,7 @@ import org.tasks.sse.SseClient
 import org.tasks.sync.SyncSource
 import org.tasks.di.commonModule
 import org.tasks.di.dataDir
+import org.tasks.di.logDir
 import org.tasks.di.platformModule
 import org.tasks.logging.FileLogWriter
 import java.awt.Dimension
@@ -53,7 +54,6 @@ private val DEFAULT_HEIGHT = 600.dp
 @OptIn(FlowPreview::class)
 fun main() {
     org.tasks.caldav.CaldavSynchronizer.registerFactories()
-    val logDir = File(dataDir(), "logs").apply { mkdirs() }
     Logger.setLogWriters(
         buildList {
             if (TasksBuildConfig.DEBUG) add(platformLogWriter())
