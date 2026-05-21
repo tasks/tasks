@@ -311,4 +311,5 @@
     <string name="local_list_title">Bu yerel listedir</string>
     <string name="local_list_description">Bu listedeki görevler yalnızca bu aygıtta saklanır. Verinizi korumak ve her yerden erişmek için hesaba bağlanın.</string>
     <string name="dismiss">Kapat</string>
+    <string name="add_platform_account">%1$s hesabı ekle</string>
 </resources>
