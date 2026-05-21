@@ -313,4 +313,9 @@
     <string name="local_list_title">C'est une liste locale</string>
     <string name="local_list_description">Les tâches dans cette liste ne sont enregistrées que sur cet appareil. Connectez un compte pour sauvegarder vos données et y accéder n'importe où.</string>
     <string name="dismiss">Rejeter</string>
+    <string name="edit_task">Modifier la tâche</string>
+    <string name="task_title">Titre de la tâche</string>
+    <string name="no_list_available">Aucune liste disponible</string>
+    <string name="add_platform_account">Ajouter le compte %1$s</string>
+    <string name="no_lists_yet">Pas encore de liste</string>
 </resources>
