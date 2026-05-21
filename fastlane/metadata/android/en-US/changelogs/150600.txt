@@ -1,0 +1,6 @@
+* Create new lists from the list picker
+* Improve CalDAV color sync compatibility - @poke
+* Fix notifications being cancelled on sync
+* Updated list settings screens
+* Handle missing timestamps in iCalendar data
+* Update translations

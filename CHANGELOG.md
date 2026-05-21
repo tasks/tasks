@@ -1,3 +1,30 @@
+### 15.6 (2026-05-20)
+
+* Create new lists from the list picker
+* Improve CalDAV color sync compatibility - @poke [#4387](https://github.com/tasks/tasks/pull/4387)
+* Fix notifications being cancelled on sync [#4386](https://github.com/tasks/tasks/issues/4386)
+* Handle missing timestamps in iCalendar data [#4389](https://github.com/tasks/tasks/issues/4389)
+* Updated list settings screens
+
+Desktop:
+  * Add list picker to task edit screen
+  * Create, update, and delete lists
+  * Use currently viewed list when adding new tasks
+  * Add ability to log out of Google Task accounts
+  * Prompt to create list if there is none
+  * Remember drawer/rail state across launch
+  * Use platform conventions for app data and logs [#4373](https://github.com/tasks/tasks/issues/4373)
+  * Fix crash on Windows when waking from sleep [#4368](https://github.com/tasks/tasks/issues/4368)
+
+Update translations:
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Czech - Fjuro
+  * German - @franconian
+  * Japanese - Norara
+  * Spanish - @Nikzouls
+  * Turkish - @emintufan
+
 ### 15.5 (2026-05-15)
 
 Desktop:
