@@ -237,6 +237,7 @@ class iCalendar(
         val isNew = caldavTask.id == org.tasks.data.entity.Task.NO_ID
         val dirty = !isNew && task.modificationDate > caldavTask.lastSync
         val local = vtodoCache.getVtodo(calendar, caldavTask)?.let { fromVtodo(it) }
+        val original = task.copy()
         task.applyRemote(remote, local)
         caldavTask.applyRemote(remote, local)
         val remoteModificationDate = task.modificationDate
@@ -291,7 +292,7 @@ class iCalendar(
 
         task.suppressSync()
         task.suppressRefresh()
-        taskSaver.save(task)
+        taskSaver.save(task, original)
         vtodoCache.putVtodo(calendar, caldavTask, vtodo)
         caldavTask.etag = eTag
         if (!dirty) {

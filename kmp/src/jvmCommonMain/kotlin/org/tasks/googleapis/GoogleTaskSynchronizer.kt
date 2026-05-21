@@ -391,13 +391,14 @@ class GoogleTaskSynchronizer(
                 setOrderAndParent(googleTask, gtask, task)
                 googleTask.remoteId = gtask.id
             }
+            val original = task.copy()
             task.title = getTruncatedValue(task.title, gtask.title, MAX_TITLE_LENGTH)
             task.completionDate = GtasksApiUtilities.gtasksCompletedTimeToUnixTime(gtask.completed?.let(::DateTime))
             val dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(gtask.due?.let(::DateTime))
             mergeDates(createDueDate(org.tasks.data.entity.Task.URGENCY_SPECIFIC_DAY, dueDate), task)
             task.notes = getTruncatedValue(task.notes, gtask.notes, MAX_DESCRIPTION_LENGTH)
             if (task.title?.isNotBlank() == true || task.notes?.isNotBlank() == true) {
-                write(task, googleTask)
+                write(task, googleTask, original)
             }
         }
         caldavDao.insertOrReplace(
@@ -413,14 +414,14 @@ class GoogleTaskSynchronizer(
         local.parent = googleTask.remoteParent?.let { googleTaskDao.getTask(it, googleTask.calendar!!) } ?: 0L
     }
 
-    private suspend fun write(task: org.tasks.data.entity.Task, googleTask: CaldavTask) {
+    private suspend fun write(task: org.tasks.data.entity.Task, googleTask: CaldavTask, original: org.tasks.data.entity.Task? = null) {
         task.suppressSync()
         task.suppressRefresh()
         if (task.isNew) {
             taskDao.createNew(task)
             alarmDao.insert(task.getDefaultAlarms(appPreferences.isDefaultDueTimeEnabled()))
         }
-        taskSaver.save(task)
+        taskSaver.save(task, original)
         googleTask
             .copy(
                 task = task.id,

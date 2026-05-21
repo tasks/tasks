@@ -470,10 +470,11 @@ class MicrosoftSynchronizer @Inject constructor(
             Timber.w("Ignoring update for dirty taskId=${task.id} remote=$remote")
             return
         }
+        val original = task.copy()
         task.applyRemote(remote, preferences.defaultPriority())
         task.suppressSync()
         task.suppressRefresh()
-        taskSaver.save(task)
+        taskSaver.save(task, original)
         vtodoCache.putVtodo(list, caldavTask, json.encodeToString(remote))
         tagDao.applyTags(task, tagDataDao, getTags(remote.categories ?: emptyList()))
         caldavTask.remoteParent = ""
@@ -536,6 +537,7 @@ class MicrosoftSynchronizer @Inject constructor(
                         obj = "${item.id}.json"
                     )
             val dirty = existing != null && task.modificationDate > existing.lastSync
+            val original = task.copy()
             if (dirty) {
                 // Don't override task.parent for dirty tasks — the local
                 // hierarchy change will be pushed in pushLocalChanges()
@@ -548,7 +550,7 @@ class MicrosoftSynchronizer @Inject constructor(
             }
             task.suppressSync()
             task.suppressRefresh()
-            taskSaver.save(task)
+            taskSaver.save(task, original)
             if (!dirty) {
                 caldavTask.lastSync = task.modificationDate
             }
