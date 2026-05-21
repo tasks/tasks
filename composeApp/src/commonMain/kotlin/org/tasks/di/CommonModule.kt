@@ -192,6 +192,7 @@ val commonModule = module {
         val scope = get<CoroutineScope>()
         val mutex = kotlinx.coroutines.sync.Mutex()
         val pending = java.util.concurrent.atomic.AtomicBoolean(false)
+        val tasksPreferences = get<TasksPreferences>()
         object : BackgroundWork {
             override fun updateCalendar(task: Task) {}
             override suspend fun scheduleRefresh(timestamp: Long) {}
@@ -208,6 +209,7 @@ val commonModule = module {
                         return@launch
                     }
                     try {
+                        tasksPreferences.set(TasksPreferences.syncSource, source.name)
                         do {
                             pending.set(false)
                             val caldavSynchronizer = get<CaldavSynchronizer>()
@@ -226,6 +228,7 @@ val commonModule = module {
                             get<OpenTasksSyncer>().sync(hasPro = hasPro)
                         } while (pending.getAndSet(false))
                     } finally {
+                        tasksPreferences.set(TasksPreferences.syncSource, SyncSource.NONE.name)
                         mutex.unlock()
                     }
                 }
