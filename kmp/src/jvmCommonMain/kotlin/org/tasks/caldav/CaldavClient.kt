@@ -150,7 +150,7 @@ open class CaldavClient(
                 if (color != 0) {
                     proppatch(
                         CalDAV.CalendarColor,
-                        String.format("#%06X%02X", color and 0xFFFFFF, color ushr 24)
+                        String.format("#%06X", color and 0xFFFFFF)
                     )
                 }
                 if (icon?.isNotBlank() == true) {
@@ -217,7 +217,7 @@ open class CaldavClient(
     @Throws(IOException::class)
     private fun setColor(xml: XmlSerializer, color: Int) {
         xml.startTag(NS_APPLE_ICAL, "calendar-color")
-        xml.text(String.format("#%06X%02X", color and 0xFFFFFF, color ushr 24))
+        xml.text(String.format("#%06X", color and 0xFFFFFF))
         xml.endTag(NS_APPLE_ICAL, "calendar-color")
     }
 
