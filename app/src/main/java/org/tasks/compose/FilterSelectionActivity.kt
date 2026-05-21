@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
@@ -25,8 +27,13 @@ import androidx.core.content.IntentCompat
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.todoroo.astrid.activity.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.compose.pickers.SearchableFilterPicker
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.listSettingsClass
 import org.tasks.dialogs.FilterPickerHiltViewModel
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
@@ -39,6 +46,7 @@ import javax.inject.Inject
 class FilterSelectionActivity : AppCompatActivity() {
 
     @Inject lateinit var theme: Theme
+    @Inject lateinit var caldavDao: CaldavDao
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +60,26 @@ class FilterSelectionActivity : AppCompatActivity() {
             ) {
                 val viewModel: FilterPickerHiltViewModel = hiltViewModel()
                 val state = viewModel.viewState.collectAsStateWithLifecycle().value
+                val scope = rememberCoroutineScope()
+                val createListLauncher = rememberLauncherForActivityResult(
+                    ActivityResultContracts.StartActivityForResult()
+                ) { result ->
+                    if (result.resultCode == RESULT_OK) {
+                        result.data
+                            ?.let {
+                                IntentCompat.getParcelableExtra(
+                                    it, MainActivity.OPEN_FILTER, Filter::class.java
+                                )
+                            }
+                            ?.let { filter ->
+                                if (widgetId != -1) {
+                                    viewModel.updateWidget(widgetId, filter)
+                                }
+                                setResult(RESULT_OK, Intent().putExtra(EXTRA_FILTER, filter))
+                                finish()
+                            }
+                    }
+                }
                 BasicAlertDialog(
                     onDismissRequest = { finish() },
                     modifier = Modifier.padding(vertical = 32.dp)
@@ -79,6 +107,18 @@ class FilterSelectionActivity : AppCompatActivity() {
                             viewModel.getColor(filter.tint, isDark) ?: onSurface
                         },
                         selected = selected,
+                        onAddClick = if (widgetId == -1) { header ->
+                            scope.launch {
+                                val accountId = header.id.toLongOrNull() ?: return@launch
+                                val account = caldavDao.getAccount(accountId) ?: return@launch
+                                createListLauncher.launch(
+                                    Intent(
+                                        this@FilterSelectionActivity,
+                                        account.listSettingsClass()
+                                    ).putExtra(EXTRA_CALDAV_ACCOUNT, account)
+                                )
+                            }
+                        } else null,
                         onClick = { filter ->
                             when (filter) {
                                 is NavigationDrawerSubheader -> {
