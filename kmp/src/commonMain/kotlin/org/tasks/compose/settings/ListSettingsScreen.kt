@@ -173,8 +173,12 @@ fun ListSettingsScreen(
 ) {
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
 
-    PlatformBackHandler(enabled = state.hasChanges) {
-        onDiscardDialogChange(true)
+    PlatformBackHandler {
+        if (state.hasChanges) {
+            onDiscardDialogChange(true)
+        } else {
+            onNavigateBack()
+        }
     }
 
     Scaffold(
