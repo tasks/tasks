@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -47,9 +48,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Surface
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TooltipBox
-import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -74,13 +75,13 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupPositionProvider
-import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.components.Chevron
+import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.compose.components.SearchBar
 import org.tasks.compose.components.TasksIcon
 import org.tasks.kmp.formatNumber
@@ -88,7 +89,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import org.tasks.themes.ColorTone
 import org.tasks.themes.tonalColor
 import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.no_lists_yet
+import tasks.kmp.generated.resources.create_a_list
 import tasks.kmp.generated.resources.search
 
 @Composable
@@ -100,6 +101,7 @@ fun TaskListDrawer(
     onAddClick: (DrawerItem.Header) -> Unit,
     onErrorClick: () -> Unit,
     expanded: Boolean = true,
+    onExpandDrawer: () -> Unit = {},
     listState: LazyListState = rememberLazyListState(),
 ) {
     var searchExpanded by remember { mutableStateOf(false) }
@@ -140,12 +142,9 @@ fun TaskListDrawer(
                 val isFirst = index == 0 || item is DrawerItem.Header
                 val isLast = index == displayedFilters.lastIndex ||
                         displayedFilters[index + 1] is DrawerItem.Header
-                val showEmptyRow = item is DrawerItem.Header &&
-                        !item.hasChildren &&
-                        item.canAdd
                 val cornerRadius = 16.dp
                 val shape = when {
-                    isFirst && isLast && !showEmptyRow -> RoundedCornerShape(cornerRadius)
+                    isFirst && isLast -> RoundedCornerShape(cornerRadius)
                     isFirst -> RoundedCornerShape(topStart = cornerRadius, topEnd = cornerRadius)
                     isLast -> RoundedCornerShape(bottomStart = cornerRadius, bottomEnd = cornerRadius)
                     else -> RoundedCornerShape(0.dp)
@@ -169,26 +168,10 @@ fun TaskListDrawer(
                         is DrawerItem.Header -> HeaderItem(
                             item = item,
                             expanded = expanded,
-                            canAdd = item.canAdd,
                             toggleCollapsed = { onClick(item) },
                             onAddClick = { onAddClick(item) },
+                            onExpandDrawer = onExpandDrawer,
                             onErrorClick = onErrorClick,
-                        )
-                    }
-                }
-                if (showEmptyRow) {
-                    Surface(
-                        modifier = Modifier
-                            .padding(horizontal = 8.dp),
-                        shape = RoundedCornerShape(
-                            bottomStart = cornerRadius,
-                            bottomEnd = cornerRadius,
-                        ),
-                        color = MaterialTheme.colorScheme.surfaceContainerLowest,
-                    ) {
-                        EmptyListRow(
-                            expanded = expanded,
-                            onClick = { onAddClick(item as DrawerItem.Header) },
                         )
                     }
                 }
@@ -407,16 +390,23 @@ fun HeaderItem(
     modifier: Modifier = Modifier,
     item: DrawerItem.Header,
     expanded: Boolean = true,
-    canAdd: Boolean,
     toggleCollapsed: () -> Unit,
     onAddClick: () -> Unit,
+    onExpandDrawer: () -> Unit = {},
     onErrorClick: () -> Unit,
 ) {
     val collapsible = item.header.collapsible && item.hasChildren
+    val isEmptyListAccount = !item.hasChildren &&
+            item.canAdd &&
+            item.header.subheaderType != NavigationDrawerSubheader.SubheaderType.PREFERENCE
     MenuRow(
         modifier = modifier,
         padding = PaddingValues(start = 16.dp),
-        onClick = if (collapsible) toggleCollapsed else null,
+        onClick = when {
+            !item.hasChildren && item.canAdd -> if (expanded) onAddClick else onExpandDrawer
+            collapsible -> toggleCollapsed
+            else -> null
+        },
     ) {
             val accountIcon = item.header.accountIcon
             if (accountIcon != null) {
@@ -443,45 +433,48 @@ fun HeaderItem(
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Spacer(modifier = Modifier.width(16.dp))
-                    Text(
-                        modifier = Modifier.weight(1f),
-                        text = item.title,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.titleMedium,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = item.title,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            style = MaterialTheme.typography.titleMedium.copy(
+                                lineHeight = MaterialTheme.typography.titleMedium.fontSize,
+                            ),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                        item.header.subtitle?.let {
+                            Text(
+                                text = stringResource(it),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                style = MaterialTheme.typography.labelSmall.copy(
+                                    lineHeight = MaterialTheme.typography.labelSmall.fontSize,
+                                ),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        }
+                    }
                     if (collapsible) {
                         IconButton(onClick = toggleCollapsed) {
                             Chevron(item.collapsed)
                         }
                     }
-                    if (canAdd) {
-                        if (item.hasChildren) {
+                    if (item.canAdd) {
+                        if (isEmptyListAccount) {
+                            TextButton(onClick = onAddClick) {
+                                Text(
+                                    text = stringResource(Res.string.create_a_list),
+                                    style = MaterialTheme.typography.labelLarge,
+                                )
+                            }
+                        } else {
                             IconButton(onClick = onAddClick) {
                                 Icon(
                                     imageVector = Icons.Outlined.Add,
                                     contentDescription = null,
                                     tint = MaterialTheme.colorScheme.onSurface,
                                 )
-                            }
-                        } else {
-                            IconButton(onClick = onAddClick) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(32.dp)
-                                        .background(
-                                            color = MaterialTheme.colorScheme.primary,
-                                            shape = androidx.compose.foundation.shape.CircleShape,
-                                        ),
-                                    contentAlignment = Alignment.Center,
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Outlined.Add,
-                                        contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.onPrimary,
-                                    )
-                                }
                             }
                         }
                     }
@@ -499,37 +492,6 @@ fun HeaderItem(
     }
 }
 
-@Composable
-private fun EmptyListRow(
-    expanded: Boolean,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    MenuRow(
-        modifier = modifier.clickable(onClick = onClick),
-    ) {
-        Icon(
-            imageVector = Icons.Outlined.Add,
-            contentDescription = null,
-            modifier = Modifier.size(24.dp),
-            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        AnimatedVisibility(
-            visible = expanded,
-            enter = fadeIn(),
-            exit = fadeOut(),
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Spacer(modifier = Modifier.width(16.dp))
-                Text(
-                    text = stringResource(Res.string.no_lists_yet),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-            }
-        }
-    }
-}
 
 @Composable
 fun MenuRow(

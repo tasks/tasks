@@ -28,7 +28,7 @@ import tasks.kmp.generated.resources.ic_round_icon
 import tasks.kmp.generated.resources.ic_webdav_logo
 import tasks.kmp.generated.resources.local_lists
 import tasks.kmp.generated.resources.microsoft
-import tasks.kmp.generated.resources.tasks_org
+import tasks.kmp.generated.resources.tasks_org_account
 
 data class AccountIcon(val drawable: DrawableResource, val tinted: Boolean)
 
@@ -45,7 +45,7 @@ val CaldavAccount.openTaskApp: OpenTaskApp?
 
 val CaldavAccount.composeTitle: StringResource?
     get() = when {
-        isTasksOrg -> Res.string.tasks_org
+        isTasksOrg -> Res.string.tasks_org_account
         isCaldavAccount -> Res.string.caldav
         isEtebaseAccount || uuid.isEteSync() -> Res.string.etesync
         uuid.isDavx5() || uuid.isDavx5Managed() -> Res.string.davx5

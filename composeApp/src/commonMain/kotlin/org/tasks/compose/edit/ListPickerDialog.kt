@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -33,20 +31,15 @@ fun ListPickerDialog(
             .padding(vertical = 32.dp)
             .heightIn(max = 500.dp),
     ) {
-        Surface(
-            shape = MaterialTheme.shapes.large,
-            color = MaterialTheme.colorScheme.surface,
-        ) {
-            SearchableFilterPicker(
-                filters = filters,
-                query = query,
-                onQueryChange = onQueryChange,
-                selected = selected,
-                onClick = onClick,
-                getIcon = getIcon,
-                getColor = getColor,
-                onAddClick = onAddClick,
-            )
-        }
+        SearchableFilterPicker(
+            filters = filters,
+            query = query,
+            onQueryChange = onQueryChange,
+            selected = selected,
+            onClick = onClick,
+            getIcon = getIcon,
+            getColor = getColor,
+            onAddClick = onAddClick,
+        )
     }
 }

@@ -1,5 +1,6 @@
 package org.tasks.filters
 
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.getString
 import org.tasks.compose.drawer.DrawerConfiguration
 import org.tasks.data.LocationFilters
@@ -11,6 +12,7 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.composeIcon
+import org.tasks.data.composeTitle
 import org.tasks.data.openTaskApp
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
@@ -44,12 +46,14 @@ class FilterProvider(
     suspend fun listPickerItems(): List<FilterListItem> {
         val accounts = caldavDao.getAccounts()
         val singleAccount = accounts.size == 1
+        val multipleTypes = accounts.distinctBy { it.composeTitle }.size > 1
         return accounts.flatMap { account ->
             caldavFilter(
                 account = account,
                 showCreate = true,
                 forceExpand = singleAccount,
                 hideCollapse = singleAccount,
+                subtitle = if (multipleTypes || account.isGoogleTasks || account.isTasksOrg) account.composeTitle else null,
             )
         }
     }
@@ -216,22 +220,25 @@ class FilterProvider(
     private suspend fun caldavFilters(
         showCreate: Boolean,
         forceExpand: Boolean,
-    ): List<FilterListItem> =
-            caldavDao
-                .getAccounts()
-                .flatMap {
-                    caldavFilter(
-                        it,
-                        showCreate,
-                        forceExpand,
-                    )
-                }
+    ): List<FilterListItem> {
+        val accounts = caldavDao.getAccounts()
+        val multipleTypes = accounts.distinctBy { it.composeTitle }.size > 1
+        return accounts.flatMap { account ->
+            caldavFilter(
+                account = account,
+                showCreate = showCreate,
+                forceExpand = forceExpand,
+                subtitle = if (multipleTypes || account.isGoogleTasks || account.isTasksOrg) account.composeTitle else null,
+            )
+        }
+    }
 
     private suspend fun caldavFilter(
         account: CaldavAccount,
         showCreate: Boolean,
         forceExpand: Boolean,
         hideCollapse: Boolean = false,
+        subtitle: StringResource? = null,
     ): List<FilterListItem> {
         val collapsed = !forceExpand && account.isCollapsed
         val children = caldavDao
@@ -264,11 +271,12 @@ class FilterProvider(
                     else -> SubheaderType.CALDAV
                 },
                 account.id.toString(),
-                if (showCreate) REQUEST_NEW_LIST else 0,
+                if (showCreate && account.accountType != TYPE_OPENTASKS) REQUEST_NEW_LIST else 0,
                 accountIcon = account.composeIcon,
                 childCount = children.size,
                 openTaskApp = openTaskApp,
                 collapsible = !hideCollapse,
+                subtitle = subtitle,
             )
         )
             .apply { if (collapsed) return this }

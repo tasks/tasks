@@ -880,6 +880,7 @@ private fun TaskListScreen(
                                 onAddClick = onAddClick,
                                 onErrorClick = { /* TODO: show sync error */ },
                                 expanded = sidebarExpanded,
+                                onExpandDrawer = { sidebarExpanded = true },
                                 listState = sidebarListState,
                             )
                             val sidebarScrimColor = MaterialTheme.colorScheme.background.copy(alpha = 0.8f)

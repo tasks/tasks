@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -33,9 +31,14 @@ import org.tasks.dialogs.FilterPickerHiltViewModel
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.NavigationDrawerSubheader
+import org.tasks.themes.TasksTheme
+import org.tasks.themes.Theme
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FilterSelectionActivity : AppCompatActivity() {
+
+    @Inject lateinit var theme: Theme
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +46,9 @@ class FilterSelectionActivity : AppCompatActivity() {
         val widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)
         val selected = IntentCompat.getParcelableExtra(intent, EXTRA_FILTER, Filter::class.java)
         setContent {
-            MaterialTheme(
-                colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
             ) {
                 val viewModel: FilterPickerHiltViewModel = hiltViewModel()
                 val state = viewModel.viewState.collectAsStateWithLifecycle().value

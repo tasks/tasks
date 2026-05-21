@@ -1,5 +1,6 @@
 package org.tasks.filters
 
+import org.jetbrains.compose.resources.StringResource
 import org.tasks.data.AccountIcon
 import org.tasks.data.OpenTaskApp
 
@@ -15,6 +16,7 @@ data class NavigationDrawerSubheader(
     val childCount: Int = 0,
     val openTaskApp: OpenTaskApp? = null,
     val collapsible: Boolean = true,
+    val subtitle: StringResource? = null,
 ) : FilterListItem {
     override fun areItemsTheSame(other: FilterListItem): Boolean {
         return other is NavigationDrawerSubheader && subheaderType == other.subheaderType && id == other.id
