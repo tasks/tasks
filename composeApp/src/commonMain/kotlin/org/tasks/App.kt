@@ -1199,10 +1199,11 @@ private fun TaskListPane(
             .nestedScroll(topBarScrollConnection)
             .nestedScroll(floatingToolbarScrollBehavior),
     ) {
-        // During narrow-mode pane transitions the listPane can briefly be composed with
-        // a zero/near-zero width. Skip rendering in that window to avoid negative layout
-        // constraints from padded descendants (e.g. FloatingToolbar's 16.dp padding).
-        if (maxWidth < 48.dp) return@BoxWithConstraints
+        // During pane transitions the listPane can briefly be composed with a zero or
+        // near-zero size. Skip rendering in that window to avoid negative layout
+        // constraints from padded descendants (e.g. FloatingToolbar's 16.dp padding)
+        // and from the ExitAlwaysFloatingToolbarScrollBehavior layout modifier.
+        if (maxWidth < 48.dp || maxHeight < 48.dp) return@BoxWithConstraints
         when (val results = state.tasks) {
             is TasksResults.Loading -> Box(
                 modifier = Modifier.fillMaxSize(),
