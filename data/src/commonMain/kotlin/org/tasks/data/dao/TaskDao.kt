@@ -161,6 +161,7 @@ WITH RECURSIVE recursive_tasks (task) AS (
     SELECT _id
     FROM tasks
     WHERE parent IN (:ids)
+    AND deleted = 0
     UNION ALL
     SELECT _id
     FROM tasks

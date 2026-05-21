@@ -362,6 +362,9 @@ GROUP BY caldav_lists.cdl_uuid
     abstract suspend fun updateParents(calendar: String)
 
     @Transaction
+    open suspend fun <T> inTransaction(block: suspend () -> T): T = block()
+
+    @Transaction
     open suspend fun move(
         task: TaskContainer,
         previousParent: Long,

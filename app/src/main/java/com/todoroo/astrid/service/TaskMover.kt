@@ -55,14 +55,13 @@ class TaskMover @Inject constructor(
             .let { taskDao.fetch(ids.minus(it.toSet())) }
             .filterNot { it.readOnly }
         val taskIds = tasks.map { it.id }
-        taskDao.setParent(0, ids.intersect(taskIds.toSet()).toList())
-        tasks.forEach { performMove(it, selectedList) }
-        if (!selectedList.isGoogleTasks) {
-            Timber.d("Updating parents for ${selectedList.uuid}")
-            caldavDao.updateParents(selectedList.uuid)
-        }
-        taskIds.dbchunk().forEach {
-            taskDao.touch(it)
+        caldavDao.inTransaction {
+            taskDao.setParent(0, ids.intersect(taskIds.toSet()).toList())
+            tasks.forEach { performMove(it, selectedList) }
+            if (!selectedList.isGoogleTasks) {
+                Timber.d("Updating parents for ${selectedList.uuid}")
+                caldavDao.updateParents(selectedList.uuid)
+            }
         }
         refreshBroadcaster.broadcastRefresh()
         syncAdapters.sync(SyncSource.TASK_CHANGE)
