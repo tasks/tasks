@@ -315,4 +315,6 @@
     <string name="no_list_available">没有可用清单</string>
     <string name="add_shortcut_to_home_screen">添加快捷方式到主屏幕</string>
     <string name="add_widget_to_home_screen">添加小部件到主屏幕</string>
+    <string name="this_device_only">仅此设备</string>
+    <string name="create_a_list">创建清单</string>
 </resources>
