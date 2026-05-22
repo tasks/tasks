@@ -1,7 +1,6 @@
 package org.tasks.activities
 
 import android.app.Activity
-import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -14,8 +13,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
-import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
@@ -25,8 +22,8 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.compose.ColorWheelDialog
 import org.tasks.compose.settings.ListSettingsScreen
-import org.tasks.compose.settings.createShortcut
-import org.tasks.compose.settings.createWidget
+import org.tasks.compose.settings.addShortcutCallback
+import org.tasks.compose.settings.addWidgetCallback
 import org.tasks.filters.CaldavFilter
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.themes.TasksTheme
@@ -88,40 +85,14 @@ class GoogleTaskListSettingsActivity : AppCompatActivity() {
                         viewModel.closeColorPicker()
                         showColorWheel = true
                     },
-                    onSubscribe = {
+                    onSubscribe = { source ->
                         startActivity(
                             Intent(this, PurchaseActivity::class.java)
-                                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "icons")
+                                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, source)
                         )
                     },
-                    onAddShortcut = if (remember { ShortcutManagerCompat.isRequestPinShortcutSupported(this@GoogleTaskListSettingsActivity) }) {
-                        {
-                            val s = viewModel.state.value
-                            val cal = s.calendar ?: return@ListSettingsScreen
-                            val acc = s.account ?: return@ListSettingsScreen
-                            createShortcut(
-                                filter = CaldavFilter(calendar = cal, account = acc),
-                                title = s.name,
-                                icon = s.icon,
-                                color = if (s.color != 0) Color(s.color) else primaryColor,
-                                defaultFilterProvider = defaultFilterProvider,
-                                firebase = firebase,
-                            )
-                        }
-                    } else null,
-                    onAddWidget = if (remember { getSystemService(AppWidgetManager::class.java).isRequestPinAppWidgetSupported }) {
-                        {
-                            val s = viewModel.state.value
-                            val cal = s.calendar ?: return@ListSettingsScreen
-                            val acc = s.account ?: return@ListSettingsScreen
-                            createWidget(
-                                filter = CaldavFilter(calendar = cal, account = acc),
-                                color = s.color,
-                                defaultFilterProvider = defaultFilterProvider,
-                                firebase = firebase,
-                            )
-                        }
-                    } else null,
+                    onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase) },
+                    onAddWidget = remember { addWidgetCallback(viewModel.state::value, defaultFilterProvider, firebase) },
                 )
 
                 if (showColorWheel) {

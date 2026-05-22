@@ -14,6 +14,7 @@ import org.tasks.R
 import org.tasks.activities.BaseListSettingsActivity.Companion.createShortcutIcon
 import org.tasks.analytics.Firebase
 import org.tasks.data.UUIDHelper
+import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.DefaultFilterProvider
@@ -22,6 +23,48 @@ import org.tasks.widget.RequestPinWidgetReceiver
 import org.tasks.widget.RequestPinWidgetReceiver.Companion.EXTRA_COLOR
 import org.tasks.widget.RequestPinWidgetReceiver.Companion.EXTRA_FILTER
 import org.tasks.widget.TasksWidget
+
+fun AppCompatActivity.addShortcutCallback(
+    stateProvider: () -> ListSettingsState,
+    primaryColor: Color,
+    defaultFilterProvider: DefaultFilterProvider,
+    firebase: Firebase,
+): (() -> Unit)? {
+    if (!ShortcutManagerCompat.isRequestPinShortcutSupported(this)) return null
+    val s = stateProvider()
+    val cal = s.calendar ?: return null
+    val acc = s.account ?: return null
+    return {
+        createShortcut(
+            filter = CaldavFilter(calendar = cal, account = acc),
+            title = s.name,
+            icon = s.icon,
+            color = if (s.color != 0) Color(s.color) else primaryColor,
+            defaultFilterProvider = defaultFilterProvider,
+            firebase = firebase,
+        )
+    }
+}
+
+fun AppCompatActivity.addWidgetCallback(
+    stateProvider: () -> ListSettingsState,
+    defaultFilterProvider: DefaultFilterProvider,
+    firebase: Firebase,
+): (() -> Unit)? {
+    val appWidgetManager = getSystemService(AppWidgetManager::class.java)
+    if (!appWidgetManager.isRequestPinAppWidgetSupported) return null
+    val s = stateProvider()
+    val cal = s.calendar ?: return null
+    val acc = s.account ?: return null
+    return {
+        createWidget(
+            filter = CaldavFilter(calendar = cal, account = acc),
+            color = s.color,
+            defaultFilterProvider = defaultFilterProvider,
+            firebase = firebase,
+        )
+    }
+}
 
 fun AppCompatActivity.createShortcut(
     filter: Filter,
