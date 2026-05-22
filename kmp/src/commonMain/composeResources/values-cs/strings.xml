@@ -317,4 +317,9 @@
     <string name="dismiss">Odmítnout</string>
     <string name="add_shortcut_to_home_screen">Přidat zkratku na domovskou obrazovku</string>
     <string name="add_widget_to_home_screen">Přidat widget na domovskou obrazovku</string>
+    <string name="edit_task">Upravit úkol</string>
+    <string name="task_title">Název úkolu</string>
+    <string name="no_list_available">Není dostupný žádný seznam</string>
+    <string name="this_device_only">Pouze toto zařízení</string>
+    <string name="create_a_list">Vytvořit seznam</string>
 </resources>
