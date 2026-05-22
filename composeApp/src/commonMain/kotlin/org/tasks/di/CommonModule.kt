@@ -460,6 +460,7 @@ val commonModule = module {
             caldavDao = get(),
             taskDeleter = get(),
             reporting = get(),
+            tasksPreferences = get(),
             purchaseState = get(),
             isDark = params.get(),
             account = params.get(),

@@ -109,6 +109,7 @@ import org.tasks.auth.OAuthProvider
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.TasksAccountDataRepository
+import org.tasks.compose.components.AnimatedBanner
 import org.tasks.compose.NavigationBarScrim
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.SignInProvider
@@ -184,6 +185,7 @@ import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
+import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
@@ -192,8 +194,12 @@ import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.TaskListViewModel
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.add_account
 import tasks.kmp.generated.resources.add_platform_account
 import tasks.kmp.generated.resources.back
+import tasks.kmp.generated.resources.dismiss
+import tasks.kmp.generated.resources.local_list_description
+import tasks.kmp.generated.resources.local_list_title
 import tasks.kmp.generated.resources.caldav
 import tasks.kmp.generated.resources.etesync
 import tasks.kmp.generated.resources.gtasks_GPr_header
@@ -419,6 +425,7 @@ fun App(
                             drawerViewModel = drawerViewModel,
                             onSettingsClick = { backStack.add(SettingsDestination) },
                             onSubscribe = { backStack.add(DesktopProDestination()) },
+                            onAddAccount = { backStack.add(AddAccountDestination) },
                         )
                     }
                     entry<SettingsDestination> {
@@ -733,6 +740,7 @@ private fun TaskListScreen(
     drawerViewModel: DrawerViewModel,
     onSettingsClick: () -> Unit,
     onSubscribe: () -> Unit,
+    onAddAccount: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     val drawerState by drawerViewModel.state.collectAsState()
@@ -1029,6 +1037,7 @@ private fun TaskListScreen(
                     }
                 },
                 onSubscribe = onSubscribe,
+                onAddAccount = onAddAccount,
             )
         }
     }
@@ -1067,6 +1076,7 @@ private fun TaskListScreen(
                     }
                 },
                 onSubscribe = onSubscribe,
+                onAddAccount = onAddAccount,
             )
         }
     }
@@ -1327,6 +1337,7 @@ private fun ListSettingsDialog(
     onDismiss: (CaldavCalendar?) -> Unit,
     onDeleted: () -> Unit = {},
     onSubscribe: () -> Unit,
+    onAddAccount: () -> Unit = {},
     viewModelKey: String = "list_settings_${account.id}_${calendar.uuid}",
 ) {
     when {
@@ -1346,6 +1357,16 @@ private fun ListSettingsDialog(
             onDismiss = onDismiss,
             onDeleted = onDeleted,
             onSubscribe = onSubscribe,
+            viewModelKey = viewModelKey,
+        )
+        account.isLocalList -> LocalListSettingsDialog(
+            account = account,
+            calendar = calendar,
+            isDark = isDark,
+            onDismiss = onDismiss,
+            onDeleted = onDeleted,
+            onSubscribe = onSubscribe,
+            onAddAccount = onAddAccount,
             viewModelKey = viewModelKey,
         )
         else -> CaldavListSettingsDialog(
@@ -1407,6 +1428,78 @@ private fun CaldavListSettingsDialog(
                 onSubscribe()
             },
             onSubscribe = onSubscribe,
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun LocalListSettingsDialog(
+    account: CaldavAccount,
+    calendar: CaldavCalendar,
+    isDark: Boolean,
+    onDismiss: (CaldavCalendar?) -> Unit,
+    onDeleted: () -> Unit = {},
+    onSubscribe: () -> Unit,
+    onAddAccount: () -> Unit = {},
+    viewModelKey: String,
+) {
+    val viewModel = koinViewModel<LocalListSettingsViewModel>(
+        key = viewModelKey,
+        parameters = { org.koin.core.parameter.parametersOf(isDark, account, calendar) },
+    )
+    val state by viewModel.state.collectAsState()
+    val showBanner by viewModel.showBanner.collectAsState()
+
+    val dismiss = { onDismiss(null) }
+
+    BasicAlertDialog(
+        onDismissRequest = {
+            if (state.hasChanges) {
+                viewModel.showDiscardDialog()
+            } else {
+                dismiss()
+            }
+        },
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        ListSettingsScreen(
+            viewModel = viewModel,
+            onSave = {
+                viewModel.save(
+                    onDismiss = { onDismiss(null) },
+                    onComplete = { _, calendar -> onDismiss(calendar) },
+                )
+            },
+            onDelete = { viewModel.delete { onDeleted() } },
+            onNavigateBack = dismiss,
+            onSelectColor = {
+                if (state.hasPro || it.isFree) {
+                    viewModel.selectColor(it.originalColor)
+                } else {
+                    viewModel.closeColorPicker()
+                    onSubscribe()
+                }
+            },
+            onColorWheelSelected = {
+                viewModel.closeColorPicker()
+                onSubscribe()
+            },
+            onSubscribe = onSubscribe,
+            headerContent = {
+                AnimatedBanner(
+                    visible = showBanner,
+                    title = stringResource(Res.string.local_list_title),
+                    body = stringResource(Res.string.local_list_description),
+                    dismissText = stringResource(Res.string.dismiss),
+                    onDismiss = { viewModel.dismissBanner() },
+                    action = stringResource(Res.string.add_account),
+                    onAction = {
+                        onDismiss(null)
+                        onAddAccount()
+                    },
+                )
+            },
         )
     }
 }

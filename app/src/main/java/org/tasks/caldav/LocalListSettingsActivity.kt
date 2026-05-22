@@ -21,7 +21,6 @@ import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.jetbrains.compose.resources.stringResource
-import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel
@@ -32,7 +31,6 @@ import org.tasks.compose.settings.createShortcut
 import org.tasks.compose.settings.createWidget
 import org.tasks.filters.CaldavFilter
 import org.tasks.preferences.DefaultFilterProvider
-import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksTheme
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.add_account
@@ -44,7 +42,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LocalListSettingsActivity : AppCompatActivity() {
 
-    @Inject lateinit var preferences: Preferences
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var firebase: Firebase
 
@@ -59,13 +56,7 @@ class LocalListSettingsActivity : AppCompatActivity() {
                 val state by viewModel.state.collectAsStateWithLifecycle()
                 var showColorWheel by rememberSaveable { mutableStateOf(false) }
                 val primaryColor = MaterialTheme.colorScheme.primary
-                var bannerVisible by rememberSaveable {
-                    mutableStateOf(
-                        state.isNew && !preferences.getBoolean(
-                            R.string.p_local_list_banner_dismissed, false
-                        )
-                    )
-                }
+                val bannerVisible by viewModel.showBanner.collectAsStateWithLifecycle()
 
                 ListSettingsScreen(
                     viewModel = viewModel,
@@ -73,9 +64,6 @@ class LocalListSettingsActivity : AppCompatActivity() {
                         viewModel.save(
                             onDismiss = { finish() },
                             onComplete = { account, calendar ->
-                                preferences.setBoolean(
-                                    R.string.p_local_list_banner_dismissed, true
-                                )
                                 setResult(
                                     Activity.RESULT_OK,
                                     Intent(TaskListFragment.ACTION_RELOAD).putExtra(
@@ -168,12 +156,7 @@ class LocalListSettingsActivity : AppCompatActivity() {
                             title = stringResource(Res.string.local_list_title),
                             body = stringResource(Res.string.local_list_description),
                             dismissText = stringResource(Res.string.dismiss),
-                            onDismiss = {
-                                bannerVisible = false
-                                preferences.setBoolean(
-                                    R.string.p_local_list_banner_dismissed, true
-                                )
-                            },
+                            onDismiss = { viewModel.dismissBanner() },
                             action = stringResource(Res.string.add_account),
                             onAction = {
                                 startActivity(

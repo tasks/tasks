@@ -3,7 +3,10 @@ package org.tasks.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.AnalyticsEvents
@@ -13,6 +16,7 @@ import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.preferences.TasksPreferences
 import org.tasks.service.TaskDeleter
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.name_cannot_be_empty
@@ -21,6 +25,7 @@ open class LocalListSettingsViewModel(
     private val caldavDao: CaldavDao,
     private val taskDeleter: TaskDeleter,
     private val reporting: Reporting,
+    private val tasksPreferences: TasksPreferences,
     purchaseState: PurchaseState,
     isDark: Boolean,
     account: CaldavAccount,
@@ -29,11 +34,24 @@ open class LocalListSettingsViewModel(
     internal val stateManager: ListSettingsStateManager = ListSettingsStateManager(isDark, purchaseState, account, calendar, hasColorWheel),
 ) : ViewModel(), ListSettingsCallbacks by stateManager {
 
+    protected val _showBanner = MutableStateFlow(
+        !runBlocking { tasksPreferences.get(TasksPreferences.localListBannerDismissed, false) }
+    )
+    open val showBanner = _showBanner.asStateFlow()
+
+    open fun dismissBanner() {
+        _showBanner.value = false
+        viewModelScope.launch {
+            tasksPreferences.set(TasksPreferences.localListBannerDismissed, true)
+        }
+    }
+
     open override fun setName(value: String) = stateManager.setName(value)
     open override fun setColor(value: Int) = stateManager.setColor(value)
     open override fun setIcon(value: String) = stateManager.setIcon(value)
 
     fun save(onDismiss: () -> Unit = {}, onComplete: (CaldavAccount, CaldavCalendar) -> Unit) {
+        dismissBanner()
         if (state.value.isLoading) return
         viewModelScope.launch {
             val s = state.value
