@@ -135,6 +135,7 @@
     <string name="button_unsubscribe">Cancel subscription</string>
     <string name="migrate">Migrate</string>
     <string name="local_lists">Local lists</string>
+    <string name="this_device_only">This device only</string>
     <string name="email_to_task">Email to task</string>
     <string name="email_to_task_address">Your email address</string>
     <string name="email_to_task_calendar">Destination list</string>

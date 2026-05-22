@@ -33,6 +33,7 @@ import tasks.kmp.generated.resources.drawer_filters
 import tasks.kmp.generated.resources.drawer_local_lists
 import tasks.kmp.generated.resources.drawer_places
 import tasks.kmp.generated.resources.drawer_tags
+import tasks.kmp.generated.resources.this_device_only
 
 class FilterProvider(
     private val filterDao: FilterDao,
@@ -53,7 +54,14 @@ class FilterProvider(
                 showCreate = true,
                 forceExpand = singleAccount,
                 hideCollapse = singleAccount,
-                subtitle = if (multipleTypes || account.isGoogleTasks || account.isTasksOrg) account.composeTitle else null,
+                subtitle = when {
+                    multipleTypes && account.isLocalList ->
+                        Res.string.this_device_only
+                    multipleTypes || account.isGoogleTasks || account.isTasksOrg ->
+                        account.composeTitle
+                    else ->
+                        null
+                },
             )
         }
     }
@@ -228,7 +236,14 @@ class FilterProvider(
                 account = account,
                 showCreate = showCreate,
                 forceExpand = forceExpand,
-                subtitle = if (multipleTypes || account.isGoogleTasks || account.isTasksOrg) account.composeTitle else null,
+                subtitle = when {
+                    multipleTypes && account.isLocalList ->
+                        Res.string.this_device_only
+                    multipleTypes || account.isGoogleTasks || account.isTasksOrg ->
+                        account.composeTitle
+                    else ->
+                        null
+                },
             )
         }
     }
