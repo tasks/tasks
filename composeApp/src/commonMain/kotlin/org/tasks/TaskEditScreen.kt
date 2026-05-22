@@ -145,6 +145,7 @@ fun TaskEditScreen(
                     }
                     val listIcon = remember(list) { filterPickerViewModel.getIcon(list) }
                     var showListPicker by remember { mutableStateOf(false) }
+                    LaunchedEffect(list) { showListPicker = false }
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
@@ -196,8 +197,6 @@ fun TaskEditScreen(
                             },
                             onAddClick = { header ->
                                 header.id.toLongOrNull()?.let { accountId ->
-                                    showListPicker = false
-                                    filterPickerViewModel.onQueryChange("")
                                     onCreateList(accountId)
                                 }
                             },

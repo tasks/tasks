@@ -173,7 +173,7 @@ fun ListSettingsScreen(
 ) {
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
 
-    PlatformBackHandler {
+    PlatformBackHandler(enabled = true) {
         if (state.hasChanges) {
             onDiscardDialogChange(true)
         } else {
