@@ -19,6 +19,7 @@ fun ColorPickerDialog(
     colors: List<PickerColor>,
     onDismiss: () -> Unit,
     onColorSelected: (PickerColor) -> Unit,
+    onSubscribe: () -> Unit = {},
     onColorWheelSelected: () -> Unit = {},
     showColorWheel: Boolean = true,
 ) {
@@ -39,6 +40,10 @@ fun ColorPickerDialog(
                     onSelected = { color ->
                         onColorSelected(color)
                         onDismiss()
+                    },
+                    onSubscribe = {
+                        onDismiss()
+                        onSubscribe()
                     },
                     onColorWheelSelected = {
                         onColorWheelSelected()

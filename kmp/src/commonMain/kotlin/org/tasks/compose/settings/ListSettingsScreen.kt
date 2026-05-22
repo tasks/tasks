@@ -21,8 +21,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.NotInterested
 import androidx.compose.material.icons.outlined.PersonAdd
 import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material.icons.outlined.Save
@@ -167,12 +169,12 @@ fun ListSettingsScreen(
     onRemovePrincipal: (PrincipalWithAccess) -> Unit,
     onOpenColorPicker: () -> Unit,
     onCloseColorPicker: () -> Unit,
-    onSelectColor: (PickerColor) -> Unit,
+    onSelectColor: (PickerColor?) -> Unit,
     onColorWheelSelected: () -> Unit,
     onOpenIconPicker: () -> Unit,
     onCloseIconPicker: () -> Unit,
     onSelectIcon: (String) -> Unit,
-    onSubscribe: () -> Unit,
+    onSubscribe: (String) -> Unit,
     onAddShortcut: (() -> Unit)? = null,
     onAddWidget: (() -> Unit)? = null,
     headerContent: @Composable () -> Unit = {},
@@ -263,26 +265,47 @@ fun ListSettingsScreen(
                 SettingsItemCard(position = CardPosition.First) {
                     PreferenceRow(
                         title = stringResource(Res.string.color),
-                        showChevron = true,
+                        showChevron = state.color == 0,
                         onClick = onOpenColorPicker,
                         leading = {
-                            val bgColor = if (state.color != 0)
-                                Color(
+                            if (state.color != 0) {
+                                val bgColor = Color(
                                     state.pickerColors
                                         .firstOrNull { it.originalColor == state.color }
                                         ?.primaryColor
                                         ?: state.color
                                 )
-                            else
-                                MaterialTheme.colorScheme.primary
-                            Box(
-                                modifier = Modifier
-                                    .padding(start = SettingsContentPadding)
-                                    .size(SettingsIconSize)
-                                    .clip(CircleShape)
-                                    .background(bgColor),
-                            )
+                                Box(
+                                    modifier = Modifier
+                                        .padding(start = SettingsContentPadding)
+                                        .size(SettingsIconSize)
+                                        .clip(CircleShape)
+                                        .background(bgColor),
+                                )
+                            } else {
+                                Icon(
+                                    imageVector = Icons.Outlined.NotInterested,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier
+                                        .padding(start = SettingsContentPadding)
+                                        .size(SettingsIconSize),
+                                )
+                            }
                         },
+                        trailing = if (state.color != 0) {
+                            {
+                                IconButton(
+                                    onClick = { onSelectColor(null) },
+                                    modifier = Modifier.padding(end = 4.dp),
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Close,
+                                        contentDescription = null,
+                                    )
+                                }
+                            }
+                        } else null,
                     )
                 }
                 SettingsItemCard(position = CardPosition.Last) {
@@ -419,6 +442,7 @@ fun ListSettingsScreen(
             colors = state.pickerColors,
             onDismiss = onCloseColorPicker,
             onColorSelected = onSelectColor,
+            onSubscribe = { onSubscribe("list_colors") },
             onColorWheelSelected = onColorWheelSelected,
             showColorWheel = state.hasColorWheel,
         )
@@ -442,7 +466,7 @@ fun ListSettingsScreen(
                 onSelected = { onSelectIcon(it.name) },
                 toggleCollapsed = iconPickerViewModel::setCollapsed,
                 hasPro = state.hasPro,
-                subscribe = onSubscribe,
+                subscribe = { onSubscribe("icons") },
             )
         }
     }

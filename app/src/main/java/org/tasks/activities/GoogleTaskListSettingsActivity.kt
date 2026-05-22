@@ -82,26 +82,11 @@ class GoogleTaskListSettingsActivity : AppCompatActivity() {
                     },
                     onNavigateBack = { finish() },
                     onSelectColor = {
-                        if (state.hasPro || it.isFree) {
-                            viewModel.selectColor(it.originalColor)
-                        } else {
-                            viewModel.closeColorPicker()
-                            startActivity(
-                                Intent(this, PurchaseActivity::class.java)
-                                    .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "list_colors")
-                            )
-                        }
+                        viewModel.selectColor(it?.originalColor ?: 0)
                     },
                     onColorWheelSelected = {
                         viewModel.closeColorPicker()
-                        if (state.hasPro) {
-                            showColorWheel = true
-                        } else {
-                            startActivity(
-                                Intent(this, PurchaseActivity::class.java)
-                                    .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "list_colors")
-                            )
-                        }
+                        showColorWheel = true
                     },
                     onSubscribe = {
                         startActivity(

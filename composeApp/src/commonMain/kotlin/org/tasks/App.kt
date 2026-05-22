@@ -424,7 +424,7 @@ fun App(
                             viewModel = taskListViewModel,
                             drawerViewModel = drawerViewModel,
                             onSettingsClick = { backStack.add(SettingsDestination) },
-                            onSubscribe = { backStack.add(DesktopProDestination()) },
+                            onSubscribe = { backStack.add(PricingDestination()) },
                             onAddAccount = { backStack.add(AddAccountDestination) },
                         )
                     }
@@ -1416,18 +1416,13 @@ private fun CaldavListSettingsDialog(
             onDelete = { viewModel.delete { onDeleted() } },
             onNavigateBack = dismiss,
             onSelectColor = {
-                if (state.hasPro || it.isFree) {
-                    viewModel.selectColor(it.originalColor)
-                } else {
-                    viewModel.closeColorPicker()
-                    onSubscribe()
-                }
+                viewModel.selectColor(it?.originalColor ?: 0)
             },
             onColorWheelSelected = {
                 viewModel.closeColorPicker()
                 onSubscribe()
             },
-            onSubscribe = onSubscribe,
+            onSubscribe = { onSubscribe() },
         )
     }
 }
@@ -1474,18 +1469,13 @@ private fun LocalListSettingsDialog(
             onDelete = { viewModel.delete { onDeleted() } },
             onNavigateBack = dismiss,
             onSelectColor = {
-                if (state.hasPro || it.isFree) {
-                    viewModel.selectColor(it.originalColor)
-                } else {
-                    viewModel.closeColorPicker()
-                    onSubscribe()
-                }
+                viewModel.selectColor(it?.originalColor ?: 0)
             },
             onColorWheelSelected = {
                 viewModel.closeColorPicker()
                 onSubscribe()
             },
-            onSubscribe = onSubscribe,
+            onSubscribe = { onSubscribe() },
             headerContent = {
                 AnimatedBanner(
                     visible = showBanner,
@@ -1544,18 +1534,13 @@ private fun GoogleTaskListSettingsDialog(
             onDelete = { viewModel.delete { onDeleted() } },
             onNavigateBack = dismiss,
             onSelectColor = {
-                if (state.hasPro || it.isFree) {
-                    viewModel.selectColor(it.originalColor)
-                } else {
-                    viewModel.closeColorPicker()
-                    onSubscribe()
-                }
+                viewModel.selectColor(it?.originalColor ?: 0)
             },
             onColorWheelSelected = {
                 viewModel.closeColorPicker()
                 onSubscribe()
             },
-            onSubscribe = onSubscribe,
+            onSubscribe = { onSubscribe() },
         )
     }
 }
@@ -1595,18 +1580,13 @@ private fun EtebaseListSettingsDialog(
             onDelete = { viewModel.delete { onDeleted() } },
             onNavigateBack = dismiss,
             onSelectColor = {
-                if (state.hasPro || it.isFree) {
-                    viewModel.selectColor(it.originalColor)
-                } else {
-                    viewModel.closeColorPicker()
-                    onSubscribe()
-                }
+                viewModel.selectColor(it?.originalColor ?: 0)
             },
             onColorWheelSelected = {
                 viewModel.closeColorPicker()
                 onSubscribe()
             },
-            onSubscribe = onSubscribe,
+            onSubscribe = { onSubscribe() },
         )
     }
 }

@@ -60,8 +60,7 @@ fun PreferenceRow(
                 if (enabled && onClick != null) Modifier.clickable(onClick = onClick)
                 else Modifier
             )
-            .alpha(if (enabled) 1f else 0.38f)
-            .padding(vertical = SettingsRowPadding),
+            .alpha(if (enabled) 1f else 0.38f),
         verticalAlignment = Alignment.CenterVertically
     ) {
         when {
@@ -73,7 +72,7 @@ fun PreferenceRow(
                     imageVector = icon,
                     contentDescription = null,
                     modifier = Modifier
-                        .padding(start = SettingsContentPadding)
+                        .padding(start = SettingsContentPadding, top = SettingsRowPadding, bottom = SettingsRowPadding)
                         .size(SettingsIconSize),
                     tint = iconTint ?: defaultTint
                 )
@@ -83,7 +82,7 @@ fun PreferenceRow(
                     painter = painterResource(iconDrawable),
                     contentDescription = null,
                     modifier = Modifier
-                        .padding(start = SettingsContentPadding)
+                        .padding(start = SettingsContentPadding, top = SettingsRowPadding, bottom = SettingsRowPadding)
                         .size(SettingsIconSize),
                     tint = iconTint ?: defaultTint
                 )
@@ -98,7 +97,7 @@ fun PreferenceRow(
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(end = SettingsContentPadding)
+                .padding(end = SettingsContentPadding, top = SettingsRowPadding, bottom = SettingsRowPadding)
         ) {
             Text(
                 text = title,

@@ -50,6 +50,7 @@ fun ColorPicker(
     hasPro: Boolean,
     colors: List<PickerColor>,
     onSelected: (PickerColor) -> Unit,
+    onSubscribe: () -> Unit = {},
     onColorWheelSelected: () -> Unit = {},
     showColorWheel: Boolean = true,
 ) {
@@ -63,16 +64,17 @@ fun ColorPicker(
         if (showColorWheel) {
             item {
                 ColorWheelCircle(
-                    onClick = onColorWheelSelected,
+                    onClick = if (hasPro) onColorWheelSelected else onSubscribe,
                     hasPro = hasPro,
                 )
             }
         }
         items(colors) { color ->
+            val locked = !(hasPro || color.isFree)
             ColorCircle(
                 color = color,
-                locked = !(hasPro || color.isFree),
-                onClick = { onSelected(color) }
+                locked = locked,
+                onClick = { if (locked) onSubscribe() else onSelected(color) }
             )
         }
     }
