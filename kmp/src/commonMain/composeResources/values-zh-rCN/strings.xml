@@ -313,5 +313,4 @@
     <string name="edit_task">编辑任务</string>
     <string name="task_title">任务标题</string>
     <string name="no_list_available">没有可用清单</string>
-    <string name="no_lists_yet">尚无清单</string>
 </resources>

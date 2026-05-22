@@ -317,5 +317,4 @@
     <string name="task_title">Titre de la tâche</string>
     <string name="no_list_available">Aucune liste disponible</string>
     <string name="add_platform_account">Ajouter le compte %1$s</string>
-    <string name="no_lists_yet">Pas encore de liste</string>
 </resources>
