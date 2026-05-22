@@ -365,7 +365,7 @@ class iCalendarMergeTest {
     @Test
     fun remoteAddsModified() {
         val modified = newDateTime().minusMinutes(5)
-        newTask(with(TaskMaker.MODIFICATION_TIME, modified.minusMinutes(1)))
+        newTask()
             .applyRemote(
                 remote = newIcal(with(LAST_MODIFIED, modified.toUTC())),
                 local = null
@@ -423,10 +423,54 @@ class iCalendarMergeTest {
         newTask(with(TaskMaker.MODIFICATION_TIME, modified))
             .applyRemote(
                 remote = newIcal(),
+                local = newIcal(with(LAST_MODIFIED, modified.toUTC()))
+            )
+            .let {
+                assertEquals(modified.millis, it.modificationDate)
+            }
+    }
+
+    @Test
+    fun missingLastModifiedFallsBackToCreated() {
+        val created = newDateTime().minusMinutes(5)
+        newTask()
+            .applyRemote(
+                remote = newIcal(with(CREATED_AT, created.toUTC())),
+                local = null
+            )
+            .let {
+                assertEquals(created.millis, it.modificationDate)
+            }
+    }
+
+    @Test
+    fun lastModifiedBeatsCreated() {
+        val created = newDateTime().minusMinutes(10)
+        val modified = newDateTime().minusMinutes(5)
+        newTask()
+            .applyRemote(
+                remote = newIcal(
+                    with(CREATED_AT, created.toUTC()),
+                    with(LAST_MODIFIED, modified.toUTC()),
+                ),
                 local = null
             )
             .let {
                 assertEquals(modified.millis, it.modificationDate)
+            }
+    }
+
+    @Test
+    fun missingLastModifiedAndCreatedFallsBackToCurrentTime() {
+        val before = org.tasks.time.DateTimeUtils2.currentTimeMillis()
+        newTask()
+            .applyRemote(
+                remote = newIcal(),
+                local = null
+            )
+            .let {
+                assertTrue(it.modificationDate >= before)
+                assertTrue(it.modificationDate <= org.tasks.time.DateTimeUtils2.currentTimeMillis())
             }
     }
 
