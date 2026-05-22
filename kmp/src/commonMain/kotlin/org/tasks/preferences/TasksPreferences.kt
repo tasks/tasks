@@ -68,5 +68,6 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val blogPendingPost = stringPreferencesKey("blog_pending_post")
         val blogDismissedPostId = stringPreferencesKey("blog_dismissed_post_id")
         val collectStatistics = booleanPreferencesKey("collect_statistics")
+        val sidebarExpanded = booleanPreferencesKey("sidebar_expanded")
     }
 }

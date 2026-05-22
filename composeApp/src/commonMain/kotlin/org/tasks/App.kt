@@ -764,7 +764,8 @@ private fun TaskListScreen(
         )
     }
 
-    var sidebarExpanded by remember { mutableStateOf(false) }
+    val sidebarExpanded by drawerViewModel.sidebarExpanded.collectAsState()
+
     var newListAccountId by rememberSaveable { mutableStateOf<Long?>(null) }
     var selectCreatedList by remember { mutableStateOf(false) }
     var createTaskAfterList by rememberSaveable { mutableStateOf(false) }
@@ -847,7 +848,7 @@ private fun TaskListScreen(
     // Note: when the detail pane is open, TaskEditScreen installs its own back handler
     // so that back/escape saves the edit before navigating back.
     PlatformBackHandler(enabled = sidebarExpanded && !hasDetailOpen) {
-        sidebarExpanded = false
+        drawerViewModel.setSidebarExpanded(false)
     }
 
     BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
@@ -880,7 +881,7 @@ private fun TaskListScreen(
                                 onAddClick = onAddClick,
                                 onErrorClick = { /* TODO: show sync error */ },
                                 expanded = sidebarExpanded,
-                                onExpandDrawer = { sidebarExpanded = true },
+                                onExpandDrawer = { drawerViewModel.setSidebarExpanded(true) },
                                 listState = sidebarListState,
                             )
                             val sidebarScrimColor = MaterialTheme.colorScheme.background.copy(alpha = 0.8f)
@@ -906,7 +907,7 @@ private fun TaskListScreen(
                         onShowSortSheet = { showSortSheet = true },
                         onTaskClick = onTaskClick,
                         showMenuButton = true,
-                        onMenuClick = { sidebarExpanded = !sidebarExpanded },
+                        onMenuClick = { drawerViewModel.setSidebarExpanded(!sidebarExpanded) },
                         taskEditViewModel = taskEditViewModel,
                         listPickerViewModel = listPickerViewModel,
                         onCreateList = onCreateList,

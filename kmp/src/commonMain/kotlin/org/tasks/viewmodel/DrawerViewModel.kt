@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.tasks.billing.PurchaseState
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.throttleLatest
@@ -48,6 +49,18 @@ open class DrawerViewModel(
 
     private val _state = MutableStateFlow(State())
     val state = _state.asStateFlow()
+
+    private val _sidebarExpanded = MutableStateFlow(
+        runBlocking { tasksPreferences.get(TasksPreferences.sidebarExpanded, true) }
+    )
+    val sidebarExpanded = _sidebarExpanded.asStateFlow()
+
+    fun setSidebarExpanded(expanded: Boolean) {
+        _sidebarExpanded.value = expanded
+        viewModelScope.launch {
+            tasksPreferences.set(TasksPreferences.sidebarExpanded, expanded)
+        }
+    }
 
     init {
         updateFilters()
