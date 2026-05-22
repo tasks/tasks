@@ -35,6 +35,12 @@ import tasks.kmp.generated.resources.drawer_places
 import tasks.kmp.generated.resources.drawer_tags
 import tasks.kmp.generated.resources.this_device_only
 
+private fun CaldavAccount.drawerSubtitle(multipleTypes: Boolean): StringResource? = when {
+    multipleTypes && isLocalList -> Res.string.this_device_only
+    multipleTypes || isGoogleTasks || isTasksOrg -> composeTitle
+    else -> null
+}
+
 class FilterProvider(
     private val filterDao: FilterDao,
     private val tagDataDao: TagDataDao,
@@ -54,14 +60,7 @@ class FilterProvider(
                 showCreate = true,
                 forceExpand = singleAccount,
                 hideCollapse = singleAccount,
-                subtitle = when {
-                    multipleTypes && account.isLocalList ->
-                        Res.string.this_device_only
-                    multipleTypes || account.isGoogleTasks || account.isTasksOrg ->
-                        account.composeTitle
-                    else ->
-                        null
-                },
+                subtitle = account.drawerSubtitle(multipleTypes),
             )
         }
     }
@@ -236,14 +235,7 @@ class FilterProvider(
                 account = account,
                 showCreate = showCreate,
                 forceExpand = forceExpand,
-                subtitle = when {
-                    multipleTypes && account.isLocalList ->
-                        Res.string.this_device_only
-                    multipleTypes || account.isGoogleTasks || account.isTasksOrg ->
-                        account.composeTitle
-                    else ->
-                        null
-                },
+                subtitle = account.drawerSubtitle(multipleTypes),
             )
         }
     }
