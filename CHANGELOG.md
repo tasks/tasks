@@ -4,6 +4,7 @@
 * Improve CalDAV color sync compatibility - @poke [#4387](https://github.com/tasks/tasks/pull/4387)
 * Fix notifications being cancelled on sync [#4386](https://github.com/tasks/tasks/issues/4386)
 * Handle missing timestamps in iCalendar data [#4389](https://github.com/tasks/tasks/issues/4389)
+* Add subtitles to disambiguate accounts in drawer
 * Updated list settings screens
 
 Desktop:
@@ -18,8 +19,9 @@ Desktop:
 
 Update translations:
   * Bulgarian - 109247019824
-  * Chinese (Simplified) - 大王叫我来巡山
+  * Chinese (Simplified) - 大王叫我来巡山, Sketch6580
   * Czech - Fjuro
+  * French - @FlorianLeChat
   * German - @franconian
   * Japanese - Norara
   * Spanish - @Nikzouls
