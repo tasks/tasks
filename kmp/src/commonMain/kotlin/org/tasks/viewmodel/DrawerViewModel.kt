@@ -28,6 +28,7 @@ import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.preferences.TasksPreferences
+import org.tasks.kmp.org.tasks.themes.ColorProvider
 
 private const val TAG = "DrawerViewModel"
 
@@ -109,7 +110,7 @@ open class DrawerViewModel(
                 DrawerItem.Filter(
                     title = item.title,
                     icon = item.resolveIcon(purchaseState),
-                    color = if (purchaseState.purchasedThemes()) item.tint else 0,
+                    color = if (purchaseState.purchasedThemes() || ColorProvider.isFreeColor(item.tint)) item.tint else 0,
                     adjustColor = item.tint != 0,
                     count = item.count.takeIf { it != NO_COUNT } ?: try {
                         taskDao.count(item)
@@ -140,7 +141,7 @@ open class DrawerViewModel(
         is Filter -> DrawerItem.Filter(
             title = title,
             icon = resolveIcon(purchaseState),
-            color = if (purchaseState.purchasedThemes()) tint else 0,
+            color = if (purchaseState.purchasedThemes() || ColorProvider.isFreeColor(tint)) tint else 0,
             adjustColor = tint != 0,
             count = count.takeIf { it != NO_COUNT } ?: try {
                 taskDao.count(this)
