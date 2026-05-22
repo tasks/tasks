@@ -567,7 +567,6 @@
     <string name="sign_in_with_google">Logi sisse Google\'i kasutajakontoga</string>
     <string name="migrate">Teisalda andmed</string>
     <string name="alarm_before_start">%s enne alustamise tähtaega</string>
-    <string name="add_widget_to_home_screen">Lisa vidin avalehele</string>
     <string name="account_not_included">Ei sisaldu „Paku oma hind“ taseme tellimustes</string>
     <string name="pro_free_trial">Uued tellijad võivad kasutada 7-päevast tasuta testperioodi, mida on võimalik igal ajahetkel katkestada</string>
     <string name="filter_eisenhower_box_2">Tähtis ja mittekiire</string>
@@ -583,7 +582,6 @@
     <string name="alarm_before_due">%s enne lõpptähtaega</string>
     <string name="auto_dismiss_datetime">Sulge kuupäevavalija automaatselt</string>
     <string name="android_auto_backup">Androidi varukoopiateenus</string>
-    <string name="add_shortcut_to_home_screen">Lisa link avalehele</string>
     <string name="calendar_event_created">Kalendrisündmus loodud %s jaoks</string>
     <string name="github_sponsors">Sponsorid GitHubis</string>
     <string name="your_subscription_expired">Sinu tellimus on aegunud. Teenuse jätkamiseks uuenda tellimust.</string>

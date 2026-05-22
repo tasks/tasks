@@ -201,4 +201,6 @@
     <string name="reinitialize_account">Εκ νέου αρχικοποίηση</string>
     <string name="gtasks_GLA_errorIOAuth">Συγγνώμη, υπήρξε σφάλμα επικοινωνίας με τους διακομιστές της Google. Παρακαλουμε δοκιμάστε πάλι μετά.</string>
     <string name="dismiss">Απορρίψτε</string>
+    <string name="add_shortcut_to_home_screen">Προσθήκη συντόμευσης στην αρχική οθόνη</string>
+    <string name="add_widget_to_home_screen">Προσθήκη γραφικού στοιχείου στην αρχική οθόνη</string>
 </resources>

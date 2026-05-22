@@ -620,8 +620,6 @@
     <string name="hint_customize_edit_title">அதிகமான தகவல்கள்?</string>
     <string name="hint_customize_edit_body">புலங்களை மறுசீரமைப்பதன் மூலம் அல்லது அகற்றுவதன் மூலம் இந்தத் திரையைத் தனிப்பயனாக்கலாம்</string>
     <string name="enable_alarms_description">சரியான நேரத்தில் உங்களுக்கு அறிவிக்கப்பட்டிருப்பதை உறுதிப்படுத்த, அமைப்புகளில் அலாரங்கள் மற்றும் நினைவூட்டல்களை அமைக்க இசைவு வழங்கவும்</string>
-    <string name="add_shortcut_to_home_screen">முகப்புத் திரையில் குறுக்குவழியைச் சேர்க்கவும்</string>
-    <string name="add_widget_to_home_screen">முகப்புத் திரையில் விட்செட்டைச் சேர்க்கவும்</string>
     <string name="button_learn_more">மேலும் அறிக</string>
     <string name="open_source">திறந்த மூல</string>
     <string name="upgrade_more_customization">மேலும் தனிப்பயனாக்கம்</string>

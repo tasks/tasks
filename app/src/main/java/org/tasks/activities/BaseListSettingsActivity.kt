@@ -1,8 +1,5 @@
 package org.tasks.activities
 
-import android.app.PendingIntent
-import android.appwidget.AppWidgetManager
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -17,8 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.core.content.pm.ShortcutInfoCompat
-import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -26,7 +21,6 @@ import androidx.lifecycle.lifecycleScope
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
-import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.analytics.Firebase
@@ -39,19 +33,14 @@ import org.tasks.compose.IconPickerActivity.Companion.launchIconPicker
 import org.tasks.compose.IconPickerActivity.Companion.registerForIconPickerResult
 import org.tasks.compose.settings.ListSettingsContent
 import org.tasks.compose.settings.ListSettingsScaffold
-import org.tasks.data.UUIDHelper
+import org.tasks.compose.settings.createShortcut
+import org.tasks.compose.settings.createWidget
 import org.tasks.extensions.addBackPressedCallback
 import org.tasks.filters.Filter
 import org.tasks.icons.OutlinedGoogleMaterial
-import org.tasks.intents.TaskIntents
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
-import org.tasks.themes.contentColorFor
-import org.tasks.widget.RequestPinWidgetReceiver
-import org.tasks.widget.RequestPinWidgetReceiver.Companion.EXTRA_COLOR
-import org.tasks.widget.RequestPinWidgetReceiver.Companion.EXTRA_FILTER
-import org.tasks.widget.TasksWidget
 import javax.inject.Inject
 
 
@@ -179,67 +168,25 @@ abstract class BaseListSettingsActivity : AppCompatActivity() {
 
     protected fun createShortcut(color: Color) {
         filter?.let { f ->
-            val filterId = defaultFilterProvider.getFilterPreferenceValue(f)
-            val shortcutInfo = ShortcutInfoCompat.Builder(this, UUIDHelper.newUUID())
-                .setShortLabel(baseViewModel.title.takeIf { it.isNotBlank() } ?: getString(R.string.app_name))
-                .setIcon(
-                    baseViewModel.icon
-                        ?.let { icon ->
-                            try {
-                                createShortcutIcon(
-                                    context = this,
-                                    backgroundColor = color,
-                                    icon = icon,
-                                    iconColor = contentColorFor(color.toArgb()),
-                                )
-                            } catch (e: Exception) {
-                                firebase.reportException(e)
-                                null
-                            }
-                        }
-                        ?: createShortcutIcon(this, backgroundColor = color)
-                )
-                .setIntent(TaskIntents.getTaskListByIdIntent(this, filterId))
-                .build()
-
-            val pinnedShortcutCallbackIntent = ShortcutManagerCompat
-                .createShortcutResultIntent(this, shortcutInfo)
-
-            // Create callback intent
-            val successCallback = PendingIntent.getBroadcast(
-                this, 0,
-                pinnedShortcutCallbackIntent,
-                PendingIntent.FLAG_IMMUTABLE
+            createShortcut(
+                filter = f,
+                title = baseViewModel.title,
+                icon = baseViewModel.icon,
+                color = color,
+                defaultFilterProvider = defaultFilterProvider,
+                firebase = firebase,
             )
-
-            ShortcutManagerCompat.requestPinShortcut(
-                this,
-                shortcutInfo,
-                successCallback.intentSender
-            )
-
-            firebase.logEvent(R.string.event_create_shortcut, R.string.param_type to "settings_activity")
         }
     }
 
     protected fun createWidget() {
-        val filter = filter ?: return
-        val appWidgetManager = getSystemService(AppWidgetManager::class.java)
-        if (appWidgetManager.isRequestPinAppWidgetSupported) {
-            val provider = ComponentName(this, TasksWidget::class.java)
-            val configIntent = Intent(this, RequestPinWidgetReceiver::class.java).apply {
-                action = RequestPinWidgetReceiver.ACTION_CONFIGURE_WIDGET
-                putExtra(EXTRA_FILTER, defaultFilterProvider.getFilterPreferenceValue(filter))
-                putExtra(EXTRA_COLOR, baseViewModel.color)
-            }
-            val successCallback = PendingIntent.getBroadcast(
-                this,
-                filter.hashCode(),
-                configIntent,
-                if (atLeastS()) PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
+        filter?.let { f ->
+            createWidget(
+                filter = f,
+                color = baseViewModel.color,
+                defaultFilterProvider = defaultFilterProvider,
+                firebase = firebase,
             )
-            appWidgetManager.requestPinAppWidget(provider, null, successCallback)
-            firebase.logEvent(R.string.event_create_widget, R.string.param_type to "settings_activity")
         }
     }
 

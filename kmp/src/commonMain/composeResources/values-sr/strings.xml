@@ -230,4 +230,6 @@
     <string name="local_list_title">Ово је локална листа</string>
     <string name="local_list_description">Задаци у овој листи су смештени на овом уређају. Повежи налог како би заштитио своје податке и приступао њима било где.</string>
     <string name="dismiss">Одбаци</string>
+    <string name="add_shortcut_to_home_screen">Додај пречицу на почетни екран</string>
+    <string name="add_widget_to_home_screen">Додај виџет на почетни екран</string>
 </resources>

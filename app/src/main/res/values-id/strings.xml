@@ -635,8 +635,6 @@
     <string name="accept">Terima</string>
     <string name="exit">Keluar</string>
     <string name="returning_user">Pengguna lama?</string>
-    <string name="add_shortcut_to_home_screen">Tambah pintasan ke layar beranda</string>
-    <string name="add_widget_to_home_screen">Tambah widget ke layar beranda</string>
     <string name="cost_money">Biaya: $</string>
     <string name="cost_more_money">Biaya: $$$</string>
     <string name="multiline_title">Izinkan judul multibaris</string>

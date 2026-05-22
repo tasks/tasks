@@ -227,4 +227,6 @@
     <string name="local_list_title">Dette er en lokal liste</string>
     <string name="local_list_description">Opgaver på denne liste gemmes kun på denne enhed. Tilknyt en konto for at beskytte dine data og få adgang til dem hvor som helst.</string>
     <string name="dismiss">Afvis</string>
+    <string name="add_shortcut_to_home_screen">Føj genvej til startskærm</string>
+    <string name="add_widget_to_home_screen">Føj widget til startskærm</string>
 </resources>

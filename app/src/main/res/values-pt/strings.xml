@@ -607,7 +607,6 @@
     <string name="sync_warning_google_tasks">Nem todos os detalhes das tarefas são sincronizados com o Google Tasks</string>
     <string name="sync_warning_google_tasks_title">Sobre a sincronização do Google Tasks</string>
     <string name="button_learn_more">Saiba mais</string>
-    <string name="add_widget_to_home_screen">Adicionar widget à tela inicial</string>
     <string name="enable_alarms">Receba notificações na hora certa</string>
     <string name="banner_app_updated_title">Aplicação atualizada</string>
     <string name="cost_money">Custo: R$</string>
@@ -625,7 +624,6 @@
     <string name="swipe_to_snooze_time_description">Uma notificação desmarcada será adiada e recriada em %s</string>
     <string name="app_settings">Configurações da aplicação</string>
     <string name="comment">Comentário</string>
-    <string name="add_shortcut_to_home_screen">Adicionar atalho para a tela inicial</string>
     <string name="delete_tasks_warning">%s será apagado. Isso não poderá ser desfeito!</string>
     <string name="widget_view_more_tasks">Ver mais tarefas</string>
 </resources>

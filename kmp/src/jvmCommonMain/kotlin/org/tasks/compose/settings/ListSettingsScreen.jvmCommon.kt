@@ -14,6 +14,8 @@ fun ListSettingsScreen(
     onSelectColor: (PickerColor) -> Unit,
     onColorWheelSelected: () -> Unit,
     onSubscribe: () -> Unit,
+    onAddShortcut: (() -> Unit)? = null,
+    onAddWidget: (() -> Unit)? = null,
     headerContent: @Composable () -> Unit = {},
 ) {
     val state by viewModel.state.collectAsState()
@@ -41,6 +43,8 @@ fun ListSettingsScreen(
         onCloseIconPicker = viewModel::closeIconPicker,
         onSelectIcon = viewModel::selectIcon,
         onSubscribe = onSubscribe,
+        onAddShortcut = onAddShortcut,
+        onAddWidget = onAddWidget,
         headerContent = headerContent,
     )
 }

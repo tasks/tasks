@@ -278,4 +278,6 @@
     <string name="local_list_title">Това е местен списък</string>
     <string name="local_list_description">Задачите в този списък се пазят само на това устройство. Свържете профил, за да запазите задачите си и да имате достъп до тях отвсякъде.</string>
     <string name="dismiss">Отхвърляне</string>
+    <string name="add_shortcut_to_home_screen">Добавяне към началния екран</string>
+    <string name="add_widget_to_home_screen">Добавяне на приспособление</string>
 </resources>

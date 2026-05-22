@@ -583,7 +583,6 @@
     <string name="show_edit_screen_without_unlock_summary">Aktiverer brug af Hurtigindstillinger-flisen uden at oplåse enheden</string>
     <string name="donate_today">Donér i dag</string>
     <string name="donate_maybe_later">Måske senere</string>
-    <string name="add_shortcut_to_home_screen">Føj genvej til startskærm</string>
     <string name="comment">Kommentar</string>
     <string name="change_priority">Ændr prioritet</string>
     <string name="repeats_after">Efter</string>
@@ -595,7 +594,6 @@
     <string name="donate_nag">Overvej at vise din støtte med en donation!</string>
     <string name="price_per_month_with_currency">%s/måned</string>
     <string name="price_per_year_with_currency">%s/år</string>
-    <string name="add_widget_to_home_screen">Føj widget til startskærm</string>
     <string name="cost_money">Pris: $</string>
     <string name="cost_more_money">Pris: $$$</string>
     <string name="multiline_title">Tillad flerlinjede titler</string>

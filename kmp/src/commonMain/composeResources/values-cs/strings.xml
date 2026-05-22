@@ -315,4 +315,6 @@
     <string name="local_list_title">Toto je lokální seznam</string>
     <string name="local_list_description">Úkoly v tomto seznamu jsou uloženy pouze na tomto zařízení. Připojte účet pro zabezpečení vašich dat a přístup k nim odkudkoli.</string>
     <string name="dismiss">Odmítnout</string>
+    <string name="add_shortcut_to_home_screen">Přidat zkratku na domovskou obrazovku</string>
+    <string name="add_widget_to_home_screen">Přidat widget na domovskou obrazovku</string>
 </resources>

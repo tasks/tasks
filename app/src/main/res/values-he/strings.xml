@@ -562,7 +562,6 @@
     <string name="enable_reminders">הפעלת תזכורות</string>
     <string name="snackbar_tasks_completed">%d משימות הושלמו</string>
     <string name="snoozed_until">בנמנום עד %s</string>
-    <string name="add_widget_to_home_screen">הוספת יישומון למסך הבית</string>
     <string name="randomly_every">באופן אקראי כל %s</string>
     <string name="price_per_month_with_currency">%s לחודש</string>
     <string name="price_per_year_with_currency">%s לשנה</string>
@@ -642,7 +641,6 @@
     <string name="repeat_monthly_on_the_nth_weekday">מדי חודש ב%2$s ה%1$s</string>
     <string name="donate_today">לתרום היום</string>
     <string name="donate_maybe_later">אולי מאוחר יותר</string>
-    <string name="add_shortcut_to_home_screen">הוספת קיצור דרך למסך הבית</string>
     <string name="cost_money">עלות: $</string>
     <string name="repeats_every">חוזר כל</string>
     <string name="repeats_after">לאחר</string>

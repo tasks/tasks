@@ -317,4 +317,6 @@
     <string name="task_title">Titre de la tâche</string>
     <string name="no_list_available">Aucune liste disponible</string>
     <string name="add_platform_account">Ajouter le compte %1$s</string>
+    <string name="add_shortcut_to_home_screen">Ajouter le raccourci à l'écran d'accueil</string>
+    <string name="add_widget_to_home_screen">Ajouter le widget à l'écran d'accueil</string>
 </resources>

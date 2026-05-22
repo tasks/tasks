@@ -607,8 +607,6 @@
     <string name="price_per_month_with_currency">%s/monato</string>
     <string name="price_per_year_with_currency">%s/jaro</string>
     <string name="enable_alarms">Sciiĝu je la ĝusta horo</string>
-    <string name="add_shortcut_to_home_screen">Aldoni ŝparvojon al hejmekrano</string>
-    <string name="add_widget_to_home_screen">Aldoni fenestraĵon al hejmekrano</string>
     <string name="cost_more_money">Kosto: $$$</string>
     <string name="cost_money">Kosto: $</string>
     <string name="comment">Komento</string>

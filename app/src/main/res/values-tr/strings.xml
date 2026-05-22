@@ -614,8 +614,6 @@
     <string name="price_per_year_with_currency">%s/yıl</string>
     <string name="enable_alarms">Doğru zamanda bildirim al</string>
     <string name="enable_alarms_description">Doğru zamanda bildirim aldığınızdan emin olmak için, alarm ve anımsatıcı kurmak için Ayarlar\'da izin verin</string>
-    <string name="add_shortcut_to_home_screen">Ana ekrana kısayol ekle</string>
-    <string name="add_widget_to_home_screen">Ana ekrana parçacık ekle</string>
     <string name="cost_more_money">Ücret: $$$</string>
     <string name="multiline_title">Çok satırlı başlıklara izin ver</string>
     <string name="multiline_title_on">Satır eklemek için Enter tuşuna bas</string>

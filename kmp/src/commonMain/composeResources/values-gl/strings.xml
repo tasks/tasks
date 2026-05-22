@@ -201,4 +201,6 @@
     <string name="reinitialize_account">Reiniciar</string>
     <string name="gtasks_GLA_errorIOAuth">Houbo un problema ao comunicarse cos servidores de Google. Inténtao máis tarde.</string>
     <string name="dismiss">Descartar</string>
+    <string name="add_shortcut_to_home_screen">Engadir acceso directo á pantalla de inicio</string>
+    <string name="add_widget_to_home_screen">Engadir widget á pantalla de inicio</string>
 </resources>

@@ -248,4 +248,6 @@
     <string name="local_list_title">זוהי רשימה מקומית</string>
     <string name="local_list_description">משימות ברשימה זו מאוחסנות רק במכשיר זה. יש לחבר חשבון כדי להגן על הנתונים שלך ולגשת אליהם מכל מקום.</string>
     <string name="dismiss">התעלמות</string>
+    <string name="add_shortcut_to_home_screen">הוספת קיצור דרך למסך הבית</string>
+    <string name="add_widget_to_home_screen">הוספת יישומון למסך הבית</string>
 </resources>

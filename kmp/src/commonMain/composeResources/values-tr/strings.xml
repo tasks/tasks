@@ -312,4 +312,6 @@
     <string name="local_list_description">Bu listedeki görevler yalnızca bu aygıtta saklanır. Verinizi korumak ve her yerden erişmek için hesaba bağlanın.</string>
     <string name="dismiss">Kapat</string>
     <string name="add_platform_account">%1$s hesabı ekle</string>
+    <string name="add_shortcut_to_home_screen">Ana ekrana kısayol ekle</string>
+    <string name="add_widget_to_home_screen">Ana ekrana parçacık ekle</string>
 </resources>

@@ -216,4 +216,6 @@
     <string name="gtasks_GLA_errorIOAuth">При обращении к серверам Google возникли проблемы. Пожалуйста, попробуйте позже.</string>
     <string name="local_list_title">Это локальный список</string>
     <string name="dismiss">Отклонить</string>
+    <string name="add_shortcut_to_home_screen">Добавить ярлык на домашний экран</string>
+    <string name="add_widget_to_home_screen">Добавить виджет на домашний экран</string>
 </resources>

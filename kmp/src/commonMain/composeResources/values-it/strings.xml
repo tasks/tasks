@@ -254,4 +254,6 @@
     <string name="local_list_title">Questa è una lista locale</string>
     <string name="local_list_description">Le attività in questa lista sono memorizzate solo su questo dispositivo. Collega un account per sincronizzarle in sicurezza ed accedervi da qualsiasi dispositivo.</string>
     <string name="dismiss">Ignora</string>
+    <string name="add_shortcut_to_home_screen">Aggiungi collegamento sulla Home</string>
+    <string name="add_widget_to_home_screen">Aggiungi widget sulla Home</string>
 </resources>

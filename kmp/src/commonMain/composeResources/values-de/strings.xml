@@ -255,4 +255,6 @@
     <string name="local_list_title">Dies ist eine lokale Liste</string>
     <string name="local_list_description">Aufgaben in dieser Liste werden nur auf diesem Gerät gespeichert. Verbinde ein Konto, um deine Daten zu sichern und von überall darauf zuzugreifen.</string>
     <string name="dismiss">Schließen</string>
+    <string name="add_shortcut_to_home_screen">Verknüpfung zum Startbildschirm hinzufügen</string>
+    <string name="add_widget_to_home_screen">Widget zum Startbildschirm hinzufügen</string>
 </resources>

@@ -601,8 +601,6 @@
     <string name="show_edit_screen_without_unlock_summary">Laat gebruik van Snelle Bewerkingstegel toe zonder ontgrendeling toestel</string>
     <string name="swipe_to_snooze_time_immediately">Onmiddellijk</string>
     <string name="quiet_hours_in_effect">Rusttijd staat aan</string>
-    <string name="add_widget_to_home_screen">Widget aan startscherm toevoegen</string>
-    <string name="add_shortcut_to_home_screen">Snelkoppeling aan startscherm toevoegen</string>
     <string name="yesterday">Gisteren</string>
     <string name="cost_money">Kosten: €</string>
     <string name="cost_more_money">Kosten: €€€</string>

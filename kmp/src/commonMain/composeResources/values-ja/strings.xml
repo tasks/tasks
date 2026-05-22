@@ -280,4 +280,6 @@
     <string name="local_list_title">ローカルリスト（端末内に保存されたリスト）</string>
     <string name="local_list_description">このリストのタスクは端末内だけに保存されています。保存先アカウントを登録して、データを安全な場所に保存し、どこからでもアクセスできるようにしましょう。</string>
     <string name="dismiss">閉じる</string>
+    <string name="add_shortcut_to_home_screen">ホーム画面にショートカットを追加</string>
+    <string name="add_widget_to_home_screen">ホーム画面にウィジェットを追加</string>
 </resources>

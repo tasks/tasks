@@ -209,4 +209,6 @@
     <string name="reinitialize_account">إعادة التهيئة</string>
     <string name="gtasks_GLA_errorIOAuth">عذرا، لم نتمكن من الاتصال مع مزود الخدمة جوجل. أعد المحاولة مرة أخرى لاحقًًا.</string>
     <string name="dismiss">استبعاد</string>
+    <string name="add_shortcut_to_home_screen">إضافة اختصار إلى الشاشة الرئيسية</string>
+    <string name="add_widget_to_home_screen">إضافة عنصر واجهة مستخدم إلى الشاشة الرئيسية</string>
 </resources>

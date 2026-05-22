@@ -620,13 +620,11 @@
     <string name="app_password">Heslo aplikácie</string>
     <string name="sign_in_with_google">Prihlásenie účtom Google</string>
     <string name="app_passwords_more_info">Synchronizujte svoje úlohy a kalendáre s desktopovými a mobilnými aplikáciami tretích strán. Pre viac informácii kliknite sem</string>
-    <string name="add_shortcut_to_home_screen">Pridať skratku na domovskú obrazovku</string>
     <string name="multiline_title">Povoliť názvy na viac riadkov</string>
     <string name="multiline_title_on">Stlačením Enter pridáte konce riadkov</string>
     <string name="enable_reminders_description">Pripomienky sú zakázané v nastaveniach systému Android</string>
     <string name="enable_reminders">Povoliť pripomienky</string>
     <string name="hint_customize_edit_body">Túto obrazovku si môžete prispôsobiť preskupením alebo odobraním polí</string>
-    <string name="add_widget_to_home_screen">Pridať widget na domovskú obrazovku</string>
     <string name="upgrade_tasks_org_account_description">Synchronizujte s Tasks.org a spolupracujte s ostatnými používateľmi</string>
     <string name="pro_free_trial">Noví predplatitelia dostanú 7 dní na bezplatné otestovanie. Predplatné je možné kedykoľvek zrušiť</string>
     <string name="upgrade_more_customization">Ďalšie prispôsobenie</string>

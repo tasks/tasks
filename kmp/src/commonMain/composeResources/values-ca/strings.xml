@@ -203,4 +203,6 @@
     <string name="reinitialize_account">Reinicialitzeu</string>
     <string name="gtasks_GLA_errorIOAuth">Perdoneu, hem tingut un problema connectant-nos als servidors de Google. Si us plau proveu un altre cop més tard.</string>
     <string name="dismiss">Descarteu</string>
+    <string name="add_shortcut_to_home_screen">Afegiu una drecera a la pantalla d'inici</string>
+    <string name="add_widget_to_home_screen">Afegiu un giny a la pantalla d'inici</string>
 </resources>

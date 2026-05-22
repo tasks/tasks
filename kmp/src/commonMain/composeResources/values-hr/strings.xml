@@ -312,4 +312,6 @@
     <string name="local_list_title">Ovo je lokalni popis</string>
     <string name="local_list_description">Zadaci na ovom popisu su spremljeni samo na ovom uređaju. Poveži račun i zaštiti svoje podatke te im pristupi bilo gdje.</string>
     <string name="dismiss">Odbaci</string>
+    <string name="add_shortcut_to_home_screen">Dodaj prečac na početni ekran</string>
+    <string name="add_widget_to_home_screen">Dodaj widget na početni ekran</string>
 </resources>

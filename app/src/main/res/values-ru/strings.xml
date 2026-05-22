@@ -634,8 +634,6 @@
     <string name="swipe_to_snooze_title">Смахните, чтобы отложить</string>
     <string name="swipe_to_snooze_description">Длительность паузы</string>
     <string name="enable_alarms_description">Чтобы получать оповещения в нужное время, разрешите приложению устанавливать будильники и напоминания в Настройках</string>
-    <string name="add_shortcut_to_home_screen">Добавить ярлык на домашний экран</string>
-    <string name="add_widget_to_home_screen">Добавить виджет на домашний экран</string>
     <string name="cost_money">Цена: $</string>
     <string name="cost_more_money">Цена: $$$</string>
     <string name="multiline_title_on">Нажмите Enter чтобы перейти на новую строку</string>

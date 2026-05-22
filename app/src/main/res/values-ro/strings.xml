@@ -630,7 +630,6 @@
     <string name="quiet_hours_in_effect">Orele liniștite sunt activate</string>
     <string name="price_per_month_with_currency">%s/lună</string>
     <string name="price_per_year_with_currency">%s/an</string>
-    <string name="add_widget_to_home_screen">Adaugă widget pe ecranul de pornire</string>
     <string name="cost_more_money">Preț: $$$</string>
     <string name="multiline_title">Permite titluri multiline</string>
     <string name="multiline_title_on">Apasă tasta Enter pentru a adăuga o linie nouă</string>
@@ -645,7 +644,6 @@
     <string name="sync_warning_google_tasks">Nu toate detaliile sarcinii se sincronizează cu Sarcini Google</string>
     <string name="button_learn_more">Află mai multe</string>
     <string name="enable_alarms">Fii notificat la momentul potrivit</string>
-    <string name="add_shortcut_to_home_screen">Adaugă comandă rapidă la ecranul de pornire</string>
     <string name="enable_alarms_description">Pentru a te asigura că ești notificat la momentul potrivit, acordă permisiunea de a seta alarme și mementouri în Setări</string>
     <string name="multiline_title_off">Apasă Finalizat pentru a salva sarcina</string>
     <string name="delete_tasks_warning">%s va fi șters. Acest lucru nu poate fi anulat!</string>

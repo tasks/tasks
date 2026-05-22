@@ -634,8 +634,6 @@
     <string name="enable_reminders_description">Els recordatoris estan desactivats a la configuració de l\'Android</string>
     <string name="enable_alarms">Notifiqueu-vos en el moment adequat</string>
     <string name="enable_alarms_description">Per assegurar-vos que us notifiqueu en el moment adequat, concediu permís per establir alarmes i recordatoris a la configuració</string>
-    <string name="add_shortcut_to_home_screen">Afegiu una drecera a la pantalla d\'inici</string>
-    <string name="add_widget_to_home_screen">Afegiu un giny a la pantalla d\'inici</string>
     <string name="cost_money">Cost: $</string>
     <string name="cost_more_money">Cost: $$$</string>
     <string name="multiline_title">Permeteu títols multilínies</string>

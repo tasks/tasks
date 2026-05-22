@@ -214,4 +214,6 @@
     <string name="local_list_title">Aceasta este o listă locală</string>
     <string name="local_list_description">Sarcinile din această listă sunt stocate numai pe acest dispozitiv. Conectează un cont pentru a-ți proteja datele și pentru a le accesa de oriunde.</string>
     <string name="dismiss">Respinge</string>
+    <string name="add_shortcut_to_home_screen">Adaugă comandă rapidă la ecranul de pornire</string>
+    <string name="add_widget_to_home_screen">Adaugă widget pe ecranul de pornire</string>
 </resources>

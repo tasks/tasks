@@ -686,7 +686,6 @@
     <string name="subtasks_multilevel_microsoft">المهام الفرعية متعددة المستويات غير مدعومة من قبل Microsoft To Do</string>
     <string name="repeats_custom_recurrence">التكرار المخصّص</string>
     <string name="repeats_weekly_on">التكرار على</string>
-    <string name="add_widget_to_home_screen">إضافة عنصر واجهة مستخدم إلى الشاشة الرئيسية</string>
     <string name="multiline_title">السماح بعناوين متعددة الأسطر</string>
     <string name="multiline_title_on">اضغط على مفتاح Enter لإضافة فواصل الأسطر</string>
     <string name="multiline_title_off">اضغط على تم لحفظ المهمة</string>
@@ -699,7 +698,6 @@
     <string name="enable_alarms">احصل على إشعار في الوقت المناسب</string>
     <string name="hint_customize_edit_title">الكثير من المعلومات؟</string>
     <string name="hint_customize_edit_body">يمكنك تخصيص هذه الشاشة عن طريق إعادة ترتيب الحقول أو إزالتها</string>
-    <string name="add_shortcut_to_home_screen">إضافة اختصار إلى الشاشة الرئيسية</string>
     <string name="cost_money">التكلفة: المال</string>
     <string name="cost_more_money">التكلفة: المزيد من المال</string>
     <string name="sync_warning_microsoft_title">نبذة عن مزامنة Microsoft To Do</string>

@@ -617,8 +617,6 @@
     <string name="accept">接受</string>
     <string name="exit">退出</string>
     <string name="returning_user">回歸使用者？</string>
-    <string name="add_shortcut_to_home_screen">新增捷徑至主畫面</string>
-    <string name="add_widget_to_home_screen">新增小工具至主畫面</string>
     <string name="cost_money">費用：$</string>
     <string name="cost_more_money">費用：$$$</string>
     <string name="multiline_title">允許多行標題</string>

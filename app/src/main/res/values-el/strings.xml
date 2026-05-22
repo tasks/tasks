@@ -549,8 +549,6 @@
     <string name="enable_reminders_description">Οι υπενθυμίσεις είναι απενεργοποιημένες στις Ρυθμίσεις Android</string>
     <string name="enable_alarms">Ενημερωθείτε την κατάλληλη στιγμή</string>
     <string name="enable_alarms_description">Για να βεβαιωθείτε ότι θα ειδοποιηθείτε την κατάλληλη στιγμή, παραχωρήστε άδεια δημιουργίας υπενθυμίσεων και ειδοποιήσεων στις Ρυθμίσεις</string>
-    <string name="add_shortcut_to_home_screen">Προσθήκη συντόμευσης στην αρχική οθόνη</string>
-    <string name="add_widget_to_home_screen">Προσθήκη γραφικού στοιχείου στην αρχική οθόνη</string>
     <string name="cost_money">Κόστος: $</string>
     <string name="cost_more_money">Κόστος: $$$</string>
     <string name="multiline_title">Επιτρέψτε τους τίτλους πολλαπλών γραμμών</string>

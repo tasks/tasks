@@ -612,8 +612,6 @@
     <string name="yesterday">Tegnap</string>
     <string name="price_per_month_with_currency">%s/hónap</string>
     <string name="price_per_year_with_currency">%s/év</string>
-    <string name="add_shortcut_to_home_screen">Parancsikon kirakása a kezdőképernyőre</string>
-    <string name="add_widget_to_home_screen">Widget kirakása a kezdőképernyőre</string>
     <string name="sync_warning_microsoft">A Microsoft To Do nem képes a feladatok összes részletének szinkronizálására.</string>
     <string name="sync_warning_google_tasks_title">A Google Task szinkronizálásról</string>
     <string name="sync_warning_microsoft_title">A Microsoft To Do szinkronizálásról</string>

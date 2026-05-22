@@ -22,7 +22,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.DeleteOutline
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.PersonAdd
+import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material.icons.outlined.Save
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.AlertDialog
@@ -92,6 +94,8 @@ import tasks.kmp.generated.resources.new_list
 import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.remove_user
 import tasks.kmp.generated.resources.remove_user_confirmation
+import tasks.kmp.generated.resources.add_shortcut_to_home_screen
+import tasks.kmp.generated.resources.add_widget_to_home_screen
 import tasks.kmp.generated.resources.save
 import tasks.kmp.generated.resources.send
 import tasks.kmp.generated.resources.share
@@ -169,6 +173,8 @@ fun ListSettingsScreen(
     onCloseIconPicker: () -> Unit,
     onSelectIcon: (String) -> Unit,
     onSubscribe: () -> Unit,
+    onAddShortcut: (() -> Unit)? = null,
+    onAddWidget: (() -> Unit)? = null,
     headerContent: @Composable () -> Unit = {},
 ) {
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
@@ -293,6 +299,35 @@ fun ListSettingsScreen(
                             )
                         },
                     )
+                }
+            }
+
+            // Shortcut and widget
+            if (!state.isNew && (onAddShortcut != null || onAddWidget != null)) {
+                Spacer(modifier = Modifier.height(SettingsContentPadding))
+
+                Column(
+                    modifier = Modifier.padding(horizontal = SettingsContentPadding),
+                    verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+                ) {
+                    val items = listOfNotNull(
+                        onAddShortcut?.let {
+                            Res.string.add_shortcut_to_home_screen to Icons.Outlined.Home to it
+                        },
+                        onAddWidget?.let {
+                            Res.string.add_widget_to_home_screen to Icons.Outlined.Widgets to it
+                        },
+                    )
+                    items.forEachIndexed { index, (labelAndIcon, onClick) ->
+                        val (label, icon) = labelAndIcon
+                        SettingsItemCard(position = CardPosition.forIndex(index, items.size)) {
+                            PreferenceRow(
+                                title = stringResource(label),
+                                icon = icon,
+                                onClick = onClick,
+                            )
+                        }
+                    }
                 }
             }
 

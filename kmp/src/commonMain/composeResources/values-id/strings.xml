@@ -249,4 +249,6 @@
     <string name="local_list_title">Ini adalah daftar lokal</string>
     <string name="local_list_description">Tugas dalam daftar ini hanya disimpan di perangkat ini. Hubungkan akun untuk mengamankan data Anda dan mengaksesnya dari mana saja.</string>
     <string name="dismiss">Lewati</string>
+    <string name="add_shortcut_to_home_screen">Tambah pintasan ke layar beranda</string>
+    <string name="add_widget_to_home_screen">Tambah widget ke layar beranda</string>
 </resources>

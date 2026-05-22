@@ -249,4 +249,6 @@
     <string name="local_list_title">See on kohalik loend</string>
     <string name="local_list_description">Selle loendi ülesanded on salvestatud vaid selles nutiseadmes. Kui tahad, et andmed oleks ligipääsetavad kõikjalt ja nende hoidmine paremini tagatud, siis lisa vastav kasutajakonto.</string>
     <string name="dismiss">Loobu</string>
+    <string name="add_shortcut_to_home_screen">Lisa link avalehele</string>
+    <string name="add_widget_to_home_screen">Lisa vidin avalehele</string>
 </resources>

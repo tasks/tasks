@@ -223,4 +223,6 @@
     <string name="local_list_title">Dit is een lokale lijst</string>
     <string name="local_list_description">Taken in deze lijst worden uitsluitend op dit apparaat opgeslagen. Maak verbinding met een account om uw data veilig te stellen en het overal te kunnen benaderen.</string>
     <string name="dismiss">Sluiten</string>
+    <string name="add_shortcut_to_home_screen">Snelkoppeling aan startscherm toevoegen</string>
+    <string name="add_widget_to_home_screen">Widget aan startscherm toevoegen</string>
 </resources>

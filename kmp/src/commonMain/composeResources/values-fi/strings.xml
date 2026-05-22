@@ -216,4 +216,6 @@
     <string name="local_list_title">Tämä on paikallinen lista</string>
     <string name="local_list_description">Tämän listan tehtävät tallennetaan vain tälle laitteelle. Yhdistä tili varmistaaksesi tietosi ja käyttääksesi niitä missä tahansa.</string>
     <string name="dismiss">Hylkää</string>
+    <string name="add_shortcut_to_home_screen">Lisää pikakuvake aloitusnäytölle</string>
+    <string name="add_widget_to_home_screen">Lisää pienoissovellus aloitusnäytölle</string>
 </resources>

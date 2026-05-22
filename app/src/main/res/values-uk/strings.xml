@@ -645,8 +645,6 @@
     <string name="enable_alarms">Отримуйте сповіщення в потрібний час</string>
     <string name="enable_alarms_description">Щоб бути впевненим, що ви отримаєте сповіщення в потрібний час, надайте дозвіл на встановлення будильників і нагадувань у Налаштуваннях</string>
     <string name="price_per_month_with_currency">%s/місяць</string>
-    <string name="add_shortcut_to_home_screen">Додати ярлик на домашній екран</string>
-    <string name="add_widget_to_home_screen">Додати віджет на домашній екран</string>
     <string name="cost_money">Вартість: $</string>
     <string name="app_settings">Налаштування застосунку</string>
     <string name="banner_app_updated_title">Застосунок оновлено</string>

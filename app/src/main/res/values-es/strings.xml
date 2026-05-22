@@ -632,8 +632,6 @@
     <string name="yesterday">Ayer</string>
     <string name="banner_app_updated_title">Actualización de la aplicación</string>
     <string name="banner_app_updated_description">Tasks se ha actualizado a la versión %s. ¿Deseas ver las notas de esta versión?</string>
-    <string name="add_widget_to_home_screen">Agregar widget a la pantalla de inicio</string>
-    <string name="add_shortcut_to_home_screen">Agregar acceso directo a la pantalla de inicio</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do no admite subtareas de múltiples niveles</string>
     <string name="cost_money">Precio: $</string>
     <string name="sync_warning_google_tasks_title">Acerca de la sincronización de Google Tasks</string>

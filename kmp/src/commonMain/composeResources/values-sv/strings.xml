@@ -308,4 +308,6 @@
     <string name="local_list_title">Det här är en lokal lista</string>
     <string name="local_list_description">Uppgifter i den här listan lagras endast på den här enheten. Anslut ett konto för att skydda dina data och komma åt dem var som helst.</string>
     <string name="dismiss">Avfärda</string>
+    <string name="add_shortcut_to_home_screen">Lägg till genväg på hemskärm</string>
+    <string name="add_widget_to_home_screen">Lägg till widget på hemskärm</string>
 </resources>
