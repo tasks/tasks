@@ -108,7 +108,10 @@ class BillingClientImpl(
                         add(subs.purchases + iaps.purchases)
                     }
                 } else {
-                    Timber.e("SUBS: ${subs.responseCodeString} IAPs: ${iaps.responseCodeString}")
+                    firebase.reportIabResult(
+                        "SUBS:${subs.responseCodeString} IAPs:${iaps.responseCodeString}",
+                        state = "QUERY_PURCHASES_FAILED",
+                    )
                 }
             }
         }
@@ -138,6 +141,11 @@ class BillingClientImpl(
                         it.orderId ?: "",
                     )
                 }
+        } else if (result.responseCode != BillingResponseCode.USER_CANCELED) {
+            firebase.reportIabResult(
+                result.responseCodeString,
+                state = "PURCHASE_UPDATED_FAILED",
+            )
         }
         workManager.updatePurchases()
     }
@@ -206,7 +214,16 @@ class BillingClientImpl(
             }
 
             this@BillingClientImpl.onPurchased = onPurchased
-            billingClient.launchBillingFlow(activity, params.build())
+            Timber.d("launchBillingFlow: sku=$sku oldPurchase=${oldPurchase?.sku}")
+            val result = billingClient.launchBillingFlow(activity, params.build())
+            if (!result.success) {
+                firebase.reportIabResult(
+                    result.responseCodeString,
+                    sku,
+                    state = "LAUNCH_FAILED",
+                )
+                throw IllegalStateException(result.responseCodeString)
+            }
         }
     }
 

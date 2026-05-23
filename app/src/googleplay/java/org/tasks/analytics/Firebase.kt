@@ -259,7 +259,7 @@ class Firebase @Inject constructor(
         crashlytics?.recordException(t)
     }
 
-    fun reportIabResult(result: String, sku: String, state: String, orderId: String) {
+    fun reportIabResult(result: String, sku: String = "", state: String, orderId: String = "") {
         logEvent(
             R.string.event_purchase_result,
             R.string.param_sku to sku,

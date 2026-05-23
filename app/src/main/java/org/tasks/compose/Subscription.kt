@@ -646,10 +646,10 @@ object PurchaseText {
             Row(Modifier.fillMaxWidth()) {
                 Slider(
                     modifier = Modifier.padding(KEYLINE_FIRST, 0.dp, KEYLINE_FIRST, HALF_KEYLINE),
-                    value = sliderPosition,
+                    value = sliderPosition.coerceIn(1f, 25f),
                     onValueChange = { setPrice(it) },
                     valueRange = 1f..25f,
-                    steps = 25,
+                    steps = 23,
                     colors = SliderDefaults.colors(
                         thumbColor = MaterialTheme.colorScheme.secondary,
                         activeTrackColor = MaterialTheme.colorScheme.secondary,
@@ -663,7 +663,7 @@ object PurchaseText {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                val price = sliderPosition.toInt()
+                val price = sliderPosition.toInt().coerceIn(1, 25)
                 PurchaseButton(
                     price = remember(skus, price) {
                         skus
@@ -671,13 +671,13 @@ object PurchaseText {
                             ?.price
                             ?: "$$price"
                     },
-                    popperText = if (sliderPosition.toInt() >= 7)
+                    popperText = if (price >= 7)
                         "${stringResource(R.string.above_average, 16)} $POPPER"
                     else
                         "",
-                    onClick = { subscribe(sliderPosition.toInt(), false) },
+                    onClick = { subscribe(price, false) },
                 )
-                if (sliderPosition.toInt() < 3) {
+                if (price < 3) {
                     Spacer(Modifier.width(KEYLINE_FIRST))
                     PurchaseButton(
                         price = remember(skus, price) {

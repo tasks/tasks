@@ -35,7 +35,7 @@ fun PurchaseScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     SubscriptionScreen(
         nameYourPrice = state.nameYourPrice,
-        sliderPosition = state.price,
+        sliderPosition = state.price.takeIf { it > 0 } ?: 10f,
         feature = state.feature,
         github = state.isGithub,
         showMoreOptions = state.showMoreOptions,
