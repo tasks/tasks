@@ -18,7 +18,7 @@ import com.todoroo.astrid.repeats.RepeatControlSet
 import org.tasks.service.TaskCompleter
 import org.tasks.data.getDefaultAlarms
 import org.tasks.service.TaskDeleter
-import com.todoroo.astrid.service.TaskMover
+import org.tasks.data.TaskMover
 import com.todoroo.astrid.tags.TagsControlSet
 import com.todoroo.astrid.timers.TimerControlSet
 import com.todoroo.astrid.timers.TimerPlugin
@@ -60,7 +60,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.FORCE_CALDAV_SYNC
-import org.tasks.data.entity.FORCE_MICROSOFT_SYNC
+import org.tasks.data.entity.FORCE_SYNC
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.NOTIFY_MODE_FIVE
@@ -365,8 +365,7 @@ class TaskEditViewModel @Inject constructor(
                 )
                 locationService.updateGeofences(place)
             }
-            task.putTransitory(FORCE_CALDAV_SYNC, true)
-            task.putTransitory(FORCE_MICROSOFT_SYNC, true)
+            task.putTransitory(FORCE_SYNC, true)
             task.modificationDate = currentTimeMillis()
         }
         val selectedTags = _viewState.value.tags

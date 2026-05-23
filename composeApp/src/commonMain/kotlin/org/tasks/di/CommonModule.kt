@@ -34,6 +34,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.TaskCreator
+import org.tasks.data.TaskMover
 import org.tasks.data.getLocalList
 import org.tasks.etebase.EtebaseSynchronizer
 import org.tasks.googleapis.DefaultListProvider
@@ -232,7 +233,7 @@ val commonModule = module {
             }
         }
     }
-    single { SyncAdapters(get(), get(), get(), { false }, get(), get(), Dispatchers.IO) }
+    single { SyncAdapters(get(), get(), { false }, get(), get(), Dispatchers.IO) }
     singleOf(::TasksAccountDataRepository)
 
     // Stateless factories
@@ -253,6 +254,7 @@ val commonModule = module {
     factoryOf(::TaskDeleter)
     factoryOf(::TaskMigrator)
     factoryOf(::TaskSaver)
+    factoryOf(::TaskMover)
     factoryOf(::iCalendar)
     factoryOf(::CaldavSynchronizer)
     factoryOf(::EtebaseSynchronizer)
@@ -344,6 +346,7 @@ val commonModule = module {
             taskDao = get(),
             taskSaver = get(),
             caldavDao = get(),
+            taskMover = get(),
         )
     }
     viewModel {

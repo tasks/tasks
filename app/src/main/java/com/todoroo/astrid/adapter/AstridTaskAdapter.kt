@@ -2,7 +2,7 @@ package com.todoroo.astrid.adapter
 
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.TaskSaver
-import com.todoroo.astrid.service.TaskMover
+import org.tasks.data.TaskMover
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.broadcast.RefreshBroadcaster

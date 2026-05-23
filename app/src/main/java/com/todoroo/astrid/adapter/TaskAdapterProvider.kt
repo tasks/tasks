@@ -1,6 +1,6 @@
 package com.todoroo.astrid.adapter
 
-import com.todoroo.astrid.service.TaskMover
+import org.tasks.data.TaskMover
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import com.todoroo.astrid.subtasks.SubtasksHelper
 import kotlinx.coroutines.runBlocking
@@ -62,7 +62,7 @@ class TaskAdapterProvider @Inject constructor(
                 }
             }
         }
-        return TaskAdapter(preferences.addTasksToTop(), googleTaskDao, caldavDao, taskDao, taskSaver, localBroadcastManager, taskMover)
+        return TaskAdapter(runBlocking { preferences.addTasksToTop() }, googleTaskDao, caldavDao, taskDao, taskSaver, localBroadcastManager, taskMover)
     }
 
     private fun createManualTagTaskAdapter(filter: TagFilter): TaskAdapter = runBlocking {

@@ -20,6 +20,7 @@ import kotlinx.coroutines.withContext
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.updateAndGet
 import org.tasks.data.TaskCreator
+import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TaskDao
@@ -31,6 +32,7 @@ class TaskEditViewModel(
     private val taskDao: TaskDao,
     private val taskSaver: TaskSaver,
     private val caldavDao: CaldavDao,
+    private val taskMover: TaskMover,
     private val taskCreator: TaskCreator = TaskCreator(),
 ) : ViewModel() {
 
@@ -236,10 +238,10 @@ class TaskEditViewModel(
             )
             taskSaver.save(task, null)
         } else {
-            if (snapshot.list != snapshot.originalList) {
-                caldavDao.moveToList(task, list.uuid)
-            }
             taskSaver.save(task, snapshot.originalTask)
+            if (snapshot.list != snapshot.originalList) {
+                taskMover.move(listOf(task.id), list)
+            }
         }
     }
 }

@@ -187,12 +187,6 @@ WHERE cd_calendar = :calendar
     @Query("UPDATE caldav_tasks SET cd_deleted = :now WHERE cd_task IN (:tasks)")
     abstract suspend fun markDeleted(tasks: List<Long>, now: Long = currentTimeMillis())
 
-    @Transaction
-    open suspend fun moveToList(task: Task, calendar: String, addToTop: Boolean = false) {
-        markDeleted(listOf(task.id))
-        insert(task = task, caldavTask = CaldavTask(task = task.id, calendar = calendar), addToTop = addToTop)
-    }
-
     @Query("SELECT * FROM caldav_tasks WHERE cd_task = :taskId AND cd_deleted = 0 LIMIT 1")
     abstract suspend fun getTask(taskId: Long): CaldavTask?
 
@@ -209,14 +203,15 @@ WHERE cd_calendar = :calendar
     abstract suspend fun getTasks(taskId: Long): List<CaldavTask>
 
     @Query("""
-SELECT EXISTS(SELECT 1
-              FROM caldav_tasks
-                       INNER JOIN caldav_lists ON cdl_uuid = cd_calendar
-                       INNER JOIN caldav_accounts ON cda_uuid = cdl_account
-              WHERE cd_task = :id
-                AND cda_account_type IN (:types))
+SELECT cda_account_type
+FROM caldav_tasks
+         INNER JOIN caldav_lists ON cdl_uuid = cd_calendar
+         INNER JOIN caldav_accounts ON cda_uuid = cdl_account
+WHERE cd_task = :id
+  AND cd_deleted = 0
+LIMIT 1
 """)
-    abstract suspend fun isAccountType(id: Long, types: List<Int>): Boolean
+    abstract suspend fun getAccountType(id: Long): Int?
 
     suspend fun getTasks(taskIds: List<Long>): List<CaldavTask> =
             taskIds.chunkedMap { getTasksInternal(it) }

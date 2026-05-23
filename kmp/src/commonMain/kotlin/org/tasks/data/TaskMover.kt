@@ -1,5 +1,6 @@
-package com.todoroo.astrid.service
+package org.tasks.data
 
+import co.touchlab.kermit.Logger
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.dao.CaldavDao
@@ -8,25 +9,23 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.db.DbUtils.dbchunk
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
-import org.tasks.data.getLocalList
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.AppPreferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import timber.log.Timber
-import javax.inject.Inject
 
-class TaskMover @Inject constructor(
+class TaskMover(
     private val taskDao: TaskDao,
     private val caldavDao: CaldavDao,
     private val googleTaskDao: GoogleTaskDao,
-    private val preferences: Preferences,
+    private val appPreferences: AppPreferences,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val syncAdapters: SyncAdapters,
     private val vtodoCache: VtodoCache,
 ) {
+    private val log = Logger.withTag("TaskMover")
 
     suspend fun getSingleFilter(tasks: List<Long>): Filter? {
         val caldavCalendars = caldavDao.getCalendars(tasks)
@@ -59,7 +58,7 @@ class TaskMover @Inject constructor(
             taskDao.setParent(0, ids.intersect(taskIds.toSet()).toList())
             tasks.forEach { performMove(it, selectedList) }
             if (!selectedList.isGoogleTasks) {
-                Timber.d("Updating parents for ${selectedList.uuid}")
+                log.d { "Updating parents for ${selectedList.uuid}" }
                 caldavDao.updateParents(selectedList.uuid)
             }
         }
@@ -102,7 +101,7 @@ class TaskMover @Inject constructor(
                         calendar = listId,
                         remoteId = null,
                     ),
-                    top = preferences.addTasksToTop()
+                    top = appPreferences.addTasksToTop()
                 )
                 children.takeIf { it.isNotEmpty() }
                         ?.map {
@@ -120,7 +119,7 @@ class TaskMover @Inject constructor(
                     task = id,
                     calendar = listId,
                 )
-                caldavDao.insert(task, newParent, preferences.addTasksToTop())
+                caldavDao.insert(task, newParent, appPreferences.addTasksToTop())
                 children.map {
                     val newChild = CaldavTask(
                         task = it,
@@ -135,7 +134,6 @@ class TaskMover @Inject constructor(
 
     private suspend fun moveCaldavTask(task: Task, caldavTask: CaldavTask, selected: CaldavFilter) {
         if (caldavTask.calendar == selected.uuid) {
-            // TODO: make sure its the same account
             return
         }
         val id = task.id
@@ -160,7 +158,7 @@ class TaskMover @Inject constructor(
                     obj = caldavTask.obj,
                 )
                 vtodoCache.move(from!!, selected.calendar, caldavTask)
-                caldavDao.insert(task, newParent, preferences.addTasksToTop())
+                caldavDao.insert(task, newParent, appPreferences.addTasksToTop())
                 children.takeIf { it.isNotEmpty() }
                         ?.map {
                             val newChild = CaldavTask(
@@ -199,7 +197,7 @@ class TaskMover @Inject constructor(
                     newTask.remoteParent = (if (parent == id) root else tasks[parent])!!.remoteId
                     tasks[child.id] = newTask
                 }
-                caldavDao.insert(task, root, preferences.addTasksToTop())
+                caldavDao.insert(task, root, appPreferences.addTasksToTop())
                 caldavDao.insert(tasks.values)
             }
         }
@@ -207,7 +205,6 @@ class TaskMover @Inject constructor(
 
     private suspend fun moveToGoogleTasks(id: Long, children: List<Long>, filter: CaldavFilter) {
         if (!filter.isGoogleTasks) {
-            // TODO: make sure its the same account
             return
         }
         val task = taskDao.fetch(id) ?: return
@@ -220,7 +217,7 @@ class TaskMover @Inject constructor(
                 calendar = listId,
                 remoteId = null
             ),
-            preferences.addTasksToTop()
+            appPreferences.addTasksToTop()
         )
         children.takeIf { it.isNotEmpty() }
                 ?.map {

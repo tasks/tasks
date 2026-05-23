@@ -2,7 +2,7 @@ package com.todoroo.astrid.adapter
 
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.TaskSaver
-import com.todoroo.astrid.service.TaskMover
+import org.tasks.data.TaskMover
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao

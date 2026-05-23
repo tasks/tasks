@@ -12,7 +12,7 @@ import com.todoroo.astrid.core.SortHelper.SORT_MANUAL
 import com.todoroo.astrid.core.SortHelper.SORT_START
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.TaskSaver
-import com.todoroo.astrid.service.TaskMover
+import org.tasks.data.TaskMover
 import org.tasks.BuildConfig
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.TaskContainer

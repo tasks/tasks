@@ -8,7 +8,7 @@ import org.tasks.data.TaskSaver
 import com.todoroo.astrid.gcal.GCalHelper
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
-import com.todoroo.astrid.service.TaskMover
+import org.tasks.data.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow

@@ -452,6 +452,25 @@ class ApplicationModule {
     ) = BlogFeedChecker(httpClientFactory, tasksPreferences, appPreferences, crashReporting)
 
     @Provides
+    fun providesTaskMover(
+        taskDao: TaskDao,
+        caldavDao: CaldavDao,
+        googleTaskDao: GoogleTaskDao,
+        preferences: Preferences,
+        refreshBroadcaster: RefreshBroadcaster,
+        syncAdapters: SyncAdapters,
+        vtodoCache: VtodoCache,
+    ) = org.tasks.data.TaskMover(
+        taskDao = taskDao,
+        caldavDao = caldavDao,
+        googleTaskDao = googleTaskDao,
+        appPreferences = preferences,
+        refreshBroadcaster = refreshBroadcaster,
+        syncAdapters = syncAdapters,
+        vtodoCache = vtodoCache,
+    )
+
+    @Provides
     @Singleton
     fun providesTaskSaver(
         taskDao: TaskDao,
@@ -511,14 +530,12 @@ class ApplicationModule {
     fun providesSyncAdapters(
         backgroundWork: BackgroundWork,
         caldavDao: CaldavDao,
-        googleTaskDao: GoogleTaskDao,
         openTaskDao: OpenTaskDao,
         tasksPreferences: TasksPreferences,
         refreshBroadcaster: RefreshBroadcaster,
     ) = SyncAdapters(
         backgroundWork = backgroundWork,
         caldavDao = caldavDao,
-        googleTaskDao = googleTaskDao,
         openTaskSyncCheck = { openTaskDao.shouldSync() },
         tasksPreferences = tasksPreferences,
         refreshBroadcaster = refreshBroadcaster,

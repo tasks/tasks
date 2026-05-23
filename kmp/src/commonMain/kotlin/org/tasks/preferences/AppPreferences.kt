@@ -19,4 +19,5 @@ interface AppPreferences {
     suspend fun isCurrentlyQuietHours(): Boolean
     suspend fun adjustForQuietHours(time: Long): Long
     suspend fun locationUpdateIntervalMinutes(): Int = 15
+    suspend fun addTasksToTop(): Boolean = true
 }

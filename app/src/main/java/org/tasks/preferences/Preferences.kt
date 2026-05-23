@@ -55,7 +55,7 @@ class Preferences @JvmOverloads constructor(
 
     fun showBackupWarnings() = !getBoolean(R.string.p_backups_ignore_warnings, false)
 
-    fun addTasksToTop(): Boolean = getBoolean(R.string.p_add_to_top, true)
+    override suspend fun addTasksToTop(): Boolean = getBoolean(R.string.p_add_to_top, true)
 
     fun backButtonSavesTask(): Boolean = getBoolean(R.string.p_back_button_saves_task, false)
 

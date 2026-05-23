@@ -20,8 +20,8 @@ import org.tasks.data.db.Table
 import org.tasks.data.sql.Field
 
 const val SUPPRESS_SYNC = "suppress_sync"
+const val FORCE_SYNC = "force_sync"
 const val FORCE_CALDAV_SYNC = "force_caldav_sync"
-const val FORCE_MICROSOFT_SYNC = "force_microsoft_sync"
 
 @Serializable
 @CommonParcelize
