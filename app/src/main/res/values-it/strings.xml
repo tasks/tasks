@@ -685,4 +685,5 @@
     <string name="read_more">Leggi di più</string>
     <string name="upgrade_desktop_app">Tasks.org per desktop</string>
     <string name="upgrade_desktop_app_description">Accesso in anteprima alla nuova app per desktop</string>
+    <string name="p_per_list_sort">ordina_per_lista</string>
 </resources>
