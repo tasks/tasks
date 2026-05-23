@@ -1,8 +1,11 @@
 package org.tasks.kmp
 
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.emptyPreferences
+import co.touchlab.kermit.Logger
 import okio.Path.Companion.toPath
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.TextStyle
@@ -15,6 +18,10 @@ expect val DEV_URL: String
 
 fun createDataStore(producePath: () -> String): DataStore<Preferences> =
     PreferenceDataStoreFactory.createWithPath(
+        corruptionHandler = ReplaceFileCorruptionHandler {
+            Logger.e { "Preferences datastore corrupted, resetting to defaults" }
+            emptyPreferences()
+        },
         produceFile = { producePath().toPath() }
     )
 
