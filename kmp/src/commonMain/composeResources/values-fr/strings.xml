@@ -319,4 +319,6 @@
     <string name="add_platform_account">Ajouter le compte %1$s</string>
     <string name="add_shortcut_to_home_screen">Ajouter le raccourci à l'écran d'accueil</string>
     <string name="add_widget_to_home_screen">Ajouter le widget à l'écran d'accueil</string>
+    <string name="this_device_only">Cet appareil uniquement</string>
+    <string name="create_a_list">Créer une liste</string>
 </resources>
