@@ -40,11 +40,76 @@ import org.tasks.di.dataDir
 import org.tasks.di.logDir
 import org.tasks.di.platformModule
 import org.tasks.logging.FileLogWriter
+import java.awt.Desktop
 import java.awt.Dimension
+import java.awt.EventQueue
+import java.awt.Frame
 import java.awt.event.WindowEvent
 import java.awt.event.WindowFocusListener
 import java.io.File
+import java.io.RandomAccessFile
+import java.net.InetAddress
+import java.net.ServerSocket
+import java.net.Socket
+import java.nio.channels.FileChannel
 import org.tasks.extensions.openInBrowser
+
+private val portFile = File(dataDir, ".ipc_port")
+private val lockFile = File(dataDir, ".lock")
+private var lockChannel: FileChannel? = null
+private var ipcServer: ServerSocket? = null
+
+private fun acquireLock(): Boolean {
+    return try {
+        lockFile.parentFile?.mkdirs()
+        lockChannel = RandomAccessFile(lockFile, "rw").channel
+        lockChannel?.tryLock() != null
+    } catch (e: Exception) {
+        Logger.e(e) { "Failed to acquire lock" }
+        false
+    }
+}
+
+private fun signalExistingInstance(): Boolean {
+    return try {
+        val port = portFile.readText().trim().toInt()
+        Socket(InetAddress.getLoopbackAddress(), port).use { it.getOutputStream().write(1) }
+        true
+    } catch (e: Exception) {
+        Logger.e(e) { "Failed to signal existing instance" }
+        false
+    }
+}
+
+private fun startIpcServer() {
+    val server = ServerSocket(0, 1, InetAddress.getLoopbackAddress())
+    ipcServer = server
+    portFile.writeText(server.localPort.toString())
+    portFile.deleteOnExit()
+    val thread = Thread({
+        while (true) {
+            try {
+                server.accept().use { it.getInputStream().read() }
+                EventQueue.invokeLater {
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().requestForeground(true)
+                    }
+                    Frame.getFrames().forEach { frame ->
+                        frame.isVisible = true
+                        frame.extendedState = frame.extendedState and Frame.ICONIFIED.inv()
+                        frame.toFront()
+                        frame.requestFocus()
+                    }
+                }
+            } catch (e: Exception) {
+                Logger.w(e) { "IPC server stopped" }
+                break
+            }
+        }
+    }, "ipc-server")
+    thread.isDaemon = true
+    thread.start()
+}
 
 private val MIN_WIDTH = 400.dp
 private val MIN_HEIGHT = 300.dp
@@ -53,6 +118,11 @@ private val DEFAULT_HEIGHT = 600.dp
 
 @OptIn(FlowPreview::class)
 fun main() {
+    if (!acquireLock()) {
+        signalExistingInstance()
+        return
+    }
+    startIpcServer()
     org.tasks.caldav.CaldavSynchronizer.registerFactories()
     Logger.setLogWriters(
         buildList {
@@ -71,6 +141,10 @@ fun main() {
     }
     Runtime.getRuntime().addShutdownHook(Thread {
         (koin.get<Reporting>() as? PostHogReporting)?.close()
+        ipcServer?.close()
+        portFile.delete()
+        lockChannel?.close()
+        lockFile.delete()
     })
 
     application {
