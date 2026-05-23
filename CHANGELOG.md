@@ -1,4 +1,4 @@
-### 15.6 (2026-05-20)
+### 15.6 (2026-05-23)
 
 * Create new lists from the list picker
 * Improve CalDAV color sync compatibility - @poke [#4387](https://github.com/tasks/tasks/pull/4387)
@@ -14,6 +14,7 @@ Desktop:
   * Add ability to log out of Google Task accounts
   * Prompt to create list if there is none
   * Remember drawer/rail state across launch
+  * Prevent launching multiple instances
   * Use platform conventions for app data and logs [#4373](https://github.com/tasks/tasks/issues/4373)
   * Fix crash on Windows when waking from sleep [#4368](https://github.com/tasks/tasks/issues/4368)
 
@@ -23,6 +24,7 @@ Update translations:
   * Czech - Fjuro
   * French - @FlorianLeChat
   * German - @franconian
+  * Italian - @ppasserini
   * Japanese - Norara
   * Spanish - @Nikzouls
   * Turkish - @emintufan
