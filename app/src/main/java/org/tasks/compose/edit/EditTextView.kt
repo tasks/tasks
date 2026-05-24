@@ -22,9 +22,12 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
 import org.tasks.R
 import org.tasks.dialogs.Linkify
+import org.tasks.extensions.Context.findActivity
 import org.tasks.markdown.MarkdownProvider
 
 @Composable
@@ -113,8 +116,14 @@ fun EditTextView(
                 view.post {
                     fun tryFocus(attempts: Int = 3) {
                         if (view.requestFocus()) {
-                            val imm = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+                            view.context.findActivity()?.window?.let { window ->
+                                WindowCompat
+                                    .getInsetsController(window, view)
+                                    .show(WindowInsetsCompat.Type.ime())
+                            } ?: run {
+                                val imm = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                                imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+                            }
                         } else if (attempts > 1) {
                             view.postDelayed({ tryFocus(attempts - 1) }, 50)
                         }
