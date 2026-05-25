@@ -67,7 +67,6 @@ open class DrawerViewModel(
         updateFilters()
 
         refreshFlow
-            .throttleLatest(1000)
             .onEach { updateFilters() }
             .launchIn(viewModelScope)
     }

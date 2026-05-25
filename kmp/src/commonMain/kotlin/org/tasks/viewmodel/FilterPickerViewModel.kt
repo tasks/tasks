@@ -50,7 +50,6 @@ open class FilterPickerViewModel(
         refresh()
 
         refreshFlow
-            .throttleLatest(1000)
             .onEach { refresh() }
             .launchIn(viewModelScope)
 
