@@ -282,4 +282,16 @@
     <string name="dismiss">閉じる</string>
     <string name="add_shortcut_to_home_screen">ホーム画面にショートカットを追加</string>
     <string name="add_widget_to_home_screen">ホーム画面にウィジェットを追加</string>
+    <string name="edit_task">タスクを編集</string>
+    <string name="task_title">タスクのタイトル</string>
+    <string name="no_list_available">利用可能なリストはありません</string>
+    <string name="add_platform_account">%1$sアカウントを追加</string>
+    <string name="this_device_only">この端末のみ</string>
+    <string name="error_no_sponsorship">スポンサーシップが見つかりません</string>
+    <string name="error_sponsorship_delay">新しいスポンサーシップは、すぐには利用できないかもしれないので、数分待ってから再びお試しください.</string>
+    <string name="error_contact_support">問題が解決しない場合は、%1$sにご連絡ください</string>
+    <string name="sponsor_on_github">GitHubでのスポンサー</string>
+    <string name="unlock_pro_opening_browser">ブラウザを開いています…</string>
+    <string name="google_play_subscription">Google Playのサブスクリプション</string>
+    <string name="github_sponsorship">GitHubのスポンサーシップ</string>
 </resources>
