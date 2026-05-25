@@ -57,9 +57,17 @@ private fun platform(): Platform {
     }
 }
 
+private val overrideDir: File? by lazy {
+    val path = System.getProperty("tasks.dataDir")?.takeIf { it.isNotBlank() }
+        ?: System.getenv("TASKS_DATA_DIR")?.takeIf { it.isNotBlank() }
+    path?.let { File(it) }?.also {
+        require(it.exists() || it.mkdirs()) { "Failed to create data directory: $it" }
+        require(it.isDirectory) { "Data directory path is not a directory: $it" }
+    }
+}
+
 val dataDir: File by lazy {
-    val override = System.getProperty("tasks.dataDir")?.takeIf { it.isNotBlank() }
-    if (override != null) return@lazy File(override).also { it.mkdirs() }
+    overrideDir?.let { return@lazy it }
     val home = System.getProperty("user.home")
     val legacyDir = File(home, ".tasks.org")
     if (legacyDir.exists()) return@lazy legacyDir
@@ -76,8 +84,7 @@ val dataDir: File by lazy {
 }
 
 val logDir: File by lazy {
-    val override = System.getProperty("tasks.dataDir")?.takeIf { it.isNotBlank() }
-    if (override != null) return@lazy File(override, "logs").also { it.mkdirs() }
+    overrideDir?.let { return@lazy File(it, "logs").also { d -> d.mkdirs() } }
     val home = System.getProperty("user.home")
     val dir = when (platform()) {
         Platform.MAC -> File(home, "Library/Logs/$appName")
