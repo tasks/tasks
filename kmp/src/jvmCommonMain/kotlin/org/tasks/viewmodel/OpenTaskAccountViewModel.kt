@@ -15,6 +15,8 @@ import org.jetbrains.compose.resources.getString
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_UNKNOWN
+import org.tasks.data.entity.CaldavAccount.Companion.openTaskProvider
+import org.tasks.data.entity.OpenTaskProvider
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.name_cannot_be_empty
 
@@ -26,6 +28,7 @@ open class OpenTaskAccountViewModel(
     val displayName = MutableStateFlow("")
     val nameError = MutableStateFlow<String?>(null)
     val serverType = MutableStateFlow(SERVER_UNKNOWN)
+    val showServerType = MutableStateFlow(true)
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val account: StateFlow<CaldavAccount?> = accountId
@@ -47,6 +50,7 @@ open class OpenTaskAccountViewModel(
         displayName.value = account.name.orEmpty()
         nameError.value = null
         serverType.value = account.serverType
+        showServerType.value = account.uuid.openTaskProvider() != OpenTaskProvider.KSYNC
     }
 
     fun setDisplayName(name: String) {

@@ -17,13 +17,14 @@ import org.tasks.service.TaskCompleter
 import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import androidx.annotation.StringRes
+import org.jetbrains.compose.resources.StringResource
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.prefTitle
+import org.tasks.data.composeTitle
 import org.tasks.extensions.Context.canScheduleExactAlarms
 import org.tasks.feed.BlogPost
 import org.tasks.filters.SearchFilter
@@ -42,7 +43,7 @@ sealed class Banner(
 ) {
     data object NotificationsDisabled : Banner("notifications", R.string.TLA_menu_settings, R.string.dismiss)
     data object AlarmsDisabled : Banner("alarms", R.string.TLA_menu_settings, R.string.dismiss)
-    data class SubscriptionRequired(val nameRes: Int, val isTasksOrg: Boolean) : Banner("subscribe", R.string.button_subscribe, R.string.dismiss)
+    data class SubscriptionRequired(val nameRes: StringResource, val isTasksOrg: Boolean) : Banner("subscribe", R.string.button_subscribe, R.string.dismiss)
     data object BegForMoney : Banner(
         "subscribe",
         if (IS_GENERIC) R.string.donate_today else R.string.button_subscribe,
@@ -114,7 +115,7 @@ class TaskListViewModel @Inject constructor(
                     val account = subscriptionAccounts.find { it.isTasksOrg }
                         ?: subscriptionAccounts.first()
                     Banner.SubscriptionRequired(
-                        nameRes = account.prefTitle,
+                        nameRes = account.composeTitle!!,
                         isTasksOrg = account.isTasksOrg,
                     )
                 }

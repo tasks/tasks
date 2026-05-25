@@ -30,6 +30,7 @@ fun OpenTaskAccountScreen(
     displayName: String,
     nameError: String?,
     serverType: Int,
+    showServerType: Boolean,
     hasChanges: Boolean,
     showDiscardDialog: Boolean,
     accountError: String?,
@@ -72,16 +73,18 @@ fun OpenTaskAccountScreen(
 
         Spacer(modifier = Modifier.height(SettingsContentPadding))
 
-        Column(
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
-        ) {
-            ServerTypeSelector(
-                selected = serverType,
-                onSelected = onServerTypeChange,
-            )
-        }
+        if (showServerType) {
+            Column(
+                modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            ) {
+                ServerTypeSelector(
+                    selected = serverType,
+                    onSelected = onServerTypeChange,
+                )
+            }
 
-        Spacer(modifier = Modifier.height(SettingsContentPadding))
+            Spacer(modifier = Modifier.height(SettingsContentPadding))
+        }
 
         Column(
             modifier = Modifier.padding(horizontal = SettingsContentPadding),

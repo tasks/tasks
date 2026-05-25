@@ -2,46 +2,14 @@ package org.tasks.data
 
 import android.app.Activity
 import android.content.Context
-import org.tasks.R
 import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.caldav.CaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavAccount.Companion.isDavx5
-import org.tasks.data.entity.CaldavAccount.Companion.isDavx5Managed
-import org.tasks.data.entity.CaldavAccount.Companion.isDecSync
-import org.tasks.data.entity.CaldavAccount.Companion.isEteSync
 import org.tasks.etebase.EtebaseCalendarSettingsActivity
 import org.tasks.opentasks.OpenTasksListSettingsActivity
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sync.microsoft.MicrosoftListSettingsActivity
-
-val CaldavAccount.prefTitle: Int
-    get() = when {
-        isTasksOrg -> R.string.tasks_org
-        isCaldavAccount -> R.string.caldav
-        isEtebaseAccount || uuid.isEteSync() -> R.string.etesync
-        uuid.isDavx5() || uuid.isDavx5Managed() -> R.string.davx5
-        uuid.isDecSync() -> R.string.decsync
-        isMicrosoft -> R.string.microsoft
-        isGoogleTasks -> R.string.gtasks_GPr_header
-        isLocalList -> R.string.local_lists
-        else -> 0
-    }
-
-val CaldavAccount.prefIcon: Int
-    get() = when {
-        isTasksOrg -> R.drawable.ic_round_icon
-        isCaldavAccount -> R.drawable.ic_webdav_logo
-        isEtebaseAccount || uuid.isEteSync() -> R.drawable.ic_etesync
-        uuid.isDavx5() -> R.drawable.ic_davx5_icon_green_bg
-        uuid.isDavx5Managed() -> R.drawable.ic_davx5_icon_blue_bg
-        uuid.isDecSync() -> R.drawable.ic_decsync
-        isMicrosoft -> R.drawable.ic_microsoft_tasks
-        isGoogleTasks -> R.drawable.ic_google
-        isLocalList -> R.drawable.ic_outline_cloud_off_24px
-        else -> 0
-    }
 
 fun CaldavAccount.isTasksSubscription(context: Context): Boolean {
     return isTasksOrg && !isPaymentRequired() && !isLoggedOut()

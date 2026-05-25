@@ -37,6 +37,7 @@ fun OpenTaskAccountSettingsDetail(
     val displayName by viewModel.displayName.collectAsState()
     val nameError by viewModel.nameError.collectAsState()
     val serverType by viewModel.serverType.collectAsState()
+    val showServerType by viewModel.showServerType.collectAsState()
     val account by viewModel.account.collectAsState()
     val hasChanges by viewModel.hasChanges.collectAsState()
     var showDiscardDialog by remember { mutableStateOf(false) }
@@ -75,6 +76,7 @@ fun OpenTaskAccountSettingsDetail(
                 displayName = displayName,
                 nameError = nameError,
                 serverType = serverType,
+                showServerType = showServerType,
                 hasChanges = hasChanges,
                 showDiscardDialog = showDiscardDialog,
                 accountError = account?.error,

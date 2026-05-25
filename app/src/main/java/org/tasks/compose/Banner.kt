@@ -3,6 +3,8 @@ package org.tasks.compose
 import android.content.res.Configuration
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.stringResource as composeStringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.tasks.BuildConfig
 import org.tasks.R
@@ -10,6 +12,9 @@ import org.tasks.TasksApplication
 import org.tasks.compose.components.AnimatedBanner
 import org.tasks.compose.components.Banner
 import org.tasks.themes.TasksTheme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.davx5
+import tasks.kmp.generated.resources.tasks_org
 
 @Composable
 fun NotificationsDisabledBanner(
@@ -44,7 +49,7 @@ fun AlarmsDisabledBanner(
 
 @Composable
 fun SubscriptionRequiredBanner(
-    nameRes: Int,
+    nameRes: StringResource,
     isTasksOrg: Boolean,
     subscribe: () -> Unit,
     dismiss: () -> Unit,
@@ -54,7 +59,7 @@ fun SubscriptionRequiredBanner(
         body = if (isTasksOrg) {
             stringResource(id = R.string.your_subscription_expired)
         } else {
-            stringResource(id = R.string.banner_subscription_required_body, stringResource(nameRes))
+            stringResource(id = R.string.banner_subscription_required_body, composeStringResource(nameRes))
         },
         dismissText = stringResource(id = R.string.dismiss),
         onDismiss = dismiss,
@@ -188,7 +193,7 @@ private fun GoogleTasksWarningPreview() = TasksTheme {
 @Composable
 private fun SubscriptionRequiredDavx5Preview() = TasksTheme {
     SubscriptionRequiredBanner(
-        nameRes = R.string.davx5,
+        nameRes = Res.string.davx5,
         isTasksOrg = false,
         subscribe = {},
         dismiss = {},
@@ -200,7 +205,7 @@ private fun SubscriptionRequiredDavx5Preview() = TasksTheme {
 @Composable
 private fun SubscriptionRequiredTasksOrgPreview() = TasksTheme {
     SubscriptionRequiredBanner(
-        nameRes = R.string.tasks_org,
+        nameRes = Res.string.tasks_org,
         isTasksOrg = true,
         subscribe = {},
         dismiss = {},

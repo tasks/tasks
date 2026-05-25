@@ -48,6 +48,7 @@ class OpenTaskAccountFragment : Fragment() {
             val displayName by viewModel.displayName.collectAsStateWithLifecycle()
             val nameError by viewModel.nameError.collectAsStateWithLifecycle()
             val serverType by viewModel.serverType.collectAsStateWithLifecycle()
+            val showServerType by viewModel.showServerType.collectAsStateWithLifecycle()
             val hasChanges by viewModel.hasChanges.collectAsStateWithLifecycle()
             val account by viewModel.account.collectAsStateWithLifecycle()
             var showDiscardDialog by rememberSaveable { mutableStateOf(false) }
@@ -57,6 +58,7 @@ class OpenTaskAccountFragment : Fragment() {
                 displayName = displayName,
                 nameError = nameError,
                 serverType = serverType,
+                showServerType = showServerType,
                 hasChanges = hasChanges,
                 showDiscardDialog = showDiscardDialog,
                 accountError = account?.error,

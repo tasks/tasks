@@ -21,6 +21,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.openTaskType
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.OpenTaskProvider
 import java.util.UUID
 
 open class OpenTaskDao(
@@ -45,7 +46,7 @@ open class OpenTaskDao(
         cr.query(
                 taskLists,
                 null,
-                "${TaskListColumns.SYNC_ENABLED}=1 AND ($SUPPORTED_TYPE_FILTER)",
+                "${TaskListColumns.SYNC_ENABLED}=1 AND (${OpenTaskProvider.SUPPORTED_TYPE_FILTER})",
                 null,
                 null)?.use {
             while (it.moveToNext()) {
@@ -124,13 +125,7 @@ open class OpenTaskDao(
 
     companion object {
         private const val OPENTASK_BATCH_LIMIT = 499
-        val SUPPORTED_TYPES = setOf(
-                CaldavAccount.ACCOUNT_TYPE_DAVX5,
-                CaldavAccount.ACCOUNT_TYPE_DAVX5_MANAGED,
-                CaldavAccount.ACCOUNT_TYPE_ETESYNC,
-                CaldavAccount.ACCOUNT_TYPE_DECSYNC
-        )
-        val SUPPORTED_TYPE_FILTER = SUPPORTED_TYPES.joinToString(" OR ") { "ACCOUNT_TYPE = '$it'" }
+        val SUPPORTED_TYPES = OpenTaskProvider.SUPPORTED_TYPES
 
         suspend fun Map<String, List<CaldavCalendar>>.filterActive(caldavDao: CaldavDao) =
                 filterNot { (_, lists) -> caldavDao.anyExist(lists.map { it.url!! }) }

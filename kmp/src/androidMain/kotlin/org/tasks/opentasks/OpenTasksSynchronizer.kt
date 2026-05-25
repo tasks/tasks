@@ -5,7 +5,6 @@ import co.touchlab.kermit.Logger
 import org.dmfs.tasks.contract.TaskContract
 import org.dmfs.tasks.contract.TaskContract.Tasks
 import org.jetbrains.compose.resources.getString
-import org.tasks.analytics.Constants
 import org.tasks.analytics.Reporting
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.Ical4androidTaskAdapter
@@ -17,10 +16,8 @@ import org.tasks.data.OpenTaskDao.Companion.toLocalCalendar
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavAccount.Companion.isDavx5
-import org.tasks.data.entity.CaldavAccount.Companion.isDavx5Managed
-import org.tasks.data.entity.CaldavAccount.Companion.isDecSync
-import org.tasks.data.entity.CaldavAccount.Companion.isEteSync
+import org.tasks.data.entity.CaldavAccount.Companion.openTaskProvider
+import org.tasks.data.entity.OpenTaskProvider
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
@@ -56,13 +53,8 @@ class OpenTasksSynchronizer(
             .forEach {
                 reporting.logEvent(
                     "sync_add_account",
-                    "type" to when {
-                        it.uuid.isDavx5() -> Constants.SYNC_TYPE_DAVX5
-                        it.uuid.isDavx5Managed() -> Constants.SYNC_TYPE_DAVX5_MANAGED
-                        it.uuid.isEteSync() -> Constants.SYNC_TYPE_ETESYNC_OT
-                        it.uuid.isDecSync() -> Constants.SYNC_TYPE_DECSYNC
-                        else -> throw IllegalArgumentException()
-                    }
+                    "type" to (it.uuid.openTaskProvider()?.syncType
+                        ?: throw IllegalArgumentException())
                 )
             }
         caldavDao.getAccounts(CaldavAccount.TYPE_OPENTASKS).forEach { account ->
@@ -77,13 +69,8 @@ class OpenTasksSynchronizer(
                     sync(account, entries)
                     if (account.lastSync == 0L) {
                         val taskCount = caldavDao.getTaskCountForAccount(account.uuid!!)
-                        val syncType = when {
-                            account.uuid.isDavx5() -> Constants.SYNC_TYPE_DAVX5
-                            account.uuid.isDavx5Managed() -> Constants.SYNC_TYPE_DAVX5_MANAGED
-                            account.uuid.isEteSync() -> Constants.SYNC_TYPE_ETESYNC_OT
-                            account.uuid.isDecSync() -> Constants.SYNC_TYPE_DECSYNC
-                            else -> "opentasks"
-                        }
+                        val syncType =
+                            account.uuid.openTaskProvider()?.syncType ?: "opentasks"
                         reporting.logEvent(
                             "sync_initial_sync_complete",
                             "type" to syncType,
@@ -273,9 +260,9 @@ class OpenTasksSynchronizer(
 
     companion object {
         private val CaldavAccount.isEteSync: Boolean
-            get() = uuid?.isEteSync() == true
+            get() = uuid.openTaskProvider() == OpenTaskProvider.ETESYNC
 
         private val CaldavAccount.isDecSync: Boolean
-            get() = uuid?.isDecSync() == true
+            get() = uuid.openTaskProvider() == OpenTaskProvider.DECSYNC
     }
 }

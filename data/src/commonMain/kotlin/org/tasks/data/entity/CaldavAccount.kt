@@ -117,25 +117,10 @@ data class CaldavAccount(
         const val ERROR_PURCHASE_TOKEN_IN_USE = "purchase_token_in_use:"
         const val ERROR_TOS_REQUIRED = "HTTP 451"
 
-        const val ACCOUNT_TYPE_DAVX5 = "bitfire.at.davdroid"
-        const val ACCOUNT_TYPE_DAVX5_MANAGED = "com.davdroid"
-        const val ACCOUNT_TYPE_ETESYNC = "com.etesync.syncadapter"
-        const val ACCOUNT_TYPE_DECSYNC = "org.decsync.tasks"
-
-        const val PACKAGE_DAVX5 = "at.bitfire.davdroid"
-        const val PACKAGE_DAVX5_MANAGED = "com.davdroid"
-        const val PACKAGE_ETESYNC = "com.etesync.syncadapter"
-        const val PACKAGE_DECSYNC = "org.decsync.cc"
-
         fun String?.openTaskType(): String? = this?.split(":")?.get(0)
 
-        fun String?.isDavx5(): Boolean = this?.startsWith(ACCOUNT_TYPE_DAVX5) == true
-
-        fun String?.isDavx5Managed(): Boolean = this?.startsWith(ACCOUNT_TYPE_DAVX5_MANAGED) == true
-
-        fun String?.isEteSync(): Boolean = this?.startsWith(ACCOUNT_TYPE_ETESYNC) == true
-
-        fun String?.isDecSync(): Boolean = this?.startsWith(ACCOUNT_TYPE_DECSYNC) == true
+        fun String?.openTaskProvider(): OpenTaskProvider? =
+            OpenTaskProvider.fromUuid(this)
 
         fun String?.isPaymentRequired(): Boolean = this?.startsWith(ERROR_PAYMENT_REQUIRED) == true
 

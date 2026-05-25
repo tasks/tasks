@@ -6,6 +6,7 @@
     <string name="url_donate" translatable="false">https://tasks.org/donate</string>
     <string name="caldav" translatable="false">CalDAV</string>
     <string name="davx5" translatable="false">DAVx⁵</string>
+    <string name="ksync" translatable="false">kSync</string>
     <string name="decsync" translatable="false">DecSync CC</string>
     <string name="etesync" translatable="false">EteSync</string>
     <string name="gtasks_GPr_header" translatable="false">Google Tasks</string>

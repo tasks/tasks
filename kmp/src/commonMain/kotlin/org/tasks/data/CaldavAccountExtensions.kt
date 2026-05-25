@@ -3,14 +3,8 @@ package org.tasks.data
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavAccount.Companion.PACKAGE_DAVX5
-import org.tasks.data.entity.CaldavAccount.Companion.PACKAGE_DAVX5_MANAGED
-import org.tasks.data.entity.CaldavAccount.Companion.PACKAGE_DECSYNC
-import org.tasks.data.entity.CaldavAccount.Companion.PACKAGE_ETESYNC
-import org.tasks.data.entity.CaldavAccount.Companion.isDecSync
-import org.tasks.data.entity.CaldavAccount.Companion.isDavx5
-import org.tasks.data.entity.CaldavAccount.Companion.isDavx5Managed
-import org.tasks.data.entity.CaldavAccount.Companion.isEteSync
+import org.tasks.data.entity.CaldavAccount.Companion.openTaskProvider
+import org.tasks.data.entity.OpenTaskProvider
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.caldav
 import tasks.kmp.generated.resources.davx5
@@ -22,10 +16,12 @@ import tasks.kmp.generated.resources.ic_davx5_icon_green_bg
 import tasks.kmp.generated.resources.ic_decsync
 import tasks.kmp.generated.resources.ic_etesync
 import tasks.kmp.generated.resources.ic_google
+import tasks.kmp.generated.resources.ic_ksync
 import tasks.kmp.generated.resources.ic_microsoft_tasks
 import tasks.kmp.generated.resources.ic_outline_cloud_off_24px
 import tasks.kmp.generated.resources.ic_round_icon
 import tasks.kmp.generated.resources.ic_webdav_logo
+import tasks.kmp.generated.resources.ksync
 import tasks.kmp.generated.resources.local_lists
 import tasks.kmp.generated.resources.microsoft
 import tasks.kmp.generated.resources.tasks_org_account
@@ -34,38 +30,46 @@ data class AccountIcon(val drawable: DrawableResource, val tinted: Boolean)
 
 data class OpenTaskApp(val name: String, val packageName: String)
 
+val OpenTaskProvider.titleRes: StringResource
+    get() = when (this) {
+        OpenTaskProvider.DAVX5, OpenTaskProvider.DAVX5_MANAGED -> Res.string.davx5
+        OpenTaskProvider.ETESYNC -> Res.string.etesync
+        OpenTaskProvider.DECSYNC -> Res.string.decsync
+        OpenTaskProvider.KSYNC -> Res.string.ksync
+    }
+
+val OpenTaskProvider.iconRes: DrawableResource
+    get() = when (this) {
+        OpenTaskProvider.DAVX5 -> Res.drawable.ic_davx5_icon_green_bg
+        OpenTaskProvider.DAVX5_MANAGED -> Res.drawable.ic_davx5_icon_blue_bg
+        OpenTaskProvider.ETESYNC -> Res.drawable.ic_etesync
+        OpenTaskProvider.DECSYNC -> Res.drawable.ic_decsync
+        OpenTaskProvider.KSYNC -> Res.drawable.ic_ksync
+    }
+
 val CaldavAccount.openTaskApp: OpenTaskApp?
-    get() = when {
-        uuid.isDavx5() -> OpenTaskApp("DAVx\u2075", PACKAGE_DAVX5)
-        uuid.isDavx5Managed() -> OpenTaskApp("DAVx\u2075", PACKAGE_DAVX5_MANAGED)
-        uuid.isEteSync() -> OpenTaskApp("EteSync", PACKAGE_ETESYNC)
-        uuid.isDecSync() -> OpenTaskApp("DecSync CC", PACKAGE_DECSYNC)
-        else -> null
+    get() = uuid.openTaskProvider()?.let {
+        OpenTaskApp(it.displayName, it.packageName)
     }
 
 val CaldavAccount.composeTitle: StringResource?
     get() = when {
         isTasksOrg -> Res.string.tasks_org_account
         isCaldavAccount -> Res.string.caldav
-        isEtebaseAccount || uuid.isEteSync() -> Res.string.etesync
-        uuid.isDavx5() || uuid.isDavx5Managed() -> Res.string.davx5
-        uuid.isDecSync() -> Res.string.decsync
+        isEtebaseAccount -> Res.string.etesync
         isMicrosoft -> Res.string.microsoft
         isGoogleTasks -> Res.string.gtasks_GPr_header
         isLocalList -> Res.string.local_lists
-        else -> null
+        else -> uuid.openTaskProvider()?.titleRes
     }
 
 val CaldavAccount.composeIcon: AccountIcon?
     get() = when {
         isTasksOrg -> AccountIcon(Res.drawable.ic_round_icon, false)
         isCaldavAccount -> AccountIcon(Res.drawable.ic_webdav_logo, true)
-        isEtebaseAccount || uuid.isEteSync() -> AccountIcon(Res.drawable.ic_etesync, false)
-        uuid.isDavx5() -> AccountIcon(Res.drawable.ic_davx5_icon_green_bg, false)
-        uuid.isDavx5Managed() -> AccountIcon(Res.drawable.ic_davx5_icon_blue_bg, false)
-        uuid.isDecSync() -> AccountIcon(Res.drawable.ic_decsync, false)
+        isEtebaseAccount -> AccountIcon(Res.drawable.ic_etesync, false)
         isMicrosoft -> AccountIcon(Res.drawable.ic_microsoft_tasks, false)
         isGoogleTasks -> AccountIcon(Res.drawable.ic_google, false)
         isLocalList -> AccountIcon(Res.drawable.ic_outline_cloud_off_24px, true)
-        else -> null
+        else -> uuid.openTaskProvider()?.let { AccountIcon(it.iconRes, false) }
     }
