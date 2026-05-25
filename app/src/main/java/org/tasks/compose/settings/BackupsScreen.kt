@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
@@ -15,11 +16,25 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.ErrorOutline
+import androidx.compose.material.icons.outlined.Visibility
+import androidx.compose.material.icons.outlined.VisibilityOff
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import org.tasks.R
 
 @Composable
@@ -37,12 +52,16 @@ fun BackupsScreen(
     androidBackupEnabled: Boolean,
     lastAndroidBackupSummary: String,
     showAndroidBackupWarning: Boolean,
+    backupsEncryptionEnabled: Boolean,
+    backupsEncryptionPassword: String,
     ignoreWarnings: Boolean,
     onDocumentation: () -> Unit,
     onBackupDir: () -> Unit,
     onBackupNow: () -> Unit,
     onImportBackup: () -> Unit,
     onBackupsEnabled: (Boolean) -> Unit,
+    onBackupsEncryptionEnabled: (Boolean) -> Unit,
+    onBackupsEncryptionPassword: (String) -> Unit,
     onDriveBackup: (Boolean) -> Unit,
     onDriveAccount: () -> Unit,
     onAndroidBackup: (Boolean) -> Unit,
@@ -96,12 +115,50 @@ fun BackupsScreen(
                     onClick = onImportBackup,
                 )
             }
-            SettingsItemCard(position = CardPosition.Last) {
+            SettingsItemCard(position = CardPosition.Middle) {
                 SwitchPreferenceRow(
                     title = stringResource(R.string.automatic_backups),
                     checked = backupsEnabled,
                     onCheckedChange = onBackupsEnabled,
                 )
+            }
+            SettingsItemCard(position = if (backupsEncryptionEnabled) CardPosition.Middle else CardPosition.Last) {
+                SwitchPreferenceRow(
+                    title = stringResource(R.string.encrypt_backups_title),
+                    summary = stringResource(R.string.encrypt_backups_summary),
+                    checked = backupsEncryptionEnabled,
+                    onCheckedChange = onBackupsEncryptionEnabled,
+                )
+            }
+            if (backupsEncryptionEnabled) {
+                var passwordVisible by rememberSaveable { mutableStateOf(false) }
+                SettingsItemCard(position = CardPosition.Last) {
+                    OutlinedTextField(
+                        value = backupsEncryptionPassword,
+                        onValueChange = onBackupsEncryptionPassword,
+                        label = { Text(stringResource(R.string.password)) },
+                        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                        keyboardOptions = KeyboardOptions(keyboardType = if (passwordVisible) KeyboardType.Text else KeyboardType.Password),
+                        trailingIcon = {
+                            val image = if (passwordVisible) Icons.Outlined.Visibility else Icons.Outlined.VisibilityOff
+
+                            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                                Icon(
+                                    imageVector = image,
+                                    contentDescription = stringResource(R.string.toggle_password_visibility)
+                                )
+                            }
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                start = SettingsContentPadding * 2 + SettingsIconSize,
+                                end = SettingsContentPadding,
+                                bottom = SettingsContentPadding
+                            ),
+                        singleLine = true
+                    )
+                }
             }
         }
 

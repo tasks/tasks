@@ -6,12 +6,17 @@ import org.tasks.time.DateTime
 import java.util.regex.Pattern
 
 object BackupConstants {
+    const val ENCRYPTED_FILE_EXTENSION = "crypt"
     const val INTERNAL_BACKUP = "backup.json"
     const val EXPORT_FILE_NAME = "user.%s.json"
+    const val EXPORT_FILE_NAME_CRYPT = "user.%s.$ENCRYPTED_FILE_EXTENSION"
     const val BACKUP_FILE_NAME = "auto.%s.json"
+    const val BACKUP_FILE_NAME_CRYPT = "auto.%s.$ENCRYPTED_FILE_EXTENSION"
 
-    private val MATCHER = Pattern.compile("""(auto|user)\.(\d{2,4})(\d{2})(\d{2})[T-](\d{2})(\d{2})\.json""")
-    val BACKUP_CLEANUP_MATCHER = Regex("""auto\.\d{6,8}[T-]\d{4}\.json""")
+    private val MATCHER = Pattern.compile(
+        """(auto|user)\.(\d{2,4})(\d{2})(\d{2})[T-](\d{2})(\d{2})\.(json|crypt)"""
+    )
+    val BACKUP_CLEANUP_MATCHER = Regex("""auto\.\d{6,8}[T-]\d{4}\.(json|crypt)""")
 
     fun isBackupFile(name: String?) = name?.let { MATCHER.matcher(it).matches() } ?: false
 
