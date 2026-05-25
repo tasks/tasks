@@ -106,7 +106,7 @@ val commonModule = module {
     single { get<Database>().taskListMetadataDao() }
 
     // No-op implementations
-    single { ComposeRefreshBroadcaster(get()) }
+    single { ComposeRefreshBroadcaster() }
     factory<RefreshBroadcaster> { get<ComposeRefreshBroadcaster>() }
     factory<Notifier> {
         object : Notifier {

@@ -265,9 +265,7 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun providesComposeRefreshBroadcaster(
-        @ApplicationScope scope: CoroutineScope,
-    ) = ComposeRefreshBroadcaster(scope)
+    fun providesComposeRefreshBroadcaster() = ComposeRefreshBroadcaster()
 
     @Provides
     fun providesPurchaseState(inventory: Inventory): PurchaseState = inventory
