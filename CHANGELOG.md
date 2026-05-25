@@ -1,4 +1,4 @@
-### 15.6 (2026-05-23)
+### 15.6 (2026-05-25)
 
 * Create new lists from the list picker
 * Improve CalDAV color sync compatibility - @poke [#4387](https://github.com/tasks/tasks/pull/4387)
@@ -15,8 +15,12 @@ Desktop:
   * Prompt to create list if there is none
   * Remember drawer/rail state across launch
   * Prevent launching multiple instances
+  * Use TASKS_DATA_DIR env var to override data storage
   * Use platform conventions for app data and logs [#4373](https://github.com/tasks/tasks/issues/4373)
   * Fix crash on Windows when waking from sleep [#4368](https://github.com/tasks/tasks/issues/4368)
+
+Android:
+  * Add support for Infomaniak kSync
 
 Update translations:
   * Bulgarian - 109247019824
