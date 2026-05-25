@@ -27,6 +27,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -142,6 +143,7 @@ fun EtebaseAccountScreen(
                     label = stringResource(Res.string.user),
                     error = state.usernameError,
                     position = CardPosition.Middle,
+                    contentType = ContentType.Username,
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.None,
                     ),
@@ -153,6 +155,7 @@ fun EtebaseAccountScreen(
                     label = stringResource(Res.string.user),
                     error = state.usernameError,
                     position = CardPosition.First,
+                    contentType = ContentType.Username,
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.None,
                     ),
@@ -165,6 +168,7 @@ fun EtebaseAccountScreen(
                 placeholder = if (!isNewAccount) "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022" else null,
                 error = state.passwordError,
                 position = CardPosition.Last,
+                contentType = ContentType.Password,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password,
                     capitalization = KeyboardCapitalization.None,

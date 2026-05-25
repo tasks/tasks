@@ -34,6 +34,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -167,6 +168,7 @@ fun CaldavAccountScreen(
                 label = stringResource(Res.string.user),
                 error = state.usernameError,
                 position = CardPosition.Middle,
+                contentType = ContentType.Username,
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.None,
                 ),
@@ -178,6 +180,7 @@ fun CaldavAccountScreen(
                 placeholder = if (!isNewAccount) "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022" else null,
                 error = state.passwordError,
                 position = CardPosition.Last,
+                contentType = ContentType.Password,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password,
                     capitalization = KeyboardCapitalization.None,

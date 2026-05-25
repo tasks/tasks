@@ -14,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.autofill.ContentType
+import androidx.compose.ui.autofill.contentType
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -28,6 +30,7 @@ fun TextInputCard(
     placeholder: String? = null,
     error: String? = null,
     position: CardPosition = CardPosition.Only,
+    contentType: ContentType? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         capitalization = KeyboardCapitalization.Sentences,
     ),
@@ -74,7 +77,12 @@ fun TextInputCard(
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     keyboardOptions = keyboardOptions,
                     visualTransformation = visualTransformation,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .then(
+                            if (contentType != null) Modifier.contentType(contentType)
+                            else Modifier
+                        ),
                 )
             }
             if (error != null) {
