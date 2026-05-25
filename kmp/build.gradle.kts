@@ -155,6 +155,16 @@ android {
         buildConfigField("String", "DEV_URL", "\"${tasks_dev_url ?: ""}\"")
     }
 
+    packaging {
+        resources {
+            excludes += setOf(
+                "META-INF/*.kotlin_module",
+                "META-INF/INDEX.LIST",
+                "META-INF/DEPENDENCIES",
+            )
+        }
+    }
+
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
