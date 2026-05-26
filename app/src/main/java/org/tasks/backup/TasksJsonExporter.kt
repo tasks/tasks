@@ -127,7 +127,7 @@ class TasksJsonExporter @Inject constructor(
     }
 
     @Throws(IOException::class)
-    private suspend fun doTasksExport(os: OutputStream?, taskIds: List<Long>) = withContext(Dispatchers.IO) {
+    internal suspend fun doTasksExport(os: OutputStream?, taskIds: List<Long>) = withContext(Dispatchers.IO) {
         val writer = os!!.bufferedWriter(Charsets.UTF_8)
         with (JsonWriter(writer)) {
             write("{")

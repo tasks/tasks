@@ -59,7 +59,6 @@ import org.tasks.extensions.jsonString
 import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.preferences.Preferences
 import timber.log.Timber
-import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
 import javax.inject.Inject
@@ -85,16 +84,30 @@ class TasksJsonImporter @Inject constructor(
     private val firebase: Firebase,
 ) {
     private val result = ImportResult()
+    private val accountUuidMap = mutableMapOf<String, String>()
+    private val calendarUuidMap = mutableMapOf<String, String>()
 
     suspend fun importTasks(
         context: Context,
         backupFile: Uri?,
         onProgress: (suspend (String) -> Unit)? = null
-    ): ImportResult = withContext(Dispatchers.IO) {
+    ): ImportResult {
         Timber.d("Importing backup file $backupFile")
+        return importTasks(
+            context,
+            { context.contentResolver.openInputStream(backupFile!!)!! },
+            onProgress,
+        )
+    }
+
+    internal suspend fun importTasks(
+        context: Context,
+        inputStreamProvider: () -> InputStream,
+        onProgress: (suspend (String) -> Unit)? = null
+    ): ImportResult = withContext(Dispatchers.IO) {
         try {
-            val version = importMetadata(context, backupFile)
-            importTasks(context, backupFile, onProgress, version)
+            val version = importMetadata(context, inputStreamProvider)
+            importTasks(context, inputStreamProvider, onProgress, version)
             if (version < Upgrader.V8_2) {
                 val themeIndex = preferences.getInt(R.string.p_theme_color, 7)
                 preferences.setInt(
@@ -131,14 +144,10 @@ class TasksJsonImporter @Inject constructor(
 
     private suspend fun importMetadata(
         context: Context,
-        backupFile: Uri?,
+        inputStreamProvider: () -> InputStream,
     ): Int {
-        val `is`: InputStream? = try {
-            context.contentResolver.openInputStream(backupFile!!)
-        } catch (e: FileNotFoundException) {
-            throw IllegalStateException(e)
-        }
-        val bufferedReader = `is`!!.bufferedReader(Charsets.UTF_8)
+        val `is` = inputStreamProvider()
+        val bufferedReader = `is`.bufferedReader(Charsets.UTF_8)
         val reader = JsonReader(bufferedReader)
         reader.isLenient = true
         val ignoreKeys = ignorePrefs.map { context.getString(it) }
@@ -190,14 +199,32 @@ class TasksJsonImporter @Inject constructor(
                                     }
                             }
                             "caldavAccounts" -> reader.forEach<CaldavAccount> { account ->
-                                if (caldavDao.getAccountByUuid(account.uuid!!) == null) {
+                                if (caldavDao.getAccountByUuid(account.uuid!!) != null) {
+                                    return@forEach
+                                }
+                                val existing = findExistingAccount(account)
+                                if (existing != null) {
+                                    accountUuidMap[account.uuid!!] = existing.uuid!!
+                                } else {
                                     caldavDao.insert(account)
                                 }
                             }
                             "caldavCalendars" -> reader.forEach<CaldavCalendar> { calendar ->
-                                if (caldavDao.getCalendarByUuid(calendar.uuid!!) == null) {
+                                if (caldavDao.getCalendarByUuid(calendar.uuid!!) != null) {
+                                    return@forEach
+                                }
+                                val remappedAccount = accountUuidMap[calendar.account] ?: calendar.account
+                                val existingByUrl = calendar.url
+                                    ?.takeIf { it.isNotBlank() }
+                                    ?.let { url ->
+                                        caldavDao.getCalendarByUrl(remappedAccount!!, url)
+                                    }
+                                if (existingByUrl != null) {
+                                    calendarUuidMap[calendar.uuid!!] = existingByUrl.uuid!!
+                                } else {
                                     caldavDao.insert(
                                         calendar.copy(
+                                            account = remappedAccount,
                                             color = themeToColor(context, version, calendar.color),
                                             icon = calendar.icon.migrateLegacyIcon(),
                                         )
@@ -281,16 +308,12 @@ class TasksJsonImporter @Inject constructor(
 
     private suspend fun importTasks(
         context: Context,
-        backupFile: Uri?,
+        inputStreamProvider: () -> InputStream,
         onProgress: (suspend (String) -> Unit)?,
         version: Int,
     ) {
-        val `is`: InputStream? = try {
-            context.contentResolver.openInputStream(backupFile!!)
-        } catch (e: FileNotFoundException) {
-            throw IllegalStateException(e)
-        }
-        val bufferedReader = `is`!!.bufferedReader(Charsets.UTF_8)
+        val `is` = inputStreamProvider()
+        val bufferedReader = `is`.bufferedReader(Charsets.UTF_8)
         val reader = JsonReader(bufferedReader)
         reader.isLenient = true
         reader.beginObject()
@@ -339,15 +362,16 @@ class TasksJsonImporter @Inject constructor(
             backup.caldavTasks
                 ?.filter { it.deleted == 0L }
                 ?.any {
+                    val calendar = calendarUuidMap[it.calendar] ?: it.calendar
                     val existing = if (
                         it.obj.isNullOrBlank() ||
                         it.obj == "null.ics" // caused by an old bug
                     ) {
                         it.remoteId?.let { remoteId ->
-                            caldavDao.getTaskByRemoteId(it.calendar!!, remoteId)
+                            caldavDao.getTaskByRemoteId(calendar!!, remoteId)
                         }
                     } else {
-                        caldavDao.getTask(it.calendar!!, it.obj!!)
+                        caldavDao.getTask(calendar!!, it.obj!!)
                     }
                     existing != null
                 } == true
@@ -461,16 +485,31 @@ class TasksJsonImporter @Inject constructor(
             }
             ?.let { taskAttachmentDao.insert(it) }
         backup.caldavTasks?.forEach { caldavTask ->
-            caldavDao.insert(caldavTask.copy(task = taskId))
+            val remappedCalendar = calendarUuidMap[caldavTask.calendar] ?: caldavTask.calendar
+            caldavDao.insert(caldavTask.copy(task = taskId, calendar = remappedCalendar))
         }
         backup.vtodo?.let {
             val caldavTask =
                 backup.caldavTasks?.firstOrNull { t -> !t.isDeleted() } ?: return@let
-            val caldavCalendar = caldavDao.getCalendar(caldavTask.calendar!!) ?: return@let
-            vtodoCache.putVtodo(caldavCalendar, caldavTask, it)
+            val remappedCalendar = calendarUuidMap[caldavTask.calendar] ?: caldavTask.calendar
+            val caldavCalendar = caldavDao.getCalendar(remappedCalendar!!) ?: return@let
+            vtodoCache.putVtodo(caldavCalendar, caldavTask.copy(calendar = remappedCalendar), it)
         }
         result.importCount++
     }
+
+    private suspend fun findExistingAccount(account: CaldavAccount): CaldavAccount? =
+        caldavDao.getAccounts().firstOrNull { existing ->
+            existing.accountType == account.accountType &&
+                    when {
+                        account.url?.isNotBlank() == true ->
+                            existing.url == account.url &&
+                                    existing.username == account.username
+                        account.username?.isNotBlank() == true ->
+                            existing.username == account.username
+                        else -> false
+                    }
+        }
 
     private suspend fun findTagData(tagData: TagData) =
             findTagData(tagData.remoteId!!, tagData.name!!)
