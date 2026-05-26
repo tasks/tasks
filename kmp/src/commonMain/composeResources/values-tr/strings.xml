@@ -314,4 +314,9 @@
     <string name="add_platform_account">%1$s hesabı ekle</string>
     <string name="add_shortcut_to_home_screen">Ana ekrana kısayol ekle</string>
     <string name="add_widget_to_home_screen">Ana ekrana parçacık ekle</string>
+    <string name="edit_task">Görevi düzenle</string>
+    <string name="task_title">Görev başlığı</string>
+    <string name="no_list_available">Liste yok</string>
+    <string name="this_device_only">Yalnızca bu aygıt</string>
+    <string name="create_a_list">Liste oluştur</string>
 </resources>
