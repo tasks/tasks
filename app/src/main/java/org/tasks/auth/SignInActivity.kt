@@ -168,7 +168,7 @@ class SignInActivity : ComponentActivity() {
                     Platform.GITHUB
                 else
                     Platform.GOOGLE
-            inventory.subscription.value?.isTasksSubscription == true ->
+            IS_GOOGLE_PLAY && inventory.subscription.value?.isTasksSubscription == true ->
                 Platform.GOOGLE
             else -> null
         }

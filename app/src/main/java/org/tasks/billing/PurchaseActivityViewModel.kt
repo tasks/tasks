@@ -68,7 +68,7 @@ class PurchaseActivityViewModel @Inject constructor(
             val nameYourPrice = savedStateHandle.get<Boolean>(EXTRA_NAME_YOUR_PRICE) ?: true
             ViewState(
                 nameYourPrice = nameYourPrice,
-                isGithub = savedStateHandle.get<Boolean>(EXTRA_GITHUB) ?: IS_GENERIC,
+                isGithub = IS_GENERIC || (savedStateHandle.get<Boolean>(EXTRA_GITHUB) ?: false),
                 feature = savedStateHandle.get<Int>(EXTRA_FEATURE) ?: 0,
                 source = savedStateHandle.get<String>(EXTRA_SOURCE) ?: "",
                 showMoreOptions = savedStateHandle.get<Boolean>(EXTRA_SHOW_MORE_OPTIONS) ?: nameYourPrice,
