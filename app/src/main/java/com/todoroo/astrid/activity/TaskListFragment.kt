@@ -398,7 +398,16 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         taskAdapter = taskAdapterProvider.createTaskAdapter(filter)
         listViewModel.setFilter(filter)
         (recyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        // ListDetailPaneScaffold in adaptive-layout 1.2 briefly measures 0x0 without AnimatedPane,
+        // which causes recycler view to lose scroll position. AnimatedPane was janky, and this is
+        // getting replaced eventually, so here is a hack
+        recyclerView.layoutManager = object : LinearLayoutManager(context) {
+            override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State) {
+                if (height > 0) {
+                    super.onLayoutChildren(recycler, state)
+                }
+            }
+        }
 
         val baseFooterHeight = resources.getDimensionPixelSize(R.dimen.task_list_footer_height)
         val additionalFabSpace = TypedValue.applyDimension(
