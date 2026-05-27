@@ -181,6 +181,7 @@ import org.tasks.compose.settings.GoogleTasksAccountSettingsPane
 import org.tasks.compose.settings.MicrosoftAccountSettingsDetail
 import org.tasks.compose.settings.MicrosoftAccountSettingsPane
 import org.tasks.compose.settings.HelpAndFeedbackDetail
+import org.tasks.compose.settings.NavigationDrawerDetail
 import org.tasks.compose.settings.NotificationsDetail
 import org.tasks.compose.settings.TaskDefaultsDetail
 import org.tasks.compose.settings.LinkDesktopScreen
@@ -3004,6 +3005,13 @@ private fun SettingsScreen(
                             onAddAccount = onAddAccountClick,
                         )
                     }
+                    is org.tasks.compose.settings.SettingsDestination.NavigationDrawer -> {
+                        NavigationDrawerDetail(
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                        )
+                    }
                     is org.tasks.compose.settings.SettingsDestination.Debug -> {
                         org.tasks.compose.settings.DebugSettingsDetail(
                             onNavigateBack = {
@@ -3105,7 +3113,6 @@ private fun SettingsScreen(
                             },
                         )
                     }
-
                     null -> {}
                 }
             }

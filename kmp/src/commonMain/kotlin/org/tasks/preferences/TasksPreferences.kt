@@ -118,5 +118,12 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val defaultLocation = stringPreferencesKey("default_location")
         val defaultLocationReminder = intPreferencesKey("default_location_reminder")
         val locationUpdateInterval = intPreferencesKey("location_update_interval")
+        val filtersEnabled = booleanPreferencesKey("drawer_filters_enabled")
+        val showTodayFilter = booleanPreferencesKey("p_show_today_f")
+        val showRecentlyModifiedFilter = booleanPreferencesKey("p_show_recently_modified_f")
+        val tagsEnabled = booleanPreferencesKey("drawer_tags_enabled")
+        val tagsHideUnused = booleanPreferencesKey("drawer_tags_hide_unused")
+        val placesEnabled = booleanPreferencesKey("drawer_places_enabled")
+        val placesHideUnused = booleanPreferencesKey("drawer_places_hide_unused")
     }
 }

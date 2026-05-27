@@ -12,6 +12,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
@@ -98,6 +99,7 @@ import org.tasks.viewmodel.HelpAndFeedbackViewModel
 import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.MicrosoftListSettingsViewModel
+import org.tasks.viewmodel.NavigationDrawerViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.NotificationsViewModel
 import org.tasks.viewmodel.ReminderChange
@@ -326,10 +328,25 @@ val commonModule = module {
     factory<CalendarHelper> { object : CalendarHelper {} }
     factory<SoundPlayer> { object : SoundPlayer {} }
     factory<org.tasks.compose.drawer.DrawerConfiguration> {
+        val tasksPreferences = get<TasksPreferences>()
         object : org.tasks.compose.drawer.DrawerConfiguration {
             override val canCreateFilters: Boolean get() = false
             override val canCreateTags: Boolean get() = true
             override val canCreatePlaces: Boolean get() = false
+            override val filtersEnabled: Boolean
+                get() = runBlocking { tasksPreferences.get(TasksPreferences.filtersEnabled, true) }
+            override val todayFilter: Boolean
+                get() = runBlocking { tasksPreferences.get(TasksPreferences.showTodayFilter, true) }
+            override val recentlyModifiedFilter: Boolean
+                get() = runBlocking { tasksPreferences.get(TasksPreferences.showRecentlyModifiedFilter, true) }
+            override val tagsEnabled: Boolean
+                get() = runBlocking { tasksPreferences.get(TasksPreferences.tagsEnabled, true) }
+            override val hideUnusedTags: Boolean
+                get() = runBlocking { tasksPreferences.get(TasksPreferences.tagsHideUnused, false) }
+            override val placesEnabled: Boolean
+                get() = runBlocking { tasksPreferences.get(TasksPreferences.placesEnabled, true) }
+            override val hideUnusedPlaces: Boolean
+                get() = runBlocking { tasksPreferences.get(TasksPreferences.placesHideUnused, false) }
         }
     }
     single<org.tasks.billing.PurchaseState> {
@@ -620,6 +637,12 @@ val commonModule = module {
                 }
                 notifier.triggerNotifications()
             },
+        )
+    }
+    viewModel {
+        NavigationDrawerViewModel(
+            tasksPreferences = get(),
+            refreshBroadcaster = get(),
         )
     }
     viewModel {
