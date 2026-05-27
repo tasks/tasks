@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -53,6 +54,7 @@ import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DataStoreQueryPreferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.preferences.TasksPreferences
+import org.tasks.preferences.TasksPreferences.Companion
 import org.tasks.reminders.Random
 import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskCompleter
@@ -77,6 +79,7 @@ import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.HelpAndFeedbackViewModel
+import org.tasks.viewmodel.NavigationDrawerViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.TasksAccountViewModel
@@ -160,10 +163,25 @@ val commonModule = module {
     factory<CalendarHelper> { object : CalendarHelper {} }
     factory<SoundPlayer> { object : SoundPlayer {} }
     factory<org.tasks.compose.drawer.DrawerConfiguration> {
+        val tasksPreferences = get<TasksPreferences>()
         object : org.tasks.compose.drawer.DrawerConfiguration {
             override val canCreateFilters: Boolean get() = false
             override val canCreateTags: Boolean get() = false
             override val canCreatePlaces: Boolean get() = false
+            override val filtersEnabled: Boolean
+                get() = runBlocking { tasksPreferences.get(Companion.filtersEnabled, true) }
+            override val todayFilter: Boolean
+                get() = runBlocking { tasksPreferences.get(Companion.showTodayFilter, true) }
+            override val recentlyModifiedFilter: Boolean
+                get() = runBlocking { tasksPreferences.get(Companion.showRecentlyModifiedFilter, true) }
+            override val tagsEnabled: Boolean
+                get() = runBlocking { tasksPreferences.get(Companion.tagsEnabled, true) }
+            override val hideUnusedTags: Boolean
+                get() = runBlocking { tasksPreferences.get(Companion.tagsHideUnused, false) }
+            override val placesEnabled: Boolean
+                get() = runBlocking { tasksPreferences.get(Companion.placesEnabled, true) }
+            override val hideUnusedPlaces: Boolean
+                get() = runBlocking { tasksPreferences.get(Companion.placesHideUnused, false) }
         }
     }
     single<org.tasks.billing.PurchaseState> {
@@ -367,6 +385,12 @@ val commonModule = module {
             tasksPreferences = get(),
             platformConfiguration = get(),
             purchaseState = get(),
+        )
+    }
+    viewModel {
+        NavigationDrawerViewModel(
+            tasksPreferences = get(),
+            refreshBroadcaster = get(),
         )
     }
     viewModel {

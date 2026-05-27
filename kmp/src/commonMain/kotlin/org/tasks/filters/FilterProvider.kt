@@ -82,8 +82,8 @@ class FilterProvider(
     suspend fun wearableFilters(): List<FilterListItem> =
             getAllFilters(showCreate = false, forceExpand = true, hideUnused = true)
 
-    suspend fun drawerCustomizationItems(): List<FilterListItem> =
-            getAllFilters(showBuiltIn = false, showCreate = true)
+    suspend fun drawerCustomizationItems(forceExpand: Boolean = false): List<FilterListItem> =
+            getAllFilters(showBuiltIn = false, showCreate = true, forceExpand = forceExpand)
 
     private suspend fun getDebugFilters(): List<FilterListItem> =
             if (TasksBuildConfig.DEBUG && tasksPreferences.get(showDebugFilters, false)) {
