@@ -257,4 +257,6 @@
     <string name="dismiss">Schließen</string>
     <string name="add_shortcut_to_home_screen">Verknüpfung zum Startbildschirm hinzufügen</string>
     <string name="add_widget_to_home_screen">Widget zum Startbildschirm hinzufügen</string>
+    <string name="task_title">Aufgabentitel</string>
+    <string name="edit_task">Aufgabe bearbeiten</string>
 </resources>
