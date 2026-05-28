@@ -1,3 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="ok">Í lagi</string>
+    <string name="cancel">Hætta við</string>
+    <string name="display_name">Birtingarnafn</string>
+    <string name="app_settings">Stillingar forrits</string>
+    <string name="SSD_sort_my_order">Mín röðun</string>
+    <string name="astrid_sort_order">Handvirk Astrid-röðun</string>
+    <string name="SSD_sort_auto">Snjallröðun</string>
+    <string name="SSD_sort_alpha">Eftir titli</string>
+    <string name="SSD_sort_start">Eftir upphafsdegi</string>
+    <string name="SSD_sort_due">Eftir skiladegi</string>
+    <string name="SSD_sort_importance">Eftir mikilvægi</string>
+    <string name="SSD_sort_modified">Eftir nýjustu breytingum</string>
+    <string name="save">Vista</string>
+    <string name="none">Ekkert</string>
 </resources>
