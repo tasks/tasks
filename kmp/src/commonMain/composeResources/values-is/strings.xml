@@ -14,4 +14,12 @@
     <string name="SSD_sort_modified">Eftir nýjustu breytingum</string>
     <string name="save">Vista</string>
     <string name="none">Ekkert</string>
+    <string name="search">Leita</string>
+    <string name="settings">Stillingar</string>
+    <string name="sort_mode">Raða</string>
+    <string name="sort_due_date">Skiladagur</string>
+    <string name="sort_priority">Mikilvægi</string>
+    <string name="sort_start_date">Upphafsdagur</string>
+    <string name="group_none">Ekkert</string>
+    <string name="blog_feed_none">Ekkert</string>
 </resources>
