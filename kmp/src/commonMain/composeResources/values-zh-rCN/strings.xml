@@ -316,4 +316,5 @@
     <string name="add_widget_to_home_screen">添加小部件到主屏幕</string>
     <string name="this_device_only">仅此设备</string>
     <string name="create_a_list">创建清单</string>
+    <string name="migrate_to_cloud">迁移到 Tasks.org 云</string>
 </resources>
