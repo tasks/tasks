@@ -565,7 +565,6 @@
     <string name="copy_multiple_tasks_confirmation">%s on kopeeritud</string>
     <string name="show_edit_screen_without_unlock">Näita muutmisvaadet ka ilma lukustust eemaldamata</string>
     <string name="sign_in_with_google">Logi sisse Google\'i kasutajakontoga</string>
-    <string name="migrate">Teisalda andmed</string>
     <string name="alarm_before_start">%s enne alustamise tähtaega</string>
     <string name="account_not_included">Ei sisaldu „Paku oma hind“ taseme tellimustes</string>
     <string name="pro_free_trial">Uued tellijad võivad kasutada 7-päevast tasuta testperioodi, mida on võimalik igal ajahetkel katkestada</string>

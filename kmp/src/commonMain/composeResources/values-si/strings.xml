@@ -79,7 +79,6 @@
     <string name="display_name">ප්‍රදර්ශන නාමය</string>
     <string name="manage_subscription">දායකත්වය වෙනස් කරන්න</string>
     <string name="button_unsubscribe">දායකත්වය අවලංගු කරන්න</string>
-    <string name="migrate">සංක්‍රමණය</string>
     <string name="local_lists">පවත්නා ලැයිස්තු</string>
     <string name="app_passwords">යෙදුම් මුරපද</string>
     <string name="app_password">යෙදුම් මුරපදය</string>

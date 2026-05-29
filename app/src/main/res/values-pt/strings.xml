@@ -487,7 +487,6 @@
     <string name="copied_to_clipboard">%s copiado para a área de transferência</string>
     <string name="app_passwords_more_info">Sincroniza as suas tarefas e calendários com aplicações de terceiros em computadores de mesa e aplicações de telemóveis de terceiros. Clique aqui para mais detalhes</string>
     <string name="app_password">Palavra-passe da aplicação</string>
-    <string name="migrate">Migrar</string>
     <string name="authentication_required">É necessário iniciar sessão</string>
     <string name="sign_in_with_google">Iniciar sessão com o Google</string>
     <string name="github_sponsors">Patrocinadores do GitHub</string>

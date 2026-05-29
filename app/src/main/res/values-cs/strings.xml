@@ -515,7 +515,6 @@
     <string name="above_average">Nadprůměrné</string>
     <string name="migrate_count">Přesunout %s do Tasks.org</string>
     <string name="migrating_tasks">Probíhá přesouvání úkolů</string>
-    <string name="migrate">Migrovat</string>
     <string name="github_sponsor">Sponzor</string>
     <string name="authentication_required">Je vyžadováno ověření se</string>
     <string name="sign_in_with_google">Přihlášení přes Google</string>

@@ -597,7 +597,6 @@
     <string name="sign_in_with_google">Пријави се путем Гугла</string>
     <string name="authentication_required">Неопходна аутентикација</string>
     <string name="github_sponsor">Спонзор</string>
-    <string name="migrate">Мигрирај</string>
     <string name="migrating_tasks">Мигрирајући задаци</string>
     <string name="migrate_count">Премести %s на Tasks.org</string>
     <string name="above_average">Изнад просека</string>

@@ -29,6 +29,7 @@ import org.tasks.data.MergedGeofence
 import org.tasks.data.TaskSaver
 import org.tasks.data.db.Database
 import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
@@ -171,6 +172,7 @@ val commonModule = module {
         val subscriptionProvider = get<org.tasks.billing.SubscriptionProvider>()
         val _hasTasksAccount = MutableStateFlow(false)
         val _hasSubscription = MutableStateFlow(false)
+        val _hasTasksSubscription = MutableStateFlow(false)
         get<CoroutineScope>().launch {
             caldavDao.watchAccounts()
                 .collect { accounts ->
@@ -180,11 +182,14 @@ val commonModule = module {
         get<CoroutineScope>().launch {
             subscriptionProvider.subscription.collect { sub ->
                 _hasSubscription.value = sub != null
+                _hasTasksSubscription.value = sub?.isTasksSubscription == true
             }
         }
         object : org.tasks.billing.PurchaseState {
             override val hasTasksAccount: Boolean get() = _hasTasksAccount.value
             override val hasPro: Boolean get() = hasTasksAccount || _hasSubscription.value
+            override val hasTasksSubscription: Boolean
+                get() = _hasTasksSubscription.value || hasTasksAccount
         }
     }
 
@@ -197,9 +202,12 @@ val commonModule = module {
             override fun updateCalendar(task: Task) {}
             override suspend fun scheduleRefresh(timestamp: Long) {}
             override suspend fun scheduleBlogFeedCheck() {}
-            override fun migrateLocalTasks(account: org.tasks.data.entity.CaldavAccount) {
+            override fun migrateLocalTasks(
+                localAccount: CaldavAccount,
+                tasksAccount: CaldavAccount,
+            ) {
                 scope.launch {
-                    get<org.tasks.service.TaskMigrator>().migrateLocalTasks(account)
+                    get<TaskMigrator>().migrateLocalTasks(localAccount, tasksAccount)
                 }
             }
             override suspend fun sync(source: SyncSource) {
@@ -373,6 +381,8 @@ val commonModule = module {
         LocalAccountViewModel(
             caldavDao = get(),
             taskDeleter = get(),
+            backgroundWork = get(),
+            purchaseState = get(),
         )
     }
     viewModel {

@@ -125,7 +125,6 @@
     <string name="donate_nag">נא לשקול להראות את תמיכתך באמצעות תרומה!</string>
     <string name="manage_subscription">שינוי מינוי</string>
     <string name="button_unsubscribe">ביטול מינוי</string>
-    <string name="migrate">העברה</string>
     <string name="local_lists">רשימות מקומיות</string>
     <string name="email_to_task">דוא"ל למשימה</string>
     <string name="email_to_task_address">כתובת הדוא"ל שלך</string>

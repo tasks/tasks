@@ -468,7 +468,6 @@
     <string name="above_average">Keskimääräistä parempi</string>
     <string name="migrate_count">Siirrä %s osoitteeseen Tasks.org</string>
     <string name="migrating_tasks">Tehtävien siirtäminen</string>
-    <string name="migrate">muuttaa</string>
     <string name="github_sponsor">Sponsori</string>
     <string name="authentication_required">Vaadittu tunnistautuminen</string>
     <string name="sign_in_with_google">Kirjaudu sisään Googlen avulla</string>

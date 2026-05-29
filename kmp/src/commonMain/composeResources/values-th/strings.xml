@@ -78,7 +78,6 @@
     <string name="display_name">ชื่อที่ใช้แสดง</string>
     <string name="manage_subscription">ปรับเปลี่ยนการบอกรับเป็นสมาชิก</string>
     <string name="button_unsubscribe">ยกเลิกการบอกรับเป็นสมาชิก</string>
-    <string name="migrate">อพยพ</string>
     <string name="local_lists">รายการท้องถิ่น</string>
     <string name="app_passwords">รหัสผ่านของแอป</string>
     <string name="app_password">รหัสผ่านของแอป</string>

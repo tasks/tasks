@@ -100,7 +100,6 @@
     <string name="donate_nag">기부를 통해 여러분의 지지를 보여주세요!</string>
     <string name="manage_subscription">구독 수정</string>
     <string name="button_unsubscribe">구독 취소</string>
-    <string name="migrate">이전</string>
     <string name="local_lists">로컬 목록</string>
     <string name="app_passwords">앱 비밀번호</string>
     <string name="app_password">앱 비밀번호</string>

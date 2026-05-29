@@ -46,7 +46,6 @@
     <string name="above_average">สูงกว่าค่าเฉลี่ย</string>
     <string name="migrate_count">ย้าย %s ไปยัง Tasks.org</string>
     <string name="migrating_tasks">กําลังโยกย้ายงาน</string>
-    <string name="migrate">อพยพ</string>
     <string name="github_sponsor">สปอนเซอร์</string>
     <string name="authentication_required">ต้องการการรับรองความถูกต้อง</string>
     <string name="sign_in_with_google">ลงชื่อเข้าใช้ด้วย Google</string>

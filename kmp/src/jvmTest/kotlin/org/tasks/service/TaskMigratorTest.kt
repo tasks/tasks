@@ -12,7 +12,6 @@ import org.junit.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.tasks.caldav.CaldavClient
@@ -68,23 +67,34 @@ class TaskMigratorTest {
     }
 
     @Test
-    fun noOpWithoutLocalAccount() {
-        runBlocking {
-            val tasksAccount = insertAccount(type = TYPE_TASKS, uuid = "tasks-uuid")
+    fun migratesOnlySpecifiedLocalAccount() = runBlocking {
+        val localAccount = insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
+        insertAccount(type = TYPE_LOCAL, uuid = "other-local")
+        val tasksAccount = insertAccount(type = TYPE_TASKS, uuid = "tasks-uuid")
+        insertCalendar(account = "local-uuid", uuid = "cal-1", name = "Mine")
+        insertCalendar(account = "other-local", uuid = "cal-2", name = "Other")
 
-            migrator.migrateLocalTasks(tasksAccount)
+        migrator.migrateLocalTasks(localAccount, tasksAccount)
 
-            verify(syncAdapters, never()).sync(any())
-        }
+        assertEquals(
+            listOf("Mine"),
+            caldavDao.getCalendarsByAccount(tasksAccount.uuid!!).map { it.name },
+        )
+        // the other local account is left untouched
+        assertEquals("other-local", caldavDao.getAccountByUuid("other-local")?.uuid)
+        assertEquals(
+            listOf("Other"),
+            caldavDao.getCalendarsByAccount("other-local").map { it.name },
+        )
     }
 
     @Test
     fun migratesCalendarToTargetAccount() = runBlocking {
-        insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
+        val localAccount = insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
         val tasksAccount = insertAccount(type = TYPE_TASKS, uuid = "tasks-uuid")
         insertCalendar(account = "local-uuid", uuid = "cal-1", name = "My List")
 
-        migrator.migrateLocalTasks(tasksAccount)
+        migrator.migrateLocalTasks(localAccount, tasksAccount)
 
         val calendars = caldavDao.getCalendarsByAccount(tasksAccount.uuid!!)
         assertEquals(1, calendars.size)
@@ -93,11 +103,11 @@ class TaskMigratorTest {
 
     @Test
     fun setsUrlFromMakeCollection() = runBlocking {
-        insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
+        val localAccount = insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
         val tasksAccount = insertAccount(type = TYPE_TASKS, uuid = "tasks-uuid")
         insertCalendar(account = "local-uuid", uuid = "cal-1", name = "Work")
 
-        migrator.migrateLocalTasks(tasksAccount)
+        migrator.migrateLocalTasks(localAccount, tasksAccount)
 
         val calendars = caldavDao.getCalendarsByAccount(tasksAccount.uuid!!)
         assertEquals(REMOTE_URL, calendars[0].url)
@@ -105,12 +115,12 @@ class TaskMigratorTest {
 
     @Test
     fun migratesMultipleCalendars() = runBlocking {
-        insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
+        val localAccount = insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
         val tasksAccount = insertAccount(type = TYPE_TASKS, uuid = "tasks-uuid")
         insertCalendar(account = "local-uuid", uuid = "cal-1", name = "Work")
         insertCalendar(account = "local-uuid", uuid = "cal-2", name = "Personal")
 
-        migrator.migrateLocalTasks(tasksAccount)
+        migrator.migrateLocalTasks(localAccount, tasksAccount)
 
         val calendars = caldavDao.getCalendarsByAccount(tasksAccount.uuid!!)
         assertEquals(
@@ -121,11 +131,11 @@ class TaskMigratorTest {
 
     @Test
     fun preservesCalendarColor() = runBlocking {
-        insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
+        val localAccount = insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
         val tasksAccount = insertAccount(type = TYPE_TASKS, uuid = "tasks-uuid")
         insertCalendar(account = "local-uuid", uuid = "cal-1", name = "Colored", color = 0xFF0000)
 
-        migrator.migrateLocalTasks(tasksAccount)
+        migrator.migrateLocalTasks(localAccount, tasksAccount)
 
         val calendars = caldavDao.getCalendarsByAccount(tasksAccount.uuid!!)
         assertEquals(0xFF0000, calendars[0].color)
@@ -133,11 +143,11 @@ class TaskMigratorTest {
 
     @Test
     fun preservesCalendarIcon() = runBlocking {
-        insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
+        val localAccount = insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
         val tasksAccount = insertAccount(type = TYPE_TASKS, uuid = "tasks-uuid")
         insertCalendar(account = "local-uuid", uuid = "cal-1", name = "Icons", icon = "star")
 
-        migrator.migrateLocalTasks(tasksAccount)
+        migrator.migrateLocalTasks(localAccount, tasksAccount)
 
         val calendars = caldavDao.getCalendarsByAccount(tasksAccount.uuid!!)
         assertEquals("star", calendars[0].icon)
@@ -145,11 +155,11 @@ class TaskMigratorTest {
 
     @Test
     fun deletesLocalAccount() = runBlocking {
-        insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
+        val localAccount = insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
         val tasksAccount = insertAccount(type = TYPE_TASKS, uuid = "tasks-uuid")
         insertCalendar(account = "local-uuid", uuid = "cal-1", name = "My List")
 
-        migrator.migrateLocalTasks(tasksAccount)
+        migrator.migrateLocalTasks(localAccount, tasksAccount)
 
         assertNull(caldavDao.getAccountByUuid("local-uuid"))
         assertTrue(caldavDao.getCalendarsByAccount("local-uuid").isEmpty())
@@ -158,10 +168,10 @@ class TaskMigratorTest {
     @Test
     fun triggersSyncAfterMigration() {
         runBlocking {
-            insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
+            val localAccount = insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
             val tasksAccount = insertAccount(type = TYPE_TASKS, uuid = "tasks-uuid")
 
-            migrator.migrateLocalTasks(tasksAccount)
+            migrator.migrateLocalTasks(localAccount, tasksAccount)
 
             verify(syncAdapters).sync(SyncSource.ACCOUNT_ADDED)
         }

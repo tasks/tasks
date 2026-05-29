@@ -72,7 +72,6 @@
     <string name="above_average">Trên trung bình</string>
     <string name="migrate_count">Di chuyển %s đến Tasks.org</string>
     <string name="migrating_tasks">Đang di cư các công việc</string>
-    <string name="migrate">Di cư</string>
     <string name="github_sponsor">Tài trợ</string>
     <string name="authentication_required">Yêu cầu xác thực</string>
     <string name="sign_in_with_google">Đăng nhập bằng Google</string>

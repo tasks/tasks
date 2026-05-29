@@ -426,7 +426,6 @@
     <string name="above_average">Вище середнього</string>
     <string name="migrate_count">Перемістити %s на Tasks.org</string>
     <string name="migrating_tasks">Перенесення завдань</string>
-    <string name="migrate">Перенести</string>
     <string name="github_sponsor">Спонсор</string>
     <string name="authentication_required">Необхідна аутентифікація</string>
     <string name="sign_in_with_google">Увійти через Google</string>

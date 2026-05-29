@@ -127,7 +127,6 @@
     <string name="donate_nag">Erwäge deine Unterstützung mit einer Spende zu zeigen!</string>
     <string name="manage_subscription">Abo ändern</string>
     <string name="button_unsubscribe">Abo kündigen</string>
-    <string name="migrate">Migrieren</string>
     <string name="local_lists">Lokale Listen</string>
     <string name="email_to_task">E-Mail Aufgabenerstellung</string>
     <string name="email_to_task_address">Deine E-Mail-Adresse</string>

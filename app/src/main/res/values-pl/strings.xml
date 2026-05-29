@@ -495,7 +495,6 @@
     <string name="always_display_full_date">Pokaż pełną datę</string>
     <string name="cancel">Anuluj</string>
     <string name="ok">OK</string>
-    <string name="migrate">Migruj</string>
     <string name="github_sponsor">Sponsor</string>
     <string name="authentication_required">Wymagane uwierzytelnienie</string>
     <string name="sign_in_with_google">Zaloguj z Google</string>

@@ -474,7 +474,6 @@
     <string name="permission_read_tasks">Tasks 데이터베이스에 대한 전체 액세스</string>
     <string name="background_location_permission_required">앱이 닫히거나 사용하지 않을 때에도 위치 기반 미리 알람이 동작하도록 위치 데이터를 수집합니다.</string>
     <string name="migrate_count">Tasks.org 로 %s 개 이동</string>
-    <string name="migrate">이전</string>
     <string name="migrating_tasks">할일 이전 중</string>
     <string name="github_sponsor">후원자</string>
     <string name="authentication_required">인증 필요</string>

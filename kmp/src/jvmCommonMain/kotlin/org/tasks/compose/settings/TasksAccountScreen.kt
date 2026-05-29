@@ -56,7 +56,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.accept
@@ -81,13 +80,9 @@ import tasks.kmp.generated.resources.help
 import tasks.kmp.generated.resources.insufficient_sponsorship
 import tasks.kmp.generated.resources.insufficient_subscription
 import tasks.kmp.generated.resources.last_backup_never
-import tasks.kmp.generated.resources.local_lists
 import tasks.kmp.generated.resources.logout
 import tasks.kmp.generated.resources.logout_warning
 import tasks.kmp.generated.resources.manage_subscription
-import tasks.kmp.generated.resources.list_count
-import tasks.kmp.generated.resources.migrate
-import tasks.kmp.generated.resources.migrate_count
 import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.password
 import tasks.kmp.generated.resources.regenerate_email_address
@@ -141,7 +136,6 @@ fun TasksAccountScreen(
     onSignIn: () -> Unit,
     onSubscribe: () -> Unit,
     onOpenSponsor: () -> Unit,
-    onMigrate: () -> Unit,
     onCopyEmail: () -> Unit,
     onRegenerateEmail: () -> Unit,
     onSelectCalendar: (String?) -> Unit,
@@ -198,26 +192,6 @@ fun TasksAccountScreen(
                 onOpenSponsor = onOpenSponsor,
                 modifier = Modifier.padding(horizontal = SettingsContentPadding),
             )
-            Spacer(modifier = Modifier.height(SettingsSectionGap))
-        }
-
-        // Migrate card
-        if (state.localListCount > 0) {
-            SectionHeader(stringResource(Res.string.migrate), modifier = Modifier.padding(horizontal = SettingsContentPadding))
-            SettingsItemCard(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
-                PreferenceRow(
-                    title = stringResource(Res.string.local_lists),
-                    summary = stringResource(
-                        Res.string.migrate_count,
-                        pluralStringResource(
-                            Res.plurals.list_count,
-                            state.localListCount,
-                            state.localListCount,
-                        ),
-                    ),
-                    onClick = onMigrate,
-                )
-            }
             Spacer(modifier = Modifier.height(SettingsSectionGap))
         }
 

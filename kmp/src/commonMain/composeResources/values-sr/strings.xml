@@ -114,7 +114,6 @@
     <string name="donate_nag">Подржи нас донацијом!</string>
     <string name="manage_subscription">Модификуј претплате</string>
     <string name="button_unsubscribe">Откажи претплату</string>
-    <string name="migrate">Мигрирај</string>
     <string name="local_lists">Локална листа</string>
     <string name="email_to_task">Мејл у задатак</string>
     <string name="email_to_task_address">Твоја мејл адреса</string>

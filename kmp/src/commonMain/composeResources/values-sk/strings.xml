@@ -99,7 +99,6 @@
     <string name="donate_nag">Zvážte podporenie projektu dobrovoľným príspevkom!</string>
     <string name="manage_subscription">Upraviť predplatné</string>
     <string name="button_unsubscribe">Zrušiť predplatné</string>
-    <string name="migrate">Migrovať</string>
     <string name="local_lists">Zoznamy iba na tomto zariadení</string>
     <string name="app_passwords">Heslá aplikácie</string>
     <string name="app_password">Heslo aplikácie</string>

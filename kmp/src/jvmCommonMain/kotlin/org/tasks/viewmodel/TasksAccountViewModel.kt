@@ -28,7 +28,6 @@ import org.tasks.compose.settings.SharedCalendarDisplay
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.fcm.PushTokenManager
 import org.tasks.jobs.BackgroundWork
 import org.tasks.preferences.TasksPreferences
@@ -41,7 +40,6 @@ data class TasksAccountState(
     val isGuest: Boolean = false,
     val hasSubscription: Boolean = false,
     val isTasksSubscription: Boolean = false,
-    val localListCount: Int = 0,
     val showTosDialog: Boolean = false,
     val inboundEmail: String? = null,
     val inboundCalendarName: String? = null,
@@ -104,23 +102,12 @@ open class TasksAccountViewModel(
     private val inboundCalendarUri = accountResponse
         .map { it?.inboundEmail?.calendar?.takeIf(String::isNotEmpty) }
 
-    private val localListCount = accountUuid
-        .filterNotNull()
-        .flatMapLatest {
-            caldavDao.watchAccounts().map { accounts ->
-                val localAccount = accounts.firstOrNull { it.accountType == TYPE_LOCAL }
-                localAccount?.uuid?.let { uuid -> caldavDao.listCount(uuid) } ?: 0
-            }
-        }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, 0)
-
     val state: StateFlow<TasksAccountState> = combine(
         account,
         accountResponse,
         subscriptionProvider.subscription,
         accountCalendars,
         inboundCalendarUri,
-        localListCount,
         _newPassword,
         _tosDismissed,
     ) { values ->
@@ -130,9 +117,8 @@ open class TasksAccountViewModel(
         @Suppress("UNCHECKED_CAST")
         val calendars = values[3] as List<org.tasks.data.entity.CaldavCalendar>
         val inboundUri = values[4] as String?
-        val localCount = values[5] as Int
-        val newPassword = values[6] as NewPassword?
-        val tosDismissed = values[7] as Boolean
+        val newPassword = values[5] as NewPassword?
+        val tosDismissed = values[6] as Boolean
 
         TasksAccountState(
             account = account,
@@ -140,7 +126,6 @@ open class TasksAccountViewModel(
             isGuest = response?.guest ?: false,
             hasSubscription = subscription != null,
             isTasksSubscription = subscription?.isTasksSubscription == true,
-            localListCount = localCount,
             showTosDialog = !tosDismissed && account?.isTosRequired() == true,
             inboundEmail = response?.inboundEmail?.email?.takeIf(String::isNotEmpty),
             inboundCalendarName = calendars
@@ -253,10 +238,6 @@ open class TasksAccountViewModel(
         } catch (e: Exception) {
             Logger.e(e) { "Failed to regenerate inbound email" }
         }
-    }
-
-    fun migrateLocalTasks() {
-        account.value?.let { backgroundWork.migrateLocalTasks(it) }
     }
 
     suspend fun logout(account: CaldavAccount) {

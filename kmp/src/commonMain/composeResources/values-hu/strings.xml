@@ -127,7 +127,6 @@
     <string name="donate_nag">Gondolkodjon el rajta, hogy adományozással támogassa az alkalmazást!</string>
     <string name="manage_subscription">Előfizetés módosítása</string>
     <string name="button_unsubscribe">Előfizetés lemondása</string>
-    <string name="migrate">Migrálás</string>
     <string name="local_lists">Helyi listák</string>
     <string name="email_to_task">Feladat e-mailből</string>
     <string name="email_to_task_address">E-mail cím</string>

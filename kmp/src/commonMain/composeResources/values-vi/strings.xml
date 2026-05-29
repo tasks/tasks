@@ -92,7 +92,6 @@
     <string name="display_name">Tên hiển thị</string>
     <string name="manage_subscription">Sửa đổi đăng ký</string>
     <string name="button_unsubscribe">Huỷ đăng ký</string>
-    <string name="migrate">Di cư</string>
     <string name="local_lists">Danh sách cục bộ</string>
     <string name="app_passwords">Các mật khẩu ứng dụng</string>
     <string name="app_password">Mật khẩu ứng dụng</string>

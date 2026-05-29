@@ -514,7 +514,6 @@
     <string name="sign_in_with_google">Συνδεθείτε μέσω Google</string>
     <string name="authentication_required">Απαιτείται πιστοποίηση ταυτότητας</string>
     <string name="github_sponsor">Σπόνσορας</string>
-    <string name="migrate">Μετακίνηση</string>
     <string name="migrating_tasks">Εργασίες μετακίνησης</string>
     <string name="migrate_count">Μετακίνηση %s στο Tasks.org</string>
     <string name="above_average">Άνω του μέσου όρου</string>

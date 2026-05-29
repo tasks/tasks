@@ -463,7 +463,6 @@
     <string name="save_percent">%d%% オフ</string>
     <string name="github_sponsors">GitHub スポンサー</string>
     <string name="github_sponsor">スポンサー</string>
-    <string name="migrate">移行する</string>
     <string name="more_options">さらなるオプション</string>
     <string name="markdown_description">タイトル欄と説明欄でマークダウン記法を有効にします</string>
     <string name="completion_sound">完了時に音を鳴らす</string>

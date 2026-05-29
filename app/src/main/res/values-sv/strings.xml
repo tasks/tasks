@@ -409,7 +409,6 @@
     <string name="above_average">Över medel</string>
     <string name="migrate_count">Migrera %s till Tasks.org</string>
     <string name="migrating_tasks">Migrerar uppgifter</string>
-    <string name="migrate">Migrera</string>
     <string name="github_sponsor">Sponsor</string>
     <string name="authentication_required">Autentisering krävs</string>
     <string name="sign_in_with_google">Logga in med Google</string>

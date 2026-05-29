@@ -505,7 +505,6 @@
     <string name="authentication_required">Authentification requise</string>
     <string name="migrate_count">Déplacer %s vers Tasks.org</string>
     <string name="migrating_tasks">Migration de tâches</string>
-    <string name="migrate">Migrer</string>
     <string name="github_sponsors">Parrains « GitHub »</string>
     <string name="no_google_play_subscription">Aucun abonnement « Google Play » éligible n\'a été trouvé</string>
     <string name="above_average">Au dessus de la moyenne</string>

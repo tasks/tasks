@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CloudUpload
 import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.material.icons.outlined.Save
 import androidx.compose.material3.AlertDialog
@@ -18,9 +19,11 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.PlatformBackHandler
@@ -34,6 +37,9 @@ import tasks.kmp.generated.resources.discard_changes
 import tasks.kmp.generated.resources.display_name
 import tasks.kmp.generated.resources.local_lists
 import tasks.kmp.generated.resources.logout_warning
+import tasks.kmp.generated.resources.migrate_count
+import tasks.kmp.generated.resources.migrate_to_cloud
+import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.save
 import tasks.kmp.generated.resources.task_count
 
@@ -48,10 +54,14 @@ fun LocalAccountScreen(
     onNameChange: (String) -> Unit,
     onSave: () -> Unit,
     onDelete: () -> Unit,
+    onCanMigrate: suspend () -> Boolean,
+    onMigrateConfirm: () -> Unit,
     onNavigateBack: () -> Unit,
     onDiscardDialogChange: (Boolean) -> Unit,
 ) {
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
+    var showMigrateDialog by rememberSaveable { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
 
     PlatformBackHandler(enabled = hasChanges) {
         onDiscardDialogChange(true)
@@ -88,6 +98,26 @@ fun LocalAccountScreen(
                     icon = Icons.Outlined.Save,
                     enabled = hasChanges,
                     onClick = onSave,
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
+
+        Column(
+            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+        ) {
+            SettingsItemCard {
+                PreferenceRow(
+                    title = stringResource(Res.string.migrate_to_cloud),
+                    icon = Icons.Outlined.CloudUpload,
+                    onClick = {
+                        scope.launch {
+                            if (onCanMigrate()) {
+                                showMigrateDialog = true
+                            }
+                        }
+                    },
                 )
             }
         }
@@ -137,6 +167,35 @@ fun LocalAccountScreen(
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteDialog = false }) {
+                    Text(text = stringResource(Res.string.cancel))
+                }
+            },
+        )
+    }
+
+    if (showMigrateDialog) {
+        val taskCountString = pluralStringResource(Res.plurals.task_count, taskCount, taskCount)
+        AlertDialog(
+            onDismissRequest = { showMigrateDialog = false },
+            title = {
+                Text(
+                    text = stringResource(Res.string.migrate_to_cloud),
+                    style = MaterialTheme.typography.headlineSmall,
+                )
+            },
+            text = {
+                Text(text = stringResource(Res.string.migrate_count, taskCountString))
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    showMigrateDialog = false
+                    onMigrateConfirm()
+                }) {
+                    Text(text = stringResource(Res.string.ok))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showMigrateDialog = false }) {
                     Text(text = stringResource(Res.string.cancel))
                 }
             },

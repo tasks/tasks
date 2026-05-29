@@ -493,7 +493,6 @@
     <string name="github_sponsor">Kronerulling</string>
     <string name="authentication_required">Identitetsbekreftelse kreves</string>
     <string name="migrating_tasks">Flytting av gjøremål</string>
-    <string name="migrate">Flytt</string>
     <string name="github_sponsors">GitHub-sponsorer</string>
     <string name="no_google_play_subscription">Fant ikke noe Google Play-abonnement</string>
     <string name="migrate_count">Flytt %s til Tasks.org</string>

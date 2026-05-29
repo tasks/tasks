@@ -520,7 +520,6 @@
     <string name="above_average">Acima da média</string>
     <string name="migrate_count">Mover %s para Tasks.org</string>
     <string name="migrating_tasks">Migrando tarefas</string>
-    <string name="migrate">Migrar</string>
     <string name="github_sponsor">Patrocinador</string>
     <string name="authentication_required">Autorização necessária</string>
     <string name="sign_in_with_google">Faça login com Google</string>

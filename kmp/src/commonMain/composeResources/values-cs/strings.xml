@@ -127,7 +127,6 @@
     <string name="donate_nag">Zvažte podpoření projektu dobrovolným příspěvkem!</string>
     <string name="manage_subscription">Upravit předplatné</string>
     <string name="button_unsubscribe">Zrušit předplatné</string>
-    <string name="migrate">Migrovat</string>
     <string name="local_lists">Seznamy jen na tomto zařízení</string>
     <string name="email_to_task">E-mail na úkol</string>
     <string name="email_to_task_address">Vaše e-mailová adresa</string>

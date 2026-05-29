@@ -116,7 +116,6 @@
     <string name="donate_nag">Rahalise toetusega saad edendada meie arendust!</string>
     <string name="manage_subscription">Muuda tellimust</string>
     <string name="button_unsubscribe">Tühista tellimus</string>
-    <string name="migrate">Teisalda andmed</string>
     <string name="local_lists">Seadme loendid</string>
     <string name="email_to_task">E-kiri ülesandeks</string>
     <string name="email_to_task_address">Sinu e-posti aadress</string>

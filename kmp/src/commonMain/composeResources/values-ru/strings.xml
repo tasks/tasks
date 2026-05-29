@@ -105,7 +105,6 @@
     <string name="donate_nag">Выразите свою поддержку с помощью пожертвования!</string>
     <string name="manage_subscription">Изменить подписку</string>
     <string name="button_unsubscribe">Отменить подписку</string>
-    <string name="migrate">Перенести</string>
     <string name="local_lists">Локальные списки</string>
     <string name="app_passwords">Пароли приложений</string>
     <string name="app_password">Пароль приложения</string>

@@ -501,7 +501,6 @@
     <string name="background_location_permission_required">Tasks собирает данные геолокации, чтобы активировать напоминания на основе местоположения, даже когда приложение закрыто или не используется.</string>
     <string name="migrate_count">Переместить %s на Tasks.org</string>
     <string name="migrating_tasks">Перенос задач</string>
-    <string name="migrate">Перенести</string>
     <string name="github_sponsor">Спонсор</string>
     <string name="authentication_required">Необходима аутентификация</string>
     <string name="sign_in_with_google">Войти через Google</string>

@@ -489,7 +489,6 @@
     <string name="authentication_required">Kimlik doğrulama gerekli</string>
     <string name="migrate_count">%s taneyi Tasks.org\'a taşı</string>
     <string name="migrating_tasks">Görevler göç ediliyor</string>
-    <string name="migrate">Göç et</string>
     <string name="github_sponsors">GitHub Sponsorları</string>
     <string name="no_google_play_subscription">Uygun Google Play aboneliği bulunamadı</string>
     <string name="save_percent">%%%d tasarruf</string>

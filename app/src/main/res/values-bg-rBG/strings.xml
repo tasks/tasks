@@ -517,7 +517,6 @@
     <string name="sort_modified_group">Променена %s</string>
     <string name="github_sponsor">Дарител</string>
     <string name="tasks_org_account_required">Необходим е профил в Tasks.org</string>
-    <string name="migrate">Преместване</string>
     <string name="sign_in_with_google">Вход с Google</string>
     <string name="migrate_count">Преместване на %s в Tasks.org</string>
     <string name="above_average">Над средното</string>

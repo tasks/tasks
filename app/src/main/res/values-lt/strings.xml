@@ -473,7 +473,6 @@
     <string name="current_subscription">Dabartinė prenumerata: %s</string>
     <string name="migrate_count">Migruoti %s į Tasks.org</string>
     <string name="migrating_tasks">Migruojamos užduotys</string>
-    <string name="migrate">Migruoti</string>
     <string name="account_not_included">Neįtraukta į prenumeratas „Nustatykite savo kainą“</string>
     <string name="name_your_price">Nustatykite savo kainą</string>
     <string name="background_location_permission_required">Tasks renka vietovės duomenis, kad įgalintų priminimus pagal vietovę, net kai programa uždaryta arba nenaudojama.</string>

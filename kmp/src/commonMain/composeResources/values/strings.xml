@@ -133,7 +133,7 @@
     <string name="donate_nag">Consider showing your support with a donation!</string>
     <string name="manage_subscription">Modify subscription</string>
     <string name="button_unsubscribe">Cancel subscription</string>
-    <string name="migrate">Migrate</string>
+    <string name="migrate_to_cloud">Migrate to Tasks.org Cloud</string>
     <string name="local_lists">Local lists</string>
     <string name="this_device_only">This device only</string>
     <string name="add_shortcut_to_home_screen">Add shortcut to home screen</string>

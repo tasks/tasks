@@ -82,7 +82,6 @@
     <string name="display_name">Erakutsi izena</string>
     <string name="manage_subscription">Aldatu harpidetza</string>
     <string name="button_unsubscribe">Ezeztatu harpidetza</string>
-    <string name="migrate">Migratu</string>
     <string name="local_lists">Zerrenda lokalak</string>
     <string name="app_passwords">Aplikazio-pasahitzak</string>
     <string name="app_password">Aplikazioaren pasahitza</string>

@@ -387,7 +387,6 @@
     <string name="above_average">Diatas rata-rata</string>
     <string name="migrate_count">Pindahkan %s ke Tasks.org</string>
     <string name="migrating_tasks">Memindahkan tugas</string>
-    <string name="migrate">Migrasi</string>
     <string name="github_sponsor">Sponsor</string>
     <string name="authentication_required">Otentikasi diperlukan</string>
     <string name="sign_in_with_google">Masuk dengan Google</string>

@@ -443,6 +443,14 @@ fun App(
                                 }
                             },
                             onUpgradeClick = { backStack.add(PricingDestination()) },
+                            onMigrateToCloud = {
+                                backStack.add(
+                                    PricingDestination(
+                                        mode = PricingMode.CLOUD_ONLY,
+                                        source = "local_account_migrate",
+                                    )
+                                )
+                            },
                             onSignInClick = {
                                 backStack.add(PricingDestination(mode = PricingMode.CLOUD_ONLY, source = "sign_in"))
                             },
@@ -2084,6 +2092,7 @@ private fun SettingsScreen(
     onAddAccountClick: () -> Unit,
     onLinkDesktopClick: () -> Unit = {},
     onUpgradeClick: () -> Unit,
+    onMigrateToCloud: () -> Unit = {},
     onSignInClick: () -> Unit = {},
     onSubscribedClick: () -> Unit = {},
 ) {
@@ -2282,6 +2291,8 @@ private fun SettingsScreen(
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }
                             },
+                            onPurchase = onMigrateToCloud,
+                            onSignIn = onSignInClick,
                         )
                     }
                     is TasksAccountSettingsPane -> {

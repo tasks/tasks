@@ -461,7 +461,6 @@
     <string name="above_average">Over gennemsnit</string>
     <string name="migrate_count">Flyt %s til Tasks.org</string>
     <string name="migrating_tasks">Migrerer opgaver</string>
-    <string name="migrate">Migrer</string>
     <string name="github_sponsor">Sponsor</string>
     <string name="authentication_required">Godkendelse påkrævet</string>
     <string name="sign_in_with_google">Log ind med Google</string>

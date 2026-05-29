@@ -127,7 +127,6 @@
     <string name="donate_nag">Pertimbangkan untuk menunjukkan dukungan Anda dengan donasi!</string>
     <string name="manage_subscription">Ubah/perbarui langganan</string>
     <string name="button_unsubscribe">Batalkan langganan</string>
-    <string name="migrate">Migrasi</string>
     <string name="local_lists">Daftar lokal</string>
     <string name="email_to_task">Email ke tugas</string>
     <string name="email_to_task_address">Alamat email Anda</string>

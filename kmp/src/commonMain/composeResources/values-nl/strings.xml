@@ -110,7 +110,6 @@
     <string name="donate_nag">Overweeg om uw steun te tonen met een schenking!</string>
     <string name="manage_subscription">Abonnement wijzigen</string>
     <string name="button_unsubscribe">Abonnement opzeggen</string>
-    <string name="migrate">Migreren</string>
     <string name="local_lists">Lokale lijsten</string>
     <string name="email_to_task">Taak maken per e-mail</string>
     <string name="email_to_task_address">Je e-mailadres</string>

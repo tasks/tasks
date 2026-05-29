@@ -43,9 +43,7 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
 import org.tasks.extensions.Context.openUri
-import org.tasks.extensions.Context.toast
 import org.tasks.caldav.TasksAccountDataRepository
-import org.tasks.jobs.WorkManager
 import org.tasks.preferences.fragments.MainSettingsComposeFragment.Companion.REQUEST_TASKS_ORG
 import org.tasks.themes.Theme
 import org.tasks.utility.copyToClipboard
@@ -56,7 +54,6 @@ class TasksAccount : Fragment() {
 
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-    @Inject lateinit var workManager: WorkManager
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var billingClient: BillingClient
     @Inject lateinit var caldavDao: CaldavDao
@@ -125,11 +122,6 @@ class TasksAccount : Fragment() {
                 },
                 onOpenSponsor = {
                     context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_sponsor) })
-                },
-                onMigrate = {
-                    val currentAccount = account ?: return@TasksAccountScreen
-                    workManager.migrateLocalTasks(currentAccount)
-                    context?.toast(R.string.migrating_tasks)
                 },
                 onCopyEmail = {
                     state.inboundEmail?.let {

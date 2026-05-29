@@ -410,7 +410,6 @@
     <string name="app_passwords_more_info">قم بمزامنة المهام والتقويمات الخاصة بك مع تطبيقات سطح المكتب والأجهزة المحمولة التابعة لجهات خارجية. اضغط هنا لمزيد من المعلومات</string>
     <string name="save_percent">حفظ%d%%</string>
     <string name="migrating_tasks">ترحيل المهام</string>
-    <string name="migrate">ترحيل</string>
     <string name="github_sponsor">راعي</string>
     <string name="authentication_required">يستلزم التوثيق</string>
     <string name="github_sponsors">رعاة GitHub</string>

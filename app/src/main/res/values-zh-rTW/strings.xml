@@ -254,7 +254,6 @@
     <string name="app_password">應用程式密碼</string>
     <string name="migrate_count">移動 %s 至 Task.org</string>
     <string name="migrating_tasks">移入任務</string>
-    <string name="migrate">移入</string>
     <string name="github_sponsor">贊助</string>
     <string name="authentication_required">需要授權</string>
     <string name="sign_in_with_google">使用 Google 登入</string>

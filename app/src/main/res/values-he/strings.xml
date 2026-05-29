@@ -502,7 +502,6 @@
     <string name="repeat_monthly_fifth_week">חמישי</string>
     <string name="always_display_full_date">הצגת תאריך מלא</string>
     <string name="migrating_tasks">העברת משימות</string>
-    <string name="migrate">העברה</string>
     <string name="copied_to_clipboard">%s העותק ללוח</string>
     <string name="app_passwords_more_info">סנכרון של המשימות והיומנים שלך עם יישומי צד שלישי לשולחן העבודה ולנייד. יש להקיש כאן למידע נוסף</string>
     <string name="app_password">סיסמת יישום</string>

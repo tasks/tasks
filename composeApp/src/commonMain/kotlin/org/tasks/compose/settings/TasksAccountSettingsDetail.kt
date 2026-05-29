@@ -98,9 +98,6 @@ fun TasksAccountSettingsDetail(
                 onOpenSponsor = {
                     uriHandler.openUri(sponsorUrl)
                 },
-                onMigrate = {
-                    viewModel.migrateLocalTasks()
-                },
                 onCopyEmail = {
                     state.inboundEmail?.let {
                         clipboardManager.setText(AnnotatedString(it))

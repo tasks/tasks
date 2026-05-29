@@ -125,7 +125,6 @@
     <string name="donate_nag">Desteğinizi bağış yaparak göstermeyi düşünün!</string>
     <string name="manage_subscription">Aboneliği değiştir</string>
     <string name="button_unsubscribe">Aboneliği iptal et</string>
-    <string name="migrate">Göç et</string>
     <string name="local_lists">Yerel listeler</string>
     <string name="email_to_task">E-postayla görev</string>
     <string name="email_to_task_address">E-posta adresiniz</string>

@@ -2,7 +2,9 @@ package org.tasks.preferences.fragments
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import org.tasks.billing.PurchaseState
 import org.tasks.data.dao.CaldavDao
+import org.tasks.jobs.BackgroundWork
 import org.tasks.service.TaskDeleter
 import javax.inject.Inject
 
@@ -11,9 +13,13 @@ class LocalAccountViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     caldavDao: CaldavDao,
     taskDeleter: TaskDeleter,
+    backgroundWork: BackgroundWork,
+    purchaseState: PurchaseState,
 ) : org.tasks.viewmodel.LocalAccountViewModel(
     caldavDao = caldavDao,
     taskDeleter = taskDeleter,
+    backgroundWork = backgroundWork,
+    purchaseState = purchaseState,
 ) {
     init {
         savedStateHandle.get<String>(KEY_DISPLAY_NAME)?.let {

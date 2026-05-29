@@ -100,7 +100,6 @@
     <string name="donate_nag">فكِّر في إظهار دعمك بالتبرع!</string>
     <string name="manage_subscription">عدّل الاشتراك</string>
     <string name="button_unsubscribe">إلغاء الإشتراك</string>
-    <string name="migrate">ترحيل</string>
     <string name="local_lists">القوائم المحلية</string>
     <string name="app_passwords">كلمات سرّ التطبيق</string>
     <string name="app_password">كلمة سرّ التطبيق</string>

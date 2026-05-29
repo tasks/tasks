@@ -55,7 +55,7 @@ class Inventory @Inject constructor(
         updateSubscription()
     }
 
-    val hasTasksSubscription: Boolean
+    override val hasTasksSubscription: Boolean
         get() = subscription.value?.isTasksSubscription == true || hasTasksAccount
 
     val begForMoney: Boolean

@@ -599,7 +599,6 @@
     <string name="sign_in_with_google">Inicieu sessió amb Google</string>
     <string name="authentication_required">Es requereix autenticació</string>
     <string name="github_sponsor">Patrocinador</string>
-    <string name="migrate">Migreu</string>
     <string name="migrating_tasks">Migració de tasques</string>
     <string name="migrate_count">Mou %s a Tasks.org</string>
     <string name="above_average">Per sobre de la mitjana</string>

@@ -613,7 +613,6 @@
     <string name="alarm_before_due">%s pred termínom</string>
     <string name="documentation">Dokumentácia</string>
     <string name="color_wheel">Viac farieb</string>
-    <string name="migrate">Migrovať</string>
     <string name="custom_filter_criteria">Podmienky filtra</string>
     <string name="filter_overdue">Po termíne</string>
     <string name="filter_today_only">Iba dnešné</string>

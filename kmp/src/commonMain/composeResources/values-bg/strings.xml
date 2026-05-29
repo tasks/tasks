@@ -123,7 +123,6 @@
     <string name="donate_nag">Помислете дали да не покажете подкрепата си чрез дарение!</string>
     <string name="manage_subscription">Управление на абонамент</string>
     <string name="button_unsubscribe">Прекратяване на абонамент</string>
-    <string name="migrate">Преместване</string>
     <string name="local_lists">Местни списъци</string>
     <string name="email_to_task">Задача от писмо</string>
     <string name="email_to_task_address">Адрес на ел. поща</string>

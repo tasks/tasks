@@ -127,7 +127,6 @@
     <string name="donate_nag">寄付で私たちをサポートしてください！</string>
     <string name="manage_subscription">サブスクリプションの変更</string>
     <string name="button_unsubscribe">サブスクリプションのキャンセル</string>
-    <string name="migrate">移行する</string>
     <string name="local_lists">ローカルリスト</string>
     <string name="email_to_task">メールでタスクを追加する</string>
     <string name="email_to_task_address">あなたのメールアドレス</string>

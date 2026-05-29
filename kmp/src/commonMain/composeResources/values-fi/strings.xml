@@ -113,7 +113,6 @@
     <string name="donate_nag">Harkitse tuen osoittamista lahjoituksella!</string>
     <string name="manage_subscription">Muokkaa tilausta</string>
     <string name="button_unsubscribe">Peruuta tilaus</string>
-    <string name="migrate">muuttaa</string>
     <string name="local_lists">Paikalliset luettelot</string>
     <string name="app_passwords">Sovelluksen salasana</string>
     <string name="app_password">Sovelluksen salasana</string>

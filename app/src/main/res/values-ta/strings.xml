@@ -576,7 +576,6 @@
     <string name="multiline_title_on">வரி இடைவெளிகளைச் சேர்க்க ENTER விசையை அழுத்தவும்</string>
     <string name="authentication_required">ஏற்பு தேவை</string>
     <string name="github_sponsor">ஒப்புரவாளர்</string>
-    <string name="migrate">இடம்பெயர்வு</string>
     <string name="completed">முடிந்தது</string>
     <string name="snackbar_task_completed">பணி முடிந்தது</string>
     <string name="custom_notification">தனிப்பயன் notification</string>

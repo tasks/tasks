@@ -100,7 +100,6 @@
     <string name="donate_nag">Σκεφτείτε να δείξετε την υποστήριξη σας με μια δωρεά!</string>
     <string name="manage_subscription">Τροποποίηση συνδρομής</string>
     <string name="button_unsubscribe">Ακύρωση συνδρομής</string>
-    <string name="migrate">Μετακίνηση</string>
     <string name="local_lists">Τοπικές λίστες</string>
     <string name="app_passwords">Κωδικοί εφαρμογής</string>
     <string name="app_password">Κωδικός εφαρμογής</string>

@@ -500,7 +500,6 @@
     <string name="above_average">Batezbestekotik gora</string>
     <string name="migrate_count">Eraman %s Tasks.org gunera</string>
     <string name="migrating_tasks">Zereginak migratzen</string>
-    <string name="migrate">Migratu</string>
     <string name="authentication_required">Autentifikazioa derrigorrezkoa</string>
     <string name="no_google_play_subscription">Ez da Google Play harpidetza egokirik aurkitu</string>
     <string name="local_lists">Zerrenda lokalak</string>

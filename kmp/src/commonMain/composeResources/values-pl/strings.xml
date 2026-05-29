@@ -91,7 +91,6 @@
     <string name="display_name">Nazwa wyświetlana</string>
     <string name="manage_subscription">Zmodyfikuj subskrypcję</string>
     <string name="button_unsubscribe">Anuluj subskrypcję</string>
-    <string name="migrate">Migruj</string>
     <string name="local_lists">Listy lokalne</string>
     <string name="app_passwords">Hasła aplikacji</string>
     <string name="app_password">Hasło aplikacji</string>

@@ -157,7 +157,6 @@
     <string name="above_average">Iznad prosjeka</string>
     <string name="migrate_count">Premjesti %s na Tasks.org</string>
     <string name="migrating_tasks">Migriranje zadataka</string>
-    <string name="migrate">Migriraj</string>
     <string name="github_sponsor">Sponzor</string>
     <string name="authentication_required">Autentifikacija je obavezna</string>
     <string name="sign_in_with_google">Google prijava</string>

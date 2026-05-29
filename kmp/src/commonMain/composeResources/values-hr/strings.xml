@@ -125,7 +125,6 @@
     <string name="donate_nag">Podrži projekt donacijom!</string>
     <string name="manage_subscription">Promijeni pretplatu</string>
     <string name="button_unsubscribe">Otkaži pretplatu</string>
-    <string name="migrate">Migriraj</string>
     <string name="local_lists">Popisi na uređaju</string>
     <string name="email_to_task">E-mail u zadatak</string>
     <string name="email_to_task_address">Tvoja e-mail adresa</string>

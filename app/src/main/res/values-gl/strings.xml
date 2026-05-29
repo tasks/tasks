@@ -314,7 +314,6 @@
     <string name="refresh_purchases">Anovar as compras</string>
     <string name="sign_in_with_google">Acceso con Google</string>
     <string name="authentication_required">Precísase autenticación</string>
-    <string name="migrate">migrar</string>
     <string name="custom_notification">Notificación habitual</string>
     <string name="share">Compartir</string>
     <plurals name="repeat_minutes">

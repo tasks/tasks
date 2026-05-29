@@ -127,7 +127,6 @@
     <string name="donate_nag">考虑用捐赠显示您的支持！</string>
     <string name="manage_subscription">修改订阅</string>
     <string name="button_unsubscribe">取消订阅</string>
-    <string name="migrate">迁移</string>
     <string name="local_lists">本地清单</string>
     <string name="email_to_task">邮件转任务</string>
     <string name="email_to_task_address">您的电子邮件地址</string>

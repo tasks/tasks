@@ -100,7 +100,6 @@
     <string name="donate_nag">Розгляньте можливість підтримати нас внеском!</string>
     <string name="manage_subscription">Змінити підписку</string>
     <string name="button_unsubscribe">Скасувати підписку</string>
-    <string name="migrate">Перенести</string>
     <string name="local_lists">Локальні списки</string>
     <string name="app_passwords">Паролі застосунку</string>
     <string name="app_password">Пароль застосунку</string>

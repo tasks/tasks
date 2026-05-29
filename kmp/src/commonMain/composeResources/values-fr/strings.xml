@@ -127,7 +127,6 @@
     <string name="donate_nag">Pensez à manifester votre soutien en faisant un don !</string>
     <string name="manage_subscription">Modifier l'abonnement</string>
     <string name="button_unsubscribe">Annuler l'abonnement</string>
-    <string name="migrate">Migrer</string>
     <string name="local_lists">Listes locales</string>
     <string name="email_to_task">Courriel en tâche</string>
     <string name="email_to_task_address">Votre adresse électronique</string>

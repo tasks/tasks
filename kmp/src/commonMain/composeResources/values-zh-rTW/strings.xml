@@ -125,7 +125,6 @@
     <string name="donate_nag">考慮透過捐款來表達您的支持！</string>
     <string name="manage_subscription">變更訂閱</string>
     <string name="button_unsubscribe">取消訂閱</string>
-    <string name="migrate">移入</string>
     <string name="local_lists">本機清單</string>
     <string name="email_to_task">郵件轉任務</string>
     <string name="email_to_task_address">您的電子郵件地址</string>

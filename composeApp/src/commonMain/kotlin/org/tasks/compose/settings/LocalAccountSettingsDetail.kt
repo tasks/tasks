@@ -30,6 +30,8 @@ import tasks.kmp.generated.resources.local_lists
 fun LocalAccountSettingsDetail(
     pane: LocalAccountSettingsPane,
     onNavigateBack: () -> Unit,
+    onPurchase: () -> Unit,
+    onSignIn: () -> Unit,
 ) {
     val viewModel = koinViewModel<LocalAccountViewModel>()
     remember(pane.account.id) { viewModel.setAccount(pane.account) }
@@ -86,6 +88,13 @@ fun LocalAccountSettingsDetail(
                 onDelete = {
                     viewModel.delete(onNavigateBack)
                 },
+                onCanMigrate = {
+                    viewModel.canMigrate(
+                        onPurchaseRequired = onPurchase,
+                        onSignInRequired = onSignIn,
+                    )
+                },
+                onMigrateConfirm = { viewModel.confirmMigration(onNavigateBack) },
                 onNavigateBack = onNavigateBack,
                 onDiscardDialogChange = { showDiscardDialog = it },
             )

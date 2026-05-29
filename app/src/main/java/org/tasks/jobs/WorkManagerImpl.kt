@@ -40,6 +40,7 @@ import org.tasks.feed.BlogFeedMode
 import org.tasks.jobs.DriveUploader.Companion.EXTRA_PURGE
 import org.tasks.jobs.DriveUploader.Companion.EXTRA_URI
 import org.tasks.jobs.MigrateLocalWork.Companion.EXTRA_ACCOUNT
+import org.tasks.jobs.MigrateLocalWork.Companion.EXTRA_LOCAL_ACCOUNT
 import org.tasks.sync.SyncSource
 import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC
@@ -80,9 +81,12 @@ class WorkManagerImpl(
     }
 
     @SuppressLint("EnqueueWork")
-    override fun migrateLocalTasks(caldavAccount: CaldavAccount) {
+    override fun migrateLocalTasks(localAccount: CaldavAccount, tasksAccount: CaldavAccount) {
         val builder = OneTimeWorkRequest.Builder(MigrateLocalWork::class.java)
-                .setInputData(EXTRA_ACCOUNT to caldavAccount.uuid)
+                .setInputData(
+                    EXTRA_LOCAL_ACCOUNT to localAccount.uuid,
+                    EXTRA_ACCOUNT to tasksAccount.uuid,
+                )
                 .setConstraints(networkConstraints)
         enqueue(workManager.beginUniqueWork(TAG_MIGRATE_LOCAL, APPEND_OR_REPLACE, builder.build()))
     }

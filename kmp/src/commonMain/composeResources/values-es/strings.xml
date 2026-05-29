@@ -100,7 +100,6 @@
     <string name="donate_nag">¡Considera mostrar tu apoyo con una donación!</string>
     <string name="manage_subscription">Modificar suscripción</string>
     <string name="button_unsubscribe">Cancelar la suscripción</string>
-    <string name="migrate">Migrar</string>
     <string name="local_lists">Listas locales</string>
     <string name="app_passwords">Contraseñas de la aplicación</string>
     <string name="app_password">Contraseña de la aplicación</string>

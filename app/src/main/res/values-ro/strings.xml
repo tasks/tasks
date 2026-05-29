@@ -28,7 +28,6 @@
     <string name="above_average">Peste medie</string>
     <string name="migrate_count">Mută %s în Tasks.org</string>
     <string name="migrating_tasks">Mutarea sarcinilor</string>
-    <string name="migrate">Migrare</string>
     <string name="github_sponsor">Sponsor</string>
     <string name="authentication_required">Autentificare necesară</string>
     <string name="sign_in_with_google">Conectează-te cu Google</string>
