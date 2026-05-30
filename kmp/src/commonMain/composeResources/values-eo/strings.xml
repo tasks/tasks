@@ -242,4 +242,16 @@
     <string name="dismiss">Fermi</string>
     <string name="add_shortcut_to_home_screen">Aldoni ŝparvojon al hejmekrano</string>
     <string name="add_widget_to_home_screen">Aldoni fenestraĵon al hejmekrano</string>
+    <string name="wear_phone_update_required">Bezonas ĝisdatigon de poŝtelefono</string>
+    <string name="wear_connecting_to_phone">Konektiĝas al poŝtelefono…</string>
+    <string name="edit_task">Redakti taskon</string>
+    <string name="task_title">Titolo de tasko</string>
+    <string name="no_list_available">Neniu listo estas disponebla</string>
+    <string name="failed_to_save_task">Savi taskon malsukcesis</string>
+    <string name="enter_title">Entajpi titolon</string>
+    <string name="group_mode">Grupe</string>
+    <string name="sort_alphabetical">Alfabete</string>
+    <string name="sort_created">Laŭ kreita dato</string>
+    <string name="sort_modified">Laŭ modifita dato</string>
+    <string name="all_done">Finite!</string>
 </resources>
