@@ -321,4 +321,5 @@
     <string name="no_list_available">Není dostupný žádný seznam</string>
     <string name="this_device_only">Pouze toto zařízení</string>
     <string name="create_a_list">Vytvořit seznam</string>
+    <string name="migrate_to_cloud">Přejít na Tasks.org Cloud</string>
 </resources>
