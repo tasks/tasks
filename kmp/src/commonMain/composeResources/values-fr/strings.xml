@@ -320,4 +320,5 @@
     <string name="add_widget_to_home_screen">Ajouter le widget à l'écran d'accueil</string>
     <string name="this_device_only">Cet appareil uniquement</string>
     <string name="create_a_list">Créer une liste</string>
+    <string name="migrate_to_cloud">Migrer vers le cloud Tasks.org</string>
 </resources>
