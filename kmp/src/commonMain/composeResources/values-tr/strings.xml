@@ -318,4 +318,5 @@
     <string name="no_list_available">Liste yok</string>
     <string name="this_device_only">Yalnızca bu aygıt</string>
     <string name="create_a_list">Liste oluştur</string>
+    <string name="migrate_to_cloud">Tasks.org Cloud\'a Göç</string>
 </resources>
