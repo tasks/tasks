@@ -255,4 +255,9 @@
     <string name="dismiss">Ignora</string>
     <string name="add_shortcut_to_home_screen">Aggiungi collegamento sulla Home</string>
     <string name="add_widget_to_home_screen">Aggiungi widget sulla Home</string>
+    <string name="caldav_server_owncloud">ownCloud</string>
+    <string name="caldav_server_sabredav">sabre/dav</string>
+    <string name="caldav_server_openxchange">Open-Xchange</string>
+    <string name="caldav_server_nextcloud">Nextcloud</string>
+    <string name="caldav_server_mailbox_org">Mailbox.org</string>
 </resources>
