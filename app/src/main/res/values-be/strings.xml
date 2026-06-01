@@ -18,7 +18,7 @@
     <string name="DLG_hour_minutes">Час (гадзіны : хвіліны)</string>
     <string name="DLG_undo">Адмяніць</string>
     <string name="WID_dateButtonUnset">Націсніце, каб наставіць</string>
-    <string name="TLA_no_items">Тут няма задач.</string>
+    <string name="TLA_no_items">Тут няма задач</string>
     <string name="TLA_menu_sort">Сартаванне</string>
     <string name="TLA_menu_search">Пошук</string>
     <string name="TLA_menu_settings">Налады</string>
