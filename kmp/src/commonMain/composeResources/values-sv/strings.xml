@@ -309,4 +309,13 @@
     <string name="dismiss">Avfärda</string>
     <string name="add_shortcut_to_home_screen">Lägg till genväg på hemskärm</string>
     <string name="add_widget_to_home_screen">Lägg till widget på hemskärm</string>
+    <string name="edit_task">Redigera uppgift</string>
+    <string name="task_title">Uppgiftstitel</string>
+    <string name="no_list_available">Ingen lista tillgänglig</string>
+    <string name="add_platform_account">Lägg till %1$s-konto</string>
+    <string name="migrate_to_cloud">Migrera till Tasks.org Cloud</string>
+    <string name="this_device_only">Endast denna enhet</string>
+    <string name="link_desktop">Länka skrivbordsappen</string>
+    <string name="subscription_not_found">Din Tasks.org-molnprenumeration hittades inte. Om du tror att detta är ett fel, kontakta %1$s</string>
+    <string name="create_a_list">Skapa en lista</string>
 </resources>
