@@ -663,4 +663,5 @@
     <string name="alarm_start">start</string>
     <string name="alarm_due">förfaller</string>
     <string name="read_more">Läs mer</string>
+    <string name="per_list_sort_title">Sortering per lista</string>
 </resources>
