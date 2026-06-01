@@ -15,7 +15,7 @@
     <string name="DLG_hour_minutes">Время (часы : минуты)</string>
     <string name="DLG_undo">Отменить</string>
     <string name="WID_dateButtonUnset">Нажмите, чтобы установить</string>
-    <string name="TLA_no_items">Здесь нет задач.</string>
+    <string name="TLA_no_items">Здесь нет задач</string>
     <string name="TLA_menu_sort">Сортировка</string>
     <string name="TLA_menu_search">Поиск</string>
     <string name="TLA_menu_settings">Настройки</string>
@@ -235,7 +235,7 @@
     <string name="row_spacing">Межстрочный интервал</string>
     <string name="customize_edit_screen">Настроить экран редактирования</string>
     <string name="translations">Участвовать в переводе программы</string>
-    <string name="quiet_hours_summary">Выкл. напоминания в тихие часы</string>
+    <string name="quiet_hours_summary">Отключить напоминания в тихие часы</string>
     <string name="add_reminder">Добавить напоминание</string>
     <string name="add_location">Добавить место</string>
     <string name="remove">Удалить</string>
@@ -335,7 +335,7 @@
     <string name="tasker_create_task">Создать задачу</string>
     <string name="tasker_list_notification">Список уведомлений</string>
     <string name="help">Помощь</string>
-    <string name="upgrade_to_pro">Обновить до версии Про</string>
+    <string name="upgrade_to_pro">Обновить до версии Pro</string>
     <string name="refresh_purchases">Обновить покупки</string>
     <string name="button_subscribe">Подписаться</string>
     <string name="pro_dashclock_extension">Расширение для Dashclock</string>
@@ -518,7 +518,7 @@
     <string name="default_due_date">Дата окончания по умолчанию</string>
     <string name="start_date">Дата начала</string>
     <string name="filter_criteria_unstarted">Не начавшиеся</string>
-    <string name="show_unstarted">Показать незавершенные</string>
+    <string name="show_unstarted">Показать неначатые</string>
     <string name="no_start_date">Нет даты начала</string>
     <string name="default_start_date">Дата начала по умолчанию</string>
     <string name="SSD_sort_start">Дата начала</string>
@@ -600,13 +600,13 @@
     <string name="repeat_monthly_on_day_number">Ежемесячно на %1d день</string>
     <string name="repeat_monthly_on_the_nth_weekday">Ежемесячно в %1$s %2$s</string>
     <string name="repeats_never">Никогда</string>
-    <string name="repeats_every">Повторять каждый</string>
+    <string name="repeats_every">Повторять каждые</string>
     <string name="repeats_custom_recurrence">Пользовательское повторение</string>
     <plurals name="repeat_occurrence">
-        <item quantity="one">повтор</item>
-        <item quantity="few">повтора</item>
-        <item quantity="many">повторов</item>
-        <item quantity="other">повторов</item>
+        <item quantity="one">повторения</item>
+        <item quantity="few">повторений</item>
+        <item quantity="many">повторений</item>
+        <item quantity="other">повторений</item>
     </plurals>
     <string name="sort_list">Список</string>
     <string name="comment">Комментарий</string>
@@ -660,4 +660,11 @@
     <string name="location_update_interval_2_hours">Каждые 2 часа</string>
     <string name="location_update_interval_disabled">Отключено</string>
     <string name="rmd_EPr_rmd_time_desc">Уведомления для задач на весь день появятся в %1$s</string>
+    <string name="alarm_before">до</string>
+    <string name="alarm_after">после</string>
+    <string name="alarm_start">начала</string>
+    <string name="alarm_due">завершения</string>
+    <string name="default_reminder">Задачи на весь день</string>
+    <string name="rmd_time_enabled_on">Добавить напоминания по умолчанию для задач на весь день</string>
+    <string name="rmd_time_enabled_off">Не добавлять напоминания по умолчанию для задач на весь день</string>
 </resources>
