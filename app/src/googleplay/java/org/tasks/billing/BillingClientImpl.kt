@@ -141,7 +141,8 @@ class BillingClientImpl(
                         it.orderId ?: "",
                     )
                 }
-        } else if (result.responseCode != BillingResponseCode.USER_CANCELED) {
+        } else {
+            Timber.w("onPurchasesUpdated: ${result.responseCodeString}: ${result.debugMessage}")
             firebase.reportIabResult(
                 result.responseCodeString,
                 state = "PURCHASE_UPDATED_FAILED",
