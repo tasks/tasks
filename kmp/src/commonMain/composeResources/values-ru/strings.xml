@@ -25,7 +25,7 @@
     <string name="yesterday_lowercase">вчера</string>
     <string name="today">Сегодня</string>
     <string name="today_lowercase">сегодня</string>
-    <string name="show_unstarted">Показать незавершенные</string>
+    <string name="show_unstarted">Показать неначатые</string>
     <string name="show_completed">Показать завершённые</string>
     <string name="search_no_results">Нет результатов</string>
     <string name="requires_pro_subscription">Требуется Pro‑подписка</string>
@@ -50,7 +50,7 @@
     <string name="microsoft_selection_description">Синхронизация с личной учетной записью Microsoft</string>
     <string name="cost_free">Бесплатно</string>
     <string name="name_your_price">Назовите свою цену</string>
-    <string name="upgrade_to_pro">Обновить до версии Про</string>
+    <string name="upgrade_to_pro">Обновить до версии Pro</string>
     <string name="caldav_selection_description">Синхронизация, основанная на открытых стандартах</string>
     <string name="davx5_selection_description">Синхронизируйте свои задачи с приложением DAVx⁵</string>
     <string name="etesync_selection_description">Синхронизация с использованием сквозного шифрования</string>
