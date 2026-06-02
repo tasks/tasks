@@ -9,10 +9,10 @@ import co.touchlab.kermit.Logger
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.TaskDao
-import org.tasks.data.db.DbUtils
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.Notification
+import org.tasks.data.entity.Task
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
@@ -27,6 +27,11 @@ class AlarmService(
     private val alarmCalculator: AlarmCalculator,
     private val preferences: AppPreferences,
 ) {
+    private data class AlarmTrigger(
+        val alarm: Alarm,
+        val notification: Notification,
+    )
+
     suspend fun getAlarms(taskId: Long): List<Alarm> = alarmDao.getAlarms(taskId)
 
     /**
@@ -54,8 +59,21 @@ class AlarmService(
 
     suspend fun snooze(time: Long, taskIds: List<Long>) {
         notifier.cancel(taskIds, CancelReason.SNOOZE)
+        val templates = taskIds.associateWith { taskId ->
+            getSnoozeTemplate(taskId)
+        }
         alarmDao.deleteSnoozed(taskIds)
-        alarmDao.insert(taskIds.map { Alarm(task = it, time = time, type = TYPE_SNOOZE) })
+        val snoozed = taskIds.map { taskId ->
+            val template = templates[taskId]
+            Alarm(
+                task = taskId,
+                time = time,
+                type = TYPE_SNOOZE,
+                repeat = template?.repeat ?: 0,
+                interval = template?.interval ?: 0,
+            )
+        }
+        alarmDao.insert(snoozed)
         taskDao.touch(taskIds)
         notifier.triggerNotifications()
     }
@@ -67,51 +85,102 @@ class AlarmService(
             return preferences.adjustForQuietHours(currentTimeMillis())
         }
         val (overdue, _) = getAlarms()
-        overdue
-            .sortedBy { it.timestamp }
-            .also { alarms ->
-                alarms
-                    .map { it.taskId }
-                    .chunked(DbUtils.MAX_SQLITE_ARGS)
-                    .onEach { alarmDao.deleteSnoozed(it) }
+        val triggered = overdue
+            .sortedBy { it.notification.timestamp }
+            .map { trigger ->
+                trigger.copy(
+                    notification = trigger.notification.copy(timestamp = currentTimeMillis())
+                )
             }
-            .map { it.copy(timestamp = currentTimeMillis()) }
-            .let { trigger(it) }
-        val alreadyTriggered = overdue.map { it.taskId }.toSet()
+        trigger(triggered.map { it.notification })
+        triggered.forEach { trigger ->
+            if (trigger.alarm.type == TYPE_SNOOZE) {
+                if (trigger.alarm.repeat > 0 && trigger.alarm.interval > 0) {
+                    val updated = trigger.alarm.copy(
+                        time = trigger.notification.timestamp + trigger.alarm.interval,
+                        repeat = trigger.alarm.repeat - 1,
+                    )
+                    alarmDao.update(updated)
+                } else {
+                    alarmDao.deleteSnoozed(listOf(trigger.notification.taskId))
+                }
+            }
+        }
+        val alreadyTriggered = triggered.map { it.notification.taskId }.toSet()
         val (moreOverdue, future) = getAlarms()
-        return moreOverdue
+        val nextAlarm = moreOverdue
+            .map { it.notification }
             .filterNot { it.type == Alarm.TYPE_RANDOM || alreadyTriggered.contains(it.taskId) }
-            .plus(future)
+            .plus(future.map { it.notification })
             .minOfOrNull { it.timestamp }
             ?: 0
+        return nextAlarm
     }
 
-    internal suspend fun getAlarms(): Pair<List<Notification>, List<Notification>> {
+    private suspend fun getAlarms(): Pair<List<AlarmTrigger>, List<AlarmTrigger>> {
         val start = currentTimeMillis()
-        val overdue = ArrayList<Notification>()
-        val future = ArrayList<Notification>()
+        val overdue = ArrayList<AlarmTrigger>()
+        val future = ArrayList<AlarmTrigger>()
         val nextMinute = currentTimeMillis().startOfMinute() + 60_000
         alarmDao.getActiveAlarms()
             .groupBy { it.task }
             .forEach { (taskId, alarms) ->
                 val task = taskDao.fetch(taskId) ?: return@forEach
-                val alarmEntries = alarms.mapNotNull {
-                    alarmCalculator.toAlarmEntry(task, it)
-                }
-                val (now, later) = alarmEntries.partition {
-                    it.timestamp < nextMinute
-                }
-                later
-                    .filter { it.type == TYPE_SNOOZE }
-                    .maxByOrNull { it.timestamp }
-                    ?.let { future.add(it) }
-                    ?: run {
-                        now.firstOrNull()?.let { overdue.add(it) }
-                        later.minByOrNull { it.timestamp }?.let { future.add(it) }
-                    }
+                val (now, later) = getAlarms(task, alarms, nextMinute)
+                now?.let { overdue.add(it) }
+                later?.let { future.add(it) }
             }
         Logger.d("AlarmService") { "took ${currentTimeMillis() - start}ms overdue=${overdue.size} future=${future.size}" }
         return overdue to future
+    }
+
+    private fun getAlarms(
+        task: Task,
+        alarms: List<Alarm>,
+        nextMinute: Long,
+    ): Pair<AlarmTrigger?, AlarmTrigger?> {
+        val alarmEntries = alarms.mapNotNull { alarm ->
+            alarmCalculator.toAlarmEntry(task, alarm)?.let { notification ->
+                AlarmTrigger(alarm, notification)
+            }
+        }
+        val snoozed = alarmEntries
+            .filter { it.notification.type == TYPE_SNOOZE }
+            .maxByOrNull { it.notification.timestamp }
+        if (snoozed != null) {
+            return if (snoozed.notification.timestamp < nextMinute) {
+                snoozed to null
+            } else {
+                null to snoozed
+            }
+        }
+        val (now, later) = alarmEntries.partition {
+            it.notification.timestamp < nextMinute
+        }
+        return now.firstOrNull() to later.minByOrNull { it.notification.timestamp }
+    }
+
+    private suspend fun getSnoozeTemplate(taskId: Long): Alarm? {
+        val task = taskDao.fetch(taskId) ?: return null
+        val alarms = alarmDao.getActiveAlarms(taskId)
+        val baseAlarms = alarms.filter { it.type != TYPE_SNOOZE }
+        val nextMinute = currentTimeMillis().startOfMinute() + 60_000
+        val (baseOverdue, baseFuture) = getAlarms(task, baseAlarms, nextMinute)
+        if (baseOverdue != null || baseFuture != null) {
+            return baseOverdue?.alarm ?: baseFuture?.alarm
+        }
+        val (overdue, future) = getAlarms(task, alarms, nextMinute)
+        if (overdue != null || future != null) {
+            return overdue?.alarm ?: future?.alarm
+        }
+        return baseAlarms
+            .mapNotNull { alarm ->
+                alarmCalculator.latestTriggerAtOrBefore(task, alarm, task.reminderLast)?.let { timestamp ->
+                    alarm to timestamp
+                }
+            }
+            .maxByOrNull { it.second }
+            ?.first
     }
 
     companion object {

@@ -128,7 +128,7 @@ class AlarmJobServiceTest : InjectingTestCase() {
                     Notification(
                         taskId = 1L,
                         timestamp = DateTimeUtils2.currentTimeMillis(),
-                        type = Alarm.TYPE_REL_END
+                        type = Alarm.TYPE_SNOOZE
                     )
                 ),
                 0
@@ -201,6 +201,381 @@ class AlarmJobServiceTest : InjectingTestCase() {
             testResults(
                 emptyList(),
                 DateTimeUtils2.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5)
+            )
+        }
+    }
+
+    @Test
+    fun snoozePreservesRepeatingReminderPattern() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 20)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY_TIME,
+                        DateTime(2024, 5, 17, 23, 20).millis
+                    )
+                )
+            )
+            alarmService.synchronizeAlarms(
+                1,
+                mutableSetOf(
+                    Alarm(
+                        type = Alarm.TYPE_REL_END,
+                        repeat = 2,
+                        interval = TimeUnit.MINUTES.toMillis(5)
+                    )
+                )
+            )
+            taskDao.setLastNotified(1, DateTime(DateTimeUtils2.currentTimeMillis()).endOfMinute().millis)
+
+            alarmService.snooze(DateTimeUtils2.currentTimeMillis() + TimeUnit.HOURS.toMillis(1), listOf(1))
+
+            assertEquals(
+                listOf(
+                    Alarm(
+                        id = 1,
+                        task = 1,
+                        time = 0,
+                        type = Alarm.TYPE_REL_END,
+                        repeat = 2,
+                        interval = TimeUnit.MINUTES.toMillis(5)
+                    ),
+                    Alarm(
+                        id = 2,
+                        task = 1,
+                        time = DateTimeUtils2.currentTimeMillis() + TimeUnit.HOURS.toMillis(1),
+                        type = Alarm.TYPE_SNOOZE,
+                        repeat = 2,
+                        interval = TimeUnit.MINUTES.toMillis(5)
+                    )
+                ),
+                alarmService.getAlarms(1)
+            )
+        }
+    }
+
+    @Test
+    fun snoozingRepeatingSnoozeResetsPatternFromBaseReminder() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 20)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY_TIME,
+                        DateTime(2024, 5, 17, 23, 20).millis
+                    )
+                )
+            )
+            alarmService.synchronizeAlarms(
+                1,
+                mutableSetOf(
+                    Alarm(
+                        type = Alarm.TYPE_REL_END,
+                        repeat = 2,
+                        interval = TimeUnit.MINUTES.toMillis(5)
+                    ),
+                    Alarm(
+                        time = DateTimeUtils2.currentTimeMillis(),
+                        type = Alarm.TYPE_SNOOZE,
+                        repeat = 1,
+                        interval = TimeUnit.MINUTES.toMillis(5)
+                    )
+                )
+            )
+            taskDao.setLastNotified(1, DateTime(DateTimeUtils2.currentTimeMillis()).endOfMinute().millis)
+
+            alarmService.snooze(DateTimeUtils2.currentTimeMillis() + TimeUnit.HOURS.toMillis(1), listOf(1))
+
+            assertEquals(
+                listOf(
+                    Alarm(
+                        id = 1,
+                        task = 1,
+                        time = 0,
+                        type = Alarm.TYPE_REL_END,
+                        repeat = 2,
+                        interval = TimeUnit.MINUTES.toMillis(5)
+                    ),
+                    Alarm(
+                        id = 3,
+                        task = 1,
+                        time = DateTimeUtils2.currentTimeMillis() + TimeUnit.HOURS.toMillis(1),
+                        type = Alarm.TYPE_SNOOZE,
+                        repeat = 2,
+                        interval = TimeUnit.MINUTES.toMillis(5)
+                    )
+                ),
+                alarmService.getAlarms(1)
+            )
+        }
+    }
+
+    @Test
+    fun snoozingExistingSnoozeFallsBackToSnoozeTemplateWhenBaseMissing() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 20)) {
+            taskDao.insert(Task())
+            alarmService.synchronizeAlarms(
+                1,
+                mutableSetOf(
+                    Alarm(
+                        time = DateTimeUtils2.currentTimeMillis(),
+                        type = Alarm.TYPE_SNOOZE,
+                        repeat = 4,
+                        interval = TimeUnit.MINUTES.toMillis(1)
+                    )
+                )
+            )
+
+            alarmService.snooze(
+                DateTimeUtils2.currentTimeMillis() + TimeUnit.HOURS.toMillis(1),
+                listOf(1)
+            )
+
+            assertEquals(
+                listOf(
+                    Alarm(
+                        id = 2,
+                        task = 1,
+                        time = DateTimeUtils2.currentTimeMillis() + TimeUnit.HOURS.toMillis(1),
+                        type = Alarm.TYPE_SNOOZE,
+                        repeat = 4,
+                        interval = TimeUnit.MINUTES.toMillis(1)
+                    )
+                ),
+                alarmService.getAlarms(1)
+            )
+        }
+    }
+
+    @Test
+    fun snoozingAfterRepeatingReminderFinishesPreservesPattern() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 30)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY_TIME,
+                        DateTime(2024, 5, 17, 23, 20).millis
+                    ),
+                    reminderLast = DateTime(2024, 5, 17, 23, 25, 30).endOfMinute().millis,
+                )
+            )
+            alarmService.synchronizeAlarms(
+                1,
+                mutableSetOf(
+                    Alarm(
+                        type = Alarm.TYPE_REL_END,
+                        repeat = 5,
+                        interval = TimeUnit.MINUTES.toMillis(1)
+                    )
+                )
+            )
+
+            alarmService.snooze(
+                DateTimeUtils2.currentTimeMillis() + TimeUnit.HOURS.toMillis(1),
+                listOf(1)
+            )
+
+            assertEquals(
+                listOf(
+                    Alarm(
+                        id = 1,
+                        task = 1,
+                        time = 0,
+                        type = Alarm.TYPE_REL_END,
+                        repeat = 5,
+                        interval = TimeUnit.MINUTES.toMillis(1)
+                    ),
+                    Alarm(
+                        id = 2,
+                        task = 1,
+                        time = DateTimeUtils2.currentTimeMillis() + TimeUnit.HOURS.toMillis(1),
+                        type = Alarm.TYPE_SNOOZE,
+                        repeat = 5,
+                        interval = TimeUnit.MINUTES.toMillis(1)
+                    )
+                ),
+                alarmService.getAlarms(1)
+            )
+        }
+    }
+
+    @Test
+    fun snoozingAfterChainFinishesUsesMostRecentBaseTemplate() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 30)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY_TIME,
+                        DateTime(2024, 5, 17, 23, 20).millis
+                    ),
+                    reminderLast = DateTime(2024, 5, 17, 23, 25, 30).endOfMinute().millis,
+                )
+            )
+            alarmService.synchronizeAlarms(
+                1,
+                mutableSetOf(
+                    Alarm(type = Alarm.TYPE_REL_END),
+                    Alarm(
+                        time = TimeUnit.MINUTES.toMillis(1),
+                        type = Alarm.TYPE_REL_END,
+                        repeat = 4,
+                        interval = TimeUnit.MINUTES.toMillis(1)
+                    )
+                )
+            )
+
+            alarmService.snooze(
+                DateTimeUtils2.currentTimeMillis() + TimeUnit.HOURS.toMillis(1),
+                listOf(1)
+            )
+
+            assertEquals(
+                listOf(
+                    Alarm(id = 1, task = 1, time = 0, type = Alarm.TYPE_REL_END),
+                    Alarm(
+                        id = 2,
+                        task = 1,
+                        time = TimeUnit.MINUTES.toMillis(1),
+                        type = Alarm.TYPE_REL_END,
+                        repeat = 4,
+                        interval = TimeUnit.MINUTES.toMillis(1)
+                    ),
+                    Alarm(
+                        id = 3,
+                        task = 1,
+                        time = DateTimeUtils2.currentTimeMillis() + TimeUnit.HOURS.toMillis(1),
+                        type = Alarm.TYPE_SNOOZE,
+                        repeat = 4,
+                        interval = TimeUnit.MINUTES.toMillis(1)
+                    )
+                ),
+                alarmService.getAlarms(1)
+            )
+        }
+    }
+
+    @Test
+    fun repeatingSnoozeSchedulesNextOccurrence() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 20)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY,
+                        DateTime(2024, 5, 17).millis
+                    )
+                )
+            )
+            alarmService.synchronizeAlarms(
+                1,
+                mutableSetOf(
+                    Alarm(
+                        type = Alarm.TYPE_REL_END,
+                        repeat = 2,
+                        interval = TimeUnit.MINUTES.toMillis(5)
+                    ),
+                    Alarm(
+                        time = DateTimeUtils2.currentTimeMillis(),
+                        type = Alarm.TYPE_SNOOZE,
+                        repeat = 2,
+                        interval = TimeUnit.MINUTES.toMillis(5)
+                    )
+                )
+            )
+
+            testResults(
+                listOf(
+                    Notification(
+                        taskId = 1L,
+                        timestamp = DateTimeUtils2.currentTimeMillis(),
+                        type = Alarm.TYPE_SNOOZE
+                    )
+                ),
+                DateTimeUtils2.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5)
+            )
+
+            assertEquals(
+                listOf(
+                    Alarm(
+                        id = 1,
+                        task = 1,
+                        time = 0,
+                        type = Alarm.TYPE_REL_END,
+                        repeat = 2,
+                        interval = TimeUnit.MINUTES.toMillis(5)
+                    ),
+                    Alarm(
+                        id = 2,
+                        task = 1,
+                        time = DateTimeUtils2.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5),
+                        type = Alarm.TYPE_SNOOZE,
+                        repeat = 1,
+                        interval = TimeUnit.MINUTES.toMillis(5)
+                    )
+                ),
+                alarmService.getAlarms(1)
+            )
+        }
+    }
+
+    @Test
+    fun overdueSnoozeOverridesOverdueBaseReminder() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 25)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY_TIME,
+                        DateTime(2024, 5, 17, 23, 10).millis
+                    ),
+                    reminderLast = DateTime(2024, 5, 17, 23, 11).millis,
+                )
+            )
+            alarmService.synchronizeAlarms(
+                1,
+                mutableSetOf(
+                    Alarm(
+                        type = Alarm.TYPE_REL_END,
+                        repeat = 5,
+                        interval = TimeUnit.MINUTES.toMillis(1)
+                    ),
+                    Alarm(
+                        time = DateTimeUtils2.currentTimeMillis(),
+                        type = Alarm.TYPE_SNOOZE,
+                        repeat = 5,
+                        interval = TimeUnit.MINUTES.toMillis(1)
+                    )
+                )
+            )
+
+            testResults(
+                listOf(
+                    Notification(
+                        taskId = 1L,
+                        timestamp = DateTimeUtils2.currentTimeMillis(),
+                        type = Alarm.TYPE_SNOOZE
+                    )
+                ),
+                DateTimeUtils2.currentTimeMillis() + TimeUnit.MINUTES.toMillis(1)
+            )
+
+            assertEquals(
+                listOf(
+                    Alarm(
+                        id = 1,
+                        task = 1,
+                        time = 0,
+                        type = Alarm.TYPE_REL_END,
+                        repeat = 5,
+                        interval = TimeUnit.MINUTES.toMillis(1)
+                    ),
+                    Alarm(
+                        id = 2,
+                        task = 1,
+                        time = DateTimeUtils2.currentTimeMillis() + TimeUnit.MINUTES.toMillis(1),
+                        type = Alarm.TYPE_SNOOZE,
+                        repeat = 4,
+                        interval = TimeUnit.MINUTES.toMillis(1)
+                    )
+                ),
+                alarmService.getAlarms(1)
             )
         }
     }
