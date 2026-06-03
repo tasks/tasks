@@ -9,12 +9,17 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.databinding.ActivityPreferencesBinding
 import org.tasks.injection.ThemedInjectingAppCompatActivity
+import timber.log.Timber
 import javax.inject.Inject
 
 private const val EXTRA_TITLE = "extra_title"
@@ -23,6 +28,7 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var tasksPreferences: TasksPreferences
 
     lateinit var toolbar: Toolbar
 
@@ -70,6 +76,15 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
         toolbar.navigationIcon =
             getDrawable(R.drawable.ic_outline_arrow_back_24px)
         toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+
+        lifecycleScope.launch {
+            tasksPreferences
+                .flow(TasksPreferences.needsCloudOnboarding, false)
+                .filter { it }
+                .first()
+            Timber.d("CloudOnboarding: needsCloudOnboarding=true, finishing ${this@BasePreferences::class.simpleName}")
+            finish()
+        }
     }
 
     abstract fun getRootTitle(): Int

@@ -47,6 +47,18 @@ object AnalyticsEvents {
 
     const val CREATE_LIST = "create_list"
 
+    const val CLOUD_ONBOARDING = "cloud_onboarding"
+    const val PARAM_STEP = "step"
+
+    object CloudOnboarding {
+        const val TRIGGERED = "triggered"
+        const val WELCOME = "welcome"
+        const val SIGN_IN = "sign_in"
+        const val SIGNED_IN = "signed_in"
+        const val CREATE_LIST = "create_list"
+        const val DONE = "done"
+    }
+
     object SettingsClick {
         const val DELETE_LIST = "delete_list"
         const val WHATS_NEW = "whats_new"
@@ -63,3 +75,6 @@ object AnalyticsEvents {
         const val PRIVACY_POLICY = "privacy_policy"
     }
 }
+
+fun Analytics.logCloudOnboarding(step: String) =
+    logEvent(AnalyticsEvents.CLOUD_ONBOARDING, AnalyticsEvents.PARAM_STEP to step)

@@ -51,7 +51,7 @@ class AddAccountActivity : ComponentActivity() {
             pendingPlatform?.let { platform ->
                 pendingPlatform = null
                 when (platform) {
-                    Platform.TASKS_ORG,
+                    Platform.TASKS_ORG -> finish()
                     Platform.CALDAV,
                     Platform.ETEBASE -> doSignIn(platform)
                     Platform.DAVX5, Platform.DECSYNC_CC -> doOpenUrl(platform)

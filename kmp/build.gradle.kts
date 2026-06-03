@@ -81,6 +81,8 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)
             implementation(compose.runtime)
+            implementation(libs.jetbrains.compose.ui.tooling.preview)
+            implementation(libs.confettikit)
             implementation(libs.androidx.datastore)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.kermit)

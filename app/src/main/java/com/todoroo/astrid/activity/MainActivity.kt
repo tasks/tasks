@@ -35,7 +35,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
-import org.tasks.PlatformConfiguration
 import androidx.core.content.IntentCompat.getParcelableExtra
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -52,6 +51,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
+import org.tasks.PlatformConfiguration
 import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import org.tasks.analytics.Constants
@@ -59,12 +59,20 @@ import org.tasks.analytics.Firebase
 import org.tasks.auth.SignInActivity
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.Inventory
+import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
+import org.tasks.analytics.logCloudOnboarding
+import org.tasks.billing.maybeTriggerCloudOnboarding
+import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.caldav.CaldavSignInActivity
 import org.tasks.compose.AddAccountDestination
 import org.tasks.compose.HomeDestination
 import org.tasks.compose.ImportTasksViewModel
 import org.tasks.compose.PurchaseDestination
 import org.tasks.compose.PurchaseScreen
+import org.tasks.compose.SubscriptionOnboardingDestination
+import org.tasks.compose.SubscriptionOnboardingScreen
+import org.tasks.compose.SubscriptionOnboardingStep
 import org.tasks.compose.TosUpdateDialog
 import org.tasks.compose.WelcomeDestination
 import org.tasks.compose.WelcomeScreen
@@ -77,9 +85,11 @@ import org.tasks.compose.home.HomeScreen
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
-import org.tasks.data.newLocalAccount
 import org.tasks.data.dao.TagDataDao
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.Task
+import org.tasks.data.listSettingsClass
+import org.tasks.data.newLocalAccount
 import org.tasks.dialogs.NewFilterDialog
 import org.tasks.etebase.EtebaseSignInActivity
 import org.tasks.extensions.Context.nightMode
@@ -100,6 +110,7 @@ import org.tasks.sync.microsoft.MicrosoftSignInViewModel
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
+import org.tasks.viewmodel.SubscriptionOnboardingHiltViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -174,18 +185,64 @@ class MainActivity : AppCompatActivity() {
                     .collectAsStateWithLifecycle(TasksServerEnvironment.ENV_PRODUCTION)
 
                 var wasInOnboarding by rememberSaveable { mutableStateOf(false) }
+                var wasInCloudOnboarding by rememberSaveable { mutableStateOf(false) }
+                val needsCloudOnboarding by tasksPreferences
+                    .flow(TasksPreferences.needsCloudOnboarding, false)
+                    .collectAsStateWithLifecycle(null)
                 val importViewModel: ImportTasksViewModel = hiltViewModel()
                 val importState by importViewModel.state.collectAsStateWithLifecycle()
                 val isImporting = importState !is ImportTasksViewModel.ImportState.Idle
-                LaunchedEffect(hasAccount, isImporting) {
-                    Timber.d("hasAccount=$hasAccount isImporting=$isImporting")
+                suspend fun logOnboardingCompleteIfNeeded() {
+                    val hasLogged = tasksPreferences.get(
+                        TasksPreferences.hasLoggedOnboardingComplete,
+                        false
+                    )
+                    if (!hasLogged) {
+                        firebase.logEvent(R.string.event_onboarding_complete)
+                        tasksPreferences.set(
+                            TasksPreferences.hasLoggedOnboardingComplete,
+                            true
+                        )
+                    }
+                }
+                fun navigateClearingStack(destination: Any) {
+                    navController.navigate(destination) {
+                        popUpTo(0) { inclusive = true }
+                    }
+                }
+                LaunchedEffect(needsCloudOnboarding, hasAccount, isImporting) {
+                    Timber.d("hasAccount=$hasAccount isImporting=$isImporting needsCloudOnboarding=$needsCloudOnboarding")
+                    val needsOnboarding = needsCloudOnboarding ?: return@LaunchedEffect
+
+                    if (needsOnboarding) {
+                        if (!wasInCloudOnboarding) {
+                            wasInCloudOnboarding = true
+                            Timber.d("CloudOnboarding: flag is true, pushing onboarding")
+                            navController.navigate(SubscriptionOnboardingDestination)
+                        }
+                        isReady = true
+                        return@LaunchedEffect
+                    }
+
+                    if (wasInCloudOnboarding) {
+                        if (hasAccount == null) return@LaunchedEffect
+                        wasInCloudOnboarding = false
+                        val target = if (hasAccount == true) HomeDestination else WelcomeDestination
+                        wasInOnboarding = target == WelcomeDestination
+                        Timber.d("CloudOnboarding: flag cleared, routing to $target")
+                        navigateClearingStack(target)
+                        if (hasAccount == true) {
+                            logOnboardingCompleteIfNeeded()
+                        }
+                        isReady = true
+                        return@LaunchedEffect
+                    }
+
                     when (hasAccount) {
                         false -> {
                             if (!wasInOnboarding) {
                                 wasInOnboarding = true
-                                navController.navigate(WelcomeDestination) {
-                                    popUpTo(0) { inclusive = true }
-                                }
+                                navigateClearingStack(WelcomeDestination)
                             }
                         }
                         true -> {
@@ -193,21 +250,9 @@ class MainActivity : AppCompatActivity() {
                                 return@LaunchedEffect
                             }
                             if (wasInOnboarding) {
-                                val hasLogged = tasksPreferences.get(
-                                    TasksPreferences.hasLoggedOnboardingComplete,
-                                    false
-                                )
-                                if (!hasLogged) {
-                                    firebase.logEvent(R.string.event_onboarding_complete)
-                                    tasksPreferences.set(
-                                        TasksPreferences.hasLoggedOnboardingComplete,
-                                        true
-                                    )
-                                }
+                                logOnboardingCompleteIfNeeded()
                                 wasInOnboarding = false
-                                navController.navigate(HomeDestination) {
-                                    popUpTo(0) { inclusive = true }
-                                }
+                                navigateClearingStack(HomeDestination)
                             }
                         }
                         else -> {}
@@ -350,7 +395,6 @@ class MainActivity : AppCompatActivity() {
                                     pendingPlatform = null
                                     val platform = Platform.valueOf(name)
                                     when (platform) {
-                                        Platform.TASKS_ORG,
                                         Platform.CALDAV,
                                         Platform.ETEBASE -> doSignIn(platform)
                                         Platform.DAVX5, Platform.DECSYNC_CC -> doOpenUrl(platform)
@@ -372,7 +416,12 @@ class MainActivity : AppCompatActivity() {
                                         if (inventory.hasTasksSubscription) {
                                             doSignIn(platform)
                                         } else {
-                                            requirePurchase(platform, nameYourPrice = false)
+                                            syncLauncher.launch(
+                                                Intent(this@MainActivity, PurchaseActivity::class.java)
+                                                    .putExtra(PurchaseActivityViewModel.EXTRA_NAME_YOUR_PRICE, false)
+                                                    .putExtra(PurchaseActivityViewModel.EXTRA_FEATURE, Platform.TASKS_ORG.featureTitle)
+                                                    .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, Platform.TASKS_ORG.name)
+                                            )
                                         }
                                     }
                                     Platform.CALDAV, Platform.ETEBASE -> {
@@ -409,6 +458,9 @@ class MainActivity : AppCompatActivity() {
                         PurchaseScreen(
                             onBack = { navController.popBackStack() },
                             onPurchased = {
+                                lifecycleScope.launch {
+                                    maybeTriggerCloudOnboarding(inventory, caldavDao, tasksPreferences, firebase::logCloudOnboarding)
+                                }
                                 navController.previousBackStackEntry
                                     ?.savedStateHandle
                                     ?.set("purchased", true)
@@ -421,6 +473,79 @@ class MainActivity : AppCompatActivity() {
                                 navController.popBackStack()
                             },
                             existingSubscriber = inventory.hasPro && !inventory.hasTasksSubscription,
+                        )
+                    }
+                    composable<SubscriptionOnboardingDestination> {
+                        LaunchedEffect(Unit) {
+                            Timber.d("CloudOnboarding: SubscriptionOnboardingDestination entered")
+                        }
+                        val onboardingViewModel: SubscriptionOnboardingHiltViewModel = hiltViewModel()
+                        val step by onboardingViewModel.step.collectAsStateWithLifecycle()
+                        LaunchedEffect(step) {
+                            Timber.d("CloudOnboarding: step=$step")
+                        }
+                        val currentStep = step ?: return@composable
+                        val signInLauncher = rememberLauncherForActivityResult(
+                            ActivityResultContracts.StartActivityForResult()
+                        ) { result ->
+                            Timber.d("CloudOnboarding: sign-in resultCode=${result.resultCode}")
+                            if (result.resultCode == RESULT_OK) {
+                                Timber.d("CloudOnboarding: sign-in succeeded, forcing sync")
+                                syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
+                                workManager.updateBackgroundSync()
+                            }
+                        }
+                        val createListLauncher = rememberLauncherForActivityResult(
+                            ActivityResultContracts.StartActivityForResult()
+                        ) { result ->
+                            Timber.d("CloudOnboarding: create-list resultCode=${result.resultCode}")
+                            if (result.resultCode == RESULT_OK) {
+                                onboardingViewModel.onListCreated()
+                                result.data
+                                    ?.let { getParcelableExtra(it, OPEN_FILTER, Filter::class.java) }
+                                    ?.let { filter ->
+                                        Timber.d("CloudOnboarding: list created, opening $filter")
+                                        viewModel.setFilter(filter)
+                                    }
+                            } else {
+                                onboardingViewModel.dismiss()
+                            }
+                        }
+                        SubscriptionOnboardingScreen(
+                            step = currentStep,
+                            showConfetti = true,
+                            onSignIn = {
+                                Timber.d("CloudOnboarding: launching SignInActivity")
+                                onboardingViewModel.onSignInClicked()
+                                signInLauncher.launch(
+                                    Intent(this@MainActivity, SignInActivity::class.java)
+                                )
+                            },
+                            onCreateList = {
+                                Timber.d("CloudOnboarding: onCreateList -> new Tasks.org list")
+                                lifecycleScope.launch {
+                                    val tasksAccount = caldavDao
+                                        .getAccounts(CaldavAccount.TYPE_TASKS)
+                                        .firstOrNull()
+                                    if (tasksAccount == null) {
+                                        Timber.w("CloudOnboarding: onCreateList but no tasks.org account found")
+                                        return@launch
+                                    }
+                                    createListLauncher.launch(
+                                        Intent(
+                                            this@MainActivity,
+                                            tasksAccount.listSettingsClass(),
+                                        ).putExtra(
+                                            BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT,
+                                            tasksAccount,
+                                        )
+                                    )
+                                }
+                            },
+                            onBack = {
+                                Timber.d("CloudOnboarding: onBack -> dismissing")
+                                onboardingViewModel.dismiss()
+                            },
                         )
                     }
                     composable<HomeDestination> {

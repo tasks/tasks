@@ -319,4 +319,14 @@
     <string name="local_list_description">Tasks in this list are stored only on this device. Connect an account to safeguard your data and access it anywhere.</string>
     <string name="dismiss">Dismiss</string>
     <string name="create_a_list">Create a list</string>
+    <string name="cloud_onboarding_welcome_title">Welcome to Tasks.org Cloud</string>
+    <string name="cloud_onboarding_welcome_body">Sign in with Google to create your Tasks.org Cloud account</string>
+    <string name="cloud_onboarding_not_now">Not now</string>
+    <string name="cloud_onboarding_faq_title">Frequently asked questions</string>
+    <string name="cloud_onboarding_create_list_title">Let's get started</string>
+    <string name="cloud_onboarding_create_list_body">Create a list to start adding tasks.</string>
+    <string name="cloud_onboarding_faq_google_access_question">Can Google access my data?</string>
+    <string name="cloud_onboarding_faq_google_access_answer">No. Google is used for authentication, but your data is stored on Tasks.org's servers.</string>
+    <string name="cloud_onboarding_faq_desktop_sync_question">How do I sync with my computer?</string>
+    <string name="cloud_onboarding_faq_desktop_sync_answer">Download the desktop app at tasks.org/download, then sign in with the same Google account.</string>
 </resources>

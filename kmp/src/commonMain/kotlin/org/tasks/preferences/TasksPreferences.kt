@@ -70,5 +70,6 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val collectStatistics = booleanPreferencesKey("collect_statistics")
         val sidebarExpanded = booleanPreferencesKey("sidebar_expanded")
         val localListBannerDismissed = booleanPreferencesKey("local_list_banner_dismissed")
+        val needsCloudOnboarding = booleanPreferencesKey("needs_cloud_onboarding")
     }
 }
