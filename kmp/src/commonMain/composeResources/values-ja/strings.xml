@@ -201,7 +201,7 @@
     <string name="caldav_server_other">その他</string>
     <string name="caldav_server_type">サーバータイプ</string>
     <string name="caldav_server_unknown">不明</string>
-    <string name="error_adding_account">エラー：%s</string>
+    <string name="error_adding_account">エラー：%1$s</string>
     <string name="invalid_username_or_password">不正なユーザー名やパスワードです</string>
     <string name="network_error">接続できません</string>
     <string name="sign_in">サインイン</string>
@@ -282,7 +282,7 @@
     <string name="add_shortcut_to_home_screen">ホーム画面にショートカットを追加</string>
     <string name="add_widget_to_home_screen">ホーム画面にウィジェットを追加</string>
     <string name="edit_task">タスクを編集</string>
-    <string name="task_title">タスクのタイトル</string>
+    <string name="task_title">タスク名</string>
     <string name="no_list_available">利用可能なリストはありません</string>
     <string name="add_platform_account">%1$sアカウントを追加</string>
     <string name="this_device_only">この端末のみ</string>
@@ -293,4 +293,7 @@
     <string name="unlock_pro_opening_browser">ブラウザを開いています…</string>
     <string name="google_play_subscription">Google Playのサブスクリプション</string>
     <string name="github_sponsorship">GitHubのスポンサーシップ</string>
+    <string name="migrate_to_cloud">Tasks.org Cloudに移る</string>
+    <string name="error_github_verification_failed">認証が失敗しました。もう一度お試しください。</string>
+    <string name="pricing_subtitle">フリーでオープンソースです。サブスクリプションでアプリの開発を支援して追加の機能を有効にできます。</string>
 </resources>
