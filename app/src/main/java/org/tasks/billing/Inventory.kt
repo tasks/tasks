@@ -111,7 +111,7 @@ class Inventory @Inject constructor(
     }
 
     init {
-        scope.launch(Dispatchers.Main) {
+        scope.launch(Dispatchers.Main.immediate) {
             verifyAndAdd(preferences.purchases)
         }
     }
