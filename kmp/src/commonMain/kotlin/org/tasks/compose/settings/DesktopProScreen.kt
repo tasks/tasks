@@ -47,26 +47,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import co.touchlab.kermit.Logger
 import io.github.alexzhirkevich.qrose.options.QrBrush
 import io.github.alexzhirkevich.qrose.options.QrColors
 import io.github.alexzhirkevich.qrose.options.solid
 import io.github.alexzhirkevich.qrose.rememberQrCodePainter
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.tasks.kmp.formatNumber
+import org.tasks.TasksUrls
 import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.LinkResult
 import org.tasks.billing.StatusResult
+import org.tasks.kmp.formatNumber
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.painterResource
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.app_settings
 import tasks.kmp.generated.resources.back
 import tasks.kmp.generated.resources.done
-import tasks.kmp.generated.resources.error_create_link_failed
 import tasks.kmp.generated.resources.error_contact_support
+import tasks.kmp.generated.resources.error_create_link_failed
 import tasks.kmp.generated.resources.error_github_verification_failed
 import tasks.kmp.generated.resources.error_no_sponsorship
 import tasks.kmp.generated.resources.error_sponsorship_delay
@@ -81,7 +83,6 @@ import tasks.kmp.generated.resources.restore_purchases
 import tasks.kmp.generated.resources.retry
 import tasks.kmp.generated.resources.scan_qr_code
 import tasks.kmp.generated.resources.sponsor_on_github
-import org.tasks.TasksUrls
 import tasks.kmp.generated.resources.unlock_pro_opening_browser
 import tasks.kmp.generated.resources.unlock_pro_scan_heading
 import tasks.kmp.generated.resources.unlock_pro_step_1
@@ -161,7 +162,11 @@ fun DesktopProScreen(
             }
             consecutiveErrors = 0
             if (status.status == "confirmed" && status.jwt != null && status.refreshToken != null) {
-                onLinkSuccess(status.jwt, status.refreshToken, status.sku, status.formattedPrice)
+                try {
+                    onLinkSuccess(status.jwt, status.refreshToken, status.sku, status.formattedPrice)
+                } catch (e: Exception) {
+                    Logger.e(e) { "Failed to store entitlement" }
+                }
                 qrState = DesktopProState.Success
                 break
             }

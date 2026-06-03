@@ -76,7 +76,7 @@ class GoogleTasksCredentialsAdapter(
     private fun isExpired(data: GoogleTasksTokenData): Boolean =
         data.expiresAt > 0 && currentTimeMillis() > data.expiresAt - EXPIRY_MARGIN_MS
 
-    private fun loadTokenData(): GoogleTasksTokenData {
+    private suspend fun loadTokenData(): GoogleTasksTokenData {
         val encrypted = account.password
             ?: throw IllegalStateException("No credentials stored for account")
         val decrypted = encryption.decrypt(encrypted)

@@ -8,7 +8,7 @@ import org.tasks.security.KeyStoreEncryption
 class ProxyAuthProvider(
     private val caldavDao: CaldavDao,
     private val encryption: KeyStoreEncryption,
-    private val jwtProvider: () -> String?,
+    private val jwtProvider: suspend () -> String?,
 ) {
     suspend fun getAuthHeader(): String? {
         jwtProvider()?.let { return "Bearer $it" }

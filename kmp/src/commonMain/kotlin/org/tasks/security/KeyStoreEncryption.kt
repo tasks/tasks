@@ -1,6 +1,8 @@
 package org.tasks.security
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.nio.charset.StandardCharsets
 import java.security.SecureRandom
 import java.util.Base64
@@ -14,11 +16,11 @@ open class KeyStoreEncryption(
 ) {
     protected val logger = Logger.withTag("KeyStoreEncryption")
 
-    fun encrypt(text: String): String? {
+    suspend fun encrypt(text: String): String? = withContext(Dispatchers.Default) {
         val iv = ByteArray(GCM_IV_LENGTH)
         SecureRandom().nextBytes(iv)
         val cipher = getCipher(Cipher.ENCRYPT_MODE, iv)
-        return try {
+        try {
             val output = cipher.doFinal(text.toByteArray(ENCODING))
             val result = ByteArray(iv.size + output.size)
             System.arraycopy(iv, 0, result, 0, iv.size)
@@ -33,17 +35,17 @@ open class KeyStoreEncryption(
         }
     }
 
-    fun decrypt(text: String?): String? {
+    suspend fun decrypt(text: String?): String? = withContext(Dispatchers.Default) {
         if (text.isNullOrBlank()) {
-            return null
+            return@withContext null
         }
         val decoded = decodeBase64(text)
         if (decoded.isEmpty()) {
-            return ""
+            return@withContext ""
         }
         val iv = decoded.copyOfRange(0, GCM_IV_LENGTH)
         val cipher = getCipher(Cipher.DECRYPT_MODE, iv)
-        return try {
+        try {
             val decrypted = cipher.doFinal(decoded, GCM_IV_LENGTH, decoded.size - GCM_IV_LENGTH)
             String(decrypted, ENCODING)
         } catch (e: IllegalBlockSizeException) {

@@ -25,7 +25,7 @@ import java.security.spec.X509EncodedKeySpec
 import java.util.Base64
 
 class DesktopEntitlement(
-    private val dataDir: File,
+    dataDir: File,
     private val httpClientFactory: OkHttpClientFactory,
     private val serverEnvironment: TasksServerEnvironment,
     private val scope: CoroutineScope,
@@ -94,13 +94,13 @@ class DesktopEntitlement(
         private const val RETRY_INTERVAL_SECONDS = 15 * 60L
     }
 
-    fun getJwt(): String? = load()?.jwt
+    suspend fun getJwt(): String? = load()?.jwt
 
-    fun initialize() {
-        val stored = load() ?: return
-        if (!verifySignature(stored.jwt)) return
-        val payload = parsePayload(stored.jwt) ?: return
-        val exp = payload.exp ?: return
+    fun initialize() = scope.launch {
+        val stored = load() ?: return@launch
+        if (!verifySignature(stored.jwt)) return@launch
+        val payload = parsePayload(stored.jwt) ?: return@launch
+        val exp = payload.exp ?: return@launch
         val now = currentTimeMillis() / 1000
         if (now < exp + GRACE_PERIOD_SECONDS) {
             _hasPro.value = true
@@ -116,7 +116,11 @@ class DesktopEntitlement(
         val payload = parsePayload(jwt) ?: return
         val entitlement = StoredEntitlement(jwt, refreshToken, sku, formattedPrice, provider)
         val plainText = json.encodeToString(StoredEntitlement.serializer(), entitlement)
-        val encrypted = encryption.encrypt(plainText) ?: return
+        val encrypted = encryption.encrypt(plainText)
+        if (encrypted == null) {
+            logger.e { "Failed to encrypt entitlement" }
+            return
+        }
         withContext(Dispatchers.IO) {
             synchronized(fileLock) { entitlementFile.writeText(encrypted) }
         }
@@ -165,7 +169,7 @@ class DesktopEntitlement(
         }
     }
 
-    private fun load(): StoredEntitlement? {
+    private suspend fun load(): StoredEntitlement? {
         return try {
             val encrypted = synchronized(fileLock) {
                 if (!entitlementFile.exists()) return null
