@@ -182,6 +182,12 @@
     <string name="EPr_edit_screen_options">Edit screen options</string>
     <string name="date_and_time">Date and time</string>
     <string name="navigation_drawer">Navigation drawer</string>
+    <string name="customize_drawer">Customize drawer</string>
+    <string name="customize_drawer_summary">Drag and drop to rearrange menu items</string>
+    <string name="enabled">Enabled</string>
+    <string name="hide_unused_tags">Hide unused tags</string>
+    <string name="hide_unused_places">Hide unused places</string>
+    <string name="reset_sort_order">Reset sort order</string>
     <string name="backup_BPr_header">Backups</string>
     <string name="preferences_advanced">Advanced</string>
     <string name="debug">Debug</string>

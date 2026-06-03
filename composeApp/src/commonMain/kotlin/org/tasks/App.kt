@@ -139,6 +139,7 @@ import org.tasks.compose.settings.EtebaseAccountSettingsPane
 import org.tasks.compose.settings.GoogleTasksAccountSettingsDetail
 import org.tasks.compose.settings.GoogleTasksAccountSettingsPane
 import org.tasks.compose.settings.HelpAndFeedbackDetail
+import org.tasks.compose.settings.NavigationDrawerDetail
 import org.tasks.compose.settings.LinkDesktopScreen
 import org.tasks.compose.settings.ListSettingsScreen
 import org.tasks.compose.settings.LocalAccountSettingsDetail
@@ -189,6 +190,7 @@ import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
+
 import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.viewmodel.TaskEditViewModel
@@ -2250,6 +2252,13 @@ private fun SettingsScreen(
                             },
                         )
                     }
+                    is org.tasks.compose.settings.SettingsDestination.NavigationDrawer -> {
+                        NavigationDrawerDetail(
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                        )
+                    }
                     is org.tasks.compose.settings.SettingsDestination -> {
                         Scaffold(
                             topBar = {
@@ -2336,7 +2345,6 @@ private fun SettingsScreen(
                             },
                         )
                     }
-
                     null -> {}
                 }
             }

@@ -15,8 +15,17 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import org.tasks.R
+import org.jetbrains.compose.resources.stringResource
+import tasks.kmp.generated.resources.Res
+
+import tasks.kmp.generated.resources.drawer_filters
+import tasks.kmp.generated.resources.drawer_tags
+import tasks.kmp.generated.resources.drawer_places
+import tasks.kmp.generated.resources.enabled
+import tasks.kmp.generated.resources.filter_recently_modified
+import tasks.kmp.generated.resources.hide_unused_places
+import tasks.kmp.generated.resources.hide_unused_tags
+import tasks.kmp.generated.resources.today
 
 @Composable
 fun NavigationDrawerScreen(
@@ -27,7 +36,6 @@ fun NavigationDrawerScreen(
     hideUnusedTags: Boolean,
     placesEnabled: Boolean,
     hideUnusedPlaces: Boolean,
-    onCustomizeDrawer: () -> Unit,
     onFiltersEnabled: (Boolean) -> Unit,
     onShowToday: (Boolean) -> Unit,
     onShowRecentlyModified: (Boolean) -> Unit,
@@ -44,19 +52,9 @@ fun NavigationDrawerScreen(
     ) {
         Spacer(modifier = Modifier.height(SettingsContentPadding))
 
-        // Customize drawer
-        SettingsItemCard(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
-            PreferenceRow(
-                title = stringResource(R.string.customize_drawer),
-                summary = stringResource(R.string.customize_drawer_summary),
-                showChevron = true,
-                onClick = onCustomizeDrawer,
-            )
-        }
-
         // Filters section
         SectionHeader(
-            R.string.filters,
+            stringResource(Res.string.drawer_filters),
             modifier = Modifier.padding(horizontal = SettingsContentPadding),
         )
         Column(
@@ -65,14 +63,14 @@ fun NavigationDrawerScreen(
         ) {
             SettingsItemCard(position = CardPosition.First) {
                 SwitchPreferenceRow(
-                    title = stringResource(R.string.enabled),
+                    title = stringResource(Res.string.enabled),
                     checked = filtersEnabled,
                     onCheckedChange = onFiltersEnabled,
                 )
             }
             SettingsItemCard(position = CardPosition.Middle) {
                 SwitchPreferenceRow(
-                    title = stringResource(R.string.today),
+                    title = stringResource(Res.string.today),
                     checked = showToday,
                     enabled = filtersEnabled,
                     onCheckedChange = onShowToday,
@@ -80,7 +78,7 @@ fun NavigationDrawerScreen(
             }
             SettingsItemCard(position = CardPosition.Last) {
                 SwitchPreferenceRow(
-                    title = stringResource(R.string.BFE_Recent),
+                    title = stringResource(Res.string.filter_recently_modified),
                     checked = showRecentlyModified,
                     enabled = filtersEnabled,
                     onCheckedChange = onShowRecentlyModified,
@@ -90,7 +88,7 @@ fun NavigationDrawerScreen(
 
         // Tags section
         SectionHeader(
-            R.string.tags,
+            stringResource(Res.string.drawer_tags),
             modifier = Modifier.padding(horizontal = SettingsContentPadding),
         )
         Column(
@@ -99,14 +97,14 @@ fun NavigationDrawerScreen(
         ) {
             SettingsItemCard(position = CardPosition.First) {
                 SwitchPreferenceRow(
-                    title = stringResource(R.string.enabled),
+                    title = stringResource(Res.string.enabled),
                     checked = tagsEnabled,
                     onCheckedChange = onTagsEnabled,
                 )
             }
             SettingsItemCard(position = CardPosition.Last) {
                 SwitchPreferenceRow(
-                    title = stringResource(R.string.hide_unused_tags),
+                    title = stringResource(Res.string.hide_unused_tags),
                     checked = hideUnusedTags,
                     enabled = tagsEnabled,
                     onCheckedChange = onHideUnusedTags,
@@ -116,7 +114,7 @@ fun NavigationDrawerScreen(
 
         // Places section
         SectionHeader(
-            R.string.places,
+            stringResource(Res.string.drawer_places),
             modifier = Modifier.padding(horizontal = SettingsContentPadding),
         )
         Column(
@@ -125,14 +123,14 @@ fun NavigationDrawerScreen(
         ) {
             SettingsItemCard(position = CardPosition.First) {
                 SwitchPreferenceRow(
-                    title = stringResource(R.string.enabled),
+                    title = stringResource(Res.string.enabled),
                     checked = placesEnabled,
                     onCheckedChange = onPlacesEnabled,
                 )
             }
             SettingsItemCard(position = CardPosition.Last) {
                 SwitchPreferenceRow(
-                    title = stringResource(R.string.hide_unused_places),
+                    title = stringResource(Res.string.hide_unused_places),
                     checked = hideUnusedPlaces,
                     enabled = placesEnabled,
                     onCheckedChange = onHideUnusedPlaces,

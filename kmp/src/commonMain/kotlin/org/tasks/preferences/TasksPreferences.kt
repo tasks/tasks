@@ -70,5 +70,12 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val collectStatistics = booleanPreferencesKey("collect_statistics")
         val sidebarExpanded = booleanPreferencesKey("sidebar_expanded")
         val localListBannerDismissed = booleanPreferencesKey("local_list_banner_dismissed")
+        val filtersEnabled = booleanPreferencesKey("drawer_filters_enabled")
+        val showTodayFilter = booleanPreferencesKey("p_show_today_f")
+        val showRecentlyModifiedFilter = booleanPreferencesKey("p_show_recently_modified_f")
+        val tagsEnabled = booleanPreferencesKey("drawer_tags_enabled")
+        val tagsHideUnused = booleanPreferencesKey("drawer_tags_hide_unused")
+        val placesEnabled = booleanPreferencesKey("drawer_places_enabled")
+        val placesHideUnused = booleanPreferencesKey("drawer_places_hide_unused")
     }
 }
