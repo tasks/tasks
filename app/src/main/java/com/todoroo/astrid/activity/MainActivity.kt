@@ -82,6 +82,7 @@ import org.tasks.compose.accounts.Platform
 import org.tasks.compose.accounts.featureTitle
 import org.tasks.compose.accounts.openUrl
 import org.tasks.compose.home.HomeScreen
+import org.tasks.compose.navigateClearingBackStack
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
@@ -184,80 +185,26 @@ class MainActivity : AppCompatActivity() {
                     .flow(TasksPreferences.serverEnvironment, TasksServerEnvironment.ENV_PRODUCTION)
                     .collectAsStateWithLifecycle(TasksServerEnvironment.ENV_PRODUCTION)
 
-                var wasInOnboarding by rememberSaveable { mutableStateOf(false) }
-                var wasInCloudOnboarding by rememberSaveable { mutableStateOf(false) }
-                val needsCloudOnboarding by tasksPreferences
-                    .flow(TasksPreferences.needsCloudOnboarding, false)
+                val needsCloudOnboarding by viewModel.needsCloudOnboarding
                     .collectAsStateWithLifecycle(null)
                 val importViewModel: ImportTasksViewModel = hiltViewModel()
                 val importState by importViewModel.state.collectAsStateWithLifecycle()
                 val isImporting = importState !is ImportTasksViewModel.ImportState.Idle
-                suspend fun logOnboardingCompleteIfNeeded() {
-                    val hasLogged = tasksPreferences.get(
-                        TasksPreferences.hasLoggedOnboardingComplete,
-                        false
-                    )
-                    if (!hasLogged) {
-                        firebase.logEvent(R.string.event_onboarding_complete)
-                        tasksPreferences.set(
-                            TasksPreferences.hasLoggedOnboardingComplete,
-                            true
-                        )
-                    }
-                }
-                fun navigateClearingStack(destination: Any) {
-                    navController.navigate(destination) {
-                        popUpTo(0) { inclusive = true }
-                    }
-                }
                 LaunchedEffect(needsCloudOnboarding, hasAccount, isImporting) {
                     Timber.d("hasAccount=$hasAccount isImporting=$isImporting needsCloudOnboarding=$needsCloudOnboarding")
-                    val needsOnboarding = needsCloudOnboarding ?: return@LaunchedEffect
-
-                    if (needsOnboarding) {
-                        if (!wasInCloudOnboarding) {
-                            wasInCloudOnboarding = true
-                            Timber.d("CloudOnboarding: flag is true, pushing onboarding")
-                            navController.navigate(SubscriptionOnboardingDestination)
-                        }
-                        isReady = true
-                        return@LaunchedEffect
+                    val routing =
+                        viewModel.routeOnboarding(hasAccount, needsCloudOnboarding, isImporting)
+                    when (val navigation = routing.navigation) {
+                        is MainActivityViewModel.OnboardingNavigation.Push ->
+                            navController.navigate(navigation.destination)
+                        is MainActivityViewModel.OnboardingNavigation.ClearBackStack ->
+                            navController.navigateClearingBackStack(navigation.destination)
+                        null -> Unit
                     }
-
-                    if (wasInCloudOnboarding) {
-                        if (hasAccount == null) return@LaunchedEffect
-                        wasInCloudOnboarding = false
-                        val target = if (hasAccount == true) HomeDestination else WelcomeDestination
-                        wasInOnboarding = target == WelcomeDestination
-                        Timber.d("CloudOnboarding: flag cleared, routing to $target")
-                        navigateClearingStack(target)
-                        if (hasAccount == true) {
-                            logOnboardingCompleteIfNeeded()
-                        }
-                        isReady = true
-                        return@LaunchedEffect
+                    if (routing.logOnboardingComplete) {
+                        viewModel.logOnboardingComplete()
                     }
-
-                    when (hasAccount) {
-                        false -> {
-                            if (!wasInOnboarding) {
-                                wasInOnboarding = true
-                                navigateClearingStack(WelcomeDestination)
-                            }
-                        }
-                        true -> {
-                            if (isImporting) {
-                                return@LaunchedEffect
-                            }
-                            if (wasInOnboarding) {
-                                logOnboardingCompleteIfNeeded()
-                                wasInOnboarding = false
-                                navigateClearingStack(HomeDestination)
-                            }
-                        }
-                        else -> {}
-                    }
-                    isReady = hasAccount != null
+                    routing.ready?.let { isReady = it }
                 }
 
                 LifecycleResumeEffect(Unit) {
