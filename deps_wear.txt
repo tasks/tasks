@@ -41,9 +41,9 @@
 +|    +--- androidx.compose.ui:ui-geometry-android:1.10.5 -> 1.11.1 (c)
 +|    +--- androidx.compose.ui:ui-unit-android:1.10.5 -> 1.11.1 (c)
 +|    +--- androidx.compose.runtime:runtime-saveable-android:1.10.5 -> 1.11.1 (c)
++|    +--- androidx.compose.ui:ui-tooling-android:1.10.5 -> 1.11.1 (c)
 +|    +--- androidx.compose.material3:material3-android:1.4.0 -> 1.5.0-alpha08 (c)
 +|    +--- androidx.compose.runtime:runtime-annotation-android:1.10.5 -> 1.11.1 (c)
-+|    +--- androidx.compose.ui:ui-tooling-android:1.10.5 -> 1.11.1 (c)
 +|    +--- androidx.compose.ui:ui-tooling-data:1.10.5 -> 1.11.1 (c)
 +|    \--- androidx.compose.ui:ui-tooling-data-android:1.10.5 -> 1.11.1 (c)
 ++--- org.jetbrains.compose.components:components-resources:1.11.0
@@ -1011,9 +1011,9 @@
 +|    |    +--- androidx.compose.ui:ui-graphics:1.11.1 (c)
 +|    |    +--- androidx.compose.ui:ui-text:1.11.1 (c)
 +|    |    +--- androidx.compose.ui:ui-tooling:1.11.1 (c)
-+|    |    +--- androidx.compose.ui:ui-tooling-data:1.11.1 (c)
 +|    |    +--- androidx.compose.ui:ui-unit:1.11.1 (c)
-+|    |    \--- androidx.compose.ui:ui-util:1.11.1 (c)
++|    |    +--- androidx.compose.ui:ui-util:1.11.1 (c)
++|    |    \--- androidx.compose.ui:ui-tooling-data:1.11.1 (c)
 +|    +--- com.github.bitfireAT:cert4android:035dd99f7f
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.10 -> 2.3.21 (*)
 +|    |    +--- androidx.appcompat:appcompat:1.7.1
@@ -1268,6 +1268,18 @@
 +|    |    +--- org.jetbrains.compose.ui:ui:1.7.3 -> 1.11.0 (*)
 +|    |    \--- org.jetbrains.compose.ui:ui-graphics:1.7.3 -> 1.11.0 (*)
 +|    +--- org.jetbrains.compose.runtime:runtime:1.11.0 (*)
++|    +--- org.jetbrains.compose.ui:ui-tooling-preview:1.11.0
++|    |    +--- androidx.annotation:annotation:1.9.1 (*)
++|    |    +--- androidx.compose.ui:ui-tooling-preview:1.11.1 (*)
++|    |    +--- org.jetbrains.compose.runtime:runtime:1.11.0 (*)
++|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.3.21 (*)
++|    +--- io.github.vinceglb:confettikit:0.8.0
++|    |    \--- io.github.vinceglb:confettikit-android:0.8.0
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.10 -> 2.3.21 (*)
++|    |         +--- org.jetbrains.compose.runtime:runtime:1.10.1 -> 1.11.0 (*)
++|    |         +--- org.jetbrains.compose.foundation:foundation:1.10.1 -> 1.11.0 (*)
++|    |         +--- org.jetbrains.compose.ui:ui:1.10.1 -> 1.11.0 (*)
++|    |         \--- org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.9.6 (*)
 +|    +--- androidx.datastore:datastore-preferences:1.2.1 (*)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0-beta01
 +|    |    \--- androidx.lifecycle:lifecycle-viewmodel-compose-android:2.11.0-beta01
