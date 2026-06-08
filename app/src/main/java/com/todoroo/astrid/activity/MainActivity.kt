@@ -56,12 +56,12 @@ import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
+import org.tasks.analytics.logCloudOnboarding
 import org.tasks.auth.SignInActivity
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel
-import org.tasks.analytics.logCloudOnboarding
 import org.tasks.billing.maybeTriggerCloudOnboarding
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.caldav.CaldavSignInActivity
@@ -72,7 +72,6 @@ import org.tasks.compose.PurchaseDestination
 import org.tasks.compose.PurchaseScreen
 import org.tasks.compose.SubscriptionOnboardingDestination
 import org.tasks.compose.SubscriptionOnboardingScreen
-import org.tasks.compose.SubscriptionOnboardingStep
 import org.tasks.compose.TosUpdateDialog
 import org.tasks.compose.WelcomeDestination
 import org.tasks.compose.WelcomeScreen
@@ -626,9 +625,13 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val filter = intent.getFilter
                 ?: intent.getFilterString?.let { defaultFilterProvider.getFilterFromPreference(it) }
-                ?: viewModel.state.value.filter
-            val task = getTaskToLoad(filter)
-            viewModel.setFilter(filter = filter, task = task)
+            val task = getTaskToLoad(
+                filter ?: defaultFilterProvider.getDefaultList()
+            )
+            viewModel.setFilter(
+                filter = filter ?: viewModel.state.value.filter,
+                task = task
+            )
         }
     }
 
