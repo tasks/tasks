@@ -83,10 +83,6 @@ class TasksJsonImporter @Inject constructor(
     private val filterCriteriaProvider: FilterCriteriaProvider,
     private val firebase: Firebase,
 ) {
-    private val result = ImportResult()
-    private val accountUuidMap = mutableMapOf<String, String>()
-    private val calendarUuidMap = mutableMapOf<String, String>()
-
     suspend fun importTasks(
         context: Context,
         backupFile: Uri?,
@@ -105,9 +101,12 @@ class TasksJsonImporter @Inject constructor(
         inputStreamProvider: () -> InputStream,
         onProgress: (suspend (String) -> Unit)? = null
     ): ImportResult = withContext(Dispatchers.IO) {
+        val result = ImportResult()
+        val accountUuidMap = mutableMapOf<String, String>()
+        val calendarUuidMap = mutableMapOf<String, String>()
         try {
-            val version = importMetadata(context, inputStreamProvider)
-            importTasks(context, inputStreamProvider, onProgress, version)
+            val version = importMetadata(context, inputStreamProvider, accountUuidMap, calendarUuidMap)
+            importTasks(context, inputStreamProvider, onProgress, version, result, calendarUuidMap)
             if (version < Upgrader.V8_2) {
                 val themeIndex = preferences.getInt(R.string.p_theme_color, 7)
                 preferences.setInt(
@@ -145,6 +144,8 @@ class TasksJsonImporter @Inject constructor(
     private suspend fun importMetadata(
         context: Context,
         inputStreamProvider: () -> InputStream,
+        accountUuidMap: MutableMap<String, String>,
+        calendarUuidMap: MutableMap<String, String>,
     ): Int {
         val `is` = inputStreamProvider()
         val bufferedReader = `is`.bufferedReader(Charsets.UTF_8)
@@ -311,6 +312,8 @@ class TasksJsonImporter @Inject constructor(
         inputStreamProvider: () -> InputStream,
         onProgress: (suspend (String) -> Unit)?,
         version: Int,
+        result: ImportResult,
+        calendarUuidMap: Map<String, String>,
     ) {
         val `is` = inputStreamProvider()
         val bufferedReader = `is`.bufferedReader(Charsets.UTF_8)
@@ -329,7 +332,7 @@ class TasksJsonImporter @Inject constructor(
                                     onProgress?.invoke(
                                         context.getString(R.string.import_progress_read, result.taskCount)
                                     )
-                                    importTask(backup, version)
+                                    importTask(backup, version, result, calendarUuidMap)
                                 }
                             }
                             else -> {
@@ -351,7 +354,12 @@ class TasksJsonImporter @Inject constructor(
         `is`.close()
     }
 
-    private suspend fun importTask(backup: TaskBackup, version: Int) {
+    private suspend fun importTask(
+        backup: TaskBackup,
+        version: Int,
+        result: ImportResult,
+        calendarUuidMap: Map<String, String>,
+    ) {
         val task = backup.task
         taskDao.fetch(task.uuid)
             ?.let {
