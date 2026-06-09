@@ -317,4 +317,14 @@
     <string name="this_device_only">仅此设备</string>
     <string name="create_a_list">创建清单</string>
     <string name="migrate_to_cloud">迁移到 Tasks.org 云</string>
+    <string name="cloud_onboarding_welcome_title">欢迎来到 Tasks.org 云</string>
+    <string name="cloud_onboarding_welcome_body">用 Google 登录创建 Tasks.org 云账户</string>
+    <string name="cloud_onboarding_not_now">以后再说</string>
+    <string name="cloud_onboarding_faq_title">常问问题</string>
+    <string name="cloud_onboarding_create_list_title">让我们开始吧</string>
+    <string name="cloud_onboarding_create_list_body">创建一个清单开始添加任务。</string>
+    <string name="cloud_onboarding_faq_google_access_question">Google 可以访问我的数据吗?</string>
+    <string name="cloud_onboarding_faq_google_access_answer">不。Google 用来认证身份，但数据存储在 Tasks.org 的服务器上。</string>
+    <string name="cloud_onboarding_faq_desktop_sync_question">我如何与我的计算机同步数据?</string>
+    <string name="cloud_onboarding_faq_desktop_sync_answer">在 tasks.org/download 下载桌面应用，然后用同一个 Google 账户登录。</string>
 </resources>
