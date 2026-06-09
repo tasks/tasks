@@ -1,3 +1,29 @@
+### 15.7 (2026-06-09)
+
+Android:
+  * New onboarding for Tasks.org Cloud
+  * Fix task list losing scroll position [#4113](https://github.com/tasks/tasks/issues/4113)
+  * Fix link click handling [#4423](https://github.com/tasks/tasks/issues/4423)
+  * Fix list for new task shortcuts [#4022](https://github.com/tasks/tasks/issues/4022)
+  * Fix duplicated tasks when importing backup file
+
+Desktop:
+  * Minor keychain improvements [#4402](https://github.com/tasks/tasks/issues/4402)
+
+Update translations:
+  * Chinese (Simplified) - Sketch6580
+  * Czech - Fjuro
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @ColorfulRhino
+  * Icelandic - @gissur1-hash
+  * Italian - @albanobattistella
+  * Japanese - Norara
+  * Russian - @efrolovdev
+  * Swedish - Mona Lisa
+  * Turkish - @emintufan
+
 ### 15.6 (2026-05-25)
 
 * Create new lists from the list picker
