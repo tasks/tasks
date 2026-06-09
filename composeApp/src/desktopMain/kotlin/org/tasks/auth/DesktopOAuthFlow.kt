@@ -17,7 +17,7 @@ import kotlin.coroutines.resumeWithException
 private const val TAG = "DesktopOAuthFlow"
 
 class DesktopOAuthFlow(
-    private val oauthClient: TasksOAuthClient = TasksOAuthClient(),
+    private val oauthClient: TasksOAuthClient,
     private val serverEnvironment: TasksServerEnvironment,
     private val openUrl: (String) -> Unit = { url -> openInBrowser(url) },
 ) {

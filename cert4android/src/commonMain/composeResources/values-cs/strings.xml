@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Certifikát dočasně odmítnut</string>
+    <string name="trust_certificate_accept">Přijmout</string>
+    <string name="trust_certificate_fingerprint_verified">Celý otisk byl mnou ručně ověřen.</string>
+    <string name="trust_certificate_fingerprints">Otisky</string>
+    <string name="trust_certificate_issued_by">Vystavil</string>
+    <string name="trust_certificate_issued_for">Vystaven pro</string>
+    <string name="trust_certificate_reject">Zamítnout</string>
+    <string name="trust_certificate_reset_info">Všechny vlastní certifikáty lze resetovat v nastavení aplikace.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s nalezl neznámý certifikát. Chcete mu důvěřovat?</string>
+    <string name="trust_certificate_validity_period">Období platnosti</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (nebude vynuceno)</string>
+    <string name="trust_certificate_x509_certificate_details">podrobnosti X509 certifikátu</string>
+</resources>

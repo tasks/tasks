@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Το πιστοποιητικό απορρίφθηκε προσωρινά</string>
+    <string name="trust_certificate_accept">Αποδοχή</string>
+    <string name="trust_certificate_fingerprint_verified">Έχω πιστοποιήσει χειροκίνητα το δακτυλικό αποτύπωμα.</string>
+    <string name="trust_certificate_fingerprints">Αποτυπώματα</string>
+    <string name="trust_certificate_issued_by">Εκδόθηκε από</string>
+    <string name="trust_certificate_issued_for">Εκδόθηκε για</string>
+    <string name="trust_certificate_reject">Απόρριψη</string>
+    <string name="trust_certificate_reset_info">Μπορείτε να επαναφέρετε όλα τα προσαρμοσμένα πιστοποιητικά στις ρυθμίσεις της εφαρμογής.</string>
+    <string name="trust_certificate_unknown_certificate_found">Το %1$s εντόπισε ένα άγνωστο πιστοποιητικό. Θέλετε να το εμπιστεύεστε;</string>
+    <string name="trust_certificate_validity_period">Περίοδος ισχύος</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (δεν θα εφαρμοστεί)</string>
+    <string name="trust_certificate_x509_certificate_details">Λεπτομέρειες πιστοποιητικού X509</string>
+</resources>

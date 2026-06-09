@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Zertifikat vorübergehend abgelehnt</string>
+    <string name="trust_certificate_accept">Akzeptieren</string>
+    <string name="trust_certificate_fingerprint_verified">Ich habe die vollständige Prüfsumme händisch überprüft.</string>
+    <string name="trust_certificate_fingerprints">Prüfsummen</string>
+    <string name="trust_certificate_issued_by">Ausgestellt von</string>
+    <string name="trust_certificate_issued_for">Ausgestellt für</string>
+    <string name="trust_certificate_press_back_to_reject">Erneut zurück gehen, um das Zertifikat abzulehnen</string>
+    <string name="trust_certificate_reject">Ablehnen</string>
+    <string name="trust_certificate_reset_info">Alle akzeptierten/abgelehnten Zertifikate können in den App-Einstellungen zurückgesetzt werden.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s ist auf ein unbekanntes Zertifikat gestoßen. Wollen Sie diesem vertrauen?</string>
+    <string name="trust_certificate_validity_period">Gültigkeitszeitraum</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (wird nicht erzwungen)</string>
+    <string name="trust_certificate_x509_certificate_details">X509-Zertifikat</string>
+</resources>

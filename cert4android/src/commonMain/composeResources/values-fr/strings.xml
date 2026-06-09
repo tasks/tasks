@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Certificat provisoirement rejeté</string>
+    <string name="trust_certificate_accept">Accepter</string>
+    <string name="trust_certificate_fingerprint_verified">J'ai vérifié manuellement la totalité de l'empreinte</string>
+    <string name="trust_certificate_fingerprints">Empreinte</string>
+    <string name="trust_certificate_issued_by">Délivré par</string>
+    <string name="trust_certificate_issued_for">Délivré pour</string>
+    <string name="trust_certificate_reject">Refuser</string>
+    <string name="trust_certificate_reset_info">Vous pouvez réinitialiser tous les certificats personnalisés dans les paramètres de l'application.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s a rencontré un certificat inconnu. Voulez-vous lui faire confiance ?</string>
+    <string name="trust_certificate_validity_period">Période de validité</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (ne sera pas appliquée)</string>
+    <string name="trust_certificate_x509_certificate_details">X509 détails du certificat</string>
+</resources>

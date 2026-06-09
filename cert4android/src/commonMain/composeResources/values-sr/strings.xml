@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Сертификат привремено одбијен</string>
+    <string name="trust_certificate_accept">Прихвати</string>
+    <string name="trust_certificate_fingerprint_verified">Ручно сам проверио читав отисак.</string>
+    <string name="trust_certificate_fingerprints">Отисци</string>
+    <string name="trust_certificate_issued_by">Издавач</string>
+    <string name="trust_certificate_issued_for">Издат за</string>
+    <string name="trust_certificate_reject">Одбиј</string>
+    <string name="trust_certificate_reset_info">Можете да ресетујете све прилагођене сертификате у поставкама апликације.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s је наишао на непознат сертификат. Желите ли да се поуздате у њега?</string>
+    <string name="trust_certificate_validity_period">Период важења</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (неће бити спроведен)</string>
+    <string name="trust_certificate_x509_certificate_details">Детаљи X509 сертификата</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">憑證被臨時拒絕</string>
+    <string name="trust_certificate_accept">接受</string>
+    <string name="trust_certificate_fingerprint_verified">我以手動驗證過整個指紋</string>
+    <string name="trust_certificate_fingerprints">指紋</string>
+    <string name="trust_certificate_issued_by">發行人</string>
+    <string name="trust_certificate_issued_for">發行給</string>
+    <string name="trust_certificate_reject">拒絕</string>
+    <string name="trust_certificate_reset_info">您可以在程式的設定裡重設所有自訂的憑證</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s 收到不認識的憑證，您要信賴它嗎？</string>
+    <string name="trust_certificate_validity_period">有效期限</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (將不會執行)</string>
+    <string name="trust_certificate_x509_certificate_details">X509 憑證細節</string>
+</resources>

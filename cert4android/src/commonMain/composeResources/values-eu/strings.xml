@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Ziurtagiria aldi baterako baztertuta</string>
+    <string name="trust_certificate_accept">Onartu</string>
+    <string name="trust_certificate_fingerprint_verified">Hatz-marka osoa eskuz egiaztatu dut.</string>
+    <string name="trust_certificate_fingerprints">Hatz-markak</string>
+    <string name="trust_certificate_issued_by">Igorlea:</string>
+    <string name="trust_certificate_issued_for">Igortuta:</string>
+    <string name="trust_certificate_reject">Baztertu</string>
+    <string name="trust_certificate_reset_info">Ziurtagiri pertsonalizatu guztiak berrezarri ditzakezu aplikazioaren ezarpenetan.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s ziurtagiri ezezagun bat aurkitu du. Fidagarritzat jo nahi duzu?</string>
+    <string name="trust_certificate_validity_period">Balio-epea</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (ez da aplikatuko)</string>
+    <string name="trust_certificate_x509_certificate_details">X509 ziurtagiri xehetasunak</string>
+</resources>

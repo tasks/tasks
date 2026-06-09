@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Sertifika geçici olarak reddedildi</string>
+    <string name="trust_certificate_accept">Kabul et</string>
+    <string name="trust_certificate_fingerprint_verified">Manuel olarak tüm parmak izini doğruladım.</string>
+    <string name="trust_certificate_fingerprints">Parmak izleri</string>
+    <string name="trust_certificate_press_back_to_reject">Sertifikayı reddetmek için tekrar Geri tuşuna basın</string>
+    <string name="trust_certificate_reject">Reddet</string>
+    <string name="trust_certificate_reset_info">Uygulama ayarlarından tüm özel sertifikaları sıfırlayabilirsin.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s bilinmeyen bir sertifika ile karşılaştı. Güvenmek istiyor musunuz?</string>
+    <string name="trust_certificate_validity_period">Geçerlilik süresi</string>
+    <string name="trust_certificate_x509_certificate_details">X509 sertifika detayları</string>
+</resources>

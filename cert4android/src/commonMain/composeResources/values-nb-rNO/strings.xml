@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Sertifikat midlertidig avvist</string>
+    <string name="trust_certificate_accept">Godta</string>
+    <string name="trust_certificate_fingerprint_verified">Jeg har manuelt bekreftet hele fingeravtrykket.</string>
+    <string name="trust_certificate_fingerprints">Fingeravtrykk</string>
+    <string name="trust_certificate_issued_by">Utstedt av</string>
+    <string name="trust_certificate_issued_for">Utstedt for</string>
+    <string name="trust_certificate_reject">Avslå</string>
+    <string name="trust_certificate_reset_info">Du kan tilbakestille alle egendefinerte sertifikater i programinnstillingene.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s har støtt på et ukjent sertifikat. Har du tiltro til det?</string>
+    <string name="trust_certificate_validity_period">Gyldighetsperiode</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (vil ikke utøves)</string>
+    <string name="trust_certificate_x509_certificate_details">X509-sertifikatsdetaljer</string>
+</resources>

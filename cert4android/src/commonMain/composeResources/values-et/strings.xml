@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Sertifikaat on ajutiselt tagasi lükatud</string>
+    <string name="trust_certificate_accept">Nõustu</string>
+    <string name="trust_certificate_fingerprint_verified">Olen käsitsi kontrollinud kogu sõrmejälge.</string>
+    <string name="trust_certificate_fingerprints">Sõrmejäljed</string>
+    <string name="trust_certificate_issued_by">Väljastaja</string>
+    <string name="trust_certificate_issued_for">Kelle väljaantud</string>
+    <string name="trust_certificate_press_back_to_reject">Sertifikaadi keelamiseks vajuta Tagasi-nuppu veel üks kord</string>
+    <string name="trust_certificate_reject">Keeldu</string>
+    <string name="trust_certificate_reset_info">Rakenduse seadistustes saad tühistada kõik sinu kinnitatud sertifikaadid.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s on tuvastanud tundmatu sertifikaadi. Kas sa soovid seda usaldada?</string>
+    <string name="trust_certificate_validity_period">Kehtivise ajavahemik</string>
+    <string name="trust_certificate_validity_period_value">%1$s - %2$s (ei kuulu jõustamisele)</string>
+    <string name="trust_certificate_x509_certificate_details">X.509 sertifikaadi üksikasjad</string>
+</resources>

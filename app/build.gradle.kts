@@ -163,7 +163,6 @@ dependencies {
         exclude(group = "org.codehaus.groovy", module = "groovy")
         exclude(group = "org.codehaus.groovy", module = "groovy-dateutil")
     }
-    implementation(libs.bitfire.cert4android)
     implementation(libs.dmfs.opentasks.provider) {
         exclude("com.github.tasks.opentasks", "opentasks-contract")
     }

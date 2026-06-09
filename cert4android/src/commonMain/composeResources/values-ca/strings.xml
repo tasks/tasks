@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Certificat temporalment rebutjat</string>
+    <string name="trust_certificate_accept">Acceptar</string>
+    <string name="trust_certificate_fingerprint_verified">He verificat les l'empremta sencera manualment.</string>
+    <string name="trust_certificate_fingerprints">Empremtes</string>
+    <string name="trust_certificate_issued_by">Emès per</string>
+    <string name="trust_certificate_issued_for">Emès per a</string>
+    <string name="trust_certificate_press_back_to_reject">Ves enrere una altra vegada per a rebutjar el certificat</string>
+    <string name="trust_certificate_reject">Rebutjar</string>
+    <string name="trust_certificate_reset_info">Pots reinicialitzar els certificats personalitzats als ajustaments de l'aplicació.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s ha trobat un certificat desconegut. Vols confiar-hi?</string>
+    <string name="trust_certificate_validity_period">Període de validesa</string>
+    <string name="trust_certificate_validity_period_value">%1$s - %2$s (no serà forçat)</string>
+    <string name="trust_certificate_x509_certificate_details">Detalls del certificat X509</string>
+</resources>

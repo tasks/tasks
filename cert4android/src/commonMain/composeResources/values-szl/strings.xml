@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Certyfikat tymczasowo ôdciepniynty</string>
+    <string name="trust_certificate_accept">Akceptuj</string>
+    <string name="trust_certificate_fingerprint_verified">Cołki ôdcisk palca bōł ryncznie zweryfikowany.</string>
+    <string name="trust_certificate_fingerprints">Ôdciski palcōw</string>
+    <string name="trust_certificate_issued_by">Wydane ôd</string>
+    <string name="trust_certificate_issued_for">Wydane dlo</string>
+    <string name="trust_certificate_reject">Ôdciep</string>
+    <string name="trust_certificate_reset_info">We sztelōnkach aplikacyje możesz zresetować wszyjske włosne certyfikaty.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s trefiōł niyznōmy certyfikat. Chcesz mu zaufać?</string>
+    <string name="trust_certificate_validity_period">Ôkres ważności</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (niy bydzie wymuszany)</string>
+    <string name="trust_certificate_x509_certificate_details">Informacyje ô certyfikacie X509</string>
+</resources>

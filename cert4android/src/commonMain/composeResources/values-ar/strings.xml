@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">تم رفض الشهادة مؤقتًا</string>
+    <string name="trust_certificate_accept">موافقة</string>
+    <string name="trust_certificate_fingerprint_verified">لقد تحقّقتُ يدويًّا من البصمة بالكامل.</string>
+    <string name="trust_certificate_fingerprints">البصمات</string>
+    <string name="trust_certificate_issued_by">صادر عن</string>
+    <string name="trust_certificate_issued_for">صادر لـ</string>
+    <string name="trust_certificate_press_back_to_reject">اضغط على زر الرجوع مرة أخرى لرفض الشهادة</string>
+    <string name="trust_certificate_reject">رفض</string>
+    <string name="trust_certificate_reset_info">يمكنك إعادة ضبط جميع الشهادات المخصصة في إعدادات التطبيق.</string>
+    <string name="trust_certificate_unknown_certificate_found">واجه %1$s شهادة غير معروفة. هل تريد الوثوق بها؟</string>
+    <string name="trust_certificate_validity_period">فترة الصلاحية</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (لن يتم تطبيقها)</string>
+    <string name="trust_certificate_x509_certificate_details">تفاصيل شهادة X509</string>
+</resources>

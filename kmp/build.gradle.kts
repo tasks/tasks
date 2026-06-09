@@ -30,7 +30,6 @@ kotlin {
             dependencies {
                 implementation(libs.androidx.activity.compose)
                 implementation(libs.androidx.ui.tooling.preview.android)
-                implementation(libs.bitfire.cert4android)
                 implementation(libs.bitfire.ical4android.get().toString()) {
                     exclude(group = "commons-logging")
                     exclude(group = "org.json", module = "json")
@@ -75,6 +74,7 @@ kotlin {
             compileOnly(files("../libs/client-jvm-2.3.2.jar"))
         }
         commonMain.dependencies {
+            api(projects.cert4android)
             implementation(projects.data)
             api(compose.components.resources)
             implementation(compose.foundation)

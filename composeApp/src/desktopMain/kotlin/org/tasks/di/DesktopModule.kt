@@ -31,7 +31,11 @@ import org.tasks.etebase.EtebaseClientProvider
 import org.tasks.opentasks.OpenTasksSyncer
 import org.tasks.fcm.FcmTokenProvider
 import org.tasks.fcm.PushTokenManager
-import org.tasks.http.DefaultOkHttpClientFactory
+import at.bitfire.cert4android.CertStore
+import at.bitfire.cert4android.DesktopCertStore
+import at.bitfire.cert4android.DesktopUserDecisionRegistry
+import org.tasks.auth.TasksOAuthClient
+import org.tasks.http.DesktopOkHttpClientFactory
 import org.tasks.http.OkHttpClientFactory
 import org.tasks.kmp.JvmBuildConfig
 import org.tasks.kmp.createDataStore
@@ -115,8 +119,18 @@ actual fun platformModule(): Module = module {
             tasksPreferences = get(),
         )
     }
-    factory<OkHttpClientFactory> { DefaultOkHttpClientFactory() }
-    factory { DesktopOAuthFlow(serverEnvironment = get()) }
+    single { DesktopUserDecisionRegistry() }
+    single<CertStore> { DesktopCertStore(dataDir = dataDir, userDecisionRegistry = get()) }
+    factory<OkHttpClientFactory> { DesktopOkHttpClientFactory(certStore = get()) }
+    factory {
+        val httpClient = kotlinx.coroutines.runBlocking {
+            get<OkHttpClientFactory>().newClient(foreground = true)
+        }
+        DesktopOAuthFlow(
+            oauthClient = TasksOAuthClient(httpClient),
+            serverEnvironment = get(),
+        )
+    }
     factoryOf(::DesktopSignInHandler) bind SignInHandler::class
     factory {
         org.tasks.googleapis.ProxyAuthProvider(

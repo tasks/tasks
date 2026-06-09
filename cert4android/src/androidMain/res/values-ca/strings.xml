@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="certificate_notification_connection_security">Seguretat de la connexió</string>
+    <string name="certificate_notification_user_interaction">Si us plau, comprova el certificat</string>
+</resources>

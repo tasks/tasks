@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Сертификат временно отклонен</string>
+    <string name="trust_certificate_accept">Принять</string>
+    <string name="trust_certificate_fingerprint_verified">Я вручную сверил корректность отпечатка.</string>
+    <string name="trust_certificate_fingerprints">Отпечатки</string>
+    <string name="trust_certificate_issued_by">Кем выдан</string>
+    <string name="trust_certificate_issued_for">Выдан</string>
+    <string name="trust_certificate_press_back_to_reject">Нажмите снова кнопку Назад, чтобы отклонить сертификат</string>
+    <string name="trust_certificate_reject">Отклонить</string>
+    <string name="trust_certificate_reset_info">Вы можете сбросить все пользовательские сертификаты в настройках приложения.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s обнаружил неизвестный сертификат. Вы доверяете ему?</string>
+    <string name="trust_certificate_validity_period">Срок действия</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (не будет применяться)</string>
+    <string name="trust_certificate_x509_certificate_details">Детали X509-сертификата</string>
+</resources>

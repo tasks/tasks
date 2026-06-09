@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Certyfikat tymczasowo odrzucony</string>
+    <string name="trust_certificate_accept">Akceptuj</string>
+    <string name="trust_certificate_fingerprint_verified">Zweryfikowałem cały odcisk palca.</string>
+    <string name="trust_certificate_fingerprints">Odciski palców</string>
+    <string name="trust_certificate_issued_by">Wydane przez</string>
+    <string name="trust_certificate_issued_for">Wydane dla</string>
+    <string name="trust_certificate_press_back_to_reject">Naciśnij ponownie przycisk Wstecz, aby odrzucić certyfikat</string>
+    <string name="trust_certificate_reject">Odrzuć</string>
+    <string name="trust_certificate_reset_info">Można przywrócić wszystkie niestandardowe certyfikaty w ustawieniach aplikacji.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s napotkał nieznany certyfikat. Czy chcesz go dodać?</string>
+    <string name="trust_certificate_validity_period">Okres ważności</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (nie będzie egzekwowane)</string>
+    <string name="trust_certificate_x509_certificate_details">Szczegóły certyfikatu X509</string>
+</resources>

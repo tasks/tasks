@@ -32,7 +32,6 @@ dependencyResolutionManagement {
         maven {
             url = uri("https://jitpack.io")
             content {
-                includeModule("com.github.bitfireAT", "cert4android")
                 includeModule("com.github.bitfireAT", "dav4jvm")
                 includeModule("com.github.franmontiel", "PersistentCookieJar")
                 includeModule("com.github.jheld", "colorpicker")
@@ -49,4 +48,5 @@ include(":kmp")
 include(":icons")
 include(":wear")
 include(":wear-datalayer")
+include(":cert4android")
 include(":composeApp")

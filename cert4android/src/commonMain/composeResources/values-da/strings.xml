@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Certifikat midlertidigt afvist</string>
+    <string name="trust_certificate_accept">Godkend</string>
+    <string name="trust_certificate_fingerprint_verified">Jeg har manuelt godkendt hele fingeraftrykket.</string>
+    <string name="trust_certificate_fingerprints">Fingeraftryk</string>
+    <string name="trust_certificate_issued_by">Udstedt af</string>
+    <string name="trust_certificate_issued_for">Udstedt til</string>
+    <string name="trust_certificate_press_back_to_reject">Tryk tilbage igen for at afvise certifikatet</string>
+    <string name="trust_certificate_reject">Afvis</string>
+    <string name="trust_certificate_reset_info">Alle brugertilpasset certifikater kan nulstilles i programmets indstillinger.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s er stødt på et ukendt certifikat. Skal det godkendes?</string>
+    <string name="trust_certificate_validity_period">Gyldighedsperiode</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (vil ikke blive håndhævet)</string>
+    <string name="trust_certificate_x509_certificate_details">Detaljer for X509-certifikat</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Сертификатът е временно отхвърлен</string>
+    <string name="trust_certificate_accept">Приемане</string>
+    <string name="trust_certificate_fingerprint_verified">Ръчно проверих целия отпечатък</string>
+    <string name="trust_certificate_fingerprints">Отпечатъци</string>
+    <string name="trust_certificate_issued_by">Издаден от</string>
+    <string name="trust_certificate_issued_for">Издаден за</string>
+    <string name="trust_certificate_press_back_to_reject">Натисни отново Назад, за да отхвърлиш сертификата</string>
+    <string name="trust_certificate_reject">Отхвърляне</string>
+    <string name="trust_certificate_reset_info">Можеш да нулираш всички допълнително вкарани сертификати в настройките на приложението.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s се натъкна на непознат сертификат.  Желаете ли да му се доверите?</string>
+    <string name="trust_certificate_validity_period">Период на годност</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (няма да се прилага)</string>
+    <string name="trust_certificate_x509_certificate_details">Подробности за сертификата на X509</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Sertifikaatti hylätty väliaikaisesti</string>
+    <string name="trust_certificate_accept">Hyväksy</string>
+    <string name="trust_certificate_fingerprint_verified">Olen manuaalisesti vahvistanut koko sormenjäljen.</string>
+    <string name="trust_certificate_fingerprints">Sormenjäljet</string>
+    <string name="trust_certificate_issued_by">Myöntäjä</string>
+    <string name="trust_certificate_issued_for">Myönnetty</string>
+    <string name="trust_certificate_reject">Hylkää</string>
+    <string name="trust_certificate_reset_info">Voit resetoida kaikki mukautetut sertifikaatit ohjelman asetuksista.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s on havainnut tuntemattoman sertifikaatin. Luotetaanko siihen?</string>
+    <string name="trust_certificate_validity_period">Voimassaoloaika</string>
+    <string name="trust_certificate_validity_period_value">%1$s - %2$s (ei pakoteta)</string>
+    <string name="trust_certificate_x509_certificate_details">X509 sertifikaatin tiedot</string>
+</resources>

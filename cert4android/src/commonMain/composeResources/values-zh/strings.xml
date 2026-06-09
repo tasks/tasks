@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">证书被临时拒绝</string>
+    <string name="trust_certificate_accept">接受</string>
+    <string name="trust_certificate_fingerprint_verified">我已经人工验证了完整指纹信息。</string>
+    <string name="trust_certificate_fingerprints">指纹</string>
+    <string name="trust_certificate_issued_by">签发者</string>
+    <string name="trust_certificate_issued_for">签发给</string>
+    <string name="trust_certificate_press_back_to_reject">再按一次返回拒绝证书</string>
+    <string name="trust_certificate_reject">拒绝</string>
+    <string name="trust_certificate_reset_info">你可以在应用内的设置中重设证书信任状态。</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s 遇到了未知证书。你是否要信任该证书？</string>
+    <string name="trust_certificate_validity_period">有效期</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s（过期后仍会信任）</string>
+    <string name="trust_certificate_x509_certificate_details">X509 证书信息</string>
+</resources>

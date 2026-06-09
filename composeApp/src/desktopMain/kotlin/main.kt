@@ -33,6 +33,8 @@ import org.tasks.PlatformConfiguration
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.recordInstallIfNeeded
+import at.bitfire.cert4android.DesktopUserDecisionRegistry
+import org.tasks.ssl.TrustCertificateDialog
 import org.tasks.sse.SseClient
 import org.tasks.sync.SyncSource
 import org.tasks.di.commonModule
@@ -237,6 +239,8 @@ fun main() {
                     window.removeWindowFocusListener(focusListener)
                 }
             }
+            val userDecisionRegistry = koinInject<DesktopUserDecisionRegistry>()
+            TrustCertificateDialog(userDecisionRegistry)
             val serverEnv = koinInject<TasksServerEnvironment>()
             val scope = rememberCoroutineScope()
             var currentEnv by remember { mutableStateOf(serverEnv.currentEnvironment) }

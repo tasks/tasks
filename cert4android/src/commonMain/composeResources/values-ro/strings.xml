@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Certificatul a fost respins temporar</string>
+    <string name="trust_certificate_accept">Acceptă</string>
+    <string name="trust_certificate_fingerprint_verified">Am verificat manual întreaga amprentă.</string>
+    <string name="trust_certificate_fingerprints">Amprente digitale</string>
+    <string name="trust_certificate_issued_by">Emitent</string>
+    <string name="trust_certificate_issued_for">Emis pentru</string>
+    <string name="trust_certificate_press_back_to_reject">Apasă din nou Înapoi pentru a respinge certificatul</string>
+    <string name="trust_certificate_reject">Refuză</string>
+    <string name="trust_certificate_reset_info">Poți reseta toate certificatele personalizate în setările aplicației.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s a întâlnit un certificat necunoscut. Dorești să ai încredere în el?</string>
+    <string name="trust_certificate_validity_period">Perioadă de valabilitate</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (nu va fi impus)</string>
+    <string name="trust_certificate_x509_certificate_details">Detalii certificat X509</string>
+</resources>
