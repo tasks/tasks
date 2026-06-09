@@ -165,6 +165,10 @@ class TaskViewHolder internal constructor(
             description.visibility = if (task.task.hasNotes()) View.VISIBLE else View.GONE
         }
         if (markdown.enabled || preferences.getBoolean(R.string.p_linkify_task_list, false)) {
+            if (!markdown.enabled) {
+                Linkify.safeLinkify(nameView)
+                Linkify.safeLinkify(description)
+            }
             linkify.setMovementMethod(
                 nameView,
                 linkClickHandler = { url -> callback.onLinkClicked(this, url) },
@@ -175,10 +179,6 @@ class TaskViewHolder internal constructor(
                 linkClickHandler = { url -> callback.onLinkClicked(this, url) },
                 rowClickHandler = { callback.onClick(this) }
             )
-            if (!markdown.enabled) {
-                Linkify.safeLinkify(nameView)
-                Linkify.safeLinkify(description)
-            }
             nameView.setOnLongClickListener { callback.onLongPress(this) }
             description.setOnLongClickListener { callback.onLongPress(this) }
         }
