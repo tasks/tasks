@@ -319,4 +319,14 @@
     <string name="this_device_only">Yalnızca bu aygıt</string>
     <string name="create_a_list">Liste oluştur</string>
     <string name="migrate_to_cloud">Tasks.org Cloud\'a Göç</string>
+    <string name="cloud_onboarding_welcome_title">Tasks.org Cloud\'a hoş geldiniz</string>
+    <string name="cloud_onboarding_welcome_body">Tasks.org Cloud hesabınızı oluşturmak için Google ile oturum açın</string>
+    <string name="cloud_onboarding_not_now">Şimdi değil</string>
+    <string name="cloud_onboarding_faq_title">Sık sorulan sorular</string>
+    <string name="cloud_onboarding_create_list_title">Başlayalım</string>
+    <string name="cloud_onboarding_create_list_body">Görev eklemeye başlamak için bir liste oluşturun.</string>
+    <string name="cloud_onboarding_faq_google_access_question">Google verilerime erişebilir mi?</string>
+    <string name="cloud_onboarding_faq_google_access_answer">Hayır. Kimlik doğrulama için Google kullanılır, ancak verileriniz Tasks.org sunucularında saklanır.</string>
+    <string name="cloud_onboarding_faq_desktop_sync_question">Bilgisayarımla nasıl eşzamanlarım?</string>
+    <string name="cloud_onboarding_faq_desktop_sync_answer">tasks.org/download adresinden masaüstü uygulamasını indirin, ardından aynı Google hesabıyla oturum açın.</string>
 </resources>
