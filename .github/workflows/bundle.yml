@@ -207,24 +207,36 @@ jobs:
     strategy:
       matrix:
         include:
-          - platform: linux-deb
+          - platform: linux-deb-amd64
             target: debian-package
-            flags: ""
-          - platform: linux-tar-gz
+            flags: "-Kapp.machines=linux.amd64.glibc"
+          - platform: linux-deb-aarch64
+            target: debian-package
+            flags: "-Kapp.machines=linux.aarch64.glibc"
+          - platform: linux-tar-gz-amd64
             target: linux-tarball
-            flags: ""
+            flags: "-Kapp.machines=linux.amd64.glibc"
+          - platform: linux-tar-gz-aarch64
+            target: linux-tarball
+            flags: "-Kapp.machines=linux.aarch64.glibc"
           - platform: macos-amd64
             target: unnotarized-mac-zip
             flags: "-Kapp.machines=mac.amd64"
           - platform: macos-aarch64
             target: unnotarized-mac-zip
             flags: "-Kapp.machines=mac.aarch64"
-          - platform: windows-msix
+          - platform: windows-msix-amd64
             target: windows-msix
-            flags: ""
-          - platform: windows-zip
+            flags: "-Kapp.machines=windows.amd64"
+          - platform: windows-msix-aarch64
+            target: windows-msix
+            flags: "-Kapp.machines=windows.aarch64"
+          - platform: windows-zip-amd64
             target: windows-zip
-            flags: ""
+            flags: "-Kapp.machines=windows.amd64"
+          - platform: windows-zip-aarch64
+            target: windows-zip
+            flags: "-Kapp.machines=windows.aarch64"
     steps:
       - uses: actions/checkout@v6
 
@@ -292,7 +304,7 @@ jobs:
       - name: Download linux tarball
         uses: actions/download-artifact@v8
         with:
-          name: desktop-linux-tar-gz
+          name: desktop-linux-tar-gz-${{ matrix.conveyor-arch }}
 
       - name: Create AppDir from tarball
         run: |
