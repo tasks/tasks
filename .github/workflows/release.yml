@@ -43,7 +43,11 @@ jobs:
           path: artifacts
       - uses: actions/download-artifact@v8
         with:
-          name: desktop-linux-appimage
+          name: desktop-linux-appimage-x86_64
+          path: artifacts
+      - uses: actions/download-artifact@v8
+        with:
+          name: desktop-linux-appimage-aarch64
           path: artifacts
 
       - name: Set up JDK 21

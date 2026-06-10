@@ -277,6 +277,13 @@ jobs:
   appimage:
     runs-on: ubuntu-latest
     needs: [ desktop ]
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64
+            conveyor-arch: amd64
+          - arch: aarch64
+            conveyor-arch: aarch64
     steps:
       - uses: actions/checkout@v6
         with:
@@ -289,7 +296,7 @@ jobs:
 
       - name: Create AppDir from tarball
         run: |
-          tarball=$(ls tasks-org-*-linux-amd64.tar.gz)
+          tarball=$(ls tasks-org-*-linux-${{ matrix.conveyor-arch }}.tar.gz)
           mkdir -p AppDir
           tar -xzf "$tarball" --strip-components=1 -C AppDir
           cp composeApp/AppRun AppDir/
@@ -304,14 +311,14 @@ jobs:
 
       - name: Build AppImage
         run: >
-          ARCH=x86_64 ./appimagetool --appimage-extract-and-run
-          -u "gh-releases-zsync|tasks|tasks|latest|tasks-org-linux-x86_64.AppImage.zsync"
-          AppDir tasks-org-linux-x86_64.AppImage
+          ARCH=${{ matrix.arch }} ./appimagetool --appimage-extract-and-run
+          -u "gh-releases-zsync|tasks|tasks|latest|tasks-org-linux-${{ matrix.arch }}.AppImage.zsync"
+          AppDir tasks-org-linux-${{ matrix.arch }}.AppImage
 
       - name: Upload AppImage
         uses: actions/upload-artifact@v7
         with:
-          name: desktop-linux-appimage
+          name: desktop-linux-appimage-${{ matrix.arch }}
           path: |
-            tasks-org-linux-x86_64.AppImage
-            tasks-org-linux-x86_64.AppImage.zsync
+            tasks-org-linux-${{ matrix.arch }}.AppImage
+            tasks-org-linux-${{ matrix.arch }}.AppImage.zsync
