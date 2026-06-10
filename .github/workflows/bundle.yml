@@ -196,6 +196,7 @@ jobs:
         with:
           name: desktop-jar
           path: |
+            cert4android/build/libs/cert4android-jvm.jar
             composeApp/build/libs/composeApp-desktop*.jar
             data/build/libs/data-jvm.jar
             kmp/build/libs/kmp-jvm.jar
