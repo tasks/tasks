@@ -595,7 +595,7 @@ class MainActivity : AppCompatActivity() {
             firebase.addTask(source ?: "unknown")
             intent.removeExtra(CREATE_TASK)
             intent.removeExtra(CREATE_SOURCE)
-            taskCreator.createWithValues(filter, "")
+            taskCreator.createWithValues(filter ?: defaultFilterProvider.getDefaultList(), "")
         }
 
         intent.hasExtra(OPEN_TASK) -> {
@@ -625,9 +625,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val filter = intent.getFilter
                 ?: intent.getFilterString?.let { defaultFilterProvider.getFilterFromPreference(it) }
-            val task = getTaskToLoad(
-                filter ?: defaultFilterProvider.getDefaultList()
-            )
+            val task = getTaskToLoad(filter)
             viewModel.setFilter(
                 filter = filter ?: viewModel.state.value.filter,
                 task = task
