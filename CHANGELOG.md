@@ -1,4 +1,4 @@
-### 15.7 (2026-06-09)
+### 15.7.1 (2026-06-10)
 
 Android:
   * New onboarding for Tasks.org Cloud
@@ -8,10 +8,12 @@ Android:
   * Fix duplicated tasks when importing backup file
 
 Desktop:
+  * ARM support for Windows and Linux
+  * Self-signed SSL support [#4422](https://github.com/tasks/tasks/issues/4422)
   * Minor keychain improvements [#4402](https://github.com/tasks/tasks/issues/4402)
 
 Update translations:
-  * Chinese (Simplified) - Sketch6580
+  * Chinese (Simplified) - Sketch6580, hamburger2048
   * Czech - Fjuro
   * Esperanto - Don Zouras
   * Estonian - Priit Jõerüüt
