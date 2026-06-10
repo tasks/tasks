@@ -321,4 +321,14 @@
     <string name="this_device_only">Cet appareil uniquement</string>
     <string name="create_a_list">Créer une liste</string>
     <string name="migrate_to_cloud">Migrer vers le cloud Tasks.org</string>
+    <string name="cloud_onboarding_welcome_title">Bienvenue sur le cloud Tasks.org</string>
+    <string name="cloud_onboarding_welcome_body">Connectez-vous avec Google pour créer votre compte cloud Tasks.org</string>
+    <string name="cloud_onboarding_not_now">Pas maintenant</string>
+    <string name="cloud_onboarding_faq_title">Questions fréquemment posées</string>
+    <string name="cloud_onboarding_create_list_title">C\'est parti</string>
+    <string name="cloud_onboarding_create_list_body">Créer une liste pour commencer à ajouter des tâches.</string>
+    <string name="cloud_onboarding_faq_google_access_question">Google peut-il accéder à mes données ?</string>
+    <string name="cloud_onboarding_faq_google_access_answer">Non. Google est utilisé pour l\'authentification, mais vos données sont enregistrées sur les serveurs de Tasks.org.</string>
+    <string name="cloud_onboarding_faq_desktop_sync_question">Comment puis-je synchroniser avec mon ordinateur ?</string>
+    <string name="cloud_onboarding_faq_desktop_sync_answer">Téléchargez l\'application de bureau sur tasks.org/download, puis connectez-vous avec le même compte Google.</string>
 </resources>
