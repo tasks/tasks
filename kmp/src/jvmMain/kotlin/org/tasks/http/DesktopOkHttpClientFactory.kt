@@ -21,7 +21,7 @@ class DesktopOkHttpClientFactory(
         val customCertManager = CustomCertManager(
             certStore = certStore,
             settings = object : SettingsProvider {
-                override val appInForeground = foreground
+                override val appInForeground = true
                 override val trustSystemCerts = true
             }
         )
