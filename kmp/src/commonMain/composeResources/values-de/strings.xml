@@ -191,7 +191,7 @@
     <string name="caldav_server_other">Andere</string>
     <string name="caldav_server_type">Servertyp</string>
     <string name="caldav_server_unknown">Unbekannt</string>
-    <string name="error_adding_account">Fehler: %s</string>
+    <string name="error_adding_account">Fehler: %1$s</string>
     <string name="invalid_username_or_password">Ungültiger Benutzername oder Passwort</string>
     <string name="network_error">Verbindung fehlgeschlagen</string>
     <string name="sign_in">Anmelden</string>
@@ -258,4 +258,26 @@
     <string name="add_widget_to_home_screen">Widget zum Startbildschirm hinzufügen</string>
     <string name="task_title">Aufgabentitel</string>
     <string name="edit_task">Aufgabe bearbeiten</string>
+    <string name="cloud_onboarding_welcome_title">Willkommen bei Tasks.org Cloud</string>
+    <string name="create_a_list">Eine Liste erstellen</string>
+    <string name="cloud_onboarding_not_now">Jetzt nicht</string>
+    <string name="cloud_onboarding_faq_title">Häufige Fragen</string>
+    <string name="cloud_onboarding_welcome_body">Mit Google anmelden, um dein Cloud-Konto für Tasks.org zu erstellen</string>
+    <string name="cloud_onboarding_create_list_title">Los geht\'s</string>
+    <string name="cloud_onboarding_create_list_body">Erstelle eine Liste und beginne damit Aufgaben hinzuzufügen.</string>
+    <string name="cloud_onboarding_faq_google_access_question">Kann Google auf meine Daten zugreifen?</string>
+    <string name="cloud_onboarding_faq_google_access_answer">Nein. Google wird zur Authentifizierung verwendet, deine Daten sind aber auf Servern von Tasks.org gespeichert.</string>
+    <string name="cloud_onboarding_faq_desktop_sync_question">Wie synchronisiere ich mit meinem Computer?</string>
+    <string name="no_list_available">Keine Liste vorhanden</string>
+    <string name="add_platform_account">%1$s Konto hinzufügen</string>
+    <string name="migrate_to_cloud">Zur Tasks.org Cloud migrieren</string>
+    <string name="this_device_only">Nur dieses Gerät</string>
+    <string name="logout_confirmation">Von %1$s abmelden?</string>
+    <string name="wrong_account">Anmeldung fehlgeschlagen</string>
+    <string name="wrong_account_message">Dein Abo ist bereits mit %1$s verknüpft. Wenn du glaubst, dass das ein Fehler ist, kontaktiere bitte %2$s.</string>
+    <string name="caldav_server_owncloud">ownCloud</string>
+    <string name="caldav_server_sabredav">sabre/dav</string>
+    <string name="caldav_server_openxchange">Open-Xchange</string>
+    <string name="caldav_server_nextcloud">Nextcloud</string>
+    <string name="link_desktop">Desktop-App verknüpfen</string>
 </resources>
