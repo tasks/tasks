@@ -134,7 +134,7 @@ class OpenTasksSynchronizer(
     ) {
         val moved = caldavDao.getMoved(calendar.uuid!!)
         val (deleted, updated) = taskDao
-            .getCaldavTasksToPush(calendar.uuid!!)
+            .getTasksToPush(calendar.uuid!!)
             .partition { it.isDeleted }
         if (moved.isEmpty() && deleted.isEmpty() && updated.isEmpty()) {
             return

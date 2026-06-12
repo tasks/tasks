@@ -324,6 +324,7 @@ class ApplicationModule {
     @Provides
     fun providesEtebaseSynchronizer(
         caldavDao: CaldavDao,
+        taskDao: TaskDao,
         refreshBroadcaster: RefreshBroadcaster,
         taskDeleter: TaskDeleter,
         clientProvider: EtebaseClientProvider,
@@ -332,6 +333,7 @@ class ApplicationModule {
         reporting: Reporting,
     ): EtebaseSynchronizer = EtebaseSynchronizer(
         caldavDao = caldavDao,
+        taskDao = taskDao,
         refreshBroadcaster = refreshBroadcaster,
         taskDeleter = taskDeleter,
         clientProvider = clientProvider,

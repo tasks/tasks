@@ -178,7 +178,7 @@ class MicrosoftSynchronizer @Inject constructor(
         for (task in moved) {
             deleteRemoteResource(microsoft, local, task)
         }
-        val toPush = taskDao.getCaldavTasksToPush(local.uuid!!)
+        val toPush = taskDao.getTasksToPush(local.uuid!!)
         for (task in toPush.sortedBy { it.parent }) {
             pushTask(local, task, microsoft)
         }

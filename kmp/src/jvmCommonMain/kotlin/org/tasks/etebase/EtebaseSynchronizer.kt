@@ -22,6 +22,7 @@ import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.kmp.PROD_ID
@@ -33,6 +34,7 @@ import tasks.kmp.generated.resources.requires_pro_subscription
 
 class EtebaseSynchronizer(
     private val caldavDao: CaldavDao,
+    private val taskDao: TaskDao,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val taskDeleter: TaskDeleter,
     private val clientProvider: EtebaseClientProvider,
@@ -169,9 +171,8 @@ class EtebaseSynchronizer(
                         caldavDao.delete(caldavTask)
                     }
         }
-        for (change in caldavDao.getCaldavTasksToPush(caldavCalendar.uuid!!)) {
-            val task = change.task
-            val caldavTask = change.caldavTask
+        for (task in taskDao.getTasksToPush(caldavCalendar.uuid!!)) {
+            val caldavTask = caldavDao.getTask(task.id) ?: continue
             caldavTask.lastSync = task.modificationDate
             if (task.isDeleted) {
                 client.deleteItem(collection, caldavTask)

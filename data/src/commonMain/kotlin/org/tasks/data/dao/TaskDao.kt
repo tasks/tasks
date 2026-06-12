@@ -74,15 +74,6 @@ FROM (
     @Query("UPDATE tasks SET completed = :completionDate, modified = :updateTime WHERE remoteId IN (:remoteIds)")
     abstract suspend fun setCompletionDate(remoteIds: List<String>, completionDate: Long, updateTime: Long = DateTimeUtils2.currentTimeMillis())
 
-    @Query("SELECT tasks.* FROM tasks "
-            + "INNER JOIN caldav_tasks ON tasks._id = caldav_tasks.cd_task "
-            + "INNER JOIN caldav_lists ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid "
-            + "WHERE cdl_account = :account "
-            + "AND cd_deleted = 0 "
-            + "AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_last_sync = 0) "
-            + "ORDER BY CASE WHEN parent = 0 THEN 0 ELSE 1 END, `order` ASC")
-    abstract suspend fun getGoogleTasksToPush(account: String): List<Task>
-
     @Query("""
         SELECT tasks.*
         FROM tasks
@@ -90,9 +81,9 @@ FROM (
         WHERE caldav_tasks.cd_calendar = :calendar
           AND cd_deleted = 0
           AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_last_sync = 0)
-        ORDER BY created
+        ORDER BY CASE WHEN parent = 0 THEN 0 ELSE 1 END, IFNULL(`order`, (created - $APPLE_EPOCH) / 1000)
     """)
-    abstract suspend fun getCaldavTasksToPush(calendar: String): List<Task>
+    abstract suspend fun getTasksToPush(calendar: String): List<Task>
 
     // --- SQL clause generators
     @Query("SELECT * FROM tasks")

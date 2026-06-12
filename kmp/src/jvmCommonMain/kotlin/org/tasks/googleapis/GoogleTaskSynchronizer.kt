@@ -185,7 +185,9 @@ class GoogleTaskSynchronizer(
             }
             googleTaskDao.delete(deleted)
         }
-        val tasks = taskDao.getGoogleTasksToPush(account.uuid!!)
+        val tasks = caldavDao.getCalendarsByAccount(account.uuid!!).flatMap {
+            taskDao.getTasksToPush(it.uuid!!)
+        }
         for (task in tasks) {
             val staleTaskId = pushTask(task, account.uuid!!, gtasksInvoker)
             if (staleTaskId != null) {

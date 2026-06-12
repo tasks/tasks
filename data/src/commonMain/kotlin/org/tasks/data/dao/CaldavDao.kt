@@ -227,13 +227,6 @@ LIMIT 1
     @Query("SELECT * FROM caldav_tasks WHERE cd_task in (:taskIds) AND cd_deleted = 0")
     internal abstract suspend fun getTasksInternal(taskIds: List<Long>): List<CaldavTask>
 
-    @Query("SELECT task.*, caldav_task.* FROM tasks AS task "
-            + "INNER JOIN caldav_tasks AS caldav_task ON _id = cd_task "
-            + "WHERE cd_calendar = :calendar "
-            + "AND modified > cd_last_sync "
-            + "AND cd_deleted = 0")
-    abstract suspend fun getCaldavTasksToPush(calendar: String): List<CaldavTaskContainer>
-
     @Query("SELECT * FROM caldav_lists ORDER BY cdl_name COLLATE NOCASE")
     abstract suspend fun getCalendars(): List<CaldavCalendar>
 

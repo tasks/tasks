@@ -349,7 +349,7 @@ class CaldavSynchronizer(
         for (task in caldavDao.getMoved(caldavCalendar.uuid!!)) {
             deleteRemoteResource(httpClient, httpUrl, caldavCalendar, task)
         }
-        for (task in taskDao.getCaldavTasksToPush(caldavCalendar.uuid!!)) {
+        for (task in taskDao.getTasksToPush(caldavCalendar.uuid!!)) {
             if (deleteOnly && !task.isDeleted) continue
             try {
                 pushTask(account, caldavCalendar, task, httpClient, httpUrl)
