@@ -3,10 +3,7 @@ package org.tasks.sync.microsoft
 import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import at.bitfire.dav4jvm.okhttp.exception.ServiceUnavailableException
 import at.bitfire.dav4jvm.okhttp.exception.UnauthorizedException
-import org.tasks.data.dao.TaskDao
-import org.tasks.data.TaskSaver
 import com.todoroo.astrid.service.TaskCreator
-import org.tasks.service.TaskDeleter
 import io.ktor.client.call.body
 import io.ktor.http.isSuccess
 import kotlinx.serialization.json.Json
@@ -16,9 +13,11 @@ import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.VtodoCache
+import org.tasks.data.TaskSaver
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
@@ -32,6 +31,7 @@ import org.tasks.http.HttpClientFactory
 import org.tasks.http.NotFoundException
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
+import org.tasks.service.TaskDeleter
 import org.tasks.sync.microsoft.Error.Companion.toMicrosoftError
 import org.tasks.sync.microsoft.MicrosoftConverter.applyRemote
 import org.tasks.sync.microsoft.MicrosoftConverter.applySubtask
@@ -503,18 +503,17 @@ class MicrosoftSynchronizer @Inject constructor(
         parentCompletionDate: Long,
         checklistItems: List<Tasks.Task.ChecklistItem>,
     ) {
-        val existingSubtasks: List<CaldavTask> = taskDao.getChildren(parentId).let { caldavDao.getTasks(it) }
+        val localSubtasks: List<CaldavTask> = taskDao.getChildren(parentId).let { caldavDao.getTasks(it) }
         val remoteSubtaskIds = checklistItems.map { it.id }
-        val removedSubtasks = existingSubtasks
-            .filter { it.remoteId?.isNotBlank() == true && !remoteSubtaskIds.contains(it.remoteId) }
-            .filter {
-                it.lastSync == 0L ||
-                    taskDao.fetch(it.task)?.modificationDate?.let { mod -> mod <= it.lastSync } ?: true
+        localSubtasks
+            .filterNot {
+                it.lastSync == 0L || it.remoteId.isNullOrBlank() || remoteSubtaskIds.contains(it.remoteId)
             }
-        if (removedSubtasks.isNotEmpty()) {
-            vtodoCache.delete(list, removedSubtasks)
-            taskDeleter.delete(removedSubtasks.map { it.task })
-        }
+            .takeIf { it.isNotEmpty() }
+            ?.let { removedSubtasks ->
+                vtodoCache.delete(list, removedSubtasks)
+                taskDeleter.delete(removedSubtasks.map { it.task })
+            }
         checklistItems.forEach { item ->
             val existing = caldavDao.getTaskByRemoteId(list.uuid!!, item.id!!)
             if (existing?.isDeleted() == true) {
