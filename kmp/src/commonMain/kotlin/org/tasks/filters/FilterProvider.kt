@@ -278,7 +278,10 @@ class FilterProvider(
                     else -> SubheaderType.CALDAV
                 },
                 account.id.toString(),
-                if (showCreate && account.accountType != TYPE_OPENTASKS) REQUEST_NEW_LIST else 0,
+                if (showCreate
+                    && account.accountType != TYPE_OPENTASKS
+                    && (account.isLocalList || (account.lastSync > 0 && account.error.isNullOrBlank()))
+                ) REQUEST_NEW_LIST else 0,
                 accountIcon = account.composeIcon,
                 childCount = children.size,
                 openTaskApp = openTaskApp,
