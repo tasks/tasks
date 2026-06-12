@@ -322,4 +322,14 @@
     <string name="this_device_only">Pouze toto zařízení</string>
     <string name="create_a_list">Vytvořit seznam</string>
     <string name="migrate_to_cloud">Přejít na Tasks.org Cloud</string>
+    <string name="cloud_onboarding_welcome_title">Vítejte ve službě Tasks.org Cloud</string>
+    <string name="cloud_onboarding_welcome_body">Přihlaste se přes Google pro vytvoření vašeho účtu Tasks.org Cloud</string>
+    <string name="cloud_onboarding_not_now">Nyní ne</string>
+    <string name="cloud_onboarding_faq_title">Často kladené dotazy</string>
+    <string name="cloud_onboarding_create_list_title">Začněme</string>
+    <string name="cloud_onboarding_create_list_body">Pro přidávání úkolů si vytvořte seznam.</string>
+    <string name="cloud_onboarding_faq_google_access_question">Má Google přístup k mým datům?</string>
+    <string name="cloud_onboarding_faq_google_access_answer">Ne. Google je použit pro přihlášení, ale vaše data jsou uložena na serverech Tasks.org.</string>
+    <string name="cloud_onboarding_faq_desktop_sync_question">Jak provedu synchronizaci s mým počítačem?</string>
+    <string name="cloud_onboarding_faq_desktop_sync_answer">Stáhněte si počítačovou aplikaci na tasks.org/download a poté se přihlaste stejným účtem Google.</string>
 </resources>
