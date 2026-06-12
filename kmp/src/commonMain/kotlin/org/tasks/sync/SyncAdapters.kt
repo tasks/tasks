@@ -10,12 +10,14 @@ import org.tasks.jobs.BackgroundWork
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
-import org.tasks.data.entity.FORCE_CALDAV_SYNC
-import org.tasks.data.entity.FORCE_SYNC
 import org.tasks.data.entity.SUPPRESS_SYNC
+import org.tasks.data.entity.SYNC_ALARMS
+import org.tasks.data.entity.SYNC_LOCATION
+import org.tasks.data.entity.SYNC_TAGS
 import org.tasks.data.entity.Task
 import org.tasks.preferences.TasksPreferences
 import kotlin.coroutines.CoroutineContext
@@ -49,17 +51,17 @@ class SyncAdapters(
         if (task.checkTransitory(SUPPRESS_SYNC)) {
             return@launch
         }
-        if (task.checkTransitory(FORCE_SYNC)) {
-            sync.sync(SyncSource.TASK_CHANGE)
-            return@launch
-        }
         val accountType = caldavDao.getAccountType(task.id) ?: return@launch
         val needsSync = when (accountType) {
-            TYPE_GOOGLE_TASKS -> !task.googleTaskUpToDate(original)
-            TYPE_MICROSOFT -> !task.microsoftUpToDate(original)
-            TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_OPENTASKS ->
-                task.checkTransitory(FORCE_CALDAV_SYNC) || !task.caldavUpToDate(original)
-            else -> false
+            TYPE_LOCAL ->
+                false
+            TYPE_GOOGLE_TASKS ->
+                !task.googleTaskUpToDate(original)
+            TYPE_MICROSOFT ->
+                task.checkTransitory(SYNC_TAGS) || !task.microsoftUpToDate(original)
+            else ->
+                task.checkTransitory(SYNC_ALARMS, SYNC_TAGS, SYNC_LOCATION) ||
+                !task.caldavUpToDate(original)
         }
         if (needsSync) {
             sync.sync(SyncSource.TASK_CHANGE)

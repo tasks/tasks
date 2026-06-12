@@ -59,8 +59,9 @@ import org.tasks.data.entity.Attachment
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
-import org.tasks.data.entity.FORCE_CALDAV_SYNC
-import org.tasks.data.entity.FORCE_SYNC
+import org.tasks.data.entity.SYNC_ALARMS
+import org.tasks.data.entity.SYNC_LOCATION
+import org.tasks.data.entity.SYNC_TAGS
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.NOTIFY_MODE_FIVE
@@ -365,13 +366,13 @@ class TaskEditViewModel @Inject constructor(
                 )
                 locationService.updateGeofences(place)
             }
-            task.putTransitory(FORCE_SYNC, true)
+            task.putTransitory(SYNC_LOCATION, true)
             task.modificationDate = currentTimeMillis()
         }
         val selectedTags = _viewState.value.tags
         if ((isNew && selectedTags.isNotEmpty()) || originalState.value.tags.toHashSet() != selectedTags.toHashSet()) {
             tagDao.applyTags(task, tagDataDao, selectedTags)
-            task.putTransitory(FORCE_CALDAV_SYNC, true)
+            task.putTransitory(SYNC_TAGS, true)
             task.modificationDate = currentTimeMillis()
         }
 
@@ -395,7 +396,7 @@ class TaskEditViewModel @Inject constructor(
             originalState.value.alarms != _viewState.value.alarms
         ) {
             alarmService.synchronizeAlarms(task.id, _viewState.value.alarms.toMutableSet())
-            task.putTransitory(FORCE_CALDAV_SYNC, true)
+            task.putTransitory(SYNC_ALARMS, true)
             task.modificationDate = currentTimeMillis()
         }
 
