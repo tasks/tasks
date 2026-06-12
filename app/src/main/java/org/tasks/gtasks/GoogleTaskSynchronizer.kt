@@ -9,6 +9,7 @@ import com.todoroo.astrid.service.TaskCreator
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
@@ -31,6 +32,7 @@ class AndroidGoogleTaskSynchronizer @Inject constructor(
     private val invokerFactory: InvokerFactory,
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
+    private val dirtyDao: DirtyDao,
     private val taskSaver: TaskSaver,
     private val firebase: Firebase,
     private val googleTaskDao: GoogleTaskDao,
@@ -56,6 +58,7 @@ class AndroidGoogleTaskSynchronizer @Inject constructor(
         caldavDao = caldavDao,
         gtasksListService = GtasksListService(caldavDao, taskDeleter, refreshBroadcaster),
         taskDao = taskDao,
+        dirtyDao = dirtyDao,
         taskSaver = taskSaver,
         reporting = firebase,
         googleTaskDao = googleTaskDao,

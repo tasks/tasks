@@ -16,14 +16,17 @@ class CaldavDaoMicrosoftTests {
     private lateinit var db: Database
     private lateinit var taskDao: TaskDao
     private lateinit var caldavDao: CaldavDao
+    private lateinit var dirtyDao: DirtyDao
 
     @Before
     fun setUp() {
         db = Room.inMemoryDatabaseBuilder<Database>()
             .setDriver(BundledSQLiteDriver())
+            .addCallback(Database.CALLBACK)
             .build()
         taskDao = db.taskDao()
         caldavDao = db.caldavDao()
+        dirtyDao = db.dirtyDao()
     }
 
     @After
@@ -34,22 +37,24 @@ class CaldavDaoMicrosoftTests {
     private suspend fun insertCaldavTask(
         remoteId: String,
         remoteParent: String? = null,
-        lastSync: Long = 1L,
+        synced: Boolean = true,
         deleted: Long = 0L,
         calendar: String = CALENDAR,
     ) {
         val task = Task()
         taskDao.createNew(task)
-        caldavDao.insert(
+        val ctId = caldavDao.insert(
             CaldavTask(
                 task = task.id,
                 calendar = calendar,
                 remoteId = remoteId,
                 remoteParent = remoteParent,
-                lastSync = lastSync,
                 deleted = deleted,
             )
         )
+        if (synced) {
+            dirtyDao.markSynced(ctId)
+        }
     }
 
     @Test
@@ -83,7 +88,7 @@ class CaldavDaoMicrosoftTests {
 
     @Test
     fun excludesUnsynced() = runBlocking {
-        insertCaldavTask(remoteId = "unsynced-1", lastSync = 0L)
+        insertCaldavTask(remoteId = "unsynced-1", synced = false)
 
         assertTrue(caldavDao.getTopLevelRemoteIds(CALENDAR).isEmpty())
     }

@@ -14,7 +14,7 @@ import org.tasks.data.OpenTaskDao
 import org.tasks.data.OpenTaskDao.Companion.filterActive
 import org.tasks.data.OpenTaskDao.Companion.toLocalCalendar
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.dao.TaskDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.openTaskProvider
 import org.tasks.data.entity.OpenTaskProvider
@@ -31,7 +31,7 @@ class OpenTasksSynchronizer(
     private val caldavDao: CaldavDao,
     private val taskDeleter: TaskDeleter,
     private val refreshBroadcaster: RefreshBroadcaster,
-    private val taskDao: TaskDao,
+    private val dirtyDao: DirtyDao,
     private val reporting: Reporting,
     private val iCalendar: iCalendar,
     private val openTaskDao: OpenTaskDao,
@@ -133,14 +133,14 @@ class OpenTasksSynchronizer(
         listId: Long
     ) {
         val moved = caldavDao.getMoved(calendar.uuid!!)
-        val (deleted, updated) = taskDao
+        val (deleted, updated) = dirtyDao
             .getTasksToPush(calendar.uuid!!)
-            .partition { it.isDeleted }
+            .partition { it.task.isDeleted }
         if (moved.isEmpty() && deleted.isEmpty() && updated.isEmpty()) {
             return
         }
         Logger.d("OpenTasksSynchronizer") { "Pushing changes: updated=${updated.size} moved=${moved.size} deleted=${deleted.size}" }
-        (moved + deleted.map(Task::id)
+        (moved + deleted.map { it.task.id }
             .let { caldavDao.getTasks(it) })
             .mapNotNull { it.remoteId }
             .takeIf { it.isNotEmpty() }
@@ -150,10 +150,10 @@ class OpenTasksSynchronizer(
                 openTaskDao.batch(it)
             }
         caldavDao.delete(moved)
-        taskDeleter.delete(deleted.map { it.id })
+        taskDeleter.delete(deleted.map { it.task.id })
 
         updated.forEach {
-            push(account, it, listId)
+            push(account, it.task, it.caldavTaskId, it.dirtyVersion, listId)
         }
     }
 
@@ -208,39 +208,40 @@ class OpenTasksSynchronizer(
         }
     }
 
-    private suspend fun push(account: CaldavAccount, task: Task, listId: Long) {
-        val caldavTask = caldavDao.getTask(task.id) ?: return
-        val uid = caldavTask.remoteId!!
-        val androidTask = openTaskDao.getTask(listId, uid)
-                ?: MyAndroidTask(at.bitfire.ical4android.Task())
-        val adapted = Ical4androidTaskAdapter(androidTask.task!!)
-        iCalendar.toVtodo(account, caldavTask, task, adapted)
-        val operations = ArrayList<BatchOperation.CpoBuilder>()
-        val builder = androidTask.toBuilder(openTaskDao.tasks)
-        val idxTask = if (androidTask.isNew) {
-            if (account.isEteSync) {
-                builder.withValue(Tasks.SYNC2, uid)
+    private suspend fun push(account: CaldavAccount, task: Task, caldavTaskId: Long, dirtyVersion: Long?, listId: Long) {
+        val caldavTask = caldavDao.getCaldavTaskById(caldavTaskId) ?: return
+        dirtyDao.withDirtyVersion(caldavTaskId, dirtyVersion) {
+            val uid = caldavTask.remoteId!!
+            val androidTask = openTaskDao.getTask(listId, uid)
+                    ?: MyAndroidTask(at.bitfire.ical4android.Task())
+            val adapted = Ical4androidTaskAdapter(androidTask.task!!)
+            iCalendar.toVtodo(account, caldavTask, task, adapted)
+            val operations = ArrayList<BatchOperation.CpoBuilder>()
+            val builder = androidTask.toBuilder(openTaskDao.tasks)
+            val idxTask = if (androidTask.isNew) {
+                if (account.isEteSync) {
+                    builder.withValue(Tasks.SYNC2, uid)
+                }
+                builder.withValue(Tasks.LIST_ID, listId)
+                0
+            } else {
+                // remove associated rows which are added later again
+                operations.add(BatchOperation.CpoBuilder
+                        .newDelete(openTaskDao.properties)
+                        .withSelection(
+                                "${TaskContract.Properties.TASK_ID}=?",
+                                arrayOf(androidTask.id.toString())
+                        )
+                )
+                null
             }
-            builder.withValue(Tasks.LIST_ID, listId)
-            0
-        } else {
-            // remove associated rows which are added later again
-            operations.add(BatchOperation.CpoBuilder
-                    .newDelete(openTaskDao.properties)
-                    .withSelection(
-                            "${TaskContract.Properties.TASK_ID}=?",
-                            arrayOf(androidTask.id.toString())
-                    )
-            )
-            null
+            operations.add(builder)
+            androidTask.enqueueProperties(openTaskDao.properties, operations, idxTask)
+
+            operations.map { it.build() }.let { openTaskDao.batch(it) }
+
+            caldavDao.update(caldavTask)
         }
-        operations.add(builder)
-        androidTask.enqueueProperties(openTaskDao.properties, operations, idxTask)
-
-        operations.map { it.build() }.let { openTaskDao.batch(it) }
-
-        caldavTask.lastSync = task.modificationDate
-        caldavDao.update(caldavTask)
         Logger.d("OpenTasksSynchronizer") { "SENT $caldavTask" }
     }
 

@@ -57,6 +57,7 @@ import org.tasks.data.dao.Astrid2ContentProviderDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.CompletionDao
 import org.tasks.data.dao.DeletionDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.LocationDao
@@ -174,6 +175,10 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun getTaskDao(db: Database): TaskDao = db.taskDao()
+
+    @Provides
+    @Singleton
+    fun getDirtyDao(db: Database): DirtyDao = db.dirtyDao()
 
     @Provides
     @Singleton
@@ -324,7 +329,7 @@ class ApplicationModule {
     @Provides
     fun providesEtebaseSynchronizer(
         caldavDao: CaldavDao,
-        taskDao: TaskDao,
+        dirtyDao: DirtyDao,
         refreshBroadcaster: RefreshBroadcaster,
         taskDeleter: TaskDeleter,
         clientProvider: EtebaseClientProvider,
@@ -333,7 +338,7 @@ class ApplicationModule {
         reporting: Reporting,
     ): EtebaseSynchronizer = EtebaseSynchronizer(
         caldavDao = caldavDao,
-        taskDao = taskDao,
+        dirtyDao = dirtyDao,
         refreshBroadcaster = refreshBroadcaster,
         taskDeleter = taskDeleter,
         clientProvider = clientProvider,
@@ -369,7 +374,7 @@ class ApplicationModule {
         caldavDao: CaldavDao,
         taskDeleter: TaskDeleter,
         refreshBroadcaster: RefreshBroadcaster,
-        taskDao: TaskDao,
+        dirtyDao: DirtyDao,
         reporting: Reporting,
         iCal: org.tasks.caldav.iCalendar,
         openTaskDao: OpenTaskDao,
@@ -377,7 +382,7 @@ class ApplicationModule {
         caldavDao = caldavDao,
         taskDeleter = taskDeleter,
         refreshBroadcaster = refreshBroadcaster,
-        taskDao = taskDao,
+        dirtyDao = dirtyDao,
         reporting = reporting,
         iCalendar = iCal,
         openTaskDao = openTaskDao,
@@ -433,12 +438,13 @@ class ApplicationModule {
     fun providesAlarmService(
         alarmDao: AlarmDao,
         taskDao: TaskDao,
+        dirtyDao: DirtyDao,
         refreshBroadcaster: RefreshBroadcaster,
         notifier: Notifier,
         alarmCalculator: AlarmCalculator,
         preferences: AppPreferences,
     ): AlarmService =
-        AlarmService(alarmDao, taskDao, refreshBroadcaster, notifier, alarmCalculator, preferences)
+        AlarmService(alarmDao, taskDao, dirtyDao, refreshBroadcaster, notifier, alarmCalculator, preferences)
 
     @Provides
     @Singleton
@@ -460,7 +466,6 @@ class ApplicationModule {
         googleTaskDao: GoogleTaskDao,
         preferences: Preferences,
         refreshBroadcaster: RefreshBroadcaster,
-        syncAdapters: SyncAdapters,
         vtodoCache: VtodoCache,
     ) = org.tasks.data.TaskMover(
         taskDao = taskDao,
@@ -468,7 +473,6 @@ class ApplicationModule {
         googleTaskDao = googleTaskDao,
         appPreferences = preferences,
         refreshBroadcaster = refreshBroadcaster,
-        syncAdapters = syncAdapters,
         vtodoCache = vtodoCache,
     )
 
@@ -480,9 +484,9 @@ class ApplicationModule {
         notifier: Notifier,
         locationService: LocationService,
         timerPlugin: TimerPlugin,
-        syncAdapters: SyncAdapters,
         backgroundWork: BackgroundWork,
-    ) = TaskSaver(taskDao, refreshBroadcaster, notifier, locationService, timerPlugin, syncAdapters, backgroundWork)
+        caldavDao: CaldavDao,
+    ) = TaskSaver(taskDao, refreshBroadcaster, notifier, locationService, timerPlugin, backgroundWork, caldavDao)
 
     @Provides
     fun providesTimerPlugin(
@@ -493,7 +497,7 @@ class ApplicationModule {
     @Provides
     fun providesCaldavSynchronizer(
         caldavDao: CaldavDao,
-        taskDao: TaskDao,
+        dirtyDao: DirtyDao,
         refreshBroadcaster: RefreshBroadcaster,
         taskDeleter: org.tasks.service.TaskDeleter,
         reporting: org.tasks.analytics.Reporting,
@@ -503,7 +507,7 @@ class ApplicationModule {
         vtodoCache: VtodoCache,
         accountDataRepository: org.tasks.caldav.TasksAccountDataRepository,
     ) = org.tasks.caldav.CaldavSynchronizer(
-        caldavDao, taskDao, refreshBroadcaster, taskDeleter, reporting,
+        caldavDao, dirtyDao, refreshBroadcaster, taskDeleter, reporting,
         provider, iCal, principalDao, vtodoCache, accountDataRepository,
     )
 
@@ -516,6 +520,7 @@ class ApplicationModule {
         locationService: LocationService,
         tagDao: TagDao,
         taskDao: TaskDao,
+        dirtyDao: DirtyDao,
         taskSaver: TaskSaver,
         caldavDao: CaldavDao,
         alarmDao: AlarmDao,
@@ -524,7 +529,7 @@ class ApplicationModule {
         notifier: Notifier,
     ) = org.tasks.caldav.iCalendar(
         tagDataDao, preferences, locationDao, geocoder, locationService,
-        tagDao, taskDao, taskSaver, caldavDao, alarmDao, alarmService, vtodoCache, notifier,
+        tagDao, taskDao, dirtyDao, taskSaver, caldavDao, alarmDao, alarmService, vtodoCache, notifier,
     )
 
     @Provides
@@ -532,12 +537,14 @@ class ApplicationModule {
     fun providesSyncAdapters(
         backgroundWork: BackgroundWork,
         caldavDao: CaldavDao,
+        dirtyDao: DirtyDao,
         openTaskDao: OpenTaskDao,
         tasksPreferences: TasksPreferences,
         refreshBroadcaster: RefreshBroadcaster,
     ) = SyncAdapters(
         backgroundWork = backgroundWork,
         caldavDao = caldavDao,
+        dirtyDao = dirtyDao,
         openTaskSyncCheck = { openTaskDao.shouldSync() },
         tasksPreferences = tasksPreferences,
         refreshBroadcaster = refreshBroadcaster,

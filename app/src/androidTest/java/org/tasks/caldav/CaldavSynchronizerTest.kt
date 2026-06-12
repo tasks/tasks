@@ -8,6 +8,7 @@ import okhttp3.mockwebserver.MockResponse
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.CaldavAccount
@@ -24,6 +25,7 @@ import javax.inject.Inject
 @HiltAndroidTest
 class CaldavSynchronizerTest : CaldavTest() {
 
+    @Inject lateinit var dirtyDao: DirtyDao
     @Inject lateinit var tagDao: TagDao
     @Inject lateinit var tagDataDao: TagDataDao
 
@@ -71,12 +73,13 @@ class CaldavSynchronizerTest : CaldavTest() {
             url = "${this@CaldavSynchronizerTest.account.url}test-shared/",
         )
         caldavDao.insert(calendar)
-        caldavDao.insert(newCaldavTask(
+        val caldavTaskId = caldavDao.insert(newCaldavTask(
             with(TASK, taskDao.insert(newTask())),
             with(OBJECT, "3164728546640386952.ics"),
             with(ETAG, "43b3ffaac5131880e4dd07a79adba82a"),
             with(CALENDAR, calendar.uuid)
         ))
+        dirtyDao.markSynced(caldavTaskId)
         enqueue(OC_SHARE_PROPFIND, OC_SHARE_REPORT)
 
         sync()
@@ -125,7 +128,8 @@ class CaldavSynchronizerTest : CaldavTest() {
 
     @Test
     fun preserveLocalTagChanges() = runBlocking {
-        enqueueRemoteTagUpdate(initial = "Tag1", updated = "Tag3")
+        // Trailing "" is the 207 for the PUT that pushes the local tag change on the second sync
+        enqueueRemoteTagUpdate(initial = "Tag1", updated = "Tag3", "")
 
         sync()
 
@@ -135,17 +139,18 @@ class CaldavSynchronizerTest : CaldavTest() {
         val task = taskDao.fetch(caldavTask.task)!!
         val tag2 = TagData(name = "Tag2").let { it.copy(id = tagDataDao.insert(it)) }
         tagDao.applyTags(task, tagDataDao, listOf(tag2))
-        taskDao.touch(listOf(task.id))
+        dirtyDao.setDirty(listOf(task.id))
 
         sync()
 
         assertTags("Tag2")
     }
 
-    private fun enqueueRemoteTagUpdate(initial: String, updated: String) {
+    private fun enqueueRemoteTagUpdate(initial: String, updated: String, vararg additional: String) {
         enqueueAll(
             OC_SHARE_PROPFIND, REPORT_ETAG1, task("etag1", initial),
             propfind("http://sabre.io/ns/sync/2"), REPORT_ETAG2, task("etag2", updated),
+            *additional
         )
     }
 

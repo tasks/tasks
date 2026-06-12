@@ -8,6 +8,7 @@ import org.tasks.data.db.Database
 abstract class DatabaseTest {
     protected val db: Database = Room.inMemoryDatabaseBuilder<Database>()
         .setDriver(BundledSQLiteDriver())
+        .addCallback(Database.CALLBACK)
         .build()
 
     @After

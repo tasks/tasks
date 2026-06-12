@@ -21,7 +21,7 @@ import at.bitfire.dav4jvm.property.webdav.GetETag
 import at.bitfire.dav4jvm.property.webdav.GetETag.Companion.fromResponse
 import at.bitfire.dav4jvm.property.webdav.SyncToken
 import org.tasks.service.TaskDeleter
-import org.tasks.data.dao.TaskDao
+import org.tasks.data.dao.DirtyDao
 import kotlinx.coroutines.runBlocking
 import net.fortuna.ical4j.model.property.ProdId
 import okhttp3.Headers
@@ -89,7 +89,7 @@ private const val TAG = "CaldavSync"
 
 class CaldavSynchronizer(
     private val caldavDao: CaldavDao,
-    private val taskDao: TaskDao,
+    private val dirtyDao: DirtyDao,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val taskDeleter: TaskDeleter,
     private val reporting: Reporting,
@@ -349,13 +349,9 @@ class CaldavSynchronizer(
         for (task in caldavDao.getMoved(caldavCalendar.uuid!!)) {
             deleteRemoteResource(httpClient, httpUrl, caldavCalendar, task)
         }
-        for (task in taskDao.getTasksToPush(caldavCalendar.uuid!!)) {
-            if (deleteOnly && !task.isDeleted) continue
-            try {
-                pushTask(account, caldavCalendar, task, httpClient, httpUrl)
-            } catch (e: IOException) {
-                Logger.e(e) { e.message.orEmpty() }
-            }
+        for (toPush in dirtyDao.getTasksToPush(caldavCalendar.uuid!!)) {
+            if (deleteOnly && !toPush.task.isDeleted) continue
+            pushTask(account, caldavCalendar, toPush.task, toPush.caldavTaskId, toPush.dirtyVersion, httpClient, httpUrl)
         }
     }
 
@@ -397,10 +393,12 @@ class CaldavSynchronizer(
         account: CaldavAccount,
         calendar: CaldavCalendar,
         task: Task,
+        caldavTaskId: Long,
+        dirtyVersion: Long?,
         httpClient: OkHttpClient,
         httpUrl: HttpUrl
     ) {
-        val caldavTask = caldavDao.getTask(task.id) ?: return
+        val caldavTask = caldavDao.getCaldavTaskById(caldavTaskId) ?: return
         Logger.d(TAG) { "pushing caldavTask=$caldavTask task=$task" }
         if (task.isDeleted) {
             if (deleteRemoteResource(httpClient, httpUrl, calendar, caldavTask)) {
@@ -408,37 +406,38 @@ class CaldavSynchronizer(
             }
             return
         }
-        val data = iCal.toVtodo(account, calendar, caldavTask, task)
-        val requestBody = data.toRequestBody(contentType = MIME_ICALENDAR)
-        val objPath = caldavTask.obj
-            ?: run {
-                Logger.e(TAG) { "null obj for caldavTask.id=${caldavTask.id} task.id=${task.id}" }
-                caldavTask.obj = caldavTask.remoteId?.let { "$it.ics" }
-                caldavTask.obj
-            }
-            ?: throw IllegalStateException("Push failed - missing UUID")
+        dirtyDao.withDirtyVersion(caldavTaskId, dirtyVersion) {
+            val data = iCal.toVtodo(account, calendar, caldavTask, task)
+            val requestBody = data.toRequestBody(contentType = MIME_ICALENDAR)
+            val objPath = caldavTask.obj
+                ?: run {
+                    Logger.e(TAG) { "null obj for caldavTask.id=${caldavTask.id} task.id=${task.id}" }
+                    caldavTask.obj = caldavTask.remoteId?.let { "$it.ics" }
+                    caldavTask.obj
+                }
+                ?: throw IllegalStateException("Push failed - missing UUID")
 
-        try {
-            val remote = DavResource(
-                httpClient = httpClient,
-                location = httpUrl.newBuilder().addPathSegment(objPath).build(),
-            )
-            remote.put(requestBody) {
-                if (it.isSuccessful) {
-                    fromResponse(it)?.eTag?.takeIf(String::isNotBlank)?.let { etag ->
-                        caldavTask.etag = etag
-                    }
-                    runBlocking {
-                        vtodoCache.putVtodo(calendar, caldavTask, String(data))
+            try {
+                val remote = DavResource(
+                    httpClient = httpClient,
+                    location = httpUrl.newBuilder().addPathSegment(objPath).build(),
+                )
+                remote.put(requestBody) {
+                    if (it.isSuccessful) {
+                        fromResponse(it)?.eTag?.takeIf(String::isNotBlank)?.let { etag ->
+                            caldavTask.etag = etag
+                        }
+                        runBlocking {
+                            vtodoCache.putVtodo(calendar, caldavTask, String(data))
+                        }
                     }
                 }
+            } catch (e: HttpException) {
+                Logger.e(e) { e.message.orEmpty() }
+                throw e
             }
-        } catch (e: HttpException) {
-            Logger.e(e) { e.message.orEmpty() }
-            return
+            caldavDao.update(caldavTask)
         }
-        caldavTask.lastSync = task.modificationDate
-        caldavDao.update(caldavTask)
         Logger.d(TAG) { "SENT $caldavTask" }
     }
 

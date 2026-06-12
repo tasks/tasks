@@ -105,6 +105,7 @@ val commonModule = module {
     single { get<Database>().userActivityDao() }
     single { get<Database>().taskAttachmentDao() }
     single { get<Database>().taskListMetadataDao() }
+    single { get<Database>().dirtyDao() }
 
     // No-op implementations
     single { ComposeRefreshBroadcaster() }
@@ -241,7 +242,7 @@ val commonModule = module {
             }
         }
     }
-    single { SyncAdapters(get(), get(), { false }, get(), get(), Dispatchers.IO) }
+    single { SyncAdapters(get(), get(), get(), { false }, get(), get(), Dispatchers.IO) }
     singleOf(::TasksAccountDataRepository)
 
     // Stateless factories
@@ -270,6 +271,7 @@ val commonModule = module {
         DesktopGoogleTasksSynchronizer(
             caldavDao = get(),
             taskDao = get(),
+            dirtyDao = get(),
             taskSaver = get(),
             reporting = get(),
             googleTaskDao = get(),

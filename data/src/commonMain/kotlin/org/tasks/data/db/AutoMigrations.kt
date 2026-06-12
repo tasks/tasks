@@ -13,3 +13,6 @@ class AutoMigrate83to84: AutoMigrationSpec
 @RenameColumn(tableName = "filters", fromColumnName = "f_icon", toColumnName = "f_icon")
 @RenameColumn(tableName = "caldav_lists", fromColumnName = "cdl_icon", toColumnName = "cdl_icon")
 class AutoMigrate88to89: AutoMigrationSpec
+
+@DeleteColumn(tableName = "caldav_tasks", columnName = "cd_last_sync")
+class AutoMigrate93to94: AutoMigrationSpec

@@ -7,12 +7,14 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import co.touchlab.kermit.Logger
+import org.tasks.data.db.Database
+import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 
 @Dao
-abstract class GoogleTaskDao {
+abstract class GoogleTaskDao(private val database: Database) {
     @Insert
     abstract suspend fun insert(task: CaldavTask): Long
 
@@ -30,6 +32,7 @@ abstract class GoogleTaskDao {
         }
         insert(caldavTask)
         update(task)
+        database.dirtyDao().upsertDirty(listOf(task.id))
     }
 
     @Query("UPDATE tasks SET `order` = `order` + 1 WHERE parent = :parent AND `order` >= :position AND _id IN (SELECT cd_task FROM caldav_tasks WHERE cd_calendar = :listId)")
@@ -63,13 +66,22 @@ abstract class GoogleTaskDao {
         task.order = newPosition
         update(task)
         setMoved(task.id, list)
+        database.dirtyDao().upsertDirty(listOf(task.id))
     }
 
     @Query("UPDATE caldav_tasks SET gt_moved = 1 WHERE cd_task = :task and cd_calendar = :list")
     internal abstract suspend fun setMoved(task: Long, list: String)
 
-    @Query("UPDATE caldav_tasks SET cd_remote_id = '', cd_remote_parent = NULL, cd_last_sync = 0 WHERE cd_task IN (:tasks)")
-    abstract suspend fun resetRemoteIds(tasks: List<Long>)
+    @Query("UPDATE caldav_tasks SET cd_remote_id = '', cd_remote_parent = NULL WHERE cd_task IN (:tasks)")
+    internal abstract suspend fun resetRemoteIds(tasks: List<Long>)
+
+    @Transaction
+    open suspend fun resetRemoteIdsAndMarkDirty(tasks: List<Long>) {
+        tasks.eachChunk {
+            resetRemoteIds(it)
+            database.dirtyDao().upsertDirty(it)
+        }
+    }
 
     @Query("SELECT caldav_tasks.* FROM caldav_tasks INNER JOIN caldav_lists ON cdl_uuid = cd_calendar INNER JOIN caldav_accounts ON cda_uuid = cdl_account WHERE cd_task = :taskId AND cd_deleted = 0 AND cda_account_type = $TYPE_GOOGLE_TASKS")
     abstract suspend fun getByTaskId(taskId: Long): CaldavTask?

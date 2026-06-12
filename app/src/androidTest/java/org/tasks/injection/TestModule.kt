@@ -40,6 +40,7 @@ class TestModule {
         Room
             .inMemoryDatabaseBuilder(context, Database::class.java)
             .fallbackToDestructiveMigration(dropAllTables = true)
+            .addCallback(Database.CALLBACK)
             .setDriver()
             .build()
 

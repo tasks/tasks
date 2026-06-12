@@ -11,7 +11,7 @@ import com.google.common.collect.ListMultimap
 import com.google.common.collect.Multimaps
 import com.todoroo.astrid.core.SortHelper
 import org.tasks.data.dao.TaskDao
-import org.tasks.data.TaskSaver
+import org.tasks.data.dao.DirtyDao
 import dagger.Lazy
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
@@ -61,7 +61,7 @@ class Upgrader @Inject constructor(
     private val taskAttachmentDao: TaskAttachmentDao,
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
-    private val taskSaver: TaskSaver,
+    private val dirtyDao: DirtyDao,
     private val locationDao: LocationDao,
     private val iCal: iCalendar,
     private val widgetManager: AppWidgetManager,
@@ -248,7 +248,7 @@ class Upgrader @Inject constructor(
             val geo = remoteTask.geoPosition ?: continue
             iCal.setPlace(taskId, geo)
         }
-        taskSaver.touch(tasksWithLocations)
+        dirtyDao.setDirty(tasksWithLocations)
     }
 
     private suspend fun applyCaldavSubtasks() {
@@ -272,7 +272,7 @@ class Upgrader @Inject constructor(
                 vtodoCache.getVtodo(container.caldavTask)?.let { fromVtodo(it) } ?: continue
             tagDao.insert(container.task, iCal.getTags(remoteTask.categories))
         }
-        taskSaver.touch(tasksWithTags)
+        dirtyDao.setDirty(tasksWithTags)
     }
 
     private suspend fun removeDuplicateTags() {

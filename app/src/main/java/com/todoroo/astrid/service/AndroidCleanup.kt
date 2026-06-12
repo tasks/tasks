@@ -14,14 +14,11 @@ import org.tasks.location.LocationService
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.NotificationManager
 import org.tasks.service.TaskCleanup
-import org.tasks.sync.SyncAdapters
-import org.tasks.sync.SyncSource
 import javax.inject.Inject
 
 class AndroidCleanup @Inject constructor(
     @ApplicationContext private val context: Context,
     private val deletionDao: DeletionDao,
-    private val syncAdapters: SyncAdapters,
     private val notificationManager: NotificationManager,
     private val locationService: LocationService,
     private val userActivityDao: UserActivityDao,
@@ -49,9 +46,5 @@ class AndroidCleanup @Inject constructor(
                 deletionDao.purgeDeleted()
             }
         }
-    }
-
-    override suspend fun onMarkedDeleted() {
-        syncAdapters.sync(SyncSource.TASK_CHANGE)
     }
 }

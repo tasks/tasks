@@ -27,6 +27,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TaskDao
@@ -42,6 +43,7 @@ class TaskEditViewModelTest {
     private val taskDao: TaskDao = mock()
     private val taskSaver: TaskSaver = mock()
     private val caldavDao: CaldavDao = mock()
+    private val taskMover: TaskMover = mock()
 
     private lateinit var viewModel: TaskEditViewModel
 
@@ -54,7 +56,7 @@ class TaskEditViewModelTest {
         whenever(caldavDao.getCalendars()).thenReturn(listOf(testCalendar))
         whenever(caldavDao.getAccountByUuid("acct-1")).thenReturn(testAccount)
         whenever(taskDao.watch(any())).thenReturn(MutableSharedFlow())
-        viewModel = TaskEditViewModel(taskDao, taskSaver, caldavDao)
+        viewModel = TaskEditViewModel(taskDao, taskSaver, caldavDao, taskMover)
     }
 
     @After
@@ -136,7 +138,7 @@ class TaskEditViewModelTest {
 
         verify(taskDao).createNew(check { assertEquals("New Task", it.title) })
         verify(caldavDao).insert(task = any(), caldavTask = any(), addToTop = any())
-        verify(taskSaver).save(check { assertEquals("New Task", it.title) }, anyOrNull())
+        verify(taskSaver).save(check { assertEquals("New Task", it.title) }, anyOrNull(), any())
     }
 
     @Test
@@ -148,7 +150,7 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
 
         verify(taskDao, never()).createNew(any())
-        verify(taskSaver).save(check { assertEquals("Updated", it.title) }, any())
+        verify(taskSaver).save(check { assertEquals("Updated", it.title) }, any(), any())
     }
 
     @Test
@@ -160,7 +162,7 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
 
         assertTrue(closed())
-        verify(taskSaver, never()).save(any(), anyOrNull())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any())
     }
 
     @Test
@@ -223,7 +225,7 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
 
         assertTrue(closed())
-        verify(taskSaver, never()).save(any(), anyOrNull())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any())
     }
 
     @Test
@@ -285,7 +287,7 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
 
         verify(taskDao).createNew(check { assertEquals("Unsaved work", it.title) })
-        verify(taskSaver).save(check { assertEquals("Unsaved work", it.title) }, anyOrNull())
+        verify(taskSaver).save(check { assertEquals("Unsaved work", it.title) }, anyOrNull(), any())
     }
 
     @Test
@@ -296,7 +298,7 @@ class TaskEditViewModelTest {
         viewModel.initialize(null)
         advanceUntilIdle()
 
-        verify(taskSaver, never()).save(any(), anyOrNull())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any())
     }
 
     @Test
@@ -347,6 +349,7 @@ class TaskEditViewModelTest {
         verify(taskSaver).save(
             check { assertEquals("Modified", it.title) },
             check { assertEquals("Original", it.title) },
+            any(),
         )
         assertEquals("Other Task", viewModel.state.value.task.title)
     }

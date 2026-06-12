@@ -23,6 +23,7 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskAttachmentDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.TaskListMetadataDao
 import org.tasks.data.dao.UserActivityDao
@@ -43,6 +44,7 @@ import javax.inject.Inject
 class TasksJsonExporter @Inject constructor(
     private val tagDataDao: TagDataDao,
     private val taskDao: TaskDao,
+    private val dirtyDao: DirtyDao,
     private val userActivityDao: UserActivityDao,
     private val preferences: Preferences,
     private val alarmDao: AlarmDao,
@@ -135,10 +137,15 @@ class TasksJsonExporter @Inject constructor(
             write("timestamp", currentTimeMillis())
             write("\"data\":{")
             write("\"tasks\":[")
+            val dirtyStates = dirtyDao.getDirtyStateByTaskIds(taskIds)
             taskIds.forEachIndexed { index, id ->
                 setProgress(index, taskIds.size)
                 write("{")
                 write("task", taskDao.fetch(id)!!)
+                dirtyStates[id]?.let {
+                    write("dirtyVersion", it.dirtyVersion)
+                    write("syncedVersion", it.syncedVersion)
+                }
                 write("alarms", alarmDao.getAlarms(id))
                 write("geofences", locationDao.getGeofencesForTask(id))
                 write("tags", tagDao.getTagsForTask(id))

@@ -12,6 +12,7 @@ import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.entity.CaldavTask
 import org.tasks.injection.InjectingTestCase
@@ -23,6 +24,7 @@ import javax.inject.Inject
 class CaldavTaskAdapterTest : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var taskSaver: TaskSaver
+    @Inject lateinit var dirtyDao: DirtyDao
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
@@ -36,7 +38,7 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
         super.setUp()
 
         tasks.clear()
-        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao, taskSaver, localBroadcastManager, taskMover)
+        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao, taskSaver, dirtyDao, localBroadcastManager, taskMover)
         adapter.setDataSource(object : TaskAdapterDataSource {
             override fun getItem(position: Int) = tasks[position]
 

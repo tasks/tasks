@@ -287,7 +287,7 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
             alarmDao.getAlarms(1)
         )
         alarmDao.deleteSnoozed(listOf(1))
-        taskSaver.touch(listOf(task.task))
+        dirtyDao.setDirty(listOf(task.task))
 
         synchronizer.sync(hasPro = true)
 

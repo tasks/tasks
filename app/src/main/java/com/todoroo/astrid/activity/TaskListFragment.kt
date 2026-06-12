@@ -952,7 +952,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         for (task in tasks) {
             onTaskCreated(task.uuid)
         }
-        syncAdapters.sync(SyncSource.TASK_CHANGE)
         loadTaskListContent()
     }
 
@@ -979,14 +978,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
             REQUEST_TAG_TASKS -> if (resultCode == RESULT_OK) {
                 lifecycleScope.launch {
-                    val modified = tagDataDao.applyTags(
+                    tagDataDao.applyTags(
                             taskDao
                                 .fetch(data!!.getSerializableExtra(TagPickerActivity.EXTRA_TASKS) as ArrayList<Long>)
                                 .filterNot { it.readOnly },
                             data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_PARTIALLY_SELECTED)!!,
                             data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED)!!
                     )
-                    taskSaver.touch(modified)
                 }
                 finishActionMode()
             }

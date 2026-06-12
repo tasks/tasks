@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.RawQuery
 import androidx.room.RoomRawQuery
+import androidx.room.Transaction
 import androidx.room.Update
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
@@ -14,6 +15,7 @@ import org.tasks.data.db.Database
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.CaldavAccount.Companion.TYPES_CALDAV
 import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.Functions
@@ -71,19 +73,17 @@ FROM (
             + "AND recurrence IS NOT NULL AND LENGTH(recurrence) > 0")
     abstract suspend fun getRecurringTasks(remoteIds: List<String>): List<Task>
 
-    @Query("UPDATE tasks SET completed = :completionDate, modified = :updateTime WHERE remoteId IN (:remoteIds)")
-    abstract suspend fun setCompletionDate(remoteIds: List<String>, completionDate: Long, updateTime: Long = DateTimeUtils2.currentTimeMillis())
+    @Transaction
+    open suspend fun setCompletionDate(remoteIds: List<String>, completionDate: Long, updateTime: Long = DateTimeUtils2.currentTimeMillis()) {
+        updateCompletionDate(remoteIds, completionDate, updateTime)
+        database.dirtyDao().setDirty(getTaskIds(remoteIds))
+    }
 
-    @Query("""
-        SELECT tasks.*
-        FROM tasks
-                 INNER JOIN caldav_tasks ON tasks._id = caldav_tasks.cd_task
-        WHERE caldav_tasks.cd_calendar = :calendar
-          AND cd_deleted = 0
-          AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_last_sync = 0)
-        ORDER BY CASE WHEN parent = 0 THEN 0 ELSE 1 END, $ORDER_BY_MANUAL
-    """)
-    abstract suspend fun getTasksToPush(calendar: String): List<Task>
+    @Query("UPDATE tasks SET completed = :completionDate, modified = :updateTime WHERE remoteId IN (:remoteIds)")
+    internal abstract suspend fun updateCompletionDate(remoteIds: List<String>, completionDate: Long, updateTime: Long = DateTimeUtils2.currentTimeMillis())
+
+    @Query("SELECT _id FROM tasks WHERE remoteId IN (:remoteIds)")
+    internal abstract suspend fun getTaskIds(remoteIds: List<String>): List<Long>
 
     // --- SQL clause generators
     @Query("SELECT * FROM tasks")
@@ -128,11 +128,11 @@ FROM (
     @RawQuery
     internal abstract suspend fun countRaw(query: RoomRawQuery): Int
 
-    suspend fun touch(ids: List<Long>, now: Long = DateTimeUtils2.currentTimeMillis()) =
-        ids.eachChunk { internalTouch(it, now) }
+    suspend fun touch(ids: List<Long>) =
+        ids.eachChunk { touchInternal(it) }
 
-    @Query("UPDATE tasks SET modified = :now WHERE _id in (:ids)")
-    internal abstract suspend fun internalTouch(ids: List<Long>, now: Long = DateTimeUtils2.currentTimeMillis())
+    @Query("UPDATE tasks SET modified = :now WHERE _id IN (:ids)")
+    internal abstract suspend fun touchInternal(ids: List<Long>, now: Long = DateTimeUtils2.currentTimeMillis())
 
     @Query("UPDATE tasks SET `order` = :order WHERE _id = :id")
     abstract suspend fun setOrder(id: Long, order: Long?)
@@ -177,17 +177,31 @@ FROM recursive_tasks
 """)
     abstract suspend fun getParents(parent: Long): List<Long>
 
-    @Query("UPDATE tasks SET collapsed = :collapsed, modified = :now WHERE _id IN (:ids)")
-    abstract suspend fun setCollapsed(ids: List<Long>, collapsed: Boolean, now: Long = DateTimeUtils2.currentTimeMillis())
+    @Transaction
+    open suspend fun setCollapsed(ids: List<Long>, collapsed: Boolean) {
+        updateCollapsed(ids, collapsed)
+        database.dirtyDao().setDirty(ids, TYPES_CALDAV)
+    }
+
+    @Query("UPDATE tasks SET collapsed = :collapsed WHERE _id IN (:ids)")
+    internal abstract suspend fun updateCollapsed(ids: List<Long>, collapsed: Boolean)
+
+    @Transaction
+    open suspend fun <T> inTransaction(block: suspend () -> T): T = block()
 
     @Insert
     abstract suspend fun insert(task: Task): Long
 
-    suspend fun update(task: Task, original: Task? = null): Boolean {
-        if (!task.insignificantChange(original)) {
+    @Transaction
+    open suspend fun update(task: Task, original: Task? = null, updateTimestamp: Boolean = true, markDirty: Boolean = false): Boolean {
+        if (updateTimestamp && !task.insignificantChange(original)) {
             task.modificationDate = DateTimeUtils2.currentTimeMillis()
         }
-        return updateInternal(task) == 1
+        val updated = updateInternal(task) == 1
+        if (updated && markDirty) {
+            database.dirtyDao().upsertDirty(listOf(task.id))
+        }
+        return updated
     }
 
     @Update

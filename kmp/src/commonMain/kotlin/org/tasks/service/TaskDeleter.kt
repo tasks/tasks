@@ -35,7 +35,6 @@ class TaskDeleter(
             ids = ids,
             cleanup = { taskCleanup.cleanup(it) }
         )
-        taskCleanup.onMarkedDeleted()
         refreshBroadcaster.broadcastRefresh()
         taskDao.fetch(ids)
     }

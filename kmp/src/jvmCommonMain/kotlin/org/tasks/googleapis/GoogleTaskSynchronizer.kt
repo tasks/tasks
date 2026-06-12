@@ -15,6 +15,7 @@ import org.tasks.data.TaskSaver
 import org.tasks.data.createDueDate
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
@@ -40,6 +41,7 @@ class GoogleTaskSynchronizer(
     private val caldavDao: CaldavDao,
     private val gtasksListService: GtasksListService,
     private val taskDao: TaskDao,
+    private val dirtyDao: DirtyDao,
     private val taskSaver: TaskSaver,
     private val reporting: Reporting,
     private val googleTaskDao: GoogleTaskDao,
@@ -196,11 +198,14 @@ class GoogleTaskSynchronizer(
             }
             googleTaskDao.delete(deleted)
         }
-        val tasks = calendars.flatMap { taskDao.getTasksToPush(it.uuid!!) }
-        for (task in tasks) {
-            val staleTaskId = pushTask(task, account.uuid!!, gtasksInvoker)
-            if (staleTaskId != null) {
-                return staleTaskId
+        val tasks = calendars.flatMap { dirtyDao.getTasksToPush(it.uuid!!) }
+        for (toPush in tasks) {
+            try {
+                pushTask(toPush.task, toPush.caldavTaskId, toPush.dirtyVersion, gtasksInvoker)
+            } catch (e: RetryTaskException) {
+                return e.taskId
+            } catch (e: HttpNotFoundException) {
+                Logger.w(TAG, e) { "Task ${toPush.task.id} gone remotely" }
             }
         }
         return null
@@ -209,133 +214,140 @@ class GoogleTaskSynchronizer(
     @Throws(IOException::class)
     private suspend fun pushTask(
         task: org.tasks.data.entity.Task,
-        account: String,
+        caldavTaskId: Long,
+        dirtyVersion: Long?,
         gtasksInvoker: GtasksInvoker,
-    ): Long? {
-        val gtasksMetadata = googleTaskDao.getByTaskId(task.id) ?: return null
-        val remoteModel = Task()
-        var newlyCreated = false
-        val remoteId: String?
-        val defaultRemoteList = defaultListProvider.getDefaultList()
-        var listId = if (defaultRemoteList.isGoogleTasks) defaultRemoteList.uuid else DEFAULT_LIST
-        if (gtasksMetadata.remoteId.isNullOrEmpty()) { // Create case
-            gtasksMetadata.calendar?.takeIf { it.isNotBlank() }?.let {
-                listId = it
+    ) {
+        val gtasksMetadata = caldavDao.getCaldavTaskById(caldavTaskId) ?: return
+        val newlyCreated = gtasksMetadata.remoteId.isNullOrEmpty()
+        if (newlyCreated && task.deletionDate > 0) {
+            taskDeleter.delete(task.id)
+            return
+        }
+        if (newlyCreated && task.title.isNullOrEmpty()) {
+            return
+        }
+        dirtyDao.withDirtyVersion(caldavTaskId, dirtyVersion) {
+            val remoteModel = Task()
+            val remoteId: String?
+            val defaultRemoteList = defaultListProvider.getDefaultList()
+            var listId =
+                if (defaultRemoteList.isGoogleTasks) defaultRemoteList.uuid else DEFAULT_LIST
+            if (newlyCreated) { // Create case
+                gtasksMetadata.calendar?.takeIf { it.isNotBlank() }?.let {
+                    listId = it
+                }
+            } else { // update case
+                remoteId = gtasksMetadata.remoteId
+                listId = gtasksMetadata.calendar!!
+                remoteModel.id = remoteId
             }
-            newlyCreated = true
-        } else { // update case
-            remoteId = gtasksMetadata.remoteId
-            listId = gtasksMetadata.calendar!!
-            remoteModel.id = remoteId
-        }
 
-        // If task was newly created but without a title, don't sync--we're in the middle of
-        // creating a task which may end up being cancelled. Also don't sync new but already
-        // deleted tasks
-        if (newlyCreated && (task.title.isNullOrEmpty() || task.deletionDate > 0)) {
-            return null
-        }
-
-        // Update the remote model's changed properties
-        if (task.isDeleted) {
-            remoteModel.deleted = true
-        }
-        remoteModel.title = truncate(task.title, MAX_TITLE_LENGTH)
-        remoteModel.notes = truncate(task.notes, MAX_DESCRIPTION_LENGTH)
-        if (task.hasDueDate()) {
-            remoteModel.due = GtasksApiUtilities.unixTimeToGtasksDueDate(task.dueDate)?.toStringRfc3339()
-        }
-        if (task.isCompleted) {
-            remoteModel.completed = GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.completionDate)?.toStringRfc3339()
-            remoteModel.status = "completed"
-        } else {
-            remoteModel.completed = null
-            remoteModel.status = "needsAction"
-        }
-        if (newlyCreated) {
-            val parent = task.parent
-            val localParent = if (parent > 0) googleTaskDao.getRemoteId(parent, listId) else null
-            val previous = googleTaskDao.getPrevious(
-                listId, if (localParent.isNullOrEmpty()) 0 else parent, task.order ?: 0)
-            val created: Task? = try {
-                gtasksInvoker.createGtask(listId, remoteModel, localParent, previous)
-            } catch (e: HttpNotFoundException) {
-                Logger.e(TAG, e) { "Failed to create task, retry without parent or order" }
-                gtasksInvoker.createGtask(listId, remoteModel, null, null)
+            // Update the remote model's changed properties
+            if (task.isDeleted) {
+                remoteModel.deleted = true
             }
-            if (created != null) {
-                gtasksMetadata.remoteId = created.id
-                gtasksMetadata.calendar = listId
-                setOrderAndParent(gtasksMetadata, created, task)
-                Logger.d(TAG) { "Created new task: $gtasksMetadata" }
+            remoteModel.title = truncate(task.title, MAX_TITLE_LENGTH)
+            remoteModel.notes = truncate(task.notes, MAX_DESCRIPTION_LENGTH)
+            if (task.hasDueDate()) {
+                remoteModel.due =
+                    GtasksApiUtilities.unixTimeToGtasksDueDate(task.dueDate)?.toStringRfc3339()
+            }
+            if (task.isCompleted) {
+                remoteModel.completed =
+                    GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.completionDate)
+                        ?.toStringRfc3339()
+                remoteModel.status = "completed"
             } else {
-                Logger.e(TAG) { "Empty response when creating task" }
-                return null
+                remoteModel.completed = null
+                remoteModel.status = "needsAction"
             }
-        } else {
-            try {
-                if (!task.isDeleted && gtasksMetadata.isMoved) {
-                    try {
-                        val parent = task.parent
-                        val localParent = if (parent > 0) googleTaskDao.getRemoteId(parent, listId) else null
-                        val previous = googleTaskDao.getPrevious(
-                            listId,
-                            if (localParent.isNullOrBlank()) 0 else parent,
-                            task.order ?: 0,
-                        )
-                        gtasksInvoker
-                            .moveGtask(
-                                listId = listId,
-                                taskId = remoteModel.id,
-                                parentId = localParent,
-                                previousId = previous,
+            if (newlyCreated) {
+                val parent = task.parent
+                val localParent =
+                    if (parent > 0) googleTaskDao.getRemoteId(parent, listId) else null
+                val previous = googleTaskDao.getPrevious(
+                    listId, if (localParent.isNullOrEmpty()) 0 else parent, task.order ?: 0
+                )
+                val created: Task? = try {
+                    gtasksInvoker.createGtask(listId, remoteModel, localParent, previous)
+                } catch (e: HttpNotFoundException) {
+                    Logger.e(TAG, e) { "Failed to create task, retry without parent or order" }
+                    gtasksInvoker.createGtask(listId, remoteModel, null, null)
+                }
+                if (created != null) {
+                    gtasksMetadata.remoteId = created.id
+                    gtasksMetadata.calendar = listId
+                    setOrderAndParent(gtasksMetadata, created, task)
+                    Logger.d(TAG) { "Created new task: $gtasksMetadata" }
+                } else {
+                    error("Empty response when creating task ${task.id}")
+                }
+            } else {
+                try {
+                    if (!task.isDeleted && gtasksMetadata.isMoved) {
+                        try {
+                            val parent = task.parent
+                            val localParent =
+                                if (parent > 0) googleTaskDao.getRemoteId(parent, listId) else null
+                            val previous = googleTaskDao.getPrevious(
+                                listId,
+                                if (localParent.isNullOrBlank()) 0 else parent,
+                                task.order ?: 0,
                             )
-                            ?.let {
-                                setOrderAndParent(
-                                    googleTask = gtasksMetadata,
-                                    task = it,
-                                    local = task,
+                            gtasksInvoker
+                                .moveGtask(
+                                    listId = listId,
+                                    taskId = remoteModel.id,
+                                    parentId = localParent,
+                                    previousId = previous,
                                 )
+                                ?.let {
+                                    setOrderAndParent(
+                                        googleTask = gtasksMetadata,
+                                        task = it,
+                                        local = task,
+                                    )
+                                }
+                        } catch (e: GoogleJsonResponseException) {
+                            if (e.statusCode == 400) {
+                                Logger.w(TAG) { "HTTP 400: clearing parent and order" }
+                                reporting.reportException(e)
+                                taskDao.setParent(0L, listOf(task.id))
+                                taskDao.setOrder(task.id, 0L)
+                                googleTaskDao.update(gtasksMetadata.copy(isMoved = false))
+                                throw RetryTaskException(task.id)
+                            } else {
+                                throw e
                             }
+                        }
+                    }
+                    try {
+                        gtasksInvoker.updateGtask(listId, remoteModel)
                     } catch (e: GoogleJsonResponseException) {
-                        if (e.statusCode == 400) {
-                            Logger.w(TAG) { "HTTP 400: clearing parent and order" }
+                        if (e.statusCode == 400 && e.details?.message == "Invalid task ID") {
+                            Logger.w(TAG) { "HTTP 400: Invalid task ID for ${remoteModel.id}, clearing to recreate on next sync" }
                             reporting.reportException(e)
-                            taskDao.setParent(0L, listOf(task.id))
-                            taskDao.setOrder(task.id, 0L)
-                            googleTaskDao.update(gtasksMetadata.copy(isMoved = false))
-                            return task.id
+                            googleTaskDao.update(
+                                gtasksMetadata.copy(
+                                    remoteId = "",
+                                    isMoved = false,
+                                )
+                            )
+                            throw RetryTaskException(task.id)
                         } else {
                             throw e
                         }
                     }
+                } catch (e: HttpNotFoundException) {
+                    Logger.w(TAG) { "HTTP 404, deleting $gtasksMetadata" }
+                    googleTaskDao.delete(gtasksMetadata)
+                    throw e
                 }
-                try {
-                    gtasksInvoker.updateGtask(listId, remoteModel)
-                } catch (e: GoogleJsonResponseException) {
-                    if (e.statusCode == 400 && e.details?.message == "Invalid task ID") {
-                        Logger.w(TAG) { "HTTP 400: Invalid task ID for ${remoteModel.id}, clearing to recreate on next sync" }
-                        reporting.reportException(e)
-                        googleTaskDao.update(
-                            gtasksMetadata.copy(
-                                remoteId = "",
-                                isMoved = false,
-                            )
-                        )
-                        return task.id
-                    } else {
-                        throw e
-                    }
-                }
-            } catch (_: HttpNotFoundException) {
-                Logger.w(TAG) { "HTTP 404, deleting $gtasksMetadata" }
-                googleTaskDao.delete(gtasksMetadata)
-                return null
             }
+            gtasksMetadata.isMoved = false
+            write(task, gtasksMetadata)
         }
-        gtasksMetadata.isMoved = false
-        write(task, gtasksMetadata)
-        return null
     }
 
     @Throws(IOException::class)
@@ -416,11 +428,16 @@ class GoogleTaskSynchronizer(
                 if (recreate) {
                     googleTask.remoteId = ""
                     taskCompleter.setComplete(task, false)
-                    googleTaskDao.resetRemoteIds(taskDao.getChildren(task.id))
+                    val children = taskDao.getChildren(task.id)
+                    googleTaskDao.resetRemoteIdsAndMarkDirty(children)
                 }
                 Logger.d(TAG) {
                     "${if (recreate) "advancing and recreating" else "final occurrence"}: $task"
                 }
+            }
+            val isDirty = googleTask.id > 0 && dirtyDao.isDirty(googleTask.id) == true
+            if (!isDirty) {
+                gtask.updated?.let { task.modificationDate = DateTime(it).value }
             }
             if (task.title?.isNotBlank() == true || task.notes?.isNotBlank() == true) {
                 write(task, googleTask, original, recreate = recreate)
@@ -451,20 +468,11 @@ class GoogleTaskSynchronizer(
             taskDao.createNew(task)
             alarmDao.insert(task.getDefaultAlarms(appPreferences.isDefaultDueTimeEnabled()))
         }
-        taskSaver.save(task, original)
-        googleTask
-            .copy(
-                task = task.id,
-                lastSync = if (recreate) 0L else task.modificationDate,
-            )
-            .let {
-                if (it.id == 0L) {
-                    googleTaskDao.insert(it)
-                } else {
-                    googleTaskDao.update(it)
-                }
-            }
+        taskSaver.save(task, original, dirty = false)
+        caldavDao.insertOrUpdateAndMarkSynced(googleTask.copy(task = task.id), markDirty = recreate)
     }
+
+    private class RetryTaskException(val taskId: Long) : Exception()
 
     companion object {
         private const val TAG = "GoogleTaskSynchronizer"

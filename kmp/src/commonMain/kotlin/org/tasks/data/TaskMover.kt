@@ -12,8 +12,6 @@ import org.tasks.data.entity.Task
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.preferences.AppPreferences
-import org.tasks.sync.SyncAdapters
-import org.tasks.sync.SyncSource
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 class TaskMover(
@@ -22,7 +20,6 @@ class TaskMover(
     private val googleTaskDao: GoogleTaskDao,
     private val appPreferences: AppPreferences,
     private val refreshBroadcaster: RefreshBroadcaster,
-    private val syncAdapters: SyncAdapters,
     private val vtodoCache: VtodoCache,
 ) {
     private val log = Logger.withTag("TaskMover")
@@ -54,7 +51,7 @@ class TaskMover(
             .let { taskDao.fetch(ids.minus(it.toSet())) }
             .filterNot { it.readOnly }
         val taskIds = tasks.map { it.id }
-        caldavDao.inTransaction {
+        taskDao.inTransaction {
             taskDao.setParent(0, ids.intersect(taskIds.toSet()).toList())
             tasks.forEach { performMove(it, selectedList) }
             if (selectedList.isIcalendar) {
@@ -63,7 +60,6 @@ class TaskMover(
             }
         }
         refreshBroadcaster.broadcastRefresh()
-        syncAdapters.sync(SyncSource.TASK_CHANGE)
     }
 
     suspend fun migrateLocalTasks() {

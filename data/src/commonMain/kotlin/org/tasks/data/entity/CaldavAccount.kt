@@ -102,6 +102,27 @@ data class CaldavAccount(
         const val TYPE_MICROSOFT = 6
         const val TYPE_GOOGLE_TASKS = 7
 
+        val TYPES_CALDAV = listOf(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_OPENTASKS)
+
+        private val ALL_ACCOUNT_TYPES = listOf(
+            TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_OPENTASKS,
+            TYPE_MICROSOFT, TYPE_GOOGLE_TASKS, TYPE_LOCAL,
+        )
+
+        val TYPES_NON_LOCAL = ALL_ACCOUNT_TYPES.filter { it != TYPE_LOCAL }
+
+        fun syncTraits(accountType: Int): Set<SyncTrait> = when (accountType) {
+            TYPE_MICROSOFT -> setOf(SyncTrait.TAGS)
+            in TYPES_CALDAV -> setOf(SyncTrait.TAGS, SyncTrait.ALARMS, SyncTrait.LOCATION)
+            else -> emptySet()
+        }
+
+        fun accountTypesFor(trait: SyncTrait): List<Int> =
+            ALL_ACCOUNT_TYPES.filter { trait in syncTraits(it) }
+
+        val TYPES_TAGS = accountTypesFor(SyncTrait.TAGS)
+        val TYPES_ALARMS = accountTypesFor(SyncTrait.ALARMS)
+
         const val SERVER_UNKNOWN = -1
         const val SERVER_TASKS = 0
         const val SERVER_OWNCLOUD = 1
@@ -132,3 +153,6 @@ data class CaldavAccount(
         fun String?.isTosRequired(): Boolean = this?.startsWith(ERROR_TOS_REQUIRED) == true
     }
 }
+
+/** A category of local change that some account types sync to their server. */
+enum class SyncTrait { TAGS, ALARMS, LOCATION }

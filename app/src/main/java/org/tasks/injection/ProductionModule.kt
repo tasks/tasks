@@ -48,6 +48,7 @@ internal class ProductionModule {
                 name = databaseFile.absolutePath
             )
             .addMigrations(*Migrations.migrations(context, fileStorage))
+            .addCallback(Database.CALLBACK)
             .setDriver()
         if (!BuildConfig.DEBUG || !preferences.getBoolean(R.string.p_crash_main_queries, false)) {
             builder.allowMainThreadQueries()

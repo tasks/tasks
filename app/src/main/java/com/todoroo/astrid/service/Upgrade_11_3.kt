@@ -6,6 +6,7 @@ import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.apply
 import org.tasks.data.OpenTaskDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.UpgraderDao
 import javax.inject.Inject
@@ -14,6 +15,7 @@ class Upgrade_11_3 @Inject constructor(
     private val upgraderDao: UpgraderDao,
     private val openTaskDao: OpenTaskDao,
     private val taskDao: TaskDao,
+    private val dirtyDao: DirtyDao,
     private val vtodoCache: VtodoCache,
 ) {
     internal suspend fun applyiCalendarStartDates() {
@@ -31,7 +33,7 @@ class Upgrade_11_3 @Inject constructor(
         }
         hasStartDate
                 .map { it.id }
-                .let { taskDao.touch(it) }
+                .let { dirtyDao.setDirty(it) }
     }
 
     internal suspend fun applyOpenTaskStartDates() {
@@ -52,7 +54,7 @@ class Upgrade_11_3 @Inject constructor(
             }
             hasStartDate
                     .map { it.id }
-                    .let { taskDao.touch(it) }
+                    .let { dirtyDao.setDirty(it) }
         }
     }
 

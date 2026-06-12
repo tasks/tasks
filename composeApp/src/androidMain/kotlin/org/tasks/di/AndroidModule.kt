@@ -49,7 +49,7 @@ actual fun platformModule(): Module = module {
         Room.databaseBuilder<Database>(
             context = context,
             name = dbFile.absolutePath,
-        ).build()
+        ).addCallback(Database.CALLBACK).build()
     }
     single {
         val context = androidContext()
@@ -82,7 +82,7 @@ actual fun platformModule(): Module = module {
             caldavDao = get(),
             taskDeleter = get(),
             refreshBroadcaster = get(),
-            taskDao = get(),
+            dirtyDao = get(),
             reporting = get(),
             iCalendar = get(),
             openTaskDao = get(),

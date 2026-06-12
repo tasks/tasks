@@ -8,10 +8,12 @@ package com.todoroo.astrid.alarms
 import co.touchlab.kermit.Logger
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.AlarmDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.db.DbUtils
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.entity.CaldavAccount.Companion.TYPES_ALARMS
 import org.tasks.data.entity.Notification
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
@@ -22,6 +24,7 @@ import org.tasks.time.startOfMinute
 class AlarmService(
     private val alarmDao: AlarmDao,
     private val taskDao: TaskDao,
+    private val dirtyDao: DirtyDao,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val notifier: Notifier,
     private val alarmCalculator: AlarmCalculator,
@@ -59,9 +62,12 @@ class AlarmService(
 
     suspend fun snooze(time: Long, taskIds: List<Long>) {
         notifier.cancel(taskIds, CancelReason.SNOOZE)
-        alarmDao.deleteSnoozed(taskIds)
-        alarmDao.insert(taskIds.map { Alarm(task = it, time = time, type = TYPE_SNOOZE) })
-        taskDao.touch(taskIds)
+        taskDao.inTransaction {
+            alarmDao.deleteSnoozed(taskIds)
+            alarmDao.insert(taskIds.map { Alarm(task = it, time = time, type = TYPE_SNOOZE) })
+            taskDao.touch(taskIds)
+            dirtyDao.setDirty(taskIds, TYPES_ALARMS)
+        }
         notifier.triggerNotifications()
     }
 

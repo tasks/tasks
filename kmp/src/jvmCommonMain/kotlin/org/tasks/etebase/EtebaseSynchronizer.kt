@@ -22,9 +22,10 @@ import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.dao.TaskDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavTask
 import org.tasks.kmp.PROD_ID
 import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -34,7 +35,7 @@ import tasks.kmp.generated.resources.requires_pro_subscription
 
 class EtebaseSynchronizer(
     private val caldavDao: CaldavDao,
-    private val taskDao: TaskDao,
+    private val dirtyDao: DirtyDao,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val taskDeleter: TaskDeleter,
     private val clientProvider: EtebaseClientProvider,
@@ -80,6 +81,9 @@ class EtebaseSynchronizer(
             setError(account, e)
         } catch (e: UnauthorizedException) {
             setError(account, e)
+        } catch (e: Exception) {
+            setError(account, e)
+            reporting.reportException(e)
         }
     }
 
@@ -171,9 +175,12 @@ class EtebaseSynchronizer(
                         caldavDao.delete(caldavTask)
                     }
         }
-        for (task in taskDao.getTasksToPush(caldavCalendar.uuid!!)) {
-            val caldavTask = caldavDao.getTask(task.id) ?: continue
-            caldavTask.lastSync = task.modificationDate
+        val tasksToPush = dirtyDao.getTasksToPush(caldavCalendar.uuid!!)
+        val dirtyVersions = tasksToPush.associate { it.caldavTaskId to it.dirtyVersion }
+        val caldavTasks = tasksToPush.mapNotNull { toPush ->
+            caldavDao.getCaldavTaskById(toPush.caldavTaskId)?.let { toPush.task to it }
+        }
+        for ((task, caldavTask) in caldavTasks) {
             if (task.isDeleted) {
                 client.deleteItem(collection, caldavTask)
                         ?.let { changes.add(it) }
@@ -183,14 +190,14 @@ class EtebaseSynchronizer(
                         client.updateItem(
                             collection,
                             caldavTask,
-                            iCal.toVtodo(account, caldavCalendar, caldavTask, task)
+                            iCal.toVtodo(account, caldavCalendar, caldavTask, task),
                         )
                 )
             }
         }
         if (changes.isNotEmpty()) {
             client.uploadChanges(collection, changes)
-            applyEntries(account, caldavCalendar, changes, isLocalChange = true)
+            applyEntries(account, caldavCalendar, changes, isLocalChange = true, dirtyVersions = dirtyVersions)
             client.updateCache(collection, changes)
         }
     }
@@ -200,7 +207,8 @@ class EtebaseSynchronizer(
         caldavCalendar: CaldavCalendar,
         items: List<Item>,
         stoken: String? = null,
-        isLocalChange: Boolean = false
+        isLocalChange: Boolean = false,
+        dirtyVersions: Map<Long, Long> = emptyMap(),
     ) {
         for (item in items) {
             val vtodo = item.contentString
@@ -219,8 +227,8 @@ class EtebaseSynchronizer(
             } else if (isLocalChange) {
                 caldavTask?.let {
                     vtodoCache.putVtodo(caldavCalendar, it, vtodo)
-                    it.lastSync = item.meta.mtime ?: currentTimeMillis()
                     caldavDao.update(it)
+                    dirtyVersions[it.id]?.let { v -> dirtyDao.markPushed(it.id, v) }
                 }
             } else {
                 caldavTask?.obj = item.uid

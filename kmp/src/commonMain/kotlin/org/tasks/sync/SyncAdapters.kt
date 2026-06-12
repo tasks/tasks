@@ -1,30 +1,29 @@
 package org.tasks.sync
 
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.CaldavDao
-import org.tasks.jobs.BackgroundWork
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
-import org.tasks.data.entity.SUPPRESS_SYNC
-import org.tasks.data.entity.SYNC_ALARMS
-import org.tasks.data.entity.SYNC_LOCATION
-import org.tasks.data.entity.SYNC_TAGS
-import org.tasks.data.entity.Task
+import org.tasks.jobs.BackgroundWork
 import org.tasks.preferences.TasksPreferences
 import kotlin.coroutines.CoroutineContext
 
 class SyncAdapters(
     private val backgroundWork: BackgroundWork,
     private val caldavDao: CaldavDao,
+    private val dirtyDao: DirtyDao,
     private val openTaskSyncCheck: suspend () -> Boolean,
     private val tasksPreferences: TasksPreferences,
     private val refreshBroadcaster: RefreshBroadcaster,
@@ -47,24 +46,14 @@ class SyncAdapters(
         }
     }
 
-    fun sync(task: Task, original: Task?) = scope.launch {
-        if (task.checkTransitory(SUPPRESS_SYNC)) {
-            return@launch
-        }
-        val accountType = caldavDao.getAccountType(task.id) ?: return@launch
-        val needsSync = when (accountType) {
-            TYPE_LOCAL ->
-                false
-            TYPE_GOOGLE_TASKS ->
-                !task.googleTaskUpToDate(original)
-            TYPE_MICROSOFT ->
-                task.checkTransitory(SYNC_TAGS) || !task.microsoftUpToDate(original)
-            else ->
-                task.checkTransitory(SYNC_ALARMS, SYNC_TAGS, SYNC_LOCATION) ||
-                !task.caldavUpToDate(original)
-        }
-        if (needsSync) {
-            sync.sync(SyncSource.TASK_CHANGE)
+    init {
+        scope.launch {
+            dirtyDao
+                .hasDirtyTasks()
+                .onEach { log.d { "dirty table changed: hasDirty=$it" } }
+                .filter { it }
+                .conflate()
+                .collect { sync(SyncSource.TASK_CHANGE).join() }
         }
     }
 
@@ -95,6 +84,7 @@ class SyncAdapters(
     private suspend fun isOpenTaskSyncEnabled() = openTaskSyncCheck()
 
     companion object {
+        private val log = Logger.withTag("SyncAdapters")
         const val TAG_SYNC = "tag_sync"
     }
 }

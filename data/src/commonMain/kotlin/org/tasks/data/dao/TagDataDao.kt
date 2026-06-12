@@ -10,14 +10,16 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import org.tasks.data.NO_ORDER
 import org.tasks.data.TagFilters
+import org.tasks.data.db.Database
 import org.tasks.data.db.DbUtils
+import org.tasks.data.entity.CaldavAccount.Companion.TYPES_TAGS
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 @Dao
-abstract class TagDataDao {
+abstract class TagDataDao(private val database: Database) {
     @Query("SELECT * FROM tagdata")
     abstract fun subscribeToTags(): Flow<List<TagData>>
 
@@ -110,14 +112,37 @@ abstract class TagDataDao {
                 )
             }
         }
-        return ArrayList(modified)
+        val result = ArrayList(modified)
+        if (result.isNotEmpty()) {
+            database.dirtyDao().setDirty(result, TYPES_TAGS)
+        }
+        return result
+    }
+
+    @Transaction
+    open suspend fun updateTag(tagData: TagData) {
+        val nameChanged = getByUuid(tagData.remoteId!!)?.name != tagData.name
+        update(tagData)
+        if (nameChanged) {
+            val tagDao = database.tagDao()
+            tagDao.rename(tagData.remoteId!!, tagData.name!!)
+            val affectedTaskIds = tagDao.getByTagUid(tagData.remoteId!!).map { it.task }
+            if (affectedTaskIds.isNotEmpty()) {
+                database.dirtyDao().setDirty(affectedTaskIds, TYPES_TAGS)
+            }
+        }
     }
 
     @Transaction
     open suspend fun delete(tagData: TagData) {
         Logger.d("TagDataDao") { "deleting $tagData" }
+        val tagDao = database.tagDao()
+        val affectedTaskIds = tagDao.getByTagUid(tagData.remoteId!!).map { it.task }
         deleteTags(tagData.remoteId!!)
         deleteTagData(tagData)
+        if (affectedTaskIds.isNotEmpty()) {
+            database.dirtyDao().setDirty(affectedTaskIds, TYPES_TAGS)
+        }
     }
 
     @Delete

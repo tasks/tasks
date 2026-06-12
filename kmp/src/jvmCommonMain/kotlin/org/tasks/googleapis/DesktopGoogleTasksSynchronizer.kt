@@ -7,6 +7,7 @@ import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
@@ -20,6 +21,7 @@ import tasks.kmp.generated.resources.cannot_access_account
 class DesktopGoogleTasksSynchronizer(
     private val caldavDao: CaldavDao,
     taskDao: TaskDao,
+    dirtyDao: DirtyDao,
     taskSaver: TaskSaver,
     reporting: Reporting,
     googleTaskDao: GoogleTaskDao,
@@ -38,6 +40,7 @@ class DesktopGoogleTasksSynchronizer(
         caldavDao = caldavDao,
         gtasksListService = GtasksListService(caldavDao, taskDeleter, refreshBroadcaster),
         taskDao = taskDao,
+        dirtyDao = dirtyDao,
         taskSaver = taskSaver,
         reporting = reporting,
         googleTaskDao = googleTaskDao,

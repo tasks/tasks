@@ -48,8 +48,6 @@ data class CaldavTask(
     var obj: String? = remoteId?.let { "$it.ics" },
     @ColumnInfo(name = "cd_etag")
     var etag: String? = null,
-    @ColumnInfo(name = "cd_last_sync")
-    var lastSync: Long = 0,
     @ColumnInfo(name = "cd_deleted")
     var deleted: Long = 0,
     @ColumnInfo(name = "cd_remote_parent")

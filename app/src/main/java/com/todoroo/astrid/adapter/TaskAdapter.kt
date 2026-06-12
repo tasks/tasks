@@ -20,6 +20,7 @@ import org.tasks.data.createDueDate
 import org.tasks.data.createHideUntil
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.CaldavDao.Companion.toAppleEpoch
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavTask
@@ -34,6 +35,7 @@ open class TaskAdapter(
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
     private val taskSaver: TaskSaver,
+    private val dirtyDao: DirtyDao,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val taskMover: TaskMover,
 ) {
@@ -257,7 +259,6 @@ open class TaskAdapter(
                 top = newTasksOnTop
             )
         }
-        taskSaver.touch(listOf(task.id))
         if (BuildConfig.DEBUG) {
             googleTaskDao.validateSorting(list)
         }
@@ -290,20 +291,22 @@ open class TaskAdapter(
                     ?.takeIf { task.creationDate.toAppleEpoch() <= it }
                     ?.plus(1)
         }
-        if (caldavTask.id == 0L) {
-            caldavDao.insert(
-                CaldavTask(
-                    task = task.id,
-                    calendar = list,
-                    remoteParent = caldavTask.remoteParent,
+        taskDao.inTransaction {
+            if (caldavTask.id == 0L) {
+                caldavDao.insert(
+                    CaldavTask(
+                        task = task.id,
+                        calendar = list,
+                        remoteParent = caldavTask.remoteParent,
+                    )
                 )
-            )
-        } else {
-            caldavDao.update(caldavTask)
+            } else {
+                caldavDao.update(caldavTask)
+            }
+            taskDao.setOrder(task.id, task.task.order)
+            taskDao.setParent(newParentId, listOf(task.id))
+            dirtyDao.setDirty(listOf(task.id))
         }
-        taskDao.setOrder(task.id, task.task.order)
-        taskDao.setParent(newParentId, listOf(task.id))
-        taskSaver.touch(listOf(task.id))
         refreshBroadcaster.broadcastRefresh()
     }
 
@@ -382,7 +385,6 @@ open class TaskAdapter(
                     )
             }
         }
-        taskSaver.touch(listOf(task.id))
         refreshBroadcaster.broadcastRefresh()
         if (BuildConfig.DEBUG) {
             googleTaskDao.validateSorting(task.caldav!!)
@@ -414,7 +416,6 @@ open class TaskAdapter(
             newParent = newParent,
             newPosition = newPosition,
         )
-        taskSaver.touch(listOf(task.id))
         refreshBroadcaster.broadcastRefresh()
     }
 

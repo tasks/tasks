@@ -3,6 +3,7 @@ package org.tasks.backup
 import android.content.Context
 import android.net.Uri
 import android.util.JsonReader
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.TaskSaver
 import org.tasks.data.entity.Alarm
@@ -22,6 +23,10 @@ import com.todoroo.astrid.service.Upgrader.Companion.getAndroidColor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.longOrNull
 import org.tasks.extensions.lenientJson
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
@@ -51,6 +56,7 @@ import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.TaskAttachment
+import org.tasks.data.entity.TaskDirtyVersion
 import org.tasks.data.entity.TaskListMetadata
 import org.tasks.db.Migrations.repeatFrom
 import org.tasks.db.Migrations.withoutFrom
@@ -68,6 +74,7 @@ class TasksJsonImporter @Inject constructor(
     private val tagDataDao: TagDataDao,
     private val userActivityDao: UserActivityDao,
     private val taskDao: TaskDao,
+    private val dirtyDao: DirtyDao,
     private val taskSaver: TaskSaver,
     private val locationDao: LocationDao,
     private val refreshBroadcaster: RefreshBroadcaster,
@@ -327,13 +334,17 @@ class TasksJsonImporter @Inject constructor(
                     while (reader.hasNext()) {
                         when (val element = reader.nextName()) {
                             "tasks" -> {
-                                reader.forEach<TaskBackup> { backup ->
+                                reader.beginArray()
+                                while (reader.hasNext()) {
+                                    val rawJson = reader.jsonString()
+                                    val backup = lenientJson.decodeFromString<TaskBackup>(rawJson)
                                     result.taskCount++
                                     onProgress?.invoke(
                                         context.getString(R.string.import_progress_read, result.taskCount)
                                     )
-                                    importTask(backup, version, result, calendarUuidMap)
+                                    importTask(backup, version, rawJson, result, calendarUuidMap)
                                 }
+                                reader.endArray()
                             }
                             else -> {
                                 Timber.w("Skipping $element")
@@ -357,10 +368,23 @@ class TasksJsonImporter @Inject constructor(
     private suspend fun importTask(
         backup: TaskBackup,
         version: Int,
+        rawJson: String,
         result: ImportResult,
         calendarUuidMap: Map<String, String>,
     ) {
         val task = backup.task
+        val perTaskDirty: Pair<Long, Long>? = when {
+            backup.dirtyVersion != null && backup.syncedVersion != null ->
+                backup.dirtyVersion to backup.syncedVersion
+            version >= DIRTY_FLAG_VERSION -> {
+                val synced = backup.syncedVersion ?: 0L
+                val dirty = backup.dirtyVersion ?: (synced + 1)
+                dirty to synced
+            }
+            else -> null
+        }
+        val googleLastSync = if (perTaskDirty == null) lastSyncValues(rawJson, "google") else emptyList()
+        val caldavLastSync = if (perTaskDirty == null) lastSyncValues(rawJson, "caldavTasks") else emptyList()
         taskDao.fetch(task.uuid)
             ?.let {
                 result.skipCount++
@@ -436,17 +460,22 @@ class TasksJsonImporter @Inject constructor(
             }
             userActivityDao.createNew(comment)
         }
-        backup.google?.forEach { googleTask ->
-            caldavDao.insert(
+        backup.google?.forEachIndexed { index, googleTask ->
+            val id = caldavDao.insert(
                 CaldavTask(
                     task = taskId,
                     calendar = googleTask.listId,
                     remoteId = googleTask.remoteId,
                     remoteOrder = googleTask.remoteOrder,
                     remoteParent = googleTask.remoteParent,
-                    lastSync = googleTask.lastSync,
+                    deleted = googleTask.deleted,
                 )
             )
+            if (googleTask.deleted == 0L) {
+                val (dirty, synced) = perTaskDirty
+                    ?: reconstructDirtyVersion(googleLastSync.getOrNull(index), task.modificationDate)
+                dirtyDao.setDirtyState(id, dirty, synced)
+            }
         }
         backup.locations?.forEach { location ->
             val place = Place(
@@ -492,9 +521,14 @@ class TasksJsonImporter @Inject constructor(
                 )
             }
             ?.let { taskAttachmentDao.insert(it) }
-        backup.caldavTasks?.forEach { caldavTask ->
+        backup.caldavTasks?.forEachIndexed { index, caldavTask ->
             val remappedCalendar = calendarUuidMap[caldavTask.calendar] ?: caldavTask.calendar
-            caldavDao.insert(caldavTask.copy(task = taskId, calendar = remappedCalendar))
+            val id = caldavDao.insert(caldavTask.copy(task = taskId, calendar = remappedCalendar))
+            if (!caldavTask.isDeleted()) {
+                val (dirty, synced) = perTaskDirty
+                    ?: reconstructDirtyVersion(caldavLastSync.getOrNull(index), task.modificationDate)
+                dirtyDao.setDirtyState(id, dirty, synced)
+            }
         }
         backup.vtodo?.let {
             val caldavTask =
@@ -551,10 +585,33 @@ class TasksJsonImporter @Inject constructor(
     }
 
     companion object {
+        const val DIRTY_FLAG_VERSION = 150706
+
         private val ignorePrefs = intArrayOf(
                 R.string.p_current_version,
                 R.string.p_backups_android_backup_last,
                 R.string.p_device_install_version,
         )
+
+        private fun lastSyncValues(rawJson: String, key: String): List<Long?> = try {
+            lenientJson.parseToJsonElement(rawJson).jsonObject[key]?.jsonArray
+                ?.map { entry ->
+                    entry.jsonObject["cd_last_sync"]?.jsonPrimitive?.longOrNull
+                        ?: entry.jsonObject["lastSync"]?.jsonPrimitive?.longOrNull
+                }
+                .orEmpty()
+        } catch (e: Exception) {
+            Timber.w(e, "Failed to parse lastSync values from backup")
+            emptyList()
+        }
+
+        /**
+         * Keep in sync with `Migrations.MIGRATION_92_93`
+         */
+        private fun reconstructDirtyVersion(lastSync: Long?, modified: Long): Pair<Long, Long> = when {
+            lastSync == null || lastSync == 0L -> 1L to 0L
+            modified > lastSync -> 2L to 1L
+            else -> 1L to 1L
+        }
     }
 }

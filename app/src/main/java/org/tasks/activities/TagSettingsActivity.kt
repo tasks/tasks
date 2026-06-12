@@ -15,7 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.TagData
 import org.tasks.filters.Filter
@@ -30,7 +29,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TagSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var tagDataDao: TagDataDao
-    @Inject lateinit var tagDao: TagDao
     @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
     @Inject lateinit var tasksPreferences: TasksPreferences
 
@@ -107,8 +105,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
                     icon = baseViewModel.icon,
                 )
                 .let {
-                    tagDataDao.update(it)
-                    tagDao.rename(it.remoteId!!, newName)
+                    tagDataDao.updateTag(it)
                     refreshBroadcaster.broadcastRefresh()
                     setResult(
                         Activity.RESULT_OK,

@@ -31,6 +31,7 @@ import org.tasks.data.createGeofence
 import org.tasks.data.createHideUntil
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDao
@@ -76,6 +77,7 @@ class iCalendar(
     private val locationService: LocationService,
     private val tagDao: TagDao,
     private val taskDao: TaskDao,
+    private val dirtyDao: DirtyDao,
     private val taskSaver: TaskSaver,
     private val caldavDao: CaldavDao,
     private val alarmDao: AlarmDao,
@@ -231,10 +233,14 @@ class iCalendar(
                     task = task.id,
                     calendar = calendar.uuid,
                     remoteId = remote.uid,
-                    obj = obj
+                    obj = obj,
                 )
         val isNew = caldavTask.id == org.tasks.data.entity.Task.NO_ID
-        val dirty = !isNew && task.modificationDate > caldavTask.lastSync
+        val dirty = !isNew && dirtyDao.isDirty(caldavTask.id) == true
+        // When dirty, three-way merge the remote into the locally-modified task using the vtodo
+        // cache as the base (applyRemote below), exactly as for a clean task. The difference is at
+        // the end: a dirty task is NOT marked synced, so the merged result is pushed on the next
+        // sync (local edits survive). See the dirty branch of the final caldav write.
         val local = vtodoCache.getVtodo(calendar, caldavTask)?.let { fromVtodo(it) }
         val original = task.copy()
         task.applyRemote(remote, local)
@@ -288,20 +294,19 @@ class iCalendar(
 
         task.suppressSync()
         task.suppressRefresh()
-        taskSaver.save(task, original)
-        vtodoCache.putVtodo(calendar, caldavTask, vtodo)
-        caldavTask.etag = eTag
         if (!dirty) {
             task.modificationDate = remoteModificationDate
-            taskDao.touch(listOf(task.id), task.modificationDate)
-            caldavTask.lastSync = task.modificationDate
         }
-        if (isNew) {
-            caldavDao.insert(caldavTask)
-            Logger.d("iCalendar") { "NEW $caldavTask" }
-        } else {
+        taskSaver.save(task, original, dirty = false)
+        vtodoCache.putVtodo(calendar, caldavTask, vtodo)
+        caldavTask.etag = eTag
+        if (dirty) {
+            // Keep the task dirty so the merged result is pushed next sync; do NOT markSynced (it
+            // would clear a never-pushed (dirty_version=1, synced_version=0) row). dirty implies the
+            // caldav row already exists, so a plain update is correct.
             caldavDao.update(caldavTask)
-            Logger.d("iCalendar") { "UPDATE $caldavTask" }
+        } else {
+            caldavDao.insertOrUpdateAndMarkSynced(caldavTask)
         }
     }
 

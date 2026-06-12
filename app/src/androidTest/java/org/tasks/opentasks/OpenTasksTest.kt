@@ -5,6 +5,7 @@ import org.tasks.data.TaskSaver
 import org.junit.Before
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.injection.InjectingTestCase
 import javax.inject.Inject
 
@@ -14,6 +15,7 @@ abstract class OpenTasksTest : InjectingTestCase() {
     @Inject lateinit var synchronizer: OpenTasksSynchronizer
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var taskSaver: TaskSaver
+    @Inject lateinit var dirtyDao: DirtyDao
 
     @Before
     override fun setUp() {

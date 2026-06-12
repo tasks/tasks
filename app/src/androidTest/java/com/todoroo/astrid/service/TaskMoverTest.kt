@@ -271,7 +271,7 @@ class TaskMoverTest : InjectingTestCase() {
         createTasks(1)
         caldavDao.insert(newCaldavTask(with(TASK, 1L), with(CALENDAR, "2"), with(REMOTE_ID, "parent-remote")))
         createSubtask(2, 1)
-        caldavDao.insert(CaldavTask(task = 2L, calendar = "2", remoteParent = "", lastSync = 1))
+        caldavDao.insert(CaldavTask(task = 2L, calendar = "2", remoteParent = ""))
         // Move a different task into the same Microsoft list
         createTasks(3)
         caldavDao.insert(newCaldavTask(with(TASK, 3L), with(CALENDAR, "1")))

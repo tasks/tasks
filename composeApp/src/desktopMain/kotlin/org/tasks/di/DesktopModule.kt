@@ -152,6 +152,7 @@ actual fun platformModule(): Module = module {
         val dbFile = File(dataDir, Database.NAME)
         Room.databaseBuilder<Database>(name = dbFile.absolutePath)
             .setDriver(BundledSQLiteDriver())
+            .addCallback(Database.CALLBACK)
             .build()
     }
     single {

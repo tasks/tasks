@@ -24,12 +24,14 @@ import java.util.concurrent.TimeUnit
 class AlarmServiceTest : DatabaseTest() {
     private val alarmDao = db.alarmDao()
     private val taskDao = db.taskDao()
+    private val dirtyDao = db.dirtyDao()
     private val notifier: Notifier = mock()
     private val testDispatcher = UnconfinedTestDispatcher()
 
     private val alarmService = AlarmService(
         alarmDao = alarmDao,
         taskDao = taskDao,
+        dirtyDao = dirtyDao,
         refreshBroadcaster = mock(),
         notifier = notifier,
         alarmCalculator = AlarmCalculator(Random(), defaultDueTime = 0),

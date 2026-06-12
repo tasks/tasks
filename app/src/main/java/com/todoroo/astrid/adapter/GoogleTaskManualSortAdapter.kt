@@ -5,6 +5,7 @@ import org.tasks.data.TaskSaver
 import org.tasks.data.TaskMover
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.GoogleTaskDao
 
 class GoogleTaskManualSortAdapter internal constructor(
@@ -12,9 +13,10 @@ class GoogleTaskManualSortAdapter internal constructor(
     caldavDao: CaldavDao,
     taskDao: TaskDao,
     taskSaver: TaskSaver,
+    dirtyDao: DirtyDao,
     localBroadcastManager: LocalBroadcastManager,
     taskMover: TaskMover,
-) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, taskSaver, localBroadcastManager, taskMover) {
+) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, taskSaver, dirtyDao, localBroadcastManager, taskMover) {
 
     override suspend fun moved(from: Int, to: Int, indent: Int) {
         moveGoogleTask(from, to, indent)

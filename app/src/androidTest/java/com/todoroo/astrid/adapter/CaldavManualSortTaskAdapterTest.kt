@@ -16,6 +16,7 @@ import org.tasks.data.TaskContainer
 import org.tasks.data.TaskSaver
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
@@ -39,6 +40,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var taskSaver: TaskSaver
+    @Inject lateinit var dirtyDao: DirtyDao
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
@@ -62,7 +64,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
         preferences.clear()
         preferences.setBoolean(R.string.p_manual_sort, true)
         tasks.clear()
-        adapter = CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao, taskSaver, localBroadcastManager, taskMover)
+        adapter = CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao, taskSaver, dirtyDao, localBroadcastManager, taskMover)
         adapter.setDataSource(dataSource)
     }
 

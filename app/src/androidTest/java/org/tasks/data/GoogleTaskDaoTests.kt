@@ -1,6 +1,7 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
@@ -28,6 +29,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var dirtyDao: DirtyDao
 
     @Before
     override fun setUp() {
@@ -300,9 +302,9 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     }
 
     private suspend fun markSynced(vararg taskIds: Long) {
-        val now = org.tasks.time.DateTimeUtils2.currentTimeMillis()
         taskIds.forEach { taskId ->
-            caldavDao.getTask(taskId)?.let { caldavDao.update(it.copy(lastSync = now)) }
+            val ct = caldavDao.getTask(taskId) ?: return@forEach
+            dirtyDao.getDirtyState(ct.id)?.let { dirtyDao.markPushed(ct.id, it.dirtyVersion) }
         }
     }
 }

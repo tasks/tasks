@@ -14,6 +14,8 @@ import org.tasks.data.entity.UserActivity
 @Serializable
 class TaskBackup(
     val task: Task,
+    val dirtyVersion: Long? = null,
+    val syncedVersion: Long? = null,
     val alarms: List<Alarm>? = null,
     val geofences: List<Geofence>? = null,
     val tags: List<Tag>? = null,
