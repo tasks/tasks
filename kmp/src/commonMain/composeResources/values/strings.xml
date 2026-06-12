@@ -319,6 +319,7 @@
     <string name="local_list_description">Tasks in this list are stored only on this device. Connect an account to safeguard your data and access it anywhere.</string>
     <string name="dismiss">Dismiss</string>
     <string name="create_a_list">Create a list</string>
+    <string name="google_tasks_permission_not_granted">Google Tasks permission was not granted. Please sign in again and grant access to Google Tasks on the consent screen.</string>
     <string name="cloud_onboarding_welcome_title">Welcome to Tasks.org Cloud</string>
     <string name="cloud_onboarding_welcome_body">Sign in with Google to create your Tasks.org Cloud account</string>
     <string name="cloud_onboarding_not_now">Not now</string>

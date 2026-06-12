@@ -2,6 +2,7 @@ package org.tasks.auth
 
 import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import co.touchlab.kermit.Logger
+import org.jetbrains.compose.resources.getString
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
@@ -12,6 +13,8 @@ import org.tasks.security.KeyStoreEncryption
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.google_tasks_permission_not_granted
 
 class DesktopSignInHandler(
     private val oauthFlow: DesktopOAuthFlow,
@@ -66,6 +69,15 @@ class DesktopSignInHandler(
             ?: throw Exception("No email in Google Tasks OAuth response")
         val refreshToken = result.refreshToken
             ?: throw Exception("No refresh_token — consent may not have been granted")
+        val grantedScopes = result.grantedScopes
+        if (grantedScopes == null) {
+            Logger.w(TAG) { "No scope field in token response — cannot verify granted scopes" }
+        } else if ("https://www.googleapis.com/auth/tasks" !in grantedScopes) {
+            Logger.e(TAG) { "Tasks scope missing. Granted scopes: $grantedScopes" }
+            throw Exception(getString(Res.string.google_tasks_permission_not_granted))
+        } else {
+            Logger.i(TAG) { "Granted scopes: $grantedScopes" }
+        }
 
         val tokenData = GoogleTasksTokenData(
             accessToken = result.accessToken,

@@ -25,6 +25,7 @@ data class OAuthResult(
     val tokenEndpoint: String? = null,
     val clientId: String? = null,
     val expiresIn: Long? = null,
+    val grantedScopes: String? = null,
 )
 
 class TasksOAuthClient(
@@ -109,6 +110,8 @@ class TasksOAuthClient(
         val idTokenStr = json["id_token"]?.jsonPrimitive?.content
         val refreshToken = json["refresh_token"]?.jsonPrimitive?.content
         val expiresIn = json["expires_in"]?.jsonPrimitive?.content?.toLongOrNull()
+        val grantedScopes = json["scope"]?.jsonPrimitive?.content
+        Logger.d("TasksOAuthClient") { "Token exchange granted scopes: $grantedScopes" }
 
         return OAuthResult(
             accessToken = accessToken,
@@ -117,6 +120,7 @@ class TasksOAuthClient(
             tokenEndpoint = config.tokenEndpoint,
             clientId = config.clientId,
             expiresIn = expiresIn,
+            grantedScopes = grantedScopes,
         )
     }
 
