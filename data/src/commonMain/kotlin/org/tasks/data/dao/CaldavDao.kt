@@ -184,6 +184,14 @@ WHERE cd_calendar = :calendar
     @Query("SELECT * FROM caldav_tasks WHERE cd_deleted > 0 AND cd_calendar = :calendar")
     abstract suspend fun getMoved(calendar: String): List<CaldavTask>
 
+    @Query("""
+        SELECT caldav_tasks.*
+        FROM caldav_tasks
+        INNER JOIN caldav_lists ON cdl_uuid = cd_calendar
+        WHERE cd_deleted > 0 AND cdl_account = :account
+    """)
+    abstract suspend fun getMovedByAccount(account: String): List<CaldavTask>
+
     @Query("UPDATE caldav_tasks SET cd_deleted = :now WHERE cd_task IN (:tasks)")
     abstract suspend fun markDeleted(tasks: List<Long>, now: Long = currentTimeMillis())
 

@@ -75,10 +75,11 @@ FROM (
     abstract suspend fun setCompletionDate(remoteIds: List<String>, completionDate: Long, updateTime: Long = DateTimeUtils2.currentTimeMillis())
 
     @Query("SELECT tasks.* FROM tasks "
-            + "LEFT JOIN caldav_tasks ON tasks._id = caldav_tasks.cd_task "
-            + "LEFT JOIN caldav_lists ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid "
+            + "INNER JOIN caldav_tasks ON tasks._id = caldav_tasks.cd_task "
+            + "INNER JOIN caldav_lists ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid "
             + "WHERE cdl_account = :account "
-            + "AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_remote_id = '' OR caldav_tasks.cd_remote_id IS NULL OR caldav_tasks.cd_deleted > 0) "
+            + "AND cd_deleted = 0 "
+            + "AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_last_sync = 0) "
             + "ORDER BY CASE WHEN parent = 0 THEN 0 ELSE 1 END, `order` ASC")
     abstract suspend fun getGoogleTasksToPush(account: String): List<Task>
 

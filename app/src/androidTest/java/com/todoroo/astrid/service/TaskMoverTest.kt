@@ -57,7 +57,7 @@ class TaskMoverTest : InjectingTestCase() {
         createTasks(1)
         googleTaskDao.insert(newCaldavTask(with(TASK, 1), with(CALENDAR, "1")))
         moveToGoogleTasks("2", 1)
-        val deleted = googleTaskDao.getDeletedByTaskId(1, "account1")
+        val deleted = caldavDao.getMovedByAccount("account1")
         assertEquals(1, deleted.size.toLong())
         assertEquals(1, deleted[0].task)
         assertTrue(deleted[0].deleted > 0)
@@ -72,7 +72,7 @@ class TaskMoverTest : InjectingTestCase() {
         googleTaskDao.insert(newCaldavTask(with(TASK, 1), with(CALENDAR, "1")))
         googleTaskDao.insert(newCaldavTask(with(TASK, 2), with(CALENDAR, "1")))
         moveToGoogleTasks("2", 1)
-        val deleted = googleTaskDao.getDeletedByTaskId(2, "account1")
+        val deleted = caldavDao.getMovedByAccount("account1")
         assertEquals(1, deleted.size.toLong())
         assertEquals(2, deleted[0].task)
         assertTrue(deleted[0].deleted > 0)
@@ -250,7 +250,7 @@ class TaskMoverTest : InjectingTestCase() {
         createTasks(1)
         googleTaskDao.insert(newCaldavTask(with(TASK, 1), with(CALENDAR, "1")))
         moveToGoogleTasks("1", 1)
-        assertTrue(googleTaskDao.getDeletedByTaskId(1, "account1").isEmpty())
+        assertTrue(caldavDao.getMovedByAccount("account1").isEmpty())
         assertEquals(1, googleTaskDao.getAllByTaskId(1).size.toLong())
     }
 

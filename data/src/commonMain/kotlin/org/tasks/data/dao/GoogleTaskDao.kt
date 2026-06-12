@@ -83,16 +83,6 @@ abstract class GoogleTaskDao {
     @Query("SELECT * FROM caldav_tasks WHERE cd_remote_id = :remoteId AND cd_calendar = :calendar")
     abstract suspend fun getByRemoteId(remoteId: String, calendar: String): CaldavTask?
 
-    @Query("""
-SELECT caldav_tasks.*
-FROM caldav_tasks
-         INNER JOIN caldav_lists ON cdl_uuid = cd_calendar
-WHERE cd_task = :taskId
-  AND cd_deleted > 0
-  AND cdl_account = :account
-    """)
-    abstract suspend fun getDeletedByTaskId(taskId: Long, account: String): List<CaldavTask>
-
     @Query("SELECT * FROM caldav_tasks WHERE cd_task = :taskId")
     abstract suspend fun getAllByTaskId(taskId: Long): List<CaldavTask>
 
