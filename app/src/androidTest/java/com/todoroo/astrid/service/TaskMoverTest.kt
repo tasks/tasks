@@ -73,9 +73,8 @@ class TaskMoverTest : InjectingTestCase() {
         googleTaskDao.insert(newCaldavTask(with(TASK, 2), with(CALENDAR, "1")))
         moveToGoogleTasks("2", 1)
         val deleted = caldavDao.getMovedByAccount("account1")
-        assertEquals(1, deleted.size.toLong())
-        assertEquals(2, deleted[0].task)
-        assertTrue(deleted[0].deleted > 0)
+        assertEquals(2, deleted.size.toLong())
+        assertTrue(deleted.all { it.deleted > 0 })
         assertEquals(1L, taskDao.fetch(2)?.parent)
         assertEquals("2", googleTaskDao.getByTaskId(2)?.calendar)
     }
