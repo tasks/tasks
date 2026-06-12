@@ -332,4 +332,5 @@
     <string name="cloud_onboarding_faq_google_access_answer">Ne. Google je použit pro přihlášení, ale vaše data jsou uložena na serverech Tasks.org.</string>
     <string name="cloud_onboarding_faq_desktop_sync_question">Jak provedu synchronizaci s mým počítačem?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">Stáhněte si počítačovou aplikaci na tasks.org/download a poté se přihlaste stejným účtem Google.</string>
+    <string name="google_tasks_permission_not_granted">Přístup k Úkolům Google nebyl udělen. Přihlaste se prosím znovu a udělte přístup k Úkolům Google na stránce s povoleními.</string>
 </resources>
