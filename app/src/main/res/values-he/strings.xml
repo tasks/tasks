@@ -674,4 +674,17 @@
     <string name="accept">הסכמה</string>
     <string name="exit">יציאה</string>
     <string name="returning_user">משתמש/ת חוזר/ת?</string>
+    <string name="location_update_interval_title">עדכון מיקום ברקע</string>
+    <string name="location_update_interval_summary">עדכוני מיקום תקופתיים משפרים את אמינות Geofence</string>
+    <string name="location_update_interval_disabled">מושבת</string>
+    <string name="location_update_interval_15_minutes">כל 15 דקות</string>
+    <string name="location_update_interval_30_minutes">כל 30 דקות</string>
+    <string name="location_update_interval_1_hour">כל שעה</string>
+    <string name="location_update_interval_2_hours">כל שעתיים</string>
+    <string name="p_per_list_sort">per_list_sort</string>
+    <string name="per_list_sort_title">מיון לפי רשימה</string>
+    <string name="per_list_sort_summary">זכור הגדרות מיון וקיבוץ עבור כל רשימה בנפרד</string>
+    <string name="upgrade_desktop_app">Tasks.org למחשב שולחני</string>
+    <string name="upgrade_desktop_app_description">גישה מוקדמת ליישומון החדש למחשב שולחני</string>
+    <string name="read_more">לקרוא עוד</string>
 </resources>
