@@ -329,4 +329,5 @@
     <string name="cloud_onboarding_faq_google_access_answer">Hayır. Kimlik doğrulama için Google kullanılır, ancak verileriniz Tasks.org sunucularında saklanır.</string>
     <string name="cloud_onboarding_faq_desktop_sync_question">Bilgisayarımla nasıl eşzamanlarım?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">tasks.org/download adresinden masaüstü uygulamasını indirin, ardından aynı Google hesabıyla oturum açın.</string>
+    <string name="google_tasks_permission_not_granted">Google Görevler izni verilmedi. Lütfen tekrar oturum açın ve onay ekranında Google Görevler\'e erişim izni verin.</string>
 </resources>
