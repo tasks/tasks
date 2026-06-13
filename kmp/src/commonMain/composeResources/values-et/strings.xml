@@ -329,4 +329,5 @@
     <string name="cloud_onboarding_faq_google_access_answer">Ei. Google on kasutusel autentimiseks, aga andmed on salvestatud Tasks.org-i serverites.</string>
     <string name="cloud_onboarding_faq_desktop_sync_question">Kuidas ma saan andmeid sünkroonida töölauarakendusega?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">Laadi töölauarakendus alla tasks.org/download lehelt ja logi sisse sama Google\'i kontoga.</string>
+    <string name="google_tasks_permission_not_granted">Google Tasksi õigused on puudu. Palun logi uuesti sisse ja luba nõusoleku vaatest kasutada Google Tasksi.</string>
 </resources>
