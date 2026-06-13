@@ -331,4 +331,5 @@
     <string name="cloud_onboarding_faq_google_access_answer">Non. Google est utilisé pour l\'authentification, mais vos données sont enregistrées sur les serveurs de Tasks.org.</string>
     <string name="cloud_onboarding_faq_desktop_sync_question">Comment puis-je synchroniser avec mon ordinateur ?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">Téléchargez l\'application de bureau sur tasks.org/download, puis connectez-vous avec le même compte Google.</string>
+    <string name="google_tasks_permission_not_granted">L\'autorisation pour Google Tasks n\'a pas été accordée. Veuillez vous reconnecter et autoriser l\'accès à Google Tasks sur l\'écran de consentement.</string>
 </resources>
