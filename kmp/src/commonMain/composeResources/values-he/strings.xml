@@ -30,7 +30,7 @@
     <string name="wear_install_app">התקנה בטלפון</string>
     <string name="wear_unknown_error">שגיאה לא ידועה</string>
     <string name="search_no_results">אין תוצאות</string>
-    <string name="requires_pro_subscription">תכונת פרו</string>
+    <string name="requires_pro_subscription">דורש מינוי פרו</string>
     <string name="add_task">הוספת משימה</string>
     <string name="filter_snoozed">בנמנום</string>
     <string name="new_task">משימה חדשה</string>
@@ -171,11 +171,11 @@
     <string name="about">אודות</string>
     <string name="widget_settings">הגדרות יישומון</string>
     <plurals name="task_count">
-        <item quantity="one">משימה אחת</item>
-        <item quantity="two">%d משימות</item>
-        <item quantity="other">%d משימות</item>
+        <item quantity="one">משימה %1$d</item>
+        <item quantity="two">%1$d משימות</item>
+        <item quantity="other">%1$d משימות</item>
     </plurals>
-    <string name="delete_tasks_warning">%s יימחק. לא ניתן לבטל זאת!</string>
+    <string name="delete_tasks_warning">%1$s יימחק. לא ניתן לבטל זאת!</string>
     <string name="name_cannot_be_empty">השם לא יכול להיות ריק</string>
     <string name="discard_changes">להשליך שינויים?</string>
     <string name="discard">השלכה</string>
@@ -188,7 +188,7 @@
     <string name="caldav_server_other">אחר</string>
     <string name="caldav_server_type">סוג שרת</string>
     <string name="caldav_server_unknown">לא ידוע</string>
-    <string name="error_adding_account">שגיאה: %s</string>
+    <string name="error_adding_account">שגיאה: %1$s</string>
     <string name="invalid_username_or_password">שם המשתמש או הסיסמה שגויים</string>
     <string name="network_error">לא ניתן להתחבר</string>
     <string name="sign_in">כניסה</string>
