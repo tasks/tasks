@@ -327,4 +327,5 @@
     <string name="cloud_onboarding_faq_google_access_answer">不。Google 用来认证身份，但数据存储在 Tasks.org 的服务器上。</string>
     <string name="cloud_onboarding_faq_desktop_sync_question">我如何与我的计算机同步数据?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">在 tasks.org/download 下载桌面应用，然后用同一个 Google 账户登录。</string>
+    <string name="google_tasks_permission_not_granted">未授予 Google Tasks 权限。请再次登录并在授权屏幕中授予 Google Tasks 权限。</string>
 </resources>
