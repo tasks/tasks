@@ -470,7 +470,7 @@
     <string name="date_shortcut_tomorrow_evening">Domani sera</string>
     <string name="permission_read_tasks">Accesso completo al database di Tasks</string>
     <string name="davx5_selection_description">Sincronizza le tue attività con l\'app DAVx⁵</string>
-    <string name="backup_location_warning">ATTENZIONE: i file che si trovano in %s verranno eliminati quando si disinstalla Tasks. Si consiglia di scegliere una posizione alternativa per evitare tale evenienza.</string>
+    <string name="backup_location_warning">ATTENZIONE: i file che si trovano in %s vengono eliminati se Tasks viene disinstallato! Scegli una posizione alternativa per evitare che Android cancelli i file.</string>
     <string name="backups_ignore_warnings_summary">Ignorare gli avvisi di backup se non sono necessari o se si dispone di una soluzione alternativa</string>
     <string name="backups_ignore_warnings">Ignora avvisi</string>
     <string name="background_location">Posizione in background</string>
