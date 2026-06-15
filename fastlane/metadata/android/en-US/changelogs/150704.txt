@@ -1,0 +1,4 @@
+* Sync improvements and bug fixes
+* Google Tasks: advance recurring task when completed remotely
+* Fix flattening subtasks when moving between lists
+* Update translations

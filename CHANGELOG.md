@@ -1,3 +1,25 @@
+### 15.7.2 (2026-06-17)
+
+* Sync improvements and bug fixes
+* Google Tasks: advance recurring task when completed remotely [#1808](https://github.com/tasks/tasks/issues/1808)
+* Fix flattening subtasks when moving between lists [#2150](https://github.com/tasks/tasks/issues/2150)
+
+Desktop:
+  * Improve Google Tasks account setup [#4434](https://github.com/tasks/tasks/issues/4434)
+
+Update translations:
+  * Brazilian Portuguese - @gregcarmo
+  * Chinese (Simplified) - hamburger2048
+  * Czech - Fjuro
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @franconian
+  * Hebrew - @ginger-co
+  * Indonesian - @arifpedia
+  * Italian - @ppasserini
+  * Polish - @Antmajgra
+  * Turkish - @oersen
+
 ### 15.7.1 (2026-06-10)
 
 Android:
