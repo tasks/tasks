@@ -1,20 +1,22 @@
 package com.todoroo.astrid.service
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import org.tasks.data.TaskMover
-import org.tasks.data.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import org.tasks.data.TaskMover
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavTask
 import org.tasks.filters.CaldavFilter
 import org.tasks.injection.InjectingTestCase
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
@@ -263,6 +265,22 @@ class TaskMoverTest : InjectingTestCase() {
     }
 
     @Test
+    fun moveToMicrosoftPreservesExistingParent() = runBlocking {
+        // Create a parent-child in a Microsoft list
+        setAccountType("account2", TYPE_MICROSOFT)
+        createTasks(1)
+        caldavDao.insert(newCaldavTask(with(TASK, 1L), with(CALENDAR, "2"), with(REMOTE_ID, "parent-remote")))
+        createSubtask(2, 1)
+        caldavDao.insert(CaldavTask(task = 2L, calendar = "2", remoteParent = "", lastSync = 1))
+        // Move a different task into the same Microsoft list
+        createTasks(3)
+        caldavDao.insert(newCaldavTask(with(TASK, 3L), with(CALENDAR, "1")))
+        moveToMicrosoftList("2", 3)
+        // Don't clobber the existing parent-child
+        assertEquals(1L, taskDao.fetch(2)!!.parent)
+    }
+
+    @Test
     fun dontDuplicateWhenParentAndChildGoogleTaskMoved() = runBlocking {
         createTasks(1)
         createSubtask(2, 1)
@@ -314,6 +332,16 @@ class TaskMoverTest : InjectingTestCase() {
             CaldavFilter(
                 CaldavCalendar(name = "", uuid = calendar),
                 account = CaldavAccount(accountType = TYPE_CALDAV)
+            )
+        )
+    }
+
+    private suspend fun moveToMicrosoftList(calendar: String, vararg tasks: Long) {
+        taskMover.move(
+            tasks.toList(),
+            CaldavFilter(
+                CaldavCalendar(name = "", uuid = calendar),
+                account = CaldavAccount(accountType = TYPE_MICROSOFT)
             )
         )
     }

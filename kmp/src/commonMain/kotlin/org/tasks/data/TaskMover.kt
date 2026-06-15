@@ -57,7 +57,7 @@ class TaskMover(
         caldavDao.inTransaction {
             taskDao.setParent(0, ids.intersect(taskIds.toSet()).toList())
             tasks.forEach { performMove(it, selectedList) }
-            if (!selectedList.isGoogleTasks) {
+            if (selectedList.isIcalendar) {
                 log.d { "Updating parents for ${selectedList.uuid}" }
                 caldavDao.updateParents(selectedList.uuid, force = true)
             }
