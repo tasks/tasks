@@ -352,10 +352,10 @@ GROUP BY caldav_lists.cdl_uuid
             INNER JOIN tasks ON _id = cd_task
             WHERE cd_calendar = :calendar
                 AND cd_deleted = 0
-                AND modified <= cd_last_sync
+                AND (:force OR modified <= cd_last_sync)
         )
     """)
-    abstract suspend fun updateParents(calendar: String)
+    abstract suspend fun updateParents(calendar: String, force: Boolean = false)
 
     @Transaction
     open suspend fun <T> inTransaction(block: suspend () -> T): T = block()

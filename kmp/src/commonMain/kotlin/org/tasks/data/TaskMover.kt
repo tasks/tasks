@@ -59,7 +59,7 @@ class TaskMover(
             tasks.forEach { performMove(it, selectedList) }
             if (!selectedList.isGoogleTasks) {
                 log.d { "Updating parents for ${selectedList.uuid}" }
-                caldavDao.updateParents(selectedList.uuid)
+                caldavDao.updateParents(selectedList.uuid, force = true)
             }
         }
         refreshBroadcaster.broadcastRefresh()
