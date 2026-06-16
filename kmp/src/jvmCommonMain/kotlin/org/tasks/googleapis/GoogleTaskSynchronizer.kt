@@ -119,8 +119,15 @@ class GoogleTaskSynchronizer(
                 defaultListProvider.clearDefaultList()
             }
         }
+        val calendars = caldavDao.getCalendarsByAccount(account.uuid!!)
+            .onEach {
+                if (it.uuid.isNullOrEmpty()) {
+                    reporting.reportException(RuntimeException("Empty remote id"))
+                }
+            }
+            .filterNot { it.uuid.isNullOrEmpty() }
         val failedTasks = mutableSetOf<Long>()
-        var retryTaskId = pushLocalChanges(account, gtasksInvoker)
+        var retryTaskId = pushLocalChanges(account, calendars, gtasksInvoker)
 
         while (retryTaskId != null) {
             if (failedTasks.contains(retryTaskId)) {
@@ -134,13 +141,9 @@ class GoogleTaskSynchronizer(
 
             delay(1000)
 
-            retryTaskId = pushLocalChanges(account, gtasksInvoker)
+            retryTaskId = pushLocalChanges(account, calendars, gtasksInvoker)
         }
-        for (list in caldavDao.getCalendarsByAccount(account.uuid!!)) {
-            if (list.uuid.isNullOrEmpty()) {
-                reporting.reportException(RuntimeException("Empty remote id"))
-                continue
-            }
+        for (list in calendars) {
             fetchAndApplyRemoteChanges(gtasksInvoker, list)
             gtasksInvoker.updatePositions(list.uuid!!)
         }
@@ -171,7 +174,11 @@ class GoogleTaskSynchronizer(
     }
 
     @Throws(IOException::class)
-    private suspend fun pushLocalChanges(account: CaldavAccount, gtasksInvoker: GtasksInvoker): Long? {
+    private suspend fun pushLocalChanges(
+        account: CaldavAccount,
+        calendars: List<CaldavCalendar>,
+        gtasksInvoker: GtasksInvoker,
+    ): Long? {
         for (deleted in caldavDao.getMovedByAccount(account.uuid!!)) {
             deleted.remoteId?.let {
                 try {
@@ -185,9 +192,7 @@ class GoogleTaskSynchronizer(
             }
             googleTaskDao.delete(deleted)
         }
-        val tasks = caldavDao.getCalendarsByAccount(account.uuid!!).flatMap {
-            taskDao.getTasksToPush(it.uuid!!)
-        }
+        val tasks = calendars.flatMap { taskDao.getTasksToPush(it.uuid!!) }
         for (task in tasks) {
             val staleTaskId = pushTask(task, account.uuid!!, gtasksInvoker)
             if (staleTaskId != null) {
