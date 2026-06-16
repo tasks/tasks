@@ -28,6 +28,38 @@ const val APPLE_EPOCH = 978307200000L // 1/1/2001 GMT
 
 const val ORDER_BY_MANUAL = "IFNULL(tasks.`order`, (tasks.created - $APPLE_EPOCH) / 1000)"
 
+private const val UPDATE_PARENTS_HEAD = """
+        WITH parent_map AS (
+            SELECT
+                c.cd_task AS task_id,
+                p.cd_task AS parent_id
+            FROM caldav_tasks AS c
+            INNER JOIN caldav_tasks AS p
+                ON p.cd_calendar = c.cd_calendar
+                AND p.cd_remote_id = c.cd_remote_parent
+                AND p.cd_deleted = 0
+            WHERE c.cd_remote_parent IS NOT NULL
+                AND c.cd_remote_parent != ''
+                AND c.cd_deleted = 0"""
+
+private const val UPDATE_PARENTS_MID = """
+        )
+        UPDATE tasks
+        SET parent = IFNULL(
+            (SELECT parent_id FROM parent_map WHERE task_id = tasks._id AND tasks._id != parent_id),
+            0
+        )
+        WHERE _id IN (
+            SELECT cd_task
+            FROM caldav_tasks
+            INNER JOIN tasks ON _id = cd_task
+            WHERE cd_deleted = 0
+                AND (:force OR modified <= cd_last_sync)"""
+
+private const val UPDATE_PARENTS_TAIL = """
+        )
+    """
+
 @Dao
 abstract class CaldavDao {
     @Query("SELECT COUNT(*) FROM caldav_lists WHERE cdl_account = :account")
@@ -299,65 +331,19 @@ GROUP BY caldav_lists.cdl_uuid
     """)
     abstract suspend fun getCaldavFilters(uuid: String, now: Long = currentTimeMillis()): List<CaldavFilters>
 
-    @Query("""
-        WITH parent_map AS (
-            SELECT
-                c.cd_task AS task_id,
-                p.cd_task AS parent_id
-            FROM caldav_tasks AS c
-            INNER JOIN caldav_tasks AS p
-                ON p.cd_calendar = c.cd_calendar
-                AND p.cd_remote_id = c.cd_remote_parent
-                AND p.cd_deleted = 0
-            WHERE c.cd_remote_parent IS NOT NULL
-                AND c.cd_remote_parent != ''
-                AND c.cd_deleted = 0
-        )
-        UPDATE tasks
-        SET parent = IFNULL(
-            (SELECT parent_id FROM parent_map WHERE task_id = tasks._id AND tasks._id != parent_id),
-            0
-        )
-        WHERE _id IN (
-            SELECT cd_task
-            FROM caldav_tasks
-            INNER JOIN tasks ON _id = cd_task
-            WHERE cd_deleted = 0
-                AND (:force OR modified <= cd_last_sync)
-        )
-    """)
-    abstract suspend fun updateParents(force: Boolean = false)
+    suspend fun updateParents(calendar: String? = null, force: Boolean = false) {
+        if (calendar == null) {
+            updateAllParents(force)
+        } else {
+            updateParentsForCalendar(calendar, force)
+        }
+    }
 
-    @Query("""
-        WITH parent_map AS (
-            SELECT
-                c.cd_task AS task_id,
-                p.cd_task AS parent_id
-            FROM caldav_tasks AS c
-            INNER JOIN caldav_tasks AS p
-                ON p.cd_calendar = c.cd_calendar
-                AND p.cd_remote_id = c.cd_remote_parent
-                AND p.cd_deleted = 0
-            WHERE c.cd_calendar = :calendar
-                AND c.cd_remote_parent IS NOT NULL
-                AND c.cd_remote_parent != ''
-                AND c.cd_deleted = 0
-        )
-        UPDATE tasks
-        SET parent = IFNULL(
-            (SELECT parent_id FROM parent_map WHERE task_id = tasks._id),
-            0
-        )
-        WHERE _id IN (
-            SELECT cd_task
-            FROM caldav_tasks
-            INNER JOIN tasks ON _id = cd_task
-            WHERE cd_calendar = :calendar
-                AND cd_deleted = 0
-                AND (:force OR modified <= cd_last_sync)
-        )
-    """)
-    abstract suspend fun updateParents(calendar: String, force: Boolean = false)
+    @Query("$UPDATE_PARENTS_HEAD$UPDATE_PARENTS_MID$UPDATE_PARENTS_TAIL")
+    internal abstract suspend fun updateAllParents(force: Boolean)
+
+    @Query("$UPDATE_PARENTS_HEAD AND c.cd_calendar = :calendar $UPDATE_PARENTS_MID AND cd_calendar = :calendar $UPDATE_PARENTS_TAIL")
+    internal abstract suspend fun updateParentsForCalendar(calendar: String, force: Boolean)
 
     @Transaction
     open suspend fun <T> inTransaction(block: suspend () -> T): T = block()
