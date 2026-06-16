@@ -72,7 +72,7 @@ class DesktopSignInHandler(
         val grantedScopes = result.grantedScopes
         if (grantedScopes == null) {
             Logger.w(TAG) { "No scope field in token response — cannot verify granted scopes" }
-        } else if ("https://www.googleapis.com/auth/tasks" !in grantedScopes) {
+        } else if (GOOGLE_TASKS_SCOPE !in grantedScopes) {
             Logger.e(TAG) { "Tasks scope missing. Granted scopes: $grantedScopes" }
             throw Exception(getString(Res.string.google_tasks_permission_not_granted))
         } else {

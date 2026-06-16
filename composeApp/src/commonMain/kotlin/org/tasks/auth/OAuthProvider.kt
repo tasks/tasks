@@ -1,5 +1,7 @@
 package org.tasks.auth
 
+const val GOOGLE_TASKS_SCOPE = "https://www.googleapis.com/auth/tasks"
+
 enum class OAuthProvider(
     val issuer: String,
     val discoveryPath: String,
@@ -23,7 +25,7 @@ enum class OAuthProvider(
         issuer = "google_tasks",
         discoveryPath = "/oauth/google-api-configuration",
         clientId = "",
-        scope = "https://www.googleapis.com/auth/tasks openid email",
+        scope = "$GOOGLE_TASKS_SCOPE openid email",
         extraAuthParams = mapOf(
             "access_type" to "offline",
             "prompt" to "consent",
