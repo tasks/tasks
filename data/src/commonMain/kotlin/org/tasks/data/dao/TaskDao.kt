@@ -81,7 +81,7 @@ FROM (
         WHERE caldav_tasks.cd_calendar = :calendar
           AND cd_deleted = 0
           AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_last_sync = 0)
-        ORDER BY CASE WHEN parent = 0 THEN 0 ELSE 1 END, IFNULL(`order`, (created - $APPLE_EPOCH) / 1000)
+        ORDER BY CASE WHEN parent = 0 THEN 0 ELSE 1 END, $ORDER_BY_MANUAL
     """)
     abstract suspend fun getTasksToPush(calendar: String): List<Task>
 

@@ -26,6 +26,8 @@ import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 const val APPLE_EPOCH = 978307200000L // 1/1/2001 GMT
 
+const val ORDER_BY_MANUAL = "IFNULL(tasks.`order`, (tasks.created - $APPLE_EPOCH) / 1000)"
+
 @Dao
 abstract class CaldavDao {
     @Query("SELECT COUNT(*) FROM caldav_lists WHERE cdl_account = :account")
@@ -133,7 +135,7 @@ ORDER BY CASE cda_account_type
     }
 
     @Query("""
-SELECT MIN(IFNULL(`order`, (created - $APPLE_EPOCH) / 1000))
+SELECT MIN($ORDER_BY_MANUAL)
 FROM caldav_tasks
          INNER JOIN tasks ON _id = cd_task
 WHERE cd_calendar = :calendar
@@ -144,7 +146,7 @@ WHERE cd_calendar = :calendar
     abstract suspend fun findFirstTask(calendar: String, parent: Long): Long?
 
     @Query("""
-SELECT MAX(IFNULL(`order`, (created - $APPLE_EPOCH) / 1000))
+SELECT MAX($ORDER_BY_MANUAL)
 FROM caldav_tasks
          INNER JOIN tasks ON _id = cd_task
 WHERE cd_calendar = :calendar
@@ -409,9 +411,9 @@ GROUP BY caldav_lists.cdl_uuid
     internal abstract suspend fun touchInternal(ids: List<Long>, modificationTime: Long = currentTimeMillis())
 
     @Query("""
-SELECT task.*, caldav_task.*, IFNULL(`order`, (created - $APPLE_EPOCH) / 1000) AS primary_sort
-FROM caldav_tasks AS caldav_task
-         INNER JOIN tasks AS task ON _id = cd_task
+SELECT tasks.*, caldav_tasks.*, $ORDER_BY_MANUAL AS primary_sort
+FROM caldav_tasks
+         INNER JOIN tasks ON _id = cd_task
 WHERE cd_calendar = :calendar
   AND parent = :parent
   AND cd_deleted = 0
