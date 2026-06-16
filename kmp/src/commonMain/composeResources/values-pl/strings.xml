@@ -27,7 +27,7 @@
     <string name="today_lowercase">dzisiaj</string>
     <string name="show_completed">Pokaż ukończone</string>
     <string name="show_unstarted">Pokaż nierozpoczęte</string>
-    <string name="requires_pro_subscription">Funkcja Pro</string>
+    <string name="requires_pro_subscription">Wymaga subskrypcji premium</string>
     <string name="new_task">Nowe zadanie</string>
     <string name="save">Zapisz</string>
     <string name="sort_mode">Sortuj</string>
@@ -144,7 +144,7 @@
     <string name="caldav_server_other">Inne</string>
     <string name="caldav_server_type">Typ serwera</string>
     <string name="caldav_server_unknown">Nieznane</string>
-    <string name="error_adding_account">Błąd: %s</string>
+    <string name="error_adding_account">Błąd: %1$s</string>
     <string name="invalid_username_or_password">Nieprawidłowa nazwa użytkownika lub hasło</string>
     <string name="network_error">Błąd połączenia</string>
     <string name="sign_in">Zaloguj się</string>
@@ -193,4 +193,5 @@
     <string name="reinitialize_account">Powiąż ponownie</string>
     <string name="gtasks_GLA_errorIOAuth">Przepraszamy, mieliśmy problem z porozumieniem się z serwerami Google. Prosimy spróbować ponownie.</string>
     <string name="dismiss">Odrzuć</string>
+    <string name="search_no_results">Brak wyników</string>
 </resources>
