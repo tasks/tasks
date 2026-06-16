@@ -427,7 +427,7 @@ class GoogleTaskSynchronizer(
         googleTask
             .copy(
                 task = task.id,
-                lastSync = task.modificationDate,
+                lastSync = if (googleTask.remoteId.isNullOrEmpty()) 0L else task.modificationDate,
             )
             .let {
                 if (it.id == 0L) {
