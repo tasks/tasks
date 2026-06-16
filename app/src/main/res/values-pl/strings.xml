@@ -32,7 +32,7 @@
     <string name="TEA_title_hint">Tytuł zadania</string>
     <string name="TEA_importance_label">Priorytet</string>
     <string name="TEA_note_label">Opis</string>
-    <string name="TEA_estimatedDuration_label">Jak długo to zajmie?</string>
+    <string name="TEA_estimatedDuration_label">Ile czasu to zajmie?</string>
     <string name="TEA_elapsedDuration_label">Czas dotychczas spędzony nad tym zadaniem</string>
     <string name="save">Zapisz</string>
     <string name="TEA_timer_est">Ok. %s</string>
@@ -335,14 +335,14 @@
     <string name="upgrade_to_pro">Upgrade do pro</string>
     <string name="refresh_purchases">Odśwież zakupy</string>
     <string name="button_subscribe">Zasubskrybuj</string>
-    <string name="requires_pro_subscription">Wymaga subskrypcji pro</string>
+    <string name="requires_pro_subscription">Wymaga subskrypcji premium</string>
     <string name="logout">Wyloguj</string>
     <string name="reinitialize_account">Powiąż ponownie</string>
     <string name="action_create_new_task">Stwórz nowe zadanie</string>
     <string name="show_description">Pokaż opis</string>
     <string name="show_full_description">Pokaż pełen opis</string>
     <string name="linkify">Pokaż linki</string>
-    <string name="linkify_description">Dodaj linki do stron WWW, adresów i numerów telefonów</string>
+    <string name="linkify_description">Dodaj linki do stron internetowych, adresy i numery telefonów</string>
     <string name="location_remind_arrival">Przypomnij po przybyciu</string>
     <string name="location_remind_departure">Przypomnij przy wyruszaniu</string>
     <string name="visit_website">Wejdź na stronę</string>
@@ -621,4 +621,14 @@
     <string name="yesterday">Wczoraj</string>
     <string name="change_priority">Zmień priorytet</string>
     <string name="theme_dynamic">Dynamiczny</string>
+    <string name="import_failed">Import nie powiódł się</string>
+    <string name="import_failed_message">Nie udało się odczytać pliku kopii zapasowej</string>
+    <string name="location_update_interval_15_minutes">Co 15 minut</string>
+    <string name="location_update_interval_30_minutes">Co 30 minut</string>
+    <string name="location_update_interval_1_hour">Co godzinę</string>
+    <string name="location_update_interval_2_hours">Co 2 godziny</string>
+    <string name="swipe_to_snooze_time_description">Zamknięte powiadomienie zostanie uśpione i odtworzone za %s</string>
+    <string name="location_update_interval_title">Aktualizacja lokalizacji w tle</string>
+    <string name="location_update_interval_disabled">Wyłączona</string>
+    <string name="customize_drawer_summary">Przeciągnij i upuść, aby zmienić kolejność elementów menu</string>
 </resources>
