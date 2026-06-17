@@ -278,6 +278,7 @@ val commonModule = module {
             taskDeleter = get(),
             alarmDao = get(),
             appPreferences = get(),
+            repeatTaskHelper = get(),
             encryption = get(),
             createTask = { TaskCreator().createBlankTask() },
             proxyAuthProvider = get(),

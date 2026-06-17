@@ -4,6 +4,7 @@ import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.broadcast.RefreshBroadcaster
+import com.todoroo.astrid.repeats.RepeatTaskHelper
 import com.todoroo.astrid.service.TaskCreator
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.AlarmDao
@@ -39,6 +40,7 @@ class AndroidGoogleTaskSynchronizer @Inject constructor(
     private val preferences: Preferences,
     private val appPreferences: AppPreferences,
     private val taskCreator: TaskCreator,
+    private val repeatTaskHelper: RepeatTaskHelper,
 ) {
     private val defaultListProvider = object : DefaultListProvider {
         override suspend fun getDefaultList(): CaldavFilter =
@@ -60,6 +62,7 @@ class AndroidGoogleTaskSynchronizer @Inject constructor(
         taskDeleter = taskDeleter,
         alarmDao = alarmDao,
         appPreferences = appPreferences,
+        repeatTaskHelper = repeatTaskHelper,
         createTask = { taskCreator.createWithValues("") },
     )
 

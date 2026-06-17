@@ -6,6 +6,7 @@ import com.google.api.client.util.DateTime
 import com.google.api.services.tasks.model.Task
 import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.Tasks
+import com.todoroo.astrid.repeats.RepeatTaskHelper
 import kotlinx.coroutines.delay
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Reporting
@@ -46,6 +47,7 @@ class GoogleTaskSynchronizer(
     private val taskDeleter: TaskDeleter,
     private val alarmDao: AlarmDao,
     private val appPreferences: AppPreferences,
+    private val repeatTaskHelper: RepeatTaskHelper,
     private val createTask: suspend () -> org.tasks.data.entity.Task,
 ) {
     suspend fun sync(account: CaldavAccount, invoker: GtasksInvoker) {
@@ -406,6 +408,14 @@ class GoogleTaskSynchronizer(
             val dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(gtask.due?.let(::DateTime))
             mergeDates(createDueDate(org.tasks.data.entity.Task.URGENCY_SPECIFIC_DAY, dueDate), task)
             task.notes = getTruncatedValue(task.notes, gtask.notes, MAX_DESCRIPTION_LENGTH)
+            if (recreate && task.isCompleted && !original.isCompleted) {
+                task.suppressRefresh()
+                repeatTaskHelper.handleRepeat(task)
+                recreate = !task.isCompleted
+                Logger.d(TAG) {
+                    "${if (recreate) "advancing and recreating" else "final occurrence"}: $task"
+                }
+            }
             if (task.title?.isNotBlank() == true || task.notes?.isNotBlank() == true) {
                 write(task, googleTask, original, recreate = recreate)
             }

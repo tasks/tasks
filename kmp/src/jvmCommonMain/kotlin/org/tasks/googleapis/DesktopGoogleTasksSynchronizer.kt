@@ -1,5 +1,6 @@
 package org.tasks.googleapis
 
+import com.todoroo.astrid.repeats.RepeatTaskHelper
 import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Reporting
 import org.tasks.broadcast.RefreshBroadcaster
@@ -26,6 +27,7 @@ class DesktopGoogleTasksSynchronizer(
     taskDeleter: TaskDeleter,
     alarmDao: AlarmDao,
     appPreferences: AppPreferences,
+    repeatTaskHelper: RepeatTaskHelper,
     private val encryption: KeyStoreEncryption,
     createTask: suspend () -> org.tasks.data.entity.Task,
     private val proxyAuthProvider: ProxyAuthProvider,
@@ -42,6 +44,7 @@ class DesktopGoogleTasksSynchronizer(
         taskDeleter = taskDeleter,
         alarmDao = alarmDao,
         appPreferences = appPreferences,
+        repeatTaskHelper = repeatTaskHelper,
         createTask = createTask,
     )
 
