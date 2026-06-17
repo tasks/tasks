@@ -25,6 +25,7 @@ import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.calendars.CalendarHelper
 import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.chips.ChipDataProvider
+import org.tasks.backup.shared.TasksJsonExporter
 import org.tasks.data.MergedGeofence
 import org.tasks.data.SubtaskTreeRegistry
 import org.tasks.data.SubtaskTreeWriter
@@ -65,12 +66,15 @@ import org.tasks.sync.SyncAdapters
 import org.tasks.tags.TagPickerViewModel
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.viewmodel.AppViewModel
+import org.tasks.viewmodel.BackupsViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.HelpAndFeedbackViewModel
 import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
+import org.tasks.viewmodel.MicrosoftListSettingsViewModel
+import org.tasks.viewmodel.NavigationDrawerViewModel
 import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.PendingTaskSaves
 import org.tasks.viewmodel.SortSettingsViewModel
@@ -520,6 +524,55 @@ val coreModule: Module = module {
             calendar = params.get(),
         )
     }
+    viewModel { params ->
+        TagSettingsViewModel(
+            tagDataDao = get(),
+            refreshBroadcaster = get(),
+            reporting = get(),
+            purchaseState = get(),
+            tagMetadataSync = get(),
+            syncAdapters = get(),
+            isDark = params.get(),
+            tagData = params.get(),
+        )
+    }
+    viewModel {
+        EtebaseAccountSettingsViewModel(
+            caldavDao = get(),
+            clientProvider = get(),
+            encryption = get(),
+            taskDeleter = get(),
+            reporting = get(),
+        )
+    }
+    viewModel {
+        ProCardViewModel(
+            caldavDao = get(),
+            subscriptionProvider = get(),
+            tasksPreferences = get(),
+            accountDataRepository = get(),
+            serverEnvironment = get(),
+            platformConfiguration = get(),
+        )
+    }
+
+    single {
+        TasksJsonExporter(
+            taskDao = get(),
+            alarmDao = get(),
+            locationDao = get(),
+            tagDao = get(),
+            userActivityDao = get(),
+            taskAttachmentDao = get(),
+            caldavDao = get(),
+            tagDataDao = get(),
+            filterDao = get(),
+            taskListMetadataDao = get(),
+            vtodoCache = get(),
+            json = get(),
+        )
+    }
+    viewModelOf(::BackupsViewModel)
 }
 
 internal val notificationDefaults = NotificationSettings()
