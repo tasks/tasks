@@ -371,6 +371,7 @@ class GoogleTaskSynchronizer(
             }
             val isDeleted = gtask.deleted
             val isHidden = gtask.hidden
+            var recreate = false
             if (isDeleted != null && isDeleted) {
                 if (task != null) {
                     taskDeleter.delete(task)
@@ -382,6 +383,7 @@ class GoogleTaskSynchronizer(
                 }
                 if (task.isRecurring) {
                     googleTask.remoteId = ""
+                    recreate = true
                 } else {
                     taskDeleter.delete(task)
                     continue
@@ -400,7 +402,7 @@ class GoogleTaskSynchronizer(
             mergeDates(createDueDate(org.tasks.data.entity.Task.URGENCY_SPECIFIC_DAY, dueDate), task)
             task.notes = getTruncatedValue(task.notes, gtask.notes, MAX_DESCRIPTION_LENGTH)
             if (task.title?.isNotBlank() == true || task.notes?.isNotBlank() == true) {
-                write(task, googleTask, original)
+                write(task, googleTask, original, recreate = recreate)
             }
         }
         caldavDao.insertOrReplace(
@@ -416,7 +418,12 @@ class GoogleTaskSynchronizer(
         local.parent = googleTask.remoteParent?.let { googleTaskDao.getTask(it, googleTask.calendar!!) } ?: 0L
     }
 
-    private suspend fun write(task: org.tasks.data.entity.Task, googleTask: CaldavTask, original: org.tasks.data.entity.Task? = null) {
+    private suspend fun write(
+        task: org.tasks.data.entity.Task,
+        googleTask: CaldavTask,
+        original: org.tasks.data.entity.Task? = null,
+        recreate: Boolean = false,
+    ) {
         task.suppressSync()
         task.suppressRefresh()
         if (task.isNew) {
@@ -427,7 +434,7 @@ class GoogleTaskSynchronizer(
         googleTask
             .copy(
                 task = task.id,
-                lastSync = if (googleTask.remoteId.isNullOrEmpty()) 0L else task.modificationDate,
+                lastSync = if (recreate) 0L else task.modificationDate,
             )
             .let {
                 if (it.id == 0L) {
