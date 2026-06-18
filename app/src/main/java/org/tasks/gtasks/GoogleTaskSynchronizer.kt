@@ -20,6 +20,7 @@ import org.tasks.googleapis.InvokerFactory
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
+import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.cannot_access_account
@@ -41,6 +42,7 @@ class AndroidGoogleTaskSynchronizer @Inject constructor(
     private val appPreferences: AppPreferences,
     private val taskCreator: TaskCreator,
     private val repeatTaskHelper: RepeatTaskHelper,
+    private val taskCompleter: TaskCompleter,
 ) {
     private val defaultListProvider = object : DefaultListProvider {
         override suspend fun getDefaultList(): CaldavFilter =
@@ -63,6 +65,7 @@ class AndroidGoogleTaskSynchronizer @Inject constructor(
         alarmDao = alarmDao,
         appPreferences = appPreferences,
         repeatTaskHelper = repeatTaskHelper,
+        taskCompleter = taskCompleter,
         createTask = { taskCreator.createWithValues("") },
     )
 

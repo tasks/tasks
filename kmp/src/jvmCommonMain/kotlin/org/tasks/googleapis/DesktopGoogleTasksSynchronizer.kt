@@ -12,6 +12,7 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.preferences.AppPreferences
 import org.tasks.security.KeyStoreEncryption
+import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.cannot_access_account
@@ -28,6 +29,7 @@ class DesktopGoogleTasksSynchronizer(
     alarmDao: AlarmDao,
     appPreferences: AppPreferences,
     repeatTaskHelper: RepeatTaskHelper,
+    taskCompleter: TaskCompleter,
     private val encryption: KeyStoreEncryption,
     createTask: suspend () -> org.tasks.data.entity.Task,
     private val proxyAuthProvider: ProxyAuthProvider,
@@ -45,6 +47,7 @@ class DesktopGoogleTasksSynchronizer(
         alarmDao = alarmDao,
         appPreferences = appPreferences,
         repeatTaskHelper = repeatTaskHelper,
+        taskCompleter = taskCompleter,
         createTask = createTask,
     )
 

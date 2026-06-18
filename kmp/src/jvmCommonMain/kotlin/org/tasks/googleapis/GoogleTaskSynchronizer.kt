@@ -23,6 +23,7 @@ import org.tasks.data.entity.CaldavTask
 import org.tasks.data.getDefaultAlarms
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.preferences.AppPreferences
+import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import java.io.EOFException
@@ -48,6 +49,7 @@ class GoogleTaskSynchronizer(
     private val alarmDao: AlarmDao,
     private val appPreferences: AppPreferences,
     private val repeatTaskHelper: RepeatTaskHelper,
+    private val taskCompleter: TaskCompleter,
     private val createTask: suspend () -> org.tasks.data.entity.Task,
 ) {
     suspend fun sync(account: CaldavAccount, invoker: GtasksInvoker) {
@@ -389,7 +391,6 @@ class GoogleTaskSynchronizer(
                     continue
                 }
                 if (task.isRecurring) {
-                    googleTask.remoteId = ""
                     recreate = true
                 } else {
                     taskDeleter.delete(task)
@@ -412,6 +413,11 @@ class GoogleTaskSynchronizer(
                 task.suppressRefresh()
                 repeatTaskHelper.handleRepeat(task)
                 recreate = !task.isCompleted
+                if (recreate) {
+                    googleTask.remoteId = ""
+                    taskCompleter.setComplete(task, false)
+                    googleTaskDao.resetRemoteIds(taskDao.getChildren(task.id))
+                }
                 Logger.d(TAG) {
                     "${if (recreate) "advancing and recreating" else "final occurrence"}: $task"
                 }

@@ -68,6 +68,9 @@ abstract class GoogleTaskDao {
     @Query("UPDATE caldav_tasks SET gt_moved = 1 WHERE cd_task = :task and cd_calendar = :list")
     internal abstract suspend fun setMoved(task: Long, list: String)
 
+    @Query("UPDATE caldav_tasks SET cd_remote_id = '', cd_remote_parent = NULL, cd_last_sync = 0 WHERE cd_task IN (:tasks)")
+    abstract suspend fun resetRemoteIds(tasks: List<Long>)
+
     @Query("SELECT caldav_tasks.* FROM caldav_tasks INNER JOIN caldav_lists ON cdl_uuid = cd_calendar INNER JOIN caldav_accounts ON cda_uuid = cdl_account WHERE cd_task = :taskId AND cd_deleted = 0 AND cda_account_type = $TYPE_GOOGLE_TASKS")
     abstract suspend fun getByTaskId(taskId: Long): CaldavTask?
 
