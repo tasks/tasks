@@ -36,7 +36,6 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Alarm
-import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
@@ -278,16 +277,13 @@ class iCalendar(
             task.setDefaultReminders(preferences)
             alarmService.synchronizeAlarms(task.id, task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled()).toMutableSet())
         } else if (account.reminderSync) {
-            val alarms = alarmDao.getAlarms(task.id).map {
-                it.copy(id = 0, task = 0)
-            }
-            val randomReminders = alarms.filter { it.type == TYPE_RANDOM }
-            val localReminders =
-                local?.reminders?.plus(randomReminders) ?: randomReminders
-            if (alarms.toSet() == localReminders.toSet()) {
-                val remoteReminders = remote.reminders.plus(randomReminders)
-                alarmService.synchronizeAlarms(caldavTask.task, remoteReminders.toMutableSet())
-            }
+            val localAlarms = alarmDao.getAlarms(task.id).map { it.copy(id = 0, task = 0) }
+            val merged = mergeReminders(
+                base = local?.reminders.orEmpty(),
+                local = localAlarms,
+                remote = remote.reminders,
+            )
+            alarmService.synchronizeAlarms(caldavTask.task, merged.toMutableSet())
         }
 
         task.suppressSync()

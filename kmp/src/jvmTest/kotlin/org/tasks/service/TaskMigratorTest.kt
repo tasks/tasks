@@ -1,9 +1,6 @@
 package org.tasks.service
 
-import androidx.room.Room
-import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -14,10 +11,9 @@ import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import org.tasks.DatabaseTest
 import org.tasks.caldav.CaldavClient
 import org.tasks.caldav.CaldavClientProvider
-import org.tasks.data.dao.CaldavDao
-import org.tasks.data.db.Database
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
@@ -25,10 +21,7 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 
-class TaskMigratorTest {
-    private val db = Room.inMemoryDatabaseBuilder<Database>()
-        .setDriver(BundledSQLiteDriver())
-        .build()
+class TaskMigratorTest : DatabaseTest() {
     private val caldavDao = db.caldavDao()
     private val taskDeleter = TaskDeleter(
         deletionDao = db.deletionDao(),
@@ -59,11 +52,6 @@ class TaskMigratorTest {
             whenever(caldavClient.makeCollection(any(), any(), anyOrNull()))
                 .thenReturn(REMOTE_URL)
         }
-    }
-
-    @After
-    fun tearDown() {
-        db.close()
     }
 
     @Test

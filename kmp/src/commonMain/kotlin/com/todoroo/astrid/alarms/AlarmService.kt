@@ -42,9 +42,14 @@ class AlarmService(
                 changed = true
             }
         }
+        val snoozedInFuture =
+            alarms.any { it.type == TYPE_SNOOZE && it.time > currentTimeMillis() }
         alarmDao.insert(alarms.map { it.copy(task = taskId) })
         if (alarms.isNotEmpty()) {
             changed = true
+        }
+        if (snoozedInFuture) {
+            notifier.cancel(listOf(taskId), CancelReason.SNOOZE)
         }
         if (changed) {
             refreshBroadcaster.broadcastRefresh()
