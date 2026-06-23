@@ -219,7 +219,8 @@ class WatchServiceLogic(
                             task.isCompleted -> task.completionDate
                             else -> System.currentTimeMillis()
                         },
-                    )
+                    ),
+                    task,
                 )
             }
             return taskId

@@ -141,7 +141,7 @@ class DebugViewModel @Inject constructor(
                     Task.URGENCY_SPECIFIC_DAY,
                     currentTimeMillis(),
                 )
-                taskSaver.save(task)
+                taskSaver.save(task, null)
             }
             onComplete(count)
         }

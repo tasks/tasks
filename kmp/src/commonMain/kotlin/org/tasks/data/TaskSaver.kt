@@ -25,7 +25,7 @@ class TaskSaver(
     private val syncAdapters: SyncAdapters,
     private val backgroundWork: BackgroundWork,
 ) {
-    suspend fun save(task: Task, original: Task? = null) {
+    suspend fun save(task: Task, original: Task?) {
         if (taskDao.update(task, original)) {
             Logger.d("TaskSaver") { "Saved $task" }
             afterSave(task, original)

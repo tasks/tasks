@@ -63,7 +63,7 @@ class TaskerTaskCreator @Inject internal constructor(
             }
         }
         task.notes = bundle.description
-        taskSaver.save(task)
+        taskSaver.save(task, null)
         alarmDao.insert(task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled()))
         taskCreator.createTags(task)
         firebase.addTask("tasker")

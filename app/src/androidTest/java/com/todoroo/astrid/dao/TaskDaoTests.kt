@@ -49,7 +49,7 @@ class TaskDaoTests : InjectingTestCase() {
         val sadId = task.id
         assertNotSame(Task.NO_ID, sadId)
         task.title = "melancholy"
-        taskSaver.save(task)
+        taskSaver.save(task, null)
         assertEquals(2, taskDao.getAll().size)
 
         // check state
@@ -124,7 +124,7 @@ class TaskDaoTests : InjectingTestCase() {
         val task = Task()
         task.title = "happy"
         task.id = 1L
-        taskSaver.save(task)
+        taskSaver.save(task, null)
         assertEquals(0, taskDao.getAll().size)
     }
 

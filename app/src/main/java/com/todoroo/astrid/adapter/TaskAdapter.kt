@@ -196,7 +196,7 @@ open class TaskAdapter(
             SORT_IMPORTANCE -> {
                 val newPriority = dataSource.nearestHeader(if (pos == 0) 1 else pos).toInt()
                 if (newPriority != task.priority) {
-                    taskSaver.save(task.task.copy(priority = newPriority))
+                    taskSaver.save(task.task.copy(priority = newPriority), task.task)
                 }
             }
             SORT_LIST -> taskMover.move(task.id, dataSource.nearestHeader(if (pos == 0) 1 else pos))
@@ -206,26 +206,26 @@ open class TaskAdapter(
     }
 
     private suspend fun applyDueDate(task: Task, date: Long) {
-        val original = task.dueDate
+        val original = task.copy()
         task.setDueDateAdjustingHideUntil(when {
             date == 0L -> 0L
-            task.hasDueTime() -> date.toDateTime().withMillisOfDay(original.millisOfDay).millis
+            task.hasDueTime() -> date.toDateTime().withMillisOfDay(original.dueDate.millisOfDay).millis
             else -> createDueDate(Task.URGENCY_SPECIFIC_DAY, date)
         })
-        if (original != task.dueDate) {
-            taskSaver.save(task)
+        if (original.dueDate != task.dueDate) {
+            taskSaver.save(task, original)
         }
     }
 
     private suspend fun applyStartDate(task: Task, date: Long) {
-        val original = task.hideUntil
+        val original = task.copy()
         task.hideUntil = when {
             date == 0L -> 0L
-            task.hasStartDate() -> date.toDateTime().withMillisOfDay(original.millisOfDay).millis
+            task.hasStartDate() -> date.toDateTime().withMillisOfDay(original.hideUntil.millisOfDay).millis
             else -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, date)
         }
-        if (original != task.hideUntil) {
-            taskSaver.save(task)
+        if (original.hideUntil != task.hideUntil) {
+            taskSaver.save(task, original)
         }
     }
 

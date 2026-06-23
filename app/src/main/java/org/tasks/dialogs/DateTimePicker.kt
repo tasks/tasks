@@ -234,6 +234,7 @@ class DateTimePicker : BaseDateTimePicker() {
                     taskDao
                         .fetch(taskIds.toList())
                         .forEach {
+                            val original = it.copy()
                             val day = if (selectedDay == MULTIPLE_DAYS) {
                                 if (it.hasDueDate()) it.dueDate else today.millis
                             } else {
@@ -258,7 +259,7 @@ class DateTimePicker : BaseDateTimePicker() {
                                     )
                                 }
                             )
-                            taskSaver.save(it)
+                            taskSaver.save(it, original)
                         }
                 }
             }

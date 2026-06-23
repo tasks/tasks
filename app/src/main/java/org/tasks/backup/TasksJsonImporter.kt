@@ -423,7 +423,7 @@ class TasksJsonImporter @Inject constructor(
                 task.isNotifyModeNonstop -> Task.NOTIFY_MODE_NONSTOP
                 else -> 0
             }
-            taskSaver.save(task)
+            taskSaver.save(task, null)
         }
         if (version < V12_8) {
             task.repeatFrom = task.recurrence.repeatFrom()

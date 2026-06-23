@@ -57,6 +57,7 @@ class RepeatTaskHelper(
             Logger.e(e, tag = TAG) { "" }
             return false
         }
+        val original = task.copy()
         if (count > 1) {
             rrule.count = count - 1
             task.setRecurrence(rrule)
@@ -66,16 +67,17 @@ class RepeatTaskHelper(
         val oldDueDate = task.dueDate
         task.setDueDateAdjustingHideUntil(newDueDate)
         calendarHelper.rescheduleRepeatingTask(task)
-        taskSaver.save(task)
+        taskSaver.save(task, original)
         val previousDueDate = oldDueDate.takeIf { it > 0 } ?: computePreviousDueDate(task)
         rescheduleAlarms(task.id, previousDueDate, newDueDate)
         return true
     }
 
     suspend fun undoRepeat(task: Task, oldDueDate: Long) {
+        val original = task.copy()
         if (task.completionDate > 0) {
             task.completionDate = 0
-            taskSaver.save(task)
+            taskSaver.save(task, original)
             return
         }
         try {
@@ -97,7 +99,7 @@ class RepeatTaskHelper(
         } catch (e: ParseException) {
             Logger.e(e, tag = TAG) { "" }
         }
-        taskSaver.save(task)
+        taskSaver.save(task, original)
     }
 
     private suspend fun rescheduleAlarms(taskId: Long, oldDueDate: Long, newDueDate: Long) {

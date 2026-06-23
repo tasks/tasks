@@ -333,6 +333,7 @@ class TaskEditViewModel @Inject constructor(
         clear()
         val viewState = _viewState.value
         val isNew = viewState.isNew
+        val original = if (isNew) null else task.copy()
         task.title = if (viewState.task.title.isNullOrBlank()) resources.getString(R.string.no_title) else viewState.task.title
         task.dueDate = dueDate.value
         task.priority = viewState.task.priority
@@ -400,7 +401,7 @@ class TaskEditViewModel @Inject constructor(
             task.modificationDate = currentTimeMillis()
         }
 
-        taskSaver.save(task, null)
+        taskSaver.save(task, original)
         val selectedList = _viewState.value.list
         if (isNew || originalState.value.list != selectedList) {
             task.parent = 0
@@ -439,7 +440,7 @@ class TaskEditViewModel @Inject constructor(
                     )
                     subtask.parent = task.id
                     caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.id)
-                    taskSaver.save(subtask)
+                    taskSaver.save(subtask, null)
                     caldavDao.insert(
                         task = subtask,
                         caldavTask = caldavTask,
