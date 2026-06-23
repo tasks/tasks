@@ -26,6 +26,7 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.composeTitle
 import org.tasks.extensions.Context.canScheduleExactAlarms
+import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.feed.BlogPost
 import org.tasks.filters.SearchFilter
 import org.tasks.preferences.PermissionChecker
@@ -82,6 +83,7 @@ class TaskListViewModel @Inject constructor(
     createSearchFilter = { query ->
         SearchFilter(applicationContext.getString(R.string.FLA_search_filter, query), query)
     },
+    is24HourFormat = { applicationContext.is24HourFormat },
     refreshFlow = composeRefreshBroadcaster.refreshes,
 ) {
     private val _banner = MutableStateFlow<Banner?>(null)

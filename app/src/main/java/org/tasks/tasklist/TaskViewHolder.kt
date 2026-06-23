@@ -13,13 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.recyclerview.widget.RecyclerView
-import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import com.todoroo.astrid.core.SortHelper.SORT_LIST
 import com.todoroo.astrid.core.SortHelper.SORT_START
 import com.todoroo.astrid.ui.CheckableImageView
 import androidx.core.graphics.ColorUtils
 import com.google.android.material.color.MaterialColors
-import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.compose.chips.ChipGroup
 import org.tasks.compose.chips.FilterChip
@@ -31,20 +29,15 @@ import org.tasks.data.isHidden
 import org.tasks.data.isOverdue
 import org.tasks.databinding.TaskAdapterRowBinding
 import org.tasks.dialogs.Linkify
-import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
-import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.formatTime
 import org.tasks.markdown.Markdown
 import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import org.tasks.time.startOfDay
 import org.tasks.ui.CheckBoxProvider
 import org.tasks.ui.ChipProvider
 import kotlin.math.max
@@ -82,7 +75,6 @@ class TaskViewHolder internal constructor(
         setOnClickListener { onCompleteBoxClick() }
     }
     private val chipGroup: ComposeView = binding.chipGroup
-    private val alwaysDisplayFullDate: Boolean = preferences.alwaysDisplayFullDate
 
     lateinit var task: TaskContainer
 
@@ -154,7 +146,7 @@ class TaskViewHolder internal constructor(
         indent = task.indent
         markdown.setMarkdown(nameView, task.title)
         setupTitleAndCheckbox()
-        setupDueDate(sortMode == SORT_DUE)
+        setupDueDate()
         setupChips(
             filter = filter,
             sortByStartDate = sortMode == SORT_START,
@@ -211,29 +203,14 @@ class TaskViewHolder internal constructor(
         completeBox.invalidate()
     }
 
-    private fun setupDueDate(sortByDueDate: Boolean) {
+    private fun setupDueDate() {
         if (task.hasDueDate()) {
             if (task.task.isOverdue) {
                 dueDate.setTextColor(textColorOverdue)
             } else {
                 dueDate.setTextColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant, 0))
             }
-            val dateValue: String? = if (sortByDueDate
-                    && (task.sortGroup ?: 0) >= currentTimeMillis().startOfDay()
-            ) {
-                task.takeIf { it.hasDueTime() }?.let {
-                    formatTime(task.dueDate, context.is24HourFormat)
-                }
-            } else {
-                runBlocking {
-                    getRelativeDateTime(
-                        task.dueDate,
-                        context.is24HourFormat,
-                        alwaysDisplayFullDate = alwaysDisplayFullDate
-                    )
-                }
-            }
-            dueDate.text = dateValue
+            dueDate.text = task.dueDateText
             dueDate.visibility = View.VISIBLE
         } else {
             dueDate.visibility = View.GONE
