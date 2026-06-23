@@ -82,6 +82,7 @@ class TaskViewHolder internal constructor(
         setOnClickListener { onCompleteBoxClick() }
     }
     private val chipGroup: ComposeView = binding.chipGroup
+    private val debugDirty: View = binding.debugDirty
     private val alwaysDisplayFullDate: Boolean = preferences.alwaysDisplayFullDate
 
     lateinit var task: TaskContainer
@@ -149,8 +150,14 @@ class TaskViewHolder internal constructor(
 
     private fun getIndentSize(indent: Int) = (indent * shiftSize).roundToInt()
 
-    fun bindView(task: TaskContainer, filter: Filter, sortMode: Int) {
+    fun bindView(task: TaskContainer, filter: Filter, sortMode: Int, isDirty: Boolean = false, dirtyColor: Int = 0) {
         this.task = task
+        if (isDirty) {
+            debugDirty.setBackgroundColor(dirtyColor)
+            debugDirty.visibility = View.VISIBLE
+        } else {
+            debugDirty.visibility = View.GONE
+        }
         indent = task.indent
         markdown.setMarkdown(nameView, task.title)
         setupTitleAndCheckbox()

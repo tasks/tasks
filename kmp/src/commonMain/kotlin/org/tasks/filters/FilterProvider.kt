@@ -89,6 +89,7 @@ class FilterProvider(
             if (TasksBuildConfig.DEBUG && tasksPreferences.get(showDebugFilters, false)) {
                 val collapsed = tasksPreferences.get(collapseDebug, false)
                 val filters = listOf(
+                    DebugFilters.getDirtyFilter(),
                     DebugFilters.getNoListFilter(),
                     DebugFilters.getNoTitleFilter(),
                     DebugFilters.getMissingListFilter(),

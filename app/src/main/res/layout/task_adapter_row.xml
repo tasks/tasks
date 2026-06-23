@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/row"
   android:layout_width="fill_parent"
   android:background="?android:colorBackground"
   android:layout_height="wrap_content">
 
-    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
       android:id="@+id/rowBody"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -93,5 +94,14 @@
       style="@style/horizontal_divider"
       android:visibility="?attr/horizontal_divider_visibility"
       android:layout_gravity="bottom" />
+
+    <View
+      android:id="@+id/debugDirty"
+      android:layout_width="3dp"
+      android:layout_height="match_parent"
+      android:layout_gravity="end"
+      android:background="@android:color/holo_orange_dark"
+      android:visibility="gone"
+      tools:visibility="visible" />
 
 </FrameLayout>

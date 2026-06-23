@@ -149,6 +149,7 @@ import org.tasks.filters.key
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.markdown.MarkdownProvider
+import org.tasks.TasksBuildConfig
 import org.tasks.preferences.Device
 import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.Preferences
@@ -217,6 +218,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private val mainViewModel: MainActivityViewModel by activityViewModels()
     private lateinit var taskAdapter: TaskAdapter
     private var recyclerAdapter: DragAndDropRecyclerAdapter? = null
+    private var dirtyTaskIds: Set<Long> = emptySet()
     private val bannerAdapter = BannerAdapter()
     private lateinit var filter: Filter
     private lateinit var search: MenuItem
@@ -422,6 +424,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 launch {
                     listViewModel.banner.collect { banner ->
                         bannerAdapter.showBanner = banner != null
+                    }
+                }
+                if (TasksBuildConfig.DEBUG) {
+                    launch {
+                        database.dirtyDao().getDirtyTaskIds().collect { ids ->
+                            dirtyTaskIds = ids.toSet()
+                            recyclerAdapter?.dirtyTaskIds = dirtyTaskIds
+                        }
                     }
                 }
                 listViewModel.state.collect {
@@ -673,6 +683,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     private fun setAdapter(adapter: DragAndDropRecyclerAdapter) {
         recyclerAdapter = adapter
+        adapter.dirtyTaskIds = dirtyTaskIds
+        adapter.dirtyColor = themeColor.primaryColor
         binding.bodyStandard.recyclerView.adapter = ConcatAdapter(bannerAdapter, adapter)
         taskAdapter.setDataSource(adapter)
     }

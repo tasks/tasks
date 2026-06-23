@@ -15,6 +15,16 @@ abstract class TaskListRecyclerAdapter internal constructor(
         internal val preferences: Preferences
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>(), ListUpdateCallback, TaskAdapterDataSource {
 
+    var dirtyTaskIds: Set<Long> = emptySet()
+        set(value) {
+            if (field != value) {
+                field = value
+                notifyItemRangeChanged(0, itemCount)
+            }
+        }
+
+    var dirtyColor: Int = 0
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
             = viewHolderFactory.newViewHolder(parent, taskList)
 
@@ -23,7 +33,7 @@ abstract class TaskListRecyclerAdapter internal constructor(
         val task = getItem(position)
         if (task != null) {
             (holder as TaskViewHolder)
-                    .bindView(task, filter, groupMode)
+                    .bindView(task, filter, groupMode, dirtyTaskIds.contains(task.id), dirtyColor)
             holder.moving = false
             val indent = adapter.getIndent(task)
             task.indent = indent

@@ -42,6 +42,13 @@ abstract class DirtyDao {
     """)
     abstract fun hasDirtyTasks(): Flow<Boolean>
 
+    @Query("""
+        SELECT cd_task FROM task_dirty
+        INNER JOIN caldav_tasks ON cd_id = caldav_task_id
+        WHERE dirty_version > synced_version AND cd_deleted = 0
+    """)
+    abstract fun getDirtyTaskIds(): Flow<List<Long>>
+
     @Transaction
     open suspend fun setDirty(ids: List<Long>) =
         ids.eachChunk { upsertDirty(it) }

@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import org.tasks.data.db.Table
 
 @Entity(
     tableName = "task_dirty",
@@ -26,4 +27,11 @@ data class TaskDirtyVersion(
     val dirtyVersion: Long = 0,
     @ColumnInfo(name = "synced_version", defaultValue = "0")
     val syncedVersion: Long = 0,
-)
+) {
+    companion object {
+        val TABLE = Table("task_dirty")
+        val CALDAV_TASK_ID = TABLE.column("caldav_task_id")
+        val DIRTY_VERSION = TABLE.column("dirty_version")
+        val SYNCED_VERSION = TABLE.column("synced_version")
+    }
+}
