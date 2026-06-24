@@ -137,10 +137,10 @@ open class TaskAdapter(
                 }
             }
             return
-        } else if (newParent != null) {
-            if (task.caldav != newParent.caldav) {
-                caldavDao.markDeleted(listOf(task.id))
-            }
+        }
+        if (newParent?.caldav != null && task.caldav != newParent.caldav) {
+            taskMover.move(task = task.id, listUuid = newParent.caldav!!, newParent = newParent.id)
+            return
         }
         when {
             newParent == null -> {
@@ -445,14 +445,8 @@ open class TaskAdapter(
                     caldavDao.update(caldavTask.id, caldavTask.remoteParent)
                 }
             } else {
-                caldavDao.markDeleted(listOf(task.id))
-                caldavDao.insert(
-                    CaldavTask(
-                        task = task.id,
-                        calendar = parentTask.calendar,
-                        remoteParent = parentTask.remoteId,
-                    )
-                )
+                taskMover.move(task = task.id, listUuid = parentTask.calendar!!, newParent = newParent)
+                return
             }
         }
         task.parent = newParent

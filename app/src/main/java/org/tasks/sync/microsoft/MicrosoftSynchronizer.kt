@@ -238,7 +238,6 @@ class MicrosoftSynchronizer @Inject constructor(
             }
         }
         if (success) {
-            vtodoCache.delete(list, task)
             caldavDao.delete(task)
         }
         return success
@@ -347,7 +346,6 @@ class MicrosoftSynchronizer @Inject constructor(
                 val caldavTasks = caldavDao.getTasksByRemoteId(list.uuid!!, listOf(remote.id!!))
                 val taskIds = caldavTasks.map { it.task }.flatMap { taskDao.getChildren(it) + it }
                 Timber.d("Deleting $remote, taskIds=$taskIds")
-                vtodoCache.delete(list, caldavTasks)
                 taskDeleter.delete(taskIds)
             }
         }
@@ -440,7 +438,6 @@ class MicrosoftSynchronizer @Inject constructor(
             ?.let {
                 Timber.d("DELETED $it")
                 val caldavTasks = caldavDao.getTasksByRemoteId(list.uuid!!, it.filterNotNull())
-                vtodoCache.delete(list, caldavTasks)
                 val taskIds = caldavTasks.map { it.task }.flatMap { taskDao.getChildren(it) + it }
                 taskDeleter.delete(taskIds)
             }
@@ -506,7 +503,6 @@ class MicrosoftSynchronizer @Inject constructor(
             }
             .takeIf { it.isNotEmpty() }
             ?.let { removedSubtasks ->
-                vtodoCache.delete(list, removedSubtasks)
                 taskDeleter.delete(removedSubtasks.map { it.task })
             }
         checklistItems.forEach { item ->

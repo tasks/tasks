@@ -328,7 +328,6 @@ class CaldavSynchronizer(
                 ?.let {
                     Logger.d(TAG) { "DELETED $it" }
                     val tasks = caldavDao.getTasks(caldavCalendar.uuid!!, it.toList())
-                    vtodoCache.delete(caldavCalendar, tasks)
                     taskDeleter.delete(tasks.map { it.task })
                 }
         caldavCalendar.ctag = remoteCtag
@@ -384,7 +383,6 @@ class CaldavSynchronizer(
             Logger.e(e) { e.message.orEmpty() }
             return false
         }
-        vtodoCache.delete(calendar, caldavTask)
         caldavDao.delete(caldavTask)
         return true
     }

@@ -26,6 +26,7 @@ class TaskMigratorTest : DatabaseTest() {
     private val taskDeleter = TaskDeleter(
         deletionDao = db.deletionDao(),
         taskDao = db.taskDao(),
+        caldavDao = caldavDao,
         refreshBroadcaster = mock(),
         vtodoCache = mock(),
         tasksPreferences = mock(),

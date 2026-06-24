@@ -4,6 +4,7 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.VtodoCache
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
@@ -17,11 +18,18 @@ import org.tasks.preferences.TasksPreferences
 class TaskDeleter(
     private val deletionDao: DeletionDao,
     private val taskDao: TaskDao,
+    private val caldavDao: CaldavDao,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val vtodoCache: VtodoCache,
     private val tasksPreferences: TasksPreferences,
     private val taskCleanup: TaskCleanup,
 ) {
+
+    suspend fun markMoved(taskIds: List<Long>) {
+        vtodoCache.delete(taskIds)
+        caldavDao.markDeleted(taskIds)
+    }
+
     suspend fun markDeleted(item: Task) = markDeleted(listOf(item.id))
 
     suspend fun markDeleted(taskIds: List<Long>): List<Task> = withContext(NonCancellable) {
@@ -31,6 +39,7 @@ class TaskDeleter(
             .let { taskDao.fetch(it.toList()) }
             .filterNot { it.readOnly }
             .map { it.id }
+        vtodoCache.delete(ids)
         deletionDao.markDeleted(
             ids = ids,
             cleanup = { taskCleanup.cleanup(it) }
@@ -44,6 +53,7 @@ class TaskDeleter(
     suspend fun delete(task: Long) = delete(listOf(task))
 
     suspend fun delete(tasks: List<Long>) {
+        vtodoCache.delete(tasks)
         deletionDao.delete(
             ids = tasks,
             cleanup = { taskCleanup.cleanup(it) }

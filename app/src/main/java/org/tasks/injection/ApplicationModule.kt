@@ -466,14 +466,14 @@ class ApplicationModule {
         googleTaskDao: GoogleTaskDao,
         preferences: Preferences,
         refreshBroadcaster: RefreshBroadcaster,
-        vtodoCache: VtodoCache,
+        taskDeleter: TaskDeleter,
     ) = org.tasks.data.TaskMover(
         taskDao = taskDao,
         caldavDao = caldavDao,
         googleTaskDao = googleTaskDao,
         appPreferences = preferences,
         refreshBroadcaster = refreshBroadcaster,
-        vtodoCache = vtodoCache,
+        taskDeleter = taskDeleter,
     )
 
     @Provides
@@ -570,11 +570,12 @@ class ApplicationModule {
     fun providesTaskDeleter(
         deletionDao: DeletionDao,
         taskDao: TaskDao,
+        caldavDao: CaldavDao,
         refreshBroadcaster: RefreshBroadcaster,
         vtodoCache: VtodoCache,
         tasksPreferences: TasksPreferences,
         taskCleanup: TaskCleanup,
-    ) = TaskDeleter(deletionDao, taskDao, refreshBroadcaster, vtodoCache, tasksPreferences, taskCleanup)
+    ) = TaskDeleter(deletionDao, taskDao, caldavDao, refreshBroadcaster, vtodoCache, tasksPreferences, taskCleanup)
 
     @Provides
     fun providesTaskMigrator(

@@ -223,6 +223,50 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
         checkOrder(created.plusSeconds(6), 3)
     }
 
+    @Test
+    fun moveSubtaskToAnotherListHonorsDropPosition() = runBlocking {
+        // two caldav lists on the same account
+        caldavDao.insert(CaldavAccount(uuid = "acct", accountType = TYPE_CALDAV))
+        caldavDao.insert(CaldavCalendar(uuid = "src", account = "acct"))
+        caldavDao.insert(CaldavCalendar(uuid = "dst", account = "acct"))
+        val created = DateTime(2020, 5, 17, 9, 53, 17)
+        // destination list: parent with two existing subtasks
+        val parent = addTaskTo("dst", created)
+        val childA = addTaskTo("dst", created.plusSeconds(2), parent)
+        val childB = addTaskTo("dst", created.plusSeconds(4), parent)
+        // source list: the task to drag
+        val dragged = addTaskTo("src", created.plusSeconds(6))
+
+        // multi-list view: parent, childA, childB (dst), then the dragged task (src)
+        val dstFilter = CaldavFilter(CaldavCalendar(uuid = "dst"), CaldavAccount(accountType = TYPE_CALDAV))
+        tasks.addAll(taskDao.fetchTasks(getQuery(preferences, dstFilter)))
+        tasks.addAll(taskDao.fetchTasks(getQuery(preferences, CaldavFilter(CaldavCalendar(uuid = "src"), CaldavAccount(accountType = TYPE_CALDAV)))))
+
+        // drag the task from the other list in as a subtask of parent, between childA and childB
+        adapter.moved(3, 2, 1)
+
+        // it moved into the destination list, nested under parent, at the drop position
+        // (between childA and childB) — not forced to the top or bottom
+        assertEquals("dst", caldavDao.getTask(dragged)!!.calendar)
+        assertEquals(parent, taskDao.fetch(dragged)!!.parent)
+        val childOrder = taskDao.fetchTasks(getQuery(preferences, dstFilter))
+            .filter { it.parent == parent }
+            .map { it.id }
+        assertEquals(listOf(childA, dragged, childB), childOrder)
+    }
+
+    private fun addTaskTo(list: String, created: DateTime, parent: Long = 0): Long = runBlocking {
+        val task = newTask(with(CREATION_TIME, created), with(PARENT, parent))
+        taskDao.createNew(task)
+        val remoteParent = if (parent > 0) caldavDao.getRemoteIdForTask(parent) else null
+        caldavDao.insert(
+                newCaldavTask(
+                        with(TASK, task.id),
+                        with(CALENDAR, list),
+                        with(REMOTE_PARENT, remoteParent)))
+        task.id
+    }
+
     private fun move(from: Int, to: Int, indent: Int = 0) = runBlocking {
         tasks.addAll(taskDao.fetchTasks(getQuery(preferences, filter)))
         val adjustedTo = if (from < to) to + 1 else to // match DragAndDropRecyclerAdapter behavior

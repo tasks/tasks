@@ -13,23 +13,6 @@ class VtodoCache(
     private val caldavDao: CaldavDao,
     private val fileStorage: FileStorage,
 ) {
-    suspend fun move(from: CaldavCalendar, to: CaldavCalendar, task: CaldavTask) =
-        withContext(Dispatchers.IO) {
-            val source =
-                fileStorage.getFile(from.account, from.uuid, task.obj)
-            if (source?.exists() != true) {
-                return@withContext
-            }
-            val target =
-                fileStorage.getFile(to.account, to.uuid)
-                    ?.apply { mkdirs() }
-                    ?.let { File(it, task.obj!!) }
-                    ?: return@withContext
-            source.copyTo(target, overwrite = true)
-            val deleted = source.delete()
-            Logger.d("VtodoCache") { "Moved $source to $target [success=${deleted}]" }
-        }
-
     suspend fun getVtodo(caldavTask: CaldavTask?): String? {
         if (caldavTask == null) {
             return null
@@ -59,8 +42,11 @@ class VtodoCache(
         }
     }
 
-    suspend fun delete(calendar: CaldavCalendar, tasks: List<CaldavTask>) {
-        tasks.forEach { delete(calendar, it) }
+    suspend fun delete(tasks: List<Long>) {
+        val calendars = caldavDao.getCalendars(tasks).associateBy { it.uuid }
+        caldavDao.getTasks(tasks).forEach { caldavTask ->
+            calendars[caldavTask.calendar]?.let { delete(it, caldavTask) }
+        }
     }
 
     suspend fun delete(calendar: CaldavCalendar, caldavTask: CaldavTask) = withContext(Dispatchers.IO) {

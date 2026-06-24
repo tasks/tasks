@@ -171,7 +171,6 @@ class EtebaseSynchronizer(
             client.deleteItem(collection, caldavTask)
                     ?.let { changes.add(it) }
                     ?: run {
-                        vtodoCache.delete(caldavCalendar, caldavTask)
                         caldavDao.delete(caldavTask)
                     }
         }
@@ -218,7 +217,6 @@ class EtebaseSynchronizer(
             if (item.isDeleted) {
                 if (caldavTask != null) {
                     if (caldavTask.isDeleted()) {
-                        vtodoCache.delete(caldavCalendar, caldavTask)
                         caldavDao.delete(caldavTask)
                     } else {
                         taskDeleter.delete(caldavTask.task)
