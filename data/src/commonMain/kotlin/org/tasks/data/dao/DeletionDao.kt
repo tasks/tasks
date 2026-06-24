@@ -65,7 +65,7 @@ WHERE recurring = 1
         Logger.d("DeletionDao") { "markDeleted ids=$ids" }
         ids.eachChunk {
             markDeletedInternal(it)
-            database.dirtyDao().upsertDirty(it)
+            database.dirtyDao().setDirty(it)
         }
         cleanup(ids.toList())
     }

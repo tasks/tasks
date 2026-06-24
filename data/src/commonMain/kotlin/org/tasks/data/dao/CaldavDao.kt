@@ -15,6 +15,7 @@ import org.tasks.data.NO_ORDER
 import org.tasks.data.TaskContainer
 import org.tasks.data.db.Database
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
+import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
@@ -220,7 +221,7 @@ WHERE cd_calendar = :calendar
         }
         database.dirtyDao().markSynced(caldavTaskId)
         if (markDirty) {
-            database.dirtyDao().upsertDirty(listOf(caldavTask.task))
+            database.dirtyDao().setDirty(listOf(caldavTask.task))
         }
         return caldavTaskId
     }
@@ -244,8 +245,8 @@ WHERE cd_calendar = :calendar
 
     @Transaction
     open suspend fun markDeleted(tasks: List<Long>, now: Long = currentTimeMillis()) {
-        database.dirtyDao().upsertDirty(tasks)
-        markDeletedInternal(tasks, now)
+        database.dirtyDao().setDirty(tasks)
+        tasks.eachChunk { markDeletedInternal(it, now) }
     }
 
     @Query("UPDATE caldav_tasks SET cd_deleted = :now WHERE cd_task IN (:tasks)")
@@ -390,7 +391,7 @@ GROUP BY caldav_lists.cdl_uuid
         }
         task.task.order = newPosition
         setTaskOrder(task.id, newPosition)
-        database.dirtyDao().upsertDirty(listOf(task.id))
+        database.dirtyDao().setDirty(listOf(task.id))
     }
 
     @Transaction

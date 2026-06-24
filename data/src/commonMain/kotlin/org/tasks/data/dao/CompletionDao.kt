@@ -26,7 +26,7 @@ abstract class CompletionDao(private val db: Database) {
             }
         db.alarmDao().deleteSnoozed(tasks.map { it.id })
         db.taskDao().updateInternal(updated)
-        db.dirtyDao().upsertDirty(tasks.map { it.id })
+        db.dirtyDao().setDirty(tasks.map { it.id })
         afterSave(updated)
     }
 }

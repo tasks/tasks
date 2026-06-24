@@ -199,7 +199,7 @@ FROM recursive_tasks
         }
         val updated = updateInternal(task) == 1
         if (updated && markDirty) {
-            database.dirtyDao().upsertDirty(listOf(task.id))
+            database.dirtyDao().setDirty(listOf(task.id))
         }
         return updated
     }

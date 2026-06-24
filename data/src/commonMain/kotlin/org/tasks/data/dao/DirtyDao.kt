@@ -50,15 +50,8 @@ abstract class DirtyDao {
     abstract fun getDirtyTaskIds(): Flow<List<Long>>
 
     @Transaction
-    open suspend fun setDirty(ids: List<Long>) =
-        ids.eachChunk { upsertDirty(it) }
-
-    @Transaction
-    open suspend fun setDirty(ids: List<Long>, accountTypes: List<Int>) =
+    open suspend fun setDirty(ids: List<Long>, accountTypes: List<Int> = TYPES_NON_LOCAL) =
         ids.eachChunk { upsertDirtyForAccountTypes(it, accountTypes) }
-
-    suspend fun upsertDirty(ids: List<Long>) =
-        upsertDirtyForAccountTypes(ids, TYPES_NON_LOCAL)
 
     @Query("""
         INSERT INTO task_dirty (caldav_task_id, dirty_version, synced_version)
