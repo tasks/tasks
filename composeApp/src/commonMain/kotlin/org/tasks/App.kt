@@ -27,6 +27,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.Repeat
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.RadioButtonUnchecked
@@ -1850,6 +1851,16 @@ private fun TaskRow(
             else -> MaterialTheme.colorScheme.outline
         }
     }
+    val taskIconVector = if (task.isCompleted) {
+        Icons.Filled.CheckCircle
+    } else {
+        if(task.task.isRecurring) {
+            Icons.Filled.Repeat
+        }
+        else {
+            Icons.Outlined.RadioButtonUnchecked
+        }
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -1865,10 +1876,7 @@ private fun TaskRow(
             modifier = Modifier.size(48.dp),
         ) {
             Icon(
-                imageVector = if (task.isCompleted)
-                    Icons.Filled.CheckCircle
-                else
-                    Icons.Outlined.RadioButtonUnchecked,
+                imageVector = taskIconVector,
                 contentDescription = null,
                 tint = checkColor,
                 modifier = Modifier.size(24.dp),
