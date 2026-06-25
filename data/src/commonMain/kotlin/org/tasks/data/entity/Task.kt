@@ -200,15 +200,24 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
         if (this === original) {
             return true
         }
-        return if (original == null) {
-            false
-        } else title == original.title
-                && priority == original.priority
-                && dueDate == original.dueDate
-                && completionDate == original.completionDate
-                && deletionDate == original.deletionDate
-                && notes == original.notes
-                && recurrence == original.recurrence
+        if (original == null) {
+            return false
+        }
+        if (parent != original.parent) {
+            return false
+        }
+        return if (parent > 0L) {
+            title == original.title
+                    && completionDate == original.completionDate
+        } else {
+            title == original.title
+                    && priority == original.priority
+                    && dueDate == original.dueDate
+                    && completionDate == original.completionDate
+                    && deletionDate == original.deletionDate
+                    && notes == original.notes
+                    && recurrence == original.recurrence
+        }
     }
 
     val isSaved: Boolean

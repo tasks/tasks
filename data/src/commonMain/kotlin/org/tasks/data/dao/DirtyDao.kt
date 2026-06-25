@@ -9,7 +9,9 @@ import kotlinx.coroutines.flow.Flow
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavAccount.Companion.TYPES_NON_LOCAL
+import org.tasks.data.entity.CaldavAccount.Companion.TYPES_TAGS
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.TaskDirtyVersion
@@ -62,6 +64,24 @@ abstract class DirtyDao {
         ON CONFLICT(caldav_task_id) DO UPDATE SET dirty_version = dirty_version + 1
     """)
     internal abstract suspend fun upsertDirtyForAccountTypes(ids: List<Long>, accountTypes: List<Int>)
+
+    @Transaction
+    open suspend fun setDirtyForTags(ids: List<Long>) =
+        ids.eachChunk { upsertDirtyForTags(it, TYPES_TAGS) }
+
+    @Query("""
+        INSERT INTO task_dirty (caldav_task_id, dirty_version, synced_version)
+        SELECT cd_id, 1, 0 FROM caldav_tasks
+        INNER JOIN caldav_lists ON cdl_uuid = cd_calendar
+        INNER JOIN caldav_accounts ON cda_uuid = cdl_account
+        INNER JOIN tasks ON tasks._id = cd_task
+        WHERE cd_task IN (:ids)
+          AND cd_deleted = 0
+          AND cda_account_type IN (:accountTypes)
+          AND NOT (cda_account_type = $TYPE_MICROSOFT AND tasks.parent > 0)
+        ON CONFLICT(caldav_task_id) DO UPDATE SET dirty_version = dirty_version + 1
+    """)
+    internal abstract suspend fun upsertDirtyForTags(ids: List<Long>, accountTypes: List<Int>)
 
     @Query("SELECT synced_version FROM task_dirty WHERE caldav_task_id = :caldavTaskId")
     abstract suspend fun getSyncedVersion(caldavTaskId: Long): Long?

@@ -997,6 +997,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                             data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_PARTIALLY_SELECTED)!!,
                             data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED)!!
                     )
+                    localBroadcastManager.broadcastRefresh()
                 }
                 finishActionMode()
             }

@@ -114,7 +114,8 @@ abstract class TagDataDao(private val database: Database) {
         }
         val result = ArrayList(modified)
         if (result.isNotEmpty()) {
-            database.dirtyDao().setDirty(result, TYPES_TAGS)
+            database.taskDao().touch(result)
+            database.dirtyDao().setDirtyForTags(result)
         }
         return result
     }
@@ -125,10 +126,10 @@ abstract class TagDataDao(private val database: Database) {
         update(tagData)
         if (nameChanged) {
             val tagDao = database.tagDao()
-            tagDao.rename(tagData.remoteId!!, tagData.name!!)
-            val affectedTaskIds = tagDao.getByTagUid(tagData.remoteId!!).map { it.task }
+            tagDao.rename(tagData.remoteId, tagData.name!!)
+            val affectedTaskIds = tagDao.getByTagUid(tagData.remoteId).map { it.task }
             if (affectedTaskIds.isNotEmpty()) {
-                database.dirtyDao().setDirty(affectedTaskIds, TYPES_TAGS)
+                database.dirtyDao().setDirtyForTags(affectedTaskIds)
             }
         }
     }
@@ -138,10 +139,10 @@ abstract class TagDataDao(private val database: Database) {
         Logger.d("TagDataDao") { "deleting $tagData" }
         val tagDao = database.tagDao()
         val affectedTaskIds = tagDao.getByTagUid(tagData.remoteId!!).map { it.task }
-        deleteTags(tagData.remoteId!!)
+        deleteTags(tagData.remoteId)
         deleteTagData(tagData)
         if (affectedTaskIds.isNotEmpty()) {
-            database.dirtyDao().setDirty(affectedTaskIds, TYPES_TAGS)
+            database.dirtyDao().setDirtyForTags(affectedTaskIds)
         }
     }
 

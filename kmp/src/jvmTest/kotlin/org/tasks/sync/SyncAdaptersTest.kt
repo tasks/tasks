@@ -192,6 +192,62 @@ class SyncAdaptersTest {
     }
 
     @Test
+    fun microsoftSubtaskSyncsOnTitleChange() = runTest(testDispatcher) {
+        val parent = createTask()
+        val subtask = createTask(title = "new", parent = parent.id)
+        setupAccount(subtask.id, TYPE_MICROSOFT)
+
+        taskSaver.save(subtask, subtask.copy(title = "old"))
+
+        assertDirty(subtask.id)
+    }
+
+    @Test
+    fun microsoftSubtaskSyncsOnCompletionChange() = runTest(testDispatcher) {
+        val parent = createTask()
+        val subtask = createTask(parent = parent.id)
+        setupAccount(subtask.id, TYPE_MICROSOFT)
+
+        taskSaver.save(subtask, subtask.copy(completionDate = 12345L))
+
+        assertDirty(subtask.id)
+    }
+
+    @Test
+    fun microsoftSubtaskSyncsOnReparent() = runTest(testDispatcher) {
+        val parent = createTask()
+        val subtask = createTask(parent = parent.id)
+        setupAccount(subtask.id, TYPE_MICROSOFT)
+
+        taskSaver.save(subtask, subtask.copy(parent = 0))
+
+        assertDirty(subtask.id)
+    }
+
+    @Test
+    fun microsoftSubtaskIgnoresPriorityChange() = runTest(testDispatcher) {
+        val parent = createTask()
+        val subtask = createTask(parent = parent.id)
+        setupAccount(subtask.id, TYPE_MICROSOFT)
+
+        taskSaver.save(subtask, subtask.copy(priority = Task.Priority.HIGH))
+
+        assertNotDirty(subtask.id)
+    }
+
+    @Test
+    fun microsoftSubtaskIgnoresTagChange() = runTest(testDispatcher) {
+        val parent = createTask()
+        val subtask = createTask(parent = parent.id)
+        setupAccount(subtask.id, TYPE_MICROSOFT)
+        subtask.putTransitory(SYNC_TAGS, true)
+
+        taskSaver.save(subtask, subtask.copy())
+
+        assertNotDirty(subtask.id)
+    }
+
+    @Test
     fun caldavSyncsOnTitleChange() = runTest(testDispatcher) {
         val task = createTask(title = "new")
         setupAccount(task.id, TYPE_CALDAV)
@@ -347,8 +403,8 @@ class SyncAdaptersTest {
         assertNotDirty(task.id)
     }
 
-    private suspend fun createTask(title: String = "task"): Task {
-        val task = Task(title = title)
+    private suspend fun createTask(title: String = "task", parent: Long = 0): Task {
+        val task = Task(title = title, parent = parent)
         taskDao.createNew(task)
         return task
     }

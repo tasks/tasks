@@ -47,10 +47,11 @@ class TaskSaver(
         }
         val accountType = caldavDao.getAccountType(task.id) ?: return false
         val traits = CaldavAccount.syncTraits(accountType)
-        val transitoryChanged =
-            (SyncTrait.TAGS in traits && task.checkTransitory(SYNC_TAGS)) ||
-                    (SyncTrait.ALARMS in traits && task.checkTransitory(SYNC_ALARMS)) ||
-                    (SyncTrait.LOCATION in traits && task.checkTransitory(SYNC_LOCATION))
+        val isMicrosoftSubtask = accountType == TYPE_MICROSOFT && task.parent > 0L
+        val transitoryChanged = !isMicrosoftSubtask &&
+                ((SyncTrait.TAGS in traits && task.checkTransitory(SYNC_TAGS)) ||
+                        (SyncTrait.ALARMS in traits && task.checkTransitory(SYNC_ALARMS)) ||
+                        (SyncTrait.LOCATION in traits && task.checkTransitory(SYNC_LOCATION)))
         if (transitoryChanged) {
             return true
         }
