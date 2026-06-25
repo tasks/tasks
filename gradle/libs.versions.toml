@@ -117,7 +117,7 @@ dashclock-api = { module = "com.google.android.apps.dashclock:dashclock-api", ve
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 #noinspection NewerVersionAvailable
 dmfs-jems = { module = "org.dmfs:jems", version = "1.33" }
-dmfs-opentasks-provider = { module = "com.github.tasks.opentasks:opentasks-provider", version = "a194e692d9" }
+dmfs-opentasks-provider = { module = "com.github.tasks.opentasks:opentasks-provider", version = "44e5ce6b82" }
 #noinspection NewerVersionAvailable
 dmfs-recur = { module = "org.dmfs:lib-recur", version = "0.11.4" }
 #noinspection NewerVersionAvailable

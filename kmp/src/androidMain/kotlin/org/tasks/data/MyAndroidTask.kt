@@ -53,9 +53,9 @@ class MyAndroidTask() : DmfsTask(null) {
         buildTask(builder, true)
         if (!isNew) {
             builder.remove(TaskContract.Tasks._UID)
+            builder.remove(TaskContract.Tasks.CREATED)
         }
         return builder
-                .remove(TaskContract.Tasks.CREATED)
                 .remove(TaskContract.Tasks.LAST_MODIFIED)
                 .remove(TaskContract.Tasks._DIRTY)
                 .remove(TaskContract.Tasks.SYNC_VERSION)

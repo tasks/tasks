@@ -663,7 +663,7 @@
 +|    +--- com.github.franmontiel:PersistentCookieJar:1.0.1
 +|    |    \--- com.squareup.okhttp3:okhttp:3.1.2 -> 5.3.2 (*)
 +|    +--- com.getpebble:pebblekit:4.0.1
-+|    +--- com.github.tasks.opentasks:opentasks-provider:a194e692d9
++|    +--- com.github.tasks.opentasks:opentasks-provider:44e5ce6b82
 +|    +--- org.dmfs:rfc5545-datetime:0.2.4
 +|    +--- org.dmfs:lib-recur:0.11.4
 +|    |    \--- org.dmfs:rfc5545-datetime:0.2.4
@@ -1370,7 +1370,7 @@
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.3.21 (c)
 +|    \--- androidx.compose.material3.adaptive:adaptive:1.2.0 (c)
 ++--- com.github.tasks:ical4android:fcb0311ca7 (*)
-++--- com.github.tasks.opentasks:opentasks-provider:a194e692d9
+++--- com.github.tasks.opentasks:opentasks-provider:44e5ce6b82
 ++--- org.dmfs:rfc5545-datetime:0.2.4
 ++--- org.dmfs:lib-recur:0.11.4 (*)
 ++--- org.dmfs:jems:1.33
