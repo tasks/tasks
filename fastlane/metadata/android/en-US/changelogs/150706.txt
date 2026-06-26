@@ -1,0 +1,7 @@
+* Sync performance improvements and bug fixes
+* Fix tag rename synchronization
+* Fix tag sync in DAVx5/EteSync/DecSync CC
+* Fix moving tasks with subtasks in DAVx5/EteSync/DecSync CC
+* Don't change modification timestamp when moving tasks
+* Don't change modification timestamp when expanding/collapsing subtasks
+* Update translations
