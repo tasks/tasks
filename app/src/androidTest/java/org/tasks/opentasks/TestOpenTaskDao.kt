@@ -1,6 +1,7 @@
 package org.tasks.opentasks
 
 import android.content.ContentProviderResult
+import android.content.ContentValues
 import android.content.Context
 import at.bitfire.ical4android.BatchOperation
 import at.bitfire.ical4android.Task
@@ -55,6 +56,20 @@ class TestOpenTaskDao @Inject constructor(
         ops.add(task.toBuilder(tasks).withValue(TaskContract.TaskColumns.LIST_ID, listId))
         task.enqueueProperties(properties, ops, 0)
         applyOperation(*ops.toTypedArray())
+    }
+
+    fun setDescription(listId: Long, uid: String, description: String) {
+        val values = ContentValues().apply {
+            put(TaskContract.Tasks.DESCRIPTION, description)
+        }
+        cr.update(
+                tasks.buildUpon()
+                        .appendQueryParameter(TaskContract.CALLER_IS_SYNCADAPTER, "true")
+                        .build(),
+                values,
+                "${TaskContract.Tasks.LIST_ID} = ? AND ${TaskContract.Tasks._UID} = ?",
+                arrayOf(listId.toString(), uid)
+        )
     }
 
     fun getTasks(): List<Task> {

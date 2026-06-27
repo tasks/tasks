@@ -378,6 +378,7 @@ class ApplicationModule {
         reporting: Reporting,
         iCal: org.tasks.caldav.iCalendar,
         openTaskDao: OpenTaskDao,
+        vtodoCache: VtodoCache,
     ): OpenTasksSynchronizer = OpenTasksSynchronizer(
         caldavDao = caldavDao,
         taskDeleter = taskDeleter,
@@ -386,6 +387,7 @@ class ApplicationModule {
         reporting = reporting,
         iCalendar = iCal,
         openTaskDao = openTaskDao,
+        vtodoCache = vtodoCache,
     )
 
     @Provides

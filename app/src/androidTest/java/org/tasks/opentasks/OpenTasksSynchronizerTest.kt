@@ -5,8 +5,10 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.tasks.data.TaskMover
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavCalendar
@@ -16,9 +18,14 @@ import org.tasks.makers.CaldavTaskMaker.TASK
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TaskMaker.RECUR
 import org.tasks.makers.TaskMaker.newTask
+import org.tasks.service.TaskDeleter
+import javax.inject.Inject
 
 @HiltAndroidTest
 class OpenTasksSynchronizerTest : OpenTasksTest() {
+
+    @Inject lateinit var taskMover: TaskMover
+    @Inject lateinit var taskDeleter: TaskDeleter
 
     @Test
     fun createNewAccounts() = runBlocking {
@@ -105,5 +112,52 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
 
         val task = openTaskDao.getTasks().first()
         assertEquals("FREQ=WEEKLY", task.rRule?.value)
+    }
+
+    @Test
+    fun pushLocalDeletionAfterFetch() = runBlocking {
+        val (listId, list) = withVtodo(VTODO)
+        synchronizer.sync(hasPro = true)
+        val taskId = caldavDao.getTaskByRemoteId(list.uuid!!, UID)!!.task
+
+        taskDeleter.markDeleted(listOf(taskId))
+
+        synchronizer.sync(hasPro = true)
+
+        assertNull(openTaskDao.getTask(listId, UID))
+    }
+
+    @Test
+    fun moveBetweenListsRemovesFromSourceProvider() = runBlocking {
+        val (sourceListId, source) = withVtodo(VTODO)
+        val (_, destination) = openTaskDao.insertList()
+        synchronizer.sync(hasPro = true)
+        val taskId = caldavDao.getTaskByRemoteId(source.uuid!!, UID)!!.task
+
+        taskMover.move(taskId, destination.uuid!!, 0L)
+
+        synchronizer.sync(hasPro = true)
+
+        assertNull(openTaskDao.getTask(sourceListId, UID))
+        assertEquals(destination.uuid, caldavDao.getTask(taskId)?.calendar)
+        assertEquals("original title", openTaskDao.getTasks().single().summary)
+    }
+
+    companion object {
+        private const val UID = "1234"
+        private val VTODO = """
+            BEGIN:VCALENDAR
+            VERSION:2.0
+            PRODID:+//IDN tasks.org//android-110304//EN
+            BEGIN:VTODO
+            DTSTAMP:20210201T204211Z
+            UID:1234
+            CREATED:20210201T204143Z
+            LAST-MODIFIED:20210201T204209Z
+            SUMMARY:original title
+            DESCRIPTION:original notes
+            END:VTODO
+            END:VCALENDAR
+        """.trimIndent()
     }
 }

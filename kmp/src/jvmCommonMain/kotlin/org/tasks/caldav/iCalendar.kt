@@ -228,7 +228,7 @@ class iCalendar(
             }
         val caldavTask =
             existing
-                ?.copy(task = task.id)
+                ?.copy(task = task.id, obj = existing.obj?.takeIf { it.isNotBlank() } ?: obj)
                 ?: CaldavTask(
                     task = task.id,
                     calendar = calendar.uuid,
@@ -237,11 +237,13 @@ class iCalendar(
                 )
         val isNew = caldavTask.id == org.tasks.data.entity.Task.NO_ID
         val dirty = !isNew && dirtyDao.isDirty(caldavTask.id) == true
-        // When dirty, three-way merge the remote into the locally-modified task using the vtodo
-        // cache as the base (applyRemote below), exactly as for a clean task. The difference is at
-        // the end: a dirty task is NOT marked synced, so the merged result is pushed on the next
-        // sync (local edits survive). See the dirty branch of the final caldav write.
         val local = vtodoCache.getVtodo(calendar, caldavTask)?.let { fromVtodo(it) }
+        if (dirty && local == null) {
+            vtodoCache.putVtodo(calendar, caldavTask, vtodo)
+            caldavTask.etag = eTag
+            caldavDao.update(caldavTask)
+            return
+        }
         val original = task.copy()
         task.applyRemote(remote, local)
         caldavTask.applyRemote(remote, local)

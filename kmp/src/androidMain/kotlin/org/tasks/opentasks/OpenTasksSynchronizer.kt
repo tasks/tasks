@@ -8,6 +8,7 @@ import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Reporting
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.Ical4androidTaskAdapter
+import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
 import org.tasks.data.MyAndroidTask
 import org.tasks.data.OpenTaskDao
@@ -24,6 +25,7 @@ import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.NO_ID
 import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import java.io.ByteArrayOutputStream
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.requires_pro_subscription
 
@@ -35,6 +37,7 @@ class OpenTasksSynchronizer(
     private val reporting: Reporting,
     private val iCalendar: iCalendar,
     private val openTaskDao: OpenTaskDao,
+    private val vtodoCache: VtodoCache,
 ) : OpenTasksSyncer {
 
     override suspend fun sync(hasPro: Boolean) {
@@ -98,10 +101,10 @@ class OpenTasksSynchronizer(
                 }
         lists.forEach {
             val calendar = toLocalCalendar(it)
-            if (calendar.access != CaldavCalendar.ACCESS_READ_ONLY) {
-                pushChanges(account, calendar, it.id)
-            }
             fetchChanges(account, calendar, it.ctag, it.id)
+            if (calendar.access != CaldavCalendar.ACCESS_READ_ONLY) {
+                pushLocalChanges(account, calendar, it.id)
+            }
         }
     }
 
@@ -127,7 +130,7 @@ class OpenTasksSynchronizer(
         return local
     }
 
-    private suspend fun pushChanges(
+    private suspend fun pushLocalChanges(
         account: CaldavAccount,
         calendar: CaldavCalendar,
         listId: Long
@@ -153,7 +156,7 @@ class OpenTasksSynchronizer(
         taskDeleter.delete(deleted.map { it.task.id })
 
         updated.forEach {
-            push(account, it.task, it.caldavTaskId, it.dirtyVersion, listId)
+            push(account, calendar, it.task, it.caldavTaskId, it.dirtyVersion, listId)
         }
     }
 
@@ -208,14 +211,17 @@ class OpenTasksSynchronizer(
         }
     }
 
-    private suspend fun push(account: CaldavAccount, task: Task, caldavTaskId: Long, dirtyVersion: Long?, listId: Long) {
+    private suspend fun push(account: CaldavAccount, calendar: CaldavCalendar, task: Task, caldavTaskId: Long, dirtyVersion: Long?, listId: Long) {
         val caldavTask = caldavDao.getCaldavTaskById(caldavTaskId) ?: return
         dirtyDao.withDirtyVersion(caldavTaskId, dirtyVersion) {
             val uid = caldavTask.remoteId!!
+            if (caldavTask.obj.isNullOrBlank()) {
+                caldavTask.obj = "$uid.ics"
+            }
             val androidTask = openTaskDao.getTask(listId, uid)
                     ?: MyAndroidTask(at.bitfire.ical4android.Task())
             val adapted = Ical4androidTaskAdapter(androidTask.task!!)
-            iCalendar.toVtodo(account, caldavTask, task, adapted)
+            val data = iCalendar.toVtodo(account, caldavTask, task, adapted)
             val operations = ArrayList<BatchOperation.CpoBuilder>()
             val builder = androidTask.toBuilder(openTaskDao.tasks)
             val idxTask = if (androidTask.isNew) {
@@ -240,6 +246,7 @@ class OpenTasksSynchronizer(
 
             operations.map { it.build() }.let { openTaskDao.batch(it) }
 
+            vtodoCache.putVtodo(calendar, caldavTask, String(data))
             caldavDao.update(caldavTask)
         }
         Logger.d("OpenTasksSynchronizer") { "SENT $caldavTask" }
@@ -255,7 +262,11 @@ class OpenTasksSynchronizer(
     ) {
         openTaskDao.getTask(listId, uid)?.let { androidTask ->
             val adapted = Ical4androidTaskAdapter(androidTask.task!!)
-            iCalendar.fromVtodo(account, calendar, existing, adapted, null, null, etag)
+            val vtodo = ByteArrayOutputStream().let {
+                adapted.write(it)
+                String(it.toByteArray())
+            }
+            iCalendar.fromVtodo(account, calendar, existing, adapted, vtodo, "$uid.ics", etag)
         }
     }
 
