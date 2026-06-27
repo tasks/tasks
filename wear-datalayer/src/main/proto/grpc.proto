@@ -113,3 +113,14 @@ service WearService {
   rpc getTaskCount(GetTaskCountRequest) returns (GetTaskCountResponse);
   rpc getVersion(GetVersionRequest) returns (GetVersionResponse);
 }
+
+message LastUpdate {
+  uint64 now = 1;
+}
+
+message Settings {
+  repeated uint64 collapsed = 1;
+  optional string filter = 2;
+  bool showHidden = 3;
+  bool showCompleted = 4;
+}

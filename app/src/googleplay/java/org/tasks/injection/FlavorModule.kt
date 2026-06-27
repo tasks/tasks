@@ -21,6 +21,7 @@ import org.tasks.billing.GooglePlayQrScanner
 import org.tasks.billing.QrScanner
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.extensions.wearDataLayerRegistry
+import org.tasks.wear.PhoneSyncManager
 import org.tasks.http.HttpClientFactory
 import org.tasks.location.Geocoder
 import org.tasks.location.GeocoderMapbox
@@ -93,13 +94,15 @@ class FlavorModule {
     @Provides
     @Singleton
     fun getWearRefresher(
-        @ApplicationContext applicationContext: Context,
         phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+        wearDataLayerRegistry: WearDataLayerRegistry,
+        phoneSyncManager: PhoneSyncManager,
         @ApplicationScope scope: CoroutineScope,
     ): WearRefresher = WearRefresherImpl(
-        phoneDataLayerAppHelper,
-        Wearable.getMessageClient(applicationContext),
-        scope,
+        phoneDataLayerAppHelper = phoneDataLayerAppHelper,
+        registry = wearDataLayerRegistry,
+        scope = scope,
+        phoneSyncManager = phoneSyncManager,
     )
 
     @Provides

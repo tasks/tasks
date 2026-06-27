@@ -184,10 +184,11 @@ class SyncRepository(context: Context) {
      */
     suspend fun updateDueDate(taskId: String, dueDate: Long?, dueTime: Long?, reminder: Boolean, reminderTime: Long?) {
         val timestamp = System.currentTimeMillis()
+        val combinedDueDate = combineDueDateAndTime(dueDate, dueTime)
 
         val payload = JSONObject().apply {
             put(DataMapKeys.KEY_TASK_ID, taskId)
-            put(DataMapKeys.KEY_DUE_DATE, dueDate ?: 0L)
+            put(DataMapKeys.KEY_DUE_DATE, combinedDueDate)
             put(DataMapKeys.KEY_TIMESTAMP, timestamp)
         }.toString()
 
@@ -370,6 +371,7 @@ class SyncRepository(context: Context) {
 
             if (existingTask == null) {
                 // Task doesn't exist locally, create it
+                val (parsedDueDate, parsedDueTime) = splitDueDate(dueDate)
                 val newTask = TaskEntity(
                     id = taskId,
                     title = title ?: "",
@@ -383,8 +385,9 @@ class SyncRepository(context: Context) {
                     dirty = false,  // Not dirty since it came from phone
                     syncedAt = System.currentTimeMillis(),
                     phoneTaskId = phoneId,  // Store phone task ID for mapping
-                    dueDate = dueDate,
-                    reminder = dueDate != null && dueDate > 0,
+                    dueDate = parsedDueDate,
+                    dueTime = parsedDueTime,
+                    reminder = parsedDueDate != null && parsedDueDate > 0,
                 )
                 taskDao.insert(newTask)
                 Timber.d("Created new task $taskId from phone (phoneTaskId: $phoneId)")
@@ -417,6 +420,20 @@ class SyncRepository(context: Context) {
                     Timber.d("Updated completed for task $taskId (incoming newer)")
                 } else if (completedUpdatedAt != null) {
                     Timber.d("Kept local completed for task $taskId (local newer)")
+                }
+
+                // Update dueDate if incoming is different
+                if (dueDate != null && dueDate != (existingTask.dueDate ?: 0L)) {
+                    val (parsedDueDate, parsedDueTime) = splitDueDate(dueDate)
+                    taskDao.updateDueDateAndReminder(
+                        id = existingTask.id,
+                        dueDate = parsedDueDate,
+                        dueTime = parsedDueTime,
+                        reminder = parsedDueDate != null && parsedDueDate > 0,
+                        reminderTime = null,
+                    )
+                    updated = true
+                    Timber.d("Updated dueDate for task $taskId from phone operation")
                 }
 
                 // Handle deletion
@@ -490,6 +507,7 @@ class SyncRepository(context: Context) {
 
             if (existingTask == null) {
                 // Task doesn't exist locally, create it
+                val (parsedDueDate, parsedDueTime) = splitDueDate(dueDate)
                 val newTask = TaskEntity(
                     id = taskId,
                     title = title ?: "",
@@ -503,11 +521,12 @@ class SyncRepository(context: Context) {
                     dirty = false,
                     syncedAt = System.currentTimeMillis(),
                     phoneTaskId = phoneId,
-                    dueDate = dueDate,
-                    reminder = dueDate != null && dueDate > 0,
+                    dueDate = parsedDueDate,
+                    dueTime = parsedDueTime,
+                    reminder = parsedDueDate != null && parsedDueDate > 0,
                 )
                 taskDao.insert(newTask)
-                Timber.d("Created new task $taskId from snapshot (phoneTaskId: $phoneId, dueDate: $dueDate)")
+                Timber.d("Created new task $taskId from snapshot (phoneTaskId: $phoneId, dueDate: $parsedDueDate)")
             } else {
                 // Task exists - update phoneTaskId if not set and apply per-field updates
                 if (existingTask.phoneTaskId == null && phoneId != null && phoneId > 0) {
@@ -532,14 +551,15 @@ class SyncRepository(context: Context) {
 
                 // Update dueDate from phone (phone is authoritative for due dates)
                 if (dueDate != null && dueDate != (existingTask.dueDate ?: 0L)) {
+                    val (parsedDueDate, parsedDueTime) = splitDueDate(dueDate)
                     taskDao.updateDueDateAndReminder(
                         id = existingTask.id,
-                        dueDate = dueDate.takeIf { it > 0 },
-                        dueTime = null,
-                        reminder = dueDate > 0,
+                        dueDate = parsedDueDate,
+                        dueTime = parsedDueTime,
+                        reminder = parsedDueDate != null && parsedDueDate > 0,
                         reminderTime = null,
                     )
-                    Timber.d("Updated dueDate for task ${existingTask.id} to $dueDate")
+                    Timber.d("Updated dueDate for task ${existingTask.id} to $parsedDueDate (dueTime: $parsedDueTime)")
                 }
 
                 taskDao.markSynced(existingTask.id)
@@ -595,7 +615,43 @@ class SyncRepository(context: Context) {
 
     // ===== Helpers =====
 
+    private fun splitDueDate(combinedDueDate: Long?): Pair<Long?, Long?> {
+        if (combinedDueDate == null || combinedDueDate <= 0) return Pair(null, null)
+        val hasTime = combinedDueDate % 60000 > 0
+        if (hasTime) {
+            val midnightCal = java.util.Calendar.getInstance().apply {
+                timeInMillis = combinedDueDate
+                set(java.util.Calendar.HOUR_OF_DAY, 0)
+                set(java.util.Calendar.MINUTE, 0)
+                set(java.util.Calendar.SECOND, 0)
+                set(java.util.Calendar.MILLISECOND, 0)
+            }
+            return Pair(midnightCal.timeInMillis, combinedDueDate)
+        } else {
+            return Pair(combinedDueDate, null)
+        }
+    }
+
+    private fun combineDueDateAndTime(dueDate: Long?, dueTime: Long?): Long {
+        if (dueDate == null || dueDate <= 0) return 0L
+        if (dueTime == null || dueTime <= 0) return dueDate
+        
+        val dateCal = java.util.Calendar.getInstance().apply { timeInMillis = dueDate }
+        val timeCal = java.util.Calendar.getInstance().apply { timeInMillis = dueTime }
+        
+        return java.util.Calendar.getInstance().apply {
+            set(java.util.Calendar.YEAR, dateCal.get(java.util.Calendar.YEAR))
+            set(java.util.Calendar.MONTH, dateCal.get(java.util.Calendar.MONTH))
+            set(java.util.Calendar.DAY_OF_MONTH, dateCal.get(java.util.Calendar.DAY_OF_MONTH))
+            set(java.util.Calendar.HOUR_OF_DAY, timeCal.get(java.util.Calendar.HOUR_OF_DAY))
+            set(java.util.Calendar.MINUTE, timeCal.get(java.util.Calendar.MINUTE))
+            set(java.util.Calendar.SECOND, 1) // Add 1 second for dueTime flag
+            set(java.util.Calendar.MILLISECOND, 0)
+        }.timeInMillis
+    }
+
     private fun createTaskPayload(task: TaskEntity): String {
+        val combinedDueDate = combineDueDateAndTime(task.dueDate, task.dueTime)
         return JSONObject().apply {
             put(DataMapKeys.KEY_TASK_ID, task.id)
             put(DataMapKeys.KEY_TITLE, task.title)
@@ -606,7 +662,7 @@ class SyncRepository(context: Context) {
             put(DataMapKeys.KEY_COMPLETED_UPDATED_AT, task.completedUpdatedAt)
             put(DataMapKeys.KEY_DELETED, task.deleted)
             put(DataMapKeys.KEY_PRIORITY, task.priority)
-            put(DataMapKeys.KEY_DUE_DATE, task.dueDate ?: 0L)
+            put(DataMapKeys.KEY_DUE_DATE, combinedDueDate)
             put(DataMapKeys.KEY_TIMESTAMP, task.updatedAt)
         }.toString()
     }
