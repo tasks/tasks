@@ -5,6 +5,10 @@
   <application tools:ignore="GoogleAppIndexingWarning">
 
     <meta-data
+        android:name="firebase_crashlytics_collection_enabled"
+        android:value="false"/>
+
+    <meta-data
       android:name="com.google.android.geo.API_KEY"
       android:value="@string/google_key" />
 
@@ -12,12 +16,15 @@
       android:name="com.google.android.gms.version"
       android:value="@integer/google_play_services_version"/>
 
+    <service
+        android:name=".fcm.TasksFirebaseMessagingService"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT" />
+      </intent-filter>
+    </service>
 
     <receiver android:name=".location.GoogleGeofenceTransitionIntentService$Broadcast"/>
-    <service
-      android:exported="false"
-      android:name=".location.GoogleGeofenceTransitionIntentService"
-      android:permission="android.permission.BIND_JOB_SERVICE"/>
 
     <service
         android:name=".wear.WearDataService"

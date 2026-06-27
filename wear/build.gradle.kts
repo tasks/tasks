@@ -46,7 +46,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("release")
+            val tasksStoreFile: String? by project
+            if (tasksStoreFile != null) {
+                signingConfig = signingConfigs.getByName("release")
+            } else {
+                signingConfig = signingConfigs.getByName("debug")
+            }
         }
     }
     compileOptions {
@@ -111,6 +116,8 @@ dependencies {
     // Room Database
     implementation(libs.androidx.room)
     ksp(libs.androidx.room.compiler)
+
+    implementation("androidx.fragment:fragment:1.8.5")
 
 
     implementation(libs.wear.tiles.proto) // https://nvd.nist.gov/vuln/detail/CVE-2024-7254
