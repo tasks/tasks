@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.ksp)
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }
@@ -71,6 +72,11 @@ android {
     tasks.register("testClasses")
 }
 
+// Room schema export directory configuration
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(platform(libs.androidx.compose))
@@ -101,6 +107,11 @@ dependencies {
     implementation(libs.horologist.datalayer.grpc)
     implementation(libs.timber)
     implementation(libs.androidx.work)
+
+    // Room Database
+    implementation(libs.androidx.room)
+    ksp(libs.androidx.room.compiler)
+
 
     implementation(libs.wear.tiles.proto) // https://nvd.nist.gov/vuln/detail/CVE-2024-7254
 
