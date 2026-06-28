@@ -1,3 +1,14 @@
+### 15.7.3 (2026-06-26)
+
+* Sync performance improvements and bug fixes
+* Fix tag rename synchronization [#1672](https://github.com/tasks/tasks/issues/1672)
+* Fix tag sync in DAVx5/EteSync/DecSync CC [#3011](https://github.com/tasks/tasks/issues/3011)
+* Fix moving tasks with subtasks in DAVx5/EteSync/DecSync CC [#2895](https://github.com/tasks/tasks/issues/2895)
+* Don't change modification timestamp when moving tasks [#3407](https://github.com/tasks/tasks/issues/3047)
+* Don't change modification timestamp when expanding/collapsing subtasks [#2302](https://github.com/tasks/tasks/issues/2302)
+* Update translations
+  * Croatian - @milotype
+
 ### 15.7.2 (2026-06-17)
 
 * Sync improvements and bug fixes
