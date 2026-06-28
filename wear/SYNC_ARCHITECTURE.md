@@ -57,17 +57,23 @@ the watch and phone, with per-field conflict resolution.
 
 ### Phone Module (App)
 
-#### Sync Layer (`app/src/main/java/org/tasks/wear/sync/`)
+#### Sync Layer (`app/src/googleplay/java/org/tasks/wear/`)
 
 1. **SyncProtocol.kt** - Mirrors wear module paths/keys
 
 2. **PhoneSyncManager** - Handles watch operations:
    - Receives CREATE/UPDATE/DELETE/COMPLETE ops
-   - Applies to phone TaskDao with conflict resolution
+   - Applies to phone TaskDao with per-field last-write-wins conflict resolution
    - Sends acks back to watch
-   - Can send snapshots to watch
+   - Handles single task updates and snapshots back to the watch
 
-3. **PhoneSyncListenerService** - Background service with Hilt injection
+3. **WearRefresher** / **WearRefresherImpl** - Sends snapshots and task-level changes to watch
+
+4. **WearSyncNotifierImpl** - Bridges common KMP interface calls from `TaskSaver` and `TaskDeleter` to the Google Play `WearRefresherImpl` (lazily instantiated via `Lazy<WearRefresher>` to prevent dependency injection cycles)
+
+### Common/Shared Layer (`kmp/src/commonMain/`)
+
+1. **WearSyncNotifier** - Interface used by core business logic (in KMP) to notify platform sync modules of task mutations without introducing module circular dependencies
 
 ## Sync Flow
 
@@ -86,7 +92,8 @@ the watch and phone, with per-field conflict resolution.
 5. Phone receives onDataChanged()
 6. PhoneSyncManager.handleWatchOperation():
    - Check idempotency (processedOps)
-   - Apply to TaskDao with conflict resolution
+   - Apply to TaskDao with conflict resolution (last-write-wins comparing
+     watch field timestamps against the phone's task modificationDate)
    - Send ack via DataItem
 7. Watch receives ack, marks op as ACKED
 ```
@@ -94,34 +101,27 @@ the watch and phone, with per-field conflict resolution.
 ### Phone → Watch (User creates/edits task on phone)
 
 ```
-1. Task changed on phone
-2. PhoneSyncManager.sendTaskToWatch() or sendTasksToWatch()
-3. Create DataItem with task data + field timestamps
-4. Watch receives onDataChanged()
-5. DataLayerSyncManager.handlePhoneOperation():
-   - Check idempotency
-   - SyncRepository.applyIncomingTask():
-     - Per-field conflict resolution (last-write-wins)
-     - Update only fields where incoming timestamp > local
-6. Send ack via DataItem
+1. Task created, saved, or completed via TaskSaver or TaskCompleter
+2. TaskSaver triggers wearSyncNotifier.notifyTaskChanged(taskId)
+3. WearSyncNotifierImpl routes to WearRefresherImpl.notifyTaskChanged(taskId)
+4. PhoneSyncManager.sendTaskUpdate(task) is invoked:
+   - Creates a DataItem with task data + field modification timestamps
+   - Marks as urgent and pushes to the watch at /tasks/{taskId}
+5. Watch receives onDataChanged()
+6. DataLayerSyncManager.handleTaskUpdate():
+   - Calls SyncRepository.applyIncomingTaskWithPhoneId()
+   - Evaluates per-field last-write-wins conflict resolution (title, notes, completed)
 ```
 
 ## Conflict Resolution
 
-Uses **per-field last-write-wins** strategy:
+Uses **per-field last-write-wins** strategy in BOTH directions:
 
-- Each field (title, notes, completed) has its own timestamp
-- When merging, compare timestamps per-field
-- Keep the value with the newer timestamp
-- This minimizes data loss compared to whole-record LWW
-
-Example:
-```
-Watch:  title="Buy milk" (12:00), notes="2 liters" (12:05)
-Phone:  title="Buy groceries" (12:10), notes="1 liter" (12:01)
-Result: title="Buy groceries" (from phone, newer)
-        notes="2 liters" (from watch, newer)
-```
+- Each field (title, notes, completed) has its own timestamp.
+- On the phone, watch timestamps are compared against the task's general `modificationDate` (which acts as the baseline version marker).
+- When merging, compare timestamps per-field.
+- Keep the value with the newer timestamp.
+- This minimizes data loss compared to whole-record LWW.
 
 ## Retry & Error Handling
 
@@ -137,6 +137,7 @@ Result: title="Buy groceries" (from phone, newer)
 - DataItems persist and sync when connectivity available
 - System handles retry automatically
 
+
 ## Files Created/Modified
 
 ### Wear Module
@@ -148,7 +149,7 @@ Result: title="Buy groceries" (from phone, newer)
 - `data/local/WearDatabase.kt` - Added new entities/DAOs
 - `data/local/TaskDao.kt` - Added sync queries
 - `data/local/TaskRepository.kt` - Integrated SyncRepository
-- `data/sync/SyncProtocol.kt` - NEW
+- `data/sync/SyncProtocol.kt` - Added `KEY_MODIFICATION_DATE` to `DataMapKeys`
 - `data/sync/SyncRepository.kt` - NEW
 - `data/sync/DataLayerSyncManager.kt` - NEW
 - `data/sync/WearSyncListenerService.kt` - NEW
@@ -157,9 +158,17 @@ Result: title="Buy groceries" (from phone, newer)
 - `AndroidManifest.xml` - Register service
 
 ### App Module
-- `wear/sync/SyncProtocol.kt` - NEW
-- `wear/sync/PhoneSyncManager.kt` - NEW
-- `wear/sync/PhoneSyncListenerService.kt` - NEW
-- `injection/ApplicationModule.kt` - Provider for PhoneSyncManager
-- `AndroidManifest.xml` - Register service
+- `wear/PhoneSyncManager.kt` - Added conflict resolution and `notifyTaskDeleted`
+- `wear/WearRefresher.kt` - Added `notifyTaskChanged` / `notifyTaskDeleted` to interface
+- `wear/WearRefresherImpl.kt` - Implemented task update/delete pushes
+- `wear/WearSyncNotifierImpl.kt` - NEW (KMP-to-App bridge)
+- `injection/ApplicationModule.kt` - Wired providers for `WearSyncNotifier` and updated `providesTaskSaver`/`providesTaskDeleter`
+
+### KMP Module
+- `wear/WearSyncNotifier.kt` - NEW (Common KMP sync interface)
+- `data/TaskSaver.kt` - Added trigger for `wearSyncNotifier.notifyTaskChanged()`
+- `service/TaskDeleter.kt` - Added triggers for `wearSyncNotifier.notifyTaskDeleted()`
+- `jvmTest/kotlin/org/tasks/sync/SyncAdaptersTest.kt` - Updated mocks for TaskSaver
+- `jvmTest/kotlin/org/tasks/service/TaskMigratorTest.kt` - Updated mocks for TaskDeleter
+
 
