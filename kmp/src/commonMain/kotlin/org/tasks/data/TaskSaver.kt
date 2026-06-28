@@ -23,6 +23,7 @@ import org.tasks.location.LocationService
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.wear.WearSyncNotifier
 
 class TaskSaver(
     private val taskDao: TaskDao,
@@ -32,6 +33,7 @@ class TaskSaver(
     private val timerPlugin: TimerPlugin,
     private val backgroundWork: BackgroundWork,
     private val caldavDao: CaldavDao,
+    private val wearSyncNotifier: WearSyncNotifier,
 ) {
     suspend fun save(task: Task, original: Task?, dirty: Boolean = true) {
         val markDirty = dirty && needsSync(task, original)
@@ -83,6 +85,11 @@ class TaskSaver(
         }
         if (!task.isSuppressRefresh()) {
             refreshBroadcaster.broadcastRefresh()
+        }
+        try {
+            wearSyncNotifier.notifyTaskChanged(task.id)
+        } catch (e: Exception) {
+            // Don't fail task save if wear sync notification fails
         }
         notifier.triggerNotifications()
         backgroundWork.scheduleRefresh()

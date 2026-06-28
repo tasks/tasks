@@ -97,6 +97,7 @@ object DataMapKeys {
     const val KEY_DELETED = "deleted"
     const val KEY_PRIORITY = "priority"
     const val KEY_DUE_DATE = "dueDate"
+    const val KEY_MODIFICATION_DATE = "modificationDate"
     const val KEY_REPEATING = "repeating"
 
     // Snapshot keys

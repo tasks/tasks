@@ -58,9 +58,15 @@ class WearRefresherImpl(
      * Notify watch about a specific task change.
      * This is called after task updates to sync changes to watch.
      */
-    suspend fun notifyTaskChanged(taskId: Long) {
+    override suspend fun notifyTaskChanged(taskId: Long) {
         if (watchConnected) {
             phoneSyncManager?.notifyTaskChanged(taskId)
+        }
+    }
+
+    override suspend fun notifyTaskDeleted(taskId: Long) {
+        if (watchConnected) {
+            phoneSyncManager?.notifyTaskDeleted(taskId)
         }
     }
 }

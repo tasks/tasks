@@ -214,7 +214,7 @@ class PhoneSyncManager @Inject constructor(
         }
 
         // Create new task using TaskCreator
-        val task = taskCreator.basicQuickAddTask(title)
+        val task = taskCreator.basicQuickAddTask(title, remoteId = taskId)
 
         // Update task with remoteId, notes, and other fields
         taskDao.fetch(task.id)?.let { fetchedTask ->
@@ -249,30 +249,83 @@ class PhoneSyncManager @Inject constructor(
             return
         }
 
+        val phoneModTime = task.modificationDate
+
+        // Extract incoming field values and their timestamps
         val title = dataMap.getString(DataMapKeys.KEY_TITLE)
+        val titleUpdatedAt = if (dataMap.containsKey(DataMapKeys.KEY_TITLE_UPDATED_AT))
+            dataMap.getLong(DataMapKeys.KEY_TITLE_UPDATED_AT) else null
         val notes = dataMap.getString(DataMapKeys.KEY_NOTES)
+        val notesUpdatedAt = if (dataMap.containsKey(DataMapKeys.KEY_NOTES_UPDATED_AT))
+            dataMap.getLong(DataMapKeys.KEY_NOTES_UPDATED_AT) else null
         val completed = if (dataMap.containsKey(DataMapKeys.KEY_COMPLETED))
             dataMap.getBoolean(DataMapKeys.KEY_COMPLETED) else null
+        val completedUpdatedAt = if (dataMap.containsKey(DataMapKeys.KEY_COMPLETED_UPDATED_AT))
+            dataMap.getLong(DataMapKeys.KEY_COMPLETED_UPDATED_AT) else null
         val dueDate = dataMap.getLong(DataMapKeys.KEY_DUE_DATE).takeIf { it > 0 }
 
-        val oldDueDate = task.dueDate
+        // Per-field last-write-wins: only apply fields where watch timestamp is newer
+        var newTitle = task.title
+        var newNotes = task.notes
+        var newCompletionDate = task.completionDate
+        var newDueDate = task.dueDate
+        var modified = false
 
-        val updatedTask = task.copy(
-            title = title ?: task.title,
-            notes = notes ?: task.notes,
-            dueDate = dueDate ?: task.dueDate,
-            completionDate = when {
-                completed == null -> task.completionDate
+        // Title: apply if watch timestamp is newer than phone modification date
+        if (title != null && titleUpdatedAt != null && titleUpdatedAt > phoneModTime) {
+            newTitle = title
+            modified = true
+            Timber.d("PhoneSyncManager: Accepting newer title for task ${task.id}")
+        } else if (title != null) {
+            Timber.d("PhoneSyncManager: Keeping phone title for task ${task.id} (phone newer)")
+        }
+
+        // Notes: apply if watch timestamp is newer
+        if (notes != null && notesUpdatedAt != null && notesUpdatedAt > phoneModTime) {
+            newNotes = notes
+            modified = true
+            Timber.d("PhoneSyncManager: Accepting newer notes for task ${task.id}")
+        } else if (notes != null) {
+            Timber.d("PhoneSyncManager: Keeping phone notes for task ${task.id} (phone newer)")
+        }
+
+        // Completed: apply if watch timestamp is newer
+        if (completed != null && completedUpdatedAt != null && completedUpdatedAt > phoneModTime) {
+            newCompletionDate = when {
                 completed && !task.isCompleted -> System.currentTimeMillis()
                 !completed -> 0
                 else -> task.completionDate
             }
+            modified = true
+            Timber.d("PhoneSyncManager: Accepting newer completed=$completed for task ${task.id}")
+        } else if (completed != null) {
+            Timber.d("PhoneSyncManager: Keeping phone completed for task ${task.id} (phone newer)")
+        }
+
+        // DueDate: apply if different (no per-field timestamp available for due date)
+        val oldDueDate = task.dueDate
+        if (dueDate != null && dueDate != oldDueDate) {
+            newDueDate = dueDate
+            modified = true
+        }
+
+        if (!modified) {
+            Timber.d("PhoneSyncManager: No fields updated for task ${task.id} (all phone fields newer)")
+            return
+        }
+
+        val updatedTask = task.copy(
+            title = newTitle,
+            notes = newNotes,
+            dueDate = newDueDate,
+            completionDate = newCompletionDate,
+            modificationDate = System.currentTimeMillis(),
         )
 
         taskDao.update(updatedTask)
 
         // If due date was added or changed, create alarm and trigger notifications
-        if (dueDate != null && dueDate > 0 && dueDate != oldDueDate) {
+        if (newDueDate != oldDueDate && newDueDate > 0) {
             val existingAlarms = alarmDao.getAlarms(task.id)
             val hasWhenDueAlarm = existingAlarms.any { it.type == org.tasks.data.entity.Alarm.TYPE_REL_END }
             if (!hasWhenDueAlarm) {
@@ -281,7 +334,7 @@ class PhoneSyncManager @Inject constructor(
             workManager.triggerNotifications()
         }
 
-        Timber.d("PhoneSyncManager: Updated task ${task.id} from watch operation (dueDate: $dueDate)")
+        Timber.d("PhoneSyncManager: Updated task ${task.id} from watch operation with conflict resolution")
     }
 
     private suspend fun handleDelete(taskId: String, @Suppress("UNUSED_PARAMETER") dataMap: com.google.android.gms.wearable.DataMap) {
@@ -434,6 +487,29 @@ class PhoneSyncManager @Inject constructor(
     suspend fun notifyTaskChanged(taskId: Long) {
         val task = taskDao.fetch(taskId) ?: return
         sendTaskUpdate(task)
+    }
+
+    /**
+     * Notify watch about task deletion on phone.
+     */
+    suspend fun notifyTaskDeleted(taskId: Long) {
+        val task = taskDao.fetch(taskId)
+        val taskIdForWatch = task?.remoteId?.takeIf { it.isNotBlank() } ?: taskId.toString()
+        val path = SyncPaths.taskUpdatePath(taskIdForWatch)
+        val request = PutDataMapRequest.create(path).apply {
+            dataMap.putString(DataMapKeys.KEY_TASK_ID, taskIdForWatch)
+            dataMap.putBoolean(DataMapKeys.KEY_DELETED, true)
+            dataMap.putLong(DataMapKeys.KEY_TIMESTAMP, System.currentTimeMillis())
+            dataMap.putLong("phoneId", taskId)
+            setUrgent()
+        }
+
+        try {
+            dataClient.putDataItem(request.asPutDataRequest()).await()
+            Timber.d("PhoneSyncManager: Sent delete notification for task $taskId")
+        } catch (e: Exception) {
+            Timber.e(e, "Failed to send delete notification for task $taskId")
+        }
     }
 }
 

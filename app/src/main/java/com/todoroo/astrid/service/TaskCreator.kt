@@ -58,8 +58,8 @@ class TaskCreator @Inject constructor(
     private val locationDao: LocationDao,
     private val alarmDao: AlarmDao,
 ) {
-    suspend fun basicQuickAddTask(title: String, filter: Filter? = null): Task {
-        val task = createWithValues(filter, title.trim { it <= ' ' })
+    suspend fun basicQuickAddTask(title: String, filter: Filter? = null, remoteId: String? = null): Task {
+        val task = createWithValues(filter, title.trim { it <= ' ' }, remoteId)
         taskDao.createNew(task)
         val gcalCreateEventEnabled = preferences.isDefaultCalendarSet && task.hasDueDate() // $NON-NLS-1$
         if (!isNullOrEmpty(task.title)
@@ -129,19 +129,19 @@ class TaskCreator @Inject constructor(
         return create(null, title)
     }
 
-    suspend fun createWithValues(filter: Filter?, title: String?): Task =
-        create(mapFromSerializedString(filter?.valuesForNewTasks), title)
+    suspend fun createWithValues(filter: Filter?, title: String?, remoteId: String? = null): Task =
+        create(mapFromSerializedString(filter?.valuesForNewTasks), title, remoteId)
 
     /**
      * Create task from the given content values, saving it. This version doesn't need to start with a
      * base task model.
      */
-    internal suspend fun create(values: Map<String, Any>?, title: String?): Task {
+    internal suspend fun create(values: Map<String, Any>?, title: String?, remoteId: String? = null): Task {
         val task = Task(
             title = title?.trim { it <= ' ' },
             creationDate = currentTimeMillis(),
             modificationDate = currentTimeMillis(),
-            remoteId = UUIDHelper.newUUID(),
+            remoteId = remoteId ?: UUIDHelper.newUUID(),
             priority = preferences.defaultPriority(),
         )
         preferences.getStringValue(R.string.p_default_recurrence)
