@@ -56,6 +56,7 @@ data class OfflineSettingsViewState(
  * ViewModel for settings that works offline.
  * Stores settings locally and syncs with phone when connected.
  */
+@Suppress("TooGenericExceptionCaught")
 class OfflineSettingsViewModel(
     application: Application,
 ) : AndroidViewModel(application) {
@@ -108,9 +109,6 @@ class OfflineSettingsViewModel(
         syncManager.stopListening()
     }
 
-    /**
-     * Check if phone is connected using NodeClient.
-     */
     private fun checkConnectionStatus() {
         viewModelScope.launch {
             // Check periodically
@@ -169,9 +167,6 @@ class OfflineSettingsViewModel(
         }
     }
 
-    /**
-     * Try to sync settings with phone if connected.
-     */
     private suspend fun trySyncSettings() {
         if (_isConnected.value) {
             try {

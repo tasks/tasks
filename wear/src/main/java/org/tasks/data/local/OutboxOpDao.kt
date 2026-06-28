@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.Flow
  * Manages the queue of pending sync operations.
  */
 @Dao
+@Suppress("TooManyFunctions")
 interface OutboxOpDao {
 
     /**

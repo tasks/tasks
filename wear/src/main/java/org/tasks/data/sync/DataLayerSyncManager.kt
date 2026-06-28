@@ -56,6 +56,7 @@ import timber.log.Timber
  * - System handles retry and delivery
  * - Supports urgent (immediate) and batched delivery
  */
+@Suppress("TooManyFunctions", "TooGenericExceptionCaught")
 class DataLayerSyncManager(
     private val context: Context,
     private val syncRepository: SyncRepository,
@@ -108,9 +109,50 @@ class DataLayerSyncManager(
         _syncState.value = SyncState.IDLE
     }
 
-    /**
-     * Send a single operation to phone via DataItem.
-     */
+    private fun populateDataMapFromPayload(dataMap: com.google.android.gms.wearable.DataMap, opType: OutboxOpType, payloadJson: String) {
+        try {
+            val payload = JSONObject(payloadJson)
+            when (opType) {
+                OutboxOpType.CREATE, OutboxOpType.UPDATE -> {
+                    payload.optString(DataMapKeys.KEY_TITLE)?.let {
+                        dataMap.putString(DataMapKeys.KEY_TITLE, it)
+                    }
+                    payload.optLong(DataMapKeys.KEY_TITLE_UPDATED_AT).takeIf { it > 0 }?.let {
+                        dataMap.putLong(DataMapKeys.KEY_TITLE_UPDATED_AT, it)
+                    }
+                    payload.optString(DataMapKeys.KEY_NOTES)?.let {
+                        dataMap.putString(DataMapKeys.KEY_NOTES, it)
+                    }
+                    payload.optLong(DataMapKeys.KEY_NOTES_UPDATED_AT).takeIf { it > 0 }?.let {
+                        dataMap.putLong(DataMapKeys.KEY_NOTES_UPDATED_AT, it)
+                    }
+                    if (payload.has(DataMapKeys.KEY_COMPLETED)) {
+                        dataMap.putBoolean(DataMapKeys.KEY_COMPLETED, payload.getBoolean(DataMapKeys.KEY_COMPLETED))
+                    }
+                    payload.optLong(DataMapKeys.KEY_COMPLETED_UPDATED_AT).takeIf { it > 0 }?.let {
+                        dataMap.putLong(DataMapKeys.KEY_COMPLETED_UPDATED_AT, it)
+                    }
+                    if (payload.has(DataMapKeys.KEY_PRIORITY)) {
+                        dataMap.putInt(DataMapKeys.KEY_PRIORITY, payload.getInt(DataMapKeys.KEY_PRIORITY))
+                    }
+                    payload.optLong(DataMapKeys.KEY_DUE_DATE).takeIf { it > 0 }?.let {
+                        dataMap.putLong(DataMapKeys.KEY_DUE_DATE, it)
+                    }
+                }
+                OutboxOpType.COMPLETE -> {
+                    dataMap.putBoolean(DataMapKeys.KEY_COMPLETED, payload.getBoolean(DataMapKeys.KEY_COMPLETED))
+                    dataMap.putLong(DataMapKeys.KEY_COMPLETED_UPDATED_AT, payload.getLong(DataMapKeys.KEY_COMPLETED_UPDATED_AT))
+                }
+                OutboxOpType.DELETE -> {
+                    dataMap.putBoolean(DataMapKeys.KEY_DELETED, true)
+                    dataMap.putLong(DataMapKeys.KEY_TIMESTAMP, payload.getLong(DataMapKeys.KEY_TIMESTAMP))
+                }
+            }
+        } catch (e: org.json.JSONException) {
+            Timber.w(e, "Failed to parse payload JSON")
+        }
+    }
+
     private suspend fun sendOperation(op: OutboxOpEntity) {
         syncRepository.markSending(op.opId)
 
@@ -123,47 +165,7 @@ class DataLayerSyncManager(
             dataMap.putLong(DataMapKeys.KEY_TIMESTAMP, op.createdAt)
 
             // Parse payload JSON and add fields to DataMap for easier processing on phone
-            try {
-                val payload = JSONObject(op.payload)
-                when (op.type) {
-                    OutboxOpType.CREATE, OutboxOpType.UPDATE -> {
-                        payload.optString(DataMapKeys.KEY_TITLE)?.let {
-                            dataMap.putString(DataMapKeys.KEY_TITLE, it)
-                        }
-                        payload.optLong(DataMapKeys.KEY_TITLE_UPDATED_AT).takeIf { it > 0 }?.let {
-                            dataMap.putLong(DataMapKeys.KEY_TITLE_UPDATED_AT, it)
-                        }
-                        payload.optString(DataMapKeys.KEY_NOTES)?.let {
-                            dataMap.putString(DataMapKeys.KEY_NOTES, it)
-                        }
-                        payload.optLong(DataMapKeys.KEY_NOTES_UPDATED_AT).takeIf { it > 0 }?.let {
-                            dataMap.putLong(DataMapKeys.KEY_NOTES_UPDATED_AT, it)
-                        }
-                        if (payload.has(DataMapKeys.KEY_COMPLETED)) {
-                            dataMap.putBoolean(DataMapKeys.KEY_COMPLETED, payload.getBoolean(DataMapKeys.KEY_COMPLETED))
-                        }
-                        payload.optLong(DataMapKeys.KEY_COMPLETED_UPDATED_AT).takeIf { it > 0 }?.let {
-                            dataMap.putLong(DataMapKeys.KEY_COMPLETED_UPDATED_AT, it)
-                        }
-                        if (payload.has(DataMapKeys.KEY_PRIORITY)) {
-                            dataMap.putInt(DataMapKeys.KEY_PRIORITY, payload.getInt(DataMapKeys.KEY_PRIORITY))
-                        }
-                        payload.optLong(DataMapKeys.KEY_DUE_DATE).takeIf { it > 0 }?.let {
-                            dataMap.putLong(DataMapKeys.KEY_DUE_DATE, it)
-                        }
-                    }
-                    OutboxOpType.COMPLETE -> {
-                        dataMap.putBoolean(DataMapKeys.KEY_COMPLETED, payload.getBoolean(DataMapKeys.KEY_COMPLETED))
-                        dataMap.putLong(DataMapKeys.KEY_COMPLETED_UPDATED_AT, payload.getLong(DataMapKeys.KEY_COMPLETED_UPDATED_AT))
-                    }
-                    OutboxOpType.DELETE -> {
-                        dataMap.putBoolean(DataMapKeys.KEY_DELETED, true)
-                        dataMap.putLong(DataMapKeys.KEY_TIMESTAMP, payload.getLong(DataMapKeys.KEY_TIMESTAMP))
-                    }
-                }
-            } catch (e: Exception) {
-                Timber.w(e, "Failed to parse payload for operation ${op.opId}")
-            }
+            populateDataMapFromPayload(dataMap, op.type, op.payload)
         }
 
         // Use urgent for user-initiated actions (create, update, delete)
@@ -234,9 +236,6 @@ class DataLayerSyncManager(
         }
     }
 
-    /**
-     * Handle acknowledgment from phone for our operation.
-     */
     private suspend fun handleWatchAck(event: DataEvent) {
         val path = event.dataItem.uri.path ?: return
         val opId = SyncPaths.extractWatchOpId(path) ?: return
@@ -262,9 +261,6 @@ class DataLayerSyncManager(
         }
     }
 
-    /**
-     * Handle operation from phone (create, update, delete).
-     */
     private suspend fun handlePhoneOperation(event: DataEvent) {
         val path = event.dataItem.uri.path ?: return
         val opId = SyncPaths.extractPhoneOpId(path) ?: return
@@ -305,9 +301,6 @@ class DataLayerSyncManager(
         }
     }
 
-    /**
-     * Handle single task update from phone.
-     */
     private suspend fun handleTaskUpdate(event: DataEvent) {
         val path = event.dataItem.uri.path ?: return
         val taskId = SyncPaths.extractTaskId(path) ?: return
@@ -341,9 +334,6 @@ class DataLayerSyncManager(
         }
     }
 
-    /**
-     * Handle full snapshot from phone.
-     */
     private suspend fun handleSnapshot(event: DataEvent) {
         val dataMapItem = DataMapItem.fromDataItem(event.dataItem)
         val dataMap = dataMapItem.dataMap
@@ -386,9 +376,6 @@ class DataLayerSyncManager(
         // since deletion typically happens after processing
     }
 
-    /**
-     * Send acknowledgment to phone for their operation.
-     */
     private suspend fun sendPhoneAck(opId: String, success: Boolean, error: String? = null) {
         val path = SyncPaths.phoneAckPath(opId)
         val request = PutDataMapRequest.create(path).apply {

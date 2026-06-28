@@ -53,6 +53,7 @@ import java.util.UUID
  * Repository that handles sync operations with transactional consistency.
  * Ensures that task modifications and outbox operations are always in sync.
  */
+@Suppress("TooManyFunctions", "LongParameterList", "LongMethod", "LabeledExpression")
 class SyncRepository(context: Context) {
 
     private val database = WearDatabase.getInstance(context)

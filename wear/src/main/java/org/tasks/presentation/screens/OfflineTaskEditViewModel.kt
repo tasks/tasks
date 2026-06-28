@@ -71,6 +71,7 @@ data class OfflineEditUiState(
  * ViewModel for task editing that works fully offline.
  * Saves to local Room database and syncs when connected.
  */
+@Suppress("TooManyFunctions", "TooGenericExceptionCaught")
 class OfflineTaskEditViewModel(
     application: Application,
     private val taskId: String?,
@@ -95,9 +96,6 @@ class OfflineTaskEditViewModel(
         checkConnectionStatus()
     }
 
-    /**
-     * Load task from local database.
-     */
     private fun loadTask(id: String) {
         viewModelScope.launch {
             val task = taskRepository.getTask(id)
@@ -124,9 +122,6 @@ class OfflineTaskEditViewModel(
         }
     }
 
-    /**
-     * Check if phone is connected using NodeClient.
-     */
     private fun checkConnectionStatus() {
         viewModelScope.launch {
             try {

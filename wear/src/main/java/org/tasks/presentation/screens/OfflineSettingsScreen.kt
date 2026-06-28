@@ -95,9 +95,6 @@ fun OfflineSettingsScreen(
     }
 }
 
-/**
- * Chip showing connection status.
- */
 @Composable
 private fun ConnectionStatusChip(
     isConnected: Boolean,

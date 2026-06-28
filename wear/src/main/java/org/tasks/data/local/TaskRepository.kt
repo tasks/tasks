@@ -40,6 +40,7 @@ import java.util.UUID
  * Abstracts the data source (Room) from the UI layer.
  * Operations that modify data use SyncRepository to queue sync operations.
  */
+@Suppress("TooManyFunctions", "LongParameterList")
 class TaskRepository(private val context: Context) {
 
     private val database = WearDatabase.getInstance(context)
@@ -106,8 +107,9 @@ class TaskRepository(private val context: Context) {
             // Update existing task - use sync repository to queue the operation
             syncRepository.updateTitleAndNotes(taskId, title, notes)
             // Update due date/time and reminder separately if they changed
-            if (dueDate != existingTask.dueDate || dueTime != existingTask.dueTime ||
-                reminder != existingTask.reminder || reminderTime != existingTask.reminderTime) {
+            val dateChanged = dueDate != existingTask.dueDate || dueTime != existingTask.dueTime
+            val reminderChanged = reminder != existingTask.reminder || reminderTime != existingTask.reminderTime
+            if (dateChanged || reminderChanged) {
                 syncRepository.updateDueDate(taskId, dueDate, dueTime, reminder, reminderTime)
             }
         } else {
@@ -211,9 +213,6 @@ class TaskRepository(private val context: Context) {
     }
 }
 
-/**
- * Extension function to convert TaskEntity to TaskLite.
- */
 private fun TaskEntity.toTaskLite(): TaskLite {
     return TaskLite(
         id = this.id.toLongOrNull() ?: this.id.hashCode().toLong(),

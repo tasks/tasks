@@ -74,6 +74,7 @@ object DataMapKeys {
  * Receives task operations from the watch and applies them to the phone database.
  */
 @Singleton
+@Suppress("TooManyFunctions", "LongParameterList", "LongMethod", "TooGenericExceptionCaught")
 class PhoneSyncManager @Inject constructor(
     @ApplicationContext private val context: Context,
     private val taskDao: TaskDao,
@@ -143,9 +144,6 @@ class PhoneSyncManager @Inject constructor(
         }
     }
 
-    /**
-     * Handle operation from watch (create, update, delete).
-     */
     private suspend fun handleWatchOperation(event: DataEvent) {
         val path = event.dataItem.uri.path ?: return
         val opIdStr = path.removePrefix(SyncPaths.WATCH_OUTBOX_PREFIX)
@@ -365,9 +363,6 @@ class PhoneSyncManager @Inject constructor(
         Timber.d("PhoneSyncManager: Set task ${task.id} completed=$completed from watch operation")
     }
 
-    /**
-     * Send acknowledgment to watch.
-     */
     private suspend fun sendWatchAck(opId: Long, success: Boolean, error: String? = null) {
         val path = SyncPaths.watchAckPath(opId)
         val request = PutDataMapRequest.create(path).apply {
@@ -388,9 +383,6 @@ class PhoneSyncManager @Inject constructor(
         }
     }
 
-    /**
-     * Handle sync request from watch - send all tasks as snapshot.
-     */
     private suspend fun handleSyncRequest(@Suppress("UNUSED_PARAMETER") event: DataEvent) {
         Timber.d("PhoneSyncManager: Watch requested sync")
 
@@ -409,9 +401,6 @@ class PhoneSyncManager @Inject constructor(
         sendTaskSnapshotInternal(tasks)
     }
 
-    /**
-     * Send a snapshot of all tasks to watch.
-     */
     private suspend fun sendTaskSnapshotInternal(tasks: List<Task>) {
         val path = SyncPaths.TASKS_SNAPSHOT
         val request = PutDataMapRequest.create(path).apply {

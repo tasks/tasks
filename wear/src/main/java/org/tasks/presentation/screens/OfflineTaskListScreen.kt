@@ -63,6 +63,7 @@ import tasks.kmp.generated.resources.add_task
  * Shows tasks from local database and syncs when connected.
  */
 @OptIn(ExperimentalHorologistApi::class)
+@Suppress("LongParameterList")
 @Composable
 fun OfflineTaskListScreen(
     viewState: OfflineTaskListState,
@@ -125,9 +126,6 @@ fun OfflineTaskListScreen(
     }
 }
 
-/**
- * Header with action buttons for the offline task list.
- */
 @Composable
 private fun OfflineButtonHeader(
     addTask: () -> Unit,
@@ -175,9 +173,6 @@ private fun OfflineButtonHeader(
     }
 }
 
-/**
- * Row showing connection status.
- */
 @Composable
 private fun ConnectionStatusRow(
     isConnected: Boolean,

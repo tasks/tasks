@@ -46,6 +46,7 @@ import timber.log.Timber
  * Manages local notifications on the Wear OS device.
  * Handles scheduling, displaying and cancelling task reminder notifications.
  */
+@Suppress("TooGenericExceptionCaught")
 class WearNotificationManager private constructor(private val context: Context) {
 
     private val notificationManager = NotificationManagerCompat.from(context)

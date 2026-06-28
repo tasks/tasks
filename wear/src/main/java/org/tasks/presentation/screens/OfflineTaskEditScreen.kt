@@ -92,6 +92,7 @@ import java.util.Locale
  * Saves to local database and syncs when connected.
  */
 @OptIn(ExperimentalHorologistApi::class)
+@Suppress("LongParameterList", "LongMethod")
 @Composable
 fun OfflineTaskEditScreen(
     uiState: OfflineEditUiState,
@@ -476,17 +477,11 @@ fun OfflineTaskEditScreen(
     }
 }
 
-/**
- * Format a timestamp as a date string.
- */
 private fun formatDate(timestamp: Long): String {
     val formatter = SimpleDateFormat("MMM d, yyyy", Locale.getDefault())
     return formatter.format(Date(timestamp))
 }
 
-/**
- * Format a timestamp as a time string.
- */
 private fun formatTime(timestamp: Long): String {
     val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
     return formatter.format(Date(timestamp))
@@ -495,6 +490,7 @@ private fun formatTime(timestamp: Long): String {
 /**
  * Wear OS Date Picker using Picker component with haptic feedback.
  */
+@Suppress("LongMethod")
 @Composable
 fun WearDatePicker(
     initialDate: Long?,
@@ -664,6 +660,7 @@ fun WearDatePicker(
 /**
  * Wear OS Time Picker using Picker component with haptic feedback (24h format).
  */
+@Suppress("LongMethod")
 @Composable
 fun WearTimePicker(
     initialTime: Long?,

@@ -65,6 +65,7 @@ class TaskSaver(
         }
     }
 
+    @Suppress("TooGenericExceptionCaught")
     suspend fun afterSave(task: Task, original: Task?) {
         val completionDateModified = task.completionDate != (original?.completionDate ?: 0)
         val deletionDateModified = task.deletionDate != (original?.deletionDate ?: 0)

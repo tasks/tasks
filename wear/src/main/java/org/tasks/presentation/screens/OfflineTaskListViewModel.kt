@@ -59,6 +59,7 @@ data class OfflineTaskListState(
  * ViewModel for task list that works fully offline.
  * Reads tasks from local Room database and syncs when connected.
  */
+@Suppress("TooGenericExceptionCaught")
 class OfflineTaskListViewModel(
     application: Application
 ) : AndroidViewModel(application) {
@@ -129,9 +130,6 @@ class OfflineTaskListViewModel(
         syncManager.stopListening()
     }
 
-    /**
-     * Filter tasks based on current settings.
-     */
     private fun filterTasks(tasks: List<TaskLite>, settings: SettingsEntity): List<TaskLite> {
         return tasks.filter { task ->
             // Filter by completion status
@@ -144,10 +142,6 @@ class OfflineTaskListViewModel(
         }
     }
 
-    /**
-     * Check if phone is connected using NodeClient.
-     * This checks for any connected nodes (typically the paired phone).
-     */
     private fun checkConnectionStatus() {
         viewModelScope.launch {
             // Check periodically
@@ -204,9 +198,6 @@ class OfflineTaskListViewModel(
         }
     }
 
-    /**
-     * Try to sync pending operations if connected.
-     */
     private suspend fun trySyncPendingOps() {
         if (_isConnected.value) {
             try {

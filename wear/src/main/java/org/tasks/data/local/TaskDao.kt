@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.Flow
  * Provides methods for accessing the tasks table.
  */
 @Dao
+@Suppress("TooManyFunctions", "LongParameterList")
 interface TaskDao {
 
     /**

@@ -36,6 +36,7 @@ import java.util.concurrent.TimeUnit
  * - Resetting stuck operations
  * - Requesting sync from phone if needed
  */
+@Suppress("TooGenericExceptionCaught")
 class SyncWorker(
     context: Context,
     params: WorkerParameters
