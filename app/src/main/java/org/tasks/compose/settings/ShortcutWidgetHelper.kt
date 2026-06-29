@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import android.app.Activity
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
@@ -10,10 +11,14 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
+import com.todoroo.astrid.activity.MainActivity
+import com.todoroo.astrid.activity.TaskListFragment
 import org.tasks.R
 import org.tasks.activities.BaseListSettingsActivity.Companion.createShortcutIcon
 import org.tasks.analytics.Firebase
 import org.tasks.data.UUIDHelper
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.intents.TaskIntents
@@ -24,19 +29,52 @@ import org.tasks.widget.RequestPinWidgetReceiver.Companion.EXTRA_COLOR
 import org.tasks.widget.RequestPinWidgetReceiver.Companion.EXTRA_FILTER
 import org.tasks.widget.TasksWidget
 
+fun AppCompatActivity.setReloadResult(calendar: CaldavCalendar, account: CaldavAccount) {
+    setResult(
+        Activity.RESULT_OK,
+        Intent(TaskListFragment.ACTION_RELOAD).putExtra(
+            MainActivity.OPEN_FILTER,
+            CaldavFilter(calendar = calendar, account = account),
+        ),
+    )
+}
+
+private fun AppCompatActivity.finishWithList(calendar: CaldavCalendar, account: CaldavAccount) {
+    setReloadResult(calendar, account)
+    finish()
+}
+
+private fun AppCompatActivity.addToHomeScreen(
+    stateProvider: () -> ListSettingsState,
+    saveNew: (onSaved: (CaldavCalendar) -> Unit) -> Unit,
+    add: (state: ListSettingsState, filter: CaldavFilter) -> Unit,
+): () -> Unit = click@{
+    val s = stateProvider()
+    val account = s.account ?: return@click
+    fun run(calendar: CaldavCalendar) =
+        add(s, CaldavFilter(calendar = calendar, account = account))
+    if (s.isNew) {
+        saveNew { calendar ->
+            run(calendar)
+            finishWithList(calendar, account)
+        }
+    } else {
+        s.calendar?.let { run(it) }
+    }
+}
+
 fun AppCompatActivity.addShortcutCallback(
     stateProvider: () -> ListSettingsState,
     primaryColor: Color,
     defaultFilterProvider: DefaultFilterProvider,
     firebase: Firebase,
+    saveNew: (onSaved: (CaldavCalendar) -> Unit) -> Unit,
 ): (() -> Unit)? {
     if (!ShortcutManagerCompat.isRequestPinShortcutSupported(this)) return null
-    val s = stateProvider()
-    val cal = s.calendar ?: return null
-    val acc = s.account ?: return null
-    return {
+    if (stateProvider().account == null) return null
+    return addToHomeScreen(stateProvider, saveNew) { s, filter ->
         createShortcut(
-            filter = CaldavFilter(calendar = cal, account = acc),
+            filter = filter,
             title = s.name,
             icon = s.icon,
             color = if (s.color != 0) Color(s.color) else primaryColor,
@@ -50,15 +88,14 @@ fun AppCompatActivity.addWidgetCallback(
     stateProvider: () -> ListSettingsState,
     defaultFilterProvider: DefaultFilterProvider,
     firebase: Firebase,
+    saveNew: (onSaved: (CaldavCalendar) -> Unit) -> Unit,
 ): (() -> Unit)? {
     val appWidgetManager = getSystemService(AppWidgetManager::class.java)
     if (!appWidgetManager.isRequestPinAppWidgetSupported) return null
-    val s = stateProvider()
-    val cal = s.calendar ?: return null
-    val acc = s.account ?: return null
-    return {
+    if (stateProvider().account == null) return null
+    return addToHomeScreen(stateProvider, saveNew) { s, filter ->
         createWidget(
-            filter = CaldavFilter(calendar = cal, account = acc),
+            filter = filter,
             color = s.color,
             defaultFilterProvider = defaultFilterProvider,
             firebase = firebase,

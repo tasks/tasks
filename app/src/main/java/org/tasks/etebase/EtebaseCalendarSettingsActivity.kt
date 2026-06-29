@@ -14,7 +14,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.analytics.Firebase
@@ -24,7 +23,7 @@ import org.tasks.compose.ColorWheelDialog
 import org.tasks.compose.settings.ListSettingsScreen
 import org.tasks.compose.settings.addShortcutCallback
 import org.tasks.compose.settings.addWidgetCallback
-import org.tasks.filters.CaldavFilter
+import org.tasks.compose.settings.setReloadResult
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.themes.TasksTheme
 import javax.inject.Inject
@@ -51,16 +50,7 @@ class EtebaseCalendarSettingsActivity : AppCompatActivity() {
                     viewModel = viewModel,
                     onSave = {
                         viewModel.save { calendar ->
-                            val account = viewModel.state.value.account
-                            if (account != null) {
-                                setResult(
-                                    Activity.RESULT_OK,
-                                    Intent(TaskListFragment.ACTION_RELOAD).putExtra(
-                                        MainActivity.OPEN_FILTER,
-                                        CaldavFilter(calendar = calendar, account = account),
-                                    )
-                                )
-                            }
+                            viewModel.state.value.account?.let { setReloadResult(calendar, it) }
                             finish()
                         }
                     },
@@ -87,8 +77,8 @@ class EtebaseCalendarSettingsActivity : AppCompatActivity() {
                                 .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, source)
                         )
                     },
-                    onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase) },
-                    onAddWidget = remember { addWidgetCallback(viewModel.state::value, defaultFilterProvider, firebase) },
+                    onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onComplete = onSaved) } },
+                    onAddWidget = remember { addWidgetCallback(viewModel.state::value, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onComplete = onSaved) } },
                 )
 
                 if (showColorWheel) {

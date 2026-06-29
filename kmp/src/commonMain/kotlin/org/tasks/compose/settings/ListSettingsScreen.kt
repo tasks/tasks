@@ -326,7 +326,7 @@ fun ListSettingsScreen(
             }
 
             // Shortcut and widget
-            if (!state.isNew && (onAddShortcut != null || onAddWidget != null)) {
+            if (onAddShortcut != null || onAddWidget != null) {
                 Spacer(modifier = Modifier.height(SettingsContentPadding))
 
                 Column(
@@ -347,6 +347,7 @@ fun ListSettingsScreen(
                             PreferenceRow(
                                 title = stringResource(label),
                                 icon = icon,
+                                enabled = state.name.isNotBlank() && !state.isLoading,
                                 onClick = onClick,
                             )
                         }

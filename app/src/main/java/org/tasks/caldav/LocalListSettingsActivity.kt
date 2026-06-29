@@ -26,7 +26,7 @@ import org.tasks.compose.components.AnimatedBanner
 import org.tasks.compose.settings.ListSettingsScreen
 import org.tasks.compose.settings.addShortcutCallback
 import org.tasks.compose.settings.addWidgetCallback
-import org.tasks.filters.CaldavFilter
+import org.tasks.compose.settings.setReloadResult
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.themes.TasksTheme
 import tasks.kmp.generated.resources.Res
@@ -61,16 +61,7 @@ class LocalListSettingsActivity : AppCompatActivity() {
                         viewModel.save(
                             onDismiss = { finish() },
                             onComplete = { account, calendar ->
-                                setResult(
-                                    Activity.RESULT_OK,
-                                    Intent(TaskListFragment.ACTION_RELOAD).putExtra(
-                                        MainActivity.OPEN_FILTER,
-                                        CaldavFilter(
-                                            calendar = calendar,
-                                            account = account,
-                                        ),
-                                    )
-                                )
+                                setReloadResult(calendar, account)
                                 finish()
                             },
                         )
@@ -98,8 +89,8 @@ class LocalListSettingsActivity : AppCompatActivity() {
                                 .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, source)
                         )
                     },
-                    onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase) },
-                    onAddWidget = remember { addWidgetCallback(viewModel.state::value, defaultFilterProvider, firebase) },
+                    onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onComplete = { _, calendar -> onSaved(calendar) }) } },
+                    onAddWidget = remember { addWidgetCallback(viewModel.state::value, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onComplete = { _, calendar -> onSaved(calendar) }) } },
                     headerContent = {
                         AnimatedBanner(
                             visible = bannerVisible,
