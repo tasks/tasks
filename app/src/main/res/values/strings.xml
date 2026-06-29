@@ -101,6 +101,7 @@ File %1$s contained %2$s.\n\n
   <string name="priority_low">Low</string>
   <string name="day_after_tomorrow">Day after tomorrow</string>
   <string name="next_week">Next week</string>
+  <string name="next_2_weeks">Next 2 weeks</string>
   <string name="no_reminders">No reminders</string>
   <string name="default_location_reminder_on_arrival">On arrival</string>
   <string name="default_location_reminder_on_departure">On departure</string>
@@ -123,6 +124,7 @@ File %1$s contained %2$s.\n\n
   <string name="no_start_date">No start date</string>
   <string name="filter_any_start_date">Any start date</string>
   <string name="next_month">Next Month</string>
+  <string name="next_3_months">Next 3 Months</string>
   <string name="CFC_importance_text">Priority at least ?</string>
   <string name="CFC_importance_name">Priority…</string>
   <string name="CFC_tag_text">Tag: ?</string>
