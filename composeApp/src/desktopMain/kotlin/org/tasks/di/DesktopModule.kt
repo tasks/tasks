@@ -26,6 +26,7 @@ import org.tasks.billing.GitHubSponsorClientImpl
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
+import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import org.tasks.etebase.EtebaseClientProvider
 import org.tasks.opentasks.OpenTasksSyncer
@@ -152,6 +153,7 @@ actual fun platformModule(): Module = module {
         val dbFile = File(dataDir, Database.NAME)
         Room.databaseBuilder<Database>(name = dbFile.absolutePath)
             .setDriver(BundledSQLiteDriver())
+            .addMigrations(*CommonMigrations.all)
             .addCallback(Database.CALLBACK)
             .build()
     }

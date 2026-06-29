@@ -3,6 +3,7 @@ package org.tasks.db
 import android.content.Context
 import android.database.sqlite.SQLiteException
 import androidx.room.migration.Migration
+import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.execSQL
@@ -16,7 +17,6 @@ import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_UNKNOWN
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.entity.Task
@@ -610,28 +610,6 @@ object Migrations {
         }
     }
 
-    private val MIGRATION_92_93 = object : Migration(92, 93) {
-        override fun migrate(connection: SQLiteConnection) {
-            connection.execSQL("CREATE TABLE IF NOT EXISTS `task_dirty` (`caldav_task_id` INTEGER NOT NULL PRIMARY KEY, `dirty_version` INTEGER NOT NULL DEFAULT 0, `synced_version` INTEGER NOT NULL DEFAULT 0, FOREIGN KEY(`caldav_task_id`) REFERENCES `caldav_tasks`(`cd_id`) ON UPDATE NO ACTION ON DELETE CASCADE)")
-            connection.execSQL("CREATE INDEX IF NOT EXISTS `index_task_dirty_dirty_version_synced_version` ON `task_dirty` (`dirty_version`, `synced_version`)")
-            // The CASE below is the SQL mirror of TaskDirtyVersion.reconstruct(lastSync, modified) —
-            // keep the two in sync. The trigger that seeds new rows lives in Database.TASK_DIRTY_TRIGGER.
-            connection.execSQL("""
-                INSERT INTO `task_dirty` (`caldav_task_id`, `dirty_version`, `synced_version`)
-                SELECT ct.`cd_id`,
-                  CASE WHEN ct.`cd_last_sync` > 0 AND t.`modified` <= ct.`cd_last_sync` THEN 1
-                       WHEN ct.`cd_last_sync` > 0 THEN 2
-                       ELSE 1 END,
-                  CASE WHEN ct.`cd_last_sync` > 0 THEN 1 ELSE 0 END
-                FROM `caldav_tasks` ct
-                INNER JOIN `tasks` t ON t.`_id` = ct.`cd_task`
-                INNER JOIN `caldav_lists` ON `cdl_uuid` = ct.`cd_calendar`
-                INNER JOIN `caldav_accounts` ON `cda_uuid` = `cdl_account`
-                WHERE ct.`cd_deleted` = 0 AND `cda_account_type` != $TYPE_LOCAL
-            """.trimIndent())
-        }
-    }
-
     private fun migration_87_88(context: Context) = object : Migration(87, 88) {
         override fun migrate(connection: SQLiteConnection) {
             val prefs = Preferences(context)
@@ -717,7 +695,7 @@ object Migrations {
             migration_87_88(context),
             MIGRATION_89_90,
             MIGRATION_90_91,
-            MIGRATION_92_93,
+            *CommonMigrations.all,
     )
 
     private fun noop(from: Int, to: Int): Migration = object : Migration(from, to) {

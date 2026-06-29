@@ -606,7 +606,7 @@ class TasksJsonImporter @Inject constructor(
         }
 
         /**
-         * Keep in sync with `Migrations.MIGRATION_92_93`
+         * Keep in sync with `CommonMigrations.MIGRATION_92_93`
          */
         private fun reconstructDirtyVersion(lastSync: Long?, modified: Long): Pair<Long, Long> = when {
             lastSync == null || lastSync == 0L -> 1L to 0L
