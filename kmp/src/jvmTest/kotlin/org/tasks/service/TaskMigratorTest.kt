@@ -20,6 +20,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
+import org.tasks.wear.WearSyncNotifier
 
 class TaskMigratorTest : DatabaseTest() {
     private val caldavDao = db.caldavDao()
@@ -31,6 +32,7 @@ class TaskMigratorTest : DatabaseTest() {
         vtodoCache = mock(),
         tasksPreferences = mock(),
         taskCleanup = object : TaskCleanup {},
+        wearSyncNotifier = mock(),
     )
     private val caldavClient: CaldavClient = mock()
     private val clientProvider: CaldavClientProvider = mock()

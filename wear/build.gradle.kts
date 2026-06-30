@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.ksp)
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }
@@ -45,7 +46,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("release")
+            val tasksStoreFile: String? by project
+            if (tasksStoreFile != null) {
+                signingConfig = signingConfigs.getByName("release")
+            } else {
+                signingConfig = signingConfigs.getByName("debug")
+            }
         }
     }
     compileOptions {
@@ -69,6 +75,11 @@ android {
     }
 
     tasks.register("testClasses")
+}
+
+// Room schema export directory configuration
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
 
 dependencies {
@@ -101,6 +112,13 @@ dependencies {
     implementation(libs.horologist.datalayer.grpc)
     implementation(libs.timber)
     implementation(libs.androidx.work)
+
+    // Room Database
+    implementation(libs.androidx.room)
+    ksp(libs.androidx.room.compiler)
+
+    implementation("androidx.fragment:fragment:1.8.5")
+
 
     implementation(libs.wear.tiles.proto) // https://nvd.nist.gov/vuln/detail/CVE-2024-7254
 
