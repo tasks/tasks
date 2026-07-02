@@ -15,7 +15,6 @@ import org.tasks.data.db.DbUtils.dbchunk
 import org.tasks.data.entity.Attachment
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Geofence
-import org.tasks.data.entity.Tag
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.NO_ID
 import org.tasks.preferences.Preferences
@@ -63,19 +62,7 @@ class TaskDuplicator @Inject constructor(
         clone.suppressSync()
         clone.suppressRefresh()
         val newId = taskDao.createNew(clone)
-        val tags = tagDataDao.getTagDataForTask(task.id)
-        if (tags.isNotEmpty()) {
-            tagDao.insert(
-                tags.map {
-                    Tag(
-                        task = clone.id,
-                        taskUid = clone.uuid,
-                        name = it.name,
-                        tagUid = it.remoteId
-                    )
-                }
-            )
-        }
+        tagDao.insert(clone, tagDataDao.getTagDataForTask(task.id))
         val googleTask = googleTaskDao.getByTaskId(task.id)
         val caldavTask = caldavDao.getTask(task.id)
         if (googleTask != null) {

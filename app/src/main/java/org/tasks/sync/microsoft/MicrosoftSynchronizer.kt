@@ -15,18 +15,17 @@ import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
-import org.tasks.data.dao.DirtyDao
-import org.tasks.data.dao.TaskToPush
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.dao.TaskToPush
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_WRITE
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_UNKNOWN
 import org.tasks.data.entity.CaldavTask
-import org.tasks.data.entity.TagData
 import org.tasks.filters.CaldavFilter
 import org.tasks.http.HttpClientFactory
 import org.tasks.http.NotFoundException
@@ -474,7 +473,7 @@ class MicrosoftSynchronizer @Inject constructor(
         task.suppressRefresh()
         taskSaver.save(task, original, dirty = false)
         vtodoCache.putVtodo(list, caldavTask, json.encodeToString(remote))
-        tagDao.applyTags(task, tagDataDao, getTags(remote.categories ?: emptyList()))
+        tagDao.applyTags(task, remote.categories ?: emptyList())
         caldavTask.remoteParent = ""
         syncChecklist(
             list = list,
@@ -544,21 +543,6 @@ class MicrosoftSynchronizer @Inject constructor(
             taskSaver.save(task, original, dirty = false)
             caldavDao.insertOrUpdateAndMarkSynced(caldavTask)
         }
-    }
-
-    private suspend fun getTags(categories: List<String>): List<TagData> {
-        if (categories.isEmpty()) {
-            return emptyList()
-        }
-        val tags = tagDataDao.getTags(categories).toMutableList()
-        val existing = tags.map(TagData::name)
-        val toCreate = categories subtract existing.toSet()
-        for (name in toCreate) {
-            val tag = TagData(name = name)
-            tagDataDao.insert(tag)
-            tags.add(tag)
-        }
-        return tags
     }
 
     private suspend fun setError(account: CaldavAccount, message: String?) {

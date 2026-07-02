@@ -138,7 +138,7 @@ class CaldavSynchronizerTest : CaldavTest() {
         )!!
         val task = taskDao.fetch(caldavTask.task)!!
         val tag2 = TagData(name = "Tag2").let { it.copy(id = tagDataDao.insert(it)) }
-        tagDao.applyTags(task, tagDataDao, listOf(tag2))
+        tagDao.applyTags(task, listOf(tag2))
         dirtyDao.setDirty(listOf(task.id))
 
         sync()

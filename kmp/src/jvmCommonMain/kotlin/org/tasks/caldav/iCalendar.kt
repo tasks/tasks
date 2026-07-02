@@ -1,13 +1,11 @@
 package org.tasks.caldav
 
+import co.touchlab.kermit.Logger
 import com.todoroo.astrid.alarms.AlarmService
-import org.tasks.notifications.CancelReason
-import org.tasks.data.getDefaultAlarms
-import org.tasks.data.setDefaultReminders
 import net.fortuna.ical4j.model.DateTime
-import net.fortuna.ical4j.model.TimeZoneRegistryFactory
 import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.model.Property
+import net.fortuna.ical4j.model.TimeZoneRegistryFactory
 import net.fortuna.ical4j.model.component.VAlarm
 import net.fortuna.ical4j.model.parameter.RelType
 import net.fortuna.ical4j.model.property.Action
@@ -25,41 +23,42 @@ import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.caldav.extensions.toAlarms
 import org.tasks.caldav.extensions.toVAlarms
-import org.tasks.data.createDueDate
 import org.tasks.data.TaskSaver
+import org.tasks.data.createDueDate
 import org.tasks.data.createGeofence
 import org.tasks.data.createHideUntil
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.DirtyDao
-import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Place
-import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY_TIME
 import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY
 import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
+import org.tasks.data.getDefaultAlarms
+import org.tasks.data.setDefaultReminders
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.date.DateTimeUtils.toLocal
 import org.tasks.location.Geocoder
 import org.tasks.location.LocationService
 import org.tasks.location.MapPosition
+import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
 import org.tasks.repeats.RecurrenceUtils.newRRule
 import org.tasks.time.DateTimeUtils.toDate
 import org.tasks.time.startOfDay
 import org.tasks.time.startOfMinute
-import co.touchlab.kermit.Logger
 import java.io.ByteArrayOutputStream
 import java.io.StringReader
 import java.text.ParseException
@@ -136,22 +135,6 @@ class iCalendar(
             locationService.updateGeofences(existing.place)
         }
         locationService.updateGeofences(place)
-    }
-
-    suspend fun getTags(categories: List<String>): List<TagData> {
-        if (categories.isEmpty()) {
-            return emptyList()
-        }
-        val tags = tagDataDao.getTags(categories).toMutableList()
-        val existing = tags.map(TagData::name)
-        val toCreate = categories subtract existing
-        for (name in toCreate) {
-            tags.add(
-                TagData(name = name)
-                    .let { it.copy(id = tagDataDao.insert(it)) }
-            )
-        }
-        return tags
     }
 
     suspend fun toVtodo(
@@ -268,12 +251,12 @@ class iCalendar(
 
         if (local != null) {
             val tags = tagDataDao.getTagDataForTask(task.id)
-            val localTags = getTags(local.categories)
+            val localTags = tagDataDao.getOrCreateTags(local.categories)
             if (tags.toSet() == localTags.toSet()) {
-                tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
+                tagDao.applyTags(task, remote.categories)
             }
         } else {
-            tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
+            tagDao.applyTags(task, remote.categories)
         }
 
         if (

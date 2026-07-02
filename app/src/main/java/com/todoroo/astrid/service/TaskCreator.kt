@@ -1,46 +1,39 @@
 package com.todoroo.astrid.service
 
 import com.todoroo.astrid.api.PermaSql
-import org.tasks.data.dao.TaskDao
-import org.tasks.data.TaskSaver
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.utility.TitleParser.parse
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.GoogleTask
+import org.tasks.data.TaskSaver
 import org.tasks.data.UUIDHelper
 import org.tasks.data.createDueDate
 import org.tasks.data.createGeofence
 import org.tasks.data.createHideUntil
-import org.tasks.data.getDefaultAlarms
-import org.tasks.data.setDefaultReminders
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
-import org.tasks.data.entity.Alarm
-import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
-import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
-import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Tag
-import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.DUE_DATE
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_NONE
 import org.tasks.data.entity.Task.Companion.IMPORTANCE
+import org.tasks.data.getDefaultAlarms
+import org.tasks.data.setDefaultReminders
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.mapFromSerializedString
-import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import org.tasks.time.ONE_HOUR
 import org.tasks.time.startOfDay
 import timber.log.Timber
 import javax.inject.Inject
@@ -68,7 +61,7 @@ class TaskCreator @Inject constructor(
             val calendarUri = gcalHelper.createTaskEvent(task, preferences.defaultCalendar)
             task.calendarURI = calendarUri.toString()
         }
-        createTags(task)
+        tagDao.insert(task, task.tags)
         val addToTop = preferences.addTasksToTop()
         if (task.hasTransitory(GoogleTask.KEY)) {
             googleTaskDao.insertAndShift(
@@ -195,21 +188,6 @@ class TaskCreator @Inject constructor(
         }
         task.putTransitory(Tag.KEY, tags)
         return task
-    }
-
-    suspend fun createTags(task: Task) {
-        for (tag in task.tags) {
-            val tagData = tagDataDao.getTagByName(tag)
-            ?: TagData(name = tag).also { tagDataDao.insert(it) }
-            tagDao.insert(
-                Tag(
-                    task = task.id,
-                    taskUid = task.uuid,
-                    name = tagData.name,
-                    tagUid = tagData.remoteId
-                )
-            )
-        }
     }
 
     companion object {

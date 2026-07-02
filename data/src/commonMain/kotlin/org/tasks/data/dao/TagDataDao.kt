@@ -3,6 +3,7 @@ package org.tasks.data.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
@@ -12,7 +13,6 @@ import org.tasks.data.NO_ORDER
 import org.tasks.data.TagFilters
 import org.tasks.data.db.Database
 import org.tasks.data.db.DbUtils
-import org.tasks.data.entity.CaldavAccount.Companion.TYPES_TAGS
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
@@ -22,9 +22,6 @@ import org.tasks.time.DateTimeUtils2.currentTimeMillis
 abstract class TagDataDao(private val database: Database) {
     @Query("SELECT * FROM tagdata")
     abstract fun subscribeToTags(): Flow<List<TagData>>
-
-    @Query("SELECT * FROM tagdata WHERE name = :name COLLATE NOCASE LIMIT 1")
-    abstract suspend fun getTagByName(name: String): TagData?
 
     /**
      * If a tag already exists in the database that case insensitively matches the given tag, return
@@ -43,6 +40,29 @@ abstract class TagDataDao(private val database: Database) {
 
     @Query("SELECT * FROM tagdata WHERE remoteId IN (:uuids)")
     abstract suspend fun getByUuid(uuids: Collection<String>): List<TagData>
+
+    @Query("SELECT * FROM tagdata WHERE normalized_name = :normalized LIMIT 1")
+    internal abstract suspend fun getByNormalizedName(normalized: String): TagData?
+
+    suspend fun getTagByName(name: String): TagData? = getByNormalizedName(TagData.normalize(name))
+
+    suspend fun getOrCreateTag(name: String): TagData {
+        getTagByName(name)?.let { return it }
+        val tag = TagData(name = name)
+        val id = insertOrIgnore(tag)
+        return if (id == -1L) getTagByName(name)!! else tag.copy(id = id)
+    }
+
+    suspend fun getOrCreateTags(names: List<String>): List<TagData> {
+        if (names.isEmpty()) {
+            return emptyList()
+        }
+        val tags = mutableSetOf<TagData>()
+        for (name in names) {
+            tags.add(getOrCreateTag(name))
+        }
+        return tags.toList()
+    }
 
     @Query("SELECT * FROM tagdata WHERE name IS NOT NULL AND name != '' ORDER BY UPPER(name) ASC")
     abstract suspend fun tagDataOrderedByName(): List<TagData>
@@ -158,14 +178,14 @@ abstract class TagDataDao(private val database: Database) {
             + "ORDER BY UPPER(tagdata.name) ASC")
     abstract suspend fun getTagDataForTask(id: Long): List<TagData>
 
-    @Query("SELECT * FROM tagdata WHERE name IN (:names)")
-    abstract suspend fun getTags(names: List<String>): List<TagData>
-
     @Update
     abstract suspend fun update(tagData: TagData)
 
     @Insert
     abstract suspend fun insert(tag: TagData): Long
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    internal abstract suspend fun insertOrIgnore(tag: TagData): Long
 
     @Insert
     abstract suspend fun insert(tags: Iterable<Tag>)

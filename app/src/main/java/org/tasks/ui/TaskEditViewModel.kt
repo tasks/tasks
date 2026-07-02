@@ -372,7 +372,7 @@ class TaskEditViewModel @Inject constructor(
         }
         val selectedTags = _viewState.value.tags
         if ((isNew && selectedTags.isNotEmpty()) || originalState.value.tags.toHashSet() != selectedTags.toHashSet()) {
-            tagDao.applyTags(task, tagDataDao, selectedTags)
+            tagDao.applyTags(task, selectedTags)
             task.putTransitory(SYNC_TAGS, true)
             task.modificationDate = currentTimeMillis()
         }

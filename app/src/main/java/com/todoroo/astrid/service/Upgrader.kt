@@ -10,8 +10,6 @@ import com.google.common.collect.ImmutableListMultimap
 import com.google.common.collect.ListMultimap
 import com.google.common.collect.Multimaps
 import com.todoroo.astrid.core.SortHelper
-import org.tasks.data.dao.TaskDao
-import org.tasks.data.dao.DirtyDao
 import dagger.Lazy
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
@@ -27,11 +25,13 @@ import org.tasks.data.Location
 import org.tasks.data.TaskMover
 import org.tasks.data.convertPictureUri
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskAttachmentDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.UpgraderDao
 import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.entity.CaldavTask
@@ -270,7 +270,7 @@ class Upgrader @Inject constructor(
         for (container in upgraderDao.tasksWithVtodos()) {
             val remoteTask =
                 vtodoCache.getVtodo(container.caldavTask)?.let { fromVtodo(it) } ?: continue
-            tagDao.insert(container.task, iCal.getTags(remoteTask.categories))
+            tagDao.insert(container.task, remoteTask.categories)
         }
         dirtyDao.setDirty(tasksWithTags)
     }

@@ -90,8 +90,7 @@ class TagPickerViewModel @Inject constructor(
     suspend fun toggle(tagData: TagData, checked: Boolean): ToggleableState {
         var tagData = tagData
         if (tagData.id == null) {
-            tagData = TagData(name = tagData.name)
-                .let { it.copy(id = tagDataDao.insert(it)) }
+            tagData = tagDataDao.getOrCreateTag(tagData.name.orEmpty())
         }
         partiallySelected.remove(tagData)
         return if (checked) {
@@ -104,10 +103,7 @@ class TagPickerViewModel @Inject constructor(
     }
 
     suspend fun createNew(name: String) {
-        selected.add(
-            TagData(name = name)
-                .let { it.copy(id = tagDataDao.insert(it)) }
-        )
+        selected.add(tagDataDao.getOrCreateTag(name))
         search("")
     }
 }

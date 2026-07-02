@@ -1,13 +1,14 @@
 package org.tasks.locale.receiver
 
-import org.tasks.data.TaskSaver
-import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskCreator
-import org.tasks.data.getDefaultAlarms
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
-import org.tasks.data.dao.AlarmDao
+import org.tasks.data.TaskSaver
 import org.tasks.data.createDueDate
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.dao.TagDao
+import org.tasks.data.entity.Task
+import org.tasks.data.getDefaultAlarms
 import org.tasks.locale.bundle.TaskCreationBundle
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
@@ -26,6 +27,7 @@ class TaskerTaskCreator @Inject internal constructor(
     private val firebase: Firebase,
     private val alarmDao: AlarmDao,
     private val preferences: Preferences,
+    private val tagDao: TagDao,
 ) {
     suspend fun handle(bundle: TaskCreationBundle) {
         val task = taskCreator.basicQuickAddTask(bundle.title)
@@ -65,7 +67,7 @@ class TaskerTaskCreator @Inject internal constructor(
         task.notes = bundle.description
         taskSaver.save(task, null)
         alarmDao.insert(task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled()))
-        taskCreator.createTags(task)
+        tagDao.insert(task, task.tags)
         firebase.addTask("tasker")
     }
 

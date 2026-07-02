@@ -30,9 +30,13 @@ kotlin {
         }
         jvmTest.dependencies {
             implementation(libs.junit)
+            implementation(libs.androidx.room.testing)
         }
     }
     task("testClasses")
+}
+tasks.withType<Test>().configureEach {
+    systemProperty("tasks.schemaDir", layout.projectDirectory.dir("schemas").asFile.absolutePath)
 }
 android {
     namespace = "org.tasks.data"

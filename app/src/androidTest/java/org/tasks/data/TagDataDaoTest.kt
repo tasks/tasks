@@ -46,18 +46,6 @@ class TagDataDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun getTagsByName() = runBlocking {
-        val tagData = TagData(name = "Derp").let { it.copy(id = tagDataDao.insert(it)) }
-        assertEquals(listOf(tagData), tagDataDao.getTags(listOf("Derp")))
-    }
-
-    @Test
-    fun getTagsByNameCaseSensitive() = runBlocking {
-        tagDataDao.insert(TagData(name = "Derp"))
-        assertTrue(tagDataDao.getTags(listOf("derp")).isEmpty())
-    }
-
-    @Test
     fun getTagDataForTask() = runBlocking {
         val taskOne = newTask()
         val taskTwo = newTask()
