@@ -250,7 +250,6 @@
     <string name="take_a_picture">사진 촬영</string>
     <string name="pick_from_gallery">갤러리에서 선택</string>
     <string name="pick_from_storage">저장소에서 가져오기</string>
-    <string name="tag_already_exists">태그가 이미 존재합니다</string>
     <string name="name_cannot_be_empty">이름은 필수 입력항목입니다</string>
     <string name="no_title">(제목 없음)</string>
     <string name="back_button_saves_task">뒤로가기 버튼으로 할일 저장</string>
@@ -357,7 +356,6 @@
     <string name="TEA_add_subtask">하위할일 추가</string>
     <string name="subtasks">하위할일</string>
     <string name="subtasks_multilevel_google_task">구글 태스크는 다단계 하위할일을 지원하지 않습니다</string>
-    <string name="enter_tag_name">태그 이름 입력</string>
     <string name="this_feature_requires_a_subscription">이 기능을 사용하려면 구독해야 합니다</string>
     <string name="choose_synchronization_service">플랫폼 선택</string>
     <string name="caldav_selection_description">개방형 인터넷 표준을 바탕으로 한 동기화</string>

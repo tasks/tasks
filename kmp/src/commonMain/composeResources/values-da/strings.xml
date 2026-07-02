@@ -228,4 +228,7 @@
     <string name="dismiss">Afvis</string>
     <string name="add_shortcut_to_home_screen">Føj genvej til startskærm</string>
     <string name="add_widget_to_home_screen">Føj widget til startskærm</string>
+    <string name="new_tag">Opret nyt tag</string>
+    <string name="enter_tag_name">Indtast tagnavn</string>
+    <string name="tag_already_exists">Tagget findes allerede</string>
 </resources>

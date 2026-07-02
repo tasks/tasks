@@ -258,7 +258,6 @@
     <string name="take_a_picture">Atera argazkia</string>
     <string name="pick_from_gallery">Hautatu galeriatik</string>
     <string name="pick_from_storage">Hautatu biltegiratzetik</string>
-    <string name="tag_already_exists">Etiketa hau badago aurretik</string>
     <string name="name_cannot_be_empty">Izena ezin da hutsik egon</string>
     <string name="no_title">(Izenbururik ez)</string>
     <string name="back_button_saves_task">Atzera botoiak zeregina gordetzen du</string>
@@ -365,7 +364,6 @@
     <string name="TEA_add_subtask">Gehitu azpi-zeregina</string>
     <string name="subtasks">Azpi-zereginak</string>
     <string name="subtasks_multilevel_google_task">Google Tasks-ek ez ditu hainbat mailako azpi-zereginak onartzen</string>
-    <string name="enter_tag_name">Idatzi etiketaren izena</string>
     <string name="display_name">Erakutsi izena</string>
     <string name="this_feature_requires_a_subscription">Ezaugarri honek harpidetza eskatzen du</string>
     <string name="choose_synchronization_service">Hautatu plataforma</string>

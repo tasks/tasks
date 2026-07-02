@@ -114,4 +114,7 @@
     <string name="list_settings">Axustes de llistes</string>
     <string name="reinitialize_account">Reaniciar</string>
     <string name="gtasks_GLA_errorIOAuth">Hebo un problema comunicándose colos servidores de Google. Por favor, intentalo más tarde.</string>
+    <string name="new_tag">Amestar nueva etiqueta</string>
+    <string name="enter_tag_name">Introduz nome de etiqueta</string>
+    <string name="tag_already_exists">L'etiqueta yá esiste</string>
 </resources>

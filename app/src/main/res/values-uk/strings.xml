@@ -269,7 +269,6 @@
     <string name="take_a_picture">Зробити знімок</string>
     <string name="pick_from_gallery">Обрати з галереї</string>
     <string name="pick_from_storage">Обрати зі сховища</string>
-    <string name="tag_already_exists">Мітка вже існує</string>
     <string name="name_cannot_be_empty">Ім\'я не може бути порожнє</string>
     <string name="no_title">(без назви)</string>
     <string name="back_button_saves_task">Зберігати завдання кнопкою Назад</string>
@@ -386,7 +385,6 @@
     <string name="etesync_selection_description">Захищена наскрізним шифруванням синхронізація</string>
     <string name="caldav_selection_description">Синхронізація на основі стандартів відкритого інтернету</string>
     <string name="choose_synchronization_service">Обрати платформу</string>
-    <string name="enter_tag_name">Введіть назву мітки</string>
     <string name="subtasks_multilevel_google_task">Багаторівневі підзавдання не підтримуються Google Tasks</string>
     <string name="collapse_subtasks">Згорнути підзавдання</string>
     <string name="expand_subtasks">Розгорнути підзавдання</string>

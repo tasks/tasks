@@ -249,4 +249,7 @@
     <string name="dismiss">התעלמות</string>
     <string name="add_shortcut_to_home_screen">הוספת קיצור דרך למסך הבית</string>
     <string name="add_widget_to_home_screen">הוספת יישומון למסך הבית</string>
+    <string name="new_tag">יצירת תגית חדשה</string>
+    <string name="enter_tag_name">הזנת שם תגית</string>
+    <string name="tag_already_exists">תגית כבר קיימת</string>
 </resources>

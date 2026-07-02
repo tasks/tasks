@@ -332,4 +332,7 @@
     <string name="cloud_onboarding_faq_desktop_sync_question">Comment puis-je synchroniser avec mon ordinateur ?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">Téléchargez l\'application de bureau sur tasks.org/download, puis connectez-vous avec le même compte Google.</string>
     <string name="google_tasks_permission_not_granted">L\'autorisation pour Google Tasks n\'a pas été accordée. Veuillez vous reconnecter et autoriser l\'accès à Google Tasks sur l\'écran de consentement.</string>
+    <string name="new_tag">Créer une nouvelle étiquette</string>
+    <string name="enter_tag_name">Saisir le nom de l'étiquette</string>
+    <string name="tag_already_exists">L'étiquette existe déjà</string>
 </resources>

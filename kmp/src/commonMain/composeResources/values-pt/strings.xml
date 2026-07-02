@@ -297,4 +297,7 @@
     <string name="local_list_description">Tarefas nessa lista são armazenadas apenas nesse dispositivo. Conecte uma conta para fazer backup dos seus dados e acedé-los de qualquer lugar.</string>
     <string name="create_a_list">Criar a lista</string>
     <string name="cloud_onboarding_not_now">Agora não</string>
+    <string name="new_tag">Criar nova etiqueta</string>
+    <string name="enter_tag_name">Digite o nome da etiqueta</string>
+    <string name="tag_already_exists">A etiqueta já existe</string>
 </resources>

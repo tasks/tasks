@@ -251,7 +251,6 @@
     <string name="take_a_picture">Bild aufnehmen</string>
     <string name="pick_from_gallery">Aus Galerie wählen</string>
     <string name="pick_from_storage">Von Speicher auswählen</string>
-    <string name="tag_already_exists">Schlagwort existiert bereits</string>
     <string name="name_cannot_be_empty">Name darf nicht leer sein</string>
     <string name="no_title">(kein Titel)</string>
     <string name="back_button_saves_task">„Zurück“ speichert Aufgabe</string>
@@ -366,7 +365,6 @@
     <string name="this_feature_requires_a_subscription">Diese Funktion benötigt ein Abonnement</string>
     <string name="help_and_feedback">Hilfe &amp; Rückmeldung</string>
     <string name="theme_system_default">Systemstandard</string>
-    <string name="enter_tag_name">Schlagwort eingeben</string>
     <string name="choose_synchronization_service">Einen Dienst wählen</string>
     <string name="caldav_selection_description">Synchronisierung basierend auf offenen Internetstandards</string>
     <string name="etesync_selection_description">Ende-zu-Ende-verschlüsselte Synchronisierung</string>

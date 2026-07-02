@@ -280,4 +280,7 @@
     <string name="caldav_server_openxchange">Open-Xchange</string>
     <string name="caldav_server_nextcloud">Nextcloud</string>
     <string name="link_desktop">Desktop-App verknüpfen</string>
+    <string name="new_tag">Neues Schlagwort erstellen</string>
+    <string name="enter_tag_name">Schlagwort eingeben</string>
+    <string name="tag_already_exists">Schlagwort existiert bereits</string>
 </resources>

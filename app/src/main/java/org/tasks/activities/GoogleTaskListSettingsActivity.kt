@@ -81,8 +81,8 @@ class GoogleTaskListSettingsActivity : AppCompatActivity() {
                                 .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, source)
                         )
                     },
-                    onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onComplete = onSaved) } },
-                    onAddWidget = remember { addWidgetCallback(viewModel.state::value, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onComplete = onSaved) } },
+                    onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onDismiss = { viewModel.state.value.calendar?.let(onSaved) }, onComplete = onSaved) } },
+                    onAddWidget = remember { addWidgetCallback(viewModel.state::value, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onDismiss = { viewModel.state.value.calendar?.let(onSaved) }, onComplete = onSaved) } },
                 )
 
                 if (showColorWheel) {

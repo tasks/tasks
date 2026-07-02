@@ -330,4 +330,7 @@
     <string name="cloud_onboarding_faq_desktop_sync_question">Bilgisayarımla nasıl eşzamanlarım?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">tasks.org/download adresinden masaüstü uygulamasını indirin, ardından aynı Google hesabıyla oturum açın.</string>
     <string name="google_tasks_permission_not_granted">Google Görevler izni verilmedi. Lütfen tekrar oturum açın ve onay ekranında Google Görevler\'e erişim izni verin.</string>
+    <string name="new_tag">Yeni etiket oluştur</string>
+    <string name="enter_tag_name">Etiket adı girin</string>
+    <string name="tag_already_exists">Etiket zaten var</string>
 </resources>

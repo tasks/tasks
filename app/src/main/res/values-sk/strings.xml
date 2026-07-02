@@ -272,7 +272,6 @@
     <string name="take_a_picture">Spraviť obrázok</string>
     <string name="pick_from_gallery">Vybrať z galérie</string>
     <string name="pick_from_storage">Vybrať z uložených</string>
-    <string name="tag_already_exists">Štítok už jestvuje</string>
     <string name="name_cannot_be_empty">Názov nesmie ostať prázdny </string>
     <string name="no_title">Bez názvu</string>
     <string name="back_button_saves_task">Uložiť úlohu tlačidlom Späť</string>
@@ -483,7 +482,6 @@
     <string name="on_launch">Pri spustení</string>
     <string name="sort_created_group">Vytvorené %s</string>
     <string name="caldav_selection_description">Synchronizácia založená na otvorených štandardoch</string>
-    <string name="enter_tag_name">Zadajte názov štítku</string>
     <string name="collapse_subtasks">Zbaliť podúlohy</string>
     <string name="preferences_advanced">Pokročilé možnosti</string>
     <string name="account">Účet</string>

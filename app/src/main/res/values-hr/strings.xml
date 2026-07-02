@@ -191,7 +191,6 @@
     <string name="decsync_selection_description">Sinkronizacija pojedinačnih datoteka</string>
     <string name="etesync_selection_description">Obostrana šifrirana sinkronizacija</string>
     <string name="caldav_selection_description">Sinkronizacija temeljena na otvorenim internetskim standardima</string>
-    <string name="enter_tag_name">Upiši ime oznake</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ne podržava višerazinske podzadatke</string>
     <string name="collapse_subtasks">Sklopi podzadatke</string>
     <string name="expand_subtasks">Rasklopi podzadatke</string>
@@ -293,7 +292,6 @@
     <string name="back_button_saves_task">Gumb za natrag sprema zadatak</string>
     <string name="no_title">(bez naslova)</string>
     <string name="name_cannot_be_empty">Ime ne smije biti prazno</string>
-    <string name="tag_already_exists">Oznaka već postoji</string>
     <string name="pick_from_storage">Odaberi iz spremišta</string>
     <string name="pick_from_gallery">Odaberi iz galerije</string>
     <string name="take_a_picture">Snimi sliku</string>

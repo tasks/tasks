@@ -395,7 +395,6 @@
     <string name="location_radius_meters">%s m</string>
     <string name="date_shortcut_must_come_before">%1$s ha d\'anar abans de %2$s</string>
     <string name="discard">Descarta</string>
-    <string name="tag_already_exists">L\'etiqueta ja existeix</string>
     <string name="no_title">(Sense títol)</string>
     <string name="copy">Copia</string>
     <string name="widget_show_dividers">Mostra el divisors</string>
@@ -496,7 +495,6 @@
     <string name="banner_app_updated_description">Les tasques s\'han actualitzat a %s. Voleu veure les notes de la versió?</string>
     <string name="subtasks_multilevel_google_task">Subtasques multinivell no suportades per Google Tasks</string>
     <string name="subtasks_multilevel_microsoft">Les subtasques multinivell no són compatibles amb Microsoft To Do</string>
-    <string name="enter_tag_name">Introduïu el nom de l\'etiqueta</string>
     <string name="choose_synchronization_service">Seleccioneu una plataforma</string>
     <string name="caldav_selection_description">Sincronització basada en estàndards oberts d\'Internet</string>
     <string name="etesync_selection_description">Sincronització xifrada d\'extrem a extrem</string>

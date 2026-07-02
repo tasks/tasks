@@ -279,4 +279,7 @@
     <string name="dismiss">Отхвърляне</string>
     <string name="add_shortcut_to_home_screen">Добавяне към началния екран</string>
     <string name="add_widget_to_home_screen">Добавяне на приспособление</string>
+    <string name="new_tag">Създаване на етикет</string>
+    <string name="enter_tag_name">Въведете име на етикета</string>
+    <string name="tag_already_exists">Етикетът вече съществува</string>
 </resources>

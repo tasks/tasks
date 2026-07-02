@@ -413,7 +413,6 @@
     <string name="cancel">අවලංගු කරන්න</string>
     <string name="ok">හරි</string>
     <string name="choose_synchronization_service">සේවාවක් තෝරන්න</string>
-    <string name="enter_tag_name">ටැගයේ නම ඇතුළත් කරන්න</string>
     <string name="subtasks_multilevel_google_task">Google Tasks විසින් බහු මට්ටමේ උප කාර්යයන් සඳහා සහාය නොදක්වයි</string>
     <string name="collapse_subtasks">උප කාර්යයන් හකුළුවන්න</string>
     <string name="expand_subtasks">උප කාර්යයන් පුළුල් කරන්න</string>
@@ -470,7 +469,6 @@
     <string name="default_list">පෙරනිමි ලැයිස්තුව</string>
     <string name="no_title">(මාතෘකාවක් නැත)</string>
     <string name="name_cannot_be_empty">නම හිස්ව තැබිය නොහැකිය</string>
-    <string name="tag_already_exists">ටැගය දැනටමත් පවතී</string>
     <string name="pick_from_storage">මතක ගබඩාවෙන් තෝරන්න</string>
     <string name="pick_from_gallery">ගැලරියෙන් තෝරන්න</string>
     <string name="take_a_picture">පින්තුරයක් ගන්න</string>

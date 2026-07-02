@@ -252,7 +252,6 @@
     <string name="take_a_picture">Prendre une photo</string>
     <string name="pick_from_gallery">Choisir depuis la galerie</string>
     <string name="pick_from_storage">Choisir depuis le stockage</string>
-    <string name="tag_already_exists">L\'étiquette existe déjà</string>
     <string name="name_cannot_be_empty">Le nom doit être renseigné</string>
     <string name="no_title">(Sans titre)</string>
     <string name="back_button_saves_task">Le bouton « Retour » enregistre la tâche</string>
@@ -376,7 +375,6 @@
     <string name="TEA_add_subtask">Ajouter une sous-tâche</string>
     <string name="subtasks">Sous-tâches</string>
     <string name="subtasks_multilevel_google_task">Les sous-tâches multi-niveaux ne sont pas prises en charge par « Google Tasks »</string>
-    <string name="enter_tag_name">Saisir le nom de l\'étiquette</string>
     <string name="display_name">Afficher le nom</string>
     <string name="this_feature_requires_a_subscription">Cette fonctionnalité nécessite un abonnement</string>
     <string name="choose_synchronization_service">Sélectionner une plate-forme</string>

@@ -327,4 +327,7 @@
     <string name="cloud_onboarding_faq_google_access_answer">Tidak. Google digunakan untuk autentikasi, tetapi data Anda disimpan di server Tasks.org.</string>
     <string name="cloud_onboarding_faq_desktop_sync_question">Bagaimana cara menyinkronkan dengan komputer saya?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">Unduh aplikasi desktop di tasks.org/download, lalu masuk dengan akun Google yang sama.</string>
+    <string name="new_tag">Buat tag baru</string>
+    <string name="enter_tag_name">Masukkan nama tag</string>
+    <string name="tag_already_exists">Tag sudah ada</string>
 </resources>

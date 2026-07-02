@@ -277,7 +277,6 @@
     <string name="take_a_picture">Nufotografuoti</string>
     <string name="pick_from_gallery">Pasirinkti iš galerijos</string>
     <string name="pick_from_storage">Pasirinkti iš saugyklos</string>
-    <string name="tag_already_exists">Etiketė jau egzistuoja</string>
     <string name="name_cannot_be_empty">Pavadinimas negali būti tuščias</string>
     <string name="no_title">(Be pavadinimo)</string>
     <string name="back_button_saves_task">Mygtukas „Atgal“ išsaugo užduotį</string>
@@ -548,7 +547,6 @@
     <string name="etesync_selection_description">Sinchronizacija paremta abipusiu šifravimu</string>
     <string name="caldav_selection_description">Sinchronizacija paremta atviro interneto standartais</string>
     <string name="choose_synchronization_service">Pasirinkti platformą</string>
-    <string name="enter_tag_name">Įvesti etiketės pavadinimą</string>
     <string name="subtasks_multilevel_google_task">„Google Tasks“ nepalaiko kelių lygių antrinių užduočių</string>
     <string name="collapse_subtasks">Sutraukti antrines užduotis</string>
     <string name="expand_subtasks">Išplėsti antrines užduotis</string>

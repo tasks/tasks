@@ -327,7 +327,6 @@
     <string name="back_button_saves_task">بیک کے بٹن سے ٹاسک محفوظ کرنا</string>
     <string name="no_title">(کوئی عنوان نہیں)</string>
     <string name="name_cannot_be_empty">نام خالی نہیں ہو سکتا</string>
-    <string name="tag_already_exists">ٹیگ پہلے ہی موجود ہے</string>
     <string name="bundle_notifications">بنڈل نوٹٰیفیکیشنز</string>
     <string name="notification_disable_battery_optimizations_description">بیٹری کی بچت نوٹیفیکیشنز کو ملتوی کر سکتی ہے</string>
     <string name="url">یو آر ایل</string>
@@ -423,6 +422,5 @@
     <string name="etesync_selection_description">اینڈ ٹو اینڈ انکرپٹڈ سنکرونائزیشن</string>
     <string name="caldav_selection_description">اوپن انٹرنیٹ میعارات پر مبنی سنکرونائزیشن</string>
     <string name="choose_synchronization_service">پلیٹ فارم منتخب کریں</string>
-    <string name="enter_tag_name">ٹیگ کا نام درج کریں</string>
     <string name="missing_permissions">حذف شدہ اجازتیں</string>
 </resources>

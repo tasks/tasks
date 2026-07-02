@@ -253,7 +253,6 @@
     <string name="take_a_picture">写真を撮影</string>
     <string name="pick_from_gallery">ギャラリーから選択</string>
     <string name="pick_from_storage">ストレージから選択</string>
-    <string name="tag_already_exists">タグは既に存在します</string>
     <string name="name_cannot_be_empty">名前は空にできません</string>
     <string name="no_title">(タイトルなし)</string>
     <string name="back_button_saves_task">戻るボタンでタスクを保存</string>
@@ -355,7 +354,6 @@
     <string name="add_tags">タグを追加</string>
     <string name="filter_no_tags">タグなし</string>
     <string name="hide_unused_tags">使われていないタグを隠す</string>
-    <string name="enter_tag_name">タグの名前を入力</string>
     <string name="action_new_task">新しいタスク</string>
     <string name="this_feature_requires_a_subscription">この機能はサブスクリプションが必要です</string>
     <string name="subscription">サブスクリプション</string>

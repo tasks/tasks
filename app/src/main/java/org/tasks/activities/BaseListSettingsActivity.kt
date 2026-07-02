@@ -96,7 +96,6 @@ abstract class BaseListSettingsActivity : AppCompatActivity() {
 
     private val settingsSource: String
         get() = when (this) {
-            is TagSettingsActivity -> "tag"
             is FilterSettingsActivity -> "filter"
             is PlaceSettingsActivity -> "place"
             is BaseCaldavCalendarSettingsActivity -> "list"

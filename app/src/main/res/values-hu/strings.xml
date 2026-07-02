@@ -252,7 +252,6 @@
     <string name="take_a_picture">Kép készítése</string>
     <string name="pick_from_gallery">Kiválasztás a galériából</string>
     <string name="pick_from_storage">Kiválasztás a tárhelyről</string>
-    <string name="tag_already_exists">A címke már létezik</string>
     <string name="name_cannot_be_empty">A cím nem lehet üres</string>
     <string name="no_title">(Név nélkül)</string>
     <string name="back_button_saves_task">A vissza gomb elmenti a feladatot</string>
@@ -360,7 +359,6 @@
     <string name="TEA_add_subtask">Részfeladat hozzáadása</string>
     <string name="subtasks">Részfeladatok</string>
     <string name="subtasks_multilevel_google_task">A Google Tasks nem támogatja a többszintű részfeladatokat</string>
-    <string name="enter_tag_name">Címke neve</string>
     <string name="display_name">Megjelenített név</string>
     <string name="this_feature_requires_a_subscription">Ez a funkció csak előfizetéssel vehető igénybe</string>
     <string name="choose_synchronization_service">Platform választása</string>

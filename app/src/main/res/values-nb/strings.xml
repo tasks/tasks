@@ -110,7 +110,6 @@
     <string name="filters">Filtre</string>
     <string name="filter_settings">Filterinnstillinger</string>
     <string name="show_completed">Vis fullførte</string>
-    <string name="tag_already_exists">Etiketten finnes allerede</string>
     <string name="opacity">Ugjennomsiktighet</string>
     <string name="language">Språk</string>
     <string name="restart_required">Start Tasks om igjen for å ta i bruk endringene</string>
@@ -365,7 +364,6 @@
     <string name="TEA_add_subtask">Legg til gjøremålssteg</string>
     <string name="subtasks">Gjøremålssteg</string>
     <string name="subtasks_multilevel_google_task">Gjøremålssteg med flere nivåer støttes ikke av Google Tasks</string>
-    <string name="enter_tag_name">Skriv inn etikettnavn</string>
     <string name="display_name">Visningsnavn</string>
     <string name="this_feature_requires_a_subscription">Denne funksjonen krever abonnement</string>
     <string name="choose_synchronization_service">Velg en plattform</string>

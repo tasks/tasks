@@ -116,7 +116,6 @@
     <string name="etesync_selection_description">การทําข้อมูลให้ตรงกันที่เข้ารหัสตั้งแต่ต้นจนจบ</string>
     <string name="caldav_selection_description">การซิงโครไนซ์ตามมาตรฐานอินเทอร์เน็ตแบบเปิด</string>
     <string name="choose_synchronization_service">เลือกแพลตฟอร์ม</string>
-    <string name="enter_tag_name">ป้อนชื่อแท็ก</string>
     <string name="subtasks_multilevel_google_task">งานย่อยหลายระดับไม่ได้รับการสนับสนุนโดย Google Tasks</string>
     <string name="collapse_subtasks">ยุบงานย่อย</string>
     <string name="expand_subtasks">ขยายงานย่อย</string>
@@ -237,7 +236,6 @@
     <string name="back_button_saves_task">ปุ่มย้อนกลับจะบันทึกงาน</string>
     <string name="no_title">(ไม่มีชื่อเรื่อง)</string>
     <string name="name_cannot_be_empty">ชื่อไม่สามารถปล่อยให้ว่างได้</string>
-    <string name="tag_already_exists">มีแท็กอยู่แล้ว</string>
     <string name="pick_from_storage">เบิกสินค้าจากที่เก็บข้อมูล</string>
     <string name="pick_from_gallery">เลือกจากแกลเลอรี่</string>
     <string name="take_a_picture">ถ่ายรูป</string>

@@ -72,6 +72,7 @@ import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.OpenTaskAccountViewModel
+import org.tasks.viewmodel.TagSettingsViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
@@ -164,7 +165,7 @@ val commonModule = module {
     factory<org.tasks.compose.drawer.DrawerConfiguration> {
         object : org.tasks.compose.drawer.DrawerConfiguration {
             override val canCreateFilters: Boolean get() = false
-            override val canCreateTags: Boolean get() = false
+            override val canCreateTags: Boolean get() = true
             override val canCreatePlaces: Boolean get() = false
         }
     }
@@ -482,6 +483,17 @@ val commonModule = module {
             isDark = params.get(),
             account = params.get(),
             calendar = params.get(),
+        )
+    }
+    viewModel { params ->
+        TagSettingsViewModel(
+            tagDataDao = get(),
+            refreshBroadcaster = get(),
+            tasksPreferences = get(),
+            reporting = get(),
+            purchaseState = get(),
+            isDark = params.get(),
+            tagData = params.get(),
         )
     }
     viewModel {

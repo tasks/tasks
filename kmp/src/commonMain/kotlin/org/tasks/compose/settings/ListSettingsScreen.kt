@@ -23,10 +23,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.DeleteOutline
-import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.NotInterested
 import androidx.compose.material.icons.outlined.PersonAdd
-import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material.icons.outlined.Save
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.AlertDialog
@@ -55,6 +53,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.components.TasksIcon
@@ -80,7 +79,9 @@ import tasks.kmp.generated.resources.back
 import tasks.kmp.generated.resources.cancel
 import tasks.kmp.generated.resources.color
 import tasks.kmp.generated.resources.delete
+import tasks.kmp.generated.resources.delete_list_warning
 import tasks.kmp.generated.resources.delete_tag_confirmation
+import tasks.kmp.generated.resources.delete_tasks_warning
 import tasks.kmp.generated.resources.discard
 import tasks.kmp.generated.resources.discard_changes
 import tasks.kmp.generated.resources.icon
@@ -91,15 +92,13 @@ import tasks.kmp.generated.resources.invite_awaiting_response
 import tasks.kmp.generated.resources.invite_declined
 import tasks.kmp.generated.resources.invite_invalid
 import tasks.kmp.generated.resources.list_members
-import tasks.kmp.generated.resources.logout_warning
 import tasks.kmp.generated.resources.new_list
 import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.remove_user
 import tasks.kmp.generated.resources.remove_user_confirmation
-import tasks.kmp.generated.resources.add_shortcut_to_home_screen
-import tasks.kmp.generated.resources.add_widget_to_home_screen
 import tasks.kmp.generated.resources.save
 import tasks.kmp.generated.resources.send
+import tasks.kmp.generated.resources.task_count
 import tasks.kmp.generated.resources.share
 import tasks.kmp.generated.resources.share_list
 import tasks.kmp.generated.resources.user
@@ -113,6 +112,7 @@ data class ListSettingsState(
     val snackbar: String? = null,
     val calendar: CaldavCalendar? = null,
     val account: CaldavAccount? = null,
+    val taskCount: Int = 0,
     val principals: List<PrincipalWithAccess> = emptyList(),
     val confirmRemovePrincipal: PrincipalWithAccess? = null,
     val shareDialogOpen: Boolean = false,
@@ -326,34 +326,11 @@ fun ListSettingsScreen(
             }
 
             // Shortcut and widget
-            if (onAddShortcut != null || onAddWidget != null) {
-                Spacer(modifier = Modifier.height(SettingsContentPadding))
-
-                Column(
-                    modifier = Modifier.padding(horizontal = SettingsContentPadding),
-                    verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-                ) {
-                    val items = listOfNotNull(
-                        onAddShortcut?.let {
-                            Res.string.add_shortcut_to_home_screen to Icons.Outlined.Home to it
-                        },
-                        onAddWidget?.let {
-                            Res.string.add_widget_to_home_screen to Icons.Outlined.Widgets to it
-                        },
-                    )
-                    items.forEachIndexed { index, (labelAndIcon, onClick) ->
-                        val (label, icon) = labelAndIcon
-                        SettingsItemCard(position = CardPosition.forIndex(index, items.size)) {
-                            PreferenceRow(
-                                title = stringResource(label),
-                                icon = icon,
-                                enabled = state.name.isNotBlank() && !state.isLoading,
-                                onClick = onClick,
-                            )
-                        }
-                    }
-                }
-            }
+            ShortcutWidgetCards(
+                onAddShortcut = onAddShortcut,
+                onAddWidget = onAddWidget,
+                enabled = state.name.isNotBlank() && !state.isLoading,
+            )
 
             Spacer(modifier = Modifier.height(SettingsContentPadding))
 
@@ -518,7 +495,18 @@ fun ListSettingsScreen(
             },
             text = {
                 Text(
-                    text = stringResource(Res.string.logout_warning),
+                    text = if (state.taskCount > 0) {
+                        stringResource(
+                            Res.string.delete_tasks_warning,
+                            pluralStringResource(
+                                Res.plurals.task_count,
+                                state.taskCount,
+                                state.taskCount,
+                            ),
+                        )
+                    } else {
+                        stringResource(Res.string.delete_list_warning)
+                    },
                 )
             },
             confirmButton = {

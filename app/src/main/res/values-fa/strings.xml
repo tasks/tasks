@@ -165,7 +165,6 @@
     <string name="show_completed">نمایش انجام شده ها</string>
     <string name="add_attachment">الصاق پیوست</string>
     <string name="take_a_picture">گرفتن عکس</string>
-    <string name="tag_already_exists">این تگ قبلاً ایجاد شده است</string>
     <string name="no_title">(بدون عنوان)</string>
     <string name="default_list">لیست پیش فرض</string>
     <string name="opacity">شفافیت</string>

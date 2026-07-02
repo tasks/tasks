@@ -115,4 +115,7 @@
     <string name="list_settings">لسٹ سیٹنگ</string>
     <string name="reinitialize_account">دوبارہ شروع کریں</string>
     <string name="gtasks_GLA_errorIOAuth">معذرت ، گوگل سرورز کے ساتھ رابطہ نہیں ہو سکا براہ کرم کچھ دیر بعد کوشش کریں.</string>
+    <string name="new_tag">نیا ٹیگ بنائیں</string>
+    <string name="enter_tag_name">ٹیگ کا نام درج کریں</string>
+    <string name="tag_already_exists">ٹیگ پہلے ہی موجود ہے</string>
 </resources>

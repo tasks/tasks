@@ -141,6 +141,7 @@ import org.tasks.compose.settings.GoogleTasksAccountSettingsPane
 import org.tasks.compose.settings.HelpAndFeedbackDetail
 import org.tasks.compose.settings.LinkDesktopScreen
 import org.tasks.compose.settings.ListSettingsScreen
+import org.tasks.compose.settings.TagSettingsScreen
 import org.tasks.compose.settings.LocalAccountSettingsDetail
 import org.tasks.compose.settings.LocalAccountSettingsPane
 import org.tasks.compose.settings.MainSettingsScreen
@@ -163,11 +164,13 @@ import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.TagData
 import org.tasks.data.getAccountForNewList
 import org.tasks.data.getLocalList
 import org.tasks.data.isHidden
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
+import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_TAGS
 import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
@@ -186,6 +189,7 @@ import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
 import org.tasks.viewmodel.LocalListSettingsViewModel
+import org.tasks.viewmodel.TagSettingsViewModel
 import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
@@ -786,6 +790,7 @@ private fun TaskListScreen(
     var selectCreatedList by remember { mutableStateOf(false) }
     var createTaskAfterList by rememberSaveable { mutableStateOf(false) }
     var editListCalendarId by rememberSaveable { mutableStateOf<Long?>(null) }
+    var showNewTag by rememberSaveable { mutableStateOf(false) }
     val caldavDao = koinInject<CaldavDao>()
     val tasksAccountDataRepository = koinInject<TasksAccountDataRepository>()
     val drawerConfiguration = koinInject<org.tasks.compose.drawer.DrawerConfiguration>()
@@ -793,9 +798,10 @@ private fun TaskListScreen(
     val selectedTaskId = selectedTask?.taskId
 
     val onAddClick: (DrawerItem.Header) -> Unit = { header ->
-        val accountId = header.header.id.toLongOrNull()
-        if (accountId != null) {
-            newListAccountId = accountId
+        if (header.header.addIntentRc == REQUEST_NEW_TAGS) {
+            showNewTag = true
+        } else {
+            header.header.id.toLongOrNull()?.let { newListAccountId = it }
         }
     }
 
@@ -1087,6 +1093,24 @@ private fun TaskListScreen(
                 onAddAccount = onAddAccount,
             )
         }
+    }
+
+    if (showNewTag) {
+        val newTag = remember { TagData() }
+        TagSettingsDialog(
+            tagData = newTag,
+            isDark = isDark,
+            onDismiss = { created ->
+                showNewTag = false
+                drawerViewModel.updateFilters()
+                created?.let { tag ->
+                    val newFilter = TagFilter(tag)
+                    viewModel.setFilter(newFilter)
+                    drawerViewModel.setSelectedFilter(newFilter)
+                }
+            },
+            onSubscribe = onSubscribe,
+        )
     }
 }
 
@@ -1595,6 +1619,52 @@ private fun EtebaseListSettingsDialog(
                 onSubscribe()
             },
             onSubscribe = { onSubscribe() },
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TagSettingsDialog(
+    tagData: TagData,
+    isDark: Boolean,
+    onDismiss: (TagData?) -> Unit,
+    onDeleted: () -> Unit = {},
+    onSubscribe: () -> Unit,
+    viewModelKey: String = "tag_settings_${tagData.remoteId}",
+) {
+    val viewModel = koinViewModel<TagSettingsViewModel>(
+        key = viewModelKey,
+        parameters = { org.koin.core.parameter.parametersOf(isDark, tagData) },
+    )
+
+    val dismiss = { onDismiss(null) }
+
+    BasicAlertDialog(
+        onDismissRequest = {
+            if (viewModel.hasChanges) {
+                viewModel.showDiscardDialog()
+            } else {
+                dismiss()
+            }
+        },
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        TagSettingsScreen(
+            viewModel = viewModel,
+            onSave = {
+                viewModel.save(
+                    onDismiss = { onDismiss(null) },
+                    onComplete = { tag -> onDismiss(tag) },
+                )
+            },
+            onDelete = { viewModel.delete { onDeleted() } },
+            onNavigateBack = dismiss,
+            onSubscribe = { onSubscribe() },
+            onColorWheelSelected = {
+                viewModel.closeColorPicker()
+                onSubscribe()
+            },
         )
     }
 }

@@ -188,4 +188,7 @@
     <string name="reinitialize_account">Khởi tạo lại</string>
     <string name="gtasks_GLA_errorIOAuth">Xin lỗi, chúng tôi đã gặp rắc rối khi giao tiếp với máy chủ của Google. Vui lòng thử lại sau.</string>
     <string name="dismiss">Bỏ qua</string>
+    <string name="new_tag">Tạo thẻ mới</string>
+    <string name="enter_tag_name">Nhập tên thẻ</string>
+    <string name="tag_already_exists">Thẻ đã tồn tại</string>
 </resources>

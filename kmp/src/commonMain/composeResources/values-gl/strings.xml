@@ -202,4 +202,7 @@
     <string name="dismiss">Descartar</string>
     <string name="add_shortcut_to_home_screen">Engadir acceso directo á pantalla de inicio</string>
     <string name="add_widget_to_home_screen">Engadir widget á pantalla de inicio</string>
+    <string name="new_tag">Crear nova etiqueta</string>
+    <string name="enter_tag_name">Introduce nome de etiqueta</string>
+    <string name="tag_already_exists">A etiqueta xa existe</string>
 </resources>

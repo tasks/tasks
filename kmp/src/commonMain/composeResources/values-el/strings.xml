@@ -202,4 +202,7 @@
     <string name="dismiss">Απορρίψτε</string>
     <string name="add_shortcut_to_home_screen">Προσθήκη συντόμευσης στην αρχική οθόνη</string>
     <string name="add_widget_to_home_screen">Προσθήκη γραφικού στοιχείου στην αρχική οθόνη</string>
+    <string name="new_tag">Δημιουργία νέας ετικέτας</string>
+    <string name="enter_tag_name">Εισαγωγή ονόματος ετικέτας</string>
+    <string name="tag_already_exists">Η ετικέτα υπάρχει ήδη</string>
 </resources>

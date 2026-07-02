@@ -328,4 +328,7 @@
     <string name="cloud_onboarding_faq_desktop_sync_question">我如何与我的计算机同步数据?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">在 tasks.org/download 下载桌面应用，然后用同一个 Google 账户登录。</string>
     <string name="google_tasks_permission_not_granted">未授予 Google Tasks 权限。请再次登录并在授权屏幕中授予 Google Tasks 权限。</string>
+    <string name="new_tag">新建标签</string>
+    <string name="enter_tag_name">输入标签名称</string>
+    <string name="tag_already_exists">标签已存在</string>
 </resources>

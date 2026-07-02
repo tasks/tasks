@@ -461,6 +461,14 @@ ORDER BY primary_sort
     """)
     abstract fun watchTaskCount(account: String): Flow<Int>
 
+    @Query("""
+        SELECT COUNT(*)
+        FROM caldav_tasks
+        WHERE cd_calendar = :calendar
+        AND cd_deleted = 0
+    """)
+    abstract fun watchTaskCountForCalendar(calendar: String): Flow<Int>
+
     companion object {
         fun Long.toAppleEpoch(): Long = (this - APPLE_EPOCH) / 1000
     }

@@ -202,4 +202,7 @@
     <string name="dismiss">Odmietnuť</string>
     <string name="add_shortcut_to_home_screen">Pridať skratku na domovskú obrazovku</string>
     <string name="add_widget_to_home_screen">Pridať widget na domovskú obrazovku</string>
+    <string name="new_tag">Vytvoriť nový štítok</string>
+    <string name="enter_tag_name">Zadajte názov štítku</string>
+    <string name="tag_already_exists">Štítok už jestvuje</string>
 </resources>

@@ -245,4 +245,7 @@
     <string name="dismiss">關閉</string>
     <string name="add_shortcut_to_home_screen">新增捷徑至主畫面</string>
     <string name="add_widget_to_home_screen">新增小工具至主畫面</string>
+    <string name="new_tag">新增標籤</string>
+    <string name="enter_tag_name">輸入標籤名稱</string>
+    <string name="tag_already_exists">標籤已經存在</string>
 </resources>

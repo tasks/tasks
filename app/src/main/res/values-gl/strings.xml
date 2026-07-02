@@ -179,7 +179,6 @@
     <string name="take_a_picture">Tomar fotografía</string>
     <string name="pick_from_gallery">Elixir desde a galería</string>
     <string name="pick_from_storage">Elixir desde o almacenamento</string>
-    <string name="tag_already_exists">A etiqueta xa existe</string>
     <string name="name_cannot_be_empty">O nome non pode quedar valeiro</string>
     <string name="no_title">(Sen título)</string>
     <string name="back_button_saves_task">Botón atrás garda a tarefa</string>
@@ -336,7 +335,6 @@
     <string name="repeats_plural_on_number_of_times">Repetir cada %1$s o %2$s, ocorre que %3$d %4$s</string>
     <string name="requires_pro_subscription">Precísase dunha subscrición pro</string>
     <string name="this_feature_requires_a_subscription">Esta característica necesita dunha suscrición</string>
-    <string name="enter_tag_name">Introduce nome de etiqueta</string>
     <string name="show_advanced_settings">Amosar configuración avanzada</string>
     <string name="preferences_advanced">Avanzada</string>
     <string name="places">Lugares</string>

@@ -352,7 +352,6 @@ File %1$s contained %2$s.\n\n
   <string name="take_a_picture">Take a picture</string>
   <string name="pick_from_gallery">Pick from gallery</string>
   <string name="pick_from_storage">Pick from storage</string>
-  <string name="tag_already_exists">Tag already exists</string>
   <string name="name_cannot_be_empty">Name cannot be empty</string>
   <string name="no_title">(No title)</string>
   <string name="back_button_saves_task">Back button saves task</string>
@@ -489,7 +488,6 @@ File %1$s contained %2$s.\n\n
   <string name="collapse_subtasks">Collapse subtasks</string>
   <string name="subtasks_multilevel_google_task">Multi-level subtasks not supported by Google Tasks</string>
   <string name="subtasks_multilevel_microsoft">Multi-level subtasks not supported by Microsoft To Do</string>
-  <string name="enter_tag_name">Enter tag name</string>
   <string name="choose_synchronization_service">Select a platform</string>
   <string name="caldav_selection_description">Synchronization based on open internet standards</string>
   <string name="etesync_selection_description">End-to-end encrypted synchronization</string>

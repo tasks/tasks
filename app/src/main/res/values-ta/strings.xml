@@ -185,7 +185,6 @@
     <string name="etesync_selection_description">திறந்த மூல, இறுதி முதல் இறுதி மறைகுறியாக்க ஒத்திசைவு</string>
     <string name="caldav_selection_description">திறந்த இணைய தரங்களின் அடிப்படையில் ஒத்திசைவு</string>
     <string name="choose_synchronization_service">ஒரு தளத்தைத் தேர்ந்தெடுக்கவும்</string>
-    <string name="enter_tag_name">குறிச்சொல் பெயரை உள்ளிடவும்</string>
     <string name="subtasks_multilevel_google_task">கூகிள் பணிகளால் பல நிலை துணை பணிகள் ஆதரிக்கப்படவில்லை</string>
     <string name="collapse_subtasks">துணை பணிகளைச் சுருக்கவும்</string>
     <string name="expand_subtasks">துணை பணிகளை விரிவாக்குங்கள்</string>
@@ -285,7 +284,6 @@
     <string name="back_button_saves_task">பின் பொத்தான் பணியைச் சேமிக்கிறது</string>
     <string name="no_title">(தலைப்பு இல்லை)</string>
     <string name="name_cannot_be_empty">பெயர் காலியாக இருக்க முடியாது</string>
-    <string name="tag_already_exists">குறிச்சொல் ஏற்கனவே உள்ளது</string>
     <string name="pick_from_storage">சேமிப்பிலிருந்து எடுக்கவும்</string>
     <string name="pick_from_gallery">கேலரியில் இருந்து எடுக்கவும்</string>
     <string name="take_a_picture">படம் எடுக்கவும்</string>

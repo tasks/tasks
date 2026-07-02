@@ -224,4 +224,7 @@
     <string name="dismiss">Sluiten</string>
     <string name="add_shortcut_to_home_screen">Snelkoppeling aan startscherm toevoegen</string>
     <string name="add_widget_to_home_screen">Widget aan startscherm toevoegen</string>
+    <string name="new_tag">Nieuw label aanmaken</string>
+    <string name="enter_tag_name">Label kiezen</string>
+    <string name="tag_already_exists">Label bestaat reeds</string>
 </resources>

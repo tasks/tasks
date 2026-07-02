@@ -258,7 +258,6 @@
     <string name="take_a_picture">Заснемане</string>
     <string name="pick_from_gallery">Изберете от галерия</string>
     <string name="pick_from_storage">Избиране на файл</string>
-    <string name="tag_already_exists">Етикетът вече съществува</string>
     <string name="name_cannot_be_empty">Името не може да е празно</string>
     <string name="no_title">(Без заглавие)</string>
     <string name="back_button_saves_task">Бутон „Назад“ запазва задачата</string>
@@ -367,7 +366,6 @@
     <string name="help_and_feedback">Помощ и обратна връзка</string>
     <string name="theme_system_default">Спрямо системата</string>
     <string name="default_location">Място по подразбиране</string>
-    <string name="enter_tag_name">Въведете име на етикета</string>
     <string name="add_tags">Добавяне на етикети</string>
     <string name="place_settings">Настройки на местата</string>
     <string name="places">Места</string>

@@ -254,4 +254,7 @@
     <string name="sort_created">Laŭ kreita dato</string>
     <string name="sort_modified">Laŭ modifita dato</string>
     <string name="all_done">Finite!</string>
+    <string name="new_tag">Krei novan etikedon</string>
+    <string name="enter_tag_name">Entajpu etikedonomon</string>
+    <string name="tag_already_exists">Etikedo jam ekzistas</string>
 </resources>

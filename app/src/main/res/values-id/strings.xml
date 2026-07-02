@@ -192,7 +192,6 @@
     <string name="take_a_picture">Ambil gambar</string>
     <string name="pick_from_gallery">Pilih dari galeri</string>
     <string name="pick_from_storage">Pilih dari penyimpanan</string>
-    <string name="tag_already_exists">Tag sudah ada</string>
     <string name="name_cannot_be_empty">Nama tidak boleh kosong</string>
     <string name="no_title">(Tanpa judul)</string>
     <string name="back_button_saves_task">Tombol kembali menyimpan tugas</string>
@@ -294,7 +293,6 @@
     <string name="google_tasks_add_to_top">Tugas baru di atas</string>
     <string name="expand_subtasks">Lebarkan subtugas</string>
     <string name="subtasks_multilevel_google_task">Subtugas level-ganda tidak didukung oleh Google Tasks</string>
-    <string name="enter_tag_name">Masukkan nama tag</string>
     <string name="this_feature_requires_a_subscription">Fitur ini membutuhkan Anda berlangganan versi pro</string>
     <string name="choose_synchronization_service">Pilih sebuah platform</string>
     <string name="caldav_selection_description">Sinkronisasi yang berdasarkan pada standar internet terbuka</string>

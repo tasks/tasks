@@ -266,7 +266,6 @@
     <string name="take_a_picture">Tomar fotografía</string>
     <string name="pick_from_gallery">Elegir desde la galería</string>
     <string name="pick_from_storage">Elegir desde almacenamiento</string>
-    <string name="tag_already_exists">La etiqueta ya existe</string>
     <string name="name_cannot_be_empty">El nombre no puede estar vacío</string>
     <string name="no_title">(Sin título)</string>
     <string name="back_button_saves_task">El botón Atrás guarda la tarea</string>
@@ -376,7 +375,6 @@
     <string name="TEA_add_subtask">Añadir subtarea</string>
     <string name="subtasks">Subtareas</string>
     <string name="subtasks_multilevel_google_task">Subtareas multinivel no compatibles con Google Tasks</string>
-    <string name="enter_tag_name">Introduzca el nombre de la etiqueta</string>
     <string name="display_name">Mostrar el nombre</string>
     <string name="this_feature_requires_a_subscription">Esta característica requiere una suscripción</string>
     <string name="choose_synchronization_service">Seleccione una plataforma</string>

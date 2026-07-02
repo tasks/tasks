@@ -411,7 +411,6 @@
     <string name="collapse_subtasks">Κλείσιμο υποεργασιών</string>
     <string name="subtasks_multilevel_google_task">Οι πολυεπίπεδες υποεργασίες δεν υποστηρίζονται από το Google Tasks</string>
     <string name="subtasks_multilevel_microsoft">Οι πολυεπίπεδες υποεργασίες δεν υποστηρίζονται από το Microsoft To Do</string>
-    <string name="enter_tag_name">Εισαγωγή ονόματος ετικέτας</string>
     <string name="choose_synchronization_service">Επιλογή πλατφόρμας</string>
     <string name="caldav_selection_description">Συγχρονισμός βασισμένος σε ανοιχτά πρότυπα διαδικτύου</string>
     <string name="etesync_selection_description">Κρυπτογραφημένος συγχρονισμός από άκρο σε άκρο</string>
@@ -602,7 +601,6 @@
     <string name="take_a_picture">Βγάλτε μια φωτογραφία</string>
     <string name="pick_from_gallery">Επιλογή από τη συλλογή</string>
     <string name="pick_from_storage">Επιλογή από την αποθήκη αρχείων</string>
-    <string name="tag_already_exists">Η ετικέτα υπάρχει ήδη</string>
     <string name="name_cannot_be_empty">Το όνομα δεν μπορεί να είναι κενό</string>
     <string name="no_title">(Χωρίς τίτλο)</string>
     <string name="back_button_saves_task">Το κουμπί \"Πίσω\" αποθηκεύει την εργασία</string>

@@ -217,4 +217,7 @@
     <string name="dismiss">Hylkää</string>
     <string name="add_shortcut_to_home_screen">Lisää pikakuvake aloitusnäytölle</string>
     <string name="add_widget_to_home_screen">Lisää pienoissovellus aloitusnäytölle</string>
+    <string name="new_tag">Luo uusi tunniste</string>
+    <string name="enter_tag_name">Anna tunnisteen nimi</string>
+    <string name="tag_already_exists">Tunniste on jo olemassa</string>
 </resources>

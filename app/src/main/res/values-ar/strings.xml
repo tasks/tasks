@@ -316,7 +316,6 @@
     <string name="hide_unused_tags">أخفِ العلامات الغير مستعملة</string>
     <string name="place_settings">إعدادات الأماكن</string>
     <string name="upgrade_blurb_1">أهلًا! أنا أليكس (Alex). أنا المطور المستقل وراء Tasks</string>
-    <string name="enter_tag_name">أدخل اسم العلامة</string>
     <string name="choose_new_location">اختر موقعًا جديدًا</string>
     <string name="or_choose_a_location">أو اختر موقعًا</string>
     <string name="pick_this_location">اختر هذا الموقع</string>
@@ -367,7 +366,6 @@
     <string name="delete_multiple_tasks_confirmation">%s حذفت</string>
     <string name="copy_multiple_tasks_confirmation">%s نسخت</string>
     <string name="launcher_icon">أيقونة المشغّل</string>
-    <string name="tag_already_exists">العلامة موجودة مسبقًا</string>
     <string name="gtasks_error_accountNotFound">لم يتم العثور على الحساب %s، الرجاء تسجيل الخروج ثم تسجيل الدخول من إعدادات Google Tasks.</string>
     <string name="CFC_startBefore_name">بدأ عند…</string>
     <string name="CFC_startBefore_text">بدأ عند: \?</string>

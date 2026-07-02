@@ -1,12 +1,15 @@
 package org.tasks.viewmodel
 
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.tasks.billing.PurchaseState
 import org.tasks.compose.settings.ListSettingsState
 import org.tasks.compose.settings.buildPickerColors
 import org.tasks.data.PrincipalWithAccess
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.themes.TasksIcons
@@ -85,5 +88,14 @@ class ListSettingsStateManager(
 
     override fun dismissDiscardDialog() {
         _state.update { it.copy(showDiscardDialog = false) }
+    }
+}
+
+fun ListSettingsStateManager.observeTaskCount(scope: CoroutineScope, caldavDao: CaldavDao) {
+    val uuid = state.value.calendar?.uuid ?: return
+    scope.launch {
+        caldavDao.watchTaskCountForCalendar(uuid).collect { count ->
+            update { it.copy(taskCount = count) }
+        }
     }
 }

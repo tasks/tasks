@@ -175,7 +175,6 @@
     <string name="take_a_picture">Ta en bild</string>
     <string name="pick_from_gallery">Välj från album</string>
     <string name="pick_from_storage">Välj från lagring</string>
-    <string name="tag_already_exists">Etiketten finns redan</string>
     <string name="name_cannot_be_empty">Namn måste anges</string>
     <string name="no_title">(Ingen titel)</string>
     <string name="back_button_saves_task">Bakåtknapp sparar uppgift</string>
@@ -477,7 +476,6 @@
     <string name="etesync_selection_description">Ände-till-ände-krypterad synkronisering</string>
     <string name="caldav_selection_description">Synkronisering baserad på öppna internetstandarder</string>
     <string name="choose_synchronization_service">Välj en plattform</string>
-    <string name="enter_tag_name">Ange taggnamn</string>
     <string name="subtasks_multilevel_google_task">Deluppgifter på flera nivåer stöds inte av Google Tasks</string>
     <string name="collapse_subtasks">Fäll in deluppgifter</string>
     <string name="expand_subtasks">Fäll ut deluppgifter</string>

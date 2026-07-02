@@ -194,4 +194,7 @@
     <string name="gtasks_GLA_errorIOAuth">Przepraszamy, mieliśmy problem z porozumieniem się z serwerami Google. Prosimy spróbować ponownie.</string>
     <string name="dismiss">Odrzuć</string>
     <string name="search_no_results">Brak wyników</string>
+    <string name="new_tag">Stwórz nowy tag</string>
+    <string name="enter_tag_name">Wprowadź nazwę tagu</string>
+    <string name="tag_already_exists">Tag już istnieje</string>
 </resources>

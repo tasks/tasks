@@ -176,7 +176,6 @@
     <string name="cancel">取消</string>
     <string name="ok">OK</string>
     <string name="name_cannot_be_empty">名稱不能為空白</string>
-    <string name="tag_already_exists">標籤已經存在</string>
     <string name="pick_from_storage">從儲存空間選擇</string>
     <string name="pick_from_gallery">從相簿中選擇</string>
     <string name="take_a_picture">拍一張照</string>
@@ -313,7 +312,6 @@
     <string name="documentation">檔案</string>
     <string name="preferences_advanced">進階</string>
     <string name="choose_synchronization_service">選擇一個平臺</string>
-    <string name="enter_tag_name">輸入標籤名稱</string>
     <string name="collapse_subtasks">收起次工作</string>
     <string name="expand_subtasks">展開副工作</string>
     <string name="google_tasks_add_to_top">新任務置頂</string>

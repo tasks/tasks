@@ -33,6 +33,10 @@ open class GoogleTaskListSettingsViewModel(
     internal val stateManager: ListSettingsStateManager = ListSettingsStateManager(isDark, purchaseState, account, calendar, hasColorWheel),
 ) : ViewModel(), ListSettingsCallbacks by stateManager {
 
+    init {
+        stateManager.observeTaskCount(viewModelScope, caldavDao)
+    }
+
     open override fun setName(value: String) = stateManager.setName(value)
     open override fun setColor(value: Int) = stateManager.setColor(value)
     open override fun setIcon(value: String) = stateManager.setIcon(value)

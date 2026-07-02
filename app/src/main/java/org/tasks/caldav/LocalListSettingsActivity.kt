@@ -89,8 +89,8 @@ class LocalListSettingsActivity : AppCompatActivity() {
                                 .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, source)
                         )
                     },
-                    onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onComplete = { _, calendar -> onSaved(calendar) }) } },
-                    onAddWidget = remember { addWidgetCallback(viewModel.state::value, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onComplete = { _, calendar -> onSaved(calendar) }) } },
+                    onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onDismiss = { viewModel.state.value.calendar?.let(onSaved) }, onComplete = { _, calendar -> onSaved(calendar) }) } },
+                    onAddWidget = remember { addWidgetCallback(viewModel.state::value, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onDismiss = { viewModel.state.value.calendar?.let(onSaved) }, onComplete = { _, calendar -> onSaved(calendar) }) } },
                     headerContent = {
                         AnimatedBanner(
                             visible = bannerVisible,

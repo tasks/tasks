@@ -270,7 +270,6 @@
     <string name="take_a_picture">צילום תמונה</string>
     <string name="pick_from_gallery">בחירה מגלריה</string>
     <string name="pick_from_storage">בחירה מאחסון</string>
-    <string name="tag_already_exists">תגית כבר קיימת</string>
     <string name="name_cannot_be_empty">השם לא יכול להיות ריק</string>
     <string name="no_title">(אין כותרת)</string>
     <string name="back_button_saves_task">לחצן \'חזרה\' שומר משימה</string>
@@ -422,7 +421,6 @@
     <string name="etesync_selection_description">סנכרון מוצפן מקצה־לקצה</string>
     <string name="caldav_selection_description">סנכרון מבוסס על תקני אינטרנט פתוחים</string>
     <string name="choose_synchronization_service">בחירת פלטפורמה</string>
-    <string name="enter_tag_name">הזנת שם תגית</string>
     <string name="subtasks_multilevel_google_task">תתי־משימות מקוננות אינן נתמכות על ידי Google Tasks</string>
     <string name="widget_open_list">פתיחת רשימה</string>
     <string name="theme_system_default">ברירת מחדל של המערכת</string>

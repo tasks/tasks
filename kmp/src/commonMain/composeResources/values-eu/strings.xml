@@ -179,4 +179,7 @@
     <string name="reinitialize_account">Berrhasi</string>
     <string name="gtasks_GLA_errorIOAuth">Google zerbitzariekin komunikatzeko arazo bat izan dugu. Saiatu geroago.</string>
     <string name="dismiss">Baztertu</string>
+    <string name="new_tag">Sortu etiketa berria</string>
+    <string name="enter_tag_name">Idatzi etiketaren izena</string>
+    <string name="tag_already_exists">Etiketa hau badago aurretik</string>
 </resources>

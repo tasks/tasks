@@ -9,138 +9,127 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import com.todoroo.astrid.activity.MainActivity
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
-import org.tasks.broadcast.RefreshBroadcaster
-import org.tasks.R
-import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.dao.TagDataDao
-import org.tasks.data.entity.TagData
-import org.tasks.filters.Filter
+import org.tasks.analytics.Firebase
+import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
+import org.tasks.compose.ColorWheelDialog
+import org.tasks.compose.settings.TagSettingsScreen
+import org.tasks.compose.settings.canPinShortcut
+import org.tasks.compose.settings.canPinWidget
+import org.tasks.compose.settings.createShortcut
+import org.tasks.compose.settings.createWidget
+import org.tasks.compose.settings.setReloadResult
 import org.tasks.filters.TagFilter
-import org.tasks.filters.key
-import org.tasks.preferences.FilterPreferences.Companion.delete
-import org.tasks.preferences.TasksPreferences
-import org.tasks.themes.TasksIcons
+import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.themes.TasksTheme
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TagSettingsActivity : BaseListSettingsActivity() {
-    @Inject lateinit var tagDataDao: TagDataDao
-    @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
-    @Inject lateinit var tasksPreferences: TasksPreferences
+class TagSettingsActivity : AppCompatActivity() {
 
-    private lateinit var tagData: TagData
-    private val isNewTag: Boolean
-        get() = tagData.id == null
+    @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
+    @Inject lateinit var firebase: Firebase
 
-    override val defaultIcon = TasksIcons.LABEL
+    private val viewModel: TagSettingsHiltViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        tagData = intent.getParcelableExtra(EXTRA_TAG_DATA) ?: TagData()
-
-        if (!isNewTag) baseViewModel.setTitle(tagData.name!!)
-
         super.onCreate(savedInstanceState)
-
-        if (savedInstanceState == null) {
-            baseViewModel.setColor(tagData.color ?: 0)
-            baseViewModel.setIcon(tagData.icon ?: defaultIcon)
-        }
+        enableEdgeToEdge()
 
         setContent {
             TasksTheme {
-                BaseSettingsContent()
+                val state by viewModel.viewState.collectAsStateWithLifecycle()
+                var showColorWheel by rememberSaveable { mutableStateOf(false) }
+                val primaryColor = MaterialTheme.colorScheme.primary
+                val canAddShortcut = remember { canPinShortcut() }
+                val canAddWidget = remember { canPinWidget() }
+
+                TagSettingsScreen(
+                    viewModel = viewModel,
+                    onSave = {
+                        viewModel.save(
+                            onDismiss = { finish() },
+                            onComplete = { tag ->
+                                setReloadResult(TagFilter(tag))
+                                finish()
+                            },
+                        )
+                    },
+                    onDelete = {
+                        viewModel.delete { uuid ->
+                            setResult(
+                                Activity.RESULT_OK,
+                                Intent(TaskListFragment.ACTION_DELETED).putExtra(EXTRA_TAG_UUID, uuid),
+                            )
+                            finish()
+                        }
+                    },
+                    onNavigateBack = { finish() },
+                    onSubscribe = { source ->
+                        startActivity(
+                            Intent(this, PurchaseActivity::class.java)
+                                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, source)
+                        )
+                    },
+                    onColorWheelSelected = { showColorWheel = true },
+                    onAddShortcut = if (canAddShortcut) {
+                        {
+                            viewModel.persist { tag ->
+                                createShortcut(
+                                    filter = TagFilter(tag),
+                                    title = tag.name ?: "",
+                                    icon = tag.icon,
+                                    color = (tag.color ?: 0).takeIf { it != 0 }?.let { Color(it) } ?: primaryColor,
+                                    defaultFilterProvider = defaultFilterProvider,
+                                    firebase = firebase,
+                                )
+                                setReloadResult(TagFilter(tag))
+                                finish()
+                            }
+                        }
+                    } else null,
+                    onAddWidget = if (canAddWidget) {
+                        {
+                            viewModel.persist { tag ->
+                                createWidget(
+                                    filter = TagFilter(tag),
+                                    color = tag.color ?: 0,
+                                    defaultFilterProvider = defaultFilterProvider,
+                                    firebase = firebase,
+                                )
+                                setReloadResult(TagFilter(tag))
+                                finish()
+                            }
+                        }
+                    } else null,
+                )
+
+                if (showColorWheel) {
+                    ColorWheelDialog(
+                        initialColor = state.color,
+                        onColorSelected = viewModel::setColor,
+                        onCancel = {
+                            showColorWheel = false
+                            viewModel.openColorPicker()
+                        },
+                        onDismiss = { showColorWheel = false },
+                    )
+                }
             }
         }
-    }
-
-    override val filter: Filter?
-        get() = if (isNewTag) null else TagFilter(tagData)
-
-    override val toolbarTitle: String
-        get() = if (isNew) getString(R.string.new_tag) else tagData.name!!
-
-    private val newName: String
-        get() = baseViewModel.title.trim { it <= ' ' }
-
-    private suspend fun clashes(newName: String): Boolean {
-        return ((isNewTag || !newName.equals(tagData.name, ignoreCase = true))
-                && tagDataDao.getTagByName(newName) != null)
-    }
-
-    override suspend fun save() {
-        val newName = newName
-        if (isNullOrEmpty(newName)) {
-            baseViewModel.setError(getString(R.string.name_cannot_be_empty))
-            return
-        }
-        if (clashes(newName)) {
-            baseViewModel.setError(getString(R.string.tag_already_exists))
-            return
-        }
-        if (isNewTag) {
-            tagData
-                .copy(
-                    name = newName,
-                    color = baseViewModel.color,
-                    icon = baseViewModel.icon,
-                )
-                .let { it.copy(id = tagDataDao.insert(it)) }
-                .let {
-                    firebase.logEvent(R.string.event_create_tag)
-                    refreshBroadcaster.broadcastRefresh()
-                    setResult(
-                        Activity.RESULT_OK,
-                        Intent().putExtra(MainActivity.OPEN_FILTER, TagFilter(it))
-                    )
-                }
-        } else if (hasChanges()) {
-            tagData
-                .copy(
-                    name = newName,
-                    color = baseViewModel.color,
-                    icon = baseViewModel.icon,
-                )
-                .let {
-                    tagDataDao.updateTag(it)
-                    refreshBroadcaster.broadcastRefresh()
-                    setResult(
-                        Activity.RESULT_OK,
-                        Intent(TaskListFragment.ACTION_RELOAD)
-                            .putExtra(MainActivity.OPEN_FILTER, TagFilter(it))
-                    )
-                }
-        }
-        finish()
-    }
-
-    override fun hasChanges(): Boolean {
-        return if (isNewTag) {
-            baseViewModel.color != 0 || baseViewModel.icon?.isBlank() == false || !isNullOrEmpty(newName)
-        } else {
-            baseViewModel.color != (tagData.color ?: 0)
-                    || baseViewModel.icon != (tagData.icon ?: TasksIcons.LABEL)
-                    || newName != tagData.name
-        }
-    }
-
-    override fun finish() {
-        //hideKeyboard(name)
-        super.finish()
-    }
-
-    override suspend fun delete() {
-        firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_tag")
-        val uuid = tagData.remoteId
-        tagDataDao.delete(tagData)
-        filter?.key()?.let { tasksPreferences.delete(it) }
-        setResult(
-                Activity.RESULT_OK,
-                Intent(TaskListFragment.ACTION_DELETED).putExtra(EXTRA_TAG_UUID, uuid))
-        finish()
     }
 
     companion object {
@@ -148,4 +137,3 @@ class TagSettingsActivity : BaseListSettingsActivity() {
         private const val EXTRA_TAG_UUID = "uuid" // $NON-NLS-1$
     }
 }
-

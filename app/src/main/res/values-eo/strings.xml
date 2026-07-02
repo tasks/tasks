@@ -207,7 +207,6 @@
     <string name="default_list">Defaŭlta listo</string>
     <string name="no_title">(Sen titolo)</string>
     <string name="name_cannot_be_empty">Nomo ne povas malpleni</string>
-    <string name="tag_already_exists">Etikedo jam ekzistas</string>
     <string name="pick_from_storage">Elekti de konservejo</string>
     <string name="pick_from_gallery">Elekti de galerio</string>
     <string name="add_attachment">Aldoni aldonaĵon</string>
@@ -409,7 +408,6 @@
     <string name="repeats_never">Neniam</string>
     <string name="bundle_notifications_summary">Unuigi multajn sciigojn kiel unu</string>
     <string name="help">Helpo</string>
-    <string name="enter_tag_name">Entajpu etikedonomon</string>
     <string name="building_notifications">Generas sciigojn</string>
     <string name="whats_new">Novaĵoj</string>
     <string name="action_create_new_task">Krei novan taskon</string>

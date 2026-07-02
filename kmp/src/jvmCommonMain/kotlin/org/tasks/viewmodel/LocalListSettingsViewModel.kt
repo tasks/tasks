@@ -46,6 +46,10 @@ open class LocalListSettingsViewModel(
         }
     }
 
+    init {
+        stateManager.observeTaskCount(viewModelScope, caldavDao)
+    }
+
     open override fun setName(value: String) = stateManager.setName(value)
     open override fun setColor(value: Int) = stateManager.setColor(value)
     open override fun setIcon(value: String) = stateManager.setIcon(value)

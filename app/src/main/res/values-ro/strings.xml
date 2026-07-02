@@ -132,7 +132,6 @@
     <string name="back_button_saves_task">Butonul Înapoi salvează activitatea</string>
     <string name="no_title">(Fără titlu)</string>
     <string name="name_cannot_be_empty">Numele nu poate fi gol</string>
-    <string name="tag_already_exists">Etichetă deja existentă</string>
     <string name="pick_from_storage">Alege de pe stocare</string>
     <string name="pick_from_gallery">Alege din galerie</string>
     <string name="take_a_picture">Fă o fotografie</string>
@@ -482,7 +481,6 @@
     <string name="etesync_selection_description">Sincronizare criptată end-to-end</string>
     <string name="caldav_selection_description">Sincronizare bazată pe standarde deschise de internet</string>
     <string name="choose_synchronization_service">Selectează o platformă</string>
-    <string name="enter_tag_name">Introdu numele etichetei</string>
     <string name="subtasks_multilevel_google_task">Sub-sarcinile pe mai multe niveluri nu sunt acceptate de Google Tasks</string>
     <string name="collapse_subtasks">Restrânge sub-sarcinile</string>
     <string name="expand_subtasks">Extinde sub-sarcinile</string>

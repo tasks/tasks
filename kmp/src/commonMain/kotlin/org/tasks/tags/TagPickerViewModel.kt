@@ -3,23 +3,21 @@ package org.tasks.tags
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.state.ToggleableState
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.TagData
 import org.tasks.data.searchTags
-import javax.inject.Inject
 
-@HiltViewModel
-class TagPickerViewModel @Inject constructor(
-        private val tagDataDao: TagDataDao
+open class TagPickerViewModel(
+    private val tagDataDao: TagDataDao,
 ) : ViewModel() {
 
-    private val tags = MutableLiveData<List<TagData>>()
+    private val _tags = mutableStateOf<List<TagData>>(emptyList())
+    val tags: State<List<TagData>>
+        get() = _tags
+
     private val selected: MutableSet<TagData> = HashSet()
     private val partiallySelected: MutableSet<TagData> = HashSet()
 
@@ -30,13 +28,6 @@ class TagPickerViewModel @Inject constructor(
     val tagToCreate: State<String>
         get() = _tagToCreate
     private val _tagToCreate = mutableStateOf("")
-
-    fun observe(owner: LifecycleOwner, observer: (List<TagData>) -> Unit) =
-            tags.observe(owner, observer)
-
-    /* The property to access selected tags list from the @Composable activity */
-    val tagsList: MutableLiveData<List<TagData>>
-        get() = tags
 
     fun setSelected(selected: List<TagData>, partiallySelected: List<TagData>?) {
         this.selected.addAll(selected)
@@ -60,24 +51,14 @@ class TagPickerViewModel @Inject constructor(
     }
 
     private fun onUpdate(newText: String, results: MutableList<TagData>) {
-        val sorted = results
-            .sortedWith { l, r ->
-                val lSelected = selected.contains(l) || partiallySelected.contains(r)
-                val rSelected = selected.contains(r) || partiallySelected.contains(r)
-                if (lSelected && !rSelected) {
-                    -1
-                } else if (rSelected) {
-                    1
-                } else {
-                    0
-                }
-            }
-            .toMutableList()
-        if ( newText != "" && !results.any {newText.equals(it.name, ignoreCase = true) } )
+        val sorted = results.sortedByDescending {
+            selected.contains(it) || partiallySelected.contains(it)
+        }
+        if (newText != "" && !results.any { newText.equals(it.name, ignoreCase = true) })
             _tagToCreate.value = newText
         else
             _tagToCreate.value = ""
-        tags.value = sorted
+        _tags.value = sorted
     }
 
     fun getState(tagData: TagData): ToggleableState {

@@ -293,4 +293,7 @@
     <string name="unlock_pro_step_3">Clique em \'%1$s\'</string>
     <string name="error_no_sponsorship">Patrocínio não encontrado</string>
     <string name="error_sponsorship_delay">Novos patrocínios podem não estar disponíveis imediatamente, tente de novo em alguns minutos.</string>
+    <string name="new_tag">Criar nova etiqueta</string>
+    <string name="enter_tag_name">Adicione nome da etiqueta</string>
+    <string name="tag_already_exists">Etiqueta já existe</string>
 </resources>

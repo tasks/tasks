@@ -46,6 +46,7 @@ object AnalyticsEvents {
     const val TIER_NYP = "nyp"
 
     const val CREATE_LIST = "create_list"
+    const val CREATE_TAG = "create_tag"
 
     const val CLOUD_ONBOARDING = "cloud_onboarding"
     const val PARAM_STEP = "step"
@@ -61,6 +62,7 @@ object AnalyticsEvents {
 
     object SettingsClick {
         const val DELETE_LIST = "delete_list"
+        const val DELETE_TAG = "delete_tag"
         const val WHATS_NEW = "whats_new"
         const val RATE_TASKS = "rate_tasks"
         const val DOCUMENTATION = "documentation"

@@ -217,4 +217,7 @@
     <string name="dismiss">Отклонить</string>
     <string name="add_shortcut_to_home_screen">Добавить ярлык на домашний экран</string>
     <string name="add_widget_to_home_screen">Добавить виджет на домашний экран</string>
+    <string name="new_tag">Создать новую метку</string>
+    <string name="enter_tag_name">Введите название метки</string>
+    <string name="tag_already_exists">Тег уже существует</string>
 </resources>

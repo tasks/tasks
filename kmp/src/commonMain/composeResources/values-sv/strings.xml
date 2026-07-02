@@ -318,4 +318,7 @@
     <string name="link_desktop">Länka skrivbordsappen</string>
     <string name="subscription_not_found">Din Tasks.org-molnprenumeration hittades inte. Om du tror att detta är ett fel, kontakta %1$s</string>
     <string name="create_a_list">Skapa en lista</string>
+    <string name="new_tag">Skapa en ny etikett</string>
+    <string name="enter_tag_name">Ange taggnamn</string>
+    <string name="tag_already_exists">Etiketten finns redan</string>
 </resources>

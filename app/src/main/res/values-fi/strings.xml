@@ -240,7 +240,6 @@
     <string name="take_a_picture">Ota kuva</string>
     <string name="pick_from_gallery">Valitse galleriasta</string>
     <string name="pick_from_storage">Valitse muistista</string>
-    <string name="tag_already_exists">Tunniste on jo olemassa</string>
     <string name="name_cannot_be_empty">Nimi ei voi olla tyhjä</string>
     <string name="no_title">(Ei nimikettä)</string>
     <string name="back_button_saves_task">Takaisin -painike tallentaa tehtävän</string>
@@ -327,7 +326,6 @@
     <string name="etesync_selection_description">End-to-end-salattu synkronointi</string>
     <string name="caldav_selection_description">Avoimiin verkkostandardeihin pohjautuva synkronointi</string>
     <string name="choose_synchronization_service">Valitse alusta</string>
-    <string name="enter_tag_name">Anna tunnisteen nimi</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ei tue monitasoisia alitehtäviä</string>
     <string name="collapse_subtasks">Pienennä alitehtävät</string>
     <string name="expand_subtasks">Laajenna alitehtävät</string>

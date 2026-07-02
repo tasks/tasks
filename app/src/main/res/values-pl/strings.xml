@@ -266,7 +266,6 @@
     <string name="take_a_picture">Wybierz obrazek</string>
     <string name="pick_from_gallery">Wybierz z galerii</string>
     <string name="pick_from_storage">Wybierz z pamięci</string>
-    <string name="tag_already_exists">Tag już istnieje</string>
     <string name="name_cannot_be_empty">Nazwa nie może być pusta</string>
     <string name="no_title">(Bez tytułu)</string>
     <string name="back_button_saves_task">Przycisk Cofnij zapisuje zadanie</string>
@@ -376,7 +375,6 @@
     <string name="TEA_add_subtask">Dodaj podzadanie</string>
     <string name="subtasks">Podzadania</string>
     <string name="subtasks_multilevel_google_task">Wielopoziomowe podzadania nie są obsługiwane przez Google Tasks</string>
-    <string name="enter_tag_name">Wprowadź nazwę tagu</string>
     <string name="display_name">Nazwa wyświetlana</string>
     <string name="this_feature_requires_a_subscription">Ta funkcja wymaga subskrypcji</string>
     <string name="choose_synchronization_service">Wybierz platformę</string>

@@ -321,4 +321,7 @@
     <string name="this_device_only">Samo ovaj uređaj</string>
     <string name="subscription_not_found">Tvoja pretplata na Tasks.org oblak nije pronađena. Ako smatraš da se radi o grešci, obrati se %1$s</string>
     <string name="create_a_list">Stvori popis</string>
+    <string name="new_tag">Stvori oznaku</string>
+    <string name="enter_tag_name">Upiši ime oznake</string>
+    <string name="tag_already_exists">Oznaka već postoji</string>
 </resources>

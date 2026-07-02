@@ -296,4 +296,7 @@
     <string name="migrate_to_cloud">Tasks.org Cloudに移る</string>
     <string name="error_github_verification_failed">認証が失敗しました。もう一度お試しください。</string>
     <string name="pricing_subtitle">フリーでオープンソースです。サブスクリプションでアプリの開発を支援して追加の機能を有効にできます。</string>
+    <string name="new_tag">新しいタグを作成</string>
+    <string name="enter_tag_name">タグの名前を入力</string>
+    <string name="tag_already_exists">タグは既に存在します</string>
 </resources>

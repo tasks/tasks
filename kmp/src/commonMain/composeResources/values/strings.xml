@@ -157,6 +157,8 @@
     <string name="logout_warning">All data for this account will be removed from your device</string>
     <string name="remove">Remove</string>
     <string name="delete_tag_confirmation">Delete %1$s?</string>
+    <string name="delete_tag_warning">Tasks with this tag will not be deleted</string>
+    <string name="delete_list_warning">All tasks in this list will be deleted. This cannot be undone!</string>
     <string name="app_password_delete_confirmation">Any app using this password will be signed out</string>
     <string name="app_password_enter_description">Give your password a name (optional)</string>
     <string name="tos_updated_title">We've updated our Terms of Service</string>
@@ -299,6 +301,8 @@
     <string name="restart_later">Later</string>
     <string name="cannot_access_account">Cannot access account</string>
     <string name="new_list">Create new list</string>
+    <string name="new_tag">Create new tag</string>
+    <string name="enter_tag_name">Enter tag name</string>
     <string name="list_members">List members</string>
     <string name="remove_user">Remove user?</string>
     <string name="remove_user_confirmation">%1$s will no longer have access to %2$s</string>
@@ -330,4 +334,5 @@
     <string name="cloud_onboarding_faq_google_access_answer">No. Google is used for authentication, but your data is stored on Tasks.org's servers.</string>
     <string name="cloud_onboarding_faq_desktop_sync_question">How do I sync with my computer?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">Download the desktop app at tasks.org/download, then sign in with the same Google account.</string>
+    <string name="tag_already_exists">Tag already exists</string>
 </resources>

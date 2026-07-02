@@ -305,7 +305,6 @@
     <string name="take_a_picture">Направи фотографију</string>
     <string name="pick_from_gallery">Одабери из галерије</string>
     <string name="pick_from_storage">Одабери из меморије</string>
-    <string name="tag_already_exists">Таг већ постоји</string>
     <string name="name_cannot_be_empty">Поље имена не може бити празно</string>
     <string name="no_title">(Без назива)</string>
     <string name="default_tags">Подразумевани тагови</string>
@@ -398,7 +397,6 @@
     <string name="invalid_backup_file">Невалидна датотека резерве</string>
     <string name="google_tasks_add_to_top">Нови задаци на врх</string>
     <string name="expand_subtasks">Прошири подзадатке</string>
-    <string name="enter_tag_name">Унеси назив тага</string>
     <string name="choose_synchronization_service">Одабери платформу</string>
     <string name="etesync_selection_description">End-to-end енкриптована синхронизација</string>
     <string name="decsync_selection_description">Синхронизација базирана на датотеци</string>

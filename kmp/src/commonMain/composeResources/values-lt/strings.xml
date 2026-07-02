@@ -181,4 +181,7 @@
     <string name="reinitialize_account">Inicijuoti iš naujo</string>
     <string name="gtasks_GLA_errorIOAuth">Atsiprašome, turime bėdų susisiekiant su Google serveriais. Prašome pabandyti vėliau.</string>
     <string name="dismiss">Atsisakyti</string>
+    <string name="new_tag">Sukurti naują etiketę</string>
+    <string name="enter_tag_name">Įvesti etiketės pavadinimą</string>
+    <string name="tag_already_exists">Etiketė jau egzistuoja</string>
 </resources>

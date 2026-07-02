@@ -71,6 +71,7 @@ open class CaldavCalendarSettingsViewModel(
                 stateManager.update { it.copy(principals = list) }
             }
         }
+        stateManager.observeTaskCount(viewModelScope, caldavDao)
     }
 
     open override fun setName(value: String) = stateManager.setName(value)

@@ -210,4 +210,7 @@
     <string name="dismiss">استبعاد</string>
     <string name="add_shortcut_to_home_screen">إضافة اختصار إلى الشاشة الرئيسية</string>
     <string name="add_widget_to_home_screen">إضافة عنصر واجهة مستخدم إلى الشاشة الرئيسية</string>
+    <string name="new_tag">أنشأ علامةً جديدة</string>
+    <string name="enter_tag_name">أدخل اسم العلامة</string>
+    <string name="tag_already_exists">العلامة موجودة مسبقًا</string>
 </resources>

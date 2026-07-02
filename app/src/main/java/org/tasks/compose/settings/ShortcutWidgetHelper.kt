@@ -29,15 +29,15 @@ import org.tasks.widget.RequestPinWidgetReceiver.Companion.EXTRA_COLOR
 import org.tasks.widget.RequestPinWidgetReceiver.Companion.EXTRA_FILTER
 import org.tasks.widget.TasksWidget
 
-fun AppCompatActivity.setReloadResult(calendar: CaldavCalendar, account: CaldavAccount) {
+fun AppCompatActivity.setReloadResult(filter: Filter) {
     setResult(
         Activity.RESULT_OK,
-        Intent(TaskListFragment.ACTION_RELOAD).putExtra(
-            MainActivity.OPEN_FILTER,
-            CaldavFilter(calendar = calendar, account = account),
-        ),
+        Intent(TaskListFragment.ACTION_RELOAD).putExtra(MainActivity.OPEN_FILTER, filter),
     )
 }
+
+fun AppCompatActivity.setReloadResult(calendar: CaldavCalendar, account: CaldavAccount) =
+    setReloadResult(CaldavFilter(calendar = calendar, account = account))
 
 private fun AppCompatActivity.finishWithList(calendar: CaldavCalendar, account: CaldavAccount) {
     setReloadResult(calendar, account)
@@ -46,33 +46,34 @@ private fun AppCompatActivity.finishWithList(calendar: CaldavCalendar, account: 
 
 private fun AppCompatActivity.addToHomeScreen(
     stateProvider: () -> ListSettingsState,
-    saveNew: (onSaved: (CaldavCalendar) -> Unit) -> Unit,
+    save: (onSaved: (CaldavCalendar) -> Unit) -> Unit,
     add: (state: ListSettingsState, filter: CaldavFilter) -> Unit,
 ): () -> Unit = click@{
     val s = stateProvider()
     val account = s.account ?: return@click
-    fun run(calendar: CaldavCalendar) =
+    // Save (creating or updating as needed) then return to the list, matching the Save button.
+    save { calendar ->
         add(s, CaldavFilter(calendar = calendar, account = account))
-    if (s.isNew) {
-        saveNew { calendar ->
-            run(calendar)
-            finishWithList(calendar, account)
-        }
-    } else {
-        s.calendar?.let { run(it) }
+        finishWithList(calendar, account)
     }
 }
+
+fun AppCompatActivity.canPinShortcut(): Boolean =
+    ShortcutManagerCompat.isRequestPinShortcutSupported(this)
+
+fun AppCompatActivity.canPinWidget(): Boolean =
+    getSystemService(AppWidgetManager::class.java).isRequestPinAppWidgetSupported
 
 fun AppCompatActivity.addShortcutCallback(
     stateProvider: () -> ListSettingsState,
     primaryColor: Color,
     defaultFilterProvider: DefaultFilterProvider,
     firebase: Firebase,
-    saveNew: (onSaved: (CaldavCalendar) -> Unit) -> Unit,
+    save: (onSaved: (CaldavCalendar) -> Unit) -> Unit,
 ): (() -> Unit)? {
-    if (!ShortcutManagerCompat.isRequestPinShortcutSupported(this)) return null
+    if (!canPinShortcut()) return null
     if (stateProvider().account == null) return null
-    return addToHomeScreen(stateProvider, saveNew) { s, filter ->
+    return addToHomeScreen(stateProvider, save) { s, filter ->
         createShortcut(
             filter = filter,
             title = s.name,
@@ -88,12 +89,11 @@ fun AppCompatActivity.addWidgetCallback(
     stateProvider: () -> ListSettingsState,
     defaultFilterProvider: DefaultFilterProvider,
     firebase: Firebase,
-    saveNew: (onSaved: (CaldavCalendar) -> Unit) -> Unit,
+    save: (onSaved: (CaldavCalendar) -> Unit) -> Unit,
 ): (() -> Unit)? {
-    val appWidgetManager = getSystemService(AppWidgetManager::class.java)
-    if (!appWidgetManager.isRequestPinAppWidgetSupported) return null
+    if (!canPinWidget()) return null
     if (stateProvider().account == null) return null
-    return addToHomeScreen(stateProvider, saveNew) { s, filter ->
+    return addToHomeScreen(stateProvider, save) { s, filter ->
         createWidget(
             filter = filter,
             color = s.color,

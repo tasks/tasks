@@ -333,4 +333,7 @@
     <string name="cloud_onboarding_faq_desktop_sync_question">Jak provedu synchronizaci s mým počítačem?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">Stáhněte si počítačovou aplikaci na tasks.org/download a poté se přihlaste stejným účtem Google.</string>
     <string name="google_tasks_permission_not_granted">Přístup k Úkolům Google nebyl udělen. Přihlaste se prosím znovu a udělte přístup k Úkolům Google na stránce s povoleními.</string>
+    <string name="new_tag">Vytvořit nový štítek</string>
+    <string name="enter_tag_name">Zadejte název štítku</string>
+    <string name="tag_already_exists">Štítek již existuje</string>
 </resources>

@@ -1,14 +1,19 @@
 package org.tasks.compose.settings
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -20,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.add_shortcut_to_home_screen
+import tasks.kmp.generated.resources.add_widget_to_home_screen
 import tasks.kmp.generated.resources.help
 
 val SettingsCardRadius = 20.dp
@@ -63,6 +70,43 @@ fun SettingsItemCard(
         ),
     ) {
         content()
+    }
+}
+
+/**
+ * The "Add shortcut to home screen" / "Add widget to home screen" cards, shared between the list
+ * and tag settings screens. Renders nothing (and no leading spacer) when both callbacks are null.
+ */
+@Composable
+fun ShortcutWidgetCards(
+    onAddShortcut: (() -> Unit)?,
+    onAddWidget: (() -> Unit)?,
+    enabled: Boolean,
+) {
+    if (onAddShortcut == null && onAddWidget == null) return
+    Spacer(modifier = Modifier.height(SettingsContentPadding))
+    Column(
+        modifier = Modifier.padding(horizontal = SettingsContentPadding),
+        verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+    ) {
+        val items = listOfNotNull(
+            onAddShortcut?.let {
+                Triple(Res.string.add_shortcut_to_home_screen, Icons.Outlined.Home, it)
+            },
+            onAddWidget?.let {
+                Triple(Res.string.add_widget_to_home_screen, Icons.Outlined.Widgets, it)
+            },
+        )
+        items.forEachIndexed { index, (label, icon, onClick) ->
+            SettingsItemCard(position = CardPosition.forIndex(index, items.size)) {
+                PreferenceRow(
+                    title = stringResource(label),
+                    icon = icon,
+                    enabled = enabled,
+                    onClick = onClick,
+                )
+            }
+        }
     }
 }
 

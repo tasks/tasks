@@ -168,4 +168,7 @@
     <string name="list_settings">การตั้งค่ารายการ</string>
     <string name="reinitialize_account">เตรียมใช้งานใหม่</string>
     <string name="gtasks_GLA_errorIOAuth">ขออภัย เรามีปัญหาในการสื่อสารกับเซิร์ฟเวอร์ของ Google โปรดลองอีกครั้งในภายหลัง.</string>
+    <string name="new_tag">สร้างแท็กใหม่</string>
+    <string name="enter_tag_name">ป้อนชื่อแท็ก</string>
+    <string name="tag_already_exists">มีแท็กอยู่แล้ว</string>
 </resources>

@@ -146,7 +146,6 @@
     <string name="filter_settings">Nastavení filtru</string>
     <string name="show_completed">Zobrazit dokončené</string>
     <string name="add_attachment">Přidat přílohu</string>
-    <string name="tag_already_exists">Štítek již existuje</string>
     <string name="no_title">(Bez názvu)</string>
     <string name="back_button_saves_task">Tlačítko zpět uloží úkol</string>
     <string name="default_list">Výchozí seznam</string>
@@ -368,7 +367,6 @@
     <string name="expand_subtasks">Rozbalit podúkoly</string>
     <string name="collapse_subtasks">Sbalit podúkoly</string>
     <string name="subtasks_multilevel_google_task">Úkoly Google nepodporují víceúrovňové podúkoly</string>
-    <string name="enter_tag_name">Zadejte název štítku</string>
     <string name="choose_synchronization_service">Zvolte službu</string>
     <string name="caldav_selection_description">Synchronizace založená na otevřených internetových standardech</string>
     <string name="etesync_selection_description">Synchronizace šifrovaná mezi koncovými body</string>

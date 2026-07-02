@@ -160,7 +160,6 @@
     <string name="take_a_picture">Tee pilt</string>
     <string name="pick_from_gallery">Vali galeriist</string>
     <string name="pick_from_storage">Vali seadmest</string>
-    <string name="tag_already_exists">Silt on juba olemas</string>
     <string name="name_cannot_be_empty">Nimi ei saa olla tühi</string>
     <string name="no_title">(Pealkirjata)</string>
     <string name="back_button_saves_task">Tagasi nupp salvestab ülesande</string>
@@ -320,7 +319,6 @@
     <string name="action_new_task">Uus ülesanne</string>
     <string name="location_remind_arrival">Tuleta saabudes meelde</string>
     <string name="collapse_subtasks">Sulge alamülesanded</string>
-    <string name="enter_tag_name">Sisesta sildi nimi</string>
     <string name="places">Asukohad</string>
     <string name="wearable_notifications">Nutikella teavitused</string>
     <string name="back">Tagasi</string>

@@ -248,7 +248,6 @@
     <string name="take_a_picture">Foto maken</string>
     <string name="pick_from_gallery">Uit galerij kiezen</string>
     <string name="pick_from_storage">Uit opslag kiezen</string>
-    <string name="tag_already_exists">Label bestaat reeds</string>
     <string name="name_cannot_be_empty">Naam mag niet leeg zijn</string>
     <string name="no_title">(geen titel)</string>
     <string name="back_button_saves_task">Terug-knop slaat taak op</string>
@@ -360,7 +359,6 @@
     <string name="TEA_add_subtask">Subtaak toevoegen</string>
     <string name="subtasks">Subtaken</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ondersteunt geen subtaken op meerdere niveaus</string>
-    <string name="enter_tag_name">Label kiezen</string>
     <string name="display_name">Weergavenaam</string>
     <string name="this_feature_requires_a_subscription">Voor deze functie is een abonnement vereist</string>
     <string name="choose_synchronization_service">Een platform kiezen</string>

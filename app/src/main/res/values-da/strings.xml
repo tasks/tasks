@@ -143,7 +143,6 @@
     <string name="etesync_selection_description">End-to-end-krypteret synkronisering</string>
     <string name="caldav_selection_description">Synkronisering baseret på åbne internetstandarder</string>
     <string name="choose_synchronization_service">Vælg tjeneste</string>
-    <string name="enter_tag_name">Indtast tagnavn</string>
     <string name="subtasks_multilevel_google_task">Underopgaver på flere niveauer understøttes ikke af Google Huskeliste</string>
     <string name="collapse_subtasks">Skjul underopgaver</string>
     <string name="expand_subtasks">Udvid underopgaver</string>
@@ -244,7 +243,6 @@
     <string name="default_list">Standardliste</string>
     <string name="no_title">(Ingen titel)</string>
     <string name="name_cannot_be_empty">Navnet må ikke være tomt</string>
-    <string name="tag_already_exists">Tagget findes allerede</string>
     <string name="pick_from_storage">Vælg fra lager</string>
     <string name="pick_from_gallery">Vælg fra galleri</string>
     <string name="take_a_picture">Tag et billede</string>

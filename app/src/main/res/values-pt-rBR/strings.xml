@@ -265,7 +265,6 @@
     <string name="take_a_picture">Tirar uma foto</string>
     <string name="pick_from_gallery">Selecionar da galeria</string>
     <string name="pick_from_storage">Selecionar do armazenamento</string>
-    <string name="tag_already_exists">Etiqueta já existe</string>
     <string name="name_cannot_be_empty">Nome não pode ser vazio</string>
     <string name="no_title">(Sem título)</string>
     <string name="back_button_saves_task">Botão \'voltar\' salva a tarefa</string>
@@ -395,7 +394,6 @@
     <string name="etesync_selection_description">Sincronização criptografada de ponta a ponta</string>
     <string name="caldav_selection_description">Sincronização usando protocolos padrões e livres da Internet</string>
     <string name="choose_synchronization_service">Escolha uma plataforma</string>
-    <string name="enter_tag_name">Adicione nome da etiqueta</string>
     <string name="subtasks_multilevel_google_task">Subtarefas em vários níveis não são suportadas pelo Google Tarefas</string>
     <string name="collapse_subtasks">Recolher sub-tarefas</string>
     <string name="expand_subtasks">Expandir sub-tarefas</string>
