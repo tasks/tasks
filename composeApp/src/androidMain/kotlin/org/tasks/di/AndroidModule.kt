@@ -21,6 +21,7 @@ import org.tasks.opentasks.OpenTasksSyncer
 import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.http.AndroidOkHttpClientFactory
 import org.tasks.http.OkHttpClientFactory
+import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import org.tasks.kmp.createDataStore
 import org.tasks.preferences.TasksPreferences
@@ -49,7 +50,10 @@ actual fun platformModule(): Module = module {
         Room.databaseBuilder<Database>(
             context = context,
             name = dbFile.absolutePath,
-        ).addCallback(Database.CALLBACK).build()
+        )
+            .addMigrations(*CommonMigrations.all)
+            .addCallback(Database.CALLBACK)
+            .build()
     }
     single {
         val context = androidContext()
