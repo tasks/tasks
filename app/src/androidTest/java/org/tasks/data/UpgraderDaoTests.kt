@@ -31,8 +31,8 @@ class UpgraderDaoTests : InjectingTestCase() {
     fun getCaldavTasksWithTags() = runBlocking {
         val task = TaskMaker.newTask(MakeItEasy.with(TaskMaker.ID, 1L))
         taskDao.createNew(task)
-        val one = TagData()
-        val two = TagData()
+        val one = TagData(name = "one")
+        val two = TagData(name = "two")
         tagDataDao.insert(one)
         tagDataDao.insert(two)
         tagDao.insert(Tag(task = task.id, taskUid = task.uuid, tagUid = one.remoteId))
