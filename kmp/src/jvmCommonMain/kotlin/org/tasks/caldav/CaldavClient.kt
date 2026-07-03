@@ -91,23 +91,31 @@ open class CaldavClient(
             username: String? = null,
             password: String? = null
     ): String = withContext(Dispatchers.IO) {
-        var principal: String? = null
+        var unauthorized: HttpException? = null
+
+        suspend fun principalOrNull(link: String): String? =
+                try {
+                    tryFindPrincipal(link)
+                } catch (e: Exception) {
+                    if (e is HttpException && e.statusCode == 401) {
+                        unauthorized = e
+                    }
+                    Logger.w(e, tag = "CaldavClient") { "" }
+                    null
+                }
+
+        val principal = principalOrNull("") ?: principalOrNull("/.well-known/caldav")
+
+        val resolved = if (principal.isNullOrBlank()) httpUrl else httpUrl!!.resolve(principal!!)
         try {
-            principal = tryFindPrincipal("/.well-known/caldav")
+            provider.forUrl(resolved.toString(), username, password).findHomeset()
         } catch (e: Exception) {
-            if (e is HttpException && e.statusCode == 401) {
-                throw e
+            val seen401 = unauthorized
+            if (seen401 != null && !(e is HttpException && e.statusCode == 401)) {
+                throw seen401
             }
-            Logger.w(e, tag = "CaldavClient") { "" }
+            throw e
         }
-        if (principal == null) {
-            principal = tryFindPrincipal("")
-        }
-        provider.forUrl(
-                (if (principal.isNullOrBlank()) httpUrl else httpUrl!!.resolve(principal!!)).toString(),
-                username,
-                password)
-                .findHomeset()
     }
 
     suspend fun calendars(interceptor: (okhttp3.Response) -> okhttp3.Response = { it }): List<Response> =
