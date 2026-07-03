@@ -42,6 +42,7 @@ data class TagData(
     @CommonIgnoredOnParcel
     @ColumnInfo(name = "normalized_name", defaultValue = "")
     var normalizedName: String = normalize(name)
+        internal set
 
     companion object {
         /** Locale-invariant fold used everywhere the normalized name is computed. */
