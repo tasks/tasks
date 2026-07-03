@@ -331,4 +331,6 @@
     <string name="new_tag">新建标签</string>
     <string name="enter_tag_name">输入标签名称</string>
     <string name="tag_already_exists">标签已存在</string>
+    <string name="delete_tag_warning">不会删除含此标签的任务</string>
+    <string name="delete_list_warning">将删除此清单中所有任务。此操作无法撤销!</string>
 </resources>
