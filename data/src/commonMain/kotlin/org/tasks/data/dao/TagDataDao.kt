@@ -44,6 +44,9 @@ abstract class TagDataDao(private val database: Database) {
     @Query("SELECT * FROM tagdata WHERE normalized_name = :normalized LIMIT 1")
     internal abstract suspend fun getByNormalizedName(normalized: String): TagData?
 
+    @Query("SELECT * FROM tagdata WHERE normalized_name IN (:normalized)")
+    internal abstract suspend fun getByNormalizedNames(normalized: List<String>): List<TagData>
+
     suspend fun getTagByName(name: String): TagData? = getByNormalizedName(TagData.normalize(name))
 
     suspend fun getOrCreateTag(name: String): TagData {
@@ -57,11 +60,12 @@ abstract class TagDataDao(private val database: Database) {
         if (names.isEmpty()) {
             return emptyList()
         }
-        val tags = mutableSetOf<TagData>()
+        val byNormalized = LinkedHashMap<String, String>()
         for (name in names) {
-            tags.add(getOrCreateTag(name))
+            byNormalized.getOrPut(TagData.normalize(name)) { name }
         }
-        return tags.toList()
+        val existing = getByNormalizedNames(byNormalized.keys.toList()).associateBy { it.normalizedName }
+        return byNormalized.map { (normalized, name) -> existing[normalized] ?: getOrCreateTag(name) }
     }
 
     @Query("SELECT * FROM tagdata WHERE name IS NOT NULL AND name != '' ORDER BY UPPER(name) ASC")
