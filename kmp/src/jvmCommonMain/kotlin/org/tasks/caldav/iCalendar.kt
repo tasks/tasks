@@ -250,11 +250,11 @@ class iCalendar(
         }
 
         if (local != null) {
-            val tags = tagDataDao.getTagDataForTask(task.id)
-            val localTags = tagDataDao.getOrCreateTags(local.categories)
-            if (tags.toSet() == localTags.toSet()) {
-                tagDao.applyTags(task, remote.categories)
-            }
+            val current = tagDataDao.getTagDataForTask(task.id).mapNotNull { it.name }
+            tagDao.applyTags(
+                task,
+                mergeCategories(base = local.categories, local = current, remote = remote.categories),
+            )
         } else {
             tagDao.applyTags(task, remote.categories)
         }
