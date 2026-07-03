@@ -1,13 +1,21 @@
-### 15.7.3 (2026-06-26)
+### 15.7.3 (2026-07-05)
 
 * Sync performance improvements and bug fixes
+* Tag settings screen design update
+* Prevent duplicate tags
+* Improve CalDAV homeset discovery [#4000](https://github.com/tasks/tasks/issues/4000)
 * Fix tag rename synchronization [#1672](https://github.com/tasks/tasks/issues/1672)
 * Fix tag sync in DAVx5/EteSync/DecSync CC [#3011](https://github.com/tasks/tasks/issues/3011)
 * Fix moving tasks with subtasks in DAVx5/EteSync/DecSync CC [#2895](https://github.com/tasks/tasks/issues/2895)
 * Don't change modification timestamp when moving tasks [#3407](https://github.com/tasks/tasks/issues/3047)
 * Don't change modification timestamp when expanding/collapsing subtasks [#2302](https://github.com/tasks/tasks/issues/2302)
 * Update translations
+  * Chinese (Simplified) - Sketch6580, hamburger2048
   * Croatian - @milotype
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * Portuguese - @SantosSi
+  * Turkish - @oersen
 
 ### 15.7.2 (2026-06-17)
 
