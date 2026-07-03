@@ -5,6 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.state.ToggleableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.TagData
@@ -40,10 +42,14 @@ open class TagPickerViewModel(
 
     fun getPartiallySelected() = ArrayList(partiallySelected)
 
+    private var searchJob: Job? = null
+
     fun search(newText: String) {
         if (newText == "" || !newText.equals(_searchText.value, ignoreCase = true)) {
-            viewModelScope.launch {
+            searchJob?.cancel()
+            searchJob = viewModelScope.launch {
                 val results = tagDataDao.searchTags(newText)
+                ensureActive()
                 onUpdate(newText, results.toMutableList())
             }
         }
