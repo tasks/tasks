@@ -105,35 +105,28 @@ open class TagSettingsViewModel(
 
     fun dismissDiscardDialog() = _viewState.update { it.copy(showDiscardDialog = false) }
 
-    fun save(onDismiss: () -> Unit = {}, onComplete: (TagData) -> Unit) {
-        if (_viewState.value.isLoading) return
-        viewModelScope.launch {
-            val name = _viewState.value.name.trim()
-            if (!validate(name)) return@launch
-            when {
-                isNew -> create(name)?.let { onComplete(it) }
-                hasChanges -> update(name)?.let { onComplete(it) }
-                else -> onDismiss()
-            }
+    fun save(onDismiss: () -> Unit = {}, onComplete: (TagData) -> Unit) = withLoading {
+        val name = _viewState.value.name.trim()
+        if (!validate(name)) return@withLoading
+        when {
+            isNew -> onComplete(create(name))
+            hasChanges -> onComplete(update(name))
+            else -> onDismiss()
         }
     }
 
-    /**
-     * Persists the tag (creating or updating as needed) and returns the result. Unlike [save],
-     * an unchanged existing tag still resolves to the persisted tag, so callers can act on it
-     * (e.g. "save + add shortcut/widget").
-     */
-    fun persist(onComplete: (TagData) -> Unit) {
+    fun persist(onComplete: (TagData) -> Unit) =
+        save(onDismiss = { onComplete(tagData) }, onComplete = onComplete)
+
+    private fun withLoading(block: suspend () -> Unit) {
         if (_viewState.value.isLoading) return
+        _viewState.update { it.copy(isLoading = true) }
         viewModelScope.launch {
-            val name = _viewState.value.name.trim()
-            if (!validate(name)) return@launch
-            val tag = when {
-                isNew -> create(name)
-                hasChanges -> update(name)
-                else -> tagData
+            try {
+                block()
+            } finally {
+                _viewState.update { it.copy(isLoading = false) }
             }
-            tag?.let { onComplete(it) }
         }
     }
 
@@ -153,56 +146,34 @@ open class TagSettingsViewModel(
         (isNew || !newName.equals(tagData.name, ignoreCase = true)) &&
                 tagDataDao.getTagByName(newName) != null
 
-    private suspend fun create(name: String): TagData? {
+    private suspend fun create(name: String): TagData = withContext(NonCancellable) {
         val s = _viewState.value
-        _viewState.update { it.copy(isLoading = true) }
-        return try {
-            withContext(NonCancellable) {
-                val created = tagData
-                    .copy(name = name, color = s.color, icon = s.icon)
-                    .let { it.copy(id = tagDataDao.insert(it)) }
-                reporting.logEvent(AnalyticsEvents.CREATE_TAG)
-                refreshBroadcaster.broadcastRefresh()
-                created
-            }
-        } finally {
-            _viewState.update { it.copy(isLoading = false) }
-        }
+        val created = tagData
+            .copy(name = name, color = s.color, icon = s.icon)
+            .let { it.copy(id = tagDataDao.insert(it)) }
+        reporting.logEvent(AnalyticsEvents.CREATE_TAG)
+        refreshBroadcaster.broadcastRefresh()
+        created
     }
 
-    private suspend fun update(name: String): TagData? {
+    private suspend fun update(name: String): TagData = withContext(NonCancellable) {
         val s = _viewState.value
-        _viewState.update { it.copy(isLoading = true) }
-        return try {
-            withContext(NonCancellable) {
-                val updated = tagData.copy(name = name, color = s.color, icon = s.icon)
-                tagDataDao.updateTag(updated)
-                refreshBroadcaster.broadcastRefresh()
-                updated
-            }
-        } finally {
-            _viewState.update { it.copy(isLoading = false) }
-        }
+        val updated = tagData.copy(name = name, color = s.color, icon = s.icon)
+        tagDataDao.updateTag(updated)
+        refreshBroadcaster.broadcastRefresh()
+        updated
     }
 
-    fun delete(onComplete: (String?) -> Unit) {
-        if (_viewState.value.isLoading) return
-        viewModelScope.launch {
-            _viewState.update { it.copy(isLoading = true) }
-            try {
-                withContext(NonCancellable) {
-                    reporting.logEvent(
-                        AnalyticsEvents.SETTINGS_CLICK,
-                        AnalyticsEvents.PARAM_TYPE to AnalyticsEvents.SettingsClick.DELETE_TAG,
-                    )
-                    val uuid = tagData.remoteId
-                    tagDataDao.delete(tagData)
-                    tasksPreferences.delete(TagFilter(tagData).key())
-                    onComplete(uuid)
-                }
-            } finally {
-                _viewState.update { it.copy(isLoading = false) }
-            }
+    fun delete(onComplete: (String?) -> Unit) = withLoading {
+        withContext(NonCancellable) {
+            reporting.logEvent(
+                AnalyticsEvents.SETTINGS_CLICK,
+                AnalyticsEvents.PARAM_TYPE to AnalyticsEvents.SettingsClick.DELETE_TAG,
+            )
+            val uuid = tagData.remoteId
+            tagDataDao.delete(tagData)
+            tasksPreferences.delete(TagFilter(tagData).key())
+            onComplete(uuid)
         }
     }
 }
