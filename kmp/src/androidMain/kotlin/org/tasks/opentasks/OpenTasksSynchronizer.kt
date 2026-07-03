@@ -216,7 +216,7 @@ class OpenTasksSynchronizer(
         dirtyDao.withDirtyVersion(caldavTaskId, dirtyVersion) {
             val uid = caldavTask.remoteId!!
             if (caldavTask.obj.isNullOrBlank()) {
-                caldavTask.obj = "$uid.ics"
+                caldavTask.obj = objName(uid)
             }
             val androidTask = openTaskDao.getTask(listId, uid)
                     ?: MyAndroidTask(at.bitfire.ical4android.Task())
@@ -266,11 +266,13 @@ class OpenTasksSynchronizer(
                 adapted.write(it)
                 String(it.toByteArray())
             }
-            iCalendar.fromVtodo(account, calendar, existing, adapted, vtodo, "$uid.ics", etag)
+            iCalendar.fromVtodo(account, calendar, existing, adapted, vtodo, objName(uid), etag)
         }
     }
 
     companion object {
+        fun objName(uid: String) = "$uid.ics"
+
         private val CaldavAccount.isEteSync: Boolean
             get() = uuid.openTaskProvider() == OpenTaskProvider.ETESYNC
 
