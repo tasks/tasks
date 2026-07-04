@@ -333,4 +333,6 @@
     <string name="new_tag">Yeni etiket oluştur</string>
     <string name="enter_tag_name">Etiket adı girin</string>
     <string name="tag_already_exists">Etiket zaten var</string>
+    <string name="delete_tag_warning">Bu etiketli görevler silinmeyecek</string>
+    <string name="delete_list_warning">Bu listedeki tüm görevler silinecek. Bu işlem geri alınamaz!</string>
 </resources>
