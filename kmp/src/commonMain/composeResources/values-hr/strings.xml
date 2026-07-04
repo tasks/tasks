@@ -324,4 +324,17 @@
     <string name="new_tag">Stvori oznaku</string>
     <string name="enter_tag_name">Upiši ime oznake</string>
     <string name="tag_already_exists">Oznaka već postoji</string>
+    <string name="delete_tag_warning">Zadaci s ovom oznakom se neće izbrisati</string>
+    <string name="delete_list_warning">Svi zadaci na ovom popisu će se izbrisati. To se ne može poništiti!</string>
+    <string name="cloud_onboarding_not_now">Ne sada</string>
+    <string name="cloud_onboarding_faq_title">Često postavljena pitanja</string>
+    <string name="cloud_onboarding_create_list_title">Započnimo</string>
+    <string name="cloud_onboarding_create_list_body">Stvori popis i počni dodavati zadatke.</string>
+    <string name="cloud_onboarding_faq_google_access_question">Može li Google pristupiti mojim podacima?</string>
+    <string name="cloud_onboarding_faq_google_access_answer">Ne. Google se koristi za autentifikaciju. Tvoji se podaci spremaju na Tasks.org serverima.</string>
+    <string name="cloud_onboarding_faq_desktop_sync_question">Kako sinkronizirati s računalom?</string>
+    <string name="cloud_onboarding_faq_desktop_sync_answer">Preuzmi desktop aplikaciju na tasks.org/download, a zatim se prijavi s istim Google računom.</string>
+    <string name="cloud_onboarding_welcome_title">Tasks.org Cloud – dobrodošlica</string>
+    <string name="cloud_onboarding_welcome_body">Za stvaranje tvog Tasks.org Cloud računa prijavi se putem Googlea</string>
+    <string name="google_tasks_permission_not_granted">Dozvola za Google Tasks nije odobrena. Ponovo se prijavi i odobri pristup na Google Tasks na ekranu za pristanak.</string>
 </resources>
