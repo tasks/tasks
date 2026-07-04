@@ -335,4 +335,6 @@
     <string name="new_tag">Créer une nouvelle étiquette</string>
     <string name="enter_tag_name">Saisir le nom de l'étiquette</string>
     <string name="tag_already_exists">L'étiquette existe déjà</string>
+    <string name="delete_tag_warning">Les tâches avec cette étiquette ne seront pas supprimées</string>
+    <string name="delete_list_warning">Toutes les tâches dans cette liste seront supprimées. Ceci est irréversible !</string>
 </resources>
