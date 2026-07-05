@@ -143,7 +143,7 @@ class CaldavSynchronizerTest : CaldavTest() {
 
         sync()
 
-        assertTags("Tag2")
+        assertTags("Tag2", "Tag3")
     }
 
     private fun enqueueRemoteTagUpdate(initial: String, updated: String, vararg additional: String) {
