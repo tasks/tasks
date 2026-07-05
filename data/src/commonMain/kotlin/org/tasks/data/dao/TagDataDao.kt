@@ -68,6 +68,11 @@ abstract class TagDataDao(private val database: Database) {
         return byNormalized.map { (normalized, name) -> existing[normalized] ?: getOrCreateTag(name) }
     }
 
+    suspend fun insertIfAbsent(tag: TagData): TagData? {
+        val id = insertOrIgnore(tag)
+        return if (id == -1L) null else tag.copy(id = id)
+    }
+
     @Query("SELECT * FROM tagdata WHERE name IS NOT NULL AND name != '' ORDER BY UPPER(name) ASC")
     abstract suspend fun tagDataOrderedByName(): List<TagData>
 
@@ -145,7 +150,11 @@ abstract class TagDataDao(private val database: Database) {
     }
 
     @Transaction
-    open suspend fun updateTag(tagData: TagData) {
+    open suspend fun updateTag(tagData: TagData): Boolean {
+        val clash = getByNormalizedName(tagData.normalizedName)
+        if (clash != null && clash.id != tagData.id) {
+            return false
+        }
         val nameChanged = getByUuid(tagData.remoteId!!)?.name != tagData.name
         update(tagData)
         if (nameChanged) {
@@ -156,6 +165,7 @@ abstract class TagDataDao(private val database: Database) {
                 database.dirtyDao().setDirtyForTags(affectedTaskIds)
             }
         }
+        return true
     }
 
     @Transaction

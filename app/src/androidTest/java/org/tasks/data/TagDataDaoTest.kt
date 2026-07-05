@@ -5,6 +5,9 @@ import org.tasks.data.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.data.dao.TagDao
@@ -43,6 +46,35 @@ class TagDataDaoTest : InjectingTestCase() {
     fun getTagWithCaseFixesCase() = runBlocking {
         tagDataDao.insert(TagData(name = "Derp"))
         assertEquals("Derp", tagDataDao.getTagWithCase("derp"))
+    }
+
+    @Test
+    fun insertIfAbsentAssignsId() = runBlocking {
+        val inserted = tagDataDao.insertIfAbsent(TagData(name = "Home"))
+        assertNotNull(inserted!!.id)
+        assertEquals("Home", tagDataDao.getTagByName("home")?.name)
+    }
+
+    @Test
+    fun insertIfAbsentReturnsNullOnNormalizedClash() = runBlocking {
+        tagDataDao.insert(TagData(name = "Home"))
+        assertNull(tagDataDao.insertIfAbsent(TagData(name = "home")))
+    }
+
+    @Test
+    fun updateTagRejectsRenameToExistingNormalizedName() = runBlocking {
+        tagDataDao.insert(TagData(name = "Home"))
+        val work = TagData(name = "Work").let { it.copy(id = tagDataDao.insert(it)) }
+        assertFalse(tagDataDao.updateTag(work.copy(name = "home")))
+        // The clashing rename was rejected, so Work is untouched.
+        assertEquals("Work", tagDataDao.getTagByName("work")?.name)
+    }
+
+    @Test
+    fun updateTagAllowsNonClashingRename() = runBlocking {
+        val work = TagData(name = "Work").let { it.copy(id = tagDataDao.insert(it)) }
+        assertTrue(tagDataDao.updateTag(work.copy(name = "Projects")))
+        assertEquals("Projects", tagDataDao.getTagByName("projects")?.name)
     }
 
     @Test

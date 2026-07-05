@@ -109,8 +109,8 @@ open class TagSettingsViewModel(
         val name = _viewState.value.name.trim()
         if (!validate(name)) return@withLoading
         when {
-            isNew -> onComplete(create(name))
-            hasChanges -> onComplete(update(name))
+            isNew -> create(name)?.let(onComplete)
+            hasChanges -> update(name)?.let(onComplete)
             else -> onDismiss()
         }
     }
@@ -146,20 +146,25 @@ open class TagSettingsViewModel(
         (isNew || !newName.equals(tagData.name, ignoreCase = true)) &&
                 tagDataDao.getTagByName(newName) != null
 
-    private suspend fun create(name: String): TagData = withContext(NonCancellable) {
+    private suspend fun create(name: String): TagData? = withContext(NonCancellable) {
         val s = _viewState.value
-        val created = tagData
-            .copy(name = name, color = s.color, icon = s.icon)
-            .let { it.copy(id = tagDataDao.insert(it)) }
+        val created = tagDataDao.insertIfAbsent(tagData.copy(name = name, color = s.color, icon = s.icon))
+        if (created == null) {
+            _viewState.update { it.copy(nameError = getString(Res.string.tag_already_exists)) }
+            return@withContext null
+        }
         reporting.logEvent(AnalyticsEvents.CREATE_TAG)
         refreshBroadcaster.broadcastRefresh()
         created
     }
 
-    private suspend fun update(name: String): TagData = withContext(NonCancellable) {
+    private suspend fun update(name: String): TagData? = withContext(NonCancellable) {
         val s = _viewState.value
         val updated = tagData.copy(name = name, color = s.color, icon = s.icon)
-        tagDataDao.updateTag(updated)
+        if (!tagDataDao.updateTag(updated)) {
+            _viewState.update { it.copy(nameError = getString(Res.string.tag_already_exists)) }
+            return@withContext null
+        }
         refreshBroadcaster.broadcastRefresh()
         updated
     }
