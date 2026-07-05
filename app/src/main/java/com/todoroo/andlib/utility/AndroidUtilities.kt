@@ -5,6 +5,8 @@
  */
 package com.todoroo.andlib.utility
 
+import android.app.AppOpsManager
+import android.content.Context
 import android.os.Build
 import android.os.Build.VERSION_CODES
 import android.os.Looper
@@ -37,6 +39,19 @@ object AndroidUtilities {
     fun convertDpToPixels(displayMetrics: DisplayMetrics, dp: Int): Int {
         // developer.android.com/guide/practices/screens_support.html#dips-pels
         return (dp * displayMetrics.density + 0.5f).toInt()
+    }
+
+    fun allowsNonDismissibleNotifications(context: Context?): Boolean {
+        if (preUpsideDownCake()) return true
+        return context?.let {
+            val appOps = it.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+            val mode = appOps.checkOpNoThrow(
+                "android:system_exempt_from_dismissible_notifications",
+                it.applicationInfo.uid,
+                it.applicationInfo.packageName
+            )
+            return mode == AppOpsManager.MODE_ALLOWED
+        } ?: false
     }
 
     fun preS(): Boolean {
