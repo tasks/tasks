@@ -364,7 +364,7 @@ class CaldavSynchronizer(
             val objectId = caldavTask.obj
                 ?: run {
                     Logger.e(TAG) { "null obj for caldavTask.id=${caldavTask.id} task.id=${caldavTask.task}" }
-                    caldavTask.obj = caldavTask.remoteId?.let { "$it.ics" }
+                    caldavTask.obj = caldavTask.remoteId?.let { CaldavTask.objectName(it) }
                     caldavTask.obj
                 }
             if (objectId?.isNotBlank() == true) {
@@ -410,7 +410,7 @@ class CaldavSynchronizer(
             val objPath = caldavTask.obj
                 ?: run {
                     Logger.e(TAG) { "null obj for caldavTask.id=${caldavTask.id} task.id=${task.id}" }
-                    caldavTask.obj = caldavTask.remoteId?.let { "$it.ics" }
+                    caldavTask.obj = caldavTask.remoteId?.let { CaldavTask.objectName(it) }
                     caldavTask.obj
                 }
                 ?: throw IllegalStateException("Push failed - missing UUID")

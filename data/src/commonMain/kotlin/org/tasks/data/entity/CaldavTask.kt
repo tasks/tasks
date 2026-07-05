@@ -45,7 +45,7 @@ data class CaldavTask(
     var remoteId: String? = UUIDHelper.newUUID(),
     @ColumnInfo(name = "cd_object")
     @SerialName("object")
-    var obj: String? = remoteId?.let { "$it.ics" },
+    var obj: String? = remoteId?.let { objectName(it) },
     @ColumnInfo(name = "cd_etag")
     var etag: String? = null,
     @ColumnInfo(name = "cd_deleted")
@@ -66,5 +66,7 @@ data class CaldavTask(
         val TASK = TABLE.column("cd_task")
         val DELETED = TABLE.column("cd_deleted")
         val CALENDAR = TABLE.column("cd_calendar")
+
+        fun objectName(uid: String) = "$uid.ics"
     }
 }
