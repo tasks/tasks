@@ -340,4 +340,6 @@
     <string name="priority_high">Vysoká</string>
     <string name="priority_medium">Střední</string>
     <string name="priority_low">Nízká</string>
+    <string name="delete_tag_warning">Úkoly s tímto štítkem nebudou smazány</string>
+    <string name="delete_list_warning">Všechny úkoly v tomto seznamu budou smazány. Tato akce je nevratná!</string>
 </resources>
