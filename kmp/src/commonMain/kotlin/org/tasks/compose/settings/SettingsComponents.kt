@@ -1,7 +1,9 @@
 package org.tasks.compose.settings
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,25 +11,34 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.NotInterested
 import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
+import org.tasks.compose.components.TasksIcon
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.add_shortcut_to_home_screen
 import tasks.kmp.generated.resources.add_widget_to_home_screen
+import tasks.kmp.generated.resources.color
 import tasks.kmp.generated.resources.help
+import tasks.kmp.generated.resources.icon
 
 val SettingsCardRadius = 20.dp
 val SettingsCardInnerRadius = 4.dp
@@ -106,6 +117,87 @@ fun ShortcutWidgetCards(
                     onClick = onClick,
                 )
             }
+        }
+    }
+}
+
+/**
+ * The color + icon picker cards, shared between the list and tag settings screens. Renders a color
+ * swatch (or a "no color" icon) with a clear button, followed by the icon row.
+ */
+@Composable
+fun ColorIconCards(
+    color: Int,
+    icon: String,
+    pickerColors: List<PickerColor>,
+    onColorClick: () -> Unit,
+    onClearColor: () -> Unit,
+    onIconClick: () -> Unit,
+) {
+    Column(
+        modifier = Modifier.padding(horizontal = SettingsContentPadding),
+        verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+    ) {
+        SettingsItemCard(position = CardPosition.First) {
+            PreferenceRow(
+                title = stringResource(Res.string.color),
+                showChevron = color == 0,
+                onClick = onColorClick,
+                leading = {
+                    if (color != 0) {
+                        val bgColor = Color(
+                            pickerColors
+                                .firstOrNull { it.originalColor == color }
+                                ?.primaryColor
+                                ?: color
+                        )
+                        Box(
+                            modifier = Modifier
+                                .padding(start = SettingsContentPadding)
+                                .size(SettingsIconSize)
+                                .clip(CircleShape)
+                                .background(bgColor),
+                        )
+                    } else {
+                        Icon(
+                            imageVector = Icons.Outlined.NotInterested,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier
+                                .padding(start = SettingsContentPadding)
+                                .size(SettingsIconSize),
+                        )
+                    }
+                },
+                trailing = if (color != 0) {
+                    {
+                        IconButton(
+                            onClick = onClearColor,
+                            modifier = Modifier.padding(end = 4.dp),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Close,
+                                contentDescription = null,
+                            )
+                        }
+                    }
+                } else null,
+            )
+        }
+        SettingsItemCard(position = CardPosition.Last) {
+            PreferenceRow(
+                title = stringResource(Res.string.icon),
+                showChevron = true,
+                onClick = onIconClick,
+                leading = {
+                    TasksIcon(
+                        label = icon,
+                        modifier = Modifier
+                            .padding(start = SettingsContentPadding)
+                            .size(SettingsIconSize),
+                    )
+                },
+            )
         }
     }
 }

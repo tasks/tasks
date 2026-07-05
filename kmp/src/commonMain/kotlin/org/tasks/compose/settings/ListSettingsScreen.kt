@@ -1,8 +1,6 @@
 package org.tasks.compose.settings
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,13 +15,10 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
-import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.DeleteOutline
-import androidx.compose.material.icons.outlined.NotInterested
 import androidx.compose.material.icons.outlined.PersonAdd
 import androidx.compose.material.icons.outlined.Save
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
@@ -49,8 +44,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.pluralStringResource
@@ -258,72 +251,14 @@ fun ListSettingsScreen(
             Spacer(modifier = Modifier.height(SettingsContentPadding))
 
             // Color and icon pickers
-            Column(
-                modifier = Modifier.padding(horizontal = SettingsContentPadding),
-                verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-            ) {
-                SettingsItemCard(position = CardPosition.First) {
-                    PreferenceRow(
-                        title = stringResource(Res.string.color),
-                        showChevron = state.color == 0,
-                        onClick = onOpenColorPicker,
-                        leading = {
-                            if (state.color != 0) {
-                                val bgColor = Color(
-                                    state.pickerColors
-                                        .firstOrNull { it.originalColor == state.color }
-                                        ?.primaryColor
-                                        ?: state.color
-                                )
-                                Box(
-                                    modifier = Modifier
-                                        .padding(start = SettingsContentPadding)
-                                        .size(SettingsIconSize)
-                                        .clip(CircleShape)
-                                        .background(bgColor),
-                                )
-                            } else {
-                                Icon(
-                                    imageVector = Icons.Outlined.NotInterested,
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    modifier = Modifier
-                                        .padding(start = SettingsContentPadding)
-                                        .size(SettingsIconSize),
-                                )
-                            }
-                        },
-                        trailing = if (state.color != 0) {
-                            {
-                                IconButton(
-                                    onClick = { onSelectColor(null) },
-                                    modifier = Modifier.padding(end = 4.dp),
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Outlined.Close,
-                                        contentDescription = null,
-                                    )
-                                }
-                            }
-                        } else null,
-                    )
-                }
-                SettingsItemCard(position = CardPosition.Last) {
-                    PreferenceRow(
-                        title = stringResource(Res.string.icon),
-                        showChevron = true,
-                        onClick = onOpenIconPicker,
-                        leading = {
-                            TasksIcon(
-                                label = state.icon,
-                                modifier = Modifier
-                                    .padding(start = SettingsContentPadding)
-                                    .size(SettingsIconSize),
-                            )
-                        },
-                    )
-                }
-            }
+            ColorIconCards(
+                color = state.color,
+                icon = state.icon,
+                pickerColors = state.pickerColors,
+                onColorClick = onOpenColorPicker,
+                onClearColor = { onSelectColor(null) },
+                onIconClick = onOpenIconPicker,
+            )
 
             // Shortcut and widget
             ShortcutWidgetCards(
