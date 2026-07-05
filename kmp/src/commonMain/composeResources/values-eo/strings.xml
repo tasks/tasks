@@ -257,4 +257,5 @@
     <string name="new_tag">Krei novan etikedon</string>
     <string name="enter_tag_name">Entajpu etikedonomon</string>
     <string name="tag_already_exists">Etikedo jam ekzistas</string>
+    <string name="tag_settings">Agordoj de etikedo</string>
 </resources>

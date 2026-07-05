@@ -268,4 +268,5 @@
     <string name="new_tag">Crear nueva etiqueta</string>
     <string name="enter_tag_name">Introduzca el nombre de la etiqueta</string>
     <string name="tag_already_exists">La etiqueta ya existe</string>
+    <string name="tag_settings">Configuración de etiquetas</string>
 </resources>

@@ -227,4 +227,5 @@
     <string name="new_tag">Nieuw label aanmaken</string>
     <string name="enter_tag_name">Label kiezen</string>
     <string name="tag_already_exists">Label bestaat reeds</string>
+    <string name="tag_settings">Label instellen</string>
 </resources>

@@ -255,4 +255,5 @@
     <string name="new_tag">Új címke létrehozása</string>
     <string name="enter_tag_name">Címke neve</string>
     <string name="tag_already_exists">A címke már létezik</string>
+    <string name="tag_settings">Címkék beállításai</string>
 </resources>

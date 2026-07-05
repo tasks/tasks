@@ -162,6 +162,7 @@ import org.tasks.compose.sort.subtaskOptions
 import org.tasks.data.TaskContainer
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.TagData
@@ -790,8 +791,10 @@ private fun TaskListScreen(
     var selectCreatedList by remember { mutableStateOf(false) }
     var createTaskAfterList by rememberSaveable { mutableStateOf(false) }
     var editListCalendarId by rememberSaveable { mutableStateOf<Long?>(null) }
+    var editTagUuid by rememberSaveable { mutableStateOf<String?>(null) }
     var showNewTag by rememberSaveable { mutableStateOf(false) }
     val caldavDao = koinInject<CaldavDao>()
+    val tagDataDao = koinInject<TagDataDao>()
     val tasksAccountDataRepository = koinInject<TasksAccountDataRepository>()
     val drawerConfiguration = koinInject<org.tasks.compose.drawer.DrawerConfiguration>()
     val selectedTask = navigator.currentDestination?.contentKey
@@ -811,6 +814,7 @@ private fun TaskListScreen(
     }
 
     val editableCaldavFilter = state.filter as? CaldavFilter
+    val editableTagFilter = state.filter as? TagFilter
 
     val onDrawerItemClick: (DrawerItem) -> Unit = { item ->
         when (item) {
@@ -936,6 +940,8 @@ private fun TaskListScreen(
                         onSettingsClick = onSettingsClick,
                         showListSettings = editableCaldavFilter != null,
                         onListSettingsClick = { editableCaldavFilter?.let { editListCalendarId = it.calendar.id } },
+                        showTagSettings = editableTagFilter != null,
+                        onTagSettingsClick = { editableTagFilter?.let { editTagUuid = it.uuid } },
                         onCreateTask = onCreateTask,
                         modifier = Modifier.weight(1f),
                     )
@@ -1005,6 +1011,8 @@ private fun TaskListScreen(
                         onSettingsClick = onSettingsClick,
                         showListSettings = editableCaldavFilter != null,
                         onListSettingsClick = { editableCaldavFilter?.let { editListCalendarId = it.calendar.id } },
+                        showTagSettings = editableTagFilter != null,
+                        onTagSettingsClick = { editableTagFilter?.let { editTagUuid = it.uuid } },
                         onCreateTask = onCreateTask,
                     )
                 }
@@ -1095,6 +1103,36 @@ private fun TaskListScreen(
         }
     }
 
+    editTagUuid?.let { uuid ->
+        val tagData by produceState<TagData?>(null, uuid) {
+            value = tagDataDao.getByUuid(uuid)
+                ?: run { editTagUuid = null; return@produceState }
+        }
+        tagData?.let { tag ->
+            TagSettingsDialog(
+                tagData = tag,
+                isDark = isDark,
+                onDismiss = { updated ->
+                    editTagUuid = null
+                    drawerViewModel.updateFilters()
+                    val newFilter = TagFilter(updated ?: tag)
+                    viewModel.setFilter(newFilter)
+                    drawerViewModel.setSelectedFilter(newFilter)
+                },
+                onDeleted = {
+                    editTagUuid = null
+                    drawerViewModel.updateFilters()
+                    scope.launch {
+                        val myTasks = MyTasksFilter.create()
+                        viewModel.setFilter(myTasks)
+                        drawerViewModel.setSelectedFilter(myTasks)
+                    }
+                },
+                onSubscribe = onSubscribe,
+            )
+        }
+    }
+
     if (showNewTag) {
         val newTag = remember { TagData() }
         TagSettingsDialog(
@@ -1135,6 +1173,8 @@ private fun TaskListContent(
     onSettingsClick: () -> Unit,
     showListSettings: Boolean = false,
     onListSettingsClick: () -> Unit = {},
+    showTagSettings: Boolean = false,
+    onTagSettingsClick: () -> Unit = {},
     onCreateTask: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -1158,6 +1198,8 @@ private fun TaskListContent(
                 onSettingsClick = onSettingsClick,
                 showListSettings = showListSettings,
                 onListSettingsClick = onListSettingsClick,
+                showTagSettings = showTagSettings,
+                onTagSettingsClick = onTagSettingsClick,
                 onTaskClick = onTaskClick,
                 onCreateTask = onCreateTask,
                 modifier = Modifier.preferredWidth(TaskListPanePreferredWidth),
@@ -1213,6 +1255,8 @@ private fun TaskListPane(
     onSettingsClick: () -> Unit,
     showListSettings: Boolean = false,
     onListSettingsClick: () -> Unit = {},
+    showTagSettings: Boolean = false,
+    onTagSettingsClick: () -> Unit = {},
     onTaskClick: (TaskKey) -> Unit,
     onCreateTask: () -> Unit,
     modifier: Modifier = Modifier,
@@ -1327,8 +1371,10 @@ private fun TaskListPane(
             actions = {
                 SettingsMenuButton(
                     showListSettings = showListSettings,
+                    showTagSettings = showTagSettings,
                     onSettingsClick = onSettingsClick,
                     onListSettingsClick = onListSettingsClick,
+                    onTagSettingsClick = onTagSettingsClick,
                 )
             },
             colors = TopAppBarDefaults.topAppBarColors(

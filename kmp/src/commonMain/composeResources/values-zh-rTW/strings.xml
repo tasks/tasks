@@ -248,4 +248,5 @@
     <string name="new_tag">新增標籤</string>
     <string name="enter_tag_name">輸入標籤名稱</string>
     <string name="tag_already_exists">標籤已經存在</string>
+    <string name="tag_settings">標籤設定</string>
 </resources>

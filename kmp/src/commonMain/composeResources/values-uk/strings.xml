@@ -208,4 +208,5 @@
     <string name="new_tag">Створити нову мітку</string>
     <string name="enter_tag_name">Введіть назву мітки</string>
     <string name="tag_already_exists">Мітка вже існує</string>
+    <string name="tag_settings">Налаштування міток</string>
 </resources>

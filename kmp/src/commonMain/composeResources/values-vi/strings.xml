@@ -191,4 +191,5 @@
     <string name="new_tag">Tạo thẻ mới</string>
     <string name="enter_tag_name">Nhập tên thẻ</string>
     <string name="tag_already_exists">Thẻ đã tồn tại</string>
+    <string name="tag_settings">Cài đặt thẻ</string>
 </resources>

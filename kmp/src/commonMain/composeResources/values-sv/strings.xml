@@ -321,4 +321,5 @@
     <string name="new_tag">Skapa en ny etikett</string>
     <string name="enter_tag_name">Ange taggnamn</string>
     <string name="tag_already_exists">Etiketten finns redan</string>
+    <string name="tag_settings">Tagginställningar</string>
 </resources>

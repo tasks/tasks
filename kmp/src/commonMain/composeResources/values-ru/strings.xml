@@ -220,4 +220,5 @@
     <string name="new_tag">Создать новую метку</string>
     <string name="enter_tag_name">Введите название метки</string>
     <string name="tag_already_exists">Тег уже существует</string>
+    <string name="tag_settings">Настройки метки</string>
 </resources>

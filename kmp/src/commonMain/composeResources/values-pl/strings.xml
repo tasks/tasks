@@ -197,4 +197,5 @@
     <string name="new_tag">Stwórz nowy tag</string>
     <string name="enter_tag_name">Wprowadź nazwę tagu</string>
     <string name="tag_already_exists">Tag już istnieje</string>
+    <string name="tag_settings">Ustawienia taga</string>
 </resources>

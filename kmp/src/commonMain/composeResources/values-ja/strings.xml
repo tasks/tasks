@@ -299,4 +299,5 @@
     <string name="new_tag">新しいタグを作成</string>
     <string name="enter_tag_name">タグの名前を入力</string>
     <string name="tag_already_exists">タグは既に存在します</string>
+    <string name="tag_settings">タグ設定</string>
 </resources>

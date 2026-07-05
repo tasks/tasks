@@ -220,4 +220,5 @@
     <string name="new_tag">Luo uusi tunniste</string>
     <string name="enter_tag_name">Anna tunnisteen nimi</string>
     <string name="tag_already_exists">Tunniste on jo olemassa</string>
+    <string name="tag_settings">Tunnisteiden asetukset</string>
 </resources>

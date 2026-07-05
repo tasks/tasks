@@ -263,4 +263,5 @@
     <string name="new_tag">Crea nuova etichetta</string>
     <string name="enter_tag_name">Inserisci il nome dell'etichetta</string>
     <string name="tag_already_exists">Etichetta già presente</string>
+    <string name="tag_settings">Impostazioni etichetta</string>
 </resources>

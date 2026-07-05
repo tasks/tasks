@@ -337,4 +337,5 @@
     <string name="tag_already_exists">L'étiquette existe déjà</string>
     <string name="delete_tag_warning">Les tâches avec cette étiquette ne seront pas supprimées</string>
     <string name="delete_list_warning">Toutes les tâches dans cette liste seront supprimées. Ceci est irréversible !</string>
+    <string name="tag_settings">Paramètres des étiquettes</string>
 </resources>

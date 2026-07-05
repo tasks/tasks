@@ -174,4 +174,5 @@
     <string name="new_tag">නව ටැගයක් සාදන්න</string>
     <string name="enter_tag_name">ටැගයේ නම ඇතුළත් කරන්න</string>
     <string name="tag_already_exists">ටැගය දැනටමත් පවතී</string>
+    <string name="tag_settings">ටැග් සැකසුම්</string>
 </resources>

@@ -252,4 +252,5 @@
     <string name="new_tag">יצירת תגית חדשה</string>
     <string name="enter_tag_name">הזנת שם תגית</string>
     <string name="tag_already_exists">תגית כבר קיימת</string>
+    <string name="tag_settings">הגדרות תגית</string>
 </resources>

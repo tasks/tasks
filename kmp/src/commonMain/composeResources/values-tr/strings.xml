@@ -335,4 +335,5 @@
     <string name="tag_already_exists">Etiket zaten var</string>
     <string name="delete_tag_warning">Bu etiketli görevler silinmeyecek</string>
     <string name="delete_list_warning">Bu listedeki tüm görevler silinecek. Bu işlem geri alınamaz!</string>
+    <string name="tag_settings">Etiket ayarları</string>
 </resources>

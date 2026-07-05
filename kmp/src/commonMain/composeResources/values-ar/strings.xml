@@ -213,4 +213,5 @@
     <string name="new_tag">أنشأ علامةً جديدة</string>
     <string name="enter_tag_name">أدخل اسم العلامة</string>
     <string name="tag_already_exists">العلامة موجودة مسبقًا</string>
+    <string name="tag_settings">إعدادات العلامات</string>
 </resources>

@@ -231,4 +231,5 @@
     <string name="new_tag">Opret nyt tag</string>
     <string name="enter_tag_name">Indtast tagnavn</string>
     <string name="tag_already_exists">Tagget findes allerede</string>
+    <string name="tag_settings">Tag-indstillinger</string>
 </resources>

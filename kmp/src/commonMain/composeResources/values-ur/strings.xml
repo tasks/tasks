@@ -118,4 +118,5 @@
     <string name="new_tag">نیا ٹیگ بنائیں</string>
     <string name="enter_tag_name">ٹیگ کا نام درج کریں</string>
     <string name="tag_already_exists">ٹیگ پہلے ہی موجود ہے</string>
+    <string name="tag_settings">ٹیگ سیٹنگ</string>
 </resources>

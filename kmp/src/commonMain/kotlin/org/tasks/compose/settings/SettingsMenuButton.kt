@@ -18,12 +18,15 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.app_settings
 import tasks.kmp.generated.resources.list_settings
 import tasks.kmp.generated.resources.settings
+import tasks.kmp.generated.resources.tag_settings
 
 @Composable
 fun SettingsMenuButton(
     showListSettings: Boolean,
+    showTagSettings: Boolean,
     onSettingsClick: () -> Unit,
     onListSettingsClick: () -> Unit,
+    onTagSettingsClick: () -> Unit,
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     Box {
@@ -50,6 +53,15 @@ fun SettingsMenuButton(
                     onClick = {
                         expanded = false
                         onListSettingsClick()
+                    },
+                )
+            }
+            if (showTagSettings) {
+                DropdownMenuItem(
+                    text = { Text(stringResource(Res.string.tag_settings)) },
+                    onClick = {
+                        expanded = false
+                        onTagSettingsClick()
                     },
                 )
             }

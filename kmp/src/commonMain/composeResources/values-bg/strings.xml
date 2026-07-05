@@ -282,4 +282,5 @@
     <string name="new_tag">Създаване на етикет</string>
     <string name="enter_tag_name">Въведете име на етикета</string>
     <string name="tag_already_exists">Етикетът вече съществува</string>
+    <string name="tag_settings">Настройки на етикети</string>
 </resources>

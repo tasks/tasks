@@ -71,4 +71,5 @@
     <string name="gtasks_GLA_errorIOAuth">پوزش، ارتباط با سرورهای گوگل میسر نشد. لطفا دوباره تلاش نمایید.</string>
     <string name="new_tag">ایجاد تگ جدید</string>
     <string name="tag_already_exists">این تگ قبلاً ایجاد شده است</string>
+    <string name="tag_settings">تنظیمات تگ</string>
 </resources>

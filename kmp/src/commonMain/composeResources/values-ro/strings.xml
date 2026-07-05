@@ -218,4 +218,5 @@
     <string name="new_tag">Crează o nouă etichetă</string>
     <string name="enter_tag_name">Introdu numele etichetei</string>
     <string name="tag_already_exists">Etichetă deja existentă</string>
+    <string name="tag_settings">Setări etichetă</string>
 </resources>

@@ -205,4 +205,5 @@
     <string name="new_tag">Δημιουργία νέας ετικέτας</string>
     <string name="enter_tag_name">Εισαγωγή ονόματος ετικέτας</string>
     <string name="tag_already_exists">Η ετικέτα υπάρχει ήδη</string>
+    <string name="tag_settings">Ρυθμίσεις ετικέτας</string>
 </resources>

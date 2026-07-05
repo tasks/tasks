@@ -207,4 +207,5 @@
     <string name="new_tag">Creeu una nova etiqueta</string>
     <string name="enter_tag_name">Introduïu el nom de l'etiqueta</string>
     <string name="tag_already_exists">L'etiqueta ja existeix</string>
+    <string name="tag_settings">Preferències de les etiquetes</string>
 </resources>

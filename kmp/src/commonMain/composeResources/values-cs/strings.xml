@@ -336,4 +336,5 @@
     <string name="new_tag">Vytvořit nový štítek</string>
     <string name="enter_tag_name">Zadejte název štítku</string>
     <string name="tag_already_exists">Štítek již existuje</string>
+    <string name="tag_settings">Nastavení štítku</string>
 </resources>

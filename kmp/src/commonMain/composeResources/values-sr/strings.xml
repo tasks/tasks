@@ -234,4 +234,5 @@
     <string name="new_tag">Креирај нови таг</string>
     <string name="enter_tag_name">Унеси назив тага</string>
     <string name="tag_already_exists">Таг већ постоји</string>
+    <string name="tag_settings">Подешавања тагова</string>
 </resources>

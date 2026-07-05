@@ -205,4 +205,5 @@
     <string name="new_tag">புதிய குறிச்சொல்லை உருவாக்கவும்</string>
     <string name="enter_tag_name">குறிச்சொல் பெயரை உள்ளிடவும்</string>
     <string name="tag_already_exists">குறிச்சொல் ஏற்கனவே உள்ளது</string>
+    <string name="tag_settings">குறிச்சொல் அமைப்புகள்</string>
 </resources>

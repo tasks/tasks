@@ -204,4 +204,5 @@
     <string name="new_tag">새 태그 만들기</string>
     <string name="enter_tag_name">태그 이름 입력</string>
     <string name="tag_already_exists">태그가 이미 존재합니다</string>
+    <string name="tag_settings">태그 설정</string>
 </resources>

@@ -317,6 +317,7 @@
     <string name="icon">Icon</string>
     <string name="share">Share</string>
     <string name="list_settings">List settings</string>
+    <string name="tag_settings">Tag settings</string>
     <string name="reinitialize_account">Reinitialize</string>
     <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
     <string name="local_list_title">This is a local list</string>
