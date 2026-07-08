@@ -664,4 +664,17 @@
     <string name="add_default_reminders">Додај подразумеване подсетнике</string>
     <string name="email_to_task_address">Твоја мејл адреса</string>
     <string name="email_to_task">Мејл у задатак</string>
+    <string name="location_update_interval_disabled">Онемогућено</string>
+    <string name="location_update_interval_15_minutes">Сваких 15 минута</string>
+    <string name="location_update_interval_30_minutes">Сваких 30 минута</string>
+    <string name="location_update_interval_1_hour">Сваког сата</string>
+    <string name="location_update_interval_2_hours">Свака 2 сата</string>
+    <string name="default_reminder">Целодневни задаци</string>
+    <string name="per_list_sort_summary">Памти сортирање и групна подешавања за сваку листу независно</string>
+    <string name="subscription_required_fdroid">Потребна претплата за коришћење Tasks.org синхронизације. Претпала мора да буде иницирана од стране Google Play верзије апликације.</string>
+    <string name="guest_create_list_message">Тренутно имаш приступ дељеној листи као гост. За креирање и синхронизацију сопствених приватних листи у облаку, потребна је Tasks.org претплата. Или можеш креирати бесплатну локалну листу која ће остати само на овом уређају.</string>
+    <string name="upgrade_desktop_app">Tasks.org за рачунар</string>
+    <string name="upgrade_friends_and_family">Пријатељи и породица</string>
+    <string name="upgrade_friends_and_family_description">5 бесплатних гостију на заједничкој листи. Ради и са Apple Подсетником</string>
+    <string name="read_more">Сазнај више</string>
 </resources>
