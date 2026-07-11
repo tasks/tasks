@@ -1,3 +1,9 @@
+### 15.7.4 (2026-07-10)
+
+* Disable reminder sync for OpenXchange (mailbox.org)
+  * Prevents OpenXchange from deleting reminders
+* Fix reminders being changed or removed after sync (DAVx5/EteSync/DecSync CC)
+
 ### 15.7.3 (2026-07-05)
 
 * Sync performance improvements and bug fixes
