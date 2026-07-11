@@ -1,0 +1,3 @@
+* Disable reminder sync for OpenXchange (mailbox.org)
+  * Prevents OpenXchange from deleting reminders
+* Fix reminders being changed or removed after sync (DAVx5/EteSync/DecSync CC)

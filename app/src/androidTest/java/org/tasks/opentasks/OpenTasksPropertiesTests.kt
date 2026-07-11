@@ -11,6 +11,7 @@ import org.junit.Test
 import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.TestUtilities.withTZ
 import org.tasks.caldav.Ical4androidTaskAdapter
+import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar.Companion.collapsed
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
@@ -34,6 +35,7 @@ import org.tasks.makers.TaskMaker.ORDER
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
 import java.util.TimeZone
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltAndroidTest
@@ -42,6 +44,7 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var tagDao: TagDao
     @Inject lateinit var alarmDao: AlarmDao
+    @Inject lateinit var vtodoCache: VtodoCache
 
     @Test
     fun loadRemoteParentInfo() = runBlocking {
@@ -298,6 +301,64 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
                                 ?.task!!
                 ).snooze
         )
+    }
+
+    // dmfs can't store REPEAT, so push must cache the flattened form it actually stored (not the
+    // rich iCal we generated), or the next fetch reads the flattened round-trip as a remote edit.
+    @Test
+    fun pushCachesProviderFlattenedAlarm() = runBlocking {
+        val list = syncTaskWithRepeatingAlarm().list
+        val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "abcd")!!
+        assertFalse(vtodoCache.getVtodo(list, caldavTask)!!.contains("REPEAT"))
+    }
+
+    // Full sync loop: after the flattened task is re-fetched (as DAVx5 re-presents it post
+    // round-trip), the merge must keep the local repeating alarm rather than downgrade it.
+    @Test
+    fun repeatingAlarmSurvivesReflattenedRoundTrip() = runBlocking {
+        val synced = syncTaskWithRepeatingAlarm()
+
+        val caldavTask = caldavDao.getTaskByRemoteId(synced.list.uuid!!, "abcd")!!
+        caldavDao.update(caldavTask.copy(etag = null)) // force the flattened task to be re-fetched
+        synchronizer.sync(hasPro = true)
+
+        assertEquals(15, alarmDao.getAlarms(synced.taskId).single().repeat)
+    }
+
+    // A real remote edit to an unrelated field triggers a re-fetch; the flattened alarm must not be
+    // read as a reminder change, so the edit applies AND the local repeating alarm survives.
+    @Test
+    fun unrelatedRemoteEditPreservesRepeatingAlarm() = runBlocking {
+        val synced = syncTaskWithRepeatingAlarm()
+
+        openTaskDao.setDescription(synced.listId, "abcd", "remote notes")
+        synchronizer.sync(hasPro = true)
+
+        assertEquals("remote notes", taskDao.fetch(synced.taskId)!!.notes)
+        assertEquals(15, alarmDao.getAlarms(synced.taskId).single().repeat)
+    }
+
+    private data class SyncedTask(val listId: Long, val list: CaldavCalendar, val taskId: Long)
+
+    private suspend fun syncTaskWithRepeatingAlarm(): SyncedTask {
+        val (listId, list) = openTaskDao.insertList()
+        val taskId = taskDao.createNew(newTask())
+        alarmDao.insert(
+            Alarm(
+                task = taskId,
+                time = TimeUnit.HOURS.toMillis(32),
+                type = Alarm.TYPE_REL_START,
+                repeat = 15,
+                interval = TimeUnit.MINUTES.toMillis(15),
+            )
+        )
+        caldavDao.insert(newCaldavTask(
+            with(CALENDAR, list.uuid),
+            with(CaldavTaskMaker.TASK, taskId),
+            with(REMOTE_ID, "abcd"),
+        ))
+        synchronizer.sync(hasPro = true) // push flattens the alarm into dmfs
+        return SyncedTask(listId, list, taskId)
     }
 
     @Test

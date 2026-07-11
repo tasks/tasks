@@ -77,7 +77,12 @@ data class CaldavAccount(
         }
 
     val reminderSync: Boolean
-        get() = serverType != SERVER_SYNOLOGY_CALENDAR
+        get() = when (serverType) {
+            SERVER_SYNOLOGY_CALENDAR,
+            SERVER_OPEN_XCHANGE,
+            SERVER_MAILBOX_ORG -> false
+            else -> true
+        }
 
     fun isLoggedOut() = error?.startsWith(ERROR_UNAUTHORIZED) == true
 

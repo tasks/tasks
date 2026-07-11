@@ -213,6 +213,48 @@ class AlarmMergeTest {
         )
     }
 
+    @Test
+    fun flattenedBasePreservesRichLocalAlarm() {
+        assertEquals(
+            setOf(repeating),
+            merge(base = listOf(flattened), local = listOf(repeating), remote = listOf(flattened)),
+        )
+    }
+
+    @Test
+    fun richBaseClobbersRepeatOnFlattenedRoundTrip() {
+        assertEquals(
+            setOf(flattened),
+            merge(base = listOf(repeating), local = listOf(repeating), remote = listOf(flattened)),
+        )
+    }
+
+    // a remote device adds another reminder; the flattened repeating alarm must still survive
+    @Test
+    fun remoteAddedReminderPreservesFlattenedLocal() {
+        assertEquals(
+            setOf(repeating, whenDue),
+            merge(
+                base = listOf(flattened),
+                local = listOf(repeating),
+                remote = listOf(flattened, whenDue),
+            ),
+        )
+    }
+
+    // a remote device removes a different reminder; the flattened repeating alarm must still survive
+    @Test
+    fun remoteRemovedOtherReminderPreservesFlattenedLocal() {
+        assertEquals(
+            setOf(repeating),
+            merge(
+                base = listOf(flattened, whenDue),
+                local = listOf(repeating, whenDue),
+                remote = listOf(flattened),
+            ),
+        )
+    }
+
     private fun merge(base: List<Alarm>, local: List<Alarm>, remote: List<Alarm>) =
         mergeReminders(base = base, local = local, remote = remote)
 
@@ -221,4 +263,6 @@ class AlarmMergeTest {
     private fun dateTime(time: Long) = Alarm(type = Alarm.TYPE_DATE_TIME, time = time)
     private fun random(time: Long) = Alarm(type = Alarm.TYPE_RANDOM, time = time)
     private fun snooze(time: Long) = Alarm(type = Alarm.TYPE_SNOOZE, time = time)
+    private val repeating = Alarm(type = Alarm.TYPE_REL_START, time = 1000, repeat = 15, interval = 2000)
+    private val flattened = Alarm(type = Alarm.TYPE_REL_START, time = 1000)
 }
