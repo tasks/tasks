@@ -646,4 +646,20 @@
     <string name="alarm_after">efter</string>
     <string name="alarm_start">start</string>
     <string name="alarm_due">forfalden</string>
+    <string name="location_update_interval_title">Opdateringer af placering i baggrunden</string>
+    <string name="location_update_interval_summary">Periodiske placeringopdateringer forbedrer pålidelighed af geoafgrænsning</string>
+    <string name="location_update_interval_disabled">Deaktiveret</string>
+    <string name="location_update_interval_15_minutes">Hvert 15. minut</string>
+    <string name="location_update_interval_30_minutes">Hvert 30. minut</string>
+    <string name="location_update_interval_1_hour">Hver time</string>
+    <string name="location_update_interval_2_hours">Hver 2 timer</string>
+    <string name="p_per_list_sort">per_list_sort</string>
+    <string name="per_list_sort_title">Per-list sortering</string>
+    <string name="per_list_sort_summary">Husk indstillingerne for sortering og gruppering for hver liste separat</string>
+    <string name="guest_create_list_message">Du har i øjeblikket gæsteadgang til delte lister. For at oprette og synkronisere dine egne private lister til skyen skal du have et Tasks.org-abonnement. Du kan også oprette en gratis lokal liste, der forbliver på denne enhed.</string>
+    <string name="upgrade_desktop_app">Tasks.org til desktop</string>
+    <string name="upgrade_desktop_app_description">Tidlig adgang til den nye desktop-app</string>
+    <string name="upgrade_friends_and_family">Venner og familie</string>
+    <string name="upgrade_friends_and_family_description">5 gratis gæster på delte lister. Fungerer med Apple Reminders</string>
+    <string name="read_more">Læs mere</string>
 </resources>
