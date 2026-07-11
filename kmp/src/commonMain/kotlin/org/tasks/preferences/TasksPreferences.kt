@@ -24,10 +24,13 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         dataStore.edit { it[key] = value }
     }
 
-    suspend fun removeByPrefix(prefix: String) {
+    suspend fun removeByPrefix(prefix: String) = removeByPrefixes(listOf(prefix))
+
+    suspend fun removeByPrefixes(prefixes: Collection<String>) {
+        if (prefixes.isEmpty()) return
         dataStore.edit { prefs ->
             prefs.asMap().keys
-                .filter { it.name.startsWith(prefix) }
+                .filter { key -> prefixes.any { key.name.startsWith(it) } }
                 .forEach { prefs.remove(it) }
         }
     }

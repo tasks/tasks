@@ -89,5 +89,9 @@ class FilterPreferences(
         suspend fun TasksPreferences.delete(filterKey: String) {
             removeByPrefix("${KEY_PREFIX}_${filterKey}_")
         }
+
+        suspend fun TasksPreferences.delete(filterKeys: Collection<String>) {
+            removeByPrefixes(filterKeys.map { "${KEY_PREFIX}_${it}_" })
+        }
     }
 }
