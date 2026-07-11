@@ -32,7 +32,7 @@ data class Tag(
     @Redacted
     @ColumnInfo(name = "name")
     val name: String? = null,
-    @ColumnInfo(name = "tag_uid")
+    @ColumnInfo(name = "tag_uid", index = true)
     val tagUid: String? = null,
     @ColumnInfo(name = "task_uid")
     @Transient

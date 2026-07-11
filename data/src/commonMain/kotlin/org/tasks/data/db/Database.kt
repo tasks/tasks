@@ -14,6 +14,7 @@ import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.LocationDao
+import org.tasks.data.dao.MetadataDao
 import org.tasks.data.dao.NotificationDao
 import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.dao.TagDao
@@ -34,6 +35,8 @@ import org.tasks.data.entity.Notification
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Principal
 import org.tasks.data.entity.PrincipalAccess
+import org.tasks.data.entity.MetadataSyncState
+import org.tasks.data.entity.MetadataTombstone
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
@@ -46,6 +49,8 @@ import org.tasks.data.entity.UserActivity
     entities = [
         Notification::class,
         TagData::class,
+        MetadataSyncState::class,
+        MetadataTombstone::class,
         UserActivity::class,
         TaskAttachment::class,
         TaskListMetadata::class,
@@ -68,8 +73,9 @@ import org.tasks.data.entity.UserActivity
         AutoMigration(from = 88, to = 89, spec = AutoMigrate88to89::class),
         AutoMigration(from = 91, to = 92),
         AutoMigration(from = 93, to = 94, spec = AutoMigrate93to94::class),
+        AutoMigration(from = 95, to = 96),
     ],
-    version = 95
+    version = 96
 )
 abstract class Database : RoomDatabase() {
     abstract fun notificationDao(): NotificationDao
@@ -90,6 +96,7 @@ abstract class Database : RoomDatabase() {
     abstract fun upgraderDao(): UpgraderDao
     abstract fun principalDao(): PrincipalDao
     abstract fun completionDao(): CompletionDao
+    abstract fun metadataDao(): MetadataDao
 
     /** @return human-readable database name for debugging
      */
