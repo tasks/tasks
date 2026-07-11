@@ -14,6 +14,7 @@ import net.fortuna.ical4j.model.property.RDate
 import net.fortuna.ical4j.model.property.RRule
 import net.fortuna.ical4j.model.property.RelatedTo
 import net.fortuna.ical4j.model.property.Status
+import java.io.ByteArrayOutputStream
 import java.io.OutputStream
 import java.util.LinkedList
 
@@ -48,3 +49,9 @@ interface VTodoTask {
 
     fun write(os: OutputStream)
 }
+
+fun VTodoTask.serialize(): String =
+    ByteArrayOutputStream().let {
+        write(it)
+        String(it.toByteArray())
+    }

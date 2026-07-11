@@ -10,6 +10,7 @@ import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.Ical4androidTaskAdapter
 import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
+import org.tasks.caldav.serialize
 import org.tasks.data.MyAndroidTask
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.OpenTaskDao.Companion.filterActive
@@ -25,7 +26,6 @@ import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.NO_ID
 import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import java.io.ByteArrayOutputStream
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.requires_pro_subscription
 
@@ -221,7 +221,7 @@ class OpenTasksSynchronizer(
             val androidTask = openTaskDao.getTask(listId, uid)
                     ?: MyAndroidTask(at.bitfire.ical4android.Task())
             val adapted = Ical4androidTaskAdapter(androidTask.task!!)
-            val data = iCalendar.toVtodo(account, caldavTask, task, adapted)
+            iCalendar.applyLocalTo(account, caldavTask, task, adapted)
             val operations = ArrayList<BatchOperation.CpoBuilder>()
             val builder = androidTask.toBuilder(openTaskDao.tasks)
             val idxTask = if (androidTask.isNew) {
@@ -246,7 +246,10 @@ class OpenTasksSynchronizer(
 
             operations.map { it.build() }.let { openTaskDao.batch(it) }
 
-            vtodoCache.putVtodo(calendar, caldavTask, String(data))
+            val stored = openTaskDao.getTask(listId, uid)?.let { reread ->
+                Ical4androidTaskAdapter(reread.task!!).serialize()
+            } ?: adapted.serialize()
+            vtodoCache.putVtodo(calendar, caldavTask, stored)
             caldavDao.update(caldavTask)
         }
         Logger.d("OpenTasksSynchronizer") { "SENT $caldavTask" }
@@ -262,10 +265,7 @@ class OpenTasksSynchronizer(
     ) {
         openTaskDao.getTask(listId, uid)?.let { androidTask ->
             val adapted = Ical4androidTaskAdapter(androidTask.task!!)
-            val vtodo = ByteArrayOutputStream().let {
-                adapted.write(it)
-                String(it.toByteArray())
-            }
+            val vtodo = adapted.serialize()
             iCalendar.fromVtodo(account, calendar, existing, adapted, vtodo, CaldavTask.objectName(uid), etag)
         }
     }

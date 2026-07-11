@@ -159,12 +159,12 @@ class iCalendar(
         return toVtodo(account, caldavTask, task, remoteModel)
     }
 
-    suspend fun toVtodo(
+    suspend fun applyLocalTo(
         account: CaldavAccount,
         caldavTask: CaldavTask,
         task: org.tasks.data.entity.Task,
         remoteModel: VTodoTask
-    ): ByteArray {
+    ) {
         remoteModel.applyLocal(caldavTask, task)
         val categories = remoteModel.categories
         categories.clear()
@@ -184,6 +184,15 @@ class iCalendar(
             remoteModel.snooze = alarms.find { it.type == TYPE_SNOOZE }?.time
             remoteModel.alarms.addAll(alarms.toVAlarms())
         }
+    }
+
+    suspend fun toVtodo(
+        account: CaldavAccount,
+        caldavTask: CaldavTask,
+        task: org.tasks.data.entity.Task,
+        remoteModel: VTodoTask
+    ): ByteArray {
+        applyLocalTo(account, caldavTask, task, remoteModel)
         val os = ByteArrayOutputStream()
         remoteModel.write(os)
         return os.toByteArray()
