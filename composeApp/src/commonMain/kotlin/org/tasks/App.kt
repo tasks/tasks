@@ -68,6 +68,7 @@ import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
@@ -306,15 +307,13 @@ fun App(
                 when (hasAccount) {
                     true -> {
                         if (backStack.lastOrNull() !is TaskListDestination) {
-                            backStack.clear()
-                            backStack.add(TaskListDestination)
+                            backStack.replaceAllWith(TaskListDestination)
                         }
                     }
                     false -> {
                         if (backStack.lastOrNull() !is WelcomeDestination
                             && backStack.lastOrNull() !is AddAccountDestination) {
-                            backStack.clear()
-                            backStack.add(WelcomeDestination)
+                            backStack.replaceAllWith(WelcomeDestination)
                         }
                     }
                     null -> {}
@@ -2458,5 +2457,12 @@ private fun SettingsScreen(
             }
         },
     )
+}
+
+private fun <T> MutableList<T>.replaceAllWith(item: T) {
+    Snapshot.withMutableSnapshot {
+        clear()
+        add(item)
+    }
 }
 
