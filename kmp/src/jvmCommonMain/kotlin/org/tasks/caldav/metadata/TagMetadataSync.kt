@@ -8,6 +8,7 @@ import okhttp3.HttpUrl
 import org.tasks.caldav.CaldavClient
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.VtodoCache
+import org.tasks.caldav.supportsDeadProperties
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.NO_ORDER
@@ -50,6 +51,41 @@ class TagMetadataSync(
     suspend fun primaryAccount(): CaldavAccount? = caldavDao.getMetadataPrimary(preferredPrimaryId())
 
     suspend fun isPrimary(account: CaldavAccount): Boolean = primaryAccount()?.id == account.id
+
+    data class ToggleState(
+        val visible: Boolean = false,
+        val checked: Boolean = false,
+        val interactable: Boolean = true,
+        val forcedByTasksOrg: Boolean = false,
+        val otherPrimary: String? = null,
+    )
+
+    suspend fun toggleState(account: CaldavAccount): ToggleState {
+        if (!account.isCaldavAccount) return ToggleState()
+        val primary = primaryAccount()
+        val forced = primary?.accountType == CaldavAccount.TYPE_TASKS
+        return ToggleState(
+            visible = true,
+            checked = primary?.id == account.id,
+            interactable = !forced,
+            forcedByTasksOrg = forced,
+            otherPrimary = primary
+                ?.takeIf { it.id != account.id }
+                ?.let { it.name ?: it.username ?: "" },
+        )
+    }
+
+    suspend fun newAccountToggleState(): ToggleState {
+        val primary = primaryAccount()
+        val forced = primary?.accountType == CaldavAccount.TYPE_TASKS
+        return ToggleState(
+            visible = true,
+            checked = false,
+            interactable = !forced,
+            forcedByTasksOrg = forced,
+            otherPrimary = primary?.let { it.name ?: it.username ?: "" },
+        )
+    }
 
     class Pulled internal constructor(
         val applied: Boolean,
@@ -215,6 +251,36 @@ class TagMetadataSync(
         }
     }
 
+    suspend fun probeViability(url: String, username: String, password: String): Boolean {
+        val client = provider.forUrl(url, username, password)
+        val principal = client.principal() ?: return false
+        if (TagMetadataBlob.parse(client.tagMetadata(principal)) != null) return true
+        return client.supportsDeadProperties(principal)
+    }
+
+    suspend fun enablePrimary(account: CaldavAccount, skipProbe: Boolean = false): Boolean = mutex.withLock {
+        val client = provider.forAccount(account)
+        val principal = client.principal() ?: return@withLock false
+        val existingPayload = client.tagMetadata(principal)
+        val existing = TagMetadataBlob.parse(existingPayload)
+        if (existing != null) {
+            resetHeldStore(clearDirty = false)
+            firstAdopt(client, principal, account, existing, existingPayload!!) ?: return@withLock false
+            markPrimary(account)
+            return@withLock true
+        }
+        if (!skipProbe && !client.supportsDeadProperties(principal)) return@withLock false
+        resetHeldStore(clearDirty = false)
+        seed(client, principal, account) ?: return@withLock false
+        markPrimary(account)
+        true
+    }
+
+    suspend fun disable() = mutex.withLock {
+        resetHeldStore(clearDirty = true)
+        preferences.set(TasksPreferences.metadataPrimaryAccount, 0L)
+    }
+
     private suspend fun seed(client: CaldavClient, principal: HttpUrl, account: CaldavAccount): TagMetadataBlob? {
         val snapshot = syncableTags()
         val tombstoneKeys = tagDataDao.getTombstoneKeys()
@@ -329,6 +395,11 @@ class TagMetadataSync(
 
     private suspend fun holdsStore(account: CaldavAccount): Boolean =
         preferences.get(TasksPreferences.metadataStoreAccount, 0L) == account.id
+
+    private suspend fun markPrimary(account: CaldavAccount) {
+        preferences.set(TasksPreferences.metadataPrimaryAccount, account.id!!)
+        preferences.set(TasksPreferences.metadataStoreAccount, account.id!!)
+    }
 
     private suspend fun preferredPrimaryId(): Long =
         preferences.get(TasksPreferences.metadataPrimaryAccount, 0L)

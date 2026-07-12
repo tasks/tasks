@@ -225,7 +225,7 @@ class TagMetadataSyncTest : DatabaseTest() {
     }
 
     @Test
-    fun `applying records the rev pointer`() = runBlocking {
+    fun `applying records the rev pointer and disable clears it`() = runBlocking {
         val account = insertPrimaryAccount()
         val client = mock<CaldavClient> {
             onBlocking { tagMetadataVersion(any()) } doReturn "v2"
@@ -235,6 +235,9 @@ class TagMetadataSyncTest : DatabaseTest() {
 
         sync.pull(account, client, principal)
         assertEquals("v2", rev())
+
+        sync.disable()
+        assertEquals("", rev())
     }
 
     @Test
@@ -544,6 +547,197 @@ class TagMetadataSyncTest : DatabaseTest() {
 
         verify(client, never()).pushTagMetadata(any(), any(), any())
         Unit
+    }
+
+    @Test
+    fun `enablePrimary rejects a server that dropped a property in the multi-prop write`() = runBlocking {
+        val client = mock<CaldavClient> {
+            onBlocking { principal() } doReturn principal
+            onBlocking { pushMetadataProbe(any(), any(), any()) } doReturn true
+            onBlocking { metadataProbeWithVersion(any()) } doReturn
+                    ("""{"version":1,"tags":{},"order":[],"rev":"probe"}""" to null)
+        }
+        val provider = mock<CaldavClientProvider> { onBlocking { forAccount(any(), any()) } doReturn client }
+        val sync = TagMetadataSync(caldavDao, tagDataDao, provider, vtodoCache, preferences)
+        val id = caldavDao.insert(CaldavAccount(url = "https://example.com"))
+
+        val enabled = sync.enablePrimary(caldavDao.getAccount(id)!!)
+
+        assertFalse(enabled)
+        assertNull(sync.primaryAccount())
+    }
+
+    @Test
+    fun `enablePrimary accepts a server that persisted both properties consistently`() = runBlocking {
+        var pushedPayload: String? = null
+        var pushedVersion: String? = null
+        val client = mock<CaldavClient> {
+            onBlocking { principal() } doReturn principal
+            onBlocking { pushMetadataProbe(any(), any(), any()) } doAnswer { inv ->
+                pushedPayload = inv.getArgument(1)
+                pushedVersion = inv.getArgument(2)
+                true
+            }
+            onBlocking { metadataProbeWithVersion(any()) } doAnswer { pushedPayload to pushedVersion }
+            onBlocking { pushTagMetadata(any(), any(), any()) } doReturn true
+        }
+        val provider = mock<CaldavClientProvider> { onBlocking { forAccount(any(), any()) } doReturn client }
+        val sync = TagMetadataSync(caldavDao, tagDataDao, provider, vtodoCache, preferences)
+        val id = caldavDao.insert(CaldavAccount(url = "https://example.com"))
+
+        val enabled = sync.enablePrimary(caldavDao.getAccount(id)!!)
+
+        assertTrue(enabled)
+        assertEquals(id, sync.primaryAccount()?.id)
+    }
+
+    @Test
+    fun `enablePrimary adopts an existing store and applies it immediately`() = runBlocking {
+        tagDataDao.insert(TagData(name = "Work"))
+        val payload = """{"rev":"v9","version":1,"tags":{"work":{"deleted":true,"ts":1}},"order":[]}"""
+        val client = mock<CaldavClient> {
+            onBlocking { principal() } doReturn principal
+            onBlocking { tagMetadata(any()) } doReturn payload
+        }
+        val provider = mock<CaldavClientProvider> { onBlocking { forAccount(any(), any()) } doReturn client }
+        val sync = TagMetadataSync(caldavDao, tagDataDao, provider, vtodoCache, preferences)
+        val id = caldavDao.insert(CaldavAccount(url = "https://example.com"))
+
+        val enabled = sync.enablePrimary(caldavDao.getAccount(id)!!)
+
+        assertTrue(enabled)
+        assertEquals(id, sync.primaryAccount()?.id)
+        assertEquals(true, reaped("work"))
+        verify(client, never()).pushTagMetadata(any(), any(), any())
+        verify(vtodoCache).putTagMetadata(any(), any())
+        Unit
+    }
+
+    @Test
+    fun `enablePrimary does not commit the switch when the adopt merge push is refused`() = runBlocking {
+        tagDataDao.insert(TagData(name = "Local", color = -5))
+        val client = mock<CaldavClient> {
+            onBlocking { principal() } doReturn principal
+            onBlocking { tagMetadata(any()) } doReturn
+                    """{"rev":"v1","version":1,"tags":{"work":{"name":"Work"}},"order":[]}"""
+            onBlocking { pushTagMetadata(any(), any(), any()) } doReturn false
+        }
+        val provider = mock<CaldavClientProvider> { onBlocking { forAccount(any(), any()) } doReturn client }
+        val sync = TagMetadataSync(caldavDao, tagDataDao, provider, vtodoCache, preferences)
+        val id = caldavDao.insert(CaldavAccount(url = "https://example.com"))
+
+        val enabled = sync.enablePrimary(caldavDao.getAccount(id)!!)
+
+        assertFalse(enabled)
+        assertNull(sync.primaryAccount())
+    }
+
+    @Test
+    fun `probeViability accepts a readable existing store without probing`() = runBlocking {
+        val client = mock<CaldavClient> {
+            onBlocking { principal() } doReturn principal
+            onBlocking { tagMetadata(any()) } doReturn """{"rev":"v1","version":1,"tags":{},"order":[]}"""
+        }
+        val provider = mock<CaldavClientProvider> { onBlocking { forUrl(any(), any(), any()) } doReturn client }
+        val sync = TagMetadataSync(caldavDao, tagDataDao, provider, vtodoCache, preferences)
+
+        assertTrue(sync.probeViability("https://example.com", "user", "pass"))
+        verify(client, never()).pushMetadataProbe(any(), any(), any())
+        Unit
+    }
+
+    @Test
+    fun `probeViability probes when the store is absent and does not mutate local state`() = runBlocking {
+        insertPrimaryAccount()
+        preferences.set(TasksPreferences.metadataRev, "v1")
+        var pushedPayload: String? = null
+        var pushedVersion: String? = null
+        val client = mock<CaldavClient> {
+            onBlocking { principal() } doReturn principal
+            onBlocking { tagMetadata(any()) } doReturn null
+            onBlocking { pushMetadataProbe(any(), any(), any()) } doAnswer { inv ->
+                pushedPayload = inv.getArgument(1)
+                pushedVersion = inv.getArgument(2)
+                true
+            }
+            onBlocking { metadataProbeWithVersion(any()) } doAnswer { pushedPayload to pushedVersion }
+        }
+        val provider = mock<CaldavClientProvider> { onBlocking { forUrl(any(), any(), any()) } doReturn client }
+        val sync = TagMetadataSync(caldavDao, tagDataDao, provider, vtodoCache, preferences)
+
+        assertTrue(sync.probeViability("https://example.com", "user", "pass"))
+        verify(client, never()).pushTagMetadata(any(), any(), any())
+        assertEquals("v1", rev())
+    }
+
+    @Test
+    fun `probeViability rejects a server that cannot persist the probe`() = runBlocking {
+        val client = mock<CaldavClient> {
+            onBlocking { principal() } doReturn principal
+            onBlocking { tagMetadata(any()) } doReturn null
+            onBlocking { pushMetadataProbe(any(), any(), any()) } doReturn true
+            onBlocking { metadataProbeWithVersion(any()) } doReturn
+                    ("""{"version":1,"tags":{},"order":[],"rev":"probe"}""" to null)
+        }
+        val provider = mock<CaldavClientProvider> { onBlocking { forUrl(any(), any(), any()) } doReturn client }
+        val sync = TagMetadataSync(caldavDao, tagDataDao, provider, vtodoCache, preferences)
+
+        assertFalse(sync.probeViability("https://example.com", "user", "pass"))
+    }
+
+    @Test
+    fun `enablePrimary with skipProbe seeds without the capability write`() = runBlocking {
+        val client = mock<CaldavClient> {
+            onBlocking { principal() } doReturn principal
+            onBlocking { tagMetadata(any()) } doReturn null
+            onBlocking { pushTagMetadata(any(), any(), any()) } doReturn true
+        }
+        val provider = mock<CaldavClientProvider> { onBlocking { forAccount(any(), any()) } doReturn client }
+        val sync = TagMetadataSync(caldavDao, tagDataDao, provider, vtodoCache, preferences)
+        val id = caldavDao.insert(CaldavAccount(url = "https://example.com"))
+
+        val enabled = sync.enablePrimary(caldavDao.getAccount(id)!!, skipProbe = true)
+
+        assertTrue(enabled)
+        assertEquals(id, sync.primaryAccount()?.id)
+        verify(client, never()).pushMetadataProbe(any(), any(), any())
+        Unit
+    }
+
+    @Test
+    fun `new account toggle is interactable and unclaimed when no primary exists`() = runBlocking {
+        val toggle = sync.newAccountToggleState()
+
+        assertTrue(toggle.visible)
+        assertFalse(toggle.checked)
+        assertTrue(toggle.interactable)
+        assertFalse(toggle.forcedByTasksOrg)
+        assertNull(toggle.otherPrimary)
+    }
+
+    @Test
+    fun `new account toggle names the current caldav primary`() = runBlocking {
+        val existing = caldavDao.getAccount(caldavDao.insert(CaldavAccount(name = "Personal")))!!
+        preferences.set(TasksPreferences.metadataPrimaryAccount, existing.id!!)
+
+        val toggle = sync.newAccountToggleState()
+
+        assertTrue(toggle.visible)
+        assertFalse(toggle.checked)
+        assertTrue(toggle.interactable)
+        assertEquals("Personal", toggle.otherPrimary)
+    }
+
+    @Test
+    fun `new account toggle is locked off when a tasks org account forces the primary`() = runBlocking {
+        caldavDao.insert(CaldavAccount(accountType = CaldavAccount.TYPE_TASKS, uuid = "tasks-org"))
+
+        val toggle = sync.newAccountToggleState()
+
+        assertTrue(toggle.visible)
+        assertFalse(toggle.checked)
+        assertFalse(toggle.interactable)
+        assertTrue(toggle.forcedByTasksOrg)
     }
 
     @Test

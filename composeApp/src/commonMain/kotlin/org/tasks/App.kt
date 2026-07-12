@@ -410,13 +410,21 @@ fun App(
                     entry<CaldavSignInDestination> {
                         org.tasks.compose.settings.CaldavSignInScreen(
                             onNavigateBack = { backStack.removeLastOrNull() },
-                            onAccountCreated = { backStack.removeLastOrNull() },
+                            onAccountCreated = {
+                                if (backStack.lastOrNull() is CaldavSignInDestination) {
+                                    backStack.removeLastOrNull()
+                                }
+                            },
                         )
                     }
                     entry<EtebaseSignInDestination> {
                         org.tasks.compose.settings.EtebaseSignInScreen(
                             onNavigateBack = { backStack.removeLastOrNull() },
-                            onAccountCreated = { backStack.removeLastOrNull() },
+                            onAccountCreated = {
+                                if (backStack.lastOrNull() is EtebaseSignInDestination) {
+                                    backStack.removeLastOrNull()
+                                }
+                            },
                         )
                     }
                     entry<TaskListDestination> {

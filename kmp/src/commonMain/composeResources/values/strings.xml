@@ -220,6 +220,13 @@
     </plurals>
     <string name="etesync_account_description">Requires an account with EteSync.com or a self-hosted server</string>
     <string name="show_advanced_settings">Show advanced settings</string>
+    <string name="sync_metadata">Store tag metadata here</string>
+    <string name="sync_metadata_summary">Store tag names, colors, icons and display order on this account so they sync across your devices</string>
+    <string name="metadata_stored_on_tasks_org">Stored on your Tasks.org account</string>
+    <string name="metadata_stored_on_account">Currently stored on %1$s</string>
+    <string name="metadata_move_message">Tag metadata is currently stored on %1$s. Move it to this account?</string>
+    <string name="metadata_move">Move</string>
+    <string name="metadata_not_supported">This server doesn't support tag metadata sync</string>
     <string name="link_desktop">Link desktop app</string>
     <string name="link_desktop_description">Unlock the desktop app with your Google Play subscription</string>
     <string name="link_desktop_instructions">Open the Tasks.org desktop app and go to Add Account to see the QR code. Then tap the button below to scan it.</string>

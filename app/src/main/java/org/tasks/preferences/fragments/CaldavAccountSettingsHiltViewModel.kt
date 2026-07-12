@@ -3,6 +3,7 @@ package org.tasks.preferences.fragments
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.tasks.analytics.Reporting
 import org.tasks.caldav.CaldavClientProvider
+import org.tasks.caldav.metadata.TagMetadataSync
 import org.tasks.data.dao.CaldavDao
 import org.tasks.jobs.BackgroundWork
 import org.tasks.security.KeyStoreEncryption
@@ -18,6 +19,7 @@ class CaldavAccountSettingsHiltViewModel @Inject constructor(
     taskDeleter: TaskDeleter,
     backgroundWork: BackgroundWork,
     reporting: Reporting,
+    tagMetadataSync: TagMetadataSync,
 ) : CaldavAccountSettingsViewModel(
     caldavDao = caldavDao,
     caldavClientProvider = caldavClientProvider,
@@ -25,4 +27,5 @@ class CaldavAccountSettingsHiltViewModel @Inject constructor(
     taskDeleter = taskDeleter,
     backgroundWork = backgroundWork,
     reporting = reporting,
+    tagMetadataSync = tagMetadataSync,
 )

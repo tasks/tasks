@@ -46,6 +46,7 @@ fun PreferenceRow(
     showWarning: Boolean = false,
     showError: Boolean = false,
     showChevron: Boolean = false,
+    indent: Boolean = true,
     trailing: (@Composable () -> Unit)? = null,
     onClick: (() -> Unit)? = null,
 ) {
@@ -87,7 +88,7 @@ fun PreferenceRow(
                     tint = iconTint ?: defaultTint
                 )
             }
-            else -> {
+            indent -> {
                 Spacer(modifier = Modifier.width(SettingsContentPadding + SettingsIconSize))
             }
         }
@@ -156,6 +157,7 @@ fun SwitchPreferenceRow(
     icon: ImageVector? = null,
     iconTint: Color? = null,
     summary: String? = null,
+    indent: Boolean = true,
 ) {
     PreferenceRow(
         title = title,
@@ -165,6 +167,7 @@ fun SwitchPreferenceRow(
         iconTint = iconTint,
         summary = summary,
         summaryMaxLines = Int.MAX_VALUE,
+        indent = indent,
         onClick = { onCheckedChange(!checked) },
         trailing = {
             Switch(

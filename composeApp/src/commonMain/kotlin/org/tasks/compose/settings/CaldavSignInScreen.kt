@@ -12,6 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +33,7 @@ fun CaldavSignInScreen(
     onAccountCreated: () -> Unit,
 ) {
     val viewModel = koinViewModel<CaldavAccountSettingsViewModel>()
+    LaunchedEffect(Unit) { viewModel.watchNewAccountMetadata() }
     val state by viewModel.state.collectAsState()
     var showDiscardDialog by remember { mutableStateOf(false) }
 
@@ -73,6 +75,9 @@ fun CaldavSignInScreen(
                 onPasswordChange = viewModel::setPassword,
                 onNameChange = {},
                 onServerTypeChange = viewModel::setServerType,
+                onMetadataToggle = viewModel::onMetadataToggle,
+                onConfirmMetadataSwitch = viewModel::confirmMetadataSwitch,
+                onCancelMetadataSwitch = viewModel::cancelMetadataSwitch,
                 onSave = { viewModel.save(onAccountCreated) },
                 onDelete = {},
                 onNavigateBack = onNavigateBack,

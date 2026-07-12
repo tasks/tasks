@@ -68,10 +68,13 @@ import tasks.kmp.generated.resources.display_name
 import tasks.kmp.generated.resources.logout
 import tasks.kmp.generated.resources.logout_confirmation
 import tasks.kmp.generated.resources.logout_warning
+import tasks.kmp.generated.resources.metadata_move
+import tasks.kmp.generated.resources.metadata_move_message
 import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.password
 import tasks.kmp.generated.resources.save
 import tasks.kmp.generated.resources.sign_in
+import tasks.kmp.generated.resources.sync_metadata
 import tasks.kmp.generated.resources.url
 import tasks.kmp.generated.resources.user
 
@@ -87,6 +90,12 @@ data class CaldavAccountState(
     val isLoading: Boolean = false,
     val snackbar: String? = null,
     val account: CaldavAccount? = null,
+    val metadataVisible: Boolean = false,
+    val metadataChecked: Boolean = false,
+    val metadataInteractable: Boolean = true,
+    val metadataProbing: Boolean = false,
+    val metadataSubtitle: String? = null,
+    val metadataSwitchFrom: String? = null,
 ) {
     val hasChanges: Boolean
         get() = if (account == null) {
@@ -112,6 +121,9 @@ fun CaldavAccountScreen(
     onPasswordChange: (String) -> Unit,
     onNameChange: (String) -> Unit,
     onServerTypeChange: (Int) -> Unit,
+    onMetadataToggle: (Boolean) -> Unit,
+    onConfirmMetadataSwitch: () -> Unit,
+    onCancelMetadataSwitch: () -> Unit,
     onSave: () -> Unit,
     onDelete: () -> Unit,
     onNavigateBack: () -> Unit,
@@ -215,6 +227,27 @@ fun CaldavAccountScreen(
             )
         }
 
+        if (state.metadataVisible) {
+            Spacer(modifier = Modifier.height(SettingsContentPadding))
+            Column(
+                modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            ) {
+                SettingsItemCard {
+                    SwitchPreferenceRow(
+                        title = stringResource(Res.string.sync_metadata),
+                        summary = state.metadataSubtitle,
+                        checked = state.metadataChecked,
+                        onCheckedChange = onMetadataToggle,
+                        enabled = state.metadataInteractable && !state.metadataProbing,
+                        indent = false,
+                    )
+                }
+                if (state.metadataProbing) {
+                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                }
+            }
+        }
+
         Spacer(modifier = Modifier.height(SettingsContentPadding))
 
         Column(
@@ -226,7 +259,7 @@ fun CaldavAccountScreen(
                         if (isNewAccount) Res.string.sign_in else Res.string.save
                     ),
                     icon = if (isNewAccount) Icons.Outlined.Login else Icons.Outlined.Save,
-                    enabled = state.hasChanges && !state.isLoading,
+                    enabled = state.hasChanges && !state.isLoading && !state.metadataProbing,
                     onClick = onSave,
                 )
             }
@@ -312,6 +345,31 @@ fun CaldavAccountScreen(
             },
             dismissButton = {
                 TextButton(onClick = { onDiscardDialogChange(false) }) {
+                    Text(text = stringResource(Res.string.cancel))
+                }
+            },
+        )
+    }
+
+    if (state.metadataSwitchFrom != null) {
+        AlertDialog(
+            onDismissRequest = onCancelMetadataSwitch,
+            title = {
+                Text(
+                    text = stringResource(Res.string.sync_metadata),
+                    style = MaterialTheme.typography.headlineSmall,
+                )
+            },
+            text = {
+                Text(text = stringResource(Res.string.metadata_move_message, state.metadataSwitchFrom))
+            },
+            confirmButton = {
+                TextButton(onClick = onConfirmMetadataSwitch) {
+                    Text(text = stringResource(Res.string.metadata_move))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = onCancelMetadataSwitch) {
                     Text(text = stringResource(Res.string.cancel))
                 }
             },
