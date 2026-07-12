@@ -45,6 +45,8 @@ import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.caldav.metadata.TagMetadataSync
 import org.tasks.caldav.property.CalendarIcon
 import org.tasks.caldav.property.Invite
+import org.tasks.caldav.property.MetadataProbe
+import org.tasks.caldav.property.MetadataProbeVersion
 import org.tasks.caldav.property.OCAccess
 import org.tasks.caldav.property.OCInvite
 import org.tasks.caldav.property.OCOwnerPrincipal
@@ -519,6 +521,8 @@ class CaldavSynchronizer(
                     CalendarIcon.Factory,
                     TagMetadata.Factory,
                     TagMetadataVersion.Factory,
+                    MetadataProbe.Factory,
+                    MetadataProbeVersion.Factory,
                 )
             )
         }

@@ -35,6 +35,8 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.caldav_home_set_not_found
 import org.tasks.caldav.property.CalendarIcon
 import org.tasks.caldav.property.Invite
+import org.tasks.caldav.property.MetadataProbe
+import org.tasks.caldav.property.MetadataProbeVersion
 import org.tasks.caldav.property.OCInvite
 import org.tasks.caldav.property.OCOwnerPrincipal
 import org.tasks.caldav.property.PropertyUtils.NS_OWNCLOUD
@@ -163,6 +165,27 @@ open class CaldavClient(
     @Throws(IOException::class)
     suspend fun pushTagMetadata(url: HttpUrl, json: String, version: String): Boolean =
         pushProperty(url, TagMetadata.NAME, TagMetadataVersion.NAME, json, version)
+
+    @Throws(IOException::class)
+    suspend fun pushMetadataProbe(url: HttpUrl, json: String, version: String): Boolean =
+        pushProperty(url, MetadataProbe.NAME, MetadataProbeVersion.NAME, json, version)
+
+    @Throws(IOException::class, HttpException::class)
+    suspend fun metadataProbeWithVersion(url: HttpUrl): Pair<String?, String?> = withContext(Dispatchers.IO) {
+        DavResource(httpClient, url)
+            .propfind(0, MetadataProbe.NAME, MetadataProbeVersion.NAME)
+            .firstOrNull()
+            ?.let { (response, _) ->
+                val payload = response[MetadataProbe::class.java]?.json?.takeIf { it.isNotBlank() }
+                val version = response[MetadataProbeVersion::class.java]?.version?.takeIf { it.isNotBlank() }
+                payload to version
+            }
+            ?: (null to null)
+    }
+
+    @Throws(IOException::class)
+    suspend fun removeMetadataProbe(url: HttpUrl): Boolean =
+        proppatch(url, proppatchBody(set = emptyList(), remove = listOf(MetadataProbe.NAME, MetadataProbeVersion.NAME)))
 
     private suspend fun pushProperty(
         url: HttpUrl,
