@@ -262,6 +262,16 @@ class ApplicationModule {
 
     @Provides
     @Singleton
+    fun providesTagMetadataSync(
+        caldavDao: CaldavDao,
+        tagDataDao: org.tasks.data.dao.TagDataDao,
+        provider: org.tasks.caldav.CaldavClientProvider,
+        vtodoCache: VtodoCache,
+        tasksPreferences: TasksPreferences,
+    ) = org.tasks.caldav.metadata.TagMetadataSync(caldavDao, tagDataDao, provider, vtodoCache, tasksPreferences)
+
+    @Provides
+    @Singleton
     fun providesKeyStoreEncryption(): KeyStoreEncryption = AndroidKeyStoreEncryption()
 
     @Provides
@@ -508,9 +518,10 @@ class ApplicationModule {
         principalDao: org.tasks.data.dao.PrincipalDao,
         vtodoCache: VtodoCache,
         accountDataRepository: org.tasks.caldav.TasksAccountDataRepository,
+        tagMetadataSync: org.tasks.caldav.metadata.TagMetadataSync,
     ) = org.tasks.caldav.CaldavSynchronizer(
         caldavDao, dirtyDao, refreshBroadcaster, taskDeleter, reporting,
-        provider, iCal, principalDao, vtodoCache, accountDataRepository,
+        provider, iCal, principalDao, vtodoCache, accountDataRepository, tagMetadataSync,
     )
 
     @Provides

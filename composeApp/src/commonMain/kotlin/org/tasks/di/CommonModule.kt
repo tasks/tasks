@@ -267,6 +267,15 @@ val commonModule = module {
     factoryOf(::TaskMover)
     factoryOf(::iCalendar)
     factoryOf(::CaldavSynchronizer)
+    single {
+        org.tasks.caldav.metadata.TagMetadataSync(
+            caldavDao = get(),
+            tagDataDao = get(),
+            provider = get(),
+            vtodoCache = get(),
+            preferences = get(),
+        )
+    }
     factoryOf(::EtebaseSynchronizer)
     factory {
         DesktopGoogleTasksSynchronizer(
@@ -424,6 +433,7 @@ val commonModule = module {
             taskDeleter = get(),
             backgroundWork = get(),
             reporting = get(),
+            tagMetadataSync = get(),
         )
     }
     viewModel { params ->
@@ -489,9 +499,10 @@ val commonModule = module {
         TagSettingsViewModel(
             tagDataDao = get(),
             refreshBroadcaster = get(),
-            tasksPreferences = get(),
             reporting = get(),
             purchaseState = get(),
+            tagMetadataSync = get(),
+            syncAdapters = get(),
             isDark = params.get(),
             tagData = params.get(),
         )

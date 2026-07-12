@@ -7,6 +7,7 @@ enum class SyncSource(val showIndicator: Boolean, val immediate: Boolean = true)
     CONTENT_OBSERVER(true),
     BACKGROUND(false),
     TASK_CHANGE(showIndicator = true, immediate = false),
+    METADATA_CHANGE(showIndicator = false, immediate = false),
     APP_BACKGROUND(false),
     APP_RESUME(false),
     ACCOUNT_ADDED(true),

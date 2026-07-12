@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.ItemTouchHelper.DOWN
 import androidx.recyclerview.widget.ItemTouchHelper.UP
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import co.touchlab.kermit.Logger
 import com.todoroo.astrid.adapter.FilterViewHolder
 import com.todoroo.astrid.adapter.NavigationDrawerAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,6 +42,9 @@ import org.tasks.filters.FilterListItem
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
+import org.tasks.caldav.metadata.TagMetadataSync
+import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
@@ -57,6 +61,8 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var tagMetadataSync: TagMetadataSync
+    @Inject lateinit var syncAdapters: SyncAdapters
 
     private lateinit var binding: ActivityTagOrganizerBinding
     private lateinit var toolbar: Toolbar
@@ -116,6 +122,17 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
                 .let { adapter.submitList(ArrayList(it)) }
     }
 
+    private fun pushTagOrder() {
+        lifecycleScope.launch {
+            try {
+                tagMetadataSync.markOrderDirty()
+                syncAdapters.sync(SyncSource.METADATA_CHANGE)
+            } catch (e: Exception) {
+                Logger.e(e) { "failed to queue tag order push" }
+            }
+        }
+    }
+
     private fun onClick(item: FilterListItem?) {
         when (item) {
             is CaldavFilter ->
@@ -146,6 +163,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
                 caldavDao.resetOrders()
                 tagDataDao.resetOrders()
                 locationDao.resetOrders()
+                pushTagOrder()
                 updateFilters()
             }
             true
@@ -222,6 +240,9 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
                                     setOrder(order, filter)
                                 }
                             }
+                    if (viewHolder.filter is TagFilter) {
+                        pushTagOrder()
+                    }
                     updateFilters()
                 }
             }

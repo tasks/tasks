@@ -17,6 +17,7 @@ import org.tasks.data.db.Database
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
@@ -132,6 +133,14 @@ ORDER BY CASE cda_account_type
 
     @Query("UPDATE caldav_accounts SET cda_collapsed = :collapsed WHERE cda_id = :id")
     abstract suspend fun setCollapsed(id: String, collapsed: Boolean)
+
+    @Query(
+        "SELECT * FROM caldav_accounts " +
+        "WHERE cda_account_type = $TYPE_TASKS OR (cda_id = :preferredId AND cda_account_type = $TYPE_CALDAV) " +
+        "ORDER BY (cda_account_type = $TYPE_TASKS) DESC, cda_id ASC " +
+        "LIMIT 1"
+    )
+    abstract suspend fun getMetadataPrimary(preferredId: Long): CaldavAccount?
 
     @Insert
     abstract suspend fun insert(caldavAccount: CaldavAccount): Long

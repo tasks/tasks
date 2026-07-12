@@ -29,6 +29,7 @@ import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.caldav_home_set_not_found
@@ -38,6 +39,8 @@ import org.tasks.caldav.property.OCInvite
 import org.tasks.caldav.property.OCOwnerPrincipal
 import org.tasks.caldav.property.PropertyUtils.NS_OWNCLOUD
 import org.tasks.caldav.property.ShareAccess
+import org.tasks.caldav.property.TagMetadata
+import org.tasks.caldav.property.TagMetadataVersion
 import org.tasks.data.UUIDHelper
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_NEXTCLOUD
@@ -65,14 +68,27 @@ open class CaldavClient(
             provider.forAccount(account)
 
     private suspend fun tryFindPrincipal(link: String): String? =
-            httpUrl
-                    ?.resolve(link)
-                    ?.let { DavResource(httpClient, it) }
-                    ?.propfind(0, WebDAV.CurrentUserPrincipal)
-                    ?.firstOrNull()
-                    ?.let { (response, _) -> response[CurrentUserPrincipal::class.java] }
+            httpUrl?.resolve(link)?.let { currentUserPrincipalHref(it) }
+
+    private suspend fun <T : Property> propfindProperty(
+        url: HttpUrl,
+        name: Property.Name,
+        type: Class<T>,
+    ): T? = withContext(Dispatchers.IO) {
+        DavResource(httpClient, url)
+            .propfind(0, name)
+            .firstOrNull()
+            ?.let { (response, _) -> response[type] }
+    }
+
+    private suspend fun currentUserPrincipalHref(url: HttpUrl): String? =
+            propfindProperty(url, WebDAV.CurrentUserPrincipal, CurrentUserPrincipal::class.java)
                     ?.href
                     ?.takeIf { it.isNotBlank() }
+
+    suspend fun principal(): HttpUrl? = withContext(Dispatchers.IO) {
+        currentUserPrincipalHref(httpUrl!!)?.let { httpUrl!!.resolve(it) }
+    }
 
     private suspend fun findHomeset(): String {
         val davResource = DavResource(httpClient, httpUrl!!)
@@ -133,6 +149,63 @@ open class CaldavClient(
                         response[SupportedCalendarComponentSet::class.java]?.supportsTasks == true
             }
             .map { (response, _) -> response }
+
+    @Throws(IOException::class, HttpException::class)
+    suspend fun tagMetadata(url: HttpUrl): String? =
+        propfindProperty(url, TagMetadata.NAME, TagMetadata::class.java)?.json?.takeIf { it.isNotBlank() }
+
+    @Throws(IOException::class, HttpException::class)
+    suspend fun tagMetadataVersion(url: HttpUrl): String? =
+        propfindProperty(url, TagMetadataVersion.NAME, TagMetadataVersion::class.java)
+            ?.version
+            ?.takeIf { it.isNotBlank() }
+
+    @Throws(IOException::class)
+    suspend fun pushTagMetadata(url: HttpUrl, json: String, version: String): Boolean =
+        pushProperty(url, TagMetadata.NAME, TagMetadataVersion.NAME, json, version)
+
+    private suspend fun pushProperty(
+        url: HttpUrl,
+        property: Property.Name,
+        versionProperty: Property.Name,
+        json: String,
+        version: String,
+    ): Boolean = withContext(Dispatchers.IO) {
+        proppatch(
+            url,
+            proppatchBody(
+                set = listOf(property to json, versionProperty to version),
+                remove = emptyList(),
+            )
+        )
+    }
+
+    private suspend fun proppatch(url: HttpUrl, body: String): Boolean = withContext(Dispatchers.IO) {
+        val request = Request.Builder()
+            .url(url)
+            .method("PROPPATCH", body.toRequestBody(MIME_XML))
+            .build()
+        httpClient.newCall(request).execute().use { response ->
+            when {
+                response.code == 403 || response.code == 405 -> {
+                    Logger.w(tag = "CaldavClient") { "metadata PROPPATCH refused (${response.code}) at $url" }
+                    false
+                }
+                response.code == 207 -> {
+                    when (val failure = propstatFailureCode(response.body?.string())) {
+                        null -> true
+                        in 500..599 -> throw IOException("metadata PROPPATCH transient failure ($failure) at $url")
+                        else -> {
+                            Logger.w(tag = "CaldavClient") { "metadata propstat refused ($failure) at $url" }
+                            false
+                        }
+                    }
+                }
+                response.isSuccessful -> true
+                else -> throw IOException("metadata PROPPATCH failed: HTTP ${response.code} at $url")
+            }
+        }
+    }
 
     @Throws(IOException::class, HttpException::class)
     suspend fun deleteCollection() = withContext(Dispatchers.IO) {

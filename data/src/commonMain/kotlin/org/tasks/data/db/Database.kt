@@ -14,6 +14,7 @@ import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.LocationDao
+import org.tasks.data.dao.METADATA_CATEGORY_TAG
 import org.tasks.data.dao.MetadataDao
 import org.tasks.data.dao.NotificationDao
 import org.tasks.data.dao.PrincipalDao
@@ -132,9 +133,18 @@ abstract class Database : RoomDatabase() {
             END
         """.trimIndent()
 
+        val TAG_METADATA_STATE_CLEANUP_TRIGGER = """
+            CREATE TRIGGER IF NOT EXISTS tag_metadata_state_cleanup
+            AFTER DELETE ON tagdata
+            BEGIN
+              DELETE FROM metadata_sync_state WHERE category = '$METADATA_CATEGORY_TAG' AND local_id = OLD._id;
+            END
+        """.trimIndent()
+
         val CALLBACK = object : RoomDatabase.Callback() {
             override fun onOpen(connection: SQLiteConnection) {
                 connection.execSQL(TASK_DIRTY_TRIGGER)
+                connection.execSQL(TAG_METADATA_STATE_CLEANUP_TRIGGER)
             }
         }
     }

@@ -38,19 +38,23 @@ abstract class TagDao(private val database: Database) {
     abstract suspend fun delete(tags: List<Tag>)
 
     @Transaction
-    open suspend fun applyTags(task: Task, current: Collection<TagData>) {
+    open suspend fun applyTags(task: Task, current: Collection<TagData>, rescueReaped: Boolean = true) {
         Logger.d("TagDao") { "applyTags task=$task current=$current" }
         val taskId = task.id
-        val existing = HashSet(database.tagDataDao().getTagDataForTask(taskId))
-        val selected = current.toMutableSet()
-        val added = selected subtract existing
-        val removed = existing subtract selected
+        val selection = if (rescueReaped) database.tagDataDao().rescueReaped(current) else current
+        val existing = database.tagDataDao().getTagDataForTask(taskId)
+        val existingIds = existing.mapNotNull { it.remoteId }.toHashSet()
+        val selectedIds = selection.mapNotNull { it.remoteId }.toHashSet()
+        val added = selection.filter { it.remoteId !in existingIds }
+        val removed = existing.filter { it.remoteId !in selectedIds }
         deleteTags(taskId, removed.map { td -> td.remoteId!! })
         insert(task, added)
     }
 
-    suspend fun applyTags(task: Task, names: List<String>) =
-        applyTags(task, database.tagDataDao().getOrCreateTags(names))
+    @Transaction
+    open suspend fun applyTags(task: Task, names: List<String>) {
+        applyTags(task, database.tagDataDao().getOrCreateTags(names), rescueReaped = false)
+    }
 
     suspend fun insert(task: Task, tags: Collection<TagData>) {
         if (!tags.isEmpty()) {
@@ -67,6 +71,8 @@ abstract class TagDao(private val database: Database) {
         }
     }
 
-    suspend fun insert(task: Task, names: List<String>) =
+    @Transaction
+    open suspend fun insert(task: Task, names: List<String>) {
         insert(task, database.tagDataDao().getOrCreateTags(names))
+    }
 }

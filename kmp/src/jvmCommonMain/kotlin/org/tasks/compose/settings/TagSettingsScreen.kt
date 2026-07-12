@@ -110,7 +110,6 @@ fun TagSettingsScreen(
 
             Spacer(modifier = Modifier.height(SettingsContentPadding))
 
-            // Name input
             Column(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
                 TextInputCard(
                     value = state.name,
@@ -123,7 +122,6 @@ fun TagSettingsScreen(
 
             Spacer(modifier = Modifier.height(SettingsContentPadding))
 
-            // Color and icon pickers
             ColorIconCards(
                 color = state.color,
                 icon = state.icon,
@@ -133,7 +131,6 @@ fun TagSettingsScreen(
                 onIconClick = viewModel::openIconPicker,
             )
 
-            // Shortcut and widget
             ShortcutWidgetCards(
                 onAddShortcut = onAddShortcut,
                 onAddWidget = onAddWidget,
@@ -142,7 +139,6 @@ fun TagSettingsScreen(
 
             Spacer(modifier = Modifier.height(SettingsContentPadding))
 
-            // Save button
             Column(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
                 SettingsItemCard {
                     PreferenceRow(
@@ -154,7 +150,6 @@ fun TagSettingsScreen(
                 }
             }
 
-            // Delete button
             if (!isNew) {
                 Spacer(modifier = Modifier.height(SettingsContentPadding))
 
@@ -172,7 +167,6 @@ fun TagSettingsScreen(
         }
     }
 
-    // Color picker dialog
     if (state.showColorPicker) {
         ColorPickerDialog(
             hasPro = state.hasPro,
@@ -185,7 +179,6 @@ fun TagSettingsScreen(
         )
     }
 
-    // Icon picker dialog
     if (state.showIconPicker) {
         val iconPickerViewModel = remember { IconPickerViewModel() }
         val iconState = iconPickerViewModel.viewState.collectAsState().value
@@ -208,7 +201,6 @@ fun TagSettingsScreen(
         }
     }
 
-    // Delete dialog
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
@@ -237,7 +229,6 @@ fun TagSettingsScreen(
         )
     }
 
-    // Discard dialog
     if (state.showDiscardDialog) {
         AlertDialog(
             onDismissRequest = viewModel::dismissDiscardDialog,

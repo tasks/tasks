@@ -49,3 +49,9 @@ data class TagData(
         fun normalize(name: String?): String = (name ?: "").trim().lowercase()
     }
 }
+
+fun TagData.isSyncable(): Boolean = id != null && remoteId != null && !name.isNullOrBlank()
+
+fun normalizeColor(color: Int?): Int? = color?.takeIf { it != 0 }
+
+fun normalizeIcon(icon: String?): String? = icon?.takeIf { it.isNotBlank() }

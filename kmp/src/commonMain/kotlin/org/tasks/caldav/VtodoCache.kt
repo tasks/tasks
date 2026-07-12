@@ -9,6 +9,8 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import java.io.File
 
+private const val TAG_METADATA_FILE = "tag-metadata.json"
+
 class VtodoCache(
     private val caldavDao: CaldavDao,
     private val fileStorage: FileStorage,
@@ -68,6 +70,14 @@ class VtodoCache(
             val deleted = it.deleteRecursively()
             Logger.d("VtodoCache") { "Deleting $it [success=$deleted]" }
         }
+    }
+
+    suspend fun getTagMetadata(account: CaldavAccount): String? =
+        fileStorage.read(fileStorage.getFile(account.uuid, TAG_METADATA_FILE))
+
+    suspend fun putTagMetadata(account: CaldavAccount, data: String?) = withContext(Dispatchers.IO) {
+        val directory = fileStorage.getFile(account.uuid)?.apply { mkdirs() } ?: return@withContext
+        fileStorage.write(File(directory, TAG_METADATA_FILE), data)
     }
 
     suspend fun clear() = withContext(Dispatchers.IO) {

@@ -42,6 +42,7 @@ import org.tasks.analytics.Reporting
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
+import org.tasks.caldav.metadata.TagMetadataSync
 import org.tasks.caldav.property.CalendarIcon
 import org.tasks.caldav.property.Invite
 import org.tasks.caldav.property.OCAccess
@@ -55,6 +56,8 @@ import org.tasks.caldav.property.ShareAccess.Companion.READ
 import org.tasks.caldav.property.ShareAccess.Companion.READ_WRITE
 import org.tasks.caldav.property.ShareAccess.Companion.SHARED_OWNER
 import org.tasks.caldav.property.Sharee
+import org.tasks.caldav.property.TagMetadata
+import org.tasks.caldav.property.TagMetadataVersion
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.PrincipalDao
@@ -98,6 +101,7 @@ class CaldavSynchronizer(
     private val principalDao: PrincipalDao,
     private val vtodoCache: VtodoCache,
     private val accountDataRepository: TasksAccountDataRepository,
+    private val tagMetadataSync: TagMetadataSync,
 ) {
     suspend fun sync(account: CaldavAccount, hasPro: Boolean) {
         Logger.d(TAG) { "Synchronizing $account" }
@@ -178,6 +182,11 @@ class CaldavSynchronizer(
         for (calendar in caldavDao.findDeletedCalendars(account.uuid!!, ArrayList(urls))) {
             taskDeleter.delete(calendar)
         }
+        val metadataPulled = if (tagMetadataSync.isPrimary(account)) {
+            tagMetadataSync.pullMetadata(account, caldavClient)
+        } else {
+            null
+        }
         for (resource in resources) {
             val url = resource.href.toString()
             var calendar = caldavDao.getCalendarByUrl(account.uuid!!, url)
@@ -233,6 +242,11 @@ class CaldavSynchronizer(
                     account, calendar, caldavClient.httpClient, resource.href
                 )
             }
+        }
+        if (metadataPulled != null &&
+            tagMetadataSync.pushAndReap(account, caldavClient, metadataPulled)
+        ) {
+            refreshBroadcaster.broadcastRefresh()
         }
     }
 
@@ -503,6 +517,8 @@ class CaldavSynchronizer(
                     OCOwnerPrincipal.Factory(),
                     OCInvite.Factory(),
                     CalendarIcon.Factory,
+                    TagMetadata.Factory,
+                    TagMetadataVersion.Factory,
                 )
             )
         }

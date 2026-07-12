@@ -11,17 +11,20 @@ import kotlinx.coroutines.launch
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.TagData
 import org.tasks.data.searchTags
+import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 
 open class TagPickerViewModel(
     private val tagDataDao: TagDataDao,
+    private val syncAdapters: SyncAdapters,
 ) : ViewModel() {
 
     private val _tags = mutableStateOf<List<TagData>>(emptyList())
     val tags: State<List<TagData>>
         get() = _tags
 
-    private val selected: MutableSet<TagData> = HashSet()
-    private val partiallySelected: MutableSet<TagData> = HashSet()
+    private val selected = LinkedHashMap<String, TagData>()
+    private val partiallySelected = LinkedHashMap<String, TagData>()
 
     val searchText: State<String>
         get() = _searchText
@@ -32,15 +35,18 @@ open class TagPickerViewModel(
     private val _tagToCreate = mutableStateOf("")
 
     fun setSelected(selected: List<TagData>, partiallySelected: List<TagData>?) {
-        this.selected.addAll(selected)
-        if (partiallySelected != null) {
-            this.partiallySelected.addAll(partiallySelected)
-        }
+        selected.forEach { tag -> tag.remoteId?.let { this.selected[it] = tag } }
+        partiallySelected?.forEach { tag -> tag.remoteId?.let { this.partiallySelected[it] = tag } }
     }
 
-    fun getSelected() = ArrayList(selected)
+    fun getSelected() = ArrayList(selected.values)
 
-    fun getPartiallySelected() = ArrayList(partiallySelected)
+    fun getPartiallySelected() = ArrayList(partiallySelected.values)
+
+    private fun isSelected(tagData: TagData) = tagData.remoteId?.let { selected.containsKey(it) } == true
+
+    private fun isPartiallySelected(tagData: TagData) =
+        tagData.remoteId?.let { partiallySelected.containsKey(it) } == true
 
     private var searchJob: Job? = null
 
@@ -58,7 +64,7 @@ open class TagPickerViewModel(
 
     private fun onUpdate(newText: String, results: MutableList<TagData>) {
         val sorted = results.sortedByDescending {
-            selected.contains(it) || partiallySelected.contains(it)
+            isSelected(it) || isPartiallySelected(it)
         }
         if (newText != "" && !results.any { newText.equals(it.name, ignoreCase = true) })
             _tagToCreate.value = newText
@@ -68,29 +74,33 @@ open class TagPickerViewModel(
     }
 
     fun getState(tagData: TagData): ToggleableState {
-        if (partiallySelected.contains(tagData)) {
+        if (isPartiallySelected(tagData)) {
             return ToggleableState.Indeterminate
         }
-        return if (selected.contains(tagData)) ToggleableState.On else ToggleableState.Off
+        return if (isSelected(tagData)) ToggleableState.On else ToggleableState.Off
     }
 
+    private suspend fun getOrCreateDirty(name: String): TagData =
+        tagDataDao.createDirty(TagData(name = name))?.also {
+            syncAdapters.sync(SyncSource.METADATA_CHANGE)
+        } ?: tagDataDao.getOrCreateTag(name)
+
     suspend fun toggle(tagData: TagData, checked: Boolean): ToggleableState {
-        var tagData = tagData
-        if (tagData.id == null) {
-            tagData = tagDataDao.getOrCreateTag(tagData.name.orEmpty())
-        }
-        partiallySelected.remove(tagData)
+        val tag = if (tagData.id == null) getOrCreateDirty(tagData.name.orEmpty()) else tagData
+        val key = tag.remoteId ?: return ToggleableState.Off
+        partiallySelected.remove(key)
         return if (checked) {
-            selected.add(tagData)
+            selected[key] = tag
             ToggleableState.On
         } else {
-            selected.remove(tagData)
+            selected.remove(key)
             ToggleableState.Off
         }
     }
 
     suspend fun createNew(name: String) {
-        selected.add(tagDataDao.getOrCreateTag(name))
+        val tag = getOrCreateDirty(name)
+        tag.remoteId?.let { selected[it] = tag }
         search("")
     }
 }
