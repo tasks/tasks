@@ -70,11 +70,11 @@ fun TagSettingsScreen(
     onAddWidget: (() -> Unit)? = null,
 ) {
     val state by viewModel.viewState.collectAsState()
-    val isNew = viewModel.isNew
+    val isNew = state.isNew
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
 
     val navigateBackOrPrompt: () -> Unit = {
-        if (viewModel.hasChanges) viewModel.showDiscardDialog() else onNavigateBack()
+        if (state.hasChanges) viewModel.showDiscardDialog() else onNavigateBack()
     }
 
     PlatformBackHandler(enabled = true, onBack = navigateBackOrPrompt)
@@ -144,7 +144,7 @@ fun TagSettingsScreen(
                     PreferenceRow(
                         title = stringResource(Res.string.save),
                         icon = Icons.Outlined.Save,
-                        enabled = state.name.isNotBlank() && viewModel.hasChanges && !state.isLoading,
+                        enabled = state.name.isNotBlank() && state.hasChanges && !state.isLoading,
                         onClick = onSave,
                     )
                 }

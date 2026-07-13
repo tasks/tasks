@@ -22,7 +22,6 @@ import org.tasks.sync.SyncSource
 import org.tasks.compose.settings.buildPickerColors
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.TagData
-import org.tasks.filters.TagFilter
 import org.tasks.themes.TasksIcons
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.name_cannot_be_empty
@@ -37,10 +36,11 @@ open class TagSettingsViewModel(
     private val syncAdapters: SyncAdapters,
     isDark: Boolean,
     hasColorWheel: Boolean = false,
-    private val tagData: TagData,
+    tagData: TagData,
 ) : ViewModel() {
 
     data class ViewState(
+        val tag: TagData = TagData(),
         val name: String = "",
         val color: Int = 0,
         val icon: String = TasksIcons.LABEL,
@@ -52,15 +52,23 @@ open class TagSettingsViewModel(
         val hasPro: Boolean = false,
         val hasColorWheel: Boolean = false,
         val showDiscardDialog: Boolean = false,
-    )
+    ) {
+        val isNew: Boolean
+            get() = tag.id == null
 
-    val isNew: Boolean = tagData.id == null
-
-    val tagFilter: TagFilter?
-        get() = if (isNew) null else TagFilter(tagData)
+        val hasChanges: Boolean
+            get() = if (isNew) {
+                name.isNotBlank() || color != 0 || icon != TasksIcons.LABEL
+            } else {
+                name.trim() != tag.name ||
+                        color != (tag.color ?: 0) ||
+                        icon != (tag.icon ?: TasksIcons.LABEL)
+            }
+    }
 
     private val _viewState = MutableStateFlow(
         ViewState(
+            tag = tagData,
             name = tagData.name ?: "",
             color = tagData.color ?: 0,
             icon = tagData.icon ?: TasksIcons.LABEL,
@@ -70,18 +78,6 @@ open class TagSettingsViewModel(
         )
     )
     val viewState: StateFlow<ViewState> = _viewState.asStateFlow()
-
-    val hasChanges: Boolean
-        get() {
-            val s = _viewState.value
-            return if (isNew) {
-                s.name.isNotBlank() || s.color != 0 || s.icon != TasksIcons.LABEL
-            } else {
-                s.name.trim() != tagData.name ||
-                        s.color != (tagData.color ?: 0) ||
-                        s.icon != (tagData.icon ?: TasksIcons.LABEL)
-            }
-        }
 
     fun setName(value: String) = _viewState.update { it.copy(name = value, nameError = null) }
 
@@ -109,17 +105,18 @@ open class TagSettingsViewModel(
 
 
     fun save(onDismiss: () -> Unit = {}, onComplete: (TagData) -> Unit) = withLoading {
-        val name = _viewState.value.name.trim()
+        val s = _viewState.value
+        val name = s.name.trim()
         if (!validate(name)) return@withLoading
         when {
-            isNew -> create(name)?.let(onComplete)
-            hasChanges -> update(name)?.let(onComplete)
+            s.isNew -> create(name)?.let(onComplete)
+            s.hasChanges -> update(name)?.let(onComplete)
             else -> onDismiss()
         }
     }
 
     fun persist(onComplete: (TagData) -> Unit) =
-        save(onDismiss = { onComplete(tagData) }, onComplete = onComplete)
+        save(onDismiss = { onComplete(_viewState.value.tag) }, onComplete = onComplete)
 
     private fun withLoading(block: suspend () -> Unit) {
         if (_viewState.value.isLoading) return
@@ -147,18 +144,21 @@ open class TagSettingsViewModel(
         return true
     }
 
-    private suspend fun clashes(newName: String): Boolean =
-        (isNew || !newName.equals(tagData.name, ignoreCase = true)) &&
+    private suspend fun clashes(newName: String): Boolean {
+        val s = _viewState.value
+        return (s.isNew || !newName.equals(s.tag.name, ignoreCase = true)) &&
                 tagDataDao.getTagByName(newName) != null
+    }
 
     private suspend fun create(name: String): TagData? = withContext(NonCancellable) {
         val s = _viewState.value
         val created = tagDataDao.createDirty(
-            tagData.copy(name = name, color = s.color, icon = s.icon)
+            TagData(name = name, color = s.color, icon = s.icon)
         ) ?: run {
             _viewState.update { it.copy(nameError = getString(Res.string.tag_already_exists)) }
             return@withContext null
         }
+        _viewState.update { it.copy(tag = created) }
         reporting.logEvent(AnalyticsEvents.CREATE_TAG)
         refreshBroadcaster.broadcastRefresh()
         syncAdapters.sync(SyncSource.METADATA_CHANGE)
@@ -167,29 +167,31 @@ open class TagSettingsViewModel(
 
     private suspend fun update(name: String): TagData? = withContext(NonCancellable) {
         val s = _viewState.value
-        val isRename = TagData.normalize(name) != tagData.normalizedName
-        val nameChanged = name != tagData.name
-        val colorChanged = s.color != (tagData.color ?: 0)
-        val iconChanged = s.icon != (tagData.icon ?: TasksIcons.LABEL)
-        val remoteId = tagData.remoteId!!
+        val tag = s.tag
+        val isRename = TagData.normalize(name) != tag.normalizedName
+        val nameChanged = name != tag.name
+        val colorChanged = s.color != (tag.color ?: 0)
+        val iconChanged = s.icon != (tag.icon ?: TasksIcons.LABEL)
+        val remoteId = tag.remoteId!!
         if (isRename) {
-            val row = tagMetadataSync.renameTag(remoteId, name, s.color, s.icon, colorChanged, iconChanged, tagData.order)
+            val row = tagMetadataSync.renameTag(remoteId, name, s.color, s.icon, colorChanged, iconChanged, tag.order)
             if (row == null) {
                 _viewState.update { it.copy(nameError = getString(Res.string.tag_already_exists)) }
                 null
             } else {
+                _viewState.update { it.copy(tag = row) }
                 refreshBroadcaster.broadcastRefresh()
                 syncAdapters.sync(SyncSource.METADATA_CHANGE)
                 row
             }
         } else {
-            if (!tagDataDao.editTag(remoteId, name, s.color, s.icon, nameChanged, colorChanged, iconChanged, tagData.order)) {
+            if (!tagDataDao.editTag(remoteId, name, s.color, s.icon, nameChanged, colorChanged, iconChanged, tag.order)) {
                 _viewState.update { it.copy(nameError = getString(Res.string.tag_already_exists)) }
                 return@withContext null
             }
             refreshBroadcaster.broadcastRefresh()
             syncAdapters.sync(SyncSource.METADATA_CHANGE)
-            tagDataDao.getByUuid(remoteId)
+            tagDataDao.getByUuid(remoteId)?.also { updated -> _viewState.update { it.copy(tag = updated) } }
         }
     }
 
@@ -199,8 +201,9 @@ open class TagSettingsViewModel(
                 AnalyticsEvents.SETTINGS_CLICK,
                 AnalyticsEvents.PARAM_TYPE to AnalyticsEvents.SettingsClick.DELETE_TAG,
             )
-            val uuid = tagData.remoteId
-            tagMetadataSync.deleteTag(tagData)
+            val tag = _viewState.value.tag
+            val uuid = tag.remoteId
+            tagMetadataSync.deleteTag(tag)
             refreshBroadcaster.broadcastRefresh()
             syncAdapters.sync(SyncSource.METADATA_CHANGE)
             onComplete(uuid)

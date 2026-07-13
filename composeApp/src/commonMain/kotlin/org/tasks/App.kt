@@ -1682,12 +1682,13 @@ private fun TagSettingsDialog(
         key = viewModelKey,
         parameters = { org.koin.core.parameter.parametersOf(isDark, tagData) },
     )
+    val state by viewModel.viewState.collectAsState()
 
     val dismiss = { onDismiss(null) }
 
     BasicAlertDialog(
         onDismissRequest = {
-            if (viewModel.hasChanges) {
+            if (state.hasChanges) {
                 viewModel.showDiscardDialog()
             } else {
                 dismiss()
