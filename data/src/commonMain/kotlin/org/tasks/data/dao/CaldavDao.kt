@@ -249,6 +249,14 @@ WHERE cd_calendar = :calendar
         tasks.eachChunk { markDeletedInternal(it, now) }
     }
 
+    @Query("SELECT cd_task FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0")
+    internal abstract suspend fun getTaskIdsByCalendar(calendar: String): List<Long>
+
+    @Transaction
+    open suspend fun markCalendarDirty(calendar: String) {
+        database.dirtyDao().setDirty(getTaskIdsByCalendar(calendar))
+    }
+
     @Query("UPDATE caldav_tasks SET cd_deleted = :now WHERE cd_task IN (:tasks)")
     internal abstract suspend fun markDeletedInternal(tasks: List<Long>, now: Long = currentTimeMillis())
 

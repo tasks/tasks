@@ -21,6 +21,7 @@ class TaskMigrator(
                     account = toAccount.uuid,
                 )
             )
+            caldavDao.markCalendarDirty(it.uuid!!)
         }
         taskDeleter.delete(fromAccount)
         syncAdapters.sync(SyncSource.ACCOUNT_ADDED)

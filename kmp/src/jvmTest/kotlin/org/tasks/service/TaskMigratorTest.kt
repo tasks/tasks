@@ -18,11 +18,15 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Task
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 
 class TaskMigratorTest : DatabaseTest() {
     private val caldavDao = db.caldavDao()
+    private val taskDao = db.taskDao()
+    private val dirtyDao = db.dirtyDao()
     private val taskDeleter = TaskDeleter(
         deletionDao = db.deletionDao(),
         taskDao = db.taskDao(),
@@ -152,6 +156,26 @@ class TaskMigratorTest : DatabaseTest() {
 
         assertNull(caldavDao.getAccountByUuid("local-uuid"))
         assertTrue(caldavDao.getCalendarsByAccount("local-uuid").isEmpty())
+    }
+
+    @Test
+    fun marksLocalTasksDirtyForUpload() = runBlocking {
+        val localAccount = insertAccount(type = TYPE_LOCAL, uuid = "local-uuid")
+        val tasksAccount = insertAccount(type = TYPE_TASKS, uuid = "tasks-uuid")
+        insertCalendar(account = "local-uuid", uuid = "cal-1", name = "My List")
+        val task = Task(title = "Local task")
+        taskDao.createNew(task)
+        val caldavTaskId = caldavDao.insert(CaldavTask(task = task.id, calendar = "cal-1"))
+
+        assertTrue(dirtyDao.getTasksToPush("cal-1").isEmpty())
+
+        migrator.migrateLocalTasks(localAccount, tasksAccount)
+
+        assertEquals(true, dirtyDao.isDirty(caldavTaskId))
+        assertEquals(
+            listOf(task.id),
+            dirtyDao.getTasksToPush("cal-1").map { it.task.id },
+        )
     }
 
     @Test
