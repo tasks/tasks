@@ -53,7 +53,9 @@
     <item>@string/tomorrow</item>
     <item>@string/day_after_tomorrow</item>
     <item>@string/next_week</item>
+    <item>@string/next_2_weeks</item>
     <item>@string/next_month</item>
+    <item>@string/next_3_months</item>
     <item>@string/now</item>
   </string-array>
 
@@ -64,7 +66,9 @@
     <item>@string/tomorrow</item>
     <item>@string/day_after_tomorrow</item>
     <item>@string/next_week</item>
+    <item>@string/next_2_weeks</item>
     <item>@string/next_month</item>
+    <item>@string/next_3_months</item>
     <item>@string/now</item>
   </string-array>
 
