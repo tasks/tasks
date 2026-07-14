@@ -39,14 +39,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.flow.collect
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.edit.DescriptionRow
 import org.tasks.compose.edit.ListPickerDialog
 import org.tasks.compose.edit.ListPickerRow
 import org.tasks.compose.edit.MarkdownEditField
+import org.tasks.compose.edit.TagPickerDialog
+import org.tasks.compose.edit.TagsSection
 import org.tasks.compose.settings.Toaster
+import org.tasks.data.entity.TagData
 import org.tasks.filters.CaldavFilter
+import org.tasks.filters.Filter
 import org.tasks.filters.NavigationDrawerSubheader
+import org.tasks.tags.TagPickerViewModel
+import org.tasks.themes.TasksIcons
 import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import tasks.kmp.generated.resources.Res
@@ -64,7 +71,7 @@ fun TaskEditScreen(
     filterPickerViewModel: FilterPickerViewModel,
     taskId: Long?,
     remoteId: String,
-    currentFilter: CaldavFilter? = null,
+    currentFilter: Filter? = null,
     onCreateList: (accountId: Long) -> Unit = {},
     onClose: () -> Unit,
 ) {
@@ -144,7 +151,16 @@ fun TaskEditScreen(
                         if (color != null) Color(color) else onSurface
                     }
                     val listIcon = remember(list) { filterPickerViewModel.getIcon(list) }
+                    val surfaceVariant = MaterialTheme.colorScheme.surfaceVariant
+                    val surfaceVariantArgb = remember(surfaceVariant) { surfaceVariant.toArgb() }
+                    val tagChipColorProvider = remember(isDark, surfaceVariantArgb) {
+                        { tint: Int ->
+                            filterPickerViewModel.getColor(tint, isDark) ?: surfaceVariantArgb
+                        }
+                    }
                     var showListPicker by remember { mutableStateOf(false) }
+                    var showTagPicker by remember { mutableStateOf(false) }
+                    var pickerToken by remember { mutableStateOf(0) }
                     LaunchedEffect(list) { showListPicker = false }
                     Column(
                         modifier = Modifier
@@ -165,9 +181,37 @@ fun TaskEditScreen(
                             onClick = { showListPicker = true },
                         )
                         Spacer(modifier = Modifier.height(16.dp))
+                        TagsSection(
+                            tags = state.tags,
+                            colorProvider = tagChipColorProvider,
+                            onClick = {
+                                pickerToken++
+                                showTagPicker = true
+                            },
+                            onClear = { tag -> viewModel.setTags(state.tags - tag) },
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
                         DescriptionRow(
                             description = state.task.notes.orEmpty(),
                             onDescriptionChange = viewModel::setDescription,
+                        )
+                    }
+                    if (showTagPicker) {
+                        val tagPickerViewModel = koinViewModel<TagPickerViewModel>(
+                            key = "tag-picker-$pickerToken",
+                        )
+                        TagPickerDialog(
+                            viewModel = tagPickerViewModel,
+                            initialTags = state.tags,
+                            getTagIcon = { it.icon ?: TasksIcons.LABEL },
+                            getTagColor = { tag ->
+                                filterPickerViewModel.getColor(tag.color ?: 0, isDark)
+                                    ?.let { Color(it) } ?: Color.Unspecified
+                            },
+                            onDismiss = { selected: List<TagData> ->
+                                viewModel.setTags(selected)
+                                showTagPicker = false
+                            },
                         )
                     }
                     if (showListPicker) {

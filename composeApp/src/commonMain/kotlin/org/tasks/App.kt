@@ -1211,7 +1211,7 @@ private fun TaskListContent(
                     filterPickerViewModel = listPickerViewModel,
                     taskId = key.taskId.takeIf { it > 0 },
                     remoteId = key.remoteId,
-                    currentFilter = state.filter as? CaldavFilter,
+                    currentFilter = state.filter,
                     onCreateList = onCreateList,
                     onClose = {
                         scope.launch {

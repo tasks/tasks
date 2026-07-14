@@ -30,11 +30,17 @@ import org.mockito.kotlin.whenever
 import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.TagDao
+import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.SYNC_TAGS
+import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.filters.CaldavFilter
+import org.tasks.filters.Filter
+import org.tasks.filters.TagFilter
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class TaskEditViewModelTest {
@@ -44,6 +50,8 @@ class TaskEditViewModelTest {
     private val taskSaver: TaskSaver = mock()
     private val caldavDao: CaldavDao = mock()
     private val taskMover: TaskMover = mock()
+    private val tagDao: TagDao = mock()
+    private val tagDataDao: TagDataDao = mock()
 
     private lateinit var viewModel: TaskEditViewModel
 
@@ -56,7 +64,8 @@ class TaskEditViewModelTest {
         whenever(caldavDao.getCalendars()).thenReturn(listOf(testCalendar))
         whenever(caldavDao.getAccountByUuid("acct-1")).thenReturn(testAccount)
         whenever(taskDao.watch(any())).thenReturn(MutableSharedFlow())
-        viewModel = TaskEditViewModel(taskDao, taskSaver, caldavDao, taskMover)
+        whenever(tagDataDao.getTagDataForTask(any())).thenReturn(emptyList())
+        viewModel = TaskEditViewModel(taskDao, taskSaver, caldavDao, taskMover, tagDao, tagDataDao)
     }
 
     @After
@@ -125,6 +134,83 @@ class TaskEditViewModelTest {
     }
 
     // endregion
+
+    private val workTag = TagData(name = "Work", remoteId = "tag-work")
+
+    private fun TestScope.initializeNewWith(filter: Filter) {
+        viewModel.initialize(null, filter)
+        advanceUntilIdle()
+    }
+
+    @Test
+    fun newTaskFromTagFilterPreFillsTag() = runTest(testDispatcher) {
+        initializeNewWith(TagFilter(workTag))
+
+        val state = viewModel.state.value
+        assertEquals(listOf(workTag), state.tags)
+        assertFalse(state.hasChanges)
+    }
+
+    @Test
+    fun newTaskFromCaldavFilterHasNoTags() = runTest(testDispatcher) {
+        initializeNewWith(CaldavFilter(calendar = testCalendar, account = testAccount))
+
+        assertTrue(viewModel.state.value.tags.isEmpty())
+    }
+
+    @Test
+    fun saveAppliesPreFilledTag() = runTest(testDispatcher) {
+        initializeNewWith(TagFilter(workTag))
+
+        viewModel.setTitle("Tagged task")
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(tagDao).applyTags(
+            check { assertEquals("Tagged task", it.title) },
+            check { assertEquals(listOf("Work"), it.map(TagData::name)) },
+            any(),
+        )
+        verify(taskSaver).save(
+            check { assertTrue(it.checkTransitory(SYNC_TAGS)) },
+            anyOrNull(),
+            any(),
+        )
+    }
+
+    @Test
+    fun emptyTaskFromTagFilterIsNotSaved() = runTest(testDispatcher) {
+        initializeNewWith(TagFilter(workTag))
+        val closed = awaitClose()
+
+        viewModel.save()
+        advanceUntilIdle()
+
+        assertTrue(closed())
+        verify(taskDao, never()).createNew(any())
+        verify(tagDao, never()).applyTags(any(), any<Collection<TagData>>(), any())
+    }
+
+    @Test
+    fun removingTagFromExistingTaskAppliesEmptyTags() = runTest(testDispatcher) {
+        whenever(taskDao.fetch(42)).thenReturn(Task(id = 42, title = "Existing"))
+        whenever(caldavDao.getTask(42)).thenReturn(null)
+        whenever(tagDataDao.getTagDataForTask(42)).thenReturn(listOf(workTag))
+        viewModel.initialize(42)
+        advanceUntilIdle()
+        assertEquals(listOf(workTag), viewModel.state.value.tags)
+
+        viewModel.setTags(emptyList())
+        assertTrue(viewModel.state.value.hasChanges)
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(tagDao).applyTags(
+            check { assertEquals(42, it.id) },
+            check { assertTrue(it.isEmpty()) },
+            any(),
+        )
+    }
 
     // region save
 

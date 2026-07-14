@@ -23,16 +23,25 @@ import org.tasks.data.TaskCreator
 import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.TagDao
+import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.SYNC_TAGS
+import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.filters.CaldavFilter
+import org.tasks.filters.Filter
+import org.tasks.filters.TagFilter
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 class TaskEditViewModel(
     private val taskDao: TaskDao,
     private val taskSaver: TaskSaver,
     private val caldavDao: CaldavDao,
     private val taskMover: TaskMover,
+    private val tagDao: TagDao,
+    private val tagDataDao: TagDataDao,
     private val taskCreator: TaskCreator = TaskCreator(),
 ) : ViewModel() {
 
@@ -44,10 +53,15 @@ class TaskEditViewModel(
         val originalTask: Task = Task(),
         val list: CaldavFilter? = null,
         val originalList: CaldavFilter? = null,
+        val tags: List<TagData> = emptyList(),
+        val originalTags: List<TagData> = emptyList(),
         val deleted: Boolean = false,
     ) {
         val isNew: Boolean get() = originalTask.isNew
-        val hasChanges: Boolean get() = task != originalTask || list != originalList
+        val hasChanges: Boolean
+            get() = task != originalTask ||
+                    list != originalList ||
+                    tags.toHashSet() != originalTags.toHashSet()
     }
 
     private val _state = MutableStateFlow(State())
@@ -63,7 +77,7 @@ class TaskEditViewModel(
     private var initializeJob: Job? = null
     private var watchJob: Job? = null
 
-    fun initialize(taskId: Long?, currentFilter: CaldavFilter? = null) {
+    fun initialize(taskId: Long?, currentFilter: Filter? = null) {
         watchJob?.cancel()
         val normalized = taskId?.takeIf { it != Task.NO_ID }
         initializeJob?.cancel()
@@ -71,9 +85,11 @@ class TaskEditViewModel(
             _state.value = State(isLoading = true)
             val loaded: Task
             val list: CaldavFilter?
+            val tags: List<TagData>
             if (normalized == null) {
                 loaded = taskCreator.createBlankTask()
-                list = currentFilter ?: firstCaldavList()
+                list = (currentFilter as? CaldavFilter) ?: firstCaldavList()
+                tags = listOfNotNull((currentFilter as? TagFilter)?.tagData)
             } else {
                 loaded = taskDao.fetch(normalized) ?: taskCreator.createBlankTask()
                 val caldavTask = caldavDao.getTask(normalized)
@@ -84,6 +100,7 @@ class TaskEditViewModel(
                 } else {
                     firstCaldavList()
                 }
+                tags = tagDataDao.getTagDataForTask(normalized)
             }
             _state.value = State(
                 isLoading = false,
@@ -91,6 +108,8 @@ class TaskEditViewModel(
                 originalTask = loaded.copy(),
                 list = list,
                 originalList = list,
+                tags = tags,
+                originalTags = tags,
             )
             if (normalized != null) {
                 watchJob = viewModelScope.launch {
@@ -114,6 +133,7 @@ class TaskEditViewModel(
                             it.copy(
                                 originalTask = snapshot.task.copy(),
                                 originalList = snapshot.list,
+                                originalTags = snapshot.tags,
                             )
                         }
                     } catch (e: Exception) {
@@ -196,6 +216,10 @@ class TaskEditViewModel(
         _state.update { it.copy(list = list) }
     }
 
+    fun setTags(tags: List<TagData>) {
+        _state.update { it.copy(tags = tags) }
+    }
+
     fun save() {
         viewModelScope.launch {
             var success = true
@@ -209,6 +233,7 @@ class TaskEditViewModel(
                                 it.copy(
                                     originalTask = snapshot.task.copy(),
                                     originalList = snapshot.list,
+                                    originalTags = snapshot.tags,
                                 )
                             }
                         } catch (e: Exception) {
@@ -236,12 +261,24 @@ class TaskEditViewModel(
                 caldavTask = CaldavTask(task = task.id, calendar = list.uuid),
                 addToTop = false,
             )
+            applyTagsIfNeeded(snapshot, task)
             taskSaver.save(task, null)
         } else {
+            applyTagsIfNeeded(snapshot, task)
             taskSaver.save(task, snapshot.originalTask)
             if (snapshot.list != snapshot.originalList) {
                 taskMover.move(listOf(task.id), list)
             }
+        }
+    }
+
+    private suspend fun applyTagsIfNeeded(snapshot: State, task: Task) {
+        val selected = snapshot.tags
+        val changed = snapshot.originalTags.toHashSet() != selected.toHashSet()
+        if ((snapshot.isNew && selected.isNotEmpty()) || changed) {
+            tagDao.applyTags(task, selected)
+            task.putTransitory(SYNC_TAGS, true)
+            task.modificationDate = currentTimeMillis()
         }
     }
 }

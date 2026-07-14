@@ -76,6 +76,7 @@ import org.tasks.viewmodel.TagSettingsViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
+import org.tasks.tags.TagPickerViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.HelpAndFeedbackViewModel
@@ -369,6 +370,14 @@ val commonModule = module {
             taskSaver = get(),
             caldavDao = get(),
             taskMover = get(),
+            tagDao = get(),
+            tagDataDao = get(),
+        )
+    }
+    viewModel {
+        TagPickerViewModel(
+            tagDataDao = get(),
+            syncAdapters = get(),
         )
     }
     viewModel {
