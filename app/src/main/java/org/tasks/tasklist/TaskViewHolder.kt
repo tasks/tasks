@@ -325,7 +325,7 @@ class TaskViewHolder internal constructor(
                         }
                     }
                     if (!tagsString.isNullOrBlank() && remember { preferences.showTagChip }) {
-                        remember(tagsString, filter) {
+                        remember(tagsString, filter, chipProvider.lists.tagsVersion) {
                             val tags = tagsString.split(",").toHashSet()
                             if (filter is TagFilter) {
                                 tags.remove(filter.uuid)

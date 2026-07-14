@@ -1,5 +1,8 @@
 package org.tasks.compose.chips
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,11 +26,17 @@ class ChipDataProvider(
     private val refreshBroadcaster: RefreshBroadcaster,
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-    private val lists: MutableMap<String?, CaldavFilter> = HashMap()
-    private val tagDatas: MutableMap<String?, TagFilter> = HashMap()
 
     @Volatile
-    var listsCount: Int = 0
+    private var lists: Map<String?, CaldavFilter> = emptyMap()
+
+    @Volatile
+    private var tagDatas: Map<String?, TagFilter> = emptyMap()
+
+    var listsCount: Int by mutableStateOf(0)
+        private set
+
+    var tagsVersion: Int by mutableStateOf(0)
         private set
 
     fun getCaldavList(caldav: String?): CaldavFilter? =
@@ -40,25 +49,20 @@ class ChipDataProvider(
         calendars: List<CaldavCalendar>,
     ) {
         Logger.d("ChipDataProvider") { "Updating lists" }
-        calendars
+        lists = calendars
             .mapNotNull { list ->
                 val account = accounts.find { it.uuid == list.account } ?: return@mapNotNull null
                 CaldavFilter(calendar = list, account = account)
             }
-            .let {
-                lists.clear()
-                it.associateByTo(lists) { filter -> filter.uuid }
-            }
+            .associateBy { filter -> filter.uuid }
         listsCount = lists.size
         refreshBroadcaster.broadcastRefresh()
     }
 
     private fun updateTags(updated: List<TagData>) {
         Logger.d("ChipDataProvider") { "Updating tags" }
-        tagDatas.clear()
-        for (update in updated) {
-            tagDatas[update.remoteId] = TagFilter(update)
-        }
+        tagDatas = updated.associateBy({ it.remoteId }) { TagFilter(it) }
+        tagsVersion++
         refreshBroadcaster.broadcastRefresh()
     }
 
