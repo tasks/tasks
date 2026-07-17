@@ -2089,7 +2089,6 @@ private fun TaskRow(
                         SubtaskChip(
                             collapsed = task.isCollapsed,
                             children = task.children,
-                            compact = true,
                             onClick = onToggleSubtasks,
                         )
                     }
