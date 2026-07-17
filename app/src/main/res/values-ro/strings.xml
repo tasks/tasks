@@ -325,9 +325,6 @@
     <string name="no_reminders">Fără reamintiri</string>
     <string name="next_week">Săptămâna viitoare</string>
     <string name="day_after_tomorrow">Poimâine</string>
-    <string name="priority_low">Redus</string>
-    <string name="priority_medium">Mediu</string>
-    <string name="priority_high">Mare</string>
     <string name="default_location">Locație implicită</string>
     <string name="EPr_default_reminders_mode_title">Tipul implicit de alarmă/vibrație</string>
     <string name="EPr_default_location_reminder_title">Reamintiri de locație implicită</string>

@@ -304,6 +304,9 @@
     <string name="new_tag">Create new tag</string>
     <string name="enter_tag_name">Enter tag name</string>
     <string name="add_tag">Add tag</string>
+    <string name="priority_high">High</string>
+    <string name="priority_medium">Medium</string>
+    <string name="priority_low">Low</string>
     <string name="list_members">List members</string>
     <string name="remove_user">Remove user?</string>
     <string name="remove_user_confirmation">%1$s will no longer have access to %2$s</string>

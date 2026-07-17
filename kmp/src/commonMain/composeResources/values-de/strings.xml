@@ -284,4 +284,7 @@
     <string name="enter_tag_name">Schlagwort eingeben</string>
     <string name="tag_already_exists">Schlagwort existiert bereits</string>
     <string name="tag_settings">Schlagworteinstellungen</string>
+    <string name="priority_high">Hoch</string>
+    <string name="priority_medium">Mittel</string>
+    <string name="priority_low">Niedrig</string>
 </resources>

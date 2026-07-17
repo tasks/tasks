@@ -212,6 +212,10 @@ class TaskEditViewModel(
         _state.update { it.copy(task = it.task.copy(notes = description)) }
     }
 
+    fun setPriority(priority: Int) {
+        _state.update { it.copy(task = it.task.copy(priority = priority)) }
+    }
+
     fun setList(list: CaldavFilter) {
         _state.update { it.copy(list = list) }
     }

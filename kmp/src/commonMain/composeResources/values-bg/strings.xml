@@ -283,4 +283,7 @@
     <string name="enter_tag_name">Въведете име на етикета</string>
     <string name="tag_already_exists">Етикетът вече съществува</string>
     <string name="tag_settings">Настройки на етикети</string>
+    <string name="priority_high">Висок</string>
+    <string name="priority_medium">Среден</string>
+    <string name="priority_low">Нисък</string>
 </resources>

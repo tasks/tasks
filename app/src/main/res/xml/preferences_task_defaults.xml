@@ -22,7 +22,6 @@
 
   <ListPreference
     android:defaultValue="2"
-    android:entries="@array/EPr_default_importance"
     android:entryValues="@array/EPr_default_importance_values"
     android:icon="@drawable/ic_outline_flag_24px"
     android:key="@string/p_default_importance_key"

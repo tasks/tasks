@@ -72,9 +72,6 @@
     <string name="EPr_default_reminders_title">Напомняния по подразбиране</string>
     <string name="EPr_default_location_reminder_title">Напомняния за място по подразбиране</string>
     <string name="EPr_default_reminders_mode_title">Тон на звънене/вибрация по подразбиране</string>
-    <string name="priority_high">Висок</string>
-    <string name="priority_medium">Среден</string>
-    <string name="priority_low">Нисък</string>
     <string name="day_after_tomorrow">Вдругиден</string>
     <string name="next_week">Следваща седмица</string>
     <string name="no_reminders">Без напомняния</string>

@@ -66,9 +66,6 @@
     <string name="EPr_default_importance_title">Oletusprioriteetti</string>
     <string name="EPr_default_reminders_title">Oletusmuistutukset</string>
     <string name="EPr_default_reminders_mode_title">Oletussoittoääni/värinä -tyyppi</string>
-    <string name="priority_high">Korkea</string>
-    <string name="priority_medium">Kohtalainen</string>
-    <string name="priority_low">Matala</string>
     <string name="day_after_tomorrow">Ylihuomenna</string>
     <string name="next_week">Ensi viikko</string>
     <string name="BFE_Active">Omat tehtävät</string>

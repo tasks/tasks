@@ -192,4 +192,7 @@
     <string name="enter_tag_name">Nhập tên thẻ</string>
     <string name="tag_already_exists">Thẻ đã tồn tại</string>
     <string name="tag_settings">Cài đặt thẻ</string>
+    <string name="priority_high">Cao</string>
+    <string name="priority_medium">Trung bình</string>
+    <string name="priority_low">Thấp</string>
 </resources>

@@ -206,4 +206,7 @@
     <string name="enter_tag_name">குறிச்சொல் பெயரை உள்ளிடவும்</string>
     <string name="tag_already_exists">குறிச்சொல் ஏற்கனவே உள்ளது</string>
     <string name="tag_settings">குறிச்சொல் அமைப்புகள்</string>
+    <string name="priority_high">உயரமான</string>
+    <string name="priority_medium">நடுத்தரமான</string>
+    <string name="priority_low">குறைந்த</string>
 </resources>

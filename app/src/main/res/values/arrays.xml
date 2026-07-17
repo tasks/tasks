@@ -9,13 +9,6 @@
     <item>@string/week_before_due</item>
   </string-array>
 
-  <string-array name="EPr_default_importance">
-    <item>@string/priority_high</item>
-    <item>@string/priority_medium</item>
-    <item>@string/priority_low</item>
-    <item>@string/none</item>
-  </string-array>
-
   <string-array name="swipe_to_snooze_times">
     <item>@string/swipe_to_snooze_time_immediately</item>
     <item>@string/swipe_to_snooze_time_15_minutes</item>

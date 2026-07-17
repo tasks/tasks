@@ -72,9 +72,6 @@
     <string name="EPr_default_reminders_title">Predvolené pripomienky</string>
     <string name="EPr_default_location_reminder_title">Predvolené upozornenia podľa polohy</string>
     <string name="EPr_default_reminders_mode_title">Predvolené vyzváňanie/vibrovanie</string>
-    <string name="priority_high">Vysoká</string>
-    <string name="priority_medium">Stredná</string>
-    <string name="priority_low">Nízka</string>
     <string name="day_after_tomorrow">Pozajtra</string>
     <string name="next_week">Nasledujúci týždeň</string>
     <string name="no_reminders">Žiadne upozornenia</string>

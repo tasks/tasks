@@ -113,6 +113,7 @@ import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.compose.components.AnimatedBanner
 import org.tasks.compose.NavigationBarScrim
 import org.tasks.compose.PlatformBackHandler
+import org.tasks.compose.priorityColor
 import org.tasks.compose.SignInProvider
 import org.tasks.compose.SignInProviderDialog
 import org.tasks.compose.StatusBarScrim
@@ -1959,12 +1960,7 @@ private fun TaskRow(
     val checkColor = if (task.isCompleted) {
         MaterialTheme.colorScheme.outline
     } else {
-        when (task.priority) {
-            0 -> MaterialTheme.colorScheme.error
-            1 -> MaterialTheme.colorScheme.tertiary
-            2 -> MaterialTheme.colorScheme.primary
-            else -> MaterialTheme.colorScheme.outline
-        }
+        priorityColor(task.priority)
     }
     Row(
         modifier = Modifier

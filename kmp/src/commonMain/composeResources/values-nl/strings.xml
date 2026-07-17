@@ -228,4 +228,7 @@
     <string name="enter_tag_name">Label kiezen</string>
     <string name="tag_already_exists">Label bestaat reeds</string>
     <string name="tag_settings">Label instellen</string>
+    <string name="priority_high">Hoog</string>
+    <string name="priority_medium">Gemiddeld</string>
+    <string name="priority_low">Laag</string>
 </resources>

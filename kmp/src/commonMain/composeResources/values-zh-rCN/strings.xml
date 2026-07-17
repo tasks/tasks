@@ -334,4 +334,7 @@
     <string name="delete_tag_warning">不会删除含此标签的任务</string>
     <string name="delete_list_warning">将删除此清单中所有任务。此操作无法撤销!</string>
     <string name="tag_settings">标签设置</string>
+    <string name="priority_high">高</string>
+    <string name="priority_medium">中</string>
+    <string name="priority_low">低</string>
 </resources>

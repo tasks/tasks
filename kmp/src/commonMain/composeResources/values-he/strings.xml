@@ -253,4 +253,7 @@
     <string name="enter_tag_name">הזנת שם תגית</string>
     <string name="tag_already_exists">תגית כבר קיימת</string>
     <string name="tag_settings">הגדרות תגית</string>
+    <string name="priority_high">גבוהה</string>
+    <string name="priority_medium">בינונית</string>
+    <string name="priority_low">נמוכה</string>
 </resources>

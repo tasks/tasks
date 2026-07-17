@@ -171,9 +171,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Ønsker du virkelig å slette alle dine hendelser for gjøremål\?</string>
     <string name="EPr_default_location_reminder_title">Forvalgte stedspåminnelser</string>
     <string name="EPr_default_reminders_mode_title">Forvalgt ringe/vibrasjonstype</string>
-    <string name="priority_high">Høy</string>
-    <string name="priority_medium">Middels</string>
-    <string name="priority_low">Lav</string>
     <string name="day_after_tomorrow">I overmorgen</string>
     <string name="next_week">Neste uke</string>
     <string name="no_reminders">Ingen påminnelser</string>

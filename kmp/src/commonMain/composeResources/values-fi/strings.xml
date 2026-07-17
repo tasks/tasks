@@ -221,4 +221,7 @@
     <string name="enter_tag_name">Anna tunnisteen nimi</string>
     <string name="tag_already_exists">Tunniste on jo olemassa</string>
     <string name="tag_settings">Tunnisteiden asetukset</string>
+    <string name="priority_high">Korkea</string>
+    <string name="priority_medium">Kohtalainen</string>
+    <string name="priority_low">Matala</string>
 </resources>

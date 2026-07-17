@@ -67,9 +67,6 @@
     <string name="EPr_default_importance_title">Prioridade por defecto</string>
     <string name="EPr_default_reminders_title">Recordatorios por defecto</string>
     <string name="EPr_default_reminders_mode_title">Tipo predeterminado de timbre/vibración</string>
-    <string name="priority_high">Alto</string>
-    <string name="priority_medium">Medio</string>
-    <string name="priority_low">Baixo</string>
     <string name="day_after_tomorrow">Pasado mañá</string>
     <string name="next_week">Semana seguinte</string>
     <string name="BFE_Active">As miñas tarefas</string>

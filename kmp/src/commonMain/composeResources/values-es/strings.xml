@@ -269,4 +269,7 @@
     <string name="enter_tag_name">Introduzca el nombre de la etiqueta</string>
     <string name="tag_already_exists">La etiqueta ya existe</string>
     <string name="tag_settings">Configuración de etiquetas</string>
+    <string name="priority_high">Alta</string>
+    <string name="priority_medium">Media</string>
+    <string name="priority_low">Baja</string>
 </resources>

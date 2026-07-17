@@ -338,4 +338,7 @@
     <string name="cloud_onboarding_welcome_body">Za stvaranje tvog Tasks.org Cloud računa prijavi se putem Googlea</string>
     <string name="google_tasks_permission_not_granted">Dozvola za Google Tasks nije odobrena. Ponovo se prijavi i odobri pristup na Google Tasks na ekranu za pristanak.</string>
     <string name="tag_settings">Postavke oznaka</string>
+    <string name="priority_high">Visoki</string>
+    <string name="priority_medium">Srednji</string>
+    <string name="priority_low">Niski</string>
 </resources>

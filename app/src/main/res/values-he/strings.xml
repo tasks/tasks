@@ -70,9 +70,6 @@
     <string name="EPr_default_reminders_title">תזכורות ברירת מחדל</string>
     <string name="EPr_default_location_reminder_title">תזכורות מיקום ברירת מחדל</string>
     <string name="EPr_default_reminders_mode_title">סוג צלצול/רטט ברירת מחדל</string>
-    <string name="priority_high">גבוהה</string>
-    <string name="priority_medium">בינונית</string>
-    <string name="priority_low">נמוכה</string>
     <string name="day_after_tomorrow">מחרתיים</string>
     <string name="next_week">שבוע הבא</string>
     <string name="no_reminders">אין תזכורות</string>

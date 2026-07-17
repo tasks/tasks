@@ -70,9 +70,6 @@
     <string name="EPr_default_reminders_title">Przypomnienia (domyślnie)</string>
     <string name="EPr_default_location_reminder_title">Domyślne powiadomienia o lokalizacji</string>
     <string name="EPr_default_reminders_mode_title">Domyślny dzwonek/wibracja</string>
-    <string name="priority_high">Ważne</string>
-    <string name="priority_medium">Średnio ważne</string>
-    <string name="priority_low">Mało ważne</string>
     <string name="day_after_tomorrow">Pojutrze</string>
     <string name="next_week">Przyszły tydzień</string>
     <string name="no_reminders">Brak przypomnień</string>

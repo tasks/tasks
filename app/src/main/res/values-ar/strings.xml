@@ -158,9 +158,6 @@
     <string name="repeat_option_every_month">شهريًّا</string>
     <string name="repeat_option_every_week">أسبوعيًّا</string>
     <string name="repeat_option_every_day">يوميًّا</string>
-    <string name="priority_low">منخفض</string>
-    <string name="priority_medium">متوسط</string>
-    <string name="priority_high">عال</string>
     <plurals name="task_count">
         <item quantity="zero">%d مهمة</item>
         <item quantity="one">%d مهمة</item>

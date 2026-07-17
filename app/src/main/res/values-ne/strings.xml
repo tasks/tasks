@@ -36,9 +36,6 @@
     <string name="always_display_full_date">पूरा मिति देखाउनुहोस्</string>
     <string name="default_start_date">पूर्वनिर्धारित सुरु मिति</string>
     <string name="EPr_default_reminders_mode_title">पूर्वनिर्धारित घण्टी/कम्पन प्रकार</string>
-    <string name="priority_high">उच्च</string>
-    <string name="priority_medium">मध्यम</string>
-    <string name="priority_low">न्यून</string>
     <string name="day_after_tomorrow">पर्सिपल्ट</string>
     <string name="next_week">अर्को हप्ता</string>
     <string name="default_location_reminder_on_arrival">आगमनमा</string>

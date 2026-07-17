@@ -68,9 +68,6 @@
     <string name="EPr_default_importance_title">默认优先级</string>
     <string name="EPr_default_reminders_title">默认提醒</string>
     <string name="EPr_default_reminders_mode_title">默认铃声 / 振动类型</string>
-    <string name="priority_high">高</string>
-    <string name="priority_medium">中</string>
-    <string name="priority_low">低</string>
     <string name="day_after_tomorrow">后天</string>
     <string name="next_week">下周</string>
     <string name="BFE_Active">我的任务</string>

@@ -72,9 +72,6 @@
     <string name="EPr_default_reminders_title">デフォルトのリマインダー</string>
     <string name="EPr_default_location_reminder_title">デフォルトの場所リマインダー</string>
     <string name="EPr_default_reminders_mode_title">デフォルトの通知音/バイブレーション</string>
-    <string name="priority_high">高</string>
-    <string name="priority_medium">中</string>
-    <string name="priority_low">低</string>
     <string name="day_after_tomorrow">2 日後</string>
     <string name="next_week">1 週間後</string>
     <string name="no_reminders">リマインダーなし</string>

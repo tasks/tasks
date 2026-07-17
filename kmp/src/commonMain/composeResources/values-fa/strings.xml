@@ -72,4 +72,7 @@
     <string name="new_tag">ایجاد تگ جدید</string>
     <string name="tag_already_exists">این تگ قبلاً ایجاد شده است</string>
     <string name="tag_settings">تنظیمات تگ</string>
+    <string name="priority_high">زیاد</string>
+    <string name="priority_medium">متوسط</string>
+    <string name="priority_low">کم</string>
 </resources>

@@ -183,4 +183,7 @@
     <string name="enter_tag_name">Idatzi etiketaren izena</string>
     <string name="tag_already_exists">Etiketa hau badago aurretik</string>
     <string name="tag_settings">Etiketa-ezarpenak</string>
+    <string name="priority_high">Altua</string>
+    <string name="priority_medium">Ertaina</string>
+    <string name="priority_low">Baxua</string>
 </resources>

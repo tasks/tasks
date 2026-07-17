@@ -19,4 +19,7 @@
     <string name="task_list_options">कार्य सूचीका विकल्पहरू</string>
     <string name="contact_developer">विकासकर्तालाई सम्पर्क गर्नुहोस्</string>
     <string name="source_code">श्रोत कोड</string>
+    <string name="priority_high">उच्च</string>
+    <string name="priority_medium">मध्यम</string>
+    <string name="priority_low">न्यून</string>
 </resources>

@@ -66,9 +66,6 @@
     <string name="EPr_default_importance_title">Standard prioritet</string>
     <string name="EPr_default_reminders_title">Standardpåminnelser</string>
     <string name="EPr_default_reminders_mode_title">Standardtyp av ringsignal/vibration</string>
-    <string name="priority_high">Hög</string>
-    <string name="priority_medium">Medel</string>
-    <string name="priority_low">Låg</string>
     <string name="day_after_tomorrow">I övermorgon</string>
     <string name="next_week">Nästa vecka</string>
     <string name="BFE_Active">Mina uppgifter</string>

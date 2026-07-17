@@ -54,9 +54,6 @@
     <string name="EPr_manage_delete_gcal_status">Menghapus %d acara kalender!</string>
     <string name="EPr_default_importance_title">Prioritas bawaan</string>
     <string name="EPr_default_reminders_title">Pengingat bawaan</string>
-    <string name="priority_high">Tinggi</string>
-    <string name="priority_medium">Sedang</string>
-    <string name="priority_low">Rendah</string>
     <string name="day_after_tomorrow">Lusa</string>
     <string name="next_week">Minggu depan</string>
     <string name="no_reminders">Tidak ada pengingat</string>

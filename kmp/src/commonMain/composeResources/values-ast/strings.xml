@@ -118,4 +118,7 @@
     <string name="enter_tag_name">Introduz nome de etiqueta</string>
     <string name="tag_already_exists">L'etiqueta yá esiste</string>
     <string name="tag_settings">Axustes d'etiquetes</string>
+    <string name="priority_high">Alta</string>
+    <string name="priority_medium">Media</string>
+    <string name="priority_low">Baxa</string>
 </resources>

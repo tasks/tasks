@@ -21,9 +21,6 @@
     <string name="TEA_control_notes">Danasîn</string>
     <string name="TEA_control_files">Pel</string>
     <string name="none">Ne yek</string>
-    <string name="priority_high">Bilind</string>
-    <string name="priority_medium">Navîn</string>
-    <string name="priority_low">Nizm</string>
     <string name="rmd_NoA_done">Qediya</string>
     <string name="default_random_reminder_disabled">Neçalakkirî</string>
     <string name="repeat_option_custom">Kesane…</string>

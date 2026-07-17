@@ -57,9 +57,6 @@
     <string name="EPr_default_importance_title">Vaikimisi tähtsus</string>
     <string name="EPr_default_reminders_title">Vaikimisi meeldetuletused</string>
     <string name="EPr_default_location_reminder_title">Vaikimisi asukohapõhised meeldetuletused</string>
-    <string name="priority_high">Kõrge</string>
-    <string name="priority_medium">Keskmine</string>
-    <string name="priority_low">Madal</string>
     <string name="day_after_tomorrow">Ülehomme</string>
     <string name="next_week">Järgmisel nädalal</string>
     <string name="no_reminders">Meeldetuletusi pole</string>

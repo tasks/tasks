@@ -206,4 +206,7 @@
     <string name="enter_tag_name">Introduce nome de etiqueta</string>
     <string name="tag_already_exists">A etiqueta xa existe</string>
     <string name="tag_settings">Configuración de etiquetas</string>
+    <string name="priority_high">Alto</string>
+    <string name="priority_medium">Medio</string>
+    <string name="priority_low">Baixo</string>
 </resources>

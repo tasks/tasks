@@ -480,9 +480,6 @@
     <string name="preferences_advanced">Nâng cao</string>
     <string name="next_week">Tuần sau</string>
     <string name="day_after_tomorrow">Ngày kia</string>
-    <string name="priority_low">Thấp</string>
-    <string name="priority_medium">Trung bình</string>
-    <string name="priority_high">Cao</string>
     <string name="default_location">Vị trí mặc định</string>
     <string name="EPr_default_reminders_mode_title">Loại đổ chuông/rung mặc định</string>
     <string name="EPr_default_location_reminder_title">Lời nhắc vị trí mặc định</string>

@@ -264,4 +264,7 @@
     <string name="enter_tag_name">Inserisci il nome dell'etichetta</string>
     <string name="tag_already_exists">Etichetta già presente</string>
     <string name="tag_settings">Impostazioni etichetta</string>
+    <string name="priority_high">Alta</string>
+    <string name="priority_medium">Media</string>
+    <string name="priority_low">Bassa</string>
 </resources>

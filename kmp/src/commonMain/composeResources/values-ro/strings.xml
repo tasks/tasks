@@ -219,4 +219,7 @@
     <string name="enter_tag_name">Introdu numele etichetei</string>
     <string name="tag_already_exists">Etichetă deja existentă</string>
     <string name="tag_settings">Setări etichetă</string>
+    <string name="priority_high">Mare</string>
+    <string name="priority_medium">Mediu</string>
+    <string name="priority_low">Redus</string>
 </resources>

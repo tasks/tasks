@@ -68,9 +68,6 @@
     <string name="EPr_default_reminders_title">Rappels par défaut</string>
     <string name="EPr_default_location_reminder_title">Rappels d\'emplacement par défaut</string>
     <string name="EPr_default_reminders_mode_title">Type de sonnerie/vibration par défaut</string>
-    <string name="priority_high">Haute</string>
-    <string name="priority_medium">Moyenne</string>
-    <string name="priority_low">Faible</string>
     <string name="day_after_tomorrow">Après-demain</string>
     <string name="next_week">La semaine prochaine</string>
     <string name="no_reminders">Aucun rappel</string>

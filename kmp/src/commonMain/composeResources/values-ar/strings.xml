@@ -214,4 +214,7 @@
     <string name="enter_tag_name">أدخل اسم العلامة</string>
     <string name="tag_already_exists">العلامة موجودة مسبقًا</string>
     <string name="tag_settings">إعدادات العلامات</string>
+    <string name="priority_high">عال</string>
+    <string name="priority_medium">متوسط</string>
+    <string name="priority_low">منخفض</string>
 </resources>

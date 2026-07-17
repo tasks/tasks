@@ -148,9 +148,6 @@
     <string name="default_due_date">Προεπιλεγμένη προθεσμία ολοκλήρωσης</string>
     <string name="EPr_default_location_reminder_title">Υπενθυμίσεις προεπιλεγμένης τοποθεσίας</string>
     <string name="default_location">Προεπιλεγμένη τοποθεσία</string>
-    <string name="priority_high">Υψηλή</string>
-    <string name="priority_medium">Μεσαία</string>
-    <string name="priority_low">Χαμηλή</string>
     <string name="no_reminders">Καθόλου υπενθυμίσεις</string>
     <string name="default_location_reminder_on_arrival">Κατά την άφιξη</string>
     <string name="default_location_reminder_on_departure">Κατά την αναχώρηση</string>

@@ -129,12 +129,9 @@
     <string name="astrid_sort_order">Ordenació manual d\'Astrid</string>
     <string name="cancel">Cancel·la</string>
     <string name="ok">OK</string>
-    <string name="priority_high">Alt</string>
     <string name="default_location">Ubicació predeterminada</string>
     <string name="EPr_default_reminders_mode_title">So / vibració predeterminat</string>
-    <string name="priority_medium">Mig</string>
     <string name="default_location_reminder_on_arrival">En arribar</string>
-    <string name="priority_low">Baix</string>
     <string name="no_reminders">Sense recordatoris</string>
     <string name="default_location_reminder_on_departure">A la sortida</string>
     <string name="default_location_reminder_on_arrival_or_departure">A l’arribada i sortida</string>

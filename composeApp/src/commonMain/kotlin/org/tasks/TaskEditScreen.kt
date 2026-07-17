@@ -45,6 +45,7 @@ import org.tasks.compose.edit.DescriptionRow
 import org.tasks.compose.edit.ListPickerDialog
 import org.tasks.compose.edit.ListPickerRow
 import org.tasks.compose.edit.MarkdownEditField
+import org.tasks.compose.edit.PrioritySection
 import org.tasks.compose.edit.TagPickerDialog
 import org.tasks.compose.edit.TagsSection
 import org.tasks.compose.settings.Toaster
@@ -189,6 +190,11 @@ fun TaskEditScreen(
                                 showTagPicker = true
                             },
                             onClear = { tag -> viewModel.setTags(state.tags - tag) },
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        PrioritySection(
+                            priority = state.task.priority,
+                            onPriorityChange = viewModel::setPriority,
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         DescriptionRow(

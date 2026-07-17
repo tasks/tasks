@@ -175,4 +175,7 @@
     <string name="enter_tag_name">ටැගයේ නම ඇතුළත් කරන්න</string>
     <string name="tag_already_exists">ටැගය දැනටමත් පවතී</string>
     <string name="tag_settings">ටැග් සැකසුම්</string>
+    <string name="priority_high">ඉහල</string>
+    <string name="priority_medium">මධ්‍යම</string>
+    <string name="priority_low">අවම</string>
 </resources>

@@ -286,9 +286,6 @@
     <string name="no_reminders">මතක් කිරීම් නොමැත</string>
     <string name="next_week">ලබන සතිය</string>
     <string name="day_after_tomorrow">අනිද්දා</string>
-    <string name="priority_low">අවම</string>
-    <string name="priority_medium">මධ්‍යම</string>
-    <string name="priority_high">ඉහල</string>
     <string name="default_location">පෙරනිමි ස්ථානය</string>
     <string name="EPr_default_reminders_mode_title">පෙරනිමි නාද / කම්පන වර්ගය</string>
     <string name="EPr_default_location_reminder_title">පෙරනිමි ස්ථාන මතක් කිරීම්</string>

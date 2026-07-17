@@ -192,4 +192,7 @@
     <string name="enter_tag_name">Skriv inn etikettnavn</string>
     <string name="tag_already_exists">Etiketten finnes allerede</string>
     <string name="tag_settings">Etikettinnstillinger</string>
+    <string name="priority_high">Høy</string>
+    <string name="priority_medium">Middels</string>
+    <string name="priority_low">Lav</string>
 </resources>

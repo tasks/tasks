@@ -232,4 +232,7 @@
     <string name="enter_tag_name">Indtast tagnavn</string>
     <string name="tag_already_exists">Tagget findes allerede</string>
     <string name="tag_settings">Tag-indstillinger</string>
+    <string name="priority_high">Høj</string>
+    <string name="priority_medium">Middel</string>
+    <string name="priority_low">Lav</string>
 </resources>

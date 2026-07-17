@@ -336,4 +336,7 @@
     <string name="delete_tag_warning">Sellise sildiga ülesanded jäävad kustutamata</string>
     <string name="delete_list_warning">Kõik selle loendi ülesanded kuuluvad kustutamisele. Seda tegevust ei saa tagasi pöörata!</string>
     <string name="tag_settings">Siltide seadistused</string>
+    <string name="priority_high">Kõrge</string>
+    <string name="priority_medium">Keskmine</string>
+    <string name="priority_low">Madal</string>
 </resources>

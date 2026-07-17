@@ -70,9 +70,6 @@
     <string name="EPr_default_reminders_title">Öntanımlı anımsatıcılar</string>
     <string name="EPr_default_location_reminder_title">Öntanımlı konum anımsatıcılar</string>
     <string name="EPr_default_reminders_mode_title">Öntanımlı zil/titreşim türü</string>
-    <string name="priority_high">Yüksek</string>
-    <string name="priority_medium">Orta</string>
-    <string name="priority_low">Düşük</string>
     <string name="day_after_tomorrow">Yarından Sonra</string>
     <string name="next_week">Gelecek Hafta</string>
     <string name="no_reminders">Anımsatıcı yok</string>

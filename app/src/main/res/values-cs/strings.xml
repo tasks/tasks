@@ -64,9 +64,6 @@
     <string name="EPr_default_importance_title">Výchozí důležitost</string>
     <string name="EPr_default_reminders_title">Výchozí upomínky</string>
     <string name="EPr_default_reminders_mode_title">Výchozí vyzvánění / vibrace</string>
-    <string name="priority_high">Vysoká</string>
-    <string name="priority_medium">Střední</string>
-    <string name="priority_low">Nízká</string>
     <string name="day_after_tomorrow">Pozítří</string>
     <string name="next_week">Příští týden</string>
     <string name="BFE_Active">Moje úkoly</string>

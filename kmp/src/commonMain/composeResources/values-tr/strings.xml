@@ -336,4 +336,7 @@
     <string name="delete_tag_warning">Bu etiketli görevler silinmeyecek</string>
     <string name="delete_list_warning">Bu listedeki tüm görevler silinecek. Bu işlem geri alınamaz!</string>
     <string name="tag_settings">Etiket ayarları</string>
+    <string name="priority_high">Yüksek</string>
+    <string name="priority_medium">Orta</string>
+    <string name="priority_low">Düşük</string>
 </resources>

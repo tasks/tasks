@@ -338,4 +338,7 @@
     <string name="delete_tag_warning">Les tâches avec cette étiquette ne seront pas supprimées</string>
     <string name="delete_list_warning">Toutes les tâches dans cette liste seront supprimées. Ceci est irréversible !</string>
     <string name="tag_settings">Paramètres des étiquettes</string>
+    <string name="priority_high">Haute</string>
+    <string name="priority_medium">Moyenne</string>
+    <string name="priority_low">Faible</string>
 </resources>

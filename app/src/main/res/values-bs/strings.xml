@@ -44,9 +44,6 @@
     <string name="EPr_default_reminders_title">Uobičajeni podsjetnici</string>
     <string name="EPr_default_location_reminder_title">Uobičajeni podsjetnici lokacija</string>
     <string name="default_location">Uobičajena lokacija</string>
-    <string name="priority_high">Visoki</string>
-    <string name="priority_medium">Srednji</string>
-    <string name="priority_low">Niski</string>
     <string name="day_after_tomorrow">Preksutra</string>
     <string name="next_week">Slijedeće sedmice</string>
     <string name="no_reminders">Nema podsjetnika</string>

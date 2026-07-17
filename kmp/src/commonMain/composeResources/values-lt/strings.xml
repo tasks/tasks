@@ -185,4 +185,7 @@
     <string name="enter_tag_name">Įvesti etiketės pavadinimą</string>
     <string name="tag_already_exists">Etiketė jau egzistuoja</string>
     <string name="tag_settings">Etikečių nustatymai</string>
+    <string name="priority_high">Aukštas</string>
+    <string name="priority_medium">Vidutinis</string>
+    <string name="priority_low">Žemas</string>
 </resources>

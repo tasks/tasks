@@ -212,6 +212,46 @@ class TaskEditViewModelTest {
         )
     }
 
+    // region priority
+
+    @Test
+    fun setPriorityMarksHasChanges() = runTest(testDispatcher) {
+        initializeNew()
+
+        viewModel.setPriority(Task.Priority.HIGH)
+
+        assertEquals(Task.Priority.HIGH, viewModel.state.value.task.priority)
+        assertTrue(viewModel.state.value.hasChanges)
+    }
+
+    @Test
+    fun saveNewTaskWithPriorityOnly() = runTest(testDispatcher) {
+        initializeNew()
+
+        viewModel.setPriority(Task.Priority.HIGH)
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(taskDao).createNew(check { assertEquals(Task.Priority.HIGH, it.priority) })
+    }
+
+    @Test
+    fun savePriorityChangeToExistingTask() = runTest(testDispatcher) {
+        initializeExisting()
+
+        viewModel.setPriority(Task.Priority.MEDIUM)
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(taskSaver).save(
+            check { assertEquals(Task.Priority.MEDIUM, it.priority) },
+            any(),
+            any(),
+        )
+    }
+
+    // endregion
+
     // region save
 
     @Test

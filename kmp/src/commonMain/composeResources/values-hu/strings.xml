@@ -256,4 +256,7 @@
     <string name="enter_tag_name">Címke neve</string>
     <string name="tag_already_exists">A címke már létezik</string>
     <string name="tag_settings">Címkék beállításai</string>
+    <string name="priority_high">Magas</string>
+    <string name="priority_medium">Közepes</string>
+    <string name="priority_low">Alacsony</string>
 </resources>

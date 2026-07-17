@@ -258,4 +258,7 @@
     <string name="enter_tag_name">Entajpu etikedonomon</string>
     <string name="tag_already_exists">Etikedo jam ekzistas</string>
     <string name="tag_settings">Agordoj de etikedo</string>
+    <string name="priority_high">Grava</string>
+    <string name="priority_medium">Mezgrava</string>
+    <string name="priority_low">Graveta</string>
 </resources>

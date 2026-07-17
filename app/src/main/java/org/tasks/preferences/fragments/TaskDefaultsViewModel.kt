@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.calendars.CalendarProvider
 import org.tasks.data.dao.LocationDao
@@ -22,6 +23,11 @@ import org.tasks.preferences.Preferences
 import org.tasks.reminders.AlarmToString
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.filters.CaldavFilter
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.none
+import tasks.kmp.generated.resources.priority_high
+import tasks.kmp.generated.resources.priority_low
+import tasks.kmp.generated.resources.priority_medium
 import javax.inject.Inject
 
 @HiltViewModel
@@ -69,7 +75,14 @@ class TaskDefaultsViewModel @Inject constructor(
     var locationUpdateIntervalSummary by mutableStateOf("")
         private set
 
-    val importanceEntries: Array<String> = context.resources.getStringArray(R.array.EPr_default_importance)
+    val importanceEntries: Array<String> = runBlocking {
+        arrayOf(
+            getString(Res.string.priority_high),
+            getString(Res.string.priority_medium),
+            getString(Res.string.priority_low),
+            getString(Res.string.none),
+        )
+    }
     val importanceValues: Array<String> = context.resources.getStringArray(R.array.EPr_default_importance_values)
     val startDateEntries: Array<String> = context.resources.getStringArray(R.array.EPr_default_hideUntil)
     val startDateValues: Array<String> = context.resources.getStringArray(R.array.EPr_default_hideUntil_values)

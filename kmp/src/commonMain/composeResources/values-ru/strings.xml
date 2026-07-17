@@ -221,4 +221,7 @@
     <string name="enter_tag_name">Введите название метки</string>
     <string name="tag_already_exists">Тег уже существует</string>
     <string name="tag_settings">Настройки метки</string>
+    <string name="priority_high">Высокий</string>
+    <string name="priority_medium">Средний</string>
+    <string name="priority_low">Низкий</string>
 </resources>

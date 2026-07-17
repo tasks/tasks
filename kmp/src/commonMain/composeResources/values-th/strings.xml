@@ -172,4 +172,7 @@
     <string name="enter_tag_name">ป้อนชื่อแท็ก</string>
     <string name="tag_already_exists">มีแท็กอยู่แล้ว</string>
     <string name="tag_settings">การตั้งค่าแท็ก</string>
+    <string name="priority_high">สูง</string>
+    <string name="priority_medium">ปานกลาง</string>
+    <string name="priority_low">ต่ํา</string>
 </resources>

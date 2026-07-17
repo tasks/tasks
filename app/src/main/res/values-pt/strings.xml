@@ -65,9 +65,6 @@
     <string name="EPr_default_importance_title">Prioridade predefinida</string>
     <string name="EPr_default_reminders_title">Lembretes predefinidos</string>
     <string name="EPr_default_reminders_mode_title">Tipo de vibração/toque predefinido</string>
-    <string name="priority_high">Alta</string>
-    <string name="priority_medium">Média</string>
-    <string name="priority_low">Baixa</string>
     <string name="day_after_tomorrow">Depois de amanhã</string>
     <string name="next_week">Próxima semana</string>
     <string name="BFE_Active">Minhas tarefas</string>

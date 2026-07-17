@@ -206,4 +206,7 @@
     <string name="enter_tag_name">Zadajte názov štítku</string>
     <string name="tag_already_exists">Štítok už jestvuje</string>
     <string name="tag_settings">Nastavenie štítku</string>
+    <string name="priority_high">Vysoká</string>
+    <string name="priority_medium">Stredná</string>
+    <string name="priority_low">Nízka</string>
 </resources>

@@ -300,4 +300,7 @@
     <string name="enter_tag_name">タグの名前を入力</string>
     <string name="tag_already_exists">タグは既に存在します</string>
     <string name="tag_settings">タグ設定</string>
+    <string name="priority_high">高</string>
+    <string name="priority_medium">中</string>
+    <string name="priority_low">低</string>
 </resources>

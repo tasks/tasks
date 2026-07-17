@@ -27,4 +27,7 @@
     <string name="backup_BPr_header">Sigurnosne kopije</string>
     <string name="app_settings">Postavke aplikacije</string>
     <string name="blog_feed_none">Ništa</string>
+    <string name="priority_high">Visoki</string>
+    <string name="priority_medium">Srednji</string>
+    <string name="priority_low">Niski</string>
 </resources>
