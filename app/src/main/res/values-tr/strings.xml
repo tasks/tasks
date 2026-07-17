@@ -350,10 +350,6 @@
     <string name="icon">Simge</string>
     <string name="name_your_price">Gönlünüzden kopan</string>
     <string name="SSD_sort_my_order">Düzenim</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d alt görev</item>
-        <item quantity="other">%d alt görev</item>
-    </plurals>
     <string name="expand_subtasks">Alt görevleri genişlet</string>
     <string name="collapse_subtasks">Alt görevleri gizle</string>
     <string name="TEA_add_subtask">Alt görev ekle</string>

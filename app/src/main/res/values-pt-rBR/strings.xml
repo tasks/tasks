@@ -423,11 +423,6 @@
     <string name="subtasks">Sub-tarefas</string>
     <string name="widget_show_dividers">Mostrar divisórias</string>
     <string name="widget_show_menu">Mostrar menu</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d sub-tarefa</item>
-        <item quantity="many">%d sub-tarefas</item>
-        <item quantity="other">%d sub-tarefas</item>
-    </plurals>
     <string name="CFC_list_name">Na lista…</string>
     <string name="TEA_timer_est">Est. %s</string>
     <string name="TEA_add_subtask">Adicionar sub-tarefa</string>

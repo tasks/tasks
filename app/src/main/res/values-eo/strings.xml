@@ -92,10 +92,6 @@
     <string name="custom_filter_is_subtask">Estas subtasko</string>
     <string name="custom_filter_has_subtask">Kun subtaskoj</string>
     <string name="subtasks">Subtaskoj</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d subtasko</item>
-        <item quantity="other">%d subtaskoj</item>
-    </plurals>
     <string name="TEA_add_subtask">Aldoni subtaskon</string>
     <string name="repeat_option_every_year">Ĉiujare</string>
     <string name="repeat_option_every_month">Ĉiumonate</string>

@@ -428,10 +428,6 @@
     <string name="TEA_add_subtask">Adicionar subtarefa</string>
     <string name="collapse_subtasks">Colapsar subtarefas</string>
     <string name="expand_subtasks">Expandir subtarefas</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d subtarefa</item>
-        <item quantity="other">%d subtarefas</item>
-    </plurals>
     <string name="SSD_sort_my_order">Minha ordem</string>
     <string name="name_your_price">Dê o seu valor</string>
     <string name="location_radius_meters">%s m</string>

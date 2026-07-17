@@ -350,10 +350,6 @@
     <string name="icon">Ikon</string>
     <string name="name_your_price">Nevezd meg az árat</string>
     <string name="SSD_sort_my_order">Egyéni sorrend</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d részfeladat</item>
-        <item quantity="other">%d részfeladat</item>
-    </plurals>
     <string name="expand_subtasks">Részfeladatok kibontása</string>
     <string name="collapse_subtasks">Részfeladatok összecsukása</string>
     <string name="TEA_add_subtask">Részfeladat hozzáadása</string>

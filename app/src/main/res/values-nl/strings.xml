@@ -350,10 +350,6 @@
     <string name="help">Hulp</string>
     <string name="icon">Pictogram</string>
     <string name="SSD_sort_my_order">Mijn volgorde</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d subtaak</item>
-        <item quantity="other">%d subtaken</item>
-    </plurals>
     <string name="expand_subtasks">Subtaken uitklappen</string>
     <string name="collapse_subtasks">Subtaken inklappen</string>
     <string name="TEA_add_subtask">Subtaak toevoegen</string>

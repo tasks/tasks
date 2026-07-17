@@ -352,10 +352,6 @@
     <string name="name_your_price">Nenn deinen Preis</string>
     <string name="SSD_sort_my_order">Eigene Sortierung</string>
     <string name="always_display_full_date">Datum ganz anzeigen</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d Teilaufgabe</item>
-        <item quantity="other">%d Teilaufgaben</item>
-    </plurals>
     <string name="expand_subtasks">Teilaufgaben ausklappen</string>
     <string name="collapse_subtasks">Teilaufgaben einklappen</string>
     <string name="TEA_add_subtask">Teilaufgabe hinzufügen</string>

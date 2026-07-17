@@ -499,10 +499,6 @@
     <string name="quiet_hours_in_effect">Vaiksed tunnid on kasutusel</string>
     <string name="delete_comment">kommentaar</string>
     <string name="button_learn_more">Loe lisaks</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d alamülesanne</item>
-        <item quantity="other">%d alamülesannet</item>
-    </plurals>
     <string name="repeat_snackbar">%1$s uus ajastus on nüüd %2$s</string>
     <string name="repeat_type_due">tähtaeg</string>
     <plurals name="repeat_n_hours">

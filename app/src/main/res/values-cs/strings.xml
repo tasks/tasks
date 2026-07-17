@@ -262,11 +262,6 @@
         <item quantity="few">%d roky</item>
         <item quantity="other">%d let</item>
     </plurals>
-    <plurals name="subtask_count">
-        <item quantity="one">%d podúkol</item>
-        <item quantity="few">%d podúkoly</item>
-        <item quantity="other">%d podúkolů</item>
-    </plurals>
     <string name="repeat_type_due">termínu úkolu</string>
     <string name="repeat_type_completion">okamžiku dokončení</string>
     <string name="repeat_snackbar">Úkol %1$s byl znovu naplánován na %2$s</string>

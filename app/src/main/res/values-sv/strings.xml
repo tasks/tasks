@@ -508,10 +508,6 @@
     <string name="next_monday">Nästa mån</string>
     <string name="next_sunday">Nästa sön</string>
     <string name="repeat_type_completion_capitalized">Slutdatum</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d deluppgift</item>
-        <item quantity="other">%d deluppgifter</item>
-    </plurals>
     <string name="filter_any_start_date">Vilket startdatum som helst</string>
     <string name="no_start_date">Inget startdatum</string>
     <string name="CFC_startBefore_name">Börjar vid…</string>

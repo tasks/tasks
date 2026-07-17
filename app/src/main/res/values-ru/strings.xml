@@ -364,11 +364,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="building_notifications">Генерация уведомлений</string>
     <string name="SSD_sort_my_order">Мой порядок</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d подзадача</item>
-        <item quantity="few">%d подзадачи</item>
-        <item quantity="many">%d подзадач</item>
-    </plurals>
     <string name="TEA_add_subtask">Добавить подзадачу</string>
     <string name="subtasks">Подзадачи</string>
     <string name="location_permission_required_location">Доступ к данным геолокации нужен, чтобы определить ваше текущее местоположение</string>

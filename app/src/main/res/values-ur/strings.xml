@@ -214,10 +214,6 @@
         <item quantity="one">وقت</item>
         <item quantity="other">اوقات</item>
     </plurals>
-    <plurals name="subtask_count">
-        <item quantity="one">%d ذیلی ٹاسک</item>
-        <item quantity="other">%d ذیلی ٹاسکس</item>
-    </plurals>
     <plurals name="task_count">
         <item quantity="one">%d ٹاسک</item>
         <item quantity="other">%d ٹاسکس</item>

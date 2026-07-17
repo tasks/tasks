@@ -411,10 +411,6 @@
         <item quantity="one">நேரம்</item>
         <item quantity="other">நேரங்கள்</item>
     </plurals>
-    <plurals name="subtask_count">
-        <item quantity="one">%d துணை பணி</item>
-        <item quantity="other">%d துணை பணிகள்</item>
-    </plurals>
     <plurals name="task_count">
         <item quantity="one">%d பணி</item>
         <item quantity="other">%d பணிகள்</item>

@@ -365,10 +365,6 @@
         <item quantity="one">gang</item>
         <item quantity="other">gange</item>
     </plurals>
-    <plurals name="subtask_count">
-        <item quantity="one">%d underopgave</item>
-        <item quantity="other">%d underopgaver</item>
-    </plurals>
     <plurals name="task_count">
         <item quantity="one">%d opgave</item>
         <item quantity="other">%d opgaver</item>

@@ -277,7 +277,6 @@ class TaskViewHolder internal constructor(
                         SubtaskChip(
                             collapsed = collapsed,
                             children = children,
-                            compact = !showText,
                             onClick = { toggleSubtasks(id, !collapsed) }
                         )
                     }

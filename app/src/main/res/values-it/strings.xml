@@ -399,11 +399,6 @@
     <string name="theme_system_default">Predefinito del sistema</string>
     <string name="icon">Icona</string>
     <string name="menu_discard_changes">Ignora le modifiche</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d attività secondaria</item>
-        <item quantity="many">%d attività secondarie</item>
-        <item quantity="other">%d attività secondarie</item>
-    </plurals>
     <string name="subtasks_multilevel_google_task">Google Tasks non supporta attività secondarie su più livelli</string>
     <string name="expand_subtasks">Espandi attività secondarie</string>
     <string name="google_tasks_add_to_top">Nuove attività in cima alla lista</string>

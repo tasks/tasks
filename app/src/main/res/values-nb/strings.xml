@@ -355,10 +355,6 @@
     <string name="icon">Ikon</string>
     <string name="name_your_price">Betal det du vil</string>
     <string name="SSD_sort_my_order">Min bestilling</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d gjøremålssteg</item>
-        <item quantity="other">%d gjøremålssteg</item>
-    </plurals>
     <string name="expand_subtasks">Fold ut gjøremålssteg</string>
     <string name="collapse_subtasks">Fold sammen gjøremålssteg</string>
     <string name="TEA_add_subtask">Legg til gjøremålssteg</string>

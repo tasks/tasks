@@ -367,10 +367,6 @@
     <string name="add_location">Lisää sijainti</string>
     <string name="subtasks">Alitehtävät</string>
     <string name="google_drive_backup">Google Driven varmuuskopio</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d alitehtävä</item>
-        <item quantity="other">%d alitehtävää</item>
-    </plurals>
     <string name="default_location_reminder_on_arrival_or_departure">Saavuttaessa ja lähdettäessä</string>
     <string name="default_location_reminder_on_departure">Lähdettäessä</string>
     <string name="default_location_reminder_on_arrival">Saavuttaessa</string>

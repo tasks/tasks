@@ -148,11 +148,6 @@
         <item quantity="few">%d задатка</item>
         <item quantity="other">%d задатака</item>
     </plurals>
-    <plurals name="subtask_count">
-        <item quantity="one">%d подзадатак</item>
-        <item quantity="few">%d подзадатка</item>
-        <item quantity="other">%d подзадатака</item>
-    </plurals>
     <plurals name="repeat_times">
         <item quantity="one">време</item>
         <item quantity="few">времена</item>

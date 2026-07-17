@@ -266,10 +266,6 @@
         <item quantity="one">%d tarefa</item>
         <item quantity="other">%d tarefas</item>
     </plurals>
-    <plurals name="subtask_count">
-        <item quantity="one">%d subtarefa</item>
-        <item quantity="other">%d subtarefas</item>
-    </plurals>
     <plurals name="repeat_times">
         <item quantity="one">tempo</item>
         <item quantity="other">tempos</item>

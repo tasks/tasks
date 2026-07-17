@@ -351,9 +351,6 @@
     <plurals name="repeat_times">
         <item quantity="other">เวลา</item>
     </plurals>
-    <plurals name="subtask_count">
-        <item quantity="other">%d งานย่อย</item>
-    </plurals>
     <plurals name="task_count">
         <item quantity="other">%d งาน</item>
     </plurals>

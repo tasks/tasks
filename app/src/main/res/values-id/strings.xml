@@ -99,9 +99,6 @@
     <plurals name="task_count">
         <item quantity="other">%d tugas</item>
     </plurals>
-    <plurals name="subtask_count">
-        <item quantity="other">%d subtugas</item>
-    </plurals>
     <plurals name="repeat_minutes">
         <item quantity="other">menit</item>
     </plurals>

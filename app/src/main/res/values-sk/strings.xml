@@ -400,11 +400,6 @@
     <string name="swipe_to_snooze_time_1_hour">po hodine</string>
     <string name="swipe_to_snooze_time_24_hours">po 24 hodinách</string>
     <string name="widget_show_title">Zobraziť názov</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d podúloha</item>
-        <item quantity="few">%d podúlohy</item>
-        <item quantity="other">%d podúloh</item>
-    </plurals>
     <plurals name="reminder_minutes">
         <item quantity="one">minúta</item>
         <item quantity="few">minúty</item>

@@ -288,14 +288,6 @@
     <string name="filter">تصفية</string>
     <string name="move">نقل</string>
     <string name="subtasks">مهام فرعيّة</string>
-    <plurals name="subtask_count">
-        <item quantity="zero">%d مهمّة فرعيّة</item>
-        <item quantity="one">%d مهمّة فرعيّة</item>
-        <item quantity="two">مهمّتان فرعيّتان</item>
-        <item quantity="few">%d مهمّات فرعيّة</item>
-        <item quantity="many">%d مهمّة فرعيّة</item>
-        <item quantity="other">%d مهمّة فرعيّة</item>
-    </plurals>
     <string name="CFC_list_name">في القائمة…</string>
     <string name="calendar_event_not_found">لم يوجد حدث التقويم</string>
     <string name="CFC_tag_contains_text">اسم العلامة يحتوي: \?</string>

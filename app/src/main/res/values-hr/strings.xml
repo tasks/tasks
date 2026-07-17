@@ -539,11 +539,6 @@
         <item quantity="few">puta</item>
         <item quantity="other">puta</item>
     </plurals>
-    <plurals name="subtask_count">
-        <item quantity="one">%d podzadatak</item>
-        <item quantity="few">%d podzadatka</item>
-        <item quantity="other">%d podzadataka</item>
-    </plurals>
     <string name="now">Sada</string>
     <string name="when_started">Kad se pokrene</string>
     <string name="completion_sound">Odsviraj zvuk obavljanja</string>

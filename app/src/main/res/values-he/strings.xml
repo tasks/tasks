@@ -373,11 +373,6 @@
     <string name="more_settings">הגדרות נוספות</string>
     <string name="preferences_advanced">מתקדם</string>
     <string name="whats_new">מה חדש</string>
-    <plurals name="subtask_count">
-        <item quantity="one">תת־משימה אחת</item>
-        <item quantity="two">%d תתי־משימות</item>
-        <item quantity="other">%d תתי־משימות</item>
-    </plurals>
     <string name="collapse_subtasks">כיווץ תתי־משימות</string>
     <string name="expand_subtasks">הרחבת תתי־משימות</string>
     <string name="action_new_task">משימה חדשה</string>

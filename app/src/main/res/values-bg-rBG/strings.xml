@@ -375,10 +375,6 @@
     <string name="collapse_subtasks">Свиване на задачи</string>
     <string name="expand_subtasks">Отваряне на задачи</string>
     <string name="subtasks">Задачи</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d задача</item>
-        <item quantity="other">%d задачи</item>
-    </plurals>
     <string name="backups_ignore_warnings">Пренебрегване на предупреждения</string>
     <string name="last_backup_never">никога</string>
     <string name="last_backup">Последно резервно копие: %s</string>

@@ -365,11 +365,6 @@
     <string name="icon">Ikona</string>
     <string name="name_your_price">Nazwij swoją cenę</string>
     <string name="SSD_sort_my_order">Ręczne</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d podzadanie</item>
-        <item quantity="few">%d podzadania</item>
-        <item quantity="many">%d podzadań</item>
-    </plurals>
     <string name="expand_subtasks">Rozwiń podzadania</string>
     <string name="collapse_subtasks">Zwiń podzadania</string>
     <string name="TEA_add_subtask">Dodaj podzadanie</string>

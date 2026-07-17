@@ -20,6 +20,7 @@ import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import org.tasks.filters.getIcon
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
+import org.tasks.kmp.formatNumber
 import org.tasks.kmp.formatTime
 import org.tasks.time.startOfDay
 import org.tasks.compose.chips.ChipDataProvider
@@ -34,12 +35,7 @@ class WidgetChipProvider @Inject constructor(
 
     fun getSubtaskChip(task: TaskContainer): RemoteViews {
         return newChip().apply {
-            setTextViewText(
-                R.id.chip_text,
-                context
-                    .resources
-                    .getQuantityString(R.plurals.subtask_count, task.children, task.children)
-            )
+            setTextViewText(R.id.chip_text, formatNumber(task.children))
             setImageViewResource(
                 R.id.chip_icon,
                 if (task.isCollapsed) {

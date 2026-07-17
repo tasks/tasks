@@ -365,11 +365,6 @@
     <string name="icon">Icono</string>
     <string name="name_your_price">Precio flexible</string>
     <string name="SSD_sort_my_order">Mi orden</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d subtarea</item>
-        <item quantity="many">%d subtareas</item>
-        <item quantity="other">%d subtareas</item>
-    </plurals>
     <string name="expand_subtasks">Expandir subtareas</string>
     <string name="collapse_subtasks">Contraer subtareas</string>
     <string name="TEA_add_subtask">Añadir subtarea</string>

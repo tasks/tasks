@@ -243,10 +243,6 @@
         <item quantity="one">වරක්</item>
         <item quantity="other">වාර</item>
     </plurals>
-    <plurals name="subtask_count">
-        <item quantity="one">උප කාර්යය %d</item>
-        <item quantity="other">උප කාර්යයන් %d</item>
-    </plurals>
     <plurals name="task_count">
         <item quantity="one">කාර්යය %d</item>
         <item quantity="other">කාර්යයන් %d</item>

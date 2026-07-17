@@ -355,10 +355,6 @@
     <string name="icon">Ikonoa</string>
     <string name="name_your_price">Jarri zuk prezioa</string>
     <string name="SSD_sort_my_order">Nire eskaria</string>
-    <plurals name="subtask_count">
-        <item quantity="one">Azpi-zeregin %d</item>
-        <item quantity="other">%d azpi-zeregin</item>
-    </plurals>
     <string name="expand_subtasks">Hedatu azpi-zereginak</string>
     <string name="collapse_subtasks">Tolestu azpi-zereginak</string>
     <string name="TEA_add_subtask">Gehitu azpi-zeregina</string>

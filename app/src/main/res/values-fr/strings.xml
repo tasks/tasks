@@ -365,11 +365,6 @@
     <string name="icon">Icône</string>
     <string name="name_your_price">Donnez votre prix</string>
     <string name="SSD_sort_my_order">Mon tri</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d sous-tâche</item>
-        <item quantity="many">%d sous-tâches</item>
-        <item quantity="other">%d sous-tâches</item>
-    </plurals>
     <string name="expand_subtasks">Développer les sous-tâches</string>
     <string name="collapse_subtasks">Réduire les sous-tâches</string>
     <string name="TEA_add_subtask">Ajouter une sous-tâche</string>

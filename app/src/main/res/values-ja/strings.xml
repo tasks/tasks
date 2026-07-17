@@ -392,9 +392,6 @@
     <string name="collapse_subtasks">サブタスクを折りたたむ</string>
     <string name="expand_subtasks">サブタスクを展開する</string>
     <string name="subtasks">サブタスク</string>
-    <plurals name="subtask_count">
-        <item quantity="other">サブタスク %d 件</item>
-    </plurals>
     <string name="TEA_add_subtask">サブタスクを追加</string>
     <string name="sort_created">作成日時</string>
     <string name="display_name">表示名</string>

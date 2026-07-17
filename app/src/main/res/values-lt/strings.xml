@@ -488,11 +488,6 @@
     <string name="next_tuesday">Kitą antradienį</string>
     <string name="next_monday">Kitą pirmadienį</string>
     <string name="next_sunday">Kitą sekmadienį</string>
-    <plurals name="subtask_count">
-        <item quantity="one">%d antrinė užduotis</item>
-        <item quantity="few">%d antrinės užduotys</item>
-        <item quantity="other">%d antrinių užduočių</item>
-    </plurals>
     <string name="default_due_date">Numatyta pabaigos data</string>
     <string name="astrid_sort_order_summary">Įgalinti rankinį Astrid rūšiavimo režimą „Mano užduotys“, „Šiandien“ ir etiketėms. Ateityje atnaujinant šis rūšiavimo režimas bus pakeistas į „Mano rūšiavimas“</string>
     <string name="app_passwords_more_info">Sinchronizuokite savo užduotis ir kalendorius su trečiųjų šalių darbalaukio ir mobiliųjų įrenginių programėlėmis. Bakstelėkite čia, jei reikia daugiau informacijos</string>

@@ -346,9 +346,6 @@
     <string name="name_your_price">您愿意支付多少费用</string>
     <string name="list_separator_with_space">"， "</string>
     <string name="SSD_sort_my_order">我的顺序</string>
-    <plurals name="subtask_count">
-        <item quantity="other">%d 个子任务</item>
-    </plurals>
     <string name="expand_subtasks">展开子任务</string>
     <string name="collapse_subtasks">收起子任务</string>
     <string name="TEA_add_subtask">添加子任务</string>
