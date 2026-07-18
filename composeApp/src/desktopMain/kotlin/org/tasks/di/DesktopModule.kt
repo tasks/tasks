@@ -3,13 +3,16 @@ package org.tasks.di
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.tasks.PlatformConfiguration
+import org.tasks.TasksBuildConfig
 import org.tasks.analytics.PostHogReporting
 import org.tasks.analytics.Reporting
 import org.tasks.auth.DesktopOAuthFlow
@@ -198,19 +201,30 @@ actual fun platformModule(): Module = module {
     }
     single<SubscriptionProvider> {
         val entitlement: DesktopEntitlement = get()
+        val tasksPreferences: TasksPreferences = get()
+        val debugPro: Flow<Boolean> =
+            if (TasksBuildConfig.DEBUG) tasksPreferences.flow(TasksPreferences.debugPro, false)
+            else flowOf(false)
         object : SubscriptionProvider {
             override val subscription: Flow<SubscriptionProvider.SubscriptionInfo?> =
-                kotlinx.coroutines.flow.combine(entitlement.hasPro, entitlement.sku, entitlement.provider) { hasPro, sku, provider ->
-                    if (hasPro) {
-                        val isMonthly = sku?.startsWith("monthly") == true
-                        SubscriptionProvider.SubscriptionInfo(
-                            sku = sku ?: "desktop_play",
-                            isMonthly = isMonthly,
-                            isTasksSubscription = isTasksSubscription(sku, isMonthly),
-                            isGitHubSponsor = provider == EntitlementProvider.GITHUB_SPONSOR,
+                combine(entitlement.hasPro, entitlement.sku, entitlement.provider, debugPro) { hasPro, sku, provider, debug ->
+                    when {
+                        hasPro -> {
+                            val isMonthly = sku?.startsWith("monthly") == true
+                            SubscriptionProvider.SubscriptionInfo(
+                                sku = sku ?: "desktop_play",
+                                isMonthly = isMonthly,
+                                isTasksSubscription = isTasksSubscription(sku, isMonthly),
+                                isGitHubSponsor = provider == EntitlementProvider.GITHUB_SPONSOR,
+                            )
+                        }
+                        debug -> SubscriptionProvider.SubscriptionInfo(
+                            sku = "debug_pro",
+                            isMonthly = false,
+                            isTasksSubscription = false,
+                            isGitHubSponsor = false,
                         )
-                    } else {
-                        null
+                        else -> null
                     }
                 }
             override suspend fun getFormattedPrice(sku: String): String? =

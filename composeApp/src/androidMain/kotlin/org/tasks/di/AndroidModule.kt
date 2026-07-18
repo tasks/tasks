@@ -12,6 +12,8 @@ import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksServerEnvironment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import org.tasks.TasksBuildConfig
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
@@ -66,8 +68,26 @@ actual fun platformModule(): Module = module {
         )
     }
     single<SubscriptionProvider> {
+        val tasksPreferences = get<TasksPreferences>()
+        val subscriptionFlow: Flow<SubscriptionProvider.SubscriptionInfo?> =
+            if (TasksBuildConfig.DEBUG) {
+                tasksPreferences.flow(TasksPreferences.debugPro, false).map { debug ->
+                    if (debug) {
+                        SubscriptionProvider.SubscriptionInfo(
+                            sku = "debug_pro",
+                            isMonthly = false,
+                            isTasksSubscription = false,
+                            isGitHubSponsor = false,
+                        )
+                    } else {
+                        null
+                    }
+                }
+            } else {
+                flowOf(null)
+            }
         object : SubscriptionProvider {
-            override val subscription: Flow<SubscriptionProvider.SubscriptionInfo?> = flowOf(null)
+            override val subscription: Flow<SubscriptionProvider.SubscriptionInfo?> = subscriptionFlow
             override suspend fun getFormattedPrice(sku: String): String? = null
         }
     }
