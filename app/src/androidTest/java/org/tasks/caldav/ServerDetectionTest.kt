@@ -94,8 +94,10 @@ class ServerDetectionTest : CaldavTest() {
                     .setHeader("Content-Type", "application/json")
                     .setBody("""{"guest": false}""")
             )
+            enqueue(NO_CALENDARS, NO_CALENDARS)
+        } else {
+            enqueue(NO_CALENDARS)
         }
-        enqueue(NO_CALENDARS)
     }
 
     companion object {
