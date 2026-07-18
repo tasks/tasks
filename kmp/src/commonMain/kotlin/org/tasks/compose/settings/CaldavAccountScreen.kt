@@ -25,12 +25,15 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -72,7 +75,6 @@ import tasks.kmp.generated.resources.logout_confirmation
 import tasks.kmp.generated.resources.logout_warning
 import tasks.kmp.generated.resources.metadata_move
 import tasks.kmp.generated.resources.metadata_move_message
-import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.password
 import tasks.kmp.generated.resources.save
 import tasks.kmp.generated.resources.sign_in
@@ -133,9 +135,16 @@ fun CaldavAccountScreen(
     onDismissSnackbar: () -> Unit,
 ) {
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
+    val snackbarHostState = remember { SnackbarHostState() }
 
     PlatformBackHandler(enabled = state.hasChanges) {
         onDiscardDialogChange(true)
+    }
+
+    LaunchedEffect(state.snackbar) {
+        val message = state.snackbar ?: return@LaunchedEffect
+        snackbarHostState.showSnackbar(message)
+        onDismissSnackbar()
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -286,20 +295,12 @@ fun CaldavAccountScreen(
             Spacer(modifier = Modifier.height(SettingsContentPadding))
         }
 
-        if (state.snackbar != null) {
-            Snackbar(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(SettingsContentPadding),
-                action = {
-                    TextButton(onClick = onDismissSnackbar) {
-                        Text(text = stringResource(Res.string.ok))
-                    }
-                },
-            ) {
-                Text(text = state.snackbar)
-            }
-        }
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(SettingsContentPadding),
+        )
     }
 
     if (showDeleteDialog) {
