@@ -3,6 +3,7 @@ package org.tasks.compose.settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,6 +33,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.autofill.ContentType
@@ -136,155 +138,159 @@ fun CaldavAccountScreen(
         onDiscardDialogChange(true)
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surface)
-            .verticalScroll(rememberScrollState())
-    ) {
-        if (state.isLoading) {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-        }
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.surface)
+                .verticalScroll(rememberScrollState())
+        ) {
+            if (state.isLoading) {
+                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+            }
 
-        Spacer(modifier = Modifier.height(SettingsContentPadding))
+            Spacer(modifier = Modifier.height(SettingsContentPadding))
 
-        if (!isNewAccount) {
-            state.account?.error?.takeIf { it.isNotBlank() }?.let { error ->
-                AccountErrorBanner(
-                    error = error,
-                    modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            if (!isNewAccount) {
+                state.account?.error?.takeIf { it.isNotBlank() }?.let { error ->
+                    AccountErrorBanner(
+                        error = error,
+                        modifier = Modifier.padding(horizontal = SettingsContentPadding),
+                    )
+                    Spacer(modifier = Modifier.height(SettingsContentPadding))
+                }
+            }
+
+            Column(
+                modifier = Modifier.padding(horizontal = SettingsContentPadding),
+                verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+            ) {
+                TextInputCard(
+                    value = state.url,
+                    onValueChange = onUrlChange,
+                    label = stringResource(Res.string.url),
+                    placeholder = "https://example.com/dav",
+                    error = state.urlError,
+                    position = CardPosition.First,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Uri,
+                        capitalization = KeyboardCapitalization.None,
+                    ),
                 )
+                TextInputCard(
+                    value = state.username,
+                    onValueChange = onUsernameChange,
+                    label = stringResource(Res.string.user),
+                    error = state.usernameError,
+                    position = CardPosition.Middle,
+                    contentType = ContentType.Username,
+                    keyboardOptions = KeyboardOptions(
+                        capitalization = KeyboardCapitalization.None,
+                    ),
+                )
+                TextInputCard(
+                    value = state.password,
+                    onValueChange = onPasswordChange,
+                    label = stringResource(Res.string.password),
+                    placeholder = if (!isNewAccount) "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022" else null,
+                    error = state.passwordError,
+                    position = CardPosition.Last,
+                    contentType = ContentType.Password,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Password,
+                        capitalization = KeyboardCapitalization.None,
+                    ),
+                    visualTransformation = PasswordVisualTransformation(),
+                )
+            }
+
+            Spacer(modifier = Modifier.height(SettingsContentPadding))
+
+            if (!isNewAccount) {
+                Column(
+                    modifier = Modifier.padding(horizontal = SettingsContentPadding),
+                ) {
+                    TextInputCard(
+                        value = state.displayName,
+                        onValueChange = onNameChange,
+                        label = stringResource(Res.string.display_name),
+                        placeholder = state.username.trim().ifEmpty { null },
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(SettingsContentPadding))
             }
-        }
 
-        Column(
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
-            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-        ) {
-            TextInputCard(
-                value = state.url,
-                onValueChange = onUrlChange,
-                label = stringResource(Res.string.url),
-                placeholder = "https://example.com/dav",
-                error = state.urlError,
-                position = CardPosition.First,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Uri,
-                    capitalization = KeyboardCapitalization.None,
-                ),
-            )
-            TextInputCard(
-                value = state.username,
-                onValueChange = onUsernameChange,
-                label = stringResource(Res.string.user),
-                error = state.usernameError,
-                position = CardPosition.Middle,
-                contentType = ContentType.Username,
-                keyboardOptions = KeyboardOptions(
-                    capitalization = KeyboardCapitalization.None,
-                ),
-            )
-            TextInputCard(
-                value = state.password,
-                onValueChange = onPasswordChange,
-                label = stringResource(Res.string.password),
-                placeholder = if (!isNewAccount) "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022" else null,
-                error = state.passwordError,
-                position = CardPosition.Last,
-                contentType = ContentType.Password,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Password,
-                    capitalization = KeyboardCapitalization.None,
-                ),
-                visualTransformation = PasswordVisualTransformation(),
-            )
-        }
-
-        Spacer(modifier = Modifier.height(SettingsContentPadding))
-
-        if (!isNewAccount) {
             Column(
                 modifier = Modifier.padding(horizontal = SettingsContentPadding),
             ) {
-                TextInputCard(
-                    value = state.displayName,
-                    onValueChange = onNameChange,
-                    label = stringResource(Res.string.display_name),
-                    placeholder = state.username.trim().ifEmpty { null },
+                ServerTypeSelector(
+                    selected = state.serverType,
+                    onSelected = onServerTypeChange,
                 )
             }
 
-            Spacer(modifier = Modifier.height(SettingsContentPadding))
-        }
+            if (state.metadataVisible) {
+                Spacer(modifier = Modifier.height(SettingsContentPadding))
+                Column(
+                    modifier = Modifier.padding(horizontal = SettingsContentPadding),
+                ) {
+                    SettingsItemCard {
+                        SwitchPreferenceRow(
+                            title = stringResource(Res.string.sync_metadata),
+                            summary = state.metadataSubtitle,
+                            checked = state.metadataChecked,
+                            onCheckedChange = onMetadataToggle,
+                            enabled = state.metadataInteractable && !state.metadataProbing,
+                            indent = false,
+                        )
+                    }
+                    if (state.metadataProbing) {
+                        LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                    }
+                }
+            }
 
-        Column(
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
-        ) {
-            ServerTypeSelector(
-                selected = state.serverType,
-                onSelected = onServerTypeChange,
-            )
-        }
-
-        if (state.metadataVisible) {
             Spacer(modifier = Modifier.height(SettingsContentPadding))
+
             Column(
                 modifier = Modifier.padding(horizontal = SettingsContentPadding),
             ) {
                 SettingsItemCard {
-                    SwitchPreferenceRow(
-                        title = stringResource(Res.string.sync_metadata),
-                        summary = state.metadataSubtitle,
-                        checked = state.metadataChecked,
-                        onCheckedChange = onMetadataToggle,
-                        enabled = state.metadataInteractable && !state.metadataProbing,
-                        indent = false,
+                    PreferenceRow(
+                        title = stringResource(
+                            if (isNewAccount) Res.string.sign_in else Res.string.save
+                        ),
+                        icon = if (isNewAccount) Icons.Outlined.Login else Icons.Outlined.Save,
+                        enabled = state.hasChanges && !state.isLoading && !state.metadataProbing,
+                        onClick = onSave,
                     )
                 }
-                if (state.metadataProbing) {
-                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+            }
+
+            if (!isNewAccount) {
+                Spacer(modifier = Modifier.height(SettingsContentPadding))
+
+                Column(
+                    modifier = Modifier.padding(horizontal = SettingsContentPadding),
+                ) {
+                    DangerCard(
+                        icon = Icons.Outlined.Logout,
+                        title = stringResource(Res.string.logout),
+                        tint = MaterialTheme.colorScheme.error,
+                        onClick = { showDeleteDialog = true },
+                    )
                 }
             }
-        }
 
-        Spacer(modifier = Modifier.height(SettingsContentPadding))
-
-        Column(
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
-        ) {
-            SettingsItemCard {
-                PreferenceRow(
-                    title = stringResource(
-                        if (isNewAccount) Res.string.sign_in else Res.string.save
-                    ),
-                    icon = if (isNewAccount) Icons.Outlined.Login else Icons.Outlined.Save,
-                    enabled = state.hasChanges && !state.isLoading && !state.metadataProbing,
-                    onClick = onSave,
-                )
-            }
-        }
-
-        if (!isNewAccount) {
             Spacer(modifier = Modifier.height(SettingsContentPadding))
-
-            Column(
-                modifier = Modifier.padding(horizontal = SettingsContentPadding),
-            ) {
-                DangerCard(
-                    icon = Icons.Outlined.Logout,
-                    title = stringResource(Res.string.logout),
-                    tint = MaterialTheme.colorScheme.error,
-                    onClick = { showDeleteDialog = true },
-                )
-            }
         }
-
-        Spacer(modifier = Modifier.height(SettingsContentPadding))
 
         if (state.snackbar != null) {
             Snackbar(
-                modifier = Modifier.padding(horizontal = SettingsContentPadding),
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(SettingsContentPadding),
                 action = {
                     TextButton(onClick = onDismissSnackbar) {
                         Text(text = stringResource(Res.string.ok))
