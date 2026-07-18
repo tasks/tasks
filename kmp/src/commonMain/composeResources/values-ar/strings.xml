@@ -217,4 +217,5 @@
     <string name="priority_high">عال</string>
     <string name="priority_medium">متوسط</string>
     <string name="priority_low">منخفض</string>
+    <string name="metadata_move">نقل</string>
 </resources>

@@ -224,4 +224,5 @@
     <string name="priority_high">Высокий</string>
     <string name="priority_medium">Средний</string>
     <string name="priority_low">Низкий</string>
+    <string name="metadata_move">Перенести</string>
 </resources>

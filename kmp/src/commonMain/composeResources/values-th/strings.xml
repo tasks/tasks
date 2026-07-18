@@ -175,4 +175,5 @@
     <string name="priority_high">สูง</string>
     <string name="priority_medium">ปานกลาง</string>
     <string name="priority_low">ต่ํา</string>
+    <string name="metadata_move">ย้าย</string>
 </resources>

@@ -341,4 +341,5 @@
     <string name="cloud_onboarding_faq_google_access_answer">Não. Google é usado para autenticação, mas seus dados são armazenados nos servidores do Tasks.org.</string>
     <string name="cloud_onboarding_faq_desktop_sync_question">Como eu sincronizo com meu computador?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">Faça download do app para desktop em tasks.org/download, então faça login com a mesma conta Google.</string>
+    <string name="metadata_move">Mover</string>
 </resources>

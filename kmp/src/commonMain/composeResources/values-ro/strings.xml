@@ -222,4 +222,5 @@
     <string name="priority_high">Mare</string>
     <string name="priority_medium">Mediu</string>
     <string name="priority_low">Redus</string>
+    <string name="metadata_move">Mută</string>
 </resources>

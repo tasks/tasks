@@ -261,4 +261,5 @@
     <string name="priority_high">Grava</string>
     <string name="priority_medium">Mezgrava</string>
     <string name="priority_low">Graveta</string>
+    <string name="metadata_move">Movi</string>
 </resources>

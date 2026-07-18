@@ -208,4 +208,5 @@
     <string name="priority_high">높음</string>
     <string name="priority_medium">중간</string>
     <string name="priority_low">낮음</string>
+    <string name="metadata_move">이동</string>
 </resources>

@@ -337,4 +337,5 @@
     <string name="priority_high">高</string>
     <string name="priority_medium">中</string>
     <string name="priority_low">低</string>
+    <string name="metadata_move">移动</string>
 </resources>

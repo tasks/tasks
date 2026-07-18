@@ -211,4 +211,5 @@
     <string name="priority_high">Alt</string>
     <string name="priority_medium">Mig</string>
     <string name="priority_low">Baix</string>
+    <string name="metadata_move">Mou</string>
 </resources>

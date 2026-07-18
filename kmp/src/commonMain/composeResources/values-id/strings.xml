@@ -334,4 +334,5 @@
     <string name="priority_high">Tinggi</string>
     <string name="priority_medium">Sedang</string>
     <string name="priority_low">Rendah</string>
+    <string name="metadata_move">Pindah</string>
 </resources>

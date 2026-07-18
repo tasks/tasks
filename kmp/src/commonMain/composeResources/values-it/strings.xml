@@ -267,4 +267,5 @@
     <string name="priority_high">Alta</string>
     <string name="priority_medium">Media</string>
     <string name="priority_low">Bassa</string>
+    <string name="metadata_move">Sposta</string>
 </resources>

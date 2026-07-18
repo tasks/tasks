@@ -304,4 +304,5 @@
     <string name="priority_high">Alta</string>
     <string name="priority_medium">Média</string>
     <string name="priority_low">Baixa</string>
+    <string name="metadata_move">Mover</string>
 </resources>

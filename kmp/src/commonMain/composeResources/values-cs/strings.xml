@@ -342,4 +342,5 @@
     <string name="priority_low">Nízká</string>
     <string name="delete_tag_warning">Úkoly s tímto štítkem nebudou smazány</string>
     <string name="delete_list_warning">Všechny úkoly v tomto seznamu budou smazány. Tato akce je nevratná!</string>
+    <string name="metadata_move">Přesunout</string>
 </resources>

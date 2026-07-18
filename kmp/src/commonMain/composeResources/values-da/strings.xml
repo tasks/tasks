@@ -235,4 +235,5 @@
     <string name="priority_high">Høj</string>
     <string name="priority_medium">Middel</string>
     <string name="priority_low">Lav</string>
+    <string name="metadata_move">Flyt</string>
 </resources>

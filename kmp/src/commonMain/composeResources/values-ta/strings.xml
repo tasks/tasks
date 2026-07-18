@@ -209,4 +209,5 @@
     <string name="priority_high">உயரமான</string>
     <string name="priority_medium">நடுத்தரமான</string>
     <string name="priority_low">குறைந்த</string>
+    <string name="metadata_move">நகர்வு</string>
 </resources>

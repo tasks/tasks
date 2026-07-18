@@ -224,4 +224,5 @@
     <string name="priority_high">Korkea</string>
     <string name="priority_medium">Kohtalainen</string>
     <string name="priority_low">Matala</string>
+    <string name="metadata_move">Siirrä</string>
 </resources>

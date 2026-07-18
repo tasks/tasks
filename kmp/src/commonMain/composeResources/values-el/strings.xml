@@ -209,4 +209,5 @@
     <string name="priority_high">Υψηλή</string>
     <string name="priority_medium">Μεσαία</string>
     <string name="priority_low">Χαμηλή</string>
+    <string name="metadata_move">Μετακίνηση αλλού</string>
 </resources>
