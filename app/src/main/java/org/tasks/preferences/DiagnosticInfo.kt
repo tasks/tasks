@@ -8,6 +8,7 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.fetchTasks
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
+import org.tasks.caldav.metadata.TagMetadataSync
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.LocationDao
@@ -30,6 +31,7 @@ class DiagnosticInfo @Inject constructor(
     private val tagDataDao: TagDataDao,
     private val locationDao: LocationDao,
     private val taskDao: TaskDao,
+    private val tagMetadataSync: TagMetadataSync,
 ) {
     private fun isDontKeepActivitiesEnabled(): Boolean? {
         return try {
@@ -88,6 +90,14 @@ class DiagnosticInfo @Inject constructor(
             val filter = TagFilter(tag)
             appendLine("$tag: ${getStats(filter)}")
         }
+
+        appendLine()
+        appendLine("=== Tag metadata ===")
+        append(try {
+            tagMetadataSync.diagnostics()
+        } catch (e: Exception) {
+            "$e\n"
+        })
 
         appendLine()
         appendLine("=== Places ===")

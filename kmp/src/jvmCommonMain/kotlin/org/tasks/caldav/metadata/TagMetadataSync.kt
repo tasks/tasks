@@ -9,9 +9,9 @@ import org.tasks.caldav.CaldavClient
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.supportsDeadProperties
+import org.tasks.data.NO_ORDER
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.NO_ORDER
 import org.tasks.data.dao.RemoteTagEntry
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TagWithState
@@ -51,6 +51,57 @@ class TagMetadataSync(
     suspend fun primaryAccount(): CaldavAccount? = caldavDao.getMetadataPrimary(preferredPrimaryId())
 
     suspend fun isPrimary(account: CaldavAccount): Boolean = primaryAccount()?.id == account.id
+
+    suspend fun diagnostics(): String = buildString {
+        val primary = primaryAccount()
+        val heldId = preferences.get(TasksPreferences.metadataStoreAccount, 0L)
+        appendLine("primary: ${primary ?: "none"}")
+        if (heldId != (primary?.id ?: 0L)) {
+            appendLine("store held: ${heldId.takeIf { it != 0L } ?: "none"} (pending takeover)")
+        }
+
+        val state = tagDataDao.getTagsWithState()
+        val syncable = state.filter { it.tag.isSyncable() }
+        appendLine(
+            "local: tags=${state.size}, syncable=${syncable.size}, dirty=${syncable.count { it.dirty }}, " +
+                    "reaped=${syncable.count { it.reaped }}, tombstones=${tagDataDao.getTombstoneKeys().size}, " +
+                    "orderDirty=${orderDirty()}"
+        )
+        state.filter { it.dirty || it.reaped || !it.tag.isSyncable() }.forEach {
+            appendLine(
+                "  ${it.tag} dirty=${it.dirty} reaped=${it.reaped} " +
+                        "dirtyVersion=${it.dirtyVersion} syncable=${it.tag.isSyncable()}"
+            )
+        }
+
+        val cachedRev = rev()
+        val account = primary ?: heldId.takeIf { it != 0L }?.let { caldavDao.getAccount(it) }
+        val cached = account?.let { vtodoCache.getTagMetadata(it) }
+        val blob = cached?.let { TagMetadataBlob.parse(it) }
+        appendLine(
+            when {
+                account == null -> "blob: no store"
+                cached == null -> "blob: absent (rev=${cachedRev ?: "none"})"
+                blob == null -> "blob: unparseable (${cached.byteSize()} bytes)"
+                else -> {
+                    var live = 0
+                    var tombstones = 0
+                    blob.keys.forEach {
+                        when (blob.entryOf(it)) {
+                            is Entry.Live -> live++
+                            is Entry.Tomb -> tombstones++
+                            null -> {}
+                        }
+                    }
+                    val tear = if (cachedRev != blob.rev) " MISMATCH(rev=${cachedRev ?: "none"})" else ""
+                    "blob: tags=$live, tombstones=$tombstones, order=${blob.order?.size ?: "absent"}, " +
+                            "version=${blob.version}, rev=${blob.rev ?: "none"}$tear, ${cached.byteSize()} bytes"
+                }
+            }
+        )
+    }
+
+    private fun String.byteSize(): Int = encodeToByteArray().size
 
     data class ToggleState(
         val visible: Boolean = false,
