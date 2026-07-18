@@ -1,3 +1,23 @@
+### 15.8 (2026-07-18)
+
+* Sync tag info
+  * Sync tag colors, icons, and order across devices
+  * Renaming or deleting tags syncs across devices
+  * Requires Tasks.org Cloud or CalDAV with compatible CalDAV server
+  * Opt-in for CalDAV accounts - enable in account settings
+
+Desktop:
+  * Add tag picker to edit screen
+  * Add priority picker to edit screen
+  * Add tag settings screen
+  * Fix backstack crash
+
+Update translations
+  * Brazilian Portuguese - @gregcarmo
+  * Czech - Fjuro
+  * Danish - ERYpTION
+  * Serbian - @vale-decem
+
 ### 15.7.4 (2026-07-10)
 
 * Disable reminder sync for OpenXchange (mailbox.org)

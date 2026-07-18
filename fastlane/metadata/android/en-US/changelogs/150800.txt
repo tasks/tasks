@@ -1,0 +1,6 @@
+* Sync tag info
+  * Sync tag colors, icons, and order across devices
+  * Renaming or deleting tags syncs across devices
+  * Requires Tasks.org Cloud or CalDAV with compatible CalDAV server
+  * Opt-in for CalDAV accounts - enable in account settings
+* Update translations
