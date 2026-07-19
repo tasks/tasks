@@ -9,6 +9,7 @@ class Ical4androidTaskAdapter(
     override var sequence by task::sequence
     override var createdAt by task::createdAt
     override var lastModified by task::lastModified
+    override var dtStamp: Long? = null
     override var summary by task::summary
     override var location by task::location
     override var geoPosition by task::geoPosition

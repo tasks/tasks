@@ -26,6 +26,7 @@ import org.tasks.makers.iCalMaker.COLLAPSED
 import org.tasks.makers.iCalMaker.COMPLETED_AT
 import org.tasks.makers.iCalMaker.CREATED_AT
 import org.tasks.makers.iCalMaker.DESCRIPTION
+import org.tasks.makers.iCalMaker.DT_STAMP
 import org.tasks.makers.iCalMaker.DUE_DATE
 import org.tasks.makers.iCalMaker.LAST_MODIFIED
 import org.tasks.makers.iCalMaker.PARENT
@@ -471,6 +472,88 @@ class iCalendarMergeTest {
             .let {
                 assertTrue(it.modificationDate >= before)
                 assertTrue(it.modificationDate <= org.tasks.time.DateTimeUtils2.currentTimeMillis())
+            }
+    }
+
+    @Test
+    fun dtStampSetsModifiedWhenLastModifiedAndCreatedMissing() {
+        val dtStamp = newDateTime().minusDays(3)
+        newTask()
+            .applyRemote(
+                remote = newIcal(with(DT_STAMP, dtStamp.toUTC())),
+                local = null
+            )
+            .let {
+                assertEquals(dtStamp.millis, it.modificationDate)
+            }
+    }
+
+    @Test
+    fun dtStampSetsCreationWhenCreatedMissing() {
+        val dtStamp = newDateTime().minusDays(3)
+        newTask()
+            .applyRemote(
+                remote = newIcal(with(DT_STAMP, dtStamp.toUTC())),
+                local = null
+            )
+            .let {
+                assertEquals(dtStamp.millis, it.creationDate)
+            }
+    }
+
+    @Test
+    fun lastModifiedBeatsDtStamp() {
+        val dtStamp = newDateTime().minusMinutes(1)
+        val modified = newDateTime().minusMinutes(5)
+        newTask()
+            .applyRemote(
+                remote = newIcal(
+                    with(LAST_MODIFIED, modified.toUTC()),
+                    with(DT_STAMP, dtStamp.toUTC()),
+                ),
+                local = null
+            )
+            .let {
+                assertEquals(modified.millis, it.modificationDate)
+            }
+    }
+
+    @Test
+    fun createdBeatsDtStampForCreation() {
+        val dtStamp = newDateTime().minusMinutes(1)
+        val created = newDateTime().minusDays(10)
+        newTask()
+            .applyRemote(
+                remote = newIcal(
+                    with(CREATED_AT, created.toUTC()),
+                    with(DT_STAMP, dtStamp.toUTC()),
+                ),
+                local = null
+            )
+            .let {
+                assertEquals(created.millis, it.creationDate)
+            }
+    }
+
+    @Test
+    fun creationImmutableWhenDtStampAdvances() {
+        val imported = newDateTime().minusDays(30)
+        val serverEdit = newDateTime().minusDays(3)
+        val task = newTask()
+            .applyRemote(
+                remote = newIcal(with(DT_STAMP, imported.toUTC())),
+                local = null
+            )
+        assertEquals(imported.millis, task.creationDate)
+        assertEquals(imported.millis, task.modificationDate)
+        task
+            .applyRemote(
+                remote = newIcal(with(DT_STAMP, serverEdit.toUTC())),
+                local = newIcal(with(DT_STAMP, imported.toUTC()))
+            )
+            .let {
+                assertEquals(imported.millis, it.creationDate)
+                assertEquals(serverEdit.millis, it.modificationDate)
             }
     }
 

@@ -70,6 +70,7 @@ data class Task(
 
     override var createdAt: Long? = null,
     override var lastModified: Long? = null,
+    override var dtStamp: Long? = null,
 
     override var summary: String? = null,
     override var location: String? = null,
@@ -230,6 +231,7 @@ data class Task(
                     is Sequence -> t.sequence = prop.sequenceNo
                     is Created -> t.createdAt = prop.dateTime.time
                     is LastModified -> t.lastModified = prop.dateTime.time
+                    is DtStamp -> t.dtStamp = prop.dateTime.time
                     is Summary -> t.summary = prop.value
                     is Location -> t.location = prop.value
                     is Geo -> t.geoPosition = prop
@@ -252,7 +254,7 @@ data class Task(
                             t.categories += category
                     is Comment -> t.comment = prop.value
                     is RelatedTo -> t.relatedTo.add(prop)
-                    is Uid, is ProdId, is DtStamp -> { /* don't save these as unknown properties */ }
+                    is Uid, is ProdId -> { /* don't save these as unknown properties */ }
                     else -> t.unknownProperties += prop
                 }
 

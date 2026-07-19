@@ -23,6 +23,7 @@ interface VTodoTask {
     var sequence: Int?
     var createdAt: Long?
     var lastModified: Long?
+    var dtStamp: Long?
     var summary: String?
     var location: String?
     var geoPosition: Geo?

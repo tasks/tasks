@@ -61,8 +61,13 @@ private fun org.tasks.data.entity.Task.applyCompletedAt(remote: VTodoTask, local
 private fun org.tasks.data.entity.Task.applyCreatedAt(remote: VTodoTask, local: VTodoTask?) {
     val localCreated = local?.createdAt?.let { newDateTime(it, UTC) }?.toLocal()?.millis
     if (localCreated == null || localCreated == creationDate) {
-        remote.createdAt?.let {
-            creationDate = newDateTime(it, UTC).toLocal().millis
+        val remoteCreated = remote.createdAt?.let { newDateTime(it, UTC).toLocal().millis }
+        when {
+            remoteCreated != null -> creationDate = remoteCreated
+            local == null ->
+                remote.dtStamp?.let {
+                    creationDate = newDateTime(it, UTC).toLocal().millis.coerceAtMost(currentTimeMillis())
+                }
         }
     }
 }
@@ -74,7 +79,10 @@ private fun org.tasks.data.entity.Task.applyModified(remote: VTodoTask, local: V
             remote.lastModified?.let { newDateTime(it, UTC).toLocal().millis.coerceAtMost(currentTimeMillis()) } ?: 0L
         val remoteCreated =
             remote.createdAt?.let { newDateTime(it, UTC).toLocal().millis } ?: 0L
+        val remoteDtStamp =
+            remote.dtStamp?.let { newDateTime(it, UTC).toLocal().millis.coerceAtMost(currentTimeMillis()) } ?: 0L
         modificationDate = maxOf(remoteModified, remoteCreated).takeIf { it > 0 }
+            ?: remoteDtStamp.takeIf { it > 0 }
             ?: modificationDate.takeIf { it > 0 }
             ?: currentTimeMillis()
     }

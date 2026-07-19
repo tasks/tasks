@@ -34,6 +34,7 @@ object iCalMaker {
     val PRIORITY: Property<Task, Int> = newProperty()
     val COLLAPSED: Property<Task, Boolean> = newProperty()
     val LAST_MODIFIED: Property<Task, DateTime?> = newProperty()
+    val DT_STAMP: Property<Task, DateTime?> = newProperty()
     val RRULE: Property<Task, String?> = newProperty()
     val STATUS: Property<Task, Status?> = newProperty()
 
@@ -66,6 +67,9 @@ object iCalMaker {
         task.collapsed = lookup.valueOf(COLLAPSED, false)
         lookup.valueOf(LAST_MODIFIED, null as DateTime?)?.let {
             task.lastModified = it.millis
+        }
+        lookup.valueOf(DT_STAMP, null as DateTime?)?.let {
+            task.dtStamp = it.millis
         }
         task.rRule = lookup.valueOf(RRULE, null as String?)?.let { RRule(it) }
         task.status = lookup.valueOf(STATUS, null as Status?)
