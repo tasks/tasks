@@ -112,7 +112,7 @@
     <string name="persistent_notifications_description">Las notificaciones persistentes no se pueden borrar</string>
     <string name="rmd_EPr_defaultRemind_title">Recordatorios aleatorios</string>
     <string name="default_random_reminder_disabled">Desactivado</string>
-    <string name="default_random_reminder_hourly">Cada hora</string>
+    <string name="default_random_reminder_hourly">Hora</string>
     <string name="default_random_reminder_daily">Diariamente</string>
     <string name="default_random_reminder_weekly">Semanalmente</string>
     <string name="default_random_reminder_bi_weekly">Quincenalmente</string>
@@ -643,4 +643,17 @@
     <string name="email_to_task">Correo electrónico a tarea</string>
     <string name="email_to_task_address">Tu dirección de correo electrónico</string>
     <string name="tos_updated_title">Hemos actualizado nuestras condiciones de uso</string>
+    <string name="location_update_interval_disabled">Discapacitado</string>
+    <string name="location_update_interval_15_minutes">Cada 15 minutos</string>
+    <string name="location_update_interval_30_minutes">Cada 30 minutos</string>
+    <string name="location_update_interval_1_hour">Cada hora</string>
+    <string name="location_update_interval_2_hours">Cada 2 horas</string>
+    <string name="banner_subscription_required_title">Suscripción necesaria</string>
+    <string name="p_per_list_sort">per_list_sort</string>
+    <string name="upgrade_friends_and_family">Amigos y familia</string>
+    <string name="alarm_before">antes</string>
+    <string name="alarm_after">después</string>
+    <string name="alarm_start">inicio</string>
+    <string name="alarm_due">pendiente</string>
+    <string name="read_more">Leer más</string>
 </resources>
