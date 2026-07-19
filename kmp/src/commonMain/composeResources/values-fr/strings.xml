@@ -342,4 +342,11 @@
     <string name="priority_medium">Moyenne</string>
     <string name="priority_low">Faible</string>
     <string name="metadata_move">Déplacer</string>
+    <string name="sync_metadata">Enregistrer les métadonnées des étiquettes ici</string>
+    <string name="sync_metadata_summary">Enregistrer les noms, les couleurs, les icônes et l\'ordre d\'affichage des étiquettes sur ce compte afin qu\'ils soient synchronisés sur tous vos appareils</string>
+    <string name="metadata_stored_on_tasks_org">Enregistré sur votre compte Tasks.org</string>
+    <string name="metadata_stored_on_account">Actuellement enregistré sur %1$s</string>
+    <string name="metadata_move_message">Les métadonnées des étiquettes sont actuellement enregistrées sur %1$s. Voulez-vous les transférer vers ce compte ?</string>
+    <string name="metadata_not_supported">Ce serveur ne prend pas en charge la synchronisation des métadonnées des étiquettes</string>
+    <string name="add_tag">Ajouter une étiquette</string>
 </resources>
