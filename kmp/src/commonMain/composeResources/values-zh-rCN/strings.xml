@@ -343,4 +343,6 @@
     <string name="metadata_stored_on_tasks_org">存储在你的 Tasks.org 账户</string>
     <string name="metadata_stored_on_account">目前存储在 %1$s</string>
     <string name="metadata_move_message">标签元数据目前存储在 %1$s。把它移动到此账户？</string>
+    <string name="add_tag">添加标签</string>
+    <string name="metadata_not_supported">此服务器不支持标签元数据同步</string>
 </resources>
