@@ -136,11 +136,11 @@
     <string name="about">Sobre</string>
     <string name="widget_settings">Configuración de widget</string>
     <plurals name="task_count">
-        <item quantity="one">%d tarea</item>
-        <item quantity="many">%d tareas</item>
-        <item quantity="other">%d tareas</item>
+        <item quantity="one">%1$d tarea</item>
+        <item quantity="many">%1$d tareas</item>
+        <item quantity="other">%1$d tareas</item>
     </plurals>
-    <string name="delete_tasks_warning">%s será eliminado. ¡Esto no se puede deshacer!</string>
+    <string name="delete_tasks_warning">%1$s será eliminado. ¡Esto no se puede deshacer!</string>
     <string name="name_cannot_be_empty">El nombre no puede estar vacío</string>
     <string name="discard_changes">¿Descartar cambios?</string>
     <string name="discard">Descartar</string>
@@ -153,7 +153,7 @@
     <string name="caldav_server_other">Otro</string>
     <string name="caldav_server_type">Tipo de servidor</string>
     <string name="caldav_server_unknown">Desconocido</string>
-    <string name="error_adding_account">Error : %s</string>
+    <string name="error_adding_account">Error : %1$s</string>
     <string name="invalid_username_or_password">Nombre de usuario o contraseña inválidos</string>
     <string name="network_error">No se pudo conectar</string>
     <string name="sign_in">Iniciar sesión</string>
@@ -273,4 +273,15 @@
     <string name="priority_medium">Media</string>
     <string name="priority_low">Baja</string>
     <string name="metadata_move">Mover</string>
+    <string name="done">Hecho</string>
+    <string name="retry">Reintentar</string>
+    <string name="qr_code">Código QR</string>
+    <string name="pricing_from">De %1$s</string>
+    <string name="pricing_recommended">Recomendado</string>
+    <string name="annual">Anual</string>
+    <string name="monthly">Mensual</string>
+    <string name="terms_of_service">Condiciones del servicio</string>
+    <string name="legal">Legal</string>
+    <string name="send">Enviar</string>
+    <string name="cloud_onboarding_not_now">Ahora no</string>
 </resources>
