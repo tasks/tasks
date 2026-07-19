@@ -229,9 +229,13 @@ class iCalendar(
                 )
         val isNew = caldavTask.id == org.tasks.data.entity.Task.NO_ID
         val dirty = !isNew && dirtyDao.isDirty(caldavTask.id) == true
-        val local = vtodoCache.getVtodo(calendar, caldavTask)?.let { fromVtodo(it) }
+        val local = if (account.isOpenTasks) {
+            null
+        } else {
+            vtodoCache.getVtodo(calendar, caldavTask)?.let { fromVtodo(it) }
+        }
         if (dirty && local == null) {
-            vtodoCache.putVtodo(calendar, caldavTask, vtodo)
+            if (!account.isOpenTasks) vtodoCache.putVtodo(calendar, caldavTask, vtodo)
             caldavTask.etag = eTag
             caldavDao.update(caldavTask)
             return
@@ -278,12 +282,22 @@ class iCalendar(
             alarmService.synchronizeAlarms(task.id, task.getDefaultAlarms(preferences.isDefaultDueTimeEnabled()).toMutableSet())
         } else if (account.reminderSync) {
             val localAlarms = alarmDao.getAlarms(task.id).map { it.copy(id = 0, task = 0) }
-            val merged = mergeReminders(
-                base = local?.reminders.orEmpty(),
-                local = localAlarms,
-                remote = remote.reminders,
-            )
-            alarmService.synchronizeAlarms(caldavTask.task, merged.toMutableSet())
+            if (account.isOpenTasks) {
+                val randomReminders = localAlarms.filter { it.type == Alarm.TYPE_RANDOM }
+                if (localAlarms.toSet() == randomReminders.toSet()) {
+                    alarmService.synchronizeAlarms(
+                        caldavTask.task,
+                        remote.reminders.plus(randomReminders).toMutableSet(),
+                    )
+                }
+            } else {
+                val merged = mergeReminders(
+                    base = local?.reminders.orEmpty(),
+                    local = localAlarms,
+                    remote = remote.reminders,
+                )
+                alarmService.synchronizeAlarms(caldavTask.task, merged.toMutableSet())
+            }
         }
 
         task.suppressSync()
@@ -292,7 +306,7 @@ class iCalendar(
             task.modificationDate = remoteModificationDate
         }
         taskSaver.save(task, original, dirty = false)
-        vtodoCache.putVtodo(calendar, caldavTask, vtodo)
+        if (!account.isOpenTasks) vtodoCache.putVtodo(calendar, caldavTask, vtodo)
         caldavTask.etag = eTag
         if (dirty) {
             // Keep the task dirty so the merged result is pushed next sync; do NOT markSynced (it

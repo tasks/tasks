@@ -11,7 +11,6 @@ import org.junit.Test
 import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.TestUtilities.withTZ
 import org.tasks.caldav.Ical4androidTaskAdapter
-import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar.Companion.collapsed
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
@@ -44,7 +43,6 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var tagDao: TagDao
     @Inject lateinit var alarmDao: AlarmDao
-    @Inject lateinit var vtodoCache: VtodoCache
 
     @Test
     fun loadRemoteParentInfo() = runBlocking {
@@ -303,17 +301,6 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
         )
     }
 
-    // dmfs can't store REPEAT, so push must cache the flattened form it actually stored (not the
-    // rich iCal we generated), or the next fetch reads the flattened round-trip as a remote edit.
-    @Test
-    fun pushCachesProviderFlattenedAlarm() = runBlocking {
-        val list = syncTaskWithRepeatingAlarm().list
-        val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "abcd")!!
-        assertFalse(vtodoCache.getVtodo(list, caldavTask)!!.contains("REPEAT"))
-    }
-
-    // Full sync loop: after the flattened task is re-fetched (as DAVx5 re-presents it post
-    // round-trip), the merge must keep the local repeating alarm rather than downgrade it.
     @Test
     fun repeatingAlarmSurvivesReflattenedRoundTrip() = runBlocking {
         val synced = syncTaskWithRepeatingAlarm()

@@ -8,7 +8,6 @@ import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Reporting
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.Ical4androidTaskAdapter
-import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
 import org.tasks.caldav.serialize
 import org.tasks.data.MyAndroidTask
@@ -37,7 +36,6 @@ class OpenTasksSynchronizer(
     private val reporting: Reporting,
     private val iCalendar: iCalendar,
     private val openTaskDao: OpenTaskDao,
-    private val vtodoCache: VtodoCache,
 ) : OpenTasksSyncer {
 
     override suspend fun sync(hasPro: Boolean) {
@@ -156,7 +154,7 @@ class OpenTasksSynchronizer(
         taskDeleter.delete(deleted.map { it.task.id })
 
         updated.forEach {
-            push(account, calendar, it.task, it.caldavTaskId, it.dirtyVersion, listId)
+            push(account, it.task, it.caldavTaskId, it.dirtyVersion, listId)
         }
     }
 
@@ -211,7 +209,7 @@ class OpenTasksSynchronizer(
         }
     }
 
-    private suspend fun push(account: CaldavAccount, calendar: CaldavCalendar, task: Task, caldavTaskId: Long, dirtyVersion: Long?, listId: Long) {
+    private suspend fun push(account: CaldavAccount, task: Task, caldavTaskId: Long, dirtyVersion: Long?, listId: Long) {
         val caldavTask = caldavDao.getCaldavTaskById(caldavTaskId) ?: return
         dirtyDao.withDirtyVersion(caldavTaskId, dirtyVersion) {
             val uid = caldavTask.remoteId!!
@@ -246,10 +244,6 @@ class OpenTasksSynchronizer(
 
             operations.map { it.build() }.let { openTaskDao.batch(it) }
 
-            val stored = openTaskDao.getTask(listId, uid)?.let { reread ->
-                Ical4androidTaskAdapter(reread.task!!).serialize()
-            } ?: adapted.serialize()
-            vtodoCache.putVtodo(calendar, caldavTask, stored)
             caldavDao.update(caldavTask)
         }
         Logger.d("OpenTasksSynchronizer") { "SENT $caldavTask" }

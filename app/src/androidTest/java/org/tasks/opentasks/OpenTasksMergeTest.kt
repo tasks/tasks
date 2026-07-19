@@ -17,30 +17,6 @@ import org.tasks.makers.TaskMaker.newTask
 class OpenTasksMergeTest : OpenTasksTest() {
 
     @Test
-    fun localAndRemoteEditsToDifferentFieldsBothSurvive() = runBlocking {
-        val (listId, list) = withVtodo(TASK)
-        synchronizer.sync(hasPro = true)
-
-        val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, UID)!!
-
-        val local = taskDao.fetch(caldavTask.task)!!
-        local.title = "local title"
-        taskDao.update(local, markDirty = true)
-
-        openTaskDao.setDescription(listId, UID, "remote notes") // Remote edit
-
-        synchronizer.sync(hasPro = true)
-
-        val merged = taskDao.fetch(caldavTask.task)!!
-        assertEquals("local title", merged.title)
-        assertEquals("remote notes", merged.notes)
-
-        val provider = openTaskDao.getTask(listId, UID)!!.task!!
-        assertEquals("local title", provider.summary)
-        assertEquals("remote notes", provider.description)
-    }
-
-    @Test
     fun coldConflictKeepsLocalEdits() = runBlocking {
         // No initial sync, so no base is cached.
         val (listId, list) = openTaskDao.insertList()

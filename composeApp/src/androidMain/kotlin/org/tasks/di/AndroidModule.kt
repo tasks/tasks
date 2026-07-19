@@ -110,7 +110,6 @@ actual fun platformModule(): Module = module {
             reporting = get(),
             iCalendar = get(),
             openTaskDao = get(),
-            vtodoCache = get(),
         )
     }
     factoryOf(::VtodoCache)
