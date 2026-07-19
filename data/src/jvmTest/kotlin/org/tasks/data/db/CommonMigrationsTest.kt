@@ -119,6 +119,38 @@ class CommonMigrationsTest {
         }
     }
 
+    @Test
+    fun deletesOrphanedJoinRowsAndAddsMetadataTables() {
+        migrate9596 {
+            insertTask(100)
+            insertJoin(1, task = 100, tagUid = "uuid-live", name = "Work")
+            insertJoin(2, task = 999, tagUid = "uuid-orphan", name = "Gone")
+        }.use { db ->
+            assertEquals(listOf(Triple(100L, "uuid-live", "Work")), db.joinRows())
+            assertEquals(0, db.rowCount("metadata_sync_state"))
+            assertEquals(0, db.rowCount("metadata_tombstone"))
+        }
+    }
+
+    private fun migrate9596(seed: SQLiteConnection.() -> Unit): SQLiteConnection {
+        helper.createDatabase(95).use { db ->
+            db.execSQL("PRAGMA foreign_keys = OFF")
+            db.seed()
+        }
+        return helper.runMigrationsAndValidate(96, listOf(CommonMigrations.MIGRATION_95_96))
+    }
+
+    private fun SQLiteConnection.insertTask(id: Long) {
+        execSQL(
+            "INSERT INTO `tasks` (`_id`, `importance`, `dueDate`, `hideUntil`, `created`, `modified`, `completed`, `deleted`, `estimatedSeconds`, `elapsedSeconds`, `timerStart`, `notificationFlags`, `lastNotified`, `collapsed`, `parent`) " +
+                "VALUES ($id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)"
+        )
+    }
+
+    private fun SQLiteConnection.rowCount(table: String): Int {
+        prepare("SELECT COUNT(*) FROM `$table`").use { return if (it.step()) it.getLong(0).toInt() else 0 }
+    }
+
     private fun SQLiteConnection.insertTag(
         id: Long,
         remoteId: String,

@@ -74,7 +74,6 @@ import org.tasks.data.entity.UserActivity
         AutoMigration(from = 88, to = 89, spec = AutoMigrate88to89::class),
         AutoMigration(from = 91, to = 92),
         AutoMigration(from = 93, to = 94, spec = AutoMigrate93to94::class),
-        AutoMigration(from = 95, to = 96),
     ],
     version = 96
 )

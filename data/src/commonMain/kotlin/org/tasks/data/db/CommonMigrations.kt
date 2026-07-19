@@ -108,8 +108,18 @@ object CommonMigrations {
         }
     }
 
+    val MIGRATION_95_96 = object : Migration(95, 96) {
+        override fun migrate(connection: SQLiteConnection) {
+            connection.execSQL("DELETE FROM `tags` WHERE `task` NOT IN (SELECT `_id` FROM `tasks`)")
+            connection.execSQL("CREATE TABLE IF NOT EXISTS `metadata_sync_state` (`category` TEXT NOT NULL, `local_id` INTEGER NOT NULL, `dirty_version` INTEGER NOT NULL DEFAULT 0, `synced_version` INTEGER NOT NULL DEFAULT 0, `reaped` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`category`, `local_id`))")
+            connection.execSQL("CREATE TABLE IF NOT EXISTS `metadata_tombstone` (`category` TEXT NOT NULL, `entity_key` TEXT NOT NULL, `ts` INTEGER NOT NULL, PRIMARY KEY(`category`, `entity_key`))")
+            connection.execSQL("CREATE INDEX IF NOT EXISTS `index_tags_tag_uid` ON `tags` (`tag_uid`)")
+        }
+    }
+
     val all: Array<Migration> = arrayOf(
         MIGRATION_92_93,
         MIGRATION_94_95,
+        MIGRATION_95_96,
     )
 }
